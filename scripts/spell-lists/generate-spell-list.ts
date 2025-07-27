@@ -131,6 +131,10 @@ function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.Reta
 }
 
 function baseSpellName(spell: gamedata.RetailSpell): string {
+  if (!spell.name) {
+    return 'UNKNOWN';
+  }
+
   const name = spell.name
     .replace(/[ -]+/g, '_')
     .replace(/[^a-zA-Z0-9_]+/g, '')

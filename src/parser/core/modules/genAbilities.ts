@@ -43,6 +43,7 @@ function spellbookDefinition(spell: RetailSpell, category: SPELL_CATEGORY): Spel
     category: category,
     gcd: spellGcd(spell),
     cooldown: spellCooldown(spell),
+    charges: spellCharges(spell),
     castEfficiency: {},
   };
 }
@@ -76,4 +77,12 @@ function spellCooldown(spell: RetailSpell): SpellbookAbility['cooldown'] {
   }
 
   return duration;
+}
+
+function spellCharges(spell: RetailSpell): SpellbookAbility['charges'] {
+  if (!spell.charges) {
+    return undefined;
+  }
+
+  return spell.charges.max;
 }

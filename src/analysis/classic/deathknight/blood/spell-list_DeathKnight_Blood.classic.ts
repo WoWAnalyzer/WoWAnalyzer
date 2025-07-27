@@ -1,0 +1,1956 @@
+
+      const SPELLS = {
+  "SYMBIOSIS": {
+    "id": 110498,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      524288,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Symbiosis"
+  },
+  "ANTI_MAGIC_SHELL": {
+    "id": 48707,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      131072,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Anti-Magic Shell",
+    "cooldown": {
+      "duration": 45000,
+      "hasted": false
+    }
+  },
+  "ARMY_OF_THE_DEAD": {
+    "id": 42650,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      2048,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Army of the Dead",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 600000,
+      "hasted": false
+    },
+    "channel": {
+      "duration": 4000,
+      "hasted": false,
+      "buffIsLogged": true,
+      "triggeredSpells": [
+        {
+          "spell": 42651,
+          "period": 500,
+          "hasted": false
+        }
+      ]
+    }
+  },
+  "BLOOD_BOIL": {
+    "id": 48721,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      262144,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 81136,
+        "aura": 108,
+        "basePoints": 10,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Blood Boil",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "BLOOD_PLAGUE_1": {
+    "id": 55078,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      33556480,
+      2,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 81132,
+        "aura": 109,
+        "basePoints": 100,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 115798
+      }
+    ],
+    "passive": false,
+    "hidden": "always",
+    "name": "Blood Plague"
+  },
+  "BLOOD_PLAGUE_2": {
+    "id": 59879,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      33556480,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 81132,
+        "aura": 109,
+        "basePoints": 100,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 115798
+      }
+    ],
+    "passive": true,
+    "name": "Blood Plague"
+  },
+  "BLOOD_PRESENCE": {
+    "id": 48263,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      8388608,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      },
+      {
+        "sourceSpellId": 50371,
+        "aura": 107,
+        "basePoints": 20,
+        "misc0": 12,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 50371,
+        "aura": 107,
+        "basePoints": 20,
+        "misc0": 23,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 50371,
+        "aura": 107,
+        "basePoints": 20,
+        "misc0": 32,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 50371,
+        "aura": 107,
+        "basePoints": -6,
+        "misc0": 33,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 50371,
+        "aura": 107,
+        "basePoints": 20,
+        "misc0": 3,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Blood Presence",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "CHAINS_OF_ICE": {
+    "id": 45524,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      4,
+      49152,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Chains of Ice",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "DARK_SIMULACRUM": {
+    "id": 77606,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      256,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Dark Simulacrum",
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    }
+  },
+  "DEATH_AND_DECAY_1": {
+    "id": 43265,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Death and Decay",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 30000,
+      "hasted": false
+    }
+  },
+  "DEATH_AND_DECAY_2": {
+    "id": 52212,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      8,
+      0
+    ],
+    "effects": [],
+    "castableWhileCasting": true,
+    "passive": false,
+    "hidden": "unless-learned",
+    "name": "Death and Decay"
+  },
+  "DEATH_COIL": {
+    "id": 47541,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      8192,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Death Coil",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "DEATH_GRIP": {
+    "id": 49576,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      33554432,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 77513,
+        "aura": 4,
+        "basePoints": 0,
+        "misc0": 2,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Death Grip",
+    "cooldown": {
+      "duration": 25000,
+      "hasted": false
+    }
+  },
+  "EMPOWER_RUNE_WEAPON": {
+    "id": 47568,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      16384,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Empower Rune Weapon",
+    "cooldown": {
+      "duration": 300000,
+      "hasted": false
+    }
+  },
+  "FROST_FEVER_1": {
+    "id": 55095,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      67110912,
+      2,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 50041,
+        "aura": 109,
+        "basePoints": 100,
+        "misc0": 1,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 50435
+      }
+    ],
+    "passive": false,
+    "hidden": "always",
+    "name": "Frost Fever"
+  },
+  "FROST_FEVER_2": {
+    "id": 59921,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      67110912,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 50041,
+        "aura": 109,
+        "basePoints": 100,
+        "misc0": 1,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 50435
+      }
+    ],
+    "passive": true,
+    "name": "Frost Fever"
+  },
+  "FROST_PRESENCE": {
+    "id": 48266,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      32768,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 119975,
+        "aura": 108,
+        "basePoints": -100,
+        "misc0": 3,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 119975,
+        "aura": 108,
+        "basePoints": -100,
+        "misc0": 12,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 119975,
+        "aura": 108,
+        "basePoints": -100,
+        "misc0": 32,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Frost Presence",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "HORN_OF_WINTER": {
+    "id": 57330,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      1073741824,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Horn of Winter",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    },
+    "cooldown": {
+      "duration": 20000,
+      "hasted": false
+    }
+  },
+  "ICEBOUND_FORTITUDE": {
+    "id": 48792,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      1048576,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 81127,
+        "aura": 107,
+        "basePoints": -30,
+        "misc0": 23,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Icebound Fortitude",
+    "cooldown": {
+      "duration": 180000,
+      "hasted": false
+    }
+  },
+  "ICY_TOUCH": {
+    "id": 45477,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      2,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Icy Touch",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "MIND_FREEZE": {
+    "id": 47528,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      1024,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Mind Freeze",
+    "cooldown": {
+      "duration": 15000,
+      "hasted": false
+    }
+  },
+  "NECROTIC_STRIKE": {
+    "id": 73975,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      8192,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Necrotic Strike",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "PATH_OF_FROST": {
+    "id": 3714,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Path of Frost",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "PESTILENCE": {
+    "id": 50842,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      65536,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Pestilence",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "PLAGUE_STRIKE": {
+    "id": 45462,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Plague Strike",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "RAISE_ALLY": {
+    "id": 61999,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      -2147483648,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Raise Ally",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 600000,
+      "hasted": false
+    }
+  },
+  "RAISE_DEAD": {
+    "id": 46584,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      4096,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      },
+      {
+        "sourceSpellId": 50029,
+        "aura": 49,
+        "basePoints": 2,
+        "misc0": 11,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Raise Dead",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 120000,
+      "hasted": false
+    }
+  },
+  "STRANGULATE": {
+    "id": 47476,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      512,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Strangulate",
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    }
+  },
+  "UNHOLY_PRESENCE": {
+    "id": 48265,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      65536,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Unholy Presence",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "CONTROL_UNDEAD": {
+    "id": 111673,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Control Undead",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "castTime": {
+      "duration": 1500
+    }
+  },
+  "ON_A_PALE_HORSE": {
+    "id": 51986,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "On a Pale Horse"
+  },
+  "DEATH_STRIKE": {
+    "id": 49998,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      16,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      },
+      {
+        "sourceSpellId": 50034,
+        "aura": 108,
+        "basePoints": 40,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      }
+    ],
+    "passive": false,
+    "name": "Death Strike",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "OUTBREAK": {
+    "id": 77575,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      4096,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 137008,
+        "aura": 107,
+        "basePoints": -30000,
+        "misc0": 11,
+        "misc1": 0,
+        "pointModifiers": []
+      }
+    ],
+    "passive": false,
+    "name": "Outbreak",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 30000,
+      "hasted": false
+    }
+  },
+  "PARRY": {
+    "id": 82246,
+    "type": "baseline",
+    "effects": [],
+    "passive": true,
+    "name": "Parry"
+  },
+  "BLOOD_STRIKE": {
+    "id": 45902,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      4194304,
+      0,
+      0,
+      0
+    ],
+    "effects": [
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 1,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {}
+      },
+      {
+        "sourceSpellId": 45477,
+        "aura": 0,
+        "basePoints": 0,
+        "misc0": 0,
+        "misc1": 0,
+        "pointModifiers": {},
+        "triggeredSpell": 55095
+      }
+    ],
+    "passive": false,
+    "name": "Blood Strike",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "DEATH_GATE": {
+    "id": 50977,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      65536,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "hidden": "unless-learned",
+    "name": "Death Gate",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    },
+    "castTime": {
+      "duration": 10000
+    }
+  },
+  "PLATE_SPECIALIZATION_1": {
+    "id": 86524,
+    "type": "baseline",
+    "effects": [],
+    "passive": true,
+    "name": "Plate Specialization"
+  },
+  "PLATE_SPECIALIZATION_2": {
+    "id": 86537,
+    "type": "baseline",
+    "effects": [],
+    "passive": true,
+    "hidden": "always",
+    "name": "Plate Specialization"
+  },
+  "UNKNOWN": {
+    "id": 89832,
+    "type": "baseline"
+  },
+  "DEATH_STRIKE_ENABLER": {
+    "id": 89832,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "effects": [],
+    "passive": true,
+    "hidden": "always",
+    "name": "Death Strike Enabler"
+  },
+  "HOTFIX_PASSIVE_1": {
+    "id": 137005,
+    "type": "baseline",
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "hidden": "always",
+    "name": "Hotfix Passive"
+  },
+  "HOTFIX_PASSIVE_2": {
+    "id": 137008,
+    "type": "baseline",
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "hidden": "always",
+    "name": "Hotfix Passive"
+  },
+  "BLOOD_RITES": {
+    "id": 50034,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      16384,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Blood Rites"
+  },
+  "VENGEANCE": {
+    "id": 93099,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Vengeance"
+  },
+  "VETERAN_OF_THE_THIRD_WAR": {
+    "id": 50029,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Veteran of the Third War"
+  },
+  "BLOOD_PARASITE": {
+    "id": 49542,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Blood Parasite"
+  },
+  "DANCING_RUNE_WEAPON": {
+    "id": 49028,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      1073741824,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Dancing Rune Weapon",
+    "cooldown": {
+      "duration": 90000,
+      "hasted": false
+    }
+  },
+  "RUNE_TAP": {
+    "id": 48982,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      134217728,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Rune Tap",
+    "cooldown": {
+      "duration": 30000,
+      "hasted": false
+    }
+  },
+  "WILL_OF_THE_NECROPOLIS": {
+    "id": 81164,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Will of the Necropolis"
+  },
+  "RUNE_STRIKE": {
+    "id": 56815,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      536870912,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Rune Strike",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "HEART_STRIKE": {
+    "id": 55050,
+    "type": "baseline",
+    "overrides": 45902,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      16777216,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Heart Strike",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    }
+  },
+  "DARK_COMMAND": {
+    "id": 56222,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      268435456,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Dark Command",
+    "cooldown": {
+      "duration": 8000,
+      "hasted": false
+    }
+  },
+  "IMPROVED_BLOOD_PRESENCE": {
+    "id": 50371,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Improved Blood Presence"
+  },
+  "SCENT_OF_BLOOD_1": {
+    "id": 49509,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Scent of Blood"
+  },
+  "SCENT_OF_BLOOD_2": {
+    "id": 148211,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "effects": [],
+    "passive": true,
+    "hidden": "always",
+    "name": "Scent of Blood"
+  },
+  "BONE_SHIELD": {
+    "id": 49222,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      64,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Bone Shield",
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    }
+  },
+  "SANGUINE_FORTITUDE": {
+    "id": 81127,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Sanguine Fortitude"
+  },
+  "SCARLET_FEVER": {
+    "id": 81132,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Scarlet Fever"
+  },
+  "VAMPIRIC_BLOOD": {
+    "id": 55233,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      8,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Vampiric Blood",
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    }
+  },
+  "MASTERY_BLOOD_SHIELD": {
+    "id": 77513,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Mastery: Blood Shield"
+  },
+  "SOUL_REAPER": {
+    "id": 114866,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      67108864,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Soul Reaper",
+    "gcd": {
+      "duration": 1000,
+      "hasted": false
+    },
+    "cooldown": {
+      "duration": 6000,
+      "hasted": false
+    }
+  },
+  "CRIMSON_SCOURGE": {
+    "id": 81136,
+    "type": "baseline",
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Crimson Scourge"
+  },
+  "RIPOSTE": {
+    "id": 145676,
+    "type": "baseline",
+    "label": [
+      16,
+      27
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      32
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Riposte"
+  },
+  "ROILING_BLOOD": {
+    "id": 108170,
+    "type": "mists-talent",
+    "row": 0,
+    "column": 1,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Roiling Blood"
+  },
+  "PLAGUE_LEECH": {
+    "id": 123693,
+    "type": "mists-talent",
+    "row": 0,
+    "column": 2,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      16777216,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Plague Leech",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 25000,
+      "hasted": false
+    }
+  },
+  "UNHOLY_BLIGHT": {
+    "id": 115989,
+    "type": "mists-talent",
+    "row": 0,
+    "column": 3,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      256,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Unholy Blight",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 90000,
+      "hasted": false
+    }
+  },
+  "LICHBORNE": {
+    "id": 49039,
+    "type": "mists-talent",
+    "row": 1,
+    "column": 1,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      16,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "hidden": "unless-learned",
+    "name": "Lichborne",
+    "cooldown": {
+      "duration": 120000,
+      "hasted": false
+    }
+  },
+  "ANTI_MAGIC_ZONE": {
+    "id": 51052,
+    "type": "mists-talent",
+    "row": 1,
+    "column": 2,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      524288,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "hidden": "unless-learned",
+    "name": "Anti-Magic Zone",
+    "cooldown": {
+      "duration": 45000,
+      "hasted": false
+    }
+  },
+  "PURGATORY": {
+    "id": 114556,
+    "type": "mists-talent",
+    "row": 1,
+    "column": 3,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Purgatory"
+  },
+  "DEATHS_ADVANCE_1": {
+    "id": 96268,
+    "type": "mists-talent",
+    "row": 2,
+    "column": 1,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Death's Advance",
+    "cooldown": {
+      "duration": 30000,
+      "hasted": false
+    }
+  },
+  "DEATHS_ADVANCE_2": {
+    "id": 124285,
+    "type": "learned",
+    "taughtBy": 96268,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "hidden": "always",
+    "name": "Death's Advance"
+  },
+  "CHILBLAINS": {
+    "id": 50041,
+    "type": "mists-talent",
+    "row": 2,
+    "column": 2,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Chilblains"
+  },
+  "ASPHYXIATE": {
+    "id": 108194,
+    "overrides": 47476,
+    "type": "mists-talent",
+    "row": 2,
+    "column": 3,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      1048576,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Asphyxiate",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 30000,
+      "hasted": false
+    }
+  },
+  "DEATH_PACT": {
+    "id": 48743,
+    "type": "mists-talent",
+    "row": 3,
+    "column": 1,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      524288,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Death Pact",
+    "cooldown": {
+      "duration": 120000,
+      "hasted": false
+    }
+  },
+  "DEATH_SIPHON": {
+    "id": 108196,
+    "type": "mists-talent",
+    "row": 3,
+    "column": 2,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      4194304,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Death Siphon",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "BLOOD_TAP": {
+    "id": 45529,
+    "type": "mists-talent",
+    "row": 4,
+    "column": 1,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      8,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Blood Tap"
+  },
+  "RUNIC_EMPOWERMENT": {
+    "id": 81229,
+    "type": "mists-talent",
+    "row": 4,
+    "column": 2,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "hidden": "unless-learned",
+    "name": "Runic Empowerment"
+  },
+  "RUNIC_CORRUPTION": {
+    "id": 51462,
+    "type": "mists-talent",
+    "row": 4,
+    "column": 3,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "effects": [],
+    "passive": true,
+    "name": "Runic Corruption"
+  },
+  "CONVERSION": {
+    "id": 119975,
+    "type": "mists-talent",
+    "row": 3,
+    "column": 3,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      2097152,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Conversion",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    }
+  },
+  "GOREFIENDS_GRASP": {
+    "id": 108199,
+    "type": "mists-talent",
+    "row": 5,
+    "column": 1,
+    "label": [
+      27,
+      16
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Gorefiend's Grasp",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    }
+  },
+  "REMORSELESS_WINTER": {
+    "id": 108200,
+    "type": "mists-talent",
+    "row": 5,
+    "column": 2,
+    "label": [
+      27,
+      16
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Remorseless Winter",
+    "gcd": {
+      "duration": 1000,
+      "hasted": true
+    },
+    "cooldown": {
+      "duration": 60000,
+      "hasted": false
+    }
+  },
+  "DESECRATED_GROUND": {
+    "id": 108201,
+    "type": "mists-talent",
+    "row": 5,
+    "column": 3,
+    "label": [
+      27,
+      16
+    ],
+    "classMask": [
+      0,
+      0,
+      33554432,
+      0
+    ],
+    "effects": [],
+    "passive": false,
+    "name": "Desecrated Ground",
+    "cooldown": {
+      "duration": 120000,
+      "hasted": false
+    }
+  }
+} as const;
+      export default SPELLS;
+    
