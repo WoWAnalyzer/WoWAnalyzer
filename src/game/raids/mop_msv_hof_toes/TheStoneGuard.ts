@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/TheStoneGuardHeadshot.jpg';
-// import Background from './images/TheStoneGuard.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/StoneGuard.jpg';
 
 const TheStoneGuard: Boss = {
   id: 1395,

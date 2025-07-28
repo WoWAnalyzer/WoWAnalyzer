@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/TheSpiritKingsHeadshot.jpg';
-// import Background from './images/TheSpiritKings.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/TheSpiritKings.jpg';
 
 const TheSpiritKings: Boss = {
   id: 1436,

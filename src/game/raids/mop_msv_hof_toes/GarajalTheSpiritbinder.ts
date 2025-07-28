@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/GarajalTheSpiritbinderHeadshot.jpg';
-// import Background from './images/GarajalTheSpiritbinder.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/GarajalTheSpiritbinder.jpg';
 
 const GarajalTheSpiritbinder: Boss = {
   id: 1434,

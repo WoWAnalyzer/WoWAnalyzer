@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/WillOfTheEmperorHeadshot.jpg';
-// import Background from './images/WillOfTheEmperor.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/WillOfTheEmperor.jpg';
 
 const WillOfTheEmperor: Boss = {
   id: 1407,

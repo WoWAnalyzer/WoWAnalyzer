@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/ElegonHeadshot.jpg';
-// import Background from './images/Elegon.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/Elegon.jpg';
 
 const Elegon: Boss = {
   id: 1500,

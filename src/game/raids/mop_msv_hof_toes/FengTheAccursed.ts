@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/FengTheAccursedHeadshot.jpg';
-// import Background from './images/FengTheAccursed.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/FengTheAccursed.jpg';
 
 const FengTheAccursed: Boss = {
   id: 1390,
