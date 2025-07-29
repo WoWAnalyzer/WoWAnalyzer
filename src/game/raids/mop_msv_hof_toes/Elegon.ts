@@ -9,7 +9,25 @@ const Elegon: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_moguraid_05',
-  fight: {},
+  fight: {
+    timeline: {
+      debuffs: [
+        {
+          id: 117870, // Touch of the Titans -- damage buff
+        },
+      ],
+      abilities: [
+        {
+          id: 124967, // Draw Power
+          type: 'cast',
+        },
+        {
+          id: 116994, // Unstable Energy
+          type: 'cast',
+        },
+      ],
+    },
+  },
 };
 
 export default Elegon;

@@ -9,7 +9,21 @@ const WillOfTheEmperor: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_moguraid_06',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          id: 1245126, // Emperor's Rage
+          type: 'cast',
+        },
+        {
+          id: 1245131, // Emperor's Strength
+          type: 'cast',
+        },
+      ],
+      debuffs: [],
+    },
+  },
 };
 
 export default WillOfTheEmperor;

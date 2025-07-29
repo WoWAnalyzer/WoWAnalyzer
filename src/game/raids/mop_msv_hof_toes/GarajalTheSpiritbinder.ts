@@ -9,7 +9,25 @@ const GarajalTheSpiritbinder: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_moguraid_03',
-  fight: {},
+  fight: {
+    timeline: {
+      debuffs: [
+        {
+          id: 116161, // Crossed Over
+        },
+      ],
+      abilities: [
+        {
+          id: 116174, // Summon Spirit Totem
+          type: 'cast',
+        },
+        {
+          id: 116272, // Banishment
+          type: 'cast',
+        },
+      ],
+    },
+  },
 };
 
 export default GarajalTheSpiritbinder;
