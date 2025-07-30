@@ -7,6 +7,7 @@ import { Component } from 'react';
 import Toggle from 'react-toggle';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
+import type Spell from 'common/SPELLS/Spell';
 
 interface Props<T extends HealingEfficiencyTracker = HealingEfficiencyTracker> {
   tracker: T;
@@ -75,7 +76,9 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
   ) => (
     <tr key={spellDetail.spell.id}>
       <td>
-        <SpellLink spell={spellDetail.spell} />
+        <SpellLink
+          spell={'icon' in spellDetail.spell ? (spellDetail.spell as Spell) : spellDetail.spell.id}
+        />
       </td>
       {this.state.detailedView
         ? this.DetailView(spellDetail)

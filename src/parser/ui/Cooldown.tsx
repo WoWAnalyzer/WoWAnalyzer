@@ -193,7 +193,7 @@ class CooldownComponent extends Component<Props, State> {
               {!this.state.showCastEvents && (
                 <div>
                   <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-xs-12" style={{ display: 'flex', flexWrap: 'wrap' }}>
                       {cooldown.events
                         .filter(
                           (event): event is CastEvent =>
@@ -204,6 +204,7 @@ class CooldownComponent extends Component<Props, State> {
                             key={`${event.ability.guid}-${event.timestamp}-${i}`}
                             spell={event.ability.guid}
                             icon={false}
+                            style={{ flexGrow: 0, flexShrink: 0 }}
                           >
                             <Icon
                               icon={event.ability.abilityIcon}

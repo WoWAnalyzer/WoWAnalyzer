@@ -13,7 +13,7 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 
 export interface SpellInfoDetails {
-  spell: Spell;
+  spell: Pick<Spell, 'id'>;
   casts: number;
   healingHits: number;
   healingDone: number;
@@ -56,7 +56,9 @@ class HealingEfficiencyTracker extends Analyzer {
       spell: maybeGetTalentOrSpell(
         spellId,
         wclGameVersionToExpansion(this.owner.report.gameVersion),
-      )!,
+      ) ?? {
+        id: spellId,
+      },
       casts: 0,
       healingHits: 0,
       healingDone: 0,
