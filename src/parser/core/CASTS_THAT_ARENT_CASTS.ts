@@ -151,6 +151,11 @@ const spells: number[] = [
   CLASSIC_SPELLS.BLADESTORM_TRIGGERED_SPELL.id,
   //endregion
 
+  //region classic monk
+  CLASSIC_SPELLS.GIFT_OF_THE_OX_SPAWN_1.id,
+  CLASSIC_SPELLS.GIFT_OF_THE_OX_SPAWN_2.id,
+  //endregion
+
   //region trinket
   //endregion
   //region Embellishments

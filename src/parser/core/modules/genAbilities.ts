@@ -52,6 +52,7 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
 function spellbookDefinition(spell: RetailSpell, category: SPELL_CATEGORY): SpellbookAbility {
   return {
     spell: spell.id,
+    name: spell.name,
     category: category,
     gcd: spellGcd(spell),
     cooldown: spellCooldown(spell),

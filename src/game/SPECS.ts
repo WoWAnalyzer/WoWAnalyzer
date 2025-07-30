@@ -1694,6 +1694,81 @@ const SPECS = {
     wclClassName: 'Druid',
     wclSpecName: 'Guardian',
   },
+  CLASSIC_MONK_BREWMASTER: {
+    id: 285,
+    index: 131,
+    className: defineMessage({
+      id: 'specs.monk',
+      message: `Monk`,
+    }),
+    specName: defineMessage({
+      id: 'specs.brewmaster',
+      message: `Brewmaster`,
+    }),
+    wclClassName: 'Monk',
+    wclSpecName: 'Brewmaster',
+    type: 'Monk',
+    icon: 'Monk-Brewmaster',
+    role: ROLES.TANK,
+    primaryStat: PRIMARY_STAT.AGILITY,
+    masterySpellId: 117906,
+    masteryCoefficient: 1,
+    branch: GameBranch.Classic,
+    ranking: {
+      class: 5,
+      spec: 1,
+    },
+  },
+  CLASSIC_MONK_WINDWALKER: {
+    id: 286,
+    index: 132,
+    className: defineMessage({
+      id: 'specs.monk',
+      message: `Monk`,
+    }),
+    specName: defineMessage({
+      id: 'specs.windwalker',
+      message: `Windwalker`,
+    }),
+    wclClassName: 'Monk',
+    wclSpecName: 'Windwalker',
+    icon: 'Monk-Windwalker',
+    type: 'Monk',
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STAT.AGILITY,
+    masterySpellId: 115636,
+    masteryCoefficient: 1.25,
+    branch: GameBranch.Classic,
+    ranking: {
+      class: 5,
+      spec: 3,
+    },
+  },
+  CLASSIC_MONK_MISTWEAVER: {
+    id: 287,
+    index: 133,
+    className: defineMessage({
+      id: 'specs.monk',
+      message: `Monk`,
+    }),
+    specName: defineMessage({
+      id: 'specs.mistweaver',
+      message: `Mistweaver`,
+    }),
+    wclClassName: 'Monk',
+    wclSpecName: 'Mistweaver',
+    type: 'Monk',
+    icon: 'Monk-Mistweaver',
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STAT.INTELLECT,
+    masterySpellId: 117907,
+    masteryCoefficient: 4.2,
+    branch: GameBranch.Classic,
+    ranking: {
+      class: 5,
+      spec: 2,
+    },
+  },
 } satisfies Record<string, Spec>;
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
@@ -1808,6 +1883,11 @@ export const CLASSIC_DRUID_SPECS: Spec[] = [
   SPECS.CLASSIC_DRUID_FERAL_COMBAT,
   SPECS.CLASSIC_DRUID_RESTORATION,
   SPECS.CLASSIC_DRUID_GUARDIAN,
+];
+export const CLASSIC_MONK_SPECS: Spec[] = [
+  SPECS.CLASSIC_MONK_BREWMASTER,
+  SPECS.CLASSIC_MONK_WINDWALKER,
+  SPECS.CLASSIC_MONK_MISTWEAVER,
 ];
 
 export const specsCount = Object.keys(SPECS).length;
