@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 7, 29), 'Add consumable data for MoP', emallson),
   change(date(2025, 7, 21), 'Add Classic MoP T14 raid zones, headshots, and placeholder image', jazminite),
   change(date(2025, 7, 21), 'Update Death Knight spells for MoP Classic', jazminite),
   change(date(2025, 7, 8), 'Add timeline buff filter', Seriousnes),

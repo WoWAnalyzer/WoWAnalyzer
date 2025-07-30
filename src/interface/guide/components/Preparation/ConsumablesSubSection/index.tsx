@@ -22,12 +22,6 @@ const ConsumablesSubSection = ({ recommendedFlasks, recommendedFoods, expansion 
         <PotionPanel expansion={expansion} />
         <FlaskPanel recommendedFlasks={recommendedFlasks} expansion={expansion} />
       </SideBySidePanels>
-
-      {expansion && isClassicExpansion(expansion) && (
-        <AlertWarning style={{ marginTop: '1em' }}>
-          Food and Flasks do not always appear in logs in Cataclysm Classic, even if they are used!
-        </AlertWarning>
-      )}
     </SubSection>
   );
 };
