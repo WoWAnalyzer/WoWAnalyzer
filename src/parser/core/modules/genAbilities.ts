@@ -10,6 +10,10 @@ export interface GenAbilityConfig {
   cooldowns: RetailSpell[];
   defensives: RetailSpell[];
   overrides?: Record<number, (combatant: Combatant) => SpellbookAbility>;
+  /**
+   * Spells to be omitted from abilities. Typically, these are added externally (such as by ExecuteHelper).
+   */
+  omit?: RetailSpell[];
 }
 
 export default function genAbilities(config: GenAbilityConfig): typeof Abilities {
@@ -22,8 +26,16 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
     spells.map((spell) => spell.spell).concat(Object.keys(config.overrides ?? {}).map(Number)),
   );
 
+  const omitted = new Set(config.omit?.map((spell) => spell.id));
+
   const others = config.allSpells
-    .filter((spell) => !configuredSpells.has(spell.id) && !spell.hidden && !spell.passive)
+    .filter(
+      (spell) =>
+        !configuredSpells.has(spell.id) &&
+        !spell.hidden &&
+        !spell.passive &&
+        !omitted.has(spell.id),
+    )
     .map((spell) => spellbookDefinition(spell, SPELL_CATEGORY.OTHERS));
 
   return class extends Abilities {

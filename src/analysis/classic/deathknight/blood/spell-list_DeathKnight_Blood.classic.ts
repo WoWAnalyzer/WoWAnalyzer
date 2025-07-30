@@ -1160,7 +1160,7 @@ const SPELLS = {
     hidden: 'unless-learned',
     name: 'Anti-Magic Zone',
     cooldown: {
-      duration: 45000,
+      duration: 120000,
       hasted: false,
     },
   },

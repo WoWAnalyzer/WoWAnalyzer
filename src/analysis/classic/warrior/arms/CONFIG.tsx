@@ -10,10 +10,10 @@ const config: Config = {
   contributors: [emallson],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
-  supportLevel: SupportLevel.Unmaintained,
+  patchCompatibility: '5.5.0',
+  supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/zHX3VMN6YAPRFTKg/32-Heroic+Chimaeron+-+Kill+(3:12)/Dolbob/standard',
+  exampleReport: '/report/L1rtQ7YHmZKcMy9a/4-Heroic+The+Stone+Guard+-+Kill+(4:19)/Kwa/standard',
   spec: SPECS.CLASSIC_WARRIOR_ARMS,
   // The contents of your changelog.
   changelog: CHANGELOG,
