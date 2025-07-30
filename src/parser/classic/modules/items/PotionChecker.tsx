@@ -12,35 +12,22 @@ const debug = false;
 
 type WeakPotions = Record<number, { useId: number; useIcon: string }>;
 
-const weakPotion = {
-  useId: ITEMS.POTION_OF_THE_COBRA.id,
-  useIcon: ITEMS.POTION_OF_THE_COBRA.icon,
-};
-
 const WEAK_POTIONS: WeakPotions = {
-  [SPELLS.MOLOTOV_COCKTAIL.id]: weakPotion,
-  [SPELLS.MYSTERIOUS_POTION.id]: weakPotion,
-  [SPELLS.POTION_OF_OGRE_RAGE.id]: weakPotion,
-  [SPELLS.POTION_OF_PURE_GENIUS.id]: weakPotion,
-  [SPELLS.POTION_OF_SPEED.id]: weakPotion,
-  [SPELLS.POTION_OF_THE_COBRA.id]: weakPotion,
+  // not listing master mana potion as weaker because it is conditional (no downtime on short fights = mana potion or int potion)
 };
 
 const STRONG_POTIONS: number[] = [
-  SPELLS.EARTHEN_POTION.id,
-  SPELLS.GOLEMBLOOD_POTION.id,
-  SPELLS.MIGHTY_REJUVENATION_POTION.id,
-  SPELLS.MYTHICAL_HEALING_POTION.id,
-  SPELLS.MYTHICAL_MANA_POTION.id,
-  SPELLS.POTION_OF_CONCENTRATION.id,
-  SPELLS.POTION_OF_THE_TOLVIR.id,
-  SPELLS.VOLCANIC_POTION.id,
+  SPELLS.VIRMENS_BITE.id,
+  SPELLS.POTION_OF_FOCUS.id,
+  SPELLS.POTION_OF_MOGU_POWER.id,
+  SPELLS.POTION_OF_THE_JADE_SERPENT.id,
+  SPELLS.MASTER_MANA_POTION.id,
 ];
 
 const COMMON_MANA_POTION_AMOUNT = 10750;
 
 class ClassicPotionChecker extends Analyzer {
-  defaultPotion = ITEMS.VOLCANIC_POTION;
+  defaultPotion = ITEMS.VIRMENS_BITE;
   potionsUsed = 0;
   weakPotionsUsed = 0;
   strongPotionsUsed = 0;

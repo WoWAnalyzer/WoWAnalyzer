@@ -144,7 +144,6 @@ class StatTracker extends Analyzer {
 
     // region Classic WotLK
     [CLASSIC_SPELLS.HYPERSPEED_ACCELERATION.id]: { haste: 340 },
-    [CLASSIC_SPELLS.POTION_OF_SPEED.id]: { haste: 500 },
     // endregion
 
     // region Classic Cata

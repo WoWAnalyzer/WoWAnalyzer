@@ -91,7 +91,7 @@ export default class Doomguard extends Analyzer {
       this.trinketSnapshotEntry(GEAR_SLOTS.TRINKET1),
       this.trinketSnapshotEntry(GEAR_SLOTS.TRINKET2),
       // Not gear related
-      this.spellSnapshotEntry(potions.VOLCANIC_POTION),
+      this.spellSnapshotEntry(potions.POTION_OF_THE_JADE_SERPENT),
       this.spellSnapshotEntry(enchanting.HURRICANE_BUFF), // This is expected on prepull gear, so only buff is trackable
     ];
   }
