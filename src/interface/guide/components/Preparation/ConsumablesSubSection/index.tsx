@@ -5,8 +5,6 @@ import { SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import FoodPanel from './FoodPanel';
 import PotionPanel from './PotionPanel';
 import FlaskPanel from './FlaskPanel';
-import Expansion, { isClassicExpansion } from 'game/Expansion';
-import AlertWarning from 'interface/AlertWarning';
 
 interface Props {
   recommendedFlasks?: Spell[];
