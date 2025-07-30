@@ -469,7 +469,7 @@ class CooldownComponent extends Component<Props, State> {
                             );
                         }
                         return (
-                          <div className="col-md-4 text-center">
+                          <div className="col-md-4 text-center" key="mana-used">
                             <Trans
                               id="shared.cooldownThroughputTracker.cooldown.manaUsed"
                               key="mana"
@@ -705,7 +705,7 @@ class CooldownComponent extends Component<Props, State> {
                               );
                           }
                           return (
-                            <div className="col-md-4 text-center">
+                            <div className="col-md-4 text-center" key="mana-used">
                               <Trans
                                 id="shared.cooldownThroughputTracker.cooldown.manaUsed"
                                 key="mana"
