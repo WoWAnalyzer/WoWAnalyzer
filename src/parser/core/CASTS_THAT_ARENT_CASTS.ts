@@ -154,6 +154,8 @@ const spells: number[] = [
   //region classic monk
   CLASSIC_SPELLS.GIFT_OF_THE_OX_SPAWN_1.id,
   CLASSIC_SPELLS.GIFT_OF_THE_OX_SPAWN_2.id,
+  CLASSIC_SPELLS.FISTS_OF_FURY_TICK.id,
+  CLASSIC_SPELLS.SPEAR_HAND_STRIKE_SILENCE.id,
   //endregion
 
   //region trinket

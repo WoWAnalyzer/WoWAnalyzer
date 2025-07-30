@@ -9,7 +9,10 @@ export interface GenAbilityConfig {
   rotational: RetailSpell[];
   cooldowns: RetailSpell[];
   defensives: RetailSpell[];
-  overrides?: Record<number, (combatant: Combatant) => SpellbookAbility>;
+  overrides?: Record<
+    number,
+    (combatant: Combatant, generated?: SpellbookAbility) => SpellbookAbility
+  >;
   /**
    * Spells to be omitted from abilities. Typically, these are added externally (such as by ExecuteHelper).
    */
@@ -41,9 +44,15 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
   return class extends Abilities {
     spellbook() {
       return [
-        ...spells,
-        ...others,
-        ...Object.values(config.overrides ?? {}).map((fn) => fn(this.selectedCombatant)),
+        ...spells.filter((spell) => !config.overrides?.[spell.spell as number]),
+        ...others.filter((spell) => !config.overrides?.[spell.spell as number]),
+        ...Object.entries(config.overrides ?? {}).map(([key, fn]) =>
+          fn(
+            this.selectedCombatant,
+            spells.find((spell) => spell.spell === Number(key)) ??
+              others.find((spell) => spell.spell === Number(key)),
+          ),
+        ),
       ];
     }
   };
