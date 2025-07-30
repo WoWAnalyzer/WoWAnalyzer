@@ -19,7 +19,7 @@ export const Abilities = genAbilities({
     spells.ANTI_MAGIC_SHELL,
     spells.ICEBOUND_FORTITUDE,
     spells.RUNE_TAP,
-    spells.DEATH_PACT,
+    spells.DEATH_PACT_TALENT,
   ],
   // the as unknown as RetailSpell is a hack around `readonly`-ness. TODO find a better solution
   cooldowns: [

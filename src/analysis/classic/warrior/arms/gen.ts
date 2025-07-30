@@ -10,9 +10,14 @@ export const Abilities = genAbilities({
     spells.MORTAL_STRIKE,
     spells.COLOSSUS_SMASH,
     spells.BERSERKER_RAGE,
-    spells.SWEEPING_STRIKES_3,
+    spells.SWEEPING_STRIKES,
   ],
   defensives: [spells.DIE_BY_THE_SWORD, spells.SHIELD_WALL],
-  cooldowns: [spells.BLOODBATH_2, spells.RECKLESSNESS, spells.SKULL_BANNER, spells.BLADESTORM_2],
+  cooldowns: [
+    spells.BLOODBATH_TALENT,
+    spells.RECKLESSNESS,
+    spells.SKULL_BANNER,
+    spells.BLADESTORM_TALENT,
+  ],
   omit: [spells.EXECUTE, spells.OVERPOWER],
 });

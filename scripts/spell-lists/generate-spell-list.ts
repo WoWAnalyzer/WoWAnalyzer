@@ -86,6 +86,8 @@ async function getSpellList(dbc: Dbc, branch: string, specId: number) {
 function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.RetailSpell> {
   const spellsByName: Record<string, gamedata.RetailSpell[]> = {};
 
+  spells.sort((a, b) => a.id - b.id);
+
   for (const spell of spells) {
     const name = baseSpellName(spell);
     if (!spellsByName[name]) {
@@ -147,6 +149,23 @@ function baseSpellName(spell: gamedata.RetailSpell): string {
     .replace(/[ -]+/g, '_')
     .replace(/[^a-zA-Z0-9_]+/g, '')
     .toUpperCase();
+
+  let suffix: string | undefined = undefined;
+
+  if (spell.type === 'temporary') {
+    // we resolve this later if there is a conflict
+    return name;
+  } else if (spell.hidden === 'always') {
+    suffix = 'HIDDEN';
+  } else if (spell.type === 'talent' || spell.type === 'mists-talent') {
+    suffix = 'TALENT';
+  } else if (spell.passive) {
+    suffix = 'PASSIVE';
+  }
+
+  if (suffix) {
+    return `${name}_${suffix}`;
+  }
 
   return name;
 }

@@ -11,12 +11,12 @@ const rotational = [
   spells.EXPLOSIVE_TRAP_TRAP_LAUNCHER,
   spells.ARCANE_SHOT,
   spells.SERPENT_STING,
-  spells.FERVOR,
+  spells.FERVOR_TALENT,
   spells.MULTI_SHOT,
-  spells.GLAIVE_TOSS_3,
+  spells.GLAIVE_TOSS_TALENT,
 ];
 
-const cooldowns = [spells.STAMPEDE, spells.RAPID_FIRE, spells.A_MURDER_OF_CROWS];
+const cooldowns = [spells.STAMPEDE, spells.RAPID_FIRE, spells.A_MURDER_OF_CROWS_TALENT];
 
 const defensives = [spells.DETERRENCE];
 

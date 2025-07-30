@@ -42,7 +42,7 @@ export default class WillOfTheNecropolis extends Analyzer.withDependencies({
         size="flexible"
         tooltip={
           <>
-            <SpellLink spell={spells.WILL_OF_THE_NECROPOLIS.id} /> triggered{' '}
+            <SpellLink spell={spells.WILL_OF_THE_NECROPOLIS_PASSIVE.id} /> triggered{' '}
             <strong>{this.runeTapResets + this.wastedResets}</strong> times.{' '}
             <strong>{this.wastedResets}</strong> triggers were wasted because{' '}
             <SpellLink spell={spells.RUNE_TAP.id} /> was not on cooldown.
@@ -53,7 +53,7 @@ export default class WillOfTheNecropolis extends Analyzer.withDependencies({
           label={
             <>
               <SpellLink spell={spells.RUNE_TAP.id} /> Resets from{' '}
-              <SpellLink spell={spells.WILL_OF_THE_NECROPOLIS.id}>WotN</SpellLink>
+              <SpellLink spell={spells.WILL_OF_THE_NECROPOLIS_PASSIVE.id}>WotN</SpellLink>
             </>
           }
         >
