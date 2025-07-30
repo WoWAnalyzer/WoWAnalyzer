@@ -1,9 +1,8 @@
 import genAbilities from 'parser/core/modules/genAbilities';
 import spells from './spell-list_Warrior_Arms.classic';
-import type { RetailSpell } from 'wow-dbc';
 
 export const Abilities = genAbilities({
-  allSpells: Object.values(spells) as RetailSpell[],
+  allSpells: Object.values(spells),
   rotational: [
     spells.HEROIC_STRIKE,
     spells.SLAM,

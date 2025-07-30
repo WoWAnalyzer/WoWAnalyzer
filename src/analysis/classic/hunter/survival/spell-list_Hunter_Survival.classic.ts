@@ -1,28 +1,14 @@
+import type { RetailSpell } from 'wow-dbc';
 const SPELLS = {
   AUTO_SHOT: {
     id: 75,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [1, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 77442,
-        aura: 330,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Auto Shot',
   },
   MEND_PET: {
     id: 136,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [8388608, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Mend Pet',
     gcd: {
@@ -33,18 +19,6 @@ const SPELLS = {
   DISENGAGE: {
     id: 781,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 16384, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 118675,
-        aura: 107,
-        basePoints: -10000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Disengage',
     cooldown: {
@@ -62,9 +36,6 @@ const SPELLS = {
   CALL_PET_1: {
     id: 883,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Call Pet 1',
     gcd: {
@@ -75,18 +46,6 @@ const SPELLS = {
   REVIVE_PET: {
     id: 982,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [16777216, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137014,
-        aura: 107,
-        basePoints: -2000,
-        misc0: 10,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Revive Pet',
     gcd: {
@@ -100,9 +59,6 @@ const SPELLS = {
   HUNTERS_MARK: {
     id: 1130,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [1024, 0, 0, 0],
-    effects: [],
     passive: false,
     name: "Hunter's Mark",
     gcd: {
@@ -113,9 +69,6 @@ const SPELLS = {
   BEAST_LORE: {
     id: 1462,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Beast Lore',
     gcd: {
@@ -126,9 +79,6 @@ const SPELLS = {
   TRACK_BEASTS_HIDDEN: {
     id: 1494,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Beasts',
@@ -141,35 +91,6 @@ const SPELLS = {
     id: 60192,
     grantedBy: 77769,
     type: 'temporary',
-    label: [23, 16],
-    classMask: [8320, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 118976,
-        aura: 42,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 118974,
-      },
-      {
-        sourceSpellId: 87935,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Freezing Trap',
@@ -185,26 +106,6 @@ const SPELLS = {
   FREEZING_TRAP: {
     id: 1499,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [128, 0, 67108864, 0],
-    effects: [
-      {
-        sourceSpellId: 77769,
-        aura: 333,
-        basePoints: 60192,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Freezing Trap',
     gcd: {
@@ -219,9 +120,6 @@ const SPELLS = {
   SCARE_BEAST: {
     id: 1513,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 65536, 0, 0],
-    effects: [],
     passive: false,
     name: 'Scare Beast',
     gcd: {
@@ -235,9 +133,6 @@ const SPELLS = {
   TAME_BEAST: {
     id: 1515,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 2],
-    effects: [],
     passive: false,
     name: 'Tame Beast',
     gcd: {
@@ -260,9 +155,6 @@ const SPELLS = {
   FLARE: {
     id: 1543,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 32768, 0, 0],
-    effects: [],
     passive: false,
     name: 'Flare',
     gcd: {
@@ -277,18 +169,6 @@ const SPELLS = {
   SERPENT_STING: {
     id: 1978,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [16384, 0, 0, 8192],
-    effects: [
-      {
-        sourceSpellId: 82834,
-        aura: 108,
-        basePoints: 50,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Serpent Sting',
     gcd: {
@@ -299,8 +179,6 @@ const SPELLS = {
   DISMISS_PET: {
     id: 2641,
     type: 'baseline',
-    label: [23, 16],
-    effects: [],
     passive: false,
     name: 'Dismiss Pet',
     gcd: {
@@ -314,9 +192,6 @@ const SPELLS = {
   MULTI_SHOT: {
     id: 2643,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [4096, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Multi-Shot',
     gcd: {
@@ -327,9 +202,6 @@ const SPELLS = {
   ARCANE_SHOT: {
     id: 3044,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [2048, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Arcane Shot',
     gcd: {
@@ -340,9 +212,6 @@ const SPELLS = {
   RAPID_FIRE: {
     id: 3045,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [32, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Rapid Fire',
     cooldown: {
@@ -353,26 +222,6 @@ const SPELLS = {
   BLACK_ARROW: {
     id: 3674,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [128, 134217728, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 63458,
-        aura: 108,
-        basePoints: 30,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Black Arrow',
     gcd: {
@@ -387,9 +236,6 @@ const SPELLS = {
   CONCUSSIVE_SHOT: {
     id: 5116,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [512, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Concussive Shot',
     gcd: {
@@ -404,9 +250,6 @@ const SPELLS = {
   ASPECT_OF_THE_CHEETAH: {
     id: 5118,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [2097152, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Aspect of the Cheetah',
     cooldown: {
@@ -417,9 +260,6 @@ const SPELLS = {
   FEIGN_DEATH: {
     id: 5384,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [256, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Feign Death',
     cooldown: {
@@ -430,9 +270,6 @@ const SPELLS = {
   EAGLE_EYE: {
     id: 6197,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Eagle Eye',
     gcd: {
@@ -449,8 +286,6 @@ const SPELLS = {
   FEED_PET: {
     id: 6991,
     type: 'baseline',
-    label: [23, 16],
-    effects: [],
     passive: false,
     name: 'Feed Pet',
     cooldown: {
@@ -461,7 +296,6 @@ const SPELLS = {
   MAIL_HIDDEN: {
     id: 8737,
     type: 'baseline',
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Mail',
@@ -469,9 +303,6 @@ const SPELLS = {
   ASPECT_OF_THE_PACK: {
     id: 13159,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [2097152, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Aspect of the Pack',
     cooldown: {
@@ -482,18 +313,6 @@ const SPELLS = {
   ASPECT_OF_THE_HAWK: {
     id: 13165,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [1048576, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137014,
-        aura: 107,
-        basePoints: 10,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Aspect of the Hawk',
     cooldown: {
@@ -505,35 +324,6 @@ const SPELLS = {
     id: 82941,
     grantedBy: 77769,
     type: 'temporary',
-    label: [23, 16],
-    classMask: [8320, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 118976,
-        aura: 42,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 118974,
-      },
-      {
-        sourceSpellId: 87935,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Ice Trap',
@@ -549,26 +339,6 @@ const SPELLS = {
   ICE_TRAP: {
     id: 13809,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [128, 0, 268435456, 0],
-    effects: [
-      {
-        sourceSpellId: 77769,
-        aura: 333,
-        basePoints: 82941,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Ice Trap',
     gcd: {
@@ -584,35 +354,6 @@ const SPELLS = {
     id: 82939,
     grantedBy: 77769,
     type: 'temporary',
-    label: [23, 16],
-    classMask: [8320, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 118976,
-        aura: 42,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 118974,
-      },
-      {
-        sourceSpellId: 87935,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Explosive Trap',
@@ -628,26 +369,6 @@ const SPELLS = {
   EXPLOSIVE_TRAP: {
     id: 13813,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [128, 0, 2097152, 0],
-    effects: [
-      {
-        sourceSpellId: 77769,
-        aura: 333,
-        basePoints: 82939,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Explosive Trap',
     gcd: {
@@ -663,18 +384,6 @@ const SPELLS = {
     id: 148467,
     grantedBy: 118675,
     type: 'temporary',
-    label: [23, 16],
-    classMask: [0, 0, 0, 1048576],
-    effects: [
-      {
-        sourceSpellId: 137014,
-        aura: 107,
-        basePoints: 4200,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Deterrence',
     charges: {
@@ -688,18 +397,6 @@ const SPELLS = {
   DETERRENCE: {
     id: 19263,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 2, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 118675,
-        aura: 332,
-        basePoints: 148467,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Deterrence',
     charges: {
@@ -715,9 +412,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 2,
-    label: [23, 16],
-    classMask: [0, 4096, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Wyvern Sting',
@@ -733,18 +427,12 @@ const SPELLS = {
   ENTRAPMENT_PASSIVE: {
     id: 19387,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Entrapment',
   },
   SCATTER_SHOT: {
     id: 19503,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [262144, 0, 32768, 0],
-    effects: [],
     passive: false,
     name: 'Scatter Shot',
     gcd: {
@@ -759,9 +447,6 @@ const SPELLS = {
   TRUESHOT_AURA_PASSIVE: {
     id: 19506,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 2097152, 0, 0],
-    effects: [],
     passive: true,
     name: 'Trueshot Aura',
   },
@@ -770,9 +455,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 3,
-    label: [23, 16],
-    classMask: [0, 0, 8, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Intimidation',
@@ -788,9 +470,6 @@ const SPELLS = {
   TRANQUILIZING_SHOT: {
     id: 19801,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 256, 0],
-    effects: [],
     passive: false,
     name: 'Tranquilizing Shot',
     gcd: {
@@ -801,9 +480,6 @@ const SPELLS = {
   TRACK_DEMONS_HIDDEN: {
     id: 19878,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Demons',
@@ -815,9 +491,6 @@ const SPELLS = {
   TRACK_DRAGONKIN_HIDDEN: {
     id: 19879,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Dragonkin',
@@ -829,9 +502,6 @@ const SPELLS = {
   TRACK_ELEMENTALS_HIDDEN: {
     id: 19880,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Elementals',
@@ -843,9 +513,6 @@ const SPELLS = {
   TRACK_GIANTS_HIDDEN: {
     id: 19882,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Giants',
@@ -857,9 +524,6 @@ const SPELLS = {
   TRACK_HUMANOIDS_HIDDEN: {
     id: 19883,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Humanoids',
@@ -871,9 +535,6 @@ const SPELLS = {
   TRACK_UNDEAD_HIDDEN: {
     id: 19884,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 2, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Undead',
@@ -885,8 +546,6 @@ const SPELLS = {
   TRACK_HIDDEN_HIDDEN: {
     id: 19885,
     type: 'baseline',
-    label: [23, 16],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Track Hidden',
@@ -898,9 +557,6 @@ const SPELLS = {
   DISTRACTING_SHOT: {
     id: 20736,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 131072, 0, 0],
-    effects: [],
     passive: false,
     name: 'Distracting Shot',
     gcd: {
@@ -915,9 +571,6 @@ const SPELLS = {
   MISDIRECTION: {
     id: 34477,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 1048576, 0, 0],
-    effects: [],
     passive: false,
     name: 'Misdirection',
     cooldown: {
@@ -929,35 +582,6 @@ const SPELLS = {
     id: 82948,
     grantedBy: 77769,
     type: 'temporary',
-    label: [23, 16],
-    classMask: [8320, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 118976,
-        aura: 42,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 118974,
-      },
-      {
-        sourceSpellId: 87935,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Snake Trap',
@@ -973,26 +597,6 @@ const SPELLS = {
   SNAKE_TRAP: {
     id: 34600,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [128, 0, 134217728, 0],
-    effects: [
-      {
-        sourceSpellId: 77769,
-        aura: 333,
-        basePoints: 82948,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 63458,
-        aura: 107,
-        basePoints: -6000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Snake Trap',
     gcd: {
@@ -1007,9 +611,6 @@ const SPELLS = {
   CAMOUFLAGE: {
     id: 51753,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 32, 0],
-    effects: [],
     passive: false,
     name: 'Camouflage',
     gcd: {
@@ -1024,9 +625,6 @@ const SPELLS = {
   MASTERS_CALL: {
     id: 53271,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 4, 0],
-    effects: [],
     passive: false,
     name: "Master's Call",
     cooldown: {
@@ -1037,42 +635,6 @@ const SPELLS = {
   EXPLOSIVE_SHOT: {
     id: 53301,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, -2147483648, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137014,
-        aura: 108,
-        basePoints: 10,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137014,
-        aura: 108,
-        basePoints: 10,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137017,
-        aura: 108,
-        basePoints: -5,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: [],
-      },
-      {
-        sourceSpellId: 137017,
-        aura: 108,
-        basePoints: -5,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Explosive Shot',
     gcd: {
@@ -1087,9 +649,6 @@ const SPELLS = {
   KILL_SHOT: {
     id: 53351,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 8388608, 0, 0],
-    effects: [],
     passive: false,
     name: 'Kill Shot',
     gcd: {
@@ -1104,27 +663,12 @@ const SPELLS = {
   LOCK_AND_LOAD_PASSIVE: {
     id: 56343,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 256],
-    effects: [],
     passive: true,
     name: 'Lock and Load',
   },
   STEADY_SHOT: {
     id: 56641,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 1, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 87324,
-        aura: 108,
-        basePoints: 70,
-        misc0: 9,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Steady Shot',
     gcd: {
@@ -1138,27 +682,18 @@ const SPELLS = {
   TRAP_MASTERY_PASSIVE: {
     id: 63458,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Trap Mastery',
   },
   MASTERY_ESSENCE_OF_THE_VIPER_PASSIVE: {
     id: 76658,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Mastery: Essence of the Viper',
   },
   FOCUS_HIDDEN: {
     id: 77442,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Focus',
@@ -1167,18 +702,6 @@ const SPELLS = {
     id: 77767,
     type: 'baseline',
     overrides: 56641,
-    label: [23, 16],
-    classMask: [0, 0, 4194304, 0],
-    effects: [
-      {
-        sourceSpellId: 87324,
-        aura: 108,
-        basePoints: 70,
-        misc0: 9,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Cobra Shot',
     gcd: {
@@ -1192,9 +715,6 @@ const SPELLS = {
   TRAP_LAUNCHER: {
     id: 77769,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 16777216, 0, 0],
-    effects: [],
     passive: false,
     name: 'Trap Launcher',
     cooldown: {
@@ -1205,9 +725,6 @@ const SPELLS = {
   WIDOW_VENOM: {
     id: 82654,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 16777216, 0],
-    effects: [],
     passive: false,
     name: 'Widow Venom',
     gcd: {
@@ -1220,9 +737,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 1,
-    label: [23, 16],
-    classMask: [0, 0, 0, 4096],
-    effects: [],
     passive: false,
     name: 'Fervor',
     cooldown: {
@@ -1233,18 +747,12 @@ const SPELLS = {
   IMPROVED_SERPENT_STING_PASSIVE: {
     id: 82834,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Improved Serpent Sting',
   },
   CALL_PET_2: {
     id: 83242,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Call Pet 2',
     gcd: {
@@ -1255,9 +763,6 @@ const SPELLS = {
   CALL_PET_3: {
     id: 83243,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Call Pet 3',
     gcd: {
@@ -1268,9 +773,6 @@ const SPELLS = {
   CALL_PET_4: {
     id: 83244,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Call Pet 4',
     gcd: {
@@ -1281,9 +783,6 @@ const SPELLS = {
   CALL_PET_5: {
     id: 83245,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Call Pet 5',
     gcd: {
@@ -1294,41 +793,30 @@ const SPELLS = {
   MAIL_SPECIALIZATION_PASSIVE: {
     id: 86538,
     type: 'baseline',
-    effects: [],
     passive: true,
     name: 'Mail Specialization',
   },
   FOCUSED_AIM_PASSIVE: {
     id: 87324,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Focused Aim',
   },
   SERPENT_SPREAD_PASSIVE: {
     id: 87935,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Serpent Spread',
   },
   CONTROL_PET_PASSIVE: {
     id: 93321,
     type: 'baseline',
-    label: [23, 16],
-    effects: [],
     passive: true,
     name: 'Control Pet',
   },
   CONTROL_PET_HIDDEN: {
     id: 93322,
     type: 'baseline',
-    label: [23, 16],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Control Pet',
@@ -1338,8 +826,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 3,
-    label: [23, 16],
-    effects: [],
     passive: true,
     name: 'Spirit Bond',
   },
@@ -1348,9 +834,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 1,
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Posthaste',
   },
@@ -1359,9 +842,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 1,
-    label: [23, 16],
-    classMask: [0, 0, 0, 64],
-    effects: [],
     passive: false,
     name: 'Binding Shot',
     cooldown: {
@@ -1374,9 +854,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 2,
-    label: [23, 16],
-    classMask: [0, 0, 0, 1],
-    effects: [],
     passive: false,
     name: 'Powershot',
     gcd: {
@@ -1397,18 +874,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 2,
-    label: [23, 16],
-    classMask: [1048576, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137014,
-        aura: 107,
-        basePoints: 10,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Aspect of the Iron Hawk',
     cooldown: {
@@ -1421,9 +886,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 2,
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Narrow Escape',
   },
@@ -1432,9 +894,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 1,
-    label: [23, 16],
-    classMask: [0, 0, 0, 2048],
-    effects: [],
     passive: false,
     name: 'Exhilaration',
     cooldown: {
@@ -1447,18 +906,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 3,
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Thrill of the Hunt',
   },
   SYMBIOSIS: {
     id: 110497,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [2, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Symbiosis',
   },
@@ -1467,9 +920,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 1,
-    label: [23, 16],
-    classMask: [0, 0, 0, 128],
-    effects: [],
     passive: false,
     name: 'Glaive Toss',
     gcd: {
@@ -1484,9 +934,6 @@ const SPELLS = {
   TRACKING_PASSIVE: {
     id: 118424,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Tracking',
   },
@@ -1495,18 +942,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 3,
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Crouching Tiger, Hidden Chimera',
   },
   VIPER_VENOM_PASSIVE: {
     id: 118976,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Viper Venom',
   },
@@ -1515,9 +956,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 3,
-    label: [23, 16],
-    classMask: [0, 0, 0, 4],
-    effects: [],
     passive: false,
     name: 'Barrage',
     gcd: {
@@ -1546,9 +984,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 2,
-    label: [23, 16],
-    classMask: [0, 0, 0, 16],
-    effects: [],
     passive: false,
     name: 'Dire Beast',
     gcd: {
@@ -1565,9 +1000,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 3,
-    label: [23, 16],
-    classMask: [0, 0, 0, 32],
-    effects: [],
     passive: false,
     name: 'Lynx Rush',
     gcd: {
@@ -1582,9 +1014,6 @@ const SPELLS = {
   GLAIVE_TOSS_HIDDEN_1: {
     id: 120761,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 4194304],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Glaive Toss',
@@ -1592,9 +1021,6 @@ const SPELLS = {
   GLAIVE_TOSS_HIDDEN_2: {
     id: 121414,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 4194304],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Glaive Toss',
@@ -1602,9 +1028,6 @@ const SPELLS = {
   STAMPEDE: {
     id: 121818,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 131072],
-    effects: [],
     passive: false,
     name: 'Stampede',
     gcd: {
@@ -1621,9 +1044,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 2,
-    label: [23, 16],
-    classMask: [0, 0, 0, 16384],
-    effects: [],
     passive: true,
     name: 'Blink Strikes',
   },
@@ -1632,9 +1052,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 1,
-    label: [23, 16],
-    classMask: [0, 0, 0, 8],
-    effects: [],
     passive: false,
     name: 'A Murder of Crows',
     gcd: {
@@ -1649,9 +1066,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137014,
     type: 'baseline',
-    label: [36],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1659,8 +1073,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137017,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1668,9 +1080,6 @@ const SPELLS = {
   ANCIENT_ZANDALARI_KNOWLEDGE_HIDDEN: {
     id: 138430,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [-2147483648, 0, 0, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1679,9 +1088,6 @@ const SPELLS = {
   COUNTER_SHOT: {
     id: 147362,
     type: 'baseline',
-    label: [23, 16],
-    classMask: [0, 0, 0, 524288],
-    effects: [],
     passive: false,
     name: 'Counter Shot',
     cooldown: {
@@ -1689,5 +1095,5 @@ const SPELLS = {
       hasted: false,
     },
   },
-} as const;
+} as const satisfies Record<string, RetailSpell>;
 export default SPELLS;

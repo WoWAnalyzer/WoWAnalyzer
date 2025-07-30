@@ -50,14 +50,16 @@ for (const fileName of process.argv.slice(2)) {
       continue;
     }
 
-    const data = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
+    const rawData = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
+    const data = rawData.filter((spell) => spell.name).map(stripSpellInternals);
 
     const targetPath = path.join(path.dirname(fileName), targetFileName + '.ts');
 
     const keyedData = keyByName(data);
 
     const output = `
-      const SPELLS = ${JSON.stringify(keyedData, undefined, 2)} as const;
+      import type { RetailSpell } from 'wow-dbc';
+      const SPELLS = ${JSON.stringify(keyedData, undefined, 2)} as const satisfies Record<string, RetailSpell>;
       export default SPELLS;
     `;
 
@@ -168,4 +170,13 @@ function baseSpellName(spell: gamedata.RetailSpell): string {
   }
 
   return name;
+}
+
+function stripSpellInternals(spell: gamedata.RetailSpell): gamedata.RetailSpell {
+  // internal fields left on by wow-dbc. should probably fix on that side...
+  delete (spell as unknown as Record<string, unknown>).label;
+  delete (spell as unknown as Record<string, unknown>).effects;
+  delete (spell as unknown as Record<string, unknown>).classMask;
+
+  return spell;
 }

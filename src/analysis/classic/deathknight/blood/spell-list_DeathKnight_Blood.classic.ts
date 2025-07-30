@@ -1,9 +1,8 @@
+import type { RetailSpell } from 'wow-dbc';
 const SPELLS = {
   PATH_OF_FROST: {
     id: 3714,
     type: 'baseline',
-    label: [27, 16],
-    effects: [],
     passive: false,
     name: 'Path of Frost',
     gcd: {
@@ -14,19 +13,6 @@ const SPELLS = {
   ARMY_OF_THE_DEAD: {
     id: 42650,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [2048, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Army of the Dead',
     gcd: {
@@ -53,27 +39,6 @@ const SPELLS = {
   DEATH_AND_DECAY_1: {
     id: 43265,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [32, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Death and Decay',
     gcd: {
@@ -88,9 +53,6 @@ const SPELLS = {
   DEATH_AND_DECAY_2: {
     id: 52212,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 8, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'unless-learned',
@@ -99,27 +61,6 @@ const SPELLS = {
   PLAGUE_STRIKE: {
     id: 45462,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [1, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Plague Strike',
     gcd: {
@@ -130,27 +71,6 @@ const SPELLS = {
   ICY_TOUCH: {
     id: 45477,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [2, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Icy Touch',
     gcd: {
@@ -161,27 +81,6 @@ const SPELLS = {
   CHAINS_OF_ICE: {
     id: 45524,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [4, 49152, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Chains of Ice',
     gcd: {
@@ -194,36 +93,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 1,
-    label: [27, 16],
-    classMask: [8, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Blood Tap',
   },
   BLOOD_STRIKE: {
     id: 45902,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [4194304, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Blood Strike',
     gcd: {
@@ -234,35 +109,6 @@ const SPELLS = {
   RAISE_DEAD: {
     id: 46584,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [4096, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-      {
-        sourceSpellId: 50029,
-        aura: 49,
-        basePoints: 2,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Raise Dead',
     gcd: {
@@ -277,27 +123,6 @@ const SPELLS = {
   STRANGULATE: {
     id: 47476,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [512, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-    ],
     passive: false,
     name: 'Strangulate',
     cooldown: {
@@ -308,9 +133,6 @@ const SPELLS = {
   MIND_FREEZE: {
     id: 47528,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [1024, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Mind Freeze',
     cooldown: {
@@ -321,9 +143,6 @@ const SPELLS = {
   DEATH_COIL: {
     id: 47541,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [8192, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Death Coil',
     gcd: {
@@ -334,9 +153,6 @@ const SPELLS = {
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [16384, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Empower Rune Weapon',
     cooldown: {
@@ -347,67 +163,6 @@ const SPELLS = {
   BLOOD_PRESENCE: {
     id: 48263,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [8388608, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-      {
-        sourceSpellId: 50371,
-        aura: 107,
-        basePoints: 20,
-        misc0: 12,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 50371,
-        aura: 107,
-        basePoints: 20,
-        misc0: 23,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 50371,
-        aura: 107,
-        basePoints: 20,
-        misc0: 32,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 50371,
-        aura: 107,
-        basePoints: -6,
-        misc0: 33,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 50371,
-        aura: 107,
-        basePoints: 20,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Blood Presence',
     gcd: {
@@ -418,9 +173,6 @@ const SPELLS = {
   UNHOLY_PRESENCE: {
     id: 48265,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [65536, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Unholy Presence',
     gcd: {
@@ -431,34 +183,6 @@ const SPELLS = {
   FROST_PRESENCE: {
     id: 48266,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [32768, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 119975,
-        aura: 108,
-        basePoints: -100,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 119975,
-        aura: 108,
-        basePoints: -100,
-        misc0: 12,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 119975,
-        aura: 108,
-        basePoints: -100,
-        misc0: 32,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Frost Presence',
     gcd: {
@@ -469,9 +193,6 @@ const SPELLS = {
   ANTI_MAGIC_SHELL: {
     id: 48707,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [131072, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Anti-Magic Shell',
     cooldown: {
@@ -482,18 +203,6 @@ const SPELLS = {
   BLOOD_BOIL: {
     id: 48721,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [262144, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 81136,
-        aura: 108,
-        basePoints: 10,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Blood Boil',
     gcd: {
@@ -506,9 +215,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 1,
-    label: [27, 16],
-    classMask: [524288, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Death Pact',
     cooldown: {
@@ -519,18 +225,6 @@ const SPELLS = {
   ICEBOUND_FORTITUDE: {
     id: 48792,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [1048576, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 81127,
-        aura: 107,
-        basePoints: -30,
-        misc0: 23,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Icebound Fortitude',
     cooldown: {
@@ -541,9 +235,6 @@ const SPELLS = {
   RUNE_TAP: {
     id: 48982,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [134217728, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Rune Tap',
     cooldown: {
@@ -554,9 +245,6 @@ const SPELLS = {
   DANCING_RUNE_WEAPON: {
     id: 49028,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [1073741824, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Dancing Rune Weapon',
     cooldown: {
@@ -569,9 +257,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 1,
-    label: [27, 16],
-    classMask: [0, 16, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Lichborne',
@@ -583,9 +268,6 @@ const SPELLS = {
   BONE_SHIELD: {
     id: 49222,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 64, 0, 0],
-    effects: [],
     passive: false,
     name: 'Bone Shield',
     cooldown: {
@@ -596,35 +278,18 @@ const SPELLS = {
   SCENT_OF_BLOOD_PASSIVE: {
     id: 49509,
     type: 'baseline',
-    label: [27, 16],
-    effects: [],
     passive: true,
     name: 'Scent of Blood',
   },
   BLOOD_PARASITE_PASSIVE: {
     id: 49542,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Blood Parasite',
   },
   DEATH_GRIP: {
     id: 49576,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [33554432, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 77513,
-        aura: 4,
-        basePoints: 0,
-        misc0: 2,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Death Grip',
     cooldown: {
@@ -635,35 +300,6 @@ const SPELLS = {
   DEATH_STRIKE: {
     id: 49998,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [16, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 1,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 45477,
-        aura: 0,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 55095,
-      },
-      {
-        sourceSpellId: 50034,
-        aura: 108,
-        basePoints: 40,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Death Strike',
     gcd: {
@@ -674,18 +310,12 @@ const SPELLS = {
   VETERAN_OF_THE_THIRD_WAR_PASSIVE: {
     id: 50029,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Veteran of the Third War',
   },
   BLOOD_RITES_PASSIVE: {
     id: 50034,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [16384, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Blood Rites',
   },
@@ -694,27 +324,18 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 2,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Chilblains',
   },
   IMPROVED_BLOOD_PRESENCE_PASSIVE: {
     id: 50371,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Improved Blood Presence',
   },
   PESTILENCE: {
     id: 50842,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 65536, 0, 0],
-    effects: [],
     passive: false,
     name: 'Pestilence',
     gcd: {
@@ -725,9 +346,6 @@ const SPELLS = {
   DEATH_GATE: {
     id: 50977,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 65536, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Death Gate',
@@ -748,9 +366,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 2,
-    label: [27, 16],
-    classMask: [0, 524288, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Anti-Magic Zone',
@@ -764,18 +379,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 3,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Runic Corruption',
   },
   ON_A_PALE_HORSE_PASSIVE: {
     id: 51986,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'On a Pale Horse',
   },
@@ -783,9 +392,6 @@ const SPELLS = {
     id: 55050,
     type: 'baseline',
     overrides: 45902,
-    label: [27, 16],
-    classMask: [16777216, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Heart Strike',
     gcd: {
@@ -796,19 +402,6 @@ const SPELLS = {
   BLOOD_PLAGUE_HIDDEN: {
     id: 55078,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 33556480, 2, 0],
-    effects: [
-      {
-        sourceSpellId: 81132,
-        aura: 109,
-        basePoints: 100,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 115798,
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Blood Plague',
@@ -816,19 +409,6 @@ const SPELLS = {
   FROST_FEVER_HIDDEN: {
     id: 55095,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 67110912, 2, 0],
-    effects: [
-      {
-        sourceSpellId: 50041,
-        aura: 109,
-        basePoints: 100,
-        misc0: 1,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 50435,
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Frost Fever',
@@ -836,9 +416,6 @@ const SPELLS = {
   VAMPIRIC_BLOOD: {
     id: 55233,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 8, 0, 0],
-    effects: [],
     passive: false,
     name: 'Vampiric Blood',
     cooldown: {
@@ -849,9 +426,6 @@ const SPELLS = {
   DARK_COMMAND: {
     id: 56222,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 268435456, 0, 0],
-    effects: [],
     passive: false,
     name: 'Dark Command',
     cooldown: {
@@ -862,9 +436,6 @@ const SPELLS = {
   RUNE_STRIKE: {
     id: 56815,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 536870912, 0, 0],
-    effects: [],
     passive: false,
     name: 'Rune Strike',
     gcd: {
@@ -875,9 +446,6 @@ const SPELLS = {
   HORN_OF_WINTER: {
     id: 57330,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 1073741824, 0, 0],
-    effects: [],
     passive: false,
     name: 'Horn of Winter',
     gcd: {
@@ -892,47 +460,18 @@ const SPELLS = {
   BLOOD_PLAGUE_PASSIVE: {
     id: 59879,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 33556480, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 81132,
-        aura: 109,
-        basePoints: 100,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 115798,
-      },
-    ],
     passive: true,
     name: 'Blood Plague',
   },
   FROST_FEVER_PASSIVE: {
     id: 59921,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 67110912, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 50041,
-        aura: 109,
-        basePoints: 100,
-        misc0: 1,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 50435,
-      },
-    ],
     passive: true,
     name: 'Frost Fever',
   },
   RAISE_ALLY: {
     id: 61999,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, -2147483648, 0, 0],
-    effects: [],
     passive: false,
     name: 'Raise Ally',
     gcd: {
@@ -947,9 +486,6 @@ const SPELLS = {
   NECROTIC_STRIKE: {
     id: 73975,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 8192, 0],
-    effects: [],
     passive: false,
     name: 'Necrotic Strike',
     gcd: {
@@ -960,27 +496,12 @@ const SPELLS = {
   MASTERY_BLOOD_SHIELD_PASSIVE: {
     id: 77513,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Mastery: Blood Shield',
   },
   OUTBREAK: {
     id: 77575,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 4096, 0],
-    effects: [
-      {
-        sourceSpellId: 137008,
-        aura: 107,
-        basePoints: -30000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Outbreak',
     gcd: {
@@ -995,9 +516,6 @@ const SPELLS = {
   DARK_SIMULACRUM: {
     id: 77606,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 256, 0],
-    effects: [],
     passive: false,
     name: 'Dark Simulacrum',
     cooldown: {
@@ -1008,36 +526,24 @@ const SPELLS = {
   SANGUINE_FORTITUDE_PASSIVE: {
     id: 81127,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Sanguine Fortitude',
   },
   SCARLET_FEVER_PASSIVE: {
     id: 81132,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Scarlet Fever',
   },
   CRIMSON_SCOURGE_PASSIVE: {
     id: 81136,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Crimson Scourge',
   },
   WILL_OF_THE_NECROPOLIS_PASSIVE: {
     id: 81164,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Will of the Necropolis',
   },
@@ -1046,9 +552,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 2,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Runic Empowerment',
@@ -1056,34 +559,25 @@ const SPELLS = {
   PARRY_PASSIVE: {
     id: 82246,
     type: 'baseline',
-    effects: [],
     passive: true,
     name: 'Parry',
   },
   PLATE_SPECIALIZATION_PASSIVE: {
     id: 86524,
     type: 'baseline',
-    effects: [],
     passive: true,
     name: 'Plate Specialization',
   },
   PLATE_SPECIALIZATION_HIDDEN: {
     id: 86537,
     type: 'baseline',
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Plate Specialization',
   },
-  UNKNOWN: {
-    id: 89832,
-    type: 'baseline',
-  },
   DEATH_STRIKE_ENABLER_HIDDEN: {
     id: 89832,
     type: 'baseline',
-    label: [27, 16],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Death Strike Enabler',
@@ -1091,9 +585,6 @@ const SPELLS = {
   VENGEANCE_PASSIVE: {
     id: 93099,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Vengeance',
   },
@@ -1102,9 +593,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 1,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: "Death's Advance",
     cooldown: {
@@ -1117,9 +605,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 1,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Roiling Blood',
   },
@@ -1129,9 +614,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 3,
-    label: [27, 16],
-    classMask: [0, 0, 1048576, 0],
-    effects: [],
     passive: false,
     name: 'Asphyxiate',
     gcd: {
@@ -1148,9 +630,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 2,
-    label: [27, 16],
-    classMask: [0, 0, 4194304, 0],
-    effects: [],
     passive: false,
     name: 'Death Siphon',
     gcd: {
@@ -1163,8 +642,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 1,
-    label: [27, 16],
-    effects: [],
     passive: false,
     name: "Gorefiend's Grasp",
     gcd: {
@@ -1181,8 +658,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 2,
-    label: [27, 16],
-    effects: [],
     passive: false,
     name: 'Remorseless Winter',
     gcd: {
@@ -1199,9 +674,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 3,
-    label: [27, 16],
-    classMask: [0, 0, 33554432, 0],
-    effects: [],
     passive: false,
     name: 'Desecrated Ground',
     cooldown: {
@@ -1212,18 +684,12 @@ const SPELLS = {
   SYMBIOSIS: {
     id: 110498,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 524288, 0],
-    effects: [],
     passive: false,
     name: 'Symbiosis',
   },
   CONTROL_UNDEAD: {
     id: 111673,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Control Undead',
     gcd: {
@@ -1239,18 +705,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 3,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Purgatory',
   },
   SOUL_REAPER: {
     id: 114866,
     type: 'baseline',
-    label: [27, 16],
-    classMask: [0, 0, 67108864, 0],
-    effects: [],
     passive: false,
     name: 'Soul Reaper',
     gcd: {
@@ -1267,9 +727,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 3,
-    label: [27, 16],
-    classMask: [0, 256, 0, 0],
-    effects: [],
     passive: false,
     name: 'Unholy Blight',
     gcd: {
@@ -1286,9 +743,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 3,
-    label: [27, 16],
-    classMask: [0, 0, 2097152, 0],
-    effects: [],
     passive: false,
     name: 'Conversion',
     gcd: {
@@ -1301,9 +755,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 2,
-    label: [27, 16],
-    classMask: [0, 0, 16777216, 0],
-    effects: [],
     passive: false,
     name: 'Plague Leech',
     gcd: {
@@ -1319,9 +770,6 @@ const SPELLS = {
     id: 124285,
     type: 'learned',
     taughtBy: 96268,
-    label: [27, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: "Death's Advance",
@@ -1329,8 +777,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137005,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1338,8 +784,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137008,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1347,20 +791,15 @@ const SPELLS = {
   RIPOSTE_PASSIVE: {
     id: 145676,
     type: 'baseline',
-    label: [16, 27],
-    classMask: [0, 0, 0, 32],
-    effects: [],
     passive: true,
     name: 'Riposte',
   },
   SCENT_OF_BLOOD_HIDDEN: {
     id: 148211,
     type: 'baseline',
-    label: [27, 16],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Scent of Blood',
   },
-} as const;
+} as const satisfies Record<string, RetailSpell>;
 export default SPELLS;

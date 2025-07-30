@@ -1,9 +1,8 @@
 import genAbilities from 'parser/core/modules/genAbilities';
 import spells from './spell-list_DeathKnight_Blood.classic';
-import type { RetailSpell } from 'wow-dbc';
 
 export const Abilities = genAbilities({
-  allSpells: Object.values(spells) as RetailSpell[],
+  allSpells: Object.values(spells),
   rotational: [
     spells.RUNE_STRIKE,
     spells.HEART_STRIKE,
@@ -21,10 +20,5 @@ export const Abilities = genAbilities({
     spells.RUNE_TAP,
     spells.DEATH_PACT_TALENT,
   ],
-  // the as unknown as RetailSpell is a hack around `readonly`-ness. TODO find a better solution
-  cooldowns: [
-    spells.DANCING_RUNE_WEAPON,
-    spells.EMPOWER_RUNE_WEAPON,
-    spells.ARMY_OF_THE_DEAD as unknown as RetailSpell,
-  ],
+  cooldowns: [spells.DANCING_RUNE_WEAPON, spells.EMPOWER_RUNE_WEAPON, spells.ARMY_OF_THE_DEAD],
 });

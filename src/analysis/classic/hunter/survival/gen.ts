@@ -1,4 +1,3 @@
-import type { RetailSpell } from 'wow-dbc';
 import spells from './spell-list_Hunter_Survival.classic';
 import genAbilities from 'parser/core/modules/genAbilities';
 
@@ -21,7 +20,7 @@ const cooldowns = [spells.STAMPEDE, spells.RAPID_FIRE, spells.A_MURDER_OF_CROWS_
 const defensives = [spells.DETERRENCE];
 
 export const Abilities = genAbilities({
-  allSpells: Object.values(spells) as RetailSpell[],
+  allSpells: Object.values(spells),
   rotational,
   cooldowns,
   defensives,

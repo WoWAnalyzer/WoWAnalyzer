@@ -1,27 +1,8 @@
+import type { RetailSpell } from 'wow-dbc';
 const SPELLS = {
   JAB: {
     id: 100780,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [4, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 103985,
-        aura: 107,
-        basePoints: 1,
-        misc0: 12,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: -25,
-        misc0: 14,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Jab',
     gcd: {
@@ -32,18 +13,6 @@ const SPELLS = {
   BLACKOUT_KICK: {
     id: 100784,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [16, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 116645,
-        aura: 107,
-        basePoints: 4,
-        misc0: 17,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Blackout Kick',
     gcd: {
@@ -54,18 +23,6 @@ const SPELLS = {
   TIGER_PALM: {
     id: 100787,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [1024, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 116645,
-        aura: 108,
-        basePoints: 100,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Tiger Palm',
     gcd: {
@@ -76,9 +33,6 @@ const SPELLS = {
   SPINNING_CRANE_KICK: {
     id: 101546,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, -2147483648, 0, 0],
-    effects: [],
     passive: false,
     name: 'Spinning Crane Kick',
     gcd: {
@@ -101,9 +55,6 @@ const SPELLS = {
   TRANSCENDENCE: {
     id: 101643,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [512, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Transcendence',
     gcd: {
@@ -121,9 +72,6 @@ const SPELLS = {
   STANCE_OF_THE_FIERCE_TIGER: {
     id: 103985,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [8192, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Stance of the Fierce Tiger',
     gcd: {
@@ -134,9 +82,6 @@ const SPELLS = {
   SPINNING_CRANE_KICK_HIDDEN_1: {
     id: 107270,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [256, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Spinning Crane Kick',
@@ -144,26 +89,6 @@ const SPELLS = {
   SPINNING_CRANE_KICK_HIDDEN_2: {
     id: 117640,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 2097152, 0],
-    effects: [
-      {
-        sourceSpellId: 130610,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 1251700,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -172,9 +97,6 @@ const SPELLS = {
   DND_MONK_ENERGY_DRIVER_HIDDEN: {
     id: 107500,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: '<DND> Monk Energy Driver',
@@ -182,9 +104,6 @@ const SPELLS = {
   MONK_WEAPON_OVERRIDE_DRIVER_HIDDEN: {
     id: 108562,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Monk Weapon Override Driver',
@@ -192,18 +111,6 @@ const SPELLS = {
   WAY_OF_THE_MONK_HIDDEN_1: {
     id: 108977,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 524288, 0],
-    effects: [
-      {
-        sourceSpellId: 116645,
-        aura: 107,
-        basePoints: 30,
-        misc0: 8,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: true,
     hidden: 'always',
     name: 'Way of the Monk',
@@ -211,8 +118,6 @@ const SPELLS = {
   WAY_OF_THE_MONK_HIDDEN_2: {
     id: 120275,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Way of the Monk',
@@ -221,26 +126,6 @@ const SPELLS = {
     id: 121827,
     grantedBy: 115173,
     type: 'temporary',
-    label: [22, 16],
-    classMask: [128, 262144, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 115173,
-        aura: 332,
-        basePoints: 121827,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Roll',
     charges: {
@@ -254,26 +139,6 @@ const SPELLS = {
   ROLL: {
     id: 109132,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [128, 262144, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 115173,
-        aura: 332,
-        basePoints: 121827,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Roll',
     charges: {
@@ -287,9 +152,6 @@ const SPELLS = {
   SYMBIOSIS: {
     id: 110500,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [16384, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Symbiosis',
   },
@@ -299,26 +161,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 3,
-    label: [22, 16],
-    classMask: [128, 2, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 115173,
-        aura: 332,
-        basePoints: 121828,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Chi Torpedo',
     charges: {
@@ -332,9 +174,6 @@ const SPELLS = {
   STANCE_OF_THE_WISE_SERPENT: {
     id: 115070,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 1],
-    effects: [],
     passive: false,
     name: 'Stance of the Wise Serpent',
     gcd: {
@@ -345,27 +184,6 @@ const SPELLS = {
   EXPEL_HARM: {
     id: 115072,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [131072, 0, -2147483648, 0],
-    effects: [
-      {
-        sourceSpellId: 103985,
-        aura: 107,
-        basePoints: 1,
-        misc0: 12,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 118672,
-        aura: 42,
-        basePoints: 1,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 118674,
-      },
-    ],
     passive: false,
     name: 'Expel Harm',
     gcd: {
@@ -380,27 +198,12 @@ const SPELLS = {
   FIGHTING_STYLE_PASSIVE: {
     id: 115074,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Fighting Style',
   },
   PARALYSIS: {
     id: 115078,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 8, 8388608, 0],
-    effects: [
-      {
-        sourceSpellId: 115612,
-        aura: 4,
-        basePoints: 50,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Paralysis',
     gcd: {
@@ -415,9 +218,6 @@ const SPELLS = {
   TOUCH_OF_DEATH: {
     id: 115080,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 256, 8, 0],
-    effects: [],
     passive: false,
     name: 'Touch of Death',
     gcd: {
@@ -434,9 +234,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 1,
-    label: [22, 16],
-    classMask: [2, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Chi Wave',
     gcd: {
@@ -451,9 +248,6 @@ const SPELLS = {
   EXPEL_HARM_HIDDEN: {
     id: 115129,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 1024, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Expel Harm',
@@ -465,9 +259,6 @@ const SPELLS = {
   RENEWING_MIST: {
     id: 115151,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [8388608, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Renewing Mist',
     gcd: {
@@ -484,9 +275,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 1,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Celerity',
   },
@@ -495,27 +283,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 3,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Momentum',
   },
   SOOTHING_MIST_1: {
     id: 115175,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [16777216, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 132120,
-        aura: 283,
-        basePoints: 30,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Soothing Mist',
     gcd: {
@@ -532,18 +305,6 @@ const SPELLS = {
   SOOTHING_MIST_2: {
     id: 125953,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [16777216, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 132120,
-        aura: 283,
-        basePoints: 30,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Soothing Mist',
@@ -555,9 +316,6 @@ const SPELLS = {
   ZEN_MEDITATION: {
     id: 115176,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 8192, 0, 0],
-    effects: [],
     passive: false,
     name: 'Zen Meditation',
     cooldown: {
@@ -574,9 +332,6 @@ const SPELLS = {
   RESUSCITATE: {
     id: 115178,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 16384, 0, 0],
-    effects: [],
     passive: false,
     name: 'Resuscitate',
     gcd: {
@@ -590,9 +345,6 @@ const SPELLS = {
   FORTIFYING_BREW: {
     id: 115203,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 3145728, 0, 0],
-    effects: [],
     passive: false,
     name: 'Fortifying Brew',
     cooldown: {
@@ -603,18 +355,6 @@ const SPELLS = {
   MANA_TEA: {
     id: 115294,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 2097152, 1, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 107,
-        basePoints: 1,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Mana Tea',
     gcd: {
@@ -631,18 +371,6 @@ const SPELLS = {
   REVIVAL: {
     id: 115310,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 268435456, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: 22,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Revival',
     gcd: {
@@ -657,18 +385,6 @@ const SPELLS = {
   SUMMON_JADE_SERPENT_STATUE: {
     id: 115313,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 67108864],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: 68,
-        misc0: 23,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Summon Jade Serpent Statue',
     gcd: {
@@ -685,8 +401,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 2,
-    label: [22, 16],
-    effects: [],
     passive: true,
     name: 'Ascension',
   },
@@ -695,9 +409,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 3,
-    label: [22, 16],
-    classMask: [0, 2097152, 268435456, 0],
-    effects: [],
     passive: false,
     name: 'Chi Brew',
     charges: {
@@ -711,18 +422,6 @@ const SPELLS = {
   DETOX_1: {
     id: 115450,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [4194304, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 115451,
-        aura: 107,
-        basePoints: 100,
-        misc0: 23,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Detox',
     gcd: {
@@ -737,26 +436,18 @@ const SPELLS = {
   DETOX_2: {
     id: 125170,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: false,
     name: 'Detox',
   },
   INTERNAL_MEDICINE_PASSIVE: {
     id: 115451,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Internal Medicine',
   },
   HEALING_SPHERE: {
     id: 115460,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 1024, 131072, 0],
-    effects: [],
     passive: false,
     name: 'Healing Sphere',
     gcd: {
@@ -771,9 +462,6 @@ const SPELLS = {
   HEALING_SPHERE_HIDDEN_1: {
     id: 115464,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 1024, 0, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -782,9 +470,6 @@ const SPELLS = {
   HEALING_SPHERE_HIDDEN_2: {
     id: 125355,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -793,9 +478,6 @@ const SPELLS = {
   HEALING_SPHERE_HIDDEN_3: {
     id: 135914,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 1024, 0, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -804,9 +486,6 @@ const SPELLS = {
   LEER_OF_THE_OX: {
     id: 115543,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Leer of the Ox',
@@ -822,9 +501,6 @@ const SPELLS = {
   PROVOKE: {
     id: 115546,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Provoke',
     cooldown: {
@@ -835,9 +511,6 @@ const SPELLS = {
   EXPEL_HARM_DRIVER_HIDDEN: {
     id: 115612,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Expel Harm Driver',
@@ -845,9 +518,6 @@ const SPELLS = {
   MANA_TEA_DRIVER_DND_HIDDEN: {
     id: 115869,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Mana Tea Driver <DND>',
@@ -855,9 +525,6 @@ const SPELLS = {
   LEGACY_OF_THE_EMPEROR: {
     id: 115921,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 134217728, 0],
-    effects: [],
     passive: false,
     name: 'Legacy of the Emperor',
     gcd: {
@@ -868,9 +535,6 @@ const SPELLS = {
   DISABLE: {
     id: 116095,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [536870912, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Disable',
     gcd: {
@@ -881,8 +545,6 @@ const SPELLS = {
   DND_SOOTHING_MISTS_TRIGGER_HIDDEN: {
     id: 116346,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: '<DND> Soothing Mists Trigger',
@@ -890,18 +552,6 @@ const SPELLS = {
   TEACHINGS_OF_THE_MONASTERY: {
     id: 116645,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 33554432],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 107,
-        basePoints: -75,
-        misc0: 12,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Teachings of the Monastery',
   },
@@ -909,18 +559,6 @@ const SPELLS = {
     id: 130316,
     grantedBy: 137024,
     type: 'temporary',
-    label: [22, 16],
-    classMask: [67108864, 0, 536870912, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 332,
-        basePoints: 130316,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Uplift',
     gcd: {
@@ -931,18 +569,6 @@ const SPELLS = {
   UPLIFT: {
     id: 116670,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [67108864, 0, 8, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 332,
-        basePoints: 130316,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Uplift',
     gcd: {
@@ -953,9 +579,6 @@ const SPELLS = {
   THUNDER_FOCUS_TEA: {
     id: 116680,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [-2147483648, 2097152, 8, 0],
-    effects: [],
     passive: false,
     name: 'Thunder Focus Tea',
     cooldown: {
@@ -966,18 +589,6 @@ const SPELLS = {
   SURGING_MIST_1: {
     id: 116694,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [33554432, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: -13,
-        misc0: 14,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Surging Mist',
     gcd: {
@@ -991,18 +602,6 @@ const SPELLS = {
   SURGING_MIST_2: {
     id: 123273,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [33554432, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: -13,
-        misc0: 14,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Surging Mist',
@@ -1017,9 +616,6 @@ const SPELLS = {
   SPEAR_HAND_STRIKE: {
     id: 116705,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [1073741824, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Spear Hand Strike',
     cooldown: {
@@ -1030,8 +626,6 @@ const SPELLS = {
   PARRY_PASSIVE: {
     id: 116812,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: true,
     name: 'Parry',
   },
@@ -1040,18 +634,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 2,
-    label: [22, 16],
-    classMask: [0, 32768, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: "Tiger's Lust",
     gcd: {
@@ -1068,9 +650,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 1,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Ring of Peace',
     gcd: {
@@ -1088,18 +667,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 1,
-    label: [22, 16],
-    classMask: [32, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 115074,
-        aura: 416,
-        basePoints: 100,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Rushing Jade Wind',
     gcd: {
@@ -1114,9 +681,6 @@ const SPELLS = {
   LIFE_COCOON: {
     id: 116849,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 16384, 0],
-    effects: [],
     passive: false,
     name: 'Life Cocoon',
     gcd: {
@@ -1131,18 +695,6 @@ const SPELLS = {
   SURGING_MIST_HIDDEN: {
     id: 116995,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 2048, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 116680,
-        aura: 108,
-        basePoints: 100,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Surging Mist',
@@ -1154,9 +706,6 @@ const SPELLS = {
   GRAPPLE_WEAPON: {
     id: 117368,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [512, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Grapple Weapon',
     gcd: {
@@ -1171,9 +720,6 @@ const SPELLS = {
   FISTS_OF_FURY_HIDDEN: {
     id: 117418,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [1048576, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Fists of Fury',
@@ -1181,9 +727,6 @@ const SPELLS = {
   EMINENCE_STATUE: {
     id: 117895,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 262144, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'unless-learned',
@@ -1192,27 +735,12 @@ const SPELLS = {
   MASTERY_GIFT_OF_THE_SERPENT_PASSIVE: {
     id: 117907,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Mastery: Gift of the Serpent',
   },
   CRACKLING_JADE_LIGHTNING: {
     id: 117952,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 1, 64, 0],
-    effects: [
-      {
-        sourceSpellId: 116645,
-        aura: 108,
-        basePoints: 100,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Crackling Jade Lightning',
     gcd: {
@@ -1229,9 +757,6 @@ const SPELLS = {
   CRACKLING_JADE_LIGHTNING_HIDDEN: {
     id: 117959,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Crackling Jade Lightning',
@@ -1239,9 +764,6 @@ const SPELLS = {
   CHI_TORPEDO_HIDDEN_1: {
     id: 117993,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 65536, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1250,9 +772,6 @@ const SPELLS = {
   CHI_TORPEDO_HIDDEN_2: {
     id: 124040,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 1056768, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1261,18 +780,6 @@ const SPELLS = {
   DIZZYING_HAZE: {
     id: 118022,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [128, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Dizzying Haze',
@@ -1284,9 +791,6 @@ const SPELLS = {
   TEACHINGS_OF_THE_MONASTERY_HIDDEN: {
     id: 118672,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Teachings of the Monastery',
@@ -1296,9 +800,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 3,
-    label: [22, 16],
-    classMask: [0, 512, 0, 0],
-    effects: [],
     passive: false,
     name: 'Leg Sweep',
     gcd: {
@@ -1315,18 +816,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 2,
-    label: [22, 16],
-    classMask: [0, 65536, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Charging Ox Wave',
     gcd: {
@@ -1341,9 +830,6 @@ const SPELLS = {
   RENEWING_MIST_HIDDEN: {
     id: 119611,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [8388608, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Renewing Mist',
@@ -1351,8 +837,6 @@ const SPELLS = {
   ENERGY_USAGE_HIDDEN: {
     id: 119650,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Energy Usage',
@@ -1360,9 +844,6 @@ const SPELLS = {
   TRANSCENDENCE_TRANSFER: {
     id: 119996,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 4194304, 0, 0],
-    effects: [],
     passive: false,
     name: 'Transcendence: Transfer',
     gcd: {
@@ -1380,9 +861,6 @@ const SPELLS = {
   LEATHER_SPECIALIZATION_PASSIVE: {
     id: 120224,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Leather Specialization',
@@ -1390,26 +868,12 @@ const SPELLS = {
   TIGER_STRIKES_PASSIVE: {
     id: 120272,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: true,
     name: 'Tiger Strikes',
   },
   TIGER_STRIKES_HIDDEN_1: {
     id: 120274,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 4096, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 108977,
-        aura: 108,
-        basePoints: 40,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Tiger Strikes',
@@ -1417,18 +881,6 @@ const SPELLS = {
   TIGER_STRIKES_HIDDEN_2: {
     id: 120278,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 4096, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 108977,
-        aura: 108,
-        basePoints: 40,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Tiger Strikes',
@@ -1436,17 +888,12 @@ const SPELLS = {
   WAY_OF_THE_MONK_PASSIVE: {
     id: 120277,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: true,
     name: 'Way of the Monk',
   },
   TOUCH_OF_DEATHEXPEL_HARM_NOTIFICATION_DRIVER_HIDDEN: {
     id: 121128,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Touch of Death/Expel Harm Notification Driver',
@@ -1454,8 +901,6 @@ const SPELLS = {
   MANA_MEDITATION_PASSIVE: {
     id: 121278,
     type: 'baseline',
-    label: [22, 16],
-    effects: [],
     passive: true,
     name: 'Mana Meditation',
   },
@@ -1464,9 +909,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 1,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Power Strikes',
   },
@@ -1474,26 +916,6 @@ const SPELLS = {
     id: 121828,
     grantedBy: 115173,
     type: 'temporary',
-    label: [22, 16],
-    classMask: [128, 2, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 121128,
-        aura: 4,
-        basePoints: 5,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 115173,
-        aura: 332,
-        basePoints: 121828,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Chi Torpedo',
     charges: {
@@ -1509,9 +931,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 2,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Dampen Harm',
     cooldown: {
@@ -1524,18 +943,12 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 1,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Healing Elixirs',
   },
   HEALING_ELIXIRS_HIDDEN: {
     id: 122281,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 8192, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Healing Elixirs',
@@ -1543,9 +956,6 @@ const SPELLS = {
   DEMATERIALIZE: {
     id: 122464,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Dematerialize',
     gcd: {
@@ -1558,9 +968,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 3,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Diffuse Magic',
     cooldown: {
@@ -1571,9 +978,6 @@ const SPELLS = {
   CRACKLING_JADE_LIGHTNING_CHI_PROC_DRIVER_HIDDEN: {
     id: 123332,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Crackling Jade Lightning Chi Proc Driver',
@@ -1581,9 +985,6 @@ const SPELLS = {
   FLYING_SERPENT_KICK_HIDDEN: {
     id: 123586,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 32, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Flying Serpent Kick',
@@ -1591,9 +992,6 @@ const SPELLS = {
   BREATH_OF_FIRE_HIDDEN: {
     id: 123725,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [524288, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Breath of Fire',
@@ -1605,9 +1003,6 @@ const SPELLS = {
   BREWING_MANA_TEA: {
     id: 123766,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Brewing: Mana Tea',
     gcd: {
@@ -1620,9 +1015,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 2,
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Invoke Xuen, the White Tiger',
     cooldown: {
@@ -1635,9 +1027,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 3,
-    label: [22, 16],
-    classMask: [0, 64, 0, 0],
-    effects: [],
     passive: false,
     name: 'Chi Burst',
     gcd: {
@@ -1655,9 +1044,6 @@ const SPELLS = {
   GIFT_OF_THE_SERPENT_HIDDEN_1: {
     id: 124041,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 1024, 1073741824, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1666,9 +1052,6 @@ const SPELLS = {
   GIFT_OF_THE_SERPENT_HIDDEN_2: {
     id: 135920,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 1024, 1073741824, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1679,9 +1062,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 2,
-    label: [22, 16],
-    classMask: [262144, 0, 67117056, 0],
-    effects: [],
     passive: false,
     name: 'Zen Sphere',
     gcd: {
@@ -1696,9 +1076,6 @@ const SPELLS = {
   ZEN_SPHERE: {
     id: 124098,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [262144, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Zen Sphere',
@@ -1710,9 +1087,6 @@ const SPELLS = {
   ZEN_SPHERE_DETONATE_1: {
     id: 124101,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [262144, 0, 67117056, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Zen Sphere: Detonate',
@@ -1724,9 +1098,6 @@ const SPELLS = {
   ZEN_SPHERE_DETONATE_2: {
     id: 125033,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [262144, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Zen Sphere: Detonate',
@@ -1738,9 +1109,6 @@ const SPELLS = {
   TOUCH_OF_KARMA_HIDDEN: {
     id: 124280,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Touch of Karma',
@@ -1752,18 +1120,12 @@ const SPELLS = {
   SWIFT_REFLEXES_PASSIVE: {
     id: 124334,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Swift Reflexes',
   },
   SWIFT_REFLEXES_HIDDEN: {
     id: 124335,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Swift Reflexes',
@@ -1771,9 +1133,6 @@ const SPELLS = {
   GIFT_OF_THE_OX_HIDDEN: {
     id: 124507,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 8192, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1782,18 +1141,6 @@ const SPELLS = {
   ENVELOPING_MIST: {
     id: 124682,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 32776, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: 48,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Enveloping Mist',
     gcd: {
@@ -1807,9 +1154,6 @@ const SPELLS = {
   EMINENCE: {
     id: 126890,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 262144, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'unless-learned',
@@ -1818,9 +1162,6 @@ const SPELLS = {
   ZEN_PILGRIMAGE: {
     id: 126892,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, -2147483648],
-    effects: [],
     passive: false,
     name: 'Zen Pilgrimage',
     gcd: {
@@ -1838,9 +1179,6 @@ const SPELLS = {
   ZEN_PILGRIMAGEDEATH_GATEMOONGLADE_STORAGE_AURA_I_HIDDEN: {
     id: 126893,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Zen Pilgrimage/Death Gate/Moonglade Storage Aura I',
@@ -1848,9 +1186,6 @@ const SPELLS = {
   ZEN_PILGRIMAGE_RETURN_HIDDEN: {
     id: 126895,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Zen Pilgrimage: Return',
@@ -1865,18 +1200,6 @@ const SPELLS = {
   BLACKOUT_KICK_HIDDEN_1: {
     id: 128531,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [16, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 116645,
-        aura: 107,
-        basePoints: 4,
-        misc0: 17,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Blackout Kick',
@@ -1888,9 +1211,6 @@ const SPELLS = {
   BLACKOUT_KICK_HIDDEN_2: {
     id: 128591,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Blackout Kick',
@@ -1902,9 +1222,6 @@ const SPELLS = {
   MONK_JAB_OVERRIDE_FIST_LOGIN_HIDDEN: {
     id: 128678,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Monk Jab Override Fist Login',
@@ -1912,9 +1229,6 @@ const SPELLS = {
   YOU_ARE_A_LEVEL_90_MONK_HIDDEN: {
     id: 130610,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'You Are A Level 90 Monk',
@@ -1922,9 +1236,6 @@ const SPELLS = {
   CHI_BURST_HIDDEN: {
     id: 130654,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 64, 33562624, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1933,18 +1244,6 @@ const SPELLS = {
   ENVELOPING_MIST_HIDDEN: {
     id: 132120,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 32768, 0],
-    effects: [
-      {
-        sourceSpellId: 137024,
-        aura: 108,
-        basePoints: 48,
-        misc0: 22,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Enveloping Mist',
@@ -1956,9 +1255,6 @@ const SPELLS = {
   CHI_WAVE_HIDDEN_1: {
     id: 132463,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 67108864, 8192, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1967,9 +1263,6 @@ const SPELLS = {
   CHI_WAVE_HIDDEN_2: {
     id: 132467,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [134217728, 0, 0, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1978,9 +1271,6 @@ const SPELLS = {
   STANCE_OF_THE_WISE_SERPENT_HIDDEN: {
     id: 136336,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Stance of the Wise Serpent',
@@ -1988,8 +1278,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137022,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1997,8 +1285,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137024,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -2006,9 +1292,6 @@ const SPELLS = {
   NIMBLE_BREW: {
     id: 137562,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 2097152, 0, 0],
-    effects: [],
     passive: false,
     name: 'Nimble Brew',
     cooldown: {
@@ -2019,15 +1302,12 @@ const SPELLS = {
   MUSCLE_MEMORY_PASSIVE: {
     id: 139598,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Muscle Memory',
   },
   REAWAKEN: {
     id: 1245934,
     type: 'baseline',
-    effects: [],
     passive: false,
     name: 'Reawaken',
     gcd: {
@@ -2041,12 +1321,9 @@ const SPELLS = {
   YOU_ARE_A_LEVEL_85_MONK_HIDDEN: {
     id: 1251700,
     type: 'baseline',
-    label: [22, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'You Are A Level 85 Monk',
   },
-} as const;
+} as const satisfies Record<string, RetailSpell>;
 export default SPELLS;

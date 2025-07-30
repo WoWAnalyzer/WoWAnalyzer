@@ -1,48 +1,15 @@
+import type { RetailSpell } from 'wow-dbc';
 const SPELLS = {
-  UNKNOWN_HOTFIX_PASSIVE_HIDDEN: {
+  UNKNOWN: {
     id: 0,
     grantedBy: 137049,
     type: 'temporary',
-    effects: [],
     passive: false,
     name: 'Unknown',
-  },
-  UNKNOWN_1: {
-    id: 102052,
-    type: 'mists-talent',
-    row: 5,
-    column: 4,
-  },
-  UNKNOWN_2: {
-    id: 102052,
-    type: 'mists-talent',
-    row: 0,
-    column: 4,
-  },
-  UNKNOWN_3: {
-    id: 102052,
-    type: 'mists-talent',
-    row: 1,
-    column: 4,
-  },
-  UNKNOWN_4: {
-    id: 102052,
-    type: 'mists-talent',
-    row: 2,
-    column: 4,
-  },
-  UNKNOWN_5: {
-    id: 102052,
-    type: 'mists-talent',
-    row: 3,
-    column: 4,
   },
   DEFENSIVE_STANCE: {
     id: 71,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [8388608, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Defensive Stance',
     cooldown: {
@@ -53,18 +20,6 @@ const SPELLS = {
   HEROIC_STRIKE: {
     id: 78,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [64, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Heroic Strike',
     cooldown: {
@@ -75,42 +30,6 @@ const SPELLS = {
   CHARGE: {
     id: 100,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [1, 0, 0, 1073741824],
-    effects: [
-      {
-        sourceSpellId: 137049,
-        aura: 332,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 103826,
-        aura: 107,
-        basePoints: -8000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 103827,
-        aura: 411,
-        basePoints: 2,
-        misc0: 1219,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 103827,
-        aura: 107,
-        basePoints: -19000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Charge',
     charges: {
@@ -130,34 +49,6 @@ const SPELLS = {
   TAUNT: {
     id: 355,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [32768, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 76838,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 114030,
-        aura: 108,
-        basePoints: -100,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Taunt',
     cooldown: {
@@ -168,18 +59,6 @@ const SPELLS = {
   COMMANDING_SHOUT: {
     id: 469,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 128, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Commanding Shout',
     gcd: {
@@ -194,9 +73,6 @@ const SPELLS = {
   DISARM: {
     id: 676,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [512, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Disarm',
     gcd: {
@@ -211,18 +87,6 @@ const SPELLS = {
   CLEAVE: {
     id: 845,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [4194304, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Cleave',
     cooldown: {
@@ -233,26 +97,6 @@ const SPELLS = {
   SHIELD_WALL: {
     id: 871,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [8192, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 29725,
-        aura: 0,
-        basePoints: 7,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 76838,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Shield Wall',
     cooldown: {
@@ -263,26 +107,6 @@ const SPELLS = {
   SLAM: {
     id: 1464,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [2097152, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 86346,
-        aura: 271,
-        basePoints: 10,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Slam',
     gcd: {
@@ -293,26 +117,6 @@ const SPELLS = {
   WHIRLWIND: {
     id: 1680,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 4, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 12712,
-        aura: 107,
-        basePoints: -100,
-        misc0: 14,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Whirlwind',
     gcd: {
@@ -323,9 +127,6 @@ const SPELLS = {
   HAMSTRING: {
     id: 1715,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [2, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Hamstring',
     cooldown: {
@@ -336,18 +137,6 @@ const SPELLS = {
   RECKLESSNESS: {
     id: 1719,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [16, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 29725,
-        aura: 0,
-        basePoints: 7,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Recklessness',
     cooldown: {
@@ -358,9 +147,6 @@ const SPELLS = {
   BATTLE_STANCE: {
     id: 2457,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [8388608, 8388608, 0, 0],
-    effects: [],
     passive: false,
     name: 'Battle Stance',
     cooldown: {
@@ -371,9 +157,6 @@ const SPELLS = {
   BERSERKER_STANCE: {
     id: 2458,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [8388608, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Berserker Stance',
     cooldown: {
@@ -384,17 +167,12 @@ const SPELLS = {
   PARRY_PASSIVE: {
     id: 3127,
     type: 'baseline',
-    label: [25, 16],
-    effects: [],
     passive: true,
     name: 'Parry',
   },
   INTERVENE: {
     id: 3411,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 65536, 0, 0],
-    effects: [],
     passive: false,
     name: 'Intervene',
     cooldown: {
@@ -405,18 +183,6 @@ const SPELLS = {
   INTIMIDATING_SHOUT: {
     id: 5246,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [262144, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Intimidating Shout',
     gcd: {
@@ -431,18 +197,6 @@ const SPELLS = {
   EXECUTE: {
     id: 5308,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [536870912, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Execute',
     gcd: {
@@ -453,52 +207,6 @@ const SPELLS = {
   THUNDER_CLAP: {
     id: 6343,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [128, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 115799,
-        aura: 109,
-        basePoints: 100,
-        misc0: 1,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 115798,
-      },
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 12712,
-        aura: 107,
-        basePoints: -100,
-        misc0: 14,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 84615,
-        aura: 109,
-        basePoints: 100,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-        triggeredSpell: 115767,
-      },
-      {
-        sourceSpellId: 84615,
-        aura: 108,
-        basePoints: 50,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Thunder Clap',
     gcd: {
@@ -513,18 +221,6 @@ const SPELLS = {
   HEROIC_LEAP: {
     id: 6544,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 536870912, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Heroic Leap',
     cooldown: {
@@ -535,9 +231,6 @@ const SPELLS = {
   PUMMEL: {
     id: 6552,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [8, 0, 0, 0],
-    effects: [],
     passive: false,
     name: 'Pummel',
     cooldown: {
@@ -548,26 +241,6 @@ const SPELLS = {
   BATTLE_SHOUT: {
     id: 6673,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [65536, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 76838,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Battle Shout',
     gcd: {
@@ -582,26 +255,6 @@ const SPELLS = {
   OVERPOWER: {
     id: 7384,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [4, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137049,
-        aura: 107,
-        basePoints: 20,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Overpower',
     gcd: {
@@ -612,18 +265,6 @@ const SPELLS = {
   SUNDER_ARMOR: {
     id: 7386,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [16384, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 76838,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Sunder Armor',
     gcd: {
@@ -636,9 +277,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 2,
-    label: [25, 16],
-    classMask: [0, 0, 1024, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Bloodbath',
@@ -650,34 +288,6 @@ const SPELLS = {
   MORTAL_STRIKE: {
     id: 12294,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [33554432, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 115768,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137049,
-        aura: 107,
-        basePoints: 40,
-        misc0: 23,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Mortal Strike',
     gcd: {
@@ -694,18 +304,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 2,
-    label: [25, 16],
-    classMask: [0, 32, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Piercing Howl',
@@ -717,18 +315,6 @@ const SPELLS = {
   SWEEPING_STRIKES: {
     id: 12328,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 1048576, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 137049,
-        aura: 107,
-        basePoints: -25,
-        misc0: 3,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Sweeping Strikes',
     cooldown: {
@@ -739,17 +325,12 @@ const SPELLS = {
   SEASONED_SOLDIER_PASSIVE: {
     id: 12712,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Seasoned Soldier',
   },
   SWEEPING_STRIKES_HIDDEN_1: {
     id: 12723,
     type: 'baseline',
-    classMask: [0, 0, 16384, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Sweeping Strikes',
@@ -757,8 +338,6 @@ const SPELLS = {
   SWEEPING_STRIKES_HIDDEN_2: {
     id: 26654,
     type: 'baseline',
-    classMask: [0, 0, 16384, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Sweeping Strikes',
@@ -766,9 +345,6 @@ const SPELLS = {
   ENRAGE_PASSIVE: {
     id: 13046,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Enrage',
   },
@@ -776,9 +352,6 @@ const SPELLS = {
     id: 16491,
     type: 'learned',
     taughtBy: 29838,
-    label: [25, 16],
-    classMask: [0, 134217728, 8, 0],
-    effects: [],
     castableWhileCasting: true,
     passive: true,
     hidden: 'always',
@@ -787,26 +360,6 @@ const SPELLS = {
   BERSERKER_RAGE: {
     id: 18499,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [268435456, 67108864, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 76838,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Berserker Rage',
     cooldown: {
@@ -817,9 +370,6 @@ const SPELLS = {
   SPELL_REFLECTION: {
     id: 23920,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 2, 0, 0],
-    effects: [],
     passive: false,
     name: 'Spell Reflection',
     cooldown: {
@@ -830,9 +380,6 @@ const SPELLS = {
   SUDDEN_DEATH_PASSIVE: {
     id: 29725,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Sudden Death',
   },
@@ -841,9 +388,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 2,
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Second Wind',
@@ -851,18 +395,6 @@ const SPELLS = {
   VICTORY_RUSH_1: {
     id: 34428,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 256, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Victory Rush',
     gcd: {
@@ -873,9 +405,6 @@ const SPELLS = {
   VICTORY_RUSH_2: {
     id: 118779,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 131072, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Victory Rush',
@@ -891,26 +420,6 @@ const SPELLS = {
   WHIRLWIND_OFF_HAND_HIDDEN: {
     id: 44949,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 4, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 12712,
-        aura: 107,
-        basePoints: -100,
-        misc0: 14,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -921,18 +430,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 1,
-    label: [25, 16],
-    classMask: [0, 16384, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Bladestorm',
@@ -950,18 +447,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 2,
-    label: [25, 16],
-    classMask: [0, 32768, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Shockwave',
@@ -977,18 +462,6 @@ const SPELLS = {
   BLADESTORM_HIDDEN: {
     id: 50622,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 16384, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -997,18 +470,6 @@ const SPELLS = {
   HEROIC_LEAP_HIDDEN: {
     id: 52174,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 536870912, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Heroic Leap',
@@ -1018,18 +479,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 1,
-    label: [25, 16],
-    classMask: [0, 134348800, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Enraged Regeneration',
@@ -1041,27 +490,12 @@ const SPELLS = {
   TASTE_FOR_BLOOD_PASSIVE: {
     id: 56636,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Taste for Blood',
   },
   HEROIC_THROW: {
     id: 57755,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 1, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Heroic Throw',
     gcd: {
@@ -1077,26 +511,6 @@ const SPELLS = {
     id: 1249459,
     grantedBy: 137047,
     type: 'temporary',
-    label: [25, 16],
-    classMask: [0, 4194304, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137047,
-        aura: 332,
-        basePoints: 1249459,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Shattering Throw',
     gcd: {
@@ -1111,26 +525,6 @@ const SPELLS = {
   SHATTERING_THROW: {
     id: 64382,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 4194304, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137047,
-        aura: 332,
-        basePoints: 1249459,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     passive: false,
     name: 'Shattering Throw',
     gcd: {
@@ -1148,18 +542,12 @@ const SPELLS = {
   MASTERY_STRIKES_OF_OPPORTUNITY_PASSIVE: {
     id: 76838,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Mastery: Strikes of Opportunity',
   },
   OPPORTUNITY_STRIKE_HIDDEN: {
     id: 76858,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 262144, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Opportunity Strike',
@@ -1167,35 +555,12 @@ const SPELLS = {
   BLOOD_AND_THUNDER_PASSIVE: {
     id: 84615,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Blood and Thunder',
   },
   RAGING_BLOW_OFF_HAND_HIDDEN: {
     id: 85384,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 67117056, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137047,
-        aura: 108,
-        basePoints: 20,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1204,25 +569,12 @@ const SPELLS = {
   PLATE_SPECIALIZATION_PASSIVE: {
     id: 86101,
     type: 'baseline',
-    effects: [],
     passive: true,
     name: 'Plate Specialization',
   },
   COLOSSUS_SMASH: {
     id: 86346,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 1073741824, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Colossus Smash',
     gcd: {
@@ -1237,9 +589,6 @@ const SPELLS = {
   ATTACK_HIDDEN: {
     id: 88163,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Attack',
@@ -1247,18 +596,6 @@ const SPELLS = {
   BLADESTORM_OFF_HAND_HIDDEN: {
     id: 95738,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 16384, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1267,26 +604,6 @@ const SPELLS = {
   RAGING_BLOW_HIDDEN: {
     id: 96103,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 67117056, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 137047,
-        aura: 108,
-        basePoints: 20,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: [],
-      },
-    ],
     castableWhileCasting: true,
     passive: false,
     hidden: 'always',
@@ -1295,18 +612,6 @@ const SPELLS = {
   RALLYING_CRY: {
     id: 97462,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 16, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Rallying Cry',
     cooldown: {
@@ -1319,7 +624,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 4,
-    effects: [],
     passive: false,
     name: 'Dummy 5.0 Talent',
   },
@@ -1328,18 +632,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 3,
-    label: [25, 16],
-    classMask: [0, 0, 64, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Disrupting Shout',
@@ -1353,9 +645,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 1,
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Juggernaut',
@@ -1365,9 +654,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 2,
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Double Time',
@@ -1377,9 +663,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 0,
     column: 3,
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Warbringer',
@@ -1390,18 +673,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 1,
     column: 3,
-    label: [25, 16],
-    classMask: [0, 256, 256, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Impending Victory',
@@ -1419,18 +690,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 2,
     column: 1,
-    label: [25, 16],
-    classMask: [0, 0, 2048, 0],
-    effects: [
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Staggering Shout',
@@ -1444,18 +703,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 3,
-    label: [25, 16],
-    classMask: [0, 0, 4096, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'unless-learned',
     name: 'Storm Bolt',
@@ -1473,9 +720,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 5,
     column: 1,
-    label: [25, 16],
-    classMask: [1048576, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Avatar',
@@ -1487,18 +731,12 @@ const SPELLS = {
   SYMBIOSIS: {
     id: 110506,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 128, 0],
-    effects: [],
     passive: false,
     name: 'Symbiosis',
   },
   BLOODBATH_HIDDEN: {
     id: 113344,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 1024, 0],
-    effects: [],
     passive: false,
     hidden: 'always',
     name: 'Bloodbath',
@@ -1512,9 +750,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 1,
-    label: [25, 16],
-    classMask: [0, 0, 32768, 0],
-    effects: [],
     passive: false,
     name: 'Mass Spell Reflection',
     cooldown: {
@@ -1528,9 +763,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 2,
-    label: [25, 16],
-    classMask: [0, 65536, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Safeguard',
@@ -1544,9 +776,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 4,
     column: 3,
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Vigilance',
@@ -1558,9 +787,6 @@ const SPELLS = {
   MOCKING_BANNER: {
     id: 114192,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 16],
-    effects: [],
     passive: false,
     name: 'Mocking Banner',
     cooldown: {
@@ -1571,9 +797,6 @@ const SPELLS = {
   DEMORALIZING_BANNER: {
     id: 114203,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 8],
-    effects: [],
     passive: false,
     name: 'Demoralizing Banner',
     cooldown: {
@@ -1584,9 +807,6 @@ const SPELLS = {
   SKULL_BANNER: {
     id: 114207,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 4],
-    effects: [],
     passive: false,
     name: 'Skull Banner',
     cooldown: {
@@ -1597,18 +817,6 @@ const SPELLS = {
   DEEP_WOUNDS_HIDDEN: {
     id: 115767,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [32, 16, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 76838,
-        aura: 4,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     hidden: 'always',
     name: 'Deep Wounds',
@@ -1616,18 +824,12 @@ const SPELLS = {
   DEEP_WOUNDS_PASSIVE: {
     id: 115768,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     name: 'Deep Wounds',
   },
   THUNDER_CLAP_HIDDEN: {
     id: 115799,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Thunder Clap',
@@ -1635,9 +837,6 @@ const SPELLS = {
   BLOODTHIRST_HEAL: {
     id: 117313,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 65536, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Bloodthirst Heal',
@@ -1647,26 +846,6 @@ const SPELLS = {
     type: 'mists-talent',
     row: 3,
     column: 3,
-    label: [25, 16],
-    classMask: [0, 0, 8192, 0],
-    effects: [
-      {
-        sourceSpellId: 1719,
-        aura: 107,
-        basePoints: 30,
-        misc0: 7,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 46924,
-        aura: 263,
-        basePoints: 0,
-        misc0: 0,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Dragon Roar',
     gcd: {
@@ -1681,9 +860,6 @@ const SPELLS = {
   DIE_BY_THE_SWORD: {
     id: 118038,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 2],
-    effects: [],
     passive: false,
     name: 'Die by the Sword',
     cooldown: {
@@ -1694,9 +870,6 @@ const SPELLS = {
   IMPENDING_VICTORY: {
     id: 118340,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 131072, 0],
-    effects: [],
     passive: false,
     hidden: 'unless-learned',
     name: 'Impending Victory',
@@ -1712,8 +885,6 @@ const SPELLS = {
   OVERPOWER_DRIVER_DND_HIDDEN: {
     id: 119938,
     type: 'baseline',
-    label: [25, 16],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Overpower Driver (DND)',
@@ -1721,26 +892,6 @@ const SPELLS = {
   THROW: {
     id: 122475,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [1, 0, 0, 0],
-    effects: [
-      {
-        sourceSpellId: 103826,
-        aura: 107,
-        basePoints: -8000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-      {
-        sourceSpellId: 103827,
-        aura: 107,
-        basePoints: -19000,
-        misc0: 11,
-        misc1: 0,
-        pointModifiers: {},
-      },
-    ],
     passive: false,
     name: 'Throw',
     castTime: {
@@ -1750,8 +901,6 @@ const SPELLS = {
   BLOCK_HIDDEN: {
     id: 123829,
     type: 'baseline',
-    label: [25, 16],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Block',
@@ -1759,9 +908,6 @@ const SPELLS = {
   PUMMEL_SHIELD_VISUAL_OVERRIDE_DND_HIDDEN: {
     id: 128217,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Pummel (shield visual override) (DND)',
@@ -1769,8 +915,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137047,
     type: 'baseline',
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1778,9 +922,6 @@ const SPELLS = {
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137049,
     type: 'baseline',
-    label: [36],
-    classMask: [0, 0, 0, 0],
-    effects: [],
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
@@ -1788,12 +929,9 @@ const SPELLS = {
   UNBRIDLED_WRATH_PASSIVE: {
     id: 143268,
     type: 'baseline',
-    label: [25, 16],
-    classMask: [0, 0, 8388608, 0],
-    effects: [],
     passive: true,
     hidden: 'unless-learned',
     name: 'Unbridled Wrath',
   },
-} as const;
+} as const satisfies Record<string, RetailSpell>;
 export default SPELLS;
