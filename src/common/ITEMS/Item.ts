@@ -16,6 +16,10 @@ export interface Trinket extends Item {
   buffs: Buffs;
 }
 
+export interface Food extends Item {
+  buffId: number;
+}
+
 export interface CraftedItem extends Item {
   craftQuality: 1 | 2 | 3 | 4 | 5;
 }

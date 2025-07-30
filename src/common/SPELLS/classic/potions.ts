@@ -1,76 +1,39 @@
 import Spell from '../Spell';
 
 const spells = {
-  // id = buff/spell id
-  EARTHEN_POTION: {
-    id: 79475,
-    name: 'Earthen Potion',
-    icon: 'inv_alchemy_elixir_empty',
+  // 4000 int
+  POTION_OF_THE_JADE_SERPENT: {
+    id: 105702,
+    name: 'Potion of the Jade Serpent',
+    icon: 'trade_alchemy_potiond4.jpg',
   },
-  GOLEMBLOOD_POTION: {
-    id: 79634,
-    name: 'Golemblood Potion',
-    icon: 'inv_potiond_1',
+  // 4000 agi
+  VIRMENS_BITE: {
+    id: 105697,
+    name: "Virmen's Bite",
+    icon: 'trade_alchemy_potiond6.jpg',
   },
-  MIGHTY_REJUVENATION_POTION: {
-    id: 78992,
-    name: 'Mighty Rejuvenation Potion',
-    icon: 'inv_misc_potionsetd',
+  // 4000 str
+  POTION_OF_MOGU_POWER: {
+    id: 105706,
+    name: 'Potion of Mogu Power',
+    icon: 'trade_alchemy_potiond5.jpg',
   },
-  MOLOTOV_COCKTAIL: {
-    id: 2379,
-    name: 'Molotov Cocktail',
-    icon: 'inv_potion_95',
+  // sleepy mana pot
+  POTION_OF_FOCUS: {
+    id: 105701,
+    name: 'Potion of Focus',
+    icon: 'trade_alchemy_potion_d2.jpg',
   },
-  MYSTERIOUS_POTION: {
-    id: 78778,
-    name: 'Mysterious Potion',
-    icon: 'inv_potiond_6',
+  MASTER_HEALING_POTION: {
+    id: 105708,
+    name: 'Master Healing Potion',
+    icon: 'trade_alchemy_potiona2.jpg',
   },
-  MYTHICAL_HEALING_POTION: {
-    id: 78989,
-    name: 'Mythical Healing Potion',
-    icon: 'inv_misc_potionsetf',
-  },
-  MYTHICAL_MANA_POTION: {
-    id: 78990,
-    name: 'Mythical Mana Potion',
-    icon: 'inv_misc_potionsetc',
-  },
-  POTION_OF_CONCENTRATION: {
-    id: 78993,
-    name: 'Potion of Concentration',
-    icon: 'inv_potionc_3',
-  },
-  POTION_OF_OGRE_RAGE: {
-    id: 75488,
-    name: 'Potion of Ogre Rage',
-    icon: 'inv_alchemy_elixir_01',
-  },
-  POTION_OF_PURE_GENIUS: {
-    id: 75487,
-    name: 'Potion of Pure Genius',
-    icon: 'inv_alchemy_elixir_06',
-  },
-  POTION_OF_SPEED: {
-    id: 53908,
-    name: 'Potion of Speed',
-    icon: 'inv_alchemy_elixir_04',
-  },
-  POTION_OF_THE_COBRA: {
-    id: 75489,
-    name: 'Potion of the Cobra',
-    icon: 'inv_alchemy_elixir_03',
-  },
-  POTION_OF_THE_TOLVIR: {
-    id: 79633,
-    name: "Potion of the Tol'vir",
-    icon: 'inv_potiond_4',
-  },
-  VOLCANIC_POTION: {
-    id: 79476,
-    name: 'Volcanic Potion',
-    icon: 'inv_potiond_3',
+  MASTER_MANA_POTION: {
+    id: 105709,
+    name: 'Master Mana Potion',
+    icon: 'trade_alchemy_potiona5.jpg',
   },
 } satisfies Record<string, Spell>;
 

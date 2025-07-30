@@ -213,7 +213,6 @@
   "src/interface/report/Results/TimeInput.tsx:39:5__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",
   "src/interface/report/Results/TimeInput.tsx:40:5__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",
   "src/interface/report/Results/TimeInput.tsx:41:5__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",
-  "src/interface/report/Results/Timeline/Component.jsx:53:3__@eslint-react/no-default-props",
   "src/interface/report/Results/Timeline/Lane.tsx:181:68__@typescript-eslint/no-explicit-any",
   "src/interface/report/Results/index.tsx:73:7__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",
   "src/interface/report/Results/index.tsx:76:5__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",

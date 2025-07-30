@@ -6,29 +6,23 @@ import { RequirementThresholds } from 'parser/shared/modules/features/Checklist/
 import BaseFlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 
 const MAX_FLASK_IDS = [
-  79469, // https://www.wowhead.com/cata/spell=79469/flask-of-steelskin
-  79470, // https://www.wowhead.com/cata/spell=79470/flask-of-the-draconic-mind
-  79471, // https://www.wowhead.com/cata/spell=79471/flask-of-the-winds
-  79472, // https://www.wowhead.com/cata/spell=79472/flask-of-titanic-strength
-  92679, // https://www.wowhead.com/cata/spell=92679/flask-of-battle
-  94160, // https://www.wowhead.com/cata/spell=94160/flask-of-flowing-water
+  // stolen from wipefest. i haven't validated
+  92679, // Flask of Battle
+  105617, // Alchemist's Flask
+  105689, // Flask of Spring Blossoms
+  105691, // Flask of the Warm Sun
+  105693, // Flask of Falling Leaves
+  105694, // Flask of the Earth
+  105696, // Flask of Winter's Bite
 ];
 
-const MIN_FLASK_IDS = [
-  54212, // https://www.wowhead.com/cata/spell=54212/flask-of-pure-mojo
-  53758, // https://www.wowhead.com/cata/spell=53758/flask-of-stoneblood
-  53755, // https://www.wowhead.com/cata/spell=53755/flask-of-the-frost-wyrm
-  53760, // https://www.wowhead.com/cata/spell=53760/flask-of-endless-rage
-  79637, // https://www.wowhead.com/cata/spell=79637/flask-of-enhancement
+const MIN_FLASK_IDS: number[] = [
+  // TODO
 ];
 
-const GUARDIAN_ELIXIR_IDS = [
-  60347, // https://www.wowhead.com/cata/spell=60347/mighty-thoughts
-];
+const GUARDIAN_ELIXIR_IDS: number[] = [];
 
-const BATTLE_ELIXIR_IDS = [
-  79632, // https://www.wowhead.com/cata/spell=79632/mighty-speed
-];
+const BATTLE_ELIXIR_IDS: number[] = [];
 
 class FlaskChecker extends BaseFlaskChecker {
   //flaskBuffId: number | null = null;
