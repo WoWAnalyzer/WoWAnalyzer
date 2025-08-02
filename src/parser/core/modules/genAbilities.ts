@@ -20,29 +20,39 @@ export interface GenAbilityConfig {
 }
 
 export default function genAbilities(config: GenAbilityConfig): typeof Abilities {
-  const spells = config.rotational
-    .map((spell) => spellbookDefinition(spell, SPELL_CATEGORY.ROTATIONAL))
-    .concat(config.cooldowns.map((spell) => spellbookDefinition(spell, SPELL_CATEGORY.COOLDOWNS)))
-    .concat(config.defensives.map((spell) => spellbookDefinition(spell, SPELL_CATEGORY.DEFENSIVE)));
-
-  const configuredSpells = new Set(
-    spells.map((spell) => spell.spell).concat(Object.keys(config.overrides ?? {}).map(Number)),
-  );
-
-  const omitted = new Set(config.omit?.map((spell) => spell.id));
-
-  const others = config.allSpells
-    .filter(
-      (spell) =>
-        !configuredSpells.has(spell.id) &&
-        !spell.hidden &&
-        !spell.passive &&
-        !omitted.has(spell.id),
-    )
-    .map((spell) => spellbookDefinition(spell, SPELL_CATEGORY.OTHERS));
-
   return class extends Abilities {
     spellbook() {
+      const spells = config.rotational
+        .map((spell) =>
+          spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.ROTATIONAL),
+        )
+        .concat(
+          config.cooldowns.map((spell) =>
+            spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.COOLDOWNS),
+          ),
+        )
+        .concat(
+          config.defensives.map((spell) =>
+            spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.DEFENSIVE),
+          ),
+        );
+
+      const configuredSpells = new Set(
+        spells.map((spell) => spell.spell).concat(Object.keys(config.overrides ?? {}).map(Number)),
+      );
+
+      const omitted = new Set(config.omit?.map((spell) => spell.id));
+
+      const others = config.allSpells
+        .filter(
+          (spell) =>
+            !configuredSpells.has(spell.id) &&
+            !spell.hidden &&
+            !spell.passive &&
+            !omitted.has(spell.id),
+        )
+        .map((spell) => spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.OTHERS));
+
       return [
         ...spells.filter((spell) => !config.overrides?.[spell.spell as number]),
         ...others.filter((spell) => !config.overrides?.[spell.spell as number]),
@@ -58,7 +68,11 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
   };
 }
 
-function spellbookDefinition(spell: RetailSpell, category: SPELL_CATEGORY): SpellbookAbility {
+function spellbookDefinition(
+  combatant: Combatant,
+  spell: RetailSpell,
+  category: SPELL_CATEGORY,
+): SpellbookAbility {
   return {
     spell: spell.id,
     name: spell.name,
@@ -67,6 +81,7 @@ function spellbookDefinition(spell: RetailSpell, category: SPELL_CATEGORY): Spel
     cooldown: spellCooldown(spell),
     charges: spellCharges(spell),
     castEfficiency: {},
+    enabled: spell.type === 'mists-talent' ? combatant.hasClassicTalent(spell.id) : true,
   };
 }
 
