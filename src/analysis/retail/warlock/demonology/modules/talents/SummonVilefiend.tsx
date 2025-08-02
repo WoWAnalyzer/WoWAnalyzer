@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -21,9 +21,9 @@ class SummonVilefiend extends Analyzer {
 
   demoPets!: DemoPets;
 
-  private vilefiendCasts = 0;
-  private charhoundCasts = 0;
-  private gloomhoundCasts = 0;
+  private vilefiendSummons = 0;
+  private charhoundSummons = 0;
+  private gloomhoundSummons = 0;
 
   // Shared abilities (used by multiple pet types)
   private totalBileSpitDamage = 0;
@@ -40,18 +40,18 @@ class SummonVilefiend extends Analyzer {
       return;
     }
 
-    // Track summon casts
+    // Track summon events instead of cast events
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SUMMON_VILEFIEND_TALENT),
-      this.onVilefiendCast,
+      Events.summon.by(SELECTED_PLAYER).spell(TALENTS.SUMMON_VILEFIEND_TALENT),
+      this.onVilefiendSummon,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHARHOUND_SUMMON),
-      this.onCharhoundCast,
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.CHARHOUND_SUMMON),
+      this.onCharhoundSummon,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GLOOMHOUND_SUMMON),
-      this.onGloomhoundCast,
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.GLOOMHOUND_SUMMON),
+      this.onGloomhoundSummon,
     );
 
     // Track pet ability damage
@@ -68,16 +68,16 @@ class SummonVilefiend extends Analyzer {
     );
   }
 
-  private onVilefiendCast(event: CastEvent) {
-    this.vilefiendCasts++;
+  private onVilefiendSummon(event: SummonEvent) {
+    this.vilefiendSummons++;
   }
 
-  private onCharhoundCast(event: CastEvent) {
-    this.charhoundCasts++;
+  private onCharhoundSummon(event: SummonEvent) {
+    this.charhoundSummons++;
   }
 
-  private onGloomhoundCast(event: CastEvent) {
-    this.gloomhoundCasts++;
+  private onGloomhoundSummon(event: SummonEvent) {
+    this.gloomhoundSummons++;
   }
 
   private onPetAbilityDamage(event: DamageEvent) {
@@ -125,10 +125,10 @@ class SummonVilefiend extends Analyzer {
     return TALENTS.SUMMON_VILEFIEND_TALENT;
   }
 
-  getCurrentCastCount() {
-    if (this.isCharhound) return this.charhoundCasts;
-    if (this.isGloomhound) return this.gloomhoundCasts;
-    return this.vilefiendCasts;
+  getCurrentSummonCount() {
+    if (this.isCharhound) return this.charhoundSummons;
+    if (this.isGloomhound) return this.gloomhoundSummons;
+    return this.vilefiendSummons;
   }
 
   getCurrentCooldown() {
@@ -137,10 +137,14 @@ class SummonVilefiend extends Analyzer {
   }
 
   get suggestionThresholds() {
-    const totalCasts = this.getCurrentCastCount();
+    return this.createEfficiencyThreshold();
+  }
+
+  private createEfficiencyThreshold() {
+    const totalSummons = this.getCurrentSummonCount();
     const cooldownMs = this.getCurrentCooldown();
-    const expectedCasts = Math.floor(this.owner.fightDuration / cooldownMs);
-    const efficiency = expectedCasts > 0 ? totalCasts / expectedCasts : 1;
+    const expectedSummons = Math.floor(this.owner.fightDuration / cooldownMs);
+    const efficiency = expectedSummons > 0 ? totalSummons / expectedSummons : 1;
 
     return {
       actual: efficiency,
@@ -178,7 +182,7 @@ class SummonVilefiend extends Analyzer {
 
   statistic() {
     const damage = this.demoPets.getPetDamage(this.getCurrentPetGUID());
-    const castCount = this.getCurrentCastCount();
+    const summonCount = this.getCurrentSummonCount();
     const spellUsed = this.getCurrentSpellUsed();
 
     const abilityBreakdown: JSX.Element[] = [];
@@ -221,7 +225,7 @@ class SummonVilefiend extends Analyzer {
           <>
             {formatThousands(damage)} total damage
             <br />
-            {castCount} summons cast
+            {summonCount} summons cast
             {abilityBreakdown.length > 0 && (
               <>
                 <br />
@@ -241,7 +245,7 @@ class SummonVilefiend extends Analyzer {
           <div>
             <ItemDamageDone amount={damage} />
           </div>
-          {castCount} <small>summons</small>
+          {summonCount} <small>summons</small>
         </BoringSpellValueText>
       </Statistic>
     );

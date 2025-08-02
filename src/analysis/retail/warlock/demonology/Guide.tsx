@@ -8,12 +8,17 @@ import DefensivesGuide from '../shared/Defensives';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <CoreSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
       <DefensivesGuide modules={modules} events={events} info={info} />
       <ResourceUsage modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
+}
+
+function CoreSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  return <Section title="Core">{modules.alwaysBeCasting.guideSubsection}</Section>;
 }
 
 function CooldownSection({ modules }: GuideProps<typeof CombatLogParser>) {

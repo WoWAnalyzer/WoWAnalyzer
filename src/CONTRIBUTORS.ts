@@ -2731,6 +2731,7 @@ export const Leftyxiv: Contributor = {
   nickname: 'Manny',
   github: 'Leftyxiv',
   discord: 'onearmmanny',
+  avatar: avatar('leftyxiv-avatar.png'),
   mains: [
     {
       name: 'Magicmushies',

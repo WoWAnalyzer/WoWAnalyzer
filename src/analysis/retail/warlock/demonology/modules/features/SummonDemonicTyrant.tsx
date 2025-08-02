@@ -25,6 +25,8 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import PETS from '../pets/PETS';
+import { PetInfo } from 'parser/core/Pet';
 
 const debug = false;
 
@@ -55,6 +57,7 @@ class SummonDemonicTyrant extends Analyzer {
   private hasReignOfTyranny = false;
   private hasGFG = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private summsWithDemonicPower: Record<string, any>[] = [{}];
   private tyrantsCast = 0;
   private tyrantCasts: TyrantCast[] = [];
@@ -108,8 +111,9 @@ class SummonDemonicTyrant extends Analyzer {
     }
 
     // TODO low prio: fix main pet getting two applications of this buff in the same tyrant
-    this.summsWithDemonicPower[this.tyrantsCast][petInfo.name] =
-      this.summsWithDemonicPower[this.tyrantsCast][petInfo.name] + 1 || 1;
+    const petDisplayName = this.getPetDisplayName(petInfo);
+    this.summsWithDemonicPower[this.tyrantsCast][petDisplayName] =
+      this.summsWithDemonicPower[this.tyrantsCast][petDisplayName] + 1 || 1;
   }
 
   private onCast(event: CastEvent) {
@@ -124,6 +128,20 @@ class SummonDemonicTyrant extends Analyzer {
     event: BeginCastEvent | BeginChannelEvent | EndChannelEvent | GlobalCooldownEvent,
   ) {
     this.castTimeline.push(event);
+  }
+
+  private getPetDisplayName(petInfo: PetInfo): string {
+    // Differentiate between Vilefiend variants based on GUID
+    switch (petInfo.guid) {
+      case PETS.CHARHOUND.guid:
+        return 'Charhound';
+      case PETS.GLOOMHOUND.guid:
+        return 'Gloomhound';
+      case PETS.VILEFIEND.guid:
+        return 'Vilefiend';
+      default:
+        return petInfo.name;
+    }
   }
 
   private get numTyrCasts(): number {
@@ -302,6 +320,47 @@ class SummonDemonicTyrant extends Analyzer {
     };
   }
 
+  private getHoundsChecklistItem(tyrantCastNum: number) {
+    const castEvent = this.tyrantCasts[tyrantCastNum];
+    const charhounds = this.summsWithDemonicPower[tyrantCastNum]['Charhound'] || 0;
+    const gloomhounds = this.summsWithDemonicPower[tyrantCastNum]['Gloomhound'] || 0;
+    const vilefiends = this.summsWithDemonicPower[tyrantCastNum]['Vilefiend'] || 0;
+    const totalHounds = charhounds + gloomhounds + vilefiends;
+
+    const houndsPerformance =
+      totalHounds > 0 ? QualitativePerformance.Perfect : QualitativePerformance.Ok; // Not extending hounds is ok, but not optimal
+
+    const houndsSummary = (
+      <>
+        {totalHounds}/1 <SpellLink spell={TALENTS.SUMMON_VILEFIEND_TALENT} />
+      </>
+    );
+
+    const houndsDetails = (
+      <div>
+        {totalHounds}/1 <SpellLink spell={TALENTS.SUMMON_VILEFIEND_TALENT} /> - extending hounds
+        provides additional damage but is not always required
+        {totalHounds > 0 && (
+          <div style={{ fontSize: '0.9em', color: '#888', marginTop: '4px' }}>
+            {charhounds > 0 && `${charhounds} Charhound${charhounds > 1 ? 's' : ''}`}
+            {gloomhounds > 0 &&
+              `${charhounds > 0 ? ', ' : ''}${gloomhounds} Gloomhound${gloomhounds > 1 ? 's' : ''}`}
+            {vilefiends > 0 &&
+              `${charhounds > 0 || gloomhounds > 0 ? ', ' : ''}${vilefiends} Vilefiend${vilefiends > 1 ? 's' : ''}`}
+          </div>
+        )}
+      </div>
+    );
+
+    return {
+      check: 'hounds',
+      timestamp: castEvent.event.timestamp,
+      performance: houndsPerformance,
+      summary: houndsSummary,
+      details: houndsDetails,
+    };
+  }
+
   private getGFGChecklistItem(tyrantCastNum: number) {
     const castEvent = this.tyrantCasts[tyrantCastNum];
 
@@ -353,6 +412,9 @@ class SummonDemonicTyrant extends Analyzer {
 
     const imps = this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
     checklistItems.push(this.getImpsChecklistItem(tyrantCastNum));
+
+    // Add hounds checklist item
+    checklistItems.push(this.getHoundsChecklistItem(tyrantCastNum));
 
     let goodGFG = true;
     if (this.hasGFG) {

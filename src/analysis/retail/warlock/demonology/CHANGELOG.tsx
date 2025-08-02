@@ -5,6 +5,7 @@ import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putr
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 7, 27), <>Fixed <SpellLink spell={TALENTS_WARLOCK.SUMMON_DEMONIC_TYRANT_TALENT}/> to track hounds (Charhound/Gloomhound), added TWW Season 2 tier set statistics and Always Be Casting section</>, Leftyxiv),
   change(date(2025, 6, 17), <>Fixed <SpellLink spell={TALENTS_WARLOCK.SOUL_STRIKE_TALENT}/> to properly display wasted soul shards when overcapped</>, Leftyxiv),
   change(date(2025, 6, 5), <>Add statistics for <SpellLink spell={TALENTS_WARLOCK.THE_HOUNDMASTERS_GAMBIT_TALENT}/> dreadstalker damage while vilefiend is active and <SpellLink spell={TALENTS_WARLOCK.WICKED_MAW_TALENT}/>/<SpellLink spell={TALENTS_WARLOCK.SHADOWTOUCHED_TALENT}/> damage increase</>, Leftyxiv),
   change(date(2025, 5, 24), <>Enhanced <SpellLink spell={SPELLS.CHARHOUND_SUMMON} /> and <SpellLink spell={SPELLS.GLOOMHOUND_SUMMON} /> tracking with cast efficiency, damage breakdown, and pet ability monitoring</>, Leftyxiv),
