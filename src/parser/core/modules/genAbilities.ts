@@ -3,12 +3,18 @@ import type { SpellbookAbility } from './Ability';
 import type Combatant from '../Combatant';
 import Abilities from './Abilities';
 import SPELL_CATEGORY from '../SPELL_CATEGORY';
+import { Options } from '../Analyzer';
+import { registerSpell as registerClassicSpell } from 'common/SPELLS/classic';
+import { registerSpell as registerRetailSpell } from 'common/SPELLS';
+import GameBranch from 'game/GameBranch';
+
+export type GenSpell = RetailSpell & { icon: string };
 
 export interface GenAbilityConfig {
-  allSpells: RetailSpell[];
-  rotational: RetailSpell[];
-  cooldowns: RetailSpell[];
-  defensives: RetailSpell[];
+  allSpells: GenSpell[];
+  rotational: GenSpell[];
+  cooldowns: GenSpell[];
+  defensives: GenSpell[];
   overrides?: Record<
     number,
     (combatant: Combatant, generated?: SpellbookAbility) => SpellbookAbility
@@ -16,11 +22,22 @@ export interface GenAbilityConfig {
   /**
    * Spells to be omitted from abilities. Typically, these are added externally (such as by ExecuteHelper).
    */
-  omit?: RetailSpell[];
+  omit?: GenSpell[];
 }
 
 export default function genAbilities(config: GenAbilityConfig): typeof Abilities {
   return class extends Abilities {
+    constructor(options: Options) {
+      super(options);
+
+      const branch = this.owner.config.branch;
+
+      const register = branch === GameBranch.Retail ? registerRetailSpell : registerClassicSpell;
+
+      for (const spell of config.allSpells) {
+        register(spell.id, spell.name, spell.icon);
+      }
+    }
     spellbook() {
       const spells = config.rotational
         .map((spell) =>
@@ -70,7 +87,7 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
 
 function spellbookDefinition(
   combatant: Combatant,
-  spell: RetailSpell,
+  spell: GenSpell,
   category: SPELL_CATEGORY,
 ): SpellbookAbility {
   return {
@@ -85,7 +102,7 @@ function spellbookDefinition(
   };
 }
 
-function spellGcd(spell: RetailSpell): SpellbookAbility['gcd'] {
+function spellGcd(spell: GenSpell): SpellbookAbility['gcd'] {
   if (!spell.gcd) {
     return null;
   }
@@ -102,7 +119,7 @@ function spellGcd(spell: RetailSpell): SpellbookAbility['gcd'] {
   };
 }
 
-function spellCooldown(spell: RetailSpell): SpellbookAbility['cooldown'] {
+function spellCooldown(spell: GenSpell): SpellbookAbility['cooldown'] {
   if (!spell.cooldown) {
     return undefined;
   }
@@ -116,7 +133,7 @@ function spellCooldown(spell: RetailSpell): SpellbookAbility['cooldown'] {
   return duration;
 }
 
-function spellCharges(spell: RetailSpell): SpellbookAbility['charges'] {
+function spellCharges(spell: GenSpell): SpellbookAbility['charges'] {
   if (!spell.charges) {
     return undefined;
   }

@@ -328,7 +328,7 @@ importers:
         version: 3.0.9(@types/node@20.12.7)(@vitest/ui@3.0.9)(jiti@2.4.2)(jsdom@22.1.0)(sass@1.74.1)(tsx@4.19.3)
       wow-dbc:
         specifier: git://git.emallson.net/wow-dbc.git#main
-        version: git+git://git.emallson.net/wow-dbc.git#735881fb7558b6fce95e4d429882930ec07cfc0b
+        version: git+git://git.emallson.net/wow-dbc.git#5849b563bad443dc56c3056cc6fd4af94d9ae55f
 
   packages/eslint-plugin-wowanalyzer:
     dependencies:
@@ -5001,8 +5001,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  wow-dbc@git+git://git.emallson.net/wow-dbc.git#735881fb7558b6fce95e4d429882930ec07cfc0b:
-    resolution: {commit: 735881fb7558b6fce95e4d429882930ec07cfc0b, repo: git://git.emallson.net/wow-dbc.git, type: git}
+  wow-dbc@git+git://git.emallson.net/wow-dbc.git#5849b563bad443dc56c3056cc6fd4af94d9ae55f:
+    resolution: {commit: 5849b563bad443dc56c3056cc6fd4af94d9ae55f, repo: git://git.emallson.net/wow-dbc.git, type: git}
     version: 0.1.0
 
   wrap-ansi@7.0.0:
@@ -10243,7 +10243,7 @@ snapshots:
       siginfo: 2.0.0
       stackback: 0.0.2
 
-  wow-dbc@git+git://git.emallson.net/wow-dbc.git#735881fb7558b6fce95e4d429882930ec07cfc0b:
+  wow-dbc@git+git://git.emallson.net/wow-dbc.git#5849b563bad443dc56c3056cc6fd4af94d9ae55f:
     dependencies:
       udsv: 0.6.0
 

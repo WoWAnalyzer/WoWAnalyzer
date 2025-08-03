@@ -2,12 +2,15 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as gamedata from 'wow-dbc';
 import type { Dbc } from 'wow-dbc/dist/src/dbc';
+import { cleanIconName, downloadFileList, type FileList } from 'wow-dbc/dist/util/icon-name.js';
 import * as prettier from 'prettier';
 import prettierConfig from '../../.prettierrc.json' with { type: 'json' };
 
 const GAME_VERSIONS = {
   classic: '5.5.0.62232',
 };
+
+const FILE_LISTS: Record<string, FileList> = {};
 
 // i don't like doing this with regex but it *is* simpler
 const IMPORT_REGEX =
@@ -51,7 +54,11 @@ for (const fileName of process.argv.slice(2)) {
     }
 
     const rawData = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
-    const data = rawData.filter((spell) => spell.name).map(stripSpellInternals);
+    const fileList = await getFileList(gameVersion);
+    const data = rawData
+      .filter((spell) => spell.name)
+      .map(stripSpellInternals)
+      .map((spell) => addIconName(fileList, spell));
 
     const targetPath = path.join(path.dirname(fileName), targetFileName + '.ts');
 
@@ -59,7 +66,7 @@ for (const fileName of process.argv.slice(2)) {
 
     const output = `
       import type { RetailSpell } from 'wow-dbc';
-      const SPELLS = ${JSON.stringify(keyedData, undefined, 2)} as const satisfies Record<string, RetailSpell>;
+      const SPELLS = ${JSON.stringify(keyedData, undefined, 2)} as const satisfies Record<string, RetailSpell & { icon: string; }>;
       export default SPELLS;
     `;
 
@@ -179,4 +186,44 @@ function stripSpellInternals(spell: gamedata.RetailSpell): gamedata.RetailSpell 
   delete (spell as unknown as Record<string, unknown>).classMask;
 
   return spell;
+}
+
+async function getFileList(version: string): Promise<FileList> {
+  if (FILE_LISTS[version]) {
+    return FILE_LISTS[version];
+  }
+
+  const cacheFile = path.join(import.meta.dirname, './.file-lists/', version);
+
+  try {
+    const data = await fs.readFile(cacheFile, { encoding: 'utf8' });
+
+    FILE_LISTS[version] = data;
+
+    return JSON.parse(data);
+  } catch {
+    // file doesn't exist. download it.
+    const contents = await downloadFileList(version);
+
+    await fs.mkdir(path.dirname(cacheFile), { recursive: true });
+
+    await fs.writeFile(cacheFile, JSON.stringify(contents), { encoding: 'utf8' });
+
+    FILE_LISTS[version] = contents;
+
+    return contents;
+  }
+}
+
+function addIconName(
+  list: FileList,
+  spell: gamedata.RetailSpell,
+): gamedata.RetailSpell & { icon: string } {
+  if (!spell.iconID) {
+    return { ...spell, icon: 'inv_axe_02.jpg' };
+  }
+
+  const name = list[spell.iconID];
+
+  return { ...spell, icon: cleanIconName(name) };
 }
