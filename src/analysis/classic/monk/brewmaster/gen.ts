@@ -12,6 +12,6 @@ export const Abilities = genAbilities({
     spells.SPINNING_CRANE_KICK,
   ],
   defensives: [spells.FORTIFYING_BREW, spells.DIFFUSE_MAGIC_TALENT, spells.DAMPEN_HARM_TALENT],
-  cooldowns: [],
+  cooldowns: [spells.INVOKE_XUEN_THE_WHITE_TIGER_TALENT],
   omit: [spells.JAB],
 });

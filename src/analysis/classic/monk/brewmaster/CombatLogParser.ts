@@ -9,6 +9,7 @@ import { Abilities } from './gen';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 // Spells
 import Jab from '../shared/Jab';
+import XuenNormalizer from './modules/normalizers/XuenCastNormalizer';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -20,6 +21,9 @@ class CombatLogParser extends BaseCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
     jab: Jab,
+
+    // Normalizers
+    XuenNormalizer,
   };
 
   static guide = FoundationGuide;
