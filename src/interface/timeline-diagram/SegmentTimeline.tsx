@@ -108,7 +108,7 @@ export default React.memo(function SegmentTimeline({
               </foreignObject>
             )}
             {segment.abilityId && (
-              <TimelineAbility y={0} x={x(segment.start)} size={16} spell={segment.abilityId} />
+              <TimelineAbility y={0} x={x(segment.start)} size={18} spell={segment.abilityId} />
             )}
           </g>
         ))}
