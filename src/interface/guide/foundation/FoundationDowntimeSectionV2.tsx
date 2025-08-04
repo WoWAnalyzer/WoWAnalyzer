@@ -354,22 +354,11 @@ function ComplexUptimeDisplay({
                   }}
                 />
               )}
-              {cancelGaps && (
+              {cancelGapsWithTooltips && (
                 <SegmentTimeline
                   bgColor="#1a1a1a"
                   fgColor={BadColor}
-                  segments={cancelGaps.map((gap) => ({
-                    ...gap,
-                    abilityId: undefined,
-                    tooltip: (
-                      <>
-                        <SpellLink spell={gap.abilityId} /> cast started at{' '}
-                        {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
-                        {gap.capped ? '~' : ''}
-                        {formatDuration(gap.end - info.fightStart, 1)}
-                      </>
-                    ),
-                  }))}
+                  segments={cancelGapsWithTooltips}
                   info={info}
                   segmentProps={{ opacity: 0.9 }}
                 />
@@ -448,8 +437,8 @@ function ComplexUptimeDisplay({
     info,
     isHealer,
     nonHealingUptimeHistory,
-    meleeGaps,
-    cancelGaps,
+    cancelGapsWithTooltips,
+    meleeGapsWithTooltips,
     globalMeleeGaps,
     debuffSegments,
     uptimeHistory,
