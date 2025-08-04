@@ -16,69 +16,83 @@ const FILE_LISTS: Record<string, FileList> = {};
 const IMPORT_REGEX =
   /import .+ from ['"](?<targetFileName>.*spell-list_(?<className>[a-zA-Z]+)_(?<specName>[a-zA-Z]+)\.(?<gameBranch>[a-zA-Z]+))['"];/g;
 
-for (const fileName of process.argv.slice(2)) {
-  console.log(`examining source file ${fileName}...`);
-  const contents = await fs.readFile(fileName, { encoding: 'utf8' });
+const globPatterns = process.argv.slice(2);
 
-  const imports = contents.matchAll(IMPORT_REGEX);
+const DEBUG = false;
 
-  for (const import_ of imports) {
-    const { className, specName, gameBranch, targetFileName } = import_.groups!;
+const completed = new Set();
 
-    console.log(`found import of ${className}-${specName} for branch ${gameBranch}`);
+for (const pattern of globPatterns) {
+  const files = fs.glob(pattern);
+  for await (const fileName of files) {
+    DEBUG && console.log(`examining source file ${fileName}...`);
+    const contents = await fs.readFile(fileName, { encoding: 'utf8' });
 
-    const gameVersion = GAME_VERSIONS[gameBranch];
+    const imports = contents.matchAll(IMPORT_REGEX);
 
-    if (!gameVersion) {
-      console.error(`invalid game branch ${gameBranch} in file ${fileName}`);
-      continue;
-    }
+    for (const import_ of imports) {
+      const { className, specName, gameBranch, targetFileName } = import_.groups!;
+      const targetPath = path.join(path.dirname(fileName), targetFileName + '.ts');
 
-    const dbc = gamedata.dbc(gameVersion);
-    const specId = await gamedata.getSpecIdByName(dbc, className, specName);
+      if (completed.has(targetPath)) {
+        continue;
+      }
 
-    if (!specId) {
-      console.error(
-        `unable to locate spec id for class ${className} and spec ${specName} in version ${gameVersion} (file: ${fileName})`,
-      );
-      continue;
-    }
+      console.log(`found import of ${className}-${specName} for branch ${gameBranch}`);
 
-    const spells = await getSpellList(dbc, gameBranch, specId);
+      const gameVersion = GAME_VERSIONS[gameBranch];
 
-    if (!spells) {
-      console.error(
-        `could not load spell list for game branch ${gameBranch} and spec id ${specId}`,
-      );
-      continue;
-    }
+      if (!gameVersion) {
+        console.error(`invalid game branch ${gameBranch} in file ${fileName}`);
+        continue;
+      }
 
-    const rawData = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
-    const fileList = await getFileList(gameVersion);
-    const data = rawData
-      .filter((spell) => spell.name)
-      .map(stripSpellInternals)
-      .map((spell) => addIconName(fileList, spell));
+      const dbc = gamedata.dbc(gameVersion);
+      const specId = await gamedata.getSpecIdByName(dbc, className, specName);
 
-    const targetPath = path.join(path.dirname(fileName), targetFileName + '.ts');
+      if (!specId) {
+        console.error(
+          `unable to locate spec id for class ${className} and spec ${specName} in version ${gameVersion} (file: ${fileName})`,
+        );
+        continue;
+      }
 
-    const keyedData = keyByName(data);
+      const spells = await getSpellList(dbc, gameBranch, specId);
 
-    const output = `
+      if (!spells) {
+        console.error(
+          `could not load spell list for game branch ${gameBranch} and spec id ${specId}`,
+        );
+        continue;
+      }
+
+      const rawData = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
+      const fileList = await getFileList(gameVersion);
+      const data = rawData
+        .filter((spell) => spell.name)
+        .map(stripSpellInternals)
+        .map((spell) => addIconName(fileList, spell));
+
+      const keyedData = keyByName(data);
+
+      const output = `
       import type { RetailSpell } from 'wow-dbc';
       const SPELLS = ${JSON.stringify(keyedData, undefined, 2)} as const satisfies Record<string, RetailSpell & { icon: string; }>;
       export default SPELLS;
     `;
 
-    await fs.writeFile(
-      targetPath,
-      await prettier.format(output, {
-        ...prettierConfig,
-        parser: 'typescript',
-      } as prettier.Options),
-    );
+      await fs.writeFile(
+        targetPath,
+        await prettier.format(output, {
+          ...prettierConfig,
+          parser: 'typescript',
+        } as prettier.Options),
+      );
 
-    console.log(`wrote spell data to ${targetPath}`);
+      completed.add(targetPath);
+
+      console.log(`wrote spell data to ${targetPath}`);
+    }
   }
 }
 

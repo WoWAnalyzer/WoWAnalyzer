@@ -68,7 +68,7 @@
     "@testing-library/react": "^12.1.5",
     "@types/decompress": "^4.2.7",
     "@types/jest": "^27.5.2",
-    "@types/node": "^20.12.7",
+    "@types/node": "^22.0.0",
     "@types/prop-types": "^15.7.12",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
@@ -133,7 +133,8 @@
     "e2e": "pnpm run e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report",
-    "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts"
+    "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts",
+    "update-spell-lists": "node --experimental-strip-types scripts/spell-lists/generate-spell-list.ts src/analysis/**/*.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [

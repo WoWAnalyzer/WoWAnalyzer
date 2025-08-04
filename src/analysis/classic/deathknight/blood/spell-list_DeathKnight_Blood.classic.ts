@@ -10,7 +10,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_pathoffrost.jpg',
+    icon: 'm',
   },
   ARMY_OF_THE_DEAD: {
     id: 42650,
@@ -38,7 +38,7 @@ const SPELLS = {
         },
       ],
     },
-    icon: 'spell_deathknight_armyofthedead.jpg',
+    icon: 'k',
   },
   DEATH_AND_DECAY_1: {
     id: 43265,
@@ -54,7 +54,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 'spell_shadow_deathanddecay.jpg',
+    icon: 'l',
   },
   DEATH_AND_DECAY_2: {
     id: 52212,
@@ -64,7 +64,7 @@ const SPELLS = {
     passive: false,
     hidden: 'unless-learned',
     name: 'Death and Decay',
-    icon: 'spell_shadow_deathanddecay.jpg',
+    icon: 'l',
   },
   PLAGUE_STRIKE: {
     id: 45462,
@@ -76,7 +76,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_empowerruneblade.jpg',
+    icon: 'd',
   },
   ICY_TOUCH: {
     id: 45477,
@@ -88,7 +88,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'spell_deathknight_icetouch.jpg',
+    icon: '.',
   },
   CHAINS_OF_ICE: {
     id: 45524,
@@ -100,7 +100,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'spell_frost_chainsofice.jpg',
+    icon: '3',
   },
   BLOOD_TAP_TALENT: {
     id: 45529,
@@ -110,7 +110,7 @@ const SPELLS = {
     iconID: 237515,
     passive: false,
     name: 'Blood Tap',
-    icon: 'spell_deathknight_bloodtap.jpg',
+    icon: 'a',
   },
   BLOOD_STRIKE: {
     id: 45902,
@@ -122,7 +122,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_deathstrike.jpg',
+    icon: 'a',
   },
   RAISE_DEAD: {
     id: 46584,
@@ -138,7 +138,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'spell_shadow_animatedead.jpg',
+    icon: '',
   },
   STRANGULATE: {
     id: 47476,
@@ -150,7 +150,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'spell_shadow_soulleech_3.jpg',
+    icon: 't',
   },
   MIND_FREEZE: {
     id: 47528,
@@ -162,7 +162,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 'spell_deathknight_mindfreeze.jpg',
+    icon: 'w',
   },
   DEATH_COIL: {
     id: 47541,
@@ -174,7 +174,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'spell_shadow_deathcoil.jpg',
+    icon: 'e',
   },
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
@@ -186,7 +186,7 @@ const SPELLS = {
       duration: 300000,
       hasted: false,
     },
-    icon: 'inv_sword_62.jpg',
+    icon: 'a',
   },
   BLOOD_PRESENCE: {
     id: 48263,
@@ -198,7 +198,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_bloodpresence.jpg',
+    icon: 'o',
   },
   UNHOLY_PRESENCE: {
     id: 48265,
@@ -210,7 +210,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_unholypresence.jpg',
+    icon: 'r',
   },
   FROST_PRESENCE: {
     id: 48266,
@@ -222,7 +222,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_frostpresence.jpg',
+    icon: 'z',
   },
   ANTI_MAGIC_SHELL: {
     id: 48707,
@@ -234,7 +234,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: 'spell_shadow_antimagicshell.jpg',
+    icon: 'a',
   },
   BLOOD_BOIL: {
     id: 48721,
@@ -246,7 +246,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'spell_deathknight_bloodboil.jpg',
+    icon: '_',
   },
   DEATH_PACT_TALENT: {
     id: 48743,
@@ -260,7 +260,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'spell_shadow_deathpact.jpg',
+    icon: 't',
   },
   ICEBOUND_FORTITUDE: {
     id: 48792,
@@ -272,7 +272,7 @@ const SPELLS = {
       duration: 180000,
       hasted: false,
     },
-    icon: 'spell_deathknight_iceboundfortitude.jpg',
+    icon: '1',
   },
   RUNE_TAP: {
     id: 48982,
@@ -284,7 +284,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 'spell_deathknight_runetap.jpg',
+    icon: 'o',
   },
   DANCING_RUNE_WEAPON: {
     id: 49028,
@@ -296,7 +296,7 @@ const SPELLS = {
       duration: 90000,
       hasted: false,
     },
-    icon: 'inv_sword_07.jpg',
+    icon: '_',
   },
   LICHBORNE_TALENT: {
     id: 49039,
@@ -311,7 +311,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'spell_shadow_raisedead.jpg',
+    icon: '"',
   },
   BONE_SHIELD: {
     id: 49222,
@@ -323,7 +323,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'ability_deathknight_boneshield.jpg',
+    icon: '0',
   },
   SCENT_OF_BLOOD_PASSIVE: {
     id: 49509,
@@ -331,7 +331,7 @@ const SPELLS = {
     iconID: 132284,
     passive: true,
     name: 'Scent of Blood',
-    icon: 'ability_rogue_bloodyeye.jpg',
+    icon: 'b',
   },
   BLOOD_PARASITE_PASSIVE: {
     id: 49542,
@@ -339,7 +339,7 @@ const SPELLS = {
     iconID: 136211,
     passive: true,
     name: 'Blood Parasite',
-    icon: 'spell_shadow_soulleech.jpg',
+    icon: 'e',
   },
   DEATH_GRIP: {
     id: 49576,
@@ -351,7 +351,7 @@ const SPELLS = {
       duration: 25000,
       hasted: false,
     },
-    icon: 'spell_deathknight_strangulate.jpg',
+    icon: '"',
   },
   DEATH_STRIKE: {
     id: 49998,
@@ -363,7 +363,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_butcher2.jpg',
+    icon: 'a',
   },
   VETERAN_OF_THE_THIRD_WAR_PASSIVE: {
     id: 50029,
@@ -371,7 +371,7 @@ const SPELLS = {
     iconID: 136005,
     passive: true,
     name: 'Veteran of the Third War',
-    icon: 'spell_misc_warsongfocus.jpg',
+    icon: '_',
   },
   BLOOD_RITES_PASSIVE: {
     id: 50034,
@@ -379,7 +379,7 @@ const SPELLS = {
     iconID: 237515,
     passive: true,
     name: 'Blood Rites',
-    icon: 'spell_deathknight_bloodtap.jpg',
+    icon: 'a',
   },
   CHILBLAINS_TALENT: {
     id: 50041,
@@ -389,7 +389,7 @@ const SPELLS = {
     iconID: 135864,
     passive: true,
     name: 'Chilblains',
-    icon: 'spell_frost_wisp.jpg',
+    icon: 'r',
   },
   IMPROVED_BLOOD_PRESENCE_PASSIVE: {
     id: 50371,
@@ -397,7 +397,7 @@ const SPELLS = {
     iconID: 135770,
     passive: true,
     name: 'Improved Blood Presence',
-    icon: 'spell_deathknight_bloodpresence.jpg',
+    icon: 'o',
   },
   PESTILENCE: {
     id: 50842,
@@ -409,7 +409,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'spell_shadow_plaguecloud.jpg',
+    icon: '0',
   },
   DEATH_GATE: {
     id: 50977,
@@ -429,7 +429,7 @@ const SPELLS = {
     castTime: {
       duration: 10000,
     },
-    icon: 'spell_arcane_teleportundercity.jpg',
+    icon: 'd',
   },
   ANTI_MAGIC_ZONE_TALENT: {
     id: 51052,
@@ -444,7 +444,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'spell_deathknight_antimagiczone.jpg',
+    icon: '',
   },
   RUNIC_CORRUPTION_TALENT: {
     id: 51462,
@@ -454,7 +454,7 @@ const SPELLS = {
     iconID: 252272,
     passive: true,
     name: 'Runic Corruption',
-    icon: 'spell_shadow_rune.jpg',
+    icon: 'g',
   },
   ON_A_PALE_HORSE_PASSIVE: {
     id: 51986,
@@ -462,7 +462,7 @@ const SPELLS = {
     iconID: 132264,
     passive: true,
     name: 'On a Pale Horse',
-    icon: 'ability_mount_undeadhorse.jpg',
+    icon: ':',
   },
   HEART_STRIKE: {
     id: 55050,
@@ -475,7 +475,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'inv_weapon_shortblade_40.jpg',
+    icon: 'r',
   },
   BLOOD_PLAGUE_HIDDEN: {
     id: 55078,
@@ -484,7 +484,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Blood Plague',
-    icon: 'spell_deathknight_bloodplague.jpg',
+    icon: 'm',
   },
   FROST_FEVER_HIDDEN: {
     id: 55095,
@@ -493,7 +493,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Frost Fever',
-    icon: 'spell_deathknight_frostfever.jpg',
+    icon: '_',
   },
   VAMPIRIC_BLOOD: {
     id: 55233,
@@ -505,7 +505,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'spell_shadow_lifedrain.jpg',
+    icon: 'o',
   },
   DARK_COMMAND: {
     id: 56222,
@@ -517,7 +517,7 @@ const SPELLS = {
       duration: 8000,
       hasted: false,
     },
-    icon: 'spell_nature_shamanrage.jpg',
+    icon: 'u',
   },
   RUNE_STRIKE: {
     id: 56815,
@@ -529,7 +529,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'spell_deathknight_darkconviction.jpg',
+    icon: 'u',
   },
   HORN_OF_WINTER: {
     id: 57330,
@@ -545,7 +545,7 @@ const SPELLS = {
       duration: 20000,
       hasted: false,
     },
-    icon: 'inv_misc_horn_02.jpg',
+    icon: '7',
   },
   BLOOD_PLAGUE_PASSIVE: {
     id: 59879,
@@ -553,7 +553,7 @@ const SPELLS = {
     iconID: 237514,
     passive: true,
     name: 'Blood Plague',
-    icon: 'spell_deathknight_bloodplague.jpg',
+    icon: 'm',
   },
   FROST_FEVER_PASSIVE: {
     id: 59921,
@@ -561,7 +561,7 @@ const SPELLS = {
     iconID: 237522,
     passive: true,
     name: 'Frost Fever',
-    icon: 'spell_deathknight_frostfever.jpg',
+    icon: '_',
   },
   RAISE_ALLY: {
     id: 61999,
@@ -577,7 +577,7 @@ const SPELLS = {
       duration: 600000,
       hasted: false,
     },
-    icon: 'spell_shadow_deadofnight.jpg',
+    icon: 'g',
   },
   NECROTIC_STRIKE: {
     id: 73975,
@@ -589,7 +589,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'inv_axe_96.jpg',
+    icon: 'a',
   },
   MASTERY_BLOOD_SHIELD_PASSIVE: {
     id: 77513,
@@ -597,7 +597,7 @@ const SPELLS = {
     iconID: 135772,
     passive: true,
     name: 'Mastery: Blood Shield',
-    icon: 'spell_deathknight_deathstrike.jpg',
+    icon: 'a',
   },
   OUTBREAK: {
     id: 77575,
@@ -613,7 +613,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 'spell_deathvortex.jpg',
+    icon: 'd',
   },
   DARK_SIMULACRUM: {
     id: 77606,
@@ -625,7 +625,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'spell_holy_consumemagic.jpg',
+    icon: 'h',
   },
   SANGUINE_FORTITUDE_PASSIVE: {
     id: 81127,
@@ -633,7 +633,7 @@ const SPELLS = {
     iconID: 458719,
     passive: true,
     name: 'Sanguine Fortitude',
-    icon: 'ability_deathknight_sanguinfortitude.jpg',
+    icon: '_',
   },
   SCARLET_FEVER_PASSIVE: {
     id: 81132,
@@ -641,7 +641,7 @@ const SPELLS = {
     iconID: 458735,
     passive: true,
     name: 'Scarlet Fever',
-    icon: 'ability_rogue_vendetta.jpg',
+    icon: '0',
   },
   CRIMSON_SCOURGE_PASSIVE: {
     id: 81136,
@@ -649,7 +649,7 @@ const SPELLS = {
     iconID: 237513,
     passive: true,
     name: 'Crimson Scourge',
-    icon: 'spell_deathknight_bloodboil.jpg',
+    icon: '_',
   },
   WILL_OF_THE_NECROPOLIS_PASSIVE: {
     id: 81164,
@@ -657,7 +657,7 @@ const SPELLS = {
     iconID: 132094,
     passive: true,
     name: 'Will of the Necropolis',
-    icon: 'ability_creature_cursed_02.jpg',
+    icon: 'm',
   },
   RUNIC_EMPOWERMENT_TALENT: {
     id: 81229,
@@ -668,7 +668,7 @@ const SPELLS = {
     passive: true,
     hidden: 'unless-learned',
     name: 'Runic Empowerment',
-    icon: 'inv_misc_rune_10.jpg',
+    icon: 'b',
   },
   PARRY_PASSIVE: {
     id: 82246,
@@ -676,7 +676,7 @@ const SPELLS = {
     iconID: 132269,
     passive: true,
     name: 'Parry',
-    icon: 'ability_parry.jpg',
+    icon: 'l',
   },
   PLATE_SPECIALIZATION_PASSIVE: {
     id: 86524,
@@ -684,7 +684,7 @@ const SPELLS = {
     iconID: 132747,
     passive: true,
     name: 'Plate Specialization',
-    icon: 'inv_chest_plate12.jpg',
+    icon: 'm',
   },
   PLATE_SPECIALIZATION_HIDDEN: {
     id: 86537,
@@ -693,7 +693,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Plate Specialization',
-    icon: 'inv_chest_plate15.jpg',
+    icon: 'a',
   },
   DEATH_STRIKE_ENABLER_HIDDEN: {
     id: 89832,
@@ -702,7 +702,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Death Strike Enabler',
-    icon: 'trade_engineering.jpg',
+    icon: 'i',
   },
   VENGEANCE_PASSIVE: {
     id: 93099,
@@ -710,7 +710,7 @@ const SPELLS = {
     iconID: 136129,
     passive: true,
     name: 'Vengeance',
-    icon: 'spell_shadow_charm.jpg',
+    icon: 'u',
   },
   DEATHS_ADVANCE_TALENT: {
     id: 96268,
@@ -724,7 +724,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 'spell_shadow_demonicempathy.jpg',
+    icon: 'l',
   },
   ROILING_BLOOD_TALENT: {
     id: 108170,
@@ -734,7 +734,7 @@ const SPELLS = {
     iconID: 538561,
     passive: true,
     name: 'Roiling Blood',
-    icon: 'ability_deathknight_roilingblood.jpg',
+    icon: 'o',
   },
   ASPHYXIATE_TALENT: {
     id: 108194,
@@ -753,7 +753,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 'ability_deathknight_asphixiate.jpg',
+    icon: '.',
   },
   DEATH_SIPHON_TALENT: {
     id: 108196,
@@ -767,7 +767,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'ability_deathknight_deathsiphon.jpg',
+    icon: 'w',
   },
   GOREFIENDS_GRASP_TALENT: {
     id: 108199,
@@ -785,7 +785,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'ability_deathknight_aoedeathgrip.jpg',
+    icon: 'a',
   },
   REMORSELESS_WINTER_TALENT: {
     id: 108200,
@@ -803,7 +803,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'ability_deathknight_remorselesswinters2.jpg',
+    icon: 'm',
   },
   DESECRATED_GROUND_TALENT: {
     id: 108201,
@@ -817,7 +817,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'ability_deathknight_desecratedground.jpg',
+    icon: 'l',
   },
   SYMBIOSIS: {
     id: 110498,
@@ -825,7 +825,7 @@ const SPELLS = {
     iconID: 571587,
     passive: false,
     name: 'Symbiosis',
-    icon: 'spell_druid_symbiosis.jpg',
+    icon: '',
   },
   CONTROL_UNDEAD: {
     id: 111673,
@@ -840,7 +840,7 @@ const SPELLS = {
     castTime: {
       duration: 1500,
     },
-    icon: 'inv_misc_bone_skull_01.jpg',
+    icon: 'a',
   },
   PURGATORY_TALENT: {
     id: 114556,
@@ -850,7 +850,7 @@ const SPELLS = {
     iconID: 134430,
     passive: true,
     name: 'Purgatory',
-    icon: 'inv_misc_shadowegg.jpg',
+    icon: 'g',
   },
   SOUL_REAPER: {
     id: 114866,
@@ -866,7 +866,7 @@ const SPELLS = {
       duration: 6000,
       hasted: false,
     },
-    icon: 'ability_deathknight_soulreaper.jpg',
+    icon: 'n',
   },
   UNHOLY_BLIGHT_TALENT: {
     id: 115989,
@@ -884,7 +884,7 @@ const SPELLS = {
       duration: 90000,
       hasted: false,
     },
-    icon: 'spell_shadow_contagion.jpg',
+    icon: 'd',
   },
   CONVERSION_TALENT: {
     id: 119975,
@@ -898,7 +898,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'ability_deathknight_deathsiphon2.jpg',
+    icon: 'm',
   },
   PLAGUE_LEECH_TALENT: {
     id: 123693,
@@ -916,7 +916,7 @@ const SPELLS = {
       duration: 25000,
       hasted: false,
     },
-    icon: 'ability_creature_disease_02.jpg',
+    icon: '1',
   },
   DEATHS_ADVANCE_HIDDEN: {
     id: 124285,
@@ -926,7 +926,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: "Death's Advance",
-    icon: 'spell_shadow_demonicempathy.jpg',
+    icon: 'l',
   },
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137005,
@@ -935,7 +935,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
-    icon: 'ability_mage_firestarter.jpg',
+    icon: 'n',
   },
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137008,
@@ -944,7 +944,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
-    icon: 'ability_mage_firestarter.jpg',
+    icon: 'n',
   },
   RIPOSTE_PASSIVE: {
     id: 145676,
@@ -952,7 +952,7 @@ const SPELLS = {
     iconID: 132354,
     passive: true,
     name: 'Riposte',
-    icon: 'ability_warrior_riposte.jpg',
+    icon: '',
   },
   SCENT_OF_BLOOD_HIDDEN: {
     id: 148211,
@@ -961,7 +961,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Scent of Blood',
-    icon: 'ability_rogue_bloodyeye.jpg',
+    icon: 'b',
   },
 } as const satisfies Record<string, RetailSpell & { icon: string }>;
 export default SPELLS;
