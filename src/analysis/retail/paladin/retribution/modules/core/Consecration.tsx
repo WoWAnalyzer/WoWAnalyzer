@@ -15,7 +15,10 @@ class Consecration extends Analyzer {
   totalHits = 0;
 
   constructor(options: Options) {
+    // With Consecrated Blade being baseline, this has no point anymore
     super(options);
+    this.active = false;
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONSECRATION_DAMAGE),
       this.onConsecrationDamage,

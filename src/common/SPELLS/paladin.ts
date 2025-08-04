@@ -403,6 +403,11 @@ const spells = {
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
   },
+  DIVINE_PURPOSE_BUFF_RET: {
+    id: 408458,
+    name: 'Divine Purpose',
+    icon: 'spell_holy_mindvision',
+  },
   AVENGING_CRUSADER: {
     id: 216331,
     name: 'Avenging Crusader',

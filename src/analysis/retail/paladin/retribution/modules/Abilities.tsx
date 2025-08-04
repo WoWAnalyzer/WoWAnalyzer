@@ -29,6 +29,9 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS_PALADIN.DIVINE_HAMMER_TALENT.id,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.CRUSADE.id,
@@ -90,6 +93,9 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           recommendedEfficiency: 0.9,
+        },
+        gcd: {
+          base: 1500,
         },
       },
 
@@ -224,11 +230,6 @@ class Abilities extends CoreAbilities {
         cooldown: 9,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.25,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
 
