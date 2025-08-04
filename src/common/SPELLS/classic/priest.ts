@@ -234,6 +234,31 @@ const spells = {
   // ---------
   // TALENTS
   // ---------
+  SOLICE_AND_INSANITY: {
+    id: 139139,
+    name: 'Solace and Insanity',
+    icon: 'ability_priest_flashoflight',
+  },
+  POWER_WORD_SOLICE_CAST: {
+    id: 129250,
+    name: 'Power Word: Solice',
+    icon: 'ability_priest_flashoflight',
+  },
+  DIVINE_STAR: {
+    id: 110744,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar',
+  },
+  MINDBENDER: {
+    id: 123040,
+    name: 'Mindbender',
+    icon: 'spell_shadow_soulleech_3',
+  },
+  ANGELIC_FEATHER: {
+    id: 121536,
+    name: 'Angelic Feather',
+    icon: 'ability_priest_angelicfeather',
+  },
   // Discipline
   ARCHANGEL: {
     id: 87151,
@@ -279,6 +304,16 @@ const spells = {
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance.jpg',
+  },
+  ATONEMENT_HEAL_CRIT: {
+    id: 94472,
+    name: 'Atonement',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  ATONEMENT_HEAL_NON_CRIT: {
+    id: 81751,
+    name: 'Atonement',
+    icon: 'spell_holy_circleofrenewal',
   },
   POWER_INFUSION: {
     id: 10060,
