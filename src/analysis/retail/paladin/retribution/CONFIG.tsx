@@ -3,9 +3,10 @@ import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import { Texleretour } from 'CONTRIBUTORS';
 
 const config: Config = {
-  contributors: [],
+  contributors: [Texleretour],
   branch: GameBranch.Retail,
   patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.Foundation,
