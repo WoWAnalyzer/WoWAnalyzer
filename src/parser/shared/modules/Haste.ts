@@ -449,7 +449,7 @@ class Haste extends Analyzer {
   _triggerChangeHaste(event: AnyEvent | null, oldHaste: number | null, newHaste: number) {
     const fabricatedEvent = {
       type: EventType.ChangeHaste,
-      sourceID: event ? (event as SourcedEvent<any>).sourceID : this.owner.playerId,
+      sourceID: event ? (event as SourcedEvent<string>).sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       oldHaste,
       newHaste,
