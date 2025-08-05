@@ -851,12 +851,6 @@ const spells = {
     icon: 'spell_shadow_possession',
   },
 
-  UNFURLING_DARKNESS_BUFF: {
-    id: 341282,
-    name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow-mend',
-  },
-
   DEATHSPEAKER_TALENT_BUFF: {
     id: 392511,
     name: 'Deathspeaker',
@@ -875,16 +869,10 @@ const spells = {
     icon: 'spell_arcane_mindmastery',
   },
 
-  DARK_EVANGELISM_TALENT_BUFF: {
-    id: 391099,
-    name: 'Dark Evangelism',
-    icon: 'spell_mage_presenceofmind',
-  },
-
-  MIND_MELT_TALENT_BUFF: {
+  SHATTERED_PSYCHE_TALENT_BUFF: {
     id: 391092,
-    name: 'Mind Melt',
-    icon: 'spell_shadow_skull',
+    name: 'Shattered Psyche',
+    icon: 'inv_ability_priest_mindgames',
   },
 
   // Shadow items:

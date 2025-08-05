@@ -52,7 +52,7 @@ import VoidTouched from './modules/talents/VoidTouched';
 import MindsEye from './modules/talents/MindsEye';
 import DistortedReality from './modules/talents/DistortedReality';
 import MaddeningTouch from './modules/talents/Maddening Touch';
-import MindMelt from './modules/talents/MindMelt';
+import ShatteredPsyche from './modules/talents/ShatteredPsyche';
 import Mastermind from './modules/talents/Mastermind';
 import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
@@ -122,7 +122,7 @@ class CombatLogParser extends MainCombatLogParser {
     mastermind: Mastermind,
     mindDevourer: MindDevourer,
     mindFlayInsanity: MindFlayInsanity,
-    mindMelt: MindMelt,
+    shatteredPsyche: ShatteredPsyche,
     mindsEye: MindsEye,
     phantasmalPathogen: PhantasmalPathogen,
     psychicLink: PsychicLink,

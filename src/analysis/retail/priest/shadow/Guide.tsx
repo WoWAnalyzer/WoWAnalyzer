@@ -1,4 +1,4 @@
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
 //import { TIERS } from 'game/TIERS';
 import CombatLogParser from './CombatLogParser';
@@ -67,12 +67,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
 
       {/* TODO:
-      <Section title="Hero Talent?"></>
+      <Section title="Action Priority List"></>
       */}
-
-      <Section title="Action Priority List">
-        <SubSection>Coming Soon!</SubSection>
-      </Section>
 
       <PreparationSection />
     </>

@@ -11,9 +11,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import { MIND_MELT_CRIT } from '../../constants';
+import { SHATTERED_PSYCHE_CRIT_PER_STACK } from '../../constants';
 
-class MindMelt extends Analyzer {
+class ShatteredPsyche extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
@@ -28,15 +28,15 @@ class MindMelt extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHATTERED_PSYCHE_TALENT);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_MELT_TALENT_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHATTERED_PSYCHE_TALENT_BUFF),
       this.onBuffApplied,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_MELT_TALENT_BUFF),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHATTERED_PSYCHE_TALENT_BUFF),
       this.onBuffStack,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_MELT_TALENT_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHATTERED_PSYCHE_TALENT_BUFF),
       this.onBuffRemoved,
     );
 
@@ -62,7 +62,7 @@ class MindMelt extends Analyzer {
       this.damage += calculateEffectiveDamageFromCritIncrease(
         event,
         this.statTracker.currentCritPercentage,
-        this.buffStacks * MIND_MELT_CRIT,
+        this.buffStacks * SHATTERED_PSYCHE_CRIT_PER_STACK,
       );
     }
   }
@@ -84,4 +84,4 @@ class MindMelt extends Analyzer {
   }
 }
 
-export default MindMelt;
+export default ShatteredPsyche;

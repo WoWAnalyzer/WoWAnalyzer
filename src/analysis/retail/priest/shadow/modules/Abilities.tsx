@@ -41,7 +41,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 15,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -55,7 +56,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 15,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -256,7 +258,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DESPERATE_PRAYER.id, //TODO have angles mercy reduce CD
+        spell: SPELLS.DESPERATE_PRAYER.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         gcd: null,
