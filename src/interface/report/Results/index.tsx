@@ -148,6 +148,9 @@ const Results = (props: PassedProps) => {
     const zone = ZONES.find((zone) => zone.id === props.report.zone);
 
     switch (wclGameVersionToExpansion(props.report.gameVersion)) {
+      case Expansion.MistsOfPandaria:
+        dispatch(setBaseUrl('https://www.wowhead.com/mop-classic/'));
+        break;
       case Expansion.Cataclysm:
         dispatch(setBaseUrl('https://www.wowhead.com/cata/'));
         break;

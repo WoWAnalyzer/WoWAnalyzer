@@ -30,11 +30,11 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.AVENGING_CRUSADER_TALENT.id,
       },
       {
-        spellId: SPELLS.AVENGING_WRATH.id,
+        spellId: TALENTS.AVENGING_WRATH_TALENT.id,
         // TODO: check other impacts there may be more enabled now
         enabled: !combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT),
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
+        triggeredBySpellId: TALENTS.AVENGING_WRATH_TALENT.id,
       },
       // Beacons
       {

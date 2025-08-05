@@ -37,7 +37,7 @@ const PATCHES: Patch[] = [
     name: '4.4.0',
     timestamp: 1716242400000, // GMT: Monday, 20 May 2024 22:00:00
     urlPrefix: '',
-    isCurrent: true,
+    isCurrent: false,
     gameVersion: 5, // Cataclysm
     expansion: Expansion.Cataclysm,
   },
@@ -104,6 +104,14 @@ const PATCHES: Patch[] = [
     isCurrent: false,
     gameVersion: 1, // retail
     expansion: Expansion.TheWarWithin,
+  },
+  {
+    name: '5.5.0',
+    timestamp: 0,
+    urlPrefix: '',
+    isCurrent: true,
+    gameVersion: 6,
+    expansion: Expansion.MistsOfPandaria,
   },
 ];
 

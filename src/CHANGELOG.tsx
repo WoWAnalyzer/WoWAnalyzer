@@ -44,7 +44,13 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 7, 29), 'Add timeline abilities for Mogu\'shan Vaults bosses', emallson),
+  change(date(2025, 7, 29), 'Add consumable data for MoP', emallson),
+  change(date(2025, 7, 21), 'Add Classic MoP T14 raid zones, headshots, and placeholder image', jazminite),
+  change(date(2025, 7, 21), 'Update Death Knight spells for MoP Classic', jazminite),
   change(date(2025, 7, 8), 'Add timeline buff filter', Seriousnes),
+  change(date(2025, 6, 8),<>Add <SpellLink spell={SPELLS.LIGHTS_JUDGMENT.id} /> to Lightforged Draenei's racial spellbook.</>, Vetyst),
+  change(date(2025, 6, 8),<>Add <SpellLink spell={SPELLS.LIGHTS_JUDGMENT.id} /> to Lightforged Draenei's racial spellbook.</>, Vetyst),
   change(date(2025, 6, 8),<>Fix validateDomNesting warning for Gem Preperation checklist.</>, Vetyst),
   change(date(2025, 6, 8),<>Updated visual appearance of gained stats for <ItemLink id={ITEMS.SUNSET_SPELLTHREAD_R3.id} />, <ItemLink id={ITEMS.WEAVERCLOTH_SPELLTHREAD_R3.id} />, and <ItemLink id={ITEMS.DAYBREAK_SPELLTHREAD_R3.id} /> enchants on the character info tab.</>, Vetyst),
   change(date(2025, 6, 8),<>Move <SpellLink spell={SPELLS.GLIDE_DRACTHYR.id} /> from Evoker's spellbook to Dracthyr's racial spellbook.</>, Vetyst),
@@ -53,6 +59,7 @@ export default [
   change(date(2025, 6, 3),<>Mark <ItemLink id={ITEMS.COUNCILS_GUILE_R3.id} />, <ItemLink id={ITEMS.OATHSWORNS_TENACITY_R3.id} />, <ItemLink id={ITEMS.STONEBOUND_ARTISTRY_R3.id} />, and <ItemLink id={ITEMS.STORMRIDERS_FURY_R3.id} /> as max rank enchants</>, Vollmer),
   change(date(2025, 5, 30), 'Add WCL user sign-in & private logs support', Vollmer),
   change(date(2025, 5, 23), 'Regenerate talents for 11.1.5', Vollmer),
+  change(date(2025, 5, 17), <>Minimal setup for Mists of Pandaria.</>, emallson),
   change(date(2025, 5, 16), <>Fix number of critical hits not being calculated.</>, swirl),
   change(date(2025, 5, 2), 'All Gems now show on Character Doll', Ceric),
   change(date(2025, 4, 27), 'Recommended Gems now show to the User if setup', Ceric),

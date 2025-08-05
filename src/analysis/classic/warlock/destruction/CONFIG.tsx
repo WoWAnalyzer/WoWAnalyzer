@@ -4,12 +4,12 @@ import type Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 import { SupportLevel } from 'parser/Config';
-import { emallson } from 'CONTRIBUTORS';
+import { jazminite } from 'CONTRIBUTORS';
 
 const CONFIG: Config = {
   supportLevel: SupportLevel.Foundation,
   branch: GameBranch.Classic,
-  contributors: [emallson],
+  contributors: [jazminite],
   // The WoW client patch this spec was last updated.
   patchCompatibility: '4.4.0',
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

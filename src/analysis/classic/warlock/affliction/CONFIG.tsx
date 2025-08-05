@@ -18,9 +18,6 @@ const CONFIG: Config = {
     <>
       Welcome! Thanks for checking out WoWAnalyzer.
       <br />
-      <br />
-      Classic Cataclysm support is still a Work in Progress. This spec guide is a stub.
-      <br />
       See the public GitHub repo or join our community Discord for information about contributing.
       Thanks!
     </>

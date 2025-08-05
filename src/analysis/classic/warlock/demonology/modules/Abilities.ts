@@ -7,16 +7,6 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: SPELLS.BANE_OF_AGONY.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.BANE_OF_DOOM.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.CORRUPTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -47,21 +37,11 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOW_TRANCE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: null,
-      },
-      {
         spell: SPELLS.SOUL_FIRE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
-      {
-        spell: [SPELLS.IMMOLATION_AURA.id],
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
-      },
       {
         spell: SPELLS.HELLFIRE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -72,14 +52,9 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
-      {
-        spell: SPELLS.SHADOWFLAME.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
-      },
       // Cooldowns
       {
-        spell: SPELLS.DEMON_SOUL.id,
+        spell: SPELLS.DARK_SOUL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
@@ -88,7 +63,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.METAMORPHOSIS.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 180, // CD has a chance to be reduced by Impending Doom (talent)
+        cooldown: 180,
       },
       {
         spell: [SPELLS.SUMMON_DOOMGUARD.id],
@@ -103,12 +78,13 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.DEATH_COIL.id,
+        spell: SPELLS.MORTAL_COIL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 45,
       },
       {
-        spell: SPELLS.SHADOW_WARD.id,
+        spell: SPELLS.TWILIGHT_WARD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -133,16 +109,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
-      {
-        spell: SPELLS.SEARING_PAIN.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.RAIN_OF_FIRE.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { base: 1500 },
-      },
       // Utility
       {
         spell: SPELLS.CURSE_OF_THE_ELEMENTS.id,
@@ -160,6 +126,11 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
+        spell: SPELLS.DEMONIC_LEAP.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
         spell: SPELLS.DRAIN_LIFE.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
@@ -170,28 +141,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SOUL_LINK.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.SOULBURN.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 45,
       },
       // Pet Related
-      {
-        spell: SPELLS.DEMONIC_EMPOWERMENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-        cooldown: 60,
-      },
-      {
-        spell: SPELLS.DEMON_LEAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
       {
         spell: SPELLS.HEALTH_FUNNEL.id,
         category: SPELL_CATEGORY.UTILITY,

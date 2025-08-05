@@ -8,6 +8,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_PALADIN } from 'common/TALENTS';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const ART_OF_WAR_DURATION = 10000;
 
@@ -26,6 +28,12 @@ class AoWProcTracker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.ART_OF_WAR_TALENT);
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ART_OF_WAR),
       this.onApplyBuff,
@@ -35,15 +43,15 @@ class AoWProcTracker extends Analyzer {
       this.onRefreshBuff,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT),
       this.onCast,
     );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
     this.totalAoWProcs += 1;
-    if (this.spellUsable.isOnCooldown(SPELLS.BLADE_OF_JUSTICE.id)) {
-      this.spellUsable.endCooldown(SPELLS.BLADE_OF_JUSTICE.id);
+    if (this.spellUsable.isOnCooldown(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT.id);
       this.lastAoWProcTime = event.timestamp;
     }
   }
@@ -105,6 +113,7 @@ class AoWProcTracker extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(2)}
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon spell={SPELLS.ART_OF_WAR} />}
         value={`${formatPercentage(this.consumedProcsPercent)}%`}
         label="Art of War Procs Used"

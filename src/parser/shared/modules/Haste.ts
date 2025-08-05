@@ -79,7 +79,10 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
     hastePerStack: 0.01,
   },
   [SPELLS.RUSH_OF_LIGHT.id]: 0.05,
-  [SPELLS.UNDISPUTED_RULING_BUFF.id]: 0.12,
+  [SPELLS.UNDISPUTED_RULING_BUFF.id]: 0.15,
+  [SPELLS.CRUSADE.id]: {
+    hastePerStack: 0.03,
+  },
 
   //region Priest
   [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.2,
@@ -127,13 +130,8 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //endregion
 
   //region CLASSIC
-  // Raids
-  [CLASSIC_SPELLS.CORRUPTION_ABSOLUTE.id]: 1, // Cho'gall
-  [CLASSIC_SPELLS.ESSENCE_OF_THE_RED.id]: 1, // Sinestra
   // Druid
   [CLASSIC_SPELLS.MOONKIN_AURA.id]: 0.05,
-  // Warlock
-  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
   //endregion
 };
 

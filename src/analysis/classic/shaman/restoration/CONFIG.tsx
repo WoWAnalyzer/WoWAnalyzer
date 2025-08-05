@@ -3,7 +3,6 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
-import AlertWarning from 'interface/AlertWarning';
 import { SupportLevel } from 'parser/Config';
 
 const config: Config = {
@@ -13,7 +12,7 @@ const config: Config = {
   // The WoW client patch this spec was last updated.
   patchCompatibility: null,
   // Update to false when the spec is mostly complete (and safe to use)
-  supportLevel: SupportLevel.MaintainedPartial,
+  supportLevel: SupportLevel.Unmaintained,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -24,16 +23,6 @@ const config: Config = {
       Thanks!
     </>
   ),
-  pages: {
-    overview: {
-      notes: (
-        <AlertWarning>
-          Classic Cataclysm support is still a Work in Progress. This spec guide is a stub. See the
-          "About" tab for information on contributing.
-        </AlertWarning>
-      ),
-    },
-  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
     '/report/8a9MGVvdKyRh4xwn/14-Normal+Ignis+the+Furnace+Master+-+Kill+(2:46)/Pentaxx',

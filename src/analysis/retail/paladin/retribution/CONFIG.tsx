@@ -1,15 +1,15 @@
-import { Juko8, Klamuz, Skeletor, ToppleTheNun } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import { Texleretour } from 'CONTRIBUTORS';
 
 const config: Config = {
-  contributors: [ToppleTheNun, Klamuz, Juko8, Skeletor],
+  contributors: [Texleretour],
   branch: GameBranch.Retail,
-  patchCompatibility: '10.1.7',
-  supportLevel: SupportLevel.MaintainedPartial,
+  patchCompatibility: '11.1.5',
+  supportLevel: SupportLevel.Foundation,
   description: (
     <>
       We hope you get some use out this analyzer we have been working on.
@@ -44,7 +44,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/zv8KTrVGJbnmD2PX/1-Mythic++Brackenhide+Hollow+-+Kill+(18:56)/Wogmyhog/standard/overview',
+    '/report/Tk1qFQXApP2jZvVD/9-Heroic+Cauldron+of+Carnage+-+Kill+(2:43)/Chepged/standard/overview',
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,

@@ -175,6 +175,16 @@ class OtherRacials extends Analyzer.withDependencies({
           gcd: null,
         });
         break;
+      case RACES.LightforgedDraenei:
+        this.deps.abilities.add({
+          spell: SPELLS.LIGHTS_JUDGMENT.id,
+          cooldown: 150,
+          category: SPELL_CATEGORY.OTHERS,
+          gcd: {
+            base: 1500,
+          },
+        });
+        break;
     }
   }
 }

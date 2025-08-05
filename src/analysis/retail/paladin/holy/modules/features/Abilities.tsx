@@ -243,7 +243,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLINDING_LIGHT_TALENT),
       },
       {
-        spell: SPELLS.AVENGING_WRATH.id,
+        spell: TALENTS.AVENGING_WRATH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
@@ -296,7 +296,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.LIGHTS_CONVICTION_TALENT) ? 2 : 1,
         cooldown: (haste) => {
-          const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.2 : 0;
+          const swCdr =
+            hasSanctifiedWrath && combatant.hasBuff(TALENTS.AVENGING_WRATH_TALENT.id) ? 0.2 : 0;
           return hasted(8.5 * (1 - swCdr))(haste);
         },
         gcd: {

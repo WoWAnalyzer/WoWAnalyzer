@@ -30,6 +30,11 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
       },
       {
+        spell: SPELLS.PENANCE_DAMAGE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
         spell: SPELLS.PENANCE_HEALING.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -129,6 +134,11 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
+        spell: SPELLS.MIND_SEAR.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1500 },
+      },
+      {
         spell: SPELLS.HEAL.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
@@ -212,6 +222,24 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHADOW_PROTECTION.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      // Talents
+      {
+        spell: SPELLS.DIVINE_STAR.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        cooldown: 15,
+      },
+      {
+        spell: SPELLS.MINDBENDER.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        cooldown: 60,
+      },
+      {
+        spell: SPELLS.ANGELIC_FEATHER.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

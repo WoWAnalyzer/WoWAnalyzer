@@ -3,7 +3,6 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
-import AlertWarning from 'interface/AlertWarning';
 import { SupportLevel } from 'parser/Config';
 
 const config: Config = {
@@ -24,16 +23,6 @@ const config: Config = {
       Thanks!
     </>
   ),
-  pages: {
-    overview: {
-      notes: (
-        <AlertWarning>
-          Classic Cataclysm support is still a Work in Progress. This spec guide is a stub. See the
-          "About" tab for information on contributing.
-        </AlertWarning>
-      ),
-    },
-  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
     '/report/W8frDmaxcF1yKBNj/6-Normal+XT-002+Deconstructor+-+Kill+(5:30)/Sacredstella',
