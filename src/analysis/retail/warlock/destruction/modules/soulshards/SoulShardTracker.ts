@@ -43,7 +43,6 @@ class SoulShardTracker extends ResourceTracker {
   lastInfernalTick: number | null = null;
   immolateCrits = 0;
   rainOfFireHits = 0;
-  hasInferno = false;
 
   constructor(options: Options) {
     super(options);
@@ -51,7 +50,6 @@ class SoulShardTracker extends ResourceTracker {
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
     this.resource.name = 'Soul Shard Fragments';
     // this.current = 30;
-    this.hasInferno = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -90,44 +88,17 @@ class SoulShardTracker extends ResourceTracker {
           console.log(
             `Missing ${missingFragments} fragments, Immolate critted ${this.immolateCrits}x, Rain of Fire hit ${this.rainOfFireHits}x`,
           );
-        if (!this.hasInferno) {
-          // if we're not running Inferno, there's no other way to get random fragments than Immolate
-          // ... or it's some kind of Infernal shenanigan again, we can't account more fragments than there were events possibly causing them
-          debug &&
-            console.log(
-              `Adding ${Math.min(missingFragments, this.immolateCrits)} fragments to Immolate`,
-            );
-          this.processInvisibleEnergize(
-            SPELLS.IMMOLATE_DEBUFF.id,
-            Math.min(missingFragments, this.immolateCrits),
-            event.timestamp,
+        // if we're not running Inferno, there's no other way to get random fragments than Immolate
+        // ... or it's some kind of Infernal shenanigan again, we can't account more fragments than there were events possibly causing them
+        debug &&
+          console.log(
+            `Adding ${Math.min(missingFragments, this.immolateCrits)} fragments to Immolate`,
           );
-        } else {
-          const distribution = this._getRandomFragmentDistribution(
-            this.immolateCrits,
-            this.rainOfFireHits,
-            missingFragments,
-          );
-          const actualImmolate = Math.min(distribution.immolate, this.immolateCrits);
-          const actualRain = Math.min(distribution.rainOfFire, this.rainOfFireHits);
-          debug &&
-            console.log(`Adding ${actualImmolate} to Immolate, ${actualRain} to Rain of Fire`);
-          if (actualImmolate > 0) {
-            // so we don't get "empty" energizes, meaning 0 generated, 0 wasted but still 1 cast
-            this.processInvisibleEnergize(
-              SPELLS.IMMOLATE_DEBUFF.id,
-              actualImmolate,
-              event.timestamp,
-            );
-          }
-          if (actualRain > 0) {
-            this.processInvisibleEnergize(
-              SPELLS.RAIN_OF_FIRE_DAMAGE.id,
-              actualRain,
-              event.timestamp,
-            );
-          }
-        }
+        this.processInvisibleEnergize(
+          SPELLS.IMMOLATE_DEBUFF.id,
+          Math.min(missingFragments, this.immolateCrits),
+          event.timestamp,
+        );
       }
       // reset the counters
       this.immolateCrits = 0;
@@ -162,8 +133,6 @@ class SoulShardTracker extends ResourceTracker {
 
     if (spellId === SPELLS.IMMOLATE_DEBUFF.id && event.hitType === HIT_TYPES.CRIT) {
       this.immolateCrits += 1;
-    } else if (this.hasInferno && spellId === SPELLS.RAIN_OF_FIRE_DAMAGE.id) {
-      this.rainOfFireHits += 1;
     }
   }
 
@@ -188,14 +157,6 @@ class SoulShardTracker extends ResourceTracker {
       distribution.immolate,
       this.owner.currentTimestamp,
     );
-    if (this.hasInferno) {
-      // makes no sense to even show this if the player doesn't have Inferno
-      this.processInvisibleEnergize(
-        SPELLS.RAIN_OF_FIRE_DAMAGE.id,
-        distribution.rainOfFire,
-        this.owner.currentTimestamp,
-      );
-    }
   }
 
   _applyBuilder(

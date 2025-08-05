@@ -90,14 +90,6 @@ const PATCHES: Patch[] = [
     expansion: Expansion.TheWarWithin,
   },
   {
-    name: '5.5.0',
-    timestamp: 0,
-    urlPrefix: '',
-    isCurrent: true,
-    gameVersion: 6,
-    expansion: Expansion.MistsOfPandaria,
-  },
-  {
     name: '11.1.7',
     timestamp: 1750197600000, // GMT: Tue Jun 17 2025 22:00:00
     urlPrefix: '',
@@ -112,6 +104,14 @@ const PATCHES: Patch[] = [
     isCurrent: false,
     gameVersion: 1, // retail
     expansion: Expansion.TheWarWithin,
+  },
+  {
+    name: '5.5.0',
+    timestamp: 0,
+    urlPrefix: '',
+    isCurrent: true,
+    gameVersion: 6,
+    expansion: Expansion.MistsOfPandaria,
   },
 ];
 

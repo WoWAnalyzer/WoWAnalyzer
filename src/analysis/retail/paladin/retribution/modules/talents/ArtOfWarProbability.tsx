@@ -23,6 +23,9 @@ class ArtOfWarProbability extends Analyzer {
     this.chance = this.selectedCombatant.hasTalent(TALENTS.ART_OF_WAR_TALENT) ? 0.2 : 0;
 
     this.active = this.chance > 0;
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
     if (this.selectedCombatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT)) {

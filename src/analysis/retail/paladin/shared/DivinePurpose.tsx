@@ -76,6 +76,19 @@ class DivinePurpose extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF),
       this.removeBuff,
     );
+    // Ret has a different version (and ID) of Divine Purpose probably thanks to balance nuances.
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF_RET),
+      this.applyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF_RET),
+      this.applyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF_RET),
+      this.removeBuff,
+    );
   }
 
   castCounter() {

@@ -1,6 +1,5 @@
 import { defineMessage } from '@lingui/core/macro';
-import SPELLS from 'common/SPELLS/paladin';
-import TALENTS from 'common/TALENTS/paladin';
+import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -14,8 +13,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-class WakeofAshes extends Analyzer {
+class WakeOfAshes extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
@@ -30,6 +30,10 @@ class WakeofAshes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.WAKE_OF_ASHES_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
       this.onWakeofAshesDamage,
@@ -97,8 +101,8 @@ class WakeofAshes extends Analyzer {
       suggest(
         <>
           <SpellLink spell={TALENTS.WAKE_OF_ASHES_TALENT} /> hit 0 targets {actual} time(s).{' '}
-          <SpellLink spell={SPELLS.BLADE_OF_JUSTICE} /> has the same range of 12yds. You can use
-          this as a guideline to tell if targets will be in range.
+          <SpellLink spell={TALENTS.BLADE_OF_JUSTICE_TALENT} /> has the same range of 12yds. You can
+          use this as a guideline to tell if targets will be in range.
         </>,
       )
         .icon(TALENTS.WAKE_OF_ASHES_TALENT.icon)
@@ -116,6 +120,7 @@ class WakeofAshes extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE()}
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon spell={TALENTS.WAKE_OF_ASHES_TALENT} />}
         value={
           <>
@@ -137,4 +142,4 @@ class WakeofAshes extends Analyzer {
   }
 }
 
-export default WakeofAshes;
+export default WakeOfAshes;

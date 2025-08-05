@@ -48,14 +48,6 @@ class Mastermind extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onSpell,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_SPIKE_TALENT),
-      this.onSpell,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
-      this.onSpell,
-    );
   }
 
   onSpell(event: DamageEvent) {

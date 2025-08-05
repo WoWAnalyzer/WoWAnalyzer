@@ -8,7 +8,6 @@ import {
   ShiftingPower,
   TempestBarrier,
   MasterOfTime,
-  TimeAnomaly,
   SharedCode,
   IceBlock,
   IceCold,
@@ -120,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     masterOfTime: MasterOfTime,
-    timeAnomaly: TimeAnomaly,
 
     // Defensives - Shared
     mirrorImage: MirrorImage,

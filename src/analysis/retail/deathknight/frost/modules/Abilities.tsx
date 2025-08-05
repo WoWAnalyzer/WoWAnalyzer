@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.PILLAR_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: combatant.hasTalent(talents.ICECAP_TALENT) ? 45 : 60,
+        cooldown: 60,
         enabled: combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -42,19 +42,6 @@ class Abilities extends CoreAbilities {
           ),
         },
         timelineSortIndex: 1,
-      },
-      {
-        spell: talents.HORN_OF_WINTER_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasTalent(talents.HORN_OF_WINTER_TALENT),
       },
       {
         spell: talents.BREATH_OF_SINDRAGOSA_TALENT.id,
@@ -96,35 +83,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: combatant.hasTalent(talents.DEATHS_MESSENGER_TALENT) ? 90 : 120,
-      },
-      {
-        spell: talents.CHILL_STREAK_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              Although you normally want to use this off CD, you can save it to line it up with{' '}
-              <SpellLink spell={talents.PILLAR_OF_FROST_TALENT} icon />. You can also save it if you
-              only have one target and another will spawn within 45 seconds.
-            </>
-          ),
-        },
-        enabled: combatant.hasTalent(talents.CHILL_STREAK_TALENT),
-      },
-      {
-        spell: talents.ABOMINATION_LIMB_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 120,
-        enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT),
       },
       // ROTATIONAL
       {
@@ -175,12 +133,11 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(talents.FROSTSCYTHE_TALENT),
       },
       {
-        spell: talents.GLACIAL_ADVANCE_TALENT.id,
+        spell: SPELLS.GLACIAL_ADVANCE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(talents.GLACIAL_ADVANCE_TALENT),
       },
       {
         spell: talents.SACRIFICIAL_PACT_TALENT.id,
@@ -264,9 +221,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAINS_OF_ICE.id,
-        category: combatant.hasTalent(talents.COLD_HEART_TALENT)
-          ? SPELL_CATEGORY.ROTATIONAL
-          : SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },

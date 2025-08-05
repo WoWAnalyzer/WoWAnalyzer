@@ -103,10 +103,10 @@ const talents = {
   ARCANE_REBOUND_TALENT: {
     id: 1223800,
     name: 'Arcane Rebound',
-    icon: 'ability_mage_arcanebarrage',
+    icon: 'inv_10_dungeonjewelry_dragon_trinket_1arcanemagical_blue',
     maxRanks: 1,
-    entryIds: [126508],
-    definitionIds: [{ id: 131334, specId: 62 }],
+    entryIds: [126511],
+    definitionIds: [{ id: 131337, specId: 62 }],
   },
   ARCANE_SURGE_TALENT: {
     id: 365350,
@@ -1182,7 +1182,7 @@ const talents = {
   MEMORY_OF_ALAR_TALENT: {
     id: 449619,
     name: "Memory of Al'ar",
-    icon: 'inv_misc_summerfest_brazierorange',
+    icon: 'inv_ability_sunfurymage_spellfirespheres',
     maxRanks: 1,
     entryIds: [117249],
     definitionIds: [{ id: 122261, specId: 63 }],
@@ -1569,7 +1569,7 @@ const talents = {
   SPELLFIRE_SPHERES_TALENT: {
     id: 448601,
     name: 'Spellfire Spheres',
-    icon: 'inv_ability_sunfurymage_spellfirespheres',
+    icon: 'inv_1115_mage_spellfirespheresgeneration',
     maxRanks: 1,
     entryIds: [117250],
     definitionIds: [{ id: 122262, specId: 63 }],
@@ -1652,8 +1652,8 @@ const talents = {
     name: 'Static Cloud',
     icon: 'inv_misc_stormlordsfavor',
     maxRanks: 1,
-    entryIds: [126511],
-    definitionIds: [{ id: 131337, specId: 62 }],
+    entryIds: [126508],
+    definitionIds: [{ id: 131334, specId: 62 }],
   },
   SUBZERO_TALENT: {
     id: 380154,
@@ -1734,14 +1734,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [80217],
     definitionIds: [{ id: 85220, specId: 64 }],
-  },
-  TIME_ANOMALY_TALENT: {
-    id: 383243,
-    name: 'Time Anomaly',
-    icon: 'ability_mage_timewarp',
-    maxRanks: 1,
-    entryIds: [80151],
-    definitionIds: [{ id: 85154, specId: 64 }],
   },
   TIME_LOOP_TALENT: {
     id: 452924,

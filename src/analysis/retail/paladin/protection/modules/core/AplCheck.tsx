@@ -8,7 +8,9 @@ import aplCheck, { Condition, build, tenseAlt } from 'parser/shared/metrics/apl'
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
-const howCastable = cnd.always(cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AVENGING_WRATH)));
+const howCastable = cnd.always(
+  cnd.or(cnd.inExecute(), cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT)),
+);
 
 const eyeOfTyrHoLCastable: Condition<boolean> = {
   key: 'eyeOfTyr-HoL-Castable',
@@ -82,7 +84,7 @@ export const apl = build([
     spell: TALENTS.AVENGERS_SHIELD_TALENT,
     condition: cnd.hasTalent(TALENTS.BULWARK_OF_RIGHTEOUS_FURY_TALENT),
   },
-  { spell: SPELLS.HAMMER_OF_WRATH, condition: howCastable },
+  { spell: TALENTS.HAMMER_OF_WRATH_TALENT, condition: howCastable },
   SPELLS.JUDGMENT_CAST,
   {
     spell: [TALENTS.BLESSED_HAMMER_TALENT, TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT],

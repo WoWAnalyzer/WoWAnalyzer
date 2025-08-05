@@ -17,6 +17,7 @@ import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 // Normalizers
 import PenanceNormalizer from './modules/normalizers/Penance';
+import AtonementAnalyzer from 'analysis/classic/priest/discipline/modules/core/AtonementAnalyzer';
 // Spells
 // import SpellName from './modules/spells';
 
@@ -38,6 +39,8 @@ class CombatLogParser extends BaseCombatLogParser {
     hpmDetails: HealingEfficiencyDetails,
     // Normalizers
     penanceNormalizer: PenanceNormalizer,
+    // Core
+    atonementAnalyzer: AtonementAnalyzer,
     // Spells
     // spellName: SpellName,
   };

@@ -449,14 +449,6 @@ const talents = {
     entryIds: [117553],
     definitionIds: [{ id: 122565, specId: 1468 }],
   },
-  ERASURE_TALENT: {
-    id: 376210,
-    name: 'Erasure',
-    icon: 'ability_bossmagistrix_timewarp2',
-    maxRanks: 1,
-    entryIds: [115570],
-    definitionIds: [{ id: 120582, specId: 1468 }],
-  },
   ERUPTION_TALENT: {
     id: 395160,
     name: 'Eruption',
@@ -1210,14 +1202,6 @@ const talents = {
     entryIds: [115616],
     definitionIds: [{ id: 120628, specId: 1473 }],
   },
-  PUNCTUALITY_TALENT: {
-    id: 371270,
-    name: 'Punctuality',
-    icon: 'inv_offhand_1h_ulduarraid_d_01',
-    maxRanks: 1,
-    entryIds: [115565],
-    definitionIds: [{ id: 120577, specId: 1468 }],
-  },
   PUPIL_OF_ALEXSTRASZA_TALENT: {
     id: 407814,
     name: 'Pupil of Alexstrasza',
@@ -1508,8 +1492,8 @@ const talents = {
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
     maxRanks: 1,
-    entryIds: [115567],
-    definitionIds: [{ id: 120579, specId: 1468 }],
+    entryIds: [115569],
+    definitionIds: [{ id: 120581, specId: 1468 }],
     manaCost: 100000,
   },
   STRETCH_TIME_TALENT: {
@@ -1566,8 +1550,8 @@ const talents = {
     name: 'Temporal Artificer',
     icon: 'ability_evoker_rewind',
     maxRanks: 1,
-    entryIds: [115569],
-    definitionIds: [{ id: 120581, specId: 1468 }],
+    entryIds: [115570],
+    definitionIds: [{ id: 120582, specId: 1468 }],
   },
   TEMPORAL_BURST_TALENT: {
     id: 431695,
@@ -1584,6 +1568,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [115543],
     definitionIds: [{ id: 120555, specId: 1468 }],
+  },
+  TEMPO_CHARGED_TALENT: {
+    id: 1237978,
+    name: 'Tempo Charged',
+    icon: 'classicon_evoker_preservation',
+    maxRanks: 1,
+    entryIds: [115567],
+    definitionIds: [{ id: 120579, specId: 1468 }],
   },
   TERROR_OF_THE_SKIES_TALENT: {
     id: 371032,
@@ -1746,6 +1738,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [117531],
     definitionIds: [{ id: 122543, specId: 1473 }],
+  },
+  UNSHAKABLE_TALENT: {
+    id: 1239581,
+    name: 'Unshakable',
+    icon: 'ability_evoker_masterygiantkiller',
+    maxRanks: 1,
+    entryIds: [115565],
+    definitionIds: [{ id: 120577, specId: 1468 }],
   },
   UNYIELDING_DOMAIN_TALENT: {
     id: 412733,

@@ -101,19 +101,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.BARRAGE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
-        enabled: combatant.hasTalent(TALENTS.BARRAGE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: TALENTS.VOLLEY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,

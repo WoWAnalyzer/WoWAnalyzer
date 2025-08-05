@@ -19,8 +19,6 @@ class PsychicLink extends Analyzer {
   damageMB = 0;
   damageSWD = 0;
   damageDP = 0;
-  damageMS = 0;
-  damageMSI = 0;
   damageMF = 0;
   damageMFI = 0;
   damageVT = 0;
@@ -39,14 +37,6 @@ class PsychicLink extends Analyzer {
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
-      this.onSpell,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_SPIKE_TALENT),
-      this.onSpell,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
       this.onSpell,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY), this.onSpell);
@@ -83,12 +73,6 @@ class PsychicLink extends Analyzer {
         break;
       case TALENTS.DEVOURING_PLAGUE_TALENT.name:
         this.damageDP += event.amount + (event.absorbed || 0);
-        break;
-      case TALENTS.MIND_SPIKE_TALENT.name:
-        this.damageMS += event.amount + (event.absorbed || 0);
-        break;
-      case SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.name:
-        this.damageMSI += event.amount + (event.absorbed || 0);
         break;
       case SPELLS.MIND_FLAY.name:
         this.damageMF += event.amount + (event.absorbed || 0);
@@ -139,34 +123,16 @@ class PsychicLink extends Analyzer {
               </div>
             ) : null}
 
-            {!this.selectedCombatant.hasTalent(TALENTS.MIND_SPIKE_TALENT) ? (
-              <>
-                <div>
-                  <SpellLink spell={SPELLS.MIND_FLAY} />:{' '}
-                  {formatPercentage(this.damageMF / this.damageTotal, 1)}%
-                </div>
-                {this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) ? (
-                  <div>
-                    <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} />:{' '}
-                    {formatPercentage(this.damageMFI / this.damageTotal, 1)}%
-                  </div>
-                ) : null}
-              </>
+            <div>
+              <SpellLink spell={SPELLS.MIND_FLAY} />:{' '}
+              {formatPercentage(this.damageMF / this.damageTotal, 1)}%
+            </div>
+            {this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) ? (
+              <div>
+                <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} />:{' '}
+                {formatPercentage(this.damageMFI / this.damageTotal, 1)}%
+              </div>
             ) : null}
-
-            {this.selectedCombatant.hasTalent(TALENTS.MIND_SPIKE_TALENT) ? (
-              <>
-                <div>
-                  <SpellLink spell={TALENTS.MIND_SPIKE_TALENT} />:{' '}
-                  {formatPercentage(this.damageMS / this.damageTotal, 1)}%
-                </div>
-                <div>
-                  <SpellLink spell={SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE} />:{' '}
-                  {formatPercentage(this.damageMSI / this.damageTotal, 1)}%
-                </div>
-              </>
-            ) : null}
-
             {this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) ? (
               <div>
                 <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />:{' '}

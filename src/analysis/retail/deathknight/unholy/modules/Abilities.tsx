@@ -175,26 +175,6 @@ class Abilities extends CoreAbilities {
         },
         range: 40,
       },
-      {
-        spell: TALENTS.ABOMINATION_LIMB_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ABOMINATION_LIMB_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        range: 20,
-      },
-      {
-        spell: TALENTS.VILE_CONTAGION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.VILE_CONTAGION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        range: 30,
-      },
       //endregion
 
       // region Defensives

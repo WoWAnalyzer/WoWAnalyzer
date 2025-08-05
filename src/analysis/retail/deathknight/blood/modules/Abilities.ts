@@ -126,21 +126,6 @@ class Abilities extends CoreAbilities {
       },
       //Rotational
       {
-        spell: TALENTS.ABOMINATION_LIMB_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ABOMINATION_LIMB_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion:
-            'Should be used on CD. You may delay it a little to not over cap on bone shield charges or if you need its pulling of mobs.',
-        },
-      },
-      {
         spell: TALENTS.BLOOD_BOIL_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.BLOOD_BOIL_TALENT),

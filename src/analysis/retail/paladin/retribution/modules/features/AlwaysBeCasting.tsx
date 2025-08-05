@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
@@ -29,7 +30,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. Even if you have to move, try casting something instant with
             range like <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> or{' '}
-            <SpellLink spell={SPELLS.BLADE_OF_JUSTICE} icon />.
+            <SpellLink spell={TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT} icon />.
           </>,
         )
           .icon('spell_mage_altertime')

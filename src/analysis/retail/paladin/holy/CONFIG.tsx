@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { swirl, Texleretour } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
@@ -27,10 +26,10 @@ const config: Config = {
       <br />
       You might have noticed the suggestions focus mostly on improving your cast efficiencies. This
       might seem silly, but it's actually one of the most important things for us Holy Paladins.
-      Avoid having your <SpellLink spell={SPELLS.AVENGING_WRATH} /> and other cooldowns available
-      unused for long periods of time (they're not raid cooldowns, they're required for you to have
-      decent throughput and not run OOM) and <b>hit those buttons</b> that have short cooldowns
-      (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
+      Avoid having your <SpellLink spell={TALENTS.AVENGING_WRATH_TALENT} /> and other cooldowns
+      available unused for long periods of time (they're not raid cooldowns, they're required for
+      you to have decent throughput and not run OOM) and <b>hit those buttons</b> that have short
+      cooldowns (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
       <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} />
       ).
       <br />

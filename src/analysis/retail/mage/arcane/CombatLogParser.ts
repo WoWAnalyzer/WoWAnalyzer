@@ -8,7 +8,6 @@ import {
   ShiftingPower,
   TempestBarrier,
   MasterOfTime,
-  TimeAnomaly,
   IceBlock,
   IceCold,
   GreaterInvisibility,
@@ -112,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     supernova: Supernova,
     shiftingPower: ShiftingPower,
     elementalBarrier: ElementalBarrier,
-    timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
 

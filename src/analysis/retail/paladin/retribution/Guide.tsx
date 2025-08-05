@@ -4,8 +4,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/retribution/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
-import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
 import DRAGONFLIGHT_OTHERS_ITEMS from 'common/ITEMS/dragonflight/others';
@@ -29,9 +27,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 const PERFECT_HOLY_POWER_CAP = 0.1;
 const GOOD_HOLY_POWER_CAP = 0.15;
 const OK_HOLY_POWER_CAP = 0.2;
+
 function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const holyPowerWasted = modules.holyPowerTracker.wasted;
-  const holyPowerTotal = modules.holyPowerTracker.generated;
+  const holyPowerTotal = modules.holyPowerTracker.wasted + modules.holyPowerTracker.generated;
   const wastedHolyPowerPercentage = holyPowerWasted / holyPowerTotal;
   let wastedHolyPowerPercentagePerformance = QualitativePerformance.Fail;
   if (wastedHolyPowerPercentage <= PERFECT_HOLY_POWER_CAP) {
@@ -132,8 +131,6 @@ function CooldownSection() {
         order to maximize usages over the course of an encounter, you should aim to send the
         cooldown as soon as it becomes available (as long as it can do damage on target).
       </p>
-      <HideExplanationsToggle id="hide-explanations-rotation" />
-      <HideGoodCastsToggle id="hide-good-casts-rotation" />
       <CooldownGraphSubsection cooldowns={cooldowns} />
     </Section>
   );

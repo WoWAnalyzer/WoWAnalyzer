@@ -310,10 +310,8 @@ class Abilities extends CoreAbilities {
         cooldown: 180 - (combatant.hasTalent(TALENTS.BOLSTER_TALENT) ? 60 : 0),
       },
       {
-        spell: TALENTS.CHALLENGING_SHOUT_TALENT.id,
-        enabled:
-          combatant.hasTalent(TALENTS.CHALLENGING_SHOUT_TALENT) &&
-          !combatant.hasTalent(TALENTS.DISRUPTING_SHOUT_TALENT),
+        spell: SPELLS.CHALLENGING_SHOUT.id,
+        enabled: !combatant.hasTalent(TALENTS.DISRUPTING_SHOUT_TALENT),
 
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: 90,
@@ -328,9 +326,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.DISRUPTING_SHOUT_TALENT.id,
-        enabled:
-          combatant.hasTalent(TALENTS.CHALLENGING_SHOUT_TALENT) &&
-          combatant.hasTalent(TALENTS.DISRUPTING_SHOUT_TALENT),
+        enabled: combatant.hasTalent(TALENTS.DISRUPTING_SHOUT_TALENT),
 
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
@@ -344,13 +340,6 @@ class Abilities extends CoreAbilities {
           (210 - (combatant.hasTalent(TALENTS.DEFENDERS_AEGIS_TALENT) ? 30 : 0)) *
           (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         charges: 1 + (combatant.hasTalent(TALENTS.DEFENDERS_AEGIS_TALENT) ? 1 : 0),
-      },
-      {
-        spell: TALENTS.SPELL_BLOCK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SPELL_BLOCK_TALENT),
-
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
       },
       {
         spell: TALENTS.SHIELD_CHARGE_TALENT.id,

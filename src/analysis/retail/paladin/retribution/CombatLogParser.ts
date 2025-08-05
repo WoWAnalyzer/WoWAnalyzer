@@ -12,12 +12,12 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import ArtOfWar from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWar';
 import ArtOfWarProbability from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWarProbability';
-import BladeofJustice from 'analysis/retail/paladin/retribution/modules/talents/BladeofJustice';
+import BladeOfJustice from 'analysis/retail/paladin/retribution/modules/talents/BladeOfJustice';
 import Consecration from './modules/core/Consecration';
 import CrusaderStrike from './modules/core/CrusaderStrike';
 import HammerofWrathRetribution from 'analysis/retail/paladin/retribution/modules/talents/HammerofWrath';
 import ShieldOfVengeance from 'analysis/retail/paladin/retribution/modules/talents/ShieldOfVengeance';
-import WakeofAshes from 'analysis/retail/paladin/retribution/modules/talents/WakeofAshes';
+import WakeOfAshes from 'analysis/retail/paladin/retribution/modules/talents/WakeOfAshes';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FinalVerdict from 'analysis/retail/paladin/retribution/modules/talents/FinalVerdict';
@@ -43,7 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    bladeofJustice: BladeofJustice,
+    bladeofJustice: BladeOfJustice,
     crusaderStrike: CrusaderStrike,
     shieldOfVengeance: ShieldOfVengeance,
     judgment: Judgment,
@@ -51,7 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
-    wakeofAshes: WakeofAshes,
+    wakeofAshes: WakeOfAshes,
     consecration: Consecration,
     hammerofWrathRetribution: HammerofWrathRetribution,
     empyreanPower: EmpyreanPower,

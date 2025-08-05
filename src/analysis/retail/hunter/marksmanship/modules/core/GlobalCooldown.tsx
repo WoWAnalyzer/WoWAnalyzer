@@ -26,7 +26,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === TALENTS_HUNTER.BARRAGE_TALENT.id || spellId === SPELLS.RAPID_FIRE.id) {
+    if (spellId === SPELLS.RAPID_FIRE.id) {
       return;
     }
     const isOnGCD = this.isOnGlobalCooldown(spellId);

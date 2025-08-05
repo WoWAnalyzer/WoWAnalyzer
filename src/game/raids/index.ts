@@ -6,12 +6,12 @@ import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import MythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
 import NerubarPalace from 'game/raids/nerubarpalace';
 import Undermine from 'game/raids/undermine';
+import ManaforgeOmega from 'game/raids/manaforge-omega';
 import {
   msv as MogushanVaults,
   hof as HeartOfFear,
   toes as TerraceOfEndlessSpring,
 } from './mop_msv_hof_toes';
-import ManaforgeOmega from 'game/raids/manaforge-omega';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;

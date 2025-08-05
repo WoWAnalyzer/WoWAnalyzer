@@ -26,10 +26,6 @@ const cooldowns: Cooldown[] = [
     isActive: (c) => c.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT),
   },
   {
-    spell: TALENTS.GUILLOTINE_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.GUILLOTINE_TALENT),
-  },
-  {
     spell: TALENTS.GRIMOIRE_FELGUARD_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT),
   },

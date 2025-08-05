@@ -193,8 +193,8 @@ const talents = {
     name: 'Cataclysm',
     icon: 'achievement_zone_cataclysm',
     maxRanks: 1,
-    entryIds: [91487],
-    definitionIds: [{ id: 96489, specId: 267 }],
+    entryIds: [91488],
+    definitionIds: [{ id: 96490, specId: 267 }],
     manaCost: 25000,
   },
   CHANNEL_DEMONFIRE_TALENT: {
@@ -789,14 +789,6 @@ const talents = {
       { id: 130450, specId: 267 },
     ],
   },
-  GUILLOTINE_TALENT: {
-    id: 386833,
-    name: 'Guillotine',
-    icon: 'inv_axe_2h_felfireraid_d_01',
-    maxRanks: 1,
-    entryIds: [125840],
-    definitionIds: [{ id: 130671, specId: 266 }],
-  },
   HATEFURY_RITUALS_TALENT: {
     id: 440048,
     name: 'Hatefury Rituals',
@@ -977,14 +969,6 @@ const talents = {
     entryIds: [117449],
     definitionIds: [{ id: 122461, specId: 267 }],
   },
-  INFERNO_TALENT: {
-    id: 270545,
-    name: 'Inferno',
-    icon: 'spell_shadow_rainoffire',
-    maxRanks: 1,
-    entryIds: [91488],
-    definitionIds: [{ id: 96490, specId: 267 }],
-  },
   INFIRMITY_TALENT: {
     id: 458036,
     name: 'Infirmity',
@@ -1105,6 +1089,14 @@ const talents = {
     entryIds: [91475],
     definitionIds: [{ id: 96477, specId: 267 }],
   },
+  MASTER_SUMMONER_TALENT: {
+    id: 1240189,
+    name: 'Master Summoner',
+    icon: 'inv_feldreadravenmount',
+    maxRanks: 1,
+    entryIds: [125854],
+    definitionIds: [{ id: 130685, specId: 266 }],
+  },
   MAYHEM_TALENT: {
     id: 387506,
     name: 'Mayhem',
@@ -1176,8 +1168,8 @@ const talents = {
     name: 'Pact of the Imp Mother',
     icon: 'inv_archaeology_70_impgenerator',
     maxRanks: 1,
-    entryIds: [125870],
-    definitionIds: [{ id: 130701, specId: 266 }],
+    entryIds: [125861],
+    definitionIds: [{ id: 130692, specId: 266 }],
   },
   PERPETUAL_UNSTABILITY_TALENT: {
     id: 459376,
@@ -1269,14 +1261,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [126303],
     definitionIds: [{ id: 131129, specId: 265 }],
-  },
-  REIGN_OF_TYRANNY_TALENT: {
-    id: 427684,
-    name: 'Reign of Tyranny',
-    icon: 'ability_bossdarkvindicator_auraofoppression',
-    maxRanks: 1,
-    entryIds: [125854],
-    definitionIds: [{ id: 130685, specId: 266 }],
   },
   RELINQUISHED_TALENT: {
     id: 453083,
@@ -1704,8 +1688,8 @@ const talents = {
     name: 'Umbral Blaze',
     icon: 'ability_warlock_everlastingaffliction',
     maxRanks: 1,
-    entryIds: [125861],
-    definitionIds: [{ id: 130692, specId: 266 }],
+    entryIds: [125870],
+    definitionIds: [{ id: 130701, specId: 266 }],
   },
   UNSTABLE_AFFLICTION_TALENT: {
     id: 316099,
