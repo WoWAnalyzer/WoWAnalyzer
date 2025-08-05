@@ -212,10 +212,11 @@ async function getFileList(version: string): Promise<FileList> {
   try {
     const data = await fs.readFile(cacheFile, { encoding: 'utf8' });
 
-    FILE_LISTS[version] = data;
+    FILE_LISTS[version] = JSON.parse(data);
 
-    return JSON.parse(data);
+    return FILE_LISTS[version];
   } catch {
+    console.warn('downloading file list from wago.tools, this might take a bit...');
     // file doesn't exist. download it.
     const contents = await downloadFileList(version);
 

@@ -10,7 +10,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'f',
+    icon: 'ability_monk_jab.jpg',
   },
   BLACKOUT_KICK: {
     id: 100784,
@@ -22,7 +22,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'm',
+    icon: 'ability_monk_roundhousekick.jpg',
   },
   TIGER_PALM: {
     id: 100787,
@@ -34,7 +34,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: '2',
+    icon: 'ability_monk_tigerpalm.jpg',
   },
   SPINNING_CRANE_KICK: {
     id: 101546,
@@ -58,7 +58,7 @@ const SPELLS = {
         },
       ],
     },
-    icon: 'o',
+    icon: 'ability_monk_cranekick_new.jpg',
   },
   TRANSCENDENCE: {
     id: 101643,
@@ -77,7 +77,7 @@ const SPELLS = {
     castTime: {
       duration: 500,
     },
-    icon: '',
+    icon: 'monk_ability_transcendence.jpg',
   },
   STANCE_OF_THE_FIERCE_TIGER: {
     id: 103985,
@@ -89,7 +89,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: '1',
+    icon: 'monk_stance_whitetiger.jpg',
   },
   SPINNING_CRANE_KICK_HIDDEN_1: {
     id: 107270,
@@ -98,7 +98,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Spinning Crane Kick',
-    icon: 'o',
+    icon: 'ability_monk_cranekick_new.jpg',
   },
   SPINNING_CRANE_KICK_HIDDEN_2: {
     id: 117640,
@@ -108,7 +108,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Spinning Crane Kick',
-    icon: 'o',
+    icon: 'ability_monk_cranekick_new.jpg',
   },
   DND_MONK_ENERGY_DRIVER_HIDDEN: {
     id: 107500,
@@ -117,7 +117,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: '<DND> Monk Energy Driver',
-    icon: '_',
+    icon: 'ability_hunter_huntervswild.jpg',
   },
   MONK_WEAPON_OVERRIDE_DRIVER_HIDDEN: {
     id: 108562,
@@ -126,7 +126,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Monk Weapon Override Driver',
-    icon: 'g',
+    icon: 'inv_bijou_gold.jpg',
   },
   WAY_OF_THE_MONK_HIDDEN_1: {
     id: 108977,
@@ -135,7 +135,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Way of the Monk',
-    icon: 'e',
+    icon: 'ability_monk_dpsstance.jpg',
   },
   WAY_OF_THE_MONK_HIDDEN_2: {
     id: 120275,
@@ -144,7 +144,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Way of the Monk',
-    icon: 'e',
+    icon: 'ability_monk_dpsstance.jpg',
   },
   ROLL_CELERITY_TALENT: {
     id: 121827,
@@ -160,7 +160,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 's',
+    icon: 'ability_monk_roll.jpg',
   },
   ROLL: {
     id: 109132,
@@ -175,7 +175,7 @@ const SPELLS = {
       duration: 20000,
       hasted: false,
     },
-    icon: 's',
+    icon: 'ability_monk_roll.jpg',
   },
   SYMBIOSIS: {
     id: 110500,
@@ -183,7 +183,7 @@ const SPELLS = {
     iconID: 571587,
     passive: false,
     name: 'Symbiosis',
-    icon: '',
+    icon: 'spell_druid_symbiosis.jpg',
   },
   CHI_TORPEDO_TALENT: {
     id: 115008,
@@ -201,7 +201,7 @@ const SPELLS = {
       duration: 20000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_monk_quitornado.jpg',
   },
   STANCE_OF_THE_WISE_SERPENT: {
     id: 115070,
@@ -213,7 +213,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: '4',
+    icon: 'monk_stance_wiseserpent.jpg',
   },
   EXPEL_HARM: {
     id: 115072,
@@ -229,7 +229,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 'r',
+    icon: 'ability_monk_expelharm.jpg',
   },
   FIGHTING_STYLE_PASSIVE: {
     id: 115074,
@@ -237,7 +237,7 @@ const SPELLS = {
     iconID: 574577,
     passive: true,
     name: 'Fighting Style',
-    icon: 'l',
+    icon: 'ability_monk_standingkick.jpg',
   },
   PARALYSIS: {
     id: 115078,
@@ -253,7 +253,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: '5',
+    icon: 'ability_monk_paralysis.jpg',
   },
   TOUCH_OF_DEATH: {
     id: 115080,
@@ -269,7 +269,7 @@ const SPELLS = {
       duration: 90000,
       hasted: false,
     },
-    icon: '9',
+    icon: 'ability_monk_touchofdeath.jpg',
   },
   CHI_WAVE_TALENT: {
     id: 115098,
@@ -287,7 +287,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 'w',
+    icon: 'ability_monk_chiwave.jpg',
   },
   EXPEL_HARM_HIDDEN: {
     id: 115129,
@@ -300,7 +300,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: 'r',
+    icon: 'ability_monk_expelharm.jpg',
   },
   RENEWING_MIST: {
     id: 115151,
@@ -316,7 +316,7 @@ const SPELLS = {
       duration: 8000,
       hasted: false,
     },
-    icon: 't',
+    icon: 'ability_monk_renewingmists.jpg',
   },
   CELERITY_TALENT: {
     id: 115173,
@@ -326,7 +326,7 @@ const SPELLS = {
     iconID: 607848,
     passive: true,
     name: 'Celerity',
-    icon: 'o',
+    icon: 'ability_monk_quipunch.jpg',
   },
   MOMENTUM_TALENT: {
     id: 115174,
@@ -336,7 +336,7 @@ const SPELLS = {
     iconID: 574577,
     passive: true,
     name: 'Momentum',
-    icon: 'l',
+    icon: 'ability_monk_standingkick.jpg',
   },
   SOOTHING_MIST_1: {
     id: 115175,
@@ -354,7 +354,7 @@ const SPELLS = {
       buffIsLogged: true,
       triggeredSpells: [],
     },
-    icon: '6',
+    icon: 'ability_monk_soothingmists.jpg',
   },
   SOOTHING_MIST_2: {
     id: 125953,
@@ -367,7 +367,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: '6',
+    icon: 'ability_monk_soothingmists.jpg',
   },
   ZEN_MEDITATION: {
     id: 115176,
@@ -385,7 +385,7 @@ const SPELLS = {
       buffIsLogged: true,
       triggeredSpells: [],
     },
-    icon: 't',
+    icon: 'ability_monk_zenmeditation.jpg',
   },
   RESUSCITATE: {
     id: 115178,
@@ -400,7 +400,7 @@ const SPELLS = {
     castTime: {
       duration: 10000,
     },
-    icon: 'n',
+    icon: 'ability_druid_lunarguidance.jpg',
   },
   FORTIFYING_BREW: {
     id: 115203,
@@ -412,7 +412,7 @@ const SPELLS = {
       duration: 180000,
       hasted: false,
     },
-    icon: 'y',
+    icon: 'ability_monk_fortifyingale_new.jpg',
   },
   MANA_TEA: {
     id: 115294,
@@ -430,7 +430,7 @@ const SPELLS = {
       buffIsLogged: true,
       triggeredSpells: [],
     },
-    icon: 'r',
+    icon: 'monk_ability_cherrymanatea.jpg',
   },
   REVIVAL: {
     id: 115310,
@@ -446,7 +446,7 @@ const SPELLS = {
       duration: 180000,
       hasted: false,
     },
-    icon: 'l',
+    icon: 'spell_shaman_blessingofeternals.jpg',
   },
   SUMMON_JADE_SERPENT_STATUE: {
     id: 115313,
@@ -462,7 +462,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 's',
+    icon: 'ability_monk_summonserpentstatue.jpg',
   },
   ASCENSION_TALENT: {
     id: 115396,
@@ -472,7 +472,7 @@ const SPELLS = {
     iconID: 629482,
     passive: true,
     name: 'Ascension',
-    icon: 'n',
+    icon: 'ability_monk_ascension.jpg',
   },
   CHI_BREW_TALENT: {
     id: 115399,
@@ -489,7 +489,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: 'd',
+    icon: 'ability_monk_chibrew.jpg',
   },
   DETOX_1: {
     id: 115450,
@@ -505,7 +505,7 @@ const SPELLS = {
       duration: 8000,
       hasted: false,
     },
-    icon: 'u',
+    icon: 'spell_holy_dispelmagic.jpg',
   },
   DETOX_2: {
     id: 125170,
@@ -513,7 +513,7 @@ const SPELLS = {
     iconID: 237171,
     passive: false,
     name: 'Detox',
-    icon: '0',
+    icon: 'inv_inscription_tradeskill01.jpg',
   },
   INTERNAL_MEDICINE_PASSIVE: {
     id: 115451,
@@ -521,7 +521,7 @@ const SPELLS = {
     iconID: 454027,
     passive: true,
     name: 'Internal Medicine',
-    icon: 'l',
+    icon: 'inv_emberweavebandage2.jpg',
   },
   HEALING_SPHERE: {
     id: 115460,
@@ -537,7 +537,7 @@ const SPELLS = {
       duration: 500,
       hasted: false,
     },
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   HEALING_SPHERE_HIDDEN_1: {
     id: 115464,
@@ -547,7 +547,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Healing Sphere',
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   HEALING_SPHERE_HIDDEN_2: {
     id: 125355,
@@ -557,7 +557,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Healing Sphere',
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   HEALING_SPHERE_HIDDEN_3: {
     id: 135914,
@@ -567,7 +567,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Healing Sphere',
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   LEER_OF_THE_OX: {
     id: 115543,
@@ -584,7 +584,7 @@ const SPELLS = {
       duration: 20000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_monk_leeroftheox.jpg',
   },
   PROVOKE: {
     id: 115546,
@@ -596,7 +596,7 @@ const SPELLS = {
       duration: 8000,
       hasted: false,
     },
-    icon: 'g',
+    icon: 'ability_monk_provoke.jpg',
   },
   EXPEL_HARM_DRIVER_HIDDEN: {
     id: 115612,
@@ -605,7 +605,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Expel Harm Driver',
-    icon: 'k',
+    icon: 'ability_mage_hotstreak.jpg',
   },
   MANA_TEA_DRIVER_DND_HIDDEN: {
     id: 115869,
@@ -614,7 +614,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Mana Tea Driver <DND>',
-    icon: 'k',
+    icon: 'ability_mage_hotstreak.jpg',
   },
   LEGACY_OF_THE_EMPEROR: {
     id: 115921,
@@ -626,7 +626,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: '1',
+    icon: 'ability_monk_legacyoftheemperor.jpg',
   },
   DISABLE: {
     id: 116095,
@@ -638,7 +638,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: '',
+    icon: 'ability_shockwave.jpg',
   },
   DND_SOOTHING_MISTS_TRIGGER_HIDDEN: {
     id: 116346,
@@ -647,7 +647,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: '<DND> Soothing Mists Trigger',
-    icon: 'a',
+    icon: 'mail_gmicon.jpg',
   },
   TEACHINGS_OF_THE_MONASTERY: {
     id: 116645,
@@ -655,7 +655,7 @@ const SPELLS = {
     iconID: 611422,
     passive: false,
     name: 'Teachings of the Monastery',
-    icon: '7',
+    icon: 'passive_monk_teachingsofmonastery.jpg',
   },
   UPLIFT_HOTFIX_PASSIVE_HIDDEN: {
     id: 130316,
@@ -668,7 +668,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'u',
+    icon: 'ability_monk_uplift.jpg',
   },
   UPLIFT: {
     id: 116670,
@@ -680,7 +680,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'u',
+    icon: 'ability_monk_uplift.jpg',
   },
   THUNDER_FOCUS_TEA: {
     id: 116680,
@@ -692,7 +692,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: '"',
+    icon: 'ability_monk_thunderfocustea.jpg',
   },
   SURGING_MIST_1: {
     id: 116694,
@@ -707,7 +707,7 @@ const SPELLS = {
     castTime: {
       duration: 1500,
     },
-    icon: 'e',
+    icon: 'ability_monk_surgingmist.jpg',
   },
   SURGING_MIST_2: {
     id: 123273,
@@ -723,7 +723,7 @@ const SPELLS = {
     castTime: {
       duration: 1500,
     },
-    icon: 'e',
+    icon: 'ability_monk_surgingmist.jpg',
   },
   SPEAR_HAND_STRIKE: {
     id: 116705,
@@ -735,7 +735,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 'w',
+    icon: 'ability_monk_spearhand.jpg',
   },
   PARRY_PASSIVE: {
     id: 116812,
@@ -743,7 +743,7 @@ const SPELLS = {
     iconID: 132269,
     passive: true,
     name: 'Parry',
-    icon: 'l',
+    icon: 'ability_parry.jpg',
   },
   TIGERS_LUST_TALENT: {
     id: 116841,
@@ -761,7 +761,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: '',
+    icon: 'ability_monk_tigerslust.jpg',
   },
   RING_OF_PEACE_TALENT: {
     id: 116844,
@@ -779,7 +779,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: '"',
+    icon: 'spell_monk_ringofpeace.jpg',
   },
   RUSHING_JADE_WIND_TALENT: {
     id: 116847,
@@ -798,7 +798,7 @@ const SPELLS = {
       duration: 6000,
       hasted: true,
     },
-    icon: '4',
+    icon: 'ability_monk_rushingjadewind.jpg',
   },
   LIFE_COCOON: {
     id: 116849,
@@ -814,7 +814,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_monk_chicocoon.jpg',
   },
   SURGING_MIST_HIDDEN: {
     id: 116995,
@@ -827,7 +827,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: 'e',
+    icon: 'ability_monk_surgingmist.jpg',
   },
   GRAPPLE_WEAPON: {
     id: 117368,
@@ -843,7 +843,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: ':',
+    icon: 'ability_warrior_disarm.jpg',
   },
   FISTS_OF_FURY_HIDDEN: {
     id: 117418,
@@ -852,7 +852,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Fists of Fury',
-    icon: 'l',
+    icon: 'monk_ability_fistoffury.jpg',
   },
   EMINENCE_STATUE: {
     id: 117895,
@@ -862,7 +862,7 @@ const SPELLS = {
     passive: false,
     hidden: 'unless-learned',
     name: 'Eminence (Statue)',
-    icon: 'w',
+    icon: 'inv_jewelcrafting_jadeserpent.jpg',
   },
   MASTERY_GIFT_OF_THE_SERPENT_PASSIVE: {
     id: 117907,
@@ -870,7 +870,7 @@ const SPELLS = {
     iconID: 624014,
     passive: true,
     name: 'Mastery: Gift of the Serpent',
-    icon: 'r',
+    icon: 'tradeskill_inscription_jadeserpent.jpg',
   },
   CRACKLING_JADE_LIGHTNING: {
     id: 117952,
@@ -888,7 +888,7 @@ const SPELLS = {
       buffIsLogged: true,
       triggeredSpells: [],
     },
-    icon: 'm',
+    icon: 'ability_monk_cracklingjadelightning.jpg',
   },
   CRACKLING_JADE_LIGHTNING_HIDDEN: {
     id: 117959,
@@ -897,7 +897,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Crackling Jade Lightning',
-    icon: 'l',
+    icon: 'ability_parry.jpg',
   },
   CHI_TORPEDO_HIDDEN_1: {
     id: 117993,
@@ -907,7 +907,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Chi Torpedo',
-    icon: 'n',
+    icon: 'ability_monk_quitornado.jpg',
   },
   CHI_TORPEDO_HIDDEN_2: {
     id: 124040,
@@ -917,7 +917,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Chi Torpedo',
-    icon: 'n',
+    icon: 'ability_monk_quitornado.jpg',
   },
   DIZZYING_HAZE: {
     id: 118022,
@@ -930,7 +930,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: '"',
+    icon: 'ability_monk_drunkenhaze.jpg',
   },
   TEACHINGS_OF_THE_MONASTERY_HIDDEN: {
     id: 118672,
@@ -939,7 +939,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Teachings of the Monastery',
-    icon: 'z',
+    icon: 'inv_misc_book_02.jpg',
   },
   LEG_SWEEP_TALENT: {
     id: 119381,
@@ -957,7 +957,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_monk_legsweep.jpg',
   },
   CHARGING_OX_WAVE_TALENT: {
     id: 119392,
@@ -975,7 +975,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 't',
+    icon: 'ability_monk_chargingoxwave.jpg',
   },
   RENEWING_MIST_HIDDEN: {
     id: 119611,
@@ -984,7 +984,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Renewing Mist',
-    icon: 't',
+    icon: 'ability_monk_renewingmists.jpg',
   },
   ENERGY_USAGE_HIDDEN: {
     id: 119650,
@@ -993,7 +993,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Energy Usage',
-    icon: 'a',
+    icon: 'mail_gmicon.jpg',
   },
   TRANSCENDENCE_TRANSFER: {
     id: 119996,
@@ -1012,7 +1012,7 @@ const SPELLS = {
     castTime: {
       duration: 500,
     },
-    icon: '3',
+    icon: 'spell_shaman_spectraltransformation.jpg',
   },
   LEATHER_SPECIALIZATION_PASSIVE: {
     id: 120224,
@@ -1021,7 +1021,7 @@ const SPELLS = {
     passive: true,
     hidden: 'unless-learned',
     name: 'Leather Specialization',
-    icon: 'w',
+    icon: 'inv_chest_cloth_05.jpg',
   },
   TIGER_STRIKES_PASSIVE: {
     id: 120272,
@@ -1029,7 +1029,7 @@ const SPELLS = {
     iconID: 132152,
     passive: true,
     name: 'Tiger Strikes',
-    icon: 'o',
+    icon: 'ability_ghoulfrenzy.jpg',
   },
   TIGER_STRIKES_HIDDEN_1: {
     id: 120274,
@@ -1038,7 +1038,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Tiger Strikes',
-    icon: '7',
+    icon: 'spell_nature_cyclone.jpg',
   },
   TIGER_STRIKES_HIDDEN_2: {
     id: 120278,
@@ -1047,7 +1047,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Tiger Strikes',
-    icon: '7',
+    icon: 'spell_nature_cyclone.jpg',
   },
   WAY_OF_THE_MONK_PASSIVE: {
     id: 120277,
@@ -1055,7 +1055,7 @@ const SPELLS = {
     iconID: 574570,
     passive: true,
     name: 'Way of the Monk',
-    icon: 'e',
+    icon: 'ability_monk_dpsstance.jpg',
   },
   TOUCH_OF_DEATHEXPEL_HARM_NOTIFICATION_DRIVER_HIDDEN: {
     id: 121128,
@@ -1064,7 +1064,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Touch of Death/Expel Harm Notification Driver',
-    icon: 'i',
+    icon: 'spell_holy_divineillumination.jpg',
   },
   MANA_MEDITATION_PASSIVE: {
     id: 121278,
@@ -1072,7 +1072,7 @@ const SPELLS = {
     iconID: 136090,
     passive: true,
     name: 'Mana Meditation',
-    icon: 'n',
+    icon: 'spell_nature_sleep.jpg',
   },
   POWER_STRIKES_TALENT: {
     id: 121817,
@@ -1082,7 +1082,7 @@ const SPELLS = {
     iconID: 629484,
     passive: true,
     name: 'Power Strikes',
-    icon: '_',
+    icon: 'ability_monk_powerstrikes.jpg',
   },
   CHI_TORPEDO: {
     id: 121828,
@@ -1098,7 +1098,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_monk_quitornado.jpg',
   },
   DAMPEN_HARM_TALENT: {
     id: 122278,
@@ -1112,7 +1112,7 @@ const SPELLS = {
       duration: 90000,
       hasted: false,
     },
-    icon: 'd',
+    icon: 'ability_monk_dampenharm.jpg',
   },
   HEALING_ELIXIRS_TALENT: {
     id: 122280,
@@ -1122,7 +1122,7 @@ const SPELLS = {
     iconID: 608939,
     passive: true,
     name: 'Healing Elixirs',
-    icon: '',
+    icon: 'ability_monk_jasmineforcetea.jpg',
   },
   HEALING_ELIXIRS_HIDDEN: {
     id: 122281,
@@ -1131,7 +1131,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Healing Elixirs',
-    icon: '',
+    icon: 'ability_monk_jasmineforcetea.jpg',
   },
   DEMATERIALIZE: {
     id: 122464,
@@ -1143,7 +1143,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: 'o',
+    icon: 'spell_arcane_arcane04.jpg',
   },
   DIFFUSE_MAGIC_TALENT: {
     id: 122783,
@@ -1157,7 +1157,7 @@ const SPELLS = {
       duration: 90000,
       hasted: false,
     },
-    icon: 'd',
+    icon: 'spell_monk_diffusemagic.jpg',
   },
   CRACKLING_JADE_LIGHTNING_CHI_PROC_DRIVER_HIDDEN: {
     id: 123332,
@@ -1166,7 +1166,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Crackling Jade Lightning Chi Proc Driver',
-    icon: 'l',
+    icon: 'ability_parry.jpg',
   },
   FLYING_SERPENT_KICK_HIDDEN: {
     id: 123586,
@@ -1175,7 +1175,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Flying Serpent Kick',
-    icon: 'l',
+    icon: 'priest_icon_chakra_green.jpg',
   },
   BREATH_OF_FIRE_HIDDEN: {
     id: 123725,
@@ -1188,7 +1188,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'i',
+    icon: 'ability_monk_breathoffire.jpg',
   },
   BREWING_MANA_TEA: {
     id: 123766,
@@ -1200,7 +1200,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'd',
+    icon: 'inv_misc_herb_jadetealeaf.jpg',
   },
   INVOKE_XUEN_THE_WHITE_TIGER_TALENT: {
     id: 123904,
@@ -1214,7 +1214,7 @@ const SPELLS = {
       duration: 180000,
       hasted: false,
     },
-    icon: '',
+    icon: 'ability_monk_summontigerstatue.jpg',
   },
   CHI_BURST_TALENT: {
     id: 123986,
@@ -1235,7 +1235,7 @@ const SPELLS = {
     castTime: {
       duration: 1000,
     },
-    icon: '_',
+    icon: 'spell_arcane_arcanetorrent.jpg',
   },
   GIFT_OF_THE_SERPENT_HIDDEN_1: {
     id: 124041,
@@ -1245,7 +1245,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Gift of the Serpent',
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   GIFT_OF_THE_SERPENT_HIDDEN_2: {
     id: 135920,
@@ -1255,7 +1255,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Gift of the Serpent',
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   ZEN_SPHERE_TALENT: {
     id: 124081,
@@ -1273,7 +1273,7 @@ const SPELLS = {
       duration: 10000,
       hasted: false,
     },
-    icon: '"',
+    icon: 'ability_monk_forcesphere.jpg',
   },
   ZEN_SPHERE: {
     id: 124098,
@@ -1286,7 +1286,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: '"',
+    icon: 'ability_monk_forcesphere.jpg',
   },
   ZEN_SPHERE_DETONATE_1: {
     id: 124101,
@@ -1299,7 +1299,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: '"',
+    icon: 'ability_monk_forcesphere.jpg',
   },
   ZEN_SPHERE_DETONATE_2: {
     id: 125033,
@@ -1312,7 +1312,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: '"',
+    icon: 'ability_monk_forcesphere.jpg',
   },
   TOUCH_OF_KARMA_HIDDEN: {
     id: 124280,
@@ -1325,7 +1325,7 @@ const SPELLS = {
       duration: 1500,
       hasted: true,
     },
-    icon: 'w',
+    icon: 'ability_monk_touchofkarma.jpg',
   },
   SWIFT_REFLEXES_PASSIVE: {
     id: 124334,
@@ -1333,7 +1333,7 @@ const SPELLS = {
     iconID: 132171,
     passive: true,
     name: 'Swift Reflexes',
-    icon: '.',
+    icon: 'ability_hunter_displacement.jpg',
   },
   SWIFT_REFLEXES_HIDDEN: {
     id: 124335,
@@ -1342,7 +1342,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Swift Reflexes',
-    icon: '.',
+    icon: 'ability_hunter_displacement.jpg',
   },
   GIFT_OF_THE_OX_HIDDEN: {
     id: 124507,
@@ -1352,7 +1352,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Gift of the Ox',
-    icon: '"',
+    icon: 'ability_monk_healthsphere.jpg',
   },
   ENVELOPING_MIST: {
     id: 124682,
@@ -1367,7 +1367,7 @@ const SPELLS = {
     castTime: {
       duration: 2000,
     },
-    icon: 'r',
+    icon: 'spell_monk_envelopingmist.jpg',
   },
   EMINENCE: {
     id: 126890,
@@ -1377,7 +1377,7 @@ const SPELLS = {
     passive: false,
     hidden: 'unless-learned',
     name: 'Eminence',
-    icon: 'w',
+    icon: 'inv_jewelcrafting_jadeserpent.jpg',
   },
   ZEN_PILGRIMAGE: {
     id: 126892,
@@ -1396,7 +1396,7 @@ const SPELLS = {
     castTime: {
       duration: 10000,
     },
-    icon: 'a',
+    icon: 'spell_monk_zenpilgrimage.jpg',
   },
   ZEN_PILGRIMAGEDEATH_GATEMOONGLADE_STORAGE_AURA_I_HIDDEN: {
     id: 126893,
@@ -1405,7 +1405,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Zen Pilgrimage/Death Gate/Moonglade Storage Aura I',
-    icon: '8',
+    icon: 'ability_hunter_pathfinding.jpg',
   },
   ZEN_PILGRIMAGE_RETURN_HIDDEN: {
     id: 126895,
@@ -1421,7 +1421,7 @@ const SPELLS = {
     castTime: {
       duration: 10000,
     },
-    icon: 'a',
+    icon: 'spell_monk_zenpilgrimage.jpg',
   },
   BLACKOUT_KICK_HIDDEN_1: {
     id: 128531,
@@ -1434,7 +1434,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'm',
+    icon: 'ability_monk_roundhousekick.jpg',
   },
   BLACKOUT_KICK_HIDDEN_2: {
     id: 128591,
@@ -1447,7 +1447,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'm',
+    icon: 'ability_monk_roundhousekick.jpg',
   },
   MONK_JAB_OVERRIDE_FIST_LOGIN_HIDDEN: {
     id: 128678,
@@ -1456,7 +1456,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Monk Jab Override Fist Login',
-    icon: 'g',
+    icon: 'inv_bijou_gold.jpg',
   },
   YOU_ARE_A_LEVEL_90_MONK_HIDDEN: {
     id: 130610,
@@ -1465,7 +1465,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'You Are A Level 90 Monk',
-    icon: 'u',
+    icon: 'pandarenracial_bouncy.jpg',
   },
   CHI_BURST_HIDDEN: {
     id: 130654,
@@ -1475,7 +1475,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Chi Burst',
-    icon: '_',
+    icon: 'spell_arcane_arcanetorrent.jpg',
   },
   ENVELOPING_MIST_HIDDEN: {
     id: 132120,
@@ -1488,7 +1488,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'r',
+    icon: 'spell_monk_envelopingmist.jpg',
   },
   CHI_WAVE_HIDDEN_1: {
     id: 132463,
@@ -1498,7 +1498,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Chi Wave',
-    icon: 'w',
+    icon: 'ability_monk_chiwave.jpg',
   },
   CHI_WAVE_HIDDEN_2: {
     id: 132467,
@@ -1508,7 +1508,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Chi Wave',
-    icon: 'w',
+    icon: 'ability_monk_chiwave.jpg',
   },
   STANCE_OF_THE_WISE_SERPENT_HIDDEN: {
     id: 136336,
@@ -1517,7 +1517,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Stance of the Wise Serpent',
-    icon: '4',
+    icon: 'monk_stance_wiseserpent.jpg',
   },
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137022,
@@ -1526,7 +1526,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
-    icon: 'n',
+    icon: 'ability_mage_firestarter.jpg',
   },
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137024,
@@ -1535,7 +1535,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
-    icon: 'n',
+    icon: 'ability_mage_firestarter.jpg',
   },
   NIMBLE_BREW: {
     id: 137562,
@@ -1547,7 +1547,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'u',
+    icon: 'spell_monk_nimblebrew.jpg',
   },
   MUSCLE_MEMORY_PASSIVE: {
     id: 139598,
@@ -1555,7 +1555,7 @@ const SPELLS = {
     iconID: 135740,
     passive: true,
     name: 'Muscle Memory',
-    icon: '0',
+    icon: 'spell_arcane_mindmastery.jpg',
   },
   REAWAKEN: {
     id: 1245934,
@@ -1570,7 +1570,7 @@ const SPELLS = {
     castTime: {
       duration: 10000,
     },
-    icon: '',
+    icon: 'spell_monk_mistweaver_spec.jpg',
   },
   YOU_ARE_A_LEVEL_85_MONK_HIDDEN: {
     id: 1251700,
@@ -1579,7 +1579,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'You Are A Level 85 Monk',
-    icon: 'u',
+    icon: 'pandarenracial_bouncy.jpg',
   },
 } as const satisfies Record<string, RetailSpell & { icon: string }>;
 export default SPELLS;

@@ -6,7 +6,7 @@ const SPELLS = {
     iconID: 132369,
     passive: false,
     name: 'Auto Shot',
-    icon: 'n',
+    icon: 'ability_whirlwind.jpg',
   },
   MEND_PET: {
     id: 136,
@@ -18,7 +18,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: '0',
+    icon: 'ability_hunter_mendpet.jpg',
   },
   DISENGAGE: {
     id: 781,
@@ -37,7 +37,7 @@ const SPELLS = {
         },
       ],
     },
-    icon: 's',
+    icon: 'ability_rogue_feint.jpg',
   },
   CALL_PET_1: {
     id: 883,
@@ -49,7 +49,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_beastcall.jpg',
   },
   REVIVE_PET: {
     id: 982,
@@ -64,7 +64,7 @@ const SPELLS = {
     castTime: {
       duration: 4000,
     },
-    icon: 'y',
+    icon: 'ability_hunter_beastsoothe.jpg',
   },
   HUNTERS_MARK: {
     id: 1130,
@@ -76,7 +76,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'g',
+    icon: 'ability_hunter_snipershot.jpg',
   },
   BEAST_LORE: {
     id: 1462,
@@ -88,7 +88,7 @@ const SPELLS = {
       duration: 1000,
       hasted: true,
     },
-    icon: 'd',
+    icon: 'ability_physical_taunt.jpg',
   },
   TRACK_BEASTS_HIDDEN: {
     id: 1494,
@@ -101,7 +101,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: '3',
+    icon: 'ability_tracking.jpg',
   },
   FREEZING_TRAP_TRAP_LAUNCHER: {
     id: 60192,
@@ -119,7 +119,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: '3',
+    icon: 'spell_frost_chainsofice.jpg',
   },
   FREEZING_TRAP: {
     id: 1499,
@@ -135,7 +135,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: '3',
+    icon: 'spell_frost_chainsofice.jpg',
   },
   SCARE_BEAST: {
     id: 1513,
@@ -150,7 +150,7 @@ const SPELLS = {
     castTime: {
       duration: 1500,
     },
-    icon: 'a',
+    icon: 'ability_druid_cower.jpg',
   },
   TAME_BEAST: {
     id: 1515,
@@ -174,7 +174,7 @@ const SPELLS = {
         },
       ],
     },
-    icon: 'b',
+    icon: 'ability_hunter_beasttaming.jpg',
   },
   FLARE: {
     id: 1543,
@@ -190,7 +190,7 @@ const SPELLS = {
       duration: 20000,
       hasted: false,
     },
-    icon: 'g',
+    icon: 'spell_fire_flare.jpg',
   },
   SERPENT_STING: {
     id: 1978,
@@ -202,7 +202,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: '',
+    icon: 'ability_hunter_quickshot.jpg',
   },
   DISMISS_PET: {
     id: 2641,
@@ -217,7 +217,7 @@ const SPELLS = {
     castTime: {
       duration: 3000,
     },
-    icon: 'w',
+    icon: 'spell_nature_spiritwolf.jpg',
   },
   MULTI_SHOT: {
     id: 2643,
@@ -229,7 +229,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'w',
+    icon: 'ability_upgrademoonglaive.jpg',
   },
   ARCANE_SHOT: {
     id: 3044,
@@ -241,7 +241,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'a',
+    icon: 'ability_impalingbolt.jpg',
   },
   RAPID_FIRE: {
     id: 3045,
@@ -253,7 +253,7 @@ const SPELLS = {
       duration: 180000,
       hasted: false,
     },
-    icon: 'l',
+    icon: 'ability_hunter_runningshot.jpg',
   },
   BLACK_ARROW: {
     id: 3674,
@@ -269,7 +269,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: '0',
+    icon: 'spell_shadow_painspike.jpg',
   },
   CONCUSSIVE_SHOT: {
     id: 5116,
@@ -285,7 +285,7 @@ const SPELLS = {
       duration: 5000,
       hasted: false,
     },
-    icon: '',
+    icon: 'spell_frost_stun.jpg',
   },
   ASPECT_OF_THE_CHEETAH: {
     id: 5118,
@@ -297,7 +297,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'y',
+    icon: 'ability_mount_jungletiger.jpg',
   },
   FEIGN_DEATH: {
     id: 5384,
@@ -309,7 +309,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: '',
+    icon: 'ability_rogue_feigndeath.jpg',
   },
   EAGLE_EYE: {
     id: 6197,
@@ -327,7 +327,7 @@ const SPELLS = {
       buffIsLogged: true,
       triggeredSpells: [],
     },
-    icon: 'w',
+    icon: 'ability_hunter_eagleeye.jpg',
   },
   FEED_PET: {
     id: 6991,
@@ -339,7 +339,7 @@ const SPELLS = {
       duration: 10000,
       hasted: false,
     },
-    icon: 'a',
+    icon: 'ability_hunter_beasttraining.jpg',
   },
   MAIL_HIDDEN: {
     id: 8737,
@@ -348,7 +348,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Mail',
-    icon: 't',
+    icon: 'inv_chest_chain_05.jpg',
   },
   ASPECT_OF_THE_PACK: {
     id: 13159,
@@ -360,7 +360,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_mount_whitetiger.jpg',
   },
   ASPECT_OF_THE_HAWK: {
     id: 13165,
@@ -372,7 +372,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'a',
+    icon: 'spell_nature_ravenform.jpg',
   },
   ICE_TRAP_TRAP_LAUNCHER: {
     id: 82941,
@@ -390,7 +390,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: '_',
+    icon: 'spell_hunter_icetrap.jpg',
   },
   ICE_TRAP: {
     id: 13809,
@@ -406,7 +406,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: '_',
+    icon: 'spell_hunter_icetrap.jpg',
   },
   EXPLOSIVE_TRAP_TRAP_LAUNCHER: {
     id: 82939,
@@ -424,7 +424,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: 'i',
+    icon: 'spell_fire_selfdestruct.jpg',
   },
   EXPLOSIVE_TRAP: {
     id: 13813,
@@ -440,7 +440,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: 'i',
+    icon: 'spell_fire_selfdestruct.jpg',
   },
   DETERRENCE_CROUCHING_TIGER_HIDDEN_CHIMERA_TALENT: {
     id: 148467,
@@ -456,7 +456,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_whirlwind.jpg',
   },
   DETERRENCE: {
     id: 19263,
@@ -471,7 +471,7 @@ const SPELLS = {
       duration: 180000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_whirlwind.jpg',
   },
   WYVERN_STING_TALENT: {
     id: 19386,
@@ -490,7 +490,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: 't',
+    icon: 'inv_spear_02.jpg',
   },
   ENTRAPMENT_PASSIVE: {
     id: 19387,
@@ -498,7 +498,7 @@ const SPELLS = {
     iconID: 136100,
     passive: true,
     name: 'Entrapment',
-    icon: '"',
+    icon: 'spell_nature_stranglevines.jpg',
   },
   SCATTER_SHOT: {
     id: 19503,
@@ -514,7 +514,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 't',
+    icon: 'ability_golemstormbolt.jpg',
   },
   TRUESHOT_AURA_PASSIVE: {
     id: 19506,
@@ -522,7 +522,7 @@ const SPELLS = {
     iconID: 132329,
     passive: true,
     name: 'Trueshot Aura',
-    icon: '.',
+    icon: 'ability_trueshot.jpg',
   },
   INTIMIDATION_TALENT: {
     id: 19577,
@@ -541,7 +541,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: 'l',
+    icon: 'ability_devour.jpg',
   },
   TRANQUILIZING_SHOT: {
     id: 19801,
@@ -553,7 +553,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: '3',
+    icon: 'spell_nature_drowsy.jpg',
   },
   TRACK_DEMONS_HIDDEN: {
     id: 19878,
@@ -566,7 +566,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'b',
+    icon: 'spell_shadow_summonfelhunter.jpg',
   },
   TRACK_DRAGONKIN_HIDDEN: {
     id: 19879,
@@ -579,7 +579,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'd',
+    icon: 'inv_misc_head_dragon_01.jpg',
   },
   TRACK_ELEMENTALS_HIDDEN: {
     id: 19880,
@@ -592,7 +592,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'a',
+    icon: 'spell_frost_summonwaterelemental.jpg',
   },
   TRACK_GIANTS_HIDDEN: {
     id: 19882,
@@ -605,7 +605,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: '',
+    icon: 'ability_racial_avatar.jpg',
   },
   TRACK_HUMANOIDS_HIDDEN: {
     id: 19883,
@@ -618,7 +618,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'w',
+    icon: 'spell_holy_prayerofhealing.jpg',
   },
   TRACK_UNDEAD_HIDDEN: {
     id: 19884,
@@ -631,7 +631,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'spell_shadow_darksummoning.jpg',
   },
   TRACK_HIDDEN_HIDDEN: {
     id: 19885,
@@ -644,7 +644,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 't',
+    icon: 'ability_stealth.jpg',
   },
   DISTRACTING_SHOT: {
     id: 20736,
@@ -660,7 +660,7 @@ const SPELLS = {
       duration: 8000,
       hasted: false,
     },
-    icon: 'u',
+    icon: 'spell_arcane_blink.jpg',
   },
   MISDIRECTION: {
     id: 34477,
@@ -672,7 +672,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: '7',
+    icon: 'ability_hunter_misdirection.jpg',
   },
   SNAKE_TRAP_TRAP_LAUNCHER: {
     id: 82948,
@@ -690,7 +690,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_hunter_snaketrap.jpg',
   },
   SNAKE_TRAP: {
     id: 34600,
@@ -706,7 +706,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_hunter_snaketrap.jpg',
   },
   CAMOUFLAGE: {
     id: 51753,
@@ -722,7 +722,7 @@ const SPELLS = {
       duration: 60000,
       hasted: false,
     },
-    icon: '.',
+    icon: 'ability_hunter_displacement.jpg',
   },
   MASTERS_CALL: {
     id: 53271,
@@ -734,7 +734,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: ',',
+    icon: 'ability_hunter_masterscall.jpg',
   },
   EXPLOSIVE_SHOT: {
     id: 53301,
@@ -750,7 +750,7 @@ const SPELLS = {
       duration: 6000,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_explosiveshot.jpg',
   },
   KILL_SHOT: {
     id: 53351,
@@ -766,7 +766,7 @@ const SPELLS = {
       duration: 10000,
       hasted: false,
     },
-    icon: 'r',
+    icon: 'ability_hunter_assassinate2.jpg',
   },
   LOCK_AND_LOAD_PASSIVE: {
     id: 56343,
@@ -774,7 +774,7 @@ const SPELLS = {
     iconID: 236185,
     passive: true,
     name: 'Lock and Load',
-    icon: 'w',
+    icon: 'ability_hunter_lockandload.jpg',
   },
   STEADY_SHOT: {
     id: 56641,
@@ -789,7 +789,7 @@ const SPELLS = {
     castTime: {
       duration: 2000,
     },
-    icon: 's',
+    icon: 'ability_hunter_steadyshot.jpg',
   },
   TRAP_MASTERY_PASSIVE: {
     id: 63458,
@@ -797,7 +797,7 @@ const SPELLS = {
     iconID: 132149,
     passive: true,
     name: 'Trap Mastery',
-    icon: '_',
+    icon: 'ability_ensnare.jpg',
   },
   MASTERY_ESSENCE_OF_THE_VIPER_PASSIVE: {
     id: 76658,
@@ -805,7 +805,7 @@ const SPELLS = {
     iconID: 135833,
     passive: true,
     name: 'Mastery: Essence of the Viper',
-    icon: '0',
+    icon: 'spell_frost_arcticwinds.jpg',
   },
   FOCUS_HIDDEN: {
     id: 77442,
@@ -814,7 +814,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Focus',
-    icon: '_',
+    icon: 'ability_hunter_huntervswild.jpg',
   },
   COBRA_SHOT: {
     id: 77767,
@@ -830,7 +830,7 @@ const SPELLS = {
     castTime: {
       duration: 2000,
     },
-    icon: 'g',
+    icon: 'ability_hunter_cobrashot.jpg',
   },
   TRAP_LAUNCHER: {
     id: 77769,
@@ -842,7 +842,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'i',
+    icon: 'ability_hunter_traplauncher.jpg',
   },
   WIDOW_VENOM: {
     id: 82654,
@@ -854,7 +854,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'w',
+    icon: 'ability_hunter_potentvenom.jpg',
   },
   FERVOR_TALENT: {
     id: 82726,
@@ -868,7 +868,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_aspectoftheviper.jpg',
   },
   IMPROVED_SERPENT_STING_PASSIVE: {
     id: 82834,
@@ -876,7 +876,7 @@ const SPELLS = {
     iconID: 132204,
     passive: true,
     name: 'Improved Serpent Sting',
-    icon: '',
+    icon: 'ability_hunter_quickshot.jpg',
   },
   CALL_PET_2: {
     id: 83242,
@@ -888,7 +888,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_beastcall.jpg',
   },
   CALL_PET_3: {
     id: 83243,
@@ -900,7 +900,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_beastcall.jpg',
   },
   CALL_PET_4: {
     id: 83244,
@@ -912,7 +912,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_beastcall.jpg',
   },
   CALL_PET_5: {
     id: 83245,
@@ -924,7 +924,7 @@ const SPELLS = {
       duration: 1500,
       hasted: false,
     },
-    icon: 'o',
+    icon: 'ability_hunter_beastcall.jpg',
   },
   MAIL_SPECIALIZATION_PASSIVE: {
     id: 86538,
@@ -932,7 +932,7 @@ const SPELLS = {
     iconID: 132629,
     passive: true,
     name: 'Mail Specialization',
-    icon: 'b',
+    icon: 'inv_chest_chain_07.jpg',
   },
   FOCUSED_AIM_PASSIVE: {
     id: 87324,
@@ -940,7 +940,7 @@ const SPELLS = {
     iconID: 236179,
     passive: true,
     name: 'Focused Aim',
-    icon: 'n',
+    icon: 'ability_hunter_focusedaim.jpg',
   },
   SERPENT_SPREAD_PASSIVE: {
     id: 87935,
@@ -948,7 +948,7 @@ const SPELLS = {
     iconID: 132209,
     passive: true,
     name: 'Serpent Spread',
-    icon: 'd',
+    icon: 'ability_hunter_serpentswiftness.jpg',
   },
   CONTROL_PET_PASSIVE: {
     id: 93321,
@@ -956,7 +956,7 @@ const SPELLS = {
     iconID: 132162,
     passive: true,
     name: 'Control Pet',
-    icon: 't',
+    icon: 'ability_hunter_beastcall02.jpg',
   },
   CONTROL_PET_HIDDEN: {
     id: 93322,
@@ -965,7 +965,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Control Pet',
-    icon: 't',
+    icon: 'ability_hunter_beastcall02.jpg',
   },
   SPIRIT_BOND_TALENT: {
     id: 109212,
@@ -975,7 +975,7 @@ const SPELLS = {
     iconID: 132121,
     passive: true,
     name: 'Spirit Bond',
-    icon: 'r',
+    icon: 'ability_druid_demoralizingroar.jpg',
   },
   POSTHASTE_TALENT: {
     id: 109215,
@@ -985,7 +985,7 @@ const SPELLS = {
     iconID: 461119,
     passive: true,
     name: 'Posthaste',
-    icon: 'a',
+    icon: 'ability_hunter_posthaste.jpg',
   },
   BINDING_SHOT_TALENT: {
     id: 109248,
@@ -999,7 +999,7 @@ const SPELLS = {
       duration: 45000,
       hasted: false,
     },
-    icon: 'r',
+    icon: 'spell_shaman_bindelemental.jpg',
   },
   POWERSHOT_TALENT: {
     id: 109259,
@@ -1020,7 +1020,7 @@ const SPELLS = {
     castTime: {
       duration: 2250,
     },
-    icon: 's',
+    icon: 'ability_hunter_resistanceisfutile.jpg',
   },
   ASPECT_OF_THE_IRON_HAWK_TALENT: {
     id: 109260,
@@ -1035,7 +1035,7 @@ const SPELLS = {
       duration: 1000,
       hasted: false,
     },
-    icon: 'm',
+    icon: 'spell_hunter_aspectoftheironhawk.jpg',
   },
   NARROW_ESCAPE_TALENT: {
     id: 109298,
@@ -1045,7 +1045,7 @@ const SPELLS = {
     iconID: 237430,
     passive: true,
     name: 'Narrow Escape',
-    icon: 'd',
+    icon: 'inv_misc_web_01.jpg',
   },
   EXHILARATION_TALENT: {
     id: 109304,
@@ -1059,7 +1059,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'c',
+    icon: 'ability_hunter_onewithnature.jpg',
   },
   THRILL_OF_THE_HUNT_TALENT: {
     id: 109306,
@@ -1069,7 +1069,7 @@ const SPELLS = {
     iconID: 132216,
     passive: true,
     name: 'Thrill of the Hunt',
-    icon: 't',
+    icon: 'ability_hunter_thrillofthehunt.jpg',
   },
   SYMBIOSIS: {
     id: 110497,
@@ -1077,7 +1077,7 @@ const SPELLS = {
     iconID: 571587,
     passive: false,
     name: 'Symbiosis',
-    icon: '',
+    icon: 'spell_druid_symbiosis.jpg',
   },
   GLAIVE_TOSS_TALENT: {
     id: 117050,
@@ -1095,7 +1095,7 @@ const SPELLS = {
       duration: 15000,
       hasted: false,
     },
-    icon: 'r',
+    icon: 'ability_glaivetoss.jpg',
   },
   TRACKING_PASSIVE: {
     id: 118424,
@@ -1103,7 +1103,7 @@ const SPELLS = {
     iconID: 132328,
     passive: true,
     name: 'Tracking',
-    icon: '3',
+    icon: 'ability_tracking.jpg',
   },
   CROUCHING_TIGER_HIDDEN_CHIMERA_TALENT: {
     id: 118675,
@@ -1113,7 +1113,7 @@ const SPELLS = {
     iconID: 236190,
     passive: true,
     name: 'Crouching Tiger, Hidden Chimera',
-    icon: '"',
+    icon: 'ability_hunter_pet_chimera.jpg',
   },
   VIPER_VENOM_PASSIVE: {
     id: 118976,
@@ -1121,7 +1121,7 @@ const SPELLS = {
     iconID: 236166,
     passive: true,
     name: 'Viper Venom',
-    icon: 'o',
+    icon: 'ability_druid_replenish.jpg',
   },
   BARRAGE_TALENT: {
     id: 120360,
@@ -1151,7 +1151,7 @@ const SPELLS = {
         },
       ],
     },
-    icon: 'o',
+    icon: 'ability_hunter_rapidregeneration.jpg',
   },
   DIRE_BEAST_TALENT: {
     id: 120679,
@@ -1169,7 +1169,7 @@ const SPELLS = {
       duration: 30000,
       hasted: false,
     },
-    icon: 's',
+    icon: 'ability_hunter_sickem.jpg',
   },
   LYNX_RUSH_TALENT: {
     id: 120697,
@@ -1187,7 +1187,7 @@ const SPELLS = {
       duration: 90000,
       hasted: false,
     },
-    icon: '_',
+    icon: 'ability_hunter_catlikereflexes.jpg',
   },
   GLAIVE_TOSS_HIDDEN_1: {
     id: 120761,
@@ -1196,7 +1196,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Glaive Toss',
-    icon: 'w',
+    icon: 'ability_upgrademoonglaive.jpg',
   },
   GLAIVE_TOSS_HIDDEN_2: {
     id: 121414,
@@ -1205,7 +1205,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Glaive Toss',
-    icon: 'w',
+    icon: 'ability_upgrademoonglaive.jpg',
   },
   STAMPEDE: {
     id: 121818,
@@ -1221,7 +1221,7 @@ const SPELLS = {
       duration: 300000,
       hasted: false,
     },
-    icon: 'i',
+    icon: 'ability_hunter_bestialdiscipline.jpg',
   },
   BLINK_STRIKES_TALENT: {
     id: 130392,
@@ -1231,7 +1231,7 @@ const SPELLS = {
     iconID: 135731,
     passive: true,
     name: 'Blink Strikes',
-    icon: 'o',
+    icon: 'spell_arcane_arcane04.jpg',
   },
   A_MURDER_OF_CROWS_TALENT: {
     id: 131894,
@@ -1249,7 +1249,7 @@ const SPELLS = {
       duration: 120000,
       hasted: false,
     },
-    icon: 'n',
+    icon: 'ability_hunter_murderofcrows.jpg',
   },
   HOTFIX_PASSIVE_HIDDEN_1: {
     id: 137014,
@@ -1258,7 +1258,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
-    icon: 'n',
+    icon: 'ability_mage_firestarter.jpg',
   },
   HOTFIX_PASSIVE_HIDDEN_2: {
     id: 137017,
@@ -1267,7 +1267,7 @@ const SPELLS = {
     passive: true,
     hidden: 'always',
     name: 'Hotfix Passive',
-    icon: 'n',
+    icon: 'ability_mage_firestarter.jpg',
   },
   ANCIENT_ZANDALARI_KNOWLEDGE_HIDDEN: {
     id: 138430,
@@ -1277,7 +1277,7 @@ const SPELLS = {
     passive: false,
     hidden: 'always',
     name: 'Ancient Zandalari Knowledge',
-    icon: 'i',
+    icon: 'ability_mount_triceratopsmount.jpg',
   },
   COUNTER_SHOT: {
     id: 147362,
@@ -1289,7 +1289,7 @@ const SPELLS = {
       duration: 24000,
       hasted: false,
     },
-    icon: ',',
+    icon: 'inv_ammo_arrow_03.jpg',
   },
 } as const satisfies Record<string, RetailSpell & { icon: string }>;
 export default SPELLS;
