@@ -36,7 +36,7 @@ import InescapableTorment from './modules/talents/InescapableTorment';
 import Deathspeaker from './modules/talents/Deathspeaker';
 import AncientMadness from './modules/talents/AncientMadness';
 import VoidTorrent from './modules/talents/VoidTorrent';
-import MindFlayInsanity from './modules/talents/MindFlayInsanity';
+import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
@@ -121,7 +121,7 @@ class CombatLogParser extends MainCombatLogParser {
     maddeningTouch: MaddeningTouch,
     mastermind: Mastermind,
     mindDevourer: MindDevourer,
-    mindFlayInsanity: MindFlayInsanity,
+    surgeOfInsanity: SurgeOfInsanity,
     shatteredPsyche: ShatteredPsyche,
     mindsEye: MindsEye,
     phantasmalPathogen: PhantasmalPathogen,
