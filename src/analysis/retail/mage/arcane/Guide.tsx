@@ -13,6 +13,7 @@ import ManaLevelGraph from './ManaChart/TabComponent/ManaLevelGraph';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/DefensivesGuide';
+import AplGuideSubsection from './apl/AplGuideSection';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -143,6 +144,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.shiftingPowerGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SUPERNOVA_TALENT) &&
           modules.supernovaGuide.guideSubsection}
+        <AplGuideSubsection info={info} />
       </Section>
 
       <Section title="Buffs & Procs">

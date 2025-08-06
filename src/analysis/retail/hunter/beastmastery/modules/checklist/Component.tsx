@@ -39,7 +39,6 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
         <TalentCastEfficiencyRequirement talent={TALENTS.BARBED_SHOT_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.BESTIAL_WRATH_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.DIRE_BEAST_TALENT} />
-        <TalentCastEfficiencyRequirement talent={TALENTS.BARRAGE_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.BLOODSHED_TALENT} />
       </Rule>
       <Rule

@@ -144,7 +144,6 @@ class StatTracker extends Analyzer {
 
     // region Classic WotLK
     [CLASSIC_SPELLS.HYPERSPEED_ACCELERATION.id]: { haste: 340 },
-    [CLASSIC_SPELLS.POTION_OF_SPEED.id]: { haste: 500 },
     // endregion
 
     // region Classic Cata
@@ -199,11 +198,11 @@ class StatTracker extends Analyzer {
     [STAT.SPEED]: 170,
   };
 
-  // Values taken from https://github.com/wowsims/cata/blob/master/sim/core/base_stats_auto_gen.go
+  // Values taken from wago.tools combat rating per point casc file
   // we multiply by 100 to convert e.g. 5.8% haste to 0.058
   classicStatRatingPerPercent = {
-    [STAT.HASTE]: 128.05716 * 100,
-    [STAT.CRITICAL_STRIKE]: 179.28004 * 100,
+    [STAT.HASTE]: 425 * 100,
+    [STAT.CRITICAL_STRIKE]: 600 * 100,
   };
 
   /** Secondary stat scaling thresholds
@@ -652,27 +651,24 @@ class StatTracker extends Analyzer {
         return baselinePercent;
       }
     }
-    // TODO surely there's a prettier way than an indexed for loop
+    let nextBucket: PenaltyThreshold = penaltyThresholds[0];
     //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint
-
-    for (let idx = 0; idx < penaltyThresholds.length; idx++) {
-      //If we have a higher percent than the baseline, we can move on immediately
-      if (baselinePercent >= penaltyThresholds[idx].base) {
+    for (const penaltyThreshold of penaltyThresholds) {
+      const currentBucket = nextBucket;
+      nextBucket = penaltyThreshold;
+      if (baselinePercent >= penaltyThreshold.base) {
+        //If we have a higher percent than the baseline, we can move on immediately
         continue;
       }
       if (returnRatingForNextPercent) {
         //Returns the rating needed for 1% at current rating levels
-        return (
-          (baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penaltyAboveThis) / coef) *
-          100
-        );
+        return (baselineRatingPerPercent / (1 - currentBucket.penaltyAboveThis) / coef) * 100;
       } else {
         //Since we no longer have more base stats than the current curve point, we know that we atleast have the scaled value of the last curve point
-        const statFromLastCurvePoint = penaltyThresholds[idx - 1].scaled;
+        const statFromLastCurvePoint = currentBucket.scaled;
         //Using the known stat from last curve point, we can calculate the remaining stat gain by subtracting the last curve point from our baseline percentage and multiplying it by (1-penalty) of the penalty applied to stats from the last curve point.
         const calculateStatGainWithinCurrentCurvePoint =
-          (baselinePercent - penaltyThresholds[idx - 1].base) *
-          (1 - penaltyThresholds[idx - 1].penaltyAboveThis);
+          (baselinePercent - currentBucket.base) * (1 - currentBucket.penaltyAboveThis);
         return (statFromLastCurvePoint + calculateStatGainWithinCurrentCurvePoint) * coef;
       }
     }

@@ -1,10 +1,10 @@
 import {
-  Barrage,
   BindingShot,
   BornToBeWild,
   CancelledCasts,
   Channeling,
   DeathTracker,
+  FocusCapTracker,
   FocusDetails,
   FocusTracker,
   KillShot,
@@ -27,7 +27,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 
 import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
-import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 import AimedShot from './modules/talents/AimedShot';
 import LoneWolf from './modules/spells/LoneWolf';
@@ -72,8 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resources
     focusTracker: FocusTracker,
     focusDetails: FocusDetails,
+    focusCapTracker: FocusCapTracker,
     spellFocusCost: SpellFocusCost,
-    marksmanshipFocusCapTracker: MarksmanshipFocusCapTracker,
     focus: Focus,
     marksmanshipFocusUsage: MarksmanshipFocusUsage,
 
@@ -110,7 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     explosiveShot: ExplosiveShot,
     masterMarksman: MasterMarksman,
-    barrage: Barrage,
     blackArrow: BlackArrow,
 
     // items

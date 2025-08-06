@@ -963,7 +963,7 @@ const talents = {
   KILLING_SPREE_TALENT: {
     id: 51690,
     name: 'Killing Spree',
-    icon: 'ability_rogue_murderspree',
+    icon: 'inv_112_rogue_betweentheeyes',
     maxRanks: 1,
     entryIds: [117149],
     definitionIds: [{ id: 122161, specId: 260 }],

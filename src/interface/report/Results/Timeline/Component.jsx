@@ -49,10 +49,9 @@ class Timeline extends PureComponent {
     config: PropTypes.shape({
       separateCastBars: PropTypes.array,
     }),
-  };
-  static defaultProps = {
-    showCooldowns: true,
-    showGlobalCooldownDuration: false,
+    visibleAuras: PropTypes.instanceOf(Set),
+    showCooldowns: PropTypes.bool,
+    showGlobalCooldownDuration: PropTypes.bool,
   };
 
   constructor(props) {
@@ -220,6 +219,7 @@ class Timeline extends PureComponent {
               secondWidth={this.secondWidth}
               parser={parser}
               auras={auras}
+              visibleAuras={this.props.visibleAuras}
             />
             <TimeIndicators
               seconds={this.seconds}

@@ -86,7 +86,7 @@ const SPELL_IDS_WITH_AOE = [
   SPELLS.MOONFIRE_DEBUFF.id,
   SPELLS.MOONFIRE_FERAL.id,
   SPELLS.FULL_MOON.id,
-  SPELLS.RAVAGE_DOTC_CAT,
+  SPELLS.RAVAGE_DOTC_CAT.id,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
   // Rejuv and Regrowth don't normally AoE, but Rampant Growth and PotA procs can make them

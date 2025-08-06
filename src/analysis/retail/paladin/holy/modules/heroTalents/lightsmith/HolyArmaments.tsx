@@ -88,7 +88,7 @@ class HolyArmaments extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell(this.hasAC ? SPELLS.AVENGING_CRUSADER : SPELLS.AVENGING_WRATH),
+        .spell(this.hasAC ? SPELLS.AVENGING_CRUSADER : TALENTS.AVENGING_WRATH_TALENT),
       this.onWings,
     );
   }

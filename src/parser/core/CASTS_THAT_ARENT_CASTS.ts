@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { TALENTS_PALADIN, TALENTS_SHAMAN } from 'common/TALENTS';
 
 const spells: number[] = [
   /**
@@ -99,6 +99,8 @@ const spells: number[] = [
   SPELLS.RECLAMATION_CAST.id,
   SPELLS.SACROSANCT_CRUSADE_BUFF.id,
   SPELLS.EMPYREAN_HAMMER.id,
+  TALENTS_PALADIN.DIVINE_HAMMER_TALENT.id,
+  SPELLS.DIVINE_HAMMER_EXTEND.id,
   //endregion
 
   //region shaman
@@ -149,6 +151,13 @@ const spells: number[] = [
 
   //region classic warrior
   CLASSIC_SPELLS.BLADESTORM_TRIGGERED_SPELL.id,
+  //endregion
+
+  //region classic monk
+  CLASSIC_SPELLS.GIFT_OF_THE_OX_SPAWN_1.id,
+  CLASSIC_SPELLS.GIFT_OF_THE_OX_SPAWN_2.id,
+  CLASSIC_SPELLS.FISTS_OF_FURY_TICK.id,
+  CLASSIC_SPELLS.SPEAR_HAND_STRIKE_SILENCE.id,
   //endregion
 
   //region trinket

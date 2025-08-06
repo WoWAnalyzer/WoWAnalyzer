@@ -6,7 +6,6 @@ export { default as QuickWitted } from './QuickWitted';
 export { default as ShiftingPower } from './ShiftingPower';
 export { default as TempestBarrier } from './TempestBarrier';
 export { default as MasterOfTime } from './MasterOfTime';
-export { default as TimeAnomaly } from './TimeAnomaly';
 export { default as SharedCode } from './SharedCode';
 export { default as MirrorImage } from './defensives/MirrorImage';
 export { default as IceBlock } from './defensives/IceBlock';

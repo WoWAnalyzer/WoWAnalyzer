@@ -340,6 +340,13 @@ export const Gao: Contributor = {
 export const Oratio: Contributor = {
   nickname: 'Oratio',
   github: 'karlpralow',
+  mains: [
+    {
+      name: 'Oratio',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/zuljin/Oratio',
+    },
+  ],
 };
 export const Ogofo: Contributor = {
   nickname: 'Ogofo',
@@ -707,11 +714,6 @@ export const Khadaj: Contributor = {
   discord: 'Khadaj#3519',
   avatar: avatar('khadaj-avatar.jpg'),
   mains: [
-    {
-      name: 'Khadaj',
-      spec: SPECS.HOLY_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/firetree/khadaj',
-    },
     {
       name: 'RatherBeBelf',
       spec: SPECS.HOLY_PRIEST,
@@ -2724,6 +2726,7 @@ export const Leftyxiv: Contributor = {
   nickname: 'Manny',
   github: 'Leftyxiv',
   discord: 'onearmmanny',
+  avatar: avatar('leftyxiv-avatar.png'),
   mains: [
     {
       name: 'Magicmushies',

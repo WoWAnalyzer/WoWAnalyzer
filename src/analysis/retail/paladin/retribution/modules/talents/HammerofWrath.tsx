@@ -1,7 +1,7 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
 // TODO: Needs updating with ExecuteHelper
 
@@ -10,12 +10,17 @@ class HammerofWrath extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.HAMMER_OF_WRATH_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.HAMMER_OF_WRATH_TALENT),
       this.onHammerofWrathCast,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.HAMMER_OF_WRATH_TALENT),
       this.onHammerofWrathEnergize,
     );
   }

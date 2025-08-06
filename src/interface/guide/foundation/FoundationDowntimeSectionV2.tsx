@@ -273,6 +273,38 @@ function ComplexUptimeDisplay({
 
   const isHealer = info?.combatant.owner.config.spec.role === ROLES.HEALER;
 
+  const meleeGapsWithTooltips = useMemo(
+    () =>
+      info &&
+      meleeGaps?.map((segment) => ({
+        ...segment,
+        tooltip: (
+          <>
+            Melee downtime from {formatDuration(segment.start - info.fightStart, 1)} to{' '}
+            {formatDuration(segment.end - info.fightStart, 1)}{' '}
+          </>
+        ),
+      })),
+    [meleeGaps, info],
+  );
+
+  const cancelGapsWithTooltips = useMemo(
+    () =>
+      info &&
+      cancelGaps?.map((gap) => ({
+        ...gap,
+        abilityId: undefined,
+        tooltip: (
+          <>
+            <SpellLink spell={gap.abilityId} /> cast started at{' '}
+            {formatDuration(gap.start - info.fightStart, 1)}, cancelled at {gap.capped ? '~' : ''}
+            {formatDuration(gap.end - info.fightStart, 1)}
+          </>
+        ),
+      })),
+    [info, cancelGaps],
+  );
+
   const tracks: TimelineTrack[] = useMemo(() => {
     if (!info) {
       return [];
@@ -294,21 +326,10 @@ function ComplexUptimeDisplay({
                 info={info}
                 segmentProps={{ opacity: 0.9 }}
               />
-              {cancelGaps && (
+              {cancelGapsWithTooltips && (
                 <SegmentTimeline
                   fgColor={BadColor}
-                  segments={cancelGaps.map((gap) => ({
-                    ...gap,
-                    abilityId: undefined,
-                    tooltip: (
-                      <>
-                        <SpellLink spell={gap.abilityId} /> cast started at{' '}
-                        {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
-                        {gap.capped ? '~' : ''}
-                        {formatDuration(gap.end - info.fightStart, 1)}
-                      </>
-                    ),
-                  }))}
+                  segments={cancelGapsWithTooltips}
                   info={info}
                   segmentProps={{ opacity: 0.9 }}
                 />
@@ -322,33 +343,22 @@ function ComplexUptimeDisplay({
           // this stacks the melee uptime segment timelines on top of each other.
           element: (
             <>
-              {meleeGaps && (
+              {meleeGapsWithTooltips && (
                 <SegmentTimeline
                   bgColor="#1a1a1a"
                   fgColor={BadColor}
-                  segments={meleeGaps}
+                  segments={meleeGapsWithTooltips}
                   info={info}
                   segmentProps={{
                     opacity: 0.9,
                   }}
                 />
               )}
-              {cancelGaps && (
+              {cancelGapsWithTooltips && (
                 <SegmentTimeline
                   bgColor="#1a1a1a"
                   fgColor={BadColor}
-                  segments={cancelGaps.map((gap) => ({
-                    ...gap,
-                    abilityId: undefined,
-                    tooltip: (
-                      <>
-                        <SpellLink spell={gap.abilityId} /> cast started at{' '}
-                        {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
-                        {gap.capped ? '~' : ''}
-                        {formatDuration(gap.end - info.fightStart, 1)}
-                      </>
-                    ),
-                  }))}
+                  segments={cancelGapsWithTooltips}
                   info={info}
                   segmentProps={{ opacity: 0.9 }}
                 />
@@ -416,7 +426,7 @@ function ComplexUptimeDisplay({
         hidden: whenSecondWidthLT(info.fightStart, MIN_ABILITY_TIMELINE_SECOND_WIDTH),
       },
       {
-        height: 16,
+        height: 18,
         element: <PlayerAbilityTimeline info={info} />,
         hidden: whenSecondWidthLT(info.fightStart, MIN_ABILITY_TIMELINE_SECOND_WIDTH),
       },
@@ -427,8 +437,8 @@ function ComplexUptimeDisplay({
     info,
     isHealer,
     nonHealingUptimeHistory,
-    meleeGaps,
-    cancelGaps,
+    cancelGapsWithTooltips,
+    meleeGapsWithTooltips,
     globalMeleeGaps,
     debuffSegments,
     uptimeHistory,
@@ -451,7 +461,7 @@ function ComplexUptimeDisplay({
 }
 
 // how wide a second needs to be (in pixels) before the player ability timeline is shown. at sizes smaller than this, the icons start to overlap.
-const MIN_ABILITY_TIMELINE_SECOND_WIDTH = 16;
+const MIN_ABILITY_TIMELINE_SECOND_WIDTH = 18;
 
 /**
  * Check how wide a second is (in pixels) according to the `x` position helper from the `TimelineDiagram`.

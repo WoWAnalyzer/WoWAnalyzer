@@ -36,6 +36,26 @@ class InsertableEventsWrapper {
   }
 
   /**
+   * Inserts the given new event directly before an existing event within the events array.
+   * @param newEvent the event to insert. Will be marked as 'fabricated'.
+   * @param existingEvent an event in the original events array.
+   *   Events previously inserted by this wrapper will *not* be found and should not be passed here.
+   */
+  addBeforeEvent(newEvent: AnyEvent, existingEvent: AnyEvent): void {
+    const index = this.events.indexOf(existingEvent);
+    if (index === -1) {
+      console.error(
+        'InsertableEventsWrapper tried to insert after event ' +
+          existingEvent +
+          " - but it wasn't found in the overall events list! Will be added by time instead.",
+      );
+      this.addByTime(newEvent);
+    } else {
+      this.addAfterIndex(newEvent, index - 1);
+    }
+  }
+
+  /**
    * Inserts the given new event at the appropriate location given its timestamp.
    * Will always be inserted after original events with the same timestamp.
    * @param newEvent the event to insert. Will be marked as 'fabricated'.

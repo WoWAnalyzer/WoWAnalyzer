@@ -1,91 +1,177 @@
-import Item from 'common/ITEMS/Item';
+import Item, { Food } from 'common/ITEMS/Item';
 
 const items = {
-  // id = item id
-  BAKED_ROCKFISH: {
-    id: 62661,
-    name: 'Baked Rockfish',
-    icon: 'inv_misc_food_155_fish_78',
+  MOGU_FISH_STEW: {
+    id: 74650,
+    name: 'Mogu Fish Stew',
+    icon: 'inv_misc_food_cooked_mogufishstew.jpg',
+    buffId: 104277,
   },
-  BASILISK_LIVERDOG: {
-    id: 62665,
-    name: 'Basilisk Liverdog',
-    icon: 'inv_misc_food_17',
+  SEA_MIST_RICE_NOODLES: {
+    id: 74648,
+    name: 'Sea Mist Rice Noodles',
+    icon: 'inv_misc_food_cooked_seamistricenoodles.jpg',
+    buffId: 104275,
   },
-  BEER_BASTED_CROCOLISK: {
-    id: 62670,
-    name: 'Beer-Basted Crocolisk',
-    icon: 'inv_misc_food_meat_cooked_08',
+  BLACK_PEPPER_RIBS_AND_SHRIMP: {
+    id: 74646,
+    name: 'Black Pepper Ribs and Shrimp',
+    icon: 'inv_misc_food_cooked_golden_black_pepper_ribs_and_shrimp.jpg',
+    buffId: 104272,
   },
-  BLACKBELLY_SUSHI: {
-    id: 62668,
-    name: 'Blackbelly Sushi',
-    icon: 'inv_misc_food_161_fish_89',
+  SPICED_BLOSSOM_SOUP: {
+    id: 101748,
+    name: 'Spiced Blossom Soup',
+    icon: 'inv_misc_herb_frostlotus.jpg',
+    buffId: 146806,
   },
-  BROILED_DRAGON_FEAST: {
-    id: 62289,
-    name: 'Broiled Dragon Feast',
-    icon: 'inv_misc_food_99',
+  PANDAREN_BANQUET: {
+    id: 74919,
+    name: 'Pandaren Banquet',
+    icon: 'inv_misc_food_cooked_pabanquet_general.jpg',
   },
-  CRISPY_BAKON_SNACK: {
-    id: 62678,
-    name: 'Crispy "Bakon" Snack',
-    icon: 'inv_misc_food_71',
+  PANDAREN_TREASURE_NOODLE_CART: {
+    id: 145196,
+    name: 'Pandaren Treasure Noodle Cart',
+    icon: 'inv_misc_noodle_cart_epic_level.jpg',
   },
-  CROCOLISK_AU_GRATIN: {
-    id: 62664,
-    name: 'Crocolisk Au Gratin',
-    icon: 'inv_misc_food_meat_cooked_10',
+  GREAT_PANDAREN_BANQUET: {
+    id: 75016,
+    name: 'Great Pandaren Banquet',
+    icon: 'inv_misc_food_cooked_greatpabanquet_general.jpg',
   },
-  DELICIOUS_SAGEFISH_TAIL: {
-    id: 62666,
-    name: 'Delicious Sagefish Tail',
-    icon: 'inv_misc_food_158_fish_81',
+  SEASONED_POMFRUIT_SLICES: {
+    id: 101746,
+    name: 'Seasoned Pomfruit Slices',
+    icon: 'inv_misc_food_vendor_slicedpeaches.jpg',
+    buffId: 146805,
   },
-  ENRICHED_FISH_BISCUIT: {
-    id: 62679,
-    name: 'Enriched Fish Biscuit',
-    icon: 'inv_misc_food_meat_raw_10',
+  BRAISED_TURTLE: {
+    id: 74649,
+    name: 'Braised Turtle',
+    icon: 'inv_misc_food_cooked_braisedturtle.jpg',
+    buffId: 104276,
   },
-  FORTUNE_COOKIE: {
-    id: 62649,
-    name: 'Fortune Cookie',
-    icon: 'inv_misc_fortunecookie',
+  CHUN_TIAN_SPRING_ROLLS: {
+    id: 74656,
+    name: 'Chun Tian Spring Rolls',
+    icon: 'inv_misc_food_cooked_springrolls.jpg',
+    buffId: 104283,
   },
-  GOBLIN_BARBECUE: {
-    id: 60858,
-    name: 'Goblin Barbecue',
-    icon: 'inv_gizmo_fuelcell',
+  FLUFFY_SILKFEATHER_OMELET: {
+    id: 101750,
+    name: 'Fluffy Silkfeather Omelet',
+    icon: 'inv_misc_food_06.jpg',
+    buffId: 146804,
   },
-  GRILLED_DRAGON: {
-    id: 62662,
-    name: 'Grilled Dragon',
-    icon: 'inv_misc_food_122_steak',
+  ETERNAL_BLOSSOM_FISH: {
+    id: 74645,
+    name: 'Eternal Blossom Fish',
+    icon: 'inv_misc_food_cooked_eternalblossomfish.jpg',
+    buffId: 104271,
   },
-  LAVASCALE_MINESTRONE: {
-    id: 62663,
-    name: 'Lavascale Minestrone',
-    icon: 'inv_misc_food_154_fish_77',
+  RICE_PUDDING: {
+    id: 86069,
+    name: 'Rice Pudding',
+    icon: 'inv_misc_food_vendor_poundedricecake_1.jpg',
+    buffId: 125108,
   },
-  MUSHROOM_SAUCE_MUDFISH: {
-    id: 62667,
-    name: 'Mushroom Sauce Mudfish',
-    icon: 'inv_misc_food_meat_cooked_01',
+  SPICY_VEGETABLE_CHIPS: {
+    id: 86074,
+    name: 'Spicy Vegetable Chips',
+    icon: 'inv_misc_food_vendor_poundedricecakes.jpg',
+    buffId: 125115,
   },
-  SEAFOOD_MAGNIFIQUE_FEAST: {
-    id: 62290,
-    name: 'Seafood Magnifique Feast',
-    icon: 'inv_misc_food_meat_cooked_02',
+  SPICY_SALMON: {
+    id: 86073,
+    name: 'Spicy Salmon',
+    icon: 'inv_misc_food_meat_cooked_06.jpg',
+    buffId: 125113,
   },
-  SEVERED_SAGEFISH_HEAD: {
-    id: 62671,
-    name: 'Severed Sagefish Head',
-    icon: 'inv_misc_food_160_fish_87',
+  TWIN_FISH_PLATTER: {
+    id: 74655,
+    name: 'Twin Fish Platter',
+    icon: 'inv_misc_food_cooked_twinfishplatter.jpg',
+    buffId: 104282,
   },
-  SKEWERED_EEL: {
-    id: 62669,
-    name: 'Skewered Eel',
-    icon: 'inv_misc_food_163_fish_91',
+  FIRE_SPIRIT_SALMON: {
+    id: 74652,
+    name: 'Fire Spirit Salmon',
+    icon: 'inv_misc_food_cooked_firespiritsalmon.jpg',
+    buffId: 104279,
   },
-} satisfies Record<string, Item>;
+  // it was at this point that i said "fuck the 20 different banquets"
+  MANGO_ICE: {
+    id: 101745,
+    name: 'Mango Ice',
+    icon: 'inv_misc_food_mango_ice.jpg',
+    buffId: 146809,
+  },
+  STUFFED_LUSHROOMS: {
+    id: 101749,
+    name: 'Stuffed Lushrooms',
+    icon: 'spell_druid_wildmushroom.jpg',
+    buffId: 146808,
+  },
+  STEAMED_CRAB_SURPRISE: {
+    id: 74653,
+    name: 'Steamed Crab Surprise',
+    icon: 'inv_misc_food_cooked_steamcrabsurprise.jpg',
+    buffId: 104280,
+  },
+  PEARL_MILK_TEA: {
+    id: 81414,
+    name: 'Pearl Milk Tea',
+    icon: 'inv_drink_milk_01.jpg',
+    buffId: 124219,
+  },
+  TANGY_YOGURT: {
+    id: 81409,
+    name: 'Tangy Yogurt',
+    icon: 'inv_misc_food_vendor_tangypeachyogurt.jpg',
+    buffId: 124217,
+  },
+  GREEN_CURRY_FISH: {
+    id: 81410,
+    name: 'Green Curry Fish',
+    icon: 'inv_misc_food_vendor_greenfishbonescurry.jpg',
+    buffId: 124218,
+  },
+  SKEWERED_PEANUT_CHICKEN: {
+    id: 81413,
+    name: 'Skewered Peanut Chicken',
+    icon: 'inv_misc_skeweredpeanutchicken.jpg',
+    buffId: 124221,
+  },
+  PEACH_PIE: {
+    id: 81411,
+    name: 'Peach Pie',
+    icon: 'inv_misc_food_vendor_peachpie.jpg',
+    buffId: 125071,
+  },
+  WILDFOWL_GINSENG_SOUP: {
+    id: 86070,
+    name: 'Wildfowl Ginseng Soup',
+    icon: 'inv_misc_food_vendor_needlemushroomsoup.jpg',
+    buffId: 125106,
+  },
+  RED_BEAN_BUN: {
+    id: 81408,
+    name: 'Red Bean Bun',
+    icon: 'inv_misc_food_vendor_redbeanbun.jpg',
+    buffId: 124216,
+  },
+  BLANCHEND_NEEDLE_MUSHROOMS: {
+    id: 81412,
+    name: 'Blanched Needle Mushrooms',
+    icon: 'inv_misc_food_vendor_blanchedneedlemushroom.jpg',
+    buffId: 124220,
+  },
+  FARMERS_DELIGHT: {
+    id: 101747,
+    name: "Farmer's Delight",
+    icon: 'inv_misc_food_117_heartysoup.jpg',
+    buffId: 146807,
+  },
+} satisfies Record<string, Item | Food>;
 export default items;

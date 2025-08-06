@@ -118,6 +118,19 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
       },
+      {
+        spell: TALENTS_MONK.SLICING_WINDS_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(TALENTS_MONK.SLICING_WINDS_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
       // cooldowns
       {
         spell: SPELLS.TOUCH_OF_KARMA_CAST.id,

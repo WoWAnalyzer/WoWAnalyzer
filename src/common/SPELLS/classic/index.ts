@@ -26,6 +26,7 @@ import PRIEST from './priest';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import MONK from './monk';
 // Other
 import Alchemy from './alchemy';
 import Engineering from './engineering';
@@ -48,6 +49,7 @@ const ABILITIES = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
+  ...MONK,
   ...Alchemy,
   ...Engineering,
   ...Food,
@@ -66,3 +68,15 @@ export default CLASSIC_SPELLS;
 
 export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
   key ? InternalSpellTable[key as any] : undefined;
+
+export const registerSpell = (id: number, name: string, icon: string) => {
+  if (InternalSpellTable[id]) {
+    return;
+  }
+
+  InternalSpellTable[id] = {
+    id,
+    name,
+    icon,
+  };
+};

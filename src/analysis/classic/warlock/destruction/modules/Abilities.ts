@@ -24,11 +24,6 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.BANE_OF_DOOM.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.CORRUPTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -52,22 +47,11 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.BANE_OF_AGONY.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.FEL_FLAME.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
-      {
-        spell: SPELLS.SHADOWFLAME.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 12,
-        gcd: { base: 1500 },
-      },
       {
         spell: SPELLS.RAIN_OF_FIRE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -76,10 +60,9 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: SPELLS.DEMON_SOUL.id,
+        spell: SPELLS.DARK_SOUL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        buffSpellIds: [SPELLS.DEMON_SOUL_IMP_BUFF.id],
       },
       {
         spell: SPELLS.SUMMON_DOOMGUARD.id,
@@ -89,13 +72,13 @@ class Abilities extends CoreAbilities {
       },
       // Defensive
       {
-        spell: SPELLS.DEATH_COIL.id,
+        spell: SPELLS.MORTAL_COIL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
-        cooldown: 120,
+        cooldown: 45,
       },
       {
-        spell: SPELLS.NETHER_WARD.id,
+        spell: SPELLS.TWILIGHT_WARD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
       },
@@ -105,11 +88,6 @@ class Abilities extends CoreAbilities {
       // Utility
       {
         spell: SPELLS.LIFE_TAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.BANE_OF_HAVOC.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

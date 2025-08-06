@@ -4,12 +4,11 @@ import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import Haste from './modules/features/Haste';
 
 // Features
-import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
 import DotUptimes from './modules/features/DotUptimes';
+import { Abilities } from './gen';
 
 // Spells
 import SerpentSting from './modules/spells/SerpentSting';
@@ -30,9 +29,8 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     dotUptimes: DotUptimes,
-    // Spells
+    // // Spells
     LockAndLoad,
     ExplosiveShot,
     serpentSting: SerpentSting,

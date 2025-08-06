@@ -36,27 +36,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled:
-          combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
-          !combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
-      },
-      {
-        spell: TALENTS.MIND_SPIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
-      },
-      {
-        spell: SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled:
-          combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
-          combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT),
       },
       {
         spell: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id,
@@ -160,7 +140,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.VOID_TORRENT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },

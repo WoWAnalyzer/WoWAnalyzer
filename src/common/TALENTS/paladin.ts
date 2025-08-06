@@ -178,7 +178,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102532],
     definitionIds: [{ id: 107537, specId: 65 }],
-    manaCost: 112500,
+    manaCost: 87500,
   },
   BESTOW_LIGHT_TALENT: {
     id: 448040,
@@ -287,14 +287,6 @@ const talents = {
     entryIds: [111886],
     definitionIds: [{ id: 116891, specId: 66 }],
     manaCost: 75000,
-  },
-  BLESSING_OF_THE_SEASONS_TALENT: {
-    id: 395355,
-    name: 'Blessing of the Seasons',
-    icon: 'ability_ardenweald_paladin_summer',
-    maxRanks: 1,
-    entryIds: [116183],
-    definitionIds: [{ id: 121195, specId: 65 }],
   },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
@@ -679,7 +671,7 @@ const talents = {
     entryIds: [117692],
     definitionIds: [{ id: 122704, specId: 70 }],
     holyPowerCost: 3,
-    manaCost: 15000,
+    manaCost: 250000,
   },
   EXECUTIONERS_WILL_TALENT: {
     id: 406940,
@@ -1441,6 +1433,14 @@ const talents = {
     entryIds: [115024],
     definitionIds: [{ id: 120031, specId: 70 }],
   },
+  PILLARS_OF_LIGHT_TALENT: {
+    id: 1232616,
+    name: 'Pillars of Light',
+    icon: 'inv_helm_plate_raidpaladindragon_d_01',
+    maxRanks: 1,
+    entryIds: [102563],
+    definitionIds: [{ id: 107568, specId: 65 }],
+  },
   POWER_OF_THE_SILVER_HAND_TALENT: {
     id: 200474,
     name: 'Power of the Silver Hand',
@@ -1949,8 +1949,8 @@ const talents = {
     name: 'Truth Prevails',
     icon: 'ability_paladin_artofwar',
     maxRanks: 1,
-    entryIds: [102563],
-    definitionIds: [{ id: 107568, specId: 65 }],
+    entryIds: [133407],
+    definitionIds: [{ id: 138193, specId: 65 }],
   },
   TURN_EVIL_TALENT: {
     id: 10326,

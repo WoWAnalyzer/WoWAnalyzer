@@ -33,9 +33,7 @@ import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InsidiousIre from './modules/talents/InsidiousIre';
 import InescapableTorment from './modules/talents/InescapableTorment';
-import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import Deathspeaker from './modules/talents/Deathspeaker';
-import MindSpikeInsanity from './modules/talents/MindSpikeInsanity';
 import AncientMadness from './modules/talents/AncientMadness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import MindFlayInsanity from './modules/talents/MindFlayInsanity';
@@ -126,13 +124,11 @@ class CombatLogParser extends MainCombatLogParser {
     mindFlayInsanity: MindFlayInsanity,
     mindMelt: MindMelt,
     mindsEye: MindsEye,
-    mindSpikeInsanity: MindSpikeInsanity,
     phantasmalPathogen: PhantasmalPathogen,
     psychicLink: PsychicLink,
     shadowCrash: ShadowCrash,
     shadowyInsight: ShadowyInsight,
     tormentedSpirits: TormentedSpirits,
-    unfurlingDarkness: UnfurlingDarkness,
     voidTorrent: VoidTorrent,
     voidTouched: VoidTouched,
 

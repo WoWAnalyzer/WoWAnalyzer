@@ -31,8 +31,8 @@ class FinalVerdict extends Analyzer {
   }
 
   onHammerOfWrathReset() {
-    if (this.spellUsable.isOnCooldown(SPELLS.HAMMER_OF_WRATH.id)) {
-      this.spellUsable.endCooldown(SPELLS.HAMMER_OF_WRATH.id);
+    if (this.spellUsable.isOnCooldown(TALENTS_PALADIN.HAMMER_OF_WRATH_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS_PALADIN.HAMMER_OF_WRATH_TALENT.id);
     }
   }
 }

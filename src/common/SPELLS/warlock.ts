@@ -826,6 +826,12 @@ const spells = {
     name: 'Doom Bolt Volley',
     icon: 'spell_shadow_shadowbolt',
   },
+  // TWW Season 2 Tier Set
+  CALL_GREATER_DREADSTALKER: {
+    id: 1217615,
+    name: 'Call Greater Dreadstalker',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
 
   // -----------
   // DESTRUCTION

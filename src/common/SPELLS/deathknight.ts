@@ -258,6 +258,13 @@ const spells = {
     name: 'Obliteration',
     icon: 'inv_axe_114',
   },
+  GLACIAL_ADVANCE: {
+    id: 194913,
+    name: 'Glacial Advance',
+    icon: 'ability_hunter_glacialtrap',
+    runicPowerCost: 30,
+  },
+
   // Unholy:
   FESTERING_SCYTHE: {
     id: 458128,
@@ -500,12 +507,6 @@ const spells = {
     id: 52212,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
-  },
-
-  UNHOLY_GROUND_HASTE_BUFF: {
-    id: 374271,
-    name: 'Unholy Ground',
-    icon: 'ability_deathknight_desecratedground',
   },
 
   DEATH_STRIKE_HEAL: {

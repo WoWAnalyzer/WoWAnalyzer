@@ -43,6 +43,7 @@ import TheHoundmastersGambit from './modules/talents/TheHoundmastersGambit';
 import WickedMaw from './modules/talents/WickedMaw';
 import Guide from './Guide';
 import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
+import TWW2TierSet from './modules/thewarwithin/tier/TWW2TierSet';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -106,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier
     t31AmirdrassilDemonology: T31AmirdrassilDemonology,
+    tww2TierSet: TWW2TierSet,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

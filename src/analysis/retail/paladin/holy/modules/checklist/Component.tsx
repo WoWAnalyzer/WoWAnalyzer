@@ -89,7 +89,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       >
         {/* Avenging Crusader replaces Avenging Wrath */}
         {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
-          <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
+          <AbilityRequirement spell={TALENTS.AVENGING_WRATH_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />

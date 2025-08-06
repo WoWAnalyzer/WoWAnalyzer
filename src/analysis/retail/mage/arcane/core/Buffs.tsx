@@ -63,7 +63,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.ARCANE_HARMONY_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT),
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.ARCANE_TEMPO_BUFF.id,
@@ -72,6 +72,21 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.INTUITION_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.INTUITION_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.GLORIOUS_INCANDESCENCE_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ARCANE_SOUL_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT),
         timelineHighlight: true,
       },
     ];

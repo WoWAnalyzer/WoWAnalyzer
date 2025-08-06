@@ -26,7 +26,7 @@ import CooldownOverview from 'parser/ui/CooldownOverview';
 import { ReactNode } from 'react';
 import GameBranch from 'game/GameBranch';
 
-const debug = false;
+const debug = true;
 
 export enum BUILT_IN_SUMMARY_TYPES {
   HEALING = 'HEALING',

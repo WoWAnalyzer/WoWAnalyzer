@@ -55,8 +55,8 @@ const talents = {
     name: 'August Blessing',
     icon: 'inv_celestialserpentmount',
     maxRanks: 1,
-    entryIds: [124861],
-    definitionIds: [{ id: 129699, specId: 268 }],
+    entryIds: [124844],
+    definitionIds: [{ id: 129682, specId: 268 }],
   },
   AUGUST_DYNASTY_TALENT: {
     id: 442818,
@@ -211,14 +211,6 @@ const talents = {
     entryIds: [124977],
     definitionIds: [{ id: 129815, specId: 270 }],
   },
-  CELESTIAL_FLAMES_TALENT: {
-    id: 325177,
-    name: 'Celestial Flames',
-    icon: 'inv_misc_volatilefire',
-    maxRanks: 1,
-    entryIds: [124844],
-    definitionIds: [{ id: 129682, specId: 268 }],
-  },
   CELESTIAL_HARMONY_TALENT: {
     id: 343655,
     name: 'Celestial Harmony',
@@ -226,6 +218,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [124913],
     definitionIds: [{ id: 129751, specId: 270 }],
+  },
+  CELESTIAL_INFUSION_TALENT: {
+    id: 1241059,
+    name: 'Celestial Infusion',
+    icon: 'ability_monk_tigereyebrandy',
+    maxRanks: 1,
+    entryIds: [133509],
+    definitionIds: [{ id: 138295, specId: 268 }],
   },
   CHARRED_PASSIONS_TALENT: {
     id: 386965,
@@ -887,7 +887,7 @@ const talents = {
   IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 322740,
     name: 'Improved Invoke Niuzao, the Black Ox',
-    icon: 'spell_monk_brewmaster_spec',
+    icon: 'inv_inscription_trinket_ox',
     maxRanks: 1,
     entryIds: [124847],
     definitionIds: [{ id: 129685, specId: 268 }],
@@ -1256,6 +1256,14 @@ const talents = {
     entryIds: [125057],
     definitionIds: [{ id: 129889, specId: 270 }],
   },
+  NIUZAOS_RESOLVE_TALENT: {
+    id: 1241097,
+    name: "Niuzao's Resolve",
+    icon: 'inv_ability_monk_renewingmists_active',
+    maxRanks: 1,
+    entryIds: [124861],
+    definitionIds: [{ id: 129699, specId: 268 }],
+  },
   ONE_VERSUS_MANY_TALENT: {
     id: 450988,
     name: 'One Versus Many',
@@ -1454,8 +1462,8 @@ const talents = {
     name: 'Quick Sip',
     icon: 'achievement_faction_brewmaster',
     maxRanks: 1,
-    entryIds: [124837],
-    definitionIds: [{ id: 129675, specId: 268 }],
+    entryIds: [134644],
+    definitionIds: [{ id: 139412, specId: 268 }],
   },
   RAPID_DIFFUSION_TALENT: {
     id: 388847,
@@ -2047,7 +2055,7 @@ const talents = {
   WALK_WITH_THE_OX_TALENT: {
     id: 387219,
     name: 'Walk with the Ox',
-    icon: 'monk_stance_drunkenox',
+    icon: 'ability_monk_chargingoxwave',
     maxRanks: 2,
     entryIds: [124848],
     definitionIds: [{ id: 129686, specId: 268 }],
@@ -2157,14 +2165,6 @@ const talents = {
     entryIds: [124880],
     definitionIds: [{ id: 129718, specId: 270 }],
   },
-  ZEN_MEDITATION_TALENT: {
-    id: 115176,
-    name: 'Zen Meditation',
-    icon: 'ability_monk_zenmeditation',
-    maxRanks: 1,
-    entryIds: [125006],
-    definitionIds: [{ id: 129844, specId: 268 }],
-  },
   ZEN_PULSE_TALENT: {
     id: 446326,
     name: 'Zen Pulse',
@@ -2172,6 +2172,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [124889],
     definitionIds: [{ id: 129727, specId: 270 }],
+  },
+  ZEN_STATE_TALENT: {
+    id: 1241136,
+    name: 'Zen State',
+    icon: 'spell_monk_zenpilgrimage',
+    maxRanks: 1,
+    entryIds: [125006],
+    definitionIds: [{ id: 129844, specId: 268 }],
   },
 } satisfies Record<string, Talent>;
 

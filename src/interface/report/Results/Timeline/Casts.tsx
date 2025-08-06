@@ -19,6 +19,8 @@ import { Fragment, CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import './Casts.scss';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import { useExpansionContext } from 'interface/report/ExpansionContext';
 
 const ICON_WIDTH = 22;
 
@@ -90,6 +92,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }: Props) => {
+  const expansionCtx = useExpansionContext();
   const getOffsetLeft = (timestamp: number) =>
     ((timestamp - (windowStart ?? start)) / 1000) * secondWidth;
 
@@ -122,9 +125,12 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
         {children}
       </SpellLink>
     );
+    const spell = maybeGetTalentOrSpell(event.ability.guid, expansionCtx?.expansion);
+    const iconName = spell?.icon ?? event.ability.abilityIcon;
+    const spellName = spell?.name ?? event.ability.name;
     const icon = (
       <>
-        <Icon icon={event.ability.abilityIcon.replace('.jpg', '')} alt={event.ability.name} />
+        <Icon icon={iconName.replace('.jpg', '')} alt={spellName} />
         {children}
       </>
     );

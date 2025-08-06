@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.REVERSION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
-        charges: combatant.hasTalent(TALENTS.PUNCTUALITY_TALENT) ? 2 : 1,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.REWIND_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS.TEMPORAL_ARTIFICER_TALENT) ? 180 : 240,
-        charges: combatant.hasTalent(TALENTS.ERASURE_TALENT) ? 2 : 1,
+        charges: 1,
         gcd: {
           base: 1500,
         },

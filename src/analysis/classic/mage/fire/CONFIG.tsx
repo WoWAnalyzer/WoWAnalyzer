@@ -11,15 +11,12 @@ const config: Config = {
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '4.4.0',
-  supportLevel: SupportLevel.Foundation,
+  supportLevel: SupportLevel.Unmaintained,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       Welcome! Thanks for checking out WoWAnalyzer.
-      <br />
-      <br />
-      Classic Cataclysm support is still a Work in Progress. This spec guide is a stub.
       <br />
       See the public GitHub repo or join our community Discord for information about contributing.
       Thanks!

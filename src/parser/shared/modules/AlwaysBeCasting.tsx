@@ -31,6 +31,8 @@ interface ActivityEdge {
   /** flag for if this ability is a healing ability - used to display healing active time vs
    *  non-healing active time for healers. Non-healers don't need to fill this in */
   isHealingAbility?: boolean;
+  /** Spell ID associated with this activity edge, if there is one */
+  spellId?: number;
 }
 
 class AlwaysBeCasting extends Analyzer {
@@ -75,14 +77,26 @@ class AlwaysBeCasting extends Analyzer {
   onGCD(event: GlobalCooldownEvent) {
     const start = event.timestamp;
     const end = event.timestamp + event.duration;
-    this.addNewUptime(start, end, this.isHealingAbility(event), `${event.ability.name} GCD`);
+    this.addNewUptime(
+      start,
+      end,
+      this.isHealingAbility(event),
+      `${event.ability.name} GCD`,
+      event.ability.guid,
+    );
     return true;
   }
 
   onEndChannel(event: EndChannelEvent) {
     const start = event.start;
     const end = event.timestamp;
-    this.addNewUptime(start, end, this.isHealingAbility(event), `${event.ability.name} Channel`);
+    this.addNewUptime(
+      start,
+      end,
+      this.isHealingAbility(event),
+      `${event.ability.name} Channel`,
+      event.ability.guid,
+    );
     return true;
   }
 
@@ -107,7 +121,13 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   /** Validates and logs inputs, then adds to activeTimeEdges list */
-  protected addNewUptime(start: number, end: number, isHealingAbility: boolean, reason: string) {
+  protected addNewUptime(
+    start: number,
+    end: number,
+    isHealingAbility: boolean,
+    reason: string,
+    spellId?: number,
+  ) {
     DEBUG &&
       console.log(
         `Active Time: adding from ${reason}: ${this.owner.formatTimestamp(start, 3)} to ${this.owner.formatTimestamp(end, 3)}${isHealingAbility ? ' (heal)' : ''}`,
@@ -125,8 +145,8 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
 
-    this.activeTimeEdges.push({ timestamp: start, value: 1, isHealingAbility });
-    this.activeTimeEdges.push({ timestamp: end, value: -1, isHealingAbility });
+    this.activeTimeEdges.push({ timestamp: start, value: 1, isHealingAbility, spellId });
+    this.activeTimeEdges.push({ timestamp: end, value: -1, isHealingAbility, spellId });
     /*
      * segements and total active time need to be regenerated after data is added,
      * but won't actually be computed until queried (hopefully at end of fight)
@@ -148,10 +168,12 @@ class AlwaysBeCasting extends Analyzer {
    * Use this to generate the segment's union, which will be non-overlapping and in order.
    *
    * @param {boolean|undefined} isHealingAbility The required value of `isHealingAbility` in the activity edges. If undefined, any value is allowed.
+   * @param additionalFilter any additional filtering logic required
    */
   private checkAndGenerateActiveTimeSegments(
     workingSegments: ActivitySegment[] | undefined,
     isHealingAbility?: boolean,
+    additionalFilter?: (e: ActivityEdge) => boolean,
   ): ActivitySegment[] {
     if (workingSegments !== undefined) {
       return workingSegments;
@@ -164,6 +186,8 @@ class AlwaysBeCasting extends Analyzer {
     workingSegments = [];
     for (const e of this.activeTimeEdges) {
       if (isHealingAbility !== undefined && Boolean(e.isHealingAbility) !== isHealingAbility) {
+        continue;
+      } else if (additionalFilter !== undefined && !additionalFilter(e)) {
         continue;
       } else if (activityCount === 0 && e.value === 1) {
         // upwards edge - activity started
@@ -264,6 +288,51 @@ class AlwaysBeCasting extends Analyzer {
     let activeTimeTally = 0;
     const segments = healingOnly ? this.activeHealingTimeSegments : this.activeTimeSegments;
     for (const seg of segments) {
+      if (seg.end <= start) {
+        continue;
+      }
+      if (seg.start >= end) {
+        break;
+      }
+      const clampedStart = Math.max(start, seg.start);
+      const clampedEnd = Math.min(end, seg.end);
+      activeTimeTally += clampedEnd - clampedStart;
+    }
+    return activeTimeTally;
+  }
+
+  /**
+   * Gets active time milliseconds within a specified time segment and counting only certain spells.
+   * Will only see casts that have happened on or before the current timestamp.
+   *
+   * Requires a full re-filter of encounter activity and so may have worse performance than other
+   * active time getters in this class.
+   * @param start segment's start timestamp
+   * @param end segment's end timestamp
+   * @param spellIdWhitelist list of spells to be included as active time. Only segments with one
+   * of the given spell IDs will be counted.
+   */
+  getActiveTimeMillisecondsFiltered(
+    start: number,
+    end: number,
+    spellIdWhitelist: number[],
+  ): number {
+    if (start >= end) {
+      console.warn(`ActiveTime: called getActiveTimeMillisecondsFiltered with start
+        (${this.owner.formatTimestamp(start, 3)}) after end
+        (${this.owner.formatTimestamp(end, 3)}). Returning zero.`);
+      return 0;
+    }
+
+    const spellSet = new Set();
+    spellIdWhitelist.forEach((id) => spellSet.add(id));
+
+    let activeTimeTally = 0;
+    for (const seg of this.checkAndGenerateActiveTimeSegments(
+      undefined,
+      undefined,
+      (e) => e.spellId !== undefined && spellSet.has(e.spellId),
+    )) {
       if (seg.end <= start) {
         continue;
       }

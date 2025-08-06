@@ -51,9 +51,6 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         {combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.FLANKING_STRIKE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT) && (
-          <AbilityRequirement spell={TALENTS.A_MURDER_OF_CROWS_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.WILDFIRE_BOMB_TALENT) && (
           <AbilityRequirement spell={TALENTS.WILDFIRE_BOMB_TALENT.id} />
         )}

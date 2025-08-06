@@ -25,6 +25,8 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import PETS from '../pets/PETS';
+import { PetInfo } from 'parser/core/Pet';
 
 const debug = false;
 
@@ -52,9 +54,9 @@ class SummonDemonicTyrant extends Analyzer {
 
   private demoPets!: DemoPets;
   private spellUsable!: SpellUsable;
-  private hasReignOfTyranny = false;
   private hasGFG = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private summsWithDemonicPower: Record<string, any>[] = [{}];
   private tyrantsCast = 0;
   private tyrantCasts: TyrantCast[] = [];
@@ -66,7 +68,6 @@ class SummonDemonicTyrant extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
     this.hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
 
     this.addEventListener(
@@ -108,8 +109,9 @@ class SummonDemonicTyrant extends Analyzer {
     }
 
     // TODO low prio: fix main pet getting two applications of this buff in the same tyrant
-    this.summsWithDemonicPower[this.tyrantsCast][petInfo.name] =
-      this.summsWithDemonicPower[this.tyrantsCast][petInfo.name] + 1 || 1;
+    const petDisplayName = this.getPetDisplayName(petInfo);
+    this.summsWithDemonicPower[this.tyrantsCast][petDisplayName] =
+      this.summsWithDemonicPower[this.tyrantsCast][petDisplayName] + 1 || 1;
   }
 
   private onCast(event: CastEvent) {
@@ -124,6 +126,20 @@ class SummonDemonicTyrant extends Analyzer {
     event: BeginCastEvent | BeginChannelEvent | EndChannelEvent | GlobalCooldownEvent,
   ) {
     this.castTimeline.push(event);
+  }
+
+  private getPetDisplayName(petInfo: PetInfo): string {
+    // Differentiate between Vilefiend variants based on GUID
+    switch (petInfo.guid) {
+      case PETS.CHARHOUND.guid:
+        return 'Charhound';
+      case PETS.GLOOMHOUND.guid:
+        return 'Gloomhound';
+      case PETS.VILEFIEND.guid:
+        return 'Vilefiend';
+      default:
+        return petInfo.name;
+    }
   }
 
   private get numTyrCasts(): number {
@@ -154,12 +170,6 @@ class SummonDemonicTyrant extends Analyzer {
       if (populatedSumms[0][key].toString().length > 3) {
         populatedSumms[0][key] = populatedSumms[0][key].toFixed(1);
       }
-    }
-
-    if (this.hasReignOfTyranny) {
-      populatedSumms.forEach((_, index) => {
-        populatedSumms[index]['RoT Buff'] = populatedSumms[index]['Total'] * 10 + '%';
-      });
     }
 
     return populatedSumms;
@@ -206,7 +216,7 @@ class SummonDemonicTyrant extends Analyzer {
     gfg: boolean,
     imps: number,
   ): JSX.Element {
-    const impsExtended = `${imps}/${this.hasReignOfTyranny ? '15' : '10'} imps`;
+    const impsExtended = `${imps}/5 imps`;
     switch (actualPerformance) {
       case QualitativePerformance.Perfect:
         return <>Perfect usage, you extended the most demons possible</>;
@@ -260,11 +270,11 @@ class SummonDemonicTyrant extends Analyzer {
   }
 
   private getImpsPerformance(imps: number): QualitativePerformance {
-    if ((this.hasReignOfTyranny && imps === 15) || imps === 10) {
+    if (imps === 5) {
       return QualitativePerformance.Perfect;
     }
 
-    if (imps >= 7) {
+    if (imps >= 4) {
       return QualitativePerformance.Good;
     }
 
@@ -279,17 +289,17 @@ class SummonDemonicTyrant extends Analyzer {
     const castEvent = this.tyrantCasts[tyrantCastNum];
     const impsSummary = (
       <>
-        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this.hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/ 5{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
       </>
     );
 
     const impsDetails = (
       <div>
-        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this.hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> -
-        you should extend as many <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible,
-        always save <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/ 5{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> - you should extend as many{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible, always save{' '}
+        <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
       </div>
     );
 
@@ -299,6 +309,47 @@ class SummonDemonicTyrant extends Analyzer {
       performance: this.getImpsPerformance(this.summsWithDemonicPower[tyrantCastNum]['Wild Imp']),
       summary: impsSummary,
       details: impsDetails,
+    };
+  }
+
+  private getHoundsChecklistItem(tyrantCastNum: number) {
+    const castEvent = this.tyrantCasts[tyrantCastNum];
+    const charhounds = this.summsWithDemonicPower[tyrantCastNum]['Charhound'] || 0;
+    const gloomhounds = this.summsWithDemonicPower[tyrantCastNum]['Gloomhound'] || 0;
+    const vilefiends = this.summsWithDemonicPower[tyrantCastNum]['Vilefiend'] || 0;
+    const totalHounds = charhounds + gloomhounds + vilefiends;
+
+    const houndsPerformance =
+      totalHounds > 0 ? QualitativePerformance.Perfect : QualitativePerformance.Ok; // Not extending hounds is ok, but not optimal
+
+    const houndsSummary = (
+      <>
+        {totalHounds}/1 <SpellLink spell={TALENTS.SUMMON_VILEFIEND_TALENT} />
+      </>
+    );
+
+    const houndsDetails = (
+      <div>
+        {totalHounds}/1 <SpellLink spell={TALENTS.SUMMON_VILEFIEND_TALENT} /> - extending hounds
+        provides additional damage but is not always required
+        {totalHounds > 0 && (
+          <div style={{ fontSize: '0.9em', color: '#888', marginTop: '4px' }}>
+            {charhounds > 0 && `${charhounds} Charhound${charhounds > 1 ? 's' : ''}`}
+            {gloomhounds > 0 &&
+              `${charhounds > 0 ? ', ' : ''}${gloomhounds} Gloomhound${gloomhounds > 1 ? 's' : ''}`}
+            {vilefiends > 0 &&
+              `${charhounds > 0 || gloomhounds > 0 ? ', ' : ''}${vilefiends} Vilefiend${vilefiends > 1 ? 's' : ''}`}
+          </div>
+        )}
+      </div>
+    );
+
+    return {
+      check: 'hounds',
+      timestamp: castEvent.event.timestamp,
+      performance: houndsPerformance,
+      summary: houndsSummary,
+      details: houndsDetails,
     };
   }
 
@@ -353,6 +404,9 @@ class SummonDemonicTyrant extends Analyzer {
 
     const imps = this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
     checklistItems.push(this.getImpsChecklistItem(tyrantCastNum));
+
+    // Add hounds checklist item
+    checklistItems.push(this.getHoundsChecklistItem(tyrantCastNum));
 
     let goodGFG = true;
     if (this.hasGFG) {
@@ -416,16 +470,9 @@ class SummonDemonicTyrant extends Analyzer {
       <>
         <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} /> is our main offensive cooldown together
         with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
-        most of our active demons for 15 seconds, including up to 10{' '}
-        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s{' '}
-        {this.hasReignOfTyranny ? (
-          <>
-            {' ('}15 with <SpellLink spell={TALENTS.REIGN_OF_TYRANNY_TALENT} />)
-          </>
-        ) : (
-          ''
-        )}
-        . Most of the time you will be prioritising{' '}
+        most of our active demons for 15 seconds, including up to 5{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
+        s. Most of the time you will be prioritising{' '}
         <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> usage and delaying the Tyrant to
         extend it.
       </>
@@ -452,7 +499,6 @@ class SummonDemonicTyrant extends Analyzer {
 
     const avgDemonsEmpowered = Number(empoweredDemons[0]['Total']);
     const avgWildImpsEmpowered = Number(empoweredDemons[0]['Wild Imp']);
-    const avgRoTBuff = empoweredDemons[0]['RoT Buff'];
 
     return (
       <Statistic
@@ -465,14 +511,8 @@ class SummonDemonicTyrant extends Analyzer {
           <p>
             {avgDemonsEmpowered.toFixed(1)} <small>Avg. demons buffed</small>
           </p>
-          {this.hasReignOfTyranny && (
-            <p>
-              {avgRoTBuff} <small>Avg. RoT bonus dmg</small>
-            </p>
-          )}
           <p>
-            {avgWildImpsEmpowered.toFixed(1)}/{this.hasReignOfTyranny ? 15 : 10}{' '}
-            <small>Avg. imps buffed</small>
+            {avgWildImpsEmpowered.toFixed(1)}/5 <small>Avg. imps buffed</small>
           </p>
         </BoringSpellValueText>
       </Statistic>

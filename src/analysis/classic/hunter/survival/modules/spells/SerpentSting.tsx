@@ -7,6 +7,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 
+const SERPENT_STING_MOP_DEBUFF_ID = 118253;
+
 class SerpentStingUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -14,7 +16,7 @@ class SerpentStingUptime extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.SERPENT_STING.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SERPENT_STING_MOP_DEBUFF_ID) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -49,7 +51,7 @@ class SerpentStingUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.SERPENT_STING.id);
+    const history = this.enemies.getDebuffHistory(SERPENT_STING_MOP_DEBUFF_ID);
     return (
       <div className="flex">
         <div className="flex-sub icon">

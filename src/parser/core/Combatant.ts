@@ -113,11 +113,11 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentPointsBySpec: Set<number> = new Set<number>();
+  _classicTalentPoints: Set<number> = new Set<number>();
 
   _parseTalents(talents: Spell[]) {
     talents?.forEach(({ id }) => {
-      this._talentPointsBySpec.add(id);
+      this._classicTalentPoints.add(id);
     });
   }
 
@@ -126,6 +126,11 @@ class Combatant extends Entity {
     talents?.forEach((talent) => {
       this.treeTalentsByEntryId.set(talent.id, talent);
     });
+  }
+
+  hasClassicTalent(spell: number | { id: number }): boolean {
+    const id = typeof spell === 'number' ? spell : spell.id;
+    return this._classicTalentPoints.has(id);
   }
 
   /** Returns true if this combatant has the specified talent. Will be true for any number of
@@ -170,7 +175,7 @@ class Combatant extends Entity {
   get talentPoints(): number[] {
     const expansion = this._combatantInfo.expansion;
     if (expansion === 'tbc' || expansion === 'wotlk') {
-      return [...this._talentPointsBySpec];
+      return [...this._classicTalentPoints];
     } else {
       return [];
     }

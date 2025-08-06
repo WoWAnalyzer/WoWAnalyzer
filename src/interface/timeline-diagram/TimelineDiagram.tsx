@@ -409,4 +409,4 @@ const ZoomTextContainer = styled.div`
   margin-bottom: 0.5em;
 `;
 
-const ZOOM_DISPLAY_PX_PER_MS = 16 / 1000;
+const ZOOM_DISPLAY_PX_PER_MS = 20 / 1000;

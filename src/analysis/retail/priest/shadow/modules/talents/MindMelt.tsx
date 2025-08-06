@@ -25,7 +25,7 @@ class MindMelt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_MELT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHATTERED_PSYCHE_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_MELT_TALENT_BUFF),
@@ -74,7 +74,7 @@ class MindMelt extends Analyzer {
         size="flexible"
         tooltip="This is the damage gained from the critical chance increase"
       >
-        <BoringSpellValueText spell={TALENTS.MIND_MELT_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SHATTERED_PSYCHE_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />
           </div>

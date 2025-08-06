@@ -1170,9 +1170,9 @@ const talents = {
     entryIds: [117177],
     definitionIds: [{ id: 122189, specId: 104 }],
   },
-  LYCARAS_MEDITATION_TALENT: {
-    id: 474728,
-    name: "Lycara's Meditation",
+  LYCARAS_INSPIRATION_TALENT: {
+    id: 1232897,
+    name: "Lycara's Inspiration",
     icon: 'inv_trinket_ardenweald_02_yellow',
     maxRanks: 1,
     entryIds: [114300],

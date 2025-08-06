@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [jazminite],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
+  patchCompatibility: '5.5.0',
   supportLevel: SupportLevel.Unmaintained,
   // You can explain the status of this spec's analysis here by uncommenting the description section if you need a custom message. Otherwise it is covered by the foundation guide.
   // description: (

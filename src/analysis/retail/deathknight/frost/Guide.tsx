@@ -43,8 +43,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               resource cooldowns as often as possible to maximize how many resources you can put
               into a single <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> cast without
               wasting any of the resources granted.
-              {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
-                modules.hornOfWinter.guideCastBreakdown}
               {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) &&
                 modules.empowerRuneWeapon.guideCastBreakdown}
             </span>
@@ -97,15 +95,6 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           useThresholds
         />
       </div>
-      {info.combatant.hasTalent(talents.CHILL_STREAK_TALENT) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CastEfficiencyBar
-            spellId={talents.CHILL_STREAK_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        </div>
-      )}
       {info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
@@ -119,15 +108,6 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
             spellId={talents.FROSTWYRMS_FURY_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        </div>
-      )}
-      {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CastEfficiencyBar
-            spellId={talents.HORN_OF_WINTER_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
             useThresholds
           />
