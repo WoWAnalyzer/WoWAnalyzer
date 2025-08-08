@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2025, 8, 8), <>Update APLs for 11.2.0</>, Earosselot),
   change(date(2025, 6, 7), <>Update Patch Compatibility Version</>, Brigadoon),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 4, 20), <>Added Defensives to Guide</>, Earosselot),

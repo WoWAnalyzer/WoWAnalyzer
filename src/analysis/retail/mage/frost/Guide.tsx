@@ -55,6 +55,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   const isBoltspamBuild =
     info.combatant.hasTalent(TALENTS.DEEP_SHATTER_TALENT) &&
     info.combatant.hasTalent(TALENTS.DEATHS_CHILL_TALENT) &&
+    info.combatant.hasTalent(TALENTS.COLD_FRONT_TALENT) &&
     info.combatant.hasTalent(TALENTS.SLICK_ICE_TALENT);
 
   return (
