@@ -109,6 +109,26 @@ a {
   }
 }
 
+.btn-background {
+  background: Theme.$backgroundColor;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+
+  &.active,
+  &:hover,
+  &:focus,
+  &:active,
+  &:active:hover,
+  &:active:focus {
+    background: color.adjust(Theme.$backgroundColor, $lightness: +2%);
+    border-bottom: 1px solid Theme.$primaryColor;
+    outline: 0;
+    color: white;
+  }
+}
+
 h1,
 h2,
 h3,

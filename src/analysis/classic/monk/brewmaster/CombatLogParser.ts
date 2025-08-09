@@ -11,6 +11,7 @@ import Jab from '../shared/Jab';
 import XuenNormalizer from './modules/normalizers/XuenCastNormalizer';
 import AplCheck from './modules/features/AplCheck';
 import Guide from './Guide';
+import RushingJadeWindLinkNormalizer from '../shared/RushingJadeWindLinkNormalizer';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -26,6 +27,7 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Normalizers
     XuenNormalizer,
+    RushingJadeWindLinkNormalizer,
   };
 
   static guide = Guide;

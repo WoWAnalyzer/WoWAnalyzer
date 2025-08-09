@@ -10,6 +10,8 @@ export const Abilities = genAbilities({
     spells.CHI_WAVE_TALENT,
     spells.BREATH_OF_FIRE,
     spells.SPINNING_CRANE_KICK,
+    spells.RUSHING_JADE_WIND_TALENT,
+    spells.EXPEL_HARM,
   ],
   defensives: [spells.FORTIFYING_BREW, spells.DIFFUSE_MAGIC_TALENT, spells.DAMPEN_HARM_TALENT],
   cooldowns: [spells.INVOKE_XUEN_THE_WHITE_TIGER_TALENT],
