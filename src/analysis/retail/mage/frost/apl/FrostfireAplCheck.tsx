@@ -46,17 +46,14 @@ export const boltspamFrostfireApl = build([
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,
-    condition: cnd.and(
-      apl.precastGlacialSpike,
-      apl.fingersOfFrost,
-    )
+    condition: cnd.and(apl.precastGlacialSpike, apl.fingersOfFrost),
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,
     condition: cnd.and(
       cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 4, atMost: 4 }),
       cnd.debuffStacks(SPELLS.WINTERS_CHILL, { atLeast: 2 }),
-    )
+    ),
   },
   TALENTS.FROSTFIRE_BOLT_TALENT,
 ]);

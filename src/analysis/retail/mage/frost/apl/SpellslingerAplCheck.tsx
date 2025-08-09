@@ -35,10 +35,7 @@ export const spellslingerApl = build([
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,
-    condition: cnd.or(
-      apl.wintersChill,
-      apl.fingersOfFrost,
-    ),
+    condition: cnd.or(apl.wintersChill, apl.fingersOfFrost),
   },
   SPELLS.FROSTBOLT,
 ]);
