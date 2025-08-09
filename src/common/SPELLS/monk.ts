@@ -791,6 +791,11 @@ const spells = {
     ...talents.WEAPONS_OF_ORDER_TALENT,
     id: 387179,
   },
+  WWTO_STOMP_DAMAGE: {
+    id: 1242373,
+    name: 'Stomp',
+    icon: 'ability_warstomp.jpg',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {

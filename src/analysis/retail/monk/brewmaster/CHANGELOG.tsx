@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 8, 9), <>Add basic support for <SpellLink spell={talents.CELESTIAL_INFUSION_TALENT} /> and the revamped <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /></>, emallson),
   change(date(2025, 7, 12), <>Fix Purifying Brew section when literally no Purifies are used.</>, emallson),
   change(date(2025, 6, 8), <>Add preparation section to overview.</>, Vetyst),
   change(date(2025, 5, 3), <>Add guide section for Master of Harmony.</>, emallson),
