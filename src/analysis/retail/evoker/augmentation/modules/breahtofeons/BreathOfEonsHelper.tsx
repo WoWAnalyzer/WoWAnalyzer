@@ -18,7 +18,11 @@ import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
 import { DamageEvent } from 'parser/core/Events';
 import { BREATH_OF_EONS_MULTIPLIER } from '../../constants';
-import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../util/abilityFilter';
+import {
+  ABILITY_BLACKLIST,
+  ABILITY_NO_BOE_SCALING,
+  ABILITY_NO_EM_SCALING,
+} from '../util/abilityFilter';
 
 interface Props {
   windows: BreathOfEonsWindows[];
@@ -60,7 +64,11 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   /** Generate filter so we only get class abilities
    * that can accumulate into BoE */
   const filter = useMemo(() => {
-    const abilityFilter = [...ABILITY_NO_BOE_SCALING, ...ABILITY_BLACKLIST].join(',');
+    const abilityFilter = [
+      ...ABILITY_BLACKLIST,
+      ...ABILITY_NO_BOE_SCALING,
+      ...ABILITY_NO_EM_SCALING,
+    ].join(',');
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
