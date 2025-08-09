@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 8, 9), 'Remove Corruption helm enchants from recommendations in 11.2', emallson),
   change(date(2025, 7, 29), 'Add timeline abilities for Mogu\'shan Vaults bosses', emallson),
   change(date(2025, 7, 29), 'Add consumable data for MoP', emallson),
   change(date(2025, 7, 21), 'Add Classic MoP T14 raid zones, headshots, and placeholder image', jazminite),

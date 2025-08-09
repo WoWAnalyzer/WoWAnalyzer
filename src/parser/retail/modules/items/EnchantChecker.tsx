@@ -7,10 +7,7 @@ import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
-// TODO: remove head slot in 11.2.0
-
 const AGI_ENCHANTABLE_SLOTS = {
-  0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   // 5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -24,7 +21,6 @@ const AGI_ENCHANTABLE_SLOTS = {
 };
 
 const STR_ENCHANTABLE_SLOTS = {
-  0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   // 5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -38,7 +34,6 @@ const STR_ENCHANTABLE_SLOTS = {
 };
 
 const INT_ENCHANTABLE_SLOTS = {
-  0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   // 5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -52,15 +47,6 @@ const INT_ENCHANTABLE_SLOTS = {
 };
 
 const MIN_ENCHANT_IDS = [
-  // #region Helm
-  ITEMS.LESSER_TWILIGHT_DEVASTATION.effectId,
-  ITEMS.LESSER_ECHOING_VOID.effectId,
-  ITEMS.LESSER_INFINITE_STARS.effectId,
-  ITEMS.LESSER_GUSHING_WOUND.effectId,
-  ITEMS.LESSER_TWISTED_APPENDAGE.effectId,
-  ITEMS.LESSER_VOID_RITUAL.effectId,
-  // #endregion
-
   // #region Chest
   ITEMS.COUNCILS_INTELLECT_R1.effectId,
   ITEMS.COUNCILS_INTELLECT_R2.effectId,
@@ -189,15 +175,6 @@ const MIN_ENCHANT_IDS = [
 ] as const satisfies number[];
 
 const MAX_ENCHANT_IDS = [
-  // #region Helm
-  ITEMS.GREATER_TWILIGHT_DEVASTATION.effectId,
-  ITEMS.GREATER_ECHOING_VOID.effectId,
-  ITEMS.GREATER_INFINITE_STARS.effectId,
-  ITEMS.GREATER_GUSHING_WOUND.effectId,
-  ITEMS.GREATER_TWISTED_APPENDAGE.effectId,
-  ITEMS.GREATER_VOID_RITUAL.effectId,
-  // #endregion
-
   // #region Chest
   ITEMS.COUNCILS_INTELLECT_R3.effectId,
   ITEMS.OATHSWORNS_STRENGTH_R3.effectId,
