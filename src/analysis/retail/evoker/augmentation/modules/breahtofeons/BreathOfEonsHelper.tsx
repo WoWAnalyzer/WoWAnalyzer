@@ -22,6 +22,7 @@ import {
   ABILITY_BLACKLIST,
   ABILITY_NO_BOE_SCALING,
   ABILITY_NO_EM_SCALING,
+  ABILITY_NO_SCALING,
 } from '../util/abilityFilter';
 
 interface Props {
@@ -68,6 +69,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       ...ABILITY_BLACKLIST,
       ...ABILITY_NO_BOE_SCALING,
       ...ABILITY_NO_EM_SCALING,
+      ...ABILITY_NO_SCALING,
     ].join(',');
 
     const filter = `type = "damage" 
