@@ -34,6 +34,13 @@ interface Props {
 
 const debug = false;
 
+const ABILITY_FILTER = new Set<number>([
+  ...ABILITY_NO_BOE_SCALING,
+  ...ABILITY_BLACKLIST,
+  ...ABILITY_NO_SCALING,
+  ...ABILITY_NO_EM_SCALING,
+]);
+
 interface DamageWindow {
   start: number;
   end: number;
@@ -96,7 +103,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const result = await Promise.all(fetchPromises);
 
     result.forEach((window) => {
-      console.log(window);
       damageTables.push({
         table: window.events,
         start: window.start,
@@ -120,13 +126,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       // High maxPage allowances needed otherwise it breaks
       40,
     )) as DamageEvent[];
-
-    const ABILITY_FILTER = new Set<number>([
-      ...ABILITY_NO_BOE_SCALING,
-      ...ABILITY_BLACKLIST,
-      ...ABILITY_NO_SCALING,
-      ...ABILITY_NO_EM_SCALING,
-    ]);
     const events = response.filter((event) => !ABILITY_FILTER.has(event.ability.guid));
 
     return {
@@ -711,12 +710,9 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         <br />
         Additionally, it helps you determine if there was a more optimal timing for your{' '}
         <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />. This can be particularly valuable when
-        dealing with bursty specs like <span className="DeathKnight">Unholy Death Knights</span>,{' '}
-        <span className="Warlock">Demonology Warlocks</span>, or{' '}
-        <span className="Mage">Arcane Mages</span>.
-        <br />
-        If this module takes a long time to load, please clear your cache and attempt to load it
-        again.
+        dealing with bursty specs like <span className="Druid">Balance or Feral Druids</span>,{' '}
+        <span className="Monk">Windwalker Monks</span>, or{' '}
+        <span className="Rogue">Subtlety Rogues</span>.
       </p>
 
       <LazyLoadGuideSection loader={loadData.bind(this)} value={findOptimalWindow.bind(this)} />
