@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 8, 11), 'Start hiding Hero Specialization talent node on character page.', ToppleTheNun),
   change(date(2025, 8, 10), 'Update to patch 11.2', KYZ),
   change(date(2025, 8, 9), 'Fix handling of sockets in D.I.S.C. belt.', emallson),
   change(date(2025, 8, 9), 'Remove Corruption helm enchants from recommendations in 11.2', emallson),
