@@ -169,6 +169,11 @@ async function generateTalents(isPTR: boolean = false) {
   // eslint-disable-next-line
   const spellpower: ISpellpower[] = csvToObject(spellpowerCsv);
 
+  const heroTreeEntrypoints = talents
+    .flatMap((it) => it.subTreeNodes)
+    .flatMap((it) => it.entries)
+    .map((it) => `${it.id}, // ${it.name}`);
+
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
     const className = tree.className;
     if (!map[className]) {
@@ -373,6 +378,18 @@ export { talents as TALENTS_${className.toUpperCase().replace(' ', '_')}}
     `,
     );
   });
+  console.log(`Writing ignored talent nodes...`);
+  fs.writeFileSync(
+    `./src/common/TALENTS/IGNORED.ts`,
+    `// Generated file, changes will eventually be overwritten!
+// The same hero spec is listed twice because it's a different node per base spec.
+export const HERO_SPEC_TALENT_IDS = [
+  ${heroTreeEntrypoints.join('\n  ')}
+];
+
+export const IGNORED = [...HERO_SPEC_TALENT_IDS];
+  `,
+  );
 }
 
 function generateIndex() {

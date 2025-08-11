@@ -14,7 +14,7 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import Entity from './Entity';
 import { PlayerInfo } from './Player';
 import { Talent } from 'common/TALENTS/types';
-import { IGNORED_TALENTS } from 'game/IGNORED_TALENTS';
+import { IGNORED } from 'common/TALENTS/IGNORED';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -130,7 +130,7 @@ class Combatant extends Entity {
   }
 
   get talentTree(): TalentEntry[] {
-    return this._combatantInfo.talentTree.filter((it) => !IGNORED_TALENTS.includes(it.id));
+    return this._combatantInfo.talentTree.filter((it) => !IGNORED.includes(it.id));
   }
 
   hasClassicTalent(spell: number | { id: number }): boolean {

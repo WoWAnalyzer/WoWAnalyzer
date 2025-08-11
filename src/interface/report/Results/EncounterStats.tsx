@@ -113,8 +113,7 @@ class EncounterStats extends PureComponent<Props, State> {
     ); // current calendar-week
 
     return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${this.props.currentBoss}`, {
-      // TODO once we have completed migrating to v2, remove the class/spec params
-      className: this.props.config.spec.wclClassName.replace(' ', ''),
+      className: this.props.config.spec.wclClassName,
       specName: this.props.config.spec.wclSpecName,
       difficulty: this.props.difficulty,
       limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
