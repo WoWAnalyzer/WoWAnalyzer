@@ -21,7 +21,6 @@ import { BREATH_OF_EONS_MULTIPLIER } from '../../constants';
 import {
   ABILITY_BLACKLIST,
   ABILITY_NO_BOE_SCALING,
-  ABILITY_NO_EM_SCALING,
   ABILITY_NO_SCALING,
 } from '../util/abilityFilter';
 
@@ -68,7 +67,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const abilityFilter = [
       ...ABILITY_BLACKLIST,
       ...ABILITY_NO_BOE_SCALING,
-      ...ABILITY_NO_EM_SCALING,
       ...ABILITY_NO_SCALING,
     ].join(',');
 
@@ -714,6 +712,9 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         dealing with bursty specs like <span className="DeathKnight">Unholy Death Knights</span>,{' '}
         <span className="Warlock">Demonology Warlocks</span>, or{' '}
         <span className="Mage">Arcane Mages</span>.
+        <br />
+        If this module takes a long time to load, please clear your cache and attempt to load it
+        again.
       </p>
 
       <LazyLoadGuideSection loader={loadData.bind(this)} value={findOptimalWindow.bind(this)} />
