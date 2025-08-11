@@ -327,9 +327,6 @@ export const ABILITY_NO_EM_SCALING = new Set<number>([
 
 /** Class or non-class abilities that don't contribute to Eons
  * (no Allow Class Ability Procs flag)
- * Due to query size limitations, starts at ID 381672 for class abilities,
- * and 442280 for non-class abilities. Some overlap with ABILITY_NO_EM_SCALING,
- * but separated due to this module sometimes failing.
  * ids sourced from simc */
 export const ABILITY_NO_BOE_SCALING = new Set<number>([
   381672, // Mutilated Flesh,
