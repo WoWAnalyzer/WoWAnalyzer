@@ -113,9 +113,6 @@ class EncounterStats extends PureComponent<Props, State> {
     ); // current calendar-week
 
     return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${this.props.currentBoss}`, {
-      // TODO once we have completed migrating to v2, remove the class/spec params
-      class: this.props.config.spec.ranking.class,
-      spec: this.props.config.spec.ranking.spec,
       className: this.props.config.spec.wclClassName,
       specName: this.props.config.spec.wclSpecName,
       difficulty: this.props.difficulty,

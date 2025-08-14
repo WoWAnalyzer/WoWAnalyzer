@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 8, 11), <>Update filter for <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT}/> to make module more reliably load.</>, KYZ),
   change(date(2025, 8, 9), <>Update IDs for <SpellLink spell={TALENTS.EBON_MIGHT_TALENT}/> and <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT}/> modules</>, KYZ),
   change(date(2025, 6, 20), <>Update <SpellLink spell={TALENTS.PRESCIENCE_TALENT}/> module to only show relevant Pre-Pull uses</>, Vollmer),
   change(date(2025, 6, 20), "Update example report for 11.1.7", Vollmer),

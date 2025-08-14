@@ -62,6 +62,27 @@ export interface ITalentTree {
   classNodes: TalentNode[];
   specNodes: TalentNode[];
   heroNodes: TalentNode[];
+  subTreeNodes: SubtreeNode[];
+}
+
+export interface SubtreeNode {
+  id: number;
+  name: string;
+  type: string;
+  posX: number;
+  posY: number;
+  entryNode: boolean;
+  entries: SubtreeEntry[];
+}
+
+export interface SubtreeEntry {
+  id: number;
+  type: string;
+  name: string;
+  traitSubTreeId: number;
+  traitTreeId: number;
+  atlasMemberName: string;
+  nodes: number[];
 }
 
 export interface TalentNode {
