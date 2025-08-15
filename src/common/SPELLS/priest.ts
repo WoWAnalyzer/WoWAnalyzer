@@ -925,10 +925,16 @@ const spells = {
     icon: 'spell_priest_mindspike',
   },
 
-  IDOL_OF_NZOTH_DAMAGE: {
-    id: 373304,
-    name: 'Echoing Void',
-    icon: 'inv_inscription_80_vantusrune_nyalotha',
+  IDOL_OF_NZOTH_DAMAGE_HORRIFIC_VISION: {
+    id: 1243105,
+    name: 'Horrific Vision',
+    icon: 'inv_eyeofnzothpet',
+  },
+
+  IDOL_OF_NZOTH_DAMAGE_VISION_OF_NZOTH: {
+    id: 1243106,
+    name: 'Vision of NZoth',
+    icon: 'achievement_nzothraid_nzoth',
   },
 
   IDOL_OF_YSHAARJ_BUFF_PRIDE: {
