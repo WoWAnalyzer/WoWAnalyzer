@@ -2,6 +2,7 @@ export const DISPERSION_BASE_CD = 120;
 export const DISPERSION_UPTIME_MS = 6000;
 
 export const SHADOW_WORD_DEATH_EXECUTE_RANGE = 0.2;
+export const SHADOW_WORD_DEATH_EXECUTE_RANGE_DEATHSPEAKER = 0.35;
 
 export const MS_BUFFER = 100;
 

@@ -4,15 +4,15 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
+import { SHADOW_WORD_DEATH_EXECUTE_RANGE_DEATHSPEAKER } from '../../constants';
 import DeathAndMadness from '../talents/DeathAndMadness';
 
-//Shadow Word:Death is added here, unless deathspeaker is talented.
-//Then it is added in Shadow Word: DeathSpeaker
+//Making a whole copy of shadow word death for when deathspeaker is active seems silly
+//But I don't konw of another way to update the lowerthreshold.
 
-class ShadowWordDeath extends ExecuteHelper {
+class ShadowWordDeathSpeaker extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
-  static lowerThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
+  static lowerThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE_DEATHSPEAKER;
   //static executeOutsideRangeEnablers: Spell[] = [TALENTS.INESCAPABLE_TORMENT_TALENT]; //TODO: Need to fabricate a buff for when Inescapable Torment(mindbender) is active.
   static countCooldownAsExecuteTime = false;
 
@@ -29,7 +29,7 @@ class ShadowWordDeath extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT);
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
@@ -68,4 +68,4 @@ class ShadowWordDeath extends ExecuteHelper {
   }
 }
 
-export default ShadowWordDeath;
+export default ShadowWordDeathSpeaker;

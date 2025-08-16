@@ -26,6 +26,7 @@ import DevouringPlague from './modules/spells/DevouringPlague';
 import DarkEvangelism from './modules/talents/DarkEvangelism';
 import Dispersion from './modules/talents/Dispersion';
 import ShadowWordDeath from './modules/spells/ShadowWordDeath';
+import ShadowWordDeathSpeaker from './modules/spells/ShadowWordDeathSpeaker';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import VampiricEmbrace from './modules/talents/VampiricEmbrace';
 import VampiricTouch from './modules/spells/VampiricTouch';
@@ -33,7 +34,6 @@ import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InsidiousIre from './modules/talents/InsidiousIre';
 import InescapableTorment from './modules/talents/InescapableTorment';
-import Deathspeaker from './modules/talents/Deathspeaker';
 import AncientMadness from './modules/talents/AncientMadness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
@@ -99,6 +99,7 @@ class CombatLogParser extends MainCombatLogParser {
     devouringPlague: DevouringPlague,
     shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
+    shadowWordDeathSpeaker: ShadowWordDeathSpeaker,
     shadowWordPain: ShadowWordPain,
     shadowyApparitions: ShadowyApparitions,
     vampiricTouch: VampiricTouch,
@@ -110,7 +111,6 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
     darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
-    deathspeaker: Deathspeaker,
     dispersion: Dispersion,
     distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
