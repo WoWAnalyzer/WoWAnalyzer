@@ -154,6 +154,15 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [TALENTS.VOID_TORRENT_TALENT.id],
       },
       {
+        spell: TALENTS.VOID_VOLLEY_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT),
+        damageSpellIds: [SPELLS.VOID_VOLLEY_DAMAGE.id],
+      },
+      {
         spell: TALENTS.MINDBENDER_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,

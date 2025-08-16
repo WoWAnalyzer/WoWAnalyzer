@@ -71,6 +71,7 @@ import Voidheart from './modules/talents/Voidweaver/Voidheart';
 import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
+import VoidVolley from './modules/talents/VoidVolley';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 import ShadowTierTWWS2 from './modules/tier/ShadowTierTWWS2';
 import ShadowTierTWWS2Normalizer from './modules/tier/ShadowTierTWWS2Normalizer';
@@ -131,6 +132,7 @@ class CombatLogParser extends MainCombatLogParser {
     tormentedSpirits: TormentedSpirits,
     voidTorrent: VoidTorrent,
     voidTouched: VoidTouched,
+    voidVolley: VoidVolley,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,

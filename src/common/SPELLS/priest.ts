@@ -758,6 +758,18 @@ const spells = {
     icon: 'spell_priest_voidsear',
   },
 
+  VOID_VOLLEY_DAMAGE: {
+    id: 1242189,
+    name: 'Void Volley',
+    icon: 'spell_fire_twilightflamestrike',
+  },
+
+  VOID_VOLLEY_CAST: {
+    id: 1242173,
+    name: 'Void Volley',
+    icon: 'spell_fire_twilightflamestrike',
+  },
+
   VOID_BOLT: {
     id: 205448,
     name: 'Void Bolt',
