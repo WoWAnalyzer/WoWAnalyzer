@@ -1586,17 +1586,10 @@ export const Pendragon: Contributor = {
   ],
 };
 
-export const acornellier: Contributor = {
-  nickname: 'acornellier',
+export const ortemis: Contributor = {
+  nickname: 'Ortemis',
   github: 'acornellier',
-  discord: 'Ortemis#3934',
-  mains: [
-    {
-      name: 'Ortemis',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/sargeras/ortemis',
-    },
-  ],
+  discord: 'Ortemis',
 };
 
 export const Akai: Contributor = {
