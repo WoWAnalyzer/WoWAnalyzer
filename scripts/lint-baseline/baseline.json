@@ -72,7 +72,6 @@
   "src/analysis/retail/hunter/survival/normalizers/CastLinkNormalizer.ts:58:61__@typescript-eslint/no-explicit-any",
   "src/analysis/retail/hunter/survival/normalizers/TipOfTheSpear.ts:18:25__@typescript-eslint/no-explicit-any",
   "src/analysis/retail/mage/frost/checklist/Component.tsx:15:30__@eslint-react/no-nested-component-definitions",
-  "src/analysis/retail/monk/brewmaster/modules/problems/InvokeNiuzao/index.tsx:275:20__@typescript-eslint/no-explicit-any",
   "src/analysis/retail/monk/mistweaver/modules/features/TalentHealingStatistic.tsx:160:52__@eslint-react/no-clone-element",
   "src/analysis/retail/monk/mistweaver/normalizers/CastLinkNormalizer.ts:131:52__@typescript-eslint/no-explicit-any",
   "src/analysis/retail/monk/windwalker/modules/core/SpellUsable.tsx:34:44__@typescript-eslint/no-explicit-any",

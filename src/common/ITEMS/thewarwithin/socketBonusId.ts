@@ -472,5 +472,5 @@ export function eventItemGemSocketCount(item: EventItem): number {
     }
   }
 
-  return 0; // No matching bonusID found
+  return item.gems?.length ?? 0; // No matching bonusID found, check gem list or just return. this handles items with inherent sockets
 }

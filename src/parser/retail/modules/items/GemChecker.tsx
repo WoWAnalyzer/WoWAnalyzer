@@ -15,7 +15,7 @@ const retailJewelrySlots: GemmableSlotConfig = {
 const retailBodySlots: GemmableSlotConfig = {
   maxSockets: 1,
   timeGated: true,
-  socketingItemId: ITEMS.SAD_SOCKET_ADDING_DEVICE.id,
+  socketingItemId: ITEMS.TECHNOMANCERS_GIFT.id,
 };
 
 const MAX_QUALITY = 3;

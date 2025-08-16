@@ -26,9 +26,10 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
  */
 const ASHEN_JUGGERNAUT_DURATION = 15000;
 const SUDDEN_DEATH_DURATION = 12000;
-const BUFF_REFRESH_BUFFER = 6000;
+const BUFF_REFRESH_BUFFER = 3000;
 const RAMPAGE_RAGE_COST = 80;
-const MAX_MARKED_FOR_EXECUTION_STACKS = 3;
+const MARKED_FOR_EXECUTION_STACK_THRESHOLD = 2;
+
 // Track how many times Execute was used prematurely relative to its respective buff/debuffs
 
 class SlayerExecute extends Analyzer {
@@ -143,7 +144,7 @@ class SlayerExecute extends Analyzer {
       usedForSuddenDeath = true;
     }
 
-    if (this.markedForExecutionStacks === MAX_MARKED_FOR_EXECUTION_STACKS) {
+    if (this.markedForExecutionStacks >= MARKED_FOR_EXECUTION_STACK_THRESHOLD) {
       usedForMarkedForExecution = true;
     }
 
@@ -168,7 +169,7 @@ class SlayerExecute extends Analyzer {
       this.overusedExecutes += 1;
       addInefficientCastReason(
         event,
-        'Execute was used without 3 stacks of Marked for Execution, or when neither Ashen Juggernaut or Sudden Death were near expiring',
+        'Execute was used without high stacks of Marked for Execution, or when neither Ashen Juggernaut nor Sudden Death were near expiring',
       );
     }
   }

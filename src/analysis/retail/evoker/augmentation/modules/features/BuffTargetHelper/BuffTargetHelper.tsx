@@ -25,7 +25,7 @@ import Toggle from 'react-toggle';
 import { TIERS } from 'game/TIERS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BuffTargetHelperInfoLabel from './BuffTargetHelperInfoLabel';
-import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../../util/abilityFilter';
+import { ABILITY_BLACKLIST, ABILITY_NO_EM_SCALING } from '../../util/abilityFilter';
 
 /**
  * @key ClassName
@@ -118,7 +118,7 @@ class BuffTargetHelper extends Analyzer {
     .map((enemy) => `${enemy.guid}`)
     .join(',');
   abilityBlacklist: string = [...ABILITY_BLACKLIST].join(', ');
-  abilityFilter = [...ABILITY_NO_BOE_SCALING].join(', ');
+  abilityFilter = [...ABILITY_NO_EM_SCALING].join(', ');
 
   ebonApplyTimestamps: number[] = [];
   ebonRemoveTimestamps: number[] = [];

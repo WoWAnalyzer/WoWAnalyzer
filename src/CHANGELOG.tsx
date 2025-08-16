@@ -44,6 +44,11 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 8, 14), 'Updated <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> to <ItemLink id={ITEMS.TECHNOMANCERS_GIFT.id} /> for Head, Belt, and Bracer socket addition', Ceric),
+  change(date(2025, 8, 11), 'Start hiding Hero Specialization talent node on character page.', ToppleTheNun),
+  change(date(2025, 8, 10), 'Update to patch 11.2', KYZ),
+  change(date(2025, 8, 9), 'Fix handling of sockets in D.I.S.C. belt.', emallson),
+  change(date(2025, 8, 9), 'Remove Corruption helm enchants from recommendations in 11.2', emallson),
   change(date(2025, 7, 29), 'Add timeline abilities for Mogu\'shan Vaults bosses', emallson),
   change(date(2025, 7, 29), 'Add consumable data for MoP', emallson),
   change(date(2025, 7, 21), 'Add Classic MoP T14 raid zones, headshots, and placeholder image', jazminite),

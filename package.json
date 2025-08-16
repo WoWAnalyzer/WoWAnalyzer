@@ -61,7 +61,7 @@
     "@lingui/conf": "5.3.0",
     "@lingui/format-json": "5.3.0",
     "@lingui/vite-plugin": "5.3.0",
-    "@playwright/test": "1.50.1",
+    "@playwright/test": "1.54",
     "@sentry/cli": "^2.31.0",
     "@sentry/vite-plugin": "^2.16.1",
     "@testing-library/jest-dom": "^5.17.0",

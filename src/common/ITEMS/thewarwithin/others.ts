@@ -19,6 +19,11 @@ const items = {
     name: 'S.A.D.',
     icon: 'inv_eng_electroshockmountmotivator',
   },
+  TECHNOMANCERS_GIFT: {
+    id: 248410,
+    name: "Technomancer's Gift",
+    icon: 'misc_torgast_theboxofmanythings',
+  },
   ALGARI_TOKEN_OF_MERIT: {
     id: 230793,
     name: 'Algari Token of Merit',
