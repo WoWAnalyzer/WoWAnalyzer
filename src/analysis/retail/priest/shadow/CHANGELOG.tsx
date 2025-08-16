@@ -6,6 +6,7 @@ import { Jordan } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 8, 15),  <>Update Shadow for 11.2 changes</>,DoxAshe),
   change(date(2025, 4, 25),  <>Fix <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT}/> missing overwritten procs</>,DoxAshe),
   change(date(2025, 4, 25),  <>Fix <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT}/> proc usage with <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}/> </>,DoxAshe),
   change(date(2025, 3, 31),  <>Fix <SpellLink spell={SPELLS.MIND_BLAST}/> and <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}/> cast efficiency for the Voidweaver Hero Talent Tree </>,DoxAshe),
