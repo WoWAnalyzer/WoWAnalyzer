@@ -889,8 +889,14 @@ const spells = {
 
   // Shadow items:
 
-  SHADOW_CRASH_TALENT_DAMAGE: {
+  SHADOW_CRASH_TALENT_DAMAGE_ONE: {
     id: 205386,
+    name: 'Shadow Crash',
+    icon: 'spell_shadow_shadowfury',
+  },
+
+  SHADOW_CRASH_TALENT_DAMAGE_TWO: {
+    id: 465522,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
   },

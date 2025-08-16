@@ -51,7 +51,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.1,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT),
-        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
+        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE_ONE.id],
       },
       {
         spell: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id,
@@ -66,7 +66,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.1,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT),
-        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
+        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE_TWO.id],
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
