@@ -87,6 +87,8 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region Priest
   [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.2,
   [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
+  [SPELLS.IDOL_OF_YSHAARJ_CALL_OF_THE_VOID.id]: 0.15,
+  [SPELLS.IDOL_OF_YSHAARJ_OVERBURDENED_MIND.id]: -0.1,
   //endregion
 
   //region Mage

@@ -41,7 +41,6 @@ import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
-import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import InsanityGraph from './modules/guide/InsanityGraph';
 import ShadowyApparitions from './modules/spells/ShadowyApparitions';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
@@ -116,7 +115,6 @@ class CombatLogParser extends MainCombatLogParser {
     idolOfCthun: IdolOfCthun,
     idolOfNzoth: IdolOfNzoth,
     idolOfYoggSaron: IdolOfYoggSaron,
-    idolOfYshaarj: IdolOfYshaarj,
     inescapableTorment: InescapableTorment,
     insidiousIre: InsidiousIre,
     maddeningTouch: MaddeningTouch,

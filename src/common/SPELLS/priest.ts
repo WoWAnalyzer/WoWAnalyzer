@@ -955,34 +955,16 @@ const spells = {
     icon: 'achievement_nzothraid_nzoth',
   },
 
-  IDOL_OF_YSHAARJ_BUFF_PRIDE: {
+  IDOL_OF_YSHAARJ_CALL_OF_THE_VOID: {
     id: 373316,
-    name: 'Devoured Pride',
-    icon: 'sha_ability_rogue_envelopingshadows',
+    name: 'Call of the Void',
+    icon: 'achievement_raid_terraceofendlessspring04',
   },
 
-  IDOL_OF_YSHAARJ_BUFF_DESPAIR: {
+  IDOL_OF_YSHAARJ_OVERBURDENED_MIND: {
     id: 373317,
-    name: 'Devoured Despair',
-    icon: 'sha_ability_rogue_envelopingshadows_nightborne',
-  },
-
-  IDOL_OF_YSHAARJ_BUFF_ANGER: {
-    id: 373318,
-    name: 'Devoured Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-
-  IDOL_OF_YSHAARJ_BUFF_FEAR: {
-    id: 373319,
-    name: 'Devoured Fear',
-    icon: 'sha_spell_warlock_demonsoul_nightborne',
-  },
-
-  IDOL_OF_YSHAARJ_BUFF_VIOLENCE: {
-    id: 373320,
-    name: 'Devoured Violence',
-    icon: 'sha_spell_warlock_demonsoul',
+    name: 'Overburdened Mind',
+    icon: 'spell_priest_shadow-mend',
   },
 
   ANCIENT_MADNESS_TALENT: {
