@@ -27,6 +27,14 @@ import {
 } from 'parser/ui/QualitativePerformance';
 
 export default class AspectOfHarmony extends Analyzer.withDependencies({ stats: StatTracker }) {
+  get activeSpender() {
+    if (this.selectedCombatant.hasTalent(talents.CELESTIAL_INFUSION_TALENT)) {
+      return talents.CELESTIAL_INFUSION_TALENT;
+    }
+
+    return talents.CELESTIAL_BREW_TALENT;
+  }
+
   constructor(options: Options) {
     super(options);
 
@@ -39,7 +47,9 @@ export default class AspectOfHarmony extends Analyzer.withDependencies({ stats: 
       this.onPurifyCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT]),
       this.onSpend,
     );
 
@@ -191,7 +201,7 @@ export default class AspectOfHarmony extends Analyzer.withDependencies({ stats: 
                 details: (
                   <>
                     You generated an estimated {formatNumber(spend.estimatedVitality)} Vitality to
-                    spend with <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />, which is{' '}
+                    spend with <SpellLink spell={this.activeSpender} />, which is{' '}
                     {spend.estimatedVitality > spend.maxHp ? (
                       <strong>more than</strong>
                     ) : (
@@ -248,15 +258,15 @@ export default class AspectOfHarmony extends Analyzer.withDependencies({ stats: 
               <>
                 {chained ? (
                   <>
-                    You cast <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> while the DoT was
-                    still active.
+                    You cast <SpellLink spell={this.activeSpender} /> while the DoT was still
+                    active.
                   </>
                 ) : (
                   <>
-                    You did not chain casts of <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />.
+                    You did not chain casts of <SpellLink spell={this.activeSpender} />.
                   </>
                 )}{' '}
-                Casting <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> while{' '}
+                Casting <SpellLink spell={this.activeSpender} /> while{' '}
                 <SpellLink spell={SPELLS.ASPECT_OF_HARMONY_DOT} /> is still active does not extend
                 the DoT, but <em>does</em> add damage to it. This can reduce the benefit you gain
                 from the <strong>20% damage buff</strong> on{' '}
@@ -366,7 +376,7 @@ export class AspectOfHarmonyLinkNormalizer extends EventLinkNormalizer {
         reverseLinkRelation: ASPECT_OF_HARMONY_DAMAGE,
         linkingEventId: SPELLS.ASPECT_OF_HARMONY_DOT.id,
         linkingEventType: EventType.Damage,
-        referencedEventId: talents.CELESTIAL_BREW_TALENT.id,
+        referencedEventId: [talents.CELESTIAL_BREW_TALENT.id, talents.CELESTIAL_INFUSION_TALENT.id],
         referencedEventType: EventType.Cast,
         backwardBufferMs: AOH_MAX_DURATION,
         anyTarget: true,
@@ -377,7 +387,7 @@ export class AspectOfHarmonyLinkNormalizer extends EventLinkNormalizer {
         reverseLinkRelation: ASPECT_OF_HARMONY_HEALING,
         linkingEventId: SPELLS.ASPECT_OF_HARMONY_HOT.id,
         linkingEventType: EventType.Heal,
-        referencedEventId: talents.CELESTIAL_BREW_TALENT.id,
+        referencedEventId: [talents.CELESTIAL_BREW_TALENT.id, talents.CELESTIAL_INFUSION_TALENT.id],
         referencedEventType: EventType.Cast,
         backwardBufferMs: AOH_MAX_DURATION,
         anyTarget: true,
@@ -388,7 +398,7 @@ export class AspectOfHarmonyLinkNormalizer extends EventLinkNormalizer {
         reverseLinkRelation: ASPECT_OF_HARMONY_BUFF_REMOVE,
         linkingEventId: SPELLS.ASPECT_OF_HARMONY_BUFF.id,
         linkingEventType: EventType.RemoveBuff,
-        referencedEventId: talents.CELESTIAL_BREW_TALENT.id,
+        referencedEventId: [talents.CELESTIAL_BREW_TALENT.id, talents.CELESTIAL_INFUSION_TALENT.id],
         referencedEventType: EventType.Cast,
         backwardBufferMs: AOH_MAX_DURATION,
         anyTarget: true, // CB has no target
