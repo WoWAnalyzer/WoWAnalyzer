@@ -5,6 +5,7 @@ import { ortemis, emallson, swirl, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025,8, 17), <>Update <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> descriptions</>, Trevor),
   change(date(2025,8, 16), <>Bump support to 11.2</>, Trevor),
   change(date(2025, 8, 16), <>Fixed healing amp calculation for <SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/>, <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/></>, ortemis),
   change(date(2025, 5, 14), <>Fixed method for checking wasted buffs on <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/>.</>, swirl),
