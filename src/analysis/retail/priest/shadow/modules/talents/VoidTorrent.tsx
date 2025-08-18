@@ -202,7 +202,16 @@ class VoidTorrent extends Analyzer {
         <br />
         You should cast this spell as often as you can, without overcapping insanity, with{' '}
         <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on your target. When you use this
-        spell, it should always be fully channeled.
+        spell, it should always be fully channeled
+        <>
+          {this.selectedCombatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
+            <>
+              {' '}
+              unless you can cast <SpellLink spell={SPELLS.VOID_BOLT} />
+            </>
+          )}
+          .
+        </>
       </p>
     );
 
