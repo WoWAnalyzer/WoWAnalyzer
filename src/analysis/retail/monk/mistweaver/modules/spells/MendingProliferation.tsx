@@ -9,7 +9,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  ENVELOPING_MIST_INCREASE,
+  MISTWRAP_INCREASE,
+} from '../../constants';
 import SPELLS from 'common/SPELLS';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { formatPercentage } from 'common/format';
@@ -42,6 +46,11 @@ class MendingProliferation extends Analyzer {
     ) {
       return;
     }
+
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
+      return;
+    }
+
     if (
       this.combatants.players[targetID].hasBuff(
         SPELLS.MENDING_PROLIFERATION_BUFF.id,

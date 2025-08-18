@@ -164,16 +164,72 @@ const standardApl = build([
   SPELLS.TIGER_PALM,
 ]);
 
+const BREATHLESS = build([
+  WOO_BUILDER,
+  CHP_SETUP,
+  SPELLS.BLACKOUT_KICK_BRM,
+  {
+    spell: [
+      talents.RISING_SUN_KICK_TALENT,
+      talents.CHI_BURST_SHARED_TALENT,
+      talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+    ],
+    condition: cnd.optionalRule(
+      cnd.and(withCombo, cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK_BRM, { atLeast: 1000 })),
+    ),
+    description: (
+      <>
+        (Optional) You can cast non-<SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF}>Combo</SpellLink>{' '}
+        abilities like <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> before spending{' '}
+        <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> if it won't delay{' '}
+        <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />
+      </>
+    ),
+  },
+  {
+    spell: talents.CHI_BURST_SHARED_TALENT,
+    condition: cnd.describe(cnd.hasTalent(talents.MANIFESTATION_TALENT), (tense) => (
+      <>
+        you {tenseAlt(tense, 'are', 'were')} playing{' '}
+        <SpellLink spell={talents.ASPECT_OF_HARMONY_TALENT}>Master of Harmony</SpellLink>
+      </>
+    )),
+  },
+  {
+    spell: SPELLS.TIGER_PALM,
+    condition: withCombo,
+  },
+  talents.KEG_SMASH_TALENT,
+  talents.RISING_SUN_KICK_TALENT,
+  {
+    spell: talents.CHI_BURST_SHARED_TALENT,
+    condition: cnd.describe(cnd.hasTalent(talents.WISDOM_OF_THE_WALL_TALENT), (tense) => (
+      <>
+        you {tenseAlt(tense, 'are', 'were')} playing{' '}
+        <SpellLink spell={talents.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>
+      </>
+    )),
+  },
+  talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+  SCK_AOE,
+  SPELLS.TIGER_PALM,
+]);
+
 export enum BrewmasterApl {
   Standard,
+  Breathless,
 }
 
 export const chooseApl = (info: PlayerInfo): BrewmasterApl => {
+  if (!info.combatant.hasTalent(talents.BREATH_OF_FIRE_TALENT)) {
+    return BrewmasterApl.Breathless;
+  }
   return BrewmasterApl.Standard;
 };
 
 const apls: Record<BrewmasterApl, Apl> = {
   [BrewmasterApl.Standard]: standardApl,
+  [BrewmasterApl.Breathless]: BREATHLESS,
 };
 
 export const apl = (info: PlayerInfo): Apl => {
