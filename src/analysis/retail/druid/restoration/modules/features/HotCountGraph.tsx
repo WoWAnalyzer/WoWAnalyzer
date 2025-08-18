@@ -7,6 +7,7 @@ import Panel from 'parser/ui/Panel';
 
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { isWildstalker } from 'analysis/retail/druid/shared/heroTree';
 
 const CONVOKE_SPEC_NAME = 'Convoke';
 const CONVOKE_WITH_FLOURISH_SPEC_NAME = 'Convoke w/ Flourish';
@@ -38,6 +39,12 @@ class HotCountGraph extends BuffCountGraph {
     buffSpecs.push({ spells: SPELLS.WILD_GROWTH, color: '#20b020' });
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT)) {
       buffSpecs.push({ spells: SPELLS.CENARION_WARD_HEAL, color: '#44ffcc' });
+    }
+    if (isWildstalker(this.selectedCombatant)) {
+      buffSpecs.push({
+        spells: [SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER],
+        color: '#cc7722',
+      });
     }
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT)) {
       buffSpecs.push({

@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [emallson],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.1.5',
+  patchCompatibility: '11.2.0',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -38,7 +38,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/1rWwRTKVBmDfHFhJ/15-Mythic+One-Armed+Bandit+-+Kill+(6:56)/Katebrew/standard',
+    '/report/WPgLXfR2D9bFC7B6/35-Heroic+The+Soul+Hunters+-+Kill+(7:07)/Eisenpelz/standard/overview',
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
   // not multiply temporary buffs.

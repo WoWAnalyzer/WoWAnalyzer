@@ -191,13 +191,12 @@ function MasterOfHarmonySection(): JSX.Element | null {
             <p>
               <SpellLink spell={talents.ASPECT_OF_HARMONY_TALENT} /> causes you to accumulate{' '}
               <strong>Vitality</strong> by doing damage. <strong>Vitality</strong> is spent by using{' '}
-              <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> <em>and then</em> doing damage (or
-              healing).
+              <SpellLink spell={aoh.activeSpender} /> <em>and then</em> doing damage (or healing).
             </p>
             <p>
-              This means it is important to use <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />{' '}
-              periodically <em>even if you aren't taking much damage</em> in order to spend the
-              Vitality before you reach the{' '}
+              This means it is important to use <SpellLink spell={aoh.activeSpender} /> periodically{' '}
+              <em>even if you aren't taking much damage</em> in order to spend the Vitality before
+              you reach the{' '}
               <TooltipElement content={'Vitality is capped at 100% of your maximum HP.'}>
                 cap.
               </TooltipElement>
@@ -208,8 +207,8 @@ function MasterOfHarmonySection(): JSX.Element | null {
         noCastsTexts={{
           noCastsOverride: (
             <>
-              You did not cast <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />. This means you
-              gained almost nothing from your Hero Tree!
+              You did not cast <SpellLink spell={aoh.activeSpender} />. This means you gained almost
+              nothing from your Hero Tree!
             </>
           ),
         }}
