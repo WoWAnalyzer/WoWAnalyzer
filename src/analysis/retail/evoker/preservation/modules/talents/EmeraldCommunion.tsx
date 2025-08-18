@@ -150,10 +150,9 @@ class EmeraldCommunion extends Analyzer {
             let targetsHitPerf = QualitativePerformance.Good;
             // only check lifebind targets if they are echo build
             if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT)) {
-              const percentHit = info.numLifebinds / info.possibleTargets;
-              if (percentHit < 0.7) {
+              if (info.numLifebinds < Math.min(11, info.possibleTargets)) {
                 targetsHitPerf = QualitativePerformance.Fail;
-              } else if (percentHit < 0.8) {
+              } else if (info.numLifebinds < Math.min(15, info.possibleTargets)) {
                 targetsHitPerf = QualitativePerformance.Ok;
               }
               checklistItems.push({
@@ -171,24 +170,7 @@ class EmeraldCommunion extends Analyzer {
                 ),
               });
             }
-            let ticksPerf = QualitativePerformance.Good;
-            const secondsChanneling = Math.max(0, (info.endChannelTime - info.timestamp) / 1000);
-            if (secondsChanneling < 3.5) {
-              ticksPerf = QualitativePerformance.Fail;
-            } else if (secondsChanneling < 4.5) {
-              ticksPerf = QualitativePerformance.Ok;
-            }
-            checklistItems.push({
-              label: (
-                <>
-                  Seconds of channeling{' '}
-                  <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />
-                </>
-              ),
-              result: <PerformanceMark perf={ticksPerf} />,
-              details: <>{secondsChanneling.toFixed(1)} seconds</>,
-            });
-            const lowestPerf = getLowestPerf([ticksPerf, targetsHitPerf]);
+            const lowestPerf = getLowestPerf([targetsHitPerf]);
             return (
               <CooldownExpandable
                 header={header}
