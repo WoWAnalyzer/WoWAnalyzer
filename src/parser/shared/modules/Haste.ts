@@ -461,10 +461,18 @@ class Haste extends Analyzer {
   }
 
   static addHaste(baseHaste: number, hasteGain: number) {
+    if (hasteGain < 0) {
+      //removeHaste Instead
+      return (baseHaste - Math.abs(hasteGain)) / (1 + Math.abs(hasteGain));
+    }
     return baseHaste * (1 + hasteGain) + hasteGain;
   }
 
   static removeHaste(baseHaste: number, hasteLoss: number) {
+    if (hasteLoss < 0) {
+      //addHaste Instead
+      return baseHaste * (1 + Math.abs(hasteLoss)) + Math.abs(hasteLoss);
+    }
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
   }
 }
