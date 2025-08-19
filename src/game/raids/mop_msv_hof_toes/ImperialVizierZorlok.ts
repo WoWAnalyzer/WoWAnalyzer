@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/ImperialVizierZorlokHeadshot.jpg';
-// import Background from './images/ImperialVizierZorlok.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/ImperialVizierZorlok.jpg';
 
 const ImperialVizierZorlok: Boss = {
   id: 1507,

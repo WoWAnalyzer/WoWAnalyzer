@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/GrandEmpressShekzeerHeadshot.jpg';
-// import Background from './images/GrandEmpressShekzeer.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/GrandEmpressShekzeer.jpg';
 
 const GrandEmpressShekzeer: Boss = {
   id: 1501,

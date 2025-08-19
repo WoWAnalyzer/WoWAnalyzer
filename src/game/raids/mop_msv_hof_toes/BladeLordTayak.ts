@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/BladeLordTayakHeadshot.jpg';
-// import Background from './images/BladeLordTayak.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/BladeLordTayak.jpg';
 
 const BladeLordTayak: Boss = {
   id: 1504,

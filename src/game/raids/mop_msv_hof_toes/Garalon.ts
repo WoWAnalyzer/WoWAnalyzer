@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/GaralonHeadshot.jpg';
-// import Background from './images/Garalon.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/Garalon.jpg';
 
 const Garalon: Boss = {
   id: 1463,

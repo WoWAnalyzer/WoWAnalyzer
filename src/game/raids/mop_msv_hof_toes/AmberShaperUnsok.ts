@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/AmberShaperUnsokHeadshot.jpg';
-// import Background from './images/AmberShaperUnsok.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/AmberShaperUnsok.jpg';
 
 const AmberShaperUnsok: Boss = {
   id: 1499,
