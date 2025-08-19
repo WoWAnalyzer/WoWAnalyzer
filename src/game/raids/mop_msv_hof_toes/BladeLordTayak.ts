@@ -9,7 +9,21 @@ const BladeLordTayak: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_raid_mantidraid03',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          id: 123175, // Wind Step (cast, not damage)
+          type: 'cast',
+        },
+        {
+          id: 125310, // Blade Tempest (cast)
+          type: 'cast',
+        },
+      ],
+      debuffs: [],
+    },
+  },
 };
 
 export default BladeLordTayak;
