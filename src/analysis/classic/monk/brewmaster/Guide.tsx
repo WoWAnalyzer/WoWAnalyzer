@@ -64,7 +64,8 @@ export default function Guide({ events, info }: GuideProps<typeof CombatLogParse
             <Para>
               The "parsing" rotation focuses on damage at the expense of defensive power.{' '}
               <ResourceLink id={RESOURCE_TYPES.CHI.id} /> generation is greatly reduced by
-              prioritizing <SpellLink spell={spells.TIGER_PALM} />, which may leave your defensive
+              prioritizing <SpellLink spell={spells.TIGER_PALM} /> and{' '}
+              <SpellLink spell={spells.RUSHING_JADE_WIND_TALENT} />, which may leave your defensive
               abilities unavailable. It <em>does</em> do more damage, though.
             </Para>
             <AplSectionData checker={parselordCheck} apl={parselordApl} />
