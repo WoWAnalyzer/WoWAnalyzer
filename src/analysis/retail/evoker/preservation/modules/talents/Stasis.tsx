@@ -611,17 +611,32 @@ class Stasis extends Analyzer {
         )}
         {this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) && (
           <div>
+            As Flameshaper, there are two valid <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />{' '}
+            sequences, either
             <br />
-            As Flameshaper, your <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> should always
-            contain two casts of <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />, the final spell
-            can be either a <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> in the first
-            slot, or a <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> in the final
-            one.
-            <br />
-            Make sure to use <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on yourself to
-            guarantee good positioning and having
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> active to ensure that you proc{' '}
-            <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} /> healing.
+            <ol>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
+              </li>
+            </ol>
+            or
+            <ol>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
+              </li>
+            </ol>
           </div>
         )}
       </p>

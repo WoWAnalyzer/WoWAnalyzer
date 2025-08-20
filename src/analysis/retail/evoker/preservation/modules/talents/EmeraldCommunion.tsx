@@ -18,11 +18,13 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { PerformanceMark } from 'interface/guide';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import Lifebind from './Lifebind';
 
 const MAX_ECHO_DURATION = 18000;
+const BAD_LIFEBIND_TARGETS = 11;
+const OK_LIFEBIND_TARGETS = 15;
 
 interface CastInfo {
   timestamp: number;
@@ -150,9 +152,9 @@ class EmeraldCommunion extends Analyzer {
             let targetsHitPerf = QualitativePerformance.Good;
             // only check lifebind targets if they are echo build
             if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT)) {
-              if (info.numLifebinds < Math.min(11, info.possibleTargets)) {
+              if (info.numLifebinds < Math.min(BAD_LIFEBIND_TARGETS, info.possibleTargets)) {
                 targetsHitPerf = QualitativePerformance.Fail;
-              } else if (info.numLifebinds < Math.min(15, info.possibleTargets)) {
+              } else if (info.numLifebinds < Math.min(OK_LIFEBIND_TARGETS, info.possibleTargets)) {
                 targetsHitPerf = QualitativePerformance.Ok;
               }
               checklistItems.push({
@@ -170,12 +172,11 @@ class EmeraldCommunion extends Analyzer {
                 ),
               });
             }
-            const lowestPerf = getLowestPerf([targetsHitPerf]);
             return (
               <CooldownExpandable
                 header={header}
                 checklistItems={checklistItems}
-                perf={lowestPerf}
+                perf={targetsHitPerf}
                 key={idx}
               />
             );

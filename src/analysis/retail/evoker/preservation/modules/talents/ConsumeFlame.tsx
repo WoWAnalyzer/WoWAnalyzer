@@ -110,8 +110,8 @@ class ConsumeFlame extends Analyzer {
               <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> if talented
             </li>
             <li>
-              4 stacks of <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> if you
-              have the <SpellLink spell={TALENTS_EVOKER.TEMPO_CHARGED_TALENT} /> talent
+              4 stacks of <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> if{' '}
+              <SpellLink spell={TALENTS_EVOKER.TEMPO_CHARGED_TALENT} /> is talented
             </li>
           </ul>
         </div>
