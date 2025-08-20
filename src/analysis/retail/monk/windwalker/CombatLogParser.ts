@@ -57,6 +57,7 @@ import {
 } from './normalizers/CracklingJadeLightningNormalizer';
 import CelestialConduit from './modules/talents/CelestialConduit';
 import SlicingWinds from './modules/spells/SlicingWinds';
+import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
+    t34ConduitTierSet: T34ConduitTier,
 
     // apl
     apl: AplCheck,

@@ -5,8 +5,9 @@ import { ortemis, emallson, swirl, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date(2025,8, 17), <>Update <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> descriptions</>, Trevor),
-  change(date(2025,8, 16), <>Bump support to 11.2</>, Trevor),
+  change(date(2025, 8, 19), <>Add haste buffs for 11.2 tier set</>, Trevor),
+  change(date(2025, 8, 17), <>Update <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> descriptions</>, Trevor),
+  change(date(2025, 8, 16), <>Bump support to 11.2</>, Trevor),
   change(date(2025, 8, 16), <>Fixed healing amp calculation for <SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/>, <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/></>, ortemis),
   change(date(2025, 5, 14), <>Fixed method for checking wasted buffs on <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/>.</>, swirl),
   change(date(2025, 5, 10), <>Added <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT}/> performance and <SpellLink spell={SPELLS.ANCIENT_TEACHINGS}/> healing per use into <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/> module.</>, swirl),

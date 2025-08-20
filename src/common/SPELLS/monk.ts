@@ -572,6 +572,11 @@ const spells = {
     name: 'Insurance',
     icon: 'inv_10_inscription2_scroll2_color5',
   },
+  JADE_SERPENTS_BLESSING: {
+    id: 1238901,
+    name: "Jade Serpent's Blessing",
+    icon: 'inv_celestialserpentmount_jade',
+  },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,
