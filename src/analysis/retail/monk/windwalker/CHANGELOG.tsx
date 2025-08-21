@@ -5,6 +5,7 @@ import { Durpn, emallson, Trevor } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 8, 20), <>Mark 11.2 as supported</>, Durpn),
   change(date(2025, 8, 19), <>Add haste buffs for 11.2 tier set</>, Trevor),
   change(date(2025, 7, 18), <>Correctly mark 11.1.7 as supported</>, Durpn),
   change(date(2025, 6, 20), <>Add <SpellLink spell={TALENTS_MONK.SLICING_WINDS_TALENT} /> as tracked spell</>, Durpn),
