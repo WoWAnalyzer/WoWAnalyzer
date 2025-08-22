@@ -27,6 +27,7 @@ import BuilderUse from './modules/core/BuilderUse';
 import Guide from './Guide';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import SPELLS from 'common/SPELLS';
+import DivineHammerNormalizer from './normalizers/DivineHammerNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -37,6 +38,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     artOfWar: ArtOfWar,
     artOfWarProbability: ArtOfWarProbability,
+
+    // Normalizers
+    divineHammerNormalizer: DivineHammerNormalizer,
 
     // Features
     abilities: Abilities,

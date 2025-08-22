@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.DIVINE_HAMMER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS_PALADIN.DIVINE_HAMMER_TALENT.id,
-        cooldown: 60,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },

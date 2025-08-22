@@ -13,6 +13,7 @@ import SpellLink from 'interface/SpellLink';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
+import SPELLS from 'common/SPELLS';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -117,6 +118,10 @@ const cooldowns: Cooldown[] = [
   {
     spell: TALENTS.DIVINE_TOLL_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+  },
+  {
+    spell: SPELLS.DIVINE_HAMMER_CAST,
+    isActive: (c) => c.hasTalent(TALENTS.DIVINE_HAMMER_TALENT),
   },
   {
     spell: DRAGONFLIGHT_OTHERS_SPELLS.RAGE_OF_FYRALATH_1,
