@@ -53,8 +53,9 @@ class Expurgation extends Analyzer {
           Maintain <SpellLink spell={SPELLS.EXPURGATION_DEBUFF} /> on the boss.
         </strong>
         <p>
-          This is applied by <SpellLink spell={TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT} /> and
-          increases your damage through <SpellLink spell={TALENTS_PALADIN.HOLY_FLAMES_TALENT} />.
+          It is applied by <SpellLink spell={TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT} /> and it
+          increases your damage done to the boss through{' '}
+          <SpellLink spell={TALENTS_PALADIN.HOLY_FLAMES_TALENT} />.
         </p>
       </>
     );
