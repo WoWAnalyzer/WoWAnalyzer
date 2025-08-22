@@ -25,14 +25,13 @@ class Expurgation extends Analyzer {
   }
 
   get DowntimePerformance(): QualitativePerformance {
-    const downtime = 1 - this.uptime;
-    if (downtime <= 0.01) {
+    if (this.uptime >= 0.99) {
       return QualitativePerformance.Perfect;
     }
-    if (downtime <= 0.05) {
+    if (this.uptime >= 0.95) {
       return QualitativePerformance.Good;
     }
-    if (downtime <= 0.1) {
+    if (this.uptime >= 0.8) {
       return QualitativePerformance.Ok;
     }
     return QualitativePerformance.Fail;
