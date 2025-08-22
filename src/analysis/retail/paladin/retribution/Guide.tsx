@@ -18,7 +18,7 @@ import SPELLS from 'common/SPELLS';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <ResourceUsageSection modules={modules} events={events} info={info} />
+      <CoreSection modules={modules} events={events} info={info} />
       <CooldownSection />
       <PreparationSection />
     </>
@@ -31,7 +31,7 @@ const PERFECT_HOLY_POWER_CAP = 0.1;
 const GOOD_HOLY_POWER_CAP = 0.15;
 const OK_HOLY_POWER_CAP = 0.2;
 
-function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const holyPowerWasted = modules.holyPowerTracker.wasted;
   const holyPowerTotal = modules.holyPowerTracker.wasted + modules.holyPowerTracker.generated;
   const wastedHolyPowerPercentage = holyPowerWasted / holyPowerTotal;

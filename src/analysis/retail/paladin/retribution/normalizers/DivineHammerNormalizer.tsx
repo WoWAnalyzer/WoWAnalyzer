@@ -4,6 +4,8 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const DIVINE_HAMMER_COOLDOWN_MS = 120000;
 
+// Pressing Divine Hammer fires multiple Cast Success events which messes with the cooldown graph (or what it depends on)
+// This Normalizer basically marks any "fake" casts as Free Cast
 class DivineHammerNormalizer extends EventsNormalizer {
   normalize(events: any[]): any[] {
     const fixedEvents: any[] = [];

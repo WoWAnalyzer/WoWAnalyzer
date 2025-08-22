@@ -9,7 +9,7 @@ import SpellLink from 'interface/SpellLink';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 const BAR_COLOR = '#C27217';
-
+const GUIDE_EXPLANATION_PERCENT = 30;
 class Expurgation extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -68,7 +68,7 @@ class Expurgation extends Analyzer {
       </RoundedPanel>
     );
 
-    return explanationAndDataSubsection(explanation, data, 30);
+    return explanationAndDataSubsection(explanation, data, GUIDE_EXPLANATION_PERCENT);
   }
 }
 
