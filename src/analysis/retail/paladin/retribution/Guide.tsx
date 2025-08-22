@@ -25,6 +25,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
+export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
+
 const PERFECT_HOLY_POWER_CAP = 0.1;
 const GOOD_HOLY_POWER_CAP = 0.15;
 const OK_HOLY_POWER_CAP = 0.2;
@@ -43,7 +45,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
   }
 
   return (
-    <Section title="Resource Use">
+    <Section title="Core">
       <SubSection title="Holy Power">
         <p>
           Most of your rotational abilities either <strong>build</strong> or <strong>spend</strong>{' '}
@@ -98,6 +100,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           </RoundedPanel>
         </SideBySidePanels>
       </SubSection>
+      <SubSection title="Buffs and debuffs">{modules.expurgation.guideSubsection}</SubSection>
     </Section>
   );
 }

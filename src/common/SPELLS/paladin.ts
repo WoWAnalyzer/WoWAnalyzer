@@ -378,6 +378,11 @@ const spells = {
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
   },
+  EXPURGATION_DEBUFF: {
+    id: 383346,
+    name: 'Expurgation',
+    icon: 'ability_paladin_bladeofjustice',
+  },
   GREATER_JUDGMENT_HEAL_HOLY: {
     id: 414019,
     name: 'Greater Judgment',
