@@ -22,7 +22,7 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '11.1.5.60822';
+const LIVE_WOW_BUILD_NUMBER = '11.2.0.62438';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
 const PTR_WOW_BUILD_NUMBER = '11.2.0.62136';
@@ -168,6 +168,11 @@ async function generateTalents(isPTR: boolean = false) {
   );
   // eslint-disable-next-line
   const spellpower: ISpellpower[] = csvToObject(spellpowerCsv);
+
+  const heroTreeEntrypoints = talents
+    .flatMap((it) => it.subTreeNodes)
+    .flatMap((it) => it.entries)
+    .map((it) => `${it.id}, // ${it.name}`);
 
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
     const className = tree.className;
@@ -373,6 +378,18 @@ export { talents as TALENTS_${className.toUpperCase().replace(' ', '_')}}
     `,
     );
   });
+  console.log(`Writing ignored talent nodes...`);
+  fs.writeFileSync(
+    `./src/common/TALENTS/IGNORED.ts`,
+    `// Generated file, changes will eventually be overwritten!
+// The same hero spec is listed twice because it's a different node per base spec.
+export const HERO_SPEC_TALENT_IDS = [
+  ${heroTreeEntrypoints.join('\n  ')}
+];
+
+export const IGNORED = [...HERO_SPEC_TALENT_IDS];
+  `,
+  );
 }
 
 function generateIndex() {

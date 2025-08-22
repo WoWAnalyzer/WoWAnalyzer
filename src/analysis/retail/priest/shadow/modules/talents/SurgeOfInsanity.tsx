@@ -23,7 +23,7 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 
 const BUFF_DURATION_MS = 30000;
 
-class MindFlayInsanity extends Analyzer {
+class SurgeOfInsanity extends Analyzer {
   damage = 0;
   insanityGained = 0;
   casts = 0;
@@ -258,4 +258,4 @@ class MindFlayInsanity extends Analyzer {
   }
 }
 
-export default MindFlayInsanity;
+export default SurgeOfInsanity;

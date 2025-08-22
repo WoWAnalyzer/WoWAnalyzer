@@ -5,6 +5,8 @@ import nerubarPalace from 'game/raids/nerubarpalace';
 import type { Boss } from 'game/raids';
 import undermine from 'game/raids/undermine';
 import mythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
+import manaforgeOmega from 'game/raids/manaforge-omega';
+import mythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
 
 export interface Zone {
   id: number;
@@ -19,26 +21,38 @@ const ZONES: Zone[] = [
   {
     id: 38,
     name: "Nerub'ar Palace",
-    frozen: false,
+    frozen: true,
     encounters: [...Object.values(nerubarPalace.bosses)],
   },
   {
     id: 39,
     name: 'Mythic+ Season 1',
-    frozen: false,
+    frozen: true,
     encounters: [...Object.values(mythicPlusSeasonOne.bosses)],
   },
   {
     id: 42,
     name: 'Liberation of Undermine',
-    frozen: false,
+    frozen: true,
     encounters: [...Object.values(undermine.bosses)],
   },
   {
     id: 43,
     name: 'Mythic+ Season 2',
-    frozen: false,
+    frozen: true,
     encounters: [...Object.values(mythicPlusSeasonTwo.bosses)],
+  },
+  {
+    id: 44,
+    name: 'Manaforge Omega',
+    frozen: false,
+    encounters: [...Object.values(manaforgeOmega.bosses)],
+  },
+  {
+    id: 45,
+    name: 'Mythic+ Season 3',
+    frozen: false,
+    encounters: [...Object.values(mythicPlusSeasonThree.bosses)],
   },
 ];
 

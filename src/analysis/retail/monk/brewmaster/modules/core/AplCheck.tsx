@@ -19,21 +19,21 @@ const SCK_AOE = {
   ),
 };
 
+const WOO_BUILD_CONDITION = cnd.and(
+  cnd.buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
+  cnd.or(
+    cnd.debuffStacks(SPELLS.WEAPONS_OF_ORDER_DEBUFF, { atMost: 3 }),
+    cnd.debuffMissing(SPELLS.WEAPONS_OF_ORDER_DEBUFF, {
+      duration: 10000,
+      pandemicCap: 1,
+      timeRemaining: 3000,
+    }),
+  ),
+);
+
 const WOO_BUILDER = {
   spell: [talents.KEG_SMASH_TALENT, talents.RISING_SUN_KICK_TALENT],
-  condition: cnd.optionalRule(
-    cnd.and(
-      cnd.buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
-      cnd.or(
-        cnd.debuffStacks(SPELLS.WEAPONS_OF_ORDER_DEBUFF, { atMost: 3 }),
-        cnd.debuffMissing(SPELLS.WEAPONS_OF_ORDER_DEBUFF, {
-          duration: 10000,
-          pandemicCap: 1,
-          timeRemaining: 3000,
-        }),
-      ),
-    ),
-  ),
+  condition: cnd.optionalRule(WOO_BUILD_CONDITION),
   description: (
     <>
       <TooltipElement content="Aggressively building stacks of WoO is not meaningfuly different from letting it build during your normal rotation in most cases, but it is a common play pattern and does similar total damage.">
@@ -164,16 +164,82 @@ const standardApl = build([
   SPELLS.TIGER_PALM,
 ]);
 
+const BREATHLESS = build([
+  WOO_BUILDER,
+  CHP_SETUP,
+  SPELLS.BLACKOUT_KICK_BRM,
+  {
+    spell: [
+      talents.RISING_SUN_KICK_TALENT,
+      talents.CHI_BURST_SHARED_TALENT,
+      talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+    ],
+    condition: cnd.optionalRule(
+      cnd.and(withCombo, cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK_BRM, { atLeast: 1000 })),
+    ),
+    description: (
+      <>
+        (Optional) You can cast non-<SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF}>Combo</SpellLink>{' '}
+        abilities like <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> before spending{' '}
+        <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> if it won't delay{' '}
+        <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />
+      </>
+    ),
+  },
+  {
+    spell: talents.CHI_BURST_SHARED_TALENT,
+    condition: cnd.describe(cnd.hasTalent(talents.MANIFESTATION_TALENT), (tense) => (
+      <>
+        you {tenseAlt(tense, 'are', 'were')} playing{' '}
+        <SpellLink spell={talents.ASPECT_OF_HARMONY_TALENT}>Master of Harmony</SpellLink>
+      </>
+    )),
+  },
+  {
+    spell: SPELLS.TIGER_PALM,
+    condition: withCombo,
+  },
+  {
+    spell: talents.KEG_SMASH_TALENT,
+    condition: WOO_BUILD_CONDITION,
+    description: (
+      <>
+        Cast <SpellLink spell={talents.KEG_SMASH_TALENT} /> to build{' '}
+        <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT}>WoO</SpellLink> stacks
+      </>
+    ),
+  },
+  talents.RISING_SUN_KICK_TALENT,
+  {
+    spell: talents.CHI_BURST_SHARED_TALENT,
+    condition: cnd.describe(cnd.hasTalent(talents.WISDOM_OF_THE_WALL_TALENT), (tense) => (
+      <>
+        you {tenseAlt(tense, 'are', 'were')} playing{' '}
+        <SpellLink spell={talents.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>
+      </>
+    )),
+  },
+  talents.KEG_SMASH_TALENT,
+  talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+  SCK_AOE,
+  SPELLS.TIGER_PALM,
+]);
+
 export enum BrewmasterApl {
   Standard,
+  Breathless,
 }
 
 export const chooseApl = (info: PlayerInfo): BrewmasterApl => {
+  if (!info.combatant.hasTalent(talents.BREATH_OF_FIRE_TALENT)) {
+    return BrewmasterApl.Breathless;
+  }
   return BrewmasterApl.Standard;
 };
 
 const apls: Record<BrewmasterApl, Apl> = {
   [BrewmasterApl.Standard]: standardApl,
+  [BrewmasterApl.Breathless]: BREATHLESS,
 };
 
 export const apl = (info: PlayerInfo): Apl => {

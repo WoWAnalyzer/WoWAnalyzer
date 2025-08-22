@@ -34,19 +34,8 @@ export const spellslingerApl = build([
     condition: cnd.and(apl.fiveIcicles, apl.canShatter),
   },
   {
-    spell: SPELLS.FROSTBOLT,
-    condition: cnd.and(
-      cnd.hasTalent(TALENTS.DEATHS_CHILL_TALENT),
-      cnd.buffRemaining(TALENTS.ICY_VEINS_TALENT, 30000, { atLeast: 8000 }),
-      cnd.buffStacks(TALENTS.DEATHS_CHILL_TALENT, { atMost: 8 }),
-    ),
-  },
-  {
     spell: TALENTS.ICE_LANCE_TALENT,
-    condition: cnd.or(
-      cnd.debuffStacks(SPELLS.WINTERS_CHILL, { atLeast: 2 }),
-      cnd.and(apl.wintersChill, cnd.buffPresent(TALENTS.BRAIN_FREEZE_TALENT)),
-    ),
+    condition: cnd.or(apl.wintersChill, apl.fingersOfFrost),
   },
   SPELLS.FROSTBOLT,
 ]);

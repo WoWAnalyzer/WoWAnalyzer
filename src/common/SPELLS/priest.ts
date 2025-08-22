@@ -758,6 +758,18 @@ const spells = {
     icon: 'spell_priest_voidsear',
   },
 
+  VOID_VOLLEY_DAMAGE: {
+    id: 1242189,
+    name: 'Void Volley',
+    icon: 'spell_fire_twilightflamestrike',
+  },
+
+  VOID_VOLLEY_CAST: {
+    id: 1242173,
+    name: 'Void Volley',
+    icon: 'spell_fire_twilightflamestrike',
+  },
+
   VOID_BOLT: {
     id: 205448,
     name: 'Void Bolt',
@@ -851,12 +863,6 @@ const spells = {
     icon: 'spell_shadow_possession',
   },
 
-  UNFURLING_DARKNESS_BUFF: {
-    id: 341282,
-    name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow-mend',
-  },
-
   DEATHSPEAKER_TALENT_BUFF: {
     id: 392511,
     name: 'Deathspeaker',
@@ -875,22 +881,22 @@ const spells = {
     icon: 'spell_arcane_mindmastery',
   },
 
-  DARK_EVANGELISM_TALENT_BUFF: {
-    id: 391099,
-    name: 'Dark Evangelism',
-    icon: 'spell_mage_presenceofmind',
-  },
-
-  MIND_MELT_TALENT_BUFF: {
+  SHATTERED_PSYCHE_TALENT_BUFF: {
     id: 391092,
-    name: 'Mind Melt',
-    icon: 'spell_shadow_skull',
+    name: 'Shattered Psyche',
+    icon: 'inv_ability_priest_mindgames',
   },
 
   // Shadow items:
 
-  SHADOW_CRASH_TALENT_DAMAGE: {
+  SHADOW_CRASH_TALENT_DAMAGE_ONE: {
     id: 205386,
+    name: 'Shadow Crash',
+    icon: 'spell_shadow_shadowfury',
+  },
+
+  SHADOW_CRASH_TALENT_DAMAGE_TWO: {
+    id: 465522,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
   },
@@ -937,40 +943,28 @@ const spells = {
     icon: 'spell_priest_mindspike',
   },
 
-  IDOL_OF_NZOTH_DAMAGE: {
-    id: 373304,
-    name: 'Echoing Void',
-    icon: 'inv_inscription_80_vantusrune_nyalotha',
+  IDOL_OF_NZOTH_DAMAGE_HORRIFIC_VISION: {
+    id: 1243105,
+    name: 'Horrific Vision',
+    icon: 'inv_eyeofnzothpet',
   },
 
-  IDOL_OF_YSHAARJ_BUFF_PRIDE: {
+  IDOL_OF_NZOTH_DAMAGE_VISION_OF_NZOTH: {
+    id: 1243106,
+    name: 'Vision of NZoth',
+    icon: 'achievement_nzothraid_nzoth',
+  },
+
+  IDOL_OF_YSHAARJ_CALL_OF_THE_VOID: {
     id: 373316,
-    name: 'Devoured Pride',
-    icon: 'sha_ability_rogue_envelopingshadows',
+    name: 'Call of the Void',
+    icon: 'achievement_raid_terraceofendlessspring04',
   },
 
-  IDOL_OF_YSHAARJ_BUFF_DESPAIR: {
+  IDOL_OF_YSHAARJ_OVERBURDENED_MIND: {
     id: 373317,
-    name: 'Devoured Despair',
-    icon: 'sha_ability_rogue_envelopingshadows_nightborne',
-  },
-
-  IDOL_OF_YSHAARJ_BUFF_ANGER: {
-    id: 373318,
-    name: 'Devoured Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-
-  IDOL_OF_YSHAARJ_BUFF_FEAR: {
-    id: 373319,
-    name: 'Devoured Fear',
-    icon: 'sha_spell_warlock_demonsoul_nightborne',
-  },
-
-  IDOL_OF_YSHAARJ_BUFF_VIOLENCE: {
-    id: 373320,
-    name: 'Devoured Violence',
-    icon: 'sha_spell_warlock_demonsoul',
+    name: 'Overburdened Mind',
+    icon: 'spell_priest_shadow-mend',
   },
 
   ANCIENT_MADNESS_TALENT: {

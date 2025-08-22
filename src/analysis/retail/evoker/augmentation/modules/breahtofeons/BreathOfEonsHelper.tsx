@@ -18,7 +18,12 @@ import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
 import { DamageEvent } from 'parser/core/Events';
 import { BREATH_OF_EONS_MULTIPLIER } from '../../constants';
-import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../util/abilityFilter';
+import {
+  ABILITY_BLACKLIST,
+  ABILITY_NO_BOE_SCALING,
+  ABILITY_NO_SCALING,
+  ABILITY_NO_EM_SCALING,
+} from '../util/abilityFilter';
 
 interface Props {
   windows: BreathOfEonsWindows[];
@@ -28,6 +33,13 @@ interface Props {
 }
 
 const debug = false;
+
+const ABILITY_FILTER = new Set<number>([
+  ...ABILITY_NO_BOE_SCALING,
+  ...ABILITY_BLACKLIST,
+  ...ABILITY_NO_SCALING,
+  ...ABILITY_NO_EM_SCALING,
+]);
 
 interface DamageWindow {
   start: number;
@@ -60,10 +72,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   /** Generate filter so we only get class abilities
    * that can accumulate into BoE */
   const filter = useMemo(() => {
-    const abilityFilter = [...ABILITY_NO_BOE_SCALING, ...ABILITY_BLACKLIST].join(',');
-
     const filter = `type = "damage" 
-    AND not ability.id in (${abilityFilter}) 
     AND (target.id != source.id)
     AND target.id not in(169428, 169430, 169429, 169426, 169421, 169425, 168932)
     AND not (target.id = source.owner.id)
@@ -94,7 +103,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const result = await Promise.all(fetchPromises);
 
     result.forEach((window) => {
-      console.log(window);
       damageTables.push({
         table: window.events,
         start: window.start,
@@ -118,9 +126,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       // High maxPage allowances needed otherwise it breaks
       40,
     )) as DamageEvent[];
+    const events = response.filter((event) => !ABILITY_FILTER.has(event.ability.guid));
 
     return {
-      events: response as DamageEvent[],
+      events,
       start,
       end,
     };
@@ -701,9 +710,9 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         <br />
         Additionally, it helps you determine if there was a more optimal timing for your{' '}
         <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />. This can be particularly valuable when
-        dealing with bursty specs like <span className="DeathKnight">Unholy Death Knights</span>,{' '}
-        <span className="Warlock">Demonology Warlocks</span>, or{' '}
-        <span className="Mage">Arcane Mages</span>.
+        dealing with bursty specs like <span className="Druid">Balance or Feral Druids</span>,{' '}
+        <span className="Monk">Windwalker Monks</span>, or{' '}
+        <span className="Rogue">Subtlety Rogues</span>.
       </p>
 
       <LazyLoadGuideSection loader={loadData.bind(this)} value={findOptimalWindow.bind(this)} />

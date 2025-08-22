@@ -1317,6 +1317,11 @@ const spells = {
     name: 'Flower Walk',
     icon: 'inv_misc_trailofflowers',
   },
+  ROOT_NETWORK_BUFF: {
+    id: 439888,
+    name: 'Root Network',
+    icon: 'inv_misc_lifeblood',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // DRUID OF THE CLAW

@@ -1302,7 +1302,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103722],
     definitionIds: [{ id: 108727, specId: 256 }],
-    manaCost: 135000,
+    manaCost: 122500,
   },
   PRAYERFUL_LITANY_TALENT: {
     id: 391209,

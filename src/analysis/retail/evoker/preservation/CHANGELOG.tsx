@@ -5,6 +5,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 8, 18), <>Update <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> recomendations</>, Harrek),
+  change(date(2025, 8, 18), <>Implement <SpellLink spell={TALENTS_EVOKER.TEMPO_CHARGED_TALENT}/> check for <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/></>, Harrek),
   change(date(2025, 3, 25), <>Implement <SpellLink spell={TALENTS_EVOKER.FLAME_SIPHON_TALENT}/> module</>, Vollmer),
   change(date(2025, 3, 18), <>DB no longer counts non-player targets </>, Capybara),
   change(date(2025, 3, 18), <>Updated DB target count for 6+ targets </>, Capybara),

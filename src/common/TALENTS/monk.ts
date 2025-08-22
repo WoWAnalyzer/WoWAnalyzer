@@ -257,7 +257,7 @@ const talents = {
   CHI_HARMONY_TALENT: {
     id: 448392,
     name: 'Chi Harmony',
-    icon: 'inv_ability_monk_renewingmists_active',
+    icon: 'ability_monk_counteractmagic',
     maxRanks: 1,
     entryIds: [126059],
     definitionIds: [{ id: 130891, specId: 270 }],

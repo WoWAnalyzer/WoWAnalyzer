@@ -41,7 +41,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 15,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -50,12 +51,13 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.1,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT),
-        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
+        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE_ONE.id],
       },
       {
         spell: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 15,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -64,7 +66,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.1,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT),
-        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
+        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE_TWO.id],
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
@@ -150,6 +152,15 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT),
         damageSpellIds: [TALENTS.VOID_TORRENT_TALENT.id],
+      },
+      {
+        spell: TALENTS.VOID_VOLLEY_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT),
+        damageSpellIds: [SPELLS.VOID_VOLLEY_DAMAGE.id],
       },
       {
         spell: TALENTS.MINDBENDER_SHADOW_TALENT.id,
@@ -256,7 +267,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DESPERATE_PRAYER.id, //TODO have angles mercy reduce CD
+        spell: SPELLS.DESPERATE_PRAYER.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         gcd: null,

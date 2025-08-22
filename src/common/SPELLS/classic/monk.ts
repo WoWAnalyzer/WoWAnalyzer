@@ -11,6 +11,11 @@ const spells = {
     name: 'Spear Hand Strike',
     icon: 'ability_monk_spearhand.jpg',
   },
+  SHUFFLE: {
+    id: 115307,
+    name: 'Shuffle',
+    icon: 'ability_monk_shuffle.jpg',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

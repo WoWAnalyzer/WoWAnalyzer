@@ -19,19 +19,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { PassFailCheckmark, PerformanceMark, SectionHeader } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { getStasisSpell, isStasisForRamp } from '../../normalizers/EventLinking/helpers';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 interface StasisInfo {
   castTime: number; // when stasis is originally cast
   consumeTime: number; // when stasis is consumed
   spells: [number, number][]; // spells that player cast with stasis
-  forRamp: boolean;
-}
-
-interface Props {
-  header: ReactNode;
-  perf?: QualitativePerformance;
-  spells: [number, number][];
   forRamp: boolean;
 }
 
@@ -112,7 +105,8 @@ class Stasis extends Analyzer {
       if (
         spell === TALENTS_EVOKER.ENGULF_TALENT.id ||
         spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id ||
-        spell === SPELLS.DREAM_BREATH_FONT.id
+        spell === SPELLS.DREAM_BREATH_FONT.id ||
+        spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id
       ) {
         return QualitativePerformance.Good;
       }
@@ -178,9 +172,8 @@ class Stasis extends Analyzer {
               hoverable
               content={
                 <>
-                  <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is a perfect spell to
-                  store when doing an <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />, especially
-                  as the first spell in order to setup the following{' '}
+                  <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is a good spell to store,
+                  specifically as the first spell in order to setup the following{' '}
                   <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> casts.
                 </>
               }
@@ -203,8 +196,32 @@ class Stasis extends Analyzer {
                 <>
                   <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> is a perfect spell to store in{' '}
                   <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> as Flameshaper. Make sure to
-                  cast it on a target with <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />{' '}
-                  active.
+                  cast it on a target that will have{' '}
+                  <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> active when you release
+                  the <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />, mostly on yourself.
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass />
+              </span>
+            </Tooltip>
+          </>
+        );
+      } else if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
+        return (
+          <>
+            <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> is a very good spell
+                  to store in <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> as Flameshaper,
+                  specifically as the final cast so you can use the{' '}
+                  <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />s it applies on your follow up.
                 </>
               }
             >
@@ -224,9 +241,10 @@ class Stasis extends Analyzer {
               content={
                 <>
                   <SpellLink spell={spell} /> is not a good spell to store. Make sure to always
-                  store <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> and 2x{' '}
-                  <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />, any other spell being stored
-                  is a mistake.
+                  store 2x <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> and either{' '}
+                  <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> or{' '}
+                  <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />, any other spell
+                  being stored is a mistake.
                 </>
               }
             >
@@ -562,36 +580,6 @@ class Stasis extends Analyzer {
     }
   }
 
-  StasisTable = ({ header, perf, spells, forRamp }: Props) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const combinedHeader =
-      perf !== undefined ? (
-        <div>
-          {header} &mdash; <PerformanceMark perf={perf} />
-        </div>
-      ) : (
-        header
-      );
-    while (spells.length < 3) {
-      spells.push([0, 0]);
-    }
-    const spellSequence = spells.map((cast, index) => {
-      return <div key={index}>{this.getAnalysisForSpell(cast, forRamp)}</div>;
-    });
-    return (
-      <div className="stasis__container">
-        <ControlledExpandable
-          header={<SectionHeader>{combinedHeader}</SectionHeader>}
-          element="section"
-          expanded={isExpanded}
-          inverseExpanded={() => setIsExpanded(!isExpanded)}
-        >
-          <div className="stasis__cast-list">{spellSequence}</div>
-        </ControlledExpandable>
-      </div>
-    );
-  };
-
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
@@ -623,9 +611,21 @@ class Stasis extends Analyzer {
         )}
         {this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) && (
           <div>
+            As Flameshaper, there are two valid <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />{' '}
+            sequences, either
             <br />
-            As Flameshaper, the only viable <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> usage
-            is to store
+            <ol>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
+              </li>
+            </ol>
+            or
             <ol>
               <li>
                 <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
@@ -637,10 +637,6 @@ class Stasis extends Analyzer {
                 <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
               </li>
             </ol>
-            Try to make sure to use <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on a target
-            that you can guarantee will have{' '}
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> active to ensure that you proc{' '}
-            <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} /> healing.
           </div>
         )}
       </p>
@@ -665,14 +661,35 @@ class Stasis extends Analyzer {
             const perfs = info.spells.map((spellPair) => {
               return this.getPerfForSpell(spellPair[0], info.forRamp);
             });
+
+            const perf = getLowestPerf(perfs);
+            const spells = info.spells;
+            const [isExpanded, setIsExpanded] = useState(false);
+            const combinedHeader =
+              perf !== undefined ? (
+                <div>
+                  {header} &mdash; <PerformanceMark perf={perf} />
+                </div>
+              ) : (
+                header
+              );
+            while (spells.length < 3) {
+              spells.push([0, 0]);
+            }
+            const spellSequence = spells.map((cast, index) => {
+              return <div key={index}>{this.getAnalysisForSpell(cast, info.forRamp)}</div>;
+            });
             return (
-              <this.StasisTable
-                header={header}
-                spells={info.spells}
-                key={idx}
-                perf={getLowestPerf(perfs)}
-                forRamp={info.forRamp}
-              />
+              <div className="stasis__container" key={idx}>
+                <ControlledExpandable
+                  header={<SectionHeader>{combinedHeader}</SectionHeader>}
+                  element="section"
+                  expanded={isExpanded}
+                  inverseExpanded={() => setIsExpanded(!isExpanded)}
+                >
+                  <div className="stasis__cast-list">{spellSequence}</div>
+                </ControlledExpandable>
+              </div>
             );
           })}
         </RoundedPanel>

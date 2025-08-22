@@ -170,6 +170,11 @@ const spells = {
     name: 'Unity Within',
     icon: 'ability_monk_prideofthetiger',
   },
+  MANTRA_OF_PURITY_HEAL: {
+    id: 451452,
+    name: 'Mantra of Purity',
+    icon: 'ability_monk_domeofmist',
+  },
   // Mistweaver Monk Spells
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -277,6 +282,17 @@ const spells = {
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
+  AJ_HEAL: {
+    id: 389325,
+    name: 'Awakened Jadefire',
+    icon: 'inv_leather_raidmonkt2_d_01_helm',
+  },
+  AJ_CRIT_HEAL: {
+    id: 389328,
+    name: 'Awakened Jadefire',
+    icon: 'inv_leather_raidmonkt2_d_01_helm',
+  },
+
   // Mastery
   GUSTS_OF_MISTS: {
     id: 191894,
@@ -541,6 +557,11 @@ const spells = {
     icon: 'inv_misc_book_07',
   },
   // Tier
+  HARMONIC_SURGE_HEAL: {
+    id: 1239443,
+    name: 'Harmonic Surge',
+    icon: 'ability_socererking_forcenova',
+  },
   INSURANCE_HOT_MONK: {
     id: 1215544,
     name: 'Insurance',
@@ -550,6 +571,11 @@ const spells = {
     id: 1215545,
     name: 'Insurance',
     icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  JADE_SERPENTS_BLESSING: {
+    id: 1238901,
+    name: "Jade Serpent's Blessing",
+    icon: 'inv_celestialserpentmount_jade',
   },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
@@ -790,6 +816,11 @@ const spells = {
   WEAPONS_OF_ORDER_DEBUFF: {
     ...talents.WEAPONS_OF_ORDER_TALENT,
     id: 387179,
+  },
+  WWTO_STOMP_DAMAGE: {
+    id: 1242373,
+    name: 'Stomp',
+    icon: 'ability_warstomp.jpg',
   },
 
   // Windwalker Spells

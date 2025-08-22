@@ -14,9 +14,6 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import Combatants from 'parser/shared/modules/Combatants';
 import { getConsumeFromEngulf, getDreamBreathCast } from '../../normalizers/EventLinking/helpers';
-import { TIERS } from 'game/TIERS';
-import ItemSetLink from 'interface/ItemSetLink';
-import { EVOKER_TWW1_ID } from 'common/ITEMS/dragonflight';
 import { CAST_BUFFER_MS } from 'analysis/retail/evoker/preservation/normalizers/EventLinking/constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { PerformanceMark } from 'interface/guide';
@@ -25,7 +22,6 @@ interface CastInfo {
   timestamp: number;
   coyActive: boolean;
   temporalCompressionStacks: number;
-  dreamBreathOnTarget: boolean;
   numPlayersHit: number;
 }
 
@@ -61,11 +57,6 @@ class ConsumeFlame extends Analyzer {
     this.numberOfConsumes += 1;
 
     const target = this.combatants.getEntity(event);
-    let dreamBreathOnTarget = true;
-
-    if (!target?.hasBuff(SPELLS.DREAM_BREATH.id)) {
-      dreamBreathOnTarget = false;
-    }
 
     const applyBuffEvent = target?.getBuff(SPELLS.DREAM_BREATH.id);
     if (!applyBuffEvent) {
@@ -88,7 +79,6 @@ class ConsumeFlame extends Analyzer {
 
     this.casts.push({
       timestamp: event.timestamp,
-      dreamBreathOnTarget: dreamBreathOnTarget,
       temporalCompressionStacks: temporalCompressionStacks,
       coyActive: coyActive,
       numPlayersHit: getConsumeFromEngulf(event).filter((ev) => {
@@ -120,8 +110,8 @@ class ConsumeFlame extends Analyzer {
               <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> if talented
             </li>
             <li>
-              4 stacks of <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> if you
-              have <ItemSetLink id={EVOKER_TWW1_ID} /> 4 Piece
+              4 stacks of <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> if{' '}
+              <SpellLink spell={TALENTS_EVOKER.TEMPO_CHARGED_TALENT} /> is talented
             </li>
           </ul>
         </div>
@@ -145,13 +135,10 @@ class ConsumeFlame extends Analyzer {
         actual: percentHit,
       };
       const targetPerf = evaluateQualitativePerformanceByThreshold(targetThreshold);
-      const dbPerf = cast.dreamBreathOnTarget
-        ? QualitativePerformance.Good
-        : QualitativePerformance.Fail;
       const optionalPerfs = [];
       let tcPerf = undefined;
       let coyPerf = undefined;
-      if (this.selectedCombatant.has4PieceByTier(TIERS.TWW1)) {
+      if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.TEMPO_CHARGED_TALENT)) {
         const threshold: QualitativePerformanceThreshold = {
           isGreaterThanOrEqual: {
             good: 4,
@@ -177,12 +164,8 @@ class ConsumeFlame extends Analyzer {
           <div>
             Players hit: {cast.numPlayersHit} <PerformanceMark perf={targetPerf} />
           </div>
-          <div>
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on target{' '}
-            <PerformanceMark perf={dbPerf} />
-          </div>
 
-          {this.selectedCombatant.has4PieceByTier(TIERS.TWW1) && (
+          {this.selectedCombatant.hasTalent(TALENTS_EVOKER.TEMPO_CHARGED_TALENT) && (
             <div>
               <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> stacks:{' '}
               {cast.temporalCompressionStacks} <PerformanceMark perf={tcPerf!} />
@@ -196,7 +179,7 @@ class ConsumeFlame extends Analyzer {
           )}
         </>
       );
-      const value = getLowestPerf([targetPerf, dbPerf, ...optionalPerfs]);
+      const value = getLowestPerf([targetPerf, ...optionalPerfs]);
       entries.push({ value, tooltip });
     });
 

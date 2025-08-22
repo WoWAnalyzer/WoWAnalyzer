@@ -14,7 +14,11 @@ class IdolOfNzoth extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.IDOL_OF_NZOTH_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IDOL_OF_NZOTH_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IDOL_OF_NZOTH_DAMAGE_HORRIFIC_VISION),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IDOL_OF_NZOTH_DAMAGE_VISION_OF_NZOTH),
       this.onDamage,
     );
   }

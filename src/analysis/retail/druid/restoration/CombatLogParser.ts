@@ -65,6 +65,7 @@ import ThrivingVegetation from 'analysis/retail/druid/restoration/modules/spells
 import RenewingSurge from 'analysis/retail/druid/restoration/modules/spells/RenewingSurge';
 import TWW2TierSetNormalizer from 'analysis/retail/druid/restoration/normalizers/TWW2TierSetNormalizer';
 import TWW2TierSet from 'analysis/retail/druid/restoration/modules/items/TWW2TierSet';
+import RootNetwork from 'analysis/retail/druid/restoration/modules/spells/RootNetwork';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -134,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     germination: Germination,
     thrivingVegetation: ThrivingVegetation,
     renewingSurge: RenewingSurge,
+    rootNetwork: RootNetwork,
 
     // Mana Tab
     manaTracker: ManaTracker,

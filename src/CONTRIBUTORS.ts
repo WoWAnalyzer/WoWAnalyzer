@@ -1586,17 +1586,10 @@ export const Pendragon: Contributor = {
   ],
 };
 
-export const acornellier: Contributor = {
-  nickname: 'acornellier',
+export const ortemis: Contributor = {
+  nickname: 'Ortemis',
   github: 'acornellier',
-  discord: 'Ortemis#3934',
-  mains: [
-    {
-      name: 'Ortemis',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/sargeras/ortemis',
-    },
-  ],
+  discord: 'Ortemis',
 };
 
 export const Akai: Contributor = {
@@ -1847,7 +1840,23 @@ export const Harrek: Contributor = {
   nickname: 'Harrek',
   discord: 'harrek',
   github: 'Harreks',
+  about: 'Healer guidewriter and theorycrafter',
   avatar: avatar('Harrek-avatar.png'),
+  mains: [
+    {
+      name: 'Harreks',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://raider.io/characters/us/tichondrius/Harreks',
+    },
+    {
+      name: 'Harrekz',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://raider.io/characters/us/thrall/Harrekz',
+    },
+  ],
+  links: {
+    HarrekHealsMe: 'https://harrekheals.me/',
+  },
 };
 
 export const Jeff: Contributor = {

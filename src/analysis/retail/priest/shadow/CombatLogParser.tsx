@@ -26,6 +26,7 @@ import DevouringPlague from './modules/spells/DevouringPlague';
 import DarkEvangelism from './modules/talents/DarkEvangelism';
 import Dispersion from './modules/talents/Dispersion';
 import ShadowWordDeath from './modules/spells/ShadowWordDeath';
+import ShadowWordDeathSpeaker from './modules/spells/ShadowWordDeathSpeaker';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import VampiricEmbrace from './modules/talents/VampiricEmbrace';
 import VampiricTouch from './modules/spells/VampiricTouch';
@@ -33,15 +34,13 @@ import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InsidiousIre from './modules/talents/InsidiousIre';
 import InescapableTorment from './modules/talents/InescapableTorment';
-import Deathspeaker from './modules/talents/Deathspeaker';
 import AncientMadness from './modules/talents/AncientMadness';
 import VoidTorrent from './modules/talents/VoidTorrent';
-import MindFlayInsanity from './modules/talents/MindFlayInsanity';
+import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
-import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import InsanityGraph from './modules/guide/InsanityGraph';
 import ShadowyApparitions from './modules/spells/ShadowyApparitions';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
@@ -52,7 +51,7 @@ import VoidTouched from './modules/talents/VoidTouched';
 import MindsEye from './modules/talents/MindsEye';
 import DistortedReality from './modules/talents/DistortedReality';
 import MaddeningTouch from './modules/talents/Maddening Touch';
-import MindMelt from './modules/talents/MindMelt';
+import ShatteredPsyche from './modules/talents/ShatteredPsyche';
 import Mastermind from './modules/talents/Mastermind';
 import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
@@ -71,6 +70,7 @@ import Voidheart from './modules/talents/Voidweaver/Voidheart';
 import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
+import VoidVolley from './modules/talents/VoidVolley';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 import ShadowTierTWWS2 from './modules/tier/ShadowTierTWWS2';
 import ShadowTierTWWS2Normalizer from './modules/tier/ShadowTierTWWS2Normalizer';
@@ -98,6 +98,7 @@ class CombatLogParser extends MainCombatLogParser {
     devouringPlague: DevouringPlague,
     shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
+    shadowWordDeathSpeaker: ShadowWordDeathSpeaker,
     shadowWordPain: ShadowWordPain,
     shadowyApparitions: ShadowyApparitions,
     vampiricTouch: VampiricTouch,
@@ -109,20 +110,18 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
     darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
-    deathspeaker: Deathspeaker,
     dispersion: Dispersion,
     distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
     idolOfNzoth: IdolOfNzoth,
     idolOfYoggSaron: IdolOfYoggSaron,
-    idolOfYshaarj: IdolOfYshaarj,
     inescapableTorment: InescapableTorment,
     insidiousIre: InsidiousIre,
     maddeningTouch: MaddeningTouch,
     mastermind: Mastermind,
     mindDevourer: MindDevourer,
-    mindFlayInsanity: MindFlayInsanity,
-    mindMelt: MindMelt,
+    surgeOfInsanity: SurgeOfInsanity,
+    shatteredPsyche: ShatteredPsyche,
     mindsEye: MindsEye,
     phantasmalPathogen: PhantasmalPathogen,
     psychicLink: PsychicLink,
@@ -131,6 +130,7 @@ class CombatLogParser extends MainCombatLogParser {
     tormentedSpirits: TormentedSpirits,
     voidTorrent: VoidTorrent,
     voidTouched: VoidTouched,
+    voidVolley: VoidVolley,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,

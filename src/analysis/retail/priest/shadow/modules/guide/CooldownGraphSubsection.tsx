@@ -223,7 +223,14 @@ const ShortCooldownsGraph = () => {
           </strong>{' '}
           is a channeled spell that should be used as often as possible with{' '}
           <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on its target. It should be
-          channeled for its full duration.
+          channeled for its full duration
+          {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
+            <>
+              {' '}
+              except to cast <SpellLink spell={SPELLS.VOID_BOLT} />
+            </>
+          )}
+          .
           <br />
         </>
       )}

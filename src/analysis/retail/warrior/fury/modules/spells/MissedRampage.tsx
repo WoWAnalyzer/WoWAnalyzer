@@ -19,11 +19,13 @@ const RAGE_GENERATORS = [
   SPELLS.BLOODBATH,
   SPELLS.RAGING_BLOW,
   SPELLS.BLOODTHIRST,
-  SPELLS.EXECUTE_FURY,
   SPELLS.WHIRLWIND_FURY_CAST,
 ];
 
 const RAGE_GENERATOR_NAMES = RAGE_GENERATORS.map((spell) => spell.name);
+
+const RAMPAGE_RAGE_THRESHOLD_AM = 115;
+const RAMPAGE_RAGE_THRESHOLD_RA = 120;
 
 // Rework this module for TWW
 class MissedRampage extends Analyzer {
@@ -76,6 +78,7 @@ class MissedRampage extends Analyzer {
       const rageBeforeCast = (rageAfterCast + event.waste - event.resourceChange) / 10; // rage is logged 10x higher than the "real" value
       const relatedCastEvent: CastEvent | undefined = GetRelatedEvent(event, RAGE_GENERATING_CAST);
 
+      // refreshing enrage is always higher priority than filling
       if (!this.selectedCombatant.hasBuff(SPELLS.ENRAGE) && rageBeforeCast >= 80) {
         this.missedRampages += 1;
         if (relatedCastEvent) {
@@ -95,7 +98,7 @@ class MissedRampage extends Analyzer {
           this.selectedCombatant.hasBuff(SPELLS.BRUTAL_FINISH_BUFF)
         )
       ) {
-        if (this.hasAngerManagement && rageBeforeCast >= 100) {
+        if (this.hasAngerManagement && rageBeforeCast >= RAMPAGE_RAGE_THRESHOLD_AM) {
           this.missedRampages += 1;
           if (relatedCastEvent) {
             addInefficientCastReason(
@@ -105,7 +108,10 @@ class MissedRampage extends Analyzer {
           }
         } else if (this.hasRecklessAbandon) {
           // RA is okay with overcapping on rage during reck to use crushing blow/bloodbath
-          if (rageBeforeCast >= 120 && !this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS)) {
+          if (
+            rageBeforeCast >= RAMPAGE_RAGE_THRESHOLD_RA &&
+            !this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS)
+          ) {
             this.missedRampages += 1;
             if (relatedCastEvent) {
               addInefficientCastReason(

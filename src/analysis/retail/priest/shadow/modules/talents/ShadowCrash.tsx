@@ -36,7 +36,11 @@ class ShadowCrash extends Analyzer {
     super(options);
     this.active = this.shadowCrash1 || this.shadowCrash2;
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE_ONE),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE_TWO),
       this.onDamage,
     );
     this.addEventListener(

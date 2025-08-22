@@ -42,7 +42,7 @@ export const classBackgroundImage = (className?: string, region?: string): strin
 const PlayerInfo = ({ combatant }: Props) => {
   const isRetail = combatant.owner.config.branch === GameBranch.Retail;
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
-  const talents = combatant._combatantInfo.talentTree;
+  const talents = combatant.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
   const classBackground = combatant.characterProfile?.class
     ? classBackgroundImage(

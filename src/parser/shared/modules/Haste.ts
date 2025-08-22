@@ -87,6 +87,8 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region Priest
   [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.2,
   [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
+  [SPELLS.IDOL_OF_YSHAARJ_CALL_OF_THE_VOID.id]: 0.15,
+  [SPELLS.IDOL_OF_YSHAARJ_OVERBURDENED_MIND.id]: -0.1,
   //endregion
 
   //region Mage
@@ -459,10 +461,18 @@ class Haste extends Analyzer {
   }
 
   static addHaste(baseHaste: number, hasteGain: number) {
+    if (hasteGain < 0) {
+      //removeHaste Instead
+      return (baseHaste - Math.abs(hasteGain)) / (1 + Math.abs(hasteGain));
+    }
     return baseHaste * (1 + hasteGain) + hasteGain;
   }
 
   static removeHaste(baseHaste: number, hasteLoss: number) {
+    if (hasteLoss < 0) {
+      //addHaste Instead
+      return baseHaste * (1 + Math.abs(hasteLoss)) + Math.abs(hasteLoss);
+    }
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
   }
 }
