@@ -6,94 +6,54 @@ import { cleanIconName, downloadFileList, type FileList } from 'wow-dbc/dist/uti
 import * as prettier from 'prettier';
 import prettierConfig from '../../.prettierrc.json' with { type: 'json' };
 
-const GAME_VERSIONS = {
+const FILE_LISTS: Record<string, FileList> = {};
+
+export const CURRENT_GAME_VERSIONS = {
   classic: '5.5.0.62232',
 };
 
-const FILE_LISTS: Record<string, FileList> = {};
+export async function generateSpellData(
+  gameBranch: string,
+  gameVersion: string,
+  className: string,
+  specName: string,
+): Promise<string> {
+  const dbc = gamedata.dbc(gameVersion);
+  const specId = await gamedata.getSpecIdByName(dbc, className, specName);
 
-// i don't like doing this with regex but it *is* simpler
-const IMPORT_REGEX =
-  /import .+ from ['"](?<targetFileName>.*spell-list_(?<className>[a-zA-Z]+)_(?<specName>[a-zA-Z]+)\.(?<gameBranch>[a-zA-Z]+))['"];/g;
+  if (!specId) {
+    throw new Error(
+      `unable to locate spec id for class ${className} and spec ${specName} in version ${gameVersion}`,
+    );
+  }
 
-const globPatterns = process.argv.slice(2);
+  const spells = await getSpellList(dbc, gameBranch, specId);
 
-const DEBUG = false;
+  if (!spells) {
+    throw new Error(
+      `could not load spell list for game branch ${gameBranch} and spec id ${specId}`,
+    );
+  }
 
-const completed = new Set();
+  const rawData = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
+  const fileList = await getFileList(gameVersion);
+  const data = rawData
+    .filter((spell) => spell.name)
+    .map(stripSpellInternals)
+    .map((spell) => addIconName(fileList, spell));
 
-for (const pattern of globPatterns) {
-  const files = fs.glob(pattern);
-  for await (const fileName of files) {
-    DEBUG && console.log(`examining source file ${fileName}...`);
-    const contents = await fs.readFile(fileName, { encoding: 'utf8' });
+  const keyedData = keyByName(data);
 
-    const imports = contents.matchAll(IMPORT_REGEX);
-
-    for (const import_ of imports) {
-      const { className, specName, gameBranch, targetFileName } = import_.groups!;
-      const targetPath = path.join(path.dirname(fileName), targetFileName + '.ts');
-
-      if (completed.has(targetPath)) {
-        continue;
-      }
-
-      console.log(`found import of ${className}-${specName} for branch ${gameBranch}`);
-
-      const gameVersion = GAME_VERSIONS[gameBranch];
-
-      if (!gameVersion) {
-        console.error(`invalid game branch ${gameBranch} in file ${fileName}`);
-        continue;
-      }
-
-      const dbc = gamedata.dbc(gameVersion);
-      const specId = await gamedata.getSpecIdByName(dbc, className, specName);
-
-      if (!specId) {
-        console.error(
-          `unable to locate spec id for class ${className} and spec ${specName} in version ${gameVersion} (file: ${fileName})`,
-        );
-        continue;
-      }
-
-      const spells = await getSpellList(dbc, gameBranch, specId);
-
-      if (!spells) {
-        console.error(
-          `could not load spell list for game branch ${gameBranch} and spec id ${specId}`,
-        );
-        continue;
-      }
-
-      const rawData = await gamedata.loadAll(gamedata.PRESETS.RETAIL, dbc, spells);
-      const fileList = await getFileList(gameVersion);
-      const data = rawData
-        .filter((spell) => spell.name)
-        .map(stripSpellInternals)
-        .map((spell) => addIconName(fileList, spell));
-
-      const keyedData = keyByName(data);
-
-      const output = `
+  const output = `
       import type { RetailSpell } from 'wow-dbc';
       const SPELLS = ${JSON.stringify(keyedData, undefined, 2)} as const satisfies Record<string, RetailSpell & { icon: string; }>;
       export default SPELLS;
     `;
 
-      await fs.writeFile(
-        targetPath,
-        await prettier.format(output, {
-          ...prettierConfig,
-          parser: 'typescript',
-        } as prettier.Options),
-      );
-
-      completed.add(targetPath);
-
-      console.log(`wrote spell data to ${targetPath}`);
-    }
-  }
+  return await prettier.format(output, {
+    ...prettierConfig,
+    parser: 'typescript',
+  } as prettier.Options);
 }
 
 async function getSpellList(dbc: Dbc, branch: string, specId: number) {
