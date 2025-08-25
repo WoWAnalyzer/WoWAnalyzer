@@ -34,19 +34,13 @@ class DivineHammerNormalizer extends EventsNormalizer {
 }
 
 const isFakeCast = (event: CastEvent, lastGenuineCast: CastEvent | null): boolean => {
-  let fakeCast = false;
-
   if (!lastGenuineCast) {
-    return fakeCast;
+    return false;
   }
 
   const nextPossibleCastTimestamp = lastGenuineCast.timestamp + DIVINE_HAMMER_COOLDOWN_MS;
 
-  if (event.timestamp < nextPossibleCastTimestamp) {
-    fakeCast = true;
-  }
-
-  return fakeCast;
+  return event.timestamp < nextPossibleCastTimestamp;
 };
 
 export default DivineHammerNormalizer;
