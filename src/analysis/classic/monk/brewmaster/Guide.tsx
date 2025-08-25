@@ -22,10 +22,12 @@ import { WarningIcon } from 'interface/icons';
 import type CombatLogParser from './CombatLogParser';
 import AlertInfo from 'interface/AlertInfo';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Vengeance from 'parser/classic/modules/Vengeance';
 
 export default function Guide({ events, info }: GuideProps<typeof CombatLogParser>): JSX.Element {
   const { expansion } = useExpansionContext();
   const castEff = useAnalyzer(CastEfficiency);
+  const veng = useAnalyzer(Vengeance);
 
   const parseRotationActive = useMemo(() => {
     if (!castEff) {
@@ -98,6 +100,7 @@ export default function Guide({ events, info }: GuideProps<typeof CombatLogParse
           <SpellLink spell={spells.VENGEANCE_PASSIVE} /> and a good rotation.
         </AlertInfo>
         <TabWrapper tabs={aplTabs} />
+        {veng?.guideSubsection}
       </Section>
       <PreparationSection expansion={expansion} />
     </>

@@ -67,7 +67,7 @@ export interface TimelineTrack {
 interface Props {
   info: Info;
   children: TimelineTrack | TimelineTrack[];
-  overlays: React.ReactNode[];
+  overlays?: React.ReactNode[];
 }
 
 export default function TimelineDiagram({ info, children, overlays }: Props): JSX.Element | null {

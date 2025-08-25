@@ -572,7 +572,7 @@ function estimateGlobalMeleeUptime(
 
 const MIN_GLOBAL_GAP = 3000;
 
-function useBossAbilities(
+export function useBossAbilities(
   reportCode: string | undefined,
   startTime: number | undefined,
   endTime: number | undefined,

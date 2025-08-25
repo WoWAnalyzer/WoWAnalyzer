@@ -16,6 +16,11 @@ const spells = {
     name: 'Celerity',
     icon: 'spell_livegivingspeed.jpg',
   },
+  VENGEANCE_BUFF: {
+    id: 132365,
+    name: 'Vengeance',
+    icon: 'spell_shadow_charm.jpg',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
