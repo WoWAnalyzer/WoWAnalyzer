@@ -13,7 +13,6 @@ import Buffs from './modules/Buffs';
 import ArtOfWar from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWar';
 import ArtOfWarProbability from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWarProbability';
 import BladeOfJustice from 'analysis/retail/paladin/retribution/modules/talents/BladeOfJustice';
-import Consecration from './modules/core/Consecration';
 import CrusaderStrike from './modules/core/CrusaderStrike';
 import HammerofWrathRetribution from 'analysis/retail/paladin/retribution/modules/talents/HammerofWrath';
 import ShieldOfVengeance from 'analysis/retail/paladin/retribution/modules/talents/ShieldOfVengeance';
@@ -57,7 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
     crusade: Crusade,
     wakeofAshes: WakeOfAshes,
-    consecration: Consecration,
     hammerofWrathRetribution: HammerofWrathRetribution,
     empyreanPower: EmpyreanPower,
     duskAndDawn: DuskAndDawn,
