@@ -24,6 +24,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.CRUSADING_STRIKES.id,
+        enabled: combatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
         spell: SPELLS.DIVINE_HAMMER_CAST.id,
         enabled: combatant.hasTalent(TALENTS.DIVINE_HAMMER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
