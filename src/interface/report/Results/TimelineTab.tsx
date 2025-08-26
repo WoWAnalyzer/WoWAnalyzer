@@ -3,11 +3,11 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
-import { ReactNode, useState, useMemo } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { useConfig } from '../ConfigContext';
 import Component from './Timeline/Component';
-import AuraConfiguration from './Timeline/AuraConfiguration';
 import { EventType } from 'parser/core/Events';
+import { TimelineConfiguration } from 'interface/report/Results/Timeline/configuration/TimelineConfiguration';
 
 interface Props {
   parser: CombatLogParser;
@@ -16,6 +16,7 @@ interface Props {
 const TimelineTab = ({ parser }: Props) => {
   const config = useConfig();
   const auras = parser.getModule(Buffs);
+  const distanceMoved = parser.getModule(DistanceMoved);
 
   const aurasInCombatLog = useMemo(() => {
     const aurasSet = new Set<number>();
@@ -34,7 +35,6 @@ const TimelineTab = ({ parser }: Props) => {
   }, [parser.eventHistory, auras]);
 
   const [visibleAuras, setVisibleAuras] = useState<Set<number>>(aurasInCombatLog);
-
   const handleAuraVisibilityChange = (spellId: number, visible: boolean) => {
     setVisibleAuras((prev) => {
       const newSet = new Set(prev);
@@ -45,6 +45,11 @@ const TimelineTab = ({ parser }: Props) => {
       }
       return newSet;
     });
+  };
+
+  const [isMovementVisible, setIsMovementVisible] = useState<boolean>(true);
+  const toggleMovementVisibility = (b: boolean) => {
+    setIsMovementVisible(b);
   };
 
   let alert: ReactNode = null;
@@ -76,11 +81,11 @@ const TimelineTab = ({ parser }: Props) => {
       <div className="container">
         {alert}
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
-          <AuraConfiguration
-            auras={auras}
-            aurasInCombatLog={aurasInCombatLog}
-            visibleAuras={visibleAuras}
+          <TimelineConfiguration
+            isMovementVisible={isMovementVisible}
             onAuraVisibilityChange={handleAuraVisibilityChange}
+            toggleMovementVisibility={toggleMovementVisibility}
+            visibleAuras={visibleAuras}
           />
         </div>
       </div>
@@ -88,7 +93,7 @@ const TimelineTab = ({ parser }: Props) => {
         parser={parser}
         abilities={parser.getModule(Abilities)}
         auras={auras}
-        movement={parser.getModule(DistanceMoved).instances}
+        movement={isMovementVisible ? distanceMoved.instances : []}
         config={parser.config.timeline}
         visibleAuras={visibleAuras}
       />
