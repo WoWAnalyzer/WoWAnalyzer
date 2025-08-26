@@ -21,7 +21,7 @@ export const GeneralConfiguration = ({
             checked={isMovementVisible}
             onChange={(e) => toggleMovementVisibility(e.target.checked)}
           />
-          Show movement warning on timeline
+          Show movement overlay on timeline
         </label>
       </div>
     </>
