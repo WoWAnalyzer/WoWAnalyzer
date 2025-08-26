@@ -28,6 +28,7 @@ import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeU
 import SPELLS from 'common/SPELLS';
 import DivineHammerNormalizer from './normalizers/DivineHammerNormalizer';
 import Expurgation from './modules/talents/Expurgation';
+import WakeOfAshesNormalizer from './normalizers/WakeOfAshesNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     divineHammerNormalizer: DivineHammerNormalizer,
+    wakeOfAshesNormalizer: WakeOfAshesNormalizer,
 
     // Features
     abilities: Abilities,

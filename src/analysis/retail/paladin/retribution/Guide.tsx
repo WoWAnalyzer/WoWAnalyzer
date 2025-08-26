@@ -14,12 +14,13 @@ import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
 import SPELLS from 'common/SPELLS';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <CoreSection modules={modules} events={events} info={info} />
-      <CooldownSection />
+      <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -131,7 +132,7 @@ const cooldowns: Cooldown[] = [
     isActive: (c) => c.hasMainHand(DRAGONFLIGHT_OTHERS_ITEMS.FYRALATH.id),
   },
 ];
-function CooldownSection() {
+function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
       <p>
@@ -140,6 +141,7 @@ function CooldownSection() {
         cooldown as soon as it becomes available (as long as it can do damage on target).
       </p>
       <CooldownGraphSubsection cooldowns={cooldowns} />
+      <CooldownUsage analyzer={modules.wakeofAshes} title="Wake of Ashes" />
     </Section>
   );
 }
