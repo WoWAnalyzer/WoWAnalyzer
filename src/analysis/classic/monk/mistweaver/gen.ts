@@ -14,7 +14,8 @@ export const Abilities = genAbilities({
     spells.CHI_WAVE_TALENT,
     spells.MANA_TEA,
     spells.SPINNING_CRANE_KICK,
-    spells.SURGING_MIST_2,
+    spells.SURGING_MIST,
+    spells.SURGING_MIST_GLYPH,
   ],
   cooldowns: [spells.REVIVAL, spells.INVOKE_XUEN_THE_WHITE_TIGER_TALENT, spells.LIFE_COCOON],
   defensives: [
@@ -24,4 +25,18 @@ export const Abilities = genAbilities({
     spells.ZEN_MEDITATION,
   ],
   omit: [spells.JAB],
+  overrides: {
+    [spells.SURGING_MIST.id]: (combatant, generated) => {
+      return {
+        ...generated!,
+        enabled: !combatant.hasGlyph(spells.GLYPH_OF_SURGING_MIST.glyphId),
+      };
+    },
+    [spells.SURGING_MIST_GLYPH.id]: (combatant, generated) => {
+      return {
+        ...generated!,
+        enabled: combatant.hasGlyph(spells.GLYPH_OF_SURGING_MIST.glyphId),
+      };
+    },
+  },
 });
