@@ -98,7 +98,7 @@ function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.Reta
 
           const source = !duplicateSource && spells.find((other) => other.id === spell.grantedBy);
           if (!duplicateSource && source) {
-            const suffix = baseSpellName(source);
+            const suffix = conflictSuffix(source);
 
             const fullName = `${name}_${suffix}`;
             output[fullName] = spell;
@@ -123,6 +123,14 @@ function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.Reta
   return output;
 }
 
+function conflictSuffix(spell: gamedata.RetailSpell): string {
+  if (spell.type === 'glyph') {
+    return 'GLYPH';
+  }
+
+  return baseSpellName(spell);
+}
+
 function baseSpellName(spell: gamedata.RetailSpell): string {
   if (!spell.name) {
     return 'UNKNOWN';
@@ -138,6 +146,8 @@ function baseSpellName(spell: gamedata.RetailSpell): string {
   if (spell.type === 'temporary') {
     // we resolve this later if there is a conflict
     return name;
+  } else if (isWellFormedGlyphSpell(spell)) {
+    return name;
   } else if (spell.hidden === 'always') {
     suffix = 'HIDDEN';
   } else if (spell.type === 'talent' || spell.type === 'mists-talent') {
@@ -151,6 +161,10 @@ function baseSpellName(spell: gamedata.RetailSpell): string {
   }
 
   return name;
+}
+
+function isWellFormedGlyphSpell(spell: gamedata.RetailSpell): boolean {
+  return spell.type === 'glyph' && spell.name.startsWith('Glyph');
 }
 
 function stripSpellInternals(spell: gamedata.RetailSpell): gamedata.RetailSpell {
