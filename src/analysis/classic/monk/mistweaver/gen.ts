@@ -25,18 +25,4 @@ export const Abilities = genAbilities({
     spells.ZEN_MEDITATION,
   ],
   omit: [spells.JAB],
-  overrides: {
-    [spells.SURGING_MIST.id]: (combatant, generated) => {
-      return {
-        ...generated!,
-        enabled: !combatant.hasGlyph(spells.GLYPH_OF_SURGING_MIST.glyphId),
-      };
-    },
-    [spells.SURGING_MIST_GLYPH.id]: (combatant, generated) => {
-      return {
-        ...generated!,
-        enabled: combatant.hasGlyph(spells.GLYPH_OF_SURGING_MIST.glyphId),
-      };
-    },
-  },
 });
