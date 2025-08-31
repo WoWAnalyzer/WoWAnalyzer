@@ -101,7 +101,9 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
           </RoundedPanel>
         </SideBySidePanels>
       </SubSection>
-      <SubSection title="Buffs and debuffs">{modules.expurgation.guideSubsection}</SubSection>
+      {info.combatant.hasTalent(TALENTS.HOLY_FLAMES_TALENT) && (
+        <SubSection title="Buffs and debuffs">{modules.expurgation.guideSubsection}</SubSection>
+      )}
     </Section>
   );
 }
@@ -141,7 +143,9 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         cooldown as soon as it becomes available (as long as it can do damage on target).
       </p>
       <CooldownGraphSubsection cooldowns={cooldowns} />
-      <CooldownUsage analyzer={modules.wakeofAshes} title="Wake of Ashes" />
+      {info.combatant.hasTalent(TALENTS.RADIANT_GLORY_TALENT) && (
+        <CooldownUsage analyzer={modules.wakeofAshes} title="Wake of Ashes" />
+      )}
     </Section>
   );
 }

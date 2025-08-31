@@ -24,6 +24,13 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
   };
 
   protected enemies!: Enemies;
+  hasExecutionSentenceTalented = this.selectedCombatant.hasTalent(
+    TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT,
+  );
+  hasFinalReckoningTalented = this.selectedCombatant.hasTalent(
+    TALENTS_PALADIN.FINAL_RECKONING_TALENT,
+  );
+  isTemplar = this.selectedCombatant.hasTalent(TALENTS_PALADIN.LIGHTS_GUIDANCE_TALENT);
 
   constructor(options: Options) {
     super({ spell: TALENTS_PALADIN.WAKE_OF_ASHES_TALENT }, options);
@@ -45,25 +52,34 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
             <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> becomes your main offensive
             cooldown.
           </p>
-          <p>
-            You want to press <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} /> before{' '}
-            <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> and fit as much damage as
-            possible during that window.
-          </p>
-          <p>
-            <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> is your highest damage ability. It is
-            available right after every <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} />{' '}
-            casts.
-            {playerHasTWW3_4Piece ? (
-              <>
-                {' '}
-                With the season 3 Tier Set, you will be able to use it a second time each{' '}
-                <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> cast.
-              </>
-            ) : (
-              <></>
-            )}
-          </p>
+          {this.hasExecutionSentenceTalented && (
+            <p>
+              You want to press <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} />{' '}
+              before <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> and fit as much
+              damage as possible during that window.
+            </p>
+          )}
+          {this.hasFinalReckoningTalented && (
+            <p>
+              You want to press <SpellLink spell={TALENTS_PALADIN.FINAL_RECKONING_TALENT} /> before
+              every other <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> and fit as much
+              damage as possible during that window.
+            </p>
+          )}
+          {this.isTemplar && (
+            <p>
+              <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> is your highest damage ability. It is
+              available right after every <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} />{' '}
+              casts.
+              {playerHasTWW3_4Piece && (
+                <>
+                  {' '}
+                  With the season 3 Tier Set, you will be able to use it a second time each{' '}
+                  <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> cast.
+                </>
+              )}
+            </p>
+          )}
         </ExplanationSection>
       </>
     );
@@ -74,19 +90,22 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
     const hammerOfLightPerformance = this.hammerOfLightPerformance(cast);
     const divineHammerPerformance = this.divineHammerPerformance(cast);
 
-    const checklistItems = [
-      {
-        check: 'exec',
-        timestamp: cast.event.timestamp,
-        ...executionSentencePerformance,
-      },
-      {
+    const checklistItems = [];
+
+    if (this.isTemplar) {
+      checklistItems.push({
         check: 'hol',
         timestamp: cast.event.timestamp,
         ...hammerOfLightPerformance,
-      },
-    ];
-
+      });
+    }
+    if (this.hasExecutionSentenceTalented) {
+      checklistItems.push({
+        check: 'exec',
+        timestamp: cast.event.timestamp,
+        ...executionSentencePerformance,
+      });
+    }
     if (divineHammerPerformance) {
       checklistItems.push({
         check: 'dh',
