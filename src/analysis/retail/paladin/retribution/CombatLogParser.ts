@@ -26,7 +26,6 @@ import BuilderUse from './modules/core/BuilderUse';
 import Guide from './Guide';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import SPELLS from 'common/SPELLS';
-import DivineHammerNormalizer from './normalizers/DivineHammerNormalizer';
 import Expurgation from './modules/talents/Expurgation';
 import WakeOfAshesNormalizer from './normalizers/WakeOfAshesNormalizer';
 
@@ -41,7 +40,6 @@ class CombatLogParser extends CoreCombatLogParser {
     artOfWarProbability: ArtOfWarProbability,
 
     // Normalizers
-    divineHammerNormalizer: DivineHammerNormalizer,
     wakeOfAshesNormalizer: WakeOfAshesNormalizer,
 
     // Features

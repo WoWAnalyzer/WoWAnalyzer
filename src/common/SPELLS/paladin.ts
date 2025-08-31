@@ -369,7 +369,7 @@ const spells = {
     icon: 'classicon_paladin',
   },
   DIVINE_HAMMER_CAST: {
-    id: 1236942,
+    id: 198034,
     name: 'Divine Hammer',
     icon: 'classicon_paladin',
   },
