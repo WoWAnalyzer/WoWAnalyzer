@@ -139,6 +139,7 @@ type Config = CoreConfig & (FoundationConfig | MaintainedConfig);
 
 export default Config;
 
-export function configName(config: Config): string {
-  return `${config.branch}-${config.spec.wclClassName}-${config.spec.wclSpecName}`;
+export function configName(config: Config | Spec): string {
+  const spec = 'spec' in config ? config.spec : config;
+  return `${spec.branch}-${spec.wclClassName}-${spec.wclSpecName}`;
 }

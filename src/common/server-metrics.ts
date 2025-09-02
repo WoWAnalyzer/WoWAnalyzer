@@ -1,22 +1,31 @@
+import SPECS, { Spec } from 'game/SPECS';
 import makeApiUrl from './makeApiUrl';
+import GameBranch from 'game/GameBranch';
 
-export interface ServerMetrics {
+export interface ServerMetrics<T = number> {
   /**
    * The number of cooldown errors per minute.
    */
-  cooldownErrorRate: number;
+  cooldownErrorRate: T;
   /**
    * The number of unknown abilities used per minute.
    */
-  unknownAbilityErrorRate: number;
+  unknownAbilityErrorRate: T;
   /**
    * The number of gcd errors per minute.
    */
-  gcdErrorRate: number;
+  gcdErrorRate: T;
   /**
    * The fractional active time ratio (from 0.00 to 1.00)
    */
-  activeTimeRatio: number;
+  activeTimeRatio: T;
+}
+
+export interface Aggregate {
+  min: number;
+  max: number;
+  avg: number;
+  median: number;
 }
 
 export interface Selection {
@@ -52,4 +61,81 @@ export async function uploadServerMetrics(
     // never trigger errors from this.
     console.info('failed to upload spec server data', err);
   }
+}
+
+export async function loadServerMetrics(): Promise<
+  Array<[Spec, Partial<ServerMetrics<Aggregate>>]>
+> {
+  const response = await fetch(makeApiUrl(ENDPOINT));
+  const data: RawServerMetricValue[] = await response.json();
+
+  const grouped = groupRawMetrics(data);
+
+  return Object.entries(grouped)
+    .map(([configName, metrics]) => [findSpecByConfigName(configName), metrics])
+    .filter(([spec]) => spec !== undefined) as [Spec, Partial<ServerMetrics<Aggregate>>][];
+}
+
+function parseConfigName(configName: string): {
+  branch: GameBranch;
+  className: string;
+  specName: string;
+} {
+  const [branchName, className, specName] = configName.split('-');
+
+  if (branchName === 'classic') {
+    return { className, specName, branch: GameBranch.Classic };
+  } else if (branchName === 'retail') {
+    return { className, specName, branch: GameBranch.Retail };
+  }
+
+  throw new Error('unable to parse configName ' + configName);
+}
+
+interface RawServerMetricValue {
+  configName: string;
+  metricId: keyof ServerMetrics;
+  avgValue: number;
+  maxValue: number;
+  medValue: number;
+  minValue: number;
+}
+
+/**
+ * Group metrics by configName value.
+ */
+function groupRawMetrics(
+  raw: RawServerMetricValue[],
+): Record<string, Partial<ServerMetrics<Aggregate>>> {
+  const grouped: ReturnType<typeof groupRawMetrics> = {};
+  for (const metric of raw) {
+    if (!grouped[metric.configName]) {
+      grouped[metric.configName] = {};
+    }
+
+    grouped[metric.configName][metric.metricId] = {
+      min: metric.minValue,
+      max: metric.maxValue,
+      avg: metric.avgValue,
+      median: metric.medValue,
+    };
+  }
+
+  return grouped;
+}
+
+function findSpecByConfigName(configName: string): Spec | undefined {
+  const props = parseConfigName(configName);
+
+  for (const spec of Object.values(SPECS)) {
+    if (
+      spec.branch === props.branch &&
+      spec.wclClassName === props.className &&
+      spec.wclSpecName === props.specName
+    ) {
+      return spec;
+    }
+  }
+
+  return undefined;
 }

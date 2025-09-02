@@ -11,14 +11,16 @@ interface Props {
 
 const Changelog = ({ changelog, limit, includeCore = true }: Props) => {
   const mergedChangelog: ChangelogEntry[] = includeCore
-    ? [...CORE_CHANGELOG, ...changelog].sort(
-        (a: ChangelogEntry, b: ChangelogEntry) => b.date.getTime() - a.date.getTime(),
-      )
-    : changelog;
+    ? [...CORE_CHANGELOG, ...changelog]
+    : [...changelog];
+
+  const sortedChangelog = mergedChangelog.sort(
+    (a: ChangelogEntry, b: ChangelogEntry) => b.date.getTime() - a.date.getTime(),
+  );
 
   return (
     <ul className="list text">
-      {mergedChangelog
+      {sortedChangelog
         .filter((_, i) => !limit || i < limit)
         .map((entry) => {
           const { date, changes, contributors } = entry;

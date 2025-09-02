@@ -17,6 +17,7 @@ export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParse
     <div className="panel">
       <div className="panel-heading">
         <h1>Debug Annotations</h1>
+        <a href="/support-stats">View Aggregated Stats</a>
       </div>
       <div
         className="panel-body flex"

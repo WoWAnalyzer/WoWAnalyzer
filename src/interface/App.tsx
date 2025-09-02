@@ -37,6 +37,7 @@ const appRoutes = createRoutesFromElements(
       <Route path="search/:searchTerm?" lazy={() => import('./routes/search')} />
       <Route path="*" lazy={() => import('./routes/not-found')} />
     </Route>
+    <Route path="support-stats" lazy={() => import('./routes/support-stats')} />
   </Route>,
 );
 

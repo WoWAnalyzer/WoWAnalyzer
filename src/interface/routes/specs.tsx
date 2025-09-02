@@ -93,6 +93,12 @@ export function Component() {
           <SpecListItem key={config.spec.id || config.spec.type} {...config} />
         ))}
       </div>
+
+      <div className="text-right">
+        <a style={{ fontStyle: 'italic', fontSize: 'small' }} href="/support-stats">
+          View Analysis Stats
+        </a>
+      </div>
     </>
   );
 }

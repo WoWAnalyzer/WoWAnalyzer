@@ -1,7 +1,8 @@
-import { isClassicSpec } from 'game/SPECS';
+import { type Spec, isClassicSpec } from 'game/SPECS';
 import AVAILABLE_CONFIGS from 'parser';
 import { CombatantInfoEvent } from './core/Events';
 import GameBranch from 'game/GameBranch';
+import type Config from './Config';
 
 export default function getConfig(
   branch: GameBranch,
@@ -47,4 +48,18 @@ export default function getConfig(
   }
 
   return config;
+}
+
+export function getConfigForSpec(spec: Spec): Config | undefined {
+  for (const config of AVAILABLE_CONFIGS) {
+    if (
+      config.spec.branch === spec.branch &&
+      config.spec.wclClassName === spec.wclClassName &&
+      config.spec.wclSpecName === spec.wclSpecName
+    ) {
+      return config;
+    }
+  }
+
+  return undefined;
 }
