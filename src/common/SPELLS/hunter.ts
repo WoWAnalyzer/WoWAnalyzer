@@ -43,11 +43,6 @@ const spells = {
     name: 'Dire Pack',
     icon: 'ability_hunter_sickem',
   },
-  STAMPEDE_DAMAGE: {
-    id: 201594,
-    name: 'Stampede',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
   BEAST_CLEAVE_BUFF: {
     id: 268877,
     name: 'Beast Cleave',
@@ -394,10 +389,10 @@ const spells = {
   //endregion
 
   //region Shared
-  HOWL_OF_THE_PACK_BUFF: {
-    id: 462515,
-    name: 'Howl of the Pack',
-    icon: 'spell_hunter_lonewolf',
+  HOWL_WYVERN_BUFF: {
+    id: 462515, //Update this to the ID
+    name: 'Howl of the Packleader',
+    icon: 'inv_misc_elitewyvern',
   },
   EXPLOSIVE_SHOT_DAMAGE: {
     id: 212680,
@@ -702,6 +697,62 @@ const spells = {
   },
   //endregion
 
+  HOWL_OF_THE_PACKLEADER_BUFF: {
+    id: 471876,
+    name: 'Howl of the Pack Leader',
+    icon: 'ability_hunter_killcommand',
+  },
+  HOWL_OF_THE_PACKLEADER_WYVERN: {
+    id: 471878,
+    name: 'Howl of the Pack Leader - Wyvern',
+    icon: 'inv_misc_elitewyvern',
+  },
+  HOWL_OF_THE_PACKLEADER_BEAR: {
+    id: 472325,
+    name: 'Howl of the Pack Leader - Bear',
+    icon: 'ability_hunter_killcommand',
+  },
+  HOWL_OF_THE_PACKLEADER_BEAR_SUMMON: {
+    id: 471990,
+    name: 'Bear Summon',
+    icon: 'ability_hunter_pet_bear',
+  },
+  HOWL_OF_THE_PACKLEADER_BOAR: {
+    id: 472324,
+    name: 'Howl of the Pack Leader - Boar',
+    icon: 'ability_hunter_pet_boar',
+  },
+  WYVERNS_CRY: {
+    id: 471881,
+    name: "Wyvern's Cry",
+    icon: 'inv_misc_elitewyvern',
+  },
+  HOGSTRIDER_BUFF: {
+    id: 472640,
+    name: 'Hogstrider',
+    icon: 'inv_misc_boarshead',
+  },
+  PL_HOGSTRIDER_DAMAGE_1: {
+    id: 471938,
+    name: 'Boar Charge',
+    icon: 'ability_hunter_pet_boar',
+  },
+  PL_HOGSTRIDER_DAMAGE_2: {
+    id: 471936,
+    name: 'Boar Charge',
+    icon: 'ability_hunter_pet_boar',
+  },
+  BEAR_REND_FLESH: {
+    id: 471999,
+    name: 'Rend Flesh',
+    icon: 'spell_druid_bloodythrash',
+  },
+  LEAD_FROM_THE_FRONT: {
+    id: 472743,
+    name: 'Lead From the Front',
+    icon: 'buff_epichunter',
+  },
+
   //region Tier Sets
   //T29 2P
   T29_2P_BONUS_BEAST_MASTERY: {
@@ -766,6 +817,16 @@ const spells = {
     id: 453650,
     name: 'Hunter MM Lightless 4 Piece Set',
     icon: 'trade_engineering',
+  },
+  TWW_STAMPEDE_BUFF: {
+    id: 1250068,
+    name: 'Stampede Buff Duration',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  TWW_STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'inv_pet_babymurlocs_blue',
   },
 
   //endregion

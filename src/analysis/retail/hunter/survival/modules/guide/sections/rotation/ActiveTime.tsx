@@ -7,6 +7,7 @@ import Explanation from 'interface/guide/components/Explanation';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
 export default function ActiveTime({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -57,6 +58,7 @@ export default function ActiveTime({ modules, events, info }: GuideProps<typeof 
         fightStart={info.fightStart}
         fightEnd={info.fightEnd}
       />
+      <FoundationDowntimeSection />
     </Section>
   );
 }

@@ -2,8 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/hunter/survival/CombatLogParser';
 import TALENTS from 'common/TALENTS/hunter';
-//Commented out because they will be reactived relatively quick.
-import * as AplCheck from 'analysis/retail/hunter/survival/modules/apl/AplCheck';
+import * as AplCheck from 'analysis/retail/hunter/survival/modules/apl/AplCheckPackLeader';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import SpellLink from 'interface/SpellLink';
 export default function RotationSection({
@@ -39,12 +38,14 @@ export default function RotationSection({
           segments show when the spell was cooling down. Red segments highlight times when you could
           have fit a whole extra use of the cooldown.
         </Trans>
+        {modules.howlOfThePackleaderAnalyzer.guideSubsection}
+        {modules.stampedeTier.guideSubsectionStampede}
         {modules.wildfireBomb.guideSubsection}
         {info.combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT) &&
           modules.flankingStrike.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT) &&
-          modules.butchery.guideSubsection}
-        {modules.explosiveShot.guideSubsectionSV}
+        {info.combatant.hasTalent(TALENTS.BUTCHERY_TALENT) && modules.butchery.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT) &&
+          modules.explosiveShot.guideSubsectionSVPL}
         {modules.killShot.guideSubsectionSV}
         {info.combatant.hasTalent(TALENTS.FURY_OF_THE_EAGLE_TALENT) &&
           modules.furyOfTheEagle.guideSubsection}
