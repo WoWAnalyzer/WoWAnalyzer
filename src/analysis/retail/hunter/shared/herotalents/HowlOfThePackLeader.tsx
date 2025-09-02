@@ -600,7 +600,7 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
       details: (
         <div key="boar-hog">
           {chargesExecuted === 3
-            ? `${boarData.hogRemovesCount} cleaved casts out of ${chargesExecuted}. Your boar hit all 3 charges.`
+            ? `You hit ${boarData.hogRemovesCount} cleaved casts out of a possible ${chargesExecuted}. As survival, you should consume ${SPELLS.HOGSTRIDER_BUFF} before re-application.`
             : 'Your boar missed a charge. Avoid targeting low-HP foes.'}
         </div>
       ),
