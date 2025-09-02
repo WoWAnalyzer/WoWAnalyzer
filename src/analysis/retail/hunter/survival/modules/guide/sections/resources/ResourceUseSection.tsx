@@ -87,7 +87,7 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           Leader does not cast <SpellLink spell={TALENTS.EXPLOSIVE_SHOT_TALENT} /> or
           <SpellLink spell={TALENTS.KILL_SHOT_SURVIVAL_TALENT} /> unless you are low on focus or out
           of melee range. Sentinel does not use Kill Shot either, but does use Explosive shot,
-          however it DragonRageSection not go out of it's way to tip it prior to use.
+          however it does not go out of it's way to tip it prior to use.
         </p>
       </SubSection>
     </Section>
