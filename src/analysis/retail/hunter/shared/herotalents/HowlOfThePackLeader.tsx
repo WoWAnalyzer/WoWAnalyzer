@@ -27,9 +27,7 @@ import Enemies from 'parser/shared/modules/Enemies';
  * https://www.warcraftlogs.com/reports/qmTx6JhgLAk1HRGV?fight=9&type=damage-done&source=34
  */
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Types
-// ───────────────────────────────────────────────────────────────────────────────
+//region Types
 
 type BeastKind = 'WYVERN' | 'BEAR' | 'BOAR';
 
@@ -74,20 +72,16 @@ interface HowlSpawn {
   bear?: BearData;
   boar?: BoarData;
 }
-
-// ───────────────────────────────────────────────────────────────────────────────
-// Constants
-// ───────────────────────────────────────────────────────────────────────────────
+//endregion
+//region Constants
 
 const CHARGE_CLUSTER_MS = 1500; // capture window per charge
 const BEAR_WINDOW_MS = 12_000; // bear’s full effect within 12s of spawn
 const OPEN_UNTIL_FAR_FUTURE = 9e15; // effectively “infinity”
 const KC_HISTORY_MAX = 50; // guard against unbounded growth
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Analyzer
-// ───────────────────────────────────────────────────────────────────────────────
-
+//endregion
+//region Analyzer
 export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies({
   enemies: Enemies,
 }) {
@@ -264,9 +258,8 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
     this.addEventListener(Events.fightend, this.finalize);
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Spawns
-  // ─────────────────────────────────────────────────────────────────────────────
+  //endregion
+  //region Spawns
 
   private startSpawn(kind: BeastKind, removeEvent: RemoveBuffEvent) {
     // If a new BOAR spawns, close the previous boar window at this timestamp
@@ -314,10 +307,8 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
     this.spawns.push(newSpawn);
     if (kind === 'BOAR') this.currentBoarSpawn = newSpawn;
   }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Helpers
-  // ─────────────────────────────────────────────────────────────────────────────
+  //endregion
+  //region Helpers
 
   private ensureBear(spawn: HowlSpawn): BearData {
     if (!spawn.bear) {
@@ -383,9 +374,10 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
     );
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  //endregion
+  //region Boar Charge Damage
+
   // Boar charge handling — group into 1.5s clusters; window ends on next spawn, 3 removes, or fight end
-  // ─────────────────────────────────────────────────────────────────────────────
 
   private onBoarChargeDamage = (e: DamageEvent) => {
     const boarSpawn = this.currentBoarSpawn;
@@ -422,9 +414,9 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
     boarData.totalChargeDamage += dmg;
   };
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Presentation (bars by kind: WYVERN=Perfect, BEAR=Good, BOAR=Ok)
-  // ─────────────────────────────────────────────────────────────────────────────
+  //endregion
+  //region Presentation
+  //WYVERN=Perfect, BEAR=Good, BOAR=Ok)
 
   private perfForKind(kind: BeastKind): QualitativePerformance {
     if (kind === 'WYVERN') return QualitativePerformance.Perfect;
@@ -615,12 +607,10 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
     return this.boarItems(spawn);
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Finalize
-  // ─────────────────────────────────────────────────────────────────────────────
-
+  //endregion
+  //region finalize
+  // Close out any open windows on fight end.
   private finalize = () => {
-    // If Wyvern’s Cry still active at fight end, close it as a remove
     if (this.wyvernCurrentStartTs != null) {
       this.wyvernSegments.push({
         startTs: this.wyvernCurrentStartTs,
@@ -630,7 +620,6 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
       this.wyvernCurrentStartTs = null;
     }
 
-    // Close any open boar window at fight end
     if (this.currentBoarSpawn && this.currentBoarSpawn.boar) {
       const boarData = this.currentBoarSpawn.boar;
       if (boarData.windowEndTs === OPEN_UNTIL_FAR_FUTURE) {
@@ -638,18 +627,16 @@ export default class HowlOfThePackleaderGuide extends Analyzer.withDependencies(
       }
     }
 
-    // Build clickable boxes
     this.uses = this.spawns.map((spawn) => ({
       event: spawn.event,
-      performance: this.perfForKind(spawn.kind), // WYVERN=Perfect, BEAR=Good, BOAR=Ok
+      performance: this.perfForKind(spawn.kind),
       checklistItems: this.toChecklist(spawn),
       performanceExplanation: '',
     }));
   };
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Guide subsection
-  // ─────────────────────────────────────────────────────────────────────────────
+  //endregion
+  //region Guide Subsection
 
   get guideSubsection(): JSX.Element | null {
     if (!this.active) return null;
