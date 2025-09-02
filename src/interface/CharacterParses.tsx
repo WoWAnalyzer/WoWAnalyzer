@@ -430,7 +430,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           return;
         }
 
-        const charClass = rawParses[0].class;
+        const charClass = rawParses[0].class.replaceAll(' ', '');
         const specs = Object.entries(SPECS)
           // SPECS is indexed both by name and id. only take the id-keyed entries
           .filter(([k]) => Number.isFinite(Number(k)))
