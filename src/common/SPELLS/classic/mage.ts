@@ -1,5 +1,5 @@
 /**
- * All WotLK Mage spells (including talent spells) go here.
+ * Classic Mage spells (including talent spells) not included in generated spell lists go here.
  * You need to do this manually by opening a WCL report and clicking the icons of spells to open the relevant Wowhead page. Here, you can get the icon name by clicking the icon, copy the name of the spell, and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS/classic` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
@@ -7,10 +7,15 @@
 import Spell from '../Spell';
 
 const spells = {
-  // --------
-  // SHARED
-  // --------
+  ALTER_TIME: {
+    id: 127140,
+    name: 'Alter Time',
+    icon: 'spell_mage_altertime.jpg',
+  },
 
+  // ---------------
+  // OLD LISTS BELOW - Todo: clean up / remove unneeded
+  // ---------------
   ARCANE_BLAST: {
     id: 30451,
     name: 'Arcane Blast',
