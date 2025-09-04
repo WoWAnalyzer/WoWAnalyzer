@@ -15,6 +15,7 @@ import CooldownGraphSubsection, {
 } from 'interface/guide/components/CooldownGraphSubSection';
 import SPELLS from 'common/SPELLS';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -47,6 +48,19 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
 
   return (
     <Section title="Core">
+      <FoundationDowntimeSection />
+      <h4>
+        <strong>Explanation</strong>
+      </h4>
+      <p>
+        Although Retribution is a spec with some natural downtime, it needs to be auto-attacking as
+        much as possible because of talents like{' '}
+        <SpellLink spell={TALENTS.CRUSADING_STRIKES_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.ART_OF_WAR_TALENT} />. Failing to maintain good melee uptime will
+        likely result in a lower ability uptime because of lower{' '}
+        <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> generation.
+      </p>
+
       <SubSection title="Holy Power">
         <p>
           Most of your rotational abilities either <strong>build</strong> or <strong>spend</strong>{' '}
