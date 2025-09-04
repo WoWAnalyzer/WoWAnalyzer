@@ -120,6 +120,12 @@ const spells = {
     icon: 'spell_holy_divineprotection',
     manaCost: 17500,
   },
+  DIVINE_PROTECTION_RET: {
+    id: 403876,
+    name: 'Divine Protection',
+    icon: 'spell_holy_divineprotection',
+    manaCost: 17500,
+  },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',

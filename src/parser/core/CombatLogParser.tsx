@@ -120,6 +120,7 @@ import CirralConcoctory from 'parser/retail/modules/items/thewarwithin/trinkets/
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
 import { ServerMetrics } from 'common/server-metrics';
+import IncorporealEssenceGorger from 'parser/retail/modules/items/thewarwithin/trinkets/IncorporealEssenceGorger';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -242,6 +243,7 @@ class CombatLogParser {
     skardynsGrace: SkardynsGrace,
     mereldarsToll: MereldarsToll,
     cirralConcoctory: CirralConcoctory,
+    incorporealEssenceGorger: IncorporealEssenceGorger,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,

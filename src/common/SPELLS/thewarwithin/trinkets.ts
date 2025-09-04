@@ -1,6 +1,11 @@
 import Spell from '../Spell';
 
 const spells = {
+  INCORPOREAL_ESSENCE_GORGER: {
+    id: 1244410,
+    name: 'Incorporeal Essence-Gorger',
+    icon: 'inv_throwingknife_06',
+  },
   // Signet of the Priory
   BOLSTERING_LIGHT: {
     id: 443531,

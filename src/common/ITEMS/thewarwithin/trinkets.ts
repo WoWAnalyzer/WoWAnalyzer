@@ -1,6 +1,11 @@
 import Item from '../Item';
 
 const trinkets = {
+  INCORPOREAL_ESSENCE_GORGER: {
+    id: 246945,
+    name: 'Incorporeal Essence-Gorger',
+    icon: 'inv_throwingknife_06',
+  },
   SHADOW_BINDING_RITUAL_KNIFE: {
     id: 215178,
     name: 'Shadow-Binding Ritual Knife',

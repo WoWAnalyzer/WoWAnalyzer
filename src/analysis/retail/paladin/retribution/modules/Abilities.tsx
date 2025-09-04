@@ -336,7 +336,7 @@ class Abilities extends CoreAbilities {
         cooldown: 1,
       },
       {
-        spell: SPELLS.DIVINE_PROTECTION.id,
+        spell: SPELLS.DIVINE_PROTECTION_RET.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 63 : 90,
         gcd: null,
