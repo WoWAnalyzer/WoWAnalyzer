@@ -1,15 +1,16 @@
 import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const ART_OF_WAR_DURATION = 10000;
 
@@ -111,14 +112,19 @@ class AoWProcTracker extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(2)}
+      <Statistic
+        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon spell={SPELLS.ART_OF_WAR} />}
-        value={`${formatPercentage(this.consumedProcsPercent)}%`}
-        label="Art of War Procs Used"
-        tooltip={`You got ${this.totalAoWProcs} Art of War procs and used ${this.consumedAoWProcs} of them.`}
-      />
+        tooltip={
+          <>
+            You got {this.totalAoWProcs} Art of War procs and used {this.consumedAoWProcs} of them.
+          </>
+        }
+      >
+        <TalentSpellText talent={TALENTS_PALADIN.ART_OF_WAR_TALENT}>
+          {formatPercentage(this.consumedProcsPercent)} % <small>of procs consumed</small>
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }

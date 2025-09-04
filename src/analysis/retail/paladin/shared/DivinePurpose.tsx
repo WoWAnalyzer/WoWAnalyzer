@@ -22,9 +22,11 @@ import {
   DAMAGE_HOLY_POWER_SPENDERS,
   DIVINE_PURPOSE_CHANCE,
   HEALING_HOLY_POWER_SPENDERS,
+  RET_DIVINE_PURPOSE_CHANCE,
 } from './constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { AURORA_DIVINE_PURPOSE } from '../holy/normalizers/EventLinks/EventLinkConstants';
+import SPECS from 'game/SPECS';
 
 const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
@@ -93,7 +95,11 @@ class DivinePurpose extends Analyzer {
 
   castCounter() {
     this.totalChances += 1;
-    this.procProbabilities.push(DIVINE_PURPOSE_CHANCE);
+    this.procProbabilities.push(
+      this.selectedCombatant.spec === SPECS.RETRIBUTION_PALADIN
+        ? RET_DIVINE_PURPOSE_CHANCE
+        : DIVINE_PURPOSE_CHANCE,
+    );
   }
 
   holyPowerDamage(event: DamageEvent) {

@@ -1,34 +1,26 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TALENTS from 'common/TALENTS/paladin';
+import { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 
 class ArtOfWarProbability extends Analyzer {
-  hasTier = false;
-  flipFlop = false;
-
   procsGained = 0;
-  chance = 0.12;
+  procChance = 0.2;
+  procChanceWithCrit = 0.3;
   totalChances = 0;
   procProbabilities: number[] = [];
 
   constructor(args: Options) {
     super(args);
-    this.chance = this.selectedCombatant.hasTalent(TALENTS.ART_OF_WAR_TALENT) ? 0.2 : 0;
-
-    this.active = this.chance > 0;
-    if (!this.active) {
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.ART_OF_WAR_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
-    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_PALADIN.CRUSADING_STRIKES_TALENT)) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRUSADING_STRIKES),
         this.castCounter,
@@ -45,14 +37,9 @@ class ArtOfWarProbability extends Analyzer {
     );
   }
 
-  castCounter() {
-    if (this.hasTier && this.flipFlop) {
-      this.flipFlop = !this.flipFlop;
-      return;
-    }
+  castCounter(event: DamageEvent) {
     this.totalChances += 1;
-    this.procProbabilities.push(this.chance);
-    this.flipFlop = !this.flipFlop;
+    this.procProbabilities.push(event.hitType === 2 ? this.procChanceWithCrit : this.procChance);
   }
 
   gotAProc() {
@@ -62,12 +49,13 @@ class ArtOfWarProbability extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(12)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Reset Chance: {this.chance * 100} % <br />
+            Reset Chance: {this.procChance * 100} % on a normal hit and{' '}
+            {this.procChanceWithCrit * 100} % on a critical strike
+            <br />
             Total Swings: {this.totalChances} <br />
             Total Art of War Procs : {this.procsGained}
           </>
@@ -76,7 +64,7 @@ class ArtOfWarProbability extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={SPELLS.ART_OF_WAR} /> BoJ Reset Chance
+              <SpellLink spell={TALENTS_PALADIN.ART_OF_WAR_TALENT} /> BoJ Reset Chance
             </>
           }
         >
