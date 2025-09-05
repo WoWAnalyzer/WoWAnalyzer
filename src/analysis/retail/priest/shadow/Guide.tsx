@@ -58,6 +58,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.mindDevourer.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
           modules.surgeOfInsanity.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT) && modules.voidVolley.guideSubsection}
       </Section>
 
       {/* TODO:

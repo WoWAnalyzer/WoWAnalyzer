@@ -8,6 +8,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 class VoidVolley extends Analyzer {
   damageVoidVolley = 0;
@@ -67,6 +70,40 @@ class VoidVolley extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  getProcsMissed() {
+    return this.castVoidTorrent - this.castVoidVolley;
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodVV = {
+      count: this.castVoidVolley,
+      label: 'Void Volleys Used',
+    };
+
+    const expiredVV = {
+      count: this.getProcsMissed(),
+      label: 'Void Volleys Missed',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS.VOID_VOLLEY_TALENT} />
+        </b>{' '}
+        can be cast once after casting <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />.
+        <br />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Void Volley breakdown</strong>
+        <GradiatedPerformanceBar good={goodVV} bad={expiredVV} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

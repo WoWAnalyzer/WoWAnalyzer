@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
         charges: 1 + (combatant.hasTalent(TALENTS.THOUGHT_HARVESTER_TALENT) ? 1 : 0),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
+          recommendedEfficiency: combatant.hasTalent(TALENTS.POWER_SURGE_TALENT) ? 0.5 : 0.85, //Archon currenlty has Mind Blast as pretty low priority
         },
       },
       {

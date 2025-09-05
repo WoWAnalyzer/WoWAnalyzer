@@ -215,7 +215,7 @@ class VoidTorrent extends Analyzer {
       </p>
     );
 
-    const data = (
+    const dataVW = (
       <div>
         <strong>Channel Time Lost</strong>
         <GradiatedPerformanceBar good={channelTime} bad={wastedTime} />
@@ -223,7 +223,22 @@ class VoidTorrent extends Analyzer {
         <GradiatedPerformanceBar good={insanityGained} bad={insanityMissed} />
       </div>
     );
-    return explanationAndDataSubsection(explanation, data, 50);
+
+    const dataAR = //With Archon, skipping Void Torrent is OK
+      (
+        <div>
+          <strong>Channel Time Lost</strong>
+          <GradiatedPerformanceBar good={channelTime} ok={wastedTime} />
+          <strong>Insanity Lost</strong>
+          <GradiatedPerformanceBar good={insanityGained} ok={insanityMissed} />
+        </div>
+      );
+
+    if (this.selectedCombatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
+      return explanationAndDataSubsection(explanation, dataAR, 50);
+    }
+
+    return explanationAndDataSubsection(explanation, dataVW, 50);
   }
 }
 

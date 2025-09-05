@@ -6,7 +6,7 @@ import { Jordan } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2025, 9, 5),  <>Fix <SpellLink spell={TALENTS.PSYCHIC_LINK_TALENT}/>, </>,DoxAshe),
+  change(date(2025, 9, 5),  <>Add spells to <SpellLink spell={TALENTS.PSYCHIC_LINK_TALENT}/>, update suggestions and thresholds for Archon </>,DoxAshe),
   change(date(2025, 8, 15),  <>Update Shadow for 11.2 changes</>,DoxAshe),
   change(date(2025, 4, 25),  <>Fix <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT}/> missing overwritten procs</>,DoxAshe),
   change(date(2025, 4, 25),  <>Fix <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT}/> proc usage with <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}/> </>,DoxAshe),
