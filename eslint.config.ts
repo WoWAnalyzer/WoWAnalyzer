@@ -140,6 +140,9 @@ const typescript = tseslint.config({
         args: 'none',
       },
     ],
+    // the codebase has a large amount of both forms. i prefer Array<T> for complex T, but T[] is fine for other cases.
+    // i don't want to bog people down in this minutia though
+    '@typescript-eslint/array-type': 'off',
     // too noisy. we have to have keys and often are working with things with no other real option
     '@eslint-react/no-array-index-key': 'off',
   },
