@@ -20,20 +20,16 @@ const config: Config = {
       <br />
       <br />
       If you want to learn more about Retribution Paladins make sure to also check out the{' '}
-      <a
-        href="https://discordapp.com/invite/hammerofwrath"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://discord.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">
         Hammer of Wrath Paladin Discord
       </a>
-      . The <kbd>#ret-read-first</kbd> channel has some useful guides and the{' '}
-      <kbd>#ret-general</kbd> has lots of memes if you're into that.
+      . The <kbd>#ret-faq</kbd> channel has some useful guides, people can answer your
+      interrogations in <kbd>#ret-questions</kbd> and the <kbd>#ret-general</kbd> has lots of memes
+      if you're into that.
       <br />
       <br />
       In-depth guides are available at{' '}
-      <a href="https://www.retpaladin.xyz/ret-paladin-pve-guide/">RetPaladin.XYZ</a>,{' '}
-      <a href="https://www.wowhead.com/retribution-paladin-guide">Wowhead</a>, and{' '}
+      <a href="https://www.wowhead.com/retribution-paladin-guide">Wowhead</a> and{' '}
       <a href="http://www.icy-veins.com/wow/retribution-paladin-pve-dps-guide">Icy Veins</a>. These
       guides also feature encounter specific tips to help you improve. Look for them in the
       navigation bar/panels.
