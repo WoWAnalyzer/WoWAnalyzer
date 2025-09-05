@@ -23,6 +23,8 @@ class PsychicLink extends Analyzer {
   damageMFI = 0;
   damageVT = 0;
   damageVB = 0;
+  damageIN = 0;
+  damageVV = 0;
 
   //Total hits of Psychic Link
   totalHits = 0;
@@ -49,6 +51,18 @@ class PsychicLink extends Analyzer {
       this.onSpell,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT), this.onSpell);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_DAMAGE),
+      this.onSpell,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IDOL_OF_NZOTH_DAMAGE_HORRIFIC_VISION),
+      this.onSpell,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IDOL_OF_NZOTH_DAMAGE_VISION_OF_NZOTH),
+      this.onSpell,
+    );
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_LINK_TALENT_DAMAGE),
@@ -85,6 +99,15 @@ class PsychicLink extends Analyzer {
         break;
       case SPELLS.VOID_BOLT.name:
         this.damageVB += event.amount + (event.absorbed || 0);
+        break;
+      case SPELLS.VOID_VOLLEY_DAMAGE.name:
+        this.damageVV += event.amount + (event.absorbed || 0);
+        break;
+      case SPELLS.IDOL_OF_NZOTH_DAMAGE_VISION_OF_NZOTH.name:
+        this.damageIN += event.amount + (event.absorbed || 0);
+        break;
+      case SPELLS.IDOL_OF_NZOTH_DAMAGE_HORRIFIC_VISION.name:
+        this.damageIN += event.amount + (event.absorbed || 0);
         break;
       default:
         break;
@@ -137,6 +160,18 @@ class PsychicLink extends Analyzer {
               <div>
                 <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />:{' '}
                 {formatPercentage(this.damageVT / this.damageTotal, 1)}%
+              </div>
+            ) : null}
+            {this.selectedCombatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT) ? (
+              <div>
+                <SpellLink spell={TALENTS.VOID_VOLLEY_TALENT} />:{' '}
+                {formatPercentage(this.damageVV / this.damageTotal, 1)}%
+              </div>
+            ) : null}
+            {this.selectedCombatant.hasTalent(TALENTS.IDOL_OF_NZOTH_TALENT) ? (
+              <div>
+                <SpellLink spell={TALENTS.IDOL_OF_NZOTH_TALENT} />:{' '}
+                {formatPercentage(this.damageIN / this.damageTotal, 1)}%
               </div>
             ) : null}
           </small>
