@@ -289,14 +289,14 @@ class SummonDemonicTyrant extends Analyzer {
     const castEvent = this.tyrantCasts[tyrantCastNum];
     const impsSummary = (
       <>
-        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/ 5{' '}
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/5{' '}
         <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
       </>
     );
 
     const impsDetails = (
       <div>
-        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/ 5{' '}
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/5{' '}
         <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> - you should extend as many{' '}
         <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible, always save{' '}
         <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up

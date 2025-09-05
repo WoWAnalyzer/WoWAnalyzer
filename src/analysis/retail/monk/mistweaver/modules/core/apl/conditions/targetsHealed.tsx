@@ -74,7 +74,6 @@ export default function targetsHealed(range: Range, options?: Partial<Options>):
         }
       }
 
-      console.log(targets);
       return (
         targets.size >= (range.atLeast || 0) && (!range.atMost || targets.size <= range.atMost)
       );

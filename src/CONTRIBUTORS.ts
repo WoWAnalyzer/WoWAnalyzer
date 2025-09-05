@@ -1840,7 +1840,23 @@ export const Harrek: Contributor = {
   nickname: 'Harrek',
   discord: 'harrek',
   github: 'Harreks',
+  about: 'Healer guidewriter and theorycrafter',
   avatar: avatar('Harrek-avatar.png'),
+  mains: [
+    {
+      name: 'Harreks',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://raider.io/characters/us/tichondrius/Harreks',
+    },
+    {
+      name: 'Harrekz',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://raider.io/characters/us/thrall/Harrekz',
+    },
+  ],
+  links: {
+    HarrekHealsMe: 'https://harrekheals.me/',
+  },
 };
 
 export const Jeff: Contributor = {

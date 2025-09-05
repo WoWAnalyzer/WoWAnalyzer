@@ -22,10 +22,12 @@ import { WarningIcon } from 'interface/icons';
 import type CombatLogParser from './CombatLogParser';
 import AlertInfo from 'interface/AlertInfo';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Vengeance from 'parser/classic/modules/Vengeance';
 
 export default function Guide({ events, info }: GuideProps<typeof CombatLogParser>): JSX.Element {
   const { expansion } = useExpansionContext();
   const castEff = useAnalyzer(CastEfficiency);
+  const veng = useAnalyzer(Vengeance);
 
   const parseRotationActive = useMemo(() => {
     if (!castEff) {
@@ -64,7 +66,8 @@ export default function Guide({ events, info }: GuideProps<typeof CombatLogParse
             <Para>
               The "parsing" rotation focuses on damage at the expense of defensive power.{' '}
               <ResourceLink id={RESOURCE_TYPES.CHI.id} /> generation is greatly reduced by
-              prioritizing <SpellLink spell={spells.TIGER_PALM} />, which may leave your defensive
+              prioritizing <SpellLink spell={spells.TIGER_PALM} /> and{' '}
+              <SpellLink spell={spells.RUSHING_JADE_WIND_TALENT} />, which may leave your defensive
               abilities unavailable. It <em>does</em> do more damage, though.
             </Para>
             <AplSectionData checker={parselordCheck} apl={parselordApl} />
@@ -97,6 +100,7 @@ export default function Guide({ events, info }: GuideProps<typeof CombatLogParse
           <SpellLink spell={spells.VENGEANCE_PASSIVE} /> and a good rotation.
         </AlertInfo>
         <TabWrapper tabs={aplTabs} />
+        {veng?.guideSubsection}
       </Section>
       <PreparationSection expansion={expansion} />
     </>

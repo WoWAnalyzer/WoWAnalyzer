@@ -390,7 +390,7 @@ class EbonMight extends Analyzer {
       performance =
         oldDuration < ebonMightPandemicAmount
           ? QualitativePerformance.Good
-          : QualitativePerformance.Fail;
+          : QualitativePerformance.Ok;
       summary = (
         <div>
           Refreshed <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> inside the pandemic window.

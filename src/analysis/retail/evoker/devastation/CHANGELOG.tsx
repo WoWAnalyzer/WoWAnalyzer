@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2025, 8, 22), "Bump version to 11.2.0", Vollmer),
   change(date(2025, 6, 20), "Update example report for 11.1.7", Vollmer),
   change(date(2025, 4, 17), <>Update Empower performance evaluation for <SpellLink spell={SPELLS.JACKPOT_BUFF}/> module</>, Vollmer),
   change(date(2025, 4, 11), <>Fix consumption tracking for <SpellLink spell={SPELLS.JACKPOT_BUFF} /> module</>, Vollmer),

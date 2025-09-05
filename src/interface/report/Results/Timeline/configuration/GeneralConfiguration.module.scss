@@ -1,0 +1,37 @@
+.general-config-header {
+  padding: 12px;
+  border-bottom: 1px solid #444;
+  background: #333;
+}
+
+.general-config-header h4 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.general-config-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.general-config-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: 0;
+  font-weight: normal;
+}
+
+.general-config-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.general-config-item input[type='checkbox'] {
+  margin: 0 8px 0 0;
+  cursor: pointer;
+}

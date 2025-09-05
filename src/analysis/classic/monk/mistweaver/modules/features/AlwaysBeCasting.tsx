@@ -17,7 +17,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     spells.REVIVAL.id,
     spells.SPINNING_CRANE_KICK.id,
     spells.DETOX_1.id,
-    spells.SURGING_MIST_2.id,
+    spells.SURGING_MIST.id,
+    spells.SURGING_MIST_GLYPH.id,
   ];
 
   get downtimeSuggestionThresholds() {

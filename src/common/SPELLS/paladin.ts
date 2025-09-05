@@ -378,6 +378,11 @@ const spells = {
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
   },
+  EXPURGATION_DEBUFF: {
+    id: 383346,
+    name: 'Expurgation',
+    icon: 'ability_paladin_bladeofjustice',
+  },
   GREATER_JUDGMENT_HEAL_HOLY: {
     id: 414019,
     name: 'Greater Judgment',
@@ -456,12 +461,12 @@ const spells = {
   CRUSADING_STRIKES_ENERGIZE: {
     id: 406834,
     name: 'Crusading Strikes',
-    icon: 'inv_sword_2h_artifactashbringer_d_01',
+    icon: 'inv_sword_08',
   },
   CRUSADING_STRIKES: {
     id: 408385,
     name: 'Crusading Strikes',
-    icon: 'spell_holy_crusaderstrike.jpg',
+    icon: 'inv_sword_08',
   },
   VANGUARDS_MOMENTUM: {
     id: 403081,
@@ -616,7 +621,7 @@ const spells = {
     id: 427453,
     name: 'Hammer of Light',
     icon: 'inv_mace_1h_gryphonrider_d_02_silver.jpg',
-    holyPowerCost: 3,
+    holyPowerCost: 5,
   },
   LIGHTS_DELIVERANCE_FREE_CAST_BUFF: {
     ...talents.LIGHTS_DELIVERANCE_TALENT,

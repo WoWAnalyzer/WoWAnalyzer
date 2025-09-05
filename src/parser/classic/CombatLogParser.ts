@@ -56,6 +56,7 @@ import GiftOfTheNaaru from 'parser/shared/modules/racials/draenei/GiftOfTheNaaru
 import Stoneform from 'parser/shared/modules/racials/dwarf/Stoneform';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
+import Vengeance from './modules/Vengeance';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -107,6 +108,8 @@ class CombatLogParser extends BaseCombatLogParser {
     dispels: DispelTracker,
 
     critEffectBonus: CritEffectBonus,
+
+    vengeance: Vengeance,
 
     // Tabs
     raidHealthTab: RaidHealthTab,

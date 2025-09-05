@@ -186,6 +186,19 @@ class Combatant extends Entity {
     }
   }
 
+  private glyphIds?: Set<number>;
+
+  private _importGlyphs(event: CombatantInfoEvent) {
+    if (this.glyphIds === undefined && event.customPowerSet) {
+      this.glyphIds = new Set(event.customPowerSet.map((power) => power.traitID));
+    }
+  }
+
+  hasGlyph(id: number): boolean {
+    this._importGlyphs(this._combatantInfo);
+    return this.glyphIds?.has(id) ?? false;
+  }
+
   // endregion
 
   hasWeaponEnchant(enchant: Enchant) {

@@ -19,21 +19,21 @@ const SCK_AOE = {
   ),
 };
 
+const WOO_BUILD_CONDITION = cnd.and(
+  cnd.buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
+  cnd.or(
+    cnd.debuffStacks(SPELLS.WEAPONS_OF_ORDER_DEBUFF, { atMost: 3 }),
+    cnd.debuffMissing(SPELLS.WEAPONS_OF_ORDER_DEBUFF, {
+      duration: 10000,
+      pandemicCap: 1,
+      timeRemaining: 3000,
+    }),
+  ),
+);
+
 const WOO_BUILDER = {
   spell: [talents.KEG_SMASH_TALENT, talents.RISING_SUN_KICK_TALENT],
-  condition: cnd.optionalRule(
-    cnd.and(
-      cnd.buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
-      cnd.or(
-        cnd.debuffStacks(SPELLS.WEAPONS_OF_ORDER_DEBUFF, { atMost: 3 }),
-        cnd.debuffMissing(SPELLS.WEAPONS_OF_ORDER_DEBUFF, {
-          duration: 10000,
-          pandemicCap: 1,
-          timeRemaining: 3000,
-        }),
-      ),
-    ),
-  ),
+  condition: cnd.optionalRule(WOO_BUILD_CONDITION),
   description: (
     <>
       <TooltipElement content="Aggressively building stacks of WoO is not meaningfuly different from letting it build during your normal rotation in most cases, but it is a common play pattern and does similar total damage.">
@@ -199,7 +199,16 @@ const BREATHLESS = build([
     spell: SPELLS.TIGER_PALM,
     condition: withCombo,
   },
-  talents.KEG_SMASH_TALENT,
+  {
+    spell: talents.KEG_SMASH_TALENT,
+    condition: WOO_BUILD_CONDITION,
+    description: (
+      <>
+        Cast <SpellLink spell={talents.KEG_SMASH_TALENT} /> to build{' '}
+        <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT}>WoO</SpellLink> stacks
+      </>
+    ),
+  },
   talents.RISING_SUN_KICK_TALENT,
   {
     spell: talents.CHI_BURST_SHARED_TALENT,
@@ -210,6 +219,7 @@ const BREATHLESS = build([
       </>
     )),
   },
+  talents.KEG_SMASH_TALENT,
   talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
   SCK_AOE,
   SPELLS.TIGER_PALM,

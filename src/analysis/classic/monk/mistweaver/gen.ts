@@ -14,7 +14,8 @@ export const Abilities = genAbilities({
     spells.CHI_WAVE_TALENT,
     spells.MANA_TEA,
     spells.SPINNING_CRANE_KICK,
-    spells.SURGING_MIST_2,
+    spells.SURGING_MIST,
+    spells.SURGING_MIST_GLYPH,
   ],
   cooldowns: [spells.REVIVAL, spells.INVOKE_XUEN_THE_WHITE_TIGER_TALENT, spells.LIFE_COCOON],
   defensives: [

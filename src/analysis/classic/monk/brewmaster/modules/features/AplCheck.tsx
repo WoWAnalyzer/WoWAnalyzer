@@ -165,9 +165,7 @@ export default suggestion((events, info) => {
   return undefined;
 });
 
-// the parsing rotation is characterized by:
-// 1. high Tiger Palm casts (> Jab casts, at least 8 cpm)
-// 2. low casts of Expel Harm (<1 cpm)
+// the parsing rotation is characterized by high Tiger Palm casts (> Jab casts, at least 8 cpm)
 // basically prioritizing the raw damage of TP over the Chi generation of Jab/EH.
 export function isUsingParseRotation(
   events: AnyEvent[],
@@ -177,7 +175,6 @@ export function isUsingParseRotation(
   const tpCasts = castEff.getCastEfficiencyForSpell(spells.TIGER_PALM, true);
   const jab1hCasts = castEff.getCastEfficiencyForSpell(SPELLS.JAB_1H, true);
   const jab2hCasts = castEff.getCastEfficiencyForSpell(SPELLS.JAB_2H, true);
-  const ehCasts = castEff.getCastEfficiencyForSpell(spells.EXPEL_HARM);
 
   if (!tpCasts) {
     return false;
@@ -185,10 +182,9 @@ export function isUsingParseRotation(
 
   const jabCondition =
     tpCasts.cpm >= 8 && tpCasts.cpm >= (jab1hCasts?.cpm ?? 0) + (jab2hCasts?.cpm ?? 0);
-  const ehCondition = (ehCasts?.cpm ?? 0) <= 1;
 
   const result = parselordCheck(events, info);
   const accuracy = result.successes.length / (result.successes.length + result.violations.length);
 
-  return accuracy >= 0.7 && jabCondition && ehCondition;
+  return accuracy >= 0.7 && jabCondition;
 }

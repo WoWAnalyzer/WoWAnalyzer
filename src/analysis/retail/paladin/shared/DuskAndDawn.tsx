@@ -96,11 +96,6 @@ export class DuskAndDawn extends Analyzer {
             value={`${formatPercentage(this.duskUptimePct)}%`}
             label="Dusk Uptime"
           />
-          <BoringSpellValue
-            spell={SPELLS.BLESSING_OF_DAWN}
-            value={`${formatPercentage(this.dawnUptimePct)}%`}
-            label="Dawn Uptime"
-          />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -96,6 +96,7 @@ import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
 import T33TierSet from './modules/tier/T33TierSet';
 import JadeEmpowerment from './modules/spells/JadeEmpowerment';
+import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -208,6 +209,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Borrowed Power
     t32TierSet: T32TierSet,
     t33TierSet: T33TierSet,
+    t34ConduitTierSet: T34ConduitTier,
 
     // Mana Tab
     manaTracker: ManaTracker,

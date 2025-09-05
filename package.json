@@ -135,7 +135,8 @@
     "e2e:report": "playwright show-report",
     "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts",
     "generate-talents:ptr": "npx tsx ./scripts/talents/generate-talents.ts --ptr && prettier -w src/common/TALENTS/*.ts",
-    "update-spell-lists": "node --experimental-strip-types scripts/spell-lists/generate-spell-list.ts src/analysis/**/*.ts"
+    "spell-lists:create": "node --experimental-strip-types scripts/spell-lists/generate-list.ts",
+    "spell-lists:update": "node --experimental-strip-types scripts/spell-lists/update-all-lists.ts src/analysis/**/*.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [

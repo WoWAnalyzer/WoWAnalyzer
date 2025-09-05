@@ -1,144 +1,229 @@
-import { defineMessage } from '@lingui/core/macro';
-import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
-import { SpellIcon, SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  CastEvent,
-  DamageEvent,
-  FightEndEvent,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { addInefficientCastReason } from 'parser/core/EventMetaLib';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import SPELLS from 'common/SPELLS/paladin';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import { SpellLink } from 'interface';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
+import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
+import { TALENTS_PALADIN } from 'common/TALENTS';
+import { getCastsDuringWake } from '../../normalizers/WakeOfAshesNormalizer';
+import { TIERS } from 'game/TIERS';
+interface WakeOfAshesCooldownCast extends CooldownTrigger<CastEvent> {
+  hammerOfLightCasts: number;
+  targetHasExecutionSentenceOnCast: boolean;
+  divineHammerCastDuringWake: boolean;
+}
 
-class WakeOfAshes extends Analyzer {
+class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
   static dependencies = {
-    abilityTracker: AbilityTracker,
-    spellUsable: SpellUsable,
+    ...MajorCooldown.dependencies,
+    enemies: Enemies,
   };
 
-  protected abilityTracker!: AbilityTracker;
-
-  totalHits = 0;
-  badCasts = 0;
-  wakeCast = false;
-  wasteHP = false;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.WAKE_OF_ASHES_TALENT);
-    if (!this.active) {
-      return;
-    }
+    super({ spell: TALENTS_PALADIN.WAKE_OF_ASHES_TALENT }, options);
+
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
-      this.onWakeofAshesDamage,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.WAKE_OF_ASHES_TALENT),
+      this.onCast,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
-      this.onWakeofAshesCast,
+  }
+
+  description() {
+    const playerHasTWW3_4Piece = this.selectedCombatant.has4PieceByTier(TIERS.TWW3);
+
+    return (
+      <>
+        <ExplanationSection>
+          <p>
+            Thanks to <SpellLink spell={TALENTS_PALADIN.RADIANT_GLORY_TALENT} />,{' '}
+            <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> becomes your main offensive
+            cooldown.
+          </p>
+          <p>
+            You want to press <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} /> before{' '}
+            <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> and fit as much damage as
+            possible during that window.
+          </p>
+          <p>
+            <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> is your highest damage ability. It is
+            available right after every <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} />{' '}
+            casts.
+            {playerHasTWW3_4Piece ? (
+              <>
+                {' '}
+                With the season 3 Tier Set, you will be able to use it a second time each{' '}
+                <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> cast.
+              </>
+            ) : (
+              <></>
+            )}
+          </p>
+        </ExplanationSection>
+      </>
     );
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
-      this.onWakeofAshesEnergize,
-    );
-    this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onWakeofAshesDamage(event: DamageEvent) {
-    this.totalHits += 1;
-    this.wakeCast = false;
-  }
+  explainPerformance(cast: WakeOfAshesCooldownCast): SpellUse {
+    const executionSentencePerformance = this.executionSentencePerformance(cast);
+    const hammerOfLightPerformance = this.hammerOfLightPerformance(cast);
+    const divineHammerPerformance = this.divineHammerPerformance(cast);
 
-  onWakeofAshesEnergize(event: ResourceChangeEvent) {
-    if (event.waste > 0) {
-      this.wasteHP = true;
-    }
-  }
-
-  onWakeofAshesCast(event: CastEvent) {
-    if (this.wakeCast) {
-      this.badCasts += 1;
-    }
-    this.wakeCast = true;
-    if (this.wasteHP) {
-      addInefficientCastReason(
-        event,
-        '1 Holy Power or more wasted. You should be at 2 Holy Power or less before using Wake.',
-      );
-      this.wasteHP = false;
-    }
-  }
-
-  onFinished(event: FightEndEvent) {
-    if (this.wakeCast) {
-      this.badCasts += 1;
-    }
-  }
-
-  get averageHitPerCast() {
-    return this.totalHits / this.abilityTracker.getAbility(TALENTS.WAKE_OF_ASHES_TALENT.id).casts;
-  }
-
-  get badCastsThresholds() {
-    return {
-      actual: this.badCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 0,
+    const checklistItems = [
+      {
+        check: 'exec',
+        timestamp: cast.event.timestamp,
+        ...executionSentencePerformance,
       },
-      style: ThresholdStyle.NUMBER,
+      {
+        check: 'hol',
+        timestamp: cast.event.timestamp,
+        ...hammerOfLightPerformance,
+      },
+    ];
+
+    if (divineHammerPerformance) {
+      checklistItems.push({
+        check: 'dh',
+        timestamp: cast.event.timestamp,
+        ...divineHammerPerformance,
+      });
+    }
+
+    const combinedPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+
+    return {
+      event: cast.event,
+      performance: combinedPerformance,
+      performanceExplanation:
+        combinedPerformance !== QualitativePerformance.Fail
+          ? `${combinedPerformance} Usage`
+          : 'Bad Usage',
+      checklistItems: checklistItems,
     };
   }
 
-  suggestions(when: When) {
-    when(this.badCastsThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          <SpellLink spell={TALENTS.WAKE_OF_ASHES_TALENT} /> hit 0 targets {actual} time(s).{' '}
-          <SpellLink spell={TALENTS.BLADE_OF_JUSTICE_TALENT} /> has the same range of 12yds. You can
-          use this as a guideline to tell if targets will be in range.
-        </>,
-      )
-        .icon(TALENTS.WAKE_OF_ASHES_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.retribution.suggestions.wakeOfAshes.efficiency',
-            message: `${actual} casts with no targets hit.`,
-          }),
-        )
-        .recommended(`${recommended} is recommended`),
+  private executionSentencePerformance(cast: WakeOfAshesCooldownCast): UsageInfo {
+    let performance = QualitativePerformance.Perfect;
+    const summary = (
+      <>
+        Target had <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} /> applied.
+      </>
     );
+    let details = (
+      <>
+        Target already had <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} /> applied.
+      </>
+    );
+
+    if (!cast.targetHasExecutionSentenceOnCast) {
+      performance = QualitativePerformance.Fail;
+      details = (
+        <>
+          Target did not have <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} />{' '}
+          applied.
+        </>
+      );
+    }
+
+    return {
+      performance: performance,
+      summary: summary,
+      details: details,
+    };
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE()}
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon spell={TALENTS.WAKE_OF_ASHES_TALENT} />}
-        value={
-          <>
-            {this.averageHitPerCast.toFixed(2)} Average
-            <br />
-            {`${this.badCasts > 0 ? `${this.badCasts} Missed` : ''} `}
-          </>
-        }
-        label="Targets Hit"
-        tooltip={`You averaged ${this.averageHitPerCast.toFixed(
-          2,
-        )} hits per cast of Wake of Ashes. ${
-          this.badCasts > 0
-            ? `Additionally, you cast Wake of Ashes ${this.badCasts} time(s) without hitting anything.`
-            : ''
-        }`}
-      />
+  private hammerOfLightPerformance(cast: WakeOfAshesCooldownCast): UsageInfo {
+    const numberOfHammerOfLightCast = cast.hammerOfLightCasts;
+    const playerHasTWW3_4Piece = this.selectedCombatant.has4PieceByTier(TIERS.TWW3);
+    const expectedNumberOfHammerOfLightCast = playerHasTWW3_4Piece ? 2 : 1;
+
+    const summary = (
+      <>
+        {expectedNumberOfHammerOfLightCast}+ <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} />
+      </>
     );
+
+    if (numberOfHammerOfLightCast >= expectedNumberOfHammerOfLightCast) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: summary,
+        details: (
+          <>
+            You cast <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> {numberOfHammerOfLightCast} time
+            {numberOfHammerOfLightCast > 1 ? 's' : ''} during your cooldowns, nice !
+          </>
+        ),
+      };
+    }
+
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: summary,
+      details: (
+        <>
+          {numberOfHammerOfLightCast === 0 ? (
+            <>
+              You did not cast {<SpellLink spell={SPELLS.HAMMER_OF_LIGHT} />} during your cooldowns.
+              Expected casts : {expectedNumberOfHammerOfLightCast}+
+            </>
+          ) : (
+            <>
+              You only cast {<SpellLink spell={SPELLS.HAMMER_OF_LIGHT} />}{' '}
+              {numberOfHammerOfLightCast} time{numberOfHammerOfLightCast > 1 ? 's' : ''} during your
+              cooldowns. Expected casts : {expectedNumberOfHammerOfLightCast}+
+            </>
+          )}
+        </>
+      ),
+    };
+  }
+
+  private divineHammerPerformance(cast: WakeOfAshesCooldownCast): UsageInfo | undefined {
+    if (!cast.divineHammerCastDuringWake) {
+      return undefined;
+    }
+
+    return {
+      performance: QualitativePerformance.Ok,
+      summary: (
+        <>
+          <SpellLink spell={TALENTS_PALADIN.DIVINE_HAMMER_TALENT} /> cast during{' '}
+          <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} />
+        </>
+      ),
+      details: (
+        <>
+          <>
+            You cast <SpellLink spell={TALENTS_PALADIN.DIVINE_HAMMER_TALENT} /> during your
+            cooldowns. Use it beforehand, if available.
+          </>
+        </>
+      ),
+    };
+  }
+
+  onCast(event: CastEvent) {
+    this.recordCooldown({
+      event,
+      divineHammerCastDuringWake:
+        getCastsDuringWake(event).filter(
+          (castEvent) => castEvent.ability.guid === SPELLS.DIVINE_HAMMER_CAST.id,
+        ).length > 0,
+      hammerOfLightCasts: getCastsDuringWake(event).filter(
+        (castEvent) => castEvent.ability.guid === SPELLS.HAMMER_OF_LIGHT.id,
+      ).length,
+      targetHasExecutionSentenceOnCast: this.enemies.hasBuffOnAny(
+        TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT.id,
+      ),
+    });
   }
 }
 

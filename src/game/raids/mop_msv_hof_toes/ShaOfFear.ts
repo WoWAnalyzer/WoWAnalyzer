@@ -10,7 +10,10 @@ const ShaOfFear: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_raid_terraceofendlessspring04',
-  fight: {},
+  fight: {
+    resultsWarning:
+      'The side platforms in Phase 1 have range issues, which can cause ANALYSIS ERRORS. Phase 2 does not have this problem.',
+  },
 };
 
 export default ShaOfFear;

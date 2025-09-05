@@ -5,6 +5,7 @@ const spells = {
   GIFT_OF_THE_OX_SPAWN_2: { id: 124506, name: 'Gift of the Ox', icon: 'inv_misc_gem_pearl_13.jpg' },
   JAB_2H: { id: 115698, name: 'Jab', icon: 'inv_spear_03.jpg' },
   JAB_1H: { id: 100780, name: 'Jab', icon: 'ability_monk_jab.jpg' },
+  JAB_1H_MACE: { id: 115693, name: 'Jab', icon: 'inv_mace_08.jpg' },
   FISTS_OF_FURY_TICK: { id: 117418, name: 'Fists of Fury', icon: 'monk_ability_fistoffury.jpg' },
   SPEAR_HAND_STRIKE_SILENCE: {
     id: 116709,

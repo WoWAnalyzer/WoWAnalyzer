@@ -832,6 +832,29 @@ const spells = {
     name: 'Call Greater Dreadstalker',
     icon: 'spell_warlock_calldreadstalkers',
   },
+  // TWW S3 Manaforge Omega Tier Set (11.2)
+  // Diabolist Hero Talent
+  DEMONIC_OCULUS_BUFF: {
+    id: 1238810,
+    name: 'Demonic Oculus',
+    icon: 'inv_pet_inquisitoreye',
+  },
+  EYE_BLAST: {
+    id: 1239510,
+    name: 'Eye Blast',
+    icon: 'spell_fire_felflamering',
+  },
+  // Soul Harvester Hero Talent
+  SOUL_SWIPE: {
+    id: 1239714,
+    name: 'Soul Swipe',
+    icon: 'inv_ability_soulharvesterwarlock_demonicsoul',
+  },
+  SUCCULENT_SOUL_BUFF: {
+    id: 449793,
+    name: 'Succulent Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
 
   // -----------
   // DESTRUCTION

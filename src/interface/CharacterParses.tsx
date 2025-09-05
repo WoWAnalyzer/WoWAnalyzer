@@ -48,7 +48,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_RETAIL_ZONE = 42; // Liberation of Undermine
+const DEFAULT_RETAIL_ZONE = 44; // Manaforge Omega
 const DEFAULT_CLASSIC_ZONE = 1038; // Mogu'shan Vaults
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
@@ -430,7 +430,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           return;
         }
 
-        const charClass = rawParses[0].class;
+        const charClass = rawParses[0].class.replaceAll(' ', '');
         const specs = Object.entries(SPECS)
           // SPECS is indexed both by name and id. only take the id-keyed entries
           .filter(([k]) => Number.isFinite(Number(k)))

@@ -24,11 +24,19 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.CRUSADING_STRIKES.id,
+        enabled: combatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
         spell: SPELLS.DIVINE_HAMMER_CAST.id,
         enabled: combatant.hasTalent(TALENTS.DIVINE_HAMMER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS_PALADIN.DIVINE_HAMMER_TALENT.id,
-        cooldown: 60,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
@@ -116,14 +124,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CRUSADING_STRIKES.id,
-        enabled: combatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
         spell: SPELLS.HAMMER_OF_LIGHT.id,
         enabled: combatant.hasTalent(TALENTS.LIGHTS_GUIDANCE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -208,26 +208,6 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.DIVINE_STORM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DIVINE_STORM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.EXECUTION_SENTENCE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.CONSECRATION_CAST.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 9,
         gcd: {
           base: 1500,
         },

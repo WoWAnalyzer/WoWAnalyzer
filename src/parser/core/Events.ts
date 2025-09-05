@@ -270,6 +270,14 @@ export interface EventMeta {
   additionalCastInfo?: React.ReactNode;
 }
 
+interface CustomPower {
+  traitID: number;
+  rank: number;
+  spellID: number;
+  icon: string;
+  slot: number;
+}
+
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & {
   sourceID: number;
@@ -1118,8 +1126,9 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
    * Legion: Artifact Traits
    * BFA: Azerite
    * Shadowlands: Soulbinds
+   * Mists of Pandaria: Glyphs
    */
-  customPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
+  customPowerSet?: CustomPower[]; // will be copied into field with better name / type depending on expansion
   /**
    * Represents expansion specific traits
    * BFA: Essences

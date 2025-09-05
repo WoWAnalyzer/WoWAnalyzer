@@ -26,6 +26,7 @@ export interface GenAbilityConfig {
 }
 
 export default function genAbilities(config: GenAbilityConfig): typeof Abilities {
+  const allSpells = Object.fromEntries(config.allSpells.map((spell) => [spell.id, spell]));
   return class extends Abilities {
     constructor(options: Options) {
       super(options);
@@ -41,16 +42,16 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
     spellbook() {
       const spells = config.rotational
         .map((spell) =>
-          spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.ROTATIONAL),
+          spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.ROTATIONAL, allSpells),
         )
         .concat(
           config.cooldowns.map((spell) =>
-            spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.COOLDOWNS),
+            spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.COOLDOWNS, allSpells),
           ),
         )
         .concat(
           config.defensives.map((spell) =>
-            spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.DEFENSIVE),
+            spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.DEFENSIVE, allSpells),
           ),
         );
 
@@ -68,7 +69,9 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
             !spell.passive &&
             !omitted.has(spell.id),
         )
-        .map((spell) => spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.OTHERS));
+        .map((spell) =>
+          spellbookDefinition(this.selectedCombatant, spell, SPELL_CATEGORY.OTHERS, allSpells),
+        );
 
       return [
         ...spells.filter((spell) => !config.overrides?.[spell.spell as number]),
@@ -89,6 +92,7 @@ function spellbookDefinition(
   combatant: Combatant,
   spell: GenSpell,
   category: SPELL_CATEGORY,
+  allSpells: Record<number, GenSpell>,
 ): SpellbookAbility {
   return {
     spell: spell.id,
@@ -98,8 +102,34 @@ function spellbookDefinition(
     cooldown: spellCooldown(spell),
     charges: spellCharges(spell),
     castEfficiency: {},
-    enabled: spell.type === 'mists-talent' ? combatant.hasClassicTalent(spell.id) : true,
+    enabled: checkEnabled(spell, combatant, allSpells),
   };
+}
+
+function checkEnabled(
+  spell: GenSpell,
+  combatant: Combatant,
+  allSpells: Record<number, GenSpell>,
+): boolean {
+  if (spell.type === 'mists-talent') {
+    return combatant.hasClassicTalent(spell.id);
+  }
+
+  if (spell.type === 'temporary') {
+    const source = allSpells[spell.grantedBy];
+    if (source.type === 'glyph') {
+      return combatant.hasGlyph(source.glyphId);
+    }
+  }
+
+  // check if another spell overrides this one *and* is statically enabled
+  for (const other of Object.values(allSpells)) {
+    if (other.overrides === spell.id && checkEnabled(other, combatant, allSpells)) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function spellGcd(spell: GenSpell): SpellbookAbility['gcd'] {
