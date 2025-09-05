@@ -50,7 +50,6 @@ class Voidform extends Analyzer {
 
   onHalo(event: ResourceChangeEvent) {
     //When Halo occurs during voidform, it extends it's duration by 1 second.
-    //We do not want this included later in its extension
     //console.log("HALO")
 
     if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
@@ -65,7 +64,7 @@ class Voidform extends Analyzer {
     this.mindblast += 2 - this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id);
     this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
 
-    //Voidform gains extension from Archon talent Sustained Potencey, which we do not want to include in the extension later
+    //Voidform gains extension from Archon talent Sustained Potencey,
 
     //For some reason, the buffer does not get the stacks of this buff if it falls off before voidform starts, even at high values.
     //So we jsut look 10ms before the event to see how many stacks we had at that time.
@@ -80,11 +79,9 @@ class Voidform extends Analyzer {
   }
 
   leaveVoidform(event: RemoveBuffEvent) {
-    let extension = (event.timestamp - this.VFtime) / 1000 - VOID_FORM_DURATION;
+    const extension = (event.timestamp - this.VFtime) / 1000 - VOID_FORM_DURATION;
 
     if (this.selectedCombatant.hasTalent(TALENTS.SUSTAINED_POTENCY_TALENT)) {
-      //If the character has Sustained Potency, we reduce the extension by the amount it gave
-      extension = extension - this.durationSustainedPotency;
       this.durationSustainedPotency = 0;
     }
 
@@ -96,10 +93,10 @@ class Voidform extends Analyzer {
       </>
     );
     let value = QualitativePerformance.Good;
-    if (extension <= 15) {
+    if (extension <= 75) {
       value = QualitativePerformance.Ok;
     }
-    if (extension <= 10) {
+    if (extension <= 60) {
       value = QualitativePerformance.Fail;
     }
     this.VFExtension.push({ value, tooltip });
@@ -123,20 +120,28 @@ class Voidform extends Analyzer {
         </b>{' '}
         is a powerful cooldown.
         <br />
-        Try to have all charges of <SpellLink spell={SPELLS.MIND_BLAST} /> on cooldown before
-        entering <SpellLink spell={SPELLS.VOIDFORM_BUFF} />, since it will cause you to regain all
-        charges.
+        Entering <SpellLink spell={SPELLS.VOIDFORM_BUFF} />, causes you to regain all charges of{' '}
+        <SpellLink spell={SPELLS.MIND_BLAST} />. It is not a priority to regain charges in this way.
         <br />
         Casting <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> during{' '}
-        <SpellLink spell={SPELLS.VOIDFORM_BUFF} /> extends its duration by 2.5 seconds. Try to
-        extend voidform for as much as possible.
+        <SpellLink spell={SPELLS.VOIDFORM_BUFF} /> extends its duration by 2.5 seconds.
+        {this.selectedCombatant.hasTalent(TALENTS.SUSTAINED_POTENCY_TALENT) && (
+          <>
+            <br />
+            With <SpellLink spell={TALENTS.SUSTAINED_POTENCY_TALENT} />, every{' '}
+            <SpellLink spell={TALENTS.HALO_SHADOW_TALENT} /> extends the duration of the current
+            Void Form or next Void Form by 1 second.
+          </>
+        )}
+        <br />
+        Try to extend voidform for as much as possible.
       </p>
     );
 
     const data = (
       <div>
         <strong>Mind Blast Resets</strong>
-        <GradiatedPerformanceBar good={mbGained} bad={mbWasted} />
+        <GradiatedPerformanceBar good={mbGained} ok={mbWasted} />
         <strong>Voidform Extension</strong>
         <br />
         <UptimeIcon /> <strong>{this.VFExtensionTotal.toFixed(1)}</strong> <small> seconds</small>
