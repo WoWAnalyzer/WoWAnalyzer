@@ -5,6 +5,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { formatDurationMinSec } from 'common/format';
 
 const INSTRUMENT_OF_RETRIBUTION_AVENGING_WRATH_DURATION_SECONDS = 9;
 
@@ -32,7 +33,7 @@ export default class InstrumentOfRetribution extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
         <BoringSpellValueText spell={SPELLS.INSTRUMENT_OF_RETRIBUTION}>
-          {this.avengingWrathSecondsGained}s <small>gained</small>
+          {formatDurationMinSec(this.avengingWrathSecondsGained)} <small>gained</small>
         </BoringSpellValueText>
       </Statistic>
     );
