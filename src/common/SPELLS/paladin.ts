@@ -364,6 +364,16 @@ const spells = {
   },
 
   // Retribution Paladin:
+  AVENGING_WRATH_BUFF: {
+    id: 454351,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_avenginewrath',
+  },
+  INSTRUMENT_OF_RETRIBUTION: {
+    id: 404752,
+    name: 'Instrument of Retribution',
+    icon: 'spell_holy_crusade',
+  },
   EXECUTION_SENTENCE_DAMAGE: {
     id: 387113,
     name: 'Execution Sentence',

@@ -75,6 +75,7 @@ import LayingDownArms from './modules/heroTalents/lightsmith/LayingDownArms';
 import Valiance from './modules/heroTalents/lightsmith/Valiance';
 
 import T33TierSet from './modules/tier/T33TierSet';
+import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -137,6 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     overflowingLight: OverflowingLight,
     unendingLight: UnendingLight,
     protectionOfTyr: ProtectionOfTyr,
+    lightBearer: Lightbearer,
 
     // Hero Talents
     // Herald

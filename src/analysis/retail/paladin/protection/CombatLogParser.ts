@@ -45,6 +45,7 @@ import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import HammerOfLight from '../shared/HammerOfLight';
 import Valiance from './modules/talents/Valiance';
+import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divineToll: DivineToll,
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,
+    lightBearer: Lightbearer,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

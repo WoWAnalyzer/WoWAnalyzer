@@ -29,6 +29,8 @@ import SPELLS from 'common/SPELLS';
 import Expurgation from './modules/talents/Expurgation';
 import WakeOfAshesNormalizer from './normalizers/WakeOfAshesNormalizer';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
+import Lightbearer from '../shared/Lightbearer';
+import InstrumentOfRetribution from './modules/core/InstrumentOfRetribution';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -37,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     builderUse: BuilderUse,
 
+    instrumentOfRetribution: InstrumentOfRetribution,
     artOfWar: ArtOfWar,
     artOfWarProbability: ArtOfWarProbability,
 
@@ -62,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     duskAndDawn: DuskAndDawn,
     expurgation: Expurgation,
     executionSentence: ExecutionSentence,
+    lightBearer: Lightbearer,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
