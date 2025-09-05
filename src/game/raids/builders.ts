@@ -3,6 +3,9 @@ import type { Boss } from 'game/raids';
 // WCL uses this offset for repeats of bosses
 const REPEAT_BOSS_OFFSET = 50000;
 
+/**
+ * Build a boss oblect with the headshot and icon set to WCL icons.
+ */
 export function buildBoss(params: {
   id: number;
   name: string;

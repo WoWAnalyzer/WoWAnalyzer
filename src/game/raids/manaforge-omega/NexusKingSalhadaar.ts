@@ -1,7 +1,8 @@
+import { Boss } from '../index';
 import { buildBoss } from '../builders';
 import background from './backgrounds/NexusKingSalhadaar.jpg';
 
-export default buildBoss({
+const base = buildBoss({
   id: 3134,
   name: 'Nexus-King Salhadaar',
   background,
@@ -67,3 +68,12 @@ export default buildBoss({
     ],
   },
 });
+
+export default {
+  ...base,
+  fight: {
+    ...base.fight,
+    resultsWarning:
+      'The intermission platforms are out of range of each other, which causes ANALYSIS ERRORS. If you want to review Nexus-King logs, make sure to use a log from your side.',
+  },
+} satisfies Boss;
