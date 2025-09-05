@@ -28,6 +28,7 @@ import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeU
 import SPELLS from 'common/SPELLS';
 import Expurgation from './modules/talents/Expurgation';
 import WakeOfAshesNormalizer from './normalizers/WakeOfAshesNormalizer';
+import ExecutionSentence from './modules/talents/ExecutionSentence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     empyreanPower: EmpyreanPower,
     duskAndDawn: DuskAndDawn,
     expurgation: Expurgation,
+    executionSentence: ExecutionSentence,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

@@ -364,6 +364,11 @@ const spells = {
   },
 
   // Retribution Paladin:
+  EXECUTION_SENTENCE_DAMAGE: {
+    id: 387113,
+    name: 'Execution Sentence',
+    icon: 'spell_paladin_executionsentence',
+  },
   CRUSADE: {
     id: 454373,
     name: 'Crusade',
