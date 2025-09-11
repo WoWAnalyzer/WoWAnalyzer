@@ -35,10 +35,12 @@ class BlackOxBrew extends Analyzer {
   cdr = {
     [talents.PURIFYING_BREW_TALENT.id]: 0,
     [talents.CELESTIAL_BREW_TALENT.id]: 0,
+    [talents.CELESTIAL_INFUSION_TALENT.id]: 0,
   };
   wastedCDR = {
     [talents.PURIFYING_BREW_TALENT.id]: 0,
     [talents.CELESTIAL_BREW_TALENT.id]: 0,
+    [talents.CELESTIAL_INFUSION_TALENT.id]: 0,
   };
   casts = 0;
 
@@ -73,7 +75,9 @@ class BlackOxBrew extends Analyzer {
   }
 
   _resetCB() {
-    const spellId = talents.CELESTIAL_BREW_TALENT.id;
+    const spellId = this.selectedCombatant.hasTalent(talents.CELESTIAL_INFUSION_TALENT)
+      ? talents.CELESTIAL_INFUSION_TALENT.id
+      : talents.CELESTIAL_BREW_TALENT.id;
     if (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId);
