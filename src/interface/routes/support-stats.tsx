@@ -107,6 +107,7 @@ function StatsTableHeader() {
         <th className="left">Spec</th>
         <th className="left">Support Level</th>
         <th>Last Change</th>
+        <th>Patch</th>
         <th>Active Time</th>
         <th>CD Errors (per 1m)</th>
         <th>GCD Errors (per 1m)</th>
@@ -166,6 +167,7 @@ function StatsTableRow({
           {latestChangelogEntry?.date.toDateString()}
         </TooltipElement>
       </td>
+      <td>{config?.patchCompatibility}</td>
       <td>
         <StatsTableEntry
           value={metrics.activeTimeRatio}

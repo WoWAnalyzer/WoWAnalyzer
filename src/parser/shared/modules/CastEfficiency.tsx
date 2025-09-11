@@ -258,6 +258,10 @@ class CastEfficiency extends Analyzer {
       .filter((item) => item !== null) as AbilityCastEfficiency[]; // getCastEfficiencyForAbility can return null, remove those from the result
   }
 
+  getTotalCastCount(): number {
+    return this.getCastEfficiency().reduce((totalCasts, ability) => totalCasts + ability.casts, 0);
+  }
+
   getCastEfficiencyForSpellId(
     spellId: number,
     includeNoCooldownEfficiency = false,

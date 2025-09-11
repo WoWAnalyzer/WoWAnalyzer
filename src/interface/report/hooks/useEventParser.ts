@@ -11,6 +11,7 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { PatchCtx } from '../context/PatchContext';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -194,12 +195,16 @@ const useEventParser = ({
   useEffect(() => {
     // don't upload metrics while loading, with a bad fight, or for an unsupported spec
     if (
+      !import.meta.env.PROD ||
       isLoading ||
       !fight ||
       !parser ||
       !parser.finished ||
       !patchInfo?.patch?.isCurrent ||
-      config.supportLevel === SupportLevel.Unmaintained
+      config.supportLevel === SupportLevel.Unmaintained ||
+      fight.boss === 0 ||
+      (!fight.kill && fight.end_time - fight.start_time < STATS_MIN_WIPE_DURATION) ||
+      (parser.getModule(CastEfficiency)?.getTotalCastCount() ?? 0) < STATS_MIN_SPELL_COUNT
     ) {
       return;
     }
@@ -221,3 +226,8 @@ const useEventParser = ({
 };
 
 export default useEventParser;
+
+// only record stats on a wipe if it is at least 1m long. many ~30s wipes are actually failed resets
+const STATS_MIN_WIPE_DURATION = 60_000;
+// only record stats if the player cast at least 10 spells. less than this means it is probably a buyer log.
+const STATS_MIN_SPELL_COUNT = 10;
