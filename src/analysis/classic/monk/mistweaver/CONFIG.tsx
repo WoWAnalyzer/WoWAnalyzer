@@ -14,7 +14,7 @@ const config: Config = {
   supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    "/report/CGMRjbPmLF21yvQd/27-Normal+Grand+Empress+Shek'zeer+-+Kill+(6:08)/Kuainnm/standard/overview",
+    '/report/XLjmQrDAa2wcfhy6/1-Heroic+Protectors+of+the+Endless+-+Kill+(6:38)/Monkting/standard',
   // Add spells to display separately on the timeline
   timeline: { separateCastBars: [[]] },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
