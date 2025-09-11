@@ -7,6 +7,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { TALENTS_PALADIN } from 'common/TALENTS/paladin';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 class ArtOfWarProbability extends Analyzer {
   procsGained = 0;
@@ -39,7 +40,9 @@ class ArtOfWarProbability extends Analyzer {
 
   castCounter(event: DamageEvent) {
     this.totalChances += 1;
-    this.procProbabilities.push(event.hitType === 2 ? this.procChanceWithCrit : this.procChance);
+    this.procProbabilities.push(
+      event.hitType === HIT_TYPES.CRIT ? this.procChanceWithCrit : this.procChance,
+    );
   }
 
   gotAProc() {
