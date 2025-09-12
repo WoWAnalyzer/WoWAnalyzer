@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/ProtectorsOfTheEndlessHeadshot.jpg';
-// import Background from './images/ProtectorsOfTheEndless.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/ProtectorsOfTheEndless.jpg';
 
 const ProtectorsOfTheEndless: Boss = {
   id: 1409,

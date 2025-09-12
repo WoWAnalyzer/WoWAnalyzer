@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/TsulongHeadshot.jpg';
-// import Background from './images/Tsulong.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/Tsulong.jpg';
 
 const Tsulong: Boss = {
   id: 1505,

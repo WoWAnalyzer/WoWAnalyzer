@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/ShaOfFearHeadshot.jpg';
-// import Background from './images/ShaOfFear.jpg';
-import Background from './images/PlaceHolder.jpg';
+import Background from './images/ShaOfFear.jpg';
 
 const ShaOfFear: Boss = {
   id: 1431,
