@@ -4,7 +4,7 @@ import { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import StaggerStatistic from '../tools/StaggerAnalyzer';
 
-const QUICK_SIP_RATE = 0.01 / 3;
+const QUICK_SIP_RATE = 0.05 / 3;
 const DAMAGE_BUFFER = 150; // for SCK to break this, you need over 150% haste. good luck.
 
 const SHUFFLE_DURATION = {
@@ -14,13 +14,10 @@ const SHUFFLE_DURATION = {
 };
 
 export default class QuickSip extends StaggerStatistic {
-  protected rank: number;
-
   constructor(options: Options) {
     super(talents.QUICK_SIP_TALENT, options);
 
-    this.rank = this.selectedCombatant.getTalentRank(talents.QUICK_SIP_TALENT);
-    this.active = this.rank > 0;
+    this.active = this.selectedCombatant.hasTalent(talents.QUICK_SIP_TALENT);
 
     // we can't see total duration from buff events, so we use applicators for this
     // - Blackout Kick: 3s per cast
@@ -53,7 +50,7 @@ export default class QuickSip extends StaggerStatistic {
 
   private onDamage(event: DamageEvent) {
     if (this.isFirstHit(event)) {
-      const pct = SHUFFLE_DURATION[event.ability.guid] * this.rank * QUICK_SIP_RATE;
+      const pct = SHUFFLE_DURATION[event.ability.guid] * QUICK_SIP_RATE;
       const amount = this.fab.staggerPool * pct;
 
       this.removeStagger(event, amount);

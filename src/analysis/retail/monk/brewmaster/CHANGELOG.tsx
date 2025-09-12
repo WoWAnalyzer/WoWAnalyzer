@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 9, 12), <>Fix purify rate on <SpellLink spell={talents.QUICK_SIP_TALENT} />.</>, emallson),
   change(date(2025, 9, 11), <>Fix cooldown reduction effects not applying to <SpellLink spell={talents.CELESTIAL_INFUSION_TALENT} />.</>, emallson),
   change(date(2025, 8, 21), <>Update priority of <SpellLink spell={talents.KEG_SMASH_TALENT} /> in breathless builds.</>, emallson),
   change(date(2025, 8, 17), <>Support <SpellLink spell={talents.CELESTIAL_INFUSION_TALENT} /> in <SpellLink spell={talents.ASPECT_OF_HARMONY_TALENT} /> analysis. Minor rotation updates.</>, emallson),
