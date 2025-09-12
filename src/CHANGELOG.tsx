@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 9, 12), 'Add background images and timeline abilities for Terrace of Endless Spring', emallson),
   change(date(2025, 9, 5), 'Add page to show analysis errors across all supported specs.', emallson),
   change(date(2025, 8, 25), 'Add option to disable movement warnings on timeline tab.', ToppleTheNun),
   change(date(2025, 8, 14), <>Updated <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> to <ItemLink id={ITEMS.TECHNOMANCERS_GIFT.id} /> for Head, Belt, and Bracer socket addition</>, Ceric),

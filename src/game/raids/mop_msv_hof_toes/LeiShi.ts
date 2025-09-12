@@ -9,7 +9,27 @@ const LeiShi: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_raid_terraceofendlessspring03',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Hide
+          id: 123244,
+          type: 'cast',
+        },
+        {
+          // Protect
+          id: 123250,
+          type: 'cast',
+        },
+        {
+          // Get Away!
+          id: 123461,
+          type: 'cast',
+        },
+      ],
+    },
+  },
 };
 
 export default LeiShi;

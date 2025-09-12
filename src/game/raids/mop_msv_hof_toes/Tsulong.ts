@@ -9,7 +9,24 @@ const Tsulong: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_raid_terraceofendlessspring02',
-  fight: {},
+  fight: {
+    timeline: {
+      debuffs: [
+        {
+          // The Light of Day
+          id: 123716,
+        },
+        {
+          // Bathed in Light
+          id: 122858,
+        },
+        {
+          // Fright
+          id: 123036,
+        },
+      ],
+    },
+  },
 };
 
 export default Tsulong;
