@@ -5,6 +5,7 @@ import { ortemis, emallson, swirl, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 9, 12), <><SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/> now correctly amps <SpellLink spell={SPELLS.ANCIENT_TEACHINGS}/> and <SpellLink spell={TALENTS_MONK.AWAKENED_JADEFIRE_TALENT}/> healing.</>, swirl),
   change(date(2025, 8, 19), <>Add haste buffs for 11.2 tier set</>, Trevor),
   change(date(2025, 8, 17), <>Update <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> descriptions</>, Trevor),
   change(date(2025, 8, 16), <>Bump support to 11.2</>, Trevor),
