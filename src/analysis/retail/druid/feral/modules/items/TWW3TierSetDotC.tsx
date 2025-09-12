@@ -215,11 +215,11 @@ export default class TWW3TierSetDotC extends Analyzer {
           <div className="value">
             Buff Uptime: {formatPercentage(this.ravageRampageUptimePercent, 0)}%
             <br />
-            Bleed Boost: <ItemPercentDamageDone approximate amount={this.bleedBoostDamage} />
+            Bleed Boost: <ItemPercentDamageDone amount={this.bleedBoostDamage} />
             {this.has4pc ? (
               <>
                 <br />
-                Ravage Procs: <ItemPercentDamageDone approximate amount={this.ravageProcDamage} />
+                Ravage Procs: <ItemPercentDamageDone amount={this.ravageProcDamage} />
               </>
             ) : (
               <></>
