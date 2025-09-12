@@ -1327,6 +1327,12 @@ const spells = {
   // DRUID OF THE CLAW
   //
 
+  // this is the buff ID that makes the next Ferocious Bite cast into Ravage
+  RAVAGE_BUFF_CAT: {
+    id: 441585,
+    name: 'Ravage',
+    icon: 'inv_ability_druidoftheclawdruid_ravage',
+  },
   // this is the cast ID (replaces FB) and the damage ID (direct and cleave)
   RAVAGE_DOTC_CAT: {
     id: 441591,
@@ -1338,6 +1344,18 @@ const spells = {
     id: 441812,
     name: 'Dreadful Wound',
     icon: 'artifactability_feraldruid_openwounds',
+  },
+  // buff procced by Feral Druid - DotC TWW S3 tier set 2pc
+  RAVAGE_RAMPAGE: {
+    id: 1236671,
+    name: 'Ravage Rampage',
+    icon: 'ability_ghoulfrenzy',
+  },
+  // buff procced by Feral Druid - DotC TWW S3 tier set 4pc (produces free ravage on expiration)
+  PREPARING_TO_STRIKE: {
+    id: 1236342,
+    name: 'Preparing to Strike',
+    icon: 'ability_xavius_tormentingswipe',
   },
 
   /////////////////////////////////////////////////////////////////////////////

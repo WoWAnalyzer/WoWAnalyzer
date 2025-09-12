@@ -47,6 +47,8 @@ import AdaptiveSwarm from 'analysis/retail/druid/feral/modules/spells/AdaptiveSw
 import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
 import TWW2TierSet from 'analysis/retail/druid/feral/modules/items/TWW2TierSet';
 import MercilessClaws from 'analysis/retail/druid/feral/modules/spells/MercilessClaws';
+import TWW3TierSetDotC from 'analysis/retail/druid/feral/modules/items/TWW3TierSetDotC';
+import TWW3TierSetDotCRavageLinkNormalizer from 'analysis/retail/druid/feral/normalizers/TWW3TierSetDotCRavageLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -114,6 +116,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // tier
     tww2TierSet: TWW2TierSet,
+    tww3TierSetDotc: TWW3TierSetDotC,
+    tww3TierSetDotcRavageLinkNormalizer: TWW3TierSetDotCRavageLinkNormalizer,
   };
 
   static guide = Guide;
