@@ -8,7 +8,6 @@ import {
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
-  KillShot,
   MasterMarksman,
   NaturalMending,
   RejuvenatingWind,
@@ -16,6 +15,7 @@ import {
   Trailblazer,
   TranquilizingShot,
 } from '../shared';
+import KillShotSurvival from './modules/talents/KillShotSurvival';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Bloodseeker from './modules/talents/Bloodseeker';
@@ -99,7 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     deathBlow: Deathblow,
     explosiveShot: ExplosiveShot,
-    killShot: KillShot,
+    killShotSurvival: KillShotSurvival,
     masterMarksman: MasterMarksman,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,

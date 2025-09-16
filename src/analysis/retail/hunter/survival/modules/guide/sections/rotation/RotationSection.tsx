@@ -46,7 +46,7 @@ export default function RotationSection({
         {info.combatant.hasTalent(TALENTS.BUTCHERY_TALENT) && modules.butchery.guideSubsection}
         {info.combatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT) &&
           modules.explosiveShot.guideSubsectionSVPL}
-        {modules.killShot.guideSubsectionSV}
+        {modules.killShotSurvival.guideSubsectionSV}
         {info.combatant.hasTalent(TALENTS.FURY_OF_THE_EAGLE_TALENT) &&
           modules.furyOfTheEagle.guideSubsection}
       </SubSection>
