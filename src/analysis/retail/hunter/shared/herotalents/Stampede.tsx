@@ -1,5 +1,3 @@
-// src/analysis/hunter/survival/modules/Stampede.ts
-import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, AnyEvent } from 'parser/core/Events';
 import { GetRelatedEvents } from 'parser/core/Events';
@@ -11,7 +9,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SpellLink from 'interface/SpellLink';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+  getLowestPerf,
+} from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
@@ -21,6 +23,17 @@ import {
   LFTF_TO_STAMPEDE_BUFF_APPLY,
   LFTF_TO_STAMPEDE_BUFF_REFRESH,
 } from '../normalizers/HunterEventLinkNormalizers';
+
+/* Stampede is a damaging ability that is spawned from the Pack Leader TWW S3 4piece bonus.
+ * When a Howl beast is spawned during Lead From The Front, a 12s buff that is applied when
+ * you use Coordinated Assault or Bestial Wrath, a stampede is spawned between your target
+ * and the player. It is possible to spawn 2 stampedes in a single window by delaying your CA
+ * or BW and is a damage gain in nearly every situation.
+ * This analyzer monitors the Lead from the Front windows to gather the stampede damage.
+ *
+ * As lead from the front has no other considerations to play, this analyzer is relevent only during TWW s3
+ * and can be retired after the set bonus is disabled in Midnight.
+ */
 
 interface WindowSummary {
   start: number;
@@ -38,24 +51,10 @@ const format_compact = (n: number) =>
   Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(n);
 
 const TICKS_PER_STAMPEDE_PER_TARGET = 9;
-const INSTANCE_WINDOW_MS = 7000; // Stampede is a 4s duration + travel time of the animals
+// We attribute Stampede damage to a short window starting at each apply/refresh.
+// This covers the 4s base duration + approximate travel time from summon to first impact.
+const INSTANCE_WINDOW_MS = 7000;
 const GRACE_MS = 1500;
-
-const merge_intervals = (intervals: [number, number][]): [number, number][] => {
-  if (intervals.length === 0) return [];
-  const sorted = [...intervals].sort((a, b) => a[0] - b[0]);
-  const merged: [number, number][] = [sorted[0]];
-  for (let i = 1; i < sorted.length; i++) {
-    const [s, e] = sorted[i];
-    const last = merged[merged.length - 1];
-    if (s <= last[1]) {
-      if (e > last[1]) last[1] = e;
-    } else {
-      merged.push([s, e]);
-    }
-  }
-  return merged;
-};
 
 export default class StampedeAnalyzer extends Analyzer {
   private windows: WindowSummary[] = [];
@@ -70,17 +69,25 @@ export default class StampedeAnalyzer extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.HOWL_OF_THE_PACK_LEADER_TALENT);
-    if (!this.active) return;
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LEAD_FROM_THE_FRONT),
       this.on_lftf_apply,
     );
   }
 
+  // Usage score for an LFtF window: expect 2 Stampedes, 1 is "ok", 0 is fail.
   private grade_usage(stampede_count: number): QualitativePerformance {
-    if (stampede_count >= 2) return QualitativePerformance.Perfect;
-    if (stampede_count === 1) return QualitativePerformance.Ok;
-    return QualitativePerformance.Fail;
+    return evaluateQualitativePerformanceByThreshold({
+      actual: stampede_count,
+      isGreaterThanOrEqual: {
+        perfect: 2,
+        ok: 1,
+      },
+    });
   }
 
   private grade_coverage(
@@ -89,33 +96,43 @@ export default class StampedeAnalyzer extends Analyzer {
     actual_ticks: number,
   ): QualitativePerformance {
     const expected = unique_targets * TICKS_PER_STAMPEDE_PER_TARGET * stampede_count;
-    if (expected <= 0) return QualitativePerformance.Fail;
 
-    if (unique_targets === 1) {
-      if (actual_ticks >= expected) return QualitativePerformance.Perfect;
-      if (actual_ticks >= expected - stampede_count) return QualitativePerformance.Ok;
+    if (expected <= 0) {
       return QualitativePerformance.Fail;
     }
-    const ratio = actual_ticks / expected;
-    if (ratio == 1) return QualitativePerformance.Perfect;
-    if (ratio >= 0.75) return QualitativePerformance.Good;
-    if (ratio > 0.5) return QualitativePerformance.Ok;
-    return QualitativePerformance.Fail;
+
+    if (unique_targets === 1) {
+      return evaluateQualitativePerformanceByThreshold({
+        actual: actual_ticks,
+        isGreaterThanOrEqual: {
+          perfect: expected,
+          ok: expected - stampede_count,
+        },
+      });
+    }
+
+    const perfect_ticks = expected;
+    const good_ticks = Math.ceil(expected * 0.75);
+    const ok_ticks = Math.floor(expected * 0.5) + 1;
+
+    return evaluateQualitativePerformanceByThreshold({
+      actual: actual_ticks,
+      isGreaterThanOrEqual: {
+        perfect: perfect_ticks,
+        good: good_ticks,
+        ok: ok_ticks,
+      },
+    });
   }
 
-  private worst(a: QualitativePerformance, b: QualitativePerformance): QualitativePerformance {
-    const rank = new Map([
-      [QualitativePerformance.Perfect, 0],
-      [QualitativePerformance.Good, 1],
-      [QualitativePerformance.Ok, 2],
-      [QualitativePerformance.Fail, 3],
-    ]);
-    return rank.get(a)! >= rank.get(b)! ? a : b;
-  }
-
+  // Stampede triggers a buff, which can refresh if we double stampede early
+  // or provide it's own buff. The damage ticks overlap and so it is impossible
+  // to parse what damage belongs to which on a refresh
+  // Normalizer helps to count stampedes.
   private on_lftf_apply = (event: AnyEvent) => {
     const lftfStart = event.timestamp;
     const lftfEnd = lftfStart + 12000;
+    // Upper bound for including late Stampede impacts tied to this LFtF.
     const link_end = lftfStart + 20000;
 
     const damages =
@@ -138,7 +155,8 @@ export default class StampedeAnalyzer extends Analyzer {
       const e_ts = Math.min(s_ts + INSTANCE_WINDOW_MS + GRACE_MS, link_end);
       return [s_ts, e_ts] as [number, number];
     });
-    const intervals = merge_intervals(raw_intervals);
+
+    const intervals = raw_intervals;
 
     const dmg_in_intervals: DamageEvent[] =
       intervals.length === 0
@@ -151,8 +169,7 @@ export default class StampedeAnalyzer extends Analyzer {
     for (const d of dmg_in_intervals) {
       window_damage += d.amount + (d.absorbed ?? 0);
       const inst = (d as DamageEventWithInstance).targetInstance ?? 0;
-      const key = `${d.targetID}:${inst}`;
-      targetKeys.add(key);
+      targetKeys.add(`${d.targetID}:${inst}`);
     }
 
     const uniqueTargets = targetKeys.size;
@@ -176,11 +193,13 @@ export default class StampedeAnalyzer extends Analyzer {
     this.windows.push(summary);
     this.totalStampedeCount += stampede_count;
     this.totalStampedeDamage += window_damage;
-    for (const k of targetKeys) this.encounterUniqueTargets.add(k);
+    for (const k of targetKeys) {
+      this.encounterUniqueTargets.add(k);
+    }
 
     const usage_grade = this.grade_usage(stampede_count);
     const coverage_grade = this.grade_coverage(uniqueTargets, stampede_count, actualTicks);
-    const perf = this.worst(usage_grade, coverage_grade);
+    const perf = getLowestPerf([usage_grade, coverage_grade]);
 
     const header =
       perf === QualitativePerformance.Perfect ? (
@@ -249,17 +268,21 @@ export default class StampedeAnalyzer extends Analyzer {
     const explanation = (
       <p>
         <strong>
+          <SpellLink spell={SPELLS.TWW_STAMPEDE_DAMAGE} />
+        </strong>
+        's occur from beast spawns during
+        <strong>
           <SpellLink spell={SPELLS.LEAD_FROM_THE_FRONT} />
         </strong>{' '}
         windows should contain <strong>2 Stampedes</strong>. You should hold{' '}
-        <SpellLink spell={this.damageCooldown} /> for a short amount of time to ensure it becomes
-        available during a Lead from the Front window.
+        <SpellLink spell={this.damageCooldown} /> briefly so it aligns inside a Lead from the Front
+        window.
       </p>
     );
 
     const data = (
       <CastSummaryAndBreakdown
-        spell={SPELLS.LEAD_FROM_THE_FRONT}
+        spell={SPELLS.TWW_STAMPEDE_DAMAGE}
         castEntries={this.useEntries}
         usesInsteadOfCasts
       />
