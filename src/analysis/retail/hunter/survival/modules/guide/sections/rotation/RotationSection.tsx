@@ -39,7 +39,6 @@ export default function RotationSection({
           segments show when the spell was cooling down. Red segments highlight times when you could
           have fit a whole extra use of the cooldown.
         </Trans>
-        {modules.howlOfThePackleaderAnalyzer.guideSubsection}
         {modules.stampedeTier.guideSubsectionStampede}
         {modules.wildfireBomb.guideSubsection}
         {info.combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT) &&
