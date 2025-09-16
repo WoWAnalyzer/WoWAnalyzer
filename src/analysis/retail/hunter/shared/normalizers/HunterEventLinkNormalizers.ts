@@ -33,7 +33,7 @@ const links: EventLink[] = [
     referencedEventId: TALENTS.MONGOOSE_BITE_TALENT.id,
     anyTarget: true,
     anySource: false,
-    forwardBufferMs: 2500,
+    forwardBufferMs: 100,
     backwardBufferMs: 100,
     maximumLinks: 5,
   },

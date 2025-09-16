@@ -43,7 +43,6 @@ import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import Guide from './modules/guide/Guide';
 import SurvivalOfTheFittest from '../shared/talents/SurvivalOfTheFittest';
 import ExhilarationTiming from './modules/guide/sections/defensives/Exhiliration';
-import HowlOfThePackleaderAnalyzer from 'analysis/retail/hunter/shared/herotalents/HowlOfThePackLeader';
 import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers';
 import StampedeAnalyzer from '../shared/herotalents/Stampede';
 
@@ -107,7 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
     SurvivalOfTheFittest: SurvivalOfTheFittest,
-    howlOfThePackleaderAnalyzer: HowlOfThePackleaderAnalyzer,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
