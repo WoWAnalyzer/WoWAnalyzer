@@ -66,7 +66,7 @@ interface DamageTakenPointChartProps {
   /**
    * By default, small hits (<10% hp) are hidden. This helps eliminate junk like passive ticking damage.
    */
-  showSmallHits: boolean;
+  showSmallHits?: boolean;
 }
 
 type Props = DamageTakenPointChartProps;
