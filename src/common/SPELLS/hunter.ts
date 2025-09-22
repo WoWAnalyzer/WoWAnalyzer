@@ -697,6 +697,12 @@ const spells = {
   },
   //endregion
 
+  //region HeroTalents
+  BELL_TOLLS_BUFF: {
+    id: 1232992,
+    name: 'The Bell Tolls',
+    icon: 'spell_shadow_animatedead',
+  },
   HOWL_OF_THE_PACKLEADER_BUFF: {
     id: 471876,
     name: 'Howl of the Pack Leader',
@@ -755,6 +761,11 @@ const spells = {
 
   //region Tier Sets
   //T29 2P
+  BLIGHTED_QUIVER_BUFF: {
+    id: 1236975,
+    name: 'Blighted Quiver',
+    icon: 'inv_quiver_1h_sylvanas_d_01',
+  },
   T29_2P_BONUS_BEAST_MASTERY: {
     id: 393646,
     name: 'T29 2P',

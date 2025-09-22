@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/hunter/beastmastery/CombatLogParser';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';

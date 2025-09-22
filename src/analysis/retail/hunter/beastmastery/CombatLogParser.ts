@@ -44,6 +44,9 @@ import FrenzyBuffStackGraph from './modules/guide/sections/rotation/FrenzyBuffSt
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import BarbedShotNormalizer from './normalizers/BarbedShotNormalizer';
 import Bloodshed from './modules/talents/Bloodshed';
+import BellTollsStackTracker from '../shared/guide/sections/graphs/BellTollsStackTracker';
+import BlightedQuiverStackTracker from '../shared/guide/sections/graphs/BlightedQuiverStackTracker';
+import DarkRangerStacksGraph from '../shared/guide/sections/graphs/DarkRangerBuffTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -62,6 +65,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Guide
     frenzyBuffStackTracker: FrenzyBuffStackTracker,
     frenzyBuffStackGraph: FrenzyBuffStackGraph,
+    bellTollsStackTracker: BellTollsStackTracker,
+    blightedQuiverStackTracker: BlightedQuiverStackTracker,
+    darkRangerStacksGraph: DarkRangerStacksGraph,
     focusGraph: FocusGraph,
 
     //Resources
