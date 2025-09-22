@@ -13,6 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots, Chimaera Shots or Multi-Shots to deal 100% more damage.
@@ -22,12 +23,18 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class PreciseShots extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
   damage = 0;
   buffsActive = 0;
   buffsSpent = 0;
   minOverwrittenProcs = 0;
   maxOverwrittenProcs = 0;
   buffedShotInFlight: number | null = null;
+
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);

@@ -1,6 +1,6 @@
 import { BORN_TO_BE_WILD_CD_REDUCTION } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/hunter';
+import TALENTS, { TALENTS_HUNTER } from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -22,7 +22,10 @@ class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS.AIMED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => {
-          return 12 / (1 + haste);
+          const base = this.selectedCombatant.hasTalent(TALENTS_HUNTER.AMMO_CONSERVATION_TALENT)
+            ? 11
+            : 12;
+          return base / (1 + haste);
         },
         charges: 2,
         gcd: {
@@ -74,7 +77,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT.id,
         buffSpellId: SPELLS.TRUESHOT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT) ? 90 : 120,
         gcd: {
           static: 0,
         },
