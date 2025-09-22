@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Putro, Arlie, ToppleTheNun, SebShady, Vollmer } from 'CONTRIBUTORS';
+import { Putro, Arlie, ToppleTheNun, SebShady, Vollmer, Kivlov } from 'CONTRIBUTORS';
 import { ResourceLink, SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 export default [
+  change(date(2025,9, 21), <>Update Guide Graph for Dark Ranger to include <SpellLink spell={TALENTS.THE_BELL_TOLLS_TALENT}/>{' '}and <SpellLink spell={SPELLS.BLIGHTED_QUIVER_BUFF}/> trackers. </>, Kivlov),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 9, 27), <>Initial TWW compability update as of 11.0.2 patch. </>, SebShady),
   change(date(2024, 2, 15), <>Try to workaround weird buff events on bosses like Volcoross for <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> </>, Putro),
