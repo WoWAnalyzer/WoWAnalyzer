@@ -25,7 +25,6 @@ export interface Aggregate {
   min: number;
   max: number;
   avg: number;
-  median: number;
 }
 
 export interface Selection {
@@ -97,7 +96,6 @@ interface RawServerMetricValue {
   metricId: keyof ServerMetrics;
   avgValue: number;
   maxValue: number;
-  medValue: number;
   minValue: number;
 }
 
@@ -117,7 +115,6 @@ function groupRawMetrics(
       min: metric.minValue,
       max: metric.maxValue,
       avg: metric.avgValue,
-      median: metric.medValue,
     };
   }
 
