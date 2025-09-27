@@ -10,6 +10,7 @@ import {
   FocusDetails,
   SpellFocusCost,
   TranquilizingShot,
+  Deathblow,
 } from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
@@ -32,7 +33,6 @@ import AnimalCompanion from './modules/talents/AnimalCompanion';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
-import KillerInstinct from './modules/talents/KillerInstinct';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
@@ -44,6 +44,7 @@ import FrenzyBuffStackGraph from './modules/guide/sections/rotation/FrenzyBuffSt
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import BarbedShotNormalizer from './normalizers/BarbedShotNormalizer';
 import Bloodshed from './modules/talents/Bloodshed';
+import HunterEventLinkNormalizers from '../shared/normalizers/HunterEventLinkNormalizers';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     direCommandNormalizer: DireCommandNormalizer,
     barbedShotNormalizer: BarbedShotNormalizer,
+    hunterEventLinkNormalizer: HunterEventLinkNormalizers,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -90,7 +92,6 @@ class CombatLogParser extends CoreCombatLogParser {
     killShot: KillShot,
 
     //Talents
-    killerInstinct: KillerInstinct,
     direBeast: DireBeast,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
@@ -106,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masterMarksman: MasterMarksman,
     bloodshed: Bloodshed,
     tranquilizingShot: TranquilizingShot,
+    deathblow: Deathblow,
 
     //Items
   };
