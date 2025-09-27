@@ -42,7 +42,7 @@ import FuryOfTheEagle from './modules/talents/FuryOfTheEagle';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import Guide from './modules/guide/Guide';
 import SurvivalOfTheFittest from '../shared/talents/SurvivalOfTheFittest';
-import ExhilarationTiming from './modules/guide/sections/defensives/Exhiliration';
+import ExhilarationTiming from '../shared/guide/defensives/Exhiliration';
 import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers';
 import StampedeAnalyzer from '../shared/herotalents/Stampede';
 
