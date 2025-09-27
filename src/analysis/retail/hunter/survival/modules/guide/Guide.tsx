@@ -5,7 +5,7 @@ import ResourceUseSection from './sections/resources/ResourceUseSection';
 import RotationSection from './sections/rotation/RotationSection';
 import ActiveTime from './sections/rotation/ActiveTime';
 import Cooldown from './sections/rotation/Cooldown';
-import MajorDefensives from './sections/defensives/DamageTaken';
+import MajorDefensives from '../../../shared/guide/defensives/DamageTaken';
 import { IntroSection } from './sections/intro/IntroSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
