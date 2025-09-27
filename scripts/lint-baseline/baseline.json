@@ -190,8 +190,6 @@
   "src/interface/guide/components/Apl/index.tsx:133:25__@typescript-eslint/no-explicit-any",
   "src/interface/guide/components/Apl/violations/claims.tsx:47:72__@typescript-eslint/no-explicit-any",
   "src/interface/guide/components/Apl/violations/index.tsx:52:35__@typescript-eslint/no-explicit-any",
-  "src/interface/guide/components/DamageTakenPointChart.tsx:121:23__@typescript-eslint/no-explicit-any",
-  "src/interface/guide/components/DamageTakenPointChart.tsx:121:51__@typescript-eslint/no-explicit-any",
   "src/interface/guide/components/MajorDefensives/AllCooldownUsagesList.tsx:248:28__@typescript-eslint/no-explicit-any",
   "src/interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer.tsx:36:41__@typescript-eslint/no-explicit-any",
   "src/interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer.tsx:88:55__@typescript-eslint/no-explicit-any",

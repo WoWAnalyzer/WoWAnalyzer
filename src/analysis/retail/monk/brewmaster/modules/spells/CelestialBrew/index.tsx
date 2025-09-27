@@ -5,7 +5,6 @@ import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import {
-  buff,
   MajorDefensiveBuff,
   Mitigation,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
@@ -17,6 +16,7 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   RemoveBuffEvent,
+  ResourceActor,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -25,6 +25,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
 import { damageEvent } from './normalizer';
+import Spell from 'common/SPELLS/Spell';
 
 const PURIFIED_CHI_PCT = 0.35;
 const PURIFIED_CHI_WINDOW = 150;
@@ -47,28 +48,57 @@ class CelestialBrew extends MajorDefensiveBuff {
   private _currentChiStacks = 0;
   private _expireTime: number | null = null;
 
-  constructor(options: Options) {
-    super(talents.CELESTIAL_BREW_TALENT, buff(talents.CELESTIAL_BREW_TALENT), options);
+  private displaySpell: Spell;
 
-    this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT);
+  constructor(options: Options) {
+    super(
+      talents.CELESTIAL_BREW_TALENT,
+      {
+        applyTrigger: Events.applybuff
+          .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT])
+          .by(SELECTED_PLAYER),
+        removeTrigger: Events.removebuff
+          .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT])
+          .by(SELECTED_PLAYER),
+        trackOn: ResourceActor.Source,
+        isMatchingApply: () => true,
+      },
+      options,
+    );
+
+    this.active =
+      this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT) ||
+      this.selectedCombatant.hasTalent(talents.CELESTIAL_INFUSION_TALENT);
+
+    this.displaySpell = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT)
+      ? talents.CELESTIAL_BREW_TALENT
+      : talents.CELESTIAL_INFUSION_TALENT;
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT]),
       this.updateMaxAbsorb,
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT]),
       this._resetAbsorb,
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT]),
       this._expireAbsorb,
     );
 
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      Events.absorbed
+        .by(SELECTED_PLAYER)
+        .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT]),
       this._cbAbsorb,
     );
 
@@ -117,8 +147,8 @@ class CelestialBrew extends MajorDefensiveBuff {
     return (
       <div>
         <p>
-          <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> provides a low-cooldown shield for
-          30-100% of your health bar.{' '}
+          <SpellLink spell={this.displaySpell} /> provides a low-cooldown shield for 30-100% of your
+          health bar.{' '}
           <CountsAsBrew
             baseCooldown={60}
             lightBrewing={this.selectedCombatant.hasTalent(talents.LIGHT_BREWING_TALENT)}
@@ -134,11 +164,11 @@ class CelestialBrew extends MajorDefensiveBuff {
     when(this.goodCastSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should try to use <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> when most or all
-          of the absorb will be consumed.
+          You should try to use <SpellLink spell={this.displaySpell} /> when most or all of the
+          absorb will be consumed.
         </>,
       )
-        .icon(talents.CELESTIAL_BREW_TALENT.icon)
+        .icon(this.displaySpell.icon)
         .actual(
           `${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`,
         )
@@ -167,7 +197,7 @@ class CelestialBrew extends MajorDefensiveBuff {
             Does not include <strong>{formatNumber(wastedAbsorb)} wasted absorb</strong> (avg:{' '}
             <strong>{formatNumber(wastedAbsorb / this._absorbs.length)}</strong>).
             <br />
-            You cast Celestial Brew with an average of{' '}
+            You cast {this.displaySpell.name} with an average of{' '}
             <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb
             amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
           </>
@@ -176,7 +206,7 @@ class CelestialBrew extends MajorDefensiveBuff {
         <BoringValue
           label={
             <>
-              <SpellIcon spell={talents.CELESTIAL_BREW_TALENT} /> Avg. Absorb per Celestial Brew
+              <SpellIcon spell={this.displaySpell} /> Avg. Absorb per Celestial Brew
             </>
           }
         >
@@ -261,7 +291,7 @@ class CelestialBrew extends MajorDefensiveBuff {
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
         description: (
           <>
-            Base <SpellLink spell={this.spell} />
+            Base <SpellLink spell={this.displaySpell} />
           </>
         ),
       },

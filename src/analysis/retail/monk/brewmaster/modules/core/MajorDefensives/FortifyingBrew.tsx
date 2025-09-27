@@ -23,14 +23,25 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
 
+const FORT_BREW_BASE_DR = 0.2;
+const FORT_BREW_IRONSHELL_AMOUNT = 0.3;
+
 export class FortifyingBrew extends MajorDefensiveBuff {
   private fortBrewStaggerPool = 0;
+  private hasIronshell = false;
   private hasGaiPlins = false;
+
+  private drAmount = FORT_BREW_BASE_DR;
 
   constructor(options: Options) {
     super(SPELLS.FORTIFYING_BREW_CAST, buff(SPELLS.FORTIFYING_BREW_BUFF), options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
+
+    if (this.selectedCombatant.hasTalent(talents.IRONSHELL_BREW_TALENT)) {
+      this.hasIronshell = true;
+      this.drAmount = FORT_BREW_IRONSHELL_AMOUNT;
+    }
 
     if (this.selectedCombatant.hasTalent(talents.FORTIFYING_BREW_DETERMINATION_TALENT)) {
       this.addEventListener(new EventFilter(EventType.AddStagger), this.recordStagger);
@@ -44,7 +55,7 @@ export class FortifyingBrew extends MajorDefensiveBuff {
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
-        mitigatedAmount: absoluteMitigation(event, 0.2),
+        mitigatedAmount: absoluteMitigation(event, this.drAmount),
       });
     }
   }
@@ -107,12 +118,6 @@ export class FortifyingBrew extends MajorDefensiveBuff {
           </TooltipElement>{' '}
           use if your other cooldowns can cover major damage events.
         </p>
-        <p>
-          <small>
-            <strong>Note:</strong> <SpellLink spell={talents.IRONSHELL_BREW_TALENT} /> is not yet
-            supported.
-          </small>
-        </p>
       </>
     );
   }
@@ -135,15 +140,28 @@ export class FortifyingBrew extends MajorDefensiveBuff {
       gaiPlins = purifyBase - purify;
     }
 
+    let baseDamage = damage;
+    let ironshellDamage = 0;
+
+    if (this.hasIronshell) {
+      baseDamage = (damage * FORT_BREW_BASE_DR) / FORT_BREW_IRONSHELL_AMOUNT;
+      ironshellDamage = damage * (1 - FORT_BREW_BASE_DR / FORT_BREW_IRONSHELL_AMOUNT);
+    }
+
     return [
       {
-        amount: damage,
+        amount: baseDamage,
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
         description: (
           <>
             Base <SpellLink spell={talents.FORTIFYING_BREW_TALENT} />
           </>
         ),
+      },
+      {
+        amount: ironshellDamage,
+        color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
+        description: <SpellLink spell={talents.IRONSHELL_BREW_TALENT} />,
       },
       {
         amount: purify,
