@@ -1,13 +1,11 @@
-import {
-  BORN_TO_BE_WILD_CD_REDUCTION,
-  hastedCooldown,
-} from 'analysis/retail/hunter/shared/constants';
+import { hastedCooldown } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TIERS } from 'game/TIERS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -27,6 +25,22 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.COBRA_SHOT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.COBRA_SHOT_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.BLACK_ARROW_DAMAGE.id,
+        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.KILL_SHOT_MM_BM.id,
+        enabled: combatant.hasTalent(TALENTS.KILL_SHOT_SHARED_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -85,19 +99,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DIRE_BEAST_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT),
-        cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: TALENTS.BLOODSHED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.BLOODSHED_TALENT),
@@ -122,7 +123,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CALL_OF_THE_WILD_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 120,
+        cooldown: combatant.has2PieceByTier(TIERS.TWW3) ? 60 : 120,
         enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_WILD_TALENT),
         gcd: {
           base: 1500,
@@ -136,10 +137,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown:
-          180 *
-          (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
+        cooldown: 180 - (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },
@@ -158,10 +156,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown:
-          (180 - (combatant.hasTalent(TALENTS.LONE_SURVIVOR_TALENT) ? 30 : 0)) *
-          (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
+        charges: combatant.hasTalent(TALENTS.PADDED_ARMOR_TALENT) ? 2 : 1,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.LONE_SURVIVOR_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },
@@ -181,10 +177,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          180 *
-          (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
+        cooldown: 180 - (combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },

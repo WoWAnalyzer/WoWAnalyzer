@@ -29,7 +29,7 @@ const spells = {
     icon: 'ability_hunter_longevity',
   },
   DIRE_BEAST_SUMMON: {
-    id: 132764,
+    id: 304051,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
