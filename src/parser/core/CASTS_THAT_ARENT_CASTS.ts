@@ -33,6 +33,7 @@ const spells: number[] = [
 
   //region Items
   SPELLS.RAGE_OF_FYRALATH_2.id, // second cast logged by Fyr'alath
+  SPELLS.PHASE_BLINK.id, // 11.2 Legendary cloak
   //endregion
 
   //region Consumables
