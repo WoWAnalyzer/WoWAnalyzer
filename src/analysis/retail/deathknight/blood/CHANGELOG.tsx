@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import talents from 'common/TALENTS/deathknight';
-import { emallson } from 'CONTRIBUTORS';
+import { Arlie, emallson } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 9, 29), <>Updated cooldown and CDR of <SpellLink spell={talents.ANTI_MAGIC_ZONE_TALENT} />.</>, Arlie),
   change(date(2024, 11, 20), <>Add basic support for San'layn abilities.</>, emallson),
   change(date(2024, 10, 5), <>Added warning about repeated <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> casts.</>, emallson),
   change(date(2024, 10, 5), <>Removed Dragonflight rotational analysis.</>, emallson),
