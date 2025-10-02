@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 10, 1), <>Fix crash in Protectors of the Endless analysis if the Foundation timeline is shown. Also fix a zoom bug on the phase header.</>, emallson),
   change(date(2025, 9, 25), <>Add <SpellLink spell={SPELLS.PHASE_BLINK.id} /> to the ignored spells.</>, Arlie),
   change(date(2025, 9, 14), 'MoP update for Classic Engineering Item, Spell, and Enchant IDs', jazminite),
   change(date(2025, 9, 12), 'Add background images and timeline abilities for Terrace of Endless Spring', emallson),
