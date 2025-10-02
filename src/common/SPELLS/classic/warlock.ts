@@ -1,5 +1,5 @@
 /**
- * All Classic Warlock spells (including talent spells) go here.
+ * All Classic Warlock spells (including talent spells) not included in generated spell lists go here.
  * You need to do this manually by opening a WCL report and clicking the icons of spells to open the relevant Wowhead page. Here, you can get the icon name by clicking the icon, copy the name of the spell, and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS/classic` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
@@ -7,9 +7,28 @@
 import Spell from '../Spell';
 
 const spells = {
-  // --------
-  // SHARED
-  // --------
+  // Pet casts
+  SHADOW_BULWARK: {
+    // Voidwalker
+    id: 132413,
+    name: 'Shadow Bulwark',
+    icon: 'spell_shadow_antishadow.jpg',
+  },
+  // Talents
+  GRIMOIRE_OF_SACRIFICE: {
+    id: 108503,
+    name: 'Grimoire of Sacrifice',
+    icon: 'warlock_grimoireofsacrifice.jpg',
+  },
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga.jpg',
+  },
+
+  // ---------------
+  // OLD LISTS BELOW - Todo: clean up / remove unneeded
+  // ---------------
   BANISH: {
     id: 710,
     name: 'Banish',
@@ -360,11 +379,6 @@ const spells = {
     name: 'Demonic Breath',
     icon: 'ability_warlock_shadowflame.jpg',
   },
-  GRIMOIRE_OF_SACRIFICE: {
-    id: 108503,
-    name: 'Grimoire of Sacrifice',
-    icon: 'warlock_grimoireofsacrifice.jpg',
-  },
   GRIMOIRE_OF_SERVICE: {
     id: 108501,
     name: 'Grimoire of Service',
@@ -384,11 +398,6 @@ const spells = {
     id: 108416,
     name: 'Sacrificial Pact',
     icon: 'warlock_sacrificial_pact.jpg',
-  },
-  SHADOWFURY: {
-    id: 30283,
-    name: 'Shadowfury',
-    icon: 'ability_warlock_shadowfurytga.jpg',
   },
   UNBOUND_WILL: {
     id: 108482,
