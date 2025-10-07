@@ -421,7 +421,7 @@ const talents = {
     definitionIds: [{ id: 131305, specId: 255 }],
   },
   DIRE_BEAST_TALENT: {
-    id: 304051,
+    id: 120679,
     name: 'Dire Beast',
     icon: 'ability_hunter_bestialdiscipline',
     maxRanks: 1,
