@@ -8,86 +8,80 @@ env:
 jobs:
   prepare:
     name: 'Install dependencies'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
 
   typecheck:
     needs: [prepare]
     name: 'Typecheck'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run typecheck
 
   linting:
     needs: [prepare]
     name: 'ESLint'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint-baseline
 
   prettier:
     needs: [prepare]
     name: 'Prettier'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec prettier . --check
 
   tests:
     needs: [prepare]
     name: 'Tests'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run test
 
   build:
     needs: [prepare]
     name: 'Build'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.repository == 'wowanalyzer/wowanalyzer'
     outputs:
       environment_name: ${{ steps.environment-name.outputs.environment_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -113,14 +107,13 @@ jobs:
   e2e-build:
     needs: [prepare]
     name: 'e2e-build'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: |
@@ -150,17 +143,16 @@ jobs:
   e2e-test:
     needs: [e2e-build]
     name: e2e-test-shard-${{ matrix.shard }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
         with:
@@ -183,15 +175,14 @@ jobs:
   extract-verify:
     needs: [prepare]
     name: 'Verify i18n messages'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
-          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: pnpm run extract
@@ -201,10 +192,10 @@ jobs:
   docker-image:
     needs: [typecheck, linting, prettier, tests, build]
     name: 'Publish Docker image'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/download-artifact@v4
         with:
           name: dist
@@ -243,12 +234,12 @@ jobs:
 
   require-changelog-entry:
     name: 'Has new changelog entry'
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
       - run: node scripts/require-changelog-entry.cjs
