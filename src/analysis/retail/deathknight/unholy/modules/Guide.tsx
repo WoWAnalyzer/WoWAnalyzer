@@ -28,15 +28,11 @@ export default function UnholyGuide(props: GuideProps<typeof CombatLogParser>) {
         <SubSection title="Runes">
           <div>
             Runes are Unholy’s core resource used to cast key abilities like{' '}
-            <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} />. Unlike cooldowns, Runes
-            regenerate passively over time — up to three at once — and managing them efficiently is
-            crucial for maintaining a smooth rotation.
-          </div>
-
-          <div style={{ marginTop: '12px' }}>
-            When you sit on 4 or more Runes, you risk overcapping and wasting regeneration time. On
-            the other hand, having 0–1 Rune available too often can mean you’re starved during
-            important burst windows.
+            <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} />. Up to three runes can regenerate
+            at a time and managing them efficiently is crucial for maintaining a smooth rotation.
+            When you sit on 4 or more Runes, you are overcapping and wasting regeneration time. On
+            the other hand, having no Runes available can mean you’re starved during important burst
+            windows.
           </div>
 
           <div style={{ marginTop: '12px' }}>
