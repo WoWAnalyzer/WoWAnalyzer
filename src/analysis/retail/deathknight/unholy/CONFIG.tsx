@@ -18,33 +18,40 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Unholy Death Knights are disease specialists and undead masters, they are literally turning
-      rot and plague into damage. The specialization focuses on spreading and bursting{' '}
-      <SpellLink spell={SPELLS.FESTERING_WOUND} />, maintaining{' '}
-      <SpellLink spell={SPELLS.VIRULENT_PLAGUE} />, and syncing powerful cooldowns like{' '}
-      <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> and{' '}
-      <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> for massive burst windows.
-      <br />
-      <br />
-      Efficient resource use and cooldown alignment are key. Whether in AoE or single-target, your
-      damage hinges on controlling your minions, maximizing uptime on diseases, and capitalizing on
-      procs and runic power spikes.
-      <br />
-      <br />
-      If you have any feedback, find any issues, or have something you would like to see added, you
-      can open an issue on{' '}
-      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on{' '}
-      <a href="https://discord.gg/AxphPxU">Discord</a>.
-      <br />
-      <br />
-      Make sure to check out the <a href="https://discord.gg/acherus">
-        Death Knight Class Discord
-      </a>{' '}
-      if you need more specific advice or a more detailed guide than the ones available on{' '}
-      <a href="https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-guide">Icy Veins</a> or{' '}
-      <a href="https://www.wowhead.com/unholy-death-knight-guide">Wowhead</a>.
-      <br />
-      <br />
+      <div>
+        <p>
+          Unholy Death Knights are disease specialists and undead masters, they are literally
+          turning rot and plague into damage. The specialization focuses on spreading and bursting{' '}
+          <SpellLink spell={SPELLS.FESTERING_WOUND} />, maintaining{' '}
+          <SpellLink spell={SPELLS.VIRULENT_PLAGUE} />, and syncing powerful cooldowns like{' '}
+          <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> for massive burst windows.
+        </p>
+      </div>
+      <div>
+        <p>
+          Efficient resource use and cooldown alignment are key. Whether in AoE or single-target,
+          your damage hinges on controlling your minions, maximizing uptime on diseases, and
+          capitalizing on procs and runic power spikes.
+        </p>
+      </div>
+      <div>
+        <p>
+          If you have any feedback, find any issues, or have something you would like to see added,
+          you can open an issue on{' '}
+          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us
+          on <a href="https://discord.gg/AxphPxU">Discord</a>.
+        </p>
+      </div>
+      <div>
+        <p>
+          Make sure to check out the{' '}
+          <a href="https://discord.gg/acherus">Death Knight Class Discord</a> if you need more
+          specific advice or a more detailed guide than the ones available on{' '}
+          <a href="https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-guide">Icy Veins</a> or{' '}
+          <a href="https://www.wowhead.com/unholy-death-knight-guide">Wowhead</a>.
+        </p>
+      </div>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
