@@ -19,11 +19,8 @@ export function IntroSection() {
       <div>
         The analysis here is based on general guidelines and doesn’t always account for specific
         fight mechanics or edge cases. For the most accurate benchmarking, compare your performance
-        to other top Unholy Death Knights in the same encounter using Warcraft Logs. (
-        <a href="https://www.warcraftlogs.com/zone/rankings/42?boss=3014&class=DeathKnight&spec=Unholy">
-          Mythic One-Armed Bandit Top 100
-        </a>
-        )
+        to other top Unholy Death Knights in the same encounter using{' '}
+        <a href="https://www.warcraftlogs.com/">Warcraft Logs</a>.
       </div>
 
       <div>
