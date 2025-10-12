@@ -2,11 +2,9 @@ import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknigh
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
-
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/features/RuneTracker';
@@ -22,6 +20,7 @@ import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import PlagueBringer from './modules/talents/PlagueBringer';
+import Guide from './modules/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -33,7 +32,6 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
 
     // Features
-    checklist: Checklist,
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
     suddenDoom: SuddenDoom,
@@ -61,6 +59,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
