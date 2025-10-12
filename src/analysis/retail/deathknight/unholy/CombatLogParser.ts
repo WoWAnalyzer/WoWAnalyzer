@@ -20,6 +20,8 @@ import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import PlagueBringer from './modules/talents/PlagueBringer';
+import RunicPowerGraph from './modules/runicpower/RunicPowerGraph';
+import RuneGraph from './modules/features/RuneGraph';
 import Guide from './modules/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -49,10 +51,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
+    runicPowerGraph: RunicPowerGraph,
 
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+    runeGraph: RuneGraph,
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
