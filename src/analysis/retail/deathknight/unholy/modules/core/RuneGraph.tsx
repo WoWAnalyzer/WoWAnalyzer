@@ -1,6 +1,6 @@
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 import { formatTime } from 'parser/ui/BaseChart';
-import RuneTracker from './RuneTracker';
+import RuneTracker from '../core/RuneTracker';
 
 class RuneGraph extends ResourceGraph {
   static dependencies = {

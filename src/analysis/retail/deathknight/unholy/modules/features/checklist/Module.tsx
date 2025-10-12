@@ -4,8 +4,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
 import RunicPowerDetails from '../../runicpower/RunicPowerDetails';
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import RuneTracker from '../RuneTracker';
+import AlwaysBeCasting from '../../core/AlwaysBeCasting';
+import RuneTracker from '../../core/RuneTracker';
 import Component from './Component';
 
 class Checklist extends BaseModule {
