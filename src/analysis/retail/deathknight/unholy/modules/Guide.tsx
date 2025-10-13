@@ -5,11 +5,16 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/deathknight';
 import SPELLS from 'common/SPELLS/deathknight';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import Cooldowns from './guide/CooldownSection';
 
 export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <IntroSection />
+
+      <Section title="Cooldown Tracking">
+        <Cooldowns />
+      </Section>
 
       <Section title="Resource Use">
         <SubSection title="Runes">
