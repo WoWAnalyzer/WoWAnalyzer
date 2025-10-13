@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 
 export default [
+  change(date(2025, 10, 13), 'Added a Cooldown section to the Guide', Brandrewsss),
   change(date(2025, 10, 12), 'Updated Unholy Death Knight Analyzer to Guide layout and updated folder structure', Brandrewsss),
   change(date(2025, 6, 23), 'Update Unholy Death Knight Buffs for Patch 11.1.5', Brandrewsss),
   change(date(2025, 6, 8), 'Update Unholy Death Knight Abilities and Talents for Patch 11.1.5', Brandrewsss),
