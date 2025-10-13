@@ -63,6 +63,10 @@ export function damageBreakdown<T>(
 interface DamageTakenPointChartProps {
   hits: TrackedHit[];
   tooltip: React.FC<{ hit: TrackedHit }>;
+  /**
+   * By default, small hits (<10% hp) are hidden. This helps eliminate junk like passive ticking damage.
+   */
+  showSmallHits?: boolean;
 }
 
 type Props = DamageTakenPointChartProps;
@@ -118,6 +122,8 @@ export function DamageSourceLink({
   event,
   showSourceName,
 }: {
+  // annoying type issues with non-any type params here
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   event: AbilityEvent<any> & Partial<SourcedEvent<any>>;
   showSourceName?: boolean;
 }): JSX.Element | null {
@@ -150,7 +156,7 @@ function HitTimeline({
   hits,
   showSourceName,
   tooltip: TooltipContent,
-}: Props & { showSourceName?: boolean }) {
+}: Omit<Props, 'showSmallHits'> & { showSourceName?: boolean }) {
   const info = useInfo()!;
   const enemies = useAnalyzer(Enemies);
 
@@ -181,6 +187,23 @@ function HitTimeline({
   );
 }
 
+function hiddenByDefault(data: Map<string, TrackedHit[]>): boolean {
+  let maxHit = 0;
+  for (const hits of data.values()) {
+    maxHit = Math.max(
+      maxHit,
+      Math.max.apply(
+        null,
+        hits
+          .filter((hit) => hit.event.maxHitPoints !== undefined)
+          .map((hit) => hit.event.amount / hit.event.maxHitPoints!),
+      ),
+    );
+  }
+
+  return maxHit < 0.1;
+}
+
 /**
  * Damage Taken chart shown as a single point for each hit. See the Brewmaster Shuffle section
  * for an example of what this looks like.
@@ -191,7 +214,11 @@ function HitTimeline({
  *
  * Note that the `tooltip` component is *required* and that this is intentional.
  */
-export default function DamageTakenPointChart({ hits, tooltip }: Props): JSX.Element {
+export default function DamageTakenPointChart({
+  hits,
+  tooltip,
+  showSmallHits,
+}: Props): JSX.Element {
   const hitsBySpellRaw = damageBreakdown(
     hits,
     (hit: TrackedHit) => hit.event.ability.guid,
@@ -212,6 +239,7 @@ export default function DamageTakenPointChart({ hits, tooltip }: Props): JSX.Ele
       ))}
       {Array.from(hitsBySpellRaw.entries())
         .filter(([id]) => id !== 1)
+        .filter(([, hits]) => showSmallHits || !hiddenByDefault(hits))
         .map(([id, hits]) => (
           <HitTimeline hits={Array.from(hits.values()).flat()} key={id} tooltip={tooltip} />
         ))}

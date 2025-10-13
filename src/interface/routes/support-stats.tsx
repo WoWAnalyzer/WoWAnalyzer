@@ -209,21 +209,21 @@ function StatsTableEntry({
 
   const perf = evaluateQualitativePerformanceByThreshold({
     ...props.threshold,
-    actual: value.median,
+    actual: value.avg,
   } as QualitativePerformanceThreshold);
 
   return (
     <Tooltip
       content={
         <>
-          The median value. The average is <strong>{formatValue(value.avg)}</strong>, and the data
-          ranges from a min of <strong>{formatValue(value.min)}</strong> to a max of{' '}
+          The average is <strong>{formatValue(value.avg)}</strong>, and the data ranges from a min
+          of <strong>{formatValue(value.min)}</strong> to a max of{' '}
           <strong>{formatValue(value.max)}</strong>
         </>
       }
     >
       <div style={{ cursor: 'pointer', color: qualitativePerformanceToColor(perf) }}>
-        {formatValue(value.median)}
+        {formatValue(value.avg)}
       </div>
     </Tooltip>
   );

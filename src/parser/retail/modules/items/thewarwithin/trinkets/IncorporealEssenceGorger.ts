@@ -11,6 +11,7 @@ export default class IncorporealEssenceGorger extends Analyzer.withDependencies(
     super(options);
 
     this.active = this.selectedCombatant.hasTrinket(ITEMS.INCORPOREAL_ESSENCE_GORGER.id);
+    if (!this.active) return;
 
     this.deps.abilities.add({
       spell: SPELLS.INCORPOREAL_ESSENCE_GORGER.id,

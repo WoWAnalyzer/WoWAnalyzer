@@ -44,8 +44,8 @@ export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
   SPELLS.ASPECT_OF_THE_TURTLE,
   TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT,
 ];
-//Born To Be Wild reduces the cooldown of affected spells by 20%
-export const BORN_TO_BE_WILD_CD_REDUCTION = [0, 0.1, 0.2];
+//Hogstrider has two damage IDs
+export const PL_HOGSTRIDER_DAMAGE = [SPELLS.PL_HOGSTRIDER_DAMAGE_1, SPELLS.PL_HOGSTRIDER_DAMAGE_2];
 /** Natural Mending */
 //1 second per 12 focus spent
 export const NATURAL_MENDING_CDR_PER_FOCUS = 1000 / 12;

@@ -11,10 +11,9 @@ const CONFIG: Config = {
   branch: GameBranch.Classic,
   contributors: [jazminite],
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
+  patchCompatibility: '5.5.0',
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    "/report/7hMAQ6RzkXF82G94/3-Heroic+Al'Akir+-+Kill+(5:57)/Deepdrei/standard/overview",
+  exampleReport: '/report/VqRJyj1fx3DCwHnb/3-Heroic+Tsulong+-+Kill+(4:15)/Auruch/standard/overview',
 
   // USE CAUTION when changing anything below this line.
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

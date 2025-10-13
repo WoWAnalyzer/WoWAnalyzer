@@ -33,6 +33,7 @@ const spells: number[] = [
 
   //region Items
   SPELLS.RAGE_OF_FYRALATH_2.id, // second cast logged by Fyr'alath
+  SPELLS.PHASE_BLINK.id, // 11.2 Legendary cloak
   //endregion
 
   //region Consumables
@@ -64,6 +65,7 @@ const spells: number[] = [
   SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast
   SPELLS.DIRE_BEAST_GLYPHED.id, //Additional cast event associated with summoning a Dire Beast with Glyph of Dire Stable
   SPELLS.COORDINATED_ASSAULT_FAKE_CAST.id, // The real cast is the Coordinated Assault Talent.
+  SPELLS.DIRE_BEAST_SUMMON.id, // Turned into a passive proc
   //endregion
 
   //region Mage

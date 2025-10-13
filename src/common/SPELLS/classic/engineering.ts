@@ -29,22 +29,17 @@ const spells = {
     icon: 'spell_fire_burningspeed.jpg',
     enchantId: 4223,
   },
-  SARONITE_BOMB: {
-    id: 56350,
-    name: 'Saronite Bomb',
-    icon: 'inv_misc_enggizmos_32.jpg',
-  },
   SYNAPSE_SPRINGS: {
-    id: 82174,
+    id: 126734,
     name: 'Synapse Springs',
     icon: 'spell_shaman_elementaloath.jpg',
-    enchantId: 4179,
+    enchantId: 4898,
   },
   SYNAPSE_SPRINGS_INTEL_BUFF: {
     id: 96230,
     name: 'Synapse Springs',
     icon: 'spell_shaman_elementaloath.jpg',
-    enchantId: 4179,
+    enchantId: 4898,
   },
 } satisfies Record<string, Spell>;
 

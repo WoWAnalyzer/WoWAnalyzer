@@ -8,7 +8,6 @@ import {
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
-  KillShot,
   MasterMarksman,
   NaturalMending,
   RejuvenatingWind,
@@ -16,6 +15,7 @@ import {
   Trailblazer,
   TranquilizingShot,
 } from '../shared';
+import KillShotSurvival from './modules/talents/KillShotSurvival';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Bloodseeker from './modules/talents/Bloodseeker';
@@ -42,7 +42,9 @@ import FuryOfTheEagle from './modules/talents/FuryOfTheEagle';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import Guide from './modules/guide/Guide';
 import SurvivalOfTheFittest from '../shared/talents/SurvivalOfTheFittest';
-import ExhilarationTiming from './modules/guide/sections/defensives/Exhiliration';
+import ExhilarationTiming from '../shared/guide/defensives/Exhiliration';
+import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers';
+import StampedeAnalyzer from '../shared/herotalents/Stampede';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -71,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
+    EventLinkNormalizers: EventLinkNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -92,10 +95,11 @@ class CombatLogParser extends CoreCombatLogParser {
     furyOfTheEagle: FuryOfTheEagle,
 
     //Shared Talents
+    stampedeTier: StampedeAnalyzer,
     bindingShot: BindingShot,
     deathBlow: Deathblow,
     explosiveShot: ExplosiveShot,
-    killShot: KillShot,
+    killShotSurvival: KillShotSurvival,
     masterMarksman: MasterMarksman,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,

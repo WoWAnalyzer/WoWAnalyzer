@@ -37,7 +37,7 @@ const buildWclPhaseConfigs = (
 
     phaseConfigs[id] = {
       key: String(id),
-      name: bossPhases.phases[id - 1],
+      name: bossPhases.phases[id - 1] ?? 'Unknown Phase',
       difficulties: [fight.difficulty ?? 1],
       intermission: intermissions.has(id),
     };

@@ -29,11 +29,6 @@ export default class Bombs extends Analyzer.withDependencies({ abilities: Abilit
         category: SPELL_CATEGORY.ITEMS,
         gcd: null,
       });
-      this.deps.abilities.add({
-        spell: SPELLS.SARONITE_BOMB.id,
-        category: SPELL_CATEGORY.ITEMS,
-        gcd: null,
-      });
     }
   }
 }

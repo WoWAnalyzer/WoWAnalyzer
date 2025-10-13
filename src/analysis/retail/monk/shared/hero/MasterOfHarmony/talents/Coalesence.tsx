@@ -15,14 +15,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/mistweaver/constants';
 
-// These abilities are affected by healing amps but not Coalescence
-const coalescenceAmpExceptions = [
-  SPELLS.AT_CRIT_HEAL.id,
-  SPELLS.AT_HEAL.id,
-  SPELLS.AJ_HEAL.id,
-  SPELLS.AJ_CRIT_HEAL.id,
-];
-
 class Coalesence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -46,10 +38,7 @@ class Coalesence extends Analyzer {
       return;
     }
 
-    if (
-      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid) ||
-      coalescenceAmpExceptions.includes(event.ability.guid)
-    ) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
       return;
     }
 

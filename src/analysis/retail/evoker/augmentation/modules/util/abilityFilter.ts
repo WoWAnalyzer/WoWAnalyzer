@@ -323,6 +323,7 @@ export const ABILITY_NO_EM_SCALING = new Set<number>([
   1246637, // Chaotic Nethergate,
   1247690, // Artisanal Blink Trap,
   1248107, // Nether-warped Seedling
+  1246948, // Shooting Star (Dimensius)
 ]);
 
 /** Class or non-class abilities that don't contribute to Eons
@@ -685,4 +686,5 @@ export const ABILITY_NO_BOE_SCALING = new Set<number>([
   1243069, // Horrific Visions,
   1243105, // Horrific Vision,
   1243106, // Vision of N'Zoth,
+  1246948, // Shooting Star (Dimensius)
 ]);

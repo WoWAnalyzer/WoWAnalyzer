@@ -73,6 +73,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         enabled: combatant.hasTalent(talents.CHI_BURST_SHARED_TALENT),
+        damageSpellIds: [SPELLS.CHI_BURST_TALENT_DAMAGE.id],
+        healSpellIds: [SPELLS.CHI_BURST_HEAL.id],
         castEfficiency: {
           suggestion: false,
         },

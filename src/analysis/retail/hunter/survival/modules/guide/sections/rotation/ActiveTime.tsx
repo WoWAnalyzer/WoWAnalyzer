@@ -4,9 +4,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
-import PerformanceStrong from 'interface/PerformanceStrong';
-import { formatPercentage } from 'common/format';
-import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
 export default function ActiveTime({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -46,17 +44,7 @@ export default function ActiveTime({ modules, events, info }: GuideProps<typeof 
           </p>
         </>
       </Explanation>
-      <p>
-        Active Time:{' '}
-        <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
-          {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
-        </PerformanceStrong>{' '}
-      </p>
-      <ActiveTimeGraph
-        activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-        fightStart={info.fightStart}
-        fightEnd={info.fightEnd}
-      />
+      <FoundationDowntimeSection />
     </Section>
   );
 }

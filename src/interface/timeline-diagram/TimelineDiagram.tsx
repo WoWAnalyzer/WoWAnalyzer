@@ -116,28 +116,30 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   );
   const width = useCallback((start: number, end: number) => x(end) - x(start), [x]);
 
-  const setScrollLeft = useCallback(
-    (timestamp: number) => {
-      containerElement.current?.scroll(x(timestamp), 0);
-    },
-    [x],
-  );
-
   const contextValue = useMemo(
     (): TimelineContext => ({
       x,
       width,
       zoom(event, start, end) {
         zoomEvent.current = event;
-        setDisplayMs(Math.min(info.fightDuration, end - start));
-        setScrollLeft(start);
+        const displayMs = Math.min(info.fightDuration, end - start);
+        setDisplayMs(displayMs);
+        // do the scroll in the next render so that the scrollbar exists.
+        // don't use the `x` helper to avoid capturing the old value of `displayMs`
+        setTimeout(() => {
+          containerElement.current?.scroll(
+            (start - info.fightStart) *
+              ((containerElement.current?.getBoundingClientRect().width ?? 0) / displayMs),
+            0,
+          );
+        }, 0);
       },
       resetZoom(event) {
         zoomEvent.current = event;
         setDisplayMs(undefined);
       },
     }),
-    [x, width, info, setScrollLeft],
+    [x, width, info],
   );
 
   const [renderedTracks, trackHeight] = useMemo(() => {

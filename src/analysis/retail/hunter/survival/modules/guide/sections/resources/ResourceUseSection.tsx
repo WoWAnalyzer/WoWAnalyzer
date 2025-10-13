@@ -35,7 +35,7 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> regeneration is lost DPS. It will
           occasionally be impossible to avoid capping <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />{' '}
           - like while handling mechanics or during intermission phases or during Coordinated
-          Assault with Relentless Primal Ferocity talented.
+          Assault with Relentless Primal Ferocity talented or when spawning a Beast in Pack Leader.
         </p>
         The chart below shows your <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> over the course of
         the encounter. You wasted{' '}
@@ -66,25 +66,28 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />
           Stacks. These stacks are consumed one per cast of your <strong>Direct Damage</strong>{' '}
           dealing abilities.
-          <br></br>
+        </p>
+        <p>
           <strong>
             {' '}
             Tip of the Spear does not buff the damage of abilities like{' '}
             <SpellLink spell={TALENTS.SPEARHEAD_TALENT} />, or{' '}
             <SpellLink spell={TALENTS.MERCILESS_BLOW_TALENT} />.
           </strong>
-          <br></br>
+        </p>
+        <p>
           It is preferable to spend these stacks on high value abilities like{' '}
           <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />,{' '}
           <SpellLink spell={TALENTS.FLANKING_STRIKE_TALENT} />, and when talented,
-          <SpellLink spell={TALENTS.FURY_OF_THE_EAGLE_TALENT} />.<br></br>
+          <SpellLink spell={TALENTS.FURY_OF_THE_EAGLE_TALENT} />.
+        </p>
+        <p>
           It is beneficial to tip <SpellLink spell={TALENTS.EXPLOSIVE_SHOT_TALENT} /> but not at the
-          cost of generating a stack prior to casting the ability.
-          <br></br>
-          <SpellLink spell={TALENTS.KILL_SHOT_SURVIVAL_TALENT} /> should be tipped if playing
-          Packleader because of <SpellLink spell={TALENTS.CULL_THE_HERD_TALENT} />
-          , but can be treated the same as <SpellLink spell={TALENTS.EXPLOSIVE_SHOT_TALENT} /> if
-          playing Sentinel.
+          cost of generating a stack prior to casting the ability. It should also be noted that Pack
+          Leader does not cast <SpellLink spell={TALENTS.EXPLOSIVE_SHOT_TALENT} /> or
+          <SpellLink spell={TALENTS.KILL_SHOT_SURVIVAL_TALENT} /> unless you are low on focus or out
+          of melee range. Sentinel does not use Kill Shot either, but does use Explosive shot,
+          however it does not go out of it's way to tip it prior to use.
         </p>
       </SubSection>
     </Section>

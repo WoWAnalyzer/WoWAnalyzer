@@ -19,14 +19,10 @@ import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel'
  */
 
 class FlankingStrike extends Analyzer {
-  private damage = 0;
-
   private flankingStrikes: {
     name: string;
     sourceID: number;
     damage: number;
-    effectiveFocus: number;
-    possibleFocus: number;
   }[] = [];
 
   constructor(options: Options) {
@@ -41,8 +37,6 @@ class FlankingStrike extends Analyzer {
       name: this.selectedCombatant.name,
       sourceID: this.owner.playerId,
       damage: 0,
-      effectiveFocus: 0,
-      possibleFocus: 0,
     });
 
     this.addEventListener(
@@ -76,8 +70,6 @@ class FlankingStrike extends Analyzer {
         name: sourcePet.name,
         sourceID: petId,
         damage: 0,
-        effectiveFocus: 0,
-        possibleFocus: 0,
       };
       this.flankingStrikes.push(pet);
       return pet;
@@ -114,7 +106,6 @@ class FlankingStrike extends Analyzer {
                 <tr>
                   <th>Source</th>
                   <th>Damage</th>
-                  <th>Focus</th>
                 </tr>
               </thead>
               <tbody>
@@ -123,8 +114,6 @@ class FlankingStrike extends Analyzer {
                     source: {
                       name: string;
                       damage: number;
-                      effectiveFocus: number;
-                      possibleFocus: number;
                     },
                     idx: number,
                   ) => (
@@ -132,9 +121,6 @@ class FlankingStrike extends Analyzer {
                       <td>{source.name}</td>
                       <td>
                         <ItemDamageDone amount={source.damage} />
-                      </td>
-                      <td>
-                        {source.effectiveFocus}/{source.possibleFocus}
                       </td>
                     </tr>
                   ),
@@ -173,7 +159,7 @@ class FlankingStrike extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={TALENTS.FLANKING_STRIKE_TALENT} useThresholds />;
+    const data = <CastEfficiencyPanel spell={SPELLS.FLANKING_STRIKE_PLAYER} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data);
   }
