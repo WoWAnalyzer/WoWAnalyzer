@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/deathknight';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import Cooldowns from './guide/CooldownSection';
 
+
 export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
