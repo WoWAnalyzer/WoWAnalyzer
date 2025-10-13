@@ -1,5 +1,3 @@
-// src/analysis/retail/deathknight/unholy/modules/guide/CooldownSection.tsx
-
 import TALENTS from 'common/TALENTS/deathknight';
 import CooldownGraphSubSection, {
   Cooldown,
