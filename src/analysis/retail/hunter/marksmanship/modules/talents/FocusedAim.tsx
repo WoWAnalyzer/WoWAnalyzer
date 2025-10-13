@@ -24,12 +24,12 @@ class FocusedAim extends Analyzer {
     );
   }
 
-  onPSRemoved = () => {
+  private onPSRemoved() {
     this.spellUsable.reduceCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, REDUCTION_MS);
     if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
       this.spellUsable.reduceCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, REDUCTION_MS * 2);
     }
-  };
+  }
 }
 
 export default FocusedAim;

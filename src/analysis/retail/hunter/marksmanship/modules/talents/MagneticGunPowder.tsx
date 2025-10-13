@@ -34,8 +34,13 @@ class MagneticGunPowder extends Analyzer {
       this.spellUsable.reduceCooldown(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT.id, 8000);
     }
   }
+
   onPSRemoved() {
-    const base = this.selectedCombatant.hasTalent(TALENTS_HUNTER.FOCUSED_AIM_TALENT) ? 4000 : 2000;
+    // Windrunner Quiver makes PS stack twice, but doesn't actually log the buff stacks so just assume they consumed 2x PS.
+    const base = this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)
+      ? 4000
+      : 2000;
+
     if (this.spellUsable.isOnCooldown(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT.id)) {
       this.spellUsable.reduceCooldown(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT.id, base);
     }
