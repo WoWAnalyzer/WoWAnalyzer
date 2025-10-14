@@ -1,6 +1,5 @@
-import { BORN_TO_BE_WILD_CD_REDUCTION } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/hunter';
+import TALENTS, { TALENTS_HUNTER } from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -22,7 +21,10 @@ class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS.AIMED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => {
-          return 12 / (1 + haste);
+          const base = this.selectedCombatant.hasTalent(TALENTS_HUNTER.AMMO_CONSERVATION_TALENT)
+            ? 11
+            : 12;
+          return base / (1 + haste);
         },
         charges: 2,
         gcd: {
@@ -74,7 +76,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT.id,
         buffSpellId: SPELLS.TRUESHOT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT) ? 90 : 120,
         gcd: {
           static: 0,
         },
@@ -147,19 +149,18 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown:
-          180 *
-          (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
+        cooldown: 180 - (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },
       },
       {
-        spell: [SPELLS.SURVIVAL_OF_THE_FITTEST_LONE_WOLF.id, SPELLS.SURVIVAL_OF_THE_FITTEST.id],
+        spell: SPELLS.SURVIVAL_OF_THE_FITTEST.id,
+        enabled: combatant.hasTalent(TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180,
+        charges: combatant.hasTalent(TALENTS.PADDED_ARMOR_TALENT) ? 2 : 1,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.LONE_SURVIVOR_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },
@@ -219,10 +220,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          180 *
-          (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
+        cooldown: 180 - (combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },

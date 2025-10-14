@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/hunter/beastmastery/CombatLogParser';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -37,16 +38,16 @@ export default function RotationSection({ modules, info }: GuideProps<typeof Com
           segments show when the spell was cooling down. Red segments highlight times when you could
           have fit a whole extra use of the cooldown.
         </Trans>
-        {info.combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT) && (
+        {info.combatant.hasTalent(TALENTS.CALL_OF_THE_WILD_TALENT) && (
           <CastEfficiencyBar
-            spellId={TALENTS.BESTIAL_WRATH_TALENT.id}
+            spellId={TALENTS.CALL_OF_THE_WILD_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
             minimizeIcons
           />
         )}
-        {info.combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT) && (
+        {info.combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT) && (
           <CastEfficiencyBar
-            spellId={TALENTS.DIRE_BEAST_TALENT.id}
+            spellId={TALENTS.BESTIAL_WRATH_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
             minimizeIcons
           />

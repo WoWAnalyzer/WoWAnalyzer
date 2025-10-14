@@ -423,7 +423,7 @@ const talents = {
   DIRE_BEAST_TALENT: {
     id: 120679,
     name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
+    icon: 'ability_hunter_bestialdiscipline',
     maxRanks: 1,
     entryIds: [126439],
     definitionIds: [{ id: 131265, specId: 253 }],
