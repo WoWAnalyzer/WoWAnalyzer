@@ -201,7 +201,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(talents.ASSIMILATION_TALENT) ? 120 : 180,
+        cooldown: combatant.hasTalent(talents.ASSIMILATION_TALENT) ? 180 : 240,
         isDefensive: true,
         enabled: combatant.hasTalent(talents.ANTI_MAGIC_ZONE_TALENT),
       },
