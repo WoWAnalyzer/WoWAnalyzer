@@ -32,6 +32,7 @@ import DestructionWarlock from 'analysis/retail/warlock/destruction';
 import ArmsWarrior from 'analysis/retail/warrior/arms';
 import FuryWarrior from 'analysis/retail/warrior/fury';
 import ProtectionWarrior from 'analysis/retail/warrior/protection';
+import DevourerDemonHunter from 'analysis/retail/demonhunter/devourer';
 import HavocDemonHunter from 'analysis/retail/demonhunter/havoc';
 import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 import DevastationEvoker from 'analysis/retail/evoker/devastation';
@@ -75,6 +76,7 @@ const configs: Config[] = [
   UnholyDeathKnight,
   FrostDeathKnight,
 
+  DevourerDemonHunter,
   HavocDemonHunter,
   VengeanceDemonHunter,
 

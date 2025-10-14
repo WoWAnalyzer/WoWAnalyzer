@@ -829,6 +829,29 @@ const SPECS = {
       spec: 2,
     },
   },
+  DEVOURER_DEMON_HUNTER: {
+    id: 1480,
+    index: 134,
+    className: defineMessage({
+      id: 'specs.demonHunter',
+      message: `Demon Hunter`,
+    }),
+    specName: defineMessage({
+      id: 'specs.devourer',
+      message: `Devourer`,
+    }),
+    wclClassName: 'DemonHunter',
+    wclSpecName: 'Devourer',
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STAT.INTELLECT,
+    masterySpellId: 1238855,
+    masteryCoefficient: 1, // 0.4 out of Meta, 1.0 in Meta
+    branch: GameBranch.Retail,
+    ranking: {
+      class: 12,
+      spec: 3,
+    },
+  },
   HAVOC_DEMON_HUNTER: {
     id: 577,
     index: 34,

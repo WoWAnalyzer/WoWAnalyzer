@@ -16,6 +16,9 @@ export type TwwPatchVersion = StringWithAutocompleteOptions<
   NerubarPatchCycle | UnderminePatchCycle | ManaforgeOmegaPatchCycle
 >;
 
+type MidnightFirstRaidCycle = `12.0.${0 | 5 | 7}`;
+export type MidnightPatchVersion = StringWithAutocompleteOptions<MidnightFirstRaidCycle>;
+
 export type CataPatchVersion = StringWithAutocompleteOptions<`4.4.0`>;
 export type MistsPatchVersion = StringWithAutocompleteOptions<`5.4.0`>;
 
@@ -48,7 +51,12 @@ export enum SupportLevel {
 
 interface CoreConfig {
   branch: GameBranch;
-  patchCompatibility: null | TwwPatchVersion | CataPatchVersion | MistsPatchVersion;
+  patchCompatibility:
+    | null
+    | MidnightPatchVersion
+    | TwwPatchVersion
+    | CataPatchVersion
+    | MistsPatchVersion;
   /**
    * The people that have contributed to this spec recently. People don't have
    * to sign up to be long-time maintainers to be included in this list. If
