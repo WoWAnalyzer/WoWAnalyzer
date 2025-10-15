@@ -1,0 +1,20 @@
+diff --git a/macro/index.d.ts b/macro/index.d.ts
+index 84e1587af8b0e8ad200ab401fb1f37de30746adb..5a34d617800dfde58fb421874ae5d78cb5b8c342 100644
+--- a/macro/index.d.ts
++++ b/macro/index.d.ts
+@@ -1,4 +1,4 @@
+-import type { ReactNode } from "react"
++import type { ReactElement, ReactNode } from "react"
+ import type { TransRenderCallbackOrComponent, I18nContext } from "@lingui/react"
+ import type {
+   MacroMessageDescriptor,
+@@ -52,7 +52,8 @@ type SelectChoiceProps = {
+  * <Trans id="custom.id">Hello {username}.</Trans>
+  * ```
+  */
+-export const Trans: (props: TransProps) => ReactNode
++// this now matches the signature from base @lingui/react
++export const Trans: (props: TransProps) => ReactElement<any, any> | null;
+ 
+ /**
+  * Props of Plural macro are transformed into plural format.
