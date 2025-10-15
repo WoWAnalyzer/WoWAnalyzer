@@ -3,7 +3,7 @@ import process from 'node:process';
 
 import { lingui } from '@lingui/vite-plugin';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import { globSync } from 'glob';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -62,9 +62,7 @@ export default defineConfig((env) => ({
   plugins: [
     tsconfigPaths(),
     react({
-      babel: {
-        plugins: ['macros', '@emotion/babel-plugin', '@babel/plugin-syntax-import-attributes'],
-      },
+      plugins: [['@swc/plugin-emotion', {}], env.mode === 'test' ? [] : ['@lingui/swc-plugin', {}]],
     }),
     {
       name: 'vite-plugin-wowanalyzer-index-html-inject-ga',
