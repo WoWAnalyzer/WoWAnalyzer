@@ -243,4 +243,5 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+      - run: pnpm install --frozen-lockfile
       - run: node scripts/require-changelog-entry.cjs
