@@ -244,4 +244,5 @@ jobs:
         with:
           node-version: '22.x'
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - run: pnpm install --frozen-lockfile
       - run: node scripts/require-changelog-entry.cjs
