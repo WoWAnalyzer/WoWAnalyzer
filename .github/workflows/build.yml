@@ -239,6 +239,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
