@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 10, 15), <>Bump to S3 compatibility</>, Seriousnes),
   change(date(2025, 7, 8), <>Disable <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} /></>, Seriousnes),
   change(date(2025, 4, 25), <>Fix <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> and <SpellLink spell={TALENTS.CALL_OF_THE_ANCESTORS_TALENT} /> timelines, and <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> missing from main timeline</>, Seriousnes),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
