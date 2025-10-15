@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import { join } from 'node:path';
 import process from 'node:process';
 
@@ -62,7 +64,11 @@ export default defineConfig((env) => ({
   plugins: [
     tsconfigPaths(),
     react({
-      plugins: [['@swc/plugin-emotion', {}], env.mode === 'test' ? [] : ['@lingui/swc-plugin', {}]],
+      plugins: [
+        ['@swc/plugin-emotion', {}],
+        // always enabled because it powers the macros
+        ['@lingui/swc-plugin', {}],
+      ],
     }),
     {
       name: 'vite-plugin-wowanalyzer-index-html-inject-ga',
@@ -71,7 +77,7 @@ export default defineConfig((env) => ({
           ? html.replace('</head>', GOOGLE_ANALYTICS_SCRIPT)
           : html,
     },
-    env.mode === 'test' ? null : lingui(),
+    lingui(),
     svgr(),
     process.env.SENTRY_AUTH_TOKEN
       ? sentryVitePlugin({
@@ -139,6 +145,6 @@ export default defineConfig((env) => ({
     },
     resolveSnapshotPath: (testPath: string, snapExtension: string) => testPath + snapExtension,
     css: false,
-    reporters: ['basic', 'hanging-process'],
+    reporters: [['default', { summary: true }], 'hanging-process'],
   },
 }));
