@@ -22,6 +22,7 @@ import {
   BREATH_OF_EONS_SPELL_IDS,
   BREATH_OF_EONS_SPELLS,
   EBON_MIGHT_PERSONAL_DAMAGE_AMP,
+  //T35_AUGMENTATION_2PC_EXTENSION_MODIFIER,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { SpellUse } from 'parser/core/SpellUsage/core';
@@ -264,12 +265,16 @@ class EbonMight extends Analyzer {
     const critChance = this.stats.currentCritPercentage;
     const critMod = 1 + SANDS_OF_TIME_CRIT_MOD * critChance;
 
+    // Update once Midnight tiers are implemented
+    //const eruptionExtension = this.selectedCombatant.has2PieceByTier(TIERS.MIDNIGHT1) ? ERUPTION_EXTENSION_MS + T35_AUGMENTATION_2PC_EXTENSION_MODIFIER : ERUPTION_EXTENSION_MS;
+    const eruptionExtension = ERUPTION_EXTENSION_MS;
+
     let newEbonMightDuration;
 
     if (BREATH_OF_EONS_SPELL_IDS.includes(event.ability.guid)) {
       newEbonMightDuration = ebonMightTimeLeft + BREATH_OF_EONS_EXTENSION_MS * critMod;
     } else if (event.ability.guid === TALENTS.ERUPTION_TALENT.id) {
-      newEbonMightDuration = ebonMightTimeLeft + ERUPTION_EXTENSION_MS * critMod;
+      newEbonMightDuration = ebonMightTimeLeft + eruptionExtension * critMod;
     } else if (event.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id) {
       newEbonMightDuration = ebonMightTimeLeft + DREAM_OF_SPRINGS_EXTENSION_MS * critMod;
     } else {

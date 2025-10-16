@@ -37,7 +37,8 @@ import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
 // Tier
-import T32Augmentation2P from './modules/thewarwithin/T32Augmentation2P';
+import T35Augmentation2P from './modules/midnight/T35Augmentation2P';
+import T35Augmentation4P from './modules/midnight/T35Augmentation4P';
 
 //Shared
 import {
@@ -170,7 +171,8 @@ class CombatLogParser extends MainCombatLogParser {
     buffTrackerGraph: BuffTrackerGraph,
 
     // Tier
-    t32Augmentation2P: T32Augmentation2P,
+    t35Augmentation2P: T35Augmentation2P,
+    t35Augmentation4P: T35Augmentation4P,
   };
   static guide = Guide;
 }

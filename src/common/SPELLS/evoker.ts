@@ -659,11 +659,6 @@ const spells = {
     name: 'Momentum Shift',
     icon: 'ability_priest_voidshift',
   },
-  VOLCANIC_UPSURGE: {
-    id: 456142,
-    name: 'Volcanic Upsurge',
-    icon: 'ability_evoker_earthensky',
-  },
   MOTES_OF_ACCELERATION_BUFF: {
     id: 432061,
     name: 'Motes of Acceleration',
