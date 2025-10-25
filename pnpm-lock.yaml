@@ -204,8 +204,8 @@ importers:
         specifier: ^4.4.10
         version: 4.4.10
       '@types/react-virtualized':
-        specifier: ^9.21.30
-        version: 9.21.30
+        specifier: 9.22.2
+        version: 9.22.2
       '@types/testing-library__jest-dom':
         specifier: ^5.14.5
         version: 5.14.9
@@ -1488,8 +1488,8 @@ packages:
   '@types/react-transition-group@4.4.10':
     resolution: {integrity: sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==}
 
-  '@types/react-virtualized@9.21.30':
-    resolution: {integrity: sha512-4l2TFLQ8BCjNDQlvH85tU6gctuZoEdgYzENQyZHpgTHU7hoLzYgPSOALMAeA58LOWua8AzC6wBivPj1lfl6JgQ==}
+  '@types/react-virtualized@9.22.2':
+    resolution: {integrity: sha512-0Eg/ME3OHYWGxs+/n4VelfYrhXssireZaa1Uqj5SEkTpSaBu5ctFGOCVxcOqpGXRiEdrk/7uho9tlZaryCIjHA==}
 
   '@types/react@16.14.60':
     resolution: {integrity: sha512-wIFmnczGsTcgwCBeIYOuy2mdXEiKZ5znU/jNOnMZPQyCcIxauMGWlX0TNG4lZ7NxRKj7YUIZRneJQSSdB2jKgg==}
@@ -5477,7 +5477,7 @@ snapshots:
     dependencies:
       '@types/react': 17.0.80
 
-  '@types/react-virtualized@9.21.30':
+  '@types/react-virtualized@9.22.2':
     dependencies:
       '@types/prop-types': 15.7.12
       '@types/react': 17.0.80
