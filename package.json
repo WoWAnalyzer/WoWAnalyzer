@@ -6,9 +6,9 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@emotion/is-prop-valid": "^1.2.2",
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
+    "@emotion/is-prop-valid": "1.4.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
     "@lingui/core": "5.5.1",
     "@lingui/macro": "5.5.1",
     "@lingui/react": "5.5.1",
