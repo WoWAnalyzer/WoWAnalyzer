@@ -46,6 +46,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2025, 10,  25), 'Update to React 19.', ToppleTheNun),
+  // Above is react-19 changes, below is the-war-within changes
   change(date(2025, 10,  14), 'Update CastEfficiencyBar to accept a spell object.', Sharrq),
   change(date(2025, 10,  22), 'Add and Update Guide Components for CastSummary, CastDetail, CastSequence, StatisticCard, and BuffUptimeBar.', Sharrq),
   change(date(2025, 10,  14), 'Replace Babel with oxc and swc.', ToppleTheNun),
