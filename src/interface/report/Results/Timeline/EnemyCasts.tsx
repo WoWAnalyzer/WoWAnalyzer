@@ -204,7 +204,7 @@ const EnemySpellControlBlock = ({
     >
       <EnemySpellTypeToggle
         id="enemy-casts-toggle"
-        label=<>Show Enemy Ability Timeline</>
+        label={<>Show Enemy Ability Timeline</>}
         toggleCallBack={toggleAll}
         checked={shouldRenderNPCSpells}
       />

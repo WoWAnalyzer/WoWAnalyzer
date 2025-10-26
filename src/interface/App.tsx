@@ -1,4 +1,4 @@
-import { wrapCreateBrowserRouter } from '@sentry/react';
+import { wrapCreateBrowserRouterV6 } from '@sentry/react';
 import {
   createBrowserRouter,
   createMemoryRouter,
@@ -42,7 +42,7 @@ const appRoutes = createRoutesFromElements(
 );
 
 const sentryCreateBrowserRouter = import.meta.env.SENTRY_DSN
-  ? wrapCreateBrowserRouter(createBrowserRouter)
+  ? wrapCreateBrowserRouterV6(createBrowserRouter)
   : createBrowserRouter;
 const router =
   import.meta.env.MODE === 'test'

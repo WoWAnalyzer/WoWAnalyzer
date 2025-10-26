@@ -91,7 +91,7 @@ const javascript = tseslint.config({
   extends: [
     js.configs.recommended,
     react.configs.recommended,
-    reactHooks.configs['recommended-latest'],
+    reactHooks.configs.flat['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   rules: {
@@ -119,7 +119,7 @@ const typescript = tseslint.config({
     tseslint.configs.recommended,
     tseslint.configs.stylistic,
     react.configs['recommended-typescript'],
-    reactHooks.configs['recommended-latest'],
+    reactHooks.configs.flat['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   languageOptions: {
