@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import UptimeIcon from 'interface/icons/Uptime';

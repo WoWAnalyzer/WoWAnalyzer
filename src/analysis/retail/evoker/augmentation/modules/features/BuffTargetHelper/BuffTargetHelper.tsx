@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';

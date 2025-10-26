@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';

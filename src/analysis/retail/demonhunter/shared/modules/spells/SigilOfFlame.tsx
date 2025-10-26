@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';

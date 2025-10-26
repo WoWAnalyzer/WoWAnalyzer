@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { TalentInfo } from './AplCheck';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';

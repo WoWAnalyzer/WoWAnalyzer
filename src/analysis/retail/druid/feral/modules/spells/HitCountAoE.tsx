@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'interface';
 import { SpellIcon, SpellLink } from 'interface';

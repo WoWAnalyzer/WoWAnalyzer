@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/rogue';

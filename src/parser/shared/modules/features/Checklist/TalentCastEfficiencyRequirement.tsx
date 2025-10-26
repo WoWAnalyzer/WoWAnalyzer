@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';

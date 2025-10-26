@@ -11,7 +11,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import SPELLS from 'common/SPELLS/evoker';
-import { Fragment } from 'react';
+import { Fragment, type JSX } from 'react';
 
 interface CastInfo {
   timestamp: number;

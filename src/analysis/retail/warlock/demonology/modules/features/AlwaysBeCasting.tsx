@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

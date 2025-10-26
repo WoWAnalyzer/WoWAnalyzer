@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import { formatNumber } from 'common/format';

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -200,7 +201,9 @@ class ResonantWords extends Analyzer {
             <div>Breakdown:</div>
             <div>
               <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} />:{' '}
-              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+              <ItemPercentHealingDone
+                amount={this.healingDoneFromTalent}
+              ></ItemPercentHealingDone>{' '}
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}

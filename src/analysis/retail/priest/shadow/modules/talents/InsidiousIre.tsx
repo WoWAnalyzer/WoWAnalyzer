@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import EventHistory from 'parser/shared/modules/EventHistory';

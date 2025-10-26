@@ -7,7 +7,7 @@ import ProblemList, {
   ProblemRendererProps,
 } from 'interface/guide/components/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
-import type { ReactNode } from 'react';
+import { ReactNode, JSX } from 'react';
 import { createContext, useMemo, useContext } from 'react';
 import { ViolationTimeline } from '../timeline';
 import {

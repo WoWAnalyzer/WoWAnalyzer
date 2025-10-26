@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import PassFailBar from './PassFailBar';
-import { ElementType, ReactNode } from 'react';
+import { ElementType, ReactNode, type JSX } from 'react';
 
 interface CastData<Reason> {
   reason: Reason;

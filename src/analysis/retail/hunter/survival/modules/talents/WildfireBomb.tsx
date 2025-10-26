@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { defineMessage } from '@lingui/core/macro';
 import {
   WILDFIRE_BOMB_LEEWAY_BUFFER,

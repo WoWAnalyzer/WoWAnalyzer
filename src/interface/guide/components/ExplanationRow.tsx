@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import styled from '@emotion/styled';
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';

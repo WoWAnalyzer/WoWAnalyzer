@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

@@ -6,7 +6,7 @@ import * as AplCheck from '../AplCheck';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 
 import { AplSectionData } from 'interface/guide/components/Apl';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
 const blank = {
   id: -1,

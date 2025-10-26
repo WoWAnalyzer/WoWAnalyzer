@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS';
 import { Enchant as EnchantItem } from 'common/ITEMS/Item';

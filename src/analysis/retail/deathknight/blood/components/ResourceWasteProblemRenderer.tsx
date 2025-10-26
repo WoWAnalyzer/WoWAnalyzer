@@ -12,7 +12,7 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import { AnyEvent, CastEvent, EventMeta, EventType } from 'parser/core/Events';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import { replace } from 'parser/core/EventMetaLib';
 
 interface WastedMeta extends EventMeta {

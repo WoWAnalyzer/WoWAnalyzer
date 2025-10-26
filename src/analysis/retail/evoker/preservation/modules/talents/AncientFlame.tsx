@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';

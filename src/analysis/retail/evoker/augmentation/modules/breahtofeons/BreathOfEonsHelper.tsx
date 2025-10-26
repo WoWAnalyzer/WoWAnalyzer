@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { FC, JSX } from 'react';
 import { useMemo } from 'react';
 import { BreathOfEonsWindows } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';

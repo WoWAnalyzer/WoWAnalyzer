@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { SpellIcon, SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';

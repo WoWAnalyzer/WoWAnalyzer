@@ -8,7 +8,7 @@ import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import type { ReactNode } from 'react';
+import { ReactNode, JSX } from 'react';
 import { Fragment } from 'react';
 
 import { ConditionDescription } from './annotate';
@@ -143,14 +143,16 @@ function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency
 }
 
 function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
-  return (<>
-    {spells(rule).map((spell, index) => (
-      <Fragment key={index}>
-        {index > 0 ? ' or ' : ''}
-        <SpellLink spell={spell.id} />
-      </Fragment>
-    ))}
-  </>);
+  return (
+    <>
+      {spells(rule).map((spell, index) => (
+        <Fragment key={index}>
+          {index > 0 ? ' or ' : ''}
+          <SpellLink spell={spell.id} />
+        </Fragment>
+      ))}
+    </>
+  );
 }
 
 export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {

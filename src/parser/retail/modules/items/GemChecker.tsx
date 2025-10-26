@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import ITEMS from 'common/ITEMS';
 import Item, { CraftedItem } from 'common/ITEMS/Item';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';

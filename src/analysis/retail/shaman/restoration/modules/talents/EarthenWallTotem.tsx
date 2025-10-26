@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

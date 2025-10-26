@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Section, SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import Para from 'interface/guide/Para';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';

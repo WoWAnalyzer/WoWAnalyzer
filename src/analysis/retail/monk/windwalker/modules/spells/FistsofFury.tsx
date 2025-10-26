@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';

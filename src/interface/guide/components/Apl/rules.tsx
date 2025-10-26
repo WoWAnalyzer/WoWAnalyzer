@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { spells, Apl, CheckResult, InternalRule, isRuleEqual } from 'parser/shared/metrics/apl';
 import { RuleDescription } from 'parser/shared/metrics/apl/ChecklistRule';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
 export const AplRuleList = styled.ol`
   padding-left: 1.5rem;

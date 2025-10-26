@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import {
   ENGULF_CONSUME_FLAME,
   IRIDESCENCE_RED_CONSUME,

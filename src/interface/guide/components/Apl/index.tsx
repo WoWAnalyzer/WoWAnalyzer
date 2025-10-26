@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type JSX } from 'react';
 import styled from '@emotion/styled';
 import { useEvents, useInfo } from 'interface/guide';
 import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';

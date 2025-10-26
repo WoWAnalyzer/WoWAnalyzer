@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -196,7 +197,8 @@ class WintersChill extends Analyzer {
           {this.hasGlacialSpike ? (
             <>
               a <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> and an{' '}
-              <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> (If Glacial Spike is available), or{' '}
+              <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> (If Glacial Spike is available),
+              or{' '}
             </>
           ) : (
             ''

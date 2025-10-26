@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { FC, JSX } from 'react';
 import { useState } from 'react';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';

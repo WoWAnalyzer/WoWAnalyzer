@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';

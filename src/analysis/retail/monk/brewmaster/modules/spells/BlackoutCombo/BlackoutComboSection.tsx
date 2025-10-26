@@ -6,7 +6,7 @@ import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import PassFailBar from 'interface/guide/components/PassFailBar';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import BlackoutCombo from './index';
 
 enum ComboEffect {

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import CooldownExpandable, {

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { defineMessage } from '@lingui/core/macro';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';

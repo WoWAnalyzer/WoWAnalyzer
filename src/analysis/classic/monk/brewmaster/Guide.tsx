@@ -16,7 +16,7 @@ import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellLink from 'interface/SpellLink';
 import spells from './spell-list_Monk_Brewmaster.classic';
-import { JSX, ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState, type JSX } from 'react';
 import SPELLS from 'common/SPELLS/classic';
 import { WarningIcon } from 'interface/icons';
 import type CombatLogParser from './CombatLogParser';

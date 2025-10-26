@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';

@@ -26,7 +26,7 @@ import { useFight } from 'interface/report/context/FightContext';
 import { EncounterTimelineAbility, findByBossId } from 'game/raids';
 import Para from '../Para';
 import styled from '@emotion/styled';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, type JSX } from 'react';
 import SegmentTimeline, {
   DisplaySegment,
   TimelineAbility,

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import GEAR_SLOTS, { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 

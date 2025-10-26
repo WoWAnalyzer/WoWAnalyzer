@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { TALENTS_DEATH_KNIGHT } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';

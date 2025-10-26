@@ -2,7 +2,7 @@ import Tooltip from '@wowanalyzer/react-tooltip-lite';
 import Spell from 'common/SPELLS/Spell';
 import { formatDuration } from 'common/format';
 import { Info } from 'parser/core/metric';
-import type { ReactNode, ComponentProps } from 'react';
+import { ReactNode, ComponentProps, JSX } from 'react';
 import { memo, useMemo } from 'react';
 import SpellIcon from '../SpellIcon';
 import { useTimelinePosition } from './TimelineDiagram';

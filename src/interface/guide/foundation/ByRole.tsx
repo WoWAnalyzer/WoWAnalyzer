@@ -1,6 +1,6 @@
 import ROLES from 'game/ROLES';
 import { useConfig } from 'interface/report/ConfigContext';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type JSX } from 'react';
 
 const MELEE = [ROLES.TANK, ROLES.DPS.MELEE];
 const CASTER = [ROLES.HEALER, ROLES.DPS.RANGED];

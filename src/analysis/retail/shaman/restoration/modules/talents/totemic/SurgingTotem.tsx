@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';

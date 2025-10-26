@@ -7,7 +7,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import RuptureUptimeAndSnapshots from 'analysis/retail/rogue/assassination/modules/spells/RuptureUptimeAndSnapshots';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatDurationMillisMinSec } from 'common/format';
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import SpellLink from 'interface/SpellLink';
 import {
   animachargedCheckedUsageInfo,

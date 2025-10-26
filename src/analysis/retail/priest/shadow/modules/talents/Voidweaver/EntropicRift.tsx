@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import Statistic from 'parser/ui/Statistic';

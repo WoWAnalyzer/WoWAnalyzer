@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

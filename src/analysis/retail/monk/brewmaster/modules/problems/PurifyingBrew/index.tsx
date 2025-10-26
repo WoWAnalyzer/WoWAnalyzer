@@ -12,7 +12,7 @@ import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Even
 import { Info } from 'parser/core/metric';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 

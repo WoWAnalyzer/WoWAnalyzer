@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

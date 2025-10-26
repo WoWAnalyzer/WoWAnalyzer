@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'interface/SpellLink';
 import Events, {
@@ -338,7 +339,8 @@ export default class Doomguard extends Analyzer {
               this.doomguardSummonData.doomguard.summonTimestamp - this.owner.fight.start_time,
             )}
             , for a full <strong>{formatDuration(doomguardDuration)}</strong> duration and{' '}
-            <strong>{formatNumber(this.doomguardSummonData.doomguard.totalDamage)}</strong> damage{' '}
+            <strong>{formatNumber(this.doomguardSummonData.doomguard.totalDamage)}</strong>{' '}
+            damage{' '}
           </li>
         );
       } else {

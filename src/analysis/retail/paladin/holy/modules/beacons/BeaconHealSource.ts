@@ -231,8 +231,9 @@ class BeaconHealSource extends Analyzer {
         const expectedBeaconTransfer = rawHealing * this.beaconTransferFactor.beaconFactor;
 
         return (
+          // allow for rounding errors on Blizzard's end
           Math.abs(beaconTransferEvent.timestamp - healEvent.timestamp) < 500 &&
-          Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2 // allow for rounding errors on Blizzard's end
+          Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2
         );
       });
 
@@ -246,8 +247,9 @@ class BeaconHealSource extends Analyzer {
         const expectedBeaconTransfer = (rawHealing * this.beaconTransferFactor.beaconFactor) / 2;
 
         return (
+          // allow for rounding errors on Blizzard's end
           Math.abs(beaconTransferEvent.timestamp - healEvent.timestamp) < 500 &&
-          Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2 // allow for rounding errors on Blizzard's end
+          Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2
         );
       });
 

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import CooldownExpandable, {

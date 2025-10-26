@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 

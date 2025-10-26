@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';

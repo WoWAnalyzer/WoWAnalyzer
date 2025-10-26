@@ -76,16 +76,8 @@ import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
-import type { ReactNode, PropsWithChildren, ComponentProps } from 'react';
-
-import {
-  createContext,
-  ComponentPropsWithoutRef,
-  JSX,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { ComponentProps, PropsWithChildren, ReactNode, JSX } from 'react';
+import { ComponentPropsWithoutRef, createContext, useContext, useMemo, useState } from 'react';
 
 import './Guide.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';

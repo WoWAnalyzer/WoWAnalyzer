@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import { SubSection } from 'interface/guide';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';

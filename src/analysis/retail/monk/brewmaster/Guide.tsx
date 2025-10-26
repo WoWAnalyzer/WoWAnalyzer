@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { ResourceLink, SpellLink, TooltipElement } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';

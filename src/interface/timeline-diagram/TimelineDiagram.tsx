@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import type { SyntheticEvent, ReactNode, MouseEvent } from 'react';
+import { SyntheticEvent, ReactNode, MouseEvent, JSX } from 'react';
 
 import {
   createContext,

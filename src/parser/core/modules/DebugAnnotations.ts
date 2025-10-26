@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { AnyEvent } from '../Events';
 import Module from '../Module';
 

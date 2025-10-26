@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS/rogue';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';

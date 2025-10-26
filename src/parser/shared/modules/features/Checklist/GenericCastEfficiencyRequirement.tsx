@@ -1,7 +1,7 @@
 import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
-import { PureComponent } from 'react';
+import { PureComponent, type JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 
 import Requirement, { RequirementThresholds } from './Requirement';
