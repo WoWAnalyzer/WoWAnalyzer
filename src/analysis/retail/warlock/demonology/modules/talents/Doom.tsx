@@ -1,6 +1,5 @@
 import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatNumber } from 'common/format';
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';

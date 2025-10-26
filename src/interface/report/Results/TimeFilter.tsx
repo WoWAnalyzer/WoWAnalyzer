@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import Fight from 'parser/core/Fight';
+import type { FormEvent, MouseEvent } from 'react';
 import { useEffect, useState } from 'react';
-import * as React from 'react';
 
 import TimeInput from './TimeInput';
 
@@ -37,12 +37,12 @@ const TimeFilter = (props: Props) => {
     setEnd(end);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.applyFilter(start, end);
   };
 
-  const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleReset = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.applyFilter(0, max);
   };

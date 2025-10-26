@@ -1,6 +1,6 @@
 import { formatPercentage } from 'common/format';
 import { Tooltip } from 'interface';
-import * as React from 'react';
+import type { CSSProperties } from 'react';
 import { ReactNode } from 'react';
 import './TalentAggregateBar.scss';
 import { TalentAggregateBarSpec } from './TalentAggregateStatistic';
@@ -80,7 +80,7 @@ function getSegment(
   percentTotal: number,
   barColor: string | undefined,
   scaleFactor: number,
-): React.CSSProperties {
+): CSSProperties {
   return barColor !== undefined
     ? {
         //borderRadius: `2px`,

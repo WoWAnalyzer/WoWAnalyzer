@@ -1,7 +1,7 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/mage';
 import RayOfFrost from 'analysis/retail/mage/frost/talents/RayOfFrost';
-import React from 'react';
+import type { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -23,7 +23,7 @@ export default class Cryopathy extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.CRYOPATHY_TALENT);
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     let cryopathyTotalDamage = 0;
 
     this.rayOfFrost.rayOfFrost.forEach((ray) => {

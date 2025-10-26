@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import { useCallback, useEffect, useReducer } from 'react';
 import { defineMessage, t, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
@@ -40,7 +40,7 @@ import GameBranch from 'game/GameBranch';
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 interface State {

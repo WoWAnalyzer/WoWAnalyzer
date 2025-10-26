@@ -1,7 +1,7 @@
 import { captureException } from 'common/errorLogger';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
-import * as React from 'react';
+import type { ReactNode, ReactElement } from 'react';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 import { i18n, MessageDescriptor } from '@lingui/core';
@@ -34,7 +34,7 @@ abstract class SuggestionAssertion<T extends number | boolean> {
   addSuggestion(func: (suggest: SuggestionFactory, actual: T, recommended: T) => Suggestion) {
     if (this._isApplicable()) {
       const suggestion = func(
-        (suggestionText: React.ReactNode | MessageDescriptor) => new Suggestion(suggestionText),
+        (suggestionText: ReactNode | MessageDescriptor) => new Suggestion(suggestionText),
         this._actual,
         this._triggerThreshold,
       );
@@ -225,20 +225,20 @@ class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   }
 }
 
-export type SuggestionFactory = (suggest: React.ReactNode | MessageDescriptor) => Suggestion;
+export type SuggestionFactory = (suggest: ReactNode | MessageDescriptor) => Suggestion;
 
 class Suggestion {
-  _text: React.ReactNode;
+  _text: ReactNode;
   _icon?: string;
   _spell?: number;
-  _actualText: React.ReactNode = null;
-  _recommendedText: React.ReactNode = null;
+  _actualText: ReactNode = null;
+  _recommendedText: ReactNode = null;
   averageThreshold?: number;
   majorThreshold?: number;
   _staticImportance: ISSUE_IMPORTANCE | null = null;
-  _details: (() => React.ReactNode) | null = null;
+  _details: (() => ReactNode) | null = null;
 
-  constructor(text: React.ReactNode | MessageDescriptor) {
+  constructor(text: ReactNode | MessageDescriptor) {
     this._text = isMessageDescriptor(text) ? i18n._(text) : text;
   }
 
@@ -250,11 +250,11 @@ class Suggestion {
     this._spell = spellId;
     return this;
   }
-  actual(actualText: React.ReactNode | MessageDescriptor) {
+  actual(actualText: ReactNode | MessageDescriptor) {
     this._actualText = isMessageDescriptor(actualText) ? i18n._(actualText) : actualText;
     return this;
   }
-  recommended(recommendedText: React.ReactNode | MessageDescriptor) {
+  recommended(recommendedText: ReactNode | MessageDescriptor) {
     this._recommendedText = isMessageDescriptor(recommendedText)
       ? i18n._(recommendedText)
       : recommendedText;
@@ -272,19 +272,19 @@ class Suggestion {
     this._staticImportance = value;
     return this;
   }
-  details(value: () => React.ReactNode) {
+  details(value: () => ReactNode) {
     this._details = value;
     return this;
   }
 }
 
 export interface Issue {
-  issue: React.ReactNode;
+  issue: ReactNode;
   importance: ISSUE_IMPORTANCE;
   icon?: string;
   spell?: number;
-  stat?: React.ReactNode;
-  details?: (() => React.ReactNode) | null;
+  stat?: ReactNode;
+  details?: (() => ReactNode) | null;
 }
 
 export enum ThresholdStyle {
@@ -351,7 +351,7 @@ export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestio
 
 class ParseResults {
   tabs: ParseResultsTab[] = [];
-  statistics: React.ReactElement[] = [];
+  statistics: ReactElement[] = [];
   issues: (Issue | SuggestionData)[] = [];
 
   constructor() {

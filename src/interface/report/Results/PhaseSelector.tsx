@@ -1,7 +1,8 @@
 import { Phase } from 'game/raids';
 import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/hooks/usePhases';
 import Fight from 'parser/core/Fight';
-import * as React from 'react';
+import type { RefObject, ChangeEvent } from 'react';
+import { createRef, PureComponent } from 'react';
 
 import './PhaseSelector.scss';
 
@@ -28,17 +29,17 @@ interface PhaseSelection {
   multiple?: boolean;
 }
 
-class PhaseSelector extends React.PureComponent<Props, State> {
-  private phaseRef: React.RefObject<HTMLSelectElement>;
+class PhaseSelector extends PureComponent<Props, State> {
+  private phaseRef: RefObject<HTMLSelectElement>;
 
   constructor(args: Props) {
     super(args);
     this.state = { phases: this.buildPhases() };
-    this.phaseRef = React.createRef<HTMLSelectElement>();
+    this.phaseRef = createRef<HTMLSelectElement>();
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+  handleChange(e: ChangeEvent<HTMLSelectElement>) {
     const selectedPhase = this.state.phases[e.target.value];
     if (selectedPhase) {
       this.props.handlePhaseSelection(selectedPhase.key, selectedPhase.instance);

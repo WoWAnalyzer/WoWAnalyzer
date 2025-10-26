@@ -9,7 +9,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 class BlessedHammerDamageReduction extends Analyzer {
   static dependencies = {
@@ -72,7 +72,7 @@ class BlessedHammerDamageReduction extends Analyzer {
     return this.totalReducedDamage / this.reducedDamageHits;
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}

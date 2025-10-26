@@ -7,7 +7,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import SpellUsable from '../features/SpellUsable';
 
 const DAMAGE_MODIFIER = 0.2;
@@ -61,7 +61,7 @@ class MomentOfGlory extends Analyzer.withDependencies({ spellUsable: SpellUsable
     return baseDamageDone - baseDamageDone * (1 / (1 + DAMAGE_MODIFIER));
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}

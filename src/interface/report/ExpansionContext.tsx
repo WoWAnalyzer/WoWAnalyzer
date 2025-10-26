@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import Expansion from 'game/Expansion';
 import { wclGameVersionToBranch, wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -20,7 +21,7 @@ const ExpansionContextProvider = ({
   children,
   gameVersion,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   gameVersion: number;
 }) => {
   const providerValue = useMemo(
@@ -38,7 +39,7 @@ const ExpansionContextProvider = ({
 export const useExpansionContext = () => useContext(ExpansionCtx);
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 export const ReportExpansionContextProvider = ({ children }: Props) => {
   const { report } = useReport();

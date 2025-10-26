@@ -1,21 +1,21 @@
 import DiscordButton from 'interface/DiscordButton';
 import GithubButton from 'interface/GitHubButton';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import AppBackgroundImage from './FullscreenErrorBackgroundImage';
 
 interface Props {
-  error: React.ReactNode;
-  details: React.ReactNode;
-  children?: React.ReactNode;
+  error: ReactNode;
+  details: ReactNode;
+  children?: ReactNode;
   background: string;
-  errorDetails?: React.ReactNode;
+  errorDetails?: ReactNode;
 }
 
 const FullscreenError = ({ error, details, background, children, errorDetails }: Props) => (
   // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.
   // Do note there's another part to this page; below at AppBackgroundImage we're overriding the background image as well.
-  <div className="container" style={{ fontSize: '2em' }}>
+  (<div className="container" style={{ fontSize: '2em' }}>
     <h1
       style={{
         fontSize: 120,
@@ -34,6 +34,6 @@ const FullscreenError = ({ error, details, background, children, errorDetails }:
     </div>
     {errorDetails && <div style={{ marginTop: 30 }}>{errorDetails}</div>}
     <AppBackgroundImage image={background} />
-  </div>
+  </div>)
 );
 export default FullscreenError;

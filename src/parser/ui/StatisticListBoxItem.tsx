@@ -1,10 +1,11 @@
+import type { ReactNode } from 'react';
 import { TooltipElement } from 'interface';
 
 interface Props {
-  title: React.ReactChild;
-  value: React.ReactChild;
-  titleTooltip?: React.ReactChild;
-  valueTooltip?: React.ReactChild;
+  title: ReactNode;
+  value: ReactNode;
+  titleTooltip?: ReactNode;
+  valueTooltip?: ReactNode;
 }
 
 /**

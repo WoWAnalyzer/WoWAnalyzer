@@ -9,7 +9,8 @@ import {
   Threshold,
   ThresholdStyle,
 } from 'parser/core/ParseResults';
-import * as React from 'react';
+import type { ReactNode } from 'react';
+import { PureComponent } from 'react';
 
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
@@ -17,17 +18,17 @@ import { RuleContext } from './Rule';
 export type RequirementThresholds = NumberThreshold | BoolThreshold;
 
 interface Props {
-  name: React.ReactNode;
+  name: ReactNode;
   thresholds: RequirementThresholds;
-  tooltip?: React.ReactNode;
-  valueTooltip?: React.ReactNode;
+  tooltip?: ReactNode;
+  valueTooltip?: ReactNode;
   setPerformance: (performance: number) => void;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
   fullWidth?: boolean;
 }
 
-class Requirement extends React.PureComponent<Props> {
+class Requirement extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     props.setPerformance(this.performance);

@@ -76,7 +76,17 @@ import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
-import React, { ComponentPropsWithoutRef, JSX, useContext, useMemo, useState } from 'react';
+import type { ReactNode, PropsWithChildren, ComponentProps } from 'react';
+
+import {
+  createContext,
+  ComponentPropsWithoutRef,
+  JSX,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
+
 import './Guide.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
@@ -166,7 +176,7 @@ export const Section = ({
   children,
   title,
   expanded = true,
-}: React.PropsWithChildren<{ title: React.ReactNode; expanded?: boolean }>) => {
+}: PropsWithChildren<{ title: ReactNode; expanded?: boolean }>) => {
   const [isExpanded, setIsExpanded] = useState(expanded);
 
   return (
@@ -185,7 +195,7 @@ type GuideContextValue = Omit<GuideProps<any>, 'info'> & {
   info?: GuideProps<any>['info'];
 };
 
-export const GuideContext = React.createContext<GuideContextValue>({
+export const GuideContext = createContext<GuideContextValue>({
   modules: {},
   events: [],
 });
@@ -292,7 +302,7 @@ export function useAnalyzers<Arr extends Record<number, typeof Module>>(
  * The overall guide container. You will never need this, it is used by the WoWA
  * core to hold your `Guide` component.
  */
-export const GuideContainer = ({ children }: { children: React.ReactNode }) => (
+export const GuideContainer = ({ children }: { children: ReactNode }) => (
   <div className="guide-container">{children}</div>
 );
 
@@ -305,7 +315,7 @@ export const SubSection = ({
   title,
   id,
   ...props
-}: Omit<React.ComponentProps<'div'>, 'title'> & { title?: React.ReactNode }) => (
+}: Omit<ComponentProps<'div'>, 'title'> & { title?: ReactNode }) => (
   <section className="subsection" id={id}>
     <header>{title || ''}</header>
     <div {...props}>{children}</div>

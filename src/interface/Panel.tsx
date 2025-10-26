@@ -1,11 +1,11 @@
+import type { ReactNode } from 'react';
 import { CSSProperties } from 'react';
-import * as React from 'react';
 
 interface HeadingProps {
-  title?: React.ReactNode;
-  explanation?: React.ReactNode;
-  actions?: React.ReactNode;
-  backButton?: React.ReactNode;
+  title?: ReactNode;
+  explanation?: ReactNode;
+  actions?: ReactNode;
+  backButton?: ReactNode;
 }
 const Heading = ({ title, explanation, actions, backButton }: HeadingProps) => {
   if (!title) {
@@ -44,16 +44,16 @@ const Heading = ({ title, explanation, actions, backButton }: HeadingProps) => {
 };
 
 interface PanelProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   style?: CSSProperties;
   bodyStyle?: CSSProperties;
   pad?: boolean;
   // Heading
-  title?: React.ReactNode;
-  explanation?: React.ReactNode;
-  actions?: React.ReactNode;
-  backButton?: React.ReactNode;
+  title?: ReactNode;
+  explanation?: ReactNode;
+  actions?: ReactNode;
+  backButton?: ReactNode;
 }
 
 const Panel = ({

@@ -1,17 +1,17 @@
-import { CSSProperties } from 'react';
-import * as React from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, CSSProperties } from 'react';
 import useTooltip from 'interface/useTooltip';
 
-interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
+interface Props extends Omit<HTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
-  children?: React.ReactNode;
+  children?: ReactNode;
   icon?: boolean;
   iconStyle?: CSSProperties;
   ilvl?: number;
   rank?: number;
 }
 
-const ItemSetLink = React.forwardRef<HTMLAnchorElement, Props>(
+const ItemSetLink = forwardRef<HTMLAnchorElement, Props>(
   ({ id, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
     const { itemSet: itemSetTooltip } = useTooltip();
     return (

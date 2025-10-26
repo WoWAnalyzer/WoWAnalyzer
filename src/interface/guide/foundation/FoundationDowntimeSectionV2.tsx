@@ -12,7 +12,6 @@ import { FoundationHighlight as HL } from './shared';
 import { Highlight } from 'interface/Highlight';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { CastEvent, EventType } from 'parser/core/Events';
-import { useMemo } from 'react';
 import { MeleeUptimeAnalyzer } from './analyzers/MeleeUptimeAnalyzer';
 import { formatDuration, formatPercentage } from 'common/format';
 import TimelineDiagram, {
@@ -27,7 +26,7 @@ import { useFight } from 'interface/report/context/FightContext';
 import { EncounterTimelineAbility, findByBossId } from 'game/raids';
 import Para from '../Para';
 import styled from '@emotion/styled';
-import React from 'react';
+import { memo, useMemo } from 'react';
 import SegmentTimeline, {
   DisplaySegment,
   TimelineAbility,
@@ -475,7 +474,7 @@ const whenSecondWidthLT =
   (x) =>
     x(fightStart + 1000) - x(fightStart) < minSecondWidthPx;
 
-const PlayerAbilityTimeline = React.memo(({ info }: { info: Info }) => {
+const PlayerAbilityTimeline = memo(({ info }: { info: Info }) => {
   const playerTimeline = usePlayerGcdSegments();
   const { width } = useTimelinePosition();
 

@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
-import React, { ErrorInfo, ReactNode } from 'react';
+import { PureComponent, ErrorInfo, ReactNode } from 'react';
 
 import { EventsParseError } from './report/hooks/useEventParser';
 
@@ -60,7 +60,7 @@ interface State {
   errorDetails?: string;
 }
 
-class RootErrorBoundary extends React.PureComponent<Props, State> {
+class RootErrorBoundary extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

@@ -8,7 +8,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import SpellUsable from './SpellUsable';
 
@@ -104,7 +104,7 @@ class OvercapShieldOfTheRighteous extends Analyzer {
     return true;
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     const idealSotrUptime = (this.goodSotrCasts + this.badSotrCasts) * SOTR_BUFF_LENGTH;
     const actualSotrUptime = this.selectedCombatant.getBuffUptime(
       SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,

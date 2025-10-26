@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/react/macro';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const Checklist = ({ children }: Props) => (

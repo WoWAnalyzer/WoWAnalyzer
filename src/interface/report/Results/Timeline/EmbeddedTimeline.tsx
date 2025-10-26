@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { forwardRef } from 'react';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
 
@@ -39,7 +39,7 @@ const EmbeddedTimelineContainer = styled.div<{
   }};
 `;
 
-export const SpellTimeline = React.forwardRef<
+export const SpellTimeline = forwardRef<
   HTMLDivElement,
   React.PropsWithChildren<React.ComponentProps<'div'>>
 >(({ children }, ref) => (

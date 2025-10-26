@@ -2,7 +2,17 @@ import styled from '@emotion/styled';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import type { SyntheticEvent, ReactNode, MouseEvent } from 'react';
+
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 interface TimelineContext {
   /**
@@ -13,14 +23,14 @@ interface TimelineContext {
   /**
    * Zoom to the timestamp range. Only impacts the horizontal axis.
    */
-  zoom(event: React.SyntheticEvent, start: number, end: number): void;
+  zoom(event: SyntheticEvent, start: number, end: number): void;
   /**
    * Reset the timeline zoom.
    */
-  resetZoom(event: React.SyntheticEvent): void;
+  resetZoom(event: SyntheticEvent): void;
 }
 
-const ctx = React.createContext<TimelineContext>({
+const ctx = createContext<TimelineContext>({
   x() {
     return 0;
   },
@@ -67,7 +77,7 @@ export interface TimelineTrack {
 interface Props {
   info: Info;
   children: TimelineTrack | TimelineTrack[];
-  overlays?: React.ReactNode[];
+  overlays?: ReactNode[];
 }
 
 export default function TimelineDiagram({ info, children, overlays }: Props): JSX.Element | null {
@@ -176,7 +186,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   }, [children, info, x]);
 
   const zoomOnClick = useCallback(
-    (event: React.MouseEvent<SVGSVGElement>) => {
+    (event: MouseEvent<SVGSVGElement>) => {
       if (event === zoomEvent.current) {
         return; // someone else already adjusted zoom for this
       }
@@ -216,7 +226,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   // enable mouse panning for desktop users. laptop users can do horizontal scrolling relatively easily.
   // on desktop, this requires knowing shift+mousewheel does it, and is not as nice
   const panStartPosition = useRef<{ cursor: number; scroll: number } | undefined>(undefined);
-  const startPanning = useCallback((event: React.MouseEvent<unknown>) => {
+  const startPanning = useCallback((event: MouseEvent<unknown>) => {
     const container = containerElement.current;
     if (container) {
       panStartPosition.current = {
@@ -225,12 +235,12 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
       };
     }
   }, []);
-  const stopPanning = useCallback((event: React.MouseEvent<unknown>) => {
+  const stopPanning = useCallback((event: MouseEvent<unknown>) => {
     panStartPosition.current = undefined;
   }, []);
 
   const mouseMovePan = useCallback(
-    (event: React.MouseEvent<unknown>) => {
+    (event: MouseEvent<unknown>) => {
       const startPos = panStartPosition.current;
       const container = containerElement.current;
       if (!displayMs || !startPos || event.buttons === 0 || !container) {

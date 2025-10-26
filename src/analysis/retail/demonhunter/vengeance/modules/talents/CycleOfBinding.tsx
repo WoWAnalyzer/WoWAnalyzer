@@ -17,7 +17,7 @@ import {
   getSigilOfSilenceSpell,
 } from 'analysis/retail/demonhunter/shared';
 import Spell from 'common/SPELLS/Spell';
-import React from 'react';
+import type { ReactNode } from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -83,7 +83,7 @@ export default class CycleOfBinding extends Analyzer.withDependencies(deps) {
     );
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     const totalCDR = Object.values(this.sigilCdr).reduce((acc, val) => acc + val.totalCdr, 0);
 
     return (

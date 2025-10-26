@@ -1,7 +1,7 @@
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
 interface Props
-  extends Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'> {
+  extends Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'> {
   colored?: boolean;
 }
 

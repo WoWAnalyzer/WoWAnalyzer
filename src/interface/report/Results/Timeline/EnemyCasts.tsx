@@ -12,7 +12,7 @@ import {
   useCallback,
 } from 'react';
 import './Casts.scss';
-import React from 'react';
+import * as React from 'react';
 import Toggle from 'react-toggle';
 import { fetchEvents } from 'common/fetchWclApi';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
@@ -375,19 +375,18 @@ export const EnemyCastsTimeline = ({
             const matchingDmgEvent = nonMeleeDamageEvents.filter((damageTaken) => {
               const dmgEvent = damageTaken[0];
               return (
-                dmgEvent.timestamp >= event.timestamp &&
+                // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
+                (dmgEvent.timestamp >= event.timestamp &&
                 dmgEvent.timestamp <= event.timestamp + 10000 && //Assumes a damage event from an npc ability happens within 10 seconds
-                dmgEvent.sourceID === event.sourceID &&
-                dmgEvent.ability.name === event.ability.name // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
+                dmgEvent.sourceID === event.sourceID && dmgEvent.ability.name === event.ability.name)
               );
             });
             return (
               //remove events that do not damage allies.
               //keep events that were silenced/interrupted/stopped
               //keep events that are sourced to a boss
-              matchingDmgEvent.length ||
-              (!event.matchedCast && event.type === 'begincast') ||
-              event.npc?.subType === 'Boss'
+              (matchingDmgEvent.length ||
+              (!event.matchedCast && event.type === 'begincast') || event.npc?.subType === 'Boss')
             );
           });
           setNPCCasts(npcAbilities);

@@ -7,8 +7,8 @@ import ProblemList, {
   ProblemRendererProps,
 } from 'interface/guide/components/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
-import React, { useMemo } from 'react';
-import { useContext } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useMemo, useContext } from 'react';
 import { ViolationTimeline } from '../timeline';
 import {
   AplViolationExplainers,
@@ -48,7 +48,7 @@ export interface SelectedExplanation<T> {
   claimData: AplProblemData<T>;
 }
 
-export const ExplanationSelectionContext = React.createContext<
+export const ExplanationSelectionContext = createContext<
   (selection: SelectedExplanation<any>) => void
 >(() => undefined);
 
@@ -77,7 +77,7 @@ function AplViolationExplanation<T = unknown>({
 }: {
   claimData: AplProblemData<T>;
   describer: ViolationExplainer<T>['describe'];
-  children: React.ReactChild;
+  children: ReactNode;
   totalViolations: number;
 }): JSX.Element {
   const setSelection = useContext(ExplanationSelectionContext);

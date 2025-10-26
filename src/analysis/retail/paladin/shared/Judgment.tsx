@@ -12,7 +12,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import { HOLY_POWER_FINISHERS } from '../retribution/constants';
 
@@ -93,8 +93,8 @@ class Judgment extends Analyzer {
     this.totalJudgmentCasts += 1;
   }
 
-  getStatisticTooltip(): React.ReactNode {
-    const tooltipRows: React.ReactNode[] = [];
+  getStatisticTooltip(): ReactNode {
+    const tooltipRows: ReactNode[] = [];
     this.spellCastMap.forEach((castNum: number, spell: Spell) => {
       tooltipRows.push(
         <div key={castNum}>
@@ -148,7 +148,7 @@ class Judgment extends Analyzer {
     }
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}

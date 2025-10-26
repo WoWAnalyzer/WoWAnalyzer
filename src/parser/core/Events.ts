@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import EventFilter from 'parser/core/EventFilter';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
@@ -263,11 +263,11 @@ export enum ResourceActor {
  */
 export interface EventMeta {
   isInefficientCast?: boolean;
-  inefficientCastReason?: React.ReactNode;
+  inefficientCastReason?: ReactNode;
   isEnhancedCast?: boolean;
-  enhancedCastReason?: React.ReactNode;
+  enhancedCastReason?: ReactNode;
   isAdditionalCastInfo?: boolean;
-  additionalCastInfo?: React.ReactNode;
+  additionalCastInfo?: ReactNode;
 }
 
 interface CustomPower {

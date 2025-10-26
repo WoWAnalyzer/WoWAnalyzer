@@ -1,7 +1,7 @@
 import CloseIcon from 'interface/icons/Cross';
 import Portal from 'interface/Portal';
+import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
-import * as React from 'react';
 import { useDispatch } from 'react-redux';
 
 import './Modal.scss';
@@ -10,7 +10,7 @@ import { getTopModal } from './selectors/openModals';
 import { closeModal, openModal } from './reducers/openModals';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   onClose: () => void;
   id: string;
   testId?: string;

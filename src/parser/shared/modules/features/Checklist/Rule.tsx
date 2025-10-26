@@ -2,14 +2,14 @@ import colorForPerformance from 'common/colorForPerformance';
 import { ControlledExpandable } from 'interface';
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
-import { useCallback, useState } from 'react';
-import * as React from 'react';
+import type { ReactNode } from 'react';
+import { createContext, isValidElement, useCallback, useState } from 'react';
 
 import average from './helpers/average';
 import calculateMedian from './helpers/calculateMedian';
 import harmonic from './helpers/harmonic';
 
-export const RuleContext = React.createContext((value: number) => {
+export const RuleContext = createContext((value: number) => {
   /**/
 });
 
@@ -23,9 +23,9 @@ export enum PERFORMANCE_METHOD {
 }
 
 interface Props {
-  name: React.ReactNode;
-  children: React.ReactNode;
-  description?: React.ReactNode;
+  name: ReactNode;
+  children: ReactNode;
+  description?: ReactNode;
   performanceMethod?: PERFORMANCE_METHOD;
 }
 
@@ -70,8 +70,8 @@ const Rule = (props: Props) => {
     [],
   );
 
-  const checkEmptyRule = (child: React.ReactNode) => {
-    if (React.isValidElement(child) && child?.props) {
+  const checkEmptyRule = (child: ReactNode) => {
+    if (isValidElement(child) && child?.props) {
       return true;
     } else {
       return false;

@@ -8,7 +8,8 @@ import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import * as React from 'react';
+import type { ReactNode } from 'react';
+import { Fragment } from 'react';
 
 import { ConditionDescription } from './annotate';
 import {
@@ -24,12 +25,12 @@ import { InformationIcon } from 'interface/icons';
 
 interface Props {
   apl: Apl;
-  name?: React.ReactNode;
-  description?: React.ReactNode;
+  name?: ReactNode;
+  description?: ReactNode;
   checkResults: CheckResult;
   castEfficiency: CastEfficiency;
   cooldowns?: Spell[];
-  otherRequirements?: React.ReactNode[];
+  otherRequirements?: ReactNode[];
 }
 
 export type AplRuleProps = Pick<Props, 'apl' | 'checkResults'>;
@@ -142,16 +143,14 @@ function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency
 }
 
 function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
-  return (
-    <>
-      {spells(rule).map((spell, index) => (
-        <React.Fragment key={index}>
-          {index > 0 ? ' or ' : ''}
-          <SpellLink spell={spell.id} />
-        </React.Fragment>
-      ))}
-    </>
-  );
+  return (<>
+    {spells(rule).map((spell, index) => (
+      <Fragment key={index}>
+        {index > 0 ? ' or ' : ''}
+        <SpellLink spell={spell.id} />
+      </Fragment>
+    ))}
+  </>);
 }
 
 export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {

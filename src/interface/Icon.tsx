@@ -1,8 +1,8 @@
-import * as React from 'react';
+import type { HTMLAttributes, ComponentPropsWithoutRef } from 'react';
 
 import BAD_ICONS, { ICON_RENAME } from './BAD_ICONS';
 
-export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
+export interface IconProps extends HTMLAttributes<HTMLImageElement> {
   icon?: string;
   className?: string;
   /**
@@ -14,7 +14,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
 }
 
 export type SvgIconProps = Omit<
-  React.ComponentPropsWithoutRef<'svg'>,
+  ComponentPropsWithoutRef<'svg'>,
   'xmlns' | 'version' | 'viewBox' | 'className'
 >;
 

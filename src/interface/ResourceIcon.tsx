@@ -1,10 +1,10 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
 import Icon from './Icon';
 import ResourceLink from './ResourceLink';
 
-interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
+interface Props extends Omit<ComponentProps<typeof Icon>, 'id' | 'icon'> {
   id: number;
   noLink?: boolean;
 }

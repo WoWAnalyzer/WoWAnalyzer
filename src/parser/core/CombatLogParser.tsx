@@ -19,7 +19,8 @@ import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import * as React from 'react';
+import type { ReactNode } from 'react';
+import { cloneElement } from 'react';
 import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 
 import Config from '../Config';
@@ -135,12 +136,12 @@ export enum SuggestionImportance {
   Minor = 'minor',
 }
 export interface Suggestion {
-  text: React.ReactNode;
+  text: ReactNode;
   importance: SuggestionImportance;
   icon?: string;
   spell?: number;
-  actual?: React.ReactNode;
-  recommended?: React.ReactNode;
+  actual?: ReactNode;
+  recommended?: ReactNode;
 }
 
 interface ModuleErrorDetails {
@@ -725,7 +726,7 @@ class CombatLogParser {
       const position =
         statistic.props.position !== undefined ? statistic.props.position : basePosition;
       results.statistics.push(
-        React.cloneElement(statistic, {
+        cloneElement(statistic, {
           key,
           position,
         }),

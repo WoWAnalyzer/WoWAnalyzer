@@ -1,7 +1,7 @@
+import type { VideoHTMLAttributes } from 'react';
 import { useState } from 'react';
-import * as React from 'react';
 
-interface Props extends React.VideoHTMLAttributes<HTMLVideoElement> {
+interface Props extends VideoHTMLAttributes<HTMLVideoElement> {
   videos: string[];
   randomValue?: number;
 }

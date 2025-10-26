@@ -2,7 +2,7 @@ import './UptimeBar.scss';
 import { formatDuration } from 'common/format';
 import { Tooltip } from 'interface';
 import { Uptime } from 'parser/ui/UptimeBar';
-import * as React from 'react';
+import type { CSSProperties } from 'react';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
 interface StackUptime {
@@ -135,10 +135,10 @@ function getSegmentStyle(
   fightDuration: number,
   barColor: string | undefined,
   clickThrough?: boolean,
-): React.CSSProperties {
+): CSSProperties {
   const percentStacks = Math.min(stacks / maxStacks, 1);
 
-  const cssProps: React.CSSProperties = {
+  const cssProps: CSSProperties = {
     top: `${100 - 100 * percentStacks}%`,
     height: `${100 * percentStacks}%`,
     left: `${((start - fightStart) / fightDuration) * 100}%`,

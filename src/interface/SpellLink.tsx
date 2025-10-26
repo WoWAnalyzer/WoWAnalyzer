@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { CSSProperties } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, CSSProperties } from 'react';
 import Spell from 'common/SPELLS/Spell';
 
 import SpellIcon from './SpellIcon';
@@ -7,9 +7,9 @@ import useSpellInfo from './useSpellInfo';
 import useTooltip from './useTooltip';
 import { getSpellId } from 'common/getSpellId';
 
-interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
+interface Props extends Omit<HTMLAttributes<HTMLAnchorElement>, 'id'> {
   spell: number | Spell;
-  children?: React.ReactNode;
+  children?: ReactNode;
   icon?: boolean;
   iconStyle?: CSSProperties;
   ilvl?: number;
@@ -17,7 +17,7 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
   def?: number;
 }
 
-const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
+const SpellLink = forwardRef<HTMLAnchorElement, Props>(
   ({ spell, children, icon = true, iconStyle, ilvl, def, rank, ...other }: Props, ref) => {
     const spellData = spell;
     const spellId = getSpellId(spellData);

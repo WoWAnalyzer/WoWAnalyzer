@@ -3,7 +3,6 @@ import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import * as React from 'react';
 import { ReactNode } from 'react';
 
 const RenderEnchantRequirements = ({

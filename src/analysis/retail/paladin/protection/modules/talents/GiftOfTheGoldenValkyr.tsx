@@ -10,7 +10,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 const BASE_REDUCTION_TIME = 1000; // ms, per talent point, per target hit
 const SECOND = 1000;
@@ -97,7 +97,7 @@ class GiftOfTheGoldenValkyr extends Analyzer {
     }
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}
