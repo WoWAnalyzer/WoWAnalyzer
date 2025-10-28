@@ -8,11 +8,23 @@ import Spell from '../Spell';
 
 const spells = {
   // Pet casts
+  OPTICAL_BLAST: {
+    // Observer
+    id: 119911,
+    name: 'Optical Blast',
+    icon: 'spell_nature_elementalprecision_1.jpg',
+  },
   SHADOW_BULWARK: {
     // Voidwalker
     id: 132413,
     name: 'Shadow Bulwark',
     icon: 'spell_shadow_antishadow.jpg',
+  },
+  // Spells
+  SOUL_SWAP_EXHALE: {
+    id: 86213,
+    name: 'Soul Swap Exhale',
+    icon: 'ability_rogue_envelopingshadows.jpg',
   },
   // Talents
   GRIMOIRE_OF_SACRIFICE: {
@@ -24,6 +36,22 @@ const spells = {
     id: 30283,
     name: 'Shadowfury',
     icon: 'ability_warlock_shadowfurytga.jpg',
+  },
+  // Casts that aren't casts
+  CORRUPTION_TICK: {
+    id: 146739,
+    name: 'Corruption',
+    icon: 'spell_shadow_abominationexplosion.jpg',
+  },
+  RAIN_OF_FIRE_DAMAGE: {
+    id: 42223,
+    name: 'Rain of Fire',
+    icon: 'spell_shadow_rainoffire.jpg',
+  },
+  SHADOW_TRANCE: {
+    id: 17941,
+    name: 'Shadow Trance',
+    icon: 'spell_shadow_twilight.jpg',
   },
 
   // ---------------
@@ -239,16 +267,6 @@ const spells = {
     name: 'Seed of Corruption',
     icon: 'spell_shadow_seedofdestruction.jpg',
   },
-  SOUL_SWAP: {
-    id: 86121,
-    name: 'Soul Swap',
-    icon: 'ability_warlock_soulswap.jpg',
-  },
-  SOUL_SWAP_EXHALE: {
-    id: 86213,
-    name: 'Soul Swap Exhale',
-    icon: 'ability_rogue_envelopingshadows.jpg',
-  },
   SOULBURN: {
     id: 74434,
     name: 'Soulburn',
@@ -407,12 +425,6 @@ const spells = {
   // ---------
   // MISC
   // ---------
-  // Casts that aren't casts
-  RAIN_OF_FIRE_DAMAGE: {
-    id: 42223,
-    name: 'Rain of Fire',
-    icon: 'spell_shadow_rainoffire.jpg',
-  },
   // Pet casts
   DOOM_BOLT: {
     id: 85692,
