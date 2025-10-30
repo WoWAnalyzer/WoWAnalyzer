@@ -4,13 +4,19 @@ import Explanation from 'interface/guide/components/Explanation';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/DefensivesGuide';
+import {
+  IntensityChart,
+  IntensityBar,
+  DonutChart,
+  CastEfficiencyRibbon,
+  GuideSection,
+} from 'interface/guide/components';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -99,40 +105,106 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.feelTheBurnGuide.guideSubsection}
       </Section>
 
-      <Section title="Cooldowns"></Section>
-      <>
-        As is the case with most damage specs, properly utilizing your damage cooldowns will go a
-        long way towards improving your overall damage, especially{' '}
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
-      </>
-      {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
-        modules.combustionGuide.guideSubsection}
-      {info.combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT) &&
-        modules.sunKingsBlessingGuide.guideSubsection}
+      <Section title="Cooldowns">
+        <>
+          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+          long way towards improving your overall damage, especially{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
+        </>
+        {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
+          modules.combustionGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT) &&
+          modules.sunKingsBlessingGuide.guideSubsection}
 
-      <SubSection title="Cast Efficiency"></SubSection>
-      {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS.COMBUSTION_TALENT}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
+        <SubSection title="Cast Efficiency">
+          <RoundedPanel>
+            {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
+              <CastEfficiencyRibbon spell={TALENTS.COMBUSTION_TALENT} compactLayout useThresholds />
+            )}
+            {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
+              <CastEfficiencyRibbon
+                spell={TALENTS.PHOENIX_FLAMES_TALENT}
+                cooldownColor={'#ca570aff'}
+                compactLayout
+                useThresholds
+              />
+            )}
+            {info.combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) && (
+              <CastEfficiencyRibbon
+                spell={TALENTS.FIRE_BLAST_TALENT}
+                cooldownColor={'#b30b0bd7'}
+                useThresholds
+              />
+            )}
+            {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
+              <CastEfficiencyRibbon spell={TALENTS.METEOR_TALENT} compactLayout useThresholds />
+            )}
+          </RoundedPanel>
+        </SubSection>
+      </Section>
+
+      <Section title="Combustion Damage Breakdown">
+        <IntensityChart
+          spell={SPELLS.IGNITE}
+          data={modules.igniteTracker.getTargetDpsData()}
+          chartType="DPS"
+          baseColor="#bd6620ff"
         />
-      )}
-      {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS.PHOENIX_FLAMES_TALENT}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-          minimizeIcons
+        <IntensityBar
+          spell={SPELLS.IGNITE}
+          data={modules.igniteTracker.getTargetDpsData()}
+          chartType="DPS"
+          baseColor="#bd6620ff"
         />
-      )}
-      {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS.METEOR_TALENT}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
+        <DonutChart
+          title="Damage During Combustion"
+          spells={[
+            { spell: TALENTS.PYROBLAST_TALENT, color: '#ff6600' },
+            { spell: SPELLS.FIRE_BLAST, color: '#ff9933' },
+            { spell: SPELLS.PHOENIX_FLAMES_DAMAGE, color: '#ffcc00' },
+            { spell: SPELLS.IGNITE, color: '#ff4400' },
+            { spell: SPELLS.FLAMESTRIKE, color: '#cc3300' },
+          ]}
+          calculateContribution={(spellId: number) =>
+            modules.combustionDamageTracker.getDamageForSpell(spellId)
+          }
+          otherColor="#666666"
+          helperText="This shows the damage breakdown during Combustion windows. Focus on maximizing Pyroblast damage while efficiently using Fire Blast and Phoenix Flames charges."
         />
-      )}
+      </Section>
+
+      <GuideSection
+        spell={SPELLS.IGNITE}
+        title="Ignite Performance"
+        explanation={
+          <>
+            <SpellLink spell={SPELLS.IGNITE} /> is Fire Mage's signature damage-over-time effect
+            that spreads from your direct damage critical strikes. The visualizations below show
+            when your Ignite damage was most intense and how much time you spent at different DPS
+            levels. Higher intensity (darker/redder colors) indicates periods of stronger Ignite
+            ticks, which typically correlate with <SpellLink spell={TALENTS.COMBUSTION_TALENT} />{' '}
+            windows or high-damage burst phases.
+            <br />
+            <br />
+            Maximizing Ignite damage involves maintaining high uptime, stacking it through
+            consecutive crits, and ensuring your biggest hits (especially during Combustion) create
+            the strongest possible Ignite.
+          </>
+        }
+      >
+        <IntensityChart
+          spell={SPELLS.IGNITE}
+          data={modules.igniteTracker.getTargetDpsData()}
+          chartType="DPS"
+          baseColor="#bd6620ff"
+        />
+        <IntensityBar
+          spell={SPELLS.IGNITE}
+          data={modules.igniteTracker.getTargetDpsData()}
+          chartType="DPS"
+          baseColor="#bd6620ff"
+        />
+      </GuideSection>
 
       <Section title="Talents"></Section>
       <MajorDefensives />

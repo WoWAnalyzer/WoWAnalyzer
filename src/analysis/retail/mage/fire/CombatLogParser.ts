@@ -19,6 +19,8 @@ import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import Combustion from './core/Combustion';
 import HeatingUp from './core/HeatingUp';
 import HotStreak from './core/HotStreak';
+import IgniteTracker from './core/IgniteTracker';
+import CombustionDamageTracker from './core/CombustionDamageTracker';
 
 //Talents
 import PhoenixFlames from './talents/PhoenixFlames';
@@ -81,6 +83,8 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
     combustion: Combustion,
+    combustionDamageTracker: CombustionDamageTracker,
+    igniteTracker: IgniteTracker,
 
     //Talents - Fire
     phoenixFlames: PhoenixFlames,

@@ -4,8 +4,7 @@ import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
+import CastEfficiencyRibbon from 'interface/guide/components/CastEfficiencyRibbon';
 import CastDetail, {
   type PerCastData,
   type PerCastStat,
@@ -165,11 +164,11 @@ class ArcaneOrbGuide extends Analyzer {
           title="Arcane Orb Casts"
           casts={this.arcaneOrb.orbData.map((cast) => this.evaluateOrbCast(cast))}
         />
-        <CastEfficiencyBar
+        <CastEfficiencyRibbon
           spell={SPELLS.ARCANE_ORB}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          minimizeIcons
+          cooldownColor={'#80138fff'}
           showExplanation
+          useThresholds
         />
       </GuideSection>
     );
