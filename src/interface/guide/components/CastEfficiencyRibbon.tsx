@@ -4,14 +4,14 @@ import { useAnalyzer, useInfo, useEvents } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { StatCard, StatValue, StatLabel, HelperText } from './GuideDivs';
 import GuideDataWrapper from './GuideDataWrapper';
 import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/core/Events';
 import BulletGraph, { PerformanceRange } from './BulletGraph';
 import { CooldownWindow } from 'parser/ui/CooldownBar';
-import CooldownTimeline from './CooldownTimeline';
+import SegmentedTimeline, { TimelineSegment, TimelineMarker } from './SegmentedTimeline';
 
 // Styled Components
 const RibbonContainer = styled.div`
@@ -27,6 +27,126 @@ const TimelineWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+// Helper functions to convert combat log events to timeline segments/markers
+function createCooldownSegments(
+  spellId: number,
+  events: ReturnType<typeof useEvents>,
+  windows: CooldownWindow[],
+  cooldownColor: string,
+): TimelineSegment[] {
+  const segments: TimelineSegment[] = [];
+
+  windows.forEach((window) => {
+    // Get cooldown end events for this window
+    const endCooldowns: UpdateSpellUsableEvent[] = events
+      .filter(
+        (event): event is UpdateSpellUsableEvent =>
+          event.type === EventType.UpdateSpellUsable &&
+          event.ability.guid === spellId &&
+          event.updateType === UpdateSpellUsableType.EndCooldown &&
+          event.overallStartTimestamp < window.endTime &&
+          event.timestamp > window.startTime,
+      )
+      .sort((a, b) => a.overallStartTimestamp - b.overallStartTimestamp);
+
+    const beginCooldowns: UpdateSpellUsableEvent[] = events.filter(
+      (event): event is UpdateSpellUsableEvent =>
+        event.type === EventType.UpdateSpellUsable &&
+        event.ability.guid === spellId &&
+        event.updateType === UpdateSpellUsableType.BeginCooldown &&
+        event.timestamp >= window.startTime &&
+        event.timestamp <= window.endTime,
+    );
+
+    // Create cooldown segments
+    endCooldowns.forEach((cd) => {
+      const cdStart = Math.max(cd.overallStartTimestamp, window.startTime);
+      const cdEnd = Math.min(cd.timestamp, window.endTime);
+
+      segments.push({
+        start: cdStart,
+        end: cdEnd,
+        color: cooldownColor,
+        opacity: 1,
+        label: `On Cooldown: ${formatDuration(cdStart - window.startTime)} - ${formatDuration(cdEnd - window.startTime)}`,
+      });
+    });
+
+    // Handle final cooldown that started but didn't end
+    if (beginCooldowns.length > endCooldowns.length) {
+      const lastBegin = beginCooldowns[beginCooldowns.length - 1];
+      if (lastBegin.overallStartTimestamp < window.endTime) {
+        segments.push({
+          start: lastBegin.overallStartTimestamp,
+          end: window.endTime,
+          color: cooldownColor,
+          opacity: 1,
+          label: `On Cooldown: ${formatDuration(lastBegin.overallStartTimestamp - window.startTime)} - ${formatDuration(window.endTime - window.startTime)}`,
+        });
+      }
+    }
+
+    // Create "available" highlight segments (red areas where spell wasn't cast)
+    let lastCdEnd = window.startTime;
+
+    endCooldowns.forEach((cd) => {
+      if (cd.overallStartTimestamp > lastCdEnd) {
+        segments.push({
+          start: lastCdEnd,
+          end: cd.overallStartTimestamp,
+          color: 'rgba(220, 38, 38, 0.3)',
+          opacity: 1,
+          label: `Available: ${formatDuration(lastCdEnd - window.startTime)} - ${formatDuration(cd.overallStartTimestamp - window.startTime)}`,
+        });
+      }
+      lastCdEnd = Math.min(cd.timestamp, window.endTime);
+    });
+
+    // Check final gap to window end
+    const finalCdEnd = beginCooldowns.length > endCooldowns.length ? window.endTime : lastCdEnd;
+    if (finalCdEnd < window.endTime) {
+      segments.push({
+        start: finalCdEnd,
+        end: window.endTime,
+        color: 'rgba(220, 38, 38, 0.3)',
+        opacity: 1,
+        label: `Available: ${formatDuration(finalCdEnd - window.startTime)} - ${formatDuration(window.endTime - window.startTime)}`,
+      });
+    }
+  });
+
+  return segments;
+}
+
+function createCastMarkers(
+  spellId: number,
+  events: ReturnType<typeof useEvents>,
+  windows: CooldownWindow[],
+): TimelineMarker[] {
+  const markers: TimelineMarker[] = [];
+
+  windows.forEach((window) => {
+    // Get cast events for this window
+    const casts = events.filter(
+      (event) =>
+        event.type === EventType.Cast &&
+        event.ability.guid === spellId &&
+        event.timestamp >= window.startTime &&
+        event.timestamp <= window.endTime,
+    );
+
+    casts.forEach((cast) => {
+      markers.push({
+        timestamp: cast.timestamp,
+        label: `Cast at ${formatDuration(cast.timestamp - window.startTime)}`,
+        color: '#FFF',
+      });
+    });
+  });
+
+  return markers;
+}
 
 interface Props {
   /** The spell to show cooldown bars for - this must match the ID of the spell's cast event */
@@ -311,11 +431,10 @@ export default function CastEfficiencyRibbon({
     />
   ) : (
     <TimelineWrapper>
-      <CooldownTimeline
-        spellId={spell.id}
-        events={events}
+      <SegmentedTimeline
         windows={windows}
-        cooldownColor={cooldownColor}
+        segments={createCooldownSegments(spell.id, events, windows, cooldownColor)}
+        markers={createCastMarkers(spell.id, events, windows)}
       />
     </TimelineWrapper>
   );

@@ -8,7 +8,13 @@ export { default as IntensityBar } from './IntensityBar';
 export { default as DonutChart, type DonutSegment } from './DonutChart';
 export { default as DamageContribution } from './DamageContribution';
 export { default as CastEfficiencyRibbon } from './CastEfficiencyRibbon';
-export { default as CooldownTimeline, type CooldownTimelineProps } from './CooldownTimeline';
+export {
+  default as SegmentedTimeline,
+  type SegmentedTimelineProps,
+  type TimeWindow,
+  type TimelineSegment,
+  type TimelineMarker,
+} from './SegmentedTimeline';
 export { default as GuideDataWrapper } from './GuideDataWrapper';
 export {
   default as BulletGraph,
@@ -19,7 +25,7 @@ export {
   default as Heatmap,
   type HeatmapProps,
   type HeatmapRow,
-  type HeatmapBucket,
+  type HeatmapBlock,
   type HeatmapColorThreshold,
 } from './Heatmap';
 export { default as StackedBar, type StackedBarProps, type StackedBarSegment } from './StackedBar';
