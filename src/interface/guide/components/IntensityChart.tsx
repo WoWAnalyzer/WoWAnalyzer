@@ -4,17 +4,9 @@ import { useInfo } from 'interface/guide';
 import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { useState } from 'react';
-import {
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatsRow,
-  StatCard,
-  StatValue,
-  StatLabel,
-} from 'interface/guide/components/GuideDivs';
+import { StatCard, StatValue, StatLabel } from 'interface/guide/components/GuideDivs';
 import Heatmap, { HeatmapRow, HeatmapColorThreshold } from './Heatmap';
+import GuideDataWrapper from './GuideDataWrapper';
 
 interface DamageOrHealEvent {
   timestamp: number;
@@ -254,50 +246,49 @@ export default function IntensityChart({
     ? `${spell.name} Intensity Chart`
     : `${chartType === 'HPS' ? 'Healing' : 'Damage'} Intensity Chart`;
 
+  const statsContent = (
+    <>
+      <Tooltip content={`Average ${unitLabel} when active`}>
+        <StatCard color="#3b82f6">
+          <StatValue>{formatNumber(avgValue)}</StatValue>
+          <StatLabel>Avg {unitLabel}</StatLabel>
+        </StatCard>
+      </Tooltip>
+      <Tooltip content={`Maximum ${unitLabel} reached`}>
+        <StatCard color="#dc2626">
+          <StatValue>{formatNumber(maxValue)}</StatValue>
+          <StatLabel>Max {unitLabel}</StatLabel>
+        </StatCard>
+      </Tooltip>
+      <Tooltip content={`Total damage/healing done`}>
+        <StatCard color="#10b981">
+          <StatValue>{formatNumber(total)}</StatValue>
+          <StatLabel>Total</StatLabel>
+        </StatCard>
+      </Tooltip>
+      <Tooltip content={`Percentage of time with active throughput`}>
+        <StatCard color="#f59e0b">
+          <StatValue>{uptimePercent.toFixed(1)}%</StatValue>
+          <StatLabel>Uptime</StatLabel>
+        </StatCard>
+      </Tooltip>
+    </>
+  );
+
   return (
-    <Container>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{headerOverride || defaultHeader}</SectionTitle>
-          <Label>Timeline</Label>
-        </TitleColumn>
-        <RightColumn>
-          <StatsRow>
-            <Tooltip content={`Average ${unitLabel} when active`}>
-              <StatCard color="#3b82f6">
-                <StatValue>{formatNumber(avgValue)}</StatValue>
-                <StatLabel>Avg {unitLabel}</StatLabel>
-              </StatCard>
-            </Tooltip>
-            <Tooltip content={`Maximum ${unitLabel} reached`}>
-              <StatCard color="#dc2626">
-                <StatValue>{formatNumber(maxValue)}</StatValue>
-                <StatLabel>Max {unitLabel}</StatLabel>
-              </StatCard>
-            </Tooltip>
-            <Tooltip content={`Total damage/healing done`}>
-              <StatCard color="#10b981">
-                <StatValue>{formatNumber(total)}</StatValue>
-                <StatLabel>Total</StatLabel>
-              </StatCard>
-            </Tooltip>
-            <Tooltip content={`Percentage of time with active throughput`}>
-              <StatCard color="#f59e0b">
-                <StatValue>{uptimePercent.toFixed(1)}%</StatValue>
-                <StatLabel>Uptime</StatLabel>
-              </StatCard>
-            </Tooltip>
-          </StatsRow>
-          <ToggleContainer>
-            <ToggleButton active={!showPerTarget} onClick={() => setShowPerTarget(false)}>
-              Overall
-            </ToggleButton>
-            <ToggleButton active={showPerTarget} onClick={() => setShowPerTarget(true)}>
-              Per Target
-            </ToggleButton>
-          </ToggleContainer>
-        </RightColumn>
-      </SectionHeader>
+    <GuideDataWrapper
+      title={headerOverride || defaultHeader}
+      subtitle="Timeline"
+      stats={statsContent}
+    >
+      <ToggleContainer>
+        <ToggleButton active={!showPerTarget} onClick={() => setShowPerTarget(false)}>
+          Overall
+        </ToggleButton>
+        <ToggleButton active={showPerTarget} onClick={() => setShowPerTarget(true)}>
+          Per Target
+        </ToggleButton>
+      </ToggleContainer>
       <HeatmapContainer>
         <Heatmap
           rows={heatmapRows}
@@ -319,16 +310,9 @@ export default function IntensityChart({
           )}
         />
       </HeatmapContainer>
-    </Container>
+    </GuideDataWrapper>
   );
 }
-
-const Container = styled.div`
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  margin-bottom: 16px;
-`;
 
 const HeatmapContainer = styled.div`
   background: rgba(0, 0, 0, 0.3);
@@ -356,13 +340,6 @@ const HeatmapContainer = styled.div`
       background: rgba(255, 255, 255, 0.3);
     }
   }
-`;
-
-const RightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-end;
 `;
 
 const ToggleContainer = styled.div`

@@ -1,16 +1,9 @@
 import styled from '@emotion/styled';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon, SpellLink } from 'interface';
-import {
-  SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  StatsRow,
-  StatCard,
-  StatValue,
-} from 'interface/guide/components/GuideDivs';
 import { formatPercentage, formatNumber } from 'common/format';
+import { StatsRow, StatCard, StatValue, StatLabel } from './GuideDivs';
+import GuideDataWrapper from './GuideDataWrapper';
 
 interface SpellContribution {
   spell: Spell;
@@ -131,13 +124,7 @@ const DonutChart = ({
   });
 
   return (
-    <SectionContainer>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{title}</SectionTitle>
-        </TitleColumn>
-      </SectionHeader>
-
+    <GuideDataWrapper title={title} helperText={helperText}>
       <ChartContainer>
         <DonutSvg>
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
@@ -182,14 +169,13 @@ const DonutChart = ({
         </LegendContainer>
       </ChartContainer>
 
-      {helperText && (
-        <StatsRow>
-          <StatCard color="transparent">
-            <StatValue style={{ fontSize: '0.9rem', fontWeight: 400 }}>{helperText}</StatValue>
-          </StatCard>
-        </StatsRow>
-      )}
-    </SectionContainer>
+      <StatsRow>
+        <StatCard color="#3b82f6">
+          <StatValue>{allContributions.length}</StatValue>
+          <StatLabel>Sources</StatLabel>
+        </StatCard>
+      </StatsRow>
+    </GuideDataWrapper>
   );
 };
 

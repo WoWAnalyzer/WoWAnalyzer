@@ -17,17 +17,14 @@ import { formatPercentage, formatDuration } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import {
   SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  Label,
   StatsRow,
   StatCard,
   StatValue,
   StatLabel,
   HelperTextRow,
   HelperText,
-  SectionTitle,
 } from 'interface/guide/components/GuideDivs';
+import GuideDataWrapper from './GuideDataWrapper';
 import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/core/Events';
 import BulletGraph from './BulletGraph';
 
@@ -502,20 +499,19 @@ export default function CastEfficiencyRibbon({
           {showExplanation && <HelperTextContainer>{explanation}</HelperTextContainer>}
         </>
       ) : (
-        <>
-          <SectionHeader>
-            <TitleColumn>
-              <SectionTitle>
-                <SpellIcon spell={spell} style={{ height: '2.4rem', marginRight: '1rem' }} />
-                {spell.name}
-              </SectionTitle>
-              <Label>{hasCharges ? 'Charge Usage' : 'Cast Efficiency'}</Label>
-            </TitleColumn>
-            <StatsRow>{statCards}</StatsRow>
-          </SectionHeader>
+        <GuideDataWrapper
+          title={
+            <>
+              <SpellIcon spell={spell} style={{ height: '2.4rem', marginRight: '1rem' }} />
+              {spell.name}
+            </>
+          }
+          subtitle={hasCharges ? 'Charge Usage' : 'Cast Efficiency'}
+          stats={<StatsRow>{statCards}</StatsRow>}
+          helperText={showExplanation ? explanation : undefined}
+        >
           <RibbonContainer>{ribbon}</RibbonContainer>
-          {showExplanation && <HelperTextContainer>{explanation}</HelperTextContainer>}
-        </>
+        </GuideDataWrapper>
       )}
     </SectionContainer>
   );

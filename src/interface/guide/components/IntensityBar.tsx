@@ -3,17 +3,9 @@ import { Tooltip } from 'interface';
 import { useInfo } from 'interface/guide';
 import { formatDuration, formatPercentage, formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
-import {
-  StatsRow,
-  StatCard,
-  StatValue,
-  StatLabel,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-} from './GuideDivs';
+import { StatsRow, StatCard, StatValue, StatLabel } from './GuideDivs';
 import StackedBar, { StackedBarSegment } from './StackedBar';
+import GuideDataWrapper from './GuideDataWrapper';
 
 interface DamageOrHealEvent {
   timestamp: number;
@@ -237,48 +229,49 @@ export default function IntensityBar({
     ),
   }));
 
+  const statsContent = (
+    <StatsRow>
+      {thresholds.map((tier, idx) => {
+        const duration = tierDurations[idx];
+        const percent = (duration / totalDuration) * 100;
+        if (percent < 0.5) return null;
+
+        const thresholdLabel =
+          tier.max === Infinity
+            ? `>${formatNumber(tier.min)} ${unitLabel}`
+            : `${formatNumber(tier.min)}-${formatNumber(tier.max)} ${unitLabel}`;
+
+        return (
+          <Tooltip
+            key={idx}
+            content={
+              <>
+                <strong>{tier.label}</strong>
+                <br />
+                {thresholdLabel}
+                <br />
+                Duration: {formatDuration(duration)}
+                <br />
+                Percentage: {formatPercentage(duration / totalDuration, 1)}%
+              </>
+            }
+          >
+            <StatCard color={colors[idx]}>
+              <StatValue>{formatDuration(duration)}</StatValue>
+              <StatLabel>{tier.label}</StatLabel>
+            </StatCard>
+          </Tooltip>
+        );
+      })}
+    </StatsRow>
+  );
+
   return (
-    <Container>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{headerOverride || defaultHeader}</SectionTitle>
-          <Label>Time Distribution</Label>
-        </TitleColumn>
-        <StatsRow>
-          {thresholds.map((tier, idx) => {
-            const duration = tierDurations[idx];
-            const percent = (duration / totalDuration) * 100;
-            if (percent < 0.5) return null;
-
-            const thresholdLabel =
-              tier.max === Infinity
-                ? `>${formatNumber(tier.min)} ${unitLabel}`
-                : `${formatNumber(tier.min)}-${formatNumber(tier.max)} ${unitLabel}`;
-
-            return (
-              <Tooltip
-                key={idx}
-                content={
-                  <>
-                    <strong>{tier.label}</strong>
-                    <br />
-                    {thresholdLabel}
-                    <br />
-                    Duration: {formatDuration(duration)}
-                    <br />
-                    Percentage: {formatPercentage(duration / totalDuration, 1)}%
-                  </>
-                }
-              >
-                <StatCard color={colors[idx]}>
-                  <StatValue>{formatDuration(duration)}</StatValue>
-                  <StatLabel>{tier.label}</StatLabel>
-                </StatCard>
-              </Tooltip>
-            );
-          })}
-        </StatsRow>
-      </SectionHeader>
+    <GuideDataWrapper
+      title={headerOverride || defaultHeader}
+      subtitle="Time Distribution"
+      stats={statsContent}
+    >
       <BarWrapper>
         <StackedBar
           segments={segments}
@@ -292,13 +285,9 @@ export default function IntensityBar({
           )}
         />
       </BarWrapper>
-    </Container>
+    </GuideDataWrapper>
   );
 }
-
-const Container = styled.div`
-  width: 100%;
-`;
 
 const BarWrapper = styled.div`
   width: 100%;

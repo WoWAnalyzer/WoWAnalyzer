@@ -2,14 +2,8 @@ import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import type Spell from 'common/SPELLS/Spell';
-import {
-  SectionContainer,
-  SectionTitle,
-  StatsGrid,
-  StatItem,
-  StatItemValue,
-  StatItemLabel,
-} from './GuideDivs';
+import { StatsGrid, StatItem, StatItemValue, StatItemLabel } from './GuideDivs';
+import GuideDataWrapper from './GuideDataWrapper';
 
 export interface StatisticData {
   value: string;
@@ -26,8 +20,7 @@ interface CastOverviewProps {
 
 export default function CastOverview({ spell, stats, fontSize = '20px' }: CastOverviewProps) {
   return (
-    <SectionContainer>
-      <SectionTitle>{spell.name} Overview</SectionTitle>
+    <GuideDataWrapper title={`${spell.name} Overview`}>
       <StatsGrid>
         {stats.map((stat, index) => {
           const color = stat.performance
@@ -44,6 +37,6 @@ export default function CastOverview({ spell, stats, fontSize = '20px' }: CastOv
           );
         })}
       </StatsGrid>
-    </SectionContainer>
+    </GuideDataWrapper>
   );
 }

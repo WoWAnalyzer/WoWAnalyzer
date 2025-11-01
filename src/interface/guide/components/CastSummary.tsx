@@ -8,18 +8,8 @@ import { useState } from 'react';
 import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
-import {
-  SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatsRow,
-  StatCard,
-  StatValue,
-  StatLabel,
-  HelperText,
-} from './GuideDivs';
+import { StatsRow, StatCard, StatValue, StatLabel, HelperText } from './GuideDivs';
+import GuideDataWrapper from './GuideDataWrapper';
 
 export interface CastEvaluation {
   timestamp: number;
@@ -84,49 +74,45 @@ export default function CastSummary({
       }))
     : [];
 
-  return (
-    <SectionContainer>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{spell.name} Casts</SectionTitle>
-          <Label>Performance</Label>
-        </TitleColumn>
-        <StatsRow>
-          {perfect > 0 && (
-            <Tooltip content={`Perfect casts - ${perfect} / ${total}`}>
-              <StatCard color="#4ec9a2">
-                <StatValue>{perfect}</StatValue>
-                <StatLabel>Perfect</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {good > 0 && (
-            <Tooltip content={`Good casts - ${good} / ${total}`}>
-              <StatCard color="#9ece6a">
-                <StatValue>{good}</StatValue>
-                <StatLabel>Good</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {ok > 0 && (
-            <Tooltip content={`Ok casts - ${ok} / ${total}`}>
-              <StatCard color="#cc7a00">
-                <StatValue>{ok}</StatValue>
-                <StatLabel>Ok</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {bad > 0 && (
-            <Tooltip content={`Bad casts - ${bad} / ${total}`}>
-              <StatCard color="#cd1b1b">
-                <StatValue>{bad}</StatValue>
-                <StatLabel>Bad</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-        </StatsRow>
-      </SectionHeader>
+  const statsContent = (
+    <StatsRow>
+      {perfect > 0 && (
+        <Tooltip content={`Perfect casts - ${perfect} / ${total}`}>
+          <StatCard color="#4ec9a2">
+            <StatValue>{perfect}</StatValue>
+            <StatLabel>Perfect</StatLabel>
+          </StatCard>
+        </Tooltip>
+      )}
+      {good > 0 && (
+        <Tooltip content={`Good casts - ${good} / ${total}`}>
+          <StatCard color="#9ece6a">
+            <StatValue>{good}</StatValue>
+            <StatLabel>Good</StatLabel>
+          </StatCard>
+        </Tooltip>
+      )}
+      {ok > 0 && (
+        <Tooltip content={`Ok casts - ${ok} / ${total}`}>
+          <StatCard color="#cc7a00">
+            <StatValue>{ok}</StatValue>
+            <StatLabel>Ok</StatLabel>
+          </StatCard>
+        </Tooltip>
+      )}
+      {bad > 0 && (
+        <Tooltip content={`Bad casts - ${bad} / ${total}`}>
+          <StatCard color="#cd1b1b">
+            <StatValue>{bad}</StatValue>
+            <StatLabel>Bad</StatLabel>
+          </StatCard>
+        </Tooltip>
+      )}
+    </StatsRow>
+  );
 
+  return (
+    <GuideDataWrapper title={`${spell.name} Casts`} subtitle="Performance" stats={statsContent}>
       {showBreakdown ? (
         <>
           <ControlledExpandable
@@ -161,7 +147,7 @@ export default function CastSummary({
           />
         </BarContainer>
       )}
-    </SectionContainer>
+    </GuideDataWrapper>
   );
 }
 

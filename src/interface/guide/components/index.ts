@@ -7,6 +7,7 @@ export { default as IntensityChart } from './IntensityChart';
 export { default as IntensityBar } from './IntensityBar';
 export { default as DonutChart } from './DonutChart';
 export { default as CastEfficiencyRibbon } from './CastEfficiencyRibbon';
+export { default as GuideDataWrapper } from './GuideDataWrapper';
 export {
   default as BulletGraph,
   type BulletGraphProps,
@@ -28,11 +29,6 @@ export {
 export { TipBox, TipBoxWithTimestamps } from './TipBox';
 export {
   SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatColumn,
   StatsRow,
   StatCard,
   StatValue,

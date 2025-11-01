@@ -5,12 +5,6 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useState, useMemo, useCallback } from 'react';
 import { TipBox } from './TipBox';
 import {
-  SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatColumn,
   StatsRow,
   StatValue,
   StatLabel,
@@ -24,6 +18,7 @@ import {
   StatItemValue,
   StatItemLabel,
 } from './GuideDivs';
+import GuideDataWrapper from './GuideDataWrapper';
 
 export interface PerCastStat {
   value: string;
@@ -119,83 +114,85 @@ export default function CastDetail({
     ? qualitativePerformanceToColor(currentCast.performance)
     : 'rgba(255, 255, 255, 0.3)';
 
-  return (
-    <SectionContainer>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{title}</SectionTitle>
-          {description && (
-            <HelperTextRow>
-              <HelperText>{description}</HelperText>
-            </HelperTextRow>
-          )}
-          <Label>Cast Details</Label>
-        </TitleColumn>
-        <StatColumn>
-          <StatsRow>
-            {performanceCounts[QualitativePerformance.Perfect] > 0 && (
-              <Tooltip
-                content={`Perfect casts - ${performanceCounts[QualitativePerformance.Perfect]} / ${totalCasts}`}
-              >
-                <FilterStatCard
-                  color={qualitativePerformanceToColor(QualitativePerformance.Perfect)}
-                  active={performanceFilter.has(QualitativePerformance.Perfect)}
-                  onClick={() => togglePerformanceFilter(QualitativePerformance.Perfect)}
-                >
-                  <StatValue>{performanceCounts[QualitativePerformance.Perfect]}</StatValue>
-                  <StatLabel>Perfect</StatLabel>
-                </FilterStatCard>
-              </Tooltip>
-            )}
-            {performanceCounts[QualitativePerformance.Good] > 0 && (
-              <Tooltip
-                content={`Good casts - ${performanceCounts[QualitativePerformance.Good]} / ${totalCasts}`}
-              >
-                <FilterStatCard
-                  color={qualitativePerformanceToColor(QualitativePerformance.Good)}
-                  active={performanceFilter.has(QualitativePerformance.Good)}
-                  onClick={() => togglePerformanceFilter(QualitativePerformance.Good)}
-                >
-                  <StatValue>{performanceCounts[QualitativePerformance.Good]}</StatValue>
-                  <StatLabel>Good</StatLabel>
-                </FilterStatCard>
-              </Tooltip>
-            )}
-            {performanceCounts[QualitativePerformance.Ok] > 0 && (
-              <Tooltip
-                content={`Ok casts - ${performanceCounts[QualitativePerformance.Ok]} / ${totalCasts}`}
-              >
-                <FilterStatCard
-                  color={qualitativePerformanceToColor(QualitativePerformance.Ok)}
-                  active={performanceFilter.has(QualitativePerformance.Ok)}
-                  onClick={() => togglePerformanceFilter(QualitativePerformance.Ok)}
-                >
-                  <StatValue>{performanceCounts[QualitativePerformance.Ok]}</StatValue>
-                  <StatLabel>Ok</StatLabel>
-                </FilterStatCard>
-              </Tooltip>
-            )}
-            {performanceCounts[QualitativePerformance.Fail] > 0 && (
-              <Tooltip
-                content={`Failed casts - ${performanceCounts[QualitativePerformance.Fail]} / ${totalCasts}`}
-              >
-                <FilterStatCard
-                  color={qualitativePerformanceToColor(QualitativePerformance.Fail)}
-                  active={performanceFilter.has(QualitativePerformance.Fail)}
-                  onClick={() => togglePerformanceFilter(QualitativePerformance.Fail)}
-                >
-                  <StatValue>{performanceCounts[QualitativePerformance.Fail]}</StatValue>
-                  <StatLabel>Bad</StatLabel>
-                </FilterStatCard>
-              </Tooltip>
-            )}
-          </StatsRow>
-          <HelperText style={{ textAlign: 'right' }}>
-            Click performance boxes to toggle filters
-          </HelperText>
-        </StatColumn>
-      </SectionHeader>
+  const statsContent = (
+    <StatsRow>
+      {performanceCounts[QualitativePerformance.Perfect] > 0 && (
+        <Tooltip
+          content={`Perfect casts - ${performanceCounts[QualitativePerformance.Perfect]} / ${totalCasts}`}
+        >
+          <FilterStatCard
+            color={qualitativePerformanceToColor(QualitativePerformance.Perfect)}
+            active={performanceFilter.has(QualitativePerformance.Perfect)}
+            onClick={() => togglePerformanceFilter(QualitativePerformance.Perfect)}
+          >
+            <StatValue>{performanceCounts[QualitativePerformance.Perfect]}</StatValue>
+            <StatLabel>Perfect</StatLabel>
+          </FilterStatCard>
+        </Tooltip>
+      )}
+      {performanceCounts[QualitativePerformance.Good] > 0 && (
+        <Tooltip
+          content={`Good casts - ${performanceCounts[QualitativePerformance.Good]} / ${totalCasts}`}
+        >
+          <FilterStatCard
+            color={qualitativePerformanceToColor(QualitativePerformance.Good)}
+            active={performanceFilter.has(QualitativePerformance.Good)}
+            onClick={() => togglePerformanceFilter(QualitativePerformance.Good)}
+          >
+            <StatValue>{performanceCounts[QualitativePerformance.Good]}</StatValue>
+            <StatLabel>Good</StatLabel>
+          </FilterStatCard>
+        </Tooltip>
+      )}
+      {performanceCounts[QualitativePerformance.Ok] > 0 && (
+        <Tooltip
+          content={`Ok casts - ${performanceCounts[QualitativePerformance.Ok]} / ${totalCasts}`}
+        >
+          <FilterStatCard
+            color={qualitativePerformanceToColor(QualitativePerformance.Ok)}
+            active={performanceFilter.has(QualitativePerformance.Ok)}
+            onClick={() => togglePerformanceFilter(QualitativePerformance.Ok)}
+          >
+            <StatValue>{performanceCounts[QualitativePerformance.Ok]}</StatValue>
+            <StatLabel>Ok</StatLabel>
+          </FilterStatCard>
+        </Tooltip>
+      )}
+      {performanceCounts[QualitativePerformance.Fail] > 0 && (
+        <Tooltip
+          content={`Failed casts - ${performanceCounts[QualitativePerformance.Fail]} / ${totalCasts}`}
+        >
+          <FilterStatCard
+            color={qualitativePerformanceToColor(QualitativePerformance.Fail)}
+            active={performanceFilter.has(QualitativePerformance.Fail)}
+            onClick={() => togglePerformanceFilter(QualitativePerformance.Fail)}
+          >
+            <StatValue>{performanceCounts[QualitativePerformance.Fail]}</StatValue>
+            <StatLabel>Bad</StatLabel>
+          </FilterStatCard>
+        </Tooltip>
+      )}
+    </StatsRow>
+  );
 
+  const statsHelperText = (
+    <span style={{ textAlign: 'right' }}>Click performance boxes to toggle filters</span>
+  );
+
+  const headerDescription = description ? (
+    <HelperTextRow>
+      <HelperText>{description}</HelperText>
+    </HelperTextRow>
+  ) : undefined;
+
+  return (
+    <GuideDataWrapper
+      title={title}
+      subtitle="Cast Details"
+      stats={statsContent}
+      statsHelperText={statsHelperText}
+      helperText={headerDescription}
+    >
       {filteredCount === 0 ? (
         <NoResultsMessage>
           <NoResultsTitle>No casts match the current filter</NoResultsTitle>
@@ -244,7 +241,7 @@ export default function CastDetail({
           )}
         </PerformanceContainer>
       )}
-    </SectionContainer>
+    </GuideDataWrapper>
   );
 }
 

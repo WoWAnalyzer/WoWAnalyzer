@@ -46,8 +46,6 @@ export interface BulletGraphProps {
 
 /**
  * BulletGraph component for visualizing performance metrics.
- *
- * ```
  */
 export default function BulletGraph({
   actual,
@@ -73,7 +71,7 @@ export default function BulletGraph({
         <BarLabel>{actualLabel}</BarLabel>
       </MainBar>
 
-      <TargetMarker position={100}>
+      <TargetMarker>
         <TargetLine />
         <TargetLabel>{maximumLabel}</TargetLabel>
       </TargetMarker>
@@ -141,9 +139,9 @@ const BarLabel = styled.span`
   paint-order: stroke fill;
 `;
 
-const TargetMarker = styled.div<{ position: number }>`
+const TargetMarker = styled.div`
   position: absolute;
-  left: ${(props) => props.position}%;
+  left: 100%;
   top: 0;
   height: 32px;
   display: flex;

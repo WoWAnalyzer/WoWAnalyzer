@@ -73,49 +73,6 @@ export const SectionContainer = styled.div`
   margin-bottom: 16px;
 `;
 
-/** Header section containing title and stats */
-export const SectionHeader = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
-  margin-bottom: 8px;
-`;
-
-/** Column for title and labels */
-export const TitleColumn = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: space-between;
-`;
-
-/** Main title/header for guide sections */
-export const SectionTitle = styled.h3`
-  margin: 0 0 12px 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #fab700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-`;
-
-/** Small label text (e.g., "Timeline", "Performance") */
-export const Label = styled.div`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-`;
-
-/** Column container for stat cards and helper text */
-export const StatColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-`;
-
 /** Row for stat cards */
 export const StatsRow = styled.div`
   display: flex;
