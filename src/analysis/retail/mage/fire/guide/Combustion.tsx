@@ -13,13 +13,17 @@ import CombustionCasts from '../core/Combustion';
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { GetRelatedEvent } from 'parser/core/Events';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+import { DamageContribution } from 'interface/guide/components';
+import CombustionDamageTracker from '../core/CombustionDamageTracker';
 
 class CombustionGuide extends Analyzer {
   static dependencies = {
     combustion: CombustionCasts,
+    combustionDamageTracker: CombustionDamageTracker,
   };
 
   protected combustion!: CombustionCasts;
+  protected combustionDamageTracker!: CombustionDamageTracker;
 
   hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
   hasSunKingsBlessing: boolean = this.selectedCombatant.hasTalent(
@@ -251,6 +255,24 @@ class CombustionGuide extends Analyzer {
             <CastSummaryAndBreakdown
               spell={TALENTS.COMBUSTION_TALENT}
               castEntries={this.combustionData}
+            />
+          </div>
+          <div>
+            <DamageContribution
+              title="Damage During Combustion"
+              spells={[
+                { spell: TALENTS.PYROBLAST_TALENT, color: '#ff6600' },
+                { spell: SPELLS.FIRE_BLAST, color: '#ff9933' },
+                { spell: SPELLS.PHOENIX_FLAMES_DAMAGE, color: '#ffcc00' },
+                { spell: SPELLS.IGNITE, color: '#910808ff' },
+                { spell: SPELLS.FLAMESTRIKE, color: '#cc3300' },
+                { spell: SPELLS.ARCANE_PHOENIX_DAMAGE, color: '#7b1d92ff' },
+              ]}
+              calculateContribution={(spellId: number) =>
+                this.combustionDamageTracker.getDamageForSpell(spellId)
+              }
+              otherColor="#666666"
+              helperText="Spell Damage breakdown during Combustion."
             />
           </div>
         </RoundedPanel>

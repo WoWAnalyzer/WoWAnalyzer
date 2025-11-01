@@ -1,6 +1,7 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/mage';
+import SPELLS from 'common/SPELLS';
 
 /**
  * Tracks damage contributions during Combustion windows
@@ -12,6 +13,7 @@ export default class CombustionDamageTracker extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onArcanePhoenixDamage);
   }
 
   onDamage(event: DamageEvent) {
@@ -28,6 +30,19 @@ export default class CombustionDamageTracker extends Analyzer {
     this.damageBySpell.set(spellId, current + amount);
 
     // Add to overall total
+    this.totalDamage += amount;
+  }
+
+  onArcanePhoenixDamage(event: DamageEvent) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)) {
+      return;
+    }
+
+    const amount = event.amount + (event.absorbed || 0);
+
+    const current = this.damageBySpell.get(SPELLS.ARCANE_PHOENIX_DAMAGE.id) || 0;
+    this.damageBySpell.set(SPELLS.ARCANE_PHOENIX_DAMAGE.id, current + amount);
+
     this.totalDamage += amount;
   }
 

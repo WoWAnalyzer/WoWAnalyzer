@@ -168,7 +168,6 @@ class ArcaneOrbGuide extends Analyzer {
           spell={SPELLS.ARCANE_ORB}
           cooldownColor={'#80138fff'}
           showExplanation
-          useThresholds
         />
       </GuideSection>
     );

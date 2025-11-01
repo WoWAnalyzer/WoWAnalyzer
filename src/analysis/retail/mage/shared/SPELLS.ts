@@ -197,6 +197,11 @@ const spells = {
     name: 'Burden of Power',
     icon: 'inv_ragnaros_heart',
   },
+  ARCANE_PHOENIX_DAMAGE: {
+    id: 448659,
+    name: 'Arcane Phoenix',
+    icon: 'inv_ability_sunfurymage_spellfirespheres',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

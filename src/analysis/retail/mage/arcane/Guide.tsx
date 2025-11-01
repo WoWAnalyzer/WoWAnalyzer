@@ -144,20 +144,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               spell={TALENTS.ARCANE_SURGE_TALENT}
               cooldownColor={'#ac1097ff'}
               compactLayout
-              useThresholds
             />
             <CastEfficiencyRibbon
               spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT}
               cooldownColor={'#34033dff'}
               compactLayout
-              useThresholds
             />
             {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) && (
               <CastEfficiencyRibbon
                 spell={TALENTS.PRESENCE_OF_MIND_TALENT}
                 cooldownColor={'#3f0f75ff'}
                 compactLayout
-                useThresholds
               />
             )}
             {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) && (
@@ -165,7 +162,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
                 spell={TALENTS.EVOCATION_TALENT}
                 cooldownColor={'#6d16a7ff'}
                 compactLayout
-                useThresholds
               />
             )}
           </RoundedPanel>

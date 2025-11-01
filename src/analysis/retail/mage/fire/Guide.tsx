@@ -12,7 +12,7 @@ import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/Defensiv
 import {
   IntensityChart,
   IntensityBar,
-  DonutChart,
+  DamageContribution,
   CastEfficiencyRibbon,
   GuideSection,
 } from 'interface/guide/components';
@@ -119,25 +119,24 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Cast Efficiency">
           <RoundedPanel>
             {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
-              <CastEfficiencyRibbon spell={TALENTS.COMBUSTION_TALENT} compactLayout useThresholds />
+              <CastEfficiencyRibbon spell={TALENTS.COMBUSTION_TALENT} compactLayout />
             )}
             {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
               <CastEfficiencyRibbon
                 spell={TALENTS.PHOENIX_FLAMES_TALENT}
                 cooldownColor={'#ca570aff'}
                 compactLayout
-                useThresholds
               />
             )}
             {info.combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) && (
               <CastEfficiencyRibbon
                 spell={TALENTS.FIRE_BLAST_TALENT}
                 cooldownColor={'#b30b0bd7'}
-                useThresholds
+                compactLayout
               />
             )}
             {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
-              <CastEfficiencyRibbon spell={TALENTS.METEOR_TALENT} compactLayout useThresholds />
+              <CastEfficiencyRibbon spell={TALENTS.METEOR_TALENT} compactLayout />
             )}
           </RoundedPanel>
         </SubSection>
@@ -149,6 +148,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           data={modules.igniteTracker.getTargetDpsData()}
           chartType="DPS"
           baseColor="#bd6620ff"
+          uptimePercent={modules.igniteTracker.getUptimePercent()}
         />
         <IntensityBar
           spell={SPELLS.IGNITE}
@@ -156,7 +156,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           chartType="DPS"
           baseColor="#bd6620ff"
         />
-        <DonutChart
+        <DamageContribution
           title="Damage During Combustion"
           spells={[
             { spell: TALENTS.PYROBLAST_TALENT, color: '#ff6600' },
@@ -164,6 +164,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             { spell: SPELLS.PHOENIX_FLAMES_DAMAGE, color: '#ffcc00' },
             { spell: SPELLS.IGNITE, color: '#ff4400' },
             { spell: SPELLS.FLAMESTRIKE, color: '#cc3300' },
+            { spell: SPELLS.ARCANE_PHOENIX_DAMAGE, color: '#7b1d92ff' },
           ]}
           calculateContribution={(spellId: number) =>
             modules.combustionDamageTracker.getDamageForSpell(spellId)
@@ -197,6 +198,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           data={modules.igniteTracker.getTargetDpsData()}
           chartType="DPS"
           baseColor="#bd6620ff"
+          uptimePercent={modules.igniteTracker.getUptimePercent()}
         />
         <IntensityBar
           spell={SPELLS.IGNITE}

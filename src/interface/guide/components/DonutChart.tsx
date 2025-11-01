@@ -1,80 +1,44 @@
 import styled from '@emotion/styled';
-import Spell from 'common/SPELLS/Spell';
-import { SpellIcon, SpellLink } from 'interface';
 import { formatPercentage, formatNumber } from 'common/format';
-import { StatsRow, StatCard, StatValue, StatLabel } from './GuideDivs';
-import GuideDataWrapper from './GuideDataWrapper';
+import { useState } from 'react';
 
-interface SpellContribution {
-  spell: Spell;
+export interface DonutSegment {
+  /** Unique identifier for the segment */
+  id: string | number;
+  /** Display label for the segment */
+  label: string;
+  /** Color for the segment */
   color: string;
-  amount: number;
+  /** Numeric value for the segment */
+  value: number;
 }
 
 interface Props {
-  /** Title for the chart */
-  title: string;
-  /** List of spells to track with their colors */
-  spells: Array<{ spell: Spell; color: string }>;
-  /** Function to calculate damage/healing for a spell */
-  calculateContribution: (spellId: number) => number;
-  /** Color for the "Other" category */
-  otherColor?: string;
+  /** Array of segments to display */
+  segments: DonutSegment[];
   /** Size of the donut chart in pixels */
   size?: number;
   /** Inner radius ratio (0-1, where 0.5 = half the radius) */
   innerRadiusRatio?: number;
-  /** Helper text to display below the chart */
-  helperText?: string;
+  /** Whether to show the center text with total */
+  showCenterText?: boolean;
+  /** Custom center text override */
+  centerText?: string;
 }
 
 /**
- * Displays damage/healing contribution as a donut chart showing breakdown by spell.
- * Automatically includes an "Other" category for untracked spells.
+ * Base donut chart component that renders a simple donut visualization.
+ * For more complex use cases with spell tracking and legends, use DamageContribution.
  */
-const DonutChart = ({
-  title,
-  spells,
-  calculateContribution,
-  otherColor = '#666666',
+export default function DonutChart({
+  segments,
   size = 200,
   innerRadiusRatio = 0.6,
-  helperText,
-}: Props) => {
-  // Calculate contributions for each spell
-  const contributions: SpellContribution[] = spells
-    .map(({ spell, color }) => ({
-      spell,
-      color,
-      amount: calculateContribution(spell.id),
-    }))
-    .filter((contrib) => contrib.amount > 0);
-
-  // Calculate total from all specified spells
-  const specifiedTotal = contributions.reduce((sum, contrib) => sum + contrib.amount, 0);
-
-  // Calculate total from all damage (including unspecified)
-  const overallTotal = calculateContribution(-1); // -1 signals to get total of all
-
-  // Calculate "Other" category
-  const otherAmount = Math.max(0, overallTotal - specifiedTotal);
-
-  // Add "Other" to contributions if it exists
-  const allContributions: Array<SpellContribution & { isOther?: boolean }> = [...contributions];
-
-  if (otherAmount > 0) {
-    allContributions.push({
-      spell: { id: -1, name: 'Other', icon: '' } as Spell,
-      color: otherColor,
-      amount: otherAmount,
-      isOther: true,
-    });
-  }
-
-  const total = overallTotal;
-
-  // Sort by amount descending
-  allContributions.sort((a, b) => b.amount - a.amount);
+  showCenterText = true,
+  centerText,
+}: Props) {
+  const [hoveredSegment, setHoveredSegment] = useState<DonutSegment | null>(null);
+  const total = segments.reduce((sum, seg) => sum + seg.value, 0);
 
   // Generate donut chart SVG
   const centerX = size / 2;
@@ -84,8 +48,8 @@ const DonutChart = ({
 
   let currentAngle = -90; // Start at top
 
-  const segments = allContributions.map((contrib) => {
-    const percentage = contrib.amount / total;
+  const renderedSegments = segments.map((segment) => {
+    const percentage = segment.value / total;
     const angleDegrees = percentage * 360;
     const startAngle = currentAngle;
     const endAngle = currentAngle + angleDegrees;
@@ -96,11 +60,15 @@ const DonutChart = ({
     const startRad = (startAngle * Math.PI) / 180;
     const endRad = (endAngle * Math.PI) / 180;
 
-    // Calculate arc path
-    const x1 = centerX + radius * Math.cos(startRad);
-    const y1 = centerY + radius * Math.sin(startRad);
-    const x2 = centerX + radius * Math.cos(endRad);
-    const y2 = centerY + radius * Math.sin(endRad);
+    // Grow the segment when hovered (increase radius slightly)
+    const isHovered = hoveredSegment?.id === segment.id;
+    const outerRadius = isHovered ? radius + 6 : radius;
+
+    // Calculate arc path with dynamic radius
+    const x1 = centerX + outerRadius * Math.cos(startRad);
+    const y1 = centerY + outerRadius * Math.sin(startRad);
+    const x2 = centerX + outerRadius * Math.cos(endRad);
+    const y2 = centerY + outerRadius * Math.sin(endRad);
     const x3 = centerX + innerRadius * Math.cos(endRad);
     const y3 = centerY + innerRadius * Math.sin(endRad);
     const x4 = centerX + innerRadius * Math.cos(startRad);
@@ -110,91 +78,78 @@ const DonutChart = ({
 
     const pathData = [
       `M ${x1} ${y1}`, // Move to start of outer arc
-      `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`, // Outer arc
+      `A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${x2} ${y2}`, // Outer arc
       `L ${x3} ${y3}`, // Line to inner arc
       `A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${x4} ${y4}`, // Inner arc (reverse)
       'Z', // Close path
     ].join(' ');
 
     return {
-      ...contrib,
+      ...segment,
       pathData,
       percentage,
     };
   });
 
   return (
-    <GuideDataWrapper title={title} helperText={helperText}>
-      <ChartContainer>
-        <DonutSvg>
-          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            {segments.map((segment, idx) => (
-              <g key={segment.isOther ? 'other' : segment.spell.id}>
-                <path d={segment.pathData} fill={segment.color} opacity={0.8}>
-                  <title>
-                    {segment.isOther ? 'Other' : segment.spell.name}: {formatNumber(segment.amount)}{' '}
-                    ({formatPercentage(segment.percentage, 1)}%)
-                  </title>
-                </path>
-              </g>
-            ))}
-          </svg>
-          <CenterText>
-            <CenterValue>{formatNumber(total)}</CenterValue>
-            <CenterLabel>Total</CenterLabel>
-          </CenterText>
-        </DonutSvg>
-
-        <LegendContainer>
-          {segments.map((segment) => (
-            <LegendItem key={segment.isOther ? 'other' : segment.spell.id}>
-              <LegendColorBox color={segment.color} />
-              <LegendContent>
-                <LegendSpell>
-                  {segment.isOther ? (
-                    <span>Other</span>
-                  ) : (
-                    <>
-                      <SpellIcon spell={segment.spell} /> <SpellLink spell={segment.spell} />
-                    </>
-                  )}
-                </LegendSpell>
-                <LegendStats>
-                  <LegendValue>{formatNumber(segment.amount)}</LegendValue>
-                  <LegendPercentage>{formatPercentage(segment.percentage, 1)}%</LegendPercentage>
-                </LegendStats>
-              </LegendContent>
-            </LegendItem>
-          ))}
-        </LegendContainer>
-      </ChartContainer>
-
-      <StatsRow>
-        <StatCard color="#3b82f6">
-          <StatValue>{allContributions.length}</StatValue>
-          <StatLabel>Sources</StatLabel>
-        </StatCard>
-      </StatsRow>
-    </GuideDataWrapper>
+    <DonutContainer>
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${size} ${size}`}
+        style={{ overflow: 'visible' }}
+      >
+        {renderedSegments.map((segment) => (
+          <g key={segment.id}>
+            <SegmentPath
+              d={segment.pathData}
+              fill={segment.color}
+              onMouseEnter={() => setHoveredSegment(segment)}
+              onMouseLeave={() => setHoveredSegment(null)}
+            >
+              <title>
+                {segment.label}: {formatNumber(segment.value)} (
+                {formatPercentage(segment.percentage, 1)}%)
+              </title>
+            </SegmentPath>
+          </g>
+        ))}
+      </svg>
+      {showCenterText && (
+        <CenterText>
+          {hoveredSegment ? (
+            <>
+              <CenterValue>{formatNumber(hoveredSegment.value)}</CenterValue>
+              <CenterLabel>{hoveredSegment.label}</CenterLabel>
+            </>
+          ) : (
+            <>
+              <CenterValue>{centerText || formatNumber(total)}</CenterValue>
+              <CenterLabel>{centerText ? '' : 'Total'}</CenterLabel>
+            </>
+          )}
+        </CenterText>
+      )}
+    </DonutContainer>
   );
-};
+}
 
-const ChartContainer = styled.div`
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  padding: 20px;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
+const DonutContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1;
+  padding: 8px;
 `;
 
-const DonutSvg = styled.div`
-  position: relative;
-  flex-shrink: 0;
+const SegmentPath = styled.path`
+  opacity: 0.8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const CenterText = styled.div`
@@ -204,81 +159,29 @@ const CenterText = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
+  transition: all 0.2s ease;
 `;
 
 const CenterValue = styled.div`
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: white;
   line-height: 1.2;
-`;
+  transition: font-size 0.2s ease;
 
-const CenterLabel = styled.div`
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-`;
-
-const LegendContainer = styled.div`
-  flex: 1;
-  min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-const LegendColorBox = styled.div<{ color: string }>`
-  width: 16px;
-  height: 16px;
-  background: ${(props) => props.color};
-  border-radius: 3px;
-  flex-shrink: 0;
-  opacity: 0.8;
-`;
-
-const LegendContent = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-`;
-
-const LegendSpell = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.95rem;
-
-  img {
-    width: 20px;
-    height: 20px;
+  ${CenterText}:has(+ svg path:hover) & {
+    font-size: 2.6rem;
   }
 `;
 
-const LegendStats = styled.div`
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-shrink: 0;
-`;
-
-const LegendValue = styled.div`
-  font-weight: 600;
-  color: white;
-  font-size: 0.95rem;
-`;
-
-const LegendPercentage = styled.div`
-  font-size: 0.85rem;
+const CenterLabel = styled.div`
+  font-size: 1.4rem;
   color: rgba(255, 255, 255, 0.6);
-`;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: font-size 0.2s ease;
 
-export default DonutChart;
+  ${CenterText}:has(+ svg path:hover) & {
+    font-size: 1.3rem;
+  }
+`;

@@ -215,6 +215,13 @@ export default class IgniteTracker extends Analyzer {
   }
 
   /**
+   * Gets Ignite uptime percentage (0-1) across all targets
+   */
+  getUptimePercent(): number {
+    return this.enemies.getBuffUptime(SPELLS.IGNITE.id) / this.owner.fightDuration;
+  }
+
+  /**
    * Gets time distribution across DPS tiers for ribbon visualization
    */
   getTimeDistribution() {

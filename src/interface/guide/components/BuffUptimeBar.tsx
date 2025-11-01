@@ -7,7 +7,6 @@ import { TrackedBuffEvent } from 'parser/core/Entity';
 import { StatsRow, StatCard, StatValue, StatLabel } from './GuideDivs';
 import GuideDataWrapper from './GuideDataWrapper';
 
-// Unified uptime graph - handles both simple buffs and stacked buffs
 function UptimeGraph({
   buffHistory,
   stackUptimeHistory,

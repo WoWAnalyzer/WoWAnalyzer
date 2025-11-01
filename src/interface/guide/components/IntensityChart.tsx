@@ -110,17 +110,14 @@ interface Props {
   headerOverride?: string;
   /** Helper text to display below the header */
   helperText?: string;
+  /** Optional uptime percentage (0-1). If provided, displays uptime stat calculated from buff/debuff duration */
+  uptimePercent?: number;
 }
 
 /**
  * Displays throughput intensity over time as a heatmap grid with color-coded intensity.
  * Can display DPS or HPS for a specific spell or overall damage/healing.
  *
- * Features:
- * - Toggle between overall view (all targets combined) and per-target breakdown
- * - Color gradient centered around median intensity value
- * - Shows stats: average, max, total, uptime percentage
- * - Responsive timeline with configurable bucket count
  */
 export default function IntensityChart({
   spell,
@@ -128,6 +125,7 @@ export default function IntensityChart({
   chartType = 'DPS',
   baseColor = '#fab700',
   headerOverride,
+  uptimePercent,
 }: Props) {
   const info = useInfo();
   const [showPerTarget, setShowPerTarget] = useState(false);
@@ -195,14 +193,8 @@ export default function IntensityChart({
   const maxValue = Math.max(...allBuckets, 0);
   const total = heatmapData.reduce((sum, t) => sum + t.total, 0);
 
-  // Calculate uptime as the maximum uptime across all targets
-  const uptimePercent = Math.max(
-    ...heatmapData.map((target) => {
-      const targetNonZero = target.buckets.filter((v) => v > 0).length;
-      return (targetNonZero / target.buckets.length) * 100;
-    }),
-    0,
-  );
+  // Convert uptimePercent to display percentage (only if provided)
+  const uptimeDisplay = uptimePercent !== undefined ? uptimePercent * 100 : undefined;
 
   // Calculate median-based thresholds
   const median = sorted[Math.floor(sorted.length / 2)] || maxValue / 2;
@@ -266,12 +258,14 @@ export default function IntensityChart({
           <StatLabel>Total</StatLabel>
         </StatCard>
       </Tooltip>
-      <Tooltip content={`Percentage of time with active throughput`}>
-        <StatCard color="#f59e0b">
-          <StatValue>{uptimePercent.toFixed(1)}%</StatValue>
-          <StatLabel>Uptime</StatLabel>
-        </StatCard>
-      </Tooltip>
+      {uptimeDisplay !== undefined && (
+        <Tooltip content={`Percentage of time the buff/debuff was active`}>
+          <StatCard color="#f59e0b">
+            <StatValue>{uptimeDisplay.toFixed(1)}%</StatValue>
+            <StatLabel>Uptime</StatLabel>
+          </StatCard>
+        </Tooltip>
+      )}
     </>
   );
 
