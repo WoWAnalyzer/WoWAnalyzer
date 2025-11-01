@@ -46,7 +46,7 @@ export default class Abilities extends CoreAbilities {
         // Felblade cooldown can be reset by Demon Bite. But its CD reset is not any event, so can't track if it resets or not.
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
-          base: 500,
+          static: 500,
         },
         castEfficiency: {
           suggestion: true,
