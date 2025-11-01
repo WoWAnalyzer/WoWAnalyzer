@@ -20,25 +20,40 @@ import {
 } from './GuideDivs';
 import GuideDataWrapper from './GuideDataWrapper';
 
+/** A single statistic about a cast (e.g., damage dealt, targets hit) */
 export interface PerCastStat {
+  /** The stat value as a formatted string (e.g., "45K", "3 targets") */
   value: string;
+  /** Label describing what this stat represents */
   label: string;
+  /** Detailed tooltip content for this stat */
   tooltip: React.ReactNode;
+  /** Optional performance rating for color-coding this specific stat */
   performance?: QualitativePerformance;
 }
 
+/** Complete data for displaying a single cast */
 export interface PerCastData {
+  /** Overall performance rating for this cast */
   performance: QualitativePerformance;
+  /** Array of stats to display for this cast */
   stats: PerCastStat[];
+  /** Optional tooltip content for the entire cast */
   tooltip?: React.ReactNode;
+  /** Formatted timestamp string (e.g., "1:23") */
   timestamp: string;
+  /** Optional additional details to show below the cast */
   details?: React.ReactNode;
 }
 
 interface CastDetailProps {
+  /** Title for the cast detail section */
   title: string;
+  /** Array of per-cast data to display */
   casts: PerCastData[];
+  /** Optional description text shown below the title */
   description?: string;
+  /** Font size for cast details. Default: '16px' */
   fontSize?: string;
 }
 
@@ -46,6 +61,11 @@ interface CastDetailProps {
  * Displays per-cast statistics in a grid with performance-based colored boxes.
  * Each box represents one cast with its stats and overall performance.
  * Includes navigation controls and performance filtering.
+ *
+ * @param title - Title for the cast detail section
+ * @param casts - Array of per-cast data to display
+ * @param description - Optional description text shown below the title
+ * @param fontSize - Font size for cast details (default: '16px')
  */
 export default function CastDetail({
   title,

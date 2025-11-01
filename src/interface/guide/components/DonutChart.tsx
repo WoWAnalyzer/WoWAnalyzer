@@ -29,6 +29,12 @@ interface Props {
 /**
  * Base donut chart component that renders a simple donut visualization.
  * For more complex use cases with spell tracking and legends, use DamageContribution.
+ *
+ * @param segments - Array of segments to display in the chart
+ * @param size - Size of the donut chart in pixels (default: 200)
+ * @param innerRadiusRatio - Inner radius ratio 0-1, where 0.5 = half radius (default: 0.6)
+ * @param showCenterText - Whether to show center text with total (default: true)
+ * @param centerText - Custom center text override
  */
 export default function DonutChart({
   segments,

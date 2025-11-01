@@ -6,20 +6,15 @@ import {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { CooldownWindow } from 'parser/ui/CooldownBar';
+import { useFight } from 'interface/report/context/FightContext';
 
 export interface CooldownTimelineProps {
   /** The spell ID to show cooldown timeline for */
   spellId: number;
   /** All combat log events */
   events: AnyEvent[];
-  /** Fight start timestamp */
-  fightStart: number;
-  /** Fight end timestamp */
-  fightEnd: number;
-  /** Fight duration in milliseconds */
-  fightDuration: number;
-  /** Windows where the spell is usable (defaults to full fight if not specified) */
-  windows: CooldownWindow[];
+  /** Optional windows where the spell is usable (defaults to full fight if not specified) */
+  windows?: CooldownWindow[];
   /** Color for the cooldown bars */
   cooldownColor: string;
 }
@@ -34,16 +29,24 @@ export interface CooldownTimelineProps {
  *
  * This is a reusable component that can be used anywhere you need to visualize
  * spell cooldown usage across a fight or specific time windows.
+ *
+ * @param spellId - The spell ID to show cooldown timeline for
+ * @param events - All combat log events
+ * @param windows - Optional windows when spell is usable (defaults to full fight)
+ * @param cooldownColor - Color for the cooldown bars
  */
 export default function CooldownTimeline({
   spellId,
   events,
-  fightStart,
-  fightEnd,
-  fightDuration,
   windows,
   cooldownColor,
 }: CooldownTimelineProps) {
+  const fight = useFight();
+  const fightStart = fight.fight.start_time;
+  const fightEnd = fight.fight.end_time;
+  const fightDuration = fightEnd - fightStart;
+  const actualWindows = windows ?? [{ startTime: fightStart, endTime: fightEnd }];
+
   const ribbonHeight = 32;
   const markerOffset = 8;
   const totalHeight = ribbonHeight + markerOffset;
@@ -56,7 +59,7 @@ export default function CooldownTimeline({
       preserveAspectRatio="none"
       viewBox={`0 0 ${width} ${totalHeight}`}
     >
-      {windows.map((window, winIdx) => {
+      {actualWindows.map((window, winIdx) => {
         const windowStart = window.startTime;
         const windowEnd = window.endTime;
         const windowDuration = windowEnd - windowStart;
@@ -136,7 +139,7 @@ export default function CooldownTimeline({
               `${winIdx}-cooldown-${ix}`,
               cooldownColor,
               1,
-              `On Cooldown: ${formatDuration(cdStart - fightStart)} - ${formatDuration(cdEnd - fightStart)}`,
+              `On Cooldown: ${formatDuration(cdStart - windowStart)} - ${formatDuration(cdEnd - windowStart)}`,
             ),
           );
         });
@@ -152,7 +155,7 @@ export default function CooldownTimeline({
                 `${winIdx}-cooldown-final`,
                 cooldownColor,
                 1,
-                `On Cooldown: ${formatDuration(lastBegin.overallStartTimestamp - fightStart)} - ${formatDuration(windowEnd - fightStart)}`,
+                `On Cooldown: ${formatDuration(lastBegin.overallStartTimestamp - windowStart)} - ${formatDuration(windowDuration)}`,
               ),
             );
           }
@@ -170,7 +173,7 @@ export default function CooldownTimeline({
                 `${winIdx}-highlight-${ix}`,
                 'rgba(220, 38, 38, 0.3)',
                 1,
-                `Available: ${formatDuration(lastCdEnd - fightStart)} - ${formatDuration(cd.overallStartTimestamp - fightStart)}`,
+                `Available: ${formatDuration(lastCdEnd - windowStart)} - ${formatDuration(cd.overallStartTimestamp - windowStart)}`,
               ),
             );
           }
@@ -188,7 +191,7 @@ export default function CooldownTimeline({
               `${winIdx}-highlight-end`,
               'rgba(220, 38, 38, 0.3)',
               1,
-              `Available: ${formatDuration(finalCdEnd - fightStart)} - ${formatDuration(windowEnd - fightStart)}`,
+              `Available: ${formatDuration(finalCdEnd - windowStart)} - ${formatDuration(windowDuration)}`,
             ),
           );
         }
@@ -200,7 +203,7 @@ export default function CooldownTimeline({
 
         const castMarkers = casts.map((cast, ix) => {
           const markerX = windowX + ((cast.timestamp - windowStart) / windowDuration) * windowWidth;
-          const castTime = formatDuration(cast.timestamp - fightStart);
+          const castTime = formatDuration(cast.timestamp - windowStart);
           const title = `Cast at ${castTime}`;
 
           // Teardrop/pin shape pointing down

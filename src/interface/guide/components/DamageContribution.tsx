@@ -12,8 +12,8 @@ interface SpellContribution {
 }
 
 interface Props {
-  /** Title for the chart */
-  title: string;
+  /** Title for the chart (defaults to "Damage Contribution") */
+  title?: string;
   /** List of spells to track with their colors */
   spells: Array<{ spell: Spell; color: string }>;
   /** Function to calculate damage/healing for a spell */
@@ -34,6 +34,15 @@ interface Props {
  * Displays damage/healing contribution as a donut chart with spell breakdown and legend.
  * Automatically includes an "Other" category for untracked spells.
  * Built using GuideDataWrapper for consistent styling.
+ *
+ * @param title - Title for the chart (defaults to "Damage Contribution")
+ * @param spells - List of spells to track with their display colors
+ * @param calculateContribution - Function that takes spellId and returns damage/healing amount
+ * @param otherColor - Color for the "Other" category (default: #666666)
+ * @param size - Size of the donut chart in pixels (default: 200)
+ * @param innerRadiusRatio - Inner radius ratio 0-1 (default: 0.6)
+ * @param helperText - Optional helper text to display below the header
+ * @param stats - Optional stat cards to display in the header
  */
 export default function DamageContribution({
   title,
@@ -43,6 +52,9 @@ export default function DamageContribution({
   helperText,
   stats,
 }: Props) {
+  // Default title to "Damage Contribution" if not provided
+  const displayTitle = title ?? 'Damage Contribution';
+
   // Calculate contributions for each spell
   const contributions: SpellContribution[] = spells
     .map(({ spell, color }) => ({
@@ -87,7 +99,12 @@ export default function DamageContribution({
   }));
 
   return (
-    <GuideDataWrapper title={title} subtitle="Distribution" stats={stats} helperText={helperText}>
+    <GuideDataWrapper
+      title={displayTitle}
+      subtitle="Distribution"
+      stats={stats}
+      helperText={helperText}
+    >
       <ChartContainer>
         <DonutChart
           segments={donutSegments}

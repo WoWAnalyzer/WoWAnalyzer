@@ -31,9 +31,9 @@ export interface StackedBarProps {
   /** Minimum percentage required to show labels on a segment. Default: 5 */
   minLabelPercent?: number;
   /** Custom label formatter. Receives segment and percentage, returns label content */
-  labelFormatter?: (segment: StackedBarSegment, percent: number) => React.ReactNode;
+  labelFormat?: (segment: StackedBarSegment, percent: number) => React.ReactNode;
   /** Custom tooltip formatter. Receives segment and percentage, returns tooltip content */
-  tooltipFormatter?: (segment: StackedBarSegment, percent: number) => React.ReactNode;
+  tooltipFormat?: (segment: StackedBarSegment, percent: number) => React.ReactNode;
   /** Optional CSS class name */
   className?: string;
 }
@@ -41,7 +41,14 @@ export interface StackedBarProps {
 /**
  * StackedBar component for visualizing proportional data distribution.
  *
- * ```
+ * @param segments - Array of segments to display in the bar
+ * @param height - Height of the bar in pixels (default: 60)
+ * @param showLabels - Whether to show percentage labels on segments (default: true)
+ * @param minSegmentPercent - Minimum percentage required to show a segment (default: 0.5)
+ * @param minLabelPercent - Minimum percentage required to show labels (default: 5)
+ * @param labelFormat - Custom label formatter function
+ * @param tooltipFormat - Custom tooltip formatter function
+ * @param className - Optional CSS class name
  */
 export default function StackedBar({
   segments,
@@ -49,8 +56,8 @@ export default function StackedBar({
   showLabels = true,
   minSegmentPercent = 0.5,
   minLabelPercent = 5,
-  labelFormatter,
-  tooltipFormatter,
+  labelFormat,
+  tooltipFormat,
   className,
 }: StackedBarProps) {
   const total = segments.reduce((sum, seg) => sum + seg.value, 0);
@@ -76,8 +83,8 @@ export default function StackedBar({
     </>
   );
 
-  const getLabelContent = labelFormatter || defaultLabelFormatter;
-  const getTooltipContent = tooltipFormatter || defaultTooltipFormatter;
+  const getLabelContent = labelFormat || defaultLabelFormatter;
+  const getTooltipContent = tooltipFormat || defaultTooltipFormatter;
 
   let cumulativePercent = 0;
 

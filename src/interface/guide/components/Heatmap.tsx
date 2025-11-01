@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
+import { formatNumber } from 'common/format';
 
 /**
  * A heatmap grid visualization component for displaying time-series data with color intensity.
@@ -8,10 +9,10 @@ import { Tooltip } from 'interface';
  * making it easy to spot peaks, patterns, and relative intensity at a glance.
  */
 
-export interface HeatmapBucket {
-  /** The value for this time bucket */
+export interface HeatmapBlock {
+  /** The value for this time block */
   value: number;
-  /** Optional timestamp for the start of this bucket (in milliseconds) */
+  /** Optional timestamp for the start of this block (in milliseconds) */
   timestamp?: number;
 }
 
@@ -20,8 +21,8 @@ export interface HeatmapRow {
   label?: string;
   /** Optional secondary label (e.g., total value for the row) */
   secondaryLabel?: string;
-  /** Array of bucket values for this row */
-  buckets: HeatmapBucket[];
+  /** Array of block values for this row */
+  blocks: HeatmapBlock[];
 }
 
 export interface HeatmapColorThreshold {
@@ -38,16 +39,8 @@ export interface HeatmapProps {
   colorThresholds: HeatmapColorThreshold[];
   /** Default color for zero/empty buckets. Default: '#1f2937' (dark gray) */
   emptyColor?: string;
-  /** Whether to show row labels. Default: true */
-  showLabels?: boolean;
-  /** Custom tooltip formatter. Receives bucket value and returns tooltip content */
-  tooltipFormatter?: (bucket: HeatmapBucket, rowLabel?: string) => React.ReactNode;
-  /** Cell size in pixels. Default: 20 */
-  cellSize?: number;
-  /** Gap between cells in pixels. Default: 2 */
-  cellGap?: number;
-  /** Gap between rows in pixels. Default: 16 */
-  rowGap?: number;
+  /** Custom tooltip format function. Receives block value and returns tooltip content */
+  tooltipFormat?: (block: HeatmapBlock, rowLabel?: string) => React.ReactNode;
   /** Optional CSS class name */
   className?: string;
 }
@@ -55,42 +48,30 @@ export interface HeatmapProps {
 /**
  * Heatmap component for visualizing time-series intensity data.
  *
- * @example
- * ```tsx
- * <Heatmap
- *   rows={[
- *     {
- *       label: "Boss",
- *       secondaryLabel: "(1.2M)",
- *       buckets: [
- *         { value: 15000, timestamp: 0 },
- *         { value: 22000, timestamp: 1000 },
- *         // ... more buckets
- *       ]
- *     }
- *   ]}
- *   colorThresholds={[
- *     { minValue: 0, color: '#fee' },
- *     { minValue: 10000, color: '#fbb' },
- *     { minValue: 20000, color: '#f88' },
- *     { minValue: 30000, color: '#f55' },
- *     { minValue: 40000, color: '#f22' },
- *   ]}
- *   tooltipFormatter={(bucket) => `DPS: ${bucket.value}`}
- * />
- * ```
+ * @param rows - Array of rows to display in the heatmap
+ * @param colorThresholds - Color thresholds for gradient (lowest to highest)
+ * @param emptyColor - Default color for zero/empty buckets (default: dark gray #1f2937)
+ * @param tooltipFormat - Custom tooltip format function
+ * @param className - Optional CSS class name
  */
 export default function Heatmap({
   rows,
   colorThresholds,
   emptyColor = '#1f2937',
-  showLabels = true,
-  tooltipFormatter,
-  cellSize = 20,
-  cellGap = 2,
-  rowGap = 16,
+  tooltipFormat,
   className,
 }: HeatmapProps) {
+  // Calculate cell size based on the number of blocks in the data
+  // More blocks = smaller cells to keep total width manageable
+  const blockCount = rows[0]?.blocks.length || 60;
+  const baseCellSize = 20;
+  const cellSize =
+    blockCount <= 60
+      ? baseCellSize
+      : Math.max(12, baseCellSize - Math.floor((blockCount - 60) / 10));
+  const cellGap = 2;
+  const rowGap = 16;
+
   const getColor = (value: number): string => {
     if (value === 0) return emptyColor;
 
@@ -106,7 +87,7 @@ export default function Heatmap({
     return colorThresholds[0]?.color || emptyColor;
   };
 
-  const defaultTooltip = (bucket: HeatmapBucket, rowLabel?: string) => (
+  const defaultTooltip = (block: HeatmapBlock, rowLabel?: string) => (
     <>
       {rowLabel && (
         <>
@@ -114,23 +95,23 @@ export default function Heatmap({
           <br />
         </>
       )}
-      <strong>Value:</strong> {bucket.value.toFixed(0)}
-      {bucket.timestamp !== undefined && (
+      <strong>Value:</strong> {formatNumber(block.value)}
+      {block.timestamp !== undefined && (
         <>
           <br />
-          <strong>Time:</strong> {(bucket.timestamp / 1000).toFixed(1)}s
+          <strong>Time:</strong> {(block.timestamp / 1000).toFixed(1)}s
         </>
       )}
     </>
   );
 
-  const getTooltipContent = tooltipFormatter || defaultTooltip;
+  const getTooltipContent = tooltipFormat || defaultTooltip;
 
   return (
-    <Container className={className} $rowGap={rowGap}>
+    <Container $rowGap={rowGap} className={className}>
       {rows.map((row, rowIdx) => (
         <Row key={rowIdx}>
-          {showLabels && row.label && (
+          {row.label && (
             <RowLabel>
               {row.label}
               {row.secondaryLabel && <SecondaryLabel>{row.secondaryLabel}</SecondaryLabel>}
@@ -138,9 +119,9 @@ export default function Heatmap({
           )}
 
           <CellsContainer $gap={cellGap}>
-            {row.buckets.map((bucket, bucketIdx) => (
-              <Tooltip key={bucketIdx} content={getTooltipContent(bucket, row.label)}>
-                <Cell $color={getColor(bucket.value)} $size={cellSize} />
+            {row.blocks.map((block, blockIdx) => (
+              <Tooltip key={blockIdx} content={getTooltipContent(block, row.label)}>
+                <Cell $color={getColor(block.value)} $size={cellSize} />
               </Tooltip>
             ))}
           </CellsContainer>

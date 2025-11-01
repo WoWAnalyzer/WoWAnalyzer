@@ -46,6 +46,15 @@ export interface BulletGraphProps {
 
 /**
  * BulletGraph component for visualizing performance metrics.
+ *
+ * @param actual - The actual value to display
+ * @param maximum - The maximum/target value (used for percentage calculation)
+ * @param actualLabel - Label to display on the main bar (e.g., "15 casts")
+ * @param maximumLabel - Label to display at the target marker (e.g., "Max 20")
+ * @param barColor - Color for the main progress bar
+ * @param performanceRanges - Optional performance ranges for the background
+ * @param secondaryMetric - Optional secondary metric (e.g., wasted time)
+ * @param className - Optional CSS class name
  */
 export default function BulletGraph({
   actual,
@@ -85,8 +94,6 @@ export default function BulletGraph({
     </Container>
   );
 }
-
-// Styled Components
 
 const Container = styled.div`
   width: 100%;

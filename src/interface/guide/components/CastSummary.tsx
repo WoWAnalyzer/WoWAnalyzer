@@ -11,21 +11,29 @@ import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
 import { StatsRow, StatCard, StatValue, StatLabel, HelperText } from './GuideDivs';
 import GuideDataWrapper from './GuideDataWrapper';
 
+/** Represents a single cast evaluation with timestamp and performance assessment */
 export interface CastEvaluation {
+  /** Timestamp when the spell was cast (in milliseconds) */
   timestamp: number;
+  /** Performance rating for this cast (Perfect, Good, Ok, Fail) */
   performance: QualitativePerformance;
+  /** Human-readable explanation of why this performance rating was given */
   reason: string;
 }
 
 interface CastSummaryProps {
+  /** The spell being analyzed */
   spell: Spell;
+  /** Array of cast evaluations to display */
   casts: CastEvaluation[];
+  /** Whether to show expandable per-cast breakdown. Default: false */
   showBreakdown?: boolean;
 }
 
 /**
  * Displays cast performance summary bar and optionally detailed per-cast breakdown.
  * Shows a "no casts" message if the casts array is empty.
+ *
  * @param spell - The spell being analyzed
  * @param casts - Array of cast evaluations with timestamps and performance ratings
  * @param showBreakdown - Whether to show expandable per-cast breakdown (default: false)

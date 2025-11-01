@@ -118,10 +118,18 @@ interface Props {
  * of time was spent at different intensity tiers based on median-centered thresholds.
  *
  * Features:
- * - Automatically calculates intensity tiers based on median value
- * - Color gradient generated from base color
- * - Shows time distribution and percentages
- * - Legend with duration breakdown
+ * - Five-tier color gradient (very low to very high intensity)
+ * - Percentage labels on each segment
+ * - Stats showing max DPS/HPS
+ * - Works for both single-spell and overall damage/healing
+ *
+ * @param spell - The spell being tracked (optional - if omitted, shows all damage/healing)
+ * @param data - Array of per-target damage/healing event data
+ * @param chartType - Type of chart: 'DPS' or 'HPS' (default: 'DPS')
+ * @param baseColor - Base color for middle tier of gradient, HSL format recommended (default: fire orange)
+ * @param headerOverride - Custom header text (default: auto-generated from spell/type)
+ * @param height - Height of the bar in pixels (default: 60)
+ * @param showLabels - Whether to show percentage labels on segments (default: true)
  */
 export default function IntensityBar({
   spell,
@@ -277,7 +285,7 @@ export default function IntensityBar({
           segments={segments}
           height={height}
           showLabels={showLabels}
-          labelFormatter={(segment, percent) => (
+          labelFormat={(segment, percent) => (
             <SegmentLabelContainer>
               <SegmentPercentage>{Math.round(percent)}%</SegmentPercentage>
               <SegmentTime>{formatDuration(segment.value)}</SegmentTime>

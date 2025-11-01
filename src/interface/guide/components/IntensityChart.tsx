@@ -112,12 +112,28 @@ interface Props {
   helperText?: string;
   /** Optional uptime percentage (0-1). If provided, displays uptime stat calculated from buff/debuff duration */
   uptimePercent?: number;
+  /** Number of time blocks to divide the fight into. Default: 60 */
+  blockCount?: number;
 }
 
 /**
  * Displays throughput intensity over time as a heatmap grid with color-coded intensity.
  * Can display DPS or HPS for a specific spell or overall damage/healing.
  *
+ * Features:
+ * - Color gradient from low to high intensity
+ * - Per-target breakdown in rows
+ * - Stats showing max DPS/HPS and uptime
+ * - Tooltips with detailed per-bucket information
+ *
+ * @param spell - The spell being tracked (optional - if omitted, shows all damage/healing)
+ * @param data - Array of per-target damage/healing event data
+ * @param chartType - Type of chart: 'DPS' or 'HPS' (default: 'DPS')
+ * @param baseColor - Base color for middle tier of gradient, HSL format recommended (default: fire orange)
+ * @param headerOverride - Custom header text (default: auto-generated from spell/type)
+ * @param helperText - Optional helper text to display below the header
+ * @param uptimePercent - Optional uptime 0-1, displays uptime stat if provided
+ * @param blockCount - Number of time blocks to divide the fight into (default: 60)
  */
 export default function IntensityChart({
   spell,
@@ -126,6 +142,7 @@ export default function IntensityChart({
   baseColor = '#fab700',
   headerOverride,
   uptimePercent,
+  blockCount = 60,
 }: Props) {
   const info = useInfo();
   const [showPerTarget, setShowPerTarget] = useState(false);
@@ -136,31 +153,30 @@ export default function IntensityChart({
 
   const { fightStart, fightEnd } = info;
   const fightDuration = fightEnd - fightStart;
-  const bucketCount = 60;
-  const bucketSize = fightDuration / bucketCount;
+  const blockSize = fightDuration / blockCount;
 
-  // Build heatmap buckets for a list of targets
+  // Build heatmap blocks for a list of targets
   const buildTargetData = (targetList: TargetData[], name: string) => {
-    const buckets = new Array(bucketCount).fill(0);
+    const blocks = new Array(blockCount).fill(0);
 
     targetList.forEach((target) => {
       target.events.forEach((event) => {
-        const bucketIdx = Math.floor((event.timestamp - fightStart) / bucketSize);
-        if (bucketIdx >= 0 && bucketIdx < bucketCount) {
-          buckets[bucketIdx] += event.amount;
+        const blockIdx = Math.floor((event.timestamp - fightStart) / blockSize);
+        if (blockIdx >= 0 && blockIdx < blockCount) {
+          blocks[blockIdx] += event.amount;
         }
       });
     });
 
     // Convert to per-second values
-    for (let i = 0; i < bucketCount; i++) {
-      buckets[i] = (buckets[i] / bucketSize) * 1000;
+    for (let i = 0; i < blockCount; i++) {
+      blocks[i] = (blocks[i] / blockSize) * 1000;
     }
 
     return {
       name,
       total: targetList.reduce((sum, t) => sum + t.total, 0),
-      buckets,
+      blocks,
     };
   };
 
@@ -185,12 +201,12 @@ export default function IntensityChart({
     : [buildTargetData(data, 'Overall')];
 
   // Calculate stats
-  const allBuckets = heatmapData.flatMap((t) => t.buckets);
-  const nonZero = allBuckets.filter((v) => v > 0);
+  const allBlocks = heatmapData.flatMap((t) => t.blocks);
+  const nonZero = allBlocks.filter((v) => v > 0);
   const sorted = [...nonZero].sort((a, b) => a - b);
 
   const avgValue = nonZero.length > 0 ? nonZero.reduce((sum, v) => sum + v, 0) / nonZero.length : 0;
-  const maxValue = Math.max(...allBuckets, 0);
+  const maxValue = Math.max(...allBlocks, 0);
   const total = heatmapData.reduce((sum, t) => sum + t.total, 0);
 
   // Convert uptimePercent to display percentage (only if provided)
@@ -222,16 +238,11 @@ export default function IntensityChart({
   const heatmapRows: HeatmapRow[] = heatmapData.map((target) => ({
     label: showPerTarget ? target.name : undefined,
     secondaryLabel: showPerTarget ? `(${formatNumber(target.total)})` : undefined,
-    buckets: target.buckets.map((value, idx) => ({
+    blocks: target.blocks.map((value, idx) => ({
       value,
-      timestamp: idx * bucketSize,
+      timestamp: idx * blockSize,
     })),
   }));
-
-  const formatTimestamp = (ms: number) => {
-    const seconds = Math.floor(ms / 1000);
-    return `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, '0')}`;
-  };
 
   const unitLabel = chartType;
   const defaultHeader = spell
@@ -284,25 +295,7 @@ export default function IntensityChart({
         </ToggleButton>
       </ToggleContainer>
       <HeatmapContainer>
-        <Heatmap
-          rows={heatmapRows}
-          colorThresholds={colorThresholds}
-          showLabels={showPerTarget}
-          tooltipFormatter={(bucket, rowLabel) => (
-            <>
-              {showPerTarget && rowLabel && (
-                <>
-                  <strong>{rowLabel}</strong>
-                  <br />
-                </>
-              )}
-              <strong>{unitLabel}:</strong> {formatNumber(bucket.value)}
-              <br />
-              <strong>Time:</strong> {formatTimestamp(bucket.timestamp || 0)} -{' '}
-              {formatTimestamp((bucket.timestamp || 0) + bucketSize)}
-            </>
-          )}
-        />
+        <Heatmap rows={heatmapRows} colorThresholds={colorThresholds} />
       </HeatmapContainer>
     </GuideDataWrapper>
   );

@@ -54,6 +54,14 @@ interface Props {
  *
  * - For charge abilities: Shows a horizontal bar with filled/empty segments
  * - For cooldown abilities: Shows a ribbon timeline with gaps showing availability
+ *
+ * @param spell - The spell to show cooldown bars for (must match cast event ID)
+ * @param showExplanation - If true, shows explanatory text above the cooldown bar (default: false)
+ * @param efficiencyColor - Color for efficiency stat card (default: white)
+ * @param cooldownColor - Color for cooldown windows (default: #fab700 orange)
+ * @param wastedTimeColor - Color for wasted time on charge abilities (default: cooldownColor)
+ * @param compactLayout - If true, uses compact inline layout (default: false)
+ * @param activeWindows - Time windows when spell is usable (default: whole fight)
  */
 export default function CastEfficiencyRibbon({
   spell,
@@ -126,6 +134,32 @@ export default function CastEfficiencyRibbon({
   };
 
   const statColor = getEfficiencyColor();
+
+  // Calculate performance ranges from abilities thresholds
+  const performanceRanges: PerformanceRange[] = spellCasts
+    ? [
+        {
+          width: spellCasts.majorIssueEfficiency * 100,
+          color: 'rgba(220, 38, 38, 0.15)',
+        }, // Bad (red)
+        {
+          width: (spellCasts.averageIssueEfficiency - spellCasts.majorIssueEfficiency) * 100,
+          color: 'rgba(251, 191, 36, 0.15)',
+        }, // Mediocre (yellow)
+        {
+          width: (spellCasts.recommendedEfficiency - spellCasts.averageIssueEfficiency) * 100,
+          color: 'rgba(251, 146, 60, 0.15)',
+        }, // Ok (orange)
+        {
+          width: (1 - spellCasts.recommendedEfficiency) * 100,
+          color: 'rgba(34, 197, 94, 0.15)',
+        }, // Good (green)
+      ].filter((range) => range.width > 0)
+    : [
+        { width: 75, color: 'rgba(220, 38, 38, 0.15)' }, // Default ranges if no data
+        { width: 15, color: 'rgba(251, 191, 36, 0.15)' },
+        { width: 10, color: 'rgba(34, 197, 94, 0.15)' },
+      ];
 
   // Calculate time spent capped at max charges (for charge-based abilities)
   const calculateWastedTime = (): number => {
@@ -228,34 +262,6 @@ export default function CastEfficiencyRibbon({
   const wastedTime = calculateWastedTime();
   const wastedSeconds = Math.round(wastedTime / 1000);
 
-  // Calculate performance ranges from ability efficiency thresholds
-  const getPerformanceRanges = (): PerformanceRange[] => {
-    if (!spellCasts) {
-      // Default ranges if no cast efficiency data
-      return [
-        { width: 75, color: 'rgba(220, 38, 38, 0.15)' }, // Bad (red)
-        { width: 15, color: 'rgba(251, 191, 36, 0.15)' }, // Mediocre (yellow)
-        { width: 10, color: 'rgba(34, 197, 94, 0.15)' }, // Good (green)
-      ];
-    }
-
-    const { majorIssueEfficiency, averageIssueEfficiency, recommendedEfficiency } = spellCasts;
-
-    // Convert efficiency thresholds (0-1) to percentage widths
-    // Ranges represent: [0 to majorIssue], [majorIssue to average], [average to recommended], [recommended to 100]
-    const badWidth = majorIssueEfficiency * 100;
-    const mediocreWidth = (averageIssueEfficiency - majorIssueEfficiency) * 100;
-    const okWidth = (recommendedEfficiency - averageIssueEfficiency) * 100;
-    const goodWidth = (1 - recommendedEfficiency) * 100;
-
-    return [
-      { width: badWidth, color: 'rgba(220, 38, 38, 0.15)' }, // Bad (red)
-      { width: mediocreWidth, color: 'rgba(251, 191, 36, 0.15)' }, // Mediocre (yellow)
-      { width: okWidth, color: 'rgba(251, 146, 60, 0.15)' }, // Ok (orange)
-      { width: goodWidth, color: 'rgba(34, 197, 94, 0.15)' }, // Good (green)
-    ].filter((range) => range.width > 0); // Filter out any zero-width ranges
-  };
-
   // Generate explanation text
   const explanation = hasCharges ? (
     <HelperText>
@@ -292,7 +298,7 @@ export default function CastEfficiencyRibbon({
       actualLabel={`${actualCasts} casts`}
       maximumLabel={`Max ${possibleCasts}`}
       barColor={cooldownColor}
-      performanceRanges={getPerformanceRanges()}
+      performanceRanges={performanceRanges}
       secondaryMetric={
         wastedSeconds > 0
           ? {
@@ -308,9 +314,6 @@ export default function CastEfficiencyRibbon({
       <CooldownTimeline
         spellId={spell.id}
         events={events}
-        fightStart={fightStart}
-        fightEnd={fightEnd}
-        fightDuration={fightDuration}
         windows={windows}
         cooldownColor={cooldownColor}
       />

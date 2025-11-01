@@ -8,11 +8,11 @@ import { BadColor, GoodColor, MediocreColor, OkColor, useAnalyzer } from 'interf
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
- * A rounded panel showing a spell's cast efficiency stats and a minimal cast / CD timeline
- * @param spell the spell to show stats for
- * @param useSpellLink iff true, the spell's name in the panel will be a spell link instead of plaintext
- * @param useThresholds iff true, the cast efficiency percentage will be color coded by performance
- *    using the abilities efficiency requirements.
+ * A rounded panel showing cast efficiency stats and a minimal cast/cooldown timeline.
+ *
+ * @param spell - The spell to show stats for
+ * @param useSpellLink - If true, spell name will be a clickable SpellLink. Default: false
+ * @param useThresholds - If true, efficiency percentage will be color-coded based on ability thresholds. Default: false
  */
 export default function CastEfficiencyPanel({
   spell,
@@ -35,10 +35,10 @@ export default function CastEfficiencyPanel({
 }
 
 /**
- * A subcomponent of CastEfficiencyPanel including only the percentage and possible casts stats text.
- * @param spell the spell to show stats for
- * @param useThresholds iff true, the cast efficiency percentage will be color coded by performance
- *    using the abilities efficiency requirements.
+ * Shows only the cast efficiency percentage and cast count text.
+ *
+ * @param spell - The spell to show stats for
+ * @param useThresholds - If true, efficiency percentage will be color-coded based on ability thresholds. Default: false
  */
 export function CastEfficiencyStatElement({
   spell,
@@ -82,8 +82,10 @@ export function CastEfficiencyStatElement({
 }
 
 /**
- * A subcomponent of CastEfficiencyPanel including only the cooldown bar with its text explanation.
- * @param spell the spell to show stats for
+ * Shows only the cooldown timeline bar with explanatory text.
+ * Displays when spell was on cooldown, available, and when it was cast.
+ *
+ * @param spell - The spell to show cooldown timeline for
  */
 export function CastEfficiencyBarElement({ spell }: { spell: Spell }) {
   const ability = useAnalyzer(Abilities)!.getAbility(spell.id);

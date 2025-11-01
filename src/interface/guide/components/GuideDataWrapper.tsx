@@ -128,6 +128,15 @@ interface GuideDataWrapperProps {
  * - Two layout modes: standard (vertical) and compact (horizontal)
  *
  * Used by IntensityChart, IntensityBar, DonutChart, CastSummary, CastDetail, etc.
+ *
+ * @param title - Main title for the visualization
+ * @param subtitle - Optional subtitle/label (e.g., "Timeline", "Performance")
+ * @param stats - Optional stat cards to display in the header
+ * @param statsHelperText - Optional helper text to display below the stats in header
+ * @param helperText - Optional helper text to display below the header
+ * @param children - The main visualization content
+ * @param className - Optional CSS class name
+ * @param compact - If true, uses horizontal layout (default: false)
  */
 export default function GuideDataWrapper({
   title,
