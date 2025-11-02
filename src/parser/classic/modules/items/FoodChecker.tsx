@@ -1,8 +1,7 @@
-import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { ItemLink } from 'interface';
 import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 import { Fragment } from 'react';
@@ -175,14 +174,6 @@ class FoodChecker extends BaseFoodChecker {
       return SUGGESTION_IMPORTANCE.MAJOR;
     }
     return SUGGESTION_IMPORTANCE.MINOR;
-  }
-
-  suggestions(when: When) {
-    when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
-      suggest(this.SuggestionText)
-        .icon(SPELLS.FATED_FORTUNE_COOKIE.icon)
-        .staticImportance(this.suggestionImportance),
-    );
   }
 }
 

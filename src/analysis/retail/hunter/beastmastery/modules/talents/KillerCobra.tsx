@@ -1,9 +1,7 @@
-import { Trans } from '@lingui/react/macro';
 import TALENTS from 'common/TALENTS/hunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -84,35 +82,6 @@ class KillerCobra extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Avoid casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> whilst{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> isn't on cooldown, when
-          you have <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> up. Utilize the reset effect
-          of <SpellLink spell={TALENTS.KILLER_COBRA_TALENT} /> by only casting{' '}
-          <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to reset{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> when{' '}
-          <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> is up.{' '}
-        </>,
-      )
-        .icon(TALENTS.KILLER_COBRA_TALENT.icon)
-        .actual(
-          <Trans id="hunter.beastmastery.suggestions.killerCobra.efficiency">
-            {' '}
-            You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up{' '}
-            {actual} times.{' '}
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.killerCobra.recommended">
-            {recommended} is recommended.
-          </Trans>,
-        ),
     );
   }
 }

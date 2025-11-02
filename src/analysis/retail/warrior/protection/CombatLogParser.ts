@@ -4,12 +4,10 @@ import Abilities from './modules/Abilities';
 import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Avatar from './modules/spells/Avatar';
 import BigHitGraph from './modules/features/BigHitGraph';
 import BlockCheck from './modules/features/BlockCheck';
 import Buffs from './modules/features/Buffs';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SpellUsable from './modules/features/SpellUsable';
@@ -47,12 +45,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     abilities: Abilities,
-    alwaysBeCasting: AlwaysBeCasting,
     shieldBlock: ShieldBlock,
     blockCheck: BlockCheck,
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     bigHitGraph: BigHitGraph,
 
     rageTracker: RageTracker,

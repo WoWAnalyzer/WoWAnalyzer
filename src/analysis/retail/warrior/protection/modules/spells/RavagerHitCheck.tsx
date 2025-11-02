@@ -7,7 +7,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import BoringValue from 'parser/ui/BoringValueText';
 import { SpellLink } from 'interface';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const HIT_BUFFER = 200;
 const DANCE_OF_DEATH_BUGGED = true;
@@ -79,21 +79,6 @@ class RavagerHitCheck extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.averageHitSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          <SpellLink spell={TALENTS.RAVAGER_TALENT} /> works in "pulses" where each pulse will do
-          damage and generate rage. You should try to make every pulse hit at least 1 target as this
-          will increase your damage and rage.
-        </>,
-      )
-        .icon(TALENTS.RAVAGER_TALENT.icon)
-        .actual(`${actual} pulses with a hit`)
-        .recommended(`${recommended} is recommended`),
-    );
   }
 
   statistic() {

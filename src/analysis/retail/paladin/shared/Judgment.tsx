@@ -1,13 +1,11 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import SPECS from 'game/SPECS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstance from 'parser/core/EnemyInstance';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
@@ -126,26 +124,6 @@ class Judgment extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    if (this.suggest) {
-      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            You're not consuming all your <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> debuffs.
-          </>,
-        )
-          .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-          .actual(
-            defineMessage({
-              id: 'paladin.retribution.suggestions.judgement.consumed',
-              message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`,
-            }),
-          )
-          .recommended(`>${formatPercentage(recommended)}% is recommended`),
-      );
-    }
   }
 
   statistic(): React.ReactNode {

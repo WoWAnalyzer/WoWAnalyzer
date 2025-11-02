@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink, TooltipElement } from 'interface';
+import { TooltipElement } from 'interface/Tooltip';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -131,25 +130,6 @@ class Backdraft extends Analyzer {
 
   get hasSoulFireTalent() {
     return this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should use your <SpellLink spell={SPELLS.BACKDRAFT} /> stacks more. You have wasted{' '}
-          {this.wastedStacks} stacks this fight.
-        </>,
-      )
-        .icon(SPELLS.BACKDRAFT.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.destruction.suggestions.backdraft.wastedPerMinute',
-            message: `${actual.toFixed(2)} wasted Backdraft stacks per minute`,
-          }),
-        )
-        .recommended(`< ${recommended} is recommended`),
-    );
   }
 
   statistic() {

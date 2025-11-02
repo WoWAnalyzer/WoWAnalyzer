@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -6,7 +5,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -53,29 +52,6 @@ class TouchOfKarma extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          You consumed a low amount of your total <SpellLink
-            spell={SPELLS.TOUCH_OF_KARMA_CAST}
-          />{' '}
-          absorb. It's best used when you can take enough damage to consume most of the absorb.
-          Getting full absorb usage shouldn't be expected on lower difficulty encounters{' '}
-        </>,
-      )
-        .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.windwalker.suggestions.touchOfKarma.absorbUsed',
-            message: `${formatPercentage(actual)}% Touch of Karma absorb used`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

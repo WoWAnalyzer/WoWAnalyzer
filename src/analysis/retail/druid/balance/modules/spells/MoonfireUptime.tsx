@@ -1,9 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
@@ -28,25 +25,6 @@ class MoonfireUptime extends Analyzer {
     enemies: Enemies,
   };
   protected enemies!: Enemies;
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.MOONFIRE_DEBUFF} /> uptime can be improved. Try to pay more
-          attention to your Moonfire on the boss.
-        </>,
-      )
-        .icon(SPELLS.MOONFIRE_DEBUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'druid.balance.suggestions.moonfire.uptime',
-            message: `${formatPercentage(actual)}% Moonfire uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-  }
 
   get uptimeHistory() {
     return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_DEBUFF.id);

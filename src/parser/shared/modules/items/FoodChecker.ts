@@ -1,8 +1,6 @@
-import SPELLS from 'common/SPELLS/dragonflight/food';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class FoodChecker extends Analyzer {
   lowerFoodUp = false;
@@ -57,22 +55,6 @@ class FoodChecker extends Analyzer {
       isEqual: false,
       style: ThresholdStyle.BOOLEAN,
     };
-  }
-
-  suggestions(when: When) {
-    let importance = SUGGESTION_IMPORTANCE.MINOR;
-    let suggestionText =
-      'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
-    if (!this.higherFoodUp && (this.lowerFoodUp || this.midTierFoodUp)) {
-      suggestionText =
-        'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
-    }
-    if (!this.higherFoodUp && !this.lowerFoodUp && !this.midTierFoodUp) {
-      importance = SUGGESTION_IMPORTANCE.MAJOR;
-    }
-    when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
-      suggest(suggestionText).icon(SPELLS.FATED_FORTUNE_COOKIE.icon).staticImportance(importance),
-    );
   }
 }
 export default FoodChecker;

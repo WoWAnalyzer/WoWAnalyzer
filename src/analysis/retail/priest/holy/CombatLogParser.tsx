@@ -6,7 +6,6 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
 import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
 import FortitudeRaidBuff from './modules/core/FortitudeRaidBuff';
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -57,7 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
     healingReceived: HealingReceived,

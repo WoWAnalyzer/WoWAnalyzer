@@ -1,9 +1,7 @@
-import { Trans } from '@lingui/react/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -12,7 +10,7 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -111,32 +109,6 @@ class BeastCleave extends Analyzer {
   checkAmountOfHits() {
     if (this.beastCleaveHits === 0) {
       this.castsWithoutHits += 1;
-    }
-  }
-
-  suggestions(when: When) {
-    if (this.casts > 0) {
-      when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            You cast <SpellLink spell={SPELLS.MULTI_SHOT} /> {actual}{' '}
-            {actual === 1 ? 'time' : 'times'} without your pets doing any{' '}
-            <SpellLink spell={SPELLS.BEAST_CLEAVE_PET_BUFF} /> damage onto additional targets. On
-            single-target situations, avoid using <SpellLink spell={SPELLS.MULTI_SHOT} />.
-          </>,
-        )
-          .icon(SPELLS.MULTI_SHOT.icon)
-          .actual(
-            <Trans id="hunter.beastmastery.suggestions.beastCleave.efficiency">
-              {actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage{' '}
-            </Trans>,
-          )
-          .recommended(
-            <Trans id="hunter.beastmastery.suggestions.beastCleave.recommended">
-              {recommended} is recommended{' '}
-            </Trans>,
-          ),
-      );
     }
   }
 

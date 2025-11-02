@@ -8,8 +8,7 @@ import { ItemLink } from 'interface';
 import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { JSX } from 'react';
 
@@ -255,64 +254,6 @@ class WeaponEnhancementChecker extends Analyzer {
         ),
         tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
       };
-    });
-  }
-
-  suggestions(when: When) {
-    const gear = this.enhanceableWeapons;
-    const weaponSlots: Record<number, JSX.Element> = this.WeaponSlots;
-    // iterating with keys instead of value because the values don't store what slot is being looked at
-    Object.keys(gear).forEach((slot) => {
-      const item = gear[Number(slot)];
-      const slotName = weaponSlots[Number(slot)];
-      const hasEnhancement = this.hasEnhancement(item);
-      const currentEnhancement = Object.values(ITEMS).find(
-        (items): items is EnchantItem =>
-          'effectId' in items && items.effectId === item.temporaryEnchant,
-      );
-
-      when(Boolean(hasEnhancement))
-        .isFalse()
-        .addSuggestion((suggest, actual, recommended) =>
-          suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label">
-              Your{' '}
-              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
-                {slotName}
-              </ItemLink>{' '}
-              is missing a weapon enhancement ({this.exampleWeaponEnchancements}). Apply an
-              enhancement to very easily increase your throughput slightly.
-            </Trans>,
-          )
-            .icon(item.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
-        );
-
-      const noMaxEnchant = Boolean(hasEnhancement) && !this.hasMaxEnhancement(item);
-      when(noMaxEnchant)
-        .isTrue()
-        .addSuggestion((suggest, actual, recommended) =>
-          suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
-              Your{' '}
-              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
-                {slotName}
-              </ItemLink>{' '}
-              has a cheap weapon enhancement (
-              {currentEnhancement ? (
-                <ItemLink
-                  id={currentEnhancement.id}
-                  craftQuality={currentEnhancement.craftQuality}
-                />
-              ) : (
-                this.exampleWeaponEnchancements
-              )}
-              ). Apply a strong enhancement to very easily increase your throughput slightly.
-            </Trans>,
-          )
-            .icon(item.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-        );
     });
   }
 }

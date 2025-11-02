@@ -1,6 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -24,20 +23,6 @@ export default class Blur extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.BLUR} /> uptime can be improved. This is easy to maintain
-          and an important source of damage reduction.
-        </>,
-      )
-        .icon(SPELLS.BLUR.icon)
-        .actual(`${formatPercentage(actual)}% Blur uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

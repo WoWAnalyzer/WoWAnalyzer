@@ -1,8 +1,4 @@
-import { i18n } from '@lingui/core';
-import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/classic';
-import { SpellLink } from 'interface';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -16,25 +12,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Avoid unnecessary downtime during the fight by staying within melee range of the boss. If
-          you are far out of range, use
-          {/* UPDATE THE SPELLS BELOW */}
-          <SpellLink spell={SPELLS.DASH} /> or <SpellLink spell={SPELLS.FERAL_CHARGE_CAT} /> to
-          return to the boss.
-        </span>,
-      )
-        .icon('spell_mage_altertime')
-        .actual(
-          i18n._('shared.suggestions.alwaysBeCasting.downtime', { 0: formatPercentage(actual) }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

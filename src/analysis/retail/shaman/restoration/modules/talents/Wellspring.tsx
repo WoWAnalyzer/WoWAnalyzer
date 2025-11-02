@@ -1,4 +1,4 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -133,33 +133,6 @@ class Wellspring extends Analyzer {
 
   get inefficientCasts() {
     return this.wellspringCasts.reduce((total, hits) => (hits < 6 ? total + 1 : total), 0);
-  }
-
-  suggestions(when: When) {
-    const suggestionThreshold = this.suggestionThreshold;
-    when(suggestionThreshold.actual)
-      .isLessThan(suggestionThreshold.isLessThan.minor)
-      .addSuggestion((suggest, _actual, _recommended) =>
-        suggest(
-          <Trans id="shaman.restoration.suggestions.wellSpring.label">
-            You're not making full use of the potential of{' '}
-            <SpellLink spell={TALENTS.WELLSPRING_TALENT} />. Try to aim it towards stacks of injured
-            players with 6 people or more.
-          </Trans>,
-        )
-          .icon(TALENTS.WELLSPRING_TALENT.icon)
-          .actual(
-            `${formatPercentage(suggestionThreshold.actual)}% ${defineMessage({
-              id: 'shared.suggestions.efficiency',
-              message: `efficiency`,
-            })}`,
-          )
-          .recommended(
-            `>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`,
-          )
-          .regular(suggestionThreshold.isLessThan.average)
-          .major(suggestionThreshold.isLessThan.average),
-      );
   }
 
   get suggestionThreshold() {

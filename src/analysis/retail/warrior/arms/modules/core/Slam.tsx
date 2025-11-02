@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRange from './Execute/ExecuteRange';
@@ -58,28 +55,6 @@ class Slam extends Analyzer {
     ) {
       addEnhancedCastReason(event, 'This Slam consumed a Crushing Assasult buff.');
     }
-  }
-
-  suggestions(when: When) {
-    when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid using <SpellLink spell={SPELLS.SLAM} /> when{' '}
-          <SpellLink spell={SPELLS.MORTAL_STRIKE} /> or <SpellLink spell={SPELLS.EXECUTE} /> is
-          available as it is more rage efficient.
-        </>,
-      )
-        .icon(SPELLS.SLAM.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.slam.efficiency',
-            message: `Slam was cast ${this.badCast} times accounting for ${formatPercentage(
-              actual,
-            )}% of total casts, while Mortal Strike or Execute was available.`,
-          }),
-        )
-        .recommended(`${recommended}% is recommended`),
-    );
   }
 }
 

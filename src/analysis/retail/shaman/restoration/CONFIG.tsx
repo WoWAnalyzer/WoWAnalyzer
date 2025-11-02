@@ -40,11 +40,6 @@ const CONFIG: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/aLXxAPjfn94bVwGr/27-Mythic+One-Armed+Bandit+-+Kill+(6:45)/Bub/standard',
-  pages: {
-    overview: {
-      frontmatterType: 'guide',
-    },
-  },
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -1,12 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const FELSTORM_COOLDOWN = 30;
 // when Demonic Strength is cast, then AFTER the cast, Felguard charges at the target, and after he arrives, does the Felstorm
@@ -63,27 +60,6 @@ class Felstorm extends Analyzer {
       // permanent Felguard doesn't have sourceInstance, while Grimoire: Felguard does (both use Felstorm in the exact same way)
       this.mainPetFelstormCount += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should use your Felguard's <SpellLink spell={SPELLS.FELSTORM_BUFF} /> more often,
-          preferably on cooldown.
-        </>,
-      )
-        .icon(SPELLS.FELSTORM_BUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.demonology.suggestions.felstorm.casts',
-            message: `${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(
-              actual,
-            )} %) Felstorm casts.`,
-          }),
-        )
-        .recommended(`> ${formatPercentage(recommended)} % is recommended`),
-    );
   }
 }
 

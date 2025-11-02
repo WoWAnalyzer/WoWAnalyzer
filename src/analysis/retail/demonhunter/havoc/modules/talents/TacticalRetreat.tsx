@@ -1,8 +1,7 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -36,21 +35,6 @@ export default class TacticalRetreat extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          Maintain the <SpellLink spell={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT} /> buff to
-          maximize damage.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% buff uptime`)
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

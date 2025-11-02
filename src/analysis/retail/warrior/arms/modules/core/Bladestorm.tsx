@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRangeTracker from './Execute/ExecuteRange';
@@ -110,27 +107,6 @@ class Bladestorm extends Analyzer {
         'Bladestorm was used while you had Avatar available or about to become available.';
     }
     return aligned;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          It is worth delaying your <SpellLink spell={SPELLS.BLADESTORM} /> for up to 5 seconds to
-          align with cooldowns such as <SpellLink spell={TALENTS.AVATAR_TALENT} /> and{' '}
-          <SpellLink spell={SPELLS.COLOSSUS_SMASH} />, but it otherwise should be used as often as
-          possible.
-        </>,
-      )
-        .icon(SPELLS.BLADESTORM.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.bladestorm.efficiency',
-            message: `Bladestorm was used incorrectly  ${formatPercentage(actual)}% of the time.`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

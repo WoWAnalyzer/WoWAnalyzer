@@ -8,7 +8,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -137,25 +137,6 @@ class EarthenWallTotem extends Analyzer {
 
   get earthenWallEfficiency() {
     return this.totalEffectiveHealing / this.totalPotentialHealing;
-  }
-
-  suggestions(when: When) {
-    when(this.earthenWallEfficiency)
-      .isLessThan(RECOMMENDED_EFFICIENCY)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <Trans id="shaman.restoration.ewt.suggestion.label">
-            Try to cast <SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} /> at times - and
-            positions where there will be as many people taking damage possible inside of it to
-            maximize the amount it absorbs.
-          </Trans>,
-        )
-          .icon(TALENTS.EARTHEN_WALL_TOTEM_TALENT.icon)
-          .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
-          .recommended(`${recommended}%`)
-          .regular(recommended - 0.15)
-          .major(recommended - 0.3),
-      );
   }
 
   get suggestionThreshold() {

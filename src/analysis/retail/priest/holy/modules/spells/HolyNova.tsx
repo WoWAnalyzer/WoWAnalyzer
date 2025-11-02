@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class HolyNova extends Analyzer {
@@ -78,20 +77,6 @@ class HolyNova extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.holyNovaThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should only cast <SpellLink spell={TALENTS.HOLY_NOVA_TALENT} /> when you will hit 5 or
-          more targets.
-        </>,
-      )
-        .icon(TALENTS.HOLY_NOVA_TALENT.icon)
-        .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)
-        .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`),
-    );
   }
 }
 

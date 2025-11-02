@@ -9,9 +9,7 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import ROLES from 'game/ROLES';
 import SPECS, { Spec } from 'game/SPECS';
-import { Suggestion } from 'parser/core/CombatLogParser';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { formatPercentage } from 'common/format';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 interface MeleeCast {
   event: CastEvent;
@@ -171,20 +169,6 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
       normalizedSwingTimers.reduce((a, b) => a + b, 0) /
         normalizedSwingTimers.length /
         (1 + mostRecentMelee.haste)
-    );
-  }
-
-  suggestions(when: When): void | Suggestion[] {
-    when(this.meleeUptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are spending a lot of time out of melee range, which prevents using most of your
-          abilities.
-        </>,
-      )
-        .icon('inv_axe_02')
-        .actual(<>{formatPercentage(actual)}% melee uptime</>)
-        .recommended(<>&gt; {formatPercentage(recommended)}% is recommended</>),
     );
   }
 }

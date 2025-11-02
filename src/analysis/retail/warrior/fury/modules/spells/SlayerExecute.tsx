@@ -1,7 +1,5 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -14,7 +12,7 @@ import Events, {
   RemoveDebuffEvent,
   RemoveDebuffStackEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import SpellUsable from '../features/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -172,27 +170,6 @@ class SlayerExecute extends Analyzer {
         'Execute was used without high stacks of Marked for Execution, or when neither Ashen Juggernaut nor Sudden Death were near expiring',
       );
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast execute prematurely {actual} times. Execute has powerful buffs and debuffs
-          associated with it, but does relatively little damage on its own. Refer to Wowhead or
-          Maxroll guides for a full description of when to best use{' '}
-          <SpellLink spell={SPELLS.EXECUTE_FURY} />
-        </>,
-      )
-        .icon(SPELLS.EXECUTE_FURY.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.fury.suggestions.slayerExecute.missed',
-            message: `${actual} premature Executes.`,
-          }),
-        )
-        .recommended(`${recommended} is recommended.`),
-    );
   }
 }
 

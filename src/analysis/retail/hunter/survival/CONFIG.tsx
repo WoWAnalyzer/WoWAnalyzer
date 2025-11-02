@@ -43,11 +43,6 @@ const config: Config = {
       <br />
     </>
   ),
-  pages: {
-    overview: {
-      frontmatterType: 'guide',
-    },
-  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/GcyfdwP1XTJrR3h7/15-Mythic+Ulgrax+the+Devourer+-+Kill+(9:00)/Spearitual',
 

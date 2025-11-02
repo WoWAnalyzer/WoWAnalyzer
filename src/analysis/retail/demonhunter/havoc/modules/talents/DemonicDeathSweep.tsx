@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { DEMONIC_DURATION } from 'analysis/retail/demonhunter/shared';
@@ -84,28 +83,6 @@ export default class DemonicDeathSweep extends Analyzer {
       this.goodDeathSweep += 1;
       this.deathsweepsInMetaCounter += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
-      suggest(
-        <>
-          Try to have <SpellLink spell={SPELLS.BLADE_DANCE} /> almost off cooldown before casting{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} />. This will allow for two casts
-          of <SpellLink spell={SPELLS.DEATH_SWEEP} /> during the{' '}
-          <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> buff you get from the{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talent.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.DEMONIC_TALENT.icon)
-        .actual(
-          <>
-            {actual} time(s) during <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />{' '}
-            <SpellLink spell={SPELLS.DEATH_SWEEP} /> wasn't casted twice.
-          </>,
-        )
-        .recommended(`No bad casts is recommended.`),
-    );
   }
 
   statistic() {

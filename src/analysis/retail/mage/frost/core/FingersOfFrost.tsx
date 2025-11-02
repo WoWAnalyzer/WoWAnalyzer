@@ -13,7 +13,7 @@ import Events, {
   ApplyBuffStackEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -188,30 +188,6 @@ class FingersOfFrost extends Analyzer {
       performance = QualitativePerformance.Good;
     }
     return performance;
-  }
-
-  suggestions(when: When) {
-    when(this.munchedProcsThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You wasted (munched) {this.munchedProcs}{' '}
-          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> procs (
-          {formatPercentage(this.munchedPercent)}% of total procs). Because of the way{' '}
-          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> works, this is sometimes unavoidable
-          (i.e. you get a proc while you are using a{' '}
-          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc), but if you have both a{' '}
-          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc and a{' '}
-          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> proc, you should make sure you use
-          the <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> procs first before you start
-          casting <SpellLink spell={SPELLS.FROSTBOLT} /> and{' '}
-          <SpellLink spell={TALENTS.FLURRY_TALENT} /> to minimize the number of wasted/munched
-          procs.
-        </>,
-      )
-        .icon(TALENTS.FINGERS_OF_FROST_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% procs wasted`)
-        .recommended(formatPercentage(recommended)),
-    );
   }
 
   statistic() {

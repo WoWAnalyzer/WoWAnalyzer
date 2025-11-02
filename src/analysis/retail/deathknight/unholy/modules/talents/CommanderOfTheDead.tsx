@@ -1,22 +1,14 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, SummonEvent } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
-import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Spell from 'common/SPELLS/Spell';
-
-interface supportedSpell {
-  enabled: boolean;
-  spell: Spell;
-}
 
 class CommanderOfTheDead extends Analyzer {
   private commanderBuffs = 0;
@@ -72,73 +64,6 @@ class CommanderOfTheDead extends Analyzer {
 
   get averageSummonBuffed() {
     return Number(this.commanderBuffs / this.petSummons);
-  }
-
-  suggestions(when: When) {
-    const supportedSpells: supportedSpell[] = [
-      {
-        enabled: this.selectedCombatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT),
-        spell: TALENTS.SUMMON_GARGOYLE_TALENT,
-      },
-      {
-        enabled:
-          this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT) &&
-          !this.selectedCombatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
-        spell: TALENTS.ARMY_OF_THE_DEAD_TALENT,
-      },
-      {
-        enabled: this.selectedCombatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
-        spell: TALENTS.RAISE_ABOMINATION_TALENT,
-      },
-      {
-        enabled: this.selectedCombatant.hasTalent(TALENTS.APOCALYPSE_TALENT),
-        spell: TALENTS.APOCALYPSE_TALENT,
-      },
-    ];
-
-    const supportedSpellsRender = supportedSpells.reduce(
-      (value: React.ReactNode, supportedSpell: supportedSpell, currentIndex: number) => {
-        if (supportedSpell.enabled) {
-          value =
-            value === null ? (
-              <>
-                <SpellLink spell={supportedSpell.spell} />
-              </>
-            ) : (
-              <>
-                {value}, <SpellLink spell={supportedSpell.spell} />
-              </>
-            );
-        }
-        return value;
-      },
-      null,
-    );
-
-    // Buffing your pets with Commander of the Dead is vital to do optial DPS
-    when(this.averageSummonBuffed)
-      .isLessThan(1)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            You are not properly buffing your pets with{' '}
-            <SpellLink spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF} />. Ensure you time{' '}
-            <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> with {supportedSpellsRender}.
-          </span>,
-        )
-          .icon(TALENTS.APOCALYPSE_TALENT.icon)
-          .actual(
-            defineMessage({
-              id: 'deathknight.unholy.suggestions.commanderofthedead.efficiency',
-              message: `An average ${formatPercentage(
-                this.averageSummonBuffed,
-              )}% of summons were buffed with Commander of the Dead`,
-            }),
-          )
-          .recommended(`${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05)
-          .major(recommended - 0.1),
-      );
   }
 
   statistic() {

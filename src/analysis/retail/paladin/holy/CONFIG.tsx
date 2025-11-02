@@ -12,11 +12,6 @@ const config: Config = {
   branch: GameBranch.Retail,
   patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedPartial,
-  pages: {
-    overview: {
-      frontmatterType: 'guide',
-    },
-  },
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on

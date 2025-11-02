@@ -18,7 +18,7 @@ import Events, {
   RemoveBuffEvent,
   ResourceActor,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -157,22 +157,6 @@ class CelestialBrew extends MajorDefensiveBuff {
           <em>cover major damage events</em>, and using it <em>often</em>.
         </p>
       </div>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.goodCastSuggestion).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should try to use <SpellLink spell={this.displaySpell} /> when most or all of the
-          absorb will be consumed.
-        </>,
-      )
-        .icon(this.displaySpell.icon)
-        .actual(
-          `${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`,
-        )
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
   }
 

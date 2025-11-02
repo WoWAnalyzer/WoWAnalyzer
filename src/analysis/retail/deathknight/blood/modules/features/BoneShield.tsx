@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -40,30 +38,6 @@ class BoneShield extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.boneShield.suggestion.suggestion">
-          Your <SpellLink spell={SPELLS.BONE_SHIELD} /> uptime can be improved. Try to keep it up at
-          all times.
-        </Trans>,
-      )
-        .icon(SPELLS.BONE_SHIELD.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.boneShield.suggestion.actual',
-            message: `${formatPercentage(actual)}% Bone Shield uptime`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'shared.suggestion.recommended.moreThanPercent',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

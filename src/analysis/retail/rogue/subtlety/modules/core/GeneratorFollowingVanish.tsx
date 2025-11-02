@@ -4,7 +4,7 @@ import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -50,22 +50,6 @@ class GeneratorFollowingVanish extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionsThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid casting non-generator spells as the cast following{' '}
-          <SpellLink spell={SPELLS.VANISH} />.
-        </>,
-      )
-        .icon(SPELLS.SHADOWSTRIKE.icon)
-        .actual(
-          `You cast ${this.badFollowingVanishCasts.length} non-generators following a Vanish.`,
-        )
-        .recommended(`Try to only cast generators following a Vanish.`),
-    );
   }
 
   statistic(): React.ReactNode {

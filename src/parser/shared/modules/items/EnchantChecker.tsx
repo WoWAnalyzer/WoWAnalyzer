@@ -4,8 +4,7 @@ import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
@@ -222,50 +221,6 @@ class EnchantChecker extends Analyzer {
         ),
         tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
       };
-    });
-  }
-
-  suggestions(when: When) {
-    const gear = this.EnchantableGear;
-    const enchantSlots: Record<number, JSX.Element> = this.EnchantableSlots;
-
-    Object.keys(gear).forEach((slot) => {
-      const item = gear[Number(slot)];
-      const slotName = enchantSlots[Number(slot)];
-      const hasEnchant = this.hasEnchant(item);
-
-      when(hasEnchant)
-        .isFalse()
-        .addSuggestion((suggest, actual, recommended) =>
-          suggest(
-            <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
-              Your{' '}
-              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
-                {slotName}
-              </ItemLink>{' '}
-              is missing an enchant. Apply a strong enchant to increase your throughput.
-            </Trans>,
-          )
-            .icon(item.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-        );
-
-      const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
-      when(noMaxEnchant)
-        .isTrue()
-        .addSuggestion((suggest, actual, recommended) =>
-          suggest(
-            <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
-              Your{' '}
-              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
-                {slotName}
-              </ItemLink>{' '}
-              has a cheap enchant. Apply a stronger enchant to increase your throughput.
-            </Trans>,
-          )
-            .icon(item.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-        );
     });
   }
 }

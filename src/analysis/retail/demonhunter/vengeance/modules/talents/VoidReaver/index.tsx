@@ -1,9 +1,7 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
@@ -59,23 +57,6 @@ export default class VoidReaver extends HitBasedAnalyzer {
 
   getHitsWithout() {
     return this.hits.filter(({ mitigated }) => !mitigated).length;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Cast <SpellLink spell={SPELLS.SIGIL_OF_FLAME} /> /{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> /{' '}
-          <SpellLink spell={SPELLS.SOUL_CLEAVE} /> more regularly while actively tanking the boss or
-          when they use a big attack. You missed having Frailty up for{' '}
-          {formatPercentage(1 - actual)}% of hits.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% unmitigated hits`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   private onFrailtyApply(event: ApplyDebuffEvent) {

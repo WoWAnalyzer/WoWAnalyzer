@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 //Example data for bad cast https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Zyg/standard
@@ -78,22 +77,6 @@ class BladeDance extends Analyzer {
 
   onFightEnd(_: FightEndEvent) {
     this.checkIfLastCastIsBad();
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
-      suggest(
-        <>
-          You should not cast <SpellLink spell={SPELLS.BLADE_DANCE} /> or{' '}
-          <SpellLink spell={SPELLS.DEATH_SWEEP} /> on single target when you are not using{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT} /> or{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT} /> as a talent.
-        </>,
-      )
-        .icon(SPELLS.BLADE_DANCE.icon)
-        .actual(<>{actual} bad casts</>)
-        .recommended(`No bad casts is recommended.`),
-    );
   }
 
   private checkIfLastCastIsBad() {

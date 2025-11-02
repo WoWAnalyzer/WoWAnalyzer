@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { formatNth, formatDuration } from 'common/format';
 import { SpellLink, SpecIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { SpellInfo } from 'parser/core/EventFilter';
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -93,38 +92,6 @@ class ChainHeal extends Analyzer {
       hits: this.buffer.filter((event) => event.type === EventType.Heal).length,
     };
     this.buffer = [];
-  }
-
-  suggestions(when: When) {
-    const suggestedThreshold = this.suggestionThreshold;
-    if (this.casts === 0) {
-      return;
-    }
-    when(suggestedThreshold.actual)
-      .isLessThan(suggestedThreshold.isLessThan.minor)
-      .addSuggestion((suggest, _actual, _recommended) =>
-        suggest(
-          <Trans id="classic.shaman.restoration.suggestions.aoeTargets.label">
-            Try to always cast <SpellLink spell={SPELLS.CHAIN_HEAL} /> on groups of people, so that
-            it heals all {this.maxTargets} potential targets.
-          </Trans>,
-        )
-          .icon('spell_nature_healingwavegreater')
-          .actual(
-            `${suggestedThreshold.actual.toFixed(2)} ${defineMessage({
-              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
-              message: `average targets healed`,
-            })}`,
-          )
-          .recommended(
-            `${suggestedThreshold.isLessThan.minor} ${defineMessage({
-              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
-              message: `average targets healed`,
-            })}`,
-          )
-          .regular(suggestedThreshold.isLessThan.average)
-          .major(suggestedThreshold.isLessThan.major),
-      );
   }
 
   get avgHits() {

@@ -1,9 +1,6 @@
 import { Trans } from '@lingui/react/macro';
-import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import CastEfficiencyComponent from 'parser/ui/CastEfficiency';
@@ -14,34 +11,12 @@ import Combatant from '../../core/Combatant';
 import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from '../../core/Events';
 import Ability, { SpellbookAbility } from '../../core/modules/Ability';
 import AbilityTracker from './AbilityTracker';
-import { useLingui } from '@lingui/react';
-import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
 const DEFAULT_RECOMMENDED = 0.8;
 const DEFAULT_AVERAGE_DOWNSTEP = 0.05;
 const DEFAULT_MAJOR_DOWNSTEP = 0.15;
 const seconds = (ms: number) => ms / 1000;
 const minutes = (ms: number) => seconds(ms) / 60;
-
-interface CastEfficiencySuggestionProps {
-  ability: Ability;
-}
-const CastEfficiencySuggestion = ({ ability }: CastEfficiencySuggestionProps) => {
-  const { i18n } = useLingui();
-
-  const extraSuggestion = isMessageDescriptor(ability.castEfficiency.extraSuggestion)
-    ? i18n._(ability.castEfficiency.extraSuggestion)
-    : ability.castEfficiency.extraSuggestion;
-
-  return (
-    <>
-      <Trans id="shared.modules.castEfficiency.suggest">
-        Try to cast <SpellLink spell={ability.primarySpell} /> more often.
-      </Trans>{' '}
-      {extraSuggestion ?? ''}
-    </>
-  );
-};
 
 export interface AbilityCastEfficiency {
   ability: Ability;
@@ -391,48 +366,6 @@ class CastEfficiency extends Analyzer {
       gotMaxCasts,
       canBeImproved,
     };
-  }
-
-  suggestions(when: When) {
-    const castEfficiencyInfo = this.getCastEfficiency();
-    castEfficiencyInfo.forEach((abilityInfo) => {
-      if (
-        !abilityInfo ||
-        !abilityInfo.ability.castEfficiency.suggestion ||
-        abilityInfo.efficiency === null ||
-        abilityInfo.gotMaxCasts
-      ) {
-        return;
-      }
-      const ability = abilityInfo.ability;
-
-      const suggestionThresholds = {
-        actual: abilityInfo.efficiency,
-        isLessThan: {
-          minor: abilityInfo.recommendedEfficiency,
-          average: abilityInfo.averageIssueEfficiency,
-          major: abilityInfo.majorIssueEfficiency,
-        },
-        style: ThresholdStyle.PERCENTAGE,
-      };
-
-      when(suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(<CastEfficiencySuggestion ability={ability} />)
-          .spell(ability.primarySpell)
-          .actual(
-            <Trans id="shared.modules.castEfficiency.actual">
-              {abilityInfo.casts} out of {abilityInfo.maxCasts} possible casts. You kept it on
-              cooldown {formatPercentage(actual, 0)}% of the time.
-            </Trans>,
-          )
-          .recommended(
-            <Trans id="shared.modules.castEfficiency.recommended">
-              &gt;{formatPercentage(recommended, 0)}% is recommended
-            </Trans>,
-          )
-          .staticImportance(ability.castEfficiency.importance || null),
-      );
-    });
   }
 
   statistic() {

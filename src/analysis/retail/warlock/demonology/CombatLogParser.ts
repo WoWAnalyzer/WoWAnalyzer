@@ -5,7 +5,6 @@ import DemonologyWarlockAberrus2Set from './modules/dragonflight/tier/Aberrus2Se
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Felstorm from './modules/features/Felstorm';
 import LegionStrike from './modules/features/LegionStrike';
@@ -55,7 +54,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     felstorm: Felstorm,
-    checklist: Checklist,
     legionStrike: LegionStrike,
 
     // Core

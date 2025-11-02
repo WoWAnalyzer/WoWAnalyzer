@@ -1,12 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { CastEvent } from 'parser/core/Events';
-import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
 
@@ -53,28 +49,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         return; // by returning here we don't get an invalid time wasted added
       }
     }
-  }
-
-  suggestions(when: When) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(deadTimePercentage)
-      .isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
-      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) =>
-        suggest(
-          "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
-        )
-          .icon('spell_mage_altertime')
-          .actual(
-            defineMessage({
-              id: 'priest.discipline.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
-          )
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(SuggestionThresholds.ABC_NOT_CASTING.regular)
-          .major(SuggestionThresholds.ABC_NOT_CASTING.major),
-      );
   }
 }
 

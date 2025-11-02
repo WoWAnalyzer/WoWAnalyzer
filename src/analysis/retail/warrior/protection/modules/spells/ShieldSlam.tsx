@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceLink, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TALENTS from 'common/TALENTS/warrior';
@@ -97,29 +94,6 @@ class ShieldBlock extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to cast <SpellLink spell={SPELLS.SHIELD_SLAM} /> more often - it is your main{' '}
-          <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
-        </>,
-      )
-        .icon(SPELLS.SHIELD_SLAM.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.shieldSlam.casts',
-            message: `${this.actualCasts} shield slam casts`,
-          }),
-        )
-        .recommended(
-          `${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${
-            this.totalCastsAssumed
-          } maximum`,
-        ),
-    );
   }
 }
 

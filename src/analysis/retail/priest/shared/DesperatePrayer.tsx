@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -101,29 +98,6 @@ class DesperatePrayer extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
-  }
-
-  suggestions(when: When) {
-    const boss = this.owner.boss;
-    if (!boss || !boss.fight.disableDeathSuggestion) {
-      when(this.deathsWithDPReady)
-        .isGreaterThan(0)
-        .addSuggestion((suggest) =>
-          suggest(
-            <>
-              You died with <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> available.
-            </>,
-          )
-            .icon(SPELLS.DESPERATE_PRAYER.icon)
-            .actual(
-              defineMessage({
-                id: 'priest.shared.suggestions.DesperatePrayer.efficiency',
-                message: `You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`,
-              }),
-            )
-            .recommended(`0 is recommended`),
-        );
-    }
   }
 }
 

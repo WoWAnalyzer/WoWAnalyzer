@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 
@@ -28,25 +26,6 @@ class UnstableAfflictionUptime extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.UNSTABLE_AFFLICTION} /> uptime can be improved. Try to pay
-          more attention to your Unstable Affliction on the boss, perhaps use some debuff tracker.
-        </>,
-      )
-        .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.unstableAffliction.uptime',
-            message: `${formatPercentage(actual)}% Unstable Affliction uptime.`,
-          }),
-        )
-        .recommended(`> ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   subStatistic() {

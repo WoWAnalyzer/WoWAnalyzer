@@ -1,10 +1,9 @@
-import { formatPercentage } from 'common/format';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -62,26 +61,6 @@ class BlindFury extends Analyzer {
           this.badCast += 1;
         }
       });
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> with 50 or less Fury when
-          you take the <SpellLink spell={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT} /> talent to
-          minimize Fury waste and maximize DPS.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.icon)
-        .actual(
-          <>
-            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> casts above 50
-            Fury.{' '}
-          </>,
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

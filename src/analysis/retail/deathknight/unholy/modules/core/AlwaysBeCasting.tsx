@@ -1,8 +1,4 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -16,26 +12,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the
-          boss unless due to mechanics. If you do have to move, try casting filler spells, such as{' '}
-          <SpellLink spell={SPELLS.DEATH_COIL} /> or <SpellLink spell={SPELLS.OUTBREAK} />.
-        </span>,
-      )
-        .icon('spell_mage_altertime')
-        .actual(
-          defineMessage({
-            id: 'deathknight.unholy.suggestions.alwaysBeCasting',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

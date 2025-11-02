@@ -4,7 +4,7 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -62,25 +62,6 @@ class FelBarrage extends Analyzer {
     if (!hasMetaBuff) {
       this.badCasts += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
-      suggest(
-        <>
-          Try to cast <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT} /> during{' '}
-          <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.icon)
-        .actual(
-          <>
-            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT} /> casts without{' '}
-            <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />.
-          </>,
-        )
-        .recommended(`No bad casts is recommended.`),
-    );
   }
 
   statistic() {

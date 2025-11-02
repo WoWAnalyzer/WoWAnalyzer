@@ -1,13 +1,11 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 /*
@@ -100,25 +98,6 @@ class AoESpellEfficiency extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.hitSuggestionThreshold).addSuggestion((suggest) =>
-      suggest(
-        <>
-          It's benefitial to delay <SpellLink spell={this.ability} /> to hit multiple targets, but
-          don't delay it too long or you'll miss out on casts and possible hits.
-        </>,
-      )
-        .icon(this.ability.icon)
-        .actual(
-          defineMessage({
-            id: 'shared.suggestions.aoeSpells.efficiency',
-            message: `${this.totalHits} total hits`,
-          }),
-        )
-        .recommended(`${this.possibleHits} or more hits were possible`),
-    );
   }
 
   statistic() {

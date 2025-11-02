@@ -1,14 +1,12 @@
-import { defineMessage } from '@lingui/core/macro';
 import {
   MONGOOSE_BITE_MAX_STACKS,
   MONGOOSE_BITE_MAX_TRAVEL_TIME,
   RAPTOR_MONGOOSE_VARIANTS,
 } from 'analysis/retail/hunter/survival/constants';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -18,7 +16,7 @@ import Events, {
   EventType,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -215,43 +213,6 @@ class MongooseBite extends Analyzer {
           {this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          When talented into <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />, it's important to
-          have accumulated a good amount of focus before you open a{' '}
-          <SpellLink spell={SPELLS.MONGOOSE_FURY} /> window in order to maximize the number of{' '}
-          <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />s at high stacks.
-        </>,
-      )
-        .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggestions.mongooseBite.focusWindow',
-            message: `${formatNumber(actual)} average focus on new window.`,
-          }),
-        )
-        .recommended(`>${formatNumber(recommended)} is recommended`),
-    );
-    when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          It's important to cast as much <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />s as
-          possible when having max(5) stacks of <SpellLink spell={SPELLS.MONGOOSE_FURY} />.
-        </>,
-      )
-        .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggetsions.mongooseBite.maxStacksCasts',
-            message: `${formatPercentage(actual)}% casts on max stacks.`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 }

@@ -2,7 +2,6 @@ import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import { useResults } from 'interface/report/Results/ResultsContext';
 import { usePageView } from 'interface/useGoogleAnalytics';
 import ResultsLoadingIndicator from 'interface/report/Results/ResultsLoadingIndicator';
-import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import Overview from 'interface/report/Results/Overview';
 
 export function Component() {
@@ -14,12 +13,5 @@ export function Component() {
     return <ResultsLoadingIndicator />;
   }
 
-  const checklist = parser.getOptionalModule(Checklist);
-  return (
-    <Overview
-      guide={parser.buildGuide()}
-      checklist={checklist && checklist.render()}
-      issues={results.issues}
-    />
-  );
+  return <Overview guide={parser.buildGuide()} />;
 }

@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -78,26 +77,6 @@ class Butchery extends Analyzer {
 
   onMercilessDamage(event: DamageEvent) {
     this.mercilessDamage += event.amount + (event.absorbed || 0);
-  }
-
-  suggestions(when: When) {
-    when(this.avgTargetsHitThreshold).addSuggestion(
-      (suggest, actual, recommended) =>
-        suggest(
-          <>
-            You should aim to hit the target with <SpellLink spell={TALENTS.BUTCHERY_TALENT} />.
-            Butchery does not require you to be in range to cast and so it can miss.
-          </>,
-        )
-          .icon(TALENTS.BUTCHERY_TALENT.icon)
-          .actual(
-            defineMessage({
-              id: 'hunter.survival.suggestions.butcheryCarve.averageTargets',
-              message: `${actual} average targets hit per cast`,
-            }),
-          )
-          .recommended('Not missing the target is recommended'), //`>=${recommended} is recommended`),
-    );
   }
 
   statistic() {

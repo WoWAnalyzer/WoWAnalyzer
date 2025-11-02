@@ -1,4 +1,4 @@
-import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -10,7 +10,7 @@ import Events, {
   FightEndEvent,
   CastEvent,
 } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -220,26 +220,6 @@ class IcyVeins extends Analyzer {
         slimLines
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.icyVeinsActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You spent {formatNumber(this.icyVeinsDowntime())} seconds (
-          {formatNumber(this.icyVeinsDowntime() / this.buffApplies)}s per cast) not casting anything
-          while <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> was active. Because a large portion
-          of your damage comes from Icy Veins, you should ensure that you are getting the most out
-          of it every time it is cast. While sometimes this is out of your control (you got targeted
-          by a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
-          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> when you are at a low risk of being
-          interrupted or when the target is vulnerable.
-        </>,
-      )
-        .icon(TALENTS.ICY_VEINS_TALENT.icon)
-        .actual(`${formatPercentage(this.percentActiveTime)}% Active Time during Icy Veins`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 

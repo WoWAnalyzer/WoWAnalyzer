@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -155,29 +154,6 @@ class SummonVilefiend extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    const spellUsed = this.getCurrentSpellUsed();
-    const cooldownSec = this.getCurrentCooldown() / 1000;
-
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You can improve your <SpellLink spell={spellUsed} /> cast efficiency. This is a{' '}
-          {cooldownSec}-second cooldown that provides significant damage and should be used
-          consistently throughout the fight.
-        </>,
-      )
-        .icon(spellUsed.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.demonology.suggestions.summonvilefiend.efficiency',
-            message: `${Math.round(actual * 100)}% cast efficiency`,
-          }),
-        )
-        .recommended(`>${Math.round(recommended * 100)}% is recommended`),
-    );
   }
 
   statistic() {

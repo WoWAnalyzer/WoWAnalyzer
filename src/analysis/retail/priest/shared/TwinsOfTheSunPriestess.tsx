@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -96,28 +95,6 @@ class TwinsOfTheSunPriestess extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    const castsPlural = this.badCasts === 1 ? 'cast' : 'casts';
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You had {this.badCasts} bad {castsPlural} of{' '}
-          <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> by using it on yourself. When taking
-          this talent, make sure to always use it on an ally. By using it on yourself, you lose out
-          on a free <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> for a raid member.
-        </>,
-      )
-        .icon(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shared.legendaries.twinsOfTheSunPriestess.efficiency',
-            message: `You had ${this.badCasts} ${castsPlural} of Power Infusion on yourself.`,
-          }),
-        )
-        .recommended(`No casts on yourself is recommended.`),
-    );
   }
 
   statistic() {

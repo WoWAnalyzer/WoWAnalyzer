@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 
@@ -35,25 +33,6 @@ class CorruptionUptime extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.CORRUPTION_CAST} /> uptime can be improved. Try to pay more
-          attention to your Corruption on the boss, perhaps use some debuff tracker.
-        </>,
-      )
-        .icon(SPELLS.CORRUPTION_CAST.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.corruption.uptime',
-            message: `${formatPercentage(actual)}% Corruption uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   subStatistic() {

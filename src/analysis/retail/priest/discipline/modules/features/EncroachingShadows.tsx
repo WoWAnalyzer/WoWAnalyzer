@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -14,7 +13,6 @@ import Events, {
 } from 'parser/core/Events';
 import { OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { Options } from 'parser/core/Module';
-import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -24,8 +22,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { THROES_OF_PAIN_INCREASE, PAIN_AND_SUFFERING_INCREASE } from '../../constants';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-
-import SuggestionThresholds from '../../SuggestionThresholds';
 
 type DotInformation =
   | {
@@ -162,30 +158,6 @@ class EncroachingShadows extends Analyzer {
     if (this.ptwCleaveTracker[event.targetID]) {
       this.ptwCleaveDamage += event.amount + (event.absorbed || 0);
     }
-  }
-
-  suggestions(when: When) {
-    const uptime = this.uptime || 0;
-
-    when(uptime)
-      .isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
-      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) =>
-        suggest(
-          <span>
-            Your <SpellLink spell={this.dotSpell} /> uptime can be improved.
-          </span>,
-        )
-          .icon(this.dotSpell.icon)
-          .actual(
-            defineMessage({
-              id: 'priest.discipline.suggestions.purgeTheWicked.uptime',
-              message: `${formatPercentage(uptime)}% uptime`,
-            }),
-          )
-          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
-          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular)
-          .major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major),
-      );
   }
 
   statistic() {

@@ -1,12 +1,10 @@
-import { defineMessage, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -92,33 +90,6 @@ class CrimsonScourge extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT)) {
-      return;
-    }
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.crimsonScourge.suggestion.suggestion">
-          You had unspent <SpellLink spell={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF} /> procs. Make sure
-          you always use them.
-        </Trans>,
-      )
-        .icon(SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.crimsonScourge.suggestion.actual',
-            message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'shared.suggestion.recommended.lessThanPercent',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

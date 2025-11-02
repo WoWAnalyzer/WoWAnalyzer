@@ -1,11 +1,9 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const OVERHEAL_THRESHOLD = 0.75;
 
@@ -92,31 +90,5 @@ export default class WordOfGlory extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid casting <SpellLink spell={SPELLS.WORD_OF_GLORY} /> when a large portion of it
-          would overheal.
-        </>,
-      )
-        .icon(SPELLS.WORD_OF_GLORY.icon)
-        .actual(`${formatPercentage(actual)}% of your casts overhealed by more than 25%`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
-    );
-
-    when(this.wastedSlSuggestion).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Make sure to use all of the free <SpellLink spell={SPELLS.WORD_OF_GLORY} /> casts granted
-          by <SpellLink spell={SPELLS.SHINING_LIGHT} />.
-        </>,
-      )
-        .icon(SPELLS.SHINING_LIGHT.icon)
-        .actual(`You let ${actual} free casts expire.`)
-        .recommended(`< ${recommended}% is recommended`),
-    );
   }
 }

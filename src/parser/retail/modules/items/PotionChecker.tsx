@@ -1,15 +1,12 @@
-import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/thewarwithin/potions';
 import SPELLS from 'common/SPELLS/thewarwithin/potions';
 import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
 import { Spec } from 'game/SPECS';
-import { ItemLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 
 const debug = false;
@@ -193,34 +190,6 @@ class PotionChecker extends Analyzer {
       this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
       this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
     }
-  }
-
-  suggestions(when: When) {
-    if (this.selectedCombatant.spec == null) {
-      throw new Error('No spec found for selected combatant');
-    }
-    this.potionAdjuster(this.selectedCombatant.spec);
-    this.setStrongPotionForSpec(this.selectedCombatant.spec);
-    when(this.potionsUsedThresholds).addSuggestion((suggest) =>
-      suggest(
-        <Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">
-          You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during
-          this encounter, but you could have used {this.maxPotions}. {this.suggestionMessage}
-        </Trans>,
-      )
-        .icon(this.strongPotionIcon)
-        .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
-    );
-    when(this.potionStrengthThresholds).addSuggestion((suggest) =>
-      suggest(
-        <Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">
-          You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}.
-          Use <ItemLink id={this.strongPotionId} /> for better results.
-        </Trans>,
-      )
-        .icon(this.strongPotionIcon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-    );
   }
 }
 

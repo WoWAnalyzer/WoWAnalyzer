@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import Abilities from '../Abilities';
@@ -91,24 +88,6 @@ class BlackOxBrew extends Analyzer {
 
     this._resetPB();
     this._resetCB();
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> usage can be improved.
-        </>,
-      )
-        .icon(talents.BLACK_OX_BREW_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.brewmaster.suggestions.blackOxBrew.cdrWasted',
-            message: `${formatPercentage(actual)}% of Cooldown Reduction wasted`,
-          }),
-        )
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

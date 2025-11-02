@@ -1,10 +1,9 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
@@ -78,20 +77,6 @@ class SoulBarrier extends Analyzer {
     this.buffRemoved = event.timestamp;
     this.buffLength = this.buffRemoved - this.buffApplied;
     this.totalBuffLength += this.buffLength;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your uptime with <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT} /> can be
-          improved.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Soul Barrier`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -17,4 +17,6 @@ export enum TIERS {
   TWW2,
   // Manaforge Omega
   TWW3,
+  // Void Spire / Dreamrift / March on Quel'Danas
+  MID1,
 }

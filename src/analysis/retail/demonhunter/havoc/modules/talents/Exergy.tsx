@@ -4,7 +4,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -87,20 +87,6 @@ class Exergy extends Analyzer {
       </RoundedPanel>
     );
     return <ExplanationAndDataSubSection explanation={explanation} data={data} title="Exergy" />;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          Maintain the <SpellLink spell={TALENTS.EXERGY_TALENT} /> buff to maximize damage.
-        </>,
-      )
-        .icon(TALENTS.EXERGY_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% buff uptime`)
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

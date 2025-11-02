@@ -1,8 +1,6 @@
-import SPELLS from 'common/SPELLS/dragonflight/phials';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
@@ -47,22 +45,6 @@ class FlaskChecker extends Analyzer {
       isEqual: false,
       style: ThresholdStyle.BOOLEAN,
     };
-  }
-  suggestions(when: When) {
-    when(this.flaskSuggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        'You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.',
-      )
-        .icon(SPELLS.PHIAL_OF_GLACIAL_FURY.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-    );
-    when(this.flaskStrengthSuggestion).addSuggestion((suggest) =>
-      suggest(
-        'You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.',
-      )
-        .icon(SPELLS.PHIAL_OF_GLACIAL_FURY.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-    );
   }
 }
 

@@ -1,9 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -62,27 +61,6 @@ class ShieldOfVengeance extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You consumed a low amount of your total{' '}
-          <SpellLink spell={TALENTS_PALADIN.SHIELD_OF_VENGEANCE_TALENT} /> absorb. It's best used
-          when you can take enough damage to consume most of the absorb. Getting full absorb usage
-          can be difficult on lower difficulty encounters.
-        </>,
-      )
-        .icon(TALENTS_PALADIN.SHIELD_OF_VENGEANCE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.retribution.suggestions.shieldOfVengeance.absorbUsed',
-            message: `${formatPercentage(actual)}% Shield of Vengeance absorb used`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

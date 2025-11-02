@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -7,7 +6,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -82,29 +81,6 @@ class RimeEfficiency extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
       suffix: 'Average',
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          You are wasting <SpellLink spell={SPELLS.RIME} /> procs. You should be casting{' '}
-          <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> as soon as possible when you have a
-          Rime proc to avoid wasting it.
-        </>,
-      )
-        .icon(SPELLS.RIME.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.frost.suggestions.rime.wastedProcs',
-            message: `${formatPercentage(
-              this.wastedProcRate,
-            )}% of Rime procs were either refreshed and lost or expired without being used`,
-          }),
-        )
-        .recommended(`<${recommended} is recommended`),
-    );
   }
 
   statistic() {

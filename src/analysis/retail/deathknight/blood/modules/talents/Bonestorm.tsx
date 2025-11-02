@@ -1,12 +1,11 @@
-import { defineMessage, Trans } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { Trans } from '@lingui/macro';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -85,35 +84,6 @@ class Bonestorm extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.bonestorm.suggestion.suggestion">
-          Try to cast <SpellLink spell={TALENTS.BONESTORM_TALENT} /> only if you can reliable hit 2
-          or more targets to maximize the damage and healing. Casting{' '}
-          <SpellLink spell={TALENTS.BONESTORM_TALENT} /> with only one target in range is only a
-          minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
-          <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} /> instead.
-        </Trans>,
-      )
-        .icon(TALENTS.BONESTORM_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.bonestorm.suggestion.actual',
-            message: `${formatPercentage(
-              actual,
-            )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'deathknight.blood.bonestorm.suggestion.recommended',
-            message: `${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   get bonestormTooltip() {

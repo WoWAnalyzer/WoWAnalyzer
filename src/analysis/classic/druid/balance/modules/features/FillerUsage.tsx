@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/druid';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const MINOR_THRESHOLD = 0;
@@ -74,32 +71,6 @@ class FillerUsage extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast the wrong filler spell {this.badFillerCasts} times -{' '}
-          {formatPercentage(actual, 1)}% of total filler casts. You should cast
-          <ul>
-            {ECLIPSE_FILLER.map(([eclipse, spell]) => (
-              <li key={'eclipse-' + eclipse.id}>
-                <SpellLink spell={spell} /> during and after <SpellLink spell={eclipse} />
-              </li>
-            ))}
-          </ul>
-        </>,
-      )
-        .icon(SPELLS.ECLIPSE_LUNAR.icon)
-        .actual(
-          defineMessage({
-            id: 'druid.balance.suggestions.filler.efficiency',
-            message: `${formatPercentage(actual, 1)}% wrong filler spell casts`,
-          }),
-        )
-        .recommended(`none are recommended`),
-    );
   }
 }
 

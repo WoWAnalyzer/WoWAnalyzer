@@ -1,13 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRange from './Execute/ExecuteRange';
@@ -77,26 +74,6 @@ class OverpowerAnalyzer extends Analyzer {
         'This Overpower was used while already at 2 stacks and Mortal Strike was available',
       );
     }
-  }
-
-  suggestions(when: When) {
-    when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid using <SpellLink spell={SPELLS.OVERPOWER} icon /> at 2 stacks when{' '}
-          <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> is available. Use your stacks of Overpower
-          with Mortal Strike to avoid over stacking, which result in a loss of damage.
-        </>,
-      )
-        .icon(SPELLS.OVERPOWER.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.overpower.stacksWasted',
-            message: `${formatPercentage(actual)}% of Overpower stacks were wasted.`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

@@ -11,7 +11,6 @@ import {
   HasTarget,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
-import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
@@ -129,20 +128,6 @@ const isMinified = import.meta.env.PROD;
 type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>];
 export type DependenciesDefinition = Record<string, DependencyDefinition>;
 
-export enum SuggestionImportance {
-  Major = 'major',
-  Regular = 'regular',
-  Minor = 'minor',
-}
-export interface Suggestion {
-  text: React.ReactNode;
-  importance: SuggestionImportance;
-  icon?: string;
-  spell?: number;
-  actual?: React.ReactNode;
-  recommended?: React.ReactNode;
-}
-
 interface ModuleErrorDetails {
   key: string;
   module: typeof Module;
@@ -220,7 +205,6 @@ class CombatLogParser {
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
     weaponEnhancementChecker: WeaponEnhancementChecker,
-    preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
@@ -759,12 +743,6 @@ class CombatLogParser {
                 const tab = analyzer.tab();
                 if (tab) {
                   results.tabs.push(tab);
-                }
-              }
-              if (analyzer.suggestions) {
-                const maybeResult = analyzer.suggestions(results.suggestions.when);
-                if (maybeResult) {
-                  maybeResult.forEach((issue) => results.addIssue(issue));
                 }
               }
             }

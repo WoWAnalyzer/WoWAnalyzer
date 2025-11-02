@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -51,27 +50,6 @@ class HeavyRepercussions extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try and cast <SpellLink spell={SPELLS.SHIELD_SLAM} />
-          's during <SpellLink spell={SPELLS.SHIELD_BLOCK} /> to increase the uptime of{' '}
-          <SpellLink spell={SPELLS.SHIELD_BLOCK} /> and the damage of{' '}
-          <SpellLink spell={SPELLS.SHIELD_SLAM} />.
-        </>,
-      )
-        .icon(TALENTS.HEAVY_REPERCUSSIONS_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts',
-            message: `${formatPercentage(actual)}% cast during Shield Block`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

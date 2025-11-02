@@ -1,9 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
 
 class DivineHymn extends Analyzer {
   healing = 0;
@@ -35,28 +33,6 @@ class DivineHymn extends Analyzer {
 
   onCast(event: CastEvent) {
     this.casts += 1;
-  }
-
-  suggestions(when: When) {
-    const missedHymnTicks = this.casts * 5 - this.ticks;
-
-    when(missedHymnTicks)
-      .isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          'You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ',
-        )
-          .icon('spell_holy_divinehymn')
-          .actual(
-            defineMessage({
-              id: 'priest.holy.suggestions.divineHymn.wastedTicks',
-              message: `${actual} missed Hymn ticks`,
-            }),
-          )
-          .recommended('0 is recommended')
-          .regular(recommended)
-          .major(recommended),
-      );
   }
 }
 

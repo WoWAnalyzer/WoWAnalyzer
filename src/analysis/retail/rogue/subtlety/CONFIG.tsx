@@ -35,7 +35,6 @@ const config: Config = {
   ),
   pages: {
     overview: {
-      frontmatterType: 'guide',
       notes: (
         <AlertWarning>
           This analysis is a Work in Progress. I have made some initial updates for Rupture uptime,

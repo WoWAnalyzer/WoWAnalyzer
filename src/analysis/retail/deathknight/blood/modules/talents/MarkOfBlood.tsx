@@ -1,10 +1,9 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -37,29 +36,6 @@ class MarkOfBlood extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.markOfBlood.suggestion.suggestion">
-          Your <SpellLink spell={TALENTS.MARK_OF_BLOOD_TALENT} /> uptime can be improved.
-        </Trans>,
-      )
-        .icon(TALENTS.MARK_OF_BLOOD_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.markOfBlood.suggestion.actual',
-            message: `${formatPercentage(actual)}% Mark Of Blood Uptime`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'shared.suggestion.recommended.moreThanPercent',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

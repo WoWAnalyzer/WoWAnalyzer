@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { formatDuration, formatNumber } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -76,25 +75,6 @@ class ComboStrikes extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          You ignored your <SpellLink spell={SPELLS.COMBO_STRIKES} /> buff by casting the same spell
-          twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.
-        </span>,
-      )
-        .icon(SPELLS.COMBO_STRIKES.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.windwalker.comboStrikes.masteryBreaksPerMinute',
-            message: `${actual.toFixed(2)} mastery breaks per minute.`,
-          }),
-        )
-        .recommended(`mastery should be broken ${recommended} times`),
-    );
   }
 
   statistic() {

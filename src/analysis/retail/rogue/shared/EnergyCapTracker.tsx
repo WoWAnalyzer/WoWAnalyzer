@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
@@ -6,7 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class EnergyCapTracker extends Analyzer {
   static dependencies = {
@@ -33,26 +32,6 @@ class EnergyCapTracker extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You're allowing your energy to reach its cap. While at its maximum value you miss out on
-          the energy that would have regenerated. Although it can be beneficial to let energy pool
-          ready to be used at the right time, try to spend some before it reaches the cap.
-        </>,
-      )
-        .icon('spell_shadow_shadowworddominate')
-        .actual(
-          defineMessage({
-            id: 'rogue.shared.suggestions.energy.capped',
-            message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`,
-          }),
-        )
-        .recommended(`<${recommended} is recommended.`),
-    );
   }
 
   statistic() {

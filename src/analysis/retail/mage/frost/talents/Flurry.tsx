@@ -11,8 +11,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import DonutChart from 'parser/ui/DonutChart';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { formatNumber } from 'common/format';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const REDUCTION_MS = 30000;
 const colors = ['#3a91c2', '#5fc047', '#a51c37'];
@@ -91,25 +90,6 @@ class Flurry extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.overlappedThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and applied{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> while the target still had the{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff on them {this.overlapped} times. Casting{' '}
-          <SpellLink spell={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> to the target so you should always ensure you
-          are spending both stacks before you cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and
-          apply <SpellLink spell={SPELLS.WINTERS_CHILL} /> again.
-        </>,
-      )
-        .icon(TALENTS.FLURRY_TALENT.icon)
-        .actual(`${formatNumber(actual)} casts`)
-        .recommended(`Casting none is recommended`),
-    );
   }
 
   _gainCharge() {

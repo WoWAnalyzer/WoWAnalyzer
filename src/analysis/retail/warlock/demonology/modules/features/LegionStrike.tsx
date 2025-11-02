@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -55,26 +53,6 @@ class LegionStrike extends Analyzer {
     if (this._isPermanentFelguardEvent(event)) {
       this.damage += event.amount + (event.absorbed || 0);
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your Felguard didn't cast <SpellLink spell={SPELLS.FELGUARD_LEGION_STRIKE} /> at all.
-          Remember to turn on the auto-cast for this ability as it's a great portion of your total
-          damage.
-        </>,
-      )
-        .icon(SPELLS.FELGUARD_LEGION_STRIKE.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.demonology.suggestions.legionStrike.casts',
-            message: `${actual} Legion Strike casts`,
-          }),
-        )
-        .recommended(`> ${recommended} casts are recommended`),
-    );
   }
 
   statistic() {

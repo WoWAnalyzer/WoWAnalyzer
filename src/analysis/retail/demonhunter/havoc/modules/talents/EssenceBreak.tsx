@@ -8,7 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import {
   getBuffedCasts,
   getPreviousVengefulRetreat,
@@ -93,27 +93,6 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
-      suggest(
-        <>
-          Try to fit at least 2 casts of <SpellLink spell={SPELLS.CHAOS_STRIKE} /> /{' '}
-          <SpellLink spell={SPELLS.ANNIHILATION} />
-          /
-          <SpellLink spell={SPELLS.BLADE_DANCE} /> / <SpellLink spell={SPELLS.DEATH_SWEEP} /> during
-          your <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.icon)
-        .actual(
-          <>
-            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> casts.
-          </>,
-        )
-        .recommended('No bad casts is recommended.'),
-    );
   }
 
   statistic() {

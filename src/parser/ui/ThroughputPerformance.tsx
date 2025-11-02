@@ -3,7 +3,6 @@ import { WCLRanking, WCLRankingsResponse } from 'common/WCL_TYPES';
 import { specsCount as TOTAL_SPECS } from 'game/SPECS';
 import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
-import calculateMedian from 'parser/shared/modules/features/Checklist/helpers/calculateMedian';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
@@ -116,3 +115,16 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
 };
 
 export default ThroughputPerformance;
+
+function calculateMedian(values: number[]): number {
+  const arr = [...values];
+  arr.sort((a, b) => a - b);
+
+  const half = Math.floor(arr.length / 2);
+
+  if (arr.length % 2) {
+    return arr[half];
+  } else {
+    return (arr[half - 1] + arr[half]) / 2.0;
+  }
+}

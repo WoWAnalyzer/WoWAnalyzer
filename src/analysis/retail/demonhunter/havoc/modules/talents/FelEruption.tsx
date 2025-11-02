@@ -1,7 +1,6 @@
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS/demonhunter';
@@ -49,24 +48,6 @@ class FelEruption extends Analyzer {
 
   countingStuns(_: ApplyDebuffEvent) {
     this.stuns += 1;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
-      suggest(
-        <>
-          Try to cast <SpellLink spell={SPELLS.FEL_ERUPTION} /> only for its stun. It's not worth
-          casting for its damage since it's a DPS loss.
-        </>,
-      )
-        .icon(SPELLS.FEL_ERUPTION.icon)
-        .actual(
-          <>
-            {actual} bad <SpellLink spell={SPELLS.FEL_ERUPTION} /> casts that didn't stun the target{' '}
-          </>,
-        )
-        .recommended('No bad casts are recommended.'),
-    );
   }
 
   statistic() {

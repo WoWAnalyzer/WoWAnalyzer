@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
-import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import PropTypes from 'prop-types';
 
 class ManaValues extends Analyzer {
@@ -75,38 +72,6 @@ class ManaValues extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-  suggestions(when: When) {
-    const fight = this.owner.fight;
-    const isWipe = !fight.kill;
-    if (isWipe) {
-      return;
-    }
-    if (!this.suggest) {
-      return;
-    }
-
-    when(this.suggestionThresholds.actual)
-      .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <Trans id="shared.manaValues.suggestions.label">
-            You had mana left at the end of the fight. A good rule of thumb is having the same mana
-            percentage as the bosses health percentage. Mana is indirectly tied with healing
-            throughput and should be optimized.
-          </Trans>,
-        )
-          .icon('inv_elemental_mote_mana')
-          .actual(
-            `${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${defineMessage({
-              id: 'shared.suggestions.mana.efficiency',
-              message: `mana left`,
-            })}`,
-          )
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.suggestionThresholds.isGreaterThan.average)
-          .major(this.suggestionThresholds.isGreaterThan.major),
-      );
   }
 }
 

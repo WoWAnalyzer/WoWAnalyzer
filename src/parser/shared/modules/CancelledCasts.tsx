@@ -3,7 +3,7 @@ import CrossIcon from 'interface/icons/Cross';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -15,7 +15,6 @@ import Events, {
   EmpowerEndEvent,
   EventType,
 } from '../../core/Events';
-import { Suggestion } from 'parser/core/CombatLogParser';
 
 const debug = false;
 const MS_BUFFER = 100;
@@ -187,20 +186,6 @@ class CancelledCasts extends Analyzer {
           <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>Casts Cancelled</small>
         </BoringValueText>
       </Statistic>
-    );
-  }
-
-  suggestions(when: When): void | Suggestion[] {
-    when(this.cancelledCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are cancelling a large percentage of your casts. While casting the wrong spell is
-          worse than casting the right one, it is often better than casting nothing!
-        </>,
-      )
-        .icon('ability_kick')
-        .actual(<>{formatPercentage(actual)}% of casts cancelled</>)
-        .recommended(<>&lt; {formatPercentage(recommended)}% is recommended</>),
     );
   }
 }

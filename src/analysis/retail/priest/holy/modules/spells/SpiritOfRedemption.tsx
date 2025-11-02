@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { isItAprilFoolDay } from 'common/aprilFools';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 
 class SpiritOfRedemption extends Analyzer {
@@ -68,29 +65,6 @@ class SpiritOfRedemption extends Analyzer {
 
   onRemoveBuff(event: RemoveBuffEvent) {
     this.timeSpentRedeeming += event.timestamp - this.sorStartTime;
-  }
-
-  suggestions(when: When) {
-    if (isItAprilFoolDay()) {
-      when(this.deadTimeThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            We noticed that you didn't die during this encounter. It is recommended that you die
-            within the last 15 seconds of each encounter to make the most of{' '}
-            <SpellLink spell={SPELLS.SPIRIT_OF_REDEMPTION_BUFF} />. If you are having trouble dying,
-            try standing in fire.
-          </>,
-        )
-          .icon('inv_enchant_essenceeternallarge')
-          .actual(
-            defineMessage({
-              id: 'priest.holy.suggestions.spiritOfRedemption.efficiency',
-              message: `${actual} seconds spent redeeming`,
-            }),
-          )
-          .recommended(`${recommended} seconds is recommended`),
-      );
-    }
   }
 }
 

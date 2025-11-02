@@ -1,12 +1,10 @@
 import * as React from 'react';
 
-import type { Suggestion } from './CombatLogParser';
 import EventFilter from './EventFilter';
 import Events, { AnyEvent, EventType } from './Events';
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
 import { Info, Metric } from './metric';
 import Module from './Module';
-import { When } from './ParseResults';
 import { MessageDescriptor } from '@lingui/core';
 import type { Annotation } from './modules/DebugAnnotations';
 import DebugAnnotations from './modules/DebugAnnotations';
@@ -59,8 +57,6 @@ class Analyzer extends EventSubscriber {
     return undefined;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  suggestions(when: When): Suggestion[] | void {}
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */
@@ -199,26 +195,6 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
         );
       }
     }
-
-    suggestions(_when: When): Suggestion[] | void {
-      if (functionType === FunctionType.Suggestion) {
-        const result = analyzer.run(
-          this.eventList,
-          this.owner.info,
-          this as unknown as InjectedDependencies<Deps>,
-        );
-
-        if (result === undefined) {
-          return [];
-        }
-
-        if (Array.isArray(result)) {
-          return result as Suggestion[];
-        } else {
-          return [result as unknown] as Suggestion[];
-        }
-      }
-    }
   };
 
   Object.defineProperty(analyzer, 'name', { value: metric.name, writable: false });
@@ -230,8 +206,12 @@ export const statistic = (
   eventFilter?: FunctionalEventFilter,
   dependencies?: Dependencies,
 ) => buildFunctionalAnalyzer(FunctionType.Statistic, metric, eventFilter, dependencies);
+
+/**
+ * @deprecated This method is used for some functional analyzers that don't produce output, and will be removed once we have a more appropriate solution for them. In the meantime, you can use it if you want to have a functional analyzer that only performs side-effects.
+ */
 export const suggestion = (
-  metric: Metric<Suggestion | Suggestion[] | undefined>,
+  metric: Metric<undefined>,
   eventFilter?: FunctionalEventFilter,
   dependencies?: Dependencies,
 ) => buildFunctionalAnalyzer(FunctionType.Suggestion, metric, eventFilter, dependencies);

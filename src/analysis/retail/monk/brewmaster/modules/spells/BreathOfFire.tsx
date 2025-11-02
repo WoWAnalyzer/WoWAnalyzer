@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies';
@@ -96,25 +93,6 @@ class BreathOfFire extends Analyzer {
       }
       this.hitsWithoutBoF += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> usage can be improved. The
-          associated debuff is a key part of our damage mitigation.
-        </>,
-      )
-        .icon(talents.BREATH_OF_FIRE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.brewmaster.suggestions.breathOfFire.hitsMitigated',
-            message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`,
-          }),
-        )
-        .recommended(`> ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

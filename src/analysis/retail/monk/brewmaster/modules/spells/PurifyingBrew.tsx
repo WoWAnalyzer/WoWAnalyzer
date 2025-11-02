@@ -1,9 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
@@ -14,7 +12,7 @@ import Events, {
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
@@ -127,25 +125,6 @@ class PurifyingBrew extends Analyzer {
       },
       style: ThresholdStyle.SECONDS,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should delay your <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> cast as little
-          as possible after being hit to maximize its effectiveness.
-        </>,
-      )
-        .icon(talents.PURIFYING_BREW_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.brewmaster.suggestions.purifyingBrew.avgdelay',
-            message: `${actual.toFixed(2)}s Average Delay`,
-          }),
-        )
-        .recommended(`< ${recommended.toFixed(2)}s is recommended`),
-    );
   }
 
   statistic() {

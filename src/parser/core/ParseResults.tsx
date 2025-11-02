@@ -1,6 +1,5 @@
 import { captureException } from 'common/errorLogger';
 import { ParseResultsTab } from 'parser/core/Analyzer';
-import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
 import * as React from 'react';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -352,13 +351,13 @@ export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestio
 class ParseResults {
   tabs: ParseResultsTab[] = [];
   statistics: React.ReactElement[] = [];
-  issues: (Issue | SuggestionData)[] = [];
+  issues: Issue[] = [];
 
   constructor() {
     this.addIssue = this.addIssue.bind(this);
   }
 
-  addIssue(issue: Issue | SuggestionData) {
+  addIssue(issue: Issue) {
     this.issues.push(issue);
   }
 

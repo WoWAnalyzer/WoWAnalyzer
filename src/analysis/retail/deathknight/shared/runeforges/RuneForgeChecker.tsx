@@ -1,8 +1,7 @@
-import SPELLS from 'common/SPELLS';
 import { Enchant } from 'common/SPELLS/Spell';
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { BoolThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { BoolThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import * as React from 'react';
 
 interface RuneForgeCheckItem {
@@ -27,14 +26,6 @@ class RuneForgeChecker extends Analyzer {
       isEqual: true,
       style: ThresholdStyle.BOOLEAN,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.showSuggestion).addSuggestion((suggest) =>
-      suggest(<span>{this.activeSuggestion?.suggestion}</span>)
-        .icon(SPELLS.RUNEFORGING.icon)
-        .staticImportance(this.activeSuggestion?.importance || SUGGESTION_IMPORTANCE.MINOR),
-    );
   }
 }
 

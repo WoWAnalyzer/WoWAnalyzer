@@ -1,12 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -82,33 +80,6 @@ class BlackoutCombo extends Analyzer {
       this.spellsBOCWasUsedOn[spellId] += 1;
     }
     this.lastBlackoutComboCast = 0;
-  }
-
-  suggestions(when: When) {
-    const wastedPerc =
-      (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
-
-    when(wastedPerc)
-      .isGreaterThan(0.1)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            You wasted {formatPercentage(actual)}% of your{' '}
-            <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> procs. Try to use the procs as soon as
-            you get them so they are not overwritten.
-          </span>,
-        )
-          .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
-          .actual(
-            defineMessage({
-              id: 'monk.brewmaster.suggestions.blackoutCombo.wasted',
-              message: `${formatPercentage(actual)}% unused`,
-            }),
-          )
-          .recommended(`${formatPercentage(recommended)}% or less is recommended`)
-          .regular(recommended + 0.1)
-          .major(recommended + 0.2),
-      );
   }
 
   statistic() {

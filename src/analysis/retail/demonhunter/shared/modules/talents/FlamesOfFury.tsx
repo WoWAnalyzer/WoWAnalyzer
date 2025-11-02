@@ -2,9 +2,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -44,20 +42,6 @@ export default class FlamesOfFury extends Analyzer {
   onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Avoid casting <SpellLink spell={SPELLS.SIGIL_OF_FLAME} /> close to Fury cap and cast
-          abilities regularly to avoid accidently capping your fury.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Fury wasted`)
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

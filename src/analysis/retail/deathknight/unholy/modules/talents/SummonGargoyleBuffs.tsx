@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -73,33 +70,6 @@ class SummonGargoyleBuffs extends Analyzer {
   onGargCast(event: CastEvent) {
     this.gargoyleActive = true;
     this.gargoyleEnd = event.timestamp + 25000;
-  }
-
-  suggestions(when: When) {
-    // Buffing the gargoyle by at least 350 Runic Power on average is recommended
-    when(this.averageBuffAmount)
-      .isLessThan(400)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            You are buffing <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> with too few{' '}
-            <SpellLink spell={SPELLS.DEATH_COIL} />
-            s. Try to prioritise generating Runic Power and spending it on as many{' '}
-            <SpellLink spell={SPELLS.DEATH_COIL} />s as possible once{' '}
-            <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> has been used!
-          </span>,
-        )
-          .icon(TALENTS.SUMMON_GARGOYLE_TALENT.icon)
-          .actual(
-            defineMessage({
-              id: 'deathknight.unholy.suggestions.summongargoyle.buffing',
-              message: `Gargoyle was buffed with an average ${this.averageBuffAmount} Runic Power`,
-            }),
-          )
-          .recommended(`${recommended} is recommended`)
-          .regular(recommended - 30)
-          .major(recommended - 60),
-      );
   }
 
   statistic() {

@@ -8,7 +8,6 @@ import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AOE_SCK = {
   spell: SPELLS.SPINNING_CRANE_KICK,
   condition: cnd.and(

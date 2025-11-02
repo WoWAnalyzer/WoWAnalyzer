@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemy from 'parser/core/Enemy';
 import Events, { CastEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
@@ -97,36 +96,6 @@ class VanishFindWeakness extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.badVanishCastsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        defineMessage({
-          id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.suggestion',
-          message: `Avoid casting Vanish with more than ${
-            this.BAD_CAST_WINDOW / 1000
-          }s left on Find Weakness on the current target.`,
-        }),
-      )
-        .icon(SPELLS.VANISH.icon)
-        .actual(
-          defineMessage({
-            id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.actual',
-            message: `You cast Vanish ${this.badVanishCasts.size} times with more than ${
-              this.BAD_CAST_WINDOW / 1000
-            }s left on Find Weakness on the current target.`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.recommended',
-            message: `Do not cast Vanish with more than ${
-              this.BAD_CAST_WINDOW / 1000
-            }s left on Find Weakness on the current target.`,
-          }),
-        ),
-    );
   }
 
   statistic(): React.ReactNode {

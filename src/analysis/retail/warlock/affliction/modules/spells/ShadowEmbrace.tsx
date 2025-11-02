@@ -1,12 +1,11 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellIcon, SpellLink, TooltipElement } from 'interface';
+import { SpellIcon, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -173,25 +172,6 @@ class ShadowEmbrace extends Analyzer {
 
   get dps() {
     return (this.damage / this.owner.fightDuration) * 1000;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={this.SHADOW_EMBRACE_DEBUFF} /> uptime can be improved. Try to pay
-          more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
-        </>,
-      )
-        .icon(this.SHADOW_EMBRACE_DEBUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.shadowembrace.uptime',
-            message: `${formatPercentage(actual)}% Shadow Embrace uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   subStatistic() {

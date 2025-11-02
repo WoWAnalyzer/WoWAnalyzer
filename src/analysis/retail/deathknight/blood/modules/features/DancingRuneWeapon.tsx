@@ -1,4 +1,4 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { Fragment } from 'react';
 
@@ -105,32 +105,6 @@ class DancingRuneWeapon extends Analyzer {
           <Fragment key={id}> {this.spellLinks(id, index)}</Fragment>
         ))}
       </div>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.drw.suggestion.suggestion">
-          Avoid casting spells during <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> that
-          don't benefit from the copies such as <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} />{' '}
-          and <SpellLink spell={this.DD_ABILITY} />. Check the cooldown-tab below for more detailed
-          breakdown.{this.goodDRWSpells}
-        </Trans>,
-      )
-        .icon(TALENTS.DANCING_RUNE_WEAPON_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.drw.suggestion.actual',
-            message: `${this.goodDRWCasts.length} out of ${this.castsDuringDRW.length} casts during DRW were good`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'deathknight.blood.drw.suggestion.recommended',
-            message: `${this.castsDuringDRW.length} recommended`,
-          }),
-        ),
     );
   }
 }

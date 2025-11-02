@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 // https://stormearthandlava.com/guide/general/priority_list.html
@@ -68,28 +65,6 @@ class SubOptimalChainLightning extends Analyzer {
 
   onFightEnd() {
     this.checkCast();
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast {this.badCasts} <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> that hit
-          less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize{' '}
-          <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> as a filler when there are less than{' '}
-          {TARGETS_FOR_GOOD_CAST} targets.
-        </>,
-      )
-        .icon(TALENTS.CHAIN_LIGHTNING_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'shaman.elemental.suggestions.chainLightning.efficiency',
-            message: `${actual.toFixed(1)} bad Chain Lightning per minute`,
-          }),
-        )
-
-        .recommended(`${recommended} is recommended`),
-    );
   }
 }
 

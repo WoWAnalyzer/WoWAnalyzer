@@ -1,11 +1,11 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -66,33 +66,6 @@ class RelishInBlood extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        defineMessage({
-          id: 'deathknight.blood.relishInBlood.suggestion.suggestion',
-          message: `Avoid being Runic Power capped at all times, you wasted ${this.runicPowerWasted} PR by
-          being RP capped`,
-        }),
-      )
-        .icon(TALENTS.RELISH_IN_BLOOD_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.relishInBlood.suggestion.actual',
-            message: `You wasted ${formatPercentage(actual)}% of RP from ${
-              TALENTS.RELISH_IN_BLOOD_TALENT.name
-            } by being RP capped.`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'deathknight.blood.relishInBlood.suggestion.recommended',
-            message: `${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

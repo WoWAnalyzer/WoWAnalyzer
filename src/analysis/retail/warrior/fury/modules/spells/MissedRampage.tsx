@@ -1,12 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
-import talents, { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import Events, { CastEvent, GetRelatedEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { RAGE_GENERATING_CAST } from '../normalizers/RageGenerationEventLinkNormalizer';
+import talents from 'common/TALENTS/warrior';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
@@ -123,28 +121,6 @@ class MissedRampage extends Analyzer {
         }
       }
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          There were {actual} times you casted a rage generating ability when you should have cast{' '}
-          <SpellLink spell={SPELLS.RAMPAGE} />. <SpellLink spell={SPELLS.RAMPAGE} /> does high
-          damage, activates the <SpellLink spell={TALENTS_WARRIOR.ANGER_MANAGEMENT_TALENT} />{' '}
-          talent, and causes you to <SpellLink spell={SPELLS.ENRAGE} />, increasing all of your
-          damage done.
-        </>,
-      )
-        .icon(SPELLS.RAMPAGE.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.fury.suggestions.rampages.missed',
-            message: `${actual} missed Rampages.`,
-          }),
-        )
-        .recommended(`${recommended} is recommended.`),
-    );
   }
 }
 

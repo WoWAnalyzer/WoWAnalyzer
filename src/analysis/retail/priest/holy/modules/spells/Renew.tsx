@@ -1,5 +1,4 @@
 import TALENTS from 'common/TALENTS/priest';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -9,7 +8,7 @@ import Events, {
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Haste from 'parser/shared/modules/Haste';
@@ -216,25 +215,6 @@ class Renew extends Analyzer {
       return true;
     }
     return false;
-  }
-
-  suggestions(when: When) {
-    when(this.badRenewThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should cast <SpellLink spell={TALENTS.RENEW_TALENT} /> less.
-        </>,
-      )
-        .icon(TALENTS.RENEW_TALENT.icon)
-        .actual(
-          <>
-            You used Renew {this.badRenews} times when another spell would have been more
-            productive. Renew is one of the least efficient spells Holy Priests have, and should
-            only be cast when moving with no other instants available.
-          </>,
-        )
-        .recommended(`Two or less per minute is recommended, except for movement heavy fights.`),
-    );
   }
 }
 

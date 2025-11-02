@@ -84,10 +84,6 @@ interface CoreConfig {
    */
   pages?: {
     overview?: {
-      /**
-       * Which type of frontmatter to use by default when both are present.
-       */
-      frontmatterType?: 'checklist' | 'guide';
       notes?: ReactNode;
     };
     timeline?:

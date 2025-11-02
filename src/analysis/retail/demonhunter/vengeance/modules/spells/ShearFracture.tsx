@@ -2,10 +2,9 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import Spell from 'common/SPELLS/Spell';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { Talent } from 'common/TALENTS/types';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 
 import {
   getGeneratingCast,
@@ -66,18 +65,5 @@ export default class ShearFracture extends Analyzer {
     this.lastCast = generatingCast;
     this.badCasts += 1;
     addInefficientCastReason(this.lastCast, 'Fracture cast that overcapped souls');
-  }
-
-  suggestions(when: When) {
-    when(this.wastedCasts).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your cast of <SpellLink spell={this.cast} /> generated souls beyond the cap of 5.
-        </>,
-      )
-        .icon(this.cast.icon)
-        .actual(`${actual} bad casts`)
-        .recommended(`${recommended} bad casts are recommended`),
-    );
   }
 }

@@ -1,13 +1,11 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -72,24 +70,6 @@ class Enrage extends Analyzer {
       this.damage += calculateEffectiveDamage(event, this.statTracker.currentMasteryPercentage);
       this.totalDamage += event.amount;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.ENRAGE} /> uptime can be improved.
-        </>,
-      )
-        .icon(SPELLS.ENRAGE.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.fury.suggestions.enrage.uptime',
-            message: `${formatPercentage(actual)}% Enrage uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

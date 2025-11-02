@@ -1,7 +1,5 @@
-import { defineMessage } from '@lingui/core/macro';
 import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
-import { formatPercentage } from 'common/format';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 
 class RageDetails extends WarriorRageDetails {
   // Arms doesn't really care about wasting rage
@@ -29,20 +27,6 @@ class RageDetails extends WarriorRageDetails {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
-        .icon('spell_nature_reincarnation')
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.rage.wasted',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

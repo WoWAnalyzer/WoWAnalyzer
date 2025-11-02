@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TALENTS from 'common/TALENTS/warrior';
@@ -61,25 +58,6 @@ class SpellReflect extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to cast <SpellLink spell={SPELLS.SPELL_REFLECTION} /> more often when magic damage is
-          going out to take less damage.
-        </>,
-      )
-        .icon(SPELLS.SPELL_REFLECTION.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.spellReflect.efficiency',
-            message: `${formatPercentage(actual)} % magic damage With Spell Reflect Up`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)} % recommended`),
-    );
   }
 }
 

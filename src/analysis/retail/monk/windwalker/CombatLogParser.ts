@@ -13,7 +13,6 @@ import Buffs from './modules/Buffs';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 // import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MoTCGraph from './modules/features/MoTCGraph';
 import JadeIgnition from './modules/talents/JadeIgnition';
@@ -77,7 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     moTCGraph: MoTCGraph,
 
     // Resources

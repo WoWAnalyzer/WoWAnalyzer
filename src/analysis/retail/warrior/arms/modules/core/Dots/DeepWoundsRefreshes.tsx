@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -85,30 +82,6 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     if (overpower && overpower.stacks !== 2) {
       return false;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsDeepwoundsEfficiency).addSuggestion(
-      (suggest, actual, recommended) =>
-        suggest(
-          <>
-            You refreshed <SpellLink spell={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF} icon /> early{' '}
-            {this.suggestionThresholdsDeepwoundsEfficiency.count} times on a target in{' '}
-            <SpellLink spell={SPELLS.EXECUTE} icon /> range. Try to prioritize{' '}
-            <SpellLink spell={SPELLS.EXECUTE} icon /> as it deals more damage than{' '}
-            <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> unless you have the
-            <SpellLink spell={SPELLS.OVERPOWER} icon />.
-          </>,
-        )
-          .icon(SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.icon)
-          .actual(
-            defineMessage({
-              id: 'shared.suggestions.dots.badDeepWoundsRefreshes',
-              message: `${formatPercentage(actual)}% of good Deep Wounds refreshes.`,
-            }),
-          )
-          .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

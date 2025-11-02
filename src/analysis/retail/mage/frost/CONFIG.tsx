@@ -38,11 +38,6 @@ const config: Config = {
       <br />
     </>
   ),
-  pages: {
-    overview: {
-      frontmatterType: 'guide',
-    },
-  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/H4VLKcxWnwpA9PbN/56-Mythic+One-Armed+Bandit+-+Kill+(6:46)/Kitzu/standard',
   // Don't change anything below this line;

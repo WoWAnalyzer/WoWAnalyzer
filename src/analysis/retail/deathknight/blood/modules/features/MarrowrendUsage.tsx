@@ -1,9 +1,7 @@
 import { defineMessage, Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -12,7 +10,7 @@ import Events, {
   RemoveBuffStackEvent,
   CastEvent,
 } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -171,34 +169,6 @@ class MarrowrendUsage extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.marrowrendUsage.suggestion.suggestion">
-          You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS} stacks of{' '}
-          <SpellLink spell={SPELLS.BONE_SHIELD} /> that were not about to expire, wasting{' '}
-          {this.bsStacksWasted} stacks.
-          <br />
-          Cast <SpellLink spell={TALENTS.HEART_STRIKE_TALENT} /> instead if you are at{' '}
-          {this.refreshAtStacks} stacks or above.
-        </Trans>,
-      )
-        .icon(TALENTS.MARROWREND_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.marrowrendUsage.suggestion.actual',
-            message: `${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'deathknight.blood.marrowrendUsage.suggestion.recommended',
-            message: `${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`,
-          }),
-        ),
-    );
   }
 
   statistic() {

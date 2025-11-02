@@ -1,11 +1,11 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -94,46 +94,6 @@ class ImbuedInfusion extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          <Trans id="paladin.holy.modules.talents.imbuedinfusion.suggestion">
-            You consumed <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} />{' '}
-            {this.wastedHolyShockReductionCount} times when{' '}
-            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
-            <SpellLink spell={TALENTS.IMBUED_INFUSIONS_TALENT} /> should be used to reduce the
-            cooldown of <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be consumed
-            when <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is available.
-            <a
-              href="https://questionablyepic.com/glimmer-of-light/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              build.
-            </a>
-          </Trans>
-        </>,
-      )
-        .icon(TALENTS.HOLY_SHOCK_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.holy.modules.talents.imbuedinfusion.actual',
-
-            message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
-              Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
-            } missed.`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'paladin.holy.modules.talents.imbuedinfusion.recommended',
-            message: `Casting Holy Shock on cooldown is recommended.`,
-          }),
-        ),
-    );
   }
 
   statistic() {

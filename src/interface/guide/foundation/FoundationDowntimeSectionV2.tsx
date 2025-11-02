@@ -38,9 +38,6 @@ import CancelledCasts, { CancelGap } from 'parser/shared/modules/CancelledCasts'
 import ROLES from 'game/ROLES';
 import SpellLink from 'interface/SpellLink';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
-import Suggestions from '../components/Suggestions/Suggestions';
-
-import { useSuggestions } from '../components/Suggestions/SuggestionSection';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
@@ -79,13 +76,6 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
       perf,
     };
   }, [abc]);
-
-  const rawSuggestions = useSuggestions([abc, melee, cancelledCasts]);
-  // FIXME remove the ABC suggestion
-  const suggestions = useMemo(
-    () => rawSuggestions.filter((issue) => issue.icon !== 'spell_mage_altertime'),
-    [rawSuggestions],
-  );
 
   if (!info || !abc) {
     return null;
@@ -212,13 +202,6 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
           cancelGaps={cancelledCasts?.cancelGaps}
           globalMeleeGaps={globalMeleeUptime}
           debuffSegments={debuffs?.debuffSegments}
-        />
-      </SubSection>
-      <SubSection>
-        <Suggestions
-          parseResults={{ issues: suggestions }}
-          showMinorIssues={false}
-          hideNoMajorText
         />
       </SubSection>
     </>

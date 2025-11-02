@@ -1,8 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatNumber, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Panel from 'parser/ui/Panel';
@@ -11,6 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import RageTracker from './RageTracker';
+import { formatNumber } from 'common/format';
 
 class RageDetails extends Analyzer {
   static dependencies = {
@@ -44,20 +43,6 @@ class RageDetails extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
-        .icon('spell_nature_reincarnation')
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.rage.wasted',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

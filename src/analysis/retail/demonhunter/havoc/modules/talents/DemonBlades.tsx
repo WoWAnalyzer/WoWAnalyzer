@@ -1,10 +1,9 @@
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -57,21 +56,6 @@ class DemonBlades extends Analyzer {
 
   onDamageEvent(event: DamageEvent) {
     this.damage += event.amount;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          Be mindful of your Fury levels and spend it before capping your Fury due to{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Fury wasted`)
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

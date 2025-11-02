@@ -1,9 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatNumber } from 'common/format';
-import React from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -12,7 +9,7 @@ import Events, {
   RemoveDebuffEvent,
   CastEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -95,27 +92,6 @@ class Doom extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.DOOM_DEBUFF} /> uptime can be improved. Doom is a 20-second
-          debuff automatically applied by <SpellLink spell={SPELLS.DEMONBOLT} /> when it consumes a{' '}
-          <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />, so maintaining high uptime requires
-          consistent Demonic Core generation and usage.
-        </>,
-      )
-        .icon(SPELLS.DOOM_DEBUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.demonology.suggestions.doom.uptime',
-            message: `${formatPercentage(actual)}% Doom uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -1,8 +1,4 @@
-import { i18n } from '@lingui/core';
-import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/classic/paladin';
-import { SpellLink } from 'interface';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -16,22 +12,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your downtime can be improved. Stay within melee range of the boss. If you need to move
-          out, used ranged abilities like <SpellLink spell={SPELLS.JUDGEMENT} />.
-        </span>,
-      )
-        .icon('spell_mage_altertime')
-        .actual(
-          i18n._('shared.suggestions.alwaysBeCasting.downtime', { 0: formatPercentage(actual) }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

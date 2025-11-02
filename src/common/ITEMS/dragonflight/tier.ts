@@ -330,6 +330,53 @@ export const TWW3_TIER_BY_CLASSES: Record<number, TWW3_TIER_GEAR_IDS> = {
 };
 // endregion
 
+//region MID1
+export const DEATH_KNIGHT_MID1_ID = 1978;
+export const DEMON_HUNTER_MID1_ID = 1979;
+export const DRUID_MID1_ID = 1980;
+export const EVOKER_MID1_ID = 1981;
+export const HUNTER_MID1_ID = 1982;
+export const MAGE_MID1_ID = 1983;
+export const MONK_MID1_ID = 1984;
+export const PALADIN_MID1_ID = 1985;
+export const PRIEST_MID1_ID = 1986;
+export const ROGUE_MID1_ID = 1987;
+export const SHAMAN_MID1_ID = 1988;
+export const WARLOCK_MID1_ID = 1989;
+export const WARRIOR_MID1_ID = 1990;
+
+type MID1_TIER_GEAR_IDS =
+  | typeof DEATH_KNIGHT_MID1_ID
+  | typeof DEMON_HUNTER_MID1_ID
+  | typeof DRUID_MID1_ID
+  | typeof EVOKER_MID1_ID
+  | typeof HUNTER_MID1_ID
+  | typeof MAGE_MID1_ID
+  | typeof MONK_MID1_ID
+  | typeof PALADIN_MID1_ID
+  | typeof PRIEST_MID1_ID
+  | typeof ROGUE_MID1_ID
+  | typeof SHAMAN_MID1_ID
+  | typeof WARLOCK_MID1_ID
+  | typeof WARRIOR_MID1_ID;
+
+export const MID1_TIER_BY_CLASSES: Record<number, MID1_TIER_GEAR_IDS> = {
+  [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_MID1_ID,
+  [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_MID1_ID,
+  [CLASSES.DRUID]: DRUID_MID1_ID,
+  [CLASSES.EVOKER]: EVOKER_MID1_ID,
+  [CLASSES.HUNTER]: HUNTER_MID1_ID,
+  [CLASSES.MAGE]: MAGE_MID1_ID,
+  [CLASSES.MONK]: MONK_MID1_ID,
+  [CLASSES.PALADIN]: PALADIN_MID1_ID,
+  [CLASSES.PRIEST]: PRIEST_MID1_ID,
+  [CLASSES.ROGUE]: ROGUE_MID1_ID,
+  [CLASSES.SHAMAN]: SHAMAN_MID1_ID,
+  [CLASSES.WARLOCK]: WARLOCK_MID1_ID,
+  [CLASSES.WARRIOR]: WARRIOR_MID1_ID,
+};
+// endregion
+
 // region Common
 export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
   [TIERS.DF1]: DF1_TIER_BY_CLASSES,
@@ -339,6 +386,7 @@ export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
   [TIERS.TWW1]: TWW1_TIER_BY_CLASSES,
   [TIERS.TWW2]: TWW2_TIER_BY_CLASSES,
   [TIERS.TWW3]: TWW3_TIER_BY_CLASSES,
+  [TIERS.MID1]: MID1_TIER_BY_CLASSES,
 };
 
 export type TIER_GEAR_IDS =
@@ -348,5 +396,6 @@ export type TIER_GEAR_IDS =
   | DF4_TIER_GEAR_IDS
   | TWW1_TIER_GEAR_IDS
   | TWW2_TIER_GEAR_IDS
-  | TWW3_TIER_GEAR_IDS;
+  | TWW3_TIER_GEAR_IDS
+  | MID1_TIER_GEAR_IDS;
 // endregion

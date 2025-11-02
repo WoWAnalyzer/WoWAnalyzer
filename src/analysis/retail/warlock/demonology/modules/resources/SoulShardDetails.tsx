@@ -1,16 +1,13 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import SoulShardTracker from './SoulShardTracker';
-
-const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
 
 class SoulShardDetails extends Analyzer {
   get suggestionThresholds() {
@@ -32,23 +29,6 @@ class SoulShardDetails extends Analyzer {
   };
 
   soulShardTracker!: SoulShardTracker;
-
-  suggestions(when: When) {
-    const shardsWasted = this.soulShardTracker.wasted;
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
-      )
-        .icon(SOUL_SHARD_ICON)
-        .actual(
-          defineMessage({
-            id: 'warlock.demonology.suggestions.soulShards.wastedPerMinutes',
-            message: `${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`,
-          }),
-        )
-        .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`),
-    );
-  }
 
   statistic() {
     const shardsWasted = this.soulShardTracker.wasted;

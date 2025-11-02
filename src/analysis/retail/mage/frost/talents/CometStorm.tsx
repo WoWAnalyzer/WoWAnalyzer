@@ -1,12 +1,11 @@
 import { COMET_STORM_AOE_MIN_TARGETS, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
@@ -116,29 +115,6 @@ class CometStorm extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.cometStormUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You failed to get the most out of your <SpellLink spell={TALENTS.COMET_STORM_TALENT} />{' '}
-          casts {this.badCasts} times. Because the projectiles from{' '}
-          <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> no longer remove your stacks of{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} />, you should always cast{' '}
-          <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> immediately after casting{' '}
-          <SpellLink spell={TALENTS.FLURRY_TALENT} /> and applying{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} />. This way there is time for most/all of the
-          comets to hit the target before <SpellLink spell={SPELLS.WINTERS_CHILL} /> expires.
-          Alternatively, if <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> will hit at least{' '}
-          {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without{' '}
-          <SpellLink spell={TALENTS.SHATTER_TALENT} />/<SpellLink spell={SPELLS.WINTERS_CHILL} />
-        </>,
-      )
-        .icon(TALENTS.COMET_STORM_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Utilization`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get guideSubsection(): JSX.Element {

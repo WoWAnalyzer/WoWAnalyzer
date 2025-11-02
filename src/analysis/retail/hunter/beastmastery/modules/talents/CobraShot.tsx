@@ -1,12 +1,10 @@
-import { Trans } from '@lingui/react/macro';
 import GlobalCooldown from 'analysis/retail/hunter/beastmastery/modules/core/GlobalCooldown';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -124,57 +122,6 @@ class CobraShot extends Analyzer {
         COBRA_SHOT_CDR_MS,
       );
     }
-  }
-
-  suggestions(when: When) {
-    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          A crucial part of <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> is the cooldown
-          reduction of <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> it provides.
-          When the cooldown of <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> is
-          larger than the duration of your GCD + 1s, you'll want to be casting{' '}
-          <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to maximize the amount of casts of{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} />. If the cooldown of{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> is lower than GCD + 1s,
-          you'll only want to be casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} />, if you'd
-          be capping focus otherwise.
-        </>,
-      )
-        .icon(TALENTS.COBRA_SHOT_TALENT.icon)
-        .actual(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.efficiency">
-            {' '}
-            You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.recommended">
-            {' '}
-            {'>'}
-            {formatPercentage(recommended)}% is recommended
-          </Trans>,
-        ),
-    );
-    when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) =>
-      suggest(
-        <>
-          You should never cast <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> when{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> is off cooldown.
-        </>,
-      )
-        .icon(TALENTS.COBRA_SHOT_TALENT.icon)
-        .actual(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.cooldown.wasted">
-            You cast {actual} Cobra Shots when Kill Command wasn't on cooldown
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.cooldown.recommended">
-            0 inefficient casts is recommended
-          </Trans>,
-        ),
-    );
   }
 
   statistic() {

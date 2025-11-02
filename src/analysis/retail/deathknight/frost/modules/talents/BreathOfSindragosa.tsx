@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import CooldownExpandable, {
@@ -7,7 +6,7 @@ import CooldownExpandable, {
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -78,31 +77,6 @@ class BreathOfSindragosa extends Analyzer {
         fightEnded: true,
       });
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          You are not getting good uptime from your{' '}
-          <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> casts. A good cast is one that
-          lasts {GOOD_BREATH_DURATION_MS / 1000} seconds or more. To ensure a good duration, make
-          sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start
-          the cast. Also make sure to use <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_TALENT} />{' '}
-          within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic
-          Power and make sure you are not overcapping. {this.tickingOnFinishedString}
-        </>,
-      )
-        .icon(talents.BREATH_OF_SINDRAGOSA_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.frost.suggestions.breathOfSindragosa.uptime',
-            message: `You averaged ${this.averageDuration.toFixed(1)} seconds of uptime per cast`,
-          }),
-        )
-        .recommended(`>${recommended} seconds is recommended`),
-    );
   }
 
   get tickingOnFinishedString() {

@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -71,32 +69,6 @@ class DemonicCalling extends Analyzer {
       this.wastedProcs += 1;
       debug && this.log('DC fell off, wasted proc');
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should try to use your cheaper <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> as much
-          as possible as Dreadstalkers make a great portion of your damage.
-          <br />
-          <br />
-          <small>
-            NOTE: Some wasted procs are probably unavoidable (e.g.{' '}
-            <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> on cooldown, proc waiting but gets
-            overwritten by another)
-          </small>
-        </>,
-      )
-        .icon(TALENTS.DEMONIC_CALLING_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.demonology.suggestions.demonicCalling.wastedProcsPerMinute',
-            message: `${actual.toFixed(2)} wasted procs per minute`,
-          }),
-        )
-        .recommended(`< ${recommended} is recommended`),
-    );
   }
 
   statistic() {

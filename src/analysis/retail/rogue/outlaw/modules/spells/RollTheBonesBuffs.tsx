@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/rogue';
 import { SpellIcon, SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
 
@@ -36,25 +35,6 @@ class RollTheBonesBuffs extends Analyzer {
 
   percentUptime(spellid: number) {
     return this.selectedCombatant.getBuffUptime(spellid) / this.owner.fightDuration;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.ROLL_THE_BONES} /> uptime can be improved. Try to always
-          have <SpellLink spell={SPELLS.ROLL_THE_BONES} /> active, even with a lower value roll.
-        </>,
-      )
-        .icon(SPELLS.ROLL_THE_BONES.icon)
-        .actual(
-          defineMessage({
-            id: 'rogue.outlaw.suggestions.rollTheBones.uptime',
-            message: `${formatPercentage(actual)}% Roll the Bones uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get guideSubsection() {

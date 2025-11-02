@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import {
   WILDFIRE_BOMB_LEEWAY_BUFFER,
   COVERING_FIRE_CDR,
@@ -9,7 +8,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -251,41 +250,6 @@ class WildfireBomb extends Analyzer {
     // if (this.acceptedCastDueToCapping || !enemy) {
     //   return;
     // }
-  }
-
-  suggestions(when: When) {
-    when(this.tippedThresholds).addSuggestion((suggest, actual, recommend) =>
-      suggest(
-        <>
-          Try to ensure your <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> is affected by{' '}
-          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />
-        </>,
-      )
-        .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggestions.wildfireBomb.tipped',
-            message: `${formatPercentage(actual)}% tipped`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommend)}% is recommended`),
-    );
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try and maximize your uptime on <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />. This
-          is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic.{' '}
-        </>,
-      )
-        .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggestions.wildfireBomb.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get guideSubsection(): JSX.Element {

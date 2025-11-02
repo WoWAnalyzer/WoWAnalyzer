@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -13,7 +12,7 @@ import Events, {
   HasAbility,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -122,26 +121,6 @@ class FistsofFury extends Analyzer {
     return Object.values(ticks).map((val, idx) => {
       return { label: idx + 1, color: this.colors[idx], value: val };
     });
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          {' '}
-          You are cancelling your <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> casts early and
-          losing ticks{' '}
-        </span>,
-      )
-        .icon(SPELLS.FISTS_OF_FURY_CAST.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.windwalker.suggestions.fistOfFury.avgTicksPerCast',
-            message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`,
-          }),
-        )
-        .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`),
-    );
   }
 
   statistic() {

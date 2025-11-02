@@ -1,9 +1,9 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -62,27 +62,6 @@ class InstantPoison extends Analyzer {
           {formatPercentage(this.procPercentage)} %
         </BoringValueText>
       </Statistic>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.instantPoisonSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Ensure that your poisons are freshly applied before the fight starts so that they do not
-          expire.
-        </>,
-      )
-        .icon(SPELLS.INSTANT_POISON.icon)
-        .actual(
-          <>
-            You procced <SpellLink spell={SPELLS.INSTANT_POISON} /> on{' '}
-            {formatPercentage(this.procPercentage)} % of your melee hits.
-          </>,
-        )
-        .recommended(
-          `If your poisons are applied, you should have around a 30% proc chance over the fight.`,
-        ),
     );
   }
 }

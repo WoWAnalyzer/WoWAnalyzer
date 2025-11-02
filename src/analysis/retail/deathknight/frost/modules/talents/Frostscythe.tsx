@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -74,26 +72,6 @@ class Frostscythe extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={talents.FROSTSCYTHE_TALENT} /> efficiency can be improved. Only
-          cast Frostscythe if you have a <SpellLink spell={SPELLS.KILLING_MACHINE} icon /> proc or
-          you can hit 2+ targets.
-        </>,
-      )
-        .icon(talents.FROSTSCYTHE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.frost.frostScythe.efficiency',
-            message: `${formatPercentage(actual)}% Frostscythe efficiency`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import * as React from 'react';
 import TALENTS from 'common/TALENTS/rogue';
 
@@ -137,31 +135,6 @@ class RollTheBonesEfficiency extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    this.rollSuggestions.forEach((suggestion) => {
-      when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            Your efficiency with refreshing <SpellLink spell={SPELLS.ROLL_THE_BONES} /> after a{' '}
-            {suggestion.label} roll could be improved. <SpellLink spell={SPELLS.BROADSIDE} /> and{' '}
-            <SpellLink spell={SPELLS.TRUE_BEARING} /> are your highest value buffs from{' '}
-            <SpellLink spell={SPELLS.ROLL_THE_BONES} />. {suggestion.extraSuggestion || ''}
-          </>,
-        )
-          .icon(SPELLS.ROLL_THE_BONES.icon)
-          .actual(
-            defineMessage({
-              id: 'rogue.outlaw.suggestions.rollTheBones.efficiency',
-              message: `${formatPercentage(actual)}% (${suggestion.pass} out of ${
-                suggestion.total
-              }) efficient rerolls`,
-            }),
-          )
-          .recommended(`${formatPercentage(recommended)}% is recommended`),
-      );
-    });
   }
 }
 

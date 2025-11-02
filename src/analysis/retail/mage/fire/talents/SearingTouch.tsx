@@ -2,10 +2,9 @@ import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'analysis/retail/
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -120,37 +119,6 @@ class SearingTouch extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.executeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={SPELLS.FIREBALL} /> instead of{' '}
-          <SpellLink spell={SPELLS.SCORCH} /> while the target was under 30% health{' '}
-          {this.fireballExecuteCasts} times. When using Searing Touch always use Scorch instead of
-          Fireball when the target is under 30% health since Scorch does 150% damage and is
-          guaranteed to crit.
-        </>,
-      )
-        .icon(TALENTS.SCORCH_TALENT.icon)
-        .actual(`${formatPercentage(this.executeUtil)}% Utilization`)
-        .recommended(`${formatPercentage(recommended)} is recommended`),
-    );
-    when(this.nonExecuteSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={SPELLS.SCORCH} /> while the target was over 30% health{' '}
-          {this.nonExecuteScorchCasts} times. While this is acceptable when you need to move, you
-          should aim to minimize this by limiting your movement and using spells like{' '}
-          <SpellLink spell={SPELLS.BLINK} /> (or <SpellLink spell={TALENTS.SHIMMER_TALENT} />) when
-          possible or by using your instant abilities and procs.
-        </>,
-      )
-        .icon(TALENTS.SCORCH_TALENT.icon)
-        .actual(`${formatPercentage(this.nonExecuteUtil)}% Utilization`)
-        .recommended(`${formatPercentage(recommended)} is recommended`),
-    );
   }
 
   statistic() {

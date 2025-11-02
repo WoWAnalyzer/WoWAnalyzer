@@ -1,7 +1,6 @@
-import { defineMessage, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -10,7 +9,7 @@ import Events, {
   RemoveBuffEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -111,30 +110,6 @@ class Tombstone extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.tombstone.suggestion.suggestion">
-          You casted {this.wastedCasts} <SpellLink spell={TALENTS.TOMBSTONE_TALENT} /> with less
-          than 5 charges causing a reduced absorb shield.
-        </Trans>,
-      )
-        .icon(TALENTS.TOMBSTONE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.tombstone.suggestion.actual',
-            message: `${formatPercentage(actual)}% bad Tombstone casts`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'shared.suggestion.recommended.lessThanPercent',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

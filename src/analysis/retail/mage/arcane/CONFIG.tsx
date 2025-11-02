@@ -47,7 +47,6 @@ const config: Config = {
   ),
   pages: {
     overview: {
-      frontmatterType: 'guide',
       notes: (
         <AlertWarning>
           This spec is not being updated for The War Within or Midnight Prepatch. All analysis is in

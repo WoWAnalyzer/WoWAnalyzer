@@ -1,11 +1,10 @@
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
@@ -104,28 +103,6 @@ class RayOfFrost extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.rayOfFrostUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You failed to get the most out of your <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />{' '}
-          casts {this.badCasts} times. Because the ticks from{' '}
-          <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> do not remove your stacks of{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} />, you should always cast{' '}
-          <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> during{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} />. However, because{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> has such a short duration and therefore will
-          likely naturally end before <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> finishes,
-          you should spend your first stack of <SpellLink spell={SPELLS.WINTERS_CHILL} /> and then
-          cast <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> instead of spending the 2nd stack.
-        </>,
-      )
-        .icon(TALENTS.RAY_OF_FROST_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Utilization`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get guideSubsection(): JSX.Element {
