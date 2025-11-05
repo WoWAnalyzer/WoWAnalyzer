@@ -105,7 +105,7 @@ export function createTalentKey(talentName: string, specName?: string) {
   const cleanedTalentName = talentName
     //.replace(/ *\([^)]*\) */g, '') //Remove all contents within a ()
     //.replace(/ *\[[^)]*\] */g, '') // Remove all contents within []
-    .replace(/([,':[\]()/+%&])/g, '') // Remove ,':[]()/+% symbols
+    .replace(/([,':[\]()/+%&!])/g, '') // Remove ,':[]()/+%&! symbols
     .trim() //Remove any weird whitespaces that might remain
     .replace(/([ -])/g, '_'); // Transform - into _
 
