@@ -118,7 +118,6 @@ const GraphBackground = styled.div`
 const PerformanceZone = styled.div<{ width: number; color: string }>`
   width: ${(props) => props.width}%;
   height: 100%;
-  background: ${(props) => props.color};
   position: relative;
 `;
 

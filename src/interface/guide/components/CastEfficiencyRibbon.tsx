@@ -256,7 +256,8 @@ export default function CastEfficiencyRibbon({
   const statColor = getEfficiencyColor();
 
   // Calculate performance ranges from abilities thresholds
-  const performanceRanges: PerformanceRange[] = spellCasts
+  // Only show performance ranges if we have actual threshold data
+  const performanceRanges: PerformanceRange[] | undefined = spellCasts
     ? [
         {
           width: spellCasts.majorIssueEfficiency * 100,
@@ -275,11 +276,7 @@ export default function CastEfficiencyRibbon({
           color: 'rgba(34, 197, 94, 0.15)',
         }, // Good (green)
       ].filter((range) => range.width > 0)
-    : [
-        { width: 75, color: 'rgba(220, 38, 38, 0.15)' }, // Default ranges if no data
-        { width: 15, color: 'rgba(251, 191, 36, 0.15)' },
-        { width: 10, color: 'rgba(34, 197, 94, 0.15)' },
-      ];
+    : undefined;
 
   // Calculate time spent capped at max charges (for charge-based abilities)
   const calculateWastedTime = (): number => {
