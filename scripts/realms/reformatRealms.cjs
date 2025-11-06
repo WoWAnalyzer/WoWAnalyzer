@@ -6,6 +6,7 @@ function readJson(path) {
 function reformat(json) {
   return json.realms
     .map(({ name, slug }) => ({ name, slug }))
+    .filter(({ name }) => !name.includes('CWOW'))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 function reformatFile(path) {
@@ -40,6 +41,6 @@ interface Realm {
 
 export const REALMS: Record<Region, Realm[]> = ${JSON.stringify(output)};
 
-export const REALMS: Record<Region, Realm[]> = ${JSON.stringify(classic_output)};
+export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = ${JSON.stringify(classic_output)};
 `,
 );
