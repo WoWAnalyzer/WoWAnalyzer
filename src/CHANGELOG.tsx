@@ -45,6 +45,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11,  4), 'Generate talents for 12.0.0.64124.', ToppleTheNun),
   change(date(2025, 11,  1), 'Reqorked CastEfficiencyBar to fit the new style and to account for spells with charges.', Sharrq),  
   change(date(2025, 11,  1), 'Added additional Guide Components for IntensityChart, IntensityBar, and DamageContribution.', Sharrq),  
   change(date(2025, 10,  28), 'Add MID1 tier set ids.', Vollmer),  

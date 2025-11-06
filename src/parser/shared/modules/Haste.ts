@@ -53,7 +53,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region Death Knight
   [SPELLS.BONE_SHIELD.id]: 0.1, // Blood DK haste buff from maintaining boneshield
   [TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_TALENT.id]: 0.15,
-  [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
+  // [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
   //endregion
 
   //region Druid
@@ -92,7 +92,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //endregion
 
   //region Mage
-  [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
+  // [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
   [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,
   [SPELLS.FIRE_MASTERY_BUFF.id]: {
     hastePerStack: 0.01,
