@@ -1,8 +1,26 @@
 {
   "_links": {
-    "self": { "href": "https://eu.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-eu" }
+    "self": {
+      "href": "https://eu.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-eu"
+    }
   },
   "realms": [
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4682?namespace=dynamic-classic-eu"
+      },
+      "name": "EU4 CWOW Web",
+      "id": 4682,
+      "slug": "eu4-cwow-web"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4683?namespace=dynamic-classic-eu"
+      },
+      "name": "EU5 CWOW Web",
+      "id": 4683,
+      "slug": "eu5-cwow-web"
+    },
     {
       "key": {
         "href": "https://eu.api.blizzard.com/data/wow/realm/4440?namespace=dynamic-classic-eu"
@@ -23,7 +41,7 @@
       "key": {
         "href": "https://eu.api.blizzard.com/data/wow/realm/4442?namespace=dynamic-classic-eu"
       },
-      "name": "Приозерье",
+      "name": "Lakeshire",
       "id": 4442,
       "slug": "lakeshire"
     },
@@ -31,7 +49,7 @@
       "key": {
         "href": "https://eu.api.blizzard.com/data/wow/realm/4452?namespace=dynamic-classic-eu"
       },
-      "name": "Хроми",
+      "name": "Chromie",
       "id": 4452,
       "slug": "chromie"
     },
@@ -103,7 +121,7 @@
       "key": {
         "href": "https://eu.api.blizzard.com/data/wow/realm/4474?namespace=dynamic-classic-eu"
       },
-      "name": "Пламегор",
+      "name": "Flamegor",
       "id": 4474,
       "slug": "flamegor"
     },
@@ -122,6 +140,22 @@
       "name": "Venoxis",
       "id": 4477,
       "slug": "venoxis"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4687?namespace=dynamic-classic-eu"
+      },
+      "name": "EU4 CWOW GMSS 1",
+      "id": 4687,
+      "slug": "eu4-cwow-gmss-1"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4688?namespace=dynamic-classic-eu"
+      },
+      "name": "EU4 CWOW GMSS 2",
+      "id": 4688,
+      "slug": "eu4-cwow-gmss-2"
     },
     {
       "key": {
@@ -151,7 +185,7 @@
       "key": {
         "href": "https://eu.api.blizzard.com/data/wow/realm/4742?namespace=dynamic-classic-eu"
       },
-      "name": "Испепелитель",
+      "name": "Ashbringer",
       "id": 4742,
       "slug": "ashbringer"
     },
@@ -159,7 +193,7 @@
       "key": {
         "href": "https://eu.api.blizzard.com/data/wow/realm/4745?namespace=dynamic-classic-eu"
       },
-      "name": "Превосходство",
+      "name": "Transcendence",
       "id": 4745,
       "slug": "transcendence"
     },
@@ -202,6 +236,46 @@
       "name": "Jin'do",
       "id": 4816,
       "slug": "jindo"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/6364?namespace=dynamic-classic-eu"
+      },
+      "name": "Shek'zeer",
+      "id": 6364,
+      "slug": "shekzeer"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/6365?namespace=dynamic-classic-eu"
+      },
+      "name": "Garalon",
+      "id": 6365,
+      "slug": "garalon"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/6366?namespace=dynamic-classic-eu"
+      },
+      "name": "Norushen",
+      "id": 6366,
+      "slug": "norushen"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/6367?namespace=dynamic-classic-eu"
+      },
+      "name": "Hoptallus",
+      "id": 6367,
+      "slug": "hoptallus"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/6368?namespace=dynamic-classic-eu"
+      },
+      "name": "Ook Ook",
+      "id": 6368,
+      "slug": "ook-ook"
     }
   ]
 }
