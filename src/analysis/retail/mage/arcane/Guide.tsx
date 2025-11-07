@@ -140,29 +140,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
         <SubSection title="Cast Efficiency">
           <RoundedPanel>
-            <CastEfficiencyRibbon
-              spell={TALENTS.ARCANE_SURGE_TALENT}
-              cooldownColor={'#ac1097ff'}
-              compactLayout
-            />
-            <CastEfficiencyRibbon
-              spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT}
-              cooldownColor={'#34033dff'}
-              compactLayout
-            />
+            <CastEfficiencyRibbon spell={TALENTS.ARCANE_SURGE_TALENT} compactLayout />
+            <CastEfficiencyRibbon spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} compactLayout />
             {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) && (
-              <CastEfficiencyRibbon
-                spell={TALENTS.PRESENCE_OF_MIND_TALENT}
-                cooldownColor={'#3f0f75ff'}
-                compactLayout
-              />
+              <CastEfficiencyRibbon spell={TALENTS.PRESENCE_OF_MIND_TALENT} compactLayout />
             )}
             {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) && (
-              <CastEfficiencyRibbon
-                spell={TALENTS.EVOCATION_TALENT}
-                cooldownColor={'#6d16a7ff'}
-                compactLayout
-              />
+              <CastEfficiencyRibbon spell={TALENTS.EVOCATION_TALENT} compactLayout />
             )}
           </RoundedPanel>
         </SubSection>

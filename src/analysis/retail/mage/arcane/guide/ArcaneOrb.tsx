@@ -164,11 +164,7 @@ class ArcaneOrbGuide extends Analyzer {
           title="Arcane Orb Casts"
           casts={this.arcaneOrb.orbData.map((cast) => this.evaluateOrbCast(cast))}
         />
-        <CastEfficiencyRibbon
-          spell={SPELLS.ARCANE_ORB}
-          cooldownColor={'#80138fff'}
-          showExplanation
-        />
+        <CastEfficiencyRibbon spell={SPELLS.ARCANE_ORB} showExplanation />
       </GuideSection>
     );
   }

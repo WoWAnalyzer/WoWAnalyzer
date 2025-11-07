@@ -12,6 +12,7 @@ import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser
 import BulletGraph, { PerformanceRange } from './BulletGraph';
 import { CooldownWindow } from 'parser/ui/CooldownBar';
 import SegmentedTimeline, { TimelineSegment, TimelineMarker } from './SegmentedTimeline';
+import { BAD_COLOR, getSpecColor } from 'interface/guide/colors';
 
 // Styled Components
 const RibbonContainer = styled.div`
@@ -87,7 +88,7 @@ function createCooldownSegments(
       }
     }
 
-    // Create "available" highlight segments (red areas where spell wasn't cast)
+    // Create "available" highlight segments (high visibility red areas where spell wasn't cast)
     let lastCdEnd = window.startTime;
 
     endCooldowns.forEach((cd) => {
@@ -95,7 +96,7 @@ function createCooldownSegments(
         segments.push({
           start: lastCdEnd,
           end: cd.overallStartTimestamp,
-          color: 'rgba(220, 38, 38, 0.3)',
+          color: BAD_COLOR,
           opacity: 1,
           label: `Available: ${formatDuration(lastCdEnd - window.startTime)} - ${formatDuration(cd.overallStartTimestamp - window.startTime)}`,
         });
@@ -109,7 +110,7 @@ function createCooldownSegments(
       segments.push({
         start: finalCdEnd,
         end: window.endTime,
-        color: 'rgba(220, 38, 38, 0.3)',
+        color: BAD_COLOR,
         opacity: 1,
         label: `Available: ${formatDuration(finalCdEnd - window.startTime)} - ${formatDuration(window.endTime - window.startTime)}`,
       });
@@ -155,10 +156,6 @@ interface Props {
   showExplanation?: boolean;
   /** Color to use for the efficiency stat card. If not provided, uses white. */
   efficiencyColor?: string;
-  /** Color to use for cooldown windows (when spell is on CD). Defaults to #fab700 (orange). */
-  cooldownColor?: string;
-  /** Color to use for wasted time indicator (charge-based abilities). If not provided, uses cooldownColor. */
-  wastedTimeColor?: string;
   /** If true, uses a compact inline layout */
   compactLayout?: boolean;
   /**
@@ -171,6 +168,7 @@ interface Props {
 /**
  * Unified component for displaying cast efficiency as a ribbon visualization.
  * Automatically handles both charge-based and cooldown-based abilities.
+ * Colors are automatically determined based on the player's spec.
  *
  * - For charge abilities: Shows a horizontal bar with filled/empty segments
  * - For cooldown abilities: Shows a ribbon timeline with gaps showing availability
@@ -178,8 +176,6 @@ interface Props {
  * @param spell - The spell to show cooldown bars for (must match cast event ID)
  * @param showExplanation - If true, shows explanatory text above the cooldown bar (default: false)
  * @param efficiencyColor - Color for efficiency stat card (default: white)
- * @param cooldownColor - Color for cooldown windows (default: #fab700 orange)
- * @param wastedTimeColor - Color for wasted time on charge abilities (default: cooldownColor)
  * @param compactLayout - If true, uses compact inline layout (default: false)
  * @param activeWindows - Time windows when spell is usable (default: whole fight)
  */
@@ -187,8 +183,6 @@ export default function CastEfficiencyRibbon({
   spell,
   showExplanation = false,
   efficiencyColor = 'white',
-  cooldownColor = '#fab700',
-  wastedTimeColor,
   compactLayout = false,
   activeWindows,
 }: Props): JSX.Element | null {
@@ -201,6 +195,9 @@ export default function CastEfficiencyRibbon({
   if (!castEfficiency || !info || !abilities || !events) {
     return null;
   }
+
+  // Auto-detect spec color
+  const specColor = getSpecColor(info.combatant.spec?.id);
 
   const ability = abilities.getAbility(spell.id);
   const hasCharges = (ability?.charges ?? 1) > 1;
@@ -221,7 +218,7 @@ export default function CastEfficiencyRibbon({
   }
 
   const maxCharges = ability?.charges || 1;
-  const { fightStart, fightEnd, fightDuration } = info;
+  const { fightStart, fightEnd } = info;
   const windows = activeWindows ?? [{ startTime: fightStart, endTime: fightEnd }];
   const spellCasts = castEfficiency.getCastEfficiencyForSpellId(spell.id);
   const efficiency = spellCasts?.efficiency ?? 0;
@@ -393,14 +390,23 @@ export default function CastEfficiencyRibbon({
   );
 
   // Build stats cards
-  const statCards = (
-    <Tooltip
-      content={
-        hasCharges
-          ? `Efficiency: ${formatPercentage(efficiency, 1)}%`
-          : `Cast ${actualCasts} out of ${possibleCasts} possible times`
-      }
-    >
+  const statCards = hasCharges ? (
+    <>
+      <Tooltip content={`Cast ${actualCasts} out of ${possibleCasts} possible times`}>
+        <StatCard color={statColor}>
+          <StatValue>{formatPercentage(efficiency, 0)}%</StatValue>
+          <StatLabel>Efficiency</StatLabel>
+        </StatCard>
+      </Tooltip>
+      <Tooltip content={`Time spent at maximum charges: ${formatDuration(wastedTime)}`}>
+        <StatCard color={specColor}>
+          <StatValue>{wastedSeconds}s</StatValue>
+          <StatLabel>Time Capped</StatLabel>
+        </StatCard>
+      </Tooltip>
+    </>
+  ) : (
+    <Tooltip content={`Cast ${actualCasts} out of ${possibleCasts} possible times`}>
       <StatCard color={statColor}>
         <StatValue>{formatPercentage(efficiency, 0)}%</StatValue>
         <StatLabel>Efficiency</StatLabel>
@@ -414,23 +420,14 @@ export default function CastEfficiencyRibbon({
       maximum={possibleCasts}
       actualLabel={`${actualCasts} casts`}
       maximumLabel={`Max ${possibleCasts}`}
-      barColor={cooldownColor}
+      barColor={specColor}
       performanceRanges={performanceRanges}
-      secondaryMetric={
-        wastedSeconds > 0
-          ? {
-              value: (wastedTime / fightDuration) * 100,
-              label: `${wastedSeconds}s capped`,
-              color: wastedTimeColor || cooldownColor,
-            }
-          : undefined
-      }
     />
   ) : (
     <TimelineWrapper>
       <SegmentedTimeline
         windows={windows}
-        segments={createCooldownSegments(spell.id, events, windows, cooldownColor)}
+        segments={createCooldownSegments(spell.id, events, windows, specColor)}
         markers={createCastMarkers(spell.id, events, windows)}
       />
     </TimelineWrapper>

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
 import { useInfo } from 'interface/guide';
+import { getSpecColor } from 'interface/guide/colors';
 import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { useState } from 'react';
@@ -104,15 +105,13 @@ interface Props {
   data: TargetData[];
   /** Type of intensity chart - 'DPS' or 'HPS'. Default: 'DPS' */
   chartType?: 'DPS' | 'HPS';
-  /** Base color for the middle tier of the gradient (HSL format recommended, e.g., 'hsl(35, 90%, 55%)'). Default: fire orange */
-  baseColor?: string;
-  /** Custom header override. If not provided, uses "{spell.name} Intensity Chart" or "Damage/Healing Intensity Chart" */
+  /** Custom header override. If not provided, uses "{spell.name} Chart" or "Damage/Healing Chart" */
   headerOverride?: string;
-  /** Helper text to display below the header */
+  /** Optional helper text explaining how to interpret the chart */
   helperText?: string;
-  /** Optional uptime percentage (0-1). If provided, displays uptime stat calculated from buff/debuff duration */
+  /** Optional uptime percentage to display in the header */
   uptimePercent?: number;
-  /** Number of time blocks to divide the fight into. Default: 60 */
+  /** Optional block count to display in the header */
   blockCount?: number;
 }
 
@@ -129,7 +128,6 @@ interface Props {
  * @param spell - The spell being tracked (optional - if omitted, shows all damage/healing)
  * @param data - Array of per-target damage/healing event data
  * @param chartType - Type of chart: 'DPS' or 'HPS' (default: 'DPS')
- * @param baseColor - Base color for middle tier of gradient, HSL format recommended (default: fire orange)
  * @param headerOverride - Custom header text (default: auto-generated from spell/type)
  * @param helperText - Optional helper text to display below the header
  * @param uptimePercent - Optional uptime 0-1, displays uptime stat if provided
@@ -139,12 +137,12 @@ export default function IntensityChart({
   spell,
   data,
   chartType = 'DPS',
-  baseColor = '#fab700',
   headerOverride,
   uptimePercent,
   blockCount = 60,
 }: Props) {
   const info = useInfo();
+  const baseColor = getSpecColor(info?.combatant.spec?.id);
   const [showPerTarget, setShowPerTarget] = useState(false);
 
   if (!info || data.length === 0) {

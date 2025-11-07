@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
 import { formatNumber } from 'common/format';
+import { useRef, useEffect, useState } from 'react';
 
 /**
  * A heatmap grid visualization component for displaying time-series data with color intensity.
@@ -61,16 +62,38 @@ export default function Heatmap({
   tooltipFormat,
   className,
 }: HeatmapProps) {
-  // Calculate cell size based on the number of blocks in the data
-  // More blocks = smaller cells to keep total width manageable
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [cellSize, setCellSize] = useState(20);
+
   const blockCount = rows[0]?.blocks.length || 60;
-  const baseCellSize = 20;
-  const cellSize =
-    blockCount <= 60
-      ? baseCellSize
-      : Math.max(12, baseCellSize - Math.floor((blockCount - 60) / 10));
   const cellGap = 2;
   const rowGap = 16;
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const containerWidth = entry.contentRect.width;
+        const totalGapWidth = (blockCount - 1) * cellGap;
+        const availableForCells = containerWidth - totalGapWidth;
+        const calculatedSize = Math.floor(availableForCells / blockCount);
+
+        // Clamp between reasonable min/max values
+        const size = Math.max(8, Math.min(24, calculatedSize));
+
+        setCellSize(size);
+      }
+    });
+
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [blockCount, cellGap]);
 
   const getColor = (value: number): string => {
     if (value === 0) return emptyColor;
@@ -108,7 +131,7 @@ export default function Heatmap({
   const getTooltipContent = tooltipFormat || defaultTooltip;
 
   return (
-    <Container $rowGap={rowGap} className={className}>
+    <Container $rowGap={rowGap} className={className} ref={containerRef}>
       {rows.map((row, rowIdx) => (
         <Row key={rowIdx}>
           {row.label && (
@@ -137,7 +160,7 @@ const Container = styled.div<{ $rowGap: number }>`
   display: flex;
   flex-direction: column;
   gap: ${({ $rowGap }) => $rowGap}px;
-  min-width: fit-content;
+  width: 100%;
 `;
 
 const Row = styled.div`
@@ -163,15 +186,12 @@ const SecondaryLabel = styled.span`
 const CellsContainer = styled.div<{ $gap: number }>`
   display: flex;
   gap: ${({ $gap }) => $gap}px;
-  flex: 1;
 `;
 
 const Cell = styled.div<{ $color: string; $size: number }>`
-  flex: 1;
-  min-width: 0;
-  aspect-ratio: 1;
-  max-width: ${({ $size }) => $size}px;
-  max-height: ${({ $size }) => $size}px;
+  width: ${({ $size }) => $size}px;
+  height: ${({ $size }) => $size}px;
+  flex-shrink: 0;
   background-color: ${({ $color }) => $color};
   border-radius: 2px;
   transition: all 0.15s ease;

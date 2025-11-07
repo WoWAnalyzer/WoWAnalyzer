@@ -122,18 +122,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               <CastEfficiencyRibbon spell={TALENTS.COMBUSTION_TALENT} compactLayout />
             )}
             {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
-              <CastEfficiencyRibbon
-                spell={TALENTS.PHOENIX_FLAMES_TALENT}
-                cooldownColor={'#ca570aff'}
-                compactLayout
-              />
+              <CastEfficiencyRibbon spell={TALENTS.PHOENIX_FLAMES_TALENT} compactLayout />
             )}
             {info.combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) && (
-              <CastEfficiencyRibbon
-                spell={TALENTS.FIRE_BLAST_TALENT}
-                cooldownColor={'#b30b0bd7'}
-                compactLayout
-              />
+              <CastEfficiencyRibbon spell={TALENTS.FIRE_BLAST_TALENT} compactLayout />
             )}
             {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
               <CastEfficiencyRibbon spell={TALENTS.METEOR_TALENT} compactLayout />
@@ -147,14 +139,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           spell={SPELLS.IGNITE}
           data={modules.igniteTracker.getTargetDpsData()}
           chartType="DPS"
-          baseColor="#bd6620ff"
           uptimePercent={modules.igniteTracker.getUptimePercent()}
         />
         <IntensityBar
           spell={SPELLS.IGNITE}
           data={modules.igniteTracker.getTargetDpsData()}
           chartType="DPS"
-          baseColor="#bd6620ff"
         />
         <DamageContribution
           title="Damage During Combustion"
@@ -197,14 +187,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           spell={SPELLS.IGNITE}
           data={modules.igniteTracker.getTargetDpsData()}
           chartType="DPS"
-          baseColor="#bd6620ff"
           uptimePercent={modules.igniteTracker.getUptimePercent()}
         />
         <IntensityBar
           spell={SPELLS.IGNITE}
           data={modules.igniteTracker.getTargetDpsData()}
           chartType="DPS"
-          baseColor="#bd6620ff"
         />
       </GuideSection>
 

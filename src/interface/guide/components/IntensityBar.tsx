@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
-import { Tooltip } from 'interface';
 import { useInfo } from 'interface/guide';
+import { getSpecColor } from 'interface/guide/colors';
 import { formatDuration, formatPercentage, formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
-import { StatsRow, StatCard, StatValue, StatLabel } from './GuideDivs';
 import StackedBar, { StackedBarSegment } from './StackedBar';
 import GuideDataWrapper from './GuideDataWrapper';
 
@@ -103,8 +102,6 @@ interface Props {
   data: TargetData[];
   /** Type of intensity chart - 'DPS' or 'HPS'. Default: 'DPS' */
   chartType?: 'DPS' | 'HPS';
-  /** Base color for the middle tier of the gradient (HSL format recommended, e.g., 'hsl(35, 90%, 55%)'). Default: fire orange */
-  baseColor?: string;
   /** Custom header override. If not provided, uses "{spell.name} Time Distribution" or "Damage/Healing Time Distribution" */
   headerOverride?: string;
   /** Height of the bar in pixels. Default: 60 */
@@ -126,7 +123,6 @@ interface Props {
  * @param spell - The spell being tracked (optional - if omitted, shows all damage/healing)
  * @param data - Array of per-target damage/healing event data
  * @param chartType - Type of chart: 'DPS' or 'HPS' (default: 'DPS')
- * @param baseColor - Base color for middle tier of gradient, HSL format recommended (default: fire orange)
  * @param headerOverride - Custom header text (default: auto-generated from spell/type)
  * @param height - Height of the bar in pixels (default: 60)
  * @param showLabels - Whether to show percentage labels on segments (default: true)
@@ -135,12 +131,12 @@ export default function IntensityBar({
   spell,
   data,
   chartType = 'DPS',
-  baseColor = '#fab700',
   headerOverride,
   height = 45,
   showLabels = true,
 }: Props) {
   const info = useInfo();
+  const baseColor = getSpecColor(info?.combatant.spec?.id);
 
   if (!info || data.length === 0) {
     return null;
@@ -237,8 +233,8 @@ export default function IntensityBar({
     ),
   }));
 
-  const statsContent = (
-    <StatsRow>
+  const legend = (
+    <Legend>
       {thresholds.map((tier, idx) => {
         const duration = tierDurations[idx];
         const percent = (duration / totalDuration) * 100;
@@ -250,49 +246,34 @@ export default function IntensityBar({
             : `${formatNumber(tier.min)}-${formatNumber(tier.max)} ${unitLabel}`;
 
         return (
-          <Tooltip
-            key={idx}
-            content={
-              <>
-                <strong>{tier.label}</strong>
-                <br />
-                {thresholdLabel}
-                <br />
-                Duration: {formatDuration(duration)}
-                <br />
-                Percentage: {formatPercentage(duration / totalDuration, 1)}%
-              </>
-            }
-          >
-            <StatCard color={colors[idx]}>
-              <StatValue>{formatDuration(duration)}</StatValue>
-              <StatLabel>{tier.label}</StatLabel>
-            </StatCard>
-          </Tooltip>
+          <LegendItem key={idx}>
+            <LegendColor color={colors[idx]} />
+            <LegendContent>
+              <LegendLabel>
+                {tier.label} - {formatDuration(duration)} (
+                {formatPercentage(duration / totalDuration, 1)}%)
+              </LegendLabel>
+              <LegendStats>{thresholdLabel}</LegendStats>
+            </LegendContent>
+          </LegendItem>
         );
       })}
-    </StatsRow>
+    </Legend>
   );
 
   return (
-    <GuideDataWrapper
-      title={headerOverride || defaultHeader}
-      subtitle="Time Distribution"
-      stats={statsContent}
-    >
+    <GuideDataWrapper title={headerOverride || defaultHeader} subtitle="Time Distribution">
       <BarWrapper>
         <StackedBar
           segments={segments}
           height={height}
           showLabels={showLabels}
           labelFormat={(segment, percent) => (
-            <SegmentLabelContainer>
-              <SegmentPercentage>{Math.round(percent)}%</SegmentPercentage>
-              <SegmentTime>{formatDuration(segment.value)}</SegmentTime>
-            </SegmentLabelContainer>
+            <SegmentPercentage>{Math.round(percent)}%</SegmentPercentage>
           )}
         />
       </BarWrapper>
+      {legend}
     </GuideDataWrapper>
   );
 }
@@ -308,25 +289,57 @@ const BarWrapper = styled.div`
   }
 `;
 
-const SegmentLabelContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
-`;
-
 const SegmentPercentage = styled.span`
   color: white;
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 1000;
   -webkit-text-stroke: 4px #000;
   paint-order: stroke fill;
 `;
 
-const SegmentTime = styled.span`
-  color: rgba(255, 255, 255, 0.95);
+const Legend = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  justify-content: center;
+`;
+
+const LegendItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 200px;
+`;
+
+const LegendColor = styled.div<{ color: string }>`
+  width: 24px;
+  height: 24px;
+  background: ${(props) => props.color};
+  border-radius: 4px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+`;
+
+const LegendContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`;
+
+const LegendLabel = styled.div`
   font-size: 1.4rem;
-  font-weight: 1000;
-  -webkit-text-stroke: 4px #000;
-  paint-order: stroke fill;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.2;
+`;
+
+const LegendStats = styled.div`
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.2;
 `;
