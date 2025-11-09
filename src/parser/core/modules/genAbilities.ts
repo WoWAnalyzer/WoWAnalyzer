@@ -126,7 +126,14 @@ function checkEnabled(
 
   // check if another spell overrides this one *and* is statically enabled
   for (const other of Object.values(allSpells)) {
-    if (other.overrides === spell.id && checkEnabled(other, combatant, allSpells)) {
+    if (
+      other.overrides === spell.id &&
+      // if a spell is both granted by and overrides the same spell, don't check it.
+      // this prevents infinite recursion.
+      // an example of this is the Flying Serpent Kick slam that you can use while using FSK.
+      (!('grantedBy' in other) || other.grantedBy !== spell.id) &&
+      checkEnabled(other, combatant, allSpells)
+    ) {
       return false;
     }
   }
