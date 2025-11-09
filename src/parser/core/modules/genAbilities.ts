@@ -119,6 +119,8 @@ function checkEnabled(
     const source = allSpells[spell.grantedBy];
     if (source.type === 'glyph') {
       return combatant.hasGlyph(source.glyphId);
+    } else {
+      return checkEnabled(source, combatant, allSpells);
     }
   }
 

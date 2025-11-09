@@ -1,14 +1,5 @@
 import type { RetailSpell } from 'wow-dbc';
 const SPELLS = {
-  UNKNOWN: {
-    id: -1,
-    grantedBy: 137044,
-    type: 'temporary',
-    overrides: 105174,
-    passive: false,
-    name: 'Unknown',
-    icon: 'inv_axe_02.jpg',
-  },
   EYE_OF_KILROGG: {
     id: 126,
     type: 'baseline',
@@ -1845,7 +1836,7 @@ const SPELLS = {
     id: 112927,
     grantedBy: 108499,
     type: 'temporary',
-    // overrides: 18540,
+    overrides: 18540,
     iconID: 615098,
     passive: false,
     name: 'Summon Terrorguard',
