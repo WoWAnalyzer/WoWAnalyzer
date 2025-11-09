@@ -1,5 +1,5 @@
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS/classic/warlock';
+import SPELLS from '../../spell-list_Warlock_Affliction.classic';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';

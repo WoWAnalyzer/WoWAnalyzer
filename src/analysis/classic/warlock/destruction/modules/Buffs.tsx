@@ -1,5 +1,5 @@
 import CoreAuras from 'parser/core/modules/Auras';
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from '../spell-list_Warlock_Destruction.classic';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import ITEM_BUFFS from 'game/classic/ITEM_BUFFS';
 
