@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS/demonhunter';
-import TALENTS from 'common/TALENTS/demonhunter';
 import {
   CastEvent,
   EventType,
@@ -32,7 +31,7 @@ const RESOURCE_CHANGE = 'ShearFractureResourceChange';
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: GENERATED_SOUL_FRAGMENT,
-    referencedEventId: [SPELLS.SHEAR.id, TALENTS.FRACTURE_TALENT.id],
+    referencedEventId: SPELLS.FRACTURE.id,
     referencedEventType: EventType.Cast,
     linkingEventId: SPELLS.SOUL_FRAGMENT.id,
     linkingEventType: EventType.Cast,
@@ -52,9 +51,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: RESOURCE_CHANGE,
-    referencedEventId: [SPELLS.SHEAR.id, TALENTS.FRACTURE_TALENT.id],
+    referencedEventId: SPELLS.FRACTURE.id,
     referencedEventType: EventType.ResourceChange,
-    linkingEventId: [SPELLS.SHEAR.id, TALENTS.FRACTURE_TALENT.id],
+    linkingEventId: SPELLS.FRACTURE.id,
     linkingEventType: EventType.Cast,
     forwardBufferMs: RESOURCE_CHANGE_BUFFER,
     backwardBufferMs: RESOURCE_CHANGE_BUFFER,

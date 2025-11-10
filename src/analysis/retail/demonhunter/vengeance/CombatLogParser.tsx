@@ -2,18 +2,14 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DemonSoulBuff,
   DisruptingFury,
   Felblade,
-  FlamesOfFury,
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
-  SwallowedAnger,
-  TheHunt,
-  TheHuntNormalizer,
-  DemonSoulBuff,
-  SigilOfFlameNormalizer,
   SigilOfFlame,
+  SwallowedAnger,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -27,7 +23,6 @@ import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryGraph from './modules/resourcetracker/FuryGraph';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 import InfernalStrike from './modules/spells/InfernalStrike';
-import ShearFracture from './modules/spells/ShearFracture';
 import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulsOvercap from './modules/statistics/SoulsOvercap';
 import AgonizingFlames from './modules/talents/AgonizingFlames';
@@ -46,7 +41,7 @@ import VoidReaver from './modules/talents/VoidReaver';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
-import Fracture from './modules/talents/Fracture';
+import Fracture from './modules/spells/Fracture';
 import SoulCarver from './modules/talents/SoulCarver';
 import FelDevastation from './modules/talents/FelDevastation';
 import ImmolationAuraLinker from './normalizers/ImmolationAuraLinker';
@@ -62,10 +57,10 @@ import Guide from './Guide';
 import FelDevastationLinkNormalizer from './normalizers/FelDevastationLinkNormalizer';
 import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
 import CycleOfBinding from './modules/talents/CycleOfBinding';
-import ConsumingFireNormalizer from '../shared/normalizers/ConsumingFireNormalizer';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
 import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
+import SigilOfFlameNormalizer from './normalizers/SigilOfFlameNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,12 +87,10 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
     spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
-    theHuntNormalizer: TheHuntNormalizer,
     felDevastationNormalizer: FelDevastationNormalizer,
     felDevastationLinkNormalizer: FelDevastationLinkNormalizer,
     sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
     cycleOfBindingNormalizer: CycleOfBindingNormalizer,
-    consumingFireNormalizer: ConsumingFireNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -117,9 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     burningAlive: BurningAlive,
     feastOfSouls: FeastOfSouls,
     agonizingFlames: AgonizingFlames,
-    shearFracture: ShearFracture,
     shatteredRestoration: ShatteredRestoration,
-    theHunt: TheHunt,
     sigilOfSpite: SigilOfSpite,
     felblade: Felblade,
     charredWarblades: CharredWarblades,
@@ -129,7 +120,6 @@ class CombatLogParser extends CoreCombatLogParser {
     demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
     swallowedAnger: SwallowedAnger,
-    flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
     fieryBrand: FieryBrand,
     voidReaver: VoidReaver,

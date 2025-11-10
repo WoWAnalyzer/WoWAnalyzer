@@ -1,25 +1,30 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import Events, { ResourceChangeEvent } from 'parser/core/Events';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import TalentSpellText from 'parser/ui/TalentSpellText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-export default class FlamesOfFury extends Analyzer {
+/**
+ * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
+ */
+class DemonBlades extends Analyzer {
   furyGain = 0;
   furyWaste = 0;
+  damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT);
-    if (!this.active) {
-      return;
-    }
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FLAMES_OF_FURY_FURY_GEN),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
       this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
+      this.onDamageEvent,
     );
   }
 
@@ -44,14 +49,21 @@ export default class FlamesOfFury extends Analyzer {
     this.furyWaste += event.waste;
   }
 
+  onDamageEvent(event: DamageEvent) {
+    this.damage += event.amount;
+  }
+
   statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(6)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
+            {formatThousands(this.damage)} Total damage
+            <br />
             {effectiveFuryGain} Effective Fury gained
             <br />
             {this.furyGain} Total Fury gained
@@ -60,10 +72,13 @@ export default class FlamesOfFury extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT}>
-          {this.furyPerMin} <small>Fury per min</small>
-        </TalentSpellText>
+        <BoringSpellValueText spell={SPELLS.DEMON_BLADES}>
+          {this.furyPerMin} <small>Fury per min</small> <br />
+          {this.owner.formatItemDamageDone(this.damage)}
+        </BoringSpellValueText>
       </Statistic>
     );
   }
 }
+
+export default DemonBlades;

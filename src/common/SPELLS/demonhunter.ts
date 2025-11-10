@@ -40,16 +40,6 @@ const spells = {
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
   },
-  SIGIL_OF_FLAME_PRECISE: {
-    id: 389810,
-    name: 'Sigil of Flame',
-    icon: 'ability_demonhunter_sigilofinquisition',
-  },
-  SIGIL_OF_MISERY_PRECISE: {
-    id: 389813,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
-  },
   SIGIL_OF_FLAME_DEBUFF: {
     id: 204598,
     name: 'Sigil of Flame',
@@ -155,11 +145,6 @@ const spells = {
     name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
   },
-  SIGIL_OF_SPITE_PRECISE: {
-    id: 389815,
-    name: 'Sigil of Spite',
-    icon: 'ability_bastion_demonhunter',
-  },
   SIGIL_OF_SPITE_DAMAGE: {
     id: 389860,
     name: 'Sigil of Spite',
@@ -201,6 +186,11 @@ const spells = {
   },
 
   // Abilities:
+  FRACTURE: {
+    id: 263642,
+    name: 'Fracture',
+    icon: 'ability_creature_felsunder',
+  },
   FRACTURE_MAIN_HAND: {
     id: 225919,
     name: 'Fracture(Main Hand)',
@@ -210,11 +200,6 @@ const spells = {
     id: 225921,
     name: 'Fracture(Off Hand)',
     icon: 'ability_creature_felsunder',
-  },
-  SHEAR: {
-    id: 203782,
-    name: 'Shear',
-    icon: 'ability_demonhunter_hatefulstrike',
   },
   SOUL_FRAGMENT: {
     id: 204255,
@@ -337,16 +322,6 @@ const spells = {
     name: 'Painbringer',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-  SIGIL_OF_SILENCE_PRECISE: {
-    id: 389809,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_CHAINS_PRECISE: {
-    id: 389807,
-    name: 'Sigil of Chains',
-    icon: 'ability_demonhunter_sigilofchains',
-  },
   SIGIL_OF_SILENCE_DEBUFF: {
     id: 204490,
     name: 'Sigil of Silence',
@@ -371,10 +346,10 @@ const spells = {
 
   //region Havoc
   //spells
-  DEMONS_BITE: {
-    id: 162243,
-    name: "Demon's Bite",
-    icon: 'inv_weapon_glave_01',
+  DEMON_BLADES: {
+    id: 203555,
+    name: 'Demon Blades',
+    icon: 'inv_weapon_shortblade_92',
   },
   CHAOS_STRIKE: {
     id: 162794,

@@ -5,13 +5,10 @@ import {
   DemonSoulBuff,
   DisruptingFury,
   Felblade,
-  FlamesOfFury,
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
   SwallowedAnger,
-  TheHunt,
-  TheHuntNormalizer,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -25,20 +22,16 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 import BladeDance from './modules/spells/BladeDance';
-import DemonBite from './modules/spells/DemonBite';
 import Blur from './modules/spells/Blur';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
 import BlindFury from './modules/talents/BlindFury';
 import FuriousGaze from './modules/talents/FuriousGaze';
 import ChaosTheory from './modules/talents/ChaosTheory';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
-import DemonBlades from './modules/talents/DemonBlades';
 import DemonicDeathSweep from './modules/talents/DemonicDeathSweep';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
 import SigilOfSpite from './modules/talents/SigilOfSpite';
 import EssenceBreak from './modules/talents/EssenceBreak';
-import FelBarrage from './modules/talents/FelBarrage';
-import FelEruption from './modules/talents/FelEruption';
 import GlaiveTempest from './modules/talents/GlaiveTempest';
 import Exergy from './modules/talents/Exergy';
 import Netherwalk from './modules/talents/Netherwalk';
@@ -60,9 +53,12 @@ import { EyeBeam } from './modules/talents/EyeBeam';
 import { ThrowGlaive } from './modules/spells/ThrowGlaive';
 import UnboundChaosNormalizer from './normalizers/UnboundChaosNormalizer';
 import UnboundChaos from './modules/talents/UnboundChaos';
-import ConsumingFireNormalizer from '../shared/normalizers/ConsumingFireNormalizer';
 import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
 import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
+import ConsumingFireNormalizer from 'analysis/retail/demonhunter/havoc/normalizers/ConsumingFireNormalizer';
+import TheHuntNormalizer from './normalizers/TheHuntNormalizer';
+import TheHunt from 'analysis/retail/demonhunter/havoc/modules/talents/TheHunt';
+import DemonBlades from 'analysis/retail/demonhunter/havoc/modules/spells/DemonBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,24 +83,21 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     // Spells
-    demonBite: DemonBite,
     metaBuffUptime: MetaBuffUptime,
     bladeDance: BladeDance,
     blur: Blur,
     immolationAura: ImmolationAura,
     demonSoulBuff: DemonSoulBuff,
     throwGlaive: ThrowGlaive,
+    demonBlades: DemonBlades,
+    demonicAppetite: DemonicAppetite,
 
     //Talents
     felblade: Felblade,
-    demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,
-    demonBlades: DemonBlades,
     trailofRuin: TrailofRuin,
-    felBarrage: FelBarrage,
     exergy: Exergy,
     netherwalk: Netherwalk,
-    felEruption: FelEruption,
     masterOfTheGlaive: MasterOfTheGlaive,
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
@@ -126,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     burningHatred: BurningHatred,
     demonic: Demonic,
     swallowedAnger: SwallowedAnger,
-    flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
     eyeBeam: EyeBeam,
     unboundChaos: UnboundChaos,

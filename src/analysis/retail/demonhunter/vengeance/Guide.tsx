@@ -122,8 +122,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <br />
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
-        modules.fracture.guideSubsection()}
+      {modules.fracture.guideSubsection()}
       {modules.immolationAura.vengeanceGuideSubsection()}
       {modules.sigilOfFlame.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
@@ -147,16 +146,8 @@ const cooldowns: Cooldown[] = [
     isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT),
   },
   {
-    spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT),
-  },
-  {
     spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT,
     isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
-  },
-  {
-    spell: TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT),
   },
   {
     spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT,
@@ -180,9 +171,6 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <CooldownGraphSubsection cooldowns={cooldowns} />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) && (
         <CooldownUsage analyzer={modules.felDevastation} />
-      )}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) && (
-        <CooldownUsage analyzer={modules.theHunt} />
       )}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT) && (
         <CooldownUsage analyzer={modules.soulCarver} />

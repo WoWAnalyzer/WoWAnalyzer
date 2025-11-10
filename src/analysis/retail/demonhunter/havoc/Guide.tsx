@@ -101,13 +101,6 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           </div>,
           <></>,
         )}
-      {info.combatant.hasTalent(TALENTS.FEL_BARRAGE_TALENT) &&
-        explanationAndDataSubsection(
-          <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.FEL_BARRAGE_TALENT} /> coming soon!
-          </div>,
-          <></>,
-        )}
     </Section>
   );
 }

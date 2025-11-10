@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
-import TALENTS from 'common/TALENTS/demonhunter';
+import TALENTS, { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import SharedAbilities from 'analysis/retail/demonhunter/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -21,7 +21,7 @@ class Abilities extends SharedAbilities {
     return [
       // Rotation
       {
-        spell: [SPELLS.IMMOLATION_AURA.id, SPELLS.CONSUMING_FIRE_1.id],
+        spell: SPELLS.IMMOLATION_AURA.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
@@ -45,21 +45,32 @@ class Abilities extends SharedAbilities {
         ],
       },
       {
-        spell: [
-          combatant.hasTalent(TALENTS.FRACTURE_TALENT)
-            ? TALENTS.FRACTURE_TALENT.id
-            : SPELLS.SHEAR.id,
-        ],
+        spell: SPELLS.FRACTURE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(TALENTS.FRACTURE_TALENT) ? (haste) => 4.5 / (1 + haste) : 0,
-        charges: combatant.hasTalent(TALENTS.FRACTURE_TALENT) ? 2 : 0,
+        cooldown: (haste) =>
+          (5 - combatant.getTalentRank(TALENTS.PERFECTLY_BALANCED_GLAIVE_TALENT)) / (1 + haste),
+        charges: 2,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS.FRACTURE_TALENT),
+          suggestion: true,
           recommendedEfficiency: 0.9,
         },
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: [SPELLS.SIGIL_OF_FLAME.id],
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
+        },
+        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
       },
 
       // Defensive / Healing
@@ -122,9 +133,8 @@ class Abilities extends SharedAbilities {
         gcd: null,
       },
       {
-        spell: [TALENTS.SIGIL_OF_SILENCE_TALENT.id, SPELLS.SIGIL_OF_SILENCE_PRECISE.id],
+        spell: TALENTS.SIGIL_OF_SILENCE_TALENT.id,
         enabled: this.selectedCombatant.hasTalent(TALENTS.SIGIL_OF_SILENCE_TALENT),
-        charges: 1 + (combatant.hasTalent(TALENTS.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 * (1 - (combatant.hasTalent(TALENTS.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
         gcd: {
@@ -132,11 +142,10 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: [TALENTS.SIGIL_OF_CHAINS_TALENT.id, SPELLS.SIGIL_OF_CHAINS_PRECISE.id],
+        spell: TALENTS.SIGIL_OF_CHAINS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.SIGIL_OF_CHAINS_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        charges: 1 + (combatant.hasTalent(TALENTS.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -158,34 +167,6 @@ class Abilities extends SharedAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS.SOUL_BARRIER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SOUL_BARRIER_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        isDefensive: true,
-      },
-      {
-        spell: TALENTS.BULK_EXTRACTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.BULK_EXTRACTION_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        isDefensive: true,
       },
       {
         spell: TALENTS.FEL_DEVASTATION_TALENT.id,
@@ -235,6 +216,26 @@ class Abilities extends SharedAbilities {
               The only time you should delay casting{' '}
               <SpellLink spell={TALENTS.SOUL_CARVER_TALENT} /> is when you're expecting are
               preparing for a burst window.
+            </>
+          ),
+        },
+      },
+      {
+        spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting{' '}
+              <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT} /> is when you're
+              expecting adds to spawn soon.
             </>
           ),
         },

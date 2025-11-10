@@ -2016,7 +2016,7 @@ export const Ahri: Contributor = {
   discord: 'ahriandel',
 };
 
-export const ToppleTheNun: Contributor = {
+export const Topple: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
   avatar: avatar('ToppleTheNun-avatar.jpg'),

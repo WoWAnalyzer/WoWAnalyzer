@@ -10,6 +10,7 @@ import {
 } from 'analysis/retail/demonhunter/shared';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 import { getFelRushCooldown } from 'analysis/retail/demonhunter/havoc/modules/spells/FelRush';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 class Abilities extends SharedAbilities {
   spellbook(): SpellbookAbility[] {
@@ -43,14 +44,6 @@ class Abilities extends SharedAbilities {
           SPELLS.IMMOLATION_AURA_AFI_BUFF_DAMAGE_1.id,
           SPELLS.IMMOLATION_AURA_AFI_BUFF_DAMAGE_2.id,
         ],
-      },
-      {
-        spell: SPELLS.DEMONS_BITE.id,
-        enabled: !combatant.hasTalent(TALENTS.DEMON_BLADES_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: [SPELLS.CHAOS_STRIKE.id, SPELLS.ANNIHILATION.id],
@@ -181,8 +174,8 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: TALENTS.FEL_BARRAGE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.FEL_BARRAGE_TALENT),
+        spell: TALENTS_DEMON_HUNTER.THE_HUNT_HAVOC_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_HAVOC_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -190,29 +183,16 @@ class Abilities extends SharedAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
-        },
-      },
-      {
-        spell: TALENTS.GLAIVE_TEMPEST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.GLAIVE_TEMPEST_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: (haste) => 25 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.8,
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink spell={TALENTS.GLAIVE_TEMPEST_TALENT} /> is when you're expecting adds to
-              spawn soon.
+              <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_HAVOC_TALENT} /> is when you're
+              expecting adds to spawn soon.
             </>
           ),
         },
+        damageSpellIds: [SPELLS.THE_HUNT_CHARGE.id, SPELLS.THE_HUNT_DOT.id],
       },
 
       // Big DPS Cooldowns

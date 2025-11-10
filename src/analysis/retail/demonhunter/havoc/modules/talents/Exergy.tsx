@@ -62,8 +62,9 @@ class Exergy extends Analyzer {
           EXERGY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.EXERGY_TALENT)],
           0,
         )}
-        % damage increase for 20 seconds after casting <SpellLink spell={TALENTS.THE_HUNT_TALENT} />{' '}
-        and <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} />. This should be treated as a
+        % damage increase for 20 seconds after casting{' '}
+        <SpellLink spell={TALENTS.THE_HUNT_HAVOC_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} />. This should be treated as a
         maintenance buff with almost 100% uptime, since{' '}
         <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} /> has a 20 seconds cooldown itself with{' '}
         <SpellLink spell={TALENTS.TACTICAL_RETREAT_TALENT} /> taken.
