@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 10), <>Add spells to DemonSoul Allowlist.</>, Quaarkz),
   change(date(2025, 11, 10), <>Fix Demon Soul increased damage calculation.</>, Quaarkz),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 9, 23), <>Clean up <SpellLink spell={TALENTS.FRACTURE_TALENT} /> analyzer.</>, ToppleTheNun),
