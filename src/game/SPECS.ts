@@ -5,7 +5,6 @@ import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import ROLES from './ROLES';
 import { MessageDescriptor } from '@lingui/core';
 import GameBranch from './GameBranch';
-import { TIMEWALKER_MASTERY_COEFFICIENT } from 'analysis/retail/evoker/augmentation/constants';
 
 interface BaseSpec {
   id: number;
