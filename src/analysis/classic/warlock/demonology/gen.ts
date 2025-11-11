@@ -18,21 +18,34 @@ export const Abilities = genAbilities({
     spells.UNBOUND_WILL_TALENT,
     spells.UNENDING_RESOLVE,
   ],
-  // overrides: {
-  //   [spells.SUMMON_TERRORGUARD.id]: (combatant, generated) => {
-  //     if (!generated) {
-  //       throw new Error(); // type checker can't tell that we're guaranteed to have this spell in the list
-  //     }
-  //     const supremacy = combatant.hasClassicTalent(spells.GRIMOIRE_OF_SUPREMACY_TALENT)
-
-  //     if (supremacy) {
-  //       return generated;
-  //     } else {
-  //       return {
-  //         ...generated,
-  //         overrides: 18540,
-  //       }
-  //     }
-  //   },
-  // },
+  overrides: {
+    [spells.DARK_SOUL_KNOWLEDGE.id]: (combatant, generated) => {
+      if (!generated) {
+        throw new Error(
+          "type checker can't tell that we're guaranteed to have this spell in the list",
+        );
+      }
+      const archimondes = combatant.hasClassicTalent(spells.ARCHIMONDES_DARKNESS_TALENT);
+      if (archimondes) {
+        return {
+          ...generated,
+          cooldown: 20,
+        };
+      } else return generated;
+    },
+    [spells.IMP_SWARM.id]: (combatant, generated) => {
+      if (!generated) {
+        throw new Error(
+          "type checker can't tell that we're guaranteed to have this spell in the list",
+        );
+      }
+      const impswarm = combatant.hasGlyph(spells.GLYPH_OF_IMP_SWARM.glyphId);
+      if (impswarm) {
+        return {
+          ...generated,
+          cooldown: (haste) => 124 / (1 + haste),
+        };
+      } else return generated;
+    },
+  },
 });

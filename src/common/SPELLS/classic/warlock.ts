@@ -7,7 +7,61 @@
 import Spell from '../Spell';
 
 const spells = {
-  // Pet casts
+  // ---------
+  // SPELLS
+  // ---------
+  DEMONIC_CIRCLE_SUMMON: {
+    id: 48018,
+    name: 'Demonic Circle: Summon',
+    icon: 'spell_shadow_demoniccirclesummon.jpg',
+  },
+  SOUL_SWAP_EXHALE: {
+    id: 86213,
+    name: 'Soul Swap Exhale',
+    icon: 'ability_rogue_envelopingshadows.jpg',
+  },
+  // Requires Metamorphosis
+  CHAOS_WAVE: {
+    id: 124916,
+    name: 'Chaos Wave',
+    icon: 'ability_warlock_coil2.jpg',
+  },
+  DOOM: {
+    id: 603,
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness.jpg',
+  },
+  IMMOLATION_AURA: {
+    id: 104025,
+    name: 'Immolation Aura',
+    icon: 'ability_warlock_inferno.jpg',
+  },
+  SOUL_FIRE_META: {
+    id: 104027,
+    name: 'Soul Fire',
+    icon: 'spell_fire_fireball02.jpg',
+  },
+  TOUCH_OF_CHAOS: {
+    id: 103964,
+    name: 'Touch of Chaos',
+    icon: 'inv_jewelcrafting_shadowspirit_02.jpg',
+  },
+  // ---------
+  // TALENTS
+  // ---------
+  GRIMOIRE_OF_SACRIFICE: {
+    id: 108503,
+    name: 'Grimoire of Sacrifice',
+    icon: 'warlock_grimoireofsacrifice.jpg',
+  },
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga.jpg',
+  },
+  // ---------
+  // PET CASTS
+  // ---------
   DOOM_BOLT: {
     // Doomguard
     id: 85692,
@@ -32,29 +86,9 @@ const spells = {
     name: 'Shadow Bulwark',
     icon: 'spell_shadow_antishadow.jpg',
   },
-  // Spells
-  DEMONIC_CIRCLE_SUMMON: {
-    id: 48018,
-    name: 'Demonic Circle: Summon',
-    icon: 'spell_shadow_demoniccirclesummon.jpg',
-  },
-  SOUL_SWAP_EXHALE: {
-    id: 86213,
-    name: 'Soul Swap Exhale',
-    icon: 'ability_rogue_envelopingshadows.jpg',
-  },
-  // Talents
-  GRIMOIRE_OF_SACRIFICE: {
-    id: 108503,
-    name: 'Grimoire of Sacrifice',
-    icon: 'warlock_grimoireofsacrifice.jpg',
-  },
-  SHADOWFURY: {
-    id: 30283,
-    name: 'Shadowfury',
-    icon: 'ability_warlock_shadowfurytga.jpg',
-  },
+  // ---------
   // Casts that aren't casts
+  // ---------
   CORRUPTION_TICK: {
     id: 146739,
     name: 'Corruption',
@@ -70,7 +104,9 @@ const spells = {
     name: 'Shadow Trance',
     icon: 'spell_shadow_twilight.jpg',
   },
+  // ---------
   // Channeling Spells
+  // ---------
   DRAIN_LIFE: {
     id: 689,
     name: 'Drain Life',

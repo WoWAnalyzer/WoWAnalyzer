@@ -11,7 +11,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 // Spells
-// import SpellName from './modules/spells';
+import Metamorphosis from './modules/spells/Metamorphosis';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -26,7 +26,7 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
-    // spellName: SpellName,
+    metamorphosis: Metamorphosis,
   };
   static guide = FoundationGuide;
 }

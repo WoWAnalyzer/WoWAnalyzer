@@ -13,7 +13,7 @@ const CONFIG: Config = {
   // The WoW client patch this spec was last updated.
   patchCompatibility: '5.5.0',
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/VqRJyj1fx3DCwHnb/3-Heroic+Tsulong+-+Kill+(4:15)/Auruch/standard/overview',
+  exampleReport: '/report/mQaLxHZGypBrTc6z/9-Heroic+Garalon+-+Kill+(4:15)/Blurkythree',
 
   // USE CAUTION when changing anything below this line.
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
