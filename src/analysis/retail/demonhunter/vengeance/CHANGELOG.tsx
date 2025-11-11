@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 10), <>Specify the types of events in TheHuntNormalizer.</>, Quaarkz),
   change(date(2025, 11, 10), <>Add spells to DemonSoul Allowlist.</>, Quaarkz),
   change(date(2025, 11, 10), <>Fix Demon Soul increased damage calculation.</>, Quaarkz),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),

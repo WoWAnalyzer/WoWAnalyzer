@@ -66,17 +66,17 @@ export function getChargeImpact(event: CastEvent): DamageEvent | undefined {
 }
 
 export function getDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(
+  return GetRelatedEvents<DamageEvent>(
     event,
-    THE_HUNT_CHARGE,
+    THE_HUNT_DAMAGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
 
 export function getAppliedDots(event: CastEvent): ApplyDebuffEvent[] {
-  return GetRelatedEvents(
+  return GetRelatedEvents<ApplyDebuffEvent>(
     event,
-    THE_HUNT_CHARGE,
+    THE_HUNT_DOT_APPLICATION,
     (e): e is ApplyDebuffEvent => e.type === EventType.ApplyDebuff,
   );
 }
