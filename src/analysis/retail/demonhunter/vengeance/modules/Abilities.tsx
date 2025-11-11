@@ -140,7 +140,6 @@ class Abilities extends SharedAbilities {
         gcd: {
           base: 1500,
         },
-        //Both Silence and Chains can get their cooldown reduced by Cycle of Binding, same for Misery, should be each SoF or SoD cast -5s to all of them
       },
       {
         spell: TALENTS.SPIRIT_BOMB_TALENT.id,

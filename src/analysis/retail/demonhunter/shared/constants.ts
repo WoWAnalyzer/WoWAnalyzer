@@ -56,6 +56,10 @@ export function getSigilOfChainsSpell(c: Combatant): Spell {
   return TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT;
 }
 
+export function getSigilOfDoomSpell(c: Combatant): Spell {
+  return SPELLS.SIGIL_OF_DOOM_CAST;
+}
+
 // see effect #1 here: https://www.wowhead.com/spell=347765/demon-soul
 // list of IDs pulled from simc's SpellDataDump
 export const DEMON_SOUL_BUFF_ALLOWLIST = [
@@ -94,6 +98,8 @@ const SIGIL_OF_CHAINS_SPELLS: Spell[] = [
 ];
 export const SIGIL_OF_CHAINS_SPELL_IDS = SIGIL_OF_CHAINS_SPELLS.map((spell) => spell.id);
 
+const SIGIL_OF_DOOM_SPELLS: Spell[] = [SPELLS.SIGIL_OF_DOOM_CAST];
+export const SIGIL_OF_DOOM_SPELL_IDS = SIGIL_OF_DOOM_SPELLS.map((spell) => spell.id);
 export const DEMONSURGE_TRIGGERS = {
   HAVOC: {
     DEMONIC: [SPELLS.ANNIHILATION, SPELLS.DEATH_SWEEP],
