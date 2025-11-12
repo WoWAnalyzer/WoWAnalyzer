@@ -1,5 +1,5 @@
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS/classic/warlock';
+import spells from '../../spell-list_Warlock_Affliction.classic';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -42,7 +42,7 @@ class DrainSoul extends Analyzer {
     super(options);
     this.active = true;
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(spells.DRAIN_SOUL),
       this.onDrainSoulRemove,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -73,7 +73,7 @@ class DrainSoul extends Analyzer {
   }
 
   statistic() {
-    const damage = this.abilityTracker.getAbilityDamage(SPELLS.DRAIN_SOUL.id);
+    const damage = this.abilityTracker.getAbilityDamage(spells.DRAIN_SOUL.id);
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
@@ -81,7 +81,7 @@ class DrainSoul extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <BoringSpellValueText spell={SPELLS.DRAIN_SOUL}>
+        <BoringSpellValueText spell={spells.DRAIN_SOUL}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

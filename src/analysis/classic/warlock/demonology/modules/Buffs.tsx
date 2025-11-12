@@ -1,16 +1,11 @@
 import CoreAuras from 'parser/core/modules/Auras';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import ITEM_BUFFS from 'game/classic/ITEM_BUFFS';
-import SPELLS from 'common/SPELLS/classic/warlock';
+// import spells from '../spell-list_Warlock_Demonology.classic';
 
 class Buffs extends CoreAuras {
   auras() {
     return [
-      {
-        spellId: SPELLS.METAMORPHOSIS.id,
-        timelineHighlight: true,
-        triggeredBySpellId: SPELLS.METAMORPHOSIS.id,
-      },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
