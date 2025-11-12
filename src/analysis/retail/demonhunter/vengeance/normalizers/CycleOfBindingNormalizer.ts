@@ -80,7 +80,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: CYCLE_OF_BINDING_SIGIL_OF_DOOM,
-    referencedEventId: SPELLS.SIGIL_OF_DOOM_CAST.id,
+    referencedEventId: SPELLS.SIGIL_OF_DOOM_DAMAGE.id,
     referencedEventType: EventType.ApplyDebuff,
     linkingEventId: SIGIL_OF_DOOM_SPELL_IDS,
     linkingEventType: EventType.Cast,
