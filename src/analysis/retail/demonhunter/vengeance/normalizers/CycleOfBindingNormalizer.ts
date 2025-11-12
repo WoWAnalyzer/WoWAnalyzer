@@ -14,6 +14,7 @@ import {
   SIGIL_OF_FLAME_SPELL_IDS,
   SIGIL_OF_MISERY_SPELL_IDS,
   SIGIL_OF_SILENCE_SPELL_IDS,
+  SIGIL_OF_DOOM_SPELL_IDS,
 } from 'analysis/retail/demonhunter/shared';
 
 const SIGIL_EFFECT_BUFFER = 2500;
@@ -23,6 +24,7 @@ const CYCLE_OF_BINDING_SIGIL_OF_MISERY = 'CycleOfBindingSigilOfMisery';
 const CYCLE_OF_BINDING_ELYSIAN_DECREE = 'CycleOfBindingElysianDecree';
 const CYCLE_OF_BINDING_SIGIL_OF_SILENCE = 'CycleOfBindingSigilOfSilence';
 const CYCLE_OF_BINDING_SIGIL_OF_CHAINS = 'CycleOfBindingSigilOfChains';
+const CYCLE_OF_BINDING_SIGIL_OF_DOOM = 'CycleOfBindingSigilOfDoom';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -76,6 +78,16 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: SIGIL_EFFECT_BUFFER,
     anyTarget: true,
   },
+  {
+    linkRelation: CYCLE_OF_BINDING_SIGIL_OF_DOOM,
+    referencedEventId: SPELLS.SIGIL_OF_DOOM_DAMAGE.id,
+    referencedEventType: EventType.ApplyDebuff,
+    linkingEventId: SIGIL_OF_DOOM_SPELL_IDS,
+    linkingEventType: EventType.Cast,
+    forwardBufferMs: SIGIL_EFFECT_BUFFER,
+    backwardBufferMs: SIGIL_EFFECT_BUFFER,
+    anyTarget: true,
+  },
 ];
 
 export default class CycleOfBindingNormalizer extends EventLinkNormalizer {
@@ -98,3 +110,6 @@ export const getTargetsAffectedBySigilOfSilence = (event: CastEvent) =>
 
 export const getTargetsAffectedBySigilOfChains = (event: CastEvent) =>
   GetRelatedEvents<ApplyDebuffEvent>(event, CYCLE_OF_BINDING_SIGIL_OF_CHAINS);
+
+export const getTargetsAffectedBySigilOfDoom = (event: CastEvent) =>
+  GetRelatedEvents<ApplyDebuffEvent>(event, CYCLE_OF_BINDING_SIGIL_OF_DOOM);
