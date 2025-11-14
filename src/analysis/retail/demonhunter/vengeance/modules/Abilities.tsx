@@ -12,7 +12,8 @@ import { getInfernalStrikeCooldown } from 'analysis/retail/demonhunter/vengeance
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 import {
   DOWN_IN_FLAMES_CDR_SCALING,
-  PERFECTLY_BALANCED_GLAIVE_SCALING,
+  PERFECTLY_BALANCED_GLAIVE_SCALING_GLAIVE,
+  PERFECTLY_BALANCED_GLAIVE_SCALING_FRACTURE,
 } from 'analysis/retail/demonhunter/vengeance/constants';
 
 class Abilities extends SharedAbilities {
@@ -48,7 +49,11 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.FRACTURE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) =>
-          (5 - combatant.getTalentRank(TALENTS.PERFECTLY_BALANCED_GLAIVE_TALENT)) / (1 + haste),
+          (5 -
+            PERFECTLY_BALANCED_GLAIVE_SCALING_FRACTURE[
+              combatant.getTalentRank(TALENTS.PERFECTLY_BALANCED_GLAIVE_TALENT)
+            ]) /
+          (1 + haste),
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -145,7 +150,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.SIGIL_OF_CHAINS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.SIGIL_OF_CHAINS_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
@@ -255,7 +260,7 @@ class Abilities extends SharedAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           9 -
-          PERFECTLY_BALANCED_GLAIVE_SCALING[
+          PERFECTLY_BALANCED_GLAIVE_SCALING_GLAIVE[
             combatant.getTalentRank(TALENTS.PERFECTLY_BALANCED_GLAIVE_TALENT)
           ],
         charges:
