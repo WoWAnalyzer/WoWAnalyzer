@@ -7,6 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 15), <>Model VDH tiers and update/add constants.</>, Quaarkz),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 9, 23), <>Clean up <SpellLink spell={SPELLS.FRACTURE} /> analyzer.</>, Topple),
   change(date(2024, 10, 17), 'Untethered Fury talent taken into consideration for Fracture analysis.', Quaarkz),
