@@ -61,6 +61,8 @@ import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
 import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
 import SigilOfFlameNormalizer from './normalizers/SigilOfFlameNormalizer';
+import MID1Vengeance2P from './modules/items/MID1Vengeance2P';
+import MID1Vengeance4P from './modules/items/MID1Vengeance4P';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -135,7 +137,8 @@ class CombatLogParser extends CoreCombatLogParser {
     demonsurgeEventLinkNormalizer: DemonsurgeEventLinkNormalizer,
 
     // Tier sets
-
+    mid1Vengeance2P: MID1Vengeance2P,
+    mid1Vengeance4P: MID1Vengeance4P,
     // Stats
     soulsOvercap: SoulsOvercap,
     soulFragmentsConsume: SoulFragmentsConsume,

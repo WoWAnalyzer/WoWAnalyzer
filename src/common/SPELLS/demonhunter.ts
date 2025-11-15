@@ -342,10 +342,10 @@ const spells = {
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_concentratedsigils',
   },
-  MID1_VIOLENT_DETONATION: {
-    id: 1264809, //Its not this, this is 4pc id
-    name: 'Violent detonation',
-    icon: 'trade_engineering', //obviously not this
+  MID1_EXPLOSION_OF_THE_SOUL: {
+    id: 1276488,
+    name: 'Explosion of the Soul',
+    icon: 'ability_demonhunter_chaoticimprint_fire',
   },
   //endregion
 
