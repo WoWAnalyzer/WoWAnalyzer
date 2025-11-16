@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { formatPercentage } from 'common/format';
 
 /**
  * (4) Set Vengeance: Fracture has a 30% chance to spark a violent detonation, causing (200% of Attack Power) Fire damage onto nearby enemies.
@@ -60,10 +61,9 @@ class MID1Vengeance4P extends Analyzer {
     const realProcs = this.#explosionProcs;
     const expectedProcs = this.#fractureCount * MID1Vengeance4P.EXPECTED_PROC_CHANCE;
     const actualRatePercent =
-      this.#fractureCount === 0 ? 0 : (this.#explosionProcs / this.#fractureCount) * 100;
-    const expectedRatePct = MID1Vengeance4P.EXPECTED_PROC_CHANCE * 100;
+      this.#fractureCount === 0 ? 0 : this.#explosionProcs / this.#fractureCount;
+    const expectedRatePct = MID1Vengeance4P.EXPECTED_PROC_CHANCE;
 
-    const formatPercent = (v: number) => `${v.toFixed(1)}%`;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(2)}
@@ -97,7 +97,7 @@ class MID1Vengeance4P extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.MID1_EXPLOSION_OF_THE_SOUL}>
-          Expected: {formatPercent(expectedRatePct)} Actual:{' '}
+          Expected: {formatPercentage(expectedRatePct)}% Actual:{' '}
           <span
             style={{
               color:
@@ -106,7 +106,7 @@ class MID1Vengeance4P extends Analyzer {
                   : 'hsla(0, 100%, 40%, 1.00)',
             }}
           >
-            {formatPercent(actualRatePercent)}
+            {formatPercentage(actualRatePercent)}%
           </span>
           <small> Proc rate</small>
         </BoringSpellValueText>
