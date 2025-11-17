@@ -39,6 +39,7 @@ import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import food from './food';
 
 const ABILITIES = safeMerge(
   OTHERS,
@@ -62,6 +63,7 @@ const ABILITIES = safeMerge(
   WARRIOR,
   THEWARWITHIN,
   MIDNIGHT,
+  food,
 );
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

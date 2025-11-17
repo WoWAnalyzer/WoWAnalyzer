@@ -6,7 +6,7 @@
   "src/analysis/classic/shaman/shared/TotemTracker.tsx:33:20__@typescript-eslint/no-explicit-any",
   "src/analysis/classic/warlock/demonology/guide/DoomguardSection.tsx:8:3__@eslint-react/no-nested-component-definitions",
   "src/common/SPELLS/classic/index.ts:70:35__@typescript-eslint/no-explicit-any",
-  "src/common/SPELLS/index.ts:79:42__@typescript-eslint/no-explicit-any",
+  "src/common/SPELLS/index.ts:81:42__@typescript-eslint/no-explicit-any",
   "src/common/WCL_TYPES.ts:121:11__@typescript-eslint/no-explicit-any",
   "src/common/indexById.ts:14:39__@typescript-eslint/no-explicit-any",
   "src/common/indexById.ts:17:89__@typescript-eslint/no-explicit-any",

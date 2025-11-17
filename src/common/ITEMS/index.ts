@@ -18,6 +18,7 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 import CLASSIC from './classic';
+import gems from './gems';
 
 const ITEMS = {
   //Class items
@@ -38,7 +39,7 @@ const ITEMS = {
     CLASSIC,
   ),
   //Any non class-specific items
-  ...safeMerge(OTHERS, THEWARWITHIN, MIDNIGHT),
+  ...safeMerge(OTHERS, THEWARWITHIN, MIDNIGHT, gems),
 };
 
 export default indexById<Item | Enchant | CraftedItem, typeof ITEMS>(ITEMS);
