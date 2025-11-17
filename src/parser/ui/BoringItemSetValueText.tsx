@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { type TIER_GEAR_IDS } from 'common/ITEMS/dragonflight';
+import { type TIER_GEAR_IDS } from 'common/ITEMS';
 import ItemSetLink from 'interface/ItemSetLink';
 
 interface Props {

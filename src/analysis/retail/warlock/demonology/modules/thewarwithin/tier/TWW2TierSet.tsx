@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
 import ItemSetLink from 'interface/ItemSetLink';
-import { WARLOCK_TWW2_ID } from 'common/ITEMS/dragonflight';
+import { WARLOCK_TWW2_ID } from 'common/ITEMS';
 
 import DemoPets from '../../pets/DemoPets';
 import PETS from '../../pets/PETS';

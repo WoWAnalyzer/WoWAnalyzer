@@ -29,6 +29,7 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
  * Generates a {@link StatBuff} that defines a buff that gives the
  * appropiate `PRIMARY_STAT` for the current spec.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function primaryStat(value: number): StatBuff {
   return {
     [PRIMARY_STAT.STRENGTH]: (selectedCombatant) =>
@@ -58,44 +59,17 @@ class StatTracker extends Analyzer {
   static DEFAULT_BUFFS: StatBuffsByGuid = {
     // region Potions
     // TODO: Figure out how to make this work with multiple ranks of potions
-    [SPELLS.ELEMENTAL_POTION_OF_POWER.id]: primaryStat(502),
-    [SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id]: primaryStat(670),
     // endregion
 
     // region Runes
-    [SPELLS.DRACONIC_AUGMENT_RUNE.id]: primaryStat(87),
     // endregion
 
     //region Phials
     // TODO: Figure out how to make this work with multiple ranks of phials
-    [SPELLS.CHARGED_PHIAL_OF_ALACRITY.id]: { speed: 630 },
-    [SPELLS.PHIAL_OF_TEPID_VERSATILITY.id]: { versatility: 632 },
-    [SPELLS.ELEMENTAL_CHAOS_AIR.id]: { haste: 652 },
-    [SPELLS.ELEMENTAL_CHAOS_EARTH.id]: { mastery: 652 },
-    [SPELLS.ELEMENTAL_CHAOS_FIRE.id]: { crit: 652 },
-    [SPELLS.ELEMENTAL_CHAOS_FROST.id]: { versatility: 652 },
     // endregion
 
     //region Food
     // Both Hoard and Banquet share their food buff ID with Fated Fortune Cookie.
-    [SPELLS.FATED_FORTUNE_COOKIE.id]: primaryStat(76),
-    [SPELLS.BRAISED_BRUFFALON_BRISKET.id]: { stamina: 59, strength: 32 },
-    [SPELLS.CHARRED_HORNSWOG_STEAKS.id]: { stamina: 39, strength: 22 },
-    [SPELLS.RIVERSIDE_PICNIC.id]: { stamina: 59, agility: 32 },
-    [SPELLS.SCRAMBLED_BASILISK_EGGS.id]: { stamina: 39, strength: 22 },
-    [SPELLS.ROAST_DUCK_DELIGHT.id]: { stamina: 59, intellect: 32 },
-    [SPELLS.THRICE_SPICED_MAMMOTH_KABOB.id]: { stamina: 39, intellect: 22 },
-    [SPELLS.SALTED_MEAT_MASH.id]: { stamina: 90 },
-    [SPELLS.HOPEFULLY_HEALTHY.id]: { stamina: 60 },
-    [SPELLS.FILET_OF_FANGS.id]: { crit: 70 },
-    [SPELLS.SALT_BAKED_FISHCAKE.id]: { mastery: 70 },
-    [SPELLS.SEAMOTH_SURPRISE.id]: { versatility: 70 },
-    [SPELLS.TIMELY_DEMISE.id]: { haste: 70 },
-    [SPELLS.AROMATIC_SEAFOOD_PLATTER.id]: { haste: 45, versatility: 45 },
-    [SPELLS.FIESTY_FISH_STICKS.id]: { haste: 45, crit: 45 },
-    [SPELLS.GREAT_CERULEAN_SEA.id]: { versatility: 45, mastery: 45 },
-    [SPELLS.REVENGE_SERVED_COLD.id]: { crit: 45, versatility: 45 },
-    [SPELLS.SIZZLING_SEAFOOD_MEDLEY.id]: { haste: 45, mastery: 45 },
     //endregion
 
     // region Misc
@@ -114,16 +88,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Trinkets
-    [SPELLS.UNSTABLE_FLAMES.id]: {
-      itemId: ITEMS.VESSEL_OF_SEARING_SHADOW.id,
-      haste: (selectedCombatant, item) =>
-        calculateSecondaryStatDefault(415, 90, item?.itemLevel ?? selectedCombatant.ilvl),
-    },
-    [SPELLS.SPOILS_OF_NELTHARUS_HASTE.id]: {
-      itemId: ITEMS.SPOILS_OF_NELTHARUS.id,
-      haste: (selectedCombatant, item) =>
-        calculateSecondaryStatDefault(250, 547.57, item?.itemLevel ?? selectedCombatant.ilvl),
-    },
     [SPELLS.QUICKWICK_CANDLESTICK_HASTE.id]: {
       itemId: ITEMS.QUICKWICK_CANDLESTICK.id,
       haste: (selectedCombatant, item) =>

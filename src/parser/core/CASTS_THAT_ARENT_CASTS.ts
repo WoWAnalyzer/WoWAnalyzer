@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_PALADIN, TALENTS_SHAMAN } from 'common/TALENTS';
@@ -26,13 +25,11 @@ const spells: number[] = [
   SPELLS.CHI_SURGE_DEBUFF.id,
 
   //region Boss abilities
-  SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
   SPELLS.ULGRAX_GRAB_VISCERA.id,
   SPELLS.ULGRAX_FEED.id,
   //endregion
 
   //region Items
-  SPELLS.RAGE_OF_FYRALATH_2.id, // second cast logged by Fyr'alath
   SPELLS.PHASE_BLINK.id, // 11.2 Legendary cloak
   //endregion
 
@@ -172,7 +169,6 @@ const spells: number[] = [
   //region trinket
   //endregion
   //region Embellishments
-  ITEMS.HEALING_DART_CAST.id,
   //endregion
 ];
 

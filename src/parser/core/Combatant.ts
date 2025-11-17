@@ -1,5 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
+import { TIER_BY_CLASSES } from 'common/ITEMS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES, { Race } from 'game/RACES';

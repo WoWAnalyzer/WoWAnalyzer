@@ -1,5 +1,4 @@
 import { formatNumber } from 'common/format';
-import ITEMS from 'common/ITEMS';
 import Item from 'common/ITEMS/Item';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { TrackedBuffEvent } from 'parser/core/Entity';
@@ -21,7 +20,7 @@ const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION =
   VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-const runes = [ITEMS.VANTUS_RUNE_VAULT];
+const runes: Item[] = [];
 
 /**
  * @property {HealingDone} healingDone

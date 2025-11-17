@@ -3,7 +3,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
-import { SHAMAN_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_TWW1_ID } from 'common/ITEMS';
 import { SpellLink } from 'interface';
 import ItemSetLink from 'interface/ItemSetLink';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';

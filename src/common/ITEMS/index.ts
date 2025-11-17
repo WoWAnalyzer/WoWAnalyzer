@@ -2,7 +2,7 @@ import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
-import DRAGONFLIGHT from './dragonflight';
+import MIDNIGHT from './midnight';
 import THEWARWITHIN from './thewarwithin';
 import DRUID from './druid';
 import EVOKER from './evoker';
@@ -38,7 +38,9 @@ const ITEMS = {
     CLASSIC,
   ),
   //Any non class-specific items
-  ...safeMerge(OTHERS, DRAGONFLIGHT, THEWARWITHIN),
+  ...safeMerge(OTHERS, THEWARWITHIN, MIDNIGHT),
 };
 
 export default indexById<Item | Enchant | CraftedItem, typeof ITEMS>(ITEMS);
+
+export * from './tier';

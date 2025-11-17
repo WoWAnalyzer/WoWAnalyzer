@@ -1,5 +1,5 @@
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
-// only includes the raids from Dragonflight (showing older logs wouldn't make sense)
+// only includes the raids from The War Within (showing older logs wouldn't make sense)
 import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import nerubarPalace from 'game/raids/nerubarpalace';
 import type { Boss } from 'game/raids';
