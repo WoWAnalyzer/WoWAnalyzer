@@ -161,7 +161,9 @@ const Results = (props: PassedProps) => {
         dispatch(setBaseUrl('https://tbc.wowhead.com/'));
         break;
       default:
-        if (zone?.usePtrTooltips) {
+        if (zone?.useBetaTooltips) {
+          dispatch(setBaseUrl('https://wowhead.com/beta/'));
+        } else if (zone?.usePtrTooltips) {
           dispatch(setBaseUrl('https://wowhead.com/ptr/'));
         } else {
           dispatch(reset());
