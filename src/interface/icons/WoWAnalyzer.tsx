@@ -1,7 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-interface Props
-  extends Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'> {
+interface Props extends Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'> {
   mainColor: string;
   arrowColor: string;
 }

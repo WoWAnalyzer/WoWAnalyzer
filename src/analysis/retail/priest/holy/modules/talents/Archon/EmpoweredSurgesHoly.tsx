@@ -66,7 +66,9 @@ class EmpoweredSurgesHoly extends Analyzer {
             Breakdown:{' '}
             <div>
               <SpellLink spell={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT} />:{' '}
-              <ItemPercentHealingDone amount={this.empoweredSurgesHealing}></ItemPercentHealingDone>{' '}
+              <ItemPercentHealingDone
+                amount={this.empoweredSurgesHealing}
+              ></ItemPercentHealingDone>{' '}
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}

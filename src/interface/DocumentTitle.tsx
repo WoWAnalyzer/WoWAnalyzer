@@ -13,7 +13,7 @@ const DocumentTitle = ({ title }: DocumentTitleProps) => {
   const { i18n } = useLingui();
 
   useHead({
-    title: () => (isMessageDescriptor(title) ? i18n._(title) : title ?? siteName),
+    title: () => (isMessageDescriptor(title) ? i18n._(title) : (title ?? siteName)),
   });
 
   return null;

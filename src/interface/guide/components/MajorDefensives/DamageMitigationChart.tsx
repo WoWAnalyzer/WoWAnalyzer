@@ -8,9 +8,9 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import MajorDefensive from './MajorDefensiveAnalyzer';
 
 const rekey = (key: string) =>
-  (function<T>(value: T): T & { key: string } {
+  function <T>(value: T): T & { key: string } {
     return { ...value, key };
-  });
+  };
 
 // we have to memo this for reasons unbeknownst to me, but it fixes the onHover not getting called with the null value.
 export const DamageMitigationChart = memo(

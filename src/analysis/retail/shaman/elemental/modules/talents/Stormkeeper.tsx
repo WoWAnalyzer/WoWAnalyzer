@@ -540,7 +540,8 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       performance: FlSPerformance,
       summary: (
         <span>
-          <SpellLink spell={SPELLS.FLAME_SHOCK} />: {formatDuration(cast.flameshockDurationOnCast)}s{' '}
+          <SpellLink spell={SPELLS.FLAME_SHOCK} />: {formatDuration(cast.flameshockDurationOnCast)}
+          s{' '}
         </span>
       ),
       details: (

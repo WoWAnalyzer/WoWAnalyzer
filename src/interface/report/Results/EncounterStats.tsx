@@ -344,7 +344,8 @@ class EncounterStats extends PureComponent<Props, State> {
                 <div className="row" style={{ marginBottom: '1em' }}>
                   <div className="col-md-12">
                     <h2>
-                      {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times{' '}
+                      {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill
+                      times{' '}
                     </h2>
                   </div>
                 </div>

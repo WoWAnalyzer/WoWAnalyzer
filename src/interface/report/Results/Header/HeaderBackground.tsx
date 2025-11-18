@@ -34,7 +34,8 @@ const BackgroundContainer = styled.div<{ url: string }>`
   background-repeat: no-repeat;
   filter: blur(4px);
   background-size: cover;
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to right,
       hsla(44, 7%, 8%, 1) 0%,
       hsla(44, 7%, 8%, 0.75) 10%,

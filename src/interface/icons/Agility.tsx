@@ -1,9 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-type Props = Omit<
-  ComponentPropsWithoutRef<'svg'>,
-  'xmlns' | 'version' | 'viewBox' | 'className'
->;
+type Props = Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'version' | 'viewBox' | 'className'>;
 
 const Icon = (props: Props) => (
   <svg

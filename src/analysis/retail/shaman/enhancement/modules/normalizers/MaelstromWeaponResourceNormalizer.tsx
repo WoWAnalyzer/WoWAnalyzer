@@ -111,7 +111,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       ability.maximum =
         typeof ability.maximum === 'function'
           ? ability.maximum(this.selectedCombatant)
-          : ability.maximum ?? 1;
+          : (ability.maximum ?? 1);
 
       /**
        * loop through all events in order

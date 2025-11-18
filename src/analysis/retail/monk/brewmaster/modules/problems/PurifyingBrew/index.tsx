@@ -131,7 +131,6 @@ function PurifyProblem({ problem, events, info }: ProblemRendererProps<ProblemDa
 
   const spec: VisualizationSpec = {
     ...staggerChart,
-    // @ts-expect-error This is a valid typing but Vega types are being weird with TS 5.4
     layer: [
       {
         ...line('stagger', color.stagger),

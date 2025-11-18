@@ -53,7 +53,9 @@ class DesperateTimes extends Analyzer {
             Breakdown:{' '}
             <div>
               <SpellLink spell={TALENTS_PRIEST.DESPERATE_TIMES_TALENT} />:{' '}
-              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+              <ItemPercentHealingDone
+                amount={this.healingDoneFromTalent}
+              ></ItemPercentHealingDone>{' '}
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
