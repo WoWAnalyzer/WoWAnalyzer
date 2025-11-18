@@ -9,7 +9,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import FlameShock from './modules/spells/FlameShock';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
@@ -80,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     buffs: Buffs,
-    checklist: Checklist,
 
     // Resources
     maelstromWeaponTracker: MaelstromWeaponTracker,

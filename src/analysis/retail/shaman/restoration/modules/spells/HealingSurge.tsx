@@ -1,9 +1,5 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -30,35 +26,6 @@ class HealingSurge extends Analyzer {
       },
       style: 'percentage',
     };
-  }
-
-  suggestions(when: When) {
-    const suggestedThreshold = this.suggestedThreshold;
-    when(suggestedThreshold.actual)
-      .isGreaterThan(suggestedThreshold.isGreaterThan.minor)
-      .addSuggestion((suggest) =>
-        suggest(
-          <span>
-            Casting <SpellLink spell={SPELLS.HEALING_SURGE} /> without{' '}
-            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} /> is very inefficient, try not to cast more
-            than is necessary.
-          </span>,
-        )
-          .icon(SPELLS.HEALING_SURGE.icon)
-          .actual(
-            defineMessage({
-              id: 'shaman.restoration.suggestions.healingSurge.unbuffed',
-              message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`,
-            }),
-          )
-          .recommended(
-            `${formatPercentage(
-              suggestedThreshold.isGreaterThan.minor,
-            )}% of unbuffed Healing Surges`,
-          )
-          .regular(suggestedThreshold.isGreaterThan.average)
-          .major(suggestedThreshold.isGreaterThan.major),
-      );
   }
 }
 

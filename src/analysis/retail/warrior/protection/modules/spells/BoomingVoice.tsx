@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -82,25 +81,6 @@ class BoomingVoice extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You wasted Rage by casting <SpellLink spell={SPELLS.DEMORALIZING_SHOUT} /> with more than{' '}
-          {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.
-        </>,
-      )
-        .icon(TALENTS.BOOMING_VOICE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.boominVoice.rage.wasted',
-            message: `${actual} Rage wasted`,
-          }),
-        )
-        .recommended(`<${recommended} wasted Rage is recommended`),
-    );
   }
 
   statistic() {

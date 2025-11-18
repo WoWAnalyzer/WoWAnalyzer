@@ -580,6 +580,7 @@ class RisingMist extends Analyzer {
         <Panel
           title="Rising Mist Extension"
           explanation="Listing of each applied hots' total duration after extension. *Keep in mind that there is latency time between Renewing Mist bounces which can give the appearance of hots lasting longer than 100% of max duration limit of Rising Mist*"
+          className={'rising-mist-tab'}
         >
           <Section title="Click to expand/collapse each section for each hot by source application">
             {this.entries()}

@@ -1,14 +1,11 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { DamageEvent } from 'parser/core/Events';
 import Events from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
-import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -73,49 +70,6 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     if (target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)) {
       this.badLavaBursts += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={SPELLS.FLAME_SHOCK} /> uptime can be improved.
-        </span>,
-      )
-        .icon(SPELLS.FLAME_SHOCK.icon)
-        .actual(
-          defineMessage({
-            id: 'shaman.elemental.suggestions.flameShock.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-
-    when(this.badLavaBursts)
-      .isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            Make sure to apply <SpellLink spell={SPELLS.FLAME_SHOCK} /> to your target, so your{' '}
-            <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> is guaranteed to critically
-            strike.
-          </span>,
-        )
-          .icon(TALENTS_SHAMAN.LAVA_BURST_TALENT.icon)
-          .actual(
-            defineMessage({
-              id: 'shaman.elemental.suggestions.flameShock.efficiency',
-              message: `${formatNumber(
-                this.badLavaBursts,
-              )} Lava Burst casts without Flame Shock DOT`,
-            }),
-          )
-          .recommended(`0 is recommended`)
-          .major(recommended + 1),
-      );
-
-    badRefreshSuggestion(when, this.refreshThreshold);
   }
 
   getDebuffStackHistory() {

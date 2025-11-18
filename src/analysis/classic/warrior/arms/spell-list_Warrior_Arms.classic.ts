@@ -1,14 +1,5 @@
 import type { RetailSpell } from 'wow-dbc';
 const SPELLS = {
-  UNKNOWN: {
-    id: 0,
-    grantedBy: 137049,
-    type: 'temporary',
-    overrides: 100,
-    passive: false,
-    name: 'Unknown',
-    icon: 'inv_axe_02.jpg',
-  },
   DEFENSIVE_STANCE: {
     id: 71,
     type: 'baseline',

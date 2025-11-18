@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -8,7 +8,7 @@ import Events, {
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -177,20 +177,6 @@ class Sundering extends Analyzer.withDependencies({
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.missesThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Consider the amount of enemies in the direction you're facing when casting{' '}
-          <SpellLink spell={TALENTS.SUNDERING_TALENT} /> to avoid missing it.
-        </>,
-      )
-        .icon(TALENTS.SUNDERING_TALENT.icon)
-        .actual(<>You missed {formatPercentage(actual)}% of cast(s)</>)
-        .recommended(<>less than {formatPercentage(recommended)} is recommended</>),
-    );
   }
 }
 

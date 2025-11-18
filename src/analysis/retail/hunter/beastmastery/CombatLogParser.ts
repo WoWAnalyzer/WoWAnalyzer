@@ -15,7 +15,6 @@ import {
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -51,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
-    checklist: Checklist,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,

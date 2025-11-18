@@ -2,7 +2,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
-import { SHAMAN_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_TWW1_ID } from 'common/ITEMS';
 import ItemSetLink from 'interface/ItemSetLink';
 import { Seriousnes, Ypp, Texleretour, Vetyst, PandaGoesBaa, emallson, squided, Vollmer } from 'CONTRIBUTORS';
 

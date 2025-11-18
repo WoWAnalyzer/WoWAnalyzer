@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import { AnyEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { ReactNode } from 'react';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';

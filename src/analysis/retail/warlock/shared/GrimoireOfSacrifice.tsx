@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -38,26 +36,6 @@ class GrimoireOfSacrifice extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your uptime on <SpellLink spell={TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT} /> is too low. If
-          you picked this talent, you should always have your pet sacrificed. If you died or
-          summoned your pet, make sure to sacrifice it again to gain this buff.
-        </>,
-      )
-        .icon(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.shared.suggestions.grimoireOfSacrifice.uptime',
-            message: `${formatPercentage(actual)} % Grimoire of Sacrifice uptime.`,
-          }),
-        )
-        .recommended(`>= ${formatPercentage(recommended)} % is recommended`),
-    );
   }
 
   statistic() {

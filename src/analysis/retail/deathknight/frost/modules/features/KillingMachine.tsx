@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -12,7 +11,7 @@ import Events, {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -149,30 +148,6 @@ class KillingMachineEfficiency extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
       suffix: 'Average',
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Fragment>
-          {' '}
-          You wasted <SpellLink spell={SPELLS.KILLING_MACHINE} /> procs. You should be casting{' '}
-          <SpellLink spell={talents.OBLITERATE_TALENT} /> within 1 or 2 GCDs of gaining a Killing
-          Machine proc to avoid wasting it. See one of the guides on the About tab for more
-          information on when another ability takes precedence over spending Killing Machine
-        </Fragment>,
-      )
-        .icon(SPELLS.KILLING_MACHINE.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.frost.suggestions.killingMachine.wasted',
-            message: `${formatPercentage(
-              this.wastedProcRate,
-            )}% of Killing Machine procs were either refreshed and lost or expired without being used`,
-          }),
-        )
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
-    );
   }
 
   statistic() {

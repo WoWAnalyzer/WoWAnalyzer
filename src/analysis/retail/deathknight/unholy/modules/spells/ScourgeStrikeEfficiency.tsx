@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HasTarget } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -71,28 +69,6 @@ class ScourgeStrikeEfficiency extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are casting <SpellLink spell={this.activeSpell} /> too often. When spending runes
-          remember to cast <SpellLink spell={this.activeSpell} /> instead on targets with no stacks
-          of <SpellLink spell={this.activeSpell} />
-        </>,
-      )
-        .icon(this.activeSpell.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.unholy.suggestions.scourgeStrike.efficiency',
-            message: `${formatPercentage(actual)}% of ${
-              this.activeSpell.name
-            } were used with Wounds on the target`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/EventSubscriber';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 
@@ -39,25 +38,6 @@ class RendUptime extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.REND_ARMS_TALENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={TALENTS.REND_ARMS_TALENT} /> uptime can be improved. If you choose
-          this talent, you better use it !
-        </>,
-      )
-        .icon(TALENTS.REND_ARMS_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.rend.uptime',
-            message: `${formatPercentage(actual)}% Rend uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   subStatistic() {

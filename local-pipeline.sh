@@ -6,7 +6,7 @@
 
 # Set envvars
 export CI=true
-export GITHUB_BASE_REF=dragonflight
+export GITHUB_BASE_REF=midnight
 
 # Check for changelog
 if ! node scripts/require-changelog-entry.js;

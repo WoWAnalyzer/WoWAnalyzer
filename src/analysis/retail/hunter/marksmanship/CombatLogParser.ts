@@ -19,7 +19,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -62,7 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
-    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

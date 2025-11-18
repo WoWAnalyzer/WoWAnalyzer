@@ -1,9 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -56,25 +54,6 @@ class SuddenDoom extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are wasting <SpellLink spell={SPELLS.SUDDEN_DOOM_BUFF} /> procs. It is important to
-          cast <SpellLink spell={SPELLS.DEATH_COIL} />.
-        </>,
-      )
-        .icon(SPELLS.SUDDEN_DOOM_BUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.unholy.suggestions.suddendoom.wastedProcs',
-            message: `${this.wastedProcs} procs were refreshed or expired without being used`,
-          }),
-        )
-        .recommended(`<${recommended} is recommended`),
-    );
   }
 
   statistic() {

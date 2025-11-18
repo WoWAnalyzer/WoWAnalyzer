@@ -12,7 +12,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: THE_HUNT_AFTER_VENGEFUL_RETREAT,
     referencedEventId: TALENTS.VENGEFUL_RETREAT_TALENT.id,
     referencedEventType: EventType.Cast,
-    linkingEventId: TALENTS.THE_HUNT_TALENT.id,
+    linkingEventId: TALENTS.THE_HUNT_HAVOC_TALENT.id,
     linkingEventType: EventType.Cast,
     forwardBufferMs: 0,
     backwardBufferMs: THE_HUNT_VENGEFUL_RETREAT_BUFFER,

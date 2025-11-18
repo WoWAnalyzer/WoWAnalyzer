@@ -1,12 +1,11 @@
-import { defineMessage } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { formatNth, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
-import { SpellIcon, SpellLink, SpecIcon } from 'interface';
+import { SpellIcon, SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
@@ -100,38 +99,6 @@ class ChainHeal extends Analyzer {
       hits: this.buffer.filter((event) => event.type === EventType.Heal).length,
     };
     this.buffer = [];
-  }
-
-  suggestions(when: When) {
-    const suggestedThreshold = this.suggestionThreshold;
-    if (isNaN(suggestedThreshold.actual)) {
-      return;
-    }
-    when(suggestedThreshold.actual)
-      .isLessThan(suggestedThreshold.isLessThan.minor)
-      .addSuggestion((suggest, _actual, _recommended) =>
-        suggest(
-          <Trans id="shaman.restoration.suggestions.aoeTargets.label">
-            Try to always cast <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> on groups of people,
-            so that it heals all {this.maxTargets} potential targets.
-          </Trans>,
-        )
-          .icon(TALENTS.CHAIN_HEAL_TALENT.icon)
-          .actual(
-            `${suggestedThreshold.actual.toFixed(2)} ${defineMessage({
-              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
-              message: `average targets healed`,
-            })}`,
-          )
-          .recommended(
-            `${suggestedThreshold.isLessThan.minor} ${defineMessage({
-              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
-              message: `average targets healed`,
-            })}`,
-          )
-          .regular(suggestedThreshold.isLessThan.average)
-          .major(suggestedThreshold.isLessThan.major),
-      );
   }
 
   get avgHits() {

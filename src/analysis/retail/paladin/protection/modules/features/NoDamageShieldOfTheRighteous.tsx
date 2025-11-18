@@ -1,9 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -68,30 +67,6 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.hitRatioSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        defineMessage({
-          id: 'paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion',
-          message: `SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.`,
-        }),
-      )
-        .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual',
-            message: `${formatPercentage(actual)}% of casts hit at least 1 target.`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

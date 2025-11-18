@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import TALENTS from 'common/TALENTS/warrior';
@@ -178,26 +177,6 @@ class ShieldBlock extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          You had uneventful <SpellLink spell={SPELLS.SHIELD_BLOCK} /> cast(s) where there was
-          either no blockable damage events or you didn't cast shield slam enough.{' '}
-        </>,
-      )
-        .icon(SPELLS.SHIELD_BLOCK.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.shieldBlock.goodCasts',
-            message: `${this.goodCast} good casts of shield block`,
-          }),
-        )
-        .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`),
-    );
   }
 
   statistic() {

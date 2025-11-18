@@ -4,7 +4,7 @@ import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
 import Config, { SupportLevel } from 'parser/Config';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Seriousnes],
@@ -26,11 +26,11 @@ const config: Config = {
   exampleReport:
     "/report/fPAk1jwMBC6Ym4aV/33-Mythic+Nexus-Princess+Ky'veza+-+Kill+(6:17)/Seriousnes/standard",
   spec: SPECS.ENHANCEMENT_SHAMAN,
-  changelog: CHANGELOG,
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
-      (exports) => exports.default,
-    ),
+  changelog: [], // CHANGELOG,
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
+  //     (exports) => exports.default,
+  //   ),
   path: import.meta.url,
 };
 

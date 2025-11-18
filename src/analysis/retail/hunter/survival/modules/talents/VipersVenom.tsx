@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -58,24 +56,6 @@ class VipersVenom extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try and maximize your uptime on <SpellLink spell={TALENTS.VIPERS_VENOM_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS.VIPERS_VENOM_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggestions.vipersVenom.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

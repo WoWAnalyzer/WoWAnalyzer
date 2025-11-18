@@ -1,5 +1,4 @@
 import type { JSX } from 'react';
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -7,7 +6,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -95,27 +94,6 @@ class ComboBreaker extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> procs should be used before you tiger
-          palm again so they are not overwritten. While some will be overwritten due to higher
-          priority of getting Chi for spenders, wasting{' '}
-          <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> procs is not optimal.
-        </span>,
-      )
-        .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.windwalker.suggestions.comboBreaker.procsUsed',
-            message: `${formatPercentage(actual)}% used Combo Breaker procs`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`),
-    );
   }
 
   statistic() {

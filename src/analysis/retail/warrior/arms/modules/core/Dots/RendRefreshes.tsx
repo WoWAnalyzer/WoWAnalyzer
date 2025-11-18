@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 
 const DOTS = [
@@ -42,25 +39,6 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.REND_ARMS_TALENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsRendEfficiency).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You refreshed <SpellLink spell={TALENTS.REND_ARMS_TALENT} icon /> early{' '}
-          {this.suggestionThresholdsRendEfficiency.count} times.
-        </>,
-      )
-        .icon(TALENTS.REND_ARMS_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'shared.suggestions.dots.badRendRefreshes',
-            message: `${formatPercentage(actual)}% of good Rend refreshes.`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

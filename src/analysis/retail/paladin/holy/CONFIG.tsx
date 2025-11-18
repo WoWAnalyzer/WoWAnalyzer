@@ -5,18 +5,13 @@ import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config, { SupportLevel } from 'parser/Config';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Texleretour, swirl],
   branch: GameBranch.Retail,
   patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedPartial,
-  pages: {
-    overview: {
-      frontmatterType: 'guide',
-    },
-  },
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on
@@ -49,11 +44,11 @@ const config: Config = {
   exampleReport: '/report/tTkV1MWxgDmrvJnh/8/62',
 
   spec: SPECS.HOLY_PALADIN,
-  changelog: CHANGELOG,
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-      (exports) => exports.default,
-    ),
+  changelog: [], // CHANGELOG,
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
+  //     (exports) => exports.default,
+  //   ),
   path: import.meta.url,
 };
 

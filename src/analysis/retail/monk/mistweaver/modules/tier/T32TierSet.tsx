@@ -12,7 +12,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemSetLink from 'interface/ItemSetLink';
-import { MONK_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { MONK_TWW1_ID } from 'common/ITEMS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import HotTracker, { Extension } from 'parser/shared/modules/HotTracker';

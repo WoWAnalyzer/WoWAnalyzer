@@ -1,11 +1,11 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import { ResourceLink, SpellLink, TooltipElement } from 'interface';
-import ShuffleSection from './modules/spells/Shuffle/GuideSection';
+import { SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
-import { GuideProps, Section, SubSection, useAnalyzer, useAnalyzers } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
+import spells from './spell-list_Monk_Brewmaster.retail';
 
 import MajorDefensivesSection from './modules/core/MajorDefensives';
 import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
@@ -15,13 +15,7 @@ import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
 import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import PerformanceStrong from 'interface/PerformanceStrong';
-import { formatNumber, formatPercentage } from 'common/format';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
-import ShadowFlurryStrikes from './modules/talents/ShadowFlurryStrikes';
-import EnergyTracker from './modules/core/EnergyTracker';
-import EnergyGraph from './modules/core/EnergyGraph';
 import AspectOfHarmony from './modules/talents/AspectOfHarmony';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
@@ -44,7 +38,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           This section covers both, and is by far the most important one when it comes to mastering
           the basics of Brewmaster gameplay.
         </p>
-        <ShuffleSection />
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
       <Section title="Core Rotation">
@@ -53,9 +46,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Major Cooldowns">
           <Explanation>
             <p>
-              Major cooldowns like <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} /> are a major
-              contributor to your overall damage. As a tank, they are also key to establishing
-              threat on pull and when new enemies spawn or are pulled.
+              Major cooldowns like <SpellLink spell={spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} />{' '}
+              are a major contributor to your overall damage. As a tank, they are also key to
+              establishing threat on pull and when new enemies spawn or are pulled.
             </p>
             <p>
               It is generally correct to hold your cooldowns by a small amount in order to line up
@@ -65,9 +58,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               <Highlight color="#834c4a">red</Highlight>).
             </p>
           </Explanation>
-          {info.combatant.hasTalent(talents.WEAPONS_OF_ORDER_TALENT) && (
+          {info.combatant.hasTalent(talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT) && (
             <CastEfficiencyBar
-              spell={talents.WEAPONS_OF_ORDER_TALENT}
+              spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}
               gapHighlightMode={GapHighlight.FullCooldown}
               useThresholds
             />
@@ -79,101 +72,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               useThresholds
             />
           )}
-          {info.combatant.hasTalent(talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT) && (
-            <CastEfficiencyBar
-              spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
-          )}
         </SubSection>
       </Section>
-      {info.combatant.hasTalent(talents.FLURRY_STRIKES_TALENT) && <ShadoPanSection />}
       <MasterOfHarmonySection />
       <MajorDefensivesSection />
       <PreparationSection />
     </>
-  );
-}
-
-function ShadoPanSection() {
-  const [shadowFlurryStrikes, energyTracker, energyGraph] = useAnalyzers([
-    ShadowFlurryStrikes,
-    EnergyTracker,
-    EnergyGraph,
-  ] as const);
-  return (
-    <Section title="Shado-Pan">
-      <SubSection title="Energy Usage">
-        <Explanation>
-          <p>
-            <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> makes{' '}
-            <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> an important resource for Brewmaster.
-            Spending more Energy causes more <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> and
-            more <SpellLink spell={talents.WISDOM_OF_THE_WALL_TALENT} /> buffs.
-          </p>
-          <p>
-            You were <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> capped for{' '}
-            <PerformanceStrong performance={energyTracker.performance}>
-              {formatPercentage(energyTracker.percentAtCap)}%
-            </PerformanceStrong>{' '}
-            of the fight, wasting at least{' '}
-            {formatNumber((energyTracker.timeAtCap / 1000) * energyTracker.baseRegenRate)} Energy.
-          </p>
-        </Explanation>
-        {energyGraph.plot}
-      </SubSection>
-      <SpellUsageSubSection
-        explanation={
-          <>
-            <p>
-              While <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> is a mostly-passive effect,
-              it is important to be aware of the{' '}
-              <SpellLink spell={SPELLS.WOTW_SHADOW_BUFF}>Shadow Buff</SpellLink>. This buff lasts{' '}
-              <strong>40 seconds</strong> to allow getting at least 1 additional{' '}
-              <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> during the buff.
-            </p>
-            <p>
-              It is possible to get 2 <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> within the
-              buff with normal rotational play. You can get a 3rd trigger in ideal conditions with
-              either <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> or{' '}
-              <TooltipElement
-                content={
-                  <>
-                    It is possible to make the{' '}
-                    <SpellLink spell={talents.WISDOM_OF_THE_WALL_TALENT} /> buff be applied by the{' '}
-                    <em>first</em> hit of <SpellLink spell={talents.FLURRY_STRIKES_TALENT} />{' '}
-                    instead of the last one. This tech is easy to set up, but gets messed up by
-                    wipes and so is not often used in practice. See{' '}
-                    <a href="https://www.wowhead.com/guide/classes/monk/brewmaster/rotation-cooldowns-pve-tank#hero-talent-tips-maximizing-wisdom-of-the-wall-shado-pan">
-                      Wowhead
-                    </a>{' '}
-                    for a full guide to this tech.
-                  </>
-                }
-                hoverable
-              >
-                offsetting
-              </TooltipElement>
-              , but going for the 3rd trigger can be a DPS <em>loss</em> if you're not careful.
-            </p>
-          </>
-        }
-        uses={shadowFlurryStrikes.uses}
-        noCastsTexts={{
-          noCastsOverride: (
-            <>
-              You did not trigger{' '}
-              <SpellLink spell={SPELLS.WOTW_SHADOW_BUFF}>Wisdom of the Wall - Shadow</SpellLink>
-            </>
-          ),
-        }}
-        title="Shadow Strikes"
-        castBreakdownSmallText={
-          '- These boxes represent each buff, colored by how good the usage was.'
-        }
-      />
-    </Section>
   );
 }
 

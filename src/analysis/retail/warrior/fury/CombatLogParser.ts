@@ -18,7 +18,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import Checklist from './modules/features/checklist/Module';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import UnhingedBloodthirstNormalizer from './modules/normalizers/UnhingedBloodthirstNormalizer';
 import RageGenerationEventLinkNormalizer from './modules/normalizers/RageGenerationEventLinkNormalizer';
@@ -65,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
 

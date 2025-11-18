@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/vM8zdCPFhZkxfW3y?fight=45&type=casts&source=13
@@ -58,27 +56,6 @@ class Bloodbath extends Analyzer {
         'With at least 3 stacks of Slaughtering Strikes, Rampage should be used before Bloodbath',
       );
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          There were {actual} times you used <SpellLink spell={SPELLS.BLOODBATH} /> when another
-          ability would have been preferred. <SpellLink spell={SPELLS.BLOODBATH} /> was used while
-          not Enraged {this.unenragedCount} times. Refer to Wowhead or Maxroll guides for a full
-          description of when to best use <SpellLink spell={SPELLS.BLOODBATH} /> .
-        </>,
-      )
-        .icon(SPELLS.BLOODBATH.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.fury.suggestions.bloodbath.bad',
-            message: `${actual} bad Bloodbaths.`,
-          }),
-        )
-        .recommended(`${recommended} is recommended.`),
-    );
   }
 }
 

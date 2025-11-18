@@ -1,10 +1,9 @@
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -57,21 +56,6 @@ class Felblade extends Analyzer {
 
   onDamageEvent(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          Avoid casting <SpellLink spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} /> close to Fury cap
-          and cast abilities regularly to avoid accidently capping your fury.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Fury wasted`)
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

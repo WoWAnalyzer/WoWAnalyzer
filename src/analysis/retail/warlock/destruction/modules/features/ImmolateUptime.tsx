@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
@@ -39,26 +37,6 @@ class ImmolateUptime extends Analyzer {
   };
 
   protected enemies!: Enemies;
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.IMMOLATE_DEBUFF} /> uptime can be improved. Try to pay more
-          attention to it as it provides a significant amount of Soul Shard Fragments over the fight
-          and is also a big portion of your total damage.
-        </>,
-      )
-        .icon(SPELLS.IMMOLATE_DEBUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.destruction.suggestions.immolate.uptime',
-            message: `${formatPercentage(actual)}% Immolate uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-  }
 
   statistic() {
     const history = this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)

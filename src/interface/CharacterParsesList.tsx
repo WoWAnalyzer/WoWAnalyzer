@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
-import { ItemLink, SpellLink } from 'interface';
+import { ItemLink } from 'interface';
 import Icon from 'interface/Icon';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import SpellIcon from 'interface/SpellIcon';

@@ -5,7 +5,7 @@ import { SpellIcon } from 'interface';
 import PlusIcon from 'interface/icons/Plus';
 import UpArrowIcon from 'interface/icons/UpArrow';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
@@ -104,31 +104,7 @@ class DirectBeaconHealing extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  suggestions(when: When) {
-    when(this.suggestionThresholds.actual)
-      .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <Trans id="paladin.holy.modules.beacons.directBeaconHealing.suggestion">
-            You cast a lot of direct heals on beacon targets. Direct healing beacon targets is
-            inefficient. Try to only cast on beacon targets when they would otherwise die.
-          </Trans>,
-        )
-          .icon('ability_paladin_beaconoflight')
-          .actual(
-            <Trans id="paladin.holy.modules.beacons.directBeaconHealing.actual">
-              {formatPercentage(actual)}% of all your healing spell casts were on a beacon target
-            </Trans>,
-          )
-          .recommended(
-            <Trans id="paladin.holy.modules.beacons.directBeaconHealing.recommended">
-              &lt;{formatPercentage(recommended)}% is recommended
-            </Trans>,
-          )
-          .regular(this.suggestionThresholds.isGreaterThan.average)
-          .major(this.suggestionThresholds.isGreaterThan.major),
-      );
-  }
+
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(50)} size="small">

@@ -1,10 +1,8 @@
 import { Trans } from '@lingui/react/macro';
-import { formatNumber, formatPercentage } from 'common/format';
-import { Icon, TooltipElement } from 'interface';
-import { Tooltip } from 'interface';
+import { Icon, Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -12,6 +10,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
+import { formatPercentage } from 'common/format';
 
 const DEBUG = false;
 
@@ -501,60 +500,6 @@ class AlwaysBeCasting extends Analyzer {
       }
     }
     return QualitativePerformance.Fail;
-  }
-
-  suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="shared.suggestions.alwaysBeCasting.suggestion">
-          Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between
-          casting spells and cast instant spells when you have to move.
-        </Trans>,
-      )
-        .icon('spell_mage_altertime')
-        .actual(
-          <Trans id="shared.suggestions.alwaysBeCasting.downtime">
-            {' '}
-            {formatPercentage(actual)}% downtime{' '}
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="shared.suggestions.alwaysBeCasting.recommended">
-            {' '}
-            {'<'}
-            {formatPercentage(recommended)}% is recommended{' '}
-          </Trans>,
-        ),
-    );
-
-    when(this.smallGapsSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You have a large number of small gaps between your abilities. Make sure to{' '}
-          <TooltipElement
-            content={
-              <>
-                <p>
-                  WoW has a <em>spell queue</em> system built-in. If you push an ability during the{' '}
-                  <em>queue window</em>, it will immediately begin casting when your current ability
-                  finishes&mdash;faster than you could cast it yourself because of network latency.
-                </p>
-                <p>
-                  The default queue window begins <strong>400ms</strong> before your next ability
-                  could be used and should generally not be changed.
-                </p>
-              </>
-            }
-          >
-            queue
-          </TooltipElement>{' '}
-          up your next ability while your current one finishes.
-        </>,
-      )
-        .recommended(<>&lt; {recommended} is recommended</>)
-        .actual(<>{formatNumber(actual)} small gaps per minute</>)
-        .icon('inv_misc_key_12'),
-    );
   }
 }
 

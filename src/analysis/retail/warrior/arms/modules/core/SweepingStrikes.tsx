@@ -1,12 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
@@ -64,28 +61,6 @@ class SweepingStrikes extends Analyzer {
         );
       }
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to cast <SpellLink spell={SPELLS.SWEEPING_STRIKES} icon /> before{' '}
-          <SpellLink spell={SPELLS.COLOSSUS_SMASH} /> (or{' '}
-          <SpellLink spell={TALENTS.WARBREAKER_TALENT} /> if talented).
-        </>,
-      )
-        .icon(SPELLS.SWEEPING_STRIKES.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.sweepingStrikes.efficiency',
-            message: `Sweeping Strikes was used ${formatPercentage(
-              actual,
-            )}% of the time shortly after Colossus Smash/Warbreaker.`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

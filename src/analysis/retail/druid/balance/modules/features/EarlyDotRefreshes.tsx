@@ -1,7 +1,6 @@
 import { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
-import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 // FIXME whyyyy
@@ -51,10 +50,6 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT);
-  }
-
-  suggestions(when: When) {
-    suggest(when, this.suggestionThresholdsStellarFlare);
   }
 }
 

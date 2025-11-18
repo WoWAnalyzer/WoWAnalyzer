@@ -1,10 +1,8 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import { TrackedHit } from 'interface/guide/components/DamageTakenPointChart';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import { Uptime } from 'parser/ui/UptimeBar';
@@ -108,18 +106,5 @@ export default class Shuffle extends Analyzer {
       event,
       mitigated,
     });
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should maintain <SpellLink spell={SPELLS.SHUFFLE} /> while actively tanking.
-        </>,
-      )
-        .icon(SPELLS.SHUFFLE.icon)
-        .actual(`${formatPercentage(actual)}% of hits mitigated by Shuffle.`)
-        .recommended(`at least ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }

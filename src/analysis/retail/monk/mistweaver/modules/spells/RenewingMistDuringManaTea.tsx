@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class RenewingMistDuringManaTea extends Analyzer {
   // tracks how long we had mana tea :)
@@ -103,26 +102,6 @@ class RenewingMistDuringManaTea extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          During <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> you should have a minimum of two{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out to maximize your healing
-          during the buff.
-        </>,
-      )
-        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${this.avgRemDuringMT.toFixed(2)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists',
-            message: ` average Renewing Mists during Mana Tea`,
-          })}`,
-        )
-        .recommended(`${recommended} average Renewing Mists recommended`),
-    );
   }
 
   subStatistic() {

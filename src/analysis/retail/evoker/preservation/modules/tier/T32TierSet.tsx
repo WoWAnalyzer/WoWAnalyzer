@@ -1,4 +1,4 @@
-import { EVOKER_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { EVOKER_TWW1_ID } from 'common/ITEMS';
 import { TIERS } from 'game/TIERS';
 import ItemSetLink from 'interface/ItemSetLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

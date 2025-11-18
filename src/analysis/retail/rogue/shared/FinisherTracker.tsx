@@ -1,12 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import type { ReactElement } from 'react';
-import { Fragment } from 'react';
 
 import ComboPointTracker from './ComboPointTracker';
 
@@ -85,27 +82,6 @@ class FinisherTracker extends Analyzer {
     if (spent < this.recommendedFinisherPoints()) {
       this.inefficientFinisherCount += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Fragment>
-          Try to use your finishers at {this.maximumComboPoints} combo points.{' '}
-          {this.extraSuggestion()}
-        </Fragment>,
-      )
-        .icon(this.suggestionIcon())
-        .actual(
-          defineMessage({
-            id: 'rogue.shared.suggestions.finishers.efficiency',
-            message: `${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${
-              this.totalFinisherCount
-            }) inefficient casts`,
-          }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

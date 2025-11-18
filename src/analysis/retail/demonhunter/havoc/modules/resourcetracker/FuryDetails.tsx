@@ -2,15 +2,13 @@ import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import FuryTracker from './FuryTracker';
-
-const furyIcon = 'ability_demonhunter_eyebeam';
 
 class FuryDetails extends Analyzer {
   static dependencies = {
@@ -32,15 +30,6 @@ class FuryDetails extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
-        .icon(furyIcon)
-        .actual(`${formatPercentage(actual)}% Fury wasted`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

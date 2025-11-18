@@ -1,12 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -92,35 +90,6 @@ class DrainSoul extends Analyzer {
     this._shardsGained =
       this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) -
       this._subtractBossShards;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You sniped {formatPercentage(actual)} % of mobs in this fight (
-          {this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of
-          {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from
-          them. Try to snipe shards from adds (cast <SpellLink spell={TALENTS.DRAIN_SOUL_TALENT} />
-          on them before they die) as it is a great source of extra Soul Shards.
-          <br />
-          <br />
-          <small>
-            Note that the number of adds <em>might be a bit higher than usual</em>, as there
-            sometimes are adds that die too quickly, aren't meant to be killed or are not killed in
-            the fight.
-          </small>
-        </>,
-      )
-        .icon('ability_hunter_snipershot')
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.drainSoul.mobsSniped',
-            message: `${formatPercentage(actual)} % of mobs sniped.`,
-          }),
-        )
-        .recommended(`>= ${formatPercentage(recommended)} % is recommended`),
-    );
   }
 
   statistic() {

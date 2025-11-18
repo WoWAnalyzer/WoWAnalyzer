@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -79,22 +78,6 @@ class XuensBattlegear extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        'You are wasting cooldown reduction by casting Rising Sun Kick while having Fists of Fury available',
-      )
-        .icon(TALENTS_MONK.XUENS_BATTLEGEAR_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.windwalker.suggestions.xuensBattlegear.cdrWasted',
-            message: `${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`,
-          }),
-        )
-        .recommended(`${recommended} is recommended`),
-    );
   }
 
   statistic() {

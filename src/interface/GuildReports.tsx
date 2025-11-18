@@ -16,7 +16,6 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
 
-import './report/Results/Header.scss';
 import './GuildReports.scss';
 import ReportsList from './GuildReportsList';
 import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg';

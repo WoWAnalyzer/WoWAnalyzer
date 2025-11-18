@@ -21,7 +21,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Bloodseeker from './modules/talents/Bloodseeker';
 import Buffs from './modules/Buffs';
 import Butchery from './modules/talents/Butchery';
-import Checklist from './modules/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CoordinatedAssault from './modules/talents/CoordinatedAssault';
 import FlankingStrike from './modules/talents/FlankingStrike';
@@ -51,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
     abilities: Abilities,
-    checklist: Checklist,
     globalCooldown: GlobalCooldown,
 
     // Features

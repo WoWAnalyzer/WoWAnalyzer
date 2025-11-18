@@ -3,18 +3,12 @@
  * This follows the format of "<short expansion name><season number>".
  */
 export enum TIERS {
-  // Vault of the Incarnates
-  DF1,
-  // Aberrus
-  DF2,
-  // Amirdrassil
-  DF3,
-  // Dragonflight Fated
-  DF4,
   // Nerubar Palace
   TWW1,
   // Liberation of Undermine
   TWW2,
   // Manaforge Omega
   TWW3,
+  // Void Spire / Dreamrift / March on Quel'Danas
+  MID1,
 }

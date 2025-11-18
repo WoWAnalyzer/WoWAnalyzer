@@ -1,11 +1,9 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -32,31 +30,6 @@ class BloodPlagueUptime extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.bloodPlague.suggestion.suggestion">
-          Your <SpellLink spell={SPELLS.BLOOD_PLAGUE} /> uptime can be improved. Keeping{' '}
-          <SpellLink spell={TALENTS.BLOOD_BOIL_TALENT} /> on cooldown should keep it up at all
-          times.
-        </Trans>,
-      )
-        .icon(SPELLS.BLOOD_PLAGUE.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.bloodPlague.suggestion.actual',
-            message: `${formatPercentage(actual)}% Blood Plague uptime`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'shared.suggestion.recommended.moreThanPercent',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

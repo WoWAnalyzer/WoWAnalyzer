@@ -10,7 +10,6 @@ import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/Resourc
 import ChampionsMight from '../shared/modules/talents/ChampionsMight';
 import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
 import AplCheck from './modules/core/AplCheck';
 import Bladestorm from './modules/core/Bladestorm';
 import DeepWoundsRefreshes from './modules/core/Dots/DeepWoundsRefreshes';
@@ -78,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
 
     // Features
-    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,

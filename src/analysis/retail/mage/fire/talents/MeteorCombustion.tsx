@@ -1,10 +1,7 @@
-import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 class MeteorCombustion extends Analyzer {
@@ -69,25 +66,6 @@ class MeteorCombustion extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.meteorCombustionSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          <SpellLink spell={TALENTS.METEOR_TALENT} /> landed outside of{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.badCasts()} times. In order to make
-          the most of Combustion and <SpellLink spell={SPELLS.IGNITE} />, you should always ensure
-          Meteor hits the target during Combustion. Keep in mind that{' '}
-          <SpellLink spell={TALENTS.METEOR_TALENT} /> takes time to manifest and hit the target, so
-          make sure you leave enough time after casting it so that it will land before{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> ends.
-        </>,
-      )
-        .icon(TALENTS.METEOR_TALENT.icon)
-        .actual(`${formatPercentage(this.combustionUtilization)}% Utilization`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

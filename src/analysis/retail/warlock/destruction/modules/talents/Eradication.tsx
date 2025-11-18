@@ -1,14 +1,12 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -148,30 +146,6 @@ class Eradication extends Analyzer {
     }
     this.bonusDmg += calculateEffectiveDamage(event, this.ERADICATION_DAMAGE_BONUS);
     this.queue.splice(castIndex, 1);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your uptime on the <SpellLink spell={SPELLS.ERADICATION_DEBUFF} /> debuff could be
-          improved. You should try to spread out your <SpellLink spell={SPELLS.CHAOS_BOLT} /> casts
-          more for higher uptime.
-          <br />
-          <small>
-            <em>NOTE:</em> Uptime may vary based on the encounter.
-          </small>
-        </>,
-      )
-        .icon(TALENTS.ERADICATION_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.destruction.suggestions.eradication.uptime',
-            message: `${formatPercentage(actual)}% Eradication uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

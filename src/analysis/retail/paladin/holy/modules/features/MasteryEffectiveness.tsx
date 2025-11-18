@@ -1,4 +1,4 @@
-import { Trans, defineMessage } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -9,7 +9,7 @@ import Events, {
   HealEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -365,30 +365,6 @@ class MasteryEffectiveness extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="paladin.holy.modules.masteryEffectiveness.suggestion">
-          Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by
-          sticking with melee.
-        </Trans>,
-      )
-        .icon('inv_hammer_04')
-        .actual(
-          defineMessage({
-            id: 'paladin.holy.modules.masteryEffectiveness.suggestion.actual',
-            message: `${formatPercentage(actual)}% mastery effectiveness`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'paladin.holy.modules.masteryEffectiveness.suggestion.recommended',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 }
 

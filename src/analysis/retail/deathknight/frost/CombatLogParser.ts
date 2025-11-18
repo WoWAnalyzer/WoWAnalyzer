@@ -4,7 +4,6 @@ import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknigh
 import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FrostFeverUptime from './modules/features/FrostFeverUptime';
 import HardHowlingBlastCasts from './modules/features/HardHowlingBlastCasts';
@@ -31,7 +30,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     runeforgeChecker: FrostRuneForgeChecker,
 
     // Features

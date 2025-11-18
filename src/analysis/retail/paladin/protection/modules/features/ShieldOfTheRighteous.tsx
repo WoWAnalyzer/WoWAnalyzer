@@ -1,10 +1,9 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore, magic } from 'parser/shared/modules/hit-tracking/utilities';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -52,20 +51,6 @@ class ShieldOfTheRighteous extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.hitsMitigatedThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should maintain <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> while actively
-          tanking
-        </>,
-      )
-        .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
-        .actual(`${formatPercentage(actual)}% of hits mitigated by Shield of the Righteous`)
-        .recommended(`at least ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

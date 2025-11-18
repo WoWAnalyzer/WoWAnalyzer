@@ -17,7 +17,6 @@ import BeaconUptime from './modules/beacons/BeaconUptime';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
 import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import MissingBeacons from './modules/beacons/MissingBeacons';
-import Checklist from './modules/checklist/Module';
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -105,7 +104,6 @@ class CombatLogParser extends CoreCombatLogParser {
     builderUse: BuilderUse,
 
     // Features
-    checklist: Checklist,
     abilities: Abilities,
     buffs: Buffs,
     masteryEffectiveness: MasteryEffectiveness,

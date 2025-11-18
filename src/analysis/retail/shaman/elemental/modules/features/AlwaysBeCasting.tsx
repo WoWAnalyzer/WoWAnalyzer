@@ -1,9 +1,6 @@
-import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
-import { Expandable, SpellLink } from 'interface';
+import { Expandable } from 'interface';
 import { SectionHeader, SubSection } from 'interface/guide';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import ThresholdPerformancePercentage from './shared/ThresholdPerformancePercentage';
 import Statistics from 'interface/icons/Statistics';
@@ -75,21 +72,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           />
         </Expandable>
       </SubSection>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your downtime can be improved. If you need to move use{' '}
-          <SpellLink spell={SPELLS.FLAME_SHOCK} />, <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} />{' '}
-          or <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} />
-        </>,
-      )
-        .icon('spell_mage_altertime')
-        .actual(`${formatPercentage(1 - actual)}% downtime`)
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
     );
   }
 }

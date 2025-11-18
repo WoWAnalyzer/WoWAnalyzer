@@ -1,8 +1,5 @@
-import { i18n } from '@lingui/core';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/classic/hunter';
-import { SpellLink } from 'interface';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
@@ -21,27 +18,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds)
-      .isGreaterThan(0.15)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
-            instant cast spells, such as
-            <SpellLink spell={SPELLS.AIMED_SHOT} /> or <SpellLink spell={SPELLS.ARCANE_SHOT} />.
-          </>,
-        )
-          .icon('spell_mage_altertime')
-          .actual(
-            i18n._('shared.suggestions.alwaysBeCasting.downtime', { 0: formatPercentage(actual) }),
-          )
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15)
-          .major(recommended + 0.2),
-      );
   }
 
   statistic() {

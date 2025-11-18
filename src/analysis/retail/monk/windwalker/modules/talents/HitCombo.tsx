@@ -1,12 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -63,26 +61,6 @@ class HitCombo extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          You let your <SpellLink spell={TALENTS_MONK.HIT_COMBO_TALENT} /> buff drop by casting a
-          spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the
-          spells being cast.
-        </span>,
-      )
-        .icon(TALENTS_MONK.HIT_COMBO_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.windwalker.suggestions.hitCombo.uptime',
-            message: `${formatPercentage(actual)} % uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)} % is recommended`),
-    );
   }
 
   statistic() {

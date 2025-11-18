@@ -13,7 +13,7 @@ import Events, {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -328,28 +328,6 @@ class RuneTracker extends ResourceTracker {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.shared.runeTracker.suggestion.suggestion">
-          You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3
-          runes on cooldown.
-        </Trans>,
-      )
-        .icon(SPELLS.RUNE_1.icon)
-        .actual(
-          <Trans id="deathknight.shared.runeTracker.suggestion.actual">
-            {formatPercentage(actual)}% runes overcapped
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="deathknight.shared.runeTracker.suggestion.recommended">
-            &lt;{formatPercentage(recommended)}% is recommended
-          </Trans>,
-        ),
-    );
   }
 
   statistic() {

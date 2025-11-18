@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -12,6 +10,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TALENTS from 'common/TALENTS/warrior';
 
 import ShieldBlock from '../spells/ShieldBlock';
+import SpellIcon from 'interface/SpellIcon';
 
 const debug = false;
 
@@ -121,35 +120,6 @@ class BlockCheck extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You only had <SpellLink spell={SPELLS.SHIELD_BLOCK_BUFF} />{' '}
-          {this.bolster && (
-            <>
-              or <SpellLink spell={SPELLS.LAST_STAND} />
-            </>
-          )}{' '}
-          for {formatPercentage(actual)}% of physical damage taken. You should have one of the two
-          up to mitigate as much physical damage as possible.
-        </>,
-      )
-        .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.protection.suggestions.block.damageMitigated',
-            message: `${formatPercentage(actual)}% was mitigated by a block spell`,
-          }),
-        )
-        .recommended(
-          `${formatPercentage(
-            recommended,
-          )}% or more is recommended but this may vary between fights`,
-        ),
-    );
   }
 
   statistic() {

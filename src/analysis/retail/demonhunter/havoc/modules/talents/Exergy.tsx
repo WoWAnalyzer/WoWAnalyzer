@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -63,8 +63,9 @@ class Exergy extends Analyzer {
           EXERGY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.EXERGY_TALENT)],
           0,
         )}
-        % damage increase for 20 seconds after casting <SpellLink spell={TALENTS.THE_HUNT_TALENT} />{' '}
-        and <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} />. This should be treated as a
+        % damage increase for 20 seconds after casting{' '}
+        <SpellLink spell={TALENTS.THE_HUNT_HAVOC_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} />. This should be treated as a
         maintenance buff with almost 100% uptime, since{' '}
         <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} /> has a 20 seconds cooldown itself with{' '}
         <SpellLink spell={TALENTS.TACTICAL_RETREAT_TALENT} /> taken.
@@ -88,20 +89,6 @@ class Exergy extends Analyzer {
       </RoundedPanel>
     );
     return <ExplanationAndDataSubSection explanation={explanation} data={data} title="Exergy" />;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          Maintain the <SpellLink spell={TALENTS.EXERGY_TALENT} /> buff to maximize damage.
-        </>,
-      )
-        .icon(TALENTS.EXERGY_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% buff uptime`)
-        .recommended(`${formatPercentage(recommended)}% is recommended.`),
-    );
   }
 
   statistic() {

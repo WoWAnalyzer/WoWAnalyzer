@@ -1,9 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
@@ -27,25 +24,6 @@ class SunfireUptime extends Analyzer {
     enemies: Enemies,
   };
   protected enemies!: Enemies;
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={SPELLS.SUNFIRE} /> uptime can be improved. Try to pay more
-          attention to your Sunfire on the boss.
-        </>,
-      )
-        .icon(SPELLS.SUNFIRE.icon)
-        .actual(
-          defineMessage({
-            id: 'druid.balance.suggestions.sunfire.uptime',
-            message: `${formatPercentage(actual)}% Sunfire uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-  }
 
   get uptimeHistory() {
     return this.enemies.getDebuffHistory(SPELLS.SUNFIRE.id);

@@ -1,9 +1,7 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
@@ -62,21 +60,6 @@ export default class FieryBrand extends HitBasedAnalyzer {
 
   getHitsWithout() {
     return this.hits.filter(({ mitigated }) => !mitigated).length;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> more regularly while
-          actively tanking the boss or when they use a big attack. You missed having it up for{' '}
-          {formatPercentage(1 - actual)}% of hits.
-        </>,
-      )
-        .icon(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% unmitigated hits`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   private onFieryBrandApply(event: ApplyDebuffEvent) {

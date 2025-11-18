@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import { SyntheticEvent, ReactNode, MouseEvent, JSX } from 'react';
-
 import {
+  type JSX,
+  MouseEvent,
+  SyntheticEvent,
   createContext,
   useCallback,
   useContext,
@@ -12,7 +13,9 @@ import {
   useMemo,
   useRef,
   useState,
+  ReactNode,
 } from 'react';
+import { formatDurationMinSec } from 'common/format';
 
 interface TimelineContext {
   /**
@@ -235,7 +238,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
       };
     }
   }, []);
-  const stopPanning = useCallback((event: MouseEvent<unknown>) => {
+  const stopPanning = useCallback((_event: MouseEvent<unknown>) => {
     panStartPosition.current = undefined;
   }, []);
 
@@ -356,31 +359,45 @@ PhaseHeader.HEIGHT = 30;
 function Timestamps({ topOffset, info }: { topOffset: number; info: Info }): JSX.Element {
   const { x } = useTimelinePosition();
 
-  const numTimestamps = Math.floor(info.fightDuration / 60000) + 1;
+  const timestampInterval = info.fightDuration > 120_000 ? 60_000 : 15_000;
+
+  // find the next timestamp after the start of the window
+  const initialTimestamp =
+    Math.max(1, Math.floor((info.fightStart - info.originalFightStart) / timestampInterval)) *
+      timestampInterval +
+    info.originalFightStart;
+
+  const timestamps = [];
+  let currentTimestamp = initialTimestamp;
+  while (currentTimestamp < info.fightEnd) {
+    timestamps.push({
+      timestamp: currentTimestamp,
+      label: formatDurationMinSec(
+        (currentTimestamp - info.originalFightStart) / 1000,
+        timestampInterval === 60_000,
+      ),
+    });
+    currentTimestamp += timestampInterval;
+  }
 
   return (
     <svg x={0} y={topOffset} width="100%" height="100%">
-      {Array.from({ length: numTimestamps }).map((_, minuteIndex) => {
-        if (minuteIndex === 0) {
-          return null;
-        } else {
-          const timestamp = minuteIndex * 60000 + info.fightStart;
-          return (
-            <g key={minuteIndex}>
-              <line x1={x(timestamp)} x2={x(timestamp)} y1={0} y2={6} stroke="#999" />
-              <text
-                x={x(timestamp)}
-                y={16}
-                fill="#ccc"
-                fontSize={10}
-                textAnchor="middle"
-                style={{ pointerEvents: 'none', userSelect: 'none' }}
-              >
-                {minuteIndex}m
-              </text>
-            </g>
-          );
-        }
+      {timestamps.map(({ timestamp, label }) => {
+        return (
+          <g key={timestamp}>
+            <line x1={x(timestamp)} x2={x(timestamp)} y1={0} y2={6} stroke="#999" />
+            <text
+              x={x(timestamp)}
+              y={16}
+              fill="#ccc"
+              fontSize={10}
+              textAnchor="middle"
+              style={{ pointerEvents: 'none', userSelect: 'none' }}
+            >
+              {label}
+            </text>
+          </g>
+        );
       })}
     </svg>
   );

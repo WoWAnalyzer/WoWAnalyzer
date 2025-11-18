@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { PRIEST_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { PRIEST_TWW1_ID } from 'common/ITEMS';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';

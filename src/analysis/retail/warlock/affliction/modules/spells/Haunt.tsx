@@ -1,11 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -61,26 +60,6 @@ class Haunt extends Analyzer {
     if (hasHaunt) {
       this.bonusDmg += calculateEffectiveDamage(event, HAUNT_DAMAGE_BONUS);
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={TALENTS.HAUNT_TALENT} /> debuff uptime is too low. While it's
-          usually not possible to get 100% uptime due to travel and cast time, you should aim for as
-          much uptime on the debuff as possible.
-        </>,
-      )
-        .icon(TALENTS.HAUNT_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.haunt.uptime',
-            message: `${formatPercentage(actual)}% Haunt uptime.`,
-          }),
-        )
-        .recommended(`> ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

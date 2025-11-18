@@ -1,5 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
+import { TIER_BY_CLASSES } from 'common/ITEMS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES, { Race } from 'game/RACES';
@@ -15,6 +15,7 @@ import Entity from './Entity';
 import { PlayerInfo } from './Player';
 import { Talent } from 'common/TALENTS/types';
 import { IGNORED } from 'common/TALENTS/IGNORED';
+import { GenTalent } from './modules/genAbilities';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -140,22 +141,32 @@ class Combatant extends Entity {
 
   /** Returns true if this combatant has the specified talent. Will be true for any number of
    *  points in the talent, even when not the maximum number of points. */
-  hasTalent(talent: Talent): boolean {
-    return talent.entryIds.filter((entryId) => this.treeTalentsByEntryId.has(entryId)).length > 0;
+  hasTalent(talent: Talent | GenTalent): boolean {
+    return Combatant.entryIds(talent).some((entryId) => this.treeTalentsByEntryId.has(entryId));
+  }
+
+  private static entryIds(talent: Talent | GenTalent): number[] {
+    if ('requiresTalentEntry' in talent) {
+      return talent.requiresTalentEntry;
+    } else {
+      return talent.entryIds;
+    }
   }
 
   /**
    * Return the number of ranks that the provided talents have in total.
    * Useful for repeated talents (like Empower Rune Weapon or Stormkeeper).
    */
-  getMultipleTalentRanks(...talents: Talent[]): number {
+  getMultipleTalentRanks(...talents: (Talent | GenTalent)[]): number {
     return talents.reduce((count, talent) => count + this.getTalentRank(talent), 0);
   }
 
   /** Returns the number of points the combatant has in the specified talent. If the talent
    *  hasn't been picked at all, this will be zero. */
-  getTalentRank(talent: Talent) {
-    const foundEntryId = talent.entryIds.find((entryId) => this.treeTalentsByEntryId.has(entryId));
+  getTalentRank(talent: Talent | GenTalent) {
+    const foundEntryId = Combatant.entryIds(talent).find((entryId) =>
+      this.treeTalentsByEntryId.has(entryId),
+    );
     if (!foundEntryId) {
       return 0;
     }

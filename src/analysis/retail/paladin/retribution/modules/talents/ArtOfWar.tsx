@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TALENTS_PALADIN } from 'common/TALENTS';
@@ -89,25 +87,6 @@ class AoWProcTracker extends Analyzer {
         this.lastAoWProcTime = null;
       }
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You used {formatPercentage(this.consumedProcsPercent)}% of your{' '}
-          <SpellLink spell={SPELLS.ART_OF_WAR} icon /> procs.
-        </>,
-      )
-        .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.retribution.suggestions.artOfWar.procsUsed',
-            message: `${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`,
-          }),
-        )
-        .recommended(`Using >${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

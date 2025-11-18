@@ -1,7 +1,7 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatPercentage } from 'common/format';
 import { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
@@ -144,22 +144,6 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-  suggestions(when: When) {
-    when(this.nonHealingTimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
-      )
-        .icon('petbattle_health-down')
-        .actual(
-          defineMessage({
-            id: 'shared.suggestions.alwaysBeCastingHealing.timeSpentHealing',
-            message: `${formatPercentage(1 - actual)}% time spent healing`,
-          }),
-        )
-        .recommended(`>${formatPercentage(1 - recommended)}% is recommended`),
-    );
-    super.suggestions(when);
   }
 }
 

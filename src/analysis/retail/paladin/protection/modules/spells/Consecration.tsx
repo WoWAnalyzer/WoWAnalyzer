@@ -1,9 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { When, ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults';
+import { ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
@@ -50,22 +49,6 @@ class Consecration extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        'Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.',
-      )
-        .icon(SPELLS.CONSECRATION_CAST.icon)
-        .actual(
-          defineMessage({
-            id: 'paladin.protection.suggestions.consecration.hitsMitigated',
-            message: `${formatPercentage(actual)}% of hits were mitigated by Consecration`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

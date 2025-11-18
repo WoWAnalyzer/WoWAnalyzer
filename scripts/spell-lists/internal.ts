@@ -10,6 +10,7 @@ const FILE_LISTS: Record<string, FileList> = {};
 
 export const CURRENT_GAME_VERSIONS = {
   classic: '5.5.0.62232',
+  retail: '12.0.0.64339',
 };
 
 export async function generateSpellData(
@@ -88,6 +89,7 @@ function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.Reta
     } else {
       const remainder: gamedata.RetailSpell[] = [];
       for (const spell of conflictSpells) {
+        // handle temporary spells, typically granted by buffs (like Shadow Priest cooldowns)
         if (spell.type === 'temporary') {
           const duplicateSource = conflictSpells.some(
             (other) =>
@@ -98,13 +100,25 @@ function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.Reta
 
           const source = !duplicateSource && spells.find((other) => other.id === spell.grantedBy);
           if (!duplicateSource && source) {
-            const suffix = conflictSuffix(source);
+            const suffix = temporarySpellConflictSuffix(source);
 
             const fullName = `${name}_${suffix}`;
             output[fullName] = spell;
 
             continue;
           }
+        }
+
+        if (
+          spell.type === 'baseline' &&
+          conflictSpells.some((other) => other.type !== 'temporary' && other.overrides === spell.id)
+        ) {
+          // many baseline spells are overridden by either hidden spec passives, or by essential talents.
+          // for example: Blackout Kick for Brewmaster is overridden by a non-optional talent.
+          // Spinning Crane Kick is overridden by a spell that is a part of the level-up spell list.
+          const fullName = `${name}_BASELINE`;
+          output[fullName] = spell;
+          continue;
         }
 
         remainder.push(spell);
@@ -123,7 +137,7 @@ function keyByName(spells: gamedata.RetailSpell[]): Record<string, gamedata.Reta
   return output;
 }
 
-function conflictSuffix(spell: gamedata.RetailSpell): string {
+function temporarySpellConflictSuffix(spell: gamedata.RetailSpell): string {
   if (spell.type === 'glyph') {
     return 'GLYPH';
   }
@@ -148,10 +162,10 @@ function baseSpellName(spell: gamedata.RetailSpell): string {
     return name;
   } else if (isWellFormedGlyphSpell(spell)) {
     return name;
-  } else if (spell.hidden === 'always') {
-    suffix = 'HIDDEN';
   } else if (spell.type === 'talent' || spell.type === 'mists-talent') {
     suffix = 'TALENT';
+  } else if (spell.hidden === 'always') {
+    suffix = 'HIDDEN';
   } else if (spell.passive) {
     suffix = 'PASSIVE';
   }

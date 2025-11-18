@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import { Expandable, Icon, ResourceLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -7,7 +6,7 @@ import Panel from 'parser/ui/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import MaelstromTracker from './MaelstromTracker';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import MaelstromGraph from './MaelstromGraph';
 import { SectionHeader, SubSection } from 'interface/guide';
 import ThresholdPerformancePercentage from '../features/shared/ThresholdPerformancePercentage';
@@ -100,22 +99,6 @@ class MaelstromDetails extends Analyzer {
           </Expandable>
         </div>
       </SubSection>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsWasted).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        `You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`,
-      )
-        .icon('spell_shadow_mindflay')
-        .actual(
-          defineMessage({
-            id: 'shaman.shared.suggestions.maelstrom.overcapped',
-            message: `${formatPercentage(actual)}% overcapped Maelstrom`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 

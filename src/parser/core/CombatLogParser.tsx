@@ -11,7 +11,6 @@ import {
   HasTarget,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
-import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
@@ -89,19 +88,6 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
-import BurningDevotion from 'parser/retail/modules/items/dragonflight/enchants/BurningDevotion';
-import BurningWrit from 'parser/retail/modules/items/dragonflight/enchants/BurningWrit';
-import EarthenDevotion from 'parser/retail/modules/items/dragonflight/enchants/EarthenDevotion';
-import EarthenWrit from 'parser/retail/modules/items/dragonflight/enchants/EarthenWrit';
-import FrozenDevotion from 'parser/retail/modules/items/dragonflight/enchants/FrozenDevotion';
-import FrozenWrit from 'parser/retail/modules/items/dragonflight/enchants/FrozenWrit';
-import InvigoratingSporeCloud from 'parser/retail/modules/items/dragonflight/enchants/InvigoratingSporeCloud';
-import ShadowflameWreathe from 'parser/retail/modules/items/dragonflight/enchants/ShadowflameWreathe';
-import SophicDevotion from 'parser/retail/modules/items/dragonflight/enchants/SophicDevotion';
-import SophicWrit from 'parser/retail/modules/items/dragonflight/enchants/SophicWrit';
-import SporeTender from 'parser/retail/modules/items/dragonflight/enchants/SporeTender';
-import WaftingDevotion from 'parser/retail/modules/items/dragonflight/enchants/WaftingDevotion';
-import WaftingWrit from 'parser/retail/modules/items/dragonflight/enchants/WaftingWrit';
 import SignetOfThePriory from 'parser/retail/modules/items/thewarwithin/trinkets/SignetOfThePriory';
 import SpymastersWeb from 'parser/retail/modules/items/thewarwithin/trinkets/SpymastersWeb';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
@@ -129,20 +115,6 @@ const isMinified = import.meta.env.PROD;
 
 type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>];
 export type DependenciesDefinition = Record<string, DependencyDefinition>;
-
-export enum SuggestionImportance {
-  Major = 'major',
-  Regular = 'regular',
-  Minor = 'minor',
-}
-export interface Suggestion {
-  text: ReactNode;
-  importance: SuggestionImportance;
-  icon?: string;
-  spell?: number;
-  actual?: ReactNode;
-  recommended?: ReactNode;
-}
 
 interface ModuleErrorDetails {
   key: string;
@@ -221,7 +193,6 @@ class CombatLogParser {
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
     weaponEnhancementChecker: WeaponEnhancementChecker,
-    preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
@@ -250,19 +221,6 @@ class CombatLogParser {
     darkmoonSigilAscension: DarkmoonSigilAscension,
 
     // Enchants
-    burningDevotion: BurningDevotion,
-    burningWrit: BurningWrit,
-    earthenDevotion: EarthenDevotion,
-    earthenWrit: EarthenWrit,
-    frozenDevotion: FrozenDevotion,
-    frozenWrit: FrozenWrit,
-    invigoratingSporeCloud: InvigoratingSporeCloud,
-    shadowflameWreathe: ShadowflameWreathe,
-    sophicDevotion: SophicDevotion,
-    sophicWrit: SophicWrit,
-    sporeTender: SporeTender,
-    waftingDevotion: WaftingDevotion,
-    waftingWrit: WaftingWrit,
 
     // Crafted
 
@@ -274,7 +232,6 @@ class CombatLogParser {
   static specModules: DependenciesDefinition = {};
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase: string, instance: number) => null; //dummy function gets filled in by event parser
 
   config: Config;
   report: Report;
@@ -762,12 +719,6 @@ class CombatLogParser {
                   results.tabs.push(tab);
                 }
               }
-              if (analyzer.suggestions) {
-                const maybeResult = analyzer.suggestions(results.suggestions.when);
-                if (maybeResult) {
-                  maybeResult.forEach((issue) => results.addIssue(issue));
-                }
-              }
             }
           } catch (e) {
             //error occurred during results generation of module, disable module and all modules depending on it
@@ -835,6 +786,7 @@ class CombatLogParser {
       defaultRange: this.getModule(Abilities).defaultRange,
       playerId: this.selectedCombatant.id,
       pets: this.playerPets.filter((pet) => pet.fights.some((fight) => fight.id === this.fight.id)),
+      originalFightStart: this.fight.start_time - this.fight.offset_time,
       fightStart: this.fight.start_time,
       fightEnd: this.fight.end_time,
       fightDuration: this.fight.end_time - this.fight.start_time,

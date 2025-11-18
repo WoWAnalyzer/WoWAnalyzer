@@ -1,9 +1,6 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
@@ -24,36 +21,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         major: 0.25,
       },
     };
-  }
-
-  suggestions(when: When) {
-    const boss = this.owner.boss;
-    if (!boss || !boss.fight.disableDowntimeSuggestion) {
-      when(this.overrideDowntimeSuggestionThresholds).addSuggestion(
-        (suggest, actual, recommended) =>
-          suggest(
-            <>
-              Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the
-              delay between casting spells. If you have to move, try casting instants like{' '}
-              <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
-              <SpellLink spell={SPELLS.ARCANE_EXPLOSION} /> (if there are 2+ targets); even unbuffed{' '}
-              <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> spam is better than nothing.
-              Additionally, if you are standing still while waiting for a boss damage reduction or
-              immunity phase to end, you should still be casting{' '}
-              <SpellLink spell={SPELLS.FROSTBOLT} /> to generate procs or build{' '}
-              <SpellLink spell={SPELLS.ICICLES_BUFF} />.
-            </>,
-          )
-            .icon('spell_mage_altertime')
-            .actual(
-              defineMessage({
-                id: 'mage.frost.suggestions.alwaysBeCasting.downtime',
-                message: `${formatPercentage(actual)}% downtime`,
-              }),
-            )
-            .recommended(`<${formatPercentage(recommended)}% is recommended`),
-      );
-    }
   }
 
   statistic() {

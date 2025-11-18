@@ -1,15 +1,14 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { Abilities } from '../../gen';
 
-import Abilities from '../Abilities';
-
-class BlackOxBrew extends Analyzer {
+class BlackOxBrew extends Analyzer.withDependencies({
+  abilities: Abilities,
+  spellUsable: SpellUsable,
+}) {
   get suggestionThreshold() {
     return {
       actual:
@@ -24,13 +23,6 @@ class BlackOxBrew extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-
-  static dependencies = {
-    spellUsable: SpellUsable,
-    abilities: Abilities,
-  };
-  protected abilities!: Abilities;
-  protected spellUsable!: SpellUsable;
 
   cdr = {
     [talents.PURIFYING_BREW_TALENT.id]: 0,
@@ -54,10 +46,10 @@ class BlackOxBrew extends Analyzer {
   }
 
   _trackCdr(spellId: number) {
-    const cd = this.spellUsable.cooldownRemaining(spellId);
+    const cd = this.deps.spellUsable.cooldownRemaining(spellId);
     this.cdr[spellId] += cd;
 
-    const expectedCooldown = this.abilities.getExpectedCooldownDuration(spellId);
+    const expectedCooldown = this.deps.abilities.getExpectedCooldownDuration(spellId);
     if (expectedCooldown) {
       const wastedCDR = expectedCooldown - cd;
       this.wastedCDR[spellId] += wastedCDR;
@@ -68,9 +60,9 @@ class BlackOxBrew extends Analyzer {
     // loop until we've reset all the charges individually, recording
     // the amount of cooldown reduction for each charge.
     const spellId = talents.PURIFYING_BREW_TALENT.id;
-    while (this.spellUsable.isOnCooldown(spellId)) {
+    while (this.deps.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
-      this.spellUsable.endCooldown(spellId);
+      this.deps.spellUsable.endCooldown(spellId);
     }
   }
 
@@ -78,37 +70,19 @@ class BlackOxBrew extends Analyzer {
     const spellId = this.selectedCombatant.hasTalent(talents.CELESTIAL_INFUSION_TALENT)
       ? talents.CELESTIAL_INFUSION_TALENT.id
       : talents.CELESTIAL_BREW_TALENT.id;
-    if (this.spellUsable.isOnCooldown(spellId)) {
+    if (this.deps.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
-      this.spellUsable.endCooldown(spellId);
+      this.deps.spellUsable.endCooldown(spellId);
     } else {
-      this.wastedCDR[spellId] += this.abilities.getExpectedCooldownDuration(spellId) || 0;
+      this.wastedCDR[spellId] += this.deps.abilities.getExpectedCooldownDuration(spellId) || 0;
     }
   }
 
-  onCast(event: CastEvent) {
+  onCast(_event: CastEvent) {
     this.casts += 1;
 
     this._resetPB();
     this._resetCB();
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> usage can be improved.
-        </>,
-      )
-        .icon(talents.BLACK_OX_BREW_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.brewmaster.suggestions.blackOxBrew.cdrWasted',
-            message: `${formatPercentage(actual)}% of Cooldown Reduction wasted`,
-          }),
-        )
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

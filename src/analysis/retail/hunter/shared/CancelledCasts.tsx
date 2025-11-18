@@ -1,9 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import CrossIcon from 'interface/icons/Cross';
 import { Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -34,28 +33,6 @@ class CancelledCasts extends CoreCancelledCasts {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is
-          expected that you will have to cancel a few casts to react to a boss mechanic or to move,
-          you should try to ensure that you are cancelling as few casts as possible. This is
-          generally done by planning ahead in terms of positioning, and moving while you're casting
-          instant cast spells.
-        </>,
-      )
-        .icon('inv_misc_map_01')
-        .actual(
-          defineMessage({
-            id: 'hunter.marksmanship.suggestions.castsCanceled.efficiency',
-            message: `${formatPercentage(1 - actual)}% casts cancelled`,
-          }),
-        )
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
-    );
   }
 
   statistic() {

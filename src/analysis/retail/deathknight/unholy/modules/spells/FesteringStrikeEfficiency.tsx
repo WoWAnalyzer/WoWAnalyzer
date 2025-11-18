@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HasTarget } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -70,29 +67,6 @@ class FesteringStrikeEfficiency extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are casting <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} /> too often. When
-          spending runes remember to cast <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} />{' '}
-          instead on targets with more than three stacks of{' '}
-          <SpellLink spell={SPELLS.FESTERING_WOUND} />
-        </>,
-      )
-        .icon(TALENTS.FESTERING_STRIKE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.unholy.suggestions.festeringStrikes.efficiency',
-            message: `${formatPercentage(
-              actual,
-            )}% of Festering Strikes did not risk overcapping Festering Wounds`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

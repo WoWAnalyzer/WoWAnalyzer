@@ -1,8 +1,6 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
-import { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BaseFlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 
 const MAX_FLASK_IDS = [
@@ -55,7 +53,7 @@ class FlaskChecker extends BaseFlaskChecker {
     }
   }
 
-  get FlaskSuggestionThresholds(): RequirementThresholds {
+  get FlaskSuggestionThresholds() {
     return {
       actual: Boolean(this.flaskBuffId) || Boolean(this.guardianElixirId && this.battleElixirId),
       isEqual: false,
@@ -63,7 +61,7 @@ class FlaskChecker extends BaseFlaskChecker {
     };
   }
 
-  get GuardianElixirSuggestionThresholds(): RequirementThresholds {
+  get GuardianElixirSuggestionThresholds() {
     return {
       actual: !this.flaskBuffId && !this.guardianElixirId,
       isEqual: true,
@@ -71,36 +69,12 @@ class FlaskChecker extends BaseFlaskChecker {
     };
   }
 
-  get BattleElixirSuggestionThresholds(): RequirementThresholds {
+  get BattleElixirSuggestionThresholds() {
     return {
       actual: !this.flaskBuffId && !this.battleElixirId,
       isEqual: true,
       style: ThresholdStyle.BOOLEAN,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.FlaskSuggestionThresholds).addSuggestion((suggest: SuggestionFactory) =>
-      suggest(
-        'You did not have a flask up before combat. Having a flask during combat is an easy way to improve performance.',
-      )
-        .icon('inv_potion_97')
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-    );
-    when(this.GuardianElixirSuggestionThresholds).addSuggestion((suggest: SuggestionFactory) =>
-      suggest(
-        'You did not have a guardian elixir or flask up before combat. Having one of these is an easy way to improve performance.',
-      )
-        .icon('inv_potion_155')
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-    );
-    when(this.BattleElixirSuggestionThresholds).addSuggestion((suggest: SuggestionFactory) =>
-      suggest(
-        'You did not have a battle elixir or flask up before combat. Having one of these is an easy way to improve performance.',
-      )
-        .icon('inv_potion_142')
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-    );
   }
 }
 

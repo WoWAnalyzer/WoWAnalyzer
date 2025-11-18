@@ -7,7 +7,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
-import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -44,7 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     darkglare: Darkglare,
     shadowEmbrace: ShadowEmbrace,
 

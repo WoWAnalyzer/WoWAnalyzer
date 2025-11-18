@@ -1,9 +1,9 @@
-import { defineMessage, t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 // import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -48,29 +48,6 @@ class RunicPowerDetails extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.runicPowerDetails.suggestion.suggestion">
-          You wasted {formatPercentage(this.wastedPercent)}% of your Runic Power.
-        </Trans>,
-      )
-        .icon('inv_sword_62')
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.runicPowerDetails.suggestion.actual',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'shared.suggestion.recommended.lessThanPercent',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

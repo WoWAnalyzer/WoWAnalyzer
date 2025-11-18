@@ -814,8 +814,10 @@ const spells = {
     id: 418360,
   },
   WEAPONS_OF_ORDER_DEBUFF: {
-    ...talents.WEAPONS_OF_ORDER_TALENT,
+    // ...talents.WEAPONS_OF_ORDER_TALENT,
     id: 387179,
+    name: 'Weapons of Order',
+    icon: '',
   },
   WWTO_STOMP_DAMAGE: {
     id: 1242373,

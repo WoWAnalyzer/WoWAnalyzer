@@ -1,26 +1,25 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
-import Abilities from '../Abilities';
+import { Abilities } from '../../gen';
 
 const DEBUG_ABILITIES = false;
 
-class BreathOfFire extends Analyzer {
-  protected enemies!: Enemies;
-  protected abilities!: Abilities;
-  protected castEfficiency!: CastEfficiency;
-
+class BreathOfFire extends Analyzer.withDependencies({
+  enemies: Enemies,
+  abilities: Abilities,
+  castEfficiency: CastEfficiency,
+}) {
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.BREATH_OF_FIRE_DEBUFF.id) / this.owner.fightDuration;
+    return (
+      this.deps.enemies.getBuffUptime(SPELLS.BREATH_OF_FIRE_DEBUFF.id) / this.owner.fightDuration
+    );
   }
 
   get mitigatedHits() {
@@ -40,11 +39,6 @@ class BreathOfFire extends Analyzer {
     };
   }
 
-  static dependencies = {
-    enemies: Enemies,
-    abilities: Abilities,
-    castEfficiency: CastEfficiency,
-  };
   hitsWithBoF = 0;
   hitsWithoutBoF = 0;
 
@@ -56,7 +50,7 @@ class BreathOfFire extends Analyzer {
       return;
     }
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    (options.abilities as Abilities).add({
+    this.deps.abilities.add({
       spell: talents.BREATH_OF_FIRE_TALENT.id,
       isDefensive: true,
       buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
@@ -80,14 +74,14 @@ class BreathOfFire extends Analyzer {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if (shouldIgnore(this.enemies, event)) {
+    if (shouldIgnore(this.deps.enemies, event)) {
       return;
     }
     const enemyId = encodeEventSourceString(event);
     if (!enemyId) {
       return;
     }
-    const enemy = this.enemies.enemies[enemyId];
+    const enemy = this.deps.enemies.enemies[enemyId];
     if (enemy && enemy.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {
@@ -96,25 +90,6 @@ class BreathOfFire extends Analyzer {
       }
       this.hitsWithoutBoF += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> usage can be improved. The
-          associated debuff is a key part of our damage mitigation.
-        </>,
-      )
-        .icon(talents.BREATH_OF_FIRE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'monk.brewmaster.suggestions.breathOfFire.hitsMitigated',
-            message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`,
-          }),
-        )
-        .recommended(`> ${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

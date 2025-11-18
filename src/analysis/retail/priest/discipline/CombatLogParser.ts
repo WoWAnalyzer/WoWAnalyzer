@@ -22,7 +22,6 @@ import AtonementApplicationSource from './modules/features/AtonementApplicationS
 import AtonementApplicatorBreakdown from './modules/features/AtonementApplicatorBreakdown';
 import AtonementDamageSource from './modules/features/AtonementDamageSource';
 import AtonementHealingDone from './modules/features/AtonementHealingDone';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
@@ -92,7 +91,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaUsageChart: ManaUsageChart,
 
     // Features
-    checklist: Checklist,
 
     // Abilities
     penance: Penance,

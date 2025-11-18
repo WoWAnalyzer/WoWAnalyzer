@@ -1,8 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 import Events, {
@@ -130,64 +129,6 @@ class ShadowWordPain extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> on the boss.
-        </span>,
-      )
-        .icon('spell_shadow_shadowwordpain')
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.shadowWordPain.uptime',
-            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-
-    when(this.shadowWeavingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          You should apply <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> when you have 5 stacks of{' '}
-          <SpellLink spell={SPELLS.SHADOW_WEAVING_BUFF} />. The damage of{' '}
-          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> snapshots when you apply it, but not when
-          you refresh it. The more stacks of <SpellLink spell={SPELLS.SHADOW_WEAVING_BUFF} /> you
-          have when applying SWP, the better.
-        </span>,
-      )
-        .icon('spell_shadow_shadowwordpain')
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.shadowWordPain.shadowWeavingUptime',
-            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime at 5 stacks`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-
-    when(this.shadowWordPainOverwriteThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> is automatically refreshed by{' '}
-          <SpellLink spell={SPELLS.PAIN_AND_SUFFERING_TALENT} />. Try to avoid hardcasting{' '}
-          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> unless you cast it with less than 5 stacks
-          of <SpellLink spell={SPELLS.SHADOW_WEAVING_BUFF} />
-        </span>,
-      )
-        .icon('spell_shadow_shadowwordpain')
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.shadowWordPain.shadowWordPainOverwrite',
-            message: `${actual} Shadow Word Pain Overwrites`,
-          }),
-        )
-        .recommended(`<${recommended} is recommended`),
-    );
   }
 
   subStatistic() {

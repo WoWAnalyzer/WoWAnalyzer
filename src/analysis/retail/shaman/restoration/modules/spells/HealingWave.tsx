@@ -1,11 +1,8 @@
-import { defineMessage, Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
@@ -97,36 +94,6 @@ class HealingWave extends Analyzer {
       },
       style: 'percentage',
     };
-  }
-
-  suggestions(when: When) {
-    const suggestedThreshold = this.suggestedThreshold;
-    when(suggestedThreshold.actual)
-      .isGreaterThan(suggestedThreshold.isGreaterThan.minor)
-      .addSuggestion((suggest) =>
-        suggest(
-          <span>
-            Casting <SpellLink spell={SPELLS.HEALING_WAVE} /> without{' '}
-            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} icon /> is slow and generally inefficient.
-            Consider casting a riptide first to generate{' '}
-            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} icon />
-          </span>,
-        )
-          .icon(SPELLS.HEALING_WAVE.icon)
-          .actual(
-            defineMessage({
-              id: 'shaman.restoration.suggestions.healingWave.unbuffed',
-              message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`,
-            }),
-          )
-          .recommended(
-            `${formatPercentage(
-              suggestedThreshold.isGreaterThan.minor,
-            )}% of unbuffed Healing Waves`,
-          )
-          .regular(suggestedThreshold.isGreaterThan.average)
-          .major(suggestedThreshold.isGreaterThan.major),
-      );
   }
 }
 

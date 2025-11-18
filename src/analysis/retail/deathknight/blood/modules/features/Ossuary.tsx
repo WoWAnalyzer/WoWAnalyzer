@@ -2,10 +2,9 @@ import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -72,31 +71,6 @@ class Ossuary extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.ossuary.suggestion.suggestion">
-          Your <SpellLink spell={TALENTS.OSSUARY_TALENT} /> usage can be improved. Avoid casting{' '}
-          <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} /> while not having Ossuary up as you lose
-          Runic Power by doing so.
-        </Trans>,
-      )
-        .icon(TALENTS.OSSUARY_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.ossuary.suggestion.actual',
-            message: `${formatPercentage(actual)}% Ossuary efficiency`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'deathknight.blood.ossuary.suggestion.recommended',
-            message: `${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
   }
 
   statistic() {

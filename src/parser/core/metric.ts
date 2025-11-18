@@ -9,6 +9,7 @@ export interface Info {
   // TODO: this piece of plucking props from the Abilities module is not ideal
   abilities: Ability[];
   defaultRange: number;
+  originalFightStart: number;
   fightStart: number;
   fightEnd: number;
   fightDuration: number;

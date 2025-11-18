@@ -69,7 +69,8 @@ class DegradedExperience extends Component {
           <span style={{ color: 'white' }}>{toTitleCase(this.firstError)}</span>{' '}
           {this.disabledModuleCount > 1 && (
             <>
-              and {this.disabledModuleCount - 1} other module{this.disabledModuleCount > 2 && 's'}{' '}
+              and {this.disabledModuleCount - 1} other module
+              {this.disabledModuleCount > 2 && 's'}{' '}
             </>
           )}
           encountered an error and had to be disabled.{' '}

@@ -9,12 +9,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import talents from 'common/TALENTS/monk';
 
-import Abilities from '../Abilities';
 import BlackOxBrew from '../spells/BlackOxBrew';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import AnvilStave from '../talents/AnvilStave';
 import PressTheAdvantage from '../talents/PressTheAdvantage';
+import { Abilities } from '../../gen';
 
 const deps = {
   ks: KegSmash,

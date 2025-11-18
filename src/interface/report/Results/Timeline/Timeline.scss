@@ -1,7 +1,11 @@
+@use 'interface/Theme.scss';
+
 .spell-timeline-container {
   width: 100%;
   overflow: auto;
   padding-bottom: 6px;
+  padding-top: 1.5rem;
+  background: Theme.$backgroundColor;
 
   &::-webkit-scrollbar {
     height: 12px;
@@ -17,6 +21,10 @@
     border-radius: 10px;
     background-color: #fab700;
   }
+}
+
+.spell-timeline {
+  padding: 0 2rem;
 }
 
 .spell-timeline-premium-box {

@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -11,7 +10,7 @@ import Events, {
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { Attribution } from 'parser/shared/modules/HotTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
@@ -215,25 +214,6 @@ class TreeOfLife extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> is not providing
-          you much throughput. You may want to plan your CD usage better or pick another talent.
-        </>,
-      )
-        .icon(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'druid.restoration.suggestions.treeOfLife.efficiency',
-            message: `${formatPercentage(actual)}% healing`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended, 0)}% is recommended`),
-    );
   }
 
   statistic() {

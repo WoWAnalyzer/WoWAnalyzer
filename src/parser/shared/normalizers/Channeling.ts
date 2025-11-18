@@ -61,10 +61,9 @@ class Channeling extends EventsNormalizer {
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
     // Trinkets
-    buffChannelSpec(SPELLS.NYMUES_UNRAVELING_SPINDLE.id),
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
-    buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),
+    // buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),
     buffChannelSpec(TALENTS_MAGE.RAY_OF_FROST_TALENT.id),
     nextCastChannelSpec(TALENTS_MAGE.ARCANE_MISSILES_TALENT.id),
     // Priest
@@ -82,7 +81,7 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
     empowerChannelSpec(SPELLS.UPHEAVAL.id),
     empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
-    empowerChannelSpec(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id),
+    // empowerChannelSpec(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id),
     empowerChannelSpec(SPELLS.SPIRITBLOOM_FONT.id),
     empowerChannelSpec(TALENTS_EVOKER.DREAM_BREATH_TALENT.id),
     empowerChannelSpec(SPELLS.DREAM_BREATH_FONT.id),

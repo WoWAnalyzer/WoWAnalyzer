@@ -1,5 +1,6 @@
 @use 'sass:color';
 @use 'interface/Theme.scss';
+@use 'interface/Ad.module.scss';
 
 .statistics-section-title {
   margin-bottom: 20px;
@@ -13,11 +14,69 @@
   .ok {
     background: rgba(29, 156, 7, 0.5);
   }
+
   .loading {
     background: color.adjust(Theme.$primaryColor, $alpha: -0.5);
   }
+
   .waiting,
   .skipped {
     background: rgba(102, 102, 102, 0.5);
+  }
+}
+
+.results {
+  display: grid;
+  grid-template-columns: 1fr Ad.$side-rail-width;
+  gap: 1rem;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  // FIXME: stupid hack to not find and fix every .container nesting
+  & .container {
+    margin: 0;
+    padding: 0;
+  }
+
+  &.no-ad {
+    grid-template-columns: 1fr;
+  }
+
+  & .no-expand {
+    // prevent the grid from stretching to contain this. fixes timeline taking approximately infinite space
+    min-width: 0;
+  }
+
+  @media (min-width: 1500px) {
+    // this min/calc monstrosity is a hack to have the side rail ad "break out" of the main container column on larger screen sizes.
+    // the core of the trick is that `100%` is the width of the .container element and so `(100vw - 100%) / 2` is the size of the
+    // gutters between the div.container and edge of the view.
+    //
+    // the total width of the container element is:
+    //
+    //    100% = <content-column-width> + <gap> + <ad-column-width>
+    //
+    // but the ad column is fixed width, so we can re-arrange things to get:
+    //
+    //    <content-column-width> = 100% - <ad-column-width> - <gap>
+    //
+    // then we **add** the size of the side gutter (minus a small gap between it and the edge) to it to "push" the ad out into the gutter
+    // by making the content column larger.
+    //
+    // the scaling stops ~50-70px beyond the common 1920px screen width (around 1970px, not counting window borders), where the `min` kicks in and
+    // keeps the content column from getting too wide
+    $gap: 1rem;
+    grid-template-columns:
+      min(calc(100% - Ad.$side-rail-width - $gap + (100vw - 100%) / 2 - 1rem), 100%)
+      Ad.$side-rail-width;
+    gap: $gap;
+  }
+
+  @media (min-width: 2000px) {
+    grid-template-columns: 100% Ad.$side-rail-width;
+    gap: 2 * 1.5rem; // .container padding is 1.5rem. this makes things end up with symmetric padding at large screen sizes.
   }
 }

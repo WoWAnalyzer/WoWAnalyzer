@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
@@ -9,9 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import HolyPowerTracker from './HolyPowerTracker';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-const holyPowerIcon = 'inv_helmet_96';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class HolyPowerDetails extends Analyzer {
   static dependencies = {
@@ -37,20 +34,6 @@ class HolyPowerDetails extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
-        .icon(holyPowerIcon)
-        .actual(
-          defineMessage({
-            id: 'paladin.shared.suggestions.holyPower.wasted',
-            message: `${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`,
-          }),
-        )
-        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -23,7 +23,6 @@ import { Link } from 'react-router-dom';
 import { isHiddenParsesResponse, WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
 import { isSupportedRegion } from 'common/regions';
 
-import './report/Results/Header.scss';
 import './CharacterParses.scss';
 import ParsesList, { Parse } from './CharacterParsesList';
 import { appendReportHistory } from './reducers/reportHistory';
@@ -48,7 +47,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_RETAIL_ZONE = 44; // Manaforge Omega
+const DEFAULT_RETAIL_ZONE = 46; // Voidspire / Dreamrift / MQD
 const DEFAULT_CLASSIC_ZONE = 1038; // Mogu'shan Vaults
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';

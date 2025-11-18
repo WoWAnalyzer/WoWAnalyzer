@@ -6,7 +6,6 @@ import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Backdraft from './modules/talents/Backdraft';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Havoc from './modules/talents/Havoc';
 import ImmolateUptime from './modules/features/ImmolateUptime';
@@ -43,7 +42,6 @@ class CombatLogParser extends CoreCombatLogParser {
     havoc: Havoc,
     backdraft: Backdraft,
     rainOfFire: RainOfFire,
-    checklist: Checklist,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     spellUsable: SpellUsable,

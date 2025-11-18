@@ -13,7 +13,6 @@ import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CastBehavior from './modules/features/CastBehavior';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import SpellUsable from './modules/features/SpellUsable';
@@ -102,7 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
-    checklist: Checklist,
     spellUsable: SpellUsable,
     earthShieldBreakdown: EarthShieldBreakdown,
 

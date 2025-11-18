@@ -1,13 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { When } from 'parser/core/ParseResults';
 
 /**
  * A defensive combat state that reduces all damage you take by 15%,
@@ -115,40 +112,6 @@ class DefensiveStance extends Analyzer {
         footer={footer}
       />
     );
-  }
-
-  suggestions(when: When) {
-    when(this.totalDamageLost)
-      .isGreaterThan(this.totalDamageMitigated)
-      .addSuggestion((suggest, dl, dr) =>
-        suggest(
-          'While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.',
-        )
-          .icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon)
-          .actual(
-            defineMessage({
-              id: 'warrior.arms.suggestions.defensiveStance',
-              message: `A total of ${formatNumber(
-                dl,
-              )} of your damage has been reduced compared to ${formatNumber(
-                dr,
-              )} of the damage from the boss.`,
-            }),
-          )
-          .recommended('Reduced damage taken should be higher than your reduced damage.'),
-      );
-    when(this.totalDamageMitigated)
-      .isLessThan(1)
-      .addSuggestion((suggest) =>
-        suggest(
-          <>
-            {' '}
-            You never used <SpellLink spell={TALENTS.DEFENSIVE_STANCE_TALENT} />. Try to use it to
-            reduce incoming damage or use another talent that would be more useful. Hint: A macro to
-            easily switch between stances can be useful!
-          </>,
-        ).icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon),
-      );
   }
 }
 

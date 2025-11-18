@@ -2,11 +2,10 @@ import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, GetRelatedEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -80,24 +79,6 @@ class IceLance extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.nonShatteredIceLanceThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> {this.nonShatteredCasts()} times (
-          {formatPercentage(actual)}%) without <SpellLink spell={TALENTS.SHATTER_TALENT} />. Make
-          sure that you are only casting Ice Lance when the target has{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> (or other Shatter effects), if you have a{' '}
-          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> proc, or if you are moving and you
-          cant cast anything else.
-        </>,
-      )
-        .icon(TALENTS.ICE_LANCE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% missed`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

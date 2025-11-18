@@ -6,7 +6,6 @@ import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
-import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
 const withTip = cnd.buffPresent(SPELLS.TIP_OF_THE_SPEAR_CAST);
@@ -95,14 +94,6 @@ export const apl = build([
     ),
   },
 ]);
-
-export const aplProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
-  const check = aplCheck(apl);
-  return {
-    apl: apl,
-    checkResults: check(events, info),
-  };
-};
 
 export const checkApl = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
   const check = aplCheck(apl);

@@ -78,7 +78,9 @@ export const HERO_SPEC_TALENT_IDS = [
   123330, // Aldrachi Reaver
   123329, // Fel-Scarred
   123328, // Aldrachi Reaver
-  123327, // Fel-Scarred
+  134253, // Annihilator
+  134251, // Annihilator
+  136623, // Void-Scarred
 ];
 
 export const IGNORED = [...HERO_SPEC_TALENT_IDS];

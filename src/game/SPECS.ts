@@ -5,7 +5,6 @@ import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import ROLES from './ROLES';
 import { MessageDescriptor } from '@lingui/core';
 import GameBranch from './GameBranch';
-import { TIMEWALKER_MASTERY_COEFFICIENT } from 'analysis/retail/evoker/augmentation/constants';
 
 interface BaseSpec {
   id: number;
@@ -960,7 +959,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 406380,
-    masteryCoefficient: TIMEWALKER_MASTERY_COEFFICIENT, //0.34 for Vers buff
+    masteryCoefficient: 0.5, // TIMEWALKER_MASTERY_COEFFICIENT, //0.34 for Vers buff
     branch: GameBranch.Retail,
     ranking: {
       class: 13,

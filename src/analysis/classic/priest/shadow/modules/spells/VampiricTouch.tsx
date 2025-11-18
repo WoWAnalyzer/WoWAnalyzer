@@ -1,8 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 
@@ -28,25 +27,6 @@ class VampiricTouch extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> on the boss.
-        </span>,
-      )
-        .icon('spell_holy_stoicism')
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.vampiricTouch.uptime',
-            message: `${formatPercentage(actual)}% Vampiric Touch uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   subStatistic() {

@@ -1,9 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -28,32 +25,6 @@ class PlagueBringer extends Analyzer {
 
   get totalBuffUptime() {
     return Math.round(this.selectedCombatant.getBuffUptime(SPELLS.PLAGUEBRINGER_BUFF.id) / 1000);
-  }
-
-  suggestions(when: When) {
-    // Plaguebringer should have 90% uptime or more
-    when(this.averageBuffUptime)
-      .isLessThan(0.9)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            You are not keeping up your <SpellLink spell={SPELLS.PLAGUEBRINGER_BUFF} /> enough.{' '}
-            Prioritise maintaining it by using <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} />.
-          </span>,
-        )
-          .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)
-          .actual(
-            defineMessage({
-              id: 'deathknight.unholy.suggestions.plaguebringer.uptime',
-              message: `Plaguebringer was up ${formatPercentage(
-                this.averageBuffUptime,
-              )}% of the time`,
-            }),
-          )
-          .recommended(`${recommended * 100}% is recommended`)
-          .regular(recommended - 0.05)
-          .major(recommended - 0.1),
-      );
   }
 
   statistic() {

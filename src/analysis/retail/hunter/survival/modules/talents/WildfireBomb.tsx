@@ -1,8 +1,7 @@
 import type { JSX } from 'react';
-import { defineMessage } from '@lingui/core/macro';
 import {
-  WILDFIRE_BOMB_LEEWAY_BUFFER,
   COVERING_FIRE_CDR,
+  WILDFIRE_BOMB_LEEWAY_BUFFER,
 } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -10,7 +9,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -23,7 +22,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { PerfectColor, BadColor, GoodColor, OkColor } from 'interface/guide';
+import { BadColor, GoodColor, OkColor, PerfectColor } from 'interface/guide';
+
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
  *
@@ -252,41 +252,6 @@ class WildfireBomb extends Analyzer {
     // if (this.acceptedCastDueToCapping || !enemy) {
     //   return;
     // }
-  }
-
-  suggestions(when: When) {
-    when(this.tippedThresholds).addSuggestion((suggest, actual, recommend) =>
-      suggest(
-        <>
-          Try to ensure your <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> is affected by{' '}
-          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />
-        </>,
-      )
-        .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggestions.wildfireBomb.tipped',
-            message: `${formatPercentage(actual)}% tipped`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommend)}% is recommended`),
-    );
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try and maximize your uptime on <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />. This
-          is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic.{' '}
-        </>,
-      )
-        .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.survival.suggestions.wildfireBomb.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get guideSubsection(): JSX.Element {

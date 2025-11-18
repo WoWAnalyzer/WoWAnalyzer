@@ -39,7 +39,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
-        triggeredBySpellId: [SPELLS.SIGIL_OF_FLAME_PRECISE.id, SPELLS.SIGIL_OF_FLAME.id],
+        triggeredBySpellId: SPELLS.SIGIL_OF_FLAME.id,
       },
       {
         spellId: TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id,

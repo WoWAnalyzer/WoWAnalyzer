@@ -1,9 +1,5 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
@@ -20,29 +16,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
-          between casting spells. When you know you'll be moving, try to save{' '}
-          <SpellLink spell={SPELLS.CONFLAGRATE} /> or{' '}
-          <SpellLink spell={TALENTS.SHADOWBURN_TALENT} /> charges. Make good use of your{' '}
-          <SpellLink spell={SPELLS.DEMONIC_CIRCLE} /> or{' '}
-          <SpellLink spell={TALENTS.BURNING_RUSH_TALENT} /> when you can.
-        </>,
-      )
-        .icon('spell_mage_altertime')
-        .actual(
-          defineMessage({
-            id: 'warlock.destruction.suggestions.alwaysBeCasting.downtime',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -1,10 +1,9 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, FightEndEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -75,23 +74,6 @@ class ImprovedScorch extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.uptimePercentThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          While the the target was under {formatPercentage(SEARING_TOUCH_THRESHOLD)}% you had{' '}
-          {formatPercentage(this.uptimePercent)}% uptime on{' '}
-          <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />. Because this buff gives you more
-          damage during your execute, you need to ensure that you are keeping the buff going for as
-          much of your execute as possible.
-        </>,
-      )
-        .icon(TALENTS.IMPROVED_SCORCH_TALENT.icon)
-        .actual(`${formatPercentage(this.uptimePercent)}% Utilization`)
-        .recommended(`${formatPercentage(recommended)} is recommended`),
-    );
   }
 
   statistic() {

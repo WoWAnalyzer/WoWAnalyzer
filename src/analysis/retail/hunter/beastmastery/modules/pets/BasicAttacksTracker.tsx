@@ -1,10 +1,8 @@
-import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -92,31 +90,6 @@ class BasicAttacks extends Analyzer {
 
   potentialExtraDamage(dreamScenario = false) {
     return this.potentialExtraCasts(dreamScenario) * (this.damage / this.totalCasts) || 0;
-  }
-
-  suggestions(when: When) {
-    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          {' '}
-          Make sure that your pet is casting it's Basic Attacks, such as{' '}
-          <SpellLink spell={SPELLS.BITE_BASIC_ATTACK} />.
-        </>,
-      )
-        .icon(SPELLS.BITE_BASIC_ATTACK.icon)
-        .actual(
-          <Trans id="hunter.beastmastery.suggestions.petBasicAttacks.actual">
-            {' '}
-            Your pet didn't cast any Basic Attacks this fight{' '}
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.petBasicAttacks.suggestions">
-            {' '}
-            Your pet should be autocast Basic Attacks{' '}
-          </Trans>,
-        ),
-    );
   }
 
   statistic() {

@@ -1,8 +1,5 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -32,25 +29,6 @@ class StellarFlareUptime extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={TALENTS_DRUID.STELLAR_FLARE_TALENT} /> uptime can be improved. Try
-          to pay more attention to your Stellar Flare on the boss.
-        </>,
-      )
-        .icon(TALENTS_DRUID.STELLAR_FLARE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'druid.balance.suggestions.stellarFlare.uptime',
-            message: `${formatPercentage(actual)}% Stellar Flare uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get uptimeHistory() {

@@ -11,7 +11,6 @@ import TALENTS from 'common/TALENTS/evoker';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  EventType,
   GetRelatedEvents,
   HealEvent,
 } from 'parser/core/Events';
@@ -20,7 +19,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import {
   BreakdownByDamageSource,
   CooldownDetailsContainer,
-  CooldownDetailsProps,
   NoData,
   NumericColumn,
   SmallPassFailBar,

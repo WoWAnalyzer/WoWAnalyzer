@@ -10,7 +10,7 @@ import Events, {
   RefreshBuffEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -161,36 +161,6 @@ class BrainFreeze extends Analyzer {
       performance = QualitativePerformance.Good;
     }
     return performance;
-  }
-
-  suggestions(when: When) {
-    when(this.brainFreezeOverwrittenThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You overwrote {formatPercentage(actual)}% of your{' '}
-          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> procs. You should use your{' '}
-          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> procs as soon as possible and avoid
-          letting them expire or be overwritten whenever possible. There are not any situations
-          where it would be advantageous to hold your{' '}
-          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% overwritten`)
-        .recommended(`Overwriting none is recommended`),
-    );
-    when(this.brainFreezeExpiredThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You allowed {formatPercentage(actual)}% of your{' '}
-          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> procs to expire. Make sure you are using
-          your procs as soon as possible to avoid this.
-        </>,
-      )
-        .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% expired`)
-        .recommended(`Letting none expire is recommended`),
-    );
   }
 
   statistic() {

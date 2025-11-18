@@ -1,14 +1,12 @@
-import { Trans } from '@lingui/react/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import { ResourceIcon } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -119,59 +117,6 @@ class BestialWrath extends Analyzer {
     } else {
       this.wastedBWReduction += BARBED_SHOT_BESTIAL_WRATH_CDR_MS;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, _actual, recommended) =>
-      suggest(
-        <>
-          You started your average <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> at{' '}
-          {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before
-          casting <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} />. This can be achieved by not
-          casting abilities a few moments before <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} />{' '}
-          comes off cooldown.
-        </>,
-      )
-        .icon(TALENTS.BESTIAL_WRATH_TALENT.icon)
-        .actual(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.focusPool.efficiency">
-            {' '}
-            Average of {formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial
-            Wrath{' '}
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.focusPool.recommended">
-            {' '}
-            {'>'}
-            {recommended} focus is recommended{' '}
-          </Trans>,
-        ),
-    );
-    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          A crucial part of <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> is the cooldown
-          reduction of <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> it provides. Therefore
-          it's important to be casting <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> as often
-          as possible to ensure you'll be wasting as little potential cooldown reduction as
-          possible.
-        </>,
-      )
-        .icon(TALENTS.BESTIAL_WRATH_TALENT.icon)
-        .actual(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency">
-            You had {formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.cooldown.recommended">
-            {' '}
-            {'>'}
-            {formatPercentage(recommended)}% is recommended
-          </Trans>,
-        ),
-    );
   }
 
   statistic() {

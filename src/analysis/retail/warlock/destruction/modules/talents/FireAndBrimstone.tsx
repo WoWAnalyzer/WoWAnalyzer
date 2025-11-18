@@ -2,11 +2,8 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -67,27 +64,6 @@ class FireAndBrimstone extends Analyzer {
     this.bonusFragments += event.hitType === HIT_TYPES.CRIT ? 2 : 1;
     this.bonusDmg += event.amount + (event.absorbed || 0);
     debug && this.log(`Current bonus fragments: ${this.bonusFragments}`);
-  }
-
-  suggestions(when: When) {
-    // this is incorrect in certain situations with pre-casted Incinerates, but there's very little I can do about it
-    // example: pre-cast Incinerate -> *combat starts* -> hard cast Incinerate -> first Incinerate lands -> second Incinerate lands
-    // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved
-    when(this.bonusFragments)
-      .isEqual(0)
-      .addSuggestion((suggest) =>
-        suggest(
-          <>
-            Your <SpellLink spell={TALENTS.FIRE_AND_BRIMSTONE_TALENT} icon /> talent didn't
-            contribute any bonus fragments. When there are no adds to cleave onto, this talent is
-            useless and you should switch to a different talent.
-          </>,
-        )
-          .icon(TALENTS.FIRE_AND_BRIMSTONE_TALENT.icon)
-          .actual('No bonus Soul Shard Fragments generated')
-          .recommended('Different talent is recommended')
-          .staticImportance(ISSUE_IMPORTANCE.MAJOR),
-      );
   }
 
   statistic() {

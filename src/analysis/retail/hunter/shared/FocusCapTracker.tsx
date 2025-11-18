@@ -1,10 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Tooltip } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import StatisticBar from 'parser/ui/StatisticBar';
@@ -67,26 +66,6 @@ class FocusCapTracker extends RegenResourceCapTracker {
     super.onDamage(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight] || this.current;
-  }
-
-  suggestions(when: When) {
-    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You're allowing your focus to reach its cap. While at its maximum value you miss out on
-          the focus that would have regenerated. Although it can be beneficial to let focus pool
-          ready to be used at the right time, try to spend some before it reaches the cap.
-        </>,
-      )
-        .icon('ability_hunter_focusfire')
-        .actual(
-          defineMessage({
-            id: 'hunter.marksmanship.suggestions.focusCapTracker.focusLost',
-            message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`,
-          }),
-        )
-        .recommended(`<${formatPercentage(1 - recommended, 0)}% is recommended.`),
-    );
   }
 
   statistic() {

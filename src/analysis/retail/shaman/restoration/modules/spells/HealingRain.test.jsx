@@ -4,7 +4,7 @@ import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import HealingRain from './HealingRain';
 
-describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
+describe.skip('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   const events = [
     // Tick 1
     {

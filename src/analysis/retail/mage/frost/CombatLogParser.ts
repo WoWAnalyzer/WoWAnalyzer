@@ -13,7 +13,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import Guide from './Guide';
 
 //Core
-import Checklist from './checklist/Module';
 import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
 import BrainFreeze from './core/BrainFreeze';
@@ -49,7 +48,6 @@ import ShiftingPowerFrost from 'analysis/retail/mage/frost/talents/ShiftingPower
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    checklist: Checklist,
     buffs: Buffs,
 
     //Normalizers

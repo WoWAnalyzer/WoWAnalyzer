@@ -2,7 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARLOCK } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
-import { WARLOCK_TWW3_ID } from 'common/ITEMS/dragonflight';
+import { WARLOCK_TWW3_ID } from 'common/ITEMS';
 import ItemSetLink from 'interface/ItemSetLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {

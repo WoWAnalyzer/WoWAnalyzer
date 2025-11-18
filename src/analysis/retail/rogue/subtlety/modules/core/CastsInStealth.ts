@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/rogue';
 import { Options } from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import CastsInStealthBase from './CastsInStealthBase';
@@ -51,11 +50,6 @@ class CastsInStealth extends CastsInStealthBase {
     return this.validStealthSpellIds
       .map((s) => this.stealthDamageTracker.getAbility(s).casts || 0)
       .reduce((p, c) => p + c);
-  }
-
-  suggestions(when: When) {
-    this.suggestWrongCast(when, this.backstabSpell, this.stealthBackstabThresholds);
-    this.suggestAvgCasts(when, SPELLS.STEALTH);
   }
 }
 

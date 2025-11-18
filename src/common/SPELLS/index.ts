@@ -27,18 +27,19 @@ import MAGE from 'analysis/retail/mage/shared/SPELLS';
 import ARCANE_MAGE from 'analysis/retail/mage/arcane/SPELLS';
 import FIRE_MAGE from 'analysis/retail/mage/fire/SPELLS';
 import FROST_MAGE from 'analysis/retail/mage/frost/SPELLS';
+import MIDNIGHT from './midnight';
 import MONK from './monk';
 import OTHERS from './others';
 import PALADIN from './paladin';
 import PRIEST from './priest';
 import RACIALS from './racials';
 import ROGUE from './rogue';
-import DRAGONFLIGHT from './dragonflight';
 import THEWARWITHIN from './thewarwithin';
 import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import food from './food';
 
 const ABILITIES = safeMerge(
   OTHERS,
@@ -60,8 +61,9 @@ const ABILITIES = safeMerge(
   SHAMAN,
   WARLOCK,
   WARRIOR,
-  DRAGONFLIGHT,
   THEWARWITHIN,
+  MIDNIGHT,
+  food,
 );
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

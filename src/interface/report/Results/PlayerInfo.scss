@@ -1,7 +1,20 @@
 @use 'interface/Theme.scss';
 
 .player-info {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (min-width: 750px) {
+    min-width: 450px; // keep this from getting squished, even if it means it flows under the stat box
+  }
+
+  .character-sheet {
+    border-radius: 1rem;
+    border: 1px solid #202020;
+    box-shadow: 0 1px 4px black;
+    overflow: clip;
+  }
 
   a:hover {
     text-decoration: none;
@@ -10,6 +23,10 @@
   .class-background {
     background-position: center;
     background-size: cover;
+  }
+
+  .player-background {
+    background-repeat: no-repeat;
   }
 
   .player-gear {

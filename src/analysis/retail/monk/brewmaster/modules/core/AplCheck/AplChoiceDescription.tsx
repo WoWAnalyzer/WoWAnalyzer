@@ -89,8 +89,6 @@ const StandardDescription = () => {
 
 const Description = ({ aplChoice }: { aplChoice: AplCheck.BrewmasterApl }) => {
   switch (aplChoice) {
-    // the breathless apl just cleans up some display issues.
-    case AplCheck.BrewmasterApl.Breathless:
     case AplCheck.BrewmasterApl.Standard:
       return <StandardDescription />;
   }

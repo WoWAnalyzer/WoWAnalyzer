@@ -61,10 +61,8 @@ $potential-perf-color: hsl(329, 10%, 23%);
 }
 
 .gem-icons {
-  display: flex; /* Use flexbox */
-  flex-direction: row; /* Align items horizontally */
-}
-
-header {
-  font-weight: bold;
+  display: flex;
+  /* Use flexbox */
+  flex-direction: row;
+  /* Align items horizontally */
 }

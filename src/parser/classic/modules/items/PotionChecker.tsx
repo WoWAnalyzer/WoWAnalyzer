@@ -1,12 +1,9 @@
-import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/classic/potions';
 import SPELLS from 'common/SPELLS/classic/potions';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ItemLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
@@ -132,29 +129,6 @@ class ClassicPotionChecker extends Analyzer {
   setStrongPotion(spellId: number) {
     this.strongPotionId = WEAK_POTIONS[spellId].useId;
     this.strongPotionIcon = WEAK_POTIONS[spellId].useIcon;
-  }
-
-  suggestions(when: When) {
-    when(this.potionsUsedThresholds).addSuggestion((suggest) =>
-      suggest(
-        <Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">
-          You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during
-          this encounter, but you could have used {this.maxPotions}. {this.suggestionMessage}
-        </Trans>,
-      )
-        .icon(this.strongPotionIcon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-    );
-    when(this.potionStrengthThresholds).addSuggestion((suggest) =>
-      suggest(
-        <Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">
-          You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}.{' '}
-          Use <ItemLink id={this.strongPotionId} /> for better results.
-        </Trans>,
-      )
-        .icon(this.strongPotionIcon)
-        .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
-    );
   }
 }
 

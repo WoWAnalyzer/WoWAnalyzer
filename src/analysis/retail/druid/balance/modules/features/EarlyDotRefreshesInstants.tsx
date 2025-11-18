@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreEarlyDotRefreshesInstants from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
-import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const DOTS = [
@@ -85,11 +84,6 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
     statTracker: StatTracker,
   };
   static dots = DOTS;
-
-  suggestions(when: When) {
-    suggest(when, this.suggestionThresholdsMoonfire);
-    suggest(when, this.suggestionThresholdsSunfire);
-  }
 }
 
 export default EarlyDotRefreshesInstants;

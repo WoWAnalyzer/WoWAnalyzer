@@ -1,13 +1,9 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warrior';
-import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import ExecuteRange from './ExecuteRange';
 
@@ -58,31 +54,6 @@ class MortalStrikeAnalyzer extends Analyzer {
     } else {
       this.mortalStrikesOutsideExecuteRange += 1;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.mortalStrikeUsageThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to use as many <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> as possible. It is
-          generally your strongest hitting ability, unless you are in{' '}
-          <SpellLink spell={SPELLS.EXECUTE} /> range and have the{' '}
-          <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent.
-        </>,
-      )
-        .icon(SPELLS.MORTAL_STRIKE.icon)
-        .actual(
-          defineMessage({
-            id: 'warrior.arms.suggestions.mortalStrike.efficiency',
-            message: `Mortal Strike was cast ${
-              this.mortalStrikeCasts
-            } times accounting for ${formatPercentage(
-              actual,
-            )}% of the total possible casts of Mortal Strike.`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

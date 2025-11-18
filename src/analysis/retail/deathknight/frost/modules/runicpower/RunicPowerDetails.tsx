@@ -1,9 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -51,20 +50,6 @@ class RunicPowerDetails extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
-        .icon('inv_sword_62')
-        .actual(
-          defineMessage({
-            id: 'deathknight.frost.suggestions.runicPower.wasted',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

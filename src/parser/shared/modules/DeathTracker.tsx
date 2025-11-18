@@ -1,9 +1,5 @@
-import { Trans } from '@lingui/react/macro';
-import { formatNumber, formatPercentage } from 'common/format';
-import { makeAnalyzerUrl } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { Link } from 'react-router-dom';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import Events, {
   BeginCastEvent,
@@ -13,8 +9,6 @@ import Events, {
   HealEvent,
   ResurrectEvent,
 } from '../../core/Events';
-
-const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
 
 const debug = false;
 
@@ -106,51 +100,6 @@ class DeathTracker extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    const boss = this.owner.boss;
-    const fight = this.owner.fight;
-    const player = this.owner.player;
-    const report = this.owner.report;
-    const disableDeathSuggestion = boss && boss.fight.disableDeathSuggestion;
-    const isWipe = !fight.kill;
-    const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
-
-    if (!disableDeathSuggestion && !isWipeDeath && this.totalTimeDead > 3000) {
-      when(this.deathSuggestionThresholds).addSuggestion((suggest, actual) =>
-        suggest(
-          <>
-            You died during this fight and were dead for {formatPercentage(actual)}% of the fight
-            duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant
-            performance cost. View the{' '}
-            <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>
-              Death Recap
-            </Link>{' '}
-            to see the damage taken and what defensives and potions were still available.
-          </>,
-        )
-          .icon('ability_fiegndead')
-          .actual(
-            <Trans id="shared.suggestions.deathTracker.deathTime">
-              {' '}
-              You were dead for {formatPercentage(actual)}% of the fight{' '}
-            </Trans>,
-          )
-          .recommended(
-            <Trans id="shared.suggestions.deathTracker.recommended"> 0% is recommended </Trans>,
-          ),
-      );
-    }
-    when(this._didCast)
-      .isFalse()
-      .addSuggestion((suggest) =>
-        suggest(
-          'You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.',
-        )
-          .icon('ability_fiegndead')
-          .major(this.deathSuggestionThresholds.isGreaterThan.major),
-      );
   }
 }
 

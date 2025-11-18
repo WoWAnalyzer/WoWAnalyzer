@@ -1,3 +1,7 @@
+@use 'interface/Theme.scss';
+
+$side-rail-width: 320px;
+
 .outer_container {
   display: block;
   background-repeat: no-repeat;
@@ -6,10 +10,42 @@
   &:empty,
   &.show_background {
     background-image: url('../../public/img/ad-fallback.jpg');
+    background-origin: content-box;
+    background-repeat: no-repeat;
   }
 
   #leaderboard_atf > *,
   iframe {
     max-width: 970px;
   }
+
+  text-decoration: none !important;
+}
+
+.top {
+  min-height: 250;
+  margin-left: auto;
+  margin-right: auto;
+  width: 970px;
+  min-width: 970px;
+}
+
+.side-rail {
+  min-height: 600px;
+  min-width: $side-rail-width;
+  height: 600px;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  background: #161616;
+  box-shadow: 0 1px 4px black;
+  position: sticky;
+  align-self: start;
+  top: 1rem;
+}
+
+.ad_label {
+  text-transform: uppercase;
+  font-size: 75%;
+  color: rgb(243, 237, 237);
 }

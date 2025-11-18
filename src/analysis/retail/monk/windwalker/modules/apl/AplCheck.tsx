@@ -6,7 +6,6 @@ import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
-import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import {
   and,
   buffMissing,
@@ -324,10 +323,3 @@ export default suggestion((events, info) => {
 
   return undefined;
 });
-
-export const aplProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
-  return {
-    apl: apl(info),
-    checkResults: check(events, info),
-  };
-};

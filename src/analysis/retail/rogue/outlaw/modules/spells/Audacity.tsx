@@ -1,10 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/rogue';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import AudacityDamageTracker from './AudacityDamageTracker';
@@ -70,29 +66,6 @@ class Audacity extends Analyzer {
 
   get wastedProcs() {
     return this.procs - this.consumedProcs;
-  }
-
-  suggestions(when: When) {
-    when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You casted <SpellLink spell={SPELLS.SINISTER_STRIKE} /> and/or{' '}
-          <SpellLink spell={SPELLS.PISTOL_SHOT} /> while having an{' '}
-          <SpellLink spell={TALENTS.AUDACITY_TALENT} /> proc. Try to prioritize{' '}
-          <SpellLink spell={SPELLS.AMBUSH} /> as your combo point builder when you have{' '}
-          <SpellLink spell={TALENTS.AUDACITY_TALENT} /> active to avoid the possibility of missing
-          additional procs.
-        </>,
-      )
-        .icon(TALENTS.AUDACITY_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'rogue.outlaw.suggestions.audacity.efficiency',
-            message: `${formatPercentage(actual)}% inefficient casts`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

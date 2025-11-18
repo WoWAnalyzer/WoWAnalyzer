@@ -1,12 +1,10 @@
-import { defineMessage } from '@lingui/core/macro';
 import { CTS_CDR_PER_FOCUS } from 'analysis/retail/hunter/marksmanship/constants';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -84,28 +82,6 @@ class CallingTheShots extends Analyzer {
     this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(
       TALENTS_HUNTER.TRUESHOT_TALENT.id,
       cooldownReductionMS,
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          When talented into <SpellLink spell={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT} />, it is
-          important to maximize its potential by not spending focus while{' '}
-          <SpellLink spell={TALENTS_HUNTER.TRUESHOT_TALENT} /> isn't on cooldown.
-        </>,
-      )
-        .icon(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'hunter.marksmanship.suggestions.callingTheShots.efficiency',
-            message: `You had ${formatPercentage(
-              actual,
-            )}% effective cooldown reduction from Calling the Shots`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 

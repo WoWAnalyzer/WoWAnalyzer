@@ -1,8 +1,7 @@
-import { defineMessage } from '@lingui/core/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -31,26 +30,6 @@ class SoulShardDetails extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
-      )
-        .icon(RESOURCE_TYPES.SOUL_SHARDS.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.soulShards.wastedPerMinute',
-            message: `${this.soulShardTracker.wasted} Soul Shards wasted (${actual.toFixed(
-              2,
-            )} per minute)`,
-          }),
-        )
-        .recommended(
-          `Wasting less than ${recommended.toFixed(2)} Soul Shards per minute is recommended`,
-        ),
-    );
   }
 
   statistic() {

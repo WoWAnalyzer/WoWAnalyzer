@@ -1,9 +1,6 @@
-import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/rogue';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import OpportunityDamageTracker from './OpportunityDamageTracker';
@@ -59,28 +56,6 @@ class Opportunity extends Analyzer {
 
   get wastedProcs() {
     return this.procs - this.consumedProcs;
-  }
-
-  suggestions(when: When) {
-    when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You casted <SpellLink spell={SPELLS.SINISTER_STRIKE} /> while having an{' '}
-          <SpellLink spell={SPELLS.OPPORTUNITY} /> proc. Try to prioritize{' '}
-          <SpellLink spell={SPELLS.PISTOL_SHOT} /> as your combo point builder when you have{' '}
-          <SpellLink spell={SPELLS.OPPORTUNITY} /> active to avoid the possibility of missing
-          additional procs.
-        </>,
-      )
-        .icon(SPELLS.OPPORTUNITY.icon)
-        .actual(
-          defineMessage({
-            id: 'rogue.outlaw.suggestions.opportunity.efficiency',
-            message: `${formatPercentage(actual)}% inefficient casts`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

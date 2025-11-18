@@ -8,6 +8,7 @@ import usePremium from './usePremium';
 
 export enum Location {
   Top = 'top',
+  SideRail = 'side-rail',
 }
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 
 const units = {
   [Location.Top]: { selectorId: 'top-banner-atf', type: 'leaderboard_atf' },
+  [Location.SideRail]: { selectorId: 'sky-banner-atf', type: 'sky_atf' },
 };
 
 const Ad = ({ style, location }: Props) => {
@@ -59,18 +61,12 @@ const Ad = ({ style, location }: Props) => {
   return (
     <Link
       to="/premium"
-      style={{
-        minHeight: 250,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        width: 970,
-        minWidth: 970,
-        ...style,
-      }}
-      className={`${styles.outer_container} ${
+      style={style}
+      className={`${styles.outer_container} ${location ? styles[location] : ''} ${
         showBackground ? styles.show_background : ''
       } text-center`}
     >
+      <div className={styles.ad_label}>Advertisement</div>
       <div ref={initObserver} id={selectorId} data-pw-desk={adType} data-pw-mobi={adType} />
     </Link>
   );
@@ -80,6 +76,8 @@ export default Ad;
 
 declare global {
   interface Window {
+    // ad script stuff that we don't control. don't try to type it
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tyche?: any;
     refreshAds?: () => void;
     adScriptFailed?: boolean;

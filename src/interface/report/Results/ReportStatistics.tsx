@@ -91,46 +91,49 @@ const ReportStatistics = ({
 
   return (
     <div className="container">
-      {}
-      {(Object.keys(groups) as STATISTIC_CATEGORY[])
-        .sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b))
-        .map((name) => {
-          const statistics = groups[name];
-          return (
-            <Fragment key={name}>
-              <StatisticsSectionTitle
-                rightAddon={
-                  name === STATISTIC_CATEGORY.GENERAL &&
-                  parser.hasDowntime && (
-                    <FightDowntimeToggle
-                      initialValue={adjustForDowntime}
-                      onChange={onChangeAdjustForDowntime}
-                      style={{ marginTop: 5 }}
-                    />
-                  )
-                }
-              >
-                {i18n._(getStatisticGroupName(name))}
-              </StatisticsSectionTitle>
+      <div className="panel" style={{ backgroundColor: 'hsl(44, 7%, 8%)' }}>
+        <div className="panel-body pad">
+          {(Object.keys(groups) as STATISTIC_CATEGORY[])
+            .sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b))
+            .map((name) => {
+              const statistics = groups[name];
+              return (
+                <Fragment key={name}>
+                  <StatisticsSectionTitle
+                    rightAddon={
+                      name === STATISTIC_CATEGORY.GENERAL &&
+                      parser.hasDowntime && (
+                        <FightDowntimeToggle
+                          initialValue={adjustForDowntime}
+                          onChange={onChangeAdjustForDowntime}
+                          style={{ marginTop: 5 }}
+                        />
+                      )
+                    }
+                  >
+                    {i18n._(getStatisticGroupName(name))}
+                  </StatisticsSectionTitle>
 
-              <Masonry className="row statistics">
-                {/* Masonry uses the first div to determine its column width */}
-                <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" />
-                {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
-                <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
-                {statistics.sort(sortByPosition)}
-              </Masonry>
-            </Fragment>
-          );
-        })}
+                  <Masonry className="row statistics">
+                    {/* Masonry uses the first div to determine its column width */}
+                    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" />
+                    {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
+                    <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
+                    {statistics.sort(sortByPosition)}
+                  </Masonry>
+                </Fragment>
+              );
+            })}
 
-      {panels && panels.length > 0 && (
-        <StatisticsSectionTitle>
-          <Trans id="report.statistics.details">Details</Trans>
-        </StatisticsSectionTitle>
-      )}
+          {panels && panels.length > 0 && (
+            <StatisticsSectionTitle>
+              <Trans id="report.statistics.details">Details</Trans>
+            </StatisticsSectionTitle>
+          )}
 
-      {panels && panels.sort(sortByPosition)}
+          {panels && panels.sort(sortByPosition)}
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,9 +1,8 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -41,21 +40,6 @@ class SoulsOvercap extends Analyzer {
 
   wastePerGenerated() {
     return this.soulFragmentsTracker.overcap / this.soulFragmentsTracker.soulsGenerated;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are generating <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s when you are already at 5
-          souls. These are auto consumed. You are missing out on the extra damage consuming them
-          with <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> provides.
-        </>,
-      )
-        .icon(SPELLS.SOUL_FRAGMENT.icon)
-        .actual(`${formatPercentage(this.wastePerGenerated())}% wasted Soul Fragments.`)
-        .recommended(`${formatPercentage(recommended)}% or less is recommended`),
-    );
   }
 
   statistic() {

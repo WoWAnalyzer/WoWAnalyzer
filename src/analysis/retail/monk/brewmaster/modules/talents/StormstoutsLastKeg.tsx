@@ -11,23 +11,17 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { STORMSTOUTS_LK_MODIFIER } from '../../constants';
-import Abilities from '../Abilities';
 import BrewCDR from '../core/BrewCDR';
+import { Abilities } from '../../gen';
 
 /**
  * Keg Smash deals 30% additional damage, and has 1 additional charge.
  */
-class StormstoutsLastKeg extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-    brewCdr: BrewCDR,
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
-  protected brewCdr!: BrewCDR;
-  protected abilities!: Abilities;
-
+class StormstoutsLastKeg extends Analyzer.withDependencies({
+  abilities: Abilities,
+  brewCdr: BrewCDR,
+  spellUsable: SpellUsable,
+}) {
   damage = 0;
   extraCD = 0;
 
@@ -67,9 +61,11 @@ class StormstoutsLastKeg extends Analyzer {
   // them "preventing" n wasted casts. As long as players are trying to keep it
   // at 0 charges, this doesn't occur.
   trackExtraCD(_event: CastEvent) {
-    const expectedDuration = this.spellUsable.fullCooldownDuration(talents.KEG_SMASH_TALENT.id);
-    const chargesOnCooldown = this.spellUsable.chargesOnCooldown(talents.KEG_SMASH_TALENT.id);
-    const remaining = this.spellUsable.cooldownRemaining(talents.KEG_SMASH_TALENT.id);
+    const expectedDuration = this.deps.spellUsable.fullCooldownDuration(
+      talents.KEG_SMASH_TALENT.id,
+    );
+    const chargesOnCooldown = this.deps.spellUsable.chargesOnCooldown(talents.KEG_SMASH_TALENT.id);
+    const remaining = this.deps.spellUsable.cooldownRemaining(talents.KEG_SMASH_TALENT.id);
     // if we ever get a 3rd charge this will need revisiting
     if (chargesOnCooldown === 1) {
       this.extraCD += remaining;
@@ -79,8 +75,8 @@ class StormstoutsLastKeg extends Analyzer {
   }
 
   avgCooldown() {
-    const ability = this.abilities.getAbility(talents.KEG_SMASH_TALENT.id)!;
-    return ability.getCooldown(this.brewCdr.meanHaste);
+    const ability = this.deps.abilities.getAbility(talents.KEG_SMASH_TALENT.id)!;
+    return ability.getCooldown(this.deps.brewCdr.meanHaste);
   }
 
   statistic() {

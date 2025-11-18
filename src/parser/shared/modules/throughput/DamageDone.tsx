@@ -12,8 +12,9 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 import DamageValue from '../DamageValue';
 import { i18n } from '@lingui/core';
+import Enemies from '../Enemies';
 
-class DamageDone extends Analyzer {
+class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
   constructor(options: Options) {
     super(options);
 
@@ -22,9 +23,15 @@ class DamageDone extends Analyzer {
   }
 
   _total = DamageValue.empty();
+  private _totalBoss = DamageValue.empty();
+
   get total() {
     return this._total;
   }
+  get totalBoss() {
+    return this._totalBoss;
+  }
+
   _byPet: Record<number, DamageValue> = {};
   byPet(petId: number) {
     if (!this._byPet[petId]) {
@@ -44,6 +51,10 @@ class DamageDone extends Analyzer {
     if (!event.targetIsFriendly) {
       this._total = this._total.addEvent(event);
 
+      if (this.deps.enemies.getById(event.targetID)?.subType === 'Boss') {
+        this._totalBoss = this._totalBoss.addEvent(event);
+      }
+
       const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
       if (!this.bySecond[secondsIntoFight]) {
         this.bySecond[secondsIntoFight] = DamageValue.empty();
@@ -54,6 +65,11 @@ class DamageDone extends Analyzer {
   onByPlayerPetDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
       this._total = this._total.addEvent(event);
+
+      if (this.deps.enemies.getById(event.targetID)?.subType === 'Boss') {
+        this._totalBoss = this._totalBoss.addEvent(event);
+      }
+
       const petId = event.sourceID;
       if (petId) {
         this._byPet[petId] = this.byPet(petId).addEvent(event);

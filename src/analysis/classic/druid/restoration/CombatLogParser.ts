@@ -11,7 +11,6 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
 // Healer Features
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
@@ -46,7 +45,6 @@ class CombatLogParser extends BaseCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     hotCountGraph: HotCountGraph,
     // Healer Features
     hpmTracker: HealingEfficiencyTracker,
