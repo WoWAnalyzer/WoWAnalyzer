@@ -1,4 +1,3 @@
-import renderer from 'react-test-renderer';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import CyclingVideo from './CyclingVideo';
@@ -14,14 +13,14 @@ describe('CyclingVideo', () => {
   });
 
   it('matches snapshot', () => {
-    const tree = renderer.create(<CyclingVideo videos={FAKE_VIDEOS} randomValue={0} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    const { container } = render(<CyclingVideo videos={FAKE_VIDEOS} randomValue={0} />);
+    expect(container).toMatchSnapshot();
   });
   it('passes unrecognized props', () => {
-    const tree = renderer
-      .create(<CyclingVideo videos={FAKE_VIDEOS} randomValue={0} style={{ color: 'red' }} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    const { container } = render(
+      <CyclingVideo videos={FAKE_VIDEOS} randomValue={0} style={{ color: 'red' }} />,
+    );
+    expect(container).toMatchSnapshot();
   });
   describe('randomValue prop', () => {
     it('renders first video when 0 is passed', () => {
