@@ -1,4 +1,5 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';

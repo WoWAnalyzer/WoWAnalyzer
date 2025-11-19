@@ -315,7 +315,7 @@ const CooldownUsage = <Apply extends EventType, Remove extends EventType>({
   const mitigations = analyzer.mitigations;
 
   const onClickBox = useCallback(
-    (index) => {
+    (index: number) => {
       if (index >= mitigations.length) {
         setSelectedMit(undefined);
       } else {

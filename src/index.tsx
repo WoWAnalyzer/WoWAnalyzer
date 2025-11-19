@@ -7,6 +7,7 @@ import { createRoot } from 'react-dom/client';
 import at from 'core-js/actual/array/at';
 
 import Root from './Root';
+import { reactErrorHandler } from '@sentry/react';
 
 // we are intentionally polyfilling `at` here when missing because we use
 // it frequently and its addition to browsers is quite recent
@@ -15,5 +16,9 @@ if (Array.prototype.at === undefined) {
 }
 
 const container = document.getElementById('app-mount')!;
-const root = createRoot(container);
+const root = createRoot(container, {
+  onUncaughtError: import.meta.env.VITE_SENTRY_DSN ? reactErrorHandler() : undefined,
+  onCaughtError: import.meta.env.VITE_SENTRY_DSN ? reactErrorHandler() : undefined,
+  onRecoverableError: import.meta.env.VITE_SENTRY_DSN ? reactErrorHandler() : undefined,
+});
 root.render(<Root />);

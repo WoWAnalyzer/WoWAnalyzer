@@ -231,7 +231,7 @@ const SpellUsageSubSection = ({
   }, [rawPerformances, uses, info?.fightStart]);
 
   const onClickBox = useCallback(
-    (index) => {
+    (index: number) => {
       if (index >= performances.length) {
         setSelectedUse(undefined);
         onPerformanceBoxClick?.(undefined);

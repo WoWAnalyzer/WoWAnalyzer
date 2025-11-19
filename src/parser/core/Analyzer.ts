@@ -157,7 +157,7 @@ enum FunctionType {
 
 type FunctionalEventFilter = EventFilter<any> | EventFilter<any>[];
 
-function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
+function buildFunctionalAnalyzer<Deps extends Dependencies, Result extends ReactNode>(
   functionType: FunctionType,
   metric: Metric<Result>,
   eventFilter: FunctionalEventFilter = Events.any,
@@ -202,7 +202,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
 }
 
 export const statistic = (
-  metric: Metric<ReactNode | undefined>,
+  metric: Metric<ReactNode>,
   eventFilter?: FunctionalEventFilter,
   dependencies?: Dependencies,
 ) => buildFunctionalAnalyzer(FunctionType.Statistic, metric, eventFilter, dependencies);

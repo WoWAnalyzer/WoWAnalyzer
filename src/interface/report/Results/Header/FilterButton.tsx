@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import * as design from 'interface/design-system';
 import { useReport } from 'interface/report/context/ReportContext';
-import React, { ChangeEvent, useCallback, useEffect, useMemo } from 'react';
+import React, { ChangeEvent, JSX, useCallback, useEffect, useMemo } from 'react';
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import TimeFilter from '../TimeFilter';
