@@ -126,10 +126,10 @@ const talents = {
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
     maxRanks: 1,
-    entryIds: [112314, 119139],
+    entryIds: [112314, 112284],
     definitionIds: [
       { id: 117319, specId: 71 },
-      { id: 124039, specId: 72 },
+      { id: 117289, specId: 72 },
     ],
   },
   BLOODBORNE_ARMS_TALENT: {
@@ -196,8 +196,8 @@ const talents = {
     name: 'Bolster',
     icon: 'shield_draenorcrafted_d_02_c_alliance',
     maxRanks: 1,
-    entryIds: [112177],
-    definitionIds: [{ id: 117182, specId: 73 }],
+    entryIds: [132879],
+    definitionIds: [{ id: 137665, specId: 73 }],
   },
   BONESHAKER_TALENT: {
     id: 429639,
@@ -708,7 +708,7 @@ const talents = {
     id: 335077,
     name: 'Frenzy',
     icon: 'ability_rogue_bloodyeye',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [112275],
     definitionIds: [{ id: 117280, specId: 72 }],
   },
@@ -768,8 +768,8 @@ const talents = {
     name: 'Heavy Handed',
     icon: 'inv_1115_warrior_crushingblow',
     maxRanks: 1,
-    entryIds: [132878],
-    definitionIds: [{ id: 137664, specId: 73 }],
+    entryIds: [112169],
+    definitionIds: [{ id: 117174, specId: 73 }],
   },
   HEAVY_REPERCUSSIONS_TALENT: {
     id: 203177,
@@ -803,16 +803,21 @@ const talents = {
     entryIds: [112110],
     definitionIds: [{ id: 117115, specId: 73 }],
   },
-  IGNORE_PAIN_TALENT: {
+  IGNORE_PAIN_ARMS_TALENT: {
+    id: 1277297,
+    name: 'Ignore Pain',
+    icon: 'ability_warrior_renewedvigor',
+    maxRanks: 1,
+    entryIds: [136701],
+    definitionIds: [{ id: 141473, specId: 71 }],
+  },
+  IGNORE_PAIN_PROTECTION_TALENT: {
     id: 190456,
     name: 'Ignore Pain',
     icon: 'ability_warrior_renewedvigor',
     maxRanks: 1,
-    entryIds: [136701, 112149],
-    definitionIds: [
-      { id: 141473, specId: 71 },
-      { id: 117154, specId: 73 },
-    ],
+    entryIds: [112149],
+    definitionIds: [{ id: 117154, specId: 73 }],
     rageCost: 35,
   },
   IMMINENT_DEMISE_TALENT: {
@@ -1050,7 +1055,7 @@ const talents = {
   MARTIAL_PROWESS_TALENT: {
     id: 1273062,
     name: 'Martial Prowess',
-    icon: 'ability_warrior_weaponmastery',
+    icon: 'warrior_talent_icon_igniteweapon',
     maxRanks: 1,
     entryIds: [135934],
     definitionIds: [{ id: 140689, specId: 71 }],
@@ -1068,10 +1073,10 @@ const talents = {
     name: 'Massacre',
     icon: 'inv_axe_2h_orcwarrior_c_01',
     maxRanks: 1,
-    entryIds: [112145, 132879],
+    entryIds: [112145, 132878],
     definitionIds: [
       { id: 117150, specId: 71 },
-      { id: 137665, specId: 73 },
+      { id: 137664, specId: 73 },
     ],
   },
   MASS_EXECUTION_TALENT: {
@@ -1160,8 +1165,8 @@ const talents = {
     name: "Odyn's Fury",
     icon: 'inv_sword_1h_artifactvigfus_d_01',
     maxRanks: 1,
-    entryIds: [112256],
-    definitionIds: [{ id: 117261, specId: 72 }],
+    entryIds: [136735],
+    definitionIds: [{ id: 141507, specId: 72 }],
   },
   ONE_AGAINST_MANY_TALENT: {
     id: 429637,
@@ -1396,8 +1401,8 @@ const talents = {
     name: 'Reckless Abandon',
     icon: 'spell_fire_incinerate',
     maxRanks: 1,
-    entryIds: [112284],
-    definitionIds: [{ id: 117289, specId: 72 }],
+    entryIds: [119139],
+    definitionIds: [{ id: 124039, specId: 72 }],
   },
   REINFORCED_PLATES_TALENT: {
     id: 382939,
@@ -1641,22 +1646,15 @@ const talents = {
     entryIds: [117405],
     definitionIds: [{ id: 122417, specId: 73 }],
   },
-  SUDDEN_DEATH_FURY_TALENT: {
-    id: 280721,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
-    maxRanks: 1,
-    entryIds: [112301],
-    definitionIds: [{ id: 117306, specId: 72 }],
-  },
-  SUDDEN_DEATH_SPEC_TALENT: {
+  SUDDEN_DEATH_TALENT: {
     id: 29725,
     name: 'Sudden Death',
     icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
-    entryIds: [112126, 132884],
+    entryIds: [112126, 112301, 132884],
     definitionIds: [
       { id: 117131, specId: 71 },
+      { id: 117306, specId: 72 },
       { id: 137670, specId: 73 },
     ],
   },
@@ -1738,8 +1736,8 @@ const talents = {
     name: 'Tough as Nails',
     icon: 'inv_titanium_shield_spike',
     maxRanks: 1,
-    entryIds: [112169],
-    definitionIds: [{ id: 117174, specId: 73 }],
+    entryIds: [112177],
+    definitionIds: [{ id: 117182, specId: 73 }],
   },
   TWO_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382896,
@@ -1748,14 +1746,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [112179],
     definitionIds: [{ id: 117184, specId: 71 }],
-  },
-  UNBRIDLED_FEROCITY_TALENT: {
-    id: 389603,
-    name: 'Unbridled Ferocity',
-    icon: 'ability_warrior_endlessrage',
-    maxRanks: 1,
-    entryIds: [112283],
-    definitionIds: [{ id: 117288, specId: 72 }],
   },
   UNHINGED_TALENT: {
     id: 386628,

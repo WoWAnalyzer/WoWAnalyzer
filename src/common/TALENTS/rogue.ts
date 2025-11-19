@@ -194,6 +194,14 @@ const talents = {
     entryIds: [117707],
     definitionIds: [{ id: 122719, specId: 261 }],
   },
+  CLEVER_COMBATANT_TALENT: {
+    id: 1276679,
+    name: 'Clever Combatant',
+    icon: 'ability_rogue_versatility',
+    maxRanks: 1,
+    entryIds: [136021],
+    definitionIds: [{ id: 140776, specId: 261 }],
+  },
   CLOAKED_IN_SHADOWS_TALENT: {
     id: 382515,
     name: 'Cloaked in Shadows',
@@ -241,6 +249,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [135734],
     definitionIds: [{ id: 140489, specId: 260 }],
+  },
+  CONTROLLED_CHAOS_TALENT: {
+    id: 1276816,
+    name: 'Controlled Chaos',
+    icon: 'inv_112_raidtrinkets_blobofswirlingvoid_purple',
+    maxRanks: 1,
+    entryIds: [136026],
+    definitionIds: [{ id: 140781, specId: 260 }],
   },
   CORRUPT_THE_BLOOD_TALENT: {
     id: 1248785,
@@ -667,6 +683,14 @@ const talents = {
     entryIds: [112511],
     definitionIds: [{ id: 117516, specId: 259 }],
   },
+  FLASHING_STEEL_TALENT: {
+    id: 1276630,
+    name: 'Flashing Steel',
+    icon: 'inv_1115_warrior_fastermeleeattacks',
+    maxRanks: 1,
+    entryIds: [136022],
+    definitionIds: [{ id: 140777, specId: 261 }],
+  },
   FLAWLESS_FORM_TALENT: {
     id: 441321,
     name: 'Flawless Form',
@@ -829,6 +853,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [112569],
     definitionIds: [{ id: 117574, specId: 260 }],
+  },
+  HOODWINK_TALENT: {
+    id: 1276626,
+    name: 'Hoodwink',
+    icon: 'spell_holy_dizzy',
+    maxRanks: 1,
+    entryIds: [136023],
+    definitionIds: [{ id: 140778, specId: 261 }],
   },
   HUNT_THEM_DOWN_TALENT: {
     id: 457054,
@@ -1305,6 +1337,14 @@ const talents = {
     entryIds: [112659],
     definitionIds: [{ id: 117664, specId: 259 }],
   },
+  RAVENHOLDT_MINT_TALENT: {
+    id: 1276809,
+    name: 'Ravenholdt Mint',
+    icon: 'inv_misc_coinbag_special',
+    maxRanks: 1,
+    entryIds: [136024],
+    definitionIds: [{ id: 140779, specId: 260 }],
+  },
   RAZOR_WIRE_TALENT: {
     id: 1249802,
     name: 'Razor Wire',
@@ -1563,6 +1603,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [117738],
     definitionIds: [{ id: 122750, specId: 261 }],
+  },
+  SOMETIMES_LUCKY_TALENT: {
+    id: 1277030,
+    name: 'Sometimes Lucky',
+    icon: 'inv_misc_celestialmap',
+    maxRanks: 1,
+    entryIds: [136025],
+    definitionIds: [{ id: 140780, specId: 260 }],
   },
   SOOTHING_DARKNESS_TALENT: {
     id: 393970,
