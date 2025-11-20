@@ -25,10 +25,6 @@ class MID1Vengeance4P extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.MID1);
 
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MID1_EXPLOSION_OF_THE_SOUL),
       this.onDetonationDamage,
