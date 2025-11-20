@@ -1,4 +1,4 @@
-import spells from '../../spell-list_Warlock_Demonology.classic';
+import SPELLS from 'common/SPELLS/classic/warlock';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: spells.DARK_SOUL_KNOWLEDGE.id,
+      spell: SPELLS.METAMORPHOSIS.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

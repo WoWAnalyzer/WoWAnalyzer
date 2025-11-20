@@ -41,7 +41,6 @@ import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
-import FocusedAim from './modules/talents/FocusedAim';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from '../shared/talents/Deathblow';
 import MMTier2P from './modules/items/MMTier2P';
@@ -51,7 +50,6 @@ import OvinaxMercurialEgg from 'parser/retail/modules/items/thewarwithin/trinket
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
 import SkardynsGrace from 'parser/retail/modules/items/thewarwithin/trinkets/SkardynsGrace';
 import BlackArrow from '../shared/talents/BlackArrow';
-import MagneticGunPowder from './modules/talents/MagneticGunPowder';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = FoundationGuide;
@@ -96,10 +94,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     aimedShot: AimedShot,
     volley: Volley,
-    focusedAim: FocusedAim,
-    magneticGunPowder: MagneticGunPowder,
     lockAndLoad: LockAndLoad,
     callingTheShots: CallingTheShots,
+
     streamline: Streamline,
     deathblow: Deathblow,
     surgingShots: SurgingShots,

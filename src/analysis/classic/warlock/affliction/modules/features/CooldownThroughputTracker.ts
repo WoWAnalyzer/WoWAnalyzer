@@ -1,4 +1,4 @@
-import spells from '../../spell-list_Warlock_Affliction.classic';
+import SPELLS from 'common/SPELLS/classic/warlock';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: spells.DARK_SOUL.id,
+      spell: SPELLS.DARK_SOUL.id,
       duration: 20,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },

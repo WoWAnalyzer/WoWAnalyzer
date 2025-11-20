@@ -1,7 +1,7 @@
 import CoreAuras from 'parser/core/modules/Auras';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import ITEM_BUFFS from 'game/classic/ITEM_BUFFS';
-// import spells from '../spell-list_Warlock_Affliction.classic';
+// import SPELLS from 'common/SPELLS/classic/warlock';
 
 class Buffs extends CoreAuras {
   auras() {

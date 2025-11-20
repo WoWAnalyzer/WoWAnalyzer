@@ -37,8 +37,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  // Example Report for no scope: report/KbXfYp7jHLByahR6/11-Mythic+Soulbinder+Naazindhri+-+Kill+(6:22)/Baleran/standard
-  exampleReport: 'report/PN9yxXtKb3T6VdC4/6-Heroic+Fractillus+-+Kill+(3:49)/Baleran/standard',
+  exampleReport: 'report/AqYvnpjk2MCHmgca/21-Mythic+The+Bloodbound+Horror+-+Kill+(5:10)/Yellot',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
