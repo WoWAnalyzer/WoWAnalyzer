@@ -6,6 +6,8 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 10, 31), 'Update GCD for Felblade.', ToppleTheNun),
+  change(date(2025, 10, 27), "Update GCD for Felblade and Reaver's Glaive", ToppleTheNun),
   change(date(2024, 12, 1), <>Fix statistics for <SpellLink spell={TALENTS.DEMONSURGE_TALENT} />.</>, ToppleTheNun),
   change(date(2024, 9, 23), <>Add statistics for <SpellLink spell={TALENTS.DEMONSURGE_TALENT} />.</>, ToppleTheNun),
   change(date(2024, 9, 23), <>Fix duration of Meta from <SpellLink spell={TALENTS.DEMONIC_TALENT} />.</>, ToppleTheNun),

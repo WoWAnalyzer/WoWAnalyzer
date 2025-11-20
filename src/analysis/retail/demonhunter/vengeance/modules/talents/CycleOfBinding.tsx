@@ -8,6 +8,7 @@ import {
   getTargetsAffectedBySigilOfFlame,
   getTargetsAffectedBySigilOfMisery,
   getTargetsAffectedBySigilOfSilence,
+  getTargetsAffectedBySigilOfDoom,
 } from 'analysis/retail/demonhunter/vengeance/normalizers/CycleOfBindingNormalizer';
 import {
   getSigilOfSpiteSpell,
@@ -15,6 +16,7 @@ import {
   getSigilOfFlameSpell,
   getSigilOfMiserySpell,
   getSigilOfSilenceSpell,
+  getSigilOfDoomSpell,
 } from 'analysis/retail/demonhunter/shared';
 import Spell from 'common/SPELLS/Spell';
 import React from 'react';
@@ -26,7 +28,7 @@ import { formatDurationMillisMinSec } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import Abilities from 'analysis/retail/demonhunter/vengeance/modules/Abilities';
 
-const CDR = 3000;
+const CDR = 5000;
 
 interface SigilSpellCdr {
   spellId: number;
@@ -51,6 +53,7 @@ export default class CycleOfBinding extends Analyzer.withDependencies(deps) {
     const elysianDecreeSpell = getSigilOfSpiteSpell(this.selectedCombatant);
     const sigilOfSilenceSpell = getSigilOfSilenceSpell(this.selectedCombatant);
     const sigilOfChainsSpell = getSigilOfChainsSpell(this.selectedCombatant);
+    const sigilOfDoomSpell = getSigilOfDoomSpell(this.selectedCombatant);
     this.sigilSpells = [
       sigilOfFlameSpell,
       sigilOfMiserySpell,
@@ -80,6 +83,9 @@ export default class CycleOfBinding extends Analyzer.withDependencies(deps) {
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(sigilOfChainsSpell), (event) =>
       this.onCast(event, getTargetsAffectedBySigilOfChains),
+    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(sigilOfDoomSpell), (event) =>
+      this.onCast(event, getTargetsAffectedBySigilOfDoom),
     );
   }
 
@@ -128,22 +134,26 @@ export default class CycleOfBinding extends Analyzer.withDependencies(deps) {
     if (affectedBy.length === 0) {
       return;
     }
-    this.reduceSigilCooldowns();
+    this.reduceSigilCooldowns(event.ability.guid);
   }
 
-  private reduceSigilCooldowns() {
-    for (const sigil of this.sigilSpells) {
-      const existingCdr = this.sigilCdr[sigil.id] ?? {
-        spellId: sigil.id,
-        effectiveCdr: 0,
-        totalCdr: 0,
-      };
-      const effectiveCdr = this.deps.spellUsable.reduceCooldown(sigil.id, CDR);
-      this.sigilCdr[sigil.id] = {
-        ...existingCdr,
-        effectiveCdr: existingCdr.effectiveCdr + effectiveCdr,
-        totalCdr: existingCdr.totalCdr + CDR,
-      };
+  private reduceSigilCooldowns(castSigilId: number) {
+    const sigilOfFlameId = getSigilOfFlameSpell(this.selectedCombatant).id;
+    const sigilOfDoomId = getSigilOfDoomSpell(this.selectedCombatant).id;
+    if (castSigilId === sigilOfFlameId || castSigilId === sigilOfDoomId) {
+      for (const sigil of this.sigilSpells) {
+        const existingCdr = this.sigilCdr[sigil.id] ?? {
+          spellId: sigil.id,
+          effectiveCdr: 0,
+          totalCdr: 0,
+        };
+        const effectiveCdr = this.deps.spellUsable.reduceCooldown(sigil.id, CDR);
+        this.sigilCdr[sigil.id] = {
+          ...existingCdr,
+          effectiveCdr: existingCdr.effectiveCdr + effectiveCdr,
+          totalCdr: existingCdr.totalCdr + CDR,
+        };
+      }
     }
   }
 }

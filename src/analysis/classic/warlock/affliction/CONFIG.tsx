@@ -10,7 +10,7 @@ const CONFIG: Config = {
   contributors: [jazminite],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
+  patchCompatibility: '5.5.0',
   supportLevel: SupportLevel.Foundation,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -23,7 +23,7 @@ const CONFIG: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/QNAPvryX6F9gKGx8/8-Heroic+Magmaw+-+Kill+(2:59)/Deepdrei',
+  exampleReport: '/report/7wjLan4CVdghFPrB/5-Heroic+Tsulong+-+Kill+(3:25)/Wallirik',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

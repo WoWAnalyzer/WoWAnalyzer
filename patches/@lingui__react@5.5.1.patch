@@ -1,0 +1,47 @@
+diff --git a/macro/index.d.ts b/macro/index.d.ts
+index 84e1587af8b0e8ad200ab401fb1f37de30746adb..dde90ae0aeee90ec6cfc29bfb1d4666e4d02cc1a 100644
+--- a/macro/index.d.ts
++++ b/macro/index.d.ts
+@@ -1,4 +1,4 @@
+-import type { ReactNode } from "react"
++import type { ReactElement, ReactNode } from "react"
+ import type { TransRenderCallbackOrComponent, I18nContext } from "@lingui/react"
+ import type {
+   MacroMessageDescriptor,
+@@ -52,7 +52,8 @@ type SelectChoiceProps = {
+  * <Trans id="custom.id">Hello {username}.</Trans>
+  * ```
+  */
+-export const Trans: (props: TransProps) => ReactNode
++// this now matches the signature from base @lingui/react
++export const Trans: (props: TransProps) => ReactElement<any, any> | null
+ 
+ /**
+  * Props of Plural macro are transformed into plural format.
+@@ -67,7 +68,7 @@ export const Trans: (props: TransProps) => ReactNode
+  * <Trans id="{numBooks, plural, one {Book} other {Books}}" values={{ numBooks }} />
+  * ```
+  */
+-export const Plural: (props: PluralChoiceProps) => ReactNode
++export const Plural: (props: PluralChoiceProps) => ReactElement<any, any> | null
+ /**
+  * Props of SelectOrdinal macro are transformed into selectOrdinal format.
+  *
+@@ -86,7 +87,7 @@ export const Plural: (props: PluralChoiceProps) => ReactNode
+  * />
+  * ```
+  */
+-export const SelectOrdinal: (props: PluralChoiceProps) => ReactNode
++export const SelectOrdinal: (props: PluralChoiceProps) => ReactElement<any, any> | null;
+ 
+ /**
+  * Props of Select macro are transformed into select format
+@@ -105,7 +106,7 @@ export const SelectOrdinal: (props: PluralChoiceProps) => ReactNode
+  * />
+  * ```
+  */
+-export const Select: (props: SelectChoiceProps) => ReactNode
++export const Select: (props: SelectChoiceProps) => ReactElement<any, any> | null;
+ 
+ declare function _t(descriptor: MacroMessageDescriptor): string
+ declare function _t(

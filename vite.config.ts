@@ -1,9 +1,11 @@
+/// <reference types="vitest/config" />
+
 import { join } from 'node:path';
 import process from 'node:process';
 
 import { lingui } from '@lingui/vite-plugin';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import { globSync } from 'glob';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -62,9 +64,11 @@ export default defineConfig((env) => ({
   plugins: [
     tsconfigPaths(),
     react({
-      babel: {
-        plugins: ['macros', '@emotion/babel-plugin', '@babel/plugin-syntax-import-attributes'],
-      },
+      plugins: [
+        ['@swc/plugin-emotion', {}],
+        // always enabled because it powers the macros
+        ['@lingui/swc-plugin', {}],
+      ],
     }),
     {
       name: 'vite-plugin-wowanalyzer-index-html-inject-ga',
@@ -73,7 +77,7 @@ export default defineConfig((env) => ({
           ? html.replace('</head>', GOOGLE_ANALYTICS_SCRIPT)
           : html,
     },
-    env.mode === 'test' ? null : lingui(),
+    lingui(),
     svgr(),
     process.env.SENTRY_AUTH_TOKEN
       ? sentryVitePlugin({
@@ -141,6 +145,6 @@ export default defineConfig((env) => ({
     },
     resolveSnapshotPath: (testPath: string, snapExtension: string) => testPath + snapExtension,
     css: false,
-    reporters: ['basic', 'hanging-process'],
+    reporters: [['default', { summary: true }], 'hanging-process'],
   },
 }));

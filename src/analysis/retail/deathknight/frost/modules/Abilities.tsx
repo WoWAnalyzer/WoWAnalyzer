@@ -198,9 +198,12 @@ class Abilities extends CoreAbilities {
         spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
         buffSpellId: SPELLS.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: null,
-        cooldown: combatant.hasTalent(talents.ASSIMILATION_TALENT) ? 90 : 120,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: combatant.hasTalent(talents.ASSIMILATION_TALENT) ? 180 : 240,
         isDefensive: true,
+        enabled: combatant.hasTalent(talents.ANTI_MAGIC_ZONE_TALENT),
       },
       {
         spell: SPELLS.LICHBORNE.id,

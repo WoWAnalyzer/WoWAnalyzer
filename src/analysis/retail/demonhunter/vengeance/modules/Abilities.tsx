@@ -124,9 +124,9 @@ class Abilities extends SharedAbilities {
       {
         spell: [TALENTS.SIGIL_OF_SILENCE_TALENT.id, SPELLS.SIGIL_OF_SILENCE_PRECISE.id],
         enabled: this.selectedCombatant.hasTalent(TALENTS.SIGIL_OF_SILENCE_TALENT),
-        charges: 1 + (combatant.hasTalent(TALENTS.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
+        charges: 1,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 * (1 - (combatant.hasTalent(TALENTS.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
@@ -134,9 +134,9 @@ class Abilities extends SharedAbilities {
       {
         spell: [TALENTS.SIGIL_OF_CHAINS_TALENT.id, SPELLS.SIGIL_OF_CHAINS_PRECISE.id],
         enabled: combatant.hasTalent(TALENTS.SIGIL_OF_CHAINS_TALENT),
+        charges: 1,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        charges: 1 + (combatant.hasTalent(TALENTS.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },

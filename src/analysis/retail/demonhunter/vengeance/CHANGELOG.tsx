@@ -6,6 +6,10 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 12), <>Updating of Sigil numbers for TWW and better approximation of CoB behaviour.</>, Quaarkz),
+  change(date(2025, 11, 10), <>Specify the types of events in TheHuntNormalizer.</>, Quaarkz),
+  change(date(2025, 11, 10), <>Add spells to DemonSoul Allowlist.</>, Quaarkz),
+  change(date(2025, 11, 10), <>Fix Demon Soul increased damage calculation.</>, Quaarkz),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 9, 23), <>Clean up <SpellLink spell={TALENTS.FRACTURE_TALENT} /> analyzer.</>, ToppleTheNun),
   change(date(2024, 10, 17), 'Untethered Fury talent taken into consideration for Fracture analysis.', Quaarkz),

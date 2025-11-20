@@ -35,14 +35,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ANTI_MAGIC_ZONE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_ZONE_TALENT),
         buffSpellId: SPELLS.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
         gcd: {
           base: 1500,
         },
+        cooldown: combatant.hasTalent(TALENTS.ASSIMILATION_TALENT) ? 180 : 240,
         isDefensive: true,
+        enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_ZONE_TALENT),
       },
       {
         spell: TALENTS.SACRIFICIAL_PACT_TALENT.id,
