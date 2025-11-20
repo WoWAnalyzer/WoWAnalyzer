@@ -157,7 +157,9 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   private getRolePerformance(cast: PrescienceCooldownCast) {
-    const className = this.currentBuffedPlayer ? classColor(this.currentBuffedPlayer) : '';
+    //Temporary fix as this line throws an error with Devourers
+    //const className = this.currentBuffedPlayer ? classColor(this.currentBuffedPlayer) : '';
+    const className = 'Evoker';
     let performance = QualitativePerformance.Fail;
 
     const summary = <div>Buffed a DPS</div>;
