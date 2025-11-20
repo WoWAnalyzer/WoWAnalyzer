@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-//import { TIERS } from 'game/TIERS';
+import { TIERS } from 'game/TIERS';
 
 /**
  * (2) Set Vengeance: Fracture damage increased by 30%.
@@ -21,9 +21,7 @@ class MID1Vengeance2P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = true;
-    //this.active = this.selectedCombatant.has2PieceByTier(TIERS.MIDNIGHT1);
-    //Midnight tiers not implemented yet
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.MID1);
 
     if (!this.active) {
       return;

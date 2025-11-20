@@ -13,6 +13,7 @@ export default class DemonSoulBuff extends Analyzer {
   private addedDamage = 0;
   constructor(options: Options) {
     super(options);
+    this.active = false;
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
