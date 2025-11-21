@@ -7,6 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 21), <>Update <SpellLink spell={TALENTS.FEED_THE_DEMON_TALENT} /> for Midnight.</>, Quaarkz),
   change(date(2025, 11, 20), <>Clean-up VDH tiers and disable Demon Soul.</>, Quaarkz),
   change(date(2025, 11, 15), <>Model VDH tiers and update/add constants.</>, Quaarkz),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
