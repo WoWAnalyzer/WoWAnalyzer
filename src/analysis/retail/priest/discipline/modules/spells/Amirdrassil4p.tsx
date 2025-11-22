@@ -11,7 +11,7 @@ import { TIERS } from 'game/TIERS';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import ItemSetLink from 'interface/ItemSetLink';
-import { PRIEST_DF3_ID } from 'common/ITEMS/dragonflight';
+import { PRIEST_DF3_ID } from 'common/ITEMS';
 
 class Amirdrassil4p extends Analyzer {
   shadowSmiteHealing = 0;

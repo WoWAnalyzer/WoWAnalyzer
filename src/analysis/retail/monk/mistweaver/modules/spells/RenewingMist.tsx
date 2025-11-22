@@ -72,14 +72,14 @@ class RenewingMist extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
         </b>{' '}
         is your primary healing spell. You can use it on any target and it will either stay on the
         target, jump targets if the chosen target has a{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> and there are players in range, or
-        pandemic if there are no players to jump to in range. Using{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as much as possible is extremely
-        important due to its synergy with <SpellLink spell={SPELLS.VIVIFY} />,{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> and there are players in range, or pandemic
+        if there are no players to jump to in range. Using{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> as much as possible is extremely important
+        due to its synergy with <SpellLink spell={SPELLS.VIVIFY} />,{' '}
         <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />,{' '}
         <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} />, and{' '}
         <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />
@@ -90,7 +90,7 @@ class RenewingMist extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> cast efficiency
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -106,7 +106,7 @@ class RenewingMist extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spell={TALENTS_MONK.RENEWING_MIST_TALENT}
+        spell={SPELLS.RENEWING_MIST_CAST}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

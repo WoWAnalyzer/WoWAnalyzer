@@ -1,6 +1,5 @@
 import ITEMS from 'common/ITEMS/thewarwithin/potions';
 import SPELLS from 'common/SPELLS/thewarwithin/potions';
-import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
 import { Spec } from 'game/SPECS';
@@ -80,9 +79,6 @@ class PotionChecker extends Analyzer {
     ) {
       this.potionsUsed += 1;
       this.strongPotionsUsed += 1;
-    }
-    if (spellId === ALCHEMY.ALACRITOUS_ALCHEMIST_STONE.id) {
-      this.alacritousAlchemistStoneProcs += 1;
     }
   }
 

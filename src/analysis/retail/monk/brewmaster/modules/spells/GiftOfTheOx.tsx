@@ -43,7 +43,10 @@ export default class GiftOfTheOx extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.GIFT_OF_THE_OX_TALENT);
 
-    this.addEventListener(EventType.OrbGenerated, this._orbGenerated);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS),
+      this._orbGenerated,
+    );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM),
       this._expelCast,
@@ -54,7 +57,7 @@ export default class GiftOfTheOx extends Analyzer {
     );
   }
 
-  _orbGenerated(event: Event<EventType.OrbGenerated>) {
+  _orbGenerated() {
     this.orbsGenerated += 1;
   }
 

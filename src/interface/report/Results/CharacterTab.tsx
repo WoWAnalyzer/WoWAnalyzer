@@ -6,7 +6,7 @@ import Combatant from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { Link } from 'react-router-dom';
 
-import './CharacterTab.css';
+import './CharacterTab.scss';
 import CharacterRace from './CharacterRace';
 import CharacterStats from './CharacterStats';
 import PlayerInfo from './PlayerInfo';

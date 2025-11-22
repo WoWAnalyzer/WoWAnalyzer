@@ -21,7 +21,7 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
                 applied the buff. <br />
               </>
             )}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from{' '}
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> healing from{' '}
             {this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT) && (
               <>
                 <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> is given to the spell that
@@ -31,14 +31,7 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
             {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
               <>
                 <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> healing is attributed to the
-                source cast of the <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> that
-                procced it.
-              </>
-            )}
-            {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
-              <>
-                <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> healing is attributed to{' '}
-                <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />.<br />
+                source cast of the <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> that procced it.
               </>
             )}
             {this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) && (

@@ -41,8 +41,6 @@ interface WCLPhaseTransition {
 //generated or applied properties
 export interface Fight extends WCLFight {
   filtered?: boolean;
-  phase?: string;
-  instance?: number;
 
   offset_time: number;
 

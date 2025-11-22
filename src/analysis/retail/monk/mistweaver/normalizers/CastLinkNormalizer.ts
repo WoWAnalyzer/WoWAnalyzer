@@ -204,7 +204,7 @@ export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | Refres
   return (
     rdSourceEvent.type === EventType.Cast &&
     (rdSourceEvent.ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id ||
-      rdSourceEvent.ability.guid === TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id)
+      rdSourceEvent.ability.guid === TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id)
   );
 }
 
@@ -305,7 +305,8 @@ export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
   if (castEvent === undefined) {
     return undefined;
   }
-  return GetRelatedEvent(castEvent, MANA_TEA_CHANNEL)!.timestamp - castEvent.timestamp;
+  const channelEvent = GetRelatedEvent(castEvent, MANA_TEA_CHANNEL);
+  return channelEvent!.timestamp - castEvent.timestamp;
 }
 
 export function isMTStackFromLifeCycles(

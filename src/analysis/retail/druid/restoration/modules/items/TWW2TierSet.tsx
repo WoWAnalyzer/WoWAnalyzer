@@ -21,7 +21,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemSetLink from 'interface/ItemSetLink';
-import { DRUID_TWW2_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_TWW2_ID } from 'common/ITEMS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 

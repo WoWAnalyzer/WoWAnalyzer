@@ -26,16 +26,16 @@ class CelestialConduitNormalizer extends EventsNormalizer {
       if (event.type === EventType.ApplyBuff || event.type === EventType.RemoveBuff) {
         if (
           event.type === EventType.ApplyBuff &&
-          event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id
+          event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id
         ) {
           debug && console.log('Begin channel at ' + this.owner.formatTimestamp(event.timestamp));
           this.beginChannelFabricated = {
             type: EventType.BeginChannel,
             timestamp: event.timestamp,
             ability: {
-              abilityIcon: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.icon,
-              guid: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
-              name: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.name,
+              abilityIcon: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.icon,
+              guid: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
+              name: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.name,
               type: 8,
             },
             sourceID: event.sourceID!,
@@ -47,7 +47,7 @@ class CelestialConduitNormalizer extends EventsNormalizer {
         } else if (
           this.beginChannelFabricated &&
           event.type === EventType.RemoveBuff &&
-          event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id
+          event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id
         ) {
           fixedEvents.push(this.beginChannelFabricated);
           debug && console.log('End Channel at ' + this.owner.formatTimestamp(event.timestamp));
@@ -59,9 +59,9 @@ class CelestialConduitNormalizer extends EventsNormalizer {
             sourceID: event.sourceID!,
             beginChannel: this.beginChannelFabricated,
             ability: {
-              abilityIcon: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.icon,
-              guid: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
-              name: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.name,
+              abilityIcon: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.icon,
+              guid: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
+              name: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.name,
               type: 8,
             },
             __fabricated: true,

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/thewarwithin/food';
+import SPELLS from 'common/SPELLS';
 import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 
 /**

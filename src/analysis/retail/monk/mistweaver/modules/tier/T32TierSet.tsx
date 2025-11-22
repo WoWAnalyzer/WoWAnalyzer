@@ -12,7 +12,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemSetLink from 'interface/ItemSetLink';
-import { MONK_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { MONK_TWW1_ID } from 'common/ITEMS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import HotTracker, { Extension } from 'parser/shared/modules/HotTracker';
@@ -167,7 +167,7 @@ class T32TierSet extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: talents.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: this.renewingMistHealing_2p,
         valueTooltip: formatNumber(this.renewingMistHealing_2p),
       },
@@ -193,7 +193,7 @@ class T32TierSet extends Analyzer {
             Out of {this.totalCasts} casts of <SpellLink spell={SPELLS.VIVIFY} />,{' '}
             {this.missedCasts} were on targets without{' '}
             <SpellLink spell={talents.ENVELOPING_MIST_TALENT} /> or{' '}
-            <SpellLink spell={talents.RENEWING_MIST_TALENT} />.
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />.
           </>
         }
       >
@@ -226,7 +226,7 @@ class T32TierSet extends Analyzer {
             <div className="pad"></div>
             <div>
               <small>
-                <SpellLink spell={talents.RENEWING_MIST_TALENT} />:{' '}
+                <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />:{' '}
               </small>
               {formatDuration(this.fourPieceReMExtension)}
               <div></div>

@@ -47,11 +47,7 @@ class StrengthOfTheBlackOx extends Analyzer {
   }
 
   private hasManaBuff(): boolean {
-    return (
-      this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF) ||
-      this.selectedCombatant.hasBuff(SPELLS.INNERVATE) ||
-      this.celestial.celestialActive
-    );
+    return this.selectedCombatant.hasBuff(SPELLS.INNERVATE) || this.celestial.celestialActive;
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {

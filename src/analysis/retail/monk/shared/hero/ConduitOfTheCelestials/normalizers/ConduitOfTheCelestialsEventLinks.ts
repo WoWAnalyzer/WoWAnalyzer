@@ -28,13 +28,13 @@ const CELESTIAL_CONDUIT_LINKS: EventLink[] = [
     reverseLinkRelation: CELESTIAL_CONDUIT_CAST,
     linkingEventId: [SPELLS.CELESTIAL_CONDUIT_HEAL.id, SPELLS.CELESTIAL_CONDUIT_DAMAGE.id],
     linkingEventType: [EventType.Heal, EventType.Damage],
-    referencedEventId: [talents.CELESTIAL_CONDUIT_TALENT.id],
+    referencedEventId: [talents.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CELESTIAL_CONDUIT_MAX_DURATION,
     isActive(c) {
-      return c.hasTalent(talents.CELESTIAL_CONDUIT_TALENT);
+      return c.hasTalent(talents.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT);
     },
   },
   //grouping damage and heal events on tick
@@ -49,7 +49,7 @@ const CELESTIAL_CONDUIT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(talents.CELESTIAL_CONDUIT_TALENT);
+      return c.hasTalent(talents.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT);
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return (
@@ -63,7 +63,7 @@ const CELESTIAL_CONDUIT_LINKS: EventLink[] = [
 
 const RESTORE_BALANCE_EVENT_LINKS: EventLink[] = [
   //windwalker
-  {
+  /* {
     linkRelation: RESTORE_BALANCE_APPLY,
     reverseLinkRelation: RESTORE_BALANCE_APPLY,
     linkingEventId: talents.RUSHING_JADE_WIND_WINDWALKER_TALENT.id,
@@ -75,12 +75,12 @@ const RESTORE_BALANCE_EVENT_LINKS: EventLink[] = [
     isActive(c) {
       return c.hasTalent(talents.RESTORE_BALANCE_TALENT) && c.specId === SPECS.WINDWALKER_MONK.id;
     },
-  },
+  }, */
   //mistweaver
   {
     linkRelation: RESTORE_BALANCE_APPLY,
     reverseLinkRelation: RESTORE_BALANCE_APPLY,
-    linkingEventId: SPELLS.REFRESHING_JADE_WIND_BUFF.id,
+    linkingEventId: -1,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [
       talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
@@ -97,7 +97,7 @@ const RESTORE_BALANCE_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: RESTORE_BALANCE,
     reverseLinkRelation: RESTORE_BALANCE,
-    linkingEventId: SPELLS.REFRESHING_JADE_WIND_HEAL.id,
+    linkingEventId: -1, //either delete for fix later, just removing dead reference to deleted spell for now
     linkingEventType: EventType.Heal,
     referencedEventId: [
       talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
@@ -120,7 +120,10 @@ const UNITY_WITHIN_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: UNITY_FOTRC,
     linkingEventId: SPELLS.FLIGHT_OF_THE_RED_CRANE_UNITY.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: [SPELLS.UNITY_WITHIN_CAST.id, TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id],
+    referencedEventId: [
+      SPELLS.UNITY_WITHIN_CAST.id,
+      TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
+    ],
     referencedEventType: [EventType.Cast, EventType.EndChannel],
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,

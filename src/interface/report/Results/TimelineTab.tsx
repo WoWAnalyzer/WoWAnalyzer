@@ -78,9 +78,9 @@ const TimelineTab = ({ parser }: Props) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container" style={{ position: 'relative' }}>
         {alert}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
+        <div style={{ position: 'absolute', right: '1rem', top: '1rem' }}>
           <TimelineConfiguration
             isMovementVisible={isMovementVisible}
             onAuraVisibilityChange={handleAuraVisibilityChange}

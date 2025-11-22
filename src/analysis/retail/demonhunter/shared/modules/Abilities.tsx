@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -74,27 +73,6 @@ export default class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              The only time you should delay casting{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} /> is when you're expecting
-              adds to spawn soon.
-            </>
-          ),
-        },
-        damageSpellIds: [SPELLS.THE_HUNT_CHARGE.id, SPELLS.THE_HUNT_DOT.id],
-      },
-      {
         spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -108,7 +86,7 @@ export default class Abilities extends CoreAbilities {
 
       // Sigils
       {
-        spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id, SPELLS.SIGIL_OF_MISERY_PRECISE.id],
+        spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id],
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
@@ -116,45 +94,6 @@ export default class Abilities extends CoreAbilities {
           (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 30 : 0),
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: [
-          SPELLS.SIGIL_OF_FLAME.id,
-          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-          SPELLS.SIGIL_OF_DOOM_CAST.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
-      },
-      {
-        spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT.id, SPELLS.SIGIL_OF_SPITE_PRECISE.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <>
-              The only time you should delay casting{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT} /> is when you're
-              expecting adds to spawn soon.
-            </>
-          ),
         },
       },
 

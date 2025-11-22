@@ -158,7 +158,7 @@ class RisingMistBreakdown extends Analyzer {
     ];
     return (
       <>
-        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> extension healing by source:
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> extension healing by source:
         <hr />
         <DonutChart items={items} />
       </>
@@ -212,7 +212,7 @@ class RisingMistBreakdown extends Analyzer {
       <>
         <strong>{this.risingMist.vivCleaves}</strong> total extra{' '}
         <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} /> hits from extended <br />
-        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> by source:
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> by source:
         <hr />
         <DonutChart items={items} />
       </>
@@ -247,7 +247,7 @@ class RisingMistBreakdown extends Analyzer {
       <>
         <strong>{this.risingMist.zpHits}</strong> total extra{' '}
         <SpellLink spell={talents.ZEN_PULSE_TALENT} /> hits from extended <br />
-        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> by source:
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> by source:
         <hr />
         <DonutChart items={items} />
       </>

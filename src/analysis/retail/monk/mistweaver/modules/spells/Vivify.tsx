@@ -25,7 +25,7 @@ import UpliftedSpirits from './UpliftedSpirits';
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
   TALENTS_MONK.RISING_SUN_KICK_TALENT,
-  TALENTS_MONK.RUSHING_WIND_KICK_TALENT,
+  TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT,
 ];
 const BASE_AVERAGE_REMS = 2.22;
 const RM_AVG_REM_DIFF = 3;
@@ -181,21 +181,22 @@ class Vivify extends Analyzer {
     const explanation = (
       <p>
         <SpellLink spell={SPELLS.VIVIFY} /> quickly becomes your best healing spell when you have
-        high counts of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid via{' '}
+        high counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> out on the raid via{' '}
         <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, and will be a major portion of
         your healing when used correctly. <SpellLink spell={SPELLS.VIVIFY} />
-        's effectiveness goes hand in hand with your{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> count - the more you have out at a
-        given time, the more healing and better mana efficiency this spell has. This further
-        emphasizes the importance of casting your rotational abilities in{' '}
-        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.{' '}
+        's effectiveness goes hand in hand with your <SpellLink
+          spell={SPELLS.RENEWING_MIST_CAST}
+        />{' '}
+        count - the more you have out at a given time, the more healing and better mana efficiency
+        this spell has. This further emphasizes the importance of casting your rotational abilities
+        in <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> as often as possible.{' '}
         <strong>
           Now that square-root scaling is applied to{' '}
           <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, be wary of casting{' '}
           <SpellLink spell={SPELLS.VIVIFY} /> when at high{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> counts when it will result in high
-          amounts of overheal. This will negatively impact your effective healing done.
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> counts when it will result in high amounts
+          of overheal. This will negatively impact your effective healing done.
         </strong>
       </p>
     );

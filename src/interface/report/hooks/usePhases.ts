@@ -4,8 +4,8 @@ import { WCLFight } from 'parser/core/Fight';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import { useEffect, useState } from 'react';
 
-export const SELECTION_ALL_PHASES = 'ALL';
-export const SELECTION_CUSTOM_PHASE = 'CUSTOM';
+export const SELECTION_ALL_PHASES = -1;
+export const SELECTION_CUSTOM_PHASE = -2;
 
 const usePhases = ({
   fight,
@@ -18,7 +18,7 @@ const usePhases = ({
   bossPhaseEvents: PhaseEvent[] | null;
   bossPhaseConfigs: Record<string, PhaseConfig> | undefined;
 }) => {
-  const [phases, setPhases] = useState<Record<string, Phase> | null>(null);
+  const [phases, setPhases] = useState<Record<number, Phase> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

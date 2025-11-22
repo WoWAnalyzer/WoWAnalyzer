@@ -81,13 +81,13 @@ class ThunderFocusTea extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.correctCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
       this.okCapstoneSpells = [
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        SPELLS.RENEWING_MIST_CAST.id,
         getCurrentRSKTalent(this.selectedCombatant).id,
         SPELLS.EXPEL_HARM.id,
       ];
     } else {
       this.correctCapstoneSpells = [
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        SPELLS.RENEWING_MIST_CAST.id,
         TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
       ];
     }
@@ -132,7 +132,7 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftEnm += 1;
       debug && console.log('Enm TFT Check ', event.timestamp);
-    } else if (TALENTS_MONK.RENEWING_MIST_TALENT.id === spellId) {
+    } else if (SPELLS.RENEWING_MIST_CAST.id === spellId) {
       this.castsUnderTft += 1;
       this.castsTftRem += 1;
       debug && console.log('REM TFT Check ', event.timestamp);
@@ -182,7 +182,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: this.castsTftRem,
       },
       {
@@ -223,13 +223,13 @@ class ThunderFocusTea extends Analyzer {
             <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> talented <Arrow />{' '}
             use on <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
             <span style={{ color: 'green' }}>best</span>) or{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> (
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
           <li>
             {' '}
             <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> talented{' '}
-            <Arrow /> use on <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+            <Arrow /> use on <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> or{' '}
             <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
           </li>
         </ol>

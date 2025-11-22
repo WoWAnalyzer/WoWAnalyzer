@@ -56,15 +56,17 @@ const PlayerInfo = ({ combatant }: Props) => {
   );
   return (
     <div className="player-info">
-      <div className="class-background" style={{ backgroundImage: `url(${classBackground})` }}>
-        <div
-          className="player-gear player-background"
-          style={{ backgroundImage: `url(${characterBackground})` }}
-        >
-          <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
-          <PlayerInfoGear gear={gear} />
-          <PlayerInfoGems gear={gear} />
-          <PlayerInfoEnchants gear={gear} />
+      <div className="character-sheet">
+        <div className="class-background" style={{ backgroundImage: `url(${classBackground})` }}>
+          <div
+            className="player-gear player-background"
+            style={{ backgroundImage: `url(${characterBackground})` }}
+          >
+            <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
+            <PlayerInfoGear gear={gear} />
+            <PlayerInfoGems gear={gear} />
+            <PlayerInfoEnchants gear={gear} />
+          </div>
         </div>
       </div>
       <div className="player-details">

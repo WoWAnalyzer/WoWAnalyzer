@@ -43,10 +43,7 @@ class PoolOfMists extends Analyzer {
   }
 
   get extraReMCasts() {
-    return (
-      this.remEffective /
-      this.spellUsable.fullCooldownDuration(TALENTS_MONK.RENEWING_MIST_TALENT.id)
-    );
+    return this.remEffective / this.spellUsable.fullCooldownDuration(SPELLS.RENEWING_MIST_CAST.id);
   }
 
   constructor(options: Options) {
@@ -101,9 +98,9 @@ class PoolOfMists extends Analyzer {
 
   private onRisingSunKick(event: CastEvent) {
     this.remCDR += POOL_OF_MISTS_CDR;
-    if (this.spellUsable.isOnCooldown(TALENTS_MONK.RENEWING_MIST_TALENT.id)) {
+    if (this.spellUsable.isOnCooldown(SPELLS.RENEWING_MIST_CAST.id)) {
       const reduction = this.spellUsable.reduceCooldown(
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        SPELLS.RENEWING_MIST_CAST.id,
         POOL_OF_MISTS_CDR,
       );
       this.remEffective += reduction;
@@ -122,7 +119,7 @@ class PoolOfMists extends Analyzer {
         tooltip={
           <ul>
             <li>
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> reduction:{' '}
+              <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> reduction:{' '}
               {formatDuration(this.remCDR)} ({formatDuration(this.remWaste)} wasted)
             </li>
             <ul>
@@ -143,7 +140,7 @@ class PoolOfMists extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.POOL_OF_MISTS_TALENT}>
           <div>
-            <SpellIcon spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
+            <SpellIcon spell={SPELLS.RENEWING_MIST_CAST} />{' '}
             <ItemCooldownReduction effective={this.remEffective} />
           </div>
           <div>

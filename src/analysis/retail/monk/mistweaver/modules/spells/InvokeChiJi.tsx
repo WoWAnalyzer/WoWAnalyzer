@@ -26,7 +26,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { getCurrentRSKTalent, getCurrentRSKTalentDamage, MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import InformationIcon from 'interface/icons/Information';
-import EnvelopingBreath from './EnvelopingBreath';
 
 const debug = false;
 
@@ -43,7 +42,6 @@ interface ChijiCastTracker extends BaseCelestialTracker {
 }
 
 class InvokeChiJi extends BaseCelestialAnalyzer {
-  protected envb!: EnvelopingBreath;
   castTrackers: ChijiCastTracker[] = [];
   //healing breakdown vars
   gustHealing = 0;
@@ -289,7 +287,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         requires some preparation to be used optimally. Press{' '}
         <SpellLink spell={SPELLS.TIGER_PALM} /> to stack{' '}
         <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to maximum stacks, get
-        all of your <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> charges on cooldown.
+        all of your <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> charges on cooldown.
         <br />
         During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> when at two stacks of{' '}
@@ -444,7 +442,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
                 {(this.chijiGlobals / this.chijiUses).toFixed(2)} average gcds inside Chi-Ji window
               </li>
               <li>
-                {this.envb.averageEnvBPerEnv.toFixed(2)} average{' '}
                 <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
                 <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
               </li>

@@ -16,7 +16,6 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
-import EnvelopingBreath from './EnvelopingBreath';
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
 
@@ -25,7 +24,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   envelopHealing = 0;
   chiCocoonHealing = 0;
   currentRskTalent: Talent;
-  protected envb!: EnvelopingBreath;
 
   get totalHealing() {
     return this.soothHealing + this.envelopHealing + this.chiCocoonHealing;
@@ -110,22 +108,13 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         ) : (
           <>all </>
         )}{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
         (s) to prevent overcapping charges Yulon's duration.
         <br />
         If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
         <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> for a multiplicative haste bonus
         <br />
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
-          <>
-            With <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
-            <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
-            entire duration of{' '}
-            <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-            <br />
-          </>
-        )}
         During <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is
         important to cast <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that
         are near other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
@@ -133,12 +122,12 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <SpellLink spell={this.currentRskTalent} /> before your first{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> falls off to extend their duration.
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> falls off to extend their duration.
         <br />
         Be sure to follow up your{' '}
         <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
         <SpellLink spell={SPELLS.VIVIFY} /> to make use of your low duration{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
         s.
       </p>
     );
@@ -204,7 +193,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
               <li>
-                {this.envb.averageEnvBPerEnv.toFixed(2)} average{' '}
                 <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
                 <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
               </li>

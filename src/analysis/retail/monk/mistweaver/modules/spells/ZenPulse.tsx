@@ -193,17 +193,17 @@ class ZenPulse extends Analyzer {
           <b>
             <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />
           </b>{' '}
-          is a buff that procs off of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> that
-          makes your next <SpellLink spell={SPELLS.VIVIFY} /> cast do additional healing on your
-          target and all targets with <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />. The
-          healing done by <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> is increased by 6% per
-          target with <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> up to 30%, so it is
-          important to have at least 5 ReMs active before consuming the buff.
+          is a buff that procs off of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> that makes
+          your next <SpellLink spell={SPELLS.VIVIFY} /> cast do additional healing on your target
+          and all targets with <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />. The healing done by{' '}
+          <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> is increased by 6% per target with{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> up to 30%, so it is important to have at
+          least 5 ReMs active before consuming the buff.
         </div>
         <div style={{ paddingTop: '1em' }}>
           It is very important to make sure that you never let this buff expire. Ideally try to
           consume this buff to minimize overheal while ensuring that you have a high number of{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> buffs active.
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> buffs active.
         </div>
       </p>
     );
@@ -259,7 +259,7 @@ class ZenPulse extends Analyzer {
               <li>Average increase: {formatPercentage(this.avgIncrease)}%</li>
               <li>
                 Buffs used below {ZEN_PULSE_MAX_HITS_FOR_BOOST}{' '}
-                <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+                <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
                 s: {this.badCasts}
               </li>
               <li>Wasted Buffs: {this.wastedBuffs}</li>

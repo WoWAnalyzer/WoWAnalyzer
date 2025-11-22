@@ -65,10 +65,7 @@ class AspectOfHarmony extends AspectOfHarmonyBaseAnalyzer {
         </b>{' '}
         consumes stored vitality by healing allies after you use{' '}
         <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> equal to 40% of the heal that
-        consumed it. It is extremely important to try to apply the HoT to as many allies as
-        possible, which is most easily achieved by using{' '}
-        <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} /> on the raid due to its ability to
-        hit an uncapped amount of targets while not consuming all stored vitality.
+        consumed it. It is extremely important to try to apply the HoT to as many allies as possible
       </p>
     );
     const styleObj = {

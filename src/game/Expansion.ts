@@ -10,6 +10,7 @@ enum Expansion {
   Shadowlands = 9,
   Dragonflight = 10,
   TheWarWithin = 11,
+  Midnight = 12,
 }
 
 enum ExpansionName {
@@ -19,13 +20,14 @@ enum ExpansionName {
   MistsOfPandaria = 'classic-mists', // PTR/beta logs say "unknown" unless they're re-exported
   Dragonflight = 'dragonflight',
   TheWarWithin = 'the war within',
+  Midnight = 'midnight',
 }
 
 export const CLASSIC_EXPANSION = Expansion.MistsOfPandaria;
-export const RETAIL_EXPANSION = Expansion.TheWarWithin;
+export const RETAIL_EXPANSION = Expansion.Midnight;
 
 export const CLASSIC_EXPANSION_NAME = 'Mists of Pandaria';
-export const RETAIL_EXPANSION_NAME = ExpansionName.TheWarWithin;
+export const RETAIL_EXPANSION_NAME = ExpansionName.Midnight;
 
 export function isCurrentExpansion(expansion: Expansion): boolean {
   return expansion === CLASSIC_EXPANSION || expansion === RETAIL_EXPANSION;

@@ -40,7 +40,6 @@ export enum EventType {
   Instakill = 'instakill',
   AuraBroken = 'aurabroken',
   ExtraAttacks = 'extraattacks',
-  OrbGenerated = 'orb-generated',
   Create = 'create',
   Spellsteal = 'spellsteal',
   EmpowerStart = 'empowerstart',

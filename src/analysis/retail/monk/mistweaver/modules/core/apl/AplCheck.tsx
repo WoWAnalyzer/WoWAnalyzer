@@ -17,7 +17,7 @@ const AOE_SCK = {
         targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
       },
     ),
-    cnd.hasTalent(talents.AWAKENED_JADEFIRE_TALENT),
+    cnd.hasTalent(talents.WAY_OF_THE_CRANE_TALENT),
   ),
 };
 
@@ -38,7 +38,7 @@ const VIVIFY_8_REMS = {
     (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} 8 active{' '}
-        <SpellLink spell={talents.RENEWING_MIST_TALENT} />
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
       </>
     ),
   ),
@@ -57,7 +57,7 @@ const ZP_VIVIFY_5_REMS = {
     (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} 2 <SpellLink spell={talents.ZEN_PULSE_TALENT} /> buffs
-        and at least 5 active <SpellLink spell={talents.RENEWING_MIST_TALENT} />
+        and at least 5 active <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
         s.
       </>
     ),
@@ -72,7 +72,7 @@ const BLACKOUT_KICK = {
           atLeast: 3500,
           atMost: 12000,
         }),
-        cnd.spellCooldownRemaining(talents.RUSHING_WIND_KICK_TALENT, {
+        cnd.spellCooldownRemaining(talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT, {
           atLeast: 3500,
           atMost: 12000,
         }),
@@ -88,8 +88,8 @@ const BLACKOUT_KICK = {
 };
 
 const REM_REMAINING = {
-  spell: talents.RENEWING_MIST_TALENT,
-  condition: cnd.optionalRule(cnd.spellAvailable(talents.RENEWING_MIST_TALENT)),
+  spell: SPELLS.RENEWING_MIST_CAST,
+  condition: cnd.optionalRule(cnd.spellAvailable(SPELLS.RENEWING_MIST_CAST)),
 };
 
 const BLACK_OX_PROC = {
@@ -107,11 +107,11 @@ const MANA_TEA_20_STACKS = {
 
 const commonTop = [
   {
-    spell: talents.RENEWING_MIST_TALENT,
+    spell: SPELLS.RENEWING_MIST_CAST,
     condition: cnd.describe(
       cnd.and(
-        cnd.spellCharges(talents.RENEWING_MIST_TALENT, { atLeast: 2 }),
-        cnd.spellAvailable(talents.RENEWING_MIST_TALENT),
+        cnd.spellCharges(SPELLS.RENEWING_MIST_CAST, { atLeast: 2 }),
+        cnd.spellAvailable(SPELLS.RENEWING_MIST_CAST),
         cnd.hasTalent(talents.RISING_MIST_TALENT),
         cnd.not(cnd.hasTalent(talents.POOL_OF_MISTS_TALENT)),
       ),
@@ -119,11 +119,11 @@ const commonTop = [
     ),
   },
   {
-    spell: talents.RENEWING_MIST_TALENT,
+    spell: SPELLS.RENEWING_MIST_CAST,
     condition: cnd.describe(
       cnd.and(
-        cnd.spellCharges(talents.RENEWING_MIST_TALENT, { atLeast: 3 }),
-        cnd.spellAvailable(talents.RENEWING_MIST_TALENT),
+        cnd.spellCharges(SPELLS.RENEWING_MIST_CAST, { atLeast: 3 }),
+        cnd.spellAvailable(SPELLS.RENEWING_MIST_CAST),
         cnd.hasTalent(talents.RISING_MIST_TALENT),
         cnd.hasTalent(talents.POOL_OF_MISTS_TALENT),
       ),
@@ -134,25 +134,18 @@ const commonTop = [
     spell: talents.RISING_SUN_KICK_TALENT,
     condition: cnd.and(
       cnd.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
-      cnd.not(cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)),
+      cnd.not(cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)),
     ),
   },
   {
-    spell: talents.RUSHING_WIND_KICK_TALENT,
+    spell: talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT,
     condition: cnd.and(
       cnd.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
-      cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+      cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
     ),
   },
   BLACK_OX_PROC,
   MANA_TEA_20_STACKS,
-];
-
-const commonBottom = [
-  {
-    spell: talents.CHI_BURST_SHARED_TALENT,
-    condition: cnd.optionalRule(cnd.spellAvailable(talents.CHI_BURST_SHARED_TALENT)),
-  },
 ];
 
 const atMissingCondition = cnd.buffMissing(SPELLS.JT_BUFF, {
@@ -176,7 +169,7 @@ const RM_AT_CORE = [JE_JFS, ZP_VIVIFY_5_REMS, JFS_AT, VIVIFY_8_REMS];
 
 const rotation_rm_at_sg = build([
   {
-    spell: [talents.RENEWING_MIST_TALENT, talents.RISING_SUN_KICK_TALENT],
+    spell: [SPELLS.RENEWING_MIST_CAST, talents.RISING_SUN_KICK_TALENT],
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
         {' '}
@@ -185,7 +178,6 @@ const rotation_rm_at_sg = build([
     )),
   },
   ...commonTop,
-  SHEILUNS_SHAOHAOS,
   ...RM_AT_CORE,
   BLACKOUT_KICK,
   REM_REMAINING,
@@ -195,12 +187,11 @@ const rotation_rm_at_sg = build([
       cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
     ),
   },
-  ...commonBottom,
 ]);
 
 const rotation_rm_rwk_sg = build([
   {
-    spell: talents.RENEWING_MIST_TALENT,
+    spell: SPELLS.RENEWING_MIST_CAST,
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
         {' '}
@@ -220,36 +211,31 @@ const rotation_rm_rwk_sg = build([
       cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
     ),
   },
-  ...commonBottom,
 ]);
 
-const rotation_fallback = build([...commonTop, ...commonBottom]);
+const rotation_fallback = build([...commonTop]);
 
 export enum MistweaverApl {
-  RisingMistJadefireTeachingsShaohaos,
-  RisingMistRushingWindKickShaohaos,
-  AwakenedFaeline,
+  RisingMistJadefireTeachings,
+  RisingMistRushingWindKick,
+  WayOfTheCrane,
   TearOfMorning,
   Fallback,
 }
 
 export const chooseApl = (info: PlayerInfo): MistweaverApl => {
-  if (
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
-    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT) &&
-    info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
-  ) {
+  if (info.combatant.hasTalent(talents.RISING_MIST_TALENT)) {
     if (info.combatant.hasTalent(talents.JADEFIRE_TEACHINGS_TALENT)) {
-      return MistweaverApl.RisingMistJadefireTeachingsShaohaos;
+      return MistweaverApl.RisingMistJadefireTeachings;
     }
-    if (info.combatant.hasTalent(talents.RUSHING_WIND_KICK_TALENT)) {
-      return MistweaverApl.RisingMistRushingWindKickShaohaos;
+    if (info.combatant.hasTalent(talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT)) {
+      return MistweaverApl.RisingMistRushingWindKick;
     }
   } else if (
-    info.combatant.hasTalent(talents.AWAKENED_JADEFIRE_TALENT) &&
+    info.combatant.hasTalent(talents.WAY_OF_THE_CRANE_TALENT) &&
     info.combatant.hasTalent(talents.JADEFIRE_TEACHINGS_TALENT)
   ) {
-    return MistweaverApl.AwakenedFaeline;
+    return MistweaverApl.WayOfTheCrane;
   } else if (info.combatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
     return MistweaverApl.TearOfMorning;
   }
@@ -257,9 +243,9 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
 };
 
 const apls: Record<MistweaverApl, Apl> = {
-  [MistweaverApl.RisingMistJadefireTeachingsShaohaos]: rotation_rm_at_sg,
-  [MistweaverApl.RisingMistRushingWindKickShaohaos]: rotation_rm_rwk_sg,
-  [MistweaverApl.AwakenedFaeline]: rotation_fallback,
+  [MistweaverApl.RisingMistJadefireTeachings]: rotation_rm_at_sg,
+  [MistweaverApl.RisingMistRushingWindKick]: rotation_rm_rwk_sg,
+  [MistweaverApl.WayOfTheCrane]: rotation_fallback,
   [MistweaverApl.TearOfMorning]: rotation_fallback,
   [MistweaverApl.Fallback]: rotation_fallback,
 };

@@ -13,14 +13,13 @@ import Events, {
   EventType,
 } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS, getCurrentRSKTalent } from '../../constants';
+import { SECRET_INFUSION_BUFFS, getCurrentRSKTalent } from '../../constants';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import { formatDurationMillisMinSec, formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
 import Pets from 'parser/shared/modules/Pets';
 import InformationIcon from 'interface/icons/Information';
-import EnvelopingBreath from './EnvelopingBreath';
 import { Talent } from 'common/TALENTS/types';
 
 export interface BaseCelestialTracker {
@@ -42,7 +41,6 @@ const YULON_GIFT_ENVMS = 4;
 
 class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
-    envb: EnvelopingBreath,
     haste: Haste,
     pets: Pets,
   };
@@ -90,16 +88,8 @@ class BaseCelestialAnalyzer extends Analyzer {
       this.applySi,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(LESSONS_BUFFS),
-      this.applyLessons,
-    );
-    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
       this.removeSi,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(LESSONS_BUFFS),
-      this.removeLessons,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleCelestialDeath);
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleCelestialDeath);
@@ -249,12 +239,6 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.siApplyTime = event.timestamp;
   }
 
-  applyLessons(event: ApplyBuffEvent) {
-    lessonsDebug && console.log('Lessons Applied: ', this.owner.formatTimestamp(event.timestamp));
-    this.lessonsActive = true;
-    this.lessonsApplyTime = event.timestamp;
-  }
-
   removeSi(event: RemoveBuffEvent) {
     this.secretInfusionActive = false;
     if (this.celestialActive) {
@@ -266,19 +250,6 @@ class BaseCelestialAnalyzer extends Analyzer {
         );
     }
     siDebug && console.log('SI Removed: ', this.owner.formatTimestamp(event.timestamp));
-  }
-
-  removeLessons(event: RemoveBuffEvent) {
-    lessonsDebug && console.log('Lessons Removed: ', this.owner.formatTimestamp(event.timestamp));
-    this.lessonsActive = false;
-    if (this.celestialActive) {
-      this.castTrackers.at(-1)!.lessonsDuration = event.timestamp - this.lessonsApplyTime;
-      lessonsDebug &&
-        console.log(
-          'Lessons Duration: ',
-          formatDurationMillisMinSec(event.timestamp - this.lessonsApplyTime),
-        );
-    }
   }
 
   getExpectedEnvmCasts(avgHaste: number) {
@@ -354,8 +325,7 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Be sure to use <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste
-                  bonus
+                  <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> for a multiplicative haste bonus
                 </>
               }
             >
@@ -367,39 +337,6 @@ class BaseCelestialAnalyzer extends Analyzer {
         ),
         result: <PerformanceMark perf={siPerf} />,
         details: <>{Math.round(cast.infusionDuration! / 1000)}s</>,
-      });
-    }
-
-    //shaohao's lessons buff duration
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
-      let lessonPerf = QualitativePerformance.Good;
-      if (cast.lessonsDuration! < this.goodLessonDuration / 3) {
-        lessonPerf = QualitativePerformance.Fail;
-      } else if (cast.lessonsDuration! < this.goodLessonDuration * (2 / 3)) {
-        lessonPerf = QualitativePerformance.Ok;
-      }
-      allPerfs.push(lessonPerf);
-      checklistItems.push({
-        label: (
-          <>
-            <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> uptime{' '}
-            <Tooltip
-              hoverable
-              content={
-                <>
-                  Cast <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to
-                  cover the entire duration of <SpellLink spell={this.getCelestialTalent()} />
-                </>
-              }
-            >
-              <span>
-                <InformationIcon />
-              </span>
-            </Tooltip>
-          </>
-        ),
-        result: <PerformanceMark perf={lessonPerf} />,
-        details: <>{Math.round(cast.lessonsDuration! / 1000)}s</>,
       });
     }
     return [allPerfs, checklistItems];

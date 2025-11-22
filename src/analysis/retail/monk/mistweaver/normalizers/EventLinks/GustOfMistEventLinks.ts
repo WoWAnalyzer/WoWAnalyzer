@@ -33,7 +33,7 @@ export const GUST_OF_MISTS_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: RENEWING_MIST_GOM,
     reverseLinkRelation: RENEWING_MIST_GOM,
-    linkingEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    linkingEventId: SPELLS.RENEWING_MIST_CAST.id,
     linkingEventType: EventType.Cast,
     referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: [EventType.Heal],
@@ -107,7 +107,7 @@ export const GUST_OF_MISTS_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: CRANE_STYLE_RSK,
     linkingEventId: [
       TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-      TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id,
+      TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
     ],
     linkingEventType: [EventType.Cast],
     referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],

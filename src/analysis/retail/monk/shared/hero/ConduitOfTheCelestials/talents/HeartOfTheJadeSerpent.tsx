@@ -44,7 +44,7 @@ class HeartOfTheJadeSerpent extends Analyzer {
     this.isMW
       ? this.spellUsable.applyCooldownRateChange(
           MISTWEAVER_HEART_SPELLS(
-            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
           ),
           rateChange,
           event.timestamp,
@@ -63,7 +63,7 @@ class HeartOfTheJadeSerpent extends Analyzer {
     this.isMW
       ? this.spellUsable.removeCooldownRateChange(
           MISTWEAVER_HEART_SPELLS(
-            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
           ),
           rateChange,
           event.timestamp,

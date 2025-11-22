@@ -234,7 +234,7 @@ class MistsOfLife extends Analyzer {
               {formatNumber(this.extraEnvBonusHealing)}
             </li>
             <li>
-              Extra <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> direct healing:{' '}
+              Extra <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> direct healing:{' '}
               {formatNumber(this.extraRemHealing)}
             </li>
             <li>

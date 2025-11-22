@@ -1,6 +1,5 @@
 import {
   JadefireStomp,
-  InvokersDelight,
   MysticTouch,
   TouchOfDeath,
   SaveThemAll,
@@ -29,7 +28,6 @@ import JadeBond from './modules/spells/JadeBond';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import JadefireStompHealing from './modules/spells/JadefireStompHealing';
 import JadefireTeachings from './modules/spells/JadefireTeachings';
-import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
@@ -41,14 +39,11 @@ import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
 import Vivify from './modules/spells/Vivify';
 import AverageTimeBetweenRSKSs from './modules/spells/AverageTimeBetweenRSKs';
-import ChiBurst from './modules/spells/ChiBurst';
 import InvokeChiJi from './modules/spells/InvokeChiJi';
 import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
 import ManaTea from './modules/spells/ManaTea';
 import MistyPeaks from './modules/spells/MistyPeaks';
 import MistsOfLife from './modules/spells/MistsOfLife';
-import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
-import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
 import VivaciousVivification from './modules/spells/VivaciousVivify';
 import YulonsWhisper from './modules/spells/YulonsWhisper';
@@ -60,10 +55,8 @@ import RapidDiffusion from './modules/spells/RapidDiffusion';
 import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
-import MendingProliferation from './modules/spells/MendingProliferation';
 import SheilunsGift from './modules/spells/SheilunsGift';
 import MistWrap from './modules/spells/MistWrap';
-import ShaohaosLessons from './modules/spells/ShaohaosLessons';
 import LegacyOfWisdom from './modules/spells/LegacyOfWisdom';
 import VeilOfPride from './modules/spells/VeilOfPride';
 import Guide from './Guide';
@@ -78,7 +71,6 @@ import SecretInfusion from './modules/spells/SecretInfusion';
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
-import ChiHarmony from './modules/spells/ChiHarmony';
 import TearOfMorning from './modules/spells/TearOfMorning';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
@@ -143,7 +135,6 @@ class CombatLogParser extends CoreCombatLogParser {
     vivify: Vivify,
 
     // Shared Talents
-    chiBurst: ChiBurst,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
     saveThemAll: SaveThemAll,
@@ -152,12 +143,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // MW Talents
     jadefireTeachings: JadefireTeachings,
     energizingBrew: EnergizingBrew,
-    envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
     expelHarm: ExpelHarm,
     jadefireStomp: JadefireStomp,
     jadefireStompHealing: JadefireStompHealing,
-    invokersDelight: InvokersDelight,
     invokeChiJi: InvokeChiJi,
     invokeYulon: InvokeYulon,
     jadeSerpentStatue: JadeSerpentStatue,
@@ -167,9 +156,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTeaSources: ManaTeaSources,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
-    refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
-    renewingMistDuringManaTea: RenewingMistDuringManaTea,
     revival: Revival,
     risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
@@ -179,10 +166,8 @@ class CombatLogParser extends CoreCombatLogParser {
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
-    mendingProliferation: MendingProliferation,
     teachingsOfTheMonestary: TeachingsOfTheMonestary,
     sheilunsGift: SheilunsGift,
-    shaohaosLessons: ShaohaosLessons,
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     calmingCoalescence: CalmingCoalescence,
@@ -192,7 +177,6 @@ class CombatLogParser extends CoreCombatLogParser {
     lotusInfusion: LotusInfusion,
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
-    chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
     rushingWindKick: RushingWindKick,
     jadeEmpowerment: JadeEmpowerment,

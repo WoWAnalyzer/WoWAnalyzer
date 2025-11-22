@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_PALADIN, TALENTS_SHAMAN } from 'common/TALENTS';
@@ -12,7 +11,6 @@ const spells: number[] = [
   SPELLS.MELEE.id, // Auto attack
   SPELLS.AUTO_SHOT.id, // hunter auto attack (classic)
   SPELLS.CHI_BURST_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
-  SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
   SPELLS.SHADOWY_APPARITION_CAST.id, // Shadow priest shadow apparitions passive
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event
@@ -26,13 +24,11 @@ const spells: number[] = [
   SPELLS.CHI_SURGE_DEBUFF.id,
 
   //region Boss abilities
-  SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
   SPELLS.ULGRAX_GRAB_VISCERA.id,
   SPELLS.ULGRAX_FEED.id,
   //endregion
 
   //region Items
-  SPELLS.RAGE_OF_FYRALATH_2.id, // second cast logged by Fyr'alath
   SPELLS.PHASE_BLINK.id, // 11.2 Legendary cloak
   //endregion
 
@@ -94,6 +90,14 @@ const spells: number[] = [
 
   //region monk
   SPELLS.ESCAPE_FROM_REALITY_CAST.id,
+  SPELLS.GIFT_OF_THE_OX_1.id,
+  SPELLS.GIFT_OF_THE_OX_2.id,
+  SPELLS.GIFT_OF_THE_OX_3.id,
+  SPELLS.GIFT_OF_THE_OX_4.id,
+  SPELLS.GIFT_OF_THE_OX_5.id,
+  SPELLS.GIFT_OF_THE_OX_6.id,
+  SPELLS.GIFT_OF_THE_OX_7.id,
+  SPELLS.GIFT_OF_THE_OX_8.id,
   //endregion
 
   //region paladin
@@ -164,7 +168,6 @@ const spells: number[] = [
   //region trinket
   //endregion
   //region Embellishments
-  ITEMS.HEALING_DART_CAST.id,
   //endregion
 ];
 

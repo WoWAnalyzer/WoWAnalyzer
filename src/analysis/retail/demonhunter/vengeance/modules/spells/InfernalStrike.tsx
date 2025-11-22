@@ -2,17 +2,14 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Combatant from 'parser/core/Combatant';
-import { METEORIC_STRIKES_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { ERRATIC_FELHEART_SCALING } from 'analysis/retail/demonhunter/shared';
 
 export function getInfernalStrikeCooldown(combatant: Combatant) {
   const baseCooldown = 20;
-  const abyssalHasteReduction =
-    METEORIC_STRIKES_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.METEORIC_STRIKES_TALENT)];
   const erraticFelheartReduction =
     ERRATIC_FELHEART_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.ERRATIC_FELHEART_TALENT)];
-  const flatReduced = baseCooldown - abyssalHasteReduction;
+  const flatReduced = baseCooldown;
   return flatReduced - flatReduced * erraticFelheartReduction;
 }
 

@@ -1,5 +1,4 @@
 import { formatDuration, formatDurationMinSec, formatPercentage } from 'common/format';
-import talents from 'common/TALENTS/monk';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -9,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import SharedBrews from '../core/SharedBrews';
+import spells from '../../spell-list_Monk_Brewmaster.retail';
 
 // 500ms per rank
 const CDR_RATE = 500;
@@ -42,7 +42,7 @@ export default class AnvilStave extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.rank = this.selectedCombatant.getTalentRank(talents.ANVIL__STAVE_TALENT);
+    this.rank = this.selectedCombatant.getTalentRank(spells.ANVIL_AND_STAVE_TALENT);
     this.active = this.rank > 0;
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
@@ -92,7 +92,7 @@ export default class AnvilStave extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellLink spell={talents.ANVIL__STAVE_TALENT} /> Cooldown Reduction
+              <SpellLink spell={spells.ANVIL_AND_STAVE_TALENT} /> Cooldown Reduction
             </>
           }
         >

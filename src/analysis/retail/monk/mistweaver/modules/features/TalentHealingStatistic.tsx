@@ -3,7 +3,6 @@ import { Trans } from '@lingui/react/macro';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-
 import { JadefireStomp, SaveThemAll } from 'analysis/retail/monk/shared';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
@@ -16,14 +15,11 @@ import Unison from '../spells/Unison';
 import MistsOfLife from '../spells/MistsOfLife';
 import MistWrap from '../spells/MistWrap';
 import SheilunsGift from '../spells/SheilunsGift';
-import ShaohaosLessons from '../spells/ShaohaosLessons';
 import VeilOfPride from '../spells/VeilOfPride';
 import LegacyOfWisdom from '../spells/LegacyOfWisdom';
 import JadefireTeachings from '../spells/JadefireTeachings';
 import TearOfMorning from '../spells/TearOfMorning';
-import ChiHarmony from '../spells/ChiHarmony';
 import LotusInfusion from '../spells/LotusInfusion';
-import MendingProliferation from '../spells/MendingProliferation';
 import CraneStyle from '../spells/CraneStyle';
 import ZenPulse from '../spells/ZenPulse';
 import AverageTimeBetweenRSKs from '../spells/AverageTimeBetweenRSKs';
@@ -41,15 +37,12 @@ class TalentHealingStatistic extends Analyzer {
     mistsOfLife: MistsOfLife,
     mistWrap: MistWrap,
     sheiluns: SheilunsGift,
-    shaohaos: ShaohaosLessons,
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     jadefireTeachings: JadefireTeachings,
     jadefireStomp: JadefireStomp,
     tearOfMorning: TearOfMorning,
-    chiHarmony: ChiHarmony,
     lotusInfusion: LotusInfusion,
-    mendingProliferation: MendingProliferation,
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
     rushingWindKick: AverageTimeBetweenRSKs,
@@ -66,16 +59,13 @@ class TalentHealingStatistic extends Analyzer {
   protected mistsOfLife!: MistsOfLife;
   protected mistWrap!: MistWrap;
   protected sheiluns!: SheilunsGift;
-  protected shaohaos!: ShaohaosLessons;
   protected veilOfPride!: VeilOfPride;
   protected legacyOfWisdom!: LegacyOfWisdom;
   protected jadefireTeachings!: JadefireTeachings;
   protected jadefireStomp!: JadefireStomp;
 
   protected tearOfMorning!: TearOfMorning;
-  protected chiHarmony!: ChiHarmony;
   protected lotusInfusion!: LotusInfusion;
-  protected mendingProliferation!: MendingProliferation;
   protected craneStyle!: CraneStyle;
   protected zenPulse!: ZenPulse;
   protected rushingWindKick!: AverageTimeBetweenRSKs;
@@ -115,9 +105,6 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)) {
       talentList.push(this.sheiluns.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
-      talentList.push(this.shaohaos.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.VEIL_OF_PRIDE_TALENT)) {
       talentList.push(this.veilOfPride.subStatistic());
     }
@@ -133,14 +120,8 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
       talentList.push(this.tearOfMorning.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_HARMONY_TALENT)) {
-      talentList.push(this.chiHarmony.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.LOTUS_INFUSION_TALENT)) {
       talentList.push(this.lotusInfusion.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MENDING_PROLIFERATION_TALENT)) {
-      talentList.push(this.mendingProliferation.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.CRANE_STYLE_TALENT)) {
       talentList.push(this.craneStyle.subStatistic());
@@ -148,7 +129,7 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT)) {
       talentList.push(this.zenPulse.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)) {
       talentList.push(this.rushingWindKick.substatistic());
     }
 

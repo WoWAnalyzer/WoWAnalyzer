@@ -2,7 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARLOCK } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
-import { WARLOCK_TWW3_ID } from 'common/ITEMS/dragonflight';
+import { WARLOCK_TWW3_ID } from 'common/ITEMS';
 import ItemSetLink from 'interface/ItemSetLink';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {

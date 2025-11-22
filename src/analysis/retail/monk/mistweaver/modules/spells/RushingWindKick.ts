@@ -10,7 +10,9 @@ class RushingWindKick extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.onHeal,

@@ -33,13 +33,6 @@ class HotCountGraph extends BuffCountGraph {
         color: SPELL_COLORS.RENEWING_MIST,
       },
     );
-
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MENDING_PROLIFERATION_TALENT)) {
-      buffSpecs.push({
-        spells: [SPELLS.MENDING_PROLIFERATION_BUFF],
-        color: SPELL_COLORS.ESSENCE_FONT,
-      });
-    }
     return buffSpecs;
   }
 

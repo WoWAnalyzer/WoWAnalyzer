@@ -7,7 +7,7 @@ import { DamageEvent } from 'parser/core/Events';
 import { effectiveDamage } from 'parser/shared/modules/DamageValue';
 import SPELLS from 'common/SPELLS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { DRUID_TWW3_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_TWW3_ID } from 'common/ITEMS';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Statistic from 'parser/ui/Statistic';

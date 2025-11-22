@@ -70,7 +70,7 @@ class TimeBetweenRSKs extends Analyzer {
   substatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT} />}
+        title={<SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rushingWindKick.healing))} %`}
       />
     );
@@ -94,7 +94,7 @@ class TimeBetweenRSKs extends Analyzer {
             </small>
           </div>
           <div>{this.risingSunKick.subStatistic()}</div>
-          {this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT) && (
+          {this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT) && (
             <div>
               <TooltipElement
                 content={

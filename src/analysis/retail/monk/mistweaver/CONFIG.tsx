@@ -9,7 +9,7 @@ const config: Config = {
   contributors: [Trevor, Vohrr],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.2',
+  patchCompatibility: '12.0',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -37,10 +37,10 @@ const config: Config = {
   // The contents of your changelog.
   changelog: [], // CHANGELOG,
   // The CombatLogParser class for your spec.
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "MistweaverMonk" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "MistweaverMonk" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

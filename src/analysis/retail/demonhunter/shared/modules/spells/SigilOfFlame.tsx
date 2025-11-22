@@ -10,10 +10,10 @@ import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/Cas
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/shared/normalizers/SigilOfFlameNormalizer';
 import Spell from 'common/SPELLS/Spell';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { getSigilOfFlameSpell } from 'analysis/retail/demonhunter/shared/constants';
+import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/vengeance/normalizers/SigilOfFlameNormalizer';
 
 export default class SigilOfFlame extends Analyzer {
   private cooldownUses: SpellUse[] = [];

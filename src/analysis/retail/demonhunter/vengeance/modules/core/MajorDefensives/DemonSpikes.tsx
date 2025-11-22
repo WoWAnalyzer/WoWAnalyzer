@@ -12,8 +12,6 @@ import {
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { EXTENDED_SPIKES_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
-import TALENTS from 'common/TALENTS/demonhunter';
 
 const BASE_DURATION = 6000;
 
@@ -33,12 +31,7 @@ export default class DemonSpikes extends MajorDefensiveBuff {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMON_SPIKES),
       this.onDemonSpikesCast,
     );
-    this.spikesDurationPerCast =
-      BASE_DURATION +
-      EXTENDED_SPIKES_SCALING[
-        this.selectedCombatant.getTalentRank(TALENTS.EXTENDED_SPIKES_TALENT)
-      ] *
-        1000;
+    this.spikesDurationPerCast = BASE_DURATION;
     options.statTracker.add(SPELLS.DEMON_SPIKES_BUFF.id, {
       armor: () => this.bonusArmorGain(options.statTracker),
     });

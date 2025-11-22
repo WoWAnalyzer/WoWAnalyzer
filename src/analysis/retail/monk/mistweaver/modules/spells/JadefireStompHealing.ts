@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -26,20 +25,10 @@ class JadefireStompHealing extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
       this.casts,
     );
-
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JADEFIRE_STOMP_HEAL),
-      this.stompHeal,
-    );
   }
 
   casts() {
     this.jfsCasts += 1;
-  }
-
-  stompHeal(event: HealEvent) {
-    this.jfsHealing += event.amount + (event.absorbed || 0);
-    this.jfsOverhealing += event.overheal || 0;
   }
 }
 

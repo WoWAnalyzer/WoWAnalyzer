@@ -16,7 +16,9 @@ class FeastOfSouls extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEAST_OF_SOULS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.FEAST_OF_SOULS_VENGEANCE_TALENT,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FEAST_OF_SOULS_HEAL),
       this.onHeal,
@@ -46,7 +48,7 @@ class FeastOfSouls extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FEAST_OF_SOULS_TALENT}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FEAST_OF_SOULS_VENGEANCE_TALENT}>
           <ItemHealingDone amount={this.heal} />
         </TalentSpellText>
       </Statistic>

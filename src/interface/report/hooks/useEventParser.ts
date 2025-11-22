@@ -36,7 +36,6 @@ interface Props {
   player: PlayerInfo;
   combatants: CombatantInfoEvent[];
   applyTimeFilter: (start: number, end: number) => null;
-  applyPhaseFilter: (phase: string, instance: number) => null;
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   characterProfile: CharacterProfile | null;
   events?: AnyEvent[];
@@ -50,7 +49,6 @@ const useEventParser = ({
   player,
   combatants,
   applyTimeFilter,
-  applyPhaseFilter,
   parserClass,
   characterProfile,
   events,
@@ -75,7 +73,6 @@ const useEventParser = ({
     //set current build to undefined if default build or non-existing build selected
     const parser = new parserClass!(config, report, player, fight!, combatants, characterProfile!);
     parser.applyTimeFilter = applyTimeFilter;
-    parser.applyPhaseFilter = applyPhaseFilter;
 
     return parser;
   }, [
@@ -83,7 +80,6 @@ const useEventParser = ({
     dependenciesLoading,
     parserClass,
     characterProfile,
-    applyPhaseFilter,
     applyTimeFilter,
     report,
     player,

@@ -66,7 +66,7 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: this.renewingMist.gustsHealing,
         valueTooltip: formatThousands(this.renewingMist.gustsHealing),
       },

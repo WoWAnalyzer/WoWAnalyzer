@@ -83,10 +83,10 @@ class DancingMists extends Analyzer {
         ],
       },
       {
-        spell: TALENTS_MONK.RENEWING_MIST_TALENT,
+        spell: SPELLS.RENEWING_MIST_CAST,
         amount: this.dancingMistReMHealing,
         color: SPELL_COLORS.RENEWING_MIST,
-        tooltip: this.getBarTooltip(TALENTS_MONK.RENEWING_MIST_TALENT),
+        tooltip: this.getBarTooltip(SPELLS.RENEWING_MIST_CAST),
       },
     ];
   }
@@ -122,7 +122,7 @@ class DancingMists extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Hardcast',
-        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: this.dancingMistHardCastCount,
         valuePercent: false,
       },
@@ -143,7 +143,7 @@ class DancingMists extends Analyzer {
       {
         color: SPELL_COLORS.DANCING_MISTS,
         label: 'Bounces',
-        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: this.bounceProcs,
         valuePercent: false,
       },
@@ -189,7 +189,7 @@ class DancingMists extends Analyzer {
       this.onEnvHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RENEWING_MIST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_CAST),
       this.onRemCast,
     );
   }
@@ -201,7 +201,7 @@ class DancingMists extends Analyzer {
     let bounceHealing = 0;
     let procs = 0;
     switch (spell.id) {
-      case TALENTS_MONK.RENEWING_MIST_TALENT.id:
+      case SPELLS.RENEWING_MIST_CAST.id:
         rdSourceHealing = this.remHealingFromRD;
         hardcastSourceHealing = this.remHealingFromHardcast;
         molSourceHealing = this.remHealingFromMol;
@@ -257,7 +257,7 @@ class DancingMists extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Hardcast',
-        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: hardcastSourceHealing,
         valuePercent: false,
       },
@@ -271,7 +271,7 @@ class DancingMists extends Analyzer {
       {
         color: SPELL_COLORS.DANCING_MIST,
         label: 'Bounces',
-        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spellId: SPELLS.RENEWING_MIST_CAST.id,
         value: bounceHealing,
         valuePercent: false,
       },
@@ -480,7 +480,7 @@ class DancingMists extends Analyzer {
           <TooltipElement
             content={
               <>
-                The number of additional <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+                The number of additional <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
                 <br />
                 procced on casts and bounces:
                 <hr />
@@ -490,7 +490,7 @@ class DancingMists extends Analyzer {
           >
             {this.dancingMistCount}{' '}
             <small>
-              duplicated <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+              duplicated <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
             </small>
           </TooltipElement>
         }

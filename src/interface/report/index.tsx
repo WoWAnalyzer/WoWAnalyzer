@@ -13,7 +13,7 @@ import useCharacterProfile from './hooks/useCharacterProfile';
 import useEventParser from './hooks/useEventParser';
 import useEvents from './hooks/useEvents';
 import useParser from './hooks/useParser';
-import usePhases, { SELECTION_ALL_PHASES } from './hooks/usePhases';
+import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from './hooks/usePhases';
 import useTimeEventFilter, { Filter } from './hooks/useTimeEventFilter';
 import PatchChecker from './PatchChecker';
 import PlayerLoader from './PlayerLoader';
@@ -62,9 +62,7 @@ const ResultsLoader = () => {
   const { player, combatants } = usePlayer();
   const { fight } = useFight();
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
-  const [selectedPhase, setSelectedPhase] = useState<string>(SELECTION_ALL_PHASES);
-  const [selectedInstance, setSelectedInstance] = useState<number>(0);
-  const [selectedDungeonPull, setSelectedDungeonPull] = useState<string>(SELECTION_ALL_PHASES);
+  const [selectedPhase, setSelectedPhase] = useState<number>(SELECTION_ALL_PHASES);
 
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
@@ -72,73 +70,48 @@ const ResultsLoader = () => {
   const { events, currentTime, error } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
-  const {
-    loadingState: bossPhaseEventsLoadingState,
-    events: bossPhaseEvents,
-    phaseConfigs: bossPhaseConfigs,
-  } = useBossPhaseEvents({ report, fight });
+  const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
+    { report, fight },
+  );
 
   const { characterProfile, isLoading: isLoadingCharacterProfile } = useCharacterProfile({
     report,
     player,
   });
 
-  // Original code only rendered <PhaseParser> if
-  // > !this.state.isLoadingEvents
-  // > && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING
-  // We have to always run the hook, so the hook has to make sure it has the necessary data
-  const { phases, isLoading: isLoadingPhases } = usePhases({
-    bossPhaseEventsLoaded: bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING,
-    fight,
-    bossPhaseEvents,
-    bossPhaseConfigs,
-  });
-
   const applyPhaseFilter = useCallback(
-    (phase: string, instance: number) => {
-      setSelectedPhase(phase);
-      setSelectedInstance(instance);
-      setTimeFilter(
-        phase === SELECTION_ALL_PHASES
-          ? null
-          : phases && { start: phases[phase].start[instance], end: phases[phase].end[instance] },
-      );
-      return null;
-    },
-    // TODO: I don't think we need to re-render whenever phases changes.. this callback should work the same.
-    // this is here because of react-hooks/exhaustive-deps
-    [phases],
-  );
-  const applyTimeFilter = useCallback(
-    (start: number, end: number) => {
-      //set time filter to null if 0 and end of fight are selected as boundaries
-      setTimeFilter(
-        start === 0 && end === fight.end_time - fight.start_time
-          ? null
-          : { start: start + fight.start_time, end: end + fight.start_time },
-      );
-      setSelectedPhase(SELECTION_ALL_PHASES);
-      setSelectedInstance(0);
-      return null;
-    },
-    // TODO: I don't think we need to re-render whenever phases changes.. this callback should work the same.
-    // this is here because of react-hooks/exhaustive-deps
-    [fight.end_time, fight.start_time],
-  );
-  const applyDungeonPullFilter = useCallback(
-    (dungeonPull: string) => {
-      setSelectedDungeonPull(dungeonPull);
-      const matchingDungeonPull = fight.dungeonPulls?.find(
-        (pull) => String(pull.id) === dungeonPull,
-      );
-      if (dungeonPull === SELECTION_ALL_PHASES || !matchingDungeonPull) {
+    (phaseIndex: number) => {
+      setSelectedPhase(phaseIndex);
+      if (phaseIndex === SELECTION_ALL_PHASES) {
         setTimeFilter(null);
+      } else if (fight.dungeonPulls?.[phaseIndex]) {
+        setTimeFilter({
+          start: fight.dungeonPulls[phaseIndex].start_time,
+          end: fight.dungeonPulls[phaseIndex].end_time,
+        });
+      } else if (fight.phases?.[phaseIndex]) {
+        setTimeFilter({
+          start: fight.phases[phaseIndex].startTime,
+          end: fight.phases[phaseIndex + 1]?.startTime ?? fight.end_time,
+        });
       } else {
-        setTimeFilter({ start: matchingDungeonPull.start_time, end: matchingDungeonPull.end_time });
+        setTimeFilter(null);
       }
       return null;
     },
-    [fight.dungeonPulls],
+    [fight],
+  );
+  const applyTimeFilter = useCallback(
+    (start: number, end: number) => {
+      const isFullFight = start === 0 && end === fight.end_time - fight.start_time;
+      //set time filter to null if 0 and end of fight are selected as boundaries
+      setTimeFilter(
+        isFullFight ? null : { start: start + fight.start_time, end: end + fight.start_time },
+      );
+      setSelectedPhase(isFullFight ? SELECTION_ALL_PHASES : SELECTION_CUSTOM_PHASE);
+      return null;
+    },
+    [fight.end_time, fight.start_time],
   );
 
   // Original code only rendered TimeEventFilter if
@@ -154,7 +127,6 @@ const ResultsLoader = () => {
     fight,
     filter: timeFilter!,
     phase: selectedPhase,
-    phaseinstance: selectedInstance,
     bossPhaseEvents,
     events,
   });
@@ -178,7 +150,6 @@ const ResultsLoader = () => {
     player,
     combatants,
     applyTimeFilter,
-    applyPhaseFilter,
     parserClass,
     characterProfile,
     events: filteredEvents,
@@ -202,7 +173,7 @@ const ResultsLoader = () => {
     isLoadingEvents: isLoadingEvents,
     bossPhaseEventsLoadingState: bossPhaseEventsLoadingState,
     isLoadingCharacterProfile: isLoadingCharacterProfile,
-    isLoadingPhases: isLoadingPhases,
+    isLoadingPhases: false,
     isFilteringEvents: isFilteringEvents,
     parsingState: parsingState,
   };
@@ -226,14 +197,10 @@ const ResultsLoader = () => {
       player={player}
       characterProfile={characterProfile!}
       parser={parser!}
-      phases={phases}
-      selectedPhase={selectedPhase}
-      selectedInstance={selectedInstance}
-      selectedDungeonPull={selectedDungeonPull}
+      selectedPhaseIndex={selectedPhase}
       handlePhaseSelection={applyPhaseFilter}
-      handleDungeonPullSelection={applyDungeonPullFilter}
       applyFilter={applyTimeFilter}
-      timeFilter={timeFilter!}
+      timeFilter={timeFilter ?? undefined}
       makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab)}
     />
   );

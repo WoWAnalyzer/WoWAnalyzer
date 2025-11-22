@@ -1,11 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { MANA_TEA_REDUCTION, MAX_CHIJI_STACKS, YULON_REDUCTION } from '../../constants';
+import { CHIJI_REDUCTION, YULON_REDUCTION } from '../../constants';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { CastEvent } from 'parser/core/Events';
+import BaseCelestialAnalyzer from '../spells/BaseCelestialAnalyzer';
 
 class MWSpellManaCost extends SpellManaCost {
+  static dependencies = {
+    ...SpellManaCost.dependencies,
+    celestial: BaseCelestialAnalyzer,
+  };
+  celestial!: BaseCelestialAnalyzer;
   currentBuffs = new Set<number>();
   hasChiji = false;
   constructor(options: Options) {
@@ -32,22 +38,11 @@ class MWSpellManaCost extends SpellManaCost {
     ) {
       return 0;
     }
-    const chijiMultiplier =
-      this.hasChiji && spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
-        ? 1 -
-          this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) /
-            MAX_CHIJI_STACKS
-        : 1;
-    const yulonMultiplier =
-      !this.hasChiji &&
-      spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
-      this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_BUFF.id)
-        ? 1 - YULON_REDUCTION
-        : 1;
-    const manaTeaMultiplier = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)
-      ? 1 - MANA_TEA_REDUCTION
-      : 1;
-    return manaTeaMultiplier * chijiMultiplier * yulonMultiplier;
+    let celestialMultiplier = 1;
+    if (spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id && this.celestial.celestialActive) {
+      celestialMultiplier -= this.hasChiji ? CHIJI_REDUCTION : YULON_REDUCTION;
+    }
+    return celestialMultiplier;
   }
 }
 

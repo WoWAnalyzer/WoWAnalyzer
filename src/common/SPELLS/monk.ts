@@ -201,6 +201,12 @@ const spells = {
     name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
+  RENEWING_MIST_CAST: {
+    id: 115151,
+    name: 'Renewing Mist',
+    icon: 'ability_monk_renewingmists',
+    manaCost: 45000,
+  },
   RENEWING_MIST_HEAL: {
     id: 119611,
     name: 'Renewing Mist',
@@ -264,11 +270,6 @@ const spells = {
   },
   MANA_TEA_CAST: {
     id: 115294,
-    name: 'Mana Tea',
-    icon: 'monk_ability_cherrymanatea',
-  },
-  MANA_TEA_BUFF: {
-    id: 197908,
     name: 'Mana Tea',
     icon: 'monk_ability_cherrymanatea',
   },
@@ -381,56 +382,6 @@ const spells = {
     name: "Sheilun's Gift",
     icon: 'inv_staff_2h_artifactshaohao_d_01',
   },
-  LESSON_OF_DOUBT_BUFF: {
-    id: 400097,
-    name: 'Lesson of Doubt',
-    icon: 'sha_ability_warrior_bloodnova',
-  },
-  LESSON_OF_DOUBT_NEXT_BUFF: {
-    id: 405808,
-    name: 'Lesson of Doubt',
-    icon: 'sha_ability_warrior_bloodnova',
-  },
-  LESSON_OF_DESPAIR_BUFF: {
-    id: 400100,
-    name: 'Lesson of Despair',
-    icon: 'sha_ability_rogue_envelopingshadows',
-  },
-  LESSON_OF_DESPAIR_NEXT_BUFF: {
-    id: 405810,
-    name: 'Lesson of Despair',
-    icon: 'sha_ability_rogue_envelopingshadows',
-  },
-  LESSON_OF_FEAR_BUFF: {
-    id: 400103,
-    name: 'Lesson of Fear',
-    icon: 'sha_ability_rogue_bloodyeye_nightborne',
-  },
-  LESSON_OF_FEAR_NEXT_BUFF: {
-    id: 405809,
-    name: 'Lesson of Fear',
-    icon: 'sha_ability_rogue_bloodyeye_nightborne',
-  },
-  LESSON_OF_ANGER_BUFF: {
-    id: 400106,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-  LESSON_OF_ANGER_NEXT_BUFF: {
-    id: 405807,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-  LESSON_OF_ANGER_DAMAGE: {
-    id: 400145,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-  LESSON_OF_ANGER_HEAL: {
-    id: 400146,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',
@@ -445,16 +396,6 @@ const spells = {
     id: 388480,
     name: 'Unison',
     icon: 'ability_monk_soothingmists',
-  },
-  REFRESHING_JADE_WIND_HEAL: {
-    id: 162530,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-  },
-  REFRESHING_JADE_WIND_BUFF: {
-    id: 196725,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
   },
   INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
     id: 343820,

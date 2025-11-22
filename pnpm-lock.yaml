@@ -214,7 +214,7 @@ importers:
         version: 4.1.0(vite@7.1.10(@types/node@22.17.0)(jiti@2.4.2)(sass@1.74.1)(tsx@4.19.3))
       '@vitest/eslint-plugin':
         specifier: 1.1.38
-        version: 1.1.38(@typescript-eslint/utils@8.28.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5))(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5)(vitest@3.2.4(@types/node@22.17.0)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(sass@1.74.1)(tsx@4.19.3))
+        version: 1.1.38(@typescript-eslint/utils@8.28.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5))(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5)(vitest@3.2.4)
       '@vitest/ui':
         specifier: 3.2.4
         version: 3.2.4(vitest@3.2.4)
@@ -307,7 +307,7 @@ importers:
         version: 3.2.4(@types/node@22.17.0)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(sass@1.74.1)(tsx@4.19.3)
       wow-dbc:
         specifier: github:RPGLogs/wow-dbc#main
-        version: https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/91982c579c15bc23975e408d6ece82731342dfd8
+        version: https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/37d21d9bf878abf2fbe27d21d5ce650039c5c06b
 
   packages/eslint-plugin-wowanalyzer:
     dependencies:
@@ -4206,8 +4206,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  wow-dbc@https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/91982c579c15bc23975e408d6ece82731342dfd8:
-    resolution: {tarball: https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/91982c579c15bc23975e408d6ece82731342dfd8}
+  wow-dbc@https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/37d21d9bf878abf2fbe27d21d5ce650039c5c06b:
+    resolution: {tarball: https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/37d21d9bf878abf2fbe27d21d5ce650039c5c06b}
     version: 0.1.0
 
   wrap-ansi@7.0.0:
@@ -5643,7 +5643,7 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  '@vitest/eslint-plugin@1.1.38(@typescript-eslint/utils@8.28.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5))(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5)(vitest@3.2.4(@types/node@22.17.0)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@22.1.0)(sass@1.74.1)(tsx@4.19.3))':
+  '@vitest/eslint-plugin@1.1.38(@typescript-eslint/utils@8.28.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5))(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5)(vitest@3.2.4)':
     dependencies:
       '@typescript-eslint/utils': 8.28.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.4.5)
       eslint: 9.22.0(jiti@2.4.2)
@@ -8596,7 +8596,7 @@ snapshots:
       siginfo: 2.0.0
       stackback: 0.0.2
 
-  wow-dbc@https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/91982c579c15bc23975e408d6ece82731342dfd8:
+  wow-dbc@https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/37d21d9bf878abf2fbe27d21d5ce650039c5c06b:
     dependencies:
       udsv: 0.6.0
 

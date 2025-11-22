@@ -16,14 +16,15 @@ interface Props<Reason, Data extends CastData<Reason>> {
 
 const Container = styled.tbody``;
 
+// these !importants arent ideal, but they fix issues with css load order.
 const ReasonRow = styled.tr<{ bad: boolean }>`
   .fail-bar {
-    background-color: transparent;
+    background-color: transparent !important;
   }
 
   .pass-bar {
-    ${(props) => (props.bad ? 'background-color: hsl(348.9, 69.5%, 39.8%);' : '')}
-    border-radius: 2px;
+    ${(props) => (props.bad ? 'background-color: hsl(348.9, 69.5%, 39.8%) !important;' : '')}
+    border-radius: 2px !important;
   }
 `;
 
