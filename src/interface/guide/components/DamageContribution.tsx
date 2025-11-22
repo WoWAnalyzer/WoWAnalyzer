@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Spell from 'common/SPELLS/Spell';
 import { formatPercentage, formatNumber } from 'common/format';
 import GuideDataWrapper from './GuideDataWrapper';
-import DonutChart, { DonutSegment } from './DonutChart';
 import { ReactNode } from 'react';
 
 interface SpellContribution {
@@ -20,10 +19,6 @@ interface Props {
   calculateContribution: (spellId: number) => number;
   /** Color for the "Other" category */
   otherColor?: string;
-  /** Size of the donut chart in pixels */
-  size?: number;
-  /** Inner radius ratio (0-1, where 0.5 = half the radius) */
-  innerRadiusRatio?: number;
   /** Helper text to display below the chart */
   helperText?: string;
   /** Optional stat cards to display in the header */
@@ -31,7 +26,7 @@ interface Props {
 }
 
 /**
- * Displays damage/healing contribution as a donut chart with spell breakdown and legend.
+ * Displays damage/healing contribution as a stacked bar with spell breakdown and legend.
  * Automatically includes an "Other" category for untracked spells.
  * Built using GuideDataWrapper for consistent styling.
  *
@@ -39,8 +34,6 @@ interface Props {
  * @param spells - List of spells to track with their display colors
  * @param calculateContribution - Function that takes spellId and returns damage/healing amount
  * @param otherColor - Color for the "Other" category (default: #666666)
- * @param size - Size of the donut chart in pixels (default: 200)
- * @param innerRadiusRatio - Inner radius ratio 0-1 (default: 0.6)
  * @param helperText - Optional helper text to display below the header
  * @param stats - Optional stat cards to display in the header
  */
@@ -90,14 +83,6 @@ export default function DamageContribution({
   // Sort by amount descending
   allContributions.sort((a, b) => b.amount - a.amount);
 
-  // Convert to DonutSegment format
-  const donutSegments: DonutSegment[] = allContributions.map((contrib) => ({
-    id: contrib.isOther ? 'other' : contrib.spell.id,
-    label: contrib.isOther ? 'Other' : contrib.spell.name,
-    color: contrib.color,
-    value: contrib.amount,
-  }));
-
   return (
     <GuideDataWrapper
       title={displayTitle}
@@ -106,12 +91,19 @@ export default function DamageContribution({
       helperText={helperText}
     >
       <ChartContainer>
-        <DonutChart
-          segments={donutSegments}
-          size={240}
-          innerRadiusRatio={0.6}
-          showCenterText={true}
-        />
+        <StackedBarContainer>
+          {allContributions.map((contrib) => {
+            const percentage = (contrib.amount / total) * 100;
+            return (
+              <StackedSegment
+                key={contrib.isOther ? 'other' : contrib.spell.id}
+                $color={contrib.color}
+                $width={percentage}
+                title={`${contrib.isOther ? 'Other' : contrib.spell.name}: ${formatNumber(contrib.amount)} (${formatPercentage(percentage / 100, 1)}%)`}
+              />
+            );
+          })}
+        </StackedBarContainer>
         <LegendContainer>
           {allContributions.map((contrib) => {
             const percentage = contrib.amount / total;
@@ -138,22 +130,36 @@ export default function DamageContribution({
 
 const ChartContainer = styled.div`
   display: flex;
-  gap: 30px;
-  align-items: center;
+  flex-direction: column;
+  gap: 20px;
   padding: 10px 20px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
+`;
 
-  @media (max-width: 900px) {
-    flex-wrap: wrap;
-    justify-content: center;
+const StackedBarContainer = styled.div`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+`;
+
+const StackedSegment = styled.div<{ $color: string; $width: number }>`
+  width: ${(props) => props.$width}%;
+  background: ${(props) => props.$color};
+  transition: all 0.2s ease;
+  cursor: pointer;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+    filter: brightness(1.1);
   }
 `;
 
 const LegendContainer = styled.div`
-  flex: 1;
-  min-width: 200px;
-  max-width: 350px;
   display: flex;
   flex-direction: column;
   gap: 12px;

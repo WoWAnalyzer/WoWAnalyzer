@@ -5,7 +5,6 @@ export { default as CastDetail, type PerCastData, type PerCastStat } from './Cas
 export { default as BuffUptimeBar } from './BuffUptimeBar';
 export { default as IntensityChart } from './IntensityChart';
 export { default as IntensityBar } from './IntensityBar';
-export { default as DonutChart, type DonutSegment } from './DonutChart';
 export { default as DamageContribution } from './DamageContribution';
 export { default as CastEfficiencyRibbon } from './CastEfficiencyRibbon';
 export {
