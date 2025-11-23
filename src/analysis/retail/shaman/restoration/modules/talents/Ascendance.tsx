@@ -6,15 +6,8 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
-import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-
 class Ascendance extends Analyzer {
-  static dependencies = {
-    cooldownThroughputTracker: CooldownThroughputTracker,
-  };
   healing = 0;
-
-  protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
   constructor(options: Options) {
     super(options);

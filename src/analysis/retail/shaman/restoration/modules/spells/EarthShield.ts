@@ -4,15 +4,11 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
-import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-
 class EarthShield extends EarthShieldCore {
   static dependencies = {
     ...EarthShieldCore.dependencies,
-    cooldownThroughputTracker: CooldownThroughputTracker,
   };
 
-  protected cooldownThroughputTracker!: CooldownThroughputTracker;
   prepullApplication = false;
 
   constructor(options: Options) {

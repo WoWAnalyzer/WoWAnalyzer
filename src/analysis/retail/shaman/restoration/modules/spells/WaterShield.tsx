@@ -9,9 +9,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-// just gonna steal my mtt formatting
-import './ManaTideTotem.scss';
-
 const WATER_SHIELD_MANA_REGEN_PER_SECOND = 2015 / 5;
 
 class WaterShield extends Analyzer {

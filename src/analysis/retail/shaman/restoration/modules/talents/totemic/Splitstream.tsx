@@ -6,35 +6,23 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { isReactivityHeal } from '../../../normalizers/CastLinkNormalizer';
+import { isSplitstreamHeal } from '../../../normalizers/CastLinkNormalizer';
 import { formatNumber } from 'common/format';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
-const REACTIVITY_CLOUDBURST_BUFF = 0.25;
-
-export default class Reactivity extends Analyzer {
+export default class Splitstream extends Analyzer {
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITSTREAM_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.CLOUDBURST_TOTEM_HEAL),
-      this.onCloudBurstHeal,
-    );
-    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.HEALING_STREAM_TOTEM_HEAL),
       this.onHealingStreamHeal,
     );
-  }
-
-  onCloudBurstHeal(event: HealEvent) {
-    this.healingDoneFromTalent += calculateEffectiveHealing(event, REACTIVITY_CLOUDBURST_BUFF);
-    this.overhealingDoneFromTalent += calculateOverhealing(event, REACTIVITY_CLOUDBURST_BUFF);
   }
 
   onHealingStreamHeal(event: HealEvent) {
@@ -42,7 +30,7 @@ export default class Reactivity extends Analyzer {
     // right now the talent is bugged to just heal a 2nd time at 100% effectiveness
     // once this is fixed, we will need to check to only count
     // the 2nd heal that should be at 50% effectiveness
-    if (!isReactivityHeal(event)) {
+    if (!isSplitstreamHeal(event)) {
       return;
     }
     this.healingDoneFromTalent += event.amount;
@@ -61,7 +49,7 @@ export default class Reactivity extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.REACTIVITY_TALENT}>
+        <TalentSpellText talent={TALENTS.SPLITSTREAM_TALENT}>
           <div>
             <ItemHealingDone amount={this.healingDoneFromTalent} />{' '}
           </div>

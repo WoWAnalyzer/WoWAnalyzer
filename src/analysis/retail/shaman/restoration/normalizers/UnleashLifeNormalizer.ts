@@ -34,11 +34,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [
       talents.RIPTIDE_TALENT.id,
       SPELLS.HEALING_WAVE.id,
-      SPELLS.HEALING_SURGE.id,
       talents.CHAIN_HEAL_TALENT.id,
-      talents.HEALING_RAIN_TALENT.id,
-      SPELLS.DOWNPOUR_ABILITY.id,
-      talents.WELLSPRING_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: 255,
@@ -60,26 +56,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     isActive(c) {
       return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
-    },
-  },
-  {
-    linkRelation: HARDCAST,
-    reverseLinkRelation: HARDCAST,
-    linkingEventId: [SPELLS.HEALING_SURGE.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.HEALING_SURGE.id],
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
-    },
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        HasRelatedEvent(referencedEvent, UNLEASH_LIFE_REMOVE) &&
-        (linkingEvent as HealEvent).ability.guid === (referencedEvent as CastEvent).ability.guid &&
-        (linkingEvent as HealEvent).targetID === (referencedEvent as CastEvent).targetID
-      );
     },
   },
   {

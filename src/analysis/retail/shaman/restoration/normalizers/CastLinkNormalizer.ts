@@ -32,7 +32,7 @@ import {
   WHIRLINGEARTH_HEAL,
   WHIRLINGWATER_HEAL,
   LIVELY_TOTEMS_CHAIN_HEAL,
-  REACTIVITY,
+  SPLITSTREAM,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -181,21 +181,6 @@ const EVENT_LINKS: EventLink[] = [
       return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
-  //link high tide removal to chain heal cast that consumed it
-  {
-    linkRelation: HIGH_TIDE,
-    reverseLinkRelation: HIGH_TIDE,
-    linkingEventId: [SPELLS.HIGH_TIDE_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive(c) {
-      return c.hasTalent(talents.HIGH_TIDE_TALENT);
-    },
-  },
   //link riptide removal to chain heal for fotd
   {
     linkRelation: FLOW_OF_THE_TIDES,
@@ -239,7 +224,6 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.HEALING_WAVE.id,
       SPELLS.HEALING_SURGE.id,
       talents.CHAIN_HEAL_TALENT.id,
-      talents.WELLSPRING_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: CAST_BUFFER_MS,
@@ -289,7 +273,6 @@ const EVENT_LINKS: EventLink[] = [
       talents.HEALING_TIDE_TOTEM_TALENT.id,
       talents.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
       talents.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id,
-      talents.CLOUDBURST_TOTEM_TALENT.id,
       talents.SPIRIT_LINK_TOTEM_TALENT.id,
     ],
     referencedEventType: [EventType.Cast, EventType.Heal],
@@ -300,9 +283,9 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(talents.LIVELY_TOTEMS_TALENT);
     },
   },
-  // Reactivity: Your Healing Stream Totems now also heals a second ally at 50% effectiveness. Cloudburst Totem stores 25% additional healing.
+  // Reactivity: Your Healing Stream Totems now also heals a second ally at 100% effectiveness.
   {
-    linkRelation: REACTIVITY,
+    linkRelation: SPLITSTREAM,
     linkingEventId: [SPELLS.HEALING_STREAM_TOTEM_HEAL.id],
     linkingEventType: [EventType.Heal],
     referencedEventId: [SPELLS.HEALING_STREAM_TOTEM_HEAL.id],
@@ -311,7 +294,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 5,
     anyTarget: true,
     isActive(c) {
-      return c.hasTalent(talents.REACTIVITY_TALENT);
+      return c.hasTalent(talents.SPLITSTREAM_TALENT);
     },
   },
 ];
@@ -394,8 +377,8 @@ export function isLivelyTotemsChainHeal(event: HealEvent) {
   return HasRelatedEvent(event, LIVELY_TOTEMS_CHAIN_HEAL);
 }
 
-export function isReactivityHeal(event: HealEvent) {
-  return HasRelatedEvent(event, REACTIVITY);
+export function isSplitstreamHeal(event: HealEvent) {
+  return HasRelatedEvent(event, SPLITSTREAM);
 }
 
 export default CastLinkNormalizer;

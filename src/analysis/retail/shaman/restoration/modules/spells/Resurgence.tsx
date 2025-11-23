@@ -11,7 +11,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import './ManaTideTotem.scss';
 import WaterShield from './WaterShield';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';

@@ -5,7 +5,6 @@ import CoreHealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
-import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import Resurgence from '../spells/Resurgence';
 import UnleashLife from '../talents/UnleashLife';
 import HealingDone from './HealingDone';
@@ -19,7 +18,6 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     abilityTracker: RestorationAbilityTracker,
     healingDone: HealingDone,
     resurgence: Resurgence,
-    cooldownThroughputTracker: CooldownThroughputTracker,
     unleashLife: UnleashLife,
     earthShield: EarthShield,
     downpour: Downpour,
@@ -29,7 +27,6 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   protected declare abilityTracker: RestorationAbilityTracker;
   protected declare healingDone: HealingDone;
   protected resurgence!: Resurgence;
-  protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected unleashLife!: UnleashLife;
   protected earthShield!: EarthShield;
 

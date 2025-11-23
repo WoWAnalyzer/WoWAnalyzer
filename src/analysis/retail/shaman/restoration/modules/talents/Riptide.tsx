@@ -18,9 +18,8 @@ class Riptide extends Analyzer {
         <b>
           <SpellLink spell={talents.RIPTIDE_TALENT} />
         </b>{' '}
-        is one of your core rotational abilities and primary sources of healing. It is your only
-        source of <SpellLink spell={talents.TIDAL_WAVES_TALENT} /> and has numerous throughput
-        synergies with talents like <SpellLink spell={talents.UNDERCURRENT_TALENT} />,{' '}
+        is one of your core rotational abilities and primary sources of healing has numerous
+        throughput synergies with talents like <SpellLink spell={talents.UNDERCURRENT_TALENT} />,{' '}
         <SpellLink spell={talents.ECHO_OF_THE_ELEMENTS_TALENT} />,
         {this.selectedCombatant.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT) && (
           <>
@@ -58,6 +57,7 @@ class Riptide extends Analyzer {
   }
 
   subStatistic() {
+    console.log(talents.RIPTIDE_TALENT);
     return (
       <CastEfficiencyBar
         spell={talents.RIPTIDE_TALENT}
