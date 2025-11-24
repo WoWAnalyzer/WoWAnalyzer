@@ -190,7 +190,8 @@ jobs:
         run: pnpm exec lingui compile
 
   docker-image:
-    needs: [typecheck, linting, prettier, tests, build]
+    # needs: [typecheck, linting, prettier, tests, build]
+    needs: [linting, prettier, tests, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-24.04
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
