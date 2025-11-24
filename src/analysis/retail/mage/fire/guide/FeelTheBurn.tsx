@@ -39,14 +39,13 @@ class FeelTheBurnGuide extends Analyzer {
     const feelTheBurn = <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />;
     const ignite = <SpellLink spell={SPELLS.IGNITE} />;
     const fireBlast = <SpellLink spell={SPELLS.FIRE_BLAST} />;
-    const phoenixFlames = <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
 
     const explanation = (
       <>
         <div>
           <b>{feelTheBurn}</b> grants a high amount of mastery which in turn increases your ticking
           {ignite} damage. Keeping this buff at max stacks is not terribly difficult as it can be
-          extended via {fireBlast} and {phoenixFlames}.
+          extended via {fireBlast}.
         </div>
       </>
     );

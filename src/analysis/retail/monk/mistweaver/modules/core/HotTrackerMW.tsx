@@ -246,12 +246,6 @@ class HotTrackerMW extends HotTracker {
         maxDuration: this._calculateMaxEnvDuration,
         procDuration: this._getMistyPeaksDuration,
       },
-      {
-        spell: SPELLS.ENVELOPING_BREATH_HEAL,
-        duration: this._calculateEnvDuration,
-        tickPeriod: 1000,
-        maxDuration: this._calculateEnvDuration,
-      },
     ];
   }
 }

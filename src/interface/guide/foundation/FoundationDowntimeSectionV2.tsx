@@ -225,11 +225,11 @@ const UptimeStatistics = styled.dl`
   display: grid;
   grid-template-columns: max-content max-content;
   grid-gap: 0 0.75em;
-  font-size: 2rem;
+  font-size: 1.5rem;
   align-items: baseline;
 
   & dd {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     opacity: 80%;
 
     & dfn {

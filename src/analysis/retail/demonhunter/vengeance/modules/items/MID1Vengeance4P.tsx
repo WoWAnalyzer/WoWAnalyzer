@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-//import { TIERS } from 'game/TIERS';
+import { TIERS } from 'game/TIERS';
 import React from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -23,8 +23,7 @@ class MID1Vengeance4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = true; //for testing
-    //this.active = this.selectedCombatant.has4PieceByTier(TIERS.MIDNIGHT1);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.MID1);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MID1_EXPLOSION_OF_THE_SOUL),
@@ -35,22 +34,11 @@ class MID1Vengeance4P extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRACTURE),
       this.onFractureCast,
     );
-
-    // If its a cast:
-    // this.addEventListener
-    //   Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MID1_EXPLOSION_OF_THE_SOUL),
-    //   this.onDetonationCast,
-    // );
   }
 
   private onDetonationDamage = (event: DamageEvent) => {
     this.#explosionProcs += 1;
   };
-
-  // Again if its a cast:
-  // private onDetonationCast = (event: CastEvent) => {
-  //  this.explosionProcs++;
-  //};
 
   private onFractureCast = (event: CastEvent) => {
     this.#fractureCount += 1;

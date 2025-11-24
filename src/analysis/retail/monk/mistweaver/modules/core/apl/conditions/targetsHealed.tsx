@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import type Spell from 'common/SPELLS/Spell';
 import { TALENTS_MONK } from 'common/TALENTS';
 import SpellLink from 'interface/SpellLink';
@@ -81,7 +82,7 @@ export default function targetsHealed(range: Range, options?: Partial<Options>):
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} {range.atLeast} active{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
         s.
       </>
     ),

@@ -141,7 +141,7 @@ class LotusInfusion extends Analyzer {
             </li>
             <li>Overhealing: {formatNumber(this.renewingMistOverhealingBoost)}</li>
             <li>
-              Additional <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing:{' '}
+              Additional <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> healing:{' '}
               {formatNumber(this.effectiveHealing)}
             </li>
             <li>Hot Overhealing: {formatNumber(this.overhealing)}</li>

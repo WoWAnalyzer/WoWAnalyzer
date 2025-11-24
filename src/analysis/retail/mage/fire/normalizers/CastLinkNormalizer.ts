@@ -184,29 +184,6 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.PHOENIX_FLAMES_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: SPELL_DAMAGE,
-    referencedEventId: SPELLS.PHOENIX_FLAMES_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    maximumLinks: 1,
-    additionalCondition(linkingEvent, referencedEvent): boolean {
-      if (!linkingEvent || !referencedEvent) {
-        return false;
-      }
-      const castTarget =
-        HasTarget(linkingEvent) &&
-        encodeTargetString(linkingEvent.targetID, linkingEvent.targetInstance);
-      const damageTarget =
-        HasTarget(referencedEvent) &&
-        encodeTargetString(referencedEvent.targetID, referencedEvent.targetInstance);
-      return castTarget === damageTarget;
-    },
-    forwardBufferMs: 1000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: SPELL_CAST,
     linkingEventId: SPELLS.FIREBALL.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,

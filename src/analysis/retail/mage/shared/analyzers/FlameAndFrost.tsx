@@ -30,7 +30,6 @@ class FlameAndFrost extends Analyzer {
 
   onColdSnap(event: CastEvent) {
     this.spellUsable.endCooldown(SPELLS.FIRE_BLAST.id);
-    this.spellUsable.endCooldown(TALENTS.BLAST_WAVE_TALENT.id);
     this.spellUsable.endCooldown(TALENTS.DRAGONS_BREATH_TALENT.id);
   }
 }

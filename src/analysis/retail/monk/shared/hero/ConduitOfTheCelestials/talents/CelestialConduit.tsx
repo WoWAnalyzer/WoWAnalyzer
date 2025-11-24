@@ -72,18 +72,26 @@ class CelestialConduit extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT,
+    );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell(TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT),
       this.onChannelStart,
     );
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+      Events.EndChannel.by(SELECTED_PLAYER).spell(
+        TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT,
+      ),
       this.onChannelEnd,
     );
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+      Events.EndChannel.by(SELECTED_PLAYER).spell(
+        TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT,
+      ),
       this.onUnityWithin,
     );
 
@@ -117,7 +125,7 @@ class CelestialConduit extends Analyzer {
     const spellList =
       this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK
         ? MISTWEAVER_HEART_SPELLS(
-            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
           )
         : WINDWALKER_HEART_SPELLS;
     spellList.forEach((spellId) => {
@@ -282,15 +290,15 @@ class CelestialConduit extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />
+          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT} />
         </strong>
         <br />
-        Before casting <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />, make sure that
-        all spells reduced by <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />{' '}
-        are on cooldown so that the extra CDR granted when casting{' '}
-        <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is not wasted. Additionally, make
-        sure to never cancel the spell and to hit at least 5 targets in order to get the maximum
-        healing/damage buff (up to 30%).
+        Before casting <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT} />,
+        make sure that all spells reduced by{' '}
+        <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> are on cooldown so that
+        the extra CDR granted when casting <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is
+        not wasted. Additionally, make sure to never cancel the spell and to hit at least 5 targets
+        in order to get the maximum healing/damage buff (up to 30%).
       </p>
     );
 
@@ -302,7 +310,7 @@ class CelestialConduit extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />
+              <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT} />
             </>
           );
           const analysis = this.getChecklistForCast(cast);
@@ -335,7 +343,7 @@ class CelestialConduit extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}>
+        <TalentSpellText talent={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <div></div>
           <ItemHealingDone amount={this.healing} />

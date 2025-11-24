@@ -1,11 +1,8 @@
 import { formatDuration, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'game/HIT_TYPES';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, CastEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -13,100 +10,62 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import Revival from './Revival';
-import { getCurrentRSKTalent } from '../../constants';
+import { UPLIFTED_SPIRITS_COOLDOWN_REDUCTION, UPLIFTED_SPIRITS_INCREASE } from '../../constants';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
-const UPLIFTED_SPIRITS_REDUCTION = 1000;
-const BASE_COOLDOWN = 180000; //180s
-
+const BASE_COOLDOWN = 180000; // 3 minutes in ms
 /**
- * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds
- */
+ * Revival Cooldown is reduced by 30s and revival's healing is increased by 15%
+ **/
 class UpliftedSpirits extends Analyzer {
   static dependencies = {
-    spellUsable: SpellUsable,
     revival: Revival,
   };
   cooldownReductionUsed = 0;
-  totalRskCdr = 0;
-  totalVivifyCdr = 0;
-  usHealing = 0;
   cooldownReductionWasted = 0;
+  lastCastTimestamp = 0;
+  usHealing = 0;
   activeTalent!: Talent;
   totalCasts = 0;
-  currentRskTalent: Talent;
-  protected spellUsable!: SpellUsable;
   protected revival!: Revival;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT);
-    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     if (!this.active) {
       return;
     }
     this.activeTalent = this.selectedCombatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT)
       ? TALENTS_MONK.REVIVAL_TALENT
       : TALENTS_MONK.RESTORAL_TALENT;
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent),
-      this.rskHit,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.INVIGORATING_MISTS_HEAL]),
-      this.vivifyHit,
-    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.activeTalent), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent), this.onCast);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UPLIFTED_SPIRITS_HEAL),
-      this.onUSHeal,
-    );
-  }
-
-  rskHit(event: CastEvent) {
-    // Cooldown Reduction on Revival
-    if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
-      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
-        this.activeTalent.id,
-        UPLIFTED_SPIRITS_REDUCTION,
-        event.timestamp,
-      );
-    } else {
-      this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
-    }
-    this.totalRskCdr += UPLIFTED_SPIRITS_REDUCTION;
-  }
-
-  vivifyHit(event: HealEvent) {
-    if (event.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
-    if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
-      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
-        this.activeTalent.id,
-        UPLIFTED_SPIRITS_REDUCTION,
-        event.timestamp,
-      );
-    } else {
-      this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
-    }
-    this.totalVivifyCdr += UPLIFTED_SPIRITS_REDUCTION;
-  }
-
-  onUSHeal(event: HealEvent) {
-    this.usHealing += event.amount + (event.absorbed || 0);
   }
 
   onCast(event: CastEvent) {
-    this.totalCasts += 1;
+    if (this.lastCastTimestamp !== 0) {
+      const timeSinceLastCast = event.timestamp - this.lastCastTimestamp;
+      if (timeSinceLastCast <= BASE_COOLDOWN) {
+        this.cooldownReductionUsed += BASE_COOLDOWN - timeSinceLastCast;
+        this.cooldownReductionWasted +=
+          timeSinceLastCast - (BASE_COOLDOWN - UPLIFTED_SPIRITS_COOLDOWN_REDUCTION);
+      } else {
+        this.cooldownReductionWasted += UPLIFTED_SPIRITS_COOLDOWN_REDUCTION;
+      }
+    }
+    this.lastCastTimestamp = event.timestamp;
   }
-
-  get totalRevivalHealing() {
-    return this.revival.gustsHealing + this.revival.revivalDirectHealing;
+  onHeal(event: HealEvent) {
+    this.totalCasts += 1;
+    this.usHealing += calculateEffectiveHealing(event, UPLIFTED_SPIRITS_INCREASE);
   }
 
   get effectiveHealingIncrease() {
     const increase = BASE_COOLDOWN / (BASE_COOLDOWN - this.averageCdr);
-    return this.totalRevivalHealing - this.totalRevivalHealing / increase;
+    if (increase <= 1) {
+      return 0;
+    }
+    return this.revival.revivalDirectHealing / increase;
   }
 
   get averageCdr() {
@@ -128,18 +87,12 @@ class UpliftedSpirits extends Analyzer {
             Effective Healing From Additional <SpellLink spell={this.activeTalent} /> Casts:{' '}
             {formatNumber(this.effectiveHealingIncrease)}
             <br />
-            <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Direct Healing:{' '}
+            Healing from <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Increase:{' '}
             {formatNumber(this.usHealing)}
             <br />
             Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
             <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
-            <br />
-            Total reduction from <SpellLink spell={SPELLS.VIVIFY} />:{' '}
-            {formatNumber(this.totalVivifyCdr / 1000)} Seconds
-            <br />
-            Total reduction from <SpellLink spell={this.currentRskTalent} />:{' '}
-            {formatNumber(this.totalRskCdr / 1000)} Seconds
           </>
         }
       >

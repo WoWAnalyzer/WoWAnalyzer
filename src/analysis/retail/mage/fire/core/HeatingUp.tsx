@@ -34,10 +34,6 @@ export default class HeatingUp extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PHOENIX_FLAMES_TALENT),
-      this.castEvent,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST), this.castEvent);
   }
 
@@ -65,8 +61,6 @@ export default class HeatingUp extends Analyzer {
       )
     ) {
       buff = { active: true, buffId: TALENTS.COMBUSTION_TALENT.id };
-    } else if (this.selectedCombatant.hasBuff(TALENTS.HYPERTHERMIA_TALENT.id)) {
-      buff = { active: true, buffId: TALENTS.HYPERTHERMIA_TALENT.id };
     } else if (this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id)) {
       buff = { active: true, buffId: SPELLS.HYPERTHERMIA_BUFF.id };
     } else {
@@ -90,12 +84,6 @@ export default class HeatingUp extends Analyzer {
     ).length;
   }
 
-  get phoenixFlamesDuringHotStreak() {
-    return this.heatingUpCrits.filter(
-      (c) => c.cast.ability.guid === TALENTS.PHOENIX_FLAMES_TALENT.id && c.hasHotStreak,
-    ).length;
-  }
-
   get fireBlastWithoutHeatingUp() {
     return this.heatingUpCrits.filter(
       (c) => c.cast.ability.guid === SPELLS.FIRE_BLAST.id && !c.hasHeatingUp && !c.critBuff.active,
@@ -108,41 +96,17 @@ export default class HeatingUp extends Analyzer {
     );
   }
 
-  get phoenixFlamesUtilPercent() {
-    return (
-      1 -
-      this.phoenixFlamesDuringHotStreak /
-        this.abilityTracker.getAbility(TALENTS.PHOENIX_FLAMES_TALENT.id).casts
-    );
-  }
-
   get totalFireBlasts() {
     return this.heatingUpCrits.filter((c) => c.cast.ability.guid === SPELLS.FIRE_BLAST.id).length;
   }
 
   get totalWasted() {
-    return (
-      this.fireBlastWithoutHeatingUp +
-      this.fireBlastsDuringHotStreak +
-      this.phoenixFlamesDuringHotStreak
-    );
+    return this.fireBlastWithoutHeatingUp + this.fireBlastsDuringHotStreak;
   }
 
   get fireBlastUtilSuggestionThresholds() {
     return {
       actual: this.fireBlastUtilPercent,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.85,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get phoenixFlamesUtilSuggestionThresholds() {
-    return {
-      actual: this.phoenixFlamesUtilPercent,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -168,7 +132,6 @@ export default class HeatingUp extends Analyzer {
             <ul>
               <li>Fireblast used without Heating Up: {this.fireBlastWithoutHeatingUp}</li>
               <li>Fireblast used during Hot Streak: {this.fireBlastsDuringHotStreak}</li>
-              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesDuringHotStreak}</li>
             </ul>
           </>
         }
@@ -178,10 +141,6 @@ export default class HeatingUp extends Analyzer {
             <SpellIcon spell={SPELLS.FIRE_BLAST} />{' '}
             {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual, 0)}%{' '}
             <small>Fire Blast Utilization</small>
-            <br />
-            <SpellIcon spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
-            {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual, 0)}%{' '}
-            <small>Phoenix Flames Utilization</small>
           </>
         </BoringSpellValueText>
       </Statistic>

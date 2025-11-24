@@ -12,7 +12,7 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Uptime } from 'parser/ui/UptimeBar';
-import { getCurrentRSKTalent, SPELL_COLORS, VIVACIOUS_VIVIFICATION_BOOST } from '../../constants';
+import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
@@ -124,7 +124,6 @@ class VivaciousVivification extends Analyzer {
 
   onVivifyHeal(event: HealEvent) {
     if (isVivaciousVivification(event)) {
-      this.totalHealed += calculateEffectiveHealing(event, VIVACIOUS_VIVIFICATION_BOOST);
     }
   }
 
@@ -135,10 +134,9 @@ class VivaciousVivification extends Analyzer {
           <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} />
         </b>{' '}
         is a buff granted when you cast{' '}
-        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />. It increases the healing
-        of your next <SpellLink spell={SPELLS.VIVIFY} /> by{' '}
-        {formatPercentage(VIVACIOUS_VIVIFICATION_BOOST)}% and makes it an instant cast. Try to
-        consume this buff without letting it refresh as healing and mana warrant.
+        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> making your next{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> instant cast. Try to consume this buff without letting
+        it refresh as healing and mana warrant.
       </p>
     );
     this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;
@@ -180,20 +178,6 @@ class VivaciousVivification extends Analyzer {
       </div>
     );
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.UNIMPORTANT(50)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
-        <TalentSpellText talent={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}>
-          <ItemHealingDone amount={this.totalHealed} />
-        </TalentSpellText>
-      </Statistic>
-    );
   }
 }
 

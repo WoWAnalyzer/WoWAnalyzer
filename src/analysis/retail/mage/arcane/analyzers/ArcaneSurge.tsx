@@ -17,7 +17,6 @@ export default class ArcaneSurge extends Analyzer {
   protected chargeTracker!: ArcaneChargeTracker;
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
-  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
   surgeData: ArcaneSurgeData[] = [];
 

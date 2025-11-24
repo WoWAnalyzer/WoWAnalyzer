@@ -23,7 +23,6 @@ class HeatingUpGuide extends Analyzer {
   protected heatingUp!: HeatingUp;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
-  hasCallOfSunKing: boolean = this.selectedCombatant.hasTalent(TALENTS.CALL_OF_THE_SUN_KING_TALENT);
 
   generateGuideTooltip(
     performance: QualitativePerformance,
@@ -65,20 +64,6 @@ class HeatingUpGuide extends Analyzer {
     return performance;
   }
 
-  get phoenixFlamesUtil() {
-    const util = this.heatingUp.phoenixFlamesUtilSuggestionThresholds.actual;
-    const thresholds = this.heatingUp.phoenixFlamesUtilSuggestionThresholds.isLessThan;
-    let performance = QualitativePerformance.Fail;
-    if (util > thresholds.minor) {
-      performance = QualitativePerformance.Perfect;
-    } else if (util > thresholds.average) {
-      performance = QualitativePerformance.Good;
-    } else if (util > thresholds.major) {
-      performance = QualitativePerformance.Ok;
-    }
-    return performance;
-  }
-
   get heatingUpData() {
     const data: BoxRowEntry[] = [];
     this.heatingUp.heatingUpCrits.forEach((hu) => {
@@ -88,20 +73,11 @@ class HeatingUpGuide extends Analyzer {
         hu.cast.ability.guid === SPELLS.FIRE_BLAST.id &&
         hu.charges >= (this.hasFlameOn ? 3 : 1) - 1 &&
         hu.timeTillCapped < CAPPED_MS_THRESHOLD;
-      const phoenixFlamesCapped =
-        hu.cast.ability.guid === TALENTS.PHOENIX_FLAMES_TALENT.id &&
-        hu.charges >= (this.hasCallOfSunKing ? 3 : 2) - 1 &&
-        hu.timeTillCapped < CAPPED_MS_THRESHOLD;
-      const cappedCharges = fireBlastCapped || phoenixFlamesCapped;
+      const cappedCharges = fireBlastCapped;
       if (fireBlastCapped) {
         tooltipItems.push({
           perf: QualitativePerformance.Good,
           detail: `Fire Blast cast while capped`,
-        });
-      } else if (phoenixFlamesCapped) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Good,
-          detail: `Phoenix Flames cast while capped`,
         });
       }
 
@@ -142,18 +118,14 @@ class HeatingUpGuide extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const fireBlast = <SpellLink spell={SPELLS.FIRE_BLAST} />;
-    const phoenixFlames = <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
     const combustion = <SpellLink spell={TALENTS.COMBUSTION_TALENT} />;
     const heatingUp = <SpellLink spell={SPELLS.HEATING_UP} />;
     const hotStreak = <SpellLink spell={SPELLS.HOT_STREAK} />;
     const firestarter = <SpellLink spell={TALENTS.FIRESTARTER_TALENT} />;
     const searingTouch = <SpellLink spell={TALENTS.SCORCH_TALENT} />;
-    const hyperthermia = <SpellLink spell={TALENTS.HYPERTHERMIA_TALENT} />;
-    const alexstraszasFury = <SpellLink spell={TALENTS.ALEXSTRASZAS_FURY_TALENT} />;
     const flamesFury = <SpellLink spell={SPELLS.FLAMES_FURY_BUFF} />;
 
     const fireBlastIcon = <SpellIcon spell={SPELLS.FIRE_BLAST} />;
-    const phoenixFlamesIcon = <SpellIcon spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
 
     const explanation = (
       <>
@@ -165,18 +137,17 @@ class HeatingUpGuide extends Analyzer {
         <div>
           <ul>
             <li>
-              Use guaranteed crit abilities like {fireBlast} or {phoenixFlames} (with{' '}
-              {alexstraszasFury}) to convert {heatingUp} to {hotStreak}
+              Use guaranteed crit abilities like {fireBlast} (with ) to convert {heatingUp} to{' '}
+              {hotStreak}
             </li>
             <li>
-              Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}),{' '}
-              {hyperthermia}, or are capped or about to cap on charges, don't use {fireBlast}
+              Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}), , or
+              are capped or about to cap on charges, don't use {fireBlast}
               without {heatingUp}.
             </li>
             <li>
-              Outside of {combustion} you can use {phoenixFlames} without {heatingUp}, and then
-              convert that into {hotStreak} with {fireBlast}, especially if you have {flamesFury}{' '}
-              procs.
+              Outside of {combustion} you can use without {heatingUp}, and then convert that into{' '}
+              {hotStreak} with {fireBlast}, especially if you have {flamesFury} procs.
             </li>
           </ul>
         </div>
@@ -189,9 +160,6 @@ class HeatingUpGuide extends Analyzer {
         {this.heatingUp.fireBlastsDuringHotStreak} Fire Blasts cast during Hot Streak
       </>
     );
-    const phoenixFlamesTooltip = (
-      <>{this.heatingUp.phoenixFlamesDuringHotStreak} Phoenix Flames casts during Hot Streak</>
-    );
     const data = (
       <div>
         <RoundedPanel>
@@ -202,18 +170,6 @@ class HeatingUpGuide extends Analyzer {
             <TooltipElement content={fireBlastTooltip}>
               {formatPercentage(this.heatingUp.fireBlastUtilPercent, 0)} %{' '}
               <small>Fire Blast Utilization</small>
-            </TooltipElement>
-          </div>
-          <div
-            style={{
-              color: qualitativePerformanceToColor(this.phoenixFlamesUtil),
-              fontSize: '20px',
-            }}
-          >
-            {phoenixFlamesIcon}{' '}
-            <TooltipElement content={phoenixFlamesTooltip}>
-              {formatPercentage(this.heatingUp.phoenixFlamesUtilPercent, 0)} %{' '}
-              <small>Phoenix Flames Utilization</small>
             </TooltipElement>
           </div>
           <div>

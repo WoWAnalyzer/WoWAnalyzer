@@ -23,12 +23,8 @@ export const JADE_BOND_ENVM = 'JadeBondEvnm';
 export const ENVELOPING_MIST_GOM = 'EnvGOM';
 export const RENEWING_MIST_GOM = 'ReMGOM';
 export const VIVIFY_GOM = 'ViVGOM';
-export const REVIVAL_GOM = 'RevivalGOM';
 export const SHEILUNS_GIFT_GOM = 'SGGOM';
 export const SHEILUNS_GIFT = 'SheilunsGift';
-export const EXPEL_HARM_GOM = 'EHGOM';
-export const SOOM_GOM = 'SoomGOM';
-export const JFS_GOM = 'JadefireStompGOM';
 export const CRANE_STYLE_RSK = 'CraneStyleRSK';
 export const CRANE_STYLE_BOK = 'CraneStyleBOK';
 export const CRANE_STYLE_SCK = 'CraneStyleSCK';
@@ -59,6 +55,6 @@ export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
 // Misc
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';
-
+export const RUSHING_WIND_KICK = 'RWK';
 // Tier
 export const INSURANCE_DURATION = 15000;

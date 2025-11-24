@@ -11,7 +11,7 @@ interface Props<Reason, Data extends CastData<Reason>> {
   label: (reason: Reason) => ReactNode;
   containerType?: ElementType;
   possibleReasons: Reason[];
-  badReason: Reason;
+  badReason?: Reason;
 }
 
 const Container = styled.tbody``;

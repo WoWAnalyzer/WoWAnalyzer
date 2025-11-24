@@ -11,7 +11,7 @@ import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import HotTrackerMW from '../core/HotTrackerMW';
-import { ATTRIBUTION_STRINGS, TEAR_OF_MORNING_INVIG_INCREASE } from '../../constants';
+import { ATTRIBUTION_STRINGS, TEAR_OF_MORNING_VIV_SG_INCREASE } from '../../constants';
 import { TFT_ENV_TOM } from '../../normalizers/EventLinks/EventLinkConstants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
@@ -97,7 +97,7 @@ class TearOfMorning extends Analyzer {
   handleVivify(event: HealEvent) {
     this.invigoratingMistHealing += calculateEffectiveHealing(
       event,
-      TEAR_OF_MORNING_INVIG_INCREASE,
+      TEAR_OF_MORNING_VIV_SG_INCREASE,
     );
   }
 

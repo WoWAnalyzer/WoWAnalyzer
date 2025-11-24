@@ -31,7 +31,7 @@ export const RENEWING_MIST_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    referencedEventId: SPELLS.RENEWING_MIST_CAST.id,
     referencedEventType: [EventType.Cast],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -41,7 +41,7 @@ export const RENEWING_MIST_EVENT_LINKS: EventLink[] = [
     linkRelation: FORCE_BOUNCE,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    referencedEventId: SPELLS.RENEWING_MIST_CAST.id,
     referencedEventType: [EventType.Cast],
   },
   // link renewing mist apply to the target it was removed from
@@ -89,7 +89,7 @@ export const RENEWING_MIST_EVENT_LINKS: EventLink[] = [
     referencedEventId: [
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
       TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-      TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id,
+      TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: RAPID_DIFFUSION_BUFFER_MS,

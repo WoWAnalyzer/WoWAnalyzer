@@ -184,12 +184,12 @@ const spells = {
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_orange',
   },
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_green',
   },
   SECRET_INFUSION_MASTERY_BUFF: {
     id: 388499,
@@ -201,10 +201,21 @@ const spells = {
     name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
+  RENEWING_MIST_CAST: {
+    id: 115151,
+    name: 'Renewing Mist',
+    icon: 'ability_monk_renewingmists',
+    manaCost: 45000,
+  },
   RENEWING_MIST_HEAL: {
     id: 119611,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
+  },
+  RUSHING_WIND_KICK_HEAL: {
+    id: 1269159,
+    name: 'Rushing Wind Kick',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   VIVIFY: {
     id: 116670,
@@ -252,11 +263,6 @@ const spells = {
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
   },
-  ENVELOPING_BREATH_HEAL: {
-    id: 325209,
-    name: 'Enveloping Breath',
-    icon: 'ability_monk_jadeserpentbreath',
-  },
   MANA_TEA_STACK: {
     id: 115867,
     name: 'Mana Tea',
@@ -264,11 +270,6 @@ const spells = {
   },
   MANA_TEA_CAST: {
     id: 115294,
-    name: 'Mana Tea',
-    icon: 'monk_ability_cherrymanatea',
-  },
-  MANA_TEA_BUFF: {
-    id: 197908,
     name: 'Mana Tea',
     icon: 'monk_ability_cherrymanatea',
   },
@@ -381,56 +382,6 @@ const spells = {
     name: "Sheilun's Gift",
     icon: 'inv_staff_2h_artifactshaohao_d_01',
   },
-  LESSON_OF_DOUBT_BUFF: {
-    id: 400097,
-    name: 'Lesson of Doubt',
-    icon: 'sha_ability_warrior_bloodnova',
-  },
-  LESSON_OF_DOUBT_NEXT_BUFF: {
-    id: 405808,
-    name: 'Lesson of Doubt',
-    icon: 'sha_ability_warrior_bloodnova',
-  },
-  LESSON_OF_DESPAIR_BUFF: {
-    id: 400100,
-    name: 'Lesson of Despair',
-    icon: 'sha_ability_rogue_envelopingshadows',
-  },
-  LESSON_OF_DESPAIR_NEXT_BUFF: {
-    id: 405810,
-    name: 'Lesson of Despair',
-    icon: 'sha_ability_rogue_envelopingshadows',
-  },
-  LESSON_OF_FEAR_BUFF: {
-    id: 400103,
-    name: 'Lesson of Fear',
-    icon: 'sha_ability_rogue_bloodyeye_nightborne',
-  },
-  LESSON_OF_FEAR_NEXT_BUFF: {
-    id: 405809,
-    name: 'Lesson of Fear',
-    icon: 'sha_ability_rogue_bloodyeye_nightborne',
-  },
-  LESSON_OF_ANGER_BUFF: {
-    id: 400106,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-  LESSON_OF_ANGER_NEXT_BUFF: {
-    id: 405807,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-  LESSON_OF_ANGER_DAMAGE: {
-    id: 400145,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
-  LESSON_OF_ANGER_HEAL: {
-    id: 400146,
-    name: 'Lesson of Anger',
-    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
-  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',
@@ -445,16 +396,6 @@ const spells = {
     id: 388480,
     name: 'Unison',
     icon: 'ability_monk_soothingmists',
-  },
-  REFRESHING_JADE_WIND_HEAL: {
-    id: 162530,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-  },
-  REFRESHING_JADE_WIND_BUFF: {
-    id: 196725,
-    name: 'Refreshing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
   },
   INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
     id: 343820,
@@ -520,6 +461,11 @@ const spells = {
     id: 388207,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
+  },
+  JADEFIRE_STOMP_DAMAGE: {
+    id: 1248815,
+    name: 'Jadefire Stomp',
+    icon: 'inv_ability_monk_jadefirestomp',
   },
   FAELINE_STOMP_PULSE_DAMAGE: {
     id: 327264,
@@ -602,11 +548,6 @@ const spells = {
     id: 196608,
     name: 'Eye of the Tiger',
     icon: 'ability_druid_primalprecision',
-  },
-  PURIFIED_CHI: {
-    id: 325092,
-    name: 'Purified Chi',
-    icon: 'inv_misc_beer_06',
   },
   BREATH_OF_FIRE_DEBUFF: {
     id: 123725,

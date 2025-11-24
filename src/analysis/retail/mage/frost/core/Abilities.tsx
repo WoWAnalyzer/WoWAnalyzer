@@ -33,22 +33,12 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.FLURRY_TALENT),
         cooldown: 30,
-        charges: 1 + combatant.getTalentRank(TALENTS.PERPETUAL_WINTER_TALENT),
+        charges: 2,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 3,
         damageSpellIds: [SPELLS.FLURRY_DAMAGE.id],
-      },
-      {
-        spell: TALENTS.GLACIAL_SPIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 4,
-        damageSpellIds: [SPELLS.GLACIAL_SPIKE_DAMAGE.id],
       },
       {
         spell: TALENTS.RAY_OF_FROST_TALENT.id,
@@ -105,19 +95,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 15,
         damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
-      },
-      {
-        spell: TALENTS.ICY_VEINS_TALENT.id,
-        buffSpellId: TALENTS.ICY_VEINS_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.ICY_VEINS_TALENT),
-        gcd: null,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        timelineSortIndex: 17,
       },
 
       //Utility

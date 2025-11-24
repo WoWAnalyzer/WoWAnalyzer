@@ -33,7 +33,6 @@ class WintersChill extends Analyzer {
   protected enemies!: Enemies;
 
   hasRayOfFrost: boolean = this.selectedCombatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT);
-  hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
   wintersChill: WintersChillEvent[] = [];
   castEntries: BoxRowEntry[] = [];
 
@@ -245,12 +244,10 @@ class WintersChill extends Analyzer {
     const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
     const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
     const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
-    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
     const iceLance = <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />;
     const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
 
     const cooldownIcon = <SpellIcon spell={cooldown} />;
-    const glacialSpikeIcon = <SpellIcon spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
     const iceLanceIcon = <SpellIcon spell={TALENTS.ICE_LANCE_TALENT} />;
     const rayOfFrostIcon = <SpellIcon spell={TALENTS.RAY_OF_FROST_TALENT} />;
     const wintersChillIcon = <SpellIcon spell={SPELLS.WINTERS_CHILL} />;
@@ -265,28 +262,11 @@ class WintersChill extends Analyzer {
           <ul>
             <li>
               <b>Precast</b>
-              <div>
-                You should cast {this.hasGlacialSpike ? <>{glacialSpike} or </> : ''}
-                {frostbolt} before {flurry}.
-              </div>
-              {this.hasGlacialSpike && (
-                <div>
-                  At 4 <SpellLink spell={SPELLS.MASTERY_ICICLES} /> you can cast {flurry} without
-                  precast.
-                  <div>
-                    <small>
-                      Precast priority order: {glacialSpike} {frostbolt}{' '}
-                    </small>
-                  </div>
-                </div>
-              )}
             </li>
             <li>
               <b>{wintersChill} stacks</b>
               <div>
-                Consume both {wintersChill} stacks with{' '}
-                {this.hasGlacialSpike && <>{glacialSpike} or </>}
-                {iceLance}.
+                Consume both {wintersChill} stacks with {iceLance}.
               </div>
               {this.hasRayOfFrost && (
                 <div>
@@ -296,7 +276,6 @@ class WintersChill extends Analyzer {
               <div>
                 <small>
                   Priority order: {this.hasRayOfFrost && <>{rayOfFrost} </>}
-                  {this.hasGlacialSpike && <>{glacialSpike} </>}
                   {iceLance}
                 </small>
               </div>
@@ -309,12 +288,7 @@ class WintersChill extends Analyzer {
             <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, cooldown, cooldown]} />
           </div>
           <div>
-            <SpellSeq
-              spells={[TALENTS.GLACIAL_SPIKE_TALENT, TALENTS.FLURRY_TALENT, cooldown, cooldown]}
-            />
-          </div>
-          <div>
-            filling the {cooldownIcon}s with {this.hasGlacialSpike && <>{glacialSpikeIcon}, </>}
+            filling the {cooldownIcon}s with
             {iceLanceIcon} or
             {this.hasRayOfFrost && <>{rayOfFrostIcon} </>} following the rules and priorities above.
           </div>

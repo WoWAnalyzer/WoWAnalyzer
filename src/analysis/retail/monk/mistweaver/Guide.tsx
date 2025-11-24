@@ -30,12 +30,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
-        {modules.vivify.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          modules.jadefireTeachings.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
-          modules.jadeEmpowerment.guideSubsection}
+        {!info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) &&
+          modules.vivify.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
@@ -48,13 +44,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
-        {(info.combatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) ||
-          info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) &&
+        {info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) &&
           modules.revival.guideCastBreakdown}
-        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT) &&
           modules.celestialConduit.guideCastBreakdown}
-        {/* {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
-          modules.manaTea.guideCastBreakdown} */}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Core Rotation">
@@ -82,8 +75,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Other cooldowns, buffs, and procs">
         {info.combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) &&
           modules.lifeCocoon.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT) &&
-          modules.chiBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
           modules.vivaciousVivification.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) &&
@@ -111,10 +102,10 @@ function RemGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
   return (
     <SubSection>
       <strong>
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> Graph
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> Graph
       </strong>{' '}
-      - this graph shows how many <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> you have
-      over the course of the fight in relation to your{' '}
+      - this graph shows how many <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> you have over the
+      course of the fight in relation to your{' '}
       <SpellLink spell={getCurrentRSKTalent(info.combatant)} /> and{' '}
       <SpellLink spell={SPELLS.VIVIFY} /> casts.
       {modules.remGraph.plot}
@@ -135,25 +126,10 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
         <b>
           <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />
         </b>{' '}
-        is a potent AoE spot heal and grants extremely strong throughput buffs when talented into{' '}
-        <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />. If talented into{' '}
+        is a potent AoE group heal. If talented into{' '}
         <SpellLink spell={TALENTS_MONK.VEIL_OF_PRIDE_TALENT} />, then try to cast{' '}
         <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> as a powerful spot heal when you
-        have at least 4 stacks, while trying to avoid excessive overhealing. If talented into{' '}
-        <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, aim to cast{' '}
-        <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> before spamming{' '}
-        <SpellLink spell={SPELLS.VIVIFY} /> during a{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> peak (8-10+ active HoTs) or before
-        casting{' '}
-        {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ? (
-          <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
-        ) : (
-          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-        )}
-        . You can cast <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with as little as 1
-        stack before casting <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> in order to try to
-        fish for <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF} /> to gain a significant healing
-        boost to one of your major raid cooldowns.
+        have at least 4 stacks, while trying to avoid excessive overhealing.
       </p>
     </>
   );

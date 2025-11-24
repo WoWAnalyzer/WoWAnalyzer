@@ -35,7 +35,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+      spell: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -59,8 +59,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CoreCooldownThroughputTracker.ignoredSpells,
-    SPELLS.CHI_BURST_HEAL.id,
-    SPELLS.REFRESHING_JADE_WIND_HEAL.id,
     TALENTS_MONK.TRANSCENDENCE_TALENT.id,
   ];
 }

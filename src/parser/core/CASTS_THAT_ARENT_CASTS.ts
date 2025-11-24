@@ -11,7 +11,6 @@ const spells: number[] = [
   SPELLS.MELEE.id, // Auto attack
   SPELLS.AUTO_SHOT.id, // hunter auto attack (classic)
   SPELLS.CHI_BURST_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
-  SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
   SPELLS.SHADOWY_APPARITION_CAST.id, // Shadow priest shadow apparitions passive
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event

@@ -57,26 +57,33 @@ export const colors = {
 };
 
 export const level0 = {
-  background: '#101010',
+  background: 'hsl(44, 7%, 8%)',
   border: '#161616',
   shadow: '0 1px 3px black',
 };
 
 export const level1 = {
-  background: '#161616',
-  border: '#202020',
+  background: 'hsl(44, 7%, 10%)',
+  border: '#262626',
   shadow: '0 1px 4px black',
 };
 
 export const level2 = {
-  background: '#202020',
+  background: 'hsl(44, 7%, 13%)',
   border: '#303030',
   shadow: '0 1px 6px #101010',
 
-  background_active: '#252525',
+  background_active: 'hsl(44, 9%, 15%)',
 };
 
 export const gaps = {
   small: '0.5rem',
   medium: '1rem',
+  large: '2rem',
+};
+
+export const fontSize = {
+  bodyText: '1.4rem',
+  subHeading: '1.6rem',
+  heading: '1.8rem',
 };

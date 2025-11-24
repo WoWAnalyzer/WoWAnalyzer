@@ -189,8 +189,8 @@ const FilterMenu = React.forwardRef<HTMLDialogElement, FilterMenuProps>(
       () =>
         triggerRef.current
           ? {
-              top: `calc(${triggerRef.current.getBoundingClientRect().top + triggerRef.current.clientHeight}px + 0.5rem)`,
-              left: triggerRef.current.getBoundingClientRect().left,
+              top: `calc(${window.scrollY + triggerRef.current.getBoundingClientRect().top + triggerRef.current.clientHeight}px + 0.5rem)`,
+              left: window.scrollX + triggerRef.current.getBoundingClientRect().left,
             }
           : undefined,
       [triggerRef],

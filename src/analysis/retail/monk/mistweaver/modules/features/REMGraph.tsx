@@ -283,13 +283,13 @@ class REMGraph extends Analyzer {
         explanation={
           <>
             <SpellLink spell={SPELLS.VIVIFY} /> also heals any targets that have{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />. This means casting{' '}
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />. This means casting{' '}
             <SpellLink spell={SPELLS.VIVIFY} /> while having high amounts of{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> will greatly increase its
-            healing. Normal <SpellLink spell={SPELLS.VIVIFY} /> casts are shown as blue dots, while
-            a cast consuming a <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> buff
-            is orange. Red triangles indicate{' '}
-            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> casts.
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> will greatly increase its healing.
+            Normal <SpellLink spell={SPELLS.VIVIFY} /> casts are shown as blue dots, while a cast
+            consuming a <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> buff is
+            orange. Red triangles indicate <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />{' '}
+            casts.
           </>
         }
       >

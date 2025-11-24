@@ -66,10 +66,10 @@ class RapidDiffusion extends Analyzer {
         ],
       },
       {
-        spell: TALENTS_MONK.RENEWING_MIST_TALENT,
+        spell: SPELLS.RENEWING_MIST_CAST,
         amount: this.totalRemThroughput,
         color: SPELL_COLORS.RENEWING_MIST,
-        tooltip: this.getBarTooltip(TALENTS_MONK.RENEWING_MIST_TALENT),
+        tooltip: this.getBarTooltip(SPELLS.RENEWING_MIST_CAST),
       },
     ];
   }
@@ -152,7 +152,7 @@ class RapidDiffusion extends Analyzer {
     let envSourceHealing = 0;
     let procs = 0;
     switch (spell.id) {
-      case TALENTS_MONK.RENEWING_MIST_TALENT.id:
+      case SPELLS.RENEWING_MIST_CAST.id:
         rskSourceHealing = this.remHealingFromRSK;
         envSourceHealing = this.remHealingFromEnv;
         procs = this.remCount;
@@ -194,9 +194,9 @@ class RapidDiffusion extends Analyzer {
         <strong>{procs}</strong> additional <SpellLink spell={spell} />{' '}
         {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
         <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
-        {spell.id !== TALENTS_MONK.RENEWING_MIST_TALENT.id && (
+        {spell.id !== SPELLS.RENEWING_MIST_CAST.id && (
           <>
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />s<br />
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s<br />
           </>
         )}{' '}
         by source ability:
@@ -360,7 +360,7 @@ class RapidDiffusion extends Analyzer {
           >
             {this.remCount}{' '}
             <small>
-              additional <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+              additional <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
             </small>
           </TooltipElement>
         }

@@ -1,15 +1,18 @@
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
 import { ESLint, Linter } from 'eslint';
+import process from 'node:process';
 
 /**
  * Run eslint, excluding rules that are present in the baseline.
  * @returns true if any new errors were found
  */
-async function lint(fix: boolean = false): Promise<boolean> {
+async function lint(fix: boolean = false, patterns: string[]): Promise<boolean> {
+  const patternsToLint = patterns.length === 0 ? ['src/'] : patterns;
+
   const baseline = await loadBaseline();
-  const linter = new ESLint({ fix });
-  const results = await linter.lintFiles('src/');
+  const linter = new ESLint({ fix, warnIgnored: false });
+  const results = await linter.lintFiles(patternsToLint);
   const formatter = await linter.loadFormatter('stylish');
 
   if (fix) {
@@ -115,14 +118,22 @@ async function loadBaseline(): Promise<Set<string>> {
   }
 }
 
-const update = process.argv.at(-1) === 'update';
-const fix = process.argv.at(-1) === 'fix';
+// arguments are anything after "node" and this script file
+const args = process.argv.slice(2);
+const command = args.at(0);
 
-if (update) {
-  console.log('updating baseline...');
-  await updateBaseline();
-} else {
-  // const hasLints = await lint(fix);
-  //
-  // process.exit(hasLints ? 1 : 0);
+let hasLints = false;
+switch (command) {
+  case 'update':
+    console.log('updating baseline...');
+    await updateBaseline();
+    break;
+  case 'fix':
+    // hasLints = await lint(true, args.slice(1));
+    // process.exit(hasLints ? 1 : 0);
+    break;
+  default:
+    // hasLints = await lint(false, args);
+    // process.exit(hasLints ? 1 : 0);
+    break;
 }

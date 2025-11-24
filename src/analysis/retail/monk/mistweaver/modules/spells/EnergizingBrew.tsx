@@ -30,7 +30,7 @@ class EnergizingBrew extends Analyzer {
       this.onManaRestore,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_CAST),
       this.onApplyBuff,
     );
   }

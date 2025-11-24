@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational Spells
       {
-        spell: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        spell: SPELLS.RENEWING_MIST_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
         charges: combatant.hasTalent(TALENTS_MONK.POOL_OF_MISTS_TALENT) ? 3 : 2,
@@ -49,9 +49,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_MONK.SOOTHING_MIST_TALENT),
-        category: combatant.hasTalent(TALENTS_MONK.PEER_INTO_PEACE_TALENT)
-          ? SPELL_CATEGORY.ROTATIONAL
-          : SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
         },
@@ -61,7 +59,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.EMPERORS_ELIXIR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -70,7 +68,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 45,
         castEfficiency: {
           suggestion: true,
         },
@@ -80,7 +78,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },
@@ -93,7 +91,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },
@@ -103,9 +101,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 20,
       },
       {
-        spell: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+        spell: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT),
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -116,7 +114,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.REVIVAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT),
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -126,7 +124,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.RESTORAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT),
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -141,20 +139,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 17,
       },
-      {
-        spell: TALENTS_MONK.CHI_BURST_SHARED_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT),
-        castEfficiency: {
-          suggestion: true,
-        },
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 10,
-      },
-
       // Other Spell Casting Metrics
       {
         spell: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -167,6 +151,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VIVIFY.id,
         category: SPELL_CATEGORY.OTHERS,
+        enabled: !combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -202,13 +187,6 @@ class Abilities extends CoreAbilities {
 
       // Utility Spells
       {
-        spell: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
-        buffSpellId: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT),
-      },
-      {
         spell: SPELLS.FORTIFYING_BREW_CAST.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -226,7 +204,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 30 - combatant.getTalentRank(TALENTS_MONK.ANCIENT_ARTS_TALENT) * 7.5,
         enabled: combatant.hasTalent(TALENTS_MONK.PARALYSIS_TALENT),
         gcd: {
           base: 1500,
@@ -334,16 +312,18 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 100,
       },
       {
-        spell: TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id,
-        category: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-          ? SPELL_CATEGORY.ROTATIONAL
-          : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        spell: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
+        category:
+          combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ||
+          combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)
+            ? SPELL_CATEGORY.ROTATIONAL
+            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+          suggestion: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
         },
         timelineSortIndex: 100,
       },

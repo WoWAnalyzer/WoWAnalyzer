@@ -24,7 +24,7 @@ import HeaderBackground from './HeaderBackground';
 import { currentExpansion } from 'game/GameBranch';
 import * as difficulty from 'game/DIFFICULTIES';
 import HeaderStatBox, { StatBoxContainer } from './HeaderStatBox';
-import { level1, level2, colors, gaps } from 'interface/design-system';
+import { level1, level2, colors, gaps, fontSize } from 'interface/design-system';
 import { formatDuration } from 'common/format';
 import FilterButton from './FilterButton';
 import { Filter } from 'interface/report/hooks/useTimeEventFilter';
@@ -315,7 +315,7 @@ const MiniBoxContainer = styled.div`
 `;
 
 const MiniBoxName = styled.div`
-  font-size: 1.8rem;
+  font-size: ${fontSize.heading};
   font-weight: bold;
   white-space: break-spaces;
   overflow: hidden;
@@ -361,16 +361,13 @@ function CharacterMiniBox({
 }
 
 function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.Element | null {
-  if (!boss) {
-    return null;
-  }
+  const normalizedBossId = (boss?.id ?? fight.boss) % 50_000;
+  let icon =
+    boss?.icon ?? `https://assets.rpglogs.com/img/warcraft/bosses/${normalizedBossId}-icon.jpg`;
 
-  // TODO: This should be happening at the boss config level.
-
-  let icon = boss.icon ?? '';
-
-  if (!icon.startsWith('https:')) {
-    icon = `https://assets.rpglogs.com/img/warcraft/bosses/${boss.id % 50_000}-icon.jpg`;
+  if (!icon.startsWith('https://')) {
+    // yes, it says abilities. WCL dumps WoW icons in this folder. the bosses/ folder is for images indexed by boss id, not WoW icon name
+    icon = `https://assets.rpglogs.com/img/warcraft/abilities/${icon}.jpg`;
   }
 
   const duration = formatDuration(
@@ -378,8 +375,8 @@ function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.
   );
   return (
     <MiniBoxContainer>
-      <MiniBoxImage src={icon} alt={boss.name} />
-      <MiniBoxName>{boss.name}</MiniBoxName>
+      <MiniBoxImage src={icon} alt={boss?.name ?? fight.name} />
+      <MiniBoxName>{boss?.name ?? fight.name}</MiniBoxName>
       <MiniBoxSubtext>
         {difficulty.getLabel(fight.difficulty ?? 0)}{' '}
         {fight.kill ? `Kill - ${duration}` : `Wipe - ${duration}`}

@@ -30,7 +30,6 @@ export default class HotStreak extends Analyzer {
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
-  hasHyperthermia: boolean = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
   hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT);
 
   hotStreaks: HotStreakProc[] = [];
@@ -67,8 +66,6 @@ export default class HotStreak extends Analyzer {
       )
     ) {
       buff = { active: true, buffId: TALENTS.COMBUSTION_TALENT.id };
-    } else if (this.selectedCombatant.hasBuff(TALENTS.HYPERTHERMIA_TALENT.id)) {
-      buff = { active: true, buffId: TALENTS.HYPERTHERMIA_TALENT.id };
     } else {
       buff = { active: false };
     }
@@ -79,7 +76,6 @@ export default class HotStreak extends Analyzer {
       spender: spender,
       expired: !spender,
       blastCharges: this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id),
-      phoenixCharges: this.spellUsable.chargesAvailable(TALENTS.PHOENIX_FLAMES_TALENT.id),
       critBuff: buff,
       wastedCrits:
         this.wasted.filter(
@@ -141,7 +137,6 @@ export interface HotStreakProc {
   spender?: CastEvent;
   expired: boolean;
   blastCharges: number;
-  phoenixCharges: number;
   critBuff: { active: boolean; buffId?: number };
   wastedCrits: DamageEvent[];
   precast?: CastEvent;

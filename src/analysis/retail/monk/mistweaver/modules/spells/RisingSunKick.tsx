@@ -81,7 +81,7 @@ class RisingSunKick extends Analyzer {
           <SpellLink spell={this.currentRskTalent} />
         </b>{' '}
         is one of your primary damaging spells but is also you highest priority healing spell{' '}
-        {'(alongside '} <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        {'(alongside '} <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
         {') '}due to its synergy with <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />{' '}
         {this.selectedCombatant.hasTalent(TALENTS_MONK.POOL_OF_MISTS_TALENT) && (
           <>
@@ -89,8 +89,7 @@ class RisingSunKick extends Analyzer {
           </>
         )}
         and <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as possible
-        is essential for maintaining high counts of{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        is essential for maintaining high counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
       </p>
     );
 
@@ -101,30 +100,11 @@ class RisingSunKick extends Analyzer {
             <SpellLink spell={this.currentRskTalent} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
-          {this.rwkUptime()}
         </RoundedPanel>
       </div>
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  rwkUptime() {
-    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)) {
-      return <></>;
-    }
-
-    return (
-      <>
-        <div style={{ fontSize: 20 }}>
-          {formatPercentage(
-            this.selectedCombatant.getBuffUptime(SPELLS.RUSHING_WINDS_BUFF) /
-              this.owner.fightDuration,
-          )}
-          % <small> buff uptime</small>
-        </div>
-      </>
-    );
   }
 
   /** Guide subsection describing the proper usage of Rejuvenation */

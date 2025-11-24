@@ -12,12 +12,14 @@
 
     svg {
       transition: all 400ms;
+      margin-top: 0.15em;
     }
   }
 }
 
 .expandable.expanded > .meta .chevron svg {
   transform: rotate(180deg);
+  margin-top: -0.15em;
 }
 
 .expandable:hover > .meta {

@@ -6,17 +6,14 @@ import HealingEfficiencyTracker, {
 
 import JadefireStompHealing from '../spells/JadefireStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
-import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import RefreshingJadeWind from '../spells/RefreshingJadeWind';
 import JadefireTeachings from '../spells/JadefireTeachings';
 import RapidDiffusion from '../spells/RapidDiffusion';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
 import RisingMist from '../spells/RisingMist';
-import ShaohaosLessons from '../spells/ShaohaosLessons';
 import CraneStyle from '../spells/CraneStyle';
 import ZenPulse from '../spells/ZenPulse';
 import TearOfMorning from '../spells/TearOfMorning';
@@ -30,15 +27,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
-    refreshingJadeWind: RefreshingJadeWind,
-    expelHarm: ExpelHarm,
     jadefireStompHealing: JadefireStompHealing,
     jadefireTeachings: JadefireTeachings,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
     mistyPeaks: MistyPeaks,
     risingMist: RisingMist,
-    shaohaosLessons: ShaohaosLessons,
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
     tearOfMorning: TearOfMorning,
@@ -48,15 +42,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
-  protected refreshingJadeWind!: RefreshingJadeWind;
-  protected expelHarm!: ExpelHarm;
   protected jadefireStompHealing!: JadefireStompHealing;
   protected jadefireTeachings!: JadefireTeachings;
   protected rapidDiffusion!: RapidDiffusion;
   protected dancingMists!: DancingMists;
   protected mistyPeaks!: MistyPeaks;
   protected risingMist!: RisingMist;
-  protected shaohaosLessons!: ShaohaosLessons;
   protected craneStyle!: CraneStyle;
   protected zenPulse!: ZenPulse;
   protected tearOfMorning!: TearOfMorning;
@@ -67,23 +58,19 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getEnvelopingMistsDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
       spellInfo = this.getSoothingMistDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.RENEWING_MIST_TALENT.id) {
+    } else if (spellId === SPELLS.RENEWING_MIST_CAST.id) {
       spellInfo = this.getRenewingMistDetails(spellInfo);
     } else if (spellId === SPELLS.VIVIFY.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
-      spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
     } else if (
       spellId === TALENTS_MONK.RISING_SUN_KICK_TALENT.id ||
-      spellId === TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id
+      spellId === TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id
     ) {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
-    } else if (spellId === SPELLS.EXPEL_HARM.id) {
-      spellInfo = this.getExpelHarmDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
       spellInfo = this.getJFSDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
@@ -150,12 +137,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     return spellInfo;
   }
 
-  getRefreshingJadeWindDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.refreshingJadeWind.healingRJW;
-    spellInfo.overhealingDone = this.refreshingJadeWind.overhealingRJW;
-    return spellInfo;
-  }
-
   getRisingSunKickDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone =
       this.risingMist.totalHealing +
@@ -169,10 +150,9 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getYulonDetails(spellInfo: SpellInfoDetails) {
     const soob = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id);
     const chiCocoon = this.healingDone.byAbility(SPELLS.CHI_COCOON_BUFF_YULON.id);
-    const envBreath = this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH_HEAL.id);
 
-    spellInfo.healingDone = soob.effective + chiCocoon.effective + envBreath.effective;
-    spellInfo.overhealingDone = envBreath.overheal + soob.overheal + chiCocoon.overheal;
+    spellInfo.healingDone = soob.effective + chiCocoon.effective;
+    spellInfo.overhealingDone = soob.overheal + chiCocoon.overheal;
 
     return spellInfo;
   }
@@ -184,13 +164,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getSheilunsGiftDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = spellInfo.healingDone + this.shaohaosLessons.totalHealing;
-    return spellInfo;
-  }
-
-  getExpelHarmDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.expelHarm.gustsHealing + this.expelHarm.selfHealing;
-    spellInfo.overhealingDone = spellInfo.overhealingDone + this.expelHarm.selfOverheal;
+    spellInfo.healingDone = spellInfo.healingDone;
     return spellInfo;
   }
 

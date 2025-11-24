@@ -23,9 +23,6 @@ class CombustionGuide extends Analyzer {
   protected combustion!: CombustionCasts;
 
   hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
-  hasSunKingsBlessing: boolean = this.selectedCombatant.hasTalent(
-    TALENTS.SUN_KINGS_BLESSING_TALENT,
-  );
 
   generateGuideTooltip(
     performance: QualitativePerformance,
@@ -153,14 +150,12 @@ class CombustionGuide extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const fireBlast = <SpellLink spell={SPELLS.FIRE_BLAST} />;
-    const phoenixFlames = <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
     const combustion = <SpellLink spell={TALENTS.COMBUSTION_TALENT} />;
     const hotStreak = <SpellLink spell={SPELLS.HOT_STREAK} />;
     const scorch = <SpellLink spell={SPELLS.SCORCH} />;
     const fireball = <SpellLink spell={SPELLS.FIREBALL} />;
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
-    const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
     const flameAccelerant = <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} />;
     const feelTheBurn = <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />;
 
@@ -187,8 +182,8 @@ class CombustionGuide extends Analyzer {
               Delay).
             </li>
             <li>
-              If {combustion} is almost available, start pooling {fireBlast} and {phoenixFlames}{' '}
-              charges so you have enough to last {combustion}s duration.
+              If {combustion} is almost available, start pooling {fireBlast} charges so you have
+              enough to last {combustion}s duration.
             </li>
             <li>
               Spend as many {hotStreak}s as possible during {combustion} and avoid any downtime.
@@ -197,7 +192,6 @@ class CombustionGuide extends Analyzer {
               Don't hardcast abilities like {fireball} (
               {this.hasFlameAccelerant ? `without ${flameAccelerant} or ` : `with > 100% Haste`}) or{' '}
               {pyroblast}/{flamestrike}
-              {this.hasSunKingsBlessing ? ` (without ${sunKingsBlessing})` : ``}. You can cast{' '}
               {scorch} if running low on charges.
             </li>
             {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (

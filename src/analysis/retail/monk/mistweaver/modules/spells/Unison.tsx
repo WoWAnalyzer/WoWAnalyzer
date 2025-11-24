@@ -26,7 +26,10 @@ class Unison extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNISON_HEAL),
       this.unisonHeal,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT)) {
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_INFUSION_TALENT)
+    ) {
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.UNISON_HEAL),
         this.jssUnisonHeal,

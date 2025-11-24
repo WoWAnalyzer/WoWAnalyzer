@@ -10,16 +10,16 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       // Rotational spells
-      {
-        spell: SPELLS.FROSTBOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 1,
-        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
-      },
+      // {
+      //   spell: SPELLS.FROSTBOLT.id,
+      //   category: SPELL_CATEGORY.ROTATIONAL,
+      //   enabled: !combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      //   timelineSortIndex: 1,
+      //   damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
+      // },
       {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -82,14 +82,14 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
       },
-      {
-        spell: TALENTS.FROSTFIRE_BOLT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
+      // {
+      //   spell: TALENTS.FROSTFIRE_BOLT_TALENT.id,
+      //   category: SPELL_CATEGORY.ROTATIONAL,
+      //   enabled: combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      // },
 
       // Cooldowns
       {
@@ -102,48 +102,48 @@ class Abilities extends CoreAbilities {
       },
 
       //Defensives
-      {
-        spell: TALENTS.ICE_BARRIER_TALENT.id,
-        buffSpellId: TALENTS.ICE_BARRIER_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.ICE_BARRIER_TALENT),
-        cooldown:
-          combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
-            ? 25 / 1.3
-            : 25,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.BLAZING_BARRIER_TALENT.id,
-        buffSpellId: TALENTS.BLAZING_BARRIER_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
-        cooldown:
-          combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.BLAZING_BARRIER_TALENT.id)
-            ? 25 / 1.3
-            : 25,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.PRISMATIC_BARRIER_TALENT.id,
-        buffSpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
-        cooldown:
-          combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.PRISMATIC_BARRIER_TALENT.id)
-            ? 25 / 1.3
-            : 25,
-        gcd: {
-          base: 1500,
-        },
-      },
+      // {
+      //   spell: TALENTS.ICE_BARRIER_TALENT.id,
+      //   buffSpellId: TALENTS.ICE_BARRIER_TALENT.id,
+      //   category: SPELL_CATEGORY.DEFENSIVE,
+      //   enabled: combatant.hasTalent(TALENTS.ICE_BARRIER_TALENT),
+      //   cooldown:
+      //     combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
+      //     combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+      //       ? 25 / 1.3
+      //       : 25,
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      // },
+      // {
+      //   spell: TALENTS.BLAZING_BARRIER_TALENT.id,
+      //   buffSpellId: TALENTS.BLAZING_BARRIER_TALENT.id,
+      //   category: SPELL_CATEGORY.DEFENSIVE,
+      //   enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
+      //   cooldown:
+      //     combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
+      //     combatant.hasBuff(TALENTS.BLAZING_BARRIER_TALENT.id)
+      //       ? 25 / 1.3
+      //       : 25,
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      // },
+      // {
+      //   spell: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+      //   buffSpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+      //   category: SPELL_CATEGORY.DEFENSIVE,
+      //   enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
+      //   cooldown:
+      //     combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
+      //     combatant.hasBuff(TALENTS.PRISMATIC_BARRIER_TALENT.id)
+      //       ? 25 / 1.3
+      //       : 25,
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      // },
       {
         spell: TALENTS.ICE_BLOCK_TALENT.id,
         buffSpellId: TALENTS.ICE_BLOCK_TALENT.id,
@@ -251,14 +251,14 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: TALENTS.SLOW_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.SLOW_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
+      // {
+      //   spell: TALENTS.SLOW_TALENT.id,
+      //   category: SPELL_CATEGORY.UTILITY,
+      //   enabled: combatant.hasTalent(TALENTS.SLOW_TALENT),
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      // },
       {
         spell: TALENTS.SPELLSTEAL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,

@@ -12,6 +12,8 @@ const DEBUG = false;
  * For example, an instant-ticking HoT would have a cast event followed by an applybuff event
  * followed by a heal event all with the same target, but not nescesarily in that order.
  * This normalizer could be used to enfore that order.
+ *
+ * @deprecated Use `EventLinkNormalizer` instead
  */
 abstract class EventOrderNormalizer extends EventsNormalizer {
   eventOrders: EventOrder[];

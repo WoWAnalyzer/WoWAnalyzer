@@ -13,7 +13,6 @@ import HotStreak from '../core/HotStreak';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 const LOW_BLAST_CHARGES = 1;
-const LOW_PHOENIX_CHARGES = 1;
 
 class HotStreakGuide extends Analyzer {
   static dependencies = {
@@ -23,7 +22,6 @@ class HotStreakGuide extends Analyzer {
   protected hotStreak!: HotStreak;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
-  hasCallOfSunKing: boolean = this.selectedCombatant.hasTalent(TALENTS.CALL_OF_THE_SUN_KING_TALENT);
 
   generateGuideTooltip(
     performance: QualitativePerformance,
@@ -75,8 +73,7 @@ class HotStreakGuide extends Analyzer {
       }
 
       const lowBlastCharges = hs.blastCharges <= LOW_BLAST_CHARGES;
-      const lowPhoenixCharges = hs.phoenixCharges <= LOW_PHOENIX_CHARGES;
-      if (hs.precast && (!lowBlastCharges || !lowPhoenixCharges)) {
+      if (hs.precast && !lowBlastCharges) {
         tooltipItems.push({
           perf: QualitativePerformance.Ok,
           detail: `Precast Found with Fire Blast or Phoenix Flames Charges Available`,
@@ -93,7 +90,7 @@ class HotStreakGuide extends Analyzer {
       let overallPerf = QualitativePerformance.Fail;
       if (hs.expired) {
         overallPerf = QualitativePerformance.Fail;
-      } else if (hs.precast && (!lowBlastCharges || !lowPhoenixCharges)) {
+      } else if (hs.precast && !lowBlastCharges) {
         overallPerf = QualitativePerformance.Ok;
       } else if (!hs.precast || (hs.precast && lowBlastCharges && lowBlastCharges)) {
         overallPerf = QualitativePerformance.Good;
@@ -115,7 +112,6 @@ class HotStreakGuide extends Analyzer {
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
     const ignite = <SpellLink spell={SPELLS.IGNITE} />;
-    const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
 
     const hotStreakIcon = <SpellIcon spell={SPELLS.HOT_STREAK} />;
 
@@ -135,8 +131,8 @@ class HotStreakGuide extends Analyzer {
             </li>
             <li>
               If low on charges outside of {combustion} you can cast {fireball}, or {pyroblast} with
-              {sunKingsBlessing}, immediately before spending {hotStreak} to get an increased chance
-              of fishing for {heatingUp} or {hotStreak}.
+              , immediately before spending {hotStreak} to get an increased chance of fishing for{' '}
+              {heatingUp} or {hotStreak}.
             </li>
           </ul>
         </div>

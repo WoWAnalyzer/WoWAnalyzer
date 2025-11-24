@@ -14,7 +14,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
-  ENVELOPING_BREATH_INCREASE,
   ENVELOPING_MIST_INCREASE,
   MISTWRAP_INCREASE,
 } from '../../constants';
@@ -22,14 +21,11 @@ import HotTrackerMW from '../core/HotTrackerMW';
 import { Tracker } from 'parser/shared/modules/HotTracker';
 
 const ENVELOPING_BASE_DURATION = 6000;
-
+//TODO include boosts from env specific buffs like peaceful mending or Lifecocoon
 class MistWrap extends Analyzer {
   effectiveHealing = 0;
   overHealing = 0;
   envMistHealingBoost = 0;
-  envBreathHealingBoost = 0;
-  mendingProliferationBoost = 0;
-  mendingProliferationActive = false;
 
   static dependencies = {
     hotTracker: HotTrackerMW,
@@ -44,13 +40,8 @@ class MistWrap extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.mendingProliferationActive = this.selectedCombatant.hasTalent(
-      TALENTS_MONK.MENDING_PROLIFERATION_TALENT,
-    );
     this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ENVELOPING_BREATH_HEAL, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.hotHeal,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.genericHeal);
@@ -85,29 +76,7 @@ class MistWrap extends Analyzer {
       return;
     }
 
-    //enveloping mist is only increased by enveloping breath
-    if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
-      this.calculateEnvelopingBreath(event);
-      return;
-    }
-
-    //enveloping breath is not increased by itself
-    if (spellId === SPELLS.ENVELOPING_BREATH_HEAL.id) {
-      this.calculateEnvelopingMist(event);
-      this.calculateMendingProliferation(event);
-      return;
-    }
-
-    this.calculateEnvelopingBreath(event);
     this.calculateEnvelopingMist(event);
-    this.calculateMendingProliferation(event);
-  }
-
-  private calculateEnvelopingBreath(event: HealEvent) {
-    const envBreathHot = this.getHot(event, SPELLS.ENVELOPING_BREATH_HEAL.id);
-    if (envBreathHot && envBreathHot.start + ENVELOPING_BASE_DURATION < event.timestamp) {
-      this.envBreathHealingBoost += calculateEffectiveHealing(event, ENVELOPING_BREATH_INCREASE);
-    }
   }
 
   private calculateEnvelopingMist(event: HealEvent) {
@@ -139,17 +108,6 @@ class MistWrap extends Analyzer {
     }
   }
 
-  private calculateMendingProliferation(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    const hasMendingProliferation =
-      combatant && combatant.hasBuff(SPELLS.MENDING_PROLIFERATION_BUFF.id);
-
-    //mending proliferation gets the additional 10% bonus as well, this bonus stacks with the regular env bonus
-    if (hasMendingProliferation) {
-      this.mendingProliferationBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
-    }
-  }
-
   private getHot(event: HealEvent, spellId: number): Tracker | undefined {
     return this.hotTracker.hots[event.targetID]
       ? this.hotTracker.hots[event.targetID][spellId] || undefined
@@ -157,12 +115,7 @@ class MistWrap extends Analyzer {
   }
 
   get totalHealing() {
-    return (
-      this.envBreathHealingBoost +
-      this.envMistHealingBoost +
-      this.mendingProliferationBoost +
-      this.effectiveHealing
-    );
+    return this.envMistHealingBoost + this.effectiveHealing;
   }
 
   subStatistic() {
@@ -188,20 +141,9 @@ class MistWrap extends Analyzer {
             <br />
             HoT Overhealing: {formatNumber(this.overHealing)}
             <br />
-            Bonus Healing from extra <SpellLink
-              spell={SPELLS.ENVELOPING_BREATH_HEAL}
-            /> duration: {formatNumber(this.envBreathHealingBoost)}
             <br />
             Bonus Healing from extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
             duration: {formatNumber(this.envMistHealingBoost)}
-            {this.mendingProliferationActive && (
-              <>
-                <br />
-                Bonus Healing from <SpellLink
-                  spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}
-                /> : {formatNumber(this.mendingProliferationBoost)}
-              </>
-            )}
           </>
         }
       >

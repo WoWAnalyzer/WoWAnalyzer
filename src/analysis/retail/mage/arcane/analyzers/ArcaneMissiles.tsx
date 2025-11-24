@@ -14,7 +14,6 @@ export default class ArcaneMissiles extends Analyzer {
 
   protected eventHistory!: EventHistory;
 
-  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
   hasAetherAttunement: boolean = this.selectedCombatant.hasTalent(TALENTS.AETHER_ATTUNEMENT_TALENT);
   missileData: ArcaneMissilesData[] = [];
 

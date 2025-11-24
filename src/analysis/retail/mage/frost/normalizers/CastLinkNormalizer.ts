@@ -30,50 +30,6 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.FROSTFIRE_BOLT_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: SPELL_DAMAGE,
-    referencedEventId: SPELLS.FROSTFIRE_BOLT_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    forwardBufferMs: 3000,
-    backwardBufferMs: CAST_BUFFER_MS,
-    additionalCondition: (linkingEvent, referencedEvent) => {
-      const isTick = (referencedEvent as DamageEvent).tick;
-      return isTick === undefined || !isTick;
-    },
-  },
-  {
-    reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: SPELL_DAMAGE,
-    referencedEventId: SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    anyTarget: true,
-    additionalCondition(linkingEvent, referencedEvent): boolean {
-      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === false;
-    },
-    maximumLinks: 1,
-    forwardBufferMs: 3000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: CLEAVE_DAMAGE,
-    referencedEventId: SPELLS.GLACIAL_SPIKE_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    anyTarget: true,
-    additionalCondition(linkingEvent, referencedEvent): boolean {
-      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === true;
-    },
-    maximumLinks: 1,
-    forwardBufferMs: 3000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.FLURRY_TALENT.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,
@@ -163,11 +119,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.WINTERS_CHILL.id,
     linkingEventType: EventType.ApplyDebuff,
     linkRelation: PRE_CAST,
-    referencedEventId: [
-      SPELLS.FROSTBOLT.id,
-      TALENTS.GLACIAL_SPIKE_TALENT.id,
-      TALENTS.FROSTFIRE_BOLT_TALENT.id,
-    ],
+    referencedEventId: [SPELLS.FROSTBOLT.id],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     maximumLinks: 1,
@@ -231,41 +183,6 @@ const EVENT_LINKS: EventLink[] = [
   /**
    * Relation: Icy Veins Remove Buff <=> Icy Veins Spell Cast (60s before remove)
    */
-  {
-    linkRelation: BUFF_REMOVE,
-    linkingEventId: TALENTS.ICY_VEINS_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: TALENTS.ICY_VEINS_TALENT.id,
-    referencedEventType: EventType.RemoveBuff,
-    reverseLinkRelation: SPELL_CAST,
-    anyTarget: true,
-    forwardBufferMs: 60_000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: BUFF_APPLY,
-    linkingEventId: TALENTS.ICY_VEINS_TALENT.id,
-    linkingEventType: EventType.ApplyBuff,
-    linkRelation: BUFF_REMOVE,
-    referencedEventId: TALENTS.ICY_VEINS_TALENT.id,
-    referencedEventType: EventType.RemoveBuff,
-    anyTarget: true,
-    maximumLinks: 1,
-    forwardBufferMs: 60_000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: BUFF_APPLY,
-    linkingEventId: TALENTS.COLD_FRONT_TALENT.id,
-    linkingEventType: EventType.ApplyBuff,
-    linkRelation: BUFF_REMOVE,
-    referencedEventId: TALENTS.COLD_FRONT_TALENT.id,
-    referencedEventType: EventType.RemoveBuff,
-    anyTarget: true,
-    maximumLinks: 1,
-    forwardBufferMs: 500,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
   {
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.COMET_STORM_TALENT.id,

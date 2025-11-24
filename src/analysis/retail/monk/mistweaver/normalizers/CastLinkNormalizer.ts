@@ -23,10 +23,7 @@ import {
   ENVELOPING_MIST_GOM,
   RENEWING_MIST_GOM,
   VIVIFY_GOM,
-  EXPEL_HARM_GOM,
-  SOOM_GOM,
   SHEILUNS_GIFT_GOM,
-  REVIVAL_GOM,
   VIVIFY,
   SHEILUNS_GIFT,
   MANA_TEA_CHANNEL,
@@ -41,7 +38,6 @@ import {
   BOUNCED,
   OVERHEAL_BOUNCE,
   FROM_MISTS_OF_LIFE,
-  JFS_GOM,
   CRANE_STYLE_RSK,
   CRANE_STYLE_BOK,
   CRANE_STYLE_SCK,
@@ -52,6 +48,7 @@ import {
   JADE_BOND_ENVM,
   INSURANCE_FROM_REM,
   INSURANCE,
+  RUSHING_WIND_KICK,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -60,6 +57,7 @@ import { VIVIFY_EVENT_LINKS } from './EventLinks/VivifyEventLinks';
 import { ENVELOPING_MIST_EVENT_LINKS } from './EventLinks/EnvelopingMistEventLinks';
 import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
 import { TIER_EVENT_LINKS } from './EventLinks/TierEventLinks';
+import SPELLS from 'common/SPELLS';
 
 const FOUND_REMS = new Map<string, number | null>();
 
@@ -90,6 +88,20 @@ const EVENT_LINKS: EventLink[] = [
     },
     maximumLinks(c) {
       return c.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT) ? 5 : 3;
+    },
+  },
+  {
+    linkRelation: RUSHING_WIND_KICK,
+    linkingEventId: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.RUSHING_WIND_KICK_HEAL.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 5,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT);
     },
   },
 ];
@@ -204,7 +216,7 @@ export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | Refres
   return (
     rdSourceEvent.type === EventType.Cast &&
     (rdSourceEvent.ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id ||
-      rdSourceEvent.ability.guid === TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id)
+      rdSourceEvent.ability.guid === TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id)
   );
 }
 
@@ -244,22 +256,6 @@ export function isFromSheilunsGift(event: HealEvent) {
   return HasRelatedEvent(event, SHEILUNS_GIFT_GOM);
 }
 
-export function isFromRevival(event: HealEvent) {
-  return HasRelatedEvent(event, REVIVAL_GOM);
-}
-
-export function isFromExpelHarm(event: HealEvent) {
-  return HasRelatedEvent(event, EXPEL_HARM_GOM);
-}
-
-export function isFromSoothingMist(event: HealEvent) {
-  return HasRelatedEvent(event, SOOM_GOM);
-}
-
-export function isFromJadefireStomp(event: HealEvent) {
-  return HasRelatedEvent(event, JFS_GOM);
-}
-
 export function isFromCraneStyleRSK(event: HealEvent) {
   return HasRelatedEvent(event, CRANE_STYLE_RSK);
 }
@@ -276,6 +272,9 @@ export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
   return GetRelatedEvents<HealEvent>(event, SHEILUNS_GIFT);
 }
 
+export function getRWKHitsPerCast(event: CastEvent): HealEvent[] {
+  return GetRelatedEvents<HealEvent>(event, RUSHING_WIND_KICK);
+}
 //vivify
 export function getInvigHitsPerCast(event: HealEvent) {
   return GetRelatedEvents(event, VIVIFY);
@@ -293,19 +292,13 @@ export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent
   return GetRelatedEvent(event, ZEN_PULSE_CONSUME);
 }
 
-// we use time to get stacks because it can be cast prepull
-export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
-  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0]?.timestamp - event.timestamp || 0;
-  // 1s of mana reduction per stack
-  return Math.round(diff / 1000);
-}
-
 export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
   const castEvent = GetRelatedEvent(event, MANA_TEA_CAST_LINK);
   if (castEvent === undefined) {
     return undefined;
   }
-  return GetRelatedEvent(castEvent, MANA_TEA_CHANNEL)!.timestamp - castEvent.timestamp;
+  const channelEvent = GetRelatedEvent(castEvent, MANA_TEA_CHANNEL);
+  return channelEvent!.timestamp - castEvent.timestamp;
 }
 
 export function isMTStackFromLifeCycles(

@@ -53,24 +53,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.PHOENIX_FLAMES_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown:
-          combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
-          combatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)
-            ? 25 / 1.5
-            : 25,
-        charges: 2 + combatant.getTalentRank(TALENTS.CALL_OF_THE_SUN_KING_TALENT),
-        enabled: combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) ? null : { base: 1500 },

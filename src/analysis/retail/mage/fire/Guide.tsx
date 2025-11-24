@@ -90,8 +90,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           Fire Mage has several buffs and procs that need to be managed properly in order to get the
           most out of them and maximize your damage. <SpellLink spell={SPELLS.HOT_STREAK} /> and
           <SpellLink spell={SPELLS.HEATING_UP} /> are your most important procs, but others such as
-          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />
+          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />
           also increase your damage in other ways which will play a large part in maximizing your
           overall and burst damage.
         </>
@@ -107,8 +106,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </>
       {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
         modules.combustionGuide.guideSubsection}
-      {info.combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT) &&
-        modules.sunKingsBlessingGuide.guideSubsection}
 
       <SubSection title="Cast Efficiency"></SubSection>
       {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
@@ -116,14 +113,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           spell={TALENTS.COMBUSTION_TALENT}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
-        />
-      )}
-      {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS.PHOENIX_FLAMES_TALENT}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-          minimizeIcons
         />
       )}
       {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
