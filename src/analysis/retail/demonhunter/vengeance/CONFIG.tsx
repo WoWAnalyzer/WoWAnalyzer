@@ -68,7 +68,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '',
+  exampleReport:
+    '/report/tBZkmzXMgDWCvGr4/16-Heroic+Imperator+Averzian+-+Kill+(2:41)/Topplebeta/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
