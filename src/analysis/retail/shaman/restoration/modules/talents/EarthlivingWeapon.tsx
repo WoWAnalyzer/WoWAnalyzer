@@ -14,7 +14,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { SpellLink } from 'interface';
 import spells from 'common/SPELLS';
 import DonutChart from 'parser/ui/DonutChart';
 import { RESTORATION_COLORS } from '../../constants';
