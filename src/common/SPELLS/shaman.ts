@@ -737,6 +737,16 @@ const spells = {
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
   },
+  STORMSTREAM_TOTEM: {
+    id: 1267068,
+    name: 'Stormstream Totem',
+    icon: 'ability_shaman_manatidetotem',
+  },
+  STORMSTREAM_TOTEM_HEAL: {
+    id: 1267745,
+    name: 'Stormstream Totem',
+    icon: 'ability_shaman_manatidetotem',
+  },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
     name: 'Healing Tide Totem',

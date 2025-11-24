@@ -5,13 +5,13 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
+import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CastBehavior from './modules/features/CastBehavior';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import SpellUsable from './modules/features/SpellUsable';
 // Talents
@@ -20,6 +20,7 @@ import EarthShield from './modules/spells/EarthShield'; // technically shared
 import HealingRain from './modules/spells/HealingRain';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
+import EarthlivingWeapon from './modules/talents/EarthlivingWeapon';
 
 import Resurgence from './modules/spells/Resurgence';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
@@ -45,7 +46,6 @@ import Splitstream from './modules/talents/totemic/Splitstream';
 import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
 // Spells
 // Tiers
-import TWW1TierSet from './modules/tier/TWW1TierSet';
 // Shared
 
 // Normalizers
@@ -71,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     lowHealthHealing: LowHealthHealing,
     healingDone: HealingDone,
+    abilities: Abilities,
     healingRainLocation: HealingRainLocation,
     restorationAbilityTracker: RestorationAbilityTracker,
     manaTracker: ManaTracker,
@@ -84,7 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    castBehavior: CastBehavior,
     spellUsable: SpellUsable,
     earthShieldBreakdown: EarthShieldBreakdown,
 
@@ -106,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     naturesSwiftness: NaturesSwiftness,
     whiteWater: WhiteWater,
     coalescingWater: CoalescingWater,
+    earthLivingWeapon: EarthlivingWeapon,
 
     // Hero talents
     surgingTotem: SurgingTotem,
@@ -144,7 +145,6 @@ class CombatLogParser extends CoreCombatLogParser {
     riptideAttributor: RiptideAttributor,
 
     // Items
-    tww1TierSet: TWW1TierSet,
   };
   static guide = Guide;
 }

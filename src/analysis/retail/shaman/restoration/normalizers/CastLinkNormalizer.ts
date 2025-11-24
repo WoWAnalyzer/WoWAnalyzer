@@ -33,6 +33,8 @@ import {
   WHIRLINGWATER_HEAL,
   LIVELY_TOTEMS_CHAIN_HEAL,
   SPLITSTREAM,
+  EARTHLIVING,
+  EARTHLIVING_HEALING,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -297,6 +299,36 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(talents.SPLITSTREAM_TALENT);
     },
   },
+  // Link Earthliving buff to the spell that applied it
+  {
+    linkRelation: EARTHLIVING,
+    linkingEventId: SPELLS.EARTHLIVING_WEAPON_HEAL.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [
+      SPELLS.HEALING_WAVE.id,
+      TALENTS.CHAIN_HEAL_TALENT.id,
+      TALENTS.RIPTIDE_TALENT.id,
+      SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
+      SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
+      SPELLS.STORMSTREAM_TOTEM_HEAL.id,
+    ],
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: 200,
+    forwardBufferMs: 200,
+    anySource: true,
+    maximumLinks: 1,
+  },
+  // Link all Earthliving Healing events to the buff application or refresh
+  {
+    linkRelation: EARTHLIVING_HEALING,
+    reverseLinkRelation: EARTHLIVING_HEALING,
+    linkingEventId: SPELLS.EARTHLIVING_WEAPON_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.EARTHLIVING_WEAPON_HEAL.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: 12000,
+    maximumLinks: 1,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -379,6 +411,14 @@ export function isLivelyTotemsChainHeal(event: HealEvent) {
 
 export function isSplitstreamHeal(event: HealEvent) {
   return HasRelatedEvent(event, SPLITSTREAM);
+}
+
+export function earthlivingApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return GetRelatedEvents<HealEvent>(event, EARTHLIVING);
+}
+
+export function getEarthlivingHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return GetRelatedEvents<HealEvent>(event, EARTHLIVING_HEALING);
 }
 
 export default CastLinkNormalizer;
