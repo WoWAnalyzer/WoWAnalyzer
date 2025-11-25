@@ -13,5 +13,5 @@ interface Props {
 export const PatchProvider = ({ children, patch }: Props) => {
   const providerValue = useMemo(() => ({ patch }), [patch]);
 
-  return <PatchCtx.Provider value={providerValue}>{children}</PatchCtx.Provider>;
+  return <PatchCtx value={providerValue}>{children}</PatchCtx>;
 };

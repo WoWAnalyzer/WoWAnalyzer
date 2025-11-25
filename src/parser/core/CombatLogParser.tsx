@@ -760,13 +760,13 @@ class CombatLogParser {
     const Component = ctor.guide;
     return () => (
       <GuideContainer>
-        <GuideContext.Provider value={props}>
+        <GuideContext value={props}>
           <ExplanationContextProvider>
             <SpellUsageContextProvider>
               <Component {...props} />
             </SpellUsageContextProvider>
           </ExplanationContextProvider>
-        </GuideContext.Provider>
+        </GuideContext>
       </GuideContainer>
     );
   }

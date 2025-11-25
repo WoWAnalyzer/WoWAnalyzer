@@ -8,7 +8,7 @@ import {
   SyntheticEvent,
   createContext,
   useCallback,
-  useContext,
+  use,
   useEffect,
   useMemo,
   useRef,
@@ -48,7 +48,7 @@ const ctx = createContext<TimelineContext>({
   },
 });
 
-export const useTimelinePosition = () => useContext(ctx);
+export const useTimelinePosition = () => use(ctx);
 
 /**
  * A track within the timeline diagram. For example: all the spells a player casts occupy a single track.

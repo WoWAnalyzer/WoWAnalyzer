@@ -143,7 +143,7 @@ export function AplSectionData({
   }
 
   return (
-    <ExplanationSelectionContext.Provider value={setSelectedExplanation}>
+    <ExplanationSelectionContext value={setSelectedExplanation}>
       <AplLayout>
         <AplSummaryColumn apl={apl} results={result} topSection={Summary} />
         <AplViolationContainer>
@@ -158,6 +158,6 @@ export function AplSectionData({
           <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
         )}
       </AplLayout>
-    </ExplanationSelectionContext.Provider>
+    </ExplanationSelectionContext>
   );
 }

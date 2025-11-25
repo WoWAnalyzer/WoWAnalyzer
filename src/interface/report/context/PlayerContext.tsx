@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useMemo } from 'react';
+import { createContext, ReactNode, use, useMemo } from 'react';
 import { PlayerInfo } from 'parser/core/Player';
 import { CombatantInfoEvent } from 'parser/core/Events';
 
@@ -11,7 +11,7 @@ interface PlayerContext {
 const PlayerCtx = createContext<PlayerContext | undefined>(undefined);
 
 export const usePlayer = () => {
-  const ctx = useContext(PlayerCtx);
+  const ctx = use(PlayerCtx);
   if (ctx === undefined) {
     throw new Error('Unable to get Config for selected report/player combination');
   }
@@ -30,5 +30,5 @@ export const PlayerProvider = ({ children, player, combatant, combatants }: Prop
     [player, combatant, combatants],
   );
 
-  return <PlayerCtx.Provider value={providerValue}>{children}</PlayerCtx.Provider>;
+  return <PlayerCtx value={providerValue}>{children}</PlayerCtx>;
 };

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { useMaybeConfig } from './report/ConfigContext';
 import FightCtx from './report/context/FightContext';
 
@@ -28,7 +28,7 @@ declare global {
  */
 export function usePageView(componentName: string, key?: unknown) {
   const config = useMaybeConfig();
-  const fight = useContext(FightCtx);
+  const fight = use(FightCtx);
   useEffect(() => {
     const props = {
       page_title: document.title,

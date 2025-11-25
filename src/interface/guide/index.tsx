@@ -77,7 +77,7 @@ import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
 import type { ComponentProps, PropsWithChildren, ReactNode, JSX } from 'react';
-import { ComponentPropsWithoutRef, createContext, useContext, useMemo, useState } from 'react';
+import { ComponentPropsWithoutRef, createContext, use, useMemo, useState } from 'react';
 
 import './Guide.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -232,14 +232,14 @@ export const GuideContext = createContext<GuideContextValue>({
  * Get the player `Info` object from within a Guide section.
  */
 export function useInfo(): GuideContextValue['info'] {
-  return useContext(GuideContext).info;
+  return use(GuideContext).info;
 }
 
 /**
  * Get the event list from within a Guide section.
  */
 export function useEvents(): GuideContextValue['events'] {
-  return useContext(GuideContext).events;
+  return use(GuideContext).events;
 }
 
 /**
@@ -271,7 +271,7 @@ export function useEvents(): GuideContextValue['events'] {
 export function useAnalyzer<T extends typeof Module>(moduleType: T): InstanceType<T> | undefined;
 export function useAnalyzer(moduleKey: string): Module | undefined;
 export function useAnalyzer<T extends typeof Module>(value: string | T) {
-  const ctx = useContext(GuideContext);
+  const ctx = use(GuideContext);
   return useMemo(() => {
     if (typeof value === 'string') {
       return ctx.modules[value];
@@ -315,7 +315,7 @@ type ModuleList<T> = {
 export function useAnalyzers<Arr extends Record<number, typeof Module>>(
   values: Arr,
 ): ModuleList<Arr> {
-  const ctx = useContext(GuideContext);
+  const ctx = use(GuideContext);
 
   return useMemo(
     () =>

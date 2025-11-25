@@ -17,31 +17,39 @@ interface Props extends Omit<HTMLAttributes<HTMLAnchorElement>, 'id'> {
   def?: number;
 }
 
-const SpellLink = forwardRef<HTMLAnchorElement, Props>(
-  ({ spell, children, icon = true, iconStyle, ilvl, def, rank, ...other }: Props, ref) => {
-    const spellData = spell;
-    const spellId = getSpellId(spellData);
-    const spellInfo = useSpellInfo(spellData);
-    const { spell: spellTooltip } = useTooltip();
+const SpellLink = ({
+  ref,
+  spell,
+  children,
+  icon = true,
+  iconStyle,
+  ilvl,
+  def,
+  rank,
+  ...other
+}: Props & { ref?: React.RefObject<HTMLAnchorElement | null> }) => {
+  const spellData = spell;
+  const spellId = getSpellId(spellData);
+  const spellInfo = useSpellInfo(spellData);
+  const { spell: spellTooltip } = useTooltip();
 
-    return (
-      <a
-        href={spellTooltip(spellId, { ilvl, rank, def })}
-        target="_blank"
-        rel="noopener noreferrer"
-        ref={ref}
-        className="spell-link-text"
-        {...other}
-      >
-        {icon && (
-          <>
-            <SpellIcon spell={spellData} noLink style={iconStyle} alt="" />{' '}
-          </>
-        )}
-        {children || (spellInfo?.name ? spellInfo.name : `Unknown spell: ${spellId}`)}
-      </a>
-    );
-  },
-);
+  return (
+    <a
+      href={spellTooltip(spellId, { ilvl, rank, def })}
+      target="_blank"
+      rel="noopener noreferrer"
+      ref={ref}
+      className="spell-link-text"
+      {...other}
+    >
+      {icon && (
+        <>
+          <SpellIcon spell={spellData} noLink style={iconStyle} alt="" />{' '}
+        </>
+      )}
+      {children || (spellInfo?.name ? spellInfo.name : `Unknown spell: ${spellId}`)}
+    </a>
+  );
+};
 
 export default SpellLink;

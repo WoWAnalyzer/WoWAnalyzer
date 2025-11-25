@@ -9,7 +9,7 @@ import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, use, useEffect, useMemo, useRef, useState } from 'react';
 import { PatchCtx } from '../context/PatchContext';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
@@ -186,7 +186,7 @@ const useEventParser = ({
     };
   }, [processEventBatch]);
 
-  const patchInfo = useContext(PatchCtx);
+  const patchInfo = use(PatchCtx);
 
   useEffect(() => {
     // don't upload metrics while loading, with a bad fight, or for an unsupported spec

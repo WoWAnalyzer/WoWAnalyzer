@@ -173,124 +173,120 @@ const TimeFilterContainer = styled.div`
   }
 `;
 
-const FilterMenu = React.forwardRef<HTMLDialogElement, FilterMenuProps>(
-  (
-    {
-      triggerRef,
-      fight,
-      selectedPhaseIndex: selectedPhase,
-      handlePhaseSelection,
-      handleTimeSelection,
-      closeMenu,
+const FilterMenu = ({
+  ref,
+  triggerRef,
+  fight,
+  selectedPhaseIndex: selectedPhase,
+  handlePhaseSelection,
+  handleTimeSelection,
+  closeMenu,
+}: FilterMenuProps & { ref?: React.RefObject<HTMLDialogElement | null> }): JSX.Element => {
+  const position = useMemo(
+    () =>
+      triggerRef.current
+        ? {
+            top: `calc(${window.scrollY + triggerRef.current.getBoundingClientRect().top + triggerRef.current.clientHeight}px + 0.5rem)`,
+            left: window.scrollX + triggerRef.current.getBoundingClientRect().left,
+          }
+        : undefined,
+    [triggerRef],
+  );
+
+  const [selectedMode, setSelectedMode] = useState<FilterMode>('phase');
+
+  const phaseLabel = fight?.dungeonPulls ? 'By Pull' : 'By Phase';
+  const allPhasesLabel = fight?.dungeonPulls ? 'Entire Dungeon' : 'All Phases';
+
+  // FIXME: dungeon pulls
+  const phases = usePhases();
+
+  const hasPhases = phases.length > 0 || (fight.dungeonPulls && fight.dungeonPulls.length > 0);
+  useEffect(() => {
+    // don't allow staying on the phase option if there are no phases
+    if (!hasPhases) {
+      // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
+      setSelectedMode('time');
+    }
+  }, [hasPhases]);
+
+  const selectPhase = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      handlePhaseSelection(Number(e.target.value));
+      closeMenu();
     },
-    ref,
-  ): JSX.Element => {
-    const position = useMemo(
-      () =>
-        triggerRef.current
-          ? {
-              top: `calc(${window.scrollY + triggerRef.current.getBoundingClientRect().top + triggerRef.current.clientHeight}px + 0.5rem)`,
-              left: window.scrollX + triggerRef.current.getBoundingClientRect().left,
-            }
-          : undefined,
-      [triggerRef],
-    );
+    [handlePhaseSelection, closeMenu],
+  );
 
-    const [selectedMode, setSelectedMode] = useState<FilterMode>('phase');
+  const setTimeFilter = useCallback(
+    (start: number, end: number) => {
+      handleTimeSelection(start, end);
+      closeMenu();
+    },
+    [handleTimeSelection, closeMenu],
+  );
 
-    const phaseLabel = fight?.dungeonPulls ? 'By Pull' : 'By Phase';
-    const allPhasesLabel = fight?.dungeonPulls ? 'Entire Dungeon' : 'All Phases';
-
-    // FIXME: dungeon pulls
-    const phases = usePhases();
-
-    const hasPhases = phases.length > 0 || (fight.dungeonPulls && fight.dungeonPulls.length > 0);
-    useEffect(() => {
-      // don't allow staying on the phase option if there are no phases
-      if (!hasPhases) {
-        // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
-        setSelectedMode('time');
-      }
-    }, [hasPhases]);
-
-    const selectPhase = useCallback(
-      (e: ChangeEvent<HTMLSelectElement>) => {
-        handlePhaseSelection(Number(e.target.value));
-        closeMenu();
-      },
-      [handlePhaseSelection, closeMenu],
-    );
-
-    const setTimeFilter = useCallback(
-      (start: number, end: number) => {
-        handleTimeSelection(start, end);
-        closeMenu();
-      },
-      [handleTimeSelection, closeMenu],
-    );
-
-    return (
-      <FilterDialogContainer ref={ref} style={position} open>
-        {hasPhases && (
-          <FilterRadioGroup>
-            <FilterRadioButton>
-              <input
-                type="radio"
-                name="header-filter-mode"
-                value="phase"
-                checked={selectedMode === 'phase'}
-                onChange={() => setSelectedMode('phase')}
-              />
-              {phaseLabel}
-            </FilterRadioButton>
-            <FilterRadioButton>
-              <input
-                type="radio"
-                name="header-filter-mode"
-                value="time"
-                checked={selectedMode === 'time'}
-                onChange={() => setSelectedMode('time')}
-              />
-              By Time
-            </FilterRadioButton>
-          </FilterRadioGroup>
-        )}
-        {selectedMode === 'phase' && (
-          <div>
-            <Select onChange={selectPhase}>
-              {selectedPhase === SELECTION_CUSTOM_PHASE && (
-                <option key="custom" value={SELECTION_CUSTOM_PHASE} selected>
-                  Custom
-                </option>
-              )}
-              <option
-                key="all"
-                value={SELECTION_ALL_PHASES}
-                selected={selectedPhase === SELECTION_ALL_PHASES}
-              >
-                {allPhasesLabel}
+  return (
+    <FilterDialogContainer ref={ref} style={position} open>
+      {hasPhases && (
+        <FilterRadioGroup>
+          <FilterRadioButton>
+            <input
+              type="radio"
+              name="header-filter-mode"
+              value="phase"
+              checked={selectedMode === 'phase'}
+              onChange={() => setSelectedMode('phase')}
+            />
+            {phaseLabel}
+          </FilterRadioButton>
+          <FilterRadioButton>
+            <input
+              type="radio"
+              name="header-filter-mode"
+              value="time"
+              checked={selectedMode === 'time'}
+              onChange={() => setSelectedMode('time')}
+            />
+            By Time
+          </FilterRadioButton>
+        </FilterRadioGroup>
+      )}
+      {selectedMode === 'phase' && (
+        <div>
+          <Select onChange={selectPhase}>
+            {selectedPhase === SELECTION_CUSTOM_PHASE && (
+              <option key="custom" value={SELECTION_CUSTOM_PHASE} selected>
+                Custom
               </option>
-              {phases?.map((phase) => (
-                <option
-                  key={phase.value}
-                  value={phase.value}
-                  selected={selectedPhase === phase.value}
-                >
-                  {phase.label}
-                </option>
-              ))}
-            </Select>
-          </div>
-        )}
-        {selectedMode === 'time' && (
-          <TimeFilterContainer>
-            <TimeFilter fight={fight} isLoading={false} applyFilter={setTimeFilter} />
-          </TimeFilterContainer>
-        )}
-      </FilterDialogContainer>
-    );
-  },
-);
+            )}
+            <option
+              key="all"
+              value={SELECTION_ALL_PHASES}
+              selected={selectedPhase === SELECTION_ALL_PHASES}
+            >
+              {allPhasesLabel}
+            </option>
+            {phases?.map((phase) => (
+              <option
+                key={phase.value}
+                value={phase.value}
+                selected={selectedPhase === phase.value}
+              >
+                {phase.label}
+              </option>
+            ))}
+          </Select>
+        </div>
+      )}
+      {selectedMode === 'time' && (
+        <TimeFilterContainer>
+          <TimeFilter fight={fight} isLoading={false} applyFilter={setTimeFilter} />
+        </TimeFilterContainer>
+      )}
+    </FilterDialogContainer>
+  );
+};
 
 function usePhases() {
   const { report } = useReport();

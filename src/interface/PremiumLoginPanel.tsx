@@ -36,7 +36,10 @@ const INITIAL_BACKGROUNDS = [
 //   '4a4w6CzSj1t2Hl6gYy', // orc please https://giphy.com/gifs/warcraft-video-games-4a4w6CzSj1t2Hl6gYy
 // ];
 
-const LoggedIn = forwardRef<HTMLDivElement, unknown>((props, ref) => {
+const LoggedIn = ({
+  ref,
+  ...props
+}: unknown & { ref?: React.RefObject<HTMLDivElement | null> }) => {
   const dispatch = useWaDispatch();
   const user = useWaSelector((state) => state.user);
 
@@ -121,7 +124,7 @@ const LoggedIn = forwardRef<HTMLDivElement, unknown>((props, ref) => {
       </div>
     </div>
   );
-});
+};
 
 const PremiumLoginPanel = () => {
   const user = useWaSelector((state) => state.user);

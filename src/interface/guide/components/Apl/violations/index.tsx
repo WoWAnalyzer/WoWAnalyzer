@@ -8,7 +8,7 @@ import ProblemList, {
 } from 'interface/guide/components/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
 import { ReactNode, JSX } from 'react';
-import { createContext, useMemo, useContext } from 'react';
+import { createContext, useMemo, use } from 'react';
 import { ViolationTimeline } from '../timeline';
 import {
   AplViolationExplainers,
@@ -80,7 +80,7 @@ function AplViolationExplanation<T = unknown>({
   children: ReactNode;
   totalViolations: number;
 }): JSX.Element {
-  const setSelection = useContext(ExplanationSelectionContext);
+  const setSelection = use(ExplanationSelectionContext);
 
   return (
     <EmbedContainer>
