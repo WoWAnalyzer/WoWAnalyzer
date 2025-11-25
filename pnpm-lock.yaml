@@ -44,8 +44,8 @@ importers:
         specifier: 2.0.19
         version: 2.0.19(react@19.2.0)
       '@wowanalyzer/react-tooltip-lite':
-        specifier: git://github.com/ToppleTheNun/react-tooltip-lite.git#react-19
-        version: https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/66bfda1d7d06c6daa1e35931f8fb8f50c8edaf3d(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: github:ToppleTheNun/react-tooltip-lite#react-19
+        version: https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/0e334deae668c4bba2a6b724332784f5facb838a(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -1868,8 +1868,8 @@ packages:
   '@vitest/utils@3.2.4':
     resolution: {integrity: sha512-fB2V0JFrQSMsCo9HiSq3Ezpdv4iYaXRG1Sx8edX3MwxfyNn83mKiGzOcH+Fkxt4MHxr3y42fQi1oeAInqgX2QA==}
 
-  '@wowanalyzer/react-tooltip-lite@https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/66bfda1d7d06c6daa1e35931f8fb8f50c8edaf3d':
-    resolution: {tarball: https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/66bfda1d7d06c6daa1e35931f8fb8f50c8edaf3d}
+  '@wowanalyzer/react-tooltip-lite@https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/0e334deae668c4bba2a6b724332784f5facb838a':
+    resolution: {tarball: https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/0e334deae668c4bba2a6b724332784f5facb838a}
     version: 4.0.0
     peerDependencies:
       react: ^19.1.0
@@ -6073,7 +6073,7 @@ snapshots:
       loupe: 3.2.1
       tinyrainbow: 2.0.0
 
-  '@wowanalyzer/react-tooltip-lite@https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/66bfda1d7d06c6daa1e35931f8fb8f50c8edaf3d(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@wowanalyzer/react-tooltip-lite@https://codeload.github.com/ToppleTheNun/react-tooltip-lite/tar.gz/0e334deae668c4bba2a6b724332784f5facb838a(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       prop-types: 15.8.1
       react: 19.2.0

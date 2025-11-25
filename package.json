@@ -15,7 +15,7 @@
     "@reduxjs/toolkit": "2.9.2",
     "@sentry/react": "10.22.0",
     "@unhead/react": "2.0.19",
-    "@wowanalyzer/react-tooltip-lite": "git://github.com/ToppleTheNun/react-tooltip-lite.git#react-19",
+    "@wowanalyzer/react-tooltip-lite": "github:ToppleTheNun/react-tooltip-lite#react-19",
     "clsx": "2.1.1",
     "core-js": "3.36.1",
     "es6-error": "^4.1.1",
