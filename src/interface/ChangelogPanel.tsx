@@ -48,7 +48,12 @@ const ChangelogPanel = () => {
           />
         </div>
         {limit !== null && (
-          <button className="btn btn-link" onClick={() => setExpanded(true)} style={{ padding: 0 }}>
+          <button
+            className="btn btn-link"
+            onClick={() => setExpanded(true)}
+            style={{ padding: 0 }}
+            type="button"
+          >
             More
           </button>
         )}
