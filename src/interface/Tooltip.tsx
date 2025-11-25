@@ -23,7 +23,13 @@ const Tooltip = ({
   ...others
 }: TooltipProps) => {
   return (
-    <ReactTooltip {...others} direction={direction} tipContentHover={hoverable} content={content}>
+    <ReactTooltip
+      {...others}
+      direction={direction}
+      tipContentHover={hoverable}
+      content={content}
+      portalContainer={document.getElementById('portal-root')!}
+    >
       {children}
     </ReactTooltip>
   );
@@ -51,6 +57,7 @@ export const TooltipElement = ({
       className={tooltipClassName}
       direction={direction}
       tipContentHover={hoverable}
+      portalContainer={document.getElementById('portal-root')!}
     >
       <dfn className={className} style={style}>
         {children}

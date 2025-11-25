@@ -103,7 +103,10 @@ export default memo(function SegmentTimeline({
                 y={0}
                 height="100%"
               >
-                <Tooltip content={segment.tooltip}>
+                <Tooltip
+                  content={segment.tooltip}
+                  portalContainer={document.getElementById('portal-root')!}
+                >
                   <div style={{ width: '100%', height: '100%' }} />
                 </Tooltip>
               </foreignObject>
