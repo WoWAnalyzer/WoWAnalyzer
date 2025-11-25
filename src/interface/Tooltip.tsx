@@ -4,7 +4,7 @@ import ReactTooltip, { TooltipProps as ReactTooltipProps } from '@wowanalyzer/re
 
 import './Tooltip.scss';
 
-interface TooltipProps extends ReactTooltipProps {
+type TooltipProps = Omit<ReactTooltipProps, 'portalContainer'> & {
   /**
    * REQUIRED: The text/element that triggers the tooltip
    */
@@ -14,7 +14,8 @@ interface TooltipProps extends ReactTooltipProps {
    * Default: false
    */
   hoverable?: boolean;
-}
+};
+
 const Tooltip = ({
   content,
   children,

@@ -129,11 +129,11 @@ switch (command) {
     await updateBaseline();
     break;
   case 'fix':
-    // hasLints = await lint(true, args.slice(1));
-    // process.exit(hasLints ? 1 : 0);
+    hasLints = await lint(true, args.slice(1));
+    process.exit(hasLints ? 1 : 0);
     break;
   default:
-    // hasLints = await lint(false, args);
-    // process.exit(hasLints ? 1 : 0);
+    hasLints = await lint(false, args);
+    process.exit(hasLints ? 1 : 0);
     break;
 }
