@@ -715,7 +715,7 @@ const talents = {
     definitionIds: [{ id: 117839, specId: 577 }],
   },
   FIRST_IN_LAST_OUT_TALENT: {
-    id: 1266497,
+    id: 1266619,
     name: 'First In, Last Out',
     icon: 'ability_demonhunter_demonictrample',
     maxRanks: 1,

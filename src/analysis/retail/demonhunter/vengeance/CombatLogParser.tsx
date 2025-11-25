@@ -63,6 +63,7 @@ import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Dem
 import SigilOfFlameNormalizer from './normalizers/SigilOfFlameNormalizer';
 import MID1Vengeance2P from './modules/items/MID1Vengeance2P';
 import MID1Vengeance4P from './modules/items/MID1Vengeance4P';
+import FirstInLastOut from '../shared/modules/talents/FirstInLastOut';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -131,6 +132,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fieryBrand2: FieryBrand2,
     sigilOfFlame: SigilOfFlame,
     cycleOfBinding: CycleOfBinding,
+    firstInLastOut: FirstInLastOut,
 
     // Hero
     demonsurge: Demonsurge,
