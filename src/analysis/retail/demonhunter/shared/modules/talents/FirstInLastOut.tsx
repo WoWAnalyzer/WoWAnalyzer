@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -21,21 +22,21 @@ export default class FirstInLastOut extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_IN_LAST_OUT_TALENT);
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FIRST_IN_LAST_OUT_TALENT),
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.FIRST_IN_LAST_OUT_SHIELD),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.absorbed.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FIRST_IN_LAST_OUT_TALENT),
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.FIRST_IN_LAST_OUT_SHIELD),
       this.onAbsorb,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FIRST_IN_LAST_OUT_TALENT),
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.FIRST_IN_LAST_OUT_SHIELD),
       this.onRemoveBuff,
     );
   }
   get uptime() {
     return (
-      this.selectedCombatant.getBuffUptime(TALENTS_DEMON_HUNTER.FIRST_IN_LAST_OUT_TALENT.id) /
+      this.selectedCombatant.getBuffUptime(SPELLS.FIRST_IN_LAST_OUT_SHIELD.id) /
       this.owner.fightDuration
     );
   }
@@ -50,7 +51,7 @@ export default class FirstInLastOut extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    if (event.ability.guid !== TALENTS_DEMON_HUNTER.FIRST_IN_LAST_OUT_TALENT.id) {
+    if (event.ability.guid !== SPELLS.FIRST_IN_LAST_OUT_SHIELD.id) {
       return;
     }
     this.buffRemoved = event.timestamp;

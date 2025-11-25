@@ -175,6 +175,11 @@ const spells = {
     name: 'Demon Soul',
     icon: 'spell_shadow_soulleech_3',
   },
+  FIRST_IN_LAST_OUT_SHIELD: {
+    id: 1266619,
+    name: 'First In, Last Out',
+    icon: 'ability_demonhunter_demonictrample',
+  },
   //endregion
 
   //region Vengeance
