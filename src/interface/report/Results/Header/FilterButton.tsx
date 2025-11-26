@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import * as design from 'interface/design-system';
 import { useReport } from 'interface/report/context/ReportContext';
-import React, { ChangeEvent, JSX, useCallback, useEffect, useMemo } from 'react';
+import React, { ChangeEvent, JSX, useCallback, useMemo } from 'react';
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import TimeFilter from '../TimeFilter';
@@ -45,14 +45,25 @@ interface Props {
 }
 
 export default function FilterButton(props: Props): JSX.Element | null {
+  const ref = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [position, setPosition] = useState<FilterMenuProps['position']>({});
   const closeMenu = useCallback(() => {
     setShowMenu(false);
   }, []);
-  const toggleMenu = useCallback(() => setShowMenu((v) => !v), []);
+  const toggleMenu = useCallback(() => {
+    setShowMenu((v) => !v);
+    setPosition(
+      ref.current
+        ? {
+            top: `calc(${window.scrollY + ref.current.getBoundingClientRect().top + ref.current.clientHeight}px + 0.5rem)`,
+            left: window.scrollX + ref.current.getBoundingClientRect().left,
+          }
+        : {},
+    );
+  }, []);
 
-  const ref = useRef<HTMLButtonElement | null>(null);
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
   useClickOutsideHandler([ref, dialogRef], closeMenu);
   const phases = usePhases();
 
@@ -77,7 +88,13 @@ export default function FilterButton(props: Props): JSX.Element | null {
       </Btn>
       {showMenu &&
         createPortal(
-          <FilterMenu {...props} ref={dialogRef} triggerRef={ref} closeMenu={closeMenu} />,
+          <FilterMenu
+            key={props.fight.id}
+            {...props}
+            ref={dialogRef}
+            position={position}
+            closeMenu={closeMenu}
+          />,
           document.body,
         )}
     </>
@@ -104,7 +121,7 @@ const FilterDialogContainer = styled.dialog`
 `;
 
 interface FilterMenuProps extends Props {
-  triggerRef: React.MutableRefObject<HTMLElement | null>;
+  position: Pick<React.CSSProperties, 'top' | 'left'>;
   closeMenu: () => void;
 }
 
@@ -175,39 +192,19 @@ const TimeFilterContainer = styled.div`
 
 const FilterMenu = ({
   ref,
-  triggerRef,
+  position,
   fight,
   selectedPhaseIndex: selectedPhase,
   handlePhaseSelection,
   handleTimeSelection,
   closeMenu,
 }: FilterMenuProps & { ref?: React.RefObject<HTMLDialogElement | null> }): JSX.Element => {
-  const position = useMemo(
-    () =>
-      triggerRef.current
-        ? {
-            top: `calc(${window.scrollY + triggerRef.current.getBoundingClientRect().top + triggerRef.current.clientHeight}px + 0.5rem)`,
-            left: window.scrollX + triggerRef.current.getBoundingClientRect().left,
-          }
-        : undefined,
-    [triggerRef],
-  );
-
-  const [selectedMode, setSelectedMode] = useState<FilterMode>('phase');
+  const phases = usePhases();
+  const hasPhases = phases.length > 0 || (fight.dungeonPulls && fight.dungeonPulls.length > 0);
+  const [selectedMode, setSelectedMode] = useState<FilterMode>(hasPhases ? 'phase' : 'time');
 
   const phaseLabel = fight?.dungeonPulls ? 'By Pull' : 'By Phase';
   const allPhasesLabel = fight?.dungeonPulls ? 'Entire Dungeon' : 'All Phases';
-
-  // FIXME: dungeon pulls
-  const phases = usePhases();
-
-  const hasPhases = phases.length > 0 || (fight.dungeonPulls && fight.dungeonPulls.length > 0);
-  useEffect(() => {
-    // don't allow staying on the phase option if there are no phases
-    if (!hasPhases) {
-      setSelectedMode('time');
-    }
-  }, [hasPhases]);
 
   const selectPhase = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
