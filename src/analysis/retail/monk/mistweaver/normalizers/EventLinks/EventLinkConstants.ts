@@ -56,5 +56,3 @@ export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';
 export const RUSHING_WIND_KICK = 'RWK';
-// Tier
-export const INSURANCE_DURATION = 15000;

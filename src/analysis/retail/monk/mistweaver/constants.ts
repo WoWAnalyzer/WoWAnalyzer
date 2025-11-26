@@ -117,6 +117,7 @@ export const ATTRIBUTION_STRINGS = {
     RD_SOURCE_ENV: 'Rapid Diffusion Source - Enveloping Mist',
   },
   YULON: "Yu'lon",
+  THUNDER_FOCUS_TEA: 'Thunder Focus Tea - Midnight S1 4pc',
 };
 
 export const SECRET_INFUSION_BUFFS = [

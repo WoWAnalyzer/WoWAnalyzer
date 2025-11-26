@@ -2,6 +2,9 @@
 // only includes the raids from Midnight (showing older logs wouldn't make sense)
 import type { Boss } from 'game/raids';
 
+import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
+import VSDRMQD from 'game/raids/vs_dr_mqd';
+
 export interface Zone {
   id: number;
   name: string;
@@ -18,14 +21,14 @@ const ZONES: Zone[] = [
     name: 'Voidspire / Dreamrift / MQD',
     frozen: false,
     useBetaTooltips: true,
-    encounters: [],
+    encounters: Object.values(VSDRMQD.bosses),
   },
   {
     id: 47,
     name: 'Mythic+ Season 1',
     frozen: false,
     useBetaTooltips: true,
-    encounters: [],
+    encounters: Object.values(MythicPlusSeasonOne.bosses),
   },
 ];
 

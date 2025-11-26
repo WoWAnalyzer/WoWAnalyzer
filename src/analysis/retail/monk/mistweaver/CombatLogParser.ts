@@ -74,7 +74,6 @@ import TearOfMorning from './modules/spells/TearOfMorning';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
-import T32TierSet from './modules/tier/T32TierSet';
 import PoolOfMists from './modules/spells/PoolOfMists';
 import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
 import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
@@ -85,10 +84,10 @@ import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
-import T33TierSet from './modules/tier/T33TierSet';
 import JadeEmpowerment from './modules/spells/JadeEmpowerment';
 import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 import MistyCoalescence from './modules/spells/MistyCoalescence';
+import S1TierSet from './modules/tier/S1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -191,9 +190,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coalesence: Coalesence,
 
     // Borrowed Power
-    t32TierSet: T32TierSet,
-    t33TierSet: T33TierSet,
     t34ConduitTierSet: T34ConduitTier,
+    s1TierSet: S1TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

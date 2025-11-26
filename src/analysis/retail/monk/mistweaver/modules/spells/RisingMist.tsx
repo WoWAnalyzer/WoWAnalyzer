@@ -21,7 +21,6 @@ import Vivify from './Vivify';
 import { Section, SubSection } from 'interface/guide';
 import { CSSProperties } from 'react';
 import '../../ui/RisingMist.scss';
-import T32TierSet from '../tier/T32TierSet';
 import { Talent } from 'common/TALENTS/types';
 
 const debug = false;
@@ -34,14 +33,12 @@ class RisingMist extends Analyzer {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
     vivify: Vivify,
-    tier32: T32TierSet,
   };
 
   hotTracker!: HotTrackerMW;
   abilityTracker!: AbilityTracker;
   spellUsable!: SpellUsable;
   vivify!: Vivify;
-  tier32!: T32TierSet;
 
   get averageExtension() {
     return this.risingMistCount === 0
@@ -63,10 +60,7 @@ class RisingMist extends Analyzer {
   }
 
   get renewingMistExtensionHealing() {
-    return (
-      this.getExtensionHealingBySpell(SPELLS.RENEWING_MIST_HEAL.id) -
-      this.tier32.fourPieceRemHealing
-    );
+    return this.getExtensionHealingBySpell(SPELLS.RENEWING_MIST_HEAL.id);
   }
 
   get renewingMistHardcastExtensionHealing() {

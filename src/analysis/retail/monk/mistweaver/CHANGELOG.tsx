@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 11, 25), <>Added Season 1 Tier Set analysis for Mistweaver</>, Vohrr),
   change(date(2025, 11, 23), <>Minor bug fixes and typos. Added <SpellLink spell={TALENTS_MONK.MISTY_COALESCENCE_TALENT}/> module.</>, Vohrr),
   change(date(2025, 11, 23), <>Updated <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT}/>, <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> bug fixes,  <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/>, and <SpellLink spell={SPELLS.ANCIENT_TEACHINGS}/> for Midnight.</>, Vohrr),
   change(date(2025, 11, 23), <>Removed analysis references to Enveloping Breath and updated <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}/> and <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> for Midnight.</>, Vohrr),
