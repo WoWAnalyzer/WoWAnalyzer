@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { forwardRef, CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import useTooltip from 'interface/useTooltip';
 
 interface Props extends Omit<HTMLAttributes<HTMLAnchorElement>, 'id'> {

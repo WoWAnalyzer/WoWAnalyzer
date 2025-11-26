@@ -51,14 +51,14 @@ const TimeFilter = (props: Props) => {
   const [max, setMax] = useState<number>(0);
 
   // reset time filters when the fight changes. again, eslint not happy about this.
-  /* eslint-disable @eslint-react/hooks-extra/no-direct-set-state-in-use-effect */
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const boundary = generateBoundary(props.fight);
     setStart(boundary.start);
     setEnd(boundary.end);
     setMax(boundary.max);
   }, [props.fight]);
-  /* eslint-enable @eslint-react/hooks-extra/no-direct-set-state-in-use-effect */
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const selectStart = (start: number) => {
     setStart(start);

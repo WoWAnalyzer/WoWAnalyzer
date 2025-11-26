@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { forwardRef } from 'react';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
 

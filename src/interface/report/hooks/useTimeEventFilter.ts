@@ -257,7 +257,7 @@ const useTimeEventFilter = ({
     };
 
     // flip back to loading when these values change. eslint is unhappy about this.
-    // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
+
     setIsLoading(true);
     parse();
   }, [bossPhaseEventsLoaded, bossPhaseEvents, fight, filter, events]);

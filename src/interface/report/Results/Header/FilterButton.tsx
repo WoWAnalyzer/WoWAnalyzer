@@ -205,7 +205,6 @@ const FilterMenu = ({
   useEffect(() => {
     // don't allow staying on the phase option if there are no phases
     if (!hasPhases) {
-      // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
       setSelectedMode('time');
     }
   }, [hasPhases]);

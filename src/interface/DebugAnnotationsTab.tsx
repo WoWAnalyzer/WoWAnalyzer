@@ -24,7 +24,7 @@ export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParse
         style={{ padding: '1em 2em', flexDirection: 'column', gap: '1em' }}
       >
         {annotations.getAll().map((props) => (
-          <ModuleDebugAnnotations {...props} key={props.module.constructor.name} />
+          <ModuleDebugAnnotations key={props.module.constructor.name} {...props} />
         ))}
       </div>
     </div>
@@ -47,8 +47,8 @@ function ModuleDebugAnnotations({ module, annotations }: ModuleAnnotations) {
             <RowContent>
               {row.map((props, index) => (
                 <AnnotationDot
-                  {...props}
                   key={index}
+                  {...props}
                   onClick={() => setSelected((current) => (current === props ? null : props))}
                   selected={selected === props}
                 />

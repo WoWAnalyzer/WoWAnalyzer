@@ -62,6 +62,8 @@ const TimelineTab = ({ parser }: Props) => {
     }
 
     if (data) {
+      // this is not actually creating a new component; it is doing dynamic dispatch
+
       const Component = getAlertComponent(data.type);
 
       alert = (

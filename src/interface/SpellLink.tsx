@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { forwardRef, CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import Spell from 'common/SPELLS/Spell';
 
 import SpellIcon from './SpellIcon';

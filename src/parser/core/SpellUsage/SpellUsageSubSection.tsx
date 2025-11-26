@@ -247,6 +247,7 @@ const SpellUsageSubSection = ({
   // we toggle the "Hide Good Casts" toggle.
   // This isn't in HideGoodCastsSpellUsageSubSection because "selectedUse" lives here.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedUse(undefined);
     onPerformanceBoxClick?.(undefined);
   }, [hideGoodCasts, onPerformanceBoxClick]);

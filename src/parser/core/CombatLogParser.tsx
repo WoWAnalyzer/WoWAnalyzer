@@ -18,7 +18,6 @@ import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import type { ReactNode } from 'react';
 import { cloneElement } from 'react';
 import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 

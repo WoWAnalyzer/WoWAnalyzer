@@ -33,7 +33,7 @@ interface TimelineContext {
   resetZoom(event: SyntheticEvent): void;
 }
 
-const ctx = createContext<TimelineContext>({
+const TimelinePositionContext = createContext<TimelineContext>({
   x() {
     return 0;
   },
@@ -48,7 +48,7 @@ const ctx = createContext<TimelineContext>({
   },
 });
 
-export const useTimelinePosition = () => use(ctx);
+export const useTimelinePosition = () => use(TimelinePositionContext);
 
 /**
  * A track within the timeline diagram. For example: all the spells a player casts occupy a single track.
@@ -86,7 +86,7 @@ interface Props {
 export default function TimelineDiagram({ info, children, overlays }: Props): JSX.Element | null {
   // track the width of the container element to use for display calculations.
   // setting this does NOT resize the container
-  const [containerElementWidth, recordContainerElementWidth] = useState(0);
+  const [containerElementWidth, setContainerElementWidth] = useState(0);
   // set the number of milliseconds that should be displayed at once. if undefined, the whole fight is shown.
   // the use of undefined to mean "the whole fight" is simply to make the zoom control logic simpler (since `undefined` = no zoom)
   const [displayMs, setDisplayMs] = useState<number | undefined>(undefined);
@@ -106,7 +106,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     new ResizeObserver((entries) => {
       for (const entry of entries) {
         const rect = entry.target.getBoundingClientRect();
-        recordContainerElementWidth(rect.width);
+        setContainerElementWidth(rect.width);
       }
     }),
   );
@@ -173,6 +173,8 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
               {render}
             </svg>
           );
+          // linter thinks this is being reassigned across renders, but it actually IS within a single render.
+          // eslint-disable-next-line react-hooks/immutability
           totalHeight += height;
           return [zIndex ?? 0, result];
         }
@@ -258,7 +260,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   const phases = usePhaseSegments();
 
   return (
-    <ctx.Provider value={contextValue}>
+    <TimelinePositionContext value={contextValue}>
       <div>
         <div
           ref={watchWidth}
@@ -292,7 +294,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
         </div>
         <ZoomText isZoomed={Boolean(displayMs)} />
       </div>
-    </ctx.Provider>
+    </TimelinePositionContext>
   );
 }
 
