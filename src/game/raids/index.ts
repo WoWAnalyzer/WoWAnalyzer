@@ -2,11 +2,7 @@ import { Spec } from 'game/SPECS';
 import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
-import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
-import MythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
-import NerubarPalace from 'game/raids/nerubarpalace';
-import Undermine from 'game/raids/undermine';
-import ManaforgeOmega from 'game/raids/manaforge-omega';
+import VSDRMQD from 'game/raids/vs_dr_mqd';
 import {
   msv as MogushanVaults,
   hof as HeartOfFear,
@@ -69,16 +65,13 @@ export interface Phase extends PhaseConfig {
 }
 
 const dungeons = {
-  // The War Within
+  // Midnight
   MythicPlusSeasonOne,
-  MythicPlusSeasonTwo,
-  MythicPlusSeasonThree,
 };
 
 const raids = {
-  NerubarPalace, // TWW S1
-  Undermine, // TWW S2
-  ManaforgeOmega, // TWW S3
+  // Midnight
+  VSDRMQD,
   // Mists of Pandaria (Classic)
   MogushanVaults,
   HeartOfFear,
