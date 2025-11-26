@@ -82,6 +82,13 @@ class HotTrackerMW extends HotTracker {
     return !(!this.hots[targetId] || !this.hots[targetId][spellId]);
   }
 
+  getHot(event: HealEvent | ApplyBuffEvent, spellId: number): Tracker | null {
+    const targetId = event.targetID;
+    return !this.hots[targetId] || !this.hots[targetId][spellId]
+      ? null
+      : this.hots[targetId][spellId];
+  }
+
   fromRapidDiffusionRisingSunKick(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_RSK;
@@ -152,6 +159,10 @@ class HotTrackerMW extends HotTracker {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST;
     });
+  }
+  //tier set s1 midnight
+  fromThunderFocusTea(hot: Tracker): boolean {
+    return hot.attributions.some((a) => a.name === ATTRIBUTION_STRINGS.THUNDER_FOCUS_TEA);
   }
 
   // Decide which extension is responsible for allowing this extra vivify cleave

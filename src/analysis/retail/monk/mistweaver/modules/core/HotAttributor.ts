@@ -22,6 +22,8 @@ import {
   isFromJadeBond,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
+import { isFromTFT } from '../../normalizers/EventLinks/TierEventLinks';
+import { hasConditionalFieldOrDatumDef } from 'vega-lite/build/src/channeldef';
 
 const debug = false;
 const remDebug = false;
@@ -65,6 +67,7 @@ class HotAttributor extends Analyzer {
   rdSourceENVAttrib = HotTracker.getNewAttribution(
     ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_ENV,
   );
+  tftSourceRemAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.THUNDER_FOCUS_TEA);
 
   constructor(options: Options) {
     super(options);
@@ -110,12 +113,21 @@ class HotAttributor extends Analyzer {
     } else if (isFromMistsOfLife(event)) {
       //mists of life rem
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
+      //mol rems cannot be extended by rising mist so set the max duration here
       hot.maxDuration = this.hotTracker._getDuration(this.hotTracker.hotInfo[spellID]);
       remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
     } else if (event.prepull || isFromHardcast(event)) {
       //hardcast rem
       remDebug && this._newReMAttributionLogging(event, this.REMHardcastAttrib);
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
+    } else if (isFromTFT(event)) {
+      //midnight s1 tier rem
+      remDebug && this._newReMAttributionLogging(event, this.tftSourceRemAttrib);
+      this.hotTracker.addAttributionFromApply(this.tftSourceRemAttrib, event);
+      //thank you blizzard for adding random inconsistent versions of spells into the game that dont adhere to the same rules
+      //as other buffs with the same Id that are sourced from different abilities
+      hot.maxDuration = 20000;
+      this.hotTracker.hotInfo;
     } else if (isFromRapidDiffusion(event)) {
       //rapid diffusion rem
       this._attributeRapidDiffusionRem(event, hot);
@@ -249,6 +261,14 @@ class HotAttributor extends Analyzer {
       case this.dancingMistAttrib: {
         console.log(
           'Dancing Mist Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
+          'on ' + this.combatants.getEntity(event)?.name,
+          this.hotTracker.hots[event.targetID][event.ability.guid],
+        );
+        break;
+      }
+      case this.tftSourceRemAttrib: {
+        console.log(
+          'Thunder Focus Tea Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
           this.hotTracker.hots[event.targetID][event.ability.guid],
         );

@@ -1,40 +1,28 @@
 import SPELLS from 'common/SPELLS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType } from 'parser/core/Events';
-import {
-  CAST_BUFFER_MS,
-  INSURANCE,
-  INSURANCE_DURATION,
-  INSURANCE_FROM_REM,
-} from './EventLinkConstants';
+import { ApplyBuffEvent, EventType, HasRelatedEvent, RefreshBuffEvent } from 'parser/core/Events';
+import { CAST_BUFFER_MS } from './EventLinkConstants';
 import { TIERS } from 'game/TIERS';
+import { TALENTS_MONK } from 'common/TALENTS';
 
+export const MID_S1 = 'TFT_Rem';
 export const TIER_EVENT_LINKS: EventLink[] = [
-  // Insurance from Rem hardcast
   {
-    linkRelation: INSURANCE_FROM_REM,
-    linkingEventId: SPELLS.INSURANCE_HOT_MONK.id,
+    linkRelation: MID_S1,
+    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    reverseLinkRelation: MID_S1,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id],
+    referencedEventType: [EventType.Cast],
     backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
     maximumLinks: 1,
-    isActive: (c) => {
-      return c.has4PieceByTier(TIERS.TWW2);
-    },
-  },
-  // link insurance heal to apply
-  {
-    linkRelation: INSURANCE,
-    linkingEventId: [SPELLS.INSURANCE_HOT_MONK.id, SPELLS.INSURANCE_PROC_MONK.id],
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.INSURANCE_HOT_MONK.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    backwardBufferMs: INSURANCE_DURATION,
-    maximumLinks: 1,
-    isActive: (c) => {
-      return c.has2PieceByTier(TIERS.TWW2);
+    isActive(c) {
+      return c.has4PieceByTier(TIERS.MID1);
     },
   },
 ];
+
+export function isFromTFT(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, MID_S1);
+}
