@@ -137,8 +137,7 @@
   "packageManager": "pnpm@9.5.0",
   "pnpm": {
     "patchedDependencies": {
-      "vega-embed@6.20.2": "patches/vega-embed@6.20.2.patch",
-      "@lingui/react@5.5.1": "patches/@lingui__react@5.5.1.patch"
+      "vega-embed@6.20.2": "patches/vega-embed@6.20.2.patch"
     }
   }
 }

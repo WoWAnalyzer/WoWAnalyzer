@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@lingui/react@5.5.1':
-    hash: b3sofuvoj2no6hpd5xe6ojhnce
-    path: patches/@lingui__react@5.5.1.patch
   vega-embed@6.20.2:
     hash: bkjy7wywebxalb3mby35wlfzt4
     path: patches/vega-embed@6.20.2.patch
@@ -33,7 +30,7 @@ importers:
         version: 5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)
       '@lingui/react':
         specifier: 5.5.1
-        version: 5.5.1(patch_hash=b3sofuvoj2no6hpd5xe6ojhnce)(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)
+        version: 5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)
       '@reduxjs/toolkit':
         specifier: 2.9.2
         version: 2.9.2(react-redux@9.2.0(@types/react@19.2.2)(react@19.2.0)(redux@5.0.1))(react@19.2.0)
@@ -5272,7 +5269,7 @@ snapshots:
   '@lingui/macro@5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)':
     dependencies:
       '@lingui/core': 5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)
-      '@lingui/react': 5.5.1(patch_hash=b3sofuvoj2no6hpd5xe6ojhnce)(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)
+      '@lingui/react': 5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)
     optionalDependencies:
       '@lingui/babel-plugin-lingui-macro': 5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3)
       babel-plugin-macros: 3.1.0
@@ -5284,7 +5281,7 @@ snapshots:
       '@messageformat/parser': 5.1.0
       js-sha256: 0.10.1
 
-  '@lingui/react@5.5.1(patch_hash=b3sofuvoj2no6hpd5xe6ojhnce)(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)':
+  '@lingui/react@5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)(react@19.2.0)':
     dependencies:
       '@babel/runtime': 7.24.6
       '@lingui/core': 5.5.1(@lingui/babel-plugin-lingui-macro@5.5.1(babel-plugin-macros@3.1.0)(typescript@5.9.3))(babel-plugin-macros@3.1.0)
