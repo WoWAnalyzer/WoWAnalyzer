@@ -250,25 +250,17 @@ const FilterMenu = ({
       )}
       {selectedMode === 'phase' && (
         <div>
-          <Select onChange={selectPhase}>
+          <Select onChange={selectPhase} value={selectedPhase}>
             {selectedPhase === SELECTION_CUSTOM_PHASE && (
-              <option key="custom" value={SELECTION_CUSTOM_PHASE} selected>
+              <option key="custom" value={SELECTION_CUSTOM_PHASE}>
                 Custom
               </option>
             )}
-            <option
-              key="all"
-              value={SELECTION_ALL_PHASES}
-              selected={selectedPhase === SELECTION_ALL_PHASES}
-            >
+            <option key="all" value={SELECTION_ALL_PHASES}>
               {allPhasesLabel}
             </option>
             {phases?.map((phase) => (
-              <option
-                key={phase.value}
-                value={phase.value}
-                selected={selectedPhase === phase.value}
-              >
+              <option key={phase.value} value={phase.value}>
                 {phase.label}
               </option>
             ))}

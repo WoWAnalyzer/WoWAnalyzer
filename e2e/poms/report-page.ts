@@ -17,6 +17,8 @@ type GoToShared = {
 export class ReportPage {
   readonly page: Page;
   readonly bossDifficultyAndNameHeader: Locator;
+  readonly fightSelectionHeader: Locator;
+  readonly playerSelectionHeader: Locator;
   readonly loadingLink: Locator;
   readonly statisticsTab: Locator;
   readonly statisticsTabHeading: Locator;
@@ -25,7 +27,7 @@ export class ReportPage {
   readonly cooldownsTab: Locator;
   readonly cooldownsTabHeading: Locator;
   readonly characterTab: Locator;
-  readonly characterTabHeading: Locator;
+  readonly characterSheet: Locator;
   readonly aboutTab: Locator;
   readonly earlierExpansionHeading: Locator;
   readonly earlierPatchHeading: Locator;
@@ -36,6 +38,8 @@ export class ReportPage {
   constructor(page: Page) {
     this.page = page;
     this.bossDifficultyAndNameHeader = this.page.getByTestId('boss-difficulty-and-name');
+    this.fightSelectionHeader = this.page.getByText('Fight selection', { exact: true });
+    this.playerSelectionHeader = this.page.getByText('Player selection', { exact: true });
     this.loadingLink = this.page.getByRole('link', { name: 'Loading...' });
     this.statisticsTab = this.page.getByRole('link', { name: 'Statistics' });
     this.statisticsTabHeading = this.page.getByRole('heading', { name: 'Statistics' });
@@ -44,7 +48,7 @@ export class ReportPage {
     this.cooldownsTab = this.page.getByRole('link', { name: 'Cooldowns' });
     this.cooldownsTabHeading = this.page.getByRole('heading', { name: 'Throughput cooldowns' });
     this.characterTab = this.page.getByRole('link', { name: 'Character' });
-    this.characterTabHeading = this.page.getByRole('heading', { name: 'Stats on pull' });
+    this.characterSheet = this.page.getByTestId('character-sheet');
     this.aboutTab = this.page.getByRole('link', { name: 'About', exact: true });
     this.earlierExpansionHeading = this.page.getByRole('heading', {
       name: 'This report is for a previous expansion',
@@ -106,6 +110,8 @@ export class ReportPage {
       .or(this.earlierPatchHeading)
       .or(this.specNotUpdatedHeading)
       .or(this.bossDifficultyAndNameHeader)
+      .or(this.fightSelectionHeader)
+      .or(this.playerSelectionHeader)
       .first()
       .waitFor();
 
@@ -172,7 +178,8 @@ export class ReportPage {
 
   async clickOnCharacterTab() {
     await this.characterTab.click();
-    await expect(this.characterTabHeading).toBeVisible();
+    // note: we were checking for the "Stats on pull" header, but this is not present for Classic
+    await expect(this.characterSheet).toBeVisible();
   }
 
   async clickOnAboutTab() {

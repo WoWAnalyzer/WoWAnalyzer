@@ -233,11 +233,14 @@ export default function Header({
                   </TabButton>
                 ))}
             </TabStrip>
-            <TabSelect onChange={(event) => navigate(makeTabUrl(event.target.value))}>
+            <TabSelect
+              onChange={(event) => navigate(makeTabUrl(event.target.value))}
+              value={selectedTab}
+            >
               {tabList
                 .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
                 .map((tab) => (
-                  <option key={tab.url} value={tab.url} selected={tab.url === selectedTab}>
+                  <option key={tab.url} value={tab.url}>
                     {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
                   </option>
                 ))}
@@ -374,7 +377,7 @@ function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.
     (fight.original_end_time ?? fight.end_time) - (fight.start_time - fight.offset_time),
   );
   return (
-    <MiniBoxContainer>
+    <MiniBoxContainer data-testid="boss-difficulty-and-name">
       <MiniBoxImage src={icon} alt={boss?.name ?? fight.name} />
       <MiniBoxName>{boss?.name ?? fight.name}</MiniBoxName>
       <MiniBoxSubtext>
