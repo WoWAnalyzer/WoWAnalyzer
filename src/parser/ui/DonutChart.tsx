@@ -2,7 +2,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import BaseChart from 'parser/ui/BaseChart';
-import { PureComponent } from 'react';
 import { VisualizationSpec } from 'react-vega';
 
 import 'parser/ui/DonutChart.scss';
@@ -24,16 +23,44 @@ interface Props {
   innerRadiusFactor: number;
 }
 
-class DonutChart extends PureComponent<Props> {
-  static defaultProps = {
-    chartSize: 90,
-    innerRadiusFactor: 0.28,
+const DonutChart = ({ items, chartSize = 90, innerRadiusFactor = 0.28 }: Props) => {
+  const innerRadius = chartSize * innerRadiusFactor;
+
+  const total = items.reduce((sum, item) => sum + item.value, 0);
+  const data = {
+    items,
   };
 
-  renderLegend(items: Item[]) {
-    const total = items.reduce((sum, item) => sum + item.value, 0);
+  const spec: VisualizationSpec = {
+    data: {
+      name: 'items',
+    },
+    mark: {
+      type: 'arc',
+      innerRadius,
+    },
+    encoding: {
+      theta: {
+        field: 'value',
+        type: 'quantitative',
+      },
+      color: {
+        field: 'color',
+        type: 'nominal',
+        legend: null,
+        scale: {
+          domain: items.map(({ color }) => color),
+          range: items.map(({ color }) => color),
+        },
+      },
+    },
+    view: {
+      stroke: null,
+    },
+  };
 
-    return (
+  return (
+    <div className="donut-chart">
       <div className="legend">
         {items.map(
           (
@@ -68,57 +95,11 @@ class DonutChart extends PureComponent<Props> {
           },
         )}
       </div>
-    );
-  }
-  renderChart(items: Item[], chartSize: number, innerRadiusFactor: number) {
-    const innerRadius = chartSize * innerRadiusFactor;
-
-    const data = {
-      items,
-    };
-    const spec: VisualizationSpec = {
-      data: {
-        name: 'items',
-      },
-      mark: {
-        type: 'arc',
-        innerRadius,
-      },
-      encoding: {
-        theta: {
-          field: 'value',
-          type: 'quantitative',
-        },
-        color: {
-          field: 'color',
-          type: 'nominal',
-          legend: null,
-          scale: {
-            domain: items.map(({ color }) => color),
-            range: items.map(({ color }) => color),
-          },
-        },
-      },
-      view: {
-        stroke: null,
-      },
-    };
-    return (
       <div className="chart">
         <BaseChart width={chartSize} height={chartSize} spec={spec} data={data} />
       </div>
-    );
-  }
-  render() {
-    const { items, chartSize, innerRadiusFactor } = this.props;
-
-    return (
-      <div className="donut-chart">
-        {this.renderLegend(items)}
-        {this.renderChart(items, chartSize, innerRadiusFactor)}
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default DonutChart;

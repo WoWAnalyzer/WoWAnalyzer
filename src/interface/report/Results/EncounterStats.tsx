@@ -1,14 +1,12 @@
 import { Trans } from '@lingui/react/macro';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
 import ROLES from 'game/ROLES';
 import { ItemLink } from 'interface';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import Icon from 'interface/Icon';
 import Combatant from 'parser/core/Combatant';
-import { PureComponent, ReactNode } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import Config from 'parser/Config';
 import { WCLRanking, WCLRankingGear, WCLRankingsResponse } from 'common/WCL_TYPES';
 import getItemQualityFromLabel from 'common/getItemQualityFromLabel';
@@ -31,50 +29,122 @@ interface Props {
   combatant: Combatant;
 }
 
-// TODO: Figure out new talents
-interface State {
-  // mostUsedTalents: WCLRankingTalent[];
-  mostUsedTrinkets: WCLRankingGearWithAmount[];
-  similiarKillTimes: KillTime[];
-  closestKillTimes: KillTime[];
-  rankingsCount: number;
-  items: typeof ITEMS;
-  spells: typeof SPELLS;
-  loaded: boolean;
-  message: ReactNode;
-}
-
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
  */
-class EncounterStats extends PureComponent<Props, State> {
-  LIMIT = 100; //Currently does nothing but if Kihra reimplements it'd be nice to have
-  SHOW_TOP_ENTRYS = 6;
-  SHOW_CLOSEST_KILL_TIME_LOGS = 10;
-  metric: 'dps' | 'hps' = 'dps';
-  amountOfParses = 0;
-  durationVariancePercentage = 0.2; //Marked in % to allow for similiar filtering on long/short fights
+const EncounterStats = ({ config, currentBoss, difficulty, duration, combatant }: Props) => {
+  const [mostUsedTrinkets, setMostUsedTrinkets] = useState<WCLRankingGearWithAmount[]>([]);
+  const [similiarKillTimes, setSimiliarKillTimes] = useState<KillTime[]>([]);
+  const [closestKillTimes, setClosestKillTimes] = useState<KillTime[]>([]);
+  const [rankingsCount, setRankingsCount] = useState<number>(0);
+  const [loaded, setLoaded] = useState(false);
+  const [message, setMessage] = useState<ReactNode>('Loading statistics...');
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      // TODO: Figure out new talents
-      // mostUsedTalents: [],
-      mostUsedTrinkets: [],
-      similiarKillTimes: [],
-      closestKillTimes: [],
-      rankingsCount: 0,
-      items: ITEMS,
-      spells: SPELLS,
-      loaded: false,
-      message: 'Loading statistics...',
+  useEffect(() => {
+    const load = () => {
+      switch (config.spec?.role) {
+        case ROLES.HEALER:
+          metric.current = 'hps';
+          break;
+
+        default:
+          metric.current = 'dps';
+          break;
+      }
+
+      const now = new Date();
+      const onejan = new Date(now.getFullYear(), 0, 1);
+      const currentWeek = Math.ceil(
+        ((now.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7,
+      ); // current calendar-week
+
+      return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${currentBoss}`, {
+        className: config.spec.wclClassName,
+        specName: config.spec.wclSpecName,
+        difficulty: difficulty,
+        limit: LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
+        metric: metric.current,
+        cache: currentWeek, // cache for a week
+        includeCombatantInfo: true,
+      })
+        .then((stats) => {
+          // TODO: Figure out new talents
+          // const talentCounter = [[], [], [], [], [], [], []];
+          // const talents: WCLRankingTalent[] = [];
+          let trinkets: WCLRankingGearWithAmount[] = [];
+          const similiarKillTimes: KillTime[] = []; // These are the reports within the defined variance of the analyzed log
+          const closestKillTimes: KillTime[] = []; // These are the reports closest to the analyzed log regardless of it being within variance or not
+          const combatantName = combatant._combatantInfo.name;
+
+          stats.rankings.forEach((rank) => {
+            rank.gear.forEach((item, itemSlot) => {
+              if (itemSlot === 12 || itemSlot === 13) {
+                trinkets = addItem(trinkets, item);
+              }
+            });
+
+            if (!rank.name.match(combatantName)) {
+              if (
+                duration > rank.duration * (1 - durationVariancePercentage.current) &&
+                duration < rank.duration * (1 + durationVariancePercentage.current)
+              ) {
+                similiarKillTimes.push({
+                  rank,
+                  variance:
+                    rank.duration - duration > 0
+                      ? rank.duration - duration
+                      : duration - rank.duration,
+                });
+              }
+              closestKillTimes.push({
+                rank,
+                variance:
+                  rank.duration - duration > 0
+                    ? rank.duration - duration
+                    : duration - rank.duration,
+              });
+            }
+          });
+
+          // TODO: Figure out new talents
+          // talentCounter.forEach((row) => {
+          //   const talentRow = row.reduce((prev, cur) => {
+          //     prev[cur] = (prev[cur] || 0) + 1;
+          //     return prev;
+          //   }, {});
+          //   talents.push(talentRow);
+          // });
+
+          trinkets.sort((a, b) => (a.amount < b.amount ? 1 : b.amount < a.amount ? -1 : 0));
+
+          similiarKillTimes.sort((a, b) => a.variance - b.variance);
+
+          closestKillTimes.sort((a, b) => a.variance - b.variance);
+
+          setMostUsedTrinkets(trinkets.slice(0, SHOW_TOP_ENTRYS));
+          setSimiliarKillTimes(similiarKillTimes.slice(0, SHOW_CLOSEST_KILL_TIME_LOGS));
+          setClosestKillTimes(closestKillTimes.slice(0, SHOW_CLOSEST_KILL_TIME_LOGS));
+          setLoaded(true);
+          setRankingsCount(stats.rankings.length);
+        })
+        .catch(() => {
+          setMessage(
+            <Trans id="interface.report.results.encounterStats.eeek">Something went wrong.</Trans>,
+          );
+        });
     };
 
-    this.load = this.load.bind(this);
-    this.load();
-  }
+    load();
+  }, []);
 
-  addItem(array: WCLRankingGearWithAmount[], item: WCLRankingGear) {
+  const LIMIT = 100; //Currently does nothing but if Kihra reimplements it'd be nice to have
+  const SHOW_TOP_ENTRYS = 6;
+  const SHOW_CLOSEST_KILL_TIME_LOGS = 10;
+  const metric = useRef<'dps' | 'hps'>('dps');
+  const amountOfParses = useRef(0);
+  const durationVariancePercentage = useRef(0.2); //Marked in % to allow for similiar filtering on long/short fights
+
+  const addItem = (array: WCLRankingGearWithAmount[], item: WCLRankingGear) => {
     //add item to array or increase amount by one if it exists
     if (item.id === null || item.id === 0) {
       return array;
@@ -93,106 +163,9 @@ class EncounterStats extends PureComponent<Props, State> {
     }
 
     return array;
-  }
+  };
 
-  load() {
-    switch (this.props.config.spec?.role) {
-      case ROLES.HEALER:
-        this.metric = 'hps';
-        break;
-
-      default:
-        this.metric = 'dps';
-        break;
-    }
-
-    const now = new Date();
-    const onejan = new Date(now.getFullYear(), 0, 1);
-    const currentWeek = Math.ceil(
-      ((now.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7,
-    ); // current calendar-week
-
-    return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${this.props.currentBoss}`, {
-      className: this.props.config.spec.wclClassName,
-      specName: this.props.config.spec.wclSpecName,
-      difficulty: this.props.difficulty,
-      limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
-      metric: this.metric,
-      cache: currentWeek, // cache for a week
-      includeCombatantInfo: true,
-    })
-      .then((stats) => {
-        // TODO: Figure out new talents
-        // const talentCounter = [[], [], [], [], [], [], []];
-        // const talents: WCLRankingTalent[] = [];
-        let trinkets: WCLRankingGearWithAmount[] = [];
-        const similiarKillTimes: KillTime[] = []; // These are the reports within the defined variance of the analyzed log
-        const closestKillTimes: KillTime[] = []; // These are the reports closest to the analyzed log regardless of it being within variance or not
-        const combatantName = this.props.combatant._combatantInfo.name;
-
-        stats.rankings.forEach((rank) => {
-          rank.gear.forEach((item, itemSlot) => {
-            if (itemSlot === 12 || itemSlot === 13) {
-              trinkets = this.addItem(trinkets, item);
-            }
-          });
-
-          if (!rank.name.match(combatantName)) {
-            if (
-              this.props.duration > rank.duration * (1 - this.durationVariancePercentage) &&
-              this.props.duration < rank.duration * (1 + this.durationVariancePercentage)
-            ) {
-              similiarKillTimes.push({
-                rank,
-                variance:
-                  rank.duration - this.props.duration > 0
-                    ? rank.duration - this.props.duration
-                    : this.props.duration - rank.duration,
-              });
-            }
-            closestKillTimes.push({
-              rank,
-              variance:
-                rank.duration - this.props.duration > 0
-                  ? rank.duration - this.props.duration
-                  : this.props.duration - rank.duration,
-            });
-          }
-        });
-
-        // TODO: Figure out new talents
-        // talentCounter.forEach((row) => {
-        //   const talentRow = row.reduce((prev, cur) => {
-        //     prev[cur] = (prev[cur] || 0) + 1;
-        //     return prev;
-        //   }, {});
-        //   talents.push(talentRow);
-        // });
-
-        trinkets.sort((a, b) => (a.amount < b.amount ? 1 : b.amount < a.amount ? -1 : 0));
-
-        similiarKillTimes.sort((a, b) => a.variance - b.variance);
-
-        closestKillTimes.sort((a, b) => a.variance - b.variance);
-
-        this.setState({
-          mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
-          similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
-          closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
-          loaded: true,
-          rankingsCount: stats.rankings.length,
-        });
-      })
-      .catch(() => {
-        this.setState({
-          message: (
-            <Trans id="interface.report.results.encounterStats.eeek">Something went wrong.</Trans>
-          ),
-        });
-      });
-  }
-
-  singleItem(item: WCLRankingGearWithAmount) {
+  const singleItem = (item: WCLRankingGearWithAmount) => {
     return (
       <div
         key={item.id}
@@ -204,7 +177,7 @@ class EncounterStats extends PureComponent<Props, State> {
             className="col-md-2"
             style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}
           >
-            {formatPercentage(item.amount / this.amountOfParses, 0)}%
+            {formatPercentage(item.amount / amountOfParses.current, 0)}%
           </div>
           <div className="col-md-10">
             <ItemLink
@@ -227,9 +200,9 @@ class EncounterStats extends PureComponent<Props, State> {
         </div>
       </div>
     );
-  }
+  };
 
-  singleLog(log: WCLRanking) {
+  const singleLog = (log: WCLRanking) => {
     return (
       <div
         key={`${log.reportID}-${log.name}`}
@@ -247,7 +220,7 @@ class EncounterStats extends PureComponent<Props, State> {
                 {log.name} (
                 {'itemLevel' in log
                   ? log.itemLevel
-                  : this.props.difficulty !== DIFFICULTIES.MYTHIC_PLUS_DUNGEON
+                  : difficulty !== DIFFICULTIES.MYTHIC_PLUS_DUNGEON
                     ? log.bracketData
                     : undefined}
                 )
@@ -255,113 +228,107 @@ class EncounterStats extends PureComponent<Props, State> {
             </a>
             <div>
               {formatDuration(log.duration)} (
-              {log.duration > this.props.duration
-                ? ((log.duration - this.props.duration) / 1000).toFixed(1) + 's slower'
-                : ((this.props.duration - log.duration) / 1000).toFixed(1) + 's faster'}
+              {log.duration > duration
+                ? ((log.duration - duration) / 1000).toFixed(1) + 's slower'
+                : ((duration - log.duration) / 1000).toFixed(1) + 's faster'}
               )
             </div>
           </div>
           <div className="col-md-6">
-            {formatThousands('total' in log ? log.total : log.amount)} {this.metric}
+            {formatThousands('total' in log ? log.total : log.amount)} {metric.current}
           </div>
         </div>
       </div>
     );
-  }
+  };
 
-  get similiarLogs() {
+  const getSimiliarLogs = () => {
     return (
       <div
         className="col-md-12 flex-main"
         style={{ textAlign: 'left', margin: '5px auto' }}
         key="similiar-wcl-logs"
       >
-        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'}{' '}
-        {this.state.similiarKillTimes.length} of the top {this.amountOfParses}{' '}
-        {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that{' '}
-        {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within{' '}
-        {formatPercentage(this.durationVariancePercentage, 0)}% variance.
-        {this.state.similiarKillTimes.map((log) => this.singleLog(log.rank))}
+        {similiarKillTimes.length > 1 ? 'These are' : 'This is'} {similiarKillTimes.length} of the
+        top {amountOfParses.current} {similiarKillTimes.length > 1 ? 'logs' : 'log'} that{' '}
+        {similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within{' '}
+        {formatPercentage(durationVariancePercentage.current, 0)}% variance.
+        {similiarKillTimes.map((log) => singleLog(log.rank))}
       </div>
     );
-  }
+  };
 
-  get closestLogs() {
+  const getClosestLogs = () => {
     return (
       <div
         className="col-md-12 flex-main"
         style={{ textAlign: 'left', margin: '5px auto' }}
         key="closest-wcl-logs"
       >
-        {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'}{' '}
-        {this.state.closestKillTimes.length} of the top {this.amountOfParses}{' '}
-        {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that{' '}
-        {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large
-        differences won't be good for comparing.
-        {this.state.closestKillTimes.map((log) => this.singleLog(log.rank))}
+        {closestKillTimes.length > 1 ? 'These are' : 'This is'} {closestKillTimes.length} of the top{' '}
+        {amountOfParses.current} {closestKillTimes.length > 1 ? 'logs' : 'log'} that{' '}
+        {closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences
+        won't be good for comparing.
+        {closestKillTimes.map((log) => singleLog(log.rank))}
+      </div>
+    );
+  };
+
+  // TODO: Figure out new talents
+  // const rows = [15, 30, 45, 60, 75, 90, 100];
+  if (!loaded) {
+    return (
+      <div
+        className="panel-heading"
+        style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}
+      >
+        <ActivityIndicator text={message} />
       </div>
     );
   }
 
-  render() {
-    // TODO: Figure out new talents
-    // const rows = [15, 30, 45, 60, 75, 90, 100];
-    if (!this.state.loaded) {
-      return (
-        <div
-          className="panel-heading"
-          style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}
-        >
-          <ActivityIndicator text={this.state.message} />
-        </div>
-      );
-    }
-    // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
-    // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
-    this.amountOfParses = this.state.rankingsCount;
+  // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
+  // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
+  amountOfParses.current = rankingsCount;
 
-    return (
-      <>
-        <h1>
-          Statistics for this fight using the top {this.amountOfParses} logs, ranked by{' '}
-          {this.metric.toLocaleUpperCase()}
-        </h1>
+  return (
+    <>
+      <h1>
+        Statistics for this fight using the top {amountOfParses.current} logs, ranked by{' '}
+        {metric.current.toLocaleUpperCase()}
+      </h1>
 
-        <div className="row">
-          <div className="col-md-12" style={{ padding: '0 30px' }}>
-            <div className="row">
-              <div className="col-md-4">
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Trinkets</h2>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.mostUsedTrinkets.map((trinket) => this.singleItem(trinket))}
+      <div className="row">
+        <div className="col-md-12" style={{ padding: '0 30px' }}>
+          <div className="row">
+            <div className="col-md-4">
+              <div className="row" style={{ marginBottom: '1em' }}>
+                <div className="col-md-12">
+                  <h2>Most used Trinkets</h2>
                 </div>
               </div>
-              <div className="col-md-4">
-                <div className="row" style={{ marginBottom: '1em' }}>
-                  <div className="col-md-12">
-                    <h2>
-                      {this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times{' '}
-                    </h2>
-                  </div>
+              <div className="row" style={{ marginBottom: '2em' }}>
+                {mostUsedTrinkets.map((trinket) => singleItem(trinket))}
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="row" style={{ marginBottom: '1em' }}>
+                <div className="col-md-12">
+                  <h2>{similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times </h2>
                 </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.similiarKillTimes.length > 0 ? this.similiarLogs : ''}
-                  {this.state.similiarKillTimes.length === 0 &&
-                  this.state.closestKillTimes.length > 0
-                    ? this.closestLogs
-                    : ''}
-                </div>
+              </div>
+              <div className="row" style={{ marginBottom: '2em' }}>
+                {similiarKillTimes.length > 0 ? getSimiliarLogs() : ''}
+                {similiarKillTimes.length === 0 && closestKillTimes.length > 0
+                  ? getClosestLogs()
+                  : ''}
               </div>
             </div>
           </div>
         </div>
-      </>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
 
 export default EncounterStats;

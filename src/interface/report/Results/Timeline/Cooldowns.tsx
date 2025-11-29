@@ -1,7 +1,6 @@
 import Spell from 'common/SPELLS/Spell';
 import { AnyEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { PureComponent } from 'react';
 
 import './Cooldowns.scss';
 import Lane from './Lane';
@@ -20,42 +19,48 @@ interface Props {
   exactlySpells?: Spell[];
 }
 
-class Cooldowns extends PureComponent<Props> {
-  getSortIndex([spellId, events]: [number, AnyEvent[]]) {
-    const ability = this.props.abilities.getAbility(spellId);
+const Cooldowns = ({
+  start,
+  end,
+  secondWidth,
+  eventsBySpellId,
+  abilities,
+  exactlySpells,
+}: Props) => {
+  const getSortIndex = ([spellId, events]: [number, AnyEvent[]]) => {
+    const ability = abilities.getAbility(spellId);
+
     if (!ability?.timelineSortIndex) {
       return 1000 - events.length;
-    } else {
-      return ability.timelineSortIndex;
     }
-  }
+    return ability.timelineSortIndex;
+  };
 
-  renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
+  const renderLanes = (eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) => {
     const entries: [number, AnyEvent[]][] =
-      this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
+      exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
     return entries
-      .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
-      .map((item) => this.renderLane(item));
-  }
-  renderLane([spellId, events]: [number, AnyEvent[]]) {
+      .sort((a, b) => getSortIndex(growUp ? b : a) - getSortIndex(growUp ? a : b))
+      .map((item) => renderLane(item));
+  };
+
+  const renderLane = ([spellId, events]: [number, AnyEvent[]]) => {
     return (
       <Lane
         key={spellId}
-        spell={this.props.exactlySpells?.find((spell) => spell.id === spellId)}
-        fightStartTimestamp={this.props.start}
-        fightEndTimestamp={this.props.end}
-        secondWidth={this.props.secondWidth}
-        castableBuff={this.props.abilities.getAbility(spellId)?.timelineCastableBuff}
+        spell={exactlySpells?.find((spell) => spell.id === spellId)}
+        fightStartTimestamp={start}
+        fightEndTimestamp={end}
+        secondWidth={secondWidth}
+        castableBuff={abilities.getAbility(spellId)?.timelineCastableBuff}
       >
         {events}
       </Lane>
     );
-  }
-  render() {
-    const { eventsBySpellId } = this.props;
-    return <div className="cooldowns">{this.renderLanes(eventsBySpellId, false)}</div>;
-  }
-}
+  };
+
+  return <div className="cooldowns">{renderLanes(eventsBySpellId, false)}</div>;
+};
 
 export default Cooldowns;

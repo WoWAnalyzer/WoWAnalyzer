@@ -4,7 +4,7 @@ import UpArrow from 'interface/icons/UpArrow';
 import SpellIcon from 'interface/SpellIcon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
-import { PureComponent, ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   switch (importance) {
@@ -31,46 +31,34 @@ interface Props extends Omit<Issue, 'issue'> {
   children: ReactNode;
 }
 
-class Suggestion extends PureComponent<Props, { expanded: boolean }> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
+const Suggestion = ({ children, icon, spell, stat, importance, details }: Props) => {
+  const [expanded, setExpanded] = useState(false);
 
-  handleClick() {
-    this.setState((state) => ({
-      expanded: !state.expanded,
-    }));
-  }
+  const handleClick = () => {
+    setExpanded(!expanded);
+  };
 
-  render() {
-    const { children, icon, spell, stat, importance, details } = this.props;
-
-    return (
-      <>
-        <li
-          className={`item ${importance || ''} ${details ? 'clickable' : ''}`}
-          onClick={details ? this.handleClick : undefined}
-        >
-          <div className="icon">
-            {icon ? <Icon icon={icon} alt="Icon" /> : spell ? <SpellIcon spell={spell} /> : null}
-          </div>
-          <div className="suggestion">
-            {children}
-            {stat && <small>{stat}</small>}
-          </div>
-          <div className="importance">
-            {/* element needed for vertical alignment */}
-            <div>{getIssueImportance(importance)}</div>
-          </div>
-        </li>
-        {this.state.expanded && details && <li>{details()}</li>}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <li
+        className={`item ${importance || ''} ${details ? 'clickable' : ''}`}
+        onClick={details ? handleClick : undefined}
+      >
+        <div className="icon">
+          {icon ? <Icon icon={icon} alt="Icon" /> : spell ? <SpellIcon spell={spell} /> : null}
+        </div>
+        <div className="suggestion">
+          {children}
+          {stat && <small>{stat}</small>}
+        </div>
+        <div className="importance">
+          {/* element needed for vertical alignment */}
+          <div>{getIssueImportance(importance)}</div>
+        </div>
+      </li>
+      {expanded && details && <li>{details()}</li>}
+    </>
+  );
+};
 
 export default Suggestion;

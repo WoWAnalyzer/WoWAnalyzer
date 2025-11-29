@@ -10,7 +10,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import DeathRecap from './DeathRecap';
+import DeathRecap from './DeathRecap.tsx';
 import DEFENSIVE_BUFFS from './DEFENSIVE_BUFFS';
 
 class DeathRecapTracker extends Analyzer {

@@ -6,7 +6,6 @@ import { ItemLink, SpellLink } from 'interface';
 import Icon from 'interface/Icon';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import SpellIcon from 'interface/SpellIcon';
-import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
@@ -44,23 +43,39 @@ export interface Parse {
   advanced: boolean;
 }
 
-interface CharacterParsesListProps {
+interface Props {
   parses: Parse[];
-  class: string;
+  classType: string; // class is a reserved word
   metric: string;
   isClassic: boolean;
 }
 
-class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
-  iconPath(specName: string) {
-    return `/specs/${this.props.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
-  }
+const CharacterParsesList = ({ parses, classType, metric, isClassic }: Props) => {
+  const iconPath = (specName: string) => {
+    return `/specs/${classType.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
+  };
 
-  itemFilter(item: Item, index: number) {
+  const itemFilter = (item: Item, index: number) => {
     return TRINKET_SLOTS.includes(index);
-  }
+  };
 
-  renderItem(item: Item) {
+  const formatPerformance = (elem: Parse) => {
+    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(
+      elem.historical_percent / 100,
+      0,
+    )}%)`;
+  };
+
+  const RetailTalentIcon = (value: ParseTalentEntry | Spell): JSX.Element | null => {
+    if ('id' in value) {
+      return <SpellIcon spell={value} />;
+    }
+
+    const spell = getTalentFromEntry({ id: value.entryID });
+    return spell ? <SpellIcon spell={spell} /> : null;
+  };
+
+  const renderItem = (item: Item) => {
     return (
       <ItemLink key={item.id} id={item.id} className={item.quality.toString()} icon={false}>
         <Icon
@@ -72,28 +87,15 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
         />
       </ItemLink>
     );
-  }
+  };
 
-  formatPerformance(elem: Parse) {
-    const { metric } = this.props;
-    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(
-      elem.historical_percent / 100,
-      0,
-    )}%)`;
-  }
-
-  render() {
-    const { parses } = this.props;
-    let detailIcons: (elem: Parse) => JSX.Element;
-
-    if (this.props.isClassic) {
-      detailIcons = (elem: Parse) => (
+  const detailIcons = isClassic
+    ? (elem: Parse) => (
         <div className="col-md-2 text-center">
-          {elem.advanced && elem.gear.filter(this.itemFilter).map(this.renderItem)}
+          {elem.advanced && elem.gear.filter(itemFilter).map(renderItem)}
         </div>
-      );
-    } else {
-      detailIcons = (elem: Parse) => (
+      )
+    : (elem: Parse) => (
         <div className="col-md-4 flex wrapable">
           {elem.advanced &&
             Array.isArray(elem.talents) &&
@@ -104,65 +106,55 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
             ))}
         </div>
       );
-    }
-    return (
-      <ul className="list parses-list">
-        {parses.map((elem) => {
-          const url = makePlainUrl(
-            elem.report_code,
-            elem.report_fight.toString(),
-            elem.difficulty + ' ' + elem.name,
-            elem.advanced ? elem.character_name : '',
-          );
-          return (
-            <li key={url}>
-              <Link to={url}>
-                <div className="row">
-                  <div className="col-md-4" style={{ color: 'white' }}>
-                    <div>
-                      <img className="spec-icon" src={this.iconPath(elem.spec)} alt={elem.spec} />
-                      <span className="difficulty">{getDifficultyLabel(elem.difficulty)}</span>
-                      <span className="boss">{elem.name}</span>
-                    </div>
-                  </div>
-                  {this.props.isClassic && (
-                    <div className="col-md-2 text-center" style={{ color: 'white' }}>
-                      {elem.advanced && elem.size} Player
-                    </div>
-                  )}
-                  <div className="col-md-2 text-right">
-                    <div className={rankingColor(elem.historical_percent / 100)}>
-                      {this.formatPerformance(elem)}
-                    </div>
-                  </div>
-                  {detailIcons(elem)}
-                  <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
-                    {new Date(elem.start_time).toLocaleDateString()}
-                    {elem.advanced && (
-                      <span
-                        className="glyphicon glyphicon-chevron-right"
-                        aria-hidden="true"
-                        style={{ marginLeft: 10 }}
-                      />
-                    )}
+
+  return (
+    <ul className="list parses-list">
+      {parses.map((elem) => {
+        const url = makePlainUrl(
+          elem.report_code,
+          elem.report_fight.toString(),
+          elem.difficulty + ' ' + elem.name,
+          elem.advanced ? elem.character_name : '',
+        );
+        return (
+          <li key={url}>
+            <Link to={url}>
+              <div className="row">
+                <div className="col-md-4" style={{ color: 'white' }}>
+                  <div>
+                    <img className="spec-icon" src={iconPath(elem.spec)} alt={elem.spec} />
+                    <span className="difficulty">{getDifficultyLabel(elem.difficulty)}</span>
+                    <span className="boss">{elem.name}</span>
                   </div>
                 </div>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-}
-
-function RetailTalentIcon(value: ParseTalentEntry | Spell): JSX.Element | null {
-  if ('id' in value) {
-    return <SpellIcon spell={value} />;
-  }
-
-  const spell = getTalentFromEntry({ id: value.entryID });
-  return spell ? <SpellIcon spell={spell} /> : null;
-}
+                {isClassic && (
+                  <div className="col-md-2 text-center" style={{ color: 'white' }}>
+                    {elem.advanced && elem.size} Player
+                  </div>
+                )}
+                <div className="col-md-2 text-right">
+                  <div className={rankingColor(elem.historical_percent / 100)}>
+                    {formatPerformance(elem)}
+                  </div>
+                </div>
+                {detailIcons(elem)}
+                <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
+                  {new Date(elem.start_time).toLocaleDateString()}
+                  {elem.advanced && (
+                    <span
+                      className="glyphicon glyphicon-chevron-right"
+                      aria-hidden="true"
+                      style={{ marginLeft: 10 }}
+                    />
+                  )}
+                </div>
+              </div>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 export default CharacterParsesList;

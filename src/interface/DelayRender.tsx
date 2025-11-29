@@ -7,7 +7,7 @@ interface Props {
   fallback?: React.ReactNode;
 }
 
-const DelayRender = ({ delay, children, fallback }: Props) => {
+const DelayRender = ({ delay, children, fallback }: Props): React.ReactElement | null => {
   const [timerExpired, setTimerExpired] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const DelayRender = ({ delay, children, fallback }: Props) => {
   }, [delay]);
 
   if (!timerExpired) {
-    return fallback ? fallback : null;
+    return fallback ? <>{fallback}</> : null;
   }
 
   return <>{children}</>;

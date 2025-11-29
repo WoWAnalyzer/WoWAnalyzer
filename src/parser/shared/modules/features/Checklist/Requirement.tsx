@@ -27,17 +27,25 @@ interface Props {
   fullWidth?: boolean;
 }
 
-class Requirement extends React.PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
-    props.setPerformance(this.performance);
-  }
+export const Requirement = ({
+  name,
+  thresholds,
+  tooltip,
+  valueTooltip,
+  setPerformance,
+  prefix,
+  suffix,
+  fullWidth,
+}: Props) => {
+  const performance = performanceForThresholds(thresholds);
+  setPerformance(performance);
 
-  get performance() {
-    return performanceForThresholds(this.props.thresholds);
-  }
+  const max =
+    (thresholds as NumberThreshold).max !== undefined
+      ? `/ ${(thresholds as NumberThreshold).max}`
+      : undefined;
 
-  formatThresholdsActual(thresholds: Threshold<any>) {
+  const formatThresholdsActual = (thresholds: Threshold<any>) => {
     switch (thresholds.style) {
       case ThresholdStyle.PERCENTAGE:
         return `${formatPercentage(thresholds.actual)}%`;
@@ -58,65 +66,55 @@ class Requirement extends React.PureComponent<Props> {
       default:
         throw new Error(`Unknown style: ${thresholds.style}`);
     }
-  }
+  };
 
-  render() {
-    const { name, thresholds, tooltip, valueTooltip, prefix, suffix, fullWidth } = this.props;
+  const actual = (
+    <>
+      {prefix} {formatThresholdsActual(thresholds)} {max} {suffix}
+    </>
+  );
 
-    const performance = this.performance;
-    let max = undefined;
-    const thresholdsN = thresholds as NumberThreshold;
-    if (thresholdsN.max !== undefined) {
-      max = `/ ${thresholdsN.max}`;
-    }
-    const actual = (
-      <>
-        {prefix} {this.formatThresholdsActual(thresholds)} {max} {suffix}
-      </>
-    );
-
-    return (
-      <div className={fullWidth ? 'col-md-12' : 'col-md-6'}>
-        <div className="flex">
-          <div className="flex-main">{name}</div>
-          {tooltip && (
-            <div className="flex-sub content-middle" style={{ marginLeft: 10 }}>
-              <Tooltip content={tooltip}>
-                <div>
-                  <InformationIcon />
-                </div>
-              </Tooltip>
-            </div>
-          )}
-          <div
-            className="flex-sub content-middle text-muted"
-            style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}
-          >
-            <div className="text-right" style={{ width: '100%' }}>
-              {valueTooltip ? (
-                <TooltipElement content={valueTooltip}>{actual}</TooltipElement>
-              ) : (
-                actual
-              )}
-            </div>
+  return (
+    <div className={fullWidth ? 'col-md-12' : 'col-md-6'}>
+      <div className="flex">
+        <div className="flex-main">{name}</div>
+        {tooltip && (
+          <div className="flex-sub content-middle" style={{ marginLeft: 10 }}>
+            <Tooltip content={tooltip}>
+              <div>
+                <InformationIcon />
+              </div>
+            </Tooltip>
           </div>
-          <div className="flex-sub content-middle" style={{ width: 50 }}>
-            <div className="performance-bar-container">
-              <div
-                className="performance-bar small"
-                style={{
-                  width: `${performance * 100}%`,
-                  transition: 'background-color 800ms',
-                  backgroundColor: colorForPerformance(performance),
-                }}
-              />
-            </div>
+        )}
+        <div
+          className="flex-sub content-middle text-muted"
+          style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}
+        >
+          <div className="text-right" style={{ width: '100%' }}>
+            {valueTooltip ? (
+              <TooltipElement content={valueTooltip}>{actual}</TooltipElement>
+            ) : (
+              actual
+            )}
+          </div>
+        </div>
+        <div className="flex-sub content-middle" style={{ width: 50 }}>
+          <div className="performance-bar-container">
+            <div
+              className="performance-bar small"
+              style={{
+                width: `${performance * 100}%`,
+                transition: 'background-color 800ms',
+                backgroundColor: colorForPerformance(performance),
+              }}
+            />
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default (props: Omit<Props, 'setPerformance'>) => (
   <RuleContext.Consumer>

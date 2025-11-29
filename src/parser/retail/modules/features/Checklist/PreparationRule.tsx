@@ -3,16 +3,15 @@ import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import { PureComponent, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-interface PreparationRuleProps {
+interface Props {
   children?: ReactNode;
   thresholds: Record<string, RequirementThresholds>;
 }
-class PreparationRule extends PureComponent<PreparationRuleProps> {
-  renderPotionRequirements() {
-    const { thresholds } = this.props;
 
+const PreparationRule = ({ children, thresholds }: Props) => {
+  const renderPotionRequirements = () => {
     return (
       <>
         <Requirement
@@ -33,10 +32,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
         />
       </>
     );
-  }
-  renderEnchantRequirements() {
-    const { thresholds } = this.props;
+  };
 
+  const renderEnchantRequirements = () => {
     return (
       <>
         <Requirement
@@ -53,10 +51,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
         />
       </>
     );
-  }
-  renderWeaponEnhancementRequirements() {
-    const { thresholds } = this.props;
+  };
 
+  const renderWeaponEnhancementRequirements = () => {
     return (
       <>
         <Requirement
@@ -77,9 +74,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
         />
       </>
     );
-  }
-  renderFlaskRequirements() {
-    const { thresholds } = this.props;
+  };
+
+  const renderFlaskRequirements = () => {
     return (
       <>
         <Requirement
@@ -94,9 +91,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
         />
       </>
     );
-  }
-  renderFoodRequirements() {
-    const { thresholds } = this.props;
+  };
+
+  const renderFoodRequirements = () => {
     return (
       <>
         <Requirement
@@ -111,9 +108,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
         />
       </>
     );
-  }
-  renderAugmentRuneRequirements() {
-    const { thresholds } = this.props;
+  };
+
+  const renderAugmentRuneRequirements = () => {
     return (
       <>
         <Requirement
@@ -122,31 +119,27 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
         />
       </>
     );
-  }
+  };
 
-  render() {
-    const { children } = this.props;
-
-    return (
-      <Rule
-        name={<Trans id="shared.modules.features.checklist.wellPrepared">Be well prepared</Trans>}
-        description={
-          <Trans id="shared.modules.features.checklist.wellPreparedDetails">
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve
-            your performance.
-          </Trans>
-        }
-      >
-        {this.renderEnchantRequirements()}
-        {this.renderWeaponEnhancementRequirements()}
-        {this.renderPotionRequirements()}
-        {this.renderFlaskRequirements()}
-        {this.renderFoodRequirements()}
-        {this.renderAugmentRuneRequirements()}
-        {children}
-      </Rule>
-    );
-  }
-}
+  return (
+    <Rule
+      name={<Trans id="shared.modules.features.checklist.wellPrepared">Be well prepared</Trans>}
+      description={
+        <Trans id="shared.modules.features.checklist.wellPreparedDetails">
+          Being well prepared with food, flasks, potions and enchants is an easy way to improve your
+          performance.
+        </Trans>
+      }
+    >
+      {renderEnchantRequirements()}
+      {renderWeaponEnhancementRequirements()}
+      {renderPotionRequirements()}
+      {renderFlaskRequirements()}
+      {renderFoodRequirements()}
+      {renderAugmentRuneRequirements()}
+      {children}
+    </Rule>
+  );
+};
 
 export default PreparationRule;

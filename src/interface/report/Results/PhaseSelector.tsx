@@ -4,6 +4,7 @@ import Fight from 'parser/core/Fight';
 import * as React from 'react';
 
 import './PhaseSelector.scss';
+import { useEffect, useState } from 'react';
 
 const INSTANCE_SEPARATOR = '_INSTANCE_';
 
@@ -16,10 +17,6 @@ interface Props {
   isLoading: boolean;
 }
 
-interface State {
-  phases: Record<string, PhaseSelection>;
-}
-
 interface PhaseSelection {
   name: string;
   key: string;
@@ -28,35 +25,46 @@ interface PhaseSelection {
   multiple?: boolean;
 }
 
-class PhaseSelector extends React.PureComponent<Props, State> {
-  private phaseRef: React.RefObject<HTMLSelectElement>;
+const PhaseSelector = ({
+  fight,
+  phases,
+  selectedPhase,
+  selectedInstance,
+  handlePhaseSelection,
+  isLoading,
+}: Props) => {
+  const [phasesState, setPhasesState] = useState<Record<string, PhaseSelection>>(() =>
+    buildPhases(),
+  );
 
-  constructor(args: Props) {
-    super(args);
-    this.state = { phases: this.buildPhases() };
-    this.phaseRef = React.createRef<HTMLSelectElement>();
-    this.handleChange = this.handleChange.bind(this);
-  }
+  useEffect(() => {
+    setPhasesState(buildPhases());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phases]);
 
-  handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const selectedPhase = this.state.phases[e.target.value];
+  const phaseRef = React.useRef<HTMLSelectElement>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedPhase = phasesState[e.target.value];
+
     if (selectedPhase) {
-      this.props.handlePhaseSelection(selectedPhase.key, selectedPhase.instance);
+      handlePhaseSelection(selectedPhase.key, selectedPhase.instance);
     } else {
-      this.props.handlePhaseSelection(SELECTION_ALL_PHASES, 0);
+      handlePhaseSelection(SELECTION_ALL_PHASES, 0);
     }
-  }
+  };
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases(): Record<string, PhaseSelection> {
-    const phases: PhaseSelection[] = [];
-    Object.keys(this.props.phases).forEach((key) => {
-      const phase = this.props.phases[key];
+  const buildPhases = (): Record<string, PhaseSelection> => {
+    const builtPhases: PhaseSelection[] = [];
+    Object.keys(phases).forEach((key) => {
+      const phase = phases[key as keyof typeof phases];
+
       if (phase.start.length !== phase.end.length) {
-        phases.push({ name: phase.name, key: key, start: phase.start![0], instance: 0 });
+        builtPhases.push({ name: phase.name, key: key, start: phase.start![0], instance: 0 });
       } else {
-        phases.push(
+        builtPhases.push(
           ...phase.start!.map((start, index) => ({
             name: phase.name,
             key,
@@ -67,59 +75,48 @@ class PhaseSelector extends React.PureComponent<Props, State> {
         );
       }
     });
-    phases.sort((a, b) => a.start - b.start);
-    return phases.reduce(
+
+    builtPhases.sort((a, b) => a.start - b.start);
+
+    return builtPhases.reduce(
       (obj, phase) => ({
         ...obj,
         [phase.key + INSTANCE_SEPARATOR + phase.instance]: phase,
       }),
       {},
     );
-  }
+  };
 
-  //if phase information changed, build new dictionary of phase selection
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.phases !== prevProps.phases) {
-      this.setState({
-        phases: this.buildPhases(),
-      });
-    }
-  }
-
-  render() {
-    const { selectedPhase, selectedInstance, fight } = this.props;
-    const phases = this.state.phases;
-    return (
-      <select
-        className="form-control phase"
-        value={
-          fight.filtered && !fight.phase
-            ? SELECTION_CUSTOM_PHASE
-            : selectedPhase === SELECTION_ALL_PHASES
-              ? SELECTION_ALL_PHASES
-              : selectedPhase + INSTANCE_SEPARATOR + selectedInstance
-        }
-        onChange={this.handleChange}
-        ref={this.phaseRef}
-        disabled={this.props.isLoading}
-      >
-        {fight.filtered && !fight.phase && (
-          <option key="custom" value={SELECTION_CUSTOM_PHASE}>
-            Custom
-          </option>
-        )}
-        <option key="all" value={SELECTION_ALL_PHASES}>
-          All Phases
+  return (
+    <select
+      className="form-control phase"
+      value={
+        fight.filtered && !fight.phase
+          ? SELECTION_CUSTOM_PHASE
+          : selectedPhase === SELECTION_ALL_PHASES
+            ? SELECTION_ALL_PHASES
+            : selectedPhase + INSTANCE_SEPARATOR + selectedInstance
+      }
+      onChange={handleChange}
+      ref={phaseRef}
+      disabled={isLoading}
+    >
+      {fight.filtered && !fight.phase && (
+        <option key="custom" value={SELECTION_CUSTOM_PHASE}>
+          Custom
         </option>
-        {Object.keys(phases).map((key) => (
-          <option key={key} value={key}>
-            {phases[key].name}
-            {phases[key].multiple ? ' ' + (phases[key].instance + 1) : ''}
-          </option>
-        ))}
-      </select>
-    );
-  }
-}
+      )}
+      <option key="all" value={SELECTION_ALL_PHASES}>
+        All Phases
+      </option>
+      {Object.keys(phasesState).map((key) => (
+        <option key={key} value={key}>
+          {phasesState[key].name}
+          {phasesState[key].multiple ? ' ' + (phasesState[key].instance + 1) : ''}
+        </option>
+      ))}
+    </select>
+  );
+};
 
 export default PhaseSelector;

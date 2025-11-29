@@ -2,8 +2,7 @@ import { Tooltip } from 'interface';
 import InfoIcon from 'interface/icons/Info';
 import DrilldownIcon from 'interface/icons/Link';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { CSSProperties, MouseEventHandler, ReactNode } from 'react';
-import * as React from 'react';
+import { CSSProperties, MouseEventHandler, ReactNode, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Statistic.scss';
@@ -40,112 +39,94 @@ interface Props {
   onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
-  static defaultProps = {
-    size: 'standard',
-    wide: false,
-    ultrawide: false,
-    className: '',
+const Statistic = ({
+  children,
+  wide,
+  ultrawide,
+  tooltip,
+  size,
+  drilldown,
+  className,
+  dropdown,
+  expanded: controlledExpanded,
+  ...others
+}: Props) => {
+  const [internalExpanded, setInternalExpanded] = useState(controlledExpanded);
+
+  useEffect(() => {
+    if (controlledExpanded !== undefined) {
+      setInternalExpanded(controlledExpanded);
+    }
+  }, [controlledExpanded]);
+
+  const expanded = controlledExpanded ?? internalExpanded;
+
+  const toggleExpansion = () => {
+    setInternalExpanded(!expanded);
   };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      expanded: props.expanded,
-    };
+  const isAbsolute = drilldown?.includes('://');
 
-    this.toggleExpansion = this.toggleExpansion.bind(this);
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.expanded !== this.props.expanded) {
-      this.setState({
-        expanded: this.props.expanded,
-      });
-    }
-  }
-
-  toggleExpansion() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
-  }
-
-  renderDrilldown(drilldown: string) {
-    const isAbsolute = drilldown.includes('://');
-
-    return (
-      <div className="drilldown">
-        <Tooltip content="Drill down">
-          {isAbsolute ? (
-            <a href={drilldown} target="_blank" rel="noopener noreferrer">
-              <DrilldownIcon />
-            </a>
-          ) : (
-            <Link to={drilldown}>
-              <DrilldownIcon />
-            </Link>
-          )}
-        </Tooltip>
-      </div>
-    );
-  }
-
-  renderDropdown(dropdown: React.ReactNode) {
-    return (
-      <>
-        <div className="row">
-          <div className="col-xs-12">
-            {this.state.expanded && <div className="statistic-expansion">{dropdown}</div>}
-          </div>
-        </div>
-
-        <div className="statistic-expansion-button-holster">
-          <button onClick={this.toggleExpansion} className="btn btn-primary">
-            {!this.state.expanded && <span className="glyphicon glyphicon-chevron-down" />}
-            {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  render() {
-    const { children, wide, ultrawide, tooltip, size, drilldown, className, dropdown, ...others } =
-      this.props;
-
-    return (
+  return (
+    <div
+      className={
+        ultrawide
+          ? 'col-md-12'
+          : wide
+            ? 'col-md-6 col-sm-12 col-xs-12'
+            : 'col-lg-3 col-md-4 col-sm-6 col-xs-12'
+      }
+    >
       <div
-        className={
-          ultrawide
-            ? 'col-md-12'
-            : wide
-              ? 'col-md-6 col-sm-12 col-xs-12'
-              : 'col-lg-3 col-md-4 col-sm-6 col-xs-12'
-        }
+        className={`panel statistic ${size} ${className}`}
+        // only add zIndex property if a dropdown exists, to preserve backwards compatiblity with StatisticBox utilizing Statistic
+        style={dropdown ? { zIndex: expanded ? 2 : 1 } : undefined}
+        {...others}
       >
-        <div
-          className={`panel statistic ${size} ${className}`}
-          // only add zIndex property if a dropdown exists, to preserve backwards compatiblity with StatisticBox utilizing Statistic
-          style={dropdown ? { zIndex: this.state.expanded ? 2 : 1 } : undefined}
-          {...others}
-        >
-          <div className="panel-body">
-            {children}
-            {dropdown && this.renderDropdown(dropdown)}
-          </div>
-          {tooltip && (
-            <Tooltip content={tooltip} hoverable>
-              <div className="detail-corner" data-place="top">
-                <InfoIcon />
+        <div className="panel-body">
+          {children}
+          {dropdown && (
+            <>
+              <div className="row">
+                <div className="col-xs-12">
+                  {expanded && <div className="statistic-expansion">{dropdown}</div>}
+                </div>
               </div>
-            </Tooltip>
+
+              <div className="statistic-expansion-button-holster">
+                <button type="button" onClick={toggleExpansion} className="btn btn-primary">
+                  {!expanded && <span className="glyphicon glyphicon-chevron-down" />}
+                  {expanded && <span className="glyphicon glyphicon-chevron-up" />}
+                </button>
+              </div>
+            </>
           )}
-          {drilldown && this.renderDrilldown(drilldown)}
         </div>
+        {tooltip && (
+          <Tooltip content={tooltip} hoverable>
+            <div className="detail-corner" data-place="top">
+              <InfoIcon />
+            </div>
+          </Tooltip>
+        )}
+        {drilldown && (
+          <div className="drilldown">
+            <Tooltip content="Drill down">
+              {isAbsolute ? (
+                <a href={drilldown} target="_blank" rel="noopener noreferrer">
+                  <DrilldownIcon />
+                </a>
+              ) : (
+                <Link to={drilldown}>
+                  <DrilldownIcon />
+                </Link>
+              )}
+            </Tooltip>
+          </div>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Statistic;
