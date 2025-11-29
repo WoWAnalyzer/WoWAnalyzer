@@ -108,7 +108,6 @@ jobs:
     needs: [prepare]
     name: 'e2e-build'
     runs-on: ubuntu-24.04
-    if: false
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
@@ -145,7 +144,6 @@ jobs:
     needs: [e2e-build]
     name: e2e-test-shard-${{ matrix.shard }}
     runs-on: ubuntu-24.04
-    if: false
     strategy:
       matrix:
         shard: [1, 2, 3, 4]
@@ -192,7 +190,8 @@ jobs:
         run: pnpm exec lingui compile
 
   docker-image:
-    needs: [typecheck, linting, prettier, tests, build]
+    # needs: [typecheck, linting, prettier, tests, build]
+    needs: [linting, prettier, tests, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-24.04
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'

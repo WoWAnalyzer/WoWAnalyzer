@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import type { Problem } from 'interface/guide/components/ProblemList';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -18,7 +17,6 @@ import BrewCDR from '../../core/BrewCDR';
 import purifySolver, { MissedPurifyData } from './solver';
 
 export enum PurifyReason {
-  RefreshPurifiedChi = 'refresh-chi',
   PreventCapping = 'prevent-capping',
   BigHit = 'big-hit',
   HighStagger = 'high-stagger',
@@ -56,7 +54,6 @@ export type ProblemData =
     };
 
 const CAP_CUTOFF = 4000;
-const CHI_REFRESH_CUTOFF = 7500;
 
 interface PurifiedHit {
   hit: AddStaggerEvent;
@@ -155,13 +152,6 @@ export default class PurifyingBrewProblems extends Analyzer {
 
     this.unpurifiedHits.push(...unpurified);
 
-    const purifiedChi = this.selectedCombatant.getBuff(
-      SPELLS.PURIFIED_CHI.id,
-      undefined,
-      undefined,
-      1000,
-    );
-
     if (purified.some(({ hit: { amount }, ratio }) => amount * ratio >= this.bigHitThreshold)) {
       this.purifies.push({
         purified,
@@ -182,16 +172,6 @@ export default class PurifyingBrewProblems extends Analyzer {
       this.purifies.push({
         purified,
         reason: PurifyReason.PreventCapping,
-        purify: event,
-      });
-    } else if (
-      purifiedChi &&
-      purifiedChi.stacks >= 3 &&
-      event.timestamp - purifiedChi.start >= CHI_REFRESH_CUTOFF
-    ) {
-      this.purifies.push({
-        purified,
-        reason: PurifyReason.RefreshPurifiedChi,
         purify: event,
       });
     } else {
@@ -285,7 +265,6 @@ export default class PurifyingBrewProblems extends Analyzer {
       [PurifyReason.PreventCapping]: 0,
       [PurifyReason.HighStagger]: 0,
       [PurifyReason.BigHit]: 0,
-      [PurifyReason.RefreshPurifiedChi]: 0,
     };
 
     for (const { reason } of this.purifies) {

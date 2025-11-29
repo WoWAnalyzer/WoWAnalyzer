@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AddStaggerEvent,
   RemoveStaggerEvent,
   AbsorbedEvent,
   AnyEvent,
@@ -12,19 +11,10 @@ import Events, {
   EventType,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Haste from 'parser/shared/modules/Haste';
-
-import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
 type StaggerEventType = EventType.AddStagger | EventType.RemoveStagger;
 
 const PURIFY_BASE = 0.5;
-
-const STAGGER_THRESHOLDS = {
-  HEAVY: 0.6,
-  MODERATE: 0.3,
-  LIGHT: 0.0,
-};
 
 const MANTRA_OF_PURITY_BONUS = 0.1; // "Purifying Brew removes 10% additional Stagger [...]"
 
@@ -42,15 +32,11 @@ type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 class StaggerFabricator extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
-    ht: HighTolerance,
-    haste: Haste,
   };
   _lastKnownMaxHp = 0;
   _initialized = false;
   _previousBuff: number | null = 0;
   protected eventEmitter!: EventEmitter;
-  protected ht!: HighTolerance;
-  protected haste!: Haste;
 
   constructor(options: Options) {
     super(options);
@@ -85,9 +71,6 @@ class StaggerFabricator extends Analyzer {
     this._staggerPool += amount;
     const staggerEvent = this._fab(EventType.AddStagger, event, amount);
     this.eventEmitter.fabricateEvent(staggerEvent, event);
-    if (this.ht && this.ht.active) {
-      this._updateHaste(event, staggerEvent);
-    }
   }
 
   removeStagger(event: MaxHPEvent, amount: number, sourceBreakdown?: PurifyBreakdown) {
@@ -108,9 +91,6 @@ class StaggerFabricator extends Analyzer {
       staggerEvent.sourceBreakdown = sourceBreakdown;
     }
     this.eventEmitter.fabricateEvent(staggerEvent, event);
-    if (this.ht && this.ht.active) {
-      this._updateHaste(event, staggerEvent);
-    }
     return amount + overage;
   }
 
@@ -122,29 +102,6 @@ class StaggerFabricator extends Analyzer {
       overheal: -overage,
       newPooledDamage: this._staggerPool,
     };
-  }
-
-  _updateHaste(sourceEvent: MaxHPEvent, staggerEvent: AddStaggerEvent | RemoveStaggerEvent) {
-    let currentBuff;
-    const staggerRatio =
-      staggerEvent.newPooledDamage /
-      (sourceEvent.maxHitPoints ? sourceEvent.maxHitPoints : this._lastKnownMaxHp);
-    if (staggerRatio === 0) {
-      currentBuff = null;
-    } else if (staggerRatio < STAGGER_THRESHOLDS.MODERATE) {
-      currentBuff = SPELLS.LIGHT_STAGGER_DEBUFF.id;
-    } else if (staggerRatio < STAGGER_THRESHOLDS.HEAVY) {
-      currentBuff = SPELLS.MODERATE_STAGGER_DEBUFF.id;
-    } else {
-      currentBuff = SPELLS.HEAVY_STAGGER_DEBUFF.id;
-    }
-
-    if (currentBuff !== this._previousBuff) {
-      this._previousBuff &&
-        this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
-      currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
-      this._previousBuff = currentBuff;
-    }
   }
 
   private _absorb(event: AbsorbedEvent) {

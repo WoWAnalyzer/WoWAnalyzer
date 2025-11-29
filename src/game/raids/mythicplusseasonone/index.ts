@@ -1,25 +1,42 @@
 import type { Raid } from 'game/raids';
-import { StoneVault } from './StoneVault';
-import { Siege } from './Siege';
-import { NecroticWake } from './NecroticWake';
-import { Mists } from './Mists';
-import { GrimBatol } from './GrimBatol';
-import { Dawnbreaker } from './Dawnbreaker';
-import { CityOfThreads } from './CityOfThreads';
-import { AraKara } from './AraKara';
+import { buildBoss } from 'game/raids/builders';
 import background from './backgrounds/Season1.jpg';
 
 export default {
   name: 'Mythic+ Season 1',
   background,
   bosses: {
-    AraKara,
-    CityOfThreads,
-    Dawnbreaker,
-    GrimBatol,
-    Mists,
-    NecroticWake,
-    Siege,
-    StoneVault,
+    MagistersTerrace: buildBoss({
+      id: 2811,
+      name: "Magister's Terrace",
+    }),
+    MaisaraCaverns: buildBoss({
+      id: 2874,
+      name: 'Maisara Caverns',
+    }),
+    NexusPointXenas: buildBoss({
+      id: 2915,
+      name: 'Nexus Point Xenas',
+    }),
+    WindrunnerSpire: buildBoss({
+      id: 2805,
+      name: 'Windrunner Spire',
+    }),
+    AlgetharAcademy: buildBoss({
+      id: 162526,
+      name: "Algeth'ar Academy",
+    }),
+    SeatOfTheTriumvirate: buildBoss({
+      id: 411753,
+      name: 'The Seat of the Triumvirate',
+    }),
+    Skyreach: buildBoss({
+      id: 111209,
+      name: 'Skyreach',
+    }),
+    PitOfSaron: buildBoss({
+      id: 60658,
+      name: 'Pit of Saron',
+    }),
   },
 } satisfies Raid;

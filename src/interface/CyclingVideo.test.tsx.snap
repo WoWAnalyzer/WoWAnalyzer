@@ -1,32 +1,28 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`CyclingVideo > matches snapshot 1`] = `
-<video
-  autoPlay={true}
-  muted={true}
-  onEnded={[Function]}
->
-  <source
-    src="1"
-    type="video/mp4"
-  />
-</video>
+<div>
+  <video
+    autoplay=""
+  >
+    <source
+      src="1"
+      type="video/mp4"
+    />
+  </video>
+</div>
 `;
 
 exports[`CyclingVideo > passes unrecognized props 1`] = `
-<video
-  autoPlay={true}
-  muted={true}
-  onEnded={[Function]}
-  style={
-    {
-      "color": "red",
-    }
-  }
->
-  <source
-    src="1"
-    type="video/mp4"
-  />
-</video>
+<div>
+  <video
+    autoplay=""
+    style="color: red;"
+  >
+    <source
+      src="1"
+      type="video/mp4"
+    />
+  </video>
+</div>
 `;

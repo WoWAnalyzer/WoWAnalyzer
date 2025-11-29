@@ -66,50 +66,49 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
     [metric, parser.config, parser.fight.boss, parser.fight.difficulty],
   );
 
-  const load = useCallback(async () => {
-    try {
-      if (import.meta.env.MODE === 'test') {
-        // Skip during tests since we can't do WCL calls
-        return;
-      }
-      const { rankings } = await loadRankings();
-      // We want the 100th rank to give people a reasonable goal to aim for. #1 might be a stretch.
-      const topRank = getRank(rankings, 100);
-      if (!topRank) {
+  useEffect(() => {
+    const load = async () => {
+      try {
+        if (import.meta.env.MODE === 'test') {
+          // Skip during tests since we can't do WCL calls
+          return;
+        }
+        const { rankings } = await loadRankings();
+        // We want the 100th rank to give people a reasonable goal to aim for. #1 might be a stretch.
+        const topRank = getRank(rankings, 100);
+        if (!topRank) {
+          setState({
+            performance: UNAVAILABLE,
+            topThroughput: UNAVAILABLE,
+            medianDuration: null,
+          });
+          return;
+        }
+        const topThroughput = 'total' in topRank ? topRank.total : topRank.amount;
+        const durations = rankings.map((rank) => rank.duration);
+        const medianDuration = calculateMedian(durations);
+
+        setState({
+          // If the player is in the top 100, this may be >=100%.
+          performance: throughput && throughput / topThroughput,
+          topThroughput,
+          medianDuration,
+        });
+      } catch (err) {
+        console.error(
+          'Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.',
+          err,
+        );
         setState({
           performance: UNAVAILABLE,
           topThroughput: UNAVAILABLE,
           medianDuration: null,
         });
-        return;
       }
-      const topThroughput = 'total' in topRank ? topRank.total : topRank.amount;
-      const durations = rankings.map((rank) => rank.duration);
-      const medianDuration = calculateMedian(durations);
+    };
 
-      setState({
-        // If the player is in the top 100, this may be >=100%.
-        performance: throughput && throughput / topThroughput,
-        topThroughput,
-        medianDuration,
-      });
-    } catch (err) {
-      console.error(
-        'Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.',
-        err,
-      );
-      setState({
-        performance: UNAVAILABLE,
-        topThroughput: UNAVAILABLE,
-        medianDuration: null,
-      });
-    }
-  }, [loadRankings, throughput]);
-
-  useEffect(() => {
-    // noinspection JSIgnoredPromiseFromCall
     load();
-  }, [load]);
+  }, [loadRankings, throughput]);
 
   return <>{children(state)}</>;
 };

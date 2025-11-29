@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { TooltipElement } from 'interface';
 import { GoodColor, Section, SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';

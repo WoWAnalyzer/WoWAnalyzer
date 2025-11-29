@@ -26,7 +26,6 @@ class MistWrap extends Analyzer {
   effectiveHealing = 0;
   overHealing = 0;
   envMistHealingBoost = 0;
-  envBreathHealingBoost = 0;
 
   static dependencies = {
     hotTracker: HotTrackerMW,
@@ -116,7 +115,7 @@ class MistWrap extends Analyzer {
   }
 
   get totalHealing() {
-    return this.envBreathHealingBoost + this.envMistHealingBoost + this.effectiveHealing;
+    return this.envMistHealingBoost + this.effectiveHealing;
   }
 
   subStatistic() {
@@ -142,9 +141,6 @@ class MistWrap extends Analyzer {
             <br />
             HoT Overhealing: {formatNumber(this.overHealing)}
             <br />
-            Bonus Healing from extra <SpellLink
-              spell={SPELLS.ENVELOPING_BREATH_HEAL}
-            /> duration: {formatNumber(this.envBreathHealingBoost)}
             <br />
             Bonus Healing from extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
             duration: {formatNumber(this.envMistHealingBoost)}

@@ -1,6 +1,6 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ReactNode, type JSX } from 'react';
 import { Tooltip } from 'interface/index';
 import Icon from 'interface/Icon';
 import { Item } from 'parser/core/Events';

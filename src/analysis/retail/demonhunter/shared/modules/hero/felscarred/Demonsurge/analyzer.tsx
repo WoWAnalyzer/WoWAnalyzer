@@ -8,7 +8,7 @@ import { AvailableColor, BadColor, GoodColor } from 'interface/guide';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SpellLink from 'interface/SpellLink';
 import { DEMONSURGE_TRIGGERS } from 'analysis/retail/demonhunter/shared';
-import React from 'react';
+import type { ReactNode } from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -93,7 +93,7 @@ export default class Demonsurge extends Analyzer {
     }
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     const tableData = Array.from(this.#consumedTriggers.entries()).map(([trigger, consumed]) => {
       const wasted = this.#wastedTriggers.get(trigger) ?? 0;
       return [trigger, consumed, wasted] as const;

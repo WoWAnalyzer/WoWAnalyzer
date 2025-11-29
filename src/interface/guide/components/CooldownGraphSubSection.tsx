@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import Combatant from 'parser/core/Combatant';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';

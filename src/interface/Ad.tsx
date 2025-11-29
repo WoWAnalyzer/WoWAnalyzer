@@ -1,4 +1,5 @@
-import React, { useEffect, useCallback, useState, Component, ReactNode, ErrorInfo } from 'react';
+import type { CSSProperties } from 'react';
+import { useEffect, useCallback, useState, Component, ReactNode, ErrorInfo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { captureException } from 'common/errorLogger';
 
@@ -11,7 +12,7 @@ export enum Location {
 }
 
 interface Props {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   location?: Location;
 }
 

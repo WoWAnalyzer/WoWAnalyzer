@@ -1,7 +1,7 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CoreHitCountAoE, { SpellAoeTracker } from 'parser/core/HitCountAoE';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import { BadColor, GoodColor, PerfectColor, SubSection, VeryBadColor } from 'interface/guide';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';

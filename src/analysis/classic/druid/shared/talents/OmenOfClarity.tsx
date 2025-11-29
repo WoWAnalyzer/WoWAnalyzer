@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon, SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';

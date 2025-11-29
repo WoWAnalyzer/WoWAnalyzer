@@ -3,24 +3,34 @@ import SPELLS from 'common/SPELLS/classic';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from '../CombatLogParser';
 import { FoundationHighlight as HL } from 'interface/guide/foundation/shared';
+import { SnapshotQualityEntry } from 'analysis/classic/warlock/demonology/modules/spells/Doomguard';
+import type { JSX } from 'react';
 
-export function DoomguardSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  function SnapshotQuality() {
-    if (modules.doomguard.doomguardSummonData.doomguard.summonTimestamp !== 0) {
-      return (
-        <>
-          Snapshot quality:
-          {modules.doomguard.snapshotQualityEntries.map((entry) => {
-            return entry.snapshotSummary;
-          })}
-          {modules.doomguard.snapshotAdvice}
-        </>
-      );
-    } else {
-      return <></>;
-    }
+function SnapshotQuality({
+  advice,
+  snapshotQualityEntries,
+  summonTimestamp,
+}: {
+  advice: JSX.Element;
+  snapshotQualityEntries: SnapshotQualityEntry[];
+  summonTimestamp: number;
+}) {
+  if (summonTimestamp !== 0) {
+    return (
+      <>
+        Snapshot quality:
+        {snapshotQualityEntries.map((entry) => {
+          return entry.snapshotSummary;
+        })}
+        {advice}
+      </>
+    );
+  } else {
+    return <></>;
   }
+}
 
+export function DoomguardSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Summon and buff your doomguard">
       <p>
@@ -60,7 +70,11 @@ export function DoomguardSection({ modules, events, info }: GuideProps<typeof Co
           Summoned demon:
           {modules.doomguard.doomguardSummonData.summonedDemonSummary}
           <br />
-          <SnapshotQuality />
+          <SnapshotQuality
+            advice={modules.doomguard.snapshotAdvice}
+            snapshotQualityEntries={modules.doomguard.snapshotQualityEntries}
+            summonTimestamp={modules.doomguard.doomguardSummonData.doomguard.summonTimestamp}
+          />
         </p>
       </SubSection>
     </Section>

@@ -1,38 +1,17 @@
-import SPELLS from 'common/SPELLS';
-import EventOrderNormalizer from 'parser/core/EventOrderNormalizer';
-import { EventOrder } from 'parser/core/EventOrderNormalizer';
+import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import { EventType } from 'parser/core/Events';
-import { Options } from 'parser/core/Module';
-
+import SPELLS from '../spell-list_Monk_Brewmaster.retail';
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
-const ExpelHarmHealOrder: EventOrder = {
-  beforeEventId: SPELLS.EXPEL_HARM.id,
-  beforeEventType: EventType.Cast,
-  afterEventId: SPELLS.EXPEL_HARM.id,
-  afterEventType: EventType.Heal,
-  bufferMs: 50,
-  anyTarget: true,
-  updateTimestamp: true,
-};
-
-const GiftOxOrder: EventOrder = {
-  beforeEventId: SPELLS.EXPEL_HARM.id,
-  beforeEventType: EventType.Cast,
-  afterEventId: GIFT_OF_THE_OX_SPELL_IDS,
-  afterEventType: EventType.Heal,
-  bufferMs: 50,
-  anyTarget: true,
-  updateTimestamp: true,
-};
-
-/**
- * Expel Harm Normalizer reorders events so that Expel Harm Casts are parsed **before**:
- *  - Gift of the Ox Heals, that have been attracted by Expel Harm
- *  - Expel Harm Heal, the baseline part
- */
-export default class ExpelHarm extends EventOrderNormalizer {
-  constructor(options: Options) {
-    super(options, [ExpelHarmHealOrder, GiftOxOrder]);
-  }
-}
+export const { normalizer: ExpelOxOrbsNormalizer, linkHelper: ExpelOxOrbs } =
+  EventLinkNormalizer.build({
+    linkRelation: 'expel-gotox',
+    linkingEventType: EventType.Cast,
+    linkingEventId: SPELLS.EXPEL_HARM.id,
+    referencedEventId: GIFT_OF_THE_OX_SPELL_IDS,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: 50,
+    reverseLinkRelation: 'expel-gotox-cast',
+    // expel harm cast has no target
+    anyTarget: true,
+  });

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SpellLink } from 'interface';

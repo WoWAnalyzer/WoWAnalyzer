@@ -30,12 +30,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
-        {modules.vivify.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          modules.jadefireTeachings.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
-          modules.jadeEmpowerment.guideSubsection}
+        {!info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) &&
+          modules.vivify.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}

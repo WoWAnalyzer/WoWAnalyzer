@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-type Props = Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
+type Props = Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
 
 // https://thenounproject.com/term/checklist/437165/
 // Checklist by David from the Noun Project

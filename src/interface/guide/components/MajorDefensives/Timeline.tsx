@@ -3,7 +3,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
 import { GoodColor, useAnalyzer, useEvents, useInfo } from 'interface/guide';
 import { AbilityEvent, EventType, HasAbility } from 'parser/core/Events';
-import { JSX, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, type JSX } from 'react';
 import { SignalListener } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import EmbeddedTimelineContainer, {

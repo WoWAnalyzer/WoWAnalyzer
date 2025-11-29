@@ -12,7 +12,7 @@ import {
   useCallback,
 } from 'react';
 import './Casts.scss';
-import React from 'react';
+import * as React from 'react';
 import Toggle from 'react-toggle';
 import { fetchEvents } from 'common/fetchWclApi';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
@@ -204,7 +204,7 @@ const EnemySpellControlBlock = ({
     >
       <EnemySpellTypeToggle
         id="enemy-casts-toggle"
-        label=<>Show Enemy Ability Timeline</>
+        label={<>Show Enemy Ability Timeline</>}
         toggleCallBack={toggleAll}
         checked={shouldRenderNPCSpells}
       />
@@ -375,10 +375,11 @@ export const EnemyCastsTimeline = ({
             const matchingDmgEvent = nonMeleeDamageEvents.filter((damageTaken) => {
               const dmgEvent = damageTaken[0];
               return (
+                // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
                 dmgEvent.timestamp >= event.timestamp &&
                 dmgEvent.timestamp <= event.timestamp + 10000 && //Assumes a damage event from an npc ability happens within 10 seconds
                 dmgEvent.sourceID === event.sourceID &&
-                dmgEvent.ability.name === event.ability.name // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
+                dmgEvent.ability.name === event.ability.name
               );
             });
             return (

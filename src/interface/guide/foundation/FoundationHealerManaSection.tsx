@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import ResourceLink from 'interface/ResourceLink';
 import Explanation from '../components/Explanation';
 import { SubSection, useAnalyzer } from '../index';

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,

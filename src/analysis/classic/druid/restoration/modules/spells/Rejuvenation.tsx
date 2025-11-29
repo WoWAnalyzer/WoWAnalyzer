@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';

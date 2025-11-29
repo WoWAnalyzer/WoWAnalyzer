@@ -18,13 +18,13 @@ import { ParseResultsTab } from 'parser/core/Analyzer';
 import type CharacterProfile from 'parser/core/CharacterProfile';
 import type Fight from 'parser/core/Fight';
 import { type PlayerInfo } from 'parser/core/Player';
-import { ComponentType, useMemo } from 'react';
+import { ComponentType, JSX, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import HeaderBackground from './HeaderBackground';
 import { currentExpansion } from 'game/GameBranch';
 import * as difficulty from 'game/DIFFICULTIES';
 import HeaderStatBox, { StatBoxContainer } from './HeaderStatBox';
-import { level1, level2, colors, gaps } from 'interface/design-system';
+import { level1, level2, colors, gaps, fontSize } from 'interface/design-system';
 import { formatDuration } from 'common/format';
 import FilterButton from './FilterButton';
 import { Filter } from 'interface/report/hooks/useTimeEventFilter';
@@ -233,11 +233,14 @@ export default function Header({
                   </TabButton>
                 ))}
             </TabStrip>
-            <TabSelect onChange={(event) => navigate(makeTabUrl(event.target.value))}>
+            <TabSelect
+              onChange={(event) => navigate(makeTabUrl(event.target.value))}
+              value={selectedTab}
+            >
               {tabList
                 .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
                 .map((tab) => (
-                  <option key={tab.url} value={tab.url} selected={tab.url === selectedTab}>
+                  <option key={tab.url} value={tab.url}>
                     {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
                   </option>
                 ))}
@@ -315,7 +318,7 @@ const MiniBoxContainer = styled.div`
 `;
 
 const MiniBoxName = styled.div`
-  font-size: 1.8rem;
+  font-size: ${fontSize.heading};
   font-weight: bold;
   white-space: break-spaces;
   overflow: hidden;
@@ -362,14 +365,19 @@ function CharacterMiniBox({
 
 function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.Element | null {
   const normalizedBossId = (boss?.id ?? fight.boss) % 50_000;
-  const icon =
+  let icon =
     boss?.icon ?? `https://assets.rpglogs.com/img/warcraft/bosses/${normalizedBossId}-icon.jpg`;
+
+  if (!icon.startsWith('https://')) {
+    // yes, it says abilities. WCL dumps WoW icons in this folder. the bosses/ folder is for images indexed by boss id, not WoW icon name
+    icon = `https://assets.rpglogs.com/img/warcraft/abilities/${icon}.jpg`;
+  }
 
   const duration = formatDuration(
     (fight.original_end_time ?? fight.end_time) - (fight.start_time - fight.offset_time),
   );
   return (
-    <MiniBoxContainer>
+    <MiniBoxContainer data-testid="boss-difficulty-and-name">
       <MiniBoxImage src={icon} alt={boss?.name ?? fight.name} />
       <MiniBoxName>{boss?.name ?? fight.name}</MiniBoxName>
       <MiniBoxSubtext>

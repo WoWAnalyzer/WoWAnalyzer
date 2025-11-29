@@ -1,8 +1,9 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+import { defineMessage } from '@lingui/core/macro';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
-import React, { ErrorInfo, ReactNode } from 'react';
+import { PureComponent, ErrorInfo, ReactNode } from 'react';
 
 import { EventsParseError } from './report/hooks/useEventParser';
 
@@ -57,10 +58,10 @@ interface Props {
 }
 interface State {
   error?: Error;
-  errorDetails?: string;
+  errorDetails?: string | null;
 }
 
-class RootErrorBoundary extends React.PureComponent<Props, State> {
+class RootErrorBoundary extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -101,7 +102,7 @@ class RootErrorBoundary extends React.PureComponent<Props, State> {
     this.error(event.reason, 'unhandledrejection');
   }
 
-  error(error: Error | undefined, details?: string) {
+  error(error: Error | undefined, details?: string | null) {
     if (!error) {
       return;
     }
@@ -124,11 +125,11 @@ class RootErrorBoundary extends React.PureComponent<Props, State> {
       if (this.state.error instanceof EventsParseError) {
         return (
           <FullscreenError
-            error={t({
+            error={defineMessage({
               id: 'interface.rootErrorBoundary.errorDuringAnalysis',
               message: `An error occurred during analysis`,
             })}
-            details={t({
+            details={defineMessage({
               id: 'interface.rootErrorBoundary.errorDuringAnalysisDetails',
               message: `We ran into an error while looking at your gameplay and running our analysis. Please let us know on Discord and we will fix it for you.`,
             })}

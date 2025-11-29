@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 
 import Icon from './Icon';
 import SpellLink from './SpellLink';
@@ -6,7 +6,7 @@ import useSpellInfo from './useSpellInfo';
 import Spell from 'common/SPELLS/Spell';
 import { SPELL_ICON_OVERRIDES } from './BAD_ICONS';
 
-interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
+interface Props extends Omit<ComponentProps<typeof Icon>, 'id' | 'icon'> {
   spell: number | Spell;
   noLink?: boolean;
   alt?: string;

@@ -56,7 +56,7 @@ const PlayerInfo = ({ combatant }: Props) => {
   );
   return (
     <div className="player-info">
-      <div className="character-sheet">
+      <div className="character-sheet" data-testid="character-sheet">
         <div className="class-background" style={{ backgroundImage: `url(${classBackground})` }}>
           <div
             className="player-gear player-background"

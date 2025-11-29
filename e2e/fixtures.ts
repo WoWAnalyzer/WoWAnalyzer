@@ -19,8 +19,6 @@ const ignoredErrors = [
   // sentry reproducing errors
   /^An error occurred and was sent to Sentry/i,
 
-  // we have a ton of these nesting errors across the site right now, letting e2e pass without fixing them all
-  /validateDOMNesting/,
   // react-transition-group triggers this
   /^Warning: React does not recognize the `[^`]+` prop on a DOM element./i,
 

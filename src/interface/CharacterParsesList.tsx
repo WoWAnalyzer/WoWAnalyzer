@@ -6,7 +6,7 @@ import { ItemLink } from 'interface';
 import Icon from 'interface/Icon';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import SpellIcon from 'interface/SpellIcon';
-import { PureComponent } from 'react';
+import { PureComponent, type JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';

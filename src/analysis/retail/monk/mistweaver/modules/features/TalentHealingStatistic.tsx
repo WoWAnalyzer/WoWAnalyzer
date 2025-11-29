@@ -114,9 +114,6 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) {
       talentList.push(this.jadefireTeachings.talentHealingStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
-      talentList.push(this.jadefireStomp.talentHealingStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
       talentList.push(this.tearOfMorning.subStatistic());
     }

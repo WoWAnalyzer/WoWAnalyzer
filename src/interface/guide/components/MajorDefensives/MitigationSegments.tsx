@@ -38,7 +38,8 @@ export const MitigationTooltipSegment = styled.div<{
     ${(props) =>
         props.maxWidth
           ? `${Math.max(0.02, props.width)} * ${props.maxWidth}px`
-          : `${Math.max(2, props.width * 100)}%`} - 1px
+          : `${Math.max(2, props.width * 100)}%`} -
+      1px
   );
   height: 100%;
   display: inline-block;

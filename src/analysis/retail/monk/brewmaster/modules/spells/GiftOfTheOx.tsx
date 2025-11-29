@@ -3,13 +3,14 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, Event, EventType, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { GIFT_OF_THE_OX_SPELLS } from '../../constants';
+import { ExpelOxOrbs } from '../../normalizers/ExpelHarm';
 
 /**
  * Gift of the Ox
@@ -37,8 +38,6 @@ export default class GiftOfTheOx extends Analyzer {
   expelHarmOrbsConsumed = 0;
   expelHarmOverhealing = 0;
 
-  _lastEHTimestamp: number | null = null;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.GIFT_OF_THE_OX_TALENT);
@@ -61,9 +60,8 @@ export default class GiftOfTheOx extends Analyzer {
     this.orbsGenerated += 1;
   }
 
-  _expelCast(event: CastEvent) {
+  _expelCast() {
     this.expelHarmCasts += 1;
-    this._lastEHTimestamp = event.timestamp;
   }
 
   _gotoxHeal(event: HealEvent) {
@@ -71,7 +69,9 @@ export default class GiftOfTheOx extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
     this.totalHealing += amount;
 
-    if (event.timestamp === this._lastEHTimestamp) {
+    const cast = ExpelOxOrbs.reverse.first(event);
+
+    if (cast) {
       this.expelHarmOrbsConsumed += 1;
       this.expelHarmOverhealing += event.overheal || 0;
     }

@@ -1,9 +1,9 @@
 import { Spec } from 'game/SPECS';
-import * as React from 'react';
+import type { HTMLAttributes } from 'react';
 import { useLingui } from '@lingui/react';
 import { isDefined } from 'common/typeGuards';
 
-interface Props extends Omit<React.HTMLAttributes<HTMLImageElement>, 'id'> {
+interface Props extends Omit<HTMLAttributes<HTMLImageElement>, 'id'> {
   spec?: Spec;
   icon?: string;
   className?: string;

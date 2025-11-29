@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import ROLES from 'game/ROLES';
 import SpellLink from 'interface/SpellLink';
 import { SubSection } from 'interface/guide';

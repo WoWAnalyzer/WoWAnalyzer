@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';

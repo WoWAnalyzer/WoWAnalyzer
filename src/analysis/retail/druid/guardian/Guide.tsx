@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { GoodColor, GuideProps, Section, SubSection, useAnalyzers } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/druid/guardian/CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';

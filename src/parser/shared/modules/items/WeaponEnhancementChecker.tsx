@@ -10,7 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 // Example logs with missing enhancement:
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard

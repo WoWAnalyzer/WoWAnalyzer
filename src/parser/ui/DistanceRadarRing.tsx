@@ -1,11 +1,12 @@
-import React, { CSSProperties, LegacyRef } from 'react';
+import type { ComponentProps } from 'react';
+import { CSSProperties, LegacyRef } from 'react';
 
 type Props = {
   size: number;
   color?: string;
   style?: CSSProperties;
   innerRef?: LegacyRef<HTMLDivElement>;
-} & React.ComponentProps<'div'>;
+} & ComponentProps<'div'>;
 
 const DistanceRadarRing = ({ innerRef, size, color = '#9c9c9c', style, ...others }: Props) => (
   <div

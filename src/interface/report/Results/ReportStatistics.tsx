@@ -1,13 +1,20 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { StatisticSize } from 'parser/ui/Statistic';
+import Statistic, { StatisticSize } from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { Fragment, ReactElement } from 'react';
-import Masonry from 'react-masonry-component';
+import { Fragment, JSXElementConstructor, ReactElement } from 'react';
+import Masonry_ from 'react-masonry-component';
+
+// Masonry has a type issue with react 19
+const Masonry = Masonry_ as unknown as React.ComponentClass<
+  React.ComponentProps<typeof Masonry_> & { children: React.ReactNode }
+>;
 
 import FightDowntimeToggle from './FightDowntimeToggle';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 function sizeToInt(size: StatisticSize) {
   switch (size) {
@@ -58,11 +65,33 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
   }
 };
 
+type StatisticElement = ReactElement<
+  React.ComponentProps<typeof Statistic>,
+  JSXElementConstructor<React.ComponentProps<typeof Statistic>> & {
+    defaultProps?: Partial<React.ComponentProps<typeof Statistic>>;
+  }
+>;
+
 interface Props {
   parser: CombatLogParser;
-  statistics: ReactElement[];
+  statistics: StatisticElement[];
   adjustForDowntime: boolean;
   onChangeAdjustForDowntime: (newValue: boolean) => void;
+}
+
+// FIXME: this is a massive hack around ancient prop introspection code.
+// modern react doesn't really support this, at least in the case of `defaultProps`.
+// we're doing some light "lying to the type system" to make it work.
+function statisticElementCategory(el: StatisticElement): STATISTIC_CATEGORY {
+  if (el.props.category) {
+    return el.props.category;
+  }
+
+  if (el.type.defaultProps?.category) {
+    return el.type.defaultProps.category;
+  }
+
+  return STATISTIC_CATEGORY.GENERAL;
 }
 
 const ReportStatistics = ({
@@ -71,8 +100,8 @@ const ReportStatistics = ({
   adjustForDowntime,
   onChangeAdjustForDowntime,
 }: Props) => {
-  const groups = statistics.reduce<Record<string, ReactElement[]>>((obj, statistic) => {
-    const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
+  const groups = statistics.reduce<Record<string, StatisticElement[]>>((obj, statistic) => {
+    const category = statisticElementCategory(statistic);
     obj[category] = obj[category] || [];
     obj[category].push(statistic);
     return obj;
@@ -82,11 +111,14 @@ const ReportStatistics = ({
   delete groups[STATISTIC_CATEGORY.PANELS];
   const categoryByIndex = Object.values(STATISTIC_CATEGORY); // objects have a guaranteed order
 
-  const sortByPosition = (a: ReactElement, b: ReactElement) => {
+  const sortByPosition = (a: StatisticElement, b: StatisticElement) => {
     if (a.props.position !== b.props.position) {
-      return a.props.position - b.props.position;
+      return (
+        (a.props.position ?? STATISTIC_ORDER.DEFAULT) -
+        (b.props.position ?? STATISTIC_ORDER.DEFAULT)
+      );
     }
-    return sizeToInt(b.props.size) - sizeToInt(a.props.size);
+    return sizeToInt(b.props.size ?? 'standard') - sizeToInt(a.props.size ?? 'standard');
   };
 
   return (

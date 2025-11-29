@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { Options } from 'parser/core/Module';

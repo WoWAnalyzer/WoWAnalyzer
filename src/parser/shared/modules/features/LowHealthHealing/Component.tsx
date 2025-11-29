@@ -6,7 +6,7 @@ import { TooltipElement } from 'interface';
 import Combatant from 'parser/core/Combatant';
 import { Ability, HealEvent } from 'parser/core/Events';
 import Slider from 'rc-slider';
-import * as React from 'react';
+import { PureComponent } from 'react';
 import 'rc-slider/assets/index.css';
 
 import Combatants from '../../Combatants';
@@ -41,7 +41,7 @@ interface ComboHealEvent {
 
 const GROUPING_BUFFER = 100;
 
-class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHealthHealingState> {
+class LowHealthHealing extends PureComponent<LowHealthHealingProps, LowHealthHealingState> {
   state = {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,

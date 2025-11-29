@@ -1,10 +1,10 @@
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
+import type { CSSProperties, PropsWithChildren } from 'react';
 
-type Props = React.PropsWithChildren<{
+type Props = PropsWithChildren<{
   large?: boolean;
   wide?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   category?: STATISTIC_CATEGORY;
   position?: number;
 }>;

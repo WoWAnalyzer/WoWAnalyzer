@@ -1,13 +1,4 @@
-/**
- * This component implements the damage taken "point" chart. The points are boxes,
- * but it has more in common with a point type than a "boxplot", so it is named a
- * point chart to avoid confusion on that front.
- *
- * To use this in your guide, collect an array of `TrackedHit`s in one of your analyzers,
- * then pass it here.
- * @module
- */
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import styled from '@emotion/styled';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import SpellLink from 'interface/SpellLink';

@@ -195,14 +195,6 @@ const talents = {
     definitionIds: [{ id: 129679, specId: 268 }],
   },
   CELESTIAL_CONDUIT_1_WINDWALKER_TALENT: {
-    id: 1248989,
-    name: 'Celestial Conduit',
-    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
-    maxRanks: 1,
-    entryIds: [125062],
-    definitionIds: [{ id: 129894, specId: 270 }],
-  },
-  CELESTIAL_CONDUIT_2_WINDWALKER_TALENT: {
     id: 443028,
     name: 'Celestial Conduit',
     icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
@@ -210,6 +202,14 @@ const talents = {
     entryIds: [136562],
     definitionIds: [{ id: 141335, specId: 270 }],
     manaCost: 125000,
+  },
+  CELESTIAL_CONDUIT_2_WINDWALKER_TALENT: {
+    id: 1248989,
+    name: 'Celestial Conduit',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
+    maxRanks: 1,
+    entryIds: [136715],
+    definitionIds: [{ id: 141487, specId: 269 }],
   },
   CELESTIAL_DETERMINATION_TALENT: {
     id: 450638,
@@ -624,7 +624,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124922],
     definitionIds: [{ id: 129760, specId: 270 }],
-    manaCost: 105000,
+    manaCost: 90000,
   },
   ESCAPE_FROM_REALITY_TALENT: {
     id: 394110,
@@ -995,6 +995,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [124849],
     definitionIds: [{ id: 129687, specId: 268 }],
+  },
+  INVOKE_XUEN_THE_WHITE_TIGER_TALENT: {
+    id: 123904,
+    name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+    maxRanks: 1,
+    entryIds: [125062],
+    definitionIds: [{ id: 129894, specId: 270 }],
   },
   INVOKE_YULON_THE_JADE_SERPENT_TALENT: {
     id: 322118,
@@ -1546,8 +1554,11 @@ const talents = {
     name: 'Restore Balance',
     icon: 'ability_monk_chiexplosion',
     maxRanks: 1,
-    entryIds: [125049],
-    definitionIds: [{ id: 129881, specId: 270 }],
+    entryIds: [136734, 125049],
+    definitionIds: [
+      { id: 141506, specId: 269 },
+      { id: 129881, specId: 270 },
+    ],
   },
   REVIVAL_TALENT: {
     id: 115310,
@@ -1632,7 +1643,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [128221],
     definitionIds: [{ id: 133028, specId: 270 }],
-    manaCost: 62500,
+    manaCost: 31250,
     chiCost: 2,
   },
   RUSHING_WIND_KICK_WINDWALKER_TALENT: {
@@ -2308,6 +2319,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [125017],
     definitionIds: [{ id: 129855, specId: 269 }],
+  },
+  XUENS_BOND_TALENT: {
+    id: 392986,
+    name: "Xuen's Bond",
+    icon: 'ability_demonhunter_netherbond',
+    maxRanks: 1,
+    entryIds: [136733],
+    definitionIds: [{ id: 141505, specId: 269 }],
   },
   XUENS_GUIDANCE_TALENT: {
     id: 442687,

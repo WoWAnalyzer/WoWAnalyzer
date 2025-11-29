@@ -141,7 +141,7 @@ const javascript = tseslint.config({
   extends: [
     js.configs.recommended,
     react.configs.recommended,
-    reactHooks.configs['recommended-latest'],
+    reactHooks.configs.flat['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   rules: {
@@ -169,7 +169,7 @@ const typescript = tseslint.config({
     tseslint.configs.recommended,
     tseslint.configs.stylistic,
     react.configs['recommended-typescript'],
-    reactHooks.configs['recommended-latest'],
+    reactHooks.configs.flat['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   languageOptions: {
@@ -195,6 +195,10 @@ const typescript = tseslint.config({
     '@typescript-eslint/array-type': 'off',
     // too noisy. we have to have keys and often are working with things with no other real option
     '@eslint-react/no-array-index-key': 'off',
+    // we have a lot of contexts named 'Ctx' instead of 'Context', which is fine
+    '@eslint-react/naming-convention/context-name': 'off',
+    // duplicates lint from react-hooks. react-hooks has a more descriptive error (even if with worse formatting)
+    '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
   },
 });
 

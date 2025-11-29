@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { useInfo } from 'interface/guide';
 import { AnyEvent } from 'parser/core/Events';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';

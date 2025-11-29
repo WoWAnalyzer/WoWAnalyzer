@@ -7,7 +7,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 const STAT_MODIFIER = 0.02;
 
@@ -46,7 +46,7 @@ class Redoubt extends Analyzer {
     );
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     const averageStamGain = this.bonusStaminaGain(this.statTracker) * this.averageStacks;
     const averageStrengthGain = this.bonusStrenghGain(this.statTracker) * this.averageStacks;
     return (

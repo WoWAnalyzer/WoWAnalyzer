@@ -3,6 +3,8 @@ import {
   AddRelatedEvent,
   AnyEvent,
   EventType,
+  GetRelatedEvent,
+  GetRelatedEvents,
   HasAbility,
   HasSource,
   HasTarget,
@@ -10,6 +12,7 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import Combatant from 'parser/core/Combatant';
+import Module from './Module';
 
 /**
  * The specification of an event link to apply.
@@ -203,6 +206,63 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
     });
     return events;
   }
+
+  /**
+   * Build an event link normalizer class from a single link spec, along with a pre-built helper to retrieve the linked events from another event.
+   *
+   * If the link spec has a literal type (so you can see the property values on mouseover; object literals are always like this) then it will type the getters based on the spec.
+   */
+  public static build<Link extends EventLink>(
+    link: Link,
+  ): {
+    normalizer: EventLinkNormalizerClass;
+    linkHelper: EventLinkHelper<Link>;
+  } {
+    const normalizer = class extends EventLinkNormalizer {
+      constructor(options: Options) {
+        super(options, [link]);
+      }
+    };
+
+    const forwardHelper = {
+      get: (event: AnyEvent) => GetRelatedEvents(event, link.linkRelation),
+      first: (event: AnyEvent) => GetRelatedEvent(event, link.linkRelation),
+    } as unknown as EventLinkHelper<Link>;
+
+    if (link.reverseLinkRelation) {
+      forwardHelper.reverse = {
+        get: (event: AnyEvent) => GetRelatedEvents(event, link.reverseLinkRelation!),
+        first: (event: AnyEvent) => GetRelatedEvent(event, link.reverseLinkRelation!),
+      } as unknown as EventLinkHelperInner<EventTypeUnion<Link['linkingEventType']>>;
+    }
+
+    return {
+      normalizer,
+      linkHelper: forwardHelper,
+    };
+  }
 }
+
+interface EventLinkHelperInner<Types extends EventType> {
+  first: (event: AnyEvent) => Types | undefined;
+  get: (event: AnyEvent) => Types[];
+}
+
+type EventTypeUnion<Ts extends EventType | EventType[]> = Ts extends EventType
+  ? Ts
+  : Ts extends EventType[]
+    ? Ts[number]
+    : never;
+
+type EventLinkHelper<Link extends EventLink = EventLink> = EventLinkHelperInner<
+  EventTypeUnion<Link['referencedEventType']>
+> &
+  (Link['reverseLinkRelation'] extends string
+    ? {
+        reverse: EventLinkHelperInner<EventTypeUnion<Link['linkingEventType']>>;
+      }
+    : { reverse: undefined });
+
+type EventLinkNormalizerClass = (new (options: Options) => EventLinkNormalizer) & typeof Module;
 
 export default EventLinkNormalizer;

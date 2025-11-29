@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, JSX } from 'react';
 import { BreathOfEonsWindows } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
@@ -23,7 +23,7 @@ interface Props {
   shiftingSandsCount: SpellTracker[];
 }
 
-const BreathOfEonsSection: React.FC<Props> = ({
+const BreathOfEonsSection: FC<Props> = ({
   windows,
   fightStartTime,
   fightEndTime,

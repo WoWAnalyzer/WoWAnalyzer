@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SubSection } from '../index';
 import FoundationDowntimeSectionV2 from './FoundationDowntimeSectionV2';
 

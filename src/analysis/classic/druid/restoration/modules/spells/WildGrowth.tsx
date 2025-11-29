@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon, SpellLink } from 'interface';

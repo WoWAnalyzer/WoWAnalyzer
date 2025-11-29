@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/mage';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

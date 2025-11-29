@@ -18,7 +18,7 @@ export function Component() {
       parser={parser}
       adjustForDowntime={adjustForDowntime}
       onChangeAdjustForDowntime={(newValue) => setAdjustForDowntime(newValue)}
-      statistics={results.statistics}
+      statistics={results.statistics as React.ComponentProps<typeof ReportStatistics>['statistics']}
     />
   );
 }

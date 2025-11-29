@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-type Props = Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
+type Props = Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
 
 // Web Banner by Vectors Market from the Noun Project
 const Icon = (props: Props) => (

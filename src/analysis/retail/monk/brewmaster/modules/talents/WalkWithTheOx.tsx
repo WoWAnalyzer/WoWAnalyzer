@@ -47,12 +47,7 @@ export default class WalkWithTheOx extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={talents.WALK_WITH_THE_OX_TALENT}>
-          <>
-            <p>
-              <ItemDamageDone amount={this.additionalDamage} />
-            </p>
-            <small>CDR not included in damage</small>
-          </>
+          <ItemDamageDone amount={this.additionalDamage} />
         </BoringSpellValueText>
       </Statistic>
     );

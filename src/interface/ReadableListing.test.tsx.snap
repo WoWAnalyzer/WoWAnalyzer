@@ -1,33 +1,37 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ReadableList > doesn't mutate a single item 1`] = `<div />`;
+exports[`ReadableList > doesn't mutate a single item 1`] = `
+<div>
+  <div />
+</div>
+`;
 
 exports[`ReadableList > merges four items with two "," and an "and" 1`] = `
-[
-  <div />,
-  ", ",
-  <div />,
-  ", ",
-  <div />,
-  " and ",
-  <div />,
-]
+<div>
+  <div />
+  , 
+  <div />
+  , 
+  <div />
+   and 
+  <div />
+</div>
 `;
 
 exports[`ReadableList > merges three items with a "," and an "and" 1`] = `
-[
-  <div />,
-  ", ",
-  <div />,
-  " and ",
-  <div />,
-]
+<div>
+  <div />
+  , 
+  <div />
+   and 
+  <div />
+</div>
 `;
 
 exports[`ReadableList > merges two items with an "and" 1`] = `
-[
-  <div />,
-  " and ",
-  <div />,
-]
+<div>
+  <div />
+   and 
+  <div />
+</div>
 `;

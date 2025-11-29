@@ -3,7 +3,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { isFromSoothingMist } from '../../normalizers/CastLinkNormalizer';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
@@ -29,16 +28,18 @@ class SoothingMist extends Analyzer {
       this.castSoothingMist,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([
+          TALENTS_MONK.SHEILUNS_GIFT_TALENT,
+          SPELLS.VIVIFY,
+          TALENTS_MONK.ENVELOPING_MIST_TALENT,
+        ]),
       this.castDuringSoothingMist,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
       this.handleSoothingMist,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
-      this.masterySoothingMist,
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
@@ -58,12 +59,6 @@ class SoothingMist extends Analyzer {
 
   handleSoothingMist(event: HealEvent) {
     this.soomTicks += 1;
-  }
-
-  masterySoothingMist(event: HealEvent) {
-    if (isFromSoothingMist(event)) {
-      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-    }
   }
 
   castDuringSoothingMist(event: CastEvent) {

@@ -1,13 +1,13 @@
+import type { ReactNode, ElementType } from 'react';
 import { useState } from 'react';
-import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
 
 import './Expandable.scss';
 
 interface Props {
-  header: React.ReactNode;
-  children: React.ReactNode;
-  element: React.ElementType;
+  header: ReactNode;
+  children: ReactNode;
+  element: ElementType;
   className?: string;
   expanded?: boolean;
   inverseExpanded: () => void;

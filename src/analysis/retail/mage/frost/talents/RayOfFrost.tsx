@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';

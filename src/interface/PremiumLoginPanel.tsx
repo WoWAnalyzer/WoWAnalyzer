@@ -7,12 +7,11 @@ import { WarcraftLogsIcon } from './icons';
 import { Textfit } from 'react-textfit';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
-import { MouseEvent, useRef } from 'react';
 
 import './PremiumLoginPanel.scss';
 import { logout } from './reducers/user';
 import { CSSTransition } from 'react-transition-group';
-import React from 'react';
+import { forwardRef, MouseEvent, useRef } from 'react';
 
 const INITIAL_BACKGROUNDS = [
   '7TqE3VIAU2odkmneHU', // human salute https://giphy.com/gifs/warcraft-video-games-7TqE3VIAU2odkmneHU
@@ -37,7 +36,10 @@ const INITIAL_BACKGROUNDS = [
 //   '4a4w6CzSj1t2Hl6gYy', // orc please https://giphy.com/gifs/warcraft-video-games-4a4w6CzSj1t2Hl6gYy
 // ];
 
-const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
+const LoggedIn = ({
+  ref,
+  ...props
+}: unknown & { ref?: React.RefObject<HTMLDivElement | null> }) => {
   const dispatch = useWaDispatch();
   const user = useWaSelector((state) => state.user);
 
@@ -122,7 +124,7 @@ const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
       </div>
     </div>
   );
-});
+};
 
 const PremiumLoginPanel = () => {
   const user = useWaSelector((state) => state.user);

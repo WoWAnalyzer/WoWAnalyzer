@@ -1,6 +1,6 @@
 import getItemQualityLabel from 'common/getItemQualityLabel';
 import ITEMS from 'common/ITEMS';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import { AnchorHTMLAttributes } from 'react';
 
 import ItemIcon from './ItemIcon';
@@ -9,7 +9,7 @@ import useTooltip from './useTooltip';
 
 interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
-  children?: React.ReactNode;
+  children?: ReactNode;
   details?: {
     itemLevel: number;
     quality: number;

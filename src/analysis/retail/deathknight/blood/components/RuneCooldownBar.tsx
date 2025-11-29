@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 interface RawRunesReady {

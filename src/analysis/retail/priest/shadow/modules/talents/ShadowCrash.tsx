@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';

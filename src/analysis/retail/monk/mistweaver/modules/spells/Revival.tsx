@@ -10,7 +10,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { SPELL_COLORS } from '../../constants';
-import { isFromRevival } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CooldownExpandable, {
@@ -37,10 +36,6 @@ class Revival extends Analyzer {
   upliftedSpiritsActive = false;
   usHealing = 0;
   usOverhealing = 0;
-
-  gustsHealing = 0;
-  gustOverHealing = 0;
-  minEfHotsBeforeCast = 0;
 
   constructor(options: Options) {
     super(options);
@@ -69,11 +64,6 @@ class Revival extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.RESTORAL_TALENT),
       this.handleRevivalDirect,
-    );
-
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
-      this.handleGustsOfMists,
     );
 
     if (this.upliftedSpiritsActive) {
@@ -108,63 +98,18 @@ class Revival extends Analyzer {
     this.revivalDirectOverHealing += event.overheal || 0;
   }
 
-  handleGustsOfMists(event: HealEvent) {
-    if (isFromRevival(event)) {
-      this.gustsHealing += event.amount + (event.absorbed || 0);
-      this.gustOverHealing += event.overheal || 0;
-    }
-  }
-
   handleUsHeal(event: HealEvent) {
     this.usHealing += event.amount + (event.absorbed || 0);
     this.usOverhealing += event.overheal || 0;
   }
 
-  renderRevivalChart() {
-    const items = [
-      {
-        color: SPELL_COLORS.REVIVAL,
-        label: this.activeTalent.name,
-        spellId: this.activeTalent.id,
-        value: this.revivalDirectHealing,
-        valueTooltip: formatThousands(this.revivalDirectHealing),
-      },
-      {
-        color: SPELL_COLORS.GUSTS_OF_MISTS,
-        label: 'Gust Of Mist',
-        spellId: SPELLS.GUSTS_OF_MISTS.id,
-        value: this.gustsHealing,
-        valueTooltip: formatThousands(this.gustsHealing),
-      },
-    ];
-
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT)) {
-      items.push({
-        color: SPELL_COLORS.UPLIFTED_SPIRITS,
-        label: 'Uplifted Spirits',
-        spellId: TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id,
-        value: this.usHealing,
-        valueTooltip: formatThousands(this.usHealing),
-      });
-    }
-
-    return <DonutChart items={items} />;
-  }
-
-  get totalHealing() {
-    return this.gustsHealing + this.revivalDirectHealing + this.usHealing;
-  }
-
   get avgHealingPerCast() {
-    return this.totalHealing / this.castTracker.length;
+    return this.revivalDirectHealing / this.castTracker.length;
   }
 
   get avgRawPerCast() {
     return (
-      (this.totalHealing +
-        this.gustOverHealing +
-        this.revivalDirectOverHealing +
-        this.usOverhealing) /
+      (this.revivalDirectHealing + this.revivalDirectOverHealing + this.usOverhealing) /
       this.castTracker.length
     );
   }
@@ -205,29 +150,6 @@ class Revival extends Analyzer {
       </div>
     );
     return explanationAndDataSubsection(explanation, data, explanationPercent);
-  }
-
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
-        <div className="pad">
-          <label>
-            <SpellLink spell={this.activeTalent}>{this.activeTalent.name}</SpellLink> breakdown
-          </label>
-          {this.renderRevivalChart()}
-          <hr />
-          <TooltipElement
-            content={
-              <>
-                {formatNumber(this.avgRawPerCast)} <small>raw healing per cast</small>
-              </>
-            }
-          >
-            {formatNumber(this.avgHealingPerCast)} average Healing Per Cast
-          </TooltipElement>
-        </div>
-      </Statistic>
-    );
   }
 }
 

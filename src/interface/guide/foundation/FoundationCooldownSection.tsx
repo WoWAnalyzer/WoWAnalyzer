@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import { SubSection, useInfo } from '../index';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';

@@ -6,13 +6,19 @@ import * as AplCheck from '../AplCheck';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 
 import { AplSectionData } from 'interface/guide/components/Apl';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
+import styled from '@emotion/styled';
 
 const blank = {
   id: -1,
   name: 'Blank',
   icon: 'inv_misc_questionmark',
 };
+
+// hack around annoying nesting issue. why is P not a proper container?
+const DivP = styled.div`
+  margin-bottom: 1rem;
+`;
 
 const StandardDescription = () => {
   const info = useInfo();
@@ -30,12 +36,12 @@ const StandardDescription = () => {
           <SpellLink spell={SPELLS.TIGER_PALM} /> (in single-target) or{' '}
           <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> (with 3+ targets).{' '}
         </p>
-        <p>
+        <DivP>
           It can help to think of your rotation as small sequences like{' '}
           <SpellSeq spells={[SPELLS.BLACKOUT_KICK_BRM, blank, blank, blank]} />. You start the
           sequence with <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />, and then fill in the blanks
           like this:
-        </p>
+        </DivP>
         <ol>
           <li>
             Always fill one <SpellIcon spell={blank} /> with{' '}
@@ -51,7 +57,7 @@ const StandardDescription = () => {
             Fill all other <SpellIcon spell={blank} />s with your normal rotation
           </li>
         </ol>
-        <p>
+        <DivP>
           so{' '}
           <SpellSeq
             spells={[
@@ -80,7 +86,7 @@ const StandardDescription = () => {
             ]}
           />{' '}
           would not.
-        </p>
+        </DivP>
       </>
     );
   }

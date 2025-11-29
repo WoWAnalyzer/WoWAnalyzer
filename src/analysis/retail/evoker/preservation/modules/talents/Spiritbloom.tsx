@@ -11,7 +11,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import SPELLS from 'common/SPELLS/evoker';
-import React from 'react';
+import { Fragment, type JSX } from 'react';
 
 interface CastInfo {
   timestamp: number;
@@ -101,13 +101,13 @@ class Spiritbloom extends Analyzer {
     this.casts.forEach((cast) => {
       let value = QualitativePerformance.Fail;
       const tooltip = [
-        <React.Fragment key="1">
+        <Fragment key="1">
           <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> @{' '}
-        </React.Fragment>,
-        <React.Fragment key="2">{this.owner.formatTimestamp(cast.timestamp)}</React.Fragment>,
-        <React.Fragment key="3">
+        </Fragment>,
+        <Fragment key="2">{this.owner.formatTimestamp(cast.timestamp)}</Fragment>,
+        <Fragment key="3">
           <br /> Empowerment level: {cast.empowerment}
-        </React.Fragment>,
+        </Fragment>,
       ];
 
       if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT)) {
@@ -118,10 +118,10 @@ class Spiritbloom extends Analyzer {
         const hasLifebind = this.selectedCombatant.getBuff(SPELLS.LIFEBIND_BUFF.id, cast.timestamp);
         if (hasLifebind) {
           tooltip.push(
-            <React.Fragment key="4">
+            <Fragment key="4">
               <br />
               <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> active
-            </React.Fragment>,
+            </Fragment>,
           );
           const hasEcho = this.selectedCombatant.getBuff(
             TALENTS_EVOKER.ECHO_TALENT.id,
@@ -129,10 +129,10 @@ class Spiritbloom extends Analyzer {
           );
           if (hasEcho) {
             tooltip.push(
-              <React.Fragment key="5">
+              <Fragment key="5">
                 <br />
                 <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> on yourself
-              </React.Fragment>,
+              </Fragment>,
             );
             if (cast.empowerment === 2) {
               value = QualitativePerformance.Perfect;

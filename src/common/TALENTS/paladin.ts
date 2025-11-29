@@ -2,6 +2,14 @@
 import { Talent } from './types';
 
 const talents = {
+  ADJUDICATION_TALENT: {
+    id: 1277005,
+    name: 'Adjudication',
+    icon: 'inv_mace_2h_draenorraid_d_03',
+    maxRanks: 1,
+    entryIds: [136732],
+    definitionIds: [{ id: 141504, specId: 66 }],
+  },
   AFTERIMAGE_TALENT: {
     id: 385414,
     name: 'Afterimage',
@@ -941,8 +949,8 @@ const talents = {
     name: 'Hand of the Protector',
     icon: 'ability_paladin_blessedhands',
     maxRanks: 1,
-    entryIds: [102436],
-    definitionIds: [{ id: 107441, specId: 66 }],
+    entryIds: [102438],
+    definitionIds: [{ id: 107443, specId: 66 }],
   },
   HEALING_HANDS_TALENT: {
     id: 326734,
@@ -1058,6 +1066,14 @@ const talents = {
     entryIds: [102536],
     definitionIds: [{ id: 107541, specId: 65 }],
   },
+  IMBUED_SHIELD_TALENT: {
+    id: 1276945,
+    name: 'Imbued Shield',
+    icon: 'inv_artifact_bulwarkoforder',
+    maxRanks: 1,
+    entryIds: [102463],
+    definitionIds: [{ id: 107468, specId: 66 }],
+  },
   IMPROVED_ARDENT_DEFENDER_TALENT: {
     id: 393114,
     name: 'Improved Ardent Defender',
@@ -1114,14 +1130,6 @@ const talents = {
     entryIds: [102550],
     definitionIds: [{ id: 107555, specId: 65 }],
   },
-  INNER_LIGHT_TALENT: {
-    id: 386568,
-    name: 'Inner Light',
-    icon: 'ability_paladin_shieldofvengeance',
-    maxRanks: 1,
-    entryIds: [102463],
-    definitionIds: [{ id: 107468, specId: 66 }],
-  },
   INSPIRED_GUARD_TALENT: {
     id: 469439,
     name: 'Inspired Guard',
@@ -1130,13 +1138,13 @@ const talents = {
     entryIds: [128260],
     definitionIds: [{ id: 133067, specId: 70 }],
   },
-  INSPIRING_VANGUARD_TALENT: {
-    id: 393022,
-    name: 'Inspiring Vanguard',
-    icon: 'inv_helmet_74',
+  INSTRUMENT_OF_THE_DIVINE_TALENT: {
+    id: 1277162,
+    name: 'Instrument of the Divine',
+    icon: 'ability_priest_archangel',
     maxRanks: 1,
-    entryIds: [102439],
-    definitionIds: [{ id: 107444, specId: 66 }],
+    entryIds: [102454],
+    definitionIds: [{ id: 107459, specId: 66 }],
   },
   JUDGE_JURY_AND_EXECUTIONER_TALENT: {
     id: 406157,
@@ -1464,9 +1472,9 @@ const talents = {
     entryIds: [102594],
     definitionIds: [{ id: 107599, specId: 70 }],
   },
-  REDOUBT_TALENT: {
+  REDOUBT_NYI_TALENT: {
     id: 280373,
-    name: 'Redoubt',
+    name: 'Redoubt [NYI]',
     icon: 'ability_warrior_shieldguard',
     maxRanks: 1,
     entryIds: [102462],
@@ -1495,14 +1503,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [102475],
     definitionIds: [{ id: 107480, specId: 66 }],
-  },
-  RESOLUTE_DEFENDER_TALENT: {
-    id: 385422,
-    name: 'Resolute Defender',
-    icon: 'ability_crown_of_the_heavens_icon',
-    maxRanks: 2,
-    entryIds: [102433],
-    definitionIds: [{ id: 107438, specId: 66 }],
   },
   RESOUNDING_STRIKE_TALENT: {
     id: 1271553,
@@ -1660,8 +1660,8 @@ const talents = {
     name: 'Sanctuary',
     icon: 'spell_holy_innerfire',
     maxRanks: 1,
-    entryIds: [102454],
-    definitionIds: [{ id: 107459, specId: 66 }],
+    entryIds: [102436],
+    definitionIds: [{ id: 107441, specId: 66 }],
   },
   SAVED_BY_THE_LIGHT_TALENT: {
     id: 157047,
@@ -2049,8 +2049,8 @@ const talents = {
     name: 'Valiant Crusade',
     icon: 'ability_mount_alliancepvpmount',
     maxRanks: 1,
-    entryIds: [102438],
-    definitionIds: [{ id: 107443, specId: 66 }],
+    entryIds: [102439],
+    definitionIds: [{ id: 107444, specId: 66 }],
   },
   VENERATION_TALENT: {
     id: 392938,
@@ -2131,6 +2131,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [115165],
     definitionIds: [{ id: 120172, specId: 70 }],
+  },
+  ZEALOTS_PARAGON_TALENT: {
+    id: 391142,
+    name: "Zealot's Paragon",
+    icon: 'ability_paladin_conviction',
+    maxRanks: 2,
+    entryIds: [102433],
+    definitionIds: [{ id: 107438, specId: 66 }],
   },
   ZEALOUS_VINDICATION_TALENT: {
     id: 431463,

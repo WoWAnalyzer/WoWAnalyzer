@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, type JSX } from 'react';
 import { ControlledExpandable } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';

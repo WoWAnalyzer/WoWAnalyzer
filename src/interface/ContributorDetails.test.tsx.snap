@@ -1,120 +1,104 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`ContributorDetails > matches snapshot 1`] = `
-<div
-  className="contributor-detail"
->
+<div>
   <div
-    className="flex-main"
+    class="contributor-detail"
   >
     <div
-      className="row"
+      class="flex-main"
     >
       <div
-        className="col-md-5"
+        class="row"
       >
         <div
-          className="panel "
+          class="col-md-5"
         >
           <div
-            className="panel-heading"
-          >
-            <h1
-              style={
-                {
-                  "position": "relative",
-                }
-              }
-            >
-              <a
-                href="#Dummy"
-                id="Dummy"
-              >
-                Dummy
-              </a>
-            </h1>
-          </div>
-          <div
-            className="panel-body pad"
+            class="panel "
           >
             <div
-              style={
-                {
-                  "textAlign": "center",
-                }
-              }
+              class="panel-heading"
             >
-              <img
-                alt="Avatar"
-                src="/src/interface/images/avatars/zerotorescue-avatar.jpg"
-                style={
-                  {
-                    "borderRadius": "50%",
-                    "marginTop": 20,
-                    "maxHeight": 200,
-                  }
-                }
-              />
+              <h1
+                style="position: relative;"
+              >
+                <a
+                  href="#Dummy"
+                  id="Dummy"
+                >
+                  Dummy
+                </a>
+              </h1>
             </div>
             <div
-              className="flex-main contributorlist"
+              class="panel-body pad"
             >
               <div
-                className="row"
+                style="text-align: center;"
+              >
+                <img
+                  alt="Avatar"
+                  src="/src/interface/images/avatars/zerotorescue-avatar.jpg"
+                  style="margin-top: 20px; max-height: 200px; border-radius: 50%;"
+                />
+              </div>
+              <div
+                class="flex-main contributorlist"
               >
                 <div
-                  className="col-md-3"
+                  class="row"
                 >
-                  <b>
-                    GitHub:
-                  </b>
-                </div>
-                <div
-                  className="col-md-9"
-                >
-                  <a
-                    href="https://github.com/DummyHub"
-                    rel="noopener noreferrer"
-                    target="_blank"
+                  <div
+                    class="col-md-3"
                   >
-                    DummyHub
-                  </a>
+                    <b>
+                      GitHub:
+                    </b>
+                  </div>
+                  <div
+                    class="col-md-9"
+                  >
+                    <a
+                      href="https://github.com/DummyHub"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      DummyHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="col-md-7"
-      >
         <div
-          className="panel "
+          class="col-md-7"
         >
           <div
-            className="panel-heading"
+            class="panel "
           >
-            <h1
-              style={
-                {
-                  "position": "relative",
-                }
-              }
+            <div
+              class="panel-heading"
             >
-              <a
-                href="#Contributions this expansion"
-                id="Contributions this expansion"
+              <h1
+                style="position: relative;"
               >
-                Contributions this expansion
-              </a>
-            </h1>
-          </div>
-          <div
-            className="panel-body "
-          >
-            <ul
-              className="list"
-            />
+                <a
+                  href="#Contributions this expansion"
+                  id="Contributions this expansion"
+                >
+                  Contributions this expansion
+                </a>
+              </h1>
+            </div>
+            <div
+              class="panel-body "
+            >
+              <ul
+                class="list"
+              />
+            </div>
           </div>
         </div>
       </div>

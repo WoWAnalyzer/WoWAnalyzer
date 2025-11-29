@@ -9,7 +9,7 @@ import {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
-import { ReactChild, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { initLocationState, isInRange, LocationState, updateLocationState } from './range';
 
 const debug = false;
@@ -49,9 +49,9 @@ export interface Condition<T> {
   // validate whether the condition applies for the supplied event.
   validate: (state: T, event: AplTriggerEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
-  describe: (tense?: Tense) => ReactChild;
+  describe: (tense?: Tense) => ReactNode;
   // tooltip description for checklist
-  tooltip?: () => ReactChild | undefined;
+  tooltip?: () => ReactNode | undefined;
   prefix?: string;
 }
 

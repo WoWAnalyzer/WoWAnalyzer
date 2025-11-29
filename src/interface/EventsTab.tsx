@@ -451,6 +451,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                 width={width}
               >
                 <Column
+                  {...Column.defaultProps}
                   dataKey="timestamp"
                   label="Time"
                   cellRenderer={({ cellData }) =>
@@ -461,6 +462,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                   flexGrow={1}
                 />
                 <Column
+                  {...Column.defaultProps}
                   dataKey="type"
                   label="Event"
                   cellRenderer={({ cellData }) => (
@@ -471,6 +473,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                   flexGrow={1}
                 />
                 <Column
+                  {...Column.defaultProps}
                   dataKey="sourceID"
                   label="Source"
                   cellRenderer={({ cellData }) => (
@@ -481,6 +484,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                   flexGrow={1}
                 />
                 <Column
+                  {...Column.defaultProps}
                   dataKey="targetID"
                   label="Target"
                   cellRenderer={({ cellData }) => (
@@ -491,6 +495,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                   flexGrow={1}
                 />
                 <Column
+                  {...Column.defaultProps}
                   dataKey="ability"
                   label="Ability"
                   cellRenderer={({ cellData }) => <AbilityCell ability={cellData} />}
@@ -499,6 +504,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                   flexGrow={1}
                 />
                 <Column
+                  {...Column.defaultProps}
                   dataKey="effective"
                   label="Amount"
                   className="effect"
@@ -601,6 +607,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                   flexGrow={1}
                 />
                 <Column
+                  {...Column.defaultProps}
                   dataKey="rest"
                   label=""
                   className="effect"

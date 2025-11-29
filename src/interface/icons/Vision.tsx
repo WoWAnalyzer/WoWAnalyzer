@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-type Props = Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
+type Props = Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
 
 // https://thenounproject.com/search/?q=focus%20chart&i=2013201
 // Vision by supalerk laipawat from the Noun Project

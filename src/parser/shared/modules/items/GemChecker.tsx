@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS'; //This is the main item index for the Gem Lookup and ItemLinks
 import Item, { CraftedItem } from 'common/ITEMS/Item'; //This is the Crafted Item that has the quality one items doesn't have
@@ -246,9 +247,10 @@ class GemChecker extends Analyzer {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         return (
+          // Check if the item has gems
           eventItemHasGemSocket(item) ||
           this.maxSocketCount(slotNumber, true) > 0 ||
-          (item.gems && item.gems.length > 0) // Check if the item has gems
+          (item.gems && item.gems.length > 0)
         );
       })
       .map<GemBoxRowEntry>((slot) => {

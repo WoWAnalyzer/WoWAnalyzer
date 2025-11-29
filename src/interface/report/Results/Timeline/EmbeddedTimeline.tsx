@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import React from 'react';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
 
@@ -39,13 +38,15 @@ const EmbeddedTimelineContainer = styled.div<{
   }};
 `;
 
-export const SpellTimeline = React.forwardRef<
-  HTMLDivElement,
-  React.PropsWithChildren<React.ComponentProps<'div'>>
->(({ children }, ref) => (
+export const SpellTimeline = ({
+  ref,
+  children,
+}: React.PropsWithChildren<React.ComponentProps<'div'>> & {
+  ref?: React.RefObject<HTMLDivElement | null>;
+}) => (
   <div ref={ref} className="spell-timeline">
     {children}
   </div>
-));
+);
 
 export default EmbeddedTimelineContainer;

@@ -17,7 +17,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 
 export interface PrimalElementalCast extends CooldownTrigger<CastEvent> {
   spells: Map<number, number>;

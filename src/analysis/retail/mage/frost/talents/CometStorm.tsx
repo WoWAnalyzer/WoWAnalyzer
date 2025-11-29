@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { COMET_STORM_AOE_MIN_TARGETS, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';

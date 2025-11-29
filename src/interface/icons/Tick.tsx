@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-type Props = Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
+type Props = Omit<ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
 
 // https://thenounproject.com/search/?q=tick&i=1318207
 // Created by Landan Lloyd from the Noun Project

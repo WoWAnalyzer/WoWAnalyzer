@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 

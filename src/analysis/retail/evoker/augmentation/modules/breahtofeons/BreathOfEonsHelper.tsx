@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import { FC, JSX } from 'react';
+import { useMemo } from 'react';
 import { BreathOfEonsWindows } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
@@ -62,7 +63,7 @@ interface WindowResponse {
   end: number;
 }
 
-const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
+const BreathOfEonsHelper: FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
     table: DamageEvent[];
     start: number;

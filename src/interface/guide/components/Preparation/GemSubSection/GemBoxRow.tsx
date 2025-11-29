@@ -1,5 +1,5 @@
 import styles from './GemBoxRow.module.scss';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ReactNode, type JSX } from 'react';
 import { Tooltip } from 'interface/index';
 import { Item as EventItem, Gem as EventGem } from 'parser/core/Events';
 import Icon from 'interface/Icon';

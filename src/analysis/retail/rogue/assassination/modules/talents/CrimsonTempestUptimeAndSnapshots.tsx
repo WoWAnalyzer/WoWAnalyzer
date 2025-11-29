@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';

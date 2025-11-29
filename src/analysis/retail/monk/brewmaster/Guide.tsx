@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';

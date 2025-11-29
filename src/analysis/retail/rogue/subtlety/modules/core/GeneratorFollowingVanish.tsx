@@ -9,7 +9,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import { abilityToSpell } from 'common/abilityToSpell';
 
 class GeneratorFollowingVanish extends Analyzer {
@@ -52,8 +52,8 @@ class GeneratorFollowingVanish extends Analyzer {
     };
   }
 
-  statistic(): React.ReactNode {
-    const tableEntries: React.ReactNode[] = this.badFollowingVanishCasts.map((castPair, idx) => (
+  statistic(): ReactNode {
+    const tableEntries: ReactNode[] = this.badFollowingVanishCasts.map((castPair, idx) => (
       <tr key={idx}>
         <td>{this.owner.formatTimestamp(castPair[0].timestamp)}</td>
         <td>

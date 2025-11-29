@@ -1,8 +1,8 @@
+import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
-import * as React from 'react';
 
 interface Props {
-  text: React.ReactNode;
+  text: ReactNode;
 }
 
 const ActivityIndicator = ({ text }: Props) => {

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';

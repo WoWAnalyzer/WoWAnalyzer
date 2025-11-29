@@ -1,13 +1,13 @@
+import type { VideoHTMLAttributes } from 'react';
 import { useState } from 'react';
-import * as React from 'react';
 
-interface Props extends React.VideoHTMLAttributes<HTMLVideoElement> {
+interface Props extends VideoHTMLAttributes<HTMLVideoElement> {
   videos: string[];
   randomValue?: number;
 }
 
 const CyclingVideo = ({ videos, randomValue, ...otherProps }: Props) => {
-  const [currentIndex, setCurrentIndex] = useState(
+  const [currentIndex, setCurrentIndex] = useState(() =>
     Math.floor((randomValue ?? Math.random()) * videos.length),
   );
   const currentVideo = videos[currentIndex];

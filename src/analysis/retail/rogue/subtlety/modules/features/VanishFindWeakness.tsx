@@ -10,7 +10,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 /**
  * Analyzer for the suggestion that Vanish should not be cast
@@ -98,8 +98,8 @@ class VanishFindWeakness extends Analyzer {
     };
   }
 
-  statistic(): React.ReactNode {
-    const tableEntries: React.ReactNode[] = [];
+  statistic(): ReactNode {
+    const tableEntries: ReactNode[] = [];
     const keys: CastEvent[] = Array.from(this.badVanishCasts.keys());
     keys.forEach((cast: CastEvent, idx: number) => {
       tableEntries.push(

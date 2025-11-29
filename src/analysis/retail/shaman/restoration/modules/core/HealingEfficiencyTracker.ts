@@ -24,8 +24,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     surgingTotem: SurgingTotem,
   };
 
-  protected declare abilityTracker: RestorationAbilityTracker;
-  protected declare healingDone: HealingDone;
+  declare protected abilityTracker: RestorationAbilityTracker;
+  declare protected healingDone: HealingDone;
   protected resurgence!: Resurgence;
   protected unleashLife!: UnleashLife;
   protected earthShield!: EarthShield;

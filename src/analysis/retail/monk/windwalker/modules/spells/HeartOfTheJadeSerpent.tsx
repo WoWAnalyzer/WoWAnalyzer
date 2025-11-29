@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { default as HotJS } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
 import spells from 'common/SPELLS/monk';
 import { TALENTS_MONK } from 'common/TALENTS';

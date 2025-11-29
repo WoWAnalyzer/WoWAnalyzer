@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Analyzer from 'parser/core/Analyzer';

@@ -1,5 +1,5 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { createContext, ReactNode, useContext, useMemo } from 'react';
+import { createContext, ReactNode, use, useMemo } from 'react';
 
 interface CombatLogParserContext {
   combatLogParser: CombatLogParser;
@@ -16,13 +16,11 @@ interface Props {
 export const CombatLogParserProvider = ({ children, combatLogParser }: Props) => {
   const providerValue = useMemo(() => ({ combatLogParser }), [combatLogParser]);
 
-  return (
-    <CombatLogParserCtx.Provider value={providerValue}>{children}</CombatLogParserCtx.Provider>
-  );
+  return <CombatLogParserCtx value={providerValue}>{children}</CombatLogParserCtx>;
 };
 
 export const useCombatLogParser = () => {
-  const context = useContext(CombatLogParserCtx);
+  const context = use(CombatLogParserCtx);
   if (context === undefined) {
     throw new Error('Unable to retrieve CombatLogParser for the current report/player combination');
   }

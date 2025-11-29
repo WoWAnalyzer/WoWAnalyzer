@@ -1,6 +1,7 @@
+import type { JSX } from 'react';
 import {
-  WILDFIRE_BOMB_LEEWAY_BUFFER,
   COVERING_FIRE_CDR,
+  WILDFIRE_BOMB_LEEWAY_BUFFER,
 } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -21,7 +22,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { PerfectColor, BadColor, GoodColor, OkColor } from 'interface/guide';
+import { BadColor, GoodColor, OkColor, PerfectColor } from 'interface/guide';
+
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
  *

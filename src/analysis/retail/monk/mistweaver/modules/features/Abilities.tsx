@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.EMPERORS_ELIXIR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -68,7 +68,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 45,
         castEfficiency: {
           suggestion: true,
         },
@@ -78,7 +78,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },
@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },
@@ -114,7 +114,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.REVIVAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT),
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.RESTORAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT),
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -151,6 +151,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VIVIFY.id,
         category: SPELL_CATEGORY.OTHERS,
+        enabled: !combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -186,13 +187,6 @@ class Abilities extends CoreAbilities {
 
       // Utility Spells
       {
-        spell: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
-        buffSpellId: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT),
-      },
-      {
         spell: SPELLS.FORTIFYING_BREW_CAST.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -210,7 +204,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 30 - combatant.getTalentRank(TALENTS_MONK.ANCIENT_ARTS_TALENT) * 7.5,
         enabled: combatant.hasTalent(TALENTS_MONK.PARALYSIS_TALENT),
         gcd: {
           base: 1500,
@@ -319,9 +313,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
-        category: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-          ? SPELL_CATEGORY.ROTATIONAL
-          : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        category:
+          combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ||
+          combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)
+            ? SPELL_CATEGORY.ROTATIONAL
+            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,

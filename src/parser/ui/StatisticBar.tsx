@@ -1,18 +1,18 @@
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import * as React from 'react';
+import type { ReactNode, HTMLAttributes, DetailedHTMLProps } from 'react';
 
 import './Statistic.scss';
 import './StatisticBar.scss';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   category?: STATISTIC_CATEGORY;
   position?: number;
 
   large?: boolean;
   wide?: boolean;
   ultrawide?: boolean;
-} & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+} & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const StatisticBar = ({ children, large, wide, ultrawide, ...others }: Props) => (
   <div

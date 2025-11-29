@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 24), 'Add example logs for each spec.', Topple),
   change(date(2025, 11, 9), 'Compilation pass for 12.0.0.', Topple),
   change(date(2024, 12, 1), <>Fix statistics for <SpellLink spell={TALENTS.DEMONSURGE_TALENT} />.</>, Topple),
   change(date(2024, 9, 23), <>Add statistics for <SpellLink spell={TALENTS.DEMONSURGE_TALENT} />.</>, Topple),

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';

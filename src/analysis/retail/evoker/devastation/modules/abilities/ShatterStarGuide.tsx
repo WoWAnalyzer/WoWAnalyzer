@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import ShatteringStar, { CastRecord, ShatteringStarWindow } from './ShatteringStar';
 import { Options } from 'parser/core/Module';

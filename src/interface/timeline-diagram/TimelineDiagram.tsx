@@ -1,9 +1,21 @@
 import styled from '@emotion/styled';
-import { formatDurationMinSec } from 'common/format';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  type JSX,
+  MouseEvent,
+  SyntheticEvent,
+  createContext,
+  useCallback,
+  use,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  ReactNode,
+} from 'react';
+import { formatDurationMinSec } from 'common/format';
 
 interface TimelineContext {
   /**
@@ -14,14 +26,14 @@ interface TimelineContext {
   /**
    * Zoom to the timestamp range. Only impacts the horizontal axis.
    */
-  zoom(event: React.SyntheticEvent, start: number, end: number): void;
+  zoom(event: SyntheticEvent, start: number, end: number): void;
   /**
    * Reset the timeline zoom.
    */
-  resetZoom(event: React.SyntheticEvent): void;
+  resetZoom(event: SyntheticEvent): void;
 }
 
-const ctx = React.createContext<TimelineContext>({
+const TimelinePositionContext = createContext<TimelineContext>({
   x() {
     return 0;
   },
@@ -36,7 +48,7 @@ const ctx = React.createContext<TimelineContext>({
   },
 });
 
-export const useTimelinePosition = () => useContext(ctx);
+export const useTimelinePosition = () => use(TimelinePositionContext);
 
 /**
  * A track within the timeline diagram. For example: all the spells a player casts occupy a single track.
@@ -68,13 +80,13 @@ export interface TimelineTrack {
 interface Props {
   info: Info;
   children: TimelineTrack | TimelineTrack[];
-  overlays?: React.ReactNode[];
+  overlays?: ReactNode[];
 }
 
 export default function TimelineDiagram({ info, children, overlays }: Props): JSX.Element | null {
   // track the width of the container element to use for display calculations.
   // setting this does NOT resize the container
-  const [containerElementWidth, recordContainerElementWidth] = useState(0);
+  const [containerElementWidth, setContainerElementWidth] = useState(0);
   // set the number of milliseconds that should be displayed at once. if undefined, the whole fight is shown.
   // the use of undefined to mean "the whole fight" is simply to make the zoom control logic simpler (since `undefined` = no zoom)
   const [displayMs, setDisplayMs] = useState<number | undefined>(undefined);
@@ -94,7 +106,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     new ResizeObserver((entries) => {
       for (const entry of entries) {
         const rect = entry.target.getBoundingClientRect();
-        recordContainerElementWidth(rect.width);
+        setContainerElementWidth(rect.width);
       }
     }),
   );
@@ -161,6 +173,8 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
               {render}
             </svg>
           );
+          // linter thinks this is being reassigned across renders, but it actually IS within a single render.
+          // eslint-disable-next-line react-hooks/immutability
           totalHeight += height;
           return [zIndex ?? 0, result];
         }
@@ -177,7 +191,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   }, [children, info, x]);
 
   const zoomOnClick = useCallback(
-    (event: React.MouseEvent<SVGSVGElement>) => {
+    (event: MouseEvent<SVGSVGElement>) => {
       if (event === zoomEvent.current) {
         return; // someone else already adjusted zoom for this
       }
@@ -217,7 +231,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   // enable mouse panning for desktop users. laptop users can do horizontal scrolling relatively easily.
   // on desktop, this requires knowing shift+mousewheel does it, and is not as nice
   const panStartPosition = useRef<{ cursor: number; scroll: number } | undefined>(undefined);
-  const startPanning = useCallback((event: React.MouseEvent<unknown>) => {
+  const startPanning = useCallback((event: MouseEvent<unknown>) => {
     const container = containerElement.current;
     if (container) {
       panStartPosition.current = {
@@ -226,12 +240,12 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
       };
     }
   }, []);
-  const stopPanning = useCallback((_event: React.MouseEvent<unknown>) => {
+  const stopPanning = useCallback((_event: MouseEvent<unknown>) => {
     panStartPosition.current = undefined;
   }, []);
 
   const mouseMovePan = useCallback(
-    (event: React.MouseEvent<unknown>) => {
+    (event: MouseEvent<unknown>) => {
       const startPos = panStartPosition.current;
       const container = containerElement.current;
       if (!displayMs || !startPos || event.buttons === 0 || !container) {
@@ -246,7 +260,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   const phases = usePhaseSegments();
 
   return (
-    <ctx.Provider value={contextValue}>
+    <TimelinePositionContext value={contextValue}>
       <div>
         <div
           ref={watchWidth}
@@ -280,7 +294,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
         </div>
         <ZoomText isZoomed={Boolean(displayMs)} />
       </div>
-    </ctx.Provider>
+    </TimelinePositionContext>
   );
 }
 

@@ -5,18 +5,18 @@ import { FoundationDowntimeSection } from 'interface/guide/foundation/Foundation
 import { useExpansionContext } from 'interface/report/ExpansionContext';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import {
-  check,
   apl,
+  check,
+  isUsingParseRotation,
   parselordApl,
   parselordCheck,
-  isUsingParseRotation,
 } from './modules/features/AplCheck';
 import Para from 'interface/guide/Para';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellLink from 'interface/SpellLink';
 import spells from './spell-list_Monk_Brewmaster.classic';
-import { useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState, type JSX } from 'react';
 import SPELLS from 'common/SPELLS/classic';
 import { WarningIcon } from 'interface/icons';
 import type CombatLogParser from './CombatLogParser';
@@ -109,8 +109,8 @@ export default function Guide({ events, info }: GuideProps<typeof CombatLogParse
 
 interface TabWrapperProps {
   tabs: {
-    label: React.ReactChild;
-    component: React.ReactChild;
+    label: ReactNode;
+    component: ReactNode;
   }[];
 }
 

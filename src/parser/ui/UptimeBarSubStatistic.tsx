@@ -6,7 +6,7 @@ import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceLabel } from './PerformanceLabel';
 
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import './UptimeBarSubStatistic.scss';
 
 /** Specifies what should be rendered in the uptime bar */
@@ -48,7 +48,7 @@ export default function uptimeBarSubStatistic(
   subPercentageStyle: SubPercentageStyle = SubPercentageStyle.RELATIVE,
   subIncludeUptimeText = false,
   statText = 'uptime',
-): React.ReactNode {
+): ReactNode {
   const primaryUptime = getCombinedUptime(primaryBar.uptimes);
   const totalFightTime = fight.end_time - fight.start_time;
   const subBarUptimeReference =

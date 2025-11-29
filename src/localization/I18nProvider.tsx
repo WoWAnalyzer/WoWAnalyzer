@@ -3,7 +3,7 @@ import { I18nProvider as LinguiI18nProvider } from '@lingui/react';
 import { getLanguage } from 'interface/selectors/language';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { ReactNode, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useHead } from '@unhead/react';
 
 const loadCatalog = async (locale: string) => {
   const { messages } = await import(`./${locale}/messages.json?lingui`);
@@ -19,6 +19,15 @@ interface Props {
 const I18nProvider = ({ children }: Props) => {
   const locale = useWaSelector((state) => getLanguage(state));
   const [activeLocale, setActiveLocale] = useState<string | undefined>(undefined);
+
+  // Specify the correct language to disable translation plugins, and try to disable translation
+  // plugins. This is needed because they modify the DOM, which can cause React to crash.
+  useHead({
+    htmlAttrs: {
+      lang: activeLocale,
+      translate: 'no',
+    },
+  });
 
   useEffect(() => {
     if (activeLocale === locale) {
@@ -41,16 +50,7 @@ const I18nProvider = ({ children }: Props) => {
     return null;
   }
 
-  return (
-    <LinguiI18nProvider i18n={i18n}>
-      <Helmet>
-        {/* Specify the correct language to disable translation plugins, and try to disable translation plugins. This is needed because they modify the DOM, which can cause React to crash. */}
-        <html lang={activeLocale} translate="no" />
-      </Helmet>
-
-      {children}
-    </LinguiI18nProvider>
-  );
+  return <LinguiI18nProvider i18n={i18n}>{children}</LinguiI18nProvider>;
 };
 
 export default I18nProvider;

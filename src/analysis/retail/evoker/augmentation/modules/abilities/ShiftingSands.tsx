@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/evoker';
 import Events from 'parser/core/Events';

@@ -18,7 +18,7 @@ import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import * as React from 'react';
+import { cloneElement } from 'react';
 import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 
 import Config from '../Config';
@@ -682,7 +682,7 @@ class CombatLogParser {
       const position =
         statistic.props.position !== undefined ? statistic.props.position : basePosition;
       results.statistics.push(
-        React.cloneElement(statistic, {
+        cloneElement(statistic, {
           key,
           position,
         }),
@@ -759,13 +759,13 @@ class CombatLogParser {
     const Component = ctor.guide;
     return () => (
       <GuideContainer>
-        <GuideContext.Provider value={props}>
+        <GuideContext value={props}>
           <ExplanationContextProvider>
             <SpellUsageContextProvider>
               <Component {...props} />
             </SpellUsageContextProvider>
           </ExplanationContextProvider>
-        </GuideContext.Provider>
+        </GuideContext>
       </GuideContainer>
     );
   }

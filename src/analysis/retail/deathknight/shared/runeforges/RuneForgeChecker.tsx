@@ -2,12 +2,12 @@ import { Enchant } from 'common/SPELLS/Spell';
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { BoolThreshold, ThresholdStyle } from 'parser/core/ParseResults';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 interface RuneForgeCheckItem {
   forge: Enchant;
   importance: SUGGESTION_IMPORTANCE;
-  suggestion: React.ReactNode;
+  suggestion: ReactNode;
 }
 
 class RuneForgeChecker extends Analyzer {

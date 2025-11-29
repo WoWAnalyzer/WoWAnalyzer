@@ -1,14 +1,14 @@
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import './BoringValue.scss';
 
 interface Props {
   spell: number | Spell;
-  value: React.ReactNode;
-  label: React.ReactNode;
-  extra?: React.ReactNode;
+  value: ReactNode;
+  label: ReactNode;
+  extra?: ReactNode;
   className?: string;
 }
 

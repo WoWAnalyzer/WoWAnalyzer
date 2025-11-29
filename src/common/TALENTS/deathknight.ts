@@ -18,9 +18,9 @@ const talents = {
     entryIds: [96317],
     definitionIds: [{ id: 101319, specId: 252 }],
   },
-  ANCIENT_RUNES_TALENT: {
+  ANCIENT_POWER_TALENT: {
     id: 377590,
-    name: 'Ancient Runes',
+    name: 'Ancient Power',
     icon: 'inv_relics_runestone',
     maxRanks: 2,
     entryIds: [96286],
@@ -1328,7 +1328,7 @@ const talents = {
   PUTRID_ECHOES_TALENT: {
     id: 377580,
     name: 'Putrid Echoes',
-    icon: 'spell_shadow_creepingplague',
+    icon: 'inv12_ability_deathknight_dreadplague',
     maxRanks: 1,
     entryIds: [133546],
     definitionIds: [{ id: 138332, specId: 252 }],

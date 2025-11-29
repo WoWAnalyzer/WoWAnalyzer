@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import EventFilter from './EventFilter';
 import Events, { AnyEvent, EventType } from './Events';
@@ -16,7 +16,7 @@ export type Options = _Options;
 export interface ParseResultsTab {
   title: string | MessageDescriptor;
   url: string;
-  render: () => React.ReactNode;
+  render: () => ReactNode;
 }
 
 type Dependencies = (typeof Module)['dependencies'];
@@ -53,7 +53,7 @@ class Analyzer extends EventSubscriber {
   }
 
   // Override these with functions that return info about their rendering in the specific slots
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return undefined;
   }
 
@@ -157,7 +157,7 @@ enum FunctionType {
 
 type FunctionalEventFilter = EventFilter<any> | EventFilter<any>[];
 
-function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
+function buildFunctionalAnalyzer<Deps extends Dependencies, Result extends ReactNode>(
   functionType: FunctionType,
   metric: Metric<Result>,
   eventFilter: FunctionalEventFilter = Events.any,
@@ -186,7 +186,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
       return metric(events, info, deps);
     }
 
-    statistic(): React.ReactNode {
+    statistic(): ReactNode {
       if (functionType === FunctionType.Statistic) {
         return analyzer.run(
           this.eventList,
@@ -202,7 +202,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
 }
 
 export const statistic = (
-  metric: Metric<React.ReactNode | undefined>,
+  metric: Metric<ReactNode>,
   eventFilter?: FunctionalEventFilter,
   dependencies?: Dependencies,
 ) => buildFunctionalAnalyzer(FunctionType.Statistic, metric, eventFilter, dependencies);

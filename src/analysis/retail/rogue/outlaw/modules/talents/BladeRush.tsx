@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {

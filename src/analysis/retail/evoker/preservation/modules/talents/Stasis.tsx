@@ -19,7 +19,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { PassFailCheckmark, PerformanceMark, SectionHeader } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { getStasisSpell, isStasisForRamp } from '../../normalizers/EventLinking/helpers';
-import { useState } from 'react';
+import { useState, type JSX } from 'react';
 
 interface StasisInfo {
   castTime: number; // when stasis is originally cast

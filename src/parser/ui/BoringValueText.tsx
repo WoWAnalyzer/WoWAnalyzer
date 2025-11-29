@@ -2,11 +2,11 @@
  * A simple component that shows a value in the most plain way possible.
  * Use this only as the very last resort.
  */
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
-  label: React.ReactNode;
-  children: React.ReactNode;
+  label: ReactNode;
+  children: ReactNode;
   className?: string;
 }
 

@@ -3,7 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
-import * as React from 'react';
+import type { ReactElement } from 'react';
 
 import ComboPointTracker from './ComboPointTracker';
 
@@ -61,7 +61,7 @@ class FinisherTracker extends Analyzer {
    * IMPLEMENTME
    * Return spec specific suggestion text or JSX node here.
    */
-  extraSuggestion(): React.ReactElement | string {
+  extraSuggestion(): ReactElement | string {
     return '';
   }
 

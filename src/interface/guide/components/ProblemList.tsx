@@ -1,6 +1,6 @@
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 import './ProblemList.scss';
 
 /**

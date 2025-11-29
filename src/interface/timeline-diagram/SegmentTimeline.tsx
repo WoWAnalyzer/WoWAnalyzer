@@ -2,7 +2,8 @@ import Tooltip from '@wowanalyzer/react-tooltip-lite';
 import Spell from 'common/SPELLS/Spell';
 import { formatDuration } from 'common/format';
 import { Info } from 'parser/core/metric';
-import React, { useMemo } from 'react';
+import { ReactNode, ComponentProps, JSX } from 'react';
+import { memo, useMemo } from 'react';
 import SpellIcon from '../SpellIcon';
 import { useTimelinePosition } from './TimelineDiagram';
 
@@ -20,7 +21,7 @@ export interface DisplaySegment {
   /**
    * If set, show this as the tooltip on hovering the segment.
    */
-  tooltip?: React.ReactNode;
+  tooltip?: ReactNode;
 }
 
 interface SegmentTimelineProps {
@@ -29,12 +30,12 @@ interface SegmentTimelineProps {
   fgStroke?: string;
   segments: DisplaySegment[];
   info: Info;
-  segmentProps?: React.ComponentProps<'rect'>;
-  containerProps?: React.ComponentProps<'svg'>;
+  segmentProps?: ComponentProps<'rect'>;
+  containerProps?: ComponentProps<'svg'>;
   disableMerging?: boolean;
 }
 
-export default React.memo(function SegmentTimeline({
+export default memo(function SegmentTimeline({
   bgColor,
   fgColor,
   segments,
@@ -102,7 +103,10 @@ export default React.memo(function SegmentTimeline({
                 y={0}
                 height="100%"
               >
-                <Tooltip content={segment.tooltip}>
+                <Tooltip
+                  content={segment.tooltip}
+                  portalContainer={document.getElementById('portal-root')!}
+                >
                   <div style={{ width: '100%', height: '100%' }} />
                 </Tooltip>
               </foreignObject>

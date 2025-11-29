@@ -1,5 +1,4 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
@@ -13,12 +12,9 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
   RemoveBuffEvent,
   ResourceActor,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -26,27 +22,20 @@ import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
 import { damageEvent } from './normalizer';
 import Spell from 'common/SPELLS/Spell';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import SPELLS from '../../../spell-list_Monk_Brewmaster.retail';
 
-const PURIFIED_CHI_PCT = 0.35;
-const PURIFIED_CHI_WINDOW = 150;
-
-/**
- * The number of stacks needed to get a 100% bonus to the shield.
- */
-const PURIFIED_CHI_STACKS_PER_100 = Math.ceil(1 / PURIFIED_CHI_PCT);
-const WASTED_THRESHOLD = 0.75;
+const WASTED_THRESHOLD = 0.25;
+const GOOD_THRESHOLD = 0.5;
 
 interface AbsorbExtras {
   wastedAmount: number;
-  purifiedChiStacks: number;
 }
 
 type Absorb = Mitigation & AbsorbExtras;
 
 class CelestialBrew extends MajorDefensiveBuff {
   private _absorbs: AbsorbExtras[] = [];
-  private _currentChiStacks = 0;
-  private _expireTime: number | null = null;
 
   private displaySpell: Spell;
 
@@ -101,56 +90,20 @@ class CelestialBrew extends MajorDefensiveBuff {
         .spell([talents.CELESTIAL_BREW_TALENT, talents.CELESTIAL_INFUSION_TALENT]),
       this._cbAbsorb,
     );
-
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
-      this._purifiedChiApplied,
-    );
-    this.addEventListener(
-      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
-      this._purifiedChiStackApplied,
-    );
-    this.addEventListener(
-      Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER),
-      this._expirePurifiedChi,
-    );
   }
 
   get absorbs(): Absorb[] {
     return this.mitigations.map((mit, ix) => ({ ...mit, ...this._absorbs[ix] }));
   }
 
-  get goodCastSuggestion() {
-    const actual =
-      this.absorbs.filter(
-        ({ amount, wastedAmount }) => amount / (amount + wastedAmount) >= WASTED_THRESHOLD,
-      ).length / this.absorbs.length;
-    return {
-      actual,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  expireChi(timestamp: number) {
-    if (this._expireTime && timestamp - this._expireTime > PURIFIED_CHI_WINDOW) {
-      this._expireTime = null;
-      this._currentChiStacks = 0;
-    }
-  }
-
   description(): ReactNode {
     return (
       <div>
         <p>
-          <SpellLink spell={this.displaySpell} /> provides a low-cooldown shield for 30-100% of your
-          health bar.{' '}
+          <SpellLink spell={this.displaySpell} /> provides a low-cooldown shield for a large percent
+          of your health bar.{' '}
           <CountsAsBrew
-            baseCooldown={60}
+            baseCooldown={SPELLS.CELESTIAL_BREW_TALENT.cooldown.duration / 1000}
             lightBrewing={this.selectedCombatant.hasTalent(talents.LIGHT_BREWING_TALENT)}
           />{' '}
           To use it effectively, you need to balance two goals: using it to{' '}
@@ -166,12 +119,6 @@ class CelestialBrew extends MajorDefensiveBuff {
         ? 0
         : this.absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this.absorbs.length;
     const wastedAbsorb = this.absorbs.reduce((total, absorb) => total + absorb.wastedAmount, 0);
-    const avgStacks =
-      this.absorbs.length === 0
-        ? 0
-        : this.absorbs.reduce((total, absorb) => total + absorb.purifiedChiStacks, 0) /
-          this.absorbs.length;
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -180,10 +127,6 @@ class CelestialBrew extends MajorDefensiveBuff {
           <>
             Does not include <strong>{formatNumber(wastedAbsorb)} wasted absorb</strong> (avg:{' '}
             <strong>{formatNumber(wastedAbsorb / this._absorbs.length)}</strong>).
-            <br />
-            You cast {this.displaySpell.name} with an average of{' '}
-            <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb
-            amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
           </>
         }
       >
@@ -211,33 +154,14 @@ class CelestialBrew extends MajorDefensiveBuff {
     this.setMaxMitigation(event, event.absorb);
   }
 
-  private _expirePurifiedChi(event: RemoveBuffEvent) {
-    this._expireTime = event.timestamp;
-  }
-
-  private _purifiedChiApplied(event: ApplyBuffEvent) {
-    this.expireChi(event.timestamp);
-
-    this._currentChiStacks = 1;
-  }
-
-  private _purifiedChiStackApplied(event: ApplyBuffStackEvent) {
-    this._currentChiStacks = event.stack;
-  }
-
   private get currentAbsorb(): AbsorbExtras | undefined {
     return this._absorbs[this._absorbs.length - 1];
   }
 
-  private _resetAbsorb(cast: CastEvent) {
-    this.expireChi(cast.timestamp);
-
+  private _resetAbsorb() {
     this._absorbs.push({
       wastedAmount: 0,
-      purifiedChiStacks: this._currentChiStacks,
     });
-
-    this._currentChiStacks = 0;
   }
 
   private _cbAbsorb(event: AbsorbedEvent) {
@@ -263,28 +187,44 @@ class CelestialBrew extends MajorDefensiveBuff {
     const absorb = this.absorbs.find((absorb) => absorb.start === mit.start)!;
     const totalAmount = absorb.amount + absorb.wastedAmount;
 
-    const baseRatio =
-      PURIFIED_CHI_STACKS_PER_100 / (PURIFIED_CHI_STACKS_PER_100 + absorb.purifiedChiStacks);
-
-    const baseAmount = Math.min(totalAmount * baseRatio, absorb.amount);
-    const stackAmount = absorb.amount - baseAmount;
-
     return [
       {
-        amount: baseAmount,
+        amount: totalAmount,
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
         description: (
           <>
-            Base <SpellLink spell={this.displaySpell} />
+            <SpellLink spell={this.displaySpell} />
           </>
         ),
       },
-      {
-        amount: stackAmount,
-        color: color(MAGIC_SCHOOLS.ids.HOLY),
-        description: <SpellLink spell={SPELLS.PURIFIED_CHI} />,
-      },
     ];
+  }
+
+  explainPerformance(mit: Mitigation) {
+    const absorb = this.absorbs.find((absorb) => absorb.start === mit.start);
+
+    if (!absorb || !absorb.maxAmount) {
+      return { perf: QualitativePerformance.Good };
+    }
+
+    if (absorb.wastedAmount / absorb.maxAmount > 1 - WASTED_THRESHOLD) {
+      return {
+        perf: QualitativePerformance.Ok,
+        explanation: `Shield expired with at least ${formatPercentage(WASTED_THRESHOLD)}% remaining`,
+      };
+    } else if (absorb.wastedAmount / absorb.maxAmount > 1 - GOOD_THRESHOLD) {
+      return {
+        perf: QualitativePerformance.Good,
+        explanation: `At least ${formatPercentage(GOOD_THRESHOLD)} of the shield was consumed`,
+      };
+    } else if (absorb.wastedAmount === 0) {
+      return {
+        perf: QualitativePerformance.Perfect,
+        explanation: `The entire shield was consumed`,
+      };
+    }
+
+    return { perf: QualitativePerformance.Good };
   }
 }
 

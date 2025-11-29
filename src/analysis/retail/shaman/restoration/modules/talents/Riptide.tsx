@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import talents from 'common/TALENTS/shaman';
 import SpellLink from 'interface/SpellLink';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';

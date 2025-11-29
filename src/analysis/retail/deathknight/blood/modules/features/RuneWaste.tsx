@@ -27,7 +27,7 @@ import aplCheck, {
 } from 'parser/shared/metrics/apl';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 
 const RunicPowerColor = 'hsl(191, 60%, 50%)';
 

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,

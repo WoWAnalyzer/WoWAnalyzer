@@ -12,9 +12,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink, TooltipElement } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { isFromJadefireStomp } from '../mistweaver/normalizers/CastLinkNormalizer';
+import { formatNumber } from 'common/format';
 
 class JadefireStomp extends Analyzer {
   static dependencies = {
@@ -66,17 +64,10 @@ class JadefireStomp extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JADEFIRE_STOMP_HEAL),
       this.heal,
     );
-
-    if (this.specIsMW) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
-        this.onGustOfMistHeal,
-      );
-    }
   }
 
   get totalHealing() {
-    return this.healing + this.gomHealing;
+    return this.healing;
   }
 
   get rawHealing() {
@@ -109,25 +100,6 @@ class JadefireStomp extends Analyzer {
     this.targetsHealed += 1;
     this.healing += event.amount + (event.absorbed || 0);
     this.overhealing += event.overheal || 0;
-  }
-
-  ///Mistweaver specific functions
-  onGustOfMistHeal(event: HealEvent) {
-    if (isFromJadefireStomp(event)) {
-      this.gomHealing += event.amount + (event.absorbed || 0);
-      this.gomOverhealing += event.overheal || 0;
-    }
-  }
-
-  talentHealingStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
-        )} %`}
-      />
-    );
   }
 
   statistic() {

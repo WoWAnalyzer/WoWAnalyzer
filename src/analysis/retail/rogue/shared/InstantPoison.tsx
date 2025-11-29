@@ -7,7 +7,7 @@ import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 class InstantPoison extends Analyzer {
   numPoisonHits = 0;
@@ -49,7 +49,7 @@ class InstantPoison extends Analyzer {
     };
   }
 
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
         <BoringValueText

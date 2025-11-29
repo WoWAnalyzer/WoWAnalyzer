@@ -1,12 +1,12 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import ResourceIcon from './ResourceIcon';
 import useTooltip from 'interface/useTooltip';
 
 interface Props {
   id: number;
-  children?: React.ReactNode;
+  children?: ReactNode;
   category?: string;
   icon?: boolean;
 }

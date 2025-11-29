@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';

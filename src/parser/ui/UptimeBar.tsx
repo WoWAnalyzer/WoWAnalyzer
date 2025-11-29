@@ -1,7 +1,7 @@
 import './UptimeBar.scss';
 import { formatDuration } from 'common/format';
 import { Tooltip } from 'interface';
-import * as React from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
 export interface Uptime {
@@ -41,7 +41,7 @@ const UptimeBar = ({
   barColor,
   timeTooltip,
   ...others
-}: Props & React.ComponentProps<'div'>) => {
+}: Props & ComponentProps<'div'>) => {
   const fightDuration = fightEnd - fightStart;
   return (
     <div className="uptime-bar" {...others}>
@@ -73,7 +73,7 @@ function getSegmentStyle(
   fightStart: number,
   fightDuration: number,
   color: string | undefined,
-): React.CSSProperties {
+): CSSProperties {
   return color !== undefined
     ? {
         left: `${((start - fightStart) / fightDuration) * 100}%`,

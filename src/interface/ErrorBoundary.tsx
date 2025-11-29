@@ -13,7 +13,7 @@ const Fallback = ({
   error,
   eventId,
 }: {
-  error: Error;
+  error: unknown;
   componentStack: string;
   eventId: string;
   resetError: () => void;
@@ -49,12 +49,16 @@ const Fallback = ({
         <Trans id="interface.common.errorBoundary.eventId">Sentry event ID: {eventId}</Trans>
       </p>
     )}
-    <p>{error.message}</p>
-    {error.stack && (
-      <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-        {error.stack.trim()}
-      </pre>
-    )}
+    {error instanceof Error ? (
+      <>
+        <p>{error.message}</p>
+        {error.stack && (
+          <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+            {error.stack.trim()}
+          </pre>
+        )}
+      </>
+    ) : null}
     {componentStack && (
       <pre style={{ color: 'red' }}>
         <Trans id="interface.common.errorBoundary.errorAbove">
@@ -69,7 +73,7 @@ const Fallback = ({
 const ErrorBoundary = ({ children }: { children: ReactNode }) => (
   <SentryErrorBoundary
     beforeCapture={(scope, error, componentStack) => {
-      if (error) {
+      if (error && error instanceof Error) {
         // maintain previous behavior; this isn't read by anything
         (window.errors = window.errors ?? []).push(error);
       }

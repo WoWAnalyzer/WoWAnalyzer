@@ -1,10 +1,10 @@
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ReactNode, type JSX } from 'react';
 
 import ReactTooltip, { TooltipProps as ReactTooltipProps } from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.scss';
 
-interface TooltipProps extends ReactTooltipProps {
+type TooltipProps = Omit<ReactTooltipProps, 'portalContainer'> & {
   /**
    * REQUIRED: The text/element that triggers the tooltip
    */
@@ -14,7 +14,8 @@ interface TooltipProps extends ReactTooltipProps {
    * Default: false
    */
   hoverable?: boolean;
-}
+};
+
 const Tooltip = ({
   content,
   children,
@@ -23,7 +24,13 @@ const Tooltip = ({
   ...others
 }: TooltipProps) => {
   return (
-    <ReactTooltip {...others} direction={direction} tipContentHover={hoverable} content={content}>
+    <ReactTooltip
+      {...others}
+      direction={direction}
+      tipContentHover={hoverable}
+      content={content}
+      portalContainer={document.getElementById('portal-root')!}
+    >
       {children}
     </ReactTooltip>
   );
@@ -51,6 +58,7 @@ export const TooltipElement = ({
       className={tooltipClassName}
       direction={direction}
       tipContentHover={hoverable}
+      portalContainer={document.getElementById('portal-root')!}
     >
       <dfn className={className} style={style}>
         {children}

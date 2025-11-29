@@ -1,15 +1,15 @@
 import { expect, test } from './fixtures';
 
-const reportCode = 'BTrFPALK3RCNXWv7';
-const reportTitle = 'Liberation of Undermine';
-const fightLinkName = 'Kill 8:45';
-const fightUrlPart = '41-Heroic+Chrome+King+Gallywix+-+Kill+(8:45)';
-const bossTitle = `Heroic Chrome King Gallywix - Kill (8:45)`;
+const reportCode = 'VqRJyj1fx3DCwHnb';
+const reportTitle = 'HoF / ToES';
+const fightLinkName = 'Kill 3:31';
+const fightUrlPart = '5-Heroic+Lei+Shi+-+Kill+(3:31)';
+const bossTitle = `Heroic Lei Shi - Kill (3:31)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
-const playerName = 'Eisenpelz';
-const playerLinkName = `${playerName} Brewmaster Monk Brewmaster Monk 647`;
-const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
-const bossDifficultyAndName = 'HeroicChrome King Gallywix';
+const playerName = 'Auruch';
+const playerLinkName = `Auruch Destruction Warlock Destruction Warlock 514`;
+const resultsPageTitle = `Heroic Lei Shi - Kill (3:31) by Auruch in HoF / ToES`;
+const bossDifficultyAndName = 'Lei ShiHeroic Kill - 3:31';
 
 test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();

@@ -65,6 +65,8 @@ const TimelineTab = ({ parser }: Props) => {
       const Component = getAlertComponent(data.type);
 
       alert = (
+        // this is not actually creating a new component; it is doing dynamic dispatch
+        // eslint-disable-next-line react-hooks/static-components
         <Component
           style={{
             marginBottom: 30,

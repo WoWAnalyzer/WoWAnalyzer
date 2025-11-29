@@ -23,16 +23,10 @@ class HotCountGraph extends BuffCountGraph {
 
   buffSpecs(): GraphedSpellSpec[] {
     const buffSpecs: GraphedSpellSpec[] = [];
-    buffSpecs.push(
-      {
-        spells: [TALENTS_MONK.ENVELOPING_MIST_TALENT],
-        color: SPELL_COLORS.ENVELOPING_MIST,
-      },
-      {
-        spells: [SPELLS.ENVELOPING_BREATH_HEAL],
-        color: SPELL_COLORS.RENEWING_MIST,
-      },
-    );
+    buffSpecs.push({
+      spells: [TALENTS_MONK.ENVELOPING_MIST_TALENT],
+      color: SPELL_COLORS.ENVELOPING_MIST,
+    });
     return buffSpecs;
   }
 
@@ -56,7 +50,7 @@ class HotCountGraph extends BuffCountGraph {
             This graph shows the number of non-renewing mist healing buffs you had active over the
             course of the encounter. It can help you evaluate how effective you were at prepping and
             executing your cooldowns. For example, the number of{' '}
-            <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> that go out during{' '}
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />s that go out during{' '}
             <SpellLink spell={this.celestial.getCelestialTalent()} /> directly correlates to your
             hps during.
           </>
