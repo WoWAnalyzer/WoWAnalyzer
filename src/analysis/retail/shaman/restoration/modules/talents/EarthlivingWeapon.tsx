@@ -3,12 +3,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { Trans } from '@lingui/react/macro';
 import talents from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Module';
-import { formatDuration } from 'common/format';
-import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
-import {
-  earthlivingApplication,
-  getEarthlivingHealing,
-} from '../../normalizers/CastLinkNormalizer';
+import Events, { HealEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -17,11 +12,14 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import spells from 'common/SPELLS';
 import DonutChart from 'parser/ui/DonutChart';
 import { RESTORATION_COLORS } from '../../constants';
+import EarthlivingTracker from '../core/EarthlivingTracker';
 
 class EarthlivingWeapon extends Analyzer {
   static dependencies = {
+    earthlivingTracker: EarthlivingTracker,
     combatants: Combatants,
   };
+  protected earthlivingTracker!: EarthlivingTracker;
   protected combatants!: Combatants;
   improved = false;
   totalHealing = 0;
@@ -32,33 +30,24 @@ class EarthlivingWeapon extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(talents.EARTHLIVING_WEAPON_TALENT);
     this.improved = this.selectedCombatant.hasTalent(talents.IMPROVED_EARTHLIVING_WEAPON_TALENT);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(spells.EARTHLIVING_WEAPON_HEAL),
-      this.onApplyEarthliving,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(spells.EARTHLIVING_WEAPON_HEAL),
-      this.onApplyEarthliving,
+      Events.heal.by(SELECTED_PLAYER).spell(spells.EARTHLIVING_WEAPON_HEAL),
+      this.onEarthlivingHeal,
     );
   }
 
-  onApplyEarthliving(event: ApplyBuffEvent | RefreshBuffEvent) {
-    let applicationHealEvent = earthlivingApplication(event);
-    let earthlivingHealing = getEarthlivingHealing(event);
-    for (const heal of earthlivingHealing) {
-      const amount = heal.amount + (heal.absorbed || 0);
-      if (typeof applicationHealEvent[0] !== 'undefined') {
-        const guid = applicationHealEvent[0].ability.guid;
-        const prev = this.healingBySource.get(guid) || 0;
-        this.healingBySource.set(guid, prev + amount);
-      } else {
-        const prev = this.healingBySource.get(0) || 0;
-        this.healingBySource.set(0, prev + amount);
-        console.log(
-          'Earthliving at ' +
-            formatDuration(event.timestamp - this.owner.fight.start_time) +
-            ' is not attributed.',
-        );
+  onEarthlivingHeal(event: HealEvent) {
+    if (event.tick) {
+      if (
+        !this.earthlivingTracker.hots[event.targetID] ||
+        !this.earthlivingTracker.hots[event.targetID][event.ability.guid]
+      ) {
+        return;
       }
+      const earthliving = this.earthlivingTracker.hots[event.targetID][event.ability.guid];
+      const source = this.earthlivingTracker.getSourceSpellId(earthliving);
+      const amount = event.amount + (event.absorbed || 0);
+      const prev = this.healingBySource.get(source) || 0;
+      this.healingBySource.set(source, prev + amount);
       this.totalHealing += amount;
     }
   }

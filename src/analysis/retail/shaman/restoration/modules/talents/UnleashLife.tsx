@@ -593,7 +593,7 @@ class UnleashLife extends Analyzer {
         is a very efficient heal on a short cooldown, however the true power of this spell comes
         from the potent buff it provides that can be consumed by a number of different abilities.
         This spell is best used in preparation for incoming damage to combo with one of your
-        stronger abilities like a -buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, or{' '}
+        stronger abilities like a buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, or{' '}
         <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} />
       </p>
     );

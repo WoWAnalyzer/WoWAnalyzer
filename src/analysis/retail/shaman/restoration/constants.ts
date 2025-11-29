@@ -5,6 +5,11 @@ import TALENTS from 'common/TALENTS/shaman';
 export const HARDCAST = 'Hardcast';
 export const RIPTIDE_PWAVE = 'PrimordialWave';
 export const PWAVE_REMOVAL = 'PrimordialWaveRemoved';
+export const HEALING_WAVE = 'HealingWave';
+export const RIPTIDE = 'Riptide';
+export const HEALING_STREAM_TOTEM_HEAL = 'HealingStreamTotemHeal';
+export const HEALING_TIDE_TOTEM_HEAL = 'HealingTideTotemHeal';
+export const STORMSTREAM_TOTEM_HEAL = 'StormstreamTotemHeal';
 export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
 export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
 export const APPLIED_HEAL = 'AppliedHeal';
@@ -22,7 +27,6 @@ export const HIGH_TIDE = 'HighTide';
 export const LIVELY_TOTEMS_CHAIN_HEAL = 'LivelyTotemsChainHeal';
 export const SPLITSTREAM = 'Splitstream';
 export const EARTHLIVING = 'Earthliving';
-export const EARTHLIVING_HEALING = 'EarthlivingHealing';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
 // 50 was too low, 100 was too high
@@ -133,6 +137,8 @@ export const HEALING_RAIN_DURATION = 10000;
 export const RIPTIDE_BASE_DURATION = 18000;
 export const WAVESPEAKERS_BLESSING = 3000;
 export const SURGING_TOTEM_DURATION = 24000;
+export const EARTHLIVING_BASE_DURATION = 6000;
+export const IMBUEMENT_MASTERY_DURATION = 3000;
 
 export const WHIRLING_ELEMENTS_MOTES = [
   SPELLS.WHIRLING_AIR,

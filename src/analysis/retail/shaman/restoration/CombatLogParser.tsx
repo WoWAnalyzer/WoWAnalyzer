@@ -55,6 +55,8 @@ import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
 import ChainHealNormalizer from './normalizers/ChainHealNormalizer';
 import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
+import EarthlivingTracker from './modules/core/EarthlivingTracker';
+import EarthlivingAttributor from './modules/core/EarthlivingAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
 import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 import AncestralReach from './modules/talents/AncestralReach';
@@ -143,6 +145,10 @@ class CombatLogParser extends CoreCombatLogParser {
     chainHealNormalizer: ChainHealNormalizer,
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
+    earthlivingTracker: EarthlivingTracker,
+    earthlivingAttributor: EarthlivingAttributor,
+
+    // Tiers
 
     // Items
   };

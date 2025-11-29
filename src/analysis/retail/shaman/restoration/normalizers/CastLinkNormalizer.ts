@@ -5,6 +5,7 @@ import {
   CastEvent,
   EventType,
   GetRelatedEvents,
+  GetRelatedEvent,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
@@ -34,7 +35,6 @@ import {
   LIVELY_TOTEMS_CHAIN_HEAL,
   SPLITSTREAM,
   EARTHLIVING,
-  EARTHLIVING_HEALING,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -318,17 +318,6 @@ const EVENT_LINKS: EventLink[] = [
     anySource: true,
     maximumLinks: 1,
   },
-  // Link all Earthliving Healing events to the buff application or refresh
-  {
-    linkRelation: EARTHLIVING_HEALING,
-    reverseLinkRelation: EARTHLIVING_HEALING,
-    linkingEventId: SPELLS.EARTHLIVING_WEAPON_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.EARTHLIVING_WEAPON_HEAL.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    backwardBufferMs: 12000,
-    maximumLinks: 1,
-  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -414,11 +403,7 @@ export function isSplitstreamHeal(event: HealEvent) {
 }
 
 export function earthlivingApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return GetRelatedEvents<HealEvent>(event, EARTHLIVING);
-}
-
-export function getEarthlivingHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return GetRelatedEvents<HealEvent>(event, EARTHLIVING_HEALING);
+  return GetRelatedEvent<HealEvent>(event, EARTHLIVING);
 }
 
 export default CastLinkNormalizer;
