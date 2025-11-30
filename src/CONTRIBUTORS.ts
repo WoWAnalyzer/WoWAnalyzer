@@ -2769,5 +2769,5 @@ export const Soto_J: Contributor = {
   nickname: 'Soto',
   github: 'Soto_J',
   discord: 'resolute90',
-  avatar: avatar('soto_j-avatar.jpg'),
+  avatar: avatar('soto_j-avatar.png'),
 };
