@@ -71,6 +71,7 @@ export const Dummy: Contributor = {
   twitter: '@Dummy',
   avatar: avatar('zerotorescue-avatar.jpg'),
 };
+
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
@@ -78,6 +79,7 @@ export const Zerotorescue: Contributor = {
   avatar: avatar('zerotorescue-avatar.jpg'),
   about: 'WoWAnalyzer founder',
 };
+
 export const Amryu: Contributor = {
   nickname: 'Amryu',
   github: 'Amryu',
@@ -2761,4 +2763,11 @@ export const Brandrewsss: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/thrall/brandrewsdk',
     },
   ],
+};
+
+export const Soto_J: Contributor = {
+  nickname: 'Soto',
+  github: 'Soto_J',
+  discord: 'resolute90',
+  avatar: avatar('soto_j-avatar.jpg'),
 };

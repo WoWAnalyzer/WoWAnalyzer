@@ -38,12 +38,14 @@ import {
   oneunreadmail,
   Ceric,
   swirl,
+  Soto_J,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 11, 30), 'Refactor DonutChart and Requirement components from class to functional components with hooks.', Soto_J),
   change(date(2025, 11, 5), 'Add new Classic mega-servers to character/guild search', emallson),
   change(date(2025, 10,  14), 'Replace Babel with oxc and swc.', ToppleTheNun),
   change(date(2025, 10, 1), <>Fix crash in Protectors of the Endless analysis if the Foundation timeline is shown. Also fix a zoom bug on the phase header.</>, emallson),
