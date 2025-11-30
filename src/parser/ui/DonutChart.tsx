@@ -20,8 +20,8 @@ export interface Item {
 
 interface Props {
   items: Item[];
-  chartSize: number;
-  innerRadiusFactor: number;
+  chartSize?: number;
+  innerRadiusFactor?: number;
 }
 
 const DonutChart = ({ items, chartSize = 90, innerRadiusFactor = 0.28 }: Props) => {
