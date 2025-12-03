@@ -13,7 +13,7 @@ import {
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const BASE_DURATION = 6000;
+const BASE_DURATION = 12000;
 
 export default class DemonSpikes extends MajorDefensiveBuff {
   static dependencies = {
