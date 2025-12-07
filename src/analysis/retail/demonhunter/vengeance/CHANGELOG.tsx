@@ -7,6 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 12, 7), <>Update <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> and <SpellLink spell={SPELLS.SOUL_CLEAVE} /> for Hero Tree differentiation.</>, Quaarkz),
   change(date(2025, 11, 21), <>Update <SpellLink spell={TALENTS.FEED_THE_DEMON_TALENT} /> for Midnight.</>, Quaarkz),
   change(date(2025, 11, 20), <>Clean-up VDH tiers and disable Demon Soul.</>, Quaarkz),
   change(date(2025, 11, 15), <>Model VDH tiers and update/add constants.</>, Quaarkz),

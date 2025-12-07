@@ -8,8 +8,10 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import Enemy from 'parser/core/Enemy';
 import { getSoulCleaveDamages } from 'analysis/retail/demonhunter/vengeance/normalizers/SoulCleaveEventLinkNormalizer';
 import {
-  SPIRIT_BOMB_SOULS_IN_META,
-  SPIRIT_BOMB_SOULS_OUT_OF_META,
+  REAVER_SPIRIT_BOMB_SOULS_IN_META,
+  REAVER_SPIRIT_BOMB_SOULS_OUT_OF_META,
+  ANNIHILATOR_SPIRIT_BOMB_SOULS_IN_META,
+  ANNIHILATOR_SPIRIT_BOMB_SOULS_OUT_OF_META,
 } from 'analysis/retail/demonhunter/vengeance/constants';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -32,10 +34,21 @@ export default class SoulCleave extends Analyzer {
 
   enemies!: Enemies;
   private cooldownUses: SpellUse[] = [];
+  private isAnnhilator = false;
+  private soulsInMeta = 0;
+  private soulsOutOfMeta = 0;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOUL_CLEAVE), this.onCast);
+    this.isAnnhilator = this.selectedCombatant.hasTalent(TALENTS.VOIDFALL_TALENT);
+    this.soulsInMeta = this.isAnnhilator
+      ? ANNIHILATOR_SPIRIT_BOMB_SOULS_IN_META
+      : REAVER_SPIRIT_BOMB_SOULS_IN_META;
+
+    this.soulsOutOfMeta = this.isAnnhilator
+      ? ANNIHILATOR_SPIRIT_BOMB_SOULS_OUT_OF_META
+      : REAVER_SPIRIT_BOMB_SOULS_OUT_OF_META;
   }
 
   guideSubsection() {
@@ -161,14 +174,14 @@ export default class SoulCleave extends Analyzer {
     numberOfSoulFragmentsAvailable: number,
   ): UsageInfo {
     const inMetamorphosisSummary = (
-      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments during Metamorphosis in AoE</div>
+      <div>Cast at &lt; {this.soulsInMeta} Soul Fragments during Metamorphosis in AoE</div>
     );
     const nonMetamorphosisSummary = (
-      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments in AoE</div>
+      <div>Cast at &lt; {this.soulsOutOfMeta} Soul Fragments in AoE</div>
     );
 
     if (hasMetamorphosis) {
-      if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_IN_META) {
+      if (numberOfSoulFragmentsAvailable < this.soulsInMeta) {
         return {
           performance: QualitativePerformance.Good,
           summary: inMetamorphosisSummary,
@@ -191,14 +204,14 @@ export default class SoulCleave extends Analyzer {
             <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s available during{' '}
             <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} /> in AoE.{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
-            {SPIRIT_BOMB_SOULS_IN_META}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+            {this.soulsInMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
             s in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> instead.
           </div>
         ),
       };
     }
-    if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_OUT_OF_META) {
+    if (numberOfSoulFragmentsAvailable < this.soulsOutOfMeta) {
       return {
         performance: QualitativePerformance.Good,
         summary: nonMetamorphosisSummary,
@@ -219,8 +232,7 @@ export default class SoulCleave extends Analyzer {
           You cast <SpellLink spell={SPELLS.SOUL_CLEAVE} /> while you had{' '}
           {numberOfSoulFragmentsAvailable} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s
           available in AoE. <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be
-          pressed at {SPIRIT_BOMB_SOULS_OUT_OF_META}+{' '}
-          <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          pressed at {this.soulsOutOfMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
           s; you should have pressed <SpellLink
             spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
           />{' '}
@@ -254,14 +266,12 @@ export default class SoulCleave extends Analyzer {
     }
 
     const inMetamorphosisSummary = (
-      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments during Metamorphosis</div>
+      <div>Cast at &lt; {this.soulsInMeta} Soul Fragments during Metamorphosis</div>
     );
-    const nonMetamorphosisSummary = (
-      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>
-    );
+    const nonMetamorphosisSummary = <div>Cast at &lt; {this.soulsOutOfMeta} Soul Fragments</div>;
 
     if (hasMetamorphosis) {
-      if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_IN_META) {
+      if (numberOfSoulFragmentsAvailable < this.soulsInMeta) {
         return {
           performance: QualitativePerformance.Good,
           summary: inMetamorphosisSummary,
@@ -286,14 +296,14 @@ export default class SoulCleave extends Analyzer {
             <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} /> in a{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window.{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
-            {SPIRIT_BOMB_SOULS_IN_META}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+            {this.soulsInMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
             s in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> instead.
           </div>
         ),
       };
     }
-    if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_OUT_OF_META) {
+    if (numberOfSoulFragmentsAvailable < this.soulsOutOfMeta) {
       return {
         performance: QualitativePerformance.Good,
         summary: nonMetamorphosisSummary,
@@ -316,7 +326,7 @@ export default class SoulCleave extends Analyzer {
           {numberOfSoulFragmentsAvailable} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s
           available in a <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window.{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
-          {SPIRIT_BOMB_SOULS_OUT_OF_META}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          {this.soulsOutOfMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
           s; you should have pressed <SpellLink
             spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
           />{' '}
