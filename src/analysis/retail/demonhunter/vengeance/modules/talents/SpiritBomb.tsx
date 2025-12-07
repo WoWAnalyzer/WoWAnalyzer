@@ -19,8 +19,10 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { SpellLink } from 'interface';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import {
-  SPIRIT_BOMB_SOULS_IN_META,
-  SPIRIT_BOMB_SOULS_OUT_OF_META,
+  REAVER_SPIRIT_BOMB_SOULS_IN_META,
+  REAVER_SPIRIT_BOMB_SOULS_OUT_OF_META,
+  ANNIHILATOR_SPIRIT_BOMB_SOULS_IN_META,
+  ANNIHILATOR_SPIRIT_BOMB_SOULS_OUT_OF_META,
 } from 'analysis/retail/demonhunter/vengeance/constants';
 import {
   ChecklistUsageInfo,
@@ -39,11 +41,23 @@ export default class SpiritBomb extends Analyzer {
 
   enemies!: Enemies;
   private cooldownUses: SpellUse[] = [];
+  private isAnnhilator = false;
+  private soulsInMeta = 0;
+  private soulsOutOfMeta = 0;
 
   private soulsConsumedByAmount = Array.from({ length: 7 }, () => 0);
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SPIRIT_BOMB_TALENT);
+    this.isAnnhilator = this.selectedCombatant.hasTalent(TALENTS.VOIDFALL_TALENT);
+    this.soulsInMeta = this.isAnnhilator
+      ? ANNIHILATOR_SPIRIT_BOMB_SOULS_IN_META
+      : REAVER_SPIRIT_BOMB_SOULS_IN_META;
+
+    this.soulsOutOfMeta = this.isAnnhilator
+      ? ANNIHILATOR_SPIRIT_BOMB_SOULS_OUT_OF_META
+      : REAVER_SPIRIT_BOMB_SOULS_OUT_OF_META;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SPIRIT_BOMB_TALENT),
       this.onCast,
@@ -114,10 +128,9 @@ export default class SpiritBomb extends Analyzer {
         </strong>{' '}
         is your primary AoE <strong>spender</strong> of <strong>Fury</strong> and{' '}
         <strong>Soul Fragments</strong>. It consumes all available Soul Fragments (up to 5) and does
-        more damage for each Soul Fragment consumed. Cast it when you have{' '}
-        {SPIRIT_BOMB_SOULS_OUT_OF_META}+ Soul Fragments available. In{' '}
-        <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have{' '}
-        {SPIRIT_BOMB_SOULS_IN_META}+ Soul Fragments available.
+        more damage for each Soul Fragment consumed. Cast it when you have {this.soulsOutOfMeta}+
+        Soul Fragments available. In <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when
+        you have {this.soulsInMeta}+ Soul Fragments available.
         <FieryDemiseExplanation />
       </p>
     );
@@ -245,12 +258,10 @@ export default class SpiritBomb extends Analyzer {
       event.timestamp,
     );
     if (hasMetamorphosis) {
-      if (amountOfStacksConsumed >= SPIRIT_BOMB_SOULS_IN_META) {
+      if (amountOfStacksConsumed >= this.soulsInMeta) {
         return {
           performance: QualitativePerformance.Good,
-          summary: (
-            <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments in Metamorphosis</div>
-          ),
+          summary: <div>Cast at &gt;= {this.soulsInMeta} Soul Fragments in Metamorphosis</div>,
           details: (
             <div>
               You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
@@ -262,22 +273,22 @@ export default class SpiritBomb extends Analyzer {
       }
       return {
         performance: QualitativePerformance.Fail,
-        summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments</div>,
+        summary: <div>Cast at &gt;= {this.soulsInMeta} Soul Fragments</div>,
         details: (
           <div>
             You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
             <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-            s. <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
-            {SPIRIT_BOMB_SOULS_IN_META} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s while in{' '}
+            s. <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> should be cast at {this.soulsInMeta}{' '}
+            <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s while in{' '}
             <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />.
           </div>
         ),
       };
     }
-    if (amountOfStacksConsumed >= SPIRIT_BOMB_SOULS_OUT_OF_META) {
+    if (amountOfStacksConsumed >= this.soulsOutOfMeta) {
       return {
         performance: QualitativePerformance.Good,
-        summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
+        summary: <div>Cast at &gt;= {this.soulsOutOfMeta} Soul Fragments</div>,
         details: (
           <div>
             You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
@@ -289,13 +300,13 @@ export default class SpiritBomb extends Analyzer {
     }
     return {
       performance: QualitativePerformance.Fail,
-      summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
+      summary: <div>Cast at &gt;= {this.soulsOutOfMeta} Soul Fragments</div>,
       details: (
         <div>
           You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
           <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
           s. <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
-          {SPIRIT_BOMB_SOULS_OUT_OF_META} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          {this.soulsOutOfMeta} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
           s.
         </div>
       ),
