@@ -3,8 +3,8 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import Events, { EndChannelEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-// DGB gives AT LEAST 20% of the 60s back.
-const MINIMUM_CDR = 0.2 * 60000;
+// DGB gives AT LEAST 15% of the 40s back.
+const MINIMUM_CDR = 0.15 * 40000;
 
 export default class DarkglareBoon extends Analyzer {
   static dependencies = {

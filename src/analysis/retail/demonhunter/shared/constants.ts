@@ -3,9 +3,9 @@ import Spell from 'common/SPELLS/Spell';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 
-export const SHATTERED_RESTORATION_SCALING = [0, 5, 10];
+export const SHATTERED_RESTORATION_SCALING = [0, 10];
 
-export const UNRESTRAINED_FURY_SCALING = [0, 10, 20];
+export const UNRESTRAINED_FURY_SCALING = [0, 20];
 
 export const UNTETHERED_FURY_SCALING = [0, 50];
 
@@ -16,8 +16,6 @@ export const PITCH_BLACK_SCALING = [0, 120];
 export const MASTER_OF_THE_GLAIVE_SCALING = [0, 1];
 
 export const CHAMPION_OF_THE_GLAIVE_SCALING = [0, 1];
-
-export const RUSH_OF_CHAOS_SCALING = [0, 30, 60];
 
 export const DEMONIC_DURATION = 5000;
 

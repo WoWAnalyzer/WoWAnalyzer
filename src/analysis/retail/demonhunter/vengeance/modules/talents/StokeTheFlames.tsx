@@ -8,7 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPELLS from 'common/SPELLS/demonhunter';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const STOKE_THE_FLAMES_INCREASE = 0.4;
+const STOKE_THE_FLAMES_INCREASE = 0.3;
 
 export default class StokeTheFlames extends Analyzer {
   addedDamage = 0;
