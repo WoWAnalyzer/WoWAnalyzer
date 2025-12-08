@@ -13,7 +13,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /*
 WCL: https://www.warcraftlogs.com/reports/Y7BWyCx3mHVZzPrk#fight=last&type=summary&view=events&pins=2%24Off%24%23244F4B%24casts%7Cauras%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24258920%7C204255%7C203981%7C263642
-Default spell is Shear (generates 1 soul). Fracture (generates 2 souls) talent replaces it.
+Fracture generates 2 souls, 3 if it's casted while in demon form.
 Vengence can have a maxium of 5 souls. Log has 4 fracture casts. Meaning 5 gained souls and 3 wasted. 2 of the 4 casts are bad.
 Souls are generated on a slight delay. Souls should be cast within 1.3 seconds.
 If a soul is cast and then a buff is removed within 100 ms that means it was a wasted soul generation.
@@ -24,9 +24,9 @@ const SOUL_GENERATE_BUFFER = 1300;
 const SOUL_WASTED_BUFFER = 100;
 const RESOURCE_CHANGE_BUFFER = 100;
 
-const GENERATED_SOUL_FRAGMENT = 'ShearFractureGeneratedSoulFragment';
-const WASTED_SOUL_FRAGMENT = 'ShearFractureWastedSoulFragment';
-const RESOURCE_CHANGE = 'ShearFractureResourceChange';
+const GENERATED_SOUL_FRAGMENT = 'FractureGeneratedSoulFragment';
+const WASTED_SOUL_FRAGMENT = 'FractureWastedSoulFragment';
+const RESOURCE_CHANGE = 'FractureResourceChange';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -69,7 +69,7 @@ const EVENT_LINKS: EventLink[] = [
  * The applybuff from demonic is logged before the cast of Eye Beam.
  * This normalizes events so that the Eye Beam applybuff always comes before the Meta Havoc buff
  **/
-export default class ShearFractureNormalizer extends EventLinkNormalizer {
+export default class FractureNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }

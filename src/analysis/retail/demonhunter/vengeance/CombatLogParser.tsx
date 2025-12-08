@@ -38,7 +38,7 @@ import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
 import FieryBrand from './modules/talents/FieryBrand';
 import VoidReaver from './modules/talents/VoidReaver';
-import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
+import FractureNormalizer from './normalizers/FractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
 import Fracture from './modules/spells/Fracture';
@@ -82,7 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulFragmentsGraph: SoulFragmentsGraph,
 
     // normalizers
-    shearFractureNormalizer: ShearFractureNormalizer,
+    fractureNormalizer: FractureNormalizer,
     immolationAuraLinker: ImmolationAuraLinker,
     soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
     spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,

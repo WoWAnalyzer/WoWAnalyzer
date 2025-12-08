@@ -7,7 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
-  change(date(2025, 12, 8), <>, Update values for <SpellLink spell={TALENTS.DARKGLARE_BOON_TALENT} /> and <SpellLink spell={TALENTS.STOKE_THE_FLAMES_TALENT} />.</>, Quaarkz),
+  change(date(2025, 12, 8), <>, Update values for different spells and Shear removed.</>, Quaarkz),
   change(date(2025, 12, 8), <>Remove <SpellLink spell={TALENTS.CYCLE_OF_BINDING_TALENT} /> analysis for Midnight.</>, Quaarkz),
   change(date(2025, 12, 7), <>Update <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> and <SpellLink spell={SPELLS.SOUL_CLEAVE} /> for Hero Tree differentiation.</>, Quaarkz),
   change(date(2025, 11, 21), <>Update <SpellLink spell={TALENTS.FEED_THE_DEMON_TALENT} /> for Midnight.</>, Quaarkz),
