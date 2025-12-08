@@ -4,6 +4,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { PITCH_BLACK_SCALING } from 'analysis/retail/demonhunter/shared';
+import { CYCLE_OF_BINDING_SIGIL_CDR } from 'analysis/retail/demonhunter/vengeance/constants';
 
 export default class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -90,8 +91,12 @@ export default class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          120 -
-          (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 30 : 0),
+          (120 -
+            (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 30 : 0)) *
+          (1 -
+            (combatant.hasTalent(TALENTS_DEMON_HUNTER.CYCLE_OF_BINDING_TALENT)
+              ? CYCLE_OF_BINDING_SIGIL_CDR
+              : 0)),
         gcd: {
           base: 1500,
         },

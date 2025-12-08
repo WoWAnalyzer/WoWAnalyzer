@@ -14,6 +14,7 @@ import {
   DOWN_IN_FLAMES_CDR_SCALING,
   PERFECTLY_BALANCED_GLAIVE_SCALING_GLAIVE,
   PERFECTLY_BALANCED_GLAIVE_SCALING_FRACTURE,
+  CYCLE_OF_BINDING_SIGIL_CDR,
 } from 'analysis/retail/demonhunter/vengeance/constants';
 
 class Abilities extends SharedAbilities {
@@ -66,7 +67,12 @@ class Abilities extends SharedAbilities {
       {
         spell: [SPELLS.SIGIL_OF_FLAME.id],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30,
+        cooldown:
+          30 *
+          (1 -
+            (combatant.hasTalent(TALENTS.CYCLE_OF_BINDING_TALENT)
+              ? CYCLE_OF_BINDING_SIGIL_CDR
+              : 0)),
         gcd: {
           base: 1500,
         },
@@ -141,7 +147,12 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.SIGIL_OF_SILENCE_TALENT.id,
         enabled: this.selectedCombatant.hasTalent(TALENTS.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 * (1 - (combatant.hasTalent(TALENTS.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        cooldown:
+          90 *
+          (1 -
+            (combatant.hasTalent(TALENTS.CYCLE_OF_BINDING_TALENT)
+              ? CYCLE_OF_BINDING_SIGIL_CDR
+              : 0)),
         gcd: {
           base: 1500,
         },
@@ -150,7 +161,13 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.SIGIL_OF_CHAINS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.SIGIL_OF_CHAINS_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
+        cooldown:
+          (90 -
+            (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 30 : 0)) *
+          (1 -
+            (combatant.hasTalent(TALENTS_DEMON_HUNTER.CYCLE_OF_BINDING_TALENT)
+              ? CYCLE_OF_BINDING_SIGIL_CDR
+              : 0)),
         gcd: {
           base: 1500,
         },
@@ -228,7 +245,12 @@ class Abilities extends SharedAbilities {
       {
         spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
+        cooldown:
+          60 *
+          (1 -
+            (combatant.hasTalent(TALENTS.CYCLE_OF_BINDING_TALENT)
+              ? CYCLE_OF_BINDING_SIGIL_CDR
+              : 0)),
         gcd: {
           base: 1500,
         },

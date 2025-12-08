@@ -55,8 +55,6 @@ import DemonSpikes from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 import FelDevastationLinkNormalizer from './normalizers/FelDevastationLinkNormalizer';
-import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
-import CycleOfBinding from './modules/talents/CycleOfBinding';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
 import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
@@ -92,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastationNormalizer: FelDevastationNormalizer,
     felDevastationLinkNormalizer: FelDevastationLinkNormalizer,
     sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
-    cycleOfBindingNormalizer: CycleOfBindingNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -130,7 +127,6 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
     sigilOfFlame: SigilOfFlame,
-    cycleOfBinding: CycleOfBinding,
 
     // Hero
     demonsurge: Demonsurge,
