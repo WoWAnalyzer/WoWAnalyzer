@@ -19,19 +19,19 @@ First make sure you have the following:
 - [git](https://git-scm.com/)
   - Optional: Get a UI such [GitHub Desktop](https://github.com/apps/desktop) [TortoiseGit](https://tortoisegit.org/)
 - [Node.js](https://nodejs.org/). We recommend the _LTS_ version.
-- [pnpm](https://pnpm.io/)
+- [bun](https://bun.sh/)
 
 Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your _Clone with HTTPS_ URL, and then run the command `git clone <paste link>`. This will take a minute.
 
-When cloning finishes, open a command window to the source and run the command `pnpm install`.
+When cloning finishes, open a command window to the source and run the command `bun install`.
 
-Once all that's done you're ready to fire up the development server! Just run the command `pnpm start` in the project root. This should open up your local version of WoWAnalyzer in the browser.
+Once all that's done you're ready to fire up the development server! Just run the command `bun start` in the project root. This should open up your local version of WoWAnalyzer in the browser.
 
 At this point you can poke around and start making changes, or head over to the [wiki](https://github.com/WoWAnalyzer/WoWAnalyzer/wiki) for more information.
 
 ### Troubleshooting
 
-If you are getting an error about a missing module or library you might have to update your dependencies. Run `pnpm install`. Make sure there's no running `pnpm start` or `pnpm test` when you do as they might lock files.
+If you are getting an error about a missing module or library you might have to update your dependencies. Run `bun install`. Make sure there's no running `bun start` or `bun test` when you do as they might lock files.
 
 ## Contributing
 
