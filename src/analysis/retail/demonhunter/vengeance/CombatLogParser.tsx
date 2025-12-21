@@ -1,7 +1,6 @@
 import {
   CharredWarblades,
   CollectiveAnguish,
-  Demonic,
   DemonSoulBuff,
   DisruptingFury,
   Felblade,
@@ -116,7 +115,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masterOfTheGlaive: MasterOfTheGlaive,
     darkglareBoon: DarkglareBoon,
     collectiveAnguish: CollectiveAnguish,
-    demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
     swallowedAnger: SwallowedAnger,
     disruptingFury: DisruptingFury,

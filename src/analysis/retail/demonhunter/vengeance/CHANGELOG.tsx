@@ -7,6 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2025, 12, 21), <>Update value of MID1 2PC and delete Demonic for VDH.</>, Quaarkz),
   change(date(2025, 12, 8), <>Update values for different spells and Shear removed.</>, Quaarkz),
   change(date(2025, 12, 8), <>Remove <SpellLink spell={TALENTS.CYCLE_OF_BINDING_TALENT} /> analysis for Midnight.</>, Quaarkz),
   change(date(2025, 12, 7), <>Update <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> and <SpellLink spell={SPELLS.SOUL_CLEAVE} /> for Hero Tree differentiation.</>, Quaarkz),
