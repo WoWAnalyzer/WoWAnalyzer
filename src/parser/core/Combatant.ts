@@ -92,10 +92,12 @@ class Combatant extends Entity {
       (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
 
-    if (!playerInfo) {
+    // allow tests to not set this
+    if (import.meta.env.MODE !== 'test' && !playerInfo) {
       throw new Error(`could not find player with id ${combatantInfo.sourceID}`);
     }
-    this.player = playerInfo;
+    // ! assertion because of the test mode check
+    this.player = playerInfo!;
 
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this

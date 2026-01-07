@@ -46,7 +46,12 @@ export const DEFAULT_REPORT: Report = {
   enemyPets: [],
   exportedCharacters: [],
   fights: [],
-  friendlies: [],
+  friendlies: [
+    {
+      id: 1,
+      name: 'Test',
+    } as unknown as PlayerInfo,
+  ],
   friendlyPets: [],
   gameVersion: 0,
   isAnonymous: false,

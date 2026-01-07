@@ -6,6 +6,7 @@ function getCombatant(parser = null, combatantInfo = null) {
   const parserStub = {
     players: [
       {
+        id: 11,
         name: 'Test',
       },
     ],
