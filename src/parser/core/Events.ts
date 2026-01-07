@@ -6,7 +6,6 @@ import { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Item } from 'parser/core/EventsItems';
 import { PetInfo } from 'parser/core/Pet';
 import PhaseConfig from 'parser/core/PhaseConfig';
-import { PlayerInfo } from 'parser/core//Player';
 
 export * from 'parser/core/EventsItems'; // Re-export everything from EventsItems.ts
 

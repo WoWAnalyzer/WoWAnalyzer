@@ -403,6 +403,7 @@ export const EnemyCastsTimeline = ({
     parser.combatantInfoEvents,
     parser.report.enemies,
     parser.report.enemyPets,
+    parser.players,
     hasUserRequestedNPCSpells,
   ]);
 

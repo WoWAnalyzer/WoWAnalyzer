@@ -1,11 +1,10 @@
 import classColor from 'game/classColor';
-import getAverageItemLevel from 'game/getAverageItemLevel';
 import { getClassName } from 'game/ROLES';
 import Icon from 'interface/Icon';
 import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
 import Config from 'parser/Config';
-import Player, { PlayerDetails } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';

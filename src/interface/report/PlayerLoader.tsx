@@ -1,39 +1,26 @@
 import * as React from 'react';
-import { useCallback, useEffect, useMemo, useReducer } from 'react';
+import { useMemo } from 'react';
 import { defineMessage, t, Trans } from '@lingui/macro';
-import { captureException } from 'common/errorLogger';
-import { fetchCombatants } from 'common/fetchWclApi';
 import getFightName from 'common/getFightName';
-import getAverageItemLevel from 'game/getAverageItemLevel';
-import ROLES from 'game/ROLES';
-import SPECS from 'game/SPECS';
 import { isUnsupportedClassicVersion, wclGameVersionToBranch } from 'game/VERSIONS';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
 import AdvancedLoggingWarning from 'interface/report/AdvancedLoggingWarning';
-import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import Tooltip from 'interface/Tooltip';
-import { CombatantInfoEvent } from 'parser/core/Events';
-import { WCLFight } from 'parser/core/Fight';
-import Report from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { PlayerProvider } from 'interface/report/context/PlayerContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import { useFight } from 'interface/report/context/FightContext';
 import DocumentTitle from 'interface/DocumentTitle';
 
-import handleApiError, { isCommonError } from './handleApiError';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
-import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
 import { i18n } from '@lingui/core';
-import { uniqueBy } from 'common/uniqueBy';
-import GameBranch from 'game/GameBranch';
 import useSWR from 'swr';
 import { PlayerDetails } from 'parser/core/Player';
 import makeApiUrl from 'common/makeApiUrl';
@@ -50,9 +37,7 @@ const PlayerLoader = ({ children }: Props) => {
   const { report: selectedReport } = useReport();
   const { fight: selectedFight } = useFight();
   const { player: playerParam } = useParams();
-  const navigate = useNavigate();
   const playerId = getPlayerIdFromParam(playerParam);
-  const playerName = getPlayerNameFromParam(playerParam);
   const { data, error, isLoading } = useSWR<PlayerDetailsResponse>(
     makeApiUrl(`v2/report/${selectedReport.code}/fight/${selectedFight.id}/players`),
     {
@@ -103,6 +88,19 @@ const PlayerLoader = ({ children }: Props) => {
                 expansion logs are not supported.
               </Trans>
             </div>
+          </div>
+        </Panel>
+      </div>
+    );
+  }
+
+  if (error) {
+    // TODO: i18n
+    return (
+      <div className="container offset">
+        <Panel title={'Something went wrong'}>
+          <div className="flex wrapable">
+            <div className="flex-main">An unexpected error occurred loading the player list.</div>
           </div>
         </Panel>
       </div>

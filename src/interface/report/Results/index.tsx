@@ -16,7 +16,7 @@ import Config, { SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Fight from 'parser/core/Fight';
-import { PlayerDetails, PlayerInfo } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
