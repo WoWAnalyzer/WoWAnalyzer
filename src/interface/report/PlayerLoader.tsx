@@ -184,7 +184,6 @@ const PlayerLoader = ({ children }: Props) => {
                 tanks={composition.tank}
                 healers={composition.healer}
                 dps={composition.dps}
-                ranged={0 /* TODO */}
                 ilvl={composition.ilvl}
               />
             </div>

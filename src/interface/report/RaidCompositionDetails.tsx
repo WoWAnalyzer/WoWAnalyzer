@@ -4,12 +4,11 @@ interface Props {
   tanks: number;
   healers: number;
   dps: number;
-  ranged: number;
   ilvl: number;
 }
 
 const RaidCompositionDetails = (props: Props) => {
-  const { tanks, healers, dps, ranged, ilvl } = props;
+  const { tanks, healers, dps, ilvl } = props;
 
   return (
     <div className="raid-composition">
@@ -34,11 +33,6 @@ const RaidCompositionDetails = (props: Props) => {
             <div className="flex-sub icon">
               <img src="/roles/dps.jpg" alt="DPS" />
               <div className="role-count">{dps}</div>
-            </div>
-            <div className="flex-sub icon">
-              <img src="/roles/dps.ranged.jpg" alt="Ranged DPS" />
-              <br />
-              <div className="role-count">{ranged}</div>
             </div>
           </div>
         </div>
