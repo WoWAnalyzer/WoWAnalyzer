@@ -5,7 +5,7 @@ import Icon from 'interface/Icon';
 import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
 import Config from 'parser/Config';
-import Player from 'parser/core/Player';
+import Player, { PlayerDetails } from 'parser/core/Player';
 import { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
@@ -39,7 +39,7 @@ const BlockLoading = ({ children, message }: BlockLoadingProps) => (
 
 interface BasicBlockLoadingProps extends Omit<BlockLoadingProps, 'children'> {
   avatar: string;
-  player: Player;
+  player: PlayerDetails;
 }
 const BasicBlockLoading = ({ avatar, player, ...props }: BasicBlockLoadingProps) => (
   <BlockLoading {...props}>
@@ -55,7 +55,7 @@ const BasicBlockLoading = ({ avatar, player, ...props }: BasicBlockLoadingProps)
 
 interface PlayerTileContentsProps {
   avatar: string;
-  player: Player;
+  player: PlayerDetails;
   spec: Spec;
 }
 const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) => {
@@ -82,7 +82,7 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
           </small>
           <div className="flex text-muted text-small">
             <div className="flex-main">
-              <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}
+              <Icon icon="inv_helmet_03" /> {player.ilvl}
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
 };
 
 interface PlayerTileProps {
-  player: Player;
+  player: PlayerDetails;
   makeUrl: (playerId: number) => string;
   config?: Config;
 }
@@ -135,7 +135,7 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
   const avatar = makeThumbnailUrl(characterInfo, classic);
 
   if (!config) {
-    config = getConfig(GameBranch.Classic, 1, player, player.combatant);
+    config = getConfig(GameBranch.Classic, 0, player);
   }
   const spec = config?.spec;
 
@@ -148,7 +148,7 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
       />
     );
   }
-  if (player.combatant.error || !spec) {
+  if (!spec) {
     return (
       <BasicBlockLoading
         avatar={avatar}

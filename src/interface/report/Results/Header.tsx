@@ -20,7 +20,7 @@ import { currentExpansion } from 'game/GameBranch';
 
 interface Props {
   config: Config;
-  player: PlayerInfo;
+  player: Pick<PlayerInfo, 'name'>;
   characterProfile: CharacterProfile;
   boss: Boss | null;
   handleDungeonPullSelection: (dungeonPull: string) => void;
@@ -39,7 +39,7 @@ interface Props {
 
 const Header = ({
   config: { spec, branch },
-  player: { name, icon },
+  player: { name },
   fight,
   boss,
   handlePhaseSelection,
@@ -62,10 +62,7 @@ const Header = ({
     playerThumbnail = characterProfile.thumbnail;
   } else if (characterProfile?.thumbnail) {
     playerThumbnail = `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
-  } else {
-    playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');
   }
-
   const expansion = currentExpansion(branch);
   const raid = boss ? findZoneByBossId(boss.id) : undefined;
 

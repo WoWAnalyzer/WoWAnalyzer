@@ -2,7 +2,7 @@ import type Config from 'parser/Config';
 import type { Spec } from 'game/SPECS';
 import type Report from 'parser/core/Report';
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
-import type { PlayerInfo } from 'parser/core/Player';
+import type { PlayerDetails, PlayerInfo } from 'parser/core/Player';
 import type Fight from 'parser/core/Fight';
 import type CharacterProfile from 'parser/core/CharacterProfile';
 import GameBranch from 'game/GameBranch';
@@ -59,14 +59,16 @@ export const DEFAULT_REPORT: Report = {
   zone: 0,
 };
 
-export const DEFAULT_PLAYER_INFO: PlayerInfo = {
-  fights: [],
+export const DEFAULT_PLAYER_INFO: PlayerDetails = {
   guid: 0,
-  icon: '',
   id: 1,
   name: '',
-  type: '',
-  subType: '',
+  className: '',
+  specName: '',
+  server: '',
+  region: '',
+  role: 'dps',
+  ilvl: 0,
 };
 
 export const DEFAULT_FIGHT: Fight = {

@@ -59,7 +59,7 @@ const ResultsLoader = () => {
   const config = useConfig();
   const navigate = useNavigate();
   const { report } = useReport();
-  const { player, combatants } = usePlayer();
+  const { player } = usePlayer();
   const { fight } = useFight();
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<string>(SELECTION_ALL_PHASES);
@@ -176,7 +176,6 @@ const ResultsLoader = () => {
     fight: filteredFight,
     config,
     player,
-    combatants,
     applyTimeFilter,
     applyPhaseFilter,
     parserClass,

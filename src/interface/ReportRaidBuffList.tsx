@@ -26,6 +26,7 @@ import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import './ReportRaidBuffList.scss';
 import { useLingui } from '@lingui/react';
 import GameBranch from 'game/GameBranch';
+import { PlayerDetails } from 'parser/core/Player';
 
 // eslint-disable-next-line
 const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
@@ -119,42 +120,35 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
 
 interface Props {
   report: Report;
-  combatants: CombatantInfoEvent[];
+  players: PlayerDetails[];
 }
 
-const ReportRaidBuffList = ({ report, combatants }: Props) => {
+const ReportRaidBuffList = ({ report, players }: Props) => {
   const { i18n } = useLingui();
   const isRetail = wclGameVersionToBranch(report.gameVersion) === GameBranch.Retail;
-  const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
+  const getCompositionBreakdown = (combatants: PlayerDetails[]) => {
     const results = new Map<Spell | Talent, number>();
 
     const AVAILABLE_RAID_BUFFS = isRetail ? RETAIL_RAID_BUFFS : CLASSIC_RAID_BUFFS;
 
-    AVAILABLE_RAID_BUFFS.forEach((providedBy, spell) => {
+    AVAILABLE_RAID_BUFFS.forEach((_, spell) => {
       results.set(spell, 0);
     });
 
-    return combatants.reduce((map, combatant) => {
+    return combatants.reduce((map, player) => {
       const config = getConfig(
         wclGameVersionToBranch(report.gameVersion),
-        combatant.specID,
-        combatant.player,
-        combatant,
+        player.specID ?? 0,
+        player,
       );
 
       if (!config) {
         return map;
       }
-      // TODO: This is brittle because it depends on selected language
-      // TODO: TOPPLE FIX ME
-      const className = i18n._(config.spec.className) as Class;
-      const combatantTalents = combatant.talentTree.map((talent) => talent.id);
+      const className = player.className as Class;
 
       AVAILABLE_RAID_BUFFS.forEach((providedBy, spell) => {
-        const hasTalent = isTalent(spell)
-          ? spell.entryIds.some((entryId) => combatantTalents.includes(entryId))
-          : true;
-        if ((providedBy.includes(className) || providedBy.includes(config.spec)) && hasTalent) {
+        if (providedBy.includes(className) || providedBy.includes(config.spec)) {
           map.set(spell, (map.get(spell) ?? 0) + 1);
         }
       });
@@ -162,7 +156,7 @@ const ReportRaidBuffList = ({ report, combatants }: Props) => {
     }, results);
   };
 
-  const buffs = getCompositionBreakdown(combatants);
+  const buffs = getCompositionBreakdown(players);
   return (
     <div className="raidbuffs">
       <h1>Raid Buffs</h1>

@@ -25,6 +25,8 @@ interface Spell {
 }
 
 class Combatant extends Entity {
+  readonly player: PlayerInfo;
+
   get id() {
     return this._combatantInfo.sourceID;
   }
@@ -35,10 +37,6 @@ class Combatant extends Entity {
 
   get specId() {
     return this._combatantInfo.specID;
-  }
-
-  get player() {
-    return this._combatantInfo.player;
   }
 
   get spec(): Spec | undefined {
@@ -93,6 +91,11 @@ class Combatant extends Entity {
     const playerInfo = parser.players.find(
       (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
+
+    if (!playerInfo) {
+      throw new Error(`could not find player with id ${combatantInfo.sourceID}`);
+    }
+    this.player = playerInfo;
 
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this

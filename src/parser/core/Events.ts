@@ -237,8 +237,8 @@ export interface ClassResources {
 
 // TODO: Find a good place for this
 export enum Class {
-  DemonHunter = 'Demon Hunter',
-  DeathKnight = 'Death Knight',
+  DemonHunter = 'DemonHunter',
+  DeathKnight = 'DeathKnight',
   Druid = 'Druid',
   Evoker = 'Evoker',
   Hunter = 'Hunter',
@@ -1081,7 +1081,6 @@ export interface TalentEntry {
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
-  player: PlayerInfo;
   expansion: 'wotlk' | 'tbc' | 'shadowlands' | 'dragonflight' | string;
   pin: string;
   sourceID: number;

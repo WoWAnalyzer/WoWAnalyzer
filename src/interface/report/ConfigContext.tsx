@@ -15,20 +15,18 @@ export const useMaybeConfig = (): Config | undefined => {
     /* do nothing */
   }
   let player = undefined;
-  let combatant = undefined;
 
   try {
     const playerData = usePlayer();
     player = playerData.player;
-    combatant = playerData.combatant;
   } catch {
     /* do nothing */
   }
 
-  if (!report || !player || !combatant) {
+  if (!report || !player) {
     return undefined;
   }
-  return getConfig(wclGameVersionToBranch(report.gameVersion), combatant.specID, player, combatant);
+  return getConfig(wclGameVersionToBranch(report.gameVersion), player.specID ?? 0, player);
 };
 
 export const useConfig = (): Config => {
