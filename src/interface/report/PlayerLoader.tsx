@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { defineMessage, t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import { isUnsupportedClassicVersion, wclGameVersionToBranch } from 'game/VERSIONS';
@@ -12,7 +12,7 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import Tooltip from 'interface/Tooltip';
 import getConfig from 'parser/getConfig';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PlayerProvider } from 'interface/report/context/PlayerContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import { useFight } from 'interface/report/context/FightContext';
@@ -24,6 +24,7 @@ import { i18n } from '@lingui/core';
 import useSWR from 'swr';
 import { PlayerDetails } from 'parser/core/Player';
 import makeApiUrl from 'common/makeApiUrl';
+import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
 
 interface Props {
   children: React.ReactNode;
@@ -38,6 +39,8 @@ const PlayerLoader = ({ children }: Props) => {
   const { fight: selectedFight } = useFight();
   const { player: playerParam } = useParams();
   const playerId = getPlayerIdFromParam(playerParam);
+  const playerName = getPlayerNameFromParam(playerParam);
+  const navigate = useNavigate();
   const { data, error, isLoading } = useSWR<PlayerDetailsResponse>(
     makeApiUrl(`v2/report/${selectedReport.code}/fight/${selectedFight.id}/players`),
     {
@@ -45,6 +48,26 @@ const PlayerLoader = ({ children }: Props) => {
       isPaused: () => isUnsupportedClassicVersion(selectedReport.gameVersion),
     },
   );
+
+  // re-routing for accesses with player name but no id. if exact match, route to id.
+  // if no exact match (missing or multiple matches) reroute to player selection.
+  //
+  // would like everything to have the id, but there are a lot of urls floating around with name only
+  useEffect(() => {
+    if (playerName && !playerId && data?.players) {
+      const namedPlayers = data.players.filter((player) => player.name === playerName);
+
+      if (namedPlayers.length === 1) {
+        navigate(makeAnalyzerUrl(selectedReport, selectedFight.id, namedPlayers[0].id), {
+          replace: true,
+        });
+      } else {
+        navigate(makeAnalyzerUrl(selectedReport, selectedFight.id), {
+          replace: true,
+        });
+      }
+    }
+  }, [playerId, playerName, data?.players, selectedReport, selectedFight, navigate]);
 
   const player = useMemo(
     () => data?.players.find((player) => player.id === playerId),
