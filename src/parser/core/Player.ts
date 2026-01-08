@@ -20,7 +20,7 @@ export interface PlayerDetails {
   name: string;
   server: string;
   region: string;
-  ilvl: number;
+  ilvl?: number;
   className: string;
   specName?: string;
   specID?: number;

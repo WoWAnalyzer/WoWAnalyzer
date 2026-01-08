@@ -81,7 +81,7 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
           </small>
           <div className="flex text-muted text-small">
             <div className="flex-main">
-              <Icon icon="inv_helmet_03" /> {player.ilvl}
+              <Icon icon="inv_helmet_03" /> {player.ilvl ?? 0}
             </div>
           </div>
         </div>

@@ -64,7 +64,7 @@ const PlayerLoader = ({ children }: Props) => {
     }
 
     for (const player of data.players) {
-      result.ilvl += player.ilvl;
+      result.ilvl += player.ilvl ?? 0;
       result[player.role] += 1;
     }
 
