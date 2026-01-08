@@ -14,7 +14,7 @@ class EmptyCombatLogParser extends CombatLogParser {
 }
 const fakeConfig = {};
 const fakeReport = {
-  friendlies: [],
+  friendlies: [{ id: 1 }],
   friendlyPets: [],
   enemies: [],
 };

@@ -2,7 +2,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Config from 'parser/Config';
 import Report from 'parser/core/Report';
-import { PlayerInfo } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import Fight from 'parser/core/Fight';
 import { AnyEvent, CombatantInfoEvent } from 'parser/core/Events';
 import Combatant from 'parser/core/Combatant';
@@ -40,7 +40,7 @@ class TestCombatLogParser extends CombatLogParser {
   constructor(
     config: Config = DEFAULT_CONFIG,
     report: Report = DEFAULT_REPORT,
-    selectedPlayer: PlayerInfo = DEFAULT_PLAYER_INFO,
+    selectedPlayer: PlayerDetails = DEFAULT_PLAYER_INFO,
     selectedFight: Fight = DEFAULT_FIGHT,
     combatantInfoEvents: CombatantInfoEvent[] = [],
   ) {

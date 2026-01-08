@@ -1,13 +1,13 @@
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import CharacterProfile from 'parser/core/CharacterProfile';
-import { PlayerInfo } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
 
 const CHINESE_REGION = 'cn';
 
-const useCharacterProfile = ({ report, player }: { report: Report; player: PlayerInfo }) => {
+const useCharacterProfile = ({ report, player }: { report: Report; player: PlayerDetails }) => {
   const [characterProfile, setCharacterProfile] = useState<CharacterProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 

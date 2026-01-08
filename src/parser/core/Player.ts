@@ -14,3 +14,16 @@ export interface PlayerInfo extends Unit {
 export default interface Player extends PlayerInfo {
   combatant: CombatantInfoEvent;
 }
+
+export interface PlayerDetails {
+  id: number;
+  name: string;
+  server: string;
+  region: string;
+  ilvl?: number;
+  className: string;
+  specName?: string;
+  specID?: number;
+  role: 'tank' | 'dps' | 'healer';
+  guid: number;
+}

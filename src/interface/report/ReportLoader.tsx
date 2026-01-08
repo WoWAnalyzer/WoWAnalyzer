@@ -11,7 +11,6 @@ import { ReportProvider } from 'interface/report/context/ReportContext';
 import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError, { isCommonError } from './handleApiError';
-import { setCombatants } from 'interface/reducers/combatants';
 import { clearReport, setReport as setNavigationReport } from 'interface/reducers/navigation';
 
 const pageWasReloaded = () =>
@@ -102,7 +101,6 @@ const ReportLoader = ({ children }: Props) => {
     (error: Error | null, report: Report | null) => {
       setError(error);
       setReportState(report);
-      dispatch(setCombatants(null));
       if (report) {
         dispatch(
           setNavigationReport({

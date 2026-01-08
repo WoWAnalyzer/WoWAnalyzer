@@ -1,11 +1,10 @@
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
-import { CombatantInfoEvent } from 'parser/core/Events';
 import Report from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
 
-import Player from '../../parser/core/Player';
+import { PlayerDetails } from '../../parser/core/Player';
 import PlayerTile from './PlayerTile';
 
 import './PlayerSelection.scss';
@@ -21,9 +20,9 @@ const ROLE_SORT_KEY: Record<string, number> = {
   [ROLES.DPS.RANGED]: 2,
 };
 
-function sortPlayers(a: Player, b: Player) {
-  const aSpec = SPECS[a.combatant.specID];
-  const bSpec = SPECS[b.combatant.specID];
+function sortPlayers(a: PlayerDetails, b: PlayerDetails) {
+  const aSpec = SPECS[a.specID ?? 0];
+  const bSpec = SPECS[b.specID ?? 0];
   const aRoleSortKey = aSpec ? ROLE_SORT_KEY[aSpec.role] : -1;
   const bRoleSortKey = bSpec ? ROLE_SORT_KEY[bSpec.role] : -1;
 
@@ -42,47 +41,22 @@ function sortPlayers(a: Player, b: Player) {
 
 interface Props {
   report: Report;
-  combatants: CombatantInfoEvent[];
+  players: PlayerDetails[];
   makeUrl: (playerId: number, build?: string) => string;
 }
 
-const PlayerSelection = ({ report, combatants, makeUrl }: Props) => {
+const PlayerSelection = ({ report, players, makeUrl }: Props) => {
   usePageView('PlayerSelection');
   return (
     <div className="player-selection">
-      {report.friendlies
-        .flatMap((friendly) => {
-          const combatant = combatants.find((combatant) => combatant.sourceID === friendly.id);
-          if (!combatant) {
-            return [];
-          }
-          const exportedCharacter = report.exportedCharacters
-            ? report.exportedCharacters.find((char) => char.name === friendly.name)
-            : null;
-
-          return [
-            {
-              ...friendly,
-              combatant,
-              server: exportedCharacter?.server,
-              region: exportedCharacter?.region,
-            },
-          ];
-        })
-        .sort(sortPlayers)
-        .map((player) => (
-          <PlayerTile
-            key={player.guid}
-            player={player}
-            makeUrl={makeUrl}
-            config={getConfig(
-              wclGameVersionToBranch(report.gameVersion),
-              player.combatant.specID,
-              player,
-              player.combatant,
-            )}
-          />
-        ))}
+      {players.toSorted(sortPlayers).map((player) => (
+        <PlayerTile
+          key={player.id}
+          player={player}
+          makeUrl={makeUrl}
+          config={getConfig(wclGameVersionToBranch(report.gameVersion), player.specID ?? 0, player)}
+        />
+      ))}
     </div>
   );
 };
