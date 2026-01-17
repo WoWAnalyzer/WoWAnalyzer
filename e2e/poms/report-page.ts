@@ -65,16 +65,18 @@ export class ReportPage {
     reportCode,
     fightCode,
     playerName,
+    playerId,
     build = 'standard',
     ...others
   }: GoToShared & {
     reportCode: string;
     fightCode: string;
     playerName: string;
+    playerId: number;
     build?: string;
   }) {
     await this.gotoUrl({
-      reportUrl: `/report/${reportCode}/${fightCode}/${playerName}/${build}`,
+      reportUrl: `/report/${reportCode}/${fightCode}/${playerId}-${playerName}/${build}`,
       ...others,
     });
   }
@@ -151,9 +153,12 @@ export class ReportPage {
     reportCode: string,
     fightCode: string,
     playerName: string,
+    playerId: number,
     build: string = 'standard',
   ) {
-    await expect(this.page).toHaveURL(`/report/${reportCode}/${fightCode}/${playerName}/${build}`);
+    await expect(this.page).toHaveURL(
+      `/report/${reportCode}/${fightCode}/${playerId}-${playerName}/${build}`,
+    );
   }
 
   async waitUntilLoaded() {

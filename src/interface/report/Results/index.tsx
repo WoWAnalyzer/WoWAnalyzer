@@ -16,7 +16,7 @@ import Config, { SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Fight from 'parser/core/Fight';
-import { PlayerInfo } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -55,7 +55,7 @@ interface PassedProps {
   build?: string;
   report: Report;
   fight: Fight;
-  player: PlayerInfo;
+  player: PlayerDetails;
   loadingStatus: LoadingStatus;
   premium?: boolean;
   config: Config;
@@ -99,7 +99,7 @@ const Results = (props: PassedProps) => {
   const boss = findByBossId(props.fight.boss);
 
   const appendHistory = useCallback(
-    (report: Report, fight: Fight, player: PlayerInfo) => {
+    (report: Report, fight: Fight, player: PlayerDetails) => {
       dispatch(
         appendReportHistory({
           code: report.code,
@@ -110,7 +110,7 @@ const Results = (props: PassedProps) => {
           fightName: getFightName(report, fight),
           playerId: player.id,
           playerName: player.name,
-          playerClass: player.type,
+          playerClass: player.className,
           type: REPORT_HISTORY_TYPES.REPORT,
         }),
       );

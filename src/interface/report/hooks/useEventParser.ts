@@ -7,7 +7,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
 import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { PlayerInfo } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useCallback, use, useEffect, useMemo, useRef, useState } from 'react';
 import { PatchCtx } from '../context/PatchContext';
@@ -33,8 +33,7 @@ interface Props {
   report: Report;
   fight?: Fight;
   config: Config;
-  player: PlayerInfo;
-  combatants: CombatantInfoEvent[];
+  player: PlayerDetails;
   applyTimeFilter: (start: number, end: number) => null;
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   characterProfile: CharacterProfile | null;
@@ -47,7 +46,6 @@ const useEventParser = ({
   fight,
   config,
   player,
-  combatants,
   applyTimeFilter,
   parserClass,
   characterProfile,
@@ -58,6 +56,11 @@ const useEventParser = ({
   const [progress, setProgress] = useState(0);
   const eventIndexRef = useRef(0);
 
+  const combatantInfoEvents = useMemo(
+    () => events?.filter((event) => event.type === EventType.CombatantInfo) as CombatantInfoEvent[],
+    [events],
+  );
+
   const parser = useMemo(() => {
     // Original code only rendered EventParser if
     // > !this.state.isLoadingParser &&
@@ -67,11 +70,18 @@ const useEventParser = ({
     // isLoadingParser => parserClass == null
     // isLoadingCharacterProfile => characterProfile == null
     // isFilteringEvents => events == null
-    if (dependenciesLoading) {
+    if (dependenciesLoading || !combatantInfoEvents) {
       return null;
     }
     //set current build to undefined if default build or non-existing build selected
-    const parser = new parserClass!(config, report, player, fight!, combatants, characterProfile!);
+    const parser = new parserClass!(
+      config,
+      report,
+      player,
+      fight!,
+      combatantInfoEvents,
+      characterProfile!,
+    );
     parser.applyTimeFilter = applyTimeFilter;
 
     return parser;
@@ -83,8 +93,8 @@ const useEventParser = ({
     applyTimeFilter,
     report,
     player,
-    combatants,
     config,
+    combatantInfoEvents,
   ]);
 
   const normalizedEvents = useMemo(() => {

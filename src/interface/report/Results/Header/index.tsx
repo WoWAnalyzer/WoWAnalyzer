@@ -17,7 +17,7 @@ import type Config from 'parser/Config';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import type CharacterProfile from 'parser/core/CharacterProfile';
 import type Fight from 'parser/core/Fight';
-import { type PlayerInfo } from 'parser/core/Player';
+import { type PlayerDetails } from 'parser/core/Player';
 import { ComponentType, JSX, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import HeaderBackground from './HeaderBackground';
@@ -30,6 +30,7 @@ import FilterButton from './FilterButton';
 import { Filter } from 'interface/report/hooks/useTimeEventFilter';
 import Select from 'interface/controls/Select';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
+import { specIconPath } from 'interface/SpecIcon';
 
 const Section = styled.section`
   border: 1px solid ${level1.border};
@@ -91,7 +92,7 @@ const HeaderContainer = styled.div`
 
 interface HeaderProps {
   config: Config;
-  player: PlayerInfo;
+  player: PlayerDetails;
   characterProfile: CharacterProfile | null;
   boss: Boss | null;
   fight: Fight;
@@ -351,10 +352,10 @@ function CharacterMiniBox({
   return (
     <MiniBoxContainer className={'flipped'} style={{ gridArea: 'character' }}>
       <MiniBoxImage
-        src={characterProfile?.thumbnail ?? `/specs/${player.icon}.jpg`.replaceAll(/ /g, '')}
-        alt={player.icon}
+        src={characterProfile?.thumbnail ?? specIconPath(config.spec)}
+        alt={`${player.name} (${config.spec.specName ? i18n._(config.spec.specName) : ''} ${i18n._(config.spec.className)})`}
       />
-      <MiniBoxName className={player.type}>{player.name}</MiniBoxName>
+      <MiniBoxName className={config.spec.wclClassName}>{player.name}</MiniBoxName>
       <MiniBoxSubtext>
         {config.spec.specName ? i18n._(config.spec.specName) : null}{' '}
         {showClassName ? i18n._(config.spec.className) : null}

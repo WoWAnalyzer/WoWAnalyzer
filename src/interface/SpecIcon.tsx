@@ -1,12 +1,15 @@
 import { Spec } from 'game/SPECS';
 import type { HTMLAttributes } from 'react';
 import { useLingui } from '@lingui/react';
-import { isDefined } from 'common/typeGuards';
 
 interface Props extends Omit<HTMLAttributes<HTMLImageElement>, 'id'> {
   spec?: Spec;
   icon?: string;
   className?: string;
+}
+
+export function specIconPath(spec: Spec): string {
+  return `/specs/${spec.wclClassName}-${spec.wclSpecName}.jpg`;
 }
 
 const SpecIcon = ({ spec, icon, className, ...others }: Props) => {
@@ -16,9 +19,7 @@ const SpecIcon = ({ spec, icon, className, ...others }: Props) => {
 
   return (
     <img
-      src={`/specs/${
-        spec ? [i18nClassName, i18nSpecName].filter(isDefined).join('-').replace(' ', '') : icon
-      }.jpg`}
+      src={spec ? specIconPath(spec) : icon}
       alt={spec ? `${i18nSpecName} ${i18nClassName}` : icon}
       className={`icon ${className || ''}`}
       {...others}

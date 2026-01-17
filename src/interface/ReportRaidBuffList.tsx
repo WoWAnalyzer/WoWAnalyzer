@@ -4,30 +4,19 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
 import SPECS from 'game/SPECS';
 import getConfig from 'parser/getConfig';
-import { Class, CombatantInfoEvent } from 'parser/core/Events';
-import { isTalent, Talent } from 'common/TALENTS/types';
+import { Class } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
 // Retail
 import SPELLS from 'common/SPELLS';
-import {
-  TALENTS_DEATH_KNIGHT,
-  TALENTS_DEMON_HUNTER,
-  TALENTS_DRUID,
-  TALENTS_EVOKER,
-  TALENTS_MONK,
-  TALENTS_PALADIN,
-  TALENTS_PRIEST,
-  TALENTS_SHAMAN,
-} from 'common/TALENTS';
 // Classic
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 
 import './ReportRaidBuffList.scss';
-import { useLingui } from '@lingui/react';
 import GameBranch from 'game/GameBranch';
+import { PlayerDetails } from 'parser/core/Player';
 
-const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
+const RETAIL_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // Buffs
   //  Stamina
   [SPELLS.POWER_WORD_FORTITUDE, [Class.Priest]],
@@ -37,7 +26,6 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
   [SPELLS.ARCANE_INTELLECT, [Class.Mage]],
   //  Movement CD
   [SPELLS.BLESSING_OF_THE_BRONZE, [Class.Evoker]],
-  [TALENTS_EVOKER.SPATIAL_PARADOX_TALENT, [Class.Evoker]],
   // Debuffs
   //  Magic vulnerability
   [SPELLS.CHAOS_BRAND, [Class.DemonHunter]],
@@ -47,18 +35,7 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
   [SPELLS.BLOODLUST, [Class.Shaman, Class.Mage, Class.Hunter, Class.Evoker]],
   //  Battle res
   [SPELLS.REBIRTH, [Class.Druid, Class.DeathKnight, Class.Warlock, Class.Paladin]],
-  [SPELLS.RALLYING_CRY, [Class.Warrior]],
-  [TALENTS_DEATH_KNIGHT.ANTI_MAGIC_ZONE_TALENT, [Class.DeathKnight]],
-  [TALENTS_DEMON_HUNTER.DARKNESS_TALENT, [Class.DemonHunter]],
-  [TALENTS_PALADIN.AURA_MASTERY_TALENT, [SPECS.HOLY_PALADIN]],
-  [TALENTS_SHAMAN.SPIRIT_LINK_TOTEM_TALENT, [SPECS.RESTORATION_SHAMAN]],
-  [TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT, [SPECS.RESTORATION_SHAMAN]],
   [SPELLS.SKYFURY, [Class.Shaman]],
-  [TALENTS_MONK.REVIVAL_TALENT, [SPECS.MISTWEAVER_MONK]],
-  [TALENTS_MONK.RESTORAL_TALENT, [SPECS.MISTWEAVER_MONK]],
-  [TALENTS_PRIEST.POWER_WORD_BARRIER_TALENT, [SPECS.DISCIPLINE_PRIEST]],
-  [TALENTS_PRIEST.DIVINE_HYMN_TALENT, [SPECS.HOLY_PRIEST]],
-  [TALENTS_DRUID.TRANQUILITY_TALENT, [SPECS.RESTORATION_DRUID]],
 ]);
 
 const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
@@ -117,42 +94,34 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
 
 interface Props {
   report: Report;
-  combatants: CombatantInfoEvent[];
+  players: PlayerDetails[];
 }
 
-const ReportRaidBuffList = ({ report, combatants }: Props) => {
-  const { i18n } = useLingui();
+const ReportRaidBuffList = ({ report, players }: Props) => {
   const isRetail = wclGameVersionToBranch(report.gameVersion) === GameBranch.Retail;
-  const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
-    const results = new Map<Spell | Talent, number>();
+  const getCompositionBreakdown = (combatants: PlayerDetails[]) => {
+    const results = new Map<Spell, number>();
 
     const AVAILABLE_RAID_BUFFS = isRetail ? RETAIL_RAID_BUFFS : CLASSIC_RAID_BUFFS;
 
-    AVAILABLE_RAID_BUFFS.forEach((providedBy, spell) => {
+    AVAILABLE_RAID_BUFFS.forEach((_, spell) => {
       results.set(spell, 0);
     });
 
-    return combatants.reduce((map, combatant) => {
+    return combatants.reduce((map, player) => {
       const config = getConfig(
         wclGameVersionToBranch(report.gameVersion),
-        combatant.specID,
-        combatant.player,
-        combatant,
+        player.specID ?? 0,
+        player,
       );
 
       if (!config) {
         return map;
       }
-      // TODO: This is brittle because it depends on selected language
-      // TODO: TOPPLE FIX ME
-      const className = i18n._(config.spec.className) as Class;
-      const combatantTalents = combatant.talentTree.map((talent) => talent.id);
+      const className = player.className as Class;
 
       AVAILABLE_RAID_BUFFS.forEach((providedBy, spell) => {
-        const hasTalent = isTalent(spell)
-          ? spell.entryIds.some((entryId) => combatantTalents.includes(entryId))
-          : true;
-        if ((providedBy.includes(className) || providedBy.includes(config.spec)) && hasTalent) {
+        if (providedBy.includes(className) || providedBy.includes(config.spec)) {
           map.set(spell, (map.get(spell) ?? 0) + 1);
         }
       });
@@ -160,7 +129,7 @@ const ReportRaidBuffList = ({ report, combatants }: Props) => {
     }, results);
   };
 
-  const buffs = getCompositionBreakdown(combatants);
+  const buffs = getCompositionBreakdown(players);
   return (
     <div className="raidbuffs">
       <h1>Raid Buffs</h1>

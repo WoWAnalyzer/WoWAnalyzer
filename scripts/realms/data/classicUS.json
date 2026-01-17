@@ -1,6 +1,8 @@
 {
   "_links": {
-    "self": { "href": "https://us.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-us" }
+    "self": {
+      "href": "https://us.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-us"
+    }
   },
   "realms": [
     {
@@ -103,25 +105,25 @@
       "key": {
         "href": "https://us.api.blizzard.com/data/wow/realm/4667?namespace=dynamic-classic-us"
       },
-      "name": "Remulos",
+      "name": "Remulos (AU)",
       "id": 4667,
-      "slug": "remulos"
+      "slug": "remulos-au"
     },
     {
       "key": {
         "href": "https://us.api.blizzard.com/data/wow/realm/4669?namespace=dynamic-classic-us"
       },
-      "name": "Arugal",
+      "name": "Arugal (AU)",
       "id": 4669,
-      "slug": "arugal"
+      "slug": "arugal-au"
     },
     {
       "key": {
         "href": "https://us.api.blizzard.com/data/wow/realm/4670?namespace=dynamic-classic-us"
       },
-      "name": "Yojamba",
+      "name": "Yojamba (AU)",
       "id": 4670,
-      "slug": "yojamba"
+      "slug": "yojamba-au"
     },
     {
       "key": {
@@ -173,6 +175,38 @@
     },
     {
       "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4649?namespace=dynamic-classic-us"
+      },
+      "name": "US1 CWOW Web",
+      "id": 4649,
+      "slug": "us1-cwow-web"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4651?namespace=dynamic-classic-us"
+      },
+      "name": "US2 CWOW Web",
+      "id": 4651,
+      "slug": "us2-cwow-web"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4653?namespace=dynamic-classic-us"
+      },
+      "name": "US1 CWOW GMSS 1",
+      "id": 4653,
+      "slug": "us1-cwow-gmss-1"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4654?namespace=dynamic-classic-us"
+      },
+      "name": "US1 CWOW GMSS 2",
+      "id": 4654,
+      "slug": "us1-cwow-gmss-2"
+    },
+    {
+      "key": {
         "href": "https://us.api.blizzard.com/data/wow/realm/4795?namespace=dynamic-classic-us"
       },
       "name": "Angerforge",
@@ -186,6 +220,46 @@
       "name": "Eranikus",
       "id": 4800,
       "slug": "eranikus"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/6359?namespace=dynamic-classic-us"
+      },
+      "name": "Nazgrim",
+      "id": 6359,
+      "slug": "nazgrim"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/6360?namespace=dynamic-classic-us"
+      },
+      "name": "Galakras",
+      "id": 6360,
+      "slug": "galakras"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/6361?namespace=dynamic-classic-us"
+      },
+      "name": "Ra-den",
+      "id": 6361,
+      "slug": "raden"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/6362?namespace=dynamic-classic-us"
+      },
+      "name": "Lei Shen",
+      "id": 6362,
+      "slug": "lei-shen"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/6363?namespace=dynamic-classic-us"
+      },
+      "name": "Immerseus",
+      "id": 6363,
+      "slug": "immerseus"
     }
   ]
 }

@@ -153,7 +153,9 @@ const spells: number[] = [
   //endregion
 
   //region classic warlock
+  CLASSIC_SPELLS.CORRUPTION_TICK.id,
   CLASSIC_SPELLS.RAIN_OF_FIRE_DAMAGE.id,
+  CLASSIC_SPELLS.SHADOW_TRANCE.id,
   //endregion
 
   //region classic warrior

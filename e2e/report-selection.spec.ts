@@ -6,6 +6,7 @@ const fightLinkName = 'Kill 3:31';
 const fightUrlPart = '5-Heroic+Lei+Shi+-+Kill+(3:31)';
 const bossTitle = `Heroic Lei Shi - Kill (3:31)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
+const playerId = 22;
 const playerName = 'Auruch';
 const playerLinkName = `Auruch Destruction Warlock Destruction Warlock 514`;
 const resultsPageTitle = `Heroic Lei Shi - Kill (3:31) by Auruch in HoF / ToES`;
@@ -44,7 +45,7 @@ test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
   await reportPage.expectBossDifficultyAndNameHeaderToHaveText(bossDifficultyAndName);
-  await reportPage.expectUrlToHave(reportCode, fightUrlPart, playerName);
+  await reportPage.expectUrlToHave(reportCode, fightUrlPart, playerName, playerId);
   await expect(page).toHaveTitle(resultsPageTitle);
 });
 
@@ -54,6 +55,7 @@ test.describe('tab selection', () => {
       reportCode: reportCode,
       fightCode: fightUrlPart,
       playerName,
+      playerId,
     });
   });
 
@@ -61,7 +63,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/statistics`,
+      `/report/${reportCode}/${fightUrlPart}/${playerId}-${playerName}/standard/statistics`,
     );
   });
 
@@ -69,7 +71,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/timeline`,
+      `/report/${reportCode}/${fightUrlPart}/${playerId}-${playerName}/standard/timeline`,
     );
   });
 
@@ -78,7 +80,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/cooldowns`,
+      `/report/${reportCode}/${fightUrlPart}/${playerId}-${playerName}/standard/cooldowns`,
     );
   });
 
@@ -86,7 +88,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/character`,
+      `/report/${reportCode}/${fightUrlPart}/${playerId}-${playerName}/standard/character`,
     );
   });
 
@@ -94,7 +96,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnAboutTab();
 
     await expect(page).toHaveURL(
-      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/about`,
+      `/report/${reportCode}/${fightUrlPart}/${playerId}-${playerName}/standard/about`,
     );
   });
 });
@@ -118,5 +120,7 @@ test('perform analysis', async ({
   await page.getByRole('link', { name: playerLinkName }).click();
 
   await page.getByText(bossDifficultyAndName).waitFor();
-  await expect(page).toHaveURL(`/report/${reportCode}/${fightUrlPart}/${playerName}/standard`);
+  await expect(page).toHaveURL(
+    `/report/${reportCode}/${fightUrlPart}/${playerId}-${playerName}/standard`,
+  );
 });

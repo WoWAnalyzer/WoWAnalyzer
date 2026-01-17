@@ -46,7 +46,7 @@ export default class Abilities extends CoreAbilities {
         // Felblade cooldown can be reset by Demon Bite. But its CD reset is not any event, so can't track if it resets or not.
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
-          base: 1500,
+          static: 500,
         },
         castEfficiency: {
           suggestion: true,
@@ -109,7 +109,7 @@ export default class Abilities extends CoreAbilities {
         spell: SPELLS.REAVERS_GLAIVE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
-          static: 1500,
+          base: 1500,
         },
       },
     ];

@@ -310,15 +310,12 @@ export const EnemyCastsTimeline = ({
             }
             return acc;
           }, {});
-          const allies = parser.combatantInfoEvents.reduce(
-            (acc: Record<number, PlayerInfo>, cur) => {
-              if (!acc[cur.sourceID]) {
-                acc[cur.sourceID] = cur.player;
-              }
-              return acc;
-            },
-            {},
-          );
+          const allies = parser.players.reduce((acc: Record<number, PlayerInfo>, cur) => {
+            if (!acc[cur.id]) {
+              acc[cur.id] = cur;
+            }
+            return acc;
+          }, {});
 
           //This groups damage events together. Helpful for aoe spells from the enemy that hit multiple players at the same time
           const nonMeleeDamageEvents = damageStuff.reduce((acc: DamageEvent[][], cur) => {
@@ -407,6 +404,7 @@ export const EnemyCastsTimeline = ({
     parser.combatantInfoEvents,
     parser.report.enemies,
     parser.report.enemyPets,
+    parser.players,
     hasUserRequestedNPCSpells,
   ]);
 

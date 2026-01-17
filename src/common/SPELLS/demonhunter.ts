@@ -175,6 +175,16 @@ const spells = {
     name: 'Demon Soul',
     icon: 'spell_shadow_soulleech_3',
   },
+  DEMON_SOUL_BUFF_FEL_SCARRED_VDH: {
+    id: 1238675,
+    name: 'Demon Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+  DEMON_SOUL_BUFF_FEL_SCARRED_HDH: {
+    id: 1238676,
+    name: 'Demon Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
   //endregion
 
   //region Vengeance

@@ -2,7 +2,28 @@ import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { Arlie, Ceric, emallson, Gazh, jazminite, KYZ, nullDozzer, oneunreadmail, Putro, Rzial, Seriousnes, Sharrq, Sref, swirl, Taevis, Topple, Trevor, Vetyst, Vollmer, Yellot, } from 'CONTRIBUTORS';
+import {
+  Arlie,
+  Ceric,
+  emallson,
+  Gazh,
+  jazminite,
+  KYZ,
+  nullDozzer,
+  oneunreadmail,
+  Putro,
+  Rzial,
+  Seriousnes,
+  Sharrq,
+  Sref,
+  swirl,
+  Taevis,
+  Topple,
+  Trevor,
+  Vetyst,
+  Vollmer,
+  Yellot,
+} from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
@@ -11,6 +32,7 @@ export default [
   change(date(2025, 11, 26), 'Update to React 19.', [Topple, emallson]),
   change(date(2025, 11, 26), 'Add bosses for Midnight S1.', Topple),
   change(date(2025, 11, 9), 'Redesign fight analysis header.', emallson),
+  change(date(2025, 11, 5), 'Add new Classic mega-servers to character/guild search', emallson),
   change(date(2025, 11,  4), 'Generate talents for 12.0.0.64124.', Topple),
   change(date(2025, 10,  28), 'Add MID1 tier set ids.', Vollmer),
   change(date(2025, 10,  14), 'Update CastEfficiencyBar to accept a spell object.', Sharrq),

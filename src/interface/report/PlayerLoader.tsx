@@ -1,25 +1,16 @@
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useReducer } from 'react';
+import { useEffect, useMemo } from 'react';
 import { defineMessage, t, Trans } from '@lingui/macro';
-import { captureException } from 'common/errorLogger';
-import { fetchCombatants } from 'common/fetchWclApi';
 import getFightName from 'common/getFightName';
-import getAverageItemLevel from 'game/getAverageItemLevel';
-import ROLES from 'game/ROLES';
-import SPECS from 'game/SPECS';
 import { isUnsupportedClassicVersion, wclGameVersionToBranch } from 'game/VERSIONS';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
 import AdvancedLoggingWarning from 'interface/report/AdvancedLoggingWarning';
-import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import Tooltip from 'interface/Tooltip';
-import { CombatantInfoEvent } from 'parser/core/Events';
-import { WCLFight } from 'parser/core/Fight';
-import Report from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PlayerProvider } from 'interface/report/context/PlayerContext';
@@ -27,265 +18,88 @@ import { useReport } from 'interface/report/context/ReportContext';
 import { useFight } from 'interface/report/context/FightContext';
 import DocumentTitle from 'interface/DocumentTitle';
 
-import handleApiError, { isCommonError } from './handleApiError';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
-import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
-import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { i18n } from '@lingui/core';
-import { uniqueBy } from 'common/uniqueBy';
-import { setCombatants } from 'interface/reducers/combatants';
-import GameBranch from 'game/GameBranch';
-
-const FAKE_PLAYER_IF_DEV_ENV = false;
+import useSWR from 'swr';
+import { PlayerDetails } from 'parser/core/Player';
+import makeApiUrl from 'common/makeApiUrl';
+import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
 
 interface Props {
   children: ReactNode;
 }
 
-interface State {
-  error: Error | null;
-  combatants: CombatantInfoEvent[] | null;
-  combatantsFightId: number | null;
-  tanks: number;
-  healers: number;
-  dps: number;
-  ranged: number;
-  ilvl: number;
-}
-
-const defaultState: State = {
-  error: null,
-  combatants: null,
-  combatantsFightId: null,
-  tanks: 0,
-  healers: 0,
-  dps: 0,
-  ranged: 0,
-  ilvl: 0,
-};
-
-type Action =
-  | { type: 'reset' }
-  | {
-      type: 'update_composition';
-      tanks: number;
-      healers: number;
-      dps: number;
-      ranged: number;
-      ilvl: number;
-    }
-  | { type: 'set_combatants'; combatants: CombatantInfoEvent[]; combatantsFightId: number }
-  | { type: 'set_error'; error: Error };
-
-const fcReducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'reset':
-      return { ...defaultState };
-    case 'update_composition':
-      return {
-        ...state,
-        tanks: action.tanks,
-        healers: action.healers,
-        dps: action.dps,
-        ranged: action.ranged,
-        ilvl: action.ilvl,
-      };
-    case 'set_combatants':
-      return {
-        ...state,
-        combatants: action.combatants,
-        combatantsFightId: action.combatantsFightId,
-      };
-    case 'set_error':
-      return { ...defaultState, error: action.error };
-    default:
-      return { ...state };
-  }
-};
-
-/**
- * This is a workaround for certain fights in classic having RP (especially buggy/inconsistent RP) split off into a separate dummy fight.
- *
- * Eventually, this will be obviated by switching to the PlayerDetails query of the v2 API, but we aren't there yet.
- */
-async function fetchCombatantsWithClassicRP(
-  report: Report,
-  fight: WCLFight,
-): Promise<CombatantInfoEvent[]> {
-  const currentCombatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
-
-  if (
-    currentCombatants.length === 0 &&
-    wclGameVersionToBranch(report.gameVersion) === GameBranch.Classic
-  ) {
-    // no combatants found, but due to RP handling sometimes they are present in a previous fight
-    const prevFight = report.fights.find((other) => other.id === fight.id - 1);
-    if (prevFight && prevFight.boss === 0 && prevFight.originalBoss === fight.boss) {
-      return fetchCombatants(report.code, prevFight.start_time, prevFight.end_time) as Promise<
-        CombatantInfoEvent[]
-      >;
-    }
-  }
-
-  return currentCombatants as CombatantInfoEvent[];
+interface PlayerDetailsResponse {
+  players: PlayerDetails[];
 }
 
 const PlayerLoader = ({ children }: Props) => {
-  const [{ error, combatants, combatantsFightId, tanks, healers, dps, ranged, ilvl }, dispatchFC] =
-    useReducer(fcReducer, defaultState);
   const { report: selectedReport } = useReport();
   const { fight: selectedFight } = useFight();
   const { player: playerParam } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useWaDispatch();
   const playerId = getPlayerIdFromParam(playerParam);
   const playerName = getPlayerNameFromParam(playerParam);
-
-  const loadCombatants = useCallback(
-    async (report: Report, fight: WCLFight) => {
-      if (isUnsupportedClassicVersion(report.gameVersion)) {
-        return;
-      }
-
-      try {
-        const rawCombatants = (await fetchCombatantsWithClassicRP(
-          selectedReport,
-          selectedFight,
-        )) as CombatantInfoEvent[];
-        const combatants = uniqueBy(rawCombatants, (c) => c.sourceID);
-
-        let combatantsWithGear = 0;
-        let tanks = 0;
-        let healers = 0;
-        let dps = 0;
-        let ranged = 0;
-        let ilvl = 0;
-
-        combatants.forEach((combatant) => {
-          if (import.meta.env.DEV && FAKE_PLAYER_IF_DEV_ENV) {
-            console.error(
-              `This player (sourceID: ${combatant.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
-            );
-            combatant = generateFakeCombatantInfo(combatant);
-          }
-          if (combatant.error || combatant.specID === -1) {
-            return;
-          }
-          const player = report.friendlies.find((friendly) => friendly.id === combatant.sourceID);
-          if (!player) {
-            console.error('friendly missing from report for player', combatant.sourceID);
-            return;
-          }
-          combatant.player = player;
-
-          if (SPECS[combatant.specID]) {
-            // TODO: TBC support: specID is always null, so look at talents to figure out the most likely spec. Or use friendly.icon. Then make a table that has roles for that. Cumbersome, but not too difficult.
-            // TODO: Move this code to the component that renders the tanks/healers/dps/ranged
-            switch (SPECS[combatant.specID].role) {
-              case ROLES.TANK:
-                tanks += 1;
-                break;
-              case ROLES.HEALER:
-                healers += 1;
-                break;
-              case ROLES.DPS.MELEE:
-                dps += 1;
-                break;
-              case ROLES.DPS.RANGED:
-                ranged += 1;
-                break;
-              default:
-                break;
-            }
-          } else {
-            const config = getConfig(GameBranch.Classic, 1, player, combatant);
-            if (config) {
-              if (config?.spec) {
-                switch (config?.spec.role) {
-                  case ROLES.TANK:
-                    tanks += 1;
-                    break;
-                  case ROLES.HEALER:
-                    healers += 1;
-                    break;
-                  case ROLES.DPS.MELEE:
-                    dps += 1;
-                    break;
-                  case ROLES.DPS.RANGED:
-                    ranged += 1;
-                    break;
-                  default:
-                    break;
-                }
-              }
-            }
-          }
-
-          // Gear may be null for broken combatants
-          const combatantILvl = combatant.gear ? getAverageItemLevel(combatant.gear) : 0;
-          if (combatantILvl !== 0) {
-            combatantsWithGear += 1;
-            ilvl += combatantILvl;
-          }
-        });
-        ilvl /= combatantsWithGear;
-        dispatchFC({ type: 'update_composition', tanks, healers, dps, ranged, ilvl });
-        if (selectedReport !== report || selectedFight !== fight) {
-          return; // the user switched report/fight already
-        }
-        dispatchFC({ type: 'set_combatants', combatants, combatantsFightId: fight.id });
-        // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
-        dispatch(setCombatants(combatants));
-      } catch (error) {
-        if (!isCommonError(error)) {
-          captureException(error as Error);
-        }
-        dispatchFC({ type: 'set_error', error: error as Error });
-        // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
-        dispatch(setCombatants(null));
-      }
+  const navigate = useNavigate();
+  const { data, error, isLoading } = useSWR<PlayerDetailsResponse>(
+    makeApiUrl(`v2/report/${selectedReport.code}/fight/${selectedFight.id}/players`),
+    {
+      fetcher: (url) => fetch(url).then((res) => res.json()),
+      isPaused: () => isUnsupportedClassicVersion(selectedReport.gameVersion),
     },
-    [dispatch, selectedFight, selectedReport],
   );
 
+  // re-routing for accesses with player name but no id. if exact match, route to id.
+  // if no exact match (missing or multiple matches) reroute to player selection.
+  //
+  // would like everything to have the id, but there are a lot of urls floating around with name only
   useEffect(() => {
-    if (selectedFight.id !== combatantsFightId) {
-      dispatchFC({ type: 'reset' });
+    if (playerName && !playerId && data?.players) {
+      const namedPlayers = data.players.filter((player) => player.name === playerName);
+
+      if (namedPlayers.length === 1) {
+        navigate(makeAnalyzerUrl(selectedReport, selectedFight.id, namedPlayers[0].id), {
+          replace: true,
+        });
+      } else {
+        navigate(makeAnalyzerUrl(selectedReport, selectedFight.id), {
+          replace: true,
+        });
+      }
     }
-  }, [combatantsFightId, selectedFight.id]);
+  }, [playerId, playerName, data?.players, selectedReport, selectedFight, navigate]);
 
-  useEffect(() => {
-    // noinspection JSIgnoredPromiseFromCall
-    loadCombatants(selectedReport, selectedFight);
-  }, [loadCombatants, selectedReport, selectedFight]);
+  const player = useMemo(
+    () => data?.players.find((player) => player.id === playerId),
+    [data?.players, playerId],
+  );
 
-  useEffect(() => {
-    // scroll to top of window
-    window.scrollTo(0, 0);
-  }, []);
+  // react compiler infers `data` instead of `data?.players` for this.
+  // similar-ish results i think? but easy enough to leave alone
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
+  const composition = useMemo(() => {
+    const result = {
+      tank: 0,
+      dps: 0,
+      healer: 0,
+      ilvl: 0,
+    };
 
-  const renderError = (error: Error) => {
-    return handleApiError(error, () => {
-      dispatchFC({ type: 'reset' });
-      // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
-      setCombatants(null);
-      navigate(makeAnalyzerUrl());
-    });
-  };
+    if (!data?.players) {
+      return result;
+    }
 
-  const renderLoading = () => {
-    return (
-      <ActivityIndicator
-        text={t({
-          id: 'interface.report.renderLoading.fetchingPlayerInfo',
-          message: `Fetching player info...`,
-        })}
-      />
-    );
-  };
+    for (const player of data.players) {
+      result.ilvl += player.ilvl ?? 0;
+      result[player.role] += 1;
+    }
 
-  const renderClassicWarning = () => {
+    result.ilvl /= data.players.length;
+
+    return result;
+  }, [data?.players]);
+
+  if (isUnsupportedClassicVersion(selectedReport.gameVersion)) {
     return (
       <div className="container offset">
         <Panel
@@ -299,86 +113,66 @@ const PlayerLoader = ({ children }: Props) => {
                 The current report contains encounters from an old World of Warcraft expansion. Old
                 expansion logs are not supported.
               </Trans>
-              <br />
-              <br />
             </div>
           </div>
         </Panel>
       </div>
     );
-  };
+  }
 
   if (error) {
-    return renderError(error);
+    // TODO: i18n
+    return (
+      <div className="container offset">
+        <Panel title={'Something went wrong'}>
+          <div className="flex wrapable">
+            <div className="flex-main">An unexpected error occurred loading the player list.</div>
+          </div>
+        </Panel>
+      </div>
+    );
   }
 
-  if (isUnsupportedClassicVersion(selectedReport.gameVersion)) {
-    return renderClassicWarning();
-  }
-
-  if (!combatants) {
-    return renderLoading();
+  if (isLoading || !data) {
+    return (
+      <ActivityIndicator
+        text={t({
+          id: 'interface.report.renderLoading.fetchingPlayerInfo',
+          message: `Fetching player info...`,
+        })}
+      />
+    );
   }
 
   const reportDuration = selectedReport.end - selectedReport.start;
 
-  const players = playerId
-    ? selectedReport.friendlies.filter((friendly) => friendly.id === playerId)
-    : selectedReport.friendlies.filter((friendly) => friendly.name === playerName);
-  const player = players[0];
-  const hasDuplicatePlayers = players.length > 1;
-  const combatant = player && combatants.find((combatant) => combatant.sourceID === player.id);
   const config =
-    combatant &&
-    getConfig(
-      wclGameVersionToBranch(selectedReport.gameVersion),
-      combatant.specID,
-      player,
-      combatant,
-    );
+    player &&
+    getConfig(wclGameVersionToBranch(selectedReport.gameVersion), player.specID ?? 0, player);
 
-  if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
-    if (player) {
-      // Player data was in the report, but there was another issue
-      if (hasDuplicatePlayers) {
-        alert(
-          i18n._(
-            defineMessage({
-              id: 'interface.report.render.hasDuplicatePlayers',
-              message: `It appears like another "${playerName}" is in this log, please select the correct one`,
-            }),
-          ),
-        );
-      } else if (!combatant) {
-        alert(
-          i18n._(
-            defineMessage({
-              id: 'interface.report.render.dataNotAvailable',
-              message: `Player data does not seem to be available for the selected player in this fight.`,
-            }),
-          ),
-        );
-      } else if (combatant.error || (!combatant.specID && combatant.specID !== 0)) {
-        alert(
-          i18n._(
-            defineMessage({
-              id: 'interface.report.render.logCorrupted',
-              message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
-            }),
-          ),
-        );
-      } else if (!config) {
-        alert(
-          i18n._(
-            defineMessage({
-              id: 'interface.report.render.notSupported',
-              message: `This spec is not supported for this expansion.`,
-            }),
-          ),
-        );
-      }
+  if (playerId && (!player || !config)) {
+    if (!player) {
+      alert(
+        i18n._(
+          defineMessage({
+            id: 'interface.report.render.dataNotAvailable',
+            message: `Player data does not seem to be available for the selected player in this fight.`,
+          }),
+        ),
+      );
+    } else if (!config) {
+      alert(
+        i18n._(
+          defineMessage({
+            id: 'interface.report.render.notSupported',
+            message: `This spec is not supported for this expansion.`,
+          }),
+        ),
+      );
     }
+  }
 
+  if (!player) {
     return (
       <div className="container offset">
         <div style={{ position: 'relative', marginBottom: 15 }}>
@@ -411,11 +205,10 @@ const PlayerLoader = ({ children }: Props) => {
             </div>
             <div className="flex-sub">
               <RaidCompositionDetails
-                tanks={tanks}
-                healers={healers}
-                dps={dps}
-                ranged={ranged}
-                ilvl={ilvl}
+                tanks={composition.tank}
+                healers={composition.healer}
+                dps={composition.dps}
+                ilvl={composition.ilvl}
               />
             </div>
           </div>
@@ -425,16 +218,16 @@ const PlayerLoader = ({ children }: Props) => {
           <ReportDurationWarning duration={reportDuration} />
         )}
 
-        {combatants.length === 0 && <AdvancedLoggingWarning />}
+        {data.players.length === 0 && <AdvancedLoggingWarning />}
 
         <PlayerSelection
           report={selectedReport}
-          combatants={combatants}
+          players={data.players}
           makeUrl={(playerId) =>
             makeAnalyzerUrl(selectedReport, selectedFight.id, playerId, undefined)
           }
         />
-        <ReportRaidBuffList report={selectedReport} combatants={combatants} />
+        <ReportRaidBuffList report={selectedReport} players={data.players} />
       </div>
     );
   }
@@ -450,9 +243,7 @@ const PlayerLoader = ({ children }: Props) => {
         })}
       />
 
-      <PlayerProvider player={player} combatant={combatant} combatants={combatants}>
-        {children}
-      </PlayerProvider>
+      <PlayerProvider player={player}>{children}</PlayerProvider>
     </>
   );
 };
