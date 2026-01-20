@@ -2793,3 +2793,15 @@ export const Rex: Contributor = {
     },
   ],
 };
+
+export const Katorri: Contributor = {
+  nickname: 'Katorri',
+  github: 'Katorri',
+  mains: [
+    {
+      name: 'Katorrí',
+      spec: SPECS.DESTRUCTION_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/us/stormrage/katorr%C3%AD',
+    },
+  ],
+};

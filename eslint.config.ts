@@ -67,7 +67,7 @@ const ignores = tseslint.config({
     'src/analysis/retail/shaman/enhancement/**',
     'src/analysis/retail/warlock/affliction/**',
     'src/analysis/retail/warlock/demonology/**',
-    'src/analysis/retail/warlock/destruction/**',
+    // 'src/analysis/retail/warlock/destruction/**',
     'src/analysis/retail/warlock/shared/**',
     'src/analysis/retail/warrior/protection/**',
   ],
