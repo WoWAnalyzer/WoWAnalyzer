@@ -4,8 +4,9 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import Enemies from 'parser/shared/modules/Enemies';
-import { hasted, normalGcd } from 'common/abilitiesConstants';
-import { inBerserk } from 'analysis/retail/druid/guardian/constants';
+// import { hasted, normalGcd } from 'common/abilitiesConstants';
+import { normalGcd } from 'common/abilitiesConstants';
+// import { inBerserk } from 'analysis/retail/druid/guardian/constants';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
@@ -20,10 +21,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) =>
-          inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT)
-            ? hasted(3, haste)
-            : hasted(6, haste),
+        // cooldown: (haste) =>
+        //   inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT)
+        //     ? hasted(3, haste)
+        //     : hasted(6, haste),
         gcd: {
           base: 1500,
         },
@@ -38,10 +39,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) =>
-          inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT)
-            ? hasted(3, haste)
-            : hasted(6, haste),
+        // cooldown: (haste) =>
+        //   inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT)
+        //     ? hasted(3, haste)
+        //     : hasted(6, haste),
         gcd: {
           base: 1500,
         },
@@ -74,6 +75,27 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 5,
       },
+
+      // This was added as a spell to the abilities list because the ability is being logged like this
+      // The talent ID is not what is getting picked up in the log
+      // TODO nID#38
+      {
+        spell: SPELLS.RAVAGE_BEAR.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 5,
+      },
+      {
+        spell: TALENTS_DRUID.RAVAGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.RAVAGE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 5,
+      },
       {
         spell: TALENTS_DRUID.RAZE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.RAZE_TALENT),
@@ -94,13 +116,52 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FRENZIED_REGENERATION.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: (haste) =>
-          inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT)
-            ? 0
-            : hasted(36, haste),
+
+        // Changed the talent to the correct talent, but I'm unsure on the correct haste calculation. Will return
+
+        // TODO FIX ME - nID 32
+
+        // cooldown: (haste) =>
+        //   inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_GUARDIAN_TALENT)
+        //     ? 0
+        //     : hasted(36, haste),
         gcd: normalGcd,
         charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
         isDefensive: true,
+      },
+
+      // Cat Abilities
+      {
+        spell: SPELLS.SHRED.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 6,
+      },
+      {
+        spell: SPELLS.RAKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 6,
+      },
+      {
+        spell: SPELLS.RIP.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 6,
+      },
+      {
+        spell: SPELLS.FEROCIOUS_BITE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 6,
       },
 
       // Cooldowns
@@ -110,7 +171,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           180 * (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.12),
-        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.IMPROVED_SURVIVAL_INSTINCTS_TALENT),
         timelineSortIndex: 9,
       },
       {
@@ -123,6 +183,8 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT),
         timelineSortIndex: 9,
       },
+
+      // TODO nID#37
       {
         spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -133,6 +195,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT),
         timelineSortIndex: 9,
       },
+
+      // Talents
       {
         spell: TALENTS_DRUID.BRISTLING_FUR_TALENT.id,
         buffSpellId: TALENTS_DRUID.BRISTLING_FUR_TALENT.id,
@@ -146,26 +210,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: TALENTS_DRUID.PULVERIZE_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.PULVERIZE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 10,
-        timelineSortIndex: 6,
-      },
-      {
-        spell: TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 60,
-        timelineSortIndex: 7,
-      },
-      {
         spell: TALENTS_DRUID.LUNAR_BEAM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.LUNAR_BEAM_TALENT),
@@ -176,6 +220,28 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 8,
         isDefensive: true,
       },
+      {
+        spell: TALENTS_DRUID.RED_MOON_TALENT.id,
+        buffSpellId: TALENTS_DRUID.RED_MOON_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS_DRUID.RED_MOON_TALENT),
+        timelineSortIndex: 9,
+      },
+
+      // Utility
+      {
+        spell: SPELLS.SKULL_BASH.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 6,
+      },
+
       ...super.spellbook(),
     ];
   }

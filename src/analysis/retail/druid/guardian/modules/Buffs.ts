@@ -24,11 +24,6 @@ export default class Buffs extends Auras {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: TALENTS_DRUID.LUNAR_BEAM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.LUNAR_BEAM_TALENT),
         timelineHighlight: true,

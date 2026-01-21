@@ -113,14 +113,6 @@ class Abilities extends CoreAbilities {
         gcd: normalGcd,
       },
       {
-        spell: TALENTS_DRUID.RENEWAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        gcd: null,
-        isDefensive: true,
-      },
-      {
         spell: [
           // TODO with affinities gone, we need to check these IDs
           SPELLS.HEART_OF_THE_WILD_BALANCE_AFFINITY.id,
@@ -132,13 +124,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 300,
         gcd: normalGcd,
-      },
-      {
-        spell: TALENTS_DRUID.NATURES_VIGIL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.NATURES_VIGIL_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
-        gcd: null, // TODO double check this
       },
       {
         spell: SPELLS.INNERVATE.id,

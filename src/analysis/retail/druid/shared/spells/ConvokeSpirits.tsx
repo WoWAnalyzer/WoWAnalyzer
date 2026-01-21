@@ -60,7 +60,6 @@ const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.RAVAGE_DOTC_CAT,
   SPELLS.SHRED,
   SPELLS.MANGLE_BEAR,
-  TALENTS.PULVERIZE_TALENT,
 ];
 /** Convokable spells that do direct damage (and possibly also a DoT portion) - for damage tallying */
 const CONVOKE_DIRECT_DAMAGE_SPELLS = [

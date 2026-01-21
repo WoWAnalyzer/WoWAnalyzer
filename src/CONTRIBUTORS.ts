@@ -2762,3 +2762,15 @@ export const Brandrewsss: Contributor = {
     },
   ],
 };
+
+export const Rex: Contributor = {
+  nickname: 'Rex',
+  github: 'RussellFeinstein',
+  mains: [
+    {
+      name: 'Rexxybear',
+      spec: SPECS.GUARDIAN_DRUID,
+      link: 'https://www.warcraftlogs.com/character/us/tichondrius/rexxybear',
+    },
+  ],
+};

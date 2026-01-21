@@ -23,9 +23,7 @@ import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/E
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import Barkskin from 'analysis/retail/druid/guardian/modules/spells/Barkskin';
-import Pulverize from 'analysis/retail/druid/guardian/modules/spells/Pulverize';
 import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/spells/SurvivalInstincts';
-import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/spells/RageOfTheSleeper';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { cdSpell } from 'analysis/retail/druid/guardian/constants';
@@ -111,10 +109,10 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
           fightEnd={info.fightEnd}
         />
       </p>
-      {modules.mangle.guideSubsection}
+      {/* {modules.mangle.guideSubsection}
       {modules.thrash.guideSubsection}
       {modules.moonfire.guideSubsection}
-      {modules.swipe.guideSubsection}
+      {modules.swipe.guideSubsection} */}
     </Section>
   );
 }
@@ -135,13 +133,6 @@ function OffensiveCooldownsSection({
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
-        {info.combatant.hasTalent(TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT) && (
-          <CastEfficiencyBar
-            spell={TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        )}
         {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_BEAM_TALENT) && (
           <CastEfficiencyBar
             spell={TALENTS_DRUID.LUNAR_BEAM_TALENT}
@@ -150,14 +141,13 @@ function OffensiveCooldownsSection({
           />
         )}
       </SubSection>
-      {modules.berserk.guideCastBreakdown}
-      {modules.rageOfTheSleeper.active && modules.rageOfTheSleeper.guideCastBreakdown}
+      {/* {modules.berserk.guideCastBreakdown} */}
     </Section>
   );
 }
 
 function MajorDefensivesSection(): JSX.Element | null {
-  const analyzers = useAnalyzers([Barkskin, RageOfTheSleeper, Pulverize, SurvivalInstincts]);
+  const analyzers = useAnalyzers([Barkskin, SurvivalInstincts]);
   return (
     <Section title="Major Defensives">
       <Explanation>

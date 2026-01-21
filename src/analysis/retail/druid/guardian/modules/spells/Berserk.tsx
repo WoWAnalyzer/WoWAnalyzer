@@ -22,7 +22,7 @@ import RageTracker, {
 import { SegmentData } from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 
-const BUA_HASTE = 0.15;
+// const BUA_HASTE = 0.15;
 
 const PERFECT_INCARN_ACTIVE = 0.95;
 const GOOD_INCARN_ACTIVE = 0.9;
@@ -79,27 +79,27 @@ export default class Berserk extends Analyzer.withDependencies({
   cdSpell: Spell;
   cdDuration: number;
 
-  hasBerserkPersistence: boolean;
+  // hasBerserkPersistence: boolean;
 
   berserkTrackers: BerserkCast[] = [];
 
   constructor(options: Options) {
     super(options);
 
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT);
-    this.hasBerserkPersistence = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT,
-    );
+    // this.active =
+    //   this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT) ||
+    //   this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT) ||
+    //   this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT);
+    // this.hasBerserkPersistence = this.selectedCombatant.hasTalent(
+    //   TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT,
+    // );
 
     this.cdSpell = cdSpell(this.selectedCombatant);
     this.cdDuration = cdDuration(this.selectedCombatant);
 
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT)) {
-      this.deps.haste.addHasteBuff(this.cdSpell.id, BUA_HASTE);
-    }
+    // if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT)) {
+    //   this.deps.haste.addHasteBuff(this.cdSpell.id, BUA_HASTE);
+    // }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
     if (
@@ -127,14 +127,14 @@ export default class Berserk extends Analyzer.withDependencies({
       swipes: 0,
     });
 
-    if (this.hasBerserkPersistence) {
-      this.deps.spellUsable.endCooldown(
-        TALENTS_DRUID.FRENZIED_REGENERATION_TALENT.id,
-        this.owner.currentTimestamp,
-        true,
-        true,
-      );
-    }
+    // if (this.hasBerserkPersistence) {
+    //   this.deps.spellUsable.endCooldown(
+    //     TALENTS_DRUID.FRENZIED_REGENERATION_TALENT.id,
+    //     this.owner.currentTimestamp,
+    //     true,
+    //     true,
+    //   );
+    // }
   }
 
   private fillCastInfos() {
