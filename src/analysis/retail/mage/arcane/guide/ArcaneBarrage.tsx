@@ -63,7 +63,6 @@ class ArcaneBarrageGuide extends Analyzer {
     }
 
     //Arcane Salvo
-    this.log(cast.salvoStacks);
     if (this.hasArcaneSalvo && cast.salvoStacks) {
       stats.push({
         label: 'Arcane Salvo Stacks',
