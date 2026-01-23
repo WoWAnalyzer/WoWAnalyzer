@@ -17,6 +17,7 @@ export default class ArcaneMissiles extends Analyzer {
   protected eventHistory!: EventHistory;
   protected arcaneChargeTracker!: ArcaneChargeTracker;
 
+  isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
   hasAmplification: boolean = this.selectedCombatant.hasTalent(TALENTS.AMPLIFICATION_TALENT);
   hasImprovedClearcasting: boolean = this.selectedCombatant.hasTalent(
     TALENTS.IMPROVED_CLEARCASTING_TALENT,
@@ -45,6 +46,13 @@ export default class ArcaneMissiles extends Analyzer {
       event,
       EventType.Damage,
     );
+    const maxSalvoStacks = this.isSunfury ? 25 : 20;
+    const salvoStacks =
+      this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF, event.timestamp - 10)?.stacks || 0;
+    const overcappedSalvoStacks =
+      salvoStacks !== 0 && salvoStacks + damageTicks.length > maxSalvoStacks
+        ? salvoStacks + damageTicks.length - maxSalvoStacks
+        : 0;
 
     this.missileData.push({
       cast: event,
@@ -58,6 +66,8 @@ export default class ArcaneMissiles extends Analyzer {
       clearcastingCapped:
         (this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0) >= maxCCStacks,
       clearcastingProcs: this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0,
+      salvoStacks,
+      overcappedSalvoStacks,
     });
   }
 
@@ -126,6 +136,8 @@ export interface ArcaneMissilesData {
   arcaneCharges: number;
   clearcastingCapped: boolean;
   clearcastingProcs: number;
+  salvoStacks: number;
+  overcappedSalvoStacks: number;
   clipped: boolean;
   opMissiles: boolean;
   channelEnd?: number;
