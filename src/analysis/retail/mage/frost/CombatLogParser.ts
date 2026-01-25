@@ -20,6 +20,7 @@ import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import IceLance from './core/IceLance';
 import FingersOfFrost from './core/FingersOfFrost';
+import FreezingStacks from './core/FreezingStacks';
 
 //Talents
 import ColdSnap from './talents/ColdSnap';
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     iceLance: IceLance,
     arcaneIntellect: ArcaneIntellect,
     fingersOfFrost: FingersOfFrost,
+    freezingStacks: FreezingStacks,
 
     // Talents - Frost
     waterElemental: WaterElemental,

@@ -142,6 +142,11 @@ const spells = {
     name: 'Frostfire Bolt',
     icon: 'inv_ability_frostfiremage_frostfirebolt',
   },
+  FREEZING: {
+    id: 1221389,
+    name: 'Freezing',
+    icon: 'inv12_ability_mage_freezing',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
