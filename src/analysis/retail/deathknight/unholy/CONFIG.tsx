@@ -1,7 +1,7 @@
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 import { Brandrewsss } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/deathknight';
@@ -11,8 +11,8 @@ const config: Config = {
   contributors: [Brandrewsss],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.2.0',
-  supportLevel: SupportLevel.MaintainedPartial,
+  patchCompatibility: '12.0.0',
+  supportLevel: SupportLevel.Unmaintained,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -51,12 +51,12 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.UNHOLY_DEATH_KNIGHT,
   // The contents of your changelog.
-  changelog: [], // CHANGELOG,
+  changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "UnholyDeathKnight" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "UnholyDeathKnight" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

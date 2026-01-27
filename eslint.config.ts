@@ -35,7 +35,6 @@ const ignores = tseslint.config({
     // REMOVE SPECS FROM HERE ONCE THEY ARE SUPPORTED
     'src/analysis/retail/deathknight/blood/**',
     'src/analysis/retail/deathknight/frost/**',
-    'src/analysis/retail/deathknight/unholy/**',
     'src/analysis/retail/druid/balance/**',
     'src/analysis/retail/druid/feral/**',
     'src/analysis/retail/druid/restoration/**',
