@@ -95,6 +95,7 @@ import WayOfTheCrane from './modules/spells/WayOfTheCrane';
 import AncientTeachingsLinkNormalizer from './normalizers/AncientTeachingsLinkNormalizer';
 import PeacefulMending from './modules/spells/PeacefulMending';
 import Spiritfont from './modules/spells/Spiritfont';
+import InvigoratingMists from './modules/spells/InvigoratingMists';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -193,6 +194,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wayOfTheCrane: WayOfTheCrane,
     peacefulMending: PeacefulMending,
     spiritfont: Spiritfont,
+    invigoratingMists: InvigoratingMists,
 
     // Hero Talents
     // Conduit
