@@ -30,6 +30,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 1, 27), 'Add error state for ineligible fights.', Topple),
   change(date(2026, 1, 25), 'RU: localized /specs page (classes/specs) and updated related UI labels', SaltyRain),
   change(date(2026, 1, 24), 'Fix crash in Death Recap view', emallson),
   change(date(2026, 1, 24), 'Fix crash when selecting a phase or pull', emallson),
