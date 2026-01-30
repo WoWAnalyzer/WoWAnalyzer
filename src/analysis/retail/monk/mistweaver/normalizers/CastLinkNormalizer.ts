@@ -60,6 +60,7 @@ import { DAMAGING_ABILITIES_EVENT_LINKS } from './EventLinks/DamagingAbilitiesEv
 import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
 import { TIER_EVENT_LINKS } from './EventLinks/TierEventLinks';
 import SPELLS from 'common/SPELLS';
+import { effectiveHealing } from 'parser/shared/modules/HealingValue';
 
 const FOUND_REMS = new Map<string, number | null>();
 
@@ -165,6 +166,24 @@ function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
   });
 
   return minEvent;
+}
+
+// given a list of events, find event with highest heal + overheal
+function getHighestHeal(healEvents: HealEvent[]): HealEvent {
+  return healEvents.reduce((highest, heal) => {
+    const currentTotal = effectiveHealing(heal) + (heal.overheal || 0);
+    const highestTotal = effectiveHealing(highest) + (highest.overheal || 0);
+    return currentTotal > highestTotal ? heal : highest;
+  });
+}
+
+// given a list of events, remove the highest heal + overheal event from the list
+export function removeHighestHeal(healEvents: HealEvent[]): HealEvent | undefined {
+  if (!healEvents || healEvents.length === 0) return undefined;
+
+  const highest = getHighestHeal(healEvents);
+  const index = healEvents.indexOf(highest);
+  return healEvents.splice(index, 1)[0];
 }
 
 export function getSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -304,6 +323,13 @@ export function isFromCraneStyleSCK(event: HealEvent) {
 
 export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
   return GetRelatedEvents<HealEvent>(event, SHEILUNS_GIFT);
+}
+
+export function getSheilunsGiftMainTargetHit(event: CastEvent): HealEvent | undefined {
+  const healEvents = getSheilunsGiftHits(event);
+  if (!healEvents || healEvents.length === 0) return undefined;
+
+  return getHighestHeal(healEvents);
 }
 
 export function getRWKHitsPerCast(event: CastEvent): HealEvent[] {
