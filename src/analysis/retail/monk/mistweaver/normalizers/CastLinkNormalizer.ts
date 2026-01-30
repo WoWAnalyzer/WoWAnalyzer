@@ -61,6 +61,7 @@ import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
 import { TIER_EVENT_LINKS } from './EventLinks/TierEventLinks';
 import SPELLS from 'common/SPELLS';
 import { effectiveHealing } from 'parser/shared/modules/HealingValue';
+import { INVIGORATING_MISTS_INCREASE } from '../constants';
 
 const FOUND_REMS = new Map<string, number | null>();
 
@@ -177,13 +178,21 @@ function getHighestHeal(healEvents: HealEvent[]): HealEvent {
   });
 }
 
-// given a list of events, remove the highest heal + overheal event from the list
-export function removeHighestHeal(healEvents: HealEvent[]): HealEvent | undefined {
-  if (!healEvents || healEvents.length === 0) return undefined;
+// normalize sheilun's gift heal events to remove invigorating mist increase
+export function normalizeSheilunsGiftMainTarget(healEvents: HealEvent[]): void {
+  if (!healEvents || healEvents.length === 0) return;
 
-  const highest = getHighestHeal(healEvents);
-  const index = healEvents.indexOf(highest);
-  return healEvents.splice(index, 1)[0];
+  const mainTarget = getHighestHeal(healEvents);
+  const index = healEvents.indexOf(mainTarget);
+
+  const multiplier = 1 + INVIGORATING_MISTS_INCREASE;
+
+  healEvents[index] = {
+    ...mainTarget,
+    amount: mainTarget.amount / multiplier,
+    absorbed: (mainTarget.absorbed || 0) / multiplier,
+    overheal: (mainTarget.overheal || 0) / multiplier,
+  };
 }
 
 export function getSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
