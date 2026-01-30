@@ -61,20 +61,16 @@ class SheilunsGift extends Analyzer {
   }
 
   calcEmperorsFavor(healEvents: HealEvent[]) {
-    // invig is always included in emperors favor heal
     const hit = healEvents[0];
-    const totalIncrease = (1 + INVIGORATING_MISTS_INCREASE) * (1 + EMPERORS_FAVOR_INCREASE) - 1;
 
-    const effectiveHealingIncrease = calculateEffectiveHealing(hit, totalIncrease);
-    const effectiveOverhealingIncrease = calculateOverhealing(hit, totalIncrease);
+    const effectiveHealingIncrease = calculateEffectiveHealing(hit, EMPERORS_FAVOR_INCREASE);
+    const effectiveOverhealingIncrease = calculateOverhealing(hit, EMPERORS_FAVOR_INCREASE);
 
     this.baseHealing += effectiveHealing(hit) - effectiveHealingIncrease;
     this.overhealing += (hit.overheal || 0) - effectiveOverhealingIncrease;
   }
 
   calcRegularSG(healEvents: HealEvent[]) {
-    normalizeSheilunsGiftMainTarget(healEvents);
-
     const baseHits = healEvents.slice(0, SHEILUNS_GIFT_TARGETS);
     if (baseHits.length === 0) return;
 
@@ -89,6 +85,8 @@ class SheilunsGift extends Analyzer {
 
     const sgHealEvents = getSheilunsGiftHits(event);
     if (!sgHealEvents || sgHealEvents.length === 0) return;
+
+    normalizeSheilunsGiftMainTarget(sgHealEvents);
 
     if (this.emperorsFavorActive) {
       this.calcEmperorsFavor(sgHealEvents);
