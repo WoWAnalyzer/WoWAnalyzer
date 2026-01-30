@@ -6,7 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { getSheilunsGiftHits } from '../../normalizers/CastLinkNormalizer';
+import { getSheilunsGiftHits, removeHighestHeal } from '../../normalizers/CastLinkNormalizer';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import Uptime from 'interface/icons/Uptime';
@@ -46,17 +46,18 @@ class LegacyOfWisdom extends Analyzer {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS;
       return;
     }
-    const extraTargets = sgHealEvents.length - SHEILUNS_GIFT_TARGETS;
+
+    // remove invig heal to unskew data
+    removeHighestHeal(sgHealEvents);
+
+    const extraTargets = sgHealEvents.length - (SHEILUNS_GIFT_TARGETS - 1);
     if (LEGACY_OF_WISDOM_TARGETS - extraTargets > 0) {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS - extraTargets;
     }
-    const extraHits = sgHealEvents.splice(
-      SHEILUNS_GIFT_TARGETS,
-      SHEILUNS_GIFT_TARGETS + sgHealEvents.length,
-    );
-    if (!extraHits) {
-      return;
-    }
+
+    const extraHits = sgHealEvents.splice(SHEILUNS_GIFT_TARGETS - 1);
+    if (!extraHits || extraHits.length === 0) return;
+
     this.healing += extraHits.reduce((sum, heal) => sum + heal.amount + (heal.absorbed || 0), 0);
   }
 
