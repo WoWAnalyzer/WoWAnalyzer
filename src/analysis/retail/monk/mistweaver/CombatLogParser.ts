@@ -97,6 +97,7 @@ import PeacefulMending from './modules/spells/PeacefulMending';
 import Spiritfont from './modules/spells/Spiritfont';
 import InvigoratingMists from './modules/spells/InvigoratingMists';
 import EmperorsFavor from './modules/spells/EmperorsFavor';
+import TranquilTea from './modules/spells/TranquilTea';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -197,6 +198,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritfont: Spiritfont,
     invigoratingMists: InvigoratingMists,
     emperorsFavor: EmperorsFavor,
+    tranquilTea: TranquilTea,
 
     // Hero Talents
     // Conduit
