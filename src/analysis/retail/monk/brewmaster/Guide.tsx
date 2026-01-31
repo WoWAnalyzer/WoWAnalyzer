@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import { AlertInfo, SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
-import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
 import spells from './spell-list_Monk_Brewmaster.retail';
 
@@ -37,7 +36,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           This section covers both, and is by far the most important one when it comes to mastering
           the basics of Brewmaster gameplay.
         </p>
-        <PurifySection module={modules.purifyProblems} events={events} info={info} />
+        <AlertInfo>
+          Purifying Brew analysis has been temporarily disabled while Midnight adjustments are
+          handled.
+        </AlertInfo>
       </Section>
       <Section title="Core Rotation">
         <AlertInfo>
