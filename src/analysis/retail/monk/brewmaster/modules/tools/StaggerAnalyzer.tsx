@@ -8,19 +8,20 @@ import ItemDamageTaken from 'parser/ui/ItemDamageTaken';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import StaggerFabricator from '../core/StaggerFabricator';
+import StaggerPool from '../core/StaggerPool';
 
-export default abstract class StaggerStatistic extends Analyzer {
-  static dependencies = { fab: StaggerFabricator };
-  protected fab!: StaggerFabricator;
-
+export default abstract class StaggerStatistic extends Analyzer.withDependencies({
+  stagger: StaggerPool,
+}) {
   private staggerRemoved = 0;
   private removalEventCount = 0;
   private talent: Talent;
 
   protected removeStagger(event: AnyEvent, amount: number) {
-    this.staggerRemoved += this.fab.removeStagger(event, amount);
     this.removalEventCount += 1;
+    const currentTotal = this.deps.stagger.getPoolAtTime(event.timestamp).total;
+    // don't allow removing more than is present
+    this.staggerRemoved += Math.min(currentTotal, amount);
   }
 
   constructor(talent: Talent, options: Options) {

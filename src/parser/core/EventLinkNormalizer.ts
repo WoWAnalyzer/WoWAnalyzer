@@ -224,23 +224,27 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
       }
     };
 
-    const forwardHelper = {
-      get: (event: AnyEvent) => GetRelatedEvents(event, link.linkRelation),
-      first: (event: AnyEvent) => GetRelatedEvent(event, link.linkRelation),
-    } as unknown as EventLinkHelper<Link>;
-
-    if (link.reverseLinkRelation) {
-      forwardHelper.reverse = {
-        get: (event: AnyEvent) => GetRelatedEvents(event, link.reverseLinkRelation!),
-        first: (event: AnyEvent) => GetRelatedEvent(event, link.reverseLinkRelation!),
-      } as unknown as EventLinkHelperInner<EventTypeUnion<Link['linkingEventType']>>;
-    }
-
     return {
       normalizer,
-      linkHelper: forwardHelper,
+      linkHelper: linkHelper(link),
     };
   }
+}
+
+export function linkHelper<Link extends EventLink>(link: Link): EventLinkHelper<Link> {
+  const forwardHelper = {
+    get: (event: AnyEvent) => GetRelatedEvents(event, link.linkRelation),
+    first: (event: AnyEvent) => GetRelatedEvent(event, link.linkRelation),
+  } as unknown as EventLinkHelper<Link>;
+
+  if (link.reverseLinkRelation) {
+    forwardHelper.reverse = {
+      get: (event: AnyEvent) => GetRelatedEvents(event, link.reverseLinkRelation!),
+      first: (event: AnyEvent) => GetRelatedEvent(event, link.reverseLinkRelation!),
+    } as unknown as EventLinkHelperInner<EventTypeUnion<Link['linkingEventType']>>;
+  }
+
+  return forwardHelper;
 }
 
 interface EventLinkHelperInner<Types extends EventType> {
