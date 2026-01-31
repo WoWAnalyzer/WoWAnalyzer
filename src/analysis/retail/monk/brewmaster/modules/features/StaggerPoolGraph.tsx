@@ -3,35 +3,15 @@ import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  AddStaggerEvent,
-  RemoveStaggerEvent,
-  DamageEvent,
-  DeathEvent,
-  EventType,
-  HealEvent,
-} from 'parser/core/Events';
+import Events, { DeathEvent } from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
-
-import StaggerFabricator from '../core/StaggerFabricator';
+import StaggerPool from '../core/StaggerPool';
 
 interface StaggerEvent {
   timestamp: number;
   newPooledDamage: number;
-  hitPoints: number | null;
-  maxHitPoints: number | null;
-}
-
-type PurifyEvent = RemoveStaggerEvent & {
-  previousTimestamp: number;
-};
-
-interface HPEvent {
-  timestamp: number;
-  hitPoints?: number;
-  maxHitPoints?: number;
 }
 
 /**
@@ -44,15 +24,8 @@ interface HPEvent {
  * As well as just giving a generally interesting look into when damage
  * actually hit your health bar on a fight.
  */
-class StaggerPoolGraph extends Analyzer {
-  static dependencies = {
-    fab: StaggerFabricator,
-  };
-
-  _hpEvents: HPEvent[] = [];
-  _staggerEvents: StaggerEvent[] = [];
+class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool }) {
   _deathEvents: DeathEvent[] = [];
-  _purifyEvents: PurifyEvent[] = [];
   _lastHp: number | null = null;
   _lastMaxHp: number | null = null;
 
@@ -60,10 +33,6 @@ class StaggerPoolGraph extends Analyzer {
     super(options);
 
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this._death);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._damage);
-    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this._heal);
-    this.addEventListener(EventType.AddStagger, this._addstagger);
-    this.addEventListener(EventType.RemoveStagger, this._removestagger);
   }
 
   get plot() {
@@ -98,12 +67,6 @@ class StaggerPoolGraph extends Analyzer {
         x: xAxis,
         tooltip: [
           {
-            field: 'hitPoints',
-            type: 'quantitative' as const,
-            title: 'Hit Points',
-            format: '.3~s',
-          },
-          {
             field: 'newPooledDamage',
             type: 'quantitative' as const,
             title: 'Staggered Damage',
@@ -114,13 +77,10 @@ class StaggerPoolGraph extends Analyzer {
       layer: [
         {
           mark: {
-            type: 'area' as const,
-            line: {
-              interpolate: 'linear' as const,
-              color: '#fab700',
-              strokeWidth: 1,
-            },
-            color: 'rgba(250, 183, 0, 0.15)',
+            type: 'line' as const,
+            strokeWidth: 1,
+            interpolate: 'step',
+            color: 'rgba(250, 183, 0)',
           },
           encoding: {
             y: {
@@ -131,50 +91,6 @@ class StaggerPoolGraph extends Analyzer {
                 grid: false,
                 format: '~s',
               },
-            },
-          },
-        },
-        {
-          mark: {
-            type: 'area' as const,
-            line: {
-              interpolate: 'linear' as const,
-              color: 'rgb(255, 139, 45)',
-              strokeWidth: 1,
-            },
-            color: 'rgba(255, 139, 45, 0.15)',
-          },
-          encoding: {
-            y: {
-              field: 'hitPoints',
-              type: 'quantitative' as const,
-              title: null,
-              axis: {
-                grid: false,
-                format: '~s',
-              },
-            },
-          },
-        },
-        {
-          mark: 'rule',
-          params: [
-            {
-              name: 'hover',
-              select: {
-                type: 'point',
-                on: 'mouseover',
-              },
-            },
-          ],
-          encoding: {
-            color: {
-              condition: {
-                param: 'hover',
-                empty: false,
-                value: 'grey',
-              },
-              value: 'transparent',
             },
           },
         },
@@ -237,17 +153,14 @@ class StaggerPoolGraph extends Analyzer {
       ],
     };
 
-    if (this._staggerEvents.length > 0) {
-      const combined = [
-        {
-          timestamp: this.owner.fight.start_time,
-          newPooledDamage: 0,
-          hitPoints: this._hpEvents[0].maxHitPoints,
-        },
-        ...this._staggerEvents,
-        ...this._hpEvents,
-      ];
-
+    if (this.deps.stagger.pool.length > 0) {
+      const staggerEvents = this.deps.stagger.pool.map(
+        (point) =>
+          ({
+            timestamp: point.timestamp,
+            newPooledDamage: point.total,
+          }) satisfies StaggerEvent,
+      );
       return (
         <div
           className="graph-container"
@@ -261,8 +174,8 @@ class StaggerPoolGraph extends Analyzer {
               <BaseChart
                 spec={spec}
                 data={{
-                  combined,
-                  purifies: this._purifyEvents,
+                  combined: staggerEvents,
+                  purifies: [],
                   deaths: this._deathEvents,
                 }}
                 width={width}
@@ -277,41 +190,8 @@ class StaggerPoolGraph extends Analyzer {
     }
   }
 
-  _addstagger(event: AddStaggerEvent) {
-    this._staggerEvents.push({ ...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
-  }
-
-  _removestagger(event: RemoveStaggerEvent) {
-    if (
-      event.trigger!.ability &&
-      event.trigger!.ability.guid === talents.PURIFYING_BREW_TALENT.id
-    ) {
-      // record the *previous* timestamp for purification. this will
-      // make the purifies line up with peaks in the plot, instead of
-      // showing up *after* peaks
-      this._purifyEvents.push({
-        ...event,
-        previousTimestamp: this._staggerEvents[this._staggerEvents.length - 1].timestamp,
-      });
-    }
-
-    this._staggerEvents.push({ ...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
-  }
-
   _death(event: DeathEvent) {
     this._deathEvents.push(event);
-  }
-
-  _damage(event: DamageEvent) {
-    this._hpEvents.push(event);
-    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
-    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
-  }
-
-  _heal(event: HealEvent) {
-    this._hpEvents.push(event);
-    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
-    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
   }
 
   tab() {

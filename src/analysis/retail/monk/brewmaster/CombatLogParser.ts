@@ -44,6 +44,9 @@ import { Abilities } from './gen';
 import { ExpelOxOrbsNormalizer } from './normalizers/ExpelHarm';
 import VitalFlames, { VitalFlameNormalizer } from './modules/talents/VitalFlames';
 import InvokeNiuzao from './modules/talents/InvokeNiuzao/InvokeNiuzao';
+import StaggerPool, { StaggerPreventedLinkNormalizer } from './modules/core/StaggerPool';
+import MantraOfPurityStaggerPrevented from './normalizers/MantraOfPurityStaggerPrevented';
+import StaggerClearSourceLinkNormalizer from './normalizers/StaggerClearSourceLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fortBrew: FortifyingBrew,
     defensiveBuffs: DefensiveBuffs,
     defensiveLinks: DefensiveBuffLinkNormalizer,
+    stagger: StaggerPool,
 
     // Items
 
@@ -88,6 +92,9 @@ class CombatLogParser extends CoreCombatLogParser {
     aohNorm: AspectOfHarmonyLinkNormalizer,
     expelOxOrbNorm: ExpelOxOrbsNormalizer,
     VitalFlameNormalizer,
+    StaggerPreventedLinkNormalizer,
+    MantraOfPurityStaggerPrevented,
+    StaggerClearSourceLinkNormalizer,
 
     // Talents
     scaldingBrew: ScaldingBrew,
