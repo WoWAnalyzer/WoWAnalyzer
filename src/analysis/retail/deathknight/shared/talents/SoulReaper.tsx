@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/deathknight';
 import TALENTS from 'common/TALENTS/deathknight';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
@@ -37,11 +37,11 @@ class SoulReaper extends ExecuteHelper {
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
-    ctor.executeSpells.push(TALENTS.SOUL_REAPER_TALENT);
+    ctor.executeSpells.push(SPELLS.SOUL_REAPER);
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT_SECOND_HIT);
 
     (options.abilities as Abilities).add({
-      spell: TALENTS.SOUL_REAPER_TALENT.id,
+      spell: SPELLS.SOUL_REAPER.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 6,
       gcd: {
@@ -68,8 +68,9 @@ class SoulReaper extends ExecuteHelper {
         position={STATISTIC_ORDER.OPTIONAL(30)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip="Soul Reaper can only be used on targets below 35% health. It deals increased damage and causes targets to take 20% increased damage from your diseases and minions for 8 seconds."
       >
-        <BoringSpellValueText spell={TALENTS.SOUL_REAPER_TALENT}>
+        <BoringSpellValueText spell={SPELLS.SOUL_REAPER}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

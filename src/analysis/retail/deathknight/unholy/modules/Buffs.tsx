@@ -12,45 +12,44 @@ class Buffs extends CoreAuras {
       // region Rotational
       {
         spellId: SPELLS.DEATH_AND_DECAY_BUFF.id,
-        triggeredBySpellId: [SPELLS.DEATH_AND_DECAY.id, TALENTS.DEFILE_TALENT.id],
+        triggeredBySpellId: SPELLS.DEATH_AND_DECAY.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.MOGRAINES_MIGHT.id,
-        triggeredBySpellId: [SPELLS.DEATH_AND_DECAY.id, TALENTS.DEFILE_TALENT.id],
+        triggeredBySpellId: SPELLS.DEATH_AND_DECAY.id,
         enabled: combatant.hasTalent(TALENTS.MOGRAINES_MIGHT_TALENT),
         timelineHighlight: false,
       },
-      {
-        spellId: SPELLS.PLAGUEBRINGER_BUFF.id,
-        triggeredBySpellId: TALENTS.SCOURGE_STRIKE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.PLAGUEBRINGER_TALENT),
-        timelineHighlight: true,
-      },
       { spellId: SPELLS.SUDDEN_DOOM_BUFF.id, timelineHighlight: true },
-      { spellId: TALENTS.FESTERMIGHT_TALENT.id, timelineHighlight: true },
       {
-        spellId: SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.GIFT_OF_THE_SANLAYN_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: TALENTS.CLEAVING_STRIKES_TALENT.id, // Note: Consider using a duration tracker in another module if cleave lingers after DnD ends.
-        triggeredBySpellId: [SPELLS.DEATH_AND_DECAY.id, TALENTS.DEFILE_TALENT.id],
+        spellId: TALENTS.CLEAVING_STRIKES_TALENT.id,
+        triggeredBySpellId: SPELLS.DEATH_AND_DECAY.id,
         enabled: combatant.hasTalent(TALENTS.CLEAVING_STRIKES_TALENT),
         timelineHighlight: false,
       },
       {
         spellId: SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
         triggeredBySpellId: TALENTS.DARK_TRANSFORMATION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
-
+        enabled: combatant.hasTalent(TALENTS.COMMANDER_OF_THE_DEAD_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.DEATH_ROT_TALENT.id,
-        triggeredBySpellId: [SPELLS.DEATH_COIL.id, SPELLS.EPIDEMIC.id],
+        spellId: SPELLS.GHOULISH_FRENZY.id,
+        enabled: combatant.hasTalent(TALENTS.GHOULISH_FRENZY_TALENT),
         timelineHighlight: true,
+      },
+
+      // region San'layn Hero Talents
+      {
+        spellId: SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.GIFT_OF_THE_SANLAYN_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.VAMPIRIC_STRIKE_TRIGGER_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.VAMPIRIC_STRIKE_TALENT),
+        timelineHighlight: false,
       },
 
       // region Cooldowns
@@ -59,9 +58,22 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_TALENT),
         timelineHighlight: true,
       },
+
+      // region Tier Set & Midnight
       {
-        spellId: TALENTS.UNHOLY_ASSAULT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT),
+        spellId: SPELLS.UNHOLY_TIER_2PC_BUFF.id,
+        timelineHighlight: false,
+      },
+      {
+        spellId: SPELLS.UNHOLY_TIER_4PC_BUFF.id,
+        timelineHighlight: false,
+      },
+      {
+        spellId: SPELLS.LESSER_GHOUL_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FORBIDDEN_KNOWLEDGE.id,
         timelineHighlight: true,
       },
 
@@ -70,7 +82,6 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.LICHBORNE.id,
         timelineHighlight: true,
       },
-
       {
         spellId: TALENTS.ICEBOUND_FORTITUDE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ICEBOUND_FORTITUDE_TALENT),
@@ -79,11 +90,6 @@ class Buffs extends CoreAuras {
       {
         spellId: TALENTS.ANTI_MAGIC_ZONE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_ZONE_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.GHOULISH_FRENZY.id,
-        enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
         timelineHighlight: true,
       },
     ];

@@ -2,63 +2,63 @@ import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknigh
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
+
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
-import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/core/RuneTracker';
-import SuddenDoom from './modules/talents/SuddenDoom';
-import WoundTracker from './modules/features/WoundTracker';
-import RunicPowerDetails from './modules/core/RunicPowerDetails';
+import RuneGraph from './modules/core/RuneGraph';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
-import Apocalypse from './modules/talents/Apocalypse';
+import RunicPowerDetails from './modules/core/RunicPowerDetails';
+import RunicPowerGraph from './modules/core/RunicPowerGraph';
+import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
+import HeroTalents from './modules/features/HeroTalents';
+import LesserGhoulTracker from './modules/features/LesserGhoulTracker';
+import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
+import DiseaseDetonation from './modules/spells/DiseaseDetonation';
 import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
 import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
-import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
-import SoulReaper from '../shared/talents/SoulReaper';
+import Putrefy from './modules/spells/Putrefy';
+import Pestilence from './modules/spells/Pestilence';
+import SuddenDoom from './modules/talents/SuddenDoom';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
-import PlagueBringer from './modules/talents/PlagueBringer';
-import RunicPowerGraph from './modules/core/RunicPowerGraph';
-import RuneGraph from './modules/core/RuneGraph';
+import SoulReaper from '../shared/talents/SoulReaper';
 import Guide from './modules/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // Core
     abilities: Abilities,
     buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
 
-    // Features
-    virulentPlagueEfficiency: VirulentPlagueEfficiency,
-    woundTracker: WoundTracker,
-    suddenDoom: SuddenDoom,
-    unholyRuneForge: UnholyRuneForgeChecker,
-
-    // Talents
-    apocalypse: Apocalypse,
-    soulReaper: SoulReaper,
-    festeringStrikeEfficiency: FesteringStrikeEfficiency,
-    scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
-    commanderOfTheDead: CommanderOfTheDead,
-    summonGargoyleBuffs: SummonGargoyleBuffs,
-    plagueBringer: PlagueBringer,
-
-    // RunicPower
-    runicPowerTracker: RunicPowerTracker,
-    runicPowerDetails: RunicPowerDetails,
-    runicPowerGraph: RunicPowerGraph,
-
-    //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
     runeGraph: RuneGraph,
 
-    // Runes
+    runicPowerTracker: RunicPowerTracker,
+    runicPowerDetails: RunicPowerDetails,
+    runicPowerGraph: RunicPowerGraph,
+
+    unholyRuneForge: UnholyRuneForgeChecker,
+    heroTalents: HeroTalents,
+    lesserGhoulTracker: LesserGhoulTracker,
+    virulentPlagueEfficiency: VirulentPlagueEfficiency,
+    diseaseDetonation: DiseaseDetonation,
+
+    festeringStrikeEfficiency: FesteringStrikeEfficiency,
+    scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
+    putrefy: Putrefy,
+    pestilence: Pestilence,
+
+    suddenDoom: SuddenDoom,
+    soulReaper: SoulReaper,
+    commanderOfTheDead: CommanderOfTheDead,
+    summonGargoyleBuffs: SummonGargoyleBuffs,
+
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

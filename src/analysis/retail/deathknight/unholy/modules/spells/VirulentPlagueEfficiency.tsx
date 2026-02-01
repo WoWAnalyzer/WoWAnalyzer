@@ -37,13 +37,15 @@ class VirulentPlagueEfficiency extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;
   }
 
-  get UptimeSuggestionThresholds() {
-    const isVpImportant =
+  private get isVirulentPlagueHighPriority(): boolean {
+    return (
       this.selectedCombatant.hasTalent(TALENTS.EBON_FEVER_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.SUPERSTRAIN_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.PLAGUEBRINGER_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.SUPERSTRAIN_TALENT)
+    );
+  }
 
-    return isVpImportant
+  get UptimeSuggestionThresholds() {
+    return this.isVirulentPlagueHighPriority
       ? {
           actual: this.Uptime,
           isLessThan: {

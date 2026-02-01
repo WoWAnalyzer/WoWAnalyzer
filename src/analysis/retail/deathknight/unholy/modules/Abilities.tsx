@@ -3,13 +3,11 @@ import TALENTS from 'common/TALENTS/deathknight';
 import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { SpellLink } from 'interface';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      // region Rotational
       {
         spell: SPELLS.DEATH_COIL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -19,17 +17,7 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
-        spell: TALENTS.SCOURGE_STRIKE_TALENT.id,
-        enabled: !combatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
-      },
-      {
-        spell: TALENTS.CLAWING_SHADOWS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT),
+        spell: SPELLS.SCOURGE_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -37,8 +25,7 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
-        spell: TALENTS.FESTERING_STRIKE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.FESTERING_STRIKE_TALENT),
+        spell: SPELLS.FESTERING_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -72,7 +59,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
-        enabled: !combatant.hasTalent(TALENTS.DEFILE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
@@ -82,18 +68,7 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
-        spell: TALENTS.DEFILE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DEFILE_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 20,
-        charges: 1,
-        gcd: {
-          base: 1500,
-        },
-        range: 30,
-      },
-      {
-        spell: TALENTS.SOUL_REAPER_TALENT.id,
+        spell: SPELLS.SOUL_REAPER.id,
         enabled: combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 6,
@@ -102,32 +77,43 @@ class Abilities extends CoreAbilities {
         },
         range: AbilityRange.Melee,
       },
+      {
+        spell: SPELLS.PUTREFY.id,
+        enabled: combatant.hasTalent(TALENTS.PUTREFY_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        charges: 1,
+        gcd: {
+          base: 1500,
+        },
+        range: 40,
+      },
+      {
+        spell: SPELLS.PESTILENCE.id,
+        enabled: combatant.hasTalent(TALENTS.PESTILENCE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 15,
+        gcd: {
+          base: 1500,
+        },
+        range: 30,
+      },
       //endregion
 
       // region Cooldowns
       {
-        spell: TALENTS.APOCALYPSE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.APOCALYPSE_TALENT),
+        spell: TALENTS.EMPOWER_RUNE_WEAPON_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
+        cooldown: 120,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <span>
-              Making sure to use <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> immediately after
-              it's cooldown is up is important, try to plan for it's use as it is coming off
-              cooldown.
-            </span>
-          ),
         },
       },
       {
-        spell: TALENTS.DARK_TRANSFORMATION_TALENT.id,
+        spell: SPELLS.DARK_TRANSFORMATION.id,
         enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
@@ -137,17 +123,7 @@ class Abilities extends CoreAbilities {
         range: 100,
       },
       {
-        spell: TALENTS.UNHOLY_ASSAULT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
-      },
-      {
-        spell: [TALENTS.SUMMON_GARGOYLE_TALENT.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
+        spell: [SPELLS.SUMMON_GARGOYLE.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
         enabled: combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
@@ -155,25 +131,17 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
-        spell: TALENTS.ARMY_OF_THE_DEAD_TALENT.id,
-        enabled:
-          combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT) &&
-          !combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
+        spell: SPELLS.ARMY_OF_THE_DEAD.id,
+        enabled: combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT) ? 90 : 180,
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS.RAISE_ABOMINATION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
-        range: 40,
       },
       //endregion
 
@@ -203,14 +171,6 @@ class Abilities extends CoreAbilities {
         cooldown: combatant.hasTalent(TALENTS.ASSIMILATION_TALENT) ? 180 : 240,
         isDefensive: true,
         enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_ZONE_TALENT),
-      },
-      {
-        spell: TALENTS.SACRIFICIAL_PACT_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.LICHBORNE.id,
@@ -278,8 +238,8 @@ class Abilities extends CoreAbilities {
         range: 20,
       },
       {
-        spell: TALENTS.RAISE_DEAD_UNHOLY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_UNHOLY_TALENT),
+        spell: TALENTS.RAISE_DEAD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: null,
