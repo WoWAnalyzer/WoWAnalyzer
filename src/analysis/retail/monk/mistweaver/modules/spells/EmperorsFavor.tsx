@@ -6,10 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import {
-  getSheilunsGiftHits,
-  normalizeSheilunsGiftMainTarget,
-} from '../../normalizers/CastLinkNormalizer';
+import { getSheilunsGiftHits } from '../../normalizers/CastLinkNormalizer';
 import Uptime from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
@@ -40,8 +37,6 @@ class EmperorsFavor extends Analyzer.withDependencies({
   onCast(event: CastEvent) {
     const sgHealEvents = getSheilunsGiftHits(event);
     if (!sgHealEvents || sgHealEvents.length === 0) return;
-
-    normalizeSheilunsGiftMainTarget(sgHealEvents);
 
     this.healing += calculateEffectiveHealing(sgHealEvents[0], EMPERORS_FAVOR_INCREASE);
 
