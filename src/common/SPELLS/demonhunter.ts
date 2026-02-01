@@ -661,6 +661,11 @@ const spells = {
     name: 'Moment of Craving',
     icon: 'inv_ability_soulharvesterwarlock_demonicsoul',
   },
+  VOIDSTEP: {
+    id: 1239526,
+    name: 'Voidstep',
+    icon: 'inv_12_dh_void_ability_voidstep',
+  },
   //endregion
 
   //region Aldrachi Reaver

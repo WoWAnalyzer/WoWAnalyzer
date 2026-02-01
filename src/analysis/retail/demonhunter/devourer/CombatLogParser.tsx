@@ -15,6 +15,7 @@ import VoidMetamorphosisNormalizer from './normalizers/VoidMetamorphosisNormaliz
 import ViolentTransformation from './modules/talents/ViolentTransformation';
 import MomentOfCraving from './modules/talents/MomentOfCraving';
 import MassAcceleration from './modules/talents/MassAcceleration';
+import BlurAnalyzer from './modules/majordefensives/BlurAnalyzer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -28,6 +29,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+
+    // Spells
+    blurAnalyzer: BlurAnalyzer,
 
     // Talents
     collapsingStar: CollapsingStar,
