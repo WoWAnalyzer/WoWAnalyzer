@@ -154,32 +154,6 @@ function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
   return minEvent;
 }
 
-// given a list of events, find event with highest heal + overheal
-function getHighestHeal(healEvents: HealEvent[]): HealEvent {
-  return healEvents.reduce((highest, heal) => {
-    const currentTotal = effectiveHealing(heal) + (heal.overheal || 0);
-    const highestTotal = effectiveHealing(highest) + (highest.overheal || 0);
-    return currentTotal > highestTotal ? heal : highest;
-  });
-}
-
-// normalize sheilun's gift heal events to remove invigorating mist increase
-export function normalizeSheilunsGiftMainTarget(healEvents: HealEvent[]): void {
-  if (!healEvents || healEvents.length === 0) return;
-
-  const mainTarget = getHighestHeal(healEvents);
-  const index = healEvents.indexOf(mainTarget);
-
-  const multiplier = 1 + INVIGORATING_MISTS_INCREASE;
-
-  healEvents[index] = {
-    ...mainTarget,
-    amount: mainTarget.amount / multiplier,
-    absorbed: (mainTarget.absorbed || 0) / multiplier,
-    overheal: (mainTarget.overheal || 0) / multiplier,
-  };
-}
-
 export function getSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
   return getClosestEvent(event.timestamp, GetRelatedEvents(event, SOURCE_APPLY)) as
     | ApplyBuffEvent
