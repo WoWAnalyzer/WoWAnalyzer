@@ -13,8 +13,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import {
   getSheilunsGiftHits,
+  getSheilunsGiftMainTargetHit,
   isFromSheilunsGift,
-  normalizeSheilunsGiftMainTarget,
 } from '../../normalizers/CastLinkNormalizer';
 import {
   EMPERORS_FAVOR_INCREASE,
@@ -22,6 +22,28 @@ import {
   SHEILUNS_GIFT_TARGETS,
 } from '../../constants';
 import { effectiveHealing } from 'parser/shared/modules/HealingValue';
+
+// normalize sheilun's gift heal events to remove invigorating mist increase
+export function getNormalizedSheilunsGiftHits(event: CastEvent): HealEvent[] {
+  const sgHealEvents = getSheilunsGiftHits(event);
+  if (!sgHealEvents || sgHealEvents.length === 0) return sgHealEvents;
+
+  const mainTarget = getSheilunsGiftMainTargetHit(event);
+  if (!mainTarget) return sgHealEvents;
+
+  const index = sgHealEvents.indexOf(mainTarget);
+
+  const multiplier = 1 + INVIGORATING_MISTS_INCREASE;
+
+  const normalizedMainTarget = {
+    ...mainTarget,
+    amount: mainTarget.amount / multiplier,
+    absorbed: (mainTarget.absorbed || 0) / multiplier,
+    overheal: (mainTarget.overheal || 0) / multiplier,
+  };
+
+  return [...sgHealEvents.slice(0, index), normalizedMainTarget, ...sgHealEvents.slice(index + 1)];
+}
 
 class SheilunsGift extends Analyzer {
   numCasts = 0;
@@ -83,15 +105,13 @@ class SheilunsGift extends Analyzer {
     this.cloudsLostSinceLastCast = 0;
     this.numCasts += 1;
 
-    const sgHealEvents = getSheilunsGiftHits(event);
-    if (!sgHealEvents || sgHealEvents.length === 0) return;
-
-    normalizeSheilunsGiftMainTarget(sgHealEvents);
+    const normalizedSGHealEvents = getNormalizedSheilunsGiftHits(event);
+    if (!normalizedSGHealEvents || normalizedSGHealEvents.length === 0) return;
 
     if (this.emperorsFavorActive) {
-      this.calcEmperorsFavor(sgHealEvents);
+      this.calcEmperorsFavor(normalizedSGHealEvents);
     } else {
-      this.calcRegularSG(sgHealEvents);
+      this.calcRegularSG(normalizedSGHealEvents);
     }
   }
 

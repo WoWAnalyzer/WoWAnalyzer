@@ -6,10 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import {
-  getSheilunsGiftHits,
-  normalizeSheilunsGiftMainTarget,
-} from '../../normalizers/CastLinkNormalizer';
+import { getNormalizedSheilunsGiftHits } from './SheilunsGift';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import Uptime from 'interface/icons/Uptime';
@@ -44,13 +41,11 @@ class LegacyOfWisdom extends Analyzer {
 
   onCast(event: CastEvent) {
     this.extraGcds += CAST_TIME_REDUCTION;
-    const sgHealEvents = getSheilunsGiftHits(event);
+    const sgHealEvents = getNormalizedSheilunsGiftHits(event);
     if (!sgHealEvents || sgHealEvents.length === 0) {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS;
       return;
     }
-
-    normalizeSheilunsGiftMainTarget(sgHealEvents);
 
     const extraHits = sgHealEvents.slice(SHEILUNS_GIFT_TARGETS);
     const actualExtraHits = extraHits.length;
