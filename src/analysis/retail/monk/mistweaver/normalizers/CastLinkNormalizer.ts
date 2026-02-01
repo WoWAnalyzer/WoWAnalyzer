@@ -293,7 +293,7 @@ export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
   return GetRelatedEvents<HealEvent>(event, SHEILUNS_GIFT);
 }
 
-export function getSheilunsGiftMainTargetHit(event: CastEvent): HealEvent | undefined {
+export function getSheilunsGiftMainTargetHit(event: CastEvent) {
   return GetRelatedEvent<HealEvent>(event, SHEILUNS_GIFT_MAIN_TARGET);
 }
 
