@@ -50,6 +50,7 @@ import {
   RUSHING_WIND_KICK,
   SPIRITFONT_PROC,
   SPIRITFONT_TFT,
+  SHEILUNS_GIFT_MAIN_TARGET,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -79,22 +80,6 @@ const EVENT_LINKS: EventLink[] = [
   ...DAMAGING_ABILITIES_EVENT_LINKS,
   ...HERO_TALENT_EVENT_LINKS,
   ...TIER_EVENT_LINKS,
-  {
-    linkRelation: SHEILUNS_GIFT,
-    linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
-    linkingEventType: [EventType.Cast],
-    referencedEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
-    referencedEventType: [EventType.Heal],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
-    },
-    maximumLinks(c) {
-      return c.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT) ? 5 : 3;
-    },
-  },
   {
     linkRelation: RUSHING_WIND_KICK,
     linkingEventId: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
@@ -335,10 +320,7 @@ export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
 }
 
 export function getSheilunsGiftMainTargetHit(event: CastEvent): HealEvent | undefined {
-  const healEvents = getSheilunsGiftHits(event);
-  if (!healEvents || healEvents.length === 0) return undefined;
-
-  return getHighestHeal(healEvents);
+  return GetRelatedEvent<HealEvent>(event, SHEILUNS_GIFT_MAIN_TARGET);
 }
 
 export function getRWKHitsPerCast(event: CastEvent): HealEvent[] {
