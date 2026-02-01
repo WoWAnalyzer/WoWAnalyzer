@@ -18,6 +18,7 @@ import SPELLS from 'common/SPELLS';
 import SheilunsGift from './SheilunsGift';
 import { getSheilunsGiftHits } from '../../normalizers/CastLinkNormalizer';
 import { effectiveHealing } from 'parser/shared/modules/HealingValue';
+import { SHEILUNS_GIFT_MAX_CLOUDS } from '../../constants';
 
 class TranquilTea extends Analyzer.withDependencies({
   sheilunsGift: SheilunsGift,
@@ -26,6 +27,7 @@ class TranquilTea extends Analyzer.withDependencies({
   totalSGCasts = 0;
   totalHealing = 0;
   extraCloudsAtLastCast = 0;
+  wastedClouds = 0;
 
   constructor(options: Options) {
     super(options);
@@ -48,8 +50,14 @@ class TranquilTea extends Analyzer.withDependencies({
 
   onManaTeaStackRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_CAST.id, event.timestamp, 50)) {
-      this.extraCloudsAtLastCast += 1;
-      this.totalExtraClouds += 1;
+      const currentClouds = this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
+
+      if (currentClouds === SHEILUNS_GIFT_MAX_CLOUDS) {
+        this.wastedClouds += 1;
+      } else {
+        this.extraCloudsAtLastCast += 1;
+        this.totalExtraClouds += 1;
+      }
     }
   }
 
@@ -90,6 +98,7 @@ class TranquilTea extends Analyzer.withDependencies({
         tooltip={
           <>
             <div>Total healing from extra clouds: {formatNumber(this.totalHealing)}</div>
+            <div>Wasted clouds from overdrinking: {this.wastedClouds}</div>
           </>
         }
       >

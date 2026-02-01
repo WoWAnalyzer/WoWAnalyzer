@@ -75,6 +75,7 @@ export const MISTY_PEAKS_DURATION = 2000;
 export const RISING_MIST = 2;
 export const LOTUS_INFUSION_DURATION = 2000;
 export const LOTUS_INFUSION_BOOST = 0.06;
+export const SHEILUNS_GIFT_MAX_CLOUDS = 10;
 export const LEGACY_OF_WISDOM_TARGETS = 2;
 export const SHEILUNS_GIFT_TARGETS = 3;
 export const EMPERORS_FAVOR_TARGETS = 1;
