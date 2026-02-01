@@ -4,12 +4,14 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import CoreSection from './guide/CoreSection';
 import ProcsAndBuffsSection from './guide/ProcsAndBuffsSection';
 import DefensivesSection from './modules/majordefensives/DefensivesGuideSection';
+import CooldownSection from './guide/CooldownSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <CoreSection />
+      <CoreSection modules={modules} events={events} info={info} />
       <ProcsAndBuffsSection />
+      <CooldownSection modules={modules} events={events} info={info} />
       <DefensivesSection />
       <PreparationSection />
     </>

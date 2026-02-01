@@ -16,6 +16,7 @@ import ViolentTransformation from './modules/talents/ViolentTransformation';
 import MomentOfCraving from './modules/talents/MomentOfCraving';
 import MassAcceleration from './modules/talents/MassAcceleration';
 import BlurAnalyzer from './modules/majordefensives/BlurAnalyzer';
+import VoidMetamorphosis from './modules/talents/VoidMetamorphosis';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     collapsingStar: CollapsingStar,
     momentOfCraving: MomentOfCraving,
     massAcceleration: MassAcceleration,
+    voidMetamorphosis: VoidMetamorphosis,
 
     // Hero
     violentTransformation: ViolentTransformation,
