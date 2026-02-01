@@ -17,6 +17,7 @@ import MomentOfCraving from './modules/talents/MomentOfCraving';
 import MassAcceleration from './modules/talents/MassAcceleration';
 import BlurAnalyzer from './modules/majordefensives/BlurAnalyzer';
 import VoidMetamorphosis from './modules/talents/VoidMetamorphosis';
+import Voidstep from './modules/talents/Voidstep';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     momentOfCraving: MomentOfCraving,
     massAcceleration: MassAcceleration,
     voidMetamorphosis: VoidMetamorphosis,
+    voidstep: Voidstep, // Dependent on Hungering Slash talent
 
     // Hero
     violentTransformation: ViolentTransformation,

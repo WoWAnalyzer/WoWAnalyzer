@@ -7,6 +7,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 class VoidMetamorphosis extends Analyzer {
   constructor(options: Options) {
@@ -61,6 +62,7 @@ class VoidMetamorphosis extends Analyzer {
       <ExplanationAndDataSubSection
         explanation={explanation}
         data={data}
+        explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
         title="Void Metamorphosis"
       />
     );

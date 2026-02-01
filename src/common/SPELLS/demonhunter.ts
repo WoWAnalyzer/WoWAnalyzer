@@ -662,7 +662,7 @@ const spells = {
     icon: 'inv_ability_soulharvesterwarlock_demonicsoul',
   },
   VOIDSTEP: {
-    id: 1239526,
+    id: 1223157,
     name: 'Voidstep',
     icon: 'inv_12_dh_void_ability_voidstep',
   },

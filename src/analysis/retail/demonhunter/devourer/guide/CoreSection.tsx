@@ -3,6 +3,8 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import CombatLogParser from '../CombatLogParser';
+import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -16,6 +18,10 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
           <br />
           Some fights have unavoidable downtime due to phase transitions and the like, so in these
           cases 0% downtime will not be possible - do the best you can.
+        </p>
+        <p>
+          Remember that you always have access to either <SpellLink spell={SPELLS.CONSUME} /> or{' '}
+          <SpellLink spell={SPELLS.DEVOUR} /> as fillers.
         </p>
         <p>
           Active Time:{' '}

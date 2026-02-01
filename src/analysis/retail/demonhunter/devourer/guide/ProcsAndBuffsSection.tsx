@@ -1,13 +1,8 @@
-import { Section } from 'interface/guide';
-import SpellLink from 'interface/SpellLink';
-import SPELLS from 'common/SPELLS';
+import { GuideProps, Section } from 'interface/guide';
+import CombatLogParser from '../CombatLogParser';
 
-function ProcsAndBuffsSection() {
-  return (
-    <Section title="Procs">
-      TODO: <SpellLink spell={SPELLS.VOIDSTEP} />
-    </Section>
-  );
+function ProcsAndBuffsSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  return <Section title="Procs">{modules.voidstep.guideSubsection()}</Section>;
 }
 
 export default ProcsAndBuffsSection;
