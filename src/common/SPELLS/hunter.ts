@@ -337,11 +337,16 @@ const spells = {
   },
   //endregion
 
-  //region Shared
+  //region Hero Talents
   SENTINELS_MARK_DEBUFF: {
     id: 1253601,
     name: "Sentinel's Mark",
     icon: 'ability_ardenweald_hunter',
+  },
+  MOONLIGHT_CHAKRAM_CAST: {
+    id: 1264949,
+    name: 'Moonlight Chakram',
+    icon: 'inv_ability_hunter_deathchakram',
   },
   MOONLIGHT_CHAKRAM_DAMAGE: {
     id: 1266081,
@@ -358,6 +363,33 @@ const spells = {
     name: 'Howl of the Packleader',
     icon: 'inv_misc_elitewyvern',
   },
+  WAILING_ARROW_DAMAGE: {
+    id: 392058,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  WAILING_ARROW_DAMAGE_FOCUS: {
+    id: 392060,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  BLACK_ARROW_DAMAGE: {
+    id: 466930,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLACK_ARROW_DAMAGE_2: {
+    id: 468037,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLACK_ARROW_DAMAGE_3: {
+    id: 468572,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  //rendregion
+  //region Shared Talents
   EXPLOSIVE_SHOT_DAMAGE: {
     id: 212680,
     name: 'Explosive Shot',
@@ -492,31 +524,6 @@ const spells = {
     id: 19801,
     name: 'Tranquilizing Shot',
     icon: 'spell_nature_drowsy',
-  },
-  WAILING_ARROW_DAMAGE: {
-    id: 392058,
-    name: 'Wailing Arrow',
-    icon: 'ability_theblackarrow',
-  },
-  WAILING_ARROW_DAMAGE_FOCUS: {
-    id: 392060,
-    name: 'Wailing Arrow',
-    icon: 'ability_theblackarrow',
-  },
-  BLACK_ARROW_DAMAGE: {
-    id: 466930,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
-  },
-  BLACK_ARROW_DAMAGE_2: {
-    id: 468037,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
-  },
-  BLACK_ARROW_DAMAGE_3: {
-    id: 468572,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
   },
   //endregion
 

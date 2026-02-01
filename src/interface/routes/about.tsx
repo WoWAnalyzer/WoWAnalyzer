@@ -67,7 +67,14 @@ export function Component() {
       </Panel>
       <br />
 
-      <Panel title="The WoWAnalyzer Discord bot">
+      <Panel
+        title={
+          <Trans id="interface.aboutPage.introducingWOWABotHeading">
+            The WoWAnalyzer Discord bot
+          </Trans>
+        }
+        anchor="wowanalyzer-discord-bot"
+      >
         <div className="flex wrapable">
           <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
             <div className="flex">

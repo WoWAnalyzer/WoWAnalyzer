@@ -49,6 +49,14 @@ export const LETHAL_CALIBRATION_CDR_PER_HIT = 2000;
 // Maximum targets that can grant CDR per Wildfire Bomb cast
 export const LETHAL_CALIBRATION_MAX_TARGETS = 5;
 //endregion
+/** Stalk and Strike */
+// Cooldown reduction granted to Wildfire Bomb for Survival
+export const STALK_AND_STRIKE_CDR = 10000;
+// Maximum wasted CDR threshold before marking as bad cast
+export const STALK_AND_STRIKE_WASTE_THRESHOLD = 3000;
+// Buffer time to look for Moonlight Chakram cast after Trueshot or Takedown
+// And for the damage after Chakram is cast
+export const MOONLIGHT_CHAKRAM_BUFFER = 16000;
 
 //region Resources
 export const LIST_OF_FOCUS_SPENDERS_SV = [

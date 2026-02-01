@@ -36,6 +36,8 @@ import LethalCalibration from './modules/talents/LethalCalibration';
 import WildfireBombNormalizer from './normalizers/WildfireBombNormalizer';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import AplCheck from './modules/apl/AplCheck';
+import MoonlightChakram from '../shared/herotalents/MoonlightChakram';
+import MoonlightChakramNormalizer from '../shared/normalizers/MoonlightChakramNormalizer';
 // import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -70,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
     boomstickNormalizer: BoomstickNormalizer,
     wildfireBombNormalizer: WildfireBombNormalizer,
+    moonlightChakramNormalizer: MoonlightChakramNormalizer,
     // EventLinkNormalizers: EventLinkNormalizer,
 
     //DeathTracker
@@ -84,7 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tipOfTheSpear: TipOfTheSpear,
 
     //Shared Talents
-
+    moonlightChakram: MoonlightChakram,
     bindingShot: BindingShot,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,

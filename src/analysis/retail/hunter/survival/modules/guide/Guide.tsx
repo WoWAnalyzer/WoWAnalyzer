@@ -8,6 +8,7 @@ import Cooldown from './sections/rotation/Cooldown';
 import MajorDefensives from '../../../shared/guide/defensives/DamageTaken';
 import { IntroSection } from './sections/intro/IntroSection';
 import { AplSection } from '../apl/AplCheck';
+import HeroSection from './sections/rotation/HeroTalents';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -17,6 +18,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <ResourceUseSection {...modules} />
       <Cooldown modules={modules} events={events} info={info} />
       <RotationSection modules={modules} events={events} info={info} />
+      <HeroSection modules={modules} events={events} info={info} />
       <AplSection />
       <MajorDefensives />
       {modules.exhilarationTiming.guideSubsection}

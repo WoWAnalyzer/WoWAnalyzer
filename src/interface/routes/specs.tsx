@@ -96,7 +96,7 @@ export function Component() {
 
       <div className="text-right">
         <a style={{ fontStyle: 'italic', fontSize: 'small' }} href="/support-stats">
-          View Analysis Stats
+          <Trans id="interface.specList.viewAnalysis">View Analysis Stats</Trans>
         </a>
       </div>
     </>

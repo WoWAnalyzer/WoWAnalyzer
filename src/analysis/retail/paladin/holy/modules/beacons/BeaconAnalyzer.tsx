@@ -16,7 +16,15 @@ class BeaconAnalyzer extends Analyzer {
     } else {
       this.beaconType = BEACON_TYPE.BEACON_OF_LIGHT;
     }
-    this.beaconBuffIds = BEACON_SPELL_IDS[this.beaconType];
+
+    this.beaconBuffIds = this.selectedCombatant.hasTalent(
+      TALENTS.BEACON_OF_THE_SAVIOR_1_HOLY_TALENT,
+    )
+      ? [
+          ...BEACON_SPELL_IDS[this.beaconType],
+          ...BEACON_SPELL_IDS[BEACON_TYPE.BEACON_OF_THE_SAVIOR],
+        ]
+      : BEACON_SPELL_IDS[this.beaconType];
   }
 }
 
