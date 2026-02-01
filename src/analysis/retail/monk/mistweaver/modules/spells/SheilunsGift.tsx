@@ -31,18 +31,18 @@ export function getNormalizedSheilunsGiftHits(event: CastEvent): HealEvent[] {
   const mainTarget = getSheilunsGiftMainTargetHit(event);
   if (!mainTarget) return sgHealEvents;
 
-  const index = sgHealEvents.indexOf(mainTarget);
-
   const multiplier = 1 + INVIGORATING_MISTS_INCREASE;
 
-  const normalizedMainTarget = {
-    ...mainTarget,
-    amount: mainTarget.amount / multiplier,
-    absorbed: (mainTarget.absorbed || 0) / multiplier,
-    overheal: (mainTarget.overheal || 0) / multiplier,
-  };
-
-  return [...sgHealEvents.slice(0, index), normalizedMainTarget, ...sgHealEvents.slice(index + 1)];
+  return sgHealEvents.map((heal) =>
+    heal === mainTarget
+      ? {
+          ...heal,
+          amount: heal.amount / multiplier,
+          absorbed: (heal.absorbed || 0) / multiplier,
+          overheal: (heal.overheal || 0) / multiplier,
+        }
+      : heal,
+  );
 }
 
 class SheilunsGift extends Analyzer {
