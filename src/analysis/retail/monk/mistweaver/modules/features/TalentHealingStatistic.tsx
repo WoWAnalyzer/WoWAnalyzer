@@ -156,7 +156,10 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT)) {
       talentList.push(this.spiritfont.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVIGORATING_MISTS_TALENT)) {
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVIGORATING_MISTS_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)
+    ) {
       talentList.push(this.invigoratingMists.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.EMPERORS_FAVOR_TALENT)) {
