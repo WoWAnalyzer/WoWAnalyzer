@@ -4,7 +4,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import { Buffs } from 'analysis/retail/demonhunter/devourer/modules/Buffs';
 import { GlobalCooldown } from 'analysis/retail/demonhunter/devourer/modules/core/GlobalCooldown';
 import { AlwaysBeCasting } from 'analysis/retail/demonhunter/devourer/modules/features/AlwaysBeCasting';
-import { CooldownThroughputTracker } from 'analysis/retail/demonhunter/devourer/modules/features/CooldownThroughputTracker';
+import CooldownThroughputTracker from 'analysis/retail/demonhunter/devourer/modules/features/CooldownThroughputTracker';
 import { FuryTracker } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryTracker';
 import { FuryDetails } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryDetails';
 import { FuryGraph } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryGraph';
