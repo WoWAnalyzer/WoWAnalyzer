@@ -18,6 +18,7 @@ import MassAcceleration from './modules/talents/MassAcceleration';
 import BlurAnalyzer from './modules/majordefensives/BlurAnalyzer';
 import VoidMetamorphosis from './modules/talents/VoidMetamorphosis';
 import Voidstep from './modules/talents/Voidstep';
+import ReapCull from './modules/spells/ReapCull';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -34,6 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     blurAnalyzer: BlurAnalyzer,
+    reapCull: ReapCull,
 
     // Talents
     collapsingStar: CollapsingStar,

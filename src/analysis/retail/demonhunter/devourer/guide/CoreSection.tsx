@@ -35,6 +35,8 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
           fightEnd={info.fightEnd}
         />
       </SubSection>
+
+      {modules.reapCull.guideSubsection()}
     </Section>
   );
 }
