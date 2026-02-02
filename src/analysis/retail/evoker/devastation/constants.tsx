@@ -18,11 +18,6 @@ export const GetDisintegrateTicks = (combatant: Combatant) => {
   return { disintegrateTicks, disintegrateChainedTicks };
 };
 
-export const GetMaxDisintegrateTargetCount = (combatant: Combatant) =>
-  combatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT)
-    ? 3 + (combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT) ? 1 : 0)
-    : 1;
-
 export const OPTIMAL_EMPOWER_DRAGONRAGE_GAP_ST_MS = 13000;
 
 export const RED_DAMAGE_SPELLS = [

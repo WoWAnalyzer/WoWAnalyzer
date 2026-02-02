@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
+import Combatant from 'parser/core/Combatant';
 
 export const BASE_ESSENCE_REGEN = 0.2;
 
@@ -92,6 +93,15 @@ export const REFINED_ESSENCE_MULTIPLIER = 0.15;
 export const MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET = 0.15;
 export const MASS_ERUPTION_MULTIPLIER_PER_MISSING_TARGET =
   MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET;
+
+export const MASS_DISINTEGRATE_EXTRA_TARGETS = 3;
+export const CONCENTRATED_EXTRA_TARGETS = 1;
+/** Use to get Mass (Disintegrate|Eruption) target count */
+export const GetMaxDisintegrateTargetCount = (combatant: Combatant): number =>
+  combatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT)
+    ? MASS_DISINTEGRATE_EXTRA_TARGETS +
+      (combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT) ? CONCENTRATED_EXTRA_TARGETS : 0)
+    : 1;
 
 export const WINGLEADER_CDR_PER_HIT_MS = 1_000;
 export const WINGLEADER_MAX_HITS = 3;

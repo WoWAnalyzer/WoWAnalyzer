@@ -19,18 +19,17 @@ import {
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
-import {
-  GetMaxDisintegrateTargetCount,
-  IRIDESCENCE_BLUE_CAST_SPELLS,
-  IRIDESCENCE_RED_CAST_SPELLS,
-} from '../../constants';
+import { IRIDESCENCE_BLUE_CAST_SPELLS, IRIDESCENCE_RED_CAST_SPELLS } from '../../constants';
 import {
   getLeapingEvents,
   getLivingFlameCastHit,
 } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { CHAINED_CAST, CHAINED_FROM_CAST } from './DisintegrateChainCastLinks';
 import { ETERNITY_SURGE_FROM_CAST } from './EternitySurgeNormalizer';
-import { DEEP_BREATH_SPELL_IDS } from 'analysis/retail/evoker/shared';
+import {
+  DEEP_BREATH_SPELL_IDS,
+  GetMaxDisintegrateTargetCount,
+} from 'analysis/retail/evoker/shared';
 
 const BURNOUT_CONSUME = 'BurnoutConsumption';
 const SNAPFIRE_CONSUME = 'SnapfireConsumption';
