@@ -61,15 +61,57 @@ class Voidstep extends Analyzer {
     return this.expiredProcs / this.totalProcs;
   }
 
-  get expiredPerformance() {
-    let performance = QualitativePerformance.Good;
+  get overwrittenProcsPercentage() {
+    return this.voidstepRefreshes / this.totalProcs;
+  }
 
-    if (this.expiredProcsPercentage > 0.1) {
+  get consumedProcsPercentage() {
+    return this.consumedProcs / this.totalProcs;
+  }
+
+  get expiredPerformance() {
+    let performance = QualitativePerformance.Fail;
+
+    if (this.expiredProcsPercentage > 0.25) {
       performance = QualitativePerformance.Fail;
-    } else if (this.expiredProcsPercentage > 0.05) {
+    } else if (this.expiredProcsPercentage > 0.1) {
       performance = QualitativePerformance.Ok;
     } else if (this.expiredProcsPercentage > 0) {
       performance = QualitativePerformance.Good;
+    } else if (this.expiredProcsPercentage === 0) {
+      performance = QualitativePerformance.Perfect;
+    }
+
+    return performance;
+  }
+
+  get overwrittenPerformance() {
+    let performance = QualitativePerformance.Fail;
+
+    if (this.overwrittenProcsPercentage > 0.25) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.overwrittenProcsPercentage > 0.1) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.overwrittenProcsPercentage > 0) {
+      performance = QualitativePerformance.Good;
+    } else if (this.overwrittenProcsPercentage === 0) {
+      performance = QualitativePerformance.Perfect;
+    }
+
+    return performance;
+  }
+
+  get consumedPerformance() {
+    let performance = QualitativePerformance.Fail;
+
+    if (this.consumedProcsPercentage < 0.75) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.consumedProcsPercentage < 0.9) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.consumedProcsPercentage < 1) {
+      performance = QualitativePerformance.Good;
+    } else if (this.consumedProcsPercentage === 1) {
+      performance = QualitativePerformance.Perfect;
     }
 
     return performance;
@@ -78,10 +120,12 @@ class Voidstep extends Analyzer {
   guideSubsection(): JSX.Element {
     const explanation = (
       <>
-        After each <SpellLink spell={SPELLS.HUNGERING_SLASH_CAST} /> and{' '}
-        <SpellLink spell={SPELLS.REAPERS_TOLL} /> casts, you are granted a temporary
-        <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> charge that deals
-        increased AoE damage. You should aim to consume this proc everytime, as it is free damage.
+        <p>
+          After each <SpellLink spell={SPELLS.HUNGERING_SLASH_CAST} /> and{' '}
+          <SpellLink spell={SPELLS.REAPERS_TOLL} /> casts, you are granted a temporary
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> charge that deals
+          increased AoE damage. You should aim to consume this proc everytime, as it is free damage.
+        </p>
       </>
     );
 
@@ -113,6 +157,7 @@ class Voidstep extends Analyzer {
         <div
           style={{
             fontSize: '20px',
+            color: qualitativePerformanceToColor(this.consumedPerformance),
           }}
         >
           <SpellIcon spell={SPELLS.VOIDSTEP} />{' '}
@@ -124,6 +169,7 @@ class Voidstep extends Analyzer {
         <div
           style={{
             fontSize: '20px',
+            color: qualitativePerformanceToColor(this.overwrittenPerformance),
           }}
         >
           <SpellIcon spell={SPELLS.VOIDSTEP} />{' '}

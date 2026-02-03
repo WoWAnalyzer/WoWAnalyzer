@@ -36,9 +36,10 @@ class Reap extends Analyzer {
       : VOID_METAMORPHOSIS_BASE_SOULS_COST;
     const availableSouls = this.selectedCombatant.getBuffStacks(SPELLS.SOUL_FRAGMENT_DEVOUR);
     const hasMomentOfCravingBuff = this.selectedCombatant.hasBuff(SPELLS.MOMENT_OF_CRAVING_BUFF);
+    const soulsPreCast = this.selectedCombatant.getBuffStacks(SPELLS.VOID_METAMORPHOSIS_SOULS);
 
-    const soulsCountPostCast =
-      this.selectedCombatant.getBuffStacks(SPELLS.VOID_METAMORPHOSIS_SOULS) +
+    const soulsPostCast =
+      soulsPreCast +
       Math.min(
         availableSouls,
         hasMomentOfCravingBuff
@@ -68,23 +69,30 @@ class Reap extends Analyzer {
       </>
     );
 
-    if (
-      soulsCountPostCast >= soulsRequiredVoidMeta - 4 &&
-      soulsCountPostCast < soulsRequiredVoidMeta
+    if (soulsPreCast === soulsRequiredVoidMeta) {
+      value = QualitativePerformance.Fail;
+      tooltip = (
+        <>
+          You already had enough souls to enter{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />!
+        </>
+      );
+    } else if (
+      soulsPostCast >= soulsRequiredVoidMeta - 4 &&
+      soulsPostCast < soulsRequiredVoidMeta
     ) {
       value = QualitativePerformance.Ok;
       tooltip = (
         <>
-          You cast <SpellLink spell={SPELLS.REAP} /> a tad too early. ({soulsCountPostCast} souls
-          after cast)
+          You cast <SpellLink spell={SPELLS.REAP} /> a tad too early. ({soulsPostCast} souls after
+          cast)
         </>
       );
-    } else if (soulsCountPostCast < soulsRequiredVoidMeta) {
+    } else if (soulsPostCast < soulsRequiredVoidMeta) {
       value = QualitativePerformance.Fail;
       tooltip = (
         <>
-          You cast <SpellLink spell={SPELLS.REAP} /> too early! ({soulsCountPostCast} souls after
-          cast)
+          You cast <SpellLink spell={SPELLS.REAP} /> too early! ({soulsPostCast} souls after cast)
         </>
       );
     }
@@ -101,21 +109,6 @@ class Reap extends Analyzer {
           the last few souls you need to get into{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
         </p>
-        {/* <p>
-          During <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />, it's a very
-          different story. <SpellLink spell={SPELLS.REAP} /> is upgraded to{' '}
-          <SpellLink spell={SPELLS.CULL} /> and should be cast as much as possible.
-          <br />
-          Aim to cast it with 4+ souls:
-          <ol>
-            <li>
-              After every 2nd <SpellLink spell={SPELLS.DEVOUR} />
-            </li>
-            <li>
-              After every <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_RAY_TALENT} />
-            </li>
-          </ol>
-        </p> */}
       </>
     );
     const data = (
