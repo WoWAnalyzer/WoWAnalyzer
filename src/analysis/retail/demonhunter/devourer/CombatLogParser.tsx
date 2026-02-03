@@ -20,7 +20,6 @@ import VoidMetamorphosis from './modules/talents/VoidMetamorphosis';
 import Voidstep from './modules/buffs/Voidstep';
 import Reap from './modules/spells/Reap';
 import Cull from './modules/spells/Cull';
-import ReapEventLinkNormalizer from './normalizers/ReapEventLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,7 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     voidMetamorphosisNormalizer: VoidMetamorphosisNormalizer,
-    reapEventLinkNormalizer: ReapEventLinkNormalizer,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

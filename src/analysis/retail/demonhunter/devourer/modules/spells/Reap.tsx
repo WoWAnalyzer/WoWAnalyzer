@@ -16,7 +16,6 @@ import {
   VOID_METAMORPHOSIS_BASE_SOULS_COST,
   VOID_METAMORPHOSIS_SOUL_GLUTTON_SOULS_COST,
 } from '../../constants';
-import { getReapSoulConsumptions } from '../../normalizers/ReapEventLinkNormalizer';
 
 class Reap extends Analyzer {
   reapCasts = 0;
@@ -46,20 +45,6 @@ class Reap extends Analyzer {
           ? REAP_CULL_MAX_SOUL_ABSORB_CAPACITY + MOMENT_OF_CRAVING_ADDITIONAL_SOUL_ABSORB_CAPACITY
           : REAP_CULL_MAX_SOUL_ABSORB_CAPACITY,
       );
-    console.log('available souls', availableSouls);
-
-    console.log(
-      'predicted souls consumption',
-      Math.min(
-        availableSouls,
-        hasMomentOfCravingBuff
-          ? REAP_CULL_MAX_SOUL_ABSORB_CAPACITY + MOMENT_OF_CRAVING_ADDITIONAL_SOUL_ABSORB_CAPACITY
-          : REAP_CULL_MAX_SOUL_ABSORB_CAPACITY,
-      ),
-    );
-
-    const reapSouls = getReapSoulConsumptions(event);
-    console.log('normalizer souls consumption', reapSouls.length, reapSouls);
 
     let value = QualitativePerformance.Good;
     let tooltip = (
