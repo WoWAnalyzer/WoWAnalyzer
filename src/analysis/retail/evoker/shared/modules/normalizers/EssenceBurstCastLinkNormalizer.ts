@@ -16,7 +16,6 @@ import {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { EB_BUFF_IDS } from '../../constants';
-import { TIERS } from 'game/TIERS';
 import EssenceBurstRefreshNormalizer from './EssenceBurstRefreshNormalizer';
 import { Options } from 'parser/core/Analyzer';
 
@@ -32,19 +31,21 @@ type AnyBuffEvent =
   | RemoveBuffEvent
   | RemoveBuffStackEvent;
 
-export const EB_FROM_AZURE_STRIKE = 'ebFromAzureStrike';
-export const EB_FROM_PRESCIENCE = 'ebFromPrescience';
-export const EB_FROM_LF_CAST = 'ebFromLFCast';
-export const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
+const EB_FROM_AZURE_STRIKE = 'ebFromAzureStrike';
+const EB_FROM_PRESCIENCE = 'ebFromPrescience';
+const EB_FROM_LF_CAST = 'ebFromLFCast';
+const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
 const EB_FROM_ENERGY_CYCLES = 'ebFromEnergyCycles';
 const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
 const ENERGY_CYCLES_BUFFER = 6_000;
 
-export const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
+const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
 const EB_DIVERTED_POWER_BUFFER = 100; // These for some reason have longer delays
 
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
+const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
+
+const EB_FROM_ESSENCE_WELL = 'ebFromEssenceWell';
 
 /** More deterministic links should be placed above less deterministic links
  * eg.
@@ -117,6 +118,9 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: ESSENCE_BURST_BUFFER,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.ANACHRONISM_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
+    },
   },
   {
     linkRelation: EB_FROM_AZURE_STRIKE,
@@ -132,6 +136,22 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (c) =>
       c.hasTalent(TALENTS.AZURE_ESSENCE_BURST_TALENT) ||
       c.hasTalent(TALENTS.ESSENCE_BURST_AUGMENTATION_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
+    },
+  },
+  {
+    linkRelation: EB_FROM_ESSENCE_WELL,
+    reverseLinkRelation: EB_FROM_ESSENCE_WELL,
+    linkingEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.ESSENCE_WELL_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
       return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },
@@ -209,7 +229,8 @@ const EVENT_LINKS: EventLink[] = [
     ],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [
-      TALENTS.PYRE_TALENT.id,
+      SPELLS.PYRE.id,
+      SPELLS.PYRE_DENSE_TALENT.id,
       SPELLS.DISINTEGRATE.id,
       TALENTS.ERUPTION_TALENT.id,
       TALENTS.ECHO_TALENT.id,
@@ -244,6 +265,8 @@ export const EBSource = {
   LivingFlameCast: EB_FROM_LF_CAST,
   LivingFlameHeal: EB_FROM_LF_HEAL,
   DivertedPower: EB_FROM_DIVERTED_POWER,
+  EssenceWell: EB_FROM_ESSENCE_WELL,
+  EnergyCycles: EB_FROM_ENERGY_CYCLES,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];
 

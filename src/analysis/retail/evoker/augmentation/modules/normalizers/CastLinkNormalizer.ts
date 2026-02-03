@@ -28,6 +28,7 @@ import { BREATH_OF_EONS_SPELL_IDS } from '../../constants';
  * https://www.warcraftlogs.com/reports/1JqKrX2vLxb6Zyp9/#fight=8&source=3&pins=2%24Off%24%23244F4B%24expression%24type%20%3D%20%22empowerend%22%20or%20type%3D%22removebuff%22&view=events&start=1402475&end=1408776
  */
 const FAILED_EXTENSION_LINK = 'failedExtensionLink';
+const FAILED_EXTENSION_LINK_DUPLICATE = 'failedExtensionLinkDuplicate';
 
 export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
@@ -69,6 +70,7 @@ const BREATH_OF_EONS_DEBUFF_BUFFER = 14000;
 const BREATH_OF_EONS_DAMAGE_BUFFER = 300;
 const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 const UPHEAVAL_DAMAGE_BUFFER = 800;
+const FAILED_EXTENSION_BUFFER_MS = 850;
 
 // In 11.0.5 Blizzard introduces a potential 1ms delay
 // https://www.warcraftlogs.com/reports/L48YR6WBjaXtTkMd/#fight=57&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24176484645.0.0.Evoker%24true%240.0.0.Any%24false%24363916&target=8&ability=395152&start=10450757&end=10509380&view=events
@@ -239,7 +241,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
-    forwardBufferMs: 850,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
   },
   {
     linkRelation: FAILED_EXTENSION_LINK,
@@ -249,7 +251,34 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
-    forwardBufferMs: 850,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
+  },
+  {
+    linkRelation: FAILED_EXTENSION_LINK_DUPLICATE,
+    reverseLinkRelation: FAILED_EXTENSION_LINK,
+    linkingEventId: [
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+      SPELLS.UPHEAVAL.id,
+      SPELLS.UPHEAVAL_FONT.id,
+    ],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.DUPLICATE_SELF_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
+    isActive: (c) => c.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT),
+  },
+  {
+    linkRelation: FAILED_EXTENSION_LINK_DUPLICATE,
+    reverseLinkRelation: FAILED_EXTENSION_LINK_DUPLICATE,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DUPLICATE_SELF_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
+    isActive: (c) => c.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT),
   },
   {
     linkRelation: ERUPTION_CHITIN_LINK,
@@ -473,6 +502,10 @@ export function ebonIsFromBreath(event: ApplyBuffEvent | CastEvent) {
 
 export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {
   return HasRelatedEvent(event, FAILED_EXTENSION_LINK);
+}
+
+export function failedDuplicateExtension(event: CastEvent | EmpowerEndEvent) {
+  return HasRelatedEvent(event, FAILED_EXTENSION_LINK_DUPLICATE);
 }
 
 function upheavalHitIsUnique(castEvent: EmpowerEndEvent, damageEvent: DamageEvent) {

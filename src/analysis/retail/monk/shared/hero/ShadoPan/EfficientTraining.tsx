@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';
 import { formatDurationMinSec } from 'common/format';
@@ -22,7 +23,7 @@ export default class EfficientTraining extends Analyzer.withDependencies({
     this.cdrSpell =
       this.selectedCombatant.specId === SPECS.BREWMASTER_MONK.id
         ? talents.WEAPONS_OF_ORDER_TALENT
-        : talents.STORM_EARTH_AND_FIRE_TALENT;
+        : SPELLS.STORM_EARTH_AND_FIRE;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.processEnergySpent);
     this.addEventListener(

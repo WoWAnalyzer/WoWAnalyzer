@@ -158,8 +158,8 @@ class HeartOfTheJadeSerpent extends HotJS {
         This buff is actived whenever{' '}
         <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> or{' '}
         <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> (as part of{' '}
-        <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />) are cast. To avoid clipping the
-        window short, casting either of them while{' '}
+        <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} />) are cast. To avoid
+        clipping the window short, casting either of them while{' '}
         <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> is active should be
         avoided.
         <br />

@@ -602,7 +602,64 @@ const spells = {
   COLLAPSING_STAR: {
     id: 1221150,
     name: 'Collapsing Star',
-    icon: 'inv_12_dh_void_ability_collapsingstar.jpg',
+    icon: 'inv_12_dh_void_ability_collapsingstar',
+  },
+  CONSUME: {
+    id: 473662,
+    name: 'Consume',
+    icon: 'inv_12_dh_void_ability_consume',
+  },
+  // Void Metamorphosis' improved Consume
+  DEVOUR: {
+    id: 1217610,
+    name: 'Devour',
+    icon: 'inv_12_dh_void_ability_feast',
+  },
+  REAP: {
+    id: 1226019,
+    name: 'Reap',
+    icon: 'inv_12_dh_void_ability_reap',
+  },
+  // Void Metamorphosis' improved Reap
+  CULL: {
+    id: 1245453,
+    name: 'Cull',
+    icon: 'inv_12_dh_void_ability_empoweredreap',
+  },
+  SHIFT: {
+    id: 1234796,
+    name: 'Shift',
+    icon: 'inv_12_dh_void_ability_shift',
+  },
+  VOID_METAMORPHOSIS_BUFF: {
+    id: 1217607,
+    name: 'Void Metamorphosis',
+    icon: 'inv_112_ability_demonhunter_metamorphasisvoid',
+  },
+  VOID_METAMORPHOSIS_CAST: {
+    id: 1217605,
+    name: 'Void Metamorphosis',
+    icon: 'inv_112_ability_demonhunter_metamorphasisvoid',
+  },
+  HUNGERING_SLASH_CAST: {
+    id: 1239123,
+    name: 'Hungering Slash',
+    icon: 'inv_12_dh_void_ability_reapersslice',
+  },
+  FAKE_VOIDBLADE_CAST: {
+    id: 1245414,
+    name: 'Voidblade',
+    icon: 'inv_12_voiddh_ability_voidblade',
+  },
+  FAKE_THEHUNT_CAST: {
+    id: 1246169,
+    name: 'The Hunt',
+    icon: 'inv_12_voiddh_ability_thehunt',
+  },
+  MOMENT_OF_CRAVING_BUFF: {
+    id: 1238495,
+    name: 'Moment of Craving',
+    icon: 'inv_ability_soulharvesterwarlock_demonicsoul',
   },
   //endregion
 
@@ -699,6 +756,21 @@ const spells = {
     id: 453239,
     name: 'Student of Suffering',
     icon: 'achievement_dungeon_theatreofpain_kultharok',
+  },
+  PREDATORS_WAKE: {
+    id: 1259431,
+    name: "Predator's Wake",
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  PIERCE_THE_VEIL: {
+    id: 1245483,
+    name: 'Pierce the Veil',
+    icon: 'ability_demonhunter_soulcleave4',
+  },
+  REAPERS_TOLL: {
+    id: 1245470,
+    name: "Reaper's Toll",
+    icon: 'inv_glaive_1h_artifactazgalor_d_05dual',
   },
   //endregion
 } satisfies Record<string, Spell>;

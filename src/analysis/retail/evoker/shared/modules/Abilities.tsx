@@ -6,6 +6,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import {
+  ASHES_IN_MOTION_CD_REDUCTION_SECONDS,
   BASE_EVOKER_RANGE,
   CLOBBERING_SWEEP_CDR,
   EMPOWER_BASE_GCD,
@@ -59,7 +60,12 @@ class Abilities extends CoreAbilities {
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30 * interwovenThreadsMultiplier,
+        cooldown:
+          (30 -
+            (combatant.hasTalent(TALENTS.ASHES_IN_MOTION_TALENT)
+              ? ASHES_IN_MOTION_CD_REDUCTION_SECONDS
+              : 0)) *
+          interwovenThreadsMultiplier,
         gcd: {
           base: EMPOWER_BASE_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
@@ -71,6 +77,7 @@ class Abilities extends CoreAbilities {
           },
         }),
         range: BASE_EVOKER_RANGE,
+        charges: combatant.hasTalent(TALENTS.LEGACY_OF_THE_LIFEBINDER_TALENT) ? 2 : 1,
       },
       {
         spell: SPELLS.LIVING_FLAME_CAST.id,

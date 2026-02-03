@@ -15,7 +15,7 @@ exports[`ContributorDetails > matches snapshot 1`] = `
           class="col-md-5"
         >
           <div
-            class="panel "
+            class="panel"
           >
             <div
               class="panel-heading"
@@ -23,12 +23,7 @@ exports[`ContributorDetails > matches snapshot 1`] = `
               <h1
                 style="position: relative;"
               >
-                <a
-                  href="#Dummy"
-                  id="Dummy"
-                >
-                  Dummy
-                </a>
+                Dummy
               </h1>
             </div>
             <div
@@ -76,7 +71,7 @@ exports[`ContributorDetails > matches snapshot 1`] = `
           class="col-md-7"
         >
           <div
-            class="panel "
+            class="panel"
           >
             <div
               class="panel-heading"
@@ -84,16 +79,11 @@ exports[`ContributorDetails > matches snapshot 1`] = `
               <h1
                 style="position: relative;"
               >
-                <a
-                  href="#Contributions this expansion"
-                  id="Contributions this expansion"
-                >
-                  Contributions this expansion
-                </a>
+                Contributions this expansion
               </h1>
             </div>
             <div
-              class="panel-body "
+              class="panel-body"
             >
               <ul
                 class="list"

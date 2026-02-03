@@ -6,14 +6,11 @@ import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/Guide
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
-import DRAGONFLIGHT_OTHERS_ITEMS from 'common/ITEMS/dragonflight/others';
-import DRAGONFLIGHT_OTHERS_SPELLS from 'common/SPELLS/dragonflight/others';
 import TALENTS from 'common/TALENTS/paladin';
 import SpellLink from 'interface/SpellLink';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
-import SPELLS from 'common/SPELLS';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
@@ -124,12 +121,12 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
 
 const cooldowns: Cooldown[] = [
   {
-    spell: TALENTS.WAKE_OF_ASHES_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.WAKE_OF_ASHES_TALENT),
+    spell: TALENTS.AVENGING_WRATH_TALENT,
+    isActive: (c) => !c.hasTalent(TALENTS.RADIANT_GLORY_TALENT),
   },
   {
-    spell: TALENTS.FINAL_RECKONING_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.FINAL_RECKONING_TALENT),
+    spell: TALENTS.WAKE_OF_ASHES_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.WAKE_OF_ASHES_TALENT),
   },
   {
     spell: TALENTS.EXECUTION_SENTENCE_TALENT,
@@ -138,14 +135,6 @@ const cooldowns: Cooldown[] = [
   {
     spell: TALENTS.DIVINE_TOLL_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
-  },
-  {
-    spell: SPELLS.DIVINE_HAMMER_CAST,
-    isActive: (c) => c.hasTalent(TALENTS.DIVINE_HAMMER_TALENT),
-  },
-  {
-    spell: DRAGONFLIGHT_OTHERS_SPELLS.RAGE_OF_FYRALATH_1,
-    isActive: (c) => c.hasMainHand(DRAGONFLIGHT_OTHERS_ITEMS.FYRALATH.id),
   },
 ];
 function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {

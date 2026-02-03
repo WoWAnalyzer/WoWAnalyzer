@@ -13,7 +13,9 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 class CelestialConduit extends CommonCelestialConduit {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT,
+    );
   }
 
   private castEntries(casts: CastInfo[]): BoxRowEntry[] {
@@ -37,13 +39,14 @@ class CelestialConduit extends CommonCelestialConduit {
     return (
       <>
         <strong>
-          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} /> utilization
+          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} /> utilization
         </strong>
         <div>
           <strong>Clip Analysis </strong>
           <small>
             - Blue indicates a perfect cast (
-            <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} /> was channeled to completion)
+            <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} /> was channeled to
+            completion)
           </small>
           <br />
           <br />
@@ -56,10 +59,10 @@ class CelestialConduit extends CommonCelestialConduit {
   get guideCastBreakdown() {
     const explanation = (
       <p>
-        <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} /> should be cast towards the end
-        of a <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> window, so that the
-        secondary cast of <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> triggers a new
-        window. The channel should always be fully completed when possible.
+        <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} /> should be cast
+        towards the end of a <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />{' '}
+        window, so that the secondary cast of <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />{' '}
+        triggers a new window. The channel should always be fully completed when possible.
       </p>
     );
 

@@ -40,7 +40,11 @@ class BeaconTargets extends BeaconAnalyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT)) {
       this.maxBeacons = 2;
     } else if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT)) {
-      this.maxBeacons = 4;
+      this.maxBeacons = 5;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_THE_SAVIOR_1_HOLY_TALENT)) {
+      this.maxBeacons += 1;
     }
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);

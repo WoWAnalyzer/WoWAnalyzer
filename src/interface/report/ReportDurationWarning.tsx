@@ -1,4 +1,5 @@
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react';
 import AlertWarning from 'interface/AlertWarning';
 
 import { formatNumber } from '../../common/format';
@@ -11,6 +12,8 @@ const DAYS_IN_MS = 86400000;
 export const MAX_REPORT_DURATION = DAYS_IN_MS * 7;
 
 const ReportDurationWarning = ({ duration }: Props) => {
+  const { i18n } = useLingui();
+
   const durationInDays = () => duration / DAYS_IN_MS;
 
   return (
@@ -26,11 +29,11 @@ const ReportDurationWarning = ({ duration }: Props) => {
           <strong>
             {formatNumber(durationInDays())}{' '}
             {durationInDays() > 1
-              ? t({
+              ? i18n._({
                   id: 'interface.report.reportDurationWarning.warningDetails.days',
                   message: `days`,
                 })
-              : t({
+              : i18n._({
                   id: 'interface.report.reportDurationWarning.warningDetails.day',
                   message: `day`,
                 })}

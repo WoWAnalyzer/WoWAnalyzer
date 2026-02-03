@@ -16,6 +16,7 @@ import {
   RefreshDebuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
+  RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import {
@@ -24,8 +25,8 @@ import {
   IRIDESCENCE_RED_CAST_SPELLS,
 } from '../../constants';
 import {
-  LEAPING_FLAMES_HITS,
-  LIVING_FLAME_CAST_HIT,
+  getLeapingEvents,
+  getLivingFlameCastHit,
 } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { CHAINED_CAST, CHAINED_FROM_CAST } from './DisintegrateChainCastLinks';
 import { ETERNITY_SURGE_FROM_CAST } from './EternitySurgeNormalizer';
@@ -33,8 +34,8 @@ import { DEEP_BREATH_SPELL_IDS } from 'analysis/retail/evoker/shared';
 
 const BURNOUT_CONSUME = 'BurnoutConsumption';
 const SNAPFIRE_CONSUME = 'SnapfireConsumption';
-export const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
-export const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
+const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
+const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
 export const DISINTEGRATE_REMOVE_APPLY = 'DisintegrateRemoveApply';
 export const PYRE_CAST = 'PyreCast';
 export const PYRE_DRAGONRAGE = 'PyreDragonrage';
@@ -44,13 +45,15 @@ const DISINTEGRATE_TICK = 'DisintegrateTick';
 const MASS_DISINTEGRATE_CONSUME = 'MassDisintegrateConsume';
 const MASS_DISINTEGRATE_TICK = 'MassDisintegrateTick';
 const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
-export const FIRE_BREATH_DEBUFF = 'FireBreathDebuff';
-export const ENGULF_DAMAGE = 'EngulfDamage';
-export const ENGULF_CONSUME_FLAME = 'EngulfConsumeFlame';
+const FIRE_BREATH_DEBUFF = 'FireBreathDebuff';
 const AZURE_SWEEP_CONSUME = 'AzureSweepConsume';
 const AZURE_SWEEP_GENERATE = 'AzureSweepGenerate';
 const SHATTERING_STAR_DAMAGE = 'ShatteringStarDamage';
 const ETERNITY_SURGE_SHATTER_STAR_LINK = 'EternitySurgeShatterStarLink';
+
+const CONSUME_FLAME_TICK = 'ConsumeFlameTick';
+const FIRE_BREATH_REMOVE_DEBUFF = 'FireBreathRemoveDebuff';
+const FIRE_BREATH_REMOVE_CONSUME_FLAME_BUFFER_MS = 250;
 
 const CAST_LINK = 'CastLink';
 const DAMAGE_LINK = 'DamageLink';
@@ -62,6 +65,7 @@ const CAST_BUFFER_MS = 100;
 const IRIDESCENCE_RED_BACKWARDS_BUFFER_MS = 500;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
 const DEEP_BREATH_FLIGHT_TIME_MS = 4_000; // 3s + some leeway
+const TWIN_FLAME_TRAVEL_TIME_MS = 1_000;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -85,13 +89,23 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.IRIDESCENCE_RED.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: IRIDESCENCE_RED_CAST_SPELLS.map((spell) => spell.id),
-    referencedEventType: EventType.Cast,
+    referencedEventType: [EventType.Cast, EventType.EmpowerEnd],
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: IRIDESCENCE_RED_BACKWARDS_BUFFER_MS,
     maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS.IRIDESCENCE_TALENT);
+    },
+    additionalCondition(_linkingEvent, referencedEvent) {
+      // We don't want to link to empower cast event
+      // easier to deal with it in this castlink rather than making another one
+      return (
+        referencedEvent.type === EventType.EmpowerEnd ||
+        ![SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id].includes(
+          (referencedEvent as CastEvent).ability.guid,
+        )
+      );
     },
   },
   {
@@ -321,35 +335,29 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.SHATTERING_STARS_TALENT),
   },
-  // TODO: Figure out what to do with these when Flameshaper gets worked on
-  /* {
-    linkRelation: ENGULF_DAMAGE,
-    reverseLinkRelation: ENGULF_DAMAGE,
-    linkingEventId: TALENTS.ENGULF_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.ENGULF_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    anyTarget: true,
-    forwardBufferMs: ENGULF_TRAVEL_TIME_MS,
-    maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS.ENGULF_TALENT);
-    },
-  },
   {
-    linkRelation: ENGULF_CONSUME_FLAME,
-    reverseLinkRelation: ENGULF_CONSUME_FLAME,
-    linkingEventId: SPELLS.CONSUME_FLAME_DAMAGE.id,
+    linkRelation: CAST_LINK,
+    reverseLinkRelation: DAMAGE_LINK,
+    linkingEventId: SPELLS.TWIN_FLAME.id,
     linkingEventType: EventType.Damage,
-    referencedEventId: TALENTS.ENGULF_TALENT.id,
+    referencedEventId: SPELLS.TWIN_FLAME.id,
     referencedEventType: EventType.Cast,
     anyTarget: true,
+    backwardBufferMs: TWIN_FLAME_TRAVEL_TIME_MS,
     maximumLinks: 1,
-    backwardBufferMs: ENGULF_TRAVEL_TIME_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS.CONSUME_FLAME_TALENT);
-    },
-  }, */
+    isActive: (c) => c.hasTalent(TALENTS.TWIN_FLAME_TALENT),
+  },
+  {
+    linkRelation: CONSUME_FLAME_TICK,
+    reverseLinkRelation: FIRE_BREATH_REMOVE_DEBUFF,
+    linkingEventId: SPELLS.FIRE_BREATH_DOT.id,
+    linkingEventType: EventType.RemoveDebuff,
+    referencedEventId: SPELLS.CONSUME_FLAME_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: FIRE_BREATH_REMOVE_CONSUME_FLAME_BUFFER_MS,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.CONSUME_FLAME_TALENT),
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -552,9 +560,9 @@ export function getDamageEventsFromCast(event: CastEvent): DamageEvent[] {
     case SPELLS.LIVING_FLAME_CAST.id:
       return [
         // TODO: DoT
-        ...GetRelatedEvents<DamageEvent>(event, LIVING_FLAME_CAST_HIT),
-        ...GetRelatedEvents<DamageEvent>(event, LEAPING_FLAMES_HITS),
-      ];
+        getLivingFlameCastHit(event, EventType.Damage),
+        ...getLeapingEvents(event, EventType.Damage),
+      ].filter((x) => x !== undefined);
     case SPELLS.PYRE.id:
     case SPELLS.PYRE_DENSE_TALENT.id:
     case TALENTS.DRAGONRAGE_TALENT.id:
@@ -576,12 +584,19 @@ export function getCastEventFromDamage(event: DamageEvent): CastEvent | undefine
 
 export function getIridescenceConsumeEvent(
   event: RemoveBuffEvent | RemoveBuffStackEvent,
-): CastEvent | undefined {
+): CastEvent | EmpowerEndEvent | undefined {
   if (event.ability.guid === SPELLS.IRIDESCENCE_BLUE.id) {
     return GetRelatedEvent<CastEvent>(event, IRIDESCENCE_BLUE_CONSUME);
   }
 
-  return GetRelatedEvent<CastEvent>(event, IRIDESCENCE_RED_CONSUME);
+  return GetRelatedEvent<CastEvent | EmpowerEndEvent>(event, IRIDESCENCE_RED_CONSUME);
+}
+
+export function isFromIridescenceConsume(event: CastEvent | EmpowerEndEvent) {
+  return (
+    HasRelatedEvent(event, IRIDESCENCE_RED_CONSUME) ||
+    HasRelatedEvent(event, IRIDESCENCE_BLUE_CONSUME)
+  );
 }
 
 export function getEternitySurgeDamageEvents(event: EmpowerEndEvent): DamageEvent[] {
@@ -613,6 +628,16 @@ export function getEternitySurgeEventForShatteringStarDamage(
   }
 
   return GetRelatedEvent<EmpowerEndEvent>(eternitySurgeDamageEvent, ETERNITY_SURGE_FROM_CAST);
+}
+
+export function getFireBreathDebuffEvents(
+  event: EmpowerEndEvent,
+): (ApplyDebuffEvent | RefreshDebuffEvent)[] {
+  return GetRelatedEvents<ApplyDebuffEvent | RefreshDebuffEvent>(event, FIRE_BREATH_DEBUFF);
+}
+
+export function getConsumeFlameTickEvent(event: RemoveDebuffEvent) {
+  return GetRelatedEvent<DamageEvent>(event, CONSUME_FLAME_TICK);
 }
 
 export default CastLinkNormalizer;

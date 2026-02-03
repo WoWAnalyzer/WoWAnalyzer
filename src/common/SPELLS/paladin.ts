@@ -362,8 +362,23 @@ const spells = {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+  BEACON_OF_THE_SAVIOR_BUFF: {
+    id: 1244893,
+    name: 'Beacon of the Savior',
+    icon: 'inv12_apextalent_paladin_beaconofthesavior',
+  },
+  BEACON_OF_THE_SAVIOR_ABSORB: {
+    id: 1245369,
+    name: 'Beacon of the Savior',
+    icon: 'inv12_apextalent_paladin_beaconofthesavior',
+  },
 
   // Retribution Paladin:
+  SHIELD_OF_VENGEANCE_ABSORB: {
+    id: 184662,
+    name: 'Shield of Vengeance',
+    icon: 'Ability_paladin_shieldofthetemplar',
+  },
   AVENGING_WRATH_BUFF: {
     id: 454351,
     name: 'Avenging Wrath',
@@ -374,8 +389,13 @@ const spells = {
     name: 'Instrument of Retribution',
     icon: 'spell_holy_crusade',
   },
-  EXECUTION_SENTENCE_DAMAGE: {
+  EXECUTION_SENTENCE_FALL_DAMAGE: {
     id: 387113,
+    name: 'Execution Sentence',
+    icon: 'spell_paladin_executionsentence',
+  },
+  EXECUTION_SENTENCE_APPLY_DAMAGE: {
+    id: 1260251,
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
   },
@@ -488,16 +508,6 @@ const spells = {
     id: 408385,
     name: 'Crusading Strikes',
     icon: 'inv_sword_08',
-  },
-  VANGUARDS_MOMENTUM: {
-    id: 403081,
-    name: "Vanguard's Momentum",
-    icon: 'ability_paladin_speedoflight',
-  },
-  DIVINE_AUXILIARY: {
-    id: 408386,
-    name: 'Divine Auxiliary',
-    icon: 'spell_holy_righteousfury',
   },
   RUSH_OF_LIGHT: {
     id: 407065,

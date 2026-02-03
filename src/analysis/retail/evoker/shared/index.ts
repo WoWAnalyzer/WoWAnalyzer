@@ -39,4 +39,7 @@ export { default as RefinedEssence } from './modules/talents/hero/scalecommander
 export { default as CommandSquadron } from './modules/talents/hero/scalecommander/CommandSquadron';
 export { default as NozdormuAdept } from './modules/talents/hero/chronowarden/NozdormuAdept';
 export { default as ImminentDestructionCastLinkNormalizer } from './modules/normalizers/ImminentDestructionCastLinkNormalizer';
+export { default as EssenceWell } from './modules/talents/hero/flameshaper/EssenceWell';
+export { default as TwinFlame } from './modules/talents/hero/flameshaper/TwinFlame';
+export { default as FireTorrent } from './modules/talents/hero/flameshaper/FireTorrent';
 export * from './constants';

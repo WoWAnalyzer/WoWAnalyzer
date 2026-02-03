@@ -48,8 +48,9 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
+        (linkingEvent as EmpowerEndEvent).empowermentLevel > 0 &&
         (linkingEvent as EmpowerEndEvent).ability.guid ===
-        (referencedEvent as CastEvent).ability.guid
+          (referencedEvent as CastEvent).ability.guid
       );
     },
   },
@@ -60,7 +61,14 @@ const EVENT_LINKS: EventLink[] = [
  * Empower cast that consumed Tip the Scales.
  *
  * Empowers cast with Tip the Scales doesn't produce an EmpowerEnd event, only Cast event
- * so we will also create fabricate the missing EmpowerEnd events. */
+ * so we will also create fabricate the missing EmpowerEnd events.
+ *
+ * Empowers can be released at empowerment level 0, which actually is a cancelled cast,
+ * since the empower doesn't go on cooldown or trigger anything.
+ * Instead of trying to handle this edgecase in all possible places, we will simply just remove it from the event loop here.
+ * NOTE: We don't apply `EMPOWER_END` / `EMPOWER_CAST` links to these events so `getEmpowerEndEvent` will not return them.
+ * https://www.warcraftlogs.com/reports/ZJyaVLcRTAWf1g87?fight=16&type=summary&source=222&pins=2%24Off%24%23a04D8A%24expression%24ability.name+in%28%22Eternity+Surge%22%2C%22Fire+Breath%22%2C%22Tip+the+Scales%22%29+and+type+not+in+%28%22damage%22%2C%22applydebuff%22%2C%22removedebuff%22%2C%22refreshdebuff%22%29&view=events
+ * */
 class EmpowerNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
@@ -82,7 +90,9 @@ class EmpowerNormalizer extends EventLinkNormalizer {
 
     events.forEach((event) => {
       if (event.type !== EventType.Cast || !isFromTipTheScales(event)) {
-        fixedEvents.push(event);
+        if (event.type !== EventType.EmpowerEnd || event.empowermentLevel > 0) {
+          fixedEvents.push(event);
+        }
         return;
       }
 

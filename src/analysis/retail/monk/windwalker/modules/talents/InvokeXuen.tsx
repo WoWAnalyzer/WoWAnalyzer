@@ -22,9 +22,7 @@ class InvokeXuen extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT} />
         </b>{' '}
-        is one of your strongest cooldowns. When{' '}
-        <SpellLink spell={TALENTS_MONK.INVOKERS_DELIGHT_TALENT} /> is taken, you get a personal
-        bloodlust for 20 seconds, making Windwalker a very powerful two minute class.
+        is one of your strongest cooldowns.
       </p>
     );
 

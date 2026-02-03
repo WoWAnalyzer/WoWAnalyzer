@@ -99,7 +99,9 @@ export default defineConfig((env) => ({
           },
         })
       : null,
-    !process.env.VITEST ? checker({ typescript: true }) : undefined,
+    !process.env.VITEST && !process.env.DISABLE_CHECKER_PLUGIN
+      ? checker({ typescript: true })
+      : undefined,
   ],
   optimizeDeps: {
     include: ['@emotion/styled/base'],

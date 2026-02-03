@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [  
+  change(date(2026, 1, 31), <>Several <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT}/> related updates.</>, KYZ),
   change(date(2026, 1, 19), <>Updated for Midnight.</>, KYZ),
   change(date(2026, 1, 17), <>Update <SpellLink spell={TALENTS.IMMINENT_DESTRUCTION_AUGMENTATION_TALENT}/> module for Midnight.</>, Vollmer),
   change(date(2025, 9, 20), <>Update filter for <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT}/> to remove a Dimensius mechanic.</>, KYZ),

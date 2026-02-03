@@ -1,10 +1,4 @@
-import {
-  DampenHarm,
-  JadefireStomp,
-  InvokersDelight,
-  MysticTouch,
-  TouchOfDeath,
-} from 'analysis/retail/monk/shared';
+import { JadefireStomp, MysticTouch, TouchOfDeath } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 // Features
@@ -16,7 +10,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MoTCGraph from './modules/features/MoTCGraph';
 import JadeIgnition from './modules/talents/JadeIgnition';
-import LastEmperorsCapacitor from './modules/talents/LastEmperorsCapacitor';
 import XuensBattlegear from './modules/talents/XuensBattlegear';
 // Resources
 import ChiDetails from './modules/resources/ChiDetails';
@@ -48,8 +41,6 @@ import {
   FistsOfFuryNormalizer,
 } from './normalizers/FistsOfFuryNormalizer';
 import HeartOfTheJadeSerpent from './modules/spells/HeartOfTheJadeSerpent';
-import LastEmperorsCapacitorGraph from './modules/talents/LastEmperorsCapacitorGraph';
-import LastEmperorsCapacitorTracker from './modules/talents/LastEmperorsCapacitorTracker';
 import {
   CracklingJadeLightningLinkNormalizer,
   CracklingJadeLightningNormalizer,
@@ -95,8 +86,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Guide helpers
     hitComboTracker: HitComboTracker,
     hitComboGraph: HitComboGraph,
-    lastEmperorsCapacitorTracker: LastEmperorsCapacitorTracker,
-    lastEmperorsCapacitorGraph: LastEmperorsCapacitorGraph,
 
     // Spells;
     comboBreaker: ComboBreaker,
@@ -106,15 +95,12 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
-    dampenHarm: DampenHarm,
     jadefireStomp: JadefireStomp,
     risingSunKick: RisingSunKick,
     invokeXuen: InvokeXuen,
     slicingWinds: SlicingWinds,
 
     // Items:
-    lastEmperorsCapacitor: LastEmperorsCapacitor,
-    invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
     t34ConduitTierSet: T34ConduitTier,

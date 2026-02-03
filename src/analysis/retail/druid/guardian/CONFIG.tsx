@@ -30,8 +30,8 @@ const config: Config = {
         easier to understand. The whole project is open source and welcomes contributions so you can
         directly improve it too!
       </p>
-      <p>
-        If you have gameplay questions, check out:
+      <p>If you have gameplay questions, check out:</p>
+      <div>
         <ul>
           <li>
             <a href="https://www.wowhead.com/guardian-druid-guide">Guardian guide</a> on Wowhead
@@ -47,7 +47,7 @@ const config: Config = {
             - the Druid community Discord
           </li>
         </ul>
-      </p>
+      </div>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
