@@ -14,7 +14,6 @@ import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
-import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import RunicPowerGraph from './modules/core/RunicPowerGraph';
 import RuneGraph from './modules/core/RuneGraph';
 import Guide from './modules/Guide';
@@ -36,7 +35,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     soulReaper: SoulReaper,
     commanderOfTheDead: CommanderOfTheDead,
-    summonGargoyleBuffs: SummonGargoyleBuffs,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

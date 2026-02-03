@@ -8,17 +8,14 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Spell from 'common/SPELLS/Spell';
 
 class CommanderOfTheDead extends Analyzer {
   private commanderBuffs = 0;
   private petSummons = 0;
   private petSummonIDs: number[] = [
     SPELLS.MAGUS_SUMMON.id,
-    SPELLS.APOC_SUMMON.id,
     SPELLS.ARMY_SUMMON.id,
     TALENTS.SUMMON_GARGOYLE_TALENT.id,
-    SPELLS.DARK_ARBITER_TALENT_GLYPH.id,
   ];
   private buffedPets: string[] = [];
   private summonedPets: string[] = [];
