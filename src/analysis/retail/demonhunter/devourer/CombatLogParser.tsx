@@ -17,8 +17,10 @@ import MomentOfCraving from './modules/talents/MomentOfCraving';
 import MassAcceleration from './modules/talents/MassAcceleration';
 import BlurAnalyzer from './modules/majordefensives/BlurAnalyzer';
 import VoidMetamorphosis from './modules/talents/VoidMetamorphosis';
-import Voidstep from './modules/talents/Voidstep';
-import ReapCull from './modules/spells/ReapCull';
+import Voidstep from './modules/buffs/Voidstep';
+import Reap from './modules/spells/Reap';
+import Cull from './modules/spells/Cull';
+import ReapEventLinkNormalizer from './normalizers/ReapEventLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -35,14 +37,17 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     blurAnalyzer: BlurAnalyzer,
-    reapCull: ReapCull,
+    reap: Reap,
+    cull: Cull,
 
     // Talents
     collapsingStar: CollapsingStar,
     momentOfCraving: MomentOfCraving,
     massAcceleration: MassAcceleration,
     voidMetamorphosis: VoidMetamorphosis,
-    voidstep: Voidstep, // Dependent on Hungering Slash talent
+
+    // Buffs
+    voidstep: Voidstep,
 
     // Hero
     violentTransformation: ViolentTransformation,
@@ -54,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     voidMetamorphosisNormalizer: VoidMetamorphosisNormalizer,
+    reapEventLinkNormalizer: ReapEventLinkNormalizer,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

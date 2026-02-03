@@ -10,8 +10,9 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { qualitativePerformanceToColor } from 'interface/guide';
 
-// This isn't actually a talent on its own. Access given by the Hungering Slash talent
 class Voidstep extends Analyzer {
   totalProcs = 0;
   consumedProcs = 0;
@@ -33,7 +34,7 @@ class Voidstep extends Analyzer {
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT),
-      this.onCastVengefulRetreat,
+      this.onVengefulRetreatCast,
     );
   }
 
@@ -42,10 +43,11 @@ class Voidstep extends Analyzer {
   }
 
   onRefreshBuff() {
+    this.totalProcs += 1;
     this.voidstepRefreshes += 1;
   }
 
-  onCastVengefulRetreat() {
+  onVengefulRetreatCast() {
     if (this.selectedCombatant.hasBuff(SPELLS.VOIDSTEP)) {
       this.consumedProcs += 1;
     }
@@ -53,6 +55,24 @@ class Voidstep extends Analyzer {
 
   get expiredProcs() {
     return this.totalProcs - this.consumedProcs - this.voidstepRefreshes;
+  }
+
+  get expiredProcsPercentage() {
+    return this.expiredProcs / this.totalProcs;
+  }
+
+  get expiredPerformance() {
+    let performance = QualitativePerformance.Good;
+
+    if (this.expiredProcsPercentage > 0.1) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.expiredProcsPercentage > 0.05) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.expiredProcsPercentage > 0) {
+      performance = QualitativePerformance.Good;
+    }
+
+    return performance;
   }
 
   guideSubsection(): JSX.Element {
@@ -116,6 +136,7 @@ class Voidstep extends Analyzer {
         <div
           style={{
             fontSize: '20px',
+            color: qualitativePerformanceToColor(this.expiredPerformance),
           }}
         >
           <SpellIcon spell={SPELLS.VOIDSTEP} />{' '}

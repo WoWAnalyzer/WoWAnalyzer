@@ -666,6 +666,16 @@ const spells = {
     name: 'Voidstep',
     icon: 'inv_12_dh_void_ability_voidstep',
   },
+  VOID_METAMORPHOSIS_SOULS: {
+    id: 1225789,
+    name: 'Void Metamorphosis',
+    icon: 'inv_112_ability_demonhunter_metamorphasisvoid',
+  },
+  SOUL_FRAGMENT_DEVOUR: {
+    id: 1245577,
+    name: 'Soul Fragments',
+    icon: 'inv-12-dh-void-ability-soulfragments',
+  },
   //endregion
 
   //region Aldrachi Reaver

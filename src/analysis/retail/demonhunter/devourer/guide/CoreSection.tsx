@@ -21,7 +21,7 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
         </p>
         <p>
           Remember that you always have access to either <SpellLink spell={SPELLS.CONSUME} /> or{' '}
-          <SpellLink spell={SPELLS.DEVOUR} /> as fillers.
+          <SpellLink spell={SPELLS.DEVOUR} /> and that they can be cast while moving.
         </p>
         <p>
           Active Time:{' '}
@@ -36,7 +36,7 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
         />
       </SubSection>
 
-      {modules.reapCull.guideSubsection()}
+      {modules.reap.guideSubsection()}
     </Section>
   );
 }
