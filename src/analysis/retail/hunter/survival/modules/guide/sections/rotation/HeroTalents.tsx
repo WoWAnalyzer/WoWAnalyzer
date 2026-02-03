@@ -14,6 +14,7 @@ export default function HeroSection({ modules, events, info }: GuideProps<typeof
         <strong>Hero Talents</strong> - This section covers usage of hero talent abilities and
         mechanics.
       </Trans>
+      {modules.sentinelsMark.guideSubsection}
       {modules.moonlightChakram.guideSubsection}
     </Section>
   );

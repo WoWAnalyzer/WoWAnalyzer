@@ -16,3 +16,4 @@ export { default as SpellFocusCost } from './SpellFocusCost';
 export { default as Trailblazer } from './talents/Trailblazer';
 export { default as TranquilizingShot } from './talents/TranquilizingShot';
 export { default as MoonlightChakram } from './herotalents/MoonlightChakram';
+export { default as SentinelsMark } from './herotalents/SentinelsMark';
