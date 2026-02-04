@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 1, 30), <>Updated existing <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> modules, added <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT}/>, <SpellLink spell={TALENTS_MONK.EMPERORS_FAVOR_TALENT}/>, and <SpellLink spell={TALENTS_MONK.TRANQUIL_TEA_TALENT}/> modules.</>, swirl),
   change(date(2026, 1, 22), <>Added <SpellLink spell={TALENTS_MONK.PEACEFUL_MENDING_TALENT}/> module.</>, swirl),
   change(date(2025, 1, 22), <>Updated <SpellLink spell={TALENTS_MONK.SAVE_THEM_ALL_TALENT}/> for Midnight.</>, swirl),
   change(date(2026, 1, 18), <>Added <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT}/> module.</>, swirl),

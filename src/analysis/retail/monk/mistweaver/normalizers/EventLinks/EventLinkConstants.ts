@@ -24,7 +24,6 @@ export const ENVELOPING_MIST_GOM = 'EnvGOM';
 export const RENEWING_MIST_GOM = 'ReMGOM';
 export const VIVIFY_GOM = 'ViVGOM';
 export const SHEILUNS_GIFT_GOM = 'SGGOM';
-export const SHEILUNS_GIFT = 'SheilunsGift';
 export const CRANE_STYLE_RSK = 'CraneStyleRSK';
 export const CRANE_STYLE_BOK = 'CraneStyleBOK';
 export const CRANE_STYLE_SCK = 'CraneStyleSCK';
@@ -35,6 +34,8 @@ export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
 export const ZEN_PULSE_VIVIFY = 'ZenPulseVivify';
 export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
+export const SHEILUNS_GIFT = 'SheilunsGift';
+export const SHEILUNS_GIFT_MAIN_TARGET = 'SheilunsGiftMainTarget';
 
 // Refreshing Jade Wind
 export const RJW_TFT = 'RefreshingJadeWindTFT';
