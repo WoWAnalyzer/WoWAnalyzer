@@ -4,7 +4,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import { Buffs } from 'analysis/retail/demonhunter/devourer/modules/Buffs';
 import { GlobalCooldown } from 'analysis/retail/demonhunter/devourer/modules/core/GlobalCooldown';
 import { AlwaysBeCasting } from 'analysis/retail/demonhunter/devourer/modules/features/AlwaysBeCasting';
-import { CooldownThroughputTracker } from 'analysis/retail/demonhunter/devourer/modules/features/CooldownThroughputTracker';
+import CooldownThroughputTracker from 'analysis/retail/demonhunter/devourer/modules/features/CooldownThroughputTracker';
 import { FuryTracker } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryTracker';
 import { FuryDetails } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryDetails';
 import { FuryGraph } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryGraph';
@@ -15,6 +15,11 @@ import VoidMetamorphosisNormalizer from './normalizers/VoidMetamorphosisNormaliz
 import ViolentTransformation from './modules/talents/ViolentTransformation';
 import MomentOfCraving from './modules/talents/MomentOfCraving';
 import MassAcceleration from './modules/talents/MassAcceleration';
+import BlurAnalyzer from './modules/majordefensives/BlurAnalyzer';
+import VoidMetamorphosis from './modules/talents/VoidMetamorphosis';
+import Voidstep from './modules/buffs/Voidstep';
+import Reap from './modules/spells/Reap';
+import Cull from './modules/spells/Cull';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -29,10 +34,19 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
+    // Spells
+    blurAnalyzer: BlurAnalyzer,
+    reap: Reap,
+    cull: Cull,
+
     // Talents
     collapsingStar: CollapsingStar,
     momentOfCraving: MomentOfCraving,
     massAcceleration: MassAcceleration,
+    voidMetamorphosis: VoidMetamorphosis,
+
+    // Buffs
+    voidstep: Voidstep,
 
     // Hero
     violentTransformation: ViolentTransformation,
