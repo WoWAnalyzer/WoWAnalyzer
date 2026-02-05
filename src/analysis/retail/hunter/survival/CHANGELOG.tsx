@@ -3,6 +3,7 @@ import { Kivlov,
  } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2026, 2, 5), 'Add Pack Leader Analysis', Kivlov),
   change(date(2026, 2, 2), 'Add Sentinels Mark Analysis', Kivlov),
   change(date(2026, 2, 1), 'Add Moonlight Chakram Analysis', Kivlov),
   change(date(2026, 1, 25), 'Add APL section. Add Tip of the Spear as a Resource', Kivlov),
