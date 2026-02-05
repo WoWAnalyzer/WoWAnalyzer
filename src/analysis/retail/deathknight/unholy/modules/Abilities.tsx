@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        range: AbilityRange.Melee,
+        range: 30,
       },
       {
         spell: SPELLS.FESTERING_SCYTHE.id,
@@ -70,7 +70,24 @@ class Abilities extends CoreAbilities {
         },
         range: AbilityRange.Melee,
       },
-      //endregion
+      {
+        spell: SPELLS.FESTERING_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        // If Festering Scythe is talented, there is a -500ms GCD reduction
+        gcd: {
+          base: combatant.hasTalent(TALENTS.FESTERING_SCYTHE_TALENT) ? 1000 : 1500,
+        },
+        range: AbilityRange.Melee,
+      },
+      {
+        spell: TALENTS.PUTREFY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.PUTREFY_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        range: 40,
+      },
 
       // region Cooldowns
       {
@@ -85,12 +102,11 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ARMY_OF_THE_DEAD_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
       },
-      //endregion
 
       // region Defensives
       {
@@ -102,10 +118,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown:
-          60 -
-          Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 +
-          Number(combatant.hasTalent(TALENTS.UNYIELDING_WILL_TALENT)) * 20,
+        cooldown: 60,
         gcd: null,
       },
       {
@@ -141,7 +154,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
       },
-      //endregion
 
       // region Utility
       {
@@ -236,34 +248,28 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      /*
+      Rune cooldown is base 10s reduced by haste. Runic Corruption's regeneration acceleration is handled in the RuneTracker via onApplybuff/onRemovebuff.
+      Do not add RC logic here to avoid double-counting.
+      */
       {
         spell: SPELLS.RUNE_1.id,
         category: SPELL_CATEGORY.HIDDEN,
-        cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
-        },
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_2.id,
         category: SPELL_CATEGORY.HIDDEN,
-        cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
-        },
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
-        cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
-        },
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
-      //endregion
     ];
   }
 }

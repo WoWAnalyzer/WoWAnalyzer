@@ -387,6 +387,12 @@ const spells = {
     icon: 'achievement_boss_festergutrotface',
   },
 
+  DISEASE_CLOUD: {
+    id: 1244102,
+    name: 'Disease Cloud',
+    icon: 'achievement_boss_patchwerk',
+  },
+
   // region Death Knight General
   CHAINS_OF_ICE: {
     id: 45524,
