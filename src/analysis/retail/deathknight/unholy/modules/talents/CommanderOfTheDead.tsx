@@ -12,11 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class CommanderOfTheDead extends Analyzer {
   private commanderBuffs = 0;
   private petSummons = 0;
-  private petSummonIDs: number[] = [
-    SPELLS.MAGUS_SUMMON.id,
-    SPELLS.ARMY_SUMMON.id,
-    TALENTS.SUMMON_GARGOYLE_TALENT.id,
-  ];
+  private petSummonIDs: number[] = [SPELLS.ARMY_SUMMON.id, TALENTS.SUMMON_GARGOYLE_TALENT.id];
   private buffedPets: string[] = [];
   private summonedPets: string[] = [];
 

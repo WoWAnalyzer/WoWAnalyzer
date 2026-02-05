@@ -7,7 +7,7 @@
 import Spell, { Enchant } from './Spell';
 
 const spells = {
-  // Hero Talents:
+  // region Hero Talents
   // Deathbringer:
   EXTERMINATE_BUFF: {
     id: 441416,
@@ -32,7 +32,7 @@ const spells = {
     icon: 'inv_polearm_2h_titanargus_d_01',
   },
 
-  // Blood:
+  // region Blood Specialization
   DEATHS_CARESS: {
     id: 195292,
     name: "Death's Caress",
@@ -137,7 +137,7 @@ const spells = {
     icon: 'spell_deathknight_deathstrike',
   },
 
-  // Frost:
+  // region Frost Specialization
 
   // Damage Dealing
 
@@ -265,7 +265,7 @@ const spells = {
     runicPowerCost: 30,
   },
 
-  // Unholy:
+  // region Unholy Specialization
   FESTERING_SCYTHE: {
     id: 458128,
     name: 'Festering Scythe',
@@ -292,52 +292,22 @@ const spells = {
     icon: 'ability_warlock_baneofhavoc',
   },
 
-  UNHOLY_COMMANDER: {
-    id: 456698,
-    name: 'Unholy Commander',
-    icon: 'spell_shadow_darksummoning',
-  },
-
-  APOCALYPSE_RUNE_GENERATION: {
-    id: 343758,
-    name: 'Apocalypse',
-    icon: 'artifactability_unholydeathknight_deathsembrace',
-  },
-
   COMMANDER_OF_THE_DEAD_BUFF: {
     id: 390264,
     name: 'Commander of the Dead',
     icon: 'spell_shadow_fumble',
   },
 
-  MAGUS_SUMMON: {
-    id: 317776,
-    name: 'Army of the Damned',
-    icon: '"artifactability_unholydeathknight_deathsembrace',
-  },
-
-  APOC_SUMMON: {
+  LESSER_GHOUL: {
     id: 275430,
-    name: 'Army of the Dead',
-    icon: 'artifactability_unholydeathknight_deathsembrace',
+    name: 'Lesser Ghoul',
+    icon: 'inv_ghoulnorthrend',
   },
 
   ARMY_SUMMON: {
     id: 42651,
     name: 'Army of the Dead',
     icon: 'spell_shadow_coneofsilence',
-  },
-
-  FESTERING_WOUND: {
-    id: 194310,
-    name: 'Festering Wound',
-    icon: 'spell_yorsahj_bloodboil_purpleoil',
-  },
-
-  FESTERING_WOUND_BURST: {
-    id: 195757,
-    name: 'Festering Wound',
-    icon: 'achievement_halloween_rottenegg_01',
   },
 
   OUTBREAK: {
@@ -354,12 +324,6 @@ const spells = {
     icon: 'spell_shadow_rune',
   },
 
-  PLAGUEBRINGER_BUFF: {
-    id: 390178,
-    name: 'Plaguebringer',
-    icon: 'spell_deathknight_plaguestrike',
-  },
-
   // scourge strike has one cast event but two damage events, the cast and physical
   // damage happen on id 55090 (talent), the shadow damage is on id 70890
   SCOURGE_STRIKE_SHADOW_DAMAGE: {
@@ -372,12 +336,6 @@ const spells = {
     id: 191587,
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
-  },
-
-  DARK_ARBITER_TALENT_GLYPH: {
-    id: 207349,
-    name: 'Dark Arbiter',
-    icon: 'achievement_boss_svalasorrowgrave',
   },
 
   EPIDEMIC: {
@@ -405,7 +363,31 @@ const spells = {
     icon: 'spell_shadow_painspike',
   },
 
-  // Shared:
+  FESTERING_STRIKE: {
+    id: 85948,
+    name: 'Festering Strike',
+    icon: 'spell_deathknight_festering_strike',
+    runesCost: 2,
+  },
+  LESSER_GHOUL_BUFF: {
+    id: 1254252,
+    name: 'Lesser Ghoul',
+    icon: 'spell_deathknight_festering_strike',
+  },
+
+  DREAD_PLAGUE: {
+    id: 1240996,
+    name: 'Dread Plague',
+    icon: 'inv12_ability_deathknight_empowereddreadplague',
+  },
+
+  DARK_TRANSFORMATION_BUFF: {
+    id: 1233448,
+    name: 'Dark Transformation',
+    icon: 'achievement_boss_festergutrotface',
+  },
+
+  // region Death Knight General
   CHAINS_OF_ICE: {
     id: 45524,
     name: 'Chains of Ice',
