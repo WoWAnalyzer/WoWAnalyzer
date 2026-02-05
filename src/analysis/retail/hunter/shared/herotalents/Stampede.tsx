@@ -1,8 +1,8 @@
 import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { GetRelatedEvents } from 'parser/core/Events';
+import Events, { DamageEvent, RemoveBuffEvent, GetRelatedEvents } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/hunter';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -25,22 +25,7 @@ import { STAMPEDE_READY_TO_DAMAGE } from '../normalizers/HunterEventLinkNormaliz
  * tick coverage per stampede to evaluate positioning and target uptime.
  */
 
-interface WindowSummary {
-  start: number;
-  uniqueTargets: number;
-  totalDamage: number;
-  actualTicks: number;
-  expectedTicks: number;
-  hitPercent: number;
-}
-
-const format_compact = (n: number) =>
-  Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(n);
-
-const TICKS_PER_STAMPEDE_PER_TARGET = 9;
-
 export default class StampedeAnalyzer extends Analyzer {
-  private windows: WindowSummary[] = [];
   private totalStampedeCount = 0;
   private totalStampedeDamage = 0;
   private useEntries: BoxRowEntry[] = [];
@@ -57,6 +42,7 @@ export default class StampedeAnalyzer extends Analyzer {
       this.onStampedeConsumed,
     );
   }
+
   private triggerAbility = this.selectedCombatant.hasTalent(TALENTS.RAPTOR_STRIKE_TALENT)
     ? TALENTS.TAKEDOWN_TALENT
     : TALENTS.BESTIAL_WRATH_TALENT;
@@ -77,33 +63,14 @@ export default class StampedeAnalyzer extends Analyzer {
   }
 
   private onStampedeConsumed = (event: RemoveBuffEvent) => {
-    const damages =
-      (GetRelatedEvents(event, STAMPEDE_READY_TO_DAMAGE) as DamageEvent[] | undefined) ?? [];
+    const damages = GetRelatedEvents<DamageEvent>(event, STAMPEDE_READY_TO_DAMAGE);
 
-    type DamageEventWithInstance = DamageEvent & { targetInstance?: number };
-    let totalDamage = 0;
-    const targetKeys = new Set<string>();
-    for (const d of damages) {
-      totalDamage += d.amount + (d.absorbed ?? 0);
-      const inst = (d as DamageEventWithInstance).targetInstance ?? 0;
-      targetKeys.add(`${d.targetID}:${inst}`);
-    }
-
-    const uniqueTargets = targetKeys.size;
-    const expectedTicks = uniqueTargets * TICKS_PER_STAMPEDE_PER_TARGET;
+    const uniqueTargets = new Set(damages.map((d) => d.targetID)).size;
+    const totalDamage = damages.reduce((sum, d) => sum + d.amount + (d.absorbed ?? 0), 0);
     const actualTicks = damages.length;
+    const expectedTicks = uniqueTargets * 9;
     const hitPercent = expectedTicks > 0 ? Math.min(actualTicks / expectedTicks, 1) : 0;
 
-    const summary: WindowSummary = {
-      start: event.timestamp,
-      uniqueTargets,
-      totalDamage,
-      actualTicks,
-      expectedTicks,
-      hitPercent,
-    };
-
-    this.windows.push(summary);
     this.totalStampedeCount += 1;
     this.totalStampedeDamage += totalDamage;
 
@@ -123,23 +90,20 @@ export default class StampedeAnalyzer extends Analyzer {
     const tooltip = (
       <div>
         {header}
-        <p>
-          Targets: <strong>{uniqueTargets}</strong>
-          <br />
-          Damage: <strong>{format_compact(totalDamage)}</strong>
-        </p>
+        <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+        <div>
+          <strong>{uniqueTargets}</strong> targets hit{' '}
+          <small>({formatNumber(totalDamage)} damage)</small>
+        </div>
         {expectedTicks > 0 && (
-          <p>
+          <div>
             Ticks:{' '}
             <strong>
               {actualTicks}/{expectedTicks}
             </strong>{' '}
             (<strong>{Math.round(hitPercent * 100)}%</strong>)
-          </p>
+          </div>
         )}
-        <p>
-          At: <strong>{this.owner.formatTimestamp(summary.start)}</strong>
-        </p>
       </div>
     );
 
