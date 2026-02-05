@@ -37,6 +37,14 @@ const sentinelRules: Rule[] = [
   TALENTS.BOOMSTICK_TALENT,
   TALENTS.MOONLIGHT_CHAKRAM_TALENT,
   TALENTS.RAPTOR_STRIKE_TALENT,
+  {
+    spell: SPELLS.HATCHET_TOSS,
+    description: (
+      <>
+        Never cast <SpellLink spell={SPELLS.HATCHET_TOSS} />.
+      </>
+    ),
+  },
 ];
 
 const packLeaderRules: Rule[] = [
@@ -48,6 +56,14 @@ const packLeaderRules: Rule[] = [
   TALENTS.TAKEDOWN_TALENT,
   TALENTS.WILDFIRE_BOMB_TALENT,
   TALENTS.RAPTOR_STRIKE_TALENT,
+  {
+    spell: SPELLS.HATCHET_TOSS,
+    description: (
+      <>
+        Never cast <SpellLink spell={SPELLS.HATCHET_TOSS} />.
+      </>
+    ),
+  },
 ];
 
 export const apl = (info: PlayerInfo): Apl => {
