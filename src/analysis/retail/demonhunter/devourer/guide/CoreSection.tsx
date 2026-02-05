@@ -16,9 +16,10 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
             Continuously casting throughout an encounter is the single most important thing for
             achieving good DPS.
           </b>
-          <br />
-          Some fights have unavoidable downtime due to phase transitions and the like, so in these
-          cases 0% downtime will not be possible - do the best you can.
+          <div>
+            Some fights have unavoidable downtime due to phase transitions and the like, so in these
+            cases 0% downtime will not be possible - do the best you can.
+          </div>
         </p>
         <p>
           Remember that you always have access to either <SpellLink spell={SPELLS.CONSUME} /> or{' '}

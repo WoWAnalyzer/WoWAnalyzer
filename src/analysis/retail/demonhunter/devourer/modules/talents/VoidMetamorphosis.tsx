@@ -27,7 +27,6 @@ class VoidMetamorphosis extends Analyzer {
           that greatly enhances some of your abilities. Notably <SpellLink spell={SPELLS.CULL} />.
           You need to farm souls to enter{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
-          <br />
         </p>
         <p>
           While <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} /> has no fixed
