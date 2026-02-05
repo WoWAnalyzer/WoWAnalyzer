@@ -14,7 +14,6 @@ class VoidMetamorphosisNormalizer extends EventsNormalizer {
         event.type === EventType.ApplyBuff &&
         event.ability.guid === SPELLS.VOID_METAMORPHOSIS_BUFF.id
       ) {
-        console.log('void meta event', event);
         const fabricatedEvent: CastEvent = {
           timestamp: event.timestamp,
           type: EventType.Cast,
