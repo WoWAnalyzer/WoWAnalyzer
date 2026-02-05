@@ -676,6 +676,16 @@ const spells = {
     name: 'Soul Fragments',
     icon: 'inv-12-dh-void-ability-soulfragments',
   },
+  VOID_RAY_DAMAGE: {
+    id: 1213649,
+    name: 'Void Ray',
+    icon: 'inv_12_dh_void_ability_voidray',
+  },
+  VOID_RAY_DAMAGE_META: {
+    id: 1214595,
+    name: 'Void Ray',
+    icon: 'inv_12_dh_void_ability_voidray',
+  },
   //endregion
 
   //region Aldrachi Reaver

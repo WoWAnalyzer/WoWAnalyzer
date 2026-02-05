@@ -5,6 +5,7 @@ import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import CombatLogParser from '../CombatLogParser';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -37,6 +38,8 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
       </SubSection>
 
       {modules.reap.guideSubsection()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_RAY_TALENT) &&
+        modules.voidRay.guideSubsection()}
     </Section>
   );
 }
