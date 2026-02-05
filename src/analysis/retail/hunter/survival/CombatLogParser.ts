@@ -40,8 +40,9 @@ import MoonlightChakram from '../shared/herotalents/MoonlightChakram';
 import MoonlightChakramNormalizer from '../shared/normalizers/MoonlightChakramNormalizer';
 import SentinelsMark from '../shared/herotalents/SentinelsMark';
 import SentinelsMarkNormalizer from '../shared/normalizers/SentinelsMarkNormalizer';
-// import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
-
+import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
+import StampedeAnalyzer from '../shared/herotalents/Stampede';
+import HowlBoar from '../shared/herotalents/HowlBoar';
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
   static specModules = {
@@ -76,7 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildfireBombNormalizer: WildfireBombNormalizer,
     moonlightChakramNormalizer: MoonlightChakramNormalizer,
     sentinelsMarkNormalizer: SentinelsMarkNormalizer,
-    // EventLinkNormalizers: EventLinkNormalizer,
+    EventLinkNormalizers: EventLinkNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -97,7 +98,9 @@ class CombatLogParser extends CoreCombatLogParser {
     rejuvenatingWind: RejuvenatingWind,
     trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
-    SurvivalOfTheFittest: SurvivalOfTheFittest,
+    survivalOfTheFittest: SurvivalOfTheFittest,
+    stampedeAnalyzer: StampedeAnalyzer,
+    howlBoar: HowlBoar,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
