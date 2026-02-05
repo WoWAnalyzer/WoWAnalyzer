@@ -8,7 +8,6 @@ import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import {
   buffMissing,
-  buffPresent,
   debuffPresent,
   or,
   spellFractionalCharges,
@@ -45,15 +44,9 @@ const packLeaderRules: Rule[] = [
     spell: TALENTS.KILL_COMMAND_SURVIVAL_TALENT,
     condition: buffMissing(SPELLS.TIP_OF_THE_SPEAR_CAST),
   },
-  TALENTS.WILDFIRE_BOMB_TALENT,
-
-  {
-    spell: SPELLS.HATCHET_TOSS,
-    condition: buffPresent(SPELLS.HOGSTRIDER_BUFF),
-  },
-  TALENTS.TAKEDOWN_TALENT,
   TALENTS.BOOMSTICK_TALENT,
-  TALENTS.MOONLIGHT_CHAKRAM_TALENT,
+  TALENTS.TAKEDOWN_TALENT,
+  TALENTS.WILDFIRE_BOMB_TALENT,
   TALENTS.RAPTOR_STRIKE_TALENT,
 ];
 
