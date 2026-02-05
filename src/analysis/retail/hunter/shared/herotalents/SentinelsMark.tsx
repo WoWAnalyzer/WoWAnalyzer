@@ -164,20 +164,13 @@ export default class SentinelsMark extends Analyzer.withDependencies({
     const gcdsBetweenApplyAndRemove = Math.max(mark.gcdCount - 1, 0);
 
     const baseTooltip = (
-      <>
+      <div>
         <div>
           Target: <strong>{mark.targetName}</strong>
-          {mark.hpPercent !== null && (
-            <>
-              <br />
-              HP: {mark.hpPercent.toFixed(1)}%
-            </>
-          )}
-          <br />
-          Duration: {(duration / 1000).toFixed(1)}s
-          <br />
-          GCDs Between Apply and Remove: {gcdsBetweenApplyAndRemove}
         </div>
+        {mark.hpPercent !== null && <div>HP: {mark.hpPercent.toFixed(1)}%</div>}
+        <div>Duration: {(duration / 1000).toFixed(1)}s</div>
+        <div>GCDs Between Apply and Remove: {gcdsBetweenApplyAndRemove}</div>
         {this.hasMoonsBlessing && mark.wastedCdr > 0 && (
           <div>
             Wasted {(mark.wastedCdr / 1000).toFixed(1)}s{' '}
@@ -189,8 +182,10 @@ export default class SentinelsMark extends Analyzer.withDependencies({
             CDR
           </div>
         )}
-        Applied @ <strong>{this.owner.formatTimestamp(mark.applyTimestamp)}</strong>
-      </>
+        <div>
+          Applied @ <strong>{this.owner.formatTimestamp(mark.applyTimestamp)}</strong>
+        </div>
+      </div>
     );
 
     // GOOD: Mark was consumed
@@ -202,8 +197,9 @@ export default class SentinelsMark extends Analyzer.withDependencies({
           <>
             <h5 style={{ color: GoodColor }}>GOOD: Consumed Mark</h5>
             {baseTooltip}
-            <br />
-            Consumed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            <div>
+              Consumed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            </div>
           </>
         ),
       };
@@ -222,8 +218,9 @@ export default class SentinelsMark extends Analyzer.withDependencies({
           <>
             <h5 style={{ color: OkColor }}>{header}</h5>
             {baseTooltip}
-            <br />
-            Removed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            <div>
+              Removed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            </div>
           </>
         ),
       };
@@ -238,8 +235,9 @@ export default class SentinelsMark extends Analyzer.withDependencies({
           <>
             <h5 style={{ color: BadColor }}>FAIL: Target Died with Mark</h5>
             {baseTooltip}
-            <br />
-            Removed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            <div>
+              Removed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            </div>
           </>
         ),
       };
@@ -254,8 +252,9 @@ export default class SentinelsMark extends Analyzer.withDependencies({
           <>
             <h5 style={{ color: BadColor }}>FAIL: Mark Expired Without Consumption</h5>
             {baseTooltip}
-            <br />
-            Expired @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            <div>
+              Expired @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            </div>
           </>
         ),
       };
@@ -284,8 +283,9 @@ export default class SentinelsMark extends Analyzer.withDependencies({
           <>
             <h5 style={{ color: BadColor }}>FAIL: Refreshed Before Consumption</h5>
             {baseTooltip}
-            <br />
-            Refreshed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            <div>
+              Refreshed @ <strong>{this.owner.formatTimestamp(outcome.timestamp)}</strong>
+            </div>
           </>
         ),
       };
