@@ -41,7 +41,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/qHX2tmrGzkyB4cdL/49-Mythic+Dimensius,+the+All-Devouring+-+Kill+(9:04)/350-Vairuhdk/standard',
+    'report/ZwajMpPgzt28C4RN/3-Mythic+Nexus-King+Salhadaar+-+Kill+(1:57)/10-Dopa/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
