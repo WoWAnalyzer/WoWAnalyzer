@@ -32,12 +32,18 @@ export interface PerCastStat {
   performance?: QualitativePerformance;
 }
 
+export interface AdditionalContent {
+  title?: string;
+  content: React.ReactNode;
+}
+
 export interface PerCastData {
   performance: QualitativePerformance;
   stats: PerCastStat[];
   tooltip?: React.ReactNode;
   timestamp: string;
   details?: React.ReactNode;
+  additionalContent?: AdditionalContent;
 }
 
 interface CastDetailProps {
@@ -237,6 +243,17 @@ export default function CastDetail({
             })}
           </StatsGrid>
 
+          {currentCast!.additionalContent && (
+            <AdditionalContentContainer>
+              {currentCast!.additionalContent.title && (
+                <AdditionalContentHeading>
+                  {currentCast!.additionalContent.title}
+                </AdditionalContentHeading>
+              )}
+              {currentCast!.additionalContent.content}
+            </AdditionalContentContainer>
+          )}
+
           {currentCast!.details && (
             <TipBox icon={<PerformanceMark perf={currentCast!.performance} />}>
               {currentCast!.details}
@@ -312,4 +329,21 @@ const CastTitle = styled.div`
   font-size: 14px;
   font-weight: 600;
   color: #fab700;
+`;
+
+const AdditionalContentContainer = styled.div`
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
+const AdditionalContentHeading = styled.div`
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;

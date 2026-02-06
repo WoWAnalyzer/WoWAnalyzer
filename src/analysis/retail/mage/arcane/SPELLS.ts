@@ -83,7 +83,7 @@ const spells = {
     icon: 'ability_socererking_arcanewrath',
   },
   ARCANE_SALVO_BUFF: {
-    id: 124974,
+    id: 1242974,
     name: 'Arcane Salvo',
     icon: 'inv12_ability_mage_arcanesalvo',
   },
