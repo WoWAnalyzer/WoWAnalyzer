@@ -6,20 +6,22 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, DeathEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { SubSection } from 'interface/guide';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import Haste from 'parser/shared/modules/Haste';
 
 interface VoidMetamorphosisTracker {
   startTimestamp: number;
   endTimestamp: number;
+  totalCasts: number;
   totalCullCasts: number;
   smuggledToll: boolean;
 }
@@ -29,7 +31,10 @@ interface castBreakdownItem {
   checklistItem: CooldownExpandableItem;
 }
 
-class VoidMetamorphosis extends Analyzer.withDependencies({ alwaysBeCasting: AlwaysBeCasting }) {
+class VoidMetamorphosis extends Analyzer.withDependencies({
+  alwaysBeCasting: AlwaysBeCasting,
+  haste: Haste,
+}) {
   private _castTrackers: VoidMetamorphosisTracker[] = [];
 
   constructor(options: Options) {
@@ -46,7 +51,11 @@ class VoidMetamorphosis extends Analyzer.withDependencies({ alwaysBeCasting: Alw
       this._onVoidMetamorphosisEnd,
     );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CULL), this._onCullCast);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this._onFightEndOrDeath);
+
+    this.addEventListener(Events.fightend, this._onFightEndOrDeath);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
   }
 
   private _onVoidMetamorphosisCast(event: CastEvent) {
@@ -55,22 +64,86 @@ class VoidMetamorphosis extends Analyzer.withDependencies({ alwaysBeCasting: Alw
     this._castTrackers.push({
       startTimestamp: event.timestamp,
       endTimestamp: 0,
+      totalCasts: 0,
       totalCullCasts: 0,
       smuggledToll: smuggledToll,
     });
+  }
+
+  private _onFightEndOrDeath(event: DeathEvent | FightEndEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.VOID_METAMORPHOSIS_BUFF)) {
+      return;
+    }
+    this._castTrackers.at(-1)!.endTimestamp = event.timestamp;
   }
 
   private _onVoidMetamorphosisEnd(event: RemoveBuffEvent) {
     this._castTrackers.at(-1)!.endTimestamp = event.timestamp;
   }
 
-  private _onCullCast() {
-    // Cull is only available during Void Metamorphosis
-    this._castTrackers.at(-1)!.totalCullCasts += 1;
+  private _onCast(cast: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.VOID_METAMORPHOSIS_BUFF)) {
+      return;
+    }
+
+    if (cast.ability.guid === SPELLS.CULL.id) {
+      this._castTrackers.at(-1)!.totalCullCasts += 1;
+    }
+
+    // Filtering out off-gcd spells
+    const ignoredSpellsIds = [
+      TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id,
+      SPELLS.BLUR.id,
+      SPELLS.SOUL_FRAGMENT_2.id,
+    ];
+
+    if (!ignoredSpellsIds.includes(cast.ability.guid)) {
+      console.log('cast', cast.ability, cast.timestamp);
+      this._castTrackers.at(-1)!.totalCasts += 1;
+    }
   }
 
   private get _buffHistory() {
     return this.selectedCombatant.getBuffHistory(SPELLS.VOID_METAMORPHOSIS_BUFF.id);
+  }
+
+  private _computeExpectedCullCasts(cast: VoidMetamorphosisTracker): number {
+    // // expected Cull cpm at 0 haste (during Void Metamorphosis)
+    // // This was discussed with Voodoo, wowhead and icyveins guide writer and theorycrafter for Devour
+    // const baseCullExpectedCpm = 16;
+
+    // // factoring in haste
+    // // 10% of Haste gives 6 additional casts every minute which will roughly translate to 2 additional Cull casts
+
+    // // apply to Void Metamorphosis length
+    // const expectedCullCasts = Math.round((cast.endTimestamp - cast.startTimestamp) / 1000 * baseCullExpectedCpm / 60)
+
+    const expectedCullCastShare = 0.33;
+    const expectedCullCasts = Math.round(cast.totalCasts * expectedCullCastShare);
+
+    console.log('cull', expectedCullCasts, cast.totalCasts, cast.totalCullCasts);
+    return expectedCullCasts;
+  }
+
+  private _getCullItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
+    const expectedCullCasts = this._computeExpectedCullCasts(cast);
+
+    let cullPerformance = QualitativePerformance.Fail;
+    if (cast.totalCullCasts >= expectedCullCasts) {
+      cullPerformance = QualitativePerformance.Perfect;
+    } else if (cast.totalCullCasts >= expectedCullCasts - 2) {
+      cullPerformance = QualitativePerformance.Good;
+    } else if (cast.totalCullCasts >= expectedCullCasts - 4) {
+      cullPerformance = QualitativePerformance.Ok;
+    }
+
+    const cullChecklistItem: CooldownExpandableItem = {
+      label: <>Cull casts</>,
+      result: <PerformanceMark perf={cullPerformance} />,
+      details: <>{formatNumber(cast.totalCullCasts)}</>,
+    };
+
+    return { performance: cullPerformance, checklistItem: cullChecklistItem };
   }
 
   private _getActiveTimeItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
@@ -107,6 +180,10 @@ class VoidMetamorphosis extends Analyzer.withDependencies({ alwaysBeCasting: Alw
     const activeTimeItem = this._getActiveTimeItem(cast);
     performances.push(activeTimeItem.performance);
     checklistItems.push(activeTimeItem.checklistItem);
+
+    const cullItem = this._getCullItem(cast);
+    performances.push(cullItem.performance);
+    checklistItems.push(cullItem.checklistItem);
 
     return [performances, checklistItems];
   }
