@@ -47,32 +47,15 @@ class ArcaneSurgeGuide extends Analyzer {
   }
 
   private evaluateArcaneSurgeCast(cast: ArcaneSurgeData): CastEvaluation {
-    const hasMaxCharges = cast.charges === ARCANE_CHARGE_MAX_STACKS;
     const mana = cast.mana || 0;
     const manaPerf = this.manaUtil(mana) as QualitativePerformance;
 
     // Fail conditions (highest priority)
-    if (!hasMaxCharges) {
-      return {
-        timestamp: cast.cast,
-        performance: QualitativePerformance.Fail,
-        reason: `Low Arcane Charges. After clearing Charges with Arcane Barrage, refill them with Touch of the Magi before Arcane Surge`,
-      };
-    }
-
     if (manaPerf === QualitativePerformance.Fail) {
       return {
         timestamp: cast.cast,
         performance: QualitativePerformance.Fail,
         reason: `Low Mana. Use Evocation to top off your mana before your Burn Phase.`,
-      };
-    }
-
-    if (!cast.touchActive) {
-      return {
-        timestamp: cast.cast,
-        performance: QualitativePerformance.Fail,
-        reason: `Touch of the Magi Debuff not active on target.`,
       };
     }
 
@@ -104,19 +87,12 @@ class ArcaneSurgeGuide extends Analyzer {
     const explanation = (
       <>
         <b>{arcaneSurge}</b> is your primary damage cooldown and will essentially convert all of
-        your mana into damage. Because of this, there are a few things that you should do to ensure
-        you maximize the amount of damage that {arcaneSurge} does:
+        your mana into damage and then will give you a massive mana regeneration buff to refill your
+        mana. Because of this, there are a few things that you should do to ensure you maximize the
+        amount of damage that {arcaneSurge} does:
         <ul>
           <li>
-            Ensure you have 4 {arcaneCharge}s. Cast {arcaneOrb} if you have less than 4.
-          </li>
-          <li>
-            Full channel {evocation} before each {arcaneSurge} cast to cap your mana and grant an
-            intellect buff from.
-          </li>
-          <li>
-            Channeling {evocation} will give you a {clearcasting} proc. Cast {arcaneMissiles} to get
-            before {arcaneSurge}
+            Apparently nothing matters here ... Leaving this as placeholder for now and will revisit
           </li>
         </ul>
         When incorporating the above items, your spell sequence will look like this:{' '}
@@ -166,11 +142,6 @@ class ArcaneSurgeGuide extends Analyzer {
         performance: evaluation.performance,
         timestamp: this.owner.formatTimestamp(cast.cast),
         stats: [
-          {
-            value: `${cast.charges}`,
-            label: 'Charges',
-            tooltip: <>Arcane Charges before Arcane Surge cast</>,
-          },
           {
             value: `${formatPercentage(cast.mana || 0, 0)}%`,
             label: 'Mana',
