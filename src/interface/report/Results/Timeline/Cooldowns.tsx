@@ -1,10 +1,12 @@
 import Spell from 'common/SPELLS/Spell';
-import { AnyEvent } from 'parser/core/Events';
+import { AbilityEvent, AnyEvent, HasAbility } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { PureComponent } from 'react';
 
 import './Cooldowns.scss';
 import Lane from './Lane';
+import Icon from 'interface/Icon';
+import { EventType } from 'vega';
 
 interface Props {
   start: number;
@@ -52,9 +54,30 @@ class Cooldowns extends PureComponent<Props> {
       </Lane>
     );
   }
+  renderLegend(eventsBySpellId: Map<number, AnyEvent[]>) {
+    const entries: [number, AnyEvent[]][] =
+      this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
+      Array.from(eventsBySpellId);
+    return entries
+      .sort((a, b) => this.getSortIndex(a) - this.getSortIndex(b))
+      .map(([_spellId, events]) => {
+        const ability = (events.find(HasAbility) as AbilityEvent<EventType> | undefined)?.ability;
+
+        return (
+          <div className="legend">
+            {ability && <Icon icon={ability.abilityIcon} alt={ability.name} />}
+          </div>
+        );
+      });
+  }
   render() {
     const { eventsBySpellId } = this.props;
-    return <div className="cooldowns">{this.renderLanes(eventsBySpellId, false)}</div>;
+    return (
+      <div className="cooldowns">
+        <div className={'legend-container'}>{this.renderLegend(eventsBySpellId)}</div>
+        {this.renderLanes(eventsBySpellId, false)}
+      </div>
+    );
   }
 }
 

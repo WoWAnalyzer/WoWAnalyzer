@@ -206,10 +206,6 @@ class Lane extends PureComponent<Props> {
 
     return (
       <div className="lane" style={style}>
-        <div className="legend">
-          <Icon icon={abilityIcon} alt={abilityName} />
-        </div>
-
         {children.map((event) => this.renderEvent(event))}
       </div>
     );

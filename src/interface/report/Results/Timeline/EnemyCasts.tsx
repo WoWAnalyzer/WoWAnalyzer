@@ -430,14 +430,15 @@ export const EnemyCastsTimeline = ({
             offset={offset}
             secondWidth={secondWidth}
             skipInterval={skipInterval}
-          />
-          <EnemyCasts
-            start={start}
-            secondWidth={secondWidth}
-            reportCode={parser.report.code}
-            actorId={parser.player.id}
-            events={NPCCasts}
-          />
+          >
+            <EnemyCasts
+              start={start}
+              secondWidth={secondWidth}
+              reportCode={parser.report.code}
+              actorId={parser.player.id}
+              events={NPCCasts}
+            />
+          </TimeIndicators>
         </div>
       ) : (
         <></>

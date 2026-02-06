@@ -5,7 +5,7 @@ import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AurasModule from 'parser/core/modules/Auras';
 import PropTypes from 'prop-types';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import './Timeline.scss';
 import Auras from './Auras';
@@ -13,6 +13,10 @@ import Casts, { isApplicableEvent } from './Casts';
 import { EnemyCastsTimeline } from './EnemyCasts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
+
+export const TimelineSettingsContext = React.createContext({
+  secondWidth: 60,
+});
 
 export function isApplicableUpdateSpellUsableEvent(event, startTime) {
   if (
@@ -185,6 +189,10 @@ class Timeline extends PureComponent {
             className="spell-timeline"
             style={{
               '--cast-bars': castEvents.length,
+              // explicitly setting the width here allows the legend to
+              // continue following the left edge of the scroll container
+              // for the entire width of the timeline
+              width: this.secondWidth * this.seconds,
             }}
           >
             <EnemyCastsTimeline
@@ -206,17 +214,18 @@ class Timeline extends PureComponent {
               offset={this.offset}
               secondWidth={this.secondWidth}
               skipInterval={skipInterval}
-            />
-            {castEvents.map((events, index) => (
-              <Casts
-                key={index}
-                start={this.start}
-                secondWidth={this.secondWidth}
-                events={events}
-                // Only show on the main cast bar since that should default to standard casts
-                movement={index === castEvents.length - 1 ? movement : undefined}
-              />
-            ))}
+            >
+              {castEvents.map((events, index) => (
+                <Casts
+                  key={index}
+                  start={this.start}
+                  secondWidth={this.secondWidth}
+                  events={events}
+                  // Only show on the main cast bar since that should default to standard casts
+                  movement={index === castEvents.length - 1 ? movement : undefined}
+                />
+              ))}
+            </TimeIndicators>
             <Cooldowns
               start={this.start}
               end={this.end}
