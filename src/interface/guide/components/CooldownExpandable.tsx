@@ -84,10 +84,7 @@ const CooldownExpandable = ({
       header
     );
   const info = useInfo();
-  const events = useEvents();
-  const filteredEvents = showTimeline
-    ? events.filter((event) => event.timestamp >= range.start && event.timestamp <= range.end)
-    : [];
+  const filteredEvents = useEvents(showTimeline ? range : undefined);
   return (
     <ControlledExpandable
       header={<SectionHeader>{combinedHeader}</SectionHeader>}

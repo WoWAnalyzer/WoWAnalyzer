@@ -83,6 +83,7 @@ import './Guide.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import styled from '@emotion/styled';
 import * as design from 'interface/design-system';
+import StateHistory from 'parser/core/StateHistory';
 
 type Constructed<T> = T extends new (options: Options) => infer R ? R : never;
 type ConstructedModules<T> = {
@@ -235,11 +236,23 @@ export function useInfo(): GuideContextValue['info'] {
   return use(GuideContext).info;
 }
 
+interface TimeRange {
+  start: number;
+  end: number;
+}
+
 /**
- * Get the event list from within a Guide section.
+ * Get the event list from within a Guide section. The optional `range` parameter filters
+ * to a timestamp range.
  */
-export function useEvents(): GuideContextValue['events'] {
-  return use(GuideContext).events;
+export function useEvents(range?: TimeRange): GuideContextValue['events'] {
+  const events = use(GuideContext).events;
+
+  if (range) {
+    return new StateHistory(events).slice(range.start, range.end);
+  }
+
+  return events;
 }
 
 /**
