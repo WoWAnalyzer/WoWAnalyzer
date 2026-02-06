@@ -10,7 +10,8 @@ import Analyzer from 'parser/core/Analyzer';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { type CastEvaluation } from 'interface/guide/components/CastSummary';
-import CastSequence, {
+import {
+  SpellSequence,
   type CastSequenceEntry,
   type CastInSequence,
 } from 'interface/guide/components/CastSequence';
@@ -157,8 +158,9 @@ class ArcaneSurgeGuide extends Analyzer {
         };
       });
 
-    const perCastData: PerCastData[] = this.arcaneSurge.surgeData.map((cast) => {
+    const perCastData: PerCastData[] = this.arcaneSurge.surgeData.map((cast, index) => {
       const evaluation = this.evaluateArcaneSurgeCast(cast);
+      const sequenceEntry = surgeSequenceEvents[index];
 
       return {
         performance: evaluation.performance,
@@ -181,17 +183,18 @@ class ArcaneSurgeGuide extends Analyzer {
           },
         ],
         details: evaluation.reason,
+        additionalContent: sequenceEntry
+          ? {
+              title: 'Cast Sequence',
+              content: <SpellSequence casts={sequenceEntry.casts} iconSize={40} />,
+            }
+          : undefined,
       };
     });
 
     return (
       <GuideSection spell={TALENTS.ARCANE_SURGE_TALENT} explanation={explanation}>
         <CastDetail title="Arcane Surge Casts" casts={perCastData} />
-        <CastSequence
-          spell={TALENTS.ARCANE_SURGE_TALENT}
-          sequences={surgeSequenceEvents}
-          castTimestamp={(data) => formatDuration(data.cast - this.owner.fight.start_time)}
-        />
       </GuideSection>
     );
   }
