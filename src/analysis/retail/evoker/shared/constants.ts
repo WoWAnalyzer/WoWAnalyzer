@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import Combatant from 'parser/core/Combatant';
 
 export const BASE_ESSENCE_REGEN = 0.2;
 
