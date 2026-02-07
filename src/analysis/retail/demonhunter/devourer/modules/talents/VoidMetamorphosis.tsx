@@ -38,11 +38,11 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
   statTracker: StatTracker,
   abilities: Abilities,
 }) {
-  private _castTrackers: VoidMetamorphosisTracker[] = [];
-  private _momentOfCravingTalented = this.selectedCombatant.hasTalent(
+  #castTrackers: VoidMetamorphosisTracker[] = [];
+  #momentOfCravingTalented = this.selectedCombatant.hasTalent(
     TALENTS_DEMON_HUNTER.MOMENT_OF_CRAVING_TALENT,
   );
-  private _hungeringSlashTalented = this.selectedCombatant.hasTalent(
+  #hungeringSlashTalented = this.selectedCombatant.hasTalent(
     TALENTS_DEMON_HUNTER.HUNGERING_SLASH_TALENT,
   );
 
@@ -52,25 +52,25 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_METAMORPHOSIS_CAST),
-      this._onVoidMetamorphosisCast,
+      this.#onVoidMetamorphosisCast,
     );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOID_METAMORPHOSIS_BUFF),
-      this._onVoidMetamorphosisEnd,
+      this.#onVoidMetamorphosisEnd,
     );
 
-    this.addEventListener(Events.death.to(SELECTED_PLAYER), this._onFightEndOrDeath);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.#onFightEndOrDeath);
 
-    this.addEventListener(Events.fightend, this._onFightEndOrDeath);
+    this.addEventListener(Events.fightend, this.#onFightEndOrDeath);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CULL), this._onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CULL), this.#onCast);
   }
 
-  private _onVoidMetamorphosisCast(event: CastEvent) {
+  #onVoidMetamorphosisCast(event: CastEvent) {
     const smuggledToll = this.selectedCombatant.hasBuff(SPELLS.REAPERS_TOLL_BUFF);
 
-    this._castTrackers.push({
+    this.#castTrackers.push({
       startTimestamp: event.timestamp,
       endTimestamp: 0,
       totalCasts: 0,
@@ -79,32 +79,32 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     });
   }
 
-  private _onFightEndOrDeath(event: DeathEvent | FightEndEvent) {
+  #onFightEndOrDeath(event: DeathEvent | FightEndEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.VOID_METAMORPHOSIS_BUFF)) {
       return;
     }
-    this._castTrackers.at(-1)!.endTimestamp = event.timestamp;
+    this.#castTrackers.at(-1)!.endTimestamp = event.timestamp;
   }
 
-  private _onVoidMetamorphosisEnd(event: RemoveBuffEvent) {
-    this._castTrackers.at(-1)!.endTimestamp = event.timestamp;
+  #onVoidMetamorphosisEnd(event: RemoveBuffEvent) {
+    this.#castTrackers.at(-1)!.endTimestamp = event.timestamp;
   }
 
-  private _onCast(cast: CastEvent) {
+  #onCast(cast: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.VOID_METAMORPHOSIS_BUFF)) {
       return;
     }
 
     if (cast.ability.guid === SPELLS.CULL.id) {
-      this._castTrackers.at(-1)!.totalCullCasts += 1;
+      this.#castTrackers.at(-1)!.totalCullCasts += 1;
     }
   }
 
-  private get _buffHistory() {
+  get #buffHistory() {
     return this.selectedCombatant.getBuffHistory(SPELLS.VOID_METAMORPHOSIS_BUFF.id);
   }
 
-  private _computeExpectedCullCasts(cast: VoidMetamorphosisTracker): number {
+  #computeExpectedCullCasts(cast: VoidMetamorphosisTracker): number {
     const currentHastePercentage = this.deps.statTracker.currentHastePercentage;
     const cullAbility = this.deps.abilities.getAbility(SPELLS.CULL.id);
     const voidMetamorphosiCastDurationSeconds = (cast.endTimestamp - cast.startTimestamp) / 1000;
@@ -115,7 +115,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
 
     let expectedCullCasts = Math.floor(voidMetamorphosiCastDurationSeconds / cullAbility!.cooldown);
     // Void Ray resets the cooldown of Cull with Moment of Craving
-    if (this._momentOfCravingTalented) {
+    if (this.#momentOfCravingTalented) {
       expectedCullCasts += potentialVoidRayCasts;
     }
     if (cullAbility!.charges > 1) expectedCullCasts += 1;
@@ -123,8 +123,8 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return expectedCullCasts;
   }
 
-  private _getCullItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
-    const expectedCullCasts = this._computeExpectedCullCasts(cast);
+  #getCullItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
+    const expectedCullCasts = this.#computeExpectedCullCasts(cast);
 
     let cullPerformance = QualitativePerformance.Fail;
     if (cast.totalCullCasts >= expectedCullCasts) {
@@ -148,7 +148,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return { performance: cullPerformance, checklistItem: cullChecklistItem };
   }
 
-  private _getActiveTimeItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
+  #getActiveTimeItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
     let activeTimePerformance = QualitativePerformance.Fail;
     const activeTimePercentageDuringWindow =
       this.deps.alwaysBeCasting.getActiveTimePercentageInWindow(
@@ -173,7 +173,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return { performance: activeTimePerformance, checklistItem: activeTimeChecklistItem };
   }
 
-  private _getSmugglingItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
+  #getSmugglingItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
     const smugglingPerformance = cast.smuggledToll
       ? QualitativePerformance.Good
       : QualitativePerformance.Fail;
@@ -190,22 +190,22 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return { performance: smugglingPerformance, checklistItem: smugglingChecklistItem };
   }
 
-  private _getCastBreakdownItems(
+  #getCastBreakdownItems(
     cast: VoidMetamorphosisTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
     const performances: QualitativePerformance[] = [];
     const checklistItems: CooldownExpandableItem[] = [];
 
-    const activeTimeItem = this._getActiveTimeItem(cast);
+    const activeTimeItem = this.#getActiveTimeItem(cast);
     performances.push(activeTimeItem.performance);
     checklistItems.push(activeTimeItem.checklistItem);
 
-    const cullItem = this._getCullItem(cast);
+    const cullItem = this.#getCullItem(cast);
     performances.push(cullItem.performance);
     checklistItems.push(cullItem.checklistItem);
 
-    if (this._hungeringSlashTalented) {
-      const smugglingItem = this._getSmugglingItem(cast);
+    if (this.#hungeringSlashTalented) {
+      const smugglingItem = this.#getSmugglingItem(cast);
       performances.push(smugglingItem.performance);
       checklistItems.push(smugglingItem.checklistItem);
     }
@@ -213,7 +213,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return [performances, checklistItems];
   }
 
-  private _castBreakdownGuidePart(): JSX.Element {
+  #castBreakdownGuidePart(): JSX.Element {
     const explanation = (
       <>
         <p>
@@ -268,7 +268,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
             expectations.
           </small>
         </div>
-        {this._castTrackers.map((cast, index) => {
+        {this.#castTrackers.map((cast, index) => {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.startTimestamp)} &mdash;{' '}
@@ -276,7 +276,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
             </>
           );
 
-          const castBreakdownItems = this._getCastBreakdownItems(cast);
+          const castBreakdownItems = this.#getCastBreakdownItems(cast);
           const averagePerformance = getAveragePerf(castBreakdownItems[0]);
           const checklistItems = castBreakdownItems[1];
 
@@ -295,7 +295,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  private _uptimeGuidePart(): JSX.Element {
+  #uptimeGuidePart(): JSX.Element {
     return (
       <>
         <div>
@@ -305,7 +305,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
         <>
           {uptimeBarSubStatistic(this.owner.fight, {
             spells: [SPELLS.VOID_METAMORPHOSIS_BUFF],
-            uptimes: this._buffHistory.map((buff) => ({
+            uptimes: this.#buffHistory.map((buff) => ({
               start: buff.start,
               end: buff.end ?? this.owner.fight.end_time,
             })),
@@ -315,11 +315,11 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     );
   }
 
-  public guideSubsection(): JSX.Element {
+  guideSubsection(): JSX.Element {
     return (
       <SubSection title="Void Metamorphosis">
-        {this._uptimeGuidePart()}
-        {this._castBreakdownGuidePart()}
+        {this.#uptimeGuidePart()}
+        {this.#castBreakdownGuidePart()}
       </SubSection>
     );
   }

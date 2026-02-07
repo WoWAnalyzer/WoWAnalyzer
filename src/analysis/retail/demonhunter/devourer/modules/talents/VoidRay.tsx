@@ -14,7 +14,7 @@ import { formatPercentage } from 'common/format';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class VoidRay extends Analyzer {
-  voidRayEntries: BoxRowEntry[] = [];
+  #voidRayEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -22,11 +22,11 @@ class VoidRay extends Analyzer {
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.VOID_RAY_TALENT),
-      this.onVoidRayCast,
+      this.#onVoidRayCast,
     );
   }
 
-  onVoidRayCast(event: CastEvent) {
+  #onVoidRayCast(event: CastEvent) {
     const damageEvents = getVoidRayDamageEvents(event);
 
     let value = QualitativePerformance.Good;
@@ -43,7 +43,7 @@ class VoidRay extends Analyzer {
       );
     }
 
-    this.voidRayEntries.push({ value, tooltip });
+    this.#voidRayEntries.push({ value, tooltip });
   }
 
   guideSubsection(): JSX.Element {
@@ -85,7 +85,7 @@ class VoidRay extends Analyzer {
       <RoundedPanel>
         <CastSummaryAndBreakdown
           spell={TALENTS_DEMON_HUNTER.VOID_RAY_TALENT}
-          castEntries={this.voidRayEntries}
+          castEntries={this.#voidRayEntries}
         />
       </RoundedPanel>
     );
