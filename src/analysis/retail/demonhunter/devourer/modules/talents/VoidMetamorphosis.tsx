@@ -17,6 +17,8 @@ import { PerformanceMark } from 'interface/guide';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Haste from 'parser/shared/modules/Haste';
+import Abilities from '../Abilities';
+import { VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS } from '../../constants';
 
 interface VoidMetamorphosisTracker {
   startTimestamp: number;
@@ -34,8 +36,12 @@ interface castBreakdownItem {
 class VoidMetamorphosis extends Analyzer.withDependencies({
   alwaysBeCasting: AlwaysBeCasting,
   haste: Haste,
+  abilities: Abilities,
 }) {
   private _castTrackers: VoidMetamorphosisTracker[] = [];
+  private _momentOfCravingTalented = this.selectedCombatant.hasTalent(
+    TALENTS_DEMON_HUNTER.MOMENT_OF_CRAVING_TALENT,
+  );
 
   constructor(options: Options) {
     super(options);
@@ -55,7 +61,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
 
     this.addEventListener(Events.fightend, this._onFightEndOrDeath);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CULL), this._onCast);
   }
 
   private _onVoidMetamorphosisCast(event: CastEvent) {
@@ -89,18 +95,6 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     if (cast.ability.guid === SPELLS.CULL.id) {
       this._castTrackers.at(-1)!.totalCullCasts += 1;
     }
-
-    // Filtering out off-gcd spells
-    const ignoredSpellsIds = [
-      TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id,
-      SPELLS.BLUR.id,
-      SPELLS.SOUL_FRAGMENT_2.id,
-    ];
-
-    if (!ignoredSpellsIds.includes(cast.ability.guid)) {
-      console.log('cast', cast.ability, cast.timestamp);
-      this._castTrackers.at(-1)!.totalCasts += 1;
-    }
   }
 
   private get _buffHistory() {
@@ -108,25 +102,25 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
   }
 
   private _computeExpectedCullCasts(cast: VoidMetamorphosisTracker): number {
-    // // expected Cull cpm at 0 haste (during Void Metamorphosis)
-    // // This was discussed with Voodoo, wowhead and icyveins guide writer and theorycrafter for Devour
-    // const baseCullExpectedCpm = 16;
+    const cullAbility = this.deps.abilities.getAbility(SPELLS.CULL.id);
+    const voidMetamorphosiCastDurationSeconds = (cast.endTimestamp - cast.startTimestamp) / 1000;
+    const potentialVoidRayCasts = Math.floor(
+      voidMetamorphosiCastDurationSeconds / VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS,
+    );
 
-    // // factoring in haste
-    // // 10% of Haste gives 6 additional casts every minute which will roughly translate to 2 additional Cull casts
+    let expectedCullCasts = Math.floor(voidMetamorphosiCastDurationSeconds / cullAbility!.cooldown);
+    // Void Ray resets the cooldown of Cull with Moment of Craving
+    if (this._momentOfCravingTalented) {
+      expectedCullCasts += potentialVoidRayCasts;
+    }
+    if (cullAbility!.charges > 1) expectedCullCasts += 1;
 
-    // // apply to Void Metamorphosis length
-    // const expectedCullCasts = Math.round((cast.endTimestamp - cast.startTimestamp) / 1000 * baseCullExpectedCpm / 60)
-
-    const expectedCullCastShare = 0.33;
-    const expectedCullCasts = Math.round(cast.totalCasts * expectedCullCastShare);
-
-    console.log('cull', expectedCullCasts, cast.totalCasts, cast.totalCullCasts);
     return expectedCullCasts;
   }
 
   private _getCullItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
     const expectedCullCasts = this._computeExpectedCullCasts(cast);
+    console.log('cull expected', expectedCullCasts);
 
     let cullPerformance = QualitativePerformance.Fail;
     if (cast.totalCullCasts >= expectedCullCasts) {
@@ -138,7 +132,11 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     }
 
     const cullChecklistItem: CooldownExpandableItem = {
-      label: <>Cull casts</>,
+      label: (
+        <>
+          <SpellLink spell={SPELLS.CULL} /> casts
+        </>
+      ),
       result: <PerformanceMark perf={cullPerformance} />,
       details: <>{formatNumber(cast.totalCullCasts)}</>,
     };
@@ -154,7 +152,7 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
         cast.endTimestamp,
       );
 
-    if (activeTimePercentageDuringWindow >= 0.99) {
+    if (activeTimePercentageDuringWindow >= 0.98) {
       activeTimePerformance = QualitativePerformance.Perfect;
     } else if (activeTimePercentageDuringWindow >= 0.95) {
       activeTimePerformance = QualitativePerformance.Good;
@@ -171,6 +169,23 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     return { performance: activeTimePerformance, checklistItem: activeTimeChecklistItem };
   }
 
+  private _getSmugglingItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
+    const smugglingPerformance = cast.smuggledToll
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
+    const smugglingChecklistItem: CooldownExpandableItem = {
+      label: (
+        <>
+          Smuggled <SpellLink spell={SPELLS.HUNGERING_SLASH_CAST} />
+        </>
+      ),
+      result: <PerformanceMark perf={smugglingPerformance} />,
+      details: <>{cast.smuggledToll ? 'Yes' : 'No'}</>,
+    };
+
+    return { performance: smugglingPerformance, checklistItem: smugglingChecklistItem };
+  }
+
   private _getCastBreakdownItems(
     cast: VoidMetamorphosisTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
@@ -184,6 +199,10 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     const cullItem = this._getCullItem(cast);
     performances.push(cullItem.performance);
     checklistItems.push(cullItem.checklistItem);
+
+    const smugglingItem = this._getSmugglingItem(cast);
+    performances.push(smugglingItem.performance);
+    checklistItems.push(smugglingItem.checklistItem);
 
     return [performances, checklistItems];
   }
@@ -237,6 +256,12 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
       <div>
         <b>Per-Cast Breakdown</b>
         <small> - click to expand</small>
+        <div>
+          <small>
+            Please note that haste is computed using Midnight values. Prepatch logs will show lower
+            expectations.
+          </small>
+        </div>
         {this._castTrackers.map((cast, index) => {
           const header = (
             <>
