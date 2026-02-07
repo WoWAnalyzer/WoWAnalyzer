@@ -4,6 +4,7 @@ import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2026, 2, 7), <>Add statistics for <SpellLink spell={TALENTS.CONCENTRATED_POWER_TALENT} />.</>, Vollmer),
   change(date(2026, 2, 1), <>Improve statistics for <SpellLink spell={TALENTS.IRIDESCENCE_TALENT} />.</>, Vollmer),
   change(date(2026, 1, 27), "Improve Empower handling to handle bugged casts", Vollmer),
   change(date(2026, 1, 27), <>Add statistics for <SpellLink spell={TALENTS.ESSENCE_WELL_TALENT}/>, <SpellLink spell={TALENTS.TWIN_FLAME_TALENT}/> and <SpellLink spell={TALENTS.FIRE_TORRENT_TALENT}/>.</>, Vollmer),
