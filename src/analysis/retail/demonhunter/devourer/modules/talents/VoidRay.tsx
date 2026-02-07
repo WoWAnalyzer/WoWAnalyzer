@@ -32,7 +32,8 @@ class VoidRay extends Analyzer {
     let value = QualitativePerformance.Good;
     let tooltip = <>Great! Fully channeled cast.</>;
 
-    if (damageEvents.length < VOID_RAY_MAX_TICKS) {
+    // The last two damage ticks aren't needed to proc related talents
+    if (damageEvents.length < VOID_RAY_MAX_TICKS - 2) {
       value = QualitativePerformance.Fail;
       tooltip = (
         <>

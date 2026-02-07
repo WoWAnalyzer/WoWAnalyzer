@@ -20,7 +20,7 @@ function DefensivesSection() {
           performance, as it will not only increase your own survivability, but also your entire
           raid by allowing healers to focus on keeping others alive.
           <div>
-            As an <span className="DemonHunter">Demon Hunter</span> you have access to a frequent
+            As a <span className="DemonHunter">Demon Hunter</span> you have access to a frequent
             defensive CD in <SpellLink spell={SPELLS.BLUR} />.
           </div>
         </p>

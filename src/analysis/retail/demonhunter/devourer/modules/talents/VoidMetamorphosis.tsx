@@ -42,6 +42,9 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
   private _momentOfCravingTalented = this.selectedCombatant.hasTalent(
     TALENTS_DEMON_HUNTER.MOMENT_OF_CRAVING_TALENT,
   );
+  private _hungeringSlashTalented = this.selectedCombatant.hasTalent(
+    TALENTS_DEMON_HUNTER.HUNGERING_SLASH_TALENT,
+  );
 
   constructor(options: Options) {
     super(options);
@@ -201,9 +204,11 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     performances.push(cullItem.performance);
     checklistItems.push(cullItem.checklistItem);
 
-    const smugglingItem = this._getSmugglingItem(cast);
-    performances.push(smugglingItem.performance);
-    checklistItems.push(smugglingItem.checklistItem);
+    if (this._hungeringSlashTalented) {
+      const smugglingItem = this._getSmugglingItem(cast);
+      performances.push(smugglingItem.performance);
+      checklistItems.push(smugglingItem.checklistItem);
+    }
 
     return [performances, checklistItems];
   }
@@ -212,8 +217,8 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
     const explanation = (
       <>
         <p>
-          As <span className="DemonHunter">Devour</span>, the greater share of your damage is dealt
-          during <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
+          As <span className="DemonHunter">Devourer</span>, the greater share of your damage is
+          dealt during <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
         </p>
         <p>
           During <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />,{' '}
