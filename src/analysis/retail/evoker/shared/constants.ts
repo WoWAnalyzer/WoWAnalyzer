@@ -94,14 +94,8 @@ export const MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET = 0.15;
 export const MASS_ERUPTION_MULTIPLIER_PER_MISSING_TARGET =
   MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET;
 
-export const MASS_DISINTEGRATE_EXTRA_TARGETS = 3;
-export const CONCENTRATED_EXTRA_TARGETS = 1;
-// FIXME: This is to account for a bug that causes the extra missing target multiplier to not apply
-const CONCENTRATED_MISSING_TARGET_MULTIPLIER_BUGGED_OFFSET = 1;
-export const GetMissingTargetMultiplerOffset = (combatant: Combatant): number =>
-  combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT)
-    ? CONCENTRATED_MISSING_TARGET_MULTIPLIER_BUGGED_OFFSET
-    : 0;
+export const MASS_DISINTEGRATE_TARGETS = 3;
+export const CONCENTRATED_POWER_EXTRA_TARGETS = 1;
 
 export const WINGLEADER_CDR_PER_HIT_MS = 1_000;
 export const WINGLEADER_MAX_HITS = 3;

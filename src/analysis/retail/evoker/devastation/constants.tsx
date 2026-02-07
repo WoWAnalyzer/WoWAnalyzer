@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import Combatant from 'parser/core/Combatant';
 import {
-  CONCENTRATED_EXTRA_TARGETS,
-  MASS_DISINTEGRATE_EXTRA_TARGETS,
+  CONCENTRATED_POWER_EXTRA_TARGETS,
+  MASS_DISINTEGRATE_TARGETS,
 } from 'analysis/retail/evoker/shared';
 
 export const DISINTEGRATE_TICKS = 4;
@@ -24,8 +24,10 @@ export const GetDisintegrateTicks = (combatant: Combatant) => {
 
 export const GetMaxDisintegrateTargetCount = (combatant: Combatant): number =>
   combatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT)
-    ? MASS_DISINTEGRATE_EXTRA_TARGETS +
-      (combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT) ? CONCENTRATED_EXTRA_TARGETS : 0)
+    ? MASS_DISINTEGRATE_TARGETS +
+      (combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT)
+        ? CONCENTRATED_POWER_EXTRA_TARGETS
+        : 0)
     : 1;
 
 export const OPTIMAL_EMPOWER_DRAGONRAGE_GAP_ST_MS = 13000;
