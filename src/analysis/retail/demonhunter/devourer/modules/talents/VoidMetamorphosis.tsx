@@ -16,9 +16,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import Haste from 'parser/shared/modules/Haste';
 import Abilities from '../Abilities';
 import { VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS } from '../../constants';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 interface VoidMetamorphosisTracker {
   startTimestamp: number;
@@ -35,7 +35,7 @@ interface castBreakdownItem {
 
 class VoidMetamorphosis extends Analyzer.withDependencies({
   alwaysBeCasting: AlwaysBeCasting,
-  haste: Haste,
+  statTracker: StatTracker,
   abilities: Abilities,
 }) {
   private _castTrackers: VoidMetamorphosisTracker[] = [];
@@ -102,10 +102,12 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
   }
 
   private _computeExpectedCullCasts(cast: VoidMetamorphosisTracker): number {
+    const currentHastePercentage = this.deps.statTracker.currentHastePercentage;
     const cullAbility = this.deps.abilities.getAbility(SPELLS.CULL.id);
     const voidMetamorphosiCastDurationSeconds = (cast.endTimestamp - cast.startTimestamp) / 1000;
     const potentialVoidRayCasts = Math.floor(
-      voidMetamorphosiCastDurationSeconds / VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS,
+      voidMetamorphosiCastDurationSeconds /
+        VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS(currentHastePercentage),
     );
 
     let expectedCullCasts = Math.floor(voidMetamorphosiCastDurationSeconds / cullAbility!.cooldown);
@@ -120,7 +122,6 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
 
   private _getCullItem(cast: VoidMetamorphosisTracker): castBreakdownItem {
     const expectedCullCasts = this._computeExpectedCullCasts(cast);
-    console.log('cull expected', expectedCullCasts);
 
     let cullPerformance = QualitativePerformance.Fail;
     if (cast.totalCullCasts >= expectedCullCasts) {
