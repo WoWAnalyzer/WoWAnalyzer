@@ -22,6 +22,7 @@ import type { Annotation } from 'parser/core/modules/DebugAnnotations';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import SPELLS from 'common/SPELLS';
 import SpellUsableDebugDescription from './SpellUsable/SpellUsableDebugDescription';
+import StateHistory from 'parser/core/StateHistory';
 
 const DEBUG = false;
 
@@ -59,14 +60,10 @@ export interface CooldownInfo {
 /**
  * Comprehensive tracker for spell cooldown status
  */
-class SpellUsable extends Analyzer {
-  static dependencies = {
-    eventEmitter: EventEmitter,
-    abilities: Abilities,
-  };
-  protected eventEmitter!: EventEmitter;
-  protected abilities!: Abilities;
-
+class SpellUsable extends Analyzer.withDependencies({
+  eventEmitter: EventEmitter,
+  abilities: Abilities,
+}) {
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
   protected _currentCooldowns: Record<number, CooldownInfo> = {};
@@ -77,6 +74,12 @@ class SpellUsable extends Analyzer {
 
   public cooldownErrorCount = 0;
   public unknownAbilityErrorCount = 0;
+
+  private cooldownHistories: Map<number, UpdateSpellUsableEvent[]> = new Map();
+
+  history(spellId: number): StateHistory<UpdateSpellUsableEvent> {
+    return new StateHistory(this.cooldownHistories.get(spellId) ?? []);
+  }
 
   constructor(options: Options) {
     super(options);
@@ -131,7 +134,7 @@ class SpellUsable extends Analyzer {
     const cdInfo = this._currentCooldowns[cdSpellId];
 
     if (!cdInfo) {
-      return this.abilities.getMaxCharges(cdSpellId) || 1;
+      return this.deps.abilities.getMaxCharges(cdSpellId) || 1;
     }
 
     if (cdInfo.chargesAvailable === cdInfo.maxCharges) {
@@ -154,7 +157,7 @@ class SpellUsable extends Analyzer {
   public chargesAvailable(spellId: number): number {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(spellId)];
     if (!cdInfo) {
-      return this.abilities.getMaxCharges(this._getCanonicalId(spellId)) || 1;
+      return this.deps.abilities.getMaxCharges(this._getCanonicalId(spellId)) || 1;
     }
     return cdInfo.chargesAvailable;
   }
@@ -221,7 +224,7 @@ class SpellUsable extends Analyzer {
     this.recordCooldownDebugInfo(triggeringEvent as AnyEvent, cdSpellId, cdInfo);
     if (!cdInfo) {
       // spell isn't currently on cooldown - start a new cooldown!
-      const ability = this.abilities.getAbility(cdSpellId);
+      const ability = this.deps.abilities.getAbility(cdSpellId);
       if (!ability) {
         return; // no registered ability for this - assume no cooldown
       }
@@ -230,7 +233,7 @@ class SpellUsable extends Analyzer {
       if (!expectedCooldownDuration) {
         return; // this ability doesn't have a cooldown
       }
-      const maxCharges = this.abilities.getMaxCharges(ability) || 1;
+      const maxCharges = this.deps.abilities.getMaxCharges(ability) || 1;
 
       const newInfo: CooldownInfo = {
         overallStart: triggeringEvent.timestamp,
@@ -562,7 +565,7 @@ class SpellUsable extends Analyzer {
    * this will return the first ability from the list of abilities sharing the cooldown.
    */
   private _getCanonicalId(spellId: number): number {
-    const ability = this.abilities.getAbility(spellId);
+    const ability = this.deps.abilities.getAbility(spellId);
     return ability ? ability.primarySpell : spellId;
   }
 
@@ -586,7 +589,7 @@ class SpellUsable extends Analyzer {
       // cdInfo always kept up to date
       return cdInfo.currentRechargeDuration;
     } else {
-      const unscaledCooldown = this.abilities.getExpectedCooldownDuration(canonicalSpellId);
+      const unscaledCooldown = this.deps.abilities.getExpectedCooldownDuration(canonicalSpellId);
       // always integer number of milliseconds
       return !unscaledCooldown
         ? 0
@@ -770,7 +773,12 @@ class SpellUsable extends Analyzer {
       console.log(logLine);
     }
 
-    this.eventEmitter.fabricateEvent(event);
+    if (!this.cooldownHistories.has(canonicalSpellId)) {
+      this.cooldownHistories.set(canonicalSpellId, []);
+    }
+    this.cooldownHistories.get(canonicalSpellId)?.push(event);
+
+    this.deps.eventEmitter.fabricateEvent(event);
   }
 
   private recordCooldownDebugInfo(
@@ -781,7 +789,7 @@ class SpellUsable extends Analyzer {
     if (CASTS_THAT_ARENT_CASTS.includes(spellId) && !DEBUG_WHITELIST.includes(spellId)) {
       return; // don't record any info for this
     }
-    const ability = this.abilities.getAbility(spellId);
+    const ability = this.deps.abilities.getAbility(spellId);
     let annotation: Annotation;
     if (
       info &&

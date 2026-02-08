@@ -21,6 +21,7 @@ interface Props {
    * Used for guides.
    */
   exactlySpells?: Spell[];
+  castsOmitted?: boolean;
 }
 
 class Cooldowns extends PureComponent<Props> {
@@ -52,6 +53,7 @@ class Cooldowns extends PureComponent<Props> {
         fightEndTimestamp={this.props.end}
         secondWidth={this.props.secondWidth ?? this.context.secondWidth}
         castableBuff={this.props.abilities.getAbility(spellId)?.timelineCastableBuff}
+        castsOmitted={this.props.castsOmitted}
       >
         {events}
       </Lane>

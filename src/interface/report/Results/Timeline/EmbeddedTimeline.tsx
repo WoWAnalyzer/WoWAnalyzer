@@ -7,12 +7,13 @@ import Auras from 'parser/core/modules/Auras';
 import AuraTimeline from './Auras';
 
 import TimeIndicators from './TimeIndicators';
-import Casts from './Casts';
+import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
 import Abilities from 'parser/core/modules/Abilities';
 import { TimelineSettingsContext } from './Settings';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import { EventType, HasAbility } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Container for embedding the timeline in another component.
@@ -148,42 +149,39 @@ export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineP
   const auraAnalyzer = useAnalyzer(Auras);
   const info = useInfo();
   const abilities = useAnalyzer(Abilities);
+  const spellUsable = useAnalyzer(SpellUsable);
   const { combatLogParser } = useCombatLogParser();
 
   const secondsShown = (range.end - range.start) / 1000;
   const offset = range.start - (info?.originalFightStart ?? 0);
   const cooldownEventsBySpellId = useMemo(() => {
-    const cooldownSet = new Set();
-    if (cooldownSpellIds === true) {
-      for (const ability of abilities?.abilities ?? []) {
-        if (!ability.cooldown || !ability.enabled) {
-          continue;
-        }
-        cooldownSet.add(ability.primarySpell);
-      }
-    } else if (cooldownSpellIds) {
-      cooldownSpellIds.forEach((id) => cooldownSet.add(id));
-    }
-
+    const spellIds = Array.isArray(cooldownSpellIds)
+      ? cooldownSpellIds
+      : cooldownSpellIds
+        ? (abilities?.abilities
+            .filter((ability) => ability.enabled)
+            .map((ability) => ability.primarySpell) ?? [])
+        : [];
     const result = new Map();
-    for (const event of events) {
-      if (HasAbility(event) && cooldownSet.has(event.ability.guid)) {
-        if (!result.has(event.ability.guid)) {
-          result.set(event.ability.guid, []);
-        }
-        result.get(event.ability.guid)!.push(event);
-      }
+
+    for (const id of spellIds) {
+      result.set(id, spellUsable?.history(id)?.history ?? []);
     }
 
     return result;
-  }, [events, cooldownSpellIds, abilities]);
+  }, [cooldownSpellIds, abilities, spellUsable]);
 
   const visibleAuras = useMemo(
     () => (Array.isArray(auraIds) ? new Set(auraIds) : undefined),
     [auraIds],
   );
 
-  if (!abilities || !auraAnalyzer) {
+  const filteredEvents = useMemo(
+    () => (info ? events.filter(isApplicableEvent(info?.playerId)) : []),
+    [events, info],
+  );
+
+  if (!abilities || !auraAnalyzer || !spellUsable) {
     return null;
   }
 
@@ -200,13 +198,14 @@ export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineP
           />
         )}
         <TimeIndicators seconds={secondsShown} offset={offset} skipInterval={2}>
-          <Casts start={range.start} events={events} />
+          <Casts start={range.start} events={filteredEvents} />
         </TimeIndicators>
         <Cooldowns
           start={range.start}
           end={range.end}
           eventsBySpellId={cooldownEventsBySpellId}
           abilities={abilities}
+          castsOmitted
         />
       </SpellTimeline>
     </AutoSizerTimelineContainer>

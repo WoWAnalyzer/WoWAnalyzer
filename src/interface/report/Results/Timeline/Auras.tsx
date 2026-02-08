@@ -195,7 +195,7 @@ class Auras extends PureComponent<Props> {
         key={`cast-${event.timestamp}-${event.ability.guid}-${level}`}
         spell={event.ability.guid}
         icon={false}
-        className={`cast ${className}`}
+        className={`cast ${className} ${event.timestamp < this.props.start ? 'pre-fight' : ''}`}
         style={
           {
             left,

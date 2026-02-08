@@ -34,6 +34,11 @@
       background: #75736d;
       box-shadow: 0 0 2px #75736d;
       z-index: 2;
+
+      &.post-fight {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     }
     > .recharge {
       width: 3px;

@@ -27,6 +27,7 @@ interface Props {
   secondWidth: number;
   castableBuff?: number;
   style?: React.CSSProperties;
+  castsOmitted?: boolean;
 }
 
 class Lane extends PureComponent<Props> {
@@ -50,6 +51,12 @@ class Lane extends PureComponent<Props> {
           );
         } else if (event.updateType === UpdateSpellUsableType.EndCooldown) {
           return this.renderCooldown(event);
+        } else if (
+          this.props.castsOmitted &&
+          (event.updateType === UpdateSpellUsableType.BeginCooldown ||
+            event.updateType === UpdateSpellUsableType.UseCharge)
+        ) {
+          return this.renderCast(event);
         } else {
           return null;
         }
@@ -68,7 +75,7 @@ class Lane extends PureComponent<Props> {
     }
   }
 
-  renderCast(event: CastEvent | FilterCooldownInfoEvent) {
+  renderCast(event: CastEvent | FilterCooldownInfoEvent | UpdateSpellUsableEvent) {
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(
       Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.timestamp),
@@ -110,7 +117,7 @@ class Lane extends PureComponent<Props> {
         }
       >
         <div
-          className="cooldown"
+          className={`cooldown ${event.timestamp > this.props.fightEndTimestamp ? 'post-fight' : ''}`}
           style={{
             left,
             width,
