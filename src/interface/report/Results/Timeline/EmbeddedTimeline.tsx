@@ -165,7 +165,7 @@ export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineP
     const result = new Map();
 
     for (const id of spellIds) {
-      result.set(id, spellUsable?.history(id)?.history ?? []);
+      result.set(id, spellUsable?.history(id)?.slice(range.start, range.end, true).data ?? []);
     }
 
     return result;

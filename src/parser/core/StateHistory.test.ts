@@ -16,36 +16,57 @@ describe('StateHistory', () => {
   describe('slice', () => {
     it('should include the entire range if it is contained by the start/end', () => {
       const history = new StateHistory(data);
-      expect(history.slice(-Infinity, Infinity)).toEqual(data);
+      expect(history.slice(-Infinity, Infinity).data).toEqual(data);
     });
 
     it('should include the entire range when the start/end times match the first/last points', () => {
       const history = new StateHistory(data);
-      expect(history.slice(0, 500)).toEqual(data);
+      expect(history.slice(0, 500).data).toEqual(data);
     });
 
     it('should not include points before the starting time', () => {
       const history = new StateHistory(data);
-      expect(history.slice(50, Infinity)).toEqual(data.filter((point) => point.timestamp >= 50));
+      expect(history.slice(50, Infinity).data).toEqual(
+        data.filter((point) => point.timestamp >= 50),
+      );
     });
 
     it('should not include points after the ending time', () => {
       const history = new StateHistory(data);
-      expect(history.slice(-Infinity, 450)).toEqual(data.filter((point) => point.timestamp <= 450));
+      expect(history.slice(-Infinity, 450).data).toEqual(
+        data.filter((point) => point.timestamp <= 450),
+      );
     });
 
     it('should include the first event that occurs >= start', () => {
       const history = new StateHistory(data);
-      expect(history.slice(150, Infinity)).toEqual(data.filter((point) => point.timestamp >= 150));
-      expect(history.slice(125, Infinity)).toEqual(data.filter((point) => point.timestamp >= 125));
-      expect(history.slice(200, Infinity)).toEqual(data.filter((point) => point.timestamp >= 200));
+      expect(history.slice(150, Infinity).data).toEqual(
+        data.filter((point) => point.timestamp >= 150),
+      );
+      expect(history.slice(125, Infinity).data).toEqual(
+        data.filter((point) => point.timestamp >= 125),
+      );
+      expect(history.slice(200, Infinity).data).toEqual(
+        data.filter((point) => point.timestamp >= 200),
+      );
     });
 
     it('should include the last event that occurs <= end', () => {
       const history = new StateHistory(data);
-      expect(history.slice(-Infinity, 250)).toEqual(data.filter((point) => point.timestamp <= 250));
-      expect(history.slice(-Infinity, 450)).toEqual(data.filter((point) => point.timestamp <= 450));
-      expect(history.slice(-Infinity, 500)).toEqual(data);
+      expect(history.slice(-Infinity, 250).data).toEqual(
+        data.filter((point) => point.timestamp <= 250),
+      );
+      expect(history.slice(-Infinity, 450).data).toEqual(
+        data.filter((point) => point.timestamp <= 450),
+      );
+      expect(history.slice(-Infinity, 500).data).toEqual(data);
+    });
+
+    it('should include an additional event before & after (if they exist) when expand = true', () => {
+      const history = new StateHistory(data);
+      expect(history.slice(-Infinity, 250, true).data).toEqual(data.slice(0, 6));
+      expect(history.slice(500, Infinity, true).data).toEqual(data.slice(-3));
+      expect(history.slice(200, 300, true).data).toEqual(data.slice(2, 7));
     });
   });
 

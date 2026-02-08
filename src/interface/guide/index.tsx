@@ -249,7 +249,7 @@ export function useEvents(range?: TimeRange): GuideContextValue['events'] {
   const events = use(GuideContext).events;
 
   if (range) {
-    return new StateHistory(events).slice(range.start, range.end);
+    return new StateHistory(events).slice(range.start, range.end).data;
   }
 
   return events;

@@ -8,15 +8,10 @@ import Abilities from './Abilities';
 import Aura, { SpellbookAura } from './Aura';
 import Analyzer, { SELECTED_PLAYER } from '../Analyzer';
 import Events, {
-  AnyEvent,
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
   ApplyDebuffEvent,
-  ApplyDebuffStackEvent,
   RemoveBuffEvent,
-  RemoveBuffStackEvent,
   RemoveDebuffEvent,
-  RemoveDebuffStackEvent,
 } from '../Events';
 import { SpellFilter, SpellInfo } from '../EventFilter';
 import StateHistory from '../StateHistory';
@@ -27,15 +22,7 @@ function isAbilityWithBuffSpellId(
   return ability.buffSpellId !== null && ability.buffSpellId !== 0;
 }
 
-type BuffOrDebuffEvent =
-  | ApplyBuffEvent
-  | ApplyBuffStackEvent
-  | RemoveBuffEvent
-  | RemoveBuffStackEvent
-  | ApplyDebuffEvent
-  | ApplyDebuffStackEvent
-  | RemoveDebuffEvent
-  | RemoveDebuffStackEvent;
+type BuffOrDebuffEvent = ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent;
 
 class Auras extends Analyzer.withDependencies({
   abilities: Abilities,
@@ -71,15 +58,7 @@ class Auras extends Analyzer.withDependencies({
   private registerListeners(filter: SpellFilter<SpellInfo>): void {
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(filter), this.appendToHistory);
     this.addEventListener(
-      Events.applybuffstack.to(SELECTED_PLAYER).spell(filter),
-      this.appendToHistory,
-    );
-    this.addEventListener(
       Events.removebuff.to(SELECTED_PLAYER).spell(filter),
-      this.appendToHistory,
-    );
-    this.addEventListener(
-      Events.removebuffstack.to(SELECTED_PLAYER).spell(filter),
       this.appendToHistory,
     );
 
@@ -88,15 +67,7 @@ class Auras extends Analyzer.withDependencies({
       this.appendToHistory,
     );
     this.addEventListener(
-      Events.applydebuffstack.to(SELECTED_PLAYER).spell(filter),
-      this.appendToHistory,
-    );
-    this.addEventListener(
       Events.removedebuff.to(SELECTED_PLAYER).spell(filter),
-      this.appendToHistory,
-    );
-    this.addEventListener(
-      Events.removedebuffstack.to(SELECTED_PLAYER).spell(filter),
       this.appendToHistory,
     );
   }

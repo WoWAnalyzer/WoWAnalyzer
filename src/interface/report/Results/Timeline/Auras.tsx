@@ -10,6 +10,7 @@ import { JSX, PureComponent } from 'react';
 import './Auras.scss';
 import { TimelineSettingsContext } from './Settings';
 import CombatLogParser from 'parser/core/CombatLogParser';
+import StateHistory from 'parser/core/StateHistory';
 
 interface Props {
   start: number;
@@ -111,6 +112,9 @@ class Auras extends PureComponent<Props> {
   }
 
   renderApplyAura(event: AbilityEvent<EventType>) {
+    if (event.timestamp > this.props.end) {
+      return null; // don't render applies that occur after the end of the window
+    }
     const spellId = event.ability.guid;
 
     // Avoid overlapping icons
@@ -222,26 +226,15 @@ class Auras extends PureComponent<Props> {
   render() {
     const { style } = this.props;
 
-    const events = [];
+    let combinedHistory = new StateHistory<AnyEvent>([]);
 
     for (const auraId of this.aurasToRender()) {
       const history = this.props.auras.history(auraId);
-      const previous = history.getBefore(this.props.start, true);
-      const slice = history.slice(this.props.start, this.props.end);
-
-      if (
-        previous &&
-        previous.type !== EventType.RemoveBuff &&
-        previous.type !== EventType.RemoveDebuff
-      ) {
-        // little white lie
-        events.push({ ...previous, type: EventType.ApplyBuff } as ApplyBuffEvent);
-      }
-
-      events.push(...slice);
+      const slice = history.slice(this.props.start, this.props.end, true);
+      console.log(auraId, slice);
+      combinedHistory = combinedHistory.union(slice);
     }
-    events.sort((a, b) => a.timestamp - b.timestamp);
-    const auras = events.map(this.renderEvent.bind(this));
+    const auras = combinedHistory.data.map(this.renderEvent.bind(this));
     auras.push(...this.renderLeftOverAuras());
 
     return (
