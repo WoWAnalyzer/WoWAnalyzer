@@ -2207,7 +2207,7 @@ export const zac: Contributor = {
 
 export const HerzBlutRaffy: Contributor = {
   nickname: 'Raffy',
-  github: 'naotaraffy',
+  github: 'lootguard',
   discord: 'HerzBlutRaffy#1697',
 };
 

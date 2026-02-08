@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS/deathknight';
 import TALENTS from 'common/TALENTS/deathknight';
 import CooldownGraphSubSection, {
   Cooldown,
@@ -5,36 +6,16 @@ import CooldownGraphSubSection, {
 
 const COOLDOWNS: Cooldown[] = [
   {
-    spell: TALENTS.APOCALYPSE_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.APOCALYPSE_TALENT),
-  },
-  {
-    spell: TALENTS.DARK_TRANSFORMATION_TALENT,
-    isActive: (c) =>
-      c.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT) && !c.hasTalent(TALENTS.APOCALYPSE_TALENT),
-  },
-  {
-    spell: TALENTS.LEGION_OF_SOULS_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.LEGION_OF_SOULS_TALENT),
-  },
-  {
-    spell: TALENTS.RAISE_ABOMINATION_TALENT,
-    isActive: (c) =>
-      c.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT) && !c.hasTalent(TALENTS.LEGION_OF_SOULS_TALENT),
+    spell: SPELLS.DARK_TRANSFORMATION,
+    isActive: (c) => c.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
   },
   {
     spell: TALENTS.ARMY_OF_THE_DEAD_TALENT,
-    isActive: (c) =>
-      !c.hasTalent(TALENTS.LEGION_OF_SOULS_TALENT) &&
-      !c.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
+    isActive: (c) => c.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT),
   },
   {
-    spell: TALENTS.SUMMON_GARGOYLE_TALENT,
+    spell: SPELLS.SUMMON_GARGOYLE,
     isActive: (c) => c.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT),
-  },
-  {
-    spell: TALENTS.UNHOLY_ASSAULT_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT),
   },
 ];
 

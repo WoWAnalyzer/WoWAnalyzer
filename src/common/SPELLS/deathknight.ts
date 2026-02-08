@@ -266,6 +266,34 @@ const spells = {
   },
 
   // Unholy:
+  FESTERING_STRIKE: {
+    id: 85948,
+    name: 'Festering Strike',
+    icon: 'spell_deathknight_festering_strike',
+    runesCost: 2,
+    runicPowerCost: -20,
+  },
+
+  CLAWING_SHADOWS: {
+    id: 207311,
+    name: 'Clawing Shadows',
+    icon: 'warlock_curse_shadow',
+    runesCost: 1,
+    runicPowerCost: -10,
+  },
+
+  DARK_TRANSFORMATION: {
+    id: 1233448,
+    name: 'Dark Transformation',
+    icon: 'achievement_boss_festergutrotface',
+  },
+
+  SUMMON_GARGOYLE: {
+    id: 49206,
+    name: 'Summon Gargoyle',
+    icon: 'ability_deathknight_summongargoyle',
+  },
+
   FESTERING_SCYTHE: {
     id: 458128,
     name: 'Festering Scythe',
@@ -360,8 +388,14 @@ const spells = {
     icon: 'spell_deathknight_plaguestrike',
   },
 
-  // scourge strike has one cast event but two damage events, the cast and physical
-  // damage happen on id 55090 (talent), the shadow damage is on id 70890
+  SCOURGE_STRIKE: {
+    id: 55090,
+    name: 'Scourge Strike',
+    icon: 'spell_deathknight_scourgestrike',
+    runesCost: 1,
+    runicPowerCost: -10,
+  },
+
   SCOURGE_STRIKE_SHADOW_DAMAGE: {
     id: 70890,
     name: 'Scourge Strike',
@@ -403,6 +437,72 @@ const spells = {
     id: 81340,
     name: 'Sudden Doom',
     icon: 'spell_shadow_painspike',
+  },
+
+  PUTREFY: {
+    id: 1247378,
+    name: 'Putrefy',
+    icon: 'inv12_ability_deathknight_putrefy',
+    runesCost: 1,
+    runicPowerCost: -10,
+  },
+
+  PESTILENCE: {
+    id: 1271974,
+    name: 'Pestilence',
+    icon: 'spell_shadow_plaguecloud',
+    runicPowerCost: 10,
+  },
+
+  DREAD_PLAGUE: {
+    id: 1240996,
+    name: 'Dread Plague',
+    icon: 'spell_deathknight_bloodplague',
+  },
+
+  RAISE_ABOMINATION: {
+    id: 288853,
+    name: 'Raise Abomination',
+    icon: 'spell_deathknight_thrash_ghoul',
+  },
+
+  SOUL_REAPER: {
+    id: 343294,
+    name: 'Soul Reaper',
+    icon: 'ability_deathknight_soulreaper',
+    runesCost: 1,
+    runicPowerCost: -10,
+  },
+
+  ARMY_OF_THE_DEAD: {
+    id: 42650,
+    name: 'Army of the Dead',
+    icon: 'spell_deathknight_armyofthedead',
+    runesCost: 1,
+  },
+
+  UNHOLY_TIER_2PC_BUFF: {
+    id: 1264803,
+    name: 'Death Knight Unholy 12.0 Class Set 2pc',
+    icon: 'inv_helm_plate_raiddeathknight_v_01',
+  },
+
+  UNHOLY_TIER_4PC_BUFF: {
+    id: 1264804,
+    name: 'Death Knight Unholy 12.0 Class Set 4pc',
+    icon: 'inv_helm_plate_raiddeathknight_v_01',
+  },
+
+  LESSER_GHOUL_BUFF: {
+    id: 1254252,
+    name: 'Lesser Ghoul',
+    icon: 'spell_deathknight_thrash_ghoul',
+  },
+
+  FORBIDDEN_KNOWLEDGE: {
+    id: 1256565,
+    name: 'Forbidden Knowledge',
+    icon: 'spell_shadow_rune',
   },
 
   // Shared:
