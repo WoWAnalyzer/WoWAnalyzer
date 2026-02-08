@@ -21,7 +21,7 @@ import './Casts.scss';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
-import { TimelineSettingsContext } from './Component';
+import { TimelineSettingsContext } from './Settings';
 
 const ICON_WIDTH = 22;
 

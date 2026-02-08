@@ -5,7 +5,7 @@ import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AurasModule from 'parser/core/modules/Auras';
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 
 import './Timeline.scss';
 import Auras from './Auras';
@@ -13,10 +13,6 @@ import Casts, { isApplicableEvent } from './Casts';
 import { EnemyCastsTimeline } from './EnemyCasts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
-
-export const TimelineSettingsContext = React.createContext({
-  secondWidth: 60,
-});
 
 export function isApplicableUpdateSpellUsableEvent(event, startTime) {
   if (

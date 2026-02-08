@@ -1,6 +1,6 @@
 import { formatDuration } from 'common/format';
 import { HTMLAttributes, use } from 'react';
-import { TimelineSettingsContext } from './Component';
+import { TimelineSettingsContext } from './Settings';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   seconds: number;

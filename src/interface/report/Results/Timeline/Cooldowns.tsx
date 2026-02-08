@@ -7,11 +7,12 @@ import './Cooldowns.scss';
 import Lane from './Lane';
 import Icon from 'interface/Icon';
 import { EventType } from 'vega';
+import { TimelineSettingsContext } from './Settings';
 
 interface Props {
   start: number;
   end: number;
-  secondWidth: number;
+  secondWidth?: number;
   eventsBySpellId: Map<number, AnyEvent[]>;
   abilities: Abilities;
   /**
@@ -23,6 +24,8 @@ interface Props {
 }
 
 class Cooldowns extends PureComponent<Props> {
+  declare context: React.ContextType<typeof TimelineSettingsContext>;
+
   getSortIndex([spellId, events]: [number, AnyEvent[]]) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability?.timelineSortIndex) {
@@ -47,7 +50,7 @@ class Cooldowns extends PureComponent<Props> {
         spell={this.props.exactlySpells?.find((spell) => spell.id === spellId)}
         fightStartTimestamp={this.props.start}
         fightEndTimestamp={this.props.end}
-        secondWidth={this.props.secondWidth}
+        secondWidth={this.props.secondWidth ?? this.context.secondWidth}
         castableBuff={this.props.abilities.getAbility(spellId)?.timelineCastableBuff}
       >
         {events}
@@ -80,5 +83,7 @@ class Cooldowns extends PureComponent<Props> {
     );
   }
 }
+
+Cooldowns.contextType = TimelineSettingsContext;
 
 export default Cooldowns;

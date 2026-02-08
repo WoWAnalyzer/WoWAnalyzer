@@ -3,49 +3,43 @@ import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
-import { EventType } from 'parser/core/Events';
+import { AbilityEvent, AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import AurasModule from 'parser/core/modules/Auras';
-import PropTypes from 'prop-types';
-import { PureComponent } from 'react';
+import { JSX, PureComponent } from 'react';
 
 import './Auras.scss';
+import { TimelineSettingsContext } from './Settings';
+import CombatLogParser from 'parser/core/CombatLogParser';
 
-class Auras extends PureComponent {
-  static propTypes = {
-    start: PropTypes.number.isRequired,
-    secondWidth: PropTypes.number.isRequired,
-    parser: PropTypes.shape({
-      eventHistory: PropTypes.arrayOf(
-        PropTypes.shape({
-          type: PropTypes.string.isRequired,
-        }),
-      ).isRequired,
-      toPlayer: PropTypes.func.isRequired,
-    }).isRequired,
-    auras: PropTypes.instanceOf(AurasModule).isRequired,
-    style: PropTypes.object,
-    visibleAuras: PropTypes.instanceOf(Set),
-  };
+interface Props {
+  start: number;
+  secondWidth?: number;
+  parser: CombatLogParser;
+  auras: AurasModule;
+  style?: React.CSSProperties;
+  visibleAuras?: Set<number>;
+  events?: AnyEvent[];
+}
 
-  constructor() {
-    super();
-    this.renderEvent = this.renderEvent.bind(this);
-  }
+class Auras extends PureComponent<Props> {
+  declare context: React.ContextType<typeof TimelineSettingsContext>;
 
-  getOffsetLeft(timestamp) {
-    return ((timestamp - this.props.start) / 1000) * this.props.secondWidth;
+  getOffsetLeft(timestamp: number): number {
+    return (
+      ((timestamp - this.props.start) / 1000) * (this.props.secondWidth ?? this.context.secondWidth)
+    );
   }
 
   // TODO: Fabricate removebuff events for buffs that expired after the fight
 
-  isApplicableBuffEvent(event) {
+  isApplicableBuffEvent(event: AnyEvent) {
     const parser = this.props.parser;
 
     if (!parser.toPlayer(event)) {
       // Ignore pet/boss buffs
       return false;
     }
-    const spellId = event.ability.guid;
+    const spellId = HasAbility(event) ? event.ability.guid : 0;
     const buff = this.props.auras.getAura(spellId);
     if (!buff || !buff.timelineHighlight) {
       return false;
@@ -59,14 +53,14 @@ class Auras extends PureComponent {
     return true;
   }
 
-  isApplicableDebuffEvent(event) {
+  isApplicableDebuffEvent(event: AnyEvent) {
     const parser = this.props.parser;
 
     if (!parser.toPlayer(event)) {
       // Ignore pet/boss buffs
       return false;
     }
-    const spellId = event.ability.guid;
+    const spellId = HasAbility(event) ? event.ability.guid : 0;
     const buff = this.props.auras.getAura(spellId);
     if (!buff || !buff.timelineHighlight) {
       return false;
@@ -79,7 +73,7 @@ class Auras extends PureComponent {
     return true;
   }
 
-  renderEvent(event) {
+  renderEvent(event: AnyEvent) {
     switch (event.type) {
       case EventType.ApplyBuff:
         if (this.isApplicableBuffEvent(event)) {
@@ -111,8 +105,8 @@ class Auras extends PureComponent {
         return null;
     }
   }
-  _applied = {};
-  _levels = [];
+  _applied: Record<number, AbilityEvent<EventType>> = {};
+  _levels: (number | undefined)[] = [];
   _maxLevel = 0;
   _getLevel() {
     // Look for the first available level, reusing levels that are no longer used
@@ -122,7 +116,8 @@ class Auras extends PureComponent {
     }
     return level;
   }
-  renderApplyAura(event) {
+
+  renderApplyAura(event: AbilityEvent<EventType>) {
     const spellId = event.ability.guid;
 
     // Avoid overlapping icons
@@ -135,11 +130,11 @@ class Auras extends PureComponent {
       className: 'hoist',
       style: {
         '--level': level,
-      },
+      } as React.CSSProperties,
       children: <div className="time-indicator" />,
     });
   }
-  renderRemoveAura(event) {
+  renderRemoveAura(event: AbilityEvent<EventType>) {
     const applied = this._applied[event.ability.guid];
     if (!applied) {
       // This may occur for broken logs with missing events due to range/logger issues
@@ -166,21 +161,25 @@ class Auras extends PureComponent {
       >
         <div
           className="aura hoist"
-          style={{
-            left,
-            width: ((event.timestamp - applied.timestamp) / 1000) * this.props.secondWidth,
-            '--level': level,
-          }}
+          style={
+            {
+              left,
+              width:
+                ((event.timestamp - applied.timestamp) / 1000) *
+                (this.props.secondWidth ?? this.context.secondWidth),
+              '--level': level,
+            } as React.CSSProperties
+          }
           data-effect="float"
         />
       </Tooltip>
     );
   }
-  renderLeftOverAuras(event) {
+  renderLeftOverAuras(event: AnyEvent) {
     // We don't have a removebuff event for buffs that end *after* the fight, so instead we go through all remaining active buffs and manually trigger the removebuff render.
-    const elems = [];
+    const elems: (JSX.Element | null)[] = [];
     Object.keys(this._applied).forEach((spellId) => {
-      const applied = this._applied[spellId];
+      const applied = this._applied[Number(spellId)];
       elems.push(
         this.renderRemoveAura({
           ...applied,
@@ -190,7 +189,15 @@ class Auras extends PureComponent {
     });
     return elems;
   }
-  renderIcon(event, { className = '', style = {}, children } = {}) {
+
+  renderIcon(
+    event: AbilityEvent<EventType>,
+    {
+      className = '',
+      style = {},
+      children,
+    }: { className?: string; style?: React.CSSProperties; children?: React.ReactNode } = {},
+  ) {
     const left = this.getOffsetLeft(event.timestamp);
     return (
       <SpellLink
@@ -209,22 +216,27 @@ class Auras extends PureComponent {
     );
   }
   render() {
-    const { parser, style } = this.props;
+    const { parser, style, events: explicitEvents } = this.props;
+    const events = explicitEvents ?? parser.eventHistory;
 
-    const auras = parser.eventHistory.map(this.renderEvent);
+    const auras = events.map(this.renderEvent.bind(this));
 
     return (
       <div
         className="auras"
-        style={{
-          '--levels': this._maxLevel + 1,
-          ...style,
-        }}
+        style={
+          {
+            '--levels': this._maxLevel + 1,
+            ...style,
+          } as React.CSSProperties
+        }
       >
         {auras}
       </div>
     );
   }
 }
+
+Auras.contextType = TimelineSettingsContext;
 
 export default Auras;
