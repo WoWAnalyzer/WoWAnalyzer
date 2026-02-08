@@ -200,6 +200,7 @@ class Timeline extends PureComponent {
             />
             <Auras
               start={this.start}
+              end={this.end}
               secondWidth={this.secondWidth}
               parser={parser}
               auras={auras}

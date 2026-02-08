@@ -54,5 +54,9 @@
     --level: 0;
     bottom: 0;
     cursor: default;
+
+    &.post-fight {
+      border-top-right-radius: 0;
+    }
   }
 }

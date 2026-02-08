@@ -178,6 +178,11 @@ export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineP
     return result;
   }, [events, cooldownSpellIds, abilities]);
 
+  const visibleAuras = useMemo(
+    () => (Array.isArray(auraIds) ? new Set(auraIds) : undefined),
+    [auraIds],
+  );
+
   if (!abilities || !auraAnalyzer) {
     return null;
   }
@@ -185,12 +190,15 @@ export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineP
   return (
     <AutoSizerTimelineContainer secondsShown={secondsShown}>
       <SpellTimeline>
-        <AuraTimeline
-          start={range.start}
-          auras={auraAnalyzer}
-          parser={combatLogParser}
-          events={events}
-        />
+        {auraIds && (
+          <AuraTimeline
+            start={range.start}
+            end={range.end}
+            auras={auraAnalyzer}
+            parser={combatLogParser}
+            visibleAuras={visibleAuras}
+          />
+        )}
         <TimeIndicators seconds={secondsShown} offset={offset} skipInterval={2}>
           <Casts start={range.start} events={events} />
         </TimeIndicators>

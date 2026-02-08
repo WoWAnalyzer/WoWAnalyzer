@@ -1,11 +1,25 @@
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import Module, { Options } from 'parser/core/Module';
+import { Options } from 'parser/core/Module';
 import Ability from 'parser/core/modules/Ability';
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from './Abilities';
 import Aura, { SpellbookAura } from './Aura';
+import Analyzer, { SELECTED_PLAYER } from '../Analyzer';
+import Events, {
+  AnyEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  ApplyDebuffEvent,
+  ApplyDebuffStackEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  RemoveDebuffEvent,
+  RemoveDebuffStackEvent,
+} from '../Events';
+import { SpellFilter, SpellInfo } from '../EventFilter';
+import StateHistory from '../StateHistory';
 
 function isAbilityWithBuffSpellId(
   ability: Ability,
@@ -13,43 +27,97 @@ function isAbilityWithBuffSpellId(
   return ability.buffSpellId !== null && ability.buffSpellId !== 0;
 }
 
-export type AuraOptions = Options & {
-  abilities: Abilities;
-  haste: Haste;
-};
+type BuffOrDebuffEvent =
+  | ApplyBuffEvent
+  | ApplyBuffStackEvent
+  | RemoveBuffEvent
+  | RemoveBuffStackEvent
+  | ApplyDebuffEvent
+  | ApplyDebuffStackEvent
+  | RemoveDebuffEvent
+  | RemoveDebuffStackEvent;
 
-/**
- * @property {Haste} haste
- * @property {Abilities} abilities
- */
-class Auras extends Module {
-  static dependencies = {
-    abilities: Abilities,
-    haste: Haste,
-  };
-
-  protected abilities!: Abilities;
-  protected haste!: Haste;
-
+class Auras extends Analyzer.withDependencies({
+  abilities: Abilities,
+  haste: Haste,
+}) {
   activeAuras: Aura[] = [];
-  constructor(options: AuraOptions) {
+  private listenedAuraIds: Set<number> = new Set();
+  constructor(options: Options) {
     super(options);
-    // passing options is necessary due to how module dependencies work
-    // see https://github.com/Microsoft/TypeScript/issues/6110 for more info
-    this.loadAuras(this.auras(options));
+    this.loadAuras(this.auras());
+    this.registerListeners(this.activeAuraFilter());
+    for (const aura of this.activeAuraFilter()) {
+      this.listenedAuraIds.add(aura.id);
+    }
+  }
+
+  readonly auraEvents: Map<number, BuffOrDebuffEvent[]> = new Map();
+
+  history(spellId: number): StateHistory<BuffOrDebuffEvent> {
+    return new StateHistory(this.auraEvents.get(spellId) ?? []);
+  }
+
+  private appendToHistory(event: BuffOrDebuffEvent): void {
+    const spellId = event.ability.guid;
+    if (!this.auraEvents.has(spellId)) {
+      this.auraEvents.set(spellId, []);
+    }
+
+    this.auraEvents.get(spellId)?.push(event);
+  }
+
+  // the rare non-constructor event listener. `add` is called in constructors of other analyzers, so the event listener should still be registered in time.
+  private registerListeners(filter: SpellFilter<SpellInfo>): void {
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(filter), this.appendToHistory);
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+
+    this.addEventListener(
+      Events.applydebuff.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+    this.addEventListener(
+      Events.applydebuffstack.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+    this.addEventListener(
+      Events.removedebuff.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+    this.addEventListener(
+      Events.removedebuffstack.to(SELECTED_PLAYER).spell(filter),
+      this.appendToHistory,
+    );
+  }
+
+  private activeAuraFilter(): SpellInfo[] {
+    return this.activeAuras.flatMap((aura) =>
+      Array.isArray(aura.spellId) ? aura.spellId.map((id) => ({ id })) : [{ id: aura.spellId }],
+    );
   }
 
   /**
    * This will be called *once* during initialization. This isn't nearly as well worked out as the Abilities modules and was in fact extremely rushed. So I have no clue if you should include all buffs here, or just important ones. We'll figure it out later.
    * @returns {object[]}
    */
-  auras(options: AuraOptions): SpellbookAura[] {
+  auras(): SpellbookAura[] {
     // This list will NOT be recomputed during the fight. If a cooldown changes based on something like Haste or a Buff you need to put it in a function.
     // While you can put checks for talents/traits outside the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
     // I think anyway, this might all change lul.
     return [
       // Convert the legacy buffSpellId prop
-      ...options.abilities.activeAbilities.filter(isAbilityWithBuffSpellId).map((ability) => ({
+      ...this.deps.abilities.activeAbilities.filter(isAbilityWithBuffSpellId).map((ability) => ({
         spellId: ability.buffSpellId,
         triggeredBySpellId:
           ability.spell !== ability.buffSpellId ? ability.primarySpell : undefined,
@@ -79,6 +147,19 @@ class Auras extends Module {
   add(options: SpellbookAura) {
     const buff = new Aura(options);
     this.activeAuras.push(buff);
+    if (Array.isArray(buff.spellId)) {
+      for (const id of buff.spellId) {
+        if (!this.listenedAuraIds.has(id)) {
+          this.listenedAuraIds.add(id);
+          this.registerListeners({ id });
+        }
+      }
+    } else {
+      if (!this.listenedAuraIds.has(buff.spellId)) {
+        this.listenedAuraIds.add(buff.spellId);
+        this.registerListeners({ id: buff.spellId });
+      }
+    }
   }
 
   /**
