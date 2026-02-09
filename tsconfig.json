@@ -41,7 +41,6 @@
   "exclude": [
     "src/analysis/retail/deathknight/blood",
     "src/analysis/retail/deathknight/frost",
-    "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/druid/balance",
     "src/analysis/retail/druid/feral",
     "src/analysis/retail/druid/restoration",
@@ -71,7 +70,6 @@
   "files": [
     "src/analysis/retail/deathknight/blood/CONFIG.tsx",
     "src/analysis/retail/deathknight/frost/CONFIG.tsx",
-    "src/analysis/retail/deathknight/unholy/CONFIG.tsx",
     "src/analysis/retail/druid/balance/CONFIG.tsx",
     "src/analysis/retail/druid/feral/CONFIG.tsx",
     "src/analysis/retail/druid/restoration/CONFIG.tsx",

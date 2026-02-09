@@ -40,8 +40,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   get UptimeSuggestionThresholds() {
     const isVpImportant =
       this.selectedCombatant.hasTalent(TALENTS.EBON_FEVER_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.SUPERSTRAIN_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.PLAGUEBRINGER_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.SUPERSTRAIN_TALENT);
 
     return isVpImportant
       ? {

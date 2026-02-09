@@ -3,7 +3,6 @@ import TALENTS from 'common/TALENTS/deathknight';
 import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { SpellLink } from 'interface';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -20,30 +19,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.SCOURGE_STRIKE_TALENT.id,
-        enabled: !combatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
-      },
-      {
-        spell: TALENTS.CLAWING_SHADOWS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         range: 30,
-      },
-      {
-        spell: TALENTS.FESTERING_STRIKE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.FESTERING_STRIKE_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
       },
       {
         spell: SPELLS.FESTERING_SCYTHE.id,
@@ -72,21 +52,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
-        enabled: !combatant.hasTalent(TALENTS.DEFILE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
-        charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
-        gcd: {
-          base: 1500,
-        },
-        range: 30,
-      },
-      {
-        spell: TALENTS.DEFILE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DEFILE_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 20,
-        charges: 1,
         gcd: {
           base: 1500,
         },
@@ -102,80 +69,43 @@ class Abilities extends CoreAbilities {
         },
         range: AbilityRange.Melee,
       },
-      //endregion
-
-      // region Cooldowns
       {
-        spell: TALENTS.APOCALYPSE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.APOCALYPSE_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        spell: SPELLS.FESTERING_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        // If Festering Scythe is talented, there is a -500ms GCD reduction
         gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <span>
-              Making sure to use <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> immediately after
-              it's cooldown is up is important, try to plan for it's use as it is coming off
-              cooldown.
-            </span>
-          ),
-        },
-      },
-      {
-        spell: TALENTS.DARK_TRANSFORMATION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        range: 100,
-      },
-      {
-        spell: TALENTS.UNHOLY_ASSAULT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
+          base: combatant.hasTalent(TALENTS.FESTERING_SCYTHE_TALENT) ? 1000 : 1500,
         },
         range: AbilityRange.Melee,
       },
       {
-        spell: [TALENTS.SUMMON_GARGOYLE_TALENT.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
-        enabled: combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: null,
-        range: 30,
-      },
-      {
-        spell: TALENTS.ARMY_OF_THE_DEAD_TALENT.id,
-        enabled:
-          combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT) &&
-          !combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.RAISE_ABOMINATION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        spell: TALENTS.PUTREFY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.PUTREFY_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         range: 40,
       },
-      //endregion
+
+      // region Cooldowns
+      {
+        spell: TALENTS.DARK_TRANSFORMATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: null,
+        range: 100,
+      },
+      {
+        spell: TALENTS.ARMY_OF_THE_DEAD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       // region Defensives
       {
@@ -187,10 +117,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown:
-          60 -
-          Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 +
-          Number(combatant.hasTalent(TALENTS.UNYIELDING_WILL_TALENT)) * 20,
+        cooldown: 60,
         gcd: null,
       },
       {
@@ -203,14 +130,6 @@ class Abilities extends CoreAbilities {
         cooldown: combatant.hasTalent(TALENTS.ASSIMILATION_TALENT) ? 180 : 240,
         isDefensive: true,
         enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_ZONE_TALENT),
-      },
-      {
-        spell: TALENTS.SACRIFICIAL_PACT_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.LICHBORNE.id,
@@ -234,7 +153,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
       },
-      //endregion
 
       // region Utility
       {
@@ -276,14 +194,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         range: 20,
-      },
-      {
-        spell: TALENTS.RAISE_DEAD_UNHOLY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_UNHOLY_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        gcd: null,
-        range: 30,
       },
       {
         spell: SPELLS.CHAINS_OF_ICE.id,
@@ -337,34 +247,28 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      /*
+      Rune cooldown is base 10s reduced by haste. Runic Corruption's regeneration acceleration is handled in the RuneTracker via onApplybuff/onRemovebuff.
+      Do not add RC logic here to avoid double-counting.
+      */
       {
         spell: SPELLS.RUNE_1.id,
         category: SPELL_CATEGORY.HIDDEN,
-        cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
-        },
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_2.id,
         category: SPELL_CATEGORY.HIDDEN,
-        cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
-        },
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
-        cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
-        },
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
-      //endregion
     ];
   }
 }
