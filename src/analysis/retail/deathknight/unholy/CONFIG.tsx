@@ -17,7 +17,8 @@ const config: Config = {
     <>
       <p>
         Unholy Death Knights are disease specialists and undead masters, they turn rot and plague
-        into damage. The specialization focuses on...
+        into damage. The specialization focuses on spreading diseases and keeping abilities on
+        cooldown to maximize the damage from DOTs.
       </p>
       <p>
         Efficient resource use and cooldown alignment are key. Whether in AoE or single-target

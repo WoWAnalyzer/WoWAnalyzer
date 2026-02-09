@@ -19,7 +19,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.SCOURGE_STRIKE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SCOURGE_STRIKE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
