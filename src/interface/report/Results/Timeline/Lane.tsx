@@ -4,7 +4,6 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import {
-  AbilityEvent,
   AnyEvent,
   ApplyBuffEvent,
   CastEvent,
@@ -13,7 +12,6 @@ import {
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
-  HasAbility,
 } from 'parser/core/Events';
 import { Fragment, PureComponent } from 'react';
 
@@ -184,11 +182,6 @@ class Lane extends PureComponent<Props> {
     if ((!spell && children.length === 0) || this.props.secondWidth === 0) {
       return null;
     }
-
-    const abilityEvent = children.find(HasAbility) as AbilityEvent<any> | undefined;
-    const abilityIcon = spell?.icon ?? abilityEvent?.ability.abilityIcon.replace('.jpg', '');
-    // we use the log name when possible for localization purposes
-    const abilityName = abilityEvent?.ability.name ?? spell?.name;
 
     if (
       children[0]?.type === EventType.FilterCooldownInfo ||

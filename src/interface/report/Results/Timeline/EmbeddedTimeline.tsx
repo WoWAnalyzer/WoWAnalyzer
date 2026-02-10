@@ -12,7 +12,6 @@ import Cooldowns from './Cooldowns';
 import Abilities from 'parser/core/modules/Abilities';
 import { TimelineSettingsContext } from './Settings';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
-import { EventType, HasAbility } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
@@ -62,11 +61,11 @@ export const SpellTimeline = ({
 
 export default EmbeddedTimelineContainer;
 
-type AutoSizerTimelineContainerProps = {
+interface AutoSizerTimelineContainerProps {
   secondsShown: number;
   castBarCount?: number;
   children?: React.ReactNode;
-};
+}
 
 /**
  * Timeline container that automatically sets the width of seconds to prevent scrolling.
@@ -169,7 +168,7 @@ export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineP
     }
 
     return result;
-  }, [cooldownSpellIds, abilities, spellUsable]);
+  }, [cooldownSpellIds, abilities, spellUsable, range.start, range.end]);
 
   const visibleAuras = useMemo(
     () => (Array.isArray(auraIds) ? new Set(auraIds) : undefined),

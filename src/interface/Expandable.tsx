@@ -11,6 +11,7 @@ interface Props {
   className?: string;
   expanded?: boolean;
   inverseExpanded: () => void;
+  disableDisplayNone?: boolean;
 }
 
 export const Expandable = (props: Omit<Props, 'expanded' | 'inverseExpanded'>) => {
@@ -41,7 +42,11 @@ export const ControlledExpandable = (props: Props) => {
       <div className="meta" onClick={props.inverseExpanded}>
         {header}
       </div>
-      <AnimateHeight className="details" height={props.expanded ? 'auto' : 0}>
+      <AnimateHeight
+        className="details"
+        height={props.expanded ? 'auto' : 0}
+        disableDisplayNone={props.disableDisplayNone}
+      >
         {children}
       </AnimateHeight>
     </Element>

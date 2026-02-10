@@ -3,7 +3,7 @@ import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
-import { AbilityEvent, AnyEvent, ApplyBuffEvent, EventType, HasAbility } from 'parser/core/Events';
+import { AbilityEvent, AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import AurasModule from 'parser/core/modules/Auras';
 import { JSX, PureComponent } from 'react';
 
@@ -129,7 +129,7 @@ class Auras extends PureComponent<Props> {
     });
   }
   renderRemoveAura(event: AbilityEvent<EventType>, endsAfterFight = false) {
-    let applied = this._applied[event.ability.guid];
+    const applied = this._applied[event.ability.guid];
     if (!applied) {
       return null;
     }

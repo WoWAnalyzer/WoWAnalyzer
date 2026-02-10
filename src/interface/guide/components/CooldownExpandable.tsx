@@ -67,8 +67,11 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timelin
       element="section"
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
+      // this allows animation transitions to function correctly with auto-height calculations when the timeline is enabled.
+      disableDisplayNone={Boolean(timeline)}
     >
-      <div>
+      {/* inert is used to prevent tabbing from getting trapped on the timeline */}
+      <div inert={!isExpanded}>
         {timeline && <EasyTimeline {...timeline} />}
         {checklistItems && checklistItems.length !== 0 && (
           <CooldownExpandableDataList items={checklistItems} title="Checklist" />

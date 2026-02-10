@@ -75,7 +75,7 @@ class SpellUsable extends Analyzer.withDependencies({
   public cooldownErrorCount = 0;
   public unknownAbilityErrorCount = 0;
 
-  private cooldownHistories: Map<number, UpdateSpellUsableEvent[]> = new Map();
+  private cooldownHistories = new Map<number, UpdateSpellUsableEvent[]>();
 
   history(spellId: number): StateHistory<UpdateSpellUsableEvent> {
     return new StateHistory(this.cooldownHistories.get(spellId) ?? []);

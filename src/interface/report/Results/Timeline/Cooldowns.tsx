@@ -1,13 +1,13 @@
 import Spell from 'common/SPELLS/Spell';
-import { AbilityEvent, AnyEvent, HasAbility } from 'parser/core/Events';
+import { AnyEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { PureComponent } from 'react';
 
 import './Cooldowns.scss';
 import Lane from './Lane';
 import Icon from 'interface/Icon';
-import { EventType } from 'vega';
 import { TimelineSettingsContext } from './Settings';
+import { maybeGetSpell } from 'common/SPELLS';
 
 interface Props {
   start: number;
@@ -65,12 +65,16 @@ class Cooldowns extends PureComponent<Props> {
       Array.from(eventsBySpellId);
     return entries
       .sort((a, b) => this.getSortIndex(a) - this.getSortIndex(b))
-      .map(([_spellId, events]) => {
-        const ability = (events.find(HasAbility) as AbilityEvent<EventType> | undefined)?.ability;
+      .map(([spellId, events]) => {
+        if (events.length === 0) {
+          return null;
+        }
+
+        const ability = maybeGetSpell(spellId);
 
         return (
-          <div className="legend">
-            {ability && <Icon icon={ability.abilityIcon} alt={ability.name} />}
+          <div className="legend" key={spellId}>
+            {ability && <Icon icon={ability.icon} alt={ability.name} />}
           </div>
         );
       });

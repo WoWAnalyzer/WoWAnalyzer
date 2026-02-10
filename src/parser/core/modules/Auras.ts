@@ -29,7 +29,7 @@ class Auras extends Analyzer.withDependencies({
   haste: Haste,
 }) {
   activeAuras: Aura[] = [];
-  private listenedAuraIds: Set<number> = new Set();
+  private listenedAuraIds = new Set<number>();
   constructor(options: Options) {
     super(options);
     this.loadAuras(this.auras());
@@ -39,7 +39,7 @@ class Auras extends Analyzer.withDependencies({
     }
   }
 
-  readonly auraEvents: Map<number, BuffOrDebuffEvent[]> = new Map();
+  readonly auraEvents = new Map<number, BuffOrDebuffEvent[]>();
 
   history(spellId: number): StateHistory<BuffOrDebuffEvent> {
     return new StateHistory(this.auraEvents.get(spellId) ?? []);
