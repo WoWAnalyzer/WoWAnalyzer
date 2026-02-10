@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import { AlertInfo, AlertWarning, SpellLink, TooltipElement } from 'interface';
+import { AlertInfo, SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
@@ -8,16 +8,15 @@ import talents from 'common/TALENTS/monk';
 import spells from './spell-list_Monk_Brewmaster.retail';
 
 import MajorDefensivesSection from './modules/core/MajorDefensives';
-import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
-import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import AspectOfHarmony from './modules/talents/AspectOfHarmony';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import InvokeNiuzaoSection from './modules/talents/InvokeNiuzao/InvokeNiuzaoSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -61,11 +60,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             </p>
           </Explanation>
           {info.combatant.hasTalent(talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT) && (
-            <CastEfficiencyBar
-              spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
+            <>
+              <CastEfficiencyBar
+                spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}
+                gapHighlightMode={GapHighlight.FullCooldown}
+                useThresholds
+              />
+            </>
           )}
           {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
             <CastEfficiencyBar
@@ -75,6 +76,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             />
           )}
         </SubSection>
+        <InvokeNiuzaoSection />
       </Section>
       <MasterOfHarmonySection />
       <MajorDefensivesSection />
