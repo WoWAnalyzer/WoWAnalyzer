@@ -60,10 +60,17 @@ export interface CooldownInfo {
 /**
  * Comprehensive tracker for spell cooldown status
  */
-class SpellUsable extends Analyzer.withDependencies({
-  eventEmitter: EventEmitter,
-  abilities: Abilities,
-}) {
+class SpellUsable extends Analyzer {
+  // cannot use withDependencies here (yet) due to some subclassing stuff downstream
+  static dependencies = {
+    eventEmitter: EventEmitter,
+    abilities: Abilities,
+  };
+  declare readonly deps: {
+    eventEmitter: EventEmitter;
+    abilities: Abilities;
+  } & Record<string, never>;
+
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
   protected _currentCooldowns: Record<number, CooldownInfo> = {};
