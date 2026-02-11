@@ -1,5 +1,5 @@
 import { EMPOWERS, EMPOWER_CANCELED_GCD, EMPOWER_MINIMUM_GCD } from '../..';
-import { BeginChannelEvent, CastEvent } from 'parser/core/Events';
+import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import EmpowerNormalizer, {
   empowerFinishedCasting,
@@ -26,15 +26,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
       this.currentEmpower = event;
     }
     super.onCast(event);
-  }
-
-  /** Override to avoid triggering duplicate GCDs */
-  onBeginChannel(event: BeginChannelEvent) {
-    if (EMPOWERS.includes(event.ability.guid)) {
-      // This GCD gets handled by the `onCast` event
-      return;
-    }
-    super.onBeginChannel(event);
   }
 
   getGlobalCooldownDuration(spellId: number): number {

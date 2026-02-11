@@ -4,7 +4,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 // Features
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 // import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -52,8 +51,6 @@ import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    globalCooldown: GlobalCooldown,
-
     mysticTouch: MysticTouch,
     spellUsable: SpellUsable,
     chiJiNormalizer: DanceOfChiJiNormalizer,
