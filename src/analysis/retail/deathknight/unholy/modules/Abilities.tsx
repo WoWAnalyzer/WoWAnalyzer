@@ -70,16 +70,6 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
-        spell: TALENTS.SOUL_REAPER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 6,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
-      },
-      {
         spell: SPELLS.FESTERING_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         // If Festering Scythe is talented, there is a -500ms GCD reduction
