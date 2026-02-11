@@ -13,6 +13,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import { TimelineSettingsContext } from './Settings';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import type Spell from 'common/SPELLS/Spell';
 
 /**
  * Container for embedding the timeline in another component.
@@ -122,20 +123,24 @@ export interface EmbeddedTimelineProps {
    * If not provided or set to `true`, get the ids from the `Buffs` core analyzer.
    * If set to `false`, do not show auras.
    */
-  auraIds?: number[] | boolean;
+  auras?: (number | Spell)[] | boolean;
   /**
    * IDs of spells to show the cooldowns of.
    * If not provided, no cooldowns are shown.
    * If set to `true`, show all cooldowns (not recommended for inline use)
    */
-  cooldownSpellIds?: number[] | true;
+  cooldowns?: (number | Spell)[] | true;
 }
 
-export default function EmbeddedTimeline({
-  range,
-  auraIds,
-  cooldownSpellIds,
-}: EmbeddedTimelineProps) {
+function toSpellId(value: number | Spell): number {
+  if (typeof value === 'number') {
+    return value;
+  }
+
+  return value.id;
+}
+
+export default function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
   const info = useInfo();
@@ -146,9 +151,9 @@ export default function EmbeddedTimeline({
   const secondsShown = (range.end - range.start) / 1000;
   const offset = range.start - (info?.originalFightStart ?? 0);
   const cooldownEventsBySpellId = useMemo(() => {
-    const spellIds = Array.isArray(cooldownSpellIds)
-      ? cooldownSpellIds
-      : cooldownSpellIds
+    const spellIds = Array.isArray(cooldowns)
+      ? cooldowns.map(toSpellId)
+      : cooldowns
         ? (abilities?.abilities
             .filter((ability) => ability.enabled)
             .map((ability) => ability.primarySpell) ?? [])
@@ -160,11 +165,11 @@ export default function EmbeddedTimeline({
     }
 
     return result;
-  }, [cooldownSpellIds, abilities, spellUsable, range.start, range.end]);
+  }, [cooldowns, abilities, spellUsable, range.start, range.end]);
 
   const visibleAuras = useMemo(
-    () => (Array.isArray(auraIds) ? new Set(auraIds) : undefined),
-    [auraIds],
+    () => (Array.isArray(auras) ? new Set(auras.map(toSpellId)) : undefined),
+    [auras],
   );
 
   const filteredEvents = useMemo(
@@ -179,7 +184,7 @@ export default function EmbeddedTimeline({
   return (
     <AutoSizerTimelineContainer secondsShown={secondsShown}>
       <SpellTimeline>
-        {auraIds && (
+        {auras && (
           <AuraTimeline
             start={range.start}
             end={range.end}
