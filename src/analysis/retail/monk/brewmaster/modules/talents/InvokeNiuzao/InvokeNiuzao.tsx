@@ -97,6 +97,8 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
       }
 
       return;
+    } else {
+      this.lastWotWTrigger = event;
     }
 
     this.currentCast.wotwTriggers.push(event);
