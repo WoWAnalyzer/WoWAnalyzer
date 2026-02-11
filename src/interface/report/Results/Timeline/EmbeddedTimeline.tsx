@@ -122,6 +122,8 @@ export interface EmbeddedTimelineProps {
    * IDs of auras (buffs) to show on the timeline.
    * If not provided or set to `true`, get the ids from the `Buffs` core analyzer.
    * If set to `false`, do not show auras.
+   *
+   * At this time, ALL AURAS must be provided in your specs `Auras` / `Buffs` core analyzer. This is used to find the event data without re-scanning the entire fight.
    */
   auras?: (number | Spell)[] | boolean;
   /**

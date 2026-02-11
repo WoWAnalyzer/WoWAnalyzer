@@ -21,6 +21,10 @@ interface Props {
    * Used for guides.
    */
   exactlySpells?: Spell[];
+  /**
+   * When true, treat spell usable events as cast events for display. This is not the default on the timeline tab,
+   * but is used in embedded timelines.
+   */
   castsOmitted?: boolean;
 }
 
