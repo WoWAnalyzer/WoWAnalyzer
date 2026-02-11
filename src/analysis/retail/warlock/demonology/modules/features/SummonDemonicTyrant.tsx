@@ -22,7 +22,8 @@ import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { CastEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import Casts from 'interface/report/Results/Timeline/Casts';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import SpellUsable from 'parser/shared/modules/SpellUsable';

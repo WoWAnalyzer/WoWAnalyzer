@@ -30,7 +30,8 @@ import Haste from 'parser/shared/modules/Haste';
 import { formatNumber } from 'common/format';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';

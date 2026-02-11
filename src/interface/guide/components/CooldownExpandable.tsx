@@ -2,9 +2,8 @@ import { ReactNode, useState } from 'react';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark, SectionHeader } from 'interface/guide';
 import { ControlledExpandable } from 'interface';
-import {
-  EasyTimeline,
-  EasyTimelineProps,
+import EmbeddedTimeline, {
+  EmbeddedTimelineProps,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 
 export interface CooldownExpandableItem {
@@ -18,7 +17,7 @@ interface Props {
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
   perf?: QualitativePerformance;
-  timeline?: EasyTimelineProps;
+  timeline?: EmbeddedTimelineProps;
 }
 
 /**
@@ -72,7 +71,7 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timelin
     >
       {/* inert is used to prevent tabbing from getting trapped on the timeline */}
       <div inert={!isExpanded}>
-        {timeline && <EasyTimeline {...timeline} />}
+        {timeline && <EmbeddedTimeline {...timeline} />}
         {checklistItems && checklistItems.length !== 0 && (
           <CooldownExpandableDataList items={checklistItems} title="Checklist" />
         )}

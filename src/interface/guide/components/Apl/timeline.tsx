@@ -5,7 +5,8 @@ import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 
 import AplRules from './rules';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import TimeIndicators from 'interface/report/Results/Timeline/TimeIndicators';

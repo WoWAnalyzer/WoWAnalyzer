@@ -29,7 +29,8 @@ import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { ReactNode } from 'react';
 import SpellLink from 'interface/SpellLink';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';

@@ -19,7 +19,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
  *
  * Use `SpellTimeline` component for wrapping the `Casts` component.
  */
-const EmbeddedTimelineContainer = styled.div<{
+export const EmbeddedTimelineContainer = styled.div<{
   secondWidth?: number;
   secondsShown?: number;
   castBarCount?: number;
@@ -58,8 +58,6 @@ export const SpellTimeline = ({
     {children}
   </div>
 );
-
-export default EmbeddedTimelineContainer;
 
 interface AutoSizerTimelineContainerProps {
   secondsShown: number;
@@ -114,7 +112,7 @@ export const AutoSizerTimelineContainer = ({
   );
 };
 
-export interface EasyTimelineProps {
+export interface EmbeddedTimelineProps {
   range: {
     start: number;
     end: number;
@@ -133,17 +131,11 @@ export interface EasyTimelineProps {
   cooldownSpellIds?: number[] | true;
 }
 
-// TODO reorg names
-// the goal of this component is to make it easy to declare a timeline view, without
-// needing to aggregate events yourself. it should support the primary features of the timeline tab:
-// - auras
-// - casts
-// - cooldowns
-//
-// auras and cooldowns need a bunch of work to handle dealing with a short slice of time. phase selections basically "just work" because phases are long enough for issues to work themselves out. a 10s cooldown window is not
-//
-// movement is not supported currently
-export function EasyTimeline({ range, auraIds, cooldownSpellIds }: EasyTimelineProps) {
+export default function EmbeddedTimeline({
+  range,
+  auraIds,
+  cooldownSpellIds,
+}: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
   const info = useInfo();
