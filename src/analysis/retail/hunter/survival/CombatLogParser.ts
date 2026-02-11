@@ -19,7 +19,6 @@ import Bloodseeker from './modules/talents/Bloodseeker';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Focus from './modules/resources/Focus';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import KillCommand from './modules/talents/KillCommand';
 import RaptorStrike from './modules/talents/RaptorStrike';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
@@ -48,7 +47,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
     abilities: Abilities,
-    globalCooldown: GlobalCooldown,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

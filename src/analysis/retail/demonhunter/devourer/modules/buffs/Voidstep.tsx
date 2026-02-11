@@ -122,11 +122,10 @@ class Voidstep extends Analyzer {
       <>
         <p>
           After each <SpellLink spell={SPELLS.HUNGERING_SLASH_CAST} /> and{' '}
-          <SpellLink spell={SPELLS.REAPERS_TOLL} /> casts, you are granted a temporary
+          <SpellLink spell={SPELLS.REAPERS_TOLL_CAST} /> casts, you are granted a temporary
           <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> charge that deals
           increased AoE damage. You should aim to consume this proc everytime, as it is free damage.
-          <br />
-          If you can't afford the forced movement at a specific point, don't die trying.
+          <div>If you can't afford the forced movement at a specific point, don't die trying.</div>
         </p>
       </>
     );

@@ -12,3 +12,7 @@ export const MOMENT_OF_CRAVING_ADDITIONAL_SOUL_ABSORB_CAPACITY = 6;
 
 export const VOID_METAMORPHOSIS_BASE_SOULS_COST = 50;
 export const VOID_METAMORPHOSIS_SOUL_GLUTTON_SOULS_COST = 35;
+
+export const VOID_RAY_MAX_TICKS = 21;
+// Void Ray receives a cooldown during Void Metamorphosis only
+export const VOID_RAY_COOLDOWN_VOID_METAMORPHOSIS = (haste: number) => 16 / (1 + haste);

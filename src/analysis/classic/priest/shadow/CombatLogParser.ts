@@ -1,7 +1,6 @@
 // Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Core
-import GlobalCooldown from './modules/core/GlobalCooldown';
 // Shared
 import { Haste } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -19,7 +18,6 @@ import Shadowfiend from './modules/spells/Shadowfiend';
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Core
-    globalCooldown: GlobalCooldown,
     // Shared
     haste: Haste,
     manaTracker: ManaTracker,

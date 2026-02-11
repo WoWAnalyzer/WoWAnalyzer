@@ -12,7 +12,6 @@ import Guide from 'analysis/retail/priest/shadow/Guide';
 
 import Abilities from './modules/Abilities';
 import AbilityTracker from './modules/core/AbilityTracker';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -75,7 +74,6 @@ class CombatLogParser extends MainCombatLogParser {
     // core
     abilities: Abilities,
     abilityTracker: AbilityTracker,
-    globalCooldown: GlobalCooldown,
 
     // features:
     alwaysBeCasting: AlwaysBeCasting,
