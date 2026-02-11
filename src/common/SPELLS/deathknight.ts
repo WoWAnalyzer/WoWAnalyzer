@@ -381,10 +381,22 @@ const spells = {
     icon: 'inv12_ability_deathknight_empowereddreadplague',
   },
 
-  DARK_TRANSFORMATION_BUFF: {
+  DARK_TRANSFORMATION_PET_BUFF: {
     id: 1233448,
     name: 'Dark Transformation',
     icon: 'achievement_boss_festergutrotface',
+  },
+
+  DARK_TRANSFORMATION_BUFF: {
+    id: 1235391,
+    name: 'Dark Transformation',
+    icon: 'achievement_boss_festergutrotface',
+  },
+
+  ARMY_OF_THE_DEAD_BUFF: {
+    id: 42650,
+    name: 'Army of the Dead',
+    icon: 'spell_shadow_coneofsilence',
   },
 
   DISEASE_CLOUD: {
