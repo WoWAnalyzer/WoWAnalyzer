@@ -14,6 +14,7 @@ import { TimelineSettingsContext } from './Settings';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import type Spell from 'common/SPELLS/Spell';
+import React from 'react';
 
 /**
  * Container for embedding the timeline in another component.
@@ -142,7 +143,7 @@ function toSpellId(value: number | Spell): number {
   return value.id;
 }
 
-export default function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
+function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
   const info = useInfo();
@@ -209,3 +210,7 @@ export default function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTi
     </AutoSizerTimelineContainer>
   );
 }
+
+const MemoEmbeddedTimeline = React.memo(EmbeddedTimeline);
+
+export default MemoEmbeddedTimeline;
