@@ -76,7 +76,7 @@ class GlobalCooldown extends Analyzer {
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    */
   onBeginChannel(event: BeginChannelEvent) {
-    if (!event.trigger || event.trigger.type === EventType.BeginCast) {
+    if (!event.trigger || event.trigger.type !== EventType.Cast) {
       // if the trigger is a cast event, then the beginchannel event came after the cast event, in which case we don't want to set the current channel to avoid getting false matches in the next `onCast` trigger
       this._currentChannel = event;
     }
