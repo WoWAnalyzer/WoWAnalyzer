@@ -18,7 +18,6 @@ import {
 } from '../../constants';
 
 class Reap extends Analyzer {
-  reapCasts = 0;
   reapEntries: BoxRowEntry[] = [];
 
   hasSoulGluttonTalent = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_GLUTTON_TALENT);
