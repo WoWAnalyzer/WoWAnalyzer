@@ -81,6 +81,14 @@ interface AutoSizerTimelineContainerProps {
 }
 
 /**
+ * Extra spacing to allow spell icons positioned at exactly the left/right boundaries to display
+ * without causing scrollbars.
+ *
+ * This is set to the equivalent of 2.2rem, the size of a spell icon on the timeline.
+ */
+const OVERFLOW_WIDTH_OFFSET = 22;
+
+/**
  * Timeline container that automatically sets the width of seconds to prevent scrolling.
  *
  * If this is used inside a flexible container with no maximum size, it will continue
@@ -112,7 +120,10 @@ export const AutoSizerTimelineContainer = ({
       }
     }),
   );
-  const innerSecondWidth = Math.max(width / secondsShown, minSecondWidth ?? 0);
+  const innerSecondWidth = Math.max(
+    (width - OVERFLOW_WIDTH_OFFSET) / secondsShown,
+    minSecondWidth ?? 0,
+  );
 
   return (
     <ResponsiveEmbeddedTimelineContainer
