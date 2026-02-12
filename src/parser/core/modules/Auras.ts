@@ -30,6 +30,13 @@ class Auras extends Analyzer.withDependencies({
 }) {
   activeAuras: Aura[] = [];
   private listenedAuraIds = new Set<number>();
+  /**
+   * The set of aura ids that were added to `auras()` or via `add()`. This is
+   * not the same as the set of auras that have event listeners (for example:
+   * an aura with `enabled: false` is not added to listeners).
+   */
+  private knownAuraIds = new Set<number>();
+
   constructor(options: Options) {
     super(options);
     this.loadAuras(this.auras());
@@ -37,6 +44,17 @@ class Auras extends Analyzer.withDependencies({
     for (const aura of this.activeAuraFilter()) {
       this.listenedAuraIds.add(aura.id);
     }
+
+    for (const aura of this.auras()) {
+      const ids = typeof aura.spellId === 'number' ? [aura.spellId] : aura.spellId;
+      for (const id of ids) {
+        this.knownAuraIds.add(id);
+      }
+    }
+  }
+
+  isKnownAura(id: number): boolean {
+    return this.knownAuraIds.has(id);
   }
 
   readonly auraEvents = new Map<number, BuffOrDebuffEvent[]>();
@@ -120,12 +138,14 @@ class Auras extends Analyzer.withDependencies({
     this.activeAuras.push(buff);
     if (Array.isArray(buff.spellId)) {
       for (const id of buff.spellId) {
+        this.knownAuraIds.add(id);
         if (!this.listenedAuraIds.has(id)) {
           this.listenedAuraIds.add(id);
           this.registerListeners({ id });
         }
       }
     } else {
+      this.knownAuraIds.add(buff.spellId);
       if (!this.listenedAuraIds.has(buff.spellId)) {
         this.listenedAuraIds.add(buff.spellId);
         this.registerListeners({ id: buff.spellId });
