@@ -34,7 +34,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   resourceTracker!: MaelstromWeaponTracker;
   doomWindsAlternater = false;
-  lightingStrikesTalented = this.selectedCombatant.hasTalent(TALENTS.LIGHTNING_STRIKES_TALENT);
+  lightningStrikesTalented = this.selectedCombatant.hasTalent(TALENTS.LIGHTNING_STRIKES_TALENT);
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRIMORDIAL_STORM_TALENT }, options);
@@ -83,7 +83,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       );
     }
 
-    if (this.lightingStrikesTalented && !details.legacyOfTheFrostWitch) {
+    if (this.lightningStrikesTalented && !details.legacyOfTheFrostWitch) {
       lis.push(
         <>
           <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> was missing.
@@ -146,9 +146,15 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
         <p>
           Each hit from {pstorm} is considered a Main-Hand attack, and can trigger{' '}
           <SpellLink spell={TALENTS.WINDFURY_WEAPON_TALENT} /> separately and are AoE. Each hit
-          deals combination physical and spell damage, and all hits are amplified by{' '}
-          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} />, and{' '}
-          <SpellLink spell={SPELLS.PRIMORDIAL_FROST} /> is buffed twice.
+          deals combination physical and spell damage
+          {this.lightningStrikesTalented ? (
+            <>
+              , and all hits are amplified by <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} />,
+              and <SpellLink spell={SPELLS.PRIMORDIAL_FROST} /> is buffed twice.
+            </>
+          ) : (
+            '.'
+          )}
         </p>
         <p>
           {pstorm} is currently the <strong>strongest</strong> {msw} spender, and you should always
@@ -176,7 +182,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     /**
      * Legacy of the Frost Witch (buff)
      */
-    if (this.lightingStrikesTalented) {
+    if (this.lightningStrikesTalented) {
       checklistItems.push({
         check: 'legacy-of-the-frost-witch',
         timestamp: cast.event.timestamp,
