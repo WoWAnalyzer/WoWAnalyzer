@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { JSX, useMemo, useState } from 'react';
 import * as design from 'interface/design-system';
 import type Spell from 'common/SPELLS/Spell';
-import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { useEvents, useInfo } from 'interface/guide';
 import { AnyEvent, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import { effectiveDamage } from 'parser/shared/modules/DamageValue';
@@ -101,11 +100,11 @@ function spellName<T>(
 
       return (
         <SpellLink
-          style={{
-            color: school
-              ? color(typeof school === 'function' ? school(row) : (row[school] as number))
-              : design.colors.bodyText,
-          }}
+          className={
+            school
+              ? `spell-school-${typeof school === 'function' ? school(row) : (row[school] as number)}`
+              : ''
+          }
           spell={id}
         />
       );
