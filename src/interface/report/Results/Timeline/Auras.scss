@@ -42,6 +42,13 @@
     width: 1px;
     background: #f8b700;
   }
+  .cast.pre-fight .time-indicator {
+    display: none;
+  }
+  .cast.pre-fight img {
+    border-color: #333;
+  }
+
   //noinspection CssOverwrittenProperties
   .aura {
     border-top-right-radius: 5px;
@@ -54,5 +61,9 @@
     --level: 0;
     bottom: 0;
     cursor: default;
+
+    &.post-fight {
+      border-top-right-radius: 0;
+    }
   }
 }

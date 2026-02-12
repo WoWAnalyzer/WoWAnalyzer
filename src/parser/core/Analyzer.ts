@@ -31,6 +31,8 @@ class Analyzer extends EventSubscriber {
 
   constructor(options: Options) {
     super(options);
+    // this allows classes with old-style dependency declarations to use this.deps
+    this.deps = options as unknown as Record<string, never>;
   }
   addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,

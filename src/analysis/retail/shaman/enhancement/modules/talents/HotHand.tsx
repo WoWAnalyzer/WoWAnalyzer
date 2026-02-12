@@ -35,7 +35,8 @@ import {
   getLowestPerf,
 } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';

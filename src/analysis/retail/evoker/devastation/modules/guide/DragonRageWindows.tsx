@@ -1,7 +1,8 @@
 import { SubSection } from 'interface/guide';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import { Fragment, useEffect, useMemo, useState } from 'react';
