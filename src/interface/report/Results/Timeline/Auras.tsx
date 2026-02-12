@@ -129,6 +129,9 @@ class Auras extends PureComponent<Props> {
     });
   }
   renderRemoveAura(event: AbilityEvent<EventType>, endsAfterFight = false) {
+    if (event.timestamp < this.props.start) {
+      return null;
+    }
     const applied = this._applied[event.ability.guid];
     if (!applied) {
       return null;
@@ -231,7 +234,6 @@ class Auras extends PureComponent<Props> {
     for (const auraId of this.aurasToRender()) {
       const history = this.props.auras.history(auraId);
       const slice = history.slice(this.props.start, this.props.end, true);
-      console.log(auraId, slice);
       combinedHistory = combinedHistory.union(slice);
     }
     const auras = combinedHistory.data.map(this.renderEvent.bind(this));
