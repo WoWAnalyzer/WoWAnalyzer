@@ -5,6 +5,7 @@ import { ControlledExpandable } from 'interface';
 import EmbeddedTimeline, {
   EmbeddedTimelineProps,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
+import { ThroughputTable } from 'interface/Table/DamageTable';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
@@ -78,6 +79,7 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timelin
         {detailItems && detailItems.length !== 0 && (
           <CooldownExpandableDataList items={detailItems} title="Details" />
         )}
+        {timeline && <ThroughputTable range={timeline.range} />}
       </div>
     </ControlledExpandable>
   );
