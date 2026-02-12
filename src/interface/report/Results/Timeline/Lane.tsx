@@ -15,7 +15,7 @@ import {
 } from 'parser/core/Events';
 import { Fragment, PureComponent } from 'react';
 
-const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
+const OVERFLOW_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
 interface Props {
   spell?: Spell;
@@ -74,9 +74,12 @@ class Lane extends PureComponent<Props> {
   }
 
   renderCast(event: CastEvent | FilterCooldownInfoEvent | UpdateSpellUsableEvent) {
+    if (event.timestamp > this.props.fightEndTimestamp) {
+      return null;
+    }
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(
-      Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.timestamp),
+      Math.max(this.props.fightStartTimestamp - OVERFLOW_BUFFER, event.timestamp),
     );
     const spellId = event.ability.guid;
 
@@ -97,13 +100,15 @@ class Lane extends PureComponent<Props> {
   renderCooldown(event: UpdateSpellUsableEvent) {
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(
-      Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.chargeStartTimestamp),
+      Math.max(this.props.fightStartTimestamp - OVERFLOW_BUFFER, event.chargeStartTimestamp),
     );
-    const width =
-      ((Math.min(this.props.fightEndTimestamp, event.timestamp) -
-        Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.chargeStartTimestamp)) /
-        1000) *
-      this.props.secondWidth;
+    // allow cooldowns to overhang the end of the phase slightly. this roughly lines up with
+    // the overhang from the final gcd on the cast timeline
+    const right = this.getOffsetLeft(
+      Math.min(this.props.fightEndTimestamp + OVERFLOW_BUFFER, event.timestamp),
+    );
+
+    const width = right - left;
     return (
       <Tooltip
         key={`cooldown-${left}`}
@@ -167,7 +172,7 @@ class Lane extends PureComponent<Props> {
             left: this.getOffsetLeft(start),
             width:
               ((Math.min(this.props.fightEndTimestamp, end) -
-                Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, start)) /
+                Math.max(this.props.fightStartTimestamp - OVERFLOW_BUFFER, start)) /
                 1000) *
               this.props.secondWidth,
           }}
@@ -198,7 +203,7 @@ class Lane extends PureComponent<Props> {
           e.type === EventType.UpdateSpellUsable &&
           e.updateType === UpdateSpellUsableType.EndCooldown,
       ); //find next end CD event
-      if (nextCD && nextCD.timestamp < this.props.fightStartTimestamp - PREPHASE_BUFFER) {
+      if (nextCD && nextCD.timestamp < this.props.fightStartTimestamp - OVERFLOW_BUFFER) {
         //if cooldown ended before the phase (including buffer), remove it to avoid visual overlaps
         children.splice(0, nextCast || children.length); //remove events before the next cast, remove all if there is no next cast to clean up the list
       }

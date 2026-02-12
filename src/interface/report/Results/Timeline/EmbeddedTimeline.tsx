@@ -36,6 +36,10 @@ export const EmbeddedTimelineContainer = styled(DragScroll)<{
 
     .cooldowns:only-child {
       margin-top: unset;
+
+      .lane {
+        overflow-x: clip;
+      }
     }
   }
 

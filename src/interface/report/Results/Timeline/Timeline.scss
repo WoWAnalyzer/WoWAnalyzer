@@ -35,6 +35,7 @@
 .time-line-container {
   position: relative;
 }
+
 .time-line-container + .cooldowns {
   margin-top: 22px;
 }
@@ -90,6 +91,6 @@
 
   .npc-toggle-options {
     position: sticky;
-    left: 0;
+    left: 2rem;
   }
 }

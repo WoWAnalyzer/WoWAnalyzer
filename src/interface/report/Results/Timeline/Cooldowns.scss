@@ -20,6 +20,7 @@
       display: block;
       height: 100%;
     }
+
     a > div:first-child {
       content: '';
       width: 1px;
@@ -27,6 +28,7 @@
       position: absolute;
       left: 0;
     }
+
     > .cooldown {
       height: 60%;
       top: 20%;
@@ -40,14 +42,17 @@
         border-bottom-right-radius: 0;
       }
     }
+
     > .recharge {
       width: 3px;
       background: rgba(250, 250, 250, 0.6);
       z-index: 4;
     }
+
     > .cast {
       z-index: 3;
     }
+
     > .castable {
       background: rgba(248, 183, 0, 0.6);
       border-radius: 3px;
@@ -58,7 +63,7 @@
     position: sticky;
     width: 0;
     height: 0;
-    left: 0;
+    left: 2rem;
     z-index: 6;
 
     > .legend {
