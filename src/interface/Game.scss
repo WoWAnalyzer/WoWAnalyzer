@@ -102,16 +102,40 @@
   background-color: #33937f !important;
 }
 
-.Pet,
-.Boss,
+.Boss {
+  color: #b4bdff !important;
+}
+
+.Boss-bg {
+  background-color: #b4bdff !important;
+}
+
+.Boss:hover {
+  color: #ffcdff !important;
+}
+
 .NPC {
+  color: #84bdf8 !important;
+}
+
+.NPC-bg {
+  background-color: #84bdf8 !important;
+}
+
+.NPC:hover {
+  color: #a4ddff !important;
+}
+
+.Pet {
   color: #64bdc8 !important;
 }
 
-.Pet-bg,
-.Boss-bg,
-.NPC-bg {
+.Pet-bg {
   background-color: #64bdc8 !important;
+}
+
+.Other-bg {
+  background-color: #434241;
 }
 
 .poor {
@@ -327,69 +351,6 @@
   background-color: #ffffff !important;
 }
 
-/*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
-/* Physical */
-.spell-school-1-bg {
-  background-color: #ccb278 !important;
-}
-
-/* Holy */
-.spell-school-2-bg {
-  background-color: #ffe680 !important;
-}
-
-/* Fire */
-.spell-school-4-bg {
-  background-color: #d84141 !important;
-}
-
-/* Nature */
-.spell-school-8-bg {
-  background-color: #4dff4d !important;
-}
-
-/* Frost */
-.spell-school-16-bg {
-  background-color: #80ffff !important;
-}
-
-/* Shadow */
-.spell-school-32-bg {
-  background-color: #8080ff !important;
-}
-
-/* Arcane */
-.spell-school-64-bg {
-  background-color: #ff80ff !important;
-}
-
-/* Double schools */
-/* Spellshadow: Arcane + Shadow */
-.spell-school-96-bg {
-  background-image: linear-gradient(to bottom, #ff80ff 0%, #8080ff 100%) !important;
-}
-
-/* Triple and multi schools */
-/* Elemental: Frost + Nature + Fire */
-.spell-school-28-bg {
-  background-color: #8cc084 !important;
-}
-
-/* Chronomatic: Arcane + Shadow + Frost + Nature + Fire */
-.spell-school-124-bg {
-  background-color: #a1a6b5 !important;
-}
-
-/* Magic: Arcane + Shadow + Frost + Nature + Fire + Holy */
-.spell-school-126-bg {
-  background-color: #b1b1ac !important;
-}
-
-/* Chaos: Arcane + Shadow + Frost + Nature + Fire + Holy + Physical */
-.spell-school-127-bg {
-  background-color: #b4b1a5 !important;
-}
-
 .parse-grey {
   color: #666 !important;
 }
@@ -412,4 +373,127 @@
 
 .parse-artifact {
   color: rgb(229, 204, 128) !important;
+}
+
+/* Physical */
+.spell-school-1 {
+  color: rgb(229, 204, 128) !important;
+}
+
+/* Holy */
+.spell-school-2 {
+  color: rgb(100%, 100%, 56%) !important;
+}
+
+/* Fire */
+
+.spell-school-4 {
+  color: rgb(92%, 27%, 38%) !important;
+}
+
+/* Nature */
+.spell-school-8 {
+  color: rgb(82%, 98%, 60%) !important;
+}
+
+/* Frost */
+
+.spell-school-16 {
+  color: rgb(29%, 50%, 100%) !important;
+}
+
+/* Shadow */
+
+.spell-school-32,
+.spell-school-36 {
+  color: rgb(72%, 66%, 94%) !important;
+}
+
+/* Arcane, Cosmic */
+.spell-school-64,
+.spell-school-80,
+.spell-school-106 {
+  color: rgb(56%, 95%, 100%) !important;
+}
+
+/* Chaos */
+.spell-school-127,
+.spell-school-124,
+.spell-school-126,
+.spell-school-125 {
+  color: rgb(163, 48, 201) !important;
+}
+
+/* Physical */
+.spell-school-1-bg {
+  background-color: rgb(229, 204, 128) !important;
+}
+
+/* Holy */
+.spell-school-2-bg {
+  background-color: rgb(100%, 100%, 56%) !important;
+}
+
+/* Fire */
+
+.spell-school-4-bg {
+  background-color: rgb(92%, 27%, 38%) !important;
+}
+
+/* Nature */
+.spell-school-8-bg {
+  background-color: rgb(82%, 98%, 60%) !important;
+}
+
+/* Frost */
+
+.spell-school-16-bg {
+  background-color: rgb(29%, 50%, 100%) !important;
+}
+
+/* Shadow */
+
+.spell-school-32-bg {
+  background-color: rgb(72%, 66%, 94%) !important;
+}
+
+/* Shadowflame */
+.spell-school-36-bg {
+  background-image: linear-gradient(45deg, rgb(72%, 66%, 94%), rgb(92%, 27%, 38%)) !important;
+}
+
+/* Chromatic, fire -> frost -> arcane -> nature -> shadow */
+.spell-school-62-bg {
+  background-image: linear-gradient(
+    45deg,
+    rgb(92%, 27%, 38%),
+    rgb(29%, 50%, 100%),
+    rgb(56%, 95%, 100%),
+    rgb(82%, 98%, 60%),
+    rgb(72%, 66%, 94%)
+  );
+}
+
+/* Arcane */
+.spell-school-64-bg {
+  background-color: rgb(56%, 95%, 100%) !important;
+}
+
+/* Cosmic */
+.spell-school-106-bg {
+  background-image: linear-gradient(
+    45deg,
+    rgb(56%, 95%, 100%),
+    rgb(72%, 66%, 94%) 33%,
+    rgb(82%, 98%, 60%) 66%,
+    rgb(100%, 100%, 56%)
+  );
+}
+
+/* Chaos */
+.spell-school-127-bg,
+.spell-school-124-bg,
+.spell-school-125-bg,
+.spell-school-126-bg {
+  background-color: #a330c9 !important;
 }
