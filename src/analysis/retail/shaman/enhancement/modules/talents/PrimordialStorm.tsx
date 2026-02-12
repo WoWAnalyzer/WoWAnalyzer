@@ -238,7 +238,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       issues.push(
         <>
           <li key="maelstrom-weapon">
-            Aim to use <strong>10</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />
+            Aim to use <strong>10</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
             each time you cast <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
           </li>
         </>,
