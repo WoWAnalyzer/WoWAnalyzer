@@ -34,6 +34,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   resourceTracker!: MaelstromWeaponTracker;
   doomWindsAlternater = false;
+  lightingStrikesTalented = this.selectedCombatant.hasTalent(TALENTS.LIGHTNING_STRIKES_TALENT);
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRIMORDIAL_STORM_TALENT }, options);
@@ -82,7 +83,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       );
     }
 
-    if (!details.legacyOfTheFrostWitch) {
+    if (this.lightingStrikesTalented && !details.legacyOfTheFrostWitch) {
       lis.push(
         <>
           <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> was missing.
@@ -175,34 +176,36 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     /**
      * Legacy of the Frost Witch (buff)
      */
-    checklistItems.push({
-      check: 'legacy-of-the-frost-witch',
-      timestamp: cast.event.timestamp,
-      performance: lotfwActive ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
-      summary: (
-        <>
-          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
-          active.
-        </>
-      ),
-      details: (
-        <div>
-          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
-          active.
-          {!lotfwActive && (
-            <> This is a significant damage increase, aim to have it active for every cast.</>
-          )}
-        </div>
-      ),
-    });
-    if (!lotfwActive) {
-      issues.push(
-        <>
-          <li key="lotfw">
-            <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> should be active for every cast.
-          </li>
-        </>,
-      );
+    if (this.lightingStrikesTalented) {
+      checklistItems.push({
+        check: 'legacy-of-the-frost-witch',
+        timestamp: cast.event.timestamp,
+        performance: lotfwActive ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+        summary: (
+          <>
+            <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
+            active.
+          </>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
+            active.
+            {!lotfwActive && (
+              <> This is a significant damage increase, aim to have it active for every cast.</>
+            )}
+          </div>
+        ),
+      });
+      if (!lotfwActive) {
+        issues.push(
+          <>
+            <li key="lotfw">
+              <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> should be active for every cast.
+            </li>
+          </>,
+        );
+      }
     }
 
     /**
