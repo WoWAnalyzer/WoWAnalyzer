@@ -181,13 +181,13 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       performance: lotfwActive ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
       summary: (
         <>
-          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? '' : 'not'}
+          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
           active.
         </>
       ),
       details: (
         <div>
-          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? '' : 'not'}
+          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
           active.
           {!lotfwActive && (
             <> This is a significant damage increase, aim to have it active for every cast.</>
@@ -226,7 +226,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       ),
       details: (
         <div>
-          <strong>{maelstromUsed}</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />
+          <strong>{maelstromUsed}</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
           used.
         </div>
       ),
