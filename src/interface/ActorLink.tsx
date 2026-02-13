@@ -47,7 +47,13 @@ export default function ActorLink({
   }
 
   return (
-    <a href={npcTooltip(actor.guid)} className={`${actor.type} ${className ?? ''}`} {...rest}>
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={npcTooltip(actor.guid)}
+      className={`${actor.subType} ${className ?? ''}`}
+      {...rest}
+    >
       <Icon icon={actor.icon} /> {children ?? actor.name}
     </a>
   );

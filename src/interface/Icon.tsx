@@ -24,7 +24,7 @@ export function iconUrl(icon: string): string {
     [folder, name] = ['abilities', folder];
   }
 
-  icon = name.replace('.jpg', '');
+  icon = name.replace('.jpg', '').replace(/^custom-icon-/, '');
 
   if (ICON_RENAME[icon]) {
     icon = ICON_RENAME[icon];

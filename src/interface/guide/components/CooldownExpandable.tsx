@@ -6,6 +6,7 @@ import EmbeddedTimeline, {
   EmbeddedTimelineProps,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import { ThroughputTable } from 'interface/Table/DamageTable';
+import { EventType } from 'parser/core/Events';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
@@ -79,7 +80,8 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timelin
         {detailItems && detailItems.length !== 0 && (
           <CooldownExpandableDataList items={detailItems} title="Details" />
         )}
-        {timeline && <ThroughputTable range={timeline.range} />}
+        {timeline && <ThroughputTable range={timeline.range} type={EventType.Damage} />}
+        {timeline && <ThroughputTable range={timeline.range} type={EventType.Heal} />}
       </div>
     </ControlledExpandable>
   );
