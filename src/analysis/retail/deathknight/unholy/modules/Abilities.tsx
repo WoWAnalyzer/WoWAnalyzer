@@ -26,6 +26,15 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
+        spell: SPELLS.VAMPIRIC_STRIKE.id,
+        enabled: combatant.hasTalent(TALENTS.VAMPIRIC_STRIKE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        range: 30,
+      },
+      {
         spell: SPELLS.FESTERING_SCYTHE.id,
         enabled: combatant.hasTalent(TALENTS.FESTERING_SCYTHE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -52,22 +61,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
+        enabled: !combatant.hasTalent(TALENTS.SCYTHE_OF_DECAY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
         range: 30,
-      },
-      {
-        spell: TALENTS.SOUL_REAPER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 6,
-        gcd: {
-          base: 1500,
-        },
-        range: AbilityRange.Melee,
       },
       {
         spell: SPELLS.FESTERING_STRIKE.id,
@@ -81,7 +81,9 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.PUTREFY_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.PUTREFY_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        charges: combatant.hasTalent(TALENTS.PUTRID_ECHOES_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
