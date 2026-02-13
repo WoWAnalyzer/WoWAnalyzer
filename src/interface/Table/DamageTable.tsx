@@ -4,25 +4,16 @@ import SpellLink from 'interface/SpellLink';
 import { JSX, useMemo, useState } from 'react';
 import * as design from 'interface/design-system';
 import type Spell from 'common/SPELLS/Spell';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { useEvents, useInfo } from 'interface/guide';
-import {
-  AnyEvent,
-  DamageEvent,
-  EventType,
-  HasAbility,
-  HasSource,
-  HasTarget,
-  HealEvent,
-} from 'parser/core/Events';
+import { AnyEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import { effectiveDamage } from 'parser/shared/modules/DamageValue';
 import ActorLink from 'interface/ActorLink';
 import { useReport } from 'interface/report/context/ReportContext';
 import { Info } from 'parser/core/metric';
 import { effectiveHealing } from 'parser/shared/modules/HealingValue';
-import { WCLReport } from 'parser/core/Report';
 import Unit from 'parser/core/Unit';
 import Select from 'interface/controls/Select';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 export default function DamageTable(): JSX.Element | null {
   return null;
@@ -31,6 +22,7 @@ export default function DamageTable(): JSX.Element | null {
 const TableContainer = styled.div`
   display: grid;
   grid-auto-flow: column;
+  container-type: inline-size;
 `;
 
 const TableRow = styled.div`
@@ -41,6 +33,7 @@ const TableRow = styled.div`
 
 interface TableCellProps {
   align: React.CSSProperties['justifyContent'];
+  optional?: boolean;
 }
 
 const HeaderSelect = styled(Select)`
@@ -64,8 +57,14 @@ const TableCell = styled.div<TableCellProps>`
   border-right: 1px solid ${design.level1.border};
   width: 100%;
 
+  white-space: nowrap;
+
   &:has(${HeaderSelect}) {
     padding: 0;
+  }
+
+  @container (width < 60rem) {
+    ${(props) => (props.optional ? 'display: none;' : '')}
   }
 `;
 
@@ -98,6 +97,7 @@ interface Column<T, Context = {}> {
   render(row: T, ctx: Context): React.ReactNode;
   align?: 'left' | 'right';
   expand?: boolean;
+  optional?: boolean;
 }
 
 const actorName: Column<{ actorId: number }> = {
@@ -121,17 +121,16 @@ const spellName: Column<{ spell: number | Spell; school?: number }> = {
   },
 };
 
-const amountBar: Column<
-  { amount: number; school?: number; type?: string },
-  { max: number; total: number }
-> = {
-  label: '',
+const amountBar = (
+  type: EventType.Damage | EventType.Heal,
+): Column<{ amount: number; school?: number; type?: string }, { max: number; total: number }> => ({
+  label: type === EventType.Damage ? 'Damage' : 'Healing',
   render({ amount, school, type }, { max, total }) {
     return (
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '5rem 1fr',
+          gridTemplateColumns: '5rem 1fr 4rem',
           gap: design.gaps.medium,
           width: '100%',
         }}
@@ -143,18 +142,45 @@ const amountBar: Column<
           }
           style={{ height: '75%', alignSelf: 'center', width: `${(amount / max) * 100}%` }}
         />
+        <div style={{ textAlign: 'right' }}>{formatNumber(amount)}</div>
       </div>
     );
   },
   expand: true,
-};
+});
 
-const amount: Column<{ amount: number }> = {
-  label: 'Amount',
-  render({ amount }) {
-    return formatNumber(amount);
+const literalNumberColumn = <K extends string>(
+  label: React.ReactNode,
+  key: K,
+): Column<Record<K, number>> => ({
+  label,
+  render(row) {
+    return row[key];
   },
   align: 'right',
+  optional: true,
+});
+
+const critPct: Column<{ hits: number; crits: number }> = {
+  label: 'Crit %',
+  render(row) {
+    if (row.crits === 0) {
+      return null;
+    }
+
+    return `${formatPercentage(row.crits / row.hits, 1)}%`;
+  },
+  align: 'right',
+  optional: true,
+};
+
+const avgHit: Column<{ hits: number; amount: number }> = {
+  label: 'Avg Hit',
+  render(row) {
+    return formatNumber(row.amount / row.hits);
+  },
+  align: 'right',
+  optional: true,
 };
 
 // we need to use an object for the columns to make TS inferrence play nice
@@ -186,7 +212,7 @@ function Table<T, Context, Cols extends Record<string, Column<unknown, unknown>>
     <TableContainer style={{ gridTemplateColumns: gridColumns }}>
       <TableHeader>
         {Object.values(columns).map((col, colIx) => (
-          <TableCell key={colIx} align={'center'}>
+          <TableCell key={colIx} align={'center'} optional={col.optional}>
             {col.label}
           </TableCell>
         ))}
@@ -194,7 +220,7 @@ function Table<T, Context, Cols extends Record<string, Column<unknown, unknown>>
       {data.map((row, ix) => (
         <TableRow key={ix}>
           {Object.values(columns).map((col, colIx) => (
-            <TableCell align={cellAlignment(col.align)} key={colIx}>
+            <TableCell align={cellAlignment(col.align)} key={colIx} optional={col.optional}>
               {col.render(row, ctx)}
             </TableCell>
           ))}
@@ -212,15 +238,19 @@ interface ThroughputTableProps {
 
 type AggregateBy = 'ability' | 'source' | 'target';
 
-interface ThroughputSpellRow {
-  spell: number | Spell;
+interface ThroughputRowCommon {
   amount: number;
+  hits: number;
+  crits: number;
+}
+
+interface ThroughputSpellRow extends ThroughputRowCommon {
+  spell: number | Spell;
   school: number;
 }
 
-interface ThroughputActorRow {
+interface ThroughputActorRow extends ThroughputRowCommon {
   actorId: number;
-  amount: number;
   type: string | undefined;
 }
 
@@ -278,11 +308,15 @@ function throughputByAbility(
         spell: id,
         school,
         amount: 0,
+        hits: 0,
+        crits: 0,
       });
     }
 
     const row = map.get(id)!;
     row.amount += amount;
+    row.hits += 1;
+    row.crits += Number(event.hitType === HIT_TYPES.CRIT);
   }
 
   return Array.from(map.values());
@@ -324,11 +358,15 @@ function throughputByActor(
         actorId: id,
         type: actorType,
         amount: 0,
+        hits: 0,
+        crits: 0,
       });
     }
 
     const row = map.get(id)!;
     row.amount += amount;
+    row.hits += 1;
+    row.crits += Number(event.hitType === HIT_TYPES.CRIT);
   }
 
   return Array.from(map.values());
@@ -376,7 +414,10 @@ export function ThroughputTable({
     result.sort((a, b) => b.amount - a.amount);
 
     if (result.length > maxRows) {
-      const otherTotal = result.slice(maxRows - 1).reduce((total, row) => total + row.amount, 0);
+      const otherRows = result.slice(maxRows - 1);
+      const otherTotal = otherRows.reduce((total, row) => total + row.amount, 0);
+      const otherHits = otherRows.reduce((total, row) => total + row.hits, 0);
+      const otherCrits = otherRows.reduce((total, row) => total + row.crits, 0);
       return [
         ...result.slice(0, maxRows - 1),
         {
@@ -384,6 +425,8 @@ export function ThroughputTable({
           spell: OTHER_SPECIAL_BY,
           type: 'Other',
           amount: otherTotal,
+          hits: otherHits,
+          crits: otherCrits,
         },
       ];
     }
@@ -418,13 +461,17 @@ export function ThroughputTable({
     };
   }, [aggregateBy]);
 
-  const amountColumn = useMemo(
-    () => ({
-      ...amount,
-      label: type === EventType.Damage ? 'Damage' : 'Healing',
-    }),
-    [type],
+  return (
+    <Table
+      columns={{
+        nameColumn,
+        amountBar: amountBar(type),
+        hits: literalNumberColumn('Hits', 'hits'),
+        avgHit,
+        critPct,
+      }}
+      data={data}
+      ctx={ctx}
+    />
   );
-
-  return <Table columns={{ nameColumn, amountBar, amountColumn }} data={data} ctx={ctx} />;
 }
