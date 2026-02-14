@@ -2796,7 +2796,7 @@ export const Rex: Contributor = {
 
 export const Katorri: Contributor = {
   nickname: 'Katorri',
-  github: 'Katorri',
+  github: 'katogaming88',
   mains: [
     {
       name: 'Katorrí',
