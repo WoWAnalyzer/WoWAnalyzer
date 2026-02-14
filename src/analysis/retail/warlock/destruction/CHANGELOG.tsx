@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Arlie, Sharrq, ogunb, Meldris, Topple, Omegabiscuit, Mae, dodse, Gazh} from 'CONTRIBUTORS';
+import { Arlie, Sharrq, ogunb, Meldris, Topple, Omegabiscuit, Mae, dodse, Gazh, Katorri} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 2, 13), "Enable spec. No Apex talent support currently.", Katorri),
   change(date(2024, 10, 1), <>Add support for <SpellLink spell={SPELLS.DEMONIC_HEALTHSTONE} /> </>, Gazh),
   change(date(2024, 9, 26), "Add support for Hero Talents", Gazh),
   change(date(2023, 7, 8), 'Update CDR on Dark Pact and Unending Resolve', Arlie),
