@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { JSX, useMemo, useState } from 'react';
@@ -12,93 +11,10 @@ import { useReport } from 'interface/report/context/ReportContext';
 import { Info } from 'parser/core/metric';
 import { effectiveHealing } from 'parser/shared/modules/HealingValue';
 import Unit from 'parser/core/Unit';
-import Select from 'interface/controls/Select';
 import HIT_TYPES from 'game/HIT_TYPES';
-
-export default function DamageTable(): JSX.Element | null {
-  return null;
-}
-
-const TableContainer = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  container-type: inline-size;
-`;
-
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-`;
-
-interface TableCellProps {
-  align: React.CSSProperties['justifyContent'];
-  optional?: boolean;
-}
-
-const HeaderSelect = styled(Select)`
-  width: 100%;
-  border: unset;
-  box-shadow: unset;
-  text-align: center;
-  padding: 0.2rem ${design.gaps.medium};
-  border-radius: 0;
-
-  &:hover {
-    background-color: ${design.level2.background_active};
-  }
-`;
-
-const TableCell = styled.div<TableCellProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: ${(props) => props.align};
-  padding: 0.2rem ${design.gaps.medium};
-  border-right: 1px solid ${design.level1.border};
-  width: 100%;
-
-  white-space: nowrap;
-
-  &:has(${HeaderSelect}) {
-    padding: 0;
-  }
-
-  @container (width < 60rem) {
-    ${(props) => (props.optional ? 'display: none;' : '')}
-  }
-`;
-
-const TableHeader = styled.div`
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-
-  background: ${design.level2.background};
-  border: 1px solid ${design.level2.border};
-  box-shadow: ${design.level2.shadow};
-
-  & ${TableCell} {
-    border-color: ${design.level2.border};
-
-    &:last-of-type {
-      border-right: unset;
-    }
-  }
-
-  & + ${TableRow} {
-    padding-top: 0.3rem;
-  }
-`;
+import Table, { Column, HeaderSelect } from './Table';
 
 const OTHER_SPECIAL_BY = -9999;
-
-interface Column<T, Context = {}> {
-  label: React.ReactNode;
-  render(row: T, ctx: Context): React.ReactNode;
-  align?: 'left' | 'right';
-  expand?: boolean;
-  optional?: boolean;
-}
 
 const actorName: Column<{ actorId: number }> = {
   label: 'Actor', // this is getting overridden by the table
@@ -183,54 +99,7 @@ const avgHit: Column<{ hits: number; amount: number }> = {
   optional: true,
 };
 
-// we need to use an object for the columns to make TS inferrence play nice
-interface TableProps<T, Context, Cols extends Record<string, Column<unknown, unknown>>> {
-  data: T[];
-  columns: Cols;
-  ctx: Context;
-}
-
-function cellAlignment(align: Column<any>['align']): React.CSSProperties['justifyContent'] {
-  switch (align) {
-    case 'right':
-      return 'end';
-    default:
-      return 'start';
-  }
-}
-
-function Table<T, Context, Cols extends Record<string, Column<unknown, unknown>>>({
-  data,
-  columns,
-  ctx,
-}: TableProps<T, Context, Cols>): JSX.Element | null {
-  const gridColumns = Object.values(columns)
-    .map((col) => (col.expand ? '1fr' : 'auto'))
-    .join(' ');
-
-  return (
-    <TableContainer style={{ gridTemplateColumns: gridColumns }}>
-      <TableHeader>
-        {Object.values(columns).map((col, colIx) => (
-          <TableCell key={colIx} align={'center'} optional={col.optional}>
-            {col.label}
-          </TableCell>
-        ))}
-      </TableHeader>
-      {data.map((row, ix) => (
-        <TableRow key={ix}>
-          {Object.values(columns).map((col, colIx) => (
-            <TableCell align={cellAlignment(col.align)} key={colIx} optional={col.optional}>
-              {col.render(row, ctx)}
-            </TableCell>
-          ))}
-        </TableRow>
-      ))}
-    </TableContainer>
-  );
-}
-
-interface ThroughputTableProps {
+export interface ThroughputTableProps {
   range?: { start: number; end: number };
   maxRows?: number;
   type: EventType.Damage | EventType.Heal;
@@ -253,8 +122,6 @@ interface ThroughputActorRow extends ThroughputRowCommon {
   actorId: number;
   type: string | undefined;
 }
-
-type ThroughputRow = ThroughputSpellRow | ThroughputActorRow;
 
 const isRelevantToInfo = (info: Info) => (id?: number) =>
   id === info?.playerId || info?.pets.some((pet) => pet.id === id);
@@ -372,9 +239,9 @@ function throughputByActor(
   return Array.from(map.values());
 }
 
-export function ThroughputTable({
+export default function ThroughputTable({
   range,
-  maxRows = 11,
+  maxRows = 6,
   type,
 }: ThroughputTableProps): JSX.Element | null {
   const { report } = useReport();
@@ -475,3 +342,10 @@ export function ThroughputTable({
     />
   );
 }
+
+export const DamageTable = (props: Omit<ThroughputTableProps, 'type'>) => (
+  <ThroughputTable {...props} type={EventType.Damage} />
+);
+export const HealingTable = (props: Omit<ThroughputTableProps, 'type'>) => (
+  <ThroughputTable {...props} type={EventType.Heal} />
+);

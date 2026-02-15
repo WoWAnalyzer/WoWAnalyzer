@@ -5,8 +5,8 @@ import { ControlledExpandable } from 'interface';
 import EmbeddedTimeline, {
   EmbeddedTimelineProps,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import { ThroughputTable } from 'interface/Table/DamageTable';
-import { EventType } from 'parser/core/Events';
+import ThroughputTable, { ThroughputTableProps } from 'interface/Table/ThroughputTable';
+import { gaps } from 'interface/design-system';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
@@ -19,7 +19,9 @@ interface Props {
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
   perf?: QualitativePerformance;
-  timeline?: EmbeddedTimelineProps;
+  range?: { start: number; end: number };
+  timeline?: Omit<EmbeddedTimelineProps, 'range'>;
+  table?: Omit<ThroughputTableProps, 'range'>;
 }
 
 /**
@@ -52,8 +54,30 @@ export const CooldownExpandableDataList = ({
   </section>
 );
 
-const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timeline }: Props) => {
+const CooldownExpandable = ({
+  header,
+  checklistItems,
+  detailItems,
+  perf,
+  timeline,
+  range,
+  table,
+}: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // i don't like the `throw`, but the typing for this is very clunky in practice.
+  if (timeline && !range) {
+    throw new Error(
+      '[CooldownExpandable] you must supply the range parameter to use the embedded timeline',
+    );
+  }
+
+  if (table && !range) {
+    throw new Error(
+      '[CooldownExpandable] you must supply the range parameter to use the embedded table',
+    );
+  }
+
   const combinedHeader =
     perf !== undefined ? (
       <div>
@@ -73,15 +97,18 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timelin
     >
       {/* inert is used to prevent tabbing from getting trapped on the timeline */}
       <div inert={!isExpanded}>
-        {timeline && <EmbeddedTimeline {...timeline} />}
+        {range && timeline && <EmbeddedTimeline range={range} {...timeline} />}
         {checklistItems && checklistItems.length !== 0 && (
           <CooldownExpandableDataList items={checklistItems} title="Checklist" />
         )}
         {detailItems && detailItems.length !== 0 && (
           <CooldownExpandableDataList items={detailItems} title="Details" />
         )}
-        {timeline && <ThroughputTable range={timeline.range} type={EventType.Damage} />}
-        {timeline && <ThroughputTable range={timeline.range} type={EventType.Heal} />}
+        {range && table && (
+          <div style={{ marginTop: gaps.large }}>
+            <ThroughputTable range={range} {...table} />
+          </div>
+        )}
       </div>
     </ControlledExpandable>
   );
