@@ -101,8 +101,20 @@ const avgHit: Column<{ hits: number; amount: number }> = {
 
 export interface ThroughputTableProps {
   range?: { start: number; end: number };
+  /**
+   * The maximum number of rows to show. The final row is the `Other` row and counts against this limit, unless it is disabled by setting `omitOtherRow`.
+   */
   maxRows?: number;
   type: EventType.Damage | EventType.Heal;
+  /**
+   * The list of abilities to include. All other abilities are moved to the `Other` category, unless `omitOtherRow` is set (in which case all other abilities are omitted).
+   *
+   * By default, all abilities are included. The filter is useful if you're showing a cooldown that affects a specific list of abilities and you want to show only those.
+   *
+   * Filtered abilities are completely hidden from the source/target views when `omitOtherRow` is true. Otherwise, they are included. This causes the total values to add up to the same value.
+   */
+  abilityFilter?: (Spell | number)[];
+  omitOtherRow?: boolean;
 }
 
 type AggregateBy = 'ability' | 'source' | 'target';
@@ -150,6 +162,7 @@ function throughputByAbility(
   events: AnyEvent[],
   info: Info,
   type: EventType.Damage | EventType.Heal,
+  abilityFilter: Set<number> | undefined,
 ): ThroughputSpellRow[] {
   const map = new Map<number, ThroughputSpellRow>();
   const isRelevant = isRelevantToInfo(info);
@@ -163,8 +176,11 @@ function throughputByAbility(
       continue;
     }
 
-    const id = event.ability.guid;
-    const school = event.ability.type;
+    const id =
+      !abilityFilter || abilityFilter?.has(event.ability.guid)
+        ? event.ability.guid
+        : OTHER_SPECIAL_BY;
+    const school = id === OTHER_SPECIAL_BY ? 0 : event.ability.type;
     const amount =
       type === EventType.Damage
         ? effectiveDamage(event as DamageEvent)
@@ -178,6 +194,11 @@ function throughputByAbility(
         hits: 0,
         crits: 0,
       });
+
+      if (id === OTHER_SPECIAL_BY) {
+        // hack for 'Other' background
+        (map.get(id)! as unknown as ThroughputActorRow).type = 'Other';
+      }
     }
 
     const row = map.get(id)!;
@@ -195,6 +216,7 @@ function throughputByActor(
   actors: Map<number, Unit>,
   type: EventType.Damage | EventType.Heal,
   by: 'sourceID' | 'targetID',
+  abilityFilter: Set<number> | undefined,
 ): ThroughputActorRow[] {
   const map = new Map<number, ThroughputActorRow>();
   const isRelevant = isRelevantToInfo(info);
@@ -211,6 +233,10 @@ function throughputByActor(
     const id = event[by];
     if (!id) {
       continue;
+    }
+
+    if (abilityFilter && !abilityFilter.has(event.ability.guid)) {
+      continue; // completely hide these abilities for by-actor views
     }
 
     const actor = actors.get(id);
@@ -239,10 +265,23 @@ function throughputByActor(
   return Array.from(map.values());
 }
 
+function isOther(row: ThroughputActorRow | ThroughputSpellRow): boolean {
+  if ('spell' in row) {
+    return row.spell === OTHER_SPECIAL_BY;
+  }
+  if ('actorId' in row) {
+    return row.actorId === OTHER_SPECIAL_BY;
+  }
+
+  return false;
+}
+
 export default function ThroughputTable({
   range,
   maxRows = 6,
   type,
+  abilityFilter,
+  omitOtherRow,
 }: ThroughputTableProps): JSX.Element | null {
   const { report } = useReport();
   const info = useInfo();
@@ -266,40 +305,58 @@ export default function ThroughputTable({
       return [];
     }
 
+    let filterSet = undefined;
+    if (abilityFilter) {
+      filterSet = new Set(
+        abilityFilter.map((spell) => (typeof spell === 'number' ? spell : spell.id)),
+      );
+    }
+
     const rows =
       aggregateBy === 'ability'
-        ? throughputByAbility(events, info, type)
+        ? throughputByAbility(events, info, type, filterSet)
         : throughputByActor(
             events,
             info,
             actors,
             type,
             (aggregateBy + 'ID') as 'sourceID' | 'targetID',
+            omitOtherRow ? filterSet : undefined,
           );
 
-    const result = Array.from(rows.filter((row) => row.amount > 0));
+    const other = rows.find(isOther);
+    const result = Array.from(rows.filter((row) => row.amount > 0 && !isOther(row)));
     result.sort((a, b) => b.amount - a.amount);
 
-    if (result.length > maxRows) {
-      const otherRows = result.slice(maxRows - 1);
+    if (omitOtherRow) {
+      return result.slice(0, maxRows);
+    }
+
+    const otherOffset = other ? 1 : 0;
+
+    if (result.length + otherOffset > maxRows) {
+      const otherRows = result.slice(maxRows - 1 - otherOffset);
       const otherTotal = otherRows.reduce((total, row) => total + row.amount, 0);
       const otherHits = otherRows.reduce((total, row) => total + row.hits, 0);
       const otherCrits = otherRows.reduce((total, row) => total + row.crits, 0);
+
       return [
         ...result.slice(0, maxRows - 1),
         {
           actorId: OTHER_SPECIAL_BY,
           spell: OTHER_SPECIAL_BY,
           type: 'Other',
-          amount: otherTotal,
-          hits: otherHits,
-          crits: otherCrits,
+          amount: otherTotal + (other?.amount ?? 0),
+          hits: otherHits + (other?.hits ?? 0),
+          crits: otherCrits + (other?.crits ?? 0),
         },
       ];
+    } else if (other) {
+      result.push(other);
     }
 
     return result as ThroughputSpellRow[] | ThroughputActorRow[];
-  }, [events, aggregateBy, info]);
+  }, [events, aggregateBy, info, abilityFilter, omitOtherRow]);
 
   const ctx = useMemo(() => {
     const max = data.reduce((max, row) => Math.max(max, row.amount), 0);
