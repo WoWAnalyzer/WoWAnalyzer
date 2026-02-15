@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import SPELLS from '../../../spell-list_Monk_Brewmaster.retail';
 import Events, {
   AbilityEvent,
-  DamageEvent,
+  CastEvent,
   DeathEvent,
   EventType,
   SummonEvent,
@@ -17,7 +17,7 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import { TooltipElement } from 'interface/Tooltip';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { formatDuration, formatDurationMillisMinSec } from 'common/format';
+import { formatDurationMillisMinSec } from 'common/format';
 
 /**
  * @internal
@@ -27,20 +27,15 @@ export interface NiuzaoCast {
   deathEvent?: DeathEvent;
   stompCount: number;
   wotwTriggers: AbilityEvent<EventType>[];
-  /**
-   * The number of BoF/DFB instances that could have triggered WotW but didn't.
-   */
-  wotwClipCount: number;
   cooldowns: Map<number, number>;
 }
 
-const EXPECTED_STOMP_COUNT = 6;
-const WOTW_ICD_MS = 1000;
+const EXPECTED_STOMP_COUNT = Math.floor(25 / 4);
+const EXPECTED_STOMP_COUNT_FOM = Math.floor(25 / 3);
+const EXPECTED_BOF_COUNT = 6; // made up in pre-patch. TODO this probably changes with apex talent resets
 
 export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   private hasWotW = this.selectedCombatant.hasTalent(SPELLS.WISDOM_OF_THE_WALL_TALENT);
-
-  private lastWotWTrigger?: AbilityEvent<EventType>;
 
   readonly niuzaoCasts: NiuzaoCast[] = [];
 
@@ -71,34 +66,18 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
 
     if (this.hasWotW) {
       this.addEventListener(
-        Events.damage
-          .by(SELECTED_PLAYER)
-          .spell([SPELLS.BREATH_OF_FIRE_TALENT, SPELLS_COMMON.DRAGONFIRE_BREW_DAMAGE]),
+        Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BREATH_OF_FIRE_TALENT]),
         this.triggerWotW,
       );
     }
   }
 
-  private triggerWotW(event: DamageEvent): void {
+  private triggerWotW(event: CastEvent): void {
     if (
       !this.selectedCombatant.hasBuff(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT) ||
       !this.currentCast
     ) {
       return; // WotW only triggers during Invoke Niuzao
-    }
-
-    if (this.lastWotWTrigger && event.timestamp - this.lastWotWTrigger.timestamp < WOTW_ICD_MS) {
-      if (
-        event.timestamp - this.lastWotWTrigger.timestamp > 100 ||
-        event.ability.guid !== this.lastWotWTrigger.ability.guid
-      ) {
-        // treat this as a distinct potential trigger and count it as a clip
-        this.currentCast.wotwClipCount += 1;
-      }
-
-      return;
-    } else {
-      this.lastWotWTrigger = event;
     }
 
     this.currentCast.wotwTriggers.push(event);
@@ -124,7 +103,6 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
       summonEvent: event,
       stompCount: 0,
       wotwTriggers: [],
-      wotwClipCount: 0,
       cooldowns,
     });
   }
@@ -150,9 +128,9 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
   checklist(cast: NiuzaoCast) {
     const items: CooldownExpandableItem[] = [];
 
-    const extraBokCasts = this.selectedCombatant.hasTalent(SPELLS.FLUIDITY_OF_MOTION_TALENT)
-      ? 2
-      : 0;
+    const expectedStomps = this.selectedCombatant.hasTalent(SPELLS.FLUIDITY_OF_MOTION_TALENT)
+      ? EXPECTED_STOMP_COUNT_FOM
+      : EXPECTED_STOMP_COUNT;
 
     const initialBoKCooldown = cast.cooldowns.get(SPELLS.BLACKOUT_KICK.id) ?? 0;
     items.push({
@@ -183,17 +161,17 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
       ),
       details: (
         <>
-          {cast.stompCount} / {EXPECTED_STOMP_COUNT + extraBokCasts}
+          {cast.stompCount} / {expectedStomps}
         </>
       ),
       result: (
         <PerformanceMark
           perf={evaluateQualitativePerformanceByThreshold({
             isGreaterThanOrEqual: {
-              perfect: 7 + extraBokCasts,
-              good: 6 + extraBokCasts,
-              ok: 5 + extraBokCasts,
-              fail: 4 + extraBokCasts,
+              perfect: expectedStomps + 1,
+              good: expectedStomps,
+              ok: expectedStomps - 2,
+              fail: expectedStomps - 3,
             },
             actual: cast.stompCount,
           })}
@@ -202,10 +180,6 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
     });
 
     if (this.selectedCombatant.hasTalent(SPELLS.WISDOM_OF_THE_WALL_TALENT)) {
-      // multiply by 3 with DFB because of the extra hits. in the future, probably need a separate threshold for ChP but nobody is really playing it right now
-      const thresholdScale = this.selectedCombatant.hasTalent(SPELLS.DRAGONFIRE_BREW_TALENT)
-        ? 3
-        : 1;
       items.push({
         label: (
           <>
@@ -246,20 +220,6 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
             >
               {cast.wotwTriggers.length}
             </TooltipElement>{' '}
-            ({cast.wotwClipCount}{' '}
-            <TooltipElement
-              content={
-                <>
-                  <SpellLink spell={SPELLS.WISDOM_OF_THE_WALL_TALENT} /> has a{' '}
-                  <strong>1 second</strong> cooldown, which can prevent repeated casts from
-                  triggering <SpellLink spell={SPELLS.WISDOM_OF_THE_WALL_TALENT}>WotW</SpellLink>{' '}
-                  when using <SpellLink spell={SPELLS.DRAGONFIRE_BREW_TALENT} />.
-                </>
-              }
-            >
-              clipped
-            </TooltipElement>
-            )
           </>
         ),
         result: (
@@ -267,9 +227,9 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
             perf={evaluateQualitativePerformanceByThreshold({
               actual: cast.wotwTriggers.length,
               isGreaterThanOrEqual: {
-                perfect: 6 * thresholdScale,
-                good: 5 * thresholdScale,
-                ok: 4 * thresholdScale,
+                perfect: EXPECTED_BOF_COUNT + 1,
+                good: EXPECTED_BOF_COUNT,
+                ok: EXPECTED_BOF_COUNT - 1,
               },
             })}
           />

@@ -1,15 +1,13 @@
-import { PerformanceMark, Section, useAnalyzer, useInfo } from 'interface/guide';
+import { useAnalyzer, useInfo } from 'interface/guide';
 import { JSX } from 'react';
-import InvokeNiuzao, { NiuzaoCast } from './InvokeNiuzao';
+import InvokeNiuzao from './InvokeNiuzao';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from '../../../spell-list_Monk_Brewmaster.retail';
 import SPELLS_COMMON from 'common/SPELLS';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
+import CooldownExpandable from 'interface/guide/components/CooldownExpandable';
 import { formatDuration } from 'common/format';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
+import { EventType } from 'parser/core/Events';
 
 export default function InvokeNiuzaoSection(): JSX.Element | null {
   const invoke = useAnalyzer(InvokeNiuzao);
@@ -38,8 +36,7 @@ export default function InvokeNiuzaoSection(): JSX.Element | null {
             <p>
               <SpellLink spell={SPELLS.WISDOM_OF_THE_WALL_TALENT}>Shado-Pan</SpellLink> Brewmasters
               additionally trigger <SpellLink spell={SPELLS.FLURRY_STRIKES_TALENT} /> from{' '}
-              <SpellLink spell={SPELLS.BREATH_OF_FIRE_TALENT} /> <em>and</em>{' '}
-              <SpellLink spell={SPELLS.DRAGONFIRE_BREW_TALENT} /> while Niuzao is active.
+              <SpellLink spell={SPELLS.BREATH_OF_FIRE_TALENT} /> while Niuzao is active.
             </p>
           ) : (
             <small>
@@ -63,17 +60,20 @@ export default function InvokeNiuzaoSection(): JSX.Element | null {
                   </SpellLink>
                 </>
               }
+              range={{
+                start: cast.summonEvent.timestamp,
+                end: cast.deathEvent?.timestamp ?? info.fightEnd,
+              }}
               timeline={{
-                range: {
-                  start: cast.summonEvent.timestamp,
-                  end: cast.deathEvent?.timestamp ?? info.fightEnd,
-                },
                 cooldowns: [
                   SPELLS.BLACKOUT_KICK,
                   SPELLS.BREATH_OF_FIRE_TALENT,
                   SPELLS.KEG_SMASH_TALENT,
                   SPELLS.BLACK_OX_BREW_TALENT,
                 ],
+              }}
+              table={{
+                type: EventType.Damage,
               }}
               checklistItems={invoke.checklist(cast)}
             />
