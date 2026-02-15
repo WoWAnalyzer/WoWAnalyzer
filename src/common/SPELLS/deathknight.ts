@@ -374,6 +374,12 @@ const spells = {
     name: 'Lesser Ghoul',
     icon: 'spell_deathknight_festering_strike',
   },
+  // Tracks active Lesser Ghoul count
+  LESSER_GHOUL_ACTIVE: {
+    id: 1242998,
+    name: 'Lesser Ghoul',
+    icon: 'inv_ghoulnorthrend',
+  },
 
   DREAD_PLAGUE: {
     id: 1240996,

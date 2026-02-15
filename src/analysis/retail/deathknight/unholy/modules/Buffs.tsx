@@ -23,6 +23,11 @@ class Buffs extends CoreAuras {
       },
       { spellId: SPELLS.SUDDEN_DOOM_BUFF.id, timelineHighlight: true },
       {
+        spellId: SPELLS.LESSER_GHOUL_BUFF.id,
+        triggeredBySpellId: SPELLS.FESTERING_STRIKE.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.ESSENCE_OF_THE_BLOOD_QUEEN_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.GIFT_OF_THE_SANLAYN_TALENT),
         timelineHighlight: true,
