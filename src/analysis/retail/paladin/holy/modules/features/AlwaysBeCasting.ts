@@ -29,10 +29,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
     }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT)) {
-      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST_HOLY.id);
-    }
   }
 
   isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent) {

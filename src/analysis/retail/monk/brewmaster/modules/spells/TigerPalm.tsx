@@ -9,9 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SharedBrews from '../core/SharedBrews';
 
 const TIGER_PALM_REDUCTION = 1000;
-const FACE_PALM_REDUCTION = 1000;
-
-const FACE_PALM_CHANCE = 0.5;
+const FACE_PALM_REDUCTION = 500;
 
 class TigerPalm extends Analyzer {
   static dependencies = {
@@ -53,11 +51,10 @@ class TigerPalm extends Analyzer {
     this.wastedCDR += TIGER_PALM_REDUCTION - actualReduction;
 
     if (this.hasFp) {
-      // apply FP CDR. FP is not practically detectable, so we just treat it as proccing exactly the average amount. this works well enough most of the time.
-      const avgCdr = FACE_PALM_REDUCTION * FACE_PALM_CHANCE;
-      const actualReduction = this.brews.reduceCooldown(avgCdr);
+      // apply FP CDR. FP is now deterministic
+      const actualReduction = this.brews.reduceCooldown(FACE_PALM_REDUCTION);
       this.fpCdr += actualReduction;
-      this.wastedFpCdr += avgCdr - actualReduction;
+      this.wastedFpCdr += FACE_PALM_REDUCTION - actualReduction;
     }
   }
 }

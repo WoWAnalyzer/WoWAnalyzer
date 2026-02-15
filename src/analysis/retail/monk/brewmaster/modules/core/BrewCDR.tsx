@@ -129,7 +129,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
                   </li>
                   {this.selectedCombatant.hasTalent(talents.FACE_PALM_TALENT) && (
                     <li>
-                      ~{(tp.totalCasts / 2).toFixed(0)} Face Palm procs —{' '}
+                      {tp.totalCasts} Face Palm triggers —{' '}
                       <strong>{(tp.fpCdr / 1000).toFixed(2)}s</strong> (
                       <strong>{(tp.wastedFpCdr / 1000).toFixed(2)}s</strong> wasted)
                     </li>

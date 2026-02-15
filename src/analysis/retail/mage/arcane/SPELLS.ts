@@ -57,20 +57,10 @@ const spells = {
     name: 'Clearcasting',
     icon: 'spell_shadow_manaburn',
   },
-  RULE_OF_THREES_BUFF: {
-    id: 264774,
-    name: 'Rule of Threes',
-    icon: 'spell_arcane_starfire',
-  },
   MASTERY_SAVANT: {
     id: 190740,
     name: 'Mastery: Savant',
     icon: 'spell_arcane_manatap',
-  },
-  REPLENISH_MANA: {
-    id: 5405,
-    name: 'Replenish Mana',
-    icon: 'inv_misc_gem_sapphire_02',
   },
   ARCANE_CHARGE: {
     id: 36032,
@@ -87,30 +77,20 @@ const spells = {
     name: 'Arcane Surge',
     icon: 'ability_mage_arcanesurge',
   },
-  SIPHON_STORM_BUFF: {
-    id: 384267,
-    name: 'Siphon Storm',
-    icon: 'ability_monk_forcesphere_arcane',
-  },
-  ARCANE_TEMPO_BUFF: {
-    id: 383997,
-    name: 'Arcane Tempo',
-    icon: 'ability_socererking_arcaneacceleration',
-  },
   ARCANE_ECHO_DAMAGE: {
     id: 342232,
     name: 'Arcane Echo',
     icon: 'ability_socererking_arcanewrath',
   },
-  AETHER_ATTUNEMENT_PROC_BUFF: {
-    id: 453601,
-    name: 'Aether Attunement',
-    icon: 'inv_enchant_essencearcanelarge',
+  ARCANE_SALVO_BUFF: {
+    id: 1242974,
+    name: 'Arcane Salvo',
+    icon: 'inv12_ability_mage_arcanesalvo',
   },
-  AETHER_ATTUNEMENT_STACK_BUFF: {
-    id: 458388,
-    name: 'Aether Attunement',
-    icon: 'spell_nature_starfall',
+  OVERPOWERED_MISSILES_BUFF: {
+    id: 1227009,
+    name: 'Overpowered Missiles',
+    icon: 'ability_socererking_arcanereplication',
   },
   ARCANE_SOUL_BUFF: {
     id: 451038,

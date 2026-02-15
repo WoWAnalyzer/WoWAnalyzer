@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import type Spell from 'common/SPELLS/Spell';
 import { AnyEvent } from 'parser/core/Events';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';

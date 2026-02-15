@@ -2,7 +2,7 @@ import {
   getPerformanceExplanation,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import { createContext, ReactNode, useContext, useMemo } from 'react';
+import { createContext, ReactNode, use, useMemo } from 'react';
 import { AnyEvent } from 'parser/core/Events';
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
@@ -124,7 +124,7 @@ export const SpellUsageContextProvider = ({ children }: { children: ReactNode })
     [hideGoodCasts, setHideGoodCasts],
   );
 
-  return <SpellUsageContext.Provider value={providerValue}>{children}</SpellUsageContext.Provider>;
+  return <SpellUsageContext value={providerValue}>{children}</SpellUsageContext>;
 };
 
-export const useSpellUsageContext = () => useContext(SpellUsageContext);
+export const useSpellUsageContext = () => use(SpellUsageContext);

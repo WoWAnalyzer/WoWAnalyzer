@@ -35,9 +35,6 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
     <Section title="Damage Efficiency">
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
-      {props.modules.shatteringStarGuide.guideSubsection()}
-      {props.modules.tww2TierSet.guideSubsection()}
-      {props.modules.engulf.guideSubsection()}
     </Section>
   );
 }
@@ -189,27 +186,6 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           />
         }
       />
-      {info.combatant.hasTalent(TALENTS_EVOKER.SNAPFIRE_TALENT) && (
-        <ExplanationAndDataSubSection
-          explanationPercent={EXPLANATION_PERCENTAGE}
-          explanation={
-            <p>
-              <SpellLink spell={TALENTS_EVOKER.SNAPFIRE_TALENT} /> procs allow you to cast{' '}
-              <SpellLink spell={TALENTS_EVOKER.FIRESTORM_TALENT} />. None should to go waste
-            </p>
-          }
-          data={
-            <PassFail
-              value={modules.snapfire.consumedProcs}
-              total={Math.max(modules.snapfire.procs, modules.snapfire.consumedProcs)}
-              passed={
-                modules.snapfire.consumedProcs ===
-                Math.max(modules.snapfire.procs, modules.snapfire.consumedProcs)
-              }
-            />
-          }
-        />
-      )}
     </SubSection>
   );
 }

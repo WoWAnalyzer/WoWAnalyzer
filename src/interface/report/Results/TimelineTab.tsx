@@ -65,6 +65,8 @@ const TimelineTab = ({ parser }: Props) => {
       const Component = getAlertComponent(data.type);
 
       alert = (
+        // this is not actually creating a new component; it is doing dynamic dispatch
+        // eslint-disable-next-line react-hooks/static-components
         <Component
           style={{
             marginBottom: 30,
@@ -80,7 +82,7 @@ const TimelineTab = ({ parser }: Props) => {
     <>
       <div className="container" style={{ position: 'relative' }}>
         {alert}
-        <div style={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+        <div style={{ position: 'absolute', right: '1rem', top: '1rem', zIndex: 100 }}>
           <TimelineConfiguration
             isMovementVisible={isMovementVisible}
             onAuraVisibilityChange={handleAuraVisibilityChange}

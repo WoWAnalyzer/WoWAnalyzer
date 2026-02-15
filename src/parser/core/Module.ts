@@ -1,6 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 
-import Combatant from './Combatant';
+import { FullCombatant } from './Combatant';
 import CombatLogParser from './CombatLogParser';
 
 export interface Options {
@@ -19,7 +19,7 @@ class Module {
   priority = 0;
   /** This module's given name by the parser, sometimes auto generated and sometimes requested. */
   key!: string;
-  get selectedCombatant(): Combatant {
+  get selectedCombatant(): FullCombatant {
     return this.owner.selectedCombatant;
   }
   get config() {

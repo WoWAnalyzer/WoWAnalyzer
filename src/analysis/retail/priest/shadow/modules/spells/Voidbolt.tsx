@@ -38,7 +38,7 @@ class Voidbolt extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT);
 
     this.addEventListener(
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT),

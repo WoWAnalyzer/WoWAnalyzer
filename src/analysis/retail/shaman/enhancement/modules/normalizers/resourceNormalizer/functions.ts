@@ -134,6 +134,9 @@ export function lookBehind(
   maximumMaelstromStacksConsumed: number,
 ): SearchResult | undefined {
   const event = arr[currentIndex];
+  if (!HasAbility(event)) {
+    return undefined;
+  }
   let current: SearchResult = { index: 0, timestamp: 0, events: [] };
   const matches: SearchResult[] = [current];
 
@@ -183,31 +186,35 @@ export function lookBehind(
 
   if (matches.length > 0) {
     // apply matching rules to each group
-    const results: (SearchResult | undefined)[] = matches.map((m) => {
+    const max = ability.maximum as number;
+    const candidates: SearchResult[] = [];
+    for (const m of matches) {
       const events = m.events;
-      if ((ability.maximum as number) < 0) {
-        return events.length > 0 && events.length <= maximumMaelstromStacksConsumed ? m : undefined;
+
+      if (max < 0) {
+        if (events.length > 0 && events.length <= maximumMaelstromStacksConsumed) {
+          candidates.push(m);
+        }
+        continue;
       }
 
-      // select no. of events from end
+      if (ability.requiresExact) {
+        if (events.length === max) {
+          candidates.push({ index: m.index, timestamp: m.timestamp, events });
+        }
+        continue;
+      }
+
       const truncatedEvents =
-        ability.matchMode === MatchMode.MatchFirst
-          ? events.slice(-(ability.maximum as number))
-          : events.slice(0, ability.maximum as number);
-      if (ability.requiresExact && truncatedEvents.length !== ability.maximum) {
-        return undefined;
-      }
+        ability.matchMode === MatchMode.MatchFirst ? events.slice(-max) : events.slice(0, max);
       if (truncatedEvents.length > 0) {
-        return { index: m.index, timestamp: m.timestamp, events: truncatedEvents };
+        candidates.push({ index: m.index, timestamp: m.timestamp, events: truncatedEvents });
       }
+    }
 
-      return undefined;
-    });
-
-    return results
-      .filter((r) => r !== undefined)
-      .sort((a, _) => event.timestamp - a!.timestamp)
-      .at(0);
+    // pick the closest match behind the current event (largest timestamp)
+    const result = candidates.sort((a, b) => b.timestamp - a.timestamp).at(0);
+    return result;
   }
 }
 
@@ -229,6 +236,9 @@ export function lookAhead(
   maximumMaelstromStacksConsumed: number,
 ): SearchResult | undefined {
   const event = arr[currentIndex];
+  if (!HasAbility(event)) {
+    return undefined;
+  }
 
   let current: SearchResult = { index: 0, timestamp: 0, events: [] };
   const matches: SearchResult[] = [current];
@@ -274,31 +284,35 @@ export function lookAhead(
 
   if (matches.length > 0) {
     // apply matching rules to each group
-    const results: (SearchResult | undefined)[] = matches.map((m) => {
+    const max = ability.maximum as number;
+    const candidates: SearchResult[] = [];
+    for (const m of matches) {
       const events = m.events;
-      if ((ability.maximum as number) < 0) {
-        return events.length > 0 && events.length <= maximumMaelstromStacksConsumed ? m : undefined;
+
+      if (max < 0) {
+        if (events.length > 0 && events.length <= maximumMaelstromStacksConsumed) {
+          candidates.push(m);
+        }
+        continue;
       }
 
-      // select no. of events from end
+      if (ability.requiresExact) {
+        if (events.length === max) {
+          candidates.push({ index: m.index, timestamp: m.timestamp, events });
+        }
+        continue;
+      }
+
       const truncatedEvents =
-        ability.matchMode === MatchMode.MatchFirst
-          ? events.slice(0, ability.maximum as number)
-          : events.slice(-(ability.maximum as number));
-      if (ability.requiresExact && truncatedEvents.length !== ability.maximum) {
-        return undefined;
-      }
+        ability.matchMode === MatchMode.MatchFirst ? events.slice(0, max) : events.slice(-max);
       if (truncatedEvents.length > 0) {
-        return { index: m.index, timestamp: m.timestamp, events: truncatedEvents };
+        candidates.push({ index: m.index, timestamp: m.timestamp, events: truncatedEvents });
       }
+    }
 
-      return undefined;
-    });
-
-    return results
-      .filter((r) => r !== undefined)
-      .sort((a, _) => a!.timestamp - event.timestamp)
-      .at(0);
+    // pick the closest match ahead of the current event (smallest timestamp)
+    const result = candidates.sort((a, b) => a.timestamp - b.timestamp).at(0);
+    return result;
   }
 }
 

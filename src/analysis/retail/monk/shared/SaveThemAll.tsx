@@ -1,5 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -11,28 +10,22 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-
-const BUFF_PER_POINT = 0.1;
+import { SAVE_THEM_ALL_MAX_INCREASE } from '../mistweaver/constants';
 
 class SaveThemAll extends Analyzer {
   totalHealed = 0;
-  healingBuff = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT);
-    if (!this.active) {
-      return;
-    }
-    this.healingBuff =
-      this.selectedCombatant.getTalentRank(TALENTS_MONK.SAVE_THEM_ALL_TALENT) * BUFF_PER_POINT;
+
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   onHeal(event: HealEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.SAVE_THEM_ALL_BUFF.id)) {
-      return;
-    }
-    this.totalHealed += calculateEffectiveHealing(event, this.healingBuff);
+    const hpBeforeHeal = event.hitPoints - event.amount;
+    const healingIncrease = (1 - hpBeforeHeal / event.maxHitPoints) * SAVE_THEM_ALL_MAX_INCREASE;
+
+    this.totalHealed += calculateEffectiveHealing(event, healingIncrease);
   }
 
   subStatistic() {

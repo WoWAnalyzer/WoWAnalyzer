@@ -31,7 +31,7 @@ class EmpyreanLegacy extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.EMPYREAN_LEGACY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EMPYREAN_LEGACY_HOLY_TALENT);
 
     const activeWordOfGlorySpell = getWordofGlorySpell(this.selectedCombatant);
 
@@ -99,12 +99,12 @@ class EmpyreanLegacy extends Analyzer {
             Effective Healing: {formatNumber(this.totalHealing)} <br />
             Overhealing: {formatNumber(this.totalOverhealing)} <br />
             <br />
-            The number of <SpellLink spell={TALENTS.EMPYREAN_LEGACY_TALENT} /> buffs you receive{' '}
-            <br />
+            The number of <SpellLink spell={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT} /> buffs you
+            receive <br />
             is directly tied to your <SpellLink spell={SPELLS.JUDGMENT_CAST} /> casts. <br />
             <br />
             Fight Duration: {fightDuration} seconds <br />
-            <SpellLink spell={TALENTS.EMPYREAN_LEGACY_TALENT} /> internal cooldown: 20 seconds{' '}
+            <SpellLink spell={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT} /> internal cooldown: 20 seconds{' '}
             <br />
             <SpellLink spell={SPELLS.JUDGMENT_CAST} /> casts: {judgmentCastEfficiency?.casts}/
             {judgmentCastEfficiency?.maxCasts} <br />
@@ -115,7 +115,7 @@ class EmpyreanLegacy extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.EMPYREAN_LEGACY_TALENT}>
+        <TalentSpellText talent={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT}>
           <div>
             <ItemHealingDone amount={this.totalHealing} />
           </div>

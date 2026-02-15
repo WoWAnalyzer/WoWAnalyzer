@@ -8,7 +8,7 @@ const DOTS = [
   {
     name: 'Rend',
     debuffId: SPELLS.REND_DOT_ARMS.id,
-    castId: TALENTS.REND_ARMS_TALENT.id,
+    castId: TALENTS.REND_TALENT.id,
     duration: 21000,
   },
 ];
@@ -38,7 +38,7 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.REND_ARMS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REND_TALENT);
   }
 }
 

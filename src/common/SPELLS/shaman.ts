@@ -22,16 +22,6 @@ const spells = {
     name: 'Earth Shock Overload',
     icon: 'spell_nature_earthshock',
   },
-  FUSION_OF_THE_ELEMENTS_NATURE_BUFF: {
-    id: 462841,
-    name: 'Fusion of Elements',
-    icon: 'inv_10_enchanting2_elementalswirl_color1',
-  },
-  FUSION_OF_THE_ELEMENTS_FIRE_BUFF: {
-    id: 462843,
-    name: 'Fusion of Elements',
-    icon: 'inv_10_enchanting2_elementalswirl_color1',
-  },
   PURIFY_SPIRIT: {
     id: 77130,
     name: 'Purify Spirit',
@@ -266,6 +256,11 @@ const spells = {
     name: 'Chain Lightning Overload',
     icon: 'spell_nature_chainlightning',
   },
+  CHAIN_LIGHTNING_RIDE_THE_LIGHTNING_DAMAGE: {
+    id: 211094,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
+  },
   EARTHQUAKE_DAMAGE: {
     id: 77478,
     name: 'Earthquake',
@@ -336,11 +331,6 @@ const spells = {
     name: 'Master Of The Elements Buff',
     icon: 'spell_nature_elementalabsorption',
   },
-  SURGE_OF_POWER_BUFF: {
-    id: 285514,
-    name: 'Surge of Power',
-    icon: 'spell_nature_shamanrage',
-  },
   UNLIMITED_POWER_BUFF: {
     id: 272737,
     name: 'Unlimited Power Buff',
@@ -376,6 +366,11 @@ const spells = {
     id: 157348,
     name: 'Call Lightning',
     icon: 'ability_vehicle_electrocharge',
+  },
+  PRIMAL_FIRE_ELEMENTAL: {
+    id: 118291,
+    name: 'Primal Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
   },
   FIRE_ELEMENTAL_METEOR: {
     id: 117588,
@@ -418,11 +413,6 @@ const spells = {
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
-  FERAL_SPIRIT_MAELSTROM_BUFF: {
-    id: 333957,
-    name: 'Feral Spirit',
-    icon: 'spell_shaman_feralspirit',
-  },
   ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON: {
     id: 224125,
     name: 'Molten Weapon',
@@ -448,7 +438,7 @@ const spells = {
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
-  STORMSTRIKE_CAST: {
+  STORMSTRIKE: {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
@@ -502,21 +492,6 @@ const spells = {
     id: 470058,
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
-  },
-  ICE_STRIKE_FROST_SHOCK_BUFF: {
-    id: 384357,
-    name: 'Ice Strike',
-    icon: 'spell_frost_frostbolt',
-  },
-  ICE_STRIKE_1_CAST: {
-    id: 342240,
-    name: 'Ice Strike',
-    icon: 'spell_frost_frostbolt',
-  },
-  ICE_STRIKE_1_USABLE_BUFF: {
-    id: 466469,
-    name: 'Ice Strike',
-    icon: 'spell_frost_frostbolt',
   },
   MAELSTROM_WEAPON: {
     id: 187890,
@@ -625,10 +600,30 @@ const spells = {
     name: 'Flametongue Attack',
     icon: 'spell_shaman_unleashweapon_flame',
   },
-  CRASH_LIGHTNING_BUFF: {
+  FLAMETONGUE_IMBUEMENT_MASTERY_TORNADO: {
+    id: 467386,
+    name: 'Flametongue Attack',
+    icon: 'spell_shaman_unleashweapon_flame',
+  },
+  CRASH_LIGHTNING_BUFF_DAMAGE: {
     id: 195592,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
+  },
+  CRASH_LIGHTNING_BUFF: {
+    id: 1252415,
+    name: 'Crash Lightning',
+    icon: 'spell_shaman_crashlightning',
+  },
+  CRASH_LIGHTNING_UNLEASHED_DAMAGE: {
+    id: 1252431,
+    name: 'Crash Lightning (Unleashed)',
+    icon: 'spell_shaman_crashlightning',
+  },
+  STORM_UNLEASHED_BUFF: {
+    id: 1262830,
+    name: 'Storm Unleashed',
+    icon: 'spell_druid_astralstorm',
   },
   SPIRIT_OF_THE_MAELSTROM: {
     id: 204880,
@@ -670,10 +665,10 @@ const spells = {
     name: 'Stormsurge',
     icon: 'spell_nature_stormreach',
   },
-  LEGACY_OF_THE_FROST_WITCH_BUFF: {
+  LIGHTNING_STRIKES_BUFF: {
     id: 384451,
-    name: 'Legacy of the Frost Witch',
-    icon: 'ability_thunderking_thunderstruck',
+    name: 'Lightning Strikes',
+    icon: 'ability_thunderclap',
   },
   EARTHEN_MIGHT_TIER_BUFF: {
     id: 409689,
@@ -736,6 +731,16 @@ const spells = {
     id: 52042,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
+  },
+  STORMSTREAM_TOTEM: {
+    id: 1267068,
+    name: 'Stormstream Totem',
+    icon: 'ability_shaman_manatidetotem',
+  },
+  STORMSTREAM_TOTEM_HEAL: {
+    id: 1267745,
+    name: 'Stormstream Totem',
+    icon: 'ability_shaman_manatidetotem',
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -928,9 +933,9 @@ const spells = {
     name: 'Primordial Wave',
     icon: 'inv_ability_shaman_primordialwave',
   },
-  SPLINTERED_ELEMENTS_BUFF: {
+  SURGING_ELEMENTS_BUFF: {
     id: 382043,
-    name: 'Splintered Elements',
+    name: 'Surging Elements',
     icon: 'spell_nature_elementalprecision_1',
   },
   MANA_SPRING_RESTORATION: {
@@ -1020,16 +1025,6 @@ const spells = {
     name: 'Tempest',
     icon: 'inv_ability_stormcallershaman_tempest',
   },
-  AWAKENING_STORMS_DAMAGE: {
-    id: 455130,
-    name: 'Awakening Storms',
-    icon: 'spell_nature_stormreach',
-  },
-  AWAKENING_STORMS_BUFF: {
-    id: 462131,
-    name: 'Awakening Storms',
-    icon: 'spell_nature_stormreach',
-  },
   // Farseer
   ANCESTRAL_SWIFTNESS_CAST: {
     id: 443454,
@@ -1067,17 +1062,17 @@ const spells = {
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
   },
-  SUNDERING_REACTIVITY: {
+  SUNDERING_EARTHSURGE: {
     id: 467283,
     name: 'Sundering',
     icon: 'ability_rhyolith_lavapool',
   },
 
   // Tier sets
-  TWW_S2_ELECTROSTATIC_WAGER: {
-    id: 1223332,
-    name: 'Electrostatic Wager',
-    icon: 'shaman_pvp_staticcling',
+  MIDNIGHT_S1_THUNDEROUS_VELOCITY_BUFF: {
+    id: 1272101,
+    name: 'Thunderous Velocity',
+    icon: 'ability_thunderking_thunderstruck',
   },
 } satisfies Record<string, Spell>;
 

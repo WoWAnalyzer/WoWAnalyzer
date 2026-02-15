@@ -12,7 +12,6 @@ import Guide from 'analysis/retail/priest/shadow/Guide';
 
 import Abilities from './modules/Abilities';
 import AbilityTracker from './modules/core/AbilityTracker';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -22,20 +21,19 @@ import Voidform from './modules/spells/Voidform';
 import Voidbolt from './modules/spells/Voidbolt';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
-import DevouringPlague from './modules/spells/DevouringPlague';
+import ShadowWordMadness from './modules/spells/ShadowWordMadness';
 import DarkEvangelism from './modules/talents/DarkEvangelism';
-import Dispersion from './modules/talents/Dispersion';
+import Dispersion from './modules/spells/Dispersion';
 import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordDeathSpeaker from './modules/spells/ShadowWordDeathSpeaker';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
-import VampiricEmbrace from './modules/talents/VampiricEmbrace';
 import VampiricTouch from './modules/spells/VampiricTouch';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
-import ShadowCrash from './modules/talents/ShadowCrash';
+import TentacleSlam from './modules/talents/TentacleSlam';
 import InsidiousIre from './modules/talents/InsidiousIre';
 import InescapableTorment from './modules/talents/InescapableTorment';
 import AncientMadness from './modules/talents/AncientMadness';
-import VoidTorrent from './modules/talents/VoidTorrent';
+import VoidTorrent from './modules/talents/Voidweaver/VoidTorrent';
 import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
@@ -44,7 +42,7 @@ import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import InsanityGraph from './modules/guide/InsanityGraph';
 import ShadowyApparitions from './modules/spells/ShadowyApparitions';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
-import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
+import SpectralHorrors from './modules/talents/SpectralHorrors';
 import TormentedSpirits from './modules/talents/TormentedSpirits';
 import PsychicLink from './modules/talents/PsychicLink';
 import VoidTouched from './modules/talents/VoidTouched';
@@ -60,7 +58,6 @@ import EnergyCompression from './modules/talents/Archon/EnergyCompression';
 import EmpoweredSurges from './modules/talents/Archon/EmpoweredSurges';
 import ResonantEnergy from './modules/talents/Archon/ResonantEnergy';
 import EnergyCycle from './modules/talents/Archon/EnergyCycle';
-import ConcentratedInfusion from './modules/talents/Archon/Concentrated Infusion';
 import SustainedPotency from './modules/talents/Archon/SustainedPotency';
 import ManifestedPower from './modules/talents/Archon/ManifestedPower';
 import EntropicRift from './modules/talents/Voidweaver/EntropicRift';
@@ -71,16 +68,12 @@ import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
 import VoidVolley from './modules/talents/VoidVolley';
-import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
-import ShadowTierTWWS2 from './modules/tier/ShadowTierTWWS2';
-import ShadowTierTWWS2Normalizer from './modules/tier/ShadowTierTWWS2Normalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
     abilities: Abilities,
     abilityTracker: AbilityTracker,
-    globalCooldown: GlobalCooldown,
 
     // features:
     alwaysBeCasting: AlwaysBeCasting,
@@ -95,7 +88,7 @@ class CombatLogParser extends MainCombatLogParser {
     insanityGraph: InsanityGraph,
 
     // spells:
-    devouringPlague: DevouringPlague,
+    shadowWordMadness: ShadowWordMadness,
     shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
     shadowWordDeathSpeaker: ShadowWordDeathSpeaker,
@@ -123,9 +116,9 @@ class CombatLogParser extends MainCombatLogParser {
     surgeOfInsanity: SurgeOfInsanity,
     shatteredPsyche: ShatteredPsyche,
     mindsEye: MindsEye,
-    phantasmalPathogen: PhantasmalPathogen,
+    spectralHorrors: SpectralHorrors,
     psychicLink: PsychicLink,
-    shadowCrash: ShadowCrash,
+    tentacleSlam: TentacleSlam,
     shadowyInsight: ShadowyInsight,
     tormentedSpirits: TormentedSpirits,
     voidTorrent: VoidTorrent,
@@ -136,7 +129,6 @@ class CombatLogParser extends MainCombatLogParser {
     deathAndMadness: DeathAndMadness,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     twistOfFate: TwistOfFate,
-    vampiricEmbrace: VampiricEmbrace,
 
     // Hero Talents
     //Archon
@@ -145,7 +137,6 @@ class CombatLogParser extends MainCombatLogParser {
     empoweredSurges: EmpoweredSurges,
     resonantEnergy: ResonantEnergy,
     energyCycle: EnergyCycle,
-    concentratedInfusion: ConcentratedInfusion,
     sustainedPotency: SustainedPotency,
     manifestedPower: ManifestedPower,
 
@@ -163,9 +154,6 @@ class CombatLogParser extends MainCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
 
     //Tier
-    shadowTierTWWS1: ShadowTierTWWS1,
-    shadowTierTWWS2: ShadowTierTWWS2,
-    shadowTierTWWS2Normalizer: ShadowTierTWWS2Normalizer,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

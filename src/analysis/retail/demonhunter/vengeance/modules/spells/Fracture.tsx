@@ -24,7 +24,7 @@ import {
   getGeneratingCast,
   getResourceChange,
   getWastedSoulFragment,
-} from 'analysis/retail/demonhunter/vengeance/normalizers/ShearFractureNormalizer';
+} from 'analysis/retail/demonhunter/vengeance/normalizers/FractureNormalizer';
 import Combatant from 'parser/core/Combatant';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';

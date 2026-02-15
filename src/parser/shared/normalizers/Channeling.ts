@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import {
   TALENTS_EVOKER,
+  TALENTS_HUNTER,
   TALENTS_MAGE,
   TALENTS_MONK,
   TALENTS_ROGUE,
@@ -102,9 +103,11 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.MANA_TEA_CAST.id),
     // Demon Hunter
     buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id), // TODO special handling because of the two buffs?
+    buffChannelSpec(TALENTS_DEMON_HUNTER.VOID_RAY_TALENT.id),
     // Shaman
     // Hunter
     buffChannelSpec(SPELLS.RAPID_FIRE.id),
+    buffChannelSpec(TALENTS_HUNTER.BOOMSTICK_TALENT.id),
     // Paladin
     // Warrior
     buffChannelSpec(SPELLS.BLADESTORM.id),

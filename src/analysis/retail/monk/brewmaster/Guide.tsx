@@ -1,5 +1,6 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, TooltipElement } from 'interface';
+import { AlertInfo, AlertWarning, SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
@@ -40,8 +41,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
       <Section title="Core Rotation">
-        <AplChoiceDescription />
-        <BlackoutComboSection />
+        <AlertInfo>
+          Analysis of the Brewmaster rotation is temporarily disabled due to large changes in
+          Midnight. Cooldown analysis is still available.
+        </AlertInfo>
         <SubSection title="Major Cooldowns">
           <Explanation>
             <p>

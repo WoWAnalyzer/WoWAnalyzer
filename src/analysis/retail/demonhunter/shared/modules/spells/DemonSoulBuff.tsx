@@ -28,10 +28,14 @@ export default class DemonSoulBuff extends Analyzer {
   }
 
   private onDamage(event: DamageEvent) {
-    if (
-      !this.selectedCombatant.hasBuff(SPELLS.DEMON_SOUL_BUFF_NON_FODDER.id) ||
-      !DEMON_SOUL_BUFF_ALLOWLIST.includes(event.ability.guid)
-    ) {
+    const hasDemonSoul =
+      this.selectedCombatant.hasBuff(SPELLS.DEMON_SOUL_BUFF_FEL_SCARRED_VDH.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.DEMON_SOUL_BUFF_FEL_SCARRED_HDH.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.DEMON_SOUL_BUFF_NON_FODDER.id);
+
+    const allowedSpell = DEMON_SOUL_BUFF_ALLOWLIST.includes(event.ability.guid);
+
+    if (!hasDemonSoul || !allowedSpell) {
       return;
     }
     this.addedDamage += calculateEffectiveDamage(event, 0.2);

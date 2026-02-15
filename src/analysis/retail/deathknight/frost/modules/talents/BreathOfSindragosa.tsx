@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+import { defineMessage } from '@lingui/core/macro';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import CooldownExpandable, {

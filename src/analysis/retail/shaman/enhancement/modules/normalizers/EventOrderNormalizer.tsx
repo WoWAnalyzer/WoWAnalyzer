@@ -6,13 +6,18 @@ import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import { NormalizerOrder } from './constants';
 import { EventLinkBuffers } from '../../constants';
 
-/** Thorim's Invocation automatically casts Lightning Bolts when Windstrike used, but
- * these free casts appear in the event log prior to the windstrike. Re-order so the Windstrike
- * comes first. */
+/** Thorim's Invocation automatically discharges Lightning Bolt/Chain Lightning/Tempest during
+ * Doom Winds or Ascendance when Stormstrike/Crash Lightning/Windstrike is used.
+ * These auto-casts can appear in the event log prior to the triggering cast, so re-order to ensure
+ * the triggering cast comes first. */
 
-//"windstrike" "lightning bolt" "tempest"
-const thorimsInvocationSpellAfterWindstrike: EventOrder = {
-  beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
+// trigger (stormstrike/crash lightning/windstrike) -> discharge (lb/chl/tempest)
+const thorimsInvocationSpellAfterTrigger: EventOrder = {
+  beforeEventId: [
+    SPELLS.STORMSTRIKE.id,
+    SPELLS.WINDSTRIKE_CAST.id,
+    TALENTS.CRASH_LIGHTNING_TALENT.id,
+  ],
   beforeEventType: EventType.Cast,
   afterEventId: [
     SPELLS.LIGHTNING_BOLT.id,
@@ -41,50 +46,22 @@ const thorimsInvocationBuffAfterSpell: EventOrder = {
   maxMatches: 1,
 };
 
-/**
- * In some instances, the healcomes before the cast, so normalize to force it after
- */
-const healingOrder: EventOrder = {
-  afterEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
-  afterEventType: [EventType.Heal, EventType.HealAbsorbed],
-  beforeEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
-  beforeEventType: EventType.Cast,
-  anyTarget: true,
-  bufferMs: EventLinkBuffers.MaelstromWeapon,
-  updateTimestamp: true,
-};
-
-/** When primordial storm is cast with 10 maelstrom weapon, legacy of the frost witch applies after the cast
- * Re-order to apply before the cast for easier analysis later */
-const primordialStormEventOrder: EventOrder = {
-  afterEventId: SPELLS.PRIMORDIAL_STORM_CAST.id,
-  afterEventType: EventType.Cast,
-  beforeEventId: SPELLS.LEGACY_OF_THE_FROST_WITCH_BUFF.id,
-  beforeEventType: EventType.ApplyBuff,
-  anyTarget: true,
-  bufferMs: 5,
-  updateTimestamp: true,
-};
-
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
-  private readonly hasRollingThunder: boolean;
+  private readonly hasThorimsInvocation: boolean;
   constructor(options: Options) {
-    super(options, [
-      thorimsInvocationSpellAfterWindstrike,
-      thorimsInvocationBuffAfterSpell,
-      healingOrder,
-      primordialStormEventOrder,
-    ]);
+    super(options, [thorimsInvocationSpellAfterTrigger, thorimsInvocationBuffAfterSpell]);
 
     this.priority = NormalizerOrder.EventOrderNormalizer;
 
-    this.hasRollingThunder = this.selectedCombatant.hasTalent(TALENTS.ROLLING_THUNDER_TALENT);
+    this.hasThorimsInvocation = this.selectedCombatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT);
   }
 
   /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt, Chain Lightning, and Tempest
-   * from Windstrike into 'freecast' so they don't interfere with the APL */
+   * from Thorim's Invocation into 'freecast' so they don't interfere with the APL */
   normalize(events: AnyEvent[]) {
-    events = super.normalize(events);
+    if (this.hasThorimsInvocation) {
+      events = super.normalize(events);
+    }
 
     const fixedEvents: AnyEvent[] = [];
     const thorimsInvocationCastIds: number[] = [
@@ -92,86 +69,80 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
       TALENTS.CHAIN_LIGHTNING_TALENT.id,
       SPELLS.TEMPEST_CAST.id,
     ];
-    const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
+    const thorimsInvocationTriggerIds: number[] = [
+      SPELLS.STORMSTRIKE.id,
+      SPELLS.WINDSTRIKE_CAST.id,
+      TALENTS.CRASH_LIGHTNING_TALENT.id,
+    ];
     const skipEvents = new Set<AnyEvent>();
+
+    let doomWindsActive = false;
+    let ascendanceActive = false;
 
     events.forEach((event: AnyEvent, idx: number) => {
       if (!skipEvents.has(event)) {
         fixedEvents.push(event);
       }
-      // non-cast events are irrelevant
-      if (event.type !== EventType.Cast) {
+      if (!HasAbility(event)) {
+        return;
+      }
+
+      // Track active windows for gating Thorim's Invocation free casts.
+      if (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff) {
+        if (event.ability.guid === SPELLS.DOOM_WINDS_BUFF.id) {
+          doomWindsActive = true;
+        }
+        if (event.ability.guid === TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id) {
+          ascendanceActive = true;
+        }
+      }
+      if (event.type === EventType.RemoveBuff) {
+        if (event.ability.guid === SPELLS.DOOM_WINDS_BUFF.id) {
+          doomWindsActive = false;
+        }
+        if (event.ability.guid === TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id) {
+          ascendanceActive = false;
+        }
+      }
+
+      // Only cast events can be tagged as FreeCast.
+      if (event.type !== EventType.Cast || !this.hasThorimsInvocation) {
         return;
       }
 
       const spellId = event.ability.guid;
-      if (thorimsInvocationCastIds.includes(spellId)) {
-        // For ChL, LB, and Tempest casts, look backwards for a Windstrike cast
-        for (let backwardsIndex = idx - 1; backwardsIndex >= 0; backwardsIndex -= 1) {
-          const backwardsEvent = events[backwardsIndex];
-          // The windstrike and auto cast typically occur on the same timestamp
-          if (event.timestamp - backwardsEvent.timestamp > EventLinkBuffers.MaelstromWeapon) {
-            break;
-          }
-
-          if (
-            backwardsEvent.type !== EventType.Cast ||
-            backwardsEvent.ability.guid !== windstrikeId
-          ) {
-            continue;
-          }
-
-          fixedEvents.splice(idx, 1);
-          fixedEvents.push({
-            ...event,
-            type: EventType.FreeCast,
-            __modified: true,
-          });
-        }
+      if (!thorimsInvocationCastIds.includes(spellId)) {
+        return;
       }
 
-      /** This interaction is a bug. The maelstrom is consumed after the cast so doesn't increase damage, but does apply to
-       * Static Accumulation refund. */
+      // Thorim's Invocation discharges only occur during Doom Winds or Ascendance.
+      if (!doomWindsActive && !ascendanceActive) {
+        return;
+      }
 
-      /** The Rolling Thunder hero talent summons the feral spirt AFTER the tempest cast (but before damage). The issue
-       * with this is when a feral spirit is summoned, it also immediately generates 1 stack of msw, but because this
-       * appearing after, we need to move it back. a traditional order normalizer doesn't move the events correctly */
-      //return;
-      if (this.hasRollingThunder && spellId === SPELLS.TEMPEST_CAST.id) {
-        const eventsToMoveBack: AnyEvent[] = [];
-        for (let forwardIndex = idx + 1; forwardIndex < events.length; forwardIndex += 1) {
-          const forwardEvent = events[forwardIndex];
-          if (forwardEvent.timestamp - event.timestamp > 15 || !HasAbility(forwardEvent)) {
-            break;
-          }
-          if (
-            (forwardEvent.ability.guid === SPELLS.SUMMON_FERAL_SPIRIT.id &&
-              [EventType.Summon].includes(forwardEvent.type)) ||
-            (forwardEvent.ability.guid === SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id &&
-              [EventType.ApplyBuff, EventType.RefreshBuff].includes(forwardEvent.type)) ||
-            (forwardEvent.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id &&
-              [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff].includes(
-                forwardEvent.type,
-              ))
-          ) {
-            eventsToMoveBack.push(forwardEvent);
-            // once the first maelstrom event is hit, exit out
-            if (forwardEvent.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id) {
-              break;
-            }
-          }
+      // For ChL, LB, and Tempest casts, look backwards for a triggering cast.
+      for (let backwardsIndex = idx - 1; backwardsIndex >= 0; backwardsIndex -= 1) {
+        const backwardsEvent = events[backwardsIndex];
+        // The triggering cast and discharge typically occur on the same timestamp.
+        if (event.timestamp - backwardsEvent.timestamp > EventLinkBuffers.MaelstromWeapon) {
+          break;
         }
-        if (eventsToMoveBack.length === 3) {
-          // update timestamp
-          eventsToMoveBack.forEach((e) => {
-            e.timestamp = event.timestamp;
-            e.__reordered = true;
-            skipEvents.add(e);
-          });
 
-          const currentEvent = fixedEvents.splice(idx, 1, ...eventsToMoveBack);
-          fixedEvents.push(...currentEvent);
+        if (
+          backwardsEvent.type !== EventType.Cast ||
+          !HasAbility(backwardsEvent) ||
+          !thorimsInvocationTriggerIds.includes(backwardsEvent.ability.guid)
+        ) {
+          continue;
         }
+
+        fixedEvents.splice(idx, 1);
+        fixedEvents.push({
+          ...event,
+          type: EventType.FreeCast,
+          __modified: true,
+        });
+        break;
       }
     });
 

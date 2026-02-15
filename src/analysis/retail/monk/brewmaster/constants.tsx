@@ -3,7 +3,6 @@ import talents from 'common/TALENTS/monk';
 
 export const MAGIC_STAGGER_EFFECTIVENESS = 0.58;
 
-// Yes there are 7... The cake is a lie (8 really)
 export const GIFT_OF_THE_OX_SPELLS = [
   SPELLS.GIFT_OF_THE_OX_1,
   SPELLS.GIFT_OF_THE_OX_2,
@@ -17,13 +16,7 @@ export const GIFT_OF_THE_OX_SPELLS = [
 
 export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({ id }) => id);
 
-export const SPELLS_WHICH_REMOVE_BOC = [
-  SPELLS.TIGER_PALM,
-  talents.BREATH_OF_FIRE_TALENT,
-  talents.KEG_SMASH_TALENT,
-  talents.CELESTIAL_BREW_TALENT,
-  talents.PURIFYING_BREW_TALENT,
-];
+export const SPELLS_WHICH_REMOVE_BOC = [SPELLS.TIGER_PALM, talents.KEG_SMASH_TALENT];
 
 export const WALK_WITH_THE_OX_DAMAGE_INCREASE = [0, 0.1, 0.2];
 

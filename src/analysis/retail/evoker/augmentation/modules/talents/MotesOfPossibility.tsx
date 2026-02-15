@@ -150,7 +150,7 @@ class MotesOfPossibility extends Analyzer {
           value: this.sandsMotes,
         },
         {
-          color: 'rgb(216, 59, 59)',
+          color: 'rgb(254, 59, 59)',
           label: SPELLS.INFERNOS_BLESSING_BUFF.name,
           spellId: SPELLS.INFERNOS_BLESSING_BUFF.id,
           valueTooltip: this.infernoMotes,
@@ -164,7 +164,7 @@ class MotesOfPossibility extends Analyzer {
           value: this.blossomMotes,
         },
         {
-          color: 'rgb(200, 200, 0)',
+          color: 'rgb(253, 206, 86)',
           label: TALENTS.PRESCIENCE_TALENT.name,
           spellId: TALENTS.PRESCIENCE_TALENT.id,
           valueTooltip: this.prescienceMotes,
@@ -181,7 +181,7 @@ class MotesOfPossibility extends Analyzer {
           value: this.sandsMotes,
         },
         {
-          color: 'rgb(216, 59, 59)',
+          color: 'rgb(254, 59, 59)',
           label: SPELLS.INFERNOS_BLESSING_BUFF.name,
           spellId: SPELLS.INFERNOS_BLESSING_BUFF.id,
           valueTooltip: this.infernoMotes,

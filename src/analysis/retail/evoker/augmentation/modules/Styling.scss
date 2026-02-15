@@ -1,4 +1,5 @@
 @use 'interface/Theme.scss';
+@use 'interface/guide/Guide';
 
 .grid {
   grid-template-columns: 35% auto;
@@ -16,13 +17,18 @@
   color: #999;
 }
 .goodCast {
-  background-color: #4ec04e;
+  background-color: Guide.$good-perf-color;
   color: black;
   padding: 0 3px;
 }
 .badCast {
-  background-color: #ac1f39;
+  background-color: Guide.$bad-perf-color;
   color: white;
+  padding: 0 3px;
+}
+.perfectCast {
+  background-color: Guide.$perfect-perf-color;
+  color: black;
   padding: 0 3px;
 }
 

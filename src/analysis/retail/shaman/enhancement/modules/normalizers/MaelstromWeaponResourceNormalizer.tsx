@@ -50,16 +50,16 @@ import {
   SearchFunctions,
 } from './resourceNormalizer/types';
 
-const DEBUG = true;
+const DEBUG = false;
 
 const SPEND_EVENT_PLACEHOLDER_COST = -1;
 
 /**
  * This EventsNormalizer has two main objectives:
  * 1. Change all maeslstrom `applybuff`, `applybuffstack`, and `refreshbuff` events into a single `resourcechange`
- * event that captures all resource gains from an individual source, such as the two maelstrom stacks when
- * Ice Strike is cast when talented into Elemental Assault and Swirling Maelstrom, or the variable no. of stacks from
- * Static Accumulation (anywhere from 1-10).
+ * event that captures all resource gains from an individual source, such as the one maelstrom stack from Elemental Assault
+ * and Lightning Strikes, the variable no. of stacks from Thunder Capacitor (anywhere from 1-10), and the periodic gains from
+ * Static Accumulation on regular intervals that don't typically log events.
  * 2. Find `removebuff` and `removebuffstack` events that relate to cast events for maestrom weapon eligible spells, and
  * set populate the `classResource` and `resourceCost` fields with the number of stacks consumed.
  *
@@ -94,13 +94,22 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     const skip = new Set<AnyEvent>();
 
     /**
-     * Feral Spirit and Ascendance generate maelstrom weapon stacks at fixed intervals, but do not have
+     * Static Accumulation generates maelstrom weapon stacks at fixed intervals, but does not have
      * other events at the relevant timestamps, so this function first finds all applybuff and removebuff
      * events, then fabricates a resourechange event at each expected interval.
      */
     events = this._generatePeriodicGainEvents(events, skip);
 
-    Object.keys(MAELSTROM_ABILITIES).forEach((key) => {
+    // Ensure Static Accumulation (periodic, fabricated tick events) is processed before any
+    // other builder abilities so its stack gains are claimed first.
+    const abilityKeys = Object.keys(MAELSTROM_ABILITIES);
+    const orderedAbilityKeys = [
+      'SPENDERS',
+      'STATIC_ACCUMULATION',
+      ...abilityKeys.filter((k) => k !== 'SPENDERS' && k !== 'STATIC_ACCUMULATION'),
+    ];
+
+    orderedAbilityKeys.forEach((key) => {
       const ability: MaelstromAbility =
         MAELSTROM_ABILITIES[key as keyof typeof MAELSTROM_ABILITIES];
       if (!(ability.enabled === undefined || ability.enabled(this.selectedCombatant))) {
@@ -111,7 +120,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       ability.maximum =
         typeof ability.maximum === 'function'
           ? ability.maximum(this.selectedCombatant)
-          : ability.maximum ?? 1;
+          : (ability.maximum ?? 1);
 
       /**
        * loop through all events in order
@@ -131,9 +140,46 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           sourceCheck(event, this.selectedCombatant.id)
         ) {
           // use the specified search to find related maelstrom weapon buff events
-          const searchResult: SearchResult | undefined = this.searchFunctions[
-            ability.searchDirection
-          ](ability, index, events, skip, this.maxSpend);
+          // For multi-direction searches, only log requiresExact failures on the final attempt.
+          let searchResult: SearchResult | undefined;
+          if (ability.updateExistingEvent && ability.requiresExact) {
+            switch (ability.searchDirection) {
+              case SearchDirection.ForwardsOnly: {
+                searchResult = lookAhead(ability, index, events, skip, this.maxSpend);
+                break;
+              }
+              case SearchDirection.BackwardsOnly: {
+                searchResult = lookBehind(ability, index, events, skip, this.maxSpend);
+                break;
+              }
+              case SearchDirection.ForwardsFirst: {
+                const forward = lookAhead(ability, index, events, skip, this.maxSpend);
+                if (forward) {
+                  searchResult = forward;
+                  break;
+                }
+                searchResult = lookBehind(ability, index, events, skip, this.maxSpend);
+                break;
+              }
+              case SearchDirection.BackwardsFirst: {
+                const backward = lookBehind(ability, index, events, skip, this.maxSpend);
+                if (backward) {
+                  searchResult = backward;
+                  break;
+                }
+                searchResult = lookAhead(ability, index, events, skip, this.maxSpend);
+                break;
+              }
+            }
+          } else {
+            searchResult = this.searchFunctions[ability.searchDirection](
+              ability,
+              index,
+              events,
+              skip,
+              this.maxSpend,
+            );
+          }
 
           if (!searchResult) {
             continue;
@@ -401,17 +447,6 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           );
 
           let cost = current - cr.amount;
-          // if the event type is a free-cast, look at the previous event. if the previous event is a windstrike, cap the cost at 5
-          if (event.type === EventType.FreeCast) {
-            const previousCast = events[index - 1];
-            if (
-              HasAbility(previousCast) &&
-              previousCast.ability.guid === SPELLS.WINDSTRIKE_CAST.id &&
-              cost > 5
-            ) {
-              cost = 5;
-            }
-          }
 
           cr.cost = cost;
           cr.amount = current;

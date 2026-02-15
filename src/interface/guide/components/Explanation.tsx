@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ComponentPropsWithoutRef, createContext, ReactNode, useContext, useMemo } from 'react';
+import { ComponentPropsWithoutRef, createContext, ReactNode, use, useMemo } from 'react';
 import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
 
 interface ExplanationContextValue {
@@ -23,12 +23,10 @@ export const ExplanationContextProvider = ({ children }: ExplanationContextProvi
     [hideExplanations, setHideExplanations],
   );
 
-  return (
-    <ExplanationContext.Provider value={providerValue}>{children}</ExplanationContext.Provider>
-  );
+  return <ExplanationContext value={providerValue}>{children}</ExplanationContext>;
 };
 
-export const useExplanationContext = () => useContext(ExplanationContext);
+export const useExplanationContext = () => use(ExplanationContext);
 
 /** A container for explanatory text.
  *  For now this is just a div, a future update will allow a toggle to hide all Explanations. */

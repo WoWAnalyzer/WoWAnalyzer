@@ -69,11 +69,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const payload = action.payload;
-      if (payload) {
-        return payload;
-      } else {
-        return state;
-      }
+      return payload;
     });
     builder.addCase(logout.fulfilled, () => {
       return null;

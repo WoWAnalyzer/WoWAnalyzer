@@ -90,10 +90,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           burn phases. These burn phases happen roughly every 45s, alternating between your major
           burn and your minor burn, and typically revolve around stacking as much damage as possible
           into your <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> as possible. To do this,
-          you will stack other buffs such as <SpellLink spell={SPELLS.SIPHON_STORM_BUFF} /> and{' '}
-          <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} /> to allow your other damaging abilities
-          such as <SpellLink spell={SPELLS.ARCANE_BLAST} /> and{' '}
-          <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> (with{' '}
+          you will stack other buffs such as and <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />{' '}
+          to allow your other damaging abilities such as <SpellLink spell={SPELLS.ARCANE_BLAST} />{' '}
+          and <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> (with{' '}
           <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />) to hit harder. As such, you want to make
           sure you are casting as much as possible during{' '}
           <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and that you properly setup for
@@ -116,7 +115,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.arcaneOrbGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&
           modules.presenceOfMindGuide.guideSubsection}
-        <AplGuideSubsection info={info} />
       </Section>
 
       <Section title="Buffs & Procs">
@@ -129,8 +127,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           overall and burst damage.
         </>
         {modules.clearcastingGuide.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT) &&
-          modules.arcaneTempoGuide.guideSubsection}
       </Section>
       <Section title="Cooldowns">
         <>

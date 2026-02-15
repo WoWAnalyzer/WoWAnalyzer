@@ -143,6 +143,11 @@ const spells = {
     name: 'Shattering Star',
     icon: 'ability_evoker_chargedblast',
   },
+  SHATTERING_STAR_DAMAGE: {
+    id: 1265804,
+    name: 'Shattering Star',
+    icon: 'ability_evoker_chargedblast',
+  },
   ESSENCE_BURST_DEV_BUFF: {
     id: 359618,
     name: 'Essence Burst',
@@ -470,7 +475,7 @@ const spells = {
   },
   BREATH_OF_EONS_DAMAGE: {
     id: 409632,
-    name: 'Temporal Wound',
+    name: 'Breath of Eons',
     icon: 'ability_evoker_breathofeons',
   },
   BREATH_OF_EONS_SCALECOMMANDER: {
@@ -598,21 +603,6 @@ const spells = {
     name: 'Chronoflame',
     icon: 'inv_ability_chronowardenevoker_chronoflame',
   },
-  THREAD_OF_FATE_BUFF: {
-    id: 431716,
-    name: 'Thread of Fate',
-    icon: 'ability_evoker_sandsoftime',
-  },
-  THREAD_OF_FATE_HEALING: {
-    id: 432896,
-    name: 'Thread of Fate',
-    icon: 'ability_evoker_sandsoftime',
-  },
-  THREAD_OF_FATE_DAMAGE: {
-    id: 432895,
-    name: 'Thread of Fate',
-    icon: 'ability_evoker_sandsoftime',
-  },
   PRIMACY_BUFF: {
     id: 431654,
     name: 'Primacy',
@@ -658,11 +648,6 @@ const spells = {
     id: 408005,
     name: 'Momentum Shift',
     icon: 'ability_priest_voidshift',
-  },
-  VOLCANIC_UPSURGE: {
-    id: 456142,
-    name: 'Volcanic Upsurge',
-    icon: 'ability_evoker_earthensky',
   },
   MOTES_OF_ACCELERATION_BUFF: {
     id: 432061,
@@ -752,7 +737,7 @@ const spells = {
   DUPLICATE_SELF_BUFF: {
     id: 1259171,
     name: 'Duplicate',
-    icon: 'ability_evoker_masterylifebinder_bronze',
+    icon: 'inv12_apextalent_evoker_duplicate',
   },
   DUPLICATE_ERUPTION: {
     id: 1259172,
@@ -763,6 +748,26 @@ const spells = {
     id: 431164,
     name: 'Fire Breath (Duplicate)',
     icon: 'ability_evoker_firebreath',
+  },
+  TEMPORAL_BURST_BUFF: {
+    id: 431698,
+    name: 'Temporal Burst',
+    icon: 'ability_evoker_essenceburst5',
+  },
+  AZURE_SWEEP: {
+    id: 1265872,
+    name: 'Azure Sweep',
+    icon: 'inv_10_skinning_dragonscales_blue',
+  },
+  AZURE_SWEEP_BUFF: {
+    id: 1265871,
+    name: 'Azure Sweep',
+    icon: 'inv_10_skinning_dragonscales_blue',
+  },
+  TWIN_FLAME: {
+    id: 1265980,
+    name: 'Twin Flame',
+    icon: 'ability_evoker_infernosblessing',
   },
   // endregion
 } satisfies Record<string, Spell>;

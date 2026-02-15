@@ -12,38 +12,29 @@ import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CastBehavior from './modules/features/CastBehavior';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import SpellUsable from './modules/features/SpellUsable';
-import TidalWaves from './modules/features/TidalWaves';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Talents
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
 import HealingRain from './modules/spells/HealingRain';
-import HealingSurge from './modules/spells/HealingSurge';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
+import EarthlivingWeapon from './modules/talents/EarthlivingWeapon';
 
 import Resurgence from './modules/spells/Resurgence';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 import WaterShield from './modules/spells/WaterShield';
-import AncestralProtectionTotem from './modules/talents/AncestralProtectionTotem';
 import AncestralVigor from './modules/talents/AncestralVigor';
 import Ascendance from './modules/talents/Ascendance';
-import CloudburstTotem from './modules/talents/CloudburstTotem';
 import Deluge from './modules/talents/Deluge';
 import Downpour from './modules/talents/Downpour';
-import EarthenWallTotem from './modules/talents/EarthenWallTotem';
-import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Torrent from './modules/talents/Torrent';
-import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
-import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
-import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
 import WhiteWater from './modules/talents/WhiteWater';
 import CoalescingWater from './modules/talents/CoalescingWater';
 // Hero talents
@@ -52,22 +43,21 @@ import LivelyTotems from './modules/talents/totemic/LivelyTotems';
 import TotemicRebound from './modules/talents/totemic/TotemicRebound';
 import AmplificationCore from './modules/talents/totemic/AmplificationCore';
 import Oversurge from './modules/talents/totemic/Oversurge';
-import Reactivity from './modules/talents/totemic/Reactivity';
+import Splitstream from './modules/talents/totemic/Splitstream';
 import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
 // Spells
 // Tiers
-import TWW1TierSet from './modules/tier/TWW1TierSet';
 // Shared
-import StoneBulwarkTotem from '../shared/talents/StoneBulwarkTotem';
 
 // Normalizers
-import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
 import ChainHealNormalizer from './normalizers/ChainHealNormalizer';
 import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
+import EarthlivingTracker from './modules/core/EarthlivingTracker';
+import EarthlivingAttributor from './modules/core/EarthlivingAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
 import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 import AncestralReach from './modules/talents/AncestralReach';
@@ -98,26 +88,18 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    cooldownThroughputTracker: CooldownThroughputTracker,
-    tidalWaves: TidalWaves,
-    castBehavior: CastBehavior,
     spellUsable: SpellUsable,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     earthShieldBreakdown: EarthShieldBreakdown,
 
     // Talents
     torrent: Torrent,
     unleashLife: UnleashLife,
-    undulation: Undulation,
     deluge: Deluge,
     ancestralVigor: AncestralVigor,
-    earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
-    cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
-    wellspring: Wellspring,
-    highTide: HighTide,
     naturesGuardian: NaturesGuardian,
-    ancestralProtectionTotem: AncestralProtectionTotem,
     undercurrent: Undercurrent,
     primalTideCore: PrimalTideCore,
     wavespeakersBlessing: WavespeakersBlessing,
@@ -126,9 +108,9 @@ class CombatLogParser extends CoreCombatLogParser {
     earthenHarmony: EarthenHarmony,
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
-    spiritwalkersTidalTotem: SpiritwalkersTidalTotem,
     whiteWater: WhiteWater,
     coalescingWater: CoalescingWater,
+    earthLivingWeapon: EarthlivingWeapon,
 
     // Hero talents
     surgingTotem: SurgingTotem,
@@ -136,13 +118,12 @@ class CombatLogParser extends CoreCombatLogParser {
     totemicRebound: TotemicRebound,
     amplificationCore: AmplificationCore,
     oversurge: Oversurge,
-    reactivity: Reactivity,
+    splitstream: Splitstream,
     imbuementMastery: ImbuementMastery,
 
     // Spells
     riptide: Riptide,
     chainHeal: ChainHeal,
-    healingSurge: HealingSurge,
     healingRain: HealingRain,
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
@@ -157,20 +138,21 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
-    stoneBulwarkTotem: StoneBulwarkTotem,
 
     // Normalizers
     surgingTotemPrePullNormalizer: SurgingTotemPrePullNormalizer,
-    cloudburstNormalizer: CloudburstNormalizer,
     riptideNormalizer: RiptideNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     unleashLifeNormalizer: UnleashLifeNormalizer,
     chainHealNormalizer: ChainHealNormalizer,
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
+    earthlivingTracker: EarthlivingTracker,
+    earthlivingAttributor: EarthlivingAttributor,
+
+    // Tiers
 
     // Items
-    tww1TierSet: TWW1TierSet,
   };
   static guide = Guide;
 }

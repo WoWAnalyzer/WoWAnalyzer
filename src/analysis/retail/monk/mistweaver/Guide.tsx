@@ -13,7 +13,7 @@ import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
-import { getCurrentRSKTalent } from './constants';
+import { getCurrentCelestialTalent, getCurrentRSKTalent } from './constants';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
@@ -30,12 +30,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
-        {modules.vivify.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          modules.jadefireTeachings.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
-          modules.jadeEmpowerment.guideSubsection}
+        {!info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) &&
+          modules.vivify.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
@@ -50,7 +46,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           : modules.invokeYulon.guideCastBreakdown}
         {info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) &&
           modules.revival.guideCastBreakdown}
-        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT) &&
           modules.celestialConduit.guideCastBreakdown}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
@@ -64,7 +60,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <p>
           <strong>
             It is important to note that using abilites like{' '}
-            <SpellLink spell={modules.invokeChiJi.getCelestialTalent()} /> have their own priority
+            <SpellLink spell={getCurrentCelestialTalent(info.combatant)} /> have their own priority
             that supercedes the priority list below. This section omits all casts in those windows.
           </strong>
         </p>

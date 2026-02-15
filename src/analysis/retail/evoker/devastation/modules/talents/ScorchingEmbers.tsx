@@ -29,7 +29,7 @@ const COLORS = [
 ];
 
 /**
- * Fire Breath causes enemies to take 20% increased damage from your Red spells.
+ * Enemies affected by Fire Breath's damage over time effect take 25% increased damage from your Red spells.
  */
 class ScorchingEmbers extends Analyzer {
   static dependencies = {

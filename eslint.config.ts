@@ -35,9 +35,7 @@ const ignores = tseslint.config({
     // REMOVE SPECS FROM HERE ONCE THEY ARE SUPPORTED
     'src/analysis/retail/deathknight/blood/**',
     'src/analysis/retail/deathknight/frost/**',
-    'src/analysis/retail/deathknight/unholy/**',
     'src/analysis/retail/druid/balance/**',
-    'src/analysis/retail/druid/guardian/**',
     'src/analysis/retail/druid/feral/**',
     'src/analysis/retail/druid/restoration/**',
     'src/analysis/retail/druid/shared/**',
@@ -47,8 +45,6 @@ const ignores = tseslint.config({
     'src/analysis/retail/evoker/shared/**',
     'src/analysis/retail/hunter/beastmastery/**',
     'src/analysis/retail/hunter/marksmanship/**',
-    'src/analysis/retail/hunter/survival/**',
-    'src/analysis/retail/hunter/shared/**',
     'src/analysis/retail/mage/arcane/**',
     'src/analysis/retail/mage/fire/**',
     'src/analysis/retail/mage/frost/**',
@@ -63,24 +59,17 @@ const ignores = tseslint.config({
     'src/analysis/retail/paladin/shared/**',
     'src/analysis/retail/priest/discipline/**',
     'src/analysis/retail/priest/holy/**',
-    'src/analysis/retail/priest/shadow/**',
-    'src/analysis/retail/priest/shared/**',
     'src/analysis/retail/rogue/assassination/**',
     'src/analysis/retail/rogue/subtlety/**',
     'src/analysis/retail/rogue/outlaw/**',
     'src/analysis/retail/rogue/shared/**',
     'src/analysis/retail/shaman/elemental/**',
     'src/analysis/retail/shaman/enhancement/**',
-    'src/analysis/retail/shaman/restoration/**',
-    'src/analysis/retail/shaman/shared/**',
     'src/analysis/retail/warlock/affliction/**',
     'src/analysis/retail/warlock/demonology/**',
     'src/analysis/retail/warlock/destruction/**',
     'src/analysis/retail/warlock/shared/**',
-    'src/analysis/retail/warrior/arms/**',
-    'src/analysis/retail/warrior/fury/**',
     'src/analysis/retail/warrior/protection/**',
-    'src/analysis/retail/warrior/shared/**',
   ],
 });
 
@@ -141,7 +130,7 @@ const javascript = tseslint.config({
   extends: [
     js.configs.recommended,
     react.configs.recommended,
-    reactHooks.configs['recommended-latest'],
+    reactHooks.configs.flat['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   rules: {
@@ -169,7 +158,7 @@ const typescript = tseslint.config({
     tseslint.configs.recommended,
     tseslint.configs.stylistic,
     react.configs['recommended-typescript'],
-    reactHooks.configs['recommended-latest'],
+    reactHooks.configs.flat['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   languageOptions: {
@@ -179,7 +168,7 @@ const typescript = tseslint.config({
   },
   rules: {
     '@eslint-react/dom/no-missing-button-type': 'error',
-    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-expressions': [
       'error',
       { allowShortCircuit: true, allowTernary: true },
@@ -195,6 +184,10 @@ const typescript = tseslint.config({
     '@typescript-eslint/array-type': 'off',
     // too noisy. we have to have keys and often are working with things with no other real option
     '@eslint-react/no-array-index-key': 'off',
+    // we have a lot of contexts named 'Ctx' instead of 'Context', which is fine
+    '@eslint-react/naming-convention/context-name': 'off',
+    // duplicates lint from react-hooks. react-hooks has a more descriptive error (even if with worse formatting)
+    '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
   },
 });
 

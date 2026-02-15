@@ -17,16 +17,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import {
+/* import {
   getDreamBreathCast,
   getDreamBreathHealing,
-} from 'analysis/retail/evoker/preservation/normalizers/EventLinking/helpers';
+} from 'analysis/retail/evoker/preservation/normalizers/EventLinking/helpers'; */
 import HIT_TYPES from 'game/HIT_TYPES';
-import {
+/* import {
   FIRE_BREATH,
   FIRE_BREATH_CAST,
 } from 'analysis/retail/evoker/preservation/normalizers/EventLinking/constants';
-import { DOUBLE_TIME_EXTENSION } from 'analysis/retail/evoker/preservation/constants';
+import { DOUBLE_TIME_EXTENSION } from 'analysis/retail/evoker/preservation/constants'; */
 
 class DoubleTime extends Analyzer {
   // Dream Breath
@@ -41,10 +41,11 @@ class DoubleTime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.DOUBLE_TIME_TALENT);
+    // TODO: Reimplement once Preservation is enabled again
+    this.active = false; //this.selectedCombatant.hasTalent(TALENTS_EVOKER.DOUBLE_TIME_TALENT);
     this.blastFurnace = this.selectedCombatant.hasTalent(TALENTS_EVOKER.BLAST_FURNACE_TALENT);
 
-    // Dream Breath
+    /* // Dream Breath
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
       this.onApplyDb,
@@ -62,10 +63,10 @@ class DoubleTime extends Analyzer {
     this.addEventListener(
       Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
       this.onApplyFb,
-    );
+    ); */
   }
 
-  onApplyDb(event: ApplyBuffEvent | RefreshBuffEvent) {
+  /* onApplyDb(event: ApplyBuffEvent | RefreshBuffEvent) {
     const castEvent = getDreamBreathCast(event);
     if (castEvent) {
       this.totalDbs += 1;
@@ -97,7 +98,7 @@ class DoubleTime extends Analyzer {
         (this.blastFurnace ? 4 : 0) +
         (extensions > 12 ? 12 : extensions);
     }
-  }
+  } */
 
   statistic() {
     return (

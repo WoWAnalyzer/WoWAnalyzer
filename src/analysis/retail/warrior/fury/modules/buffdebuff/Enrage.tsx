@@ -26,8 +26,7 @@ class Enrage extends Analyzer {
 
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.BLOODTHIRST_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.RAMPAGE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ONSLAUGHT_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.RAMPAGE_TALENT);
 
     if (!this.active) {
       return;

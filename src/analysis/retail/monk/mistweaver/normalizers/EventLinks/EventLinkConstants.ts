@@ -23,12 +23,7 @@ export const JADE_BOND_ENVM = 'JadeBondEvnm';
 export const ENVELOPING_MIST_GOM = 'EnvGOM';
 export const RENEWING_MIST_GOM = 'ReMGOM';
 export const VIVIFY_GOM = 'ViVGOM';
-export const REVIVAL_GOM = 'RevivalGOM';
 export const SHEILUNS_GIFT_GOM = 'SGGOM';
-export const SHEILUNS_GIFT = 'SheilunsGift';
-export const EXPEL_HARM_GOM = 'EHGOM';
-export const SOOM_GOM = 'SoomGOM';
-export const JFS_GOM = 'JadefireStompGOM';
 export const CRANE_STYLE_RSK = 'CraneStyleRSK';
 export const CRANE_STYLE_BOK = 'CraneStyleBOK';
 export const CRANE_STYLE_SCK = 'CraneStyleSCK';
@@ -39,6 +34,8 @@ export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
 export const ZEN_PULSE_VIVIFY = 'ZenPulseVivify';
 export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
+export const SHEILUNS_GIFT = 'SheilunsGift';
+export const SHEILUNS_GIFT_MAIN_TARGET = 'SheilunsGiftMainTarget';
 
 // Refreshing Jade Wind
 export const RJW_TFT = 'RefreshingJadeWindTFT';
@@ -53,12 +50,28 @@ export const MT_STACK_CHANGE = 'MTStackChange';
 export const MAX_MT_CHANNEL = 25000;
 export const MANA_TEA_YULONS_WHISPER = 'MTYulonsWhisper';
 
+// Damaging Abilities
+export const TIGER_PALM_CAST_LINK = 'TigerPalmCastLink';
+export const BLACKOUT_KICK_CAST_LINK = 'BlackoutKickCastLink';
+export const RSK_CAST_LINK = 'RisingSunKickCastLink';
+export const CJL_CAST_LINK = 'CracklingJadeLightningCastLink';
+export const SCK_CAST_LINK = 'SpinningCraneKickCastLink';
+
+// Ancient Teachings
+export const AT_TIGER_PALM = 'ATTigerPalm';
+export const AT_BLACKOUT_KICK = 'ATBlackoutKick';
+export const AT_RSK = 'ATRisingSunKick';
+export const AT_CJL = 'ATCracklingJadeLightning';
+export const AT_JFS = 'ATJadefireStomp';
+
 // Hero Talents
 export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
 
 // Misc
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';
+export const RUSHING_WIND_KICK = 'RWK';
 
-// Tier
-export const INSURANCE_DURATION = 15000;
+// Spiritfont
+export const SPIRITFONT_PROC = 'SpiritfontProc';
+export const SPIRITFONT_TFT = 'SpiritfontTFT';

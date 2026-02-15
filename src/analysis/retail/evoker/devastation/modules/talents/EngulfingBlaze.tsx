@@ -13,6 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ENGULFING_BLAZE_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
+/** Living Flame deals 10% increased damage and healing and its cast time is reduced by 0.3 sec. */
 class EngulfingBlaze extends Analyzer {
   engulfingBlazeDamage = 0;
 

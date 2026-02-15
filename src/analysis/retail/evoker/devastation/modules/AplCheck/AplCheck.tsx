@@ -6,7 +6,6 @@ import TALENTS from 'common/TALENTS/evoker';
 import { AnyEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 import { getRules, Rules } from './rules';
-import { TIERS } from 'game/TIERS';
 
 export interface TalentInfo {
   maxEssenceBurst: number;
@@ -22,13 +21,10 @@ export interface TalentInfo {
 const default_rotation = (rules: Rules): Rule[] => {
   return [
     /** Top priority spells */
-    rules.snapFireFirestorm,
     rules.ehEternitySurge,
     rules.fireBreath,
     rules.aoeEternitySurge,
-    rules.shatteringStar,
     rules.stEternitySurge,
-    rules.aoeFirestorm,
     rules.aoeLivingFlame,
     rules.stBurnoutLivingFlame,
 
@@ -38,7 +34,6 @@ const default_rotation = (rules: Rules): Rule[] => {
     rules.disintegrate,
 
     /** Fillers */
-    rules.stFirestorm,
     rules.aoeAzureStrike,
     rules.greenSpells,
     rules.dragonRageFillerLivingFlame,
@@ -84,8 +79,6 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
   talentInfo.hasEventHorizon = combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT);
   talentInfo.hasIridescence = combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
   talentInfo.hasProtractedTalons = combatant.hasTalent(TALENTS.PROTRACTED_TALONS_TALENT);
-
-  talentInfo.has4pcDF4 = combatant.has4PieceByTier(TIERS.DF4);
 
   return talentInfo;
 };

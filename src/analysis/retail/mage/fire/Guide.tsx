@@ -29,13 +29,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
           faster so you can continue casting or using <SpellLink spell={SPELLS.SCORCH} /> while you
           are moving; even phases where the only target is taking 99% reduced damage is an
-          opportunity to fish for procs or get cooldown reduction from crits if you are using{' '}
-          <SpellLink spell={TALENTS.KINDLING_TALENT} />. While some encounters have forced downtime,
-          which WoWAnalyzer does not account for, anything you can do to minimize your downtime will
-          help your damage. Additionally, to better contextualize your downtime, we recommend
-          comparing your downtime to another Fire Mage that did better than you on the same
-          encounter with roughly the same kill time. If you have less downtime than them, then maybe
-          there is something you can do to improve.
+          opportunity to fish for procs or maintain a buff like{' '}
+          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />. While some encounters have forced
+          downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
+          downtime will help your damage. Additionally, to better contextualize your downtime, we
+          recommend comparing your downtime to another Fire Mage that did better than you on the
+          same encounter with roughly the same kill time. If you have less downtime than them, then
+          maybe there is something you can do to improve.
         </>
       </Explanation>
       <p>
@@ -60,13 +60,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Preface & Disclaimers">
         <>
-          The analysis in this guide is provided in collaboration with the staff of the{' '}
-          <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When reviewing this
-          information, keep in mind that WoWAnalyzer is limited to the information that is present
-          in your combat log. As a result, we have no way of knowing if you were intentionally doing
-          something suboptimal because the fight or strat required it (such as Forced Downtime or
-          holding cooldowns for a burn phase). Because of this, we recommend comparing your analysis
-          against a top 100 log for the same boss.
+          The analysis in this guide is provided in collaboration with Degenhours and the rest of
+          the staff of the <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When
+          reviewing this information, keep in mind that WoWAnalyzer is limited to the information
+          that is present in your combat log. As a result, we have no way of knowing if you were
+          intentionally doing something suboptimal because the fight or strat required it (such as
+          Forced Downtime or holding cooldowns for a burn phase). Because of this, we recommend
+          comparing your analysis against a top 100 log for the same boss.
           <br />
           <br />
           For additional assistance in improving your gameplay, or to have someone look more in
@@ -96,10 +96,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           Fire Mage has several buffs and procs that need to be managed properly in order to get the
           most out of them and maximize your damage. <SpellLink spell={SPELLS.HOT_STREAK} /> and
           <SpellLink spell={SPELLS.HEATING_UP} /> are your most important procs, but others such as
-          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />
-          also increase your damage in other ways which will play a large part in maximizing your
-          overall and burst damage.
+          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> will also increase your damage in other
+          ways which will play a large part in maximizing your overall and burst damage.
         </>
         {info.combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) &&
           modules.feelTheBurnGuide.guideSubsection}
@@ -113,16 +111,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
         {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
           modules.combustionGuide.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT) &&
-          modules.sunKingsBlessingGuide.guideSubsection}
 
         <SubSection title="Cast Efficiency">
           <RoundedPanel>
             {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
               <CastEfficiencyRibbon spell={TALENTS.COMBUSTION_TALENT} compactLayout />
-            )}
-            {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
-              <CastEfficiencyRibbon spell={TALENTS.PHOENIX_FLAMES_TALENT} compactLayout />
             )}
             {info.combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) && (
               <CastEfficiencyRibbon spell={TALENTS.FIRE_BLAST_TALENT} compactLayout />

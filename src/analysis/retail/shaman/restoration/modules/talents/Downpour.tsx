@@ -49,7 +49,10 @@ class Downpour extends Analyzer {
   }
 
   get availableDownpourCasts() {
-    return this.healingRain.casts + this.surgingTotem.casts;
+    const availableCasts = this.healingRain.casts + this.surgingTotem.casts;
+    return this.selectedCombatant.hasTalent(TALENTS.DOUBLE_DIP_TALENT)
+      ? availableCasts * 2
+      : availableCasts;
   }
 
   get wastedDownpourCasts() {

@@ -28,7 +28,6 @@ export default class TouchOfTheMagi extends Analyzer {
   protected alwaysBeCasting!: AlwaysBeCasting;
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
-  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
   touchData: TouchOfTheMagiData[] = [];
 

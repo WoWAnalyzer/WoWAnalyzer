@@ -1,7 +1,5 @@
-import { EventType } from 'parser/core/Events';
+import type { EventType } from 'parser/core/Events';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './Analyzer';
-
-const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 
 export interface SpellInfo {
   id: number;
@@ -25,6 +23,7 @@ class EventFilter<T extends EventType> {
     return this._by;
   }
   static validateBy(value: number) {
+    const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
     return (value & VALID_BY_FLAGS) === value;
   }
   private _to: number | undefined;

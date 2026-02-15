@@ -1,5 +1,5 @@
 import getAverageItemLevel from 'game/getAverageItemLevel';
-import Combatant from 'parser/core/Combatant';
+import { FullCombatant } from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
 
 import './PlayerInfo.scss';
@@ -16,7 +16,7 @@ function _parseGear(gear: Item[]) {
 }
 
 interface Props {
-  combatant: Combatant;
+  combatant: FullCombatant;
 }
 
 export const characterBackgroundImage = (thumbnail?: string, region?: string): string => {
@@ -56,7 +56,7 @@ const PlayerInfo = ({ combatant }: Props) => {
   );
   return (
     <div className="player-info">
-      <div className="character-sheet">
+      <div className="character-sheet" data-testid="character-sheet">
         <div className="class-background" style={{ backgroundImage: `url(${classBackground})` }}>
           <div
             className="player-gear player-background"

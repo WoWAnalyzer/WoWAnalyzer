@@ -31,10 +31,6 @@ class AncientMadness extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF),
       this.buffStart,
     );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DARK_ASCENSION_TALENT),
-      this.buffStart,
-    );
   }
 
   buffStart(event: ApplyBuffEvent) {

@@ -1,16 +1,17 @@
+import type { ReactNode, ElementType } from 'react';
 import { useState } from 'react';
-import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
 
 import './Expandable.scss';
 
 interface Props {
-  header: React.ReactNode;
-  children: React.ReactNode;
-  element: React.ElementType;
+  header: ReactNode;
+  children: ReactNode;
+  element: ElementType;
   className?: string;
   expanded?: boolean;
   inverseExpanded: () => void;
+  disableDisplayNone?: boolean;
 }
 
 export const Expandable = (props: Omit<Props, 'expanded' | 'inverseExpanded'>) => {
@@ -41,7 +42,11 @@ export const ControlledExpandable = (props: Props) => {
       <div className="meta" onClick={props.inverseExpanded}>
         {header}
       </div>
-      <AnimateHeight className="details" height={props.expanded ? 'auto' : 0}>
+      <AnimateHeight
+        className="details"
+        height={props.expanded ? 'auto' : 0}
+        disableDisplayNone={props.disableDisplayNone}
+      >
         {children}
       </AnimateHeight>
     </Element>

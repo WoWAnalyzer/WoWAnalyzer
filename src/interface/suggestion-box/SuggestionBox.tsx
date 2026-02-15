@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { BadMark, GoodMark, PerfectMark } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, type JSX } from 'react';
 const Header = styled.div`
   padding: 0.25em 0.75em 0.5em 0.75em;
   border-radius: 4px 4px 0 0;

@@ -27,7 +27,6 @@ import {
   RAGE_SCALE_FACTOR,
   RECKLESSNESS_INCREASE,
   SEASONED_SOLDIER_RAGE_INCREASE,
-  WARLORDS_TORMENT_RECKLESSNESS_INCREASE,
   WARMACHINE_ARMS_INCREASE,
   WARMACHINE_FURY_INCREASE,
   WARMACHINE_PROT_INCREASE,
@@ -65,7 +64,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
 
     switch (this.selectedCombatant.spec?.id) {
       case SPECS.ARMS_WARRIOR.id: {
-        this.recklessnessIncrease = WARLORDS_TORMENT_RECKLESSNESS_INCREASE;
+        this.recklessnessIncrease = 0;
 
         this.rawRagePerSwing = this.calculateRawRagePerSwing(
           AUTO_ATTACK_RAGE_PS.ARMS,
@@ -80,9 +79,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
         // While it would be nice to look at the speed or slot for weapons, I don't know if that's possible
         // so we'll just make the assumption that they have specced correctly if they are using 1h weapons
         // We also assume you have 2x2h or 2x1h, no mix and match
-        const speed = this.selectedCombatant.hasTalent(TALENTS.SINGLE_MINDED_FURY_TALENT)
-          ? DEFAULT_SPEED_1H
-          : DEFAULT_SPEED_2H;
+        const speed = DEFAULT_SPEED_2H;
 
         this.rawRagePerSwing = this.calculateRawRagePerSwing(AUTO_ATTACK_RAGE_PS.FURY, speed);
         this.unbuffedRagePerSwing = this.calculateUnbuffedRagePerSwing(this.rawRagePerSwing);

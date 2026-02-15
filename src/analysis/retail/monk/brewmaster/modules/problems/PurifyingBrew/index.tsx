@@ -12,7 +12,7 @@ import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Even
 import { Info } from 'parser/core/metric';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
@@ -131,7 +131,6 @@ function PurifyProblem({ problem, events, info }: ProblemRendererProps<ProblemDa
 
   const spec: VisualizationSpec = {
     ...staggerChart,
-    // @ts-expect-error This is a valid typing but Vega types are being weird with TS 5.4
     layer: [
       {
         ...line('stagger', color.stagger),
@@ -244,12 +243,6 @@ function reasonLabel(reason: PurifyReason): React.ReactNode {
       return 'High Stagger';
     case PurifyReason.PreventCapping:
       return 'Prevent Capping Charges';
-    case PurifyReason.RefreshPurifiedChi:
-      return (
-        <>
-          Refresh <SpellLink spell={SPELLS.PURIFIED_CHI} /> Stacks
-        </>
-      );
     default:
       return 'Other';
   }
@@ -259,7 +252,6 @@ const reasonOrder = [
   PurifyReason.BigHit,
   PurifyReason.HighStagger,
   PurifyReason.PreventCapping,
-  PurifyReason.RefreshPurifiedChi,
   PurifyReason.Unknown,
 ];
 

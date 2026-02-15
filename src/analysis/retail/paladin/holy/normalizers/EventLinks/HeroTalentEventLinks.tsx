@@ -18,7 +18,7 @@ const HERALD_OF_THE_SUN_EVENT_LINKS: EventLink[] = [
     linkRelation: AURORA_DIVINE_PURPOSE,
     linkingEventId: SPELLS.DIVINE_PURPOSE_BUFF.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: [TALENTS.HOLY_PRISM_TALENT.id, TALENTS.BARRIER_OF_FAITH_TALENT.id],
+    referencedEventId: [TALENTS.HOLY_PRISM_TALENT.id, TALENTS.DIVINE_TOLL_TALENT.id],
     referencedEventType: EventType.Cast,
     maximumLinks: 1,
     forwardBufferMs: SHORT_BUFFER_MS,

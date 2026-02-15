@@ -23,7 +23,7 @@ export default class SpellMaelstromCost extends SpellResourceCost {
     ) {
       return originalCost - 5;
     }
-    if (spellID === TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id) {
+    if (spellID === TALENTS.ELEMENTAL_BLAST_TALENT.id) {
       return originalCost - 10;
     }
 

@@ -4,7 +4,7 @@ import GitHubButton from 'interface/GitHubButton';
 import Icon from 'interface/Icon';
 import Panel from 'interface/Panel';
 import Tooltip from 'interface/Tooltip';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -28,7 +28,7 @@ const makePreviousPatchUrl = (patch: Patch) => {
 };
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const PatchCheckerContents = ({

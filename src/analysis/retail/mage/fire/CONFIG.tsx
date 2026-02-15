@@ -3,7 +3,7 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 import AlertWarning from 'interface/AlertWarning';
 
 const config: Config = {
@@ -11,8 +11,8 @@ const config: Config = {
   contributors: [Sharrq],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.0.5',
-  supportLevel: SupportLevel.MaintainedPartial,
+  patchCompatibility: '12.0.0',
+  supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -37,10 +37,8 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This analysis is a Work in Progress. I have made some initial updates for Combustion, Hot
-          Streak, Heating Up, and Feel the Burn, but there is more to do. Apologies for the delays,
-          I promise I am working on it. Ping me in the Mage Discord if you have questions about
-          this. <code>@Sharrq</code>
+          This spec is not being updated for The War Within or Midnight Prepatch. All analysis is in
+          preparation of Midnight's full release.
         </AlertWarning>
       ),
     },
@@ -53,12 +51,12 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FIRE_MAGE,
   // The contents of your changelog.
-  changelog: [], // CHANGELOG,
+  changelog: CHANGELOG, // CHANGELOG,
   // The CombatLogParser class for your spec.
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "FireMage" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "FireMage" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

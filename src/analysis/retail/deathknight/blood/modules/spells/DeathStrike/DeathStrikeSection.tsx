@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
 import talents from 'common/TALENTS/deathknight';

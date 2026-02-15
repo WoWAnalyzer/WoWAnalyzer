@@ -8,7 +8,7 @@ import {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { useInfo, useEvents } from 'interface/guide';
-import { Fragment } from 'react';
+import { Fragment, type JSX } from 'react';
 import { ExecuteRange } from 'parser/shared/modules/helpers/ExecuteHelper';
 
 /** If and where times the spell was available should be highlighted in red

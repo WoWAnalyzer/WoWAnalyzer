@@ -213,16 +213,6 @@ class Abilities extends SharedAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
       },
-      {
-        spell: TALENTS.NETHERWALK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.NETHERWALK_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-      },
-
       ...super.spellbook(),
     ];
   }

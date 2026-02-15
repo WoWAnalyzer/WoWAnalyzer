@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { HTMLAttributes } from 'react';
 
 import AlertDanger from './AlertDanger';
 import AlertInfo from './AlertInfo';
@@ -16,7 +16,7 @@ export const getAlertComponent = (type: AlertKind) => {
   }
 };
 
-export interface Props extends React.HTMLAttributes<HTMLDivElement> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   kind: AlertKind;
 }
 

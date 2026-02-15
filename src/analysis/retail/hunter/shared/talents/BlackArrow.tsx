@@ -10,10 +10,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class BlackArrow extends Analyzer {
   damage = 0;
-
+  private activeBlackArrowTalent = this.selectedCombatant.hasTalent(
+    TALENTS.BLACK_ARROW_1_BEAST_MASTERY_TALENT,
+  )
+    ? TALENTS.BLACK_ARROW_1_BEAST_MASTERY_TALENT
+    : this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_2_BEAST_MASTERY_TALENT)
+      ? TALENTS.BLACK_ARROW_2_BEAST_MASTERY_TALENT
+      : null;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_TALENT);
+    this.active = this.activeBlackArrowTalent !== null;
     if (!this.active) {
       return;
     }
@@ -42,7 +48,7 @@ class BlackArrow extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={TALENTS.BLACK_ARROW_TALENT}>
+        <BoringSpellValueText spell={this.activeBlackArrowTalent!}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

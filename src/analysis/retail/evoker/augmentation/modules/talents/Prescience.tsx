@@ -45,6 +45,15 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRESCIENCE_TALENT }, options);
+
+    // deactivate in M+ with Clairvoyant as no cases where casts can be counted as a fail
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.PRESCIENCE_TALENT) &&
+      !(
+        this.selectedCombatant.hasTalent(TALENTS.CLAIRVOYANT_TALENT) &&
+        isMythicPlus(this.owner.fight)
+      );
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRESCIENCE_TALENT),
       this.onCast,
@@ -81,12 +90,18 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
           <strong>
             <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />
           </strong>{' '}
-          is a skill that enhances the performance of DPS players by granting them Critical Strike
-          chance and the damage multiplier <SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />. It can
-          be applied to up to two players simultaneously.{' '}
-          <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> prioritizes targets with{' '}
-          <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />, enabling you to select two recipients of
-          the buff regardless of their position.
+          is an ability that enhances the performance of DPS players by granting them Critical
+          Strike chance and the damage multiplier <SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />
+          .
+          <br />
+          {this.selectedCombatant.hasTalent(TALENTS.CLAIRVOYANT_TALENT) && (
+            <>
+              With <SpellLink spell={TALENTS.CLAIRVOYANT_TALENT} /> talented,{' '}
+              <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT} /> have a chance to apply{' '}
+              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> to players who consume them. These
+              uses are not included in this cast breakdown.
+            </>
+          )}
         </p>
       </>
     );

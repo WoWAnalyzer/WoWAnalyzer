@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -100,7 +101,6 @@ class Flurry extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
-    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
     const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
     const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
     const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
@@ -108,23 +108,14 @@ class Flurry extends Analyzer {
     const explanation = (
       <>
         <p>
-          {flurry} usage is important to make sure you can shatter as much {glacialSpike} as you
-          can. You should only hold it after a {frostbolt} hardcast if you don't have {brainFreeze}{' '}
-          and you have 0 or 1 {icicles}.
+          {flurry} usage is important to make sure you can shatter as much as you can. You should
+          only hold it after a {frostbolt} hardcast if you don't have {brainFreeze} and you have 0
+          or 1 {icicles}.
         </p>
         <p>
-          <small>
-            At 2 or more {icicles} you are always able to shatter {glacialSpike}:
-          </small>
+          <small>At 2 or more {icicles} you are always able to shatter:</small>
         </p>
-        <SpellSeq
-          spells={[
-            SPELLS.FROSTBOLT,
-            TALENTS.FLURRY_TALENT,
-            TALENTS.ICE_LANCE_TALENT,
-            TALENTS.GLACIAL_SPIKE_TALENT,
-          ]}
-        />
+        <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, TALENTS.ICE_LANCE_TALENT]} />
       </>
     );
 

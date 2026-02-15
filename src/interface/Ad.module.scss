@@ -7,41 +7,52 @@ $side-rail-width: 320px;
   background-repeat: no-repeat;
   background-position: center;
 
-  &:empty,
+  &:has(:global(#vertical-banner-atf):empty),
+  &:has(:global(#top-banner-atf):empty),
   &.show_background {
-    background-image: url('../../public/img/ad-fallback.jpg');
+    background-image: url('../../public/img/ad-fallback-top.jpg');
     background-origin: content-box;
     background-repeat: no-repeat;
-  }
 
-  #leaderboard_atf > *,
-  iframe {
-    max-width: 970px;
+    .ad_label {
+      display: none;
+    }
   }
 
   text-decoration: none !important;
 }
 
 .top {
-  min-height: 250;
+  min-height: 250px;
   margin-left: auto;
   margin-right: auto;
   width: 970px;
   min-width: 970px;
+
+  & > *,
+  iframe {
+    max-width: 970px;
+  }
 }
 
 .side-rail {
-  min-height: 600px;
+  min-height: 620px;
   min-width: $side-rail-width;
-  height: 600px;
+  height: 620px;
   padding: 1rem;
   box-sizing: border-box;
 
-  background: #161616;
+  background: hsl(44, 7%, 10%);
   box-shadow: 0 1px 4px black;
   position: sticky;
   align-self: start;
   top: 1rem;
+
+  &:has(:global(#vertical-banner-atf):empty),
+  &.show_background {
+    background-image: url('../../public/img/ad-fallback-side.jpg');
+    background-position: center;
+  }
 }
 
 .ad_label {

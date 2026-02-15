@@ -1,7 +1,6 @@
 import {
   CharredWarblades,
   CollectiveAnguish,
-  Demonic,
   DemonSoulBuff,
   DisruptingFury,
   Felblade,
@@ -38,7 +37,7 @@ import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
 import FieryBrand from './modules/talents/FieryBrand';
 import VoidReaver from './modules/talents/VoidReaver';
-import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
+import FractureNormalizer from './normalizers/FractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
 import Fracture from './modules/spells/Fracture';
@@ -55,8 +54,6 @@ import DemonSpikes from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 import FelDevastationLinkNormalizer from './normalizers/FelDevastationLinkNormalizer';
-import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
-import CycleOfBinding from './modules/talents/CycleOfBinding';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
 import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
@@ -84,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulFragmentsGraph: SoulFragmentsGraph,
 
     // normalizers
-    shearFractureNormalizer: ShearFractureNormalizer,
+    fractureNormalizer: FractureNormalizer,
     immolationAuraLinker: ImmolationAuraLinker,
     soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
     spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,
@@ -92,7 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastationNormalizer: FelDevastationNormalizer,
     felDevastationLinkNormalizer: FelDevastationLinkNormalizer,
     sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
-    cycleOfBindingNormalizer: CycleOfBindingNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -119,7 +115,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masterOfTheGlaive: MasterOfTheGlaive,
     darkglareBoon: DarkglareBoon,
     collectiveAnguish: CollectiveAnguish,
-    demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
     swallowedAnger: SwallowedAnger,
     disruptingFury: DisruptingFury,
@@ -130,7 +125,6 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
     sigilOfFlame: SigilOfFlame,
-    cycleOfBinding: CycleOfBinding,
 
     // Hero
     demonsurge: Demonsurge,

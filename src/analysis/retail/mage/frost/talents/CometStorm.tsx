@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { COMET_STORM_AOE_MIN_TARGETS, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -118,41 +119,8 @@ class CometStorm extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const coldestSnapKnown = this.selectedCombatant.hasTalent(TALENTS.COLDEST_SNAP_TALENT);
-
     const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
-    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
-    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
     const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
-    const coneOfCold = <SpellLink spell={SPELLS.CONE_OF_COLD} />;
-
-    const multitargetExplanation = (
-      <>
-        {!coldestSnapKnown && (
-          <>
-            <li>
-              <b>Multitarget</b>
-            </li>
-            Should be casted as soon as possible.
-          </>
-        )}
-        {coldestSnapKnown && (
-          <>
-            <li>
-              <b>Multitarget (3+)</b>
-            </li>
-            <p>If {coneOfCold} is available, you should do the combo: </p>
-            <SpellSeq
-              spells={[TALENTS.COMET_STORM_TALENT, SPELLS.CONE_OF_COLD, TALENTS.COMET_STORM_TALENT]}
-            />
-            <p>
-              If {coneOfCold} is less than 10 seconds cooldown, you should wait for the combo.
-              Otherwise, just cast it.
-            </p>
-          </>
-        )}
-      </>
-    );
 
     const explanation = (
       <>
@@ -165,20 +133,9 @@ class CometStorm extends Analyzer {
           <li>
             <b>Single Target</b>
           </li>
-          <p>Most of the time on 2 stacks of {wintersChill}, to shatter all 7 comets. </p>
-          <SpellSeq spells={[TALENTS.FLURRY_TALENT, TALENTS.COMET_STORM_TALENT]} />
-          <p>
-            On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} or {glacialSpike})
-          </p>
           <SpellSeq
-            spells={[
-              TALENTS.FLURRY_TALENT,
-              SPELLS.ICE_LANCE_DAMAGE,
-              TALENTS.COMET_STORM_TALENT,
-              TALENTS.GLACIAL_SPIKE_TALENT,
-            ]}
+            spells={[TALENTS.FLURRY_TALENT, SPELLS.ICE_LANCE_DAMAGE, TALENTS.COMET_STORM_TALENT]}
           />
-          {multitargetExplanation}
         </ul>
       </>
     );

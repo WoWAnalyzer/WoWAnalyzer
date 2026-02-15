@@ -86,6 +86,15 @@ const SPELLS = {
     },
     icon: 'ability_monk_cranekick_new.jpg',
   },
+  TRANSCENDENCE_TRANSCENDENCE: {
+    id: 102141,
+    grantedBy: 101643,
+    type: 'temporary',
+    iconID: 627608,
+    passive: false,
+    name: 'Transcendence',
+    icon: 'monk_ability_transcendence.jpg',
+  },
   TRANSCENDENCE: {
     id: 101643,
     type: 'baseline',
@@ -432,6 +441,15 @@ const SPELLS = {
     name: 'Momentum',
     icon: 'ability_monk_standingkick.jpg',
   },
+  ZEN_MEDITATION_ZEN_MEDITATION: {
+    id: 131523,
+    grantedBy: 115176,
+    type: 'temporary',
+    iconID: 642417,
+    passive: false,
+    name: 'Zen Meditation',
+    icon: 'ability_monk_zenmeditation.jpg',
+  },
   ZEN_MEDITATION: {
     id: 115176,
     type: 'baseline',
@@ -633,6 +651,16 @@ const SPELLS = {
     name: 'Mastery: Bottled Fury',
     icon: 'trade_alchemy_potionb3.jpg',
   },
+  MORTAL_WOUNDS: {
+    id: 115804,
+    grantedBy: 107428,
+    type: 'temporary',
+    iconID: 132109,
+    passive: false,
+    hidden: 'unless-learned',
+    name: 'Mortal Wounds',
+    icon: 'ability_criticalstrike.jpg',
+  },
   LEGACY_OF_THE_EMPEROR: {
     id: 115921,
     type: 'baseline',
@@ -691,7 +719,7 @@ const SPELLS = {
     },
     icon: 'ability_monk_spearhand.jpg',
   },
-  TIGEREYE_BREW_1: {
+  TIGEREYE_BREW: {
     id: 116740,
     type: 'baseline',
     iconID: 613399,
@@ -703,7 +731,7 @@ const SPELLS = {
     },
     icon: 'ability_monk_tigereyebrandy.jpg',
   },
-  TIGEREYE_BREW_2: {
+  TIGEREYE_BREW_1: {
     id: 1247275,
     grantedBy: 137025,
     type: 'temporary',
@@ -717,7 +745,7 @@ const SPELLS = {
     },
     icon: 'ability_monk_tigereyebrandy.jpg',
   },
-  TIGEREYE_BREW_3: {
+  TIGEREYE_BREW_2: {
     id: 1247279,
     grantedBy: 137025,
     type: 'temporary',
@@ -1190,6 +1218,7 @@ const SPELLS = {
     id: 123273,
     grantedBy: 120483,
     type: 'temporary',
+    overrides: 115804,
     iconID: 628135,
     passive: false,
     hidden: 'unless-learned',
@@ -1542,6 +1571,16 @@ const SPELLS = {
     name: 'Glyph of Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new.jpg',
   },
+  CHARGING_OX_WAVE: {
+    id: 125084,
+    grantedBy: 119392,
+    type: 'temporary',
+    iconID: 615340,
+    passive: false,
+    hidden: 'always',
+    name: 'Charging Ox Wave',
+    icon: 'ability_monk_chargingoxwave.jpg',
+  },
   GLYPH_OF_RISING_TIGER_KICK: {
     type: 'glyph',
     id: 125151,
@@ -1563,6 +1602,19 @@ const SPELLS = {
     hidden: 'always',
     name: 'Glyph of Spirit Roll',
     icon: 'spell_holy_guardianspirit.jpg',
+  },
+  TIGER_POWER: {
+    id: 125359,
+    grantedBy: 100787,
+    type: 'temporary',
+    iconID: 606551,
+    passive: false,
+    name: 'Tiger Power',
+    gcd: {
+      duration: 1500,
+      hasted: true,
+    },
+    icon: 'ability_monk_tigerpalm.jpg',
   },
   GLYPH_OF_JAB: {
     type: 'glyph',
@@ -1768,9 +1820,11 @@ const SPELLS = {
     name: 'Zen Pilgrimage/Death Gate/Moonglade Storage Aura I',
     icon: 'ability_hunter_pathfinding.jpg',
   },
-  ZEN_PILGRIMAGE_RETURN_HIDDEN: {
+  ZEN_PILGRIMAGE_RETURN_ZEN_PILGRIMAGE_RETURN: {
     id: 126895,
-    type: 'baseline',
+    grantedBy: 126896,
+    type: 'temporary',
+    overrides: 126892,
     iconID: 775462,
     passive: false,
     hidden: 'always',
@@ -1782,6 +1836,15 @@ const SPELLS = {
     castTime: {
       duration: 10000,
     },
+    icon: 'spell_monk_zenpilgrimage.jpg',
+  },
+  ZEN_PILGRIMAGE_RETURN_ZEN_PILGRIMAGE: {
+    id: 126896,
+    grantedBy: 126892,
+    type: 'temporary',
+    iconID: 775462,
+    passive: false,
+    name: 'Zen Pilgrimage: Return',
     icon: 'spell_monk_zenpilgrimage.jpg',
   },
   BLACKOUT_KICK_HIDDEN_1: {
@@ -1925,6 +1988,26 @@ const SPELLS = {
     name: 'Combo Breaker',
     icon: 'pandarenracial_bouncy.jpg',
   },
+  SILENCED: {
+    id: 137460,
+    grantedBy: 116844,
+    type: 'temporary',
+    iconID: 135975,
+    castableWhileCasting: true,
+    passive: false,
+    name: 'Silenced',
+    icon: 'spell_holy_silence.jpg',
+  },
+  DISARMED: {
+    id: 137461,
+    grantedBy: 116844,
+    type: 'temporary',
+    iconID: 132343,
+    castableWhileCasting: true,
+    passive: false,
+    name: 'Disarmed',
+    icon: 'ability_warrior_disarm.jpg',
+  },
   NIMBLE_BREW: {
     id: 137562,
     type: 'baseline',
@@ -1948,6 +2031,15 @@ const SPELLS = {
       hasted: true,
     },
     icon: 'spell_sandstorm.jpg',
+  },
+  CHI_BREW: {
+    id: 145640,
+    grantedBy: 115399,
+    type: 'temporary',
+    iconID: 629483,
+    passive: false,
+    name: 'Chi Brew',
+    icon: 'ability_monk_chibrew.jpg',
   },
   GLYPH_OF_TARGETED_EXPULSION: {
     type: 'glyph',

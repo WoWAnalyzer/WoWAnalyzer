@@ -1,3 +1,4 @@
+import { type JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 
 const GEAR_SLOTS = {

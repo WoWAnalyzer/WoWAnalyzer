@@ -10,25 +10,16 @@ import Events, {
   HealEvent,
 } from 'parser/core/Events';
 import { SpellLink, Tooltip } from 'interface';
-import Abilities from 'parser/core/modules/Abilities';
 import { formatNumber, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import MaelstromWeaponBreakdown from './MaelstromWeaponBreakdown';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { DamageIcon } from 'interface/icons';
 
-class MaelstromWeaponSpenders extends Analyzer {
-  static dependencies = {
-    maelstromWeaponTracker: MaelstromWeaponTracker,
-    abilities: Abilities,
-    abilityTracker: AbilityTracker,
-  };
-
-  private abilities!: Abilities;
-  private abilityTracker!: AbilityTracker;
-  private maelstromWeaponTracker!: MaelstromWeaponTracker;
+class MaelstromWeaponSpenders extends Analyzer.withDependencies({
+  maelstromWeaponTracker: MaelstromWeaponTracker,
+}) {
   private spenderValues = new Map<number, number>();
   private recordNextSpenderAmount = false;
   private primordialStormBreakdown = {
@@ -97,7 +88,7 @@ class MaelstromWeaponSpenders extends Analyzer {
     return [
       <Panel key="spender-panel" title="Maelstrom Weapon usage" pad={false} position={120}>
         <MaelstromWeaponBreakdown
-          tracker={this.maelstromWeaponTracker}
+          tracker={this.deps.maelstromWeaponTracker}
           showSpenders
           showMaxSpenders
         />
@@ -123,7 +114,7 @@ class MaelstromWeaponSpenders extends Analyzer {
               const spellId = Number(value);
               const spell = maybeGetTalentOrSpell(spellId);
 
-              const spender = this.maelstromWeaponTracker.spendersObj[spellId];
+              const spender = this.deps.maelstromWeaponTracker.spendersObj[spellId];
               if (!(spender && spell)) {
                 return null;
               }

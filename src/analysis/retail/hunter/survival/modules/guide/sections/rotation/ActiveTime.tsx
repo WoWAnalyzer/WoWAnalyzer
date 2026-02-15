@@ -15,8 +15,6 @@ export default function ActiveTime({ modules, events, info }: GuideProps<typeof 
             Time not spent active is lost damage. Despite being melee, Survival has many ways to
             continue to deal damage while out of melee range such as abilities like
             <SpellLink spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT} />,{' '}
-            <SpellLink spell={TALENTS.KILL_SHOT_SURVIVAL_TALENT} />,{' '}
-            <SpellLink spell={TALENTS.EXPLOSIVE_SHOT_TALENT} />, and{' '}
             <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />.{' '}
           </p>
           <p>

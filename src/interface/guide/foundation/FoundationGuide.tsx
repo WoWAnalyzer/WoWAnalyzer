@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
 import { FoundationDowntimeSection } from './FoundationDowntimeSection';
 import { FoundationCooldownSection } from './FoundationCooldownSection';

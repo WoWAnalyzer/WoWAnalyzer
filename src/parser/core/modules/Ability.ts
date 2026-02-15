@@ -3,7 +3,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import Abilities from './Abilities';
@@ -77,7 +77,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
      * Extra suggestion text for after the Cast Efficiency suggestion. Use this
      * for example to give the user a reason why.
      */
-    extraSuggestion?: React.ReactNode | MessageDescriptor;
+    extraSuggestion?: ReactNode | MessageDescriptor;
     /**
      * A function to get the amount of casts done of a spell.
      * @deprecated Usage should be avoided. This may be removed in the future.

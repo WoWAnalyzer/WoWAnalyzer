@@ -2,23 +2,20 @@ import CombatLogParser from '../../CombatLogParser';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from './PerformancePercentage';
-import { ResourceLink, SpellLink, Tooltip } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TIERS } from 'game/TIERS';
-import { InformationIcon } from 'interface/icons';
 import SPELLS from 'common/SPELLS/evoker';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasT31 = info.combatant.has4PieceByTier(TIERS.DF3);
   const percentAtCap = modules.essenceTracker.percentAtCap;
   const essenceWasted = modules.essenceTracker.wasted;
 
-  const perfectTimeAtEssenceCap = 0.1 + (hasT31 ? 0.05 : 0);
-  const goodTimeAtEssenceCap = 0.15 + (hasT31 ? 0.05 : 0);
-  const okTimeAtEssenceCap = 0.2 + (hasT31 ? 0.05 : 0);
+  const perfectTimeAtEssenceCap = 0.1;
+  const goodTimeAtEssenceCap = 0.15;
+  const okTimeAtEssenceCap = 0.2;
 
   const percentAtCapPerformance =
     percentAtCap <= perfectTimeAtEssenceCap
@@ -52,25 +49,6 @@ export function CoreSection({ modules, events, info }: GuideProps<typeof CombatL
             flatAmount={essenceWasted}
           />{' '}
           of your <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} />.
-          {hasT31 && (
-            <>
-              {' '}
-              <Tooltip
-                content={
-                  <div>
-                    Since you have T31 4pc an extra 5% grace period is added, as it is expected that
-                    more <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> will go to waste, due to
-                    the extra amount of <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />{' '}
-                    generated.
-                  </div>
-                }
-              >
-                <div style={{ display: 'inline' }}>
-                  <InformationIcon style={{ fontSize: '1.4em' }} />
-                </div>
-              </Tooltip>
-            </>
-          )}
         </p>
         {modules.essenceGraph.plot}
       </SubSection>
@@ -99,13 +77,11 @@ export function CoreSection({ modules, events, info }: GuideProps<typeof CombatL
             {formatPercentage(modules.cancelledCasts.cancelledPercentage, 1)}%
           </PerformanceStrong>{' '}
         </p>
-        <p>
-          <ActiveTimeGraph
-            activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-            fightStart={info.fightStart}
-            fightEnd={info.fightEnd}
-          />
-        </p>
+        <ActiveTimeGraph
+          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
       </SubSection>
     </Section>
   );

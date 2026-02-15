@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
@@ -21,7 +22,8 @@ import SPELLS from 'common/SPELLS/shaman';
 import SpellLink from 'interface/SpellLink';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
@@ -50,8 +52,8 @@ interface CallAncestor extends CooldownTrigger<CastEvent | SummonEvent> {
 }
 
 const SUMMON_ANCESTOR_SPELLS = [
-  TALENTS.PRIMORDIAL_WAVE_TALENT.id,
   SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+  SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
 ];
 
 const RELATED_WINDOW_BUFFER = 2000;
@@ -252,7 +254,16 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   }
 
   guideSubsection(): JSX.Element {
-    return <CooldownUsage analyzer={this} title="Farseer" />;
+    return (
+      <CooldownUsage
+        analyzer={this}
+        title={
+          <>
+            <SpellLink spell={TALENTS.CALL_OF_THE_ANCESTORS_TALENT} />
+          </>
+        }
+      />
+    );
   }
 
   explainPerformance(cast: CallAncestor): SpellUse {
@@ -281,7 +292,6 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
         </>
       ) : (
         <>
-          <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> or{' '}
           <SpellLink spell={TALENTS.ANCESTRAL_SWIFTNESS_TALENT} />
         </>
       );

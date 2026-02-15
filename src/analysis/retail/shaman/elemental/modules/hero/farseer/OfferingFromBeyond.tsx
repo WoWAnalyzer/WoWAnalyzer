@@ -11,14 +11,17 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { Talent } from 'common/TALENTS/types';
 
-const COOLDOWN_REDUCTION_PER_CAST = 5000;
+const COOLDOWN_REDUCTION_PER_CAST = 3000;
+
+/*
+ * When an Ancestor is called, they reduce the cooldown of Stormkeeper by 3 sec.
+ */
 
 class OfferingFromBeyond extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
   totalCooldownReduction = 0;
   effectiveCooldownReduction = 0;
-  elemental!: Talent;
 
   constructor(options: Options) {
     super(options);
@@ -26,10 +29,6 @@ class OfferingFromBeyond extends Analyzer.withDependencies({
     if (!this.active) {
       return;
     }
-
-    this.elemental = this.selectedCombatant.hasTalent(TALENTS.FIRE_ELEMENTAL_TALENT)
-      ? TALENTS.FIRE_ELEMENTAL_TALENT
-      : TALENTS.STORM_ELEMENTAL_TALENT;
 
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(SPELLS.CALL_OF_THE_ANCESTORS_SUMMON),
@@ -39,9 +38,9 @@ class OfferingFromBeyond extends Analyzer.withDependencies({
 
   summonAncestor(event: SummonEvent) {
     this.totalCooldownReduction += COOLDOWN_REDUCTION_PER_CAST;
-    if (this.deps.spellUsable.isOnCooldown(this.elemental.id)) {
+    if (this.deps.spellUsable.isOnCooldown(TALENTS.STORMKEEPER_TALENT.id)) {
       this.effectiveCooldownReduction += this.deps.spellUsable.reduceCooldown(
-        this.elemental.id,
+        TALENTS.STORMKEEPER_TALENT.id,
         COOLDOWN_REDUCTION_PER_CAST,
         event.timestamp,
       );

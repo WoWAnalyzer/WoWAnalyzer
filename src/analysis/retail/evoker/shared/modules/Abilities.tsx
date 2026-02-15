@@ -6,6 +6,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import {
+  ASHES_IN_MOTION_CD_REDUCTION_SECONDS,
   BASE_EVOKER_RANGE,
   CLOBBERING_SWEEP_CDR,
   EMPOWER_BASE_GCD,
@@ -59,7 +60,12 @@ class Abilities extends CoreAbilities {
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30 * interwovenThreadsMultiplier,
+        cooldown:
+          (30 -
+            (combatant.hasTalent(TALENTS.ASHES_IN_MOTION_TALENT)
+              ? ASHES_IN_MOTION_CD_REDUCTION_SECONDS
+              : 0)) *
+          interwovenThreadsMultiplier,
         gcd: {
           base: EMPOWER_BASE_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
@@ -71,6 +77,7 @@ class Abilities extends CoreAbilities {
           },
         }),
         range: BASE_EVOKER_RANGE,
+        charges: combatant.hasTalent(TALENTS.LEGACY_OF_THE_LIFEBINDER_TALENT) ? 2 : 1,
       },
       {
         spell: SPELLS.LIVING_FLAME_CAST.id,
@@ -105,23 +112,6 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [TALENTS.VERDANT_EMBRACE_TALENT.id],
         isDefensive: true,
       },
-      {
-        spell: TALENTS.ENGULF_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 27 / (1 + haste),
-        charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-        gcd: {
-          base: 1500,
-        },
-        range: BASE_EVOKER_RANGE,
-        enabled: combatant.hasTalent(TALENTS.ENGULF_TALENT),
-      },
       //endregion
       //region Cooldowns
       {
@@ -144,7 +134,9 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TIP_THE_SCALES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120 * interwovenThreadsMultiplier,
+        cooldown: combatant.hasTalent(TALENTS.CHRONOBOON_TALENT)
+          ? 90 * interwovenThreadsMultiplier
+          : 120 * interwovenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT),
       },
       //endregion
@@ -198,9 +190,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.QUELL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.IMPOSING_PRESENCE_TALENT)
-          ? 20 * interwovenThreadsMultiplier
-          : 40 * interwovenThreadsMultiplier,
+        cooldown: 20,
         enabled: combatant.hasTalent(TALENTS.QUELL_TALENT),
       },
       {
@@ -288,15 +278,6 @@ class Abilities extends CoreAbilities {
         cooldown: 90 * interwovenThreadsMultiplier,
         charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT) ? 2 : 1,
         enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT),
-        isDefensive: true,
-      },
-      {
-        spell: TALENTS.RENEWING_BLAZE_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.FIRE_WITHIN_TALENT)
-          ? 60 * interwovenThreadsMultiplier
-          : 90 * interwovenThreadsMultiplier,
-        enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT),
         isDefensive: true,
       },
       //endregion

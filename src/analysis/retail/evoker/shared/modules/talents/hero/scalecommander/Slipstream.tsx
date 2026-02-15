@@ -12,21 +12,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /** Deep Breath resets the cooldown of Hover. */
-class Slipstream extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-  protected spellUsable!: SpellUsable;
-
+class Slipstream extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+}) {
   chargesRecharged = 0;
   chargesWasted = 0;
-  maxCharges = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SLIPSTREAM_TALENT);
-
-    this.maxCharges = this.selectedCombatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT) ? 2 : 1;
 
     this.addEventListener(
       Events.cast
@@ -41,12 +35,12 @@ class Slipstream extends Analyzer {
       return;
     }
 
-    const charges = this.spellUsable.chargesAvailable(SPELLS.HOVER.id);
-
-    this.chargesRecharged += this.maxCharges - charges;
-    this.chargesWasted += charges;
-
-    this.spellUsable.endCooldown(SPELLS.HOVER.id, event.timestamp, false, true);
+    if (this.deps.spellUsable.isOnCooldown(SPELLS.HOVER.id)) {
+      this.deps.spellUsable.endCooldown(SPELLS.HOVER.id, event.timestamp);
+      this.chargesRecharged += 1;
+    } else {
+      this.chargesWasted += 1;
+    }
   }
 
   statistic() {

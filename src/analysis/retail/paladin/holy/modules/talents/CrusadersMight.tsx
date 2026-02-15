@@ -16,6 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 import Statistic from 'parser/ui/Statistic';
 import { CRUSADERS_MIGHT_REDUCTION } from '../../constants';
+import { formatDuration } from 'common/format';
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
@@ -29,59 +30,62 @@ class CrusadersMight extends Analyzer {
   protected globalCooldown!: GlobalCooldown;
 
   talentedCooldownReductionMs = 0;
-  effectiveHolyShockReductionMs = 0;
-  wastedHolyShockReductionMs = 0;
-  wastedHolyShockReductionCount = 0;
-  holyShocksCastsLost = 0;
+  effectiveReductionMs = 0;
+  wastedReductionMs = 0;
+  castsLost = 0;
+  wastedHolyShockCDRCount = 0;
+  wastedCrusaderStrikeCDRCount = 0;
 
   constructor(options: Options) {
     super(options);
-    this.talentedCooldownReductionMs =
-      this.selectedCombatant.getTalentRank(TALENTS.CRUSADERS_MIGHT_TALENT) *
-      CRUSADERS_MIGHT_REDUCTION;
-    this.active = this.talentedCooldownReductionMs > 0;
-    if (!this.active) {
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT);
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CRUSADER_STRIKE, TALENTS.HOLY_SHOCK_TALENT]),
       this.onCast,
     );
   }
 
   onCast(event: CastEvent) {
     const effectiveCdr = this.spellUsable.reduceCooldown(
-      TALENTS.HOLY_SHOCK_TALENT.id,
-      this.talentedCooldownReductionMs,
+      SPELLS.JUDGMENT_CAST_HOLY.id,
+      CRUSADERS_MIGHT_REDUCTION,
     );
-    const wastedCdr = this.talentedCooldownReductionMs - effectiveCdr;
+    const wastedCdr = CRUSADERS_MIGHT_REDUCTION - effectiveCdr;
 
-    this.effectiveHolyShockReductionMs += effectiveCdr;
-    this.wastedHolyShockReductionMs += wastedCdr;
+    this.effectiveReductionMs += effectiveCdr;
+    this.wastedReductionMs += wastedCdr;
 
     if (effectiveCdr === 0) {
-      this.wastedHolyShockReductionCount += 1;
+      if (event.ability.guid === TALENTS.HOLY_SHOCK_TALENT.id) {
+        this.wastedHolyShockCDRCount += 1;
+      } else if (event.ability.guid === SPELLS.CRUSADER_STRIKE.id) {
+        this.wastedCrusaderStrikeCDRCount += 1;
+      }
       const timeWasted =
-        this.talentedCooldownReductionMs +
-        this.globalCooldown.getGlobalCooldownDuration(SPELLS.CRUSADER_STRIKE.id);
-      const holyShockCooldown = this.spellUsable.fullCooldownDuration(TALENTS.HOLY_SHOCK_TALENT.id);
-      this.holyShocksCastsLost += timeWasted / holyShockCooldown;
+        CRUSADERS_MIGHT_REDUCTION +
+        this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
+      const judgmentCd = this.spellUsable.fullCooldownDuration(SPELLS.JUDGMENT_CAST_HOLY.id);
+      this.castsLost += timeWasted / judgmentCd;
 
-      // mark the event on the timeline
       addInefficientCastReason(
         event,
-        defineMessage({
-          id: 'paladin.holy.modules.talents.crusadersMight.inefficientCast',
-          message:
-            'Holy Shock was off cooldown when you cast Crusader Strike. You should cast Holy Shock before Crusader Strike for maximum healing or damage.',
-        }),
+        <>
+          You cast <SpellLink spell={event.ability.guid} /> while{' '}
+          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> was available, losing cooldown reduction
+          from <SpellLink spell={TALENTS.CRUSADERS_MIGHT_TALENT} />.
+        </>,
       );
     }
   }
 
+  get wastedCDRCount() {
+    return this.wastedHolyShockCDRCount + this.wastedCrusaderStrikeCDRCount;
+  }
+
   get holyShocksMissedThresholds() {
     return {
-      actual: this.wastedHolyShockReductionCount,
+      actual: this.wastedCDRCount,
       isGreaterThan: {
         minor: 0,
         average: 2,
@@ -99,31 +103,36 @@ class CrusadersMight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <Trans id="paladin.holy.modules.talents.crusadersMight.tooltip">
-              You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time
-              {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off
-              cooldown.
-              <br />
-              This wasted <b>{(this.wastedHolyShockReductionMs / 1000).toFixed(1)}</b> seconds of
-              Holy Shock cooldown reduction,
-              <br />
-              preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
-              Shock cast{this.holyShocksCastsLost === 1 ? '' : 's'}.<br />
-            </Trans>
+            <ul>
+              <li>
+                Wasted <b>{formatDuration(this.wastedReductionMs)}</b> of CDR
+              </li>
+              <li>
+                {Math.floor(this.castsLost)} additional casts lost from:{' '}
+                <ul>
+                  <li>
+                    <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} />: {this.wastedHolyShockCDRCount}{' '}
+                    casts with <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> available
+                  </li>
+                  <li>
+                    <SpellLink spell={SPELLS.CRUSADER_STRIKE} />:{' '}
+                    {this.wastedCrusaderStrikeCDRCount} casts with{' '}
+                    <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> available
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </>
         }
       >
         <TalentSpellText talent={TALENTS.CRUSADERS_MIGHT_TALENT}>
           <div>
-            <SpellIcon spell={TALENTS.HOLY_SHOCK_TALENT} />{' '}
-            <ItemCooldownReduction
-              effective={this.effectiveHolyShockReductionMs}
-              waste={this.wastedHolyShockReductionMs}
-            />
+            <SpellIcon spell={SPELLS.JUDGMENT_CAST_HOLY} />{' '}
+            <ItemCooldownReduction effective={this.effectiveReductionMs} />
           </div>
-          {Math.floor(this.holyShocksCastsLost)}{' '}
+          {Math.floor(this.castsLost)}{' '}
           <small>
-            additional <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> casts lost
+            additional <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> casts lost
           </small>
         </TalentSpellText>
       </Statistic>

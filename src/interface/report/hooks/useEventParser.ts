@@ -4,12 +4,12 @@ import ExtendableError from 'es6-error';
 import Config, { configName, SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
+import type { AnyEvent, CombatantInfoEvent } from 'parser/core/Events';
 import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { PlayerInfo } from 'parser/core/Player';
+import { PlayerDetails } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, use, useEffect, useMemo, useRef, useState } from 'react';
 import { PatchCtx } from '../context/PatchContext';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
@@ -33,12 +33,13 @@ interface Props {
   report: Report;
   fight?: Fight;
   config: Config;
-  player: PlayerInfo;
-  combatants: CombatantInfoEvent[];
+  player: PlayerDetails;
+  allPlayers: PlayerDetails[];
   applyTimeFilter: (start: number, end: number) => null;
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   characterProfile: CharacterProfile | null;
   events?: AnyEvent[];
+  playerCombatantInfo: CombatantInfoEvent | undefined;
   dependenciesLoading?: boolean;
 }
 
@@ -47,12 +48,13 @@ const useEventParser = ({
   fight,
   config,
   player,
-  combatants,
+  allPlayers,
   applyTimeFilter,
   parserClass,
   characterProfile,
   events,
   dependenciesLoading,
+  playerCombatantInfo,
 }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -67,11 +69,19 @@ const useEventParser = ({
     // isLoadingParser => parserClass == null
     // isLoadingCharacterProfile => characterProfile == null
     // isFilteringEvents => events == null
-    if (dependenciesLoading) {
+    if (dependenciesLoading || !playerCombatantInfo) {
       return null;
     }
     //set current build to undefined if default build or non-existing build selected
-    const parser = new parserClass!(config, report, player, fight!, combatants, characterProfile!);
+    const parser = new parserClass!(
+      config,
+      report,
+      player,
+      fight!,
+      playerCombatantInfo,
+      characterProfile!,
+      allPlayers,
+    );
     parser.applyTimeFilter = applyTimeFilter;
 
     return parser;
@@ -83,8 +93,9 @@ const useEventParser = ({
     applyTimeFilter,
     report,
     player,
-    combatants,
     config,
+    playerCombatantInfo,
+    allPlayers,
   ]);
 
   const normalizedEvents = useMemo(() => {
@@ -95,7 +106,7 @@ const useEventParser = ({
     }
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
     const result = parser
-      .normalize(events.filter((event) => event.type !== EventType.CombatantInfo))
+      .normalize(events)
       //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
       .sort((a, b) => a.timestamp - b.timestamp);
     benchEnd('normalizing events');
@@ -186,7 +197,7 @@ const useEventParser = ({
     };
   }, [processEventBatch]);
 
-  const patchInfo = useContext(PatchCtx);
+  const patchInfo = use(PatchCtx);
 
   useEffect(() => {
     // don't upload metrics while loading, with a bad fight, or for an unsupported spec

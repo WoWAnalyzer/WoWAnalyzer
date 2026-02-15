@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.DEEP_IMPACT_TALENT) ? 30 : 45,
+        cooldown: 45,
         enabled: combatant.hasTalent(TALENTS.METEOR_TALENT),
         castEfficiency: {
           suggestion: false,
@@ -53,36 +53,21 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.PHOENIX_FLAMES_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown:
-          combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
-          combatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)
-            ? 25 / 1.5
-            : 25,
-        charges: 2 + combatant.getTalentRank(TALENTS.CALL_OF_THE_SUN_KING_TALENT),
-        enabled: combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
-      {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) ? null : { base: 1500 },
         enabled: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT),
         cooldown: (haste) =>
-          combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
-          combatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)
-            ? 10 / 1.5 / (1 + haste)
-            : 10 / (1 + haste),
-        charges: combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 3 : 1,
+          (14 - (combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 2 : 0)) /
+          (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
+          combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
+            ? 1.5
+            : 1) /
+          (1 + haste),
+        charges:
+          1 +
+          (combatant.hasTalent(TALENTS.FERVENT_FLICKERING_TALENT) ? 1 : 0) +
+          (combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 1 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -97,7 +82,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.COMBUSTION_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.KINDLING_TALENT) ? 60 : 120,
         enabled: combatant.hasTalent(TALENTS.COMBUSTION_TALENT),
         castEfficiency: {
           suggestion: true,

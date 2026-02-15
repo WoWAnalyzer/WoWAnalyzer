@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import AspectOfHarmonyBaseAnalyzer, {
   CastInfo,
 } from 'analysis/retail/monk/shared/hero/MasterOfHarmony/talents/AspectOfHarmonyBase';

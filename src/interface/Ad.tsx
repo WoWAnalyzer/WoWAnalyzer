@@ -1,4 +1,5 @@
-import React, { useEffect, useCallback, useState, Component, ReactNode, ErrorInfo } from 'react';
+import type { CSSProperties } from 'react';
+import { useEffect, useCallback, useState, Component, ReactNode, ErrorInfo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { captureException } from 'common/errorLogger';
 
@@ -11,25 +12,42 @@ export enum Location {
 }
 
 interface Props {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   location?: Location;
 }
 
 const units = {
   [Location.Top]: { selectorId: 'top-banner-atf', type: 'leaderboard_atf' },
-  [Location.SideRail]: { selectorId: 'sky-banner-atf', type: 'sky_atf' },
+  [Location.SideRail]: { selectorId: 'vertical-banner-atf', type: 'med_rect_atf' },
 };
 
+interface Unit {
+  selectorId: string;
+  type: string;
+}
+
+const activeUnits = new Set();
+
 const Ad = ({ style, location }: Props) => {
-  const { selectorId, type: adType } = units[location || Location.Top];
+  const { selectorId, type: adType } = units[location ?? Location.Top];
   const pageLoc = useLocation();
   const premium = usePremium();
 
   const [showBackground, setShowBackground] = useState(window.adScriptFailed);
 
   useEffect(() => {
+    if (location) {
+      activeUnits.add(location);
+      return () => activeUnits.delete(location);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    return () => {};
+  }, [location]);
+
+  useEffect(() => {
     if (!premium) {
-      refreshAds();
+      refreshAds([units[location ?? Location.Top]]);
 
       return destroyAds;
     }
@@ -83,13 +101,13 @@ declare global {
   }
 }
 
-function refreshAds() {
+function refreshAds(units: Unit[]) {
   const tyche = window.tyche;
   try {
     if (tyche && tyche.destroyUnits) {
       tyche.destroyUnits('all');
       tyche
-        .addUnits(Object.values(units))
+        .addUnits(units)
         .then(() => {
           console.log('ads refreshed');
           tyche.displayUnits();
@@ -104,7 +122,15 @@ function refreshAds() {
   }
 }
 
-window.refreshAds = refreshAds;
+function externalRefreshAds() {
+  refreshAds(
+    Object.keys(units)
+      .filter((loc) => activeUnits.has(loc))
+      .map((loc) => units[loc as Location]),
+  );
+}
+
+window.refreshAds = externalRefreshAds;
 
 function destroyAds() {
   console.log('destroying ads');

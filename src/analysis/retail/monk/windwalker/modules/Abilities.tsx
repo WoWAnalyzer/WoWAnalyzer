@@ -97,14 +97,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_MONK.CHI_BURST_SHARED_TALENT.id,
+        spell: TALENTS_MONK.CHI_BURST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1000,
           minimum: 750,
         },
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -150,7 +150,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT),
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -184,13 +183,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+        spell: TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -330,14 +329,6 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         gcd: null,
         enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT),
-      },
-      {
-        spell: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
-        buffSpellId: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT),
       },
     ];
   }

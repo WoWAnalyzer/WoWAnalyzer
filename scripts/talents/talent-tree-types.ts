@@ -112,6 +112,7 @@ export interface TalentEntry {
 enum EntryType {
   Active = 'active',
   Passive = 'passive',
+  TierRank = 'tierrank', // Apex talents use this
 }
 
 export enum ClassNodeType {

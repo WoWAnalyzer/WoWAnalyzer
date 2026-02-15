@@ -1,19 +1,7 @@
-import { manu310891, Nevdok, nullDozzer } from 'CONTRIBUTORS';
-import TALENTS from 'common/TALENTS/warrior';
+import { Nevdok } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date(2025, 8, 5), 'Update Arms support for 11.2', Nevdok),
-  change(date(2025, 7, 2), 'Remove RefreshBuff event that gets logged when going from 2->1 stack of Sudden Death', Nevdok),
-  change(date(2025, 5, 6), 'Remove Storm Bolt suggestion', Nevdok),
-  change(date(2025, 3, 22), 'Update APL with support for Ravager Slayer', Nevdok),
-  change(date(2025, 3, 1), 'Update config to reflect 11.1 support', Nevdok),
-  change(date(2025, 2, 24), 'Update Arms APL for 11.1', Nevdok),
-  change(date(2025, 1, 9), 'Add support for Colossus hero spec', Nevdok),
-  change(date(2025, 1, 6), 'Update years-old Arms theorycrafting and APL logic', Nevdok),
-  change(date(2024, 10, 14), <>Add <SpellLink spell={TALENTS.INTERVENE_TALENT} /> to spellbook. Cooldown adjustments when specced into <SpellLink spell={TALENTS.HONED_REFLEXES_TALENT} />.</>, nullDozzer),
-  change(date(2024, 9, 18), 'Fix various rage bugs! Fix bladestorm not being tracked.', nullDozzer),
-  change(date(2024, 9, 7), 'Greatly improved tracking of rage generation and sources of rage. Visualized by showing a graph of Rage in the Rage usage tab.', nullDozzer),
-  change(date(2024, 8, 15),"Enabled spec, adjusted cooldowns and fixed skullsplitter talent", manu310891),
+  change(date(2026, 1, 19), 'Midnight cleanup before prepatch', Nevdok),
+  change(date(2026, 1, 12), 'Prepare Arms for Midnight. Update talents, spells and cooldowns. Migrate to Guide', Nevdok),
 ];

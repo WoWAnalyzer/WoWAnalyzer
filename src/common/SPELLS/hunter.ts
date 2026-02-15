@@ -234,8 +234,8 @@ const spells = {
   //endregion
 
   //region Survival
-  FURIOUS_ASSAULT_BUFF_SV: {
-    id: 448814,
+  WALLOP_BUFF: {
+    id: 1252741,
     name: 'Furious Assault',
     icon: 'spell_druid_feralchargecat',
   },
@@ -243,11 +243,6 @@ const spells = {
     id: 186289,
     name: 'Aspect of the Eagle',
     icon: 'spell_hunter_aspectoftheironhawk',
-  },
-  CARVE: {
-    id: 187708,
-    name: 'Carve',
-    icon: 'ability_hunter_carve',
   },
   HARPOON: {
     id: 190925,
@@ -274,11 +269,6 @@ const spells = {
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
   },
-  SERPENT_STING_SURVIVAL: {
-    id: 259491,
-    name: 'Serpent Sting',
-    icon: 'spell_hunter_exoticmunitions_poisoned',
-  },
   MONGOOSE_FURY: {
     id: 259388,
     name: 'Mongoose Fury',
@@ -290,41 +280,15 @@ const spells = {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
-  GRENADE_JUGGLER_BUFF: {
-    id: 470488,
-    name: 'Grenade Juggler',
-    icon: 'inv_misc_mohawkgrenade',
-  },
   WING_CLIP: {
     id: 195645,
     name: 'Wing Clip',
     icon: 'ability_rogue_trip',
   },
-  MONGOOSE_BITE_TALENT_AOTE: {
-    id: 265888,
-    name: 'Mongoose Bite',
-    icon: 'ability_hunter_mongoosebite',
-  },
-  STEEL_TRAP_DAMAGE: {
-    //the event is a damage event, but it merely applies the debuff
-    id: 162480,
-    name: 'Steel Trap',
-    icon: 'inv_pet_pettrap02',
-  },
-  STEEL_TRAP_DEBUFF: {
-    id: 162487,
-    name: 'Steel Trap',
-    icon: 'inv_pet_pettrap02',
-  },
   TIP_OF_THE_SPEAR_CAST: {
     id: 260286,
     name: 'Tip of the Spear',
     icon: 'ability_bossmannoroth_glaivethrust',
-  },
-  VIPERS_VENOM_BUFF: {
-    id: 268552,
-    name: "Viper's Venom",
-    icon: 'ability_hunter_potentvenom',
   },
   WILDFIRE_BOMB_DOT: {
     id: 269747,
@@ -336,64 +300,111 @@ const spells = {
     name: 'Wildfire Bomb',
     icon: 'inv_wildfirebomb',
   },
-  CHAKRAMS_BACK_FROM_MAINTARGET: {
-    id: 267666,
-    name: 'Chakrams',
-    icon: 'ability_glaivetoss',
-  },
-  CHAKRAMS_NOT_MAINTARGET: {
-    id: 259396,
-    name: 'Chakrams',
-    icon: 'ability_glaivetoss',
-  },
   BLOODSEEKER_BUFF: {
     id: 260249,
     name: 'Predator',
     icon: 'ability_druid_primaltenacity',
   },
-  FLANKING_STRIKE_PET: {
-    id: 259516,
-    name: 'Flanking Strike',
-    icon: 'ability_hunter_invigeration',
+  BOOMSTICK_DAMAGE: {
+    id: 1261215,
+    name: 'Boomstick',
+    icon: 'inv_musket_04',
   },
-  FLANKING_STRIKE_PLAYER: {
-    id: 269752,
-    name: 'Flanking Strike',
-    icon: 'ability_hunter_invigeration',
+  RAPTOR_SWIPE_DAMAGE: {
+    id: 1262293,
+    name: 'Raptor Swipe',
+    icon: 'inv12_apextalent_hunter_raptorswipe',
   },
-  COORDINATED_ASSAULT_FAKE_CAST: {
-    id: 360969,
-    name: 'Coordinated Assault',
-    icon: 'ability_ardenweald_demonhunter',
+  RAPTOR_SWIPE_AOTE: {
+    id: 1262343,
+    name: 'Raptor Swipe',
+    icon: 'inv12_apextalent_hunter_raptorswipe',
   },
-  COORDINATED_ASSAULT_BUFF: {
-    id: 360952,
-    name: 'Coordinated Assault',
-    icon: 'inv_coordinatedassault',
+  TAKEDOWN_PET_DAMAGE: {
+    id: 1253862,
+    name: 'Takedown',
+    icon: 'inv12_ability_hunter_takedown',
   },
-  SPEARHEAD_DAMAGE: {
-    id: 378957,
-    name: 'Spearhead',
-    icon: 'ability_hunter_spearhead',
+  TAKEDOWN_PLAYER: {
+    id: 1253859,
+    name: 'Takedown',
+    icon: 'inv12_ability_hunter_takedown',
   },
-  FURY_OF_THE_EAGLE_DAMAGE: {
-    id: 203413,
-    name: 'Fury of the Eagle',
-    icon: 'inv_polearm_2h_artifacteagle_d_01',
-  },
-  MERCILESS_BLOW_DAMAGE: {
-    id: 459870,
-    name: 'Merciless Blow',
-    icon: 'ability_hunter_swiftstrike',
+  HATCHET_TOSS: {
+    id: 193265,
+    name: 'Hatchet Toss',
+    icon: 'ability_hunter_hatchettoss',
   },
   //endregion
 
-  //region Shared
+  //region Hero Talents
+  SENTINELS_MARK_DEBUFF: {
+    id: 1253601,
+    name: "Sentinel's Mark",
+    icon: 'ability_ardenweald_hunter',
+  },
+  MOONLIGHT_CHAKRAM_CAST: {
+    id: 1264949,
+    name: 'Moonlight Chakram',
+    icon: 'inv_ability_hunter_deathchakram',
+  },
+  MOONLIGHT_CHAKRAM_DAMAGE: {
+    id: 1266081,
+    name: 'Moonlight Chakram',
+    icon: 'inv_ability_hunter_deathchakram',
+  },
+  URSINE_FURY_BEASTS: {
+    id: 170364,
+    name: 'Dire Beast',
+    icon: 'Ability_hunter_bestialdiscipline',
+  },
   HOWL_WYVERN_BUFF: {
     id: 462515, //Update this to the ID
     name: 'Howl of the Packleader',
     icon: 'inv_misc_elitewyvern',
   },
+  WAILING_ARROW_DAMAGE: {
+    id: 392058,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  WAILING_ARROW_DAMAGE_FOCUS: {
+    id: 392060,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  BLACK_ARROW_DAMAGE: {
+    id: 466930,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLACK_ARROW_DAMAGE_2: {
+    id: 468037,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLACK_ARROW_DAMAGE_3: {
+    id: 468572,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  STAMPEDE_READY_BUFF: {
+    id: 1258338,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'inv_pet_babymurlocs_blue',
+  },
+  STAMPEDE_ACTIVE_BUFF: {
+    id: 1258345,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  //rendregion
+  //region Shared Talents
   EXPLOSIVE_SHOT_DAMAGE: {
     id: 212680,
     name: 'Explosive Shot',
@@ -403,16 +414,6 @@ const spells = {
     id: 83381,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
-  },
-  DEATH_CHAKRAM_DAMAGE: {
-    id: 375893,
-    icon: 'ability_maldraxxus_hunter',
-    name: 'Death Chakram',
-  },
-  DEATH_CHAKRAM_ENERGIZE: {
-    id: 375894,
-    icon: 'ability_maldraxxus_hunter',
-    name: 'Death Chakram',
   },
   REJUVENATING_WIND_BUFF: {
     id: 385540,
@@ -463,11 +464,6 @@ const spells = {
     id: 117405,
     name: 'Binding Shot Tether',
     icon: 'spell_shaman_bindelemental',
-  },
-  BARRAGE_DAMAGE: {
-    id: 120361,
-    name: 'Barrage',
-    icon: 'ability_hunter_rapidregeneration',
   },
   ASPECT_OF_THE_CHEETAH: {
     id: 186257,
@@ -543,31 +539,6 @@ const spells = {
     id: 19801,
     name: 'Tranquilizing Shot',
     icon: 'spell_nature_drowsy',
-  },
-  WAILING_ARROW_DAMAGE: {
-    id: 392058,
-    name: 'Wailing Arrow',
-    icon: 'ability_theblackarrow',
-  },
-  WAILING_ARROW_DAMAGE_FOCUS: {
-    id: 392060,
-    name: 'Wailing Arrow',
-    icon: 'ability_theblackarrow',
-  },
-  BLACK_ARROW_DAMAGE: {
-    id: 466930,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
-  },
-  BLACK_ARROW_DAMAGE_2: {
-    id: 468037,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
-  },
-  BLACK_ARROW_DAMAGE_3: {
-    id: 468572,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
   },
   //endregion
 
@@ -790,43 +761,6 @@ const spells = {
     id: 394384,
     name: 'Focusing Aim',
     icon: 'ability_impalingbolt',
-  },
-  //T30 2P
-  T30_2P_BONUS_BEAST_MASTERY: {
-    id: 405524,
-    name: 'T30 2P',
-    icon: 'ability_hunter_killcommand',
-  },
-  //T30 4P
-
-  T30_4P_BONUS_BEAST_MASTERY: {
-    id: 405525,
-    name: 'T30 4P',
-    icon: 'ability_druid_ferociousbite',
-  },
-
-  //TWW Lightless 2p
-  TWW_LIGHTLESS_2P_MM: {
-    id: 453648,
-    name: 'Hunter MM Lightless 2 Piece Set',
-    icon: 'trade_engineering',
-  },
-
-  //TWW Lightless 4p
-  TWW_LIGHTLESS_4P_MM: {
-    id: 453650,
-    name: 'Hunter MM Lightless 4 Piece Set',
-    icon: 'trade_engineering',
-  },
-  TWW_STAMPEDE_BUFF: {
-    id: 1250068,
-    name: 'Stampede Buff Duration',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  TWW_STAMPEDE_DAMAGE: {
-    id: 201594,
-    name: 'Stampede',
-    icon: 'inv_pet_babymurlocs_blue',
   },
 
   //endregion

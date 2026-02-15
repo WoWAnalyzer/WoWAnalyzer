@@ -1,12 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { HealEvent } from 'parser/core/Events';
-import { RUSHING_WIND_KICK_INCREASE } from '../../constants';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import { getRWKHitsPerCast } from '../../normalizers/CastLinkNormalizer';
 
 class RushingWindKick extends Analyzer {
   healing = 0;
+  overhealing = 0;
+  hits = 0;
+  casts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -14,15 +16,27 @@ class RushingWindKick extends Analyzer {
       TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RUSHING_WIND_KICK_HEAL),
       this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+      this.onCast,
     );
   }
 
+  get avgTargetsHit() {
+    return this.casts > 0 ? this.hits / this.casts : 0;
+  }
+
+  private onCast(event: CastEvent) {
+    const rwkHits = getRWKHitsPerCast(event);
+    this.casts += 1;
+    this.hits += rwkHits.length || 0;
+  }
   private onHeal(event: HealEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.RUSHING_WINDS_BUFF)) {
-      this.healing += calculateEffectiveHealing(event, RUSHING_WIND_KICK_INCREASE);
-    }
+    this.overhealing += event.overheal || 0;
+    this.healing += event.amount + (event.absorbed || 0);
   }
 }
 

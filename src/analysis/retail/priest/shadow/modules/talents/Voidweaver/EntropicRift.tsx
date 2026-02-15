@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import Statistic from 'parser/ui/Statistic';
@@ -57,7 +58,7 @@ class EntropicRift extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
       this.onDP,
     );
 
@@ -196,7 +197,7 @@ class EntropicRift extends Analyzer {
         <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
         <br />
         This damage is increased by 20% per cast of{' '}
-        <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> while the rift is active.
+        <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> while the rift is active.
         <br />
       </p>
     );

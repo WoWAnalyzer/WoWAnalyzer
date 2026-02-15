@@ -1,9 +1,9 @@
 import { Contributor } from 'common/contributor';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 export interface ChangelogEntry {
   date: Date;
-  changes: React.ReactNode;
+  changes: ReactNode;
   contributors: Contributor[];
 }
 
@@ -15,7 +15,7 @@ export function date(year: number, month: number, day: number) {
 
 export function change(
   date: Date,
-  text: React.ReactNode,
+  text: ReactNode,
   contributors: Contributor | Contributor[],
 ): ChangelogEntry {
   if (!(date instanceof Date)) {

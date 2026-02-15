@@ -1,4 +1,4 @@
-export { default as ElementalBlast } from './ElementalBlast';
+export { default as ElementalBlast } from '../elemental/modules/talents/ElementalBlast';
 export { default as AnkhNormalizer } from './core/AnkhNormalizer';
 export { default as FlameShock } from './core/FlameShock';
 export { default as AstralShift } from './talents/AstralShift';

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { FC, JSX } from 'react';
+import { useState } from 'react';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -171,7 +172,7 @@ export const generateGraphData = (
   return graphData;
 };
 
-const ExplanationGraph: React.FC<Props> = ({
+const ExplanationGraph: FC<Props> = ({
   fightStartTime,
   fightEndTime,
   graphData,

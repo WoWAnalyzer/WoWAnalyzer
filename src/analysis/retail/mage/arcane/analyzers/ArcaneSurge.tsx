@@ -1,23 +1,21 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import { getManaPercentage } from '../../shared/helpers';
+import Enemies from 'parser/shared/modules/Enemies';
 
 export default class ArcaneSurge extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    chargeTracker: ArcaneChargeTracker,
+    enemies: Enemies,
   };
   protected abilityTracker!: AbilityTracker;
-  protected chargeTracker!: ArcaneChargeTracker;
+  protected enemies!: Enemies;
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
-  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
   surgeData: ArcaneSurgeData[] = [];
 
@@ -31,11 +29,12 @@ export default class ArcaneSurge extends Analyzer {
   }
 
   onSurgeCast(event: CastEvent) {
+    const damage = GetRelatedEvent(event, EventType.Damage);
+    const enemy = damage && this.enemies.getEntity(damage);
     this.surgeData.push({
       cast: event.timestamp,
-      charges: this.chargeTracker.current,
-      siphonStormBuff: this.selectedCombatant.hasBuff(SPELLS.SIPHON_STORM_BUFF.id),
       mana: getManaPercentage(event),
+      touchActive: enemy && enemy.hasBuff(TALENTS.TOUCH_OF_THE_MAGI_TALENT) ? true : false,
     });
   }
 
@@ -61,6 +60,5 @@ export default class ArcaneSurge extends Analyzer {
 export interface ArcaneSurgeData {
   cast: number;
   mana?: number;
-  charges: number;
-  siphonStormBuff: boolean;
+  touchActive: boolean;
 }

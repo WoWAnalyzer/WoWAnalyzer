@@ -21,8 +21,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { InformationIcon } from 'interface/icons';
 
 /**
- * Aug: Casting Prescience has a 20% chance to cause your next Prescience to last 100% longer.
- * Pres [NYI]: Casting Echo has a 20% chance to cause your next Echo to copy 100% more healing.
+ * Aug: Prescience lasts 15% longer.
+ * Pres [NYI]: Echo copies 10% more healing.
  */
 class GoldenOpportunity extends Analyzer {
   static dependencies = {

@@ -16,7 +16,6 @@ import {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { EB_BUFF_IDS } from '../../constants';
-import { TIERS } from 'game/TIERS';
 import EssenceBurstRefreshNormalizer from './EssenceBurstRefreshNormalizer';
 import { Options } from 'parser/core/Analyzer';
 
@@ -32,22 +31,21 @@ type AnyBuffEvent =
   | RemoveBuffEvent
   | RemoveBuffStackEvent;
 
-export const EB_FROM_EMERALD_TRANCE = 'ebFromEmeraldTrance';
-export const EB_FROM_AZURE_STRIKE = 'ebFromAzureStrike';
-export const EB_FROM_PRESCIENCE = 'ebFromPrescience';
-export const EB_FROM_ARCANE_VIGOR = 'ebFromArcaneVigor';
-export const EB_FROM_LF_CAST = 'ebFromLFCast';
-export const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
-export const EB_FROM_AUG_UNDERMINE_4PC = 'ebFromAugUndermine4pc';
-export const EB_FROM_AUG_UNDERMINE_4PC_EONS = 'ebFromAugUndermine4pcEons';
+const EB_FROM_AZURE_STRIKE = 'ebFromAzureStrike';
+const EB_FROM_PRESCIENCE = 'ebFromPrescience';
+const EB_FROM_LF_CAST = 'ebFromLFCast';
+const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
+const EB_FROM_ENERGY_CYCLES = 'ebFromEnergyCycles';
 const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
-const EMERALD_TRANCE_BUFFER = 5_000;
+const ENERGY_CYCLES_BUFFER = 6_000;
 
-export const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
+const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
 const EB_DIVERTED_POWER_BUFFER = 100; // These for some reason have longer delays
 
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
+const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
+
+const EB_FROM_ESSENCE_WELL = 'ebFromEssenceWell';
 
 /** More deterministic links should be placed above less deterministic links
  * eg.
@@ -67,45 +65,46 @@ export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
  */
 const EVENT_LINKS: EventLink[] = [
   {
-    linkRelation: EB_FROM_ARCANE_VIGOR,
-    reverseLinkRelation: EB_FROM_ARCANE_VIGOR,
-    linkingEventId: SPELLS.SHATTERING_STAR.id,
-    linkingEventType: EventType.Cast,
+    // unlike emerald trance, energy cycles gives EB on buff application
+    linkRelation: EB_FROM_ENERGY_CYCLES,
+    reverseLinkRelation: EB_FROM_ENERGY_CYCLES,
+    linkingEventId: SPELLS.TEMPORAL_BURST_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
     referencedEventId: EB_BUFF_IDS,
     referencedEventType: EB_GENERATION_EVENT_TYPES,
     anyTarget: true,
     forwardBufferMs: ESSENCE_BURST_BUFFER,
     backwardBufferMs: ESSENCE_BURST_BUFFER,
     maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS.ARCANE_VIGOR_TALENT);
+    isActive: (c) => c.hasTalent(TALENTS.ENERGY_CYCLES_TALENT),
+  },
+  {
+    linkRelation: EB_FROM_ENERGY_CYCLES,
+    reverseLinkRelation: EB_FROM_ENERGY_CYCLES,
+    linkingEventId: SPELLS.TEMPORAL_BURST_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: ENERGY_CYCLES_BUFFER * 5 + ESSENCE_BURST_BUFFER,
+    maximumLinks: 5,
+    isActive: (c) => c.hasTalent(TALENTS.ENERGY_CYCLES_TALENT),
+    additionalCondition(linkingEvent, referencedEvent) {
+      // reused from Emerald Trance
+      // applies one EB each 6_000 ms for the duration of the buff (30_000ms)
+      // so check if the timestamp difference is divisible by 6_000 allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
+      const timeDiff = Math.abs(
+        (linkingEvent.timestamp - referencedEvent.timestamp) % ENERGY_CYCLES_BUFFER,
+      );
+      if (
+        timeDiff > ESSENCE_BURST_BUFFER &&
+        ENERGY_CYCLES_BUFFER - timeDiff > ESSENCE_BURST_BUFFER // it can probably come early
+      ) {
+        return false;
+      }
+
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },
-  },
-  {
-    linkRelation: EB_FROM_AUG_UNDERMINE_4PC,
-    reverseLinkRelation: EB_FROM_AUG_UNDERMINE_4PC,
-    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
-    linkingEventType: EventType.EmpowerEnd,
-    referencedEventId: EB_BUFF_IDS,
-    referencedEventType: EB_GENERATION_EVENT_TYPES,
-    anyTarget: true,
-    forwardBufferMs: ESSENCE_BURST_BUFFER,
-    backwardBufferMs: ESSENCE_BURST_BUFFER,
-    maximumLinks: 1,
-    isActive: (c) => c.has4PieceByTier(TIERS.TWW2),
-  },
-  {
-    linkRelation: EB_FROM_AUG_UNDERMINE_4PC_EONS,
-    reverseLinkRelation: EB_FROM_AUG_UNDERMINE_4PC_EONS,
-    linkingEventId: [TALENTS.BREATH_OF_EONS_TALENT.id, SPELLS.BREATH_OF_EONS_SCALECOMMANDER.id],
-    linkingEventType: EventType.Cast,
-    referencedEventId: EB_BUFF_IDS,
-    referencedEventType: EB_GENERATION_EVENT_TYPES,
-    anyTarget: true,
-    forwardBufferMs: ESSENCE_BURST_BUFFER,
-    backwardBufferMs: ESSENCE_BURST_BUFFER,
-    maximumLinks: 1,
-    isActive: (c) => c.has4PieceByTier(TIERS.TWW2),
   },
   {
     linkRelation: EB_FROM_PRESCIENCE,
@@ -119,33 +118,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: ESSENCE_BURST_BUFFER,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.ANACHRONISM_TALENT),
-  },
-  {
-    linkRelation: EB_FROM_EMERALD_TRANCE,
-    reverseLinkRelation: EB_FROM_EMERALD_TRANCE,
-    linkingEventId: SPELLS.EMERALD_TRANCE_T31_4PC_BUFF.id,
-    linkingEventType: EventType.ApplyBuff,
-    referencedEventId: EB_BUFF_IDS,
-    referencedEventType: EB_GENERATION_EVENT_TYPES,
-    anyTarget: true,
-    forwardBufferMs: EMERALD_TRANCE_BUFFER * 5 + ESSENCE_BURST_BUFFER,
-    maximumLinks: 5,
-    isActive: (c) => {
-      return c.has4PieceByTier(TIERS.DF3);
-    },
-    additionalCondition(linkingEvent, referencedEvent) {
-      // applies one EB each 5_000 ms for the duration of the buff (25_000ms)
-      // so check if the timestamp difference is divisible by 5_000 allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
-      const timeDiff = Math.abs(
-        (linkingEvent.timestamp - referencedEvent.timestamp) % EMERALD_TRANCE_BUFFER,
-      );
-      if (
-        timeDiff > ESSENCE_BURST_BUFFER &&
-        EMERALD_TRANCE_BUFFER - timeDiff > ESSENCE_BURST_BUFFER // it can come early
-      ) {
-        return false;
-      }
-
+    additionalCondition(_linkingEvent, referencedEvent) {
       return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },
   },
@@ -163,6 +136,22 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (c) =>
       c.hasTalent(TALENTS.AZURE_ESSENCE_BURST_TALENT) ||
       c.hasTalent(TALENTS.ESSENCE_BURST_AUGMENTATION_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
+    },
+  },
+  {
+    linkRelation: EB_FROM_ESSENCE_WELL,
+    reverseLinkRelation: EB_FROM_ESSENCE_WELL,
+    linkingEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.ESSENCE_WELL_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
       return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },
@@ -240,7 +229,8 @@ const EVENT_LINKS: EventLink[] = [
     ],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [
-      TALENTS.PYRE_TALENT.id,
+      SPELLS.PYRE.id,
+      SPELLS.PYRE_DENSE_TALENT.id,
       SPELLS.DISINTEGRATE.id,
       TALENTS.ERUPTION_TALENT.id,
       TALENTS.ECHO_TALENT.id,
@@ -271,12 +261,12 @@ class EssenceBurstCastLinkNormalizer extends EventLinkNormalizer {
 /** All the possible EB sources */
 export const EBSource = {
   Prescience: EB_FROM_PRESCIENCE,
-  ArcaneVigor: EB_FROM_ARCANE_VIGOR,
-  EmeraldTrance: EB_FROM_EMERALD_TRANCE,
   AzureStrike: EB_FROM_AZURE_STRIKE,
   LivingFlameCast: EB_FROM_LF_CAST,
   LivingFlameHeal: EB_FROM_LF_HEAL,
   DivertedPower: EB_FROM_DIVERTED_POWER,
+  EssenceWell: EB_FROM_ESSENCE_WELL,
+  EnergyCycles: EB_FROM_ENERGY_CYCLES,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];
 

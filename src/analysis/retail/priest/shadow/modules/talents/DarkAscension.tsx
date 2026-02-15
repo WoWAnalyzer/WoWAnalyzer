@@ -15,13 +15,13 @@ class DarkAscension extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
       this.onDamage,
     );
     this.addEventListener(
@@ -38,11 +38,7 @@ class DarkAscension extends Analyzer {
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE_ONE),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE_TWO),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TENTACLE_SLAM_TALENT_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
@@ -78,7 +74,7 @@ class DarkAscension extends Analyzer {
   onDamage(event: DamageEvent) {
     if (
       !event.tick &&
-      this.selectedCombatant.hasBuff(TALENTS.DARK_ASCENSION_TALENT.id, event.timestamp)
+      this.selectedCombatant.hasBuff(TALENTS.VOIDFORM_TALENT.id, event.timestamp)
     ) {
       //nonperiodic damage is increased by Dark Ascension,
       this.totalDamage += calculateEffectiveDamage(event, DARK_ASCENSION_MULTIPLIER);
@@ -92,7 +88,7 @@ class DarkAscension extends Analyzer {
         size="flexible"
         tooltip="This is the bonus damage to nonperiodic spells from Dark Ascension"
       >
-        <BoringSpellValueText spell={TALENTS.DARK_ASCENSION_TALENT}>
+        <BoringSpellValueText spell={TALENTS.VOIDFORM_TALENT}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

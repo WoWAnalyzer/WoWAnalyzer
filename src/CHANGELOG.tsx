@@ -2,18 +2,51 @@ import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { Arlie, Ceric, emallson, Gazh, jazminite, KYZ, nullDozzer, oneunreadmail, Putro, Rzial, Seriousnes, Sharrq, Sref, swirl, Taevis, Topple, Trevor, Vetyst, Vollmer, Yellot, } from 'CONTRIBUTORS';
+import {
+  Arlie,
+  Ceric,
+  emallson,
+  Gazh,
+  jazminite,
+  KYZ,
+  nullDozzer,
+  oneunreadmail,
+  Putro,
+  Rzial,
+  SaltyRain,
+  Seriousnes,
+  Sharrq,
+  Sref,
+  swirl,
+  Taevis,
+  Topple,
+  Trevor,
+  Vetyst,
+  Vollmer,
+  Yellot,
+} from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 2, 10), 'Prevent duplicate GCDs triggering for normalized channels', Vollmer),
+  change(date(2026, 2, 1), 'Fix playwright tests for specs with partial support', Vollmer),
+  change(date(2026, 1, 29), 'RU: improve localization on key pages (news/about/specs/premium/help-wanted) and make Panel headings fully translatable', SaltyRain),
+  change(date(2026, 1, 27), 'Add support for Midnight gems and enchants.', Arlie),
+  change(date(2026, 1, 27), 'Add error state for ineligible fights.', Topple),
+  change(date(2026, 1, 25), 'RU: localized /specs page (classes/specs) and updated related UI labels', SaltyRain),
+  change(date(2026, 1, 24), 'Fix crash in Death Recap view', emallson),
+  change(date(2026, 1, 24), 'Fix crash when selecting a phase or pull', emallson),
+  change(date(2025, 11, 26), 'Update to React 19.', [Topple, emallson]),
+  change(date(2025, 11, 26), 'Add bosses for Midnight S1.', Topple),
   change(date(2025, 11, 9), 'Redesign fight analysis header.', emallson),
+  change(date(2025, 11, 5), 'Add new Classic mega-servers to character/guild search', emallson),
   change(date(2025, 11,  4), 'Generate talents for 12.0.0.64124.', Topple),
-  change(date(2025, 11,  1), 'Reqorked CastEfficiencyBar to fit the new style and to account for spells with charges.', Sharrq),  
-  change(date(2025, 11,  1), 'Added additional Guide Components for IntensityChart, IntensityBar, and DamageContribution.', Sharrq),  
-  change(date(2025, 10,  28), 'Add MID1 tier set ids.', Vollmer),  
-  change(date(2025, 10,  14), 'Update CastEfficiencyBar to accept a spell object.', Sharrq),  
+  change(date(2025, 11,  1), 'Reqorked CastEfficiencyBar to fit the new style and to account for spells with charges.', Sharrq),
+  change(date(2025, 11,  1), 'Added additional Guide Components for IntensityChart, IntensityBar, and DamageContribution.', Sharrq),
+  change(date(2025, 10,  28), 'Add MID1 tier set ids.', Vollmer),
+  change(date(2025, 10,  14), 'Update CastEfficiencyBar to accept a spell object.', Sharrq),
   change(date(2025, 10,  22), 'Add and Update Guide Components for CastSummary, CastDetail, CastSequence, StatisticCard, and BuffUptimeBar.', Sharrq),
   change(date(2025, 10,  14), 'Replace Babel with oxc and swc.', Topple),
   change(date(2025, 10, 1), <>Fix crash in Protectors of the Endless analysis if the Foundation timeline is shown. Also fix a zoom bug on the phase header.</>, emallson),

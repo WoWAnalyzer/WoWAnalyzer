@@ -36,7 +36,7 @@ class SuddenDeath extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_TALENT);
     this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT)
       ? 0.35
       : this.executeThreshold;
@@ -150,7 +150,7 @@ class SuddenDeath extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={talents.SUDDEN_DEATH_FURY_TALENT}>
+        <BoringSpellValueText spell={talents.SUDDEN_DEATH_TALENT}>
           <>
             {this.suddenDeathProcsUsed} / {this.suddenDeathProcs} procs used
           </>

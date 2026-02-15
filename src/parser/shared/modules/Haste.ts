@@ -103,9 +103,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.MANA_ADDICTION_BUFF_ARCANE.id]: {
     hastePerStack: 0.03,
   },
-  [SPELLS.ARCANE_TEMPO_BUFF.id]: {
-    hastePerStack: 0.02,
-  },
+  [TALENTS_MAGE.ARCANE_TEMPO_TALENT.id]: 0.02,
   //endregion
 
   //region Monk
@@ -118,6 +116,8 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [TALENTS_SHAMAN.UNLIMITED_POWER_TALENT.id]: {
     hastePerStack: 0.01,
   },
+  [SPELLS.SURGING_ELEMENTS_BUFF.id]: 0.15,
+  [SPELLS.MIDNIGHT_S1_THUNDEROUS_VELOCITY_BUFF.id]: 0.15,
   //endregion
 
   //region Warlock

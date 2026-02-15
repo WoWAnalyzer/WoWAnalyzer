@@ -4,6 +4,13 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { BREATH_OF_EONS_SPELLS } from '../../constants';
+import {
+  MAX_SKIP_CDR_BASE,
+  MAX_SKIP_CDR_TB,
+  MAX_SKIP_CDR_TT,
+  MAX_SKIP_CDR_TT_TB,
+} from '../../constants';
+import { TEMORAL_BURST_CDR_MODIFIER_PER_STACK } from 'analysis/retail/evoker/shared/constants';
 
 /**
  * Time Skip is a channeled spell that makes cooldowns recover 1000% faster
@@ -20,6 +27,9 @@ class TimeSkip extends Analyzer {
 
   timeSkipApplyTimestamp = 0;
   timeSkipRemoveTimestamp = 0;
+
+  temporalBurstApplyStacks = 0;
+  temporalBurstRemoveStacks = 0;
 
   spellIdsToCDR = [
     SPELLS.UPHEAVAL,
@@ -58,7 +68,13 @@ class TimeSkip extends Analyzer {
   // Amount to CDR for each MS.
   CDR_MS = 10;
 
-  MAX_CDR = this.selectedCombatant.hasTalent(TALENTS.TOMORROW_TODAY_TALENT) ? 30000 : 20000;
+  MAX_CDR = this.selectedCombatant.hasTalent(TALENTS.TEMPORAL_BURST_TALENT)
+    ? this.selectedCombatant.hasTalent(TALENTS.TOMORROW_TODAY_TALENT)
+      ? MAX_SKIP_CDR_TT_TB
+      : MAX_SKIP_CDR_TB
+    : this.selectedCombatant.hasTalent(TALENTS.TOMORROW_TODAY_TALENT)
+      ? MAX_SKIP_CDR_TT
+      : MAX_SKIP_CDR_BASE;
 
   constructor(options: Options) {
     super(options);
@@ -75,19 +91,45 @@ class TimeSkip extends Analyzer {
 
   onApplyBuff(event: ApplyBuffEvent) {
     this.timeSkipApplyTimestamp = event.timestamp;
+    if (this.selectedCombatant.hasBuff(SPELLS.TEMPORAL_BURST_BUFF)) {
+      this.temporalBurstApplyStacks = this.selectedCombatant.getBuffStacks(
+        SPELLS.TEMPORAL_BURST_BUFF,
+      );
+    }
   }
   onRemoveBuff(event: RemoveBuffEvent) {
     this.timeSkipRemoveTimestamp = event.timestamp;
-
+    if (this.selectedCombatant.hasBuff(SPELLS.TEMPORAL_BURST_BUFF)) {
+      this.temporalBurstRemoveStacks = this.selectedCombatant.getBuffStacks(
+        SPELLS.TEMPORAL_BURST_BUFF,
+      );
+      if (this.temporalBurstApplyStacks == 1 && this.temporalBurstRemoveStacks > 20) {
+        // log error causes 30 stacks to instead appear as 1 stack
+        this.temporalBurstApplyStacks = 30;
+      }
+    }
     this.calculateCDR();
   }
 
   private calculateCDR() {
-    let CDRAmount = (this.timeSkipRemoveTimestamp - this.timeSkipApplyTimestamp) * this.CDR_MS;
+    let temporalBurstMultiplier = 1;
+    // Use the average Temporal Burst stacks to calculate CDR multiplier
+    if (this.temporalBurstApplyStacks > 0 && this.temporalBurstRemoveStacks > 0) {
+      temporalBurstMultiplier +=
+        (this.temporalBurstApplyStacks + this.temporalBurstRemoveStacks) *
+        0.5 *
+        TEMORAL_BURST_CDR_MODIFIER_PER_STACK;
+    }
+    let CDRAmount =
+      (this.timeSkipRemoveTimestamp - this.timeSkipApplyTimestamp) *
+      this.CDR_MS *
+      temporalBurstMultiplier;
+
+    this.temporalBurstApplyStacks = 0;
+    this.temporalBurstRemoveStacks = 0;
     if (CDRAmount > this.MAX_CDR) {
       CDRAmount = this.MAX_CDR;
     }
-
     this.spellIdsToCDR.forEach((spellId) => {
       if (!this.spellUsable.isOnCooldown(spellId)) {
         return;

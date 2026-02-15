@@ -10,12 +10,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const { DISINTEGRATE, FIRE_BREATH_DOT } = SPELLS;
+import Enemies from 'parser/shared/modules/Enemies';
 
 class Catalyze extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  protected enemies!: Enemies;
+
   fireBreathDamageDuringDisintegrate = 0;
-  disintegrateDebuffActive = false;
   extraDamageFromCatalyze = 0;
   fireBreathTicks = 0;
   extraTicksFromCatalyze = 0;
@@ -24,22 +28,18 @@ class Catalyze extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.CATALYZE_TALENT);
 
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE), () => {
-      this.disintegrateDebuffActive = true;
-    });
-
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE), () => {
-      this.disintegrateDebuffActive = false;
-    });
-
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_BREATH_DOT), this.onHit);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
+      this.onHit,
+    );
   }
 
   onHit(event: DamageEvent) {
-    if (this.disintegrateDebuffActive) {
-      this.fireBreathTicks += 1;
-      this.fireBreathDamageDuringDisintegrate += event.amount + (event.absorbed ?? 0);
-    }
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy || !enemy.hasBuff(SPELLS.DISINTEGRATE.id, event.timestamp)) return;
+
+    this.fireBreathTicks += 1;
+    this.fireBreathDamageDuringDisintegrate += event.amount + (event.absorbed ?? 0);
   }
 
   statistic() {

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 import ParseResults from 'parser/core/ParseResults';
 import BOSS_PHASES_STATE from 'interface/report/BOSS_PHASES_STATE';
 import EVENT_PARSING_STATE from 'interface/report/EVENT_PARSING_STATE';
@@ -37,4 +37,4 @@ export const ResultsContext = createContext<ResultsContextValue>({
   results: null,
 });
 
-export const useResults = () => useContext(ResultsContext);
+export const useResults = () => use(ResultsContext);

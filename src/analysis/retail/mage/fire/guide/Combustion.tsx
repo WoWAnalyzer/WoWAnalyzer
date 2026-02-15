@@ -1,289 +1,144 @@
+import type { JSX } from 'react';
+import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellIcon, SpellLink, TooltipElement } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { qualitativePerformanceToColor } from 'interface/guide';
-import { PerformanceMark } from 'interface/guide';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/fire/Guide';
+import Analyzer from 'parser/core/Analyzer';
+import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
+import GuideSection from 'interface/guide/components/GuideSection';
+import { EventType, GetRelatedEvent } from 'parser/core/Events';
+
 import CombustionCasts from '../core/Combustion';
-import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
-import { GetRelatedEvent } from 'parser/core/Events';
-import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
-import { DamageContribution } from 'interface/guide/components';
-import CombustionDamageTracker from '../core/CombustionDamageTracker';
 
 class CombustionGuide extends Analyzer {
   static dependencies = {
     combustion: CombustionCasts,
-    combustionDamageTracker: CombustionDamageTracker,
   };
 
   protected combustion!: CombustionCasts;
-  protected combustionDamageTracker!: CombustionDamageTracker;
 
-  hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
-  hasSunKingsBlessing: boolean = this.selectedCombatant.hasTalent(
-    TALENTS.SUN_KINGS_BLESSING_TALENT,
-  );
+  private evaluateCombustionCast(cb: any): CastEvaluation {
+    const combustDuration = cb.remove - cb.cast.timestamp;
+    const activeTimePercent = cb.activeTime / combustDuration;
 
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipItems: { perf: QualitativePerformance; detail: string }[],
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}
-        </div>
-        <div>
-          {tooltipItems.map((t, i) => (
-            <div key={i}>
-              <PerformanceMark perf={t.perf} /> {t.detail}
-              <br />
-            </div>
-          ))}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
+    const activeThresholds = this.combustion.activeTimeThresholds.isLessThan;
+    const delayThresholds = this.combustion.combustionCastDelayThresholds.isGreaterThan;
 
-  activeTimeUtil(activePercent: number) {
-    const thresholds = this.combustion.activeTimeThresholds.isLessThan;
-    let performance = QualitativePerformance.Fail;
-    if (activePercent >= thresholds.minor) {
-      performance = QualitativePerformance.Perfect;
-    } else if (activePercent >= thresholds.average) {
-      performance = QualitativePerformance.Good;
-    } else if (activePercent >= thresholds.major) {
-      performance = QualitativePerformance.Ok;
-    }
-    return performance;
-  }
-
-  castDelayUtil(delay: number) {
-    const thresholds = this.combustion.combustionCastDelayThresholds.isGreaterThan;
-    let performance = QualitativePerformance.Fail;
-    if (delay <= thresholds.minor) {
-      performance = QualitativePerformance.Perfect;
-    } else if (delay <= thresholds.average) {
-      performance = QualitativePerformance.Good;
-    } else if (delay <= thresholds.major) {
-      performance = QualitativePerformance.Ok;
-    }
-    return performance;
-  }
-
-  get combustionData() {
-    const data: BoxRowEntry[] = [];
-    this.combustion.combustCasts.forEach((cb) => {
-      const tooltipItems: { perf: QualitativePerformance; detail: string }[] = [];
-
-      const combustDuration = cb.remove - cb.cast.timestamp;
-      const activeTimePercent = cb.activeTime / combustDuration;
-      const activeUtil = this.activeTimeUtil(activeTimePercent);
-      tooltipItems.push({
-        perf: activeUtil,
-        detail: `Active Time: ${formatDurationMillisMinSec(cb.activeTime, 2)} / ${formatDurationMillisMinSec(cb.remove - cb.cast.timestamp, 2)} (${formatPercentage(activeTimePercent, 2)}%)`,
-      });
-
-      const fireballCasts = cb.spellCasts.filter((sc) => {
-        if (sc.ability.guid !== SPELLS.FIREBALL.id) {
-          return false;
-        }
-        const beginCast = GetRelatedEvent(sc, 'CastBegin');
-        const hasAccelerantBuff = this.selectedCombatant.hasBuff(
-          SPELLS.FLAME_ACCELERANT_BUFF.id,
-          sc.timestamp,
-        );
-        if (
-          this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast?.timestamp) &&
-          !hasAccelerantBuff
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-      if (fireballCasts.length > 0) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Fail,
-          detail: `Fireballs During Combust: ${fireballCasts}`,
-        });
+    // Check for hardcast Fireballs during Combustion (fail)
+    const fireballCasts = cb.spellCasts.filter((sc: any) => {
+      if (sc.ability.guid !== SPELLS.FIREBALL.id) {
+        return false;
       }
-
-      const delayUtil = this.castDelayUtil(cb.castDelay);
-      tooltipItems.push({
-        perf: delayUtil,
-        detail: `Combustion Cast Delay: ${formatDurationMillisMinSec(cb.castDelay, 3)}`,
-      });
-
-      const perfect = [QualitativePerformance.Perfect];
-      const good = [...perfect, QualitativePerformance.Good];
-      const ok = [...good, QualitativePerformance.Ok];
-
-      let overallPerf = QualitativePerformance.Fail;
-      if (fireballCasts.length > 0) {
-        overallPerf = QualitativePerformance.Fail;
-      } else if (perfect.includes(activeUtil) && perfect.includes(delayUtil)) {
-        overallPerf = QualitativePerformance.Perfect;
-      } else if (good.includes(activeUtil) && good.includes(delayUtil)) {
-        overallPerf = QualitativePerformance.Good;
-      } else if (ok.includes(activeUtil) && ok.includes(delayUtil)) {
-        overallPerf = QualitativePerformance.Ok;
-      } else if (
-        activeUtil === QualitativePerformance.Fail ||
-        delayUtil === QualitativePerformance.Fail
-      ) {
-        overallPerf = QualitativePerformance.Fail;
+      const beginCast = GetRelatedEvent(sc, EventType.BeginCast);
+      if (this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast?.timestamp)) {
+        return true;
       }
-
-      if (tooltipItems) {
-        const tooltip = this.generateGuideTooltip(overallPerf, tooltipItems, cb.cast.timestamp);
-        data.push({ value: overallPerf, tooltip });
-      }
+      return false;
     });
-    return data;
+
+    // FAIL CONDITIONS
+    if (fireballCasts.length > 0) {
+      return {
+        timestamp: cb.cast.timestamp,
+        performance: QualitativePerformance.Fail,
+        reason: `${fireballCasts.length} Hardcast Fireball(s) during Combustion`,
+      };
+    }
+
+    if (activeTimePercent < activeThresholds.major) {
+      return {
+        timestamp: cb.cast.timestamp,
+        performance: QualitativePerformance.Fail,
+        reason: `Low Active Time: ${formatPercentage(activeTimePercent, 1)}% (${formatDurationMillisMinSec(cb.activeTime, 1)} / ${formatDurationMillisMinSec(combustDuration, 1)})`,
+      };
+    }
+
+    // PERFECT CONDITIONS
+    if (activeTimePercent >= activeThresholds.minor && cb.castDelay <= delayThresholds.minor) {
+      return {
+        timestamp: cb.cast.timestamp,
+        performance: QualitativePerformance.Perfect,
+        reason: `Perfect - ${formatPercentage(activeTimePercent, 1)}% Active Time, ${formatDurationMillisMinSec(cb.castDelay, 2)} Cast Delay`,
+      };
+    }
+
+    // GOOD CONDITIONS
+    if (activeTimePercent >= activeThresholds.average && cb.castDelay <= delayThresholds.average) {
+      return {
+        timestamp: cb.cast.timestamp,
+        performance: QualitativePerformance.Good,
+        reason: `Good - ${formatPercentage(activeTimePercent, 1)}% Active Time, ${formatDurationMillisMinSec(cb.castDelay, 2)} Cast Delay`,
+      };
+    }
+
+    // OK CONDITIONS
+    if (cb.castDelay > delayThresholds.major) {
+      return {
+        timestamp: cb.cast.timestamp,
+        performance: QualitativePerformance.Fail,
+        reason: `High Cast Delay: ${formatDurationMillisMinSec(cb.castDelay, 2)} - wasted Combustion duration`,
+      };
+    }
+
+    return {
+      timestamp: cb.cast.timestamp,
+      performance: QualitativePerformance.Ok,
+      reason: `Ok - ${formatPercentage(activeTimePercent, 1)}% Active Time, ${formatDurationMillisMinSec(cb.castDelay, 2)} Cast Delay`,
+    };
   }
 
   get guideSubsection(): JSX.Element {
-    const fireBlast = <SpellLink spell={SPELLS.FIRE_BLAST} />;
-    const phoenixFlames = <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
+    const fireblast = <SpellLink spell={SPELLS.FIRE_BLAST} />;
     const combustion = <SpellLink spell={TALENTS.COMBUSTION_TALENT} />;
     const hotStreak = <SpellLink spell={SPELLS.HOT_STREAK} />;
     const scorch = <SpellLink spell={SPELLS.SCORCH} />;
     const fireball = <SpellLink spell={SPELLS.FIREBALL} />;
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
-    const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
-    const flameAccelerant = <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} />;
     const feelTheBurn = <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />;
-
-    const combustionIcon = <SpellIcon spell={TALENTS.COMBUSTION_TALENT} />;
 
     const explanation = (
       <>
-        <div>
-          <b>{combustion}</b> is a very strong burst cooldown with a short duration. So, to maximize
-          your burst when {combustion} is active, you should try to use as many instant casts as
-          possible before {combustion} ends to maximize the number of {hotStreak}s you can gain and
-          spend before
-          {combustion} ends.
-        </div>
-        <div>
-          <ul>
+        <b>{combustion}</b> is a very strong burst cooldown with a short duration. To maximize your
+        burst, use as many instant casts as possible to maximize {hotStreak}s gained and spent
+        before {combustion} ends.
+        <ul>
+          <li>
+            Hardcast an ability like {fireball} or {pyroblast} and activate {combustion} as close to
+            the end of your hardcast as possible. This will give you maximum uptime of {combustion}{' '}
+            and allow your hardcast to land while {combustion} is active.
+          </li>
+          {!this.selectedCombatant.hasTalent(TALENTS.SPONTANEOUS_COMBUSTION_TALENT) && (
             <li>
-              Don't leave {combustion} off cooldown for too long, unless the fight or strat requires
-              it.
+              Pool {fireblast} charges before {combustion} so you have enough to last its duration.
             </li>
+          )}
+          <li>
+            Spend as many {hotStreak}s as possible during {combustion} and avoid any downtime.
+          </li>
+          <li>
+            Don't hardcast {fireball}, {pyroblast}, or {flamestrike} during {combustion}. Use{' '}
+            {scorch} if you are running low on {fireblast} charges.
+          </li>
+          {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
             <li>
-              Combustion can be cast while casting, so you activate it as close to the end of your
-              hardcast as possible to avoid wasting any of the buff duration (We call this Cast
-              Delay).
+              Get max stacks of {feelTheBurn} as quickly as possible and maintain it for{' '}
+              {combustion}'s duration.'
             </li>
-            <li>
-              If {combustion} is almost available, start pooling {fireBlast} and {phoenixFlames}{' '}
-              charges so you have enough to last {combustion}s duration.
-            </li>
-            <li>
-              Spend as many {hotStreak}s as possible during {combustion} and avoid any downtime.
-            </li>
-            <li>
-              Don't hardcast abilities like {fireball} (
-              {this.hasFlameAccelerant ? `without ${flameAccelerant} or ` : `with > 100% Haste`}) or{' '}
-              {pyroblast}/{flamestrike}
-              {this.hasSunKingsBlessing ? ` (without ${sunKingsBlessing})` : ``}. You can cast{' '}
-              {scorch} if running low on charges.
-            </li>
-            {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
-              <li>
-                Get max stacks of {feelTheBurn} and maintain it for {combustion}'s duration.
-              </li>
-            )}
-          </ul>
-        </div>
+          )}
+        </ul>
       </>
-    );
-    const castDelayTooltip = (
-      <>{this.combustion.averageCastDelay.toFixed(2)}s Average Combustion Pre-Cast Delay</>
-    );
-    const activeTimeTooltip = (
-      <>
-        {formatDurationMillisMinSec(this.combustion.totalActiveTime)} Active of{' '}
-        {formatDurationMillisMinSec(this.combustion.totalCombustDuration)}
-      </>
-    );
-    const data = (
-      <div>
-        <RoundedPanel>
-          <div
-            style={{
-              color: qualitativePerformanceToColor(
-                this.activeTimeUtil(this.combustion.overallActivePercent),
-              ),
-              fontSize: '20px',
-            }}
-          >
-            {combustionIcon}{' '}
-            <TooltipElement content={activeTimeTooltip}>
-              {this.combustion.overallActivePercent.toFixed(2)}s{' '}
-              <small>Overall Combustion Active Time</small>
-            </TooltipElement>
-          </div>
-          <div
-            style={{
-              color: qualitativePerformanceToColor(
-                this.castDelayUtil(this.combustion.averageCastDelay),
-              ),
-              fontSize: '20px',
-            }}
-          >
-            {combustionIcon}{' '}
-            <TooltipElement content={castDelayTooltip}>
-              {this.combustion.averageCastDelay.toFixed(2)}s <small>Average Cast Delay</small>
-            </TooltipElement>
-          </div>
-          <div>
-            <CastSummaryAndBreakdown
-              spell={TALENTS.COMBUSTION_TALENT}
-              castEntries={this.combustionData}
-            />
-          </div>
-          <div>
-            <DamageContribution
-              title="Damage During Combustion"
-              spells={[
-                { spell: TALENTS.PYROBLAST_TALENT, color: '#ff6600' },
-                { spell: SPELLS.FIRE_BLAST, color: '#ff9933' },
-                { spell: SPELLS.PHOENIX_FLAMES_DAMAGE, color: '#ffcc00' },
-                { spell: SPELLS.IGNITE, color: '#910808ff' },
-                { spell: SPELLS.FLAMESTRIKE, color: '#cc3300' },
-                { spell: SPELLS.ARCANE_PHOENIX_DAMAGE, color: '#7b1d92ff' },
-              ]}
-              calculateContribution={(spellId: number) =>
-                this.combustionDamageTracker.getDamageForSpell(spellId)
-              }
-              otherColor="#666666"
-              helperText="Spell Damage breakdown during Combustion."
-            />
-          </div>
-        </RoundedPanel>
-      </div>
     );
 
-    return explanationAndDataSubsection(
-      explanation,
-      data,
-      GUIDE_CORE_EXPLANATION_PERCENT,
-      'Combustion',
+    return (
+      <GuideSection spell={TALENTS.COMBUSTION_TALENT} explanation={explanation}>
+        <CastSummary
+          spell={TALENTS.COMBUSTION_TALENT}
+          casts={this.combustion.combustCasts.map((cast) => this.evaluateCombustionCast(cast))}
+          showBreakdown
+        />
+      </GuideSection>
     );
   }
 }

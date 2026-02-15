@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -23,7 +23,7 @@ class MeteorCombustion extends Analyzer {
   }
 
   onMeteor(event: CastEvent) {
-    const damage: DamageEvent[] | undefined = GetRelatedEvents(event, 'SpellDamage');
+    const damage: DamageEvent[] | undefined = GetRelatedEvents(event, EventType.Damage);
     const combustion = damage
       ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, damage[0]?.timestamp)
       : false;

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -108,14 +109,11 @@ class RayOfFrost extends Analyzer {
   get guideSubsection(): JSX.Element {
     const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
 
-    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
-
     const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
     const glacialAssault = <SpellLink spell={TALENTS.GLACIAL_ASSAULT_TALENT} />;
 
     const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
     const icelance = <SpellLink spell={SPELLS.ICE_LANCE_DAMAGE} />;
-    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
 
     const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
 
@@ -134,9 +132,6 @@ class RayOfFrost extends Analyzer {
               Use it after {cometStorm} (to benefit from {glacialAssault})
             </li>
           )}
-          <li>
-            Use it in 2nd {wintersChill}'s stack <small>(to optimize {wintersChill})</small>
-          </li>
         </ol>
         <p>
           To meet <b>all the conditions</b>, your {rayOfFrost} rotation should look like this:
@@ -151,8 +146,7 @@ class RayOfFrost extends Analyzer {
           ]}
         />
         <small>
-          {frostbolt} and {icelance} could be replaced with {glacialSpike} if you have enough{' '}
-          {icicles}.
+          {frostbolt} and {icelance} could be replaced with if you have enough {icicles}.
         </small>
       </>
     );

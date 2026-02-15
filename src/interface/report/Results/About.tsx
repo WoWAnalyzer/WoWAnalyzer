@@ -100,28 +100,25 @@ const DefaultDescription = ({ spec, supportLevel }: Config) => {
     </>
   );
 
+  // FIXME: this is not fully i18n'd because of an issue with transing the larger text
   const supportDesc =
     supportLevel === SupportLevel.Foundation ? (
       <>
-        <Trans id="interface.report.results.about.foundationDescription">
-          <p>
-            {specTitle} has <FoundationSupportBadge /> including:
-          </p>
-          <p>
-            <ul>
-              <li>Analysis for overall ability usage and uptime (Always Be Casting!)</li>
-              <li>Accurate cooldown tracking for all class and spec abilities</li>
-            </ul>
-          </p>
-          <p>
-            However, it does not have a dedicated maintainer providing detailed rotational analysis,
-            statistics, or other features.
-          </p>
-          <p>
-            If you believe there is an error in ability or cooldown tracking, please let us know on{' '}
-            <SmallDiscordButton />
-          </p>
-        </Trans>
+        <p>
+          {specTitle} has <FoundationSupportBadge /> including:
+        </p>
+        <ul>
+          <li>Analysis for overall ability usage and uptime (Always Be Casting!)</li>
+          <li>Accurate cooldown tracking for all class and spec abilities</li>
+        </ul>
+        <p>
+          However, it does not have a dedicated maintainer providing detailed rotational analysis,
+          statistics, or other features.
+        </p>
+        <p>
+          If you believe there is an error in ability or cooldown tracking, please let us know on{' '}
+          <SmallDiscordButton />
+        </p>
       </>
     ) : (
       <p>

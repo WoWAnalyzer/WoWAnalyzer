@@ -8,8 +8,8 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events, { HealEvent } from 'parser/core/Events';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { EFFECTS_INCREASED_BY_BENEVOLENCE_DISCIPLINE } from '../discipline/constants';
-import { EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY } from '../holy/constants';
+//import { EFFECTS_INCREASED_BY_BENEVOLENCE_DISCIPLINE } from '../discipline/constants';
+//import { EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY } from '../holy/constants';
 
 const BENEVOLENCE_INCREASE = 0.03;
 
@@ -27,12 +27,12 @@ class Benevolence extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (
+    /* if (
       !EFFECTS_INCREASED_BY_BENEVOLENCE_DISCIPLINE.includes(event.ability.guid) &&
       !EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY.includes(event.ability.guid)
     ) {
       return;
-    }
+    } */
     this.healing += calculateEffectiveHealing(event, BENEVOLENCE_INCREASE);
   }
 

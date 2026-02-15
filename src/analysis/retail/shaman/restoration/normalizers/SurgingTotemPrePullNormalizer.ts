@@ -29,9 +29,7 @@ class SurgingTotemPrePullNormalizer extends EventsNormalizer {
       return events;
     }
 
-    for (let eventIdx = 0; eventIdx < events.length; eventIdx += 1) {
-      const event = events[eventIdx];
-
+    for (const event of events) {
       // The totem 'dies' upon expiration.
       if (event.type !== EventType.Death || event.targetID !== targetNPC.id) {
         continue;

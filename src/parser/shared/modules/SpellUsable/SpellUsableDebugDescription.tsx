@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { AnyEvent } from 'parser/core/Events';
 import type { CooldownInfo } from '../SpellUsable';
 import CombatLogParser from 'parser/core/CombatLogParser';

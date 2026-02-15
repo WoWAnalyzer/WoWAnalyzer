@@ -23,13 +23,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(talents.UNLEASH_LIFE_TALENT) &&
           modules.unleashLife.guideSubsection}
       </Section>
-      <Section title="Short Cooldowns">
-        {info.combatant.hasTalent(talents.CLOUDBURST_TOTEM_TALENT) &&
-          modules.cloudburstTotem.guideSubsection}
-        {info.combatant.hasTalent(talents.WELLSPRING_TALENT) && modules.wellspring.guideSubsection}
-        {info.combatant.hasTalent(talents.EARTHEN_WALL_TOTEM_TALENT) &&
-          modules.earthenWallTotem.guideSubsection}
-      </Section>
+      <Section title="Short Cooldowns"></Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
       </Section>

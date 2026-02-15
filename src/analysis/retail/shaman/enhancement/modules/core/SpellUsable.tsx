@@ -1,11 +1,15 @@
-import { AbilityEvent, CastEvent, EventType } from 'parser/core/Events';
+import {
+  AbilityEvent,
+  AnyEvent,
+  EventType,
+  GetRelatedEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
-import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
-import SpellLink from 'interface/SpellLink';
-
-const RESET_BUFFER_MS = 100;
+import { EnhancementEventLinks } from '../../constants';
 
 class SpellUsable extends CoreSpellUsable.withDependencies({
   ...CoreSpellUsable.dependencies,
@@ -18,29 +22,27 @@ class SpellUsable extends CoreSpellUsable.withDependencies({
       return;
     }
 
-    switch (spellId) {
-      case TALENTS.SUNDERING_TALENT.id: {
-        let isAvailable = super.isAvailable(spellId);
-        if (this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT) && !isAvailable) {
-          const cdInfo = this._currentCooldowns[spellId];
-          this.endCooldown(spellId, cdInfo.overallStart + RESET_BUFFER_MS);
-          addEnhancedCastReason(
-            triggeringEvent as CastEvent,
-            <>
-              <SpellLink spell={TALENTS.SUNDERING_TALENT} /> was reset by{' '}
-              <SpellLink spell={TALENTS.MOLTEN_THUNDER_TALENT} />
-            </>,
-          );
-          isAvailable = true;
-        }
-      }
+    if (
+      spellId === TALENTS.CRASH_LIGHTNING_TALENT.id &&
+      GetRelatedEvent<RemoveBuffEvent | RemoveBuffStackEvent>(
+        triggeringEvent,
+        EnhancementEventLinks.STORM_UNLEASHED_LINK,
+        (e: AnyEvent) =>
+          (e.type === EventType.RemoveBuff || e.type === EventType.RemoveBuffStack) &&
+          e.ability.guid === SPELLS.STORM_UNLEASHED_BUFF.id,
+      )
+    ) {
+      // Storm Unleashed consumes the proc to allow a Crash Lightning that bypasses cooldown.
+      // Do not start cooldown and do not generate cooldown error annotations.
+      return;
     }
+
     super.beginCooldown(triggeringEvent, spellId);
   }
 
   public isAvailable(spellId: number): boolean {
     switch (spellId) {
-      case SPELLS.STORMSTRIKE_CAST.id:
+      case SPELLS.STORMSTRIKE.id:
         return (
           !this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
           super.isAvailable(spellId)

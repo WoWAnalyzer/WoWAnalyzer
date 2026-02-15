@@ -2,7 +2,7 @@ import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { GoodColor, useEvents, useInfo } from 'interface/guide';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
-import React from 'react';
+import { memo } from 'react';
 import { SignalListener, VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import MajorDefensive from './MajorDefensiveAnalyzer';
@@ -13,7 +13,7 @@ const rekey = (key: string) =>
   };
 
 // we have to memo this for reasons unbeknownst to me, but it fixes the onHover not getting called with the null value.
-export const DamageMitigationChart = React.memo(
+export const DamageMitigationChart = memo(
   <Apply extends EventType, Remove extends EventType>({
     onHover,
     analyzers,

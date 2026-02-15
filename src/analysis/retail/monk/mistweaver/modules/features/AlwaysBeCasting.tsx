@@ -15,7 +15,7 @@ import { getCurrentRSKTalent } from '../../constants';
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD: number[] = [
     TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-    TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
+    TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT.id,
     SPELLS.RENEWING_MIST_CAST.id,
     SPELLS.VIVIFY.id,
     TALENTS_MONK.REVIVAL_TALENT.id,

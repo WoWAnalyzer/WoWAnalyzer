@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { TalentInfo } from './AplCheck';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
@@ -32,10 +33,6 @@ const noOvercapDescription = (tense: Tense | undefined, includeEssence = true): 
 
 export const getRules = (info: TalentInfo) => {
   return {
-    shatteringStar: shatteringStar(info),
-    snapFireFirestorm,
-    aoeFirestorm,
-    stFirestorm,
     fireBreath: fireBreath(info),
     stEternitySurge: stEternitySurge(info),
     ehEternitySurge: ehEternitySurge(info),
@@ -52,45 +49,6 @@ export const getRules = (info: TalentInfo) => {
   };
 };
 
-const shatteringStar = (info: TalentInfo): Rule => {
-  return {
-    spell: TALENTS.SHATTERING_STAR_TALENT,
-    condition: cnd.describe(
-      cnd.or(
-        cnd.and(
-          cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT),
-          cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, {
-            atMost: info.maxEssenceBurst - 1,
-          }),
-        ),
-        cnd.not(cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT)),
-      ),
-      (tense) => <>{noOvercapDescription(tense, false)}</>,
-    ),
-  };
-};
-const snapFireFirestorm: Rule = {
-  spell: TALENTS.FIRESTORM_TALENT,
-  condition: cnd.buffPresent(SPELLS.SNAPFIRE_BUFF),
-};
-const aoeFirestorm: Rule = {
-  spell: TALENTS.FIRESTORM_TALENT,
-  condition: cnd.targetsHit(
-    { atLeast: 3 },
-    {
-      lookahead: 2000,
-      targetType: EventType.Damage,
-      targetSpell: SPELLS.FIRESTORM_DAMAGE,
-    },
-  ),
-};
-const stFirestorm: Rule = {
-  spell: TALENTS.FIRESTORM_TALENT,
-  condition: cnd.and(
-    cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-    cnd.debuffMissing(TALENTS.SHATTERING_STAR_TALENT, undefined, undefined, true),
-  ),
-};
 const fireBreath = (info: TalentInfo): Rule => {
   return {
     spell: info.fireBreathSpell,
@@ -246,7 +204,6 @@ const greenSpells: Rule = {
       cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
       cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
       cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
-      cnd.debuffMissing(TALENTS.SHATTERING_STAR_TALENT, undefined, undefined, true),
     ),
     (tense) => (
       <>

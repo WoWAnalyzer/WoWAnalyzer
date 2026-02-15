@@ -2,16 +2,16 @@
  * A simple component that shows the resource icon left and a value right.
  */
 import { ResourceIcon } from 'interface';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 import { Resource } from 'game/RESOURCE_TYPES';
 
 import './BoringValue.scss';
 
 interface Props {
   resource: Resource;
-  value: React.ReactNode;
-  label: React.ReactNode;
-  extra?: React.ReactNode;
+  value: ReactNode;
+  label: ReactNode;
+  extra?: ReactNode;
   className?: string;
 }
 

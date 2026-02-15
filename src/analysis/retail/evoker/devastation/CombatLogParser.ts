@@ -2,8 +2,6 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 
-import ShatteringStar from './modules/abilities/ShatteringStar';
-import ShatteringStarGuide from './modules/abilities/ShatterStarGuide';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
 //import AplCheck from './modules/AplCheck/AplCheck';
@@ -13,7 +11,6 @@ import Burnout from './modules/abilities/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
-import Snapfire from './modules/abilities/Snapfire';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
@@ -30,9 +27,16 @@ import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import Pyre from './modules/abilities/Pyre';
 import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
-//import ScorchingEmbers from './modules/talents/ScorchingEmbers';
+import ScorchingEmbers from './modules/talents/ScorchingEmbers';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+import DisintegrateChainCastLinks from './modules/normalizers/DisintegrateChainCastLinks';
+import StrafingRun from './modules/talents/StrafingRun';
+import SpellUsable from './modules/features/SpellUsable';
+import StrafingRunNormalizer from './modules/normalizers/StrafingRun';
+import AzureSweep from './modules/talents/AzureSweep';
+import ShatteringStars from './modules/talents/ShatteringStars';
+import StarSalvo from './modules/talents/StarSalvo';
 
 // Shared
 import {
@@ -43,7 +47,6 @@ import {
   LeapingFlamesNormalizer,
   LeapingFlames,
   EmpowerNormalizer,
-  SpellUsable,
   GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
@@ -54,8 +57,6 @@ import {
   DefensiveNormalizer,
   DefensiveCastLinkNormalizer,
   MobilityCastLinkNormalizer,
-  RenewingBlaze,
-  Engulf,
   ImminentDestruction,
   MeltArmor,
   MassDisintegrate,
@@ -66,13 +67,14 @@ import {
   Wingleader,
   Slipstream,
   ExpandedLungs,
-  RedHot,
   TimeSpiral,
-  FlameSiphon,
   RefinedEssence,
   CommandSquadron,
+  ImminentDestructionCastLinkNormalizer,
+  EssenceWell,
+  TwinFlame,
+  FireTorrent,
 } from 'analysis/retail/evoker/shared';
-import TWW2TierSet from './modules/tier/TWW2TierSet';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -87,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    imminentDestructionCastLinkNormalizer: ImminentDestructionCastLinkNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
@@ -94,12 +97,14 @@ class CombatLogParser extends MainCombatLogParser {
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
     imminentDestruction: ImminentDestruction,
+    essenceWell: EssenceWell,
+    twinFlame: TwinFlame,
+    fireTorrent: FireTorrent,
 
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
     defensiveNormalizer: DefensiveNormalizer,
     mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
-    renewingBlaze: RenewingBlaze,
     timeSpiral: TimeSpiral,
 
     // Core
@@ -110,6 +115,8 @@ class CombatLogParser extends MainCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     essenceBurstNormalizer: EssenceBurstNormalizer,
     eternitySurgeNormalizer: EternitySurgeNormalizer,
+    disintegrateChainCastLinks: DisintegrateChainCastLinks,
+    strafingRunNormalizer: StrafingRunNormalizer,
 
     // features
     //apls: AplCheck,
@@ -123,7 +130,6 @@ class CombatLogParser extends MainCombatLogParser {
     causality: Causality,
     volatility: Volatility,
     arcaneIntensity: ArcaneIntensity,
-    snapfire: Snapfire,
     heatWave: HeatWave,
     spellweaversDominance: SpellweaversDominance,
     honedAggression: HonedAggression,
@@ -132,12 +138,14 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
-    //scorchingEmbers: ScorchingEmbers,
+    scorchingEmbers: ScorchingEmbers,
+    strafingRun: StrafingRun,
+    azureSweep: AzureSweep,
+    shatteringStars: ShatteringStars,
+    starSalvo: StarSalvo,
 
     // hero talents
-    engulf: Engulf,
     expandedLungs: ExpandedLungs,
-    redHot: RedHot,
     meltArmor: MeltArmor,
     massDisintegrate: MassDisintegrate,
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
@@ -146,21 +154,17 @@ class CombatLogParser extends MainCombatLogParser {
     unrelentingSiege: UnrelentingSiege,
     wingLeader: Wingleader,
     slipstream: Slipstream,
-    flameSiphon: FlameSiphon,
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
 
     // core abilities
     disintegrate: Disintegrate,
-    shatteringStar: ShatteringStar,
-    shatteringStarGuide: ShatteringStarGuide,
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
     pyre: Pyre,
 
     // tier
-    tww2TierSet: TWW2TierSet,
   };
 
   static guide = Guide;

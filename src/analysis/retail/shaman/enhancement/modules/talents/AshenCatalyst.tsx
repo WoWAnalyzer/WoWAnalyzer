@@ -1,27 +1,22 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import TALENTS from 'common/TALENTS/shaman';
 import Events, { DamageEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Statistic from 'parser/ui/Statistic';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import SpellUsable from '../core/SpellUsable';
 import { formatNumber } from 'common/format';
-import UptimeIcon from 'interface/icons/Uptime';
+import SPELLS from 'common/SPELLS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
+import { UptimeIcon } from 'interface/icons';
+import Enemies from 'parser/shared/modules/Enemies';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const ASHEN_CATALYST_COOLDOWN_REDUCTION_MS = 500;
-const DAMAGE_AMP_PER_STACK = 0.08;
+const ASHEN_CATALYST_COOLDOWN_REDUCTION_MS = 2000;
 
-class AshenCatalyst extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
-  protected damageGained = 0;
+class AshenCatalyst extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+  enemies: Enemies,
+}) {
   protected effectiveCooldownReduction = 0;
 
   constructor(options: Options) {
@@ -34,28 +29,22 @@ class AshenCatalyst extends Analyzer {
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAME_SHOCK),
-      this.onDotTick,
-    );
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.LAVA_LASH_TALENT),
       this.onLavaLash,
     );
   }
 
-  onDotTick(event: DamageEvent) {
-    if (!event.tick) {
-      return;
-    }
-    this.effectiveCooldownReduction += this.spellUsable.reduceCooldown(
-      TALENTS.LAVA_LASH_TALENT.id,
-      ASHEN_CATALYST_COOLDOWN_REDUCTION_MS,
-    );
-  }
-
   onLavaLash(event: DamageEvent) {
-    const stacks = this.selectedCombatant.getBuffStacks(SPELLS.ASHEN_CATALYST_BUFF.id);
-    this.damageGained += calculateEffectiveDamage(event, stacks * DAMAGE_AMP_PER_STACK);
+    const enemy = this.deps.enemies.getEntity(event);
+    if (!enemy) {
+      return false;
+    }
+    if (enemy.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp)) {
+      this.effectiveCooldownReduction += this.deps.spellUsable.reduceCooldown(
+        TALENTS.LAVA_LASH_TALENT.id,
+        ASHEN_CATALYST_COOLDOWN_REDUCTION_MS,
+      );
+    }
   }
 
   statistic() {
@@ -67,8 +56,6 @@ class AshenCatalyst extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.ASHEN_CATALYST_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} />
-            <br />
             <UptimeIcon /> {formatNumber(this.effectiveCooldownReduction / 1000)}{' '}
             <small>sec cooldown reduction</small>
           </>

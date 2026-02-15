@@ -160,14 +160,10 @@ class DeathRecap extends PureComponent {
                     let sourceName =
                       event.source && event.source.type === 'NPC' ? event.source.name : null;
                     if (!sourceName && event.type === EventType.Heal) {
-                      sourceName = this.props.combatants[event.sourceID]
-                        ? this.props.combatants[event.sourceID]._combatantInfo.name
-                        : null;
+                      sourceName = this.props.combatants[event.sourceID]?.name ?? null;
                     }
                     if (!sourceName && event.type === EventType.Damage) {
-                      sourceName = this.props.enemies[event.sourceID]
-                        ? this.props.enemies[event.sourceID]._baseInfo.name
-                        : null;
+                      sourceName = this.props.enemies[event.sourceID]?.name ?? null;
                     }
                     if (!sourceName && event.type !== EventType.Instakill) {
                       sourceName = event.ability.name;

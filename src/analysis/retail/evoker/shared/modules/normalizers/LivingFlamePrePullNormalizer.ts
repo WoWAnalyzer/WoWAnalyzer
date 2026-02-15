@@ -1,4 +1,4 @@
-import { isFromBurnout } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
+//import { isFromBurnout } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { AnyEvent, ApplyDebuffEvent, BeginCastEvent, EventType } from 'parser/core/Events';
@@ -40,10 +40,11 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
         isRealCast(event) &&
         event.sourceID === this.owner.selectedCombatant.id
       ) {
-        // First cast found is not living flame or was instant
+        // Todo: Reimplement once Devastation is enabled again
+        /* // First cast found is not living flame or was instant
         if (event.ability.guid !== SPELLS.LIVING_FLAME_CAST.id || isFromBurnout(event)) {
           break;
-        }
+        } */
 
         // Fabricate the pre-pull event
         const startTime = Math.floor(event.timestamp - 1500 / (1 + this.haste.current));

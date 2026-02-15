@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
@@ -26,13 +27,11 @@ import {
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Potions from 'common/SPELLS/thewarwithin/potions';
 import BreathOfEonsSection from './BreathOfEonsSection';
-import spells from 'common/SPELLS/dragonflight/trinkets';
-import trinkets from 'common/ITEMS/dragonflight/trinkets';
 import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
 import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
-import BreathOfEonsHelper from './BreathOfEonsHelper';
 import { BREATH_OF_EONS_SPELLS } from '../../constants';
+import Spell from 'common/SPELLS/Spell';
 
 export interface BreathOfEonsWindows {
   flightData: SpellTracker[];
@@ -110,8 +109,10 @@ class BreathOfEonsRotational extends Analyzer {
 
   ebonMightCounter = 0;
   ebonMightCount: SpellTracker[] = [];
-  shiftingsSandsCounter = 0;
+  shiftingSandsCounter = 0;
   shiftingSandsCount: SpellTracker[] = [];
+  prescienceCounter = 0;
+  prescienceCount: SpellTracker[] = [];
 
   fireBreath = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
     ? SPELLS.FIRE_BREATH_FONT
@@ -124,30 +125,14 @@ class BreathOfEonsRotational extends Analyzer {
   trackedSpells = [TALENTS.TIME_SKIP_TALENT];
   empowers = [this.fireBreath, this.upheaval];
 
-  trinketItems = [
-    trinkets.IRIDEUS_FRAGMENT,
-    trinkets.SPOILS_OF_NELTHARUS,
-    trinkets.MIRROR_OF_FRACTURED_TOMORROWS,
-  ];
+  // TODO: Update these with new ids for 12.0.0
+  trinketItems = [];
 
-  trinketSpells = [
-    spells.IRIDEUS_FRAGMENT,
-    spells.SPOILS_OF_NELTHARUS_CRIT,
-    spells.SPOILS_OF_NELTHARUS_HASTE,
-    spells.SPOILS_OF_NELTHARUS_MASTERY,
-    spells.SPOILS_OF_NELTHARUS_VERSATILITY,
-    spells.MIRROR_OF_FRACTURED_TOMORROWS,
-  ];
+  trinketSpells: Spell[] = [];
 
   trackedPotions = [Potions.TEMPERED_POTION];
 
-  foundTrinket = this.selectedCombatant.hasTrinket(trinkets.IRIDEUS_FRAGMENT.id)
-    ? spells.IRIDEUS_FRAGMENT.id
-    : this.selectedCombatant.hasTrinket(trinkets.SPOILS_OF_NELTHARUS.id)
-      ? spells.SPOILS_OF_NELTHARUS_CRIT.id
-      : this.selectedCombatant.hasTrinket(trinkets.MIRROR_OF_FRACTURED_TOMORROWS.id)
-        ? spells.MIRROR_OF_FRACTURED_TOMORROWS.id
-        : undefined;
+  foundTrinket = undefined;
 
   constructor(options: Options) {
     super(options);
@@ -190,6 +175,19 @@ class BreathOfEonsRotational extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_SANDS_BUFF),
       (event) => {
         this.onShiftingSandsRemove(event);
+      },
+    );
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
+      (event) => {
+        this.onPrescienceApply(event);
+      },
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
+      (event) => {
+        this.onPrescienceRemove(event);
       },
     );
     /** CAST EVENTS */
@@ -429,20 +427,38 @@ class BreathOfEonsRotational extends Analyzer {
   }
 
   private onShiftingSandsApply(event: ApplyBuffEvent) {
-    this.shiftingsSandsCounter += 1;
+    this.shiftingSandsCounter += 1;
 
     this.shiftingSandsCount.push({
       timestamp: event.timestamp,
-      count: this.shiftingsSandsCounter,
+      count: this.shiftingSandsCounter,
     });
   }
 
   private onShiftingSandsRemove(event: RemoveBuffEvent) {
-    this.shiftingsSandsCounter -= 1;
+    this.shiftingSandsCounter -= 1;
 
     this.shiftingSandsCount.push({
       timestamp: event.timestamp,
-      count: this.shiftingsSandsCounter,
+      count: this.shiftingSandsCounter,
+    });
+  }
+
+  private onPrescienceApply(event: ApplyBuffEvent) {
+    this.prescienceCounter += 1;
+
+    this.prescienceCount.push({
+      timestamp: event.timestamp,
+      count: this.prescienceCounter,
+    });
+  }
+
+  private onPrescienceRemove(event: RemoveBuffEvent) {
+    this.prescienceCounter -= 1;
+
+    this.prescienceCount.push({
+      timestamp: event.timestamp,
+      count: this.prescienceCounter,
     });
   }
 
@@ -602,21 +618,8 @@ class BreathOfEonsRotational extends Analyzer {
         windows={this.windows}
         fightStartTime={this.owner.fight.start_time}
         fightEndTime={this.owner.fight.end_time}
-        ebonMightCount={this.ebonMightCount}
+        prescienceCount={this.prescienceCount}
         shiftingSandsCount={this.shiftingSandsCount}
-      />
-    );
-  }
-  helperSection(): JSX.Element | null {
-    if (!this.active) {
-      return null;
-    }
-    return (
-      <BreathOfEonsHelper
-        windows={this.windows}
-        fightStartTime={this.owner.fight.start_time}
-        fightEndTime={this.owner.fight.end_time}
-        owner={this.owner}
       />
     );
   }

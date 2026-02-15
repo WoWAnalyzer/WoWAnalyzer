@@ -32,10 +32,8 @@ import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import LightOfDawn from './modules/spells/LightOfDawn';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
-import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
-import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
@@ -44,7 +42,6 @@ import EmpyreanLegacy from './modules/talents/EmpyreanLegacy';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
 import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
-import BoundlessSalvation from './modules/talents/TyrsDeliverance/BoundlessSalvation';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
@@ -57,8 +54,8 @@ import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
 import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
-import UnendingLight from './modules/talents/UnendingLight';
 import ProtectionOfTyr from './modules/talents/ProtectionOfTyr';
+import RisingSunlight from './modules/talents/RisingSunlight';
 import Guide from './guide/Guide';
 
 import Aurora from './modules/heroTalents/herald/Aurora';
@@ -73,7 +70,6 @@ import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
 import LayingDownArms from './modules/heroTalents/lightsmith/LayingDownArms';
 import Valiance from './modules/heroTalents/lightsmith/Valiance';
 
-import T33TierSet from './modules/tier/T33TierSet';
 import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -119,9 +115,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
-    judgmentOfLight: JudgmentOfLight,
     divineToll: DivineToll,
-    blessingOfTheSeasons: BlessingOfTheSeasons,
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
     holyPrism: HolyPrism,
@@ -129,14 +123,13 @@ class CombatLogParser extends CoreCombatLogParser {
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
     tyrsDeliverance: TyrsDeliverance,
-    boundlessSalvation: BoundlessSalvation,
     holyShock: HolyShock,
     judgment: Judgment,
     beaconOfVirtue: BeaconOfVirtue,
     overflowingLight: OverflowingLight,
-    unendingLight: UnendingLight,
     protectionOfTyr: ProtectionOfTyr,
     lightBearer: Lightbearer,
+    risingSunlight: RisingSunlight,
 
     // Hero Talents
     // Herald
@@ -152,9 +145,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyArmaments: HolyArmaments,
     layingDownArms: LayingDownArms,
     valiance: Valiance,
-
-    // tier
-    t33TierSet: T33TierSet,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

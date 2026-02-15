@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -31,11 +32,8 @@ class ThunderFocusTea extends Analyzer {
 
   castEntries: BoxRowEntry[] = [];
   castsTftRsk = 0;
-  castsTftViv = 0;
   castsTftEnm = 0;
   castsTftRem = 0;
-  castsTftEh = 0;
-  //add EH
 
   castsTft = 0;
   castsUnderTft = 0;
@@ -57,11 +55,11 @@ class ThunderFocusTea extends Analyzer {
     );
     switch (secretInfusionRank) {
       case 1: {
-        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.08);
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.02);
         break;
       }
       case 2: {
-        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.15);
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.04);
         break;
       }
       default: {
@@ -79,17 +77,11 @@ class ThunderFocusTea extends Analyzer {
       this.buffedCast,
     );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
-      this.correctCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-      this.okCapstoneSpells = [
-        SPELLS.RENEWING_MIST_CAST.id,
-        getCurrentRSKTalent(this.selectedCombatant).id,
-        SPELLS.EXPEL_HARM.id,
-      ];
+      this.correctCapstoneSpells = [getCurrentRSKTalent(this.selectedCombatant).id];
+      this.okCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     } else {
-      this.correctCapstoneSpells = [
-        SPELLS.RENEWING_MIST_CAST.id,
-        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      ];
+      this.correctCapstoneSpells = [SPELLS.RENEWING_MIST_CAST.id];
+      this.okCapstoneSpells = [getCurrentRSKTalent(this.selectedCombatant).id];
     }
   }
 
@@ -119,12 +111,7 @@ class ThunderFocusTea extends Analyzer {
       return;
     }
 
-    if (SPELLS.VIVIFY.id === spellId) {
-      this.castsUnderTft += 1;
-      this.castsTftViv += 1;
-      debug && console.log('Viv TFT Check ', event.timestamp);
-      this.castBufferTimestamp = event.timestamp;
-    } else if (this.currentRskTalent.id === spellId) {
+    if (this.currentRskTalent.id === spellId) {
       this.castsUnderTft += 1;
       this.castsTftRsk += 1;
       debug && console.log('RSK TFT Check ', event.timestamp);
@@ -136,10 +123,6 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftRem += 1;
       debug && console.log('REM TFT Check ', event.timestamp);
-    } else if (SPELLS.EXPEL_HARM.id === spellId) {
-      this.castsUnderTft += 1;
-      this.castsTftEh += 1;
-      debug && console.log('EH TFT Check ', event.timestamp);
     } else {
       return;
     }
@@ -174,12 +157,6 @@ class ThunderFocusTea extends Analyzer {
   renderCastRatioChart() {
     const items = [
       {
-        color: SPELL_COLORS.VIVIFY,
-        label: 'Vivify',
-        spellId: SPELLS.VIVIFY.id,
-        value: this.castsTftViv,
-      },
-      {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST_CAST.id,
@@ -197,14 +174,7 @@ class ThunderFocusTea extends Analyzer {
         spellId: this.currentRskTalent.id,
         value: this.castsTftRsk,
       },
-      {
-        color: SPELL_COLORS.EXPEL_HARM,
-        label: 'Expel Harm',
-        spellId: SPELLS.EXPEL_HARM.id,
-        value: this.castsTftEh,
-      },
     ];
-
     return <DonutChart items={items} />;
   }
 
@@ -221,16 +191,18 @@ class ThunderFocusTea extends Analyzer {
         <ol>
           <li>
             <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> talented <Arrow />{' '}
-            use on <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+            use on <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (
             <span style={{ color: 'green' }}>best</span>) or{' '}
-            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> (
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
           <li>
             {' '}
             <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> talented{' '}
-            <Arrow /> use on <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> or{' '}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+            <Arrow /> use on <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> (
+            <span style={{ color: 'green' }}>best</span>) or{' '}
+            <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (
+            <span style={{ color: 'yellow' }}>ok</span>)
           </li>
         </ol>
       </p>

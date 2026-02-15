@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
@@ -263,6 +264,12 @@ class BeaconUptime extends BeaconAnalyzer {
           return (
             <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">Beacon of Virtue</Trans>
           );
+        case SPELLS.BEACON_OF_THE_SAVIOR_BUFF.id:
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.botsUptime">
+              Beacon of the Savior
+            </Trans>
+          );
       }
     };
 
@@ -280,7 +287,10 @@ class BeaconUptime extends BeaconAnalyzer {
                 value={`${this.getUptime(beaconId)}%`}
                 label={getLabel(beaconId)}
                 extra={
-                  this.prepullSuggestion && this.missingPrepull[beaconId] && missingPrepullContainer
+                  this.prepullSuggestion &&
+                  this.missingPrepull[beaconId] &&
+                  beaconId !== SPELLS.BEACON_OF_THE_SAVIOR_BUFF.id &&
+                  missingPrepullContainer
                 }
               />
             </div>

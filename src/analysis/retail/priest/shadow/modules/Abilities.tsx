@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT),
       },
       {
-        spell: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id,
+        spell: TALENTS.TENTACLE_SLAM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         charges: 2,
@@ -50,23 +50,8 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.1,
         },
-        enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT),
-        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE_ONE.id],
-      },
-      {
-        spell: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        charges: 2,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
-          recommendedEfficiency: 0.1,
-        },
-        enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT),
-        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE_TWO.id],
+        enabled: combatant.hasTalent(TALENTS.TENTACLE_SLAM_TALENT),
+        damageSpellIds: [SPELLS.TENTACLE_SLAM_TALENT_DAMAGE.id],
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
@@ -76,7 +61,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DEVOURING_PLAGUE_TALENT.id,
+        spell: TALENTS.SHADOW_WORD_MADNESS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -93,7 +78,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
+      /*{
         spell: TALENTS.HALO_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
@@ -101,20 +86,11 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.HALO_SHADOW_TALENT),
-      },
-      {
-        spell: TALENTS.DIVINE_STAR_SHADOW_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHADOW_TALENT),
-      },
+      },*/
 
       // Cooldowns
       {
-        spell: TALENTS.VOID_ERUPTION_TALENT.id,
+        spell: TALENTS.VOIDFORM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -124,20 +100,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
-      },
-      {
-        spell: TALENTS.DARK_ASCENSION_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.VOIDFORM_TALENT),
       },
       {
         spell: TALENTS.VOID_TORRENT_TALENT.id,
@@ -153,7 +116,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT),
         damageSpellIds: [TALENTS.VOID_TORRENT_TALENT.id],
       },
-      {
+      /*{
         spell: TALENTS.VOID_VOLLEY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -161,7 +124,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT),
         damageSpellIds: [SPELLS.VOID_VOLLEY_DAMAGE.id],
-      },
+      },*/
       {
         spell: TALENTS.MINDBENDER_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -223,7 +186,7 @@ class Abilities extends CoreAbilities {
       },
 
       // Utility
-      {
+      /*{
         spell: TALENTS.DISPERSION_TALENT.id,
         isDefensive: true,
         buffSpellId: TALENTS.DISPERSION_TALENT.id,
@@ -240,16 +203,7 @@ class Abilities extends CoreAbilities {
         cooldown: 45 - (combatant.hasTalent(TALENTS.LAST_WORD_TALENT) ? 15 : 0),
         gcd: null,
         enabled: combatant.hasTalent(TALENTS.SILENCE_TALENT),
-      },
-      {
-        spell: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
-        buffSpellId: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
-        isDefensive: true,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120 - (combatant.hasTalent(TALENTS.SANLAYN_TALENT) ? 45 : 0),
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS.VAMPIRIC_EMBRACE_TALENT),
-      },
+      },*/
       {
         spell: SPELLS.POWER_WORD_SHIELD.id,
         isDefensive: true,
@@ -342,15 +296,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS.PSYCHIC_HORROR_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.PSYCHIC_HORROR_TALENT),
       },
       {
         spell: SPELLS.MIND_VISION.id,

@@ -4,15 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import Ascendance from '../talents/Ascendance';
-import CloudburstTotem from '../talents/CloudburstTotem';
 import Deluge from '../talents/Deluge';
 import Downpour from '../talents/Downpour';
-import EarthenWallTotem from '../talents/EarthenWallTotem';
-import HighTide from '../talents/HighTide';
 import NaturesGuardian from '../talents/NaturesGuardian';
-import Undulation from '../talents/Undulation';
 import UnleashLife from '../talents/UnleashLife';
-import Wellspring from '../talents/Wellspring';
 import PrimalTideCore from '../talents/PrimalTideCore';
 import { EarthShield } from 'analysis/retail/shaman/shared';
 import WavespeakersBlessing from '../talents/WavespeakersBlessing';
@@ -21,15 +16,10 @@ import AncestralReach from '../talents/AncestralReach';
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
     unleashLife: UnleashLife,
-    undulation: Undulation,
     deluge: Deluge,
-    earthenWallTotem: EarthenWallTotem,
     naturesGuardian: NaturesGuardian,
     downpour: Downpour,
-    cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
-    wellspring: Wellspring,
-    highTide: HighTide,
     primalTideCore: PrimalTideCore,
     earthShield: EarthShield,
     wavespeakersBlessing: WavespeakersBlessing,
@@ -37,15 +27,10 @@ class TalentStatisticBox extends Analyzer {
   };
 
   protected unleashLife!: UnleashLife;
-  protected undulation!: Undulation;
   protected deluge!: Deluge;
-  protected earthenWallTotem!: EarthenWallTotem;
   protected naturesGuardian!: NaturesGuardian;
   protected downpour!: Downpour;
-  protected cloudburstTotem!: CloudburstTotem;
   protected ascendance!: Ascendance;
-  protected wellspring!: Wellspring;
-  protected highTide!: HighTide;
   protected primalTideCore!: PrimalTideCore;
   protected earthShield!: EarthShield;
   protected wavespeakersBlessing!: WavespeakersBlessing;
@@ -55,15 +40,6 @@ class TalentStatisticBox extends Analyzer {
     const talentList = [];
     if (this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)) {
       talentList.push(this.naturesGuardian.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT)) {
-      talentList.push(this.cloudburstTotem.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)) {
-      talentList.push(this.highTide.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT)) {
-      talentList.push(this.wellspring.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT)) {
       talentList.push(this.ascendance.subStatistic());

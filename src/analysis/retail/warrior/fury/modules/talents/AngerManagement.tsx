@@ -11,6 +11,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import SpellUsable from '../features/SpellUsable';
+import { TIERS } from 'game/TIERS';
 
 const RAGE_NEEDED_FOR_PROC = 20;
 const CDR_PER_PROC = 1000; // ms
@@ -28,27 +29,25 @@ class AngerManagement extends Analyzer.withDependencies({
     effective: 0,
     wasted: 0,
   };
-  private bladestormCDR = {
-    effective: 0,
-    wasted: 0,
-  };
 
   private talentAngerManagement = false;
   private talentRecklessness = false;
+  private talentAvatar = false;
   private talentRavager = false;
-  private talentBladestorm = false;
+  private furyApexRampageCostReduction = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.talentAngerManagement = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
     this.talentRecklessness = this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT);
+    this.talentAvatar = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
     this.talentRavager = this.selectedCombatant.hasTalent(TALENTS.RAVAGER_TALENT);
-    this.talentBladestorm = this.selectedCombatant.hasTalent(TALENTS.BLADESTORM_TALENT);
 
-    this.active =
-      this.talentAngerManagement &&
-      (this.talentRecklessness || this.talentRavager || this.talentBladestorm);
+    this.furyApexRampageCostReduction =
+      this.selectedCombatant.getTalentRank(TALENTS.RAMPAGING_BERSERKER_2_FURY_TALENT) * 15; // fury apex reduces rampage rage cost by 15 rage per rank
+
+    this.active = this.talentAngerManagement && (this.talentRecklessness || this.talentRavager);
 
     if (!this.active) {
       return;
@@ -67,7 +66,17 @@ class AngerManagement extends Analyzer.withDependencies({
       return;
     }
 
-    const rageSpent = rage.cost * RAGE_SCALE_FACTOR;
+    let rageSpent = rage.cost * RAGE_SCALE_FACTOR;
+    if (event.ability.guid === SPELLS.RAMPAGE.id) {
+      if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
+        rageSpent -= this.furyApexRampageCostReduction;
+        // Midnight TODO probably better to reduce the cost of the actual event instead of doing this workaround
+      }
+      if (this.selectedCombatant.has4PieceByTier(TIERS.MID1)) {
+        this.deps.spellUsable.reduceCooldown(SPELLS.ODYNS_FURY.id, 1000);
+      }
+      // Midnight TODO this probably shouldn't be in the AM section
+    }
     this.totalRageSpent += rageSpent;
     const reduction = (rageSpent / RAGE_NEEDED_FOR_PROC) * CDR_PER_PROC;
 
@@ -89,13 +98,13 @@ class AngerManagement extends Analyzer.withDependencies({
       this.recklessnessCDR.wasted += reduction - effectiveReduction;
     }
 
-    if (this.talentBladestorm) {
+    if (this.talentAvatar) {
       const effectiveReduction = this.deps.spellUsable.reduceCooldown(
-        SPELLS.BLADESTORM.id,
+        TALENTS.AVATAR_TALENT.id,
         reduction,
       );
-      this.bladestormCDR.effective += effectiveReduction;
-      this.bladestormCDR.wasted += reduction - effectiveReduction;
+      this.recklessnessCDR.effective += effectiveReduction;
+      this.recklessnessCDR.wasted += reduction - effectiveReduction;
     }
   }
 
@@ -125,12 +134,6 @@ class AngerManagement extends Analyzer.withDependencies({
       this.ravagerCDR.effective,
     );
 
-  private extraBladestormCasts = () =>
-    this.extraCasts(
-      this.deps.spellUsable.fullCooldownDuration(SPELLS.BLADESTORM.id),
-      this.bladestormCDR.effective,
-    );
-
   statistic() {
     return (
       <Statistic
@@ -144,15 +147,10 @@ class AngerManagement extends Analyzer.withDependencies({
               this.recklessnessCDR.effective +
                 this.recklessnessCDR.wasted +
                 this.ravagerCDR.effective +
-                this.ravagerCDR.wasted +
-                this.bladestormCDR.effective +
-                this.bladestormCDR.wasted,
+                this.ravagerCDR.wasted,
             )}{' '}
-            of which{' '}
-            {formatDuration(
-              this.recklessnessCDR.wasted + this.ravagerCDR.wasted + this.bladestormCDR.wasted,
-            )}{' '}
-            was wasted.
+            of which {formatDuration(this.recklessnessCDR.wasted + this.ravagerCDR.wasted)} was
+            wasted.
             <br />
             <table className="table table-condensed">
               <thead>
@@ -181,15 +179,6 @@ class AngerManagement extends Analyzer.withDependencies({
                     <td>{formatDuration(this.ravagerCDR.wasted)}</td>
                   </tr>
                 )}
-                {this.talentBladestorm && (
-                  <tr>
-                    <td>
-                      <SpellLink spell={TALENTS.BLADESTORM_TALENT.id} />
-                    </td>
-                    <td>{formatDuration(this.bladestormCDR.effective)}</td>
-                    <td>{formatDuration(this.bladestormCDR.wasted)}</td>
-                  </tr>
-                )}
               </tbody>
             </table>
           </>
@@ -208,13 +197,6 @@ class AngerManagement extends Analyzer.withDependencies({
               <SpellLink spell={TALENTS.RAVAGER_TALENT.id} style={{ fontSize: 16 }} />
               <br />
               {this.extraRavagerCasts()} <small>extra casts</small>
-            </div>
-          )}
-          {this.talentBladestorm && (
-            <div>
-              <SpellLink spell={TALENTS.BLADESTORM_TALENT.id} style={{ fontSize: 16 }} />
-              <br />
-              {this.extraBladestormCasts()} <small>extra casts</small>
             </div>
           )}
         </BoringSpellValueText>

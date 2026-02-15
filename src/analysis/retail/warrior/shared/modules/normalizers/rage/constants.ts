@@ -20,9 +20,7 @@ export const WARMACHINE_INCREASE: Record<Spec['id'], number> = {
 
 export const SEASONED_SOLDIER_RAGE_INCREASE = 0.1;
 
-export const RECKLESSNESS_INCREASE = 1;
-// Since TWW pre-patch, Warlords Torment triggers a longer lasting recklessness, but with a lower rage increase
-export const WARLORDS_TORMENT_RECKLESSNESS_INCREASE = 0.25;
+export const RECKLESSNESS_INCREASE = 0.5;
 
 export const PIERCING_CHALLENGE_INCREASE = 1;
 

@@ -79,8 +79,8 @@ export class TimelinePet {
   }
 
   updatePosition(event: AnyEvent) {
-    this.x = 'x' in event ? event.x ?? null : null;
-    this.y = 'y' in event ? event.y ?? null : null;
+    this.x = 'x' in event ? (event.x ?? null) : null;
+    this.y = 'y' in event ? (event.y ?? null) : null;
   }
 
   despawn(timestamp: number, reason: string) {

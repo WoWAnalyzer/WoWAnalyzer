@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import { Options } from 'parser/core/Analyzer';
-import { AbilityEvent, CastEvent } from 'parser/core/Events';
+import { AbilityEvent, CastEvent, EventType } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 const FURY_EXECUTES = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
@@ -15,7 +15,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasSuddenDeath = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_FURY_TALENT);
+    this.hasSuddenDeath = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_TALENT);
     this.hasImprovedRagingBlow = this.selectedCombatant.hasTalent(
       TALENTS.IMPROVED_RAGING_BLOW_TALENT,
     );
@@ -35,7 +35,7 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   beginCooldown(
-    cooldownTriggerEvent: AbilityEvent<any>,
+    cooldownTriggerEvent: AbilityEvent<EventType>,
     spellId: number = cooldownTriggerEvent.ability.guid,
   ) {
     if (this.hasImprovedRagingBlow && spellId === SPELLS.RAGING_BLOW.id) {

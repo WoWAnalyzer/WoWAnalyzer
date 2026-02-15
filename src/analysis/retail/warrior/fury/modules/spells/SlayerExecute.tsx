@@ -3,14 +3,12 @@ import talents from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
-  ApplyDebuffEvent,
-  ApplyDebuffStackEvent,
+  ApplyBuffStackEvent,
   CastEvent,
   EventType,
   RefreshBuffEvent,
+  RemoveBuffEvent,
   RemoveBuffStackEvent,
-  RemoveDebuffEvent,
-  RemoveDebuffStackEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
@@ -26,7 +24,7 @@ const ASHEN_JUGGERNAUT_DURATION = 15000;
 const SUDDEN_DEATH_DURATION = 12000;
 const BUFF_REFRESH_BUFFER = 3000;
 const RAMPAGE_RAGE_COST = 80;
-const MARKED_FOR_EXECUTION_STACK_THRESHOLD = 2;
+const EXECUTIONER_BUFF_STACK_THRESHOLD = 2;
 
 // Track how many times Execute was used prematurely relative to its respective buff/debuffs
 
@@ -53,24 +51,24 @@ class SlayerExecute extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.SLAYERS_DOMINANCE_TALENT);
-    this.hasAshenJuggernaut = this.selectedCombatant.hasTalent(talents.ASHEN_JUGGERNAUT_TALENT);
+    this.hasAshenJuggernaut = false; //this.selectedCombatant.hasTalent(talents.ASHEN_JUGGERNAUT_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_FURY), this.onCast);
 
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_EXECUTION),
-      this.onMarkedForExecutionStackChange,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EXECUTIONER_TALENT_BUFF),
+      this.onExecutionerStackChange,
     );
     this.addEventListener(
-      Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_EXECUTION),
-      this.onMarkedForExecutionStackChange,
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.EXECUTIONER_TALENT_BUFF),
+      this.onExecutionerStackChange,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_EXECUTION),
-      this.onMarkedForExecutionStackChange,
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EXECUTIONER_TALENT_BUFF),
+      this.onExecutionerStackChange,
     );
     this.addEventListener(
-      Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_EXECUTION),
-      this.onMarkedForExecutionStackChange,
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.EXECUTIONER_TALENT_BUFF),
+      this.onExecutionerStackChange,
     );
 
     this.addEventListener(
@@ -99,8 +97,8 @@ class SlayerExecute extends Analyzer {
     };
   }
 
-  onMarkedForExecutionStackChange(
-    event: ApplyDebuffEvent | ApplyDebuffStackEvent | RemoveDebuffStackEvent | RemoveDebuffEvent,
+  onExecutionerStackChange(
+    event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent,
   ) {
     this.markedForExecutionStacks = currentStacks(event);
   }
@@ -142,7 +140,7 @@ class SlayerExecute extends Analyzer {
       usedForSuddenDeath = true;
     }
 
-    if (this.markedForExecutionStacks >= MARKED_FOR_EXECUTION_STACK_THRESHOLD) {
+    if (this.markedForExecutionStacks >= EXECUTIONER_BUFF_STACK_THRESHOLD) {
       usedForMarkedForExecution = true;
     }
 

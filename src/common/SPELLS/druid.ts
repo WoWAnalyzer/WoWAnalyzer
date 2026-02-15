@@ -1327,6 +1327,10 @@ const spells = {
   // DRUID OF THE CLAW
   //
 
+  ///////////////////////////////////////////////////////////////////////////
+  // CAT
+  //
+
   // this is the buff ID that makes the next Ferocious Bite cast into Ravage
   RAVAGE_BUFF_CAT: {
     id: 441585,
@@ -1356,6 +1360,17 @@ const spells = {
     id: 1236342,
     name: 'Preparing to Strike',
     icon: 'ability_xavius_tormentingswipe',
+  },
+
+  ////////////////////////////////////////////////////////////////////////////
+  // BEAR
+  //
+
+  // This is the cast ID (replaces maul) for Ravage
+  RAVAGE_BEAR: {
+    id: 441605,
+    name: 'Ravage',
+    icon: 'inv_ability_druidoftheclawdruid_ravage',
   },
 
   /////////////////////////////////////////////////////////////////////////////

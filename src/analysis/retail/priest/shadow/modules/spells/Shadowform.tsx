@@ -29,7 +29,7 @@ class Shadowform extends Analyzer {
     //We can check if this is the case by casts of Devouring Plague, as it is only castable in shadowform.
     //So if there are any casts of Devouring Plague, then it must have been active the entire combat.
 
-    const dpUptime = this.enemies.getBuffUptime(TALENTS.DEVOURING_PLAGUE_TALENT.id);
+    const dpUptime = this.enemies.getBuffUptime(TALENTS.SHADOW_WORD_MADNESS_TALENT.id);
 
     if (this.buffduration === 0 && dpUptime !== 0) {
       return 1;
@@ -78,7 +78,7 @@ class Shadowform extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
-        tooltip="You should always be in shadowform (or voidform after Void Eruption)"
+        tooltip="You should always be in shadowform (or voidform)"
       >
         <BoringSpellValueText spell={SPELLS.SHADOWFORM}>
           <div>

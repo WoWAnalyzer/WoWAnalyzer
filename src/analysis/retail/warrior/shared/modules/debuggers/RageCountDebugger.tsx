@@ -49,8 +49,9 @@ class RageCountDebugger extends Analyzer {
         if ('waste' in event && event.waste !== 0) {
           parts.push(`Waste: ${event.waste}`);
         }
+        const waste = 'waste' in event ? event.waste : 0;
         if (expectedRage != null) {
-          expectedRage += event.resourceChange - (event as any).waste || 0;
+          expectedRage += event.resourceChange - waste;
         }
       }
 
@@ -89,8 +90,8 @@ class RageCountDebugger extends Analyzer {
                           </td>
                           <td>{event.type}</td>
                           <td>
-                            {(event as AbilityEvent<any>).ability?.name}{' '}
-                            {(event as AbilityEvent<any>).ability?.guid}
+                            {(event as AbilityEvent<EventType>).ability?.name}{' '}
+                            {(event as AbilityEvent<EventType>).ability?.guid}
                           </td>
                           <td>{getRage(event, this.selectedCombatant)?.cost ?? ''}</td>
                           <td>{(event as ResourceChangeEvent).resourceChange ?? ''}</td>
@@ -120,7 +121,7 @@ class RageCountDebugger extends Analyzer {
 
       if (warning || PRINT_ALL) {
         const message = [
-          `${formatDuration(event.timestamp - options.owner.fight.start_time, 3)}: ${event.type}(${(event as any)?.ability?.name} ${(event as any)?.ability?.guid})`,
+          `${formatDuration(event.timestamp - options.owner.fight.start_time, 3)}: ${event.type}(${(event as AbilityEvent<EventType>)?.ability?.name} ${(event as AbilityEvent<EventType>)?.ability?.guid})`,
           ...parts,
         ].join(', ');
 

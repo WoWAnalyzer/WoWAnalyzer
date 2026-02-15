@@ -45,7 +45,7 @@ export const MANA_TEA_EVENT_LINKS: EventLink[] = [
     linkRelation: MT_BUFF_REMOVAL,
     linkingEventId: SPELLS.MANA_TEA_CAST.id,
     linkingEventType: EventType.ApplyBuff,
-    referencedEventId: SPELLS.MANA_TEA_CAST.id,
+    referencedEventId: SPELLS.MANA_TEA_STACK.id,
     referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     forwardBufferMs: MAX_MT_CHANNEL,
     isActive(c) {
@@ -58,6 +58,7 @@ export const MANA_TEA_EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.RefreshBuff,
     referencedEventId: SPELLS.MANA_TEA_STACK.id,
     referencedEventType: [EventType.RemoveBuffStack, EventType.ApplyBuffStack],
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
     },

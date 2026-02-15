@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
@@ -106,10 +107,6 @@ class BuffTargetHelper extends Analyzer {
   fightEnd: number = this.owner.fight.end_time;
   prescienceHelperMrtNote = '';
   mrtFourTargetPrescienceHelperNote = '';
-  // If we have 4pc we need to account for long prescience
-  has4Pc =
-    this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
-    this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
   filterBossDamage = false;
   nameFilter = '';
@@ -473,13 +470,12 @@ class BuffTargetHelper extends Analyzer {
       '|r \n';
 
     // Add them to the map
-    prescienceMap.set(top4Pumpers[0][0][0], prescienceDuration * (this.has4Pc ? 2 : 1));
+    prescienceMap.set(top4Pumpers[0][0][0], prescienceDuration);
     prescienceMap.set(top4Pumpers[0][1][0], 1_000 + prescienceDuration); // Takes roughly 1 second to cast 2nd Prescience
 
     while (curTime < fightLength) {
       const curInterval = intervals - Math.round((fightLength - curTime) / this.interval) - 1;
-      const hasLongPrescience = prescienceCount === 3 && this.has4Pc;
-      let intervalToCheck = hasLongPrescience ? curInterval + 2 : curInterval + 1;
+      let intervalToCheck = curInterval + 1;
 
       let target: string | undefined;
       while (!target && intervalToCheck >= 0) {
@@ -506,10 +502,7 @@ class BuffTargetHelper extends Analyzer {
             /* console.log(
               `Found target ${nextTarget} at ${curTime} for interval ${curInterval} checked ${intervalToCheck} prescienceCount ${prescienceCount}}`,
             ); */
-            prescienceMap.set(
-              nextTarget,
-              curTime + prescienceDuration * (hasLongPrescience ? 2 : 1),
-            );
+            prescienceMap.set(nextTarget, curTime + prescienceDuration);
             target = nextTarget;
             break;
           }
@@ -620,7 +613,7 @@ class BuffTargetHelper extends Analyzer {
               by <b>Zephy</b> based on which Weak Aura you use.
             </p> */}
 
-            {this.has4Pc && <BuffTargetHelperInfoLabel />}
+            {<BuffTargetHelperInfoLabel />}
           </div>
           <div>
             <BuffTargetHelperWarningLabel />

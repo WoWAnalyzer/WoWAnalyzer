@@ -1,56 +1,52 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import {
   BindingShot,
-  Deathblow,
   DeathTracker,
-  ExplosiveShot,
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
-  MasterMarksman,
   NaturalMending,
   RejuvenatingWind,
   SpellFocusCost,
   Trailblazer,
   TranquilizingShot,
 } from '../shared';
-import KillShotSurvival from './modules/talents/KillShotSurvival';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Bloodseeker from './modules/talents/Bloodseeker';
 import Buffs from './modules/Buffs';
-import Butchery from './modules/talents/Butchery';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import CoordinatedAssault from './modules/talents/CoordinatedAssault';
-import FlankingStrike from './modules/talents/FlankingStrike';
 import Focus from './modules/resources/Focus';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import KillCommand from './modules/talents/KillCommand';
-import MongooseBite from './modules/talents/MongooseBite';
 import RaptorStrike from './modules/talents/RaptorStrike';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
-import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 import WildfireBomb from './modules/talents/WildfireBomb';
-import FrenzyStrikes from './modules/talents/FrenzyStrikes';
-import Lunge from './modules/talents/Lunge';
-import GrenadeJuggler from './modules/talents/GrenadeJuggler';
-import VipersVenom from './modules/talents/VipersVenom';
-import FuryOfTheEagle from './modules/talents/FuryOfTheEagle';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import Guide from './modules/guide/Guide';
 import SurvivalOfTheFittest from '../shared/talents/SurvivalOfTheFittest';
 import ExhilarationTiming from '../shared/guide/defensives/Exhiliration';
-import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers';
+import Boomstick from './modules/talents/Boomstick';
+import BoomstickNormalizer from './normalizers/BoomstickNormalizer';
+import WildfireShells from './modules/talents/WildfireShells';
+import LethalCalibration from './modules/talents/LethalCalibration';
+import WildfireBombNormalizer from './normalizers/WildfireBombNormalizer';
+import TipOfTheSpear from './modules/talents/TipOfTheSpear';
+import AplCheck from './modules/apl/AplCheck';
+import MoonlightChakram from '../shared/herotalents/MoonlightChakram';
+import MoonlightChakramNormalizer from '../shared/normalizers/MoonlightChakramNormalizer';
+import SentinelsMark from '../shared/herotalents/SentinelsMark';
+import SentinelsMarkNormalizer from '../shared/normalizers/SentinelsMarkNormalizer';
+import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
 import StampedeAnalyzer from '../shared/herotalents/Stampede';
-
+import HowlBoar from '../shared/herotalents/HowlBoar';
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
   static specModules = {
     // Core statistics
     abilities: Abilities,
-    globalCooldown: GlobalCooldown,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -64,13 +60,21 @@ class CombatLogParser extends CoreCombatLogParser {
     focusCapTracker: FocusCapTracker,
     focus: Focus,
     survivalFocusUsage: SurvivalFocusUsage,
+    wildfireShells: WildfireShells,
+    lethalCalibration: LethalCalibration,
 
     //Guide
     focusGraph: FocusGraph,
     exhilarationTiming: ExhilarationTiming,
 
     //Normalizers
+    // Channeling must come before BoomstickNormalizer to ensure EndChannel events exist
+    channeling: Channeling,
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
+    boomstickNormalizer: BoomstickNormalizer,
+    wildfireBombNormalizer: WildfireBombNormalizer,
+    moonlightChakramNormalizer: MoonlightChakramNormalizer,
+    sentinelsMarkNormalizer: SentinelsMarkNormalizer,
     EventLinkNormalizers: EventLinkNormalizer,
 
     //DeathTracker
@@ -78,35 +82,29 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     bloodseeker: Bloodseeker,
-    butchery: Butchery,
-    coordinatedAssault: CoordinatedAssault,
-    flankingStrike: FlankingStrike,
-    frenzyStrikes: FrenzyStrikes,
     killCommand: KillCommand,
-    mongooseBite: MongooseBite,
     raptorStrike: RaptorStrike,
-    tipOfTheSpear: TipOfTheSpear,
     wildfireBomb: WildfireBomb,
-    lunge: Lunge,
-    grenadeJuggler: GrenadeJuggler,
-    vipersVenom: VipersVenom,
-    furyOfTheEagle: FuryOfTheEagle,
+    boomstick: Boomstick,
+    tipOfTheSpear: TipOfTheSpear,
 
     //Shared Talents
-    stampedeTier: StampedeAnalyzer,
+    moonlightChakram: MoonlightChakram,
+    sentinelsMark: SentinelsMark,
     bindingShot: BindingShot,
-    deathBlow: Deathblow,
-    explosiveShot: ExplosiveShot,
-    killShotSurvival: KillShotSurvival,
-    masterMarksman: MasterMarksman,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,
     trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
-    SurvivalOfTheFittest: SurvivalOfTheFittest,
+    survivalOfTheFittest: SurvivalOfTheFittest,
+    stampedeAnalyzer: StampedeAnalyzer,
+    howlBoar: HowlBoar,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
+
+    // APL section.
+    apl: AplCheck,
   };
 }
 

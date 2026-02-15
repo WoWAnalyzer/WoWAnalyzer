@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -25,7 +26,6 @@ class NaturesSwiftness extends Analyzer {
     TALENTS_SHAMAN.HEALING_RAIN_TALENT,
     SPELLS.HEALING_WAVE,
     TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
-    TALENTS_SHAMAN.WELLSPRING_TALENT,
     TALENTS_SHAMAN.DOWNPOUR_TALENT,
   ];
 

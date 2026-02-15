@@ -10,12 +10,12 @@
 export enum BufferMs {
   Disabled = -1,
   OnSameTimestamp = 0,
-  MinimumDamageBuffer = 5,
+  MinimumDamageBuffer = 1,
   Cast = 30,
   Ticks = 40,
   Damage = 75,
   SpendBackward = 25,
-  PrimordialWave = 100,
+  SurgingElements = 100,
   StaticAccumulation = 185,
 }
 

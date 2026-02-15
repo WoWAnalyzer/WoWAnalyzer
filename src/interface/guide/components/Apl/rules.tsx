@@ -11,8 +11,7 @@ import {
   Tense,
 } from 'parser/shared/metrics/apl';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
-import { useMemo } from 'react';
-import * as React from 'react';
+import { Fragment, useMemo, type JSX } from 'react';
 
 export const AplRuleList = styled.ol`
   padding-left: 1.5rem;
@@ -113,10 +112,10 @@ function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
   return (
     <>
       {spells(rule).map((spell, index) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           {index > 0 ? ' or ' : ''}
           <SpellLink spell={spell.id} />
-        </React.Fragment>
+        </Fragment>
       ))}
     </>
   );

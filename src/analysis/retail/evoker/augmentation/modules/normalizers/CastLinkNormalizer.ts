@@ -20,7 +20,6 @@ import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import PrePullCooldowns from 'parser/shared/normalizers/PrePullCooldowns';
 import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { BREATH_OF_EONS_SPELL_IDS } from '../../constants';
-import { TIERS } from 'game/TIERS';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
@@ -29,6 +28,7 @@ import { TIERS } from 'game/TIERS';
  * https://www.warcraftlogs.com/reports/1JqKrX2vLxb6Zyp9/#fight=8&source=3&pins=2%24Off%24%23244F4B%24expression%24type%20%3D%20%22empowerend%22%20or%20type%3D%22removebuff%22&view=events&start=1402475&end=1408776
  */
 const FAILED_EXTENSION_LINK = 'failedExtensionLink';
+const FAILED_EXTENSION_LINK_DUPLICATE = 'failedExtensionLinkDuplicate';
 
 export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
@@ -54,8 +54,6 @@ const MASS_ERUPTION_DAMAGE_BUFFER = 1000; // These have very spooky delay
 export const UPHEAVAL_REVERBERATION_DAM_LINK = 'upheavalReverberationDamLink';
 export const UPHEAVAL_REVERBERATION_BUFFER = 12_000; // This DoT last a very long while
 
-const VOLCANIC_UPSURGE_CONSUME = 'volcanicUpsurgeConsume';
-
 const ERUPTION_ESSENCE_BURST_CONSUME = 'eruptionEssenceBurstConsume';
 const DREAM_ESSENCE_BURST_CONSUME = 'dreamEssenceBurstConsume';
 export const EMPOWER_SANDS_APPLY = 'empowerSandsApply';
@@ -72,6 +70,7 @@ const BREATH_OF_EONS_DEBUFF_BUFFER = 14000;
 const BREATH_OF_EONS_DAMAGE_BUFFER = 300;
 const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 const UPHEAVAL_DAMAGE_BUFFER = 800;
+const FAILED_EXTENSION_BUFFER_MS = 850;
 
 // In 11.0.5 Blizzard introduces a potential 1ms delay
 // https://www.warcraftlogs.com/reports/L48YR6WBjaXtTkMd/#fight=57&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24176484645.0.0.Evoker%24true%240.0.0.Any%24false%24363916&target=8&ability=395152&start=10450757&end=10509380&view=events
@@ -117,7 +116,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     anyTarget: true,
-    maximumLinks: 4,
     forwardBufferMs: EBON_MIGHT_BUFFER,
     backwardBufferMs: EBON_MIGHT_BUFFER,
   },
@@ -243,7 +241,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
-    forwardBufferMs: 850,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
   },
   {
     linkRelation: FAILED_EXTENSION_LINK,
@@ -253,7 +251,34 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
-    forwardBufferMs: 850,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
+  },
+  {
+    linkRelation: FAILED_EXTENSION_LINK_DUPLICATE,
+    reverseLinkRelation: FAILED_EXTENSION_LINK,
+    linkingEventId: [
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+      SPELLS.UPHEAVAL.id,
+      SPELLS.UPHEAVAL_FONT.id,
+    ],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.DUPLICATE_SELF_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
+    isActive: (c) => c.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT),
+  },
+  {
+    linkRelation: FAILED_EXTENSION_LINK_DUPLICATE,
+    reverseLinkRelation: FAILED_EXTENSION_LINK_DUPLICATE,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DUPLICATE_SELF_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    forwardBufferMs: FAILED_EXTENSION_BUFFER_MS,
+    isActive: (c) => c.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT),
   },
   {
     linkRelation: ERUPTION_CHITIN_LINK,
@@ -321,25 +346,13 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: MASS_ERUPTION_DAM_LINK,
     reverseLinkRelation: MASS_ERUPTION_DAM_LINK,
-    linkingEventId: TALENTS.ERUPTION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.MASS_ERUPTION_DAMAGE.id,
-    referencedEventType: EventType.Damage,
+    linkingEventId: SPELLS.MASS_ERUPTION_DAMAGE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: TALENTS.ERUPTION_TALENT.id,
+    referencedEventType: EventType.Cast,
     anyTarget: true,
-    forwardBufferMs: MASS_ERUPTION_DAMAGE_BUFFER,
+    backwardBufferMs: MASS_ERUPTION_DAMAGE_BUFFER,
     isActive: (C) => C.hasTalent(TALENTS.MASS_ERUPTION_TALENT),
-  },
-  {
-    linkRelation: VOLCANIC_UPSURGE_CONSUME,
-    reverseLinkRelation: VOLCANIC_UPSURGE_CONSUME,
-    linkingEventId: TALENTS.ERUPTION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.VOLCANIC_UPSURGE.id,
-    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive: (C) => C.has4PieceByTier(TIERS.TWW1),
     maximumLinks: 1,
   },
   {
@@ -395,7 +408,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive: (C) => C.hasTalent(TALENTS.INFERNOS_BLESSING_TALENT),
-    maximumLinks: 5,
+    maximumLinks: 2,
   },
   {
     linkRelation: EMERALD_BLOSSOM_SYMBIOTIC_APPLY,
@@ -492,6 +505,10 @@ export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {
   return HasRelatedEvent(event, FAILED_EXTENSION_LINK);
 }
 
+export function failedDuplicateExtension(event: CastEvent | EmpowerEndEvent) {
+  return HasRelatedEvent(event, FAILED_EXTENSION_LINK_DUPLICATE);
+}
+
 function upheavalHitIsUnique(castEvent: EmpowerEndEvent, damageEvent: DamageEvent) {
   const previousEvents = GetRelatedEvents<DamageEvent>(castEvent, UPHEAVAL_CAST_DAM_LINK);
 
@@ -510,10 +527,6 @@ export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
     MASS_ERUPTION_DAM_LINK,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
-}
-
-export function isVolcanicUpsurgeEruption(event: CastEvent) {
-  return HasRelatedEvent(event, VOLCANIC_UPSURGE_CONSUME);
 }
 
 export function eruptionConsumedEssenceBurst(event: CastEvent) {

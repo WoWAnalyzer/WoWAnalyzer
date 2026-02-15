@@ -74,19 +74,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.FINAL_RECKONING_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.FINAL_RECKONING_TALENT),
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: TALENTS.EXECUTION_SENTENCE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 60,
         castEfficiency: {
           recommendedEfficiency: 0.9,
         },
@@ -148,19 +139,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 7.5 / (1 + haste),
-        charges: combatant.hasTalent(TALENTS.VANGUARDS_MOMENTUM_TALENT) ? 2 : 1,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
         spell: SPELLS.JUDGMENT_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) =>
@@ -197,14 +175,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.JUSTICARS_VENGEANCE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.JUSTICARS_VENGEANCE_TALENT),
-      },
-      {
         spell: TALENTS.DIVINE_STORM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DIVINE_STORM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -214,21 +184,6 @@ class Abilities extends CoreAbilities {
       },
 
       //Utility
-      {
-        spell: TALENTS.SHIELD_OF_VENGEANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SHIELD_OF_VENGEANCE_TALENT),
-        buffSpellId: TALENTS.SHIELD_OF_VENGEANCE_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        gcd: {
-          base: 750,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-      },
       {
         spell: SPELLS.WORD_OF_GLORY.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -241,15 +196,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLINDING_LIGHT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.LIGHTS_COUNTENANCE_TALENT) ? 75 : 90,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.REPENTANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.REPENTANCE_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.LIGHTS_COUNTENANCE_TALENT) ? 0 : 15,
         gcd: {
           base: 1500,
         },
@@ -302,9 +248,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,
         category: SPELL_CATEGORY.UTILITY,
-        channel: (haste: number) =>
-          combatant.hasTalent(TALENTS.LIGHTS_CELERITY_TALENT) ? 0 : 1.5 / (1 + haste),
-        cooldown: combatant.hasTalent(TALENTS.LIGHTS_CELERITY_TALENT) ? 6 : 0,
+        channel: (haste: number) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
         },

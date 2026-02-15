@@ -184,12 +184,12 @@ const spells = {
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_orange',
   },
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
     name: 'Secret Infusion',
-    icon: 'ability_monk_chibrew',
+    icon: 'inv_12_profession_cooking_tea_green',
   },
   SECRET_INFUSION_MASTERY_BUFF: {
     id: 388499,
@@ -211,6 +211,11 @@ const spells = {
     id: 119611,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
+  },
+  RUSHING_WIND_KICK_HEAL: {
+    id: 1269159,
+    name: 'Rushing Wind Kick',
+    icon: 'inv12_ability_monk_rushingwindkick',
   },
   VIVIFY: {
     id: 116670,
@@ -248,6 +253,11 @@ const spells = {
     name: "Invoker's Delight",
     icon: 'inv_inscription_80_warscroll_battleshout',
   },
+  INVOKE_XUEN_BUFF: {
+    id: 123904,
+    name: 'Invoke Xuen, the White Tiger',
+    icon: 'ability_monk_prideofthetiger',
+  },
   FURY_OF_XUEN_BUFF: {
     id: 396168,
     name: 'Fury of Xuen',
@@ -257,11 +267,6 @@ const spells = {
     id: 396167,
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
-  },
-  ENVELOPING_BREATH_HEAL: {
-    id: 325209,
-    name: 'Enveloping Breath',
-    icon: 'ability_monk_jadeserpentbreath',
   },
   MANA_TEA_STACK: {
     id: 115867,
@@ -283,12 +288,12 @@ const spells = {
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
-  AJ_HEAL: {
+  WOTC_HEAL: {
     id: 389325,
     name: 'Awakened Jadefire',
     icon: 'inv_leather_raidmonkt2_d_01_helm',
   },
-  AJ_CRIT_HEAL: {
+  WOTC_CRIT_HEAL: {
     id: 389328,
     name: 'Awakened Jadefire',
     icon: 'inv_leather_raidmonkt2_d_01_helm',
@@ -462,6 +467,11 @@ const spells = {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
+  JADEFIRE_STOMP_DAMAGE: {
+    id: 1248815,
+    name: 'Jadefire Stomp',
+    icon: 'inv_ability_monk_jadefirestomp',
+  },
   FAELINE_STOMP_PULSE_DAMAGE: {
     id: 327264,
     name: 'Faeline Stomp',
@@ -518,7 +528,32 @@ const spells = {
     name: "Jade Serpent's Blessing",
     icon: 'inv_celestialserpentmount_jade',
   },
+  SPIRITFONT_HOT: {
+    id: 1260617,
+    name: 'Spiritfont',
+    icon: 'inv12_apextalent_monk_spiritfont',
+  },
+  SPIRITFONT_ACTIVE_BUFF: {
+    id: 1260670,
+    name: 'Spiritfont',
+    icon: 'inv12_apextalent_monk_spiritfont',
+  },
+  SPIRITFONT_CHI_COCOON: {
+    id: 1260681,
+    name: 'Chi Cocoon',
+    icon: 'ability_monk_chiexplosion',
+  },
+  SPIRITFONT_BUFF: {
+    id: 1260565,
+    name: 'Spiritfont',
+    icon: 'inv12_apextalent_monk_spiritfont',
+  },
   // Brewmaster
+  ELEVATED_STAGGER_BUFF: {
+    id: 1260619,
+    name: 'Elevated Stagger',
+    icon: 'inv_misc_beer_06',
+  },
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,
     name: 'Stomp',
@@ -543,11 +578,6 @@ const spells = {
     id: 196608,
     name: 'Eye of the Tiger',
     icon: 'ability_druid_primalprecision',
-  },
-  PURIFIED_CHI: {
-    id: 325092,
-    name: 'Purified Chi',
-    icon: 'inv_misc_beer_06',
   },
   BREATH_OF_FIRE_DEBUFF: {
     id: 123725,
@@ -754,16 +784,31 @@ const spells = {
     ...talents.PRESS_THE_ADVANTAGE_TALENT,
     id: 418360,
   },
-  WEAPONS_OF_ORDER_DEBUFF: {
-    // ...talents.WEAPONS_OF_ORDER_TALENT,
-    id: 387179,
-    name: 'Weapons of Order',
-    icon: '',
-  },
   WWTO_STOMP_DAMAGE: {
     id: 1242373,
     name: 'Stomp',
     icon: 'ability_warstomp.jpg',
+  },
+  VITAL_FLAME_HEAL: {
+    id: 1263408,
+    name: 'Vital Flame',
+    icon: 'achievement_faction_shadopan.jpg',
+  },
+  DRAGONFIRE_BREW_DAMAGE: {
+    id: 387621,
+    name: 'Dragonfire Brew',
+    icon: 'spell_fire_burnout.jpg',
+  },
+  EXPLODING_KEG_DEBUFF_DAMAGE: {
+    id: 388867,
+    name: 'Exploding Keg',
+    icon: 'inv12_ability_monk_explodingkeg.jpg',
+  },
+  // Midnight S1 Tier Set
+  EXTRA_KICK_DAMAGE: {
+    id: 1272464,
+    name: 'Extra Kick',
+    icon: 'inv_flaming_splinter',
   },
 
   // Windwalker Spells
@@ -1009,6 +1054,12 @@ const spells = {
   FLURRY_STRIKES_DAMAGE_2: {
     ...talents.FLURRY_STRIKES_TALENT,
     id: 450617,
+  },
+  // TODO: verify if this is the new damage ability in all cases
+  FLURRY_STRIKES_DAMAGE_MIDNIGHT: {
+    id: 451250,
+    name: 'Flurry Strikes',
+    icon: 'inv-ability-shadopanmonk-flurrystrikes',
   },
 } satisfies Record<string, Spell>;
 

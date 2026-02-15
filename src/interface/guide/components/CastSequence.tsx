@@ -23,6 +23,46 @@ export interface CastInSequence {
   tooltip?: React.ReactNode;
 }
 
+interface SpellSequenceProps {
+  casts: CastInSequence[];
+  iconSize?: number;
+}
+
+/**
+ * Standalone spell sequence filmstrip showing spell icons.
+ * Can be used independently or as part of CastSequence.
+ * @param casts - Array of cast data to display as icons
+ * @param iconSize - Size in pixels for spell icons (default: 40)
+ */
+export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
+  return (
+    <Sequence>
+      {casts.map((cast, castIdx) => {
+        const color = cast.performance
+          ? qualitativePerformanceToColor(cast.performance)
+          : 'rgba(255, 255, 255, 0.3)';
+
+        const defaultTooltip = (
+          <div>
+            <strong>{cast.spellName}</strong>
+          </div>
+        );
+
+        return (
+          <Tooltip key={castIdx} content={cast.tooltip || defaultTooltip}>
+            <SpellIcon size={iconSize} color={color}>
+              <img
+                src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
+                alt={cast.spellName}
+              />
+            </SpellIcon>
+          </Tooltip>
+        );
+      })}
+    </Sequence>
+  );
+}
+
 export interface CastSequenceEntry<T = unknown> {
   data: T;
   casts: CastInSequence[];
@@ -111,30 +151,7 @@ export default function CastSequence<T>({
       helperText={headerHelperText}
     >
       <ScrollableContainer>
-        <Sequence>
-          {currentSequence.casts.map((cast, castIdx) => {
-            const color = cast.performance
-              ? qualitativePerformanceToColor(cast.performance)
-              : 'rgba(255, 255, 255, 0.3)';
-
-            const defaultTooltip = (
-              <div>
-                <strong>{cast.spellName}</strong>
-              </div>
-            );
-
-            return (
-              <Tooltip key={castIdx} content={cast.tooltip || defaultTooltip}>
-                <SpellIcon size={iconSize} color={color}>
-                  <img
-                    src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
-                    alt={cast.spellName}
-                  />
-                </SpellIcon>
-              </Tooltip>
-            );
-          })}
-        </Sequence>
+        <SpellSequence casts={currentSequence.casts} iconSize={iconSize} />
       </ScrollableContainer>
     </GuideDataWrapper>
   );

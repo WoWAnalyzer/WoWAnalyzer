@@ -225,15 +225,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.REBUKE_TALENT),
       },
       {
-        spell: TALENTS.REPENTANCE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.REPENTANCE_TALENT),
-      },
-      {
         spell: TALENTS.BLINDING_LIGHT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
@@ -362,18 +353,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT),
       },
       {
-        spell: TALENTS.BARRIER_OF_FAITH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT),
-      },
-      {
         spell: SPELLS.AVENGING_CRUSADER.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
@@ -399,20 +378,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT),
-      },
-      {
-        spell: [
-          TALENTS.BLESSING_OF_SUMMER_TALENT.id,
-          SPELLS.BLESSING_OF_AUTUMN_TALENT.id,
-          SPELLS.BLESSING_OF_SPRING_TALENT.id,
-          SPELLS.BLESSING_OF_WINTER_TALENT.id,
-        ],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS.BLESSING_OF_SUMMER_TALENT),
       },
       {
         spell: [TALENTS.HOLY_ARMAMENTS_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],

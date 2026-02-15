@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import styled from '@emotion/styled';
 import { OkMark } from '../index';
 import { TooltipElement } from 'interface/Tooltip';

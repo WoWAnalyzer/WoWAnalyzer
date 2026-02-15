@@ -31,10 +31,10 @@ export class DuskAndDawn extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    // replacing with dusk and dawn check for now for typechecks
     this.hasDuskAndDawn =
-      this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_PROTECTION_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_RETRIBUTION_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.BLESSING_OF_DAWN_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.BLESSING_OF_DUSK_TALENT);
     this.hasSealOfOrder = false; // talent was removed. future maintainers can remove the related code
     this.active = this.hasDuskAndDawn;
 
@@ -90,7 +90,7 @@ export class DuskAndDawn extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.DEFAULT}
       >
-        <BoringSpellValueText spell={TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT}>
+        <BoringSpellValueText spell={TALENTS.BLESSING_OF_DUSK_TALENT}>
           <BoringSpellValue
             spell={SPELLS.BLESSING_OF_DUSK}
             value={`${formatPercentage(this.duskUptimePct)}%`}

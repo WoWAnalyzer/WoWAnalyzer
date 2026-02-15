@@ -86,28 +86,36 @@ export default function StackedBar({
   const getLabelContent = labelFormat || defaultLabelFormatter;
   const getTooltipContent = tooltipFormat || defaultTooltipFormatter;
 
-  let cumulativePercent = 0;
+  // Calculate segment positions with immutable approach
+  const segmentsWithPositions = segments.reduce<
+    Array<{
+      segment: StackedBarSegment;
+      percent: number;
+      startPercent: number;
+      index: number;
+    }>
+  >((acc, segment, idx) => {
+    const percent = (segment.value / total) * 100;
+    const startPercent =
+      acc.length > 0 ? acc[acc.length - 1].startPercent + acc[acc.length - 1].percent : 0;
+
+    // Skip segments that are too small
+    if (percent < minSegmentPercent) {
+      return acc;
+    }
+
+    return [...acc, { segment, percent, startPercent, index: idx }];
+  }, []);
 
   return (
     <BarContainer height={height} className={className}>
-      {segments.map((segment, idx) => {
-        const percent = (segment.value / total) * 100;
-        const startPercent = cumulativePercent;
-        cumulativePercent += percent;
-
-        // Skip segments that are too small
-        if (percent < minSegmentPercent) {
-          return null;
-        }
-
-        return (
-          <Tooltip key={idx} content={segment.tooltip || getTooltipContent(segment, percent)}>
-            <Segment color={segment.color} startPercent={startPercent} widthPercent={percent}>
-              {showLabels && percent >= minLabelPercent && getLabelContent(segment, percent)}
-            </Segment>
-          </Tooltip>
-        );
-      })}
+      {segmentsWithPositions.map(({ segment, percent, startPercent, index }) => (
+        <Tooltip key={index} content={segment.tooltip || getTooltipContent(segment, percent)}>
+          <Segment color={segment.color} startPercent={startPercent} widthPercent={percent}>
+            {showLabels && percent >= minLabelPercent && getLabelContent(segment, percent)}
+          </Segment>
+        </Tooltip>
+      ))}
     </BarContainer>
   );
 }

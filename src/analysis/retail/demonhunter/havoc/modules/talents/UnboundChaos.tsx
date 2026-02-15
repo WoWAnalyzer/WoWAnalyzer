@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { UNBOUND_CHAOS_SCALING } from 'analysis/retail/demonhunter/havoc/constants';

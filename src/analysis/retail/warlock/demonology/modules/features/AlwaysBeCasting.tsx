@@ -1,4 +1,5 @@
 import { formatPercentage } from 'common/format';
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';

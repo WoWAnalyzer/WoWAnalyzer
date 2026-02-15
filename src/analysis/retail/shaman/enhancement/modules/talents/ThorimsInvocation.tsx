@@ -5,14 +5,15 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
+  EventType,
+  FreeCastEvent,
   GetRelatedEvent,
+  GetRelatedEvents,
 } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -23,11 +24,14 @@ import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import typedKeys from 'common/typedKeys';
 import { EnhancementEventLinks } from '../../constants';
 
-/** Lightning Bolt and Chain Lightning damage increased by 20% and reduces the cooldown of Ascendance
- * by 60 sec, and causes Deeply Rooted Elements to last 2 sec longer.
+/** Doom Winds and Deeply Rooted Elements last 2 sec longer,
+ * and the cooldown of Ascendance is reduced by 60 sec.
  *
- * While Ascendance is active, Windstrike automatically consumes up to 5 Maelstrom Weapon stacks to
- * discharge a Lightning Bolt or Chain Lightning at 100% effectiveness at your enemy, whichever you most recently used. */
+ * During Doom Winds or Ascendance, Stormstrike and Crash Lightning
+ * consume up to 10 Maelstrom Weapon to discharge a Lightning Bolt
+ * or Chain Lightning at 100% effectiveness at your enemy,
+ * whichever you most recently used.
+ */
 
 interface ThorimsInvocationProc {
   casts: number;
@@ -35,21 +39,16 @@ interface ThorimsInvocationProc {
   damage: number;
 }
 
-class ThorimsInvocation extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-    gcd: GlobalCooldown,
-  };
-
-  protected spellUsable!: SpellUsable;
-  protected gcd!: GlobalCooldown;
+class ThorimsInvocation extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+  gcd: GlobalCooldown,
+}) {
   protected lastSpellId: number | undefined;
   protected procs: Record<number, ThorimsInvocationProc> = {
     [SPELLS.LIGHTNING_BOLT.id]: { casts: 0, damage: 0 },
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: { casts: 0, hits: 0, damage: 0 },
     [SPELLS.TEMPEST_CAST.id]: { casts: 0, hits: 0, damage: 0 },
   };
-  protected increaseDamage = 0;
   protected lastSpellCast: number | null = null;
   protected ascendanceEndTimestamp = 0;
 
@@ -72,31 +71,41 @@ class ThorimsInvocation extends Analyzer {
         (this.ascendanceEndTimestamp = event.timestamp + ascendanceDuration),
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.damage
+      Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST]),
-      this.onDamage,
+        .spell([SPELLS.STORMSTRIKE, SPELLS.WINDSTRIKE_CAST, TALENTS.CRASH_LIGHTNING_TALENT]),
+      this.onCast,
     );
   }
 
   onCast(event: CastEvent) {
-    const linkedEvents =
-      event._linkedEvents
-        ?.filter((le) => le.relation === EnhancementEventLinks.THORIMS_INVOCATION_LINK)
-        .map((le) => le.event as DamageEvent) || [];
-    if (linkedEvents.length === 0) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DOOM_WINDS_BUFF)) {
       return;
     }
 
-    const spellId = linkedEvents[0].ability.guid;
-    const hits = linkedEvents.length;
+    const castEvent = GetRelatedEvent<FreeCastEvent>(
+      event,
+      EnhancementEventLinks.THORIMS_INVOCATION_LINK,
+      (e) => e.type === EventType.FreeCast,
+    )!;
+    if (!castEvent) {
+      return;
+    }
+
+    const damageEvents = GetRelatedEvents<DamageEvent>(
+      castEvent,
+      EnhancementEventLinks.THORIMS_INVOCATION_DAMAGE_LINK,
+      (e) => e.type === EventType.Damage,
+    );
+    if (damageEvents.length === 0) {
+      return;
+    }
+
+    const spellId = castEvent.ability.guid;
+    const hits = damageEvents.length;
 
     this.procs[spellId].casts += 1;
-    this.procs[spellId].damage += linkedEvents.reduce(
+    this.procs[spellId].damage += damageEvents.reduce(
       (total: number, event: DamageEvent) => (total += event.amount),
       0,
     );
@@ -117,17 +126,20 @@ class ThorimsInvocation extends Analyzer {
         chainLightningCastEvent.classResources,
         RESOURCE_TYPES.MAELSTROM_WEAPON.id,
       );
-      if (cr && cr.cost && cr.cost > 5) {
-        cr.cost = 5;
-      }
       const mswStacks = cr?.cost ?? 0;
+
+      // The remaining logic is Ascendance/Windstrike-specific APL guidance.
+      if (event.ability.guid !== SPELLS.WINDSTRIKE_CAST.id) {
+        return;
+      }
+
       const remainingAscendance = this.ascendanceEndTimestamp - event.timestamp;
       if (
         hits < 2 &&
         mswStacks >= 5 &&
         remainingAscendance >
-          this.spellUsable.cooldownRemaining(SPELLS.WINDSTRIKE_CAST.id) +
-            this.gcd.getGlobalCooldownDuration(event.ability.guid)
+          this.deps.spellUsable.cooldownRemaining(SPELLS.WINDSTRIKE_CAST.id) +
+            this.deps.gcd.getGlobalCooldownDuration(event.ability.guid)
       ) {
         addInefficientCastReason(
           event,
@@ -146,17 +158,6 @@ class ThorimsInvocation extends Analyzer {
         );
       }
     }
-  }
-
-  onDamage(event: DamageEvent) {
-    this.increaseDamage += calculateEffectiveDamage(event, 0.2);
-  }
-
-  get damageDone() {
-    return (
-      this.increaseDamage +
-      typedKeys(this.procs).reduce((total, spellId) => (total += this.procs[spellId].damage), 0)
-    );
   }
 
   get totalProcs() {
@@ -198,6 +199,9 @@ class ThorimsInvocation extends Analyzer {
 
   get tempestStatisticTooltip() {
     const proc = this.procs[SPELLS.TEMPEST_CAST.id];
+    if (proc.casts === 0) {
+      return <></>;
+    }
     const castComponent = (
       <>
         <SpellLink spell={SPELLS.TEMPEST_CAST} />
@@ -205,16 +209,13 @@ class ThorimsInvocation extends Analyzer {
         <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
       </>
     );
-    const damageComponent =
-      proc.casts > 0 ? (
-        <>
-          {' - '}
-          <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
-          <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
-        </>
-      ) : (
-        <></>
-      );
+    const damageComponent = (
+      <>
+        {' - '}
+        <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
+        <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
+      </>
+    );
 
     return (
       <>
@@ -271,22 +272,10 @@ class ThorimsInvocation extends Analyzer {
             {this.lightningBoltStatisticTooltip}
             {this.tempestStatisticTooltip}
             {this.chainLightningStatisticTooltip}
-            <div>
-              Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
-              {this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT) ? (
-                <>
-                  , <SpellLink spell={TALENTS.TEMPEST_TALENT} />{' '}
-                </>
-              ) : null}
-              and <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
-              <DamageIcon /> <strong>{formatNumber(this.increaseDamage)}</strong>
-            </div>
           </>
         }
       >
         <TalentSpellText talent={TALENTS.THORIMS_INVOCATION_TALENT}>
-          <ItemDamageDone amount={this.damageDone} />
-          <br />
           <UptimeIcon /> {this.totalProcs} <small>spells cast</small>
         </TalentSpellText>
       </Statistic>

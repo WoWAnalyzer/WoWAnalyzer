@@ -17,6 +17,10 @@ class CelestialConduitNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
 
+    const conduits = {
+      [TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT.id]: true,
+      [TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT.id]: true,
+    };
     events.forEach((event) => {
       if (this.endChannelFabricated) {
         fixedEvents.push(this.endChannelFabricated);
@@ -24,20 +28,12 @@ class CelestialConduitNormalizer extends EventsNormalizer {
       }
       fixedEvents.push(event);
       if (event.type === EventType.ApplyBuff || event.type === EventType.RemoveBuff) {
-        if (
-          event.type === EventType.ApplyBuff &&
-          event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id
-        ) {
+        if (event.type === EventType.ApplyBuff && conduits[event.ability.guid]) {
           debug && console.log('Begin channel at ' + this.owner.formatTimestamp(event.timestamp));
           this.beginChannelFabricated = {
             type: EventType.BeginChannel,
             timestamp: event.timestamp,
-            ability: {
-              abilityIcon: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.icon,
-              guid: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
-              name: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.name,
-              type: 8,
-            },
+            ability: event.ability,
             sourceID: event.sourceID!,
             isCancelled: false,
             sourceIsFriendly: true,
@@ -47,7 +43,7 @@ class CelestialConduitNormalizer extends EventsNormalizer {
         } else if (
           this.beginChannelFabricated &&
           event.type === EventType.RemoveBuff &&
-          event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id
+          conduits[event.ability.guid]
         ) {
           fixedEvents.push(this.beginChannelFabricated);
           debug && console.log('End Channel at ' + this.owner.formatTimestamp(event.timestamp));
@@ -58,12 +54,7 @@ class CelestialConduitNormalizer extends EventsNormalizer {
             duration: event.timestamp - this.beginChannelFabricated!.timestamp,
             sourceID: event.sourceID!,
             beginChannel: this.beginChannelFabricated,
-            ability: {
-              abilityIcon: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.icon,
-              guid: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
-              name: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.name,
-              type: 8,
-            },
+            ability: event.ability,
             __fabricated: true,
           };
 

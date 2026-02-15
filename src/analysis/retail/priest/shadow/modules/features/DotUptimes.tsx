@@ -4,9 +4,9 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
+//import TALENTS from 'common/TALENTS/priest';
 
-import DevouringPlague from '../spells/DevouringPlague';
+import ShadowWordMadness from '../spells/ShadowWordMadness';
 import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 
@@ -17,11 +17,11 @@ class DotUptimes extends Analyzer {
   static dependencies = {
     vampiricTouch: VampiricTouch,
     shadowWordPain: ShadowWordPain,
-    devouringPlague: DevouringPlague,
+    shadowwordmadness: ShadowWordMadness,
   };
   protected vampiricTouch!: VampiricTouch;
   protected shadowWordPain!: ShadowWordPain;
-  protected devouringPlague!: DevouringPlague;
+  protected shadowWordMadness!: ShadowWordMadness;
 
   get guideSubsection() {
     const explanation = (
@@ -30,7 +30,7 @@ class DotUptimes extends Analyzer {
           Keep your DoTs up on the boss. <br />
         </b>
         In addition to dealing damage, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> and{' '}
-        <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, increase all your damage through{' '}
+        <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> increase all your damage through{' '}
         <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
       </p>
     );
@@ -45,11 +45,11 @@ class DotUptimes extends Analyzer {
     return explanationAndDataSubsection(explanation, data);
   }
 
-  get guideSubsectionDP() {
+  /*get guideSubsectionDP() {
     const explanation = (
       <p>
         <b>
-          Maximize the uptime of <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> while not
+          Maximize the uptime of <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> while not
           wasting insanity.
         </b>
         <br />
@@ -59,17 +59,17 @@ class DotUptimes extends Analyzer {
       </p>
     );
 
-    const data = <RoundedPanel>{this.devouringPlague.subStatistic()}</RoundedPanel>;
+    const data = <RoundedPanel>{this.shadowWordMadness.subStatistic()}</RoundedPanel>;
 
     return explanationAndDataSubsection(explanation, data);
-  }
+  } */
 
   statistic() {
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
         {this.vampiricTouch.subStatistic()}
         {this.shadowWordPain.subStatistic()}
-        {this.devouringPlague.subStatistic()}
+        {/*this.shadowWordMadness.subStatistic()*/}
       </StatisticBar>
     );
   }

@@ -20,19 +20,14 @@ class Overload extends Analyzer {
     this.getAbility = (spellId) => this.abilityTracker.getAbility(spellId);
 
     this.hasIcefury = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT);
-    this.hasElementalBlast = this.selectedCombatant.hasTalent(
-      TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-    );
+    this.hasElementalBlast = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT);
 
     this.spells = [
       this.getHits(SPELLS.LAVA_BURST_OVERLOAD_DAMAGE.id, SPELLS.LAVA_BURST_DAMAGE.id),
       this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),
       this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, TALENTS.CHAIN_LIGHTNING_TALENT.id),
       this.hasElementalBlast &&
-        this.getHits(
-          SPELLS.ELEMENTAL_BLAST_OVERLOAD.id,
-          TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-        ),
+        this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, TALENTS.ELEMENTAL_BLAST_TALENT.id),
       this.hasIcefury && this.getHits(SPELLS.ICEFURY_OVERLOAD.id, TALENTS.ICEFURY_TALENT.id),
     ];
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -58,10 +53,7 @@ class Overload extends Analyzer {
       this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),
       this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, TALENTS.CHAIN_LIGHTNING_TALENT.id),
       this.hasElementalBlast &&
-        this.getHits(
-          SPELLS.ELEMENTAL_BLAST_OVERLOAD.id,
-          TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-        ),
+        this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, TALENTS.ELEMENTAL_BLAST_TALENT.id),
       this.hasIcefury && this.getHits(SPELLS.ICEFURY_OVERLOAD.id, TALENTS.ICEFURY_TALENT.id),
     ];
   }

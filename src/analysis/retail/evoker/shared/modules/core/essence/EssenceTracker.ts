@@ -1,7 +1,7 @@
-import {
+/* import {
   EMPATH_REGEN_FACTOR,
   FLOW_STATE_FACTOR,
-} from 'analysis/retail/evoker/preservation/constants';
+} from 'analysis/retail/evoker/preservation/constants'; */
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -16,15 +16,16 @@ import {
 import { POWER_SWELL_REGEN_FACTOR } from 'analysis/retail/evoker/devastation/constants';
 import SpellEssenceCost from './SpellEssenceCost';
 
+// TODO: Reimplement once Preservation is enabled again
 const REGEN_BUFFS = {
-  [TALENTS_EVOKER.EMPATH_TALENT.id]: {
+  /* [TALENTS_EVOKER.EMPATH_TALENT.id]: {
     spell: TALENTS_EVOKER.EMPATH_TALENT,
     regenFactor: EMPATH_REGEN_FACTOR,
   },
   [TALENTS_EVOKER.FLOW_STATE_TALENT.id]: {
     spell: TALENTS_EVOKER.FLOW_STATE_TALENT,
     regenFactor: FLOW_STATE_FACTOR,
-  },
+  }, */
   [SPELLS.POWER_SWELL_BUFF.id]: {
     spell: SPELLS.POWER_SWELL_BUFF,
     regenFactor: POWER_SWELL_REGEN_FACTOR,

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
@@ -51,21 +52,18 @@ const coreCooldownsVWVB: SpellCooldown[] = [
 //Short Cooldowns
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.VOID_TORRENT_TALENT },
-  { talent: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT },
-  { talent: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT },
+  { talent: TALENTS.TENTACLE_SLAM_TALENT },
 ];
 
 //Long Cooldowns
 const longCooldownsMB: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.DARK_ASCENSION_TALENT },
-  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.VOIDFORM_TALENT },
   { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
 ];
 const longCooldownsSF: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.DARK_ASCENSION_TALENT },
-  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.VOIDFORM_TALENT },
   { talent: TALENTS.SHADOWFIEND_TALENT },
 ];
 
@@ -76,23 +74,20 @@ voidwraith.id = 451235;
 
 const longCooldownsVW: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.DARK_ASCENSION_TALENT },
-  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.VOIDFORM_TALENT },
   { talent: voidwraith },
 ];
 
 const longCooldownsMBARC: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.DARK_ASCENSION_TALENT },
-  { talent: TALENTS.HALO_SHADOW_TALENT },
-  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  //{ talent: TALENTS.HALO_SHADOW_TALENT },
+  { talent: TALENTS.VOIDFORM_TALENT },
   { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
 ];
 const longCooldownsSFARC: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.DARK_ASCENSION_TALENT },
-  { talent: TALENTS.HALO_SHADOW_TALENT },
-  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.IMPROVED_VOIDFORM_TALENT },
+  //{ talent: TALENTS.HALO_SHADOW_TALENT },
   { talent: TALENTS.SHADOWFIEND_TALENT },
 ];
 
@@ -114,7 +109,7 @@ const CoreCooldownsGraph = () => {
         <>
           {' '}
           High priority spells like <SpellLink spell={SPELLS.VOID_BOLT} />,{' '}
-          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />, or{' '}
+          <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />, or{' '}
           <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> should be used before this.
         </>
       )}
@@ -150,7 +145,7 @@ const CoreCooldownsGraph = () => {
           <br />
         </>
       )}
-      {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
+      {info!.combatant.hasTalent(TALENTS.VOIDFORM_TALENT) && (
         <>
           <strong>
             {' '}
@@ -167,7 +162,7 @@ const CoreCooldownsGraph = () => {
   if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
     coreCooldown = coreCooldownsVW;
   }
-  if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
+  if (info!.combatant.hasTalent(TALENTS.VOIDFORM_TALENT)) {
     coreCooldown = coreCooldownsVB;
     if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
       coreCooldown = coreCooldownsVWVB;
@@ -230,9 +225,9 @@ const ShortCooldownsGraph = () => {
             <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
           </strong>{' '}
           is a channeled spell that should be used as often as possible with{' '}
-          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on its target. It should be
+          <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> on its target. It should be
           channeled for its full duration
-          {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
+          {info!.combatant.hasTalent(TALENTS.VOIDFORM_TALENT) && (
             <>
               {' '}
               except to cast <SpellLink spell={SPELLS.VOID_BOLT} />
@@ -243,11 +238,10 @@ const ShortCooldownsGraph = () => {
         </>
       )}
 
-      {(info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT) ||
-        info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT)) && (
+      {info!.combatant.hasTalent(TALENTS.TENTACLE_SLAM_TALENT) && (
         <>
           <strong>
-            <SpellLink spell={TALENTS.SHADOW_CRASH_1_SHADOW_TALENT} />
+            <SpellLink spell={TALENTS.TENTACLE_SLAM_TALENT} />
           </strong>{' '}
           is used to apply and refresh <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />. This can be held
           if it would allow you to apply your dots to more targets.

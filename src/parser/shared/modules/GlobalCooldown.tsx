@@ -76,7 +76,10 @@ class GlobalCooldown extends Analyzer {
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    */
   onBeginChannel(event: BeginChannelEvent) {
-    this._currentChannel = event;
+    if (!event.trigger || event.trigger.type !== EventType.Cast) {
+      // if the trigger is a cast event, then the beginchannel event came after the cast event, in which case we don't want to set the current channel to avoid getting false matches in the next `onCast` trigger
+      this._currentChannel = event;
+    }
 
     const spellId = event.ability.guid;
     const isOnGCD = this.isOnGlobalCooldown(spellId);
@@ -106,8 +109,14 @@ class GlobalCooldown extends Analyzer {
     }
     // We can't rely on `this.channeling` here since it will have been executed first so will already have marked the channel as ended. This is annoying since it will be more reliable and work with changes.
     const isChanneling = this._currentChannel;
-    const isChannelingSameSpell =
+    let isChannelingSameSpell =
       isChanneling && this._currentChannel?.ability.guid === event.ability.guid;
+
+    if (!isChannelingSameSpell && event.channel) {
+      // if a cast event has been normalized in the `Channeling` normalizer to trigger a channel, we will handle the gcd in `onBeginChannel`
+      // in these cases the cast event comes before the beginchannel event, so `this._currentChannel` won't be properly set
+      isChannelingSameSpell = event.timestamp === event.channel.beginChannel.timestamp;
+    }
 
     // Reset the current channel prior to returning if `isChannelingSameSpell`, since the player might cast the same ability again and the second `cast` event might be an instant (e.g. channeled Aimed Shot into proc into instant Aimed Shot).
     this._currentChannel = null;
@@ -247,6 +256,20 @@ class GlobalCooldown extends Analyzer {
           ),
         });
       }
+    } else {
+      this.addDebugAnnotation(event.trigger, {
+        summary: `GCD for ${event.trigger?.ability.name}`,
+        color: GoodColor,
+        priority: -Infinity,
+        details: (
+          <div>
+            <dl>
+              <dt>Expected GCD Duration</dt>
+              <dd>{(event.duration / 1000).toFixed(2)}s</dd>
+            </dl>
+          </div>
+        ),
+      });
     }
     this.lastGlobalCooldown = event;
   }
@@ -256,8 +279,8 @@ class GlobalCooldown extends Analyzer {
    */
   static calculateGlobalCooldown(haste: number, baseGcd = 1500, minGcd = 750): number {
     const gcd = baseGcd / (1 + haste);
-    // Global cooldowns can't normally drop below a certain threshold
-    return Math.max(minGcd, gcd);
+    // Global cooldowns can't normally drop below a certain threshold *unless* the baseGcd begins below that
+    return Math.max(Math.min(baseGcd, minGcd), gcd);
   }
 }
 

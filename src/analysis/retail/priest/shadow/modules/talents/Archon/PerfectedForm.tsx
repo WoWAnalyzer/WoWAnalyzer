@@ -12,10 +12,7 @@ import SPELLS from 'common/SPELLS';
 
 import Events, { DamageEvent } from 'parser/core/Events';
 
-import {
-  ARCHON_PERFECTED_FORM_DARK_ASCENSION_MULTIPLIER,
-  ARCHON_PERFECTED_FORM_VOID_FORM_MULTIPLIER,
-} from '../../../constants';
+import { ARCHON_PERFECTED_FORM_VOIDFORM_MULTIPLIER } from '../../../constants';
 
 class PerfectedForm extends Analyzer {
   static dependencies = {
@@ -36,18 +33,11 @@ class PerfectedForm extends Analyzer {
 
   checkAmpDamage(event: DamageEvent) {
     //Damage from Perfected Form
-    //For DA
-    if (this.selectedCombatant.hasBuff(TALENTS.DARK_ASCENSION_TALENT.id)) {
-      this.damagePerfectedForm += calculateEffectiveDamage(
-        event,
-        ARCHON_PERFECTED_FORM_DARK_ASCENSION_MULTIPLIER,
-      );
-    }
     //For VF
     if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       this.damagePerfectedForm += calculateEffectiveDamage(
         event,
-        ARCHON_PERFECTED_FORM_VOID_FORM_MULTIPLIER,
+        ARCHON_PERFECTED_FORM_VOIDFORM_MULTIPLIER,
       );
     }
   }

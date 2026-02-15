@@ -3,19 +3,20 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import {
-  HasStackChange,
-  getManaTeaChannelDuration,
-  getManaTeaStacksConsumed,
-} from '../../normalizers/CastLinkNormalizer';
-import { MANA_TEA_MAX_STACKS } from '../../constants';
+import { HasStackChange } from '../../normalizers/CastLinkNormalizer';
 import Haste from 'parser/shared/modules/Haste';
 
 interface ManaTeaTracker {
@@ -32,10 +33,7 @@ class ManaTea extends Analyzer {
   };
 
   protected haste!: Haste;
-
-  manaRestoredMT = 0;
-  manateaCount = 0;
-  casts: Map<string, number> = new Map<string, number>();
+  castStart = this.owner.fight.start_time;
   castTrackers: ManaTeaTracker[] = [];
   stacksWasted = 0;
   manaRestoredSinceLastApply = 0;
@@ -53,6 +51,19 @@ class ManaTea extends Analyzer {
       this.onApplyBuff,
     );
     this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
+      this.onRemoveStack,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_CAST),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
+      this.onRemoveStack,
+    );
+
+    this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
       this.onStackWaste,
     );
@@ -63,44 +74,49 @@ class ManaTea extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    this.manateaCount += 1; //count the number of mana teas to make an average over teas
+    if (!event?.prepull) {
+      this.castStart = event.timestamp;
+    }
     this.castTrackers.push({
       timestamp: event.timestamp,
-      stacksConsumed: getManaTeaStacksConsumed(event),
-      manaRestored: this.manaRestoredSinceLastApply,
-      channelTime: event?.prepull
-        ? this.estimatedChannelTime(event)
-        : getManaTeaChannelDuration(event),
+      stacksConsumed: 0,
+      manaRestored: 0,
+      channelTime: -1,
     });
     this.manaRestoredSinceLastApply = 0;
   }
 
-  private estimatedChannelTime(event: ApplyBuffEvent): number {
-    const channelTimePerTick =
-      (this.selectedCombatant.hasTalent(TALENTS_MONK.ENERGIZING_BREW_TALENT) ? 0.25 : 0.5) /
-      (1 + this.haste.current);
-    return channelTimePerTick * getManaTeaStacksConsumed(event);
+  onRemoveBuff(event: RemoveBuffEvent) {
+    const tracker = this.castTrackers.at(-1);
+    if (!tracker) {
+      return;
+    }
+    tracker.channelTime = event.timestamp - this.castStart;
+    tracker.manaRestored = this.manaRestoredSinceLastApply;
+    this.castStart = -1;
+  }
+
+  onRemoveStack(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_CAST, event.timestamp, 50)) {
+      this.castTrackers.at(-1)!.stacksConsumed += 1;
+    }
   }
 
   onManaRestored(event: ResourceChangeEvent) {
     this.manaRestoredSinceLastApply += event.resourceChange;
-    this.manaRestoredMT += event.resourceChange;
   }
 
   onStackWaste(event: RefreshBuffEvent) {
-    if (
-      HasStackChange(event) ||
-      this.selectedCombatant.getBuffStacks(SPELLS.MANA_TEA_STACK.id, event.timestamp) <
-        MANA_TEA_MAX_STACKS
-    ) {
-      return;
+    if (!HasStackChange(event)) {
+      this.stacksWasted += 1;
     }
-
-    this.stacksWasted += 1;
   }
 
   get avgManaRestored() {
-    return this.manaRestoredMT / this.manateaCount || 0;
+    if (this.castTrackers.length === 0) {
+      return 0;
+    }
+    return this.totalManaRestored / this.castTrackers.length;
   }
 
   get avgChannelDuration() {
@@ -115,6 +131,10 @@ class ManaTea extends Analyzer {
       }
     });
     return totalDuration / totalValid;
+  }
+
+  get totalManaRestored() {
+    return this.castTrackers.reduce((sum, acc) => sum + acc.manaRestored, 0);
   }
 
   get avgStacks() {
@@ -134,7 +154,7 @@ class ManaTea extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <div>Total mana restored: {formatNumber(this.manaRestoredMT)}</div>
+            <div>Total mana restored: {formatNumber(this.totalManaRestored)}</div>
             <div>
               Average <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> stacks:{' '}
               {this.avgStacks.toFixed(1)}
@@ -146,7 +166,7 @@ class ManaTea extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
           <div>
-            <ItemManaGained amount={this.manaRestoredMT} useAbbrev customLabel="mana" />
+            <ItemManaGained amount={this.totalManaRestored} useAbbrev customLabel="mana" />
           </div>
           <div></div>
           <div>

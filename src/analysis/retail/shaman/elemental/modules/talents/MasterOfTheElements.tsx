@@ -27,10 +27,6 @@ const MasterOfTheElementsTable = styled.table`
 `;
 
 const MASTER_OF_THE_ELEMENTS_CONFIG: Record<string, MasterOfTheElementsSpellConfig> = {
-  ICEFURY: {
-    castSpell: SPELLS.ICEFURY_CAST,
-    condition: (c) => c.hasTalent(TALENTS.ICEFURY_TALENT),
-  },
   FROST_SHOCK: {
     castSpell: TALENTS.FROST_SHOCK_TALENT,
     condition: (c) => c.hasTalent(TALENTS.FROST_SHOCK_TALENT),
@@ -45,8 +41,8 @@ const MASTER_OF_THE_ELEMENTS_CONFIG: Record<string, MasterOfTheElementsSpellConf
     castSpell: SPELLS.TEMPEST_CAST,
   },
   ELEMENTAL_BLAST: {
-    castSpell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-    condition: (c) => c.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
+    castSpell: TALENTS.ELEMENTAL_BLAST_TALENT,
+    condition: (c) => c.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT),
   },
   EARTH_SHOCK: {
     castSpell: TALENTS.EARTH_SHOCK_TALENT,
@@ -68,7 +64,7 @@ class MasterOfTheElements extends Analyzer {
     super(options);
     this.active =
       !isMythicPlus(this.owner.fight) &&
-      this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT);
     if (!this.active) {
       return;
     }
@@ -103,7 +99,7 @@ class MasterOfTheElements extends Analyzer {
       addAdditionalCastInformation(
         event,
         <>
-          Cast was buffed by <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+          Cast was buffed by <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />
         </>,
       );
     }
@@ -116,7 +112,7 @@ class MasterOfTheElements extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
+        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
           <MasterOfTheElementsTable>
             <table className="table table-condensed">
               <thead>

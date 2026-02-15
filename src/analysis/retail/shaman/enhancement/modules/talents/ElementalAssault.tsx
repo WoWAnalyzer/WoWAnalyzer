@@ -18,43 +18,30 @@ import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisti
 import { SpellLink } from 'interface';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
-import { TalentRankTooltip } from 'parser/ui/TalentSpellText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { MAELSTROM_WEAPON_SOURCE } from '../normalizers/constants';
 import typedKeys from 'common/typedKeys';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
-const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
-  1: 0.1,
-  2: 0.2,
-};
+const STORMSTRIKE_DAMAGE_INCREASE = 0.2;
 
 const BAR_COLORS: Record<number, string> = {
-  [SPELLS.STORMSTRIKE_CAST.id]: '#3b7fb0',
+  [SPELLS.STORMSTRIKE.id]: '#3b7fb0',
   [TALENTS.LAVA_LASH_TALENT.id]: '#f37735',
-  [TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id]: '#94d3ec',
-  [TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id]: '#94d3ec',
   [-1]: '#532121', // wasted
 };
 
 /**
- * Stormstrike damage is increased by [10/20]%, and Stormstrike, Lava Lash, and Ice Strike
- * have a [50/100]% chance to generate 1 stack of Maelstrom Weapon.
+ * Stormstrike damage is increased by 20%, and Stormstrike and Lava Lash have a 100% chance to generate 1 stack of Maelstrom Weapon.
  *
  * Example Log:
  *
  */
-class ElementalAssault extends Analyzer {
-  static dependencies = {
-    maelstromTracker: MaelstromWeaponTracker,
-    abilityTracker: AbilityTracker,
-  };
-  protected maelstromTracker!: MaelstromWeaponTracker;
-  protected abilityTracker!: AbilityTracker;
-
-  protected damageIncrease = 0;
+class ElementalAssault extends Analyzer.withDependencies({
+  maelstromTracker: MaelstromWeaponTracker,
+  abilityTracker: AbilityTracker,
+}) {
   protected damageGained = 0;
-  protected talentRanks = 0;
 
   protected elementalAssaultGenerators: Record<number, { generated: number; wasted: number }> = {};
 
@@ -66,9 +53,6 @@ class ElementalAssault extends Analyzer {
     if (!this.active) {
       return;
     }
-
-    this.talentRanks = this.selectedCombatant.getTalentRank(TALENTS.ELEMENTAL_ASSAULT_TALENT);
-    this.damageIncrease = ELEMENTAL_ASSAULT_RANKS[this.talentRanks];
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
@@ -88,9 +72,7 @@ class ElementalAssault extends Analyzer {
     );
     if (cast) {
       const spellId =
-        cast.ability.guid === SPELLS.WINDSTRIKE_CAST.id
-          ? SPELLS.STORMSTRIKE_CAST.id
-          : cast.ability.guid;
+        cast.ability.guid === SPELLS.WINDSTRIKE_CAST.id ? SPELLS.STORMSTRIKE.id : cast.ability.guid;
       if (!this.elementalAssaultGenerators[spellId]) {
         this.elementalAssaultGenerators[spellId] = { generated: 0, wasted: 0 };
       }
@@ -100,7 +82,7 @@ class ElementalAssault extends Analyzer {
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
-    this.damageGained += calculateEffectiveDamage(event, this.damageIncrease);
+    this.damageGained += calculateEffectiveDamage(event, STORMSTRIKE_DAMAGE_INCREASE);
   }
 
   get maelstromWeaponGained() {
@@ -137,17 +119,9 @@ class ElementalAssault extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink spell={TALENTS.ELEMENTAL_ASSAULT_TALENT} />
-            <TalentRankTooltip rank={this.talentRanks} maxRanks={2} /> -{' '}
+            <SpellLink spell={TALENTS.ELEMENTAL_ASSAULT_TALENT} /> -{' '}
             <ItemDamageDone amount={this.damageGained} />
           </>
-        }
-        footer={
-          this.talentRanks === 2 && (
-            <>
-              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> per point: {totalMaelstrom / 2}
-            </>
-          )
         }
         smallFooter
         position={STATISTIC_ORDER.DEFAULT}

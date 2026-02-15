@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import Fight from 'parser/core/Fight';
+import type { FormEvent, MouseEvent } from 'react';
 import { useEffect, useState } from 'react';
-import * as React from 'react';
 
 import TimeInput from './TimeInput';
 import styled from '@emotion/styled';
@@ -51,14 +51,14 @@ const TimeFilter = (props: Props) => {
   const [max, setMax] = useState<number>(0);
 
   // reset time filters when the fight changes. again, eslint not happy about this.
-  /* eslint-disable @eslint-react/hooks-extra/no-direct-set-state-in-use-effect */
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const boundary = generateBoundary(props.fight);
     setStart(boundary.start);
     setEnd(boundary.end);
     setMax(boundary.max);
   }, [props.fight]);
-  /* eslint-enable @eslint-react/hooks-extra/no-direct-set-state-in-use-effect */
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const selectStart = (start: number) => {
     setStart(start);
@@ -68,12 +68,12 @@ const TimeFilter = (props: Props) => {
     setEnd(end);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.applyFilter(start, end);
   };
 
-  const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleReset = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.applyFilter(0, max);
   };

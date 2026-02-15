@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import GameBranch from 'game/GameBranch';
 import CoreCooldownThroughputTracker, {
@@ -35,7 +34,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT.id,
+      spell: TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

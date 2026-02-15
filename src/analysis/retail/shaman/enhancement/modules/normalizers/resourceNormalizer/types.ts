@@ -33,9 +33,8 @@ export type SearchFunctions = Record<
 
 /** The specification of an ability that generates maelstrom weapon stacks
  * at a set frequency but unrelated to other combatlog events.
- * Currently the only two sources are:
- * - Feral Spirit: Generates 1 maelstrom weapon stack every 3 seconds
- * - Ascendance with the Static Accumulation talent: Generates 1/2 stacks per second (depending on talent rank)
+ * Currently the only source is:
+ * - Static Accumulation talent: Generates 1/2 stacks per second (depending on talent rank) when Ascendance/Doom Winds is active.
  */
 export interface PeriodicGainEffect {
   /** spell id of the initial ability that starts this periodic gain effect */

@@ -37,6 +37,7 @@ import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePer
 import SpellLink from 'interface/SpellLink';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { Talent } from 'common/TALENTS/types';
 
 export interface CastInfo {
   cancelled: boolean;
@@ -70,28 +71,41 @@ class CelestialConduit extends Analyzer {
   damageIncreaseDataPoints: number[] = [];
   castInfoList: CastInfo[] = [];
 
+  protected readonly currentSpell: Talent | undefined;
+
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT,
-    );
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT)) {
+      this.currentSpell = TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT)) {
+      this.currentSpell = TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT;
+    }
+    //CONDUIT_2_ is the spellId for the cast/channel buff for mw and ww
+    //CONDUIT_1 is the WW specific buff for when Conduit is available to cast
+    this.active = this.currentSpell !== undefined;
 
     this.addEventListener(
       Events.applybuff
         .by(SELECTED_PLAYER)
-        .spell(TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT),
+        .spell([
+          TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT,
+          TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT,
+        ]),
       this.onChannelStart,
     );
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(
-        TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT,
-      ),
+      Events.EndChannel.by(SELECTED_PLAYER).spell([
+        TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT,
+        TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT,
+      ]),
       this.onChannelEnd,
     );
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(
-        TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT,
-      ),
+      Events.EndChannel.by(SELECTED_PLAYER).spell([
+        TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT,
+        TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT,
+      ]),
       this.onUnityWithin,
     );
 
@@ -286,15 +300,19 @@ class CelestialConduit extends Analyzer {
   }
 
   get guideCastBreakdown() {
+    const currentSpell = this.currentSpell;
+    if (!currentSpell) {
+      return null;
+    }
+
     const explanationPercent = 47.5;
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT} />
+          <SpellLink spell={currentSpell} />
         </strong>
         <br />
-        Before casting <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT} />,
-        make sure that all spells reduced by{' '}
+        Before casting <SpellLink spell={currentSpell} />, make sure that all spells reduced by{' '}
         <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> are on cooldown so that
         the extra CDR granted when casting <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is
         not wasted. Additionally, make sure to never cancel the spell and to hit at least 5 targets
@@ -310,7 +328,7 @@ class CelestialConduit extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT} />
+              <SpellLink spell={currentSpell} />
             </>
           );
           const analysis = this.getChecklistForCast(cast);
@@ -343,7 +361,7 @@ class CelestialConduit extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.CELESTIAL_CONDUIT_1_WINDWALKER_TALENT}>
+        <TalentSpellText talent={this.currentSpell!}>
           <ItemDamageDone amount={this.damage} />
           <div></div>
           <ItemHealingDone amount={this.healing} />

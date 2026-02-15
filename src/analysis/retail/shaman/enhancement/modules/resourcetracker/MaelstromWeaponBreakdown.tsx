@@ -7,13 +7,6 @@ class MaelstromWeaponBreakdown extends ResourceBreakdown {
     return Object.keys(tracker.buildersObj)
       .map((abilityId) => {
         const spellId = Number(abilityId);
-        const extraDetail =
-          spellId === TALENTS.STATIC_ACCUMULATION_TALENT.id
-            ? ' (refund)'
-            : spellId === TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id
-              ? ' (passive)'
-              : undefined;
-
         return {
           abilityId:
             spellId === TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id
@@ -21,7 +14,6 @@ class MaelstromWeaponBreakdown extends ResourceBreakdown {
               : spellId,
           generated: tracker.buildersObj[Number(abilityId)].generated * scaleFactor,
           wasted: tracker.buildersObj[Number(abilityId)].wasted * scaleFactor,
-          extraDetail: extraDetail,
         };
       })
       .sort((a, b) => b.generated - a.generated)

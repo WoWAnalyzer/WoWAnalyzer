@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
-import * as React from 'react';
+import type { ReactElement } from 'react';
 import TALENTS from 'common/TALENTS/rogue';
 
 import RollTheBonesCastTracker, {
@@ -17,7 +17,7 @@ export interface RTBSuggestion {
   label: string;
   pass: number;
   total: number;
-  extraSuggestion: React.ReactElement;
+  extraSuggestion: ReactElement;
   suggestionThresholds: NumberThreshold;
 }
 

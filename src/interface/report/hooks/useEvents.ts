@@ -15,7 +15,7 @@ const useEvents = ({
 }: {
   report: Report;
   fight: WCLFight;
-  player: PlayerInfo;
+  player: Pick<PlayerInfo, 'id'>;
 }) => {
   const [events, setEvents] = useState<AnyEvent[] | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(fight.start_time);

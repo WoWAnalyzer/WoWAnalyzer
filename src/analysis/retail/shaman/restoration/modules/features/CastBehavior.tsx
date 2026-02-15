@@ -18,7 +18,7 @@ class CastBehavior extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TIDAL_WAVES_TALENT);
+    this.active = false;
   }
 
   protected abilityTracker!: RestorationAbilityTracker;

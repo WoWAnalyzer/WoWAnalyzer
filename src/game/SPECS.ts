@@ -426,7 +426,7 @@ const SPECS = {
       message: `Beast Mastery`,
     }),
     wclClassName: 'Hunter',
-    wclSpecName: 'Beast Mastery',
+    wclSpecName: 'BeastMastery',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76657,

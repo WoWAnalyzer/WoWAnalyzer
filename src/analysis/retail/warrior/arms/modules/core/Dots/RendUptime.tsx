@@ -37,7 +37,7 @@ class RendUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.REND_ARMS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REND_TALENT);
   }
 
   subStatistic() {
@@ -45,7 +45,7 @@ class RendUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon spell={TALENTS.REND_ARMS_TALENT} />
+          <SpellIcon spell={TALENTS.REND_TALENT} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

@@ -9,7 +9,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id,
+      spell: TALENTS_HUNTER.TAKEDOWN_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },

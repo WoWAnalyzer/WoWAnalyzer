@@ -14,27 +14,26 @@ class EmptyCombatLogParser extends CombatLogParser {
 }
 const fakeConfig = {};
 const fakeReport = {
-  friendlies: [],
+  friendlies: [{ id: 1 }],
   friendlyPets: [],
   enemies: [],
 };
 const fakePlayer = {
   id: 1,
+  specID: 62,
 };
 const fakeFight = {};
-const fakeCombatants = [
-  {
-    sourceID: 1,
-    specID: 62,
-    auras: [],
-    talents: [],
-    artifact: [],
-    gear: [],
-    player: {
-      type: 'Warlock',
-    },
+const fakeCombatants = {
+  sourceID: 1,
+  specID: 62,
+  auras: [],
+  talents: [],
+  artifact: [],
+  gear: [],
+  player: {
+    type: 'Warlock',
   },
-];
+};
 
 // This uses `_modules` on the CombatLogParser. I know I shouldn't test private properties! But using the modules property directly throws a deprecation warning for now, and this is probably only temporary. So this is only a temp fix. (lol who am I kidding)
 
@@ -348,6 +347,8 @@ describe('Core/CombatLogParser', () => {
         fakePlayer,
         fakeFight,
         fakeCombatants,
+        null,
+        [fakePlayer],
       );
       expect(Object.keys(parser._modules).length).toBeGreaterThan(0);
     });

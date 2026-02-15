@@ -8,7 +8,6 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
-import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/DemonicExplanation';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, {
   CooldownTrigger,
@@ -58,7 +57,6 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
           is a large burst of damage and healing.
         </section>
         <section>
-          <DemonicExplanation lineBreak />
           <VulnerabilityExplanation lineBreak numberOfFrailtyStacks={PERFECT_FRAILTY_STACKS} />
           <FieryDemiseExplanation includeDownInFlames lineBreak />
         </section>

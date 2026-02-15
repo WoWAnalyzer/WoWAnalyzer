@@ -15,7 +15,7 @@ class MindsEye extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.MINDS_EYE_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
       this.onDevouringPlague,
     );
   }

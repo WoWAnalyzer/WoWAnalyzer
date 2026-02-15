@@ -1,37 +1,26 @@
 import {
   AnkhNormalizer,
   AstralShift,
-  ElementalBlast,
+  FlameShock,
   StaticCharge,
 } from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import FlameShock from './modules/spells/FlameShock';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
 import HotHand from './modules/talents/HotHand';
 import SpiritWolf from 'analysis/retail/shaman/shared/talents/SpiritWolf';
 import EarthShield from 'analysis/retail/shaman/shared/talents/EarthShield';
-import Hailstorm from './modules/talents/Hailstorm';
-import FireNova from './modules/talents/FireNova';
-import NaturesGuardian from './modules/talents/NaturesGuardian';
-import Sundering from './modules/talents/Sundering';
-import ElementalSpirits from './modules/talents/ElementalSpirits';
+import NaturesGuardian from '../shared/talents/NaturesGuardian';
 import ElementalAssault from './modules/talents/ElementalAssault';
 import Stormsurge from './modules/spells/Stormsurge';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
-import AplCheck from './modules/apl/AplCheck';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import Guide from './Guide';
-import StormBlast from './modules/talents/Stormblast';
-import TempestStrikes from './modules/talents/TempestStrikes';
-import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
-import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
 import { EventOrderNormalizer } from './modules/normalizers/EventOrderNormalizer';
 import SpellUsable from './modules/core/SpellUsable';
 import ManaSpring from '../shared/talents/ManaSpring';
@@ -41,9 +30,8 @@ import ThorimsInvocation from './modules/talents/ThorimsInvocation';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Ascendance from './modules/talents/Ascendance';
-import SplinteredElements from './modules/talents/SplinteredElements';
-import SwirlingMaelstrom from './modules/talents/SwirlingMaelstrom';
+import DoomWinds from './modules/talents/DoomWinds';
+import ElementalTempo from './modules/talents/ElementalTempo';
 import MaelstromWeaponResourceNormalizer from './modules/normalizers/MaelstromWeaponResourceNormalizer';
 import {
   MaelstromWeaponDetails,
@@ -51,17 +39,12 @@ import {
   MaelstromWeaponSpenders,
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
-import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
-import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
-import StaticAccumulation from './modules/talents/StaticAccumulation';
-import Tempest from '../shared/hero/stormbringer/Tempest';
-import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
-import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
-import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
-import ElementalSpiritsPrepullNormalizer from './modules/normalizers/ElementalSpiritsPrepullNormalizer';
+import EnhancementRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
+import StaticAccumulation from './modules/talents/ThunderCapacitor';
 import PrimordialStorm from './modules/talents/PrimordialStorm';
-import Reactivity from './modules/hero/totemic/Reactivity';
+import Earthsurge from './modules/hero/totemic/Earthsurge';
 import EnchantChecker from './modules/core/EnchantChecker';
+import StormUnleashed from './modules/talents/StormUnleashed';
 
 class CombatLogParser extends CoreCombatLogParser {
   static defaultModules = {
@@ -101,46 +84,28 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
 
     // Enhancement Core Talents
-    ascendance: Ascendance,
-    forcefulWinds: ForcefulWinds,
-    elementalBlast: ElementalBlast,
-    elementalBlastGuide: ElementalBlastGuide,
+    doomWinds: DoomWinds,
     stormflurry: Stormflurry,
-    tempestStrikes: TempestStrikes,
     hotHand: HotHand,
+    elementalTempo: ElementalTempo,
     elementalAssault: ElementalAssault,
-    stormBlast: StormBlast,
-    hailstorm: Hailstorm,
-    fireNova: FireNova,
-    sundering: Sundering,
-    elementalSpirits: ElementalSpirits,
-    witchDoctorsAncestry: WitchDoctorsAncestry,
     feralSpirit: FeralSpirit,
     stormbringer: Stormsurge,
-    legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,
-    splinteredElements: SplinteredElements,
-    swirlingMaelstrom: SwirlingMaelstrom,
     staticAccumulation: StaticAccumulation,
     primordialStorm: PrimordialStorm,
+    stormUnleashed: StormUnleashed,
 
     // hero talents
-    stormbringerTab: StormbringerTab,
-    tempest: Tempest,
-    stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
-    stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
-    reactivity: Reactivity,
+    reactivity: Earthsurge,
 
     // Normalizers
-    maestromRefreshBuffNormalizer: MaestromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack
+    maestromRefreshBuffNormalizer: EnhancementRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack
     eventOrderNormalizer: EventOrderNormalizer, // correct events occur out of order
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer, // links
     eventLinkNormalizer: EventLinkNormalizer, // links various maelstrom casts to damage events, and spells made instant via maelstrom weapon
     maelstromWeaponResourceNormalizer: MaelstromWeaponResourceNormalizer, // converts maelstrom weapon buff stacks into resourchange events and ClassResource costs
-    elementalSpiritsPrepullNormalizer: ElementalSpiritsPrepullNormalizer,
-
-    aplCheck: AplCheck,
   };
 
   static guide = Guide;

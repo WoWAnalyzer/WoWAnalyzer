@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import ArmoryIcon from 'interface/icons/Armory';
 import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
 import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
-import Combatant from 'parser/core/Combatant';
+import { FullCombatant } from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ import PlayerInfo from './PlayerInfo';
 import GameBranch from 'game/GameBranch';
 
 interface Props {
-  combatant: Combatant;
+  combatant: FullCombatant;
   statTracker: StatTracker;
 }
 const CharacterTab = (props: Props) => {

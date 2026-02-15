@@ -16,9 +16,7 @@ class Recklessness extends Analyzer.withDependencies({
   constructor(options: Options) {
     super(options);
 
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }

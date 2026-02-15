@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
@@ -20,7 +21,7 @@ class VoidVolley extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VOID_TORRENT_TALENT),
       this.onCast,
@@ -58,7 +59,7 @@ class VoidVolley extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={TALENTS.VOID_VOLLEY_TALENT}>
+        <BoringSpellValueText spell={TALENTS.VOIDFORM_TALENT}>
           <>
             <div>
               {formatNumber(this.castVoidVolley)}/{formatNumber(this.castVoidTorrent)}{' '}
@@ -90,7 +91,7 @@ class VoidVolley extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS.VOID_VOLLEY_TALENT} />
+          <SpellLink spell={TALENTS.VOIDFORM_TALENT} />
         </b>{' '}
         can be cast once after casting <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />.
         <br />

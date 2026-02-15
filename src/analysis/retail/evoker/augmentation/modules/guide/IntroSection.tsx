@@ -16,9 +16,8 @@ export function IntroSection() {
         , <a href="https://www.icy-veins.com/wow/augmentation-evoker-buffs">Icy-Veins</a>
       </p>
       <p>
-        The analyzer is currently in early development and will be updated regularly. If you have
-        any suggestions, corrections, complaints, or want to help, I'm happy to talk over at{' '}
-        <code>#augmentation</code> in the{' '}
+        If you have any suggestions, corrections, complaints, or want to help, we're happy to talk
+        over at <code>#augmentation</code> in the{' '}
         <a href="https://discord.com/invite/evoker">Evoker Discord</a>.
       </p>
     </Section>

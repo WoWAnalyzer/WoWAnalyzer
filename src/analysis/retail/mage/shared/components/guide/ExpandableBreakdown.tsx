@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 
 export interface ExpandableConfig {

@@ -23,10 +23,7 @@ class Buffs extends CoreAuras {
 
       {
         spellId: SPELLS.ENRAGE.id,
-        enabled:
-          hasTalent(TALENTS.RAMPAGE_TALENT) ||
-          hasTalent(TALENTS.BLOODTHIRST_TALENT) ||
-          hasTalent(TALENTS.ONSLAUGHT_TALENT),
+        enabled: hasTalent(TALENTS.RAMPAGE_TALENT) || hasTalent(TALENTS.BLOODTHIRST_TALENT),
         timelineHighlight: true,
         triggeredBySpellId: [SPELLS.RAMPAGE.id, SPELLS.BLOODTHIRST.id, SPELLS.ONSLAUGHT.id],
       },
@@ -38,20 +35,15 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.RECKLESSNESS.id,
-        enabled:
-          hasTalent(TALENTS.RECKLESSNESS_TALENT) || hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT),
+        enabled: hasTalent(TALENTS.RECKLESSNESS_TALENT),
         timelineHighlight: true,
-        triggeredBySpellId: hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT)
-          ? [SPELLS.AVATAR_SHARED.id, SPELLS.RECKLESSNESS.id]
-          : [SPELLS.RECKLESSNESS.id],
+        triggeredBySpellId: [SPELLS.RECKLESSNESS.id],
       },
       {
         spellId: SPELLS.AVATAR_SHARED.id,
         enabled: hasTalent(TALENTS.AVATAR_TALENT),
         timelineHighlight: true,
-        triggeredBySpellId: hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT)
-          ? [SPELLS.RECKLESSNESS.id, SPELLS.AVATAR_SHARED.id]
-          : [SPELLS.AVATAR_SHARED.id],
+        triggeredBySpellId: [SPELLS.AVATAR_SHARED.id],
       },
     ] satisfies SpellbookAura[];
   }

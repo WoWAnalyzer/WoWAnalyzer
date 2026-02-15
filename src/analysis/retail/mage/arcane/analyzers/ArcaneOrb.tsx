@@ -3,13 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, {
-  CastEvent,
-  DamageEvent,
-  EventType,
-  GetRelatedEvents,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -32,19 +26,16 @@ export default class ArcaneOrb extends Analyzer {
 
   onOrbCast(event: CastEvent) {
     const damageEvents: DamageEvent[] = GetRelatedEvents(event, EventType.Damage);
-    const energize: ResourceChangeEvent[] = GetRelatedEvents(event, EventType.ResourceChange);
 
     this.orbData.push({
       timestamp: event.timestamp,
       targetsHit: damageEvents.length || 0,
-      chargesBefore: this.getChargesBefore(energize, event),
+      chargesBefore: this.arcaneChargeTracker.current,
+      clearcasting: this.selectedCombatant.hasBuff(
+        SPELLS.CLEARCASTING_ARCANE,
+        event.timestamp - 10,
+      ),
     });
-  }
-
-  private getChargesBefore(energize: ResourceChangeEvent[], event: CastEvent): number {
-    const chargeGained =
-      energize && energize.filter((e) => e.timestamp < event.timestamp).length > 0 ? 1 : 0;
-    return this.arcaneChargeTracker.current - chargeGained;
   }
 
   get missedOrbs() {
@@ -101,4 +92,5 @@ export interface ArcaneOrbData {
   timestamp: number;
   targetsHit: number;
   chargesBefore: number;
+  clearcasting: boolean;
 }

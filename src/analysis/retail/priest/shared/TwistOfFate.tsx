@@ -12,7 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import { DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../discipline/constants';
+//import { DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../discipline/constants';
 // The holy abilities can be imported once their talents are complete
 // import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../holy/constants'
 
@@ -48,11 +48,11 @@ class TwistOfFate extends Analyzer {
   }
 
   parseHeal(event: HealEvent | AbsorbedEvent) {
-    const spellId = event.ability.guid;
+    //const spellId = event.ability.guid;
     // TODO : Holy abilities need to go here
-    if (!DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
+    /*if (!DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
-    }
+    } */
     if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
       return;
     }

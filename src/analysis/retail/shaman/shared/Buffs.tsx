@@ -22,11 +22,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: [SPELLS.STONE_BULWARK_CAST_BUFF.id, SPELLS.STONE_BULWARK_PULSE_BUFF.id],
-        triggeredBySpellId: TALENTS.STONE_BULWARK_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.STONE_BULWARK_TOTEM_TALENT),
-      },
-      {
         spellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT),
       },

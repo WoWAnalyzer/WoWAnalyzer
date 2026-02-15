@@ -23,12 +23,8 @@ class AngerManagement extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  cooldownsAffected = [
-    this.selectedCombatant.hasTalent(TALENTS.WARBREAKER_TALENT)
-      ? TALENTS.WARBREAKER_TALENT.id
-      : SPELLS.COLOSSUS_SMASH.id,
-    SPELLS.BLADESTORM.id,
-  ];
+  cooldownsAffected = [SPELLS.COLOSSUS_SMASH.id, SPELLS.AVATAR_SHARED.id];
+
   totalRageSpend = 0;
   wastedReduction: Map<number, number> = new Map<number, number>();
   effectiveReduction: Map<number, number> = new Map<number, number>();

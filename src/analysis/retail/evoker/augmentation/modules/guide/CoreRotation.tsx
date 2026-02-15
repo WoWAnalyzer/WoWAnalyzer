@@ -17,25 +17,18 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
   return (
     <Section title="Core Rotation">
       <p>
-        Augmentations core rotation revolves around proper upkeep of your buffs:{' '}
+        Augmentation's core rotation revolves around proper upkeep of your buffs:{' '}
         <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} />,{' '}
         <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} />,{' '}
         <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />, and{' '}
-        <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />. While using your empowers:{' '}
-        <SpellLink spell={SPELLS.FIRE_BREATH} /> and <SpellLink spell={SPELLS.UPHEAVAL} /> on
-        cooldown, along with spending essence on{' '}
+        <SpellLink spell={TALENTS_EVOKER.DUPLICATE_1_AUGMENTATION_TALENT} />. While using your
+        empowers: <SpellLink spell={SPELLS.FIRE_BREATH} /> and <SpellLink spell={SPELLS.UPHEAVAL} />{' '}
+        on cooldown, along with spending essence on{' '}
         <SpellLink spell={TALENTS_EVOKER.ERUPTION_TALENT} />; using{' '}
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> to fill in the gaps.
         <br />
         Your main cooldown, <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />, should be
-        used alongside your other DPS players' major cooldowns, since it amplifies their damage.{' '}
-        {info.combatant.hasTalent(TALENTS_EVOKER.WINGLEADER_TALENT)
-          ? 'As Scalecommander, it should instead be used as often as possible where mobs will survive the full duration.'
-          : ''}
-        <br />
-        Using <SpellLink spell={TALENTS_EVOKER.TIME_SKIP_TALENT} /> on every other{' '}
-        <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} /> to further amplify the burst
-        window.
+        used when enemies will survive its full duration, favouring high damage phases.
       </p>
 
       <HideExplanationsToggle id="hide-explanations-rotations" />
@@ -44,9 +37,10 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
       <EssenceGraphSection modules={modules} events={events} info={info} />
 
       <SubSection title="Buff Graph">
-        This graph shows how many Ebon Mights and Presciences you had active over the course of the
-        encounter, with rule lines showing when you used Breath of Eon. Use this to ensure that you
-        are properly upkeeping your buffs.
+        This graph shows your uptime of <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_EVOKER.DUPLICATE_1_AUGMENTATION_TALENT} />, as well as how many{' '}
+        <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} /> buffs you had active over the course
+        of the encounter. Use this to ensure that you are properly upkeeping your buffs.
         {modules.buffTrackerGraph.plot}
       </SubSection>
 

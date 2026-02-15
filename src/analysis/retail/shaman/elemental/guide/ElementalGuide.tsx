@@ -1,9 +1,10 @@
 import { GuideProps, Section } from 'interface/guide';
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import CombatLogParser from '../CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { FlameShockSubSection } from './FlameShockSubSection';
-import Cooldowns from 'analysis/retail/shaman/elemental/guide/Cooldowns';
+import Cooldowns, {
+  ElementalCooldownGraphs,
+} from 'analysis/retail/shaman/elemental/guide/Cooldowns';
 import DefensiveAndUtility from '../../shared/guide/DefensiveAndUtility';
 
 const PrefaceSection = () => {
@@ -43,16 +44,12 @@ const ResourcesSection = (props: GuideProps<typeof CombatLogParser>) => {
 const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
   const { info, modules } = props;
   return (
-    <Section title="Core Abilities">
-      {info.combatant.hasTalent(TALENTS_SHAMAN.STORMKEEPER_TALENT) &&
-        modules.stormkeeper.guideSubsection()}
+    <>
       {info.combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT) &&
-        modules.callOfTheAncestors.guideSubsection()}
-      {modules.maelstromSpenders.guideSubsection()}
-      {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
-      {modules.fusionOfElements && modules.fusionOfElements.guideSubsection()}
-      <FlameShockSubSection {...props} />
-    </Section>
+        modules.callOfTheAncestors.guideSubsection}
+      {modules.maelstromSpenders.guideSubsection}
+      {modules.flameShock.guideSubsection}
+    </>
   );
 };
 
@@ -64,10 +61,11 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
   return (
     <>
       <PrefaceSection />
-      <Section title="Cooldowns">
+      <Section title="Guide">
         <Cooldowns {...props} />
+        <CoreSection {...props} />
+        <ElementalCooldownGraphs />
       </Section>
-      <CoreSection {...props} />
       <ResourcesSection {...props} />
       <DefensiveAndUtility />
       <PreparationSection />

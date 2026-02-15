@@ -15,7 +15,7 @@ class TipOfTheSpearNormalizer extends EventsNormalizer {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event) => {
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
-        (event as Event<any>).type = 'tick';
+        (event as Event<EventType>).type = EventType.Tick;
         event.__modified = true;
       }
       fixedEvents.push(event);

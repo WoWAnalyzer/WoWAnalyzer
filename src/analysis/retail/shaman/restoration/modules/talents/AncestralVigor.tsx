@@ -45,7 +45,7 @@ class AncestralVigor extends Analyzer {
 
   // recursively fetch events until no nextPageTimestamp is returned
   fetchAll(pathname: string, query: WclOptions) {
-    const checkAndFetch: any = async (_query: WclOptions) => {
+    const checkAndFetch = async (_query: WclOptions) => {
       const json = (await fetchWcl(pathname, _query)) as WCLEventsResponse;
       const events = json.events as DamageEvent[];
       this.lifeSavingEvents.push(...events);

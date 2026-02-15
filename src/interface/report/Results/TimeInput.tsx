@@ -1,5 +1,5 @@
+import type { ChangeEvent } from 'react';
 import { useEffect, useReducer, useRef, useState } from 'react';
-import * as React from 'react';
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
@@ -53,7 +53,7 @@ const TimeInput = (props: Props) => {
     submitChange(time);
   };
 
-  const handleChangeM = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeM = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value) || 0;
     if (val > 99) {
       forceUpdate();
@@ -62,7 +62,7 @@ const TimeInput = (props: Props) => {
     changeTime(MINUTE * val + SECOND * seconds + milliseconds);
   };
 
-  const handleChangeS = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeS = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value) || 0;
     if (val > 99) {
       forceUpdate();
@@ -71,7 +71,7 @@ const TimeInput = (props: Props) => {
     changeTime(MINUTE * minutes + SECOND * val + milliseconds);
   };
 
-  const handleChangeMs = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMs = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value) || 0;
     if (val > 999) {
       forceUpdate();

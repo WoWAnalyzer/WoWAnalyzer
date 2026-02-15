@@ -19,15 +19,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ONSLAUGHT.id,
-        enabled: combatant.hasTalent(TALENTS.ONSLAUGHT_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 18 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: [SPELLS.RAGING_BLOW.id, SPELLS.CRUSHING_BLOW.id],
         enabled: combatant.hasTalent(TALENTS.RAGING_BLOW_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -92,7 +83,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.THUNDER_CLAP.id,
         enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_TALENT),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 6,
+        cooldown: (haste: number) => 6 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.THUNDER_BLAST.id,
+        enabled: combatant.hasTalent(TALENTS.THUNDER_BLAST_TALENT),
+        category: SPELL_CATEGORY.OTHERS,
+        cooldown: (haste: number) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -100,9 +100,7 @@ class Abilities extends CoreAbilities {
       // Cooldown
       {
         spell: SPELLS.RECKLESSNESS.id,
-        enabled:
-          combatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
-          combatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT),
+        enabled: combatant.hasTalent(TALENTS.RECKLESSNESS_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
@@ -146,20 +144,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 45 : 0),
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MAJOR,
@@ -215,14 +199,6 @@ class Abilities extends CoreAbilities {
           importance: ISSUE_IMPORTANCE.MINOR,
           extraSuggestion: 'Use it to reduce damage taken for a short period.',
         },
-      },
-      {
-        spell: TALENTS.BITTER_IMMUNITY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.BITTER_IMMUNITY_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: TALENTS.BITTER_IMMUNITY_TALENT.id,
-        cooldown: 3 * 60,
-        gcd: null,
       },
       {
         spell: SPELLS.RALLYING_CRY.id,
@@ -291,9 +267,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PUMMEL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          (15 - (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0)) *
-          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
+        cooldown: 15 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         gcd: null,
       },
       {

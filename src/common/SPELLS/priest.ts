@@ -889,16 +889,10 @@ const spells = {
 
   // Shadow items:
 
-  SHADOW_CRASH_TALENT_DAMAGE_ONE: {
-    id: 205386,
-    name: 'Shadow Crash',
-    icon: 'spell_shadow_shadowfury',
-  },
-
-  SHADOW_CRASH_TALENT_DAMAGE_TWO: {
-    id: 465522,
-    name: 'Shadow Crash',
-    icon: 'spell_shadow_shadowfury',
+  TENTACLE_SLAM_TALENT_DAMAGE: {
+    id: 205386, //TODO: find damage id
+    name: 'Tentacle Slam',
+    icon: 'inv12_ability_priest_tentacleslam',
   },
 
   INESCAPABLE_TORMENT_TALENT_DAMAGE: {
@@ -977,6 +971,12 @@ const spells = {
     id: 199486,
     name: 'Psychich Link',
     icon: 'ability_priest_psychiclink',
+  },
+
+  DISPERSION: {
+    id: 47585,
+    name: 'Dispersion',
+    icon: 'spell_shadow_dispersion',
   },
 
   //Shadow Archon

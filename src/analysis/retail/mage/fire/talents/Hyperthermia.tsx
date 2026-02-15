@@ -13,7 +13,7 @@ class Hyperthermia extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HYPERTHERMIA_BUFF),
       this.onHyperthermiaApply,
@@ -42,7 +42,7 @@ class Hyperthermia extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={TALENTS.HYPERTHERMIA_TALENT}>
+        <BoringSpellValueText spell={SPELLS.HYPERTHERMIA_BUFF}>
           {formatNumber(this.totalProcs)} <small>Total Procs</small>
           <br />
           {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small>

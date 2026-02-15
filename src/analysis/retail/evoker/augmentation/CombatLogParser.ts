@@ -37,7 +37,8 @@ import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
 // Tier
-import T32Augmentation2P from './modules/thewarwithin/T32Augmentation2P';
+import MID1Augmentation2P from './modules/midnight/MID1Augmentation2P';
+import MID1Augmentation4P from './modules/midnight/MID1Augmentation4P';
 
 //Shared
 import {
@@ -59,7 +60,6 @@ import {
   DefensiveNormalizer,
   DefensiveCastLinkNormalizer,
   MobilityCastLinkNormalizer,
-  RenewingBlaze,
   ImminentDestruction,
   MeltArmor,
   MassDisintegrate,
@@ -70,16 +70,16 @@ import {
   Wingleader,
   Slipstream,
   Chronoflame,
-  ThreadsOfFate,
   Reverberations,
   Primacy,
   TimeConvergence,
-  MasterOfDestiny,
   GoldenOpportunity,
   MotesOfAcceleration,
   TimeSpiral,
   RefinedEssence,
   CommandSquadron,
+  NozdormuAdept,
+  ImminentDestructionCastLinkNormalizer,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -95,6 +95,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    imminentDestructionCastLinkNormalizer: ImminentDestructionCastLinkNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
@@ -107,7 +108,6 @@ class CombatLogParser extends MainCombatLogParser {
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
     mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
     defensiveNormalizer: DefensiveNormalizer,
-    renewingBlaze: RenewingBlaze,
     timeSpiral: TimeSpiral,
     massDisintegrate: MassDisintegrate,
 
@@ -156,21 +156,21 @@ class CombatLogParser extends MainCombatLogParser {
     wingLeader: Wingleader,
     slipstream: Slipstream,
     chronoflame: Chronoflame,
-    threadsOfFate: ThreadsOfFate,
     reverberations: Reverberations,
     primacy: Primacy,
     timeConvergence: TimeConvergence,
-    masterOfDestiny: MasterOfDestiny,
     goldenOpportunity: GoldenOpportunity,
     motesOfAcceleration: MotesOfAcceleration,
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
+    nozdormuAdept: NozdormuAdept,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
 
     // Tier
-    t32Augmentation2P: T32Augmentation2P,
+    MID1Augmentation2P: MID1Augmentation2P,
+    MID1Augmentation4P: MID1Augmentation4P,
   };
   static guide = Guide;
 }

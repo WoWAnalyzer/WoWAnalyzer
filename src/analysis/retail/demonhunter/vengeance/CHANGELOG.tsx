@@ -7,8 +7,18 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2026, 1, 25), <><SpellLink spell={TALENTS.CALCIFIED_SPIKES_TALENT} /> DR added to <SpellLink spell={SPELLS.DEMON_SPIKES} /> mitigation.</>, Quaarkz),
+  change(date(2025, 12, 21), <>Update value of MID1 2PC and delete Demonic for VDH.</>, Quaarkz),
+  change(date(2025, 12, 8), <>Update values for different spells and Shear removed.</>, Quaarkz),
+  change(date(2025, 12, 8), <>Remove <SpellLink spell={TALENTS.CYCLE_OF_BINDING_TALENT} /> analysis for Midnight.</>, Quaarkz),
+  change(date(2025, 12, 7), <>Update <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> and <SpellLink spell={SPELLS.SOUL_CLEAVE} /> for Hero Tree differentiation.</>, Quaarkz),
+  change(date(2025, 11, 21), <>Update <SpellLink spell={TALENTS.FEED_THE_DEMON_TALENT} /> for Midnight.</>, Quaarkz),
   change(date(2025, 11, 20), <>Clean-up VDH tiers and disable Demon Soul.</>, Quaarkz),
   change(date(2025, 11, 15), <>Model VDH tiers and update/add constants.</>, Quaarkz),
+  change(date(2025, 11, 12), <>Updating of Sigil numbers for TWW and better approximation of CoB behaviour.</>, Quaarkz),
+  change(date(2025, 11, 10), <>Specify the types of events in TheHuntNormalizer.</>, Quaarkz),
+  change(date(2025, 11, 10), <>Add spells to DemonSoul Allowlist.</>, Quaarkz),
+  change(date(2025, 11, 10), <>Fix Demon Soul increased damage calculation.</>, Quaarkz),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 9, 23), <>Clean up <SpellLink spell={SPELLS.FRACTURE} /> analyzer.</>, Topple),
   change(date(2024, 10, 17), 'Untethered Fury talent taken into consideration for Fracture analysis.', Quaarkz),

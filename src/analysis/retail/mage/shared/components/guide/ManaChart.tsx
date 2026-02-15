@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect, type JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -397,14 +397,14 @@ export default function ManaChart({
   showBossHealth = false,
   reportCode,
 }: ManaChartProps): JSX.Element {
-  const [bossHealthData, setBossHealthData] = React.useState<Array<{
+  const [bossHealthData, setBossHealthData] = useState<Array<{
     timestamp: number;
     value: number;
   }> | null>(null);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Fetch boss health if requested
-  React.useEffect(() => {
+  useEffect(() => {
     let cancelled = false;
     if (!showBossHealth || !reportCode) {
       return;

@@ -4,11 +4,6 @@ export function IntroSection() {
   return (
     <Section title="Preface">
       <p>
-        <strong>
-          Disclaimer: This Analyzer currently is only supported for Single Target Pack-Leader.
-          Analyze with care for fights that involve AoE or when using Sentinel!
-        </strong>{' '}
-        <br></br>
         Hello and welcome to the analyzer for the Survival Hunter spec! All the theorycrafting comes
         from summarizing the guides over at{' '}
         <a href="https://www.wowhead.com/guide/classes/hunter/survival/overview-pve-dps">Wowhead</a>

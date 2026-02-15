@@ -17,23 +17,23 @@ class SuddenDeath extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_SPEC_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_DAMAGE),
       this._onExecuteDamage,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
       this._countSuddenDeathProc,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
       this._countSuddenDeathProc,
     );
   }
 
   _onExecuteDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_TALENT_BUFF.id)) {
       return;
     }
     this.totalDamages += event.amount + (event.absorbed || 0);
@@ -49,7 +49,7 @@ class SuddenDeath extends Analyzer {
         title={
           <>
             <SpellLink spell={SPELLS.EXECUTE_DAMAGE} /> with{' '}
-            <SpellLink spell={TALENTS.SUDDEN_DEATH_SPEC_TALENT} /> damage
+            <SpellLink spell={TALENTS.SUDDEN_DEATH_TALENT} /> damage
           </>
         }
         value={formatNumber(this.totalDamages)}

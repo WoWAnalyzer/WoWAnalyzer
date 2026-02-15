@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import { Condition } from '../index';
 
@@ -25,7 +25,7 @@ export function containsOptionalCondition<T>(cnd: Condition<T>): boolean {
 **/
 export default function optionalRule<T>(
   interior: Condition<T>,
-  description?: React.ReactChild,
+  description?: ReactNode,
   showOptional: boolean | string = true,
 ): Condition<T> {
   return {

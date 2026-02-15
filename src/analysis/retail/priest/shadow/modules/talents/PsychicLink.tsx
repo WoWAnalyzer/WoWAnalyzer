@@ -38,7 +38,7 @@ class PsychicLink extends Analyzer {
       this.onSpell,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
       this.onSpell,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY), this.onSpell);
@@ -85,7 +85,7 @@ class PsychicLink extends Analyzer {
       case TALENTS.SHADOW_WORD_DEATH_TALENT.name:
         this.damageSWD += event.amount + (event.absorbed || 0);
         break;
-      case TALENTS.DEVOURING_PLAGUE_TALENT.name:
+      case TALENTS.SHADOW_WORD_MADNESS_TALENT.name:
         this.damageDP += event.amount + (event.absorbed || 0);
         break;
       case SPELLS.MIND_FLAY.name:
@@ -135,11 +135,11 @@ class PsychicLink extends Analyzer {
             </div>
 
             <div>
-              <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />:{' '}
+              <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />:{' '}
               {formatPercentage(this.damageDP / this.damageTotal, 1)}%
             </div>
 
-            {this.selectedCombatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) ? (
+            {this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT) ? (
               <div>
                 <SpellLink spell={SPELLS.VOID_BOLT} />:{' '}
                 {formatPercentage(this.damageVB / this.damageTotal, 1)}%
@@ -162,9 +162,9 @@ class PsychicLink extends Analyzer {
                 {formatPercentage(this.damageVT / this.damageTotal, 1)}%
               </div>
             ) : null}
-            {this.selectedCombatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT) ? (
+            {this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT) ? ( //TODO: VOID VOLLEY
               <div>
-                <SpellLink spell={TALENTS.VOID_VOLLEY_TALENT} />:{' '}
+                <SpellLink spell={TALENTS.VOIDFORM_TALENT} />:{' '}
                 {formatPercentage(this.damageVV / this.damageTotal, 1)}%
               </div>
             ) : null}

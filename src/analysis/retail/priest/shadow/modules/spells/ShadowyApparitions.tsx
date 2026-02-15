@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AuspiciousSpirits from '../talents/AuspiciousSpirits';
 import TormentedSpirits from '../talents/TormentedSpirits';
-import PhantasmalPathogen from '../talents/PhantasmalPathogen';
+import PhantasmalPathogen from '../talents/SpectralHorrors';
 
 class ShadowyApparitions extends Analyzer {
   static dependencies = {
@@ -57,7 +57,7 @@ class ShadowyApparitions extends Analyzer {
           ? this.tormentedSpirits.subStatistic()
           : null}
 
-        {this.selectedCombatant.hasTalent(TALENTS.PHANTASMAL_PATHOGEN_TALENT)
+        {this.selectedCombatant.hasTalent(TALENTS.SPECTRAL_HORRORS_TALENT)
           ? this.phantasmalPathogen.subStatistic()
           : null}
       </Statistic>

@@ -33,7 +33,7 @@ const DragScroll = ({ children, className, ...otherProps }: ComponentPropsWithou
     draggingRef.current = false;
   }, []);
 
-  const handleMouseMove = useCallback((event) => {
+  const handleMouseMove = useCallback((event: MouseEvent) => {
     if (draggingRef.current && container.current !== null) {
       container.current.scrollLeft -= -clientPosition.current[0] + event.clientX;
       container.current.scrollTop -= -clientPosition.current[1] + event.clientY;

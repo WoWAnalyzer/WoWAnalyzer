@@ -18,7 +18,6 @@ export default class BuilderUse extends Analyzer {
   divineTollBuilderCasts = 0;
   crusaderStrikeBuilderCasts = 0;
   holyShockBuilderCasts = 0;
-  beaconBuilderCasts = 0;
   secondSunriseBuilderCasts = 0;
 
   constructor(options: Options) {
@@ -46,10 +45,6 @@ export default class BuilderUse extends Analyzer {
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_TALENT),
       this.onHolyShockCast,
-    );
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.BEACON_OF_LIGHT_HOLY_POWER),
-      this.onBeaconResourceChange,
     );
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SECOND_SUNRISE_HOLY_POWER),
@@ -92,12 +87,6 @@ export default class BuilderUse extends Analyzer {
         label: TALENTS.HOLY_SHOCK_TALENT.name,
         spellId: TALENTS.HOLY_SHOCK_TALENT.id,
         value: this.holyShockBuilderCasts,
-      },
-      {
-        color: SPELL_COLORS.BEACON_OF_LIGHT,
-        label: TALENTS.TOWER_OF_RADIANCE_TALENT.name,
-        spellId: TALENTS.TOWER_OF_RADIANCE_TALENT.id,
-        value: this.beaconBuilderCasts,
       },
       {
         color: SPELL_COLORS.SECOND_SUNRISE,
@@ -161,9 +150,6 @@ export default class BuilderUse extends Analyzer {
   }
   private onHolyShockCast(event: ResourceChangeEvent) {
     this.holyShockBuilderCasts += 1;
-  }
-  private onBeaconResourceChange(event: ResourceChangeEvent) {
-    this.beaconBuilderCasts += 1;
   }
   private onSecondSunrise(event: ResourceChangeEvent) {
     this.secondSunriseBuilderCasts += 1;

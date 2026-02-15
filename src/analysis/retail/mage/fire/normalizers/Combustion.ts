@@ -13,14 +13,6 @@ const EVENT_ORDERS: EventOrder[] = [
     bufferMs: 50,
     anyTarget: true,
   },
-  {
-    beforeEventId: TALENTS.COMBUSTION_TALENT.id,
-    beforeEventType: EventType.ApplyBuff,
-    afterEventId: SPELLS.FURY_OF_THE_SUN_KING.id,
-    afterEventType: EventType.RemoveBuff,
-    bufferMs: 50,
-    anyTarget: true,
-  },
 ];
 
 /**

@@ -21,7 +21,7 @@ export const LIGHT_OF_DAWN_EVENT_LINKS: EventLink[] = [
     forwardBufferMs: MED_BUFFER_MS,
     anyTarget: true,
     isActive(c) {
-      return c.hasTalent(TALENTS.EMPYREAN_LEGACY_TALENT);
+      return c.hasTalent(TALENTS.EMPYREAN_LEGACY_HOLY_TALENT);
     },
   },
   // Attribute Light of Dawn to Unending Light Removal

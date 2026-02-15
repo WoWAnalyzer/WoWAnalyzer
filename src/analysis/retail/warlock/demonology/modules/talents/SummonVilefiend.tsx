@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';

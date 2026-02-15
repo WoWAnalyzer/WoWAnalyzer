@@ -16,7 +16,7 @@ import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from '../../constants';
 export const ETERNITY_SURGE_FROM_CAST = 'EternitySurgeFromCast';
 
 const MAX_SEARCH_BUFFER_MS = 1_500;
-export const MAX_ES_HIT_BUFFER_MS = 25;
+export const MAX_ES_HIT_BUFFER_MS = 500;
 
 const ETERNITY_SURGE_IDS = new Set<number>([
   SPELLS.ETERNITY_SURGE.id,
@@ -48,9 +48,9 @@ const ETERNITY_SURGE_IDS = new Set<number>([
 class EternitySurgeNormalizer extends EventsNormalizer {
   constructor(options: Options) {
     super(options);
-    /** NOTE: For now since we only use the links for Scintillation analysis
-     * we will only enable this if we have Scintillation talented */
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SCINTILLATION_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.SCINTILLATION_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.EYE_OF_INFINITY_TALENT);
   }
 
   normalize(events: AnyEvent[]) {

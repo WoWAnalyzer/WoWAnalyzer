@@ -12,7 +12,7 @@ import {
   useCallback,
 } from 'react';
 import './Casts.scss';
-import React from 'react';
+import * as React from 'react';
 import Toggle from 'react-toggle';
 import { fetchEvents } from 'common/fetchWclApi';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
@@ -204,7 +204,7 @@ const EnemySpellControlBlock = ({
     >
       <EnemySpellTypeToggle
         id="enemy-casts-toggle"
-        label=<>Show Enemy Ability Timeline</>
+        label={<>Show Enemy Ability Timeline</>}
         toggleCallBack={toggleAll}
         checked={shouldRenderNPCSpells}
       />
@@ -237,7 +237,7 @@ export const EnemyCastsTimeline = ({
 }: TimelineProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { combatLogParser: parser } = useCombatLogParser();
-  const [shouldRenderNPCSpells, setRenderNPCSpells] = useState<boolean>(false);
+  const [shouldRenderNPCSpells, setShouldRenderNPCSpells] = useState<boolean>(false);
   const [NPCCasts, setNPCCasts] = useState<(NpcBeginCastEvent | NpcCastEvent)[]>([]);
 
   const [interruptedAbilities, setInterruptedAbilities] = useState(true);
@@ -248,7 +248,7 @@ export const EnemyCastsTimeline = ({
   >('notFetched');
 
   const toggleHandler = useCallback(() => {
-    setRenderNPCSpells((prev) => {
+    setShouldRenderNPCSpells((prev) => {
       //set hasUserRequestsNPCSpells to true when the toggle goes from false to true, indicating the user wants to see the npc spells for the first  time
       if (!prev) {
         setHasUserRequestedNPCSpells(true);
@@ -310,15 +310,12 @@ export const EnemyCastsTimeline = ({
             }
             return acc;
           }, {});
-          const allies = parser.combatantInfoEvents.reduce(
-            (acc: Record<number, PlayerInfo>, cur) => {
-              if (!acc[cur.sourceID]) {
-                acc[cur.sourceID] = cur.player;
-              }
-              return acc;
-            },
-            {},
-          );
+          const allies = parser.players.reduce((acc: Record<number, PlayerInfo>, cur) => {
+            if (!acc[cur.id]) {
+              acc[cur.id] = cur;
+            }
+            return acc;
+          }, {});
 
           //This groups damage events together. Helpful for aoe spells from the enemy that hit multiple players at the same time
           const nonMeleeDamageEvents = damageStuff.reduce((acc: DamageEvent[][], cur) => {
@@ -375,10 +372,11 @@ export const EnemyCastsTimeline = ({
             const matchingDmgEvent = nonMeleeDamageEvents.filter((damageTaken) => {
               const dmgEvent = damageTaken[0];
               return (
+                // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
                 dmgEvent.timestamp >= event.timestamp &&
                 dmgEvent.timestamp <= event.timestamp + 10000 && //Assumes a damage event from an npc ability happens within 10 seconds
                 dmgEvent.sourceID === event.sourceID &&
-                dmgEvent.ability.name === event.ability.name // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
+                dmgEvent.ability.name === event.ability.name
               );
             });
             return (
@@ -403,9 +401,9 @@ export const EnemyCastsTimeline = ({
     parser.report.code,
     parser.fight.start_time,
     parser.fight.end_time,
-    parser.combatantInfoEvents,
     parser.report.enemies,
     parser.report.enemyPets,
+    parser.players,
     hasUserRequestedNPCSpells,
   ]);
 
@@ -432,14 +430,15 @@ export const EnemyCastsTimeline = ({
             offset={offset}
             secondWidth={secondWidth}
             skipInterval={skipInterval}
-          />
-          <EnemyCasts
-            start={start}
-            secondWidth={secondWidth}
-            reportCode={parser.report.code}
-            actorId={parser.player.id}
-            events={NPCCasts}
-          />
+          >
+            <EnemyCasts
+              start={start}
+              secondWidth={secondWidth}
+              reportCode={parser.report.code}
+              actorId={parser.player.id}
+              events={NPCCasts}
+            />
+          </TimeIndicators>
         </div>
       ) : (
         <></>

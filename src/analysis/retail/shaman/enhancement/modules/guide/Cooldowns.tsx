@@ -13,17 +13,17 @@ interface Props {
 
 const COOLDOWNS: Cooldown[] = [
   {
-    spell: TALENTS.FERAL_SPIRIT_TALENT,
-    isActive: (c) =>
-      c.hasTalent(TALENTS.FERAL_SPIRIT_TALENT) && !c.hasTalent(TALENTS.FLOWING_SPIRITS_TALENT),
-  },
-  {
     spell: TALENTS.DOOM_WINDS_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.DOOM_WINDS_TALENT),
+    isActive: (c) =>
+      c.hasTalent(TALENTS.DOOM_WINDS_TALENT) &&
+      !(
+        c.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
+        c.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)
+      ),
   },
   {
-    spell: TALENTS.PRIMORDIAL_WAVE_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
+    spell: TALENTS.SUNDERING_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.SUNDERING_TALENT),
   },
   {
     spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
@@ -38,11 +38,11 @@ const COOLDOWNS: Cooldown[] = [
 function Cooldowns({ info, modules, events }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Core">
-      {modules.ascendance.guideSubsection}
+      {modules.doomWinds.guideSubsection}
+      {modules.stormUnleashed.guideSubsection}
+      {modules.elementalTempo.guideSubsection}
       {modules.hotHand.guideSubsection}
-      {modules.elementalBlastGuide.guideSubsection}
       {modules.primordialStorm.guideSubsection}
-      {modules.legacyOfTheFrostWitch.guideSubsection}
       <SubSection title="Cooldowns">
         <p>
           <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how

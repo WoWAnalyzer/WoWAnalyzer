@@ -304,7 +304,8 @@ http://www.networkadvertising.org/choices/"
           <li>
             <strong>Aggregate or Anonymous Information:</strong> We may share user information in
             the aggregate with third parties, such as content distributors. For example, we may
-            disclose the number of users that have been exposed to, or clicked on, advertisements.{' '}
+            disclose the number of users that have been exposed to, or clicked on,
+            advertisements.{' '}
           </li>
           <li>
             <strong>Business Transfers:</strong> We may share information from or about you with our

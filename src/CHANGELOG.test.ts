@@ -28,7 +28,7 @@ describe('CHANGELOG', () => {
         } catch {
           // Custom fail handling so that we can point to the proper changelog without poluting the Jest log with all spec names
 
-          fail(
+          throw new Error(
             `Changelog entry #${index} of the ${name} changelog does not meet this requirement.`,
           );
         }

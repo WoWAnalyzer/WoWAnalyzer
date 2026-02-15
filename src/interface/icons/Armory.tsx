@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
 import ArmoryLogo from './images/Armory-logo.png';
 
-type Props = Omit<React.ComponentPropsWithoutRef<'img'>, 'src' | 'alt' | 'className'>;
+type Props = Omit<ComponentPropsWithoutRef<'img'>, 'src' | 'alt' | 'className'>;
 
 const Icon = (props: Props) => (
   <img

@@ -1,9 +1,9 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/priest';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AbilityEvent,
   CastEvent,
   EndChannelEvent,
   RemoveBuffEvent,
@@ -117,7 +117,7 @@ class VoidBlast extends ExecuteHelper {
   //We need to do this because Mind Blast and Void Blast are different spells, but their CD is the same.
   //This assumes that SPELL1 is at 2 charges.
   //I thought this would be used for more, so I made it flexible, but its only used in a specific case.
-  setPartialCharges(event: AbilityEvent<any>, Spell1: number, Spell2: number) {
+  setPartialCharges(event: EndChannelEvent, Spell1: number, Spell2: number) {
     if (this.spellUsable.chargesAvailable(Spell2) === 0) {
       this.spellUsable.beginCooldown(event, Spell1);
       this.spellUsable.beginCooldown(event, Spell1);

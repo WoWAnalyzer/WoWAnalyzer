@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_HUNTER } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 import TALENTS from 'common/TALENTS/hunter';
@@ -13,7 +12,7 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.KILL_COMMAND_SURVIVAL_TALENT.id,
       },
       {
-        spellId: TALENTS.COORDINATED_ASSAULT_TALENT.id,
+        spellId: TALENTS.TAKEDOWN_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -32,12 +31,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.MONGOOSE_FURY.id,
         timelineHighlight: true,
-        triggeredBySpellId: [TALENTS.MONGOOSE_BITE_TALENT.id, SPELLS.MONGOOSE_BITE_TALENT_AOTE.id],
-      },
-      {
-        spellId: TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id,
-        timelineHighlight: true,
-        triggeredBySpellId: TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id,
+        triggeredBySpellId: [TALENTS.RAPTOR_STRIKE_TALENT.id, SPELLS.RAPTOR_STRIKE_AOTE.id],
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,

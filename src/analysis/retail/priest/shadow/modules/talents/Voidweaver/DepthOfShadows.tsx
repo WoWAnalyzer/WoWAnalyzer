@@ -24,7 +24,8 @@ class DepthOfShadows extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEPTH_OF_SHADOWS_TALENT);
+    // Depth of Shadows was removed / baked into the Shadowfiend talent
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOWFIEND_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MINDBENDER_SHADOW_TALENT),
@@ -58,7 +59,7 @@ class DepthOfShadows extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.HERO_TALENTS}>
-        <BoringSpellValueText spell={TALENTS.DEPTH_OF_SHADOWS_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SHADOWFIEND_TALENT}>
           <div>
             {this.petsSummoned - this.casts}{' '}
             <small>

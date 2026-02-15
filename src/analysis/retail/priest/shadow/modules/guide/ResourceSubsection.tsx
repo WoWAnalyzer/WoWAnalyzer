@@ -18,13 +18,13 @@ function ResourceSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
         {perfect && (
           <b>
             Good job! You avoided overcapping insanity by using{' '}
-            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.
+            <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.
           </b>
         )}
         {!perfect && (
           <b>
             You should avoid capping insanity by using{' '}
-            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.
+            <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.
           </b>
         )}
       </p>

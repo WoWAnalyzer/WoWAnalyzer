@@ -1,20 +1,22 @@
-import { TooltipElement } from 'interface';
+import type { JSX } from 'react';
+import { SpellLink, TooltipElement } from 'interface';
 import { GoodColor, Section, SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import { Highlight } from 'interface/Highlight';
 import { MAJOR_ANALYZERS } from './config';
+import SPELLS from '../../../spell-list_Monk_Brewmaster.retail';
 
 export default function MajorDefensivesSection(): JSX.Element | null {
   const analyzers = useAnalyzers(MAJOR_ANALYZERS);
   return (
-    <Section title="Major Defensives">
+    <Section title={<SpellLink spell={SPELLS.FORTIFYING_BREW} />}>
       <Explanation>
         <p>
-          Effectively using your major defensive cooldowns is a core part of playing tank well. This
-          is especially true for Brewmasters, as we rely on our many cooldowns to deal with incoming
-          damage.
+          Effectively using your major defensive cooldowns is a core part of playing tank well.
+          While Brewmaster has fewer cooldowns than in previous expansions, proper use of{' '}
+          <SpellLink spell={SPELLS.FORTIFYING_BREW} /> is still important.
         </p>
         <p>There are two things you should look for in your cooldown usage:</p>
         <ol>

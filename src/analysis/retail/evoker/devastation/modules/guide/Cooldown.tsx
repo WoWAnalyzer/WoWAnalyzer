@@ -24,8 +24,6 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         These cooldowns are essential for maximizing your damage output. Top performing Evokers are
         able to acheive 100% efficiency with <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />,{' '}
         <SpellLink spell={SPELLS.FIRE_BREATH} />, and <SpellLink spell={SPELLS.ETERNITY_SURGE} />.
-        If talented into <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> aim for 90%
-        efficiency.
       </p>
       <div>
         Legend
@@ -44,18 +42,6 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         spell={hasFontTalent ? SPELLS.ETERNITY_SURGE_FONT : SPELLS.ETERNITY_SURGE}
         gapHighlightMode={GapHighlight.FullCooldown}
       />
-      {info.combatant.hasTalent(TALENTS_EVOKER.SHATTERING_STAR_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT}
-          gapHighlightMode={GapHighlight.All}
-        />
-      )}
-      {info.combatant.hasTalent(TALENTS_EVOKER.FIRESTORM_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS_EVOKER.FIRESTORM_TALENT}
-          gapHighlightMode={GapHighlight.All}
-        />
-      )}
       <CastEfficiencyBar
         spell={
           info.combatant.hasTalent(TALENTS.MANEUVERABILITY_TALENT)

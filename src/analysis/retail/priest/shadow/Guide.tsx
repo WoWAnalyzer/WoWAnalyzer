@@ -13,7 +13,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         <Section title="Insanity">
           <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
-          {modules.dotUptimes.guideSubsectionDP}
+          {/*modules.dotUptimes.guideSubsectionDP*/}
         </Section>
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
         {modules.shadowform.guideSubsection}
@@ -32,22 +32,19 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             modules.insidiousIre.guideSubsection}
           {info.combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) &&
             modules.voidTorrent.guideSubsection}
-          {info.combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT) &&
-            modules.voidVolley.guideSubsection}
+          {/*info.combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT) &&
+            modules.voidVolley.guideSubsection*/}
           {info.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT) && modules.voidBlast.guideSubsection}
           {info.combatant.hasTalent(TALENTS.COLLAPSING_VOID_TALENT) &&
             modules.entropicRift.guideSubsectionCollapsingVoid}
           {info.combatant.hasTalent(TALENTS.DARKENING_HORIZON_TALENT) &&
             modules.entropicRift.guideSubsectionDarkeningHorizon}
-          {info.combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT) &&
-            modules.shadowCrash.guideSubsection}
-          {info.combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT) &&
-            modules.shadowCrash.guideSubsection}
+          {info.combatant.hasTalent(TALENTS.TENTACLE_SLAM_TALENT) &&
+            modules.tentacleSlam.guideSubsection}
         </Section>
         <Section title="Major Cooldowns">
           <CooldownGraphSubsection.LongCooldownsGraph />
-          {info.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) &&
-            modules.voidform.guideSubsection}
+          {info.combatant.hasTalent(TALENTS.VOIDFORM_TALENT) && modules.voidform.guideSubsection}
           {info.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) &&
             modules.inescapableTorment.guideSubsection}
         </Section>

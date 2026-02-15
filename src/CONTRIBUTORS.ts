@@ -2525,6 +2525,25 @@ export const Taevis: Contributor = {
   ],
 };
 
+export const SaltyRain: Contributor = {
+  nickname: 'SaltyRain',
+  github: 'SaltyRain',
+  discord: 'saltyrain1',
+  mains: [
+    {
+      name: 'Eltezia',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/draenor/eltezia',
+    },
+    {
+      name: 'Liarli',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/draenor/liarli',
+    },
+  ],
+  avatar: avatar('SaltyRain_avatar.jpg'),
+};
+
 export const SebShady: Contributor = {
   nickname: 'SebShady',
   github: 'SebShady42',
@@ -2759,6 +2778,18 @@ export const Brandrewsss: Contributor = {
       name: 'Brandrewsdk',
       spec: SPECS.UNHOLY_DEATH_KNIGHT,
       link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/thrall/brandrewsdk',
+    },
+  ],
+};
+
+export const Rex: Contributor = {
+  nickname: 'Rex',
+  github: 'RussellFeinstein',
+  mains: [
+    {
+      name: 'Rexxybear',
+      spec: SPECS.GUARDIAN_DRUID,
+      link: 'https://www.warcraftlogs.com/character/us/tichondrius/rexxybear',
     },
   ],
 };

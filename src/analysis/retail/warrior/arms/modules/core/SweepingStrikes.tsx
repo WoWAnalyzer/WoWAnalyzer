@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -47,9 +46,7 @@ class SweepingStrikes extends Analyzer {
   _castSweepingStrikes(event: CastEvent) {
     this.totalCasts += 1;
 
-    const spell = this.selectedCombatant.hasTalent(TALENTS.WARBREAKER_TALENT)
-      ? TALENTS.WARBREAKER_TALENT
-      : SPELLS.COLOSSUS_SMASH;
+    const spell = SPELLS.COLOSSUS_SMASH;
     const spellCd = this.abilities.getAbility(spell.id)?.cooldown || 30;
     if (this.spellUsable.isOnCooldown(spell.id)) {
       const cdElapsed = spellCd * 1000 - this.spellUsable.cooldownRemaining(spell.id);

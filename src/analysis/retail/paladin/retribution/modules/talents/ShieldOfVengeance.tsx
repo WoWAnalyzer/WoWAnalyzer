@@ -8,9 +8,13 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import SPELLS from 'common/SPELLS';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 
+// This currently gives inaccurate estimations as Shield of Vengeance is often
+// cast pre-pull with Blessing of Sacrifice to cheese some more damage
+// but pre-pull casts aren't accounted for
 class ShieldOfVengeance extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
@@ -25,11 +29,9 @@ class ShieldOfVengeance extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.SHIELD_OF_VENGEANCE_TALENT);
-    if (!this.active) {
-      return;
-    }
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.SHIELD_OF_VENGEANCE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PROTECTION_RET),
       this.onCast,
     );
   }
@@ -46,7 +48,7 @@ class ShieldOfVengeance extends Analyzer {
 
   get pctAbsorbUsed() {
     return (
-      this.healingDone.byAbility(TALENTS_PALADIN.SHIELD_OF_VENGEANCE_TALENT.id).effective /
+      this.healingDone.byAbility(SPELLS.SHIELD_OF_VENGEANCE_ABSORB.id).effective /
       this.totalPossibleAbsorb
     );
   }

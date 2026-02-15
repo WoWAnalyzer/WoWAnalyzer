@@ -31,7 +31,6 @@ import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
 import PresenceOfMindGuide from './guide/PresenceOfMind';
 import ClearcastingGuide from './guide/Clearcasting';
-import ArcaneTempoGuide from './guide/ArcaneTempo';
 
 //Items
 
@@ -42,7 +41,6 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ArcaneEcho from './analyzers/ArcaneEcho';
 import TouchOfTheMagi from './analyzers/TouchOfTheMagi';
 import PresenceOfMind from './analyzers/PresenceOfMind';
-import ArcaneTempo from './analyzers/ArcaneTempo';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
@@ -79,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     presenceOfMindGuide: PresenceOfMindGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
     clearcastingGuide: ClearcastingGuide,
-    arcaneTempoGuide: ArcaneTempoGuide,
     manaChart: ManaChart,
 
     //Talents - Shared
@@ -96,7 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents - Arcane
     arcaneEcho: ArcaneEcho,
     touchOfTheMagi: TouchOfTheMagi,
-    arcaneTempo: ArcaneTempo,
   };
   static guide = Guide;
 }

@@ -23,17 +23,13 @@ import IgniteTracker from './core/IgniteTracker';
 import CombustionDamageTracker from './core/CombustionDamageTracker';
 
 //Talents
-import PhoenixFlames from './talents/PhoenixFlames';
 import FeveredIncantation from './talents/FeveredIncantation';
 import Hyperthermia from './talents/Hyperthermia';
 import FeelTheBurn from './talents/FeelTheBurn';
-import SunKingsBlessing from './talents/SunKingsBlessing';
 import FromTheAshes from './talents/FromTheAshes';
-import Kindling from './talents/Kindling';
 import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
-import ImprovedScorch from './talents/ImprovedScorch';
 
 //Hero Talents
 import FlameAndFrost from '../shared/analyzers/FlameAndFrost';
@@ -44,7 +40,6 @@ import Guide from './Guide';
 import HotStreakGuide from './guide/HotStreak';
 import HeatingUpGuide from './guide/HeatingUp';
 import CombustionGuide from './guide/Combustion';
-import SunKingsBlessingGuide from './guide/SunKingsBlessing';
 import FeelTheBurnGuide from './guide/FeelTheBurn';
 
 //Items
@@ -53,7 +48,6 @@ import FeelTheBurnGuide from './guide/FeelTheBurn';
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
-import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -63,13 +57,11 @@ class CombatLogParser extends CoreCombatLogParser {
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     combustionNormalizer: CombustionNormalizer,
-    sunKingsBlessingNormalizer: SunKingsBlessingNormalizer,
 
     //Guide
     hotStreakGuide: HotStreakGuide,
     heatingUpGuide: HeatingUpGuide,
     combustionGuide: CombustionGuide,
-    sunKingsBlessingGuide: SunKingsBlessingGuide,
     feelTheBurnGuide: FeelTheBurnGuide,
 
     //Core
@@ -87,17 +79,13 @@ class CombatLogParser extends CoreCombatLogParser {
     igniteTracker: IgniteTracker,
 
     //Talents - Fire
-    phoenixFlames: PhoenixFlames,
-    kindling: Kindling,
     meteorCombustion: MeteorCombustion,
     searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
     feveredIncantation: FeveredIncantation,
     hyperthermia: Hyperthermia,
-    sunKingsBlessing: SunKingsBlessing,
     feelTheBurn: FeelTheBurn,
     meteor: Meteor,
-    improvedScorch: ImprovedScorch,
 
     //Hero Talents
     flameAndFrost: FlameAndFrost,

@@ -11,7 +11,6 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   CastEvent,
-  DamageEvent,
   GlobalCooldownEvent,
   HealEvent,
   RefreshBuffEvent,
@@ -23,7 +22,7 @@ import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { getCurrentRSKTalent, getCurrentRSKTalentDamage, MAX_CHIJI_STACKS } from '../../constants';
+import { getCurrentRSKTalent } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import InformationIcon from 'interface/icons/Information';
 
@@ -38,7 +37,6 @@ const debug = false;
 
 interface ChijiCastTracker extends BaseCelestialTracker {
   overcappedTotmStacks: number;
-  overcappedChijiStacks: number;
 }
 
 class InvokeChiJi extends BaseCelestialAnalyzer {
@@ -48,10 +46,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   envelopHealing = 0;
   chiCocoonHealing = 0;
   //stack breakdown vars
-  chijiStackCount = 0;
-  castsBelowMaxStacks = 0;
-  wastedStacks = 0;
-  freeCasts = 0;
   //missed GCDs vars
   missedGlobals = 0;
   chijiStart = 0;
@@ -76,46 +70,20 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.handleGust,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
-      this.handleEnvelopingBreath,
-    );
-    this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_BUFF_CHIJI),
       this.handleChiCocoon,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
-      this.handleEnvelopCast,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
       this.handleChijiStart,
     );
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.BLACKOUT_KICK,
-          getCurrentRSKTalentDamage(this.selectedCombatant),
-          SPELLS.BLACKOUT_KICK_TOTM,
-          SPELLS.SPINNING_CRANE_KICK_DAMAGE,
-        ]),
-      this.handleStackGenerator,
-    );
+
     //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
     this.addEventListener(
       Events.GlobalCooldown.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
       this.handleSpinningCraneKick,
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.handleGlobal);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
-      this.onRSK,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
-      this.onRSK,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onBOK);
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
@@ -125,7 +93,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
 
   //missed gcd mangement
   handleChijiStart(event: CastEvent) {
-    this.celestialActive = true;
     this.chijiStart = this.lastGlobal = event.timestamp;
     this.chijiGlobals += 1;
     this.chijiUses += 1;
@@ -133,29 +100,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.castTrackers.push({
       timestamp: event.timestamp,
       totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
-      overcappedChijiStacks: 0,
       overcappedTotmStacks: 0,
-      lessonsDuration: 0,
-      infusionDuration: 0,
-      totalEnvB: 0,
+      siBuffId: this.currentSIBuffId,
       totalEnvM: 0,
       averageHaste: 0,
       deathTimestamp: 0,
       castRsk: false,
     });
-  }
-
-  onRSK(event: CastEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
-    if (
-      this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) ===
-      MAX_CHIJI_STACKS
-    ) {
-      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
-      this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
-    }
   }
 
   onBOK(event: CastEvent) {
@@ -167,28 +118,11 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.castBokInWindow = true;
       return;
     }
-    const stacksGained =
-      1 + this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
-    if (
-      this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) +
-        stacksGained >
-      MAX_CHIJI_STACKS
-    ) {
-      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
-      this.castTrackers.at(-1)!.overcappedChijiStacks +=
-        this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) +
-        stacksGained -
-        MAX_CHIJI_STACKS;
-    }
   }
 
   onSCK(event: CastEvent) {
     if (!this.celestialActive) {
       return;
-    }
-    if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
-      this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
-      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
     }
   }
 
@@ -215,54 +149,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.gustHealing += (event.amount || 0) + (event.absorbed || 0);
   }
 
-  handleEnvelopingBreath(event: HealEvent) {
-    this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
-  }
-
   handleChiCocoon(event: AbsorbedEvent) {
     this.chiCocoonHealing += event.amount;
-  }
-
-  //stackbreakown management
-  handleStackGenerator(event: DamageEvent) {
-    if (this.celestialActive) {
-      if (event.ability.guid === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id) {
-        if (this.checkForSckDamage > event.timestamp) {
-          this.stackCount();
-          this.checkForSckDamage = -1;
-        }
-      } else {
-        this.stackCount();
-      }
-    }
   }
 
   handleSpinningCraneKick(event: GlobalCooldownEvent) {
     if (this.celestialActive) {
       this.checkForSckDamage = event.duration + this.lastGlobal;
-    }
-  }
-
-  handleEnvelopCast(event: CastEvent) {
-    //in some cases the last envelop is cast after chiji has expired but the buff can still be consumed
-    if (
-      this.celestialActive ||
-      this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)
-    ) {
-      if (this.chijiStackCount === MAX_CHIJI_STACKS) {
-        this.freeCasts += 1;
-      } else if (this.chijiStackCount < MAX_CHIJI_STACKS) {
-        this.castsBelowMaxStacks += 1;
-      }
-      this.chijiStackCount = 0;
-    }
-  }
-
-  stackCount() {
-    if (this.chijiStackCount === MAX_CHIJI_STACKS) {
-      this.wastedStacks += 1;
-    } else {
-      this.chijiStackCount += 1;
     }
   }
 
@@ -284,29 +177,22 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         <strong>
           <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
         </strong>{' '}
-        requires some preparation to be used optimally. Press{' '}
-        <SpellLink spell={SPELLS.TIGER_PALM} /> to stack{' '}
-        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to maximum stacks, get
-        all of your <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> charges on cooldown.
-        <br />
+        requires some preparation to be used optimally. Get all of your{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> charges and{' '}
+        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> on cooldown. <hr />
+        Your first ability after casting{' '}
+        <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> should be{' '}
+        <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to immediately utilize the{' '}
+        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks granted by{' '}
+        <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
+        <hr />
         During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
-        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> when at two stacks of{' '}
-        <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> to maximize mana efficiency and
-        healing. <br />
-        Choose your target carefully to to maximize targets hit by{' '}
-        <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />, which is where the majority of your
-        healing comes from. It is important to avoid overcapping on{' '}
-        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
-        <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks.
-        <div>
-          <br />
-          Generally, you should try to alternate between <SpellLink spell={SPELLS.TIGER_PALM} />/
-          <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (if available) and{' '}
-          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> as you only get 3{' '}
-          <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> events per{' '}
-          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> cast, regardless of{' '}
-          <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks.
-        </div>
+        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> only when other buffs like{' '}
+        <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> or{' '}
+        <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} /> are active to maximize{' '}
+        your healing. <br />
+        It is important to avoid overcapping on{' '}
+        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} />.
       </p>
     );
 
@@ -325,43 +211,43 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             cast.overcappedTotmStacks > 0
               ? QualitativePerformance.Fail
               : QualitativePerformance.Good;
-          const chijiRefreshPerf =
-            cast.overcappedChijiStacks > 0
-              ? QualitativePerformance.Fail
-              : QualitativePerformance.Good;
           const superList = super.getCooldownExpandableItems(cast);
           const checklistItems: CooldownExpandableItem[] = superList[1];
-          let totmPerf = QualitativePerformance.Good;
-          if (cast.totmStacks < 2) {
-            totmPerf = QualitativePerformance.Fail;
-          } else if (cast.totmStacks < 3) {
-            totmPerf = QualitativePerformance.Ok;
+          const allPerfs = [totmRefreshPerf].concat(superList[0]);
+          if (!this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_HARMONY_TALENT)) {
+            let totmPerf = QualitativePerformance.Good;
+            if (cast.totmStacks < 2) {
+              totmPerf = QualitativePerformance.Fail;
+            } else if (cast.totmStacks < 3) {
+              totmPerf = QualitativePerformance.Ok;
+            }
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on
+                  cast{' '}
+                  <Tooltip
+                    hoverable
+                    content={
+                      <>
+                        Get 4 stacks of{' '}
+                        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that
+                        you can instantly cast <SpellLink spell={SPELLS.BLACKOUT_KICK} /> for 30
+                        total <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
+                      </>
+                    }
+                  >
+                    <span>
+                      <InformationIcon />
+                    </span>
+                  </Tooltip>
+                </>
+              ),
+              result: <PerformanceMark perf={totmPerf} />,
+              details: <>{cast.totmStacks}</>,
+            });
+            allPerfs.push(totmPerf);
           }
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast{' '}
-                <Tooltip
-                  hoverable
-                  content={
-                    <>
-                      Get 3 stacks of{' '}
-                      <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that
-                      you can instantly cast <SpellLink spell={SPELLS.BLACKOUT_KICK} /> for 8 total{' '}
-                      <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
-                    </>
-                  }
-                >
-                  <span>
-                    <InformationIcon />
-                  </span>
-                </Tooltip>
-              </>
-            ),
-            result: <PerformanceMark perf={totmPerf} />,
-            details: <>{cast.totmStacks}</>,
-          });
-          const allPerfs = [totmRefreshPerf, chijiRefreshPerf, totmPerf].concat(superList[0]);
           checklistItems.push({
             label: (
               <>
@@ -370,15 +256,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             ),
             result: <PerformanceMark perf={totmRefreshPerf} />,
             details: <>{cast.overcappedTotmStacks}</>,
-          });
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks wasted
-              </>
-            ),
-            result: <PerformanceMark perf={chijiRefreshPerf} />,
-            details: <>{cast.overcappedChijiStacks}</>,
           });
           const avgPerf = getAveragePerf(allPerfs);
           return (
@@ -411,39 +288,15 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
                 <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} />.
               </li>
               <li>
-                {formatNumber(this.envelopHealing)}{' '}
-                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing from{' '}
-                <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-              </li>
-              <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
                 <SpellLink spell={SPELLS.CHI_COCOON_BUFF_CHIJI} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-              </li>
-            </ul>
-            Stack Breakdown:
-            <ul>
-              <li>
-                {formatNumber(this.freeCasts)} free{' '}
-                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast(s).
-              </li>
-              <li>
-                {formatNumber(this.castsBelowMaxStacks)}{' '}
-                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast(s) below max (
-                {MAX_CHIJI_STACKS}) Chi-Ji stacks.
-              </li>
-              <li>
-                {formatNumber(this.wastedStacks)} stack(s) wasted from overcapping Chi-Ji stacks.
               </li>
             </ul>
             Activity:
             <ul>
               <li>
                 {(this.chijiGlobals / this.chijiUses).toFixed(2)} average gcds inside Chi-Ji window
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
-                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
               </li>
             </ul>
           </>

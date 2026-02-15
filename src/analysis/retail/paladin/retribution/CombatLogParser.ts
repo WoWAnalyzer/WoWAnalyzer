@@ -1,6 +1,5 @@
 import {
   DivinePurpose,
-  DuskAndDawn,
   HolyPowerDetails,
   HolyPowerPerMinute,
   HolyPowerTracker,
@@ -31,7 +30,6 @@ import WakeOfAshesNormalizer from './normalizers/WakeOfAshesNormalizer';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 import Lightbearer from '../shared/Lightbearer';
 import InstrumentOfRetribution from './modules/core/InstrumentOfRetribution';
-import DivineHammer from './modules/talents/DivineHammer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -63,11 +61,9 @@ class CombatLogParser extends CoreCombatLogParser {
     wakeofAshes: WakeOfAshes,
     hammerofWrathRetribution: HammerofWrathRetribution,
     empyreanPower: EmpyreanPower,
-    duskAndDawn: DuskAndDawn,
     expurgation: Expurgation,
     executionSentence: ExecutionSentence,
     lightBearer: Lightbearer,
-    divineHammer: DivineHammer,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

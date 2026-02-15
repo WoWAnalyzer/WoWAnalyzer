@@ -484,18 +484,20 @@ const SPELLS = {
     },
     icon: 'inv_weapon_shortblade_40.jpg',
   },
-  BLOOD_PLAGUE_HIDDEN: {
+  BLOOD_PLAGUE: {
     id: 55078,
-    type: 'baseline',
+    grantedBy: 77575,
+    type: 'temporary',
     iconID: 237514,
     passive: false,
     hidden: 'always',
     name: 'Blood Plague',
     icon: 'spell_deathknight_bloodplague.jpg',
   },
-  FROST_FEVER_HIDDEN: {
+  FROST_FEVER: {
     id: 55095,
-    type: 'baseline',
+    grantedBy: 77575,
+    type: 'temporary',
     iconID: 237522,
     passive: false,
     hidden: 'always',
@@ -1070,6 +1072,15 @@ const SPELLS = {
     name: 'Glyph of Dark Succor',
     icon: 'spell_deathknight_butcher2.jpg',
   },
+  VOID_TOUCHED: {
+    id: 97821,
+    grantedBy: 61999,
+    type: 'temporary',
+    iconID: 136143,
+    passive: false,
+    name: 'Void-Touched',
+    icon: 'spell_shadow_deadofnight.jpg',
+  },
   ROILING_BLOOD_TALENT: {
     id: 108170,
     type: 'mists-talent',
@@ -1229,6 +1240,23 @@ const SPELLS = {
       hasted: false,
     },
     icon: 'spell_shadow_contagion.jpg',
+  },
+  DESECRATED_GROUND: {
+    id: 118009,
+    grantedBy: 108201,
+    type: 'temporary',
+    iconID: 538768,
+    passive: false,
+    name: 'Desecrated Ground',
+    gcd: {
+      duration: 1500,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 120000,
+      hasted: false,
+    },
+    icon: 'ability_deathknight_desecratedground.jpg',
   },
   CONVERSION_TALENT: {
     id: 119975,

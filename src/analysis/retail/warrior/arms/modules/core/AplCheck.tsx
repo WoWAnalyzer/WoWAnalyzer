@@ -20,18 +20,12 @@ const SUDDEN_DEATH_DURATION = 12000;
 export const MASSACRE_EXECUTE_THRESHOLD = 0.35;
 export const DEFAULT_EXECUTE_THRESHOLD = 0.2;
 
-// tmy https://www.warcraftlogs.com/reports/Lna7ANqKFbBWkD2Q?fight=20&type=casts&source=376
-// bris https://www.warcraftlogs.com/reports/1R9TkvMF7HLPpVdm?fight=19&type=damage-done&source=43
-// nezy (opp) https://www.warcraftlogs.com/reports/y9gBTjamNH84vGMZ?fight=26&type=damage-done&source=2
-// walhe (col) https://www.warcraftlogs.com/reports/Ft8NByGLZ64AMX2f?fight=14&type=summary&source=12
-// pravum (col, wb, no massacre) https://www.warcraftlogs.com/reports/WTgD24mMz6wYaBL1?fight=5&type=summary&source=138
-
 export const apl = (info: PlayerInfo): Apl => {
   const executeThreshold = info.combatant.hasTalent(TALENTS.MASSACRE_SPEC_TALENT)
     ? MASSACRE_EXECUTE_THRESHOLD
     : DEFAULT_EXECUTE_THRESHOLD;
   const executeUsable = cnd.or(
-    cnd.buffPresent(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF),
+    cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
     cnd.and(
       cnd.inExecute(executeThreshold),
       cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 200 }),
@@ -58,12 +52,12 @@ export const buildSlayerApl = (
       condition: cnd.and(
         executeUsable,
         cnd.or(
-          cnd.buffRemaining(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, SUDDEN_DEATH_DURATION, {
+          cnd.buffRemaining(SPELLS.SUDDEN_DEATH_TALENT_BUFF, SUDDEN_DEATH_DURATION, {
             atMost: 3000,
           }),
           cnd.buffRemaining(SPELLS.JUGGERNAUT, JUGGERNAUT_DURATION, { atMost: 3000 }),
-          cnd.buffStacks(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, { atLeast: 2, atMost: 2 }),
-          cnd.debuffStacks(SPELLS.MARKED_FOR_EXECUTION, { atLeast: 3, atMost: 3 }),
+          cnd.buffStacks(SPELLS.SUDDEN_DEATH_TALENT_BUFF, { atLeast: 2, atMost: 2 }),
+          cnd.buffStacks(SPELLS.EXECUTIONER_TALENT_BUFF, { atLeast: 3, atMost: 3 }),
         ),
       ),
       description: (
@@ -71,36 +65,18 @@ export const buildSlayerApl = (
           Cast <SpellLink spell={executeSpell} /> when any of the following conditions are met:
           <ul>
             <li>
-              Your target has 3 stacks of <SpellLink spell={SPELLS.MARKED_FOR_EXECUTION} />
+              Your target has 3 stacks of <SpellLink spell={SPELLS.EXECUTIONER_TALENT_BUFF} />
             </li>
             <li>
               Your <SpellLink spell={SPELLS.JUGGERNAUT} /> is about to expire
             </li>
             <li>
-              Your <SpellLink spell={SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF} /> is about to expire
+              Your <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} /> is about to expire
             </li>
             <li>
-              You have 2 stacks of <SpellLink spell={SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF} />
+              You have 2 stacks of <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />
             </li>
           </ul>
-        </>
-      ),
-    },
-
-    // SkS inside execute
-    {
-      spell: TALENTS.SKULLSPLITTER_TALENT,
-      condition: cnd.optionalRule(
-        cnd.and(
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 400 }), // rage is logged 10x higher than the player's "real" value
-          cnd.inExecute(executeThreshold),
-        ),
-      ),
-      description: (
-        <>
-          (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 40 rage and
-          in execute range. You can gamble on getting enough rage from other sources, but on average
-          it's best to avoid that.
         </>
       ),
     },
@@ -245,17 +221,6 @@ export const buildSlayerApl = (
       ),
     },
 
-    // SkS outside execute
-    {
-      spell: TALENTS.SKULLSPLITTER_TALENT,
-      condition: cnd.not(cnd.inExecute(executeThreshold)),
-      description: (
-        <>
-          Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while outside execute range
-        </>
-      ),
-    },
-
     // OP
     {
       spell: SPELLS.OVERPOWER,
@@ -297,24 +262,6 @@ export const buildColossusApl = (
         <>
           Cast <SpellLink spell={executeSpell} /> when your <SpellLink spell={SPELLS.JUGGERNAUT} />{' '}
           is about to expire
-        </>
-      ),
-    },
-
-    // SkS in exe below 85
-    {
-      spell: TALENTS.SKULLSPLITTER_TALENT,
-      condition: cnd.optionalRule(
-        cnd.and(
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 400 }), // rage is logged 10x higher than the player's "real" value
-          cnd.inExecute(executeThreshold),
-        ),
-      ),
-      description: (
-        <>
-          (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 40 rage and
-          in execute range. You can gamble on getting enough rage from other sources, but on average
-          it's best to avoid that.
         </>
       ),
     },
@@ -426,17 +373,6 @@ export const buildColossusApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} />
-        </>
-      ),
-    },
-
-    // SkS no exe
-    {
-      spell: TALENTS.SKULLSPLITTER_TALENT,
-      condition: cnd.not(cnd.inExecute(executeThreshold)),
-      description: (
-        <>
-          Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} />
         </>
       ),
     },

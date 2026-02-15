@@ -114,8 +114,8 @@ class CooldownComponent extends Component<Props, State> {
           event.type === EventType.Heal || event.type === EventType.Absorbed,
       )
       .forEach((event) => {
-        healingDone += event.amount + ('absorbed' in event ? event.absorbed ?? 0 : 0);
-        overhealingDone += 'overheal' in event ? event.overheal ?? 0 : 0;
+        healingDone += event.amount + ('absorbed' in event ? (event.absorbed ?? 0) : 0);
+        overhealingDone += 'overheal' in event ? (event.overheal ?? 0) : 0;
       });
 
     return {

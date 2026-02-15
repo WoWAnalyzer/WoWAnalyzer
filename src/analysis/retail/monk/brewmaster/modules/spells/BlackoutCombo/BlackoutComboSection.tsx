@@ -6,24 +6,15 @@ import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import PassFailBar from 'interface/guide/components/PassFailBar';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import BlackoutCombo from './index';
 
 enum ComboEffect {
-  BreathOfFire = talents.BREATH_OF_FIRE_TALENT.id,
   KegSmash = talents.KEG_SMASH_TALENT.id,
   TigerPalm = SPELLS.TIGER_PALM.id,
-  CelestialBrew = talents.CELESTIAL_BREW_TALENT.id,
-  PurifyingBrew = talents.PURIFYING_BREW_TALENT.id,
 }
 
-const comboEffectOrder = [
-  ComboEffect.TigerPalm,
-  ComboEffect.BreathOfFire,
-  ComboEffect.KegSmash,
-  ComboEffect.CelestialBrew,
-  ComboEffect.PurifyingBrew,
-];
+const comboEffectOrder = [ComboEffect.TigerPalm, ComboEffect.KegSmash];
 
 const comboEffectLabel = (effect: ComboEffect) => <SpellLink spell={effect} />;
 
@@ -80,7 +71,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
             <li style={{ opacity: hasPta ? 0.5 : 1 }}>
               <div>
                 <strong>
-                  <SpellLink spell={SPELLS.TIGER_PALM} />: On Single-Target.
+                  <SpellLink spell={SPELLS.TIGER_PALM} />: Almost Always.
                 </strong>
               </div>
               <div>
@@ -92,61 +83,12 @@ export default function BlackoutComboSection(): JSX.Element | null {
             <li>
               <div>
                 <strong>
-                  <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />: Sometimes.
-                </strong>
-              </div>
-              <div>
-                The main value of comboing <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> is in
-                the bonus 5% damage reduction. The damage bonus applies to the initial hit and to{' '}
-                <em>one</em> DoT on an enemy target, while the damage reduction applies to all
-                targets. <em>However,</em> the extra damage reduction will be removed the next time
-                you re-apply <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>
                   <SpellLink spell={talents.KEG_SMASH_TALENT} />: Sometimes.
                 </strong>
               </div>
               <div>
-                Purely defensive, but not bad. This is often used incidentally multi-target settings
+                Purely defensive, but not bad. This is more often used in multi-target settings
                 where <SpellLink spell={SPELLS.TIGER_PALM} /> is less valuable.
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>
-                  <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />: Rarely.
-                </strong>
-              </div>
-              <div>
-                Great when you need it, but the{' '}
-                <TooltipElement
-                  hoverable
-                  content={
-                    <>
-                      These are stacks of <SpellLink spell={SPELLS.PURIFIED_CHI} />, which is
-                      limited to 6 stacks total (including the 3 bonus from{' '}
-                      <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />
-                      ).
-                    </>
-                  }
-                >
-                  stack cap
-                </TooltipElement>{' '}
-                still applies so you rarely do.
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>
-                  <SpellLink spell={talents.PURIFYING_BREW_TALENT} />: Effectively Never.
-                </strong>
-              </div>
-              <div>
-                Pausing <SpellLink spell={SPELLS.STAGGER} /> is extremely niche, so this doesn't
-                come up often. Most uses you see of this in top logs are accidental.
               </div>
             </li>
           </ul>
@@ -186,7 +128,6 @@ export default function BlackoutComboSection(): JSX.Element | null {
             casts={reasons}
             label={comboEffectLabel}
             possibleReasons={possibleCombos}
-            badReason={ComboEffect.PurifyingBrew}
           />
           <tbody>
             <tr>

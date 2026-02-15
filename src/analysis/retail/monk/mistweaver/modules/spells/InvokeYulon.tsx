@@ -39,10 +39,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       return;
     }
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
-      this.handleEnvelopingBreath,
-    );
-    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
       this.handleSoothingBreath,
     );
@@ -59,19 +55,13 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   onCast(event: CastEvent) {
     this.castTrackers.push({
       timestamp: event.timestamp,
-      infusionDuration: 0,
-      lessonsDuration: 0,
-      totalEnvB: 0,
+      siBuffId: this.currentSIBuffId,
       totalEnvM: 0,
       averageHaste: 0,
       totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
       deathTimestamp: 0,
       castRsk: false,
     });
-  }
-
-  handleEnvelopingBreath(event: HealEvent) {
-    this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
   }
 
   handleSoothingBreath(event: HealEvent) {
@@ -109,26 +99,42 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           <>all </>
         )}{' '}
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
-        (s) to prevent overcapping charges Yulon's duration.
-        <br />
+        (s) to prevent overcapping charges during Yulon's duration, and be sure to have at least 1
+        proc of <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> available. <hr />
+        It is crucial to pair <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> for the several
+        buffs that <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> provides, including:
+        <ol>
+          <li>
+            <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} />
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.FLOWING_WISDOM_TALENT} /> via{' '}
+            <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> via{' '}
+            <SpellLink spell={TALENTS_MONK.DEEP_CLARITY_TALENT} />
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />
+          </li>
+        </ol>
         If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
         <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> for a multiplicative haste bonus
-        <br />
-        During <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is
-        important to cast <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that
-        are near other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
-        <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />. Be sure to cast{' '}
-        <SpellLink spell={this.currentRskTalent} /> before your first{' '}
+        <hr />
+        Be sure to cast <SpellLink spell={this.currentRskTalent} /> before your first{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> falls off to extend their duration.
-        <br />
+        <hr />
         Be sure to follow up your{' '}
         <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
-        <SpellLink spell={SPELLS.VIVIFY} /> to make use of your low duration{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
-        s.
+        <SpellLink spell={SPELLS.VIVIFY} /> to consume your{' '}
+        <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> with the highest amount of{' '}
+        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />s and{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s possible.
       </p>
     );
 
@@ -183,18 +189,9 @@ class InvokeYulon extends BaseCelestialAnalyzer {
                 <SpellLink spell={SPELLS.SOOTHING_BREATH} />.
               </li>
               <li>
-                {formatNumber(this.envelopHealing)}{' '}
-                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing from{' '}
-                <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-              </li>
-              <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
                 <SpellLink spell={SPELLS.CHI_COCOON_BUFF_YULON} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
-                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
               </li>
             </ul>
           </>

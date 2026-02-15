@@ -26,23 +26,17 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SIPHON_STORM_BUFF.id,
-        triggeredBySpellId: TALENTS.EVOCATION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EVOCATION_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         triggeredBySpellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT),
         timelineHighlight: true,
       },
-      {
-        spellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
-        triggeredBySpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
-        timelineHighlight: true,
-      },
+      // {
+      //   spellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+      //   triggeredBySpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+      //   enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
+      //   timelineHighlight: true,
+      // },
       {
         spellId: TALENTS.ICE_BLOCK_TALENT.id,
         triggeredBySpellId: TALENTS.ICE_BLOCK_TALENT.id,
@@ -55,22 +49,12 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.ARCANE_TEMPO_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.GLORIOUS_INCANDESCENCE_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.ARCANE_SOUL_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT),
         timelineHighlight: true,
       },
     ];

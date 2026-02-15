@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import { SubSection } from 'interface/guide';
@@ -92,13 +93,11 @@ class Disintegrate extends Analyzer {
     SPELLS.ETERNITY_SURGE_FONT,
     TALENTS.TIP_THE_SCALES_TALENT,
     SPELLS.AZURE_STRIKE,
-    TALENTS.SHATTERING_STAR_TALENT,
     TALENTS.PYRE_TALENT,
-    TALENTS.ENGULF_TALENT,
     TALENTS.DRAGONRAGE_TALENT,
     SPELLS.DEEP_BREATH,
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
-    TALENTS.FIRESTORM_TALENT,
+    TALENTS.AZURE_SWEEP_TALENT,
   ];
 
   graphData: GraphData[] = [];
@@ -261,7 +260,7 @@ class Disintegrate extends Analyzer {
       return;
     }
 
-    // This is actually a refresh event
+    // This is actually a refresh event or chained cast
     if (HasRelatedEvent(event, DISINTEGRATE_REMOVE_APPLY)) {
       this.onRefreshDebuff(event);
       return;
@@ -298,6 +297,8 @@ class Disintegrate extends Analyzer {
     if (isMassDisintegrateDebuff(event)) {
       return;
     }
+    this.currentMainTarget = encodeEventTargetString(event);
+
     // Clipped before GCD, very bad
     if (
       this.currentRemainingTicks >=

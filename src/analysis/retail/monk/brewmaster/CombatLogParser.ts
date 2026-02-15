@@ -27,7 +27,6 @@ import KegSmash from './modules/spells/KegSmash';
 import PurifyingBrew from './modules/spells/PurifyingBrew';
 import Shuffle from './modules/spells/Shuffle';
 import TigerPalm from './modules/spells/TigerPalm';
-import ExpelHarmNorm from './normalizers/ExpelHarm';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
 import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
 import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
@@ -47,6 +46,8 @@ import EnergyTracker from './modules/core/EnergyTracker';
 import EnergyGraph from './modules/core/EnergyGraph';
 import AspectOfHarmony, { AspectOfHarmonyLinkNormalizer } from './modules/talents/AspectOfHarmony';
 import { Abilities } from './gen';
+import { ExpelOxOrbsNormalizer } from './normalizers/ExpelHarm';
+import VitalFlames, { VitalFlameNormalizer } from './modules/talents/VitalFlames';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,13 +88,14 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
 
     // normalizers
-    ehNorm: ExpelHarmNorm,
     staggerLink: StaggerLinkNormalizer,
     cbNorm: CelestialBrewNormalizer,
     bofNorm: BreathOfFireDebuffTargetNormalizer,
     sckNorm: SpinningCraneKickLinkNormalizer,
     ptaNorm: PressTheAdvantageNormalizer,
     aohNorm: AspectOfHarmonyLinkNormalizer,
+    expelOxOrbNorm: ExpelOxOrbsNormalizer,
+    VitalFlameNormalizer,
 
     // Talents
     scaldingBrew: ScaldingBrew,
@@ -107,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormstoutsLastKeg: StormtoutsLastKeg,
     veteransEye: VeteransEye,
     AspectOfHarmony,
+    VitalFlames,
 
     apl: AplCheck,
 

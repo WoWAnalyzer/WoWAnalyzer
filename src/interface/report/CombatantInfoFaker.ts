@@ -8,7 +8,6 @@ export function generateFakeCombatantInfo(player: CombatantInfoEvent) {
   const fakedPlayer = player;
   fakedPlayer.gear = fakeGearGenerator(player.specID);
   fakedPlayer.auras = fakeBuffGenerator();
-  fakedPlayer.error = null;
   return fakedPlayer;
 }
 

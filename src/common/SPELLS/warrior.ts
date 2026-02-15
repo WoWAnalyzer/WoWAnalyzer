@@ -324,6 +324,16 @@ const spells = {
     name: 'Avatar',
     icon: 'warrior_talent_icon_avatar',
   },
+  VIOLENT_EUPHORIA_BUFF: {
+    id: 1270731,
+    name: 'Violent Euphoria',
+    icon: 'ability_butcher_exsanguination',
+  },
+  THUNDER_BLAST_BUFF: {
+    id: 435615,
+    name: 'Thunder Blast',
+    icon: 'warrior_talent_icon_bloodandthunder',
+  },
 
   // Arms:
   BLADESTORM: {
@@ -439,7 +449,7 @@ const spells = {
     name: 'Opportunist',
     icon: 'ability_warrior_weaponmastery',
   },
-  SUDDEN_DEATH_ARMS_TALENT_BUFF: {
+  SUDDEN_DEATH_TALENT_BUFF: {
     id: 52437,
     name: 'Sudden Death',
     icon: 'ability_warrior_improveddisciplines',
@@ -596,15 +606,15 @@ const spells = {
     name: 'Bloodcraze',
     icon: 'ability_creature_cursed_02',
   },
-  MARKED_FOR_EXECUTION: {
-    id: 445584,
-    name: 'Marked For Execution',
-    icon: 'ability_blackhand_marked4death',
-  },
   ASHEN_JUGGERNAUT: {
     id: 392537,
     name: 'Ashen Juggernaut',
     icon: 'warrior_talent_icon_skirmisher',
+  },
+  EXECUTIONER_TALENT_BUFF: {
+    id: 445584,
+    name: 'Executioner',
+    icon: 'warrior_talent_icon_lambstotheslaughter',
   },
 
   // Protection:

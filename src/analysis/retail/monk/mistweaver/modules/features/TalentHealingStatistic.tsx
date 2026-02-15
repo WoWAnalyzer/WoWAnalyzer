@@ -11,7 +11,6 @@ import RisingMist from '../spells/RisingMist';
 import InvokeChiJi from '../spells/InvokeChiJi';
 import InvokeYulon from '../spells/InvokeYulon';
 import { TALENTS_MONK } from 'common/TALENTS';
-import Unison from '../spells/Unison';
 import MistsOfLife from '../spells/MistsOfLife';
 import MistWrap from '../spells/MistWrap';
 import SheilunsGift from '../spells/SheilunsGift';
@@ -23,6 +22,13 @@ import LotusInfusion from '../spells/LotusInfusion';
 import CraneStyle from '../spells/CraneStyle';
 import ZenPulse from '../spells/ZenPulse';
 import AverageTimeBetweenRSKs from '../spells/AverageTimeBetweenRSKs';
+import WayOfTheSerpent from '../spells/WayOfTheSerpent';
+import WayOfTheCrane from '../spells/WayOfTheCrane';
+import PeacefulMending from '../spells/PeacefulMending';
+import Spiritfont from '../spells/Spiritfont';
+import InvigoratingMists from '../spells/InvigoratingMists';
+import EmperorsFavor from '../spells/EmperorsFavor';
+import TranquilTea from '../spells/TranquilTea';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -33,7 +39,6 @@ class TalentHealingStatistic extends Analyzer {
     dancingMists: DancingMists,
     rapidDiffusion: RapidDiffusion,
     saveThemAll: SaveThemAll,
-    unison: Unison,
     mistsOfLife: MistsOfLife,
     mistWrap: MistWrap,
     sheiluns: SheilunsGift,
@@ -46,6 +51,13 @@ class TalentHealingStatistic extends Analyzer {
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
     rushingWindKick: AverageTimeBetweenRSKs,
+    wayOfTheSerpent: WayOfTheSerpent,
+    wayOfTheCrane: WayOfTheCrane,
+    peacefulMending: PeacefulMending,
+    spiritfont: Spiritfont,
+    invigoratingMists: InvigoratingMists,
+    emperorsFavor: EmperorsFavor,
+    tranquilTea: TranquilTea,
   };
 
   protected risingMist!: RisingMist;
@@ -55,7 +67,6 @@ class TalentHealingStatistic extends Analyzer {
   protected dancingMists!: DancingMists;
   protected rapidDiffusion!: RapidDiffusion;
   protected saveThemAll!: SaveThemAll;
-  protected unison!: Unison;
   protected mistsOfLife!: MistsOfLife;
   protected mistWrap!: MistWrap;
   protected sheiluns!: SheilunsGift;
@@ -69,6 +80,13 @@ class TalentHealingStatistic extends Analyzer {
   protected craneStyle!: CraneStyle;
   protected zenPulse!: ZenPulse;
   protected rushingWindKick!: AverageTimeBetweenRSKs;
+  protected wayOfTheSerpent!: WayOfTheSerpent;
+  protected wayOfTheCrane!: WayOfTheCrane;
+  protected peacefulMending!: PeacefulMending;
+  protected spiritfont!: Spiritfont;
+  protected invigoratingMists!: InvigoratingMists;
+  protected emperorsFavor!: EmperorsFavor;
+  protected tranquilTea!: TranquilTea;
 
   buildTalentList() {
     const talentList = [];
@@ -93,9 +111,6 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT)) {
       talentList.push(this.saveThemAll.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT)) {
-      talentList.push(this.unison.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT)) {
       talentList.push(this.mistsOfLife.subStatistic());
     }
@@ -114,9 +129,6 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) {
       talentList.push(this.jadefireTeachings.talentHealingStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
-      talentList.push(this.jadefireStomp.talentHealingStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
       talentList.push(this.tearOfMorning.subStatistic());
     }
@@ -131,6 +143,30 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT)) {
       talentList.push(this.rushingWindKick.substatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.WAY_OF_THE_SERPENT_TALENT)) {
+      talentList.push(this.wayOfTheSerpent.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.WAY_OF_THE_CRANE_TALENT)) {
+      talentList.push(this.wayOfTheCrane.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.PEACEFUL_MENDING_TALENT)) {
+      talentList.push(this.peacefulMending.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT)) {
+      talentList.push(this.spiritfont.subStatistic());
+    }
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVIGORATING_MISTS_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)
+    ) {
+      talentList.push(this.invigoratingMists.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.EMPERORS_FAVOR_TALENT)) {
+      talentList.push(this.emperorsFavor.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.TRANQUIL_TEA_TALENT)) {
+      talentList.push(this.tranquilTea.subStatistic());
     }
 
     const sortedTalentList = talentList.sort(

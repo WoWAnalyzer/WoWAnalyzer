@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatPercentage, formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -44,12 +45,6 @@ class TouchOfTheMagiGuide extends Analyzer {
     });
   }
 
-  /**
-   * Evaluates a single Touch of the Magi cast.
-   * Returns performance and reason for tooltip display.
-   *
-   * Evaluation priority: fail → perfect → good → ok → default
-   */
   private evaluateTouchCast(cast: TouchOfTheMagiData): CastEvaluation {
     const noCharges = cast.charges === 0;
     const maxCharges = cast.charges === MAX_ARCANE_CHARGES;
@@ -114,7 +109,6 @@ class TouchOfTheMagiGuide extends Analyzer {
     const arcaneOrb = <SpellLink spell={SPELLS.ARCANE_ORB} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
-    const siphonStorm = <SpellLink spell={SPELLS.SIPHON_STORM_BUFF} />;
     const evocation = <SpellLink spell={TALENTS.EVOCATION_TALENT} />;
     const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
@@ -140,8 +134,7 @@ class TouchOfTheMagiGuide extends Analyzer {
             charges will be refunded anyway via {burdenOfPower}, {gloriousIncandescence}, or .
           </li>
           <li>
-            Major Burn Phase: Ensure you have {siphonStorm} and . Your cast sequence would typically
-            be{' '}
+            Major Burn Phase: Ensure you have and . Your cast sequence would typically be{' '}
             <SpellSeq
               spells={[
                 TALENTS.EVOCATION_TALENT,

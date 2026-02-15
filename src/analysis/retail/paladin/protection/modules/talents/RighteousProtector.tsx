@@ -10,7 +10,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 export const REDUCTION_TIME = 2000; // ms
 const SECOND = 1000;
@@ -114,7 +114,7 @@ class RighteousProtector extends Analyzer {
       return this.spellUsable.reduceCooldown(TALENTS.AVENGING_WRATH_TALENT.id, REDUCTION_TIME);
     }
   }
-  statistic(): React.ReactNode {
+  statistic(): ReactNode {
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}

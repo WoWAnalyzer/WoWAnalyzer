@@ -1,11 +1,14 @@
 import { change, date } from 'common/changelog';
-import { Vetyst,
-        Kivlov,
+import { Kivlov,
  } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2025, 9, 1), 'Update Survival for 11.2.0 support', Kivlov),
-  change(date(2024, 11, 17), 'Update Survival to use the Guide style for Analysis.', Kivlov),
-  change(date(2024, 11, 10), 'Updating talents for 11.0.5 > Merciless Blow/Butchery and Wildfire Bomb CDR.', Kivlov),
-  change(date(2024, 10, 5), 'Enabled Core Foundation for TWW.', Vetyst),
+  change(date(2026, 2, 5), 'Add Pack Leader Analysis', Kivlov),
+  change(date(2026, 2, 2), 'Add Sentinels Mark Analysis', Kivlov),
+  change(date(2026, 2, 1), 'Add Moonlight Chakram Analysis', Kivlov),
+  change(date(2026, 1, 25), 'Add APL section. Add Tip of the Spear as a Resource', Kivlov),
+  change(date(2026, 1, 23), 'Add Midnight abilities and clean up old abilities', Kivlov),
+  change(date(2026, 1, 17), 'Add Boomstick Analyzer', Kivlov),
+  change(date(2026, 1, 10), 'Update Survival for 12.0.0 support', Kivlov),
+
 ];

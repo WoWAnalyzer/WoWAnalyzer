@@ -1,10 +1,10 @@
+import type { ReactNode } from 'react';
 import { memo } from 'react';
-import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import { root } from './PortalTarget';
 
-const Portal = ({ children }: { children: React.ReactNode }) => {
+const Portal = ({ children }: { children: ReactNode }) => {
   return ReactDOM.createPortal(children, root());
 };
 

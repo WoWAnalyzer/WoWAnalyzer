@@ -41,8 +41,8 @@ class PrescienceNormalizer extends EventsNormalizer {
           this.combatants.players[event.targetID]
         ) {
           if (
-            (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff) &&
-            !targetStatus[event.targetID]
+            (event.type === EventType.ApplyBuff && !targetStatus[event.targetID]) ||
+            event.type === EventType.RefreshBuff
           ) {
             targetStatus[event.targetID] = true;
             fixedEvents.push(event);

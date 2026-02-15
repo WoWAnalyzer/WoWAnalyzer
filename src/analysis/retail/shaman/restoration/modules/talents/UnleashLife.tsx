@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -6,7 +7,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
-  AbsorbedEvent,
   ApplyBuffEvent,
   CastEvent,
   HealEvent,
@@ -105,10 +105,6 @@ class UnleashLife extends Analyzer {
       amount: 0,
       casts: 0,
     },
-    [TALENTS.WELLSPRING_TALENT.id]: {
-      amount: 0,
-      casts: 0,
-    },
     [TALENTS.HEALING_RAIN_TALENT.id]: {
       amount: 0,
       casts: 0,
@@ -165,7 +161,6 @@ class UnleashLife extends Analyzer {
       TALENTS.CHAIN_HEAL_TALENT,
       SPELLS.HEALING_WAVE,
       SPELLS.HEALING_SURGE,
-      TALENTS.WELLSPRING_TALENT,
       TALENTS.HEALING_RAIN_TALENT,
       SPELLS.DOWNPOUR_ABILITY,
     ];
@@ -173,14 +168,6 @@ class UnleashLife extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.UNLEASH_LIFE_TALENT),
       this._onHealUL,
-    );
-    this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_UNLEASH_LIFE),
-      this._onWellspring,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE),
-      this._onHealingSurge,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
@@ -194,16 +181,9 @@ class UnleashLife extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.UNLEASH_LIFE_TALENT),
       this._onRemoveUL,
     );
-    this.goodSpells.push(TALENTS.HEALING_RAIN_TALENT.id);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)) {
-      this.goodSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
-    } else {
-      this.okSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
-    }
-    if (this.downpourActive) {
-      this.goodSpells.push(SPELLS.DOWNPOUR_ABILITY.id);
-    }
+    this.goodSpells.push(SPELLS.HEALING_WAVE.id);
+    this.okSpells.push(TALENTS.RIPTIDE_TALENT.id);
   }
   //necessary because riptide can be spellqued into the spell that actually consumed UL and event linking will match both
   _wasAlreadyConsumed(event: CastEvent | HealEvent) {
@@ -266,10 +246,6 @@ class UnleashLife extends Analyzer {
     }
     this.wastedBuffs += 1;
     this.tallyCastEntry(-1);
-  }
-
-  private _onWellspring(event: AbsorbedEvent) {
-    this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount += event.amount;
   }
 
   private _onHealingSurge(event: HealEvent) {
@@ -567,17 +543,6 @@ class UnleashLife extends Analyzer {
           active: true,
         }),
       },
-      {
-        color: RESTORATION_COLORS.WELLSPRING,
-        label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
-        spellId: TALENTS.WELLSPRING_TALENT.id,
-        value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
-        valueTooltip: this._tooltip({
-          spellId: TALENTS.WELLSPRING_TALENT.id,
-          amount: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
-          active: this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT),
-        }),
-      },
     ]
       .filter((item) => item.value > 0)
       .sort((a, b) => b.value - a.value);
@@ -622,12 +587,9 @@ class UnleashLife extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />
         </b>{' '}
-        is a very efficient heal on a short cooldown, however the true power of this spell comes
-        from the potent buff it provides that can be consumed by a number of different abilities.
-        This spell is best used in preparation for incoming damage to combo with one of your
-        stronger abilities like a <SpellLink spell={TALENTS.HIGH_TIDE_TALENT} />
-        -buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, or{' '}
-        <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} />
+        is a very efficient and potent heal on a short cooldown that also provides a buff that
+        improves your next <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />,{' '}
+        <SpellLink spell={SPELLS.HEALING_WAVE} />, or <SpellLink spell={TALENTS.RIPTIDE_TALENT} />.
       </p>
     );
 

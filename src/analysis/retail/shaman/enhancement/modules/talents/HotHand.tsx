@@ -1,4 +1,4 @@
-import { formatPercentage } from 'common/format';
+import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon, SpellLink } from 'interface';
@@ -14,7 +14,6 @@ import Events, {
   FightEndEvent,
   GetRelatedEvent,
   GlobalCooldownEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
@@ -36,12 +35,13 @@ import {
   getLowestPerf,
 } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
 import {
@@ -50,7 +50,7 @@ import {
   addInefficientCastReason,
 } from 'parser/core/EventMetaLib';
 import NPCS from 'common/NPCS';
-import Reactivity from '../hero/totemic/Reactivity';
+import Earthsurge from '../hero/totemic/Earthsurge';
 
 class HotHandRank {
   modRate: number;
@@ -76,19 +76,17 @@ const HOT_HAND: Record<number, HotHandRank> = {
  * a Hot Hand window so we don't want to unfairly punish the performance if
  * any of these are used  */
 const HIGH_PRIORITY_ABILITIES: HighPriorityAbilities = [
-  TALENTS.PRIMORDIAL_WAVE_TALENT.id,
-  TALENTS.PRIMORDIAL_STORM_TALENT.id,
-  TALENTS.FERAL_SPIRIT_TALENT.id,
-  {
-    spellId: [TALENTS.TEMPEST_TALENT.id, TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id],
-    condition: (e) =>
-      e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 6,
-  },
-  {
-    spellId: SPELLS.LIGHTNING_BOLT.id,
-    condition: (e) =>
-      e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 5,
-  },
+  // TALENTS.PRIMORDIAL_STORM_TALENT.id,
+  // {
+  //   spellId: [TALENTS.TEMPEST_TALENT.id],
+  //   condition: (e) =>
+  //     e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 6,
+  // },
+  // {
+  //   spellId: SPELLS.LIGHTNING_BOLT.id,
+  //   condition: (e) =>
+  //     e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 5,
+  // },
 ];
 
 interface HotHandTimeline {
@@ -98,17 +96,22 @@ interface HotHandTimeline {
   performance?: QualitativePerformance | null;
 }
 
-interface HotHandProc extends CooldownTrigger<ApplyBuffEvent | RefreshBuffEvent> {
+interface HotHandProc extends CooldownTrigger<ApplyBuffEvent> {
   hasteAdjustedWastedCooldown: number;
   timeline: HotHandTimeline;
   unusedGcdTime: number;
   globalCooldowns: number[];
+  totemicMomentumExtension: number;
 }
+
+const TOTEMIC_MOMENTUM_EXTENSION_MS_PER_STACK = 200;
 
 /**
  * Melee auto-attacks with Flametongue Weapon active have a 5% chance to
- * reduce the cooldown of Lava Lash by [60/75]% and increase the damage of
+ * reduce the cooldown of Lava Lash by [25/50]% and increase the damage of
  * Lava Lash by [20/40]% for 8 sec.
+ *
+ * May not occur during an active Hot Hand.
  *
  * Example Log:
  *
@@ -119,12 +122,12 @@ class HotHand extends MajorCooldown<HotHandProc> {
     spellUsable: SpellUsable,
     haste: Haste,
     abilities: Abilities,
-    reactivity: Reactivity,
+    earthsurge: Earthsurge,
   };
   protected spellUsable!: SpellUsable;
   protected haste!: Haste;
   protected abilities!: Abilities;
-  protected reactivity!: Reactivity;
+  protected earthsurge!: Earthsurge;
 
   activeWindow: HotHandProc | null = null;
   globalCooldownEnds = 0;
@@ -134,10 +137,13 @@ class HotHand extends MajorCooldown<HotHandProc> {
   protected hotHandActive: Intervals = new Intervals();
   protected buffedCasts = 0;
 
-  private lavaLashOnCooldown = true;
+  private hasTotemicMomentum = false;
+  private totemicMomentumTotalExtension = 0;
+  private totemicMomentumProcsForStats = 0;
+
   private lastCooldownWasteCheck = 0;
 
-  protected hasReactivity = false;
+  protected hasEarthsurge = false;
   protected surgingTotemActive = false;
 
   constructor(options: Options) {
@@ -147,16 +153,13 @@ class HotHand extends MajorCooldown<HotHandProc> {
       return;
     }
 
-    this.hasReactivity = this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT);
+    this.hasEarthsurge = this.selectedCombatant.hasTalent(TALENTS.EARTHSURGE_TALENT);
+    this.hasTotemicMomentum = this.selectedCombatant.hasTalent(TALENTS.TOTEMIC_MOMENTUM_TALENT);
     this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS.HOT_HAND_TALENT)];
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.startOrRefreshWindow,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.startOrRefreshWindow,
+      this.startWindow,
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
@@ -173,7 +176,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS.LAVA_LASH_TALENT),
       this.detectLavaLashCasts,
     );
-    if (this.hasReactivity) {
+    if (this.hasEarthsurge) {
       const surgingTotemNpcId = this.owner.playerPets.find(
         (x) => x.guid === NPCS.SURGING_TOTEM.id,
       )?.id;
@@ -195,11 +198,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   detectLavaLashCasts(event: UpdateSpellUsableEvent) {
-    if (event.updateType === UpdateSpellUsableType.BeginCooldown) {
-      this.lavaLashOnCooldown = true;
-    }
     if (event.updateType === UpdateSpellUsableType.EndCooldown) {
-      this.lavaLashOnCooldown = false;
       this.lastCooldownWasteCheck = event.timestamp;
     }
   }
@@ -211,9 +210,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
     this.activeWindow?.globalCooldowns.push(event.duration);
   }
 
-  startOrRefreshWindow(event: ApplyBuffEvent | RefreshBuffEvent) {
-    // on application applies a mod rate and also resets CD if proc was natural
-
+  startWindow(event: ApplyBuffEvent) {
     const whirlingFireRemovedEvent = GetRelatedEvent<RemoveBuffEvent>(
       event,
       EnhancementEventLinks.WHIRLING_FIRE_LINK,
@@ -257,6 +254,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
         unusedGcdTime: 0,
         globalCooldowns: [],
         hasteAdjustedWastedCooldown: 0,
+        totemicMomentumExtension: 0,
       };
 
       if (lavaLashCastEvent) {
@@ -278,6 +276,17 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
     if (this.activeWindow) {
       this.activeWindow.timeline.end = event.timestamp;
+
+      // Exclude truncated windows (fight end) from Totemic Momentum statistics.
+      if (
+        this.hasTotemicMomentum &&
+        event.type !== EventType.FightEnd &&
+        this.activeWindow.totemicMomentumExtension > 0
+      ) {
+        this.totemicMomentumTotalExtension += this.activeWindow.totemicMomentumExtension;
+        this.totemicMomentumProcsForStats += 1;
+      }
+
       this.recordCooldown(this.activeWindow);
       this.activeWindow = null;
     }
@@ -307,6 +316,14 @@ class HotHand extends MajorCooldown<HotHandProc> {
   onCast(event: CastEvent) {
     if (!this.activeWindow || event.ability.guid === SPELLS.MELEE.id || !event.globalCooldown) {
       return;
+    }
+
+    if (this.hasTotemicMomentum) {
+      const stacksSpent = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+      if (stacksSpent && stacksSpent > 0) {
+        this.activeWindow.totemicMomentumExtension +=
+          stacksSpent * TOTEMIC_MOMENTUM_EXTENSION_MS_PER_STACK;
+      }
     }
 
     this.activeWindow.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
@@ -356,38 +373,36 @@ class HotHand extends MajorCooldown<HotHandProc> {
     return (
       <>
         <p>
-          When <strong>{hh}</strong> triggers, you can cast {ll} as every other ability.
+          When <strong>{hh}</strong> triggers, you can usually cast {ll} in a 1 &rarr; 2 &rarr; 2
+          &rarr; 1 like sequence. Casting {ll} &rarr; consuming 10 stacks of{' '}
+          <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> can allow you to cast {ll} without an
+          additional filler spell.
           <br />
           The section to the right shows breakdown of each time {hh} procced, and how well you
           utilised the window.
         </p>
-        {this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT) && (
-          <>
-            <p>
-              With <SpellLink spell={TALENTS.REACTIVITY_TALENT} /> talented, each {ll} cast while{' '}
-              {hh} is active will cast a <SpellLink spell={TALENTS.SUNDERING_TALENT} /> forward , so
-              aiming is important, and your <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> will
-              trigger an <SpellLink spell={TALENTS.EARTHSURGE_TALENT} />.
-            </p>
-            <p>
-              For this reason, it is absolutely{' '}
-              <i>
-                <strong>critical</strong>
-              </i>{' '}
-              you have <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> active and near your
-              target.
-            </p>
-          </>
-        )}
+        <p>
+          With <SpellLink spell={TALENTS.SPLITSTREAM_TALENT} /> talented, each {ll} cast while {hh}{' '}
+          is active will cast a <SpellLink spell={TALENTS.SUNDERING_TALENT} /> in the direction you
+          are facing.{' '}
+          {this.selectedCombatant.hasTalent(TALENTS.EARTHSURGE_TALENT) ? (
+            <>
+              <SpellLink spell={TALENTS.SUNDERING_TALENT} /> cast by {ll} will also trigger an{' '}
+              <SpellLink spell={TALENTS.EARTHSURGE_TALENT} /> half way along{' '}
+              <SpellLink spell={TALENTS.SUNDERING_TALENT} />
+              's path
+            </>
+          ) : null}
+        </p>
         <p>
           An example sequence may look something like this:
           <br />
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
+          <SpellIcon spell={SPELLS.STORMSTRIKE} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-          <SpellIcon spell={SPELLS.STORMSTRIKE_CAST} /> &rarr;
-          <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.CRASH_LIGHTNING_TALENT} /> &rarr;
+          <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} />
         </p>
         {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
@@ -416,8 +431,28 @@ class HotHand extends MajorCooldown<HotHandProc> {
   } {
     const checklistItem = {
       performance: QualitativePerformance.Perfect,
-      summary: null,
-      details: null,
+      summary: this.hasTotemicMomentum ? (
+        <>
+          {cast.totemicMomentumExtension > 0
+            ? formatDurationMillisMinSec(cast.totemicMomentumExtension, 1)
+            : '0.0s'}{' '}
+          <SpellLink spell={TALENTS.TOTEMIC_MOMENTUM_TALENT} /> extension
+        </>
+      ) : null,
+      details: this.hasTotemicMomentum ? (
+        <>
+          {cast.totemicMomentumExtension > 0 ? (
+            <div>
+              <strong>{formatDurationMillisMinSec(cast.totemicMomentumExtension, 1)}</strong>{' '}
+              extension from <SpellLink spell={TALENTS.TOTEMIC_MOMENTUM_TALENT} />.
+            </div>
+          ) : (
+            <div>
+              No <SpellLink spell={TALENTS.TOTEMIC_MOMENTUM_TALENT} /> extension during this window.
+            </div>
+          )}
+        </>
+      ) : null,
       check: 'hothand-timeline',
       timestamp: cast.event.timestamp,
     };
@@ -551,20 +586,20 @@ class HotHand extends MajorCooldown<HotHandProc> {
       this.explainUsagePerformance(cast),
       this.explainGcdPerformance(cast),
     ];
-    if (this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT)) {
-      const reactivityMissedSunderings = cast.timeline.events.filter(
+    if (this.selectedCombatant.hasTalent(TALENTS.EARTHSURGE_TALENT)) {
+      const slipstreamMissedSunderings = cast.timeline.events.filter(
         (event) =>
           event.type === EventType.Cast &&
           event.ability.guid === TALENTS.LAVA_LASH_TALENT.id &&
-          this.reactivity.isInefficientLavaLashCast(event),
+          this.earthsurge.isInefficientLavaLashCast(event),
       ).length;
 
-      if (reactivityMissedSunderings > 0) {
+      if (slipstreamMissedSunderings > 0) {
         checklistItems.push({
-          check: 'reactivity',
+          check: 'slipstream',
           timestamp: cast.event.timestamp,
           performance: evaluateQualitativePerformanceByThreshold({
-            actual: reactivityMissedSunderings,
+            actual: slipstreamMissedSunderings,
             isLessThanOrEqual: {
               perfect: 0,
               ok: 1,
@@ -572,7 +607,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
           }),
           summary: (
             <>
-              One or more missed <SpellLink spell={TALENTS.REACTIVITY_TALENT} />{' '}
+              One or more missed <SpellLink spell={TALENTS.SPLITSTREAM_TALENT} />{' '}
               <SpellLink spell={TALENTS.SUNDERING_TALENT} />
               's missed.
             </>
@@ -580,7 +615,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
           details: (
             <>
               <div>
-                <strong>{reactivityMissedSunderings}</strong>{' '}
+                <strong>{slipstreamMissedSunderings}</strong>{' '}
                 <SpellLink spell={TALENTS.SUNDERING_TALENT} /> failed to hit any targets. Make sure
                 you are facing the target when you cast{' '}
                 <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />.
@@ -600,6 +635,11 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   statistic() {
+    const avgTotemicMomentumExtension =
+      this.totemicMomentumProcsForStats > 0
+        ? this.totemicMomentumTotalExtension / this.totemicMomentumProcsForStats
+        : 0;
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -614,6 +654,12 @@ class HotHand extends MajorCooldown<HotHandProc> {
               {this.buffedCasts} total <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> casts with Hot
               Hand buff
             </li>
+            {this.hasTotemicMomentum && this.totemicMomentumProcsForStats > 0 && (
+              <li>
+                <SpellLink spell={TALENTS.TOTEMIC_MOMENTUM_TALENT} /> average extension:{' '}
+                {formatDurationMillisMinSec(avgTotemicMomentumExtension, 1)} per proc
+              </li>
+            )}
           </ul>
         }
         category={STATISTIC_CATEGORY.TALENTS}
@@ -624,6 +670,13 @@ class HotHand extends MajorCooldown<HotHandProc> {
             <br />
             {this.castsPerSecond.toFixed(2)} <small>average casts per proc</small>
             <br />
+            {this.hasTotemicMomentum && this.totemicMomentumProcsForStats > 0 && (
+              <>
+                {formatDurationMillisMinSec(avgTotemicMomentumExtension, 1)}{' '}
+                <small>average extension per proc</small>
+                <br />
+              </>
+            )}
           </>
         </TalentSpellText>
       </Statistic>

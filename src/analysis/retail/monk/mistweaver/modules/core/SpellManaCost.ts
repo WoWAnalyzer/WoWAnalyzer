@@ -4,14 +4,14 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { CHIJI_REDUCTION, YULON_REDUCTION } from '../../constants';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { CastEvent } from 'parser/core/Events';
-import BaseCelestialAnalyzer from '../spells/BaseCelestialAnalyzer';
+import { CelestialHooks } from 'analysis/retail/monk/shared';
 
 class MWSpellManaCost extends SpellManaCost {
   static dependencies = {
     ...SpellManaCost.dependencies,
-    celestial: BaseCelestialAnalyzer,
+    celestialHooks: CelestialHooks,
   };
-  celestial!: BaseCelestialAnalyzer;
+  celestialHooks!: CelestialHooks;
   currentBuffs = new Set<number>();
   hasChiji = false;
   constructor(options: Options) {
@@ -39,7 +39,7 @@ class MWSpellManaCost extends SpellManaCost {
       return 0;
     }
     let celestialMultiplier = 1;
-    if (spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id && this.celestial.celestialActive) {
+    if (spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id && this.celestialHooks.celestialActive) {
       celestialMultiplier -= this.hasChiji ? CHIJI_REDUCTION : YULON_REDUCTION;
     }
     return celestialMultiplier;

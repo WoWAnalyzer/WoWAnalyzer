@@ -29,7 +29,8 @@ import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { ReactNode } from 'react';
 import SpellLink from 'interface/SpellLink';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
@@ -71,7 +72,7 @@ interface Spender {
 }
 
 const maelstromSpenders: number[] = [
-  TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+  TALENTS.ELEMENTAL_BLAST_TALENT.id,
   TALENTS.EARTH_SHOCK_TALENT.id,
   TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
   TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
@@ -108,8 +109,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)) {
-      this.spender.spell = TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
+      this.spender.spell = TALENTS.ELEMENTAL_BLAST_TALENT;
       this.spender.costReduction = this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT)
         ? 10
         : 0;
@@ -150,7 +151,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           .by(SELECTED_PLAYER)
           .spell([
             TALENTS.EARTH_SHOCK_TALENT,
-            TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
+            TALENTS.ELEMENTAL_BLAST_TALENT,
             TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
             TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
           ]),
@@ -311,26 +312,24 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   description(): ReactNode {
     return (
       <>
-        <p>
-          <ol>
-            <li>
-              <strong>Uptime</strong>: You need to maximise the number of casts during your{' '}
-              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> window. It is often worth
-              pairing with <SpellLink spell={TALENTS.SPIRITWALKERS_GRACE_TALENT} /> to ensure
-              movement doesn't impact on your overall casts.
-            </li>
-            <li>
-              Try to avoid casting spells that don't interact with{' '}
-              <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />, such as{' '}
-              <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> and{' '}
-              <SpellLink spell={SPELLS.FLAME_SHOCK} />.
-            </li>
-            <li>
-              If possible, try to cast <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> before{' '}
-              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> to not lose casting uptime.
-            </li>
-          </ol>
-        </p>
+        <ol>
+          <li>
+            <strong>Uptime</strong>: You need to maximise the number of casts during your{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> window. It is often worth
+            pairing with <SpellLink spell={TALENTS.SPIRITWALKERS_GRACE_TALENT} /> to ensure movement
+            doesn't impact on your overall casts.
+          </li>
+          <li>
+            Try to avoid casting spells that don't interact with{' '}
+            <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />, such as{' '}
+            <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.FLAME_SHOCK} />.
+          </li>
+          <li>
+            If possible, try to cast <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> before{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> to not lose casting uptime.
+          </li>
+        </ol>
       </>
     );
   }
@@ -448,9 +447,14 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   get guideSubsection() {
     return (
       this.active && (
-        <>
-          <CooldownUsage analyzer={this} title="Ascendance" />
-        </>
+        <CooldownUsage
+          analyzer={this}
+          title={
+            <>
+              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />
+            </>
+          }
+        />
       )
     );
   }

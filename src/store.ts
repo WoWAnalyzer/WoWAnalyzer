@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import internetExplorerReducer from 'interface/reducers/internetExplorer';
 import userReducer from 'interface/reducers/user';
-import combatantsReducer from 'interface/reducers/combatants';
 import reportHistoryReducer from 'interface/reducers/reportHistory';
 import languageReducer from 'interface/reducers/language';
 import specsIgnoredNotSupportedWarningReducer from 'interface/reducers/specsIgnoredNotSupportedWarning';
@@ -19,7 +18,6 @@ const rootReducer = combineReducers({
   // App
   user: userReducer,
   navigation: navigationReducer,
-  combatants: combatantsReducer,
   reportHistory: reportHistoryReducer,
   language: languageReducer,
   specsIgnoredNotSupportedWarning: specsIgnoredNotSupportedWarningReducer,

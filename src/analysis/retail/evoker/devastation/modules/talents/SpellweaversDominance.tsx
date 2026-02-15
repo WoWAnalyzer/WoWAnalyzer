@@ -1,9 +1,8 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import { formatNumber } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamageFromCritDamageIncrease } from 'parser/core/EventCalculateLib';
@@ -11,31 +10,20 @@ import { calculateEffectiveDamageFromCritDamageIncrease } from 'parser/core/Even
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
+import {
+  DAMAGE_SPELLS_THAT_CAN_CRIT,
+  SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER,
+} from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 
 class SpellweaversDominance extends Analyzer {
   SpellweaversDominanceDamage = 0;
-  heatWaveDamageCritMultiplier: number = SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER;
-  spellsToTrack = [
-    SPELLS.DISINTEGRATE,
-    SPELLS.FIRE_BREATH_DOT,
-    SPELLS.ETERNITY_SURGE_DAM,
-    SPELLS.LIVING_FLAME_DAMAGE,
-    SPELLS.PYRE,
-    SPELLS.FIRESTORM_DAMAGE,
-    SPELLS.SHATTERING_STAR,
-    ...DEEP_BREATH_SPELLS,
-    SPELLS.AZURE_STRIKE,
-    SPELLS.UNRAVEL,
-  ];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SPELLWEAVERS_DOMINANCE_TALENT);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.spellsToTrack), this.onHit);
+    this.addEventListener(Events.damage.spell(DAMAGE_SPELLS_THAT_CAN_CRIT), this.onHit);
   }
 
   onHit(event: DamageEvent) {

@@ -4,7 +4,7 @@ import { formatDuration } from 'common/format';
 import { Tooltip, ControlledExpandable } from 'interface';
 import { useFight } from 'interface/report/context/FightContext';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { useState } from 'react';
+import { useState, type JSX } from 'react';
 import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';

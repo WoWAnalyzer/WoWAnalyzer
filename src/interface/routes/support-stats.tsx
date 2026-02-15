@@ -2,7 +2,7 @@ import { Aggregate, ServerMetrics, loadServerMetrics } from 'common/server-metri
 import { type Spec } from 'game/SPECS';
 import LanguageSwitcher from 'interface/LanguageSwitcher';
 import NavigationBar from 'interface/NavigationBar';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type JSX } from 'react';
 import { SpecIcon, Tooltip, TooltipElement } from '..';
 import { getConfigForSpec } from 'parser/getConfig';
 import GameBranch from 'game/GameBranch';

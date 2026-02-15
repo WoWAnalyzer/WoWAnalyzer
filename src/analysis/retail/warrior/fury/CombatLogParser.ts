@@ -6,7 +6,6 @@ import RageCountDebugger from '../shared/modules/debuggers/RageCountDebugger';
 import GenerateRageEventsNormalizer from '../shared/modules/normalizers/rage/GenerateRageEventsNormalizer';
 import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttributeNormalizer';
 import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
-import ChampionsMight from '../shared/modules/talents/ChampionsMight';
 import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
@@ -37,6 +36,11 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import WhirlwindBuffOrderNormalizer from './modules/normalizers/WhirlwindBuffOrderNormalizer';
 import BrutalFinishBuffNormalizer from './modules/normalizers/BrutalFinishBuffNormalizer';
 import SuddenDeathBuffNormalizer from '../shared/modules/normalizers/SuddenDeathBuffNormalizer';
+import Guide from './Guide';
+import AplCheck from './modules/core/AplCheck';
+import Executioner from '../shared/modules/talents/Executioner';
+import AvatarOfTheStorm from './modules/talents/AvatarOfTheStorm';
+import BurstOfPower from './modules/talents/BurstOfPower';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -88,11 +92,17 @@ class CombatLogParser extends CoreCombatLogParser {
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
     hackAndSlash: HackAndSlash,
-    championsMight: ChampionsMight,
+    executioner: Executioner,
+    avatarOfTheStorm: AvatarOfTheStorm,
+    burstOfPower: BurstOfPower,
 
     // Debuggers
     rageCountDebugger: RageCountDebugger,
+
+    apl: AplCheck,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

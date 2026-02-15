@@ -18,7 +18,7 @@ import DeathStrike, {
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import BloodShield from '../BloodShield/BloodShield';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import {
   AnyEvent,
   BaseCastEvent,

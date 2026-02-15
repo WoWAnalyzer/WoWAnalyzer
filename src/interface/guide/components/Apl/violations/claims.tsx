@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
@@ -246,7 +247,8 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
       <p>
         {violation.rule.condition ? (
           <>
-            <ConditionDescription prefix="Since" rule={violation.rule} tense={Tense.Past} />, you{' '}
+            <ConditionDescription prefix="Since" rule={violation.rule} tense={Tense.Past} />,
+            you{' '}
           </>
         ) : (
           'You '

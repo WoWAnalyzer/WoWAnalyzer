@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import styled from '@emotion/styled';
 import { useAnalyzer, useInfo } from 'interface/guide';
 import { formatDuration, formatNumber } from 'common/format';

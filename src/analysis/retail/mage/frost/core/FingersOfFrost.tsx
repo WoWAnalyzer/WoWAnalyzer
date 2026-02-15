@@ -219,21 +219,15 @@ class FingersOfFrost extends Analyzer {
   get guideSubsection() {
     const fingersOfFrost = <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
     const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
-    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
 
     const fingersOfFrostIcon = <SpellIcon spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
 
     const explanation = (
       <div>
         <p>
+          {/* Not sure if this remains true */}
           Try to utilize {fingersOfFrost} procs before {brainFreeze} if you have both of them. By
           doing this you will avoid "munching" {fingersOfFrost} procs.
-        </p>
-        <p>
-          "Munching" a proc refers to a situation where you have a {fingersOfFrost} proc at the same
-          time that {wintersChill} is on the target. This essentially leads to a wasted
-          {fingersOfFrost} proc since {fingersOfFrost} and {wintersChill} both do the same thing.
-          Because of the way {fingersOfFrost} works, this is sometimes unavoidable.
         </p>
       </div>
     );

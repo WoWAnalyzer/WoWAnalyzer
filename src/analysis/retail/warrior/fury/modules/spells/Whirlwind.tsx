@@ -6,6 +6,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from '../features/SpellUsable';
 
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { TALENTS_WARRIOR } from 'common/TALENTS';
 
 class Whirlwind extends Analyzer {
   static dependencies = {
@@ -46,7 +47,10 @@ class Whirlwind extends Analyzer {
 
     const wwBuffStacks = this.selectedCombatant.getBuffStacks(SPELLS.WHIRLWIND_BUFF);
 
-    if (wwBuffStacks > 0) {
+    const hasStormSurge = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_SURGE_TALENT);
+    const hasAvatar = this.selectedCombatant.hasBuff(SPELLS.AVATAR_SHARED);
+
+    if (wwBuffStacks > 0 && !(hasAvatar && hasStormSurge)) {
       this.badWWCast += 1;
       addInefficientCastReason(
         event,

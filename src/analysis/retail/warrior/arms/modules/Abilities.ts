@@ -43,12 +43,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.REND_ARMS_TALENT.id,
+        spell: TALENTS.REND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.REND_ARMS_TALENT),
+        enabled: combatant.hasTalent(TALENTS.REND_TALENT),
       },
       {
         spell: SPELLS.COLOSSUS_SMASH.id,
@@ -61,16 +61,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: !combatant.hasTalent(TALENTS.WARBREAKER_TALENT),
-      },
-      {
-        spell: TALENTS.SKULLSPLITTER_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 21,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SKULLSPLITTER_TALENT),
       },
       {
         spell: [SPELLS.EXECUTE.id, SPELLS.EXECUTE_GLYPHED.id],
@@ -95,19 +85,6 @@ class Abilities extends CoreAbilities {
       },
       // Rotational AOE
       {
-        spell: TALENTS.WARBREAKER_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasTalent(TALENTS.WARBREAKER_TALENT), // replaces Colussus Smash
-      },
-      {
         spell: TALENTS.CLEAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste: number) => 4.5 / (1 + haste),
@@ -130,15 +107,6 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SWEEPING_STRIKES.id,
       },
       {
-        spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 45 : 0),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT),
-      },
-      {
         spell: SPELLS.WHIRLWIND.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
@@ -158,6 +126,19 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.BLADESTORM_TALENT),
         buffSpellId: SPELLS.BLADESTORM.id,
+      },
+      {
+        spell: TALENTS.RAVAGER_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT),
       },
       {
         spell: TALENTS.CHAMPIONS_SPEAR_TALENT.id,
@@ -222,9 +203,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIE_BY_THE_SWORD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown:
-          (combatant.hasTalent(TALENTS.VALOR_IN_VICTORY_TALENT) ? 90 : 120) *
-          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
+        cooldown: combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1,
         gcd: null,
         castEfficiency: {
           suggestion: false,
@@ -251,7 +230,7 @@ class Abilities extends CoreAbilities {
         cooldown: 1,
         buffSpellId: SPELLS.IGNORE_PAIN.id,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.IGNORE_PAIN_TALENT),
+        enabled: combatant.hasTalent(TALENTS.IGNORE_PAIN_ARMS_TALENT),
       },
       {
         spell: SPELLS.RALLYING_CRY.id,
@@ -341,9 +320,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PUMMEL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          (15 - (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0)) *
-          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
+        cooldown: 15 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.9 : 1),
         gcd: null,
       },
       {

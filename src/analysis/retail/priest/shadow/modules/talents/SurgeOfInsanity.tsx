@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -43,7 +44,7 @@ class SurgeOfInsanity extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
       this.onCastDP,
     );
     this.addEventListener(
@@ -241,7 +242,7 @@ class SurgeOfInsanity extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF} />
         </b>{' '}
-        is gained every two casts of <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.<br />
+        is gained every two casts of <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.<br />
         This buff can stack four times. Try to use these procs before overwriting them with
         devouring plague, unless you would otherwise overcap insanity.
       </p>

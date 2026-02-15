@@ -7,11 +7,7 @@ import {
   CAST_BUFFER_MS,
   RENEWING_MIST_GOM,
   VIVIFY_GOM,
-  EXPEL_HARM_GOM,
-  SOOM_GOM,
   SHEILUNS_GIFT_GOM,
-  REVIVAL_GOM,
-  JFS_GOM,
   CRANE_STYLE_BOK,
   CRANE_STYLE_RSK,
   CRANE_STYLE_SCK,
@@ -50,29 +46,11 @@ export const GUST_OF_MISTS_EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
     maximumLinks: 1,
-  },
-  {
-    linkRelation: EXPEL_HARM_GOM,
-    reverseLinkRelation: EXPEL_HARM_GOM,
-    linkingEventId: SPELLS.EXPEL_HARM.id,
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    referencedEventType: EventType.Heal,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
-  },
-  {
-    linkRelation: SOOM_GOM,
-    reverseLinkRelation: SOOM_GOM,
-    linkingEventId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    referencedEventType: EventType.Heal,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MIST_CALLER_TALENT);
+    },
   },
   {
     linkRelation: SHEILUNS_GIFT_GOM,
@@ -84,22 +62,12 @@ export const GUST_OF_MISTS_EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
-    },
-  },
-  {
-    linkRelation: JFS_GOM,
-    reverseLinkRelation: JFS_GOM,
-    linkingEventId: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
-    linkingEventType: [EventType.Cast],
-    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: 500,
     anyTarget: true,
-    maximumLinks: 5,
     isActive(c) {
-      return c.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT);
+      return (
+        c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) &&
+        c.hasTalent(TALENTS_MONK.MIST_CALLER_TALENT)
+      );
     },
   },
   {
@@ -146,30 +114,5 @@ export const GUST_OF_MISTS_EVENT_LINKS: EventLink[] = [
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.CRANE_STYLE_TALENT);
     },
-  },
-  {
-    linkRelation: SHEILUNS_GIFT_GOM,
-    reverseLinkRelation: SHEILUNS_GIFT_GOM,
-    linkingEventId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    referencedEventType: EventType.Heal,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
-    },
-  },
-  {
-    linkRelation: REVIVAL_GOM,
-    reverseLinkRelation: REVIVAL_GOM,
-    linkingEventId: [TALENTS_MONK.REVIVAL_TALENT.id, TALENTS_MONK.RESTORAL_TALENT.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    referencedEventType: EventType.Heal,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
   },
 ];

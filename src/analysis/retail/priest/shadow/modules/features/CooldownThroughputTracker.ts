@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
 import GameBranch from 'game/GameBranch';
 
 import CoreCooldownThroughputTracker, {
@@ -11,11 +10,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.VOIDFORM_BUFF.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      branch: GameBranch.Retail,
-    },
-    {
-      spell: TALENTS.DARK_ASCENSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },

@@ -1,5 +1,13 @@
 .spell-timeline .cooldowns {
-  margin-top: -32px;
+  position: unset; // get rid of relative so that `legend-container` can stick to the scroll container
+
+  img {
+    height: 100%;
+    margin: 0;
+    display: block;
+    border: 1px solid #75736d;
+    box-shadow: 0 0 3px #000;
+  }
 
   .lane {
     position: relative;
@@ -12,13 +20,7 @@
       display: block;
       height: 100%;
     }
-    img {
-      height: 100%;
-      margin: 0;
-      display: block;
-      border: 1px solid #75736d;
-      box-shadow: 0 0 3px #000;
-    }
+
     a > div:first-child {
       content: '';
       width: 1px;
@@ -26,13 +28,7 @@
       position: absolute;
       left: 0;
     }
-    > .legend {
-      left: 0;
-      // TODO filter: grayscale(100%); when spell is on cooldown in scroll
-      position: sticky;
-      width: 24px;
-      z-index: 6;
-    }
+
     > .cooldown {
       height: 60%;
       top: 20%;
@@ -40,18 +36,40 @@
       background: #75736d;
       box-shadow: 0 0 2px #75736d;
       z-index: 2;
+
+      &.post-fight {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     }
+
     > .recharge {
       width: 3px;
       background: rgba(250, 250, 250, 0.6);
       z-index: 4;
     }
+
     > .cast {
       z-index: 3;
     }
+
     > .castable {
       background: rgba(248, 183, 0, 0.6);
       border-radius: 3px;
+    }
+  }
+
+  .legend-container {
+    position: sticky;
+    width: 0;
+    height: 0;
+    left: 2rem;
+    z-index: 6;
+
+    > .legend {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 2px;
     }
   }
 }

@@ -8,11 +8,12 @@ import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
 import { ProblemRendererProps } from 'interface/guide/components/ProblemList';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import { AnyEvent, CastEvent, EventMeta, EventType } from 'parser/core/Events';
-import { useMemo } from 'react';
+import { useMemo, type JSX } from 'react';
 import { replace } from 'parser/core/EventMetaLib';
 
 interface WastedMeta extends EventMeta {

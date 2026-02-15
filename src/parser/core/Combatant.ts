@@ -12,38 +12,32 @@ import { TIERS } from 'game/TIERS';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import Entity from './Entity';
-import { PlayerInfo } from './Player';
+import { PlayerDetails, PlayerInfo } from './Player';
 import { Talent } from 'common/TALENTS/types';
 import { IGNORED } from 'common/TALENTS/IGNORED';
 import { GenTalent } from './modules/genAbilities';
-
-export interface CombatantInfo extends CombatantInfoEvent {
-  name: string;
-}
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 
 interface Spell {
   id: number;
 }
 
 class Combatant extends Entity {
+  readonly player: PlayerInfo;
+
+  private _name: string;
+  public get name() {
+    return this._name;
+  }
+
   get id() {
-    return this._combatantInfo.sourceID;
+    return this.player.id;
   }
 
-  get name() {
-    return this._combatantInfo.name;
-  }
-
-  get specId() {
-    return this._combatantInfo.specID;
-  }
-
-  get player() {
-    return this._combatantInfo.player;
-  }
+  readonly specId: number | undefined;
 
   get spec(): Spec | undefined {
-    return SPECS[this.specId];
+    return this.specId ? SPECS[this.specId] : undefined;
   }
 
   get primaryStat(): PRIMARY_STAT {
@@ -84,34 +78,28 @@ class Combatant extends Entity {
     return this.owner.characterProfile;
   }
 
-  _combatantInfo: CombatantInfo;
+  _combatantInfo: CombatantInfoEvent | undefined;
 
-  public readonly ilvl: number | undefined;
+  _ilvl: number | undefined;
+  public get ilvl() {
+    return this._ilvl;
+  }
 
-  constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
+  constructor(parser: CombatLogParser, player: PlayerDetails) {
     super(parser);
 
-    const playerInfo = parser.players.find(
-      (player: PlayerInfo) => player.id === combatantInfo.sourceID,
-    );
+    this._name = player.name;
 
-    this._combatantInfo = {
-      // In super rare cases `playerInfo` can be undefined, not taking this
-      // into account would cause the log to be unparsable
-      name: (playerInfo && playerInfo.name) || 'undefined',
-      ...combatantInfo,
-    };
-
-    this._parseTalents(combatantInfo.talents);
-    this._importTalentTree(combatantInfo.talentTree);
-    this._parseGear(combatantInfo.gear);
-    this._parsePrepullBuffs(combatantInfo.auras);
-
-    this.ilvl =
-      this.gear.length > 0
-        ? this.gear.map((item) => item.itemLevel).reduce((sum, val) => sum + val, 0) /
-          this.gear.length
-        : undefined;
+    this.player = this.owner.players.find((info) => info.id === player.id)!;
+    this.specId =
+      player.specID ??
+      Object.values(SPECS).find(
+        (spec) =>
+          spec.wclClassName === player.className &&
+          spec.wclSpecName &&
+          player.specName &&
+          spec.branch === wclGameVersionToBranch(this.owner.report.gameVersion),
+      )?.id;
   }
 
   // region Talents
@@ -124,14 +112,14 @@ class Combatant extends Entity {
   }
 
   private treeTalentsByEntryId = new Map<number, TalentEntry>();
-  private _importTalentTree(talents: TalentEntry[]) {
+  protected _importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
       this.treeTalentsByEntryId.set(talent.id, talent);
     });
   }
 
   get talentTree(): TalentEntry[] {
-    return this._combatantInfo.talentTree.filter((it) => !IGNORED.includes(it.id));
+    return this._combatantInfo?.talentTree.filter((it) => !IGNORED.includes(it.id)) ?? [];
   }
 
   hasClassicTalent(spell: number | { id: number }): boolean {
@@ -187,14 +175,10 @@ class Combatant extends Entity {
    * The number of points spent in each tree.
    *
    * Result is empty for expansions after Wrath.
+   * @deprecated this needs to be removed
    */
   get talentPoints(): number[] {
-    const expansion = this._combatantInfo.expansion;
-    if (expansion === 'tbc' || expansion === 'wotlk') {
-      return [...this._classicTalentPoints];
-    } else {
-      return [];
-    }
+    return [];
   }
 
   private glyphIds?: Set<number>;
@@ -206,6 +190,10 @@ class Combatant extends Entity {
   }
 
   hasGlyph(id: number): boolean {
+    if (!this._combatantInfo) {
+      return false;
+    }
+
     this._importGlyphs(this._combatantInfo);
     return this.glyphIds?.has(id) ?? false;
   }
@@ -429,6 +417,9 @@ class Combatant extends Entity {
   }
 
   setIdBySpecByTier(tier: TIERS) {
+    if (!this._combatantInfo) {
+      return undefined;
+    }
     return TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
   }
 
@@ -481,3 +472,36 @@ class Combatant extends Entity {
 }
 
 export default Combatant;
+
+/**
+ * The combatant representing the player, which always has full details.
+ */
+export class FullCombatant extends Combatant {
+  _combatantInfo: CombatantInfoEvent;
+  readonly specId: number;
+
+  constructor(parser: CombatLogParser, player: PlayerDetails, combatantInfo: CombatantInfoEvent) {
+    super(parser, player);
+
+    if (import.meta.env.MODE === 'test') {
+      this.specId = player.specID ?? parser.config?.spec?.id ?? -1;
+    } else {
+      this.specId = player.specID ?? parser.config.spec.id;
+    }
+
+    this._combatantInfo = {
+      ...combatantInfo,
+    };
+
+    this._parseTalents(combatantInfo.talents);
+    this._importTalentTree(combatantInfo.talentTree);
+    this._parseGear(combatantInfo.gear);
+    this._parsePrepullBuffs(combatantInfo.auras);
+
+    this._ilvl =
+      this.gear.length > 0
+        ? this.gear.map((item) => item.itemLevel).reduce((sum, val) => sum + val, 0) /
+          this.gear.length
+        : undefined;
+  }
+}

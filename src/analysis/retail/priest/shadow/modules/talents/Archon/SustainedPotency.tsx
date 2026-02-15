@@ -36,11 +36,7 @@ class SustainedPotency extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DARK_ASCENSION_TALENT),
-      this.onCD,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VOID_ERUPTION_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VOIDFORM_TALENT),
       this.onCD,
     );
   }
@@ -58,10 +54,7 @@ class SustainedPotency extends Analyzer {
   }
 
   onHalo() {
-    if (
-      this.selectedCombatant.hasBuff(TALENTS.DARK_ASCENSION_TALENT.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)
-    ) {
+    if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       this.durationSustainedPotency += 1;
     }
   }

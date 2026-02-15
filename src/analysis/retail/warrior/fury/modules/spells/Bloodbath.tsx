@@ -36,25 +36,12 @@ class Bloodbath extends Analyzer {
   }
 
   onBloodbathCast(event: CastEvent) {
-    const bloodcrazeStacks = this.selectedCombatant.getBuffStacks(SPELLS.BLOODCRAZE.id);
-    const slaughteringStrikesStacks = this.selectedCombatant.getBuffStacks(
-      SPELLS.SLAUGHTERING_STRIKES_BUFF,
-    );
     const enraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE);
 
     if (!enraged) {
       this.unenragedCount += 1;
       this.badBloodbaths += 1;
       addInefficientCastReason(event, 'Bloodbath was used while not enraged');
-    } else if (bloodcrazeStacks < 1) {
-      this.badBloodbaths += 1;
-      addInefficientCastReason(event, 'Bloodbath was used without any Bloodcraze stacks');
-    } else if (slaughteringStrikesStacks >= 3) {
-      this.badBloodbaths += 1;
-      addInefficientCastReason(
-        event,
-        'With at least 3 stacks of Slaughtering Strikes, Rampage should be used before Bloodbath',
-      );
     }
   }
 }

@@ -53,9 +53,9 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
               gapHighlightMode={GapHighlight.FullCooldown}
             />
           )}
-        {info.combatant.hasTalent(TALENTS.PRESCIENCE_TALENT) && (
+        {info.combatant.hasTalent(TALENTS.TEMPORAL_BURST_TALENT) && (
           <CastEfficiencyBar
-            spell={TALENTS.PRESCIENCE_TALENT}
+            spell={TALENTS.TIP_THE_SCALES_TALENT}
             gapHighlightMode={GapHighlight.All}
             minimizeIcons
           />
@@ -69,6 +69,13 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
           <CastEfficiencyBar
             spell={hasFontTalent ? SPELLS.UPHEAVAL_FONT : SPELLS.UPHEAVAL}
             gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.PRESCIENCE_TALENT) && (
+          <CastEfficiencyBar
+            spell={TALENTS.PRESCIENCE_TALENT}
+            gapHighlightMode={GapHighlight.All}
             minimizeIcons
           />
         )}

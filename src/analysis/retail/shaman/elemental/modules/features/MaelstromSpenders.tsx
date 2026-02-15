@@ -1,6 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
-import SPELLS from 'common/SPELLS/shaman';
+import SPELLS from 'common/SPELLS';
 import Events, {
   CastEvent,
   UpdateSpellUsableEvent,
@@ -21,14 +21,8 @@ import { ReactNode } from 'react';
 interface SpenderCast {
   event: CastEvent;
   hasMoTE: boolean;
-  hasEchoesOfGreatSunderingBuff: boolean;
   currentMaelstrom: number;
   lavaBurstAvailableDuration: number;
-}
-
-interface SelectedTalents {
-  echoesOfGreatSundering: boolean;
-  masterOfTheElements: boolean;
 }
 
 class MaelstromSpenders extends Analyzer.withDependencies({
@@ -37,7 +31,9 @@ class MaelstromSpenders extends Analyzer.withDependencies({
 }) {
   spenderCasts: SpenderCast[] = [];
 
-  enabledTalents!: SelectedTalents;
+  enabledTalents: {
+    masterOfTheElements: boolean;
+  };
 
   oneChargeLavaBurstTimestamp: number | null = this.owner.fight.start_time;
 
@@ -45,12 +41,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     super(options);
 
     this.enabledTalents = {
-      echoesOfGreatSundering: this.selectedCombatant.hasTalent(
-        TALENTS.ECHOES_OF_GREAT_SUNDERING_TALENT,
-      ),
-      masterOfTheElements: this.selectedCombatant.hasTalent(
-        TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT,
-      ),
+      masterOfTheElements: this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT),
     };
 
     this.addEventListener(
@@ -58,7 +49,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
         .by(SELECTED_PLAYER)
         .spell([
           TALENTS.EARTH_SHOCK_TALENT,
-          TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
+          TALENTS.ELEMENTAL_BLAST_TALENT,
           TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
           TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
         ]),
@@ -89,8 +80,8 @@ class MaelstromSpenders extends Analyzer.withDependencies({
    * Get the primary spender spell ID for the selected combatant.
    */
   get primarySpender(): number {
-    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)) {
-      return TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id;
+    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
+      return TALENTS.ELEMENTAL_BLAST_TALENT.id;
     }
     return TALENTS.EARTH_SHOCK_TALENT.id;
   }
@@ -111,13 +102,6 @@ class MaelstromSpenders extends Analyzer.withDependencies({
       hasMoTE:
         this.enabledTalents.masterOfTheElements &&
         this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id, event.timestamp),
-      hasEchoesOfGreatSunderingBuff:
-        this.enabledTalents.echoesOfGreatSundering &&
-        this.selectedCombatant.hasBuff(
-          SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF.id,
-          event.timestamp,
-          25,
-        ),
       currentMaelstrom:
         this.deps.maelstromTracker.current +
         (this.deps.maelstromTracker.lastSpenderInfo?.amount ?? 0),
@@ -132,10 +116,11 @@ class MaelstromSpenders extends Analyzer.withDependencies({
   private createMoteChecklistItem(cast: SpenderCast): ChecklistUsageInfo {
     const explanation = (
       <>
-        <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} /> was{' '}
+        <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> was{' '}
         {cast.hasMoTE ? 'active' : 'not active'}
       </>
     );
+
     return {
       timestamp: cast.event.timestamp,
       summary: explanation,
@@ -151,52 +136,17 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     let performance = QualitativePerformance.Perfect;
     let explanation: ReactNode;
 
-    if (this.enabledTalents.echoesOfGreatSundering) {
-      // Check if the correct spender was used based on Echoes buff state
-      if (isEarthquake && !cast.hasEchoesOfGreatSunderingBuff) {
-        performance = QualitativePerformance.Fail;
-        explanation = (
-          <>
-            <SpellLink spell={cast.event.ability.guid} /> was cast without the{' '}
-            <SpellLink spell={SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF} /> buff
-          </>
-        );
-      } else if (!isEarthquake && cast.hasEchoesOfGreatSunderingBuff) {
-        performance = QualitativePerformance.Fail;
-        explanation = (
-          <>
-            <SpellLink spell={cast.event.ability.guid} /> was cast while the{' '}
-            <SpellLink spell={SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF} /> buff was active.
-          </>
-        );
-      } else {
-        // Correct usage based on Echoes talent
-        performance = QualitativePerformance.Perfect;
-        explanation = (
-          <>
-            <SpellLink spell={cast.event.ability.guid} /> was cast{' '}
-            {isEarthquake ? 'with' : 'without'} the{' '}
-            <SpellLink spell={SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF} /> buff.
-          </>
-        );
-      }
-    } else {
-      // No Echoes talent, just show which spender was used
-      explanation = (
-        <>
-          <SpellLink spell={cast.event.ability.guid} /> was cast.
-        </>
-      );
-    }
+    explanation = (
+      <>
+        <SpellLink spell={cast.event.ability.guid} /> was cast.
+      </>
+    );
 
     return {
       timestamp: cast.event.timestamp,
       summary: (
         <>
           <SpellLink spell={cast.event.ability.guid} /> cast
-          {this.enabledTalents.echoesOfGreatSundering
-            ? (isEarthquake ? ' with ' : ' without ') + 'Echoes buff'
-            : ''}
         </>
       ),
       check: 'spender-type',
@@ -281,52 +231,36 @@ class MaelstromSpenders extends Analyzer.withDependencies({
   }
 
   calculateCastPerformance(cast: SpenderCast): QualitativePerformance {
-    // Check Echoes of Great Sundering first if applicable
-    if (this.enabledTalents.echoesOfGreatSundering) {
-      if (this.isEarthquake(cast.event.ability.guid) && !cast.hasEchoesOfGreatSunderingBuff) {
-        return QualitativePerformance.Fail; // Using EQ without the buff is bad
-      }
-      if (!this.isEarthquake(cast.event.ability.guid) && cast.hasEchoesOfGreatSunderingBuff) {
-        return QualitativePerformance.Fail; // Using ES/EB with the buff is bad
+    if (this.enabledTalents.masterOfTheElements) {
+      // Prefer casting spenders with the MoTE buff; exceptions are allowed when near-capping.
+      if (cast.hasMoTE) {
+        return QualitativePerformance.Perfect;
       }
     }
 
-    // Then the normal MoTE checks
-    if (cast.hasMoTE) {
-      return QualitativePerformance.Perfect;
+    if (this.nearMaelstromCap(cast.currentMaelstrom)) {
+      return cast.lavaBurstAvailableDuration < 1000
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Ok;
     } else {
-      if (this.nearMaelstromCap(cast.currentMaelstrom)) {
-        return cast.lavaBurstAvailableDuration < 1000
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Ok;
-      } else {
-        return QualitativePerformance.Fail;
-      }
+      return QualitativePerformance.Fail;
     }
   }
 
-  guideSubsection() {
+  get guideSubsection() {
     if (this.spenderCasts.length === 0) {
       return null;
     }
 
     const spellUses: SpellUse[] = this.spenderCasts.map((cast) => {
       // Create all potential checklist items
-      const isEarthquake = this.isEarthquake(cast.event.ability.guid);
-
-      const moteChecklistItem = this.createMoteChecklistItem(cast);
       const maelstromCapChecklistItem = this.createMaelstromCapChecklistItem(cast);
       const lavaBurstCharges = this.createLavaBurstChecklistItem(cast);
       const spenderSelectionChecklistItem = this.createSpenderSelectionChecklistItem(cast);
+      const moteChecklistItem = this.createMoteChecklistItem(cast);
 
-      const checks = [];
+      const checks = [spenderSelectionChecklistItem];
 
-      // Add spender selection check first
-      if (this.enabledTalents.echoesOfGreatSundering) {
-        checks.push(spenderSelectionChecklistItem);
-      }
-
-      // Add MoTE check
       if (this.enabledTalents.masterOfTheElements) {
         checks.push(moteChecklistItem);
       }
@@ -337,43 +271,30 @@ class MaelstromSpenders extends Analyzer.withDependencies({
       if (performance !== QualitativePerformance.Perfect) {
         checks.push(maelstromCapChecklistItem);
 
-        if (!cast.hasMoTE) {
+        // If MoTE wasn't active, show lava burst availability to explain why.
+        if (!this.enabledTalents.masterOfTheElements || !cast.hasMoTE) {
           checks.push(lavaBurstCharges);
         }
 
         const warnings: ReactNode[] = [];
         warnings.push(<li key="maelstrom-warning">{this.getMaelstromWarning(cast)}</li>);
 
-        if (cast.lavaBurstAvailableDuration > 1000 && this.enabledTalents.masterOfTheElements) {
+        if (cast.lavaBurstAvailableDuration > 1000) {
           warnings.push(
             <li key="lava-burst-warning">
               One or more charges of <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> were available
               for <strong>{formatSeconds(cast.lavaBurstAvailableDuration, 1)}s</strong> - you should
-              have cast it earlier to have{' '}
-              <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} /> active.
+              have cast it earlier
+              {this.enabledTalents.masterOfTheElements ? (
+                <>
+                  {' '}
+                  to have <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> active.
+                </>
+              ) : (
+                '.'
+              )}
             </li>,
           );
-        }
-
-        if (this.enabledTalents.echoesOfGreatSundering) {
-          if (isEarthquake && !cast.hasEchoesOfGreatSunderingBuff) {
-            warnings.push(
-              <li key="echoes-warning">
-                You cast <SpellLink spell={TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT} /> without the{' '}
-                <SpellLink spell={SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF} /> buff. With{' '}
-                <SpellLink spell={TALENTS.ECHOES_OF_GREAT_SUNDERING_TALENT} />, you should only cast
-                Earthquake when the buff is active.
-              </li>,
-            );
-          } else if (!isEarthquake && cast.hasEchoesOfGreatSunderingBuff) {
-            warnings.push(
-              <li key="echoes-warning">
-                You cast <SpellLink spell={cast.event.ability.guid} /> with the{' '}
-                <SpellLink spell={SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF} /> buff active. You should
-                have cast <SpellLink spell={TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT} /> instead.
-              </li>,
-            );
-          }
         }
 
         extraDetail = (
@@ -408,45 +329,32 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     const explanation = (
       <>
         <p>
+          You should aim to cast your <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> spenders
           {this.enabledTalents.masterOfTheElements ? (
             <>
-              You should aim to cast your <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> spenders
-              with the <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} /> buff
-              active to maximize your damage output, or to avoid overcapping{' '}
+              {' '}
+              with the <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> buff active to
+              maximize your damage output, or to avoid overcapping{' '}
               <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> (within 15 of your maximum).
             </>
           ) : (
             <>
-              You should aim to cast your <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> spenders
+              {' '}
               to avoid overcapping <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> (within 15 of
               your maximum).
             </>
           )}
         </p>
-        {this.enabledTalents.echoesOfGreatSundering && (
-          <p>
-            With <SpellLink spell={TALENTS.ECHOES_OF_GREAT_SUNDERING_TALENT} />, you should:
-            <ul>
-              <li>
-                Cast <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> or{' '}
-                <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> when you don't have
-                the buff
-              </li>
-              <li>
-                Cast <SpellLink spell={TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT} /> only when you have
-                the buff
-              </li>
-            </ul>
-            This alternating pattern maximizes your damage and ensures you get full value from the
-            talent.
-          </p>
-        )}
       </>
     );
 
     return (
       <SpellUsageSubSection
-        title="Maelstrom Spender Usage"
+        title={
+          <>
+            <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> Spender Usage
+          </>
+        }
         explanation={explanation}
         performances={performances}
         uses={spellUses}

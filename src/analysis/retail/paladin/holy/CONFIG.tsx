@@ -4,13 +4,12 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config, { SupportLevel } from 'parser/Config';
-
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Texleretour, swirl],
+  contributors: [swirl],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.1.5',
+  patchCompatibility: '12.0',
   supportLevel: SupportLevel.MaintainedPartial,
   description: (
     <>
@@ -21,11 +20,9 @@ const config: Config = {
       <br />
       You might have noticed the suggestions focus mostly on improving your cast efficiencies. This
       might seem silly, but it's actually one of the most important things for us Holy Paladins.
-      Avoid having your <SpellLink spell={TALENTS.AVENGING_WRATH_TALENT} /> and other cooldowns
-      available unused for long periods of time (they're not raid cooldowns, they're required for
-      you to have decent throughput and not run OOM) and <b>hit those buttons</b> that have short
-      cooldowns (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
-      <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} />
+      Avoid having your cooldowns available sitting unused for long periods of time and{' '}
+      <b>hit those buttons</b> that have short cooldowns (like
+      <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} />
       ).
       <br />
       <br />
@@ -44,11 +41,11 @@ const config: Config = {
   exampleReport: '/report/tTkV1MWxgDmrvJnh/8/62',
 
   spec: SPECS.HOLY_PALADIN,
-  changelog: [], // CHANGELOG,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  changelog: CHANGELOG,
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
+      (exports) => exports.default,
+    ),
   path: import.meta.url,
 };
 

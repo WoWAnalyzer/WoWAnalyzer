@@ -13,14 +13,7 @@ import {
   ResourceChangeEvent,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import {
-  PIERCING_CHALLENGE_INCREASE,
-  RAGE_SCALE_FACTOR,
-  RECKLESSNESS_INCREASE,
-  STORM_OF_STEEL_INCREASE,
-  WARLORDS_TORMENT_RECKLESSNESS_INCREASE,
-  WARMACHINE_INCREASE,
-} from './constants';
+import { RAGE_SCALE_FACTOR, RECKLESSNESS_INCREASE, WARMACHINE_INCREASE } from './constants';
 
 const DEBUG = false;
 
@@ -33,8 +26,6 @@ const DEBUG = false;
 export default class RageAttributeNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]): AnyEvent[] {
     const hasWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT);
-    const hasPC = this.selectedCombatant.hasTalent(TALENTS.PIERCING_CHALLENGE_TALENT);
-    const hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
     const hasRA = this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT);
 
     const WM_INCREASE = WARMACHINE_INCREASE[this.selectedCombatant.specId];
@@ -100,9 +91,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
         ) {
           const newEvent = this.removeMultiplicitiveIncrease(
             event,
-            this.selectedCombatant.hasTalent(TALENTS.WARLORDS_TORMENT_TALENT)
-              ? WARLORDS_TORMENT_RECKLESSNESS_INCREASE
-              : RECKLESSNESS_INCREASE,
+            RECKLESSNESS_INCREASE,
             SPELLS.RECKLESSNESS,
           );
           additions.push(newEvent);
@@ -116,28 +105,6 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
             event,
             WM_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
-          );
-          additions.push(newEvent);
-        }
-      }
-
-      if (hasPC) {
-        if (event.ability.guid === SPELLS.CHAMPIONS_SPEAR.id) {
-          const newEvent = this.removeMultiplicitiveIncrease(
-            event,
-            PIERCING_CHALLENGE_INCREASE,
-            TALENTS.PIERCING_CHALLENGE_TALENT,
-          );
-          additions.push(newEvent);
-        }
-      }
-
-      if (hasSoS) {
-        if (event.ability.guid === SPELLS.RAVAGER_ENERGIZE.id) {
-          const newEvent = this.removeAdditiveIncrease(
-            event,
-            STORM_OF_STEEL_INCREASE / RAGE_SCALE_FACTOR,
-            TALENTS.STORM_OF_STEEL_TALENT,
           );
           additions.push(newEvent);
         }

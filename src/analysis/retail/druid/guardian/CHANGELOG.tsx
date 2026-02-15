@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Sref, Vollmer } from 'CONTRIBUTORS';
+import { Sref, Vollmer, Rex } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 1, 22), <>Initial Guardian Druid activation for Midnight! Very rough state, some modules inactive. Apex talents not yet implemented.</>, Rex),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 4), <>Updated Frenzied Regeneration cooldown to account for changes to <SpellLink spell={TALENTS_DRUID.REINVIGORATION_TALENT} />. Marked as updated for 11.1.0.</>, Sref),
   change(date(2024, 10, 27), <>Updated patch compatibility to 11.0.5.</>, Sref),

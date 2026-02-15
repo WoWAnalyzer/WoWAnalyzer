@@ -9,15 +9,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
-import ChampionsMight from './ChampionsMight';
 
 class ChampionsSpear extends Analyzer {
-  static dependencies = {
-    championsMight: ChampionsMight,
-  };
-
-  protected championsMight!: ChampionsMight;
-
   private championsSpearDamage = 0;
 
   constructor(options: Options) {
@@ -48,20 +41,11 @@ class ChampionsSpear extends Analyzer {
           <>
             <SpellLink spell={SPELLS.CHAMPIONS_SPEAR} /> dealt{' '}
             <strong>{formatNumber(this.championsSpearDamage)}</strong> total damage.{' '}
-            {this.championsMight.increasedCritDamage() > 0 && (
-              <div>
-                <SpellLink spell={TALENTS.CHAMPIONS_MIGHT_TALENT} /> increased critical damage by{' '}
-                <strong>{formatNumber(this.championsMight.increasedCritDamage())}</strong>.
-              </div>
-            )}
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS.CHAMPIONS_SPEAR_TALENT}>
-          <DamageIcon />{' '}
-          {this.owner.formatItemDamageDone(
-            this.championsSpearDamage + this.championsMight.increasedCritDamage(),
-          )}
+          <DamageIcon /> {this.owner.formatItemDamageDone(this.championsSpearDamage)}
         </BoringSpellValueText>
       </Statistic>
     );

@@ -6,11 +6,11 @@
 import ItemsItem from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import { Item as EventsItem } from 'parser/core/Events';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
   item: EventsItem | ItemsItem;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 

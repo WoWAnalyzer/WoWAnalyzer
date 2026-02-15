@@ -16,7 +16,6 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -34,7 +33,6 @@ import SigilOfSpite from './modules/talents/SigilOfSpite';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import GlaiveTempest from './modules/talents/GlaiveTempest';
 import Exergy from './modules/talents/Exergy';
-import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import TacticalRetreat from './modules/talents/TacticalRetreat';
 import Initiative from './modules/talents/Initiative';
@@ -66,8 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     buffs: Buffs,
 
-    globalCooldown: GlobalCooldown,
-
     //Normalizer
     eyeBeamNormalizer: EyeBeamNormalizer,
     essenceBreakNormalizer: EssenceBreakNormalizer,
@@ -97,7 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     blindFury: BlindFury,
     trailofRuin: TrailofRuin,
     exergy: Exergy,
-    netherwalk: Netherwalk,
     masterOfTheGlaive: MasterOfTheGlaive,
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,

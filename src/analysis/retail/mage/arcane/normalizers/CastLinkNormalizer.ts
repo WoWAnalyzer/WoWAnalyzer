@@ -44,7 +44,7 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.ARCANE_BARRAGE.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.Damage, { forwardBuffer: 2000, anyTarget: true }), // Barrage projectile travel time
+      link(EventType.Damage, { forwardBuffer: 2000, anyTarget: true }),
       link(CustomType.PRECAST, {
         id: [SPELLS.ARCANE_BLAST.id, TALENTS.ARCANE_SURGE_TALENT.id],
         anyTarget: true,
@@ -215,20 +215,6 @@ const EVENT_LINKS = createEventLinks(
         maxLinks: 1,
         anyTarget: true,
         type: EventType.Cast,
-      }),
-    ],
-  },
-
-  {
-    spell: SPELLS.SIPHON_STORM_BUFF.id,
-    parentType: EventType.ApplyBuff,
-    links: [
-      link(EventType.RemoveBuff, { forwardBuffer: 25000, maxLinks: 1, anyTarget: true }),
-      link(EventType.Damage, {
-        id: TALENTS.ARCANE_SURGE_TALENT.id,
-        maxLinks: 1,
-        anyTarget: true,
-        forwardBuffer: 20500,
       }),
     ],
   },

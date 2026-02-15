@@ -7,7 +7,6 @@ import RageCountDebugger from '../shared/modules/debuggers/RageCountDebugger';
 import GenerateRageEventsNormalizer from '../shared/modules/normalizers/rage/GenerateRageEventsNormalizer';
 import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttributeNormalizer';
 import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
-import ChampionsMight from '../shared/modules/talents/ChampionsMight';
 import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
@@ -34,31 +33,28 @@ import DefensiveStance from './modules/talents/DefensiveStance';
 import FervorOfBattle from './modules/talents/FervorOfBattle';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import SecondWind from './modules/talents/SecondWind';
-import Skullsplitter from './modules/talents/Skullsplitter';
 import StormBolt from './modules/talents/StormBolt';
 import SuddenDeath from './modules/talents/SuddenDeath';
-import Warbreaker from './modules/talents/Warbreaker';
 import WarMachine from './modules/talents/WarMachine';
 import BattlelordBuff from './normalizers/BattlelordBuff';
 import ExecuteLinkNormalizer from './normalizers/ExecuteLinkNormalizer';
-import FinishingBlowsResourceChange from './normalizers/FinishingBlowsResourceChange';
 import ImprovedExecuteNormalizer from './normalizers/ImprovedExecuteNormalizer';
 import OverpowerStacks from './normalizers/OverpowerStacks';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import FatalMark from './modules/talents/FatalMark';
-import SkullsplitterDotNormalizer from './normalizers/SkullsplitterExpiredDots';
-import BlademastersTormentNormalizer from './modules/talents/BlademastersTorment';
 import UnhingedMortalStrikeNormalizer from './normalizers/UnhingedMortalStrikeNormalizer';
 import Demolish from './modules/talents/Demolish';
 import DemolishNormalizer from './normalizers/DemolishNormalizer';
 import SuddenDeathBuffNormalizer from '../shared/modules/normalizers/SuddenDeathBuffNormalizer';
+import Guide from './Guide';
+import Executioner from '../shared/modules/talents/Executioner';
+import ColossusSmash from './modules/talents/ColossusSmash';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     windfuryNormalizer: WindfuryLinkNormalizer,
 
-    finishingBlowsResourceChange: FinishingBlowsResourceChange,
     desourceChangeNormalizer: ResourceChangeNormalizer,
     generateRageEventsNormalizer: GenerateRageEventsNormalizer,
     rageAttributeNormalizer: RageAttributeNormalizer,
@@ -67,8 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     battlelordBuff: BattlelordBuff,
     executeLinkNormalizer: ExecuteLinkNormalizer,
     improvedExecuteNormalizer: ImprovedExecuteNormalizer,
-    skullsplitterDotNormalizer: SkullsplitterDotNormalizer,
-    blademaastersTormetNormalizer: BlademastersTormentNormalizer,
     unhingedMortalStrikeNormalizer: UnhingedMortalStrikeNormalizer,
     demolishNormalizer: DemolishNormalizer,
     suddenDeathBuffNormalizer: SuddenDeathBuffNormalizer,
@@ -108,7 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     angerManagement: AngerManagement,
     defensiveStance: DefensiveStance,
-    skullsplitter: Skullsplitter,
     suddenDeath: SuddenDeath,
     warMachine: WarMachine,
     stormBolt: StormBolt,
@@ -116,19 +109,21 @@ class CombatLogParser extends CoreCombatLogParser {
     fervorOfBattle: FervorOfBattle,
     secondWind: SecondWind,
     cleave: Cleave,
-    warbreaker: Warbreaker,
+    colossusSmash: ColossusSmash,
     avatar: Avatar,
     spellReflection: SpellReflection,
     fatalMark: FatalMark,
     ChampionsSpear: ChampionsSpear,
-    ChampionsMight: ChampionsMight,
     demolish: Demolish,
+    executioner: Executioner,
 
     // Debuggers
     rageCountDebugger: RageCountDebugger,
 
     apl: AplCheck,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

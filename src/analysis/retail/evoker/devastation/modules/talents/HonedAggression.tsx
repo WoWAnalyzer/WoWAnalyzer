@@ -1,46 +1,48 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import { formatNumber } from 'common/format';
 
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamageFromCritIncrease } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { HONED_AGGRESSION_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
-import { SpellLink } from 'interface';
+import {
+  DAMAGE_SPELLS_THAT_CAN_CRIT,
+  HONED_AGGRESSION_CRIT_INCREASE_PER_RANK,
+} from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const { LIVING_FLAME_DAMAGE, AZURE_STRIKE } = SPELLS;
+import HIT_TYPES from 'game/HIT_TYPES';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 class HonedAggression extends Analyzer {
-  honedAggressionLivingFlameDamage = 0;
-  honedAggressionAzureDamage = 0;
-  honedAggressionMultiplier = 0;
-  trackedSpells = [LIVING_FLAME_DAMAGE, AZURE_STRIKE];
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+  protected statTracker!: StatTracker;
+
+  totalDamage = 0;
+  critIncrease = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.HONED_AGGRESSION_TALENT);
-    const ranks = this.selectedCombatant.getTalentRank(TALENTS.HONED_AGGRESSION_TALENT);
-    this.honedAggressionMultiplier = HONED_AGGRESSION_MULTIPLIER * ranks;
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onHit);
+    this.critIncrease =
+      HONED_AGGRESSION_CRIT_INCREASE_PER_RANK *
+      this.selectedCombatant.getTalentRank(TALENTS.HONED_AGGRESSION_TALENT);
+
+    this.addEventListener(Events.damage.spell(DAMAGE_SPELLS_THAT_CAN_CRIT), this.onHit);
   }
 
   onHit(event: DamageEvent) {
-    if (event.ability.name === LIVING_FLAME_DAMAGE.name) {
-      this.honedAggressionLivingFlameDamage += calculateEffectiveDamage(
+    if (event.hitType === HIT_TYPES.CRIT) {
+      this.totalDamage += calculateEffectiveDamageFromCritIncrease(
         event,
-        this.honedAggressionMultiplier,
-      );
-    } else if (event.ability.name === AZURE_STRIKE.name) {
-      this.honedAggressionAzureDamage += calculateEffectiveDamage(
-        event,
-        this.honedAggressionMultiplier,
+        this.statTracker.currentCritPercentage,
+        this.critIncrease,
       );
     }
   }
@@ -51,23 +53,10 @@ class HonedAggression extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            <li>
-              <SpellLink spell={LIVING_FLAME_DAMAGE} /> Damage:{' '}
-              {formatNumber(this.honedAggressionLivingFlameDamage)}
-            </li>
-            <li>
-              <SpellLink spell={AZURE_STRIKE} /> Damage:{' '}
-              {formatNumber(this.honedAggressionAzureDamage)}
-            </li>
-          </>
-        }
+        tooltip={<li>Damage: {formatNumber(this.totalDamage)}</li>}
       >
         <TalentSpellText talent={TALENTS.HONED_AGGRESSION_TALENT}>
-          <ItemDamageDone
-            amount={this.honedAggressionLivingFlameDamage + this.honedAggressionAzureDamage}
-          />
+          <ItemDamageDone amount={this.totalDamage} />
         </TalentSpellText>
       </Statistic>
     );

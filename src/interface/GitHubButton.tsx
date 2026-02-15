@@ -1,9 +1,9 @@
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
-import * as React from 'react';
+import type { HTMLAttributes } from 'react';
 
 import './ThirdPartyButtons.css';
 
-interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
+interface Props extends HTMLAttributes<HTMLAnchorElement> {
   text?: string;
 }
 

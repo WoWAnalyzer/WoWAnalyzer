@@ -23,13 +23,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: TALENTS.WARBREAKER_TALENT.id,
-      duration: 10,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-    {
       spell: TALENTS.COLOSSUS_SMASH_TALENT.id,
-      duration: 13, // blunt instruments talent
+      duration: 10,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

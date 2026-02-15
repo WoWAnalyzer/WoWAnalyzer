@@ -13,14 +13,8 @@ class Buffs extends CoreAuras {
       //Cooldowns
       {
         spellId: SPELLS.VOIDFORM_BUFF.id,
-        triggeredBySpellId: TALENTS.VOID_ERUPTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: TALENTS.DARK_ASCENSION_TALENT.id,
-        triggeredBySpellId: TALENTS.DARK_ASCENSION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT),
+        triggeredBySpellId: TALENTS.VOIDFORM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.VOIDFORM_TALENT),
         timelineHighlight: true,
       },
 
@@ -42,14 +36,10 @@ class Buffs extends CoreAuras {
       },
 
       //Utility and Defensive
-      {
-        spellId: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
-        timelineHighlight: false,
-      },
-      {
-        spellId: TALENTS.DISPERSION_TALENT.id,
+      /*{ TODO: find dispersion
+        spellId: SPELLS.DISPERSION_TALENT.id,
         timelineHighlight: true,
-      },
+      },*/
       {
         spellId: SPELLS.POWER_WORD_SHIELD.id,
         triggeredBySpellId: SPELLS.POWER_WORD_SHIELD.id,

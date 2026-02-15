@@ -4,6 +4,7 @@ import {
   TouchOfDeath,
   SaveThemAll,
   TeachingsOfTheMonestary,
+  CelestialHooks,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -29,7 +30,6 @@ import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import JadefireStompHealing from './modules/spells/JadefireStompHealing';
 import JadefireTeachings from './modules/spells/JadefireTeachings';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
-import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
@@ -50,7 +50,6 @@ import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
-import Unison from './modules/spells/Unison';
 import RapidDiffusion from './modules/spells/RapidDiffusion';
 import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
@@ -75,7 +74,6 @@ import TearOfMorning from './modules/spells/TearOfMorning';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
-import T32TierSet from './modules/tier/T32TierSet';
 import PoolOfMists from './modules/spells/PoolOfMists';
 import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
 import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
@@ -86,14 +84,26 @@ import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
-import T33TierSet from './modules/tier/T33TierSet';
 import JadeEmpowerment from './modules/spells/JadeEmpowerment';
 import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
+import MistyCoalescence from './modules/spells/MistyCoalescence';
+import S1TierSet from './modules/tier/S1TierSet';
+import AmplifiedRush from './modules/spells/AmplifiedRush';
+import WayOfTheSerpent from './modules/spells/WayOfTheSerpent';
+import MovementTracker from './modules/features/MovementDuringBuffTracker';
+import WayOfTheCrane from './modules/spells/WayOfTheCrane';
+import AncientTeachingsLinkNormalizer from './normalizers/AncientTeachingsLinkNormalizer';
+import PeacefulMending from './modules/spells/PeacefulMending';
+import Spiritfont from './modules/spells/Spiritfont';
+import InvigoratingMists from './modules/spells/InvigoratingMists';
+import EmperorsFavor from './modules/spells/EmperorsFavor';
+import TranquilTea from './modules/spells/TranquilTea';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
+    ancientTeachingsLinkNormalizer: AncientTeachingsLinkNormalizer,
     celestialConduitNormalizer: CelestialConduitNormalizer,
     conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     hotApplicationNormalizer: HotApplicationNormalizer,
@@ -107,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotTrackerMW: HotTrackerMW,
     hotAttributor: HotAttributor,
     mysticTouch: MysticTouch,
+    celestialHooks: CelestialHooks,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -125,6 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotCountGraph: HotCountGraph,
     talentHealingStatistic: TalentHealingStatistic,
     risingMistBreakdown: RisingMistBreakdown,
+    movementTracker: MovementTracker,
 
     // Guide helpers
     sheilunsGiftCloudTracker: SheilunsGiftCloudTracker,
@@ -141,10 +153,11 @@ class CombatLogParser extends CoreCombatLogParser {
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
+    amplifiedRush: AmplifiedRush,
+    mistyCoalescence: MistyCoalescence,
     jadefireTeachings: JadefireTeachings,
     energizingBrew: EnergizingBrew,
     envelopingMists: EnvelopingMists,
-    expelHarm: ExpelHarm,
     jadefireStomp: JadefireStomp,
     jadefireStompHealing: JadefireStompHealing,
     invokeChiJi: InvokeChiJi,
@@ -163,7 +176,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soothingMist: SoothingMist,
     thunderFocusTea: ThunderFocusTea,
     yulonsWhisper: YulonsWhisper,
-    unison: Unison,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
     teachingsOfTheMonestary: TeachingsOfTheMonestary,
@@ -180,6 +192,13 @@ class CombatLogParser extends CoreCombatLogParser {
     poolOfMists: PoolOfMists,
     rushingWindKick: RushingWindKick,
     jadeEmpowerment: JadeEmpowerment,
+    wayOfTheSerpent: WayOfTheSerpent,
+    wayOfTheCrane: WayOfTheCrane,
+    peacefulMending: PeacefulMending,
+    spiritfont: Spiritfont,
+    invigoratingMists: InvigoratingMists,
+    emperorsFavor: EmperorsFavor,
+    tranquilTea: TranquilTea,
 
     // Hero Talents
     // Conduit
@@ -191,9 +210,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coalesence: Coalesence,
 
     // Borrowed Power
-    t32TierSet: T32TierSet,
-    t33TierSet: T33TierSet,
     t34ConduitTierSet: T34ConduitTier,
+    s1TierSet: S1TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

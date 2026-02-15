@@ -11,10 +11,9 @@ import { SpellLink, TooltipElement } from 'interface';
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
 import RushingWindKick from './RushingWindKick';
-import SPELLS from 'common/SPELLS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 /*
  * Add in Statistic box to show average time between RSK casts when Rising Mist is talented.
@@ -22,11 +21,9 @@ import { formatPercentage } from 'common/format';
 class TimeBetweenRSKs extends Analyzer {
   static dependencies = {
     risingSunKick: RisingSunKick,
-    risingMist: RisingMist,
     rushingWindKick: RushingWindKick,
   };
 
-  protected risingMist!: RisingMist;
   protected risingSunKick!: RisingSunKick;
   protected rushingWindKick!: RushingWindKick;
 
@@ -87,19 +84,14 @@ class TimeBetweenRSKs extends Analyzer {
           <div>
             {this.averageTimeBetweenRSKSeconds} <small>average time between casts</small>
           </div>
-          <div>
-            {this.risingMist.averageTargetsPerRSKCast()}{' '}
-            <small>
-              average <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> hits per cast
-            </small>
-          </div>
           <div>{this.risingSunKick.subStatistic()}</div>
           {this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT) && (
             <div>
               <TooltipElement
                 content={
                   <>
-                    Increased <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> healing
+                    {this.rushingWindKick.avgTargetsHit.toFixed(2)} average targets hit per{' '}
+                    <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> cast
                   </>
                 }
               >

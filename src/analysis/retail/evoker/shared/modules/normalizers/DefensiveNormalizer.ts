@@ -1,12 +1,11 @@
 import { AnyEvent, EventType, HasRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import TALENTS from 'common/TALENTS/evoker';
-import { OBSIDIAN_SCALES, RENEWING_BLAZE } from './DefensiveCastLinkNormalizer';
+import { OBSIDIAN_SCALES } from './DefensiveCastLinkNormalizer';
 
 /** ability id, CastLink */
 const DEFS_TO_NORMALIZE = new Map<number, string>([
   [TALENTS.OBSIDIAN_SCALES_TALENT.id, OBSIDIAN_SCALES],
-  [TALENTS.RENEWING_BLAZE_TALENT.id, RENEWING_BLAZE],
 ]);
 
 /**
@@ -27,6 +26,7 @@ class DefensiveNormalizer extends EventsNormalizer {
     ...EventsNormalizer.dependencies,
   };
 
+  // TODO: Properly remove RB logic
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
     const latestBuffRemoveEvents = new Map<number, RemoveBuffEvent>();

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 import styled from '@emotion/styled';
 import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';

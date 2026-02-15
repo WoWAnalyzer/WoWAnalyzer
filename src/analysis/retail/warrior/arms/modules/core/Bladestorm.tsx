@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -85,10 +84,7 @@ class Bladestorm extends Analyzer {
   }
 
   checkColossusSmashAvailable(): boolean {
-    const warbreakerTalented = this.selectedCombatant.hasTalent(TALENTS.WARBREAKER_TALENT);
-    const remainingCooldown = warbreakerTalented
-      ? this.spellUsable.cooldownRemaining(TALENTS.WARBREAKER_TALENT.id)
-      : this.spellUsable.cooldownRemaining(SPELLS.COLOSSUS_SMASH.id);
+    const remainingCooldown = this.spellUsable.cooldownRemaining(SPELLS.COLOSSUS_SMASH.id);
 
     const aligned = remainingCooldown < WARBREAKER_FORGIVENESS;
     if (aligned && !this.currentCast.text) {

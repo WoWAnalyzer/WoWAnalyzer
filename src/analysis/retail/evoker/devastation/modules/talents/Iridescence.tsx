@@ -5,258 +5,342 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, {
+  Ability,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
   DamageEvent,
+  EmpowerEndEvent,
+  EventType,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
-  HasRelatedEvent,
-  CastEvent,
+  RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import {
-  IRIDESCENCE_MULTIPLIER,
-  GetDisintegrateTicks,
-} from 'analysis/retail/evoker/devastation/constants';
+import { IRIDESCENCE_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
 import { SpellLink } from 'interface';
 import {
-  IRIDESCENCE_BLUE_CONSUME,
-  IRIDESCENCE_RED_CONSUME,
+  getConsumeFlameTickEvent,
+  getDamageEventsFromCast,
+  getFireBreathDebuffEvents,
+  getIridescenceConsumeEvent,
+  isFromIridescenceConsume,
 } from '../normalizers/CastLinkNormalizer';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import { InformationIcon } from 'interface/icons';
 
-const {
-  DISINTEGRATE,
-  PYRE,
-  LIVING_FLAME_DAMAGE,
-  SHATTERING_STAR,
-  AZURE_STRIKE,
-  FIRESTORM_DAMAGE,
-  UNRAVEL,
-  IRIDESCENCE_BLUE,
-  IRIDESCENCE_RED,
-} = SPELLS;
+type DamageSources = Record<number, { amount: number; spell: Ability }>;
 
-const FIRESTORM_DURATION = 12000;
+// TODO:
+// Living Flame DoT
 
+/** Casting an empower spell increases the damage of your next 2 spells of the same color by 20% within 10 sec. */
 class Iridescence extends Analyzer {
-  // Blue spell stuff
-  ticksToCount = 0;
+  damageSources: DamageSources = {};
 
-  iridescenceDisintegrateDamage = 0;
-  iridescenceAzureStrikeDamage = 0;
-  iridescenceShatteringStarDamage = 0;
-  iridescenceUnravelDamage = 0;
+  currentBlueBuffStacks = 0;
+  currentRedBuffStacks = 0;
 
-  // Red spell stuff
-  iridescencePyreDamage = 0;
-  iridescenceLivingFlameDamage = 0;
-  iridescenceFirestormDamage = 0;
+  wastedBlueBuffs = 0;
+  wastedRedBuffs = 0;
+  overcappedRedBuffs = 0;
+  overcappedBlueBuffs = 0;
 
-  lastPyreDamEvent = 0;
-  firestormCastEvent = 0;
-
-  trackBlueDamage = false;
-  trackRedDamage = false;
-  trackFirestorm = false;
-  trackedSpells = [DISINTEGRATE, PYRE, LIVING_FLAME_DAMAGE, SHATTERING_STAR, AZURE_STRIKE, UNRAVEL];
-
-  iridescenceSpells = [IRIDESCENCE_BLUE, IRIDESCENCE_RED];
-
-  ticksPerDisintegrate = 0;
-  ticksPerChainedDisintegrate = 0;
+  fireBreathTargets = new Set<string>();
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE),
-      this.onDisintegrateCast,
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.IRIDESCENCE_BLUE, SPELLS.IRIDESCENCE_RED]),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removebuffstack
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.IRIDESCENCE_BLUE, SPELLS.IRIDESCENCE_RED]),
+      this.onRemoveBuffStack,
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FIRESTORM_TALENT),
-      this.onFirestormCast,
+      Events.empowerEnd.by(SELECTED_PLAYER).spell([SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT]),
+      this.onEmpowerEnd,
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(this.iridescenceSpells),
-      this.onBuffRemove,
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.FIRE_BREATH_DOT, SPELLS.CONSUME_FLAME_DAMAGE]),
+      this.onDamage,
     );
 
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(this.iridescenceSpells),
-      this.onBuffStackRemove,
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
+      this.onRemoveDebuff,
     );
 
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE),
-      this.removeDebuff,
+      Events.applybuffstack
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.IRIDESCENCE_BLUE, SPELLS.IRIDESCENCE_RED]),
+      this.onApplyBuffStack,
     );
-
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onHit);
-
-    this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
-    this.ticksPerChainedDisintegrate = GetDisintegrateTicks(
-      this.selectedCombatant,
-    ).disintegrateChainedTicks;
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.IRIDESCENCE_BLUE, SPELLS.IRIDESCENCE_RED]),
+      this.onApplyBuff,
+    );
   }
 
-  onBuffRemove(event: RemoveBuffEvent) {
-    if (HasRelatedEvent(event, IRIDESCENCE_BLUE_CONSUME)) {
-      this.trackBlueDamage = true;
-      if (this.ticksToCount > 0) {
-        this.ticksToCount = this.ticksPerChainedDisintegrate;
+  private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    const castEvent = getIridescenceConsumeEvent(event);
+
+    if (event.ability.guid === SPELLS.IRIDESCENCE_BLUE.id) {
+      this.wastedBlueBuffs += castEvent ? 0 : this.currentBlueBuffStacks;
+      this.currentBlueBuffStacks = 0;
+    } else {
+      this.wastedRedBuffs += castEvent ? 0 : this.currentRedBuffStacks;
+      this.currentRedBuffStacks = 0;
+    }
+
+    if (!castEvent) {
+      return;
+    }
+
+    this.calculateDamageFromCastEvent(castEvent);
+  }
+
+  private onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    if (event.ability.guid === SPELLS.IRIDESCENCE_BLUE.id) {
+      this.currentBlueBuffStacks = event.stack;
+    } else {
+      this.currentRedBuffStacks = event.stack;
+    }
+
+    const castEvent = getIridescenceConsumeEvent(event);
+    if (!castEvent) {
+      this.addDebugAnnotation(event, {
+        color: BadColor,
+        summary: 'Iridescence consumed, but no consume event found',
+      });
+      return;
+    }
+
+    this.calculateDamageFromCastEvent(castEvent);
+  }
+
+  private calculateDamageFromCastEvent(event: CastEvent | EmpowerEndEvent) {
+    if (event.type === EventType.EmpowerEnd) {
+      // Handle this seperately
+      return;
+    }
+
+    getDamageEventsFromCast(event).forEach((damageEvent) => this.calculateDamage(damageEvent));
+  }
+
+  private calculateDamage(event: DamageEvent) {
+    if (!this.damageSources[event.ability.guid]) {
+      this.damageSources[event.ability.guid] = {
+        amount: 0,
+        spell: event.ability,
+      };
+    }
+
+    this.damageSources[event.ability.guid].amount += calculateEffectiveDamage(
+      event,
+      IRIDESCENCE_MULTIPLIER,
+    );
+  }
+
+  private onEmpowerEnd(event: EmpowerEndEvent) {
+    const consumedIridescence = isFromIridescenceConsume(event);
+
+    let failedToFindTargetAmount = 0;
+    const debuffEvents = getFireBreathDebuffEvents(event);
+
+    debuffEvents.forEach((debuffEvent) => {
+      const target = encodeEventTargetString(debuffEvent);
+
+      if (!target) {
+        failedToFindTargetAmount += 1;
+        return;
+      }
+
+      if (consumedIridescence) {
+        this.fireBreathTargets.add(target);
       } else {
-        this.ticksToCount = this.ticksPerDisintegrate;
+        this.fireBreathTargets.delete(target);
       }
-    } else if (HasRelatedEvent(event, IRIDESCENCE_RED_CONSUME)) {
-      this.trackRedDamage = true;
+    });
+
+    const details = (
+      <div>
+        <dl>
+          <dt>Active debuff targets</dt>
+          <dd>{[...this.fireBreathTargets].join(', ')}</dd>
+        </dl>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            {debuffEvents.map((e, idx) => {
+              const target = encodeEventTargetString(e);
+              return (
+                <tr key={`${e.timestamp}-${e.type}-${target}-${idx}`}>
+                  <td style={{ minWidth: 100 }}>{e.type}</td>
+                  <td style={{ textAlign: 'right' }}>{target}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+
+    if (failedToFindTargetAmount > 0) {
+      this.addDebugAnnotation(event, {
+        color: BadColor,
+        summary: `Failed to find targets for ${failedToFindTargetAmount} debuff events`,
+        details,
+      });
+    } else if (!consumedIridescence) {
+      this.addDebugAnnotation(event, {
+        color: OkColor,
+        summary: 'Iridescence not consumed',
+        details,
+      });
+    } else {
+      this.addDebugAnnotation(event, {
+        color: GoodColor,
+        summary: 'Iridescence consumed',
+        details,
+      });
     }
   }
 
-  onBuffStackRemove(event: RemoveBuffStackEvent) {
-    if (event.ability.name === IRIDESCENCE_BLUE.name) {
-      this.trackBlueDamage = true;
-      if (this.ticksToCount > 0) {
-        this.ticksToCount = this.ticksPerChainedDisintegrate;
-      } else {
-        this.ticksToCount = this.ticksPerDisintegrate;
+  private onRemoveDebuff(event: RemoveDebuffEvent) {
+    const target = encodeEventTargetString(event);
+
+    if (!target) {
+      this.addDebugAnnotation(event, {
+        color: BadColor,
+        summary: 'Unable to find target for RemoveDebuffEvent',
+      });
+      return;
+    }
+
+    if (this.fireBreathTargets.has(target)) {
+      // Debuff is removed before the consume tick
+      // technically this happens to fb tick too, but it's rare enough to not be worth handling
+      const consumeFlameTick = getConsumeFlameTickEvent(event);
+      if (consumeFlameTick) {
+        this.calculateDamage(consumeFlameTick);
       }
-    } else if (HasRelatedEvent(event, IRIDESCENCE_RED_CONSUME)) {
-      this.trackRedDamage = true;
+    }
+
+    this.fireBreathTargets.delete(target);
+  }
+
+  private onDamage(event: DamageEvent) {
+    const target = encodeEventTargetString(event);
+    if (!target || !this.fireBreathTargets.has(target)) {
+      return;
+    }
+
+    this.calculateDamage(event);
+  }
+
+  private onApplyBuffStack(event: ApplyBuffStackEvent) {
+    if (event.ability.guid === SPELLS.IRIDESCENCE_BLUE.id) {
+      this.currentBlueBuffStacks = event.stack;
+      this.overcappedBlueBuffs += 1;
+    } else {
+      this.currentRedBuffStacks = event.stack;
+      this.overcappedRedBuffs += 1;
     }
   }
 
-  onDisintegrateCast() {
-    // Chanined disintegrate will carry over a buffed tick to the non buffed cast
-    if (this.ticksToCount > 0 && !this.trackBlueDamage) {
-      this.ticksToCount = 1;
-    }
-  }
-
-  onFirestormCast(event: CastEvent) {
-    this.firestormCastEvent = event.timestamp;
-    this.trackFirestorm = false;
-  }
-
-  removeDebuff() {
-    this.ticksToCount = 0;
-  }
-
-  onHit(event: DamageEvent) {
-    // Blue spells
-    if (event.ability.name === DISINTEGRATE.name) {
-      if (this.ticksToCount > 0) {
-        this.ticksToCount -= 1;
-        this.iridescenceDisintegrateDamage += calculateEffectiveDamage(
-          event,
-          IRIDESCENCE_MULTIPLIER,
-        );
-        if (this.trackBlueDamage) {
-          this.trackBlueDamage = false;
-        }
-      }
-    } else if (event.ability.name === AZURE_STRIKE.name && this.trackBlueDamage) {
-      this.iridescenceAzureStrikeDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
-      this.trackBlueDamage = false;
-    } else if (event.ability.name === SHATTERING_STAR.name && this.trackBlueDamage) {
-      this.iridescenceShatteringStarDamage += calculateEffectiveDamage(
-        event,
-        IRIDESCENCE_MULTIPLIER,
-      );
-      this.trackBlueDamage = false;
-    } else if (event.ability.name === UNRAVEL.name && this.trackBlueDamage) {
-      this.iridescenceUnravelDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
-      if (this.trackBlueDamage) {
-        this.trackBlueDamage = false;
-      }
-    }
-    // Red spells
-    else if (event.ability.name === PYRE.name) {
-      if (this.trackRedDamage || event.timestamp === this.lastPyreDamEvent) {
-        this.lastPyreDamEvent = event.timestamp;
-        if (this.trackRedDamage) {
-          this.trackRedDamage = false;
-        }
-        this.iridescencePyreDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
-        this.ticksToCount = 0;
-      }
-    } else if (event.ability.name === LIVING_FLAME_DAMAGE.name && this.trackRedDamage) {
-      this.iridescenceLivingFlameDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
-      if (this.trackRedDamage) {
-        this.trackRedDamage = false;
-      }
-    }
-    // FIXME:
-    // This is kinda jank, since *technically* two Firestorms can be down at the same time, and this would then combine the values of both
-    // But for now it's fine, since it's extremely rare to run Firestorm along with Iridescence in the first place, not including the unicorn cases of running the talents
-    // That allows multiple Firestorms AND Iridescence at the same time.
-    else if (
-      event.ability.name === FIRESTORM_DAMAGE.name &&
-      (this.trackRedDamage ||
-        (event.timestamp > this.firestormCastEvent + FIRESTORM_DURATION && this.trackFirestorm))
-    ) {
-      this.iridescenceFirestormDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
-      if (this.trackRedDamage) {
-        this.trackRedDamage = false;
-        this.trackFirestorm = true;
-      }
+  private onApplyBuff(event: ApplyBuffEvent) {
+    if (event.ability.guid === SPELLS.IRIDESCENCE_BLUE.id) {
+      this.currentBlueBuffStacks = 2;
+    } else {
+      this.currentRedBuffStacks = 2;
     }
   }
 
   statistic() {
-    const totalIridescenceDamage =
-      this.iridescenceDisintegrateDamage +
-      this.iridescenceAzureStrikeDamage +
-      this.iridescenceShatteringStarDamage +
-      this.iridescenceUnravelDamage +
-      this.iridescencePyreDamage +
-      this.iridescenceLivingFlameDamage +
-      this.iridescenceFirestormDamage;
+    const damageItems = Object.values(this.damageSources)
+      .sort((a, b) => b.amount - a.amount)
+      .map((source) => ({
+        spellId: source.spell.guid,
+        valueTooltip: formatNumber(source.amount),
+        value: source.amount,
+      }));
+
+    const totalAmount = damageItems.reduce((total, item) => total + item.value, 0);
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        // TODO: hide non talented abilities
         tooltip={
           <>
-            <li>
-              <SpellLink spell={DISINTEGRATE} /> Damage:{' '}
-              {formatNumber(this.iridescenceDisintegrateDamage)}
-            </li>
-            <li>
-              <SpellLink spell={SHATTERING_STAR} /> Damage:{' '}
-              {formatNumber(this.iridescenceShatteringStarDamage)}
-            </li>
-            <li>
-              <SpellLink spell={AZURE_STRIKE} /> Damage:{' '}
-              {formatNumber(this.iridescenceAzureStrikeDamage)}
-            </li>
-            <li>
-              <SpellLink spell={UNRAVEL} /> Damage: {formatNumber(this.iridescenceUnravelDamage)}
-            </li>
-            <li>
-              <SpellLink spell={LIVING_FLAME_DAMAGE} /> Damage:{' '}
-              {formatNumber(this.iridescenceLivingFlameDamage)}
-            </li>
-            <li>
-              <SpellLink spell={PYRE} /> Damage: {formatNumber(this.iridescencePyreDamage)}
-            </li>
-            <li>
-              <SpellLink spell={FIRESTORM_DAMAGE} /> Damage:{' '}
-              {formatNumber(this.iridescenceFirestormDamage)}
-            </li>
+            <li>Total damage: {formatNumber(totalAmount)}</li>
+            {damageItems.map((item) => (
+              <li key={`iridescence-damage-${item.spellId}`}>
+                <SpellLink spell={item.spellId} /> damage: {item.valueTooltip}
+              </li>
+            ))}
           </>
         }
       >
         <TalentSpellText talent={TALENTS.IRIDESCENCE_TALENT}>
-          <ItemDamageDone amount={totalIridescenceDamage} />
+          <ItemDamageDone amount={totalAmount} />
+          {this.wastedBlueBuffs > 0 && (
+            <div>
+              <InformationIcon /> {this.wastedBlueBuffs}{' '}
+              <small>
+                <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> wasted
+              </small>
+            </div>
+          )}
+          {this.wastedRedBuffs > 0 && (
+            <div>
+              <InformationIcon /> {this.wastedRedBuffs}{' '}
+              <small>
+                <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> wasted
+              </small>
+            </div>
+          )}
+          {this.overcappedRedBuffs > 0 && (
+            <div>
+              <InformationIcon /> {this.overcappedRedBuffs}{' '}
+              <small>
+                <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> overcapped
+              </small>
+            </div>
+          )}
+          {this.overcappedBlueBuffs > 0 && (
+            <div>
+              <InformationIcon /> {this.overcappedBlueBuffs}{' '}
+              <small>
+                <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> overcapped
+              </small>
+            </div>
+          )}
         </TalentSpellText>
       </Statistic>
     );

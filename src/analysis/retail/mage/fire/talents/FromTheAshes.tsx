@@ -1,7 +1,6 @@
 import { FIRE_DIRECT_DAMAGE_SPELLS } from 'analysis/retail/mage/shared';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
-import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -9,7 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const MS_REDUCTION = 1000;
+const MS_REDUCTION = 500;
 
 class FromTheAshes extends Analyzer {
   static dependencies = {
@@ -24,20 +23,17 @@ class FromTheAshes extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.FROM_THE_ASHES_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
-      this.onCritDamage,
+      this.onDamage,
     );
   }
 
   //Look for crit damage events to reduce the cooldown on Kindling
-  onCritDamage(event: DamageEvent) {
-    if (
-      !this.spellUsable.isOnCooldown(TALENTS.PHOENIX_FLAMES_TALENT.id) ||
-      event.hitType !== HIT_TYPES.CRIT
-    ) {
+  onDamage(event: DamageEvent) {
+    if (!this.spellUsable.isOnCooldown(TALENTS.FIRE_BLAST_TALENT.id)) {
       return;
     }
     this.cooldownReduction += this.spellUsable.reduceCooldown(
-      TALENTS.PHOENIX_FLAMES_TALENT.id,
+      TALENTS.FIRE_BLAST_TALENT.id,
       MS_REDUCTION,
     );
   }
@@ -51,7 +47,7 @@ class FromTheAshes extends Analyzer {
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spell={TALENTS.FROM_THE_ASHES_TALENT}>
           <>
-            {formatNumber(this.cooldownReductionSeconds)}s <small>Phoenix Flames CDR</small>
+            {formatNumber(this.cooldownReductionSeconds)}s <small>Fire Blast CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>

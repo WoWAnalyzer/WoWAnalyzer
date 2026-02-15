@@ -1,11 +1,12 @@
 import COMBATANTINFO from 'parser/core/tests/COMBATANTINFO.json';
 
-import Combatant from './Combatant';
+import { FullCombatant } from './Combatant';
 
 function getCombatant(parser = null, combatantInfo = null) {
   const parserStub = {
     players: [
       {
+        id: 11,
         name: 'Test',
       },
     ],
@@ -13,7 +14,11 @@ function getCombatant(parser = null, combatantInfo = null) {
       start_time: 0,
     },
   };
-  return new Combatant(parser || parserStub, combatantInfo || COMBATANTINFO);
+  return new FullCombatant(
+    parser || parserStub,
+    { id: 11, name: 'Test', specID: 1 },
+    combatantInfo || COMBATANTINFO,
+  );
 }
 
 describe('Combatant', () => {
