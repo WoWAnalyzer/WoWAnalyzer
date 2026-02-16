@@ -388,6 +388,21 @@ const spells = {
     name: 'Black Arrow',
     icon: 'inv_ability_darkrangerhunter_blackarrow',
   },
+  STAMPEDE_READY_BUFF: {
+    id: 1258338,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'inv_pet_babymurlocs_blue',
+  },
+  STAMPEDE_ACTIVE_BUFF: {
+    id: 1258345,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
   //rendregion
   //region Shared Talents
   EXPLOSIVE_SHOT_DAMAGE: {
@@ -746,43 +761,6 @@ const spells = {
     id: 394384,
     name: 'Focusing Aim',
     icon: 'ability_impalingbolt',
-  },
-  //T30 2P
-  T30_2P_BONUS_BEAST_MASTERY: {
-    id: 405524,
-    name: 'T30 2P',
-    icon: 'ability_hunter_killcommand',
-  },
-  //T30 4P
-
-  T30_4P_BONUS_BEAST_MASTERY: {
-    id: 405525,
-    name: 'T30 4P',
-    icon: 'ability_druid_ferociousbite',
-  },
-
-  //TWW Lightless 2p
-  TWW_LIGHTLESS_2P_MM: {
-    id: 453648,
-    name: 'Hunter MM Lightless 2 Piece Set',
-    icon: 'trade_engineering',
-  },
-
-  //TWW Lightless 4p
-  TWW_LIGHTLESS_4P_MM: {
-    id: 453650,
-    name: 'Hunter MM Lightless 4 Piece Set',
-    icon: 'trade_engineering',
-  },
-  TWW_STAMPEDE_BUFF: {
-    id: 1250068,
-    name: 'Stampede Buff Duration',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  TWW_STAMPEDE_DAMAGE: {
-    id: 201594,
-    name: 'Stampede',
-    icon: 'inv_pet_babymurlocs_blue',
   },
 
   //endregion

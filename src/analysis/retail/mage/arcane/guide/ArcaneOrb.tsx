@@ -17,7 +17,7 @@ interface ArcaneOrbCast {
   chargesBefore: number;
 }
 
-const ORB_EFFICIENT_CHARGE_THRESHOLD = 2;
+const ARCANE_CHARGE_THRESHOLD = 2;
 const AOE_THRESHOLD = 2; // Perfect if hitting 2+ targets
 
 class ArcaneOrbGuide extends Analyzer {
@@ -46,12 +46,7 @@ class ArcaneOrbGuide extends Analyzer {
 
   private evaluateOrbCast(cast: ArcaneOrbCast): CastEvaluation {
     const hitTargets = cast.targetsHit > 0;
-    const efficientCharges = cast.chargesBefore <= ORB_EFFICIENT_CHARGE_THRESHOLD;
-    const multiTarget = cast.targetsHit >= AOE_THRESHOLD;
-
-    const castData = {
-      timestamp: cast.timestamp,
-    };
+    const isAOE = cast.targetsHit >= AOE_THRESHOLD;
 
     // FAIL CONDITIONS
     if (!hitTargets) {
@@ -63,20 +58,19 @@ class ArcaneOrbGuide extends Analyzer {
     }
 
     // PERFECT CONDITIONS
-    if (hitTargets && efficientCharges && multiTarget) {
+    if (cast.chargesBefore <= ARCANE_CHARGE_THRESHOLD) {
       return {
         performance: QualitativePerformance.Perfect,
-        reason: `Perfect usage - ${cast.targetsHit} targets hit with efficient charge usage (${cast.chargesBefore}/${ORB_EFFICIENT_CHARGE_THRESHOLD})`,
-
+        reason: `Hit ${cast.targetsHit} target(s) with ${cast.chargesBefore} Arcane Charges`,
         timestamp: cast.timestamp,
       };
     }
 
     // GOOD CONDITIONS
-    if (hitTargets && efficientCharges) {
+    if (isAOE) {
       return {
         performance: QualitativePerformance.Good,
-        reason: `Good usage - ${cast.targetsHit} target(s) hit with efficient charge usage (${cast.chargesBefore}/${ORB_EFFICIENT_CHARGE_THRESHOLD})`,
+        reason: `Hit ${cast.targetsHit} target(s) with (${cast.chargesBefore} Arcane Charges`,
         timestamp: cast.timestamp,
       };
     }
@@ -84,7 +78,7 @@ class ArcaneOrbGuide extends Analyzer {
     // DEFAULT
     return {
       performance: QualitativePerformance.Fail,
-      reason: 'Arcane Orb usage needs improvement',
+      reason: `Hit ${cast.targetsHit} target(s) with ${cast.chargesBefore} Arcane Charges`,
       timestamp: cast.timestamp,
     };
   }
@@ -100,14 +94,13 @@ class ArcaneOrbGuide extends Analyzer {
         hit.
         <ul>
           <li>
-            Try to use it on cooldown, but only when you have 2 or fewer {arcaneCharge}s to avoid
-            overcapping.
+            Try to use it on cooldown, but only when you have {ARCANE_CHARGE_THRESHOLD} or fewer{' '}
+            {arcaneCharge}s to avoid overcapping.
           </li>
           <li>
             In multi-target situations, position yourself to hit as many targets as possible for
             maximum charge generation.
           </li>
-          <li>Perfect usage combines efficient charge management with hitting multiple targets.</li>
         </ul>
       </>
     );

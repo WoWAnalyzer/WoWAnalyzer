@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -10,8 +11,39 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { getSheilunsGiftHits, isFromSheilunsGift } from '../../normalizers/CastLinkNormalizer';
-import { SHEILUNS_GIFT_TARGETS } from '../../constants';
+import {
+  getSheilunsGiftHits,
+  getSheilunsGiftMainTargetHit,
+  isFromSheilunsGift,
+} from '../../normalizers/CastLinkNormalizer';
+import {
+  EMPERORS_FAVOR_INCREASE,
+  INVIGORATING_MISTS_INCREASE,
+  SHEILUNS_GIFT_TARGETS,
+} from '../../constants';
+import { effectiveHealing } from 'parser/shared/modules/HealingValue';
+
+// normalize sheilun's gift heal events to remove invigorating mist increase
+export function getNormalizedSheilunsGiftHits(event: CastEvent): HealEvent[] {
+  const sgHealEvents = getSheilunsGiftHits(event);
+  if (!sgHealEvents || sgHealEvents.length === 0) return sgHealEvents;
+
+  const mainTarget = getSheilunsGiftMainTargetHit(event);
+  if (!mainTarget) return sgHealEvents;
+
+  const multiplier = 1 + INVIGORATING_MISTS_INCREASE;
+
+  return sgHealEvents.map((heal) =>
+    heal === mainTarget
+      ? {
+          ...heal,
+          amount: heal.amount / multiplier,
+          absorbed: (heal.absorbed || 0) / multiplier,
+          overheal: (heal.overheal || 0) / multiplier,
+        }
+      : heal,
+  );
+}
 
 class SheilunsGift extends Analyzer {
   numCasts = 0;
@@ -23,6 +55,7 @@ class SheilunsGift extends Analyzer {
   curClouds = 0;
   overhealing = 0;
   legacyOfWisdomActive = false;
+  emperorsFavorActive = false;
 
   constructor(options: Options) {
     super(options);
@@ -33,6 +66,7 @@ class SheilunsGift extends Analyzer {
     this.legacyOfWisdomActive = this.selectedCombatant.hasTalent(
       TALENTS_MONK.LEGACY_OF_WISDOM_TALENT,
     );
+    this.emperorsFavorActive = this.selectedCombatant.hasTalent(TALENTS_MONK.EMPERORS_FAVOR_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
       this.onCast,
@@ -48,21 +82,37 @@ class SheilunsGift extends Analyzer {
     );
   }
 
+  calcEmperorsFavor(healEvents: HealEvent[]) {
+    const hit = healEvents[0];
+
+    const effectiveHealingIncrease = calculateEffectiveHealing(hit, EMPERORS_FAVOR_INCREASE);
+    const effectiveOverhealingIncrease = calculateOverhealing(hit, EMPERORS_FAVOR_INCREASE);
+
+    this.baseHealing += effectiveHealing(hit) - effectiveHealingIncrease;
+    this.overhealing += (hit.overheal || 0) - effectiveOverhealingIncrease;
+  }
+
+  calcRegularSG(healEvents: HealEvent[]) {
+    const baseHits = healEvents.slice(0, SHEILUNS_GIFT_TARGETS);
+    if (baseHits.length === 0) return;
+
+    this.baseHealing += baseHits.reduce((sum, heal) => sum + effectiveHealing(heal), 0);
+    this.overhealing += baseHits.reduce((sum, heal) => sum + (heal.overheal || 0), 0);
+  }
+
   onCast(event: CastEvent) {
     this.totalStacks += this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
     this.cloudsLostSinceLastCast = 0;
     this.numCasts += 1;
 
-    const sgHealEvents = getSheilunsGiftHits(event);
-    if (!sgHealEvents) {
-      return;
+    const normalizedSGHealEvents = getNormalizedSheilunsGiftHits(event);
+    if (!normalizedSGHealEvents || normalizedSGHealEvents.length === 0) return;
+
+    if (this.emperorsFavorActive) {
+      this.calcEmperorsFavor(normalizedSGHealEvents);
+    } else {
+      this.calcRegularSG(normalizedSGHealEvents);
     }
-    const baseHits = sgHealEvents.splice(0, SHEILUNS_GIFT_TARGETS);
-    if (!baseHits) {
-      return;
-    }
-    this.baseHealing += baseHits.reduce((sum, heal) => sum + heal.amount + (heal.absorbed || 0), 0);
-    this.overhealing += baseHits.reduce((sum, heal) => sum + (heal.overheal || 0), 0);
   }
 
   onBuffRefresh(event: RefreshBuffEvent) {
@@ -75,7 +125,7 @@ class SheilunsGift extends Analyzer {
 
   masterySheilunsGift(event: HealEvent) {
     if (isFromSheilunsGift(event)) {
-      this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.gomHealing += effectiveHealing(event);
     }
   }
 

@@ -19,7 +19,6 @@ import Bloodseeker from './modules/talents/Bloodseeker';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Focus from './modules/resources/Focus';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import KillCommand from './modules/talents/KillCommand';
 import RaptorStrike from './modules/talents/RaptorStrike';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
@@ -38,14 +37,16 @@ import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import AplCheck from './modules/apl/AplCheck';
 import MoonlightChakram from '../shared/herotalents/MoonlightChakram';
 import MoonlightChakramNormalizer from '../shared/normalizers/MoonlightChakramNormalizer';
-// import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
-
+import SentinelsMark from '../shared/herotalents/SentinelsMark';
+import SentinelsMarkNormalizer from '../shared/normalizers/SentinelsMarkNormalizer';
+import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
+import StampedeAnalyzer from '../shared/herotalents/Stampede';
+import HowlBoar from '../shared/herotalents/HowlBoar';
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
   static specModules = {
     // Core statistics
     abilities: Abilities,
-    globalCooldown: GlobalCooldown,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -73,7 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
     boomstickNormalizer: BoomstickNormalizer,
     wildfireBombNormalizer: WildfireBombNormalizer,
     moonlightChakramNormalizer: MoonlightChakramNormalizer,
-    // EventLinkNormalizers: EventLinkNormalizer,
+    sentinelsMarkNormalizer: SentinelsMarkNormalizer,
+    EventLinkNormalizers: EventLinkNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -88,12 +90,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Shared Talents
     moonlightChakram: MoonlightChakram,
+    sentinelsMark: SentinelsMark,
     bindingShot: BindingShot,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,
     trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
-    SurvivalOfTheFittest: SurvivalOfTheFittest,
+    survivalOfTheFittest: SurvivalOfTheFittest,
+    stampedeAnalyzer: StampedeAnalyzer,
+    howlBoar: HowlBoar,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

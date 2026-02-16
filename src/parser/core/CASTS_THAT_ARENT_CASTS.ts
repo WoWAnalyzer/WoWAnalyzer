@@ -49,6 +49,7 @@ const spells: number[] = [
   SPELLS.EXTERMINATE_FIRST_HIT.id,
   SPELLS.EXTERMINATE_SECOND_HIT.id,
   SPELLS.INFLICTION_OF_SORROW.id,
+  SPELLS.DISEASE_CLOUD.id,
 
   //endregion
 

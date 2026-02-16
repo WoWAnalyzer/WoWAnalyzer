@@ -2,6 +2,9 @@ import { ReactNode, useState } from 'react';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark, SectionHeader } from 'interface/guide';
 import { ControlledExpandable } from 'interface';
+import EmbeddedTimeline, {
+  EmbeddedTimelineProps,
+} from 'interface/report/Results/Timeline/EmbeddedTimeline';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
@@ -14,6 +17,7 @@ interface Props {
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
   perf?: QualitativePerformance;
+  timeline?: EmbeddedTimelineProps;
 }
 
 /**
@@ -46,7 +50,7 @@ export const CooldownExpandableDataList = ({
   </section>
 );
 
-const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props) => {
+const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timeline }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const combinedHeader =
     perf !== undefined ? (
@@ -62,8 +66,12 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props
       element="section"
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
+      // this allows animation transitions to function correctly with auto-height calculations when the timeline is enabled.
+      disableDisplayNone={Boolean(timeline)}
     >
-      <div>
+      {/* inert is used to prevent tabbing from getting trapped on the timeline */}
+      <div inert={!isExpanded}>
+        {timeline && <EmbeddedTimeline {...timeline} />}
         {checklistItems && checklistItems.length !== 0 && (
           <CooldownExpandableDataList items={checklistItems} title="Checklist" />
         )}

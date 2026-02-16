@@ -15,12 +15,13 @@ import {
   FreeCastEvent,
   GlobalCooldownEvent,
 } from 'parser/core/Events';
-import { Fragment, CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import { Fragment, CSSProperties, HTMLAttributes, ReactNode, use } from 'react';
 
 import './Casts.scss';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
+import { TimelineSettingsContext } from './Settings';
 
 const ICON_WIDTH = 22;
 
@@ -86,13 +87,22 @@ interface MovementInstance {
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   windowStart?: number;
-  secondWidth: number;
+  secondWidth?: number;
   events: AnyEvent[];
   movement?: MovementInstance[];
 }
 
-const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }: Props) => {
+const Casts = ({
+  start,
+  windowStart,
+  secondWidth: explicitSecondWidth,
+  events,
+  movement,
+  ...others
+}: Props) => {
+  const timelineSettings = use(TimelineSettingsContext);
   const expansionCtx = useExpansionContext();
+  const secondWidth = explicitSecondWidth ?? timelineSettings.secondWidth;
   const getOffsetLeft = (timestamp: number) =>
     ((timestamp - (windowStart ?? start)) / 1000) * secondWidth;
 
@@ -136,10 +146,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
     );
 
     return (
-      <Fragment
-        // It's possible this complains about "encountered two children with the same key". This is probably caused by fabricating a channel event at a cast time. If you can fix it by removing one of the events that would be great, otherwise you may just have to ignore this as while it's showing a warning, deduplicting the icons is correct behavior.
-        key={`cast-${left}-${event.ability.guid}`}
-      >
+      <Fragment key={`${event.type}-${event.timestamp}-${event.ability.guid}-${className}`}>
         {tooltip ? (
           <Tooltip content={tooltip}>
             <div className={`cast ${className}`} style={{ left, ...style }}>
@@ -156,7 +163,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
   let hasLowered = false;
   let _lastLowered: number | null = null;
   let _level = 0;
-  let _maxLevel = 0;
+  let _maxLevel = 1;
   const renderCast = (event: CastEvent | FreeCastEvent) => {
     if (event.channel) {
       // If a spell has a channel event, it has a cast time/is channeled and we already rendered it in the `beginchannel` event
@@ -250,7 +257,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
 
     return (
       <Tooltip
-        key={`channel-${left}-${event.ability.guid}`}
+        key={`channel-${event.start}-${event.ability.guid}`}
         content={
           <Trans id="interface.report.results.timeline.casts.tooltip.xSecChannelByAbility">
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by{' '}
@@ -274,7 +281,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
 
     return (
       <Tooltip
-        key={`gcd-${left}-${event.ability.guid}`}
+        key={`gcd-${event.timestamp}-${event.ability.guid}`}
         content={
           <Trans id="interface.report.results.timeline.casts.tooltip.xSecGCDByAbility">
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global
@@ -298,7 +305,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
 
     return (
       <Tooltip
-        key={`swing-${left}-${event.ability.guid}`}
+        key={`swing-${event.timestamp}-${event.ability.guid}`}
         content={
           <Trans id="interface.report.results.timeline.casts.tooltip.swingCooldown">
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Swing cooldown
@@ -378,7 +385,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
       style={{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        '--levels': hasLowered ? _maxLevel + 1 : 0,
+        '--levels': hasLowered ? _maxLevel : 0,
         '--has-levels': hasLowered ? 1 : 0,
         ...others.style,
       }}

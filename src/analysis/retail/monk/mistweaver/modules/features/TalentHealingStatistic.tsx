@@ -26,6 +26,9 @@ import WayOfTheSerpent from '../spells/WayOfTheSerpent';
 import WayOfTheCrane from '../spells/WayOfTheCrane';
 import PeacefulMending from '../spells/PeacefulMending';
 import Spiritfont from '../spells/Spiritfont';
+import InvigoratingMists from '../spells/InvigoratingMists';
+import EmperorsFavor from '../spells/EmperorsFavor';
+import TranquilTea from '../spells/TranquilTea';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -52,6 +55,9 @@ class TalentHealingStatistic extends Analyzer {
     wayOfTheCrane: WayOfTheCrane,
     peacefulMending: PeacefulMending,
     spiritfont: Spiritfont,
+    invigoratingMists: InvigoratingMists,
+    emperorsFavor: EmperorsFavor,
+    tranquilTea: TranquilTea,
   };
 
   protected risingMist!: RisingMist;
@@ -78,6 +84,9 @@ class TalentHealingStatistic extends Analyzer {
   protected wayOfTheCrane!: WayOfTheCrane;
   protected peacefulMending!: PeacefulMending;
   protected spiritfont!: Spiritfont;
+  protected invigoratingMists!: InvigoratingMists;
+  protected emperorsFavor!: EmperorsFavor;
+  protected tranquilTea!: TranquilTea;
 
   buildTalentList() {
     const talentList = [];
@@ -146,6 +155,18 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT)) {
       talentList.push(this.spiritfont.subStatistic());
+    }
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVIGORATING_MISTS_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)
+    ) {
+      talentList.push(this.invigoratingMists.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.EMPERORS_FAVOR_TALENT)) {
+      talentList.push(this.emperorsFavor.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.TRANQUIL_TEA_TALENT)) {
+      talentList.push(this.tranquilTea.subStatistic());
     }
 
     const sortedTalentList = talentList.sort(

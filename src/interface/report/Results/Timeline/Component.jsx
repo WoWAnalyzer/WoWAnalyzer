@@ -185,6 +185,10 @@ class Timeline extends PureComponent {
             className="spell-timeline"
             style={{
               '--cast-bars': castEvents.length,
+              // explicitly setting the width here allows the legend to
+              // continue following the left edge of the scroll container
+              // for the entire width of the timeline
+              width: this.secondWidth * this.seconds,
             }}
           >
             <EnemyCastsTimeline
@@ -196,6 +200,7 @@ class Timeline extends PureComponent {
             />
             <Auras
               start={this.start}
+              end={this.end}
               secondWidth={this.secondWidth}
               parser={parser}
               auras={auras}
@@ -206,17 +211,18 @@ class Timeline extends PureComponent {
               offset={this.offset}
               secondWidth={this.secondWidth}
               skipInterval={skipInterval}
-            />
-            {castEvents.map((events, index) => (
-              <Casts
-                key={index}
-                start={this.start}
-                secondWidth={this.secondWidth}
-                events={events}
-                // Only show on the main cast bar since that should default to standard casts
-                movement={index === castEvents.length - 1 ? movement : undefined}
-              />
-            ))}
+            >
+              {castEvents.map((events, index) => (
+                <Casts
+                  key={index}
+                  start={this.start}
+                  secondWidth={this.secondWidth}
+                  events={events}
+                  // Only show on the main cast bar since that should default to standard casts
+                  movement={index === castEvents.length - 1 ? movement : undefined}
+                />
+              ))}
+            </TimeIndicators>
             <Cooldowns
               start={this.start}
               end={this.end}

@@ -646,6 +646,11 @@ const spells = {
     name: 'Hungering Slash',
     icon: 'inv_12_dh_void_ability_reapersslice',
   },
+  HUNGERING_SLASH_BUFF: {
+    id: 1239525,
+    name: 'Hungering Slash',
+    icon: 'inv_12_dh_void_ability_reapersslice',
+  },
   FAKE_VOIDBLADE_CAST: {
     id: 1245414,
     name: 'Voidblade',
@@ -660,6 +665,31 @@ const spells = {
     id: 1238495,
     name: 'Moment of Craving',
     icon: 'inv_ability_soulharvesterwarlock_demonicsoul',
+  },
+  VOIDSTEP: {
+    id: 1223157,
+    name: 'Voidstep',
+    icon: 'inv_12_dh_void_ability_voidstep',
+  },
+  VOID_METAMORPHOSIS_SOULS: {
+    id: 1225789,
+    name: 'Void Metamorphosis',
+    icon: 'inv_112_ability_demonhunter_metamorphasisvoid',
+  },
+  SOUL_FRAGMENT_DEVOUR: {
+    id: 1245577,
+    name: 'Soul Fragments',
+    icon: 'inv_12_dh_void_ability_soulfragments',
+  },
+  VOID_RAY_DAMAGE: {
+    id: 1213649,
+    name: 'Void Ray',
+    icon: 'inv_12_dh_void_ability_voidray',
+  },
+  VOID_RAY_DAMAGE_META: {
+    id: 1214595,
+    name: 'Void Ray',
+    icon: 'inv_12_dh_void_ability_voidray',
   },
   //endregion
 
@@ -767,8 +797,13 @@ const spells = {
     name: 'Pierce the Veil',
     icon: 'ability_demonhunter_soulcleave4',
   },
-  REAPERS_TOLL: {
+  REAPERS_TOLL_CAST: {
     id: 1245470,
+    name: "Reaper's Toll",
+    icon: 'inv_glaive_1h_artifactazgalor_d_05dual',
+  },
+  REAPERS_TOLL_BUFF: {
+    id: 1245523,
     name: "Reaper's Toll",
     icon: 'inv_glaive_1h_artifactazgalor_d_05dual',
   },

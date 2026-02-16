@@ -7,6 +7,8 @@ import {
   ZEN_PULSE_VIVIFY,
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
+  SHEILUNS_GIFT_MAIN_TARGET,
+  SHEILUNS_GIFT,
 } from './EventLinkConstants';
 import { TALENTS_MONK } from 'common/TALENTS';
 
@@ -59,6 +61,36 @@ export const VIVIFY_EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT);
+    },
+  },
+  {
+    linkRelation: SHEILUNS_GIFT,
+    linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
+    referencedEventType: [EventType.Heal],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
+    },
+    maximumLinks(c) {
+      return c.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT) ? 5 : 3;
+    },
+  },
+  {
+    linkRelation: SHEILUNS_GIFT_MAIN_TARGET,
+    linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
+    referencedEventType: [EventType.Heal],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
     },
   },
 ];

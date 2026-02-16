@@ -35,7 +35,8 @@ import {
   getLowestPerf,
 } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
@@ -389,7 +390,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
               <SpellLink spell={TALENTS.SUNDERING_TALENT} /> cast by {ll} will also trigger an{' '}
               <SpellLink spell={TALENTS.EARTHSURGE_TALENT} /> half way along{' '}
               <SpellLink spell={TALENTS.SUNDERING_TALENT} />
-              's path
+              's path.
             </>
           ) : null}
         </p>

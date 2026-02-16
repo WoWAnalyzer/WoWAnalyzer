@@ -128,11 +128,6 @@
       "count": 1
     }
   },
-  "src/interface/report/Results/Timeline/Lane.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    }
-  },
   "src/interface/report/Results/index.tsx": {
     "react-hooks/set-state-in-effect": {
       "count": 1

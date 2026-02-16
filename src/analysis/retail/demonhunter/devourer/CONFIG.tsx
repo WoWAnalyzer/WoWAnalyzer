@@ -11,10 +11,30 @@ const CONFIG: Config = {
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0.0',
-  supportLevel: SupportLevel.Foundation,
+  supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Welcome to the Devourer Demon Hunter analyzer!</>,
+  description: (
+    <>
+      <p>
+        Welcome to the Devourer Demon Hunter analyzer! We hope you find these suggestations and
+        statistics useful.
+      </p>
+      <p>
+        More resources for Devour:
+        <br />
+        <a href="https://www.wowhead.com/guide/classes/demon-hunter/devourer/overview-pve-dps">
+          Wowhead Guide
+        </a>
+        <br />
+        <a href="https://www.icy-veins.com/wow/devourer-demon-hunter-pve-dps-guide">
+          Icy Veins Guide
+        </a>
+        <br />
+        <a href="https://discord.gg/felhammer">Demon Hunter class Discord</a>
+      </p>
+    </>
+  ),
   exampleReport:
     '/report/tBZkmzXMgDWCvGr4/16-Heroic+Imperator+Averzian+-+Kill+(2:41)/Voodootest/standard',
 

@@ -6,6 +6,7 @@
   padding-bottom: 6px;
   padding-top: 1.5rem;
   background: Theme.$backgroundColor;
+  position: relative;
 
   &::-webkit-scrollbar {
     height: 12px;
@@ -27,32 +28,24 @@
   }
 }
 
-.spell-timeline-premium-box {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  z-index: 10;
-  font-size: 20px;
-  padding: 15px;
-  background: linear-gradient(to right, transparent 0px, rgb(22, 21, 19) 100px);
-  padding-left: 115px;
-
-  > div {
-    min-width: 300px;
-    max-width: 550px;
-    position: sticky;
-    left: 15px;
-  }
-}
-
 .spell-timeline > * {
   position: relative;
+}
+
+.time-line-container {
+  position: relative;
+}
+
+.time-line-container + .cooldowns {
+  margin-top: 22px;
 }
 
 /* Time indicator */
 .spell-timeline .time-line {
   white-space: nowrap;
   height: calc(var(--cast-bars) * 22px);
+  position: absolute;
+  top: 0;
 
   > * {
     height: calc(100% + 10px);
@@ -98,6 +91,6 @@
 
   .npc-toggle-options {
     position: sticky;
-    left: 0;
+    left: 2rem;
   }
 }
