@@ -69,7 +69,7 @@ class Abilities extends ClassAbilities {
         spell: SPELLS.PRIMORDIAL_STORM_CAST.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
-          base: 150,
+          base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_STORM_TALENT),
       },
