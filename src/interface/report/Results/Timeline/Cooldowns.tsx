@@ -26,27 +26,40 @@ interface Props {
    * but is used in embedded timelines.
    */
   castsOmitted?: boolean;
+  /**
+   * Sort in a consistent order, regardless of data. This is used by embedded timelines in the cooldown to make sure
+   * that every cooldown window shows the spells in the same order.
+   */
+  fixedCooldownOrder?: boolean;
+  disableLegend?: boolean;
 }
 
 class Cooldowns extends PureComponent<Props> {
   declare context: React.ContextType<typeof TimelineSettingsContext>;
 
-  getSortIndex([spellId, events]: [number, AnyEvent[]]) {
+  getSortIndex([spellId, events]: [number, AnyEvent[]]): number {
     const ability = this.props.abilities.getAbility(spellId);
-    if (!ability?.timelineSortIndex) {
-      return 1000 - events.length;
-    } else {
+    if (ability?.timelineSortIndex !== null && ability?.timelineSortIndex !== undefined) {
       return ability.timelineSortIndex;
     }
+
+    if (this.props.fixedCooldownOrder) {
+      return ability?.cooldown ?? 0;
+    }
+
+    return 1000 - events.length;
+  }
+
+  private sortEntries(entries: [number, AnyEvent[]][], growUp: boolean): void {
+    entries.sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b));
   }
 
   renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
     const entries: [number, AnyEvent[]][] =
       this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
-    return entries
-      .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
-      .map((item) => this.renderLane(item));
+    this.sortEntries(entries, growUp);
+    return entries.map((item) => this.renderLane(item));
   }
   renderLane([spellId, events]: [number, AnyEvent[]]) {
     return (
@@ -63,31 +76,34 @@ class Cooldowns extends PureComponent<Props> {
       </Lane>
     );
   }
-  renderLegend(eventsBySpellId: Map<number, AnyEvent[]>) {
+  renderLegend(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
     const entries: [number, AnyEvent[]][] =
       this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
-    return entries
-      .sort((a, b) => this.getSortIndex(a) - this.getSortIndex(b))
-      .map(([spellId, events]) => {
-        if (events.length === 0) {
-          return null;
-        }
 
-        const ability = maybeGetSpell(spellId);
+    this.sortEntries(entries, growUp);
 
-        return (
-          <div className="legend" key={spellId}>
-            {ability && <Icon icon={ability.icon} alt={ability.name} />}
-          </div>
-        );
-      });
+    return entries.map(([spellId, events]) => {
+      if (events.length === 0) {
+        return null;
+      }
+
+      const ability = maybeGetSpell(spellId);
+
+      return (
+        <div className="legend" key={spellId}>
+          {ability && <Icon icon={ability.icon} alt={ability.name} />}
+        </div>
+      );
+    });
   }
   render() {
     const { eventsBySpellId } = this.props;
     return (
       <div className="cooldowns">
-        <div className={'legend-container'}>{this.renderLegend(eventsBySpellId)}</div>
+        {!this.props.disableLegend && (
+          <div className={'legend-container'}>{this.renderLegend(eventsBySpellId, false)}</div>
+        )}
         {this.renderLanes(eventsBySpellId, false)}
       </div>
     );

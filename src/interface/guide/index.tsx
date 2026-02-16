@@ -236,7 +236,7 @@ export function useInfo(): GuideContextValue['info'] {
   return use(GuideContext).info;
 }
 
-interface TimeRange {
+export interface TimeRange {
   start: number;
   end: number;
 }

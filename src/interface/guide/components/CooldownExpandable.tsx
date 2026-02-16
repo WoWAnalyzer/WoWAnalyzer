@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { JSX, ReactNode, useState } from 'react';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark, SectionHeader } from 'interface/guide';
 import { ControlledExpandable } from 'interface';
@@ -24,6 +24,19 @@ interface Props {
   table?: Omit<ThroughputTableProps, 'range'>;
 }
 
+export const CooldownExpandableDataItem = ({
+  minWidth,
+  ...item
+}: CooldownExpandableItem & { minWidth?: number | string }): JSX.Element => (
+  <tr>
+    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: minWidth ?? '25em' }}>
+      {item.label}
+    </td>
+    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result ? item.result : ''}</td>
+    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
+  </tr>
+);
+
 /**
  * The data list used to display Checklist and Details sections in `CooldownExpandable`
  */
@@ -39,15 +52,7 @@ export const CooldownExpandableDataList = ({
     <table>
       <tbody>
         {items.map((item, ix) => (
-          <tr key={ix}>
-            <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-              {item.label}
-            </td>
-            <td style={{ paddingRight: '1em', textAlign: 'right' }}>
-              {item.result ? item.result : ''}
-            </td>
-            {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-          </tr>
+          <CooldownExpandableDataItem key={ix} {...item} />
         ))}
       </tbody>
     </table>
@@ -95,7 +100,7 @@ const CooldownExpandable = ({
       // this allows animation transitions to function correctly with auto-height calculations when the timeline is enabled.
       disableDisplayNone={Boolean(timeline)}
     >
-      {/* inert is used to prevent tabbing from getting trapped on the timeline */}
+      {/* inert is used to prevent tabbing from getting trapped on the timeline while hidden */}
       <div inert={!isExpanded}>
         {range && timeline && <EmbeddedTimeline range={range} {...timeline} />}
         {checklistItems && checklistItems.length !== 0 && (

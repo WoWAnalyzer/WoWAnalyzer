@@ -171,6 +171,22 @@ export interface EmbeddedTimelineProps {
    * If set to `true`, show all cooldowns (not recommended for inline use)
    */
   cooldowns?: (number | Spell)[] | true;
+  /**
+   * The method to use to order cooldowns. `dynamic` (default) matches the normal timeline, listing
+   * cooldowns in order of frequency. `fixed` orders them in a consistent order that
+   * depends only on the list of cooldowns (and their properties). It may differ between
+   * fights, but not within a fight.
+   */
+  cooldownOrder?: 'fixed' | 'dynamic';
+  /**
+   * Force off-gcd abilities to overlap rather than stack. Use if you want to guarantee
+   * consistent timeline height.
+   */
+  overlapOffGcds?: boolean;
+  /**
+   * Whether to display the cooldown legend. Defaults to true. In smaller embeds, it can be beneficial to disable it.
+   */
+  cooldownLegend?: boolean;
 }
 
 function toSpellId(value: number | Spell): number {
@@ -181,7 +197,14 @@ function toSpellId(value: number | Spell): number {
   return value.id;
 }
 
-function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
+function EmbeddedTimelineRaw({
+  range,
+  auras,
+  cooldowns,
+  cooldownOrder,
+  overlapOffGcds,
+  cooldownLegend = true,
+}: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
   const info = useInfo();
@@ -235,7 +258,7 @@ function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
           />
         )}
         <TimeIndicators seconds={secondsShown} offset={offset} skipInterval={2}>
-          <Casts start={range.start} events={filteredEvents} />
+          <Casts start={range.start} events={filteredEvents} overlapOffGcds={overlapOffGcds} />
         </TimeIndicators>
         <Cooldowns
           start={range.start}
@@ -243,12 +266,14 @@ function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
           eventsBySpellId={cooldownEventsBySpellId}
           abilities={abilities}
           castsOmitted
+          fixedCooldownOrder={cooldownOrder === 'fixed'}
+          disableLegend={!cooldownLegend}
         />
       </SpellTimeline>
     </AutoSizerTimelineContainer>
   );
 }
 
-const MemoEmbeddedTimeline = React.memo(EmbeddedTimeline);
+const EmbeddedTimeline = React.memo(EmbeddedTimelineRaw);
 
-export default MemoEmbeddedTimeline;
+export default EmbeddedTimeline;
