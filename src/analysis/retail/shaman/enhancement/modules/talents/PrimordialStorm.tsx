@@ -21,7 +21,6 @@ interface PrimordialStormCast extends CooldownTrigger<CastEvent> {
     maelstromUsed: number;
     shouldHaveHadDoomwinds: boolean;
     hadDoomwinds: boolean;
-    legacyOfTheFrostWitch: boolean;
     surgingElementsActive: boolean;
   };
 }
@@ -34,7 +33,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   resourceTracker!: MaelstromWeaponTracker;
   doomWindsAlternater = false;
-  lightningStrikesTalented = this.selectedCombatant.hasTalent(TALENTS.LIGHTNING_STRIKES_TALENT);
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRIMORDIAL_STORM_TALENT }, options);
@@ -62,10 +60,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     const details: PrimordialStormCast['details'] = {
       shouldHaveHadDoomwinds: this.doomWindsAlternater,
       hadDoomwinds,
-      legacyOfTheFrostWitch: this.selectedCombatant.hasBuff(
-        SPELLS.LIGHTNING_STRIKES_BUFF,
-        event.timestamp,
-      ),
       maelstromUsed: this.resourceTracker.lastSpenderInfo?.amount ?? 0,
       surgingElementsActive: this.selectedCombatant.hasBuff(
         SPELLS.SURGING_ELEMENTS_BUFF,
@@ -79,14 +73,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       lis.push(
         <>
           <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> was missing.
-        </>,
-      );
-    }
-
-    if (this.lightningStrikesTalented && !details.legacyOfTheFrostWitch) {
-      lis.push(
-        <>
-          <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> was missing.
         </>,
       );
     }
@@ -146,15 +132,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
         <p>
           Each hit from {pstorm} is considered a Main-Hand attack, and can trigger{' '}
           <SpellLink spell={TALENTS.WINDFURY_WEAPON_TALENT} /> separately and are AoE. Each hit
-          deals combination physical and spell damage
-          {this.lightningStrikesTalented ? (
-            <>
-              , and all hits are amplified by <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} />,
-              and <SpellLink spell={SPELLS.PRIMORDIAL_FROST} /> is buffed twice.
-            </>
-          ) : (
-            '.'
-          )}
+          deals combination physical and spell damage.
         </p>
         <p>
           {pstorm} is currently the <strong>strongest</strong> {msw} spender, and you should always
@@ -171,48 +149,12 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     const details = cast.details;
 
     const maelstromUsed = details.maelstromUsed ?? 0;
-    const lotfwActive = details.legacyOfTheFrostWitch ?? false;
     const hadDoomwinds = details.hadDoomwinds ?? false;
     const shouldHaveHadDoomwinds = details.shouldHaveHadDoomwinds ?? false;
     const surgingElementsActive = details.surgingElementsActive ?? false;
 
     const issues: ReactNode[] = [];
     const checklistItems: ChecklistUsageInfo[] = [];
-
-    /**
-     * Legacy of the Frost Witch (buff)
-     */
-    if (this.lightningStrikesTalented) {
-      checklistItems.push({
-        check: 'legacy-of-the-frost-witch',
-        timestamp: cast.event.timestamp,
-        performance: lotfwActive ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
-        summary: (
-          <>
-            <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
-            active.
-          </>
-        ),
-        details: (
-          <div>
-            <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> {lotfwActive ? ' ' : 'not '}
-            active.
-            {!lotfwActive && (
-              <> This is a significant damage increase, aim to have it active for every cast.</>
-            )}
-          </div>
-        ),
-      });
-      if (!lotfwActive) {
-        issues.push(
-          <>
-            <li key="lotfw">
-              <SpellLink spell={SPELLS.LIGHTNING_STRIKES_BUFF} /> should be active for every cast.
-            </li>
-          </>,
-        );
-      }
-    }
 
     /**
      * Maelstrom Used
