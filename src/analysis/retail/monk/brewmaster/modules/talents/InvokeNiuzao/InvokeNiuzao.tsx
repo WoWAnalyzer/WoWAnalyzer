@@ -32,7 +32,7 @@ export interface NiuzaoCast {
 
 const EXPECTED_STOMP_COUNT = Math.floor(25 / 4);
 const EXPECTED_STOMP_COUNT_FOM = Math.floor(25 / 3);
-const EXPECTED_BOF_COUNT = 6; // made up in pre-patch. TODO this probably changes with apex talent resets
+const EXPECTED_BOF_COUNT = 8; // made up in pre-patch. TODO this probably changes with apex talent resets
 
 export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   private hasWotW = this.selectedCombatant.hasTalent(SPELLS.WISDOM_OF_THE_WALL_TALENT);
@@ -125,13 +125,17 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
     this.currentCast.stompCount += 1;
   }
 
-  checklist(cast: NiuzaoCast) {
+  checklist(cast: NiuzaoCast): {
+    checklist: CooldownExpandableItem[];
+    perf: QualitativePerformance;
+  } {
     const items: CooldownExpandableItem[] = [];
 
     const expectedStomps = this.selectedCombatant.hasTalent(SPELLS.FLUIDITY_OF_MOTION_TALENT)
       ? EXPECTED_STOMP_COUNT_FOM
       : EXPECTED_STOMP_COUNT;
 
+    let overallPerf = QualitativePerformance.Fail;
     const initialBoKCooldown = cast.cooldowns.get(SPELLS.BLACKOUT_KICK.id) ?? 0;
     items.push({
       label: (
@@ -152,6 +156,16 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
         ) : null,
     });
 
+    const stompPerf = evaluateQualitativePerformanceByThreshold({
+      isGreaterThanOrEqual: {
+        perfect: expectedStomps + 1,
+        good: expectedStomps,
+        ok: expectedStomps - 2,
+        fail: expectedStomps - 3,
+      },
+      actual: cast.stompCount,
+    });
+    overallPerf = stompPerf;
     items.push({
       label: (
         <>
@@ -164,28 +178,24 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
           {cast.stompCount} / {expectedStomps}
         </>
       ),
-      result: (
-        <PerformanceMark
-          perf={evaluateQualitativePerformanceByThreshold({
-            isGreaterThanOrEqual: {
-              perfect: expectedStomps + 1,
-              good: expectedStomps,
-              ok: expectedStomps - 2,
-              fail: expectedStomps - 3,
-            },
-            actual: cast.stompCount,
-          })}
-        />
-      ),
+      result: <PerformanceMark perf={overallPerf} />,
     });
 
     if (this.selectedCombatant.hasTalent(SPELLS.WISDOM_OF_THE_WALL_TALENT)) {
+      const wotwPerf = evaluateQualitativePerformanceByThreshold({
+        actual: cast.wotwTriggers.length,
+        isGreaterThanOrEqual: {
+          perfect: EXPECTED_BOF_COUNT + 1,
+          good: EXPECTED_BOF_COUNT,
+          ok: EXPECTED_BOF_COUNT - 2,
+        },
+      });
+
+      overallPerf = wotwPerf; // WotW is more important than Stomp, overwrite the overall value.
       items.push({
         label: (
           <>
-            <SpellLink spell={SPELLS.WISDOM_OF_THE_WALL_TALENT} /> triggers (from{' '}
-            <SpellLink spell={SPELLS.BREATH_OF_FIRE_TALENT}>BoF</SpellLink> /{' '}
-            <SpellLink spell={SPELLS.DRAGONFIRE_BREW_TALENT}>DFB</SpellLink>)
+            <SpellLink spell={SPELLS.WISDOM_OF_THE_WALL_TALENT}>WotW</SpellLink> triggers
           </>
         ),
         details: (
@@ -222,21 +232,10 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
             </TooltipElement>{' '}
           </>
         ),
-        result: (
-          <PerformanceMark
-            perf={evaluateQualitativePerformanceByThreshold({
-              actual: cast.wotwTriggers.length,
-              isGreaterThanOrEqual: {
-                perfect: EXPECTED_BOF_COUNT + 1,
-                good: EXPECTED_BOF_COUNT,
-                ok: EXPECTED_BOF_COUNT - 1,
-              },
-            })}
-          />
-        ),
+        result: <PerformanceMark perf={wotwPerf} />,
       });
     }
 
-    return items;
+    return { checklist: items, perf: overallPerf };
   }
 }
