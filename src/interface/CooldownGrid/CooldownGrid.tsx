@@ -187,7 +187,7 @@ function CooldownGridElementRaw({
       <table>
         <tbody>
           {checklistItems?.map((item, ix) => (
-            <CooldownExpandableDataItem {...item} key={ix} minWidth={0} />
+            <CooldownExpandableDataItem key={ix} {...item} minWidth={0} />
           ))}
         </tbody>
       </table>
