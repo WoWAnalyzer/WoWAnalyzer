@@ -354,7 +354,10 @@ export const GuideContainer = ({ children }: { children: ReactNode }) => (
 );
 
 const SubSectionContainer = styled.section`
-  margin-top: ${design.gaps.medium};
+  /* including .guide-container here is a specificity hack */
+  .guide-container & {
+    margin-top: ${design.gaps.large};
+  }
 
   & > header {
     font-size: ${design.fontSize.subHeading};
