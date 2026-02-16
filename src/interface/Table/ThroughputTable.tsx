@@ -13,6 +13,7 @@ import { effectiveHealing } from 'parser/shared/modules/HealingValue';
 import Unit from 'parser/core/Unit';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Table, { Column, HeaderSelect } from './Table';
+import React from 'react';
 
 const OTHER_SPECIAL_BY = -9999;
 
@@ -276,7 +277,7 @@ function isOther(row: ThroughputActorRow | ThroughputSpellRow): boolean {
   return false;
 }
 
-export default function ThroughputTable({
+function ThroughputTableRaw({
   range,
   maxRows = 6,
   type,
@@ -399,6 +400,10 @@ export default function ThroughputTable({
     />
   );
 }
+
+const ThroughputTable = React.memo(ThroughputTableRaw);
+
+export default ThroughputTable;
 
 export const DamageTable = (props: Omit<ThroughputTableProps, 'type'>) => (
   <ThroughputTable {...props} type={EventType.Damage} />
