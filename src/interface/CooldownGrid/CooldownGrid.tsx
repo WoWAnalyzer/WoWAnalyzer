@@ -9,7 +9,7 @@ import EmbeddedTimeline, {
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import ThroughputTable, { ThroughputTableProps } from 'interface/Table/ThroughputTable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { JSX, useState } from 'react';
+import { JSX, useRef, useState } from 'react';
 import * as design from 'interface/design-system';
 import { formatDurationMillisMinSec } from 'common/format';
 import Button from 'interface/controls/Button';
@@ -112,13 +112,17 @@ export default function CooldownGrid({
   return (
     <CooldownGridOuterContainer>
       <CooldownGridContainer maximumColumns={maximumColumns}>
-        {items.slice(0, showMore ? Infinity : showMoreCutoff).map((item) => (
+        {items.slice(0, showMore ? Infinity : showMoreCutoff).map((item, ix) => (
           <CooldownGridElement
             key={`${item.range.start}-${item.range.end}`}
             {...item}
             timeline={item.timeline ?? timeline}
             table={item.table ?? table}
             label={label}
+            // render the first row after the "Show More" button by default, as well as those in the initial render.
+            // rows 2+ after the "Show More" button are unlikely to be in the viewport immediately. if they are, it is okay (no breakage, just some pop-in).
+            // if people notice the render jank, we can shadowbox it to reduce the amount of jank
+            defaultRenderContents={ix < showMoreCutoff + maximumColumns}
           />
         ))}
       </CooldownGridContainer>
@@ -141,7 +145,10 @@ const CooldownGridElementContainer = styled.div`
   gap: ${design.gaps.small};
 `;
 
-type CooldownGridItemProps = CooldownGridItem & Pick<CooldownGridProps, 'label'>;
+type CooldownGridItemProps = CooldownGridItem &
+  Pick<CooldownGridProps, 'label'> & {
+    defaultRenderContents?: boolean;
+  };
 
 const CooldownGridElementHeader = styled.header`
   font-weight: bold;
@@ -167,14 +174,40 @@ function CooldownGridElementRaw({
   timeline,
   table,
   label,
+  defaultRenderContents = false,
 }: CooldownGridItemProps) {
   const info = useInfo();
+  // use an intersection observer to prevent interaction jank when rendering lots of cooldowns (mostly an M+ problem)
+  const [renderContents, setRenderContents] = useState(defaultRenderContents);
+  const observer = useRef(
+    new IntersectionObserver(
+      // linter doesn't understand that this *is* an event listener
+      // eslint-disable-next-line react-hooks/refs
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setRenderContents(true); // note: we never un-render
+            observer.current.disconnect();
+            break;
+          }
+        }
+      },
+      {
+        // large value because we want this to get rendered before it comes into view.
+        // a fully-featured window is ~550px tall
+        rootMargin: '250px',
+      },
+    ),
+  );
+
   if (!info) {
     return null;
   }
 
   return (
-    <CooldownGridElementContainer>
+    <CooldownGridElementContainer
+      ref={(el) => (el ? observer.current.observe(el) : observer.current.disconnect())}
+    >
       <CooldownGridElementHeader>
         <div>
           {label} {perf && <PerformanceMark perf={perf} />}
@@ -191,7 +224,7 @@ function CooldownGridElementRaw({
           ))}
         </tbody>
       </table>
-      {timeline && (
+      {renderContents && timeline && (
         <CooldownGridTimelineContainer>
           <EmbeddedTimeline
             cooldownOrder="fixed"
@@ -202,7 +235,7 @@ function CooldownGridElementRaw({
           />
         </CooldownGridTimelineContainer>
       )}
-      {table && <ThroughputTable {...table} range={range} />}
+      {renderContents && table && <ThroughputTable {...table} range={range} />}
     </CooldownGridElementContainer>
   );
 }
