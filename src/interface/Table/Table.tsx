@@ -81,7 +81,7 @@ interface TableProps<T, Context, Cols extends Record<string, Column<unknown, unk
   ctx: Context;
 }
 
-function cellAlignment(align: Column<any>['align']): React.CSSProperties['justifyContent'] {
+function cellAlignment(align: Column<unknown>['align']): React.CSSProperties['justifyContent'] {
   switch (align) {
     case 'right':
       return 'end';
@@ -121,7 +121,7 @@ export default function Table<T, Context, Cols extends Record<string, Column<unk
   );
 }
 
-export interface Column<T, Context = {}> {
+export interface Column<T, Context = object> {
   label: React.ReactNode;
   render(row: T, ctx: Context): React.ReactNode;
   align?: 'left' | 'right';

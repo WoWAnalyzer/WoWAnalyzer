@@ -356,7 +356,7 @@ export default function ThroughputTable({
     }
 
     return result as ThroughputSpellRow[] | ThroughputActorRow[];
-  }, [events, aggregateBy, info, abilityFilter, omitOtherRow]);
+  }, [events, aggregateBy, info, abilityFilter, omitOtherRow, actors, maxRows, type]);
 
   const ctx = useMemo(() => {
     const max = data.reduce((max, row) => Math.max(max, row.amount), 0);
