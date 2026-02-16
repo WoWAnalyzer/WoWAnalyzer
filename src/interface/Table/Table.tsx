@@ -47,7 +47,7 @@ const TableCell = styled.div<TableCellProps>`
     padding: 0;
   }
 
-  @container (width < 60rem) {
+  @container (width < 500px) {
     ${(props) => (props.optional ? 'display: none;' : '')}
   }
 `;
