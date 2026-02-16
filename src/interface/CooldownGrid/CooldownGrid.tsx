@@ -13,6 +13,7 @@ import { JSX, useState } from 'react';
 import * as design from 'interface/design-system';
 import { formatDurationMillisMinSec } from 'common/format';
 import Button from 'interface/controls/Button';
+import React from 'react';
 
 interface CooldownGridProps {
   label: React.ReactNode;
@@ -86,6 +87,8 @@ const ShowMoreButton = styled(Button)`
   align-self: center;
 `;
 
+const CooldownGridElement = React.memo(CooldownGridElementRaw);
+
 /**
  * Show a list of cooldown (or buff/debuff) windows in a grid. A "window" is a (usually short) range of time where a cooldown/buff/debuff is active.
  *
@@ -157,7 +160,7 @@ const CooldownGridTimelineContainer = styled.div`
   background: ${design.level1.background};
 `;
 
-function CooldownGridElement({
+function CooldownGridElementRaw({
   range,
   perf,
   checklistItems,

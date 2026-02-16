@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import isPropValid from '@emotion/is-prop-valid';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
 import { useMemo, useRef, useState } from 'react';
@@ -22,7 +23,7 @@ import DragScroll from 'interface/DragScroll';
  *
  * Use `SpellTimeline` component for wrapping the `Casts` component.
  */
-export const EmbeddedTimelineContainer = styled(DragScroll)<{
+export const EmbeddedTimelineContainer = styled(DragScroll, { shouldForwardProp: isPropValid })<{
   secondWidth?: number;
   secondsShown?: number;
   castBarCount?: number;
@@ -46,6 +47,9 @@ export const EmbeddedTimelineContainer = styled(DragScroll)<{
   &.drag-scroll-container {
     cursor: default;
   }
+  /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */
+  scrollbar-color: #75736d transparent;
+  scrollbar-width: thin;
 
   --cast-bars: ${(props) => props.castBarCount ?? 1};
 
