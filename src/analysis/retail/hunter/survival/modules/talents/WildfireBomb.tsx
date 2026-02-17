@@ -133,8 +133,14 @@ class WildfireBomb extends Analyzer.withDependencies({
         <strong>
           <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />
         </strong>{' '}
-        should always be cast with <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST.id} />. Bombs that
-        hit a target with <SpellLink spell={SPELLS.SENTINELS_MARK_DEBUFF} /> are perfect casts.
+        should always be cast with <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST.id} />.
+        {this.selectedCombatant.hasTalent(TALENTS.SENTINEL_TALENT) && (
+          <>
+            {' '}
+            Bombs that hit a target with <SpellLink spell={SPELLS.SENTINELS_MARK_DEBUFF} /> are
+            perfect casts.
+          </>
+        )}
       </p>
     );
 

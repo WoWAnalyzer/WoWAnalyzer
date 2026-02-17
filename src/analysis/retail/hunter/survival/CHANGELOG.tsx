@@ -3,6 +3,7 @@ import { Kivlov,
  } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2026,2,16), 'Fix Boomstick Tick and Text for WFB', Kivlov),
   change(date(2026, 2, 5), 'Add Pack Leader Analysis', Kivlov),
   change(date(2026, 2, 2), 'Add Sentinels Mark Analysis', Kivlov),
   change(date(2026, 2, 1), 'Add Moonlight Chakram Analysis', Kivlov),

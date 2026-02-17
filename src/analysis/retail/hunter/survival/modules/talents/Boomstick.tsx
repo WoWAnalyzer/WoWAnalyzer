@@ -55,7 +55,7 @@ class Boomstick extends Analyzer.withDependencies({ haste: Haste }) {
   private static readonly BUCKET_WINDOW_MS = 100;
   private static readonly EXPECTED_TICKS = 4;
   private static readonly BASE_TICK_INTERVAL_MS = 800;
-  private static readonly TICK_MATCH_TOLERANCE_MS = 200;
+  private static readonly TICK_MATCH_TOLERANCE_MS = 400; // Haste issue with live, return to 200 and tick interval to 1000 on midnight release
 
   constructor(options: Options) {
     super(options);
