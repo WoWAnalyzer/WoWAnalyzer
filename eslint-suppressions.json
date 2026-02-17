@@ -19,6 +19,11 @@
       "count": 4
     }
   },
+  "src/analysis/retail/warlock/shared/GrimoireOfSacrificeNormalizer.ts": {
+    "@typescript-eslint/prefer-for-of": {
+      "count": 1
+    }
+  },
   "src/common/SPELLS/classic/index.ts": {
     "@typescript-eslint/no-explicit-any": {
       "count": 1
