@@ -14,11 +14,11 @@ class PlagueEfficiency extends Analyzer {
 
   protected enemies!: Enemies;
 
-  get VirulentPlagueUptime() {
+  get virulentPlagueUptime() {
     return this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;
   }
 
-  get DreadPlagueUptime() {
+  get dreadPlagueUptime() {
     return this.enemies.getBuffUptime(SPELLS.DREAD_PLAGUE.id) / this.owner.fightDuration;
   }
 
@@ -27,13 +27,13 @@ class PlagueEfficiency extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
         <BoringSpellValueText spell={SPELLS.VIRULENT_PLAGUE.id}>
           <>
-            <UptimeIcon /> {formatPercentage(this.VirulentPlagueUptime)}%{' '}
+            <UptimeIcon /> {formatPercentage(this.virulentPlagueUptime)}%{' '}
             <small>Disease Uptime</small>
           </>
         </BoringSpellValueText>
         <BoringSpellValueText spell={SPELLS.DREAD_PLAGUE.id}>
           <>
-            <UptimeIcon /> {formatPercentage(this.DreadPlagueUptime)}% <small>Disease Uptime</small>
+            <UptimeIcon /> {formatPercentage(this.dreadPlagueUptime)}% <small>Disease Uptime</small>
           </>
         </BoringSpellValueText>
       </Statistic>

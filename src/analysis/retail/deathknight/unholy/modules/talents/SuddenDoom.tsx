@@ -11,7 +11,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /* The Sudden Doom buff lasts 10 seconds. We use this to distinguish natural expiration
 (removal near the 10s mark) from consumption (removal mid-duration via DC/Epidemic).

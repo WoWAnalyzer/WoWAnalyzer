@@ -9,7 +9,7 @@ import Events, {
 import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BUFF_DURATION_MS = 30000;
 const EXPIRE_BUFFER_MS = 100;

@@ -299,7 +299,7 @@ const spells = {
     icon: 'spell_shadow_fumble',
   },
 
-  // Summon event for Lesser Ghouls from regular gameplay (Festering Strike/Death Coil procs)
+  // Summon event for Lesser Ghouls from regular gameplay (Scourge Strike consuming Festering Strike buff)
   LESSER_GHOUL: {
     id: 275430,
     name: 'Lesser Ghoul',
