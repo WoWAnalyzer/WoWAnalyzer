@@ -4,7 +4,7 @@ import { JSX, useMemo, useState } from 'react';
 import * as design from 'interface/design-system';
 import type Spell from 'common/SPELLS/Spell';
 import { useEvents, useInfo } from 'interface/guide';
-import { AnyEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 import { effectiveDamage } from 'parser/shared/modules/DamageValue';
 import ActorLink from 'interface/ActorLink';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -28,21 +28,29 @@ const actorName: Column<{ actorId: number }> = {
   },
 };
 
-const spellName: Column<{ spell: number | Spell; school?: number }> = {
+const spellName: Column<{ spell: number | Spell; school?: number; isPet?: boolean }> = {
   label: 'Ability',
-  render({ spell, school }) {
+  render({ spell, school, isPet }) {
     if (spell === OTHER_SPECIAL_BY) {
       return <em>Other</em>;
     }
-    return <SpellLink className={school ? `spell-school-${school}` : ''} spell={spell} />;
+    return (
+      <>
+        <SpellLink className={school ? `spell-school-${school}` : ''} spell={spell} />
+        {isPet ? <>&nbsp;(Pet)</> : null}
+      </>
+    );
   },
 };
 
 const amountBar = (
   type: EventType.Damage | EventType.Heal,
-): Column<{ amount: number; school?: number; type?: string }, { max: number; total: number }> => ({
+): Column<
+  { amount: number; school?: number; type?: string; isAbsorb?: boolean },
+  { max: number; total: number }
+> => ({
   label: type === EventType.Damage ? 'Damage' : 'Healing',
-  render({ amount, school, type }, { max, total }) {
+  render({ amount, school, type, isAbsorb }, { max, total }) {
     return (
       <div
         style={{
@@ -57,7 +65,12 @@ const amountBar = (
           className={
             school ? `spell-school-${school}-bg` : type ? `${type}-bg` : 'spell-school-1-bg'
           }
-          style={{ height: '75%', alignSelf: 'center', width: `${(amount / max) * 100}%` }}
+          style={{
+            height: '75%',
+            alignSelf: 'center',
+            width: `${(amount / max) * 100}%`,
+            filter: isAbsorb ? 'brightness(60%)' : undefined,
+          }}
         />
         <div style={{ textAlign: 'right' }}>{formatNumber(amount)}</div>
       </div>
@@ -129,6 +142,8 @@ interface ThroughputRowCommon {
 interface ThroughputSpellRow extends ThroughputRowCommon {
   spell: number | Spell;
   school: number;
+  isAbsorb?: boolean;
+  isPet?: boolean;
 }
 
 interface ThroughputActorRow extends ThroughputRowCommon {
@@ -139,24 +154,32 @@ interface ThroughputActorRow extends ThroughputRowCommon {
 const isRelevantToInfo = (info: Info) => (id?: number) =>
   id === info?.playerId || info?.pets.some((pet) => pet.id === id);
 
+const includedEventTypes = {
+  [EventType.Damage]: new Set([EventType.Damage as const]),
+  [EventType.Heal]: new Set([EventType.Heal as const, EventType.Absorbed as const]),
+};
+
+type IncludedEvents<T extends keyof typeof includedEventTypes> =
+  (typeof includedEventTypes)[T] extends Set<infer E extends EventType> ? AnyEvent<E> : never;
+
 function eventMatchesType<Ty extends EventType.Damage | EventType.Heal>(
   event: AnyEvent,
   type: Ty,
-): event is AnyEvent<Ty> {
-  if (event.type !== type) {
+): event is IncludedEvents<Ty> {
+  const includedTypes = includedEventTypes[type];
+  if (!(includedTypes as Set<EventType>).has(event.type)) {
     return false;
   }
 
-  if (
-    (event.targetIsFriendly && event.type === EventType.Damage) ||
-    (!event.targetIsFriendly && event.type === EventType.Heal)
-  ) {
-    return false;
+  const expectedTargetIsFriendly = type === EventType.Heal;
+
+  if ('targetIsFriendly' in event && expectedTargetIsFriendly === event.targetIsFriendly) {
+    return true;
   }
 
-  // TODO exclude healing done to pets
+  // TODO exclude healing done to pets?
 
-  return true;
+  return false;
 }
 
 function throughputByAbility(
@@ -184,8 +207,8 @@ function throughputByAbility(
     const school = id === OTHER_SPECIAL_BY ? 0 : event.ability.type;
     const amount =
       type === EventType.Damage
-        ? effectiveDamage(event as DamageEvent)
-        : effectiveHealing(event as HealEvent);
+        ? effectiveDamage(event as IncludedEvents<EventType.Damage>)
+        : effectiveHealing(event as IncludedEvents<EventType.Heal>);
 
     if (!map.has(id)) {
       map.set(id, {
@@ -194,6 +217,8 @@ function throughputByAbility(
         amount: 0,
         hits: 0,
         crits: 0,
+        isAbsorb: event.type === EventType.Absorbed,
+        isPet: info.pets.some((pet) => pet.id === event.sourceID),
       });
 
       if (id === OTHER_SPECIAL_BY) {
@@ -203,9 +228,13 @@ function throughputByAbility(
     }
 
     const row = map.get(id)!;
+
+    if (info.pets.every((pet) => pet.id !== event.sourceID)) {
+      row.isPet = false; // if an ability can come from both pet and player, mark as non-pet. we don't do hybrid bars
+    }
     row.amount += amount;
     row.hits += 1;
-    row.crits += Number(event.hitType === HIT_TYPES.CRIT);
+    row.crits += 'hitType' in event ? Number(event.hitType === HIT_TYPES.CRIT) : 0;
   }
 
   return Array.from(map.values());
@@ -244,8 +273,8 @@ function throughputByActor(
     const actorType = actor && actor.subType !== '' ? actor.subType : actor?.type;
     const amount =
       type === EventType.Damage
-        ? effectiveDamage(event as DamageEvent)
-        : effectiveHealing(event as HealEvent);
+        ? effectiveDamage(event as IncludedEvents<EventType.Damage>)
+        : effectiveHealing(event as IncludedEvents<EventType.Heal>);
 
     if (!map.has(id)) {
       map.set(id, {
@@ -260,7 +289,7 @@ function throughputByActor(
     const row = map.get(id)!;
     row.amount += amount;
     row.hits += 1;
-    row.crits += Number(event.hitType === HIT_TYPES.CRIT);
+    row.crits += 'hitType' in event ? Number(event.hitType === HIT_TYPES.CRIT) : 0;
   }
 
   return Array.from(map.values());
