@@ -9,17 +9,11 @@ import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker'
 import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
-import WoundTracker from './modules/features/WoundTracker';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
-import Apocalypse from './modules/talents/Apocalypse';
-import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
-import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
 import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
-import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
-import PlagueBringer from './modules/talents/PlagueBringer';
 import RunicPowerGraph from './modules/core/RunicPowerGraph';
 import RuneGraph from './modules/core/RuneGraph';
 import Guide from './modules/Guide';
@@ -35,18 +29,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
-    woundTracker: WoundTracker,
     suddenDoom: SuddenDoom,
     unholyRuneForge: UnholyRuneForgeChecker,
 
     // Talents
-    apocalypse: Apocalypse,
     soulReaper: SoulReaper,
-    festeringStrikeEfficiency: FesteringStrikeEfficiency,
-    scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
     commanderOfTheDead: CommanderOfTheDead,
-    summonGargoyleBuffs: SummonGargoyleBuffs,
-    plagueBringer: PlagueBringer,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

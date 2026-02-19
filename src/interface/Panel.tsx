@@ -1,46 +1,53 @@
+import clsx from 'clsx';
 import type { ReactNode } from 'react';
 import { CSSProperties } from 'react';
 
 interface HeadingProps {
   title?: ReactNode;
+  subheading?: boolean;
+  anchor?: string;
   explanation?: ReactNode;
   actions?: ReactNode;
   backButton?: ReactNode;
 }
-const Heading = ({ title, explanation, actions, backButton }: HeadingProps) => {
-  if (!title) {
-    return null;
-  }
 
-  let content = (
+const Heading = ({ title, anchor, explanation, actions, backButton, subheading }: HeadingProps) => {
+  if (title == null) return null;
+
+  const renderedTitle = anchor ? (
+    <a href={`#${anchor}`} id={anchor}>
+      {title}
+    </a>
+  ) : (
+    title
+  );
+
+  const HeadingTag = subheading ? 'h2' : 'h1';
+
+  const headingBlock = (
     <>
-      <h1 style={{ position: 'relative' }}>
+      <HeadingTag style={{ position: 'relative' }}>
         {backButton && <div className="back-button">{backButton}</div>}
-
-        {typeof title === 'string' ? (
-          <a href={`#${title}`} id={title}>
-            {title}
-          </a>
-        ) : (
-          title
-        )}
-      </h1>
+        {renderedTitle}
+      </HeadingTag>
       {explanation && <small>{explanation}</small>}
     </>
   );
 
-  if (actions) {
-    content = (
-      <div className="flex wrapable">
-        <div className="flex-main">{content}</div>
-        <div className="flex-sub action-buttons" style={{ margin: '10px 0' }}>
-          {actions}
+  return (
+    <div className="panel-heading">
+      {actions ? (
+        <div className="flex wrapable">
+          <div className="flex-main">{headingBlock}</div>
+          <div className="flex-sub action-buttons" style={{ margin: '10px 0' }}>
+            {actions}
+          </div>
         </div>
-      </div>
-    );
-  }
-
-  return <div className="panel-heading">{content}</div>;
+      ) : (
+        headingBlock
+      )}
+    </div>
+  );
 };
 
 interface PanelProps {
@@ -51,6 +58,8 @@ interface PanelProps {
   pad?: boolean;
   // Heading
   title?: ReactNode;
+  subheading?: boolean;
+  anchor?: string;
   explanation?: ReactNode;
   actions?: ReactNode;
   backButton?: ReactNode;
@@ -62,14 +71,25 @@ const Panel = ({
   style,
   pad = true,
   title,
+  subheading,
+  anchor,
   explanation,
   actions,
   backButton,
   bodyStyle,
 }: PanelProps) => (
-  <div className={`panel ${className}`} style={style}>
-    <Heading title={title} explanation={explanation} actions={actions} backButton={backButton} />
-    <div className={`panel-body ${pad ? 'pad' : ''}`} style={bodyStyle}>
+  <div className={clsx('panel', className)} style={style}>
+    {title !== null && title !== undefined && (
+      <Heading
+        title={title}
+        subheading={subheading}
+        anchor={anchor}
+        explanation={explanation}
+        actions={actions}
+        backButton={backButton}
+      />
+    )}
+    <div className={clsx('panel-body', { pad })} style={bodyStyle}>
       {children}
     </div>
   </div>

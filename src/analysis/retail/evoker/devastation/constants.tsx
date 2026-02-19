@@ -1,6 +1,10 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import Combatant from 'parser/core/Combatant';
+import {
+  CONCENTRATED_POWER_EXTRA_TARGETS,
+  MASS_DISINTEGRATE_TARGETS,
+} from 'analysis/retail/evoker/shared';
 
 export const DISINTEGRATE_TICKS = 4;
 export const DISINTEGRATE_CHAINED_TICKS = 5;
@@ -18,9 +22,12 @@ export const GetDisintegrateTicks = (combatant: Combatant) => {
   return { disintegrateTicks, disintegrateChainedTicks };
 };
 
-export const GetMaxDisintegrateTargetCount = (combatant: Combatant) =>
+export const GetMaxDisintegrateTargetCount = (combatant: Combatant): number =>
   combatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT)
-    ? 3 + (combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT) ? 1 : 0)
+    ? MASS_DISINTEGRATE_TARGETS +
+      (combatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT)
+        ? CONCENTRATED_POWER_EXTRA_TARGETS
+        : 0)
     : 1;
 
 export const OPTIMAL_EMPOWER_DRAGONRAGE_GAP_ST_MS = 13000;
@@ -62,6 +69,8 @@ export const IRIDESCENCE_RED_CAST_SPELLS = [
   SPELLS.PYRE_DENSE_TALENT,
   SPELLS.LIVING_FLAME_CAST,
   TALENTS.DRAGONRAGE_TALENT,
+  SPELLS.FIRE_BREATH,
+  SPELLS.FIRE_BREATH_FONT,
 ];
 
 export const IRIDESCENCE_BLUE_CAST_SPELLS = [
@@ -69,6 +78,10 @@ export const IRIDESCENCE_BLUE_CAST_SPELLS = [
   SPELLS.AZURE_STRIKE,
   SPELLS.AZURE_SWEEP,
 ];
+
+export const AZURE_SWEEP_MAX_STACKS = 2;
+export const AZURE_SWEEP_BASE_STACKS = 1;
+export const AZURE_SWEEP_MID1_2PC_EXTRA_STACKS = 1;
 
 // Talent damage multipliers
 export const SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER = 0.3;
@@ -82,6 +95,10 @@ export const TITANIC_WRATH_MULTIPLIER = 0.15;
 export const IRIDESCENCE_MULTIPLIER = 0.2;
 export const HEAT_WAVE_MULTIPLIER = 0.15;
 export const LAY_WASTE_MULTIPLIER = 0.2;
+export const STRAFING_RUN_MULTIPLIER = 0.2;
+export const STRAFING_RUN_DURATION = 18_000;
+export const SHATTERING_STARS_MULTIPLIER_PER_RANK = 0.5;
+export const STAR_SALVO_MULTIPLIER = 0.35;
 
 // Talent multipliers
 export const DENSE_ENERGY_ESSENCE_REDUCTION = 1;

@@ -97,6 +97,7 @@
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.2",
     "vite": "7.1.12",
+    "vite-plugin-checker": "0.12.0",
     "vite-plugin-svgr": "4.5.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.4",
@@ -113,7 +114,8 @@
     "lint-uncached": "eslint --format stylish --max-warnings 0 --no-warn-ignored",
     "lint": "pnpm run lint-uncached --cache .",
     "lint:fix": "pnpm run lint --fix",
-    "lint-baseline": "node --experimental-strip-types scripts/lint-baseline/baseline.ts",
+    "lint:suppress": "pnpm run lint:fix --suppress-all",
+    "lint:prune": "pnpm run lint:fix --prune-suppressions",
     "extract": "lingui extract --overwrite --clean",
     "prepare": "is-ci || husky",
     "e2e:setup": "tsx scripts/e2e/generate-configs.ts",
@@ -131,7 +133,7 @@
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "pnpm run lint-baseline fix"
+      "pnpm run lint:fix"
     ]
   },
   "packageManager": "pnpm@9.5.0",

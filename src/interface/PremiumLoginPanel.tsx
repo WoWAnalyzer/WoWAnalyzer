@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import CyclingVideo from 'interface/CyclingVideo';
 import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
 import LogoutIcon from 'interface/icons/Logout';
+import Panel from './Panel';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import { WarcraftLogsIcon } from './icons';
 import { Textfit } from 'react-textfit';
@@ -11,7 +12,7 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import './PremiumLoginPanel.scss';
 import { logout } from './reducers/user';
 import { CSSTransition } from 'react-transition-group';
-import { forwardRef, MouseEvent, useRef } from 'react';
+import { MouseEvent, useRef } from 'react';
 
 const INITIAL_BACKGROUNDS = [
   '7TqE3VIAU2odkmneHU', // human salute https://giphy.com/gifs/warcraft-video-games-7TqE3VIAU2odkmneHU
@@ -130,7 +131,7 @@ const PremiumLoginPanel = () => {
   const user = useWaSelector((state) => state.user);
   const ref = useRef<HTMLDivElement>(null);
   return (
-    <div className="panel">
+    <Panel pad={false}>
       <div className="panel-body" style={{ padding: '0 15px', position: 'relative' }}>
         <CSSTransition
           nodeRef={ref}
@@ -174,7 +175,11 @@ const PremiumLoginPanel = () => {
           </div>
         </div>
         <div className="row" style={{ position: 'relative' }}>
-          <div className="loginBubble">Already unlocked Premium? Login here!</div>
+          <div className="loginBubble">
+            <Trans id="interface.premiumLoginPanel.panel.sign-in.hintIfUnlocked">
+              Already unlocked Premium? Login here!
+            </Trans>
+          </div>
           <div>
             <a
               href={`${import.meta.env.VITE_SERVER_BASE}login/patreon`}
@@ -201,7 +206,7 @@ const PremiumLoginPanel = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Panel>
   );
 };
 

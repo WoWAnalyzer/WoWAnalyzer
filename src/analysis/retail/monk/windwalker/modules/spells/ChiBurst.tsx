@@ -19,14 +19,12 @@ class ChiBurst extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} />
+          <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} />
         </b>{' '}
         is a filler spell that is also very good at resetting{' '}
         <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />.{' '}
-        <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} /> ideally should be used when
-        anything else would break mastery, or when movement is required and you are at risk of not
-        being able to reset your <SpellLink spell={TALENTS_MONK.JADEFIRE_HARMONY_TALENT} />{' '}
-        cooldown.
+        <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> ideally should be used when anything
+        else would break mastery, or when movement is required.
       </p>
     );
 
@@ -34,7 +32,7 @@ class ChiBurst extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
         </RoundedPanel>
@@ -47,7 +45,7 @@ class ChiBurst extends Analyzer {
   guideSubStatistic() {
     return (
       <CastEfficiencyBar
-        spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT}
+        spell={TALENTS_MONK.CHI_BURST_TALENT}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

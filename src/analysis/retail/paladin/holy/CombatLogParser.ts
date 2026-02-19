@@ -55,6 +55,7 @@ import HolyPowerGraph from './modules/core/HolyPowerGraph';
 import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
 import ProtectionOfTyr from './modules/talents/ProtectionOfTyr';
+import RisingSunlight from './modules/talents/RisingSunlight';
 import Guide from './guide/Guide';
 
 import Aurora from './modules/heroTalents/herald/Aurora';
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     overflowingLight: OverflowingLight,
     protectionOfTyr: ProtectionOfTyr,
     lightBearer: Lightbearer,
+    risingSunlight: RisingSunlight,
 
     // Hero Talents
     // Herald

@@ -35,7 +35,6 @@ const ignores = tseslint.config({
     // REMOVE SPECS FROM HERE ONCE THEY ARE SUPPORTED
     'src/analysis/retail/deathknight/blood/**',
     'src/analysis/retail/deathknight/frost/**',
-    'src/analysis/retail/deathknight/unholy/**',
     'src/analysis/retail/druid/balance/**',
     'src/analysis/retail/druid/feral/**',
     'src/analysis/retail/druid/restoration/**',
@@ -68,8 +67,6 @@ const ignores = tseslint.config({
     'src/analysis/retail/shaman/enhancement/**',
     'src/analysis/retail/warlock/affliction/**',
     'src/analysis/retail/warlock/demonology/**',
-    'src/analysis/retail/warlock/destruction/**',
-    'src/analysis/retail/warlock/shared/**',
     'src/analysis/retail/warrior/protection/**',
   ],
 });
@@ -169,7 +166,7 @@ const typescript = tseslint.config({
   },
   rules: {
     '@eslint-react/dom/no-missing-button-type': 'error',
-    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-expressions': [
       'error',
       { allowShortCircuit: true, allowTernary: true },

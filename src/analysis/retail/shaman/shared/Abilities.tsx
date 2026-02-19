@@ -4,8 +4,19 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
+import { Options } from 'parser/core/Analyzer';
 
 class Abilities extends CoreAbilities {
+  readonly totemicSurgeReduction: number = 0;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.totemicSurgeReduction = this.selectedCombatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT)
+      ? 5
+      : 0;
+  }
+
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     const faction = combatant._combatantInfo.faction === 1 ? 'Alliance' : 'Horde';
@@ -241,7 +252,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.CAPACITOR_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.CAPACITOR_TOTEM_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
+        cooldown:
+          60 -
+          this.totemicSurgeReduction -
+          combatant.getTalentRank(TALENTS.STATIC_CHARGE_TALENT) * 10,
         gcd: {
           base: 1500,
         },
@@ -253,7 +267,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.TREMOR_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.TREMOR_TOTEM_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
+        cooldown: 60 - this.totemicSurgeReduction,
         gcd: {
           base: 1500,
         },
@@ -267,7 +281,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           120 -
-          (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0) -
+          this.totemicSurgeReduction -
           (combatant.hasTalent(TALENTS.ASCENDING_AIR_TALENT) ? 30 : 0),
         gcd: {
           base: 1500,
@@ -280,7 +294,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.EARTHGRAB_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.EARTHGRAB_TOTEM_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
+        cooldown: 30 - this.totemicSurgeReduction,
         gcd: {
           base: 1500,
         },
@@ -292,7 +306,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 30 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
+        cooldown: 30 - this.totemicSurgeReduction,
         charges: 1,
         gcd: {
           static: 1000,
@@ -305,7 +319,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.POISON_CLEANSING_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.POISON_CLEANSING_TOTEM_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
+        cooldown: 45 - this.totemicSurgeReduction,
         gcd: {
           static: 1000,
         },
@@ -316,7 +330,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EARTHBIND_TOTEM.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
+        cooldown: 30 - this.totemicSurgeReduction,
         gcd: {
           base: 1000,
         },

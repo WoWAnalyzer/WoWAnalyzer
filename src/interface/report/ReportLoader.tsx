@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import { fetchFights } from 'common/fetchWclApi';
 import ActivityIndicator from 'interface/ActivityIndicator';
@@ -12,6 +11,7 @@ import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError, { isCommonError } from './handleApiError';
 import { clearReport, setReport as setNavigationReport } from 'interface/reducers/navigation';
+import { useLingui } from '@lingui/react';
 
 const pageWasReloaded = () =>
   performance
@@ -90,7 +90,8 @@ const ReportLoader = ({ children }: Props) => {
   const { reportCode, fightId } = useParams();
   const dispatch = useDispatch();
   const [error, setError] = useState<Error | null>(null);
-  const [report, setReportState] = useState<Report | null>(null);
+  const [report, setReport] = useState<Report | null>(null);
+  const { i18n } = useLingui();
 
   const [lastForceRefreshTimestamp, setForceRefreshTimestamp] = useSessionState(
     'report:last-force-refresh',
@@ -100,7 +101,7 @@ const ReportLoader = ({ children }: Props) => {
   const updateState = useCallback(
     (error: Error | null, report: Report | null) => {
       setError(error);
-      setReportState(report);
+      setReport(report);
       if (report) {
         dispatch(
           setNavigationReport({
@@ -177,7 +178,7 @@ const ReportLoader = ({ children }: Props) => {
   if (!report) {
     return (
       <ActivityIndicator
-        text={t({
+        text={i18n._({
           id: 'interface.report.reportLoader',
           message: `Pulling report info...`,
         })}

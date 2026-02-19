@@ -11,8 +11,8 @@ import HIT_TYPES from 'game/HIT_TYPES';
 
 class ArtOfWarProbability extends Analyzer {
   procsGained = 0;
-  procChance = 0.2;
-  procChanceWithCrit = 0.3;
+  procChance = 0.15;
+  procChanceWithCrit = 0.25;
   totalChances = 0;
   procProbabilities: number[] = [];
 

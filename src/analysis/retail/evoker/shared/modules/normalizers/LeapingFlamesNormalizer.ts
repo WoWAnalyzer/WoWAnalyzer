@@ -149,6 +149,7 @@ class LeapingFlamesNormalizer extends EventLinkNormalizer {
     super(options, EVENT_LINKS);
   }
 }
+
 export function getLeapingEvents<T extends EventType.Damage | EventType.Heal>(
   event: CastEvent,
   filter?: T,
@@ -161,11 +162,15 @@ export function getLeapingEvents<T extends EventType.Damage | EventType.Heal>(
 
   return events;
 }
-export function getLivingFlameCastHit(event: CastEvent): HealEvent | DamageEvent | undefined {
+
+export function getLivingFlameCastHit<T extends EventType.Damage | EventType.Heal>(
+  event: CastEvent,
+  filter?: T,
+): AnyEvent<T> | undefined {
   return GetRelatedEvent(
     event,
     LIVING_FLAME_CAST_HIT,
-    (e): e is HealEvent | DamageEvent => e.type === EventType.Heal || e.type === EventType.Damage,
+    filter ? (e): e is AnyEvent<T> => e.type === filter : undefined,
   );
 }
 

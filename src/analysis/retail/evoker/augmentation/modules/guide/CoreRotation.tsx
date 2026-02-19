@@ -21,7 +21,7 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
         <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} />,{' '}
         <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} />,{' '}
         <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />, and{' '}
-        <SpellLink spell={TALENTS_EVOKER.DUPLICATE_2_AUGMENTATION_TALENT} />. While using your
+        <SpellLink spell={TALENTS_EVOKER.DUPLICATE_1_AUGMENTATION_TALENT} />. While using your
         empowers: <SpellLink spell={SPELLS.FIRE_BREATH} /> and <SpellLink spell={SPELLS.UPHEAVAL} />{' '}
         on cooldown, along with spending essence on{' '}
         <SpellLink spell={TALENTS_EVOKER.ERUPTION_TALENT} />; using{' '}
@@ -37,9 +37,10 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
       <EssenceGraphSection modules={modules} events={events} info={info} />
 
       <SubSection title="Buff Graph">
-        This graph shows how many Ebon Mights and Presciences you had active over the course of the
-        encounter, with rule lines showing when you used Breath of Eon. Use this to ensure that you
-        are properly upkeeping your buffs.
+        This graph shows your uptime of <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_EVOKER.DUPLICATE_1_AUGMENTATION_TALENT} />, as well as how many{' '}
+        <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} /> buffs you had active over the course
+        of the encounter. Use this to ensure that you are properly upkeeping your buffs.
         {modules.buffTrackerGraph.plot}
       </SubSection>
 

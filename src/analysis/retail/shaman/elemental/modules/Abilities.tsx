@@ -49,7 +49,10 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.STORMKEEPER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         charges: 1,
-        cooldown: 60,
+        cooldown:
+          60 -
+          (combatant.hasTalent(TALENTS.HERALD_OF_THE_STORMS_TALENT) ? 15 : 0) -
+          (combatant.hasTalent(TALENTS.ROLLING_THUNDER_TALENT) ? 15 : 0),
         gcd: {
           base: 1500,
         },

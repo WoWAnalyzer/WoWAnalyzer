@@ -10,6 +10,7 @@ import { globSync } from 'glob';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
+import checker from 'vite-plugin-checker';
 
 const GOOGLE_ANALYTICS_SCRIPT = `
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW95W6NHVC"></script>
@@ -98,6 +99,9 @@ export default defineConfig((env) => ({
           },
         })
       : null,
+    !process.env.VITEST && !process.env.DISABLE_CHECKER_PLUGIN
+      ? checker({ typescript: true })
+      : undefined,
   ],
   optimizeDeps: {
     include: ['@emotion/styled/base'],

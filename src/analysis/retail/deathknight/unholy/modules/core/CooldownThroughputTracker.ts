@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/deathknight';
+import SPELLS from 'common/SPELLS/deathknight';
 import GameBranch from 'game/GameBranch';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
@@ -8,14 +8,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: TALENTS.UNHOLY_BLIGHT_TALENT.id,
-      duration: 14,
+      spell: SPELLS.DARK_TRANSFORMATION_BUFF.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS.UNHOLY_ASSAULT_TALENT.id,
-      duration: 20,
+      spell: SPELLS.ARMY_OF_THE_DEAD_BUFF.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },

@@ -11,6 +11,7 @@ import CastOverview from 'interface/guide/components/CastOverview';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 import ArcaneMissiles, { ArcaneMissilesData } from '../analyzers/ArcaneMissiles';
+import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
 
 const MISSILE_EARLY_CLIP_DELAY = 200;
 
@@ -21,6 +22,8 @@ class ArcaneMissilesGuide extends Analyzer {
 
   protected arcaneMissiles!: ArcaneMissiles;
 
+  isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
+  isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
   hasAetherAttunement: boolean = this.selectedCombatant.hasTalent(TALENTS.AETHER_ATTUNEMENT_TALENT);
   hasOrbMastery: boolean = this.selectedCombatant.hasTalent(TALENTS.ORB_MASTERY_TALENT);
   hasHighVoltage: boolean = this.selectedCombatant.hasTalent(TALENTS.HIGH_VOLTAGE_TALENT);
@@ -47,6 +50,9 @@ class ArcaneMissilesGuide extends Analyzer {
     const totalCasts = this.arcaneMissiles.missileData.length;
     const averageTicks =
       this.arcaneMissiles.missileData.reduce((sum, m) => sum + m.ticks, 0) / totalCasts;
+    const averageOvercappedSalvo =
+      this.arcaneMissiles.missileData.reduce((sum, m) => sum + m.overcappedSalvoStacks, 0) /
+      totalCasts;
 
     // Average delay from channel end
     stats.push({
@@ -75,17 +81,19 @@ class ArcaneMissilesGuide extends Analyzer {
       tooltip: <>Average number of damage ticks per Arcane Missiles cast.</>,
     });
 
+    // Average Overcapped Salvo Stacks
+    stats.push({
+      value: averageOvercappedSalvo.toFixed(1),
+      label: 'Average Overcapped Salvo',
+      tooltip: <>Average number of lost Arcane Salvo stacks from overcapping.</>,
+    });
+
     return stats;
   }
 
   private evaluateMissilesCast(am: ArcaneMissilesData): CastEvaluation {
     const clippedBeforeGCD =
       am.channelEnd && am.gcdEnd && am.gcdEnd - am.channelEnd > MISSILE_EARLY_CLIP_DELAY;
-    const hasValidTiming = am.channelEndDelay !== undefined && am.nextCast !== undefined;
-    const goodChannelDelay =
-      hasValidTiming &&
-      (this.channelDelayUtil(am.channelEndDelay!) === QualitativePerformance.Good ||
-        this.channelDelayUtil(am.channelEndDelay!) === QualitativePerformance.Perfect);
 
     // FAIL CONDITIONS
     if (clippedBeforeGCD) {
@@ -96,7 +104,18 @@ class ArcaneMissilesGuide extends Analyzer {
       };
     }
 
-    if (am.clearcastingProcs === 0) {
+    if (
+      am.clearcastingProcs === 0 &&
+      this.isSpellslinger &&
+      this.hasHighVoltage &&
+      am.arcaneCharges < 3
+    ) {
+      return {
+        performance: QualitativePerformance.Perfect,
+        reason: `Had High Voltage and ${am.arcaneCharges} Arcane Charges.`,
+        timestamp: am.cast.timestamp,
+      };
+    } else if (am.clearcastingProcs === 0) {
       return {
         performance: QualitativePerformance.Fail,
         reason: 'No Clearcasting Proc',
@@ -114,22 +133,21 @@ class ArcaneMissilesGuide extends Analyzer {
       };
     }
 
-    if (!this.hasOrbMastery) {
+    if (this.isSpellslinger && am.overcappedSalvoStacks === 0) {
       return {
         performance: QualitativePerformance.Perfect,
-        reason: 'Cast with Clearcasting and without Orb Mastery',
+        reason: 'Missiles cast without Overcapping on Arcane Salvo',
+        timestamp: am.cast.timestamp,
+      };
+    } else if (this.isSunfury && am.overcappedSalvoStacks === 0) {
+      return {
+        performance: QualitativePerformance.Perfect,
+        reason: 'Missiles cast without Overcapping on Arcane Salvo',
         timestamp: am.cast.timestamp,
       };
     }
 
-    if (this.hasHighVoltage && am.arcaneCharges < 3) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        reason: `Had ${am.arcaneCharges} with High Voltage`,
-        timestamp: am.cast.timestamp,
-      };
-    }
-
+    // GOOD CONDITIONS
     if (this.hasOverpoweredMissiles && am.opMissiles) {
       return {
         performance: QualitativePerformance.Perfect,
@@ -138,7 +156,6 @@ class ArcaneMissilesGuide extends Analyzer {
       };
     }
 
-    // GOOD CONDITIONS
     if (am.clearcastingProcs > 0) {
       return {
         performance: QualitativePerformance.Good,
@@ -161,22 +178,36 @@ class ArcaneMissilesGuide extends Analyzer {
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneMissiles = <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} />;
     const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
-    const orbMastery = <SpellLink spell={TALENTS.ORB_MASTERY_TALENT} />;
     const highVoltage = <SpellLink spell={TALENTS.HIGH_VOLTAGE_TALENT} />;
     const overpoweredMissiles = <SpellLink spell={TALENTS.OVERPOWERED_MISSILES_TALENT} />;
+    const arcaneSalvo = <SpellLink spell={TALENTS.ARCANE_SALVO_TALENT} />;
 
     const explanation = (
       <>
         <b>{arcaneMissiles}</b> is a rotational ability that provides several benefits and are
-        modified by various buffs and talents. In general, you should only cast {arcaneMissiles}{' '}
-        when you both have a {clearcasting} proc and one of the below conditions is true;
+        modified by various buffs and talents. In general, you should cast {arcaneMissiles} if one
+        of the below conditions are true to get the biggest benefit from it, but if you are capped
+        on
+        {clearcasting} then you should ignore the below conditions and cast {arcaneMissiles} to
+        avoid losing a {clearcasting} proc.
         <ul>
-          <li>You are capped on {clearcasting} procs.</li>
-          <li>You do not have the {orbMastery} talent</li>
+          <li>
+            You have {clearcasting} and will not overcap on {arcaneSalvo}{' '}
+            {this.isSpellslinger && (
+              <>
+                ({'<'}14 Stacks, or {'<'}6 with {overpoweredMissiles})
+              </>
+            )}
+            {this.isSunfury && (
+              <>
+                ({'<'}19 Stacks, or {'<'}11 with {overpoweredMissiles}
+              </>
+            )}
+            )
+          </li>
           <li>
             You are talented into {highVoltage} and have less than 3 {arcaneCharge}s
           </li>
-          <li>You have an {overpoweredMissiles} proc.</li>
         </ul>
         Additionally, while it is sometimes acceptable to end your {arcaneMissiles} channel early,
         you should never end it before the GCD has finished.

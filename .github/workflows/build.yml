@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: '22.x'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint-baseline
+      - run: pnpm run lint --pass-on-unpruned-suppressions
 
   prettier:
     needs: [prepare]

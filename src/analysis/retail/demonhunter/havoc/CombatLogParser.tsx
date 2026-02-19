@@ -16,7 +16,6 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -64,8 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core Statistics
     channeling: Channeling,
     buffs: Buffs,
-
-    globalCooldown: GlobalCooldown,
 
     //Normalizer
     eyeBeamNormalizer: EyeBeamNormalizer,

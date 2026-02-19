@@ -11,7 +11,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
       spell: SPELLS.HAVOC.id,
-      duration: 10,
+      duration: 15,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {

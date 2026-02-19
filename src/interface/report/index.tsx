@@ -1,7 +1,7 @@
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import { useConfig } from './ConfigContext';
@@ -30,6 +30,7 @@ import Report from 'parser/core/Report';
 import { Link, useNavigate } from 'react-router-dom';
 import { WCLFight } from 'parser/core/Fight';
 import handleApiError from './handleApiError';
+import { type CombatantInfoEvent } from 'parser/core/Events';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <div className="container offset">
@@ -46,6 +47,38 @@ const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLF
             <Trans id="interface.report.unsupportedSpec.body">
               The selected specialization has not been updated for the latest expansion and cannot
               be used due to ability changes.
+            </Trans>
+          </p>
+          <Link to={makeAnalyzerUrl(report, fight.id)}>Go Back</Link>
+        </div>
+      </div>
+    </Panel>
+  </div>
+);
+
+const MissingCombatantInfoBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
+  <div className="container offset">
+    <Panel
+      title={
+        <Trans id="interface.report.missingCombatantInfo.title">
+          Combatant info is missing from this fight
+        </Trans>
+      }
+    >
+      <div className="flex wrappable">
+        <div className="flex-main pad">
+          <p>
+            <Trans id="interface.report.missingCombatantInfo.body">
+              This fight is missing a <code>combatantinfo</code> event for the selected player. This
+              is the event that contains gear, talents, and spec. Without it, WoWAnalyzer cannot
+              function. When this event is missing for one player, it is usually missing for all
+              players in the fight.
+            </Trans>
+          </p>
+          <p>
+            <Trans id="interface.report.missingCombatantInfo.error-reporting">
+              If you see this error but are able to see gear and/or talents on Warcraft Logs, please
+              let us know on Discord!
             </Trans>
           </p>
           <Link to={makeAnalyzerUrl(report, fight.id)}>Go Back</Link>
@@ -131,6 +164,15 @@ const ResultsLoader = () => {
     events,
   });
 
+  const playerCombatantInfo = useMemo(
+    () =>
+      events?.find(
+        (event): event is CombatantInfoEvent =>
+          event.type === 'combatantinfo' && event.sourceID === player.id,
+      ),
+    [events, player.id],
+  );
+
   // Original code only rendered EventParser if
   // > !this.state.isLoadingParser &&
   // > !this.state.isLoadingCharacterProfile &&
@@ -153,8 +195,8 @@ const ResultsLoader = () => {
     parserClass,
     characterProfile,
     events: filteredEvents,
-    allEvents: events,
     dependenciesLoading: isLoadingParser || isLoadingCharacterProfile || isFilteringEvents,
+    playerCombatantInfo,
   });
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
@@ -179,6 +221,10 @@ const ResultsLoader = () => {
     parsingState: parsingState,
   };
 
+  if (events && !playerCombatantInfo) {
+    // display error instead of crashing. this can happen in rare cases where `combatantinfo` is not a part of the fight
+    return <MissingCombatantInfoBouncer report={report} fight={fight} />;
+  }
   if (!config.parser) {
     // display error instead. this is not normally accessible via the UI but would be via direct link / URL modification
     return <UnsupportedSpecBouncer report={report} fight={fight} />;

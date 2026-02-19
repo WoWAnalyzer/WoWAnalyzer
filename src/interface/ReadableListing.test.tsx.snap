@@ -8,30 +8,45 @@ exports[`ReadableList > doesn't mutate a single item 1`] = `
 
 exports[`ReadableList > merges four items with two "," and an "and" 1`] = `
 <div>
+   
   <div />
   , 
+   
   <div />
   , 
+   
   <div />
-   and 
+   
+  and
+   
+   
   <div />
 </div>
 `;
 
 exports[`ReadableList > merges three items with a "," and an "and" 1`] = `
 <div>
+   
   <div />
   , 
+   
   <div />
-   and 
+   
+  and
+   
+   
   <div />
 </div>
 `;
 
 exports[`ReadableList > merges two items with an "and" 1`] = `
 <div>
+   
   <div />
-   and 
+   
+  and
+   
+   
   <div />
 </div>
 `;

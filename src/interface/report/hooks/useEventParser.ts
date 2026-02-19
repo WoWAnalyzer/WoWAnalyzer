@@ -4,7 +4,7 @@ import ExtendableError from 'es6-error';
 import Config, { configName, SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
+import type { AnyEvent, CombatantInfoEvent } from 'parser/core/Events';
 import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerDetails } from 'parser/core/Player';
@@ -39,10 +39,7 @@ interface Props {
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   characterProfile: CharacterProfile | null;
   events?: AnyEvent[];
-  /**
-   * Events that have not been filtered to the time range.
-   */
-  allEvents?: AnyEvent[] | null;
+  playerCombatantInfo: CombatantInfoEvent | undefined;
   dependenciesLoading?: boolean;
 }
 
@@ -56,20 +53,12 @@ const useEventParser = ({
   parserClass,
   characterProfile,
   events,
-  allEvents,
   dependenciesLoading,
+  playerCombatantInfo,
 }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const eventIndexRef = useRef(0);
-
-  const playerCombatantInfo = useMemo(
-    () =>
-      allEvents?.find(
-        (event) => event.type === EventType.CombatantInfo && event.sourceID === player.id,
-      ) as CombatantInfoEvent | undefined,
-    [allEvents, player.id],
-  );
 
   const parser = useMemo(() => {
     // Original code only rendered EventParser if
@@ -80,7 +69,7 @@ const useEventParser = ({
     // isLoadingParser => parserClass == null
     // isLoadingCharacterProfile => characterProfile == null
     // isFilteringEvents => events == null
-    if (dependenciesLoading) {
+    if (dependenciesLoading || !playerCombatantInfo) {
       return null;
     }
     //set current build to undefined if default build or non-existing build selected

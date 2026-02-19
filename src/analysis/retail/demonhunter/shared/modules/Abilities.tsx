@@ -107,6 +107,7 @@ export default class Abilities extends CoreAbilities {
       // Aldrachi Reaver
       {
         spell: SPELLS.REAVERS_GLAIVE.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ART_OF_THE_GLAIVE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,

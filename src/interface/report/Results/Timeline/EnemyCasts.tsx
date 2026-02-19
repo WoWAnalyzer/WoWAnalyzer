@@ -237,7 +237,7 @@ export const EnemyCastsTimeline = ({
 }: TimelineProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { combatLogParser: parser } = useCombatLogParser();
-  const [shouldRenderNPCSpells, setRenderNPCSpells] = useState<boolean>(false);
+  const [shouldRenderNPCSpells, setShouldRenderNPCSpells] = useState<boolean>(false);
   const [NPCCasts, setNPCCasts] = useState<(NpcBeginCastEvent | NpcCastEvent)[]>([]);
 
   const [interruptedAbilities, setInterruptedAbilities] = useState(true);
@@ -248,7 +248,7 @@ export const EnemyCastsTimeline = ({
   >('notFetched');
 
   const toggleHandler = useCallback(() => {
-    setRenderNPCSpells((prev) => {
+    setShouldRenderNPCSpells((prev) => {
       //set hasUserRequestsNPCSpells to true when the toggle goes from false to true, indicating the user wants to see the npc spells for the first  time
       if (!prev) {
         setHasUserRequestedNPCSpells(true);
@@ -430,14 +430,15 @@ export const EnemyCastsTimeline = ({
             offset={offset}
             secondWidth={secondWidth}
             skipInterval={skipInterval}
-          />
-          <EnemyCasts
-            start={start}
-            secondWidth={secondWidth}
-            reportCode={parser.report.code}
-            actorId={parser.player.id}
-            events={NPCCasts}
-          />
+          >
+            <EnemyCasts
+              start={start}
+              secondWidth={secondWidth}
+              reportCode={parser.report.code}
+              actorId={parser.player.id}
+              events={NPCCasts}
+            />
+          </TimeIndicators>
         </div>
       ) : (
         <></>

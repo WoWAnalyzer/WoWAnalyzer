@@ -41,7 +41,6 @@
   "exclude": [
     "src/analysis/retail/deathknight/blood",
     "src/analysis/retail/deathknight/frost",
-    "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/druid/balance",
     "src/analysis/retail/druid/feral",
     "src/analysis/retail/druid/restoration",
@@ -49,7 +48,6 @@
     "src/analysis/retail/evoker/preservation",
     "src/analysis/retail/hunter/beastmastery",
     "src/analysis/retail/hunter/marksmanship",
-    "src/analysis/retail/monk/windwalker",
     "src/analysis/retail/monk/shared",
     "src/analysis/retail/paladin/holy",
     "src/analysis/retail/paladin/protection",
@@ -65,14 +63,11 @@
     "src/analysis/retail/shaman/enhancement",
     "src/analysis/retail/warlock/affliction",
     "src/analysis/retail/warlock/demonology",
-    "src/analysis/retail/warlock/destruction",
-    "src/analysis/retail/warlock/shared",
     "src/analysis/retail/warrior/protection"
   ],
   "files": [
     "src/analysis/retail/deathknight/blood/CONFIG.tsx",
     "src/analysis/retail/deathknight/frost/CONFIG.tsx",
-    "src/analysis/retail/deathknight/unholy/CONFIG.tsx",
     "src/analysis/retail/druid/balance/CONFIG.tsx",
     "src/analysis/retail/druid/feral/CONFIG.tsx",
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
@@ -80,7 +75,6 @@
     "src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
     "src/analysis/retail/hunter/marksmanship/CONFIG.tsx",
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
-    "src/analysis/retail/monk/windwalker/CONFIG.tsx",
     "src/analysis/retail/paladin/holy/CONFIG.tsx",
     "src/analysis/retail/rogue/assassination/CONFIG.tsx",
     "src/analysis/retail/rogue/subtlety/CONFIG.tsx",
@@ -89,7 +83,6 @@
     "src/analysis/retail/shaman/enhancement/CONFIG.tsx",
     "src/analysis/retail/warlock/affliction/CONFIG.tsx",
     "src/analysis/retail/warlock/demonology/CONFIG.tsx",
-    "src/analysis/retail/warlock/destruction/CONFIG.tsx",
     "src/analysis/retail/warrior/protection/CONFIG.tsx"
   ]
 }

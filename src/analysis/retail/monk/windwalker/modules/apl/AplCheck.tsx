@@ -28,17 +28,7 @@ import {
 import Combatant from 'parser/core/Combatant';
 
 const hasChi = (min: number) =>
-  describe(
-    or(
-      and(
-        hasTalent(TALENTS.ORDERED_ELEMENTS_TALENT),
-        buffPresent(TALENTS.STORM_EARTH_AND_FIRE_TALENT),
-        hasResource(RESOURCE_TYPES.CHI, { atLeast: min - 1 }),
-      ),
-      hasResource(RESOURCE_TYPES.CHI, { atLeast: min }),
-    ),
-    (tense) => 'available',
-  );
+  describe(hasResource(RESOURCE_TYPES.CHI, { atLeast: min }), (tense) => 'available');
 
 const shado_pan_apl = (combatant: Combatant) =>
   build([
@@ -93,10 +83,6 @@ const shado_pan_apl = (combatant: Combatant) =>
         </>
       )),
     },
-    {
-      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
-      condition: buffStacks(TALENTS.LAST_EMPERORS_CAPACITOR_TALENT, { atLeast: 20 }),
-    },
     TALENTS.SLICING_WINDS_TALENT,
     {
       spell: TALENTS.FISTS_OF_FURY_TALENT,
@@ -120,15 +106,8 @@ const shado_pan_apl = (combatant: Combatant) =>
       condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
     },
     {
-      spell: TALENTS.CHI_BURST_WINDWALKER_TALENT,
+      spell: TALENTS.CHI_BURST_TALENT,
       condition: buffPresent(SPELLS.CHI_BURST_PROC),
-    },
-    {
-      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
-      condition: and(
-        hasTalent(TALENTS.LAST_EMPERORS_CAPACITOR_TALENT),
-        buffStacks(SPELLS.LAST_EMPERORS_CAPACITOR_BUFF, { atLeast: 20 }),
-      ),
     },
     {
       spell: SPELLS.TIGER_PALM,
@@ -163,7 +142,7 @@ export const conduit_apl = (combatant: Combatant) =>
       ),
     },
     {
-      spell: TALENTS.CELESTIAL_CONDUIT_TALENT,
+      spell: TALENTS.CELESTIAL_CONDUIT_WINDWALKER_TALENT,
       condition: describe(
         and(
           buffRemaining(SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, 10, { atMost: 1000 }, true),
@@ -223,10 +202,6 @@ export const conduit_apl = (combatant: Combatant) =>
         </>
       )),
     },
-    {
-      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
-      condition: buffStacks(TALENTS.LAST_EMPERORS_CAPACITOR_TALENT, { atLeast: 20 }),
-    },
     TALENTS.SLICING_WINDS_TALENT,
     {
       spell: TALENTS.FISTS_OF_FURY_TALENT,
@@ -264,23 +239,8 @@ export const conduit_apl = (combatant: Combatant) =>
       condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
     },
     {
-      spell: TALENTS.CHI_BURST_WINDWALKER_TALENT,
+      spell: TALENTS.CHI_BURST_TALENT,
       condition: buffPresent(SPELLS.CHI_BURST_PROC),
-    },
-    {
-      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
-      condition: describe(
-        and(
-          hasTalent(TALENTS.LAST_EMPERORS_CAPACITOR_TALENT),
-          buffStacks(SPELLS.LAST_EMPERORS_CAPACITOR_BUFF, { atLeast: 15 }),
-        ),
-        (tense) => (
-          <>
-            <SpellLink spell={TALENTS.LAST_EMPERORS_CAPACITOR_TALENT} /> would overcap before next
-            good use
-          </>
-        ),
-      ),
     },
     {
       spell: SPELLS.TIGER_PALM,
@@ -305,7 +265,7 @@ export const conduit_apl = (combatant: Combatant) =>
   ]);
 
 export const apl = (info: PlayerInfo): Apl => {
-  if (info.combatant.hasTalent(TALENTS.CELESTIAL_CONDUIT_TALENT)) {
+  if (info.combatant.hasTalent(TALENTS.CELESTIAL_CONDUIT_WINDWALKER_TALENT)) {
     return conduit_apl(info.combatant);
   } else {
     return shado_pan_apl(info.combatant);

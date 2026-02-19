@@ -27,9 +27,6 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
   hasExecutionSentenceTalented = this.selectedCombatant.hasTalent(
     TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT,
   );
-  hasFinalReckoningTalented = this.selectedCombatant.hasTalent(
-    TALENTS_PALADIN.FINAL_RECKONING_TALENT,
-  );
   isTemplar = this.selectedCombatant.hasTalent(TALENTS_PALADIN.LIGHTS_GUIDANCE_TALENT);
 
   constructor(options: Options) {
@@ -56,13 +53,6 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
             <p>
               You want to press <SpellLink spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT} />{' '}
               before <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> and fit as much
-              damage as possible during that window.
-            </p>
-          )}
-          {this.hasFinalReckoningTalented && (
-            <p>
-              You want to press <SpellLink spell={TALENTS_PALADIN.FINAL_RECKONING_TALENT} /> before
-              every other <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> and fit as much
               damage as possible during that window.
             </p>
           )}

@@ -694,6 +694,7 @@ class CombatLogParser {
       const position =
         statistic.props.position !== undefined ? statistic.props.position : basePosition;
       results.statistics.push(
+        // eslint-disable-next-line @eslint-react/no-clone-element -- difficult to fix while statistic is any typed
         cloneElement(statistic, {
           key,
           position,

@@ -2,13 +2,13 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 import { Texleretour } from 'CONTRIBUTORS';
 
 const config: Config = {
   contributors: [Texleretour],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.2',
+  patchCompatibility: '12.0.0',
   supportLevel: SupportLevel.MaintainedPartial,
   description: (
     <>
@@ -40,14 +40,14 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/Tk1qFQXApP2jZvVD/9-Heroic+Cauldron+of+Carnage+-+Kill+(2:43)/Chepged/standard/overview',
+    '/report/9VPGaQY84MzWfZAx/10-Mythic+Fractillus+-+Kill+(1:17)/9-Âjax/standard/overview',
 
   spec: SPECS.RETRIBUTION_PALADIN,
-  changelog: [], // CHANGELOG,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  changelog: CHANGELOG,
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
+      (exports) => exports.default,
+    ),
   path: import.meta.url,
 };
 

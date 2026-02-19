@@ -15,15 +15,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         <MasteryGraph modules={modules} events={events} info={info} />
-        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT) &&
           modules.heartOfTheJadeSerpent.guideSubsection(modules.celestialConduit.clipAnalysis)}
         {modules.risingSunKick.guideSubsection}
         {modules.fistsofFury.guideSubsection}
         {modules.strikeoftheWindlord.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SLICING_WINDS_TALENT) &&
           modules.slicingWinds.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT) &&
-          modules.lastEmperorsCapacitor.guideSubsection(modules.lastEmperorsCapacitorGraph.plot)}
       </Section>
       <Section title="Major cooldowns">{modules.invokeXuen.guideSubsection}</Section>
       <Section title="Core Rotation">
@@ -48,7 +46,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
       </Section>
       <Section title="Other cooldowns, buffs and procs">
-        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
           modules.chiBurst.guideSubsection}
         {modules.comboBreaker.guideSubsection}
         {modules.touchOfKarma.guideSubsection}

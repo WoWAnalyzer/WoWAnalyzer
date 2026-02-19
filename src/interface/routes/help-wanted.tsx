@@ -1,11 +1,15 @@
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+
 import DocumentTitle from 'interface/DocumentTitle';
 import Panel from 'interface/Panel';
 import { Link } from 'react-router-dom';
 import { usePageView } from '../useGoogleAnalytics';
+import { useLingui } from '@lingui/react';
 
 export function Component() {
   usePageView('HelpWantedPage');
+  const { i18n } = useLingui();
+
   return (
     <>
       <DocumentTitle title="Help wanted" />
@@ -39,7 +43,7 @@ export function Component() {
         <img
           src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif"
           style={{ width: '100%' }}
-          alt={t({
+          alt={i18n.t({
             id: 'interface.helpWantedPage.sharingIsCaring',
             message: `Sharing is caring`,
           })}

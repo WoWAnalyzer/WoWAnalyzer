@@ -31,6 +31,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
     };
   }
 
+  // eslint-disable-next-line @eslint-react/no-unused-class-component-members -- is actually used
   HealingEfficiencyTable = (props: Props) => {
     const { tracker } = props;
     const { spells, topHpm, topDpm, topHpet, topDpet } = tracker.getAllSpellStats(
@@ -86,6 +87,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
     </tr>
   );
 
+  // eslint-disable-next-line @eslint-react/no-unused-class-component-members -- is actually used
   BarHeader = () => (
     <>
       <th>
@@ -177,6 +179,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
     );
   };
 
+  // eslint-disable-next-line @eslint-react/no-unused-class-component-members -- is actually used
   DetailHeader = () => (
     <>
       <th>

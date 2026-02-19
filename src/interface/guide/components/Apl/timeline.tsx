@@ -5,9 +5,11 @@ import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 
 import AplRules from './rules';
-import EmbeddedTimelineContainer, {
+import {
+  EmbeddedTimelineContainer,
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
+import TimeIndicators from 'interface/report/Results/Timeline/TimeIndicators';
 
 /**
  * Show the cast timeline around a violation.
@@ -49,13 +51,19 @@ export function ViolationTimeline({
     <>
       <EmbeddedTimelineContainer secondWidth={60} secondsShown={secondsShown}>
         <SpellTimeline>
-          <Casts
-            start={info.fightStart}
-            windowStart={relevantEvents[0].timestamp}
-            movement={undefined}
-            secondWidth={60}
-            events={relevantEvents}
-          />
+          <TimeIndicators
+            seconds={secondsShown}
+            offset={relevantEvents[0].timestamp - info.originalFightStart}
+            skipInterval={2}
+          >
+            <Casts
+              start={info.originalFightStart}
+              windowStart={relevantEvents[0].timestamp}
+              movement={undefined}
+              secondWidth={60}
+              events={relevantEvents}
+            />
+          </TimeIndicators>
         </SpellTimeline>
       </EmbeddedTimelineContainer>
     </>

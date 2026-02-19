@@ -10,7 +10,10 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { failedEbonMightExtension } from '../normalizers/CastLinkNormalizer';
+import {
+  failedEbonMightExtension,
+  failedDuplicateExtension,
+} from '../normalizers/CastLinkNormalizer';
 import '../Styling.scss';
 import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
@@ -25,7 +28,8 @@ import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 interface PossibleExtends {
   event: CastEvent | EmpowerEndEvent;
-  extended: boolean;
+  extendedEbonMight: boolean;
+  extendedDuplicate: boolean;
 }
 
 class SandsOfTime extends Analyzer {
@@ -39,6 +43,8 @@ class SandsOfTime extends Analyzer {
     SPELLS.BREATH_OF_EONS_SCALECOMMANDER,
   ];
   empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
+  canExtendDuplicate = this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT);
+  duplicateActive = false;
   constructor(options: Options) {
     super(options);
 
@@ -54,6 +60,22 @@ class SandsOfTime extends Analyzer {
         this.ebonMightActive = false;
       },
     );
+    if (this.canExtendDuplicate) {
+      // Currently, Duplicate is bugged to always give the self buff, even if not talented.
+      // If this is fixed, this check will need to be changed.
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DUPLICATE_SELF_BUFF),
+        () => {
+          this.duplicateActive = true;
+        },
+      );
+      this.addEventListener(
+        Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DUPLICATE_SELF_BUFF),
+        () => {
+          this.duplicateActive = false;
+        },
+      );
+    }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(this.empowers), this.onCast);
 
@@ -63,7 +85,8 @@ class SandsOfTime extends Analyzer {
   private onCast(event: CastEvent | EmpowerEndEvent) {
     const extendAttempts: PossibleExtends = {
       event: event,
-      extended: Boolean(this.ebonMightActive),
+      extendedEbonMight: Boolean(this.ebonMightActive),
+      extendedDuplicate: Boolean(this.duplicateActive && this.canExtendDuplicate),
     };
 
     this.extendAttempts.push(extendAttempts);
@@ -75,32 +98,45 @@ class SandsOfTime extends Analyzer {
   }
 
   private sandOfTimeUsage(possibleExtends: PossibleExtends): SpellUse {
-    let extended = possibleExtends.extended;
+    let extendedEbonMight = possibleExtends.extendedEbonMight;
+    let extendedDuplicate = possibleExtends.extendedDuplicate;
     if (failedEbonMightExtension(possibleExtends.event)) {
-      extended = false;
+      extendedEbonMight = false;
+    }
+    if (failedDuplicateExtension(possibleExtends.event)) {
+      extendedDuplicate = false;
     }
     const spell = possibleExtends.event.ability.guid;
-    let performance = extended ? QualitativePerformance.Good : QualitativePerformance.Fail;
-    if (spell === TALENTS.ERUPTION_TALENT.id && !extended) {
-      performance = QualitativePerformance.Fail;
-    }
+    let performance =
+      extendedDuplicate && extendedEbonMight
+        ? QualitativePerformance.Perfect
+        : extendedEbonMight
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail;
     const summary = (
       <div>
         Extended with <SpellLink spell={spell} />
       </div>
     );
-    const details = extended ? (
-      <div>
-        You extended your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> buff by casting{' '}
-        <SpellLink spell={spell} />. Good job!
-      </div>
-    ) : (
-      <div>
-        <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> wasn't active. You should always try and
-        cast <SpellLink spell={spell} /> inside of your{' '}
-        <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> window.
-      </div>
-    );
+    let details =
+      extendedDuplicate && extendedEbonMight ? (
+        <div>
+          You extended your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT} /> by casting{' '}
+          <SpellLink spell={spell} />. Great job!
+        </div>
+      ) : extendedEbonMight ? (
+        <div>
+          You extended your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> buff by casting{' '}
+          <SpellLink spell={spell} />. Good job!
+        </div>
+      ) : (
+        <div>
+          <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> wasn't active. You should always try and
+          cast <SpellLink spell={spell} /> inside of your{' '}
+          <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> window.
+        </div>
+      );
 
     const checklistItems: ChecklistUsageInfo[] = [
       {
@@ -136,9 +172,9 @@ class SandsOfTime extends Analyzer {
           <SpellLink spell={SPELLS.SANDS_OF_TIME} />
         </strong>{' '}
         extends the duration of your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />{' '}
-        {this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_1_AUGMENTATION_TALENT) && (
+        {this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) && (
           <>
-            and <SpellLink spell={TALENTS.DUPLICATE_2_AUGMENTATION_TALENT} />
+            and <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT} />
           </>
         )}{' '}
         when casting <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.UPHEAVAL} />
@@ -156,9 +192,17 @@ class SandsOfTime extends Analyzer {
         castBreakdownSmallText={
           <>
             {' '}
-            - <span className="goodCast">Green</span> is a good cast where you extended you{' '}
+            - <span className="goodCast">Green</span> is a good cast where you extended your{' '}
             <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> window,{' '}
             <span className="badCast">red</span> is a bad cast where you didn't extend.
+            {this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) && (
+              <>
+                {' '}
+                <span className="perfectCast">Blue</span> is a cast where you extended both{' '}
+                <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
+                <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT} />.
+              </>
+            )}
           </>
         }
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}

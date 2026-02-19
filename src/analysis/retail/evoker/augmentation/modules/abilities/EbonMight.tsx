@@ -1,4 +1,4 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import Events, {
   AnyEvent,
@@ -141,6 +141,11 @@ class EbonMight extends Analyzer {
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(this.personalBuffedSpells),
+      this.onPersonalDamage,
+    );
+    //To-do: Determine if Duplicate empowers are affected, and if so add them here
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.DUPLICATE_ERUPTION]),
       this.onPersonalDamage,
     );
 

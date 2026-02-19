@@ -1,28 +1,24 @@
 import type { JSX } from 'react';
-import {
-  COVERING_FIRE_CDR,
-  WILDFIRE_BOMB_LEEWAY_BUFFER,
-} from 'analysis/retail/hunter/survival/constants';
-import { formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-// Guide Imports
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import { BadColor, GoodColor, PerfectColor } from 'interface/guide';
+import { WILDFIRE_BOMB_CAST_IMPACT } from '../../normalizers/WildfireBombNormalizer';
+
+const DAMAGE_GROUPING_WINDOW_MS = 200;
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
@@ -31,26 +27,16 @@ import { BadColor, GoodColor, OkColor } from 'interface/guide';
  * https://www.warcraftlogs.com/reports/6GjD12YkQCnJqPTz#fight=25&type=damage-done&source=19&translate=true&ability=-259495
  */
 
-class WildfireBomb extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-    spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
-  };
-
-  protected enemies!: Enemies;
-  protected spellUsable!: SpellUsable;
-  protected globalCooldown!: GlobalCooldown;
-  useEntries: BoxRowEntry[] = [];
-  private currentGCD = 0;
+class WildfireBomb extends Analyzer.withDependencies({
+  enemies: Enemies,
+}) {
+  private useEntries: BoxRowEntry[] = [];
   private casts = 0;
-  private targetsHit = 0;
-  // Travel time of Wildfire Bomb can allow you to consume a tip with the following GCD and so tippedCasts should = tippedDamage
-  private tippedCast = 0;
-  private tippedDamage = 0;
-  private goodCast = 0;
-  private effectiveReductionMs = 0;
-  private wastedReductionMs = 0;
+  private tippedCasts = 0;
+  private totalDamage = 0;
+  private totalTargetsHit = 0;
+  private sentinelProcs = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -63,143 +49,83 @@ class WildfireBomb extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.WILDFIRE_BOMB_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT),
-      this.onDamage,
-    );
   }
 
-  get uptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.WILDFIRE_BOMB_DOT.id) / this.owner.fightDuration;
-  }
-
-  get uptimeThresholds() {
-    return {
-      actual: this.uptimePercentage,
-      isLessThan: {
-        minor: 0.4,
-        average: 0.35,
-        major: 0.3,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-  get tippedThresholds() {
-    return {
-      actual: this.untippedCastPercentage,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.75,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get averageTargetsHit() {
-    return this.targetsHit / this.casts;
-  }
-  get untippedDamagePercentage() {
-    return this.tippedCast / this.casts;
-  }
-  get untippedCastPercentage() {
-    return this.goodCast / this.casts;
-  }
-  onCast(event: CastEvent) {
-    let value: QualitativePerformance = QualitativePerformance.Good;
-    let castAtCap = false;
-    let perfExplanation: React.ReactNode = undefined;
-    const targetName = this.owner.getTargetName(event);
+  private onCast = (event: CastEvent) => {
     this.casts += 1;
-    this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
-    if (
-      !this.spellUsable.isOnCooldown(TALENTS.WILDFIRE_BOMB_TALENT.id) ||
-      this.spellUsable.cooldownRemaining(TALENTS.WILDFIRE_BOMB_TALENT.id) <
-        WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD
-    ) {
-      castAtCap = true;
+
+    const allDamageEvents = GetRelatedEvents<DamageEvent>(event, WILDFIRE_BOMB_CAST_IMPACT);
+    // Bomb can take up to 2000ms to hit so normalizer requires a wide link window.
+    // This can cause overlapping damage events on a back to back cast so we only keep events near first impact.
+    // Therefore if we collect only events within a short window, we keep them with their cast.
+    const firstDamageEvent = allDamageEvents.length > 0 ? allDamageEvents[0] : undefined;
+    const damageEvents = firstDamageEvent
+      ? allDamageEvents.filter(
+          (dmg) => dmg.timestamp - firstDamageEvent.timestamp <= DAMAGE_GROUPING_WINDOW_MS,
+        )
+      : [];
+
+    const wasTipped = firstDamageEvent
+      ? this.selectedCombatant.hasBuff(SPELLS.TIP_OF_THE_SPEAR_CAST.id, firstDamageEvent.timestamp)
+      : false;
+
+    // Check if any target had Sentinel's Mark debuff when impact hit
+    const hadSentinelProc = damageEvents.some((dmg) => {
+      const enemy = this.deps.enemies.getEntity(dmg);
+      return enemy?.hasBuff(SPELLS.SENTINELS_MARK_DEBUFF.id, dmg.timestamp) ?? false;
+    });
+
+    const targetsHit = damageEvents.length;
+    const castDamage = damageEvents.reduce((sum, dmg) => sum + dmg.amount + (dmg.absorbed ?? 0), 0);
+
+    this.totalTargetsHit += targetsHit;
+    this.totalDamage += castDamage;
+
+    if (wasTipped) {
+      this.tippedCasts += 1;
     }
 
-    if (castAtCap && this.selectedCombatant.hasOwnBuff(SPELLS.TIP_OF_THE_SPEAR_CAST.id)) {
-      value = QualitativePerformance.Ok;
-      perfExplanation = (
-        <h5 style={{ color: OkColor }}>
-          ACCEPTABLE. Casted at maximum stacks with a Tip. Do not delay bomb for a tip if it means
-          it will cap!
-          <br />
-        </h5>
-      );
-      this.goodCast += 1;
-    } else if (castAtCap) {
-      value = QualitativePerformance.Ok;
-      perfExplanation = (
-        <h5 style={{ color: OkColor }}>
-          ACCEPTABLE. Casted at maximum stacks. Try to cast bomb before it caps.
-          <br />
-        </h5>
-      );
-      this.goodCast += 1;
-    } else if (this.selectedCombatant.hasOwnBuff(SPELLS.TIP_OF_THE_SPEAR_CAST.id)) {
-      this.tippedCast += 1;
-      this.goodCast += 1;
+    if (hadSentinelProc) {
+      this.sentinelProcs += 1;
+    }
+
+    // Classify performance: Perfect if tipped + sentinel proc, Good if just tipped, Fail if not tipped
+    let value: QualitativePerformance;
+    let header: string;
+    let color: string;
+
+    if (wasTipped && hadSentinelProc) {
+      value = QualitativePerformance.Perfect;
+      header = "Perfect: tipped and proc'd Sentinel's Mark.";
+      color = PerfectColor;
+    } else if (wasTipped) {
       value = QualitativePerformance.Good;
-      perfExplanation = (
-        <h5 style={{ color: GoodColor }}>
-          Tipped Cast.
-          <br />
-        </h5>
-      );
+      header = 'Good cast: tipped.';
+      color = GoodColor;
     } else {
       value = QualitativePerformance.Fail;
-      perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          BAD. Cast without a Tip of the Spear or other APL conditions being true!
-          <br />
-        </h5>
-      );
+      header = 'Bad cast: no tip.';
+      color = BadColor;
     }
-    const tooltip = (
-      <>
-        {perfExplanation}@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        <br />
-      </>
-    );
-    this.useEntries.push({
-      value,
-      tooltip,
-    });
-  }
 
-  checkCooldown(spellId: number) {
-    if (this.spellUsable.cooldownRemaining(spellId) < COVERING_FIRE_CDR) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, COVERING_FIRE_CDR);
-      this.effectiveReductionMs += effectiveReductionMs;
-      this.wastedReductionMs += COVERING_FIRE_CDR - effectiveReductionMs;
-    } else {
-      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, COVERING_FIRE_CDR);
-    }
-  }
-  onDamage(event: DamageEvent) {
-    /* TODO: Use CastLinkNormalizer to link damage to cast.
-   Then count number of *good* damage instances because bomb travel time means you can consume and make bomb tipless or tip bomb while it's mid air.
-   This leaves a different statistic for good casts on fights like Bloodbound because you may want to bomb THEN kill command on large bosses so that if you go
-   KC -> Bomb -> raptor that you don't tip the raptor so you'd go bomb->kc -> raptor and the bomb would hit as the KC applies tip and then consumes it right away.
-    */
-    if (this.casts === 0) {
-      this.casts += 1;
-      this.spellUsable.beginCooldown(event, TALENTS.WILDFIRE_BOMB_TALENT.id);
-    }
-    this.targetsHit += 1;
-    /* TODO: Logic to track number of enemies hit. Saving this as the current reference bomb had for targets hit. */
-    //const enemy = this.enemies.getEntity(event);
-    if (this.selectedCombatant.hasOwnBuff(SPELLS.TIP_OF_THE_SPEAR_CAST.id)) {
-      this.tippedDamage += 1;
-    }
-    // if (this.acceptedCastDueToCapping || !enemy) {
-    //   return;
-    // }
-  }
+    const targetName = this.owner.getTargetName(event);
+    const tooltip = (
+      <div>
+        <h5 style={{ color }}>{header}</h5>
+        <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targeting{' '}
+        <strong>{targetName || 'unknown'}</strong>
+        <div>
+          <strong>{targetsHit}</strong> targets hit{' '}
+          <small>({formatNumber(castDamage)} damage)</small>
+        </div>
+        <div>
+          <strong>Total Damage:</strong> {formatNumber(castDamage)}
+        </div>
+      </div>
+    );
+
+    this.useEntries.push({ value, tooltip });
+  };
 
   get guideSubsection(): JSX.Element {
     const explanation = (
@@ -207,16 +133,14 @@ class WildfireBomb extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />
         </strong>{' '}
-        should be kept off maximum charges and always be cast with{' '}
-        <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST.id} />. It can go untipped if any of:
-        <ol>
-          <li>You are capped on bomb charges. </li>
-          <li>Lunar Storm is ready </li>
-          <li>
-            You are about to press Butchery and the cooldown reduction from Frenzied Strikes would
-            overcap bomb.{' '}
-          </li>
-        </ol>
+        should always be cast with <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST.id} />.
+        {this.selectedCombatant.hasTalent(TALENTS.SENTINEL_TALENT) && (
+          <>
+            {' '}
+            Bombs that hit a target with <SpellLink spell={SPELLS.SENTINELS_MARK_DEBUFF} /> are
+            perfect casts.
+          </>
+        )}
       </p>
     );
 
@@ -225,7 +149,7 @@ class WildfireBomb extends Analyzer {
         <CastSummaryAndBreakdown
           spell={TALENTS.WILDFIRE_BOMB_TALENT}
           castEntries={this.useEntries}
-          badExtraExplanation={<>or an expired proc</>}
+          badExtraExplanation={<>without Tip of the Spear</>}
           usesInsteadOfCasts
         />
       </div>
@@ -233,7 +157,12 @@ class WildfireBomb extends Analyzer {
 
     return explanationAndDataSubsection(explanation, data);
   }
+
   statistic() {
+    const avgTargetsHit = this.casts > 0 ? this.totalTargetsHit / this.casts : 0;
+    const tippedPercentage = this.casts > 0 ? (this.tippedCasts / this.casts) * 100 : 0;
+    const sentinelPercentage = this.casts > 0 ? (this.sentinelProcs / this.casts) * 100 : 0;
+
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(0)}
@@ -242,23 +171,16 @@ class WildfireBomb extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.WILDFIRE_BOMB_TALENT}>
           <>
-            {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
+            <ItemDamageDone amount={this.totalDamage} />
             <br />
-            {formatPercentage(this.uptimePercentage, 1)}% <small> DoT uptime</small>
+            {this.casts} <small>casts</small>
             <br />
-            {formatPercentage(this.untippedDamagePercentage, 1)}%{' '}
-            <small> average tipped hits.</small>
+            {this.tippedCasts} <small>tipped casts ({tippedPercentage.toFixed(1)}%)</small>
             <br />
-            {formatPercentage(this.untippedCastPercentage, 1)}%{' '}
-            <small> average tipped casts.</small>
+            {this.sentinelProcs}{' '}
+            <small>Sentinel's Mark procs ({sentinelPercentage.toFixed(1)}%)</small>
             <br />
-            {this.casts} <small> Wildfire Bomb casts.</small>
-            <br />
-            {this.tippedCast} <small> Tipped Wildfire Bomb casts.</small>
-            <br />
-            {this.goodCast} <small> Good Wildfire Bomb casts.</small>
-            <br />
-            {this.tippedDamage} <small> Tipped Wildfire Bomb Damage.</small>
+            {avgTargetsHit.toFixed(2)} <small>avg targets hit</small>
           </>
         </BoringSpellValueText>
       </Statistic>

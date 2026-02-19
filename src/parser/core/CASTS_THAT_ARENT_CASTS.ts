@@ -49,6 +49,7 @@ const spells: number[] = [
   SPELLS.EXTERMINATE_FIRST_HIT.id,
   SPELLS.EXTERMINATE_SECOND_HIT.id,
   SPELLS.INFLICTION_OF_SORROW.id,
+  SPELLS.DISEASE_CLOUD.id,
 
   //endregion
 
@@ -85,6 +86,8 @@ const spells: number[] = [
   SPELLS.COLLECTIVE_ANGUISH_EYE_BEAM.id, // Vengeance Collective Anguish Eye Beam
   SPELLS.THROW_GLAIVE_PROC_BLADE_DANCE.id, // extra throw from Amirdrassil 2pc
   SPELLS.THROW_GLAIVE_PROC_FURIOUS_THROWS.id, // extra throw from Furious Throws talent
+  SPELLS.FAKE_VOIDBLADE_CAST.id, // Thrown just before the actual cast, duplicate
+  SPELLS.FAKE_THEHUNT_CAST.id, // Duplicate of the actual cast, thrown right after
   //endregion
 
   //region druid
