@@ -90,6 +90,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   secondWidth?: number;
   events: AnyEvent[];
   movement?: MovementInstance[];
+  overlapOffGcds?: boolean;
 }
 
 const Casts = ({
@@ -98,6 +99,7 @@ const Casts = ({
   secondWidth: explicitSecondWidth,
   events,
   movement,
+  overlapOffGcds,
   ...others
 }: Props) => {
   const timelineSettings = use(TimelineSettingsContext);
@@ -179,7 +181,7 @@ const Casts = ({
     if (lower) {
       className += ' lower';
       // Avoid overlapping icons
-      if (_lastLowered && left - _lastLowered < ICON_WIDTH) {
+      if (_lastLowered && left - _lastLowered < ICON_WIDTH && !overlapOffGcds) {
         _level += 1;
         level = _level;
         _maxLevel = Math.max(_maxLevel, level + 1);

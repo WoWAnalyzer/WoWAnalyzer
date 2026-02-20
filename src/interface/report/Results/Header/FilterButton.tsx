@@ -12,15 +12,9 @@ import { Filter } from 'interface/report/hooks/useTimeEventFilter';
 import { useFight } from 'interface/report/context/FightContext';
 import Select from 'interface/controls/Select';
 import useClickOutsideHandler from 'interface/hooks/useClickOutsideHandler';
+import Button from 'interface/controls/Button';
 
-const Btn = styled.button`
-  appearance: none;
-  border: none;
-  box-shadow: ${design.level2.shadow};
-  background: ${design.level2.background};
-  border: 1px solid ${design.level2.border};
-  border-radius: 0.5rem;
-  padding: 0 1rem;
+const Btn = styled(Button)`
   grid-area: filter;
 
   align-self: start;
@@ -29,10 +23,6 @@ const Btn = styled.button`
   & .glyphicon {
     padding-right: 0.25rem;
     font-size: 75%;
-  }
-
-  &:hover {
-    filter: brightness(115%);
   }
 `;
 
