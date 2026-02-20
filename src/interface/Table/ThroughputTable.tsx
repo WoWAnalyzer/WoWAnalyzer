@@ -14,6 +14,7 @@ import Unit from 'parser/core/Unit';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Table, { Column, HeaderSelect } from './Table';
 import React from 'react';
+import { WCLReport } from 'parser/core/Report';
 
 const OTHER_SPECIAL_BY = -9999;
 
@@ -129,6 +130,10 @@ export interface ThroughputTableProps {
    */
   abilityFilter?: (Spell | number)[];
   omitOtherRow?: boolean;
+  /**
+   * A list of unit/actor ids to include as targets. All other units/actors are omitted from the table. By default, all actors are included for damage and all non-pet actors for healing. When explicitly set to `false`, no default filtering is applied.
+   */
+  targetExclusions?: Set<number> | false;
 }
 
 type AggregateBy = 'ability' | 'source' | 'target';
@@ -177,8 +182,6 @@ function eventMatchesType<Ty extends EventType.Damage | EventType.Heal>(
     return true;
   }
 
-  // TODO exclude healing done to pets?
-
   return false;
 }
 
@@ -187,6 +190,7 @@ function throughputByAbility(
   info: Info,
   type: EventType.Damage | EventType.Heal,
   abilityFilter: Set<number> | undefined,
+  targetFilter?: ThroughputTableProps['targetExclusions'],
 ): ThroughputSpellRow[] {
   const map = new Map<number, ThroughputSpellRow>();
   const isRelevant = isRelevantToInfo(info);
@@ -198,6 +202,10 @@ function throughputByAbility(
 
     if (!isRelevant(event.sourceID)) {
       continue;
+    }
+
+    if (targetFilter && targetFilter.has(event.targetID)) {
+      continue; // unlike `abilityFilter`, `targetFilter` does not move to `other`
     }
 
     const id =
@@ -247,6 +255,7 @@ function throughputByActor(
   type: EventType.Damage | EventType.Heal,
   by: 'sourceID' | 'targetID',
   abilityFilter: Set<number> | undefined,
+  targetFilter?: ThroughputTableProps['targetExclusions'],
 ): ThroughputActorRow[] {
   const map = new Map<number, ThroughputActorRow>();
   const isRelevant = isRelevantToInfo(info);
@@ -267,6 +276,10 @@ function throughputByActor(
 
     if (abilityFilter && !abilityFilter.has(event.ability.guid)) {
       continue; // completely hide these abilities for by-actor views
+    }
+
+    if (targetFilter && targetFilter.has(event.targetID)) {
+      continue; // completely exclude this target
     }
 
     const actor = actors.get(id);
@@ -312,11 +325,23 @@ function ThroughputTableRaw({
   type,
   abilityFilter,
   omitOtherRow,
+  targetExclusions: rawUnitFilter,
 }: ThroughputTableProps): JSX.Element | null {
   const { report } = useReport();
   const info = useInfo();
   const events = useEvents(range);
   const [aggregateBy, setAggregateBy] = useState<AggregateBy>('ability');
+
+  const unitFilter = useMemo(() => {
+    if (rawUnitFilter) {
+      return rawUnitFilter;
+    }
+    if (type === EventType.Heal && rawUnitFilter !== false) {
+      return excludeReportPets(report);
+    }
+
+    return undefined;
+  }, [rawUnitFilter, report, type]);
 
   const actors = useMemo(() => {
     const map = new Map<number, Unit>();
@@ -344,7 +369,7 @@ function ThroughputTableRaw({
 
     const rows =
       aggregateBy === 'ability'
-        ? throughputByAbility(events, info, type, filterSet)
+        ? throughputByAbility(events, info, type, filterSet, unitFilter)
         : throughputByActor(
             events,
             info,
@@ -352,6 +377,7 @@ function ThroughputTableRaw({
             type,
             (aggregateBy + 'ID') as 'sourceID' | 'targetID',
             omitOtherRow ? filterSet : undefined,
+            unitFilter,
           );
 
     const other = rows.find(isOther);
@@ -386,7 +412,7 @@ function ThroughputTableRaw({
     }
 
     return result as ThroughputSpellRow[] | ThroughputActorRow[];
-  }, [events, aggregateBy, info, abilityFilter, omitOtherRow, actors, maxRows, type]);
+  }, [events, aggregateBy, info, abilityFilter, omitOtherRow, actors, maxRows, type, unitFilter]);
 
   const ctx = useMemo(() => {
     const max = data.reduce((max, row) => Math.max(max, row.amount), 0);
@@ -440,3 +466,15 @@ export const DamageTable = (props: Omit<ThroughputTableProps, 'type'>) => (
 export const HealingTable = (props: Omit<ThroughputTableProps, 'type'>) => (
   <ThroughputTable {...props} type={EventType.Heal} />
 );
+
+export function excludeReportPets(report: WCLReport): Set<number> {
+  const pets = new Set<number>();
+  for (const pet of report.friendlyPets) {
+    pets.add(pet.id);
+  }
+  for (const pet of report.enemyPets) {
+    pets.add(pet.id);
+  }
+
+  return pets;
+}
