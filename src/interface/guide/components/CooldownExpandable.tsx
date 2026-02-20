@@ -14,15 +14,26 @@ export interface CooldownExpandableItem {
   details?: ReactNode;
 }
 
-interface Props {
+type RangeProps =
+  | { range?: undefined; timeline?: undefined; table?: undefined }
+  | {
+      range: { start: number; end: number };
+      /**
+       * Enable the embedded timeline. See `EmbeddedTimeline`. Accepts the props of the `EmbeddedTimeline` component. Use `timeline={true}` if you just want default props.
+       */
+      timeline?: Omit<EmbeddedTimelineProps, 'range'> | true;
+      /**
+       * Enable the embedded throughput table. See `ThroughputTable`. Accepts the props of the `ThroughputTable` component.
+       */
+      table?: Omit<ThroughputTableProps, 'range'>;
+    };
+
+type Props = {
   header: ReactNode;
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
   perf?: QualitativePerformance;
-  range?: { start: number; end: number };
-  timeline?: Omit<EmbeddedTimelineProps, 'range'>;
-  table?: Omit<ThroughputTableProps, 'range'>;
-}
+} & RangeProps;
 
 /**
  * The data list used to display Checklist and Details sections in `CooldownExpandable`
@@ -65,19 +76,6 @@ const CooldownExpandable = ({
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // i don't like the `throw`, but the typing for this is very clunky in practice.
-  if (timeline && !range) {
-    throw new Error(
-      '[CooldownExpandable] you must supply the range parameter to use the embedded timeline',
-    );
-  }
-
-  if (table && !range) {
-    throw new Error(
-      '[CooldownExpandable] you must supply the range parameter to use the embedded table',
-    );
-  }
-
   const combinedHeader =
     perf !== undefined ? (
       <div>
@@ -97,7 +95,9 @@ const CooldownExpandable = ({
     >
       {/* inert is used to prevent tabbing from getting trapped on the timeline */}
       <div inert={!isExpanded}>
-        {range && timeline && <EmbeddedTimeline range={range} {...timeline} />}
+        {range && timeline && (
+          <EmbeddedTimeline range={range} {...(typeof timeline === 'boolean' ? {} : timeline)} />
+        )}
         {checklistItems && checklistItems.length !== 0 && (
           <CooldownExpandableDataList items={checklistItems} title="Checklist" />
         )}
