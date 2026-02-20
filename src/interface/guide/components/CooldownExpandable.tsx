@@ -5,6 +5,8 @@ import { ControlledExpandable } from 'interface';
 import EmbeddedTimeline, {
   EmbeddedTimelineProps,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
+import ThroughputTable, { ThroughputTableProps } from 'interface/Table/ThroughputTable';
+import { gaps } from 'interface/design-system';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
@@ -12,13 +14,26 @@ export interface CooldownExpandableItem {
   details?: ReactNode;
 }
 
-interface Props {
+type RangeProps =
+  | { range?: undefined; timeline?: undefined; table?: undefined }
+  | {
+      range: { start: number; end: number };
+      /**
+       * Enable the embedded timeline. See `EmbeddedTimeline`. Accepts the props of the `EmbeddedTimeline` component. Use `timeline={true}` if you just want default props.
+       */
+      timeline?: Omit<EmbeddedTimelineProps, 'range'> | true;
+      /**
+       * Enable the embedded throughput table. See `ThroughputTable`. Accepts the props of the `ThroughputTable` component.
+       */
+      table?: Omit<ThroughputTableProps, 'range'>;
+    };
+
+type Props = {
   header: ReactNode;
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
   perf?: QualitativePerformance;
-  timeline?: EmbeddedTimelineProps;
-}
+} & RangeProps;
 
 /**
  * The data list used to display Checklist and Details sections in `CooldownExpandable`
@@ -50,8 +65,17 @@ export const CooldownExpandableDataList = ({
   </section>
 );
 
-const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timeline }: Props) => {
+const CooldownExpandable = ({
+  header,
+  checklistItems,
+  detailItems,
+  perf,
+  timeline,
+  range,
+  table,
+}: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
   const combinedHeader =
     perf !== undefined ? (
       <div>
@@ -71,12 +95,19 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf, timelin
     >
       {/* inert is used to prevent tabbing from getting trapped on the timeline */}
       <div inert={!isExpanded}>
-        {timeline && <EmbeddedTimeline {...timeline} />}
+        {range && timeline && (
+          <EmbeddedTimeline range={range} {...(typeof timeline === 'boolean' ? {} : timeline)} />
+        )}
         {checklistItems && checklistItems.length !== 0 && (
           <CooldownExpandableDataList items={checklistItems} title="Checklist" />
         )}
         {detailItems && detailItems.length !== 0 && (
           <CooldownExpandableDataList items={detailItems} title="Details" />
+        )}
+        {range && table && (
+          <div style={{ marginTop: gaps.large }}>
+            <ThroughputTable range={range} {...table} />
+          </div>
         )}
       </div>
     </ControlledExpandable>
