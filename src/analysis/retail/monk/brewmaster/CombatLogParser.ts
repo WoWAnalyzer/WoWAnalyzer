@@ -48,6 +48,7 @@ import AspectOfHarmony, { AspectOfHarmonyLinkNormalizer } from './modules/talent
 import { Abilities } from './gen';
 import { ExpelOxOrbsNormalizer } from './normalizers/ExpelHarm';
 import VitalFlames, { VitalFlameNormalizer } from './modules/talents/VitalFlames';
+import InvokeNiuzao from './modules/talents/InvokeNiuzao/InvokeNiuzao';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -110,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     veteransEye: VeteransEye,
     AspectOfHarmony,
     VitalFlames,
+    InvokeNiuzao,
 
     apl: AplCheck,
 
