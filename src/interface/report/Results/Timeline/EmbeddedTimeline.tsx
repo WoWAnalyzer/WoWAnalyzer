@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import isPropValid from '@emotion/is-prop-valid';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
 import { useMemo, useRef, useState } from 'react';
@@ -22,7 +23,7 @@ import DragScroll from 'interface/DragScroll';
  *
  * Use `SpellTimeline` component for wrapping the `Casts` component.
  */
-export const EmbeddedTimelineContainer = styled(DragScroll)<{
+export const EmbeddedTimelineContainer = styled(DragScroll, { shouldForwardProp: isPropValid })<{
   secondWidth?: number;
   secondsShown?: number;
   castBarCount?: number;
@@ -46,6 +47,9 @@ export const EmbeddedTimelineContainer = styled(DragScroll)<{
   &.drag-scroll-container {
     cursor: default;
   }
+  /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */
+  scrollbar-color: #75736d transparent;
+  scrollbar-width: thin;
 
   --cast-bars: ${(props) => props.castBarCount ?? 1};
 
@@ -171,6 +175,22 @@ export interface EmbeddedTimelineProps {
    * If set to `true`, show all cooldowns (not recommended for inline use)
    */
   cooldowns?: (number | Spell)[] | true;
+  /**
+   * The method to use to order cooldowns. `dynamic` (default) matches the normal timeline, listing
+   * cooldowns in order of frequency. `fixed` orders them in a consistent order that
+   * depends only on the list of cooldowns (and their properties). It may differ between
+   * fights, but not within a fight.
+   */
+  cooldownOrder?: 'fixed' | 'dynamic';
+  /**
+   * Force off-gcd abilities to overlap rather than stack. Use if you want to guarantee
+   * consistent timeline height.
+   */
+  overlapOffGcds?: boolean;
+  /**
+   * Whether to display the cooldown legend. Defaults to true. In smaller embeds, it can be beneficial to disable it.
+   */
+  cooldownLegend?: boolean;
 }
 
 function toSpellId(value: number | Spell): number {
@@ -181,7 +201,14 @@ function toSpellId(value: number | Spell): number {
   return value.id;
 }
 
-function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
+function EmbeddedTimelineRaw({
+  range,
+  auras,
+  cooldowns,
+  cooldownOrder,
+  overlapOffGcds,
+  cooldownLegend = true,
+}: EmbeddedTimelineProps) {
   const events = useEvents(range);
   const auraAnalyzer = useAnalyzer(Auras);
   const info = useInfo();
@@ -235,7 +262,7 @@ function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
           />
         )}
         <TimeIndicators seconds={secondsShown} offset={offset} skipInterval={2}>
-          <Casts start={range.start} events={filteredEvents} />
+          <Casts start={range.start} events={filteredEvents} overlapOffGcds={overlapOffGcds} />
         </TimeIndicators>
         <Cooldowns
           start={range.start}
@@ -243,12 +270,14 @@ function EmbeddedTimeline({ range, auras, cooldowns }: EmbeddedTimelineProps) {
           eventsBySpellId={cooldownEventsBySpellId}
           abilities={abilities}
           castsOmitted
+          fixedCooldownOrder={cooldownOrder === 'fixed'}
+          disableLegend={!cooldownLegend}
         />
       </SpellTimeline>
     </AutoSizerTimelineContainer>
   );
 }
 
-const MemoEmbeddedTimeline = React.memo(EmbeddedTimeline);
+const EmbeddedTimeline = React.memo(EmbeddedTimelineRaw);
 
-export default MemoEmbeddedTimeline;
+export default EmbeddedTimeline;

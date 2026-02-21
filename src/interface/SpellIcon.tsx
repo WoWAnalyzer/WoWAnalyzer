@@ -26,7 +26,13 @@ const SpellIcon = ({ spell, noLink, alt, ilvl, ...others }: Props) => {
 
   const iconName = SPELL_ICON_OVERRIDES[spellId] ?? spellWithFallback.icon;
 
-  const icon = <Icon icon={iconName} alt={alt !== '' ? spellWithFallback.name : ''} {...others} />;
+  const icon = (
+    <Icon
+      icon={`abilities/${iconName}`}
+      alt={alt !== '' ? spellWithFallback.name : ''}
+      {...others}
+    />
+  );
 
   if (noLink || spellId <= 1) {
     return icon;

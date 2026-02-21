@@ -1055,11 +1055,10 @@ const spells = {
     ...talents.FLURRY_STRIKES_TALENT,
     id: 450617,
   },
-  // TODO: verify if this is the new damage ability in all cases
   FLURRY_STRIKES_DAMAGE_MIDNIGHT: {
     id: 451250,
     name: 'Flurry Strikes',
-    icon: 'inv-ability-shadopanmonk-flurrystrikes',
+    icon: 'inv_ability_shadopanmonk_flurrystrikes.jpg',
   },
 } satisfies Record<string, Spell>;
 
