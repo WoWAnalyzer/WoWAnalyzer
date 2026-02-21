@@ -11,9 +11,10 @@ import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
-import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
+import PlagueEfficiency from './modules/features/PlagueEfficiency';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
+import LesserGhoul from './modules/features/LesserGhoul';
 import RunicPowerGraph from './modules/core/RunicPowerGraph';
 import RuneGraph from './modules/core/RuneGraph';
 import Guide from './modules/Guide';
@@ -28,13 +29,14 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
 
     // Features
-    virulentPlagueEfficiency: VirulentPlagueEfficiency,
-    suddenDoom: SuddenDoom,
+    plagueEfficiency: PlagueEfficiency,
+    lesserGhoul: LesserGhoul,
     unholyRuneForge: UnholyRuneForgeChecker,
 
     // Talents
     soulReaper: SoulReaper,
     commanderOfTheDead: CommanderOfTheDead,
+    suddenDoom: SuddenDoom,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
