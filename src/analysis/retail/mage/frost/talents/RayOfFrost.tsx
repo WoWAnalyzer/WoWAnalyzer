@@ -107,8 +107,9 @@ class RayOfFrost extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>{rayOfFrost}</b> is the most important long cooldown spell in Frost. You want to cast it as soon as
-          possible, but there are some rules to follow in order to get the most out of it.
+          <b>{rayOfFrost}</b> is the most important long cooldown spell in Frost. You want to cast
+          it as soon as possible, but there are some rules to follow in order to get the most out of
+          it.
         </p>
         <ol>
           <li>
