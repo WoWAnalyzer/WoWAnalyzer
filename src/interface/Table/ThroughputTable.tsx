@@ -16,12 +16,12 @@ import Table, { Column, HeaderSelect } from './Table';
 import React from 'react';
 import { WCLReport } from 'parser/core/Report';
 
-const OTHER_SPECIAL_BY = -9999;
+export const OTHER_SPECIAL_ID = -9999;
 
 const actorName: Column<{ actorId: number }> = {
   label: 'Actor', // this is getting overridden by the table
   render(row) {
-    if (row.actorId === OTHER_SPECIAL_BY) {
+    if (row.actorId === OTHER_SPECIAL_ID) {
       return <em>Other</em>;
     }
 
@@ -29,10 +29,10 @@ const actorName: Column<{ actorId: number }> = {
   },
 };
 
-const spellName: Column<{ spell: number | Spell; school?: number; isPet?: boolean }> = {
+export const spellName: Column<{ spell: number | Spell; school?: number; isPet?: boolean }> = {
   label: 'Ability',
   render({ spell, school, isPet }) {
-    if (spell === OTHER_SPECIAL_BY) {
+    if (spell === OTHER_SPECIAL_ID) {
       return <em>Other</em>;
     }
     return (
@@ -44,7 +44,7 @@ const spellName: Column<{ spell: number | Spell; school?: number; isPet?: boolea
   },
 };
 
-const amountBar = (
+export const amountBar = (
   type: EventType.Damage | EventType.Heal,
 ): Column<
   { amount: number; school?: number; type?: string; isAbsorb?: boolean },
@@ -56,7 +56,7 @@ const amountBar = (
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '5rem 1fr 4rem',
+          gridTemplateColumns: '5rem 1fr 6rem',
           gap: design.gaps.medium,
           width: '100%',
         }}
@@ -80,7 +80,7 @@ const amountBar = (
   expand: true,
 });
 
-const literalNumberColumn = <K extends string>(
+export const literalNumberColumn = <K extends string>(
   label: React.ReactNode,
   key: K,
 ): Column<Record<K, number>> => ({
@@ -211,8 +211,8 @@ function throughputByAbility(
     const id =
       !abilityFilter || abilityFilter?.has(event.ability.guid)
         ? event.ability.guid
-        : OTHER_SPECIAL_BY;
-    const school = id === OTHER_SPECIAL_BY ? 0 : event.ability.type;
+        : OTHER_SPECIAL_ID;
+    const school = id === OTHER_SPECIAL_ID ? 0 : event.ability.type;
     const amount =
       type === EventType.Damage
         ? effectiveDamage(event as IncludedEvents<EventType.Damage>)
@@ -229,7 +229,7 @@ function throughputByAbility(
         isPet: info.pets.some((pet) => pet.id === event.sourceID),
       });
 
-      if (id === OTHER_SPECIAL_BY) {
+      if (id === OTHER_SPECIAL_ID) {
         // hack for 'Other' background
         (map.get(id)! as unknown as ThroughputActorRow).type = 'Other';
       }
@@ -310,10 +310,10 @@ function throughputByActor(
 
 function isOther(row: ThroughputActorRow | ThroughputSpellRow): boolean {
   if ('spell' in row) {
-    return row.spell === OTHER_SPECIAL_BY;
+    return row.spell === OTHER_SPECIAL_ID;
   }
   if ('actorId' in row) {
-    return row.actorId === OTHER_SPECIAL_BY;
+    return row.actorId === OTHER_SPECIAL_ID;
   }
 
   return false;
@@ -399,8 +399,8 @@ function ThroughputTableRaw({
       return [
         ...result.slice(0, maxRows - 1),
         {
-          actorId: OTHER_SPECIAL_BY,
-          spell: OTHER_SPECIAL_BY,
+          actorId: OTHER_SPECIAL_ID,
+          spell: OTHER_SPECIAL_ID,
           type: 'Other',
           amount: otherTotal + (other?.amount ?? 0),
           hits: otherHits + (other?.hits ?? 0),
