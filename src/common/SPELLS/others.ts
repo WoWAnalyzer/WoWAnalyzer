@@ -20,7 +20,7 @@ const spells = {
   // },
   MELEE: {
     id: 1,
-    name: 'Auto attack',
+    name: 'Melee',
     icon: 'inv_axe_02',
   },
   LEECH: {

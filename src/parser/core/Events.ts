@@ -80,10 +80,6 @@ export enum EventType {
   // Hunter
   Tick = 'tick',
 
-  // Monk
-  AddStagger = 'addstagger',
-  RemoveStagger = 'removestagger',
-
   // Priest
   Atonement = 'atonement',
   AtonementDamage = 'atonementDamageSource',
@@ -116,20 +112,15 @@ export enum EventType {
   EndResourceCap = 'endresourcecap',
 }
 
-export interface AddStaggerEvent extends Event<EventType.AddStagger> {
+export interface StaggerPreventedEvent extends Event<EventType.StaggerPrevented> {
+  sourceID: number;
+  abilityID?: number;
   amount: number;
-  overheal: number;
-  newPooledDamage: number;
-  extraAbility?: Ability;
-  trigger?: AbsorbedEvent;
 }
 
-export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
+export interface StaggerClearEvent extends Event<EventType.StaggerClear> {
+  sourceID: number;
   amount: number;
-  overheal: number;
-  newPooledDamage: number;
-  trigger?: CastEvent | DeathEvent;
-  sourceBreakdown?: { base: number } & Record<number, number>;
 }
 
 interface MappedEventTypes {
@@ -165,6 +156,8 @@ interface MappedEventTypes {
   [EventType.EmpowerStart]: EmpowerStartEvent;
   [EventType.EmpowerEnd]: EmpowerEndEvent;
   [EventType.Leech]: LeechEvent;
+  [EventType.StaggerClear]: StaggerClearEvent;
+  [EventType.StaggerPrevented]: StaggerPreventedEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -178,8 +171,6 @@ interface MappedEventTypes {
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
-  [EventType.AddStagger]: AddStaggerEvent;
-  [EventType.RemoveStagger]: RemoveStaggerEvent;
   [EventType.BeaconTransfer]: BeaconHealEvent;
   [EventType.BeaconTransferFailed]: BeaconTransferFailedEvent;
 

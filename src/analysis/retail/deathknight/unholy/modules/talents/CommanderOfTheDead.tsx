@@ -12,7 +12,16 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class CommanderOfTheDead extends Analyzer {
   private commanderBuffs = 0;
   private petSummons = 0;
-  private petSummonIDs: number[] = [SPELLS.ARMY_SUMMON.id, TALENTS.SUMMON_GARGOYLE_TALENT.id];
+  private petSummonIDs: number[] = [
+    SPELLS.ARMY_SUMMON.id, // 42651  - Army of the Dead ghouls (pre-Midnight)
+    SPELLS.LESSER_GHOUL.id, // 275430 - Lesser Ghouls from regular gameplay
+    SPELLS.LESSER_GHOUL_SUMMON_EMPOWERED.id, // 1277098 - Lesser Ghouls from Apocalypse/Putrefy
+    SPELLS.LESSER_GHOUL_SUMMON_ARMY.id, // 1282535 - Lesser Ghouls from Army of the Dead cast
+    SPELLS.RAISE_ABOMINATION_SUMMON.id, // 288853 - Abomination summon event
+    SPELLS.SUMMON_GARGOYLE.id, // 49206  - Ebon Gargoyle summon event
+    SPELLS.MAGUS_OF_THE_DEAD_SUMMON.id, // 1242294 - Magus of the Dead from Apocalypse
+    SPELLS.MAGUS_OF_THE_DEAD_SUMMON_ARMY.id, // 317776 - Magus of the Dead from Army of the Dead
+  ];
   private buffedPets: string[] = [];
   private summonedPets: string[] = [];
 

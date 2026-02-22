@@ -292,18 +292,21 @@ const spells = {
     icon: 'ability_warlock_baneofhavoc',
   },
 
+  // Buff applied to pets during Dark Transformation when Commander of the Dead talent is active
   COMMANDER_OF_THE_DEAD_BUFF: {
     id: 390264,
     name: 'Commander of the Dead',
     icon: 'spell_shadow_fumble',
   },
 
+  // Summon event for Lesser Ghouls from regular gameplay (Scourge Strike consuming Festering Strike buff)
   LESSER_GHOUL: {
     id: 275430,
     name: 'Lesser Ghoul',
     icon: 'inv_ghoulnorthrend',
   },
 
+  // Summon event for the old Army of the Dead ghouls (pre-Midnight)
   ARMY_SUMMON: {
     id: 42651,
     name: 'Army of the Dead',
@@ -369,10 +372,17 @@ const spells = {
     icon: 'spell_deathknight_festering_strike',
     runesCost: 2,
   },
+  // Buff tracking Lesser Ghoul summon availability
   LESSER_GHOUL_BUFF: {
     id: 1254252,
     name: 'Lesser Ghoul',
     icon: 'spell_deathknight_festering_strike',
+  },
+  // Tracks active Lesser Ghoul count
+  LESSER_GHOUL_ACTIVE: {
+    id: 1242998,
+    name: 'Lesser Ghoul',
+    icon: 'inv_ghoulnorthrend',
   },
 
   DREAD_PLAGUE: {
@@ -381,24 +391,105 @@ const spells = {
     icon: 'inv12_ability_deathknight_empowereddreadplague',
   },
 
+  // Buff applied to the main ghoul pet during Dark Transformation
   DARK_TRANSFORMATION_PET_BUFF: {
     id: 1233448,
     name: 'Dark Transformation',
     icon: 'achievement_boss_festergutrotface',
   },
 
+  // Buff on the player while Dark Transformation is active
   DARK_TRANSFORMATION_BUFF: {
     id: 1235391,
     name: 'Dark Transformation',
     icon: 'achievement_boss_festergutrotface',
   },
 
+  // Buff on the player while Army of the Dead is channeling
   ARMY_OF_THE_DEAD_BUFF: {
     id: 42650,
     name: 'Army of the Dead',
-    icon: 'spell_shadow_coneofsilence',
+    icon: 'spell_deathknight_armyofthedead',
   },
 
+  // Summon event for Lesser Ghouls from Apocalypse/Putrefy (empowered variant, NPC 258578)
+  LESSER_GHOUL_SUMMON_EMPOWERED: {
+    id: 1277098,
+    name: 'Lesser Ghoul',
+    icon: 'inv_ghoulnorthrend',
+  },
+
+  // Summon event for Lesser Ghouls spawned during Army of the Dead cast (NPC 237409)
+  LESSER_GHOUL_SUMMON_ARMY: {
+    id: 1282535,
+    name: 'Lesser Ghoul',
+    icon: 'inv_ghoulnorthrend',
+  },
+
+  // Summon event for main ghoul pet (Raise Dead)
+  RAISE_DEAD_SUMMON: {
+    id: 52150,
+    name: 'Raise Dead',
+    icon: 'spell_shadow_animatedead',
+  },
+
+  // Summon event for Ebon Gargoyle (fires when Summon Gargoyle talent is used)
+  SUMMON_GARGOYLE: {
+    id: 49206,
+    name: 'Summon Gargoyle',
+    icon: 'ability_deathknight_summongargoyle',
+  },
+
+  // Summon event for Abomination (fires when Raise Abomination talent is used)
+  RAISE_ABOMINATION_SUMMON: {
+    id: 288853,
+    name: 'Raise Abomination',
+    icon: 'achievement_boss_patchwerk',
+  },
+
+  // Summon event for Magus of the Dead from Apocalypse procs (later in combat)
+  MAGUS_OF_THE_DEAD_SUMMON: {
+    id: 1242294,
+    name: 'Army of the Damned',
+    icon: 'ability_maldraxxus_mage',
+  },
+
+  // Summon event for Magus of the Dead spawned during Army of the Dead cast
+  MAGUS_OF_THE_DEAD_SUMMON_ARMY: {
+    id: 317776,
+    name: 'Army of the Damned',
+    icon: 'artifactability_unholydeathknight_deathsembrace',
+  },
+
+  // Summon event for Highlord Darion Mograine (Rider of the Apocalypse horseman)
+  SUMMON_MOGRAINE: {
+    id: 444248,
+    name: 'Summon Mograine',
+    icon: 'inv_helmet_151',
+  },
+
+  // Summon event for High Inquisitor Whitemane (Rider of the Apocalypse horseman)
+  SUMMON_WHITEMANE: {
+    id: 444251,
+    name: 'Summon Whitemane',
+    icon: 'achievement_character_human_female',
+  },
+
+  // Summon event for Nazgrim (Rider of the Apocalypse horseman)
+  SUMMON_NAZGRIM: {
+    id: 444252,
+    name: 'Summon Nazgrim',
+    icon: 'achievement_boss_general_nazgrim',
+  },
+
+  // Summon event for King Thoras Trollbane (Rider of the Apocalypse horseman)
+  SUMMON_TROLLBANE: {
+    id: 444254,
+    name: 'Summon Trollbane',
+    icon: 'achievement_character_human_male',
+  },
+
+  // Damage aura from Abomination pet
   DISEASE_CLOUD: {
     id: 1244102,
     name: 'Disease Cloud',

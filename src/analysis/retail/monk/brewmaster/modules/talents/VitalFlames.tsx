@@ -11,15 +11,12 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import SpellLink from 'interface/SpellLink';
-import {
-  formatDuration,
-  formatDurationMinSec,
-  formatNumber,
-  formatPercentage,
-} from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
-import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import { BadColor, OkColor } from 'interface/guide';
 import { effectiveDamage } from 'parser/shared/modules/DamageValue';
+
+const ENABLE_DEBUG_ANN = false;
 
 export default class VitalFlames extends Analyzer {
   healingDone: HealingValue = HealingValue.empty();
@@ -55,7 +52,7 @@ export default class VitalFlames extends Analyzer {
         (effectiveHealing(event) + (event.overheal ?? 0));
       const matchingAmount = Math.abs(2 - healingRatio) < 0.1;
 
-      if (!matchingAbilityType || sourceCount > 1 || !matchingAmount) {
+      if (ENABLE_DEBUG_ANN && (!matchingAbilityType || sourceCount > 1 || !matchingAmount)) {
         this.addDebugAnnotation(event, {
           color: BadColor,
           summary: `Heal from ${sourceEvent.ability.name}`,
@@ -80,6 +77,8 @@ export default class VitalFlames extends Analyzer {
                 {formatNumber(effectiveDamage(sourceEvent) + (sourceEvent.overkill ?? 0))} (
                 {formatPercentage(healingRatio)})
               </dd>
+              <dt>Unmitigated Damage</dt>
+              <dd>{sourceEvent.unmitigatedAmount}</dd>
               <dt>Source Count</dt>
               <dd>{sourceCount}</dd>
             </dl>
@@ -153,7 +152,7 @@ export default class VitalFlames extends Analyzer {
 const VITAL_FLAME_HEALING_SOURCES = [
   SPELLS.BREATH_OF_FIRE_TALENT,
   SPELLS_COMMON.DRAGONFIRE_BREW_DAMAGE,
-  //SPELLS_COMMON.FLURRY_STRIKES_DAMAGE_MIDNIGHT,
+  SPELLS_COMMON.FLURRY_STRIKES_DAMAGE_MIDNIGHT,
   SPELLS_COMMON.BREATH_OF_FIRE_DEBUFF,
   SPELLS_COMMON.CHI_BURST_TALENT_DAMAGE,
   SPELLS_COMMON.CHI_WAVE_TALENT_DAMAGE,
@@ -161,6 +160,8 @@ const VITAL_FLAME_HEALING_SOURCES = [
   SPELLS_COMMON.EXPLODING_KEG_DEBUFF_DAMAGE,
   SPELLS_COMMON.EXPEL_HARM_DAMAGE,
   SPELLS.CRACKLING_JADE_LIGHTNING,
+  SPELLS_COMMON.ASPECT_OF_HARMONY_DOT,
+  SPELLS_COMMON.CHARRED_PASSIONS_DAMAGE,
   // TODO: handle Celestial Flames altering the damage types of SD/RJW
 ];
 
