@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { formatPercentage, formatDuration, formatNumber } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -11,7 +11,8 @@ import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/Qualitative
 import TouchOfTheMagi, { TouchOfTheMagiData } from '../analyzers/TouchOfTheMagi';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { type CastEvaluation } from 'interface/guide/components/CastSummary';
-import CastSequence, {
+import {
+  SpellSequence,
   type CastSequenceEntry,
   type CastInSequence,
 } from 'interface/guide/components/CastSequence';
@@ -207,8 +208,9 @@ class TouchOfTheMagiGuide extends Analyzer {
       });
 
     // Prepare per-cast data for CastDetail
-    const perCastData: PerCastData[] = this.touchOfTheMagi.touchData.map((cast) => {
+    const perCastData: PerCastData[] = this.touchOfTheMagi.touchData.map((cast, index) => {
       const evaluation = this.evaluateTouchCast(cast);
+      const sequenceEntry = touchSequenceEvents[index];
 
       return {
         performance: evaluation.performance,
@@ -231,6 +233,12 @@ class TouchOfTheMagiGuide extends Analyzer {
           },
         ],
         details: evaluation.reason,
+        additionalContent: sequenceEntry
+          ? {
+              title: 'Cast Sequence',
+              content: <SpellSequence casts={sequenceEntry.casts} iconSize={40} />,
+            }
+          : undefined,
       };
     });
 
@@ -258,11 +266,6 @@ class TouchOfTheMagiGuide extends Analyzer {
           ]}
         />
         <CastDetail title="Touch of the Magi Casts" casts={perCastData} />
-        <CastSequence
-          spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT}
-          sequences={touchSequenceEvents}
-          castTimestamp={(data) => formatDuration(data.applied - this.owner.fight.start_time)}
-        />
       </GuideSection>
     );
   }
