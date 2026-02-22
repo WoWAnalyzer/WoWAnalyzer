@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { Arlie, Jonfanz, Lithix, Meldris, Topple, dodse, Gazh} from 'CONTRIBUTORS';
+import { Arlie, Jonfanz, Lithix, Meldris, Topple, dodse, Gazh, Katorri} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2026, 2, 21), "Initial Midnight update to activate Affliction", Katorri),
   change(date(2024, 10, 1), <>Add support for <SpellLink spell={SPELLS.DEMONIC_HEALTHSTONE} /> </>, Gazh),
   change(date(2024, 9, 28), <>Fix SHADOW_EMBRACE_TALENT error </>, Gazh),
   change(date(2024, 9, 26), "Add support for Hero Talents", Gazh),
