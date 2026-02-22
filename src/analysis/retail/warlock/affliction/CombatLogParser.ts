@@ -21,13 +21,9 @@ import CorruptionUptime from './modules/spells/Corruption';
 import DrainSoul from './modules/spells/DrainSoul';
 import Haunt from './modules/spells/Haunt';
 import Nightfall from './modules/spells/Nightfall';
-import PhantomSingularity from './modules/spells/PhantomSingularity';
-import ShadowEmbrace from './modules/spells/ShadowEmbrace';
-import SoulConduit from './modules/spells/SoulConduit';
-import TormentedCrescendo from './modules/spells/TormentedCrescendo';
 import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
-import VileTaint from './modules/spells/VileTaint';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -44,7 +40,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     darkglare: Darkglare,
-    shadowEmbrace: ShadowEmbrace,
 
     // DoTs
     agonyUptime: AgonyUptime,
@@ -62,10 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
     nightfall: Nightfall,
-    phantomSingularity: PhantomSingularity,
-    soulConduit: SoulConduit,
-    tormentedCrescendo: TormentedCrescendo,
-    vileTaint: VileTaint,
 
     // Shared Spells
     unendingResolve: UnendingResolve,
@@ -77,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+  static guide = FoundationGuide;
 }
 
 export default CombatLogParser;
