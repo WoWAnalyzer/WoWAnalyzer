@@ -22,6 +22,9 @@ import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
 import { formatNumber } from 'common/format';
 import InvokeNiuzaoStagger from '../../talents/InvokeNiuzao/InvokeNiuzaoStagger';
+import AlertWarning from 'interface/AlertWarning';
+import Tooltip from 'interface/Tooltip';
+import { InfoIcon, InformationIcon } from 'interface/icons';
 
 const SideBySide = styled.div`
   margin-top: ${design.gaps.large};
@@ -65,53 +68,75 @@ export default function StaggerPoolSection(): JSX.Element | null {
   }, [stagger]);
 
   return (
-    <SubSection title={<SpellLink spell={SPELLS.STAGGER_TALENT} />}>
-      <SummaryDL>
-        <dt>
-          Total Damage Absorbed by <SpellLink spell={SPELLS.STAGGER_TALENT} />
-        </dt>
-        <dd>{formatNumber(totalAbsorb)}</dd>
-        <dt>
-          Total Damage Taken from <SpellLink spell={SPELLS.STAGGER_TALENT} /> (DoT)
-        </dt>
-        <dd>{formatNumber(stagger.totalTickDamageTaken)}</dd>
-        <dt>Total Damage Purified</dt>
-        <dd>{formatNumber(totalAbsorb - stagger.totalTickDamageTaken)}</dd>
-      </SummaryDL>
-      <Explanation>
-        This chart shows the amount of damage in the <SpellLink spell={SPELLS.STAGGER_TALENT} />{' '}
-        pool over time, with <SpellLink spell={SPELLS.PURIFYING_BREW_TALENT} /> casts highlighted.
-      </Explanation>
-      <div>{graph?.plot}</div>
-      <SideBySide>
-        <div>
-          <header>
-            <strong>
-              Damage Added to <SpellLink spell={SPELLS.STAGGER_TALENT} />
-            </strong>
-            <Explanation>
-              Part of damage taken from every hit is absorbed by{' '}
-              <SpellLink spell={SPELLS.STAGGER_TALENT} />. This table shows the amount added by
-              incoming damage sources.
-            </Explanation>
-          </header>
-          <StaggerTakenTable />
-        </div>
-        <div>
-          <header>
-            <strong>
-              Damage Removed from <SpellLink spell={SPELLS.STAGGER_TALENT} />
-            </strong>
-            <Explanation>
-              Damage can be removed from the <SpellLink spell={SPELLS.STAGGER_TALENT} />{' '}
-              <em>pool</em> before the <SpellLink spell={SPELLS.STAGGER_TALENT} /> DoT deals it as
-              damage. This table shows the amount removed by different effects (including the DoT).
-            </Explanation>
-          </header>
-          <StaggerPurifiedTable />
-        </div>
-      </SideBySide>
-    </SubSection>
+    <>
+      <AlertWarning>
+        <SpellLink spell={SPELLS.STAGGER_TALENT} /> tracking has received a major overhaul in
+        Midnight to handle all of the new talents that purify or prevent Stagger. If you see errors,
+        please contact <code>@emallson</code> on Discord.
+      </AlertWarning>
+      <SubSection title={<SpellLink spell={SPELLS.STAGGER_TALENT} />}>
+        <SummaryDL>
+          <dt>
+            Total Damage Absorbed by <SpellLink spell={SPELLS.STAGGER_TALENT} />
+          </dt>
+          <dd>{formatNumber(totalAbsorb)}</dd>
+          <dt>
+            Total Damage Taken from <SpellLink spell={SPELLS.STAGGER_TALENT} /> (DoT)
+          </dt>
+          <dd>{formatNumber(stagger.totalTickDamageTaken)}</dd>
+          <dt>
+            Total Damage Purified&nbsp;
+            <Tooltip
+              content={
+                <>
+                  This may not exactly match the table below due to immunities or the fast Stagger
+                  drain that occurs after several seconds without incoming damage taken.
+                </>
+              }
+            >
+              <span>
+                <InformationIcon />
+              </span>
+            </Tooltip>
+          </dt>
+          <dd>{formatNumber(totalAbsorb - stagger.totalTickDamageTaken)} </dd>
+        </SummaryDL>
+        <Explanation>
+          This chart shows the amount of damage in the <SpellLink spell={SPELLS.STAGGER_TALENT} />{' '}
+          pool over time, with <SpellLink spell={SPELLS.PURIFYING_BREW_TALENT} /> casts highlighted.
+        </Explanation>
+        <div>{graph?.plot}</div>
+        <SideBySide>
+          <div>
+            <header>
+              <strong>
+                Damage Added to <SpellLink spell={SPELLS.STAGGER_TALENT} />
+              </strong>
+              <Explanation>
+                Part of damage taken from every hit is absorbed by{' '}
+                <SpellLink spell={SPELLS.STAGGER_TALENT} />. This table shows the amount added by
+                incoming damage sources.
+              </Explanation>
+            </header>
+            <StaggerTakenTable />
+          </div>
+          <div>
+            <header>
+              <strong>
+                Damage Removed from <SpellLink spell={SPELLS.STAGGER_TALENT} />
+              </strong>
+              <Explanation>
+                Damage can be removed from the <SpellLink spell={SPELLS.STAGGER_TALENT} />{' '}
+                <em>pool</em> before the <SpellLink spell={SPELLS.STAGGER_TALENT} /> DoT deals it as
+                damage. This table shows the amount removed by different effects (including the
+                DoT).
+              </Explanation>
+            </header>
+            <StaggerPurifiedTable />
+          </div>
+        </SideBySide>
+      </SubSection>
+    </>
   );
 }
 
