@@ -56,7 +56,9 @@ export const amountBar = (
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '5rem 1fr 6rem',
+          // would be nice to not need to used a fixed-width column for the right-side number
+          // using a variable size causes the bars to no have matching scales.
+          gridTemplateColumns: '5rem 1fr 5rem',
           gap: design.gaps.medium,
           width: '100%',
         }}
@@ -73,7 +75,7 @@ export const amountBar = (
             filter: isAbsorb ? 'brightness(60%)' : undefined,
           }}
         />
-        <div style={{ textAlign: 'right' }}>{formatNumber(amount)}</div>
+        <div style={{ textAlign: 'right' }}>{formatNumber(amount, max >= 100_000_000 ? 1 : 2)}</div>
       </div>
     );
   },
