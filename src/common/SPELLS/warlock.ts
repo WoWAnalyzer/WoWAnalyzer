@@ -258,11 +258,6 @@ const spells = {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  MALEFIC_RAPTURE: {
-    id: 324536,
-    name: 'Malefic Rapture',
-    icon: 'ability_warlock_everlastingaffliction',
-  },
 
   // Affliction talents
   DREAD_TOUCH_DEBUFF: {
@@ -304,16 +299,6 @@ const spells = {
     id: 453206,
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
-  },
-  TORMENTED_CRESCENDO_BUFF: {
-    id: 387079,
-    name: 'Tormented Crescendo',
-    icon: 'warlock_curse_shadow',
-  },
-  VILE_TAINT_DEBUFF: {
-    id: 386931,
-    name: 'Vile Taint',
-    icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
   },
 
   // Affliction shard generating effects
