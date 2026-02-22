@@ -49,6 +49,7 @@ import MantraOfPurityStaggerPrevented from './normalizers/MantraOfPurityStaggerP
 import StaggerClearSourceLinkNormalizer from './normalizers/StaggerClearSourceLinkNormalizer';
 import PurifyingBrew from './modules/talents/PurifyingBrew';
 import TouchOfDeathStagger from './modules/spells/TouchOfDeathStagger';
+import InvokeNiuzaoStagger from './modules/talents/InvokeNiuzao/InvokeNiuzaoStagger';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -114,6 +115,7 @@ class CombatLogParser extends CoreCombatLogParser {
     AspectOfHarmony,
     VitalFlames,
     InvokeNiuzao,
+    InvokeNiuzaoStagger,
 
     apl: AplCheck,
   };

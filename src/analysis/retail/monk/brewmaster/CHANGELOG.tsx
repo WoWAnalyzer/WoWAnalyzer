@@ -5,7 +5,8 @@ import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
-  change(date(2025, 2, 21), <>Add <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> section</>, emallson),
+  change(date(2026, 2, 22), <>Add new <SpellLink spell={SPELLS.STAGGER_TALENT} /> implementation and section</>, emallson),
+  change(date(2026, 2, 21), <>Add <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> section</>, emallson),
   change(date(2026, 1, 18), <>Add statistic for <SpellLink spell={SPELLS.VITAL_FLAME_TALENT} /></>, emallson),
   change(date(2025, 11, 27), <>Update <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} />, <SpellLink spell={SPELLS.STAGGERING_STRIKES_TALENT} /> and <SpellLink spell={SPELLS.WALK_WITH_THE_OX_TALENT} /> for Midnight</>, emallson),
   change(date(2025, 11, 20), <>Remove Purified Chi in Midnight and do a pass on <SpellLink spell={SPELLS.PURIFYING_BREW_TALENT} /> / <SpellLink spell={SPELLS.CELESTIAL_BREW_TALENT} /> analysis</>, emallson),

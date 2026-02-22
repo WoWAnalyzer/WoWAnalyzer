@@ -21,6 +21,7 @@ import * as design from 'interface/design-system';
 import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
 import { formatNumber } from 'common/format';
+import InvokeNiuzaoStagger from '../../talents/InvokeNiuzao/InvokeNiuzaoStagger';
 
 const SideBySide = styled.div`
   margin-top: ${design.gaps.large};
@@ -194,6 +195,7 @@ const PURIFICATION_SOURCES = [
   TranquilSpirit,
   PurifyingBrew,
   TouchOfDeathStagger,
+  InvokeNiuzaoStagger,
 ] as const;
 
 const purificationColumns = {

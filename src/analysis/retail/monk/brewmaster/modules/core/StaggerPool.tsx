@@ -145,6 +145,14 @@ export default class StaggerPool extends Analyzer {
   private remainingTicks: number = 0;
   private readonly totalTickCount: number;
 
+  /**
+   * Total damage actually taken from ticks, including absorbs. Note that Stagger redirection from Niuzao is not an absorb.
+   *
+   * Immunity effects reduce this amount. That may seem niche, but some fights (notably Dimensius) give immunity as part of RP.
+   *
+   * The other big gotcha for comparing these is the rapid pool clearing that occurs if you don't take damage for long enough.
+   * This is mostly relevant for M+, where rapid pool clearing occurs between packs and causes damage in to no longer match damage out.
+   */
   public totalTickDamageTaken: number = 0;
 
   constructor(options: Options) {
@@ -187,7 +195,7 @@ export default class StaggerPool extends Analyzer {
         ? /* estimated */ this.estimatedNextTick()
         : event.unmitigatedAmount!;
 
-    this.totalTickDamageTaken += tickAmount;
+    this.totalTickDamageTaken += event.amount + (event.absorbed ?? 0);
 
     if (this.poolData.length === 0) {
       // analysis started after the fight start, aka a phase selection or duration selection.
