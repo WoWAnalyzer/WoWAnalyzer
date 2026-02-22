@@ -24,7 +24,7 @@ import { formatNumber } from 'common/format';
 import InvokeNiuzaoStagger from '../../talents/InvokeNiuzao/InvokeNiuzaoStagger';
 import AlertWarning from 'interface/AlertWarning';
 import Tooltip from 'interface/Tooltip';
-import { InfoIcon, InformationIcon } from 'interface/icons';
+import { InformationIcon } from 'interface/icons';
 
 const SideBySide = styled.div`
   margin-top: ${design.gaps.large};
@@ -247,20 +247,30 @@ function StaggerPurifiedTable(): JSX.Element | null {
       });
     }
 
+    const totalStaggerAbsorbed =
+      stagger?.totalDamageByAbility.values().reduce((total, amount) => total + amount, 0) ?? 0;
+    const totalKnown = rows.reduce((total, row) => row.amount + total, 0);
+    const totalDoT = stagger?.totalTickDamageTaken ?? 0;
+
     rows.sort((a, b) => b.amount - a.amount);
+
+    rows.push({
+      spell: OTHER_SPECIAL_ID,
+      type: 'Other',
+      amount: totalStaggerAbsorbed - totalDoT - totalKnown,
+    });
 
     rows.push({
       spell: SPELLS.STAGGER_TALENT.id,
       type: 'Other',
-      amount: stagger?.totalTickDamageTaken ?? 0,
+      amount: totalDoT,
     });
 
-    const total = rows.reduce((total, row) => row.amount + total, 0);
     const max = rows.reduce((max, row) => Math.max(row.amount, max), 0);
 
     return {
       rows,
-      ctx: { max, total },
+      ctx: { max, total: totalStaggerAbsorbed },
     };
   }, [analyzers, stagger]);
 
