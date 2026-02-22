@@ -7,11 +7,7 @@ const defaultDurations = {
   [SPELLS.AGONY.id]: 18000,
   [SPELLS.CORRUPTION_DEBUFF.id]: 14000,
   // Talents
-  [TALENTS.SIPHON_LIFE_TALENT.id]: 15000,
-  [TALENTS.UNSTABLE_AFFLICTION_TALENT.id]: 16000,
-  [TALENTS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
-  [TALENTS.VILE_TAINT_TALENT.id]: 10000,
-  [TALENTS.SOUL_ROT_TALENT.id]: 8000,
+  [TALENTS.UNSTABLE_AFFLICTION_TALENT.id]: 8000,
 } as const;
 
 const affectedByCreepingDeath = [
@@ -30,10 +26,6 @@ export const getDotDurations = (combatant: Combatant): Record<number, number> =>
         ]),
       )
     : defaultDurations;
-
-// Shadow Embrace modifiers for Drain Soul / No Drain Soul
-export const SHADOW_DEFAULT_EMBRACE_MODIFIER = 0.04;
-export const SHADOW_DRAIN_SOUL_EMBRACE_MODIFIER = 0.02;
 
 // Corruption Talent Modifiers
 export const SL_DAMAGE_BONUS = 0.2;
