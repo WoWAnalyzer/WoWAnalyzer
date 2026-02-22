@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import { AlertInfo, SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
-import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
 import spells from './spell-list_Monk_Brewmaster.retail';
 
@@ -17,8 +16,9 @@ import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import AspectOfHarmony from './modules/talents/AspectOfHarmony';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import InvokeNiuzaoSection from './modules/talents/InvokeNiuzao/InvokeNiuzaoSection';
+import StaggerPoolSection from './modules/core/StaggerPool/StaggerPoolSection';
 
-export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <Section title="Core Skills">
@@ -31,13 +31,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           dangerous damage-over-time effect (the <em>Stagger pool</em>). We have a variety of ways
           to reduce the damage of this DoT&mdash;the most important of which is{' '}
           <SpellLink spell={talents.PURIFYING_BREW_TALENT} />, which reduces the remaining DoT
-          damage by 50%.
+          damage by 50% or more.
         </p>
-        <p>
-          This section covers both, and is by far the most important one when it comes to mastering
-          the basics of Brewmaster gameplay.
-        </p>
-        <PurifySection module={modules.purifyProblems} events={events} info={info} />
+        <StaggerPoolSection />
       </Section>
       <Section title="Core Rotation">
         <AlertInfo>

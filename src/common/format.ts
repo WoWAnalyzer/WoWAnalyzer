@@ -9,14 +9,14 @@ export function formatThousands(number: number): string {
 
 /**
  * Rounds to nearest integer and returns as a String with added thousands seperators,
- * but if above 10,000 expresses as number of thousands and if above 1,000,000 expresses as number of millions (with 2 decimal places).
+ * but if above 10,000 expresses as number of thousands and if above 1,000,000 expresses as number of millions (with 2 decimal places by default).
  * Ex: 4445.2 => 4,445
  *     78921 => 79k
  *     3444789 => 3.44m
  */
-export function formatNumber(number: number): string {
+export function formatNumber(number: number, millionPrecision = 2): string {
   if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
+    return `${(number / 1000000).toFixed(millionPrecision)}m`;
   }
   if (number > 10000) {
     return `${Math.round(number / 1000)}k`;

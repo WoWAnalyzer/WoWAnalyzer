@@ -8,26 +8,39 @@ import ItemDamageTaken from 'parser/ui/ItemDamageTaken';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import StaggerFabricator from '../core/StaggerFabricator';
+import StaggerPool from '../core/StaggerPool';
+import Spell from 'common/SPELLS/Spell';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-export default abstract class StaggerStatistic extends Analyzer {
-  static dependencies = { fab: StaggerFabricator };
-  protected fab!: StaggerFabricator;
-
+export default abstract class StaggerStatistic extends Analyzer.withDependencies({
+  stagger: StaggerPool,
+}) {
   private staggerRemoved = 0;
   private removalEventCount = 0;
-  private talent: Talent;
+  readonly ability: Talent | Spell;
 
-  protected removeStagger(event: AnyEvent, amount: number) {
-    this.staggerRemoved += this.fab.removeStagger(event, amount);
-    this.removalEventCount += 1;
+  get amount(): number {
+    return this.staggerRemoved;
   }
 
-  constructor(talent: Talent, options: Options) {
-    super(options);
-    this.talent = talent;
+  get count(): number {
+    return this.removalEventCount;
+  }
 
-    this.active = this.selectedCombatant.hasTalent(talent);
+  protected removeStagger(event: AnyEvent, amount: number) {
+    this.removalEventCount += 1;
+    const currentTotal = this.deps.stagger.getPoolAtTime(event.timestamp).total;
+    // don't allow removing more than is present
+    this.staggerRemoved += Math.min(currentTotal, amount);
+  }
+
+  constructor(ability: Talent | Spell, options: Options) {
+    super(options);
+    this.ability = ability;
+
+    if ('entryIds' in ability) {
+      this.active = this.selectedCombatant.hasTalent(ability);
+    }
   }
 
   statistic() {
@@ -45,10 +58,24 @@ export default abstract class StaggerStatistic extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={this.talent}>
+        <SpellTextWrapper ability={this.ability}>
           <ItemDamageTaken amount={this.staggerRemoved} hideTotal />
-        </TalentSpellText>
+        </SpellTextWrapper>
       </Statistic>
     );
+  }
+}
+
+function SpellTextWrapper({
+  ability,
+  children,
+}: {
+  ability: Talent | Spell;
+  children: React.ReactNode;
+}) {
+  if ('entryIds' in ability) {
+    return <TalentSpellText talent={ability}>{children}</TalentSpellText>;
+  } else {
+    return <BoringSpellValueText spell={ability}>{children}</BoringSpellValueText>;
   }
 }

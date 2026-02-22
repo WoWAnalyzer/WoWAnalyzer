@@ -10,10 +10,7 @@ import BrewCDR from './modules/core/BrewCDR';
 import DamageTaken from './modules/core/DamageTaken';
 import HealingDone from './modules/core/HealingDone';
 import SharedBrews from './modules/core/SharedBrews';
-import Stagger from './modules/core/Stagger';
-import StaggerFabricator from './modules/core/StaggerFabricator';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
-import PurifyingBrewProblems from './modules/problems/PurifyingBrew';
 import ScaldingBrew from './modules/talents/ScaldingBrew';
 import WalkWithTheOx from './modules/talents/WalkWithTheOx';
 import StormtoutsLastKeg from './modules/talents/StormstoutsLastKeg';
@@ -24,10 +21,8 @@ import CelestialBrew from './modules/spells/CelestialBrew';
 import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 import HighTolerance from './modules/spells/HighTolerance';
 import KegSmash from './modules/spells/KegSmash';
-import PurifyingBrew from './modules/spells/PurifyingBrew';
 import Shuffle from './modules/spells/Shuffle';
 import TigerPalm from './modules/spells/TigerPalm';
-import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
 import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
 import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
@@ -49,14 +44,18 @@ import { Abilities } from './gen';
 import { ExpelOxOrbsNormalizer } from './normalizers/ExpelHarm';
 import VitalFlames, { VitalFlameNormalizer } from './modules/talents/VitalFlames';
 import InvokeNiuzao from './modules/talents/InvokeNiuzao/InvokeNiuzao';
+import StaggerPool, { StaggerPreventedLinkNormalizer } from './modules/core/StaggerPool';
+import MantraOfPurityStaggerPrevented from './normalizers/MantraOfPurityStaggerPrevented';
+import StaggerClearSourceLinkNormalizer from './normalizers/StaggerClearSourceLinkNormalizer';
+import PurifyingBrew from './modules/talents/PurifyingBrew';
+import TouchOfDeathStagger from './modules/spells/TouchOfDeathStagger';
+import InvokeNiuzaoStagger from './modules/talents/InvokeNiuzao/InvokeNiuzaoStagger';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     healingDone: HealingDone,
     damageTaken: DamageTaken,
-    stagger: Stagger,
-    staggerFabricator: StaggerFabricator,
     brewCdr: BrewCDR,
     brews: SharedBrews,
     channeling: Channeling,
@@ -71,7 +70,6 @@ class CombatLogParser extends CoreCombatLogParser {
     staggerPoolGraph: StaggerPoolGraph,
 
     // Spells
-    purifyingBrew: PurifyingBrew,
     celestialBrew: CelestialBrew,
     blackoutCombo: BlackoutCombo,
     kegSmash: KegSmash,
@@ -85,11 +83,11 @@ class CombatLogParser extends CoreCombatLogParser {
     fortBrew: FortifyingBrew,
     defensiveBuffs: DefensiveBuffs,
     defensiveLinks: DefensiveBuffLinkNormalizer,
+    stagger: StaggerPool,
 
     // Items
 
     // normalizers
-    staggerLink: StaggerLinkNormalizer,
     cbNorm: CelestialBrewNormalizer,
     bofNorm: BreathOfFireDebuffTargetNormalizer,
     sckNorm: SpinningCraneKickLinkNormalizer,
@@ -97,12 +95,17 @@ class CombatLogParser extends CoreCombatLogParser {
     aohNorm: AspectOfHarmonyLinkNormalizer,
     expelOxOrbNorm: ExpelOxOrbsNormalizer,
     VitalFlameNormalizer,
+    StaggerPreventedLinkNormalizer,
+    MantraOfPurityStaggerPrevented,
+    StaggerClearSourceLinkNormalizer,
 
     // Talents
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
     staggeringStrikes: StaggeringStrikes,
     quickSip: QuickSip,
+    todStagger: TouchOfDeathStagger,
+    pb: PurifyingBrew,
     tranquilSpirit: TranquilSpirit,
     salsalabims: Salsalabims,
     anvilStave: AnvilStave,
@@ -112,11 +115,9 @@ class CombatLogParser extends CoreCombatLogParser {
     AspectOfHarmony,
     VitalFlames,
     InvokeNiuzao,
+    InvokeNiuzaoStagger,
 
     apl: AplCheck,
-
-    /// Problem/Guide stuff
-    purifyProblems: PurifyingBrewProblems,
   };
 
   static guide = Guide;
