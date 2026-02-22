@@ -155,41 +155,6 @@ export const StatsGrid = styled.div`
   margin-bottom: 6px;
 `;
 
-/** Individual stat item — clean left-border chip (used in expanded cast rows) */
-export const StatItem = styled.div<{ color: string }>`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 6px 10px 5px 10px;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  border-left: 3px solid ${(props) => props.color};
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-`;
-
-/** Stat item value (customizable font size, left-aligned) */
-export const StatItemValue = styled.div<{ fontSize?: string }>`
-  font-size: ${(props) => props.fontSize || '1.6rem'};
-  font-weight: 700;
-  color: #fff;
-  line-height: 1;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  text-align: left;
-  margin-bottom: 2px;
-`;
-
-/** Stat item label (left-aligned) */
-export const StatItemLabel = styled.div`
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-align: left;
-  margin-bottom: 2px;
-`;
-
 /** Helper text - small italicized text for additional context */
 export const HelperText = styled.div`
   font-size: 1rem;

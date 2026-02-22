@@ -76,7 +76,6 @@ const PERF_LEVELS = [
  * @param title - Title for the cast detail section
  * @param casts - Array of per-cast data to display
  * @param description - Optional description text shown below the title
- * @param fontSize - Font size for cast details (default: '16px')
  */
 export default function CastDetail({ title, casts, description }: CastDetailProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
