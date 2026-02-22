@@ -2,6 +2,7 @@ export { default as CastSummary, type CastEvaluation } from './CastSummary';
 export { default as GuideSection } from './GuideSection';
 export { default as CastOverview, type StatisticData } from './CastOverview';
 export { default as CastDetail, type PerCastData, type PerCastStat } from './CastDetail';
+export { default as GuideDataWrapper } from './GuideDataWrapper';
 export { default as BuffUptimeBar } from './BuffUptimeBar';
 export {
   default as CastSequence,
@@ -11,17 +12,18 @@ export {
 export { TipBox, TipBoxWithTimestamps } from './TipBox';
 export {
   SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatColumn,
   StatsRow,
   StatCard,
+  StatCardValue,
+  StatCardDivider,
+  StatCardLabel,
   StatValue,
   StatLabel,
   StatsGrid,
   StatItem,
   StatItemValue,
   StatItemLabel,
+  HelperText,
+  HelperTextRow,
+  NavButton,
 } from './GuideDivs';

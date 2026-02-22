@@ -70,136 +70,131 @@ export const PanelHeader = styled.div`
 
 /** Container for entire component section */
 export const SectionContainer = styled.div`
-  margin-bottom: 16px;
-`;
-
-/** Header section containing title and stats */
-export const SectionHeader = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
-  margin-bottom: 8px;
-`;
-
-/** Column for title and labels */
-export const TitleColumn = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: space-between;
-`;
-
-/** Main title/header for guide sections */
-export const SectionTitle = styled.h3`
-  margin: 0 0 12px 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #fab700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-`;
-
-/** Small label text (e.g., "Timeline", "Performance") */
-export const Label = styled.div`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-`;
-
-/** Column container for stat cards and helper text */
-export const StatColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
 `;
 
 /** Row for stat cards */
 export const StatsRow = styled.div`
   display: flex;
-  gap: 8px;
-  align-items: flex-end;
+  gap: 6px;
+  align-items: center;
 `;
 
-/** Individual stat card with colored border */
+/** Stat card — bordered card with value | divider | label side by side */
 export const StatCard = styled.div<{ color: string }>`
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid ${(props) => props.color}45;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  min-height: 44px;
+`;
+
+/** Value half of a StatCard */
+export const StatCardValue = styled.div<{ color: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 12px;
-  min-width: 70px;
-  border-left: 3px solid ${(props) => props.color};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: ${(props) => props.color};
+  line-height: 1;
+  flex-shrink: 0;
+`;
+
+/** Partial-height vertical divider inside a StatCard */
+export const StatCardDivider = styled.div<{ color: string }>`
+  width: 1px;
+  height: 55%;
+  align-self: center;
+  background: ${(props) => props.color}35;
+  flex-shrink: 0;
+`;
+
+/** Label half of a StatCard — can wrap to two lines */
+export const StatCardLabel = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  flex: 1;
 `;
 
 /** Stat value (large number/text) */
 export const StatValue = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
   line-height: 1;
-  margin-bottom: 2px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 `;
 
 /** Stat label (small descriptive text) */
 export const StatLabel = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.55);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 `;
 
-/** Grid layout for displaying multiple stat items */
+/** 3-column grid layout for stat cards */
 export const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
-  margin-bottom: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
 `;
 
-/** Individual stat item with colored border (for grid display) */
+/** Individual stat item — clean left-border chip (used in expanded cast rows) */
 export const StatItem = styled.div<{ color: string }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px 12px 8px 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
+  gap: 2px;
+  padding: 6px 10px 5px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
   border-left: 3px solid ${(props) => props.color};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 `;
 
 /** Stat item value (customizable font size, left-aligned) */
 export const StatItemValue = styled.div<{ fontSize?: string }>`
-  font-size: ${(props) => props.fontSize || '2rem'};
+  font-size: ${(props) => props.fontSize || '1.6rem'};
   font-weight: 700;
   color: #fff;
   line-height: 1;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   text-align: left;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 `;
 
 /** Stat item label (left-aligned) */
 export const StatItemLabel = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.65);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-align: left;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 `;
 
 /** Helper text - small italicized text for additional context */
 export const HelperText = styled.div`
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 6px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
   font-style: italic;
 `;
 
@@ -214,47 +209,49 @@ export const HelperTextRow = styled.div`
 /** Container for navigation buttons */
 export const NavigationButtons = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 2px;
   align-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 2px;
 `;
 
-/** Navigation button (previous/next) */
+/** Navigation button — larger touch target, mobile-friendly */
 export const NavButton = styled.button<{ disabled?: boolean }>`
-  width: 32px;
+  min-width: 32px;
   height: 32px;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-  color: ${(props) => (props.disabled ? '#666' : '#fab700')};
-  font-size: 2rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, ${(props) => (props.disabled ? '0.04' : '0.1')});
+  border-radius: 6px;
+  color: ${(props) => (props.disabled ? 'rgba(255,255,255,0.15)' : '#fab700')};
+  font-size: 1.8rem;
+  font-weight: 400;
+  transition: all 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 0 8px;
   line-height: 1;
-  opacity: ${(props) => (props.disabled ? 0.4 : 1)};
+  -webkit-tap-highlight-color: transparent;
 
   &:hover:not(:disabled) {
-    background: rgba(250, 183, 0, 0.2);
-    border-color: #fab700;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    background: rgba(250, 183, 0, 0.12);
+    border-color: rgba(250, 183, 0, 0.35);
   }
 
   &:active:not(:disabled) {
-    transform: scale(0.95);
+    transform: scale(0.9);
+    background: rgba(250, 183, 0, 0.18);
   }
 `;
 
 /** Counter/info display between navigation buttons */
 export const NavCounter = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-  min-width: 50px;
+  color: rgba(255, 255, 255, 0.75);
+  min-width: 36px;
   text-align: center;
 `;
 

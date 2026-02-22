@@ -5,11 +5,6 @@ import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
-  SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
   NavigationButtons,
   NavButton,
   NavCounter,
@@ -17,6 +12,7 @@ import {
   HelperTextRow,
   ScrollableContainer,
 } from './GuideDivs';
+import GuideDataWrapper from './GuideDataWrapper';
 
 export interface CastInSequence {
   timestamp: number;
@@ -125,37 +121,39 @@ export default function CastSequence<T>({
     }
   }
 
-  return (
-    <SectionContainer>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{spell.name} Cast Sequences</SectionTitle>
-          {description && (
-            <HelperTextRow>
-              <HelperText>{description}</HelperText>
-            </HelperTextRow>
-          )}
-          <Label>
-            Cast Sequence {windowStart !== undefined && `at ${castTimestamp(currentSequence.data)}`}
-          </Label>
-        </TitleColumn>
-        <NavigationButtons>
-          <NavButton type="button" onClick={handlePrevious} aria-label="Previous sequence">
-            ‹
-          </NavButton>
-          <NavCounter>
-            {currentIndex + 1} / {sequences.length}
-          </NavCounter>
-          <NavButton type="button" onClick={handleNext} aria-label="Next sequence">
-            ›
-          </NavButton>
-        </NavigationButtons>
-      </SectionHeader>
+  const subtitle = `Cast Sequence ${windowStart !== undefined ? `at ${castTimestamp(currentSequence.data)}` : ''}`;
 
+  const navContent = (
+    <NavigationButtons>
+      <NavButton type="button" onClick={handlePrevious} aria-label="Previous sequence">
+        ‹
+      </NavButton>
+      <NavCounter>
+        {currentIndex + 1} / {sequences.length}
+      </NavCounter>
+      <NavButton type="button" onClick={handleNext} aria-label="Next sequence">
+        ›
+      </NavButton>
+    </NavigationButtons>
+  );
+
+  const headerHelperText = description ? (
+    <HelperTextRow>
+      <HelperText>{description}</HelperText>
+    </HelperTextRow>
+  ) : undefined;
+
+  return (
+    <GuideDataWrapper
+      title={`${spell.name} Cast Sequences`}
+      subtitle={subtitle}
+      stats={navContent}
+      helperText={headerHelperText}
+    >
       <ScrollableContainer>
         <SpellSequence casts={currentSequence.casts} iconSize={iconSize} />
       </ScrollableContainer>
-    </SectionContainer>
+    </GuideDataWrapper>
   );
 }
 
