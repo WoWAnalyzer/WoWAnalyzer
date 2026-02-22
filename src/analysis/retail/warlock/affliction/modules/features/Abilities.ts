@@ -102,15 +102,15 @@ class Abilities extends SharedAbilities {
         enabled: combatant.hasTalent(TALENTS.MALEVOLENCE_TALENT),
         cooldown: 60,
       },
+      // Cooldowns
       {
         spell: TALENTS.DARK_HARVEST_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.DARK_HARVEST_TALENT),
         gcd: {
           base: 1500,
         },
       },
-      // Cooldowns
       {
         spell: TALENTS.SUMMON_DARKGLARE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
