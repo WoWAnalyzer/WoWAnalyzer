@@ -107,6 +107,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.DARK_HARVEST_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.DARK_HARVEST_TALENT),
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
