@@ -8,6 +8,7 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import StaggerPool from '../core/StaggerPool';
+import PurifyingBrew from '../talents/PurifyingBrew';
 
 interface StaggerEvent {
   timestamp: number;
@@ -24,7 +25,10 @@ interface StaggerEvent {
  * As well as just giving a generally interesting look into when damage
  * actually hit your health bar on a fight.
  */
-class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool }) {
+class StaggerPoolGraph extends Analyzer.withDependencies({
+  stagger: StaggerPool,
+  pb: PurifyingBrew,
+}) {
   _deathEvents: DeathEvent[] = [];
   _lastHp: number | null = null;
   _lastMaxHp: number | null = null;
@@ -50,6 +54,8 @@ class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool 
       title: null,
     };
 
+    const startTime = this.owner.fight.start_time - this.owner.fight.offset_time;
+
     const spec: VisualizationSpec = {
       data: {
         name: 'combined',
@@ -59,7 +65,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool 
           filter: 'isValid(datum.newPooledDamage)',
         },
         {
-          calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+          calculate: `datum.timestamp - ${startTime}`,
           as: 'timestamp_shifted',
         },
       ],
@@ -106,25 +112,21 @@ class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool 
           },
           transform: [
             {
-              calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+              calculate: `datum.timestamp - ${startTime}`,
               as: 'timestamp_shifted',
-            },
-            {
-              calculate: 'datum.newPooledDamage + datum.amount',
-              as: 'oldPooledDamage',
             },
           ],
           encoding: {
             x: xAxis,
             y: {
-              field: 'oldPooledDamage',
+              field: 'oldPooledAmount',
               type: 'quantitative' as const,
               title: null,
             },
             tooltip: [
               { field: 'amount', title: 'Amount Purified', format: '.3~s' },
               {
-                field: 'oldPooledDamage',
+                field: 'oldPooledAmount',
                 type: 'quantitative' as const,
                 title: 'Staggered Damage',
                 format: '.3~s',
@@ -142,7 +144,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool 
           },
           transform: [
             {
-              calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+              calculate: `datum.timestamp - ${startTime}`,
               as: 'timestamp_shifted',
             },
           ],
@@ -153,14 +155,15 @@ class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool 
       ],
     };
 
-    if (this.deps.stagger.pool.length > 0) {
-      const staggerEvents = this.deps.stagger.pool.map(
+    if (this.deps.stagger.pool.data.length > 0) {
+      const staggerEvents = this.deps.stagger.pool.data.map(
         (point) =>
           ({
             timestamp: point.timestamp,
             newPooledDamage: point.total,
           }) satisfies StaggerEvent,
       );
+
       return (
         <div
           className="graph-container"
@@ -175,7 +178,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({ stagger: StaggerPool 
                 spec={spec}
                 data={{
                   combined: staggerEvents,
-                  purifies: [],
+                  purifies: this.deps.pb.purifies,
                   deaths: this._deathEvents,
                 }}
                 width={width}

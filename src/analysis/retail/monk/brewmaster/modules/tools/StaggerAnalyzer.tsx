@@ -9,13 +9,23 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import StaggerPool from '../core/StaggerPool';
+import Spell from 'common/SPELLS/Spell';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 export default abstract class StaggerStatistic extends Analyzer.withDependencies({
   stagger: StaggerPool,
 }) {
   private staggerRemoved = 0;
   private removalEventCount = 0;
-  private talent: Talent;
+  readonly ability: Talent | Spell;
+
+  get amount(): number {
+    return this.staggerRemoved;
+  }
+
+  get count(): number {
+    return this.removalEventCount;
+  }
 
   protected removeStagger(event: AnyEvent, amount: number) {
     this.removalEventCount += 1;
@@ -24,11 +34,13 @@ export default abstract class StaggerStatistic extends Analyzer.withDependencies
     this.staggerRemoved += Math.min(currentTotal, amount);
   }
 
-  constructor(talent: Talent, options: Options) {
+  constructor(ability: Talent | Spell, options: Options) {
     super(options);
-    this.talent = talent;
+    this.ability = ability;
 
-    this.active = this.selectedCombatant.hasTalent(talent);
+    if ('entryIds' in ability) {
+      this.active = this.selectedCombatant.hasTalent(ability);
+    }
   }
 
   statistic() {
@@ -46,10 +58,24 @@ export default abstract class StaggerStatistic extends Analyzer.withDependencies
           </>
         }
       >
-        <TalentSpellText talent={this.talent}>
+        <SpellTextWrapper ability={this.ability}>
           <ItemDamageTaken amount={this.staggerRemoved} hideTotal />
-        </TalentSpellText>
+        </SpellTextWrapper>
       </Statistic>
     );
+  }
+}
+
+function SpellTextWrapper({
+  ability,
+  children,
+}: {
+  ability: Talent | Spell;
+  children: React.ReactNode;
+}) {
+  if ('entryIds' in ability) {
+    return <TalentSpellText talent={ability}>{children}</TalentSpellText>;
+  } else {
+    return <BoringSpellValueText spell={ability}>{children}</BoringSpellValueText>;
   }
 }

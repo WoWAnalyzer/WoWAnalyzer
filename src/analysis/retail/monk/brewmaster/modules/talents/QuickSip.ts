@@ -18,7 +18,7 @@ export default class QuickSip extends StaggerStatistic {
     this.addEventListener(
       Events.damage.spell([
         talents.KEG_SMASH_TALENT,
-        SPELLS.SPINNING_CRANE_KICK_BRM,
+        SPELLS.SPINNING_CRANE_KICK_DAMAGE,
         SPELLS.BLACKOUT_KICK_BRM,
       ]),
       this.onDamage,

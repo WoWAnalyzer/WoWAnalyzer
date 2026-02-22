@@ -12,6 +12,7 @@ import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import { BadColor, GoodColor, PerfectColor } from 'interface/guide';
 import { formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
+import StateHistory from 'parser/core/StateHistory';
 
 const UNKNOWN_SPELL = Number.MIN_SAFE_INTEGER;
 const STAGGER_QUICK_DRAIN_MS = 3000;
@@ -133,9 +134,18 @@ const ENABLE_DEBUG_ANN = false;
  * - While Niuzao is active, the player sometimes takes slightly too little (~3%) damage from Stagger ticks.
  */
 export default class StaggerPool extends Analyzer {
-  public readonly pool: StaggerPoint[] = [];
+  private readonly poolData: StaggerPoint[] = [];
+  public readonly pool: StateHistory<StaggerPoint> = new StateHistory(this.poolData);
+  public readonly totalDamageByAbility: Map<number, number> = new Map();
+  public readonly hitsByAbility: Map<number, number> = new Map();
+
+  // TODO: this probably shouldn't live here? needed for stagger damage table
+  public readonly observedSpellSchools: Map<number, number> = new Map();
+
   private remainingTicks: number = 0;
   private readonly totalTickCount: number;
+
+  public totalTickDamageTaken: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -163,40 +173,12 @@ export default class StaggerPool extends Analyzer {
    * The current implementation uses a binary search to avoid scanning the whole list.
    */
   public getPoolAtTime(timestamp: number): StaggerPoint {
-    let left = 0;
-    let right = this.pool.length - 1;
-
-    let nearestMatch: StaggerPoint | undefined;
-
-    while (left <= right) {
-      const middle = Math.ceil((left + right) / 2);
-
-      const point = this.pool[middle];
-      if (point.timestamp === timestamp) {
-        // exact match, but we need to scan forward to make sure that this is the last point with that timestamp
-        nearestMatch = point;
-        for (let next = middle + 1; next < this.pool.length; next++) {
-          const nextPoint = this.pool[next];
-          if (nextPoint.timestamp > timestamp) {
-            return nearestMatch;
-          }
-        }
-        return nearestMatch;
-      } else if (point.timestamp < timestamp) {
-        // update the nearest match, then move right
-        nearestMatch = point;
-        left = middle + 1;
-      } else {
-        // point.timestamp > timestamp, since we already handled equality
-        right = middle - 1;
-      }
-    }
-
+    const nearestMatch = this.pool.getBefore(timestamp);
     return nearestMatch ?? StaggerPoint.empty(timestamp, this.totalTickCount);
   }
 
   private estimatedNextTick(): number {
-    return (this.pool[this.pool.length - 1]?.total ?? 0) / this.remainingTicks;
+    return (this.pool.data[this.pool.data.length - 1]?.total ?? 0) / this.remainingTicks;
   }
 
   private onStaggerTick(event: DamageEvent): void {
@@ -205,7 +187,9 @@ export default class StaggerPool extends Analyzer {
         ? /* estimated */ this.estimatedNextTick()
         : event.unmitigatedAmount!;
 
-    if (this.pool.length === 0) {
+    this.totalTickDamageTaken += tickAmount;
+
+    if (this.poolData.length === 0) {
       // analysis started after the fight start, aka a phase selection or duration selection.
       // we use this tick to infer the amount of stagger in the pool, assigned to `UNKNOWN_ABILITY`
       const initialPoolValue = StaggerPoint.empty(event.timestamp, this.totalTickCount).add(
@@ -214,12 +198,12 @@ export default class StaggerPool extends Analyzer {
         tickAmount * this.totalTickCount,
         this.totalTickCount,
       );
-      this.pool.push(initialPoolValue);
+      this.poolData.push(initialPoolValue);
       this.remainingTicks = this.totalTickCount;
       this.updatePoolForTick(event, tickAmount);
     } else {
       if (ENABLE_DEBUG_ANN) {
-        const currentAmount = this.pool[this.pool.length - 1].total;
+        const currentAmount = this.poolData[this.poolData.length - 1].total;
         const expectedAmount = tickAmount * this.remainingTicks;
 
         // Stagger spreads out damage over N ticks. if it doesn't divide evenly, the tick
@@ -263,17 +247,35 @@ export default class StaggerPool extends Analyzer {
     }
   }
 
+  /**
+   * Update total damage maps, ignoring prevention. (We want actual total damage staggered)
+   */
+  private updateTotalDamage(event: AbsorbedEvent): void {
+    this.totalDamageByAbility.set(
+      event.extraAbility.guid,
+      (this.totalDamageByAbility.get(event.extraAbility.guid) ?? 0) + event.amount,
+    );
+    this.hitsByAbility.set(
+      event.extraAbility.guid,
+      (this.hitsByAbility.get(event.extraAbility.guid) ?? 0) + 1,
+    );
+
+    this.observedSpellSchools.set(event.extraAbility.guid, event.extraAbility.type);
+  }
+
   private onStaggerAbsorb(event: AbsorbedEvent): void {
-    if (this.pool.length === 0) {
-      this.pool.push(StaggerPoint.empty(this.owner.fight.start_time, this.totalTickCount));
+    this.updateTotalDamage(event);
+
+    if (this.poolData.length === 0) {
+      this.poolData.push(StaggerPoint.empty(this.owner.fight.start_time, this.totalTickCount));
     }
 
-    let current = this.pool[this.pool.length - 1];
+    let current = this.poolData[this.poolData.length - 1];
     if (event.timestamp - current.timestamp > STAGGER_QUICK_DRAIN_MS) {
-      this.pool.push(
+      this.poolData.push(
         StaggerPoint.empty(current.timestamp + STAGGER_TICK_INTERVAL_MS, this.totalTickCount),
       );
-      current = this.pool[this.pool.length - 1];
+      current = this.poolData[this.poolData.length - 1];
     }
     const prevention = staggerPreventedLink.reverse.first(event);
     let amount = event.amount;
@@ -288,7 +290,7 @@ export default class StaggerPool extends Analyzer {
       });
     }
 
-    this.pool.push(
+    this.poolData.push(
       current.add(event.timestamp, event.extraAbility.guid, amount, this.totalTickCount),
     );
     if (amount > 0) {
@@ -298,13 +300,13 @@ export default class StaggerPool extends Analyzer {
   }
 
   private onDeath(event: DeathEvent): void {
-    this.pool.push(StaggerPoint.empty(event.timestamp, this.totalTickCount));
+    this.poolData.push(StaggerPoint.empty(event.timestamp, this.totalTickCount));
   }
 
   private updatePoolForTick(event: AnyEvent, tickAmount: number) {
-    const current = this.pool[this.pool.length - 1];
+    const current = this.poolData[this.poolData.length - 1];
     this.remainingTicks = Math.max(0, this.remainingTicks - 1);
     const newAmount = tickAmount * this.remainingTicks;
-    this.pool.push(current.scale(event.timestamp, newAmount, this.remainingTicks));
+    this.poolData.push(current.scale(event.timestamp, newAmount, this.remainingTicks));
   }
 }

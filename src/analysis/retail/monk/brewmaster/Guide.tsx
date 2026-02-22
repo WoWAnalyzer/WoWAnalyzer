@@ -16,8 +16,9 @@ import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import AspectOfHarmony from './modules/talents/AspectOfHarmony';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import InvokeNiuzaoSection from './modules/talents/InvokeNiuzao/InvokeNiuzaoSection';
+import StaggerPoolSection from './modules/core/StaggerPool/StaggerPoolSection';
 
-export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <Section title="Core Skills">
@@ -30,16 +31,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           dangerous damage-over-time effect (the <em>Stagger pool</em>). We have a variety of ways
           to reduce the damage of this DoT&mdash;the most important of which is{' '}
           <SpellLink spell={talents.PURIFYING_BREW_TALENT} />, which reduces the remaining DoT
-          damage by 50%.
+          damage by 50% or more.
         </p>
-        <p>
-          This section covers both, and is by far the most important one when it comes to mastering
-          the basics of Brewmaster gameplay.
-        </p>
-        <AlertInfo>
-          Purifying Brew analysis has been temporarily disabled while Midnight adjustments are
-          handled.
-        </AlertInfo>
+        <StaggerPoolSection />
       </Section>
       <Section title="Core Rotation">
         <AlertInfo>

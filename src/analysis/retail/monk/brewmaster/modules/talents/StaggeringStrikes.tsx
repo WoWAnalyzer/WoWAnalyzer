@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import StaggerStatistic from '../tools/StaggerAnalyzer';
 import { GoodColor, OkColor } from 'interface/guide';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import { staggeringStrikesClear } from '../../normalizers/StaggerClearSourceLinkNormalizer';
 
 export default class StaggeringStrikes extends StaggerStatistic {

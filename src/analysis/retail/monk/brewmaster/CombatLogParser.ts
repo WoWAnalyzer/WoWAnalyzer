@@ -47,6 +47,8 @@ import InvokeNiuzao from './modules/talents/InvokeNiuzao/InvokeNiuzao';
 import StaggerPool, { StaggerPreventedLinkNormalizer } from './modules/core/StaggerPool';
 import MantraOfPurityStaggerPrevented from './normalizers/MantraOfPurityStaggerPrevented';
 import StaggerClearSourceLinkNormalizer from './normalizers/StaggerClearSourceLinkNormalizer';
+import PurifyingBrew from './modules/talents/PurifyingBrew';
+import TouchOfDeathStagger from './modules/spells/TouchOfDeathStagger';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +103,8 @@ class CombatLogParser extends CoreCombatLogParser {
     walkWithTheOx: WalkWithTheOx,
     staggeringStrikes: StaggeringStrikes,
     quickSip: QuickSip,
+    todStagger: TouchOfDeathStagger,
+    pb: PurifyingBrew,
     tranquilSpirit: TranquilSpirit,
     salsalabims: Salsalabims,
     anvilStave: AnvilStave,
