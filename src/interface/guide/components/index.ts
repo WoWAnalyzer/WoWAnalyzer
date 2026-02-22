@@ -26,4 +26,8 @@ export {
   HelperText,
   HelperTextRow,
   NavButton,
+  PerfBadgeGrid,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeLabel,
 } from './GuideDivs';

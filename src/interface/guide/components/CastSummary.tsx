@@ -8,7 +8,13 @@ import { useState, type JSX } from 'react';
 import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
-import { HelperText } from './GuideDivs';
+import {
+  HelperText,
+  PerfBadgeGrid,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeLabel,
+} from './GuideDivs';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import GuideDataWrapper from './GuideDataWrapper';
 
@@ -30,6 +36,14 @@ interface CastSummaryProps {
   /** Whether to show expandable per-cast breakdown. Default: false */
   showBreakdown?: boolean;
 }
+
+/** Performance level definitions — order determines display order in the badge grid */
+const PERF_LEVELS = [
+  { perf: QualitativePerformance.Perfect, label: 'Perfect' },
+  { perf: QualitativePerformance.Good, label: 'Good' },
+  { perf: QualitativePerformance.Ok, label: 'Ok' },
+  { perf: QualitativePerformance.Fail, label: 'Bad' },
+] as const;
 
 /**
  * Displays cast performance summary bar and optionally detailed per-cast breakdown.
@@ -85,16 +99,17 @@ export default function CastSummary({
       }))
     : [];
 
-  const PERF_ROWS = [
-    { perf: QualitativePerformance.Perfect, count: perfect, label: 'Perfect' },
-    { perf: QualitativePerformance.Good, count: good, label: 'Good' },
-    { perf: QualitativePerformance.Ok, count: ok, label: 'Ok' },
-    { perf: QualitativePerformance.Fail, count: bad, label: 'Bad' },
-  ] as const;
+  const perfCounts: Record<QualitativePerformance, number> = {
+    [QualitativePerformance.Perfect]: perfect,
+    [QualitativePerformance.Good]: good,
+    [QualitativePerformance.Ok]: ok,
+    [QualitativePerformance.Fail]: bad,
+  };
 
   const statsContent = (
-    <MiniPerfGrid>
-      {PERF_ROWS.map(({ perf, count, label }) => {
+    <PerfBadgeGrid>
+      {PERF_LEVELS.map(({ perf, label }) => {
+        const count = perfCounts[perf];
         const color = qualitativePerformanceToColor(perf);
         const inactive = count === 0;
         return (
@@ -103,15 +118,15 @@ export default function CastSummary({
             color={inactive ? 'rgba(200,200,200,1)' : color}
             inactive={inactive}
           >
-            <MiniStatValue color={inactive ? 'rgba(255,255,255,0.25)' : color}>
+            <PerfBadgeCount color={inactive ? 'rgba(255,255,255,0.25)' : color}>
               {count}
-            </MiniStatValue>
-            <MiniStatDivider color={inactive ? 'rgba(200,200,200,1)' : color} />
-            <MiniStatLabel>{label}</MiniStatLabel>
+            </PerfBadgeCount>
+            <PerfBadgeDivider color={inactive ? 'rgba(200,200,200,1)' : color} />
+            <PerfBadgeLabel>{label}</PerfBadgeLabel>
           </MiniStatCard>
         );
       })}
-    </MiniPerfGrid>
+    </PerfBadgeGrid>
   );
 
   return (
@@ -201,13 +216,6 @@ const BoxRowScaler = styled.div<{ widthPct: number }>`
   }
 `;
 
-/** Single row of 4 perf badges shown in the header top-right */
-const MiniPerfGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-`;
-
 const MiniStatCard = styled.div<{ color: string; inactive: boolean }>`
   display: flex;
   align-items: stretch;
@@ -217,37 +225,4 @@ const MiniStatCard = styled.div<{ color: string; inactive: boolean }>`
   overflow: hidden;
   min-height: 30px;
   opacity: ${(p) => (p.inactive ? 0.3 : 1)};
-`;
-
-const MiniStatValue = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: ${(p) => p.color};
-  line-height: 1;
-  flex-shrink: 0;
-`;
-
-const MiniStatDivider = styled.div<{ color: string }>`
-  width: 1px;
-  height: 55%;
-  align-self: center;
-  background: ${(p) => p.color}40;
-  flex-shrink: 0;
-`;
-
-const MiniStatLabel = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  line-height: 1.2;
-  flex: 1;
 `;

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import styled from '@emotion/styled';
-import { SectionContainer, HelperText } from './GuideDivs';
+import { SectionContainer, StatsRow, HelperText } from './GuideDivs';
 import { iconUrl } from 'interface/Icon';
 
 /** Compact mode: Icon+title area laid out as a 2-col grid so icon spans both rows */
@@ -64,22 +64,14 @@ const SectionTitle = styled.h3`
   white-space: nowrap;
 `;
 
-/** Inline subtitle badge — sits next to the title */
+/** Inline subtitle badge / label — sits below the title */
 const Label = styled.div`
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   white-space: nowrap;
-`;
-
-/** Row for stat pills */
-const StatsRow = styled.div`
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  flex-shrink: 0;
 `;
 
 /** Right side wrapper for pills + optional helper text */
@@ -106,31 +98,9 @@ const CompactHeaderSection = styled.div`
   min-width: 180px;
 `;
 
-/** Compact mode: Title styling */
-const CompactTitle = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fab700;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  white-space: nowrap;
-`;
-
-/** Compact mode: Subtitle/label styling */
-const CompactSubtitle = styled.div`
-  font-size: 1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.38);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  white-space: nowrap;
-`;
-
-/** Compact mode: Stats section */
-const CompactStatsSection = styled.div`
-  display: flex;
-  gap: 6px;
-  align-items: center;
-`;
+/** Compact mode: same title/subtitle styles as standard layout */
+const CompactTitle = SectionTitle;
+const CompactSubtitle = Label;
 
 /** Compact mode: Content section (bars, charts, etc.) */
 const CompactContentSection = styled.div`
@@ -233,7 +203,7 @@ export default function GuideDataWrapper({
         {helperText && <HelperText style={{ marginBottom: '6px' }}>{helperText}</HelperText>}
         <CompactContainer>
           {titleBlock}
-          {stats && <CompactStatsSection>{stats}</CompactStatsSection>}
+          {stats && <StatsRow>{stats}</StatsRow>}
           {children && <CompactContentSection>{children}</CompactContentSection>}
         </CompactContainer>
       </>

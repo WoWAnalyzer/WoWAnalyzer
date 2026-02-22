@@ -255,6 +255,49 @@ export const NavCounter = styled.div`
   text-align: center;
 `;
 
+/** 4-column grid of performance count badges — shared by CastSummary and CastDetail */
+export const PerfBadgeGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+`;
+
+/** Numeric count cell inside a perf badge */
+export const PerfBadgeCount = styled.div<{ color: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: ${(p) => p.color};
+  line-height: 1;
+  flex-shrink: 0;
+`;
+
+/** Partial-height vertical divider inside a perf badge */
+export const PerfBadgeDivider = styled.div<{ color: string }>`
+  width: 1px;
+  height: 55%;
+  align-self: center;
+  background: ${(p) => p.color}40;
+  flex-shrink: 0;
+`;
+
+/** Label cell inside a perf badge */
+export const PerfBadgeLabel = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  flex: 1;
+`;
+
 /** Content container with scrolling capability */
 export const ScrollableContainer = styled.div`
   background: rgba(0, 0, 0, 0.3);

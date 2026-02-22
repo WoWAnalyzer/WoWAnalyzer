@@ -13,6 +13,10 @@ import {
   StatCardValue,
   StatCardDivider,
   StatCardLabel,
+  PerfBadgeGrid,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeLabel,
 } from './GuideDivs';
 import GuideDataWrapper from './GuideDataWrapper';
 
@@ -55,9 +59,14 @@ interface CastDetailProps {
   casts: PerCastData[];
   /** Optional description text shown below the title */
   description?: string;
-  /** Font size for cast details. Default: '16px' */
-  fontSize?: string;
 }
+
+const PERF_LEVELS = [
+  { perf: QualitativePerformance.Perfect, label: 'Perfect' },
+  { perf: QualitativePerformance.Good, label: 'Good' },
+  { perf: QualitativePerformance.Ok, label: 'Ok' },
+  { perf: QualitativePerformance.Fail, label: 'Bad' },
+] as const;
 
 /**
  * Displays per-cast statistics in a grid with performance-based colored boxes.
@@ -69,12 +78,7 @@ interface CastDetailProps {
  * @param description - Optional description text shown below the title
  * @param fontSize - Font size for cast details (default: '16px')
  */
-export default function CastDetail({
-  title,
-  casts,
-  description,
-  fontSize = '16px',
-}: CastDetailProps) {
+export default function CastDetail({ title, casts, description }: CastDetailProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [performanceFilter, setPerformanceFilter] = useState<Set<QualitativePerformance>>(
     () =>
@@ -159,15 +163,8 @@ export default function CastDetail({
     });
   };
 
-  const PERF_LEVELS = [
-    { perf: QualitativePerformance.Perfect, label: 'Perfect' },
-    { perf: QualitativePerformance.Good, label: 'Good' },
-    { perf: QualitativePerformance.Ok, label: 'Ok' },
-    { perf: QualitativePerformance.Fail, label: 'Bad' },
-  ] as const;
-
   const statsContent = (
-    <FilterGrid>
+    <PerfBadgeGrid>
       {PERF_LEVELS.map(({ perf, label }) => {
         const count = performanceCounts[perf] ?? 0;
         const disabled = count === 0;
@@ -180,9 +177,9 @@ export default function CastDetail({
             disabled={disabled}
             onClick={!disabled ? () => togglePerformanceFilter(perf) : undefined}
           >
-            <FilterCount color={color}>{count}</FilterCount>
-            <FilterDivider color={color} />
-            <FilterLabel>{label}</FilterLabel>
+            <PerfBadgeCount color={color}>{count}</PerfBadgeCount>
+            <PerfBadgeDivider color={color} />
+            <PerfBadgeLabel>{label}</PerfBadgeLabel>
           </FilterBadge>
         );
         if (disabled) return badge;
@@ -192,7 +189,7 @@ export default function CastDetail({
           </Tooltip>
         );
       })}
-    </FilterGrid>
+    </PerfBadgeGrid>
   );
 
   const headerDescription = description ? (
@@ -302,13 +299,6 @@ export default function CastDetail({
   );
 }
 
-/** Single row of 4 performance filter toggles */
-const FilterGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-`;
-
 /** Performance filter toggle — stat-card style, clickable; greyed-out when disabled */
 const FilterBadge = styled.div<{ color: string; active: boolean; disabled?: boolean }>`
   display: flex;
@@ -340,42 +330,6 @@ const FilterBadge = styled.div<{ color: string; active: boolean; disabled?: bool
     border-color: ${(props) => props.color + '70'};
     background: ${(props) => props.color + '20'};
   }
-`;
-
-/** Count inside a FilterBadge */
-const FilterCount = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: ${(props) => props.color};
-  line-height: 1;
-  flex-shrink: 0;
-`;
-
-/** Partial-height vertical divider inside a FilterBadge */
-const FilterDivider = styled.div<{ color: string }>`
-  width: 1px;
-  height: 55%;
-  align-self: center;
-  background: ${(props) => props.color + '40'};
-  flex-shrink: 0;
-`;
-
-/** Label inside a FilterBadge */
-const FilterLabel = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  line-height: 1.2;
-  flex: 1;
 `;
 
 /** Row containing timeline rects + nav buttons + counter */
