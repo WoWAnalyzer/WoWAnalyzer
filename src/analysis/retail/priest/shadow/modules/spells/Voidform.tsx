@@ -1,11 +1,10 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
-import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -49,7 +48,7 @@ class Voidform extends Analyzer {
     );
   }
 
-  onHalo(event: ResourceChangeEvent) {
+  onHalo() {
     //When Halo occurs during voidform, it extends it's duration by 1 second.
     //console.log("HALO")
 
@@ -59,11 +58,8 @@ class Voidform extends Analyzer {
   }
 
   enterVoidform(event: ApplyBuffEvent) {
-    //Voidform restores all charges of mindblast.
     this.VFtime = event.timestamp;
     this.casts += 1;
-    this.mindblast += 2 - this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id);
-    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
 
     //Voidform gains extension from Archon talent Sustained Potencey,
 
@@ -104,16 +100,6 @@ class Voidform extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const mbGained = {
-      count: this.mindblast,
-      label: 'Mind Blast Reset',
-    };
-
-    const mbWasted = {
-      count: this.casts * 2 - this.mindblast,
-      label: 'Missed Resets',
-    };
-
     const explanation = (
       <p>
         <b>
@@ -121,11 +107,13 @@ class Voidform extends Analyzer {
         </b>{' '}
         is a powerful cooldown.
         <br />
-        Entering <SpellLink spell={SPELLS.VOIDFORM_BUFF} />, causes you to regain all charges of{' '}
-        <SpellLink spell={SPELLS.MIND_BLAST} />. It is not a priority to regain charges in this way.
-        <br />
-        Casting <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> during{' '}
-        <SpellLink spell={SPELLS.VOIDFORM_BUFF} /> extends its duration by 2.5 seconds.
+        {this.selectedCombatant.hasTalent(TALENTS.ANCIENT_MADNESS_TALENT) && (
+          <>
+            Casting <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> during{' '}
+            <SpellLink spell={SPELLS.VOIDFORM_BUFF} /> extends its duration by 2.5 seconds from{' '}
+            <SpellLink spell={TALENTS.ANCIENT_MADNESS_TALENT} />.
+          </>
+        )}
         {this.selectedCombatant.hasTalent(TALENTS.SUSTAINED_POTENCY_TALENT) && (
           <>
             <br />
@@ -141,8 +129,6 @@ class Voidform extends Analyzer {
 
     const data = (
       <div>
-        <strong>Mind Blast Resets</strong>
-        <GradiatedPerformanceBar good={mbGained} ok={mbWasted} />
         <strong>Voidform Extension</strong>
         <br />
         <UptimeIcon /> <strong>{this.VFExtensionTotal.toFixed(1)}</strong> <small> seconds</small>

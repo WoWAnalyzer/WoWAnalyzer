@@ -13,7 +13,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         <Section title="Insanity">
           <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
-          {/*modules.dotUptimes.guideSubsectionDP*/}
+          {modules.dotUptimes.guideSubsectionDP}
         </Section>
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
         {modules.shadowform.guideSubsection}
@@ -32,8 +32,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             modules.insidiousIre.guideSubsection}
           {info.combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) &&
             modules.voidTorrent.guideSubsection}
-          {/*info.combatant.hasTalent(TALENTS.VOID_VOLLEY_TALENT) &&
-            modules.voidVolley.guideSubsection*/}
           {info.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT) && modules.voidBlast.guideSubsection}
           {info.combatant.hasTalent(TALENTS.COLLAPSING_VOID_TALENT) &&
             modules.entropicRift.guideSubsectionCollapsingVoid}
@@ -55,8 +53,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.shadowyInsight.guideSubsection}
         {info.combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT) &&
           modules.mindDevourer.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
-          modules.surgeOfInsanity.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.MANIFESTED_POWER_TALENT) &&
+          modules.mindFlayInsanity.guideSubsection}
       </Section>
 
       {/* TODO:

@@ -7,7 +7,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
-  CastEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   DamageEvent,
@@ -24,7 +23,7 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 
 const BUFF_DURATION_MS = 30000;
 
-class SurgeOfInsanity extends Analyzer {
+class MindFlayInsanity extends Analyzer {
   damage = 0;
   insanityGained = 0;
   casts = 0;
@@ -43,10 +42,7 @@ class SurgeOfInsanity extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
-      this.onCastDP,
-    );
+
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.HALO_SHADOW_TALENT),
       this.onCastHalo,
@@ -109,55 +105,16 @@ class SurgeOfInsanity extends Analyzer {
     }
   }
 
-  onCastDP(event: CastEvent) {
-    //DP cast occurs after the Buff is Applied but at (about) the same timestamp
-    //If at 4 stacks and this DP isn't at the same time we reach 4 stacks, then it might be an overwritten proc
-    //Since it is ever other DP that gives a stack of the buff, we check if this is a DP that gives a proc
-    //This is only necesary because this buff does not have a refresh event.
-
-    const compare: number = event.timestamp - this.lastCastTime; //The DP timestamp is slightly delayed compared to the proc.
-
-    //If the currents Stacks are 4,
-    //And if the Last Cast of DP that caused a Buff Event was not with 50 ms (meaning that it caused the buff stacks to increase)
-    //And the current DP is the second cast which would cause the buff
-    //Then we have wasted a Proc.
-
-    if (this.currentStacks === 4 && compare >= 50 && this.secondCast) {
-      this.procsGained += 1;
-      this.procsOver += 1;
-      this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
-    }
-
-    //every cast of DP alternates between giving the proc and not giving the proc.
-
-    if (this.secondCast === true) {
-      this.secondCast = false;
-    } else {
-      this.secondCast = true;
-    }
-  }
-
   //Based on Frost DK Killing Machine.
   onBuff(event: ApplyBuffEvent) {
     this.currentStacks = 1;
     this.procsGained += 1;
     this.lastProcTime = event.timestamp;
-
-    if (this.lastCastHalo === false) {
-      //LastCastTime is only procs caused by DP.  If the last Cast was Halo, this proc was caused by Halo not DP
-      this.lastCastTime = event.timestamp;
-    }
-    this.lastCastHalo = false;
   }
 
   onBuffStack(event: ApplyBuffStackEvent) {
     this.procsGained += 1;
     this.lastProcTime = event.timestamp;
-    if (this.lastCastHalo === false) {
-      //LastCastTime is only procs caused by DP.  If the last Cast was Halo, it was caused by Halo not DP.
-      this.lastCastTime = event.timestamp;
-    }
-    this.lastCastHalo = false;
     this.currentStacks = event.stack;
   }
 
@@ -242,9 +199,8 @@ class SurgeOfInsanity extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF} />
         </b>{' '}
-        is gained every two casts of <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.<br />
-        This buff can stack four times. Try to use these procs before overwriting them with
-        devouring plague, unless you would otherwise overcap insanity.
+        is gained every <SpellLink spell={TALENTS.HALO_SHADOW_TALENT} />.<br />
+        This buff can stack four times. Try to use these procs before they are overwritten
       </p>
     );
     const data = (
@@ -259,4 +215,4 @@ class SurgeOfInsanity extends Analyzer {
   }
 }
 
-export default SurgeOfInsanity;
+export default MindFlayInsanity;

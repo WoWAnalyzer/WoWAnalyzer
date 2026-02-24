@@ -21,7 +21,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import { COLLAPSING_VOID_DEVOURING_PLAGUE_MULTIPLIER } from '../../../constants';
 
-//This is for Entropic Rift and Collapsing Void, and Darkening Horizon
+//This is for Entropic Rift and Collapsing Void and Darkening Horizon
 
 class EntropicRift extends Analyzer {
   static dependencies = {

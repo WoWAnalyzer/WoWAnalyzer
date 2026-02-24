@@ -40,7 +40,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    'report/BQyWD7a9bChg2JLc/1-Mythic+Imperator+Averzian+-+Kill+(6:05)/Barnhadow/standard',
+    'report/YdRCjPN2bTXJ6Maq/1-Heroic+Plexus+Sentinel+-+Kill+(2:03)/16-Doxashe/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

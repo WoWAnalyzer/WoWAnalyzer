@@ -41,7 +41,7 @@ class ManifestedPower extends Analyzer {
         <BoringSpellValueText spell={TALENTS.MANIFESTED_POWER_TALENT}>
           <InsanityIcon /> <>{this.gainSurgeofInsanity}</>{' '}
           <small>
-            extra <SpellLink spell={TALENTS.SURGE_OF_INSANITY_TALENT} /> procs
+            <SpellLink spell={TALENTS.SURGE_OF_INSANITY_TALENT} /> procs
           </small>
         </BoringSpellValueText>
       </Statistic>
