@@ -78,7 +78,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      /*{
+      {
         spell: TALENTS.HALO_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.HALO_SHADOW_TALENT),
-      },*/
+      },
 
       // Cooldowns
       {

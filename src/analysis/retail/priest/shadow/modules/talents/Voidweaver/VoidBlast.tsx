@@ -167,10 +167,10 @@ class VoidBlast extends ExecuteHelper {
       </>
     );
     let value = QualitativePerformance.Good;
-    if (charges <= 1.5) {
+    if (charges < 1) {
       value = QualitativePerformance.Ok;
     }
-    if (charges <= 1.0) {
+    if (charges <= 0.5) {
       value = QualitativePerformance.Fail;
     }
     this.VBCharges.push({ value, tooltip });

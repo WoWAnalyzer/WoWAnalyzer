@@ -16,12 +16,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-class Voidbolt extends ExecuteHelper {
+class VoidVolley extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = -1;
   static executeOutsideRangeEnablers: Spell[] = [SPELLS.VOIDFORM_BUFF];
   static modifiesDamage = false;
-  static executeSpells: Spell[] = [SPELLS.VOID_BOLT];
+  static executeSpells: Spell[] = [SPELLS.VOID_VOLLEY_CAST];
   static countCooldownAsExecuteTime = true;
 
   static dependencies = {
@@ -41,11 +41,14 @@ class Voidbolt extends ExecuteHelper {
     this.active = this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT);
 
     this.addEventListener(
-      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT),
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_CAST),
       this.onVBUpdate,
     );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT), this.onVBCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_CAST),
+      this.onVBCast,
+    );
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF),
@@ -60,12 +63,12 @@ class Voidbolt extends ExecuteHelper {
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
     const ctor = this.constructor as typeof ExecuteHelper;
-    ctor.executeSpells.push(SPELLS.VOID_BOLT);
+    ctor.executeSpells.push(SPELLS.VOID_VOLLEY_CAST);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.VOID_BOLT.id,
+      spell: SPELLS.VOID_VOLLEY_CAST.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      cooldown: (haste: number) => 6 / (1 + haste),
+      cooldown: (haste: number) => 15 / (1 + haste),
       gcd: {
         base: 1500,
       },
@@ -146,7 +149,7 @@ class Voidbolt extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spell={SPELLS.VOID_BOLT}>
+        <BoringSpellValueText spell={SPELLS.VOID_VOLLEY_CAST}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -154,4 +157,4 @@ class Voidbolt extends ExecuteHelper {
   }
 }
 
-export default Voidbolt;
+export default VoidVolley;

@@ -22,7 +22,6 @@ class PsychicLink extends Analyzer {
   damageMF = 0;
   damageMFI = 0;
   damageVT = 0;
-  damageVB = 0;
   damageIN = 0;
   damageVV = 0;
 
@@ -50,7 +49,6 @@ class PsychicLink extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.VOID_TORRENT_TALENT),
       this.onSpell,
     );
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT), this.onSpell);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_DAMAGE),
       this.onSpell,
@@ -97,9 +95,6 @@ class PsychicLink extends Analyzer {
       case TALENTS.VOID_TORRENT_TALENT.name:
         this.damageVT += event.amount + (event.absorbed || 0);
         break;
-      case SPELLS.VOID_BOLT.name:
-        this.damageVB += event.amount + (event.absorbed || 0);
-        break;
       case SPELLS.VOID_VOLLEY_DAMAGE.name:
         this.damageVV += event.amount + (event.absorbed || 0);
         break;
@@ -141,8 +136,8 @@ class PsychicLink extends Analyzer {
 
             {this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT) ? (
               <div>
-                <SpellLink spell={SPELLS.VOID_BOLT} />:{' '}
-                {formatPercentage(this.damageVB / this.damageTotal, 1)}%
+                <SpellLink spell={SPELLS.VOID_VOLLEY_CAST} />:{' '}
+                {formatPercentage(this.damageVV / this.damageTotal, 1)}%
               </div>
             ) : null}
 
@@ -160,12 +155,6 @@ class PsychicLink extends Analyzer {
               <div>
                 <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />:{' '}
                 {formatPercentage(this.damageVT / this.damageTotal, 1)}%
-              </div>
-            ) : null}
-            {this.selectedCombatant.hasTalent(TALENTS.VOIDFORM_TALENT) ? ( //TODO: VOID VOLLEY
-              <div>
-                <SpellLink spell={TALENTS.VOIDFORM_TALENT} />:{' '}
-                {formatPercentage(this.damageVV / this.damageTotal, 1)}%
               </div>
             ) : null}
             {this.selectedCombatant.hasTalent(TALENTS.IDOL_OF_NZOTH_TALENT) ? (

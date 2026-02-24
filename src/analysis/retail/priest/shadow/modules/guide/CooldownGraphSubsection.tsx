@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
-import Voidbolt from '../spells/Voidbolt';
+import VoidVolley from '../spells/VoidVolley';
 import VoidBlast from '../talents/Voidweaver/VoidBlast';
 //import ShadowWordDeath from '../spells/ShadowWordDeath';
 //import ItemSetLink from 'interface/ItemSetLink';
@@ -31,22 +31,13 @@ interface SpellCooldown {
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: SPELLS.VOID_VOLLEY_CAST },
 ];
 const coreCooldownsVW: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
-];
-const coreCooldownsVB: SpellCooldown[] = [
-  { spell: SPELLS.MIND_BLAST },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
-  { spell: SPELLS.VOID_BOLT },
-];
-const coreCooldownsVWVB: SpellCooldown[] = [
-  { spell: SPELLS.MIND_BLAST },
-  { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
-  { spell: SPELLS.VOID_BOLT },
+  { spell: SPELLS.VOID_VOLLEY_CAST },
 ];
 
 //Short Cooldowns
@@ -56,48 +47,23 @@ const shortCooldowns: Cooldown[] = [
 ];
 
 //Long Cooldowns
-const longCooldownsMB: Cooldown[] = [
+const longCooldowns: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
   { talent: TALENTS.VOIDFORM_TALENT },
-  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
-];
-const longCooldownsSF: Cooldown[] = [
-  { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.VOIDFORM_TALENT },
-  { talent: TALENTS.SHADOWFIEND_TALENT },
-];
-
-//we can only pass tlanets into short and long cooldowns.
-//But Voidwraith's talent id is not the same as its cast, so we have to change it to match its cast.
-const voidwraith = TALENTS.VOIDWRAITH_TALENT;
-voidwraith.id = 451235;
-
-const longCooldownsVW: Cooldown[] = [
-  { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.VOIDFORM_TALENT },
-  { talent: voidwraith },
-];
-
-const longCooldownsMBARC: Cooldown[] = [
-  { talent: TALENTS.POWER_INFUSION_TALENT },
-  //{ talent: TALENTS.HALO_SHADOW_TALENT },
-  { talent: TALENTS.VOIDFORM_TALENT },
-  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
-];
-const longCooldownsSFARC: Cooldown[] = [
-  { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.IMPROVED_VOIDFORM_TALENT },
-  //{ talent: TALENTS.HALO_SHADOW_TALENT },
-  { talent: TALENTS.SHADOWFIEND_TALENT },
+  { talent: TALENTS.HALO_SHADOW_TALENT },
 ];
 
 const CoreCooldownsGraph = () => {
-  const VoidboltAnalyzer = useAnalyzer(Voidbolt);
+  const VoidVolleyAnalyzer = useAnalyzer(VoidVolley);
   const VoidBlastAnalyzer = useAnalyzer(VoidBlast);
   //const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
 
   const info = useInfo();
   let coreCooldown = coreCooldowns;
+
+  if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+    coreCooldown = coreCooldownsVW;
+  }
 
   const message = (
     <p>
@@ -108,7 +74,7 @@ const CoreCooldownsGraph = () => {
       {info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT) && (
         <>
           {' '}
-          High priority spells like <SpellLink spell={SPELLS.VOID_BOLT} />,{' '}
+          High priority spells like <SpellLink spell={SPELLS.VOID_VOLLEY_CAST} />,{' '}
           <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />, or{' '}
           <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> should be used before this.
         </>
@@ -149,7 +115,7 @@ const CoreCooldownsGraph = () => {
         <>
           <strong>
             {' '}
-            <SpellLink spell={SPELLS.VOID_BOLT} />{' '}
+            <SpellLink spell={SPELLS.VOID_VOLLEY_CAST} />{' '}
           </strong>{' '}
           is a powerful spell that should be cast on cooldown while you have access to it during{' '}
           <SpellLink spell={SPELLS.VOIDFORM} />
@@ -159,19 +125,9 @@ const CoreCooldownsGraph = () => {
     </p>
   );
 
-  if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
-    coreCooldown = coreCooldownsVW;
-  }
-  if (info!.combatant.hasTalent(TALENTS.VOIDFORM_TALENT)) {
-    coreCooldown = coreCooldownsVB;
-    if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
-      coreCooldown = coreCooldownsVWVB;
-    }
-    //For voidbolt in guide view:
-    // not the prettiest solution, but functional
-    coreCooldown.find((cd) => cd.spell.id === SPELLS.VOID_BOLT.id)!.activeWindows =
-      VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
-  }
+  //For voidbolt in guide view: not the prettiest solution, but functional
+  coreCooldown.find((cd) => cd.spell.id === SPELLS.VOID_VOLLEY_CAST.id)!.activeWindows =
+    VoidVolleyAnalyzer?.executeRanges.map(fromExecuteRange);
 
   if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
     coreCooldown.find(
@@ -216,6 +172,7 @@ const CoreCooldownsGraph = () => {
 
 const ShortCooldownsGraph = () => {
   const info = useInfo();
+  const shortCooldown = shortCooldowns;
 
   const message = (
     <p>
@@ -226,14 +183,7 @@ const ShortCooldownsGraph = () => {
           </strong>{' '}
           is a channeled spell that should be used as often as possible with{' '}
           <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> on its target. It should be
-          channeled for its full duration
-          {info!.combatant.hasTalent(TALENTS.VOIDFORM_TALENT) && (
-            <>
-              {' '}
-              except to cast <SpellLink spell={SPELLS.VOID_BOLT} />
-            </>
-          )}
-          .
+          channeled for its full duration.
           <br />
         </>
       )}
@@ -250,25 +200,11 @@ const ShortCooldownsGraph = () => {
       )}
     </p>
   );
-  return CooldownGraphSubsection(shortCooldowns, message);
+  return CooldownGraphSubsection(shortCooldown, message);
 };
 
 const LongCooldownsGraph = () => {
-  const info = useInfo();
-  //The Long Cooldowns used depends on talent choices.
-  let longCooldowns = longCooldownsSF;
-  if (info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
-    longCooldowns = longCooldownsSFARC;
-  }
-  if (info!.combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT)) {
-    longCooldowns = longCooldownsMB;
-    if (info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
-      longCooldowns = longCooldownsMBARC;
-    }
-  }
-  if (info!.combatant.hasTalent(TALENTS.VOIDWRAITH_TALENT)) {
-    longCooldowns = longCooldownsVW;
-  }
+  const longCooldown = longCooldowns;
 
   const message = (
     <p>
@@ -277,7 +213,7 @@ const LongCooldownsGraph = () => {
       maximize the damage they can deal, without missing any possible casts in the encounter.
     </p>
   );
-  return CooldownGraphSubsection(longCooldowns, message);
+  return CooldownGraphSubsection(longCooldown, message);
 };
 
 const CooldownGraphSubsection = (cooldownsToCheck: Cooldown[], message: JSX.Element) => {
