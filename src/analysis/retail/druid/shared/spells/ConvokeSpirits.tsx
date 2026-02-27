@@ -48,7 +48,7 @@ const CONVOKE_DEBUFF_SPELLS = [
   SPELLS.THRASH_BEAR_DOT,
 ];
 /** All convokable spells that 'hit' with direct healing */
-const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND];
+const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND, SPELLS.TRANQUILITY_HEAL];
 /** All convokable spells that 'hit' with direct damage */
 const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.WRATH,
@@ -88,6 +88,7 @@ const SPELL_IDS_WITH_AOE = [
   SPELLS.RAVAGE_DOTC_CAT.id,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
+  SPELLS.TRANQUILITY_HEAL.id,
   // Rejuv and Regrowth don't normally AoE, but Rampant Growth and PotA procs can make them
   // hit extra targets - adding them to this list is best way to control for that
   SPELLS.REJUVENATION.id,
@@ -96,6 +97,7 @@ const SPELL_IDS_WITH_AOE = [
 ];
 
 const SPELLS_CAST = 16;
+const SPELLS_CAST_CG = 12;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -143,7 +145,7 @@ class ConvokeSpirits extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
     // used to be different per spec, leaving var just in case it goes back to that
-    this.spellsPerCast = SPELLS_CAST;
+    this.spellsPerCast = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) ? SPELLS_CAST_CG : SPELLS_CAST;
 
     // watch for convokes
     this.addEventListener(

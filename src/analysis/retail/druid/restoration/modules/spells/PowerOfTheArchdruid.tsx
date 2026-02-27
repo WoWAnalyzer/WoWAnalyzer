@@ -17,9 +17,9 @@ const PROC_PROB = 0.6;
 
 /**
  * **Power of the Archdruid**
- * Spec Talent Tier 10
+ * Spec Talent Tier 7
  *
- * Wild Growth has a 40% chance to cause your next Rejuvenation or Regrowth
+ * Soul of the Forest now causes your next Rejuvenation or Regrowth 
  * to apply to 2 additional allies within 20 yards of the target.
  */
 class PowerOfTheArchdruid extends Analyzer {
@@ -29,17 +29,12 @@ class PowerOfTheArchdruid extends Analyzer {
 
   hotAttributor!: HotAttributor;
 
-  wgCasts = 0;
   procs = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
-      this.onCastWildGrowth,
-    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
       this.onApply,
@@ -50,22 +45,11 @@ class PowerOfTheArchdruid extends Analyzer {
     );
   }
 
-  onCastWildGrowth(event: CastEvent) {
-    this.wgCasts += 1;
-  }
 
   onApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!event.prepull) {
       this.procs += 1;
     }
-  }
-
-  get procRate() {
-    return this.wgCasts === 0 ? 0 : this.procs / this.wgCasts;
-  }
-
-  get procRatePercentile() {
-    return binomialCDF(this.procs, this.wgCasts, PROC_PROB);
   }
 
   get rejuvsCreated() {
@@ -91,7 +75,7 @@ class PowerOfTheArchdruid extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
@@ -111,12 +95,6 @@ class PowerOfTheArchdruid extends Analyzer {
               </li>
             </ul>
             <br />
-            You got <strong>{this.procs}</strong> procs over <strong>{this.wgCasts}</strong> casts,
-            for a proc rate of <strong>{formatPercentage(this.procRate, 1)}%</strong>. This is a{' '}
-            <strong>
-              {formatNth(Number(formatPercentage(this.procRatePercentile, 0)))} percentile
-            </strong>{' '}
-            result.
           </>
         }
       >

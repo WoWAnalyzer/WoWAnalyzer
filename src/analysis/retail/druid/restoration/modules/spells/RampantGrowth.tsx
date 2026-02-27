@@ -11,13 +11,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const REGROWTH_HOT_BOOST = 0.5;
+const REGROWTH_HOT_BOOST = 1.0;
 
 /**
  * **Rampant Growth**
- * Spec Talent
+ * Spec Talent Tier 7
  *
- * Regrowth's healing over time is increased by 50%,
+ * Regrowth's healing over time is increased by 100%,
  * and it also applies to the target of your Lifebloom.
  */
 class RampantGrowth extends Analyzer {
@@ -53,7 +53,7 @@ class RampantGrowth extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

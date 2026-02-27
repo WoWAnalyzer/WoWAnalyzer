@@ -17,15 +17,15 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DEBUG = false;
 
-const REJUV_MAX_BOOST_PER_RANK = 0.15;
-const TRANQ_MAX_BOOST_PER_RANK = 0.15;
+const REJUV_MAX_BOOST_PER_RANK = 0.3;
+const TRANQ_MAX_BOOST_PER_RANK = 0.3;
 
 /**
  * **Regenesis**
  * Spec Talent
  *
- * Rejuvenation healing is increased by up to (15 / 30)%, and Tranquility healing is increased by
- * up to (15 / 30)%, healing for more on low-health targets.
+ * Rejuvenation healing is increased by up to (30% / 60%), and Tranquility healing is increased by 
+ * up to (30% / 60%), healing for more on low-health targets.
  */
 class Regenesis extends Analyzer {
   ranks: number;

@@ -12,10 +12,11 @@ import CooldownExpandable, {
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 import { getTranquilityTicks } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-const MAX_TRANQ_TICKS = 5;
+const MAX_TRANQ_TICKS = 7;
 
 /**
  * Tracks stats relating to Tranquility
@@ -43,7 +44,6 @@ class Tranquility extends Analyzer {
 
   onTranqCast(event: CastEvent) {
     const directHealing = 0;
-    const periodicHealing = 0;
     const rejuvsOnCast =
       this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
       this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
@@ -53,7 +53,6 @@ class Tranquility extends Analyzer {
     this.tranqCasts.push({
       timestamp,
       directHealing,
-      periodicHealing,
       wgsOnCast,
       rejuvsOnCast,
       channeledTicks,
@@ -63,11 +62,7 @@ class Tranquility extends Analyzer {
   onTranqHeal(event: HealEvent) {
     const effectiveAmount = event.amount + (event.absorbed || 0);
     if (this.tranqCasts.length > 0) {
-      if (event.tick) {
-        this.tranqCasts[this.tranqCasts.length - 1].periodicHealing += effectiveAmount;
-      } else {
-        this.tranqCasts[this.tranqCasts.length - 1].directHealing += effectiveAmount;
-      }
+      this.tranqCasts[this.tranqCasts.length - 1].directHealing += effectiveAmount;
     }
   }
 
@@ -79,13 +74,37 @@ class Tranquility extends Analyzer {
           <strong>
             <SpellLink spell={SPELLS.TRANQUILITY_CAST} />
           </strong>{' '}
-          is the most independent of your cooldowns, and the one most likely to be assigned
-          explicitly by your raid leader. It should typically be planned for a specific mechanic.
+          is your most powerful raid healing cooldown. You should line it up with the most
+          dangerous moments of the fight, and in many raids you'll be assigned to use it at
+          specific timings.
         </p>
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) && (
+          <>
+            <p>
+              In Midnight, <strong>Flourish is passive on Tranquility</strong>. Each Tranquility tick
+              extends active HoTs by 2 seconds (up to 10 seconds overall), so the value of every cast
+              depends heavily on how many HoTs are active when you start channeling.
+            </p>
+            <p>
+              In the lead-up to Tranquility, prioritize setting up as many{' '}
+              <SpellLink spell={SPELLS.REJUVENATION} />s as possible, then cast{' '}
+              <SpellLink spell={SPELLS.SWIFTMEND} />, one more <SpellLink spell={SPELLS.REJUVENATION} />,
+              and a <SpellLink spell={SPELLS.WILD_GROWTH} /> before channeling Tranquility. After the
+              channel starts, use the extended HoT window to cast as many <SpellLink spell={SPELLS.REGROWTH} />s
+              as needed.
+            </p>
+          </>
+        )}
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) && (
+          <p>
+            If you are talented into <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />,
+            it's often worth combining it with Tranquility, since channeling Tranquility pauses the
+            remaining duration of your Tree buff.
+          </p>
+        )}
         <p>
-          The vast majority of Tranquility's healing is direct and not from the HoT. Do NOT use the
-          HoT to ramp. Watch your positioning when you cast - you want to be able to channel full
-          duration without moving.
+          Watch your positioning before casting so you can complete the full channel without moving
+          and avoid clipping ticks at the end.
         </p>
       </>
     );
@@ -95,17 +114,16 @@ class Tranquility extends Analyzer {
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
         {this.tranqCasts.map((cast, ix) => {
-          const castTotalHealing = cast.directHealing + cast.periodicHealing;
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> ({formatNumber(castTotalHealing)}{' '}
+              <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> ({formatNumber(cast.directHealing)}{' '}
               healing)
             </>
           );
 
           const wgRamp = cast.wgsOnCast > 0;
-          const rejuvRamp = cast.rejuvsOnCast > 0;
+          const rejuvRamp = cast.rejuvsOnCast > 10;
           const channeledMaxTicks = cast.channeledTicks === MAX_TRANQ_TICKS;
           const overallPerf =
             wgRamp && rejuvRamp && channeledMaxTicks
@@ -165,11 +183,6 @@ class Tranquility extends Analyzer {
             result: '',
             details: <>{formatNumber(cast.directHealing)}</>,
           });
-          detailItems.push({
-            label: 'Periodic Healing',
-            result: '',
-            details: <>{formatNumber(cast.periodicHealing)}</>,
-          });
 
           return (
             <CooldownExpandable
@@ -193,8 +206,6 @@ interface TranquilityCast {
   timestamp: number;
   /** The healing from this cast's direct portion */
   directHealing: number;
-  /** The healing from this cast's HoTs */
-  periodicHealing: number;
   /** The number of Wild Growths out at the moment this Convoke is cast */
   wgsOnCast: number;
   /** The number of Rejuvs out at the moment this Convoke is cast */

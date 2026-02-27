@@ -13,18 +13,21 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const MAX_CDR = 6_000; // 15 second cooldown * 40% CDR
+const BASE_CDR_PERCENT = 0.15;
+const MAX_CDR_PERCENT = 0.3;
+const MAX_SCALING_MISSING_HEALTH = 0.5;
 
 /**
- * **Spring Blossoms**
- * Spec Talent Tier 6
+ * **Renewing Surge**
+ * Spec Talent Tier 7
  *
- * The cooldown of Swiftmend is reduced by up to 40%, based on the current health of the target.
- * Cooldown is reduced more when cast on a lower health target.
+ * Swiftmend cooldown is reduced by 15%, increasing up to 30% on lower health targets.
  */
 export default class RenewingSurge extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   /** Total times Swiftmend cast */
   totalCasts = 0;
+  /** Total times we can determine target health percent */
+  castsWithKnownHealth = 0;
   /** Total CDR applied */
   totalCdrMs = 0;
   /** Total health percent of Swiftmend targets (divide by total casts for average target health) */
@@ -43,16 +46,21 @@ export default class RenewingSurge extends Analyzer.withDependencies({ spellUsab
   onSwiftmendCast(event: CastEvent) {
     this.totalCasts += 1;
 
-    let targetHealthPercent = undefined;
+    let cdrPercent = BASE_CDR_PERCENT;
     const swiftmendHeal = getDirectHeal(event);
     if (swiftmendHeal) {
-      targetHealthPercent = calculateHealTargetHealthPercent(swiftmendHeal);
+      const targetHealthPercent = calculateHealTargetHealthPercent(swiftmendHeal);
+      this.castsWithKnownHealth += 1;
       this.totalHealthPercent += targetHealthPercent;
       const missingHealth = 1 - targetHealthPercent;
-      const cdr = MAX_CDR * missingHealth;
-      this.totalCdrMs += cdr;
-      this.deps.spellUsable.reduceCooldown(SPELLS.SWIFTMEND.id, cdr);
+      const scalingFactor = Math.min(1, missingHealth / MAX_SCALING_MISSING_HEALTH);
+      cdrPercent = BASE_CDR_PERCENT + (MAX_CDR_PERCENT - BASE_CDR_PERCENT) * scalingFactor;
     }
+
+    const swiftmendCooldown = this.deps.spellUsable.fullCooldownDuration(SPELLS.SWIFTMEND.id);
+    const cdr = swiftmendCooldown * cdrPercent;
+    this.totalCdrMs += cdr;
+    this.deps.spellUsable.reduceCooldown(SPELLS.SWIFTMEND.id, cdr);
   }
 
   get cdrPerCastString(): string {
@@ -62,16 +70,16 @@ export default class RenewingSurge extends Analyzer.withDependencies({ spellUsab
   }
 
   get averageTargetHealthPercentString(): string {
-    return this.totalCasts === 0
+    return this.castsWithKnownHealth === 0
       ? 'N/A'
-      : formatPercentage(this.totalHealthPercent / this.totalCasts, 0) + '%';
+      : formatPercentage(this.totalHealthPercent / this.castsWithKnownHealth, 0) + '%';
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(6)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>

@@ -3,106 +3,199 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  ChangeBuffStackEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
-import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { LIFEBLOOM_BUFFS } from 'analysis/retail/druid/restoration/constants';
-import { causedBloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { causedBloom, getHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const LB_COLOR = '#00bb44';
-const UNDERGROWTH_COLOR = '#dd5500';
+const MAX_LIFEBLOOM_STACKS = 3;
 
 /**
  * Components related to Lifebloom and Lifebloom's uptime.
- * Includes uptime tracking for Undergrowth talent (allows 2 LB up at once)
  */
 class Lifebloom extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  protected combatants!: Combatants;
-
-  /** true iff player has the Undergrowth talent */
-  hasUndergrowth = false;
-  /** the number of lifeblooms the player currently has active */
-  activeLifeblooms = 0;
-  /** list of time periods when at least one lifebloom was active */
+  /** list of time periods when lifebloom was active */
   lifebloomUptimes: OpenTimePeriod[] = [];
-  /** list of time periods when at least two lifeblooms were active */
-  undergrowthUptimes: OpenTimePeriod[] = [];
+  private hasEverbloom = false;
+  private hasVerdancy = false;
+  private showCastPanel = false;
+  private hasActiveLifebloom = false;
+  private possibleVerdancyBlooms = 0;
+  private actualVerdancyBlooms = 0;
+  private currentLifebloomStacks = 0;
+  private analyzedLifebloomCasts = 0;
 
-  possibleNaturalBlooms = 0;
-  actualNaturalBlooms = 0;
+  castEntries: BoxRowEntry[] = [];
+  nonThreeStackCasts = 0;
 
   constructor(options: Options) {
     super(options);
-    this.hasUndergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT);
+
+    this.hasEverbloom =
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_1_RESTORATION_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_2_RESTORATION_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT);
+    this.hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
+    this.showCastPanel = this.hasVerdancy || this.hasEverbloom;
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
       this.onApplyLifebloom,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
       this.onRemoveLifebloom,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
-      this.onPossibleBloomTrigger,
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      this.onApplyLifebloomStack,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
-      this.onPossibleBloomTrigger,
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      this.onChangeLifebloomStack,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      this.onRefreshLifebloom,
     );
   }
 
   onApplyLifebloom(event: ApplyBuffEvent) {
-    if (this.activeLifeblooms === 0) {
-      // LBS 0 -> 1
-      this.lifebloomUptimes.push({ start: event.timestamp });
-    } else if (this.activeLifeblooms === 1) {
-      // LBS 1 -> 2
-      this.undergrowthUptimes.push({ start: event.timestamp });
+    this.recordCast(event, this.currentLifebloomStacks);
+    this.currentLifebloomStacks = 1;
+
+    if (this.hasActiveLifebloom) {
+      return;
     }
-    this.activeLifeblooms += 1;
+
+    this.hasActiveLifebloom = true;
+    this.lifebloomUptimes.push({ start: event.timestamp });
   }
 
   onRemoveLifebloom(event: RemoveBuffEvent) {
-    if (this.activeLifeblooms === 1) {
-      // LBS 1 -> 0
-      if (this.lifebloomUptimes.length > 0) {
-        this.lifebloomUptimes[this.lifebloomUptimes.length - 1].end = event.timestamp;
-      }
-    } else if (this.activeLifeblooms === 2) {
-      // LBS 2 -> 1
-      if (this.undergrowthUptimes.length > 0) {
-        this.undergrowthUptimes[this.undergrowthUptimes.length - 1].end = event.timestamp;
-      }
+    if (!this.hasActiveLifebloom) {
+      return;
     }
-    this.activeLifeblooms -= 1;
+
+    this.hasActiveLifebloom = false;
+    this.currentLifebloomStacks = 0;
+    if (this.lifebloomUptimes.length > 0) {
+      this.lifebloomUptimes[this.lifebloomUptimes.length - 1].end = event.timestamp;
+    }
   }
 
-  onPossibleBloomTrigger(event: RemoveBuffEvent | RefreshBuffEvent) {
-    this.possibleNaturalBlooms += 1;
-    if (causedBloom(event)) {
-      this.actualNaturalBlooms += 1;
+  onApplyLifebloomStack(event: ApplyBuffStackEvent) {
+    this.currentLifebloomStacks = event.stack;
+  }
+
+  onChangeLifebloomStack(event: ChangeBuffStackEvent) {
+    this.currentLifebloomStacks = event.newStacks;
+  }
+
+  private recordCast(
+    event: ApplyBuffEvent | RefreshBuffEvent,
+    preCastStacks: number,
+    bloomed?: boolean,
+  ) {
+    if (!this.showCastPanel) {
+      return;
     }
+
+    const isFirstLifebloomCast = this.analyzedLifebloomCasts === 0;
+    this.analyzedLifebloomCasts += 1;
+
+    const isApplyCast = event.type === 'applybuff';
+    const isFailCast =
+      this.hasEverbloom &&
+      !isFirstLifebloomCast &&
+      (isApplyCast || preCastStacks < MAX_LIFEBLOOM_STACKS);
+    if (isFailCast) {
+      this.nonThreeStackCasts += 1;
+    }
+
+    const targetName = this.owner.getTargetName(event);
+    const hardcast = getHardcast(event);
+    const castTimestamp = hardcast?.timestamp ?? event.timestamp;
+
+    const isRefresh = event.type === 'refreshbuff';
+    let value: QualitativePerformance;
+    let text: string;
+
+    if (isFailCast) {
+      value = QualitativePerformance.Fail;
+      text = 'Did not refresh a 3-stack Lifebloom';
+    } else if (isRefresh) {
+      value = bloomed ? QualitativePerformance.Good : QualitativePerformance.Ok;
+      text = bloomed
+        ? 'Triggered bloom from existing Lifebloom'
+        : 'Refreshed existing Lifebloom without triggering bloom';
+    } else {
+      value = this.hasEverbloom ? QualitativePerformance.Ok : QualitativePerformance.Good;
+      text = this.hasEverbloom
+        ? 'Applied/refreshed without maintaining 3 stacks'
+        : 'Fresh cast (no active refresh)';
+    }
+
+    this.castEntries.push({
+      value,
+      tooltip: (
+        <>
+          @ <strong>{this.owner.formatTimestamp(castTimestamp)}</strong> - {text}
+          <br />
+          targetting <strong>{targetName}</strong>
+        </>
+      ),
+    });
+  }
+
+  onRefreshLifebloom(event: RefreshBuffEvent) {
+    const preCastStacks = Math.max(1, this.currentLifebloomStacks);
+
+    this.possibleVerdancyBlooms += 1;
+    const bloomed = causedBloom(event);
+    if (bloomed) {
+      this.actualVerdancyBlooms += 1;
+    }
+
+    this.recordCast(event, preCastStacks, bloomed);
+
+    this.currentLifebloomStacks = this.hasEverbloom
+      ? Math.min(MAX_LIFEBLOOM_STACKS, preCastStacks + 1)
+      : 1;
   }
 
   /** The time at least one lifebloom was active */
-  get oneLifebloomUptime() {
+  get lifebloomUptime() {
     return this._getTotalUptime(this.lifebloomUptimes);
   }
 
-  /** The time at two lifeblooms were active */
-  get twoLifebloomUptime() {
-    return this._getTotalUptime(this.undergrowthUptimes);
+  get verdancyBloomRate() {
+    if (this.possibleVerdancyBlooms === 0) {
+      return 0;
+    }
+    return this.actualVerdancyBlooms / this.possibleVerdancyBlooms;
+  }
+
+  get hasEverbloomRank1Effective() {
+    return this.hasEverbloom;
+  }
+
+  get lifebloomStacks() {
+    return this.currentLifebloomStacks;
   }
 
   _getTotalUptime(uptimes: OpenTimePeriod[]) {
@@ -112,57 +205,37 @@ class Lifebloom extends Analyzer {
     );
   }
 
-  /** The time a lifebloom was active on the selected player */
-  get selfLifebloomUptime(): number {
-    return (
-      this.selectedCombatant.getBuffUptime(
-        SPELLS.LIFEBLOOM_HOT_HEAL.id,
-        this.selectedCombatant.id,
-      ) +
-      this.selectedCombatant.getBuffUptime(
-        SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
-        this.selectedCombatant.id,
-      )
+  hasActiveLifebloomAt(timestamp: number): boolean {
+    return this.lifebloomUptimes.some(
+      (uptime) => uptime.start <= timestamp && (uptime.end === undefined || uptime.end >= timestamp),
     );
-  }
-
-  /** The time a lifebloom was active on someone other than the selected player */
-  get othersLifebloomUptime(): number {
-    const summedTotalLifebloomUptime = Object.values(this.combatants.players).reduce(
-      (uptime, player) =>
-        uptime +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, this.selectedCombatant.id) +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id, this.selectedCombatant.id),
-      0,
-    );
-    return summedTotalLifebloomUptime - this.selfLifebloomUptime;
   }
 
   /** Guide subsection describing the proper usage of Lifebloom */
   get guideSubsection(): JSX.Element {
-    const hasPhoto = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
-    const hasUndergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT);
-    const hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
-    const selfUptimePercent = this.selfLifebloomUptime / this.owner.fightDuration;
-    const othersUptimePercent = this.othersLifebloomUptime / this.owner.fightDuration;
-
     const explanation = (
       <>
         <p>
           <b>
             <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />
-          </b>{' '}
-          can only be active on {hasUndergrowth ? 'two targets' : 'one target'} at a time{' '}
-          {hasUndergrowth && (
-            <>
-              (due to <SpellLink spell={TALENTS_DRUID.UNDERGROWTH_TALENT} />)
-            </>
-          )}{' '}
-          and provides similar throughput to Rejuvenation. However, it causes{' '}
+          </b>{' '}can only be active on one target at a time and its baseline throughput is similar to
+          Rejuvenation. However, it causes{' '}
           <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> procs and so is a big benefit to your mana
           efficiency. You should aim for 100% Lifebloom uptime.
         </p>
-        {hasVerdancy && (
+        {this.hasEverbloom && (
+          <p>
+            Because you took{' '}
+            <strong>
+              <SpellLink spell={TALENTS_DRUID.EVERBLOOM_1_RESTORATION_TALENT} />
+            </strong>
+            , target swaps are especially punishing. Any time you swap targets, Lifebloom resets to
+            1 stack and loses throughput.
+            <br />
+            <strong>{this.nonThreeStackCasts} casts not refreshing a 3-stack Lifebloom</strong>
+          </p>
+        )}
+        {this.hasVerdancy && (
           <p>
             Because you took{' '}
             <strong>
@@ -173,44 +246,9 @@ class Lifebloom extends Analyzer {
             the bloom to be skipped - avoid doing this.
             <br />
             <strong>
-              Lifebloom casts that bloomed:{' '}
-              {formatPercentage(this.actualNaturalBlooms / this.possibleNaturalBlooms, 1)}%
+              Lifebloom refreshes that bloomed:{' '}
+              {formatPercentage(this.verdancyBloomRate, 1)}%
             </strong>
-          </p>
-        )}
-        {hasPhoto && (
-          <p>
-            Because you took{' '}
-            <strong>
-              <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT} />
-            </strong>
-            , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
-            powerful{' '}
-            {hasVerdancy && (
-              <>
-                but because you took <SpellLink spell={TALENTS_DRUID.VERDANCY_TALENT} />, the extra
-                blooms from the 'on-others' effect will also be very powerful
-              </>
-            )}
-            .
-            {hasUndergrowth && (
-              <>
-                {' '}
-                Remember that <SpellLink spell={TALENTS_DRUID.UNDERGROWTH_TALENT} /> allows two
-                lifeblooms, and both will benefit!
-              </>
-            )}
-            <br />
-            Total Uptime on <strong>Self: {formatPercentage(selfUptimePercent, 1)}%</strong> / on{' '}
-            <strong>Others: {formatPercentage(othersUptimePercent, 1)}%</strong>
-            {selfUptimePercent + othersUptimePercent > 1 && (
-              <>
-                {' '}
-                <small>
-                  (value can sum to greater than 100% due to multiple lifeblooms being active)
-                </small>
-              </>
-            )}
           </p>
         )}
       </>
@@ -218,6 +256,31 @@ class Lifebloom extends Analyzer {
 
     const data = (
       <div>
+        {this.showCastPanel && this.castEntries.length > 0 && (
+          <CastSummaryAndBreakdown
+            spell={SPELLS.LIFEBLOOM_HOT_HEAL}
+            castEntries={this.castEntries}
+            goodExtraExplanation={
+              this.hasEverbloom ? (
+                <>refresh existing Lifebloom and trigger bloom</>
+              ) : (
+                <>trigger bloom or be a fresh cast</>
+              )
+            }
+            okExtraExplanation={
+              this.hasEverbloom ? (
+                <>refresh existing Lifebloom without triggering bloom</>
+              ) : (
+                <>refresh existing Lifebloom without triggering bloom</>
+              )
+            }
+            badExtraExplanation={
+              this.hasEverbloom
+                ? 'cast when not refreshing a 3-stack Lifebloom (except first cast)'
+                : 'n/a'
+            }
+          />
+        )}
         <RoundedPanel>
           <strong>Lifebloom uptimes</strong>
           {this.subStatistic()}
@@ -229,15 +292,6 @@ class Lifebloom extends Analyzer {
   }
 
   subStatistic() {
-    const subBars = [];
-    if (this.hasUndergrowth) {
-      subBars.push({
-        spells: [TALENTS_DRUID.UNDERGROWTH_TALENT],
-        uptimes: mergeTimePeriods(this.undergrowthUptimes, this.owner.currentTimestamp),
-        color: UNDERGROWTH_COLOR,
-      });
-    }
-
     return uptimeBarSubStatistic(
       this.owner.fight,
       {
@@ -245,7 +299,7 @@ class Lifebloom extends Analyzer {
         uptimes: mergeTimePeriods(this.lifebloomUptimes, this.owner.currentTimestamp),
         color: LB_COLOR,
       },
-      subBars,
+      [],
       SubPercentageStyle.ABSOLUTE,
     );
   }

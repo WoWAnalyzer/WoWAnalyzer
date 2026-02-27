@@ -20,7 +20,6 @@ import CooldownExpandable, {
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
-import { MutableAmount } from 'analysis/retail/druid/restoration/modules/spells/Flourish';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -32,11 +31,11 @@ const CONVOKED_HOTS = [
   SPELLS.REGROWTH,
   SPELLS.WILD_GROWTH,
 ];
-const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH];
+const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH, SPELLS.TRANQUILITY_HEAL];
 
 const NATURES_SWIFTNESS_BOOST = 2;
 
-const RECENT_FLOURISH_DURATION = 8_000;
+const RECENT_TRANQUILITY_DURATION = 8_000;
 
 /**
  * Resto's extension to the Convoke the Spirits display. Includes healing attribution.
@@ -45,7 +44,7 @@ const RECENT_FLOURISH_DURATION = 8_000;
  * * Regrowth - track apply/refresh - use HotTracker
  * * Swiftmend - track heal - directly attribute healing
  * * Wild Growth - track apply/refresh - use HotTracker
- * * Flourish - track apply/refresh - use integration with Flourish module
+ * * Tranquility - track heal
  */
 class ConvokeSpiritsResto extends ConvokeSpirits {
   static dependencies = {
@@ -57,8 +56,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   /** Mapping from convoke cast number to a tracker for that cast - note that index zero will always be empty */
   restoConvokeTracker: RestoConvokeCast[] = [];
-  /** Timestamp of the last Flourish cast (or null if there wasn't one) */
-  lastFlourishTimestamp?: number;
+  /** Timestamp of the last Tranquility cast (or null if there wasn't one) */
+  lastTranquilityTimestamp?: number;
 
   constructor(options: Options) {
     super(options);
@@ -77,12 +76,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     );
     this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) &&
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_TALENT),
-        this.onFlourishCast,
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRANQUILITY_CAST),
+        this.onTranquilityCast,
       );
-
-    // Flourish healing is tracked from the Flourish module, which calls into this one to update
-    // the attribution. The cast tracker is just for overlap detection.
   }
 
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -102,7 +98,10 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   onRestoDirectHeal(event: HealEvent) {
-    if (!isFromHardcast(event) && !event.tick && isConvoking(this.selectedCombatant)) {
+    if (!isFromHardcast(event) && isConvoking(this.selectedCombatant)) {
+      if (event.tick && event.ability.guid !== SPELLS.TRANQUILITY_HEAL.id) {
+        return;
+      }
       this.currentConvokeAttribution.healing += event.amount + (event.absorbed || 0);
       if (
         event.ability.guid === SPELLS.REGROWTH.id &&
@@ -120,36 +119,38 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     super.onConvoke(event);
 
     const totalAttribution = HotTracker.getNewAttribution('Convoke #' + this.cast);
-    const flourishRateAttribution = { amount: 0 };
+    const flourishExtensionAttribution = HotTracker.getNewAttribution(
+      `Convoke #${this.cast} Flourish extension`,
+    );
     const nsAttribution = HotTracker.getNewAttribution("Nature's Swiftness Convoke #" + this.cast);
     const rejuvsOnCast =
       this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
       this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
     const wgsOnCast = this.hotTracker.getHotCount(SPELLS.WILD_GROWTH.id);
-    const recentlyFlourished =
-      this.lastFlourishTimestamp !== undefined &&
-      event.timestamp - this.lastFlourishTimestamp < RECENT_FLOURISH_DURATION;
+    const recentlyTranquility =
+      this.lastTranquilityTimestamp !== undefined &&
+      event.timestamp - this.lastTranquilityTimestamp < RECENT_TRANQUILITY_DURATION;
 
     this.restoConvokeTracker[this.cast] = {
       totalAttribution,
-      flourishRateAttribution,
+      flourishExtensionAttribution,
       nsAttribution,
       rejuvsOnCast,
       wgsOnCast,
-      recentlyFlourished,
+      recentlyTranquility,
     };
   }
 
-  onFlourishCast(event: CastEvent) {
-    this.lastFlourishTimestamp = event.timestamp;
+  onTranquilityCast(event: CastEvent) {
+    this.lastTranquilityTimestamp = event.timestamp;
   }
 
   get currentConvokeAttribution(): Attribution {
     return this.restoConvokeTracker[this.cast].totalAttribution;
   }
 
-  get currentConvokeRateAttribution() {
-    return this.restoConvokeTracker[this.cast].flourishRateAttribution;
+  get currentConvokeFlourishExtensionAttribution(): Attribution {
+    return this.restoConvokeTracker[this.cast].flourishExtensionAttribution;
   }
 
   get currentNsConvokeAttribution(): Attribution {
@@ -158,7 +159,15 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   get totalHealing(): number {
     return this.restoConvokeTracker.reduce(
-      (sum, cast) => sum + cast.totalAttribution.healing + cast.flourishRateAttribution.amount,
+      (sum, cast) =>
+        sum + cast.totalAttribution.healing + cast.flourishExtensionAttribution.healing,
+      0,
+    );
+  }
+
+  get totalFlourishExtensionHealing(): number {
+    return this.restoConvokeTracker.reduce(
+      (sum, cast) => sum + cast.flourishExtensionAttribution.healing,
       0,
     );
   }
@@ -193,17 +202,23 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         <strong>
           <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
         </strong>{' '}
-        is a powerful but somewhat random burst of healing.{' '}
-        {hasCenariusGuidance && (
+        is a major healing moment in raid.
+        Cast <SpellLink spell={SPELLS.REJUVENATION} /> before Convoke so you can get better value
+        from your HoTs during and after the cast.{' '}
+        {hasCenariusGuidance && hasFlourish && (
           <>
             Due to <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} />, it also has a
-            decent chance of proccing <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />.
+            50% chance of proccing <SpellLink spell={TALENTS_DRUID.TRANQUILITY_TALENT} />. If you have
+            <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> talented, this Tranquility tick will extend all
+            HoTs by 2 seconds.
           </>
         )}{' '}
-        Its short cooldown and random nature mean its best used as it becomes available. The amount
-        of direct healing it provides{' '}
-        {hasCenariusGuidance && 'and possiblity of proccing Flourish '}means lightly ramping for a
-        Convoke is still worthwhile.
+        A lot of your gameplay revolves around ramping into either{' '}
+        <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> or <SpellLink spell={SPELLS.TRANQUILITY_CAST} />.
+        Follow each Convoke with <SpellLink spell={SPELLS.REGROWTH} /> casts regardless of whether you
+        proc an extension. Convoke also generates significant Grove Guardian value because included{' '}
+        <SpellLink spell={SPELLS.WILD_GROWTH} /> and <SpellLink spell={SPELLS.SWIFTMEND} /> casts can
+        each produce one.
       </p>
     );
 
@@ -214,7 +229,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         {this.convokeTracker.map((cast, ix) => {
           const restoCast = this.restoConvokeTracker[ix];
           const castTotalHealing =
-            restoCast.totalAttribution.healing + restoCast.flourishRateAttribution.amount;
+            restoCast.totalAttribution.healing + restoCast.flourishExtensionAttribution.healing;
 
           const header = (
             <>
@@ -226,10 +241,10 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
           const wgRamp = restoCast.wgsOnCast > 0;
           const rejuvRamp = restoCast.rejuvsOnCast > 0;
-          const noRecentFlourish = !restoCast.recentlyFlourished;
+          const noRecentTranquility = !restoCast.recentlyTranquility;
           const syncWithReforestation = !hasReforestation || cast.form === 'Tree of Life';
           const overallPerf =
-            wgRamp && rejuvRamp && noRecentFlourish && syncWithReforestation
+            wgRamp && rejuvRamp && noRecentTranquility && syncWithReforestation
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 
@@ -256,18 +271,17 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             checklistItems.push({
               label: (
                 <>
-                  Avoid <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> clip{' '}
+                  Avoid recent <SpellLink spell={SPELLS.TRANQUILITY_CAST} />{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         When casting <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> and{' '}
-                        <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> together, the Convoke
-                        should ALWAYS go first. This is both because the Convoke could proc Flourish
-                        and cause you to clip your hardcast's buff, and also because Convoke
-                        produces a lot of HoTs which Flourish could extend. If you got an{' '}
+                        <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> together, Convoke should
+                        generally go first so its HoTs can be extended by Tranquility's flourish ticks.
+                        If you got an{' '}
                         <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
-                        cast Flourish before this Convoke.
+                        cast Tranquility shortly before this Convoke.
                       </>
                     }
                   >
@@ -277,7 +291,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                   </Tooltip>
                 </>
               ),
-              result: <PassFailCheckmark pass={noRecentFlourish} />,
+              result: <PassFailCheckmark pass={noRecentTranquility} />,
             });
           hasReforestation &&
             checklistItems.push({
@@ -336,8 +350,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             <br />
             <br />
             Healing amount is attributed by tracking the healing spells cast by Convoke
-            {hasCenariusGuidance && ', including possible Flourish casts'}. This amount includes
-            mastery benefit from the proceed HoTs.
+            {hasCenariusGuidance && ', including possible Flourish Tranquility procs'}. This amount
+            includes mastery benefit from the proceed HoTs.
             {this.totalNsConvokeHealing !== 0 && (
               <>
                 <br />
@@ -383,7 +397,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                     <td>
                       {formatNumber(
                         this.restoConvokeTracker[index].totalAttribution.healing +
-                          this.restoConvokeTracker[index].flourishRateAttribution.amount,
+                          this.restoConvokeTracker[index].flourishExtensionAttribution.healing,
                       )}
                     </td>
                     <td>
@@ -413,9 +427,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 interface RestoConvokeCast {
   /** The attribution object for all healing this Convoke cast causes */
   totalAttribution: Attribution;
-  /** A special tracker specifically for the rate-increase healing due to a Flourish
-   * procced by this Convoke cast */
-  flourishRateAttribution: MutableAmount;
+  /** A special tracker for Flourish extension healing due to Tranquility procced by this Convoke cast */
+  flourishExtensionAttribution: Attribution;
   /** Nature's Swiftness boosts convoked Regrowths but does not consume the buff.
    * This attributor specifically tracks the healing due to this. */
   nsAttribution: Attribution;
@@ -423,8 +436,8 @@ interface RestoConvokeCast {
   wgsOnCast: number;
   /** The number of Rejuvs out at the moment this Convoke is cast */
   rejuvsOnCast: number;
-  /** True iff the player flourished recently (you shouldn't do this, always Convoke first) */
-  recentlyFlourished: boolean;
+  /** True iff the player cast Tranquility recently (you generally want to Convoke before it) */
+  recentlyTranquility: boolean;
 }
 
 export default ConvokeSpiritsResto;

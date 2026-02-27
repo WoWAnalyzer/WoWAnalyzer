@@ -12,7 +12,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
-import Events, { HealEvent, SummonEvent } from 'parser/core/Events';
+import Events, { HealEvent, SummonEvent, CastEvent } from 'parser/core/Events';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
 const deps = {
@@ -23,37 +23,28 @@ const deps = {
  * **Grove Guardians**
  * Spec Talent Tier 6
  *
- * Summons a Treant which will immediately cast Swiftmend on your current target, healing for X.
+ * Casting Swiftmend or Wild Growth summons a Treant which will immediately cast Swiftmend on your current target, healing for X.
  * The Treant will cast Nourish on that target or a nearby ally periodically,
- * healing for X. Lasts 15 sec.
- *
- * **Wild Synthesis**
- * Spec Talent Tier 7
- *
- * Treants from Grove Guardians also cast Wild Growth immediately when summoned,
- * healing 5 allies within 40 yds for X over 7 sec.
+ * healing for X. Lasts 8 sec.
  */
 export default class GroveGuardians extends Analyzer.withDependencies(deps) {
-  hasWildSynthesis: boolean;
   hasTolCenariusGuidance: boolean;
 
   /** Total healing done by hardcast GG's swiftmend */
   hardcastSwiftmendHealing = 0;
   /** Total healing done by hardcast GG's nourish */
   hardcastNourishHealing = 0;
-  /** Total healing done by hardcast GG's wild growth */
-  hardcastWildGrowthHealing = 0;
   /** Total healing done by GGs summoned by Cenarius Guidance (all spells) */
   cgHealing = 0;
 
   /** Set of GG instance numbers that were hardcast. If not in the set, we presume it was summoned by CG. */
+  /** Leaving this named hardcast even though they aren't really hardcast anymore. This represents GG summoned by WG/SM casts. */
   hardcastInstances: Set<number> = new Set<number>();
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT);
-    this.hasWildSynthesis = this.selectedCombatant.hasTalent(TALENTS_DRUID.WILD_SYNTHESIS_TALENT);
     this.hasTolCenariusGuidance =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) &&
       this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT);
@@ -64,54 +55,51 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
         .spell([
           SPELLS.GROVE_GUARDIANS_SWIFTMEND,
           SPELLS.GROVE_GUARDIANS_NOURISH,
-          SPELLS.GROVE_GUARDIANS_WILD_GROWTH,
         ]),
       this.onGGHeal,
     );
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(TALENTS_DRUID.GROVE_GUARDIANS_TALENT),
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.GROVE_GUARDIANS_SUMMON),
       this.onGGSummon,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CONVOKE_SPIRITS, SPELLS.SWIFTMEND, SPELLS.WILD_GROWTH]),
+      this.onCast,
+    )
   }
 
+  onCast(event: CastEvent) {
+    console.log("GG Cast event: ", event);
+  }
+
+  swiftmendCasts = 0;
   onGGHeal(event: HealEvent) {
     const healAmount = event.amount + (event.absorbed || 0);
+    // if we have tree of life + CG + this heal is not from a hardcast GG summon, attribute to CG healing
+    // need to check hasTolCenariusGuidance since GG summoned by convoke will be missed by the hardcast check
     if (event.sourceInstance && !this.hardcastInstances.has(event.sourceInstance)) {
       this.cgHealing += healAmount;
     } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_SWIFTMEND.id) {
       this.hardcastSwiftmendHealing += healAmount;
+      this.swiftmendCasts += 1;
+      console.log(this.swiftmendCasts);
     } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_NOURISH.id) {
       this.hardcastNourishHealing += healAmount;
-    } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_WILD_GROWTH.id) {
-      this.hardcastWildGrowthHealing += healAmount;
     }
   }
 
   onGGSummon(event: SummonEvent) {
     if (isFromHardcast(event) && event.targetInstance !== undefined) {
+      console.log("GG from hardcast: ", event);
       this.hardcastInstances.add(event.targetInstance);
+    } else {
+      console.log("GG Summoned with no link: ", event);
     }
-  }
-
-  get guideSubsection(): JSX.Element {
-    const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT} />
-        </b>{' '}
-        is an off-GCD heal that interacts minimally with the rest of your kit. Use it whenever extra
-        throughput is needed. It's very efficient - avoid overcapping on charges.
-      </p>
-    );
-
-    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT} useThresholds />;
-
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   get totalHardcastHealing() {
     return (
-      this.hardcastSwiftmendHealing + this.hardcastNourishHealing + this.hardcastWildGrowthHealing
+      this.hardcastSwiftmendHealing + this.hardcastNourishHealing
     );
   }
 
@@ -125,13 +113,12 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
           <>
             This is the sum of the direct healing from the base Grove Guardians (Swiftmend +
             Nourish)
-            {this.hasWildSynthesis && ' and the extra spell added by Wild Synthesis (Wild Growth).'}
             {this.hasTolCenariusGuidance && (
               <>
                 {' '}
                 This value does <strong>not</strong> include healing from Grove Guardians summoned
                 by <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} /> - this is only the
-                hardcast number.
+                number from Grove Guadians summoned from wild growth and swiftmend casts.
               </>
             )}
             <ul>
@@ -143,14 +130,6 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
                 <SpellLink spell={SPELLS.GROVE_GUARDIANS_NOURISH} />:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.hardcastNourishHealing)}</strong>
               </li>
-              {this.hasWildSynthesis && (
-                <li>
-                  <SpellLink spell={SPELLS.GROVE_GUARDIANS_WILD_GROWTH} />:{' '}
-                  <strong>
-                    {this.owner.formatItemHealingDone(this.hardcastWildGrowthHealing)}
-                  </strong>
-                </li>
-              )}
             </ul>
           </>
         }

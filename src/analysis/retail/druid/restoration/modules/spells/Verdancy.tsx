@@ -13,7 +13,7 @@ import { SpellLink } from 'interface';
 
 /**
  * **Verdancy**
- * Spec Talent
+ * Spec Talent Tier 6
  *
  * When Lifebloom blooms, up to 3 targets within your Efflorescence are healed for X.
  */
@@ -56,7 +56,7 @@ class Verdancy extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(6)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
