@@ -23,8 +23,7 @@ class RayOfFrost extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  rayOfFrost: { timestamp: number; hits: number; shatteredHits: number; damage: DamageEvent[] }[] =
-    [];
+  rayOfFrost: { timestamp: number; hits: number; damage: DamageEvent[] }[] = [];
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
@@ -38,18 +37,10 @@ class RayOfFrost extends Analyzer {
 
   onRayCast(event: CastEvent) {
     const damage: DamageEvent[] | undefined = GetRelatedEvents(event, 'SpellDamage');
-    let shattered = 0;
-    damage.forEach((d) => {
-      const enemy = this.enemies.getEntity(d);
-      if (SHATTER_DEBUFFS.some((effect) => enemy?.hasBuff(effect.id, d.timestamp))) {
-        shattered += 1;
-      }
-    });
 
     const rayOfFrostDetails = {
       timestamp: event.timestamp,
       hits: damage.length,
-      shatteredHits: shattered,
       damage: damage,
     };
     this.rayOfFrost.push(rayOfFrostDetails);
@@ -57,19 +48,13 @@ class RayOfFrost extends Analyzer {
     this.analyzeCastEntry(rayOfFrostDetails);
   }
 
-  private analyzeCastEntry(rayOfFrostDetails: {
-    timestamp: number;
-    hits: number;
-    shatteredHits: number;
-  }) {
+  private analyzeCastEntry(rayOfFrostDetails: { timestamp: number; hits: number }) {
     let performance = QualitativePerformance.Fail;
-    const count = `${rayOfFrostDetails.hits}/5 hits & ${rayOfFrostDetails.shatteredHits}/5 shattered hits`;
-    if (rayOfFrostDetails.hits === 5 && rayOfFrostDetails.shatteredHits === 5) {
+    const count = `${rayOfFrostDetails.hits}/8 hits`;
+    if (rayOfFrostDetails.hits === 8) {
       performance = QualitativePerformance.Perfect;
-    } else if (rayOfFrostDetails.hits >= 4 && rayOfFrostDetails.shatteredHits >= 4) {
+    } else if (rayOfFrostDetails.hits >= 7) {
       performance = QualitativePerformance.Good;
-    } else if (rayOfFrostDetails.hits >= 4 && rayOfFrostDetails.shatteredHits >= 2) {
-      performance = QualitativePerformance.Ok;
     }
     const tooltip = (
       <>
@@ -83,7 +68,7 @@ class RayOfFrost extends Analyzer {
   }
 
   get badCasts() {
-    return this.rayOfFrost.filter((r) => r.shatteredHits < 2 || r.hits < 4).length;
+    return this.rayOfFrost.filter((r) => r.hits < 7).length;
   }
 
   get totalCasts() {
@@ -122,32 +107,20 @@ class RayOfFrost extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>{rayOfFrost}</b> is one of the higher damage per cast spells. You want to cast it as
-          soon as possible, but there are some rules to follow in order to get the most out of it.
+          <b>{rayOfFrost}</b> is the most important long cooldown spell in Frost. You want to cast
+          it as soon as possible, but there are some rules to follow in order to get the most out of
+          it.
         </p>
         <ol>
-          <li>Don't miss ticks</li>
-          {glacialAssaultKnown && (
-            <li>
-              Use it after {cometStorm} (to benefit from {glacialAssault})
-            </li>
-          )}
+          <li>
+            Don't miss ticks. Stand still while casting. You have shimmer in case you need to avoid
+            something
+          </li>
+          <li>
+            It generates 8 stacks of freeze, try to cast it with less than 12 stacks on the target
+            to avoid wasting stacks
+          </li>
         </ol>
-        <p>
-          To meet <b>all the conditions</b>, your {rayOfFrost} rotation should look like this:
-        </p>
-        <SpellSeq
-          spells={[
-            SPELLS.FROSTBOLT,
-            TALENTS.FLURRY_TALENT,
-            TALENTS.COMET_STORM_TALENT,
-            SPELLS.ICE_LANCE_DAMAGE,
-            TALENTS.RAY_OF_FROST_TALENT,
-          ]}
-        />
-        <small>
-          {frostbolt} and {icelance} could be replaced with if you have enough {icicles}.
-        </small>
       </>
     );
     const data = (
@@ -160,8 +133,7 @@ class RayOfFrost extends Analyzer {
           <strong>{rayOfFrost} cast details</strong>
           <PerformanceBoxRow values={this.castEntries} />
           <small>
-            blue (perfect) / green (good) / yellow (ok) / red (fail) mouseover the rectangles to see
-            more details
+            blue (perfect) / green (good) / red (fail) mouseover the rectangles to see more details
           </small>
         </RoundedPanel>
       </div>
