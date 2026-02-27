@@ -13,7 +13,10 @@ import Events, {
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { causedBloom, getHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import {
+  causedBloom,
+  getHardcast,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -207,7 +210,8 @@ class Lifebloom extends Analyzer {
 
   hasActiveLifebloomAt(timestamp: number): boolean {
     return this.lifebloomUptimes.some(
-      (uptime) => uptime.start <= timestamp && (uptime.end === undefined || uptime.end >= timestamp),
+      (uptime) =>
+        uptime.start <= timestamp && (uptime.end === undefined || uptime.end >= timestamp),
     );
   }
 
@@ -218,10 +222,10 @@ class Lifebloom extends Analyzer {
         <p>
           <b>
             <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />
-          </b>{' '}can only be active on one target at a time and its baseline throughput is similar to
-          Rejuvenation. However, it causes{' '}
-          <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> procs and so is a big benefit to your mana
-          efficiency. You should aim for 100% Lifebloom uptime.
+          </b>{' '}
+          can only be active on one target at a time and its baseline throughput is similar to
+          Rejuvenation. However, it causes <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> procs and
+          so is a big benefit to your mana efficiency. You should aim for 100% Lifebloom uptime.
         </p>
         {this.hasEverbloom && (
           <p>
@@ -246,8 +250,7 @@ class Lifebloom extends Analyzer {
             the bloom to be skipped - avoid doing this.
             <br />
             <strong>
-              Lifebloom refreshes that bloomed:{' '}
-              {formatPercentage(this.verdancyBloomRate, 1)}%
+              Lifebloom refreshes that bloomed: {formatPercentage(this.verdancyBloomRate, 1)}%
             </strong>
           </p>
         )}

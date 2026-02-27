@@ -5,7 +5,6 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export const REJUVENATION_BUFFS: Spell[] = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION];
 
-
 /** Given count of Druid HoTs on target, gets the multiplier against mastery val to apply */
 export function masteryHotCountToMult(hotsOn: number): number {
   if (hotsOn > 10) {
@@ -63,9 +62,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS =
   ABILITIES_AFFECTED_BY_HEALING_INCREASES.map((id) => SPELLS[id]);
 
 /** IDs of heals that get 100% increased benefit from mastery */
-export const DOUBLE_MASTERY_BENEFIT_IDS: number[] = [
-  SPELLS.GROVE_GUARDIANS_NOURISH.id,
-];
+export const DOUBLE_MASTERY_BENEFIT_IDS: number[] = [SPELLS.GROVE_GUARDIANS_NOURISH.id];
 
 /** IDs of all buffs that give a mastery stack */
 export const MASTERY_STACK_BUFF_IDS: number[] = [
@@ -108,6 +105,6 @@ export const DRUID_COOLDOWN_IDS: number[] = [
   TALENTS_DRUID.FLOURISH_TALENT.id,
   TALENTS_DRUID.INNERVATE_TALENT.id,
   TALENTS_DRUID.NATURES_SWIFTNESS_TALENT.id,
-  TALENTS_DRUID.IRONBARK_TALENT.id, 
+  TALENTS_DRUID.IRONBARK_TALENT.id,
   SPELLS.BARKSKIN.id,
 ];

@@ -34,7 +34,7 @@ export default class WildSynthesis extends Analyzer {
           SPELLS.GROVE_GUARDIANS_NOURISH,
           SPELLS.DRYAD_REGROWTH,
           SPELLS.DRYAD_TRANQUILITY,
-          SPELLS.DRYAD_SPIRIT_OF_THE_THICKET
+          SPELLS.DRYAD_SPIRIT_OF_THE_THICKET,
         ]),
       this.onHeal,
     );

@@ -169,19 +169,19 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
-  // linking lifebloom's bloom heal to the apex talent bloom 
-    {
-      linkRelation: CAUSED_BLOOM,
-      reverseLinkRelation: FROM_EVERBLOOM,
-      linkingEventId: SPELLS.SOUL_OF_THE_FOREST_BUFF.id,
-      linkingEventType: EventType.RemoveBuff,
-      referencedEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
-      referencedEventType: EventType.Heal,
-      forwardBufferMs: EVERBLOOM_BUFFER_MS,
-      backwardBufferMs: EVERBLOOM_BUFFER_MS,
-      anyTarget: true,
-      maximumLinks: 5,
-    }
+  // linking lifebloom's bloom heal to the apex talent bloom
+  {
+    linkRelation: CAUSED_BLOOM,
+    reverseLinkRelation: FROM_EVERBLOOM,
+    linkingEventId: SPELLS.SOUL_OF_THE_FOREST_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: EVERBLOOM_BUFFER_MS,
+    backwardBufferMs: EVERBLOOM_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 5,
+  },
 ];
 
 /**

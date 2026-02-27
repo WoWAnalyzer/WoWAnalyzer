@@ -74,32 +74,33 @@ class Tranquility extends Analyzer {
           <strong>
             <SpellLink spell={SPELLS.TRANQUILITY_CAST} />
           </strong>{' '}
-          is your most powerful raid healing cooldown. You should line it up with the most
-          dangerous moments of the fight, and in many raids you'll be assigned to use it at
-          specific timings.
+          is your most powerful raid healing cooldown. You should line it up with the most dangerous
+          moments of the fight, and in many raids you'll be assigned to use it at specific timings.
         </p>
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) && (
           <>
             <p>
-              In Midnight, <strong>Flourish is passive on Tranquility</strong>. Each Tranquility tick
-              extends active HoTs by 2 seconds (up to 10 seconds overall), so the value of every cast
-              depends heavily on how many HoTs are active when you start channeling.
+              In Midnight, <strong>Flourish is passive on Tranquility</strong>. Each Tranquility
+              tick extends active HoTs by 2 seconds (up to 10 seconds overall), so the value of
+              every cast depends heavily on how many HoTs are active when you start channeling.
             </p>
             <p>
               In the lead-up to Tranquility, prioritize setting up as many{' '}
               <SpellLink spell={SPELLS.REJUVENATION} />s as possible, then cast{' '}
-              <SpellLink spell={SPELLS.SWIFTMEND} />, one more <SpellLink spell={SPELLS.REJUVENATION} />,
-              and a <SpellLink spell={SPELLS.WILD_GROWTH} /> before channeling Tranquility. After the
-              channel starts, use the extended HoT window to cast as many <SpellLink spell={SPELLS.REGROWTH} />s
-              as needed.
+              <SpellLink spell={SPELLS.SWIFTMEND} />, one more{' '}
+              <SpellLink spell={SPELLS.REJUVENATION} />, and a{' '}
+              <SpellLink spell={SPELLS.WILD_GROWTH} /> before channeling Tranquility. After the
+              channel starts, use the extended HoT window to cast as many{' '}
+              <SpellLink spell={SPELLS.REGROWTH} />s as needed.
             </p>
           </>
         )}
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) && (
           <p>
-            If you are talented into <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />,
-            it's often worth combining it with Tranquility, since channeling Tranquility pauses the
-            remaining duration of your Tree buff.
+            If you are talented into{' '}
+            <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />, it's often worth
+            combining it with Tranquility, since channeling Tranquility pauses the remaining
+            duration of your Tree buff.
           </p>
         )}
         <p>

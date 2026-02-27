@@ -52,8 +52,7 @@ class Flourish extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRANQUILITY_CAST),
@@ -79,7 +78,9 @@ class Flourish extends Analyzer {
 
   onTranquilityCast(event: CastEvent) {
     this.hardcastCount += 1;
-    this.currentHardcastAttribution = HotTracker.getNewAttribution(`Flourish #${this.hardcastCount}`);
+    this.currentHardcastAttribution = HotTracker.getNewAttribution(
+      `Flourish #${this.hardcastCount}`,
+    );
     this.extensionAttributions.push(this.currentHardcastAttribution);
 
     const rejuvsOnCast =
@@ -115,7 +116,12 @@ class Flourish extends Analyzer {
         return;
       }
 
-      this.hotTracker.addExtension(extensionAttribution, TRANQUILITY_TICK_EXTENSION, targetId, hot.id);
+      this.hotTracker.addExtension(
+        extensionAttribution,
+        TRANQUILITY_TICK_EXTENSION,
+        targetId,
+        hot.id,
+      );
       if (
         !convokeFlourish &&
         hot.id === SPELLS.WILD_GROWTH.id &&
@@ -135,9 +141,9 @@ class Flourish extends Analyzer {
           <strong>
             <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />
           </strong>{' '}
-          extends your active HoTs during <SpellLink spell={SPELLS.TRANQUILITY_CAST} />. The
-          value in raid depends heavily on what HoTs are already out when Tranquility starts and during its
-          ticks, so ramping with Rejuvenation and Wild Growth first is still important.
+          extends your active HoTs during <SpellLink spell={SPELLS.TRANQUILITY_CAST} />. The value
+          in raid depends heavily on what HoTs are already out when Tranquility starts and during
+          its ticks, so ramping with Rejuvenation and Wild Growth first is still important.
         </p>
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
           <p>
@@ -166,7 +172,8 @@ class Flourish extends Analyzer {
 
           const wgRamp = cast.wgsOnCast > 0;
           const rejuvRamp = cast.rejuvsOnCast > 0;
-          const overallPerf = wgRamp && rejuvRamp ? QualitativePerformance.Good : QualitativePerformance.Fail;
+          const overallPerf =
+            wgRamp && rejuvRamp ? QualitativePerformance.Good : QualitativePerformance.Fail;
 
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
@@ -214,7 +221,8 @@ class Flourish extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the sum of the healing enabled by the Flourish HoT extension from Tranquility ticks.
+            This is the sum of the healing enabled by the Flourish HoT extension from Tranquility
+            ticks.
             {this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) && (
               <>
                 <br />
@@ -223,7 +231,9 @@ class Flourish extends Analyzer {
                 <br />
                 Excluded Convoke Flourish extension healing:{' '}
                 <strong>
-                  {this.owner.formatItemHealingDone(this.convokeSpirits.totalFlourishExtensionHealing)}
+                  {this.owner.formatItemHealingDone(
+                    this.convokeSpirits.totalFlourishExtensionHealing,
+                  )}
                 </strong>
               </>
             )}

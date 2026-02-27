@@ -52,7 +52,10 @@ class HotCountGraph extends BuffCountGraph {
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT)) {
       // these custom specs will get filled in manually from Convoke module data
       castSpecs.push({ name: CONVOKE_SPEC_NAME, spells: [], color: '#2222bb' });
-      if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) && this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT)) {
+      if (
+        this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) &&
+        this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT)
+      ) {
         castSpecs.push({ name: CONVOKE_WITH_FLOURISH_SPEC_NAME, spells: [], color: '#22aacc' });
       }
     }

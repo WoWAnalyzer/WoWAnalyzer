@@ -512,18 +512,18 @@ const spells = {
   },
   DRYAD_TRANQUILITY: {
     id: 1264659,
-    name: "Tranquility",
+    name: 'Tranquility',
     icon: 'spell_nature_tranquility',
   },
   DRYAD_SPIRIT_OF_THE_THICKET: {
     id: 1264905,
-    name: "Spirit of the Thicket",
+    name: 'Spirit of the Thicket',
     icon: 'spell_unused',
   },
   EVERBLOOM_SPLASH_HEAL: {
     id: 1244341,
-    name: "Everbloom",
-    icon: 'ability_druid_focusedgrowth'
+    name: 'Everbloom',
+    icon: 'ability_druid_focusedgrowth',
   },
 
   /////////////////////////////////////////////////////////////////////////////

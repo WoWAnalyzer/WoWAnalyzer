@@ -285,11 +285,11 @@ class TreeOfLife extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />
         </strong>{' '}
-        should generally be used 10-12 seconds before major damage hits so you can maximize the
-        mana discount on <SpellLink spell={SPELLS.REJUVENATION} /> during your ramp. While
-        Incarnation is active, you can otherwise continue your standard rotation. Its duration is
-        paused while channeling <SpellLink spell={SPELLS.TRANQUILITY_CAST} />, so combining the two
-        is usually a good idea. Be careful not to overvalue the Regrowth bonus: making{' '}
+        should generally be used 10-12 seconds before major damage hits so you can maximize the mana
+        discount on <SpellLink spell={SPELLS.REJUVENATION} /> during your ramp. While Incarnation is
+        active, you can otherwise continue your standard rotation. Its duration is paused while
+        channeling <SpellLink spell={SPELLS.TRANQUILITY_CAST} />, so combining the two is usually a
+        good idea. Be careful not to overvalue the Regrowth bonus: making{' '}
         <SpellLink spell={SPELLS.REGROWTH} /> instant mostly front-loads the heal, since its normal
         cast time is already equal to the global cooldown.
       </p>
@@ -303,7 +303,10 @@ class TreeOfLife extends Analyzer {
           const castTotalHealing = this._getTotalHealing(cast.accumulator);
           const treeEnd = Math.min(this.owner.fight.end_time, cast.timestamp + TOL_DURATION);
           const treeDuration = treeEnd - cast.timestamp;
-          const rejuvRampEnd = Math.min(this.owner.fight.end_time, cast.timestamp + REJUV_RAMP_WINDOW);
+          const rejuvRampEnd = Math.min(
+            this.owner.fight.end_time,
+            cast.timestamp + REJUV_RAMP_WINDOW,
+          );
           const rejuvRampDuration = rejuvRampEnd - cast.timestamp;
 
           const rejuvActiveTime = this.alwaysBeCasting.getActiveTimeMillisecondsFiltered(
@@ -316,7 +319,8 @@ class TreeOfLife extends Analyzer {
             treeEnd,
           );
 
-          const rejuvActivePercent = rejuvRampDuration <= 0 ? 0 : rejuvActiveTime / rejuvRampDuration;
+          const rejuvActivePercent =
+            rejuvRampDuration <= 0 ? 0 : rejuvActiveTime / rejuvRampDuration;
           const overallActivePercent = treeDuration <= 0 ? 0 : overallActiveTime / treeDuration;
 
           const rejuvRampPerf = evaluateQualitativePerformanceByThreshold({
@@ -340,8 +344,8 @@ class TreeOfLife extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> ({formatNumber(castTotalHealing)}{' '}
-              healing)
+              <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> (
+              {formatNumber(castTotalHealing)} healing)
             </>
           );
 

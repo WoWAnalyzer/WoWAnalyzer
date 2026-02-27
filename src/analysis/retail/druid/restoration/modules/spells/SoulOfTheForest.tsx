@@ -20,7 +20,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { isFromConvoke, isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import {
+  isFromConvoke,
+  isFromHardcast,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import {
   buffedBySotf,
   getSotfBuffs,
@@ -33,11 +36,7 @@ import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits'
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import Lifebloom from './Lifebloom';
 
-const SOTF_SPELLS = [
-  SPELLS.REJUVENATION,
-  SPELLS.REJUVENATION_GERMINATION,
-  SPELLS.REGROWTH,
-];
+const SOTF_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION, SPELLS.REGROWTH];
 
 const REJUVENATION_HEALING_INCREASE = 0.6;
 const REGROWTH_HEALING_INCREASE = 0.6;
@@ -203,11 +202,7 @@ class SoulOfTheForest extends Analyzer {
         value = QualitativePerformance.Fail;
         this.wastedBuffs += 1;
       } else {
-        if (
-          !isFromHardcast(buffed[0]) &&
-          !isFromConvoke(buffed[0]) &&
-          !this.lastBuffFromHardcast
-        ) {
+        if (!isFromHardcast(buffed[0]) && !isFromConvoke(buffed[0]) && !this.lastBuffFromHardcast) {
           // SM during Convoke also consumed during Convoke - don't count it
           return;
         }
@@ -287,10 +282,7 @@ class SoulOfTheForest extends Analyzer {
   }
 
   get totalHealing() {
-    return (
-      this.sotfRegrowthInfo.attribution.healing +
-      this.sotfRejuvInfo.attribution.healing
-    );
+    return this.sotfRegrowthInfo.attribution.healing + this.sotfRejuvInfo.attribution.healing;
   }
 
   /** Guide subsection describing the proper usage of Soul of the Forest */
@@ -318,7 +310,9 @@ class SoulOfTheForest extends Analyzer {
           castEntries={this.useEntries}
           usesInsteadOfCasts
           goodExtraExplanation={<>used on Rejuvenation or Regrowth</>}
-          badExtraExplanation={<>proc expired, was overwritten, or consumed without active Lifebloom</>}
+          badExtraExplanation={
+            <>proc expired, was overwritten, or consumed without active Lifebloom</>
+          }
         />
       </div>
     );

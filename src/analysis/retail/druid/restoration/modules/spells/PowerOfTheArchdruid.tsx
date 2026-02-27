@@ -19,7 +19,7 @@ const PROC_PROB = 0.6;
  * **Power of the Archdruid**
  * Spec Talent Tier 7
  *
- * Soul of the Forest now causes your next Rejuvenation or Regrowth 
+ * Soul of the Forest now causes your next Rejuvenation or Regrowth
  * to apply to 2 additional allies within 20 yards of the target.
  */
 class PowerOfTheArchdruid extends Analyzer {
@@ -44,7 +44,6 @@ class PowerOfTheArchdruid extends Analyzer {
       this.onApply,
     );
   }
-
 
   onApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!event.prepull) {

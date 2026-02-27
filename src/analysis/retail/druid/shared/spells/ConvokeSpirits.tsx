@@ -145,7 +145,9 @@ class ConvokeSpirits extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
     // used to be different per spec, leaving var just in case it goes back to that
-    this.spellsPerCast = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) ? SPELLS_CAST_CG : SPELLS_CAST;
+    this.spellsPerCast = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT)
+      ? SPELLS_CAST_CG
+      : SPELLS_CAST;
 
     // watch for convokes
     this.addEventListener(

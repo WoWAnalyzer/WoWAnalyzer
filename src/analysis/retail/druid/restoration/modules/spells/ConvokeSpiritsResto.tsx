@@ -202,23 +202,23 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         <strong>
           <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
         </strong>{' '}
-        is a major healing moment in raid.
-        Cast <SpellLink spell={SPELLS.REJUVENATION} /> before Convoke so you can get better value
-        from your HoTs during and after the cast.{' '}
+        is a major healing moment in raid. Cast <SpellLink spell={SPELLS.REJUVENATION} /> before
+        Convoke so you can get better value from your HoTs during and after the cast.{' '}
         {hasCenariusGuidance && hasFlourish && (
           <>
-            Due to <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} />, it also has a
-            50% chance of proccing <SpellLink spell={TALENTS_DRUID.TRANQUILITY_TALENT} />. If you have
-            <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> talented, this Tranquility tick will extend all
-            HoTs by 2 seconds.
+            Due to <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} />, it also has a 50%
+            chance of proccing <SpellLink spell={TALENTS_DRUID.TRANQUILITY_TALENT} />. If you have
+            <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> talented, this Tranquility tick will
+            extend all HoTs by 2 seconds.
           </>
         )}{' '}
         A lot of your gameplay revolves around ramping into either{' '}
-        <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> or <SpellLink spell={SPELLS.TRANQUILITY_CAST} />.
-        Follow each Convoke with <SpellLink spell={SPELLS.REGROWTH} /> casts regardless of whether you
-        proc an extension. Convoke also generates significant Grove Guardian value because included{' '}
-        <SpellLink spell={SPELLS.WILD_GROWTH} /> and <SpellLink spell={SPELLS.SWIFTMEND} /> casts can
-        each produce one.
+        <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> or{' '}
+        <SpellLink spell={SPELLS.TRANQUILITY_CAST} />. Follow each Convoke with{' '}
+        <SpellLink spell={SPELLS.REGROWTH} /> casts regardless of whether you proc an extension.
+        Convoke also generates significant Grove Guardian value because included{' '}
+        <SpellLink spell={SPELLS.WILD_GROWTH} /> and <SpellLink spell={SPELLS.SWIFTMEND} /> casts
+        can each produce one.
       </p>
     );
 
@@ -278,10 +278,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                       <>
                         When casting <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> and{' '}
                         <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> together, Convoke should
-                        generally go first so its HoTs can be extended by Tranquility's flourish ticks.
-                        If you got an{' '}
-                        <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
-                        cast Tranquility shortly before this Convoke.
+                        generally go first so its HoTs can be extended by Tranquility's flourish
+                        ticks. If you got an <i className="glyphicon glyphicon-remove fail-mark" />{' '}
+                        here, it means you cast Tranquility shortly before this Convoke.
                       </>
                     }
                   >

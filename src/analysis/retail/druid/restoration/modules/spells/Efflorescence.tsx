@@ -30,8 +30,7 @@ class Efflorescence extends Analyzer {
   constructor(options: Options) {
     super(options);
     // TODO disable this when player doesn't take talent, or leave active with a message "you should really take Efflo" .. ?
-    this.hasLifeTreading =
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT);
+    this.hasLifeTreading = this.selectedCombatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT);
 
     if (this.hasLifeTreading) {
       this.addEventListener(
@@ -144,11 +143,14 @@ class Efflorescence extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
         </b>{' '}
-        is free and provides strong healing, especially when Lifebloom is maintained on a target stacked with the raid. 
-        Keep Lifebloom on a squishier melee player (e.g., Enhancement Shaman, Rogue, Windwalker) for consistent value. With 
+        is free and provides strong healing, especially when Lifebloom is maintained on a target
+        stacked with the raid. Keep Lifebloom on a squishier melee player (e.g., Enhancement Shaman,
+        Rogue, Windwalker) for consistent value. With
         <b>
           <SpellLink spell={TALENTS_DRUID.LIFETREADING_TALENT} />
-        </b>{', '} Efflorescence follows the Lifebloom target, so aim to maintain near 100% uptime on Lifebloom.
+        </b>
+        {', '} Efflorescence follows the Lifebloom target, so aim to maintain near 100% uptime on
+        Lifebloom.
       </p>
     );
 
@@ -161,7 +163,11 @@ class Efflorescence extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(this.hasLifeTreading ? lifeTreadingExplanation : explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+    return explanationAndDataSubsection(
+      this.hasLifeTreading ? lifeTreadingExplanation : explanation,
+      data,
+      GUIDE_CORE_EXPLANATION_PERCENT,
+    );
   }
 
   // Custom statistic shows efflo targets hit with bar thickness

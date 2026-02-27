@@ -52,10 +52,7 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER_PET)
-        .spell([
-          SPELLS.GROVE_GUARDIANS_SWIFTMEND,
-          SPELLS.GROVE_GUARDIANS_NOURISH,
-        ]),
+        .spell([SPELLS.GROVE_GUARDIANS_SWIFTMEND, SPELLS.GROVE_GUARDIANS_NOURISH]),
       this.onGGHeal,
     );
     this.addEventListener(
@@ -63,13 +60,15 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
       this.onGGSummon,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CONVOKE_SPIRITS, SPELLS.SWIFTMEND, SPELLS.WILD_GROWTH]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.CONVOKE_SPIRITS, SPELLS.SWIFTMEND, SPELLS.WILD_GROWTH]),
       this.onCast,
-    )
+    );
   }
 
   onCast(event: CastEvent) {
-    console.log("GG Cast event: ", event);
+    console.log('GG Cast event: ', event);
   }
 
   swiftmendCasts = 0;
@@ -90,17 +89,15 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
 
   onGGSummon(event: SummonEvent) {
     if (isFromHardcast(event) && event.targetInstance !== undefined) {
-      console.log("GG from hardcast: ", event);
+      console.log('GG from hardcast: ', event);
       this.hardcastInstances.add(event.targetInstance);
     } else {
-      console.log("GG Summoned with no link: ", event);
+      console.log('GG Summoned with no link: ', event);
     }
   }
 
   get totalHardcastHealing() {
-    return (
-      this.hardcastSwiftmendHealing + this.hardcastNourishHealing
-    );
+    return this.hardcastSwiftmendHealing + this.hardcastNourishHealing;
   }
 
   statistic() {
