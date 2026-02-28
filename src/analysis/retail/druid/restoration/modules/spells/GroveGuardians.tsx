@@ -12,7 +12,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
-import Events, { HealEvent, SummonEvent, CastEvent } from 'parser/core/Events';
+import Events, { HealEvent, SummonEvent } from 'parser/core/Events';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
 const deps = {
@@ -59,29 +59,20 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
       Events.summon.by(SELECTED_PLAYER).spell(SPELLS.GROVE_GUARDIANS_SUMMON),
       this.onGGSummon,
     );
-    this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.CONVOKE_SPIRITS, SPELLS.SWIFTMEND, SPELLS.WILD_GROWTH]),
-      this.onCast,
-    );
   }
 
-  onCast(event: CastEvent) {
-    console.log('GG Cast event: ', event);
-  }
-
-  swiftmendCasts = 0;
   onGGHeal(event: HealEvent) {
     const healAmount = event.amount + (event.absorbed || 0);
     // if we have tree of life + CG + this heal is not from a hardcast GG summon, attribute to CG healing
     // need to check hasTolCenariusGuidance since GG summoned by convoke will be missed by the hardcast check
-    if (event.sourceInstance && !this.hardcastInstances.has(event.sourceInstance)) {
+    if (
+      this.hasTolCenariusGuidance &&
+      event.sourceInstance &&
+      !this.hardcastInstances.has(event.sourceInstance)
+    ) {
       this.cgHealing += healAmount;
     } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_SWIFTMEND.id) {
       this.hardcastSwiftmendHealing += healAmount;
-      this.swiftmendCasts += 1;
-      console.log(this.swiftmendCasts);
     } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_NOURISH.id) {
       this.hardcastNourishHealing += healAmount;
     }
@@ -89,10 +80,7 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
 
   onGGSummon(event: SummonEvent) {
     if (isFromHardcast(event) && event.targetInstance !== undefined) {
-      console.log('GG from hardcast: ', event);
       this.hardcastInstances.add(event.targetInstance);
-    } else {
-      console.log('GG Summoned with no link: ', event);
     }
   }
 
