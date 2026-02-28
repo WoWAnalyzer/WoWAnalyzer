@@ -30,8 +30,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
     const summonedPets: string[] = []; // contains encoded target strings of summoned pets - if pet doesn't exist, fabricate an event, and push encoded target string here to mark them as summoned
     const fabricatedEvents = [];
 
-    for (let i = 0; i < events.length; i += 1) {
-      const event = events[i];
+    for (const event of events) {
       if (event.timestamp > maxTimestamp) {
         break;
       }

@@ -2800,7 +2800,7 @@ export const Katorri: Contributor = {
   mains: [
     {
       name: 'Katorrí',
-      spec: SPECS.DESTRUCTION_WARLOCK,
+      spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/us/stormrage/katorr%C3%AD',
     },
   ],

@@ -70,7 +70,7 @@ class SummonDemonicTyrant extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
+    this.hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_IMP_LORD_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
@@ -94,7 +94,7 @@ class SummonDemonicTyrant extends Analyzer {
       event: event,
       castNumber: this.tyrantsCast,
       gfgOnCd: this.hasGFG
-        ? this.spellUsable.isOnCooldown(TALENTS.GRIMOIRE_FELGUARD_TALENT.id)
+        ? this.spellUsable.isOnCooldown(TALENTS.GRIMOIRE_IMP_LORD_TALENT.id)
         : false,
     };
   }
@@ -231,9 +231,10 @@ class SummonDemonicTyrant extends Analyzer {
           <>Terrible usage, you only extended ${impsExtended}</>
         ) : dogs ? (
           <>
-            Terrible usage, you missed <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
+            Terrible usage, you missed <SpellLink spell={TALENTS.GRIMOIRE_IMP_LORD_TALENT} />
           </>
         ) : (
+          // add fel ravager
           <>
             Terrible usage, you missed <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} />
           </>
@@ -375,14 +376,14 @@ class SummonDemonicTyrant extends Analyzer {
     const gfgSummary = (
       <div>
         {this.summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
-        <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
-      </div>
+        <SpellLink spell={TALENTS.GRIMOIRE_IMP_LORD_TALENT} />
+      </div> // add Fel Ravager
     );
 
     const gfgDetails = (
       <div>
         {this.summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
-        <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> - this must always be extended though
+        <SpellLink spell={TALENTS.GRIMOIRE_IMP_LORD_TALENT} /> - this must always be extended though
         in some encounters you will want to prioritize{' '}
         <SpellLink spell={TALENTS.SUMMON_DEMONIC_TYRANT_TALENT} /> usage
       </div>
@@ -471,12 +472,7 @@ class SummonDemonicTyrant extends Analyzer {
     const explanation = (
       <>
         <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} /> is our main offensive cooldown together
-        with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
-        most of our active demons for 15 seconds, including up to 5{' '}
-        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
-        s. Most of the time you will be prioritising{' '}
-        <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> usage and delaying the Tyrant to
-        extend it.
+        with <SpellLink spell={TALENTS.GRIMOIRE_IMP_LORD_TALENT} />.
       </>
     );
 

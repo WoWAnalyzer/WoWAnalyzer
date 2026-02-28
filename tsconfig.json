@@ -61,7 +61,6 @@
     "src/analysis/retail/rogue/shared",
     "src/analysis/retail/shaman/elemental",
     "src/analysis/retail/shaman/enhancement",
-    "src/analysis/retail/warlock/demonology",
     "src/analysis/retail/warrior/protection"
   ],
   "files": [
@@ -80,7 +79,6 @@
     "src/analysis/retail/rogue/outlaw/CONFIG.tsx",
     "src/analysis/retail/shaman/elemental/CONFIG.tsx",
     "src/analysis/retail/shaman/enhancement/CONFIG.tsx",
-    "src/analysis/retail/warlock/demonology/CONFIG.tsx",
     "src/analysis/retail/warrior/protection/CONFIG.tsx"
   ]
 }
