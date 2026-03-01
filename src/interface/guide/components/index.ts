@@ -11,7 +11,6 @@ export {
 } from './CastSequence';
 export { TipBox, TipBoxWithTimestamps } from './TipBox';
 export {
-  SectionContainer,
   StatsRow,
   HelperText,
   StatCard,

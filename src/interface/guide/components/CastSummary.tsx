@@ -10,6 +10,7 @@ import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import GuideDataWrapper, {
+  FilterBadge,
   HelperText,
   PerfBadgeGrid,
   PerfBadgeCount,
@@ -112,11 +113,16 @@ export default function CastSummary({
         const color = qualitativePerformanceToColor(perf);
         const inactive = count === 0;
         return (
-          <MiniStatCard key={label} color={inactive ? '#c8c8c8' : color} inactive={inactive}>
+          <FilterBadge
+            key={label}
+            color={inactive ? '#c8c8c8' : color}
+            active={!inactive}
+            style={{ pointerEvents: 'none', cursor: 'default' }}
+          >
             <PerfBadgeCount color={inactive ? '#c8c8c8' : color}>{count}</PerfBadgeCount>
             <PerfBadgeDivider color={inactive ? '#c8c8c8' : color} />
             <PerfBadgeLabel>{label}</PerfBadgeLabel>
-          </MiniStatCard>
+          </FilterBadge>
         );
       })}
     </PerfBadgeGrid>
@@ -211,15 +217,4 @@ const BoxRowScaler = styled.div<{ widthPct: number }>`
     height: 16px !important;
     border-radius: 2px;
   }
-`;
-
-const MiniStatCard = styled.div<{ color: string; inactive: boolean }>`
-  display: flex;
-  align-items: stretch;
-  border: 1px solid ${(p) => (p.inactive ? 'rgba(255,255,255,0.1)' : p.color + '60')};
-  border-radius: 4px;
-  background: ${(p) => (p.inactive ? 'rgba(255,255,255,0.04)' : p.color + '08')};
-  overflow: hidden;
-  min-height: 30px;
-  opacity: ${(p) => (p.inactive ? 0.4 : 1)};
 `;

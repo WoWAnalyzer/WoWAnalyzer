@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { iconUrl } from 'interface/Icon';
 
 /** Container for each guide data section */
-export const SectionContainer = styled.div`
+const SectionContainer = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
@@ -282,7 +282,7 @@ export const FilterBadge = styled.div<{ color: string; active: boolean; disabled
   min-height: 30px;
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${(props) => (props.disabled ? 'none' : undefined)};
-  opacity: ${(props) => (props.disabled ? 0.4 : props.active ? 1 : 0.45)};
+  opacity: ${(props) => (props.disabled || !props.active ? 0.4 : 1)};
   transition: all 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 
