@@ -7,7 +7,6 @@ import { TipBox } from './TipBox';
 import GuideDataWrapper, {
   HelperText,
   HelperTextRow,
-  NavButton,
   FilterBadge,
   PerfBadgeCount,
   PerfBadgeDivider,
@@ -114,7 +113,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
 
   // Width % for timeline rectangles:
   // ≤5 casts → 20% each (max), scales down to 5% at 20, wraps after 20
-  const rectWidthPct = Math.max(100 / Math.max(filteredCount, 5), 100 / 20);
+  const rectWidthPct = Math.max(100 / Math.max(filteredCount, 5), 100 / 30);
 
   const handlePrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredCasts.length - 1));
@@ -219,9 +218,6 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
           onTouchEnd={handleTouchEnd}
         >
           <TimelineRow>
-            <NavButton onClick={handlePrevious} disabled={filteredCount <= 1}>
-              &#8249;
-            </NavButton>
             <TimelineRectContainer>
               {filteredCasts.map((cast, idx) => (
                 <Tooltip
@@ -237,23 +233,27 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
                 </Tooltip>
               ))}
             </TimelineRectContainer>
-            <NavButton onClick={handleNext} disabled={filteredCount <= 1}>
-              &#8250;
-            </NavButton>
-            <TimelineCounter>
-              {validIndex + 1}&thinsp;/&thinsp;{filteredCount}
-            </TimelineCounter>
           </TimelineRow>
 
           {/* key=validIndex forces remount on navigation, replaying the fade-in animation */}
           <CastCard key={validIndex} color={castColor}>
             <CardHeader>
+              <HeaderNavBtn onClick={handlePrevious} disabled={validIndex === 0}>
+                <span className="nav-chevron">&#8249;</span>
+                <span className="nav-divider" />
+                <span className="nav-label">Prev</span>
+              </HeaderNavBtn>
               <CastMeta>
-                Cast <CastNum>#{originalIndex + 1}</CastNum>
-                <MetaSep>·</MetaSep>
-                {currentCast!.timestamp}
+                <HeaderPerfBadge color={castColor}>{currentCast!.performance}</HeaderPerfBadge>
+                <CastLabel>
+                  Cast {originalIndex + 1} / {filteredCount} · {currentCast!.timestamp}
+                </CastLabel>
               </CastMeta>
-              <PerfLabel color={castColor}>{currentCast!.performance}</PerfLabel>
+              <HeaderNavBtn onClick={handleNext} disabled={validIndex === filteredCount - 1}>
+                <span className="nav-label">Next</span>
+                <span className="nav-divider" />
+                <span className="nav-chevron">&#8250;</span>
+              </HeaderNavBtn>
             </CardHeader>
 
             <StatsGrid style={{ marginBottom: '10px' }}>
@@ -298,7 +298,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
   );
 }
 
-/** Row containing timeline rects + nav buttons + counter */
+/** Row containing the cast timeline rectangles */
 const TimelineRow = styled.div`
   display: flex;
   align-items: center;
@@ -324,7 +324,6 @@ const TimelineRectContainer = styled.div`
 const TimelineRect = styled.button<{ color: string; active: boolean }>`
   height: 16px;
   min-width: 8px;
-  flex-shrink: 0;
   border-radius: 2px;
   background: ${(props) => (props.active ? props.color : props.color + '55')};
   border: 2px solid ${(props) => (props.active ? props.color : 'transparent')};
@@ -341,15 +340,68 @@ const TimelineRect = styled.button<{ color: string; active: boolean }>`
   }
 `;
 
-/** Cast counter shown in the timeline row */
-const TimelineCounter = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
-  white-space: nowrap;
-  flex-shrink: 0;
-  min-width: 28px;
-  text-align: right;
+/** Stat-card-style nav button: chevron + divider + label */
+const HeaderNavBtn = styled.button`
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border: 1px solid rgba(250, 183, 0, 0.25);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+
+  .nav-chevron {
+    padding: 0 8px;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fab700;
+    line-height: 0;
+    transform: translateY(-2px);
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: rgba(250, 183, 0, 0.3);
+    flex-shrink: 0;
+  }
+
+  .nav-label {
+    padding: 0 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.1);
+    border-color: rgba(250, 183, 0, 0.5);
+  }
+
+  &:active:not(:disabled) {
+    background: rgba(250, 183, 0, 0.16);
+  }
+
+  &:disabled {
+    border-color: rgba(255, 255, 255, 0.08);
+
+    .nav-chevron {
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    .nav-divider {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-label {
+      color: rgba(255, 255, 255, 0.18);
+    }
+  }
 `;
 
 /** Focusable container; captures keyboard and touch events for navigation */
@@ -384,38 +436,42 @@ const CastCard = styled.div<{ color: string }>`
 `;
 
 const CardHeader = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   margin-bottom: 10px;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 `;
 
 const CastMeta = styled.div`
-  font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.45);
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.45);
 `;
 
-const CastNum = styled.span`
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.8);
-`;
-
-const MetaSep = styled.span`
-  color: rgba(255, 255, 255, 0.2);
-`;
-
-/** Performance label — colored text, no box */
-const PerfLabel = styled.div<{ color: string }>`
-  font-size: 1.3rem;
+const HeaderPerfBadge = styled.div<{ color: string }>`
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid ${(p) => p.color}45;
+  background: ${(p) => p.color}12;
+  font-size: 1.4rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: ${(props) => props.color};
+  letter-spacing: 0.6px;
+  color: ${(p) => p.color};
+`;
+
+const CastLabel = styled.span`
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.25);
 `;
 
 /** Bottom gradient accent bar in the card's performance color */
