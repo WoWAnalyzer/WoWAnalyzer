@@ -181,11 +181,8 @@ const SpellIcon = styled.div<{ size: number; color: string }>`
 
 const NavigationButtons = styled.div`
   display: flex;
-  gap: 2px;
+  gap: 4px;
   align-items: center;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 999px;
-  padding: 2px;
 `;
 
 /** Compact prev/next button used in the CastSequence nav pill */
