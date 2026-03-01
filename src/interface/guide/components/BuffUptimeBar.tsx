@@ -4,8 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import GuideDataWrapper, { StatsRow } from './GuideDataWrapper';
-import { StatCard } from './GuideDataWrapper';
+import GuideDataWrapper, { StatsRow, StatCard } from './GuideDataWrapper';
 
 function UptimeGraph({
   buffHistory,

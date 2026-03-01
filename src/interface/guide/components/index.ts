@@ -25,4 +25,4 @@ export {
   PerfBadgeLabel,
   FilterBadge,
 } from './GuideDataWrapper';
-export { HelperTextRow, NavButton } from './CastDetail';
+export { HelperTextRow, NavButton } from './GuideDataWrapper';

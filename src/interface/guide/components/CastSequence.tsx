@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import GuideDataWrapper, { HelperText } from './GuideDataWrapper';
-import { NavButton, HelperTextRow } from './CastDetail';
+import GuideDataWrapper, { HelperText, HelperTextRow, NavButton } from './GuideDataWrapper';
 
 export interface CastInSequence {
   timestamp: number;

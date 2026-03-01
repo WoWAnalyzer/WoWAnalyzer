@@ -246,6 +246,44 @@ export const PerfBadgeLabel = styled.div`
   flex: 1;
 `;
 
+/** Row pairing helper text with an inline element (e.g. a nav counter) */
+export const HelperTextRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+`;
+
+/** Prev/next navigation button used in cast timelines and sequences */
+export const NavButton = styled.button<{ disabled?: boolean }>`
+  min-width: 32px;
+  height: 32px;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, ${(props) => (props.disabled ? '0.04' : '0.1')});
+  border-radius: 6px;
+  color: ${(props) => (props.disabled ? 'rgba(255,255,255,0.15)' : '#fab700')};
+  font-size: 1.8rem;
+  font-weight: 400;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.12);
+    border-color: rgba(250, 183, 0, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.9);
+    background: rgba(250, 183, 0, 0.18);
+  }
+`;
+
 /** Performance filter toggle — stat-card style, clickable; greyed-out when disabled */
 export const FilterBadge = styled.div<{ color: string; active: boolean; disabled?: boolean }>`
   display: flex;
