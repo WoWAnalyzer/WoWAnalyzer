@@ -153,11 +153,9 @@ export default function CastSummary({
               </BoxRowScaler>
             </BreakdownContainer>
           </ControlledExpandable>
-          {!isExpanded && (
-            <HelperText style={{ marginTop: '4px' }}>
-              Click the bar above for per-cast breakdown
-            </HelperText>
-          )}
+          <DisappearingHelperText style={{ height: isExpanded ? 0 : '1lh' }}>
+            Click the bar above for per-cast breakdown
+          </DisappearingHelperText>
         </>
       ) : (
         <BarContainer>
@@ -172,6 +170,12 @@ export default function CastSummary({
     </GuideDataWrapper>
   );
 }
+
+const DisappearingHelperText = styled(HelperText)`
+  margin-top: 4px;
+  overflow-y: clip;
+  transition: height 0.5s; /* 0.5s matches react-animate-height */
+`;
 
 const BarContainer = styled.div`
   border-radius: 4px;

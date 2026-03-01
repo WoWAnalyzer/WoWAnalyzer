@@ -30,7 +30,6 @@ export const HelperText = styled.div`
 const CompactTitleGroup = styled.div`
   display: grid;
   grid-template-columns: 36px 1fr;
-  grid-template-rows: auto auto;
   column-gap: 8px;
   align-items: center;
   min-width: 180px;
@@ -38,7 +37,6 @@ const CompactTitleGroup = styled.div`
 
 /** Icon cell spanning both title and subtitle rows */
 const CompactIconCell = styled.div`
-  grid-column: 1;
   grid-row: 1 / span 2;
   display: flex;
   align-items: center;
@@ -171,11 +169,19 @@ export const StatCardValue = styled.div<{ color: string }>`
   align-items: center;
   justify-content: center;
   padding: 6px 12px;
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 700;
   color: ${(props) => props.color};
-  line-height: 1;
-  flex-shrink: 0;
+
+  img {
+    width: auto;
+    height: 100%;
+    border-radius: 3px;
+  }
+
+  &:has(img) {
+    padding: 6px;
+  }
 `;
 
 export const StatCardDivider = styled.div<{ color: string }>`
@@ -305,7 +311,7 @@ export const FilterBadge = styled.div<{ color: string; active: boolean; disabled
   overflow: hidden;
   min-height: 30px;
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
+  pointer-events: ${(props) => (props.disabled ? 'none' : undefined)};
   opacity: ${(props) => (props.disabled ? 0.4 : props.active ? 1 : 0.45)};
   transition: all 0.15s ease;
   -webkit-tap-highlight-color: transparent;

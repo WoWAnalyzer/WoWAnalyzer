@@ -75,20 +75,7 @@ class ArcaneBarrageGuide extends Analyzer {
     if (cast.precast) {
       stats.push({
         label: 'Precast Spell',
-        value: (
-          <SpellIcon
-            spell={cast.precast.ability.guid}
-            noLink
-            style={{
-              width: 28,
-              height: 28,
-              borderRadius: 4,
-              display: 'block',
-              margin: 'auto',
-              verticalAlign: 'top',
-            }}
-          />
-        ),
+        value: <SpellIcon spell={cast.precast.ability.guid} />,
         tooltip: `Precast: ${cast.precast.ability.name}`,
       });
     }
