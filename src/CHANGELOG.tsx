@@ -30,7 +30,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 2, 22), 'Rework the visuals of CastDetail, CastSummary, and CastOverview.', Sharrq),
+  change(date(2026, 2, 28), 'Rework the visuals of CastDetail, CastSummary, and CastOverview.', Sharrq),
   change(date(2026, 2, 10), 'Prevent duplicate GCDs triggering for normalized channels', Vollmer),
   change(date(2026, 2, 1), 'Fix playwright tests for specs with partial support', Vollmer),
   change(date(2026, 1, 29), 'RU: improve localization on key pages (news/about/specs/premium/help-wanted) and make Panel headings fully translatable', SaltyRain),
