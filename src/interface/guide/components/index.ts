@@ -10,17 +10,19 @@ export {
   type CastInSequence,
 } from './CastSequence';
 export { TipBox, TipBoxWithTimestamps } from './TipBox';
-export { SectionContainer, StatsRow, HelperText } from './GuideDataWrapper';
 export {
+  SectionContainer,
+  StatsRow,
+  HelperText,
   StatCard,
   StatCardValue,
   StatCardDivider,
   StatCardLabel,
   StatsGrid,
-  HelperTextRow,
-  NavButton,
   PerfBadgeGrid,
   PerfBadgeCount,
   PerfBadgeDivider,
   PerfBadgeLabel,
-} from './CastDetail';
+  FilterBadge,
+} from './GuideDataWrapper';
+export { HelperTextRow, NavButton } from './CastDetail';

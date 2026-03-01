@@ -2,7 +2,13 @@ import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import type Spell from 'common/SPELLS/Spell';
-import { StatsGrid, StatCard, StatCardValue, StatCardDivider, StatCardLabel } from './CastDetail';
+import {
+  StatsGrid,
+  StatCard,
+  StatCardValue,
+  StatCardDivider,
+  StatCardLabel,
+} from './GuideDataWrapper';
 import GuideDataWrapper from './GuideDataWrapper';
 
 export interface StatisticData {

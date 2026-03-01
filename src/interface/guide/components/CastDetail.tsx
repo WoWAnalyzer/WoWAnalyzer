@@ -4,7 +4,19 @@ import { qualitativePerformanceToColor, PerformanceMark } from 'interface/guide'
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { TipBox } from './TipBox';
-import GuideDataWrapper, { HelperText } from './GuideDataWrapper';
+import GuideDataWrapper, {
+  HelperText,
+  FilterBadge,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeGrid,
+  PerfBadgeLabel,
+  StatCard,
+  StatCardDivider,
+  StatCardLabel,
+  StatCardValue,
+  StatsGrid,
+} from './GuideDataWrapper';
 
 /** A single statistic about a cast (e.g., damage dealt, targets hit) */
 export interface PerCastStat {
@@ -284,39 +296,6 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
   );
 }
 
-/** Performance filter toggle — stat-card style, clickable; greyed-out when disabled */
-const FilterBadge = styled.div<{ color: string; active: boolean; disabled?: boolean }>`
-  display: flex;
-  align-items: stretch;
-  border: 1px solid
-    ${(props) =>
-      props.disabled
-        ? 'rgba(255,255,255,0.1)'
-        : props.active
-          ? props.color + '60'
-          : 'rgba(255,255,255,0.08)'};
-  border-radius: 4px;
-  background: ${(props) =>
-    props.disabled
-      ? 'rgba(255,255,255,0.04)'
-      : props.active
-        ? props.color + '08'
-        : 'rgba(0,0,0,0.2)'};
-  overflow: hidden;
-  min-height: 30px;
-  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
-  opacity: ${(props) => (props.disabled ? 0.4 : props.active ? 1 : 0.45)};
-  transition: all 0.15s ease;
-  -webkit-tap-highlight-color: transparent;
-
-  &:hover {
-    opacity: 1;
-    border-color: ${(props) => props.color + '70'};
-    background: ${(props) => props.color + '20'};
-  }
-`;
-
 /** Row containing timeline rects + nav buttons + counter */
 const TimelineRow = styled.div`
   display: flex;
@@ -527,91 +506,16 @@ export const NavButton = styled.button<{ disabled?: boolean }>`
   }
 `;
 
-export const StatCard = styled.div<{ color: string }>`
-  display: flex;
-  align-items: stretch;
-  border: 1px solid ${(props) => props.color}45;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  min-height: 44px;
-`;
-
-export const StatCardValue = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 12px;
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: ${(props) => props.color};
-  line-height: 1;
-  flex-shrink: 0;
-`;
-
-export const StatCardDivider = styled.div<{ color: string }>`
-  width: 1px;
-  height: 55%;
-  align-self: center;
-  background: ${(props) => props.color}35;
-  flex-shrink: 0;
-`;
-
-export const StatCardLabel = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  line-height: 1.2;
-  flex: 1;
-`;
-
-export const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-bottom: 6px;
-`;
-
-export const PerfBadgeGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-`;
-
-export const PerfBadgeCount = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: ${(p) => p.color};
-  line-height: 1;
-  flex-shrink: 0;
-`;
-
-export const PerfBadgeDivider = styled.div<{ color: string }>`
-  width: 1px;
-  height: 55%;
-  align-self: center;
-  background: ${(p) => p.color}40;
-  flex-shrink: 0;
-`;
-
-export const PerfBadgeLabel = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  line-height: 1.2;
-  flex: 1;
-`;
+// StatCard, StatsGrid, PerfBadge*, FilterBadge are defined in GuideDataWrapper and re-exported from there.
+export {
+  StatCard,
+  StatCardValue,
+  StatCardDivider,
+  StatCardLabel,
+  StatsGrid,
+  PerfBadgeGrid,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeLabel,
+  FilterBadge,
+} from './GuideDataWrapper';

@@ -9,8 +9,13 @@ import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
 import { qualitativePerformanceToColor } from 'interface/guide';
-import GuideDataWrapper, { HelperText } from './GuideDataWrapper';
-import { PerfBadgeGrid, PerfBadgeCount, PerfBadgeDivider, PerfBadgeLabel } from './CastDetail';
+import GuideDataWrapper, {
+  HelperText,
+  PerfBadgeGrid,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeLabel,
+} from './GuideDataWrapper';
 
 /** Represents a single cast evaluation with timestamp and performance assessment */
 export interface CastEvaluation {
