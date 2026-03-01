@@ -388,19 +388,8 @@ const HeaderNavBtn = styled.button`
   }
 
   &:disabled {
-    border-color: rgba(255, 255, 255, 0.08);
-
-    .nav-chevron {
-      color: rgba(255, 255, 255, 0.18);
-    }
-
-    .nav-divider {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-label {
-      color: rgba(255, 255, 255, 0.18);
-    }
+    opacity: 0.4;
+    filter: grayscale(1);
   }
 `;
 
@@ -524,10 +513,9 @@ const AdditionalContentHeading = styled.div`
   letter-spacing: 0.5px;
 `;
 
-// HelperTextRow, NavButton, StatCard, StatsGrid, PerfBadge*, FilterBadge are defined in GuideDataWrapper and re-exported from there.
+// HelperTextRow, StatCard, StatsGrid, PerfBadge*, FilterBadge are defined in GuideDataWrapper and re-exported from there.
 export {
   HelperTextRow,
-  NavButton,
   StatCard,
   StatCardValue,
   StatCardDivider,

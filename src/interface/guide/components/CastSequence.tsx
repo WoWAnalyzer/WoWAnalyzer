@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import GuideDataWrapper, { HelperText, HelperTextRow, NavButton } from './GuideDataWrapper';
+import GuideDataWrapper, { HelperText, HelperTextRow } from './GuideDataWrapper';
 
 export interface CastInSequence {
   timestamp: number;
@@ -117,31 +117,37 @@ export default function CastSequence<T>({
 
   const navContent = (
     <NavigationButtons>
-      <NavButton type="button" onClick={handlePrevious} aria-label="Previous sequence">
+      <CastSeqNavButton
+        type="button"
+        onClick={handlePrevious}
+        disabled={currentIndex === 0}
+        aria-label="Previous sequence"
+      >
         ‹
-      </NavButton>
+      </CastSeqNavButton>
       <NavCounter>
         {currentIndex + 1} / {sequences.length}
       </NavCounter>
-      <NavButton type="button" onClick={handleNext} aria-label="Next sequence">
+      <CastSeqNavButton
+        type="button"
+        onClick={handleNext}
+        disabled={currentIndex === sequences.length - 1}
+        aria-label="Next sequence"
+      >
         ›
-      </NavButton>
+      </CastSeqNavButton>
     </NavigationButtons>
   );
 
-  const headerHelperText = description ? (
+  const inlineHelperText = description ? (
     <HelperTextRow>
       <HelperText>{description}</HelperText>
     </HelperTextRow>
   ) : undefined;
 
   return (
-    <GuideDataWrapper
-      title={`${spell.name} Cast Sequences`}
-      subtitle={subtitle}
-      stats={navContent}
-      helperText={headerHelperText}
-    >
+    <GuideDataWrapper title={`${spell.name} Cast Sequences`} subtitle={subtitle} stats={navContent}>
+      {inlineHelperText}
       <ScrollableContainer>
         <SpellSequence casts={currentSequence.casts} iconSize={iconSize} />
       </ScrollableContainer>
@@ -160,11 +166,10 @@ const SpellIcon = styled.div<{ size: number; color: string }>`
   flex-shrink: 0;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  border: 3px solid ${(props) => props.color};
+  border: 1px solid rgba(0, 0, 0, 0.8);
   border-radius: 6px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
   img {
     width: 100%;
@@ -181,6 +186,39 @@ const NavigationButtons = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border-radius: 999px;
   padding: 2px;
+`;
+
+/** Compact prev/next button used in the CastSequence nav pill */
+const CastSeqNavButton = styled.button`
+  min-width: 28px;
+  height: 28px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #fab700;
+  font-size: 1.8rem;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  line-height: 0;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.12);
+    border-color: rgba(250, 183, 0, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    background: rgba(250, 183, 0, 0.18);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
 `;
 
 const NavCounter = styled.div`
