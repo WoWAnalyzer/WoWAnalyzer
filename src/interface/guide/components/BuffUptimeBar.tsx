@@ -4,8 +4,8 @@ import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import { StatsRow, StatCard, StatValue, StatLabel } from './GuideDivs';
-import GuideDataWrapper from './GuideDataWrapper';
+import GuideDataWrapper, { StatsRow } from './GuideDataWrapper';
+import { StatCard } from './CastDetail';
 
 function UptimeGraph({
   buffHistory,
@@ -263,4 +263,18 @@ const UptimeGraphContainer = styled.div`
   height: 24px;
   width: 100%;
   position: relative;
+`;
+
+const StatValue = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+`;
+
+const StatLabel = styled.div`
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;

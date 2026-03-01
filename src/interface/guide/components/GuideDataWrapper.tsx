@@ -1,7 +1,30 @@
 import { ReactNode } from 'react';
 import styled from '@emotion/styled';
-import { SectionContainer, StatsRow, HelperText } from './GuideDivs';
 import { iconUrl } from 'interface/Icon';
+
+/** Container for each guide data section */
+export const SectionContainer = styled.div`
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+`;
+
+/** Row for stat cards / pills in a section header */
+export const StatsRow = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
+`;
+
+/** Small italicized helper text for additional context */
+export const HelperText = styled.div`
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+  font-style: italic;
+`;
 
 /** Compact mode: Icon+title area laid out as a 2-col grid so icon spans both rows */
 const CompactTitleGroup = styled.div`

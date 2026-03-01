@@ -4,21 +4,7 @@ import { qualitativePerformanceToColor, PerformanceMark } from 'interface/guide'
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { TipBox } from './TipBox';
-import {
-  HelperText,
-  HelperTextRow,
-  NavButton,
-  StatsGrid,
-  StatCard,
-  StatCardValue,
-  StatCardDivider,
-  StatCardLabel,
-  PerfBadgeGrid,
-  PerfBadgeCount,
-  PerfBadgeDivider,
-  PerfBadgeLabel,
-} from './GuideDivs';
-import GuideDataWrapper from './GuideDataWrapper';
+import GuideDataWrapper, { HelperText } from './GuideDataWrapper';
 
 /** A single statistic about a cast (e.g., damage dealt, targets hit) */
 export interface PerCastStat {
@@ -501,4 +487,131 @@ const AdditionalContentHeading = styled.div`
   margin-bottom: 6px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+`;
+
+// ── Shared primitives (exported for use by CastSummary, CastOverview, BuffUptimeBar, CastSequence) ──
+
+export const HelperTextRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+`;
+
+export const NavButton = styled.button<{ disabled?: boolean }>`
+  min-width: 32px;
+  height: 32px;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, ${(props) => (props.disabled ? '0.04' : '0.1')});
+  border-radius: 6px;
+  color: ${(props) => (props.disabled ? 'rgba(255,255,255,0.15)' : '#fab700')};
+  font-size: 1.8rem;
+  font-weight: 400;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.12);
+    border-color: rgba(250, 183, 0, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.9);
+    background: rgba(250, 183, 0, 0.18);
+  }
+`;
+
+export const StatCard = styled.div<{ color: string }>`
+  display: flex;
+  align-items: stretch;
+  border: 1px solid ${(props) => props.color}45;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  min-height: 44px;
+`;
+
+export const StatCardValue = styled.div<{ color: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: ${(props) => props.color};
+  line-height: 1;
+  flex-shrink: 0;
+`;
+
+export const StatCardDivider = styled.div<{ color: string }>`
+  width: 1px;
+  height: 55%;
+  align-self: center;
+  background: ${(props) => props.color}35;
+  flex-shrink: 0;
+`;
+
+export const StatCardLabel = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  flex: 1;
+`;
+
+export const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+`;
+
+export const PerfBadgeGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+`;
+
+export const PerfBadgeCount = styled.div<{ color: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: ${(p) => p.color};
+  line-height: 1;
+  flex-shrink: 0;
+`;
+
+export const PerfBadgeDivider = styled.div<{ color: string }>`
+  width: 1px;
+  height: 55%;
+  align-self: center;
+  background: ${(p) => p.color}40;
+  flex-shrink: 0;
+`;
+
+export const PerfBadgeLabel = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  flex: 1;
 `;

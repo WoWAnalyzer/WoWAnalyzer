@@ -4,15 +4,8 @@ import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import {
-  NavigationButtons,
-  NavButton,
-  NavCounter,
-  HelperText,
-  HelperTextRow,
-  ScrollableContainer,
-} from './GuideDivs';
-import GuideDataWrapper from './GuideDataWrapper';
+import GuideDataWrapper, { HelperText } from './GuideDataWrapper';
+import { NavButton, HelperTextRow } from './CastDetail';
 
 export interface CastInSequence {
   timestamp: number;
@@ -179,5 +172,47 @@ const SpellIcon = styled.div<{ size: number; color: string }>`
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+`;
+
+const NavigationButtons = styled.div`
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 2px;
+`;
+
+const NavCounter = styled.div`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  min-width: 36px;
+  text-align: center;
+`;
+
+const ScrollableContainer = styled.div`
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 6px 12px 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+    cursor: default !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(104, 103, 100, 0.15);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #fab700;
   }
 `;

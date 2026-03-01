@@ -8,15 +8,9 @@ import { useState, type JSX } from 'react';
 import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
-import {
-  HelperText,
-  PerfBadgeGrid,
-  PerfBadgeCount,
-  PerfBadgeDivider,
-  PerfBadgeLabel,
-} from './GuideDivs';
 import { qualitativePerformanceToColor } from 'interface/guide';
-import GuideDataWrapper from './GuideDataWrapper';
+import GuideDataWrapper, { HelperText } from './GuideDataWrapper';
+import { PerfBadgeGrid, PerfBadgeCount, PerfBadgeDivider, PerfBadgeLabel } from './CastDetail';
 
 /** Represents a single cast evaluation with timestamp and performance assessment */
 export interface CastEvaluation {
