@@ -227,7 +227,6 @@ export const PerfBadgeCount = styled.div<{ color: string }>`
   font-size: 1.4rem;
   font-weight: 700;
   color: ${(p) => p.color};
-  line-height: 1;
   flex-shrink: 0;
 `;
 
@@ -243,12 +242,11 @@ export const PerfBadgeLabel = styled.div`
   display: flex;
   align-items: center;
   padding: 4px 8px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  line-height: 1.2;
   flex: 1;
 `;
 
