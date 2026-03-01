@@ -153,7 +153,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
       {PERF_LEVELS.map(({ perf, label }) => {
         const count = performanceCounts[perf] ?? 0;
         const disabled = count === 0;
-        const color = disabled ? 'rgba(200,200,200,1)' : qualitativePerformanceToColor(perf);
+        const color = disabled ? '#c8c8c8' : qualitativePerformanceToColor(perf);
         const badge = (
           <FilterBadge
             key={label}
@@ -300,13 +300,13 @@ const FilterBadge = styled.div<{ color: string; active: boolean; disabled?: bool
     props.disabled
       ? 'rgba(255,255,255,0.04)'
       : props.active
-        ? props.color + '15'
+        ? props.color + '08'
         : 'rgba(0,0,0,0.2)'};
   overflow: hidden;
   min-height: 30px;
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
-  opacity: ${(props) => (props.disabled ? 0.3 : props.active ? 1 : 0.45)};
+  opacity: ${(props) => (props.disabled ? 0.4 : props.active ? 1 : 0.45)};
   transition: all 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 
@@ -562,7 +562,7 @@ export const StatCardLabel = styled.div`
   align-items: center;
   padding: 6px 10px;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.4px;
@@ -608,7 +608,7 @@ export const PerfBadgeLabel = styled.div`
   align-items: center;
   padding: 4px 8px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.4px;

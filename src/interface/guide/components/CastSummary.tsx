@@ -107,15 +107,9 @@ export default function CastSummary({
         const color = qualitativePerformanceToColor(perf);
         const inactive = count === 0;
         return (
-          <MiniStatCard
-            key={label}
-            color={inactive ? 'rgba(200,200,200,1)' : color}
-            inactive={inactive}
-          >
-            <PerfBadgeCount color={inactive ? 'rgba(255,255,255,0.25)' : color}>
-              {count}
-            </PerfBadgeCount>
-            <PerfBadgeDivider color={inactive ? 'rgba(200,200,200,1)' : color} />
+          <MiniStatCard key={label} color={inactive ? '#c8c8c8' : color} inactive={inactive}>
+            <PerfBadgeCount color={inactive ? '#c8c8c8' : color}>{count}</PerfBadgeCount>
+            <PerfBadgeDivider color={inactive ? '#c8c8c8' : color} />
             <PerfBadgeLabel>{label}</PerfBadgeLabel>
           </MiniStatCard>
         );
@@ -215,8 +209,8 @@ const MiniStatCard = styled.div<{ color: string; inactive: boolean }>`
   align-items: stretch;
   border: 1px solid ${(p) => (p.inactive ? 'rgba(255,255,255,0.1)' : p.color + '60')};
   border-radius: 4px;
-  background: ${(p) => (p.inactive ? 'rgba(255,255,255,0.04)' : p.color + '15')};
+  background: ${(p) => (p.inactive ? 'rgba(255,255,255,0.04)' : p.color + '08')};
   overflow: hidden;
   min-height: 30px;
-  opacity: ${(p) => (p.inactive ? 0.3 : 1)};
+  opacity: ${(p) => (p.inactive ? 0.4 : 1)};
 `;
