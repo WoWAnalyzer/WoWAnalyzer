@@ -27,45 +27,36 @@ import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEffici
 import Swiftmend from 'analysis/retail/druid/restoration/modules/spells/Swiftmend';
 import Tranquility from 'analysis/retail/druid/restoration/modules/spells/Tranquility';
 import WildGrowth from 'analysis/retail/druid/restoration/modules/spells/WildGrowth';
-import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import Reforestation from 'analysis/retail/druid/restoration/modules/spells/Reforestation';
 import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
 import VerdantInfusion from 'analysis/retail/druid/restoration/modules/spells/VerdantInfusion';
 import Abundance from 'analysis/retail/druid/restoration/modules/spells/Abundance';
-import CenarionWard from 'analysis/retail/druid/restoration/modules/spells/CenarionWard';
-import Cultivation from 'analysis/retail/druid/restoration/modules/spells/Cultivation';
 import Flourish from 'analysis/retail/druid/restoration/modules/spells/Flourish';
 import Photosynthesis from 'analysis/retail/druid/restoration/modules/spells/Photosynthesis';
 import SoulOfTheForest from 'analysis/retail/druid/restoration/modules/spells/SoulOfTheForest';
-import SpringBlossoms from 'analysis/retail/druid/restoration/modules/spells/SpringBlossoms';
 import TreeOfLife from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import SwiftmendNormalizer from './normalizers/SwiftmendNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
-import GroveTending from 'analysis/retail/druid/restoration/modules/spells/GroveTending';
 import HarmoniusBlooming from 'analysis/retail/druid/restoration/modules/spells/HarmoniusBlooming';
 import Verdancy from 'analysis/retail/druid/restoration/modules/spells/Verdancy';
 import Regenesis from 'analysis/retail/druid/restoration/modules/spells/Regenesis';
-import NurturingDormancy from 'analysis/retail/druid/restoration/modules/spells/Nurturing Dormancy';
-import NaturesVigil from 'analysis/retail/druid/restoration/modules/spells/NaturesVigil';
+import NurturingDormancy from 'analysis/retail/druid/restoration/modules/spells/NurturingDormancy';
 import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/RampantGrowth';
-import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
-import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/BuddingLeaves';
-import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
 import WildGrowthPrecastOrderNormalizer from 'analysis/retail/druid/restoration/normalizers/WildGrowthPrecastOrderNormalizer';
 import WakingDream from 'analysis/retail/druid/restoration/modules/spells/WakingDream';
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
+import WildSynthesis from 'analysis/retail/druid/restoration/modules/spells/WildSynthesis';
 import CenariusGuidanceTol from 'analysis/retail/druid/restoration/modules/spells/CenariusGuidanceTol';
 import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
 import Germination from 'analysis/retail/druid/restoration/modules/spells/Germination';
 import ThrivingVegetation from 'analysis/retail/druid/restoration/modules/spells/ThrivingVegetation';
 import RenewingSurge from 'analysis/retail/druid/restoration/modules/spells/RenewingSurge';
-import TWW2TierSetNormalizer from 'analysis/retail/druid/restoration/normalizers/TWW2TierSetNormalizer';
-import TWW2TierSet from 'analysis/retail/druid/restoration/modules/items/TWW2TierSet';
 import RootNetwork from 'analysis/retail/druid/restoration/modules/spells/RootNetwork';
+import Everbloom from 'analysis/retail/druid/restoration/modules/spells/Everbloom';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,13 +86,11 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     abilities: Abilities,
     wildGrowth: WildGrowth,
+    everbloom: Everbloom,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     regrowthAndClearcasting: RegrowthAndClearcasting,
     innervate: Innervate,
-    springBlossoms: SpringBlossoms,
-    cultivation: Cultivation,
-    groveTending: GroveTending,
     ironbark: Ironbark,
     rejuvenation: Rejuvenation,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
@@ -112,10 +101,8 @@ class CombatLogParser extends CoreCombatLogParser {
     treeOfLife: TreeOfLife,
     photosynthesis: Photosynthesis,
     flourish: Flourish,
-    cenarionWard: CenarionWard,
     abundance: Abundance,
     convokeSpirits: ConvokeSpiritsResto,
-    flashOfClarity: FlashOfClarity,
     memoryoftheMotherTree: PowerOfTheArchdruid,
     verdantInfusion: VerdantInfusion,
     reforestation: Reforestation,
@@ -123,13 +110,10 @@ class CombatLogParser extends CoreCombatLogParser {
     verdancy: Verdancy,
     regenesis: Regenesis,
     nurturingDormancy: NurturingDormancy,
-    naturesVigil: NaturesVigil,
     rampantGrowth: RampantGrowth,
-    overgrowth: Overgrowth,
-    buddingLeaves: BuddingLeaves,
-    dreamstate: Dreamstate,
     wakingDream: WakingDream,
     groveGuardians: GroveGuardians,
+    wildSynthesis: WildSynthesis,
     cenariusGuidanceTol: CenariusGuidanceTol,
     controlOfTheDream: ControlOfTheDream,
     germination: Germination,
@@ -141,10 +125,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: RestoDruidHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
-
-    //Tier
-    tww2TierSetNormalizer: TWW2TierSetNormalizer,
-    tww2TierSet: TWW2TierSet,
   };
 
   static guide = Guide;

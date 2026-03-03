@@ -14,7 +14,7 @@ import {
   HARMONIUS_BLOOMING_EXTRA_STACKS,
   MASTERY_STACK_BUFF_IDS,
   masteryHotCountToMult,
-  TRIPLE_MASTERY_BENEFIT_IDS,
+  DOUBLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
 
 const DEBUG = false;
@@ -59,9 +59,7 @@ class Mastery extends Analyzer {
     this.extraLbStacks = this.selectedCombatant.hasTalent(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT)
       ? HARMONIUS_BLOOMING_EXTRA_STACKS
       : 0;
-    this.lbBuffId = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT)
-      ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id
-      : SPELLS.LIFEBLOOM_HOT_HEAL.id;
+    this.lbBuffId = SPELLS.LIFEBLOOM_HOT_HEAL.id;
 
     // inits spellAttributions with an entry for each HoT that works with Mastery
     MASTERY_STACK_BUFF_IDS.forEach((id) => {
@@ -90,8 +88,8 @@ class Mastery extends Analyzer {
 
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = this.getHotsOn(target);
-      const hasTripleMasteryBenefit = TRIPLE_MASTERY_BENEFIT_IDS.includes(spellId);
-      const numHotsOn = this.getHotCount(target) * (hasTripleMasteryBenefit ? 3 : 1);
+      const hasDoubleMasteryBenefit = DOUBLE_MASTERY_BENEFIT_IDS.includes(spellId);
+      const numHotsOn = this.getHotCount(target) * (hasDoubleMasteryBenefit ? 2 : 1);
       const decomposedHeal = this._decompHeal(healVal, numHotsOn);
 
       if (DEBUG) {

@@ -25,7 +25,7 @@ const HOT_ID_CONSUME_ORDER = [
 
 /**
  * **Verdant Infusion**
- * Spec Talent Tier 8
+ * Spec Talent Tier 3
  *
  * Swiftmend no longer consumes a heal over time effect,
  * and extends the duration of your heal over time effects on the target by 8 sec.
@@ -93,7 +93,7 @@ class VerdantInfusion extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(8)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(3)} // number based on talent row
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

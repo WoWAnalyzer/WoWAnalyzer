@@ -19,21 +19,6 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: TALENTS_DRUID.CENARION_WARD_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.WILDWOOD_ROOTS_TALENT) ? 20 : 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.3,
-        },
-        healSpellIds: [SPELLS.CENARION_WARD_HEAL.id],
-      },
-      {
         spell: SPELLS.WILD_GROWTH.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -88,37 +73,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT),
         gcd: {
           base: 1500,
         },
         healSpellIds: [SPELLS.LIFEBLOOM_BLOOM_HEAL.id],
-      },
-      {
-        spell: SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        healSpellIds: [SPELLS.LIFEBLOOM_BLOOM_HEAL.id],
-      },
-      {
-        spell: SPELLS.ADAPTIVE_SWARM.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 25,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS_DRUID.NOURISH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.NOURISH_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
@@ -155,25 +113,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.PASSING_SEASONS_TALENT) * 12,
         gcd: null,
-        charges: combatant.hasTalent(TALENTS_DRUID.TWINLEAF_TALENT) ? 2 : 1,
-      },
-      {
-        spell: TALENTS_DRUID.OVERGROWTH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.OVERGROWTH_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS_DRUID.INVIGORATE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INVIGORATE_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
+        charges: 1,
       },
       {
         spell: SPELLS.IRONBARK.id,
@@ -275,7 +215,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.THRASH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -283,7 +222,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_FERAL.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.THRASH_TALENT),
         gcd: {
           static: 1000,
         },

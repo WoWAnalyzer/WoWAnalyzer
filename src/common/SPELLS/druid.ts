@@ -481,6 +481,11 @@ const spells = {
     name: 'Tenacious Flourishing',
     icon: 'talentspec_druid_restoration',
   },
+  GROVE_GUARDIANS_SUMMON: {
+    id: 102693,
+    name: 'Grove Guardians',
+    icon: 'ability_druid_forceofnature',
+  },
   // 'Swiftmend' cast by Grove Guardians
   GROVE_GUARDIANS_SWIFTMEND: {
     id: 142421,
@@ -499,30 +504,26 @@ const spells = {
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
   },
-  // proc from Resto Druid T31 2pc when Treant Nourish was the triggering spell
-  T31_TREANT_CLEAVE_NOURISH: {
-    id: 423612,
-    name: 'Nourish',
-    icon: 'ability_druid_nourish',
+  // Regrowth cast by Dryad from Sylvan Beckoning
+  DRYAD_REGROWTH: {
+    id: 1264664,
+    name: 'Regrowth',
+    icon: 'spell_nature_resistnature',
   },
-  // proc from Resto Druid T31 2pc when Hardcast (or 4pc proc) Nourish was the triggering spell
-  T31_CAST_CLEAVE_NOURISH: {
-    id: 423618,
-    name: 'Nourish',
-    icon: 'ability_druid_nourish',
+  DRYAD_TRANQUILITY: {
+    id: 1264659,
+    name: 'Tranquility',
+    icon: 'spell_nature_tranquility',
   },
-
-  // HoT (heal and buff) from Resto Druid TWW S2 tier set.
-  INSURANCE_HOT_DRUID: {
-    id: 1215515,
-    name: 'Insurance!',
-    icon: 'inv_10_inscription2_scroll2_color5',
+  DRYAD_SPIRIT_OF_THE_THICKET: {
+    id: 1264905,
+    name: 'Spirit of the Thicket',
+    icon: 'spell_unused',
   },
-  // low health proc (heal) from Resto Druid TWW S2 tier set.
-  INSURANCE_PROC_DRUID: {
-    id: 1215518,
-    name: 'Insurance!',
-    icon: 'inv_10_inscription2_scroll2_color5',
+  EVERBLOOM_SPLASH_HEAL: {
+    id: 1244341,
+    name: 'Everbloom',
+    icon: 'ability_druid_focusedgrowth',
   },
 
   /////////////////////////////////////////////////////////////////////////////
@@ -1381,20 +1382,12 @@ const spells = {
   // KEEPER OF THE GROVE
   //
 
-  CENARIUS_MIGHT_BUFF: {
-    id: 455801,
-    name: "Cenarius' Might",
-    icon: 'achievement_reputation_guardiansofcenarius',
-  },
   // heal from Dream Surge 'dream petals'
   DREAM_BLOOM: {
     id: 434141,
     name: 'Dream Bloom',
     icon: 'inv_ability_keeperofthegrovedruid_dreamsurge_fiendly',
   },
-
-  // TODO TWW find a log with the ID of the "minor cenarion ward" applied 'Durability of Nature'
-  //      ... it appears to be the less popular choice on the node unforch
 } satisfies Record<string, Spell>;
 
 export default spells;

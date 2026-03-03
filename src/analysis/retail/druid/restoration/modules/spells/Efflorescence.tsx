@@ -9,6 +9,7 @@ import UptimeStackBar from 'parser/ui/UptimeStackBar';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 const DURATION_MS = 30000;
 const TICK_MS = 2000;
@@ -21,6 +22,7 @@ class Efflorescence extends Analyzer {
   effloUptimes: OpenTimePeriod[] = [];
   /** true iff we've seen at least one Efflo cast */
   hasCast = false;
+  hasLifeTreading = false;
 
   /** a chronological listing of timestamps when efflo healed, and how many targets it healed */
   effloTimes: EffloTime[] = [];
@@ -28,10 +30,19 @@ class Efflorescence extends Analyzer {
   constructor(options: Options) {
     super(options);
     // TODO disable this when player doesn't take talent, or leave active with a message "you should really take Efflo" .. ?
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST),
-      this.onCast,
-    );
+    this.hasLifeTreading = this.selectedCombatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT);
+
+    if (this.hasLifeTreading) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+        this.onCast,
+      );
+    } else {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST),
+        this.onCast,
+      );
+    }
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_HEAL),
       this.onHeal,
@@ -127,6 +138,22 @@ class Efflorescence extends Analyzer {
       </p>
     );
 
+    const lifeTreadingExplanation = (
+      <p>
+        <b>
+          <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
+        </b>{' '}
+        is free and provides strong healing, especially when Lifebloom is maintained on a target
+        stacked with the raid. Keep Lifebloom on a squishier melee player (e.g., Enhancement Shaman,
+        Rogue, Windwalker) for consistent value. With
+        <b>
+          <SpellLink spell={TALENTS_DRUID.LIFETREADING_TALENT} />
+        </b>
+        {', '} Efflorescence follows the Lifebloom target, so aim to maintain near 100% uptime on
+        Lifebloom.
+      </p>
+    );
+
     const data = (
       <div>
         <RoundedPanel>
@@ -136,7 +163,11 @@ class Efflorescence extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+    return explanationAndDataSubsection(
+      this.hasLifeTreading ? lifeTreadingExplanation : explanation,
+      data,
+      GUIDE_CORE_EXPLANATION_PERCENT,
+    );
   }
 
   // Custom statistic shows efflo targets hit with bar thickness

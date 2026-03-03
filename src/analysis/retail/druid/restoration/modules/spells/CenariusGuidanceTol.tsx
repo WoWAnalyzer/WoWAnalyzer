@@ -6,11 +6,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { TALENTS_DRUID } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
 import { SpellIcon } from 'interface';
 import Events, {
   EventType,
-  SummonEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
@@ -45,7 +45,7 @@ export default class CenariusGuidanceTol extends Analyzer.withDependencies(deps)
 
     // TODO this is a placeholder until we can trigger on the correct thing, which is GG death
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(TALENTS_DRUID.GROVE_GUARDIANS_TALENT),
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.GROVE_GUARDIANS_SUMMON),
       this.onGGSummon,
     );
     this.addEventListener(
@@ -56,7 +56,7 @@ export default class CenariusGuidanceTol extends Analyzer.withDependencies(deps)
     );
   }
 
-  onGGSummon(event: SummonEvent) {
+  onGGSummon() {
     this.cdrOnCurrCast += this.deps.spellUsable.reduceCooldown(
       TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,
       TOL_CDR_MS,

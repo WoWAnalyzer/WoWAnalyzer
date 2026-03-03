@@ -12,6 +12,7 @@ import {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { isFromConvoke, isFromHardcast } from './CastLinkNormalizer';
 
 const BUFFED_BY_SOTF = 'BuffedBySotf';
 const SOTF_BUFFS_HEAL = 'BuffsHeal';
@@ -40,16 +41,6 @@ const REGROWTH_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =
   );
 };
 
-/** Additional condition for wild growth requires the SotF to only be buffing other wild growths */
-const WG_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =>
-  !referencedEvent._linkedEvents ||
-  !referencedEvent._linkedEvents.find(
-    (link) =>
-      link.relation === SOTF_BUFFS_HEAL &&
-      (link.event as AbilityEvent<any>).ability.guid !==
-        (linkingEvent as AbilityEvent<any>).ability.guid,
-  );
-
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BUFFED_BY_SOTF,
@@ -75,18 +66,6 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition: REGROWTH_CONDITION,
     reverseLinkRelation: SOTF_BUFFS_HEAL,
   },
-  {
-    linkRelation: BUFFED_BY_SOTF,
-    linkingEventId: SPELLS.WILD_GROWTH.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.SOUL_OF_THE_FOREST_BUFF.id,
-    referencedEventType: EventType.RemoveBuff,
-    forwardBufferMs: SOTF_BUFFER_MS,
-    backwardBufferMs: SOTF_BUFFER_MS,
-    anyTarget: true,
-    additionalCondition: WG_CONDITION,
-    reverseLinkRelation: SOTF_BUFFS_HEAL,
-  },
 ];
 
 /**
@@ -96,7 +75,19 @@ const EVENT_LINKS: EventLink[] = [
  */
 class SoulOfTheForestLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
-    super(options, EVENT_LINKS);
+    const fromHardcastOrConvoke = (linkingEvent: AnyEvent) =>
+      isFromHardcast(linkingEvent as AbilityEvent<any>) ||
+      isFromConvoke(linkingEvent as AbilityEvent<any>);
+
+    super(
+      options,
+      EVENT_LINKS.map((link) => ({
+        ...link,
+        additionalCondition: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =>
+          fromHardcastOrConvoke(linkingEvent) &&
+          (!link.additionalCondition || link.additionalCondition(linkingEvent, referencedEvent)),
+      })),
+    );
   }
 }
 

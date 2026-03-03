@@ -15,7 +15,7 @@ const RATE_MULT = 1.25; // Ticks every 4 seconds instead of every 5
 
 /**
  * **Waking Dream**
- * Spec Talent
+ * Spec Talent Tier 9
  *
  * Ysera's Gift now heals every 4 sec and its healing is increased by 8% for each of your active Rejuvenations.
  */
@@ -47,7 +47,7 @@ export default class WakingDream extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(9)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
