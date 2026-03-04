@@ -29,7 +29,7 @@ class KillShot extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_1_BEAST_MASTERY_TALENT); // Marksman Killshot is replaced by Black Arrow
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_MARKSMANSHIP_TALENT); // Marksman Killshot is replaced by Black Arrow
     this.selectedCombatant.hasTalent(TALENTS.KILL_SHOT_TALENT);
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(this.activeKillShotSpell);

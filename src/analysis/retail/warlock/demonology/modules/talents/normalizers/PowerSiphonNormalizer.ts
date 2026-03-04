@@ -26,8 +26,7 @@ class PowerSiphonNormalizer extends EventsNormalizer {
       | null = null;
     let activeImpsAfterCast: string[] = [];
 
-    for (let i = 0; i < events.length; i += 1) {
-      const event = events[i];
+    for (const event of events) {
       // skip everything till first PS cast
       if (
         !lastPowerSiphonCast &&

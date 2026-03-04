@@ -347,7 +347,7 @@ const talents = {
   DOUBLE_DIP_TALENT: {
     id: 1252882,
     name: 'Double Dip',
-    icon: 'spell_shaman_tidalwaves',
+    icon: 'ability_mage_waterjet',
     maxRanks: 1,
     entryIds: [128703],
     definitionIds: [{ id: 133505, specId: 264 }],
@@ -489,10 +489,10 @@ const talents = {
     name: 'Echo of the Elements',
     icon: 'ability_shaman_echooftheelements',
     maxRanks: 1,
-    entryIds: [101850, 101928],
+    entryIds: [101850, 101942],
     definitionIds: [
       { id: 106837, specId: 262 },
-      { id: 106941, specId: 264 },
+      { id: 106939, specId: 264 },
     ],
   },
   ELECTROSHOCK_TALENT: {
@@ -1233,8 +1233,8 @@ const talents = {
     name: 'Primal Tide Core',
     icon: 'ability_shaman_repulsiontotem',
     maxRanks: 1,
-    entryIds: [101942],
-    definitionIds: [{ id: 106939, specId: 264 }],
+    entryIds: [101842],
+    definitionIds: [{ id: 106901, specId: 264 }],
   },
   PRIMORDIAL_BOND_TALENT: {
     id: 1279819,
@@ -1729,6 +1729,14 @@ const talents = {
     entryIds: [135252],
     definitionIds: [{ id: 140020, specId: 263 }],
   },
+  TIDAL_WAVES_TALENT: {
+    id: 51564,
+    name: 'Tidal Waves',
+    icon: 'spell_shaman_tidalwaves',
+    maxRanks: 1,
+    entryIds: [101928],
+    definitionIds: [{ id: 106941, specId: 264 }],
+  },
   TIDEWATERS_TALENT: {
     id: 462424,
     name: 'Tidewaters',
@@ -1891,14 +1899,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [117476],
     definitionIds: [{ id: 122488, specId: 264 }],
-  },
-  WHISPERING_WAVES_TALENT: {
-    id: 1217598,
-    name: 'Whispering Waves',
-    icon: 'shaman_pvp_ripplingwaters',
-    maxRanks: 1,
-    entryIds: [101842],
-    definitionIds: [{ id: 106901, specId: 264 }],
   },
   WHITE_WATER_TALENT: {
     id: 462587,

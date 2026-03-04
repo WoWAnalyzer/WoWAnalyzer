@@ -162,8 +162,8 @@ const talents = {
     name: 'Borrowed Time',
     icon: 'spell_holy_borrowedtime',
     maxRanks: 2,
-    entryIds: [103729],
-    definitionIds: [{ id: 108734, specId: 256 }],
+    entryIds: [103697],
+    definitionIds: [{ id: 108702, specId: 256 }],
   },
   BRIGHT_PUPIL_TALENT: {
     id: 390684,
@@ -690,8 +690,8 @@ const talents = {
     name: 'Harsh Discipline',
     icon: 'ability_paladin_handoflight',
     maxRanks: 2,
-    entryIds: [103697],
-    definitionIds: [{ id: 108702, specId: 256 }],
+    entryIds: [103729],
+    definitionIds: [{ id: 108734, specId: 256 }],
   },
   HAUNTING_SHADOWS_TALENT: {
     id: 1279355,
@@ -1055,7 +1055,7 @@ const talents = {
   MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT: {
     id: 1253590,
     name: 'Master the Darkness',
-    icon: 'inv_nullstone_void',
+    icon: 'inv12_apextalent_priest_voidshield',
     maxRanks: 1,
     entryIds: [136998],
     definitionIds: [{ id: 141761, specId: 256 }],
