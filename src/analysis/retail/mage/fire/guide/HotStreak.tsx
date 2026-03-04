@@ -20,7 +20,7 @@ class HotStreakGuide extends Analyzer {
   protected hotStreak!: HotStreak;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
-  isFrostfire: boolean = this.selectedCombatant.hasTalent(TALENTS.FROSTFIRE_BOLT_2_FIRE_TALENT);
+  isFrostfire: boolean = this.selectedCombatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT);
 
   private buildStats() {
     const stats = [];
@@ -126,7 +126,7 @@ class HotStreakGuide extends Analyzer {
     const heatingUp = <SpellLink spell={SPELLS.HEATING_UP} />;
     const hotStreak = <SpellLink spell={SPELLS.HOT_STREAK} />;
     const fireball = <SpellLink spell={SPELLS.FIREBALL} />;
-    const frostfireBolt = <SpellLink spell={TALENTS.FROSTFIRE_BOLT_2_FIRE_TALENT} />;
+    const frostfireBolt = <SpellLink spell={TALENTS.FROSTFIRE_BOLT_TALENT} />;
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
     const ignite = <SpellLink spell={SPELLS.IGNITE} />;
