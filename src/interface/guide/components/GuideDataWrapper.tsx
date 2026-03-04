@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { iconUrl } from 'interface/Icon';
 
 /** Container for each guide data section */
-const SectionContainer = styled.div`
+export const SectionContainer = styled.div`
   background: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
