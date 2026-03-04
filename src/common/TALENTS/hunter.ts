@@ -123,15 +123,7 @@ const talents = {
     entryIds: [135688],
     definitionIds: [{ id: 140444, specId: 255 }],
   },
-  BLACK_ARROW_1_BEAST_MASTERY_TALENT: {
-    id: 466932,
-    name: 'Black Arrow',
-    icon: 'inv_ability_darkrangerhunter_blackarrow',
-    maxRanks: 1,
-    entryIds: [117584],
-    definitionIds: [{ id: 122596, specId: 254 }],
-  },
-  BLACK_ARROW_2_BEAST_MASTERY_TALENT: {
+  BLACK_ARROW_BEAST_MASTERY_TALENT: {
     id: 466930,
     name: 'Black Arrow',
     icon: 'inv_ability_darkrangerhunter_blackarrow',
@@ -139,6 +131,14 @@ const talents = {
     entryIds: [136446],
     definitionIds: [{ id: 141219, specId: 253 }],
     focusCost: 10,
+  },
+  BLACK_ARROW_MARKSMANSHIP_TALENT: {
+    id: 466932,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+    maxRanks: 1,
+    entryIds: [117584],
+    definitionIds: [{ id: 122596, specId: 254 }],
   },
   BLEAK_ARROWS_TALENT: {
     id: 467749,
@@ -1098,7 +1098,7 @@ const talents = {
   OUTLAND_VENOM_TALENT: {
     id: 459939,
     name: 'Outland Venom',
-    icon: 'ability_creature_disease_04',
+    icon: 'ability_hunter_potentvenom',
     maxRanks: 1,
     entryIds: [135497],
     definitionIds: [{ id: 140254, specId: 255 }],
@@ -1880,7 +1880,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126324],
     definitionIds: [{ id: 131150, specId: 255 }],
-    focusCost: 20,
+    focusCost: 10,
   },
   WILDFIRE_IMBUEMENT_TALENT: {
     id: 1252943,

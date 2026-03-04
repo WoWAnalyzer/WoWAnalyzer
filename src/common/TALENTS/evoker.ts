@@ -1390,7 +1390,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115652],
     definitionIds: [{ id: 120664, specId: 1468 }],
-    manaCost: 70000,
+    manaCost: 55000,
   },
   REWIND_TALENT: {
     id: 363534,
