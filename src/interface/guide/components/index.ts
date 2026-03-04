@@ -4,6 +4,7 @@ export { default as CastOverview, type StatisticData } from './CastOverview';
 export { default as CastDetail, type PerCastData, type PerCastStat } from './CastDetail';
 export { default as GuideDataWrapper } from './GuideDataWrapper';
 export { default as BuffUptimeBar } from './BuffUptimeBar';
+export { default as StackedBar, type StackedBarSegment, type StackedBarProps } from './StackedBar';
 export {
   default as CastSequence,
   type CastSequenceEntry,
