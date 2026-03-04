@@ -38,7 +38,10 @@ class HotStreakGuide extends Analyzer {
       value: `${this.hotStreak.wastedCrits.length}`,
       label: 'Wasted Crits',
       tooltip: (
-        <>Number of Fire Blast casts that were wasted because the player already had Hot Streak.</>
+        <>
+          Number of times a direct damage fire spell crit against your target while you already had
+          Hot Streak.
+        </>
       ),
       performance: this.hotStreak.wastedCritsPerformance,
     });

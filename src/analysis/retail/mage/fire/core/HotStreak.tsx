@@ -87,10 +87,7 @@ export default class HotStreak extends Analyzer {
       return;
     }
     const cast: CastEvent | undefined = GetRelatedEvent(event, EventType.Cast);
-    const hadPyromaniac =
-      this.selectedCombatant.hasBuff(TALENTS.PYROMANIAC_TALENT.id) ||
-      this.selectedCombatant.hasBuff(TALENTS.PYROMANIAC_TALENT.id, event.timestamp - 250);
-    if (cast && HasTarget(cast) && !hadPyromaniac) {
+    if (cast && HasTarget(cast)) {
       const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
       const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
       castTarget === damageTarget && this.wastedCrits.push(event);
