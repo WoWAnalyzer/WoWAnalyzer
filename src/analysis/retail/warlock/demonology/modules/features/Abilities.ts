@@ -58,19 +58,6 @@ class Abilities extends SharedAbilities {
         buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
       },
       {
-        spell: TALENTS.SOUL_STRIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 10,
-        enabled: combatant.hasTalent(TALENTS.SOUL_STRIKE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: TALENTS.SUMMON_VILEFIEND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
@@ -127,23 +114,15 @@ class Abilities extends SharedAbilities {
       //   gcd: null,
       // },
       {
-        spell: TALENTS.BILESCOURGE_BOMBERS_TALENT.id,
+        spell: SPELLS.IMPLOSION_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT),
+        cooldown: 15,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.IMPLOSION_CAST.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
         },
       },
 
@@ -173,34 +152,22 @@ class Abilities extends SharedAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      {
-        spell: TALENTS.GRIMOIRE_FELGUARD_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
-      {
-        spell: TALENTS.DEMONIC_STRENGTH_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.DEMONIC_STRENGTH_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
+      // To do: switch to Imp Lord and add Fel Ravager talents. Seems like logs doesn't show this talent, but shows what this talent casts instead (singe magic/spell lock)
+      // {
+      //  spell: TALENTS.GRIMOIRE_FELGUARD_TALENT.id,
+      //  category: SPELL_CATEGORY.COOLDOWNS,
+      //  cooldown: 120,
+      //  enabled: combatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT),
+      //  gcd: {
+      //    base: 1500,
+      //  },
+      //  castEfficiency: {
+      //    suggestion: true,
+      //    recommendedEfficiency: 0.9,
+      //    averageIssueEfficiency: 0.8,
+      //    majorIssueEfficiency: 0.7,
+      //   },
+      // },
 
       // Utility
       {
@@ -333,7 +300,7 @@ class Abilities extends SharedAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT) ? 45 : 60,
+        cooldown: combatant.hasTalent(TALENTS.OPPRESSIVE_DARKNESS_TALENT) ? 45 : 60,
       },
       {
         spell: SPELLS.UNENDING_BREATH.id,

@@ -46,11 +46,6 @@ const PETS = {
     duration: 15000,
     summonAbility: SPELLS.GLOOMHOUND_SUMMON,
   },
-  GRIMOIRE_FELGUARD: {
-    guid: 17252,
-    duration: 15000,
-    summonAbility: TALENTS.GRIMOIRE_FELGUARD_TALENT,
-  },
   DEMONIC_TYRANT: {
     guid: 135002,
     duration: 15000,
