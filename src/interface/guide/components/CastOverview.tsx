@@ -3,13 +3,13 @@ import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import type Spell from 'common/SPELLS/Spell';
 import {
-  SectionContainer,
-  SectionTitle,
   StatsGrid,
-  StatItem,
-  StatItemValue,
-  StatItemLabel,
-} from './GuideDivs';
+  StatCard,
+  StatCardValue,
+  StatCardDivider,
+  StatCardLabel,
+} from './GuideDataWrapper';
+import GuideDataWrapper from './GuideDataWrapper';
 
 export interface StatisticData {
   value: string;
@@ -21,29 +21,30 @@ export interface StatisticData {
 interface CastOverviewProps {
   spell: Spell;
   stats: StatisticData[];
-  fontSize?: string;
 }
 
-export default function CastOverview({ spell, stats, fontSize = '20px' }: CastOverviewProps) {
+export default function CastOverview({ spell, stats }: CastOverviewProps) {
   return (
-    <SectionContainer>
-      <SectionTitle>{spell.name} Overview</SectionTitle>
-      <StatsGrid>
-        {stats.map((stat, index) => {
-          const color = stat.performance
-            ? qualitativePerformanceToColor(stat.performance)
-            : 'rgba(255, 255, 255, 0.3)';
+    <div style={{ marginBottom: '18px' }}>
+      <GuideDataWrapper bare title={`${spell.name} Overview`}>
+        <StatsGrid>
+          {stats.map((stat, index) => {
+            const color = stat.performance
+              ? qualitativePerformanceToColor(stat.performance)
+              : '#ffffff';
 
-          return (
-            <Tooltip key={index} content={stat.tooltip}>
-              <StatItem color={color}>
-                <StatItemValue fontSize={fontSize}>{stat.value}</StatItemValue>
-                <StatItemLabel>{stat.label}</StatItemLabel>
-              </StatItem>
-            </Tooltip>
-          );
-        })}
-      </StatsGrid>
-    </SectionContainer>
+            return (
+              <Tooltip key={index} content={stat.tooltip}>
+                <StatCard color={color}>
+                  <StatCardValue color={color}>{stat.value}</StatCardValue>
+                  <StatCardDivider color={color} />
+                  <StatCardLabel>{stat.label}</StatCardLabel>
+                </StatCard>
+              </Tooltip>
+            );
+          })}
+        </StatsGrid>
+      </GuideDataWrapper>
+    </div>
   );
 }

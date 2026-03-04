@@ -1,7 +1,7 @@
 import { type JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
+import { SpellLink, SpellIcon } from 'interface';
 import { formatPercentage, formatDuration, formatNumber } from 'common/format';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastDetail, {
@@ -57,7 +57,7 @@ class ArcaneBarrageGuide extends Analyzer {
     if (cast.mana !== undefined) {
       stats.push({
         label: 'Mana',
-        value: formatPercentage(cast.mana, 0),
+        value: `${formatPercentage(cast.mana, 0)}%`,
         tooltip: `The player's mana before Arcane Barrage was cast.`,
       });
     }
@@ -75,8 +75,8 @@ class ArcaneBarrageGuide extends Analyzer {
     if (cast.precast) {
       stats.push({
         label: 'Precast Spell',
-        value: cast.precast.ability.name,
-        tooltip: `The spell cast immediately before Arcane Barrage.`,
+        value: <SpellIcon spell={cast.precast.ability.guid} />,
+        tooltip: `Precast: ${cast.precast.ability.name}`,
       });
     }
 
