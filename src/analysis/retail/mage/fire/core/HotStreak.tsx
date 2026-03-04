@@ -18,28 +18,23 @@ import Events, {
   GetRelatedEvent,
   EventType,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import {
   QualitativePerformance,
   evaluateQualitativePerformanceByThreshold,
 } from 'parser/ui/QualitativePerformance';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 export default class HotStreak extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
-    spellUsable: SpellUsable,
   };
   protected sharedCode!: SharedCode;
-  protected spellUsable!: SpellUsable;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
-  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT);
 
   hotStreaks: HotStreakProc[] = [];
-  wasted: DamageEvent[] = [];
+  wastedCrits: DamageEvent[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -81,12 +76,7 @@ export default class HotStreak extends Analyzer {
       remove: event,
       spender: spender,
       expired: !spender,
-      blastCharges: this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id),
       activeBuffs: buff,
-      wastedCrits:
-        this.wasted.filter(
-          (w) => buffApply && w.timestamp > buffApply.timestamp && w.timestamp < event.timestamp,
-        ) || [],
       precast: precast,
       buffUptime: (buffApply && event.timestamp - buffApply.timestamp) || 0,
     });
@@ -103,7 +93,7 @@ export default class HotStreak extends Analyzer {
     if (cast && HasTarget(cast) && !hadPyromaniac) {
       const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
       const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-      castTarget === damageTarget && this.wasted.push(event);
+      castTarget === damageTarget && this.wastedCrits.push(event);
 
       const tooltip =
         'This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.';
@@ -119,15 +109,9 @@ export default class HotStreak extends Analyzer {
     return this.hotStreaks.filter((hs) => hs.expired).length;
   }
 
-  get wastedCrits() {
-    let wasted = 0;
-    this.hotStreaks.forEach((w) => (wasted += w.wastedCrits.length));
-    return wasted;
-  }
-
   get wastedCritsPerformance(): QualitativePerformance {
     return evaluateQualitativePerformanceByThreshold({
-      actual: this.wastedCrits,
+      actual: this.wastedCrits.length,
       isLessThanOrEqual: {
         perfect: 0,
         good: 0.5 * (this.owner.fightDuration / 60000),
@@ -153,9 +137,7 @@ export interface HotStreakProc {
   remove: RemoveBuffEvent;
   spender?: CastEvent;
   expired: boolean;
-  blastCharges: number;
   activeBuffs: Spell[];
-  wastedCrits: DamageEvent[];
   precast?: CastEvent;
   buffUptime: number;
 }

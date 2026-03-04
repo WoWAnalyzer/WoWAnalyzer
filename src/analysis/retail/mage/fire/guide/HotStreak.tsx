@@ -35,7 +35,7 @@ class HotStreakGuide extends Analyzer {
       performance: this.hotStreak.expiredProcsPerformance,
     });
     stats.push({
-      value: `${this.hotStreak.wastedCrits}`,
+      value: `${this.hotStreak.wastedCrits.length}`,
       label: 'Wasted Crits',
       tooltip: (
         <>Number of Fire Blast casts that were wasted because the player already had Hot Streak.</>
