@@ -84,7 +84,7 @@ class HotStreakGuide extends Analyzer {
       return {
         timestamp: hs.remove.timestamp,
         performance: QualitativePerformance.Fail,
-        reason: 'Hot Streak Proc Expired - significant DPS loss',
+        reason: 'Hot Streak Proc Expired',
       };
     }
 
