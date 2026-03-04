@@ -4,6 +4,7 @@ import {
   SharedCode,
 } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
@@ -18,6 +19,10 @@ import Events, {
   EventType,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -40,7 +45,7 @@ export default class HotStreak extends Analyzer {
     super(options);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-      this.onHotStreakApply,
+      this.onHotStreakRemoved,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
@@ -48,28 +53,27 @@ export default class HotStreak extends Analyzer {
     );
   }
 
-  onHotStreakApply(event: RemoveBuffEvent) {
+  onHotStreakRemoved(event: RemoveBuffEvent) {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, EventType.ApplyBuff);
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'consume');
     const damage: DamageEvent | undefined = GetRelatedEvent(event, EventType.Damage);
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'precast');
     const targetHealth = damage && this.sharedCode.getTargetHealth(damage);
 
-    let buff;
+    let buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
-      buff = { active: true, buffId: TALENTS.SCORCH_TALENT.id };
+      buff.push(TALENTS.SCORCH_TALENT);
     } else if (this.hasFirestarter && targetHealth && targetHealth > 0.9) {
-      buff = { active: true, buffId: TALENTS.FIRESTARTER_TALENT.id };
+      buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,
       )
     ) {
-      buff = { active: true, buffId: TALENTS.COMBUSTION_TALENT.id };
-    } else {
-      buff = { active: false };
+      buff.push(TALENTS.COMBUSTION_TALENT);
+    } else if (this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id)) {
+      buff.push(SPELLS.HYPERTHERMIA_BUFF);
     }
 
     this.hotStreaks.push({
@@ -78,12 +82,13 @@ export default class HotStreak extends Analyzer {
       spender: spender,
       expired: !spender,
       blastCharges: this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id),
-      critBuff: buff,
+      activeBuffs: buff,
       wastedCrits:
         this.wasted.filter(
           (w) => buffApply && w.timestamp > buffApply.timestamp && w.timestamp < event.timestamp,
         ) || [],
       precast: precast,
+      buffUptime: (buffApply && event.timestamp - buffApply.timestamp) || 0,
     });
   }
 
@@ -120,16 +125,26 @@ export default class HotStreak extends Analyzer {
     return wasted;
   }
 
-  get wastedCritsThresholds() {
-    return {
-      actual: this.wastedCrits / (this.owner.fightDuration / 60000),
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 3,
+  get wastedCritsPerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: this.wastedCrits,
+      isLessThanOrEqual: {
+        perfect: 0,
+        good: 0.5 * (this.owner.fightDuration / 60000),
+        ok: 1 * (this.owner.fightDuration / 60000),
       },
-      style: ThresholdStyle.NUMBER,
-    };
+    });
+  }
+
+  get expiredProcsPerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: this.expiredProcs,
+      isLessThanOrEqual: {
+        perfect: 0,
+        good: 0.5 * (this.owner.fightDuration / 60000),
+        ok: 1 * (this.owner.fightDuration / 60000),
+      },
+    });
   }
 }
 
@@ -139,7 +154,8 @@ export interface HotStreakProc {
   spender?: CastEvent;
   expired: boolean;
   blastCharges: number;
-  critBuff: { active: boolean; buffId?: number };
+  activeBuffs: Spell[];
   wastedCrits: DamageEvent[];
   precast?: CastEvent;
+  buffUptime: number;
 }

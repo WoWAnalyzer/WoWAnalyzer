@@ -74,16 +74,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
       </Section>
       <Section title="Core">{alwaysBeCastingSubsection}</Section>
-      <Section title="Heating Up & Hot Streak"></Section>
-      <>
-        As a Fire Mage, the vast majority of your rotation revolves around generating, managing, and
-        spending your <SpellLink spell={SPELLS.HEATING_UP} /> and{' '}
-        <SpellLink spell={SPELLS.HOT_STREAK} /> procs. Regardless of whether{' '}
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is active or not, learning to properly
-        utilize your procs will go a long way towards increasing your damage.
-      </>
-      {modules.heatingUpGuide.guideSubsection}
-      {modules.hotStreakGuide.guideSubsection}
+      <Section title="Heating Up & Hot Streak">
+        <>
+          As a Fire Mage, the vast majority of your rotation revolves around generating, managing,
+          and spending your <SpellLink spell={SPELLS.HEATING_UP} /> and{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} /> procs. Regardless of whether{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is active or not, learning to properly
+          utilize your procs will go a long way towards increasing your damage.
+        </>
+        {modules.heatingUpGuide.guideSubsection}
+        {modules.hotStreakGuide.guideSubsection}
+      </Section>
 
       <Section title="Buffs & Procs">
         <>
@@ -97,14 +98,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.feelTheBurnGuide.guideSubsection}
       </Section>
 
-      <Section title="Cooldowns"></Section>
-      <>
-        As is the case with most damage specs, properly utilizing your damage cooldowns will go a
-        long way towards improving your overall damage, especially{' '}
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
-      </>
-      {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
-        modules.combustionGuide.guideSubsection}
+      <Section title="Cooldowns">
+        <>
+          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+          long way towards improving your overall damage, especially{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
+        </>
+        {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
+          modules.combustionGuide.guideSubsection}
+      </Section>
 
       <SubSection title="Cast Efficiency"></SubSection>
       {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
