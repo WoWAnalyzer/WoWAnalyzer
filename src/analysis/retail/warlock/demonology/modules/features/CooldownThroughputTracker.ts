@@ -14,6 +14,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
+      spell: TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT.id,
+      duration: 20,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+    },
+    {
       spell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
       duration: 20,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
