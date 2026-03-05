@@ -272,7 +272,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ALTER_TIME_BUFF.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.ALTER_TIME_TALENT),
-        cooldown: 60 - combatant.getTalentRank(TALENTS.ALTER_TIME_TALENT) * 10,
+        cooldown: combatant.hasTalent(TALENTS.TIME_TWIST_TALENT) ? 50 : 60,
         gcd: null,
       },
       {
