@@ -25,6 +25,10 @@ const cooldowns: Cooldown[] = [
     spell: TALENTS.GRIMOIRE_IMP_LORD_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.GRIMOIRE_IMP_LORD_TALENT),
   },
+  {
+    spell: TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT),
+  },
 ];
 
 function CooldownSubsection() {
