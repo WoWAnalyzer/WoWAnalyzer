@@ -152,12 +152,26 @@ class Abilities extends SharedAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      // To do: switch to Imp Lord and add Fel Ravager talents. Seems like logs doesn't show this talent, but shows what this talent casts instead (singe magic/spell lock)
       {
         spell: TALENTS.GRIMOIRE_IMP_LORD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_IMP_LORD_TALENT),
+        enabled: true,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
+        },
+      },
+      {
+        spell: TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
+        enabled: true,
         gcd: {
           base: 1500,
         },
