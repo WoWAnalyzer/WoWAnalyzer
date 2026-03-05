@@ -32,7 +32,7 @@ class FeveredIncantation extends Analyzer {
 
   damageDuringBuff = () => {
     const DAMAGE_BONUS_PER_STACK =
-      0.02 * this.selectedCombatant.getTalentRank(TALENTS.FEVERED_INCANTATION_TALENT);
+      0.01 * this.selectedCombatant.getTalentRank(TALENTS.FEVERED_INCANTATION_TALENT);
 
     //Calculate Bonus Damage
     let bonusDamage = 0;

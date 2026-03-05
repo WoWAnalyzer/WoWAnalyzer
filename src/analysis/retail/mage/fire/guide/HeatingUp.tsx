@@ -18,10 +18,7 @@ class HeatingUpGuide extends Analyzer {
   static dependencies = {
     heatingUp: HeatingUp,
   };
-
   protected heatingUp!: HeatingUp;
-
-  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
   private buildStats() {
     const stats = [];
@@ -43,9 +40,13 @@ class HeatingUpGuide extends Analyzer {
   }
 
   private evaluateHeatingUpCrit(hu: any): CastEvaluation {
+    const maxFireBlastCharges =
+      1 +
+      this.selectedCombatant.getTalentRank(TALENTS.FERVENT_FLICKERING_TALENT) +
+      this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
     const fireBlastCapped =
       hu.cast.ability.guid === SPELLS.FIRE_BLAST.id &&
-      hu.charges >= (this.hasFlameOn ? 3 : 1) - 1 &&
+      hu.charges >= maxFireBlastCharges - 1 &&
       hu.timeTillCapped < CAPPED_MS_THRESHOLD;
 
     const castWithoutHeatingUp =

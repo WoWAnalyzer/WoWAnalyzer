@@ -94,8 +94,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> will also increase your damage in other
           ways which will play a large part in maximizing your overall and burst damage.
         </>
-        {info.combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) &&
-          modules.feelTheBurnGuide.guideSubsection}
       </Section>
 
       <Section title="Cooldowns">

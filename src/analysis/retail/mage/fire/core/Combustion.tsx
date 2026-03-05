@@ -50,15 +50,6 @@ export default class CombustionCasts extends Analyzer {
   }
 
   onCombust(event: CastEvent) {
-    if (this.selectedCombatant.getTalentRank(TALENTS.SPONTANEOUS_COMBUSTION_TALENT) === 2) {
-      // If you have two points in Spontaneous Combustion, you gain 2 Charges.
-      this.spellUsable.endCooldown(TALENTS.FIRE_BLAST_TALENT.id, event.timestamp, false);
-      this.spellUsable.endCooldown(TALENTS.FIRE_BLAST_TALENT.id, event.timestamp, false);
-    } else if (this.selectedCombatant.getTalentRank(TALENTS.SPONTANEOUS_COMBUSTION_TALENT) === 1) {
-      // If you have one point in Spontaneous Combustion, you gain 1 charge.
-      this.spellUsable.endCooldown(TALENTS.FIRE_BLAST_TALENT.id);
-    }
-
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'precast');
     const removeBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
 

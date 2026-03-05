@@ -138,6 +138,11 @@ const spells = {
     name: "Flame's Fury",
     icon: 'inv_misc_volatilefire',
   },
+  FIRED_UP_BUFF: {
+    id: 1257350,
+    name: 'Fired Up',
+    icon: 'inv12_apextalent_mage_firedup',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

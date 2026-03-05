@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        cooldown: combatant.hasTalent(TALENTS.BLAST_ZONE_TALENT) ? 30 : 45,
         enabled: combatant.hasTalent(TALENTS.METEOR_TALENT),
         castEfficiency: {
           suggestion: false,
@@ -56,9 +56,31 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) ? null : { base: 1500 },
-        enabled: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) &&
+          !combatant.hasTalent(TALENTS.FLAME_ON_TALENT),
         cooldown: (haste) =>
-          (14 - (combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 2 : 0)) /
+          14 /
+          (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
+          combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
+            ? 1.5
+            : 1) /
+          (1 + haste),
+        charges: 1 + combatant.getTalentRank(TALENTS.FERVENT_FLICKERING_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.FIRE_BLAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) ? null : { base: 1500 },
+        enabled:
+          combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) &&
+          combatant.hasTalent(TALENTS.FLAME_ON_TALENT),
+        cooldown: (haste) =>
+          12 /
           (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
           combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
             ? 1.5
@@ -66,8 +88,8 @@ class Abilities extends CoreAbilities {
           (1 + haste),
         charges:
           1 +
-          (combatant.hasTalent(TALENTS.FERVENT_FLICKERING_TALENT) ? 1 : 0) +
-          (combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 1 : 0),
+          combatant.getTalentRank(TALENTS.FERVENT_FLICKERING_TALENT) +
+          combatant.getTalentRank(TALENTS.FLAME_ON_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
