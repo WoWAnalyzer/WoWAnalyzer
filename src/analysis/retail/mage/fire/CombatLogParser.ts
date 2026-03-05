@@ -46,6 +46,7 @@ import FeelTheBurnGuide from './guide/FeelTheBurn';
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
+import HeatingUpNormalizer from './normalizers/HeatingUp';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     combustionNormalizer: CombustionNormalizer,
+    heatingUpNormalizer: HeatingUpNormalizer,
 
     //Guide
     hotStreakGuide: HotStreakGuide,

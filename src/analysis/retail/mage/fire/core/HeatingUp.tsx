@@ -1,47 +1,59 @@
 import { COMBUSTION_END_BUFFER, SharedCode } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellIcon from 'interface/SpellIcon';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, {
   CastEvent,
   DamageEvent,
   EventType,
-  GetRelatedEvent,
   GetRelatedEvents,
   HasTarget,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import CooldownHistory from 'parser/shared/modules/CooldownHistory';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export default class HeatingUp extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
-    cooldownHistory: CooldownHistory,
-    abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
+    abilityTracker: AbilityTracker,
   };
   protected sharedCode!: SharedCode;
-  protected cooldownHistory!: CooldownHistory;
-  protected abilityTracker!: AbilityTracker;
   protected spellUsable!: SpellUsable;
+  protected abilityTracker!: AbilityTracker;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
 
   heatingUpCrits: HeatingUpCrits[] = [];
+  convertedBuffs: number = 0;
+  totalHeatingUp: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST), this.castEvent);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HEATING_UP),
+      this.onHeatingUpApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HEATING_UP),
+      this.onHeatingUpRemoved,
+    );
   }
 
   castEvent(event: CastEvent) {
@@ -55,27 +67,21 @@ export default class HeatingUp extends Analyzer {
     if (!damageEvent || !HasTarget(damageEvent) || damageEvent.hitType !== HIT_TYPES.CRIT) {
       return;
     }
-    const ftbBuff = this.selectedCombatant.getBuff(SPELLS.FEEL_THE_BURN_BUFF);
-    const ftbLastRefresh = ftbBuff && GetRelatedEvent(event, 'lastBuffRefresh');
-    const ftbDuration = ftbLastRefresh && event.timestamp - ftbLastRefresh.timestamp;
 
-    let buff;
+    let buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
-      buff = { active: true, buffId: SPELLS.SCORCH.id };
+      buff.push(TALENTS.SCORCH_TALENT);
     } else if (this.hasFirestarter && targetHealth && targetHealth > 0.9) {
-      buff = { active: true, buffId: TALENTS.FIRESTARTER_TALENT.id };
+      buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,
       )
     ) {
-      buff = { active: true, buffId: TALENTS.COMBUSTION_TALENT.id };
+      buff.push(TALENTS.COMBUSTION_TALENT);
     } else if (this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id)) {
-      buff = { active: true, buffId: SPELLS.HYPERTHERMIA_BUFF.id };
-    } else {
-      buff = { active: false };
+      buff.push(SPELLS.HYPERTHERMIA_BUFF);
     }
 
     this.heatingUpCrits.push({
@@ -83,11 +89,20 @@ export default class HeatingUp extends Analyzer {
       damage: damageEvent,
       hasHeatingUp: this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id),
       hasHotStreak: this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id),
-      critBuff: buff,
-      ftbDuration,
+      activeBuffs: buff,
       charges: this.spellUsable.chargesAvailable(event.ability.guid),
       timeTillCapped: this.spellUsable.cooldownRemaining(event.ability.guid),
     });
+  }
+
+  onHeatingUpApplied(event: ApplyBuffEvent) {
+    this.totalHeatingUp += 1;
+  }
+
+  onHeatingUpRemoved(event: RemoveBuffEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK)) {
+      this.convertedBuffs += 1;
+    }
   }
 
   get fireBlastsDuringHotStreak() {
@@ -98,34 +113,51 @@ export default class HeatingUp extends Analyzer {
 
   get fireBlastWithoutHeatingUp() {
     return this.heatingUpCrits.filter(
-      (c) => c.cast.ability.guid === SPELLS.FIRE_BLAST.id && !c.hasHeatingUp && !c.critBuff.active,
+      (c) =>
+        c.cast.ability.guid === SPELLS.FIRE_BLAST.id &&
+        !c.hasHeatingUp &&
+        !c.hasHotStreak &&
+        c.activeBuffs.length === 0,
     ).length;
   }
 
   get fireBlastUtilPercent() {
     return (
-      1 - (this.fireBlastWithoutHeatingUp + this.fireBlastsDuringHotStreak) / this.totalFireBlasts
+      1 -
+      (this.fireBlastWithoutHeatingUp + this.fireBlastsDuringHotStreak) /
+        this.abilityTracker.getAbility(SPELLS.FIRE_BLAST.id).casts
     );
   }
 
-  get totalFireBlasts() {
-    return this.heatingUpCrits.filter((c) => c.cast.ability.guid === SPELLS.FIRE_BLAST.id).length;
+  get convertedHeatingUpPercent() {
+    this.log(this.convertedBuffs);
+    return this.convertedBuffs / this.totalHeatingUp;
   }
 
   get totalWasted() {
     return this.fireBlastWithoutHeatingUp + this.fireBlastsDuringHotStreak;
   }
 
-  get fireBlastUtilSuggestionThresholds() {
-    return {
+  get fireBlastUtilPerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
       actual: this.fireBlastUtilPercent,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.85,
+      isGreaterThanOrEqual: {
+        perfect: 0.95,
+        good: 0.9,
+        ok: 0.8,
       },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    });
+  }
+
+  get convertedBuffPerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: this.convertedHeatingUpPercent,
+      isGreaterThanOrEqual: {
+        perfect: 0.9,
+        good: 0.8,
+        ok: 0.7,
+      },
+    });
   }
 
   statistic() {
@@ -150,9 +182,8 @@ export default class HeatingUp extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.HEATING_UP}>
           <>
-            <SpellIcon spell={SPELLS.FIRE_BLAST} />{' '}
-            {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual, 0)}%{' '}
-            <small>Fire Blast Utilization</small>
+            <SpellIcon spell={SPELLS.FIRE_BLAST} /> {formatPercentage(this.fireBlastUtilPercent, 0)}
+            % <small>Fire Blast Utilization</small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -165,8 +196,7 @@ export interface HeatingUpCrits {
   damage: DamageEvent;
   hasHeatingUp: boolean;
   hasHotStreak: boolean;
-  critBuff: { active: boolean; buffId?: number };
-  ftbDuration?: number;
+  activeBuffs: Spell[];
   charges: number;
   timeTillCapped: number;
 }
