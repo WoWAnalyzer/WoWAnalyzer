@@ -60,12 +60,13 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) &&
           !combatant.hasTalent(TALENTS.FLAME_ON_TALENT),
         cooldown: (haste) =>
-          14 /
-          (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
-          combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
-            ? 1.5
-            : 1) /
-          (1 + haste),
+          14 -
+          (combatant.hasTalent(TALENTS.SPELLFIRE_SALVO_TALENT) ? 1 : 0) /
+            (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
+            combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
+              ? 1.5
+              : 1) /
+            (1 + haste),
         charges: 1 + combatant.getTalentRank(TALENTS.FERVENT_FLICKERING_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -80,12 +81,13 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) &&
           combatant.hasTalent(TALENTS.FLAME_ON_TALENT),
         cooldown: (haste) =>
-          12 /
-          (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
-          combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
-            ? 1.5
-            : 1) /
-          (1 + haste),
+          12 -
+          (combatant.hasTalent(TALENTS.SPELLFIRE_SALVO_TALENT) ? 1 : 0) /
+            (combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
+            combatant.hasBuff(TALENTS.COMBUSTION_TALENT)
+              ? 1.5
+              : 1) /
+            (1 + haste),
         charges:
           1 +
           combatant.getTalentRank(TALENTS.FERVENT_FLICKERING_TALENT) +
