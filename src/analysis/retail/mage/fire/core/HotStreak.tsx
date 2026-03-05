@@ -1,8 +1,4 @@
-import {
-  COMBUSTION_END_BUFFER,
-  FIRE_DIRECT_DAMAGE_SPELLS,
-  SharedCode,
-} from 'analysis/retail/mage/shared';
+import { COMBUSTION_END_BUFFER, FIRE_DIRECT_DAMAGE_SPELLS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/mage';
@@ -17,6 +13,7 @@ import Events, {
   RemoveBuffEvent,
   GetRelatedEvent,
   EventType,
+  HasHitpoints,
 } from 'parser/core/Events';
 import {
   QualitativePerformance,
@@ -25,16 +22,12 @@ import {
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 export default class HotStreak extends Analyzer {
-  static dependencies = {
-    sharedCode: SharedCode,
-  };
-  protected sharedCode!: SharedCode;
-
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
 
   hotStreaks: HotStreakProc[] = [];
   wastedCrits: DamageEvent[] = [];
+  allTargetsHealth: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -46,19 +39,32 @@ export default class HotStreak extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
       this.damageEvents,
     );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+  }
+
+  onDamage(event: DamageEvent) {
+    if (!HasHitpoints(event)) {
+      return;
+    }
+    this.allTargetsHealth[event.targetID] = event.hitPoints / event.maxHitPoints;
   }
 
   onHotStreakRemoved(event: RemoveBuffEvent) {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, EventType.ApplyBuff);
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'consume');
-    const damage: DamageEvent | undefined = GetRelatedEvent(event, EventType.Damage);
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'precast');
-    const targetHealth = damage && this.sharedCode.getTargetHealth(damage);
+    const targetHealth = spender && HasTarget(spender) && this.allTargetsHealth[spender.targetID];
 
     let buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
       buff.push(TALENTS.SCORCH_TALENT);
-    } else if (this.hasFirestarter && targetHealth && targetHealth > 0.9) {
+    } else if (
+      this.hasFirestarter &&
+      spender &&
+      spender.ability.guid === TALENTS.PYROBLAST_TALENT.id &&
+      targetHealth &&
+      targetHealth >= 0.9
+    ) {
       buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
       this.selectedCombatant.hasBuff(

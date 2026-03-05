@@ -1,15 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import {
-  BeginCastEvent,
-  CastEvent,
-  EventType,
-  GetRelatedEvents,
-  HasTarget,
-} from 'parser/core/Events';
+import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
+import { BeginCastEvent, CastEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { createEventLinks, link } from '../../shared';
 
 /**
@@ -135,6 +128,13 @@ const EVENT_LINKS = createEventLinks(
           }
           return true;
         },
+      }),
+      link(CustomType.PRECAST, {
+        id: [SPELLS.FIREBALL.id, TALENTS.FROSTFIRE_BOLT_TALENT.id],
+        type: EventType.Cast,
+        maxLinks: 1,
+        anyTarget: true,
+        backwardBuffer: 150,
       }),
     ],
   },
