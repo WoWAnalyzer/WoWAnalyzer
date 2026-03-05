@@ -7,7 +7,6 @@ import CoreCooldownThroughputTracker, {
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
-    // To do: change to Imp Lord and Fel Ravager
     {
       spell: TALENTS.GRIMOIRE_IMP_LORD_TALENT.id,
       duration: 20,
