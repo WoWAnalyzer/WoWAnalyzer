@@ -60,8 +60,7 @@
     "src/analysis/retail/rogue/outlaw",
     "src/analysis/retail/rogue/shared",
     "src/analysis/retail/shaman/elemental",
-    "src/analysis/retail/shaman/enhancement",
-    "src/analysis/retail/warrior/protection"
+    "src/analysis/retail/shaman/enhancement"
   ],
   "files": [
     "src/analysis/retail/deathknight/blood/CONFIG.tsx",

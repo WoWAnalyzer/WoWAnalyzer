@@ -35,11 +35,7 @@ class RavagerHitCheck extends Analyzer {
       return;
     }
 
-    this.expectedHitsPerCast = DANCE_OF_DEATH_BUGGED
-      ? 6
-      : this.selectedCombatant.hasTalent(TALENTS.DANCE_OF_DEATH_TALENT)
-        ? 7
-        : 6;
+    this.expectedHitsPerCast = 6;
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RAVAGER_TALENT),

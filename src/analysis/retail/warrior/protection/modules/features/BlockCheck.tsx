@@ -34,15 +34,10 @@ class BlockCheck extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT);
     const reprisal = false;
     const heavyRepercussions = this.selectedCombatant.hasTalent(TALENTS.HEAVY_REPERCUSSIONS_TALENT);
 
-    if (this.bolster && reprisal) {
-      this.minor = 0.8;
-      this.average = 0.7;
-      this.major = 0.6;
-    } else if (heavyRepercussions && reprisal) {
+    if (heavyRepercussions && reprisal) {
       this.minor = 0.9;
       this.average = 0.8;
       this.major = 0.7;
@@ -50,10 +45,6 @@ class BlockCheck extends Analyzer {
       this.minor = 0.7;
       this.average = 0.6;
       this.major = 0.6;
-    } else if (this.bolster) {
-      this.minor = 0.7;
-      this.average = 0.6;
-      this.major = 0.5;
     } else if (heavyRepercussions) {
       this.minor = 0.7;
       this.average = 0.6;
@@ -72,9 +63,8 @@ class BlockCheck extends Analyzer {
     // Physical
     if (event.ability.type === 1) {
       const sbBlock = this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id);
-      const bolsterBlock = this.bolster && this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id);
       this.listOfEvents.push({
-        blocked: sbBlock || bolsterBlock,
+        blocked: sbBlock,
         event: event,
       });
     }
