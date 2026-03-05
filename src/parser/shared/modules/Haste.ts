@@ -103,6 +103,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
     hastePerStack: 0.005,
   },
   [TALENTS_MAGE.ARCANE_TEMPO_TALENT.id]: 0.02,
+  [SPELLS.LESSER_TIME_WARP_BUFF.id]: 0.15,
   //endregion
 
   //region Monk

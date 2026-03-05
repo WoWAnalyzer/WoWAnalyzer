@@ -197,6 +197,11 @@ const spells = {
     name: 'Burden of Power',
     icon: 'inv_ragnaros_heart',
   },
+  LESSER_TIME_WARP_BUFF: {
+    id: 1260277,
+    name: 'Lesser Time Warp',
+    icon: 'ability_mage_timewarp',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
