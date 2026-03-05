@@ -156,7 +156,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.GRIMOIRE_IMP_LORD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: true,
+        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_IMP_LORD_TALENT),
         gcd: {
           base: 1500,
         },
@@ -171,7 +171,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: true,
+        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT),
         gcd: {
           base: 1500,
         },
