@@ -166,14 +166,14 @@ const spells = {
     name: 'Frost Mastery',
     icon: 'spell_fire_blueimmolation',
   },
-  MANA_ADDICTION_BUFF_FIRE: {
+  MANA_CASCADE_BUFF_FIRE: {
     id: 449314,
-    name: 'Mana Addiction',
+    name: 'Mana Cascade',
     icon: 'spell_frost_manarecharge',
   },
-  MANA_ADDICTION_BUFF_ARCANE: {
+  MANA_CASCADE_BUFF_ARCANE: {
     id: 449322,
-    name: 'Mana Addiction',
+    name: 'Mana Cascade',
     icon: 'spell_frost_manarecharge',
   },
   METEORITE_DAMAGE: {
