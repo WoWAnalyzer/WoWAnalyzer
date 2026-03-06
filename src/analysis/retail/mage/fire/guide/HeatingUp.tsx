@@ -113,15 +113,15 @@ class HeatingUpGuide extends Analyzer {
 
     const explanation = (
       <>
-        Managing your <b>{heatingUp}</b> procs and your {fireBlast} charges are very important to
+        Managing your <b>{heatingUp}</b> procs and your {fireBlast} charges are very important to{' '}
         ensure you are converting as many procs into {hotStreak} as possible throughout the fight.
         <ul>
           <li>
             Use {fireBlast} to convert {heatingUp} into {hotStreak}.
           </li>
           <li>
-            Unless you are guaranteed to crit ({combustion}, {firestarter}, {scorch}), or are
-            capped/about to cap on charges, don't use {fireBlast} without {heatingUp}.
+            Unless you are guaranteed to crit ({combustion}, {firestarter}, {scorch} during execute,{' '}
+            etc.), or are capped/about to cap on charges, don't use {fireBlast} without {heatingUp}.
           </li>
         </ul>
       </>

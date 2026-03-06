@@ -54,7 +54,6 @@ export default class Meteor extends Analyzer {
     if (!cast) {
       return;
     }
-    this.log('METEOR!!!!!!!!');
 
     const combustBuff = this.selectedCombatant.getBuff(TALENTS.COMBUSTION_TALENT, event.timestamp);
     const combustEnd = combustBuff && GetRelatedEvent(combustBuff, EventType.RemoveBuff);

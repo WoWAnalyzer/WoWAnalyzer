@@ -19,17 +19,21 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <SubSection title="Active Time">
       <Explanation>
         <>
-          Any time you are not casting something, that is damage that is lost. Mage has many ways to
-          decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
-          faster so you can continue casting or using <SpellLink spell={SPELLS.SCORCH} /> while you
-          are moving; even phases where the only target is taking 99% reduced damage is an
-          opportunity to fish for procs or maintain a buff like{' '}
-          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />. While some encounters have forced
-          downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
-          downtime will help your damage. Additionally, to better contextualize your downtime, we
-          recommend comparing your downtime to another Fire Mage that did better than you on the
-          same encounter with roughly the same kill time. If you have less downtime than them, then
-          maybe there is something you can do to improve.
+          Any time you are not casting something, that is damage that is lost. You should always
+          pre-plan your movement to decrease downtime, but can also lean on abilties like
+          {info.combatant.hasTalent(TALENTS.SHIMMER_TALENT) ? (
+            <SpellLink spell={TALENTS.SHIMMER_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.BLINK} />
+          )}
+          to move faster or <SpellLink spell={TALENTS.SCORCH_TALENT} /> to continue casting while
+          you move. While some encounters have forced downtime, which WoWAnalyzer does not account
+          for, anything you can do to minimize your downtime will help your damage; even casting
+          against a target taking 99% reduced damage is an opportunity to fish for procs.
+          Additionally, to better contextualize your downtime, we recommend comparing your downtime
+          to another Fire Mage that did better than you on the same encounter with roughly the same
+          kill time. If you have less downtime than them, then maybe there is something you can do
+          to improve.
         </>
       </Explanation>
       <p>
