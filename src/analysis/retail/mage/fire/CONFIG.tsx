@@ -23,10 +23,6 @@ const config: Config = {
         Mage Class Discord
       </a>{' '}
       <br />
-      <a href="https://www.mage-hub.com/fire" target="_blank" rel="noopener noreferrer">
-        Mage Hub Guide (Mage Guides/Sims)
-      </a>{' '}
-      <br />
       <a href="https://www.wowhead.com/fire-mage-guide" target="_blank" rel="noopener noreferrer">
         Wowhead (Fire Mage Guide)
       </a>{' '}
@@ -37,8 +33,8 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec has been fully updated for Midnight. If anything is missing or incorrect, please
-          ping <code>@Sharrq</code> in the Altered Time Discord.
+          This spec has been fully updated for Midnight (As of March 6). If anything is missing or
+          incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
     },
