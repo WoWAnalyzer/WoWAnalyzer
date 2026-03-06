@@ -11,11 +11,7 @@ import Events, {
   HasRelatedEvent,
   FightEndEvent,
   EventType,
-  GetRelatedEvents,
-  DamageEvent,
-  ApplyBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -26,7 +22,6 @@ import {
   evaluateQualitativePerformanceByThreshold,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import SPELLS from 'common/SPELLS';
 
 export default class CombustionCasts extends Analyzer {
   static dependencies = {
