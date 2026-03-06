@@ -3,7 +3,7 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { AnyEvent, CastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-// Grimoire: Imp Lord isn't considered a cast, even in WCL (as of 2nd week of 12.0.0 prepatch)
+// Grimoire: Imp Lord isn't considered a cast, even in WCL
 // This normalizer fabricates a proper CastEvent every time the summon occurs
 class ImpLordNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
