@@ -90,7 +90,7 @@ const EVENT_LINKS = createEventLinks(
     parentType: EventType.Cast,
     links: [
       link(EventType.BeginCast, { maxLinks: 1, anyTarget: true }),
-      link(EventType.Damage, { forwardBuffer: 2000, anyTarget: true }),
+      link(EventType.Damage, { id: SPELLS.METEOR_DAMAGE.id, forwardBuffer: 5000, anyTarget: true }),
     ],
   },
   {

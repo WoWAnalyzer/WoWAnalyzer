@@ -122,7 +122,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         />
       )}
 
-      <Section title="Talents"></Section>
+      <Section title="Talents">
+        {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && modules.meteorGuide.guideSubsection}
+      </Section>
       <MajorDefensives />
       <PreparationSection />
     </>
