@@ -37,8 +37,8 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec is not being updated for The War Within or Midnight Prepatch. All analysis is in
-          preparation of Midnight's full release.
+          This spec has been fully updated for Midnight. If anything is missing or incorrect, please
+          ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
     },
