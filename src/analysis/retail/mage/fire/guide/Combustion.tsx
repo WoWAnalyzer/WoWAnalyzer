@@ -118,11 +118,6 @@ class CombustionGuide extends Analyzer {
             the end of your hardcast as possible. This will give you maximum uptime of {combustion}{' '}
             and allow your hardcast to land while {combustion} is active.
           </li>
-          {!this.selectedCombatant.hasTalent(TALENTS.SPONTANEOUS_COMBUSTION_TALENT) && (
-            <li>
-              Pool {fireblast} charges before {combustion} so you have enough to last its duration.
-            </li>
-          )}
           <li>
             Spend as many {hotStreak}s as possible during {combustion} and avoid any downtime.
           </li>
