@@ -46,6 +46,14 @@ const EVENT_LINKS = createEventLinks(
     ],
   },
   {
+    spell: TALENTS.FROSTFIRE_BOLT_TALENT.id,
+    parentType: EventType.Cast,
+    links: [
+      link(EventType.BeginCast, { backwardBuffer: 3000, maxLinks: 1, anyTarget: true }),
+      link(EventType.Damage, { forwardBuffer: 1000, maxLinks: 1 }),
+    ],
+  },
+  {
     spell: TALENTS.PYROBLAST_TALENT.id,
     parentType: EventType.Cast,
     links: [
@@ -105,6 +113,7 @@ const EVENT_LINKS = createEventLinks(
           TALENTS.PYROBLAST_TALENT.id,
           SPELLS.SCORCH.id,
           SPELLS.FLAMESTRIKE.id,
+          TALENTS.FROSTFIRE_BOLT_TALENT.id,
         ],
         type: EventType.Cast,
         anyTarget: true,
