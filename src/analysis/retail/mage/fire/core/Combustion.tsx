@@ -11,6 +11,9 @@ import Events, {
   HasRelatedEvent,
   FightEndEvent,
   EventType,
+  GetRelatedEvents,
+  DamageEvent,
+  ApplyBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -19,6 +22,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
+import SPELLS from 'common/SPELLS';
 
 export default class CombustionCasts extends Analyzer {
   static dependencies = {
@@ -54,7 +62,8 @@ export default class CombustionCasts extends Analyzer {
     const removeBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
 
     let castDelay = 0;
-    if (precast && HasRelatedEvent(precast, 'SpellCast')) {
+    this.log(precast);
+    if (precast && HasRelatedEvent(precast, EventType.BeginCast)) {
       const beginCast: BeginCastEvent | undefined = GetRelatedEvent(precast, EventType.BeginCast);
       castDelay =
         beginCast && precast.timestamp > event.timestamp && beginCast.timestamp < event.timestamp
@@ -145,26 +154,26 @@ export default class CombustionCasts extends Analyzer {
     return castArray;
   }
 
-  get activeTimeThresholds() {
-    return {
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+  activeTimePerformance(activeTime: number, combustDuration: number): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: activeTime / combustDuration,
+      isGreaterThanOrEqual: {
+        perfect: 0.9,
+        good: 0.8,
+        ok: 0.7,
       },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    });
   }
 
-  get combustionCastDelayThresholds() {
-    return {
-      isGreaterThan: {
-        minor: 700,
-        average: 1000,
-        major: 1500,
+  combustionCastDelayPerformance(delay: number): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: delay,
+      isLessThanOrEqual: {
+        perfect: 700,
+        good: 1000,
+        ok: 1500,
       },
-      style: ThresholdStyle.NUMBER,
-    };
+    });
   }
 
   statistic() {

@@ -5,9 +5,11 @@ import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Analyzer from 'parser/core/Analyzer';
-import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
+import { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
-import { EventType, GetRelatedEvent } from 'parser/core/Events';
+import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
+import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
+import { EventType, GetRelatedEvent, CastEvent } from 'parser/core/Events';
 
 import CombustionCasts from '../core/Combustion';
 
@@ -22,8 +24,8 @@ class CombustionGuide extends Analyzer {
     const combustDuration = cb.remove - cb.cast.timestamp;
     const activeTimePercent = cb.activeTime / combustDuration;
 
-    const activeThresholds = this.combustion.activeTimeThresholds.isLessThan;
-    const delayThresholds = this.combustion.combustionCastDelayThresholds.isGreaterThan;
+    const activeTimePerf = this.combustion.activeTimePerformance(cb.activeTime, combustDuration);
+    const delayPerf = this.combustion.combustionCastDelayPerformance(cb.castDelay);
 
     // Check for hardcast Fireballs during Combustion (fail)
     const fireballCasts = cb.spellCasts.filter((sc: any) => {
@@ -46,7 +48,7 @@ class CombustionGuide extends Analyzer {
       };
     }
 
-    if (activeTimePercent < activeThresholds.major) {
+    if (activeTimePerf === QualitativePerformance.Fail) {
       return {
         timestamp: cb.cast.timestamp,
         performance: QualitativePerformance.Fail,
@@ -55,36 +57,44 @@ class CombustionGuide extends Analyzer {
     }
 
     // PERFECT CONDITIONS
-    if (activeTimePercent >= activeThresholds.minor && cb.castDelay <= delayThresholds.minor) {
+    if (activeTimePerf === QualitativePerformance.Perfect) {
       return {
         timestamp: cb.cast.timestamp,
         performance: QualitativePerformance.Perfect,
-        reason: `Perfect - ${formatPercentage(activeTimePercent, 1)}% Active Time, ${formatDurationMillisMinSec(cb.castDelay, 2)} Cast Delay`,
+        reason: `${formatPercentage(activeTimePercent, 1)}% Active Time`,
       };
     }
 
     // GOOD CONDITIONS
-    if (activeTimePercent >= activeThresholds.average && cb.castDelay <= delayThresholds.average) {
+    if (activeTimePerf === QualitativePerformance.Good) {
       return {
         timestamp: cb.cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Good - ${formatPercentage(activeTimePercent, 1)}% Active Time, ${formatDurationMillisMinSec(cb.castDelay, 2)} Cast Delay`,
+        reason: `${formatPercentage(activeTimePercent, 1)}% Active Time`,
       };
     }
 
     // OK CONDITIONS
-    if (cb.castDelay > delayThresholds.major) {
+    if (delayPerf === QualitativePerformance.Fail) {
       return {
         timestamp: cb.cast.timestamp,
-        performance: QualitativePerformance.Fail,
+        performance: QualitativePerformance.Ok,
         reason: `High Cast Delay: ${formatDurationMillisMinSec(cb.castDelay, 2)} - wasted Combustion duration`,
+      };
+    }
+
+    if (activeTimePerf === QualitativePerformance.Ok) {
+      return {
+        timestamp: cb.cast.timestamp,
+        performance: QualitativePerformance.Ok,
+        reason: `${formatPercentage(activeTimePercent, 1)}% Active Time`,
       };
     }
 
     return {
       timestamp: cb.cast.timestamp,
-      performance: QualitativePerformance.Ok,
-      reason: `Ok - ${formatPercentage(activeTimePercent, 1)}% Active Time, ${formatDurationMillisMinSec(cb.castDelay, 2)} Cast Delay`,
+      performance: QualitativePerformance.Fail,
+      reason: `Unknown Performance Conditions (Please report this)`,
     };
   }
 
@@ -96,7 +106,6 @@ class CombustionGuide extends Analyzer {
     const fireball = <SpellLink spell={SPELLS.FIREBALL} />;
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
-    const feelTheBurn = <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />;
 
     const explanation = (
       <>
@@ -121,23 +130,110 @@ class CombustionGuide extends Analyzer {
             Don't hardcast {fireball}, {pyroblast}, or {flamestrike} during {combustion}. Use{' '}
             {scorch} if you are running low on {fireblast} charges.
           </li>
-          {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
-            <li>
-              Get max stacks of {feelTheBurn} as quickly as possible and maintain it for{' '}
-              {combustion}'s duration.'
-            </li>
-          )}
         </ul>
       </>
     );
 
+    const combustSequences = this.combustion.combustCasts.map((cb) => {
+      const mapEvent = (castEvent: CastEvent): CastInSequence => {
+        const beginCast = GetRelatedEvent(castEvent, EventType.BeginCast);
+        const isHardcastFireball =
+          castEvent.ability.guid === SPELLS.FIREBALL.id &&
+          this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast?.timestamp);
+        return {
+          timestamp: castEvent.timestamp,
+          spellId: castEvent.ability.guid,
+          spellName: castEvent.ability.name,
+          icon: castEvent.ability.abilityIcon.replace('.jpg', ''),
+          performance: isHardcastFireball ? QualitativePerformance.Fail : undefined,
+          tooltip: isHardcastFireball ? (
+            <>Hardcast Fireball during Combustion — significant DPS loss</>
+          ) : undefined,
+        };
+      };
+
+      // The precast lands after Combustion activates and may appear in spellCasts.
+      // Filter it out and prepend it so it always displays first in the sequence.
+      const spellCastsWithoutPrecast = cb.precast
+        ? cb.spellCasts.filter(
+            (sc) =>
+              sc.timestamp !== cb.precast!.timestamp ||
+              sc.ability.guid !== cb.precast!.ability.guid,
+          )
+        : cb.spellCasts;
+
+      const casts: CastInSequence[] = [
+        ...(cb.precast ? [mapEvent(cb.precast)] : []),
+        ...spellCastsWithoutPrecast.map(mapEvent),
+      ];
+      return { casts };
+    });
+
+    const perCastData: PerCastData[] = this.combustion.combustCasts.map((cb, index) => {
+      const evaluation = this.evaluateCombustionCast(cb);
+      const combustDuration = cb.remove - cb.cast.timestamp;
+      const activeTimePercent = cb.activeTime / combustDuration;
+      const activeTimePerf = this.combustion.activeTimePerformance(cb.activeTime, combustDuration);
+      const delayPerf = this.combustion.combustionCastDelayPerformance(cb.castDelay);
+      const hotStreakCasts = cb.spellCasts.filter((sc) => {
+        return (
+          sc.ability.guid === TALENTS.PYROBLAST_TALENT.id ||
+          sc.ability.guid === SPELLS.FLAMESTRIKE.id
+        );
+      });
+      const sequenceEntry = combustSequences[index];
+
+      return {
+        performance: evaluation.performance,
+        timestamp: this.owner.formatTimestamp(cb.cast.timestamp),
+        stats: [
+          {
+            value: `${formatPercentage(activeTimePercent, 0)}%`,
+            label: 'Active Time',
+            tooltip: (
+              <>
+                {formatDurationMillisMinSec(cb.activeTime, 1)} active out of{' '}
+                {formatDurationMillisMinSec(combustDuration, 1)} total Combustion duration
+              </>
+            ),
+            performance: activeTimePerf,
+          },
+          ...(cb.precast
+            ? [
+                {
+                  value: formatDurationMillisMinSec(cb.castDelay, 2),
+                  label: 'Cast Delay',
+                  tooltip: <>Time wasted between Combustion cast and the precast landing</>,
+                  performance: delayPerf,
+                },
+              ]
+            : [
+                {
+                  value: 'No',
+                  label: 'Precast Found',
+                  tooltip: 'No Precast Found',
+                  performance: QualitativePerformance.Fail,
+                },
+              ]),
+          {
+            value: `${hotStreakCasts.length}`,
+            label: 'Hot Streak Casts',
+            tooltip: <>Total number of Pyroblasts and/or Flamestrikes cast during Combustion.</>,
+          },
+        ],
+        details: evaluation.reason,
+        additionalContent: sequenceEntry
+          ? {
+              title: 'Cast Sequence',
+              content: <SpellSequence casts={sequenceEntry.casts} iconSize={40} />,
+            }
+          : undefined,
+      };
+    });
+
     return (
       <GuideSection spell={TALENTS.COMBUSTION_TALENT} explanation={explanation}>
-        <CastSummary
-          spell={TALENTS.COMBUSTION_TALENT}
-          casts={this.combustion.combustCasts.map((cast) => this.evaluateCombustionCast(cast))}
-          showBreakdown
-        />
+        <CastDetail title="Combustion Casts" casts={perCastData} />
       </GuideSection>
     );
   }

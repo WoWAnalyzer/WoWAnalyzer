@@ -130,7 +130,6 @@ export default class HeatingUp extends Analyzer {
   }
 
   get convertedHeatingUpPercent() {
-    this.log(this.convertedBuffs);
     return this.convertedBuffs / this.totalHeatingUp;
   }
 
