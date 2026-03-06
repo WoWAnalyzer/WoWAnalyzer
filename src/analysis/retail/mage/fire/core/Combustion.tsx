@@ -57,7 +57,6 @@ export default class CombustionCasts extends Analyzer {
     const removeBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
 
     let castDelay = 0;
-    this.log(precast);
     if (precast && HasRelatedEvent(precast, EventType.BeginCast)) {
       const beginCast: BeginCastEvent | undefined = GetRelatedEvent(precast, EventType.BeginCast);
       castDelay =

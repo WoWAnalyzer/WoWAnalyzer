@@ -161,6 +161,7 @@ const Sequence = styled.div`
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  padding-top: 4px;
   padding-bottom: 6px;
 
   &::-webkit-scrollbar {
@@ -186,6 +187,9 @@ const SpellIcon = styled.div<{ size: number; color: string }>`
   height: ${(props) => props.size}px;
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-radius: 6px;
+  outline: ${(props) =>
+    props.color !== 'rgba(255, 255, 255, 0.3)' ? `3px solid ${props.color}` : 'none'};
+  outline-offset: 0px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
 

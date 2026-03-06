@@ -95,7 +95,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           Fire Mage has several buffs and procs that need to be managed properly in order to get the
           most out of them and maximize your damage. <SpellLink spell={SPELLS.HOT_STREAK} /> and
           <SpellLink spell={SPELLS.HEATING_UP} /> are your most important procs, but others such as
-          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> will also increase your damage in other
+          <SpellLink spell={TALENTS.HEAT_SHIMMER_TALENT} /> will also increase your damage in other
           ways which will play a large part in maximizing your overall and burst damage.
         </>
         {info.combatant.hasTalent(TALENTS.HEAT_SHIMMER_TALENT) &&

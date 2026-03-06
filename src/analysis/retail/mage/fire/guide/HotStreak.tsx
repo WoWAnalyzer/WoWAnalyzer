@@ -102,7 +102,7 @@ class HotStreakGuide extends Analyzer {
       return {
         timestamp: hs.remove.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Hot Streak useed with precast (${hs.precast.ability.name})`,
+        reason: `Hot Streak used with precast (${hs.precast.ability.name})`,
       };
     }
 

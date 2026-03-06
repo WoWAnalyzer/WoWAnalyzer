@@ -26,7 +26,7 @@ class HeatingUpGuide extends Analyzer {
     stats.push({
       value: `${formatPercentage(this.heatingUp.fireBlastUtilPercent, 1)}%`,
       label: 'Fire Blast Utilization',
-      tooltip: <>Fire Blast Utilizaion Percent.</>,
+      tooltip: <>Fire Blast Utilization Percent.</>,
       performance: this.heatingUp.fireBlastUtilPerformance,
     });
     stats.push({
