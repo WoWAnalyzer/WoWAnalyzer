@@ -33,7 +33,6 @@ function CooldownSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
       <CooldownSubsection />
-      {modules.summonDemonicTyrant.guideSubsection}
     </Section>
   );
 }

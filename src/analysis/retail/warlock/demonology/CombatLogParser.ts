@@ -5,7 +5,6 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import LegionStrike from './modules/features/LegionStrike';
-import SummonDemonicTyrant from './modules/features/SummonDemonicTyrant';
 import DemoPets from './modules/pets/DemoPets';
 import DemonicTyrantHandler from './modules/pets/DemoPets/DemonicTyrantHandler';
 import ImplosionHandler from './modules/pets/DemoPets/ImplosionHandler';
@@ -66,7 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     PowerSiphonBuffCastNormalizer: PowerSiphonBuffCastNormalizer,
 
     // Talents
-    summonDemonicTyrant: SummonDemonicTyrant,
     dreadlash: Dreadlash,
     demonicCalling: DemonicCalling,
     innerDemons: InnerDemons,
