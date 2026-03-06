@@ -98,6 +98,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> will also increase your damage in other
           ways which will play a large part in maximizing your overall and burst damage.
         </>
+        {info.combatant.hasTalent(TALENTS.HEAT_SHIMMER_TALENT) &&
+          modules.heatShimmerGuide.guideSubsection}
       </Section>
 
       <Section title="Cooldowns">
@@ -108,6 +110,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
         {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
           modules.combustionGuide.guideSubsection}
+      </Section>
+
+      <Section title="Talents">
+        {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && modules.meteorGuide.guideSubsection}
       </Section>
 
       <SubSection title="Cast Efficiency"></SubSection>
@@ -125,10 +131,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           useThresholds
         />
       )}
-
-      <Section title="Talents">
-        {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && modules.meteorGuide.guideSubsection}
-      </Section>
       <MajorDefensives />
       <PreparationSection />
     </>

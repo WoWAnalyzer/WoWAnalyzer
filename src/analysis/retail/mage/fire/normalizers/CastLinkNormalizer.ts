@@ -182,6 +182,19 @@ const EVENT_LINKS = createEventLinks(
     parentType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
     links: [link(EventType.RemoveBuff, { forwardBuffer: 600_000, maxLinks: 1 })],
   },
+  {
+    spell: SPELLS.HEAT_SHIMMER_BUFF.id,
+    parentType: EventType.RemoveBuff,
+    links: [
+      link(EventType.ApplyBuff, { backwardBuffer: 15_000, maxLinks: 1 }),
+      link(CustomType.CONSUME, {
+        id: TALENTS.SCORCH_TALENT.id,
+        type: EventType.Cast,
+        maxLinks: 1,
+        anyTarget: true,
+      }),
+    ],
+  },
 );
 
 // Leaving the below here because i cant figure out right now why i needed to connect

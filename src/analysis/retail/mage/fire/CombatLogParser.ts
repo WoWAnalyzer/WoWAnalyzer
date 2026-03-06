@@ -24,9 +24,9 @@ import HotStreak from './core/HotStreak';
 import FeveredIncantation from './talents/FeveredIncantation';
 import Hyperthermia from './talents/Hyperthermia';
 import FromTheAshes from './talents/FromTheAshes';
-import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
 import SpontaneousCombustion from './talents/SpontaneousCombustion';
+import HeatShimmer from './talents/HeatShimmer';
 
 //Hero & Apex Talents
 import FlameAndFrost from '../shared/analyzers/FlameAndFrost';
@@ -39,6 +39,7 @@ import HotStreakGuide from './guide/HotStreak';
 import HeatingUpGuide from './guide/HeatingUp';
 import CombustionGuide from './guide/Combustion';
 import MeteorGuide from './guide/Meteor';
+import HeatShimmerGuide from './guide/HeatShimmer';
 
 //Items
 
@@ -63,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUpGuide: HeatingUpGuide,
     combustionGuide: CombustionGuide,
     meteorGuide: MeteorGuide,
+    heatShimmerGuide: HeatShimmerGuide,
 
     //Core
     buffs: Buffs,
@@ -77,12 +79,12 @@ class CombatLogParser extends CoreCombatLogParser {
     combustion: Combustion,
 
     //Talents - Fire
-    searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
     feveredIncantation: FeveredIncantation,
     hyperthermia: Hyperthermia,
     meteor: Meteor,
     spontaneousCombustion: SpontaneousCombustion,
+    heatShimmer: HeatShimmer,
 
     //Hero & Apex Talents
     flameAndFrost: FlameAndFrost,

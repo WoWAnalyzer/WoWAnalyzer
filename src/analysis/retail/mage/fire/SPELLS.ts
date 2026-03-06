@@ -143,6 +143,11 @@ const spells = {
     name: 'Fired Up',
     icon: 'inv12_apextalent_mage_firedup',
   },
+  HEAT_SHIMMER_BUFF: {
+    id: 458964,
+    name: 'Heat Shimmer',
+    icon: 'ability_rhyolith_magmaflow_wave',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
