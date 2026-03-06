@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 6), <>Re-enabled protection warrior parsing.</>, Abelito75),
   change(date(2026, 3, 5), <>Removed broken code, updated core abilities file.</>, Abelito75),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 10, 28), <>Added Hero talent <SpellLink spell={TALENTS.BURST_OF_POWER_TALENT}/> as <SpellLink spell={SPELLS.SHIELD_SLAM} /> reset trigger.</>, Rzial),
