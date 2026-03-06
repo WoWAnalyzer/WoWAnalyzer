@@ -30,14 +30,10 @@ import BurstOfPower from './modules/talents/BurstOfPower';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
-import RageGenerationNormalizer from './normalizers/RageGenerationNormalizer';
 import WarWithin2PS1TierSet from './modules/items/WarWithin2PS1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // Normalizer
-    rageGenerationNormalizer: RageGenerationNormalizer,
-
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
