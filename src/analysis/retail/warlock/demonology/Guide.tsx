@@ -14,10 +14,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           is using the information from previous expansions where you had to extend as many pets as
           possible. Tyrant no longer works that way, instead, when you cast Summon Demonic Tyrant,
           each active pet increases the damage of your Tyrant.
-          <br />
-          <br />
-          Regarding Grimoire: Imp Lord and Grimoire: Fel Ravager, their cast efficiency is not
-          functioning but will hopefully be resolved soon.
         </>
       </Section>
       <CoreSection modules={modules} events={events} info={info} />
