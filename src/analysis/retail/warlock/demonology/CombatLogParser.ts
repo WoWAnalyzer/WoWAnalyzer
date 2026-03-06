@@ -33,6 +33,8 @@ import TWW2TierSet from './modules/thewarwithin/tier/TWW2TierSet';
 import TWW3DiabolistTierSet from './modules/tier/TWW3DiabolistTierSet';
 import TWW3SoulHarvesterTierSet from './modules/tier/TWW3SoulHarvesterTierSet';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import ImpLordNormalizer from './modules/pets/normalizers/ImpLordNormalizer';
+import FelRavagerNormalizer from './modules/pets/normalizers/FelRavagerNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +58,8 @@ class CombatLogParser extends CoreCombatLogParser {
     implosionHandler: ImplosionHandler,
     summonOrderNormalizer: SummonOrderNormalizer,
     prepullPetNormalizer: PrepullPetNormalizer,
+    ImpLordNormalizer: ImpLordNormalizer,
+    FelRavagerNormalizer: FelRavagerNormalizer,
 
     // Normalizers
     powerSiphonNormalizer: PowerSiphonNormalizer,
