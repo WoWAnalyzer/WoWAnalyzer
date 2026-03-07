@@ -146,9 +146,25 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.SUMMON_INFERNAL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT) ? 90 : 120,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.MALEVOLENCE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
 
