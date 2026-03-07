@@ -34,6 +34,9 @@ import TWW3SoulHarvesterTierSet from './modules/tier/TWW3SoulHarvesterTierSet';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 import ImpLordNormalizer from './modules/pets/normalizers/ImpLordNormalizer';
 import FelRavagerNormalizer from './modules/pets/normalizers/FelRavagerNormalizer';
+import DemonicTyrant from './modules/features/DemonicTyrant';
+import DemonicTyrantGuide from './modules/guide/DemonicTyrantGuide';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -42,6 +45,10 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     legionStrike: LegionStrike,
+    DemonicTyrant: DemonicTyrant,
+
+    // Guide
+    DemonicTyrantGuide: DemonicTyrantGuide,
 
     // Core
     soulShardTracker: SoulShardTracker,

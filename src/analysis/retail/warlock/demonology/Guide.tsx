@@ -25,6 +25,7 @@ function CooldownSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
       <CooldownSubsection />
+      {modules.DemonicTyrantGuide.guideSubsection}
     </Section>
   );
 }
