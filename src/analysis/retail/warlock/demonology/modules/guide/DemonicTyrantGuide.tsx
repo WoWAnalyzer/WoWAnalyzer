@@ -101,6 +101,8 @@ class DemonicTyrantGuide extends Analyzer {
     function getTyrantFeedback(
       handOfGuldanCasts: number,
       impsSummoned: number,
+      dreadstalkersActive: boolean,
+      dreadstalkersTooEarly: boolean,
       casts: CastInSequence[],
       tyrantTimestamp: number,
     ): JSX.Element {
@@ -125,10 +127,6 @@ class DemonicTyrantGuide extends Analyzer {
         );
       }
 
-      const castedDreadstalkers = preTyrantCasts.some(
-        (cast) => cast.spellId === SPELLS.CALL_DREADSTALKERS.id,
-      );
-
       const castedImplosion = preTyrantCasts.some(
         (cast) => cast.spellId === SPELLS.IMPLOSION_CAST.id,
       );
@@ -137,9 +135,13 @@ class DemonicTyrantGuide extends Analyzer {
         (cast) => cast.spellId === TALENTS.POWER_SIPHON_TALENT.id,
       );
 
-      if (!castedDreadstalkers) {
+      if (!dreadstalkersActive) {
         feedback.push(
           'Cast Call Dreadstalkers before summoning Demonic Tyrant so they benefit from the damage bonus.',
+        );
+      } else if (dreadstalkersTooEarly) {
+        feedback.push(
+          'Call Dreadstalkers was cast too early before Tyrant. Try casting it closer to your Summon Demonic Tyrant window.',
         );
       }
 
@@ -190,6 +192,8 @@ class DemonicTyrantGuide extends Analyzer {
         details: getTyrantFeedback(
           cast.handOfGuldanCasts,
           cast.impsSummoned,
+          cast.dreadstalkersActive,
+          cast.dreadstalkersTooEarly,
           sequenceEntry?.casts ?? [],
           cast.cast,
         ),

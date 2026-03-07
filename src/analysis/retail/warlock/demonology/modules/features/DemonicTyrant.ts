@@ -7,6 +7,8 @@ export default class DemonicTyrant extends Analyzer {
   tyrantData: TyrantCastData[] = [];
   currentTyrant: TyrantCastData | null = null;
 
+  lastDreadstalkersCast = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -28,13 +30,26 @@ export default class DemonicTyrant extends Analyzer {
       Events.summon.by(SELECTED_PLAYER).spell(SPELLS.WILD_IMP_HOG_SUMMON),
       (event) => this.onImpSummon(event),
     );
+    // Dreadstalkers cast
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS),
+      (event) => this.onDreadstalkersCast(event),
+    );
   }
 
   onTyrantCast = (event: CastEvent) => {
+    const timeSinceDreadstalkers = event.timestamp - this.lastDreadstalkersCast;
+
+    const dreadstalkersActive = timeSinceDreadstalkers <= 12000;
+
+    const dreadstalkersTooEarly = dreadstalkersActive && timeSinceDreadstalkers > 7000;
+
     const tyrant: TyrantCastData = {
       cast: event.timestamp,
       handOfGuldanCasts: 0,
       impsSummoned: 0,
+      dreadstalkersActive,
+      dreadstalkersTooEarly,
     };
 
     this.tyrantData.push(tyrant);
@@ -66,10 +81,15 @@ export default class DemonicTyrant extends Analyzer {
 
     this.currentTyrant.impsSummoned += 1;
   };
+  onDreadstalkersCast = (event: CastEvent) => {
+    this.lastDreadstalkersCast = event.timestamp;
+  };
 }
 
 export interface TyrantCastData {
   cast: number;
   handOfGuldanCasts: number;
   impsSummoned: number;
+  dreadstalkersActive: boolean;
+  dreadstalkersTooEarly: boolean;
 }
