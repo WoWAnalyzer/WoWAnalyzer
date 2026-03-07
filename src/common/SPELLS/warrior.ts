@@ -653,6 +653,31 @@ const spells = {
     name: 'Rage from auto attacks',
     icon: 'ability_racial_avatar',
   },
+  BRACE_FOR_IMPACT_BUFF: {
+    id: 386029,
+    name: 'Brace For Impact',
+    icon: 'ability_warrior_shieldguard',
+  },
+  BEST_SERVED_COLD_BUFF: {
+    id: 1234772,
+    name: 'Best Served Cold',
+    icon: 'ability_thunderclap',
+  },
+  KEEP_YOUR_FEET_ON_THE_GROUND_BUFF: {
+    id: 438591,
+    name: 'Keep Your Feet on the Ground',
+    icon: 'ability_thunderking_overcharge',
+  },
+  SPELL_REFLECTION_BUFF: {
+    id: 385391,
+    name: 'Spell Reflection',
+    icon: 'spell_magic_magearmor',
+  },
+  PHALANX_BUFF: {
+    id: 1278009,
+    name: 'Phalanx',
+    icon: 'inv12_apextalent_warrior_phalanx',
+  },
   //Mitigation Spells
   RENEWED_FURY_TALENT_BUFF: {
     id: 202289,

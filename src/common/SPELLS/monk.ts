@@ -170,6 +170,11 @@ const spells = {
     name: 'Unity Within',
     icon: 'ability_monk_prideofthetiger',
   },
+  MANTRA_OF_PURITY_STAGGER_ABSORB: {
+    id: 451253,
+    name: 'Mantra of Purity',
+    icon: 'ability_monk_domeofmist',
+  },
   MANTRA_OF_PURITY_HEAL: {
     id: 451452,
     name: 'Mantra of Purity',
@@ -609,6 +614,11 @@ const spells = {
     name: 'Stagger',
     icon: 'ability_rogue_cheatdeath',
   },
+  NIUZAO_STAGGER_REDIRECTION: {
+    id: 324393,
+    name: 'Stagger',
+    icon: 'ability_monk_clashingoxcharge.jpg',
+  },
   LIGHT_STAGGER_DEBUFF: {
     id: 124275,
     name: 'Light Stagger',
@@ -767,6 +777,11 @@ const spells = {
   },
   CHARRED_PASSIONS_BUFF: {
     id: 386963,
+    name: 'Charred Passions',
+    icon: 'ability_monk_mightyoxkick',
+  },
+  CHARRED_PASSIONS_DAMAGE: {
+    id: 386959,
     name: 'Charred Passions',
     icon: 'ability_monk_mightyoxkick',
   },
@@ -1055,11 +1070,10 @@ const spells = {
     ...talents.FLURRY_STRIKES_TALENT,
     id: 450617,
   },
-  // TODO: verify if this is the new damage ability in all cases
   FLURRY_STRIKES_DAMAGE_MIDNIGHT: {
     id: 451250,
     name: 'Flurry Strikes',
-    icon: 'inv-ability-shadopanmonk-flurrystrikes',
+    icon: 'inv_ability_shadopanmonk_flurrystrikes.jpg',
   },
 } satisfies Record<string, Spell>;
 

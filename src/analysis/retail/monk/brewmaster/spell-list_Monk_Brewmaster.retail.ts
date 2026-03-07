@@ -61,6 +61,12 @@ const SPELLS = {
     cooldown: {
       duration: 4000,
       hasted: false,
+      modifiers: [
+        {
+          duration: -1000,
+          requiredSpells: [387230],
+        },
+      ],
     },
     icon: 'ability_monk_roundhousekick.jpg',
   },
@@ -170,6 +176,14 @@ const SPELLS = {
       hasted: false,
       modifiers: [
         {
+          duration: 2000,
+          requiredSpells: [449582],
+        },
+        {
+          duration: -5000,
+          requiredSpells: [115173],
+        },
+        {
           duration: -2000,
           requiredSpells: [1272844],
         },
@@ -199,6 +213,14 @@ const SPELLS = {
       duration: 20000,
       hasted: false,
       modifiers: [
+        {
+          duration: 2000,
+          requiredSpells: [449582],
+        },
+        {
+          duration: -5000,
+          requiredSpells: [115173],
+        },
         {
           duration: -2000,
           requiredSpells: [1272844],

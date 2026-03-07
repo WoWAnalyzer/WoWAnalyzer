@@ -19,7 +19,7 @@ const IMP_REGROWTH_CRIT_BONUS = 0.4;
 
 /**
  * **Abundance**
- * Spec Talent Tier 4
+ * Spec Talent Tier 9
  *
  * For each Rejuvenation you have active, Regrowth's cost is reduced by 8% and critical effect
  * chance is increased by 8%, to a maximum of 96%.
@@ -117,7 +117,7 @@ class Abundance extends Analyzer.withDependencies({
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(9)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={

@@ -85,50 +85,11 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: TALENTS.PHANTOM_SINGULARITY_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
-        },
-        buffSpellId: TALENTS.PHANTOM_SINGULARITY_TALENT.id,
-      },
-      {
         spell: TALENTS.SEED_OF_CORRUPTION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         enabled: combatant.hasTalent(TALENTS.SEED_OF_CORRUPTION_TALENT),
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.VILE_TAINT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.VILE_TAINT_TALENT),
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: false,
-        },
-        buffSpellId: TALENTS.VILE_TAINT_TALENT.id,
-      },
-      {
-        spell: TALENTS.SOUL_ROT_TALENT.id,
-        buffSpellId: TALENTS.SOUL_ROT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SOUL_ROT_TALENT),
-        cooldown: 40,
-        castEfficiency: {
-          suggestion: false,
         },
       },
       {
@@ -142,6 +103,18 @@ class Abilities extends SharedAbilities {
         cooldown: 60,
       },
       // Cooldowns
+      {
+        spell: TALENTS.DARK_HARVEST_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS.DARK_HARVEST_TALENT),
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          base: 1500,
+        },
+      },
       {
         spell: TALENTS.SUMMON_DARKGLARE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -304,7 +277,7 @@ class Abilities extends SharedAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT) ? 45 : 60,
+        cooldown: combatant.hasTalent(TALENTS.OPPRESSIVE_DARKNESS_TALENT) ? 45 : 60,
       },
       {
         spell: SPELLS.UNENDING_BREATH.id,

@@ -20,7 +20,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import {
+  isFromConvoke,
+  isFromHardcast,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import {
   buffedBySotf,
   getSotfBuffs,
@@ -31,33 +34,29 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+import Lifebloom from './Lifebloom';
 
-const SOTF_SPELLS = [
-  SPELLS.REJUVENATION,
-  SPELLS.REJUVENATION_GERMINATION,
-  SPELLS.WILD_GROWTH,
-  SPELLS.REGROWTH,
-];
+const SOTF_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION, SPELLS.REGROWTH];
 
-const REJUVENATION_HEALING_INCREASE = 1.5;
-const REGROWTH_HEALING_INCREASE = 1.5;
-const WILD_GROWTH_HEALING_INCREASE = 0.5;
+const REJUVENATION_HEALING_INCREASE = 0.6;
+const REGROWTH_HEALING_INCREASE = 0.6;
 
-const debug = false;
+const debug = true;
 
 /**
  * **Soul of the Forest**
- * Spec Talent Tier 6
+ * Spec Talent Tier 4
  *
- * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 150%,
- * or your next Wild Growth by 50%.
+ * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 60%,
  */
 class SoulOfTheForest extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
+    lifebloom: Lifebloom,
   };
 
   hotTracker!: HotTrackerRestoDruid;
+  lifebloom!: Lifebloom;
 
   sotfRejuvInfo = {
     boost: REJUVENATION_HEALING_INCREASE,
@@ -71,21 +70,15 @@ class SoulOfTheForest extends Analyzer {
     hardcastUses: 0,
     convokeUses: 0,
   };
-  sotfWgInfo = {
-    boost: WILD_GROWTH_HEALING_INCREASE,
-    attribution: HotTrackerRestoDruid.getNewAttribution('SotF Wild Growth'),
-    hardcastUses: 0,
-    convokeUses: 0,
-  };
   sotfSpellInfo = {
     [SPELLS.REJUVENATION.id]: this.sotfRejuvInfo,
     [SPELLS.REJUVENATION_GERMINATION.id]: this.sotfRejuvInfo,
     [SPELLS.REGROWTH.id]: this.sotfRegrowthInfo,
-    [SPELLS.WILD_GROWTH.id]: this.sotfWgInfo,
   };
 
   lastTalliedSotF?: RemoveBuffEvent;
   lastBuffFromHardcast = false;
+  wastedBuffs = 0;
 
   /** Box row entry for SotF use */
   useEntries: BoxRowEntry[] = [];
@@ -139,13 +132,13 @@ class SoulOfTheForest extends Analyzer {
 
     // check source
     const fromHardcast: boolean = isFromHardcast(event);
-    const fromConvoke: boolean = !fromHardcast && isConvoking(this.selectedCombatant);
+    const fromConvoke: boolean = isFromConvoke(event);
 
     // tally healing
     const procInfo = this.sotfSpellInfo[event.ability.guid];
     if (!procInfo) {
       // should be impossible
-      console.error("Couldn't find spell info for SotF event!", event);
+      console.error("SoTF: Couldn't find spell info for SotF event!", event);
       return;
     }
 
@@ -155,7 +148,7 @@ class SoulOfTheForest extends Analyzer {
         procInfo.hardcastUses += 1;
         debug &&
           console.log(
-            'New HARDCAST ' +
+            'SoTF: New HARDCAST ' +
               procInfo.attribution.name +
               ' @ ' +
               this.owner.formatTimestamp(event.timestamp, 1),
@@ -164,14 +157,15 @@ class SoulOfTheForest extends Analyzer {
         procInfo.convokeUses += 1;
         debug &&
           console.log(
-            'New CONVOKE ' +
+            'SoTF: New CONVOKE ' +
               procInfo.attribution.name +
               ' @ ' +
               this.owner.formatTimestamp(event.timestamp, 1),
           );
       } else {
         console.warn(
-          procInfo.attribution.name +
+          'SoTF: ' +
+            event.ability.guid +
             ' @ ' +
             this.owner.formatTimestamp(event.timestamp, 1) +
             ' not from hardcast or convoke??',
@@ -206,8 +200,9 @@ class SoulOfTheForest extends Analyzer {
       if (buffed.length === 0) {
         useText = 'Expired';
         value = QualitativePerformance.Fail;
+        this.wastedBuffs += 1;
       } else {
-        if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
+        if (!isFromHardcast(buffed[0]) && !isFromConvoke(buffed[0]) && !this.lastBuffFromHardcast) {
           // SM during Convoke also consumed during Convoke - don't count it
           return;
         }
@@ -219,15 +214,24 @@ class SoulOfTheForest extends Analyzer {
           firstGuid === SPELLS.REJUVENATION_GERMINATION.id
         ) {
           useText = <SpellLink spell={SPELLS.REJUVENATION} />;
-          value = QualitativePerformance.Ok;
+          value = QualitativePerformance.Good;
         } else if (firstGuid === SPELLS.REGROWTH.id) {
           useText = <SpellLink spell={SPELLS.REGROWTH} />;
-          value = QualitativePerformance.Ok;
-        } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
-          useText = <SpellLink spell={SPELLS.WILD_GROWTH} />;
           value = QualitativePerformance.Good;
         } else {
-          console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+          console.warn('SoTF: SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+        }
+
+        if (
+          this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT) &&
+          !this._hasActiveLifebloom(event.timestamp)
+        ) {
+          value = QualitativePerformance.Fail;
+          useText = (
+            <>
+              {useText} (no active <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />)
+            </>
+          );
         }
       }
       this.lastBuffFromHardcast = false;
@@ -245,16 +249,16 @@ class SoulOfTheForest extends Analyzer {
     }
   }
 
+  private _hasActiveLifebloom(timestamp: number): boolean {
+    return this.lifebloom.hasActiveLifebloomAt(timestamp);
+  }
+
   get rejuvHardcastUses() {
     return this.sotfRejuvInfo.hardcastUses;
   }
 
   get regrowthHardcastUses() {
     return this.sotfRegrowthInfo.hardcastUses;
-  }
-
-  get wgHardcastUses() {
-    return this.sotfWgInfo.hardcastUses;
   }
 
   get rejuvConvokeUses() {
@@ -265,10 +269,6 @@ class SoulOfTheForest extends Analyzer {
     return this.sotfRegrowthInfo.convokeUses;
   }
 
-  get wgConvokeUses() {
-    return this.sotfWgInfo.convokeUses;
-  }
-
   get rejuvTotalUses() {
     return this.rejuvHardcastUses + this.rejuvConvokeUses;
   }
@@ -277,20 +277,12 @@ class SoulOfTheForest extends Analyzer {
     return this.regrowthHardcastUses + this.regrowthConvokeUses;
   }
 
-  get wgTotalUses() {
-    return this.wgHardcastUses + this.wgConvokeUses;
-  }
-
   get totalUses() {
-    return this.rejuvTotalUses + this.regrowthTotalUses + this.wgTotalUses;
+    return this.rejuvTotalUses + this.regrowthTotalUses;
   }
 
   get totalHealing() {
-    return (
-      this.sotfWgInfo.attribution.healing +
-      this.sotfRegrowthInfo.attribution.healing +
-      this.sotfRejuvInfo.attribution.healing
-    );
+    return this.sotfRegrowthInfo.attribution.healing + this.sotfRejuvInfo.attribution.healing;
   }
 
   /** Guide subsection describing the proper usage of Soul of the Forest */
@@ -300,9 +292,8 @@ class SoulOfTheForest extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT} />
         </strong>{' '}
-        procs are highest value consumed with <SpellLink spell={SPELLS.WILD_GROWTH} />, but{' '}
-        <SpellLink spell={SPELLS.REJUVENATION} /> or <SpellLink spell={SPELLS.REGROWTH} /> are
-        acceptable when one target needs big healing.{' '}
+        procs should be consumed with <SpellLink spell={SPELLS.REJUVENATION} /> or{' '}
+        <SpellLink spell={SPELLS.REGROWTH} />.{' '}
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
           <>
             <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> can overwrite procs - always use your proc
@@ -318,9 +309,10 @@ class SoulOfTheForest extends Analyzer {
           spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT}
           castEntries={this.useEntries}
           usesInsteadOfCasts
-          goodExtraExplanation={<>used on Wild Growth</>}
-          okExtraExplanation={<>used on Rejuvenation or Regrowth</>}
-          badExtraExplanation={<>proc expired or was overwritten</>}
+          goodExtraExplanation={<>used on Rejuvenation or Regrowth</>}
+          badExtraExplanation={
+            <>proc expired, was overwritten, or consumed without active Lifebloom</>
+          }
         />
       </div>
     );
@@ -356,6 +348,8 @@ class SoulOfTheForest extends Analyzer {
         tooltip={
           <>
             You used <strong>{this.totalUses}</strong> Soul of the Forest procs.
+            <br />
+            Wasted (expired): <strong>{this.wastedBuffs}</strong>
             <ul>
               <li>
                 <SpellLink spell={SPELLS.REJUVENATION} />
@@ -371,14 +365,6 @@ class SoulOfTheForest extends Analyzer {
                   this.regrowthTotalUses,
                   this.regrowthHardcastUses,
                   this.sotfRegrowthInfo.attribution.healing,
-                )}
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.WILD_GROWTH} />
-                {this._spellReportLine(
-                  this.wgTotalUses,
-                  this.wgHardcastUses,
-                  this.sotfWgInfo.attribution.healing,
                 )}
               </li>
             </ul>

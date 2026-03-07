@@ -4,7 +4,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-//import TALENTS from 'common/TALENTS/priest';
+import TALENTS from 'common/TALENTS/priest';
 
 import ShadowWordMadness from '../spells/ShadowWordMadness';
 import ShadowWordPain from '../spells/ShadowWordPain';
@@ -17,7 +17,7 @@ class DotUptimes extends Analyzer {
   static dependencies = {
     vampiricTouch: VampiricTouch,
     shadowWordPain: ShadowWordPain,
-    shadowwordmadness: ShadowWordMadness,
+    shadowWordMadness: ShadowWordMadness,
   };
   protected vampiricTouch!: VampiricTouch;
   protected shadowWordPain!: ShadowWordPain;
@@ -45,7 +45,7 @@ class DotUptimes extends Analyzer {
     return explanationAndDataSubsection(explanation, data);
   }
 
-  /*get guideSubsectionDP() {
+  get guideSubsectionDP() {
     const explanation = (
       <p>
         <b>
@@ -62,14 +62,14 @@ class DotUptimes extends Analyzer {
     const data = <RoundedPanel>{this.shadowWordMadness.subStatistic()}</RoundedPanel>;
 
     return explanationAndDataSubsection(explanation, data);
-  } */
+  }
 
   statistic() {
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
         {this.vampiricTouch.subStatistic()}
         {this.shadowWordPain.subStatistic()}
-        {/*this.shadowWordMadness.subStatistic()*/}
+        {this.shadowWordMadness.subStatistic()}
       </StatisticBar>
     );
   }

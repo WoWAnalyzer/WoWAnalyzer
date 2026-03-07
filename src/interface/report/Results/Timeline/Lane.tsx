@@ -74,7 +74,10 @@ class Lane extends PureComponent<Props> {
   }
 
   renderCast(event: CastEvent | FilterCooldownInfoEvent | UpdateSpellUsableEvent) {
-    if (event.timestamp > this.props.fightEndTimestamp) {
+    if (
+      event.timestamp > this.props.fightEndTimestamp ||
+      this.props.fightStartTimestamp > event.timestamp + OVERFLOW_BUFFER
+    ) {
       return null;
     }
     //let pre phase events be displayed one second tick before the phase

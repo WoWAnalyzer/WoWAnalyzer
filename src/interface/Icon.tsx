@@ -19,13 +19,18 @@ export type SvgIconProps = Omit<
 >;
 
 export function iconUrl(icon: string): string {
-  icon = icon.replace('.jpg', '');
+  let [folder, name] = icon.split('/');
+  if (name === undefined) {
+    [folder, name] = ['abilities', folder];
+  }
+
+  icon = name.replace('.jpg', '').replace(/^custom-icon-/, '');
 
   if (ICON_RENAME[icon]) {
     icon = ICON_RENAME[icon];
   }
 
-  let baseURL = `https://assets.rpglogs.com/img/warcraft/abilities`;
+  let baseURL = `https://assets.rpglogs.com/img/warcraft/${folder}`;
   if (BAD_ICONS.includes(icon)) {
     baseURL = `/img/Icons`;
   }

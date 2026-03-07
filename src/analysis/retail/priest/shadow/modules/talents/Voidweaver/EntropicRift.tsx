@@ -21,7 +21,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import { COLLAPSING_VOID_DEVOURING_PLAGUE_MULTIPLIER } from '../../../constants';
 
-//This is for Entropic Rift and Collapsing Void, and Darkening Horizon
+//This is for Entropic Rift and Collapsing Void and Darkening Horizon
 
 class EntropicRift extends Analyzer {
   static dependencies = {
@@ -50,7 +50,7 @@ class EntropicRift extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ENTROPIC_RIFT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ENTROPIC_RIFT_DAMAGE),
@@ -123,7 +123,7 @@ class EntropicRift extends Analyzer {
       const tooltip = (
         <>
           @<strong>{this.owner.formatTimestamp(this.castTime)}</strong>,{' '}
-          <strong>{this.currentDP}</strong> Devouring Plagues
+          <strong>{this.currentDP}</strong> Shadow Word: Madness
         </>
       );
 

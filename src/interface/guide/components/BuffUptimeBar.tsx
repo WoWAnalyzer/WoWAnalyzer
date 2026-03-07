@@ -4,19 +4,8 @@ import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import {
-  SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatsRow,
-  StatCard,
-  StatValue,
-  StatLabel,
-} from './GuideDivs';
+import GuideDataWrapper, { StatsRow, StatCard } from './GuideDataWrapper';
 
-// Unified uptime graph - handles both simple buffs and stacked buffs
 function UptimeGraph({
   buffHistory,
   stackUptimeHistory,
@@ -132,19 +121,36 @@ function UptimeGraph({
 }
 
 interface BuffUptimeBarProps {
+  /** The buff/debuff spell to track */
   spell: Spell;
+  /** Array of buff application/removal events with timestamps and optional stack history */
   buffHistory: TrackedBuffEvent[];
+  /** Fight or window start timestamp in milliseconds */
   startTime: number;
+  /** Fight or window end timestamp in milliseconds */
   endTime: number;
+  /** Color for buff active periods. Default: purple (#cd1bdf) */
   barColor?: string;
+  /** Background color showing maximum stack potential. Default: dark purple (#7e5da8) */
   backgroundBarColor?: string;
+  /** Maximum number of stacks for stackable buffs. Required for stack visualization */
   maxStacks?: number;
+  /** Optional tooltip content explaining average stacks calculation */
   averageStacksTooltip?: ReactNode;
 }
 
 /**
- * Displays buff uptime percentage with stack visualization.
- * Shows header, stats cards, and a timeline bar visualization.
+ * Displays buff/debuff uptime as a timeline bar with uptime percentage and optional stack tracking.
+ * Shows uptime stats and visualizes when the buff was active across the fight or specified time window.
+ *
+ * @param spell - The buff/debuff spell to track
+ * @param buffHistory - Array of buff events with timestamps and optional stack history
+ * @param startTime - Fight or window start timestamp in milliseconds
+ * @param endTime - Fight or window end timestamp in milliseconds
+ * @param barColor - Color for buff active periods (default: purple #cd1bdf)
+ * @param backgroundBarColor - Background color for maximum stack potential (default: dark purple #7e5da8)
+ * @param maxStacks - Maximum number of stacks for stackable buffs (required for stack visualization)
+ * @param averageStacksTooltip - Optional tooltip explaining average stacks calculation
  */
 export default function BuffUptimeBar({
   spell,
@@ -198,35 +204,31 @@ export default function BuffUptimeBar({
 
   const defaultTooltip = `This is the average number of stacks you had over the course of the fight, counting periods where you didn't have the buff as zero stacks.`;
 
-  return (
-    <SectionContainer>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{spell.name} Buff Uptime</SectionTitle>
-          <Label>Timeline</Label>
-        </TitleColumn>
-        <StatsRow>
-          <StatCard color={backgroundBarColor}>
-            <StatValue>{formatPercentage(uptimePercent, 0)}%</StatValue>
-            <StatLabel>Uptime</StatLabel>
+  const statsContent = (
+    <StatsRow>
+      <StatCard color={backgroundBarColor}>
+        <StatValue>{formatPercentage(uptimePercent, 0)}%</StatValue>
+        <StatLabel>Uptime</StatLabel>
+      </StatCard>
+      {hasStacks && averageStacks !== undefined && (
+        <Tooltip content={averageStacksTooltip || defaultTooltip}>
+          <StatCard color={barColor}>
+            <StatValue>{averageStacks.toFixed(1)}</StatValue>
+            <StatLabel>Avg Stacks</StatLabel>
           </StatCard>
-          {hasStacks && averageStacks !== undefined && (
-            <Tooltip content={averageStacksTooltip || defaultTooltip}>
-              <StatCard color={barColor}>
-                <StatValue>{averageStacks.toFixed(1)}</StatValue>
-                <StatLabel>Avg Stacks</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {hasStacks && maxStacks !== undefined && (
-            <StatCard color="#888">
-              <StatValue>{maxStacks}</StatValue>
-              <StatLabel>Max Stacks</StatLabel>
-            </StatCard>
-          )}
-        </StatsRow>
-      </SectionHeader>
+        </Tooltip>
+      )}
+      {hasStacks && maxStacks !== undefined && (
+        <StatCard color="#888">
+          <StatValue>{maxStacks}</StatValue>
+          <StatLabel>Max Stacks</StatLabel>
+        </StatCard>
+      )}
+    </StatsRow>
+  );
 
+  return (
+    <GuideDataWrapper title={`${spell.name} Buff Uptime`} subtitle="Timeline" stats={statsContent}>
       <TimelineContainer>
         <UptimeGraphContainer>
           <UptimeGraph
@@ -240,7 +242,7 @@ export default function BuffUptimeBar({
           />
         </UptimeGraphContainer>
       </TimelineContainer>
-    </SectionContainer>
+    </GuideDataWrapper>
   );
 }
 
@@ -260,4 +262,18 @@ const UptimeGraphContainer = styled.div`
   height: 24px;
   width: 100%;
   position: relative;
+`;
+
+const StatValue = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+`;
+
+const StatLabel = styled.div`
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;

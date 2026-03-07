@@ -760,25 +760,16 @@ const talents = {
     entryIds: [80220],
     definitionIds: [{ id: 85223, specId: 64 }],
   },
-  FROSTFIRE_BOLT_1_FIRE_TALENT: {
+  FROSTFIRE_BOLT_TALENT: {
     id: 431044,
     name: 'Frostfire Bolt',
     icon: 'inv_ability_frostfiremage_frostfirebolt',
     maxRanks: 1,
-    entryIds: [117239, 136441],
+    entryIds: [136441, 117239],
     definitionIds: [
+      { id: 141214, specId: 63 },
       { id: 122251, specId: 64 },
-      { id: 141214, specId: 64 },
     ],
-    manaCost: 50000,
-  },
-  FROSTFIRE_BOLT_2_FIRE_TALENT: {
-    id: 431044,
-    name: 'Frostfire Bolt',
-    icon: 'inv_ability_frostfiremage_frostfirebolt',
-    maxRanks: 1,
-    entryIds: [136441],
-    definitionIds: [{ id: 141214, specId: 63 }],
     manaCost: 50000,
   },
   FROSTFIRE_EMPOWERMENT_TALENT: {

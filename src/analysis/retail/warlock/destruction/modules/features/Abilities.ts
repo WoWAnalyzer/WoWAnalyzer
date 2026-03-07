@@ -71,8 +71,6 @@ class Abilities extends SharedAbilities {
       {
         spell: TALENTS.SHADOWBURN_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 12 / (1 + haste),
-        charges: 2,
         enabled: combatant.hasTalent(TALENTS.SHADOWBURN_TALENT),
         gcd: {
           base: 1500,
@@ -278,13 +276,6 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: SPELLS.HEALTH_FUNNEL_CAST.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: [
           SPELLS.SUMMON_IMP.id,
           SPELLS.SUMMON_VOIDWALKER.id,
@@ -299,7 +290,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.SHADOWFURY.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT) ? 45 : 60,
+        cooldown: combatant.hasTalent(TALENTS.OPPRESSIVE_DARKNESS_TALENT) ? 45 : 60,
         gcd: {
           base: 1500,
         },

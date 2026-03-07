@@ -1668,7 +1668,6 @@ const talents = {
     entryIds: [128221],
     definitionIds: [{ id: 133028, specId: 270 }],
     manaCost: 31250,
-    chiCost: 2,
   },
   RUSHING_WIND_KICK_WINDWALKER_TALENT: {
     id: 1250566,
@@ -2399,7 +2398,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [124826],
     definitionIds: [{ id: 129664, specId: 269 }],
-    manaCost: 125000,
   },
   ZEN_PULSE_TALENT: {
     id: 446326,

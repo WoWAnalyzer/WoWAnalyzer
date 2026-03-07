@@ -7,7 +7,6 @@ import HotAttributor from '../../modules/core/hottracking/HotAttributor';
 import Abilities from '../Abilities';
 import RegrowthAndClearcasting from 'analysis/retail/druid/restoration/modules/spells/RegrowthAndClearcasting';
 import Swiftmend from 'analysis/retail/druid/restoration/modules/spells/Swiftmend';
-import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Resto Druid exetension of HealingEfficiencyTracker */
 class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
@@ -38,8 +37,6 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getSmDetails(spellInfo);
     } else if (spellId === SPELLS.EFFLORESCENCE_CAST.id) {
       spellInfo = this.getEffloDetails(spellInfo);
-    } else if (spellId === TALENTS_DRUID.OVERGROWTH_TALENT.id) {
-      spellInfo = this.getOvergrowthDetails(spellInfo);
     }
 
     return spellInfo;
@@ -72,11 +69,6 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getSmDetails(spellInfo: SpellInfoDetails) {
     // for what we're displaying we only need the effective healing done
     spellInfo.healingDone = this.swiftmend.hardcastSwiftmendHealing;
-    return spellInfo;
-  }
-
-  getOvergrowthDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.hotAttributor.overgrowthAttrib.healing;
     return spellInfo;
   }
 

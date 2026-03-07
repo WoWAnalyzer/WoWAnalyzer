@@ -16,17 +16,37 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const CAST_BUFFER_MS = 150;
-const TRANQ_CHANNEL_BUFFER_MS = 10_000;
+const TRANQ_CHANNEL_BUFFER_MS = 6_000;
+const EVERBLOOM_BUFFER_MS = 1500;
+const CONVOKE_CHANNEL_BUFFER_MS = 4_200;
 
 const APPLIED_HEAL = 'AppliedHeal';
 const FROM_HARDCAST = 'FromHardcast';
-const FROM_OVERGROWTH = 'FromOvergrowth';
+const FROM_CONVOKE = 'FromConvoke';
 const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
 const CAUSED_BLOOM = 'CausedBloom';
 const CAUSED_TICK = 'CausedTick';
 const CAUSED_SUMMON = 'CausedSummon';
+const FROM_EVERBLOOM = 'FromEverbloom';
 
 const EVENT_LINKS: EventLink[] = [
+  {
+    linkRelation: APPLIED_HEAL,
+    reverseLinkRelation: FROM_CONVOKE,
+    linkingEventId: SPELLS.CONVOKE_SPIRITS.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: [
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
+      SPELLS.REGROWTH.id,
+      SPELLS.WILD_GROWTH.id,
+      SPELLS.SWIFTMEND.id,
+      SPELLS.TRANQUILITY_HEAL.id,
+    ],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
+    forwardBufferMs: CONVOKE_CHANNEL_BUFFER_MS,
+    anyTarget: true,
+  },
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: APPLIED_HEAL,
@@ -36,6 +56,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition: (linkingEvent: AnyEvent) => !HasRelatedEvent(linkingEvent, FROM_CONVOKE),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -46,6 +67,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition: (linkingEvent: AnyEvent) => !HasRelatedEvent(linkingEvent, FROM_CONVOKE),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -79,16 +101,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    linkRelation: FROM_HARDCAST,
-    linkingEventId: TALENTS_DRUID.FLOURISH_TALENT.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_DRUID.FLOURISH_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-  },
-  {
     // for discerning hardcasts from reforestation procs
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.INCARNATION_TOL_ALLOWED.id,
@@ -103,9 +115,9 @@ const EVENT_LINKS: EventLink[] = [
     // for discerning hardcast and CG summons
     linkRelation: CAUSED_SUMMON,
     reverseLinkRelation: FROM_HARDCAST,
-    linkingEventId: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
+    linkingEventId: [SPELLS.SWIFTMEND.id, SPELLS.WILD_GROWTH.id],
     linkingEventType: EventType.Cast,
-    referencedEventId: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
+    referencedEventId: SPELLS.GROVE_GUARDIANS_SUMMON.id,
     referencedEventType: EventType.Summon,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -113,28 +125,24 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
   },
   {
-    linkRelation: FROM_OVERGROWTH,
-    reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [
-      SPELLS.REJUVENATION.id,
-      SPELLS.REJUVENATION_GERMINATION.id,
-      SPELLS.REGROWTH.id,
-      SPELLS.WILD_GROWTH.id,
-      SPELLS.LIFEBLOOM_HOT_HEAL.id,
-      SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
-    ],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_DRUID.OVERGROWTH_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
+    linkRelation: CAUSED_SUMMON,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.CONVOKE_SPIRITS.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.GROVE_GUARDIANS_SUMMON.id,
+    referencedEventType: EventType.Summon,
+    forwardBufferMs: CONVOKE_CHANNEL_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true, // the summon event 'targets' the summon, while cast targets a player
+    maximumLinks: 6, // convoke can cast 0-2 wild growths and 2-4 swiftmends, so up to 6 GG summons can be expected
   },
+  // linking lifebloom's bloom heal to the refresh or removal of the buff that caused it
   {
     linkRelation: FROM_EXPIRING_LIFEBLOOM,
     reverseLinkRelation: CAUSED_BLOOM,
     linkingEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
+    referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
     referencedEventType: [EventType.RefreshBuff, EventType.RemoveBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -148,6 +156,31 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: TRANQ_CHANNEL_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+  },
+  {
+    // for discerning hardcast Tranquility healing from Convoke-procced Tranquility healing
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
+    linkingEventId: SPELLS.TRANQUILITY_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.TRANQUILITY_HEAL.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  // linking lifebloom's bloom heal to the apex talent bloom
+  {
+    linkRelation: CAUSED_BLOOM,
+    reverseLinkRelation: FROM_EVERBLOOM,
+    linkingEventId: SPELLS.SOUL_OF_THE_FOREST_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: EVERBLOOM_BUFFER_MS,
+    backwardBufferMs: EVERBLOOM_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 5,
   },
 ];
 
@@ -173,6 +206,11 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
+/** Returns true iff the given buff application or heal can be matched back to Convoke */
+export function isFromConvoke(event: AbilityEvent<any>): boolean {
+  return HasRelatedEvent(event, FROM_CONVOKE);
+}
+
 /** Returns the hardcast event that caused this buff or heal, if there is one */
 export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
   return GetRelatedEvents<CastEvent>(
@@ -180,11 +218,6 @@ export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
     FROM_HARDCAST,
     (e): e is CastEvent => e.type === EventType.Cast,
   ).pop();
-}
-
-/** Returns true iff the given buff application can be matched to an Overgrowth cast */
-export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  return HasRelatedEvent(event, FROM_OVERGROWTH);
 }
 
 /** Returns the buff application and direct heal events caused by the given hardcast */
@@ -203,6 +236,11 @@ export function getDirectHeal(event: CastEvent): HealEvent | undefined {
  *  buff - used to differentiate from a Photosynthesis proc */
 export function isFromExpiringLifebloom(event: HealEvent): boolean {
   return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
+}
+
+/** Returns true iff the bloom heal can be linked to Everbloom's SotF consume effect */
+export function isFromEverbloom(event: HealEvent): boolean {
+  return HasRelatedEvent(event, FROM_EVERBLOOM);
 }
 
 /** Returns true iff the bloom expiration caused a bloom to proc */

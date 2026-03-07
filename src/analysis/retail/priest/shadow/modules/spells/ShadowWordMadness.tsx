@@ -4,12 +4,12 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-//import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 //import Statistic from 'parser/ui/Statistic';
 //import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 //import { formatPercentage } from 'common/format';
 
-//const BAR_COLOR = '#9933cc';
+const BAR_COLOR = '#9933cc';
 
 class ShadowWordMadness extends Analyzer {
   static dependencies = {
@@ -32,6 +32,7 @@ class ShadowWordMadness extends Analyzer {
   }
 
   get uptime() {
+    console.log('we got here', this.enemies.getBuffUptime(TALENTS.SHADOW_WORD_MADNESS_TALENT.id));
     return (
       this.enemies.getBuffUptime(TALENTS.SHADOW_WORD_MADNESS_TALENT.id) / this.owner.fightDuration
     );
@@ -55,14 +56,14 @@ class ShadowWordMadness extends Analyzer {
     return QualitativePerformance.Fail;
   }
 
-  /*subStatistic() {
+  subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
       spells: [TALENTS.SHADOW_WORD_MADNESS_TALENT],
       uptimes: this.uptimeHistory,
       color: BAR_COLOR,
       perf: this.DowntimePerformance,
     });
-  } */
+  }
 
   getMaxUptime() {
     let durationDP = 7000;

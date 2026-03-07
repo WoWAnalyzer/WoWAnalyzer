@@ -14,6 +14,12 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
+/**
+ * **Germination**
+ * Spec Talent Tier 12
+ *
+ * You can apply Rejuvenation twice to the same target. Rejuvenation's duration is increased by 2 sec.
+ */
 export default class Germination extends Analyzer.withDependencies({
   hotTracker: HotTrackerRestoDruid,
 }) {
@@ -59,7 +65,7 @@ export default class Germination extends Analyzer.withDependencies({
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(10)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(12)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>

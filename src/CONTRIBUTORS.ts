@@ -2111,7 +2111,7 @@ export const squided: Contributor = {
   mains: [
     {
       name: 'Squided',
-      spec: SPECS.RESTORATION_SHAMAN,
+      spec: SPECS.RESTORATION_DRUID,
       link: 'https://worldofwarcraft.com/en-us/character/us/area-52/squided',
     },
   ],
@@ -2790,6 +2790,18 @@ export const Rex: Contributor = {
       name: 'Rexxybear',
       spec: SPECS.GUARDIAN_DRUID,
       link: 'https://www.warcraftlogs.com/character/us/tichondrius/rexxybear',
+    },
+  ],
+};
+
+export const Katorri: Contributor = {
+  nickname: 'Katorri',
+  github: 'katogaming88',
+  mains: [
+    {
+      name: 'Katorrí',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/us/stormrage/katorr%C3%AD',
     },
   ],
 };

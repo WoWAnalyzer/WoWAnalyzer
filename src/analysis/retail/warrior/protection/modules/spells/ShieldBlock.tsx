@@ -17,7 +17,6 @@ class ShieldBlock extends Analyzer {
   shieldBlocksOverall: OverallData[] = [];
   goodCast = 0;
   badCast = 0;
-  bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT);
   ssNeeded = !this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT) ? 0 : 1;
 
   constructor(options: Options) {
@@ -58,7 +57,7 @@ class ShieldBlock extends Analyzer {
       return;
     }
 
-    if (this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id) && this.bolster) {
+    if (this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id)) {
       return;
     }
 
@@ -161,7 +160,6 @@ class ShieldBlock extends Analyzer {
 
     if (debug) {
       console.log(this.shieldBlocksOffensive);
-      console.log(`Do they have bolster? ${this.bolster}`);
       console.log(this.shieldBlocksDefensive);
       console.log(this.shieldBlocksOverall);
     }

@@ -18,7 +18,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import ShadowyInsight from './modules/talents/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
 import Voidform from './modules/spells/Voidform';
-import Voidbolt from './modules/spells/Voidbolt';
+import VoidVolley from './modules/spells/VoidVolley';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import ShadowWordMadness from './modules/spells/ShadowWordMadness';
@@ -32,9 +32,8 @@ import DeathAndMadness from './modules/talents/DeathAndMadness';
 import TentacleSlam from './modules/talents/TentacleSlam';
 import InsidiousIre from './modules/talents/InsidiousIre';
 import InescapableTorment from './modules/talents/InescapableTorment';
-import AncientMadness from './modules/talents/AncientMadness';
 import VoidTorrent from './modules/talents/Voidweaver/VoidTorrent';
-import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
+import MindFlayInsanity from './modules/talents/Archon/MindFlayInsanity';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
@@ -67,7 +66,6 @@ import Voidheart from './modules/talents/Voidweaver/Voidheart';
 import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
-import VoidVolley from './modules/talents/VoidVolley';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -95,11 +93,10 @@ class CombatLogParser extends MainCombatLogParser {
     shadowWordPain: ShadowWordPain,
     shadowyApparitions: ShadowyApparitions,
     vampiricTouch: VampiricTouch,
-    voidbolt: Voidbolt,
+    voidVolley: VoidVolley,
     voidform: Voidform,
 
     // Spec talents:
-    ancientMadness: AncientMadness,
     auspiciousSpirits: AuspiciousSpirits,
     darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
@@ -113,7 +110,7 @@ class CombatLogParser extends MainCombatLogParser {
     maddeningTouch: MaddeningTouch,
     mastermind: Mastermind,
     mindDevourer: MindDevourer,
-    surgeOfInsanity: SurgeOfInsanity,
+    mindFlayInsanity: MindFlayInsanity,
     shatteredPsyche: ShatteredPsyche,
     mindsEye: MindsEye,
     spectralHorrors: SpectralHorrors,
@@ -123,7 +120,6 @@ class CombatLogParser extends MainCombatLogParser {
     tormentedSpirits: TormentedSpirits,
     voidTorrent: VoidTorrent,
     voidTouched: VoidTouched,
-    voidVolley: VoidVolley,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,

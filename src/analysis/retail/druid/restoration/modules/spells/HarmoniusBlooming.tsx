@@ -11,9 +11,8 @@ import { HARMONIUS_BLOOMING_EXTRA_STACKS } from 'analysis/retail/druid/restorati
 
 /**
  *
- *
  * **Harmonius Blooming**
- * Spec Talent
+ * Spec Talent Tier 10
  *
  * Lifebloom counts for 3 stacks of Mastery: Harmony
  */
@@ -47,7 +46,7 @@ class HarmoniusBlooming extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(10)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>

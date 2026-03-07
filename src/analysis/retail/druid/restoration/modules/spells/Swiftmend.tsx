@@ -27,10 +27,8 @@ const HIGH_VALUE_HOTS = [
   SPELLS.REJUVENATION.id,
   SPELLS.REJUVENATION_GERMINATION.id,
   SPELLS.WILD_GROWTH.id,
-  SPELLS.LIFEBLOOM_HOT_HEAL,
-  SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
+  SPELLS.LIFEBLOOM_HOT_HEAL.id,
 ];
-const VERY_HIGH_VALUE_HOT = SPELLS.CENARION_WARD_HEAL.id;
 
 /**
  * Tracks things related to casting Swiftmend
@@ -112,7 +110,6 @@ class Swiftmend extends Analyzer {
         );
       }
       const extendedHighValue =
-        extendedHotIds.includes(VERY_HIGH_VALUE_HOT) ||
         extendedHotIds.filter((id) => HIGH_VALUE_HOTS.includes(id)).length >= 2;
       if (extendedHighValue) {
         value = QualitativePerformance.Perfect;

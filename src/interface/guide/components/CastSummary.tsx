@@ -1,41 +1,54 @@
 import Spell from 'common/SPELLS/Spell';
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
-import { Tooltip, ControlledExpandable } from 'interface';
+import { ControlledExpandable } from 'interface';
 import { useFight } from 'interface/report/context/FightContext';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useState, type JSX } from 'react';
 import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
-import {
-  SectionContainer,
-  SectionHeader,
-  TitleColumn,
-  SectionTitle,
-  Label,
-  StatsRow,
-  StatCard,
-  StatValue,
-  StatLabel,
+import { qualitativePerformanceToColor } from 'interface/guide';
+import GuideDataWrapper, {
+  FilterBadge,
   HelperText,
-} from './GuideDivs';
+  PerfBadgeGrid,
+  PerfBadgeCount,
+  PerfBadgeDivider,
+  PerfBadgeLabel,
+} from './GuideDataWrapper';
 
+/** Represents a single cast evaluation with timestamp and performance assessment */
 export interface CastEvaluation {
+  /** Timestamp when the spell was cast (in milliseconds) */
   timestamp: number;
+  /** Performance rating for this cast (Perfect, Good, Ok, Fail) */
   performance: QualitativePerformance;
+  /** Human-readable explanation of why this performance rating was given */
   reason: string;
 }
 
 interface CastSummaryProps {
+  /** The spell being analyzed */
   spell: Spell;
+  /** Array of cast evaluations to display */
   casts: CastEvaluation[];
+  /** Whether to show expandable per-cast breakdown. Default: false */
   showBreakdown?: boolean;
 }
+
+/** Performance level definitions — order determines display order in the badge grid */
+const PERF_LEVELS = [
+  { perf: QualitativePerformance.Perfect, label: 'Perfect' },
+  { perf: QualitativePerformance.Good, label: 'Good' },
+  { perf: QualitativePerformance.Ok, label: 'Ok' },
+  { perf: QualitativePerformance.Fail, label: 'Bad' },
+] as const;
 
 /**
  * Displays cast performance summary bar and optionally detailed per-cast breakdown.
  * Shows a "no casts" message if the casts array is empty.
+ *
  * @param spell - The spell being analyzed
  * @param casts - Array of cast evaluations with timestamps and performance ratings
  * @param showBreakdown - Whether to show expandable per-cast breakdown (default: false)
@@ -68,6 +81,8 @@ export default function CastSummary({
   const ok = casts.filter((c) => c.performance === QualitativePerformance.Ok).length;
   const bad = casts.filter((c) => c.performance === QualitativePerformance.Fail).length;
   const total = casts.length;
+  // Same scaling as CastDetail timeline: min width = 1/5 (≤5 casts), max 20 per row
+  const rectWidthPct = Math.max(100 / Math.max(total, 5), 100 / 20);
 
   // Convert to BoxRowEntry format for breakdown
   const castEntries: BoxRowEntry[] = showBreakdown
@@ -84,49 +99,42 @@ export default function CastSummary({
       }))
     : [];
 
-  return (
-    <SectionContainer>
-      <SectionHeader>
-        <TitleColumn>
-          <SectionTitle>{spell.name} Casts</SectionTitle>
-          <Label>Performance</Label>
-        </TitleColumn>
-        <StatsRow>
-          {perfect > 0 && (
-            <Tooltip content={`Perfect casts - ${perfect} / ${total}`}>
-              <StatCard color="#4ec9a2">
-                <StatValue>{perfect}</StatValue>
-                <StatLabel>Perfect</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {good > 0 && (
-            <Tooltip content={`Good casts - ${good} / ${total}`}>
-              <StatCard color="#9ece6a">
-                <StatValue>{good}</StatValue>
-                <StatLabel>Good</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {ok > 0 && (
-            <Tooltip content={`Ok casts - ${ok} / ${total}`}>
-              <StatCard color="#cc7a00">
-                <StatValue>{ok}</StatValue>
-                <StatLabel>Ok</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-          {bad > 0 && (
-            <Tooltip content={`Bad casts - ${bad} / ${total}`}>
-              <StatCard color="#cd1b1b">
-                <StatValue>{bad}</StatValue>
-                <StatLabel>Bad</StatLabel>
-              </StatCard>
-            </Tooltip>
-          )}
-        </StatsRow>
-      </SectionHeader>
+  const perfCounts: Record<QualitativePerformance, number> = {
+    [QualitativePerformance.Perfect]: perfect,
+    [QualitativePerformance.Good]: good,
+    [QualitativePerformance.Ok]: ok,
+    [QualitativePerformance.Fail]: bad,
+  };
 
+  const statsContent = (
+    <PerfBadgeGrid>
+      {PERF_LEVELS.map(({ perf, label }) => {
+        const count = perfCounts[perf];
+        const color = qualitativePerformanceToColor(perf);
+        const inactive = count === 0;
+        return (
+          <FilterBadge
+            key={label}
+            color={inactive ? '#c8c8c8' : color}
+            active={!inactive}
+            style={{ pointerEvents: 'none', cursor: 'default' }}
+          >
+            <PerfBadgeCount color={inactive ? '#c8c8c8' : color}>{count}</PerfBadgeCount>
+            <PerfBadgeDivider color={inactive ? '#c8c8c8' : color} />
+            <PerfBadgeLabel>{label}</PerfBadgeLabel>
+          </FilterBadge>
+        );
+      })}
+    </PerfBadgeGrid>
+  );
+
+  return (
+    <GuideDataWrapper
+      bare
+      title={`${spell.name} Casts`}
+      subtitle="Performance"
+      stats={statsContent}
+    >
       {showBreakdown ? (
         <>
           <ControlledExpandable
@@ -146,10 +154,14 @@ export default function CastSummary({
           >
             <BreakdownContainer>
               <HelperText>Hover over the boxes below for more details</HelperText>
-              <PerformanceBoxRow values={castEntries} />
+              <BoxRowScaler widthPct={rectWidthPct}>
+                <PerformanceBoxRow values={castEntries} />
+              </BoxRowScaler>
             </BreakdownContainer>
           </ControlledExpandable>
-          {!isExpanded && <HelperText>Click the bar above for per-cast breakdown</HelperText>}
+          <DisappearingHelperText style={{ height: isExpanded ? 0 : '1lh' }}>
+            Click the bar above for per-cast breakdown
+          </DisappearingHelperText>
         </>
       ) : (
         <BarContainer>
@@ -161,16 +173,21 @@ export default function CastSummary({
           />
         </BarContainer>
       )}
-    </SectionContainer>
+    </GuideDataWrapper>
   );
 }
 
+const DisappearingHelperText = styled(HelperText)`
+  margin-top: 4px;
+  overflow-y: clip;
+  transition: height 0.5s; /* 0.5s matches react-animate-height */
+`;
+
 const BarContainer = styled.div`
-  background: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  padding: 4px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 
   .gradiated-bar-container {
     display: flex;
@@ -187,4 +204,17 @@ const BreakdownContainer = styled.div`
   padding: 8px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+`;
+
+/** Overrides PerformanceBoxRow's auto-fill grid to match the CastDetail timeline scaling */
+const BoxRowScaler = styled.div<{ widthPct: number }>`
+  .performance-block-row {
+    grid-template-columns: repeat(auto-fill, calc(${(p) => p.widthPct}% - 3px));
+    gap: 3px;
+  }
+  .performance-block {
+    height: 16px !important;
+    border-radius: 2px;
+  }
 `;
