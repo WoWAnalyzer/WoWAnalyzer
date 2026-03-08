@@ -91,10 +91,14 @@ export default class Eclipse extends Analyzer {
         </p>
         <p>
           Your last filler cast determines which Eclipse you enter:
-          <br />
-          <SpellLink spell={SPELLS.WRATH} /> → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
-          <br />
-          <SpellLink spell={SPELLS.STARFIRE} /> → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
+          <ul>
+            <li>
+              <SpellLink spell={SPELLS.WRATH} /> → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
+            </li>
+            <li>
+              <SpellLink spell={SPELLS.STARFIRE} /> → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
+            </li>
+          </ul>
         </p>
         <p>
           <SpellLink spell={SPELLS.WRATH} /> is single target. <SpellLink spell={SPELLS.STARFIRE} />{' '}
