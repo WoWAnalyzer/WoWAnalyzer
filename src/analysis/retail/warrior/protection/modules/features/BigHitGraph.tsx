@@ -24,7 +24,6 @@ interface BigHit {
   hitPoints: number;
   ignorePain: number;
   hadShieldBlock: boolean;
-  hadLastStand: boolean;
   hadShieldWall: boolean;
   mobHadDemoShout: boolean;
   spell: string;
@@ -168,7 +167,6 @@ class BigHitGraph extends Analyzer {
         hitPoints: event.lastHP,
         ignorePain: event.lastIP,
         hadShieldBlock: this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id),
-        hadLastStand: this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id),
         hadShieldWall: this.selectedCombatant.hasBuff(SPELLS.SHIELD_WALL.id),
         mobHadDemoShout: event.targetHadDemo,
         spell: event.ability.name,
@@ -308,7 +306,6 @@ class BigHitGraph extends Analyzer {
                 format: '.3~s',
               },
               { field: 'hadShieldBlock', title: 'Shield Block' },
-              { field: 'hadLastStand', title: 'Last Stand' },
               { field: 'hadShieldWall', title: 'Shield Wall' },
               { field: 'mobHadDemoShout', title: 'Demo Shout' },
             ],
