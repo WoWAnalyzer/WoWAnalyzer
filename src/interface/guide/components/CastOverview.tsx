@@ -10,6 +10,7 @@ import {
   StatCardLabel,
 } from './GuideDataWrapper';
 import GuideDataWrapper from './GuideDataWrapper';
+import { type AdditionalContent } from './CastDetail';
 
 export interface StatisticData {
   value: string;
@@ -21,9 +22,10 @@ export interface StatisticData {
 interface CastOverviewProps {
   spell: Spell;
   stats: StatisticData[];
+  additionalContent?: AdditionalContent;
 }
 
-export default function CastOverview({ spell, stats }: CastOverviewProps) {
+export default function CastOverview({ spell, stats, additionalContent }: CastOverviewProps) {
   return (
     <div style={{ marginBottom: '18px' }}>
       <GuideDataWrapper bare title={`${spell.name} Overview`}>
@@ -44,6 +46,25 @@ export default function CastOverview({ spell, stats }: CastOverviewProps) {
             );
           })}
         </StatsGrid>
+        {additionalContent && (
+          <div style={{ marginTop: '10px' }}>
+            {additionalContent.title && (
+              <div
+                style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
+                  color: 'rgba(255,255,255,0.5)',
+                  marginBottom: '6px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.8px',
+                }}
+              >
+                {additionalContent.title}
+              </div>
+            )}
+            {additionalContent.content}
+          </div>
+        )}
       </GuideDataWrapper>
     </div>
   );

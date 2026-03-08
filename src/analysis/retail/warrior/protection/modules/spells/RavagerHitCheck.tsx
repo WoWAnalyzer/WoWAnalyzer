@@ -10,7 +10,6 @@ import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const HIT_BUFFER = 200;
-const DANCE_OF_DEATH_BUGGED = true;
 
 /**
  * Ravager can hit up to 6 times per cast but since its a ground based ability targets can leave the area.
@@ -18,7 +17,6 @@ const DANCE_OF_DEATH_BUGGED = true;
  * This is an AoE ability so we need to do timestamp checking... Hate everything
  *
  * Bug: Ravager casted from range will only hit 5 times. This is bad and should only be cast in melee so showing 5/6 is fine (also not checkable)
- * Bug: Dance of Death extends the duration by 2 seconds but doesn't actually proc an extra hit (is checkable so will add boolean flag for when fixed)
  */
 class RavagerHitCheck extends Analyzer {
   casts = 0;
@@ -26,7 +24,7 @@ class RavagerHitCheck extends Analyzer {
 
   lastHit = 0;
 
-  expectedHitsPerCast = 0;
+  expectedHitsPerCast = 6;
 
   constructor(options: Options) {
     super(options);
@@ -34,8 +32,6 @@ class RavagerHitCheck extends Analyzer {
     if (!this.active) {
       return;
     }
-
-    this.expectedHitsPerCast = 6;
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RAVAGER_TALENT),

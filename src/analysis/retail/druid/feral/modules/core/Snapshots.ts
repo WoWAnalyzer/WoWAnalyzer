@@ -7,13 +7,13 @@ import Events, {
   RefreshDebuffEvent,
   RemoveDebuffEvent,
   TargettedEvent,
+  EventType,
 } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods } from 'parser/core/mergeTimePeriods';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
-  BLOODTALONS_DAMAGE_BONUS,
   getTigersFuryDamageBonus,
   PANDEMIC_FRACTION,
   PROWL_RAKE_DAMAGE_BONUS,
@@ -43,15 +43,6 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
     c.hasBuff(SPELLS.SUDDEN_AMBUSH_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#5555ff',
   boostStrength: (c) => PROWL_RAKE_DAMAGE_BONUS,
-};
-
-export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
-  name: 'Bloodtalons',
-  spellFunc: (_) => [TALENTS_DRUID.BLOODTALONS_TALENT],
-  isActive: (c) => c.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT),
-  isPresent: (c, timestamp) => c.hasBuff(SPELLS.BLOODTALONS_BUFF.id, timestamp, BUFF_DROP_BUFFER),
-  displayColor: '#dd0022',
-  boostStrength: (_) => BLOODTALONS_DAMAGE_BONUS,
 };
 
 export function hasSpec(snapshots: SnapshotSpec[], sss: StaticSnapshotSpec) {
@@ -146,7 +137,7 @@ abstract class Snapshots extends Analyzer {
     this._startDot(event, prev);
   }
 
-  getUptimesForTarget(event: TargettedEvent<any>): DotUptime[] {
+  getUptimesForTarget(event: TargettedEvent<EventType>): DotUptime[] {
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.snapshotsByTarget[targetString]) {
       this.snapshotsByTarget[targetString] = [];
@@ -156,7 +147,7 @@ abstract class Snapshots extends Analyzer {
 
   /** Gets the latest DotUptime information for the target of the given event,
    *  or undefined if the DoT isn't up on the target */
-  getLatestUptimeForTarget(event: TargettedEvent<any>): DotUptime | undefined {
+  getLatestUptimeForTarget(event: TargettedEvent<EventType>): DotUptime | undefined {
     const uptimes = this.getUptimesForTarget(event);
     return uptimes.length > 0 ? uptimes[uptimes.length - 1] : undefined;
   }
@@ -250,13 +241,9 @@ abstract class Snapshots extends Analyzer {
   }
 
   /** Gets the time remaining on the DoT active on the given event's target at the time of the event (zero if DoT isn't active) */
-  getTimeRemaining(event: TargettedEvent<any>): number {
+  getTimeRemaining(event: TargettedEvent<EventType>): number {
     const latestUptime = this.getLatestUptimeForTarget(event);
     return latestUptime ? Math.max(0, latestUptime.expectedEnd - event.timestamp) : 0;
-  }
-
-  get percentWithBloodtalons() {
-    return this.getPercentUptimeWithSnapshot(BLOODTALONS_SPEC.name);
   }
 
   get percentWithTigerFury() {

@@ -1,11 +1,9 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import {
-  BRUTAL_SLASH_ENERGY,
   INCARN_ENERGY_MULT,
   SHRED_ENERGY,
   SWIPE_ENERGY,
-  THRASH_ENERGY,
 } from 'analysis/retail/druid/feral/constants';
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
@@ -18,9 +16,7 @@ import { Icon, SpellLink } from 'interface';
 
 const CC_SPELL_TO_BASE_COST = {
   [SPELLS.SHRED.id]: SHRED_ENERGY,
-  [SPELLS.THRASH_FERAL.id]: THRASH_ENERGY,
   [SPELLS.SWIPE_CAT.id]: SWIPE_ENERGY,
-  [TALENTS_DRUID.BRUTAL_SLASH_TALENT.id]: BRUTAL_SLASH_ENERGY,
 };
 
 /**
@@ -40,7 +36,7 @@ const CC_SPELL_TO_BASE_COST = {
  */
 export default class OmenAndMomentOfClarity extends Analyzer {
   // TODO also track the MoC damage boost (it will be very small)
-  hasMoc: boolean;
+  // Moment of Clarity Got merged into Omen of Clarity Feral Talent. The todo is still valid
 
   totalEnergy = 0;
   procsUsed = 0;
@@ -49,18 +45,10 @@ export default class OmenAndMomentOfClarity extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.OMEN_OF_CLARITY_TALENT);
-    this.hasMoc = this.selectedCombatant.hasTalent(TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT);
 
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.SHRED,
-          SPELLS.THRASH_FERAL,
-          SPELLS.SWIPE_CAT,
-          TALENTS_DRUID.BRUTAL_SLASH_TALENT,
-        ]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHRED, SPELLS.SWIPE_CAT]),
       this.onClearcastUse,
     );
     this.addEventListener(
@@ -103,8 +91,6 @@ export default class OmenAndMomentOfClarity extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            {this.hasMoc &&
-              'This is the combined energy saved from Omen of Clarity and Mark of Clarity.'}
             <ul>
               <li>
                 Gained Procs per Minute:{' '}
@@ -124,13 +110,7 @@ export default class OmenAndMomentOfClarity extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <SpellLink spell={TALENTS_DRUID.OMEN_OF_CLARITY_TALENT} />{' '}
-            {this.hasMoc && (
-              <>
-                {' '}
-                / <SpellLink spell={TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT} />
-              </>
-            )}
+            <SpellLink spell={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT} />{' '}
           </label>
           <div className="value">
             <Icon icon="spell_shadow_shadowworddominate" />{' '}

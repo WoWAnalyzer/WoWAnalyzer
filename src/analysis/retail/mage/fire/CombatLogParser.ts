@@ -23,22 +23,23 @@ import HotStreak from './core/HotStreak';
 //Talents
 import FeveredIncantation from './talents/FeveredIncantation';
 import Hyperthermia from './talents/Hyperthermia';
-import FeelTheBurn from './talents/FeelTheBurn';
 import FromTheAshes from './talents/FromTheAshes';
-import MeteorCombustion from './talents/MeteorCombustion';
-import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
+import SpontaneousCombustion from './talents/SpontaneousCombustion';
+import HeatShimmer from './talents/HeatShimmer';
 
-//Hero Talents
+//Hero & Apex Talents
 import FlameAndFrost from '../shared/analyzers/FlameAndFrost';
 import GloriousIncandescence from '../shared/analyzers/GloriousIncandescense';
+import FiredUp from './talents/FiredUp';
 
 //Guide
 import Guide from './Guide';
 import HotStreakGuide from './guide/HotStreak';
 import HeatingUpGuide from './guide/HeatingUp';
 import CombustionGuide from './guide/Combustion';
-import FeelTheBurnGuide from './guide/FeelTheBurn';
+import MeteorGuide from './guide/Meteor';
+import HeatShimmerGuide from './guide/HeatShimmer';
 
 //Items
 
@@ -46,6 +47,7 @@ import FeelTheBurnGuide from './guide/FeelTheBurn';
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
+import HeatingUpNormalizer from './normalizers/HeatingUp';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -55,12 +57,14 @@ class CombatLogParser extends CoreCombatLogParser {
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     combustionNormalizer: CombustionNormalizer,
+    heatingUpNormalizer: HeatingUpNormalizer,
 
     //Guide
     hotStreakGuide: HotStreakGuide,
     heatingUpGuide: HeatingUpGuide,
     combustionGuide: CombustionGuide,
-    feelTheBurnGuide: FeelTheBurnGuide,
+    meteorGuide: MeteorGuide,
+    heatShimmerGuide: HeatShimmerGuide,
 
     //Core
     buffs: Buffs,
@@ -75,17 +79,17 @@ class CombatLogParser extends CoreCombatLogParser {
     combustion: Combustion,
 
     //Talents - Fire
-    meteorCombustion: MeteorCombustion,
-    searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
     feveredIncantation: FeveredIncantation,
     hyperthermia: Hyperthermia,
-    feelTheBurn: FeelTheBurn,
     meteor: Meteor,
+    spontaneousCombustion: SpontaneousCombustion,
+    heatShimmer: HeatShimmer,
 
-    //Hero Talents
+    //Hero & Apex Talents
     flameAndFrost: FlameAndFrost,
     gloriousIncandescence: GloriousIncandescence,
+    firedUp: FiredUp,
 
     //Items - Fire
 

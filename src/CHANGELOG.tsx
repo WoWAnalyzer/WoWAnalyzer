@@ -24,12 +24,15 @@ import {
   Vetyst,
   Vollmer,
   Yellot,
+  Rex,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 8), 'Make Divs accessible to Keyboards and Screenreaders.', Rex),
+  change(date(2026, 3, 6), 'Added a Stacked Bar component visual to use in Guides.', Sharrq),
   change(date(2026, 2, 28), 'Rework the visuals of CastDetail, CastSummary, and CastOverview.', Sharrq),
   change(date(2026, 2, 10), 'Prevent duplicate GCDs triggering for normalized channels', Vollmer),
   change(date(2026, 2, 1), 'Fix playwright tests for specs with partial support', Vollmer),

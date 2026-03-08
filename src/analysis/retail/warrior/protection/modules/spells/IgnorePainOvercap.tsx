@@ -96,7 +96,7 @@ class IgnorePainOvercap extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <>
             This is an assumed amount of wasted Ignore Pain Shield due to overcapping. The cap of

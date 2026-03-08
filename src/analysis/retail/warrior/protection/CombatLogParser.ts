@@ -13,7 +13,6 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import SpellUsable from './modules/features/SpellUsable';
 import ImpenetrableWall from './modules/spells/ImpenetrableWall';
 import Thunderlord from './modules/spells/Thunderlord';
-import ViolentOutburstCastRatio from './modules/spells/ViolentOutburstCastRatio';
 import ViolentOutburstTimeBetweenBuffs from './modules/spells/ViolentOutburstTimeBetweenBuffs';
 import IgnorePainExpired from './modules/spells/IgnorePainExpired';
 import IgnorePainOvercap from './modules/spells/IgnorePainOvercap';
@@ -30,7 +29,8 @@ import BurstOfPower from './modules/talents/BurstOfPower';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
-import WarWithin2PS1TierSet from './modules/items/WarWithin2PS1TierSet';
+import VoilentOutBurstWaste from './modules/spells/ViolentOutburstWaste';
+import Javelineer from './modules/spells/Javelineer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,8 +64,11 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     impenetrableWall: ImpenetrableWall,
     thunderlord: Thunderlord,
-    violentOutburstCastRatio: ViolentOutburstCastRatio,
+    javelineer: Javelineer,
+
     violentOutburstTimeBetweenBuffs: ViolentOutburstTimeBetweenBuffs,
+    voilentOutBurstWaste: VoilentOutBurstWaste,
+
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
     ravagerHitCheck: RavagerHitCheck,
@@ -75,9 +78,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Mountain Thane Hero Talents
     BurstOfPower,
-
-    // Tier
-    WarWithin2PS1TierSet,
   };
 }
 

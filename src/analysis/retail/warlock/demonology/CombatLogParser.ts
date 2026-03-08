@@ -5,7 +5,6 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import LegionStrike from './modules/features/LegionStrike';
-import SummonDemonicTyrant from './modules/features/SummonDemonicTyrant';
 import DemoPets from './modules/pets/DemoPets';
 import DemonicTyrantHandler from './modules/pets/DemoPets/DemonicTyrantHandler';
 import ImplosionHandler from './modules/pets/DemoPets/ImplosionHandler';
@@ -33,6 +32,8 @@ import TWW2TierSet from './modules/thewarwithin/tier/TWW2TierSet';
 import TWW3DiabolistTierSet from './modules/tier/TWW3DiabolistTierSet';
 import TWW3SoulHarvesterTierSet from './modules/tier/TWW3SoulHarvesterTierSet';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import ImpLordNormalizer from './modules/pets/normalizers/ImpLordNormalizer';
+import FelRavagerNormalizer from './modules/pets/normalizers/FelRavagerNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,13 +57,14 @@ class CombatLogParser extends CoreCombatLogParser {
     implosionHandler: ImplosionHandler,
     summonOrderNormalizer: SummonOrderNormalizer,
     prepullPetNormalizer: PrepullPetNormalizer,
+    ImpLordNormalizer: ImpLordNormalizer,
+    FelRavagerNormalizer: FelRavagerNormalizer,
 
     // Normalizers
     powerSiphonNormalizer: PowerSiphonNormalizer,
     PowerSiphonBuffCastNormalizer: PowerSiphonBuffCastNormalizer,
 
     // Talents
-    summonDemonicTyrant: SummonDemonicTyrant,
     dreadlash: Dreadlash,
     demonicCalling: DemonicCalling,
     innerDemons: InnerDemons,

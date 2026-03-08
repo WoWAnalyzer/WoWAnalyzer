@@ -11,7 +11,7 @@ const config: Config = {
   contributors: [Sharrq],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.0',
+  patchCompatibility: '12.0.1',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -21,10 +21,6 @@ const config: Config = {
       <br />
       <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
         Mage Class Discord
-      </a>{' '}
-      <br />
-      <a href="https://www.mage-hub.com/fire" target="_blank" rel="noopener noreferrer">
-        Mage Hub Guide (Mage Guides/Sims)
       </a>{' '}
       <br />
       <a href="https://www.wowhead.com/fire-mage-guide" target="_blank" rel="noopener noreferrer">
@@ -37,8 +33,8 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec is not being updated for The War Within or Midnight Prepatch. All analysis is in
-          preparation of Midnight's full release.
+          This spec has been fully updated for Midnight (As of March 6). If anything is missing or
+          incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
     },

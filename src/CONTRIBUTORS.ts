@@ -2805,3 +2805,15 @@ export const Katorri: Contributor = {
     },
   ],
 };
+
+export const Drowzen: Contributor = {
+  nickname: 'Drowzen',
+  github: 'Alexander-Leon',
+  mains: [
+    {
+      name: 'Drowzen',
+      spec: SPECS.FERAL_DRUID,
+      link: 'https://www.warcraftlogs.com/character/us/moon-guard/drowzen',
+    },
+  ],
+};

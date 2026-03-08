@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 
-const RAGE_NEEDED_FOR_A_PROC = 10;
+const RAGE_NEEDED_FOR_A_PROC = 20;
 const CDR_PER_PROC = 1000; // ms
 
 class AngerManagement extends Analyzer {
