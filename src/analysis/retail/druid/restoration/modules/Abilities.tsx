@@ -220,13 +220,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.THRASH_FERAL.id,
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: SPELLS.SWIPE_CAT.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {

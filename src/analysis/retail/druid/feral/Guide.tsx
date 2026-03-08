@@ -92,16 +92,10 @@ function AdvancedRotationSection({ modules, events, info }: GuideProps<typeof Co
         correctly will allow you to optimize your DPS. Make sure you have your core rotation down
         before optimizing these.
       </p>
-      {info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) &&
-        modules.bloodtalons.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.SUDDEN_AMBUSH_TALENT) &&
         modules.suddenAmbush.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) &&
         modules.moonfireUptime.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
-        modules.adaptiveSwarm.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT) &&
-        modules.brutalSlash.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );
@@ -123,10 +117,11 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
 }
 
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
+  const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT);
   const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
   const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
   const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
+  // TODO: Add once Focused Frenzy/Frantic Frenzy is figured out
   return (
     <SubSection>
       <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
@@ -177,7 +172,8 @@ function CooldownBreakdownSubsection({
 }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
-      {info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT) && modules.berserk.guideCastBreakdown}
+      {info.combatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT) &&
+        modules.berserk.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
