@@ -1,15 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import {
+  ApplyBuffEvent,
   BeginCastEvent,
+  Buff,
   CastEvent,
+  DamageEvent,
   EventType,
   GetRelatedEvents,
-  HasTarget,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { createEventLinks, link } from '../../shared';
 
 /**
@@ -39,7 +41,15 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.FIREBALL.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.BeginCast, { backwardBuffer: 3000, maxLinks: 1 }),
+      link(EventType.BeginCast, { backwardBuffer: 3000, maxLinks: 1, anyTarget: true }),
+      link(EventType.Damage, { forwardBuffer: 1000, maxLinks: 1 }),
+    ],
+  },
+  {
+    spell: TALENTS.FROSTFIRE_BOLT_TALENT.id,
+    parentType: EventType.Cast,
+    links: [
+      link(EventType.BeginCast, { backwardBuffer: 3000, maxLinks: 1, anyTarget: true }),
       link(EventType.Damage, { forwardBuffer: 1000, maxLinks: 1 }),
     ],
   },
@@ -47,20 +57,23 @@ const EVENT_LINKS = createEventLinks(
     spell: TALENTS.PYROBLAST_TALENT.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.BeginCast, { backwardBuffer: 3000, maxLinks: 1 }),
+      link(EventType.BeginCast, { backwardBuffer: 3000, maxLinks: 1, anyTarget: true }),
       link(EventType.Damage, { forwardBuffer: 2000, maxLinks: 1 }),
     ],
   },
   {
     spell: TALENTS.SCORCH_TALENT.id,
     parentType: EventType.Cast,
-    links: [link(EventType.BeginCast, { maxLinks: 1 }), link(EventType.Damage, { maxLinks: 1 })],
+    links: [
+      link(EventType.BeginCast, { maxLinks: 1, anyTarget: true }),
+      link(EventType.Damage, { maxLinks: 1 }),
+    ],
   },
   {
     spell: SPELLS.FIRE_BLAST.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.BeginCast, { maxLinks: 1 }),
+      link(EventType.BeginCast, { maxLinks: 1, anyTarget: true }),
       link(EventType.Damage, { maxLinks: 1 }),
       link(CustomType.LAST_BUFF_REFRESH, {
         id: SPELLS.FEEL_THE_BURN_BUFF.id,
@@ -76,27 +89,31 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.FLAMESTRIKE.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.BeginCast, { backwardBuffer: 2000, maxLinks: 1 }),
+      link(EventType.BeginCast, { backwardBuffer: 2000, maxLinks: 1, anyTarget: true }),
       link(EventType.Damage, { forwardBuffer: 1000, anyTarget: true }),
     ],
   },
   {
     spell: TALENTS.METEOR_TALENT.id,
     parentType: EventType.Cast,
-    links: [link(EventType.Damage, { forwardBuffer: 2000, anyTarget: true })],
+    links: [
+      link(EventType.BeginCast, { maxLinks: 1, anyTarget: true }),
+      link(EventType.Damage, { id: SPELLS.METEOR_DAMAGE.id, forwardBuffer: 5000, anyTarget: true }),
+    ],
   },
   {
     spell: TALENTS.COMBUSTION_TALENT.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.ApplyBuff, { anyTarget: true }),
-      link(EventType.RemoveBuff, { forwardBuffer: 20_000, maxLinks: 1, anyTarget: true }),
+      link(EventType.ApplyBuff, { maxLinks: 1, anyTarget: true }),
+      link(EventType.RemoveBuff, { forwardBuffer: 20000, maxLinks: 1, anyTarget: true }),
       link(CustomType.PRECAST, {
         id: [
           SPELLS.FIREBALL.id,
           TALENTS.PYROBLAST_TALENT.id,
           SPELLS.SCORCH.id,
           SPELLS.FLAMESTRIKE.id,
+          TALENTS.FROSTFIRE_BOLT_TALENT.id,
         ],
         type: EventType.Cast,
         anyTarget: true,
@@ -104,6 +121,30 @@ const EVENT_LINKS = createEventLinks(
         forwardBuffer: 3000,
         condition: (linkingEvent, referencedEvent) => {
           return !isInstantCast(referencedEvent as CastEvent);
+        },
+      }),
+      link(EventType.Cast, {
+        id: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FLAMESTRIKE.id],
+        forwardBuffer: 20000,
+        backwardBuffer: 2500,
+        anyTarget: true,
+        condition: (linkingEvent, referencedEvent) => {
+          // Looking for the Pyroblast and Flamestrike casts that occurred immediately before Combustion
+          // as well as the ones that were potentially cast during Combustion. Then looking to see if the
+          // associated damage events landed during Combustion.
+          const buffApply = GetRelatedEvents<ApplyBuffEvent>(
+            linkingEvent as CastEvent,
+            EventType.ApplyBuff,
+          )[0];
+          const buffRemove = GetRelatedEvents<RemoveBuffEvent>(
+            linkingEvent as CastEvent,
+            EventType.RemoveBuff,
+          )[0];
+          const damage = GetRelatedEvents<DamageEvent>(
+            referencedEvent as CastEvent,
+            EventType.Damage,
+          )[0];
+          return damage.timestamp >= buffApply.timestamp && damage.timestamp < buffRemove.timestamp;
         },
       }),
     ],
@@ -136,12 +177,32 @@ const EVENT_LINKS = createEventLinks(
           return true;
         },
       }),
+      link(CustomType.PRECAST, {
+        id: [SPELLS.FIREBALL.id, TALENTS.FROSTFIRE_BOLT_TALENT.id],
+        type: EventType.Cast,
+        maxLinks: 1,
+        anyTarget: true,
+        backwardBuffer: 150,
+      }),
     ],
   },
   {
     spell: SPELLS.FEEL_THE_BURN_BUFF.id,
     parentType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
     links: [link(EventType.RemoveBuff, { forwardBuffer: 600_000, maxLinks: 1 })],
+  },
+  {
+    spell: SPELLS.HEAT_SHIMMER_BUFF.id,
+    parentType: EventType.RemoveBuff,
+    links: [
+      link(EventType.ApplyBuff, { backwardBuffer: 15_000, maxLinks: 1 }),
+      link(CustomType.CONSUME, {
+        id: TALENTS.SCORCH_TALENT.id,
+        type: EventType.Cast,
+        maxLinks: 1,
+        anyTarget: true,
+      }),
+    ],
   },
 );
 
@@ -167,9 +228,6 @@ const EVENT_LINKS = createEventLinks(
  * This normalizer adds a _linkedEvent to the ApplyBuff/RefreshBuff/Heal linking back to the Cast event
  * that caused it (if one can be found).
  *
- * This normalizer adds links for the buffs Rejuvenation, Regrowth, Wild Growth, Lifebloom,
- * and for the direct heals of Swiftmend and Regrowth, and the self buff from Flourish.
- * A special link key is used when the HoTs were applied by an Overgrowth cast instead of a normal hardcast.
  */
 class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
