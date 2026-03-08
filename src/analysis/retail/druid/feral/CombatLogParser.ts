@@ -21,13 +21,11 @@ import Berserk from 'analysis/retail/druid/feral/modules/spells/Berserk';
 import FerociousBite from './modules/spells/FerociousBite';
 import HitCountAoE from './modules/spells/HitCountAoE';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
-import Bloodtalons from 'analysis/retail/druid/feral/modules/spells/Bloodtalons';
 import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/MoonfireUptimeAndSnapshots';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import FerociousBiteDrainLinkNormalizer from './normalizers/FerociousBiteDrainLinkNormalizer';
 import RakeBleed from './normalizers/RakeBleed';
 import Guide from 'analysis/retail/druid/feral/Guide';
-import BloodtalonsLinkNormalizer from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import RampantFerocity from 'analysis/retail/druid/feral/modules/spells/RampantFerocity';
 import EnergyGraph from 'analysis/retail/druid/feral/modules/core/energy/EnergyGraph';
 import BuilderUse from 'analysis/retail/druid/feral/modules/core/combopoints/BuilderUse';
@@ -36,19 +34,12 @@ import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
 import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
 import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
 import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
-import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
-import LionsStrength from 'analysis/retail/druid/feral/modules/spells/LionsStrength';
 import CarnivorousInstinct from 'analysis/retail/druid/feral/modules/spells/CarnivorousInstinct';
-import BrutalSlash from 'analysis/retail/druid/feral/modules/spells/BrutalSlash';
 import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
 import SaberJaws from 'analysis/retail/druid/feral/modules/spells/SaberJaws';
-import AdaptiveSwarm from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarm';
 import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
-import TWW2TierSet from 'analysis/retail/druid/feral/modules/items/TWW2TierSet';
 import MercilessClaws from 'analysis/retail/druid/feral/modules/spells/MercilessClaws';
-import TWW3TierSetDotC from 'analysis/retail/druid/feral/modules/items/TWW3TierSetDotC';
-import TWW3TierSetDotCRavageLinkNormalizer from 'analysis/retail/druid/feral/normalizers/TWW3TierSetDotCRavageLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,7 +47,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rakeBleed: RakeBleed,
     castLinkNormalizer: CastLinkNormalizer,
     ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
-    bloodtalonsLinkNormalizer: BloodtalonsLinkNormalizer,
     soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     suddenAmbushLinkNormalizer: SuddenAmbushLinkNormalizer,
 
@@ -87,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // bleeds
     rakeUptime: RakeUptimeAndSnapshots,
     ripUptime: RipUptimeAndSnapshots,
-    thrashUptime: ThrashUptimeAndSnapshot,
 
     // spells
     tigersFuryEnergy: TigersFuryEnergy,
@@ -95,19 +84,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // talents
     moonfireUptime: MoonfireUptimeAndSnapshots,
-    bloodtalons: Bloodtalons,
     apexPredatorsCraving: ApexPredatorsCraving,
     convokeSpirits: ConvokeSpiritsFeral,
-    adaptiveSwarm: AdaptiveSwarm,
     berserk: Berserk,
     rampantFerocity: RampantFerocity,
     doubleClawedRake: DoubleClawedRake,
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
     tasteForBlood: TasteForBlood,
-    lionsStrength: LionsStrength,
     carnivorousInstinct: CarnivorousInstinct,
-    brutalSlash: BrutalSlash,
     omenAndMomentOfClarity: OmenAndMomentOfClarity,
     feralFrenzy: FeralFrenzy,
     saberJaws: SaberJaws,
@@ -115,9 +100,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // TODO TWW - might actually want a Tiger's Tenacity module now
 
     // tier
-    tww2TierSet: TWW2TierSet,
-    tww3TierSetDotc: TWW3TierSetDotC,
-    tww3TierSetDotcRavageLinkNormalizer: TWW3TierSetDotCRavageLinkNormalizer,
   };
 
   static guide = Guide;

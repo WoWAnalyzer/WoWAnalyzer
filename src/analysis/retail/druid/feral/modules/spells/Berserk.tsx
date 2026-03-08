@@ -6,9 +6,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { cdSpell } from 'analysis/retail/druid/feral/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -21,8 +18,6 @@ import InformationIcon from 'interface/icons/Information';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
-import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 import AlwaysBeCasting from 'analysis/retail/druid/feral/modules/features/AlwaysBeCasting';
 
 const BERSERK_HARDCAST_DURATION = 15_000;
@@ -70,8 +65,6 @@ class Berserk extends Analyzer {
 
   /** If player has the Berserk: Heart of the Lion talent */
   hasHeartOfTheLion: boolean;
-  /** If player has the Berserk: Frenzy talent */
-  hasFrenzy: boolean;
   /** If player has Convoke the Spirits talent */
   hasConvoke: boolean;
   /** If player has Incarnation talent */
@@ -88,13 +81,13 @@ class Berserk extends Analyzer {
     this.hasHeartOfTheLion = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT,
     );
-    this.hasFrenzy = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FRENZY_TALENT);
+
     this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
     this.hasIncarn = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT,
     );
     this.hardcastDuration = this.hasIncarn ? INCARN_HARDCAST_DURATION : BERSERK_HARDCAST_DURATION;
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT);
 
     this.cdSpell = cdSpell(this.selectedCombatant);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
@@ -121,10 +114,6 @@ class Berserk extends Analyzer {
     ) {
       lastBerserkTracker.usedConvoke = true;
     }
-  }
-
-  get totalDotDamage() {
-    return this.abilityTracker.getAbilityDamage(SPELLS.FRENZIED_ASSAULT.id);
   }
 
   private getActivityPerf(percentAtCap: number, percentActive: number): QualitativePerformance {
@@ -227,23 +216,6 @@ class Berserk extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data);
-  }
-
-  statistic() {
-    if (!this.hasFrenzy) {
-      return undefined;
-    }
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(20)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
-        <TalentSpellText talent={TALENTS_DRUID.BERSERK_FRENZY_TALENT}>
-          <ItemPercentDamageDone amount={this.totalDotDamage} />
-        </TalentSpellText>
-      </Statistic>
-    );
   }
 }
 

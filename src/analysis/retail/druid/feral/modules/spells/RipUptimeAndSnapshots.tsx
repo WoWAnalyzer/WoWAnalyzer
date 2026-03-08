@@ -18,7 +18,6 @@ import {
   getPrimalWrath,
 } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import Snapshots, {
-  BLOODTALONS_SPEC,
   hasSpec,
   SnapshotSpec,
   TIGERS_FURY_SPEC,
@@ -43,12 +42,10 @@ class RipUptimeAndSnapshots extends Snapshots {
 
   protected enemies!: Enemies;
 
-  hasBt: boolean;
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
-    super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC, BLOODTALONS_SPEC], options);
-    this.hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
+    super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC], options);
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -121,14 +118,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
             Bad because you used less than {currAcceptableCps} CPs
-            <br />
-          </h5>
-        );
-      } else if (this.hasBt && !hasSpec(snapshots, BLOODTALONS_SPEC)) {
-        value = QualitativePerformance.Fail;
-        perfExplanation = (
-          <h5 style={{ color: BadColor }}>
-            Bad because no Bloodtalons snapshot
             <br />
           </h5>
         );
@@ -238,14 +227,7 @@ class RipUptimeAndSnapshots extends Snapshots {
             <SpellLink spell={TALENTS_DRUID.PRIMAL_WRATH_TALENT} />.
           </>
         )}{' '}
-        Don't refresh early, and try to always snapshot <SpellLink spell={SPELLS.TIGERS_FURY} />
-        {this.hasBt && (
-          <>
-            {' '}
-            and <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-          </>
-        )}
-        .
+        Don't refresh early, and try to always snapshot <SpellLink spell={SPELLS.TIGERS_FURY} />.
       </p>
     );
 
@@ -263,7 +245,7 @@ class RipUptimeAndSnapshots extends Snapshots {
           spell={SPELLS.RIP}
           castEntries={this.castEntries}
           okExtraExplanation={<>clipped duration but upgraded snapshot or missing Tigers Fury</>}
-          badExtraExplanation={<>clipped duration {this.hasBt && ' or missing Bloodtalons'}</>}
+          badExtraExplanation={<>clipped duration</>}
         />
       </div>
     );
