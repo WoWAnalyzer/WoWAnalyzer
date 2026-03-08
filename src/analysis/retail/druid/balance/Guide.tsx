@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/druid/balance/CombatLogParser';
-import { ResourceLink, SpellLink } from 'interface';
+import { ResourceLink, SpellLink, AlertWarning } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -32,6 +32,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Core">
+      <AlertWarning>Apex Talents not yet implemented.</AlertWarning>
       <SubSection title="Always be Casting">
         <p>
           <em>
@@ -106,7 +107,9 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
         </a>
         .
       </p>
+
       {modules.dotUptimes.guideSubsection}
+      <AlertWarning>Eclipse analysis not yet updated for Midnight.</AlertWarning>
       {modules.eclipse.guideSubsection}
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
@@ -164,13 +167,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {info.combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT) && (
         <CastEfficiencyBar
           spell={TALENTS_DRUID.FORCE_OF_NATURE_TALENT}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
-      {info.combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
