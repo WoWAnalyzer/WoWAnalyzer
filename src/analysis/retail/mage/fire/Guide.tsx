@@ -12,8 +12,6 @@ import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/DefensivesGuide';
 
-export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
-
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const alwaysBeCastingSubsection = (
     <SubSection title="Active Time">

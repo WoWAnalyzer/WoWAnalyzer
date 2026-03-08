@@ -19,7 +19,6 @@ class HotStreakGuide extends Analyzer {
 
   protected hotStreak!: HotStreak;
 
-  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
   isFrostfire: boolean = this.selectedCombatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT);
 
   private buildStats() {
@@ -118,8 +117,8 @@ class HotStreakGuide extends Analyzer {
     // DEFAULT
     return {
       timestamp: hs.remove.timestamp,
-      performance: QualitativePerformance.Ok,
-      reason: 'Hot Streak proc used',
+      performance: QualitativePerformance.Fail,
+      reason: 'Unknown Performance Condition (Please report this).',
     };
   }
 

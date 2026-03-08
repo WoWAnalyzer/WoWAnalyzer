@@ -22,7 +22,7 @@ class SpontaneousCombustion extends Analyzer {
       this.spellUsable.endCooldown(TALENTS.FIRE_BLAST_TALENT.id, event.timestamp, false);
     } else if (this.selectedCombatant.getTalentRank(TALENTS.SPONTANEOUS_COMBUSTION_TALENT) === 1) {
       // If you have one point in Spontaneous Combustion, you gain 1 charge.
-      this.spellUsable.endCooldown(TALENTS.FIRE_BLAST_TALENT.id);
+      this.spellUsable.endCooldown(TALENTS.FIRE_BLAST_TALENT.id, event.timestamp, false);
     }
   }
 }

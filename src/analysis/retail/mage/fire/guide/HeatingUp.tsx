@@ -98,8 +98,8 @@ class HeatingUpGuide extends Analyzer {
     // DEFAULT
     return {
       timestamp: hu.cast.timestamp,
-      performance: QualitativePerformance.Good,
-      reason: 'Good Fire Blast Usage',
+      performance: QualitativePerformance.Fail,
+      reason: 'Unknown Performance Condition (Please report this).',
     };
   }
 

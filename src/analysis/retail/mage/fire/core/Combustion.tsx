@@ -33,9 +33,6 @@ export default class CombustionCasts extends Analyzer {
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected spellUsable!: SpellUsable;
 
-  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
-  hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
-
   combustCasts: CombustionCast[] = [];
 
   constructor(options: Options) {
