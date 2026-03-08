@@ -93,11 +93,12 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
   return (
     <Section title="Rotation">
       <p>
-        Balance's core rotation involves maximizing time spent in{' '}
-        <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} />, maximizing DoT uptimes, and spending
-        Astral Power to avoid overcapping. After fulfilling these priorities, open GCDs are filled
-        with <SpellLink spell={SPELLS.WRATH} /> or <SpellLink spell={SPELLS.STARFIRE} /> depending
-        on Eclipse type and target count. Refer to the spec guide for more{' '}
+        Balance's core rotation involves casting the correct{' '}
+        <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> for the situation, maximizing DoT
+        uptimes, and spending Astral Power to avoid overcapping. After fulfilling these priorities,
+        open GCDs are filled with
+        <SpellLink spell={SPELLS.WRATH} /> or <SpellLink spell={SPELLS.STARFIRE} /> depending on
+        Eclipse type and target count. Refer to the spec guide for more{' '}
         <a
           href="https://www.wowhead.com/guide/classes/druid/balance/rotation-cooldowns-pve-dps"
           target="_blank"
@@ -109,7 +110,6 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       </p>
 
       {modules.dotUptimes.guideSubsection}
-      <AlertWarning>Eclipse analysis not yet updated for Midnight.</AlertWarning>
       {modules.eclipse.guideSubsection}
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}

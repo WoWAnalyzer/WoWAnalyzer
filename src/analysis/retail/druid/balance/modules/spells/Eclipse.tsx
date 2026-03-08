@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon, SpellLink, AlertInfo } from 'interface';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TrackedBuffEvent } from 'parser/core/Entity';
@@ -20,13 +20,15 @@ const CA_COLOR = '#11bbbb';
  * **Eclipse**
  * Spec Talent
  *
- * Casting 2 Starfire empowers Wrath for 15 sec. Casting 2 Wrath empowers Starfire for 15 sec.
+ * Active ability (32 sec cooldown, 15 sec duration). Empowers either Nature or Arcane spells.
+ * Casting Wrath primes Solar Eclipse; casting Starfire primes Lunar Eclipse.
+ * Both modes share a button and cooldown.
  *
  * Eclipse (Solar)
  * Nature spells deal 15% additional damage and Wrath damage is increased by 40%.
  *
  * Eclipse (Lunar)
- * Arcane spells deal 15% additional damage and the damage Starfire deals to nearby enemies is increased by 30%.
+ * Arcane spells deal 15% additional damage and Starfire damage is increased by 40%.
  */
 export default class Eclipse extends Analyzer {
   mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
@@ -84,26 +86,34 @@ export default class Eclipse extends Analyzer {
     const explanation = (
       <>
         <p>
-          <strong>
-            <SpellLink spell={SPELLS.ECLIPSE} />
-          </strong>{' '}
-          dramatically increases your damage while active - when it fades you should immediately
-          reactivate it.
+          Cast <SpellLink spell={SPELLS.ECLIPSE} /> on cooldown. It has a 32-second cooldown, lasts
+          15 seconds, and dramatically increases your damage.
         </p>
         <p>
-          It's best to enter <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> when you can hit 3 or more
-          stacked targets with <SpellLink spell={SPELLS.STARFIRE} />, and best to enter{' '}
-          <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> otherwise.
+          Your last filler cast determines which Eclipse you enter:
+          <br />
+          <SpellLink spell={SPELLS.WRATH} /> → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
+          <br />
+          <SpellLink spell={SPELLS.STARFIRE} /> → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
         </p>
-        {this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
+        <p>
+          <SpellLink spell={SPELLS.WRATH} /> is single target. <SpellLink spell={SPELLS.STARFIRE} />{' '}
+          cleaves. <br />
+          Choose <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> when hitting 3 or more stacked targets.
+          Choose <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> for 1–2 targets.
+        </p>
+        <AlertInfo>
           <p>
-            <i>
-              However, because you took <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} />,
-              you can only enter Lunar Eclipse. When Eclipse drops you must use Wrath to reenter
-              Eclipse.
-            </i>
+            <strong>
+              <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} /> talented{' '}
+            </strong>
           </p>
-        )}
+          <strong>
+            <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} />:
+          </strong>{' '}
+          Restricts you to <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> <br />
+          <SpellLink spell={SPELLS.WRATH} /> → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />.
+        </AlertInfo>
       </>
     );
 
