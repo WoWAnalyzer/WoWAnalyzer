@@ -128,6 +128,18 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: AFTER_CAST_BUFFER_MS,
     anyTarget: true,
   },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
+    linkingEventId: TALENTS_DRUID.CHOMP_TALENT.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: TALENTS_DRUID.CHOMP_TALENT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.CHOMP_TALENT),
+  },
 ];
 
 /**

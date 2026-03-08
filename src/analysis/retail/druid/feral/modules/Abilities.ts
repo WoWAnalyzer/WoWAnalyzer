@@ -159,6 +159,21 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 21,
       },
       {
+        spell: TALENTS_DRUID.CHOMP_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_DRUID.CHOMP_TALENT),
+        cooldown: 20,
+        // TODO: Adjust these values based on real world numerical outcomes
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.65,
+          majorIssueEfficiency: 0.5,
+        },
+        gcd: normalGcd,
+        timelineSortIndex: 21,
+      },
+      {
         spell: SPELLS.REGROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: fastMeleeGcd,

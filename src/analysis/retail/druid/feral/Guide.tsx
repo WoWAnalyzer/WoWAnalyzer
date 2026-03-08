@@ -178,6 +178,7 @@ function CooldownBreakdownSubsection({
         modules.convokeSpirits.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
         modules.feralFrenzy.guideCastBreakdown}
+      {info.combatant.hasTalent(TALENTS_DRUID.CHOMP_TALENT) && modules.chomp.guideCastBreakdown}
     </SubSection>
   );
 }
