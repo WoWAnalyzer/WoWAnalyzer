@@ -1,5 +1,4 @@
 import TALENTS from 'common/TALENTS/mage';
-import SPELLS from 'common/SPELLS';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';

@@ -16,12 +16,7 @@ import { SpellLink } from 'interface';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
-const TF_SNAPSHOT_DEBUFFS = [
-  SPELLS.RIP,
-  SPELLS.RAKE_BLEED,
-  SPELLS.THRASH_FERAL_BLEED,
-  SPELLS.MOONFIRE_FERAL,
-];
+const TF_SNAPSHOT_DEBUFFS = [SPELLS.RIP, SPELLS.RAKE_BLEED, SPELLS.MOONFIRE_FERAL];
 
 /**
  * *Carnivorous Instinct*
@@ -79,8 +74,6 @@ export default class CarnivorousInstinct extends Analyzer {
       applies = this.targetsWithTfRake.has(encodeEventTargetString(event) || '');
     } else if (spellId === SPELLS.MOONFIRE_FERAL.id) {
       applies = this.targetsWithTfMoonfire.has(encodeEventTargetString(event) || '');
-    } else if (spellId === SPELLS.THRASH_FERAL_BLEED.id) {
-      applies = this.targetsWithTfThrash.has(encodeEventTargetString(event) || '');
     } else {
       applies = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
     }
@@ -100,8 +93,6 @@ export default class CarnivorousInstinct extends Analyzer {
       trackerSet = this.targetsWithTfRake;
     } else if (spellId === SPELLS.MOONFIRE_FERAL.id) {
       trackerSet = this.targetsWithTfMoonfire;
-    } else if (spellId === SPELLS.THRASH_FERAL_BLEED.id) {
-      trackerSet = this.targetsWithTfThrash;
     } else {
       console.warn('Got TF boosted debuff apply with unexpected event', event);
       return;

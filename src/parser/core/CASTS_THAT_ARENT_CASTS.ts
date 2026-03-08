@@ -32,6 +32,10 @@ const spells: number[] = [
   SPELLS.PHASE_BLINK.id, // 11.2 Legendary cloak
   //endregion
 
+  //region Zone Procs
+  SPELLS.VOIDLUST.id,
+  //endregion
+
   //region Consumables
   //endregion
 

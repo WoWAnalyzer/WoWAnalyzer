@@ -1,81 +1,77 @@
-import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import MeteorCombustion from 'analysis/retail/mage/fire/talents/MeteorCombustion';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvent,
+  GetRelatedEvents,
+} from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-class Meteor extends Analyzer {
+export default class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: Enemies,
-    meteorCombustion: MeteorCombustion,
+    spellUsable: SpellUsable,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: Enemies;
-  protected meteorCombustion!: MeteorCombustion;
+  protected spellUsable!: SpellUsable;
+
+  hasBurnout: boolean = this.selectedCombatant.hasTalent(TALENTS.BURNOUT_TALENT);
+  meteors: MeteorCasts[] = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT);
-  }
-
-  get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(TALENTS.METEOR_TALENT.id).casts;
-  }
-
-  get meteorMaxCasts() {
-    return Math.round(this.owner.fightDuration / 60000 - 0.3) + 1;
-  }
-
-  get meteorCastEfficiency() {
-    return this.totalMeteorCasts / this.meteorMaxCasts;
-  }
-
-  get meteorEfficiencySuggestionThresholds() {
-    return {
-      actual: this.meteorCastEfficiency,
-      isLessThan: {
-        minor: 1,
-        average: 1,
-        major: 1,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            This is a measure of how well you utilized your Meteor casts.
-            <ul>
-              <li>{this.totalMeteorCasts} Total Meteor casts</li>
-              <li>{this.meteorMaxCasts} Adjusted max casts</li>
-              <li>{this.meteorCombustion.badCasts()} Meteor casts without Combustion</li>
-            </ul>
-          </>
-        }
-      >
-        <BoringSpellValueText spell={TALENTS.METEOR_TALENT}>
-          <>
-            {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
-            <small>Adjusted Cast Efficiency</small>
-            <br />
-            {formatPercentage(this.meteorCombustion.combustionUtilization, 0)}%{' '}
-            <small>Utilization during Combustion</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.METEOR_TALENT),
+      this.onMeteorCast,
     );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.METEOR_DAMAGE),
+      this.onMeteorDamage,
+    );
+  }
+
+  onMeteorCast(event: CastEvent) {
+    const damageEvents: DamageEvent[] = GetRelatedEvents(event, EventType.Damage) || [];
+    this.meteors.push({
+      cast: event,
+      damageEvents,
+      targetsHit: damageEvents.length,
+      timeTillCombust: this.spellUsable.cooldownRemaining(
+        TALENTS.COMBUSTION_TALENT.id,
+        event.timestamp,
+      ),
+    });
+  }
+
+  onMeteorDamage(event: DamageEvent) {
+    const cast = GetRelatedEvent(event, EventType.Cast);
+    const index = this.meteors.findIndex((m) => m.cast.timestamp === cast?.timestamp);
+    if (!cast) {
+      return;
+    }
+
+    const combustBuff = this.selectedCombatant.getBuff(TALENTS.COMBUSTION_TALENT, event.timestamp);
+    const combustEnd = combustBuff && GetRelatedEvent(combustBuff, EventType.RemoveBuff);
+    if (this.meteors[index].landedDuringCombust === undefined) {
+      this.meteors[index].landedDuringCombust = combustBuff ? true : false;
+    }
+
+    if (combustBuff && combustEnd && this.meteors[index].timeTillCombustEnd == undefined) {
+      this.meteors[index].timeTillCombustEnd = combustEnd.timestamp - event.timestamp;
+    }
   }
 }
 
-export default Meteor;
+export interface MeteorCasts {
+  cast: CastEvent;
+  damageEvents: DamageEvent[];
+  targetsHit: number;
+  timeTillCombust: number;
+  landedDuringCombust?: boolean;
+  timeTillCombustEnd?: number;
+}

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 import { Options } from 'parser/core/Module';
-import { AbilityEvent } from 'parser/core/Events';
+import { AbilityEvent, EventType } from 'parser/core/Events';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const debug = false;
@@ -20,7 +20,7 @@ class SpellUsable extends CoreSpellUsable {
     this.hasPredator = this.selectedCombatant.hasTalent(TALENTS_DRUID.PREDATOR_TALENT);
   }
 
-  beginCooldown(triggerEvent: AbilityEvent<any>, spellId: number) {
+  beginCooldown(triggerEvent: AbilityEvent<EventType>, spellId: number) {
     if (this.hasPredator && spellId === SPELLS.TIGERS_FURY.id) {
       this.endCooldown(spellId);
       debug &&

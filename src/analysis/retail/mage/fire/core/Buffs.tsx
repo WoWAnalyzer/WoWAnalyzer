@@ -19,15 +19,10 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FEEL_THE_BURN_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT),
+        spellId: SPELLS.HEAT_SHIMMER_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.HEAT_SHIMMER_TALENT),
         timelineHighlight: true,
       },
-      // {
-      //   spellId: TALENTS.HEAT_SHIMMER_TALENT.id,
-      //   enabled: combatant.hasTalent(TALENTS.HEAT_SHIMMER_TALENT),
-      //   timelineHighlight: true,
-      // },
       {
         spellId: TALENTS.COMBUSTION_TALENT.id,
         triggeredBySpellId: TALENTS.COMBUSTION_TALENT.id,

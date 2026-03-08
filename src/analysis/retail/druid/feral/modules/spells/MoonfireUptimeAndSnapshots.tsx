@@ -17,7 +17,6 @@ import {
 import { SpellLink } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
-import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -65,7 +64,6 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
     // log the cast
     const targetName = this.owner.getTargetName(cast);
-    const proccedBt = proccedBloodtalons(cast);
     const snapshotNames = snapshots.map((ss) => ss.name);
     const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
     const wasUnacceptableDowngrade =
@@ -73,13 +71,11 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
     const wasUpgrade = prevPower < power;
 
     let value: QualitativePerformance = QualitativePerformance.Good;
-    if (!proccedBt) {
-      if (wasUnacceptableDowngrade) {
-        value = QualitativePerformance.Fail;
-      }
-      if (clipped > 0) {
-        value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
-      }
+    if (wasUnacceptableDowngrade) {
+      value = QualitativePerformance.Fail;
+    }
+    if (clipped > 0) {
+      value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
     }
 
     const tooltip = (
@@ -87,15 +83,6 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
         @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
         <br />
-        {proccedBt && (
-          <>
-            Used to proc{' '}
-            <strong>
-              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-            </strong>
-            <br />
-          </>
-        )}
         {prevSnapshotNames !== null && (
           <>
             Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
@@ -133,7 +120,6 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
   /** Subsection explaining the use of Lunar Inspiration and providing performance statistics */
   get guideSubsection(): JSX.Element {
     // TODO this is basically copy pasta'd from Rake - can they be unified?
-    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
     const explanation = (
       <p>
         <b>
@@ -157,15 +143,9 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
         <strong>Moonfire casts</strong>
         <small>
           {' '}
-          - Green is a good cast{' '}
-          {hasBt && (
-            <>
-              (or a cast with problems that procced{' '}
-              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />)
-            </>
-          )}
-          , Yellow is an ok cast (clipped duration but upgraded snapshot), Red is a bad cast
-          (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for more details.
+          - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot), Red
+          is a bad cast (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for
+          more details.
         </small>
         <PerformanceBoxRow values={this.castEntries} />
       </div>
