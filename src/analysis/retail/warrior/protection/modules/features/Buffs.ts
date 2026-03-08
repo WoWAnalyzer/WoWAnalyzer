@@ -17,12 +17,8 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.LAST_STAND_TALENT.id,
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.SHIELD_BLOCK_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: TALENTS.SHIELD_WALL_TALENT.id,
@@ -34,63 +30,63 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.RALLYING_CRY_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.INTO_THE_FRAY_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.SHIELD_SLAM.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.WILD_STRIKES.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.BURST_OF_POWER_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.THUNDER_BLAST_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.REVENGE_FREE_CAST.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.BEST_SERVED_COLD_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: TALENTS.DEFENSIVE_STANCE_TALENT.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: TALENTS.THUNDERLORD_TALENT.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: TALENTS.IGNORE_PAIN_PROTECTION_TALENT.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.SHIELD_BLOCK_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.KEEP_YOUR_FEET_ON_THE_GROUND_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.SPELL_REFLECTION_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.PHALANX_BUFF.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
     ];
   }

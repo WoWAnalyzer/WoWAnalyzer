@@ -206,6 +206,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 45,
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS.JAVELINEER_TALENT),
+        },
       },
       {
         spell: TALENTS.SHATTERING_THROW_TALENT.id,
@@ -215,6 +218,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 180,
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS.JAVELINEER_TALENT),
+        },
       },
       {
         spell: TALENTS.BERSERKER_SHOUT_TALENT.id,

@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 8), <><SpellLink spell={TALENTS.VIOLENT_OUTBURST_TALENT}/> wasted buff tracker.</>, Abelito75),
+  change(date(2026, 3, 7), <>General Cleanup of existing code.</>, Abelito75),
   change(date(2026, 3, 6), <>Re-enabled protection warrior parsing.</>, Abelito75),
   change(date(2026, 3, 5), <>Removed broken code, updated core abilities file.</>, Abelito75),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
