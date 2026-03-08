@@ -58,42 +58,25 @@ export default function StackedBar({
     return null;
   }
   const defaultTooltipFormatter = (segment: StackedBarSegment, percent: number) => (
-    <>
+    <div>
       <strong>{segment.label}</strong>
-      <br />
-      Value: {segment.value.toFixed(0)}
-      <br />
-      Percentage: {percent.toFixed(1)}%
-    </>
+      <div>Value: {segment.value.toFixed(0)}</div>
+      <div>Percentage: {percent.toFixed(1)}%</div>
+    </div>
   );
 
   const getTooltipContent = tooltipFormat || defaultTooltipFormatter;
 
-  const segmentsWithPositions = segments.reduce<
-    Array<{
-      segment: StackedBarSegment;
-      percent: number;
-      startPercent: number;
-      index: number;
-    }>
-  >((acc, segment, idx) => {
-    const percent = (segment.value / total) * 100;
-    const startPercent =
-      acc.length > 0 ? acc[acc.length - 1].startPercent + acc[acc.length - 1].percent : 0;
-
-    if (percent < minSegmentPercent) {
-      return acc;
-    }
-
-    return [...acc, { segment, percent, startPercent, index: idx }];
-  }, []);
+  const segmentsWithPositions = segments
+    .map((segment, idx) => ({ segment, percent: (segment.value / total) * 100, index: idx }))
+    .filter(({ percent }) => percent >= minSegmentPercent);
 
   return (
     <>
       <BarContainer height={height} className={className}>
-        {segmentsWithPositions.map(({ segment, percent, startPercent, index }) => (
+        {segmentsWithPositions.map(({ segment, percent, index }) => (
           <Tooltip key={index} content={segment.tooltip || getTooltipContent(segment, percent)}>
-            <Segment color={segment.color} startPercent={startPercent} widthPercent={percent} />
+            <Segment color={segment.color} widthPercent={percent} />
           </Tooltip>
         ))}
       </BarContainer>
@@ -123,7 +106,6 @@ const BarContainer = styled.div<{ height: number }>`
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
-  position: relative;
 
   @media (max-width: 768px) {
     min-height: 30px;
@@ -132,11 +114,8 @@ const BarContainer = styled.div<{ height: number }>`
 
 const Segment = styled.div<{
   color: string;
-  startPercent: number;
   widthPercent: number;
 }>`
-  position: absolute;
-  left: ${(props) => props.startPercent}%;
   width: ${(props) => props.widthPercent}%;
   height: 100%;
   background: ${(props) => props.color};
