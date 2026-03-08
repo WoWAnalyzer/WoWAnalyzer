@@ -104,7 +104,7 @@ export default class Eclipse extends Analyzer {
           <SpellLink spell={SPELLS.WRATH} /> is single target. <SpellLink spell={SPELLS.STARFIRE} />{' '}
           cleaves. <br />
           Choose <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> when hitting 3 or more stacked targets.
-          Choose <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> for 1–2 targets.
+          Choose <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> for 1 to 2 targets.
         </p>
         <AlertInfo>
           <p>
@@ -115,8 +115,9 @@ export default class Eclipse extends Analyzer {
           <strong>
             <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} />:
           </strong>{' '}
-          Restricts you to <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> <br />
-          <SpellLink spell={SPELLS.WRATH} /> → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />.
+          <p>
+            Restricts you from casting <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
+          </p>
         </AlertInfo>
       </>
     );
