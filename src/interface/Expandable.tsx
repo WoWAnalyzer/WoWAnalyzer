@@ -24,7 +24,19 @@ export const Expandable = (props: Omit<Props, 'expanded' | 'inverseExpanded'>) =
 
   return (
     <Element className={`expandable ${expanded ? 'expanded' : ''} ${className || ''}`}>
-      <div className="meta" onClick={handleToggle}>
+      <div
+        className="meta"
+        role="button"
+        tabIndex={0}
+        aria-expanded={expanded}
+        onClick={handleToggle}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggle();
+          }
+        }}
+      >
         {header}
       </div>
       <AnimateHeight className="details" height={expanded ? 'auto' : 0}>
@@ -39,7 +51,19 @@ export const ControlledExpandable = (props: Props) => {
 
   return (
     <Element className={`expandable ${props.expanded ? 'expanded' : ''} ${className || ''}`}>
-      <div className="meta" onClick={props.inverseExpanded}>
+      <div
+        className="meta"
+        role="button"
+        tabIndex={0}
+        aria-expanded={props.expanded ?? false}
+        onClick={props.inverseExpanded}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            props.inverseExpanded();
+          }
+        }}
+      >
         {header}
       </div>
       <AnimateHeight
