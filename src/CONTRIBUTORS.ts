@@ -584,16 +584,8 @@ export const HawkCorrigan: Contributor = {
 };
 export const Vetyst: Contributor = {
   nickname: 'Vetyst',
-  github: 'vetyst',
-  discord: 'vetyst',
-  avatar: avatar('vetyst-avatar.png'),
-  mains: [
-    {
-      name: 'Vetiest',
-      spec: SPECS.SHADOW_PRIEST,
-      link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/vetiest',
-    },
-  ],
+  github: 'danny-janse',
+  discord: 'Vetyst',
 };
 export const DoxAshe: Contributor = {
   nickname: 'DoxAshe',
