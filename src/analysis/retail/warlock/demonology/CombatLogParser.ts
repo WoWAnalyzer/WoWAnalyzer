@@ -37,7 +37,6 @@ import FelRavagerNormalizer from './modules/pets/normalizers/FelRavagerNormalize
 import DemonicTyrant from './modules/features/DemonicTyrant';
 import DemonicTyrantGuide from './modules/guide/DemonicTyrantGuide';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
