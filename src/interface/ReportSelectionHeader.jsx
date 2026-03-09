@@ -90,7 +90,7 @@ class ReportSelectionHeader extends PureComponent {
             <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
               <a href="/" className="brand-name">
                 <Logo />
-                <h1>WoWAnalyzer</h1>
+                <span className="brand-text">WoWAnalyzer</span>
               </a>
               <div id="reportSelectionHeader.improveYourPerformance">
                 <Trans id="interface.home.reportSelectionHeader.improveYourPerformance">

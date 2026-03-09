@@ -74,6 +74,7 @@ export function Component() {
           </Trans>
         }
         anchor="wowanalyzer-discord-bot"
+        subheading
       >
         <div className="flex wrapable">
           <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>

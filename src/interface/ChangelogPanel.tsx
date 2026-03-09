@@ -18,6 +18,7 @@ const ChangelogPanel = () => {
     <Panel
       title={<Trans id="interface.changelogPanel.heading">Changelog</Trans>}
       anchor="changelog"
+      subheading
     >
       <select
         className="form-control"

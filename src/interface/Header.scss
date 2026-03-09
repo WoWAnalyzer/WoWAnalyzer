@@ -15,11 +15,13 @@ header.report-selection {
       margin-bottom: -7px;
       margin-right: 25px;
     }
-    h1 {
+    .brand-text {
       display: inline-block;
       text-transform: none;
       font-size: 50px;
-
+      font-weight: 700;
+      color: Theme.$primaryColor;
+      line-height: 44px;
       @media (max-width: 767px) {
         font-size: 42px;
       }
@@ -40,7 +42,7 @@ header.report-selection .about {
   header.report-selection {
     padding-top: 60px;
   }
-  header.report-selection h1 {
+  header.report-selection .brand-text {
     font-size: 3em;
     margin-bottom: 0.2em;
   }

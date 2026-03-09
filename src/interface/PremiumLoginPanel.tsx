@@ -72,13 +72,13 @@ const LoggedIn = ({
         </div>
 
         <div className="text">
-          <h1>
+          <h2>
             <Textfit mode="single">
               <Trans id="interface.premiumLoginPanel.logged-in.greeting">
                 Hello {user.name?.trim()}.
               </Trans>
             </Textfit>
-          </h1>
+          </h2>
           {platform === 'wcl' &&
             (hasValidAuth ? (
               <div className="description">
@@ -164,9 +164,9 @@ const PremiumLoginPanel = () => {
             />
           </div>
           <div className="col-md-12">
-            <h1>
+            <h2 className="sign-in-heading">
               <Trans id="interface.premiumLoginPanel.panel.sign-in">Premium sign in</Trans>
-            </h1>
+            </h2>
             <div className="description">
               <Trans id="interface.premiumLoginPanel.panel.sign-in.description">
                 Sign in with your Patreon, GitHub or Warcraft Logs account using the buttons below.
