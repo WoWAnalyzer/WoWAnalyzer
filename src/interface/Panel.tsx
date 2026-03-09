@@ -26,7 +26,7 @@ const Heading = ({ title, anchor, explanation, actions, backButton, subheading }
 
   const headingBlock = (
     <>
-      <HeadingTag className="h1" style={{ position: 'relative' }}>
+      <HeadingTag className={subheading ? 'h1' : undefined} style={{ position: 'relative' }}>
         {backButton && <div className="back-button">{backButton}</div>}
         {renderedTitle}
       </HeadingTag>
