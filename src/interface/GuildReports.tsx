@@ -510,7 +510,7 @@ class GuildReports extends Component<Props, State> {
                         <Trans id="interface.guildReports.refresh">Refresh</Trans>
                       </Link>
                     </div>
-                    <h2 style={{ display: 'inline-block' }}>
+                    <h2 className="h1" style={{ display: 'inline-block' }}>
                       {this.state.error ? (
                         i18n._(this.state.error)
                       ) : (

@@ -72,7 +72,7 @@ const LoggedIn = ({
         </div>
 
         <div className="text">
-          <h2>
+          <h2 className="h1">
             <Textfit mode="single">
               <Trans id="interface.premiumLoginPanel.logged-in.greeting">
                 Hello {user.name?.trim()}.

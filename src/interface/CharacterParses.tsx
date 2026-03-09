@@ -677,7 +677,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                 <h2>
                   {this.props.region} - {this.props.realm}
                 </h2>
-                <h1 className="name">{this.props.name}</h1>
+                <h1 className="h1">{this.props.name}</h1>
               </div>
             </div>
           </div>
@@ -828,7 +828,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                         </Trans>
                       </Link>
                     </div>
-                    <h2 style={{ display: 'inline-block' }}>
+                    <h2 className="h1" style={{ display: 'inline-block' }}>
                       {this.state.error ? (
                         i18n._(this.state.error)
                       ) : (

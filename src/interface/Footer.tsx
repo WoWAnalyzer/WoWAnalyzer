@@ -15,7 +15,7 @@ const Footer = () => (
           <img src={Logo} alt="Logo" className="wowanalyzer-logo" />
         </a>
 
-        <h2>Be a part of us</h2>
+        <h2 className="h1">Be a part of us</h2>
         <div className="social-links">
           {/* For some reason the tooltip disappears and reappears when mousing over the svg icons (maybe when the cursor leaves filled areas)*/}
           <Tooltip content="Discord">
