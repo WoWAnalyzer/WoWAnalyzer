@@ -26,9 +26,6 @@ export function Component() {
     <>
       <DocumentTitle title="Premium" />
       <div className="premium row">
-        <div className="col-md-4 col-sm-5">
-          <LoginPanel />
-        </div>
         <div className="col-md-8 col-sm-7">
           <Panel title={<Trans id="interface.premiumPage.premium">WoWAnalyzer Premium</Trans>}>
             <PremiumIcon
@@ -209,6 +206,9 @@ export function Component() {
               </Trans>
             </Panel>
           )}
+        </div>
+        <div className="col-md-4 col-sm-5 premium-login-col">
+          <LoginPanel />
         </div>
       </div>
     </>

@@ -1,6 +1,12 @@
 @use 'interface/Theme.scss';
 
 .premium {
+  &.row {
+    display: flex;
+  }
+  .premium-login-col {
+    order: -1;
+  }
   h2 {
     opacity: 0.9;
     text-transform: uppercase;
