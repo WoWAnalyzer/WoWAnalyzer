@@ -319,6 +319,7 @@ const MiniBoxContainer = styled.div`
 `;
 
 const MiniBoxName = styled.div`
+  margin: 0;
   font-size: ${fontSize.heading};
   font-weight: bold;
   white-space: break-spaces;
@@ -380,7 +381,7 @@ function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.
   return (
     <MiniBoxContainer data-testid="boss-difficulty-and-name">
       <MiniBoxImage src={icon} alt={boss?.name ?? fight.name} />
-      <MiniBoxName>{boss?.name ?? fight.name}</MiniBoxName>
+      <MiniBoxName as="h1">{boss?.name ?? fight.name}</MiniBoxName>
       <MiniBoxSubtext>
         {difficulty.getLabel(fight.difficulty ?? 0)}{' '}
         {fight.kill ? `Kill - ${duration}` : `Wipe - ${duration}`}

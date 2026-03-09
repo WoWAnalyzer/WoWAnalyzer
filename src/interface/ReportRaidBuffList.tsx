@@ -132,7 +132,7 @@ const ReportRaidBuffList = ({ report, players }: Props) => {
   const buffs = getCompositionBreakdown(players);
   return (
     <div className="raidbuffs">
-      <h1>Raid Buffs</h1>
+      <h2>Raid Buffs</h2>
       {Array.from(buffs, ([spellId, count]) => (
         <ReportRaidBuffListItem key={spellId.id} spell={spellId} count={count} />
       ))}

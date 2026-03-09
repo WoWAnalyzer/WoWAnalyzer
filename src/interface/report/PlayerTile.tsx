@@ -46,7 +46,7 @@ const BasicBlockLoading = ({ avatar, player, ...props }: BasicBlockLoadingProps)
     <div className="card">
       <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
       <div className="about">
-        <h1>{player.name}</h1>
+        <span className="player-name">{player.name}</span>
       </div>
     </div>
   </BlockLoading>
@@ -69,13 +69,13 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
       <div className="card">
         <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
         <div className="about">
-          <h1
+          <span
             className={classColor(spec)}
             // The name can't always fit so use a tooltip. We use title instead of the tooltip library for this because we don't want it to be distracting and the tooltip library would popup when hovering just to click an item, while this has a delay.
             title={player.name}
           >
             {player.name}
-          </h1>
+          </span>
           <small title={`${specName} ${className}`}>
             <SpecIcon spec={spec} /> {specName} {className}
           </small>

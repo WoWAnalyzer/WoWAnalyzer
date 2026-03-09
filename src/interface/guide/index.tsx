@@ -147,6 +147,12 @@ export type Guide<T extends typeof CombatLogParser = any> = (
 export default Guide;
 
 const SectionHeaderWrapper = styled.header`
+  h2 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
   font-size: ${design.fontSize.heading};
   padding: ${design.gaps.medium} 0;
   font-weight: bold;
@@ -178,7 +184,7 @@ export const SectionHeader = ({
   ...props
 }: ComponentPropsWithoutRef<'header'>) => (
   <SectionHeaderWrapper className={`flex ${className ?? ''}`} {...props}>
-    <div className="flex-main name">{children}</div>
+    <h2 className="flex-main name">{children}</h2>
     <div className="flex-sub chevron">
       <DropdownIcon />
     </div>
@@ -359,10 +365,11 @@ const SubSectionContainer = styled.section`
     margin-top: ${design.gaps.large};
   }
 
-  & > header {
+  & > h3 {
     font-size: ${design.fontSize.subHeading};
     font-weight: bold;
     padding: ${design.gaps.small} 0;
+    margin: 0;
   }
 `;
 
@@ -377,7 +384,7 @@ export const SubSection = ({
   ...props
 }: Omit<ComponentProps<'div'>, 'title'> & { title?: ReactNode }) => (
   <SubSectionContainer className="subsection" id={id}>
-    <header>{title || ''}</header>
+    <h3>{title || ''}</h3>
     <div {...props}>{children}</div>
   </SubSectionContainer>
 );
