@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/druid/balance/CombatLogParser';
-import { ResourceLink, SpellLink } from 'interface';
+import { ResourceLink, SpellLink, AlertWarning } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -32,6 +32,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Core">
+      <AlertWarning>Apex Talents not yet implemented.</AlertWarning>
       <SubSection title="Always be Casting">
         <p>
           <em>
@@ -92,11 +93,12 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
   return (
     <Section title="Rotation">
       <p>
-        Balance's core rotation involves maximizing time spent in{' '}
-        <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} />, maximizing DoT uptimes, and spending
-        Astral Power to avoid overcapping. After fulfilling these priorities, open GCDs are filled
-        with <SpellLink spell={SPELLS.WRATH} /> or <SpellLink spell={SPELLS.STARFIRE} /> depending
-        on Eclipse type and target count. Refer to the spec guide for more{' '}
+        Balance's core rotation involves casting the correct{' '}
+        <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> for the situation, maximizing DoT
+        uptimes, and spending Astral Power to avoid overcapping. After fulfilling these priorities,
+        open GCDs are filled with
+        <SpellLink spell={SPELLS.WRATH} /> or <SpellLink spell={SPELLS.STARFIRE} /> depending on
+        Eclipse type and target count. Refer to the spec guide for more{' '}
         <a
           href="https://www.wowhead.com/guide/classes/druid/balance/rotation-cooldowns-pve-dps"
           target="_blank"
@@ -106,6 +108,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
         </a>
         .
       </p>
+
       {modules.dotUptimes.guideSubsection}
       {modules.eclipse.guideSubsection}
       {modules.fillerUsage.guideSubsection}
@@ -164,13 +167,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {info.combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT) && (
         <CastEfficiencyBar
           spell={TALENTS_DRUID.FORCE_OF_NATURE_TALENT}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
-      {info.combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT) && (
-        <CastEfficiencyBar
-          spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
