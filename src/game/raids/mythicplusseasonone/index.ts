@@ -7,35 +7,35 @@ export default {
   background,
   bosses: {
     MagistersTerrace: buildBoss({
-      id: 2811,
+      id: 12811,
       name: "Magister's Terrace",
     }),
     MaisaraCaverns: buildBoss({
-      id: 2874,
+      id: 12874,
       name: 'Maisara Caverns',
     }),
     NexusPointXenas: buildBoss({
-      id: 2915,
+      id: 12915,
       name: 'Nexus Point Xenas',
     }),
     WindrunnerSpire: buildBoss({
-      id: 2805,
+      id: 12805,
       name: 'Windrunner Spire',
     }),
     AlgetharAcademy: buildBoss({
-      id: 162526,
+      id: 112526,
       name: "Algeth'ar Academy",
     }),
     SeatOfTheTriumvirate: buildBoss({
-      id: 411753,
+      id: 361753,
       name: 'The Seat of the Triumvirate',
     }),
     Skyreach: buildBoss({
-      id: 111209,
+      id: 61209,
       name: 'Skyreach',
     }),
     PitOfSaron: buildBoss({
-      id: 60658,
+      id: 10658,
       name: 'Pit of Saron',
     }),
   },
