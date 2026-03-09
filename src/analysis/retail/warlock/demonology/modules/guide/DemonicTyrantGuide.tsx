@@ -73,7 +73,6 @@ class DemonicTyrantGuide extends Analyzer {
           spellId: event.ability.guid,
           spellName: event.ability.name,
           icon: event.ability.abilityIcon.replace('.jpg', ''),
-          performance: QualitativePerformance.Ok,
         }));
 
         return {
