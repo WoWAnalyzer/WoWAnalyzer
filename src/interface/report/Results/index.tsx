@@ -199,7 +199,10 @@ const Results = (props: PassedProps) => {
   return (
     <ResultsContext value={providerValue}>
       <CombatLogParserProvider combatLogParser={props.parser}>
-        <div className={`container results boss-${props.fight.boss} ${!showSideAd ? 'no-ad' : ''}`}>
+        <div
+          id="fight-results"
+          className={`container results boss-${props.fight.boss} ${!showSideAd ? 'no-ad' : ''}`}
+        >
           <div className={'no-expand'}>
             <Header
               config={props.config}
