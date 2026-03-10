@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/thewarwithin/potions';
+import SPELLS from 'common/SPELLS/midnight/potions';
 
 import Potion from './Potion';
 
@@ -6,7 +6,11 @@ import Potion from './Potion';
  * Tracks health potion cooldown.
  */
 class HealthPotion extends Potion {
-  static spells = [SPELLS.ALGARI_HEALING_POTION.id];
+  static spells = [
+    SPELLS.SILVERMOON_HEALTH_POTION.id,
+    SPELLS.AMNI_EXTRACT.id,
+    SPELLS.REFRESHING_SERUM.id,
+  ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
     isDefensive: true,

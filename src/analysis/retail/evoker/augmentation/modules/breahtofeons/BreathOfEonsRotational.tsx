@@ -130,6 +130,7 @@ class BreathOfEonsRotational extends Analyzer {
 
   trinketSpells: Spell[] = [];
 
+  // TODO: Apply midnight potions?
   trackedPotions = [Potions.TEMPERED_POTION];
 
   foundTrinket = undefined;
