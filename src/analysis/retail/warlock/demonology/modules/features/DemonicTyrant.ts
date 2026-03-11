@@ -37,7 +37,7 @@ export default class DemonicTyrant extends Analyzer {
     );
   }
 
-  onTyrantCast = (event: CastEvent) => {
+  onTyrantCast(event: CastEvent) {
     const timeSinceDreadstalkers = event.timestamp - this.lastDreadstalkersCast;
 
     const dreadstalkersActive = timeSinceDreadstalkers <= DREADSTALKERS_DURATION;
