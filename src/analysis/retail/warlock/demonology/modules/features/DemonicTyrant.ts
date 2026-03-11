@@ -25,7 +25,7 @@ export default class DemonicTyrant extends Analyzer {
     // Hand of Gul'dan cast
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAND_OF_GULDAN_CAST),
-      (event) => this.onHandOfGuldanCast(event),
+      this.onHandOfGuldanCast,
     );
 
     // Wild imp summons
