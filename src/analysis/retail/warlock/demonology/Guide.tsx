@@ -4,6 +4,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import CooldownSubsection from './modules/guide/CooldownsSubsection';
 import ResourceUsage from './modules/guide/ResourceUsage';
 import DefensivesGuide from '../shared/Defensives';
+import DemonicTyrantGuide from './modules/guide/DemonicTyrantGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -25,7 +26,7 @@ function CooldownSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
       <CooldownSubsection />
-      {modules.DemonicTyrantGuide.guideSubsection}
+      <DemonicTyrantGuide />
     </Section>
   );
 }
