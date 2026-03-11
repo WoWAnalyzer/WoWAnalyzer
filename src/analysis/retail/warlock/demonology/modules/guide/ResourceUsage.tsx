@@ -4,7 +4,7 @@ import SoulShardGraph from '../resources/SoulShardGraph';
 
 function ResourceUsage({ modules }: GuideProps<typeof CombatLogParser>) {
   // cast the module to the correct type
-  const soulShardGraph = modules.soulshardGraph as SoulShardGraph | undefined;
+  const soulShardGraph = modules.soulShardGraph as SoulShardGraph | undefined;
 
   return (
     <Section title="Resource Use">
