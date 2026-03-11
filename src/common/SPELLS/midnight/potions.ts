@@ -46,9 +46,9 @@ const Potions = {
     name: 'Potion of Devoured Dreams',
     icon: 'inv_12_profession_alchemy_voidpotion_blue',
   },
-  AMNI_EXTRACT: {
+  AMANI_EXTRACT: {
     id: 1263074,
-    name: 'Amni Extract',
+    name: 'Amani Extract',
     icon: 'inv_alchemy_elixir_04',
   },
 } satisfies Record<string, Spell>;

@@ -61,15 +61,15 @@ const potions = {
     icon: 'inv_12_profession_alchemy_lightpotion_green',
     craftQuality: 2,
   },
-  AMNI_EXTRACT_R1: {
+  AMANI_EXTRACT_R1: {
     id: 241299,
-    name: 'Amni Extract',
+    name: 'Amani Extract',
     icon: 'inv_alchemy_elixir_04',
     craftQuality: 1,
   },
-  AMNI_EXTRACT_R2: {
+  AMANI_EXTRACT_R2: {
     id: 241298,
-    name: 'Amni Extract',
+    name: 'Amani Extract',
     icon: 'inv_alchemy_elixir_04',
     craftQuality: 2,
   },

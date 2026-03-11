@@ -8,7 +8,7 @@ import Potion from './Potion';
 class HealthPotion extends Potion {
   static spells = [
     SPELLS.SILVERMOON_HEALTH_POTION.id,
-    SPELLS.AMNI_EXTRACT.id,
+    SPELLS.AMANI_EXTRACT.id,
     SPELLS.REFRESHING_SERUM.id,
   ];
   static recommendedEfficiency = 0;
