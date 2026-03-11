@@ -1,4 +1,4 @@
-import POTIONS from 'common/SPELLS/thewarwithin/potions';
+import POTIONS from 'common/SPELLS/midnight/potions';
 import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
