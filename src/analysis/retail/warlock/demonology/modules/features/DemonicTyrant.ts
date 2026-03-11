@@ -40,9 +40,9 @@ export default class DemonicTyrant extends Analyzer {
   onTyrantCast = (event: CastEvent) => {
     const timeSinceDreadstalkers = event.timestamp - this.lastDreadstalkersCast;
 
-    const dreadstalkersActive = timeSinceDreadstalkers <= 12000;
+    const dreadstalkersActive = timeSinceDreadstalkers <= DREADSTALKERS_DURATION;
 
-    const dreadstalkersTooEarly = dreadstalkersActive && timeSinceDreadstalkers > 7000;
+    const dreadstalkersTooEarly = dreadstalkersActive && timeSinceDreadstalkers > DREADSTALKERS_EARLY_CUTOFF_MS;
 
     const tyrant: TyrantCastData = {
       cast: event.timestamp,
