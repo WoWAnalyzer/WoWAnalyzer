@@ -26,6 +26,13 @@ function rateTyrantWindow(handOfGuldanCasts: number): QualitativePerformance {
   return QualitativePerformance.Fail;
 }
 
+function formatTimestampMs(ms: number) {
+  const totalSec = Math.floor(ms / 1000);
+  const min = Math.floor(totalSec / 60);
+  const sec = totalSec % 60;
+  return `${min}:${sec.toString().padStart(2, '0')}`;
+}
+
 function getTyrantFeedback(
   handOfGuldanCasts: number,
   impsSummoned: number,
@@ -74,8 +81,10 @@ function getTyrantFeedback(
     feedback.push(
       'Avoid casting Implosion before Tyrant, as it removes imps that Tyrant could extend.',
     );
+
   if (castedPowerSiphon)
     feedback.push('Power Siphon before Tyrant sacrifices imps that could increase Tyrant damage.');
+
   if (impsSummoned < 8)
     feedback.push(
       'Entering Tyrant with more imps already active will significantly increase its damage.',
@@ -84,7 +93,7 @@ function getTyrantFeedback(
   return (
     <ul>
       {feedback.map((line, i) => (
-        <li key={i}>{line}</li>
+        <p key={i}>{line}</p>
       ))}
     </ul>
   );
@@ -114,19 +123,17 @@ function DemonicTyrantGuide(): JSX.Element | null {
         icon: event.ability.abilityIcon.replace('.jpg', ''),
       }));
 
-      return { data: cast, start: windowStart, end: windowEnd, casts };
+      return {
+        data: cast,
+        start: windowStart,
+        end: windowEnd,
+        casts,
+      };
     });
   }, [demonicTyrant, eventHistory]);
 
   const perCastData: PerCastData[] = useMemo(() => {
     if (!demonicTyrant) return [];
-
-    const formatTimestampMs = (ms: number) => {
-      const totalSec = Math.floor(ms / 1000);
-      const min = Math.floor(totalSec / 60);
-      const sec = totalSec % 60;
-      return `${min}:${sec.toString().padStart(2, '0')}`;
-    };
 
     return demonicTyrant.tyrantData.map((cast, index) => {
       const sequenceEntry = tyrantSequenceEvents[index];
@@ -135,8 +142,16 @@ function DemonicTyrantGuide(): JSX.Element | null {
         performance: rateTyrantWindow(cast.handOfGuldanCasts),
         timestamp: formatTimestampMs(cast.cast),
         stats: [
-          { label: "Hand of Gul'dan Casts", value: cast.handOfGuldanCasts, tooltip: '...' },
-          { label: 'Imps Summoned', value: cast.impsSummoned, tooltip: '...' },
+          {
+            label: "Hand of Gul'dan Casts",
+            value: cast.handOfGuldanCasts,
+            tooltip: "Number of Hand of Gul'dan casts during the Tyrant window",
+          },
+          {
+            label: 'Imps Summoned',
+            value: cast.impsSummoned,
+            tooltip: 'Wild Imps generated during the Tyrant window',
+          },
         ],
         details: getTyrantFeedback(
           cast.handOfGuldanCasts,
@@ -156,17 +171,39 @@ function DemonicTyrantGuide(): JSX.Element | null {
     });
   }, [demonicTyrant, tyrantSequenceEvents]);
 
-  // If analyzers are missing, just render nothing
   if (!demonicTyrant || !eventHistory) return null;
 
   const tyrant = <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} />;
+
   const explanation = (
     <>
       <p>
         <b>{tyrant}</b> deals increased damage based on the number of active demons during its
-        duration.
+        duration. To maximize its effectiveness, summon as many pets as possible before and during
+        the Tyrant window.
       </p>
-      {/* ... rest of your explanation ... */}
+
+      <p>The primary demons contributing to Tyrant damage are:</p>
+
+      <ul>
+        <li>
+          <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> — summons two Dreadstalkers
+        </li>
+        <li>
+          Wild Imps summoned from <SpellLink spell={SPELLS.HAND_OF_GULDAN_CAST} />
+        </li>
+        <li>
+          Imp Gang Bosses summoned by <SpellLink spell={SPELLS.IMPLOSION_CAST} /> or{' '}
+          <SpellLink spell={TALENTS.POWER_SIPHON_TALENT} /> with the talent{' '}
+          <SpellLink spell={TALENTS.TO_HELL_AND_BACK_TALENT} />
+        </li>
+      </ul>
+
+      <p>
+        During the Tyrant window, aim to cast as many{' '}
+        <SpellLink spell={SPELLS.HAND_OF_GULDAN_CAST} /> as possible to summon additional imps and
+        increase Tyrant's damage.
+      </p>
     </>
   );
 
