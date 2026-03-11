@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import Events, { CastEvent, SummonEvent } from 'parser/core/Events';
-import TALENTS from 'common/TALENTS/warlock';
 
 const DREADSTALKERS_DURATION = 12000;
 const TYRANT_WINDOW_MS = 20000;
@@ -19,7 +18,7 @@ export default class DemonicTyrant extends Analyzer {
     // Tyrant cast
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
-      (event) => this.onTyrantCast(event),
+      this.onTyrantCast,
     );
 
     // Hand of Gul'dan cast
@@ -31,24 +30,13 @@ export default class DemonicTyrant extends Analyzer {
     // Wild imp summons
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(SPELLS.WILD_IMP_HOG_SUMMON),
-      (event) => this.onImpSummon(event),
+      this.onImpSummon,
     );
 
     // Dreadstalkers cast
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS),
-      (event) => this.onDreadstalkersCast(event),
-    );
-
-    // Implosion cast
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_CAST), (event) =>
-      this.onImplosionCast(event),
-    );
-
-    // Power Siphon cast
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.POWER_SIPHON_TALENT),
-      (event) => this.onPowerSiphonCast(event),
+      this.onDreadstalkersCast,
     );
   }
 
@@ -65,8 +53,6 @@ export default class DemonicTyrant extends Analyzer {
       impsSummoned: 0,
       dreadstalkersActive,
       dreadstalkersTooEarly,
-      castedImplosion: false,
-      castedPowerSiphon: false,
     };
 
     this.tyrantData.push(tyrant);
@@ -98,16 +84,6 @@ export default class DemonicTyrant extends Analyzer {
   onDreadstalkersCast(event: CastEvent) {
     this.lastDreadstalkersCast = event.timestamp;
   }
-
-  onImplosionCast(event: CastEvent) {
-    if (!this.currentTyrant) return;
-    this.currentTyrant.castedImplosion = true;
-  }
-
-  onPowerSiphonCast(event: CastEvent) {
-    if (!this.currentTyrant) return;
-    this.currentTyrant.castedPowerSiphon = true;
-  }
 }
 
 export interface TyrantCastData {
@@ -116,6 +92,4 @@ export interface TyrantCastData {
   impsSummoned: number;
   dreadstalkersActive: boolean;
   dreadstalkersTooEarly: boolean;
-  castedImplosion?: boolean;
-  castedPowerSiphon?: boolean;
 }
