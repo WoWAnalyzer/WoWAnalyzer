@@ -624,7 +624,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     }
 
     return (
-      <div className="container results">
+      <main className="container results">
         <header>
           <div
             className="background"
@@ -893,7 +893,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             </div>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 }
