@@ -6,6 +6,11 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 3, 10),
+    'Add Zenith talent analysis/guide stats, gate Invoke Xuen, and add a Windwalker guide preface',
+    Durpn,
+  ),
+  change(
     date(2026, 3, 6),
     <>
       Updated Windwalker priority recommendations, improved{' '}
