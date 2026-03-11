@@ -17,9 +17,6 @@ class StatWeights extends BaseHealerStatValues {
   qeLive = false;
 
   _hasteHpm(event: any, healVal: any) {
-    if (event.ability.guid === TALENTS.RENEW_TALENT.id && !event.tick) {
-      return 0;
-    }
     return super._hasteHpm(event, healVal);
   }
 

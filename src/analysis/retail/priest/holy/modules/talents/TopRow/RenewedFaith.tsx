@@ -34,11 +34,11 @@ class RenewedFaith extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW_HEAL),
       this.onRenewApplication,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW_HEAL),
       this.onRenewRemoval,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);

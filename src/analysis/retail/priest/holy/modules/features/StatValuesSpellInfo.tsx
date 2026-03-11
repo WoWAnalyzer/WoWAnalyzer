@@ -73,14 +73,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [TALENTS.RENEW_TALENT.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
   [TALENTS.HOLY_WORD_SERENITY_TALENT.id]: {
     int: true,
     crit: true,

@@ -23,7 +23,6 @@ import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyNova from './modules/spells/HolyNova';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
-import Renew from './modules/spells/Renew';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
 import ProtectiveLight from '../shared/ProtectiveLight';
@@ -31,14 +30,10 @@ import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
-import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
-import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
 import EOLAttrib from './modules/core/EchoOfLightAttributor';
 import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
 import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
-import HolyTWW4pS1 from './modules/tww/HolyTWW4pcS1';
-import HolyTWW4pS1Display from './modules/tww/HolyTWW4pcS1Display';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,8 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     echoOfLightMastery: EchoOfLightMastery,
     fortitudeRaidBuff: FortitudeRaidBuff,
-    renewTracker: RenewTracker,
-    renewAttributor: RenewAttributor,
     eolAttrib: EOLAttrib,
     holyWordCDRBySpell: HolyWordCDRBySpell,
     holyWordCDR: HolyWordCDR,
@@ -82,13 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     benevolence: Benevolence,
 
     spiritOfRedemption: SpiritOfRedemption,
-    renew: Renew,
     prayerOfMending: PrayerOfMending,
-
-    // Items
-
-    holyTWW4pcS1: HolyTWW4pS1,
-    holyTWW4pS1Display: HolyTWW4pS1Display,
 
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,
@@ -111,22 +98,16 @@ class CombatLogParser extends CoreCombatLogParser {
 
     ProtectiveLight: ProtectiveLight,
     SurgeOfLight: Talents.Classwide.SurgeOfLight,
-    PrayerCircle: Talents.MiddleRow.PrayerCircle,
     PrayerfulLitany: Talents.MiddleRow.PrayerfulLitany,
 
     Halo: Talents.Classwide.Halo,
-    Benediction: Talents.MiddleRow.Benediction,
-    DivineStar: Talents.Classwide.DivineStar,
-    DivineWord: Talents.BottomRow.DivineWord,
+    //Benediction: Talents.MiddleRow.Benediction,
     Apotheosis: Talents.BottomRow.Apotheosis,
-    AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
     Lightweaver: Talents.BottomRow.Lightweaver,
 
     divineImage: Talents.BottomRow.DivineImage,
-    resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
     miracleWorker: Talents.BottomRow.MiracleWorker,
-    Lightwell: Talents.BottomRow.Lightwell,
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 
@@ -139,9 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
 
     // Oracle Hero Talents
-    PremontitionOfSolace: Talents.Oracle.PremonitionOfSolace,
     PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
-    PremonitionOfInsight: Talents.Oracle.PremonitionOfInsight,
 
     // Holy Specific Oracle Hero Talents
     PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,

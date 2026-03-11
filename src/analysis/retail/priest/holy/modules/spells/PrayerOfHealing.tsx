@@ -57,8 +57,7 @@ class PrayerOfHealing extends Analyzer {
     // Analyze cast for guide section:
     // player is buffed by prayer circle or they don't have the talent
     const prayerCirclePerfect =
-      this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id) ||
-      !this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT);
+      this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id);
 
     // check if Holy Word: Sanctify is not on cooldown when casting PoH to avoid wasted CDR.
     const sanctifyOffCd = this.selectedCombatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT)
@@ -116,7 +115,7 @@ class PrayerOfHealing extends Analyzer {
           its own.
         </p>
         <p>
-          If you are running <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} />, make sure to
+          If you are running Prayer of Circle, make sure to
           apply it before casting <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />.
           This spell does not smart heal and only hits the closest targets, even if they are full
           hp.
@@ -137,7 +136,7 @@ class PrayerOfHealing extends Analyzer {
           <ul>
             <li>
               <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where{' '}
-              <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} /> is applied if talented into
+              Prayer of Circle is applied if talented into
               it, and <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
             </li>
             <li>

@@ -21,10 +21,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {/* This section should cover effective usage of Holy's core spells */}
         {/* Divine Word Casts, idk how to explore this.  */}
         {modules.Lightweaver.guideSubsection}
-        {modules.resonantWords.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
-        {modules.DivineStar.guideSubsectionHoly}
         {modules.Halo.guideSubsectionHoly}
       </Section>
       <Section title="Healing Cooldowns">
@@ -56,9 +54,9 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT) && (
+      {info.combatant.hasTalent(TALENTS_PRIEST.HALO_HOLY_TALENT) && (
         <CastEfficiencyBar
-          spell={TALENTS_PRIEST.HALO_SHARED_TALENT}
+          spell={TALENTS_PRIEST.HALO_HOLY_TALENT}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

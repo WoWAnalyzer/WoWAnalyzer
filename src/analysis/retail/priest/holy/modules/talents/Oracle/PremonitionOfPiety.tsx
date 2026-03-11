@@ -34,12 +34,6 @@ class PremonitionOfPiety extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CLAIRVOYANCE_TALENT);
-    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.FATEBENDER_TALENT)) {
-      this.scaledPietyAmp *= FATEBENDER_SCALER;
-      // this.scaledPietyOH;
-    }
-
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handlePiety);
 
     // These two check if Piety is active

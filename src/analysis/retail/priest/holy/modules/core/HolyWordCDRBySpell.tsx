@@ -9,7 +9,6 @@ import HolyWordCDR from './HolyWordCDR';
 import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { TIERS } from 'game/TIERS';
 import { buffedBySurgeOfLight, getSOLFlashCast } from '../../normalizers/CastLinkNormalizer';
-import HolyTWW4pS1 from '../tww/HolyTWW4pcS1';
 import { HOLY_ENERGY_CYCLE_PROC, TWW_S1_HOLY_4PC_CDR_PROC } from '../../constants';
 
 /**
@@ -19,11 +18,8 @@ import { HOLY_ENERGY_CYCLE_PROC, TWW_S1_HOLY_4PC_CDR_PROC } from '../../constant
 class HolyWordCDRBySpell extends Analyzer {
   static dependencies = {
     holyWordCDR: HolyWordCDR,
-    holyTWW4pS1: HolyTWW4pS1,
   };
   protected holyWordCDR!: HolyWordCDR;
-
-  protected holyTWW4pS1!: HolyTWW4pS1;
 
   private lightOfTheNaaruActive = false;
   private apotheosisActive = false;
@@ -41,8 +37,7 @@ class HolyWordCDRBySpell extends Analyzer {
     );
 
     this.apotheosisActive =
-      this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
 
     this.voiceOfHarmonyActive = this.selectedCombatant.hasTalent(TALENTS.VOICE_OF_HARMONY_TALENT);
 
@@ -126,11 +121,7 @@ class HolyWordCDRBySpell extends Analyzer {
    */
 
   castWrapper(event: CastEvent) {
-    if (this.holyTWW4pS1.is4pcProc(event)) {
-      this.handleOnCast(event, TWW_S1_HOLY_4PC_CDR_PROC);
-    } else {
       this.handleOnCast(event);
-    }
   }
 
   handleEnergyCycle(event: RemoveBuffEvent | RemoveBuffStackEvent) {

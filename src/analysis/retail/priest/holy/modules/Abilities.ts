@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: TALENTS.PRAYER_OF_MENDING_TALENT.id,
+        spell: SPELLS.PRAYER_OF_MENDING_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
@@ -74,19 +74,6 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.DIVINE_HYMN_HEAL.id],
       },
       {
-        spell: TALENTS.SYMBOL_OF_HOPE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 300,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.01, // This spell should be cast at least one per encounter
-          majorIssueEfficiency: 0,
-        },
-      },
-      {
         spell: TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT) ? 2 : 1,
@@ -117,26 +104,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DIVINE_STAR_SHARED_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.4,
-        },
-        healSpellIds: [SPELLS.DIVINE_STAR_HEAL.id],
-      },
-      {
         spell: SPELLS.HALO_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.HALO_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.HALO_HOLY_TALENT),
         gcd: {
           base: 1500,
         },
@@ -147,13 +118,6 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.4,
         },
         healSpellIds: [SPELLS.HALO_HEAL.id],
-      },
-      {
-        spell: TALENTS.RENEW_TALENT.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: TALENTS.PRAYER_OF_HEALING_TALENT.id,

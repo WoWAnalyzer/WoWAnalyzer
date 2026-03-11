@@ -139,14 +139,14 @@ class ManifestedPowerHoly extends Analyzer {
             {this.surgeOfLightProcsGainedFromHalo}
             <small>
               {' '}
-              procs gained from <SpellLink spell={PRIEST_TALENTS.HALO_SHARED_TALENT} />
+              procs gained from <SpellLink spell={PRIEST_TALENTS.HALO_HOLY_TALENT} />
             </small>{' '}
           </div>
           <div>
             {this.surgeOfLightProcsOverwrittenByHalo}
             <small>
               {' '}
-              overwritten procs from <SpellLink spell={PRIEST_TALENTS.HALO_SHARED_TALENT} />
+              overwritten procs from <SpellLink spell={PRIEST_TALENTS.HALO_HOLY_TALENT} />
             </small>
           </div>
         </BoringSpellValueText>

@@ -26,8 +26,7 @@ class Apotheosis extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOLY_WORD_LIST), this.handleCast);
   }
 
@@ -55,7 +54,7 @@ class Apotheosis extends Analyzer {
             For Holy Word CDR see the Holy Word module at the top.
             <br />
             <br />
-            This includes <SpellLink spell={PRIEST_TALENTS.ANSWERED_PRAYERS_TALENT} />. <br />
+            This includes Answered Prayers. <br />
             <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_SERENITY_TALENT} />:{' '}
             {this.manaSavedFromSerenity} Mana saved <br />
             <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_SANCTIFY_TALENT} />:{' '}

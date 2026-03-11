@@ -33,7 +33,7 @@ class Halo extends Analyzer {
     super(options);
     //Disable this module if Archon Hero tree is selected
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_HOLY_TALENT) &&
       !this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_SURGE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
@@ -59,7 +59,7 @@ class Halo extends Analyzer {
 
   get guideSubsectionHoly(): JSX.Element {
     // if player isn't running halo, don't show guide section
-    if (!this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_HOLY_TALENT)) {
       return <></>;
     }
     const explanation = (
@@ -88,7 +88,7 @@ class Halo extends Analyzer {
           <>
             Breakdown:{' '}
             <div>
-              <SpellLink spell={TALENTS_PRIEST.HALO_SHARED_TALENT} />:{' '}
+              <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />:{' '}
               <ItemPercentHealingDone amount={this.haloHealing}></ItemPercentHealingDone>
             </div>
             <div>

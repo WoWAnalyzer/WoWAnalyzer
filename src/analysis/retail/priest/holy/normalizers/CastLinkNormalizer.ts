@@ -113,7 +113,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: LIGHTWELL_RENEW_HEALS,
     linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: EventType.Heal,
     forwardBufferMs: 6000 + CAST_BUFFER_MS,
     anyTarget: false,
@@ -123,7 +123,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: LIGHTWELL_RENEW,
     linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
@@ -133,7 +133,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: BENEDICTION_RENEW,
     linkingEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
@@ -143,7 +143,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: HARDCAST_RENEW,
     linkingEventId: SPELLS.RENEW_HEAL.id,
     linkingEventType: EventType.Cast,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
@@ -184,9 +184,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BENEDICTION_RENEW_HEALS,
     reverseLinkRelation: BENEDICTION_RENEW_HEALS,
-    linkingEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    linkingEventId: SPELLS.RENEW_HEAL.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: EventType.Heal,
     forwardBufferMs: 15000 + CAST_BUFFER_MS,
     anyTarget: false,
@@ -231,20 +231,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
       return c.hasTalent(TALENTS_PRIEST.MANIFESTED_POWER_TALENT);
-    },
-  },
-  {
-    linkRelation: SPELL_SPENDS_INSIGHT_CHARGE,
-    reverseLinkRelation: GET_SPELL_CAST_FROM_INSIGHT_CHARGE,
-    linkingEventId: INSIGHT_CDR_ABILITIES,
-    linkingEventType: EventType.Cast,
-    referencedEventId: [SPELLS.PREMONITION_OF_INSIGHT_BUFF.id],
-    referencedEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS_PRIEST.PREMONITION_TALENT);
     },
   },
   {

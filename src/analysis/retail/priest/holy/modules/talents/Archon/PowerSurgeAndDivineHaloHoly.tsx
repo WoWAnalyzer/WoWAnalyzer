@@ -123,7 +123,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
             <br />
-            <SpellLink spell={TALENTS_PRIEST.HALO_SHARED_TALENT} />:{' '}
+            <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.totalArchonHaloHealing}></ItemPercentHealingDone>
             {this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT) && (
               <>

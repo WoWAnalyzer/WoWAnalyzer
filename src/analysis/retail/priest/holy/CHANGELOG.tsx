@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
@@ -35,18 +35,18 @@ export default [
     <>
       Partially updated for patch 10.2.6. Implementation still may be lacking. {' '}
       Update Pontifex, {' '}
-      Implement <SpellLink spell={TALENTS_PRIEST.LIGHTWELL_TALENT} />, {' '}
+      Implement Lightwell, {' '}
       Update Holy Word: Salvation to better claim Renew healing, {' '}
       Update <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT} /> to better claim Renew healing, {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} />, {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.DIVINE_WORD_TALENT} />, {' '}
+      Update Resonant Words, {' '}
+      Update Divine Word, {' '}
       Update Healing Chorus, and{' '}
       Update <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />
     </>,
     Saeldur,
   ),
   change(date(2023, 8, 1), <>Add <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT}/></>, Hana),
-  change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
+  change(date(2023, 7, 3), 'Update SpellLink usage.', Topple),
   change(date(2023, 5, 11), <>Fix crash in Holy Priest T30 module</>, Trevor),
   change(date(2023, 4, 26), <>Restyle Surge of Light and import it for Discipline</>, Hana),
   change(date(2023, 4, 20), <>Add support for Aberrus, the Shadowed Crucible tier set.</>, squided),
@@ -63,7 +63,7 @@ export default [
     <>
       Updated for patch 10.0.7. Temporarily disabled{' '}
       <SpellLink spell={TALENTS_PRIEST.DIVINE_IMAGE_TALENT} /> module due to combat log issues. Fix{' '}
-      <SpellLink spell={TALENTS_PRIEST.DIVINE_WORD_TALENT} /> module.
+      Divine Word module.
     </>,
     squided,
   ),
@@ -89,7 +89,7 @@ export default [
   change(
     date(2022, 11, 26),
     <>
-      Updated <SpellLink spell={TALENTS.DIVINE_WORD_TALENT} /> to new hotfix value.
+      Updated Divine Word to new hotfix value.
     </>,
     Litena,
   ),
@@ -113,7 +113,7 @@ export default [
   change(
     date(2022, 11, 3),
     <>
-      Added support for <SpellLink spell={TALENTS.DIVINE_WORD_TALENT} /> and Searing Light.
+      Added support for Divine Word and Searing Light.
     </>,
     Litena,
   ),
@@ -151,7 +151,7 @@ export default [
       New talent file structure and support for <SpellLink
         spell={TALENTS.DESPERATE_TIMES_TALENT}
       />{' '}
-      and <SpellLink spell={TALENTS.ANSWERED_PRAYERS_TALENT} />.{' '}
+      and Answered Prayers.{' '}
     </>,
     Litena,
   ),

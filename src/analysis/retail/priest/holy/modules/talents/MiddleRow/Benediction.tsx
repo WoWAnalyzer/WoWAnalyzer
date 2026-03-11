@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/priest';
+/*import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -7,13 +7,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { BENEDICTION_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
 import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
-import Renew from '../../spells/Renew';
+import SPELLS from 'common/SPELLS';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Benediction extends Analyzer {
-  static dependencies = {
-    renew: Renew,
-  };
 
   protected renew!: Renew;
 
@@ -23,10 +20,10 @@ class Benediction extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHTS_RESURGENCE_TALENT);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEW_HEAL),
       this.onRenewHeal,
     );
   }
@@ -51,7 +48,7 @@ class Benediction extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spell={TALENTS.BENEDICTION_TALENT}>
+        <BoringSpellValueText spell={TALENTS.LIGHTS_RESURGENCE_TALENT}>
           <ItemHealingDone amount={this.healingFromRenew} />
         </BoringSpellValueText>
       </Statistic>
@@ -59,4 +56,4 @@ class Benediction extends Analyzer {
   }
 }
 
-export default Benediction;
+export default Benediction;*/
