@@ -4,6 +4,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import CooldownSubsection from './modules/guide/CooldownsSubsection';
 import ResourceUsage from './modules/guide/ResourceUsage';
 import DefensivesGuide from '../shared/Defensives';
+import UnstableAfflictionGuide from './modules/guide/UnstableAfflictionGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -14,7 +15,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.haunt.guideSubsection}
       </Section>
       <Section title="Unstable Affliction">
-        {modules.unstableafflictionguide.guideSubsection}
+        <UnstableAfflictionGuide unstableAffliction={modules.unstableaffliction} />
       </Section>
       <Section title="Cooldown Usage">
         <CooldownSubsection />

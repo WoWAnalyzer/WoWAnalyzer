@@ -3,6 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import StatisticBar from 'parser/ui/StatisticBar';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 const BAR_COLOR = '#F37200';
 
@@ -37,6 +39,13 @@ class UnstableAffliction extends Analyzer {
       color: BAR_COLOR,
       perf: this.DowntimePerformance,
     });
+  }
+  statistic() {
+    return (
+      <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
+        {this.subStatistic()}
+      </StatisticBar>
+    );
   }
 }
 

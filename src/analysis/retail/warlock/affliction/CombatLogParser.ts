@@ -19,7 +19,6 @@ import Agony from './modules/analyzers/Agony';
 import Corruption from './modules/analyzers/Corruption';
 import CorruptionUptime from './modules/guide/CorruptionUptime';
 import UnstableAffliction from './modules/analyzers/UnstableAffliction';
-import UnstableAfflictionGuide from './modules/guide/UnstableAfflictionGuide';
 import UnstableAfflictionCasts from './modules/analyzers/UnstableAfflictionEfficiency';
 import DrainSoul from './modules/analyzers/DrainSoul';
 import Haunt from './modules/analyzers/Haunt';
@@ -49,7 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
     corruptionUptime: CorruptionUptime,
     unstableaffliction: UnstableAffliction,
     unstableafflictionCasts: UnstableAfflictionCasts,
-    unstableafflictionguide: UnstableAfflictionGuide,
 
     // Resources
     soulShardTracker: SoulShardTracker,

@@ -1,6 +1,6 @@
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -26,12 +26,8 @@ class Haunt extends Analyzer {
   get shadowOfNathrezaBonus() {
     let bonus = 0;
 
-    if (this.selectedCombatant.hasTalent(TALENTS.SHADOW_OF_NATHREZA_2_AFFLICTION_TALENT)) {
-      bonus += 0.02;
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.SHADOW_OF_NATHREZA_3_AFFLICTION_TALENT)) {
-      bonus += 0.02;
-    }
+    bonus +=
+      0.02 * this.selectedCombatant.getTalentRank(TALENTS.SHADOW_OF_NATHREZA_2_AFFLICTION_TALENT);
     return bonus;
   }
 
@@ -109,12 +105,16 @@ class Haunt extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.HAUNT_TALENT}>
-          {formatPercentage(this.uptime)} % <small>uptime</small>
-          <br />
-          {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
-          </small>
+          <div>
+            {formatPercentage(this.uptime)} % <small>uptime</small>
+          </div>
+          <div>
+            {formatNumber(this.dps)} DPS{' '}
+            <small>
+              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of
+              total
+            </small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );
@@ -139,29 +139,27 @@ class Haunt extends Analyzer {
         </p>
 
         <p>
-          Haunt increases your damage dealt to the target by{' '}
-          <b>{formatPercentage(this.hauntDamageBonus, 0)}%</b> for 18 seconds. You should always
-          reapply <SpellLink spell={TALENTS.HAUNT_TALENT} /> before it falls off.
+          <SpellLink spell={TALENTS.HAUNT_TALENT} /> increases your damage dealt to the target by{' '}
+          <TooltipElement
+            content={
+              <>
+                Haunt's damage bonus:
+                <ul>
+                  <li>+12% baseline</li>
+                  {this.shadowOfNathrezaBonus > 0 && (
+                    <li>
+                      +{formatPercentage(this.shadowOfNathrezaBonus, 0)}% from{' '}
+                      <SpellLink spell={TALENTS.SHADOW_OF_NATHREZA_2_AFFLICTION_TALENT} />
+                    </li>
+                  )}
+                </ul>
+              </>
+            }
+          >
+            <b>{formatPercentage(this.hauntDamageBonus, 0)}%</b>
+          </TooltipElement>{' '}
+          for 18 seconds. You should always reapply it before it falls off.
         </p>
-
-        <p>
-          <SpellLink spell={TALENTS.SHADOW_OF_NATHREZA_1_AFFLICTION_TALENT} /> unlocks additional
-          bonuses to Haunt.
-        </p>
-
-        {this.selectedCombatant.hasTalent(TALENTS.SHADOW_OF_NATHREZA_2_AFFLICTION_TALENT) && (
-          <p>
-            <SpellLink spell={TALENTS.SHADOW_OF_NATHREZA_2_AFFLICTION_TALENT} /> increases Haunt's
-            damage amplification by <b>2%</b>.
-          </p>
-        )}
-
-        {this.selectedCombatant.hasTalent(TALENTS.SHADOW_OF_NATHREZA_3_AFFLICTION_TALENT) && (
-          <p>
-            <SpellLink spell={TALENTS.SHADOW_OF_NATHREZA_3_AFFLICTION_TALENT} /> increases Haunt's
-            damage amplification by <b>2%</b>.
-          </p>
-        )}
 
         {this.DowntimePerformance === QualitativePerformance.Ok && (
           <p style={{ color: 'orange' }}>

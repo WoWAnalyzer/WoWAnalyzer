@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import { TALENTS_WARLOCK } from 'common/TALENTS';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
@@ -12,15 +13,15 @@ class Corruption extends Analyzer {
   };
 
   protected enemies!: Enemies;
+  private activeDot!: typeof SPELLS.CORRUPTION_DEBUFF;
 
   // Determine which DoT was actually used
-  get activeDot() {
-    const witherUptime = this.enemies.getBuffUptime(SPELLS.WITHER_DEBUFF.id);
+  constructor(options: Options) {
+    super(options);
 
-    if (witherUptime > 0) {
-      return SPELLS.WITHER_DEBUFF;
-    }
-    return SPELLS.CORRUPTION_DEBUFF;
+    this.activeDot = this.selectedCombatant.hasTalent(TALENTS_WARLOCK.WITHER_TALENT)
+      ? SPELLS.WITHER_DEBUFF
+      : SPELLS.CORRUPTION_DEBUFF;
   }
   get uptime() {
     const uptime = this.enemies.getBuffUptime(this.activeDot.id);
