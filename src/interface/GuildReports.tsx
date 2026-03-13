@@ -378,7 +378,7 @@ class GuildReports extends Component<Props, State> {
     }
 
     return (
-      <div className="results">
+      <main className="results">
         <header>
           <div className="background">
             <div
@@ -556,7 +556,7 @@ class GuildReports extends Component<Props, State> {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 }

@@ -1,5 +1,5 @@
-import ITEMS from 'common/ITEMS/thewarwithin/potions';
-import SPELLS from 'common/SPELLS/thewarwithin/potions';
+import ITEMS from 'common/ITEMS/midnight/potions';
+import SPELLS from 'common/SPELLS/midnight/potions';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
 import { Spec } from 'game/SPECS';
@@ -13,26 +13,23 @@ const debug = false;
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
 // all guides I've looked at recommends tempered potion, but keeping the basic code to support other specs here.
 
-const POTION_OF_UNWAVERING_FOCUS: number[] = [
-  // Specs that are recommended to use Potion of Unwavering Focus
-];
-
 // TODO: Determine how we can tell if a potion was R1 or R2
 const WEAK_POTIONS: number[] = [];
 
-const STRONG_POTIONS: number[] = [SPELLS.TEMPERED_POTION.id, SPELLS.POTION_OF_UNWAVERING_FOCUS.id];
+const STRONG_POTIONS: number[] = [
+  SPELLS.LIGHTS_POTENTIAL.id,
+  SPELLS.POTION_OF_RECKLESSNESS.id,
+  SPELLS.DRAUGHT_OF_RAMPANT_ABANDON.id,
+];
 
 export const COMBAT_POTIONS: number[] = [
-  SPELLS.ALGARI_MANA_POTION.id,
-  SPELLS.CAVEDWELLERS_DELIGHT.id,
-  SPELLS.DRAUGHT_OF_SHOCKING_REVELATIONS.id,
-  SPELLS.FRONTLINE_POTION.id,
-  SPELLS.GROTESQUE_VIAL.id,
-  SPELLS.POTION_OF_THE_REBORN_CHEETAH.id,
-  SPELLS.POTION_OF_UNWAVERING_FOCUS.id,
-  SPELLS.SLUMBERING_SOUL_SERUM.id,
-  SPELLS.TEMPERED_POTION.id,
-  SPELLS.TREADING_LIGHTLY.id,
+  SPELLS.LIGHTS_PRESERVATION.id,
+  SPELLS.REFRESHING_SERUM.id,
+  SPELLS.LIGHTS_POTENTIAL.id,
+  SPELLS.LIGHTFUSED_MANA_POTION.id,
+  SPELLS.POTION_OF_RECKLESSNESS.id,
+  SPELLS.DRAUGHT_OF_RAMPANT_ABANDON.id,
+  SPELLS.POTION_OF_ZEALOTRY.id,
 ];
 
 const COMMON_MANA_POTION_AMOUNT = 11084;
@@ -43,10 +40,10 @@ class PotionChecker extends Analyzer {
   potionsUsed = 0;
   weakPotionsUsed = 0;
   strongPotionsUsed = 0;
-  potionId = ITEMS.TEMPERED_POTION_R3.id; // Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.TEMPERED_POTION_R3.icon; // Giving it an initial value to prevent crashing
-  strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
-  strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
+  potionId = ITEMS.LIGHTS_POTENTIAL_R2.id; // Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.LIGHTS_POTENTIAL_R2.icon; // Giving it an initial value to prevent crashing
+  strongPotionId = ITEMS.LIGHTS_POTENTIAL_R2.id;
+  strongPotionIcon = ITEMS.LIGHTS_POTENTIAL_R2.icon;
   neededManaSecondPotion = false;
   addedSuggestionText = false;
   isHealer = false;
@@ -65,20 +62,18 @@ class PotionChecker extends Analyzer {
   _applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (
-      WEAK_POTIONS.includes(spellId) &&
+      COMBAT_POTIONS.includes(spellId) &&
       event.prepull &&
       event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time
     ) {
       this.potionsUsed += 1;
-      this.weakPotionsUsed += 1;
-    }
-    if (
-      STRONG_POTIONS.includes(spellId) &&
-      event.prepull &&
-      event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time
-    ) {
-      this.potionsUsed += 1;
-      this.strongPotionsUsed += 1;
+
+      if (WEAK_POTIONS.includes(spellId)) {
+        this.weakPotionsUsed += 1;
+      }
+      if (STRONG_POTIONS.includes(spellId)) {
+        this.strongPotionsUsed += 1;
+      }
     }
   }
 
@@ -86,19 +81,17 @@ class PotionChecker extends Analyzer {
     const spellId = event.ability.guid;
 
     if (
-      WEAK_POTIONS.includes(spellId) &&
+      COMBAT_POTIONS.includes(spellId) &&
       event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time
     ) {
       this.potionsUsed += 1;
-      this.weakPotionsUsed += 1;
-    }
 
-    if (
-      STRONG_POTIONS.includes(spellId) &&
-      event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time
-    ) {
-      this.potionsUsed += 1;
-      this.strongPotionsUsed += 1;
+      if (WEAK_POTIONS.includes(spellId)) {
+        this.weakPotionsUsed += 1;
+      }
+      if (STRONG_POTIONS.includes(spellId)) {
+        this.strongPotionsUsed += 1;
+      }
     }
 
     if (
@@ -160,31 +153,26 @@ class PotionChecker extends Analyzer {
   }
 
   potionAdjuster(spec: Spec) {
-    if (POTION_OF_UNWAVERING_FOCUS.includes(spec.id)) {
-      this.potionId = ITEMS.POTION_OF_UNWAVERING_FOCUS_R3.id;
-      this.potionIcon = ITEMS.POTION_OF_UNWAVERING_FOCUS_R3.icon;
-    } else if (
+    if (
       spec.primaryStat === PRIMARY_STAT.AGILITY ||
       spec.primaryStat === PRIMARY_STAT.STRENGTH ||
       spec.primaryStat === PRIMARY_STAT.INTELLECT
     ) {
-      this.potionId = ITEMS.TEMPERED_POTION_R3.id;
-      this.potionIcon = ITEMS.TEMPERED_POTION_R3.icon;
+      this.potionId = ITEMS.LIGHTS_POTENTIAL_R2.id;
+      this.potionIcon = ITEMS.LIGHTS_POTENTIAL_R2.icon;
     } else if (spec.role === ROLES.HEALER) {
       this.isHealer = true;
     }
   }
 
   setStrongPotionForSpec(spec: Spec) {
-    if (spec.primaryStat === PRIMARY_STAT.AGILITY) {
-      this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
-      this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
-    } else if (spec.primaryStat === PRIMARY_STAT.STRENGTH) {
-      this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
-      this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
-    } else if (spec.primaryStat === PRIMARY_STAT.INTELLECT) {
-      this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
-      this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
+    if (
+      spec.primaryStat === PRIMARY_STAT.AGILITY ||
+      spec.primaryStat === PRIMARY_STAT.STRENGTH ||
+      spec.primaryStat === PRIMARY_STAT.INTELLECT
+    ) {
+      this.potionId = ITEMS.LIGHTS_POTENTIAL_R2.id;
+      this.potionIcon = ITEMS.LIGHTS_POTENTIAL_R2.icon;
     }
   }
 }
