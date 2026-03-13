@@ -4,6 +4,7 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SubSection } from 'interface/guide';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   position = STATISTIC_ORDER.CORE(6);
@@ -48,6 +49,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <Gauge value={this.activeTimePercentage} />
         </div>
       </Statistic>
+    );
+  }
+
+  get GuideSubSection() {
+    return (
+      <SubSection title="Always Be Casting">
+        Try to minimize downtime between spells. Your active casting time was{' '}
+        <strong>{formatPercentage(this.activeTimePercentage)}%</strong>.
+      </SubSection>
     );
   }
 }
