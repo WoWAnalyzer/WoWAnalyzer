@@ -370,7 +370,7 @@ const enchantIdMap: Record<number, string> = {
   // #region Midnight
   7934: '+32 Intellect & +70 Stamina',
   7935: '+41 Intellect & +115 Stamina',
-  7936: '+32 Intellect & +% Mana',
+  7936: '+32 Intellect & +3% Mana',
   7937: '+41 Intellect & +4% Mana',
   7938: '+16 Intellect',
   7939: '+24 Intellect',
@@ -466,14 +466,12 @@ const enchantIdMap: Record<number, string> = {
   8045: "Nature's Embrace",
   8046: 'Voidtouched',
   8047: 'Voidtouched',
-
   8158: '+32 Agility/Strength & +70 Stamina',
   8159: '+41 Agility/Strength & +115 Stamina',
   8160: '+16 Agility/Strength',
   8161: '+24 Agility/Strength',
   8162: '+32 Agility/Strength & +16 Armor',
   8163: '+41 Agility/Strength & +27 Armor',
-
   8612: "Smuggler's Lynxeye",
   8613: "Smuggler's Lynxeye",
   8614: "Farstrider's Hawkeye",
