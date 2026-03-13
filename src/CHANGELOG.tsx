@@ -31,6 +31,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 13), 'Update AugmentRuneChecked for Midnight and Add a AugmentRune Panel to the Preparations section.', Vetyst),
   change(date(2026, 3, 10), 'Update GemChecker for Midnight', Vetyst),
   change(date(2026, 3, 10), 'Update Flasks for Midnight.', Vetyst),
   change(date(2026, 3, 10), 'Add <Main> Landmark to all pages.', Rex),

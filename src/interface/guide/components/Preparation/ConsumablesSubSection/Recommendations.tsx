@@ -13,7 +13,7 @@ const Recommendations = ({ header, recommendations }: Props) => (
   <>
     <PanelHeader>{header}</PanelHeader>
     <ul className={styles['recommendations']}>
-      {recommendations.map((recommendation) => (
+      {recommendations.map((recommendation: Spell) => (
         <li key={recommendation.id}>
           <SpellLink spell={recommendation} />
         </li>
