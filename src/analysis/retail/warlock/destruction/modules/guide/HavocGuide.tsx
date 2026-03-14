@@ -29,13 +29,16 @@ class HavocGuide extends Analyzer {
 
     const explanation = (
       <>
-        <b>{havoc}</b> duplicates your single target spells onto a second target. To maximize its
-        effectiveness, you should cast as many <SpellLink spell={SPELLS.CHAOS_BOLT} /> or{' '}
-        <SpellLink spell={TALENTS_WARLOCK.SHADOWBURN_TALENT} /> as possible during the Havoc window.
-        <br />
-        <br />
-        Ideally, you should enter Havoc with Soul Shards already pooled so you can immediately begin
-        casting <SpellLink spell={SPELLS.CHAOS_BOLT} />.
+        <p>
+          <b>{havoc}</b> duplicates your single target spells onto a second target. To maximize its
+          effectiveness, you should cast as many <SpellLink spell={SPELLS.CHAOS_BOLT} /> or{' '}
+          <SpellLink spell={TALENTS_WARLOCK.SHADOWBURN_TALENT} /> as possible during the Havoc
+          window.
+        </p>
+        <p>
+          Ideally, you should enter Havoc with Soul Shards already pooled so you can immediately
+          begin casting <SpellLink spell={SPELLS.CHAOS_BOLT} />.
+        </p>
       </>
     );
 

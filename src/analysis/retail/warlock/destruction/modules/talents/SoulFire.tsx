@@ -7,7 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import SoulShardTracker from '../resources/SoulShardTracker';
+import SoulShardTracker from 'analysis/retail/warlock/shared/resources/SoulShardTracker';
 
 const FRAGMENTS_PER_CHAOS_BOLT = 20;
 

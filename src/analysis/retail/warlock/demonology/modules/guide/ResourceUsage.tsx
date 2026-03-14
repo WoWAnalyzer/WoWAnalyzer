@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from '../../CombatLogParser';
-import SoulShardGraph from '../resources/SoulShardGraph';
+import SoulShardGraph from 'analysis/retail/warlock/shared/resources/SoulShardGraph';
 
 function ResourceUsage({ modules }: GuideProps<typeof CombatLogParser>) {
   // cast the module to the correct type

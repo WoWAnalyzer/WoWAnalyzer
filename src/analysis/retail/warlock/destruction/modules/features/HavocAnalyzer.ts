@@ -3,8 +3,15 @@ import TALENTS from 'common/TALENTS/warlock';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Abilities from './Abilities';
 
 export default class HavocAnalyzer extends Analyzer {
+  static dependencies = {
+    abilities: Abilities,
+  };
+
+  protected abilities!: Abilities;
+
   havocData: HavocWindowData[] = [];
   currentHavoc: HavocWindowData | null = null;
 
@@ -22,20 +29,22 @@ export default class HavocAnalyzer extends Analyzer {
     }
 
     // Havoc Applied
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HAVOC), (event) =>
-      this.onHavocApplied(event),
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HAVOC),
+      this.onHavocApplied,
     );
 
     // Havoc Removed (target died or debuff fell off)
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HAVOC), (event) =>
-      this.onHavocRemoved(event),
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HAVOC),
+      this.onHavocRemoved,
     );
 
     // Spell casts during window
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), (event) => this.onCast(event));
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  onHavocApplied = (event: ApplyDebuffEvent) => {
+  onHavocApplied(event: ApplyDebuffEvent): void {
     const havoc: HavocWindowData = {
       start: event.timestamp,
       end: event.timestamp + this.havocDuration,
@@ -46,12 +55,10 @@ export default class HavocAnalyzer extends Analyzer {
 
     this.havocData.push(havoc);
     this.currentHavoc = havoc;
-  };
+  }
 
-  onHavocRemoved = (event: RemoveDebuffEvent) => {
-    if (!this.currentHavoc) {
-      return;
-    }
+  onHavocRemoved(event: RemoveDebuffEvent): void {
+    if (!this.currentHavoc) return;
 
     const window = this.currentHavoc;
 
@@ -62,36 +69,26 @@ export default class HavocAnalyzer extends Analyzer {
 
     window.end = event.timestamp;
     this.currentHavoc = null;
+  }
 
-    console.log('Havoc removed', {
-      start: window.start,
-      removed: event.timestamp,
-      expected: window.start + this.havocDuration,
-    });
-  };
+  onCast(event: CastEvent): void {
+    if (!this.currentHavoc) return;
 
-  onCast = (event: CastEvent) => {
-    if (!this.currentHavoc) {
-      return;
+    const spellId = event.ability.guid;
+
+    // Only count it if the ability is Havoc-able
+    if (this.abilities.isHavocable(spellId)) {
+      this.currentHavoc.globals += 1;
     }
 
-    // If outside window duration, end it
-    if (event.timestamp > this.currentHavoc.start + this.havocDuration) {
-      this.currentHavoc.end = this.currentHavoc.start + this.havocDuration;
-      this.currentHavoc = null;
-      return;
-    }
-
-    this.currentHavoc.globals += 1;
-
-    if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
+    if (spellId === SPELLS.CHAOS_BOLT.id) {
       this.currentHavoc.chaosBolts += 1;
     }
 
-    if (event.ability.guid === TALENTS.SHADOWBURN_TALENT.id) {
+    if (spellId === TALENTS.SHADOWBURN_TALENT.id) {
       this.currentHavoc.shadowburns += 1;
     }
-  };
+  }
 }
 
 export interface HavocWindowData {

@@ -9,10 +9,10 @@ import DarkPact from './spells/DarkPact';
 import UnendingResolve from './spells/UnendingResolve';
 import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 
-type CombatLogParserType = typeof CombatLogParserDemo 
-| typeof CombatLogParserAff
-| typeof CombatLogParserDestro;
-
+type CombatLogParserType =
+  | typeof CombatLogParserDemo
+  | typeof CombatLogParserAff
+  | typeof CombatLogParserDestro;
 
 function DefensivesGuide(_: GuideProps<CombatLogParserType>) {
   const defensiveAnalyzers = [DarkPact, UnendingResolve];

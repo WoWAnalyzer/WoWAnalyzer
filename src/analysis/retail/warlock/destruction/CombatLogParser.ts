@@ -10,9 +10,9 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Havoc from './modules/talents/Havoc';
 import ImmolateUptime from './modules/guide/ImmolateUptime';
 import RainOfFire from './modules/features/RainOfFire';
-import SoulShardDetails from './modules/resources/SoulShardDetails';
-import SoulShardTracker from './modules/resources/SoulShardTracker';
-import SoulShardGraph from './modules/resources/SoulShardGraph';
+import SoulShardDetails from '../shared/resources/SoulShardDetails';
+import SoulShardTracker from '../shared/resources/SoulShardTracker';
+import SoulShardGraph from '../shared/resources/SoulShardGraph';
 import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
