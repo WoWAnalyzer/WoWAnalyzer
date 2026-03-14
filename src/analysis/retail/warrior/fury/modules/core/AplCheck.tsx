@@ -15,7 +15,6 @@ import aplCheck, {
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
-const SUDDEN_DEATH_DURATION = 12000;
 export const MASSACRE_EXECUTE_THRESHOLD = 0.35;
 export const DEFAULT_EXECUTE_THRESHOLD = 0.2;
 
@@ -31,7 +30,7 @@ export const apl = (info: PlayerInfo): Apl => {
     ? SPELLS.EXECUTE_FURY_MASSACRE
     : SPELLS.EXECUTE_FURY;
 
-  const rampageRageThreshold = 1150;
+  const rampageRageThreshold = 1000;
   // threshold below which builders are still better than spending (115 rage)
   // in the future this will probably be based on talents
 
@@ -57,48 +56,7 @@ export const buildSlayerApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> to apply <SpellLink spell={SPELLS.ENRAGE} /> if
-          it is missing.
-        </>
-      ),
-    },
-
-    // Exe conditions
-    {
-      spell: executeSpell,
-      condition: cnd.and(
-        executeUsable,
-        cnd.or(
-          cnd.buffRemaining(SPELLS.SUDDEN_DEATH_TALENT_BUFF, SUDDEN_DEATH_DURATION, {
-            atMost: 3000,
-          }),
-          cnd.buffStacks(SPELLS.SUDDEN_DEATH_TALENT_BUFF, { atLeast: 2, atMost: 2 }),
-        ),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={executeSpell} /> when any of the following conditions are met:
-          <ul>
-            <li>
-              Your <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} /> is about to expire
-            </li>
-            <li>
-              You have 2 stacks of <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />
-            </li>
-          </ul>
-        </>
-      ),
-    },
-
-    // CB regardless of rage
-    {
-      spell: SPELLS.CRUSHING_BLOW,
-      condition: cnd.and(
-        cnd.spellAvailable(SPELLS.RAGING_BLOW),
-        cnd.buffPresent(SPELLS.RECKLESSNESS),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.CRUSHING_BLOW} />.
+          it is missing
         </>
       ),
     },
@@ -112,41 +70,29 @@ export const buildSlayerApl = (
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.BLOODBATH} />.
+          Cast <SpellLink spell={SPELLS.BLOODBATH} />
         </>
       ),
     },
 
-    // high rage rampage
+    // rampage during reck
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+      condition: cnd.buffPresent(SPELLS.RECKLESSNESS),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage to avoid
-          overcapping.
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />
         </>
       ),
     },
 
-    // exe filler
+    // Exe conditions
     {
       spell: executeSpell,
       condition: executeUsable,
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} />.
-        </>
-      ),
-    },
-
-    // RB below rage threshold
-    {
-      spell: SPELLS.RAGING_BLOW,
-      condition: cnd.spellAvailable(SPELLS.RAGING_BLOW),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.RAGING_BLOW} />.
+          Cast <SpellLink spell={executeSpell} />
         </>
       ),
     },
@@ -158,7 +104,7 @@ export const buildSlayerApl = (
 
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />.
+          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />
         </>
       ),
     },
@@ -169,29 +115,32 @@ export const buildSlayerApl = (
       condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} />.
+          Cast <SpellLink spell={SPELLS.RAMPAGE} />
         </>
       ),
     },
 
-    // BT filler
+    // CB regardless of rage
     {
-      spell: SPELLS.BLOODTHIRST,
-      condition: executeUsable,
+      spell: SPELLS.CRUSHING_BLOW,
+      condition: cnd.and(
+        cnd.spellAvailable(SPELLS.RAGING_BLOW),
+        cnd.buffPresent(SPELLS.RECKLESSNESS),
+      ),
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} />.
+          Cast <SpellLink spell={SPELLS.CRUSHING_BLOW} />
         </>
       ),
     },
 
-    // RB filler
+    // RB below rage threshold
     {
       spell: SPELLS.RAGING_BLOW,
-      condition: executeUsable,
+      condition: cnd.spellAvailable(SPELLS.RAGING_BLOW),
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} />.
+          Cast <SpellLink spell={SPELLS.RAGING_BLOW} />
         </>
       ),
     },
@@ -215,7 +164,7 @@ export const buildThaneApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> to apply <SpellLink spell={SPELLS.ENRAGE} /> if
-          it is missing.
+          it is missing
         </>
       ),
     },
@@ -227,7 +176,7 @@ export const buildThaneApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage to avoid
-          overcapping.
+          overcapping
         </>
       ),
     },
@@ -241,7 +190,7 @@ export const buildThaneApl = (
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.THUNDER_BLAST} /> with 2 stacks.
+          Cast <SpellLink spell={SPELLS.THUNDER_BLAST} /> with 2 stacks
         </>
       ),
     },
@@ -255,7 +204,71 @@ export const buildThaneApl = (
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.BLOODBATH} />.
+          Cast <SpellLink spell={SPELLS.BLOODBATH} />
+        </>
+      ),
+    },
+
+    // BT below rage threshold
+    {
+      spell: SPELLS.BLOODTHIRST,
+      condition: cnd.spellAvailable(SPELLS.BLOODTHIRST),
+
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />
+        </>
+      ),
+    },
+
+    // thunder blast during ava
+    {
+      spell: SPELLS.THUNDER_CLAP, // seems like the cast is tied to TC but can still check for the TB buff
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.THUNDER_BLAST_BUFF),
+        cnd.buffPresent(SPELLS.AVATAR_SHARED),
+        cnd.spellAvailable(SPELLS.THUNDER_CLAP),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.THUNDER_BLAST} /> during{' '}
+          <SpellLink spell={SPELLS.AVATAR_SHARED} />
+        </>
+      ),
+    },
+
+    // Exe conditions
+    {
+      spell: executeSpell,
+      condition: cnd.and(executeUsable, cnd.hasTalent(TALENTS.DEEP_WOUNDS_TALENT)),
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} /> if specced into its respective talents
+        </>
+      ),
+    },
+
+    // thunder blast
+    {
+      spell: SPELLS.THUNDER_CLAP, // seems like the cast is tied to TC but can still check for the TB buff
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.THUNDER_BLAST_BUFF),
+        cnd.spellAvailable(SPELLS.THUNDER_CLAP),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.THUNDER_BLAST} />
+        </>
+      ),
+    },
+
+    // fallback rampage
+    {
+      spell: SPELLS.RAMPAGE,
+      condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.RAMPAGE} />
         </>
       ),
     },
@@ -269,55 +282,7 @@ export const buildThaneApl = (
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.CRUSHING_BLOW} />.
-        </>
-      ),
-    },
-
-    // Exe conditions
-    {
-      spell: executeSpell,
-      condition: cnd.and(executeUsable, cnd.hasTalent(TALENTS.DEEP_WOUNDS_TALENT)),
-      description: (
-        <>
-          Cast <SpellLink spell={executeSpell} /> if specced into its respective talents.
-        </>
-      ),
-    },
-
-    // BT below rage threshold
-    {
-      spell: SPELLS.BLOODTHIRST,
-      condition: cnd.spellAvailable(SPELLS.BLOODTHIRST),
-
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.BLOODTHIRST} />.
-        </>
-      ),
-    },
-
-    // 1 stack thunder blast
-    {
-      spell: SPELLS.THUNDER_CLAP, // seems like the cast is tied to TC but can still check for the TB buff
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.THUNDER_BLAST_BUFF),
-        cnd.spellAvailable(SPELLS.THUNDER_CLAP),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.THUNDER_BLAST} />.
-        </>
-      ),
-    },
-
-    // fallback rampage
-    {
-      spell: SPELLS.RAMPAGE,
-      condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} />.
+          Cast <SpellLink spell={SPELLS.CRUSHING_BLOW} />
         </>
       ),
     },
@@ -328,29 +293,18 @@ export const buildThaneApl = (
       condition: cnd.spellAvailable(SPELLS.RAGING_BLOW),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAGING_BLOW} />.
+          Cast <SpellLink spell={SPELLS.RAGING_BLOW} />
         </>
       ),
     },
 
-    // exe filler
+    // TC
     {
-      spell: executeSpell,
-      condition: executeUsable,
+      spell: SPELLS.THUNDER_CLAP,
+      condition: cnd.spellAvailable(SPELLS.THUNDER_CLAP),
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} />.
-        </>
-      ),
-    },
-
-    // RB filler
-    {
-      spell: SPELLS.RAGING_BLOW,
-      condition: executeUsable,
-      description: (
-        <>
-          Cast <SpellLink spell={executeSpell} />.
+          Cast <SpellLink spell={SPELLS.THUNDER_CLAP} />
         </>
       ),
     },
