@@ -50,7 +50,7 @@ export default class HavocAnalyzer extends Analyzer {
       end: event.timestamp + this.havocDuration,
       chaosBolts: 0,
       shadowburns: 0,
-      globals: 0,
+      casts: [], // store havocable casts
     };
 
     this.havocData.push(havoc);
@@ -78,7 +78,7 @@ export default class HavocAnalyzer extends Analyzer {
 
     // Only count it if the ability is Havoc-able
     if (this.abilities.isHavocable(spellId)) {
-      this.currentHavoc.globals += 1;
+      this.currentHavoc.casts.push(event);
     }
 
     if (spellId === SPELLS.CHAOS_BOLT.id) {
@@ -89,6 +89,10 @@ export default class HavocAnalyzer extends Analyzer {
       this.currentHavoc.shadowburns += 1;
     }
   }
+
+  public getFormatTimestamp(): (timestamp: number) => string {
+    return this.owner.formatTimestamp.bind(this.owner);
+  }
 }
 
 export interface HavocWindowData {
@@ -96,6 +100,6 @@ export interface HavocWindowData {
   end?: number;
   chaosBolts: number;
   shadowburns: number;
-  globals: number;
+  casts: CastEvent[]; // only tracks Havocable spells
   targetDied?: boolean;
 }

@@ -25,7 +25,6 @@ import FlashPoint from './modules/talents/FlashPoint';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 import Immolate from './modules/features/Immolate';
 import HavocAnalyzer from './modules/features/HavocAnalyzer';
-import HavocGuide from './modules/guide/HavocGuide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -34,7 +33,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     havocAnalyzer: HavocAnalyzer,
-    havocGuide: HavocGuide,
 
     // DoTs
     immolate: Immolate,
