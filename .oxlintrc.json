@@ -61,9 +61,7 @@
   "jsPlugins": [],
   "overrides": [
     {
-      "files": [
-        "**/*.{js,jsx,mjs,ts,tsx,cts,mts}"
-      ],
+      "files": ["**/*.{js,jsx,mjs,ts,tsx,cts,mts}"],
       "rules": {
         "constructor-super": "off",
         "for-direction": "error",
@@ -218,19 +216,11 @@
         "wowanalyzer/lingui-t-macro-outside-jsx": "error",
         "wowanalyzer/event-meta-inefficient-cast": "error"
       },
-      "plugins": [
-        "typescript",
-        "react",
-        "react-perf"
-      ],
-      "jsPlugins": [
-        "eslint-plugin-wowanalyzer"
-      ]
+      "plugins": ["typescript", "react", "react-perf"],
+      "jsPlugins": ["eslint-plugin-wowanalyzer"]
     },
     {
-      "files": [
-        "**/*.test.{js,jsx,ts,tsx}"
-      ],
+      "files": ["**/*.test.{js,jsx,ts,tsx}"],
       "rules": {
         "vitest/expect-expect": "error",
         "vitest/no-identical-title": "error",
@@ -240,9 +230,7 @@
         "vitest/require-local-test-context-for-concurrent-snapshots": "error",
         "vitest/no-import-node-test": "error"
       },
-      "plugins": [
-        "vitest"
-      ],
+      "plugins": ["vitest"],
       "globals": {
         "suite": "writable",
         "test": "writable",

@@ -80,8 +80,8 @@
     "jsdom": "^22.1.0",
     "lint-staged": "15.2.2",
     "oxc-parser": "0.94.0",
+    "oxfmt": "0.40.0",
     "oxlint": "1.55.0",
-    "prettier": "3.6.2",
     "react-test-renderer": "19.2.0",
     "sass": "1.93.2",
     "ts-node": "10.9.2",
@@ -113,15 +113,17 @@
     "e2e": "pnpm run e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report",
-    "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts",
-    "generate-talents:ptr": "npx tsx ./scripts/talents/generate-talents.ts --ptr && prettier -w src/common/TALENTS/*.ts",
+    "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && oxfmt -w src/common/TALENTS/*.ts",
+    "generate-talents:ptr": "npx tsx ./scripts/talents/generate-talents.ts --ptr && oxfmt -w src/common/TALENTS/*.ts",
     "spell-lists:create": "node --experimental-strip-types scripts/spell-lists/generate-list.ts",
     "spell-lists:update": "node --experimental-strip-types scripts/spell-lists/update-all-lists.ts src/analysis/**/*.ts",
-    "preview": "vite build && vite preview"
+    "preview": "vite build && vite preview",
+    "format": "oxfmt",
+    "format:check": "pnpm run format --check"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [
-      "prettier --write"
+      "pnpm run format"
     ],
     "*.{ts,tsx,js,jsx}": [
       "pnpm run lint:fix"

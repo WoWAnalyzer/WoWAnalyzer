@@ -265,7 +265,9 @@ class VoidBlast extends ExecuteHelper {
         replaces <SpellLink spell={SPELLS.MIND_BLAST} /> with Void Blast, a significantly more
         powerful spell for the duration of the <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
         <br />
-        It is important to cast <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST} /> as
+        It is important to cast <SpellLink
+          spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}
+        /> as
         much as possible while it is available. To do so, you should save charges of Mind Blast
         before casting <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> in order to have charges of
         Void Blast at the end of Void Torrent's channel. <br />

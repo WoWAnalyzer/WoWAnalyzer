@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: '22.x'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec prettier . --check
+      - run: pnpm run format:check
 
   tests:
     needs: [prepare]

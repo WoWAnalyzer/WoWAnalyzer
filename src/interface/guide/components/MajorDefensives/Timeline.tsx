@@ -205,9 +205,8 @@ const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }
       }
     })
     .filter(
-      (
-        event,
-      ): event is AbilityEvent<any> => // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+      // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+      (event): event is AbilityEvent<any> =>
         HasAbility(event) && spells.some((spell) => spell.id === event.ability.guid),
     )
     .reduce((map, event) => {

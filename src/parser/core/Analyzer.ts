@@ -86,7 +86,8 @@ class Analyzer extends EventSubscriber {
    * > `options`, options should be the last parameter.
    */
   static withDependencies<T extends Analyzer, D extends Dependencies>(
-    this: AnalyzerConstructor<T, any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+    this: AnalyzerConstructor<T, any>,
     deps: D,
   ): AnalyzerConstructor<T, D> {
     return withDependencies(this, deps);
