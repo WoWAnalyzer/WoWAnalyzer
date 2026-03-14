@@ -243,6 +243,11 @@ const spells = {
     icon: 'spell_nature_slow',
     manaCost: 30000,
   },
+  VAMPIRIC_EMBRACE: {
+    id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
   SHADOWFIEND: {
     id: 34433,
     name: 'Shadowfiend',
