@@ -118,7 +118,7 @@ interface BossSeries {
   type: 'Boss';
   currentValues: number[];
   data: number[][];
-  events: any[];
+  events: any[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   maxValues: number[];
 }
 

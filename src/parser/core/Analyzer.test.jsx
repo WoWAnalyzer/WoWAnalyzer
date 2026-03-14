@@ -57,12 +57,13 @@ describe('Core/Analyzer', () => {
       expect(onSuccess).toBeCalled();
     });
     it('does nothing if the event handler on the class does not exist', () => {
-      class MyModule extends Analyzer {}
-      parser.loadModule(MyModule);
-      eventEmitter.triggerEvent({
-        type: 'test',
-      });
-      // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
+      expect(() => {
+        class MyModule extends Analyzer {}
+        parser.loadModule(MyModule);
+        eventEmitter.triggerEvent({
+          type: 'test',
+        });
+      }).not.toThrow();
     });
     it('calls on_event on every event if it exists', () => {
       const onEvent = jest.fn();

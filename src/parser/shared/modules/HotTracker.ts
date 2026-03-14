@@ -880,6 +880,7 @@ abstract class HotTracker extends Analyzer {
    * Returns true iff the HoT tracking involving this event is in the expected state.
    * If unexpected state is found, returns falso and logs an appropriate warning.
    */
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _validateHot(event: AbilityEvent<any> & TargettedEvent<any>) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;

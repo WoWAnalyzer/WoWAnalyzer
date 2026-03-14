@@ -11,10 +11,10 @@ type RestrictedTable<T, E> = {
 
 type IndexedRestrictedTable<
   ValueT extends BaseIndexableObj,
-  Map extends RestrictedTable<ValueT, any>,
+  Map extends RestrictedTable<ValueT, any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 > = RestrictedTable<ValueT, Map> & Record<number, ValueT>;
 
-const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<ValueT, any>>(
+const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<ValueT, any>>( // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   arg: Map,
 ): IndexedRestrictedTable<ValueT, Map> => {
   const indexedByNameAndId: IndexedRestrictedTable<ValueT, Map> = { ...arg };
@@ -37,7 +37,7 @@ const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<
 
 export const proxyRestrictedTable = <
   ValueT extends BaseIndexableObj,
-  Map extends RestrictedTable<ValueT, any>,
+  Map extends RestrictedTable<ValueT, any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 >(
   restrictedTable: IndexedRestrictedTable<ValueT, Map>,
   valueBeingAccessed: string,

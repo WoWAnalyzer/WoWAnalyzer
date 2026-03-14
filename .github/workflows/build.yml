@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: '22.x'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint --pass-on-unpruned-suppressions
+      - run: pnpm run lint
 
   prettier:
     needs: [prepare]
@@ -190,7 +190,6 @@ jobs:
         run: pnpm exec lingui compile
 
   docker-image:
-    # needs: [typecheck, linting, prettier, tests, build]
     needs: [linting, prettier, tests, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-24.04
