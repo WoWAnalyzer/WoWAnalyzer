@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import { useMemo } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import GuideSection from 'interface/guide/components/GuideSection';
@@ -35,25 +36,27 @@ export function HavocGuide({ havocAnalyzer, formatTimestamp }: HavocGuideProps):
     </>
   );
 
-  const havocSequenceEvents: CastSequenceEntry<HavocWindowData>[] = havocAnalyzer.havocData.map(
-    (window) => {
-      const windowStart = window.start;
-      const windowEnd = window.end ?? window.start + havocAnalyzer.havocDuration;
+  const havocSequenceEvents: CastSequenceEntry<HavocWindowData>[] = useMemo(
+    () =>
+      havocAnalyzer.havocData.map((window) => {
+        const windowStart = window.start;
+        const windowEnd = window.end ?? window.start + havocAnalyzer.havocDuration;
 
-      const casts: CastInSequence[] = window.casts.map((event) => ({
-        timestamp: event.timestamp,
-        spellId: event.ability.guid,
-        spellName: event.ability.name,
-        icon: event.ability.abilityIcon.replace('.jpg', ''),
-      }));
+        const casts: CastInSequence[] = window.casts.map((event) => ({
+          timestamp: event.timestamp,
+          spellId: event.ability.guid,
+          spellName: event.ability.name,
+          icon: event.ability.abilityIcon.replace('.jpg', ''),
+        }));
 
-      return {
-        data: window,
-        start: windowStart,
-        end: windowEnd,
-        casts,
-      };
-    },
+        return {
+          data: window,
+          start: windowStart,
+          end: windowEnd,
+          casts,
+        };
+      }),
+    [havocAnalyzer.havocData, havocAnalyzer.havocDuration],
   );
 
   function rateHavocWindow(chaosBolts: number, duration: number): QualitativePerformance {
