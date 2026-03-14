@@ -7,6 +7,8 @@ import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+
 const LENIENCE_DR = 0.02;
 
 class Lenience extends Analyzer {
@@ -41,6 +43,7 @@ class Lenience extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon spell={TALENTS_PRIEST.LENIENCE_TALENT} />}
         value={`>=${formatNumber((this.damageReducedDuringLenience / fightDuration) * 1000)} DRPS`}
         label="Damage reduced"

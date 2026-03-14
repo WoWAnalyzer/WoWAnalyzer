@@ -46,15 +46,15 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.FADE.id,
+        spellId: TALENTS.FADE_TALENT.id,
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.DESPERATE_PRAYER.id,
+        spellId: TALENTS.DESPERATE_PRAYER_TALENT.id,
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.MIND_CONTROL.id,
+        spellId: TALENTS.MIND_CONTROL_TALENT.id,
         timelineHighlight: true,
       },
       //Bloodlust

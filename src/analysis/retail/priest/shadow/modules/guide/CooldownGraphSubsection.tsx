@@ -29,12 +29,12 @@ interface SpellCooldown {
 
 //Core Cooldowns
 const coreCooldowns: SpellCooldown[] = [
-  { spell: SPELLS.MIND_BLAST },
+  { spell: TALENTS.MIND_BLAST_TALENT },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
   { spell: SPELLS.VOID_VOLLEY_CAST },
 ];
 const coreCooldownsVW: SpellCooldown[] = [
-  { spell: SPELLS.MIND_BLAST },
+  { spell: TALENTS.MIND_BLAST_TALENT },
   { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
   { spell: SPELLS.VOID_VOLLEY_CAST },
@@ -68,7 +68,7 @@ const CoreCooldownsGraph = () => {
   const message = (
     <p>
       <strong>
-        <SpellLink spell={SPELLS.MIND_BLAST} />
+        <SpellLink spell={TALENTS.MIND_BLAST_TALENT} />
       </strong>{' '}
       is a core spell that should be keept on cooldown as much as possible.
       {info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT) && (

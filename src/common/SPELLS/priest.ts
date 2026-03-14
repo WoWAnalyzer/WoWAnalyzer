@@ -19,21 +19,11 @@ const spells = {
     icon: 'spell_holy_wordfortitude',
     manaCost: 100000,
   },
-  DESPERATE_PRAYER: {
-    id: 19236,
-    name: 'Desperate Prayer',
-    icon: 'spell_holy_testoffaith',
-  },
   MIND_SOOTHE: {
     id: 453,
     name: 'Mind Soothe',
     icon: 'spell_holy_mindsooth',
     manaCost: 25000,
-  },
-  CRYSTALLINE_REFLECTION_TALENT_HEAL: {
-    id: 373462,
-    name: 'Crystalline Reflection',
-    icon: 'ability_priest_reflectiveshield',
   },
   BORROWED_TIME_BUFF: {
     id: 390692,
@@ -46,17 +36,21 @@ const spells = {
     icon: 'spell_holy_renew',
     manaCost: 45000,
   },
-  THROES_OF_PAIN_TALENT_RESOURCE_GAIN: {
-    id: 377427,
-    name: 'Throes of Pain',
-    icon: 'spell_shadow_haunting',
-    manaCost: 0,
-  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
     name: 'Mastery: Grace',
     icon: 'spell_holy_hopeandgrace',
+  },
+  PLEA: {
+    id: 200829,
+    name: 'Plea',
+    icon: 'spell_priest_plea_yellow',
+  },
+  VOID_SHIELD: {
+    id: 1253593,
+    name: 'Void Shield',
+    icon: 'inv12_apextalent_priest_voidshield',
   },
 
   PENANCE: {
@@ -162,64 +156,11 @@ const spells = {
     name: 'Ultimate Penitence',
     icon: 'ability_priest_ascendance',
   },
-  POWER_WORD_RADIANCE: {
-    id: 194509,
-    name: 'Power Word: Radiance',
-    icon: 'spell_priest_power-word',
-    manaCost: 11250,
-  },
-  SHADOW_MEND: {
-    id: 186263,
-    name: 'Shadow Mend',
-    icon: 'spell_shadow_shadowmend',
-    manaCost: 1750,
-  },
-  RAPTURE: {
-    id: 47536,
-    name: 'Rapture',
-    icon: 'spell_holy_rapture',
-    manaCost: 7750,
-  },
-  PAIN_SUPPRESSION: {
-    id: 33206,
-    name: 'Pain Suppression',
-    icon: 'spell_holy_painsupression',
-    manaCost: 800,
-  },
-  MASS_DISPEL: {
-    id: 32375,
-    name: 'Mass Dispel',
-    icon: 'spell_arcane_massdispel',
-    manaCost: 200000,
-  },
-  LEAP_OF_FAITH: {
-    id: 73325,
-    name: 'Leap of Faith',
-    icon: 'priest_spell_leapoffaith_a',
-    manaCost: 65000,
-  },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
     manaCost: 22500,
-  },
-  LIGHTS_WRATH: {
-    id: 207946,
-    name: "Light's Wrath",
-    icon: 'inv_staff_2h_artifacttome_d_01',
-  },
-  MIND_CONTROL: {
-    id: 605,
-    name: 'Mind Control',
-    icon: 'spell_shadow_shadowworddominate',
-    manaCost: 50000,
-  },
-  POWER_WORD_BARRIER_CAST: {
-    id: 62618,
-    name: 'Power Word: Barrier',
-    icon: 'spell_holy_powerwordbarrier',
-    manaCost: 2000,
   },
   POWER_WORD_BARRIER_BUFF: {
     id: 81782,
@@ -236,17 +177,6 @@ const spells = {
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
     manaCost: 32500,
-  },
-  SHACKLE_UNDEAD: {
-    id: 9484,
-    name: 'Shackle Undead',
-    icon: 'spell_nature_slow',
-    manaCost: 30000,
-  },
-  SHADOWFIEND: {
-    id: 34433,
-    name: 'Shadowfiend',
-    icon: 'spell_shadow_shadowfiend',
   },
   VOIDLING: {
     id: 254232,
@@ -277,17 +207,6 @@ const spells = {
     id: 193065,
     name: 'Protective Light',
     icon: 'spell_holy_holyprotection',
-  },
-  FADE: {
-    id: 586,
-    name: 'Fade',
-    icon: 'spell_magic_lesserinvisibilty',
-  },
-  PSYCHIC_SCREAM: {
-    id: 8122,
-    name: 'Psychic Scream',
-    icon: 'spell_shadow_psychicscream',
-    manaCost: 600,
   },
   ATONEMENT_HEAL_NON_CRIT: {
     id: 81751,
@@ -359,21 +278,6 @@ const spells = {
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
-  TWILIGHT_EQUILIBRIUM_SHADOW_BUFF: {
-    id: 390707,
-    name: 'Twilight Equilibrium',
-    icon: 'ability_priest_innerlightandshadow',
-  },
-  TWILIGHT_EQUILIBRIUM_HOLY_BUFF: {
-    id: 390706,
-    name: 'Twilight Equilibrium',
-    icon: 'ability_priest_innerlightandshadow',
-  },
-  MANIFESTED_TWILIGHT_BUFF_2P: {
-    id: 363943,
-    name: 'Manifested Twilight',
-    icon: 'ability_priest_innerlightandshadow',
-  },
 
   KAM_XIRAFF_BUFF: {
     id: 233997,
@@ -385,30 +289,10 @@ const spells = {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
-  TWIST_OF_FATE_BUFF_DISCIPLINE: {
-    id: 265258,
-    name: 'Twist of Fate',
-    icon: 'spell_shadow_mindtwisting',
-  },
-  SCHISM_DEBUFF: {
-    id: 214621,
-    name: 'Schism',
-    icon: 'spell_warlock_focusshadow',
-  },
-  ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
-    id: 214637,
-    name: "Dejahna's Inspiration",
-    icon: 'spell_holy_heal',
-  },
   PRAYER_CIRCLE_BUFF: {
     id: 321379,
     name: 'Prayer Circle',
     icon: 'spell_paladin_divinecircle',
-  },
-  SANCTIFIED_PRAYERS_BUFF: {
-    id: 196490,
-    name: 'Sanctified Prayers',
-    icon: 'spell_holy_pureofheart',
   },
 
   // Talents:
@@ -424,12 +308,6 @@ const spells = {
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
   },
-  HALO_TALENT: {
-    id: 120517,
-    name: 'Halo',
-    icon: 'ability_priest_halo',
-    manaCost: 67500,
-  },
   EXPIATION_DAMAGE: {
     id: 390844,
     name: 'Expiation',
@@ -439,11 +317,6 @@ const spells = {
     id: 400370,
     name: 'Burning Vehemence',
     icon: 'ability_paladin_sacredcleansing',
-  },
-  WORDS_OF_THE_PIOUS_BUFF: {
-    id: 390933,
-    name: 'Words of the Pious',
-    icon: 'ability_priest_clarityofwill',
   },
 
   //Voidweaver
@@ -599,11 +472,6 @@ const spells = {
     name: 'Resonant Words',
     icon: 'spell_holy_holybolt',
   },
-  HEALING_CHORUS_TALENT_BUFF: {
-    id: 390885,
-    name: 'Healing Chorus',
-    icon: 'spell_holy_circleofrenewal',
-  },
   DIVINE_WORD_SERENITY_TALENT_BUFF: {
     id: 372791,
     name: 'Divine Favor: Serenity',
@@ -698,23 +566,12 @@ const spells = {
     icon: 'spell_holy_chastise',
     manaCost: 15000,
   },
-  PONTIFEX_TALENT_BUFF: {
-    id: 390989,
-    name: 'Pontifex',
-    icon: 'spell_priest_pontifex',
-  },
   DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
     id: 372787,
     name: 'Divine Word: Sanctuary',
     icon: 'priest_icon_chakra_blue',
   },
   // Shadow Spells
-  MIND_BLAST: {
-    id: 8092,
-    name: 'Mind Blast',
-    icon: 'spell_shadow_unholyfrenzy',
-    manaCost: 4000,
-  },
   MIND_FLAY: {
     id: 15407,
     name: 'Mind Flay',
@@ -735,20 +592,6 @@ const spells = {
     id: 343690,
     name: 'Mastery: Shadow Weaving',
     icon: 'spell_shadow_shadetruesight',
-  },
-
-  // From shadow word pain/vampiric touch:
-  VOID_ERUPTION_DAMAGE_1: {
-    id: 228360,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
-  },
-
-  // From shadow word pain/vampiric touch:
-  VOID_ERUPTION_DAMAGE_2: {
-    id: 228361,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
   },
 
   // Void torrent debuff applied on enemy
@@ -776,22 +619,10 @@ const spells = {
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
 
-  VAMPIRIC_EMBRACE_HEAL: {
-    id: 15290,
-    name: 'Vampiric Embrace',
-    icon: 'spell_shadow_unsummonbuilding',
-  },
-
   SILENCE: {
     id: 15487,
     name: 'Silence',
     icon: 'ability_priest_silence',
-  },
-
-  PURIFY_DISEASE: {
-    id: 213634,
-    name: 'Purify Disease',
-    icon: 'spell_holy_nullifydisease',
   },
 
   SHADOWFORM: {
@@ -1007,25 +838,6 @@ const spells = {
     id: 451235,
     name: 'Voidwraith',
     icon: 'warlock_curse_shadow',
-  },
-
-  //Shadow Tier
-  SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
-    id: 454638,
-    name: 'Devouring Chorus',
-    icon: 'spell_shadow_devouringplague',
-  },
-
-  SHADOW_PRIEST_TWW_TIER_2_4_SET: {
-    id: 1215703,
-    name: 'Priest Shadow 11.1 Class Set 4pc',
-    icon: 'trade_engineering',
-  },
-
-  SHADOW_PRIEST_TWW_TIER_2_2_SET: {
-    id: 1215702,
-    name: 'Priest Shadow 11.1 Class Set 2pc',
-    icon: 'trade_engineering',
   },
 
   EVANGELISM_HEAL: {

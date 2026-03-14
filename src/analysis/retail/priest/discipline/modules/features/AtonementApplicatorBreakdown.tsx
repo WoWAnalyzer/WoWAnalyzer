@@ -1,11 +1,11 @@
 import {
+  FLASH_HEAL_ATONEMENT_DUR,
+  PENANCE_ATONEMENT_DUR,
+  PLEA_ATONEMENT_DUR,
   POWER_WORD_RADIANCE_ATONEMENT_DUR,
   POWER_WORD_SHIELD_ATONEMENT_DUR,
-  RENEW_ATONEMENT_DUR,
-  FLASH_HEAL_ATONEMENT_DUR,
 } from 'analysis/retail/priest/discipline/constants';
 import { formatThousands } from 'common/format';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,49 +14,43 @@ import { Options } from 'parser/core/Module';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
-const EVANGELISM_BONUS_MS = 6000;
-
-//Needed to count healing for the rare situations where atonement heal events happens at the exact moment it expires
+// Needed to count healing for the rare situations where atonement heal events happens at the exact moment it expires
 const FAIL_SAFE_MS = 300;
 
 class AtonementApplicatorBreakdown extends Analyzer {
-  _powerWordShieldsCasts = [];
-  _RenewsCasts = [];
-  _flashHealsCasts = [];
-
   _castsApplyBuffsMap = new Map(); // Keys = Cast, Values = Atonement buff associated to the cast
   _lastRadianceCastTimestamp = 0; // Setting a dummy timestamp to 0
 
-  _atonementHealingFromRenews = 0;
+  _atonementHealingFromRadiances = 0;
+  _atonementHealingFromShields = 0;
   _atonementHealingFromFlashHeals = 0;
-  _atonementHealingFromPowerWordRadiances = 0;
-  _atonementHealingFromPowerWordShields = 0;
+  _atonementHealingFromPleas = 0;
+  _atonementHealingFromPenances = 0;
   _prepullApplicatorHealing = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
-      this.handleEvangelismCasts,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
-      this.storeFlashHealsCasts,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.RENEW_TALENT),
-      this.storeRenewsCasts,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT),
+      this.storeRadianceCastTimestamps,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
-      this.storePowerWordShieldsCasts,
+      this.storeShieldCasts,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE),
-      this.storePowerWordRadiancesCastTimestamp,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
+      this.storeFlashHealCasts,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PLEA), this.storePleaCasts);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
+      this.storePenanceCasts,
+    );
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF),
       this.assignAtonementBuffToApplicator,
@@ -67,35 +61,19 @@ class AtonementApplicatorBreakdown extends Analyzer {
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_NON_CRIT),
-      this.handleAtonementsHits,
+      this.handleAtonementHits,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_HEAL_CRIT),
-      this.handleAtonementsHits,
+      this.handleAtonementHits,
     );
   }
 
-  storeFlashHealsCasts(event: CastEvent) {
-    this._castsApplyBuffsMap.set(
-      {
-        event: event,
-        applicatorId: SPELLS.FLASH_HEAL.id,
-      },
-      null,
-    );
+  storeRadianceCastTimestamps(event: CastEvent) {
+    this._lastRadianceCastTimestamp = event.timestamp;
   }
 
-  storeRenewsCasts(event: CastEvent) {
-    this._castsApplyBuffsMap.set(
-      {
-        event: event,
-        applicatorId: TALENTS_PRIEST.RENEW_TALENT.id,
-      },
-      null,
-    );
-  }
-
-  storePowerWordShieldsCasts(event: CastEvent) {
+  storeShieldCasts(event: CastEvent) {
     this._castsApplyBuffsMap.set(
       {
         event: event,
@@ -105,8 +83,34 @@ class AtonementApplicatorBreakdown extends Analyzer {
     );
   }
 
-  storePowerWordRadiancesCastTimestamp(event: CastEvent) {
-    this._lastRadianceCastTimestamp = event.timestamp;
+  storeFlashHealCasts(event: CastEvent) {
+    this._castsApplyBuffsMap.set(
+      {
+        event: event,
+        applicatorId: SPELLS.FLASH_HEAL.id,
+      },
+      null,
+    );
+  }
+
+  storePleaCasts(event: CastEvent) {
+    this._castsApplyBuffsMap.set(
+      {
+        event: event,
+        applicatorId: SPELLS.PLEA.id,
+      },
+      null,
+    );
+  }
+
+  storePenanceCasts(event: CastEvent) {
+    this._castsApplyBuffsMap.set(
+      {
+        event: event,
+        applicatorId: SPELLS.PENANCE_CAST.id,
+      },
+      null,
+    );
   }
 
   assignAtonementBuffToApplicator(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -129,12 +133,11 @@ class AtonementApplicatorBreakdown extends Analyzer {
           event: {
             timestamp: this._lastRadianceCastTimestamp,
           },
-          applicatorId: SPELLS.POWER_WORD_RADIANCE.id,
+          applicatorId: TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
         },
         {
           applyBuff: event,
           atonementEvents: [],
-          extendedByEvangelism: false,
           wasRefreshed: false,
         },
       );
@@ -154,7 +157,6 @@ class AtonementApplicatorBreakdown extends Analyzer {
         this._castsApplyBuffsMap.set(mostRecentCastApplyBuff, {
           applyBuff: event,
           atonementEvents: [],
-          extendedByEvangelism: false,
           wasRefreshed: false,
         });
       }
@@ -163,24 +165,23 @@ class AtonementApplicatorBreakdown extends Analyzer {
 
   getAtonementDuration(cast: any) {
     let duration = 0;
-    if (cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id) {
+    if (cast.applicatorId === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
       duration += POWER_WORD_RADIANCE_ATONEMENT_DUR;
     } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id) {
       duration += POWER_WORD_SHIELD_ATONEMENT_DUR;
     } else if (cast.applicatorId === SPELLS.FLASH_HEAL.id) {
       duration += FLASH_HEAL_ATONEMENT_DUR;
-    } else if (cast.applicatorId === TALENTS_PRIEST.RENEW_TALENT.id) {
-      duration += RENEW_ATONEMENT_DUR;
+    } else if (cast.applicatorId === SPELLS.PLEA.id) {
+      duration += PLEA_ATONEMENT_DUR;
+    } else if (cast.applicatorId === SPELLS.PENANCE_CAST.id) {
+      duration += PENANCE_ATONEMENT_DUR;
     }
     return duration + FAIL_SAFE_MS;
   }
 
   assignAtonementHit(cast: any, atonement: any, healEvent: HealEvent) {
     const lowerBound = atonement.applyBuff.timestamp;
-    const upperBound =
-      atonement.applyBuff.timestamp +
-      (atonement.extendedByEvangelism ? EVANGELISM_BONUS_MS : 0) +
-      this.getAtonementDuration(cast);
+    const upperBound = atonement.applyBuff.timestamp + this.getAtonementDuration(cast);
     if (
       healEvent.targetID === atonement.applyBuff.targetID &&
       healEvent.timestamp > lowerBound &&
@@ -195,7 +196,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
     return 0;
   }
 
-  handleAtonementsHits(event: HealEvent) {
+  handleAtonementHits(event: HealEvent) {
     //Healing from atonements pre-applied before entering combat
     //will assume PW:S as the applicator since it's usually the most common one used pre-pull,
     const atonementBuffs = this._castsApplyBuffsMap.values();
@@ -214,60 +215,16 @@ class AtonementApplicatorBreakdown extends Analyzer {
         return;
       }
 
-      if (cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id) {
-        this._atonementHealingFromPowerWordRadiances += this.assignAtonementHit(
-          cast,
-          atonement,
-          event,
-        );
+      if (cast.applicatorId === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
+        this._atonementHealingFromRadiances += this.assignAtonementHit(cast, atonement, event);
       } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id) {
-        this._atonementHealingFromPowerWordShields += this.assignAtonementHit(
-          cast,
-          atonement,
-          event,
-        );
+        this._atonementHealingFromShields += this.assignAtonementHit(cast, atonement, event);
       } else if (cast.applicatorId === SPELLS.FLASH_HEAL.id) {
         this._atonementHealingFromFlashHeals += this.assignAtonementHit(cast, atonement, event);
-      } else if (cast.applicatorId === TALENTS_PRIEST.RENEW_TALENT.id) {
-        this._atonementHealingFromRenews += this.assignAtonementHit(cast, atonement, event);
-      }
-    });
-  }
-
-  handleEvangelismCasts(event: CastEvent) {
-    this._castsApplyBuffsMap.forEach((atonement, cast) => {
-      if (atonement === null) {
-        return;
-      }
-
-      if (cast.applicatorId === SPELLS.POWER_WORD_RADIANCE.id) {
-        if (
-          event.timestamp > atonement.applyBuff.timestamp &&
-          event.timestamp < atonement.applyBuff.timestamp + POWER_WORD_RADIANCE_ATONEMENT_DUR
-        ) {
-          atonement.extendedByEvangelism = true;
-        }
-      } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id) {
-        if (
-          event.timestamp > atonement.applyBuff.timestamp &&
-          event.timestamp < atonement.applyBuff.timestamp + POWER_WORD_SHIELD_ATONEMENT_DUR
-        ) {
-          atonement.extendedByEvangelism = true;
-        }
-      } else if (cast.applicatorId === TALENTS_PRIEST.RENEW_TALENT.id) {
-        if (
-          event.timestamp > atonement.applyBuff.timestamp &&
-          event.timestamp < atonement.applyBuff.timestamp + RENEW_ATONEMENT_DUR
-        ) {
-          atonement.extendedByEvangelism = true;
-        }
-      } else if (cast.applicatorId === SPELLS.FLASH_HEAL.id) {
-        if (
-          event.timestamp > atonement.applyBuff.timestamp &&
-          event.timestamp < atonement.applyBuff.timestamp + FLASH_HEAL_ATONEMENT_DUR
-        ) {
-          atonement.extendedByEvangelism = true;
-        }
+      } else if (cast.applicatorId === SPELLS.PLEA.id) {
+        this._atonementHealingFromPleas += this.assignAtonementHit(cast, atonement, event);
+      } else if (cast.applicatorId === SPELLS.PENANCE_CAST.id) {
+        this._atonementHealingFromPenances += this.assignAtonementHit(cast, atonement, event);
       }
     });
   }
@@ -290,34 +247,41 @@ class AtonementApplicatorBreakdown extends Analyzer {
   renderAtonementApplicatorChart() {
     const items = [
       {
+        color: '#e69f00',
+        label: 'Power Word: Radiance',
+        spellId: TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
+        value: this._atonementHealingFromRadiances,
+        valueTooltip: formatThousands(this._atonementHealingFromRadiances),
+      },
+      {
         color: '#fff',
         label: 'Power Word: Shield',
         spellId: SPELLS.POWER_WORD_SHIELD.id,
-        value: this._atonementHealingFromPowerWordShields + this._prepullApplicatorHealing,
+        value: this._atonementHealingFromShields + this._prepullApplicatorHealing,
         valueTooltip: formatThousands(
-          this._atonementHealingFromPowerWordShields + this._prepullApplicatorHealing,
+          this._atonementHealingFromShields + this._prepullApplicatorHealing,
         ),
       },
       {
-        color: '#fcba03',
-        label: 'Power Word: Radiance',
-        spellId: SPELLS.POWER_WORD_RADIANCE.id,
-        value: this._atonementHealingFromPowerWordRadiances,
-        valueTooltip: formatThousands(this._atonementHealingFromPowerWordRadiances),
-      },
-      {
-        color: '#0cd368',
-        label: 'Renew',
-        spellId: TALENTS_PRIEST.RENEW_TALENT.id,
-        value: this._atonementHealingFromRenews,
-        valueTooltip: formatThousands(this._atonementHealingFromRenews),
-      },
-      {
-        color: '#fcd45e',
+        color: '#cc79a7',
         label: 'Flash Heal',
         spellId: SPELLS.FLASH_HEAL.id,
         value: this._atonementHealingFromFlashHeals,
         valueTooltip: formatThousands(this._atonementHealingFromFlashHeals),
+      },
+      {
+        color: '#56b4e9',
+        label: 'Plea',
+        spellId: SPELLS.PLEA.id,
+        value: this._atonementHealingFromPleas,
+        valueTooltip: formatThousands(this._atonementHealingFromPleas),
+      },
+      {
+        color: '#009e73',
+        label: 'Penance',
+        spellId: SPELLS.PENANCE_CAST.id,
+        value: this._atonementHealingFromPenances,
+        valueTooltip: formatThousands(this._atonementHealingFromPenances),
       },
     ];
 

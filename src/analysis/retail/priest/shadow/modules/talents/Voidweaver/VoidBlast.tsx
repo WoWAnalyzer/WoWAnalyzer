@@ -147,7 +147,7 @@ class VoidBlast extends ExecuteHelper {
     this.setPartialCharges(
       event,
       SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id,
-      SPELLS.MIND_BLAST.id,
+      TALENTS.MIND_BLAST_TALENT.id,
     );
 
     //If we are at 2 charges at the start of the rift, if we delay in casting, it is wasted time.
@@ -212,9 +212,9 @@ class VoidBlast extends ExecuteHelper {
     this.castVB += 1;
 
     //everytime VB is cast, MB also goes on cooldown.
-    this.spellUsable.beginCooldown(event, SPELLS.MIND_BLAST.id);
+    this.spellUsable.beginCooldown(event, TALENTS.MIND_BLAST_TALENT.id);
     //console.log("chargesVB Cast",this.spellUsable.fractionalChargesAvailable(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id));
-    //console.log("chargesMB Cast",this.spellUsable.fractionalChargesAvailable(SPELLS.MIND_BLAST.id));
+    //console.log("chargesMB Cast",this.spellUsable.fractionalChargesAvailable(TALENTS.MIND_BLAST_TALENT.id));
   }
 
   onVBInsanity(event: ResourceChangeEvent) {
@@ -245,7 +245,7 @@ class VoidBlast extends ExecuteHelper {
   adjustMaxCasts() {
     this.maxCasts = this.castVB + this.missVB;
 
-    const mindBlast = this.abilities.getAbility(SPELLS.MIND_BLAST.id);
+    const mindBlast = this.abilities.getAbility(TALENTS.MIND_BLAST_TALENT.id);
     //We want to reduce the number of possible Mind Blast Casts by the Max amount of Void Blast Casts.
     if (mindBlast) {
       const mindBlastEfficiencyMaxCasts =
@@ -262,8 +262,9 @@ class VoidBlast extends ExecuteHelper {
         <b>
           <SpellLink spell={TALENTS.VOID_BLAST_TALENT} />
         </b>{' '}
-        replaces <SpellLink spell={SPELLS.MIND_BLAST} /> with Void Blast, a significantly more
-        powerful spell for the duration of the <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
+        replaces <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> with Void Blast, a significantly
+        more powerful spell for the duration of the{' '}
+        <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
         <br />
         It is important to cast <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST} /> as
         much as possible while it is available. To do so, you should save charges of Mind Blast
