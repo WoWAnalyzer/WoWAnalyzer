@@ -176,6 +176,16 @@ const RACES = {
     name: 'Earthen',
     side: 'alliance',
   },
+  HaranirHorde: {
+    id: 86,
+    name: 'Haranir',
+    side: 'horde',
+  },
+  HaranirAlliance: {
+    id: 91,
+    name: 'Haranir',
+    side: 'alliance',
+  },
 } satisfies Record<string, Race>;
 
 export default RACES;
