@@ -18,7 +18,6 @@ import Snapshots, {
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -69,7 +68,6 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
     // log the cast
     const targetName = this.owner.getTargetName(cast);
-    const proccedBt = proccedBloodtalons(cast);
     const snapshotNames = snapshots.map((ss) => ss.name);
     const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
     const wasUnacceptableDowngrade =
@@ -78,42 +76,40 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
     let value: QualitativePerformance = QualitativePerformance.Good;
     let perfExplanation: React.ReactNode = undefined;
-    if (!proccedBt) {
-      if (wasUnacceptableDowngrade) {
-        value = QualitativePerformance.Fail;
-        perfExplanation = (
-          <h5 style={{ color: BadColor }}>
-            Bad because you refreshed early with a weaker snapshot
-            <br />
-          </h5>
-        );
-      } else if (clipped > CLIP_BUFFER) {
-        if (wasUpgrade) {
-          value = QualitativePerformance.Ok;
-          perfExplanation = (
-            <h5 style={{ color: OkColor }}>
-              You refreshed this too early, but upgraded the snapshot
-              <br />
-            </h5>
-          );
-        } else {
-          value = QualitativePerformance.Fail;
-          perfExplanation = (
-            <h5 style={{ color: BadColor }}>
-              Bad because you refreshed too early
-              <br />
-            </h5>
-          );
-        }
-      } else if (clipped > 0) {
+    if (wasUnacceptableDowngrade) {
+      value = QualitativePerformance.Fail;
+      perfExplanation = (
+        <h5 style={{ color: BadColor }}>
+          Bad because you refreshed early with a weaker snapshot
+          <br />
+        </h5>
+      );
+    } else if (clipped > CLIP_BUFFER) {
+      if (wasUpgrade) {
         value = QualitativePerformance.Ok;
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
-            Careful, you refreshed this a little early
+            You refreshed this too early, but upgraded the snapshot
+            <br />
+          </h5>
+        );
+      } else {
+        value = QualitativePerformance.Fail;
+        perfExplanation = (
+          <h5 style={{ color: BadColor }}>
+            Bad because you refreshed too early
             <br />
           </h5>
         );
       }
+    } else if (clipped > 0) {
+      value = QualitativePerformance.Ok;
+      perfExplanation = (
+        <h5 style={{ color: OkColor }}>
+          Careful, you refreshed this a little early
+          <br />
+        </h5>
+      );
     }
 
     const tooltip = (
@@ -121,15 +117,6 @@ class RakeUptimeAndSnapshots extends Snapshots {
         {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
         <br />
-        {proccedBt && (
-          <>
-            Used to proc{' '}
-            <strong>
-              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-            </strong>
-            <br />
-          </>
-        )}
         {prevSnapshotNames !== null && (
           <>
             Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
@@ -167,7 +154,6 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
   /** Subsection explaining the use of Rake and providing performance statistics */
   get guideSubsection(): JSX.Element {
-    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
     const explanation = (
       <p>
         <b>
@@ -179,13 +165,6 @@ class RakeUptimeAndSnapshots extends Snapshots {
         <SpellLink spell={TALENTS_DRUID.POUNCING_STRIKES_TALENT} /> - when forced to refresh with a
         weaker snapshot, try to wait until the last moment in order to overwrite the minimum amount
         of the stronger DoT.
-        {hasBt && (
-          <>
-            {' '}
-            It's always acceptable to do a sub-optimal Rake cast if needed to proc{' '}
-            <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />.
-          </>
-        )}
       </p>
     );
 
@@ -202,12 +181,6 @@ class RakeUptimeAndSnapshots extends Snapshots {
         <CastSummaryAndBreakdown
           spell={SPELLS.RAKE}
           castEntries={this.castEntries}
-          goodExtraExplanation={
-            <>
-              or a cast with problems that procced{' '}
-              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-            </>
-          }
           okExtraExplanation={<>clipped duration but upgraded snapshot</>}
           badExtraExplanation={<>clipped duration or downgraded snapshot w/ &gt;2s remaining</>}
         />

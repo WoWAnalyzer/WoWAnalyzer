@@ -414,12 +414,6 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
         spellId: event.ability.guid,
         spellName: event.ability.name,
         icon: event.ability.abilityIcon.replace('.jpg', ''),
-        performance:
-          event.ability.guid === cast.primarySpellId
-            ? QualitativePerformance.Perfect
-            : event.ability.guid === TALENTS.CRASH_LIGHTNING_TALENT.id
-              ? QualitativePerformance.Good
-              : QualitativePerformance.Ok,
         tooltip: (
           <>
             <SpellLink spell={event.ability.guid} />
@@ -453,17 +447,21 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
             label: 'Thorim Triggers',
             tooltip: (
               <>
-                Confirmed <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> triggers compared
-                with the estimated maximum number of trigger-eligible casts during this window.
-                <div>
-                  <SpellLink spell={this.getPrimaryStrikeSpell(cast)} />:{' '}
-                  {triggerOpportunities.primaryCasts}/{triggerOpportunities.maximumPrimaryCasts}
-                </div>
-                <div>
-                  <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} />:{' '}
-                  {triggerOpportunities.crashLightningCasts}/
-                  {triggerOpportunities.maximumCrashLightningCasts}
-                </div>
+                <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> triggers compared to the
+                estimated maximum:
+                <ul>
+                  <li>
+                    <SpellLink spell={this.getPrimaryStrikeSpell(cast)} />:{' '}
+                    {triggerOpportunities.primaryCasts}/{triggerOpportunities.maximumPrimaryCasts}
+                  </li>
+                  {triggerOpportunities.maximumCrashLightningCasts > 0 && (
+                    <li>
+                      <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} />:{' '}
+                      {triggerOpportunities.crashLightningCasts}/
+                      {triggerOpportunities.maximumCrashLightningCasts}
+                    </li>
+                  )}
+                </ul>
               </>
             ),
             performance: thorimsPerformance.performance,

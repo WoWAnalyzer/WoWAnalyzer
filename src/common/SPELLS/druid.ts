@@ -1042,18 +1042,6 @@ const spells = {
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
-  // ID for the cast, resource change, and direct damage
-  THRASH_FERAL: {
-    id: 106830,
-    name: 'Thrash',
-    icon: 'spell_druid_thrash',
-  },
-  // ID for the debuff and DoT damage
-  THRASH_FERAL_BLEED: {
-    id: 405233,
-    name: 'Thrash',
-    icon: 'spell_druid_thrash',
-  },
   // this is the spell for the cast and the buff
   BERSERK_CAT: {
     id: 106951,
@@ -1151,12 +1139,6 @@ const spells = {
     id: 391974,
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
-  },
-  // damage from Berserk: Frenzy talent
-  FRENZIED_ASSAULT: {
-    id: 391140,
-    name: 'Frenzied Assault',
-    icon: 'ability_deathwing_bloodcorruption_earth',
   },
   // Buff procced by Apex Predator's Craving talent
   APEX_PREDATORS_CRAVING_BUFF: {

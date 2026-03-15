@@ -9,10 +9,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 
-const REDUCTION = 5000;
+const REDUCTION = 6000;
 
 /**
- * Whenever you cast a shield slam reduce shield wall by 5 second
+ * Whenever you cast a shield slam reduce shield wall by 6 second
  */
 class ImpenetrableWall extends Analyzer {
   static dependencies = {

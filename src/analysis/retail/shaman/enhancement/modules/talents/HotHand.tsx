@@ -472,10 +472,6 @@ class HotHand extends MajorCooldown<HotHandProc> {
         spellId: event.ability.guid,
         spellName: event.ability.name,
         icon: event.ability.abilityIcon.replace('.jpg', ''),
-        performance:
-          event.ability.guid === TALENTS.LAVA_LASH_TALENT.id
-            ? QualitativePerformance.Perfect
-            : QualitativePerformance.Ok,
         tooltip: (
           <>
             <strong>{event.ability.name}</strong>

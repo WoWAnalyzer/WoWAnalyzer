@@ -84,7 +84,7 @@ class FerociousBite extends Analyzer {
     let timeLeftOnRip = 0;
     // target is optional in cast event, but we know FB cast will always have it
     if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
-      timeLeftOnRip = this.rip.getTimeRemaining(event as TargettedEvent<any>);
+      timeLeftOnRip = this.rip.getTimeRemaining(event as TargettedEvent<EventType>);
     }
     const cpsUsed = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
     const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;

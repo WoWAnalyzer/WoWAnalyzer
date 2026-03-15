@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  AbilityEvent,
   AnyEvent,
   ApplyDebuffEvent,
   CastEvent,
@@ -121,35 +120,12 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: HIT_TARGET,
-    linkingEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
-    linkingEventType: EventType.Damage,
-    referencedEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: AFTER_CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive: (c) => c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
-  },
-  {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: HIT_TARGET,
     linkingEventId: SPELLS.SWIPE_CAT.id,
     linkingEventType: EventType.Damage,
     referencedEventId: SPELLS.SWIPE_CAT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: AFTER_CAST_BUFFER_MS,
-    anyTarget: true,
-  },
-  {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: HIT_TARGET,
-    linkingEventId: SPELLS.THRASH_FERAL_BLEED.id,
-    linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
-    referencedEventId: SPELLS.THRASH_FERAL.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
 ];
@@ -198,7 +174,7 @@ export function getHitCount(aoeCastEvent: CastEvent): number {
   return GetRelatedEvents(aoeCastEvent, HIT_TARGET).length;
 }
 
-export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
+export function getHits(castEvent: CastEvent): AnyEvent[] {
   return GetRelatedEvents(castEvent, HIT_TARGET, HasAbility);
 }
 

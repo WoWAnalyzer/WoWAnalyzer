@@ -17,7 +17,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import { HasteIcon } from 'interface/icons';
 
-const MAX_STACKS = 5;
+const MAX_STACKS = 4;
 const HASTE_PER_STACK = 2;
 
 //update haste per stack in ./core/Haste.tsx aswell
