@@ -48,6 +48,7 @@ import WealAndWoe from './modules/spells/WealAndWoe';
 import EternalBarrier from './modules/spells/EternalBarrier';
 import Benevolence from '../shared/Benevolence';
 import SurgeOfLight from 'analysis/retail/priest/shared/SurgeOfLight';
+import ProtectorOfTheFrail from 'analysis/retail/priest/discipline/modules/spells/ProtectorOfTheFrail';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -108,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     SurgeOfLight: SurgeOfLight,
     benevolence: Benevolence,
     translucentImage: TranslucentImage,
+    protectorOfTheFrail: ProtectorOfTheFrail,
   };
   static guide = Guide;
 }
