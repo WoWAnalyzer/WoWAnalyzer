@@ -73,7 +73,7 @@ class AngerManagement extends Analyzer.withDependencies({
         // Midnight TODO probably better to reduce the cost of the actual event instead of doing this workaround
       }
       if (this.selectedCombatant.has4PieceByTier(TIERS.MID1)) {
-        this.deps.spellUsable.reduceCooldown(SPELLS.ODYNS_FURY.id, 1000);
+        this.deps.spellUsable.reduceCooldown(SPELLS.ODYNS_FURY.id, 2500);
       }
       // Midnight TODO this probably shouldn't be in the AM section
     }

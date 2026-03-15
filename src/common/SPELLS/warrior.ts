@@ -434,6 +434,11 @@ const spells = {
     name: 'Fierce Followthrough',
     icon: 'spell_deathknight_butcher2',
   },
+  HEROIC_STRIKE: {
+    id: 1269383,
+    name: 'Heroic Strike',
+    icon: 'ability_rogue_ambush',
+  },
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
     name: 'In For The Kill',
@@ -443,6 +448,11 @@ const spells = {
     id: 383290,
     name: 'Juggernaut',
     icon: 'warrior_talent_icon_skirmisher',
+  },
+  MASTER_OF_WARFARE: {
+    id: 1269394,
+    name: 'Master of Warfare',
+    icon: 'inv12_apextalent_warrior_masterofwarfare',
   },
   OPPORTUNIST: {
     id: 456120,
