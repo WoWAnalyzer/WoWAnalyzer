@@ -1,4 +1,5 @@
-import type { JSX } from 'react';
+import type { JSX, ReactNode } from 'react';
+import styled from '@emotion/styled';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -6,13 +7,16 @@ import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUs
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { SpellLink, Tooltip } from 'interface';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastOverview from 'interface/guide/components/CastOverview';
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
+import { qualitativePerformanceToColor } from 'interface/guide';
 
 const CDR_MS_PER_STACK = 300;
 
@@ -27,6 +31,7 @@ type CastCdrBreakdown = {
   spenderSpellId: number;
   stacksSpent: number;
   isAscendanceActive: boolean;
+  analysisSkipped: boolean;
   stormstrike: ElementalTempCast;
   lavaLash: ElementalTempCast;
   wastedPercent: number;
@@ -40,7 +45,37 @@ class ElementalTempo extends Analyzer.withDependencies({
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
-  private castEntries: BoxRowEntry[] = [];
+  private casts: CastCdrBreakdown[] = [];
+
+  private getStacksPerformance(stacksSpent: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: stacksSpent,
+      isGreaterThanOrEqual: {
+        perfect: 10,
+        good: 8,
+        ok: 5,
+      },
+    });
+  }
+
+  private getWastePerformance(wastedPercent: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: wastedPercent,
+      isLessThanOrEqual: {
+        perfect: 0,
+        good: 0.25,
+        ok: 0.5,
+      },
+    });
+  }
+
+  private getSpellWastePerformance(spellWasteMs: number, totalPotentialMs: number) {
+    if (totalPotentialMs <= 0) {
+      return QualitativePerformance.Perfect;
+    }
+
+    return this.getWastePerformance(spellWasteMs / totalPotentialMs);
+  }
 
   constructor(options: Options) {
     super(options);
@@ -154,56 +189,56 @@ class ElementalTempo extends Analyzer.withDependencies({
       spenderSpellId: event.ability.guid,
       stacksSpent,
       isAscendanceActive,
+      analysisSkipped: skipPerformanceAnalysis,
       stormstrike: stormstrike,
       lavaLash: lavaLash,
       wastedPercent,
       performance,
     };
 
-    const tooltip = skipPerformanceAnalysis
-      ? this.renderSkippedCastTooltip(breakdown)
-      : this.renderCastTooltip(breakdown, {
-          stormstrikeRemainingBefore,
-          lavaLashRemainingBefore,
-        });
-
-    this.castEntries.push({ value: performance, tooltip });
+    this.casts.push({
+      ...breakdown,
+      stormstrike: {
+        ...breakdown.stormstrike,
+        totalMs: Math.min(breakdown.stormstrike.totalMs, stormstrikeRemainingBefore),
+      },
+      lavaLash: {
+        ...breakdown.lavaLash,
+        totalMs: Math.min(breakdown.lavaLash.totalMs, lavaLashRemainingBefore),
+      },
+    });
   }
 
-  private renderSkippedCastTooltip(cast: CastCdrBreakdown): JSX.Element {
-    const time = this.owner.formatTimestamp(cast.timestamp);
-    const spender = cast.spenderSpellId;
-
-    return (
-      <>
-        @ <strong>{time}</strong>
-        <div />
-        <div>
-          <strong>{formatDurationMillisMinSec(cast.stacksSpent * CDR_MS_PER_STACK, 1)}</strong> of
-          CDR from <SpellLink spell={spender} /> @ {cast.stacksSpent}{' '}
-          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
-        </div>
-        <div>
-          Spell cast by <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} />
-        </div>
-      </>
-    );
-  }
-
-  private renderCastTooltip(
-    cast: CastCdrBreakdown,
-    remaining: { stormstrikeRemainingBefore: number; lavaLashRemainingBefore: number },
-  ): JSX.Element {
-    const time = this.owner.formatTimestamp(cast.timestamp);
+  private renderCastTooltip(cast: CastCdrBreakdown): JSX.Element {
     const stormstrikeLabel = cast.isAscendanceActive ? SPELLS.WINDSTRIKE_CAST : SPELLS.STORMSTRIKE;
-
-    const potentialTotalMs = cast.stormstrike.totalMs + cast.lavaLash.totalMs;
+    const totalPotentialMs = cast.stormstrike.totalMs + cast.lavaLash.totalMs;
     const totalWastedMs = cast.stormstrike.wastedMs + cast.lavaLash.wastedMs;
 
+    if (cast.analysisSkipped) {
+      return (
+        <>
+          <div>
+            @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong>
+          </div>
+          <div>
+            <strong>{formatDurationMillisMinSec(cast.stacksSpent * CDR_MS_PER_STACK, 1)}</strong> of
+            CDR from <SpellLink spell={cast.spenderSpellId} /> @ {cast.stacksSpent}{' '}
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+          </div>
+          <div>
+            Waste scoring skipped because <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} />{' '}
+            consumed the spender during <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />.
+          </div>
+        </>
+      );
+    }
+
     return (
       <>
-        @ <strong>{time}</strong>
-        <div />
+        <div>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong>
+        </div>
         <div>
           <strong>{formatDurationMillisMinSec(cast.stacksSpent * CDR_MS_PER_STACK, 1)}</strong> of
           CDR from <SpellLink spell={cast.spenderSpellId} /> @ {cast.stacksSpent}{' '}
@@ -211,23 +246,63 @@ class ElementalTempo extends Analyzer.withDependencies({
         </div>
         <div>
           <SpellLink spell={stormstrikeLabel} />:{' '}
-          {formatDurationMillisMinSec(remaining.stormstrikeRemainingBefore, 1)}{' '}
-          <small>remaining</small>, {formatDurationMillisMinSec(cast.stormstrike.wastedMs, 1)}{' '}
-          <small>wasted</small>
+          {formatDurationMillisMinSec(cast.stormstrike.wastedMs, 1)} wasted
         </div>
         <div>
           <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />:{' '}
-          {formatDurationMillisMinSec(remaining.lavaLashRemainingBefore, 1)}{' '}
-          <small>remaining</small>, {formatDurationMillisMinSec(cast.lavaLash.wastedMs, 1)}{' '}
-          <small>wasted</small>
-        </div>
-        <div>
-          Total: {formatDurationMillisMinSec(totalWastedMs, 1)} <small>wasted</small> /{' '}
-          {formatDurationMillisMinSec(potentialTotalMs, 1)} <small>possible</small> (
-          {formatPercentage(cast.wastedPercent)}% wasted)
+          {formatDurationMillisMinSec(cast.lavaLash.wastedMs, 1)} wasted
         </div>
       </>
     );
+  }
+
+  private buildCastEntries() {
+    return this.casts.map((cast) => ({
+      performance: cast.performance,
+      tooltip: this.renderCastTooltip(cast),
+    }));
+  }
+
+  private buildOverviewStats() {
+    const analyzedCasts = this.casts.filter((cast) => !cast.analysisSkipped);
+    const totalStacksSpent = this.casts.reduce((total, cast) => total + cast.stacksSpent, 0);
+    const totalPotentialMs = analyzedCasts.reduce(
+      (total, cast) => total + cast.stormstrike.totalMs + cast.lavaLash.totalMs,
+      0,
+    );
+    const totalWastedMs = analyzedCasts.reduce(
+      (total, cast) => total + cast.stormstrike.wastedMs + cast.lavaLash.wastedMs,
+      0,
+    );
+    const perfectCasts = this.casts.filter(
+      (cast) => cast.performance === QualitativePerformance.Perfect,
+    ).length;
+
+    return [
+      {
+        value: `${this.casts.length}`,
+        label: 'Total Spenders',
+        tooltip: <>Total Maelstrom Weapon spender casts evaluated for Elemental Tempo.</>,
+      },
+      {
+        value: this.casts.length > 0 ? (totalStacksSpent / this.casts.length).toFixed(1) : '0.0',
+        label: 'Avg Stacks Spent',
+        tooltip: <>Average number of Maelstrom Weapon stacks consumed per tracked spender cast.</>,
+      },
+      {
+        value: `${formatPercentage(totalPotentialMs > 0 ? totalWastedMs / totalPotentialMs : 0, 1)}%`,
+        label: 'Avg Waste',
+        tooltip: (
+          <>Weighted average percentage of Elemental Tempo cooldown reduction that was wasted.</>
+        ),
+      },
+      {
+        value: `${perfectCasts}`,
+        label: 'Perfect Casts',
+        tooltip: <>Number of spender casts that wasted no Elemental Tempo cooldown reduction.</>,
+        performance: QualitativePerformance.Perfect,
+      },
+    ];
   }
 
   get guideSubsection(): JSX.Element | null {
@@ -246,30 +321,74 @@ class ElementalTempo extends Analyzer.withDependencies({
       </p>
     );
 
-    const data = (
-      <RoundedPanel>
-        <div>
-          <small>
-            Blue is a perfect cast (0 wasted on both spells). Green is good (&lt;25% wasted). Yellow
-            is ok (&lt;50% wasted). Red fails (including when both affected spells were off
-            cooldown).
-          </small>
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <strong>All Maelstrom spender casts</strong>
-          <PerformanceBoxRow values={this.castEntries} />
-        </div>
-      </RoundedPanel>
-    );
-
     return (
-      <ExplanationAndDataSubSection
-        title={<SpellLink spell={TALENTS.ELEMENTAL_TEMPO_TALENT} />}
-        explanation={explanation}
-        data={data}
-      />
+      <GuideSection spell={TALENTS.ELEMENTAL_TEMPO_TALENT} explanation={explanation}>
+        <CastOverview spell={TALENTS.ELEMENTAL_TEMPO_TALENT} stats={this.buildOverviewStats()} />
+        <div>
+          <HelperText>
+            Each box represents one Maelstrom spender cast. Hover a box to inspect how much cooldown
+            reduction was wasted on <SpellLink spell={SPELLS.STORMSTRIKE} /> or{' '}
+            <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />.
+          </HelperText>
+          <BreakdownContainer>
+            <strong>All Maelstrom spender casts</strong>
+            <TimelineRow>
+              <TimelineRectContainer>
+                {this.buildCastEntries().map((cast, index) => (
+                  <Tooltip key={index} content={cast.tooltip}>
+                    <TimelineRect color={qualitativePerformanceToColor(cast.performance)} />
+                  </Tooltip>
+                ))}
+              </TimelineRectContainer>
+            </TimelineRow>
+          </BreakdownContainer>
+        </div>
+      </GuideSection>
     );
   }
 }
+
+const HelperText = styled.small`
+  display: block;
+  color: rgba(255, 255, 255, 0.65);
+`;
+
+const BreakdownContainer = styled.div`
+  margin-top: 12px;
+`;
+
+const TimelineRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 5px 6px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+`;
+
+const TimelineRectContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+  padding: 3px 0;
+`;
+
+const TimelineRect = styled.div<{ color: string }>`
+  height: 16px;
+  min-width: 24px;
+  flex: 1 0 calc(100% / 20 - 3px);
+  border-radius: 2px;
+  background: ${(props) => props.color + '88'};
+  border: 1px solid ${(props) => props.color};
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: ${(props) => props.color + 'cc'};
+  }
+`;
 
 export default ElementalTempo;
