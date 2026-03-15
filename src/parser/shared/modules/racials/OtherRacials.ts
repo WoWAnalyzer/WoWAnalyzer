@@ -185,6 +185,17 @@ class OtherRacials extends Analyzer.withDependencies({
           },
         });
         break;
+      case RACES.HaranirHorde:
+      case RACES.HaranirAlliance:
+        this.deps.abilities.add({
+          spell: SPELLS.THORN_BLOOM.id,
+          cooldown: 180,
+          category: SPELL_CATEGORY.COOLDOWNS,
+          gcd: {
+            base: 500,
+          },
+        });
+        break;
     }
   }
 }
