@@ -12,7 +12,7 @@ const healLink: EventLink = {
   linkRelation: DEATH_STRIKE_HEAL,
   reverseLinkRelation: DEATH_STRIKE_CAST,
   linkingEventType: EventType.Cast,
-  linkingEventId: talents.DEATH_STRIKE_TALENT.id,
+  linkingEventId: [talents.DEATH_STRIKE_TALENT.id, SPELLS.VAMPIRIC_STRIKE.id],
   referencedEventType: EventType.Heal,
   referencedEventId: SPELLS.DEATH_STRIKE_HEAL.id,
   anyTarget: true,
@@ -25,7 +25,7 @@ const healLink: EventLink = {
 const absorbBuffLink: EventLink = {
   linkRelation: DEATH_STRIKE_ABSORB_GEN,
   linkingEventType: EventType.Cast,
-  linkingEventId: talents.DEATH_STRIKE_TALENT.id,
+  linkingEventId: [talents.DEATH_STRIKE_TALENT.id, SPELLS.VAMPIRIC_STRIKE.id],
   referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
   referencedEventId: SPELLS.BLOOD_SHIELD.id,
   // generally this occurs at the same timestamp, but could be before or after.

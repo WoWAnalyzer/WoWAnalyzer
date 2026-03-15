@@ -102,7 +102,10 @@ export default class DeathStrike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.spell(talents.DEATH_STRIKE_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.spell([talents.DEATH_STRIKE_TALENT, SPELLS.VAMPIRIC_STRIKE]),
+      this.onCast,
+    );
 
     this.addEventListener(Events.heal.spell(SPELLS.DEATH_STRIKE_HEAL), this.recordHeal);
     this.addEventListener(Events.absorbed.spell(SPELLS.BLOOD_SHIELD), this.recordAbsorb);
@@ -161,7 +164,7 @@ export default class DeathStrike extends Analyzer {
       event,
       DEATH_STRIKE_ABSORB_GEN,
     );
-    const absorbGenerated = Math.max(buffEvent?.absorb ?? 0 - this.remainingBloodShield, 0);
+    const absorbGenerated = Math.max((buffEvent?.absorb ?? 0) - this.remainingBloodShield, 0);
 
     if (absorbGenerated > 0) {
       this.bloodShieldQueue.push({
