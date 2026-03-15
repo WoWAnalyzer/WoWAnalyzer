@@ -1,7 +1,7 @@
 import { ReactNode, type JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import { SubSection } from 'interface/guide';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { StartAlignedRoundedPanel } from 'interface/guide/components/GuideDivs';
 import Explanation from 'interface/guide/components/Explanation';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
@@ -36,13 +36,13 @@ export default function GuideSection({
   // Wrap children in divs with spacing
   const childArray = Array.isArray(children) ? children : [children];
   const data = (
-    <RoundedPanel>
+    <StartAlignedRoundedPanel>
       <div style={{ minWidth: 0, maxWidth: '100%' }}>
         {childArray.map((component, index) => (
           <div key={index}>{component}</div>
         ))}
       </div>
-    </RoundedPanel>
+    </StartAlignedRoundedPanel>
   );
 
   // Vertical layout

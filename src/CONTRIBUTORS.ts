@@ -584,16 +584,8 @@ export const HawkCorrigan: Contributor = {
 };
 export const Vetyst: Contributor = {
   nickname: 'Vetyst',
-  github: 'vetyst',
-  discord: 'vetyst',
-  avatar: avatar('vetyst-avatar.png'),
-  mains: [
-    {
-      name: 'Vetiest',
-      spec: SPECS.SHADOW_PRIEST,
-      link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/vetiest',
-    },
-  ],
+  github: 'danny-janse',
+  discord: 'Vetyst',
 };
 export const DoxAshe: Contributor = {
   nickname: 'DoxAshe',
@@ -2802,6 +2794,18 @@ export const Katorri: Contributor = {
       name: 'Katorrí',
       spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/us/stormrage/katorr%C3%AD',
+    },
+  ],
+};
+
+export const Drowzen: Contributor = {
+  nickname: 'Drowzen',
+  github: 'Alexander-Leon',
+  mains: [
+    {
+      name: 'Drowzen',
+      spec: SPECS.FERAL_DRUID,
+      link: 'https://www.warcraftlogs.com/character/us/moon-guard/drowzen',
     },
   ],
 };

@@ -12,24 +12,26 @@ import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/DefensivesGuide';
 
-export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
-
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const alwaysBeCastingSubsection = (
     <SubSection title="Active Time">
       <Explanation>
         <>
-          Any time you are not casting something, that is damage that is lost. Mage has many ways to
-          decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
-          faster so you can continue casting or using <SpellLink spell={SPELLS.SCORCH} /> while you
-          are moving; even phases where the only target is taking 99% reduced damage is an
-          opportunity to fish for procs or maintain a buff like{' '}
-          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />. While some encounters have forced
-          downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
-          downtime will help your damage. Additionally, to better contextualize your downtime, we
-          recommend comparing your downtime to another Fire Mage that did better than you on the
-          same encounter with roughly the same kill time. If you have less downtime than them, then
-          maybe there is something you can do to improve.
+          Any time you are not casting something, that is damage that is lost. You should always
+          pre-plan your movement to decrease downtime, but can also lean on abilties like
+          {info.combatant.hasTalent(TALENTS.SHIMMER_TALENT) ? (
+            <SpellLink spell={TALENTS.SHIMMER_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.BLINK} />
+          )}
+          to move faster or <SpellLink spell={TALENTS.SCORCH_TALENT} /> to continue casting while
+          you move. While some encounters have forced downtime, which WoWAnalyzer does not account
+          for, anything you can do to minimize your downtime will help your damage; even casting
+          against a target taking 99% reduced damage is an opportunity to fish for procs.
+          Additionally, to better contextualize your downtime, we recommend comparing your downtime
+          to another Fire Mage that did better than you on the same encounter with roughly the same
+          kill time. If you have less downtime than them, then maybe there is something you can do
+          to improve.
         </>
       </Explanation>
       <p>
@@ -74,37 +76,43 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
       </Section>
       <Section title="Core">{alwaysBeCastingSubsection}</Section>
-      <Section title="Heating Up & Hot Streak"></Section>
-      <>
-        As a Fire Mage, the vast majority of your rotation revolves around generating, managing, and
-        spending your <SpellLink spell={SPELLS.HEATING_UP} /> and{' '}
-        <SpellLink spell={SPELLS.HOT_STREAK} /> procs. Regardless of whether{' '}
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is active or not, learning to properly
-        utilize your procs will go a long way towards increasing your damage.
-      </>
-      {modules.heatingUpGuide.guideSubsection}
-      {modules.hotStreakGuide.guideSubsection}
+      <Section title="Heating Up & Hot Streak">
+        <>
+          As a Fire Mage, the vast majority of your rotation revolves around generating, managing,
+          and spending your <SpellLink spell={SPELLS.HEATING_UP} /> and{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} /> procs. Regardless of whether{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is active or not, learning to properly
+          utilize your procs will go a long way towards increasing your damage.
+        </>
+        {modules.heatingUpGuide.guideSubsection}
+        {modules.hotStreakGuide.guideSubsection}
+      </Section>
 
       <Section title="Buffs & Procs">
         <>
           Fire Mage has several buffs and procs that need to be managed properly in order to get the
           most out of them and maximize your damage. <SpellLink spell={SPELLS.HOT_STREAK} /> and
           <SpellLink spell={SPELLS.HEATING_UP} /> are your most important procs, but others such as
-          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> will also increase your damage in other
+          <SpellLink spell={TALENTS.HEAT_SHIMMER_TALENT} /> will also increase your damage in other
           ways which will play a large part in maximizing your overall and burst damage.
         </>
-        {info.combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) &&
-          modules.feelTheBurnGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.HEAT_SHIMMER_TALENT) &&
+          modules.heatShimmerGuide.guideSubsection}
       </Section>
 
-      <Section title="Cooldowns"></Section>
-      <>
-        As is the case with most damage specs, properly utilizing your damage cooldowns will go a
-        long way towards improving your overall damage, especially{' '}
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
-      </>
-      {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
-        modules.combustionGuide.guideSubsection}
+      <Section title="Cooldowns">
+        <>
+          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+          long way towards improving your overall damage, especially{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
+        </>
+        {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
+          modules.combustionGuide.guideSubsection}
+      </Section>
+
+      <Section title="Talents">
+        {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && modules.meteorGuide.guideSubsection}
+      </Section>
 
       <SubSection title="Cast Efficiency"></SubSection>
       {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
@@ -121,8 +129,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           useThresholds
         />
       )}
-
-      <Section title="Talents"></Section>
       <MajorDefensives />
       <PreparationSection />
     </>

@@ -11,12 +11,6 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       // rotational
-      {
-        spellId: SPELLS.BLOODTALONS_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT),
-        triggeredBySpellId: [SPELLS.REGROWTH.id, SPELLS.ENTANGLING_ROOTS.id],
-        timelineHighlight: true,
-      },
 
       // defensive
       {

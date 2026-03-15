@@ -1,9 +1,6 @@
-import {
-  COMBUSTION_END_BUFFER,
-  FIRE_DIRECT_DAMAGE_SPELLS,
-  SharedCode,
-} from 'analysis/retail/mage/shared';
+import { COMBUSTION_END_BUFFER, FIRE_DIRECT_DAMAGE_SPELLS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
@@ -16,60 +13,68 @@ import Events, {
   RemoveBuffEvent,
   GetRelatedEvent,
   EventType,
+  HasHitpoints,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 export default class HotStreak extends Analyzer {
-  static dependencies = {
-    sharedCode: SharedCode,
-    spellUsable: SpellUsable,
-  };
-  protected sharedCode!: SharedCode;
-  protected spellUsable!: SpellUsable;
-
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
-  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT);
 
   hotStreaks: HotStreakProc[] = [];
-  wasted: DamageEvent[] = [];
+  wastedCrits: DamageEvent[] = [];
+  allTargetsHealth: number[] = [];
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-      this.onHotStreakApply,
+      this.onHotStreakRemoved,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
       this.damageEvents,
     );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onHotStreakApply(event: RemoveBuffEvent) {
+  onDamage(event: DamageEvent) {
+    if (!HasHitpoints(event)) {
+      return;
+    }
+    this.allTargetsHealth[event.targetID] = event.hitPoints / event.maxHitPoints;
+  }
+
+  onHotStreakRemoved(event: RemoveBuffEvent) {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, EventType.ApplyBuff);
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'consume');
-    const damage: DamageEvent | undefined = GetRelatedEvent(event, EventType.Damage);
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'precast');
-    const targetHealth = damage && this.sharedCode.getTargetHealth(damage);
+    const targetHealth = spender && HasTarget(spender) && this.allTargetsHealth[spender.targetID];
 
-    let buff;
+    let buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
-      buff = { active: true, buffId: TALENTS.SCORCH_TALENT.id };
-    } else if (this.hasFirestarter && targetHealth && targetHealth > 0.9) {
-      buff = { active: true, buffId: TALENTS.FIRESTARTER_TALENT.id };
+      buff.push(TALENTS.SCORCH_TALENT);
     } else if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
+      this.hasFirestarter &&
+      spender &&
+      spender.ability.guid === TALENTS.PYROBLAST_TALENT.id &&
+      targetHealth &&
+      targetHealth >= 0.9
+    ) {
+      buff.push(TALENTS.FIRESTARTER_TALENT);
+    } else if (
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,
       )
     ) {
-      buff = { active: true, buffId: TALENTS.COMBUSTION_TALENT.id };
-    } else {
-      buff = { active: false };
+      buff.push(TALENTS.COMBUSTION_TALENT);
+    } else if (this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id)) {
+      buff.push(SPELLS.HYPERTHERMIA_BUFF);
     }
 
     this.hotStreaks.push({
@@ -77,13 +82,9 @@ export default class HotStreak extends Analyzer {
       remove: event,
       spender: spender,
       expired: !spender,
-      blastCharges: this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id),
-      critBuff: buff,
-      wastedCrits:
-        this.wasted.filter(
-          (w) => buffApply && w.timestamp > buffApply.timestamp && w.timestamp < event.timestamp,
-        ) || [],
+      activeBuffs: buff,
       precast: precast,
+      buffUptime: (buffApply && event.timestamp - buffApply.timestamp) || 0,
     });
   }
 
@@ -92,13 +93,10 @@ export default class HotStreak extends Analyzer {
       return;
     }
     const cast: CastEvent | undefined = GetRelatedEvent(event, EventType.Cast);
-    const hadPyromaniac =
-      this.selectedCombatant.hasBuff(TALENTS.PYROMANIAC_TALENT.id) ||
-      this.selectedCombatant.hasBuff(TALENTS.PYROMANIAC_TALENT.id, event.timestamp - 250);
-    if (cast && HasTarget(cast) && !hadPyromaniac) {
+    if (cast && HasTarget(cast)) {
       const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
       const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-      castTarget === damageTarget && this.wasted.push(event);
+      castTarget === damageTarget && this.wastedCrits.push(event);
 
       const tooltip =
         'This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.';
@@ -114,22 +112,26 @@ export default class HotStreak extends Analyzer {
     return this.hotStreaks.filter((hs) => hs.expired).length;
   }
 
-  get wastedCrits() {
-    let wasted = 0;
-    this.hotStreaks.forEach((w) => (wasted += w.wastedCrits.length));
-    return wasted;
+  get wastedCritsPerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: this.wastedCrits.length,
+      isLessThanOrEqual: {
+        perfect: 0,
+        good: 0.5 * (this.owner.fightDuration / 60000),
+        ok: 1 * (this.owner.fightDuration / 60000),
+      },
+    });
   }
 
-  get wastedCritsThresholds() {
-    return {
-      actual: this.wastedCrits / (this.owner.fightDuration / 60000),
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 3,
+  get expiredProcsPerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: this.expiredProcs,
+      isLessThanOrEqual: {
+        perfect: 0,
+        good: 0.5 * (this.owner.fightDuration / 60000),
+        ok: 1 * (this.owner.fightDuration / 60000),
       },
-      style: ThresholdStyle.NUMBER,
-    };
+    });
   }
 }
 
@@ -138,8 +140,7 @@ export interface HotStreakProc {
   remove: RemoveBuffEvent;
   spender?: CastEvent;
   expired: boolean;
-  blastCharges: number;
-  critBuff: { active: boolean; buffId?: number };
-  wastedCrits: DamageEvent[];
+  activeBuffs: Spell[];
   precast?: CastEvent;
+  buffUptime: number;
 }

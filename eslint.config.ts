@@ -36,7 +36,6 @@ const ignores = tseslint.config({
     'src/analysis/retail/deathknight/blood/**',
     'src/analysis/retail/deathknight/frost/**',
     'src/analysis/retail/druid/balance/**',
-    'src/analysis/retail/druid/feral/**',
     'src/analysis/retail/druid/restoration/**',
     'src/analysis/retail/druid/shared/**',
     'src/analysis/retail/evoker/augmentation/**',

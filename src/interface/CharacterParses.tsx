@@ -47,7 +47,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_RETAIL_ZONE = 44; // Manaforge Omega
+const DEFAULT_RETAIL_ZONE = 46; // Voidspire / Dreamrift / MQD
 const DEFAULT_CLASSIC_ZONE = 1046; // Throne of Thunder
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
@@ -82,6 +82,17 @@ const ERRORS = {
   }),
 };
 
+const DEFAULT_BACKGROUND_OFFSET = '35%';
+const CHARACTER_BACKGROUND_OFFSETS: Record<number, string> = {
+  // Gnome / Mechagnome / Vulpera
+  [7]: '60%',
+  [35]: '60%',
+  [37]: '60%',
+  // Dwarf / Dark Iron Dwarf
+  [3]: '45%',
+  [34]: '45%',
+};
+
 interface CharacterParsesProps {
   region: string;
   realm: string;
@@ -107,6 +118,7 @@ interface CharacterParsesState {
   sortBy: number;
   metric: string;
   characterImage: string | null;
+  characterRace: number | null; // used to determine background image offset
   classImage: string | null;
   avatarImage: string | null;
   parses: Parse[];
@@ -131,6 +143,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
       characterImage: null,
+      characterRace: null,
       classImage: null,
       avatarImage: null,
       parses: [],
@@ -337,6 +350,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         classImage: classImageUrl,
         avatarImage: avatarUrl,
         metric: metric,
+        characterRace: data.race,
       },
       () => {
         this.load();
@@ -610,7 +624,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     }
 
     return (
-      <div className="results">
+      <main className="container results">
         <header>
           <div
             className="background"
@@ -622,7 +636,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
               className="img"
               style={{
                 backgroundImage: `url(${this.state.characterImage})`,
-                backgroundPosition: 'center center',
+                backgroundPosition: `center ${CHARACTER_BACKGROUND_OFFSETS[this.state.characterRace ?? -1] ?? DEFAULT_BACKGROUND_OFFSET}`,
               }}
             />
           </div>
@@ -879,7 +893,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             </div>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 }

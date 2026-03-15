@@ -45,7 +45,7 @@ class IgnorePainExpired extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <>
             When <SpellLink spell={SPELLS.IGNORE_PAIN} /> expires you lose all the remaining shield

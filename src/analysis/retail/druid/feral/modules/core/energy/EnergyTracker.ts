@@ -24,11 +24,7 @@ class EnergyTracker extends ResourceTracker {
     this.baseRegenRate = BASE_REGEN * (1 + TE_REGEN_MULT_PER_RANK * teRank);
 
     this.refundOnMiss = true;
-    this.refundBlacklist = [
-      TALENTS_DRUID.PRIMAL_WRATH_TALENT.id,
-      SPELLS.SWIPE_CAT.id,
-      SPELLS.THRASH_FERAL.id,
-    ];
+    this.refundBlacklist = [TALENTS_DRUID.PRIMAL_WRATH_TALENT.id, SPELLS.SWIPE_CAT.id];
 
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.SAVAGE_FURY_TALENT)) {
       this.addEventListener(
