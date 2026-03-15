@@ -3,7 +3,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
 import Abilities from './modules/Abilities';
-import DeathsCaress from './modules/core/DeathsCaress';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -62,7 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     boneShield: BoneShield,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
-    deathsCaress: DeathsCaress,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,

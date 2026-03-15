@@ -131,15 +131,6 @@ class Abilities extends CoreAbilities {
         range: AbilityRange.Melee,
       },
       {
-        spell: SPELLS.DEATHS_CARESS.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 7,
-        range: 30,
-      },
-      {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -175,10 +166,10 @@ class Abilities extends CoreAbilities {
         range: AbilityRange.Melee,
       },
       {
-        spell: TALENTS.RAISE_DEAD_SHARED_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_SHARED_TALENT),
+        spell: TALENTS.RAISE_DEAD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 120 - combatant.getTalentRank(TALENTS.DEATHS_MESSENGER_TALENT) * 30,
+        cooldown: 90,
       },
       {
         spell: TALENTS.REAPERS_MARK_TALENT.id,
@@ -247,7 +238,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT) ? 90 : 120,
+        cooldown: 90,
         timelineSortIndex: 11,
       },
       {
