@@ -178,6 +178,11 @@ const spells = {
     icon: 'spell_holy_dispelmagic',
     manaCost: 32500,
   },
+  VAMPIRIC_EMBRACE: {
+    id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
   VOIDLING: {
     id: 254232,
     name: 'Voidling',

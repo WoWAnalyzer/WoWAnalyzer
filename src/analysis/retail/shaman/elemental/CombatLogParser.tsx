@@ -30,7 +30,6 @@ import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
 import CallOfTheAncestors from './modules/hero/farseer/CallOfTheAncestors';
 import ElementalPrepullNormalizer from './modules/normalizers/ElementalPrepullNormalizer';
 import EventOrderNormalizer from './modules/normalizers/EventOrderNormalizer';
-import HeraldOfTheStorms from './modules/talents/HeraldOfTheStorms';
 import OfferingFromBeyond from './modules/hero/farseer/OfferingFromBeyond';
 import MaelstromSpenders from './modules/features/MaelstromSpenders';
 import FlameShock from './modules/core/FlameShock';
@@ -63,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     masterOfTheElements: MasterOfTheElements,
     manaSpring: ManaSpring,
-    heraldOfTheStorms: HeraldOfTheStorms,
 
     // hero talents
 

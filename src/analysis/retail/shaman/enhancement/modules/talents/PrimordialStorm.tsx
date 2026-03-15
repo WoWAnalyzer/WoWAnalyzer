@@ -13,15 +13,15 @@ import {
   getAveragePerf,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import { formatPercentage } from 'common/format';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastOverview from 'interface/guide/components/CastOverview';
+import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 
 interface PrimordialStormCast extends CooldownTrigger<CastEvent> {
   details: {
     maelstromUsed: number;
     shouldHaveHadDoomwinds: boolean;
     hadDoomwinds: boolean;
-    surgingElementsActive: boolean;
   };
 }
 
@@ -61,10 +61,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       shouldHaveHadDoomwinds: this.doomWindsAlternater,
       hadDoomwinds,
       maelstromUsed: this.resourceTracker.lastSpenderInfo?.amount ?? 0,
-      surgingElementsActive: this.selectedCombatant.hasBuff(
-        SPELLS.SURGING_ELEMENTS_BUFF,
-        event.timestamp,
-      ),
     };
 
     const lis: ReactNode[] = [];
@@ -104,18 +100,97 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     this.recordCooldown({ event, details });
   }
 
+  private buildOverviewStats() {
+    const totalMaelstromUsed = this.casts.reduce(
+      (total, cast) => total + (cast.details.maelstromUsed ?? 0),
+      0,
+    );
+    const doomWindsExpected = this.casts.filter((cast) => cast.details.shouldHaveHadDoomwinds);
+    const doomWindsSynced = doomWindsExpected.filter((cast) => cast.details.hadDoomwinds).length;
+
+    return [
+      {
+        value: `${this.casts.length}`,
+        label: 'Total Casts',
+        tooltip: (
+          <>
+            Total <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> casts.
+          </>
+        ),
+      },
+      {
+        value: this.casts.length > 0 ? (totalMaelstromUsed / this.casts.length).toFixed(1) : '0.0',
+        label: 'Avg Maelstrom',
+        tooltip: (
+          <>
+            Average <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> stacks spent on each{' '}
+            <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> cast.
+          </>
+        ),
+      },
+      {
+        value:
+          doomWindsExpected.length > 0 ? `${doomWindsSynced}/${doomWindsExpected.length}` : '0/0',
+        label: 'Doom Winds Sync',
+        tooltip: (
+          <>
+            Successful <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> pairings with{' '}
+            <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
+          </>
+        ),
+      },
+    ];
+  }
+
+  private buildPerCastData(): PerCastData[] {
+    return this.casts.map((cast) => {
+      const spellUse = this.explainPerformance(cast);
+      const details = cast.details;
+
+      return {
+        performance: spellUse.performance,
+        timestamp: this.owner.formatTimestamp(cast.event.timestamp),
+        detailsIcon: null,
+        stats: [
+          {
+            value: `${details.maelstromUsed}`,
+            label: 'Maelstrom',
+            tooltip: (
+              <>
+                {' '}
+                <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> stacks spent.
+              </>
+            ),
+            performance: spellUse.checklistItems.find((item) => item.check === 'maelstrom-weapon')
+              ?.performance,
+          },
+          {
+            value: details.shouldHaveHadDoomwinds ? (details.hadDoomwinds ? 'Yes' : 'No') : 'N/A',
+            label: 'Doom Winds',
+            tooltip: (
+              <>
+                Every second <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> cast should be
+                paired with <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />.
+              </>
+            ),
+            performance: spellUse.checklistItems.find((item) => item.check === 'doom-winds')
+              ?.performance,
+          },
+        ],
+      };
+    });
+  }
+
   get guideSubsection() {
+    if (!this.active) {
+      return null;
+    }
+
     return (
-      <>
-        <CooldownUsage
-          analyzer={this}
-          title={
-            <>
-              <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />
-            </>
-          }
-        />
-      </>
+      <GuideSection spell={TALENTS.PRIMORDIAL_STORM_TALENT} explanation={this.description()}>
+        <CastOverview spell={TALENTS.PRIMORDIAL_STORM_TALENT} stats={this.buildOverviewStats()} />
+        <CastDetail title="Primordial Storm Casts" casts={this.buildPerCastData()} />
+      </GuideSection>
     );
   }
 
@@ -147,13 +222,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   explainPerformance(cast: PrimordialStormCast): SpellUse {
     const details = cast.details;
-
-    const maelstromUsed = details.maelstromUsed ?? 0;
-    const hadDoomwinds = details.hadDoomwinds ?? false;
-    const shouldHaveHadDoomwinds = details.shouldHaveHadDoomwinds ?? false;
-    const surgingElementsActive = details.surgingElementsActive ?? false;
-
-    const issues: ReactNode[] = [];
     const checklistItems: ChecklistUsageInfo[] = [];
 
     /**
@@ -163,7 +231,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       check: 'maelstrom-weapon',
       timestamp: cast.event.timestamp,
       performance: evaluateQualitativePerformanceByThreshold({
-        actual: maelstromUsed,
+        actual: details.maelstromUsed,
         isGreaterThanOrEqual: {
           perfect: 10,
           good: 8,
@@ -177,80 +245,41 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       ),
       details: (
         <div>
-          <strong>{maelstromUsed}</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
-          used.
+          <strong>{details.maelstromUsed}</strong>{' '}
+          <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> used.
         </div>
       ),
     });
-    if (maelstromUsed < 10) {
-      issues.push(
-        <>
-          <li key="maelstrom-weapon">
-            Aim to use <strong>10</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
-            each time you cast <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
-          </li>
-        </>,
-      );
-    }
 
     /**
      * Doom Winds
      */
-    if (shouldHaveHadDoomwinds) {
+    if (details.shouldHaveHadDoomwinds) {
       checklistItems.push({
         check: 'doom-winds',
         timestamp: cast.event.timestamp,
-        performance: hadDoomwinds ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+        performance: details.hadDoomwinds
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Fail,
         summary: (
           <>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {details.hadDoomwinds ? '' : 'not'}{' '}
+            active
           </>
         ),
         details: (
           <div>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active.
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {details.hadDoomwinds ? '' : 'not'}{' '}
+            active.
           </div>
         ),
       });
-
-      if (!hadDoomwinds) {
-        issues.push(
-          <>
-            <li key="doom-winds">
-              <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> should be active for every second
-              cast.
-            </li>
-          </>,
-        );
-      }
     }
-
-    const extraDetails = (
-      <div>
-        <ul>
-          <li>
-            <SpellLink spell={SPELLS.SURGING_ELEMENTS_BUFF} />{' '}
-            {surgingElementsActive ? 'granted' : 'did not grant'}{' '}
-            <strong>{formatPercentage(0.15)}%</strong> haste.
-          </li>
-        </ul>
-        {issues.length > 0 && (
-          <>
-            <br />
-            <div>
-              <strong>Issues</strong>
-            </div>
-            <ul>{issues}</ul>
-          </>
-        )}
-      </div>
-    );
 
     return {
       event: cast.event,
       checklistItems,
       performance: getAveragePerf(checklistItems.map((c) => c.performance)),
-      extraDetails,
     };
   }
 }
