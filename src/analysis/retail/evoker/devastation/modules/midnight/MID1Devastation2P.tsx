@@ -52,7 +52,7 @@ class MID1Devastation2P extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE()}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={

@@ -76,6 +76,7 @@ import {
   FireTorrent,
 } from 'analysis/retail/evoker/shared';
 import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
+import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -167,6 +168,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // tier
     mid1Devastation2P: MID1Devastation2P,
+    mid1Devastation4P: MID1Devastation4P,
   };
 
   static guide = Guide;

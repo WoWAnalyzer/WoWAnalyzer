@@ -81,7 +81,6 @@ export const IRIDESCENCE_BLUE_CAST_SPELLS = [
 
 export const AZURE_SWEEP_MAX_STACKS = 2;
 export const AZURE_SWEEP_BASE_STACKS = 1;
-export const AZURE_SWEEP_MID1_2PC_EXTRA_STACKS = 1;
 
 // Talent damage multipliers
 export const SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER = 0.3;
@@ -113,3 +112,5 @@ export const CAUSALITY_PYRE_CDR_MS = 400;
 // Tier
 export const MID1_2P_DAMAGE_AMP = 0.5;
 export const MID1_2P_DAMAGE_AMP_MAIN_TARGET = 1;
+export const MID1_4P_CDR_MS = 2_000;
+export const MID1_4P_AZURE_SWEEP_EXTRA_STACKS = 1;
