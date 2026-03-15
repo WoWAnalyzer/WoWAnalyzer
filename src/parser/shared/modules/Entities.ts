@@ -224,6 +224,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
    * This event is also fired for `applybuff` where `oldStacks` will be 0 and `newStacks` will be 1. NOTE: This event is usually fired before the `applybuff` event!
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _triggerChangeBuffStack(buff: any, timestamp: number, oldStacks: number, newStacks: number) {
     this.eventEmitter.fabricateEvent(
       {

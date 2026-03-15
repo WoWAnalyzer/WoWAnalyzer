@@ -54,8 +54,9 @@ interface AscendanceTimeline {
   performance?: QualitativePerformance | null;
 }
 
-interface AscendanceCooldownCast
-  extends CooldownTrigger<CastEvent | ApplyBuffEvent | RefreshBuffEvent> {
+interface AscendanceCooldownCast extends CooldownTrigger<
+  CastEvent | ApplyBuffEvent | RefreshBuffEvent
+> {
   source: AscendanceSource;
   timeline: AscendanceTimeline;
   endingMaelstrom: number;

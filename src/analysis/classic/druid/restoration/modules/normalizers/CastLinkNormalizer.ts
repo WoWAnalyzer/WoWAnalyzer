@@ -144,6 +144,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }

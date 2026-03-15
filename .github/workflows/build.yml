@@ -30,9 +30,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run typecheck
 
-  linting:
+  lint-test:
     needs: [prepare]
-    name: 'ESLint'
+    name: 'Lint / Format / Test'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
@@ -41,32 +41,8 @@ jobs:
         with:
           node-version: '22.x'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint --pass-on-unpruned-suppressions
-
-  prettier:
-    needs: [prepare]
-    name: 'Prettier'
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
-        with:
-          node-version: '22.x'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec prettier . --check
-
-  tests:
-    needs: [prepare]
-    name: 'Tests'
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
-        with:
-          node-version: '22.x'
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run format:check
       - run: pnpm run test
 
   build:
@@ -190,8 +166,7 @@ jobs:
         run: pnpm exec lingui compile
 
   docker-image:
-    # needs: [typecheck, linting, prettier, tests, build]
-    needs: [linting, prettier, tests, build]
+    needs: [lint-test, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-24.04
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'

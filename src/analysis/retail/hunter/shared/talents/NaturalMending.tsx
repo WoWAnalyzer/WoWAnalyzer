@@ -72,9 +72,8 @@ class NaturalMending extends Analyzer {
         <BoringSpellValueText spell={TALENTS.NATURAL_MENDING_TALENT}>
           <>
             {formatNumber(this.effectiveExhilReductionMs / 1000)}s/
-            {formatNumber(
-              (this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000,
-            )}s <small> cooldown reduction</small>
+            {formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s{' '}
+            <small> cooldown reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

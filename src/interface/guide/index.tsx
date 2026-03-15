@@ -140,6 +140,7 @@ export interface GuideProps<T extends typeof CombatLogParser> {
  * }
  * ```
  */
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export type Guide<T extends typeof CombatLogParser = any> = (
   props: GuideProps<T>,
 ) => JSX.Element | null;
@@ -220,8 +221,9 @@ export const Section = ({
   );
 };
 
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 type GuideContextValue = Omit<GuideProps<any>, 'info'> & {
-  info?: GuideProps<any>['info'];
+  info?: GuideProps<any>['info']; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 };
 
 export const GuideContext = createContext<GuideContextValue>({

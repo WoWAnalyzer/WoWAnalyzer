@@ -48,6 +48,8 @@ export interface PerCastData {
   timestamp: string;
   /** Optional additional details to show below the cast */
   details?: React.ReactNode;
+  /** Optional icon override for the details box. Set to null to suppress the default icon. */
+  detailsIcon?: React.ReactNode | null;
   additionalContent?: AdditionalContent;
 }
 
@@ -285,7 +287,15 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
             )}
 
             {currentCast!.details && (
-              <TipBox icon={<PerformanceMark perf={currentCast!.performance} />}>
+              <TipBox
+                icon={
+                  currentCast!.detailsIcon === undefined ? (
+                    <PerformanceMark perf={currentCast!.performance} />
+                  ) : (
+                    currentCast!.detailsIcon
+                  )
+                }
+              >
                 {currentCast!.details}
               </TipBox>
             )}

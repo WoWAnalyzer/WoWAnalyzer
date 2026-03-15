@@ -44,7 +44,7 @@ const thorimsInvocationDamageLink: EventLink = {
     SPELLS.TEMPEST_CAST.id,
   ],
   referencedEventType: EventType.Damage,
-  forwardBufferMs: EventLinkBuffers.CastDamageBuffer * 2,
+  forwardBufferMs: EventLinkBuffers.CastDamageBuffer * 5,
   anyTarget: true,
 };
 const stormStrikeLink: EventLink = {

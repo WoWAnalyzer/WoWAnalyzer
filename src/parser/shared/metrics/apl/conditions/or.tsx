@@ -1,8 +1,8 @@
 import type { Condition } from '../index';
 
-type ConditionMap = Record<string, Condition<any>>;
+type ConditionMap = Record<string, Condition<any>>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 
-// TODO: this has some copypasta
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export default function or(...conditions: Condition<any>[]): Condition<any> {
   const cndMap: ConditionMap = conditions.reduce((map: ConditionMap, cnd) => {
     map[cnd.key] = cnd;
