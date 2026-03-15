@@ -15,7 +15,7 @@ import TALENTS from 'common/TALENTS/shaman';
 import SpellLink from 'interface/SpellLink';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { EnhancementEventLinks } from '../../constants';
-import { Section, SubSection } from 'interface/guide';
+import { SubSection } from 'interface/guide';
 import BuffUptimeBar from 'interface/guide/components/BuffUptimeBar';
 
 class StormUnleashed extends Analyzer {

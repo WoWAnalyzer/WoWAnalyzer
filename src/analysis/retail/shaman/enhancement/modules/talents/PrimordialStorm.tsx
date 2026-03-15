@@ -13,18 +13,15 @@ import {
   getAveragePerf,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import { formatPercentage } from 'common/format';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastOverview from 'interface/guide/components/CastOverview';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
-import { PerformanceMark } from 'interface/guide';
 
 interface PrimordialStormCast extends CooldownTrigger<CastEvent> {
   details: {
     maelstromUsed: number;
     shouldHaveHadDoomwinds: boolean;
     hadDoomwinds: boolean;
-    surgingElementsActive: boolean;
   };
 }
 
@@ -64,10 +61,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       shouldHaveHadDoomwinds: this.doomWindsAlternater,
       hadDoomwinds,
       maelstromUsed: this.resourceTracker.lastSpenderInfo?.amount ?? 0,
-      surgingElementsActive: this.selectedCombatant.hasBuff(
-        SPELLS.SURGING_ELEMENTS_BUFF,
-        event.timestamp,
-      ),
     };
 
     const lis: ReactNode[] = [];
@@ -114,9 +107,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     );
     const doomWindsExpected = this.casts.filter((cast) => cast.details.shouldHaveHadDoomwinds);
     const doomWindsSynced = doomWindsExpected.filter((cast) => cast.details.hadDoomwinds).length;
-    const surgingElementsActive = this.casts.filter(
-      (cast) => cast.details.surgingElementsActive,
-    ).length;
 
     return [
       {
@@ -232,12 +222,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   explainPerformance(cast: PrimordialStormCast): SpellUse {
     const details = cast.details;
-
-    const maelstromUsed = details.maelstromUsed ?? 0;
-    const hadDoomwinds = details.hadDoomwinds ?? false;
-    const shouldHaveHadDoomwinds = details.shouldHaveHadDoomwinds ?? false;
-
-    const issues: ReactNode[] = [];
     const checklistItems: ChecklistUsageInfo[] = [];
 
     /**
@@ -247,7 +231,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       check: 'maelstrom-weapon',
       timestamp: cast.event.timestamp,
       performance: evaluateQualitativePerformanceByThreshold({
-        actual: maelstromUsed,
+        actual: details.maelstromUsed,
         isGreaterThanOrEqual: {
           perfect: 10,
           good: 8,
@@ -261,62 +245,35 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       ),
       details: (
         <div>
-          <strong>{maelstromUsed}</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
-          used.
+          <strong>{details.maelstromUsed}</strong>{' '}
+          <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> used.
         </div>
       ),
     });
-    if (maelstromUsed < 10) {
-      issues.push(
-        <>
-          <li key="maelstrom-weapon">
-            Aim to use <strong>10</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
-            each time you cast <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
-          </li>
-        </>,
-      );
-    }
 
     /**
      * Doom Winds
      */
-    if (shouldHaveHadDoomwinds) {
+    if (details.shouldHaveHadDoomwinds) {
       checklistItems.push({
         check: 'doom-winds',
         timestamp: cast.event.timestamp,
-        performance: hadDoomwinds ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+        performance: details.hadDoomwinds
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Fail,
         summary: (
           <>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {details.hadDoomwinds ? '' : 'not'}{' '}
+            active
           </>
         ),
         details: (
           <div>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active.
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {details.hadDoomwinds ? '' : 'not'}{' '}
+            active.
           </div>
         ),
       });
-    }
-
-    if (maelstromUsed < 10) {
-      issues.push(
-        <>
-          <li key="maelstrom-weapon">
-            Aim to use <strong>10</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
-            each time you cast <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
-          </li>
-        </>,
-      );
-    }
-
-    if (!hadDoomwinds) {
-      issues.push(
-        <>
-          <li key="doom-winds">
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> should be active for every second cast.
-          </li>
-        </>,
-      );
     }
 
     return {

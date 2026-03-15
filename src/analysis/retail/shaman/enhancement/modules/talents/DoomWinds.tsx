@@ -26,7 +26,6 @@ import {
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import Abilities from '../Abilities';
 import Haste from 'parser/shared/modules/Haste';
@@ -116,7 +115,8 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
 
     this.hasAscendance = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT);
     this.hasDRE = this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
-    this.crashLightningCD = abilities.getAbility(TALENTS.CRASH_LIGHTNING_TALENT.id)!.cooldown;
+    this.crashLightningCD =
+      abilities.getAbility(TALENTS.CRASH_LIGHTNING_TALENT.id)!.cooldown * 1000;
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.DOOM_WINDS_TALENT);
     if (!this.active) {

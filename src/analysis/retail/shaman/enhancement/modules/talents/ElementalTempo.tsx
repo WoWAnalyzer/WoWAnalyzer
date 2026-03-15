@@ -1,4 +1,4 @@
-import type { JSX, ReactNode } from 'react';
+import type { JSX } from 'react';
 import styled from '@emotion/styled';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -46,36 +46,6 @@ class ElementalTempo extends Analyzer.withDependencies({
   protected abilities!: Abilities;
 
   private casts: CastCdrBreakdown[] = [];
-
-  private getStacksPerformance(stacksSpent: number) {
-    return evaluateQualitativePerformanceByThreshold({
-      actual: stacksSpent,
-      isGreaterThanOrEqual: {
-        perfect: 10,
-        good: 8,
-        ok: 5,
-      },
-    });
-  }
-
-  private getWastePerformance(wastedPercent: number) {
-    return evaluateQualitativePerformanceByThreshold({
-      actual: wastedPercent,
-      isLessThanOrEqual: {
-        perfect: 0,
-        good: 0.25,
-        ok: 0.5,
-      },
-    });
-  }
-
-  private getSpellWastePerformance(spellWasteMs: number, totalPotentialMs: number) {
-    if (totalPotentialMs <= 0) {
-      return QualitativePerformance.Perfect;
-    }
-
-    return this.getWastePerformance(spellWasteMs / totalPotentialMs);
-  }
 
   constructor(options: Options) {
     super(options);
@@ -211,8 +181,6 @@ class ElementalTempo extends Analyzer.withDependencies({
 
   private renderCastTooltip(cast: CastCdrBreakdown): JSX.Element {
     const stormstrikeLabel = cast.isAscendanceActive ? SPELLS.WINDSTRIKE_CAST : SPELLS.STORMSTRIKE;
-    const totalPotentialMs = cast.stormstrike.totalMs + cast.lavaLash.totalMs;
-    const totalWastedMs = cast.stormstrike.wastedMs + cast.lavaLash.wastedMs;
 
     if (cast.analysisSkipped) {
       return (

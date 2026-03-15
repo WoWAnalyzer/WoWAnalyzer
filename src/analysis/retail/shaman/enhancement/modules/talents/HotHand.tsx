@@ -35,11 +35,6 @@ import {
   getLowestPerf,
 } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import {
-  EmbeddedTimelineContainer,
-  SpellTimeline,
-} from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import Casts from 'interface/report/Results/Timeline/Casts';
 import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
@@ -54,7 +49,6 @@ import GuideSection from 'interface/guide/components/GuideSection';
 import CastOverview from 'interface/guide/components/CastOverview';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
-import { PerformanceMark } from 'interface/guide';
 
 class HotHandRank {
   modRate: number;
@@ -80,17 +74,8 @@ const HOT_HAND: Record<number, HotHandRank> = {
  * a Hot Hand window so we don't want to unfairly punish the performance if
  * any of these are used  */
 const HIGH_PRIORITY_ABILITIES: HighPriorityAbilities = [
-  // TALENTS.PRIMORDIAL_STORM_TALENT.id,
-  // {
-  //   spellId: [TALENTS.TEMPEST_TALENT.id],
-  //   condition: (e) =>
-  //     e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 6,
-  // },
-  // {
-  //   spellId: SPELLS.LIGHTNING_BOLT.id,
-  //   condition: (e) =>
-  //     e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 5,
-  // },
+  SPELLS.SURGING_TOTEM.id,
+  TALENTS.SUNDERING_TALENT.id,
 ];
 
 interface HotHandTimeline {
