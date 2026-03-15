@@ -3,18 +3,15 @@ import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'interface';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { BuffEvent, CastEvent, TargettedEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { getHitCount, getHits } from '../../normalizers/CastLinkNormalizer';
+import { getHitCount } from '../../normalizers/CastLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SubSection } from 'interface/guide';
 import DonutChart from 'parser/ui/DonutChart';
-import { VeryBadColor, BadColor, GoodColor, PerfectColor } from 'interface/guide';
-import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
-import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
-import { PANDEMIC_FRACTION } from 'analysis/retail/druid/feral/constants';
+import { VeryBadColor, BadColor, PerfectColor } from 'interface/guide';
 import Spell from 'common/SPELLS/Spell';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
@@ -24,65 +21,28 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
  * Relies on CastLinkNormalizer linking casts to hits.
  */
 class HitCountAoE extends Analyzer {
-  static dependencies = {
-    thrashUptime: ThrashUptimeAndSnapshot,
-  };
-
-  thrashUptime!: ThrashUptimeAndSnapshot;
-
   swipeTracker?: SwipeTracker;
-  brsTracker?: BrsTracker;
-  thrashTracker?: ThrashTracker;
   pwTracker?: PwTracker;
   allTrackers: SpellAoeTracker[] = [];
 
-  hasBrs: boolean;
   hasPw: boolean;
-  hasBt: boolean;
 
   constructor(options: Options) {
     super(options);
 
-    this.hasBrs = this.selectedCombatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT);
     this.hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
-    this.hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
 
     // fill the trackers relevant to talent setup
-    if (this.hasBrs) {
-      this.brsTracker = this._newAoeTracker(TALENTS_DRUID.BRUTAL_SLASH_TALENT);
-      this.allTrackers.push(this.brsTracker);
-    } else {
-      this.swipeTracker = {
-        ...this._newAoeTracker(SPELLS.SWIPE_CAT),
-        oneHitsWithBt: 0,
-        oneHitsWithoutBt: 0,
-      };
-      this.allTrackers.push(this.swipeTracker);
-    }
-
-    this.thrashTracker = {
-      ...this._newAoeTracker(SPELLS.THRASH_FERAL),
-      oneHitsButClip: 0,
-      oneHitsNoClip: 0,
-    };
-    this.allTrackers.push(this.thrashTracker);
+    this.swipeTracker = this._newAoeTracker(SPELLS.SWIPE_CAT);
+    this.allTrackers.push(this.swipeTracker);
 
     if (this.hasPw) {
       this.pwTracker = this._newAoeTracker(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
       this.allTrackers.push(this.pwTracker);
     }
 
-    !this.hasBrs &&
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIPE_CAT), this.onSwipe);
-    this.hasBrs &&
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
-        this.onBrutalSlash,
-      );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THRASH_FERAL),
-      this.onThrash,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIPE_CAT), this.onSwipe);
+
     this.hasPw &&
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.PRIMAL_WRATH_TALENT),
@@ -102,31 +62,7 @@ class HitCountAoE extends Analyzer {
   }
 
   onSwipe(event: CastEvent) {
-    const hits = this._onAoeCast(event, this.swipeTracker!);
-    if (hits === 1) {
-      if (proccedBloodtalons(event)) {
-        this.swipeTracker!.oneHitsWithBt += 1;
-      } else {
-        this.swipeTracker!.oneHitsWithoutBt += 1;
-      }
-    }
-  }
-
-  onBrutalSlash(event: CastEvent) {
-    this._onAoeCast(event, this.brsTracker!);
-  }
-
-  onThrash(event: CastEvent) {
-    const hits = this._onAoeCast(event, this.thrashTracker!);
-    if (hits === 1) {
-      const apply = getHits(event)[0] as BuffEvent<any>;
-      const timeRemaining = this.thrashUptime.getTimeRemaining(apply as TargettedEvent<any>);
-      if (timeRemaining > PANDEMIC_FRACTION * this.thrashUptime.getDotExpectedDuration()) {
-        this.thrashTracker!.oneHitsButClip += 1;
-      } else {
-        this.thrashTracker!.oneHitsNoClip += 1;
-      }
-    }
+    this._onAoeCast(event, this.swipeTracker!);
   }
 
   onPrimalWrath(event: CastEvent) {
@@ -162,79 +98,14 @@ class HitCountAoE extends Analyzer {
         value: this.swipeTracker!.multiHitCasts,
       },
       {
-        color: GoodColor,
-        label: (
-          <>
-            Hit 1 Target w/
-            <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-          </>
-        ),
-        value: this.swipeTracker!.oneHitsWithBt,
-      },
-      {
         color: BadColor,
         label: 'Hit 1 Target',
-        value: this.swipeTracker!.oneHitsWithoutBt,
+        value: this.swipeTracker!.oneHitCasts,
       },
       {
         color: VeryBadColor,
         label: 'Hit 0 Targets',
         value: this.swipeTracker!.zeroHitCasts,
-      },
-    ];
-    return <DonutChart items={items} />;
-  }
-
-  get brsChart() {
-    if (this.brsTracker!.casts === 0) {
-      return <strong>You never used this spell!</strong>;
-    }
-
-    const items = [
-      {
-        color: PerfectColor,
-        label: 'Hit 2+ Targets',
-        value: this.brsTracker!.multiHitCasts,
-      },
-      {
-        color: GoodColor,
-        label: 'Hit 1 Target',
-        value: this.brsTracker!.oneHitCasts,
-      },
-      {
-        color: VeryBadColor,
-        label: 'Hit 0 Targets',
-        value: this.brsTracker!.zeroHitCasts,
-      },
-    ];
-    return <DonutChart items={items} />;
-  }
-
-  get thrashChart() {
-    if (this.thrashTracker!.casts === 0) {
-      return <strong>You never used this spell!</strong>;
-    }
-
-    const items = [
-      {
-        color: PerfectColor,
-        label: 'Hit 2+ Targets',
-        value: this.thrashTracker!.multiHitCasts,
-      },
-      {
-        color: GoodColor,
-        label: 'Hit 1 Target',
-        value: this.thrashTracker!.oneHitsNoClip,
-      },
-      {
-        color: BadColor,
-        label: 'Hit 1 Target but Clipped',
-        value: this.thrashTracker!.oneHitsButClip,
-      },
-      {
-        color: VeryBadColor,
-        label: 'Hit 0 Targets',
-        value: this.thrashTracker!.zeroHitCasts,
       },
     ];
     return <DonutChart items={items} />;
@@ -266,9 +137,7 @@ class HitCountAoE extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const hasBrs = this.selectedCombatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT);
     const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
-    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
 
     return (
       <SubSection>
@@ -279,44 +148,14 @@ class HitCountAoE extends Analyzer {
           are excluded.
         </p>
         <SideBySidePanels>
-          {!hasBrs && (
-            <RoundedPanel>
-              <div>
-                <strong>
-                  <SpellLink spell={SPELLS.SWIPE_CAT} />
-                </strong>{' '}
-                {hasBt ? (
-                  <>
-                    is acceptable on single-target to proc{' '}
-                    <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-                  </>
-                ) : (
-                  <>should only be used on multiple targets</>
-                )}
-              </div>
-              {this.swipeChart}
-            </RoundedPanel>
-          )}
-          {hasBrs && (
-            <RoundedPanel>
-              <div>
-                <strong>
-                  <SpellLink spell={TALENTS_DRUID.BRUTAL_SLASH_TALENT} />
-                </strong>{' '}
-                is better than <SpellLink spell={SPELLS.SHRED} /> even on single-target
-              </div>
-              {this.brsChart}
-            </RoundedPanel>
-          )}
           <RoundedPanel>
             <div>
               <strong>
-                <SpellLink spell={SPELLS.THRASH_FERAL} />
+                <SpellLink spell={SPELLS.SWIPE_CAT} />
               </strong>{' '}
-              is a small gain over <SpellLink spell={SPELLS.SHRED} /> on single-target when not
-              clipping the DoT
+              should only be used on multiple targets
             </div>
-            {this.thrashChart}
+            {this.swipeChart}
           </RoundedPanel>
           {hasPw && (
             <RoundedPanel>
@@ -392,17 +231,7 @@ interface SpellAoeTracker {
   multiHitCasts: number;
 }
 
-type SwipeTracker = SpellAoeTracker & {
-  oneHitsWithBt: number;
-  oneHitsWithoutBt: number;
-};
-
-type BrsTracker = SpellAoeTracker;
-
-type ThrashTracker = SpellAoeTracker & {
-  oneHitsButClip: number;
-  oneHitsNoClip: number;
-};
+type SwipeTracker = SpellAoeTracker;
 
 type PwTracker = SpellAoeTracker;
 

@@ -9,20 +9,17 @@ import CancelledCasts from './modules/features/CancelledCasts';
 import ConvokeSpiritsBalance from 'analysis/retail/druid/balance/modules/spells/ConvokeSpiritsBalance';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import DotUptimes from './modules/features/DotUptimes';
-import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import FillerUsage from './modules/features/FillerUsage';
 import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
 import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
 import SoulOfTheForest from 'analysis/retail/druid/balance/modules/spells/SoulOfTheForest';
 import Starlord from 'analysis/retail/druid/balance/modules/spells/Starlord';
-import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
 import TwinMoons from 'analysis/retail/druid/balance/modules/spells/TwinMoons';
 import AstralPowerTracker from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import AstralPowerDetails from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerDetails';
 import Guide from 'analysis/retail/druid/balance/Guide';
 import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerGraph';
-import WaningTwilight from './modules/spells/WaningTwilight';
 import Starweaver from './modules/spells/Starweaver';
 import SunderedFirmament from './modules/spells/SunderedFirmament';
 import Eclipse from 'analysis/retail/druid/balance/modules/spells/Eclipse';
@@ -57,17 +54,14 @@ class CombatLogParser extends MainCombatLogParser {
     sunfireUptime: SunfireUptime,
     fillerUsage: FillerUsage,
     spenderUsage: SpenderUsage,
-    earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     buffs: Buffs,
     dotUptimes: DotUptimes,
     eclipse: Eclipse,
     //Talents
-    stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
     starlord: Starlord,
     soulOfTheForest: SoulOfTheForest,
-    waningTwilight: WaningTwilight,
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     starweaver: Starweaver,
     sunderedFirmament: SunderedFirmament,

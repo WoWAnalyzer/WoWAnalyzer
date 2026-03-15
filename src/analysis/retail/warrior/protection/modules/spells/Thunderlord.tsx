@@ -8,12 +8,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
+import SPELLS from 'common/SPELLS';
 
-const REDUCTION = 1000;
+const REDUCTION = 1500;
 const MAX_REDUCTION_PER_CAST = REDUCTION * 3;
 
 /**
- * Each damage even from thunderclap reduces demo shout by 1.0 seconds up to 3.0 second per cast
+ * Each damage even from thunderclap reduces demo shout by 1.5 seconds up to 4.5 second per cast
  */
 class Thunderlord extends Analyzer {
   static dependencies = {
@@ -35,11 +36,11 @@ class Thunderlord extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.THUNDER_CLAP_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.THUNDER_CLAP_TALENT, SPELLS.THUNDER_BLAST]),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.THUNDER_CLAP_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell([TALENTS.THUNDER_CLAP_TALENT, SPELLS.THUNDER_BLAST]),
       this.reduce,
     );
   }

@@ -25,7 +25,7 @@
   }
 }
 
-.results {
+#fight-results.results {
   display: grid;
   grid-template-columns: 1fr Ad.$side-rail-width;
   gap: 1rem;

@@ -49,7 +49,7 @@ const PatchCheckerContents = ({
   const isThisExpansion = reportPatch?.expansion === reportExpansion;
 
   return (
-    <div className="container offset">
+    <main className="container offset">
       <h1>
         {report.title} - {reportDate}
       </h1>
@@ -67,6 +67,7 @@ const PatchCheckerContents = ({
           )
         }
         pad={false}
+        subheading
       >
         <div className="flex wrapable">
           <div className="flex-main pad">
@@ -144,7 +145,7 @@ const PatchCheckerContents = ({
           </div>
         </div>
       </Panel>
-    </div>
+    </main>
   );
 };
 

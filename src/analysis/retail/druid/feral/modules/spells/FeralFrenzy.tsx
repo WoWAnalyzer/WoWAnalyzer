@@ -10,7 +10,7 @@ import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerf
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
-import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
+import { PerformanceMark } from 'interface/guide';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 
 /**
@@ -31,8 +31,6 @@ export default class FeralFrenzy extends Analyzer {
   protected energyTracker!: EnergyTracker;
   protected enemies!: Enemies;
 
-  hasSwarm: boolean;
-
   /** Tracker for each Feral Frenzy cast */
   ffTrackers: FeralFrenzyCast[] = [];
 
@@ -40,7 +38,6 @@ export default class FeralFrenzy extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
-    this.hasSwarm = this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FERAL_FRENZY_TALENT),
@@ -52,20 +49,12 @@ export default class FeralFrenzy extends Analyzer {
     const tfOnCast = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
     const cpsOnCast = this.comboPointTracker.current;
     const energyOnCast = this.energyTracker.current;
-    let swarmOnTarget = false;
-    if (this.hasSwarm) {
-      const target = this.enemies.getEntity(event);
-      if (target && target.hasBuff(SPELLS.ADAPTIVE_SWARM_DAMAGE.id)) {
-        swarmOnTarget = true;
-      }
-    }
 
     this.ffTrackers.push({
       timestamp: event.timestamp,
       tfOnCast,
       cpsOnCast,
       energyOnCast,
-      swarmOnTarget,
     });
   }
 
@@ -77,15 +66,8 @@ export default class FeralFrenzy extends Analyzer {
           <strong>
             <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT} />
           </strong>{' '}
-          is a brief but extremely powerful bleed. Use it on cooldown.
-          {this.hasSwarm && (
-            <>
-              {' '}
-              If possible use with <SpellLink spell={SPELLS.ADAPTIVE_SWARM_DAMAGE} /> on the target
-            </>
-          )}
-          . As it gives 5 combo points, it's best used at low combo points in order not to waste
-          them.
+          is a brief but extremely powerful bleed. Use it on cooldown. As it gives 5 combo points,
+          it's best used at low combo points in order not to waste them.
         </p>
       </>
     );
@@ -110,9 +92,6 @@ export default class FeralFrenzy extends Analyzer {
           }
 
           let overallPerf = QualitativePerformance.Good;
-          if (this.hasSwarm && !cast.swarmOnTarget) {
-            overallPerf = QualitativePerformance.Ok;
-          }
           overallPerf = getLowestPerf([overallPerf, cpsPerf]);
 
           const checklistItems: CooldownExpandableItem[] = [];
@@ -131,15 +110,6 @@ export default class FeralFrenzy extends Analyzer {
             result: <PerformanceMark perf={cpsPerf} />,
             details: <>({cast.cpsOnCast} CPs)</>,
           });
-          this.hasSwarm &&
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink spell={SPELLS.ADAPTIVE_SWARM_DAMAGE} /> on target
-                </>
-              ),
-              result: <PassFailCheckmark pass={cast.swarmOnTarget} />,
-            });
 
           return (
             <CooldownExpandable
@@ -162,5 +132,4 @@ interface FeralFrenzyCast {
   tfOnCast: boolean;
   cpsOnCast: number;
   energyOnCast: number;
-  swarmOnTarget: boolean;
 }

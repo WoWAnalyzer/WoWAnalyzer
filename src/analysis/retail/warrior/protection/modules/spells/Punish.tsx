@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
-const PUNISH_DAMAGE_INCREASE = 0.1;
+const PUNISH_DAMAGE_INCREASE = 0.15;
 
 class Punish extends Analyzer {
   static dependencies = {

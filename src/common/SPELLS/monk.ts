@@ -165,6 +165,11 @@ const spells = {
     name: 'Heart of the Jade Serpent',
     icon: 'ability_monk_summonserpentstatue',
   },
+  CELESTIAL_CONDUIT_CASTABLE_WW: {
+    id: 1248992,
+    name: 'Celestial Conduit',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
+  },
   UNITY_WITHIN_CAST: {
     id: 443591,
     name: 'Unity Within',

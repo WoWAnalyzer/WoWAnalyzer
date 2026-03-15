@@ -96,13 +96,15 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.FIRE_MASTERY_BUFF.id]: {
     hastePerStack: 0.01,
   },
-  [SPELLS.MANA_ADDICTION_BUFF_FIRE.id]: {
-    hastePerStack: 0.02,
+  [SPELLS.MANA_CASCADE_BUFF_FIRE.id]: {
+    hastePerStack: 0.005,
   },
-  [SPELLS.MANA_ADDICTION_BUFF_ARCANE.id]: {
-    hastePerStack: 0.03,
+  [SPELLS.MANA_CASCADE_BUFF_ARCANE.id]: {
+    hastePerStack: 0.005,
   },
   [TALENTS_MAGE.ARCANE_TEMPO_TALENT.id]: 0.02,
+  [SPELLS.LESSER_TIME_WARP_BUFF.id]: 0.15,
+  [TALENTS_MAGE.ELEMENTAL_CONDUIT_TALENT.id]: 0.02,
   //endregion
 
   //region Monk

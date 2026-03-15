@@ -31,8 +31,9 @@ export const SideBySidePanels = styled.div`
  * Version of {@link RoundedPanel} that aligns content to the start of the
  * box instead of the center.
  */
-const StartAlignedRoundedPanel = styled(RoundedPanel)`
+export const StartAlignedRoundedPanel = styled(RoundedPanel)`
   align-content: start;
+  align-items: start;
 `;
 
 /**

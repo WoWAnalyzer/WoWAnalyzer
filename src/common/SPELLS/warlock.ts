@@ -254,7 +254,7 @@ const spells = {
     icon: 'inv_beholderwarlock',
   },
   UNSTABLE_AFFLICTION: {
-    id: 316099,
+    id: 1259790,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
@@ -387,6 +387,16 @@ const spells = {
     id: 265187,
     name: 'Summon Demonic Tyrant',
     icon: 'inv_summondemonictyrant',
+  },
+  GRIMOIRE_IMP_LORD: {
+    id: 1276452,
+    name: 'Grimoire: Imp Lord',
+    icon: 'inv_imp3_purple',
+  },
+  GRIMOIRE_FEL_RAVAGER: {
+    id: 1276467,
+    name: 'Grimoire: Fel Ravager',
+    icon: 'spell_shadow_summonfelhunter',
   },
   // Demonic Tyrant buff on player
   DEMONIC_POWER: {

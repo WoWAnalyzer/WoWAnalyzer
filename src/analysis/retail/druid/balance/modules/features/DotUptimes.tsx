@@ -5,7 +5,6 @@ import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
 import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
 import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
-import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellLink } from 'interface';
@@ -18,12 +17,10 @@ class DotUptimes extends Analyzer {
   static dependencies = {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
-    stellarFlareUptime: StellarFlareUptime,
   };
 
   protected moonfireUptime!: MoonfireUptime;
   protected sunfireUptime!: SunfireUptime;
-  protected stellarFlareUptime!: StellarFlareUptime;
 
   get guideSubsection() {
     const explanation = (
@@ -45,7 +42,6 @@ class DotUptimes extends Analyzer {
         <strong>DoT Uptimes</strong>
         {this.moonfireUptime.subStatistic()}
         {this.sunfireUptime.subStatistic()}
-        {this.stellarFlareUptime.active && this.stellarFlareUptime.subStatistic()}
       </RoundedPanel>
     );
 
@@ -65,7 +61,6 @@ class DotUptimes extends Analyzer {
       >
         {this.moonfireUptime.subStatistic()}
         {this.sunfireUptime.subStatistic()}
-        {this.stellarFlareUptime.active && this.stellarFlareUptime.subStatistic()}
       </UptimeMultiBarStatistic>
     );
   }

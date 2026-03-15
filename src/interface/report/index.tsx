@@ -33,7 +33,7 @@ import handleApiError from './handleApiError';
 import { type CombatantInfoEvent } from 'parser/core/Events';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
-  <div className="container offset">
+  <main className="container offset">
     <Panel
       title={
         <Trans id="interface.report.unsupportSpec.title">
@@ -53,11 +53,11 @@ const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLF
         </div>
       </div>
     </Panel>
-  </div>
+  </main>
 );
 
 const MissingCombatantInfoBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
-  <div className="container offset">
+  <main className="container offset">
     <Panel
       title={
         <Trans id="interface.report.missingCombatantInfo.title">
@@ -85,7 +85,7 @@ const MissingCombatantInfoBouncer = ({ report, fight }: { report: Report; fight:
         </div>
       </div>
     </Panel>
-  </div>
+  </main>
 );
 
 const ResultsLoader = () => {

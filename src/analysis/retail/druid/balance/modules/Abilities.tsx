@@ -62,16 +62,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 7,
       },
-      {
-        spell: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 8,
-      },
 
       // Cooldowns
       {
@@ -103,18 +93,6 @@ class Abilities extends CoreAbilities {
         charges: combatant.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT) ? 2 : 1,
         gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
-      },
-      {
-        spell: TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.4,
-        },
-        timelineSortIndex: 10,
       },
       {
         spell: TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id,

@@ -54,16 +54,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
         primaryCoefficient: 0.15, // initial damage, not DoT damage
       },
-
-      {
-        spell: SPELLS.THRASH_FERAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-        timelineSortIndex: 10,
-        primaryCoefficient: 0.055, // initial damage, not DoT damage
-      },
       {
         spell: TALENTS_DRUID.PRIMAL_WRATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -76,7 +66,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_CAT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
         gcd: {
           static: 1000,
         },
@@ -84,34 +73,14 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.25,
       },
       {
-        spell: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL, // when taken, still used on single target
-        enabled: combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
-        cooldown: (haste: number) => 8 / (1 + haste),
-        charges: 3,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-        gcd: {
-          static: 1000,
-        },
-        timelineSortIndex: 11,
-        primaryCoefficient: 0.69,
-      },
-      {
         spell: SPELLS.SWIPE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 11,
         primaryCoefficient: 0.3,
       },
-
       {
         spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -158,20 +127,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           averageIssueEfficiency: 0.8,
           majorIssueEfficiency: 0.6,
-        },
-      },
-      {
-        spell: SPELLS.ADAPTIVE_SWARM.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 25,
-        gcd: normalGcd,
-        // Swarm sometimes best not to cast purely on CD in single target encounters
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.7,
-          averageIssueEfficiency: 0.5,
-          majorIssueEfficiency: 0.3,
         },
       },
       {
