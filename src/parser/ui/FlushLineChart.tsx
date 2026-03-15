@@ -3,7 +3,7 @@ import { Config } from 'vega-lite';
 import FooterChart from './FooterChart';
 
 interface Props {
-  data: any[];
+  data: any[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   config?: Config;
   x?: string;
   y?: string;
@@ -42,7 +42,7 @@ export default function FlushLineChart(props: Props) {
             ? Math.ceil(props.duration)
             : Math.max.apply(
                 null,
-                props.data.map((obj: any) => obj[x]),
+                props.data.map((obj: any) => obj[x]), // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
               ),
         },
         method: 'value' as const,

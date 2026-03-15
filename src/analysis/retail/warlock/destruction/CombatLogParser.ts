@@ -1,18 +1,18 @@
 import { GrimoireOfSacrificeNormalizer, GrimoireOfSacrifice } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
-
+import Guide from './Guide';
 import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Backdraft from './modules/talents/Backdraft';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Havoc from './modules/talents/Havoc';
-import ImmolateUptime from './modules/features/ImmolateUptime';
+import ImmolateUptime from './modules/guide/ImmolateUptime';
 import RainOfFire from './modules/features/RainOfFire';
-import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
+import SoulShardDetails from '../shared/resources/SoulShardDetails';
+import SoulShardTracker from '../shared/resources/SoulShardTracker';
+import SoulShardGraph from '../shared/resources/SoulShardGraph';
 import Cataclysm from './modules/talents/Cataclysm';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
@@ -23,6 +23,8 @@ import Shadowburn from './modules/talents/Shadowburn';
 import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import Immolate from './modules/features/Immolate';
+import HavocAnalyzer from './modules/features/HavocAnalyzer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -30,8 +32,10 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    havocAnalyzer: HavocAnalyzer,
 
     // DoTs
+    immolate: Immolate,
     immolateUptime: ImmolateUptime,
 
     // Core
@@ -40,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rainOfFire: RainOfFire,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    soulShardGraph: SoulShardGraph,
     spellUsable: SpellUsable,
 
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
@@ -64,7 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
-  static guide = FoundationGuide;
+  static guide = Guide;
 }
 
 export default CombatLogParser;

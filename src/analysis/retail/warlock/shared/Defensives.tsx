@@ -3,13 +3,16 @@ import Explanation from 'interface/guide/components/Explanation';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import CombatLogParserAff from '../affliction/CombatLogParser';
 import CombatLogParserDemo from '../demonology/CombatLogParser';
-//import CombatLogParserDestro from '../destruction/CombatLogParser';
+import CombatLogParserDestro from '../destruction/CombatLogParser';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import DarkPact from './spells/DarkPact';
 import UnendingResolve from './spells/UnendingResolve';
 import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 
-type CombatLogParserType = typeof CombatLogParserDemo | typeof CombatLogParserAff;
+type CombatLogParserType =
+  | typeof CombatLogParserDemo
+  | typeof CombatLogParserAff
+  | typeof CombatLogParserDestro;
 
 function DefensivesGuide(_: GuideProps<CombatLogParserType>) {
   const defensiveAnalyzers = [DarkPact, UnendingResolve];

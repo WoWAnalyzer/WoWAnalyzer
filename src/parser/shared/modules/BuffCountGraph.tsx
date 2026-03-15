@@ -131,6 +131,7 @@ abstract class BuffCountGraph extends Analyzer {
     this._onBuffChanged(event, -1);
   }
 
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _onBuffChanged(event: AbilityEvent<any>, change: number) {
     const applicableTrackers = this.buffTrackerLookup[event.ability.guid];
     if (!applicableTrackers) {

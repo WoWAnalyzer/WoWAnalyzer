@@ -1122,11 +1122,13 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
    * BFA: Essences
    * Shadowlands: Conduits
    */
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   secondaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
   /**
    * Represents expansion specific traits
    * Shadowlands: Anima Powers
    */
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   tertiaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
 }
 

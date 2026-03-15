@@ -60,7 +60,9 @@ class HolyShieldSpellBlock extends Analyzer {
             {formatNumber(this.spellsHitPlayerCount)} spells.
             <br />
             This represents{' '}
-            <em>{formatPercentage(this.holyShieldProcsCount / this.spellsHitPlayerCount)} %</em> of
+            <em>
+              {formatPercentage(this.holyShieldProcsCount / this.spellsHitPlayerCount)} %
+            </em> of
             spells blocked.
           </>
         }
