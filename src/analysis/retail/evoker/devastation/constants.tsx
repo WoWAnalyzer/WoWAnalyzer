@@ -109,3 +109,7 @@ export const VOLATILITY_PROC_CHANCE = 0.15;
 
 export const CAUSALITY_DISINTEGRATE_CDR_MS = 500;
 export const CAUSALITY_PYRE_CDR_MS = 400;
+
+// Tier
+export const MID1_2P_DAMAGE_AMP = 0.5;
+export const MID1_2P_DAMAGE_AMP_MAIN_TARGET = 1;

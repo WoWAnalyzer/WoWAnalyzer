@@ -75,6 +75,7 @@ import {
   TwinFlame,
   FireTorrent,
 } from 'analysis/retail/evoker/shared';
+import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -165,6 +166,7 @@ class CombatLogParser extends MainCombatLogParser {
     pyre: Pyre,
 
     // tier
+    mid1Devastation2P: MID1Devastation2P,
   };
 
   static guide = Guide;
