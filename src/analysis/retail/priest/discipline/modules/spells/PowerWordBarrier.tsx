@@ -2,14 +2,21 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.2;
 
 class PowerWordBarrier extends Analyzer {
   totalDamageTakenDuringPWB = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_WORD_BARRIER_TALENT);
+  }
 
   get damageReducedDuringPowerWordBarrier() {
     return (
@@ -42,6 +49,7 @@ class PowerWordBarrier extends Analyzer {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon spell={SPELLS.POWER_WORD_BARRIER_BUFF} />}
+        category={STATISTIC_CATEGORY.TALENTS}
         value={`≈${formatNumber(
           (this.damageReducedDuringPowerWordBarrier / fightDuration) * 1000,
         )} DRPS`}

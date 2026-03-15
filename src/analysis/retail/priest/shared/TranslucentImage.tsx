@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -25,7 +24,7 @@ class TranslucentImage extends Analyzer {
   }
 
   onDamageTaken(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.FADE.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.FADE_TALENT.id)) {
       return;
     }
     this.damageDuringTranslucentImage += event.amount + (event.absorbed || 0);

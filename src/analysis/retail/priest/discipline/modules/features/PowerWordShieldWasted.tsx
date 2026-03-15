@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'interface';
-import { SpellIcon } from 'interface';
+import { SpellIcon, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent } from 'parser/core/Events';
 import StatisticBox from 'parser/ui/StatisticBox';

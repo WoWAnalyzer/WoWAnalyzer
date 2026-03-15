@@ -13,12 +13,10 @@ import { POWER_WORD_SHIELD_ATONEMENT_DUR } from '../../constants';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 
-const INDEMNITY_EXTENSION_DURATION = 3000;
-const EVANG_EXTENSION_DURATION = 6000;
+const INDEMNITY_EXTENSION_DUR = 4000;
 
 interface ShieldInfo {
   cast: CastEvent;
-  extendedByEvang?: boolean;
 }
 
 class Indemnity extends Analyzer {
@@ -36,12 +34,8 @@ class Indemnity extends Analyzer {
 
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.handleAtone);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.POWER_WORD_SHIELD, SPELLS.RAPTURE]),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
       this.onShieldCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
-      this.checkEvang,
     );
   }
 
@@ -51,28 +45,11 @@ class Indemnity extends Analyzer {
     });
   }
 
-  checkEvang(event: CastEvent) {
-    this.shields.forEach((shield, index: number) => {
-      if (
-        event.timestamp > shield.cast.timestamp &&
-        event.timestamp < shield.cast.timestamp + POWER_WORD_SHIELD_ATONEMENT_DUR
-      ) {
-        this.shields[index].extendedByEvang = true;
-      }
-    });
-  }
-
   private handleAtone(event: AtonementAnalyzerEvent) {
     this.shields.forEach((rapture) => {
       const end =
-        rapture.cast.timestamp +
-        (rapture.extendedByEvang ? EVANG_EXTENSION_DURATION : 0) +
-        POWER_WORD_SHIELD_ATONEMENT_DUR +
-        INDEMNITY_EXTENSION_DURATION;
-      const start =
-        rapture.cast.timestamp +
-        (rapture.extendedByEvang ? EVANG_EXTENSION_DURATION : 0) +
-        POWER_WORD_SHIELD_ATONEMENT_DUR;
+        rapture.cast.timestamp + POWER_WORD_SHIELD_ATONEMENT_DUR + INDEMNITY_EXTENSION_DUR;
+      const start = rapture.cast.timestamp + POWER_WORD_SHIELD_ATONEMENT_DUR;
 
       if (
         event.targetID === rapture.cast.targetID &&

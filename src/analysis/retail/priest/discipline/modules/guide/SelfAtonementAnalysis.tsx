@@ -26,10 +26,11 @@ class SelfAtonementAnalyzer extends Analyzer {
       Events.cast
         .by(SELECTED_PLAYER)
         .spell([
-          SPELLS.FLASH_HEAL,
-          TALENTS_PRIEST.RENEW_TALENT,
-          SPELLS.POWER_WORD_SHIELD,
           TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT,
+          SPELLS.POWER_WORD_SHIELD,
+          SPELLS.FLASH_HEAL,
+          SPELLS.PLEA,
+          SPELLS.PENANCE_CAST,
         ]),
       this.onCast,
     );
