@@ -11,10 +11,7 @@ import { SpellLink, Tooltip } from 'interface';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastOverview from 'interface/guide/components/CastOverview';
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
-import {
-  evaluateQualitativePerformanceByThreshold,
-  QualitativePerformance,
-} from 'parser/ui/QualitativePerformance';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { qualitativePerformanceToColor } from 'interface/guide';
 

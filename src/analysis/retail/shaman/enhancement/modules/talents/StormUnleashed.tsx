@@ -138,9 +138,6 @@ class StormUnleashed extends Analyzer {
                       Expired unused: <strong>{this.wastedExpires}</strong>
                     </li>
                   )}
-                  {this.wastedRefreshes === 0 && this.wastedExpires === 0 && (
-                    <li>No wasted procs</li>
-                  )}
                 </ul>
                 <div style={{ marginTop: 8 }}>
                   Total procs: <strong>{this.totalProcs}</strong>
