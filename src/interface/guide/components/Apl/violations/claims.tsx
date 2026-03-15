@@ -45,7 +45,7 @@ export interface ViolationExplainer<T> {
   describe: (props: { apl: Apl; violation: Violation; result: CheckResult }) => JSX.Element | null;
 }
 
-export type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
+export type AplViolationExplainers = Record<string, ViolationExplainer<any>>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 
 export const minClaimCount = (result: CheckResult): number =>
   Math.min(10, Math.floor((result.successes.length + result.violations.length) / 20));

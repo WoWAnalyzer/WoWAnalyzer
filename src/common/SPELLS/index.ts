@@ -78,7 +78,7 @@ export function maybeGetSpell(
   if (expansion === CLASSIC_EXPANSION) {
     return maybeGetClassicSpell(key);
   }
-  return key ? InternalSpellTable[key as any] : undefined;
+  return key ? InternalSpellTable[key as any] : undefined; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 }
 
 export const registerSpell = (id: number, name: string, icon: string) => {

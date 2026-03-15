@@ -204,8 +204,8 @@ export default class SoulCleave extends Analyzer {
             <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s available during{' '}
             <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} /> in AoE.{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
-            {this.soulsInMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-            s in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
+            {this.soulsInMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s in{' '}
+            <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> instead.
           </div>
         ),
@@ -296,8 +296,8 @@ export default class SoulCleave extends Analyzer {
             <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} /> in a{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window.{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
-            {this.soulsInMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-            s in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
+            {this.soulsInMeta}+ <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s in{' '}
+            <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
             <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> instead.
           </div>
         ),

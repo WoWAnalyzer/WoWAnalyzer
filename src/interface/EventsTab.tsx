@@ -300,6 +300,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 const backgroundClass = (rowData: any) => {
   const classes = [];
   if (rowData.__modified) {

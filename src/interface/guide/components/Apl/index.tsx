@@ -130,7 +130,7 @@ export function AplSectionData({
   const info = useInfo();
 
   const [selectedExplanation, setSelectedExplanation] = useState<
-    SelectedExplanation<any> | undefined
+    SelectedExplanation<any> | undefined // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   >(undefined);
 
   const result: CheckResult | undefined = useMemo(

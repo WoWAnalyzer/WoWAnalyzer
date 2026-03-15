@@ -84,13 +84,13 @@ type AplTarget = SpellTarget | SpellListTarget;
 
 export interface InternalRule {
   spell: AplTarget;
-  condition?: Condition<any>;
+  condition?: Condition<any>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   description?: ReactNode;
 }
 
 interface ConditionalRule {
   spell: Spell | Spell[];
-  condition: Condition<any>;
+  condition: Condition<any>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   /**
    * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
    */
@@ -108,7 +108,7 @@ interface LabelRule {
 export type Rule = Spell | Spell[] | ConditionalRule | LabelRule;
 
 export interface Apl {
-  conditions?: Condition<any>[];
+  conditions?: Condition<any>[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   rules: InternalRule[];
 }
 
@@ -199,11 +199,12 @@ export function build(rules: Rule[]): Apl {
   const conditionMap = rules
     .filter((rule) => 'condition' in rule)
     .map((rule) => (rule as ConditionalRule).condition)
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     .reduce((cnds: Record<string, Condition<any>>, cnd) => {
       cnds[cnd.key] = cnd;
       return cnds;
     }, {});
-  const conditions = Object.values<Condition<any>>(conditionMap);
+  const conditions = Object.values<Condition<any>>(conditionMap); // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 
   const internalRules = rules.map(internalizeRule);
 
@@ -225,7 +226,7 @@ export interface Violation {
   rule: InternalRule;
 }
 
-type ConditionState = Record<string, any>;
+type ConditionState = Record<string, any>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 type AbilityState = Record<number, UpdateSpellUsableEvent>;
 
 interface Success {
@@ -248,6 +249,7 @@ export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
 
 function initState(apl: Apl, info: PlayerInfo): ConditionState {
   return (
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     apl.conditions?.reduce((state: ConditionState, cnd: Condition<any>) => {
       state[cnd.key] = cnd.init(info);
       return state;
@@ -257,6 +259,7 @@ function initState(apl: Apl, info: PlayerInfo): ConditionState {
 
 function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): ConditionState {
   return (
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     apl.conditions?.reduce((state: ConditionState, cnd: Condition<any>) => {
       state[cnd.key] = cnd.update(oldState[cnd.key], event);
       return state;

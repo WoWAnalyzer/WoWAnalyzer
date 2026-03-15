@@ -75,11 +75,12 @@ interface State {
   reportsToShow: number;
   isLoading: boolean;
   error: MessageDescriptor | null;
-  errorMessage: any | null;
+  errorMessage: any | null; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   realmSlug: string;
   factionImage: string;
 }
 
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 interface QueryParams extends Record<string, any> {
   start: number;
   game?: string;
