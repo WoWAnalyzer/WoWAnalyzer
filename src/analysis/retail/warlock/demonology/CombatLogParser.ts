@@ -25,9 +25,9 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import DiabolicRitual from './modules/talents/DiabolicRitual';
 import DiabolicRitualEmpowers from './modules/talents/DiabolicRitualEmpowers';
-import SoulShardDetails from './modules/resources/SoulShardDetails';
-import SoulShardTracker from './modules/resources/SoulShardTracker';
-import SoulShardGraph from './modules/resources/SoulShardGraph';
+import SoulShardDetails from '../shared/resources/SoulShardDetails';
+import SoulShardTracker from '../shared/resources/SoulShardTracker';
+import SoulShardGraph from '../shared/resources/SoulShardGraph';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 import Guide from './Guide';
 
