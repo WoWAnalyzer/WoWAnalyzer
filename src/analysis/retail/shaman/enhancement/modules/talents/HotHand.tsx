@@ -35,12 +35,6 @@ import {
   getLowestPerf,
 } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import {
-  EmbeddedTimelineContainer,
-  SpellTimeline,
-} from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import Casts from 'interface/report/Results/Timeline/Casts';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
@@ -51,6 +45,10 @@ import {
 } from 'parser/core/EventMetaLib';
 import NPCS from 'common/NPCS';
 import Earthsurge from '../hero/totemic/Earthsurge';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastOverview from 'interface/guide/components/CastOverview';
+import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
+import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
 
 class HotHandRank {
   modRate: number;
@@ -76,17 +74,8 @@ const HOT_HAND: Record<number, HotHandRank> = {
  * a Hot Hand window so we don't want to unfairly punish the performance if
  * any of these are used  */
 const HIGH_PRIORITY_ABILITIES: HighPriorityAbilities = [
-  // TALENTS.PRIMORDIAL_STORM_TALENT.id,
-  // {
-  //   spellId: [TALENTS.TEMPEST_TALENT.id],
-  //   condition: (e) =>
-  //     e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 6,
-  // },
-  // {
-  //   spellId: SPELLS.LIGHTNING_BOLT.id,
-  //   condition: (e) =>
-  //     e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 5,
-  // },
+  SPELLS.SURGING_TOTEM.id,
+  TALENTS.SUNDERING_TALENT.id,
 ];
 
 interface HotHandTimeline {
@@ -145,6 +134,16 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   protected hasEarthsurge = false;
   protected surgingTotemActive = false;
+
+  private getTotemicMomentumPerformance(cast: HotHandProc) {
+    if (!this.hasTotemicMomentum) {
+      return QualitativePerformance.Perfect;
+    }
+
+    return cast.totemicMomentumExtension > 0
+      ? QualitativePerformance.Perfect
+      : QualitativePerformance.Ok;
+  }
 
   constructor(options: Options) {
     super({ spell: TALENTS.HOT_HAND_TALENT }, options);
@@ -425,10 +424,126 @@ class HotHand extends MajorCooldown<HotHandProc> {
     return (event.timestamp - this.lastCooldownWasteCheck) * (1 + currentHaste);
   }
 
-  private explainTimelineWithDetails(cast: HotHandProc): {
-    extraDetails: ReactNode;
-    checklistItem: ChecklistUsageInfo;
-  } {
+  private getUnusedGlobalCooldowns(cast: HotHandProc) {
+    const avgGcd = this.getAverageGcdOfWindow(cast);
+    return Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+  }
+
+  private buildOverviewStats() {
+    const avgTotemicMomentumExtension =
+      this.totemicMomentumProcsForStats > 0
+        ? this.totemicMomentumTotalExtension / this.totemicMomentumProcsForStats
+        : 0;
+
+    const stats = [
+      {
+        value: `${this.casts.length}`,
+        label: 'Total Procs',
+        tooltip: <>Total Hot Hand windows recorded during the encounter.</>,
+      },
+      {
+        value: `${formatPercentage(this.timePercentageHotHandsActive)}%`,
+        label: 'Buff Uptime',
+        tooltip: <>Percentage of the fight spent with Hot Hand active.</>,
+      },
+      {
+        value: this.hotHandActive.intervalsCount > 0 ? this.castsPerSecond.toFixed(2) : '0.00',
+        label: 'Avg Lava Lashes',
+        tooltip: <>Average number of Lava Lash casts made during each Hot Hand proc.</>,
+      },
+    ];
+
+    if (this.hasTotemicMomentum) {
+      stats.push({
+        value: formatDurationMillisMinSec(avgTotemicMomentumExtension, 1),
+        label: 'Avg TM Extension',
+        tooltip: <>Average Totemic Momentum extension gained during completed Hot Hand windows.</>,
+      });
+    }
+
+    return stats;
+  }
+
+  private buildSpellSequence(cast: HotHandProc): CastInSequence[] {
+    return cast.timeline.events
+      .filter((event): event is CastEvent => event.type === EventType.Cast)
+      .map((event) => ({
+        timestamp: event.timestamp,
+        spellId: event.ability.guid,
+        spellName: event.ability.name,
+        icon: event.ability.abilityIcon.replace('.jpg', ''),
+        tooltip: (
+          <>
+            <strong>{event.ability.name}</strong>
+            <div>@ {this.owner.formatTimestamp(event.timestamp)}</div>
+          </>
+        ),
+      }));
+  }
+
+  private buildPerCastData(): PerCastData[] {
+    return this.casts.map((cast) => {
+      const lavaLashCasts = cast.timeline.events.filter(
+        (event) =>
+          event.type === EventType.Cast && event.ability.guid === TALENTS.LAVA_LASH_TALENT.id,
+      ).length;
+      const missedLavaLashes = this.getMissedLavaLashes(cast);
+      const maximumNumberOfLavaLashesPossible = lavaLashCasts + missedLavaLashes;
+      const unusedGlobalCooldowns = this.getUnusedGlobalCooldowns(cast);
+      const spellUse = this.explainPerformance(cast);
+      const sequence = this.buildSpellSequence(cast);
+
+      return {
+        performance: spellUse.performance,
+        timestamp: this.owner.formatTimestamp(cast.event.timestamp),
+        detailsIcon: null,
+        stats: [
+          {
+            value: `${lavaLashCasts}/${maximumNumberOfLavaLashesPossible}`,
+            label: 'Lava Lash',
+            tooltip: (
+              <>
+                <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> casts during this{' '}
+                <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> compared with the estimated maximum.
+              </>
+            ),
+            performance: this.explainUsagePerformance(cast).performance,
+          },
+          {
+            value: `${unusedGlobalCooldowns}`,
+            label: 'Unused GCDs',
+            tooltip: (
+              <>
+                Estimated unused global cooldowns during this{' '}
+                <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> window.
+              </>
+            ),
+            performance: this.explainGcdPerformance(cast).performance,
+          },
+          {
+            value: formatDurationMillisMinSec(cast.totemicMomentumExtension, 1),
+            label: 'Extension Time',
+            tooltip: (
+              <>
+                <SpellLink spell={TALENTS.TOTEMIC_MOMENTUM_TALENT} /> extension accumulated during
+                this <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> window.
+              </>
+            ),
+            performance: this.getTotemicMomentumPerformance(cast),
+          },
+        ],
+        additionalContent:
+          sequence.length > 0
+            ? {
+                title: 'Cast Sequence',
+                content: <SpellSequence casts={sequence} iconSize={40} />,
+              }
+            : undefined,
+      };
+    });
+  }
+
+  private explainTimelineWithDetails(cast: HotHandProc): ChecklistUsageInfo {
     const checklistItem = {
       performance: QualitativePerformance.Perfect,
       summary: this.hasTotemicMomentum ? (
@@ -457,29 +572,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
       timestamp: cast.event.timestamp,
     };
 
-    const extraDetails = (
-      <div
-        style={{
-          overflowX: 'scroll',
-        }}
-      >
-        <EmbeddedTimelineContainer
-          secondWidth={60}
-          secondsShown={(cast.timeline.end! - cast.timeline.start) / 1000}
-        >
-          <SpellTimeline>
-            <Casts
-              start={cast.timeline.start}
-              movement={undefined}
-              secondWidth={60}
-              events={cast.timeline.events}
-            />
-          </SpellTimeline>
-        </EmbeddedTimelineContainer>
-      </div>
-    );
-
-    return { extraDetails, checklistItem };
+    return checklistItem;
   }
 
   getMissedLavaLashes(cast: HotHandProc): number {
@@ -579,10 +672,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   explainPerformance(cast: HotHandProc): SpellUse {
-    const timeline = this.explainTimelineWithDetails(cast);
+    const usage = this.explainTimelineWithDetails(cast);
 
     const checklistItems = [
-      timeline.checklistItem,
+      usage,
       this.explainUsagePerformance(cast),
       this.explainGcdPerformance(cast),
     ];
@@ -630,7 +723,6 @@ class HotHand extends MajorCooldown<HotHandProc> {
       event: cast.event,
       performance: getLowestPerf(checklistItems.map((x) => x.performance)),
       checklistItems: checklistItems,
-      extraDetails: timeline.extraDetails,
     };
   }
 
@@ -684,20 +776,15 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   get guideSubsection() {
+    if (!this.active) {
+      return null;
+    }
+
     return (
-      this.active && (
-        <>
-          <CooldownUsage
-            analyzer={this}
-            title={
-              <>
-                <SpellLink spell={TALENTS.HOT_HAND_TALENT} />
-              </>
-            }
-            castBreakdownSmallText
-          />
-        </>
-      )
+      <GuideSection spell={TALENTS.HOT_HAND_TALENT} explanation={this.description()}>
+        <CastOverview spell={TALENTS.HOT_HAND_TALENT} stats={this.buildOverviewStats()} />
+        <CastDetail title="Hot Hand Windows" casts={this.buildPerCastData()} />
+      </GuideSection>
     );
   }
 }
