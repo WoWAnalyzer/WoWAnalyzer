@@ -78,6 +78,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {formatThousands(this.heal)} Total heal
           </>
@@ -85,6 +86,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
       >
         <TalentSpellText talent={this.#talent}>
           <ItemDamageDone amount={this.damage} />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <ItemHealingDone amount={this.heal} />
         </TalentSpellText>

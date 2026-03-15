@@ -170,6 +170,7 @@ class NaturesSwiftness extends Analyzer {
               useThresholds
               gapHighlightMode={GapHighlight.FullCooldown}
             />{' '}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Casts </strong>
             <small>
@@ -213,6 +214,7 @@ class NaturesSwiftness extends Analyzer {
               useThresholds
               gapHighlightMode={GapHighlight.FullCooldown}
             />{' '}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Casts </strong>
             <small>

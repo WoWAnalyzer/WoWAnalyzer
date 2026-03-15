@@ -199,6 +199,7 @@ class MindFlayInsanity extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF} />
         </b>{' '}
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         is gained every <SpellLink spell={TALENTS.HALO_SHADOW_TALENT} />.<br />
         This buff can stack four times. Try to use these procs before they are overwritten
       </p>

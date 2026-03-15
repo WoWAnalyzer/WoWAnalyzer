@@ -77,6 +77,7 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
             Continuously casting throughout an encounter is the single most important thing for
             achieving good DPS.
           </b>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Some fights have unavoidable downtime due to phase transitions and the like, so in these
           cases 0% downtime will not be possible - do the best you can.
@@ -119,6 +120,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
         s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
       </p>
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />

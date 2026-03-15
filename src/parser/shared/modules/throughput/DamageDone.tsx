@@ -139,7 +139,9 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
                           {this.selectedCombatant.player.type}
                         </span>{' '}
                         on this fight you need to do at least{' '}
+                        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                         <strong>{formatThousands(topThroughput || 0)} DPS</strong>.<br />
+                        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                         <br />
                         Your fight lasted {formatDuration(this.owner.fightDuration)}. The median
                         duration of the fights in the top 100 was {formatDuration(medianDuration)}.

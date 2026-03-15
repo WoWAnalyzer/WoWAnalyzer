@@ -72,9 +72,11 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
             <>
               <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage &lt;={' '}
               {formatPercentage(RESOURCES_HUNTER_MINOR_THRESHOLD, 0)}%
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
               {formatPercentage(RESOURCES_HUNTER_AVERAGE_THRESHOLD, 0)}%
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
               {formatPercentage(RESOURCES_HUNTER_MAJOR_THRESHOLD, 0)}%{' '}

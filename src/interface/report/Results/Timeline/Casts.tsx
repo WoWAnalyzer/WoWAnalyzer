@@ -416,6 +416,7 @@ const generateTooltip = (meta?: EventMeta) => {
           {castReason ? (
             <>
               {castReason}
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </>
           ) : null}
@@ -430,6 +431,7 @@ const generateTooltip = (meta?: EventMeta) => {
           {castReason ? (
             <>
               {castReason}
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </>
           ) : null}

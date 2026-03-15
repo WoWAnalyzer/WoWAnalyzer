@@ -264,12 +264,14 @@ class VoidBlast extends ExecuteHelper {
         </b>{' '}
         replaces <SpellLink spell={SPELLS.MIND_BLAST} /> with Void Blast, a significantly more
         powerful spell for the duration of the <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         It is important to cast <SpellLink
           spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}
         /> as
         much as possible while it is available. To do so, you should save charges of Mind Blast
         before casting <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> in order to have charges of
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         Void Blast at the end of Void Torrent's channel. <br />
       </p>
     );
@@ -277,6 +279,7 @@ class VoidBlast extends ExecuteHelper {
     const data = (
       <div>
         <strong>Void Blast Charges</strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <PerformanceBoxRow values={this.VBCharges} />
       </div>
