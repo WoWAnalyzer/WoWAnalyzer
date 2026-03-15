@@ -105,8 +105,6 @@
     "typecheck": "tsc",
     "lint": "oxlint --max-warnings 0 --deny-warnings",
     "lint:fix": "pnpm run lint --fix",
-    "lint:suppress": "pnpm run lint:fix --suppress-all",
-    "lint:prune": "pnpm run lint:fix --prune-suppressions",
     "extract": "lingui extract --overwrite --clean",
     "prepare": "is-ci || husky",
     "e2e:setup": "tsx scripts/e2e/generate-configs.ts",
@@ -122,8 +120,8 @@
     "format:check": "pnpm run format --check"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [
-      "pnpm run format"
+    "*": [
+      "pnpm run format --no-error-on-unmatched-pattern"
     ],
     "*.{ts,tsx,js,jsx}": [
       "pnpm run lint:fix"
