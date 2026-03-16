@@ -145,8 +145,26 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 10,
+        enabled:
+          combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
+          !combatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
+        cooldown: combatant.getTalentRank(TALENTS_DRUID.FOCUSED_FRENZY_TALENT) ? 30 : 45,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
+        gcd: {
+          static: 1000,
+        },
+        timelineSortIndex: 21,
+      },
+      {
+        spell: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
+        cooldown: 45,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

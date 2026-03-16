@@ -140,6 +140,32 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     isActive: (c) => c.hasTalent(TALENTS_DRUID.CHOMP_TALENT),
   },
+  {
+    linkRelation: HIT_TARGET,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.FRANTIC_FRENZY_DEBUFF.id, // the damage spell ID, not the talent
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: 5000, // 5 flickers take time to play out
+    backwardBufferMs: 0,
+    anyTarget: true,
+    maximumLinks: 50,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
+  },
+  // {
+  //   linkRelation: HIT_TARGET,
+  //   reverseLinkRelation: FROM_HARDCAST,
+  //   linkingEventId: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
+  //   linkingEventType: EventType.Damage,
+  //   referencedEventId: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
+  //   referencedEventType: EventType.Cast,
+  //   forwardBufferMs: CAST_BUFFER_MS,
+  //   backwardBufferMs: AFTER_CAST_BUFFER_MS,
+  //   anyTarget: true,
+  //   maximumLinks: 50, // 5 flickers hitting many targets
+  //   isActive: (c) => c.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
+  // },
 ];
 
 /**

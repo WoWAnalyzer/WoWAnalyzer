@@ -120,7 +120,10 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
   const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT);
   const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
   const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
-  const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
+  const hasFeralFrenzy =
+    info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
+    !info.combatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT);
+  const hasFranticFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT);
   // TODO: Add once Focused Frenzy/Frantic Frenzy is figured out
   return (
     <SubSection>
@@ -157,6 +160,13 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {hasFeralFrenzy && (
         <CastEfficiencyBar
           spell={TALENTS_DRUID.FERAL_FRENZY_TALENT}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
+      {hasFranticFrenzy && (
+        <CastEfficiencyBar
+          spell={TALENTS_DRUID.FRANTIC_FRENZY_TALENT}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
