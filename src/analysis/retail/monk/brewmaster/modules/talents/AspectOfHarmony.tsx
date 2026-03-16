@@ -248,33 +248,6 @@ export default class AspectOfHarmony extends Analyzer.withDependencies({ stats: 
               },
             )
           : null,
-        createChecklistItem(
-          'aoh_chain',
-          { event: spend.event },
-          {
-            performance: chained ? QualitativePerformance.Ok : QualitativePerformance.Good,
-            summary: chained ? <>Chained spenders</> : <>Did Not Chain Spenders</>,
-            details: (
-              <>
-                {chained ? (
-                  <>
-                    You cast <SpellLink spell={this.activeSpender} /> while the DoT was still
-                    active.
-                  </>
-                ) : (
-                  <>
-                    You did not chain casts of <SpellLink spell={this.activeSpender} />.
-                  </>
-                )}{' '}
-                Casting <SpellLink spell={this.activeSpender} /> while{' '}
-                <SpellLink spell={SPELLS.ASPECT_OF_HARMONY_DOT} /> is still active does not extend
-                the DoT, but <em>does</em> add damage to it. This can reduce the benefit you gain
-                from the <strong>20% damage buff</strong> on{' '}
-                <SpellLink spell={talents.COALESCENCE_TALENT} /> (and may break estimation).
-              </>
-            ),
-          },
-        ),
       ]);
     });
   }
@@ -364,8 +337,8 @@ export default class AspectOfHarmony extends Analyzer.withDependencies({ stats: 
   }
 }
 
-const AOH_VITALITY_DAMAGE_MULTIPLIER = 0.15;
-const AOH_VITALITY_HEALING_MULTIPLIER = 0.07;
+const AOH_VITALITY_DAMAGE_MULTIPLIER = 0.12;
+const AOH_VITALITY_HEALING_MULTIPLIER = 0.06;
 const RESURGENCE_BUFF_MULTIPLIER = 1.25;
 
 export class AspectOfHarmonyLinkNormalizer extends EventLinkNormalizer {
