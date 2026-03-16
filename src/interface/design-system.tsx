@@ -39,14 +39,12 @@
  * ## Usage
  *
  * ```tsx
- * import styled from '@emotion/styled';
+ * import styles from './Container.module.scss';
  * import * as design from 'interface/design-system';
  *
- * const Container = styled.div`
- *   border: 1px solid ${level1.border};
- *   background: ${level1.background};
- *   box-shadow: ${level1.shadow};
- * `;
+ * export function Container() {
+ *   return <div className={styles.container} />;
+ * }
  * ```
  */
 

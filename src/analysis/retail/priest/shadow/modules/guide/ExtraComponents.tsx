@@ -1,20 +1,35 @@
-import styled from '@emotion/styled';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps, CSSProperties, ReactNode } from 'react';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 
-const ColoredStrong = styled.strong`
-  color: ${(props) => props.color};
-`;
+import styles from './ExtraComponents.module.scss';
 
-interface PerformanceStrongProps extends ComponentProps<typeof ColoredStrong> {
+interface PerformanceStrongProps extends ComponentProps<'strong'> {
   children: ReactNode;
+  color?: string;
   performance: QualitativePerformance;
 }
-export const PerformanceStrong = ({ performance, ...others }: PerformanceStrongProps) => (
-  <>
-    <ColoredStrong color={qualitativePerformanceToColor(performance)} {...others} />
-    &nbsp;
-    <PerformanceMark perf={performance} />
-  </>
-);
+export const PerformanceStrong = ({
+  className,
+  color,
+  performance,
+  style,
+  ...others
+}: PerformanceStrongProps) => {
+  const strongStyle = {
+    ...style,
+    '--performance-strong-color': color ?? qualitativePerformanceToColor(performance),
+  } as CSSProperties;
+
+  return (
+    <>
+      <strong
+        className={[styles.coloredStrong, className].filter(Boolean).join(' ')}
+        style={strongStyle}
+        {...others}
+      />
+      &nbsp;
+      <PerformanceMark perf={performance} />
+    </>
+  );
+};

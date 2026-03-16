@@ -1,6 +1,7 @@
-import styled from '@emotion/styled';
 import Expansion from 'game/Expansion';
 import { type Raid } from 'game/raids';
+import { type CSSProperties } from 'react';
+import styles from './HeaderBackground.module.scss';
 
 interface Props {
   boss:
@@ -22,34 +23,13 @@ const getFallbackImage = (expansion: Expansion) => {
   }
 };
 
-const BackgroundContainer = styled.div<{ url: string }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  min-height: 1000px;
-  z-index: -1000;
-
-  background-repeat: no-repeat;
-  filter: blur(4px);
-  background-size: cover;
-  background-image:
-    linear-gradient(
-      to right,
-      hsla(44, 7%, 8%, 1) 0%,
-      hsla(44, 7%, 8%, 0.75) 10%,
-      hsla(44, 7%, 8%, 0.75) 90%,
-      hsla(44, 7%, 8%, 1) 100%
-    ),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 70%, hsla(44, 7%, 8%, 1) 100%),
-    url(${(props) => props.url});
-`;
-
 const HeaderBackground = ({ boss, expansion, raid }: Props) => {
   const backgroundImage = boss?.background ?? raid?.background ?? getFallbackImage(expansion);
+  const backgroundStyle = {
+    '--header-background-image': `url(${backgroundImage})`,
+  } as CSSProperties;
 
-  return <BackgroundContainer url={backgroundImage} />;
+  return <div className={styles.backgroundContainer} style={backgroundStyle} />;
 };
 
 export default HeaderBackground;

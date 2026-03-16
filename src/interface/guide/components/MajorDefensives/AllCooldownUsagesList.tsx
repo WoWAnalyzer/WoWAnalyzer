@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
 import { formatNumber } from 'common/format';
 import { color } from 'game/MAGIC_SCHOOLS';
 import { TooltipElement } from 'interface';
@@ -22,7 +22,14 @@ import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ComponentType, useCallback, useState } from 'react';
+import {
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  ComponentType,
+  useCallback,
+  useState,
+} from 'react';
+import styles from './AllCooldownUsagesList.module.scss';
 import { useMaxMitigationValue } from './Timeline';
 
 const MissingCastBoxEntry = {
@@ -44,65 +51,35 @@ const PossibleMissingCastBoxEntry = {
   ),
 };
 
-export const NoData = styled.div`
-  color: #999;
-`;
+export const NoData = ({ className, ...props }: ComponentPropsWithoutRef<'div'>) => (
+  <div {...props} className={clsx(styles.noData, className)} />
+);
 
-const CooldownUsageDetailsContainer = styled.div`
-  display: grid;
-  grid-template-rows: max-content max-content 1fr;
-`;
+const CooldownUsageDetailsContainer = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>) => (
+  <div {...props} className={clsx(styles.cooldownUsageDetailsContainer, className)} />
+);
 
-export const TableSegmentContainer = styled.td`
-  line-height: 1em;
-  height: 1em;
-  min-width: 100px;
+export const TableSegmentContainer = ({ className, ...props }: ComponentPropsWithoutRef<'td'>) => (
+  <td {...props} className={clsx(styles.tableSegmentContainer, className)} />
+);
 
-  ${MitigationTooltipSegment} {
-    margin-top: 0.1em;
-    height: 1em;
-  }
-`;
+export const SmallPassFailBar = ({ className, ...props }: ComponentProps<typeof PassFailBar>) => (
+  <PassFailBar {...props} className={clsx(styles.smallPassFailBar, className)} />
+);
 
-export const SmallPassFailBar = styled(PassFailBar)`
-  width: 100px;
-  min-width: 100px;
-`;
+export const NumericColumn = ({ className, ...props }: ComponentPropsWithoutRef<'td'>) => (
+  <td {...props} className={clsx(styles.numericColumn, className)} />
+);
 
-export const NumericColumn = styled.td`
-  text-align: right;
-`;
-
-export const CooldownDetailsContainer = styled.div`
-  display: grid;
-  margin-top: 1rem;
-  grid-template-areas: 'talent source';
-  grid-template-columns: max-content 1fr;
-
-  gap: 1rem;
-  height: 100%;
-  align-items: start;
-  justify-content: space-between;
-
-  ${NoData} {
-    justify-self: center;
-    align-self: center;
-    grid-column: 1 / -1;
-  }
-
-  & > table {
-    width: 100%;
-  }
-  & > table td {
-    padding-right: 1rem;
-
-    &:first-of-type {
-      max-width: 14em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-`;
+export const CooldownDetailsContainer = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>) => (
+  <div {...props} className={clsx(styles.cooldownDetailsContainer, className)} />
+);
 
 export interface CooldownDetailsProps<Apply extends EventType, Remove extends EventType> {
   analyzer: MajorDefensive<Apply, Remove>;

@@ -76,13 +76,13 @@ import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
+import { clsx } from 'clsx';
 import type { ComponentProps, PropsWithChildren, ReactNode, JSX } from 'react';
 import { ComponentPropsWithoutRef, createContext, use, useMemo, useState } from 'react';
 
 import './Guide.scss';
+import styles from './index.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import styled from '@emotion/styled';
-import * as design from 'interface/design-system';
 import StateHistory from 'parser/core/StateHistory';
 
 type Constructed<T> = T extends new (options: Options) => infer R ? R : never;
@@ -147,27 +147,6 @@ export type Guide<T extends typeof CombatLogParser = any> = (
 
 export default Guide;
 
-const SectionHeaderWrapper = styled.header`
-  font-size: ${design.fontSize.heading};
-  padding: ${design.gaps.medium} 0;
-  font-weight: bold;
-  color: ${design.colors.wowaYellow};
-  background: ${design.level1.background};
-
-  & > .chevron {
-    background: ${design.level2.background};
-    border: 1px solid ${design.level2.border};
-    box-shadow ${design.level2.shadow};
-    border-radius: 0.2rem;
-
-    padding: 0 ${design.gaps.small};
-  }
-
-  &:hover > .chevron {
-    background: ${design.level2.background_active};
-  }
-`;
-
 /**
  * The header for a `<Section />`. Exported as a convenient way for others to
  * use the same structure. If you're building a section of your guide, you
@@ -178,26 +157,13 @@ export const SectionHeader = ({
   className,
   ...props
 }: ComponentPropsWithoutRef<'header'>) => (
-  <SectionHeaderWrapper className={`flex ${className ?? ''}`} {...props}>
+  <header className={clsx('flex', styles.sectionHeader, className)} {...props}>
     <div className="flex-main name">{children}</div>
-    <div className="flex-sub chevron">
+    <div className={clsx('flex-sub', 'chevron', styles.chevron)}>
       <DropdownIcon />
     </div>
-  </SectionHeaderWrapper>
+  </header>
 );
-
-const SectionExpandable = styled(ControlledExpandable)`
-  background: ${design.level1.background};
-  border: 1px solid ${design.level1.border};
-  box-shadow: ${design.level1.shadow};
-  padding: 0 ${design.gaps.large} ${design.gaps.small} ${design.gaps.large};
-
-  & .details > div {
-    background: unset;
-    box-shadow: unset;
-    padding: unset;
-  }
-`;
 
 /**
  * An expandable guide section. Defaults to expanded.
@@ -210,14 +176,15 @@ export const Section = ({
   const [isExpanded, setIsExpanded] = useState(expanded);
 
   return (
-    <SectionExpandable
+    <ControlledExpandable
+      className={styles.sectionExpandable}
       header={<SectionHeader>{title}</SectionHeader>}
       element="section"
       inverseExpanded={() => setIsExpanded(!isExpanded)}
       expanded={isExpanded}
     >
       {children}
-    </SectionExpandable>
+    </ControlledExpandable>
   );
 };
 
@@ -341,32 +308,13 @@ export function useAnalyzers<Arr extends Record<number, typeof Module>>(
   ) as ModuleList<Arr>;
 }
 
-const GuideContainer_ = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${design.gaps.large};
-`;
-
 /**
  * The overall guide container. You will never need this, it is used by the WoWA
  * core to hold your `Guide` component.
  */
 export const GuideContainer = ({ children }: { children: ReactNode }) => (
-  <GuideContainer_ className="guide-container">{children}</GuideContainer_>
+  <div className={clsx('guide-container', styles.guideContainer)}>{children}</div>
 );
-
-const SubSectionContainer = styled.section`
-  /* including .guide-container here is a specificity hack */
-  .guide-container & {
-    margin-top: ${design.gaps.large};
-  }
-
-  & > header {
-    font-size: ${design.fontSize.subHeading};
-    font-weight: bold;
-    padding: ${design.gaps.small} 0;
-  }
-`;
 
 /**
  * A section within a section. This can be nested (so you'd have a
@@ -378,10 +326,10 @@ export const SubSection = ({
   id,
   ...props
 }: Omit<ComponentProps<'div'>, 'title'> & { title?: ReactNode }) => (
-  <SubSectionContainer className="subsection" id={id}>
+  <section className={clsx('subsection', styles.subSection)} id={id}>
     <header>{title || ''}</header>
     <div {...props}>{children}</div>
-  </SubSectionContainer>
+  </section>
 );
 
 /*

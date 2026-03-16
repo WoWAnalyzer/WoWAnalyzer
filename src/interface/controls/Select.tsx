@@ -1,15 +1,25 @@
-import styled from '@emotion/styled';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 import * as design from 'interface/design-system';
+import styles from './Select.module.scss';
 
-const Select = styled.select`
-  background: ${design.level2.background};
-  border: 1px solid ${design.level2.border};
-  box-shadow: ${design.level2.shadow};
-  border-radius: 0.5rem;
-  padding: ${design.gaps.small} ${design.gaps.medium};
+const Select = forwardRef<HTMLSelectElement, ComponentPropsWithoutRef<'select'>>(
+  ({ className, style, ...props }, ref) => (
+    <select
+      ref={ref}
+      className={className ? `${styles.select} ${className}` : styles.select}
+      style={{
+        background: design.level2.background,
+        border: `1px solid ${design.level2.border}`,
+        boxShadow: design.level2.shadow,
+        padding: `${design.gaps.small} ${design.gaps.medium}`,
+        color: design.colors.bodyText,
+        ...style,
+      }}
+      {...props}
+    />
+  ),
+);
 
-  color: ${design.colors.bodyText};
-  cursor: pointer;
-`;
+Select.displayName = 'Select';
 
 export default Select;

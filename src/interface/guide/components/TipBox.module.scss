@@ -1,0 +1,32 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.contentWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.content {
+  flex: 1;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.timestampsList {
+  margin-top: 8px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}

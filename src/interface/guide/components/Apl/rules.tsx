@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { InformationIcon } from 'interface/icons';
 import TooltipWrapper from 'interface/Tooltip';
 import SpellLink from 'interface/SpellLink';
@@ -11,39 +10,39 @@ import {
   Tense,
 } from 'parser/shared/metrics/apl';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
-import { Fragment, useMemo, type JSX } from 'react';
+import { Fragment, useMemo, type ComponentPropsWithoutRef, type JSX } from 'react';
 
-export const AplRuleList = styled.ol`
-  padding-left: 1.5rem;
-`;
+import styles from './rules.module.scss';
 
-const AplListItem = styled.li<{ highlighted?: boolean; muted?: boolean }>`
-  opacity: ${(props) => (props.muted ? 0.5 : 1)};
+export const AplRuleList = Object.assign(
+  function AplRuleList({ className, ...props }: ComponentPropsWithoutRef<'ol'>): JSX.Element {
+    return <ol {...props} className={[styles.aplRuleList, className].filter(Boolean).join(' ')} />;
+  },
+  {
+    toString: () => `.${styles.aplRuleList}`,
+  },
+);
 
-  ${(props) =>
-    props.highlighted &&
-    `
-    list-style-type: none;
-    padding-left: 0;
-    margin-left: -1.5rem;
-
-    &::before {
-      content: '\\e080';
-      font-family: 'Glyphicons Halflings';
-      color: #fab700;
-      margin-right: 0.5rem;
-      font-size: 10px;
-    }
-
-    &::after {
-      content: '\\e079';
-      font-family: 'Glyphicons Halflings';
-      color: #fab700;
-      margin-left: 0.5rem;
-      font-size: 10px;
-    }
-  `}
-`;
+function AplListItem({
+  highlighted,
+  muted,
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'li'> & { highlighted?: boolean; muted?: boolean }): JSX.Element {
+  return (
+    <li
+      {...props}
+      className={[
+        styles.aplListItem,
+        muted && styles.muted,
+        highlighted && styles.highlighted,
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    />
+  );
+}
 
 export default function AplRules({
   apl,

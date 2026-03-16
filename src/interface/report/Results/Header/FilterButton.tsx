@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import * as design from 'interface/design-system';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -13,18 +12,7 @@ import { useFight } from 'interface/report/context/FightContext';
 import Select from 'interface/controls/Select';
 import useClickOutsideHandler from 'interface/hooks/useClickOutsideHandler';
 import Button from 'interface/controls/Button';
-
-const Btn = styled(Button)`
-  grid-area: filter;
-
-  align-self: start;
-  margin-top: 0.6rem;
-
-  & .glyphicon {
-    padding-right: 0.25rem;
-    font-size: 75%;
-  }
-`;
+import styles from './FilterButton.module.scss';
 
 interface Props {
   fight: Fight;
@@ -73,9 +61,9 @@ export default function FilterButton(props: Props): JSX.Element | null {
 
   return (
     <>
-      <Btn ref={ref} onClick={toggleMenu}>
+      <Button className={styles.filterButton} ref={ref} onClick={toggleMenu}>
         <span className="glyphicon glyphicon-filter" /> {filterLabel}
-      </Btn>
+      </Button>
       {showMenu &&
         createPortal(
           <FilterMenu
@@ -91,94 +79,28 @@ export default function FilterButton(props: Props): JSX.Element | null {
   );
 }
 
-const FilterDialogContainer = styled.dialog`
-  position: absolute;
-  z-index: 1000;
-  margin: 0;
-  padding: 1rem;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 0.5rem;
-
-  border: 1px solid ${design.level2.border};
-  box-shadow: ${design.level1.shadow};
-  background: ${design.level1.background};
-  border-radius: 0.5rem;
-
-  color: ${design.colors.bodyText};
-`;
-
 interface FilterMenuProps extends Props {
   position: Pick<React.CSSProperties, 'top' | 'left'>;
   closeMenu: () => void;
 }
 
-const FilterRadioButton = styled.label`
-  border: 1px solid ${design.level2.border};
-  background: ${design.level2.background};
-  box-shadow: ${design.level2.shadow};
-  padding: 0.5rem 1rem;
-  position: relative;
-  flex-grow: 1;
-  // z-index hack for shadows
-  z-index: 0;
-
-  cursor: pointer;
-
-  font-weight: normal;
-
-  &:first-of-type {
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-  }
-
-  &:last-of-type {
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-  }
-
-  & input[type='radio'] {
-    appearance: none;
-    background: none;
-    border: none;
-  }
-
-  &:hover {
-    filter: brightness(115%);
-  }
-
-  &:has(input[type='radio']:checked) {
-    border-color: ${design.colors.wowaYellow};
-    background: ${design.level2.background_active};
-    z-index: 1;
-  }
-`;
-
-const FilterRadioGroup = styled.div`
-  display: flex;
-`;
-
 // TODO: better/custom ui for dungeon pulls?
 type FilterMode = 'phase' | 'time';
 
-const TimeFilterContainer = styled.div`
-  & .time-input {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
-  }
+const filterDialogStyle: React.CSSProperties = {
+  border: `1px solid ${design.level2.border}`,
+  boxShadow: design.level1.shadow,
+  background: design.level1.background,
+  color: design.colors.bodyText,
+};
 
-  & > form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    align-items: end;
-  }
-`;
+const filterRadioGroupStyle = {
+  '--filter-radio-border': design.level2.border,
+  '--filter-radio-background': design.level2.background,
+  '--filter-radio-shadow': design.level2.shadow,
+  '--filter-radio-active-border': design.colors.wowaYellow,
+  '--filter-radio-active-background': design.level2.background_active,
+} as React.CSSProperties;
 
 const FilterMenu = ({
   ref,
@@ -213,10 +135,15 @@ const FilterMenu = ({
   );
 
   return (
-    <FilterDialogContainer ref={ref} style={position} open>
+    <dialog
+      ref={ref}
+      className={styles.filterDialogContainer}
+      style={{ ...filterDialogStyle, ...position }}
+      open
+    >
       {hasPhases && (
-        <FilterRadioGroup>
-          <FilterRadioButton>
+        <div className={styles.filterRadioGroup} style={filterRadioGroupStyle}>
+          <label className={styles.filterRadioButton}>
             <input
               type="radio"
               name="header-filter-mode"
@@ -225,8 +152,8 @@ const FilterMenu = ({
               onChange={() => setSelectedMode('phase')}
             />
             {phaseLabel}
-          </FilterRadioButton>
-          <FilterRadioButton>
+          </label>
+          <label className={styles.filterRadioButton}>
             <input
               type="radio"
               name="header-filter-mode"
@@ -235,8 +162,8 @@ const FilterMenu = ({
               onChange={() => setSelectedMode('time')}
             />
             By Time
-          </FilterRadioButton>
-        </FilterRadioGroup>
+          </label>
+        </div>
       )}
       {selectedMode === 'phase' && (
         <div>
@@ -258,11 +185,11 @@ const FilterMenu = ({
         </div>
       )}
       {selectedMode === 'time' && (
-        <TimeFilterContainer>
+        <div className={styles.timeFilterContainer}>
           <TimeFilter fight={fight} isLoading={false} applyFilter={setTimeFilter} />
-        </TimeFilterContainer>
+        </div>
       )}
-    </FilterDialogContainer>
+    </dialog>
   );
 };
 

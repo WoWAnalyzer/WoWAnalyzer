@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { i18n } from '@lingui/core';
 import { defineMessage } from '@lingui/core/macro';
 import { findZoneByBossId, type Boss } from 'game/raids';
@@ -23,72 +22,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeaderBackground from './HeaderBackground';
 import { currentExpansion } from 'game/GameBranch';
 import * as difficulty from 'game/DIFFICULTIES';
-import HeaderStatBox, { StatBoxContainer } from './HeaderStatBox';
-import { level1, level2, colors, gaps, fontSize } from 'interface/design-system';
+import HeaderStatBox from './HeaderStatBox';
 import { formatDuration } from 'common/format';
 import FilterButton from './FilterButton';
 import { Filter } from 'interface/report/hooks/useTimeEventFilter';
 import Select from 'interface/controls/Select';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
 import { specIconPath } from 'interface/SpecIcon';
-
-const Section = styled.section`
-  border: 1px solid ${level1.border};
-  padding: 1rem;
-  background: ${level1.background};
-  box-shadow: ${level1.shadow};
-  margin-bottom: 2.5rem;
-`;
-
-const TabStrip = styled.nav`
-  grid-area: tabs;
-`;
-
-const TabSelect = styled(Select)`
-  grid-area: tabs;
-`;
-
-const HeaderContainer = styled.div`
-  display: grid;
-  gap: 0.5rem 1rem;
-  grid-template-rows: auto auto auto;
-  grid-template-columns: repeat(2, calc(50% - ${gaps.small} / 2));
-  grid-template-areas:
-    'boss character'
-    'filter filter'
-    'tabs tabs';
-
-  ${StatBoxContainer} {
-    display: none;
-  }
-
-  ${TabStrip} {
-    display: none;
-  }
-
-  @media (min-width: 750px) {
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto;
-
-    grid-template-areas:
-      'boss filter character'
-      'tabs tabs stats';
-
-    align-items: end;
-    justify-items: start;
-
-    ${StatBoxContainer} {
-      display: flex;
-    }
-
-    ${TabStrip} {
-      display: block;
-    }
-    ${TabSelect} {
-      display: none;
-    }
-  }
-`;
+import styles from './index.module.scss';
 
 interface HeaderProps {
   config: Config;
@@ -209,8 +150,8 @@ export default function Header({
     <>
       <HeaderBackground boss={boss} raid={raid} expansion={expansion} />
       <div>
-        <Section style={{ paddingBottom: 0 }}>
-          <HeaderContainer>
+        <section className={styles.section} style={{ paddingBottom: 0 }}>
+          <div className={styles.headerContainer}>
             <BossMiniBox boss={boss} fight={fight} />
             <FilterButton
               fight={fight}
@@ -220,21 +161,22 @@ export default function Header({
               timeFilter={timeFilter}
             />
             <CharacterMiniBox player={player} characterProfile={characterProfile} config={config} />
-            <TabStrip>
+            <nav className={styles.tabStrip}>
               {tabList
                 .filter((tab: InternalTab) => !tab.hidden || tab.url === selectedTab)
                 .map(({ icon: Icon, ...tab }) => (
-                  <TabButton
+                  <Link
                     key={tab.url}
                     to={makeTabUrl(tab.url)}
-                    className={selectedTab === tab.url ? 'active' : ''}
+                    className={`${styles.tabButton}${selectedTab === tab.url ? ` ${styles.tabButtonActive}` : ''}`}
                   >
                     <Icon />
                     {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
-                  </TabButton>
+                  </Link>
                 ))}
-            </TabStrip>
-            <TabSelect
+            </nav>
+            <Select
+              className={styles.tabSelect}
               onChange={(event) => navigate(makeTabUrl(event.target.value))}
               value={selectedTab}
             >
@@ -245,102 +187,18 @@ export default function Header({
                     {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
                   </option>
                 ))}
-            </TabSelect>
-            {!isLoading && <HeaderStatBox />}
-          </HeaderContainer>
-        </Section>
+            </Select>
+            {!isLoading && (
+              <div className={styles.statBoxWrapper}>
+                <HeaderStatBox />
+              </div>
+            )}
+          </div>
+        </section>
       </div>
     </>
   );
 }
-
-const TabButton = styled(Link)`
-  appearance: none;
-  border: none;
-  background: none;
-
-  display: inline-flex;
-  gap: 0.5rem;
-  flex-direction: row;
-  align-items: center;
-
-  & > svg {
-    margin-top: 0;
-    height: 1.25em;
-    shape-rendering: geometricPrecision;
-  }
-
-  color: ${colors.bodyText};
-
-  padding: 0.5rem 0.75rem;
-
-  border-bottom: 3px solid ${level2.border};
-
-  &:hover {
-    background: ${level2.background};
-    text-decoration: none;
-    color: inherit;
-    border-bottom: 3px solid color-mix(in srgb, ${colors.wowaYellow} 90%, transparent);
-  }
-
-  &.active {
-    border-bottom: 3px solid ${colors.wowaYellow};
-  }
-
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-  }
-`;
-
-const MiniBoxContainer = styled.div`
-  display: grid;
-  gap: 0 ${gaps.medium};
-
-  grid-template-columns: 5rem 1fr;
-  grid-template-rows: max-content max-content;
-  height: 5rem;
-
-  grid-template-areas:
-    'image name'
-    'image subtext';
-
-  &.flipped {
-    grid-template-columns: max-content min-content;
-
-    grid-template-areas:
-      'name image'
-      'subtext image';
-
-    justify-items: end;
-    justify-content: end;
-    text-align: right;
-  }
-`;
-
-const MiniBoxName = styled.div`
-  font-size: ${fontSize.heading};
-  font-weight: bold;
-  white-space: break-spaces;
-  overflow: hidden;
-  max-height: 1lh;
-`;
-
-const MiniBoxSubtext = styled.div`
-  font-size: 1.3rem;
-  color: ${colors.unfocusedText};
-  white-space: nowrap;
-  overflow-x: hidden;
-`;
-
-const MiniBoxImage = styled.img`
-  grid-area: image;
-  aspect-ratio: 1 / 1;
-  border: 1px solid ${level2.border};
-  border-radius: 0.5rem;
-  height: 5rem;
-  max-height: 5rem;
-`;
 
 function CharacterMiniBox({
   player,
@@ -350,17 +208,21 @@ function CharacterMiniBox({
   // intentionally smaller than the layout switch
   const showClassName = useMediaQueryMatch('(min-width: 600px)');
   return (
-    <MiniBoxContainer className={'flipped'} style={{ gridArea: 'character' }}>
-      <MiniBoxImage
+    <div
+      className={`${styles.miniBoxContainer} ${styles.flipped}`}
+      style={{ gridArea: 'character' }}
+    >
+      <img
+        className={styles.miniBoxImage}
         src={characterProfile?.thumbnail ?? specIconPath(config.spec)}
         alt={`${player.name} (${config.spec.specName ? i18n._(config.spec.specName) : ''} ${i18n._(config.spec.className)})`}
       />
-      <MiniBoxName className={config.spec.wclClassName}>{player.name}</MiniBoxName>
-      <MiniBoxSubtext>
+      <div className={`${styles.miniBoxName} ${config.spec.wclClassName}`}>{player.name}</div>
+      <div className={styles.miniBoxSubtext}>
         {config.spec.specName ? i18n._(config.spec.specName) : null}{' '}
         {showClassName ? i18n._(config.spec.className) : null}
-      </MiniBoxSubtext>
-    </MiniBoxContainer>
+      </div>
+    </div>
   );
 }
 
@@ -378,13 +240,13 @@ function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.
     (fight.original_end_time ?? fight.end_time) - (fight.start_time - fight.offset_time),
   );
   return (
-    <MiniBoxContainer data-testid="boss-difficulty-and-name">
-      <MiniBoxImage src={icon} alt={boss?.name ?? fight.name} />
-      <MiniBoxName>{boss?.name ?? fight.name}</MiniBoxName>
-      <MiniBoxSubtext>
+    <div className={styles.miniBoxContainer} data-testid="boss-difficulty-and-name">
+      <img className={styles.miniBoxImage} src={icon} alt={boss?.name ?? fight.name} />
+      <div className={styles.miniBoxName}>{boss?.name ?? fight.name}</div>
+      <div className={styles.miniBoxSubtext}>
         {difficulty.getLabel(fight.difficulty ?? 0)}{' '}
         {fight.kill ? `Kill - ${duration}` : `Wipe - ${duration}`}
-      </MiniBoxSubtext>
-    </MiniBoxContainer>
+      </div>
+    </div>
   );
 }

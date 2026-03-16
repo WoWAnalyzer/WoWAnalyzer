@@ -1,19 +1,26 @@
-import styled from '@emotion/styled';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ComponentProps, ReactNode } from 'react';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
+import styles from './PerformanceLabel.module.scss';
 
-const ColoredText = styled.span`
-  color: ${(props) => props.color};
-`;
-
-interface PerformanceProps extends ComponentProps<typeof ColoredText> {
+interface PerformanceProps extends ComponentProps<'span'> {
   children: ReactNode;
+  color?: string;
   performance: QualitativePerformance;
 }
-export const PerformanceLabel = ({ performance, ...others }: PerformanceProps) => (
+export const PerformanceLabel = ({
+  className,
+  color,
+  performance,
+  style,
+  ...others
+}: PerformanceProps) => (
   <>
-    <ColoredText color={qualitativePerformanceToColor(performance)} {...others} />
+    <span
+      className={className ? `${styles.coloredText} ${className}` : styles.coloredText}
+      style={{ color: color ?? qualitativePerformanceToColor(performance), ...style }}
+      {...others}
+    />
     <PerformanceMark perf={performance} />
   </>
 );

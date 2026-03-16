@@ -1,7 +1,8 @@
 import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';
+
+import styles from './ExplanationRow.module.scss';
 
 const leftPercentDefault = 30;
 
@@ -18,13 +19,14 @@ export default function ExplanationRow({
 }) {
   const { hideExplanations } = useExplanationContext();
   return (
-    <StyledExplanationRow
+    <div
+      className={styles.row}
       style={{
         gridTemplateColumns: hideExplanations ? '1fr' : `${leftPercent ?? leftPercentDefault}% 1fr`,
       }}
     >
       {children}
-    </StyledExplanationRow>
+    </div>
   );
 }
 
@@ -66,8 +68,3 @@ export function ExplanationAndDataSubSection({
     </SubSection>
   );
 }
-
-const StyledExplanationRow = styled.div`
-  display: grid;
-  grid-column-gap: 1em;
-`;

@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { formatPercentage } from 'common/format';
 import { useEvents, useInfo } from 'interface/guide';
 import ProblemList, {
@@ -7,7 +6,7 @@ import ProblemList, {
   ProblemRendererProps,
 } from 'interface/guide/components/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
-import { ReactNode, JSX } from 'react';
+import { type ComponentPropsWithoutRef, ReactNode, JSX } from 'react';
 import { createContext, useMemo, use } from 'react';
 import { ViolationTimeline } from '../timeline';
 import {
@@ -18,30 +17,7 @@ import {
 } from './claims';
 import deduplicate from './deduplication';
 import PassFailBar from 'interface/guide/components/PassFailBar';
-
-const EmbedContainer = styled.div`
-  background: #222;
-  border-radius: 0.5em;
-  padding: 1em 1.5em;
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: 1fr max-content;
-  align-content: center;
-  align-items: center;
-`;
-
-const ShowMeButton = styled.button`
-  appearance: none;
-  background: #333;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  border: none;
-  box-shadow: 1px 1px 3px #111;
-
-  &:hover {
-    filter: brightness(120%);
-  }
-`;
+import styles from './index.module.scss';
 
 export interface SelectedExplanation<T> {
   describer: ViolationExplainer<T>['describe'];
@@ -51,23 +27,6 @@ export interface SelectedExplanation<T> {
 export const ExplanationSelectionContext = createContext<
   (selection: SelectedExplanation<any>) => void // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 >(() => undefined);
-
-const ClaimCountBar = styled(PassFailBar)`
-  .pass-bar {
-    background-color: hsl(348.9, 69.5%, 39.8%);
-  }
-
-  .fail-bar {
-    background-color: hsl(0, 0%, 20%);
-  }
-`;
-
-const ClaimCountDescription = styled.div`
-  display: grid;
-  grid-template-columns: max-content auto;
-  grid-gap: 1rem;
-  align-items: start;
-`;
 
 function AplViolationExplanation<T = unknown>({
   claimData,
@@ -83,31 +42,27 @@ function AplViolationExplanation<T = unknown>({
   const setSelection = use(ExplanationSelectionContext);
 
   return (
-    <EmbedContainer>
+    <div className={styles.embedContainer}>
       <div>
         {children}
-        <ClaimCountDescription>
+        <div className={styles.claimCountDescription}>
           <small>{formatPercentage(claimData.claims.size / totalViolations, 0)}% of mistakes</small>{' '}
-          <ClaimCountBar pass={claimData.claims.size} total={totalViolations} />
-        </ClaimCountDescription>
+          <PassFailBar
+            className={styles.claimCountBar}
+            pass={claimData.claims.size}
+            total={totalViolations}
+          />
+        </div>
       </div>
-      <ShowMeButton onClick={() => setSelection?.({ describer, claimData })}>Show Me!</ShowMeButton>
-    </EmbedContainer>
+      <button
+        className={styles.showMeButton}
+        onClick={() => setSelection?.({ describer, claimData })}
+      >
+        Show Me!
+      </button>
+    </div>
   );
 }
-
-const ExplanationList = styled.ul`
-  list-style: none;
-  padding-left: 0;
-
-  li {
-    margin-top: 1rem;
-
-    &:first-of-type {
-      margin-top: initial;
-    }
-  }
-`;
 
 /**
  * Show a list of problem explanations.
@@ -192,24 +147,42 @@ export function AplViolationExplanations({
   }
 
   return (
-    <ExplanationList>
+    <ul className={styles.explanationList}>
       {appliedClaims.map((result, ix) => (
         <li key={ix}>{result}</li>
       ))}
-    </ExplanationList>
+    </ul>
   );
 }
 
-export const AplViolationTimelineContainer = styled.div``;
+export function AplViolationTimelineContainer({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>): JSX.Element {
+  const containerClassName = className
+    ? `${styles.aplViolationTimelineContainer} ${className}`
+    : styles.aplViolationTimelineContainer;
 
-const ViolationProblemContainer = styled('div')<{ orientation: 'row' | 'column' }>`
-  display: grid;
-  ${(props) =>
-    props.orientation === 'row'
-      ? 'grid-template-columns: auto max-content;'
-      : 'grid-template-rows: auto max-content;'}
-  grid-gap: 1rem;
-`;
+  return <div className={containerClassName} {...props} />;
+}
+
+function ViolationProblemContainer({
+  className,
+  orientation,
+  ...props
+}: ComponentPropsWithoutRef<'div'> & {
+  orientation: 'row' | 'column';
+}): JSX.Element {
+  const orientationClassName =
+    orientation === 'row'
+      ? styles.violationProblemContainerRow
+      : styles.violationProblemContainerColumn;
+  const containerClassName = className
+    ? `${styles.violationProblemContainer} ${orientationClassName} ${className}`
+    : `${styles.violationProblemContainer} ${orientationClassName}`;
+
+  return <div className={containerClassName} {...props} />;
+}
 
 export default function ViolationProblemList<T = unknown>({
   describer: DescribeViolation,

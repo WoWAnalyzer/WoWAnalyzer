@@ -25,7 +25,6 @@ import { ByRole, Role } from './ByRole';
 import { useFight } from 'interface/report/context/FightContext';
 import { EncounterTimelineAbility, findByBossId } from 'game/raids';
 import Para from '../Para';
-import styled from '@emotion/styled';
 import { memo, useMemo, type JSX } from 'react';
 import SegmentTimeline, {
   DisplaySegment,
@@ -37,6 +36,7 @@ import CancelledCasts, { CancelGap } from 'parser/shared/modules/CancelledCasts'
 import ROLES from 'game/ROLES';
 import SpellLink from 'interface/SpellLink';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
+import styles from './FoundationDowntimeSectionV2.module.scss';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
@@ -101,7 +101,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
             justifyItems: 'left',
           }}
         >
-          <UptimeStatistics>
+          <dl className={styles.uptimeStatistics}>
             <dt>
               <PerformanceStrong performance={abc.DowntimePerformance}>
                 {formatPercentage(abc.activeTimePercentage, 1)}%
@@ -160,7 +160,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
                 )}
               </Role>
             </ByRole>
-          </UptimeStatistics>
+          </dl>
         </div>
         <div>
           <Para>
@@ -220,25 +220,6 @@ interface Segment {
   start: number;
   end: number;
 }
-
-const UptimeStatistics = styled.dl`
-  display: grid;
-  grid-template-columns: max-content max-content;
-  grid-gap: 0 0.75em;
-  font-size: 1.5rem;
-  align-items: baseline;
-
-  & dd {
-    font-size: 1.5rem;
-    opacity: 80%;
-
-    & dfn {
-      border-bottom: unset;
-      text-decoration: underline;
-      text-decoration-style: dotted;
-    }
-  }
-`;
 
 function ComplexUptimeDisplay({
   uptimeHistory,

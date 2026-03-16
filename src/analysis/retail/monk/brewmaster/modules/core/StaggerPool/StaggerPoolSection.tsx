@@ -16,8 +16,6 @@ import TranquilSpirit from '../../talents/TranquilSpirit';
 import PurifyingBrew from '../../talents/PurifyingBrew';
 import TouchOfDeathStagger from '../../spells/TouchOfDeathStagger';
 import SPELLS from '../../../spell-list_Monk_Brewmaster.retail';
-import styled from '@emotion/styled';
-import * as design from 'interface/design-system';
 import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
 import { formatNumber } from 'common/format';
@@ -25,36 +23,7 @@ import InvokeNiuzaoStagger from '../../talents/InvokeNiuzao/InvokeNiuzaoStagger'
 import AlertWarning from 'interface/AlertWarning';
 import Tooltip from 'interface/Tooltip';
 import { InformationIcon } from 'interface/icons';
-
-const SideBySide = styled.div`
-  margin-top: ${design.gaps.large};
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${design.gaps.large};
-
-  align-items: start;
-
-  & header {
-    margin-bottom: ${design.gaps.medium};
-  }
-`;
-
-const SummaryDL = styled.dl`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: ${design.gaps.small} ${design.gaps.medium};
-  width: max-content;
-
-  font-size: 95%;
-
-  & dt {
-    font-weight: normal;
-  }
-
-  & dd {
-    text-align: right;
-  }
-`;
+import styles from './StaggerPoolSection.module.scss';
 
 export default function StaggerPoolSection(): JSX.Element | null {
   const graph = useAnalyzer(StaggerPoolGraph);
@@ -75,7 +44,7 @@ export default function StaggerPoolSection(): JSX.Element | null {
         please contact <code>@emallson</code> on Discord.
       </AlertWarning>
       <SubSection title={<SpellLink spell={SPELLS.STAGGER_TALENT} />}>
-        <SummaryDL>
+        <dl className={styles.summaryDl}>
           <dt>
             Total Damage Absorbed by <SpellLink spell={SPELLS.STAGGER_TALENT} />
           </dt>
@@ -100,13 +69,13 @@ export default function StaggerPoolSection(): JSX.Element | null {
             </Tooltip>
           </dt>
           <dd>{formatNumber(totalAbsorb - stagger.totalTickDamageTaken)} </dd>
-        </SummaryDL>
+        </dl>
         <Explanation>
           This chart shows the amount of damage in the <SpellLink spell={SPELLS.STAGGER_TALENT} />{' '}
           pool over time, with <SpellLink spell={SPELLS.PURIFYING_BREW_TALENT} /> casts highlighted.
         </Explanation>
         <div>{graph?.plot}</div>
-        <SideBySide>
+        <div className={styles.sideBySide}>
           <div>
             <header>
               <strong>
@@ -134,7 +103,7 @@ export default function StaggerPoolSection(): JSX.Element | null {
             </header>
             <StaggerPurifiedTable />
           </div>
-        </SideBySide>
+        </div>
       </SubSection>
     </>
   );

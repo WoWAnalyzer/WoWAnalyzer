@@ -1,5 +1,8 @@
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
+import type { CSSProperties } from 'react';
 import { Tooltip } from 'interface';
+
+import styles from './StackedBar.module.scss';
 
 /**
  * A stacked horizontal bar chart component for displaying proportional distribution of data.
@@ -54,6 +57,10 @@ export default function StackedBar({
 }: StackedBarProps) {
   const total = segments.reduce((sum, seg) => sum + seg.value, 0);
 
+  const barStyle = {
+    '--stacked-bar-height': `${height}px`,
+  } as CSSProperties;
+
   if (total === 0) {
     return null;
   }
@@ -73,86 +80,36 @@ export default function StackedBar({
 
   return (
     <>
-      <BarContainer height={height} className={className}>
+      <div className={clsx(styles.barContainer, className)} style={barStyle}>
         {segmentsWithPositions.map(({ segment, percent, index }) => (
           <Tooltip key={index} content={segment.tooltip || getTooltipContent(segment, percent)}>
-            <Segment color={segment.color} widthPercent={percent} />
+            <div
+              className={styles.segment}
+              style={
+                {
+                  '--stacked-bar-color': segment.color,
+                  '--stacked-bar-width': `${percent}%`,
+                } as CSSProperties
+              }
+            />
           </Tooltip>
         ))}
-      </BarContainer>
+      </div>
       {!hideLegend && (
-        <LegendRow>
+        <div className={styles.legendRow}>
           {segmentsWithPositions.map(({ segment, percent, index }) => (
-            <LegendItem key={index}>
-              <LegendSwatch color={segment.color} />
-              <LegendItemLabel>
+            <div key={index} className={styles.legendItem}>
+              <div
+                className={styles.legendSwatch}
+                style={{ '--stacked-bar-swatch-color': segment.color } as CSSProperties}
+              />
+              <span className={styles.legendItemLabel}>
                 {segment.label} ({Math.round(percent)}%)
-              </LegendItemLabel>
-            </LegendItem>
+              </span>
+            </div>
           ))}
-        </LegendRow>
+        </div>
       )}
     </>
   );
 }
-
-const BarContainer = styled.div<{ height: number }>`
-  width: 100%;
-  height: ${(props) => props.height}px;
-  min-height: 35px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-
-  @media (max-width: 768px) {
-    min-height: 30px;
-  }
-`;
-
-const Segment = styled.div<{
-  color: string;
-  widthPercent: number;
-}>`
-  width: ${(props) => props.widthPercent}%;
-  height: 100%;
-  background: ${(props) => props.color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 4px;
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
-  transition: filter 0.2s ease;
-
-  &:hover {
-    filter: brightness(1.2);
-  }
-`;
-
-const LegendRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 6px;
-`;
-
-const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
-
-const LegendSwatch = styled.div<{ color: string }>`
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  background: ${(props) => props.color};
-  flex-shrink: 0;
-`;
-
-const LegendItemLabel = styled.span`
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-`;

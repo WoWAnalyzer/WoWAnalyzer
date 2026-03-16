@@ -1,7 +1,9 @@
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
 import { formatNumber } from 'common/format';
 import Tooltip from 'interface/Tooltip';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, type HTMLAttributes, ReactNode } from 'react';
+
+import styles from './MitigationSegments.module.scss';
 
 export interface MitigationSegment {
   amount: number;
@@ -9,43 +11,51 @@ export interface MitigationSegment {
   description: ReactNode;
 }
 
-const roundedContainerStyles = `
-  border-radius: 2px;
-  overflow: clip;
+const mitigationTooltipSegmentSelector = 'mitigation-tooltip-segment';
 
-  & div:first-child {
-    border-radius: 2px 0 0 2px;
-  }
-`;
+interface MitigationSegmentContainerProps extends HTMLAttributes<HTMLDivElement> {
+  rounded?: boolean;
+}
 
-const MitigationSegmentContainer = styled.div<{ rounded?: boolean }>`
-  width: 100%;
-  height: 1em;
-  text-align: left;
-  line-height: 1em;
-  background-color: rgba(255, 255, 255, 0.2);
-  ${(props) => (props.rounded ? roundedContainerStyles : '')}
-`;
+const MitigationSegmentContainer = ({
+  rounded,
+  className,
+  ...props
+}: MitigationSegmentContainerProps) => (
+  <div {...props} className={clsx(styles.container, rounded && styles.rounded, className)} />
+);
 
 // we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-export const MitigationTooltipSegment = styled.div<{
+interface MitigationTooltipSegmentProps extends HTMLAttributes<HTMLDivElement> {
   color: string;
   width: number;
   maxWidth?: number;
-}>`
-  background-color: ${(props) => props.color};
-  width: calc(
-    ${(props) =>
-        props.maxWidth
-          ? `${Math.max(0.02, props.width)} * ${props.maxWidth}px`
-          : `${Math.max(2, props.width * 100)}%`} -
-      1px
-  );
-  height: 100%;
-  display: inline-block;
-  box-sizing: content-box;
-  border-left: 1px solid #000;
-`;
+}
+
+const getSegmentWidth = (width: number, maxWidth?: number) =>
+  maxWidth
+    ? `calc(${Math.max(0.02, width)} * ${maxWidth}px - 1px)`
+    : `calc(${Math.max(2, width * 100)}% - 1px)`;
+
+export const MitigationTooltipSegment = Object.assign(
+  ({ color, width, maxWidth, className, style, ...props }: MitigationTooltipSegmentProps) => (
+    <div
+      {...props}
+      className={clsx(styles.tooltipSegment, mitigationTooltipSegmentSelector, className)}
+      style={
+        {
+          ...style,
+          '--mitigation-segment-color': color,
+          '--mitigation-segment-width': getSegmentWidth(width, maxWidth),
+        } as CSSProperties
+      }
+    />
+  ),
+  {
+    __emotion_styles: [],
+    toString: () => `.${mitigationTooltipSegmentSelector}`,
+  },
+);
 
 export const MitigationSegments = ({
   segments,

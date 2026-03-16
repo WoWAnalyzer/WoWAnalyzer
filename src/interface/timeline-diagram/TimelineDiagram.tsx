@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
@@ -16,6 +15,7 @@ import {
   ReactNode,
 } from 'react';
 import { formatDurationMinSec } from 'common/format';
+import styles from './TimelineDiagram.module.scss';
 
 interface TimelineContext {
   /**
@@ -410,34 +410,19 @@ function ZoomText({ isZoomed }: { isZoomed: boolean }): JSX.Element {
   const { resetZoom } = useTimelinePosition();
   if (isZoomed) {
     return (
-      <ZoomTextContainer>
-        <ResetZoomButton onClick={(e) => resetZoom(e)}>
+      <div className={styles.zoomTextContainer}>
+        <button className={styles.resetZoomButton} onClick={(e) => resetZoom(e)}>
           <small>Reset Zoom</small>
-        </ResetZoomButton>
-      </ZoomTextContainer>
+        </button>
+      </div>
     );
   } else {
     return (
-      <ZoomTextContainer>
+      <div className={styles.zoomTextContainer}>
         <small>Click the timeline to zoom</small>
-      </ZoomTextContainer>
+      </div>
     );
   }
 }
-
-const ResetZoomButton = styled.button`
-  appearance: none;
-  background: none;
-  border: none;
-
-  & small {
-    text-decoration: underline;
-  }
-`;
-
-const ZoomTextContainer = styled.div`
-  line-height: 1;
-  margin-bottom: 0.5em;
-`;
 
 const ZOOM_DISPLAY_PX_PER_MS = 20 / 1000;

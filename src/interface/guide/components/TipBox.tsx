@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styled from '@emotion/styled';
+import styles from './TipBox.module.scss';
 
 interface TipBoxProps {
   children: ReactNode;
@@ -12,44 +12,17 @@ interface TipBoxProps {
  */
 export function TipBox({ children, icon, title }: TipBoxProps) {
   return (
-    <Container>
-      <ContentWrapper>
-        {icon && <IconWrapper>{icon}</IconWrapper>}
-        <Content>
+    <div className={styles.container}>
+      <div className={styles.contentWrapper}>
+        {icon && <span className={styles.iconWrapper}>{icon}</span>}
+        <div className={styles.content}>
           {title && <strong>{title}: </strong>}
           {children}
-        </Content>
-      </ContentWrapper>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
-
-const Container = styled.div`
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin-top: 12px;
-  margin-bottom: 8px;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-`;
-
-const IconWrapper = styled.span`
-  display: flex;
-  align-items: center;
-  line-height: 1.5;
-`;
-
-const Content = styled.div`
-  flex: 1;
-  margin-bottom: 0;
-  line-height: 1.5;
-`;
 
 interface TipBoxWithTimestampsProps extends TipBoxProps {
   timestamps: number[];
@@ -72,22 +45,16 @@ export function TipBoxWithTimestamps({
       <div>
         {children}
         {timestamps && timestamps.length > 0 && (
-          <TimestampsList>
+          <div className={styles.timestampsList}>
             <strong>Affected casts:</strong>{' '}
             {timestamps
               .slice(0, maxTimestamps)
               .map((ts) => formatTimestamp(ts))
               .join(', ')}
             {timestamps.length > maxTimestamps && ` (+${timestamps.length - maxTimestamps} more)`}
-          </TimestampsList>
+          </div>
         )}
       </div>
     </TipBox>
   );
 }
-
-const TimestampsList = styled.div`
-  margin-top: 8px;
-  font-size: 0.9em;
-  opacity: 0.8;
-`;

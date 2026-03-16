@@ -1,6 +1,4 @@
 import type { JSX } from 'react';
-import styled from '@emotion/styled';
-import isPropValid from '@emotion/is-prop-valid';
 import talents from 'common/TALENTS/deathknight';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
@@ -19,6 +17,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ProblemList from 'interface/guide/components/ProblemList';
 import RuneCooldownBar from '../../../components/RuneCooldownBar';
 import Tooltip from 'interface/Tooltip';
+import styles from './DeathStrikeSection.module.scss';
 
 export default function DeathStrikeSection() {
   const rp = useAnalyzer(RunicPowerTracker);
@@ -65,7 +64,7 @@ export default function DeathStrikeSection() {
           </>
         }
       >
-        <div style={{ display: 'grid', gridTemplateColumns: '45% 1fr', gap: '2em' }}>
+        <div className={styles.layout}>
           <div>
             <p>
               The most important thing about <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> is
@@ -73,7 +72,7 @@ export default function DeathStrikeSection() {
               <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> to spend on it.
             </p>
             <RunicPowerTable />
-            <p style={{ marginTop: '1em' }}>
+            <p className={styles.runicPowerSummary}>
               Every rune you spend generates 10 <Highlight color={RuneColor}>Base</Highlight> RP .{' '}
               <SpellLink spell={talents.HEART_STRIKE_TALENT} /> generates 5+{' '}
               <Highlight textColor="#111" color={RunicPowerColor}>
@@ -86,7 +85,7 @@ export default function DeathStrikeSection() {
               very little <Highlight color={WastedRPColor}>Wasted</Highlight> RP.
             </p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+          <div className={styles.suggestionsColumn}>
             <SuggestionBox
               performance={rp.wastePerformance}
               title={
@@ -147,14 +146,6 @@ export default function DeathStrikeSection() {
   );
 }
 
-const RPTableContainer = styled.div`
-  display: grid;
-  grid-template-columns: max-content max-content 1fr;
-  gap: 2px 0.5em;
-  align-items: center;
-  align-content: start;
-`;
-
 const heartStrikeSpells = [
   talents.HEART_STRIKE_TALENT,
   SPELLS.HEARTBREAKER_ENERGIZE,
@@ -192,7 +183,7 @@ function RunicPowerTable() {
   const otherWastedRp = rp.wasted - runeWaste;
 
   return (
-    <RPTableContainer>
+    <div className={styles.rpTableContainer}>
       {abilityGroups.map((spells) => {
         const displaySpell = spells[0];
         // if the display spell is unknown, skip this
@@ -219,7 +210,7 @@ function RunicPowerTable() {
         rpWasted={otherWastedRp}
         rpAmount={otherRp}
       />
-    </RPTableContainer>
+    </div>
   );
 }
 
@@ -228,35 +219,6 @@ function RunicPowerTable() {
 /**
  * A basic colored block. The building block of more complex objects. You MUST supply the height/width yourself.
  */
-const ColoredBlock = styled('div', {
-  shouldForwardProp: (prop) => {
-    switch (prop) {
-      case 'width':
-      case 'height':
-      case 'color':
-        return false;
-      default:
-        return isPropValid(prop);
-    }
-  },
-})<{ color: string; height?: string; width: string }>`
-  display: inline-block;
-  box-sizing: content-box;
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
-  background-color: ${(props) => props.color};
-`;
-
-const BlockRow = styled('div', { shouldForwardProp: isPropValid })`
-  display: inline-flex;
-  flex-direction: row;
-  gap: 1px;
-  & > ${ColoredBlock} {
-    height: 100%;
-  }
-  max-height: 1.5em;
-  height: 100%;
-`;
 
 const RuneColor = 'hsl(0, 0%, 30%)';
 const RunicPowerColor = 'hsl(191, 60%, 50%)';
@@ -295,15 +257,33 @@ function RunicPowerTableRow({
           </>
         }
       >
-        <BlockRow>
-          <ColoredBlock color={RuneColor} width={`${(baseRp / maxRp) * 100}%`} />
+        <div className={styles.blockRow}>
+          <div
+            className={styles.coloredBlock}
+            style={{
+              width: `${(baseRp / maxRp) * 100}%`,
+              backgroundColor: RuneColor,
+            }}
+          />
           {rpBonus > 0 && (
-            <ColoredBlock color={RunicPowerColor} width={`${(rpBonus / maxRp) * 100}%`} />
+            <div
+              className={styles.coloredBlock}
+              style={{
+                width: `${(rpBonus / maxRp) * 100}%`,
+                backgroundColor: RunicPowerColor,
+              }}
+            />
           )}
           {rpWasted > 0 && (
-            <ColoredBlock color={WastedRPColor} width={`${(rpWasted / maxRp) * 100}%`} />
+            <div
+              className={styles.coloredBlock}
+              style={{
+                width: `${(rpWasted / maxRp) * 100}%`,
+                backgroundColor: WastedRPColor,
+              }}
+            />
           )}
-        </BlockRow>
+        </div>
       </Tooltip>
     </>
   );

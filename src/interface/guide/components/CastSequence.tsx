@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, type CSSProperties } from 'react';
 import type Spell from 'common/SPELLS/Spell';
-import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import GuideDataWrapper, { HelperText, HelperTextRow, SectionContainer } from './GuideDataWrapper';
+import styles from './CastSequence.module.scss';
 
 export interface CastInSequence {
   timestamp: number;
@@ -28,11 +28,16 @@ interface SpellSequenceProps {
  */
 export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
   return (
-    <Sequence>
+    <div className={styles.sequence}>
       {casts.map((cast, castIdx) => {
         const color = cast.performance
           ? qualitativePerformanceToColor(cast.performance)
           : 'rgba(255, 255, 255, 0.3)';
+        const spellIconStyle = {
+          '--cast-sequence-icon-size': `${iconSize}px`,
+          '--cast-sequence-icon-outline':
+            color !== 'rgba(255, 255, 255, 0.3)' ? `3px solid ${color}` : 'none',
+        } as CSSProperties;
 
         const defaultTooltip = (
           <div>
@@ -42,16 +47,16 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
 
         return (
           <Tooltip key={castIdx} content={cast.tooltip || defaultTooltip}>
-            <SpellIcon size={iconSize} color={color}>
+            <div className={styles.spellIcon} style={spellIconStyle}>
               <img
                 src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
                 alt={cast.spellName}
               />
-            </SpellIcon>
+            </div>
           </Tooltip>
         );
       })}
-    </Sequence>
+    </div>
   );
 }
 
@@ -116,27 +121,29 @@ export default function CastSequence<T>({
   const subtitle = `Cast Sequence ${windowStart !== undefined ? `at ${castTimestamp(currentSequence.data)}` : ''}`;
 
   const navContent = (
-    <NavigationButtons>
-      <CastSeqNavButton
+    <div className={styles.navigationButtons}>
+      <button
+        className={styles.castSeqNavButton}
         type="button"
         onClick={handlePrevious}
         disabled={currentIndex === 0}
         aria-label="Previous sequence"
       >
         ‹
-      </CastSeqNavButton>
-      <NavCounter>
+      </button>
+      <div className={styles.navCounter}>
         {currentIndex + 1} / {sequences.length}
-      </NavCounter>
-      <CastSeqNavButton
+      </div>
+      <button
+        className={styles.castSeqNavButton}
         type="button"
         onClick={handleNext}
         disabled={currentIndex === sequences.length - 1}
         aria-label="Next sequence"
       >
         ›
-      </CastSeqNavButton>
-    </NavigationButtons>
+      </button>
+    </div>
   );
 
   const inlineHelperText = description ? (
@@ -154,96 +161,3 @@ export default function CastSequence<T>({
     </GuideDataWrapper>
   );
 }
-
-const Sequence = styled.div`
-  display: flex;
-  gap: 6px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-top: 4px;
-  padding-bottom: 6px;
-
-  &::-webkit-scrollbar {
-    height: 10px;
-    cursor: default !important;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(104, 103, 100, 0.15);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #fab700;
-  }
-`;
-
-const SpellIcon = styled.div<{ size: number; color: string }>`
-  position: relative;
-  flex-shrink: 0;
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 6px;
-  outline: ${(props) =>
-    props.color !== 'rgba(255, 255, 255, 0.3)' ? `3px solid ${props.color}` : 'none'};
-  outline-offset: 0px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.5);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-`;
-
-const NavigationButtons = styled.div`
-  display: flex;
-  gap: 4px;
-  align-items: center;
-`;
-
-/** Compact prev/next button used in the CastSequence nav pill */
-const CastSeqNavButton = styled.button`
-  min-width: 28px;
-  height: 28px;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: #fab700;
-  font-size: 1.8rem;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  line-height: 0;
-  -webkit-tap-highlight-color: transparent;
-
-  &:hover:not(:disabled) {
-    background: rgba(250, 183, 0, 0.12);
-    border-color: rgba(250, 183, 0, 0.35);
-  }
-
-  &:active:not(:disabled) {
-    background: rgba(250, 183, 0, 0.18);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    filter: grayscale(1);
-  }
-`;
-
-const NavCounter = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  min-width: 36px;
-  text-align: center;
-`;

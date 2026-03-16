@@ -11,24 +11,12 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { formatNumber } from 'common/format';
-import styled from '@emotion/styled';
+import styles from './Vengeance.module.scss';
 
 interface AttackPowerEvent {
   attackPower: number;
   timestamp: number;
 }
-
-const StatList = styled.dl`
-  margin-top: 1em;
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 0.25em;
-
-  dt {
-    justify-self: end;
-    font-weight: normal;
-  }
-`;
 
 export default class Vengeance extends Analyzer {
   protected attackPower: AttackPowerEvent[] = [];
@@ -158,7 +146,7 @@ export default class Vengeance extends Analyzer {
           encounter-by-encounter basis, you should check your{' '}
           <a href="https://www.wowhead.com/discord-servers">Community Discord</a>.
         </Explanation>
-        <StatList>
+        <dl className={styles.statList}>
           <dt>Average Attack Power:</dt>
           <dd>
             <strong>{formatNumber(avg)}</strong> ({(avg / this.baseAttackPower).toFixed(1)}x Base
@@ -169,7 +157,7 @@ export default class Vengeance extends Analyzer {
             <strong>{formatNumber(max)}</strong> ({(max / this.baseAttackPower).toFixed(1)}x Base
             AP)
           </dd>
-        </StatList>
+        </dl>
         <div>
           <AutoSizer disableHeight>
             {({ width }) => (

@@ -1,5 +1,4 @@
-import type { JSX } from 'react';
-import styled from '@emotion/styled';
+import type { CSSProperties, JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -14,6 +13,7 @@ import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { qualitativePerformanceToColor } from 'interface/guide';
+import styles from './ElementalTempo.module.scss';
 
 const CDR_MS_PER_STACK = 300;
 
@@ -34,6 +34,17 @@ type CastCdrBreakdown = {
   wastedPercent: number;
   performance: QualitativePerformance;
 };
+
+type TimelineRectStyle = CSSProperties & {
+  '--timeline-rect-color': string;
+  '--timeline-rect-hover-color': string;
+};
+
+const buildTimelineRectStyle = (color: string): TimelineRectStyle => ({
+  '--timeline-rect-color': `${color}88`,
+  '--timeline-rect-hover-color': `${color}cc`,
+  borderColor: color,
+});
 
 class ElementalTempo extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
@@ -290,70 +301,32 @@ class ElementalTempo extends Analyzer.withDependencies({
       <GuideSection spell={TALENTS.ELEMENTAL_TEMPO_TALENT} explanation={explanation}>
         <CastOverview spell={TALENTS.ELEMENTAL_TEMPO_TALENT} stats={this.buildOverviewStats()} />
         <div>
-          <HelperText>
+          <small className={styles.helperText}>
             Each box represents one Maelstrom spender cast. Hover a box to inspect how much cooldown
             reduction was wasted on <SpellLink spell={SPELLS.STORMSTRIKE} /> or{' '}
             <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />.
-          </HelperText>
-          <BreakdownContainer>
+          </small>
+          <div className={styles.breakdownContainer}>
             <strong>All Maelstrom spender casts</strong>
-            <TimelineRow>
-              <TimelineRectContainer>
+            <div className={styles.timelineRow}>
+              <div className={styles.timelineRectContainer}>
                 {this.buildCastEntries().map((cast, index) => (
                   <Tooltip key={index} content={cast.tooltip}>
-                    <TimelineRect color={qualitativePerformanceToColor(cast.performance)} />
+                    <div
+                      className={styles.timelineRect}
+                      style={buildTimelineRectStyle(
+                        qualitativePerformanceToColor(cast.performance),
+                      )}
+                    />
                   </Tooltip>
                 ))}
-              </TimelineRectContainer>
-            </TimelineRow>
-          </BreakdownContainer>
+              </div>
+            </div>
+          </div>
         </div>
       </GuideSection>
     );
   }
 }
-
-const HelperText = styled.small`
-  display: block;
-  color: rgba(255, 255, 255, 0.65);
-`;
-
-const BreakdownContainer = styled.div`
-  margin-top: 12px;
-`;
-
-const TimelineRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 8px;
-  padding: 5px 6px;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 6px;
-`;
-
-const TimelineRectContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  align-items: center;
-  padding: 3px 0;
-`;
-
-const TimelineRect = styled.div<{ color: string }>`
-  height: 16px;
-  min-width: 24px;
-  flex: 1 0 calc(100% / 20 - 3px);
-  border-radius: 2px;
-  background: ${(props) => props.color + '88'};
-  border: 1px solid ${(props) => props.color};
-  transition: background 0.12s ease;
-
-  &:hover {
-    background: ${(props) => props.color + 'cc'};
-  }
-`;
 
 export default ElementalTempo;

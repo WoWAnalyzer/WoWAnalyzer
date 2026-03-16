@@ -1,0 +1,30 @@
+.noData {
+  color: #999;
+  justify-self: center;
+  align-self: center;
+  grid-column: 1 / -1;
+}
+
+.spellUsageDetailsContainer {
+  display: grid;
+  grid-template-rows: max-content max-content max-content max-content 1fr;
+}
+
+.spellDetailsContainer {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-areas: 'talent source';
+  grid-template-columns: 10% auto;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  height: 100%;
+  align-items: center;
+
+  > :nth-child(odd):not(.roundedPanelFullWidth) {
+    justify-self: center;
+  }
+}
+
+.roundedPanelFullWidth {
+  grid-column: 1 / -1;
+}

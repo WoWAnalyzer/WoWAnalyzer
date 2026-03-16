@@ -1,19 +1,12 @@
-import styled from '@emotion/styled';
 import ROLES from 'game/ROLES';
 import { ComponentProps } from 'react';
+import styles from './RoleIcon.module.scss';
 
-const Img = styled.img`
-  border: 1px solid #111;
-  height: 1.2em;
-  width: 1.2em;
-  border-radius: 50%;
-`;
-
-interface RoleIconProps extends ComponentProps<typeof Img> {
+interface RoleIconProps extends ComponentProps<'img'> {
   roleId: number | null;
 }
 
-const RoleIcon = ({ roleId, ...props }: RoleIconProps) => {
+const RoleIcon = ({ roleId, className, ...props }: RoleIconProps) => {
   let iconName: string | undefined;
   switch (roleId) {
     case ROLES.TANK:
@@ -33,7 +26,14 @@ const RoleIcon = ({ roleId, ...props }: RoleIconProps) => {
       break;
   }
 
-  return iconName == null ? null : <Img src={`/roles/${iconName}.jpg`} alt="" {...props} />;
+  return iconName == null ? null : (
+    <img
+      className={className ? `${styles.img} ${className}` : styles.img}
+      src={`/roles/${iconName}.jpg`}
+      alt=""
+      {...props}
+    />
+  );
 };
 
 export default RoleIcon;

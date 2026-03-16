@@ -1,0 +1,20 @@
+.cooldownUtilBarContainer {
+  font-size: 20px;
+  padding: 2px;
+  display: grid;
+  grid-column-gap: 1em;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+}
+
+.explanationText {
+  margin-bottom: 8px;
+}
+
+.explanationText strong {
+  display: block;
+}
+
+.explanationText small {
+  color: #999;
+}

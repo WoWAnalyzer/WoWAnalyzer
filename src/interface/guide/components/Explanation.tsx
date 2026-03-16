@@ -1,6 +1,8 @@
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
 import { ComponentPropsWithoutRef, createContext, ReactNode, use, useMemo } from 'react';
 import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
+
+import styles from './Explanation.module.scss';
 
 interface ExplanationContextValue {
   hideExplanations: boolean;
@@ -28,22 +30,13 @@ export const ExplanationContextProvider = ({ children }: ExplanationContextProvi
 
 export const useExplanationContext = () => use(ExplanationContext);
 
-/** A container for explanatory text.
- *  For now this is just a div, a future update will allow a toggle to hide all Explanations. */
-const StyledExplanation = styled.div`
-  .text-muted,
-  small {
-    color: rgba(202, 200, 196, 0.77);
-  }
-`;
-
 /** A container for explanatory text. */
-const Explanation = (props: ComponentPropsWithoutRef<typeof StyledExplanation>) => {
+const Explanation = ({ className, ...props }: ComponentPropsWithoutRef<'div'>) => {
   const { hideExplanations } = useExplanationContext();
   if (hideExplanations) {
     return null;
   }
-  return <StyledExplanation {...props} />;
+  return <div {...props} className={clsx(styles.explanation, className)} />;
 };
 
 export default Explanation;

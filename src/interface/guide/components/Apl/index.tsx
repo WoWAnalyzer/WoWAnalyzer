@@ -1,37 +1,35 @@
-import { useMemo, useState, type JSX } from 'react';
-import styled from '@emotion/styled';
+import { useMemo, useState, type ComponentPropsWithoutRef, type JSX } from 'react';
 import { useEvents, useInfo } from 'interface/guide';
 import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';
 
-import AplRules, { AplRuleList } from './rules';
+import AplRules from './rules';
 import ViolationProblemList, {
   AplViolationExplanations,
-  AplViolationTimelineContainer,
   ExplanationSelectionContext,
   SelectedExplanation,
 } from './violations';
 import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 import { formatPercentage } from 'common/format';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import styles from './index.module.scss';
 
-const AplSubsectionHeader = styled.header`
-  font-weight: bold;
-`;
+const getClassName = (...classNames: Array<string | undefined>) =>
+  classNames.filter((className) => className).join(' ');
 
-const AplSummaryTable = styled.table`
-  td {
-    padding-right: 1rem;
-    width: 99%;
-  }
+function AplSubsectionHeader({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'header'>): JSX.Element {
+  return <header {...props} className={getClassName(styles.aplSubsectionHeader, className)} />;
+}
 
-  td:last-child {
-    min-width: 10em;
-  }
-`;
+function AplSummaryTable({ className, ...props }: ComponentPropsWithoutRef<'table'>): JSX.Element {
+  return <table {...props} className={getClassName(styles.aplSummaryTable, className)} />;
+}
 
-const ValueData = styled.td`
-  text-align: right;
-`;
+function ValueData({ className, ...props }: ComponentPropsWithoutRef<'td'>): JSX.Element {
+  return <td {...props} className={getClassName(styles.valueData, className)} />;
+}
 
 export function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }) {
   return (
@@ -89,29 +87,16 @@ function AplSummaryColumn({
   );
 }
 
-const AplViolationContainer = styled.div`
-  display: grid;
-  grid-template-rows: max-content 1fr;
-`;
+function AplViolationContainer({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>): JSX.Element {
+  return <div {...props} className={getClassName(styles.aplViolationContainer, className)} />;
+}
 
-const AplLayout = styled.div`
-  display: grid;
-  grid-template-areas: 'summary problems' 'timeline timeline';
-  grid-template-columns: 10fr 8fr;
-  grid-gap: 2rem;
-
-  ${AplRuleList} {
-    grid-area: summary;
-  }
-
-  ${AplViolationContainer} {
-    grid-area: problems;
-  }
-
-  ${AplViolationTimelineContainer} {
-    grid-area: timeline;
-  }
-`;
+function AplLayout({ className, ...props }: ComponentPropsWithoutRef<'div'>): JSX.Element {
+  return <div {...props} className={getClassName(styles.aplLayout, className)} />;
+}
 
 interface AplSectionProps {
   checker: ReturnType<typeof aplCheck>;
@@ -145,7 +130,9 @@ export function AplSectionData({
   return (
     <ExplanationSelectionContext value={setSelectedExplanation}>
       <AplLayout>
-        <AplSummaryColumn apl={apl} results={result} topSection={Summary} />
+        <div className={styles.summaryArea}>
+          <AplSummaryColumn apl={apl} results={result} topSection={Summary} />
+        </div>
         <AplViolationContainer>
           <AplSubsectionHeader>Most Common Problems</AplSubsectionHeader>
           <AplViolationExplanations
@@ -155,7 +142,9 @@ export function AplSectionData({
           />
         </AplViolationContainer>
         {selectedExplanation && (
-          <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
+          <div className={styles.timelineArea}>
+            <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
+          </div>
         )}
       </AplLayout>
     </ExplanationSelectionContext>

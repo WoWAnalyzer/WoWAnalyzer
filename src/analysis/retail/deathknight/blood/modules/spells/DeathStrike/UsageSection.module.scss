@@ -1,0 +1,18 @@
+.table {
+  margin-top: 1em;
+
+  td {
+    padding: 0 1em;
+  }
+
+  th {
+    font-weight: bold;
+  }
+}
+
+.contentRow {
+  display: grid;
+  grid-template-columns: minmax(40%, max-content) 1fr;
+  gap: 1em;
+  align-items: start;
+}

@@ -10,21 +10,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Combatant from 'parser/core/Combatant';
 import Spell from 'common/SPELLS/Spell';
 import { addAdditionalCastInformation } from 'parser/core/EventMetaLib';
-import styled from '@emotion/styled';
 import { isMythicPlus } from 'common/isMythicPlus';
+import styles from './MasterOfTheElements.module.scss';
 
 interface MasterOfTheElementsSpellConfig {
   castSpell: Spell | Spell[];
   condition?: ((c: Combatant) => boolean) | boolean | undefined;
 }
-
-const MasterOfTheElementsTable = styled.table`
-  font-size: 16px;
-  tr td:nth-child(2) {
-    text-align: right;
-  }
-  width: 100%;
-`;
 
 const MASTER_OF_THE_ELEMENTS_CONFIG: Record<string, MasterOfTheElementsSpellConfig> = {
   FROST_SHOCK: {
@@ -113,29 +105,27 @@ class MasterOfTheElements extends Analyzer {
         size="flexible"
       >
         <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
-          <MasterOfTheElementsTable>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Ability</th>
-                  <th>Number of Buffed Casts</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...this.moteBuffedAbilities.entries()]
-                  .sort((a, b) => b[1] - a[1])
-                  .filter(([_, casts]) => casts > 0)
-                  .map(([spellId, casts]) => (
-                    <tr key={spellId}>
-                      <td>
-                        <SpellLink spell={spellId} />
-                      </td>
-                      <td>{casts}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </MasterOfTheElementsTable>
+          <table className={`table table-condensed ${styles.masterOfTheElementsTable}`}>
+            <thead>
+              <tr>
+                <th>Ability</th>
+                <th>Number of Buffed Casts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...this.moteBuffedAbilities.entries()]
+                .sort((a, b) => b[1] - a[1])
+                .filter(([_, casts]) => casts > 0)
+                .map(([spellId, casts]) => (
+                  <tr key={spellId}>
+                    <td>
+                      <SpellLink spell={spellId} />
+                    </td>
+                    <td>{casts}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </TalentSpellText>
       </Statistic>
     );

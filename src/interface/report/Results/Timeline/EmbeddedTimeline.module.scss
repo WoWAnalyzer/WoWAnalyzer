@@ -1,0 +1,35 @@
+.embeddedTimelineContainer {
+  :global(.spell-timeline) {
+    position: relative;
+
+    :global(.casts) {
+      box-shadow: unset;
+    }
+
+    :global(.cooldowns:only-child) {
+      margin-top: unset;
+
+      :global(.lane) {
+        overflow-x: clip;
+      }
+    }
+  }
+
+  &:global(.drag-scroll-container) {
+    cursor: default;
+  }
+
+  /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */
+  scrollbar-color: #75736d transparent;
+  scrollbar-width: thin;
+  padding: 1rem 2rem;
+  overflow-x: clip;
+  box-sizing: content-box;
+}
+
+.responsiveEmbeddedTimelineContainer {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: auto;
+}

@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink, TooltipElement } from 'interface';
@@ -8,6 +7,7 @@ import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { useMemo, type JSX } from 'react';
 import BlackoutCombo from './index';
+import styles from './BlackoutComboSection.module.scss';
 
 enum ComboEffect {
   KegSmash = talents.KEG_SMASH_TALENT.id,
@@ -17,20 +17,6 @@ enum ComboEffect {
 const comboEffectOrder = [ComboEffect.TigerPalm, ComboEffect.KegSmash];
 
 const comboEffectLabel = (effect: ComboEffect) => <SpellLink spell={effect} />;
-
-const ComboUsageTable = styled.table`
-  width: max-content;
-  height: max-content;
-  margin: 0 2em;
-
-  td {
-    padding-left: 1em;
-  }
-
-  td:first-child {
-    padding-left: 0;
-  }
-`;
 
 export default function BlackoutComboSection(): JSX.Element | null {
   const analyzer = useAnalyzer(BlackoutCombo);
@@ -93,7 +79,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
             </li>
           </ul>
         </div>
-        <ComboUsageTable>
+        <table className={styles.comboUsageTable}>
           <tbody>
             <tr>
               <td>
@@ -136,7 +122,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
               </td>
             </tr>
           </tbody>
-        </ComboUsageTable>
+        </table>
       </ExplanationRow>
     </SubSection>
   );

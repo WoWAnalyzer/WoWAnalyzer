@@ -1,0 +1,13 @@
+.comboUsageTable {
+  width: max-content;
+  height: max-content;
+  margin: 0 2em;
+
+  td {
+    padding-left: 1em;
+  }
+
+  td:first-child {
+    padding-left: 0;
+  }
+}

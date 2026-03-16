@@ -1,0 +1,55 @@
+.outerContainer {
+  width: 100%;
+  container: cooldown-grid / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gridContainer {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 100%;
+}
+
+.maximumColumns2 {
+  @container cooldown-grid (width >= 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.maximumColumns3 {
+  @container cooldown-grid (width >= 1050px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.showMoreButton {
+  padding: 0.5rem 2rem;
+  align-self: center;
+}
+
+.elementContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+
+.elementHeader {
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+
+  small {
+    font-weight: normal;
+  }
+}
+
+.timelineContainer {
+  min-width: 0;
+}

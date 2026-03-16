@@ -6,11 +6,8 @@ import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
-import styled from '@emotion/styled';
 
-const CastSummaryAndBreakdownContainer = styled.div`
-  margin-bottom: 10px;
-`;
+import styles from './CastSummaryAndBreakdown.module.scss';
 
 interface Props {
   /** The spell ID or Spell object being represented, used in explanatory text */
@@ -132,7 +129,7 @@ const CastSummaryAndBreakdown = ({
   const badBarLabel = badLabel || `Bad ${instanceWord}s`;
 
   return (
-    <CastSummaryAndBreakdownContainer>
+    <div className={styles.container}>
       {includePerfectCastPercentage && (
         <CastPerformanceSummary
           casts={perfect}
@@ -188,7 +185,7 @@ const CastSummaryAndBreakdown = ({
         <small>Mouseover for more details.</small>
         <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
-    </CastSummaryAndBreakdownContainer>
+    </div>
   );
 };
 

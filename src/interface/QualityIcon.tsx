@@ -1,13 +1,7 @@
-import styled from '@emotion/styled';
 import { ComponentProps } from 'react';
+import styles from './QualityIcon.module.scss';
 
-const Img = styled.img`
-  display: inline-block;
-  height: 1em;
-  width: 1em;
-`;
-
-interface QualityIconProps extends Exclude<ComponentProps<typeof Img>, 'src' | 'alt' | 'title'> {
+interface QualityIconProps extends Exclude<ComponentProps<'img'>, 'src' | 'alt' | 'title'> {
   quality: number;
 }
 
@@ -16,8 +10,9 @@ interface QualityIconProps extends Exclude<ComponentProps<typeof Img>, 'src' | '
  *
  * `quality` is the tier of the item, 1-5.
  */
-const QualityIcon = ({ quality, ...props }: QualityIconProps) => (
-  <Img
+const QualityIcon = ({ quality, className, ...props }: QualityIconProps) => (
+  <img
+    className={className ? `${styles.img} ${className}` : styles.img}
     src={`/quality/tier${quality}.png`}
     alt={`Quality: ${quality}`}
     title={`Quality: ${quality}`}

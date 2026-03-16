@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import ResourceLink from 'interface/ResourceLink';
@@ -51,6 +50,7 @@ import CastReasonBreakdownTableContents from 'interface/guide/components/CastRea
 import { TooltipElement } from 'interface/Tooltip';
 import Explanation from 'interface/guide/components/Explanation';
 import AlertWarning from 'interface/AlertWarning';
+import styles from './UsageSection.module.scss';
 
 const reasonLabel = (reason: DeathStrikeReason) => {
   switch (reason) {
@@ -87,25 +87,6 @@ const reasonLabel = (reason: DeathStrikeReason) => {
       return <Trans id="guide.unknown-reason">Other</Trans>;
   }
 };
-
-const Table = styled.table`
-  td {
-    padding: 0 1em;
-  }
-
-  th {
-    font-weight: bold;
-  }
-
-  margin-top: 1em;
-`;
-
-const ContentRow = styled.div`
-  display: grid;
-  grid-template-columns: minmax(40%, max-content) 1fr;
-  gap: 1em;
-  align-items: start;
-`;
 
 const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['data'] }) => (
   <div>
@@ -422,8 +403,8 @@ export default function DeathStrikeUsageSubSection(): JSX.Element | null {
           <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
         </p>
       </Explanation>
-      <ContentRow>
-        <Table>
+      <div className={styles.contentRow}>
+        <table className={styles.table}>
           <thead></thead>
           <tbody>
             <tr>
@@ -538,14 +519,14 @@ export default function DeathStrikeUsageSubSection(): JSX.Element | null {
             label={reasonLabel}
             casts={ds?.casts ?? []}
           />
-        </Table>
+        </table>
         <ProblemList
           info={info}
           problems={ds.problems}
           events={events}
           renderer={DeathStrikeProblemRenderer}
         />
-      </ContentRow>
+      </div>
       {ds.doubleCastRate > 0.2 && (
         <AlertWarning>
           {formatPercentage(ds.doubleCastRate, 0)}% of your{' '}

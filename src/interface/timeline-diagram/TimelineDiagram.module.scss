@@ -1,0 +1,14 @@
+.resetZoomButton {
+  appearance: none;
+  background: none;
+  border: none;
+
+  small {
+    text-decoration: underline;
+  }
+}
+
+.zoomTextContainer {
+  line-height: 1;
+  margin-bottom: 0.5em;
+}

@@ -1,0 +1,21 @@
+.legendContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 8px 0;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.legendSymbol {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}

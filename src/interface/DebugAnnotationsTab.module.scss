@@ -1,0 +1,69 @@
+.eventDetailsColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content;
+  gap: 1em;
+}
+
+.eventPre {
+  background-color: #333;
+  color: #eee;
+  font-family: monospace, Courier;
+}
+
+.dot {
+  background-color: var(--annotation-dot-color);
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--annotation-dot-color);
+}
+
+.dotSelected {
+  border-color: white;
+}
+
+.dotContainer {
+  display: flex;
+  margin-top: 0.5em;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  /* Originally 70% (10.5px) */
+  /* This aims to have a pixel perfect value so dots don't get deformed by navigator rendering interpolations. */
+  font-size: 71.4288%;
+}
+
+.row {
+  border-left: 1px solid #eee;
+  padding-left: 4px;
+}
+
+.rowTimestamp {
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+.rowContent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.copyTextLink {
+  appearance: none;
+  border: none;
+  background: none;
+  font-size: small;
+  color: #777;
+}
+
+.copyTextLink:hover {
+  text-decoration: underline;
+}

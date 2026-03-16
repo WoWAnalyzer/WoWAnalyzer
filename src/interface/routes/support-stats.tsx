@@ -8,7 +8,6 @@ import { getConfigForSpec } from 'parser/getConfig';
 import GameBranch from 'game/GameBranch';
 import { SupportLevel, configName } from 'parser/Config';
 import { i18n } from '@lingui/core';
-import styled from '@emotion/styled/macro';
 import {
   BadMark,
   GoodMark,
@@ -22,6 +21,7 @@ import {
   evaluateQualitativePerformanceByThreshold,
 } from 'parser/ui/QualitativePerformance';
 import Changelog from 'interface/Changelog';
+import styles from './support-stats.module.scss';
 
 export function Component(): JSX.Element {
   const [data, setData] = useState<Array<[Spec, Partial<ServerMetrics<Aggregate>>]>>();
@@ -56,7 +56,7 @@ function StatsTable({
 }): JSX.Element {
   return (
     <>
-      <Table>
+      <table className={styles.table}>
         <caption>Retail</caption>
         <StatsTableHeader />
         <tbody>
@@ -66,8 +66,8 @@ function StatsTable({
               <StatsTableRow spec={spec} metrics={data} key={configName(spec)} />
             ))}
         </tbody>
-      </Table>
-      <Table>
+      </table>
+      <table className={styles.table}>
         <caption>Classic</caption>
         <StatsTableHeader />
         <tbody>
@@ -77,35 +77,17 @@ function StatsTable({
               <StatsTableRow spec={spec} metrics={data} key={configName(spec)} />
             ))}
         </tbody>
-      </Table>
+      </table>
     </>
   );
 }
-
-const Table = styled.table`
-  th,
-  td {
-    padding: 0.25em 1em;
-    white-space: nowrap;
-    text-align: right;
-  }
-
-  & .left {
-    text-align: left;
-  }
-
-  caption {
-    color: white;
-    font-size: large;
-  }
-`;
 
 function StatsTableHeader() {
   return (
     <thead>
       <tr>
-        <th className="left">Spec</th>
-        <th className="left">Support Level</th>
+        <th className={styles.left}>Spec</th>
+        <th className={styles.left}>Support Level</th>
         <th>Last Change</th>
         <th>Patch</th>
         <th>Active Time</th>
@@ -143,13 +125,13 @@ function StatsTableRow({
   }, [config]);
   return (
     <tr>
-      <td className="left">
+      <td className={styles.left}>
         <SpecIcon spec={spec} />{' '}
         <span className={spec.wclClassName}>
           {spec.specName ? i18n._(spec.specName) : spec.wclSpecName} {i18n._(spec.className)}
         </span>
       </td>
-      <td className="left">
+      <td className={styles.left}>
         {config?.supportLevel ? (
           <SupportLevelLabel level={config.supportLevel} />
         ) : (

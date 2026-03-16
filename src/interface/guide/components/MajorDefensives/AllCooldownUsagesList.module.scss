@@ -1,0 +1,59 @@
+.noData {
+  color: #999;
+}
+
+.cooldownUsageDetailsContainer {
+  display: grid;
+  grid-template-rows: max-content max-content 1fr;
+}
+
+.tableSegmentContainer {
+  line-height: 1em;
+  height: 1em;
+  min-width: 100px;
+
+  :global(.mitigation-tooltip-segment) {
+    margin-top: 0.1em;
+    height: 1em;
+  }
+}
+
+.smallPassFailBar {
+  width: 100px;
+  min-width: 100px;
+}
+
+.numericColumn {
+  text-align: right;
+}
+
+.cooldownDetailsContainer {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-areas: 'talent source';
+  grid-template-columns: max-content 1fr;
+  gap: 1rem;
+  height: 100%;
+  align-items: start;
+  justify-content: space-between;
+
+  .noData {
+    justify-self: center;
+    align-self: center;
+    grid-column: 1 / -1;
+  }
+
+  > table {
+    width: 100%;
+  }
+
+  > table td {
+    padding-right: 1rem;
+
+    &:first-of-type {
+      max-width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

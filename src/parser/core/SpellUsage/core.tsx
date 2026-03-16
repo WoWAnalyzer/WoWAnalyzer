@@ -2,13 +2,14 @@ import {
   getPerformanceExplanation,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import { createContext, ReactNode, use, useMemo } from 'react';
+import { ComponentPropsWithoutRef, createContext, ReactNode, use, useMemo } from 'react';
 import { AnyEvent } from 'parser/core/Events';
-import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
+
+import styles from './core.module.scss';
 
 /**
  * Contains data about one aspect of the quality of a cast and the reasoning.
@@ -39,37 +40,25 @@ export interface SpellUse {
   performanceExplanation?: ReactNode;
 }
 
-const SpellTooltipBody = 'div';
-const SpellRowContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2em auto;
-  gap: 1em;
-  align-items: center;
-
-  line-height: 1em;
-  text-align: left;
-
-  padding-bottom: 0.5em;
-`;
-
 /**
  * Wrapper for what gets displayed under the performance row.
  */
-export const PerformanceUsageRow = styled.div`
-  padding-bottom: 0.5em;
-
-  & > :first-child {
-    margin-right: 0.5em;
-  }
-`;
+export const PerformanceUsageRow = ({ className, ...props }: ComponentPropsWithoutRef<'div'>) => (
+  <div
+    {...props}
+    className={
+      className ? `${styles.performanceUsageRow} ${className}` : styles.performanceUsageRow
+    }
+  />
+);
 
 const SpellRow = ({ usageInfo }: { usageInfo: ChecklistUsageInfo }) => (
-  <SpellRowContainer>
+  <div className={styles.spellRowContainer}>
     <div style={{ justifySelf: 'center' }}>
       <PerformanceMark perf={usageInfo.performance} />
     </div>
     <div>{usageInfo.summary}</div>
-  </SpellRowContainer>
+  </div>
 );
 
 /**
@@ -90,16 +79,16 @@ export const spellUseToBoxRowEntry = (
         {performanceExplanation ?? getPerformanceExplanation(performance)}
       </PerformanceUsageRow>
       {checklistItems.length > 0 ? (
-        <SpellTooltipBody>
-          <SpellRowContainer>
+        <div>
+          <div className={styles.spellRowContainer}>
             <strong>Perf.</strong>
             <strong>Summary</strong>
-          </SpellRowContainer>
+          </div>
           {checklistItems.map(
             (usageInfo) =>
               usageInfo.summary && <SpellRow usageInfo={usageInfo} key={usageInfo.check} />,
           )}
-        </SpellTooltipBody>
+        </div>
       ) : undefined}
     </>
   ),

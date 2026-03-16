@@ -1,5 +1,4 @@
 import { BadColor, OkColor, PerformanceMark, SubSection, useInfo } from 'interface/guide';
-import styled from '@emotion/styled';
 import {
   ComponentPropsWithoutRef,
   Fragment,
@@ -20,41 +19,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatDuration } from 'common/format';
 import { Highlight } from 'interface/Highlight';
 import AlertWarning from 'interface/AlertWarning';
-
-const NoData = styled.div`
-  color: #999;
-`;
-
-const SpellUsageDetailsContainer = styled.div`
-  display: grid;
-  grid-template-rows: max-content max-content max-content max-content 1fr;
-`;
-
-const SpellDetailsContainer = styled.div`
-  display: grid;
-  margin-top: 1rem;
-  grid-template-areas: 'talent source';
-  grid-template-columns: 10% auto;
-  grid-template-rows: 1fr;
-
-  gap: 1rem;
-  height: 100%;
-  align-items: center;
-
-  ${NoData} {
-    justify-self: center;
-    align-self: center;
-    grid-column: 1 / -1;
-  }
-
-  ${RoundedPanel} {
-    grid-column: 1 / -1;
-  }
-
-  > *:nth-child(odd):not(${RoundedPanel}) {
-    justify-self: center;
-  }
-`;
+import styles from './SpellUsageSubSection.module.scss';
 
 const leftPercentWide = 50;
 const leftPercentNarrow = 30;
@@ -80,50 +45,50 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
     if (performance) {
       if (performance.value === QualitativePerformance.Fail) {
         return (
-          <SpellDetailsContainer>
-            <NoData>This was a potential spell cast that went unused.</NoData>
-          </SpellDetailsContainer>
+          <div className={styles.spellDetailsContainer}>
+            <div className={styles.noData}>This was a potential spell cast that went unused.</div>
+          </div>
         );
       }
       if (performance.value === QualitativePerformance.Ok) {
         return (
-          <SpellDetailsContainer>
-            <NoData>
+          <div className={styles.spellDetailsContainer}>
+            <div className={styles.noData}>
               This was a potential spell cast that went unused, but you might have intentionally
               saved it to handle a mechanic.
-            </NoData>
-          </SpellDetailsContainer>
+            </div>
+          </div>
         );
       }
       return (
-        <SpellDetailsContainer>
-          <NoData>
+        <div className={styles.spellDetailsContainer}>
+          <div className={styles.noData}>
             This was a spell cast performance that was reported without an associated spell cast.
             You should report this on the Discord.
-          </NoData>
-        </SpellDetailsContainer>
+          </div>
+        </div>
       );
     } else {
       return (
-        <SpellDetailsContainer>
-          <NoData>Click on a box in the cast breakdown to view details.</NoData>
-        </SpellDetailsContainer>
+        <div className={styles.spellDetailsContainer}>
+          <div className={styles.noData}>Click on a box in the cast breakdown to view details.</div>
+        </div>
       );
     }
   }
 
   if (spellUse.checklistItems.length === 0) {
     return (
-      <SpellDetailsContainer>
-        <NoData>
+      <div className={styles.spellDetailsContainer}>
+        <div className={styles.noData}>
           There were no checks for this cast. This is either a bug or means this was a good cast.
-        </NoData>
-      </SpellDetailsContainer>
+        </div>
+      </div>
     );
   }
 
   return (
-    <SpellDetailsContainer>
+    <div className={styles.spellDetailsContainer}>
       <strong>Time</strong>
       <div>{formatDuration(spellUse.event.timestamp - info.fightStart)}</div>
       <strong>Perf.</strong>
@@ -137,14 +102,14 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
           </Fragment>
         ))}
       {spellUse.extraDetails ? (
-        <RoundedPanel>
+        <RoundedPanel className={styles.roundedPanelFullWidth}>
           <div>
             <strong>Extra Details</strong>
           </div>
           {spellUse.extraDetails}
         </RoundedPanel>
       ) : null}
-    </SpellDetailsContainer>
+    </div>
   );
 };
 
@@ -177,15 +142,19 @@ const NoCastsDisplay = ({
   const { hideGoodCasts } = useSpellUsageContext();
   if (hideGoodCasts) {
     return (
-      <SpellDetailsContainer>
-        <NoData>{hideGoodCastsOverride ?? 'All of your casts of this spell were good!'}</NoData>
-      </SpellDetailsContainer>
+      <div className={styles.spellDetailsContainer}>
+        <div className={styles.noData}>
+          {hideGoodCastsOverride ?? 'All of your casts of this spell were good!'}
+        </div>
+      </div>
     );
   }
   return (
-    <SpellDetailsContainer>
-      <NoData>{noCastsOverride ?? 'You did not cast this spell at all.'}</NoData>
-    </SpellDetailsContainer>
+    <div className={styles.spellDetailsContainer}>
+      <div className={styles.noData}>
+        {noCastsOverride ?? 'You did not cast this spell at all.'}
+      </div>
+    </div>
   );
 };
 
@@ -257,7 +226,7 @@ const SpellUsageSubSection = ({
   }
 
   const spellUsageDetails = (
-    <SpellUsageDetailsContainer>
+    <div className={styles.spellUsageDetailsContainer}>
       {abovePerformanceDetails ?? <div />}
       <div>
         <strong>Cast Breakdown</strong>{' '}
@@ -290,7 +259,7 @@ const SpellUsageSubSection = ({
         />
       )}
       {belowPerformanceDetails}
-    </SpellUsageDetailsContainer>
+    </div>
   );
 
   return (

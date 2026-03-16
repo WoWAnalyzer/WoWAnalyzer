@@ -1,5 +1,10 @@
-import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
+import {
+  type ComponentPropsWithoutRef,
+  type CSSProperties,
+  forwardRef,
+  ReactNode,
+  type JSX,
+} from 'react';
 import { useAnalyzer, useInfo } from 'interface/guide';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
@@ -14,40 +19,7 @@ import HitBasedAnalyzer, {
 import Spell from 'common/SPELLS/Spell';
 import useTooltip from 'interface/useTooltip';
 import { abilityToSpell } from 'common/abilityToSpell';
-
-const HitTimelineContainer = styled.div`
-  display: grid;
-  grid-template-columns: calc(150px - 1rem) 1fr;
-  gap: 1rem;
-  height: 20px;
-  padding: 0 10px;
-  margin: 5px 0;
-
-  & > :first-child {
-    justify-self: start;
-    align-self: start;
-    padding-left: 1rem;
-  }
-`;
-
-const HitTimelineBar = styled.div`
-  position: relative;
-  width: 100%;
-  height: 20px;
-`;
-
-const HitTimelineSlice = styled.div<{
-  color: string;
-  widthPct: number;
-}>`
-  width: max(1px, ${(props) => props.widthPct * 100}%);
-  background-color: ${(props) => props.color};
-  height: 100%;
-  position: absolute;
-  top: 0;
-  border: 1px solid black;
-  box-sizing: content-box;
-`;
+import styles from './HitTimeline.module.scss';
 
 interface HitTooltipContentProps {
   hit: TrackedHit;
@@ -91,7 +63,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
 
   const blockWidth = 1 / 120;
 
-  const style: React.CSSProperties = {
+  const style: CSSProperties = {
     color,
     overflowX: 'hidden',
     textOverflow: 'ellipsis',
@@ -112,9 +84,9 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
   );
 
   return (
-    <HitTimelineContainer>
+    <div className={styles.hitTimelineContainer}>
       {link}
-      <HitTimelineBar>
+      <div className={styles.hitTimelineBar}>
         {hits.map((hit, ix) => {
           return (
             <Tooltip
@@ -123,27 +95,53 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
               key={ix}
               direction="up"
             >
-              <HitTimelineSlice
-                color={colorForPerformance(Number(hit.mitigated))}
+              <div
+                className={styles.hitTimelineSlice}
                 onClick={() => console.log(hit.event)}
-                widthPct={blockWidth}
                 style={{
+                  backgroundColor: colorForPerformance(Number(hit.mitigated)),
                   left: `${((hit.event.timestamp - info.fightStart) / info.fightDuration) * 100}%`,
+                  width: `max(1px, ${blockWidth * 100}%)`,
                 }}
               />
             </Tooltip>
           );
         })}
-      </HitTimelineBar>
-    </HitTimelineContainer>
+      </div>
+    </div>
   );
 }
 
-export const Highlight = styled.span<{ color: string; textColor?: string }>`
-  background-color: ${(props) => props.color};
-  padding: 0 3px;
-  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
-`;
+type HighlightProps = ComponentPropsWithoutRef<'span'> & {
+  color: string;
+  textColor?: string;
+};
+
+type HighlightStyle = CSSProperties & {
+  '--highlight-background-color': string;
+  '--highlight-text-color'?: string;
+};
+
+export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
+  ({ color, textColor, className, style, ...props }, ref) => {
+    const highlightStyle: HighlightStyle = {
+      ...style,
+      '--highlight-background-color': color,
+      ...(textColor ? { '--highlight-text-color': textColor } : {}),
+    };
+
+    return (
+      <span
+        {...props}
+        ref={ref}
+        className={className ? `${styles.highlight} ${className}` : styles.highlight}
+        style={highlightStyle}
+      />
+    );
+  },
+);
+
+Highlight.displayName = 'Highlight';
 
 export const red = colorForPerformance(0);
 

@@ -1,0 +1,29 @@
+.button {
+  appearance: none;
+  border: 1px solid #303030;
+  background: hsl(44, 7%, 13%);
+  box-shadow: 0 1px 6px #101010;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #f3eded;
+
+  &:hover:not(:disabled) {
+    filter: brightness(115%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: #ccc;
+  }
+}
+
+.resetButton {
+  background: hsl(44, 7%, 10%);
+  border-color: #303030;
+  box-shadow: 0 1px 4px black;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}

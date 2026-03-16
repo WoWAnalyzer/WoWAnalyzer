@@ -1,10 +1,11 @@
-import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
+import { type ComponentPropsWithoutRef, ReactNode, type JSX } from 'react';
 import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 import GuideDataWrapper, { StatsRow, StatCard } from './GuideDataWrapper';
+import styles from './BuffUptimeBar.module.scss';
 
 function UptimeGraph({
   buffHistory,
@@ -207,21 +208,21 @@ export default function BuffUptimeBar({
   const statsContent = (
     <StatsRow>
       <StatCard color={backgroundBarColor}>
-        <StatValue>{formatPercentage(uptimePercent, 0)}%</StatValue>
-        <StatLabel>Uptime</StatLabel>
+        <div className={styles.statValue}>{formatPercentage(uptimePercent, 0)}%</div>
+        <div className={styles.statLabel}>Uptime</div>
       </StatCard>
       {hasStacks && averageStacks !== undefined && (
         <Tooltip content={averageStacksTooltip || defaultTooltip}>
           <StatCard color={barColor}>
-            <StatValue>{averageStacks.toFixed(1)}</StatValue>
-            <StatLabel>Avg Stacks</StatLabel>
+            <div className={styles.statValue}>{averageStacks.toFixed(1)}</div>
+            <div className={styles.statLabel}>Avg Stacks</div>
           </StatCard>
         </Tooltip>
       )}
       {hasStacks && maxStacks !== undefined && (
         <StatCard color="#888">
-          <StatValue>{maxStacks}</StatValue>
-          <StatLabel>Max Stacks</StatLabel>
+          <div className={styles.statValue}>{maxStacks}</div>
+          <div className={styles.statLabel}>Max Stacks</div>
         </StatCard>
       )}
     </StatsRow>
@@ -229,8 +230,8 @@ export default function BuffUptimeBar({
 
   return (
     <GuideDataWrapper title={`${spell.name} Buff Uptime`} subtitle="Timeline" stats={statsContent}>
-      <TimelineContainer>
-        <UptimeGraphContainer>
+      <div className={styles.timelineContainer}>
+        <div className={styles.uptimeGraphContainer}>
           <UptimeGraph
             buffHistory={hasStacks ? undefined : buffHistory}
             stackUptimeHistory={hasStacks ? stackUptimeHistory : undefined}
@@ -240,40 +241,15 @@ export default function BuffUptimeBar({
             barColor={barColor}
             backgroundBarColor={backgroundBarColor}
           />
-        </UptimeGraphContainer>
-      </TimelineContainer>
+        </div>
+      </div>
     </GuideDataWrapper>
   );
 }
 
-export const InsetContainer = styled.div`
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  padding: 4px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-`;
-
-const TimelineContainer = styled(InsetContainer)`
-  height: 32px;
-`;
-
-const UptimeGraphContainer = styled.div`
-  height: 24px;
-  width: 100%;
-  position: relative;
-`;
-
-const StatValue = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-`;
-
-const StatLabel = styled.div`
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.55);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`;
+export function InsetContainer({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>): JSX.Element {
+  return <div className={clsx(styles.insetContainer, className)} {...props} />;
+}

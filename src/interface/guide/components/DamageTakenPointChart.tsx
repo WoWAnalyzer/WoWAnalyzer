@@ -1,5 +1,4 @@
 import { useMemo, type JSX } from 'react';
-import styled from '@emotion/styled';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
@@ -8,6 +7,8 @@ import { AbilityEvent, DamageEvent, SourcedEvent } from 'parser/core/Events';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { qualitativePerformanceToColor, useAnalyzer, useInfo } from '../index';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+
+import styles from './DamageTakenPointChart.module.scss';
 
 export interface TrackedHit {
   /** How good a job the player did of mitigating the tracked hit */
@@ -61,40 +62,6 @@ interface DamageTakenPointChartProps {
 }
 
 type Props = DamageTakenPointChartProps;
-
-const HitTimelineContainer = styled.div`
-  display: grid;
-  grid-template-columns: calc(150px - 1rem) 1fr;
-  gap: 1rem;
-  height: 20px;
-  padding: 0 10px;
-  margin: 5px 0;
-
-  & > :first-child {
-    justify-self: start;
-    align-self: start;
-    padding-left: 1rem;
-  }
-`;
-
-const HitTimelineBar = styled.div`
-  position: relative;
-  width: 100%;
-  height: 20px;
-`;
-
-const HitTimelineSlice = styled.div<{
-  color: string;
-  widthPct: number;
-}>`
-  width: max(1px, ${(props) => props.widthPct * 100}%);
-  background-color: ${(props) => props.color};
-  height: 100%;
-  position: absolute;
-  top: 0;
-  border: 1px solid black;
-  box-sizing: content-box;
-`;
 
 const damageSourceStyle: React.CSSProperties = {
   overflowX: 'hidden',
@@ -157,24 +124,29 @@ function HitTimeline({
   const blockWidth = 1 / 120;
 
   return (
-    <HitTimelineContainer>
+    <div className={styles.hitTimelineContainer}>
       <DamageSourceLink showSourceName={showSourceName} event={hits[0].event} />
-      <HitTimelineBar>
+      <div className={styles.hitTimelineBar}>
         {hits.map((hit, ix) => {
           return (
             <Tooltip hoverable content={<TooltipContent hit={hit} />} key={ix} direction="up">
-              <HitTimelineSlice
-                color={qualitativePerformanceToColor(hit.mitigated)}
-                widthPct={blockWidth}
-                style={{
-                  left: `${((hit.event.timestamp - info.fightStart) / info.fightDuration) * 100}%`,
-                }}
+              <div
+                className={styles.hitTimelineSlice}
+                style={
+                  {
+                    '--damage-taken-point-chart-color': qualitativePerformanceToColor(
+                      hit.mitigated,
+                    ),
+                    '--damage-taken-point-chart-width': `${blockWidth * 100}%`,
+                    left: `${((hit.event.timestamp - info.fightStart) / info.fightDuration) * 100}%`,
+                  } as React.CSSProperties
+                }
               />
             </Tooltip>
           );
         })}
-      </HitTimelineBar>
-    </HitTimelineContainer>
+      </div>
+    </div>
   );
 }
 

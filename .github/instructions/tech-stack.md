@@ -19,22 +19,16 @@ This project upgrades dependencies over time. Do not assume specific version num
 - **Language**: TypeScript (strict mode enabled)
 - **UI Framework**: React with React Hooks
 - **JSX Transform**: `react-jsx` (automatic runtime)
-- **Styling**: Emotion (`@emotion/react`, `@emotion/styled`)
+- **Styling**: CSS Modules using SCSS
 
 ```typescript
 // Example component with Emotion styling
-import styled from '@emotion/styled';
-import { Trans } from '@lingui/macro';
-
-const Container = styled.div`
-  padding: 20px;
-  background: #222;
-`;
+import styles from './MyComponent.module.scss';;
 
 function MyComponent() {
   return (
-    <Container>
-      <Trans>Hello World</Trans>
+    <Container className={styles['container-style']}>
+      ...
     </Container>
   );
 }

@@ -1,8 +1,6 @@
-import styled from '@emotion/styled';
-import isPropValid from '@emotion/is-prop-valid';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
-import { useMemo, useRef, useState } from 'react';
+import React, { type CSSProperties, useMemo, useRef, useState } from 'react';
 import { useAnalyzer, useEvents, useInfo } from 'interface/guide';
 import Auras from 'parser/core/modules/Auras';
 import AuraTimeline from './Auras';
@@ -15,60 +13,63 @@ import { TimelineSettingsContext } from './Settings';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import type Spell from 'common/SPELLS/Spell';
-import React from 'react';
 import DragScroll from 'interface/DragScroll';
+
+import styles from './EmbeddedTimeline.module.scss';
 
 /**
  * Container for embedding the timeline in another component.
  *
  * Use `SpellTimeline` component for wrapping the `Casts` component.
  */
-export const EmbeddedTimelineContainer = styled(DragScroll, { shouldForwardProp: isPropValid })<{
+type EmbeddedTimelineContainerProps = React.ComponentProps<typeof DragScroll> & {
   secondWidth?: number;
   secondsShown?: number;
   castBarCount?: number;
-}>`
-  .spell-timeline {
-    position: relative;
+};
 
-    .casts {
-      box-shadow: unset;
-    }
+export const EmbeddedTimelineContainer = ({
+  secondWidth,
+  secondsShown,
+  castBarCount,
+  className,
+  style,
+  ...props
+}: EmbeddedTimelineContainerProps) => {
+  const width = (secondWidth ?? 60) * (secondsShown ?? 10);
 
-    .cooldowns:only-child {
-      margin-top: unset;
-
-      .lane {
-        overflow-x: clip;
+  return (
+    <DragScroll
+      {...props}
+      className={
+        className
+          ? `${styles.embeddedTimelineContainer} ${className}`
+          : styles.embeddedTimelineContainer
       }
+      style={
+        {
+          '--cast-bars': castBarCount ?? 1,
+          width: `${width}px`,
+          ...style,
+        } as CSSProperties
+      }
+    />
+  );
+};
+
+const ResponsiveEmbeddedTimelineContainer = ({
+  className,
+  ...props
+}: EmbeddedTimelineContainerProps) => (
+  <EmbeddedTimelineContainer
+    {...props}
+    className={
+      className
+        ? `${styles.responsiveEmbeddedTimelineContainer} ${className}`
+        : styles.responsiveEmbeddedTimelineContainer
     }
-  }
-
-  &.drag-scroll-container {
-    cursor: default;
-  }
-  /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */
-  scrollbar-color: #75736d transparent;
-  scrollbar-width: thin;
-
-  --cast-bars: ${(props) => props.castBarCount ?? 1};
-
-  padding: 1rem 2rem;
-  overflow-x: clip;
-
-  box-sizing: content-box;
-  width: ${(props) => {
-    const width = (props.secondWidth ?? 60) * (props.secondsShown ?? 10);
-    return `${width}px`;
-  }};
-`;
-
-const ResponsiveEmbeddedTimelineContainer = styled(EmbeddedTimelineContainer)`
-  width: 100%;
-  box-sizing: border-box;
-  max-width: 100%;
-  overflow-x: auto;
-`;
+  />
+);
 
 export const SpellTimeline = ({
   ref,

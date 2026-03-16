@@ -1,0 +1,51 @@
+.sectionHeader {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+  font-weight: bold;
+  color: #fab700;
+  background: hsl(44, 7%, 10%);
+
+  &:hover > .chevron {
+    background: hsl(44, 9%, 15%);
+  }
+}
+
+.chevron {
+  background: hsl(44, 7%, 13%);
+  border: 1px solid #303030;
+  box-shadow: 0 1px 6px #101010;
+  border-radius: 0.2rem;
+  padding: 0 0.5rem;
+}
+
+.sectionExpandable {
+  background: hsl(44, 7%, 10%);
+  border: 1px solid #262626;
+  box-shadow: 0 1px 4px black;
+  padding: 0 2rem 0.5rem 2rem;
+
+  :global(.details) > div {
+    background: unset;
+    box-shadow: unset;
+    padding: unset;
+  }
+}
+
+.guideContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.subSection {
+  /* including .guide-container here is a specificity hack */
+  :global(.guide-container) & {
+    margin-top: 2rem;
+  }
+
+  > header {
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding: 0.5rem 0;
+  }
+}

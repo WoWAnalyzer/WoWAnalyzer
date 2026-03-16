@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { ReactNode, type JSX } from 'react';
 import { CooldownBar, CooldownWindow, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
@@ -7,6 +6,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
+import styles from './CastEfficiencyBar.module.scss';
 
 interface Props {
   /** The spell to show cooldown bars for - this must match the ID of the spell's cast event */
@@ -96,7 +96,7 @@ export default function CastEfficiencyBar({
   return (
     <div>
       {showExplanation && (
-        <ExplanationText>
+        <div className={styles.explanationText}>
           <strong>Cooldown Timeline</strong>
           <small>
             {hasCharges ? (
@@ -111,9 +111,9 @@ export default function CastEfficiencyBar({
               </>
             )}
           </small>
-        </ExplanationText>
+        </div>
       )}
-      <CooldownUtilBarContainer>
+      <div className={styles.cooldownUtilBarContainer}>
         <div style={{ color: textColor }}>
           <SpellIcon spell={spell} style={{ height: '28px' }} />{' '}
           <TooltipElement content={tooltip}>
@@ -127,28 +127,7 @@ export default function CastEfficiencyBar({
           minimizeIcons={minimizeIcons}
           slimLines={slimLines}
         />
-      </CooldownUtilBarContainer>
+      </div>
     </div>
   );
 }
-
-const CooldownUtilBarContainer = styled.div`
-  font-size: 20px;
-  padding: 2px;
-  display: grid;
-  grid-column-gap: 1em;
-  grid-template-columns: 120px 1fr;
-  align-items: center;
-`;
-
-const ExplanationText = styled.div`
-  margin-bottom: 8px;
-
-  strong {
-    display: block;
-  }
-
-  small {
-    color: #999;
-  }
-`;

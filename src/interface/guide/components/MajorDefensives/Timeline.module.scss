@@ -1,0 +1,36 @@
+.buffBar {
+  position: absolute;
+  border-radius: 3px;
+  opacity: 90%;
+  height: 60%;
+  top: 20%;
+}
+
+.buffBarContainer {
+  position: relative;
+  height: 24px;
+}
+
+.tooltipSegments {
+  min-width: 100px;
+  width: 100px;
+  display: inline-block;
+}
+
+.mitigationDataRow {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 1rem;
+  line-height: 1em;
+  margin-top: 0.4em;
+}
+
+.bareTimelineContainer {
+  padding: 0;
+  background: unset;
+}
+
+.buffTimelineContainer {
+  margin-left: 48px;
+}

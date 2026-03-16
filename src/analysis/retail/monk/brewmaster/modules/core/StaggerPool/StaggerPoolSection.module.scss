@@ -1,0 +1,27 @@
+.sideBySide {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+
+  header {
+    margin-bottom: 1rem;
+  }
+}
+
+.summaryDl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  width: max-content;
+  font-size: 95%;
+
+  dt {
+    font-weight: normal;
+  }
+
+  dd {
+    text-align: right;
+  }
+}

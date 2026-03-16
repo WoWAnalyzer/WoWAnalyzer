@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { formatDuration } from 'common/format';
@@ -15,6 +14,7 @@ import {
 import { AnyEvent, CastEvent, EventMeta, EventType } from 'parser/core/Events';
 import { useMemo, type JSX } from 'react';
 import { replace } from 'parser/core/EventMetaLib';
+import styles from './ResourceWasteProblemRenderer.module.scss';
 
 interface WastedMeta extends EventMeta {
   _wastedRp: number;
@@ -89,7 +89,7 @@ export function ResourceWasteProblemRenderer({
   const extraCasts = Math.floor((problem.severity ?? 0) / ossuaryCost);
 
   return (
-    <Container>
+    <div className={styles.container}>
       <div>
         From {formatDuration(problem.range.start - info.fightStart)} to{' '}
         {formatDuration(problem.range.end - info.fightStart)}, you wasted{' '}
@@ -119,15 +119,9 @@ export function ResourceWasteProblemRenderer({
           <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
         </div>
       )}
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-`;
 
 function spellCanGenerateRP(id: number): boolean {
   const spell = maybeGetTalentOrSpell(id);

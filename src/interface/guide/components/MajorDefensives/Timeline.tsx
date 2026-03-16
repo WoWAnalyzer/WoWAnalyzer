@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
 import { GoodColor, useAnalyzer, useEvents, useInfo } from 'interface/guide';
@@ -23,42 +22,30 @@ import MajorDefensive, {
   Mitigation,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import Spell from 'common/SPELLS/Spell';
+import styles from './Timeline.module.scss';
 
 interface HoverKey {
   startTime: number;
 }
 
-const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }>`
-  position: absolute;
-  border-radius: 3px;
-  background-color: ${GoodColor};
-  opacity: 90%;
-  height: 60%;
-  top: 20%;
-
-  width: ${({ start, end, fightDuration }) => ((end - start) / fightDuration) * 100}%;
-  left: ${({ start, fightDuration }) => (start / fightDuration) * 100}%;
-`;
-
-const BuffBarContainer = styled.div`
-  position: relative;
-  height: 24px;
-`;
-
-const TooltipSegments = styled(MitigationSegments)`
-  min-width: 100px;
-  width: 100px;
-  display: inline-block;
-`;
-
-const MitigationDataRow = styled.div`
-  display: flex;
-  align-items: center;
-  align-content: center;
-  gap: 1rem;
-  line-height: 1em;
-  margin-top: 0.4em;
-`;
+const BuffBar = ({
+  start,
+  end,
+  fightDuration,
+}: {
+  start: number;
+  end: number;
+  fightDuration: number;
+}) => (
+  <div
+    className={styles.buffBar}
+    style={{
+      backgroundColor: GoodColor,
+      width: `${((end - start) / fightDuration) * 100}%`,
+      left: `${(start / fightDuration) * 100}%`,
+    }}
+  />
+);
 
 const MitigationLabel = ({ mitigation, long }: { mitigation: Mitigation; long?: boolean }) => {
   const fightStart = useInfo()?.fightStart ?? 0;
@@ -87,10 +74,14 @@ const BuffTooltip = ({
       <div>
         <MitigationLabel mitigation={mitigation} />
       </div>
-      <MitigationDataRow>
+      <div className={styles.mitigationDataRow}>
         <div>Mitigated {formatNumber(mitigation.amount)} Damage</div>
-        <TooltipSegments segments={segments} maxValue={maxValue} />
-      </MitigationDataRow>
+        <MitigationSegments
+          segments={segments}
+          maxValue={maxValue}
+          className={styles.tooltipSegments}
+        />
+      </div>
     </div>
   );
 };
@@ -150,7 +141,7 @@ const BuffDisplay = <Apply extends EventType, Remove extends EventType>({
   });
 
   return (
-    <BuffBarContainer>
+    <div className={styles.buffBarContainer}>
       {buffEvents.map(({ start, end, ability, externalHover, tooltipData }) => (
         <Tooltip
           key={`${start}-${ability.id}`}
@@ -167,14 +158,9 @@ const BuffDisplay = <Apply extends EventType, Remove extends EventType>({
           <BuffBar start={start} end={end} fightDuration={info.fightDuration} />
         </Tooltip>
       ))}
-    </BuffBarContainer>
+    </div>
   );
 };
-
-const BareTimelineContainer = styled(EmbeddedTimelineContainer)`
-  padding: 0;
-  background: unset;
-`;
 
 const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }) => {
   const info = useInfo();
@@ -218,7 +204,11 @@ const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }
     }, new Map());
 
   return (
-    <BareTimelineContainer secondWidth={secondWidth} secondsShown={secondsShown}>
+    <EmbeddedTimelineContainer
+      secondWidth={secondWidth}
+      secondsShown={secondsShown}
+      className={styles.bareTimelineContainer}
+    >
       <SpellTimeline>
         <Cooldowns
           start={info.fightStart}
@@ -229,13 +219,9 @@ const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }
           exactlySpells={spells.filter((spell) => abilities?.getAbility(spell.id))}
         />
       </SpellTimeline>
-    </BareTimelineContainer>
+    </EmbeddedTimelineContainer>
   );
 };
-
-const BuffTimelineContainer = styled.div`
-  margin-left: 48px;
-`;
 
 interface Props<Apply extends EventType, Remove extends EventType> {
   analyzers: readonly MajorDefensive<Apply, Remove>[];
@@ -268,12 +254,12 @@ export default function Timeline<Apply extends EventType, Remove extends EventTy
   return (
     <>
       <DamageMitigationChart onHover={onHover} analyzers={analyzers} yScale={yScale} />
-      <BuffTimelineContainer>
+      <div className={styles.buffTimelineContainer}>
         <BuffDisplay hoverKey={chartHover} analyzers={analyzers} />
         <AutoSizer disableHeight>
           {(props) => <DefensiveTimeline spells={spells} {...props} />}
         </AutoSizer>
-      </BuffTimelineContainer>
+      </div>
     </>
   );
 }

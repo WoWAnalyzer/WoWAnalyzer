@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
 import { PerformanceMark, TimeRange, useInfo } from 'interface/guide';
 import {
   CooldownExpandableDataItem,
@@ -14,6 +14,7 @@ import * as design from 'interface/design-system';
 import { formatDurationMillisMinSec } from 'common/format';
 import Button from 'interface/controls/Button';
 import React from 'react';
+import styles from './CooldownGrid.module.scss';
 
 interface CooldownGridProps {
   label: React.ReactNode;
@@ -45,48 +46,6 @@ export interface CooldownGridItem {
   table?: Omit<ThroughputTableProps, 'range'>;
 }
 
-const CooldownGridOuterContainer = styled.div`
-  width: 100%;
-  container: cooldown-grid / inline-size;
-
-  display: flex;
-  flex-direction: column;
-  gap: ${design.gaps.large};
-`;
-
-const CooldownGridContainer = styled.div<{ maximumColumns: 1 | 2 | 3 }>`
-  gap: ${design.gaps.large};
-
-  display: grid;
-  grid-auto-flow: row;
-
-  grid-template-columns: 1fr;
-
-  max-width: 100%;
-
-  ${(props) =>
-    props.maximumColumns >= 2
-      ? `
-      @container cooldown-grid (width >= 700px) {
-        grid-template-columns: 1fr 1fr;
-      }
-    `
-      : ''}
-  ${(props) =>
-    props.maximumColumns >= 3
-      ? `
-      @container cooldown-grid (width >= 1050px) {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    `
-      : ''}
-`;
-
-const ShowMoreButton = styled(Button)`
-  padding: ${design.gaps.small} ${design.gaps.large};
-  align-self: center;
-`;
-
 const CooldownGridElement = React.memo(CooldownGridElementRaw);
 
 /**
@@ -110,8 +69,14 @@ export default function CooldownGrid({
 
   const hasMore = items.length > showMoreCutoff;
   return (
-    <CooldownGridOuterContainer>
-      <CooldownGridContainer maximumColumns={maximumColumns}>
+    <div className={styles.outerContainer}>
+      <div
+        className={clsx(
+          styles.gridContainer,
+          maximumColumns >= 2 && styles.maximumColumns2,
+          maximumColumns >= 3 && styles.maximumColumns3,
+        )}
+      >
         {items.slice(0, showMore ? Infinity : showMoreCutoff).map((item, ix) => (
           <CooldownGridElement
             key={`${item.range.start}-${item.range.end}`}
@@ -125,47 +90,20 @@ export default function CooldownGrid({
             defaultRenderContents={ix < showMoreCutoff + maximumColumns}
           />
         ))}
-      </CooldownGridContainer>
+      </div>
       {hasMore && (
-        <ShowMoreButton onClick={() => setShowMore((v) => !v)}>
+        <Button className={styles.showMoreButton} onClick={() => setShowMore((v) => !v)}>
           {showMore ? 'Show Less' : 'Show More'}
-        </ShowMoreButton>
+        </Button>
       )}
-    </CooldownGridOuterContainer>
+    </div>
   );
 }
-
-const CooldownGridElementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid ${design.level2.border};
-  background: ${design.level2.background};
-  box-shadow ${design.level2.shadow};
-  padding: ${design.gaps.small};
-  gap: ${design.gaps.small};
-`;
 
 type CooldownGridItemProps = CooldownGridItem &
   Pick<CooldownGridProps, 'label'> & {
     defaultRenderContents?: boolean;
   };
-
-const CooldownGridElementHeader = styled.header`
-  font-weight: bold;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 0 ${design.gaps.small};
-
-  & small {
-    font-weight: normal;
-  }
-`;
-
-const CooldownGridTimelineContainer = styled.div`
-  box-shadow: inset ${design.level1.shadow};
-  background: ${design.level1.background};
-`;
 
 function CooldownGridElementRaw({
   range,
@@ -205,10 +143,15 @@ function CooldownGridElementRaw({
   }
 
   return (
-    <CooldownGridElementContainer
+    <div
+      className={styles.elementContainer}
+      style={{
+        border: `1px solid ${design.level2.border}`,
+        background: design.level2.background,
+      }}
       ref={(el) => (el ? observer.current.observe(el) : observer.current.disconnect())}
     >
-      <CooldownGridElementHeader>
+      <header className={styles.elementHeader}>
         <div>
           {label} {perf && <PerformanceMark perf={perf} />}
         </div>
@@ -216,7 +159,7 @@ function CooldownGridElementRaw({
           {formatDurationMillisMinSec(range.start - info.originalFightStart, 0)} &mdash;{' '}
           {formatDurationMillisMinSec(range.end - info.originalFightStart, 0)}
         </small>
-      </CooldownGridElementHeader>
+      </header>
       <table>
         <tbody>
           {checklistItems?.map((item, ix) => (
@@ -225,7 +168,13 @@ function CooldownGridElementRaw({
         </tbody>
       </table>
       {renderContents && timeline && (
-        <CooldownGridTimelineContainer>
+        <div
+          className={styles.timelineContainer}
+          style={{
+            boxShadow: `inset ${design.level1.shadow}`,
+            background: design.level1.background,
+          }}
+        >
           <EmbeddedTimeline
             cooldownOrder="fixed"
             cooldownLegend={false}
@@ -233,9 +182,9 @@ function CooldownGridElementRaw({
             {...timeline}
             range={range}
           />
-        </CooldownGridTimelineContainer>
+        </div>
       )}
       {renderContents && table && <ThroughputTable {...table} range={range} />}
-    </CooldownGridElementContainer>
+    </div>
   );
 }

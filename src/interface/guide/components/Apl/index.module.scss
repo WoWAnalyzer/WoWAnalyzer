@@ -1,0 +1,39 @@
+.aplSubsectionHeader {
+  font-weight: bold;
+}
+
+.aplSummaryTable {
+  td {
+    padding-right: 1rem;
+    width: 99%;
+  }
+
+  td:last-child {
+    min-width: 10em;
+  }
+}
+
+.valueData {
+  text-align: right;
+}
+
+.aplViolationContainer {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  grid-area: problems;
+}
+
+.aplLayout {
+  display: grid;
+  grid-template-areas: 'summary problems' 'timeline timeline';
+  grid-template-columns: 10fr 8fr;
+  gap: 2rem;
+}
+
+.summaryArea {
+  grid-area: summary;
+}
+
+.timelineArea {
+  grid-area: timeline;
+}

@@ -1,78 +1,32 @@
 import * as design from 'interface/design-system';
-import styled from '@emotion/styled';
-import { JSX } from 'react';
+import { type ComponentPropsWithoutRef, type CSSProperties, forwardRef, JSX } from 'react';
 import Select from 'interface/controls/Select';
+import styles from './Table.module.scss';
 
-const TableContainer = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  container-type: inline-size;
-`;
+type HeaderSelectProps = ComponentPropsWithoutRef<typeof Select>;
 
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-`;
+export const HeaderSelect = forwardRef<HTMLSelectElement, HeaderSelectProps>(
+  ({ className, style, ...props }, ref) => {
+    const headerSelectStyle = {
+      ...style,
+      border: 'unset',
+      boxShadow: 'unset',
+      padding: `0.2rem ${design.gaps.medium}`,
+      '--table-header-select-hover-bg': design.level2.background_active,
+    } as CSSProperties;
 
-export const HeaderSelect = styled(Select)`
-  width: 100%;
-  border: unset;
-  box-shadow: unset;
-  text-align: center;
-  padding: 0.2rem ${design.gaps.medium};
-  border-radius: 0;
+    return (
+      <Select
+        ref={ref}
+        className={[styles.headerSelect, className].filter(Boolean).join(' ')}
+        style={headerSelectStyle}
+        {...props}
+      />
+    );
+  },
+);
 
-  &:hover {
-    background-color: ${design.level2.background_active};
-  }
-`;
-
-interface TableCellProps {
-  align: React.CSSProperties['justifyContent'];
-  optional?: boolean;
-}
-
-const TableCell = styled.div<TableCellProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: ${(props) => props.align};
-  padding: 0.2rem ${design.gaps.medium};
-  border-right: 1px solid ${design.level1.border};
-  width: 100%;
-
-  white-space: nowrap;
-
-  &:has(${HeaderSelect}) {
-    padding: 0;
-  }
-
-  @container (width < 500px) {
-    ${(props) => (props.optional ? 'display: none;' : '')}
-  }
-`;
-
-const TableHeader = styled.div`
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-
-  background: ${design.level2.background};
-  border: 1px solid ${design.level2.border};
-  box-shadow: ${design.level2.shadow};
-
-  & ${TableCell} {
-    border-color: ${design.level2.border};
-
-    &:last-of-type {
-      border-right: unset;
-    }
-  }
-
-  & + ${TableRow} {
-    padding-top: 0.3rem;
-  }
-`;
+HeaderSelect.displayName = 'HeaderSelect';
 
 // we need to use an object for the columns to make TS inferrence play nice
 interface TableProps<T, Context, Cols extends Record<string, Column<unknown, unknown>>> {
@@ -81,7 +35,7 @@ interface TableProps<T, Context, Cols extends Record<string, Column<unknown, unk
   ctx: Context;
 }
 
-function cellAlignment(align: Column<unknown>['align']): React.CSSProperties['justifyContent'] {
+function cellAlignment(align: Column<unknown>['align']): CSSProperties['justifyContent'] {
   switch (align) {
     case 'right':
       return 'end';
@@ -98,26 +52,48 @@ export default function Table<T, Context, Cols extends Record<string, Column<unk
   const gridColumns = Object.values(columns)
     .map((col) => (col.expand ? '1fr' : 'auto'))
     .join(' ');
+  const tableContainerStyle = {
+    gridTemplateColumns: gridColumns,
+    '--table-cell-border-color': design.level1.border,
+  } as CSSProperties;
+  const tableHeaderStyle = {
+    background: design.level2.background,
+    border: `1px solid ${design.level2.border}`,
+    boxShadow: design.level2.shadow,
+    '--table-cell-border-color': design.level2.border,
+  } as CSSProperties;
 
   return (
-    <TableContainer style={{ gridTemplateColumns: gridColumns }}>
-      <TableHeader>
+    <div className={styles.tableContainer} style={tableContainerStyle}>
+      <div className={styles.tableHeader} style={tableHeaderStyle}>
         {Object.values(columns).map((col, colIx) => (
-          <TableCell key={colIx} align={'center'} optional={col.optional}>
+          <div
+            key={colIx}
+            className={[styles.tableCell, col.optional ? styles.optionalCell : undefined]
+              .filter(Boolean)
+              .join(' ')}
+            style={{ '--table-cell-align': 'center' } as CSSProperties}
+          >
             {col.label}
-          </TableCell>
+          </div>
         ))}
-      </TableHeader>
+      </div>
       {data.map((row, ix) => (
-        <TableRow key={ix}>
+        <div key={ix} className={styles.tableRow}>
           {Object.values(columns).map((col, colIx) => (
-            <TableCell align={cellAlignment(col.align)} key={colIx} optional={col.optional}>
+            <div
+              key={colIx}
+              className={[styles.tableCell, col.optional ? styles.optionalCell : undefined]
+                .filter(Boolean)
+                .join(' ')}
+              style={{ '--table-cell-align': cellAlignment(col.align) } as CSSProperties}
+            >
               {col.render(row, ctx)}
-            </TableCell>
+            </div>
           ))}
-        </TableRow>
+        </div>
       ))}
-    </TableContainer>
+    </div>
   );
 }
 

@@ -3,31 +3,8 @@ import Spell from 'common/SPELLS/Spell';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import styled from '@emotion/styled';
 import fetchWcl from 'common/fetchWclApi';
-
-const LegendContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 8px 0;
-  margin-bottom: 8px;
-  justify-content: center;
-`;
-
-const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-`;
-
-const LegendSymbol = styled.div<{ color: string }>`
-  width: 16px;
-  height: 16px;
-  background-color: ${(props) => props.color};
-  border-radius: 2px;
-`;
+import styles from './ManaChart.module.scss';
 
 interface ManaUpdate {
   timestamp: number;
@@ -471,14 +448,14 @@ export default function ManaChart({
   return (
     <>
       {legendItems.length > 0 && (
-        <LegendContainer>
+        <div className={styles.legendContainer}>
           {legendItems.map((item) => (
-            <LegendItem key={item.label}>
-              <LegendSymbol color={item.color} />
+            <div className={styles.legendItem} key={item.label}>
+              <div className={styles.legendSymbol} style={{ backgroundColor: item.color }} />
               <span>{item.label}</span>
-            </LegendItem>
+            </div>
           ))}
-        </LegendContainer>
+        </div>
       )}
       <AutoSizer disableHeight>
         {({ width }) => <BaseChart height={400} width={width} spec={spec} data={chartData} />}

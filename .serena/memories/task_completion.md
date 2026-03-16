@@ -1,0 +1,1 @@
+After edits, validate with the least expensive relevant command(s) first and report remaining errors. For this repo, common checks are pnpm typecheck, pnpm lint, pnpm build; avoid pnpm test unless explicitly requested.

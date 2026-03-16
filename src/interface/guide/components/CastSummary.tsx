@@ -1,10 +1,9 @@
 import Spell from 'common/SPELLS/Spell';
-import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import { ControlledExpandable } from 'interface';
 import { useFight } from 'interface/report/context/FightContext';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { useState, type JSX } from 'react';
+import { useState, type CSSProperties, type JSX } from 'react';
 import GradiatedPerformanceBar from './GradiatedPerformanceBar';
 import GuideTooltip from './GuideTooltip';
 import { BoxRowEntry, PerformanceBoxRow } from './PerformanceBoxRow';
@@ -17,6 +16,7 @@ import GuideDataWrapper, {
   PerfBadgeDivider,
   PerfBadgeLabel,
 } from './GuideDataWrapper';
+import styles from './CastSummary.module.scss';
 
 /** Represents a single cast evaluation with timestamp and performance assessment */
 export interface CastEvaluation {
@@ -83,6 +83,9 @@ export default function CastSummary({
   const total = casts.length;
   // Same scaling as CastDetail timeline: min width = 1/5 (≤5 casts), max 20 per row
   const rectWidthPct = Math.max(100 / Math.max(total, 5), 100 / 20);
+  const boxRowScalerStyle = {
+    '--box-row-width-pct': `${rectWidthPct}%`,
+  } as CSSProperties;
 
   // Convert to BoxRowEntry format for breakdown
   const castEntries: BoxRowEntry[] = showBreakdown
@@ -139,82 +142,43 @@ export default function CastSummary({
         <>
           <ControlledExpandable
             header={
-              <BarContainer>
+              <div className={styles.barContainer}>
                 <GradiatedPerformanceBar
                   perfect={{ count: perfect, label: 'Perfect casts' }}
                   good={{ count: good, label: 'Good casts' }}
                   ok={{ count: ok, label: 'Ok casts' }}
                   bad={{ count: bad, label: 'Bad casts' }}
                 />
-              </BarContainer>
+              </div>
             }
             element="section"
             expanded={isExpanded}
             inverseExpanded={() => setIsExpanded(!isExpanded)}
           >
-            <BreakdownContainer>
+            <div className={styles.breakdownContainer}>
               <HelperText>Hover over the boxes below for more details</HelperText>
-              <BoxRowScaler widthPct={rectWidthPct}>
+              <div className={styles.boxRowScaler} style={boxRowScalerStyle}>
                 <PerformanceBoxRow values={castEntries} />
-              </BoxRowScaler>
-            </BreakdownContainer>
+              </div>
+            </div>
           </ControlledExpandable>
-          <DisappearingHelperText style={{ height: isExpanded ? 0 : '1lh' }}>
+          <HelperText
+            className={styles.disappearingHelperText}
+            style={{ height: isExpanded ? 0 : '1lh' }}
+          >
             Click the bar above for per-cast breakdown
-          </DisappearingHelperText>
+          </HelperText>
         </>
       ) : (
-        <BarContainer>
+        <div className={styles.barContainer}>
           <GradiatedPerformanceBar
             perfect={{ count: perfect, label: 'Perfect casts' }}
             good={{ count: good, label: 'Good casts' }}
             ok={{ count: ok, label: 'Ok casts' }}
             bad={{ count: bad, label: 'Bad casts' }}
           />
-        </BarContainer>
+        </div>
       )}
     </GuideDataWrapper>
   );
 }
-
-const DisappearingHelperText = styled(HelperText)`
-  margin-top: 4px;
-  overflow-y: clip;
-  transition: height 0.5s; /* 0.5s matches react-animate-height */
-`;
-
-const BarContainer = styled.div`
-  border-radius: 4px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-
-  .gradiated-bar-container {
-    display: flex;
-  }
-
-  .gradiated-bar-container > div {
-    height: 24px !important;
-    display: block !important;
-  }
-`;
-
-const BreakdownContainer = styled.div`
-  margin-top: 8px;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-`;
-
-/** Overrides PerformanceBoxRow's auto-fill grid to match the CastDetail timeline scaling */
-const BoxRowScaler = styled.div<{ widthPct: number }>`
-  .performance-block-row {
-    grid-template-columns: repeat(auto-fill, calc(${(p) => p.widthPct}% - 3px));
-    gap: 3px;
-  }
-  .performance-block {
-    height: 16px !important;
-    border-radius: 2px;
-  }
-`;

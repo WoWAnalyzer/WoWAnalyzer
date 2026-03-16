@@ -1,0 +1,6 @@
+.highlight {
+  background-color: var(--highlight-background-color);
+  color: var(--highlight-text-color, inherit);
+  padding: 0 3px;
+  box-decoration-break: clone;
+}

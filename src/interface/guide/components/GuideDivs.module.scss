@@ -1,0 +1,35 @@
+.rounded-panel {
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-gap: 1rem;
+  align-content: center;
+  align-items: center;
+}
+
+.side-by-side-panels {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-column-gap: 1em;
+}
+
+.start-aligned-rounded-panel {
+  align-content: start;
+  align-items: start;
+}
+
+.performance-rounded-panel {
+  box-shadow: inset 0.5em 0 0 var(--performance-panel-color);
+}
+
+.panel-header {
+  padding: 0.5em 0;
+  margin: -1px -1px 0;
+  align-content: center;
+
+  & svg {
+    height: 24px;
+  }
+}

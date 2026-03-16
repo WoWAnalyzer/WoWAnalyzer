@@ -4,8 +4,7 @@ import type { FormEvent, MouseEvent } from 'react';
 import { useEffect, useState } from 'react';
 
 import TimeInput from './TimeInput';
-import styled from '@emotion/styled';
-import * as design from 'interface/design-system';
+import styles from './TimeFilter.module.scss';
 
 interface Props {
   fight: Fight;
@@ -18,32 +17,6 @@ const generateBoundary = (fight: Fight) => ({
   end: fight.end_time - fight.start_time + fight.offset_time,
   max: (fight.original_end_time || fight.end_time) - fight.start_time + fight.offset_time,
 });
-
-const SubmitButton = styled.button`
-  appearance: none;
-  border: 1px solid ${design.level2.border};
-  background: ${design.level2.background};
-  box-shadow: ${design.level2.shadow};
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-
-  color: ${design.colors.bodyText};
-
-  &:hover:not(:disabled) {
-    filter: brightness(115%);
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    color: ${design.colors.unfocusedText};
-  }
-`;
-
-const ResetButton = styled(SubmitButton)`
-  background: ${design.level1.background};
-  border-color: ${design.level2.border};
-  box-shadow: ${design.level1.shadow};
-`;
 
 const TimeFilter = (props: Props) => {
   const [start, setStart] = useState<number>(0);
@@ -94,15 +67,25 @@ const TimeFilter = (props: Props) => {
         <span>End Time</span>
         <TimeInput name="end" min={0} max={max} time={end} onChange={selectEnd} />
       </div>
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <ResetButton onClick={handleReset} name="reset" disabled={isLoading || isReset()}>
+      <div className={styles.actions}>
+        <button
+          className={`${styles.button} ${styles.resetButton}`}
+          onClick={handleReset}
+          name="reset"
+          disabled={isLoading || isReset()}
+        >
           <Trans id="interface.report.results.timeFilter.reset">Reset Filter</Trans>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-        </ResetButton>
-        <SubmitButton type="submit" name="filter" disabled={isLoading || invalidTimes()}>
+        </button>
+        <button
+          className={styles.button}
+          type="submit"
+          name="filter"
+          disabled={isLoading || invalidTimes()}
+        >
           <Trans id="interface.report.results.timeFilter.filter">Filter</Trans>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-        </SubmitButton>
+        </button>
       </div>
     </form>
   );

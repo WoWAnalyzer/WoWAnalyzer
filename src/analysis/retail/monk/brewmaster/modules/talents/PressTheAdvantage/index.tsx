@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
@@ -11,6 +10,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import getDamageBonus from '../../core/GetDamageBonus';
 import SharedBrews from '../../core/SharedBrews';
 import { ptaBonusCast, ptaBonusDamage } from './normalizer';
+import styles from './index.module.scss';
 
 const PTA_DMG_MODIFIER = 0.01;
 const PTA_BREW_CDR = 500;
@@ -24,15 +24,6 @@ interface PtaConsumerData {
   count: number;
   totalDamage: number;
 }
-
-const BreakdownTable = styled.table`
-  td {
-    padding: 0 0.5em;
-  }
-  td:first-child {
-    text-align: right;
-  }
-`;
 
 export default class PressTheAdvantage extends Analyzer.withDependencies(deps) {
   private buffDamageContribution = 0;
@@ -128,7 +119,7 @@ export default class PressTheAdvantage extends Analyzer.withDependencies(deps) {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <BreakdownTable>
+          <table className={styles.breakdownTable}>
             <tr>
               <td>% Damage Bonus</td>
               <td>
@@ -158,7 +149,7 @@ export default class PressTheAdvantage extends Analyzer.withDependencies(deps) {
                 <td>{consumer.count} Casts</td>
               </tr>
             ))}
-          </BreakdownTable>
+          </table>
         }
       >
         <TalentSpellText talent={talents.PRESS_THE_ADVANTAGE_TALENT}>

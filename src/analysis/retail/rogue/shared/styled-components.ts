@@ -1,10 +1,19 @@
-import styled from '@emotion/styled';
+import { clsx } from 'clsx';
+import { createElement, type ComponentPropsWithoutRef } from 'react';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
-export const RoundedPanelWithBottomMargin = styled(RoundedPanel)`
-  margin-bottom: 20px;
-`;
+import styles from './styled-components.module.scss';
 
-export const ExplanationSection = styled.section`
-  margin-bottom: 20px;
-`;
+type RoundedPanelProps = ComponentPropsWithoutRef<typeof RoundedPanel>;
+
+export const RoundedPanelWithBottomMargin = ({ className, ...props }: RoundedPanelProps) =>
+  createElement(RoundedPanel, {
+    ...props,
+    className: clsx(styles.roundedPanelWithBottomMargin, className),
+  });
+
+export const ExplanationSection = ({ className, ...props }: ComponentPropsWithoutRef<'section'>) =>
+  createElement('section', {
+    ...props,
+    className: clsx(styles.explanationSection, className),
+  });

@@ -1,0 +1,57 @@
+.barContainer {
+  width: 100%;
+  height: var(--stacked-bar-height);
+  min-height: 35px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+
+  @media (max-width: 768px) {
+    min-height: 30px;
+  }
+}
+
+.segment {
+  width: var(--stacked-bar-width);
+  height: 100%;
+  background: var(--stacked-bar-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  transition: filter 0.2s ease;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+
+.legendRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legendSwatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--stacked-bar-swatch-color);
+  flex-shrink: 0;
+}
+
+.legendItemLabel {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
