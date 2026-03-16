@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  vega-embed@6.20.2:
+    hash: bkjy7wywebxalb3mby35wlfzt4
+    path: patches/vega-embed@6.20.2.patch
+
 importers:
 
   .:
