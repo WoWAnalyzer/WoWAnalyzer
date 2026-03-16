@@ -77,6 +77,7 @@ import {
 } from 'analysis/retail/evoker/shared';
 import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
 import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
+import RisingFury from './modules/talents/RisingFury';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -145,6 +146,7 @@ class CombatLogParser extends MainCombatLogParser {
     azureSweep: AzureSweep,
     shatteringStars: ShatteringStars,
     starSalvo: StarSalvo,
+    risingFury: RisingFury,
 
     // hero talents
     expandedLungs: ExpandedLungs,
