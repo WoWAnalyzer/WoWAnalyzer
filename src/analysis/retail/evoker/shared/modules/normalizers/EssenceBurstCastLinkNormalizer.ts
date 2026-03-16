@@ -40,6 +40,9 @@ const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
 const ENERGY_CYCLES_BUFFER = 6_000;
 
+const EB_FROM_RISEN_FURY = 'ebFromRisenFury';
+const RISEN_FURY_EB_INTERVAL_MS = 4_000;
+
 const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
 const EB_DIVERTED_POWER_BUFFER = 100; // These for some reason have longer delays
 
@@ -99,6 +102,33 @@ const EVENT_LINKS: EventLink[] = [
       if (
         timeDiff > ESSENCE_BURST_BUFFER &&
         ENERGY_CYCLES_BUFFER - timeDiff > ESSENCE_BURST_BUFFER // it can probably come early
+      ) {
+        return false;
+      }
+
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
+    },
+  },
+  {
+    linkRelation: EB_FROM_RISEN_FURY,
+    reverseLinkRelation: EB_FROM_RISEN_FURY,
+    linkingEventId: SPELLS.RISEN_FURY_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: RISEN_FURY_EB_INTERVAL_MS * 5 + ESSENCE_BURST_BUFFER,
+    maximumLinks: 5,
+    isActive: (c) => c.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT),
+    additionalCondition(linkingEvent, referencedEvent) {
+      // applies one EB in equal intervals for the duration of the buff,
+      // so check if the timestamp difference is divisible by the internval allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
+      const timeDiff = Math.abs(
+        (linkingEvent.timestamp - referencedEvent.timestamp) % RISEN_FURY_EB_INTERVAL_MS,
+      );
+      if (
+        timeDiff > ESSENCE_BURST_BUFFER &&
+        RISEN_FURY_EB_INTERVAL_MS - timeDiff > ESSENCE_BURST_BUFFER // it can probably come early
       ) {
         return false;
       }
@@ -267,6 +297,7 @@ export const EBSource = {
   DivertedPower: EB_FROM_DIVERTED_POWER,
   EssenceWell: EB_FROM_ESSENCE_WELL,
   EnergyCycles: EB_FROM_ENERGY_CYCLES,
+  RisenFury: EB_FROM_RISEN_FURY,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];
 

@@ -10,6 +10,7 @@ import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   DamageEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -20,6 +21,13 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import {
+  EBSource,
+  isEBFrom,
+} from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import Soup from 'interface/icons/Soup';
+import { InformationIcon } from 'interface/icons';
+import { SpellLink } from 'interface';
 
 /**
  * (1) While Dragonrage is active you gain Rising Fury every 6 sec, increasing your haste by 4%, stacking up to 5 times.
@@ -44,6 +52,9 @@ class RisingFury extends Analyzer {
   damageFromRisingFury = 0;
   damageFromRisenFury = 0;
 
+  essenceBurstGenerated = 0;
+  essenceBurstWasted = 0;
+
   hasRisenFury = this.selectedCombatant.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT);
 
   constructor(options: Options) {
@@ -60,15 +71,28 @@ class RisingFury extends Analyzer {
       this.onApplyRisingFury,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RISEN_FURY_BUFF),
-      this.onApplyRisenFury,
-    );
-    this.addEventListener(
       Events.removebuff
         .by(SELECTED_PLAYER)
         .spell([SPELLS.RISEN_FURY_BUFF, SPELLS.RISING_FURY_BUFF]),
       this.onRemoveBuff,
     );
+
+    if (this.hasRisenFury) {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RISEN_FURY_BUFF),
+        this.onApplyRisenFury,
+      );
+      [Events.applybuff, Events.applybuffstack].forEach((event) =>
+        this.addEventListener(
+          event.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEV_BUFF),
+          this.onApplyEssenceBurst,
+        ),
+      );
+      this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEV_BUFF),
+        this.onRefreshEssenceBurst,
+      );
+    }
   }
 
   private onDamage(event: DamageEvent) {
@@ -103,6 +127,17 @@ class RisingFury extends Analyzer {
     }
   }
 
+  private onApplyEssenceBurst(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+    if (isEBFrom(event, EBSource.RisenFury)) {
+      this.essenceBurstGenerated += 1;
+    }
+  }
+  private onRefreshEssenceBurst(event: RefreshBuffEvent) {
+    if (isEBFrom(event, EBSource.RisenFury)) {
+      this.essenceBurstWasted += 1;
+    }
+  }
+
   statistic() {
     return (
       <Statistic
@@ -124,6 +159,20 @@ class RisingFury extends Analyzer {
         {this.hasRisenFury && (
           <BoringSpellValueText spell={SPELLS.RISEN_FURY_BUFF}>
             <ItemDamageDone amount={this.damageFromRisenFury} />
+            <div>
+              <Soup /> {this.essenceBurstGenerated}{' '}
+              <small>
+                <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> generated
+              </small>
+            </div>
+            {this.essenceBurstWasted > 0 && (
+              <div>
+                <InformationIcon /> {this.essenceBurstWasted}{' '}
+                <small>
+                  <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> wasted
+                </small>
+              </div>
+            )}
           </BoringSpellValueText>
         )}
       </Statistic>
