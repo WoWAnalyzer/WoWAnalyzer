@@ -100,6 +100,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.PAIN_SUPPRESSION_TALENT.id,
+        charges: combatant.hasTalent(TALENTS.PROTECTOR_OF_THE_FRAIL_TALENT) ? 2 : 1,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(TALENTS.PAIN_SUPPRESSION_TALENT),
