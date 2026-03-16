@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import ROLES from 'game/ROLES';
 import { ComponentProps } from 'react';
 import styles from './RoleIcon.module.scss';
@@ -27,12 +28,7 @@ const RoleIcon = ({ roleId, className, ...props }: RoleIconProps) => {
   }
 
   return iconName == null ? null : (
-    <img
-      className={className ? `${styles.img} ${className}` : styles.img}
-      src={`/roles/${iconName}.jpg`}
-      alt=""
-      {...props}
-    />
+    <img className={clsx(styles.img, className)} src={`/roles/${iconName}.jpg`} alt="" {...props} />
   );
 };
 

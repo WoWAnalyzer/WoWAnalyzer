@@ -15,27 +15,22 @@
   margin-bottom: 0.5rem;
   margin-right: -0.5rem;
 
-  > * {
+  & > * {
     border-right: 1px solid #262626;
   }
 
-  > *:first-child {
+  & > *:first-child {
     padding-left: 0;
   }
 
-  > *:last-child {
+  & > *:last-child {
     border-right: none;
     padding-right: 0;
   }
 }
 
 .statBoxStat {
-  min-width: 5em;
-
-  padding: 0 1rem;
-  margin: 0;
-
-  > dt {
+  & > dt {
     font-weight: normal;
     color: #ccc;
     font-size: 75%;
@@ -47,7 +42,12 @@
     justify-content: center;
   }
 
-  img {
+  & img {
     max-height: 0.75em;
   }
+
+  min-width: 5em;
+
+  padding: 0 1rem;
+  margin: 0;
 }

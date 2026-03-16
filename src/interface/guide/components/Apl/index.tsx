@@ -12,23 +12,21 @@ import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 import { formatPercentage } from 'common/format';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import styles from './index.module.scss';
-
-const getClassName = (...classNames: Array<string | undefined>) =>
-  classNames.filter((className) => className).join(' ');
+import clsx from 'clsx';
 
 function AplSubsectionHeader({
   className,
   ...props
 }: ComponentPropsWithoutRef<'header'>): JSX.Element {
-  return <header {...props} className={getClassName(styles.aplSubsectionHeader, className)} />;
+  return <header {...props} className={clsx(styles.aplSubsectionHeader, className)} />;
 }
 
 function AplSummaryTable({ className, ...props }: ComponentPropsWithoutRef<'table'>): JSX.Element {
-  return <table {...props} className={getClassName(styles.aplSummaryTable, className)} />;
+  return <table {...props} className={clsx(styles.aplSummaryTable, className)} />;
 }
 
 function ValueData({ className, ...props }: ComponentPropsWithoutRef<'td'>): JSX.Element {
-  return <td {...props} className={getClassName(styles.valueData, className)} />;
+  return <td {...props} className={clsx(styles.valueData, className)} />;
 }
 
 export function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }) {
@@ -91,11 +89,11 @@ function AplViolationContainer({
   className,
   ...props
 }: ComponentPropsWithoutRef<'div'>): JSX.Element {
-  return <div {...props} className={getClassName(styles.aplViolationContainer, className)} />;
+  return <div {...props} className={clsx(styles.aplViolationContainer, className)} />;
 }
 
 function AplLayout({ className, ...props }: ComponentPropsWithoutRef<'div'>): JSX.Element {
-  return <div {...props} className={getClassName(styles.aplLayout, className)} />;
+  return <div {...props} className={clsx(styles.aplLayout, className)} />;
 }
 
 interface AplSectionProps {

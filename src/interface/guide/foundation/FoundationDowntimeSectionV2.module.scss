@@ -5,11 +5,11 @@
   font-size: 1.5rem;
   align-items: baseline;
 
-  dd {
+  & dd {
     font-size: 1.5rem;
     opacity: 80%;
 
-    dfn {
+    & dfn {
       border-bottom: unset;
       text-decoration: underline;
       text-decoration-style: dotted;

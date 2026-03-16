@@ -13,9 +13,6 @@ importers:
 
   .:
     dependencies:
-      '@emotion/is-prop-valid':
-        specifier: 1.4.0
-        version: 1.4.0
       '@emotion/react':
         specifier: 11.14.0
         version: 11.14.0(@types/react@19.2.2)(react@19.2.0)
@@ -555,9 +552,6 @@ packages:
 
   '@emotion/hash@0.9.2':
     resolution: {integrity: sha512-MyqliTZGuOm3+5ZRSaaBGP3USLw6+EGykkwZns2EPC5g8jJ4z9OrdZY9apkl3+UP9+sdz76YYkwCKP5gh8iY3g==}
-
-  '@emotion/is-prop-valid@1.4.0':
-    resolution: {integrity: sha512-QgD4fyscGcbbKwJmqNvUMSE02OsHUa+lAWKdEUIJKgqe5IwRSKd7+KhibEWdaKwgjLj0DRSHA9biAIqGBk05lw==}
 
   '@emotion/memoize@0.9.0':
     resolution: {integrity: sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==}
@@ -4721,10 +4715,6 @@ snapshots:
       stylis: 4.2.0
 
   '@emotion/hash@0.9.2': {}
-
-  '@emotion/is-prop-valid@1.4.0':
-    dependencies:
-      '@emotion/memoize': 0.9.0
 
   '@emotion/memoize@0.9.0': {}
 

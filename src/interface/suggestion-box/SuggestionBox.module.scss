@@ -2,7 +2,7 @@
   border-radius: 4px;
   background-color: hsl(0, 0%, 10%);
 
-  > .header {
+  & > .header {
     background-color: hsl(0, 0%, 13%);
   }
 
@@ -11,7 +11,7 @@
     cursor: pointer;
   }
 
-  > .body {
+  & > .body {
     padding: 0 1em;
     max-height: 0;
     transition:
@@ -82,7 +82,7 @@
   flex-direction: row;
   align-items: center;
 
-  > :global(.bad-mark) {
+  & > .bad-mark {
     color: hsl(349, 100%, 43%);
   }
 }

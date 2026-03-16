@@ -3,14 +3,14 @@
   flex-direction: row;
   flex-wrap: nowrap;
   height: 24px;
-}
 
-.sequenceContainer :global(svg) {
-  transform: rotate(-90deg);
-  height: 18px;
-  margin-top: calc(24px / 2 - 18px / 2);
-}
+  & svg {
+    transform: rotate(-90deg);
+    height: 18px;
+    margin-top: calc(24px / 2 - 18px / 2);
+  }
 
-.sequenceContainer :global(img.icon) {
-  height: 24px;
+  & img.icon {
+    height: 24px;
+  }
 }

@@ -1,11 +1,11 @@
 .table {
   margin-top: 1em;
 
-  td {
+  & td {
     padding: 0 1em;
   }
 
-  th {
+  & th {
     font-weight: bold;
   }
 }

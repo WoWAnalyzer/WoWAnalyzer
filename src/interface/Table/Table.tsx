@@ -26,8 +26,6 @@ export const HeaderSelect = forwardRef<HTMLSelectElement, HeaderSelectProps>(
   },
 );
 
-HeaderSelect.displayName = 'HeaderSelect';
-
 // we need to use an object for the columns to make TS inferrence play nice
 interface TableProps<T, Context, Cols extends Record<string, Column<unknown, unknown>>> {
   data: T[];

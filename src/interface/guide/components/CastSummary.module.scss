@@ -11,11 +11,11 @@
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.barContainer :global(.gradiated-bar-container) {
+.barContainer .gradiated-bar-container {
   display: flex;
 }
 
-.barContainer :global(.gradiated-bar-container > div) {
+.barContainer .gradiated-bar-container > div {
   height: 24px !important;
   display: block !important;
 }
@@ -28,12 +28,12 @@
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.boxRowScaler :global(.performance-block-row) {
+.boxRowScaler .performance-block-row {
   grid-template-columns: repeat(auto-fill, calc(var(--box-row-width-pct) - 3px));
   gap: 3px;
 }
 
-.boxRowScaler :global(.performance-block) {
+.boxRowScaler .performance-block {
   height: 16px !important;
   border-radius: 2px;
 }

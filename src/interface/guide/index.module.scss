@@ -24,7 +24,7 @@
   box-shadow: 0 1px 4px black;
   padding: 0 2rem 0.5rem 2rem;
 
-  :global(.details) > div {
+  & .details > div {
     background: unset;
     box-shadow: unset;
     padding: unset;
@@ -39,7 +39,7 @@
 
 .subSection {
   /* including .guide-container here is a specificity hack */
-  :global(.guide-container) & {
+  .guide-container & {
     margin-top: 2rem;
   }
 

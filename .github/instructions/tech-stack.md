@@ -22,14 +22,14 @@ This project upgrades dependencies over time. Do not assume specific version num
 - **Styling**: CSS Modules using SCSS
 
 ```typescript
-// Example component with Emotion styling
-import styles from './MyComponent.module.scss';;
+// Example component using CSS Modules (SCSS)
+import styles from './MyComponent.module.scss';
 
 function MyComponent() {
   return (
-    <Container className={styles['container-style']}>
+    <div className={styles.container}>
       ...
-    </Container>
+    </div>
   );
 }
 ```

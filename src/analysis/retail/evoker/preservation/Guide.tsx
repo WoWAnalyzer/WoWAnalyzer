@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { GuideProps, Section } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
@@ -9,15 +10,9 @@ export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
 export const GuideContainer = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'>>(
   ({ className, ...props }, ref) => (
-    <div
-      {...props}
-      ref={ref}
-      className={className ? `${styles.guideContainer} ${className}` : styles.guideContainer}
-    />
+    <div {...props} ref={ref} className={clsx(styles.guideContainer, className)} />
   ),
 );
-
-GuideContainer.displayName = 'GuideContainer';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const isEbBuild = info.combatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);

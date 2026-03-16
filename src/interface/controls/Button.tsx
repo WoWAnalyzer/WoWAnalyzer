@@ -18,6 +18,4 @@ const Button = forwardRef<HTMLButtonElement, ComponentPropsWithoutRef<'button'>>
   ),
 );
 
-Button.displayName = 'Button';
-
 export default Button;

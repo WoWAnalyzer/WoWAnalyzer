@@ -23,11 +23,11 @@
 }
 
 .claimCountBar {
-  :global(.pass-bar) {
+  .pass-bar {
     background-color: hsl(348.9, 69.5%, 39.8%);
   }
 
-  :global(.fail-bar) {
+  .fail-bar {
     background-color: hsl(0, 0%, 20%);
   }
 }

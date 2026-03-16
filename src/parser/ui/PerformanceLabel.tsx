@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ComponentProps, ReactNode } from 'react';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
@@ -17,7 +18,7 @@ export const PerformanceLabel = ({
 }: PerformanceProps) => (
   <>
     <span
-      className={className ? `${styles.coloredText} ${className}` : styles.coloredText}
+      className={clsx(styles.coloredText, className)}
       style={{ color: color ?? qualitativePerformanceToColor(performance), ...style }}
       {...others}
     />

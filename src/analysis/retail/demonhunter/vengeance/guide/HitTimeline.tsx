@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import {
   type ComponentPropsWithoutRef,
   type CSSProperties,
@@ -129,19 +130,16 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
       '--highlight-background-color': color,
       ...(textColor ? { '--highlight-text-color': textColor } : {}),
     };
-
     return (
       <span
         {...props}
         ref={ref}
-        className={className ? `${styles.highlight} ${className}` : styles.highlight}
+        className={clsx(styles.highlight, className)}
         style={highlightStyle}
       />
     );
   },
 );
-
-Highlight.displayName = 'Highlight';
 
 export const red = colorForPerformance(0);
 

@@ -20,6 +20,4 @@ const Select = forwardRef<HTMLSelectElement, ComponentPropsWithoutRef<'select'>>
   ),
 );
 
-Select.displayName = 'Select';
-
 export default Select;

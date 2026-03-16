@@ -18,6 +18,7 @@ import {
 import deduplicate from './deduplication';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import styles from './index.module.scss';
+import clsx from 'clsx';
 
 export interface SelectedExplanation<T> {
   describer: ViolationExplainer<T>['describe'];
@@ -159,11 +160,7 @@ export function AplViolationTimelineContainer({
   className,
   ...props
 }: ComponentPropsWithoutRef<'div'>): JSX.Element {
-  const containerClassName = className
-    ? `${styles.aplViolationTimelineContainer} ${className}`
-    : styles.aplViolationTimelineContainer;
-
-  return <div className={containerClassName} {...props} />;
+  return <div className={clsx(styles.aplViolationTimelineContainer, className)} {...props} />;
 }
 
 function ViolationProblemContainer({
@@ -177,11 +174,12 @@ function ViolationProblemContainer({
     orientation === 'row'
       ? styles.violationProblemContainerRow
       : styles.violationProblemContainerColumn;
-  const containerClassName = className
-    ? `${styles.violationProblemContainer} ${orientationClassName} ${className}`
-    : `${styles.violationProblemContainer} ${orientationClassName}`;
-
-  return <div className={containerClassName} {...props} />;
+  return (
+    <div
+      className={clsx(styles.violationProblemContainer, orientationClassName, className)}
+      {...props}
+    />
+  );
 }
 
 export default function ViolationProblemList<T = unknown>({

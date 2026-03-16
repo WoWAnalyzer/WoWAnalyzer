@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import { ComponentProps } from 'react';
 import styles from './QualityIcon.module.scss';
 
@@ -12,7 +13,7 @@ interface QualityIconProps extends Exclude<ComponentProps<'img'>, 'src' | 'alt' 
  */
 const QualityIcon = ({ quality, className, ...props }: QualityIconProps) => (
   <img
-    className={className ? `${styles.img} ${className}` : styles.img}
+    className={clsx(styles.img, className)}
     src={`/quality/tier${quality}.png`}
     alt={`Quality: ${quality}`}
     title={`Quality: ${quality}`}

@@ -1,21 +1,21 @@
 .embeddedTimelineContainer {
-  :global(.spell-timeline) {
+  & .spell-timeline {
     position: relative;
 
-    :global(.casts) {
+    & .casts {
       box-shadow: unset;
     }
 
-    :global(.cooldowns:only-child) {
+    & .cooldowns:only-child {
       margin-top: unset;
 
-      :global(.lane) {
+      & .lane {
         overflow-x: clip;
       }
     }
   }
 
-  &:global(.drag-scroll-container) {
+  &.drag-scroll-container {
     cursor: default;
   }
 

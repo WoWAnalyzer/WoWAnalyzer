@@ -6,12 +6,12 @@
     text-align: right;
   }
 
+  & .left {
+    text-align: left;
+  }
+
   caption {
     color: white;
     font-size: large;
   }
-}
-
-.left {
-  text-align: left;
 }

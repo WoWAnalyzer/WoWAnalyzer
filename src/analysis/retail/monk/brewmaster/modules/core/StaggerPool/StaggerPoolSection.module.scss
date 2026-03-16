@@ -5,7 +5,7 @@
   gap: 1.5rem;
   align-items: start;
 
-  header {
+  & header {
     margin-bottom: 1rem;
   }
 }
@@ -17,11 +17,11 @@
   width: max-content;
   font-size: 95%;
 
-  dt {
+  & dt {
     font-weight: normal;
   }
 
-  dd {
+  & dd {
     text-align: right;
   }
 }

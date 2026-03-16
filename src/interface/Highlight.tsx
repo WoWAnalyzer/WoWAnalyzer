@@ -35,5 +35,3 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
     );
   },
 );
-
-Highlight.displayName = 'Highlight';

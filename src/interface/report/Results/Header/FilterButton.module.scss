@@ -3,7 +3,7 @@
   align-self: start;
   margin-top: 0.6rem;
 
-  :global(.glyphicon) {
+  & .glyphicon {
     padding-right: 0.25rem;
     font-size: 75%;
   }
@@ -63,14 +63,14 @@
 }
 
 .timeFilterContainer {
-  :global(.time-input) {
+  & .time-input {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: center;
   }
 
-  > form {
+  & > form {
     display: flex;
     flex-direction: column;
     gap: 1rem;

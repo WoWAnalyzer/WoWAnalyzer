@@ -26,6 +26,11 @@
   display: inline-flex;
   flex-direction: row;
   gap: 1px;
+
+  & > .coloredBlock {
+    height: 100%;
+  }
+
   max-height: 1.5em;
   height: 100%;
 }

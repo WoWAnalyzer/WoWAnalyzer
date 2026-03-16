@@ -1,16 +1,16 @@
 .reasonRow,
 .badReasonRow {
-  :global(.fail-bar) {
+  .fail-bar {
     background-color: transparent !important;
   }
 
-  :global(.pass-bar) {
+  .pass-bar {
     border-radius: 2px !important;
   }
 }
 
 .badReasonRow {
-  :global(.pass-bar) {
+  .pass-bar {
     background-color: hsl(348.9, 69.5%, 39.8%) !important;
   }
 }
