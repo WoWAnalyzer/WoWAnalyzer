@@ -50,6 +50,7 @@ import StaggerClearSourceLinkNormalizer from './normalizers/StaggerClearSourceLi
 import PurifyingBrew from './modules/talents/PurifyingBrew';
 import TouchOfDeathStagger from './modules/spells/TouchOfDeathStagger';
 import InvokeNiuzaoStagger from './modules/talents/InvokeNiuzao/InvokeNiuzaoStagger';
+import Buffs from './modules/core/Buffs';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     EnergyTracker,
     EnergyGraph,
+    buffs: Buffs,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
     mysticTouch: MysticTouch,

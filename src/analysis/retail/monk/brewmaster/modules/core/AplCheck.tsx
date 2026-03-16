@@ -1,7 +1,7 @@
 import SPELLS_COMMON from 'common/SPELLS';
 import SPELLS from '../../spell-list_Monk_Brewmaster.retail';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
@@ -50,6 +50,38 @@ const CHP_SETUP = {
 };
 
 const standardApl = build([
+  {
+    spell: SPELLS.BREATH_OF_FIRE_TALENT,
+    condition: cnd.describe(
+      cnd.and(
+        cnd.hasTalent(talents.WISDOM_OF_THE_WALL_TALENT),
+        cnd.buffPresent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT),
+      ),
+      (tense) => (
+        <>
+          <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}>Niuzao</SpellLink>{' '}
+          {tenseAlt(tense, 'is', 'was')} active (as{' '}
+          <SpellLink spell={SPELLS.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>)
+        </>
+      ),
+    ),
+  },
+  {
+    spell: SPELLS.KEG_SMASH_TALENT,
+    condition: cnd.describe(
+      cnd.and(
+        cnd.hasTalent(talents.WISDOM_OF_THE_WALL_TALENT),
+        cnd.buffPresent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT),
+      ),
+      (tense) => (
+        <>
+          <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}>Niuzao</SpellLink>{' '}
+          {tenseAlt(tense, 'is', 'was')} active (as{' '}
+          <SpellLink spell={SPELLS.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>)
+        </>
+      ),
+    ),
+  },
   CHP_SETUP,
   SPELLS.BLACKOUT_KICK,
   {
