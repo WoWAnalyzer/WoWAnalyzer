@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import { AlertInfo, SpellLink, TooltipElement } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import talents from 'common/TALENTS/monk';
@@ -17,6 +17,7 @@ import AspectOfHarmony from './modules/talents/AspectOfHarmony';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import InvokeNiuzaoSection from './modules/talents/InvokeNiuzao/InvokeNiuzaoSection';
 import StaggerPoolSection from './modules/core/StaggerPool/StaggerPoolSection';
+import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
 
 export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -35,11 +36,10 @@ export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
         </p>
         <StaggerPoolSection />
       </Section>
-      <Section title="Core Rotation">
-        <AlertInfo>
-          Analysis of the Brewmaster rotation is temporarily disabled due to large changes in
-          Midnight. Cooldown analysis is still available.
-        </AlertInfo>
+      <Section title="Rotation & Cooldowns">
+        <SubSection title="Rotation">
+          <AplChoiceDescription />
+        </SubSection>
         <SubSection title="Major Cooldowns">
           <Explanation>
             <p>

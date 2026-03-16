@@ -790,11 +790,10 @@ const spells = {
     name: 'Charred Passions',
     icon: 'ability_monk_mightyoxkick',
   },
-  // Tier 29 2-set bonus
-  BREWMASTERS_RHYTHM_BUFF: {
-    id: 394797,
-    name: "Brewmaster's Rhythm",
-    icon: 'ability_monk_standingkick',
+  EMPTY_BARREL_BUFF: {
+    id: 1265307,
+    name: 'Empty Barrel',
+    icon: 'inv_achievement_dungeon_cinderbrewmeadery.jpg',
   },
   PRESS_THE_ADVANTAGE_BUFF: {
     ...talents.PRESS_THE_ADVANTAGE_TALENT,
