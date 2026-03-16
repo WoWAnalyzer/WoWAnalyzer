@@ -23,7 +23,7 @@ import UnstableAfflictionCasts from './modules/analyzers/UnstableAfflictionEffic
 import DrainSoul from './modules/analyzers/DrainSoul';
 import Haunt from './modules/analyzers/Haunt';
 import Nightfall from './modules/analyzers/Nightfall';
-import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -65,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
+    demonicHealthstone: DemonicHealthstone,
 
     // Items
 

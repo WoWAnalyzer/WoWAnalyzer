@@ -82,6 +82,7 @@
     "oxc-parser": "0.94.0",
     "oxfmt": "0.40.0",
     "oxlint": "1.55.0",
+    "oxlint-tsgolint": "0.17.0",
     "react-test-renderer": "19.2.0",
     "sass": "1.93.2",
     "ts-node": "10.9.2",
