@@ -153,19 +153,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 50,
     isActive: (c) => c.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
   },
-  // {
-  //   linkRelation: HIT_TARGET,
-  //   reverseLinkRelation: FROM_HARDCAST,
-  //   linkingEventId: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
-  //   linkingEventType: EventType.Damage,
-  //   referencedEventId: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
-  //   referencedEventType: EventType.Cast,
-  //   forwardBufferMs: CAST_BUFFER_MS,
-  //   backwardBufferMs: AFTER_CAST_BUFFER_MS,
-  //   anyTarget: true,
-  //   maximumLinks: 50, // 5 flickers hitting many targets
-  //   isActive: (c) => c.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
-  // },
 ];
 
 /**
