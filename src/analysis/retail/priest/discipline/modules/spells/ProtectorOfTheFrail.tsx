@@ -51,13 +51,7 @@ class ProtectorOfTheFrail extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS_PRIEST.PROTECTOR_OF_THE_FRAIL_TALENT}>
-            <SpellIcon
-              spell={TALENTS_PRIEST.PAIN_SUPPRESSION_TALENT}
-              style={{
-                height: '1.3em',
-                marginTop: '-1.em',
-              }}
-            />{' '}
+            <SpellIcon spell={TALENTS_PRIEST.PAIN_SUPPRESSION_TALENT} />{' '}
             {(this.effectivePainSupressionReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
           </BoringSpellValueText>
