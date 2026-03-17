@@ -1061,6 +1061,11 @@ const spells = {
     name: 'Feral Frenzy',
     icon: 'ability_druid_rake',
   },
+  FRANTIC_FRENZY_DEBUFF: {
+    id: 1244079,
+    name: 'Frantic Frenzy',
+    icon: 'ability_xavius_nightmareblades',
+  },
   CLEARCASTING_FERAL: {
     id: 135700,
     name: 'Clearcasting',

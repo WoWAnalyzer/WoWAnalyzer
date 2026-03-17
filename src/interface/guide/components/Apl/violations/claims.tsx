@@ -166,7 +166,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
         <ActualCastDescription event={violation.actualCast} />.
       </p>
       <p>
-        This is a low-priority filler spell. You should instead cast a higher-priority spell like{' '}
+        You should instead cast a higher-priority spell like{' '}
         <SpellLink spell={violation.expectedCast[0].id} />.
       </p>
     </>
