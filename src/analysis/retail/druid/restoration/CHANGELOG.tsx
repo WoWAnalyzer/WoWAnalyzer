@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 3, 16), <>Added full support for the both hero talents. Guide is now complete for Midnight season 1 raid Launch.</>, squided),
   change(date(2026, 2, 26), <>Activating Resto Druid analyzer for Midnight! Full support is not yet implemented, but partial support is there.</>, squided),
   change(date(2025, 8, 15), <>Added statistic for <SpellLink spell={TALENTS_DRUID.ROOT_NETWORK_TALENT}/>, and added <SpellLink spell={SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER}/> to HoT graph.</>, Sref),
   change(date(2025, 7, 3), <>Updates <SpellLink spell={SPELLS.INNERVATE}/> guide section to evaluate based on ramp active time instead of flat mana saved. Fixed CDR from Dreamstate. Added active time evaluation to guide.</>, Sref),
