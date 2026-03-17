@@ -504,22 +504,6 @@ const spells = {
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
   },
-  // Regrowth cast by Dryad from Sylvan Beckoning
-  DRYAD_REGROWTH: {
-    id: 1264664,
-    name: 'Regrowth',
-    icon: 'spell_nature_resistnature',
-  },
-  DRYAD_TRANQUILITY: {
-    id: 1264659,
-    name: 'Tranquility',
-    icon: 'spell_nature_tranquility',
-  },
-  DRYAD_SPIRIT_OF_THE_THICKET: {
-    id: 1264905,
-    name: 'Spirit of the Thicket',
-    icon: 'spell_unused',
-  },
   EVERBLOOM_SPLASH_HEAL: {
     id: 1244341,
     name: 'Everbloom',
@@ -1369,6 +1353,46 @@ const spells = {
     id: 434141,
     name: 'Dream Bloom',
     icon: 'inv_ability_keeperofthegrovedruid_dreamsurge_fiendly',
+  },
+  // Regrowth cast by Dryad from Sylvan Beckoning
+  DRYAD_REGROWTH: {
+    id: 1264664,
+    name: 'Regrowth',
+    icon: 'spell_nature_resistnature',
+  },
+  // Tranquility cast by Dryad from Sylvan Beckoning
+  DRYAD_TRANQUILITY: {
+    id: 1264659,
+    name: 'Tranquility',
+    icon: 'spell_nature_tranquility',
+  },
+  // Heal event from the spirit of the thicket dryad
+  DRYAD_SPIRIT_OF_THE_THICKET_HEAL: {
+    id: 1264905,
+    name: 'Spirit of the Thicket',
+    icon: 'spell_unused',
+  },
+  // Buff on player while spirit of the thicket dryad is active
+  DRYAD_SPIRIT_OF_THE_THICKET_BUFF: {
+    id: 1264911,
+    name: 'Spirit of the Thicket',
+    icon: 'ui_darkshore_warfront_alliance_dryad',
+  },
+  // Buff on player while sylvan beckoning dryad is active
+  SYLVAN_BECKONING_ACTIVE: {
+    id: 1264618,
+    name: 'Sylvan Beckoning',
+    icon: 'ui_darkshore_warfront_alliance_dryad',
+  },
+  POWER_OF_NATURE: {
+    id: 428866,
+    name: 'Power of Nature',
+    icon: 'spll_nature_naturesblessing',
+  },
+  HARMONY_OF_THE_GROVE: {
+    id: 428737,
+    name: 'Harmony of the Grove',
+    icon: 'ability_druid_forceofnature',
   },
 } satisfies Record<string, Spell>;
 

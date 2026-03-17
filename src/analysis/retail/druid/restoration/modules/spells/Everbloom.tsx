@@ -40,7 +40,7 @@ class Everbloom extends Analyzer {
     this.hasRank3Talent = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT,
     );
-    this.active = true;
+    this.active = this.hasAnyEverbloomTalent;
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
       this.onLifebloomHeal,

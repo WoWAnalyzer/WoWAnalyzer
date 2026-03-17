@@ -41,7 +41,7 @@ const SOTF_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION, SPELL
 const REJUVENATION_HEALING_INCREASE = 0.6;
 const REGROWTH_HEALING_INCREASE = 0.6;
 
-const debug = true;
+const debug = false;
 
 /**
  * **Soul of the Forest**
