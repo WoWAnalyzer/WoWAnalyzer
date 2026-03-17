@@ -530,7 +530,6 @@ class TreeOfLife extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT}>
           <ItemPercentHealingDone amount={this._getTotalHealing(this.hardcast)} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

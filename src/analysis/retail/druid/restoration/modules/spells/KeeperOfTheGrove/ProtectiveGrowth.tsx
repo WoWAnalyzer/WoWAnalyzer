@@ -19,7 +19,6 @@ const PROTECTIVE_GROWTH_REDUCTION = 0.08;
  */
 class ProtectiveGrowth extends Analyzer {
   damageReduced = 0;
-  damageDuringProtectiveGrowth = 0;
 
   constructor(options: Options) {
     super(options);
@@ -33,15 +32,11 @@ class ProtectiveGrowth extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.REGROWTH.id)) {
       return;
     }
-    this.damageDuringProtectiveGrowth += calculateEffectiveDamageReduction(
-      event,
-      PROTECTIVE_GROWTH_REDUCTION,
-    );
+    this.damageReduced += calculateEffectiveDamageReduction(event, PROTECTIVE_GROWTH_REDUCTION);
   }
 
   statistic() {
     const fightDuration = this.owner.fightDuration;
-    this.damageReduced = this.damageDuringProtectiveGrowth;
 
     return (
       <Statistic

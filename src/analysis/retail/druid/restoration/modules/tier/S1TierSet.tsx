@@ -57,7 +57,7 @@ class S1TierSet extends Analyzer {
     this.fourPieceWildGrowthCasts += 1;
 
     if (this.previousWildGrowthCastTimestamp !== null) {
-      const fullCooldownMs = this.spellUsable.fullCooldownDuration(SPELLS.WILD_GROWTH.id) || 9000;
+      const fullCooldownMs = this.spellUsable.fullCooldownDuration(SPELLS.WILD_GROWTH.id) || 10000;
       const castWithoutTierTimestamp = this.previousWildGrowthCastTimestamp + fullCooldownMs;
 
       const effectiveCdr = Math.max(

@@ -69,7 +69,6 @@ export default class ImprovedWildGrowth extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.IMPROVED_WILD_GROWTH_TALENT}>
           <ItemPercentHealingDone amount={this.attribution.healing} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

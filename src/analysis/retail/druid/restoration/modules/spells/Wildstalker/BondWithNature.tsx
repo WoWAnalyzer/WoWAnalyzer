@@ -25,7 +25,7 @@ export default class BondWithNature extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BOND_WITH_NATURE_TALENT);
 
-    this.addEventListener(Events.heal, this.onHeal);
+    this.addEventListener(Events.heal.to(this.selectedCombatant.id), this.onHeal);
   }
 
   private onHeal(event: HealEvent) {

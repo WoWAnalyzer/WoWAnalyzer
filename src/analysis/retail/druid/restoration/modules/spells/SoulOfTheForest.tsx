@@ -352,7 +352,6 @@ class SoulOfTheForest extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

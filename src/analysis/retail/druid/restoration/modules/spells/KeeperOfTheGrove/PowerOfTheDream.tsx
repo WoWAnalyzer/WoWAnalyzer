@@ -2,15 +2,13 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-const DREAM_SURGE_BASE_TARGETS = 3;
-const POWER_OF_THE_DREAM_ADDITIONAL_TARGETS = 1;
+const DREAM_SURGE_TOTAL_TARGETS = 4;
 
 /**
  * **Power of the Dream**
@@ -32,9 +30,8 @@ export default class PowerOfTheDream extends Analyzer {
   }
 
   onDreamBloomHeal(event: HealEvent) {
-    const powerOfTheDreamIncrease =
-      POWER_OF_THE_DREAM_ADDITIONAL_TARGETS / DREAM_SURGE_BASE_TARGETS;
-    this.totalHealing += calculateEffectiveHealing(event, powerOfTheDreamIncrease);
+    const effectiveHeal = event.amount + (event.absorbed || 0);
+    this.totalHealing += effectiveHeal / DREAM_SURGE_TOTAL_TARGETS;
   }
 
   statistic() {
@@ -46,7 +43,6 @@ export default class PowerOfTheDream extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.POWER_OF_THE_DREAM_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );
