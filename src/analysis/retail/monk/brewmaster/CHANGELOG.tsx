@@ -5,6 +5,8 @@ import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 16), <>Add several missing sources of <SpellLink spell={SPELLS.KEG_SMASH_TALENT} /> and Brew CDR / resets.</>, emallson),
+  change(date(2026, 3, 16), <>Add rotation support for Midnight S1</>, emallson),
   change(date(2026, 2, 22), <>Add new <SpellLink spell={SPELLS.STAGGER_TALENT} /> implementation and section</>, emallson),
   change(date(2026, 2, 21), <>Add <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> section</>, emallson),
   change(date(2026, 1, 18), <>Add statistic for <SpellLink spell={SPELLS.VITAL_FLAME_TALENT} /></>, emallson),
