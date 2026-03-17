@@ -68,6 +68,13 @@ import EarlySpring from 'analysis/retail/druid/restoration/modules/spells/Keeper
 import PowerOfTheDream from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PowerOfTheDream';
 import HarmonyOfTheGrove from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/HarmonyOfTheGrove';
 import PotentEnchantments from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PotentEnchantments';
+import HuntBeneathTheOpenSkies from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HuntBeneathTheOpenSkies';
+import StrategicInfusion from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/StrategicInfusion';
+import WildstalkersPower from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/WildstalkersPower';
+import HarmoniousConstitution from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HarmoniousConstitution';
+import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BondWithNature';
+import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/PatientCustodian';
+import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -147,6 +154,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // WildStalker
     rootNetwork: RootNetwork,
+    HuntBeneathTheOpenSkies: HuntBeneathTheOpenSkies,
+    StrategicInfusion: StrategicInfusion,
+    WildstalkersPower: WildstalkersPower,
+    HarmoniousConstitution: HarmoniousConstitution,
+    BondWithNature: BondWithNature,
+    PatientCustodian: PatientCustodian,
+    VigorousCreepers: VigorousCreepers,
 
     // Mana Tab
     manaTracker: ManaTracker,
