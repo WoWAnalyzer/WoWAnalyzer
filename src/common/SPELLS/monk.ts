@@ -823,6 +823,16 @@ const spells = {
     name: 'Exploding Keg',
     icon: 'inv12_ability_monk_explodingkeg.jpg',
   },
+  EMPTY_THE_CELLAR_CAST: {
+    id: 1263438,
+    name: 'Empty the Cellar',
+    icon: 'ability_vehicle_liquidpyrite.jpg',
+  },
+  EMPTY_THE_CELLAR_DAMAGE: {
+    id: 1262765,
+    name: 'Empty the Cellar',
+    icon: 'ability_vehicle_liquidpyrite.jpg',
+  },
   // Midnight S1 Tier Set
   EXTRA_KICK_DAMAGE: {
     id: 1272464,

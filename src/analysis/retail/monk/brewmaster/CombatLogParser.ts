@@ -51,6 +51,9 @@ import PurifyingBrew from './modules/talents/PurifyingBrew';
 import TouchOfDeathStagger from './modules/spells/TouchOfDeathStagger';
 import InvokeNiuzaoStagger from './modules/talents/InvokeNiuzao/InvokeNiuzaoStagger';
 import Buffs from './modules/core/Buffs';
+import EmptyBarrel from './modules/talents/BringMeAnother/EmptyBarrel';
+import ExplodingKeg from './modules/spells/ExplodingKeg';
+import EmptyTheCellar from './modules/spells/EmptyTheCellar';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -86,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveBuffs: DefensiveBuffs,
     defensiveLinks: DefensiveBuffLinkNormalizer,
     stagger: StaggerPool,
+    ExplodingKeg,
 
     // Items
 
@@ -118,6 +122,8 @@ class CombatLogParser extends CoreCombatLogParser {
     VitalFlames,
     InvokeNiuzao,
     InvokeNiuzaoStagger,
+    EmptyBarrel,
+    EmptyTheCellar,
 
     apl: AplCheck,
   };
