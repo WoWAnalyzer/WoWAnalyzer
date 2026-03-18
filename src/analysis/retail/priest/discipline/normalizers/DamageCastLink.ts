@@ -27,7 +27,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: DAMAGE,
     linkRelation: CAST,
     referencedEventId: [
-      SPELLS.VOID_BLAST_DAMAGE_DISC.id,
+      SPELLS.VOID_BLAST_CAST_DISC.id,
       SPELLS.PENANCE_CAST.id,
       SPELLS.DARK_REPRIMAND_CAST.id,
       SPELLS.SMITE.id,
@@ -39,7 +39,7 @@ const EVENT_LINKS: EventLink[] = [
     ],
     referencedEventType: EventType.Cast,
     linkingEventId: [
-      SPELLS.VOID_BLAST_DAMAGE_DISC.id,
+      SPELLS.VOID_BLAST_CAST_DISC.id,
       SPELLS.SMITE.id,
       SPELLS.PENANCE.id,
       SPELLS.DARK_REPRIMAND_DAMAGE.id,

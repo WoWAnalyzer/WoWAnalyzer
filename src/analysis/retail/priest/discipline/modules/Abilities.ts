@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.PAIN_SUPPRESSION_TALENT.id,
         charges: combatant.hasTalent(TALENTS.PROTECTOR_OF_THE_FRAIL_TALENT) ? 2 : 1,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         enabled: combatant.hasTalent(TALENTS.PAIN_SUPPRESSION_TALENT),
       },
@@ -122,6 +122,29 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.POWER_WORD_BARRIER_TALENT),
       },
       {
+        spell: SPELLS.SMITE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.VOID_BLAST_CAST_DISC.id,
+        enabled: combatant.hasTalent(TALENTS.VOID_BLAST_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MIND_BLAST_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: (haste) => 28 / (1 + haste),
+      },
+      {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -129,11 +152,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SMITE.id,
+        spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 10,
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(TALENTS.SHADOW_WORD_DEATH_TALENT),
       },
       {
         spell: TALENTS.HOLY_NOVA_TALENT.id,
@@ -144,7 +169,31 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.HOLY_NOVA_TALENT),
       },
-
+      {
+        spell: SPELLS.PURIFY.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 8,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MASS_DISPEL_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.MASS_DISPEL_TALENT),
+      },
+      {
+        spell: TALENTS.DISPEL_MAGIC_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.DISPEL_MAGIC_TALENT),
+      },
       {
         spell: TALENTS.ANGELIC_FEATHER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -181,31 +230,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.MIND_CONTROL_TALENT),
       },
       {
-        spell: TALENTS.MASS_DISPEL_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.MASS_DISPEL_TALENT),
-      },
-      {
-        spell: TALENTS.DISPEL_MAGIC_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.DISPEL_MAGIC_TALENT),
-      },
-      {
-        spell: SPELLS.PURIFY.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 8,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS.SHACKLE_HORROR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -227,16 +251,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MIND_BLAST_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: (haste) => 24 / (1 + haste),
-      },
-      {
         spell: SPELLS.MIND_SOOTHE.id,
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: 5,
         gcd: {
           base: 1500,
@@ -244,7 +260,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POWER_WORD_FORTITUDE.id,
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.HIDDEN,
         gcd: {
           base: 1500,
         },
@@ -262,15 +278,6 @@ class Abilities extends CoreAbilities {
         enabled:
           combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT) &&
           !combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT),
-      },
-      {
-        spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 10,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SHADOW_WORD_DEATH_TALENT),
       },
     ];
   }
