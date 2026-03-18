@@ -170,7 +170,7 @@ class OtherRacials extends Analyzer.withDependencies({
       case RACES.DracthyrHorde:
         this.deps.abilities.add({
           spell: SPELLS.GLIDE_DRACTHYR.id,
-          category: SPELL_CATEGORY.OTHERS,
+          category: SPELL_CATEGORY.HIDDEN,
           cooldown: 1,
           gcd: null,
         });

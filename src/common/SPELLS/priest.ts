@@ -316,7 +316,7 @@ const spells = {
   EXPIATION_DAMAGE: {
     id: 390844,
     name: 'Expiation',
-    icon: 'spell-shadow-shadowpower',
+    icon: 'spell_shadow_shadowpower',
   },
   BURNING_VEHEMENCE_DAMAGE: {
     id: 400370,
@@ -335,7 +335,7 @@ const spells = {
     name: 'Collapsing Void',
     icon: 'inv_cosmicvoid_groundsate',
   },
-  VOID_BLAST_DAMAGE_DISC: {
+  VOID_BLAST_CAST_DISC: {
     id: 450215,
     name: 'Void Blast',
     icon: 'inv_cosmicvoid_missile',
