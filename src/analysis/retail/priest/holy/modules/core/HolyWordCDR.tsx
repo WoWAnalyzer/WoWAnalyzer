@@ -4,7 +4,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { TIERS } from 'game/TIERS';
 import { CastEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/priest';
 import {
@@ -13,12 +12,9 @@ import {
   chastiseHWCDR,
   energyCycleCDR,
   HOLY_ENERGY_CYCLE_PROC,
-  HOLY_TWW_S1_4PC_CDR,
   LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
   sanctifyHWCDR,
   serenityHWCDR,
-  TWW_S1_HOLY_4PC_CDR_PROC,
-  TWW_TIER1_2PC_CDR,
 } from '../../constants';
 
 /**
@@ -38,17 +34,15 @@ class HolyWordCDR extends Analyzer {
   private baseHolyWordCDR = 1;
   private baseVohMult = 0;
   private lotnMult = 1;
-  private twwS1TierMult = 1;
 
   private chastiseActive = false;
   private sanctifyActive = false;
-  private salvationActive = false;
-  //serenity is always active
+  // serenity is always active
 
   constructor(options: Options) {
     super(options);
 
-    // The below 3 if statements scale the CDR base on talents/gear
+    // Light of the Naaru
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.LIGHT_OF_THE_NAARU_TALENT)) {
       this.lotnMult =
         this.selectedCombatant.getTalentRank(TALENTS_PRIEST.LIGHT_OF_THE_NAARU_TALENT) *
@@ -56,53 +50,34 @@ class HolyWordCDR extends Analyzer {
         1;
     }
 
-    if (this.selectedCombatant.has2PieceByTier(TIERS.TWW1)) {
-      this.twwS1TierMult = TWW_TIER1_2PC_CDR + 1;
-    }
-
+    // Voice of Harmony
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.VOICE_OF_HARMONY_TALENT)) {
       this.baseVohMult =
         0.5 * this.selectedCombatant.getTalentRank(TALENTS_PRIEST.VOICE_OF_HARMONY_TALENT);
     }
 
+    // Which Holy Words are talented
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_CHASTISE_TALENT)) {
       this.chastiseActive = true;
     }
-
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT)) {
       this.sanctifyActive = true;
     }
-    this.baseHolyWordCDR = this.lotnMult * this.twwS1TierMult;
+
+    // Base CDR multiplier = Light of the Naaru only (no tier set)
+    this.baseHolyWordCDR = this.lotnMult;
   }
 
   public handleAny(event: CastEvent, specialEvent?: string): hwCDRBreakdown | undefined {
-    //energy cycle special events
+    // Energy Cycle special event (from Archon)
     if (specialEvent === HOLY_ENERGY_CYCLE_PROC) {
       return this.handleCDR(
         energyCycleCDR.get(TALENTS.ENERGY_CYCLE_TALENT.id),
         TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
       );
     }
-    // 4pc special events
-    if (
-      sanctifyHWCDR.has(event.ability.guid) &&
-      this.sanctifyActive &&
-      specialEvent === TWW_S1_HOLY_4PC_CDR_PROC
-    ) {
-      return this.handleCDR(
-        sanctifyHWCDR.get(event.ability.guid),
-        TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
-        specialEvent,
-      );
-    }
-    if (serenityHWCDR.has(event.ability.guid) && specialEvent === TWW_S1_HOLY_4PC_CDR_PROC) {
-      return this.handleCDR(
-        serenityHWCDR.get(event.ability.guid),
-        TALENTS.HOLY_WORD_SERENITY_TALENT.id,
-        specialEvent,
-      );
-    }
-    //base events
+
+    // Base events
     if (chastiseHWCDR.has(event.ability.guid) && this.chastiseActive) {
       return this.handleCDR(
         chastiseHWCDR.get(event.ability.guid),
@@ -122,68 +97,62 @@ class HolyWordCDR extends Analyzer {
       );
     }
   }
-  /**
-   * this function is called by one of the above handlers and returns a breakdown of what effects contributed to
-   * holy word CDR effects.
-   *
-   * if vohAffectsBase is ever true, attribute the entire base to voice of harmony
-   *
-   * this takes a baseHolyWordCDR type, you can manually write one to fit in special cases
-   */
 
+  /**
+   * Called by handlers – returns breakdown of CDR sources.
+   * If vohAffectsBase, the entire base CDR is attributed to Voice of Harmony.
+   */
   private handleCDR(
     hwMap: baseHolyWordCDR | undefined,
     hwToReduceId: number,
-    specialMod?: string,
+    specialMod?: string, // currently only used for Energy Cycle, but kept for future
   ): hwCDRBreakdown | undefined {
     let baseMult = 1;
     let modHolyWordCDR = this.baseHolyWordCDR;
     let apothMult = 1;
-    let tier4pcMult = 1;
 
+    // Apotheosis buff active? (exclude if map says apothDisable)
     if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT) && !hwMap?.apothDisable) {
       modHolyWordCDR *= 1 + APOTH_MULTIPIER;
       apothMult = 1 + APOTH_MULTIPIER;
     }
 
+    // Voice of Harmony – if this ability's CDR depends on VoH, baseMult becomes the VoH multiplier
     if (hwMap?.vohDependent) {
       baseMult = this.baseVohMult;
     }
 
-    if (specialMod === '4PC') {
-      modHolyWordCDR *= 1 + HOLY_TWW_S1_4PC_CDR;
-      tier4pcMult *= 1 + HOLY_TWW_S1_4PC_CDR;
-    }
-
-    // At this point all modifiers should be settled, if blizzard ever adds a new modifier
-    // add it into the calcs somewhere here
-
-    // TODO: twws1 tier set supposedly scales the CDR down to 35% effectiveness
-    //       if this is true, if(getRelatedEvents(tier proc)) -> multipliers cut down to 0.35
-
+    // Base CDR value (in seconds)
     const baseCDR = (hwMap?.baseCDR || 0) * baseMult;
+    // Ideal total CDR after all multipliers (seconds)
     const idealCDR = baseCDR * modHolyWordCDR;
-    const actualCDR = this.spellUsable.reduceCooldown(hwToReduceId, idealCDR);
 
-    // if there is no base CDR, then a VoH spell was passed and VoH was not specced, return 0
+    // Convert to milliseconds before passing to reduceCooldown
+    const idealCDRms = Math.round(idealCDR * 1000);
+    const actualCDRms = this.spellUsable.reduceCooldown(hwToReduceId, idealCDRms);
+
+    // If no base CDR (shouldn't happen), return nothing
     if (baseCDR === 0) {
       return;
     }
-    // if base CDR is larger than actual CDR none of the modifiers mattered
-    else if (baseCDR >= actualCDR) {
+
+    // Convert actual CDR back to seconds for the breakdown (keep as float for display)
+    const actualCDR = actualCDRms / 1000;
+
+    // If modifiers didn't matter (actual <= base), return a simplified breakdown
+    if (baseCDR >= actualCDR) {
       return {
         idealTotalCDR: idealCDR,
         actualTotalCDR: actualCDR,
         cdrFromBase: actualCDR,
         cdrFromLOTN: 0,
         cdrFromApoth: 0,
-        cdrFromTwwTier: 0,
-        cdrFrom4pc: 0,
         vohAffectsBase: hwMap?.vohDependent,
         affectedSpell: hwToReduceId,
       };
     }
 
+    // Scale the component contributions based on how much of the ideal was actually realized
     const cdrScaler = (actualCDR - baseCDR) / (idealCDR - baseCDR);
 
     return {
@@ -192,31 +161,27 @@ class HolyWordCDR extends Analyzer {
       cdrFromBase: baseCDR,
       cdrFromLOTN: this.getCDRComponent(idealCDR, cdrScaler, this.lotnMult),
       cdrFromApoth: this.getCDRComponent(idealCDR, cdrScaler, apothMult),
-      cdrFromTwwTier: this.getCDRComponent(idealCDR, cdrScaler, this.twwS1TierMult),
-      cdrFrom4pc: this.getCDRComponent(idealCDR, cdrScaler, tier4pcMult),
       vohAffectsBase: hwMap?.vohDependent,
       affectedSpell: hwToReduceId,
     };
   }
 
-  // figure out what the other multipliers combine to without and minus from total
+  // Helper: compute contribution of a specific multiplier
   private getCDRComponent(idealCDR: number, cdrScaler: number, amp: number): number {
+    // Contribution = scaler * (ideal - ideal/amp)
     return cdrScaler * (idealCDR - idealCDR / amp);
   }
 }
 
-// If vohAffectsBase is true, the attribute base CDR to Voice of Harmony
-// can directly add new effects as needed
+// Breakdown interface (TWW tier removed)
 interface hwCDRBreakdown {
-  idealTotalCDR: number;
-  actualTotalCDR: number;
-  cdrFromBase: number;
-  cdrFromLOTN: number;
-  cdrFromApoth: number;
-  cdrFromTwwTier: number;
-  cdrFrom4pc: number;
-  vohAffectsBase: boolean | undefined;
-  affectedSpell: number;
+  idealTotalCDR: number;      // total CDR that would have happened if no waste (seconds)
+  actualTotalCDR: number;      // actual CDR after waste (seconds)
+  cdrFromBase: number;         // base CDR (seconds)
+  cdrFromLOTN: number;         // Light of the Naaru contribution (seconds)
+  cdrFromApoth: number;        // Apotheosis contribution (seconds)
+  vohAffectsBase: boolean | undefined; // whether base came from Voice of Harmony
+  affectedSpell: number;       // which Holy Word was reduced
 }
 
 export default HolyWordCDR;

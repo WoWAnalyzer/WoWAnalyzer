@@ -35,6 +35,8 @@ import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
 import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
 
+import EmpyrealBlaze from './modules/talents/MiddleRow/EmpyrealBlaze';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     spellManaCost: SpellManaCost,
@@ -78,6 +80,8 @@ class CombatLogParser extends CoreCombatLogParser {
     prayerOfMending: PrayerOfMending,
 
     // Talents
+    EmpyrealBlaze: EmpyrealBlaze,
+
     Enlightenment: Talents.MiddleRow.Enlightenment,
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
     RenewedFaith: Talents.TopRow.RenewedFaith,
@@ -85,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     EverlastingLight: Talents.MiddleRow.EverlastingLight,
     PrismaticEchoes: Talents.MiddleRow.PrismaticEchoes,
     CrisisManagement: Talents.MiddleRow.CrisisManagement,
+    HolyCelerity: Talents.MiddleRow.HolyCelerity,
 
     BindingHeals: Talents.Classwide.BindingHeals,
     AngelsMercy: Talents.Classwide.AngelsMercy,
@@ -104,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Benediction: Talents.MiddleRow.Benediction,
     Apotheosis: Talents.BottomRow.Apotheosis,
     Lightweaver: Talents.BottomRow.Lightweaver,
+    Epiphany: Talents.BottomRow.Epiphany,
 
     divineImage: Talents.BottomRow.DivineImage,
     TranslucentImage: TranslucentImage,
@@ -121,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Oracle Hero Talents
     PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
+    ProphetsInsightHoly: Talents.Oracle.ProphetsInsightHoly,
 
     // Holy Specific Oracle Hero Talents
     PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,

@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
+import { Amiphite, Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2026, 3, 19), <>Partially updated for patch 12.0.1. Still need to implement modules and some talents.</>, Amiphite),
   change(date(2025, 6, 8), <>Add preparation section to overview.</>, Vetyst),
   change(date(2025, 6, 8), <>Add statistics for <SpellLink spell={TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />.</>, Vetyst),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),

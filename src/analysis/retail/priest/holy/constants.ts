@@ -89,36 +89,13 @@ export const RESONANT_WORD_WHITELIST = [
 // ORACLE VALUES
 
 export const FATEBENDER_SCALER = 1.4;
-export const SOLACE_DR = 0.15;
+//export const SOLACE_DR = 0.15;
 export const PIETY_OVERHEAL_MISDIRECT = 0.7;
 export const PIETY_AMP = 0.2;
-export const INSIGHT_CDR = 7;
 export const PREVENTIVE_MEASURES_DMG_AMP = 0.25;
 export const PREVENTIVE_MEASURES_HEAL_AMP = 0.4;
 export const PROPHETS_WILL_AMP = 0.3;
 export const PREEMPTIVE_CARE_RENEW_DUR = 6_000;
-
-export const INSIGHT_CDR_ABILITIES = [
-  TALENTS_PRIEST.ANGELIC_FEATHER_TALENT.id,
-  TALENTS_PRIEST.MASS_DISPEL_TALENT.id,
-  SPELLS.PSYCHIC_SCREAM.id,
-  SPELLS.DESPERATE_PRAYER.id,
-  SPELLS.MIND_SOOTHE.id,
-  SPELLS.FADE.id,
-  TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
-  TALENTS_PRIEST.HALO_HOLY_TALENT.id,
-  TALENTS_PRIEST.SHADOWFIEND_TALENT.id,
-  SPELLS.POWER_WORD_SHIELD.id,
-  SPELLS.PRAYER_OF_MENDING_HEAL.id,
-  TALENTS_PRIEST.APOTHEOSIS_TALENT.id,
-  TALENTS_PRIEST.HOLY_WORD_CHASTISE_TALENT.id,
-  SPELLS.HOLY_FIRE.id,
-  TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
-  TALENTS_PRIEST.HOLY_WORD_SERENITY_TALENT.id,
-  SPELLS.PURIFY.id,
-  TALENTS_PRIEST.DIVINE_HYMN_TALENT.id,
-  TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id,
-];
 
 export const PROPHETS_WILL_SPELLS_HOLY = [
   SPELLS.FLASH_HEAL,
@@ -282,7 +259,6 @@ export const HOLY_DIRECT_HEALS = [SPELLS.FLASH_HEAL, SPELLS.GREATER_HEAL];
 
 export const serenityHWCDR = new Map<number, baseHolyWordCDR>([
   [SPELLS.FLASH_HEAL.id, { baseCDR: 6 }],
-  [SPELLS.GREATER_HEAL.id, { baseCDR: 6 }],
   [SPELLS.PRAYER_OF_MENDING_HEAL.id, { baseCDR: 4, vohDependent: true }],
 ]);
 
@@ -293,12 +269,7 @@ export const sanctifyHWCDR = new Map<number, baseHolyWordCDR>([
 export const chastiseHWCDR = new Map<number, baseHolyWordCDR>([
   [SPELLS.SMITE.id, { baseCDR: 4 }],
   [SPELLS.HOLY_FIRE.id, { baseCDR: 4, vohDependent: true }],
-  [TALENTS.HOLY_NOVA_TALENT.id, { baseCDR: 4, vohDependent: true }],
-]);
-
-export const salvationHWCDR = new Map<number, baseHolyWordCDR>([
-  [TALENTS.HOLY_WORD_SERENITY_TALENT.id, { baseCDR: 15, apothDisable: true }],
-  [TALENTS.HOLY_WORD_SANCTIFY_TALENT.id, { baseCDR: 15, apothDisable: true }],
+  [TALENTS.HOLY_NOVA_TALENT.id, { baseCDR: 4, vohDependent: false }],
 ]);
 
 export const energyCycleCDR = new Map<number, baseHolyWordCDR>([

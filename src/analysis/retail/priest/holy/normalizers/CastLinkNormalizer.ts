@@ -17,7 +17,6 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
-import { INSIGHT_CDR_ABILITIES, SPELLS_THAT_PROC_S1_4PC_HOLY_ID } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 
@@ -49,6 +48,8 @@ export const HARDCAST_RENEW = 'HardCastRenew';
 export const HOLY_TWW_S1_4PC = 'HolyTwwS14pc';
 export const HEAL_TRAIL = 'LightweaverTrail';
 export const HEAL_BINDING = 'LightweaverBinding';
+
+const BUFFED_BY_EPIPHANY = 'EpiphanyPomCast';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -107,26 +108,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    linkRelation: LIGHTWELL_RENEW_HEALS,
-    reverseLinkRelation: LIGHTWELL_RENEW_HEALS,
-    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.RENEW_HEAL.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: 6000 + CAST_BUFFER_MS,
-    anyTarget: false,
-  },
-  {
-    linkRelation: LIGHTWELL_RENEW,
-    reverseLinkRelation: LIGHTWELL_RENEW,
-    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.RENEW_HEAL.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: false,
   },
   {
     linkRelation: BENEDICTION_RENEW,
@@ -233,16 +214,6 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_PRIEST.MANIFESTED_POWER_TALENT);
     },
   },
-  {
-    linkRelation: HOLY_TWW_S1_4PC,
-    linkingEventId: SPELLS_THAT_PROC_S1_4PC_HOLY_ID,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS_THAT_PROC_S1_4PC_HOLY_ID,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-  },
   // link heals to trail
   {
     linkRelation: HEAL_TRAIL,
@@ -261,6 +232,16 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.BINDING_HEALS_TALENT_HEAL.id,
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
+    linkRelation: BUFFED_BY_EPIPHANY,
+    linkingEventId: SPELLS.EPIPHANY_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
 ];

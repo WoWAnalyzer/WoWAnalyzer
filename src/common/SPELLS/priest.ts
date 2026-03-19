@@ -30,7 +30,7 @@ const spells = {
     icon: 'spell_holy_mindsooth',
     manaCost: 25000,
   },
-  CRYSTALLINE_REFLECTION_TALENT_HEAL: {
+  CRYSTALLINE_REFLECTION_TALENT_HEAL: { // Probably was removed in Midnight
     id: 373462,
     name: 'Crystalline Reflection',
     icon: 'ability_priest_reflectiveshield',
@@ -46,7 +46,7 @@ const spells = {
     icon: 'spell_holy_renew',
     manaCost: 45000,
   },
-  THROES_OF_PAIN_TALENT_RESOURCE_GAIN: {
+  THROES_OF_PAIN_TALENT_RESOURCE_GAIN: { // Probably was removed in Midnight
     id: 377427,
     name: 'Throes of Pain',
     icon: 'spell_shadow_haunting',
@@ -469,7 +469,7 @@ const spells = {
   },
 
   // Holy Priest Spells
-  GREATER_HEAL: {
+  GREATER_HEAL: { // Now it's just Heal on wowhead and removed in Midnight
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
@@ -482,7 +482,7 @@ const spells = {
     manaCost: 90000,
   },
   PRAYER_OF_MENDING_HEAL: {
-    id: 33110,
+    id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
   },
@@ -643,6 +643,11 @@ const spells = {
     id: 428933,
     name: 'Premonition of Insight',
     icon: 'inv_ability_oraclepriest_premonitioninsight',
+  },
+  EPIPHANY_BUFF: {
+    id: 414556,
+    name: 'Epiphany',
+    icon: 'ability_mage_studentofthemind',
   },
   HOLY_PRIEST_TWW_4PC_DISPLAY: {
     id: 453678,
