@@ -25,12 +25,14 @@ import {
   Vollmer,
   Yellot,
   Rex,
+  squided
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),
   change(date(2026, 3, 14), 'Add Support for Haranir Allied Race.', Vetyst),
   change(date(2026, 3, 13), 'Update AugmentRuneChecked for Midnight and Add a AugmentRune Panel to the Preparations section.', Vetyst),
   change(date(2026, 3, 13), 'Update EnchantChecker for Midnight.', Vetyst),

@@ -9,6 +9,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
@@ -28,9 +29,10 @@ const TRIAGE_THRESHOLD = 0.3;
 /** Max time from cast to heal event to consider the events linked */
 const MS_BUFFER = 100;
 /** Min stacks required to consider a regrowth efficient */
-const ABUNDANCE_EXCEPTION_STACKS = 4;
+const ABUNDANCE_EXCEPTION_STACKS = 4; // 4 stacks regrowth is now cheaper than rejuv
 /** Overheal percent at or below which we consider the direct heal effective */
 const LOW_OVERHEAL_THRESHOLD = 0.4;
+const PANDEMIC = 0.3;
 
 /**
  * Tracks stats relating to Regrowth and the Clearcasting proc
@@ -38,9 +40,11 @@ const LOW_OVERHEAL_THRESHOLD = 0.4;
 class RegrowthAndClearcasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    hotTracker: HotTrackerRestoDruid,
   };
 
   combatants!: Combatants;
+  hotTracker!: HotTrackerRestoDruid;
 
   /** total clearcasting procs */
   totalClearcasts = 0;
@@ -63,8 +67,8 @@ class RegrowthAndClearcasting extends Analyzer {
   triageRegrowths = 0;
   /** full price regrowth hardcasts on healthy targets */
   badRegrowths = 0;
-  /** regrowth hardcasts that overwrote an existing Regrowth HoT on the target (Nature's Bounty) */
-  overwriteRegrowths = 0;
+  /** regrowth hardcasts that were ok but not ideal (high overheal or non-pandemic overwrite) */
+  okRegrowths = 0;
 
   /** Box row entry for each Regrowth cast */
   castEntries: BoxRowEntry[] = [];
@@ -163,12 +167,20 @@ class RegrowthAndClearcasting extends Analyzer {
           : `Cheap (${abundanceStacks} Abundance stacks)`;
     }
 
-    // Check if target already has Regrowth HoT (only relevant with Nature's Bounty)
+    // Check if target already has Regrowth HoT and whether refresh is within pandemic window
+    // (only relevant with Nature's Bounty)
     let targetHadRegrowth = false;
-    if (this.hasNaturesBounty) {
-      const target = this.combatants.getEntity(event);
-      if (target?.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0)) {
+    let isPandemicRefresh = false;
+    if (this.hasNaturesBounty && event.targetID !== undefined) {
+      const targetHots = this.hotTracker.hots[event.targetID];
+      const existingRegrowth = targetHots?.[SPELLS.REGROWTH.id];
+      if (existingRegrowth) {
         targetHadRegrowth = true;
+        const remaining = existingRegrowth.end - event.timestamp;
+        const freshDuration = this.hotTracker._getDuration(
+          this.hotTracker.hotInfo[SPELLS.REGROWTH.id],
+        );
+        isPandemicRefresh = remaining <= freshDuration * PANDEMIC;
       }
     }
 
@@ -178,40 +190,38 @@ class RegrowthAndClearcasting extends Analyzer {
     let performance: QualitativePerformance;
     let castNote: string;
 
-    const regrowthStatusNote =
-      this.hasNaturesBounty && targetHadRegrowth
-        ? ' (target already had Regrowth)'
-        : this.hasNaturesBounty
-          ? ' (new Regrowth target)'
-          : '';
-
     if (isTriage) {
       // Triage is always Good regardless of cost
       this.triageRegrowths += 1;
       performance = QualitativePerformance.Good;
       castNote = isFreeOrCheap
-        ? `${freeNote} on a critically low target${regrowthStatusNote}`
-        : `Triage cast on a critically low target${regrowthStatusNote}`;
+        ? `${freeNote} on a critically low target`
+        : `Triage cast on a critically low target`;
     } else if (isFreeOrCheap) {
       if (this.hasNaturesBounty) {
-        if (!targetHadRegrowth && isLowOverheal) {
-          // Perfect: free/cheap, new Regrowth target, low overheal
-          performance = QualitativePerformance.Perfect;
-          castNote = `${freeNote} — new Regrowth target with low overheal`;
-        } else if (!targetHadRegrowth) {
-          // Good: free/cheap, new Regrowth target, but high/unknown overheal
+        if (!targetHadRegrowth || isPandemicRefresh) {
+          // Good: free/cheap on a new target or pandemic refresh
           performance = QualitativePerformance.Good;
-          castNote = `${freeNote} — new Regrowth target with high overheal`;
+          castNote = isPandemicRefresh
+            ? `${freeNote} — pandemic refresh of existing Regrowth`
+            : `${freeNote} — new Regrowth target`;
         } else {
-          // Ok: free/cheap but overwrote existing Regrowth HoT
-          this.overwriteRegrowths += 1;
+          // Ok: free/cheap but early overwrite of existing Regrowth HoT
+          this.okRegrowths += 1;
           performance = QualitativePerformance.Ok;
-          castNote = `${freeNote} — overwrote existing Regrowth HoT`;
+          castNote = `${freeNote} — overwrote existing Regrowth HoT (not in pandemic window)`;
         }
       } else {
-        // Without Nature's Bounty, all free/cheap casts are Good
-        performance = QualitativePerformance.Good;
-        castNote = freeNote;
+        if (isLowOverheal) {
+          // Good: free/cheap with effective healing
+          performance = QualitativePerformance.Good;
+          castNote = freeNote;
+        } else {
+          // Ok: free/cheap but high overheal
+          this.okRegrowths += 1;
+          performance = QualitativePerformance.Ok;
+          castNote = `${freeNote} — high overheal`;
+        }
       }
     } else {
       // Not free/cheap and not triage = Bad
@@ -308,8 +318,8 @@ class RegrowthAndClearcasting extends Analyzer {
           <SpellLink spell={SPELLS.REGROWTH} />
         </b>{' '}
         is for spot healing. The HoT is very weak — Regrowth is only efficient when its direct
-        portion is effective. Exceptions are when Regrowth is free due to{' '}
-        <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> /{' '}
+        portion is effective. Try to minimize overheal on the direct portion. Exceptions are when
+        Regrowth is free due to <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> /{' '}
         <SpellLink spell={SPELLS.NATURES_SWIFTNESS} />
         {hasAbundance && (
           <>
@@ -327,14 +337,21 @@ class RegrowthAndClearcasting extends Analyzer {
           <CastSummaryAndBreakdown
             spell={SPELLS.REGROWTH}
             castEntries={this.castEntries}
-            badExtraExplanation={<>at full mana cost without Clearcasting or Abundance</>}
-            {...(this.hasNaturesBounty && {
-              perfectExtraExplanation: <>free/cheap on a new Regrowth target with low overheal</>,
-              goodExtraExplanation: (
+            badExtraExplanation={<>without Clearcasting or low Abundance stacks</>}
+            goodExtraExplanation={
+              this.hasNaturesBounty ? (
                 <>free/cheap on a new Regrowth target, or triage on a critically low target</>
-              ),
-              okExtraExplanation: <>free/cheap but overwrote an existing Regrowth HoT</>,
-            })}
+              ) : (
+                <>free/cheap with effective healing, or triage on a critically low target</>
+              )
+            }
+            okExtraExplanation={
+              this.hasNaturesBounty ? (
+                <>free/cheap but overwrote an existing Regrowth HoT outside pandemic window</>
+              ) : (
+                <>free/cheap but high overheal</>
+              )
+            }
           />
         </div>
       </div>
@@ -384,10 +401,9 @@ class RegrowthAndClearcasting extends Analyzer {
                 {formatPercentage(TRIAGE_THRESHOLD, 0)}% HP) Casts:{' '}
                 <strong>{this.triageRegrowths}</strong>
               </li>
-              {this.hasNaturesBounty && (
+              {this.okRegrowths > 0 && (
                 <li>
-                  <SpellIcon spell={TALENTS_DRUID.NATURES_BOUNTY_TALENT} /> Overwrote Regrowth HoT:{' '}
-                  <strong>{this.overwriteRegrowths}</strong>
+                  Ok Casts: <strong>{this.okRegrowths}</strong>
                 </li>
               )}
               <li>

@@ -23,6 +23,8 @@ import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBr
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 
 const TRIAGE_THRESHOLD = 0.5;
+/** Duration threshold below which consuming a Rejuvenation is considered acceptable */
+const LOW_REJUV_THRESHOLD = 6000;
 const HIGH_VALUE_HOTS = [
   SPELLS.REJUVENATION.id,
   SPELLS.REJUVENATION_GERMINATION.id,
@@ -140,15 +142,39 @@ class Swiftmend extends Analyzer {
       }
     } else {
       const removedHotHeal = getRemovedHot(event);
+      const removedSpellId = removedHotHeal?.ability.guid;
+      let rejuvRemainingMs: number | undefined;
 
-      const removedHighValue =
-        HIGH_VALUE_HOTS.find((id) => id === removedHotHeal?.ability.guid) !== undefined;
-      if (wasTriage || !removedHighValue) {
+      if (!removedHotHeal) {
+        console.log(
+          'Swiftmend cast had no linked HoT removal',
+          event,
+          'HoTs on target:',
+          this.hotTracker.hots[target.id],
+        );
+      }
+
+      if (wasTriage) {
+        // Triage cast is always good regardless of consumed HoT
         value = QualitativePerformance.Good;
-      } else if (this.numProcs > 0) {
+      } else if (removedSpellId === SPELLS.WILD_GROWTH.id) {
+        value = QualitativePerformance.Good;
+      } else if (
+        removedSpellId === SPELLS.REJUVENATION.id ||
+        removedSpellId === SPELLS.REJUVENATION_GERMINATION.id
+      ) {
+        const hotOnTarget = this.hotTracker.hots[target.id]?.[removedSpellId];
+        rejuvRemainingMs = hotOnTarget ? hotOnTarget.end - event.timestamp : 0;
+        if (rejuvRemainingMs < LOW_REJUV_THRESHOLD) {
+          value = QualitativePerformance.Good;
+        } else {
+          value = QualitativePerformance.Fail;
+        }
+      } else if (removedSpellId === SPELLS.REGROWTH.id) {
         value = QualitativePerformance.Ok;
       } else {
-        value = QualitativePerformance.Fail;
+        // Unknown or other HoT (e.g., Renewing Bloom)
+        value = QualitativePerformance.Ok;
       }
 
       hotChangeText = (
@@ -161,6 +187,12 @@ class Swiftmend extends Analyzer {
               'unknown HoT'
             )}
           </strong>
+          {rejuvRemainingMs !== undefined && (
+            <>
+              {' '}
+              w/ <strong>{(rejuvRemainingMs / 1000).toFixed(1)}s</strong> remaining
+            </>
+          )}
         </>
       );
     }
@@ -198,7 +230,8 @@ class Swiftmend extends Analyzer {
     ) : (
       <>
         is our spot heal that removes a HoT on its target, slightly hurting overall throughput. Aim
-        to consume a Wild Growth or low duration Rejuvenation with this cast.
+        to consume a Wild Growth or low duration Rejuvenation. Regrowth is acceptable, but avoid
+        consuming high duration Rejuvenations.
       </>
     );
 
@@ -231,18 +264,17 @@ class Swiftmend extends Analyzer {
 
     // Build up color descriptions of chart, which vary based on talents
     let perfectExtraExplanation = undefined;
+    let goodExtraExplanation = undefined;
     let okExtraExplanation = undefined;
     let badExtraExplanation = undefined;
     if (this.hasVi) {
       // has VI
       perfectExtraExplanation = `extended high value HoTs`;
     }
-    if (this.numProcs > 0) {
-      // has proc(s)
-      okExtraExplanation = `non-triage (>50% health), which is still acceptable for generating procs`;
-    } else {
-      // no procs
-      badExtraExplanation = `non-triage (>50% health) and removes a WG or Rejuv`;
+    if (!this.hasVi) {
+      goodExtraExplanation = `consumed a Wild Growth/low duration Rejuvenation, or was a triage cast`;
+      okExtraExplanation = `consumed a Regrowth`;
+      badExtraExplanation = `consumed a high duration Rejuvenation`;
     }
 
     const data = (
@@ -251,6 +283,7 @@ class Swiftmend extends Analyzer {
           spell={SPELLS.SWIFTMEND}
           castEntries={this.castEntries}
           perfectExtraExplanation={perfectExtraExplanation}
+          goodExtraExplanation={goodExtraExplanation}
           okExtraExplanation={okExtraExplanation}
           badExtraExplanation={badExtraExplanation}
         />
