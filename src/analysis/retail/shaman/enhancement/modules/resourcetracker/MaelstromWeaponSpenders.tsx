@@ -1,4 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventFilter from 'parser/core/EventFilter';
 import MaelstromWeaponTracker from './MaelstromWeaponTracker';
 import Panel from 'parser/ui/Panel';
 import { EnhancementEventLinks, MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
@@ -6,6 +7,7 @@ import Events, {
   CastEvent,
   DamageEvent,
   EventType,
+  FreeCastEvent,
   GetRelatedEvents,
   HealEvent,
 } from 'parser/core/Events';
@@ -38,6 +40,10 @@ class MaelstromWeaponSpenders extends Analyzer.withDependencies({
       this.onCast,
     );
     this.addEventListener(
+      Events.freecast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
+      this.onCast,
+    );
+    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
       this.onSpender,
     );
@@ -47,7 +53,7 @@ class MaelstromWeaponSpenders extends Analyzer.withDependencies({
     );
   }
 
-  onCast(event: CastEvent) {
+  onCast(event: CastEvent | FreeCastEvent) {
     this.recordNextSpenderAmount = true;
     this.isPrimordialStormRelatedDamage = event.ability.guid === SPELLS.PRIMORDIAL_STORM_CAST.id;
     if (event.ability.guid === TALENTS.CHAIN_LIGHTNING_TALENT.id) {

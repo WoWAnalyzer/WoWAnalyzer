@@ -23,6 +23,10 @@ const Tooltip = ({
   hoverable = false,
   ...others
 }: TooltipProps) => {
+  if (content == null) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactTooltip
       {...others}
@@ -51,7 +55,13 @@ export const TooltipElement = ({
   tooltipClassName = '',
   ...others
 }: TooltipElementProps) => {
-  return (
+  const innerContent = (
+    <dfn className={className} style={style}>
+      {children}
+    </dfn>
+  );
+
+  return content ? (
     <ReactTooltip
       {...others}
       content={content}
@@ -60,10 +70,10 @@ export const TooltipElement = ({
       tipContentHover={hoverable}
       portalContainer={document.getElementById('portal-root')!}
     >
-      <dfn className={className} style={style}>
-        {children}
-      </dfn>
+      {innerContent}
     </ReactTooltip>
+  ) : (
+    innerContent
   );
 };
 
