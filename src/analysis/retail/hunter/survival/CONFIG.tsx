@@ -44,7 +44,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/GcyfdwP1XTJrR3h7/15-Mythic+Ulgrax+the+Devourer+-+Kill+(9:00)/Spearitual',
+  exampleReport:
+    '/report/kJ1Cz2Rqf3QwTWBG/35-Heroic+Imperator+Averzian+-+Wipe+2+(5:54)/82-Percival/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
