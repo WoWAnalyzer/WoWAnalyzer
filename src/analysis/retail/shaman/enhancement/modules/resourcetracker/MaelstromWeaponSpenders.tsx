@@ -1,5 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventFilter from 'parser/core/EventFilter';
 import MaelstromWeaponTracker from './MaelstromWeaponTracker';
 import Panel from 'parser/ui/Panel';
 import { EnhancementEventLinks, MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';

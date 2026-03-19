@@ -320,6 +320,12 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       timestamp: this.owner.formatTimestamp(missed.timestamp),
       sortTimestamp: missed.timestamp,
       detailsIcon: null,
+      tooltip: (
+        <>
+          <SpellLink spell={TALENTS.SUNDERING_TALENT} /> was cast without a follow-up{' '}
+          <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
+        </>
+      ),
       stats: [
         {
           value: 'Missed',

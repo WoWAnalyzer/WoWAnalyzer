@@ -1,20 +1,18 @@
 import type { JSX } from 'react';
 import styled from '@emotion/styled';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventFilter from 'parser/core/EventFilter';
-import Events, { CastEvent, EventType, FreeCastEvent } from 'parser/core/Events';
+import Events, { CastEvent, FreeCastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
-import { SpellLink, Tooltip } from 'interface';
+import { SpellLink } from 'interface';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastOverview from 'interface/guide/components/CastOverview';
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
-import { qualitativePerformanceToColor } from 'interface/guide';
 import { CastDetail, PerCastData } from 'interface/guide/components';
 
 const CDR_MS_PER_STACK = 300;

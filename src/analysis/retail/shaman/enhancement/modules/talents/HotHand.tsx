@@ -12,7 +12,6 @@ import Events, {
   DeathEvent,
   EventType,
   FightEndEvent,
-  FreeCastEvent,
   GetRelatedEvent,
   GlobalCooldownEvent,
   RemoveBuffEvent,
@@ -37,7 +36,6 @@ import {
   getAveragePerf,
 } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import {
   EnhancementEventLinks,
