@@ -72,6 +72,7 @@ export default class Eclipse extends Analyzer {
           </div>
           <div className="flex-main chart">
             <UptimeBar
+              aria-label={`Eclipse uptime timeline: ${formatPercentage(percentUptime, 0)}% active (solar, lunar, and celestial alignment phases)`}
               uptimeHistory={allUptimes}
               start={this.owner.fight.start_time}
               end={this.owner.fight.end_time}

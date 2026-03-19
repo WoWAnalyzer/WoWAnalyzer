@@ -188,7 +188,6 @@ export default class SpenderUsage extends Analyzer {
     );
 
     const { GOOD, OK, BAD } = this.windowPerformance;
-    const totalWindows = GOOD + OK + BAD;
     const noEclipseTotal = this.noEclipseStarsurges + this.noEclipseStarfalls;
 
     const data = (
@@ -201,11 +200,13 @@ export default class SpenderUsage extends Analyzer {
             - Green is {GOOD_SPENDERS_PER_ECLIPSE}+, Yellow is {OK_SPENDERS_PER_ECLIPSE}, Red is
             fewer.
           </small>
-          <GradiatedPerformanceBar
-            good={{ count: GOOD, label: `${GOOD_SPENDERS_PER_ECLIPSE}+ spenders` }}
-            ok={{ count: OK, label: `${OK_SPENDERS_PER_ECLIPSE} spenders` }}
-            bad={{ count: BAD, label: `Fewer than ${OK_SPENDERS_PER_ECLIPSE} spenders` }}
-          />
+          <div aria-label={`Spenders per Eclipse performance: ${GOOD} good, ${OK} ok, ${BAD} bad`}>
+            <GradiatedPerformanceBar
+              good={{ count: GOOD, label: `${GOOD_SPENDERS_PER_ECLIPSE}+ spenders` }}
+              ok={{ count: OK, label: `${OK_SPENDERS_PER_ECLIPSE} spenders` }}
+              bad={{ count: BAD, label: `Fewer than ${OK_SPENDERS_PER_ECLIPSE} spenders` }}
+            />
+          </div>
         </div>
 
         <RoundedPanel>
@@ -228,6 +229,7 @@ export default class SpenderUsage extends Analyzer {
               </div>
               <div className="flex-main chart">
                 <UptimeBar
+                  aria-label="Spender usage per Eclipse Window (green = good, yellow = ok, red = bad)"
                   uptimeHistory={this.spenderWindowUptimes}
                   start={this.owner.fight.start_time}
                   end={this.owner.fight.end_time}

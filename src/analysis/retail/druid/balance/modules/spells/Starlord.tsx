@@ -175,9 +175,9 @@ class Starlord extends Analyzer {
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th>Haste-Bonus</th>
-                  <th>Time (s)</th>
-                  <th>Time (%)</th>
+                  <th scope="col">Haste-Bonus</th>
+                  <th scope="col">Time (s)</th>
+                  <th scope="col">Time (%)</th>
                 </tr>
               </thead>
               <tbody>
