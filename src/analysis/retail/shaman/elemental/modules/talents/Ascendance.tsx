@@ -29,10 +29,10 @@ import CastDetail, {
   type PerCastStat,
 } from 'interface/guide/components/CastDetail';
 import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
+import MaelstromSpenderInfo, { type Spender } from '../core/MaelstromSpenderInfo';
 import MaelstromTracker from '../resources/MaelstromTracker';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Spell from 'common/SPELLS/Spell';
 import { getGlobalCooldown } from 'analysis/retail/shaman/shared/shared';
 import { ON_CAST_BUFF_REMOVAL_GRACE_MS, OVERLOAD_SPELLS } from '../../constants';
 
@@ -66,44 +66,22 @@ interface CastWindowInterval {
   triggerEvent: CastEvent | BeginCastEvent | BeginChannelEvent;
 }
 
-interface Spender {
-  spell: Spell & { maelstromCost: number };
-  costReduction: number;
-}
-
-const maelstromSpenders: number[] = [
-  TALENTS.ELEMENTAL_BLAST_TALENT.id,
-  TALENTS.EARTH_SHOCK_TALENT.id,
-  TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
-  TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
-];
-
 const overloadCapableSpellIds = new Set(OVERLOAD_SPELLS.map(({ spell }) => spell.id));
 
 class Ascendance extends Analyzer.withDependencies({
   maelstromTracker: MaelstromTracker,
+  spenderInfo: MaelstromSpenderInfo,
 }) {
   protected cooldownWindows: AscendanceCooldownCast[] = [];
   protected currentCooldown: AscendanceCooldownCast | null = null;
   protected globalCooldownEnds = 0;
   protected ascendanceWasCast = false;
-  protected spender: Spender = {
-    spell: TALENTS.EARTH_SHOCK_TALENT,
-    costReduction: this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT) ? 5 : 0,
-  };
 
   constructor(options: Options) {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
-
-    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
-      this.spender.spell = TALENTS.ELEMENTAL_BLAST_TALENT;
-      this.spender.costReduction = this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT)
-        ? 10
-        : 0;
-    }
 
     if (!this.active) {
       return;
@@ -197,7 +175,7 @@ class Ascendance extends Analyzer.withDependencies({
 
     this.currentCooldown.endingMaelstrom = this.deps.maelstromTracker.current;
 
-    if (maelstromSpenders.includes(event.ability.guid)) {
+    if (this.deps.spenderInfo.isMaelstromSpender(event.ability.guid)) {
       this.currentCooldown.spendersCast += 1;
       this.currentCooldown.maelstromSpent += event.resourceChange;
     }
@@ -540,7 +518,11 @@ class Ascendance extends Analyzer.withDependencies({
   }
 
   get spenderCost() {
-    return this.spender.spell.maelstromCost - this.spender.costReduction;
+    return this.deps.spenderInfo.spenderCost;
+  }
+
+  get spender(): Spender {
+    return this.deps.spenderInfo.spender;
   }
 
   private isValidSpenderReplacement(event: CastEvent | BeginCastEvent | BeginChannelEvent) {
