@@ -2809,3 +2809,15 @@ export const Drowzen: Contributor = {
     },
   ],
 };
+export const Gambyt: Contributor = {
+  nickname: 'Gambyt',
+  github: 'tyler-lutz',
+  discord: 'tylerlutz',
+  mains: [
+    {
+      name: 'Gambyt',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://www.warcraftlogs.com/character/us/illidan/gambyt',
+    },
+  ],
+};
