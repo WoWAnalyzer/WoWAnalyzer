@@ -266,12 +266,12 @@ const food = {
   // #endregion Master 50 Primary Stat
 
   // #region Primary Feast
-  WELL_FED_PRIMARY_FEAST: {
+  WELL_FED_STAMINA_PRIMARY_FEAST: {
     id: 1232585,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
-  HEARTY_WELL_FED_PRIMARY_FEAST: {
+  HEARTY_WELL_FED_STAMINA_PRIMARY_FEAST: {
     id: 1285644,
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
