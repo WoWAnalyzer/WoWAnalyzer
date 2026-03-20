@@ -9,7 +9,13 @@ import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  HealEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
@@ -134,7 +140,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
 
       //Set the wasRefreshed property of the old atonement on the same target to true
       //so we can stop attributing atonement healing to the old atonement
-      if (event.type === 'refreshbuff') {
+      if (event.type === EventType.RefreshBuff) {
         this.setWasRefreshedProperty(event, true);
       }
 
@@ -154,7 +160,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
       );
     } else {
       //Shadow Mend and Power Word: Shield
-      if (event.type === 'refreshbuff') {
+      if (event.type === EventType.RefreshBuff) {
         this.setWasRefreshedProperty(event, true);
       }
 
