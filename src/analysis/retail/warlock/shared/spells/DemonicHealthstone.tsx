@@ -52,6 +52,10 @@ class DemonicHealthstone extends Analyzer {
     this.deaths.push(event);
   }
 
+  get totalUses(): number {
+    return this.casts.length;
+  }
+
   getSpellUsesWithPotentialMisses(fightStart: number, fightEnd: number): SpellUse[] {
     const uses: SpellUse[] = [];
     let charges = this.startingCharges;

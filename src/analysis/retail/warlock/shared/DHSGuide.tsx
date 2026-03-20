@@ -29,6 +29,9 @@ export function DemonicHealthstoneGuide({
           emergencies. Missed opportunities while alive are shown as potential uses (yellow boxes).
           Dead periods are ignored.
           <div style={{ marginTop: 8 }}>
+            <strong>Total uses: {analyzer.totalUses}</strong>
+          </div>
+          <div style={{ marginTop: 8 }}>
             <strong>
               Always use with <SpellLink spell={TALENTS_WARLOCK.SOULBURN_TALENT} />.
             </strong>{' '}
