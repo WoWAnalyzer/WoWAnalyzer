@@ -115,6 +115,7 @@ export const SPIRITFONT_R1_ENV_RSK_INCREASE = 0.1;
 export const SPIRITFONT_R2_ENV_RSK_INCREASE = 0.2;
 export const SPIRITFONT_INCREASE_DURING_HOT = 1.5;
 export const SECRET_INFUSION_INCREASE_PER_RANK = 0.04;
+export const MORNING_BREEZE_INCREASE = 0.2; // per mw mastery %
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
