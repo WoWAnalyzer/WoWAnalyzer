@@ -60,6 +60,7 @@ export const WHIRLINGWATER_HEAL = 'WhirlingWaterHeal';
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
   HEALING_WAVE: '#146585',
+  HEALING_SURGE: '#40b3bf',
   HEALING_STREAM_TOTEM: '#40b3bf',
   HEALING_TIDE_TOTEM: '#041dffff',
   STORMSTREAM_TOTEM: '#fbff00ff',
