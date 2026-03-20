@@ -20,12 +20,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.AIMED_SHOT_TALENT.id,
         enabled: this.selectedCombatant.hasTalent(TALENTS.AIMED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => {
-          const base = this.selectedCombatant.hasTalent(TALENTS_HUNTER.AMMO_CONSERVATION_TALENT)
-            ? 11
-            : 12;
-          return base / (1 + haste);
-        },
+        cooldown: 15,
         charges: 2,
         gcd: {
           base: 1500,
@@ -89,20 +84,6 @@ class Abilities extends CoreAbilities {
 
       //region Talents
       {
-        spell: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        buffSpellId: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
         spell: TALENTS.VOLLEY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
@@ -127,7 +108,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLACK_ARROW_DAMAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_MARKSMANSHIP_TALENT),
         gcd: {
           base: 1500,
         },
