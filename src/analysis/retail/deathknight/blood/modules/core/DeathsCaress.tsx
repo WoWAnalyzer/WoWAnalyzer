@@ -41,9 +41,6 @@ class DeathsCaress extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS),
       this.onDamage,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT)) {
-      this.spellsThatShouldBeUsedFirst.push(TALENTS.BLOODDRINKER_TALENT.id);
-    }
   }
 
   onCast(event: CastEvent) {

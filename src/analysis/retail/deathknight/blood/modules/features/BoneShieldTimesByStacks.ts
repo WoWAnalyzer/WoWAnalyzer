@@ -145,17 +145,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
   }
 
   reduceBloodTapCooldown(stackDiff: number) {
-    if (!this.selectedCombatant.hasTalent(TALENTS.BLOOD_TAP_TALENT)) {
-      return;
-    }
-    if (stackDiff >= 0) {
-      return;
-    }
-    const reduction = -stackDiff * BLOOD_TAP_COOLDOWN_REDUCTION_MS;
-    const reducedSpellID = TALENTS.BLOOD_TAP_TALENT.id;
-    if (this.spellUsable.isOnCooldown(reducedSpellID)) {
-      this.spellUsable.reduceCooldown(reducedSpellID, reduction);
-    }
+
   }
 }
 
