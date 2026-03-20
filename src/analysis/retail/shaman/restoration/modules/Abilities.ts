@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
           1 +
           combatant.getTalentRank(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) +
           combatant.getTalentRank(TALENTS.ELEMENTAL_REVERB_TALENT),
-        cooldown: 6,
+        cooldown: 6 - combatant.getTalentRank(TALENTS.RIP_CURRENT_TALENT),
         timelineSortIndex: 11,
         gcd: {
           base: 1500,
