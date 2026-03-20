@@ -1,4 +1,4 @@
-import { IsPenanceDamageEvent, IsPenanceHealEvent } from './Helper';
+import { IsPenanceDamageEvent, IsPenanceHealEvent } from './PenanceHelper';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

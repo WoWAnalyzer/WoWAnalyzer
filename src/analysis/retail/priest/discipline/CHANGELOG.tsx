@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 3, 20), <>Updated several StatisticBox deprecations.</>, Vetyst),
   change(date(2026, 3, 20), <>Add <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime suggestions to the guide.</>, Vetyst),
   change(date(2026, 3, 20), <>Update about page.</>, Vetyst),
   change(date(2026, 3, 18), <>Add <SpellLink spell={SPELLS.VOID_BLAST_CAST_DISC} /> to the spellbook.</>, Vetyst),

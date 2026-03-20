@@ -2,16 +2,16 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
 import { default as PRIEST_TALENTS } from 'common/TALENTS/priest';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import StatisticBox from 'parser/ui/StatisticBox';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import isAtonement from '../core/isAtonement';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 // Use the priest spell list to whitelist abilities
 const PRIEST_WHITELIST: number[] = Object.values({
@@ -160,10 +160,8 @@ class Grace extends Analyzer {
     );
 
     return (
-      <StatisticBox
-        icon={<SpellIcon spell={SPELLS.GRACE} />}
-        value={`${formatNumber((this.graceHealing / this.owner.fightDuration) * 1000)} HPS`}
-        label="Mastery Healing"
+      <Statistic
+        size="flexible"
         tooltip={
           <>
             Your mastery provided <strong>{formatPercentage(graceHealingPerc)}%</strong> healing
@@ -196,7 +194,11 @@ class Grace extends Analyzer {
             mastery (Trinkets, procs, etc...)
           </>
         }
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.GRACE}>
+          {formatNumber((this.graceHealing / this.owner.fightDuration) * 1000)} HPS
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
