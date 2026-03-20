@@ -6,6 +6,7 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 20), 'Add disclaimer regaring Reap-related analysis', Texleretour),
   change(date(2026, 2, 7), <>{<SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />} cast analysis</>, Texleretour),
   change(date(2026, 2, 3), 'Core analysis', Texleretour),
   change(date(2026, 1, 30), 'Add more complete foundation', Texleretour),
