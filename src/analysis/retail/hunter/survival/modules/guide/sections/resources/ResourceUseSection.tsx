@@ -56,13 +56,11 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
         })}
       >
         <p>
-          <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> in Midnight for Survival Hunters has been
-          relegated to a secondary resource. With proper{' '}
-          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} /> management, you should not run out
-          of focus and waste will be minimal to non-existant. It will occasionally be impossible to
-          avoid capping <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> but that is ok with the
-          current design of the spec. You should be fitting 2-3 abilities between each cast of Kill
-          Command which will maintain a health buffer between capping and running out of focus.
+          With proper <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} /> management, you should
+          avoid most issues with focus and waste will be minimal to non-existant. It will
+          occasionally be impossible to avoid capping <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />{' '}
+          but that is ok. You should be fitting 2-3 abilities between each cast of Kill Command
+          which will maintain a healthy buffer between capping and running out of focus.
         </p>
         The chart below shows your <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> over the course of
         the encounter. You wasted{' '}

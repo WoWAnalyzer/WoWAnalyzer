@@ -15,6 +15,14 @@ import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
 
 const MAX_STACKS = 3;
+const LOW_FOCUS_THRESHOLD = 30;
+// Focus is resource type 2 (see RESOURCE_TYPES.FOCUS)
+const FOCUS_RESOURCE_TYPE = 2;
+const HOWL_BUFFS = [
+  SPELLS.HOWL_OF_THE_PACKLEADER_WYVERN,
+  SPELLS.HOWL_OF_THE_PACKLEADER_BEAR,
+  SPELLS.HOWL_OF_THE_PACKLEADER_BOAR,
+];
 
 class TipOfTheSpear extends BuffStackTracker {
   static trackedBuff = SPELLS.TIP_OF_THE_SPEAR_CAST;
@@ -47,6 +55,14 @@ class TipOfTheSpear extends BuffStackTracker {
     const stacksGained = hasPrimalSurge ? 2 : 1;
     const potentialStacks = currentStacks + stacksGained;
 
+    const currentFocus =
+      event.classResources?.find((r) => r.type === FOCUS_RESOURCE_TYPE)?.amount ?? Infinity;
+    const isLowFocus = currentFocus < LOW_FOCUS_THRESHOLD;
+
+    const hasHowlBuff = HOWL_BUFFS.some((spell) =>
+      this.selectedCombatant.hasBuff(spell.id, event.timestamp),
+    );
+
     // Track waste
     if (potentialStacks > MAX_STACKS) {
       const waste = potentialStacks - MAX_STACKS;
@@ -61,6 +77,14 @@ class TipOfTheSpear extends BuffStackTracker {
       value = QualitativePerformance.Good;
       header = 'Good: generated at 0 stacks.';
       color = GoodColor;
+    } else if (hasHowlBuff && currentStacks === 1) {
+      value = QualitativePerformance.Good;
+      header = 'Good: generated at 1 stack with Howl of the Pack Leader active.';
+      color = GoodColor;
+    } else if (isLowFocus) {
+      value = QualitativePerformance.Ok;
+      header = `Ok: generated at ${currentStacks} stack${currentStacks !== 1 ? 's' : ''} with low focus (${currentFocus}).`;
+      color = OkColor;
     } else if (currentStacks === 1) {
       value = QualitativePerformance.Ok;
       header = 'Ok: generated at 1 stack.';

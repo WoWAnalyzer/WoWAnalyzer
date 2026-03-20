@@ -315,6 +315,11 @@ const spells = {
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
   },
+  RAPTOR_SWIPE_BUFF: {
+    id: 1273155,
+    name: 'Raptor Swipe',
+    icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
   RAPTOR_SWIPE_AOTE: {
     id: 1262343,
     name: 'Raptor Swipe',
