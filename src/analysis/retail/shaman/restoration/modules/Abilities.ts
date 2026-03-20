@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT) &&
           !combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 10,
+        cooldown: 18,
         timelineSortIndex: 17,
         gcd: {
           base: 1500,
