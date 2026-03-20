@@ -2809,9 +2809,3 @@ export const Drowzen: Contributor = {
     },
   ],
 };
-
-export const defgfed: Contributor = {
-  nickname: 'defgfed',
-  github: 'defgfed',
-  discord: 'defgfed',
-};
