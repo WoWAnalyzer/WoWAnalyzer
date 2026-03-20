@@ -38,7 +38,7 @@ const config: Config = {
         >
           Warcraft Priests Discord
         </a>
-        . You can join the #discipline channel to ask any priestly questions you may have.
+        . You can join the #disc-questions channel to ask any priestly questions you may have.
       </p>
     </>
   ),
