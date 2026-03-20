@@ -132,7 +132,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT),
         buffSpellId: TALENTS.UNLEASH_LIFE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
+        cooldown: 17,
         timelineSortIndex: 5,
         gcd: {
           base: 1500,
