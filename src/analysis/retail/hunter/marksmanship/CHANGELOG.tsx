@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import { Arlie, emallson, Putro, Swolorno, Topple, Yellot } from 'CONTRIBUTORS';
-//import { ItemLink, SpellLink } from 'interface';
+import { /*ItemLink,*/ SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/hunter';
 // import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
