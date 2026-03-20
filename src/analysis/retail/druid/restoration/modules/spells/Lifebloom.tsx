@@ -118,6 +118,10 @@ class Lifebloom extends Analyzer {
       return;
     }
 
+    if (event.prepull) {
+      return;
+    }
+
     const isFirstLifebloomCast = this.analyzedLifebloomCasts === 0;
     this.analyzedLifebloomCasts += 1;
 
