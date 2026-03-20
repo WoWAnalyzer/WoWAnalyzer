@@ -48,7 +48,7 @@ import WealAndWoe from './modules/spells/WealAndWoe';
 import EternalBarrier from './modules/spells/EternalBarrier';
 import Benevolence from '../shared/Benevolence';
 import SurgeOfLight from 'analysis/retail/priest/shared/SurgeOfLight';
-import ProtectorOfTheFrail from 'analysis/retail/priest/discipline/modules/spells/ProtectorOfTheFrail';
+import ProtectorOfTheFrail from './modules/spells/ProtectorOfTheFrail';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
