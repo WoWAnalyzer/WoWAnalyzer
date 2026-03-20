@@ -76,14 +76,12 @@ class Grace extends Analyzer {
   }
 
   absorbApplicationWasMasteryBuffed(event: AbsorbedEvent) {
-    const findRight = (arr: ApplyAbsorbEvent[], fn: (x: ApplyAbsorbEvent) => boolean) =>
-      [...arr].reverse().find(fn);
-    const applyEvent = findRight(
-      this.applyAbsorbEvents,
-      (x: ApplyAbsorbEvent) =>
+    const applyEvent = this.applyAbsorbEvents.findLast(
+      (x) =>
         x.applyBuffEvent.targetID === event.targetID &&
         x.applyBuffEvent.ability.guid === event.ability.guid,
     );
+
     return applyEvent ? applyEvent.masteryBuffed : false;
   }
 
