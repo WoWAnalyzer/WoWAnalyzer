@@ -4,6 +4,7 @@ import Events, { HealEvent, DeathEvent, AnyEvent } from 'parser/core/Events';
 import { SpellUse, ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import TALENTS from 'common/TALENTS/warlock';
+import { formatNumber } from 'common/format';
 
 interface HealthstoneCast {
   event: HealEvent;
@@ -44,6 +45,7 @@ class DemonicHealthstone extends Analyzer {
       overheal: event.overheal || 0,
       soulburnUsed: this.soulburnActive,
     });
+
     // Reset Soulburn after using a Healthstone
     this.soulburnActive = false;
   };
@@ -58,77 +60,49 @@ class DemonicHealthstone extends Analyzer {
 
   getSpellUsesWithPotentialMisses(fightStart: number, fightEnd: number): SpellUse[] {
     const uses: SpellUse[] = [];
-    let charges = this.startingCharges;
+
     const sortedCasts = [...this.casts].sort((a, b) => a.event.timestamp - b.event.timestamp);
-    let castIndex = 0;
-    let currentTime = fightStart;
 
-    while (currentTime < fightEnd) {
-      const intervalStart = currentTime;
-      const intervalEnd = Math.min(currentTime + 60 * 1000, fightEnd);
+    // Add actual casts
+    for (const cast of sortedCasts) {
+      uses.push(this.explainPerformance(cast, fightStart));
+    }
 
-      // Skip dead intervals
-      if (this.deaths.some((d) => d.timestamp >= intervalStart && d.timestamp < intervalEnd)) {
-        currentTime = intervalEnd;
-        continue;
-      }
+    // Estimate possible uses
+    const fightDuration = fightEnd - fightStart;
+    const possibleUses = Math.floor(fightDuration / 60000);
 
-      // Check for actual cast in this interval
-      let castThisInterval: HealthstoneCast | undefined = undefined;
-      while (
-        castIndex < sortedCasts.length &&
-        sortedCasts[castIndex].event.timestamp >= intervalStart &&
-        sortedCasts[castIndex].event.timestamp < intervalEnd
-      ) {
-        castThisInterval = sortedCasts[castIndex];
-        castIndex++;
-        charges--;
-      }
+    const actualUses = sortedCasts.length;
+    const missingUses = possibleUses - actualUses;
 
-      if (castThisInterval) {
-        uses.push(this.explainPerformance(castThisInterval, fightStart));
-        currentTime = castThisInterval.event.timestamp + 60 * 1000; // next interval starts after cast
-      } else if (charges > 0) {
-        // Potential missed use
-        const intervalStartRel = intervalStart - fightStart;
-        const intervalEndRel = intervalEnd - fightStart;
+    if (missingUses <= 0) {
+      return uses;
+    }
 
-        const checklistItems: ChecklistUsageInfo[] = [
-          {
-            check: 'missed',
-            timestamp: intervalEnd,
-            performance: QualitativePerformance.Ok,
-            summary: (
-              <span>
-                Healthstone went unused during {Math.floor(intervalStartRel / 60000)}:
-                {String(Math.floor((intervalStartRel % 60000) / 1000)).padStart(2, '0')} –{' '}
-                {Math.floor(intervalEndRel / 60000)}:
-                {String(Math.floor((intervalEndRel % 60000) / 1000)).padStart(2, '0')}
-              </span>
-            ),
-            details: (
-              <span>
-                A Healthstone charge was available but not used. Using Soulburn with Healthstone
-                increases the amount healed by 30% and increases your max health for a short
-                duration.
-              </span>
-            ),
-          },
-        ];
+    for (let i = 0; i < missingUses; i++) {
+      const performance = QualitativePerformance.Ok;
 
-        uses.push({
-          event: { timestamp: intervalEnd } as unknown as AnyEvent,
-          performance: QualitativePerformance.Ok,
-          checklistItems,
-          performanceExplanation: 'Potential use missed',
-        });
+      const checklistItems: ChecklistUsageInfo[] = [
+        {
+          check: 'missed',
+          timestamp: fightEnd,
+          performance,
+          summary: <span>Healthstone was not used</span>,
+          details: (
+            <span>
+              Demonic Healthstone is a powerful defensive tool. Holding it for too long or not using
+              all available charges can result in missed survivability.
+            </span>
+          ),
+        },
+      ];
 
-        charges--;
-        currentTime = intervalEnd;
-      } else {
-        charges = 3; // refresh charges
-        currentTime = intervalEnd;
-      }
+      uses.push({
+        event: { timestamp: fightEnd } as unknown as AnyEvent,
+        performance,
+        checklistItems,
+        performanceExplanation: 'Missed potential use',
+      });
     }
 
     return uses;
@@ -160,7 +134,6 @@ class DemonicHealthstone extends Analyzer {
       },
     ];
 
-    // Use fightStart to calculate relative time
     const fightTimeMs = cast.event.timestamp - fightStart;
     const minutes = Math.floor(fightTimeMs / 60000);
     const seconds = Math.floor((fightTimeMs % 60000) / 1000);
@@ -170,7 +143,7 @@ class DemonicHealthstone extends Analyzer {
       performance,
       checklistItems,
       performanceExplanation: `Healed at ${minutes}:${String(seconds).padStart(2, '0')}`,
-      extraDetails: `${cast.amount} healed (${cast.overheal} overheal)`,
+      extraDetails: `${formatNumber(cast.amount)} healed (${formatNumber(cast.overheal)} overheal)`,
     };
   }
 }
