@@ -1,8 +1,6 @@
 import type { JSX } from 'react';
-import SPELLS from 'common/SPELLS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { SpellLink } from 'interface';
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section } from 'interface/guide';
 import type CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 

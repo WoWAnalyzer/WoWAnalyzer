@@ -19,16 +19,18 @@ const PRIEST_WHITELIST: number[] = Object.values({
   ...PRIEST_TALENTS,
 }).map((ability) => ability.id);
 
+interface ApplyAbsorbEvent {
+  applyBuffEvent: ApplyBuffEvent;
+  masteryBuffed: boolean;
+  eventsAssociated: ApplyBuffEvent[];
+}
+
 class Grace extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
   };
-  applyAbsorbEvents: {
-    applyBuffEvent: ApplyBuffEvent;
-    masteryBuffed: boolean;
-    eventsAssociated: ApplyBuffEvent[];
-  }[] = [];
+  applyAbsorbEvents: ApplyAbsorbEvent[] = [];
   graceHealing = 0;
   graceHealingToAtonement = 0;
   healingUnaffectedByMastery = 0;
@@ -74,13 +76,12 @@ class Grace extends Analyzer {
   }
 
   absorbApplicationWasMasteryBuffed(event: AbsorbedEvent) {
-    const findRight = (arr: any, fn: any) => [...arr].reverse().find(fn);
-    const applyEvent = findRight(
-      this.applyAbsorbEvents,
-      (x: any) =>
+    const applyEvent = this.applyAbsorbEvents.findLast(
+      (x) =>
         x.applyBuffEvent.targetID === event.targetID &&
         x.applyBuffEvent.ability.guid === event.ability.guid,
     );
+
     return applyEvent ? applyEvent.masteryBuffed : false;
   }
 

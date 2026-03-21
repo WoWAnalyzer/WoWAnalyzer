@@ -1,7 +1,4 @@
-import {
-  IsPenanceDamageEvent,
-  IsPenanceHealEvent,
-} from 'analysis/retail/priest/discipline/modules/spells/Helper';
+import { IsPenanceDamageEvent, IsPenanceHealEvent } from './Helper';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

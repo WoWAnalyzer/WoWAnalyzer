@@ -23,6 +23,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { PAIN_AND_SUFFERING_INCREASE } from '../../constants';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import Spell from 'common/SPELLS/Spell';
 
 type DotInformation =
   | {
@@ -50,11 +51,11 @@ class EncroachingShadows extends Analyzer {
   effectiveIncrease = 0;
 
   ptwCleaveDamage = 0;
-  dotSpell: any;
+  dotSpell: Spell;
   ptwCasts = 0;
   ptwApplications = 0;
   lastCastTarget = 0;
-  ptwCleaveTracker: any = {};
+  ptwCleaveTracker: number[] = [];
   dotRatios: DotInformation = {};
 
   ptwUptimes: OpenTimePeriod[] = [];

@@ -9,7 +9,13 @@ import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  HealEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
@@ -19,8 +25,19 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 // Needed to count healing for the rare situations where atonement heal events happens at the exact moment it expires
 const FAIL_SAFE_MS = 300;
 
+interface ApplicatorCast {
+  event: CastEvent;
+  applicatorId: number;
+}
+
+interface AtonementBuff {
+  applyBuff: ApplyBuffEvent | RefreshBuffEvent;
+  atonementEvents: HealEvent[];
+  wasRefreshed: boolean;
+}
+
 class AtonementApplicatorBreakdown extends Analyzer {
-  _castsApplyBuffsMap = new Map(); // Keys = Cast, Values = Atonement buff associated to the cast
+  _castsApplyBuffsMap = new Map<ApplicatorCast, AtonementBuff | null>();
   _lastRadianceCastTimestamp = 0; // Setting a dummy timestamp to 0
 
   _atonementHealingFromRadiances = 0;
@@ -123,7 +140,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
 
       //Set the wasRefreshed property of the old atonement on the same target to true
       //so we can stop attributing atonement healing to the old atonement
-      if (event.type === 'refreshbuff') {
+      if (event.type === EventType.RefreshBuff) {
         this.setWasRefreshedProperty(event, true);
       }
 
@@ -132,7 +149,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
         {
           event: {
             timestamp: this._lastRadianceCastTimestamp,
-          },
+          } as CastEvent,
           applicatorId: TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
         },
         {
@@ -143,7 +160,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
       );
     } else {
       //Shadow Mend and Power Word: Shield
-      if (event.type === 'refreshbuff') {
+      if (event.type === EventType.RefreshBuff) {
         this.setWasRefreshedProperty(event, true);
       }
 
@@ -163,7 +180,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
     }
   }
 
-  getAtonementDuration(cast: any) {
+  getAtonementDuration(cast: ApplicatorCast) {
     let duration = 0;
     if (cast.applicatorId === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
       duration += POWER_WORD_RADIANCE_ATONEMENT_DUR;
@@ -179,7 +196,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
     return duration + FAIL_SAFE_MS;
   }
 
-  assignAtonementHit(cast: any, atonement: any, healEvent: HealEvent) {
+  assignAtonementHit(cast: ApplicatorCast, atonement: AtonementBuff, healEvent: HealEvent) {
     const lowerBound = atonement.applyBuff.timestamp;
     const upperBound = atonement.applyBuff.timestamp + this.getAtonementDuration(cast);
     if (
@@ -238,7 +255,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
     );
     if (mostRecentCastApplyBuff) {
       const atonementBuff = this._castsApplyBuffsMap.get(mostRecentCastApplyBuff);
-      if (atonementBuff !== null) {
+      if (atonementBuff) {
         atonementBuff.wasRefreshed = isRefreshed;
       }
     }
