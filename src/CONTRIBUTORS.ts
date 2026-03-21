@@ -2809,6 +2809,7 @@ export const Drowzen: Contributor = {
     },
   ],
 };
+
 export const Gambyt: Contributor = {
   nickname: 'Gambyt',
   github: 'tyler-lutz',
@@ -2820,4 +2821,10 @@ export const Gambyt: Contributor = {
       link: 'https://www.warcraftlogs.com/character/us/illidan/gambyt',
     },
   ],
+};
+
+export const defgfed: Contributor = {
+  nickname: 'defgfed',
+  github: 'defgfed',
+  discord: 'defgfed',
 };
