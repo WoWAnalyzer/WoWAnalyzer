@@ -188,45 +188,49 @@ class ArcaneOrbGuide extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>{arcaneOrb}</b> primary purpose is to quickly generate {arcaneCharge}s, as it is an
-          instant that generates at least 2 charges per cast, with an additional charge per target
-          hit. The way you utilize {arcaneOrb} is heavily dependent on your spec, so refer to the
-          below guidelines for based on your chosen talents.
+          <b>{arcaneOrb}</b>'s primary purpose is to quickly generate {arcaneCharge}s, generating at
+          least 2 charges per cast with an additional charge per target hit. The way you utilize{' '}
+          {arcaneOrb} is heavily dependent on your talent build, so refer to the below guidelines
+          based on your chosen talents.
         </p>
-        <ul>
-          {this.isSunfury && <li>You have less than 2 {arcaneCharge}s</li>}
-          {this.isSpellslingerMissile && (
-            <li>
-              {touchOfTheMagi} will not be available in the next 10 seconds, you have &lt; 3{' '}
-              {arcaneCharge}s (&lt; 4 if it will hit 2 or more enemies), and one of the below are
-              true.
-              <ul>
-                <li>
-                  You don't have {clearcasting} and have {highVoltage} talented.
-                </li>
-                <li>
-                  You have {clearcasting} and 12 or more {arcaneSalvo} stacks.
-                </li>
-                <li>{arcaneOrb} will hit 2 or more enemies.</li>
-              </ul>
-            </li>
-          )}
-          {this.isSpellslingerOrb && (
-            <li>
-              Your last cast was {arcaneBarrage} or {arcaneOrb} will hit 4 or more enemies, and also
-              one of the below is true.
-              <ul>
-                <li>
-                  You have {clearcasting} and 14 or less {arcaneSalvo} stacks.
-                </li>
-                <li>
-                  You don't have {clearcasting}, are almost capped on {arcaneOrb} charges, and have
-                  18 or less {arcaneSalvo} stacks.
-                </li>
-              </ul>
-            </li>
-          )}
-        </ul>
+        {this.isSunfury && (
+          <p>
+            <ul>
+              <li>You have less than 2 {arcaneCharge}s</li>
+            </ul>
+          </p>
+        )}
+        {this.isSpellslingerMissile && (
+          <p>
+            {touchOfTheMagi} will not be available in the next 10 seconds, you have &lt; 3{' '}
+            {arcaneCharge}s (&lt; 4 if it will hit 2 or more enemies), and one of the below are
+            true.
+            <ul>
+              <li>
+                You don't have {clearcasting} and have {highVoltage} talented.
+              </li>
+              <li>
+                You have {clearcasting} and 12 or more {arcaneSalvo} stacks.
+              </li>
+              <li>{arcaneOrb} will hit 2 or more enemies.</li>
+            </ul>
+          </p>
+        )}
+        {this.isSpellslingerOrb && (
+          <p>
+            Your last cast was {arcaneBarrage} or {arcaneOrb} will hit 4 or more enemies, and also
+            one of the below are true:
+            <ul>
+              <li>
+                You have {clearcasting} and 14 or less {arcaneSalvo} stacks.
+              </li>
+              <li>
+                You don't have {clearcasting}, you are capped (or almost capped) on {arcaneOrb}{' '}
+                charges, and have 18 or less {arcaneSalvo} stacks.
+              </li>
+            </ul>
+          </p>
+        )}
       </>
     );
 
