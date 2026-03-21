@@ -49,7 +49,7 @@ class InescapableTorment extends Analyzer {
       );
     this.has2Piece &&
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
         this.onCastMB,
       );
     this.addEventListener(Events.fightend, this.onEnd);
@@ -144,7 +144,7 @@ class InescapableTorment extends Analyzer {
         <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} />.
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        Casting <SpellLink spell={SPELLS.MIND_BLAST} /> or{' '}
+        Casting <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> or{' '}
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> during{' '}
         <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> extends its duration by 0.7 seconds
         and deals damage.

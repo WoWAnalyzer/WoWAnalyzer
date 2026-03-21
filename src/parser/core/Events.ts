@@ -1247,6 +1247,13 @@ const Events = {
     return new EventFilter(EventType.Cast);
   },
   /**
+   * This event is called when a spell is triggered as the result of another cast
+   * @returns {EventFilter}
+   */
+  get freecast() {
+    return new EventFilter(EventType.FreeCast);
+  },
+  /**
    * Event specific props:
    * - absorb: If the buff can absorb damage, the size of the shield.
    * @returns {EventFilter}

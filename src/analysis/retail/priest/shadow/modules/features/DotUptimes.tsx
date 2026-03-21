@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 
 import ShadowWordMadness from '../spells/ShadowWordMadness';
-import ShadowWordPain from '../spells/ShadowWordPain';
+import ShadowWordPain from 'src/analysis/retail/priest/shared/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';

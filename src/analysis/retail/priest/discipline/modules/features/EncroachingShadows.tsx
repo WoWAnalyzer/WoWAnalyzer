@@ -20,9 +20,10 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { THROES_OF_PAIN_INCREASE, PAIN_AND_SUFFERING_INCREASE } from '../../constants';
+import { PAIN_AND_SUFFERING_INCREASE } from '../../constants';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import Spell from 'common/SPELLS/Spell';
 
 type DotInformation =
   | {
@@ -42,7 +43,6 @@ class EncroachingShadows extends Analyzer {
   };
   revelInPurityActive = false;
   painAndSufferingActive = false;
-  throesOfPainActive = false;
 
   painAndSufferingIncrease = 0;
   throesOfPainIncrease = 0;
@@ -51,11 +51,11 @@ class EncroachingShadows extends Analyzer {
   effectiveIncrease = 0;
 
   ptwCleaveDamage = 0;
-  dotSpell: any;
+  dotSpell: Spell;
   ptwCasts = 0;
   ptwApplications = 0;
   lastCastTarget = 0;
-  ptwCleaveTracker: any = {};
+  ptwCleaveTracker: number[] = [];
   dotRatios: DotInformation = {};
 
   ptwUptimes: OpenTimePeriod[] = [];
@@ -73,16 +73,6 @@ class EncroachingShadows extends Analyzer {
     this.painAndSufferingActive = this.selectedCombatant.hasTalent(
       TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT,
     );
-    this.throesOfPainActive = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.THROES_OF_PAIN_TALENT,
-    );
-
-    if (this.throesOfPainActive) {
-      this.throesOfPainIncrease =
-        THROES_OF_PAIN_INCREASE[
-          this.selectedCombatant.getTalentRank(TALENTS_PRIEST.THROES_OF_PAIN_TALENT) - 1
-        ];
-    }
 
     if (this.painAndSufferingActive) {
       this.painAndSufferingIncrease =

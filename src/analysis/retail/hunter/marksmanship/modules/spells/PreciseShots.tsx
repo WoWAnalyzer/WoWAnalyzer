@@ -40,19 +40,19 @@ class PreciseShots extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.PRECISE_SHOTS_TALENT);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsApplication,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsRemoval,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsStackRemoval,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsStackApplication,
     );
     this.addEventListener(
@@ -61,14 +61,7 @@ class PreciseShots extends Analyzer {
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkForBuff);
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.ARCANE_SHOT,
-          SPELLS.MULTISHOT_MM,
-          SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE,
-          SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE,
-        ]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.onPreciseDamage,
     );
   }
@@ -110,7 +103,7 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS_BUFF.id)) {
       return;
     }
     this.buffedShotInFlight = event.timestamp;
@@ -150,7 +143,7 @@ class PreciseShots extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
+        <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS_BUFF}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

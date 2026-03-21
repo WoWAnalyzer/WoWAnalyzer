@@ -1,10 +1,11 @@
-import { SubSection } from 'interface/guide/index';
+import { SubSection } from 'interface/guide';
 import Spell from 'common/SPELLS/Spell';
 import { SideBySidePanels } from 'interface/guide/components/GuideDivs';
 
 import FoodPanel from './FoodPanel';
 import PotionPanel from './PotionPanel';
 import FlaskPanel from './FlaskPanel';
+import AugmentRunePanel from './AugmentRunePanel';
 import type Expansion from 'game/Expansion';
 
 interface Props {
@@ -20,6 +21,7 @@ const ConsumablesSubSection = ({ recommendedFlasks, recommendedFoods, expansion 
         <FoodPanel recommendedFoods={recommendedFoods} expansion={expansion} />
         <PotionPanel expansion={expansion} />
         <FlaskPanel recommendedFlasks={recommendedFlasks} expansion={expansion} />
+        <AugmentRunePanel />
       </SideBySidePanels>
     </SubSection>
   );

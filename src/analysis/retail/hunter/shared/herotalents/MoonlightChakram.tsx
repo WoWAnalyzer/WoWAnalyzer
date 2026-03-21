@@ -52,7 +52,7 @@ export default class MoonlightChakram extends Analyzer {
     this.hasStalkAndStrike = this.selectedCombatant.hasTalent(TALENTS.STALK_AND_STRIKE_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.TAKEDOWN_PLAYER]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.TRUESHOT_TALENT, SPELLS.TAKEDOWN_PLAYER]),
       this.onTriggerCast,
     );
   }

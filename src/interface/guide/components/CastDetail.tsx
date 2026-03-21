@@ -26,7 +26,7 @@ export interface PerCastStat {
   /** Label describing what this stat represents */
   label: string;
   /** Detailed tooltip content for this stat */
-  tooltip: React.ReactNode;
+  tooltip?: React.ReactNode | null;
   /** Optional performance rating for color-coding this specific stat */
   performance?: QualitativePerformance;
 }
@@ -221,19 +221,22 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
         >
           <TimelineRow>
             <TimelineRectContainer>
-              {filteredCasts.map((cast, idx) => (
-                <Tooltip
-                  key={idx}
-                  content={`Cast #${casts.indexOf(cast) + 1} · ${cast.timestamp} · ${cast.performance}`}
-                >
-                  <TimelineRect
-                    style={{ width: `calc(${rectWidthPct}% - 3px)` }}
-                    color={qualitativePerformanceToColor(cast.performance)}
-                    active={idx === validIndex}
-                    onClick={() => setCurrentIndex(idx)}
-                  />
-                </Tooltip>
-              ))}
+              {filteredCasts.map((cast, idx) => {
+                const index = casts.indexOf(cast) + 1;
+                const content = cast.tooltip
+                  ? cast.tooltip
+                  : `Cast #${index} · ${cast.timestamp} · ${cast.performance}`;
+                return (
+                  <Tooltip key={idx} content={content}>
+                    <TimelineRect
+                      style={{ width: `calc(${rectWidthPct}% - 3px)` }}
+                      color={qualitativePerformanceToColor(cast.performance)}
+                      active={idx === validIndex}
+                      onClick={() => setCurrentIndex(idx)}
+                    />
+                  </Tooltip>
+                );
+              })}
             </TimelineRectContainer>
           </TimelineRow>
 

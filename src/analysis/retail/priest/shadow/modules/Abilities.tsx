@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
       //SW:D is added through Shadow Word: Death module
       //VoidBlast is added through VoidBlast module.
       {
-        spell: SPELLS.MIND_BLAST.id,
+        spell: TALENTS.MIND_BLAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 9 / (1 + haste),
         gcd: {
@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.DESPERATE_PRAYER_TALENT),
       },
       {
-        spell: SPELLS.LEAP_OF_FAITH.id,
+        spell: TALENTS.LEAP_OF_FAITH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90 - (combatant.hasTalent(TALENTS.MOVE_WITH_GRACE_TALENT) ? 30 : 0),
         gcd: null,

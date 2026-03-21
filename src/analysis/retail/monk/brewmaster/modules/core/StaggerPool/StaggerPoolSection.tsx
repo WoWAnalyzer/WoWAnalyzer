@@ -22,9 +22,9 @@ import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
 import { formatNumber } from 'common/format';
 import InvokeNiuzaoStagger from '../../talents/InvokeNiuzao/InvokeNiuzaoStagger';
-import AlertWarning from 'interface/AlertWarning';
 import Tooltip from 'interface/Tooltip';
 import { InformationIcon } from 'interface/icons';
+import AlertInfo from 'interface/AlertInfo';
 
 const SideBySide = styled.div`
   margin-top: ${design.gaps.large};
@@ -69,11 +69,11 @@ export default function StaggerPoolSection(): JSX.Element | null {
 
   return (
     <>
-      <AlertWarning>
+      <AlertInfo>
         <SpellLink spell={SPELLS.STAGGER_TALENT} /> tracking has received a major overhaul in
         Midnight to handle all of the new talents that purify or prevent Stagger. If you see errors,
         please contact <code>@emallson</code> on Discord.
-      </AlertWarning>
+      </AlertInfo>
       <SubSection title={<SpellLink spell={SPELLS.STAGGER_TALENT} />}>
         <SummaryDL>
           <dt>

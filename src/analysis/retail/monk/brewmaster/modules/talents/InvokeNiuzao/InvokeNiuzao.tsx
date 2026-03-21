@@ -169,8 +169,7 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
     items.push({
       label: (
         <>
-          <SpellLink spell={SPELLS_COMMON.NIUZAO_STOMP_DAMAGE} /> triggers (from{' '}
-          <SpellLink spell={SPELLS.BLACKOUT_KICK}>BoK</SpellLink> casts)
+          <SpellLink spell={SPELLS_COMMON.NIUZAO_STOMP_DAMAGE} /> triggers{' '}
         </>
       ),
       details: (
@@ -198,40 +197,7 @@ export default class InvokeNiuzao extends Analyzer.withDependencies({ spellUsabl
             <SpellLink spell={SPELLS.WISDOM_OF_THE_WALL_TALENT}>WotW</SpellLink> triggers
           </>
         ),
-        details: (
-          <>
-            <TooltipElement
-              content={
-                <>
-                  Trigger Sources:
-                  <ul>
-                    <li>
-                      <SpellLink spell={SPELLS.BREATH_OF_FIRE_TALENT} /> &mdash;{' '}
-                      {
-                        cast.wotwTriggers.filter(
-                          (event) => event.ability.guid === SPELLS.BREATH_OF_FIRE_TALENT.id,
-                        ).length
-                      }
-                    </li>
-                    {this.selectedCombatant.hasTalent(SPELLS.DRAGONFIRE_BREW_TALENT) && (
-                      <li>
-                        <SpellLink spell={SPELLS.DRAGONFIRE_BREW_TALENT} /> &mdash;{' '}
-                        {
-                          cast.wotwTriggers.filter(
-                            (event) =>
-                              event.ability.guid === SPELLS_COMMON.DRAGONFIRE_BREW_DAMAGE.id,
-                          ).length
-                        }
-                      </li>
-                    )}
-                  </ul>
-                </>
-              }
-            >
-              {cast.wotwTriggers.length}
-            </TooltipElement>{' '}
-          </>
-        ),
+        details: <>{cast.wotwTriggers.length}</>,
         result: <PerformanceMark perf={wotwPerf} />,
       });
     }

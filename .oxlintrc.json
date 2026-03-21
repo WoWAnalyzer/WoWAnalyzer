@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": false,
+    "typeCheck": false
+  },
   "plugins": [],
   "categories": {
     "correctness": "off"
@@ -34,7 +38,6 @@
     "src/analysis/retail/evoker/preservation/**",
     "src/analysis/retail/evoker/shared/**",
     "src/analysis/retail/hunter/beastmastery/**",
-    "src/analysis/retail/hunter/marksmanship/**",
     "src/analysis/retail/mage/arcane/**",
     "src/analysis/retail/mage/fire/**",
     "src/analysis/retail/mage/frost/**",
@@ -47,7 +50,6 @@
     "src/analysis/retail/paladin/protection/**",
     "src/analysis/retail/paladin/retribution/**",
     "src/analysis/retail/paladin/shared/**",
-    "src/analysis/retail/priest/discipline/**",
     "src/analysis/retail/priest/holy/**",
     "src/analysis/retail/rogue/assassination/**",
     "src/analysis/retail/rogue/subtlety/**",

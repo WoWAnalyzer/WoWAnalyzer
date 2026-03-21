@@ -11,7 +11,7 @@ import {
   getAzureSweepBuffEvent,
   getAzureSweepConsumeEvent,
 } from '../normalizers/CastLinkNormalizer';
-import { AZURE_SWEEP_BASE_STACKS, AZURE_SWEEP_MID1_2PC_EXTRA_STACKS } from '../../constants';
+import { AZURE_SWEEP_BASE_STACKS, MID1_4P_AZURE_SWEEP_EXTRA_STACKS } from '../../constants';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -30,7 +30,7 @@ class AzureSweep extends Analyzer {
 
   amountOfStacksGenerated =
     AZURE_SWEEP_BASE_STACKS +
-    (this.selectedCombatant.has2PieceByTier(TIERS.MID1) ? AZURE_SWEEP_MID1_2PC_EXTRA_STACKS : 0);
+    (this.selectedCombatant.has4PieceByTier(TIERS.MID1) ? MID1_4P_AZURE_SWEEP_EXTRA_STACKS : 0);
 
   constructor(options: Options) {
     super(options);

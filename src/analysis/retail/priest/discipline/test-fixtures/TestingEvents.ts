@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 export const thisPlayer = 1;
 const otherPlayer1 = 2;
@@ -94,12 +95,12 @@ export const RadianceCast1 = {
   sourceid: thisPlayer,
   targetid: otherPlayer1,
   timestamp: 0,
-  ability: { guid: SPELLS.POWER_WORD_RADIANCE.id },
+  ability: { guid: TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id },
 };
 export const RadianceCast2 = {
   type: EventType.Cast,
   sourceid: thisPlayer,
   targetid: otherPlayer1,
   timestamp: 0,
-  ability: { guid: SPELLS.POWER_WORD_RADIANCE.id },
+  ability: { guid: TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id },
 };

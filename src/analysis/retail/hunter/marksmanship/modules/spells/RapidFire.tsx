@@ -4,6 +4,7 @@ import {
 } from 'analysis/retail/hunter/marksmanship/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
@@ -52,17 +53,20 @@ class RapidFire extends Analyzer {
     super(options);
 
     this.addEventListener(Events.any, this.onEvent);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onCast);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RAPID_FIRE_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.TRUESHOT_TALENT),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.TRUESHOT_TALENT),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TRUESHOT),
+      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS.TRUESHOT_TALENT),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
@@ -72,10 +76,10 @@ class RapidFire extends Analyzer {
   }
 
   onEvent(event: AnyEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.TRUESHOT_TALENT.id)) {
       return;
     }
-    if (!this.spellUsable.isOnCooldown(SPELLS.RAPID_FIRE.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS.RAPID_FIRE_TALENT.id)) {
       return;
     }
     if (this.lastReductionTimestamp === 0 || event.timestamp <= this.lastReductionTimestamp) {
@@ -85,7 +89,7 @@ class RapidFire extends Analyzer {
      * modRate is what the value is called in-game that defines how fast a cooldown recharges, so reusing that terminology here
      */
     let modRate = 1;
-    if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS.TRUESHOT_TALENT.id)) {
       modRate /= 1 + TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE;
     }
     const spellReductionSpeed = 1 / modRate - 1;
@@ -104,7 +108,7 @@ class RapidFire extends Analyzer {
         maxReductionMs / 1000 + ' seconds since last event',
       );
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(
-      SPELLS.RAPID_FIRE.id,
+      TALENTS.RAPID_FIRE_TALENT.id,
       maxReductionMs,
       event.timestamp,
     );
@@ -127,7 +131,7 @@ class RapidFire extends Analyzer {
   onEnergize(event: ResourceChangeEvent) {
     this.effectiveFocusGain += event.resourceChange - event.waste;
     this.focusWasted += event.waste;
-    const hasTrueshot = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
+    const hasTrueshot = this.selectedCombatant.hasBuff(TALENTS.TRUESHOT_TALENT.id);
 
     /** If Trueshot is active Rapid Fire has a 50% chance to fire an additional energize event
      *  However because focus can't be fractional and WoW rounds down on halves, we simply attribute 1 focus gain per additional energize tick over the baseline amount
@@ -141,7 +145,7 @@ class RapidFire extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(2)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.RAPID_FIRE}>
+        <BoringSpellValueText spell={TALENTS.RAPID_FIRE_TALENT}>
           <>
             {this.effectiveFocusGain}/{this.focusWasted + this.effectiveFocusGain}{' '}
             <small>possible focus gained</small>

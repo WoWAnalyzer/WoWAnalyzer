@@ -1,16 +1,14 @@
 import { change, date } from 'common/changelog';
-import { Hana, fel1ne, Saeldur, Vollmer, Vetyst } from 'CONTRIBUTORS';
-import { SpellLink } from 'interface';
+import { Vetyst } from 'CONTRIBUTORS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import { SpellLink } from 'interface';
+import SPELLS from 'common/SPELLS';
 
 export default [
-  change(date(2025, 6, 8), <>Add preparation section to overview.</>, Vetyst),
-  change(date(2025, 6, 8), <>Fix duplicate spellbook entry of <SpellLink spell={TALENTS_PRIEST.POWER_INFUSION_TALENT.id} />.</>, Vetyst),
-  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
-  change(date(2025, 3, 29), <>More Updates for 11.1</>, Saeldur),
-  change(date(2025, 3, 16), <>Updates for 11.1</>, Hana),
-  change(date(2024, 12, 3), <>Add Void Blast to Words of the Pious, Void Summoner and Train of Thought.</>, Saeldur),
-  change(date(2024, 10, 26), <>Fix atonement sources module.</>, fel1ne),
-  change(date(2024, 9, 23), <>Add void blast to weal and woe</>, Hana),
-  change(date(2024, 3, 9), <>The War Within Clean up.</>, Hana),
+  change(date(2026, 3, 20), <>Updated several StatisticBox deprecations.</>, Vetyst),
+  change(date(2026, 3, 20), <>Add <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime suggestions to the guide.</>, Vetyst),
+  change(date(2026, 3, 20), <>Update about page.</>, Vetyst),
+  change(date(2026, 3, 18), <>Add <SpellLink spell={SPELLS.VOID_BLAST_CAST_DISC} /> to the spellbook.</>, Vetyst),
+  change(date(2026, 3, 15), <>Implement statistics for <SpellLink spell={TALENTS_PRIEST.PROTECTOR_OF_THE_FRAIL_TALENT} /> talent.</>, Vetyst),
+  change(date(2026, 3, 14), <>Enable spec for Midnight</>, Vetyst),
 ];

@@ -104,12 +104,11 @@ class MindDevourer extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} />
         </b>{' '}
-        is gained randomly from <SpellLink spell={SPELLS.MIND_BLAST} /> casts.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+        is gained randomly from <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> casts.
         <br />
         Before the buff expires, cast <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.
-        While you have this active, be careful using <SpellLink spell={SPELLS.MIND_BLAST} />, as it
-        may overwrite it.
+        While you have this active, be careful using <SpellLink spell={TALENTS.MIND_BLAST_TALENT} />
+        , as it may overwrite it.
       </p>
     );
 

@@ -29,8 +29,9 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Abilities from '../Abilities';
 import Haste from 'parser/shared/modules/Haste';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import {
   EmbeddedTimelineContainer,
   SpellTimeline,
@@ -75,10 +76,13 @@ interface DoomWindsCooldownCast extends CooldownTrigger<ApplyBuffEvent | Refresh
   globalCooldowns: number[];
   windowSource: WindowSource;
   primarySpellId: number;
+  hotHandActiveRanges: { start: number; end: number }[];
 }
 
 class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
   private static readonly WINDOW_TRIGGER_BUFFER_MS = 150;
+  private static readonly STORMSTRIKE_BASE_COOLDOWN_MS = 7500;
+  private static readonly WINDSTRIKE_BASE_COOLDOWN_MS = 3000;
 
   static dependencies = {
     ...MajorCooldown.dependencies,
@@ -90,6 +94,10 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
 
   private readonly hasAscendance: boolean = false;
   private readonly hasDRE: boolean = false;
+  private readonly isTotemic: boolean = false;
+  private readonly hasElementalTempo: boolean = false;
+  private readonly hasHotHand: boolean = false;
+  private readonly hasVoltaicBlaze: boolean = false;
   private readonly crashLightningCD: number;
 
   // dependency properties
@@ -105,7 +113,10 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
   protected globalCooldownEnds = 0;
   protected recentWindowTrigger: RecentWindowTrigger | null = null;
 
-  // building these in constructor as rules need to reference msw tracker
+  private hotHandBuffActive = false;
+  private hotHandActiveStart: number | null = null;
+
+  // Build these in the constructor because they are talent-dependent.
   readonly ascendanceCastRules: HighPriorityAbilities = [];
 
   constructor(options: Options) {
@@ -115,6 +126,10 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
 
     this.hasAscendance = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT);
     this.hasDRE = this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
+    this.isTotemic = this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
+    this.hasElementalTempo = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_TEMPO_TALENT);
+    this.hasHotHand = this.selectedCombatant.hasTalent(TALENTS.HOT_HAND_TALENT);
+    this.hasVoltaicBlaze = this.selectedCombatant.hasTalent(TALENTS.VOLTAIC_BLAZE_TALENT);
     this.crashLightningCD =
       abilities.getAbility(TALENTS.CRASH_LIGHTNING_TALENT.id)!.cooldown * 1000;
 
@@ -137,6 +152,67 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
         maxCasts: () => this.maxCasts,
       },
     });
+
+    this.ascendanceCastRules.push({
+      spellId: [
+        SPELLS.LIGHTNING_BOLT.id,
+        TALENTS.CHAIN_LIGHTNING_TALENT.id,
+        SPELLS.TEMPEST_CAST.id,
+        SPELLS.PRIMORDIAL_STORM_CAST.id,
+      ],
+      condition: (event) => this.isMaelstromSpenderAtOrAboveStacks(event, 10),
+      enhancedCastReason: () => (
+        <>
+          Spending <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> at 10 stacks takes priority to
+          avoid overcapping during this window.
+        </>
+      ),
+    });
+
+    if (this.isTotemic && this.hasHotHand) {
+      this.ascendanceCastRules.push({
+        spellId: TALENTS.LAVA_LASH_TALENT.id,
+        condition: (event) =>
+          this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id, event.timestamp),
+        enhancedCastReason: () => (
+          <>
+            <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> takes priority during{' '}
+            <SpellLink spell={TALENTS.HOT_HAND_TALENT} />.
+          </>
+        ),
+      });
+    }
+
+    if (this.isTotemic && this.hasElementalTempo) {
+      this.ascendanceCastRules.push({
+        spellId: [
+          SPELLS.LIGHTNING_BOLT.id,
+          TALENTS.CHAIN_LIGHTNING_TALENT.id,
+          SPELLS.TEMPEST_CAST.id,
+          SPELLS.PRIMORDIAL_STORM_CAST.id,
+        ],
+        condition: (event) => this.isMaelstromSpenderAtOrAboveStacks(event, 5),
+        enhancedCastReason: () => (
+          <>
+            Totemic <SpellLink spell={TALENTS.ELEMENTAL_TEMPO_TALENT} /> builds can spend{' '}
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> at 5+ stacks during this window.
+          </>
+        ),
+      });
+    }
+
+    if (!this.isTotemic && this.hasVoltaicBlaze) {
+      this.ascendanceCastRules.push({
+        spellId: SPELLS.VOLTAIC_BLAZE_CAST.id,
+        condition: () => true,
+        enhancedCastReason: () => (
+          <>
+            <SpellLink spell={SPELLS.VOLTAIC_BLAZE_CAST} /> is a valid Stormbringer priority cast
+            during this window.
+          </>
+        ),
+      });
+    }
 
     // Tracking start end end of cooldown windows
     this.addEventListener(
@@ -168,6 +244,35 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
       this.detectWindstrikeCasts,
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGlobalCooldown);
+
+    if (this.hasHotHand) {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+        this.onHotHandApply,
+      );
+      this.addEventListener(
+        Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+        this.onHotHandRemove,
+      );
+    }
+  }
+
+  onHotHandApply(event: ApplyBuffEvent) {
+    this.hotHandBuffActive = true;
+    if (this.activeWindow) {
+      this.hotHandActiveStart = event.timestamp;
+    }
+  }
+
+  onHotHandRemove(event: RemoveBuffEvent) {
+    this.hotHandBuffActive = false;
+    if (this.activeWindow && this.hotHandActiveStart !== null) {
+      this.activeWindow.hotHandActiveRanges.push({
+        start: this.hotHandActiveStart,
+        end: event.timestamp,
+      });
+      this.hotHandActiveStart = null;
+    }
   }
 
   onGlobalCooldown(event: GlobalCooldownEvent) {
@@ -197,12 +302,16 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
 
   get maxCasts() {
     return this.casts.reduce((total: number, cast: DoomWindsCooldownCast) => {
+      if (cast.primarySpellId !== SPELLS.WINDSTRIKE_CAST.id) {
+        return total;
+      }
+
       return (
         total +
         cast.timeline.events.filter(
           (c) => c.type === EventType.Cast && c.ability.guid === SPELLS.WINDSTRIKE_CAST.id,
         ).length +
-        this.getMissedWindstrikes(cast)
+        this.getMissedPrimaryCasts(cast)
       );
     }, 0);
   }
@@ -230,7 +339,12 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
         hasteAdjustedWastedCrashLightningCooldown: 0,
         globalCooldowns: [],
         unusedGcdTime: 0,
+        hotHandActiveRanges: [],
       };
+
+      if (this.hotHandBuffActive) {
+        this.hotHandActiveStart = event.timestamp;
+      }
     }
     this.lastCooldownWasteCheck = event.timestamp;
   }
@@ -253,6 +367,14 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
     }
 
     return this.hasAscendance ? 'ascendance' : 'doom-winds';
+  }
+
+  private isMaelstromSpenderAtOrAboveStacks(
+    event: CastEvent | FreeCastEvent,
+    minimumStacks: number,
+  ): boolean {
+    const stacksSpent = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+    return (stacksSpent ?? 0) >= minimumStacks;
   }
 
   private explainSource(cast: DoomWindsCooldownCast): ChecklistUsageInfo {
@@ -352,6 +474,15 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
       this.recordWastedTriggerOpportunity(
         Math.max(event.timestamp - 1, this.lastCooldownWasteCheck),
       );
+
+      if (this.hotHandActiveStart !== null) {
+        this.activeWindow.hotHandActiveRanges.push({
+          start: this.hotHandActiveStart,
+          end: event.timestamp,
+        });
+        this.hotHandActiveStart = null;
+      }
+
       this.recordCooldown(this.activeWindow);
       this.activeWindow = null;
     }
@@ -386,23 +517,95 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
     return Math.floor(cast.hasteAdjustedWastedCrashLightningCooldown / this.crashLightningCD);
   }
 
+  private getPrimaryBaseCooldown(cast: DoomWindsCooldownCast): number {
+    return cast.windowSource === 'doom-winds'
+      ? DoomWinds.STORMSTRIKE_BASE_COOLDOWN_MS
+      : DoomWinds.WINDSTRIKE_BASE_COOLDOWN_MS;
+  }
+
+  private getMinimumPrimaryCastOpportunities(cast: DoomWindsCooldownCast): number {
+    if (cast.windowSource !== 'doom-winds' || cast.timeline.end == null) {
+      return 0;
+    }
+
+    const windowDuration = Math.max(cast.timeline.end - cast.timeline.start, 0);
+    return 1 + Math.floor(windowDuration / this.getPrimaryBaseCooldown(cast));
+  }
+
+  private getMissedPrimaryCasts(cast: DoomWindsCooldownCast): number {
+    const wasteBasedMissedCasts = Math.floor(
+      cast.hasteAdjustedWastedCooldown / this.getPrimaryBaseCooldown(cast),
+    );
+    const actualPrimaryCasts = cast.timeline.events.filter(
+      (event) => event.type === EventType.Cast && event.ability.guid === cast.primarySpellId,
+    ).length;
+    const hotHandLavaLashCasts = this.getHotHandLavaLashCasts(cast);
+    const minimumGuaranteedOpportunities = Math.max(
+      this.getMinimumPrimaryCastOpportunities(cast) - actualPrimaryCasts - hotHandLavaLashCasts,
+      0,
+    );
+
+    return Math.max(wasteBasedMissedCasts, minimumGuaranteedOpportunities);
+  }
+
+  private getHotHandLavaLashCasts(cast: DoomWindsCooldownCast): number {
+    if (!this.hasHotHand) {
+      return 0;
+    }
+    return cast.timeline.events.filter(
+      (event) =>
+        event.type === EventType.Cast &&
+        event.ability.guid === TALENTS.LAVA_LASH_TALENT.id &&
+        this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF.id, event.timestamp),
+    ).length;
+  }
+
+  private getHotHandOverlapRatio(cast: DoomWindsCooldownCast): number {
+    const hotHandActiveDuration = cast.hotHandActiveRanges.reduce(
+      (total, range) => total + (range.end - range.start),
+      0,
+    );
+    const windowDuration = (cast.timeline.end ?? cast.event.timestamp) - cast.timeline.start;
+    return windowDuration > 0 ? hotHandActiveDuration / windowDuration : 0;
+  }
+
   private getThorimsTriggerOpportunityBreakdown(cast: DoomWindsCooldownCast) {
     const primaryCasts = cast.timeline.events.filter(
       (event) => event.type === EventType.Cast && event.ability.guid === cast.primarySpellId,
     ).length;
-    const missedPrimaryCasts = this.getMissedWindstrikes(cast);
+    const missedPrimaryCasts = this.getMissedPrimaryCasts(cast);
     const crashLightningCasts = this.getCrashLightningCasts(cast);
     const missedCrashLightningCasts = this.getMissedCrashLightningCasts(cast);
+    const hotHandLavaLashCasts = this.getHotHandLavaLashCasts(cast);
+
+    // Unreduced maximum: what the primary max would be without HH adjustment
+    const wasteBasedMissedCasts = Math.floor(
+      cast.hasteAdjustedWastedCooldown / this.getPrimaryBaseCooldown(cast),
+    );
+    const unreducedMinGuaranteed = Math.max(
+      this.getMinimumPrimaryCastOpportunities(cast) - primaryCasts,
+      0,
+    );
+    const unreducedMissedPrimaryCasts = Math.max(wasteBasedMissedCasts, unreducedMinGuaranteed);
+    const unreducedMaximumPrimaryCasts = primaryCasts + unreducedMissedPrimaryCasts;
+
+    const rawMaximumTriggers =
+      primaryCasts + missedPrimaryCasts + crashLightningCasts + missedCrashLightningCasts;
+    const estimatedMaximumTriggers = Math.max(
+      rawMaximumTriggers - hotHandLavaLashCasts,
+      primaryCasts + crashLightningCasts,
+    );
 
     return {
       primaryCasts,
       missedPrimaryCasts,
       maximumPrimaryCasts: primaryCasts + missedPrimaryCasts,
+      unreducedMaximumPrimaryCasts,
       crashLightningCasts,
       missedCrashLightningCasts,
       maximumCrashLightningCasts: crashLightningCasts + missedCrashLightningCasts,
-      estimatedMaximumTriggers:
-        primaryCasts + missedPrimaryCasts + crashLightningCasts + missedCrashLightningCasts,
+      hotHandLavaLashCasts,
+      estimatedMaximumTriggers,
     };
   }
 
@@ -447,21 +650,7 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
             label: 'Thorim Triggers',
             tooltip: (
               <>
-                <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> triggers compared to the
-                estimated maximum:
-                <ul>
-                  <li>
-                    <SpellLink spell={this.getPrimaryStrikeSpell(cast)} />:{' '}
-                    {triggerOpportunities.primaryCasts}/{triggerOpportunities.maximumPrimaryCasts}
-                  </li>
-                  {triggerOpportunities.maximumCrashLightningCasts > 0 && (
-                    <li>
-                      <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} />:{' '}
-                      {triggerOpportunities.crashLightningCasts}/
-                      {triggerOpportunities.maximumCrashLightningCasts}
-                    </li>
-                  )}
-                </ul>
+                Estimated maximum <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> triggers.
               </>
             ),
             performance: thorimsPerformance.performance,
@@ -473,6 +662,38 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
             performance: this.explainGcdPerformance(cast).performance,
           },
         ],
+        details: (
+          <>
+            <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> may have been able to trigger
+            from the following sources:
+            <ul>
+              <li>
+                <SpellLink spell={this.getPrimaryStrikeSpell(cast)} />:{' '}
+                {triggerOpportunities.primaryCasts}/
+                {triggerOpportunities.unreducedMaximumPrimaryCasts}
+                {triggerOpportunities.hotHandLavaLashCasts > 0 &&
+                  triggerOpportunities.maximumPrimaryCasts <
+                    triggerOpportunities.unreducedMaximumPrimaryCasts && (
+                    <ul>
+                      <li>
+                        <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> has higher priority during{' '}
+                        <SpellLink spell={TALENTS.HOT_HAND_TALENT} />, reducing expected triggers
+                        from <SpellLink spell={this.getPrimaryStrikeSpell(cast)} /> to{' '}
+                        {triggerOpportunities.maximumPrimaryCasts}.
+                      </li>
+                    </ul>
+                  )}
+              </li>
+              {triggerOpportunities.maximumCrashLightningCasts > 0 && (
+                <li>
+                  <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} />:{' '}
+                  {triggerOpportunities.crashLightningCasts}/
+                  {triggerOpportunities.maximumCrashLightningCasts}
+                </li>
+              )}
+            </ul>
+          </>
+        ),
         additionalContent:
           sequence.length > 0
             ? {
@@ -539,10 +760,6 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
     );
   }
 
-  getMissedWindstrikes(cast: DoomWindsCooldownCast): number {
-    return Math.floor(cast.hasteAdjustedWastedCooldown / 3000);
-  }
-
   private getPrimaryStrikeSpell(cast: DoomWindsCooldownCast) {
     return cast.windowSource === 'doom-winds' ? SPELLS.STORMSTRIKE : SPELLS.WINDSTRIKE_CAST;
   }
@@ -603,18 +820,29 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
       opportunities.estimatedMaximumTriggers === 0
         ? 1
         : counts.total / opportunities.estimatedMaximumTriggers;
+    const hotHandOverlapRatio = this.getHotHandOverlapRatio(cast);
+
+    let performance = evaluateQualitativePerformanceByThreshold({
+      actual: triggerRate,
+      isGreaterThanOrEqual: {
+        perfect: 1,
+        good: 0.8,
+        ok: 0.6,
+      },
+    });
+
+    if (
+      this.hasHotHand &&
+      hotHandOverlapRatio > 0.5 &&
+      performance === QualitativePerformance.Fail
+    ) {
+      performance = QualitativePerformance.Ok;
+    }
 
     return {
       check: 'thorims-trigger-opportunities',
       timestamp: cast.event.timestamp,
-      performance: evaluateQualitativePerformanceByThreshold({
-        actual: triggerRate,
-        isGreaterThanOrEqual: {
-          perfect: 1,
-          good: 0.8,
-          ok: 0.6,
-        },
-      }),
+      performance,
       summary: (
         <div>
           <strong>{formatNumber(counts.total)}</strong> /{' '}
@@ -638,6 +866,13 @@ class DoomWinds extends MajorCooldown<DoomWindsCooldownCast> {
             <strong>{formatNumber(opportunities.crashLightningCasts)}</strong> /{' '}
             <strong>{formatNumber(opportunities.maximumCrashLightningCasts)}</strong>
           </div>
+          {this.hasHotHand && hotHandOverlapRatio > 0.5 && (
+            <div>
+              <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was active for{' '}
+              {formatPercentage(hotHandOverlapRatio, 0)}% of this window, reducing expected
+              triggers.
+            </div>
+          )}
         </div>
       ),
     };
