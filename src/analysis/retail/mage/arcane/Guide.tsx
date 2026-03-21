@@ -143,6 +143,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
+        {info.combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT) && (
+          <CastEfficiencyBar
+            spell={SPELLS.ARCANE_ORB}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
+            showExplanation
+          />
+        )}
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) && (
           <CastEfficiencyBar
             spell={TALENTS.PRESENCE_OF_MIND_TALENT}

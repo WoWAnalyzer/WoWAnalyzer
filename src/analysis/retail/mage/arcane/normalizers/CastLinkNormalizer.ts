@@ -31,6 +31,7 @@ const CustomType = {
   TICK: 'tick',
   BARRAGE_CAST: 'barrageCast',
   REFUND_BUFF: 'refundBuff',
+  PREVIOUS_CAST: 'previousCast',
 };
 
 const EVENT_LINKS = createEventLinks(
@@ -80,6 +81,13 @@ const EVENT_LINKS = createEventLinks(
         id: [SPELLS.ARCANE_ORB.id, SPELLS.ARCANE_ORB_DAMAGE.id],
         anyTarget: true,
         forwardBuffer: 2500,
+      }),
+      link(CustomType.PREVIOUS_CAST, {
+        type: EventType.Cast,
+        id: SPELLS.ARCANE_BARRAGE.id,
+        anyTarget: true,
+        backwardBuffer: 2000,
+        maxLinks: 1,
       }),
     ],
   },
