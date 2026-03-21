@@ -1,13 +1,9 @@
 import type { JSX } from 'react';
-import { formatPercentage, formatDuration } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import { SpellSeq } from 'parser/ui/SpellSeq';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { EventType } from 'parser/core/Events';
 import Analyzer from 'parser/core/Analyzer';
-import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import {
@@ -20,7 +16,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 
 import ArcaneSurge, { ArcaneSurgeData } from '../analyzers/ArcaneSurge';
 
-const ARCANE_CHARGE_MAX_STACKS = 4;
 const SURGE_PRE_WINDOW = 10000;
 const SURGE_POST_WINDOW = 5000; // 7.5 seconds before and after
 
@@ -33,38 +28,22 @@ class ArcaneSurgeGuide extends Analyzer {
   protected arcaneSurge!: ArcaneSurge;
   protected eventHistory!: EventHistory;
 
-  manaUtil(manaPercent: number) {
-    const thresholds = this.arcaneSurge.arcaneSurgeManaThresholds.isLessThan;
-    return evaluateQualitativePerformanceByThreshold({
-      actual: manaPercent,
-      isGreaterThan: {
-        perfect: thresholds.minor,
-        good: thresholds.average,
-        ok: thresholds.major,
-        fail: 0,
-      },
-    });
-  }
-
   private evaluateArcaneSurgeCast(cast: ArcaneSurgeData): CastEvaluation {
-    const mana = cast.mana || 0;
-    const manaPerf = this.manaUtil(mana) as QualitativePerformance;
-
     // Fail conditions (highest priority)
-    if (manaPerf === QualitativePerformance.Fail) {
+    if (!cast.touchActive) {
       return {
         timestamp: cast.cast,
         performance: QualitativePerformance.Fail,
-        reason: `Low Mana. Use Evocation to top off your mana before your Burn Phase.`,
+        reason: `Touch of the Magi was not active on the Arcane Surge target.`,
       };
     }
 
-    // Performance based on Mana
-    if (cast.mana) {
+    //Good
+    if (cast.touchActive) {
       return {
         timestamp: cast.cast,
-        performance: manaPerf,
-        reason: `${manaPerf} Usage: ${formatPercentage(cast.mana, 1)}% Mana`,
+        performance: QualitativePerformance.Good,
+        reason: `Touch of the Magi was active on the Surge target.`,
       };
     }
 
@@ -77,33 +56,22 @@ class ArcaneSurgeGuide extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const arcaneOrb = <SpellLink spell={SPELLS.ARCANE_ORB} />;
-    const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const evocation = <SpellLink spell={TALENTS.EVOCATION_TALENT} />;
-    const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
-    const arcaneMissiles = <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} />;
+    const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
 
     const explanation = (
       <>
-        <b>{arcaneSurge}</b> is your primary damage cooldown and will essentially convert all of
-        your mana into damage and then will give you a massive mana regeneration buff to refill your
-        mana. Because of this, there are a few things that you should do to ensure you maximize the
-        amount of damage that {arcaneSurge} does:
-        <ul>
-          <li>
-            Apparently nothing matters here ... Leaving this as placeholder for now and will revisit
-          </li>
-        </ul>
-        When incorporating the above items, your spell sequence will look like this:{' '}
-        <SpellSeq
-          spells={[
-            TALENTS.EVOCATION_TALENT,
-            TALENTS.ARCANE_MISSILES_TALENT,
-            SPELLS.ARCANE_ORB,
-            TALENTS.ARCANE_SURGE_TALENT,
-          ]}
-        />
+        <p>
+          <b>{arcaneSurge}</b> is your primary damage cooldown and will essentially convert all of
+          your mana into damage and then gives you a massive mana regeneration buff to refill your
+          mana. There is not much for you to play around with this cooldown, but you should cast
+          {arcaneSurge} while {touchOfTheMagi} is active on the target to increase {arcaneSurge}s
+          damage.
+        </p>
+        <p>
+          <b>Note</b>: While it may seem beneficial to have a high amount of mana before casting{' '}
+          {arcaneSurge}, this is not enough of a meaningful benefit to play around.
+        </p>
       </>
     );
 
@@ -142,11 +110,6 @@ class ArcaneSurgeGuide extends Analyzer {
         performance: evaluation.performance,
         timestamp: this.owner.formatTimestamp(cast.cast),
         stats: [
-          {
-            value: `${formatPercentage(cast.mana || 0, 0)}%`,
-            label: 'Mana',
-            tooltip: <>Mana percentage at cast time</>,
-          },
           {
             value: cast.touchActive ? 'Yes' : 'No',
             label: 'TOTM Active',
