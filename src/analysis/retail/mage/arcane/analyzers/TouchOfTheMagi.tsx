@@ -17,6 +17,7 @@ import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import { MageStatistic } from '../../shared/components';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 export default class TouchOfTheMagi extends Analyzer {
   static dependencies = {
@@ -94,16 +95,15 @@ export default class TouchOfTheMagi extends Analyzer {
     return active / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts;
   }
 
-  get touchMagiActiveTimeThresholds() {
-    return {
-      actual: this.averageActiveTime,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+  activeTimeUtil(activePercent: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: activePercent,
+      isGreaterThan: {
+        perfect: 0.95,
+        good: 0.9,
+        ok: 0.8,
       },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    });
   }
 
   statistic() {

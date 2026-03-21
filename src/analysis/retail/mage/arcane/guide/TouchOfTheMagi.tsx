@@ -4,10 +4,8 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SpellSeq } from 'parser/ui/SpellSeq';
 import { EventType } from 'parser/core/Events';
 import Analyzer from 'parser/core/Analyzer';
-import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 import TouchOfTheMagi, { TouchOfTheMagiData } from '../analyzers/TouchOfTheMagi';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { type CastEvaluation } from 'interface/guide/components/CastSummary';
@@ -21,7 +19,6 @@ import CastDetail, { type PerCastData } from 'interface/guide/components/CastDet
 
 import EventHistory from 'parser/shared/modules/EventHistory';
 
-const MAX_ARCANE_CHARGES = 4;
 const TOUCH_WINDOW_BUFFER_MS = 7500; // 7.5 seconds before and after
 
 class TouchOfTheMagiGuide extends Analyzer {
@@ -33,23 +30,10 @@ class TouchOfTheMagiGuide extends Analyzer {
   protected touchOfTheMagi!: TouchOfTheMagi;
   protected eventHistory!: EventHistory;
 
-  activeTimeUtil(activePercent: number) {
-    const thresholds = this.touchOfTheMagi.touchMagiActiveTimeThresholds.isLessThan;
-    return evaluateQualitativePerformanceByThreshold({
-      actual: activePercent,
-      isGreaterThan: {
-        perfect: thresholds.minor,
-        good: thresholds.average,
-        ok: thresholds.major,
-        fail: 0,
-      },
-    });
-  }
-
   private evaluateTouchCast(cast: TouchOfTheMagiData): CastEvaluation {
     const noCharges = cast.charges === 0;
     const activeTime = cast.activeTime || 0;
-    const activeTimePerf = this.activeTimeUtil(activeTime) as QualitativePerformance;
+    const activeTimePerf = this.touchOfTheMagi.activeTimeUtil(activeTime) as QualitativePerformance;
 
     // Fail conditions (highest priority)
     if (!noCharges) {
@@ -150,16 +134,15 @@ class TouchOfTheMagiGuide extends Analyzer {
       </>
     );
 
-    const activeTimePerf = this.activeTimeUtil(this.touchOfTheMagi.averageActiveTime);
+    const activeTimePerf = this.touchOfTheMagi.activeTimeUtil(
+      this.touchOfTheMagi.averageActiveTime,
+    );
 
     const averageDamageTooltip = (
       <>
         {formatNumber(this.touchOfTheMagi.averageDamage)} average damage per Touch of the Magi cast.
       </>
     );
-
-    const totalCasts = this.touchOfTheMagi.touchData.length;
-    const totalCastsTooltip = <>Total number of Touch of the Magi casts during the encounter.</>;
 
     // Get cast sequences for each Touch of the Magi window
     const touchSequenceEvents: CastSequenceEntry<TouchOfTheMagiData>[] =
@@ -215,6 +198,11 @@ class TouchOfTheMagiGuide extends Analyzer {
             label: 'Damage',
             tooltip: <>Total damage accumulated during this Touch of the Magi</>,
           },
+          {
+            value: formatDurationMillisMinSec(cast.surgeCD),
+            label: 'Surge CD',
+            tooltip: <>Arcane Surge Remaining Cooldown.</>,
+          },
         ],
         details: evaluation.reason,
         additionalContent: sequenceEntry
@@ -241,11 +229,6 @@ class TouchOfTheMagiGuide extends Analyzer {
               value: formatNumber(this.touchOfTheMagi.averageDamage),
               label: 'Average Damage',
               tooltip: averageDamageTooltip,
-            },
-            {
-              value: `${totalCasts}`,
-              label: 'Total Casts',
-              tooltip: totalCastsTooltip,
             },
           ]}
         />
