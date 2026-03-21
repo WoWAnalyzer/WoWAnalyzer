@@ -19,7 +19,7 @@ class FocusedAim extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.FOCUSED_AIM_TALENT);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPSRemoved,
     );
   }

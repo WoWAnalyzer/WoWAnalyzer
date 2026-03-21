@@ -33,9 +33,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RAPID_FIRE.id,
+        spell: TALENTS.RAPID_FIRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.RAPID_FIRE_TALENT),
+        cooldown: 16,
         gcd: {
           base: 1500,
         },
@@ -46,7 +47,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_SHOT.id,
-        buffSpellId: SPELLS.PRECISE_SHOTS.id,
+        buffSpellId: TALENTS_HUNTER.PRECISE_SHOTS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
 
         gcd: {
@@ -55,7 +56,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STEADY_SHOT.id,
-        buffSpellId: SPELLS.STEADY_FOCUS_BUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -63,15 +63,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MULTISHOT_MM.id,
-        buffSpellId: SPELLS.PRECISE_SHOTS.id,
+        buffSpellId: TALENTS_HUNTER.PRECISE_SHOTS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.TRUESHOT.id,
-        buffSpellId: SPELLS.TRUESHOT.id,
+        spell: TALENTS.TRUESHOT_TALENT.id,
+        buffSpellId: TALENTS.TRUESHOT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT) ? 90 : 120,
         gcd: {
@@ -80,6 +80,13 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: SPELLS.MOONLIGHT_CHAKRAM_CAST.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
         },
       },
       //endregion
@@ -169,14 +176,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BURSTING_SHOT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 24,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.CONCUSSIVE_SHOT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 5,
@@ -193,7 +192,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MISDIRECTION.id,
+        spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {

@@ -28,7 +28,6 @@ import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 import AimedShot from './modules/talents/AimedShot';
-import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import RapidFire from './modules/spells/RapidFire';
 import SteadyShot from './modules/spells/SteadyShot';
@@ -79,7 +78,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     trueshot: Trueshot,
-    loneWolf: LoneWolf,
     preciseShots: PreciseShots,
     rapidFire: RapidFire,
     steadyShot: SteadyShot,

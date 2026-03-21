@@ -1,6 +1,5 @@
 import RapidFire from 'analysis/retail/hunter/marksmanship/modules/spells/RapidFire';
 import SteadyShot from 'analysis/retail/hunter/marksmanship/modules/spells/SteadyShot';
-import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -35,7 +34,7 @@ class Trueshot extends Analyzer {
       this.onAimedShotCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.TRUESHOT_TALENT),
       this.onTrueshotCast,
     );
   }
@@ -50,7 +49,7 @@ class Trueshot extends Analyzer {
   }
 
   onAimedShotCast() {
-    if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       this.aimedShotsPrTS += 1;
     }
   }
@@ -58,7 +57,7 @@ class Trueshot extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.TRUESHOT}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.TRUESHOT_TALENT}>
           <SpellIcon spell={TALENTS_HUNTER.AIMED_SHOT_TALENT} noLink />{' '}
           {this.averageAimedShots.toFixed(1)} <small>per Trueshot</small>
         </BoringSpellValueText>
