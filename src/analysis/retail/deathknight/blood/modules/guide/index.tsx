@@ -5,8 +5,6 @@ import CombatLogParser from '../../CombatLogParser';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
-import DRAGONFLIGHT_OTHERS_SPELLS from 'common/SPELLS/others';
-import DRAGONFLIGHT_OTHERS_ITEMS from 'common/ITEMS/others';
 import { GuideProps, Section } from 'interface/guide';
 import DeathStrikeSection from '../spells/DeathStrike/DeathStrikeSection';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
