@@ -16,8 +16,8 @@ const links: EventLink[] = [
     referencedEventId: [SPELLS.WILDFIRE_BOMB_IMPACT.id, TALENTS.AIMED_SHOT_TALENT.id],
     anyTarget: false,
     anySource: false,
-    forwardBufferMs: 50,
-    backwardBufferMs: 50,
+    forwardBufferMs: 100,
+    backwardBufferMs: 100,
     maximumLinks: 1,
   },
   {
