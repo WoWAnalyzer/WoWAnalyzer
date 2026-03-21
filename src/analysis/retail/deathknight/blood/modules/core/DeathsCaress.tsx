@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/deathknight';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
