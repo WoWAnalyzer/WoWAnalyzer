@@ -20,7 +20,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.AIMED_SHOT_TALENT.id,
         enabled: this.selectedCombatant.hasTalent(TALENTS.AIMED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
+        cooldown: (haste: number) => {
+          return 15 / (1 + haste);
+        },
         charges: 2,
         gcd: {
           base: 1500,
