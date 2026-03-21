@@ -19,6 +19,7 @@ export default function Guide({
         {info.combatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT) &&
           modules.selfAtonementAnalyzer.guideSubsection}
       </Section>
+      <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
       <PreparationSection />
     </>
   );

@@ -26,7 +26,7 @@ import DarkEvangelism from './modules/talents/DarkEvangelism';
 import Dispersion from './modules/spells/Dispersion';
 import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordDeathSpeaker from './modules/spells/ShadowWordDeathSpeaker';
-import ShadowWordPain from './modules/spells/ShadowWordPain';
+import ShadowWordPain from 'src/analysis/retail/priest/shared/ShadowWordPain';
 import VampiricTouch from './modules/spells/VampiricTouch';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import TentacleSlam from './modules/talents/TentacleSlam';
