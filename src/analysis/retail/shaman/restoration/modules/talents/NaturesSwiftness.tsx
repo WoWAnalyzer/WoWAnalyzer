@@ -122,7 +122,6 @@ class NaturesSwiftness extends Analyzer {
       );
     }
 
-    console.log('nature', value, tooltip);
     this.castEntries.push({ value, tooltip });
   }
 
