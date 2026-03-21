@@ -1,4 +1,5 @@
 import type { JSX } from 'react';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -14,6 +15,9 @@ import CastSequence, {
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 import ArcaneSurge, { ArcaneSurgeData } from '../analyzers/ArcaneSurge';
+import { TipBox } from 'interface/guide/components';
+import { SpellSeq } from 'parser/ui/SpellSeq';
+import { formatPercentage } from 'common/format';
 
 const SURGE_PRE_WINDOW = 10000;
 const SURGE_POST_WINDOW = 5000; // 7.5 seconds before and after
@@ -27,22 +31,108 @@ class ArcaneSurgeGuide extends Analyzer {
   protected arcaneSurge!: ArcaneSurge;
   protected eventHistory!: EventHistory;
 
+  isSpellslinger = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
+  isSunfury = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
+
   private evaluateArcaneSurgeCast(cast: ArcaneSurgeData): CastEvaluation {
-    // Fail conditions (highest priority)
-    if (!cast.touchActive) {
+    const maxSalvoStacks = this.isSunfury ? 25 : 20;
+    const activeTimePerf: QualitativePerformance = cast.activeTime
+      ? this.arcaneSurge.activeTimeUtil(cast.activeTime)
+      : QualitativePerformance.Fail;
+
+    // Fail conditions
+    if (this.isSpellslinger && cast.salvoStacks !== maxSalvoStacks) {
       return {
         timestamp: cast.cast,
         performance: QualitativePerformance.Fail,
-        reason: `Touch of the Magi was not active on the Arcane Surge target.`,
+        reason: `${cast.salvoStacks} Arcane Salvo stacks`,
       };
     }
 
-    //Good
-    if (cast.touchActive) {
+    if (cast.activeTime && activeTimePerf === QualitativePerformance.Fail) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Fail,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
+      };
+    }
+
+    if (!cast.activeTime) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Fail,
+        reason: `No Active Time data found. Please report this!`,
+      };
+    }
+
+    // PERFECT
+    if (
+      this.isSpellslinger &&
+      cast.salvoStacks === maxSalvoStacks &&
+      activeTimePerf === QualitativePerformance.Perfect
+    ) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Perfect,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
+      };
+    }
+
+    if (this.isSunfury && activeTimePerf === QualitativePerformance.Perfect) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Perfect,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
+      };
+    }
+
+    // GOOD
+    if (
+      this.isSpellslinger &&
+      cast.salvoStacks === maxSalvoStacks &&
+      activeTimePerf === QualitativePerformance.Good
+    ) {
       return {
         timestamp: cast.cast,
         performance: QualitativePerformance.Good,
-        reason: `Touch of the Magi was active on the Surge target.`,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
+      };
+    }
+
+    if (this.isSunfury && activeTimePerf === QualitativePerformance.Good) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Good,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
+      };
+    }
+
+    // OK
+    if (
+      this.isSpellslinger &&
+      cast.salvoStacks === maxSalvoStacks &&
+      activeTimePerf === QualitativePerformance.Ok
+    ) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Ok,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
+      };
+    }
+
+    if (this.isSpellslinger && cast.salvoStacks < maxSalvoStacks) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Ok,
+        reason: `${cast.salvoStacks} Arcane Salvo Stacks.`,
+      };
+    }
+
+    if (this.isSunfury && activeTimePerf === QualitativePerformance.Ok) {
+      return {
+        timestamp: cast.cast,
+        performance: QualitativePerformance.Ok,
+        reason: `${formatPercentage(cast.activeTime)}% Active Time`,
       };
     }
 
@@ -50,27 +140,66 @@ class ArcaneSurgeGuide extends Analyzer {
     return {
       timestamp: cast.cast,
       performance: QualitativePerformance.Ok,
-      reason: `Unexpected Result. You should report this.`,
+      reason: `Unknown Performance Condition. Please report this.`,
     };
   }
 
   get guideSubsection(): JSX.Element {
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
+    const arcaneSalvo = <SpellLink spell={TALENTS.ARCANE_SALVO_TALENT} />;
+    const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
+    const arcanePulse = <SpellLink spell={TALENTS.ARCANE_PULSE_TALENT} />;
     const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
 
     const explanation = (
       <>
         <p>
           <b>{arcaneSurge}</b> is your primary damage cooldown and will essentially convert all of
-          your mana into damage and then gives you a massive mana regeneration buff to refill your
-          mana. There is not much for you to play around with this cooldown, but you should cast
-          {arcaneSurge} while {touchOfTheMagi} is active on the target to increase {arcaneSurge}s
-          damage.
+          your mana into damage and then gives you a massive damage and mana regeneration buff that
+          lasts for 15 seconds. There is not much to play around with this cooldown, but casting it
+          does begin your major burn phase, so you should ensure you are ready to execute that burn
+          phase uninterupted.
         </p>
+        {this.isSpellslinger && (
+          <p>
+            For Spellslinger, you should spam {arcaneBlast} or {arcanePulse} to ensure you have max
+            stacks of {arcaneSalvo} before you cast {arcaneSurge}.
+          </p>
+        )}
+        {this.isSunfury && (
+          <p>
+            For Sunfury, you should spam {arcaneBlast} or {arcanePulse} after {arcaneSurge} to get
+            as many {arcaneSalvo} stacks as possible, and then cast {touchOfTheMagi} in the last 4-6
+            seconds of {arcaneSurge}.
+          </p>
+        )}
         <p>
-          <b>Note</b>: While it may seem beneficial to have a high amount of mana before casting{' '}
-          {arcaneSurge}, this is not enough of a meaningful benefit to play around.
+          Below is a sample of what your Major Burn Phase will likely look like:
+          {this.isSpellslinger && (
+            <SpellSeq
+              spells={[
+                TALENTS.ARCANE_SALVO_TALENT,
+                TALENTS.ARCANE_SURGE_TALENT,
+                SPELLS.ARCANE_BARRAGE,
+                TALENTS.TOUCH_OF_THE_MAGI_TALENT,
+              ]}
+            />
+          )}
+          {this.isSunfury && (
+            <SpellSeq
+              spells={[
+                TALENTS.ARCANE_SURGE_TALENT,
+                TALENTS.ARCANE_SALVO_TALENT,
+                TALENTS.TOUCH_OF_THE_MAGI_TALENT,
+                SPELLS.ARCANE_BARRAGE,
+              ]}
+            />
+          )}
         </p>
+        <TipBox title="Note">
+          While it may seem beneficial to have a high amount of mana before casting {arcaneSurge},
+          this is not enough of a meaningful benefit to play around.
+        </TipBox>
       </>
     );
 

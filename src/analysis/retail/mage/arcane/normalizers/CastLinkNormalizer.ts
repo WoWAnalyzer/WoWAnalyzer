@@ -95,7 +95,16 @@ const EVENT_LINKS = createEventLinks(
   {
     spell: TALENTS.ARCANE_SURGE_TALENT.id,
     parentType: EventType.Cast,
-    links: [link(EventType.Damage, { maxLinks: 1, anyTarget: true })],
+    links: [
+      link(EventType.Damage, { maxLinks: 1, anyTarget: true }),
+      link(EventType.ApplyBuff, { id: SPELLS.ARCANE_SURGE_BUFF.id, maxLinks: 1, anyTarget: true }),
+      link(EventType.RemoveBuff, {
+        id: SPELLS.ARCANE_SURGE_BUFF.id,
+        maxLinks: 1,
+        anyTarget: true,
+        forwardBuffer: 20000,
+      }),
+    ],
   },
 
   {
