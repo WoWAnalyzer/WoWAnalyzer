@@ -45,20 +45,16 @@
     "src/analysis/retail/druid/shared",
     "src/analysis/retail/evoker/preservation",
     "src/analysis/retail/hunter/beastmastery",
-    "src/analysis/retail/hunter/marksmanship",
     "src/analysis/retail/monk/shared",
     "src/analysis/retail/paladin/holy",
     "src/analysis/retail/paladin/protection",
     "src/analysis/retail/paladin/retribution",
     "src/analysis/retail/paladin/shared",
-    "src/analysis/retail/priest/discipline",
     "src/analysis/retail/priest/holy",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/subtlety",
     "src/analysis/retail/rogue/outlaw",
-    "src/analysis/retail/rogue/shared",
-    "src/analysis/retail/shaman/elemental",
-    "src/analysis/retail/shaman/enhancement"
+    "src/analysis/retail/rogue/shared"
   ],
   "files": [
     "src/analysis/retail/deathknight/blood/CONFIG.tsx",
@@ -66,14 +62,11 @@
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
     "src/analysis/retail/evoker/preservation/CONFIG.tsx",
     "src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
-    "src/analysis/retail/hunter/marksmanship/CONFIG.tsx",
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/holy/CONFIG.tsx",
     "src/analysis/retail/rogue/assassination/CONFIG.tsx",
     "src/analysis/retail/rogue/subtlety/CONFIG.tsx",
     "src/analysis/retail/rogue/outlaw/CONFIG.tsx",
-    "src/analysis/retail/shaman/elemental/CONFIG.tsx",
-    "src/analysis/retail/shaman/enhancement/CONFIG.tsx",
     "src/analysis/retail/warrior/protection/CONFIG.tsx"
   ]
 }

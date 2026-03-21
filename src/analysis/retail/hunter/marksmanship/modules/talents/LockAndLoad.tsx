@@ -41,7 +41,7 @@ class LockAndLoad extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.LOCK_AND_LOAD_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AUTO_SHOT, SPELLS.BLEAK_ARROW_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AUTO_SHOT, SPELLS.BLEAK_ARROWS_DAMAGE]),
       this.autoshotDamage,
     );
     this.addEventListener(

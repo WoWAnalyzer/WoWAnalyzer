@@ -852,11 +852,20 @@ const spells = {
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
   },
-  ECLIPSE: {
-    id: 79577,
-    name: 'Eclipse',
+  // Eclipse Casts
+  SOLAR_ECLIPSE: {
+    id: 1233346,
+    name: 'Solar Eclipse',
     icon: 'ability_druid_eclipseorange',
   },
+  LUNAR_ECLIPSE: {
+    id: 1233272,
+    name: 'Lunar Eclipse',
+    icon: 'ability_druid_eclipse',
+  },
+  // Eclipse Buffs
+  // TODO Rename to ECLIPSE_SOLAR_BUFF & ECLIPSE_LUNAR_BUFF
+  // Used in classic module too
   ECLIPSE_SOLAR: {
     id: 48517,
     name: 'Eclipse (Solar)',

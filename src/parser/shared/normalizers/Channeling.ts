@@ -106,7 +106,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(TALENTS_DEMON_HUNTER.VOID_RAY_TALENT.id),
     // Shaman
     // Hunter
-    buffChannelSpec(SPELLS.RAPID_FIRE.id),
+    buffChannelSpec(TALENTS_HUNTER.RAPID_FIRE_TALENT.id),
     buffChannelSpec(TALENTS_HUNTER.BOOMSTICK_TALENT.id),
     // Paladin
     // Warrior

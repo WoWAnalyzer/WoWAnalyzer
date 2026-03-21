@@ -412,8 +412,8 @@ const spells = {
     name: 'Oppressing Roar',
     icon: 'ability_evoker_oppressingroar',
   },
-  UNRAVEL: {
-    id: 368432,
+  UNRAVEL_DAMAGE: {
+    id: 1264379,
     name: 'Unravel',
     icon: 'ability_evoker_unravel',
   },
@@ -768,6 +768,16 @@ const spells = {
     id: 1265980,
     name: 'Twin Flame',
     icon: 'ability_evoker_infernosblessing',
+  },
+  RISING_FURY_BUFF: {
+    id: 1271783,
+    name: 'Rising Fury',
+    icon: 'inv12_apextalent_evoker_risingfury',
+  },
+  RISEN_FURY_BUFF: {
+    id: 1271799,
+    name: 'Risen Fury',
+    icon: 'ability_evoker_oppressingroar2',
   },
   // endregion
 } satisfies Record<string, Spell>;
