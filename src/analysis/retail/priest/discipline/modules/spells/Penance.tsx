@@ -1,11 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import { Options } from 'parser/core/Module';
+import { PenanceDamageEvent, PenanceHealEvent } from './PenanceHelper';
 
 const HARSH_DISCIPLINE_BOLTS_PER_RANK = [0, 1, 2];
 
@@ -17,8 +19,9 @@ class Penance extends Analyzer {
   _totalBoltHits = 0;
   _missedBolts = 0;
   _harshDisciplineBolts = 0;
+  twinsightBolts = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
       ? 4
@@ -61,31 +64,31 @@ class Penance extends Analyzer {
     );
   }
 
-  static isPenance = (spellId) =>
+  static isPenance = (spellId: number): boolean =>
     spellId === SPELLS.PENANCE.id ||
-    spellId === SPELLS.DARK_REPRIMAND_DAMAGE.id ||
-    spellId === SPELLS.PENANCE_HEAL.id ||
-    spellId === SPELLS.DARK_REPRIMAND_HEAL.id ||
     spellId === SPELLS.PENANCE_CAST.id ||
+    spellId === SPELLS.PENANCE_HEAL.id ||
+    spellId === SPELLS.DARK_REPRIMAND_DAMAGE.id ||
     spellId === SPELLS.DARK_REPRIMAND_CAST.id ||
+    spellId === SPELLS.DARK_REPRIMAND_HEAL.id ||
     spellId === SPELLS.PENANCE_TWINSIGHT_DAMAGE.id ||
     spellId === SPELLS.PENANCE_TWINSIGHT_HEALING.id ||
     spellId === SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id ||
     spellId === SPELLS.DARK_REPRIMAND_TWINSIGHT_HEALING.id;
 
-  onDamage(event) {
+  onDamage(event: PenanceDamageEvent) {
     event.penanceBoltNumber = this._boltCount;
     this._boltCount += 1;
     this._totalBoltHits += 1;
   }
 
-  onHeal(event) {
+  onHeal(event: PenanceHealEvent) {
     event.penanceBoltNumber = this._boltCount;
     this._boltCount += 1;
     this._totalBoltHits += 1;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this._casts += 1;
     this._totalExpectedBolts += this._defaultBolts;
 
