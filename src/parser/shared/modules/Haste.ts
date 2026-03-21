@@ -70,7 +70,6 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
 
   //region Hunter
   [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
-  [SPELLS.STEADY_FOCUS_BUFF.id]: 0.08,
   //endregion
 
   //region Paladin
