@@ -28,29 +28,23 @@ import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 import AimedShot from './modules/talents/AimedShot';
-import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import RapidFire from './modules/spells/RapidFire';
 import SteadyShot from './modules/spells/SteadyShot';
 import Trueshot from './modules/spells/Trueshot';
 import CallingTheShots from './modules/talents/CallingTheShots';
 
-import ExplosiveShot from '../shared/talents/ExplosiveShot';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
-import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
 import FocusedAim from './modules/talents/FocusedAim';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from '../shared/talents/Deathblow';
-import MMTier2P from './modules/items/MMTier2P';
-import MMTier4P from './modules/items/MMTier4P';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import OvinaxMercurialEgg from 'parser/retail/modules/items/thewarwithin/trinkets/OvinaxMercurialEgg';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
 import SkardynsGrace from 'parser/retail/modules/items/thewarwithin/trinkets/SkardynsGrace';
 import BlackArrow from '../shared/talents/BlackArrow';
-import MagneticGunPowder from './modules/talents/MagneticGunPowder';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = FoundationGuide;
@@ -84,7 +78,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     trueshot: Trueshot,
-    loneWolf: LoneWolf,
     preciseShots: PreciseShots,
     rapidFire: RapidFire,
     steadyShot: SteadyShot,
@@ -95,10 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     aimedShot: AimedShot,
     volley: Volley,
     focusedAim: FocusedAim,
-    magneticGunPowder: MagneticGunPowder,
     lockAndLoad: LockAndLoad,
     callingTheShots: CallingTheShots,
-    streamline: Streamline,
     deathblow: Deathblow,
     surgingShots: SurgingShots,
 
@@ -108,13 +99,10 @@ class CombatLogParser extends CoreCombatLogParser {
     trailblazer: Trailblazer,
     naturalMending: NaturalMending,
     bornToBeWild: BornToBeWild,
-    explosiveShot: ExplosiveShot,
     masterMarksman: MasterMarksman,
     blackArrow: BlackArrow,
 
     // items
-    mmTier2P: MMTier2P,
-    mmTier4P: MMTier4P,
     ovinaxMercurialEgg: OvinaxMercurialEgg,
     madQueensMandate: MadQueensMandate,
     skardynsGrace: SkardynsGrace,

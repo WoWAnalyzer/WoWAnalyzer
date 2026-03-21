@@ -1,18 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
-// import Penance from '../Spells/Penance';
 
 /** The amount of time during which it's impossible a second Penance could have started */
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
-const debug = false;
-
 class SpellManaCost extends CoreSpellManaCost {
-  // static dependencies = {
-  //   penance: Penance, // we need this to add `penanceBoltNumber` to the cast event
-  // };
-
   lastPenanceStartTimestamp = 0;
 
   getHardcodedManaCost(event: CastEvent) {
@@ -46,14 +39,6 @@ class SpellManaCost extends CoreSpellManaCost {
       !event.targetIsFriendly &&
       this.selectedCombatant.hasBuff(SPELLS.KAM_XIRAFF_BUFF.id, event.timestamp)
     ) {
-      debug &&
-        console.log(
-          'Hostile spell and',
-          SPELLS.KAM_XIRAFF_BUFF.name,
-          'is active, reducing cost (',
-          cost,
-          ') by 75%',
-        );
       cost *= 0.25;
     }
 

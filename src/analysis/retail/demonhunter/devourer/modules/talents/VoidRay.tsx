@@ -65,6 +65,7 @@ class VoidRay extends Analyzer {
                 <SpellLink spell={TALENTS_DEMON_HUNTER.MOMENT_OF_CRAVING_TALENT} />
                 {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ERADICATE_TALENT) && (
                   <>
+                    {' '}
                     and <SpellLink spell={TALENTS_DEMON_HUNTER.ERADICATE_TALENT} />
                   </>
                 )}

@@ -262,12 +262,6 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
       <div>
         <b>Per-Cast Breakdown</b>
         <small> - click to expand</small>
-        <div>
-          <small>
-            Please note that haste is computed using Midnight values. Prepatch logs will show lower
-            expectations.
-          </small>
-        </div>
         {this.#castTrackers.map((cast, index) => {
           const header = (
             <>

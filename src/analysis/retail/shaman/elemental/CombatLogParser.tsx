@@ -22,6 +22,7 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
+import MaelstromSpenderInfo from './modules/core/MaelstromSpenderInfo';
 import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
 import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flameShock: FlameShock,
     lavaSurge: LavaSurge,
     buffs: Buffs,
+    maelstromSpenderInfo: MaelstromSpenderInfo,
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,

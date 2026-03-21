@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
           1 +
           combatant.getTalentRank(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) +
           combatant.getTalentRank(TALENTS.ELEMENTAL_REVERB_TALENT),
-        cooldown: 6,
+        cooldown: 6 - combatant.getTalentRank(TALENTS.RIP_CURRENT_TALENT),
         timelineSortIndex: 11,
         gcd: {
           base: 1500,
@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT) &&
           !combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 10,
+        cooldown: 18,
         timelineSortIndex: 17,
         gcd: {
           base: 1500,
@@ -132,7 +132,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT),
         buffSpellId: TALENTS.UNLEASH_LIFE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
+        cooldown: 17,
         timelineSortIndex: 5,
         gcd: {
           base: 1500,

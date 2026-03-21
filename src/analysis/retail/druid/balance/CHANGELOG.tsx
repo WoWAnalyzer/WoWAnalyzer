@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 3, 18), <>Core Rotation Rework: Starlord now tracks Max-stack uptime, Per-eclipse spender performance. Updated example log</>, Rex),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 4), <>Marked as updated for 11.1.0.</>, Sref),
   change(date(2024, 11, 18), <>Fixed an issue where <SpellLink spell={TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT} /> wouldn't show in cooldowns tab when <SpellLink spell={TALENTS_DRUID.ORBITAL_STRIKE_TALENT} /> talent is chosen.</>, Sref),
