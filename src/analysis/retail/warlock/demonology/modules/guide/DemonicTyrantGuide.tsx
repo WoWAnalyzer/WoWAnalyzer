@@ -105,7 +105,6 @@ function DemonicTyrantGuide(): JSX.Element | null {
 
   const tyrantSequenceEvents = useMemo((): CastSequenceEntry<TyrantCastData>[] => {
     if (!demonicTyrant || !eventHistory) return [];
-
     return demonicTyrant.tyrantData.map((cast) => {
       const windowStart = cast.cast - TYRANT_PRE_WINDOW;
       const windowEnd = cast.cast + TYRANT_POST_WINDOW;
@@ -133,14 +132,19 @@ function DemonicTyrantGuide(): JSX.Element | null {
   }, [demonicTyrant, eventHistory]);
 
   const perCastData: PerCastData[] = useMemo(() => {
-    if (!demonicTyrant) return [];
+    if (!demonicTyrant || !eventHistory) return [];
+    const fightStart =
+      eventHistory.getEvents([EventType.Cast], {
+        searchBackwards: false,
+        count: 1,
+      })[0]?.timestamp ?? 0;
 
     return demonicTyrant.tyrantData.map((cast, index) => {
       const sequenceEntry = tyrantSequenceEvents[index];
 
       return {
         performance: rateTyrantWindow(cast.handOfGuldanCasts),
-        timestamp: formatTimestampMs(cast.cast),
+        timestamp: formatTimestampMs(cast.cast - fightStart),
         stats: [
           {
             label: "Hand of Gul'dan Casts",
@@ -169,7 +173,7 @@ function DemonicTyrantGuide(): JSX.Element | null {
           : undefined,
       };
     });
-  }, [demonicTyrant, tyrantSequenceEvents]);
+  }, [demonicTyrant, eventHistory, tyrantSequenceEvents]);
 
   if (!demonicTyrant || !eventHistory) return null;
 
