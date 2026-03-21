@@ -200,13 +200,11 @@ export default class SpenderUsage extends Analyzer {
             - Green is {GOOD_SPENDERS_PER_ECLIPSE}+, Yellow is {OK_SPENDERS_PER_ECLIPSE}, Red is
             fewer.
           </small>
-          <div aria-label={`Spenders per Eclipse performance: ${GOOD} good, ${OK} ok, ${BAD} bad`}>
-            <GradiatedPerformanceBar
-              good={{ count: GOOD, label: `${GOOD_SPENDERS_PER_ECLIPSE}+ spenders` }}
-              ok={{ count: OK, label: `${OK_SPENDERS_PER_ECLIPSE} spenders` }}
-              bad={{ count: BAD, label: `Fewer than ${OK_SPENDERS_PER_ECLIPSE} spenders` }}
-            />
-          </div>
+          <GradiatedPerformanceBar
+            good={{ count: GOOD, label: `${GOOD_SPENDERS_PER_ECLIPSE}+ spenders` }}
+            ok={{ count: OK, label: `${OK_SPENDERS_PER_ECLIPSE} spenders` }}
+            bad={{ count: BAD, label: `Fewer than ${OK_SPENDERS_PER_ECLIPSE} spenders` }}
+          />
         </div>
 
         <RoundedPanel>
