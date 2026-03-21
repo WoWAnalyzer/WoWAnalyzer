@@ -73,14 +73,15 @@ class SurgeOfLight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
         <TalentSpellText talent={TALENTS.SURGE_OF_LIGHT_TALENT}>
-          <>
+          <div>
             {this.solFlashHeals}{' '}
             <small>
               free <SpellLink spell={SPELLS.FLASH_HEAL} /> casts
             </small>
-            <br />
+          </div>
+          <div>
             <ItemManaGained amount={this.solManaSaved} useAbbrev />
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

@@ -18,9 +18,9 @@ class DotUptimes extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>
-            Keep your DoTs up on the boss. <br />
-          </b>
+          <b>Keep your DoTs up on the boss.</b>
+        </p>
+        <p>
           By keeping <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> active, your over time healing
           through <SpellLink spell={SPELLS.ATONEMENT_BUFF} /> is increased.
         </p>

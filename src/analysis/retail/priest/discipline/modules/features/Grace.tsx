@@ -187,11 +187,14 @@ class Grace extends Analyzer {
                 was spells unaffected by mastery
               </li>
             </ul>
-            <br />
-            <strong>Unbuffed</strong> healing is healing done to targets without atonement with
-            spells that can benefit from mastery. <br />
-            <strong>Unaffected</strong> healing is healing done with spells that can't benefit from
-            mastery (Trinkets, procs, etc...)
+            <p>
+              <strong>Unbuffed</strong> healing is healing done to targets without atonement with
+              spells that can benefit from mastery.
+            </p>
+            <p>
+              <strong>Unaffected</strong> healing is healing done with spells that can't benefit
+              from mastery (Trinkets, procs, etc...)
+            </p>
           </>
         }
       >
