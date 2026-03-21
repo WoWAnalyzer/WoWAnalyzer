@@ -123,7 +123,7 @@ class HotTrackerRestoDruid extends HotTracker {
       },
       {
         spell: SPELLS.REGROWTH,
-        duration: 12000,
+        duration: 6000,
         tickPeriod: 2000,
         baseExtensions: [
           { attribution: thrivingVegetationAtt, amount: thrivingVegetationRank * 3000 },

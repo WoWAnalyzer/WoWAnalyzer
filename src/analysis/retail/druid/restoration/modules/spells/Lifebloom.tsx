@@ -118,6 +118,10 @@ class Lifebloom extends Analyzer {
       return;
     }
 
+    if (event.prepull) {
+      return;
+    }
+
     const isFirstLifebloomCast = this.analyzedLifebloomCasts === 0;
     this.analyzedLifebloomCasts += 1;
 
@@ -233,8 +237,8 @@ class Lifebloom extends Analyzer {
             <strong>
               <SpellLink spell={TALENTS_DRUID.EVERBLOOM_1_RESTORATION_TALENT} />
             </strong>
-            , target swaps are especially punishing. Any time you swap targets, Lifebloom resets to
-            1 stack and loses throughput.
+            , target swapping your lifebloom becomes punishing. Any time you swap targets, Lifebloom
+            resets to 1 stack and loses throughput.
             <br />
             <strong>{this.nonThreeStackCasts} casts not refreshing a 3-stack Lifebloom</strong>
           </p>
