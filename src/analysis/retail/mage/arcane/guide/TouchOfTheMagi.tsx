@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage, formatNumber, formatDurationMillisMinSec } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -48,17 +48,15 @@ class TouchOfTheMagiGuide extends Analyzer {
 
   private evaluateTouchCast(cast: TouchOfTheMagiData): CastEvaluation {
     const noCharges = cast.charges === 0;
-    const maxCharges = cast.charges === MAX_ARCANE_CHARGES;
     const activeTime = cast.activeTime || 0;
     const activeTimePerf = this.activeTimeUtil(activeTime) as QualitativePerformance;
-    const correctCharges = noCharges || (maxCharges && cast.refundBuff);
 
     // Fail conditions (highest priority)
-    if (!correctCharges) {
+    if (!noCharges) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Fail,
-        reason: `Wrong charge count (${cast.charges}) - should have 0 or 4 charges with refund buff`,
+        reason: `You had ${cast.charges} Arcane Charges. You should cast Arcane Barrage to dump your charges just before Touch of the Magi.`,
       };
     }
 
@@ -66,34 +64,42 @@ class TouchOfTheMagiGuide extends Analyzer {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Fail,
-        reason: `Very low active time (${formatPercentage(activeTime, 1)}%) - need to cast more during Touch window`,
+        reason: `Very low active time during Touch of the Magi(${formatPercentage(activeTime, 1)}%)`,
+      };
+    }
+
+    if (cast.surgeCD < 30000) {
+      return {
+        timestamp: cast.applied,
+        performance: QualitativePerformance.Fail,
+        reason: `Arcane Surge available soon (${formatDurationMillisMinSec(cast.surgeCD)} remaining)`,
       };
     }
 
     // Perfect conditions
-    if (correctCharges && activeTimePerf === QualitativePerformance.Perfect) {
+    if (activeTimePerf === QualitativePerformance.Perfect) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Perfect,
-        reason: `Perfect usage: correct charges (${cast.charges}) + excellent active time (${formatPercentage(activeTime, 1)}%)`,
+        reason: `Excellent uptime during Touch of the Magi(${formatPercentage(activeTime, 1)}%)`,
       };
     }
 
     // Good conditions
-    if (correctCharges && activeTimePerf === QualitativePerformance.Good) {
+    if (activeTimePerf === QualitativePerformance.Good) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Good,
-        reason: `Good usage: correct charges (${cast.charges}) + good active time (${formatPercentage(activeTime, 1)}%)`,
+        reason: `Good uptime during Touch of the Magi(${formatPercentage(activeTime, 1)}%)`,
       };
     }
 
     // Ok conditions
-    if (correctCharges && activeTimePerf === QualitativePerformance.Ok) {
+    if (activeTimePerf === QualitativePerformance.Ok) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Ok,
-        reason: `Acceptable: correct charges (${cast.charges}) but could improve active time (${formatPercentage(activeTime, 1)}%)`,
+        reason: `Low uptime during Touch of the Magi (${formatPercentage(activeTime, 1)}%)`,
       };
     }
 
@@ -101,55 +107,33 @@ class TouchOfTheMagiGuide extends Analyzer {
     return {
       timestamp: cast.applied,
       performance: QualitativePerformance.Fail,
-      reason: `Suboptimal Touch usage: ${cast.charges} charges, ${formatPercentage(activeTime, 1)}% active time`,
+      reason: `Unknown performance condition. Please report this!`,
     };
   }
 
   get guideSubsection(): JSX.Element {
     const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
-    const arcaneOrb = <SpellLink spell={SPELLS.ARCANE_ORB} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
-    const evocation = <SpellLink spell={TALENTS.EVOCATION_TALENT} />;
     const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
     const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />;
-    const burdenOfPower = <SpellLink spell={TALENTS.BURDEN_OF_POWER_TALENT} />;
-    const gloriousIncandescence = <SpellLink spell={TALENTS.GLORIOUS_INCANDESCENCE_TALENT} />;
 
     const explanation = (
       <>
         <b>{touchOfTheMagi}</b> is a short debuff available for each burn phase and grants you 4{' '}
         {arcaneCharge}s and accumulates 20% of your damage for the duration. When the debuff expires
-        it explodes dealing damage to the target and reduced damage to nearby targets.
+        it explodes dealing damage to the target and reduced damage to nearby targets. Following the
+        below guidelines will help you get the most out of the debuff:
         <ul>
           <li>
-            Using the standard rotation, cast as many spells as possible at the debuffed target
-            until the debuff expires.
+            Just before casting {touchOfTheMagi}, you should cast {arcaneBarrage} to expend all of
+            your {arcaneCharge}s and then cast {touchOfTheMagi} while {arcaneBarrage} is in the air.
           </li>
           <li>
-            Spend your {arcaneCharge}s with {arcaneBarrage} and then cast {touchOfTheMagi} while{' '}
-            {arcaneBarrage}
-            is in the air for some extra damage. cast
-            {touchOfTheMagi} while {arcaneBarrage} is in the air. This should be done even if your
-            charges will be refunded anyway via {burdenOfPower}, {gloriousIncandescence}, or .
-          </li>
-          <li>
-            Major Burn Phase: Ensure you have and . Your cast sequence would typically be{' '}
-            <SpellSeq
-              spells={[
-                TALENTS.EVOCATION_TALENT,
-                TALENTS.ARCANE_MISSILES_TALENT,
-                TALENTS.ARCANE_SURGE_TALENT,
-                SPELLS.ARCANE_BARRAGE,
-                TALENTS.TOUCH_OF_THE_MAGI_TALENT,
-              ]}
-            />
-            . If you don't have 4 {arcaneCharge}s, cast {arcaneOrb} before {arcaneSurge}.
-          </li>
-          <li>
-            Minor Burn Phase: {evocation} and {arcaneSurge} will not be available, but if possible
-            you should go into {touchOfTheMagi} with .
+            If {arcaneSurge} will be available within the next 30 seconds, you should hold{' '}
+            {touchOfTheMagi} to ensure {arcaneSurge} can be used while the {touchOfTheMagi} debuff
+            is active.
           </li>
           <li>
             Use {presenceOfMind} at the end of {touchOfTheMagi} to squeeze in a couple more{' '}

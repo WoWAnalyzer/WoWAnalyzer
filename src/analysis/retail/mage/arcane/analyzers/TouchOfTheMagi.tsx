@@ -16,16 +16,19 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import { MageStatistic } from '../../shared/components';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 export default class TouchOfTheMagi extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     chargeTracker: ArcaneChargeTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    spellUsable: SpellUsable,
   };
   protected abilityTracker!: AbilityTracker;
   protected chargeTracker!: ArcaneChargeTracker;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected spellUsable!: SpellUsable;
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
 
@@ -42,33 +45,20 @@ export default class TouchOfTheMagi extends Analyzer {
   }
 
   onTouch(event: ApplyDebuffEvent) {
-    const damageEvents = this.getDamageEvents(event);
-
-    this.touchData.push({
-      applied: event.timestamp,
-      removed: this.getRemoveTimestamp(event),
-      charges: this.chargeTracker.current,
-      refundBuff: this.hasRefundBuff(event),
-      damage: damageEvents,
-      totalDamage: this.calculateTotalDamage(damageEvents),
-    });
-  }
-
-  private getRemoveTimestamp(event: ApplyDebuffEvent): number {
+    const damageEvents: DamageEvent[] = GetRelatedEvents(event, EventType.Damage);
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(
       event,
       EventType.RemoveDebuff,
     );
-    return removeDebuff?.timestamp ?? this.owner.fight.end_time;
-  }
 
-  private getDamageEvents(event: ApplyDebuffEvent): DamageEvent[] {
-    return GetRelatedEvents(event, EventType.Damage);
-  }
-
-  private hasRefundBuff(event: ApplyDebuffEvent): boolean {
-    const refundBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'refundBuff');
-    return refundBuff !== undefined;
+    this.touchData.push({
+      applied: event.timestamp,
+      removed: removeDebuff?.timestamp || this.owner.fight.end_time,
+      charges: this.chargeTracker.current,
+      damage: damageEvents,
+      totalDamage: this.calculateTotalDamage(damageEvents),
+      surgeCD: this.spellUsable.cooldownRemaining(TALENTS.ARCANE_SURGE_TALENT.id, event.timestamp),
+    });
   }
 
   private calculateTotalDamage(damageEvents: DamageEvent[]): number {
@@ -129,8 +119,8 @@ export interface TouchOfTheMagiData {
   applied: number;
   removed: number;
   charges: number;
-  refundBuff: boolean;
   activeTime?: number;
   damage: DamageEvent[];
   totalDamage: number;
+  surgeCD: number;
 }
