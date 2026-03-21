@@ -1,16 +1,16 @@
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
-// import CHANGELOG from './CHANGELOG';
-import { Anty, SamuelMaverick, Dboisvert } from 'CONTRIBUTORS';
+import CHANGELOG from './CHANGELOG';
+import { Earosselot } from 'CONTRIBUTORS';
 import Config, { SupportLevel } from 'parser/Config';
 import AlertWarning from 'interface/AlertWarning';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Anty, SamuelMaverick, Dboisvert],
+  contributors: [Earosselot],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.1.5',
+  patchCompatibility: '12.0.0',
   supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -37,9 +37,8 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This analysis is a Work in Progress. I have made some initial updates for Rupture uptime,
-          Shadow Dance usage, and Secret Technique tracking, but there is more to do. Apologies for
-          the delays, I promise I am working on it. <code>@SamuelMaverick</code>
+          This analysis is outdated. Currently the information is not accurate and should not be
+          trusted. Apologies for the delays, I promise I am working on it. <code>@Earosselot</code>
         </AlertWarning>
       ),
     },
@@ -52,13 +51,13 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.SUBTLETY_ROGUE,
   // The contents of your changelog.
-  changelog: [], // CHANGELOG,
+  changelog: CHANGELOG, // CHANGELOG,
 
   // The CombatLogParser class for your spec.
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "SubtletyRogue" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "SubtletyRogue" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

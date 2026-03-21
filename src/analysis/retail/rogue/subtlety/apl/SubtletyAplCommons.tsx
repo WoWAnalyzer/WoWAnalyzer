@@ -20,11 +20,8 @@ export const sixComboPoints = RESOURCE_TYPES.COMBO_POINTS.id >= 6;
 // Checking if Shadow Dance is available for burst
 export const shadowDanceAvailable = cnd.spellAvailable(SPELLS.SHADOW_DANCE);
 
-// Checking if major cooldowns are available (Flagellation and Shadow Blades)
-export const majorCooldownsAvailable = cnd.and(
-  cnd.spellAvailable(SPELLS.FLAGELLATION),
-  cnd.spellAvailable(TALENTS.SHADOW_BLADES_TALENT),
-);
+// Checking if major cooldowns are available (Shadow Blades)
+export const majorCooldownsAvailable = cnd.and(cnd.spellAvailable(TALENTS.SHADOW_BLADES_TALENT));
 
 // Checking if Symbols of Death should be used outside major cooldowns
 export const useSymbolsOfDeath = cnd.or(

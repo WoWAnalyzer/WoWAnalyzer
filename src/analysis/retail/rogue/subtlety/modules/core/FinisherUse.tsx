@@ -23,9 +23,10 @@ export default class FinisherUse extends Analyzer {
 
     const trackedFinishers = [SPELLS.EVISCERATE];
 
-    if (this.selectedCombatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT)) {
-      trackedFinishers.push(TALENTS.SECRET_TECHNIQUE_TALENT);
-    }
+    // todo: secret technique is no longer a talent.
+    // if (this.selectedCombatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT)) {
+    //   trackedFinishers.push(TALENTS.SECRET_TECHNIQUE_TALENT);
+    // }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(trackedFinishers), this.onCast);
   }

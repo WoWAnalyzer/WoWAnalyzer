@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/rogue';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { NumberThreshold, SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import FilteredDamageTracker from 'analysis/retail/rogue/shared/FilteredDamageTracker';
 
 class CastsInStealthBase extends Analyzer {
@@ -20,7 +18,8 @@ class CastsInStealthBase extends Analyzer {
     SPELLS.SHADOWSTRIKE.id,
     SPELLS.EVISCERATE.id,
     TALENTS.SHURIKEN_TORNADO_TALENT.id,
-    TALENTS.SECRET_TECHNIQUE_TALENT.id,
+    // todo: secret technique is no longer a talent.
+    // TALENTS.SECRET_TECHNIQUE_TALENT.id,
   ];
 
   constructor(options: Options) {
@@ -67,44 +66,6 @@ class CastsInStealthBase extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestWrongCast(when: When, spell: Spell, thresholds: NumberThreshold) {
-    when(thresholds).addSuggestion(
-      (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) =>
-        suggest(
-          <>
-            Use <SpellLink spell={SPELLS.SHADOWSTRIKE} /> instead of <SpellLink spell={spell} />{' '}
-            during {this.stealthCondition}.{' '}
-          </>,
-        )
-          .icon(spell.icon)
-          .actual(
-            defineMessage({
-              id: 'rogue.subtlety.suggestions.castsInStealth.casts',
-              message: `${actual} ${spell.name} casts`,
-            }),
-          )
-          .recommended(`${recommended} is recommended`),
-    );
-  }
-
-  suggestAvgCasts(when: When, spell: Spell) {
-    when(this.castsInStealthThresholds).addSuggestion((suggest: SuggestionFactory) =>
-      suggest(
-        <>
-          Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}
-        </>,
-      )
-        .icon(spell.icon)
-        .actual(
-          defineMessage({
-            id: 'rogue.subtlety.suggestions.castsInStealth.efficiency',
-            message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`,
-          }),
-        )
-        .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`),
-    );
   }
 }
 

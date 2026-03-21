@@ -40,12 +40,6 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: [SPELLS.COLD_BLOOD.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 180,
-      },
-      {
         spell: [SPELLS.BLADE_FLURRY.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1000 },
