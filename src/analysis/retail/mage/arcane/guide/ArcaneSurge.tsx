@@ -5,13 +5,12 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { EventType } from 'parser/core/Events';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
-import { type CastEvaluation } from 'interface/guide/components/CastSummary';
-import {
+import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
+import CastSequence, {
   SpellSequence,
   type CastSequenceEntry,
   type CastInSequence,
 } from 'interface/guide/components/CastSequence';
-import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 import ArcaneSurge, { ArcaneSurgeData } from '../analyzers/ArcaneSurge';
@@ -102,33 +101,19 @@ class ArcaneSurgeGuide extends Analyzer {
         };
       });
 
-    const perCastData: PerCastData[] = this.arcaneSurge.surgeData.map((cast, index) => {
-      const evaluation = this.evaluateArcaneSurgeCast(cast);
-      const sequenceEntry = surgeSequenceEvents[index];
-
-      return {
-        performance: evaluation.performance,
-        timestamp: this.owner.formatTimestamp(cast.cast),
-        stats: [
-          {
-            value: cast.touchActive ? 'Yes' : 'No',
-            label: 'TOTM Active',
-            tooltip: <>Touch of the Magi Debuff on Target.</>,
-          },
-        ],
-        details: evaluation.reason,
-        additionalContent: sequenceEntry
-          ? {
-              title: 'Cast Sequence',
-              content: <SpellSequence casts={sequenceEntry.casts} iconSize={40} />,
-            }
-          : undefined,
-      };
-    });
-
     return (
       <GuideSection spell={TALENTS.ARCANE_SURGE_TALENT} explanation={explanation}>
-        <CastDetail title="Arcane Surge Casts" casts={perCastData} />
+        <CastSummary
+          spell={TALENTS.ARCANE_SURGE_TALENT}
+          casts={this.arcaneSurge.surgeData.map((cast) => this.evaluateArcaneSurgeCast(cast))}
+          showBreakdown
+        />
+        <CastSequence
+          spell={TALENTS.ARCANE_SURGE_TALENT}
+          sequences={surgeSequenceEvents}
+          castTimestamp={(data) => this.owner.formatTimestamp(data.cast)}
+          iconSize={40}
+        />
       </GuideSection>
     );
   }
