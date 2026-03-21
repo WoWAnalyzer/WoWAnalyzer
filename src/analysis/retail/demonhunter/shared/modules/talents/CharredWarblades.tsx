@@ -39,6 +39,7 @@ export default class CharredWarblades extends Analyzer {
         tooltip={
           <>
             This shows the extra hps that the talent provides.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Total extra healing:</strong> {formatNumber(this.heal)}
           </>

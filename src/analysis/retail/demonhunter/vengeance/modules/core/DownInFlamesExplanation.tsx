@@ -17,6 +17,7 @@ const DownInFlamesExplanation = ({ includeDownInFlames, lineBreak }: Props) => {
   }
   return (
     <>
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       {lineBreak ? <br /> : ' '}
       Always cast one of your charges of{' '}
       <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> before casting this ability so

@@ -101,17 +101,23 @@ class HarshDiscipline extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <br />
-            <strong>Atonement healing:</strong> {formatThousands(this.harshAtonement)}
-            <br />
-            <strong>Direct healing:</strong> {formatThousands(this.harshDirect)}
+            <div>
+              <strong>Atonement healing:</strong> {formatThousands(this.harshAtonement)}
+            </div>
+            <div>
+              <strong>Direct healing:</strong> {formatThousands(this.harshDirect)}
+            </div>
           </>
         }
       >
         <>
           <TalentSpellText talent={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}>
-            <ItemHealingDone amount={this.harshAtonement + this.harshDirect} /> <br />
-            <ItemDamageDone amount={this.damage} />
+            <div>
+              <ItemHealingDone amount={this.harshAtonement + this.harshDirect} />
+            </div>
+            <div>
+              <ItemDamageDone amount={this.damage} />
+            </div>
           </TalentSpellText>
         </>
       </Statistic>

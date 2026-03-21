@@ -130,10 +130,12 @@ class WealAndWoe extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.WEAL_AND_WOE_TALENT}>
-          <>
-            <ItemHealingDone amount={totalHealing} /> <br />
+          <div>
+            <ItemHealingDone amount={totalHealing} />
+          </div>
+          <div>
             <ItemDamageDone amount={this.damage} />
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

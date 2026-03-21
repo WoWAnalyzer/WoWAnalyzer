@@ -144,11 +144,12 @@ class PreciseShots extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS_BUFF}>
-          <>
+          <div>
             <ItemDamageDone amount={this.damage} />
-            <br />
+          </div>
+          <div>
             {this.buffsSpent} <small>buffs used</small>
-          </>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

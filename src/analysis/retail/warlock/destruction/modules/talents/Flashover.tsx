@@ -85,7 +85,9 @@ class Flashover extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>{' '}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           {this.bonusStacks} <small>bonus Backdraft stacks</small> <br />
           {this.wastedStacks}
           <Tooltip content="Conflagrate on 3 or 4 stacks of Backdraft">

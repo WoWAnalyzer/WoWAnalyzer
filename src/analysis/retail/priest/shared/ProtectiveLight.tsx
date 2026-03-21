@@ -47,7 +47,9 @@ class ProtectiveLight extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS.PROTECTIVE_LIGHT_TALENT}>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {formatNumber(this.damageReduced)} <small> damage reduced </small> <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS <br />
           </BoringSpellValueText>
         </>

@@ -48,6 +48,7 @@ class GrimoireOfSacrifice extends Analyzer {
         tooltip={
           <>
             {formatThousands(damage)} damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Buff uptime: {formatPercentage(this.uptime)} %
           </>

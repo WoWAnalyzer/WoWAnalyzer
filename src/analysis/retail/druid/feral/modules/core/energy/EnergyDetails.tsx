@@ -30,6 +30,7 @@ class EnergyDetails extends Analyzer {
           <>
             Although it can be beneficial to wait and let your energy pool ready to be used at the
             right time, you should still avoid letting it reach the cap.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             You spent <b>{formatPercentage(percentAtCap)}%</b> of the fight at capped energy,
             causing you to miss out on <b>{this.owner.getPerMinute(gainWaste).toFixed(0)}</b> energy

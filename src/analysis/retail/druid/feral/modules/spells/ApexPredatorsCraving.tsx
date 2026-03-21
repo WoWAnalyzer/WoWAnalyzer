@@ -231,6 +231,7 @@ class ApexPredatorsCraving extends Analyzer {
           <ItemPercentDamageDone amount={this.totalDamage} />
           {this.hasSotf && (
             <>
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <SpellIcon spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} />{' '}
               {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>

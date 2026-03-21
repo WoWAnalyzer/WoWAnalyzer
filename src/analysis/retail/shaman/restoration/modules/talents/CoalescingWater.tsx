@@ -74,6 +74,7 @@ export default class CoalescingWater extends Analyzer {
           <>
             <strong>{formatNumber(this.healingDoneFromTalent)}</strong> bonus healing (
             {formatNumber(this.overhealingDoneFromTalent)} overhealing)
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.chainHealCasts} Hard Casted chain heals, saving{' '}
             {formatNumber(this.manaSavedFromTalent)} mana.

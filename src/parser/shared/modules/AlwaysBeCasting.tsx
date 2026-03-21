@@ -379,6 +379,7 @@ class AlwaysBeCasting extends Analyzer {
             Downtime is available time not used to cast anything (including not having your GCD
             rolling). This can be caused by delays between casting spells, latency, cast
             interrupting or just simply not casting anything (e.g. due to movement/stunned).
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <ul>
               <li>

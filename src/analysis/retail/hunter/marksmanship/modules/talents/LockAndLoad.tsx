@@ -96,12 +96,18 @@ class LockAndLoad extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            You had {this.noGainLNLProcs} {this.noGainLNLProcs === 1 ? `proc` : `procs`} with LnL
-            already active. <br />
-            You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you
-            could expect to get over the encounter. <br />
-            You had a total of {this.totalProcs} procs, and your expected amount of procs was{' '}
-            {formatNumber(this.expectedProcs)}. <br />
+            <p>
+              You had {this.noGainLNLProcs} {this.noGainLNLProcs === 1 ? `proc` : `procs`} with LnL
+              already active.
+            </p>
+            <p>
+              You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you
+              could expect to get over the encounter.
+            </p>
+            <p>
+              You had a total of {this.totalProcs} procs, and your expected amount of procs was{' '}
+              {formatNumber(this.expectedProcs)}.
+            </p>
             <ul>
               <li>
                 You have a ≈
@@ -125,11 +131,12 @@ class LockAndLoad extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_HUNTER.LOCK_AND_LOAD_TALENT}>
-          <>
+          <div>
             {this.totalProcs} <small>procs</small>
-            <br />
+          </div>
+          <div>
             {this.noGainLNLProcs} <small>wasted procs</small>
-          </>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

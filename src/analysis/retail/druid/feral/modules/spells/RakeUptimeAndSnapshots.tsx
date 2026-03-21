@@ -81,6 +81,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
           Bad because you refreshed early with a weaker snapshot
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -90,6 +91,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
             You refreshed this too early, but upgraded the snapshot
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -98,6 +100,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
             Bad because you refreshed too early
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -107,6 +110,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
       perfExplanation = (
         <h5 style={{ color: OkColor }}>
           Careful, you refreshed this a little early
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -116,6 +120,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
       <>
         {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {prevSnapshotNames !== null && (
           <>
@@ -125,10 +130,12 @@ class RakeUptimeAndSnapshots extends Snapshots {
                 <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
               </>
             )}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
         Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {prevSnapshotNames !== null && (
           <>
@@ -177,6 +184,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <CastSummaryAndBreakdown
           spell={SPELLS.RAKE}

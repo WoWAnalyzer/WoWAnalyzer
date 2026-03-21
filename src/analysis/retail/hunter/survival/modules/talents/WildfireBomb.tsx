@@ -172,13 +172,17 @@ class WildfireBomb extends Analyzer.withDependencies({
         <BoringSpellValueText spell={TALENTS.WILDFIRE_BOMB_TALENT}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.casts} <small>casts</small>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.tippedCasts} <small>tipped casts ({tippedPercentage.toFixed(1)}%)</small>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.sentinelProcs}{' '}
             <small>Sentinel's Mark procs ({sentinelPercentage.toFixed(1)}%)</small>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {avgTargetsHit.toFixed(2)} <small>avg targets hit</small>
           </>

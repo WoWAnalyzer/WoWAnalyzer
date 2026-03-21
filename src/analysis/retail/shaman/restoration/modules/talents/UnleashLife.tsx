@@ -414,6 +414,7 @@ class UnleashLife extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.UNLEASH_LIFE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.buffIcon} {this.wastedBuffs} <small> wasted buffs</small>
         </TalentSpellText>
@@ -448,6 +449,7 @@ class UnleashLife extends Analyzer {
             <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {this.guideSubStatistic()} <br />
             <strong>Casts </strong>
             <small>

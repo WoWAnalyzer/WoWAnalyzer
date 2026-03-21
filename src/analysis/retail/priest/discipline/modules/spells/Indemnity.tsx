@@ -76,7 +76,7 @@ class Indemnity extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS_PRIEST.INDEMNITY_TALENT}>
-            <ItemHealingDone amount={this.atonementHealing} /> <br />
+            <ItemHealingDone amount={this.atonementHealing} />
           </BoringSpellValueText>
         </>
       </Statistic>

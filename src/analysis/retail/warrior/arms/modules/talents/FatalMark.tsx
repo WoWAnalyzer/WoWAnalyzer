@@ -78,6 +78,7 @@ class FatalMark extends Analyzer {
         >
           <>
             {formatNumber(this.totalDamage)} <small> Damage </small>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.totalStacks} <small> Stacks </small>
           </>
