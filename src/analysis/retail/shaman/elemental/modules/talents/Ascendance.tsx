@@ -141,6 +141,7 @@ class Ascendance extends Analyzer.withDependencies({
   onAscendanceEnd(event: AnyEvent | FightEndEvent) {
     if (this.currentCooldown) {
       this.currentCooldown.timeline.end = event.timestamp;
+      this.currentCooldown.endingMaelstrom = this.deps.maelstromTracker.current;
       this.cooldownWindows.push(this.currentCooldown);
       this.currentCooldown = null;
     }
@@ -490,10 +491,6 @@ class Ascendance extends Analyzer.withDependencies({
         const isCancelled =
           (event.type === EventType.BeginChannel || event.type === EventType.BeginCast) &&
           (interval.cancelled || event.isCancelled);
-        const verb =
-          event.type === EventType.BeginChannel || event.type === EventType.BeginCast
-            ? 'Started'
-            : 'Cast';
 
         return {
           timestamp: event.timestamp,

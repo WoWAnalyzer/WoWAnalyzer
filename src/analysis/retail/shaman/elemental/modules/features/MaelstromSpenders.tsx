@@ -52,6 +52,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
   };
 
   oneChargeLavaBurstTimestamp: number | null = this.owner.fight.start_time;
+  lastRecordedTotalWaste = 0;
 
   constructor(options: Options) {
     super(options);
@@ -96,13 +97,9 @@ class MaelstromSpenders extends Analyzer.withDependencies({
   }
 
   onSpenderCast(event: CastEvent) {
-    const previousSpenderTimestamp =
-      this.spenderCasts.at(-1)?.event.timestamp ?? this.owner.fight.start_time;
-    const segment = this.deps.maelstromTracker.generateSegmentData(
-      previousSpenderTimestamp,
-      event.timestamp + 1,
-    );
-    const wasteSinceLastSpender = segment.totalWaste;
+    const totalWaste = this.deps.maelstromTracker.wasted;
+    const wasteSinceLastSpender = Math.max(totalWaste - this.lastRecordedTotalWaste, 0);
+    this.lastRecordedTotalWaste = totalWaste;
 
     const cast: SpenderCast = {
       event: event,
@@ -411,11 +408,6 @@ class MaelstromSpenders extends Analyzer.withDependencies({
         <CastDetail title="Maelstrom Spender Casts" casts={this.buildPerCastData()} />
       </GuideSection>
     );
-  }
-
-  // Calculate effective cap threshold (where it becomes ok to spend without MoTE)
-  nearMaelstromCap(current: number): boolean {
-    return current >= this.maelstromCap - 15;
   }
 }
 
