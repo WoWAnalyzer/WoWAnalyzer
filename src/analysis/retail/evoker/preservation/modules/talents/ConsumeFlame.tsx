@@ -41,10 +41,6 @@ class ConsumeFlame extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([TALENTS_EVOKER.ENGULF_TALENT]),
-      this.onCast,
-    );
-    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CONSUME_FLAME_HEAL]),
       this.onHeal,
     );
@@ -116,8 +112,8 @@ class ConsumeFlame extends Analyzer {
             </li>
           </ul>
         </div>
-        and make sure to always cast <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on a target
-        with a hardcasted <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> (i.e. not from{' '}
+        and make sure to always cast NONE on a target with a hardcasted{' '}
+        <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> (i.e. not from{' '}
         <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
         ).
       </p>
@@ -159,7 +155,7 @@ class ConsumeFlame extends Analyzer {
       const tooltip = (
         <>
           <div>
-            <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> @{' '}
+            <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} /> @{' '}
             {this.owner.formatTimestamp(cast.timestamp)}
           </div>
           <div>
