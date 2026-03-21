@@ -52,7 +52,7 @@ class TouchOfTheMagiGuide extends Analyzer {
       };
     }
 
-    if (cast.surgeCD < 30000) {
+    if (cast.surgeCD < 40000) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Fail,
@@ -115,13 +115,9 @@ class TouchOfTheMagiGuide extends Analyzer {
             your {arcaneCharge}s and then cast {touchOfTheMagi} while {arcaneBarrage} is in the air.
           </li>
           <li>
-            If {arcaneSurge} will be available within the next 30 seconds, you should hold{' '}
+            If {arcaneSurge} will be available within the next 40 seconds, you should hold{' '}
             {touchOfTheMagi} to ensure {arcaneSurge} can be used while the {touchOfTheMagi} debuff
             is active.
-          </li>
-          <li>
-            Use {presenceOfMind} at the end of {touchOfTheMagi} to squeeze in a couple more{' '}
-            {arcaneBlast} casts.
           </li>
         </ul>
       </>
