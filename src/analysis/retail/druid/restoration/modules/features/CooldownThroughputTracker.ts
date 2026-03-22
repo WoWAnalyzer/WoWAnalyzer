@@ -18,13 +18,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS_DRUID.FLOURISH_TALENT.id,
+      spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      startBufferMS: 12_000,
+      startBufferMS: 15_000,
       branch: GameBranch.Retail,
     },
     {
@@ -34,6 +34,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      startBufferMS: 15_000,
       branch: GameBranch.Retail,
     },
   ];
