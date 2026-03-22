@@ -30,7 +30,7 @@ class CullTheWeak extends Analyzer.withDependencies({
     );
   }
 
-  onCast(event: CastEvent) {
+  onCast(_event: CastEvent) {
     const targetSpellId = TALENTS.DARK_HARVEST_TALENT.id;
 
     const actualReduction = this.deps.spellUsable.reduceCooldown(targetSpellId, CDR_MS);
