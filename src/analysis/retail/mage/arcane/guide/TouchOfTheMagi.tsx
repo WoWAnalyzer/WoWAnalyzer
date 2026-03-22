@@ -31,6 +31,7 @@ class TouchOfTheMagiGuide extends Analyzer {
   protected eventHistory!: EventHistory;
 
   isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
+  isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
 
   private evaluateTouchCast(cast: TouchOfTheMagiData): CastEvaluation {
     const noCharges = cast.charges === 0;
@@ -38,11 +39,11 @@ class TouchOfTheMagiGuide extends Analyzer {
     const activeTimePerf = this.touchOfTheMagi.activeTimeUtil(activeTime) as QualitativePerformance;
 
     // Fail conditions (highest priority)
-    if (!noCharges && !cast.arcaneSoul) {
+    if (this.isSpellslinger && !noCharges) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Fail,
-        reason: `You had ${cast.charges} Arcane Charges${this.isSunfury && ` and didn't have Arcane Soul`}. You should cast Arcane Barrage to dump your charges just before Touch of the Magi.`,
+        reason: `You had ${cast.charges} Arcane Charges. You should cast Arcane Barrage to dump your charges just before Touch of the Magi.`,
       };
     }
 
@@ -102,6 +103,7 @@ class TouchOfTheMagiGuide extends Analyzer {
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
+    const sunfuryExecution = <SpellLink spell={TALENTS.SUNFURY_EXECUTION_TALENT} />;
 
     const explanation = (
       <>
@@ -110,10 +112,19 @@ class TouchOfTheMagiGuide extends Analyzer {
         it explodes dealing damage to the target and reduced damage to nearby targets. Following the
         below guidelines will help you get the most out of the debuff:
         <ul>
-          <li>
-            Just before casting {touchOfTheMagi}, you should cast {arcaneBarrage} to expend all of
-            your {arcaneCharge}s and then cast {touchOfTheMagi} while {arcaneBarrage} is in the air.
-          </li>
+          {this.isSpellslinger && (
+            <li>
+              Just before casting {touchOfTheMagi}, you should cast {arcaneBarrage} to expend all of
+              your {arcaneCharge}s and then cast {touchOfTheMagi} while {arcaneBarrage} is in the
+              air.
+            </li>
+          )}
+          {this.isSunfury && (
+            <li>
+              Instead of using {arcaneBarrage} just before {touchOfTheMagi}, you should use it
+              immediately after to buff the damage of the {arcaneBarrage} via {sunfuryExecution}
+            </li>
+          )}
           <li>
             If {arcaneSurge} will be available within the next 40 seconds, you should hold{' '}
             {touchOfTheMagi} to ensure {arcaneSurge} can be used while the {touchOfTheMagi} debuff
