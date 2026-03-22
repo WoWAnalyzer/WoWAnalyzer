@@ -12,7 +12,6 @@ import Events, {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
 import isAtonement from './isAtonement';
