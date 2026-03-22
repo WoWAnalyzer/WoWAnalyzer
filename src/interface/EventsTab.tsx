@@ -381,6 +381,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
             autoCapitalize="off"
             spellCheck="false"
           />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {filterableEventTypes.filter(isFilterableEventType).map((type) => {
             if (!getEventTypeIsFabricated(type) || showFabricated) {
@@ -397,12 +398,14 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
             }
             return null;
           })}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <div className="flex" style={{ paddingLeft: 5 }}>
             <button className="btn btn-link" onClick={() => dispatch({ type: 'turnAllOff' })}>
               Toggle off all filters
             </button>
           </div>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <EventTabsToggle
             checked={showFabricated}
@@ -417,6 +420,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
             label="Raw names"
             onChange={() => dispatch({ type: 'toggleRawNames' })}
           />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <div className="modified-legend" style={{ width: 240, padding: 10 }}>
             Events with an orange background were{' '}

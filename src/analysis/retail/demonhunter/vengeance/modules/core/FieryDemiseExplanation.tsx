@@ -16,6 +16,7 @@ const FieryDemiseExplanation = ({ includeDownInFlames, lineBreak }: Props) => {
   }
   return (
     <>
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       {lineBreak ? <br /> : ' '}
       Always use when <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> is applied to
       the target in order to maximise the damage dealt due to{' '}

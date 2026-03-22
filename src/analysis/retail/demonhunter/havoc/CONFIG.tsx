@@ -18,13 +18,17 @@ const CONFIG: Config = {
     <>
       Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics
       useful.
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       More resources for Havoc:
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">
         Demon Hunter Class Discord
       </a>{' '}
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <a
         href="https://www.wowhead.com/havoc-demon-hunter-guide"
@@ -33,6 +37,7 @@ const CONFIG: Config = {
       >
         Wowhead Guide
       </a>{' '}
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <a
         href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide"
@@ -41,10 +46,12 @@ const CONFIG: Config = {
       >
         Icy Veins Guide
       </a>{' '}
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <a href="https://www.youtube.com/@Jedithtv" target="_blank" rel="noopener noreferrer">
         Jedith's YouTube channel
       </a>{' '}
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
     </>
   ),

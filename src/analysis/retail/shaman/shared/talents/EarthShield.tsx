@@ -125,6 +125,7 @@ class EarthShield extends Analyzer {
         combined with affecting talents in the class and spec tree.{' '}
         <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> should be applied prior to the
         fight starting and maintained as it falls off throughout the encounter
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {hasElementalOrbit && (
           <>
@@ -133,7 +134,9 @@ class EarthShield extends Analyzer {
             </b>{' '}
             allows you to place <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> on yourself
             as well as an ally, and you should aim to maintain high uptime on both.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
@@ -154,6 +157,7 @@ class EarthShield extends Analyzer {
               <SpellLink spell={TALENTS_SHAMAN.REACTIVE_WARDING_TALENT} />
             </b>{' '}
             is most efficient when you refresh your shields with as few stacks left as possible
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}

@@ -79,6 +79,7 @@ class PrimalTideCore extends Analyzer {
       >
         <TalentSpellText talent={talents.PRIMAL_TIDE_CORE_TALENT}>
           <ItemHealingDone amount={this.ptcHealing} />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.ptcProcs}{' '}
           <small>

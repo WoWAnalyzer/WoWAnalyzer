@@ -162,9 +162,8 @@ class EncroachingShadows extends Analyzer {
         tooltip={`The additional dots contributed ${formatThousands(this.ptwCleaveDamage)} damage.`}
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_WORD_PAIN}>
-          {formatPercentage(uptime)}% Uptime <br />
-          {this.extraPTWs} Extra DOTs
-          <br />
+          <div>{formatPercentage(uptime)}% Uptime</div>
+          <div>{this.extraPTWs} Extra DOTs</div>
         </BoringSpellValueText>
       </Statistic>
     );

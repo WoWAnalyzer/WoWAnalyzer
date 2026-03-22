@@ -27,6 +27,7 @@ class DotUptimes extends Analyzer {
     const explanation = (
       <p>
         <b>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           Keep your DoTs up on the boss. <br />
         </b>
         In addition to dealing damage, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> and{' '}
@@ -52,6 +53,7 @@ class DotUptimes extends Analyzer {
           Maximize the uptime of <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> while not
           wasting insanity.
         </b>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         Unlike most DoTs, when reapplied any remaining damage will be added to the new effect. In
         addition to dealing damage, it increases all your damage through{' '}
