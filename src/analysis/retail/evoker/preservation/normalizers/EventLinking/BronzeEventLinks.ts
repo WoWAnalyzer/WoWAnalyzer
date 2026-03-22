@@ -1,4 +1,4 @@
-//import { EMPOWERED_CAST } from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+import { empowerFinishedCasting } from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
@@ -15,8 +15,6 @@ import { STASIS_CAST_IDS } from '../../constants';
 import {
   STASIS,
   STASIS_BUFFER,
-  STASIS_FOR_RAMP,
-  MAX_ECHO_DURATION,
   GOLDEN_HOUR,
   ECHO_BUFFER,
   TIME_OF_NEED_HEALING,
@@ -50,10 +48,7 @@ export const BRONZE_EVENT_LINKS: EventLink[] = [
       ) {
         return false;
       }
-      return (
-        //!HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
-        !HasRelatedEvent(referencedEvent, STASIS)
-      );
+      return !empowerFinishedCasting(refEvent) && !HasRelatedEvent(referencedEvent, STASIS);
     },
   },
   {
@@ -68,7 +63,7 @@ export const BRONZE_EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        //HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
+        empowerFinishedCasting(referencedEvent as CastEvent) &&
         !HasRelatedEvent(referencedEvent, STASIS)
       );
     },
