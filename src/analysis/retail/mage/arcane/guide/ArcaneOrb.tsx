@@ -241,7 +241,7 @@ class ArcaneOrbGuide extends Analyzer {
           explanation={explanation}
           title="Arcane Orb (Overview)"
         >
-          <div style={{ color: '#999', textAlign: 'center', padding: '20px' }}>
+          <div style={{ fontSize: '2em', color: '#999', textAlign: 'center', padding: '20px' }}>
             No Arcane Orb casts recorded
           </div>
         </GuideSection>
