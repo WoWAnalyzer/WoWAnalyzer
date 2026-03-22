@@ -93,12 +93,14 @@ class MorningBreeze extends Analyzer.withDependencies({
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Effective <SpellLink spell={this.currentRskTalent} /> Damage:{' '}
-            {formatNumber(this.damage)}
-            <br />
-            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast with{' '}
-            <SpellLink spell={this.currentRskTalent} /> available: {this.wastedResets}
-            <br />
+            <div>
+              Effective <SpellLink spell={this.currentRskTalent} /> Damage:{' '}
+              {formatNumber(this.damage)}
+            </div>
+            <div>
+              <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast with{' '}
+              <SpellLink spell={this.currentRskTalent} /> available: {this.wastedResets}
+            </div>
           </>
         }
       >
