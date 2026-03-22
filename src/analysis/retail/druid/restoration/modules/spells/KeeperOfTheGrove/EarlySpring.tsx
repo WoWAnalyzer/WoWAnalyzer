@@ -62,8 +62,9 @@ export default class EarlySpring extends Analyzer {
     if (data.previousCastTimestamp !== null) {
       const fullCooldownWithTalent = this.spellUsable.fullCooldownDuration(spellId);
       const fullCooldownWithoutTalent = fullCooldownWithTalent + CDR_PER_CAST_MS;
+      const castDurationMs = event.channel?.duration ?? 0;
       const castWithoutEarlySpringTimestamp =
-        data.previousCastTimestamp + fullCooldownWithoutTalent;
+        data.previousCastTimestamp + fullCooldownWithoutTalent + castDurationMs;
 
       const effectiveCdr = Math.max(
         0,
