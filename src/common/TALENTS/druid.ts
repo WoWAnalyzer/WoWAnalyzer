@@ -382,7 +382,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [128587],
     definitionIds: [{ id: 133390, specId: 105 }],
-    manaCost: 30000,
   },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
@@ -487,7 +486,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103111],
     definitionIds: [{ id: 108116, specId: 105 }],
-    manaCost: 85000,
   },
   ELUNES_CHALLENGE_TALENT: {
     id: 1240283,
@@ -883,7 +881,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103289],
     definitionIds: [{ id: 108294, specId: 105 }],
-    manaCost: 30000,
   },
   HUNGER_FOR_BATTLE_TALENT: {
     id: 1244547,
@@ -1141,7 +1138,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103100],
     definitionIds: [{ id: 108105, specId: 105 }],
-    manaCost: 40000,
   },
   LIFETREADING_TALENT: {
     id: 1217941,
@@ -1773,7 +1769,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103295],
     definitionIds: [{ id: 108300, specId: 105 }],
-    manaCost: 52500,
   },
   REMOVE_CORRUPTION_TALENT: {
     id: 2782,
@@ -1782,7 +1777,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103320],
     definitionIds: [{ id: 108325, specId: 104 }],
-    manaCost: 250000,
   },
   REND_AND_TEAR_TALENT: {
     id: 204053,
@@ -1905,7 +1899,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [109867],
     definitionIds: [{ id: 114872, specId: 102 }],
-    manaCost: 84000,
   },
   SOLSTICE_TALENT: {
     id: 343647,
@@ -1922,7 +1915,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103307],
     definitionIds: [{ id: 108312, specId: 105 }],
-    manaCost: 28000,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
     id: 114107,
@@ -2108,7 +2100,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [116102],
     definitionIds: [{ id: 121114, specId: 105 }],
-    manaCost: 45000,
   },
   SUNSEEKER_MUSHROOM_TALENT: {
     id: 468936,
@@ -2144,7 +2135,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103098],
     definitionIds: [{ id: 108103, specId: 105 }],
-    manaCost: 35000,
   },
   SWIPE_TALENT: {
     id: 213764,
@@ -2169,7 +2159,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [123792],
     definitionIds: [{ id: 128630, specId: 105 }],
-    manaCost: 50000,
   },
   TASTE_FOR_BLOOD_TALENT: {
     id: 384665,
@@ -2282,7 +2271,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103108],
     definitionIds: [{ id: 108113, specId: 105 }],
-    manaCost: 92000,
   },
   TRANQUIL_MIND_TALENT: {
     id: 403521,
@@ -2579,7 +2567,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103283],
     definitionIds: [{ id: 108288, specId: 105 }],
-    manaCost: 95000,
   },
   WILD_GUARDIAN_1_GUARDIAN_TALENT: {
     id: 1269614,
