@@ -8,7 +8,6 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import SPELLS from 'common/SPELLS/rogue';
-import TALENTS from 'common/TALENTS/rogue';
 import { formatDurationMillisMinSec } from 'common/format';
 
 import { getTargetComboPoints, isInOpener, OPENER_MAX_DURATION_MS } from '../../constants';
