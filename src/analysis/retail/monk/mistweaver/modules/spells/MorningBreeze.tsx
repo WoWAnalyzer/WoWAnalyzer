@@ -52,6 +52,8 @@ class MorningBreeze extends Analyzer.withDependencies({
     if (this.deps.spellUsable.isOnCooldown(this.currentRskTalent.id)) {
       const remainingCooldown = this.deps.spellUsable.cooldownRemaining(this.currentRskTalent.id);
       this.effectiveRSKCdr += remainingCooldown;
+
+      this.deps.spellUsable.endCooldown(this.currentRskTalent.id);
     } else {
       this.wastedResets += 1;
 
