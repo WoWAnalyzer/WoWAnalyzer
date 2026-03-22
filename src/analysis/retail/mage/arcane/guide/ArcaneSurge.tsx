@@ -196,7 +196,7 @@ class ArcaneSurgeGuide extends Analyzer {
             />
           )}
         </p>
-        <TipBox title="Note">
+        <TipBox type="info">
           While it may seem beneficial to have a high amount of mana before casting {arcaneSurge},
           this is not enough of a meaningful benefit to play around.
         </TipBox>
