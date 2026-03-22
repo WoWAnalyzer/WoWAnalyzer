@@ -9,7 +9,7 @@ import {
   type CastSequenceEntry,
   type CastInSequence,
 } from 'interface/guide/components/CastSequence';
-import HavocAnalyzer, { HavocWindowData } from '../features/HavocAnalyzer';
+import HavocAnalyzer, { HavocWindowData } from '../analyzers/HavocAnalyzer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { TALENTS_WARLOCK } from 'common/TALENTS';
 import { CastEvent } from 'parser/core/Events';
