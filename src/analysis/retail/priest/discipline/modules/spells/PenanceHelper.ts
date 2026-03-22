@@ -1,31 +1,31 @@
 import { DamageEvent, HealEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
-interface PenanceEvent {
-  penanceBoltNumber: number;
+export enum PenanceBoltType {
+  Normal,
+  Twinsight,
 }
 
-export type PenanceDamageEvent = DamageEvent & PenanceEvent;
-export type PenanceHealEvent = HealEvent & PenanceEvent;
+export interface PenanceBoltEventInterface {
+  penanceBoltNumber: number;
+  penanceBoltType: PenanceBoltType;
+}
+
+export type PenanceDamageEvent = DamageEvent & PenanceBoltEventInterface;
+export type PenanceHealEvent = HealEvent & PenanceBoltEventInterface;
 
 export function IsPenanceDamageEvent(event: DamageEvent): event is PenanceDamageEvent {
-  return (event as PenanceDamageEvent).penanceBoltNumber !== undefined;
+  const penanceEvent = event as PenanceDamageEvent;
+  return penanceEvent.penanceBoltNumber !== undefined && penanceEvent.penanceBoltType !== undefined;
 }
 export function IsPenanceHealEvent(event: HealEvent): event is PenanceHealEvent {
-  return (event as PenanceHealEvent).penanceBoltNumber !== undefined;
+  const penanceEvent = event as PenanceHealEvent;
+  return penanceEvent.penanceBoltNumber !== undefined && penanceEvent.penanceBoltType !== undefined;
 }
 
-export function isPenance(spellId: number): boolean {
+export function isTwinsightPenanceBolt(spellId: number): boolean {
   return (
-    spellId === SPELLS.PENANCE.id ||
-    spellId === SPELLS.PENANCE_CAST.id ||
-    spellId === SPELLS.PENANCE_HEAL.id ||
-    spellId === SPELLS.DARK_REPRIMAND_DAMAGE.id ||
-    spellId === SPELLS.DARK_REPRIMAND_CAST.id ||
-    spellId === SPELLS.DARK_REPRIMAND_HEAL.id ||
-    spellId === SPELLS.PENANCE_TWINSIGHT_DAMAGE.id ||
-    spellId === SPELLS.PENANCE_TWINSIGHT_HEALING.id ||
-    spellId === SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id ||
-    spellId === SPELLS.DARK_REPRIMAND_TWINSIGHT_HEALING.id
+    spellId === SPELLS.PENANCE_TWINSIGHT_BOLT_DAMAGE.id ||
+    spellId === SPELLS.PENANCE_TWINSIGHT_BOLT_HEAL.id
   );
 }
