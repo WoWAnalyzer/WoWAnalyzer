@@ -197,16 +197,18 @@ class SoulOfTheForest extends Analyzer {
       this.lastBuffFromHardcast = false;
     } else {
       const buffed = getSotfBuffs(event);
+      const consumedByHardcastOrConvoke =
+        buffed.length > 0 && (isFromHardcast(buffed[0]) || isFromConvoke(buffed[0]));
+      if (!consumedByHardcastOrConvoke && !this.lastBuffFromHardcast) {
+        // SotF procced and consumed entirely within Convoke - don't count it
+        return;
+      }
+
       if (buffed.length === 0) {
         useText = 'Expired';
         value = QualitativePerformance.Fail;
         this.wastedBuffs += 1;
       } else {
-        if (!isFromHardcast(buffed[0]) && !isFromConvoke(buffed[0]) && !this.lastBuffFromHardcast) {
-          // SM during Convoke also consumed during Convoke - don't count it
-          return;
-        }
-
         // even if generated during Convoke, we count it if consumed by hardcast
         const firstGuid = buffed[0].ability.guid;
         const hasPota = this.selectedCombatant.hasTalent(
