@@ -20,7 +20,7 @@ const BUFFER = 100;
 
 class TwinsOfTheSunPriestess extends Analyzer {
   // More could probably be done with this to analyze what the person you used it on did.
-  // this is at least a base of making sure they're using PI on other players and not wasting it on themself.
+  // this is at least a base of making sure they're using PI on other players and not wasting it on themselves.
   static dependencies = {
     abilities: Abilities,
   };
@@ -61,7 +61,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    //It seems that their are two casts of PI for every cast of PI.
+    //It seems that there are two casts of PI for every cast of PI.
     //If cast on an ally, that occurs first, followed shortly by a cast on yourself.
 
     //console.log('PI CAST', this.owner.formatTimestamp(event.timestamp), event.timestamp);
@@ -130,6 +130,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
           <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT} />
         </b>{' '}
         gives you <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> when used on an ally.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         When taking this talent, make sure to always use it on an ally. By using it on yourself, you
         lose out on a free <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> for a raid member.

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import GameBranch from 'game/GameBranch';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
@@ -8,7 +9,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.TRUESHOT.id,
+      spell: TALENTS_HUNTER.TRUESHOT_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },

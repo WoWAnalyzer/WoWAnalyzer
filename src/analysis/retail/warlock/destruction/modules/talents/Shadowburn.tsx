@@ -56,7 +56,9 @@ class Shadowburn extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.damage)} damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             If fragments generated with Shadowburn were used on Chaos Bolts, they would deal an
             estimated {formatThousands(estimatedDamage)} damage (
@@ -70,6 +72,7 @@ class Shadowburn extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>{' '}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {fragments} <small>generated Fragments</small>
         </BoringSpellValueText>

@@ -66,23 +66,27 @@ export default class ControlOfTheDream extends Analyzer.withDependencies({
       this.cdrSpellInfos[spellId] = {
         earlyCasts: 0,
         totalEffectiveCdr: 0,
+        cotdCdrPrevCycle: 0,
       };
     }
     const info = this.cdrSpellInfos[spellId];
 
     if (event.updateType === UpdateSpellUsableType.BeginCooldown) {
-      // a major ability just used, update spell info
-      if (info.naturalEnd && info.naturalEnd > this.owner.currentTimestamp) {
-        info.earlyCasts += 1;
-        info.totalEffectiveCdr += info.naturalEnd - this.owner.currentTimestamp;
+      // Check if this cast benefited from CotD by comparing against when the spell
+      // would have been available without CotD's CDR (but with other sources like Cenarius' Guidance)
+      if (info.lastAvailable !== undefined && info.cotdCdrPrevCycle > 0) {
+        const wouldBeAvailableWithoutCotd = info.lastAvailable + info.cotdCdrPrevCycle;
+        const effectiveCdr = Math.max(0, wouldBeAvailableWithoutCotd - this.owner.currentTimestamp);
+        if (effectiveCdr > 0) {
+          info.earlyCasts += 1;
+          info.totalEffectiveCdr += effectiveCdr;
+        }
       }
-      info.naturalEnd =
-        this.owner.currentTimestamp + this.deps.spellUsable.cooldownRemaining(spellId);
       // First cast always gets max CDR
       const cdr = !info.lastAvailable
         ? MAX_CDR
         : Math.min(MAX_CDR, this.owner.currentTimestamp - info.lastAvailable);
-      this.deps.spellUsable.reduceCooldown(spellId, cdr);
+      info.cotdCdrPrevCycle = this.deps.spellUsable.reduceCooldown(spellId, cdr);
     } else if (event.updateType === UpdateSpellUsableType.EndCooldown) {
       // a major ability just finished CD, register it
       info.lastAvailable = this.owner.currentTimestamp;
@@ -115,8 +119,8 @@ export default class ControlOfTheDream extends Analyzer.withDependencies({
 interface CdrSpellInfo {
   /** Timestamp spell last became available (cooldown finished) */
   lastAvailable?: number;
-  /** Next timestamp spell would come off CD without this talent */
-  naturalEnd?: number;
+  /** CotD CDR applied during the previous cooldown cycle, in ms */
+  cotdCdrPrevCycle: number;
   /** Times spell was cast earlier than would have been possible without CotD */
   earlyCasts: number;
   /** Sum of effective 'early cast' CDR, in ms */

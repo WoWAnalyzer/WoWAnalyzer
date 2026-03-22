@@ -88,10 +88,12 @@ class BlazeOfLight extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spell={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT}>
-          <>
-            <ItemHealingDone amount={this.healing} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
             <ItemDamageDone amount={this.damage} />
-          </>
+          </div>
         </BoringSpellValueText>
         <BlazeOfLightSourceDonut abilityMap={this.abilityMap} healingMap={this.healingMap} />
       </Statistic>

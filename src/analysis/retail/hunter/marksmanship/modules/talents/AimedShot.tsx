@@ -49,15 +49,15 @@ class AimedShot extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS_HUNTER.TRUESHOT_TALENT]),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell([TALENTS_HUNTER.TRUESHOT_TALENT]),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
+      Events.removebuff.to(SELECTED_PLAYER).spell([TALENTS_HUNTER.TRUESHOT_TALENT]),
       this.onAffectingBuffChange,
     );
   }
@@ -68,7 +68,7 @@ class AimedShot extends Analyzer {
   }
 
   onEvent(event: AnyEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       return;
     }
     if (!this.spellUsable.isOnCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id)) {
@@ -82,7 +82,7 @@ class AimedShot extends Analyzer {
      * Dead Eye and Trueshot scale multiplicatively off each other, which can lead to extremely fast cooldown reduction that this should properly handle.
      */
     let modRate = 1;
-    if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       modRate /= 1 + TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE;
     }
     const spellReductionSpeed = 1 / modRate - 1;
@@ -125,8 +125,8 @@ class AimedShot extends Analyzer {
       this.casts += 1;
     }
 
-    const hasPreciseShotsBuff = this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id);
-    const hasTrueshotBuff = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
+    const hasPreciseShotsBuff = this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS_BUFF.id);
+    const hasTrueshotBuff = this.selectedCombatant.hasBuff(TALENTS_HUNTER.TRUESHOT_TALENT.id);
 
     if (hasPreciseShotsBuff && !hasTrueshotBuff) {
       addInefficientCastReason(event, 'Aimed Shot while having Precise Shots stacks left.');

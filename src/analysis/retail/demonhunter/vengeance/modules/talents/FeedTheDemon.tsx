@@ -89,6 +89,7 @@ class FeedTheDemon extends Analyzer {
         tooltip={
           <>
             {formatNumber(this.reduction)} sec total effective reduction.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%)
             wasted reduction.

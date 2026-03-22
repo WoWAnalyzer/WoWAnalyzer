@@ -35,6 +35,7 @@ class DiabolicRitual extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.DIABOLIC_RITUAL_TALENT}>
           <small>Mother of Chaos, Pit Lord, Overlord damage</small>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>

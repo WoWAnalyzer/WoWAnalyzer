@@ -106,6 +106,7 @@ class Voidform extends Analyzer {
           <SpellLink spell={TALENTS.VOIDFORM_TALENT} />
         </b>{' '}
         is a powerful cooldown.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this.selectedCombatant.hasTalent(TALENTS.ANCIENT_MADNESS_TALENT) && (
           <>
@@ -116,12 +117,14 @@ class Voidform extends Analyzer {
         )}
         {this.selectedCombatant.hasTalent(TALENTS.SUSTAINED_POTENCY_TALENT) && (
           <>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             With <SpellLink spell={TALENTS.SUSTAINED_POTENCY_TALENT} />, every{' '}
             <SpellLink spell={TALENTS.HALO_SHADOW_TALENT} /> extends the duration of the current
             Void Form or next Void Form by 1 second.
           </>
         )}
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         Try to extend voidform for as much as possible.
       </p>
@@ -130,6 +133,7 @@ class Voidform extends Analyzer {
     const data = (
       <div>
         <strong>Voidform Extension</strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <UptimeIcon /> <strong>{this.VFExtensionTotal.toFixed(1)}</strong> <small> seconds</small>
         <PerformanceBoxRow values={this.VFExtension} />

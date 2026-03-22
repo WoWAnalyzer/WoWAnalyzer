@@ -28,7 +28,6 @@ import Castigation from './modules/spells/Castigation';
 import Grace from './modules/features/Grace';
 import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
-import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
@@ -48,7 +47,9 @@ import WealAndWoe from './modules/spells/WealAndWoe';
 import EternalBarrier from './modules/spells/EternalBarrier';
 import Benevolence from '../shared/Benevolence';
 import SurgeOfLight from 'analysis/retail/priest/shared/SurgeOfLight';
-import ProtectorOfTheFrail from 'analysis/retail/priest/discipline/modules/spells/ProtectorOfTheFrail';
+import ProtectorOfTheFrail from './modules/spells/ProtectorOfTheFrail';
+import DotUptimes from 'src/analysis/retail/priest/discipline/modules/features/DotUptimes';
+import ShadowWordPain from 'analysis/retail/priest/shared/ShadowWordPain';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,7 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
-    purgeTheWicked: EncroachingShadows,
+    encroachingShadows: EncroachingShadows,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
     enduringLuminescense: EnduringLuminescense,
     powerWordRadiance: PowerWordRadiance,
@@ -93,7 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     desperatePrayer: DesperatePrayer,
 
-    sinsOfTheMany: SinsOfTheMany,
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,
     expiation: Expiation,
@@ -105,11 +105,15 @@ class CombatLogParser extends CoreCombatLogParser {
     protectiveLight: ProtectiveLight,
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
-    aegisOfWrath: EternalBarrier,
+    eternalBarrier: EternalBarrier,
     SurgeOfLight: SurgeOfLight,
     benevolence: Benevolence,
     translucentImage: TranslucentImage,
     protectorOfTheFrail: ProtectorOfTheFrail,
+    shadowWordPain: ShadowWordPain,
+
+    // Guide
+    dotUptimes: DotUptimes,
   };
   static guide = Guide;
 }

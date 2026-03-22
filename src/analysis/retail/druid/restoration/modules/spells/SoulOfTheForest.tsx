@@ -34,14 +34,13 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
-import Lifebloom from './Lifebloom';
 
 const SOTF_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION, SPELLS.REGROWTH];
 
 const REJUVENATION_HEALING_INCREASE = 0.6;
 const REGROWTH_HEALING_INCREASE = 0.6;
 
-const debug = true;
+const debug = false;
 
 /**
  * **Soul of the Forest**
@@ -52,11 +51,9 @@ const debug = true;
 class SoulOfTheForest extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
-    lifebloom: Lifebloom,
   };
 
   hotTracker!: HotTrackerRestoDruid;
-  lifebloom!: Lifebloom;
 
   sotfRejuvInfo = {
     boost: REJUVENATION_HEALING_INCREASE,
@@ -221,18 +218,6 @@ class SoulOfTheForest extends Analyzer {
         } else {
           console.warn('SoTF: SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
         }
-
-        if (
-          this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT) &&
-          !this._hasActiveLifebloom(event.timestamp)
-        ) {
-          value = QualitativePerformance.Fail;
-          useText = (
-            <>
-              {useText} (no active <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />)
-            </>
-          );
-        }
       }
       this.lastBuffFromHardcast = false;
     }
@@ -247,10 +232,6 @@ class SoulOfTheForest extends Analyzer {
       );
       this.useEntries.push({ value, tooltip });
     }
-  }
-
-  private _hasActiveLifebloom(timestamp: number): boolean {
-    return this.lifebloom.hasActiveLifebloomAt(timestamp);
   }
 
   get rejuvHardcastUses() {
@@ -310,9 +291,7 @@ class SoulOfTheForest extends Analyzer {
           castEntries={this.useEntries}
           usesInsteadOfCasts
           goodExtraExplanation={<>used on Rejuvenation or Regrowth</>}
-          badExtraExplanation={
-            <>proc expired, was overwritten, or consumed without active Lifebloom</>
-          }
+          badExtraExplanation={<>proc expired or was overwritten</>}
         />
       </div>
     );
@@ -373,7 +352,6 @@ class SoulOfTheForest extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

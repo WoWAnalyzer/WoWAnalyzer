@@ -23,6 +23,8 @@ import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBr
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 
 const TRIAGE_THRESHOLD = 0.5;
+/** Duration threshold below which consuming a Rejuvenation is considered acceptable */
+const LOW_REJUV_THRESHOLD = 6000;
 const HIGH_VALUE_HOTS = [
   SPELLS.REJUVENATION.id,
   SPELLS.REJUVENATION_GERMINATION.id,
@@ -48,6 +50,8 @@ class Swiftmend extends Analyzer {
   hasVi: boolean;
   /** If player has Soul of the Forest, so we can track justification of casts */
   hasSotf: boolean;
+  /** If player has Grove Guardians, so we can describe Swiftmend proc value in guide text */
+  hasGroveGuardians: boolean;
   /** If player has Reforestation, so we can track justification of casts */
   hasReforestation: boolean;
   /** Number of procs player has from Swiftmend (between VI, SotF, and Reforestation) */
@@ -62,6 +66,7 @@ class Swiftmend extends Analyzer {
     this.hasSotf = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT,
     );
+    this.hasGroveGuardians = this.selectedCombatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT);
     this.hasReforestation = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_TALENT);
     this.numProcs = (this.hasVi ? 1 : 0) + (this.hasSotf ? 1 : 0) + (this.hasReforestation ? 1 : 0);
 
@@ -137,15 +142,39 @@ class Swiftmend extends Analyzer {
       }
     } else {
       const removedHotHeal = getRemovedHot(event);
+      const removedSpellId = removedHotHeal?.ability.guid;
+      let rejuvRemainingMs: number | undefined;
 
-      const removedHighValue =
-        HIGH_VALUE_HOTS.find((id) => id === removedHotHeal?.ability.guid) !== undefined;
-      if (wasTriage || !removedHighValue) {
+      if (!removedHotHeal) {
+        console.log(
+          'Swiftmend cast had no linked HoT removal',
+          event,
+          'HoTs on target:',
+          this.hotTracker.hots[target.id],
+        );
+      }
+
+      if (wasTriage) {
+        // Triage cast is always good regardless of consumed HoT
         value = QualitativePerformance.Good;
-      } else if (this.numProcs > 0) {
+      } else if (removedSpellId === SPELLS.WILD_GROWTH.id) {
+        value = QualitativePerformance.Good;
+      } else if (
+        removedSpellId === SPELLS.REJUVENATION.id ||
+        removedSpellId === SPELLS.REJUVENATION_GERMINATION.id
+      ) {
+        const hotOnTarget = this.hotTracker.hots[target.id]?.[removedSpellId];
+        rejuvRemainingMs = hotOnTarget ? hotOnTarget.end - event.timestamp : 0;
+        if (rejuvRemainingMs < LOW_REJUV_THRESHOLD) {
+          value = QualitativePerformance.Good;
+        } else {
+          value = QualitativePerformance.Fail;
+        }
+      } else if (removedSpellId === SPELLS.REGROWTH.id) {
         value = QualitativePerformance.Ok;
       } else {
-        value = QualitativePerformance.Fail;
+        // Unknown or other HoT (e.g., Renewing Bloom)
+        value = QualitativePerformance.Ok;
       }
 
       hotChangeText = (
@@ -158,6 +187,12 @@ class Swiftmend extends Analyzer {
               'unknown HoT'
             )}
           </strong>
+          {rejuvRemainingMs !== undefined && (
+            <>
+              {' '}
+              w/ <strong>{(rejuvRemainingMs / 1000).toFixed(1)}s</strong> remaining
+            </>
+          )}
         </>
       );
     }
@@ -178,62 +213,68 @@ class Swiftmend extends Analyzer {
 
   /** Guide subsectopm describing the proper usage of Swiftmend */
   get guideSubsection(): JSX.Element {
+    const hasProcEffects = this.hasSotf || this.hasGroveGuardians;
+    const procEffectSpells = [];
+    if (this.hasSotf) {
+      procEffectSpells.push(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT);
+    }
+    if (this.hasGroveGuardians) {
+      procEffectSpells.push(TALENTS_DRUID.GROVE_GUARDIANS_TALENT);
+    }
+
+    const baseText = this.hasVi ? (
+      <>
+        is our spot heal that extends all HoTs on its target due to{' '}
+        <SpellLink spell={TALENTS_DRUID.VERDANT_INFUSION_TALENT} />.
+      </>
+    ) : (
+      <>
+        is our spot heal that removes a HoT on its target, slightly hurting overall throughput. Aim
+        to consume a Wild Growth or low duration Rejuvenation. Regrowth is acceptable, but avoid
+        consuming high duration Rejuvenations.
+      </>
+    );
+
+    const cooldownText = this.hasVi
+      ? ` Aim to cast Swiftmend on cooldown, even on targets who do not urgently need healing due to the multiple powerful effects tied to casting it: `
+      : ` You should still aim to cast Swiftmend on cooldown, even on targets who do not urgently need healing due to the multiple powerful effects tied to casting it: `;
+
     const explanation = (
       <>
         <p>
           <b>
             <SpellLink spell={SPELLS.SWIFTMEND} />
           </b>{' '}
-          is our emergency heal that removes a HoT on its target, hurting overall throughput.
+          {baseText}
+          {hasProcEffects && (
+            <>
+              {cooldownText}
+              {procEffectSpells.map((spell, index) => (
+                <Fragment key={spell.id}>
+                  <SpellLink spell={spell} />
+                  {index < procEffectSpells.length - 1 ? ', ' : '.'}
+                </Fragment>
+              ))}
+            </>
+          )}
           {this.numProcs === 0 && `Use only on targets who need urgent healing.`}
-        </p>
-        <p>
-          {this.numProcs === 1 &&
-            `However, you have a proc that is generated by casting Swiftmend: `}
-          {this.numProcs > 1 && `However, you have procs that are generated by casting Swiftmend: `}
-          {this.hasSotf && (
-            <>
-              <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT} />
-              &nbsp;
-            </>
-          )}
-          {this.hasVi && (
-            <>
-              <SpellLink spell={TALENTS_DRUID.VERDANT_INFUSION_TALENT} />
-              &nbsp;
-            </>
-          )}
-          {this.hasReforestation && (
-            <>
-              <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} />
-              &nbsp;
-            </>
-          )}
-          {this.numProcs > 0 && (
-            <>
-              {this.numProcs === 1 ? ` - this ability is ` : ` - these abilities are `} powerful.
-              Cast Swiftmend frequently in order to generate procs - even on targets who don't need
-              it.
-            </>
-          )}
         </p>
       </>
     );
 
     // Build up color descriptions of chart, which vary based on talents
     let perfectExtraExplanation = undefined;
+    let goodExtraExplanation = undefined;
     let okExtraExplanation = undefined;
     let badExtraExplanation = undefined;
     if (this.hasVi) {
       // has VI
       perfectExtraExplanation = `extended high value HoTs`;
     }
-    if (this.numProcs > 0) {
-      // has proc(s)
-      okExtraExplanation = `non-triage (>50% health), which is still acceptable for generating procs`;
-    } else {
-      // no procs
-      badExtraExplanation = `non-triage (>50% health) and removes a WG or Rejuv`;
+    if (!this.hasVi) {
+      goodExtraExplanation = `consumed a Wild Growth/low duration Rejuvenation, or was a triage cast`;
+      okExtraExplanation = `consumed a Regrowth`;
+      badExtraExplanation = `consumed a high duration Rejuvenation`;
     }
 
     const data = (
@@ -242,6 +283,7 @@ class Swiftmend extends Analyzer {
           spell={SPELLS.SWIFTMEND}
           castEntries={this.castEntries}
           perfectExtraExplanation={perfectExtraExplanation}
+          goodExtraExplanation={goodExtraExplanation}
           okExtraExplanation={okExtraExplanation}
           badExtraExplanation={badExtraExplanation}
         />

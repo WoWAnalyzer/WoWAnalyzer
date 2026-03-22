@@ -52,7 +52,7 @@ export default class MoonlightChakram extends Analyzer {
     this.hasStalkAndStrike = this.selectedCombatant.hasTalent(TALENTS.STALK_AND_STRIKE_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.TAKEDOWN_PLAYER]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.TRUESHOT_TALENT, SPELLS.TAKEDOWN_PLAYER]),
       this.onTriggerCast,
     );
   }
@@ -74,6 +74,7 @@ export default class MoonlightChakram extends Analyzer {
               FAIL: No <SpellLink spell={SPELLS.MOONLIGHT_CHAKRAM_CAST} /> cast
             </h5>
             Target: <strong>{chakramTarget}</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
           </>
         ),
@@ -149,20 +150,23 @@ export default class MoonlightChakram extends Analyzer {
           <h5 style={{ color }}>{perfLabel}</h5>
           <div>
             Damage: <strong>{damage.toLocaleString()}</strong> ({hits} {hits === 1 ? 'hit' : 'hits'}
-            )
+            ){/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Target: <strong>{targetName}</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.hasStalkAndStrike && this.isSurvival && wastedCDR > 0 && (
               <>
                 {wastedCDR > STALK_AND_STRIKE_WASTE_THRESHOLD ? 'BAD: ' : ''}Wasted{' '}
                 {(wastedCDR / 1000).toFixed(1)}s Wildfire Bomb CDR
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </>
             )}
             {this.hasStalkAndStrike && !this.isSurvival && wastedLockAndLoad && (
               <>
                 BAD: Wasted Lock and Load buff
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </>
             )}

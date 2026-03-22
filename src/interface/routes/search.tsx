@@ -36,10 +36,13 @@ export function Component() {
         </>
       )}
       <b>{query}</b>
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <Trans id="interface.search.supportedTerms">
         Supported search terms:
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <ul>
           <li>&lt;report code&gt;</li>
@@ -50,6 +53,7 @@ export function Component() {
           </li>
         </ul>
       </Trans>
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <Link to="/">
         <Trans id="interface.search.goBackHome">Go back home</Trans>
