@@ -30,17 +30,19 @@ class TouchOfTheMagiGuide extends Analyzer {
   protected touchOfTheMagi!: TouchOfTheMagi;
   protected eventHistory!: EventHistory;
 
+  isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
+
   private evaluateTouchCast(cast: TouchOfTheMagiData): CastEvaluation {
     const noCharges = cast.charges === 0;
     const activeTime = cast.activeTime || 0;
     const activeTimePerf = this.touchOfTheMagi.activeTimeUtil(activeTime) as QualitativePerformance;
 
     // Fail conditions (highest priority)
-    if (!noCharges) {
+    if (!noCharges && !cast.arcaneSoul) {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Fail,
-        reason: `You had ${cast.charges} Arcane Charges. You should cast Arcane Barrage to dump your charges just before Touch of the Magi.`,
+        reason: `You had ${cast.charges} Arcane Charges${this.isSunfury && ` and didn't have Arcane Soul`}. You should cast Arcane Barrage to dump your charges just before Touch of the Magi.`,
       };
     }
 
@@ -99,9 +101,7 @@ class TouchOfTheMagiGuide extends Analyzer {
     const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
-    const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />;
 
     const explanation = (
       <>

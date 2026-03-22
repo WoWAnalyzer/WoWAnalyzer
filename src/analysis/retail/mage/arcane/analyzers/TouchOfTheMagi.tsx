@@ -59,6 +59,7 @@ export default class TouchOfTheMagi extends Analyzer {
       damage: damageEvents,
       totalDamage: this.calculateTotalDamage(damageEvents),
       surgeCD: this.spellUsable.cooldownRemaining(TALENTS.ARCANE_SURGE_TALENT.id, event.timestamp),
+      arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF, event.timestamp - 10),
     });
   }
 
@@ -123,4 +124,5 @@ export interface TouchOfTheMagiData {
   damage: DamageEvent[];
   totalDamage: number;
   surgeCD: number;
+  arcaneSoul: boolean;
 }
