@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 22), 'Update wowhead tooltips and healer base mana value for Midnight', squided),
   change(date(2026, 3, 20), 'Update FoodChecker for Midnight', Gambyt),
   change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),
   change(date(2026, 3, 14), 'Add Support for Haranir Allied Race.', Vetyst),
