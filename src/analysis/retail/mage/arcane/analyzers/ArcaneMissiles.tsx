@@ -7,6 +7,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { ARCANE_MISSILES_BASE_TICKS, CLEARCASTING_BASE_STACKS } from '../../shared';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
+import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 export default class ArcaneMissiles extends Analyzer {
   static dependencies = {
@@ -46,13 +47,8 @@ export default class ArcaneMissiles extends Analyzer {
       event,
       EventType.Damage,
     );
-    const maxSalvoStacks = this.isSunfury ? 25 : 20;
     const salvoStacks =
       this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF, event.timestamp - 10)?.stacks || 0;
-    const overcappedSalvoStacks =
-      salvoStacks !== 0 && salvoStacks + damageTicks.length > maxSalvoStacks
-        ? salvoStacks + damageTicks.length - maxSalvoStacks
-        : 0;
 
     this.missileData.push({
       cast: event,
@@ -67,7 +63,7 @@ export default class ArcaneMissiles extends Analyzer {
         (this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0) >= maxCCStacks,
       clearcastingProcs: this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0,
       salvoStacks,
-      overcappedSalvoStacks,
+      arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id, event.timestamp - 10),
     });
   }
 
@@ -117,16 +113,15 @@ export default class ArcaneMissiles extends Analyzer {
     return this.missileData.filter((m) => !m.channelEndDelay).length;
   }
 
-  get channelDelayThresholds() {
-    return {
-      actual: this.averageChannelDelay,
-      isGreaterThan: {
-        minor: 100,
-        average: 300,
-        major: 500,
+  channelDelayUtil(delay: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: delay,
+      isLessThan: {
+        perfect: 100,
+        good: 300,
+        ok: 500,
       },
-      style: ThresholdStyle.NUMBER,
-    };
+    });
   }
 }
 
@@ -137,11 +132,11 @@ export interface ArcaneMissilesData {
   clearcastingCapped: boolean;
   clearcastingProcs: number;
   salvoStacks: number;
-  overcappedSalvoStacks: number;
   clipped: boolean;
   opMissiles: boolean;
   channelEnd?: number;
   gcdEnd?: number;
   channelEndDelay?: number;
   nextCast?: CastEvent;
+  arcaneSoul: boolean;
 }
