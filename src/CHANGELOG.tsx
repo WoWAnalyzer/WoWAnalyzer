@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 23), "Update close kill times to match new WCL API", Putro),
   change(date(2026, 3, 20), 'Update FoodChecker for Midnight', Gambyt),
   change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),
   change(date(2026, 3, 14), 'Add Support for Haranir Allied Race.', Vetyst),

@@ -28,19 +28,18 @@ export interface WCLRankingsResponse {
 }
 
 export type WCLRanking = {
-  name: string;
   class: number;
-  spec: number;
   duration: number;
-  startTime: number;
-  fightID: number;
-  reportID: string;
-  guildName: string;
-  serverName: string;
-  regionName: string;
-  hidden: boolean;
-  talents: WCLRankingTalent[];
+  faction: number;
   gear: WCLRankingGear[];
+  hardModeLevel: number;
+  name: string;
+  report: WCLRankingReport;
+  server: WCLRankingServer;
+  size: number;
+  spec: string;
+  startTime: number;
+  talents: WCLRankingTalent[];
 } & (
   | {
       total: number;
@@ -48,6 +47,18 @@ export type WCLRanking = {
     }
   | { amount: number; bracketData: number }
 );
+
+interface WCLRankingReport {
+  code: string;
+  fightID: number;
+  startTime: number;
+}
+
+interface WCLRankingServer {
+  id: number;
+  name: string;
+  region: string;
+}
 
 interface WCLRankingTalent {
   name: string;
