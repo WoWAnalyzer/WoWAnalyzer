@@ -1,5 +1,5 @@
 import { GuideProps, PassFailCheckmark, Section, SubSection } from 'interface/guide';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';
 import SPELLS from 'common/SPELLS';
@@ -7,6 +7,8 @@ import SPELLS from 'common/SPELLS';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { TIERS } from 'game/TIERS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA } from 'analysis/retail/evoker/shared';
 
 const EXPLANATION_PERCENTAGE = 70;
 function PassFail({
@@ -36,6 +38,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
     <Section title="Damage Efficiency">
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
+      <NoWastedBuffsSubsection {...props} />
     </Section>
   );
 }
@@ -190,6 +193,53 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
               passed={
                 modules.burnout.consumedProcs ===
                 Math.max(modules.burnout.procs, modules.burnout.consumedProcs)
+              }
+            />
+          }
+        />
+      )}
+    </SubSection>
+  );
+}
+
+function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const hasImminentDestruction = info.combatant.hasTalent(
+    TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT,
+  );
+
+  if (!hasImminentDestruction) {
+    return null;
+  }
+
+  return (
+    <SubSection title="No Wasted Buffs">
+      {hasImminentDestruction && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <strong>
+                <SpellLink spell={TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT} />
+              </strong>{' '}
+              reduces the <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> cost of your next{' '}
+              <strong>{IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA}</strong>{' '}
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> and <SpellLink spell={SPELLS.PYRE} />. None
+              should go to waste.
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.imminentDestruction.buffStacksConsumed}
+              total={Math.max(
+                modules.imminentDestruction.totalBuffStacks,
+                modules.imminentDestruction.buffStacksConsumed,
+              )}
+              passed={
+                modules.imminentDestruction.buffStacksConsumed ===
+                Math.max(
+                  modules.imminentDestruction.totalBuffStacks,
+                  modules.imminentDestruction.buffStacksConsumed,
+                )
               }
             />
           }

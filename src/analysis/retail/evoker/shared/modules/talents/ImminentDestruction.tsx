@@ -50,6 +50,8 @@ class ImminentDestruction extends Analyzer {
 
   currentBuffStacks = 0;
   wastedBuffStacks = 0;
+  totalBuffStacks = 0;
+  buffStacksConsumed = 0;
 
   constructor(options: Options) {
     super(options);
@@ -76,9 +78,11 @@ class ImminentDestruction extends Analyzer {
 
   private onApplyBuff(_event: ApplyBuffEvent) {
     this.currentBuffStacks = this.initialBuffStacks;
+    this.totalBuffStacks += this.currentBuffStacks;
   }
 
   private onApplyBuffStack(event: ApplyBuffStackEvent) {
+    this.totalBuffStacks += event.stack - this.currentBuffStacks;
     this.currentBuffStacks = event.stack;
   }
 
@@ -108,6 +112,7 @@ class ImminentDestruction extends Analyzer {
       return false;
     }
 
+    this.buffStacksConsumed += 1;
     this.totalEssenceReduction += IMMINENT_DESTRUCTION_ESSENCE_REDUCTION;
 
     return true;
