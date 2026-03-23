@@ -9,6 +9,8 @@ import { ExplanationAndDataSubSection } from 'interface/guide/components/Explana
 import { TIERS } from 'game/TIERS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA } from 'analysis/retail/evoker/shared';
+import { STRAFING_RUN_DURATION } from 'analysis/retail/evoker/devastation/constants';
+import { formatDurationMillisMinSec } from 'common/format';
 
 const EXPLANATION_PERCENTAGE = 70;
 function PassFail({
@@ -206,8 +208,9 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
   const hasImminentDestruction = info.combatant.hasTalent(
     TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT,
   );
+  const hasStrafingRun = info.combatant.hasTalent(TALENTS_EVOKER.STRAFING_RUN_TALENT);
 
-  if (!hasImminentDestruction) {
+  if (!hasImminentDestruction && !hasStrafingRun) {
     return null;
   }
 
@@ -240,6 +243,30 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
                   modules.imminentDestruction.totalBuffStacks,
                   modules.imminentDestruction.buffStacksConsumed,
                 )
+              }
+            />
+          }
+        />
+      )}
+      {hasStrafingRun && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <strong>
+                <SpellLink spell={TALENTS_EVOKER.STRAFING_RUN_TALENT} />
+              </strong>{' '}
+              allows <SpellLink spell={SPELLS.DEEP_BREATH} /> to be cast again within{' '}
+              {formatDurationMillisMinSec(STRAFING_RUN_DURATION, 0)} of being used.
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.strafingRun.buffsConsumed}
+              total={Math.max(modules.strafingRun.buffsWasted, modules.strafingRun.buffsConsumed)}
+              passed={
+                modules.strafingRun.buffsConsumed ===
+                Math.max(modules.strafingRun.buffsWasted, modules.strafingRun.buffsConsumed)
               }
             />
           }

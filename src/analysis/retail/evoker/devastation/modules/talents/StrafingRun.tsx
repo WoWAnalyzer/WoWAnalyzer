@@ -1,6 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
-import Events, { CastEvent } from 'parser/core/Events';
+import SPELLS from 'common/SPELLS/evoker';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 import { getDamageEventsFromCast } from '../normalizers/CastLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -11,18 +12,25 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SpellLink from 'interface/SpellLink';
-import { getPrimaryDeepBreathEvent } from '../normalizers/StrafingRun';
+import { getPrimaryDeepBreathEvent, isFromStrafingRunConsume } from '../normalizers/StrafingRun';
 
 /** Deep Breath deals 20% increased damage and can be cast again within 18 sec of being used. */
 class StrafingRun extends Analyzer {
   damageFromAmp = 0;
   damageFromExtraCasts = 0;
 
+  buffsWasted = 0;
+  buffsConsumed = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.STRAFING_RUN_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DEEP_BREATH_SPELLS), this.onCast);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STRAFING_RUN_BUFF),
+      this.onRemoveBuff,
+    );
   }
 
   private onCast(event: CastEvent) {
@@ -43,6 +51,14 @@ class StrafingRun extends Analyzer {
       (acc, e) => acc + e.amount + (e.absorbed || 0),
       0,
     );
+  }
+
+  private onRemoveBuff(event: RemoveBuffEvent) {
+    if (isFromStrafingRunConsume(event)) {
+      this.buffsConsumed += 1;
+    } else {
+      this.buffsWasted += 1;
+    }
   }
 
   statistic() {
