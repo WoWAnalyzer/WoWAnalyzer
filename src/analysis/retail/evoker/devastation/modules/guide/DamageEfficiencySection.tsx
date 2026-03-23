@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import { TIERS } from 'game/TIERS';
 
 const EXPLANATION_PERCENTAGE = 70;
 function PassFail({
@@ -45,6 +46,8 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
     return null;
   }
 
+  const isEarlyChainingOptimal = false;
+
   return (
     <SubSection title="Clipping/Chaining Disintegrate">
       <p>
@@ -55,18 +58,21 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
         losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
         <SpellLink spell={SPELLS.DISINTEGRATE} /> functions as a DoT.
       </p>
+      {isEarlyChainingOptimal && (
+        <p>
+          Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be clipping{' '}
+          <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick with more important spells
+          such <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.ETERNITY_SURGE} />
+          , <SpellLink spell={SPELLS.SHATTERING_STAR} /> or{' '}
+          <SpellLink spell={SPELLS.BURNOUT_BUFF} />. As well as early chaining your{' '}
+          <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick to maximize resources
+          generation and expenditure.
+        </p>
+      )}
       <p>
-        Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be clipping{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick with more important spells
-        such <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.ETERNITY_SURGE} />,{' '}
-        <SpellLink spell={SPELLS.SHATTERING_STAR} /> or <SpellLink spell={SPELLS.BURNOUT_BUFF} />.
-        As well as early chaining your <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third
-        tick to maximize resources generation and expenditure.
-      </p>
-      <p>
-        See{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#chaining-disintegrate">
-          Chaining Disintegrate casts
+        See the{' '}
+        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#advanced-disintegrate-chaining-and-clipping">
+          Chaining Chaining and Clipping
         </a>{' '}
         section on wowhead for a more in-depth explanation.
       </p>
@@ -89,7 +95,6 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
           />
         }
       />
-
       <ExplanationAndDataSubSection
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
@@ -99,8 +104,8 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
               <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
             <p>
-              Aim to drop 70%-90% of ticks (i.e. clip) so you can consume resources faster, as well
-              as getting off more casts of important spells.
+              It can sometimes be beneficial to clip <SpellLink spell={SPELLS.DISINTEGRATE} /> early
+              in order to to cast more important spells.
             </p>
           </div>
         }
@@ -108,8 +113,8 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
           <PassFail
             value={tickData.dragonRageTicks}
             total={tickData.totalPossibleDragonRageTicks}
-            customTotal={tickData.totalPossibleDragonRageTicks * 0.75}
-            passed={tickData.dragonRageTickRatio < 0.9 && tickData.dragonRageTickRatio > 0.7}
+            /*customTotal={tickData.totalPossibleDragonRageTicks * 0.75}*/
+            passed={tickData.dragonRageTickRatio > 0.9}
           />
         }
       />
@@ -142,6 +147,8 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
 }
 
 function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const hasMID1TierSet = info.combatant.has2PieceByTier(TIERS.MID1);
+
   return (
     <SubSection title="No Wasted Procs">
       <ExplanationAndDataSubSection
@@ -165,27 +172,29 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           />
         }
       />
-      <ExplanationAndDataSubSection
-        explanationPercent={EXPLANATION_PERCENTAGE}
-        explanation={
-          <p>
-            <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT} /> procs allow you to cast{' '}
-            <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> instantly. Ideally none should go to
-            waste, but some may drop during an intense{' '}
-            <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
-          </p>
-        }
-        data={
-          <PassFail
-            value={modules.burnout.consumedProcs}
-            total={Math.max(modules.burnout.procs, modules.burnout.consumedProcs)}
-            passed={
-              modules.burnout.consumedProcs ===
-              Math.max(modules.burnout.procs, modules.burnout.consumedProcs)
-            }
-          />
-        }
-      />
+      {!hasMID1TierSet && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT} /> procs allow you to cast{' '}
+              <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> instantly. Ideally none should go to
+              waste, but some may drop during an intense{' '}
+              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.burnout.consumedProcs}
+              total={Math.max(modules.burnout.procs, modules.burnout.consumedProcs)}
+              passed={
+                modules.burnout.consumedProcs ===
+                Math.max(modules.burnout.procs, modules.burnout.consumedProcs)
+              }
+            />
+          }
+        />
+      )}
     </SubSection>
   );
 }
