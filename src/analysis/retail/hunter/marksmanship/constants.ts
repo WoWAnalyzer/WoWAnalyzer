@@ -40,8 +40,10 @@ export const LONE_WOLF_AFFECTED_SPELLS = [
   SPELLS.KILL_SHOT_MM_BM,
 ];
 /** Precise Shots */
-//Changes from 11.05 has made it so this is definitely 1 proc
-export const PRECISE_SHOTS_ASSUMED_PROCS = 2;
+//Precise Shots procs with Windrunner talents
+export const WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS = 2;
+//Precise Shots procs without Windrunner talents
+export const PRECISE_SHOTS_ASSUMED_PROCS = 1;
 //Precise Shots increase damage of Arcane or Multi-Shot by 100%
 export const PRECISE_SHOTS_MODIFIER = 1;
 //Because the spells have traveltime we need to take it into account
