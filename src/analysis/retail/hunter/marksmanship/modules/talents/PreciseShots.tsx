@@ -1,5 +1,6 @@
 import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
+  WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_MODIFIER,
 } from 'analysis/retail/hunter/marksmanship/constants';
@@ -48,14 +49,6 @@ class PreciseShots extends Analyzer {
       this.onPreciseShotsRemoval,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
-      this.onPreciseShotsStackRemoval,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
-      this.onPreciseShotsStackApplication,
-    );
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.onPreciseCast,
     );
@@ -83,23 +76,21 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseShotsApplication() {
-    this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
+    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
+      this.buffsActive = WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS;
+    } else {
+      this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
+    }
   }
 
   onPreciseShotsRemoval() {
-    this.buffsSpent += 1;
-    this.buffsActive = 0;
-  }
-
-  onPreciseShotsStackRemoval() {
-    this.buffsSpent += 1;
-    this.buffsActive -= 1;
-  }
-
-  onPreciseShotsStackApplication() {
-    this.minOverwrittenProcs += 1;
-    this.maxOverwrittenProcs += 2;
-    this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
+    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
+      this.buffsSpent += 2;
+      this.buffsActive = 0;
+    } else {
+      this.buffsSpent += 1;
+      this.buffsActive = 0;
+    }
   }
 
   onPreciseCast(event: CastEvent) {

@@ -1,4 +1,4 @@
-import RapidFire from 'analysis/retail/hunter/marksmanship/modules/spells/RapidFire';
+import RapidFire from 'analysis/retail/hunter/marksmanship/modules/talents/RapidFire';
 import SteadyShot from 'analysis/retail/hunter/marksmanship/modules/spells/SteadyShot';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellIcon } from 'interface';

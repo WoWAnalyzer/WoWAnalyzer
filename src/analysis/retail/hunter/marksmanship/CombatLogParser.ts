@@ -28,18 +28,19 @@ import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 import AimedShot from './modules/talents/AimedShot';
-import PreciseShots from './modules/spells/PreciseShots';
-import RapidFire from './modules/spells/RapidFire';
+import PreciseShots from './modules/talents/PreciseShots';
+import RapidFire from './modules/talents/RapidFire';
 import SteadyShot from './modules/spells/SteadyShot';
-import Trueshot from './modules/spells/Trueshot';
+import Trueshot from './modules/talents/Trueshot';
 import CallingTheShots from './modules/talents/CallingTheShots';
-
+import TargetAcquisition from './modules/talents/TargetAcquisition';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Volley from './modules/talents/Volley';
 import FocusedAim from './modules/talents/FocusedAim';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from '../shared/talents/Deathblow';
+import SentinelsMark from '../shared/herotalents/SentinelsMark';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import OvinaxMercurialEgg from 'parser/retail/modules/items/thewarwithin/trinkets/OvinaxMercurialEgg';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     callingTheShots: CallingTheShots,
     deathblow: Deathblow,
     surgingShots: SurgingShots,
+    targetAcquisition: TargetAcquisition,
 
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
@@ -101,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     masterMarksman: MasterMarksman,
     blackArrow: BlackArrow,
+    sentinelsMark: SentinelsMark,
 
     // items
     ovinaxMercurialEgg: OvinaxMercurialEgg,

@@ -176,7 +176,7 @@ const spells = {
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
-  SPOTTERS_MARK_BUFF: {
+  SPOTTERS_MARK_DEBUFF: {
     id: 466872,
     name: "Spotter's Mark",
     icon: 'inv_111_hunter_ability_eaglemark',
