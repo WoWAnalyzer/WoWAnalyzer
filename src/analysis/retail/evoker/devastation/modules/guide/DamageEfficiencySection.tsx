@@ -209,13 +209,36 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
     TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT,
   );
   const hasStrafingRun = info.combatant.hasTalent(TALENTS_EVOKER.STRAFING_RUN_TALENT);
+  const hasMassDisintegrate = info.combatant.hasTalent(TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT);
 
-  if (!hasImminentDestruction && !hasStrafingRun) {
+  if (!hasImminentDestruction && !hasStrafingRun && !hasMassDisintegrate) {
     return null;
   }
 
   return (
     <SubSection title="No Wasted Buffs">
+      {hasMassDisintegrate && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <strong>
+                <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />
+              </strong>{' '}
+              is a powerful buff that increases the damage of{' '}
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> and allows it to strike multiple targets.
+              None should go to waste.
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.massDisintegrate.castCount}
+              total={modules.massDisintegrate.buffCount}
+              passed={modules.massDisintegrate.wastedBuffs === 0}
+            />
+          }
+        />
+      )}
       {hasImminentDestruction && (
         <ExplanationAndDataSubSection
           explanationPercent={EXPLANATION_PERCENTAGE}
