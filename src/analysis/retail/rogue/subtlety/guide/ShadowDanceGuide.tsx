@@ -146,27 +146,35 @@ class ShadowDanceGuide extends Analyzer {
         </p>
 
         <p>
-          <h4>
-            <i>Haste notes</i>
-          </h4>
-          {shadowDance} duration increases with flat haste stat due to {deepeningShadows}.<br />
-          i.e. if your {shadowDance} lasts 7.1s, you will want to squeeze 8 abilities within it.
-          Sometimes that .1s window is very tight.
-          <br />
-          If youre struggling to squeeze that last ability, you might want to increase your haste a
-          bit. Macros are of particular interest here They will allow you to throw the first ability
-          at the same time than {shadowDance}.<br />
-          Check
-          <a href="https://www.wowhead.com/guide/classes/rogue/subtlety/addons-macro-ui-imports#macros-macros-combining-abilities">
-            {' '}
-            wowhead{' '}
-          </a>
-          or
-          <a href="https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-macros-addons">
-            {' '}
-            icy-veins{' '}
-          </a>
-          macros section for more information.
+          <h5>
+            <i>Haste and GCDs notes</i>
+          </h5>
+          <p>
+            {shadowDance} duration increases with flat haste stat due to {deepeningShadows}. You
+            will want to fit the maximum amount of GCDs within your {shadowDance}.
+          </p>
+          <p>
+            i.e. if your {shadowDance} lasts 7.1s, you will want to squeeze 8 abilities within it.
+            Sometimes that .1s window is very tight.
+          </p>
+          <p>
+            If youre struggling to squeeze that last ability, you might want to increase your haste
+            a bit. Macros are of particular interest here. They will allow you to send {shadowDance}{' '}
+            and the first GCD at the exact same time.
+          </p>
+          <p>
+            Check
+            <a href="https://www.wowhead.com/guide/classes/rogue/subtlety/addons-macro-ui-imports#macros-macros-combining-abilities">
+              {' '}
+              wowhead{' '}
+            </a>
+            or
+            <a href="https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-macros-addons">
+              {' '}
+              icy-veins{' '}
+            </a>
+            macros section for more information.
+          </p>
         </p>
       </>
     );
