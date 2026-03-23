@@ -33,8 +33,15 @@ class CastsInStealthBase extends Analyzer {
     this.badStealthSpells = [this.shadowstrikeSpell, this.backstabSpell];
   }
 
-  readonly stealthMaxCasts = 0;
-  readonly stealthActualCasts = 0;
+  get stealthMaxCasts() {
+    const value = 0;
+    return value;
+  }
+
+  get stealthActualCasts() {
+    const value = 0;
+    return value;
+  }
 
   get castsInStealthThresholds() {
     return {
