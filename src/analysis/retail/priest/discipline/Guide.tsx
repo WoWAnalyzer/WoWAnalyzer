@@ -14,6 +14,7 @@ export default function Guide({
   return (
     <>
       <Section title="Short cooldowns">
+        {modules.penance.guideSubsection}
         {info.combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT) &&
           modules.powerWordRadiance.guideSubsection}
         {info.combatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT) &&

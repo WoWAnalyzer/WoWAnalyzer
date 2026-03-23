@@ -37,6 +37,7 @@ class Lifebloom extends Analyzer {
   private hasVerdancy = false;
   private showCastPanel = false;
   private hasActiveLifebloom = false;
+  private activeLifebloomTarget: number | undefined = undefined;
   private possibleVerdancyBlooms = 0;
   private actualVerdancyBlooms = 0;
   private currentLifebloomStacks = 0;
@@ -80,6 +81,7 @@ class Lifebloom extends Analyzer {
   onApplyLifebloom(event: ApplyBuffEvent) {
     this.recordCast(event, this.currentLifebloomStacks);
     this.currentLifebloomStacks = 1;
+    this.activeLifebloomTarget = event.targetID;
 
     if (this.hasActiveLifebloom) {
       return;
@@ -94,7 +96,14 @@ class Lifebloom extends Analyzer {
       return;
     }
 
+    // Ignore Remove for a target that is no longer the active Lifebloom target
+    // (happens during target swaps when the new Apply arrives before the old Remove)
+    if (event.targetID !== this.activeLifebloomTarget) {
+      return;
+    }
+
     this.hasActiveLifebloom = false;
+    this.activeLifebloomTarget = undefined;
     this.currentLifebloomStacks = 0;
     if (this.lifebloomUptimes.length > 0) {
       this.lifebloomUptimes[this.lifebloomUptimes.length - 1].end = event.timestamp;

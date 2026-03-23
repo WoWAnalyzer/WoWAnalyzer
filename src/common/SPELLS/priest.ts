@@ -1,6 +1,6 @@
 /**
  * All Priest abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
- * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID are in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 import Spell from 'common/SPELLS/Spell';
@@ -11,19 +11,19 @@ const spells = {
     id: 281265,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 40000,
+    manaCost: 1000,
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 100000,
+    manaCost: 2500,
   },
   MIND_SOOTHE: {
     id: 453,
     name: 'Mind Soothe',
     icon: 'spell_holy_mindsooth',
-    manaCost: 25000,
+    manaCost: 2500,
   },
   BORROWED_TIME_BUFF: {
     id: 390692,
@@ -53,66 +53,31 @@ const spells = {
     icon: 'inv12_apextalent_priest_voidshield',
   },
 
-  PENANCE: {
-    id: 47666,
-    name: 'Penance',
-    icon: 'spell_holy_penance',
-    manaCost: 4000,
-  },
-  PENANCE_HEAL: {
-    // Penance on a friendly player
-    id: 47750,
-    name: 'Penance',
-    icon: 'spell_holy_penance',
-    manaCost: 4000,
-  },
-  PENANCE_TWINSIGHT_DAMAGE: {
-    id: 1232571,
-    name: 'Penance (Twinsight)',
-    icon: 'spell_holy_penance',
-    manaCost: 0,
-  },
-  PENANCE_TWINSIGHT_HEALING: {
-    id: 1232567,
-    name: 'Penance (Twinsight)',
-    icon: 'spell_holy_penance',
-    manaCost: 0,
-  },
-  DARK_REPRIMAND_HEAL: {
-    id: 400187,
-    name: 'Dark Reprimand',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 4000,
-  },
-  DARK_REPRIMAND_DAMAGE: {
-    id: 373130,
-    name: 'Dark Reprimand',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 4000,
-  },
-  DARK_REPRIMAND_TWINSIGHT_DAMAGE: {
-    id: 1232592,
-    name: 'Dark Reprimand (Twinsight)',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 0,
-  },
-  DARK_REPRIMAND_TWINSIGHT_HEALING: {
-    id: 1232615,
-    name: 'Dark Reprimand (Twinsight)',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 0,
-  },
-  DARK_REPRIMAND_CAST: {
-    id: 400169,
-    name: 'Dark Reprimand',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 4000,
-  },
   PENANCE_CAST: {
     id: 47540,
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 4000,
+  },
+  PENANCE_BOLT_DAMAGE: {
+    id: 47666,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_BOLT_HEAL: {
+    id: 47750,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_TWINSIGHT_BOLT_DAMAGE: {
+    id: 1232571,
+    name: 'Penance (Twinsight)',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_TWINSIGHT_BOLT_HEAL: {
+    id: 1232567,
+    name: 'Penance (Twinsight)',
+    icon: 'spell_holy_penance',
   },
   HARSH_DISCIPLINE_BUFF: {
     id: 373183,
@@ -128,7 +93,7 @@ const spells = {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 775000,
+    manaCost: 6500,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -144,12 +109,7 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 5000,
-  },
-  SHADOW_SMITE: {
-    id: 425529,
-    name: 'Smite',
-    icon: 'spell_fire_twilightflamestrike',
+    manaCost: 1000,
   },
   ULTIMATE_PENITENCE_DAMAGE: {
     id: 421543,
@@ -160,7 +120,7 @@ const spells = {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
-    manaCost: 22500,
+    manaCost: 2250,
   },
   POWER_WORD_BARRIER_BUFF: {
     id: 81782,
@@ -176,7 +136,7 @@ const spells = {
     id: 527,
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
-    manaCost: 32500,
+    manaCost: 3250,
   },
   VAMPIRIC_EMBRACE: {
     id: 15286,
@@ -302,17 +262,6 @@ const spells = {
 
   // Talents:
   // lv90
-  PURGE_THE_WICKED_TALENT: {
-    id: 204197,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-    manaCost: 4500,
-  },
-  PURGE_THE_WICKED_BUFF: {
-    id: 204213,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-  },
   EXPIATION_DAMAGE: {
     id: 390844,
     name: 'Expiation',
@@ -357,7 +306,7 @@ const spells = {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 90000,
+    manaCost: 9000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -639,13 +588,13 @@ const spells = {
     id: 2006,
     name: 'Resurrection',
     icon: 'spell_holy_resurrection',
+    manaCost: 2000,
   },
 
   MIND_VISION: {
     id: 2096,
     name: 'Mind Vision',
     icon: 'spell_holy_mindvision',
-    manaCost: 1000,
   },
 
   MIND_SEAR: {

@@ -12,9 +12,11 @@ import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
 import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 export default class ShadowDance extends Analyzer {
   static dependencies = {
+    spellUsable: SpellUsable,
     energyTracker: EnergyTracker,
     comboPointTracker: ComboPointTracker,
   };
@@ -34,10 +36,8 @@ export default class ShadowDance extends Analyzer {
         <strong>
           <SpellLink spell={SPELLS.SHADOW_DANCE} />
         </strong>{' '}
-        is Subtlety Rogue's most important cooldown. It should be used strategically with{' '}
-        <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> and major cooldowns like{' '}
-        <SpellLink spell={TALENTS.FLAGELLATION_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} />.
+        is a very important cooldown for Subtlety Rogues. It should be used strategically with{' '}
+        <SpellLink spell={SPELLS.SECRET_TECHNIQUE} />.
       </p>
     );
 
@@ -73,8 +73,8 @@ export default class ShadowDance extends Analyzer {
   private onCast(event: CastEvent) {
     const energyAtCast = this.energyTracker.current;
     const comboPointsAtCast = this.comboPointTracker.current;
-    const hasSymbolsActive = this.selectedCombatant.hasBuff(
-      SPELLS.SYMBOLS_OF_DEATH.id,
+    const hasShadowBladesActive = this.selectedCombatant.hasBuff(
+      TALENTS.SHADOW_BLADES_TALENT.id,
       event.timestamp,
     );
 
@@ -82,7 +82,7 @@ export default class ShadowDance extends Analyzer {
       createSpellUse({ event }, [
         this.energyPerformance(event, energyAtCast),
         this.comboPointPerformance(event, comboPointsAtCast),
-        this.buffAlignmentPerformance(event, hasSymbolsActive),
+        this.buffAlignmentPerformance(event, hasShadowBladesActive),
         this.energyPerformance(event, energyAtCast),
       ]),
     );
@@ -145,29 +145,17 @@ export default class ShadowDance extends Analyzer {
 
   private buffAlignmentPerformance(
     event: CastEvent,
-    hasSymbolsActive: boolean,
+    hasShadowBladesActive: boolean,
   ): ChecklistUsageInfo | undefined {
     return createChecklistItem(
       'shadow_dance_alignment',
       { event },
       {
-        performance: hasSymbolsActive
+        performance: hasShadowBladesActive
           ? QualitativePerformance.Perfect
           : QualitativePerformance.Fail,
         summary: <div>Buff Alignment</div>,
-        details: (
-          <div>
-            {hasSymbolsActive ? (
-              <>
-                <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> was active.
-              </>
-            ) : (
-              <>
-                Missing <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} />.
-              </>
-            )}
-          </div>
-        ),
+        details: <div></div>,
       },
     );
   }

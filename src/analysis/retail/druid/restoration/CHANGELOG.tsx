@@ -6,6 +6,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
   change(date(2026, 3, 22), <>Implement liveliness talent statistic.</>, squided),
+  change(date(2026, 3, 20), <>Bug fixes for wild growth CDR statistics, lifebloom uptime in guide, and Soul of the Forest Consumes. Improved Power of the Archdruid tracking.</>, squided),
   change(date(2026, 3, 18), <>Improve Verdancy talent statistic. Fix bug in Everbloom tracking and Control of the Dream CDR calculation.</>, squided),
   change(date(2026, 3, 16), <>Added full support for both hero talents. Guide is now complete for Midnight season 1 raid launch.</>, squided),
   change(date(2026, 2, 26), <>Activating Resto Druid analyzer for Midnight! Full support is not yet implemented, but partial support is there.</>, squided),

@@ -25,6 +25,7 @@ import Haunt from './modules/analyzers/Haunt';
 import Nightfall from './modules/analyzers/Nightfall';
 import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Guide from './Guide';
+import CullTheWeak from './modules/analyzers/CulltheWeak';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
     nightfall: Nightfall,
+    cullTheWeak: CullTheWeak,
 
     // Shared Spells
     unendingResolve: UnendingResolve,

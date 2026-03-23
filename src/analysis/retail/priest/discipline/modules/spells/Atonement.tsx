@@ -11,7 +11,6 @@ import Events, {
 import { Options } from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
-
 import isAtonement from '../core/isAtonement';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
 import Statistic from 'parser/ui/Statistic';
