@@ -440,16 +440,6 @@ class Disintegrate extends Analyzer {
             ' tick(s) with: ' +
             this.disintegrateClipSpell.ability.name,
         });
-      } else {
-        this.problemPoints.push({
-          timestamp: event.timestamp,
-          count: this.currentRemainingTicks,
-          tooltip:
-            'Bad Clip, you clipped: ' +
-            this.currentRemainingTicks +
-            ' tick(s) with: ' +
-            this.disintegrateClipSpell.ability.name,
-        });
       }
     } // We clipped outside of Dragonrage, bad
     // In TWW S1 this is now optimal, will prolly become un-optimal again
