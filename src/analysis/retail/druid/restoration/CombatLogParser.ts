@@ -75,6 +75,7 @@ import HarmoniousConstitution from 'analysis/retail/druid/restoration/modules/sp
 import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BondWithNature';
 import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/PatientCustodian';
 import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
+import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -140,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingSurge: RenewingSurge,
     improvedWildGrowth: ImprovedWildGrowth,
     powerOfTheDream: PowerOfTheDream,
+    liveliness: Liveliness,
 
     // Keeper of the Grove
     protectiveGrowth: ProtectiveGrowth,

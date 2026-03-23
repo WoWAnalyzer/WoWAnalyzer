@@ -95,6 +95,16 @@ export const LIVELINESS_INCREASED_RATE = [
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
 ];
 
+// DoTs that get accelerated by Liveliness for restoration druid.
+export const LIVELINESS_INCREASED_DAMAGE_RATE = [
+  SPELLS.MOONFIRE_DEBUFF,
+  SPELLS.SUNFIRE,
+  SPELLS.RAKE_BLEED,
+  SPELLS.RIP,
+  SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.BLOODSEEKER_VINES,
+];
+
 // Druid Cooldown cast IDs (reduced by Dreamstate)
 export const DRUID_COOLDOWN_IDS: number[] = [
   SPELLS.WILD_GROWTH.id,
