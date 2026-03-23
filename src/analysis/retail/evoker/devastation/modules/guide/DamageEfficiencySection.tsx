@@ -256,16 +256,10 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           data={
             <PassFail
               value={modules.imminentDestruction.buffStacksConsumed}
-              total={Math.max(
-                modules.imminentDestruction.totalBuffStacks,
-                modules.imminentDestruction.buffStacksConsumed,
-              )}
+              total={modules.imminentDestruction.totalBuffStacks}
               passed={
                 modules.imminentDestruction.buffStacksConsumed ===
-                Math.max(
-                  modules.imminentDestruction.totalBuffStacks,
-                  modules.imminentDestruction.buffStacksConsumed,
-                )
+                modules.imminentDestruction.totalBuffStacks
               }
             />
           }
@@ -280,17 +274,15 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
                 <SpellLink spell={TALENTS_EVOKER.STRAFING_RUN_TALENT} />
               </strong>{' '}
               allows <SpellLink spell={SPELLS.DEEP_BREATH} /> to be cast again within{' '}
-              {formatDurationMillisMinSec(STRAFING_RUN_DURATION, 0)} of being used.
+              {formatDurationMillisMinSec(STRAFING_RUN_DURATION, 0)} of being used. None should go
+              to waste.
             </p>
           }
           data={
             <PassFail
               value={modules.strafingRun.buffsConsumed}
-              total={Math.max(modules.strafingRun.buffsWasted, modules.strafingRun.buffsConsumed)}
-              passed={
-                modules.strafingRun.buffsConsumed ===
-                Math.max(modules.strafingRun.buffsWasted, modules.strafingRun.buffsConsumed)
-              }
+              total={modules.strafingRun.buffsWasted + modules.strafingRun.buffsConsumed}
+              passed={modules.strafingRun.buffsWasted === 0}
             />
           }
         />
