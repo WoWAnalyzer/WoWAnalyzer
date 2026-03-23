@@ -81,9 +81,10 @@ class Disintegrate extends Analyzer {
 
   isCurrentCastMassDisintegrate = false;
 
-  /** Spells that you can/should clip with
+  /** Spells that you *can* clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
+   * Fill with most spells so it's easy to se what was used to clip with on the graph
    */
   trackedSpells = [
     SPELLS.LIVING_FLAME_CAST,
@@ -97,9 +98,14 @@ class Disintegrate extends Analyzer {
     TALENTS.DRAGONRAGE_TALENT,
     SPELLS.DEEP_BREATH,
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
-    TALENTS.AZURE_SWEEP_TALENT,
+    SPELLS.AZURE_SWEEP,
+    TALENTS.OBSIDIAN_SCALES_TALENT,
+    TALENTS.ZEPHYR_TALENT,
+    SPELLS.HOVER,
+    TALENTS.RESCUE_TALENT,
   ];
 
+  /** Spells that you should clip with */
   goodClipSpellIds = [
     SPELLS.FIRE_BREATH,
     SPELLS.FIRE_BREATH_FONT,
