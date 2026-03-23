@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/';
+import { BadColor, GoodColor, PerfectColor } from 'interface/guide';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -22,16 +23,8 @@ import { LW_CAST_TIME_DECREASE, LW_HEALING_BONUS, LW_OVERHEAL_THRESHOLD } from '
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-/**
- * Flash Heal reduces the cast time of your next Heal
- * within 20 sec by 30% and increases its healing done by 25%.
- *
- * Stacks up to 2 times.
- */
-
 type HealingSources = 'trailHealing' | 'bindingHealing' | 'healHealing';
 
-//Example log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class Lightweaver extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -65,10 +58,6 @@ class Lightweaver extends Analyzer {
       this.active = false;
       return;
     }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL),
-      this.onHealCast,
-    );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
       this.onFlashHealCast,
@@ -158,10 +147,7 @@ class Lightweaver extends Analyzer {
           <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />
         </b>{' '}
         is a strong buff that you should be playing around to buff your{' '}
-        <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. Focus on alternating your{' '}
-        <SpellLink spell={SPELLS.FLASH_HEAL} /> and <SpellLink spell={SPELLS.GREATER_HEAL} /> casts
-        to avoid wasting stacks of this buff. It is best to also move between different targets to
-        optimize the <SpellLink spell={TALENTS.TRAIL_OF_LIGHT_TALENT} /> talent.
+        <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> casts.
       </p>
     );
 
@@ -172,12 +158,12 @@ class Lightweaver extends Analyzer {
 
     const highOverhealHealCasts = {
       count: this.highOverhealHealCasts,
-      label: 'High-overheal Buffed Heal Casts',
+      label: 'High-overheal Buffed Prayer of Healing Casts',
     };
 
     const unbuffedHealCasts = {
       count: this.unbuffedHealCasts,
-      label: 'Heal casts with no Lightweaver Buff',
+      label: 'Prayer of Healing casts with no Lightweaver Buff',
     };
 
     const goodFlashHeals = {
@@ -192,32 +178,33 @@ class Lightweaver extends Analyzer {
 
     const wastedBuffFlashHealCasts = {
       count: this.wastedBuffFlashHealCasts,
-      label: 'Flash Heal casts with two stacks of Lightweaver already',
+      label: 'Flash Heal casts with four stacks of Lightweaver already',
     };
 
     const data = (
       <div>
         <strong>
-          <SpellLink spell={SPELLS.GREATER_HEAL} /> cast breakdown
+          <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> cast breakdown
         </strong>
         <small>
-          {' '}
-          - Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          no <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff.
+          <ul>
+            <li>
+              <span style={{ color: GoodColor }}>Green</span> is a good cast, where<SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />{' '}is applied.
+            </li>
+          </ul>
         </small>
         <GradiatedPerformanceBar
           good={goodHeals}
           ok={highOverhealHealCasts}
           bad={unbuffedHealCasts}
         />
-
         <strong>
           <SpellLink spell={SPELLS.FLASH_HEAL} /> cast breakdown
         </strong>
         <small>
           {' '}
           - Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          two stacks of <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
+          four stacks of <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
         </small>
         <GradiatedPerformanceBar
           good={goodFlashHeals}

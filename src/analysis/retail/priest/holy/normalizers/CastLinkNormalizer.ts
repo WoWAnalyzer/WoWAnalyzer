@@ -56,9 +56,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: FROM_HARDCAST,
-    linkingEventId: [SPELLS.GREATER_HEAL.id, SPELLS.FLASH_HEAL.id],
+    linkingEventId: [SPELLS.FLASH_HEAL.id],
     linkingEventType: EventType.Cast,
-    referencedEventId: [SPELLS.GREATER_HEAL.id, SPELLS.FLASH_HEAL.id],
+    referencedEventId: [SPELLS.FLASH_HEAL.id],
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -217,7 +217,7 @@ const EVENT_LINKS: EventLink[] = [
   // link heals to trail
   {
     linkRelation: HEAL_TRAIL,
-    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventId: SPELLS.FLASH_HEAL.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL.id,
     referencedEventType: EventType.Heal,
@@ -227,7 +227,7 @@ const EVENT_LINKS: EventLink[] = [
   // link lightweaver heals to binding heal
   {
     linkRelation: HEAL_BINDING,
-    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventId: SPELLS.FLASH_HEAL.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.BINDING_HEALS_TALENT_HEAL.id,
     referencedEventType: EventType.Heal,

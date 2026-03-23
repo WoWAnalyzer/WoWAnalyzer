@@ -106,7 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     PrayerfulLitany: Talents.MiddleRow.PrayerfulLitany,
 
     Halo: Talents.Classwide.Halo,
-    //Benediction: Talents.MiddleRow.Benediction,
+    LightsResurgence: Talents.MiddleRow.LightsResurgence,
     Apotheosis: Talents.BottomRow.Apotheosis,
     Lightweaver: Talents.BottomRow.Lightweaver,
     Epiphany: Talents.BottomRow.Epiphany,

@@ -1,6 +1,7 @@
 import Abilities from 'analysis/retail/priest/holy/modules/Abilities';
 import EchoOfLightMastery from 'analysis/retail/priest/holy/modules/core/EchoOfLightMastery';
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
+import LightsResurgence from 'analysis/retail/priest/holy/modules/talents/MiddleRow/LightsResurgence';
 import TALENTS from 'common/TALENTS/priest';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -9,7 +10,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Halo from 'analysis/retail/priest/holy/modules/talents/Classwide/Halo';
-//import Benediction from 'analysis/retail/priest/holy/modules/talents/MiddleRow/Benediction';
 import SPELLS from 'common/SPELLS';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
@@ -26,13 +26,15 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     prayerOfMending: PrayerOfMending,
     echoOfLight: EchoOfLightMastery,
     halo: Halo,
-    //benediction: Benediction,
+    lightsResurgence: LightsResurgence,
   };
+
   includeEchoOfLight = false;
+
   protected prayerOfMending!: PrayerOfMending;
   protected echoOfLight!: EchoOfLightMastery;
   protected halo!: Halo;
-  //protected benediction!: Benediction;
+  protected lightsResurgence!: LightsResurgence;
 
   getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
@@ -43,10 +45,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     }
     if (this.includeEchoOfLight) {
       spellInfo = this.addEcho(spellInfo, healingSpellIds);
-    } //This is slightly wrong/bugged since it counts mastery for each spell and not according to the healing disttribution
-    //For example prayer of mending gets the mastery bonus for every prayer of mending including those from Salv
-    //This is relatively minor and I am not sure how to fix it
-
+    }
     return spellInfo;
   }
 
@@ -57,7 +56,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getPrayerOfHealingDetails(spellInfo: any, spellId: number) {
-    //We get the healing done from Prayer of healing and healing from renews applied by casting it
     const ability = this.abilityTracker.getAbility(spellId);
     spellInfo.healingDone = ability.healingVal.regular || 0;
     spellInfo.overhealingDone = ability.healingVal.overheal || 0;
@@ -66,20 +64,16 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getPomDetails(spellInfo: any) {
-    // This represents that amount of healing done by HARD CASTING PoM.
-    // We don't want PoM to get Hpm credit for healing that we didn't spend mana on.
-    // We *do* want PoM to get credit for any renews it leave behind from Benediction.
+    // This represents the amount of healing done by HARD CASTING PoM.
+    // We don't want PoM to get HPM credit for healing that we didn't spend mana on.
     const pomTicksWithoutSalv =
       this.prayerOfMending.pomHealTicks - this.prayerOfMending.pomTicksFromSalv;
     spellInfo.healingDone =
-      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal; /*+
-      this.benediction.healingFromRenew;*/
+      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
     spellInfo.overhealingDone =
-      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickOverheal; /*+
-      this.benediction.overhealingFromRenew;*/
+      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickOverheal;
     spellInfo.healingAbsorbed =
-      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal; /*+
-      this.benediction.absorptionFromRenew;*/
+      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
     return spellInfo;
   }
 
@@ -103,7 +97,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
         });
       }
     } catch {
-      return spellInfo; //Avoids crashes
+      return spellInfo; // Avoids crashes
     }
     return spellInfo;
   }

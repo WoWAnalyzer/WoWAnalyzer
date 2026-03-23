@@ -30,11 +30,6 @@ const spells = {
     icon: 'spell_holy_mindsooth',
     manaCost: 25000,
   },
-  CRYSTALLINE_REFLECTION_TALENT_HEAL: { // Probably was removed in Midnight
-    id: 373462,
-    name: 'Crystalline Reflection',
-    icon: 'ability_priest_reflectiveshield',
-  },
   BORROWED_TIME_BUFF: {
     id: 390692,
     name: 'Borrowed Time',
@@ -45,12 +40,6 @@ const spells = {
     name: 'Renew',
     icon: 'spell_holy_renew',
     manaCost: 45000,
-  },
-  THROES_OF_PAIN_TALENT_RESOURCE_GAIN: { // Probably was removed in Midnight
-    id: 377427,
-    name: 'Throes of Pain',
-    icon: 'spell_shadow_haunting',
-    manaCost: 0,
   },
   // Discipline Priest:
   GRACE: {
@@ -469,11 +458,10 @@ const spells = {
   },
 
   // Holy Priest Spells
-  GREATER_HEAL: { // Now it's just Heal on wowhead and removed in Midnight
-    id: 2060,
-    name: 'Heal',
-    icon: 'spell_holy_greaterheal',
-    manaCost: 60000,
+  BENEDICTION: {
+    id: 1262763,
+    name: 'Benediction',
+    icon: 'inv12_apextalent_priest_benediction',
   },
   FLASH_HEAL: {
     id: 2061,

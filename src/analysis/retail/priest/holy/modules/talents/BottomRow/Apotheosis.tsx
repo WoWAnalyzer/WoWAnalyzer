@@ -48,6 +48,24 @@ class Apotheosis extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(HOLY_WORD_LIST),
       this.onHolyWordCast,
     );
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
+      this.onApplyApotheosis,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
+      this.onRemoveApotheosis,
+    );
+  }
+
+  private onApplyApotheosis() {
+    // Apply a 3x cooldown rate to all Holy Words
+    this.spellUsable.applyCooldownRateChange(HOLY_WORD_IDS, 3);
+  }
+
+  private onRemoveApotheosis() {
+    // Remove the rate multiplier
+    this.spellUsable.removeCooldownRateChange(HOLY_WORD_IDS, 3);
   }
 
   private onApotheosisCast(event: CastEvent) {
@@ -55,9 +73,7 @@ class Apotheosis extends Analyzer {
 
     // Reset all Holy Words (restore all charges)
     HOLY_WORD_IDS.forEach(spellId => {
-      //if (this.spellUsable.isOnCooldown(spellId)) {
         this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
-      //}
     });
   }
 

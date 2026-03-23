@@ -1,26 +1,24 @@
-/*import TALENTS from 'common/TALENTS/priest';
+import { TALENTS_PRIEST } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { BENEDICTION_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
-import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
 
-// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
-class Benediction extends Analyzer {
-
-  protected renew!: Renew;
-
+// Renamed class to reflect the new talent name
+class LightsResurgence extends Analyzer {
   healingFromRenew = 0;
-  absorptionFromRenew = 0;
   overhealingFromRenew = 0;
+  absorptionFromRenew = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHTS_RESURGENCE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.LIGHTS_RESURGENCE_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEW_HEAL),
@@ -36,24 +34,20 @@ class Benediction extends Analyzer {
     }
   }
 
-  get renewsFromBenediction() {
-    return this.renew.renewsFromBenediction;
-  }
-
   statistic() {
     return (
       <Statistic
-        tooltip={`${this.renewsFromBenediction} total Renews from Benediction`}
+        tooltip="Renews applied by Light's Resurgence"
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spell={TALENTS.LIGHTS_RESURGENCE_TALENT}>
-          <ItemHealingDone amount={this.healingFromRenew} />
+        <BoringSpellValueText spell={TALENTS_PRIEST.LIGHTS_RESURGENCE_TALENT}>
+          <ItemHealingDone amount={this.healingFromRenew + this.absorptionFromRenew} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default Benediction;*/
+export default LightsResurgence;

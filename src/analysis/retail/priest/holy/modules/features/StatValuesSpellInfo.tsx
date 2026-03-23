@@ -41,14 +41,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.GREATER_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.FLASH_HEAL.id]: {
     int: true,
     crit: true,

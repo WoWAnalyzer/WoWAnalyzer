@@ -6,8 +6,6 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID } from '../constants';
 import { FullCombatant } from 'parser/core/Combatant';
 
-import Epiphany from '../modules/talents/BottomRow/Epiphany';
-
 import Combatant from 'parser/core/Combatant';
 import { L } from 'vitest/dist/chunks/reporters.d.BFLkQcL6.js';
 
@@ -22,6 +20,13 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
+        spell: SPELLS.BENEDICTION.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.PRAYER_OF_MENDING_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => {
@@ -30,7 +35,6 @@ class Abilities extends CoreAbilities {
             baseCD -= 1.5;
           }
           return baseCD / (1 + haste);
-          //return Math.ceil((baseCD / (1 + haste)) * 1000) / 1000;
         },
         charges: combatant.hasTalent(TALENTS.GUIDING_LIGHT_TALENT) ? 2 : 1,
         gcd: {
@@ -145,13 +149,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.PRAYER_OF_HEALING_TALENT.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.GREATER_HEAL.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,

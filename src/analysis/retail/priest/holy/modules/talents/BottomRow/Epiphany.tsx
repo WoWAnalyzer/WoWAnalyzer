@@ -7,12 +7,8 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   RemoveBuffEvent,
-  EventType,
-  MaxChargesIncreasedEvent,
-  MaxChargesDecreasedEvent,
+  GetRelatedEvent,
 } from 'parser/core/Events';
-import { GetRelatedEvent } from 'parser/core/Events';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
@@ -21,23 +17,21 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
-
-const EPIPHANY_BUFF_ID = 414556;
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Epiphany: Your Holy Words have a 25% chance to make your next Prayer of Mending cost no cooldown.
  */
 class Epiphany extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter,
+    abilities: Abilities,
   };
 
-  protected eventEmitter!: EventEmitter;
+  protected abilities!: Abilities;
 
   procsGained = 0;
   procsUsed = 0;
   procsWasted = 0;
-  private buffActive = false;
 
   constructor(options: Options) {
     super(options);
@@ -58,10 +52,9 @@ class Epiphany extends Analyzer {
 
   private onApplyBuff(event: ApplyBuffEvent) {
     this.procsGained += 1;
-    this.buffActive = true;
 
     // Increase max charges of Prayer of Mending by 1
-    this.increaseMaxCharges(event.timestamp);
+    this.abilities.increaseMaxCharges(event, SPELLS.PRAYER_OF_MENDING_HEAL.id, 1);
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
@@ -71,32 +64,9 @@ class Epiphany extends Analyzer {
     } else {
       this.procsWasted += 1;
     }
-    this.buffActive = false;
 
     // Decrease max charges of Prayer of Mending by 1
-    this.decreaseMaxCharges(event.timestamp);
-  }
-
-  private increaseMaxCharges(timestamp: number) {
-    const increaseEvent: MaxChargesIncreasedEvent = {
-      type: EventType.MaxChargesIncreased,
-      timestamp,
-      spellId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
-      by: 1,
-      __fabricated: true,
-    };
-    this.eventEmitter.fabricateEvent(increaseEvent);
-  }
-
-  private decreaseMaxCharges(timestamp: number) {
-    const decreaseEvent: MaxChargesDecreasedEvent = {
-      type: EventType.MaxChargesDecreased,
-      timestamp,
-      spellId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
-      by: 1,
-      __fabricated: true,
-    };
-    this.eventEmitter.fabricateEvent(decreaseEvent);
+    this.abilities.decreaseMaxCharges(event, SPELLS.PRAYER_OF_MENDING_HEAL.id, 1);
   }
 
   get utilization() {
@@ -143,11 +113,11 @@ class Epiphany extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(14)}
         tooltip={
-          <>
-            Procs gained: {this.procsGained}<br />
-            Procs used: {this.procsUsed}<br />
-            Procs wasted: {this.procsWasted}
-          </>
+          <ul>
+            <li>Procs gained: {this.procsGained}</li>
+            <li>Procs used: {this.procsUsed}</li>
+            <li>Procs wasted: {this.procsWasted}</li>
+          </ul>
         }
       >
         <BoringSpellValueText spell={TALENTS.EPIPHANY_TALENT}>

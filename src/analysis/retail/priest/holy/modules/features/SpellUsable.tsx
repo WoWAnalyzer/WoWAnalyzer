@@ -25,10 +25,6 @@ class SpellUsable extends CoreSpellUsable {
 
     super.beginCooldown(cooldownTriggerEvent, spellId);
   }
-
-  reduceCooldown(spellId: number, reductionMs: number, timestamp?: number): number {
-    return super.reduceCooldown(spellId, reductionMs, timestamp);
-  }
 }
 
 export default SpellUsable;

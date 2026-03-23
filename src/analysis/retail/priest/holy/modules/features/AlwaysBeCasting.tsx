@@ -4,7 +4,6 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD = [
-    SPELLS.GREATER_HEAL.id,
     SPELLS.FLASH_HEAL.id,
     SPELLS.PRAYER_OF_MENDING_HEAL.id,
     TALENTS.PRAYER_OF_HEALING_TALENT.id,
