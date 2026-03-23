@@ -4,7 +4,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
-
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

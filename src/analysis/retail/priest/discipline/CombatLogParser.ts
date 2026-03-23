@@ -13,7 +13,6 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/Abilities';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import SpellManaCost from './modules/core/SpellManaCost';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AtonementApplicationSource from './modules/features/AtonementApplicationSource';
@@ -40,7 +39,6 @@ import Guide from './Guide';
 import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
-import AtonementNormalizer from './normalizers/AtonementTracker';
 import AbyssalReverie from './modules/spells/AbyssalReverie';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
@@ -48,8 +46,11 @@ import EternalBarrier from './modules/spells/EternalBarrier';
 import Benevolence from '../shared/Benevolence';
 import SurgeOfLight from 'analysis/retail/priest/shared/SurgeOfLight';
 import ProtectorOfTheFrail from './modules/spells/ProtectorOfTheFrail';
-import DotUptimes from 'src/analysis/retail/priest/discipline/modules/features/DotUptimes';
+import DotUptimes from './modules/features/DotUptimes';
 import ShadowWordPain from 'analysis/retail/priest/shared/ShadowWordPain';
+import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
+import EventLinkNormalizer from './normalizers/EventLinkNormalizer';
+import AtonementNormalizer from './normalizers/AtonementTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,9 +59,10 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     atonementNormalizer: AtonementNormalizer,
+    eventLinkNormalizer: EventLinkNormalizer,
 
     spellUsable: SpellUsable,
-    spellManaCost: SpellManaCost,
+    spellManaCost: CoreSpellManaCost,
     lowHealthHealing: LowHealthHealing,
     abilities: Abilities,
     channeling: Channeling,

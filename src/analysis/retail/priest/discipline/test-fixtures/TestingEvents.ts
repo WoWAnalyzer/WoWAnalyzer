@@ -20,7 +20,7 @@ export const DamagingEvent1 = {
   targetID: enemy,
   amount: amount,
   timestamp: timestamp,
-  ability: { guid: SPELLS.PURGE_THE_WICKED_BUFF.id },
+  ability: { guid: SPELLS.SHADOW_WORD_PAIN.id },
 };
 export const DamagingEvent2 = {
   title: 'Damaging Event 2',

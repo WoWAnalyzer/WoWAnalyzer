@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 3, 22), <>Introduced Guide for <SpellLink spell={SPELLS.PENANCE_CAST} /> usage and updated interactions with <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />, <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} /> and <SpellLink spell={TALENTS_PRIEST.TWINSIGHT_TALENT} />.</>, Vetyst),
   change(date(2026, 3, 20), <>Updated several StatisticBox deprecations.</>, Vetyst),
   change(date(2026, 3, 20), <>Add <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime suggestions to the guide.</>, Vetyst),
   change(date(2026, 3, 20), <>Update about page.</>, Vetyst),
