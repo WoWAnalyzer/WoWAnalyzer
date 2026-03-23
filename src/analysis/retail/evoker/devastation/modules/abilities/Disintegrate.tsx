@@ -526,33 +526,34 @@ class Disintegrate extends Analyzer {
     return (
       <SubSection title="Disintegrate">
         <div>
-          Use the graph below to deep dive into your <SpellLink spell={DISINTEGRATE} /> casts.
-          <ul>
-            <li>
-              Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
-            </li>
-            {this.massDisintegrateCasts.length > 0 && (
-              <>
-                <li>
-                  Mass Disintegrate Casts are highlighted in{' '}
-                  <span style={{ color: '#aa774f' }}>brown</span>
-                </li>
-              </>
-            )}
-            <li>
-              Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
-            </li>
-            <li>
-              Clipped casts are highlighted in <span style={{ color: '#9b59b6' }}>purple</span>
-            </li>
-            <li>
-              Problem points are highlighted in <span style={{ color: 'red' }}>red</span>
-            </li>
-            <li>
-              <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.
-            </li>
-          </ul>
-          <br />
+          <p>
+            Use the graph below to deep dive into your <SpellLink spell={DISINTEGRATE} /> casts.
+            <ul>
+              <li>
+                Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
+              </li>
+              {this.massDisintegrateCasts.length > 0 && (
+                <>
+                  <li>
+                    Mass Disintegrate Casts are highlighted in{' '}
+                    <span style={{ color: '#aa774f' }}>brown</span>
+                  </li>
+                </>
+              )}
+              <li>
+                Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
+              </li>
+              <li>
+                Clipped casts are highlighted in <span style={{ color: '#9b59b6' }}>purple</span>
+              </li>
+              <li>
+                Problem points are highlighted in <span style={{ color: 'red' }}>red</span>
+              </li>
+              <li>
+                <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.
+              </li>
+            </ul>
+          </p>
           <b>
             <InformationIcon /> Mouseover each point on the graph for more detailed explanations.
           </b>
