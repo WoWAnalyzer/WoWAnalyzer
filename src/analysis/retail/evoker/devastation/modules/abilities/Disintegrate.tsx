@@ -100,6 +100,18 @@ class Disintegrate extends Analyzer {
     TALENTS.AZURE_SWEEP_TALENT,
   ];
 
+  goodClipSpellIds = [
+    SPELLS.FIRE_BREATH,
+    SPELLS.FIRE_BREATH_FONT,
+    SPELLS.ETERNITY_SURGE,
+    SPELLS.ETERNITY_SURGE_FONT,
+    SPELLS.DEEP_BREATH,
+    SPELLS.DEEP_BREATH_SCALECOMMANDER,
+  ].map((spell) => spell.id);
+
+  maxAllowedClippedTicks = 1;
+  maxAllowedEarlyChainedTicks = 0;
+
   graphData: GraphData[] = [];
 
   disintegrateTicksCounter: SpellTracker[] = [];
@@ -311,9 +323,15 @@ class Disintegrate extends Analyzer {
         count: this.currentRemainingTicks,
         tooltip: 'Bad Chain, you chained before the 3rd tick.',
       });
-    } // Clipped ticks outside of DR, bad - for TWW S1 this is optimal
-    // In TWW S1 this is now optimal, will prolly become un-optimal again
-    /* else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
+    } else if (this.currentRemainingTicks > this.maxAllowedEarlyChainedTicks + 1) {
+      this.problemPoints.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
+      });
+    }
+    // Clipped ticks outside of DR, bad
+    else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
       this.problemPoints.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
@@ -322,17 +340,21 @@ class Disintegrate extends Analyzer {
           (this.currentRemainingTicks - 1) +
           ' tick(s) outside of Dragonrage',
       });
-    }  */
-    else {
+    } else {
       if (this.isCurrentCastMassDisintegrate) {
-        this.massDisintegrateCasts.push({
-          timestamp: event.timestamp,
-          count: this.currentRemainingTicks,
-          tooltip:
-            this.currentRemainingTicks >= 2
-              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
-              : 'Good Chain',
-        });
+        if (this.currentRemainingTicks >= 2) {
+          this.problemPoints.push({
+            timestamp: event.timestamp,
+            count: this.currentRemainingTicks,
+            tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
+          });
+        } else {
+          this.massDisintegrateCasts.push({
+            timestamp: event.timestamp,
+            count: this.currentRemainingTicks,
+            tooltip: 'Good Chain',
+          });
+        }
       } else {
         this.disintegrateChainCasts.push({
           timestamp: event.timestamp,
@@ -392,12 +414,32 @@ class Disintegrate extends Analyzer {
             this.disintegrateClipSpell.ability.name +
             ' before the 3rd tick.',
         });
-      } else {
+      } else if (this.currentRemainingTicks > this.maxAllowedClippedTicks) {
+        this.problemPoints.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            'Bad Clip, you clipped: ' +
+            this.currentRemainingTicks +
+            ' tick(s) with: ' +
+            this.disintegrateClipSpell.ability.name,
+        });
+      } else if (this.goodClipSpellIds.includes(this.disintegrateClipSpell.ability.guid)) {
         this.disintegrateClips.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
           tooltip:
             'Good clip, you clipped: ' +
+            this.currentRemainingTicks +
+            ' tick(s) with: ' +
+            this.disintegrateClipSpell.ability.name,
+        });
+      } else {
+        this.problemPoints.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            'Bad Clip, you clipped: ' +
             this.currentRemainingTicks +
             ' tick(s) with: ' +
             this.disintegrateClipSpell.ability.name,
