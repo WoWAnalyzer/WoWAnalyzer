@@ -111,6 +111,9 @@ class RapidFire extends Analyzer {
     if (this.lastReductionTimestamp === 0 || event.timestamp <= this.lastReductionTimestamp) {
       return;
     }
+    /**
+     * modRate is what the value is called in-game that defines how fast a cooldown recharges, so reusing that terminology here
+     */
     let modRate = 1;
     if (this.selectedCombatant.hasBuff(TALENTS.TRUESHOT_TALENT.id)) {
       modRate /= 1 + TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE;

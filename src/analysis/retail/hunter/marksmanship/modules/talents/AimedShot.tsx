@@ -14,6 +14,12 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
+/**
+ * A powerful aimed shot that deals [(248.4% of Attack power) * ((max(0, min(Level - 10, 10)) * 8 + 130) / 210)] Physical damage.
+ *
+ * Example log with timeline warnings:
+ * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25&ability=-19434
+ */
 const debug = false;
 
 class AimedShot extends Analyzer {
@@ -66,6 +72,10 @@ class AimedShot extends Analyzer {
     if (this.lastReductionTimestamp === 0 || event.timestamp <= this.lastReductionTimestamp) {
       return;
     }
+    /**
+     * modRate is what the value is called in-game that defines how fast a cooldown recharges, so reusing that terminology here
+     * Dead Eye and Trueshot scale multiplicatively off each other, which can lead to extremely fast cooldown reduction that this should properly handle.
+     */
     let modRate = 1;
     if (this.selectedCombatant.hasBuff(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       modRate /= 1 + TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE;

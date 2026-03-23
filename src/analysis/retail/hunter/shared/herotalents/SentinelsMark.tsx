@@ -316,6 +316,7 @@ export default class SentinelsMark extends Analyzer.withDependencies({
   }
 
   private onMarkApply(event: ApplyDebuffEvent) {
+    // Handle edge case: new apply on target that already has a tracked mark (previous expired quietly)
     if (this.activeMarks.has(event.targetID)) {
       this.finalizeMarkAsExpired(event.targetID, event.timestamp);
     }
