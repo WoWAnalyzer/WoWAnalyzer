@@ -100,7 +100,7 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
         explanation={
           <div>
             <p>
-              <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency during
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency during{' '}
               <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
             <p>
