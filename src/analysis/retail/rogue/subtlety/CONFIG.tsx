@@ -16,21 +16,23 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      <strong>Welcome, Subtlety Rogues!</strong> <br /> <br />
-      This module is still a work in progress. It currently provides a solid analysis of the
-      single-target rotation and highlights major mistakes. However, some aspects may still need
-      improvement or further tuning.
-      <br /> <br />
+      <strong>Welcome, Subtlety Rogues!</strong>
+      <p>
+        This module is still a work in progress. It currently provides a solid analysis of the
+        single-target rotation and highlights major mistakes. However, some aspects may still need
+        improvement or further tuning.
+      </p>
       The recommendations and analysis are based on{' '}
       <a href="https://www.wowhead.com/guide/classes/rogue/subtlety/overview-pve-dps">WoWhead</a>
-      <br /> <br />
-      For additional insights on talents, gear, and playstyle, check out{' '}
-      <a href="https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-guide">Icy Veins</a>.
-      <br /> <br />
-      If you notice any inaccuracies, missing data, or have suggestions, please report them on{' '}
-      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or reach out to us
-      on Discord.
-      <br />
+      <p>
+        For additional insights on talents, gear, and playstyle, check out{' '}
+        <a href="https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-guide">Icy Veins</a>.
+      </p>
+      <p>
+        If you notice any inaccuracies, missing data, or have suggestions, please report them on{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or reach out to
+        us on Discord.
+      </p>
     </>
   ),
   pages: {
