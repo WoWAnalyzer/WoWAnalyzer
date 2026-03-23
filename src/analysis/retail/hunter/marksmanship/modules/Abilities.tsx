@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MOONLIGHT_CHAKRAM_CAST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },

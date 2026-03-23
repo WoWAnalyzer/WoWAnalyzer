@@ -47,14 +47,14 @@ class PreciseShots extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsRemoval,
     );
-    this.addEventListener(
+    /*this.addEventListener(
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsStackRemoval,
     );
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
       this.onPreciseShotsStackApplication,
-    );
+    );*/
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.onPreciseCast,
@@ -87,20 +87,20 @@ class PreciseShots extends Analyzer {
   }
 
   onPreciseShotsRemoval() {
-    this.buffsSpent += 1;
+    this.buffsSpent += 2;
     this.buffsActive = 0;
   }
 
-  onPreciseShotsStackRemoval() {
+  /*onPreciseShotsStackRemoval() {
     this.buffsSpent += 1;
     this.buffsActive -= 1;
-  }
+  }*/
 
-  onPreciseShotsStackApplication() {
+  /*onPreciseShotsStackApplication() {
     this.minOverwrittenProcs += 1;
     this.maxOverwrittenProcs += 2;
     this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
-  }
+  }*/
 
   onPreciseCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS_BUFF.id)) {
