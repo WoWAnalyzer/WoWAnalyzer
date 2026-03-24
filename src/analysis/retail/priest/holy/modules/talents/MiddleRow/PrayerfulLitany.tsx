@@ -88,6 +88,7 @@ class PrayerfulLitany extends Analyzer {
           <>
             Total Healing: {formatNumber(this.effectiveAdditionalHealing + this.overhealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

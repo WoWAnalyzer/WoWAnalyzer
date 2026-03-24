@@ -61,6 +61,7 @@ class BindingHeals extends Analyzer {
               {formatPercentage(this.getOverhealPercent(this.selfHealing, this.selfOverhealing))}%
               OH)
             </div>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

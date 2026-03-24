@@ -81,7 +81,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.DESPERATE_PRAYER.id]: {
+  [TALENTS.DESPERATE_PRAYER_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

@@ -49,7 +49,6 @@
     "src/analysis/retail/paladin/protection",
     "src/analysis/retail/paladin/retribution",
     "src/analysis/retail/paladin/shared",
-    "src/analysis/retail/priest/discipline",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw"
   ],

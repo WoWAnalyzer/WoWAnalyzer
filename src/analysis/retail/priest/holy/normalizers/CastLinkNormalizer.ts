@@ -32,7 +32,6 @@ export const BUFFED_BY_SURGE_OF_LIGHT_CAST = 'BuffedBySurgeOfLightCast';
 const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
-const GET_SPELL_CAST_FROM_INSIGHT_CHARGE = 'GetSpellCastFromInsightCharge';
 export const ECHO_OF_LIGHT_BUFF_REFRESH = 'EchOfLightRefresh';
 export const ECHO_OF_LIGHT_ATTRIB_EVENT = 'GetEchoOfLight';
 export const HARDCAST_POWER_WORD_SHIELD = 'HardCastPowerWordShield';
@@ -203,7 +202,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: SURGE_OF_LIGHT_APPLIED_BY_HALO,
     reverseLinkRelation: HALO_LINKED_TO_SURGE_OF_LIGHT,
-    linkingEventId: [SPELLS.HALO_TALENT.id, SPELLS.UNCAT_ARCHON_HALO_RETURN_BUFF.id],
+    linkingEventId: [TALENTS_PRIEST.HALO_HOLY_TALENT.id, SPELLS.UNCAT_ARCHON_HALO_RETURN_BUFF.id],
     linkingEventType: EventType.ApplyBuff,
     referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
     referencedEventType: [EventType.ApplyBuffStack, EventType.ApplyBuff, EventType.RefreshBuff],

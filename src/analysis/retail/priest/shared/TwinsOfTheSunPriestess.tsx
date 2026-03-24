@@ -17,6 +17,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 const BUFFER = 100; // ms between the two cast events
 
 class TwinsOfTheSunPriestess extends Analyzer {
+  // More could probably be done with this to analyze what the person you used it on did.
+  // this is at least a base of making sure they're using PI on other players and not wasting it on themselves.
   static dependencies = {
     spellUsable: SpellUsable,
   };

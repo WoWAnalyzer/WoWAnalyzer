@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -135,6 +134,7 @@ class EmpyrealBlaze extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_PRIEST.EMPYREAL_BLAZE_TALENT}>
           <ItemManaGained amount={this.manaSaved} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {this.refreshCount} <small>refreshes (7s each)</small>
         </TalentSpellText>

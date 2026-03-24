@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/';
-import { BadColor, GoodColor, PerfectColor } from 'interface/guide';
+import { GoodColor } from 'interface/guide';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -232,7 +232,9 @@ class Lightweaver extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             {`${overhealingTooltipString}% overhealing`} <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown:</div>
             <div>
@@ -241,14 +243,17 @@ class Lightweaver extends Analyzer {
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.eolContrib} /> <br />
             </div>
             <div>
               <SpellLink spell={SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.trailHealing} /> <br />
             </div>
             <div>
               <SpellLink spell={SPELLS.BINDING_HEALS_TALENT_HEAL} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.bindingHealing} /> <br />
             </div>
           </>

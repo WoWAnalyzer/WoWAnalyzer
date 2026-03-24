@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -19,7 +18,7 @@ class AngelsMercy extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DESPERATE_PRAYER_TALENT),
       this.onCast,
     );
   }

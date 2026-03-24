@@ -85,6 +85,7 @@ class PrayerOfHealing extends Analyzer {
       const tooltip = (
         <>
           @<strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {pohCastText}
         </>

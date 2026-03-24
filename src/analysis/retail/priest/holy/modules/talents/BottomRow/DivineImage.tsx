@@ -85,6 +85,7 @@ class DivineImage extends Analyzer {
               )}
               % OH)
             </div>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>
               Notably this talent does not contribute to{' '}
@@ -95,6 +96,7 @@ class DivineImage extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.DIVINE_IMAGE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
