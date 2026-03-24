@@ -115,62 +115,57 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
     const deepeningShadows = <SpellLink spell={TALENTS.DEEPENING_SHADOWS_TALENT} />;
 
     const explanation = (
-      <>
+      <div>
         <p>
           {shadowDance} is our main short time cooldown. It interacts with several talents in our
           tree. During {shadowDance} we have increased damage and enhanced combo point and energy
           generation.
         </p>
-        <>
-          In order to maximize damage you want to:
-          <ul>
-            {this.isTrickster && <li>Enter with 6+ combo points.</li>}
-            {this.isDeathstalker && <li>Enter with low combo points.</li>}
-            <li>
-              Align this cooldown with {secretTechniques}, except in the second use during{' '}
-              {shadowBlades}.
-            </li>
-            <li>
-              Make sure you have enough energy to instantly throw your finisher, this is a common
-              mistake.
-            </li>
-            <li>Cast as many abilities as you can.</li>
-          </ul>
-        </>
-
-        <>
-          <h5>
-            <InformationIcon />
-            <i>Haste and GCDs notes</i>
-          </h5>
-          <p>
-            {shadowDance} duration increases with flat haste stat due to {deepeningShadows}. You
-            will want to fit the maximum amount of GCDs within your {shadowDance}.
-          </p>
-          <p>
-            i.e. if your {shadowDance} lasts 7.1s, you will want to squeeze 8 abilities within it.
-            Sometimes that .1s window is very tight.
-          </p>
-          <p>
-            If youre struggling to squeeze that last ability, you might want to increase your haste
-            a bit. Macros are of particular interest here. They will allow you to send {shadowDance}{' '}
-            and the first GCD at the exact same time.
-          </p>
-          <p>
-            Check
-            <a href="https://www.wowhead.com/guide/classes/rogue/subtlety/addons-macro-ui-imports#macros-macros-combining-abilities">
-              {' '}
-              wowhead{' '}
-            </a>
-            or
-            <a href="https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-macros-addons">
-              {' '}
-              icy-veins{' '}
-            </a>
-            macros section for more information.
-          </p>
-        </>
-      </>
+        In order to maximize damage you want to:
+        <ul>
+          {this.isTrickster && <li>Enter with 6+ combo points.</li>}
+          {this.isDeathstalker && <li>Enter with low combo points.</li>}
+          <li>
+            Align this cooldown with {secretTechniques}, except in the second use during{' '}
+            {shadowBlades}.
+          </li>
+          <li>
+            Make sure you have enough energy to instantly throw your finisher, this is a common
+            mistake.
+          </li>
+          <li>Cast as many abilities as you can.</li>
+        </ul>
+        <h5>
+          <InformationIcon />
+          <i>Haste and GCDs notes</i>
+        </h5>
+        <p>
+          {shadowDance} duration increases with flat haste stat due to {deepeningShadows}. You will
+          want to fit the maximum amount of GCDs within your {shadowDance}.
+        </p>
+        <p>
+          i.e. if your {shadowDance} lasts 7.1s, you will want to squeeze 8 abilities within it.
+          Sometimes that .1s window is very tight.
+        </p>
+        <p>
+          If youre struggling to squeeze that last ability, you might want to increase your haste a
+          bit. Macros are of particular interest here. They will allow you to send {shadowDance} and
+          the first GCD at the exact same time.
+        </p>
+        <p>
+          Check
+          <a href="https://www.wowhead.com/guide/classes/rogue/subtlety/addons-macro-ui-imports#macros-macros-combining-abilities">
+            {' '}
+            wowhead{' '}
+          </a>
+          or
+          <a href="https://www.icy-veins.com/wow/subtlety-rogue-pve-dps-macros-addons">
+            {' '}
+            icy-veins{' '}
+          </a>
+          macros section for more information.
+        </p>
+      </div>
     );
 
     const totalDamageTooltip = <>Total Damage done through all {shadowDance} Uses.</>;

@@ -1,11 +1,6 @@
 import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  CastEvent,
-  GetRelatedEvent,
-  GetRelatedEvents,
-  EventType,
-} from 'parser/core/Events';
+import Events, { CastEvent, GetRelatedEvents } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
@@ -92,13 +87,8 @@ export default class ShadowBlades extends Analyzer {
     const hasSecTecAvailable = this.spellUsable.isAvailable(SPELLS.SECRET_TECHNIQUE.id);
     const hasShadowDanceAvailable = this.spellUsable.isAvailable(SPELLS.SHADOW_DANCE.id);
 
-    const shadowBladesRemove = GetRelatedEvent(event, EventType.RemoveBuff);
-    this.log('shadowBladesRemove', shadowBladesRemove);
-
     const shadowDanceCasts = GetRelatedEvents(event, CustomType.SHADOW_DANCE_CASTS);
-    this.log('shadowDanceCasts', shadowDanceCasts);
     const numberOfCasts = shadowDanceCasts.reduce((sum, cast) => sum + 1, 0);
-    // todo: check 2 SD usages within the Shadow Blades buff window.
     this.cooldownUses.push(
       createSpellUse({ event }, [
         this.shadowDanceCheck(event, hasShadowDanceBuff, hasShadowDanceAvailable),

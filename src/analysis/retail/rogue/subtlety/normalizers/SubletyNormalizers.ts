@@ -57,12 +57,12 @@ const EVENT_LINKS = createEventLinks(
     spell: TALENTS.SHADOW_BLADES_TALENT.id,
     parentType: EventType.Cast,
     links: [
-      link(EventType.RemoveBuff, { forwardBuffer: 18000, maxLinks: 1, anyTarget: true }),
+      link(EventType.RemoveBuff, { forwardBuffer: 21000, maxLinks: 1, anyTarget: true }),
       {
         relation: CustomType.SHADOW_DANCE_CASTS,
         type: EventType.Cast,
         id: SPELLS.SHADOW_DANCE.id,
-        forwardBuffer: 17000,
+        forwardBuffer: 21000,
         condition: (linkingEvent, referencedEvent) => {
           const debuffEnd = GetRelatedEvent(linkingEvent, EventType.RemoveBuff);
           return debuffEnd ? referencedEvent.timestamp < debuffEnd.timestamp : false;

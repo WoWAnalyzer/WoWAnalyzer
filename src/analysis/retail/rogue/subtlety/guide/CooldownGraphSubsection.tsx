@@ -42,7 +42,7 @@ const CooldownGraphSubsection = () => {
 
   return (
     <SubSection>
-      <>
+      <div>
         <strong>Cooldown Graph</strong> - This graph visualizes the usage of your cooldowns and
         highlights areas where optimizations can be made.
         <ul>
@@ -58,8 +58,7 @@ const CooldownGraphSubsection = () => {
         </ul>
         For Subtlety, <strong>Shadow Dance</strong> usage is crucial, as they define your burst
         windows.
-      </>
-      <p></p>
+      </div>
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar
           key={cooldownCheck.spell.id}
