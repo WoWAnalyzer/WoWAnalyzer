@@ -41,7 +41,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.DIVINE_HALO_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
       this.newHaloCast,
     );
 
@@ -56,7 +56,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
       this.removeArchonOut,
     );
   }
@@ -107,7 +107,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
         tooltip={
           <>
             {'If you only cast your first '}
-            <SpellLink spell={SPELLS.HALO_TALENT} />
+            <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />
             {' each time, it would have done: '}
             <br />
             {<ItemPercentHealingDone amount={this.firstHaloHealing}></ItemPercentHealingDone>}{' '}
@@ -140,7 +140,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
         <TalentSpellText talent={TALENTS_PRIEST.POWER_SURGE_TALENT}>
           <small>
             {'All 6 events per cast of '}
-            <SpellLink spell={SPELLS.HALO_TALENT} />
+            <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />
             {' from the base spell and both '}
             <SpellLink spell={TALENTS_PRIEST.POWER_SURGE_TALENT} />
             {' and '}

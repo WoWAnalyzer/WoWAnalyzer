@@ -19,7 +19,7 @@ class AngelsMercy extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DESPERATE_PRAYER_TALENT),
       this.onCast,
     );
   }

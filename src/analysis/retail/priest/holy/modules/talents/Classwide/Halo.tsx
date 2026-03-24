@@ -40,7 +40,10 @@ class Halo extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
+      this.onCast,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -65,7 +68,7 @@ class Halo extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={SPELLS.HALO_TALENT} />
+          <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />
         </b>{' '}
         is a strong group heal on a medium length cooldown. You will want to cast this whenever the
         majority of the raid is injured. However, do not hold on to this cooldown too long to not
@@ -73,7 +76,7 @@ class Halo extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={SPELLS.HALO_TALENT} useThresholds />;
+    const data = <CastEfficiencyPanel spell={TALENTS_PRIEST.HALO_HOLY_TALENT} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
@@ -98,7 +101,7 @@ class Halo extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HALO_TALENT}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.HALO_HOLY_TALENT}>
           <ItemHealingDone amount={this.haloHealing + this.eolContrib} />
           <br />
           <ItemDamageDone amount={this.haloDamage} />

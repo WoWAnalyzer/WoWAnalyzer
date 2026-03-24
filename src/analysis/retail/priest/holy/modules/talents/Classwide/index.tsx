@@ -4,6 +4,5 @@ import BindingHeals from './BindingHeals';
 import BodyAndSoul from './BodyAndSoul';
 import Halo from './Halo';
 import PsychicVoice from './PsychicVoice';
-import SurgeOfLight from './SurgeOfLight';
 
-export { AngelicFeather, AngelsMercy, BindingHeals, BodyAndSoul, Halo, PsychicVoice, SurgeOfLight };
+export { AngelicFeather, AngelsMercy, BindingHeals, BodyAndSoul, Halo, PsychicVoice };

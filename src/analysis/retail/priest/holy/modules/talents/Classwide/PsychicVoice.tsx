@@ -16,11 +16,11 @@ class PsychicVoice extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PSYCHIC_SCREAM_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.PSYCHIC_SCREAM_TALENT),
       this.onApplyDebuff,
     );
   }
