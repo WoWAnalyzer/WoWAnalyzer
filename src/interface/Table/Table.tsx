@@ -64,8 +64,8 @@ const TableHeader = styled.div`
   & ${TableCell} {
     border-color: ${design.level2.border};
 
-    &:last-of-type {
-      border-right: unset;
+    &:first-of-type {
+      border-left: unset;
     }
   }
 
