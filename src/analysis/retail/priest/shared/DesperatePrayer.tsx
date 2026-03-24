@@ -1,11 +1,11 @@
 import { formatPercentage } from 'common/format';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 
 interface DesperatePrayerUsage {
   damageTaken: number;
@@ -29,11 +29,11 @@ class DesperatePrayer extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.DESPERATE_PRAYER_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.heal.to(SELECTED_PLAYER).spell(TALENTS_PRIEST.DESPERATE_PRAYER_TALENT),
+      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
       this.onHeal,
     );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -54,7 +54,7 @@ class DesperatePrayer extends Analyzer {
   }
 
   onDamageTaken(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS_PRIEST.DESPERATE_PRAYER_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
       return;
     }
 
@@ -62,7 +62,7 @@ class DesperatePrayer extends Analyzer {
   }
 
   onDeath() {
-    if (!this.spellUsable.isOnCooldown(TALENTS_PRIEST.DESPERATE_PRAYER_TALENT.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.DESPERATE_PRAYER.id)) {
       this.deathsWithDPReady += 1;
     }
   }
@@ -71,7 +71,7 @@ class DesperatePrayer extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
         dropdown={
           <table className="table table-condensed">
             <thead>
@@ -93,7 +93,7 @@ class DesperatePrayer extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spell={TALENTS_PRIEST.DESPERATE_PRAYER_TALENT}>
+        <BoringSpellValueText spell={SPELLS.DESPERATE_PRAYER}>
           {this.desperatePrayerUsages.length} Casts
         </BoringSpellValueText>
       </Statistic>

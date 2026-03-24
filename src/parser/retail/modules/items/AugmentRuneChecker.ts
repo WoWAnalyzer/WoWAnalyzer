@@ -1,29 +1,32 @@
-import SPELLS from 'common/SPELLS/midnight/others';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS/thewarwithin/others';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
-const AUGMENT_RUNE_IDS: number[] = [SPELLS.VOID_TOUCHED.id];
+const AUGMENT_RUNE_ID = SPELLS.CRYSTALLIZED_AUGMENT_RUNE.id;
+// The War Within doesn't have an eternal augment rune yet
+// const ETERNAL_AUGMENT_RUNE_ID = SPELLS.ETERNAL_AUGMENT_RUNE.id;
 
 class AugmentRuneChecker extends Analyzer {
   startFightWithAugmentRuneUp = false;
-  augmentRuneSpellId = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = AUGMENT_RUNE_IDS.length > 0;
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
   }
 
-  onApplybuff(event: ApplyBuffEvent): void {
+  onApplybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
-    if (event.prepull && AUGMENT_RUNE_IDS.includes(spellId)) {
+    if (AUGMENT_RUNE_ID === spellId /*|| ETERNAL_AUGMENT_RUNE_ID === spellId*/ && event.prepull) {
       this.startFightWithAugmentRuneUp = true;
-      this.augmentRuneSpellId = spellId;
     }
   }
-
-  get augmentRuneUptimePercentage(): number {
-    return this.selectedCombatant.getBuffUptime(this.augmentRuneSpellId) / this.owner.fightDuration;
+  get augmentRuneSuggestionThresholds() {
+    return {
+      actual: this.startFightWithAugmentRuneUp,
+      isEqual: false,
+      style: ThresholdStyle.BOOLEAN,
+    };
   }
 }
 

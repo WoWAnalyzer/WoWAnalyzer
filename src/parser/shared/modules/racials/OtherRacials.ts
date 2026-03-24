@@ -170,7 +170,7 @@ class OtherRacials extends Analyzer.withDependencies({
       case RACES.DracthyrHorde:
         this.deps.abilities.add({
           spell: SPELLS.GLIDE_DRACTHYR.id,
-          category: SPELL_CATEGORY.HIDDEN,
+          category: SPELL_CATEGORY.OTHERS,
           cooldown: 1,
           gcd: null,
         });
@@ -182,17 +182,6 @@ class OtherRacials extends Analyzer.withDependencies({
           category: SPELL_CATEGORY.OTHERS,
           gcd: {
             base: 1500,
-          },
-        });
-        break;
-      case RACES.HaranirHorde:
-      case RACES.HaranirAlliance:
-        this.deps.abilities.add({
-          spell: SPELLS.THORN_BLOOM.id,
-          cooldown: 180,
-          category: SPELL_CATEGORY.COOLDOWNS,
-          gcd: {
-            base: 500,
           },
         });
         break;

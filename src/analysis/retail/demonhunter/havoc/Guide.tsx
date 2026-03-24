@@ -59,7 +59,6 @@ function ResourceUsageSection({ info, modules }: GuideProps<typeof CombatLogPars
             Continuously casting throughout an encounter is the single most important thing for
             achieving good DPS.
           </b>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Some fights have unavoidable downtime due to phase transitions and the like, so in these
           cases 0% downtime will not be possible - do the best you can.

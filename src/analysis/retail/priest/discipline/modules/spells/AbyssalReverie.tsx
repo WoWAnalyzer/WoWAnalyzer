@@ -61,7 +61,9 @@ class AbyssalReverie extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.ABYSSAL_REVERIE_TALENT}>
-          <ItemHealingDone amount={this.healing} />
+          <>
+            <ItemHealingDone amount={this.healing} /> <br />
+          </>
         </TalentSpellText>
       </Statistic>
     );

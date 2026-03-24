@@ -34,8 +34,9 @@ class ResonatingSphere extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
         </b>{' '}
-        is a powerful AoE projectile that shields all allies it passes through. You should aim to
-        cast it on cooldown to spread <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> on the raid.
+        is a powerful AoE projectile that shields all allies it passes through. When not playing an{' '}
+        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> focused build, you should aim to cast it at
+        least once every 20 seconds to spread <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />.
       </p>
     );
 

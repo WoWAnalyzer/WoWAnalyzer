@@ -10,6 +10,7 @@ import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 class PreemptiveCareHoly extends Analyzer {
+
   protected combatants!: Combatants;
   attribution: Attribution = HotTracker.getNewAttribution('Preemptive Care');
 

@@ -86,15 +86,7 @@ const EVENT_LINKS = createEventLinks(
     ],
   },
   {
-    spell: TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
-    parentType: EventType.Cast,
-    links: [
-      link(EventType.BeginCast, { backwardBuffer: 2000, maxLinks: 1, anyTarget: true }),
-      link(EventType.Damage, { forwardBuffer: 1000, anyTarget: true }),
-    ],
-  },
-  {
-    spell: TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
+    spell: SPELLS.FLAMESTRIKE.id,
     parentType: EventType.Cast,
     links: [
       link(EventType.BeginCast, { backwardBuffer: 2000, maxLinks: 1, anyTarget: true }),
@@ -120,8 +112,7 @@ const EVENT_LINKS = createEventLinks(
           SPELLS.FIREBALL.id,
           TALENTS.PYROBLAST_TALENT.id,
           SPELLS.SCORCH.id,
-          TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
-          TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
+          SPELLS.FLAMESTRIKE.id,
           TALENTS.FROSTFIRE_BOLT_TALENT.id,
         ],
         type: EventType.Cast,
@@ -133,11 +124,7 @@ const EVENT_LINKS = createEventLinks(
         },
       }),
       link(EventType.Cast, {
-        id: [
-          TALENTS.PYROBLAST_TALENT.id,
-          TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
-          TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
-        ],
+        id: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FLAMESTRIKE.id],
         forwardBuffer: 20000,
         backwardBuffer: 2500,
         anyTarget: true,
@@ -157,7 +144,6 @@ const EVENT_LINKS = createEventLinks(
             referencedEvent as CastEvent,
             EventType.Damage,
           )[0];
-          if (!damage || !buffApply || !buffRemove) return false;
           return damage.timestamp >= buffApply.timestamp && damage.timestamp < buffRemove.timestamp;
         },
       }),
@@ -178,11 +164,7 @@ const EVENT_LINKS = createEventLinks(
     parentType: EventType.RemoveBuff,
     links: [
       link(CustomType.CONSUME, {
-        id: [
-          TALENTS.PYROBLAST_TALENT.id,
-          TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
-          TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
-        ],
+        id: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FLAMESTRIKE.id],
         type: EventType.Cast,
         maxLinks: 1,
         anyTarget: true,

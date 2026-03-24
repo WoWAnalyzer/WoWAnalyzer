@@ -1,7 +1,6 @@
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 const itemRelative = (id: number, details: any): string => {
   const base = `item=${id}`;
   if (!details) {
@@ -9,7 +8,7 @@ const itemRelative = (id: number, details: any): string => {
   } else {
     const queryString = [base];
     if (details.gems && details.gems.length > 0) {
-      queryString.push(`gems=${details.gems.map((gem: any) => gem.id).join(':')}`); // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+      queryString.push(`gems=${details.gems.map((gem: any) => gem.id).join(':')}`);
     }
     if (details.permanentEnchant) {
       queryString.push(`ench=${details.permanentEnchant}`);
@@ -36,7 +35,6 @@ const resourceRelative = (id: number): string => {
   return RESOURCE_TYPES[id].url;
 };
 
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 const spellRelative = (id: number, details: any): string => {
   const base = `spell=${id}`;
   if (!details) {
@@ -59,11 +57,11 @@ const spellRelative = (id: number, details: any): string => {
 };
 
 interface TooltipHelpers {
-  item: (...args: [number, any]) => string; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  item: (...args: [number, any]) => string;
   itemSet: (id: number) => string;
   npc: (id: number) => string;
   resource: (...args: [number]) => string;
-  spell: (...args: [number, any]) => string; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  spell: (...args: [number, any]) => string;
 }
 
 const useTooltip = (): TooltipHelpers => {

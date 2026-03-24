@@ -3,19 +3,19 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  DamageEvent,
   Event,
+  DamageEvent,
   EventType,
   HealEvent,
+  ApplyBuffEvent,
   RefreshBuffEvent,
+  CastEvent,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
 import isAtonement from './isAtonement';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 
 enum SourceProvenance {
   Atonement = 'Atonement',
@@ -28,7 +28,7 @@ export interface AtonementAnalyzerEvent extends Event<EventType.Atonement> {
   healEvent: HealEvent;
   // The damage event that caused the healing
   damageEvent?: DamageEvent;
-  // The details about the Atonement buff that caused the healing
+  // The details about the Atonement buff that caused the heal
   buffDetails?: BuffWithSource;
   // The source of the healing, Atonement
   provenance: SourceProvenance;
@@ -91,7 +91,7 @@ export default class AtonementAnalyzer extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT, SPELLS.POWER_WORD_SHIELD]),
+        .spell([SPELLS.POWER_WORD_RADIANCE, SPELLS.SHADOW_MEND, SPELLS.POWER_WORD_SHIELD]),
       this.handleCastSuccess,
     );
 

@@ -74,7 +74,6 @@ export default class HeatingUp extends Analyzer {
     } else if (this.hasFirestarter && targetHealth && targetHealth > 0.9) {
       buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,

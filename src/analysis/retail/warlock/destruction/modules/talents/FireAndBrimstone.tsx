@@ -74,7 +74,6 @@ class FireAndBrimstone extends Analyzer {
         tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
       >
         <BoringSpellValueText spell={TALENTS.FIRE_AND_BRIMSTONE_TALENT}>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           {this.bonusFragments} <small>bonus Soul Shard Fragments</small> <br />
           {formatNumber(this.dps)} DPS{' '}
           <small>

@@ -33,20 +33,17 @@ export default class Swipe extends Analyzer.withDependencies({ spellUsable: Spel
     const tooltip = (
       <>
         @<strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {hasBerserk && (
           <>
             in <SpellLink spell={cdSpell(this.selectedCombatant)} /> (Mangle or Thrash always
             available)
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
         {remainingMangleCd === 0 && (
           <>
             <SpellLink spell={SPELLS.MANGLE_BEAR} /> was available
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
@@ -54,14 +51,12 @@ export default class Swipe extends Analyzer.withDependencies({ spellUsable: Spel
           <>
             <SpellLink spell={SPELLS.MANGLE_BEAR} /> is available in{' '}
             {(remainingMangleCd / 1000).toFixed(1)} seconds.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
         {remainingThrashCd === 0 && (
           <>
             <SpellLink spell={SPELLS.THRASH_BEAR} /> was available
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
@@ -69,7 +64,6 @@ export default class Swipe extends Analyzer.withDependencies({ spellUsable: Spel
           <>
             <SpellLink spell={SPELLS.THRASH_BEAR} /> is available in{' '}
             {(remainingThrashCd / 1000).toFixed(1)} seconds.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}

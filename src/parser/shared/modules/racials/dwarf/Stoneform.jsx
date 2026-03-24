@@ -70,7 +70,6 @@ class Stoneform extends Analyzer {
         tooltip={
           <>
             You took a total of {formatNumber(this.physicalDamageTaken)} physical damage while
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             Stoneform was active. <br />
             Stoneform reduced a total of {formatNumber(this.damageReduced)} physical damage taken.
           </>

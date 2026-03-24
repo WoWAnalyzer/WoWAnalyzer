@@ -555,9 +555,7 @@ abstract class BaseHealerStatValues extends Analyzer {
                             stat, they may not necessarily be the best way to gear. The stat values
                             are likely to differ based on fight, raid size, items used, talents
                             chosen, etc.
-                            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                             <br />
-                            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                             <br />
                             DPS gains are not included in any of the stat values.
                           </Trans>

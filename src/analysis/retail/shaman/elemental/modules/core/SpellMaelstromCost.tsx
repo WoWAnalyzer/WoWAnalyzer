@@ -3,11 +3,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
-import MaelstromSpenderInfo from './MaelstromSpenderInfo';
 
-export default class SpellMaelstromCost extends SpellResourceCost.withDependencies({
-  spenderInfo: MaelstromSpenderInfo,
-}) {
+export default class SpellMaelstromCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MAELSTROM;
 
   constructor(options: Options) {
@@ -17,7 +14,20 @@ export default class SpellMaelstromCost extends SpellResourceCost.withDependenci
   }
 
   findAdjustedSpellResourceCost(spellID: number, originalCost: number) {
-    return this.deps.spenderInfo.getAdjustedCost(spellID, originalCost);
+    if (
+      [
+        TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
+        TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
+        TALENTS.EARTH_SHOCK_TALENT.id,
+      ].includes(spellID)
+    ) {
+      return originalCost - 5;
+    }
+    if (spellID === TALENTS.ELEMENTAL_BLAST_TALENT.id) {
+      return originalCost - 10;
+    }
+
+    return originalCost;
   }
 
   getResourceCost(event: CastEvent): number {

@@ -97,7 +97,6 @@ class FerociousBite extends Analyzer {
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
           Bad because you used less than {currAcceptableCps} CPs
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -106,7 +105,6 @@ class FerociousBite extends Analyzer {
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
           Bad because you cast at too low energy
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -115,7 +113,6 @@ class FerociousBite extends Analyzer {
       perfExplanation = (
         <h5 style={{ color: OkColor }}>
           Questionable because you cast when Rip was close to expiring
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -125,14 +122,12 @@ class FerociousBite extends Analyzer {
       <>
         {perfExplanation}@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
         <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         Extra energy used:{' '}
         <strong>
           {extraEnergyUsed} / {maxExtraEnergy}
         </strong>{' '}
         {duringBerserkAndSotf && '(during Berserk)'}
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {timeLeftOnRip === 0 ? (
           <>
@@ -184,7 +179,6 @@ class FerociousBite extends Analyzer {
             The below cast evaluations consider only CP spending Bites -{' '}
             <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> and{' '}
             <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} /> procs aren't included.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}

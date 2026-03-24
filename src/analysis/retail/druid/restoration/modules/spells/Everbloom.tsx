@@ -40,7 +40,7 @@ class Everbloom extends Analyzer {
     this.hasRank3Talent = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT,
     );
-    this.active = this.hasAnyEverbloomTalent;
+    this.active = true;
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
       this.onLifebloomHeal,
@@ -70,14 +70,11 @@ class Everbloom extends Analyzer {
   };
 
   private onSplashHeal = (event: HealEvent) => {
-    if (!this.hasRank2Talent) {
-      return;
-    }
     this.splashHealing += event.amount + (event.absorbed || 0);
   };
 
   private onLifebloomBloomHeal = (event: HealEvent) => {
-    if (!this.hasRank3Talent || !isFromEverbloom(event)) {
+    if (!isFromEverbloom(event)) {
       return;
     }
 
@@ -94,15 +91,15 @@ class Everbloom extends Analyzer {
   }
 
   private get hasRank1Enabled() {
-    return this.hasAnyEverbloomTalent;
+    return this.hasAnyEverbloomTalent || this.hasRank1Effective;
   }
 
   private get hasRank2Enabled() {
-    return this.hasRank2Talent;
+    return this.hasRank2Talent || this.splashHealing > 0;
   }
 
   private get hasRank3Enabled() {
-    return this.hasRank3Talent;
+    return this.hasRank3Talent || this.everbloomBloomCount > 0;
   }
 
   private get displayTalent() {
@@ -160,13 +157,6 @@ class Everbloom extends Analyzer {
                 </>
               )}
             </ul>
-            {this.hasRank3Enabled && (
-              <p>
-                <em>
-                  Note: Soul of the Forest buffs consumed by Convoke do not trigger Blooming Frenzy.
-                </em>
-              </p>
-            )}
           </>
         }
       >

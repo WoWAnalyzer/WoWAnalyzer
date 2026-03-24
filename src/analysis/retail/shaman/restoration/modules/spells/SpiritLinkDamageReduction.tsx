@@ -72,9 +72,7 @@ class SpiritLinkDamageReduction extends Analyzer {
         The total estimated damage reduced during Spirit Link was{' '}
         {formatThousands(this.damageReduced)} ({formatNumber(this.drps)} DRPS). This has a 99%
         accuracy.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         This value is calculated using the <i>Optional DRs</i> method. This results in the lowest
         possible damage reduction value being shown. This should be the correct value in most

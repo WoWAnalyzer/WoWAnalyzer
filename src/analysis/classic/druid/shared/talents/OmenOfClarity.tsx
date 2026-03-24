@@ -81,7 +81,6 @@ class OmenOfClarity extends Analyzer {
     const data = (
       <div>
         <strong>Per-Proc Breakdown</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this._clearcasts.map((cast, ix) =>
           cast.castEvent ? this.spellIconFromEvent(cast.castEvent, cast.delay) : null,

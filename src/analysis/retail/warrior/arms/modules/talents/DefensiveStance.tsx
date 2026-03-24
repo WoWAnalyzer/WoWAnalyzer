@@ -101,11 +101,9 @@ class DefensiveStance extends Analyzer {
         tooltip={
           <>
             <strong>Total:</strong>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage (
             {formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Effective damage lost: {formatThousands(this.totalDamageLost)} damage (
             {formatThousands(this.perSecond(this.totalDamageLost))} DLPS)

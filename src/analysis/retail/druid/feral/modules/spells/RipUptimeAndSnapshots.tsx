@@ -110,7 +110,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
             Bad because you used only {cpsUsed} CPs
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -119,7 +118,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
             Bad because you used less than {currAcceptableCps} CPs
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -129,7 +127,6 @@ class RipUptimeAndSnapshots extends Snapshots {
           perfExplanation = (
             <h5 style={{ color: OkColor }}>
               You upgraded the snapshot at the cost of refreshing early
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </h5>
           );
@@ -138,7 +135,6 @@ class RipUptimeAndSnapshots extends Snapshots {
           perfExplanation = (
             <h5 style={{ color: BadColor }}>
               Bad because you refreshed too early
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </h5>
           );
@@ -148,7 +144,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
             Careful, you refreshed this a little early
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -157,7 +152,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
             Supoptimal because no Tiger's Fury snapshot
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -166,7 +160,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
             Only {cpsUsed} CPs, but upgraded snapshot
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
         );
@@ -176,7 +169,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         <>
           {perfExplanation}@ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
           <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {!wasNewApplication && (
             <>
@@ -186,12 +178,10 @@ class RipUptimeAndSnapshots extends Snapshots {
                   <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
                 </>
               )}
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </>
           )}
           Snapshots: <strong>{snapshots.map((ss) => ss.name).join(', ')}</strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </>
       );
@@ -250,7 +240,6 @@ class RipUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <CastSummaryAndBreakdown
           spell={SPELLS.RIP}

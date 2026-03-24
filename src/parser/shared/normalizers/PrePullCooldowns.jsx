@@ -97,7 +97,6 @@ class PrePullCooldowns extends EventsNormalizer {
     const playerId = this.owner.playerId;
     const petIds = new Set(this.owner.playerPets.map((pet) => pet.id));
 
-    // oxlint-disable-next-line typescript-eslint/prefer-for-of -- Baseline suppression. Try to fix if you edit this code.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       const sourceId = event.sourceID;

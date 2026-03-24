@@ -22,7 +22,6 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
-import MaelstromSpenderInfo from './modules/core/MaelstromSpenderInfo';
 import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
 import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
@@ -31,6 +30,7 @@ import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
 import CallOfTheAncestors from './modules/hero/farseer/CallOfTheAncestors';
 import ElementalPrepullNormalizer from './modules/normalizers/ElementalPrepullNormalizer';
 import EventOrderNormalizer from './modules/normalizers/EventOrderNormalizer';
+import HeraldOfTheStorms from './modules/talents/HeraldOfTheStorms';
 import OfferingFromBeyond from './modules/hero/farseer/OfferingFromBeyond';
 import MaelstromSpenders from './modules/features/MaelstromSpenders';
 import FlameShock from './modules/core/FlameShock';
@@ -42,7 +42,6 @@ class CombatLogParser extends CoreCombatLogParser {
     flameShock: FlameShock,
     lavaSurge: LavaSurge,
     buffs: Buffs,
-    maelstromSpenderInfo: MaelstromSpenderInfo,
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,
@@ -64,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     masterOfTheElements: MasterOfTheElements,
     manaSpring: ManaSpring,
+    heraldOfTheStorms: HeraldOfTheStorms,
 
     // hero talents
 

@@ -14,10 +14,7 @@ class TormentedSpirits extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.TORMENTED_SPIRITS_TALENT);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
-      this.onCastMB,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCastMB);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT), this.onCastVB);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),

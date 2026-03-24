@@ -189,8 +189,7 @@ class Lightweaver extends Analyzer {
         <small>
           <ul>
             <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast, where
-              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> is applied.
+              <span style={{ color: GoodColor }}>Green</span> is a good cast, where<SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />{' '}is applied.
             </li>
           </ul>
         </small>

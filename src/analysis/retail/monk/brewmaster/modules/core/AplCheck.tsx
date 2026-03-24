@@ -1,5 +1,4 @@
-import SPELLS_COMMON from 'common/SPELLS';
-import SPELLS from '../../spell-list_Monk_Brewmaster.retail';
+import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
@@ -8,7 +7,17 @@ import talents from 'common/TALENTS/monk';
 import { AnyEvent } from 'parser/core/Events';
 import { SpellLink, TooltipElement } from 'interface';
 
-const withCombo = cnd.buffPresent(SPELLS_COMMON.BLACKOUT_COMBO_BUFF);
+const withCombo = cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF);
+
+const SCK_AOE = {
+  spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+  condition: cnd.targetsHit(
+    { atLeast: 2 },
+    {
+      targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
+    },
+  ),
+};
 
 const CHP_SETUP = {
   spell: talents.BREATH_OF_FIRE_TALENT,
@@ -16,7 +25,7 @@ const CHP_SETUP = {
     cnd.and(
       cnd.hasTalent(talents.CHARRED_PASSIONS_TALENT),
       cnd.not(withCombo),
-      cnd.buffMissing(SPELLS_COMMON.CHARRED_PASSIONS_BUFF, {
+      cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
         duration: 8000,
         timeRemaining: 2000,
         pandemicCap: 1,
@@ -30,8 +39,8 @@ const CHP_SETUP = {
           <>
             <p>
               Applying <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> before using{' '}
-              <SpellLink spell={SPELLS_COMMON.BLACKOUT_KICK_BRM} /> can be a damage gain, but if you
-              find yourself doing it too often it means you are missing{' '}
+              <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} /> can be a damage gain, but if you find
+              yourself doing it too often it means you are missing{' '}
               <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> casts during your normal rotation.
             </p>
             <p>
@@ -44,97 +53,17 @@ const CHP_SETUP = {
         (Optional)
       </TooltipElement>{' '}
       Apply <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> when it is missing before using{' '}
-      <SpellLink spell={SPELLS_COMMON.BLACKOUT_KICK_BRM} />
+      <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />
     </>
   ),
 };
 
-const standardApl = build([
-  {
-    spell: SPELLS.BREATH_OF_FIRE_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.hasTalent(talents.WISDOM_OF_THE_WALL_TALENT),
-        cnd.buffPresent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT),
-      ),
-      (tense) => (
-        <>
-          <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}>Niuzao</SpellLink>{' '}
-          {tenseAlt(tense, 'is', 'was')} active (as{' '}
-          <SpellLink spell={SPELLS.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>)
-        </>
-      ),
-    ),
-  },
-  {
-    spell: SPELLS.KEG_SMASH_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.hasTalent(talents.WISDOM_OF_THE_WALL_TALENT),
-        cnd.buffPresent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT),
-      ),
-      (tense) => (
-        <>
-          <SpellLink spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}>Niuzao</SpellLink>{' '}
-          {tenseAlt(tense, 'is', 'was')} active (as{' '}
-          <SpellLink spell={SPELLS.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>)
-        </>
-      ),
-    ),
-  },
-  CHP_SETUP,
-  SPELLS.BLACKOUT_KICK,
-  {
-    // special-case allowing BoF before Combo TP if doing so would
-    // not violate a later rule (manually listed: currently just Empty Barrel check)
-    // and would not delay your next BoK
-    spell: SPELLS.BREATH_OF_FIRE_TALENT,
-    condition: cnd.optionalRule(
-      cnd.describe(
-        cnd.and(
-          withCombo,
-          cnd.not(cnd.buffPresent(SPELLS_COMMON.EMPTY_BARREL_BUFF)),
-          cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK, { atLeast: 2000 }),
-        ),
-        (tense) => (
-          <>
-            it {tenseAlt(tense, 'is', 'was')} a correct{' '}
-            <SpellLink spell={SPELLS.BLACKOUT_COMBO_TALENT}>Combo</SpellLink> filler
-          </>
-        ),
-      ),
-    ),
-  },
-  {
-    spell: SPELLS.TIGER_PALM,
-    condition: withCombo,
-  },
-  {
-    spell: SPELLS.KEG_SMASH_TALENT,
-    condition: cnd.buffPresent(SPELLS_COMMON.EMPTY_BARREL_BUFF),
-  },
-  {
-    spell: SPELLS.KEG_SMASH_TALENT,
-    condition: cnd.and(
-      cnd.spellFractionalCharges(SPELLS.KEG_SMASH_TALENT, { atLeast: 1.8 }),
-      cnd.hasTalent(talents.FLURRY_STRIKES_TALENT),
-    ),
-    description: (
-      <>
-        Cast <SpellLink spell={SPELLS.KEG_SMASH_TALENT} /> at or near 2 charges (as{' '}
-        <SpellLink spell={SPELLS.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>)
-      </>
-    ),
-  },
-  SPELLS.BREATH_OF_FIRE_TALENT,
-  SPELLS.KEG_SMASH_TALENT,
-]);
-
+const standardApl = build([]);
 export enum BrewmasterApl {
   Standard,
 }
 
-export const chooseApl = (_info: PlayerInfo): BrewmasterApl => {
+export const chooseApl = (info: PlayerInfo): BrewmasterApl => {
   return BrewmasterApl.Standard;
 };
 

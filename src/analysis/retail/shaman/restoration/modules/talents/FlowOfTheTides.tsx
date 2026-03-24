@@ -196,7 +196,6 @@ class FlowOfTheTides extends Analyzer {
       >
         <TalentSpellText talent={talents.FLOW_OF_THE_TIDES_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
         </TalentSpellText>

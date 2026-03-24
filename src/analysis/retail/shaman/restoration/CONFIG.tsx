@@ -20,9 +20,7 @@ const CONFIG: Config = {
     <Trans id="shaman.restoration.config.description">
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics
       useful.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the{' '}
       <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">
@@ -31,9 +29,7 @@ const CONFIG: Config = {
       discord server and make sure to visit the guides on{' '}
       <a href="https://www.wowhead.com/restoration-shaman-guide">Wowhead</a> and{' '}
       <a href="https://www.icy-veins.com/wow/restoration-shaman-pve-healing-guide">Icy Veins</a>.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <AlertWarning>
         If there is something missing, incorrect, or inaccurate, please report it on{' '}

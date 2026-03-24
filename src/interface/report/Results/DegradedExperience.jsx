@@ -88,15 +88,12 @@ class DegradedExperience extends Component {
           </a>
           {this.state.expanded && (
             <>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {Object.values(ModuleError)
                 .filter((state) => disabledModules[state] && disabledModules[state].length !== 0)
                 .map((state) => (
                   <div key={state}>
-                    {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                     The following modules have been disabled due to errors during {state}:<br />
                     <div style={{ color: 'white' }}>
                       {disabledModules[state]
@@ -104,7 +101,6 @@ class DegradedExperience extends Component {
                         .map((m) => (
                           <Fragment key={m.key}>
                             {toTitleCase(m.key)}
-                            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                             <br />
                             {m.error && (
                               <pre>{m.error.stack ? m.error.stack : m.error.toString()}</pre>
@@ -112,7 +108,6 @@ class DegradedExperience extends Component {
                           </Fragment>
                         ))}
                     </div>
-                    {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                     <br />
                   </div>
                 ))}

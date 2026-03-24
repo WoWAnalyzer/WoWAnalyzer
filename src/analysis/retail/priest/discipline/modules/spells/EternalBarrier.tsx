@@ -52,6 +52,7 @@ class EternalBarrier extends Analyzer {
                 this.powerWordShield.eternalBarrierExtensionHealing
               }
             />{' '}
+            <br />
           </BoringSpellValueText>
         </>
       </Statistic>

@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 
 class ShadowfiendNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
@@ -13,7 +12,7 @@ class ShadowfiendNormalizer extends EventsNormalizer {
           spellId === SPELLS.LIGHTSPAWN.id ||
           spellId === SPELLS.VOIDLING.id
         ) {
-          event.ability.guid = TALENTS_PRIEST.SHADOWFIEND_TALENT.id;
+          event.ability.guid = SPELLS.SHADOWFIEND.id;
           event.__modified = true;
         }
       }

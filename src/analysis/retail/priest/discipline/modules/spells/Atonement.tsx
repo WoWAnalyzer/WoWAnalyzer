@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -11,11 +12,10 @@ import Events, {
 import { Options } from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
+import StatisticBox from 'parser/ui/StatisticBox';
+
 import isAtonement from '../core/isAtonement';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
-import Statistic from 'parser/ui/Statistic';
-import { TALENTS_PRIEST } from 'common/TALENTS';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const debug = false;
 
@@ -66,8 +66,17 @@ class Atonement extends Analyzer {
     if (!applicatorEvent) {
       return 15;
     }
+    const applicatorSpellId = applicatorEvent.ability.guid;
+    let duration = this.atonementApplicationSource.duration.get(applicatorSpellId) || 0;
 
-    return this.atonementApplicationSource.duration.get(applicatorEvent.ability.guid) || 0;
+    if (
+      applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id &&
+      this.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)
+    ) {
+      duration += 6;
+    }
+
+    return duration;
   }
 
   get numAtonementsActive() {
@@ -217,22 +226,18 @@ class Atonement extends Analyzer {
     const totalAtones = this.totalAtones || 0;
 
     return (
-      <Statistic
-        size="flexible"
-        tooltip={
-          <>
-            The amount of Atonement instances that were refreshed earlier than within 3 seconds of
-            the buff expiring. You applied Atonement {totalAtones} times in total,
-            {totalAtonementRefreshes} ({formatPercentage(totalAtonementRefreshes / totalAtones, 2)}
-            %) of them were refreshes of existing Atonement instances, and {improperLength} (
-            {formatPercentage(improperLength / totalAtones, 2)}%) of them were considered early.
-          </>
-        }
-      >
-        <TalentSpellText talent={TALENTS_PRIEST.ATONEMENT_TALENT}>
-          {improperLength} <small>early refreshes</small>
-        </TalentSpellText>
-      </Statistic>
+      <StatisticBox
+        icon={<SpellIcon spell={SPELLS.ATONEMENT_HEAL_NON_CRIT} />}
+        value={improperLength}
+        label={<>Early Atonement refreshes</>}
+        tooltip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage(
+          totalAtonementRefreshes / totalAtones,
+          2,
+        )}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage(
+          improperLength / totalAtones,
+          2,
+        )}%) of them were considered early.`}
+      />
     );
   }
 }

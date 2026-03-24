@@ -1,9 +1,8 @@
 import {
-  FLASH_HEAL_ATONEMENT_DUR,
-  PENANCE_ATONEMENT_DUR,
-  PLEA_ATONEMENT_DUR,
   POWER_WORD_RADIANCE_ATONEMENT_DUR,
   POWER_WORD_SHIELD_ATONEMENT_DUR,
+  RENEW_ATONEMENT_DUR,
+  FLASH_HEAL_ATONEMENT_DUR,
 } from 'analysis/retail/priest/discipline/constants';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS/priest';
@@ -15,9 +14,8 @@ class AtonementApplicationSource extends Analyzer {
   atonementApplicators = new Map<number, number>([
     [TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id, POWER_WORD_RADIANCE_ATONEMENT_DUR],
     [SPELLS.POWER_WORD_SHIELD.id, POWER_WORD_SHIELD_ATONEMENT_DUR],
+    [TALENTS_PRIEST.RENEW_TALENT.id, RENEW_ATONEMENT_DUR],
     [SPELLS.FLASH_HEAL.id, FLASH_HEAL_ATONEMENT_DUR],
-    [SPELLS.PLEA.id, PLEA_ATONEMENT_DUR],
-    [SPELLS.PENANCE_CAST.id, PENANCE_ATONEMENT_DUR],
   ]);
 
   constructor(options: Options) {

@@ -1,10 +1,10 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TooltipElement } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import StatisticBox from 'parser/ui/StatisticBox';
 
 class PowerWordShieldWasted extends Analyzer {
   wasted = 0;
@@ -33,22 +33,19 @@ class PowerWordShieldWasted extends Analyzer {
     const totalCount = this.totalCount || 0;
 
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            The amount of shield absorb remaining on Power Word: Shield instances that have expired.
-            There was a total of {formatNumber(wasted)} unused Power Word: Shield absorb from{' '}
-            {count} shields with absorb remaining (a total of {totalCount} shields were applied).
-          </>
+      <StatisticBox
+        icon={<SpellIcon spell={SPELLS.POWER_WORD_SHIELD} />}
+        value={`${formatNumber((wasted / this.owner.fightDuration) * 1000)} HPS`}
+        label={
+          <TooltipElement
+            content={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(
+              wasted,
+            )} unused Power Word: Shield absorb from ${count} shields with absorb remaining (a total of ${totalCount} shields were applied).`}
+          >
+            Unused PW:S absorb
+          </TooltipElement>
         }
-      >
-        <BoringSpellValueText spell={SPELLS.POWER_WORD_SHIELD}>
-          {formatNumber((wasted / this.owner.fightDuration) * 1000)} HPS{' '}
-          <small>unused absorb</small>
-        </BoringSpellValueText>
-      </Statistic>
+      />
     );
   }
 }

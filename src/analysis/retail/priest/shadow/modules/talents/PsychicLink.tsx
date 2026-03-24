@@ -31,10 +31,7 @@ class PsychicLink extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.PSYCHIC_LINK_TALENT);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
-      this.onSpell,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onSpell);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onSpell,
@@ -80,7 +77,7 @@ class PsychicLink extends Analyzer {
     this.totalHits += 1;
 
     switch (this.recentSpell) {
-      case TALENTS.MIND_BLAST_TALENT.name:
+      case SPELLS.MIND_BLAST.name:
         this.damageMB += event.amount + (event.absorbed || 0);
         break;
       case TALENTS.SHADOW_WORD_DEATH_TALENT.name:
@@ -123,7 +120,7 @@ class PsychicLink extends Analyzer {
           <ItemDamageDone amount={this.damageTotal} />
           <small>
             <div>
-              <SpellLink spell={TALENTS.MIND_BLAST_TALENT} />:{' '}
+              <SpellLink spell={SPELLS.MIND_BLAST} />:{' '}
               {formatPercentage(this.damageMB / this.damageTotal, 1)}%
             </div>
 

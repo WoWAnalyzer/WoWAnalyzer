@@ -35,7 +35,7 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
         missingApplyDebuff: null,
       };
       return map;
-    }, {} as any); // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+    }, {} as any);
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];

@@ -11,8 +11,8 @@ export function CoreRotation(/* { modules, info }: GuideProps<typeof CombatLogPa
   return (
     <Section title="Core Rotation (Experimental)">
       <h4>
-        The APL module has been disabled for now. It will return once it has been updated for
-        Midnight.
+        The APL module has been disabled for now. It will return once it has been updated for The
+        War Within.
       </h4>
       {/*  <p>
         The Devastation rotation is driven by a priority list. The priority list is primarily around

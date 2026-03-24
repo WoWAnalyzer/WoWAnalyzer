@@ -49,7 +49,6 @@ class Avatar extends Analyzer {
           <>
             Your Avatar contributed {formatThousands(this.totalDamages)} total damage (
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             This only accounts for the passive 20% increased damage of Avatar.
           </>

@@ -73,7 +73,7 @@ class AngerManagement extends Analyzer.withDependencies({
         // Midnight TODO probably better to reduce the cost of the actual event instead of doing this workaround
       }
       if (this.selectedCombatant.has4PieceByTier(TIERS.MID1)) {
-        this.deps.spellUsable.reduceCooldown(SPELLS.ODYNS_FURY.id, 2500);
+        this.deps.spellUsable.reduceCooldown(SPELLS.ODYNS_FURY.id, 1000);
       }
       // Midnight TODO this probably shouldn't be in the AM section
     }
@@ -151,7 +151,6 @@ class AngerManagement extends Analyzer.withDependencies({
             )}{' '}
             of which {formatDuration(this.recklessnessCDR.wasted + this.ravagerCDR.wasted)} was
             wasted.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <table className="table table-condensed">
               <thead>
@@ -189,7 +188,6 @@ class AngerManagement extends Analyzer.withDependencies({
           {this.talentRecklessness && (
             <div>
               <SpellLink spell={TALENTS.RECKLESSNESS_TALENT.id} style={{ fontSize: 16 }} />
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {this.extraRecklessnessCasts()} <small>extra casts</small>
             </div>
@@ -197,7 +195,6 @@ class AngerManagement extends Analyzer.withDependencies({
           {this.talentRavager && (
             <div>
               <SpellLink spell={TALENTS.RAVAGER_TALENT.id} style={{ fontSize: 16 }} />
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {this.extraRavagerCasts()} <small>extra casts</small>
             </div>

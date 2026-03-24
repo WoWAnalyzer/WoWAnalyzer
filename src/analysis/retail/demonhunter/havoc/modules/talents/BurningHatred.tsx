@@ -67,13 +67,10 @@ export default class BurningHatred extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {effectiveFuryGain} Effective Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyGain} Total Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyWaste} Fury wasted
           </>

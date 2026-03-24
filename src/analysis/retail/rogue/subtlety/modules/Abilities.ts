@@ -74,6 +74,19 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
       },
+      {
+        spell: SPELLS.SYMBOLS_OF_DEATH.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
+        cooldown: 30,
+        charges: 1 + (combatant.hasTalent(TALENTS.DEATH_PERCEPTION_TALENT) ? 2 : 0),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion:
+            'This is the most important rotational ability, try to always use it on cooldown.',
+        },
+      },
       // Rotational AOE
       {
         spell: SPELLS.SHURIKEN_STORM.id,
@@ -118,6 +131,34 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: TALENTS.SECRET_TECHNIQUE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          static: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT),
+      },
+      {
+        spell: SPELLS.SYMBOLS_OF_DEATH.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
+        charges: 1 + (combatant.hasTalent(TALENTS.DEATH_PERCEPTION_TALENT) ? 2 : 0),
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion:
+            'This is the most important rotational ability, try to always use it on cooldown.',
         },
       },
       {

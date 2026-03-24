@@ -171,7 +171,6 @@ const ReportSelecter = () => {
           content={
             <Trans id="interface.reportSelecter.reportSelecter.tooltip.supportedLinks">
               Supported links:
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <ul>
                 <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>

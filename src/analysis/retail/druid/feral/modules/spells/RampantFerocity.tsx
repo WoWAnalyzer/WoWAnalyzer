@@ -104,7 +104,6 @@ class RampantFerocity extends Analyzer {
         tooltip={
           <>
             Average splash hits per Bite: <strong>{this.avgTargetsHit.toFixed(1)}</strong>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {(hasApex || hasConvoke) && (
               <>

@@ -174,7 +174,6 @@ class VoidTorrent extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.VOID_TORRENT_TALENT}>
           <>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <ItemDamageDone amount={this.damage} /> <br />
             <ItemInsanityGained amount={this.insanityGained} />
           </>
@@ -211,7 +210,6 @@ class VoidTorrent extends Analyzer {
           <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
         </b>{' '}
         deals damage and generates 24 insanity over its 3 second channel.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         You should cast this spell as often as you can, without overcapping insanity, with{' '}
         <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> on your target. When you use this

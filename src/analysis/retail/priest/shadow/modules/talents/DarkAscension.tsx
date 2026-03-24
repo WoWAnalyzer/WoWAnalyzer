@@ -29,7 +29,7 @@ class DarkAscension extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
       this.onDamage,
     );
     this.addEventListener(
@@ -42,7 +42,7 @@ class DarkAscension extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOWFIEND_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWFIEND),
       this.onDamage,
     );
     this.addEventListener(

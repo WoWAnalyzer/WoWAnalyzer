@@ -9,12 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import Haste from 'parser/shared/modules/Haste';
-import {
-  getCurrentRSKTalent,
-  SECRET_INFUSION_INCREASE_PER_RANK,
-  SPELL_COLORS,
-  THUNDER_FOCUS_TEA_SPELLS,
-} from '../../constants';
+import { getCurrentRSKTalent, SPELL_COLORS, THUNDER_FOCUS_TEA_SPELLS } from '../../constants';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -58,12 +53,19 @@ class ThunderFocusTea extends Analyzer {
     const secretInfusionRank = this.selectedCombatant.getTalentRank(
       TALENTS_MONK.SECRET_INFUSION_TALENT,
     );
-
-    this.haste.addHasteBuff(
-      SPELLS.SECRET_INFUSION_HASTE_BUFF.id,
-      SECRET_INFUSION_INCREASE_PER_RANK * secretInfusionRank,
-    );
-
+    switch (secretInfusionRank) {
+      case 1: {
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.02);
+        break;
+      }
+      case 2: {
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.04);
+        break;
+      }
+      default: {
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0);
+      }
+    }
     this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT);
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.addEventListener(
@@ -79,10 +81,7 @@ class ThunderFocusTea extends Analyzer {
       this.okCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     } else {
       this.correctCapstoneSpells = [SPELLS.RENEWING_MIST_CAST.id];
-      this.okCapstoneSpells = [
-        getCurrentRSKTalent(this.selectedCombatant).id,
-        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      ];
+      this.okCapstoneSpells = [getCurrentRSKTalent(this.selectedCombatant).id];
     }
   }
 
@@ -203,8 +202,6 @@ class ThunderFocusTea extends Analyzer {
             <Arrow /> use on <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> (
             <span style={{ color: 'green' }}>best</span>) or{' '}
             <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (
-            <span style={{ color: 'yellow' }}>ok</span>) or{' '}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
         </ol>

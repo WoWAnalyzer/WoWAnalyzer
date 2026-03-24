@@ -82,7 +82,6 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
       <>
         @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {prevSnapshotNames !== null && (
           <>
@@ -92,12 +91,10 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
                 <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
               </>
             )}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         )}
         Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {prevSnapshotNames !== null && (
           <>
@@ -142,7 +139,6 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <strong>Moonfire casts</strong>
         <small>

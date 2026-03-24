@@ -27,30 +27,22 @@ export function Component() {
         <Trans id="interface.aboutPage.about">
           WoWAnalyzer is a tool to help you analyze and improve your World of Warcraft raiding
           performance through various relevant metrics and gameplay suggestions.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           We give detailed insight into various things such as cast behavior, buff uptimes,
           downtime, cooldown usage, wasted resources and more. We also give insight into useful and
           interesting statistics such as the (throughput) gain of your talents, trinkets, traits,
           set bonuses, and other special items and effects.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Using all this data we provide automatic gameplay suggestions that analyzes your actual
           behavior in a fight and gives pointers to help you improve your performance.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           The analysis is custom for each specialization to focus on the things that are important
           for your spec. It's created by and together with class experts to give you the best
           possible insights.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Using WoWAnalyzer you will find a wealth of information about the mechanics of your spec,
           your actual behavior in fights and the optimal playstyle. Analyze your raids after every
@@ -58,9 +50,7 @@ export function Component() {
           you're a new player learning a spec for the first time or an experienced player looking
           for information to help you min-max, WoWAnalyzer is a great tool to have in your arsenal!
         </Trans>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <Trans id="interface.aboutPage.howToUse">
           Wondering how to use WoWAnalyzer? See the{' '}
@@ -71,13 +61,10 @@ export function Component() {
           . If you want to see an example report, click on your spec in the{' '}
           <Link to="/specs">Specializations</Link> list.
         </Trans>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <DiscordButton /> <GithubButton /> <PatreonButton />
       </Panel>
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
 
       <Panel
@@ -115,7 +102,6 @@ export function Component() {
                   Get users to analyze themselves without lifting a finger (even if they don't read
                   the pins).
                 </Trans>
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </div>
               <div style={{ marginBottom: 7 }}>
@@ -138,7 +124,6 @@ export function Component() {
           </div>
         </div>
       </Panel>
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
 
       <ChangelogPanel />

@@ -38,10 +38,7 @@ class Mastermind extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.MASTERMIND_TALENT);
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
-      this.onSpell,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onSpell);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onSpell,

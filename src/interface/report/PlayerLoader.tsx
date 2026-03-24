@@ -174,7 +174,7 @@ const PlayerLoader = ({ children }: Props) => {
 
   if (!player) {
     return (
-      <main className="container offset">
+      <div className="container offset">
         <div style={{ position: 'relative', marginBottom: 15 }}>
           <div className="back-button">
             <Tooltip
@@ -228,7 +228,7 @@ const PlayerLoader = ({ children }: Props) => {
           }
         />
         <ReportRaidBuffList report={selectedReport} players={data.players} />
-      </main>
+      </div>
     );
   }
 

@@ -98,7 +98,6 @@ import Spiritfont from './modules/spells/Spiritfont';
 import InvigoratingMists from './modules/spells/InvigoratingMists';
 import EmperorsFavor from './modules/spells/EmperorsFavor';
 import TranquilTea from './modules/spells/TranquilTea';
-import MorningBreeze from './modules/spells/MorningBreeze';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -200,7 +199,6 @@ class CombatLogParser extends CoreCombatLogParser {
     invigoratingMists: InvigoratingMists,
     emperorsFavor: EmperorsFavor,
     tranquilTea: TranquilTea,
-    morningBreeze: MorningBreeze,
 
     // Hero Talents
     // Conduit

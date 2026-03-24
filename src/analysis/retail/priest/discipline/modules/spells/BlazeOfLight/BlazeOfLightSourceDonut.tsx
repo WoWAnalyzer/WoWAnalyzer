@@ -18,9 +18,11 @@ interface BlazeOfLightSourceGraphItem {
 
 const COLORS = {
   [SPELLS.SMITE.id]: '#fff',
-  [SPELLS.VOID_BLAST_CAST_DISC.id]: '#8d4499',
-  [SPELLS.PENANCE_BOLT_DAMAGE.id]: '#0cd368',
-  [SPELLS.PENANCE_TWINSIGHT_BOLT_DAMAGE.id]: '#377953',
+  [SPELLS.VOID_BLAST_DAMAGE_DISC.id]: '#8d4499',
+  [SPELLS.PENANCE.id]: '#0cd368',
+  [SPELLS.DARK_REPRIMAND_DAMAGE.id]: '#3C79F5',
+  [SPELLS.PENANCE_TWINSIGHT_DAMAGE.id]: '#3aff95',
+  [SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id]: '#82a9f8',
 };
 
 function generateHealingItems(
@@ -42,6 +44,7 @@ function generateHealingItems(
 
 function BlazeOfLightSourceDonut(props: BlazeOfLightSourceDonutProps) {
   const abilities = Array.from(props.abilityMap.values());
+  console.log(props.healingMap);
 
   return (
     <aside className="pad">

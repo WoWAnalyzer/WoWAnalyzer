@@ -13,11 +13,13 @@ export interface Cooldown {
 }
 
 const cooldownsToCheck: Cooldown[] = [
+  { spell: SPELLS.SYMBOLS_OF_DEATH },
   { spell: SPELLS.SHADOW_DANCE },
-  // todo: fix secret technique CD graph
-  // { spell: SPELLS.SECRET_TECHNIQUE },
+  { spell: TALENTS.FLAGELLATION_TALENT },
+  { spell: TALENTS.SECRET_TECHNIQUE_TALENT },
   { spell: TALENTS.SHURIKEN_TORNADO_TALENT },
   { spell: SPELLS.VANISH },
+  { spell: TALENTS.COLD_BLOOD_TALENT },
 ];
 
 const CooldownGraphSubsection = () => {
@@ -58,8 +60,8 @@ const CooldownGraphSubsection = () => {
             <strong>Red segments</strong> highlight areas where an extra cooldown could have fit.
           </li>
         </ul>
-        For Subtlety, <strong>Shadow Dance</strong> usage is crucial, as they define your burst
-        windows.
+        For Subtlety, <strong>Symbols of Death</strong> and <strong>Shadow Dance</strong> usage is
+        crucial, as they define your burst windows.
       </p>
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar

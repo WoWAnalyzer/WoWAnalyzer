@@ -76,6 +76,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS_MONK.CHI_WAVE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 15,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.65,
+        },
+      },
+      {
         spell: SPELLS.SPINNING_CRANE_KICK.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -137,18 +151,6 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         gcd: null,
         charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: TALENTS_MONK.ZENITH_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        charges: 2,
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS_MONK.ZENITH_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,

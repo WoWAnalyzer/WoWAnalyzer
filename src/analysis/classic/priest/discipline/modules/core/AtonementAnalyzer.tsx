@@ -138,13 +138,11 @@ export default class AtonementAnalyzer extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ATONEMENT_HEAL_NON_CRIT}>
           <ItemHealingDone amount={this.effectiveHealing} />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {formatNumber(this.overHealing)}{' '}
           <small>
             Overhealing ({`${formatPercentage(this.overHealing / this.effectiveHealing)}%`})
           </small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>

@@ -77,9 +77,7 @@ class Havoc extends Analyzer {
         tooltip={
           <>
             You cleaved {formatThousands(this.damage)} damage to targets afflicted by your Havoc.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Note: This number is probably higher than it should be, as it also counts the damage you
             did directly to the Havoc target (not just the cleaved damage).
@@ -90,7 +88,6 @@ class Havoc extends Analyzer {
           <ItemDamageDone amount={this.damage} />
           {this.shouldShowUptime() && (
             <>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <UptimeIcon />
               {formatPercentage(this.uptime, 0)}%<small> uptime</small>

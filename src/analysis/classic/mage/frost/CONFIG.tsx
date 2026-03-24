@@ -17,7 +17,6 @@ const CONFIG: Config = {
   description: (
     <>
       Welcome! Thanks for checking out WoWAnalyzer.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       See the public GitHub repo or join our community Discord for information about contributing.
       Thanks!

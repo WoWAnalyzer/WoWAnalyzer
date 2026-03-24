@@ -61,6 +61,38 @@ class EchoBreakdown extends Analyzer {
         ],
       },
       {
+        spell: TALENTS_EVOKER.SPIRITBLOOM_TALENT,
+        amount:
+          this.echo.hardcastEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
+          this.echo.hardcastEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id) +
+          this.echo.hardcastEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+        color: SPELL_COLORS.ECHO,
+        tooltip: this.genericTooltipForSpell(
+          true,
+          TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+          this.echo.hardcastEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
+            this.echo.hardcastEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id) +
+            this.echo.hardcastEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+        ),
+        subSpecs: [
+          {
+            spell: TALENTS_EVOKER.SPIRITBLOOM_TALENT,
+            amount:
+              this.echo.taEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
+              this.echo.taEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id) +
+              this.echo.taEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+            color: SPELL_COLORS.TA_ECHO,
+            tooltip: this.genericTooltipForSpell(
+              false,
+              TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+              this.echo.taEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
+                this.echo.taEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id) +
+                this.echo.taEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+            ),
+          },
+        ],
+      },
+      {
         spell: TALENTS_EVOKER.VERDANT_EMBRACE_TALENT,
         amount:
           this.echo.hardcastEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id) +

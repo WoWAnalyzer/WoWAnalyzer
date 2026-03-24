@@ -40,6 +40,7 @@ class Executioner extends Analyzer.withDependencies({
 
   onExecute(event: CastEvent) {
     const executionerStacks = this.selectedCombatant.getBuffStacks(SPELLS.EXECUTIONER_TALENT_BUFF);
+    console.log(executionerStacks);
 
     this.deps.spellUsable.reduceCooldown(SPELLS.BLADESTORM.id, executionerStacks * 5000);
   }

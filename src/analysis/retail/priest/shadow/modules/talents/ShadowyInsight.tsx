@@ -46,12 +46,12 @@ class ShadowyInsight extends Analyzer {
       this.onBuffRefreshed,
     );
 
-    // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT), this.onCast);
+    // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCast);
     // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST), this.onCast);
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
-    this.spellUsable.endCooldown(TALENTS.MIND_BLAST_TALENT.id, event.timestamp, false, false);
+    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
     this.spellUsable.endCooldown(
       SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id,
       event.timestamp,
@@ -64,11 +64,11 @@ class ShadowyInsight extends Analyzer {
   onCast() {
     /*
     // for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
-    if(Math.abs(this.spellUsable.chargesAvailable(TALENTS.MIND_BLAST_TALENT.id)) + Math.abs(this.spellUsable.chargesOnCooldown(TALENTS.MIND_BLAST_TALENT.id)) != this.abilities.getMaxCharges(TALENTS.MIND_BLAST_TALENT.id)){
-      console.log("ERROR",this.spellUsable.chargesAvailable(TALENTS.MIND_BLAST_TALENT.id),"/",this.spellUsable.chargesOnCooldown(TALENTS.MIND_BLAST_TALENT.id),"max:",this.abilities.getMaxCharges(TALENTS.MIND_BLAST_TALENT.id));
+    if(Math.abs(this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id)) + Math.abs(this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id)) != this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id)){
+      console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     }
 
-    console.log("MB CAST",this.spellUsable.chargesAvailable(TALENTS.MIND_BLAST_TALENT.id),"/",this.spellUsable.chargesOnCooldown(TALENTS.MIND_BLAST_TALENT.id),"max:",this.abilities.getMaxCharges(TALENTS.MIND_BLAST_TALENT.id));
+    console.log("MB CAST",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     */
   }
 
@@ -83,7 +83,7 @@ class ShadowyInsight extends Analyzer {
       event.timestamp,
     )[0]?.ability.guid;
     if (
-      lastCast === TALENTS.MIND_BLAST_TALENT.id ||
+      lastCast === SPELLS.MIND_BLAST.id ||
       lastCast === SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id
     ) {
       this.procsUsed += 1;
@@ -126,10 +126,9 @@ class ShadowyInsight extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT} />
         </b>{' '}
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         is gained randomly from <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> damage. <br />
-        Cast <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> while the buff is active to avoid
-        wasting procs.
+        Cast <SpellLink spell={SPELLS.MIND_BLAST} /> while the buff is active to avoid wasting
+        procs.
       </p>
     );
 

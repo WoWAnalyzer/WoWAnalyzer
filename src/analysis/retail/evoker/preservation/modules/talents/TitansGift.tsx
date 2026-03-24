@@ -6,30 +6,32 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink, TooltipElement } from 'interface';
 import SPELLS from 'common/SPELLS';
-import Events, {
-  ApplyBuffEvent,
-  EventType,
-  HealEvent,
-  CastEvent,
-  RefreshBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import {
   getBlossomCast,
   getDreamBreathHealing,
   getReversionHealing,
   getEchoAplication,
+  getHealEvents,
 } from '../../normalizers/EventLinking/helpers';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { TITANS_GIFT_INC } from '../../normalizers/EventLinking/constants';
 import { formatPercentage } from 'common/format';
 import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
+/**
+ * CURRENTLY DISABLED
+ * Lifebind healing is not implemented. The amount transfered by lifebind gets increased with the strength of the echo used to apply it so Titans Gift echoes do stronger lifebind,
+ * this is severly underreporting the strength of the talent for echo builds that lean heavily into lifebind at the moment.
+ * There also used to be a bug where Emerald Blossoms caused by Field of Dreams with Essence Burst active would benefit from Titans Gift, the bug was reported as fixed but needs
+ * testing. Emerald Blossoms released from a Stasis with Essence Burst active should also benefit from the talent but this isn't implemented either.
+ */
+
 class TitansGift extends Analyzer {
   //Blossom
   healingAddedToBlossoms = 0;
   totalBlossomsCasted = 0;
   buffedBlossoms = 0;
-  lastCast = 0;
   //Echo
   healingAddedToEcho = 0;
   totalEchoesCasted = 0;
@@ -61,7 +63,15 @@ class TitansGift extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.DREAM_BREATH_ECHO, SPELLS.LIVING_FLAME_HEAL, SPELLS.VERDANT_EMBRACE_HEAL]),
+        .spell([
+          SPELLS.DREAM_BREATH_ECHO,
+          SPELLS.EMERALD_BLOSSOM_ECHO,
+          SPELLS.LIVING_FLAME_HEAL,
+          SPELLS.SPIRITBLOOM_SPLIT,
+          SPELLS.SPIRITBLOOM_FONT,
+          SPELLS.SPIRITBLOOM,
+          SPELLS.VERDANT_EMBRACE_HEAL,
+        ]),
       this.echoHeal,
     );
 
@@ -79,7 +89,7 @@ class TitansGift extends Analyzer {
   }
 
   //Count total casts
-  onBlossomCasts(event: CastEvent) {
+  onBlossomCasts() {
     this.totalBlossomsCasted += 1;
   }
 
@@ -91,11 +101,11 @@ class TitansGift extends Analyzer {
   emeraldBlossomHeal(event: HealEvent) {
     const blossomCast = getBlossomCast(event);
     if (blossomCast && isCastFromEB(blossomCast)) {
-      if (this.lastCast != blossomCast.timestamp) {
-        this.buffedBlossoms += 1;
-        this.lastCast = blossomCast.timestamp;
+      this.buffedBlossoms += 1;
+      const blossomHeals = getHealEvents(event);
+      for (const blossomHeal of blossomHeals) {
+        this.healingAddedToBlossoms += calculateEffectiveHealing(blossomHeal, TITANS_GIFT_INC);
       }
-      this.healingAddedToBlossoms += calculateEffectiveHealing(event, TITANS_GIFT_INC);
     }
   }
 
@@ -129,7 +139,7 @@ class TitansGift extends Analyzer {
       this.totalBlossomsCasted !== 0 ? this.buffedBlossoms / this.totalBlossomsCasted : 0;
     const percentBuffedEchoes =
       this.totalEchoesCasted !== 0 ? this.buffedEchoes / this.totalEchoesCasted : 0;
-    // Titans Gift for Blossom is way more important right now to match guides, Echo attribution needs more work still so im leaving it for later
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(5)}
@@ -154,6 +164,21 @@ class TitansGift extends Analyzer {
                 }
               >
                 <ItemHealingDone amount={this.healingAddedToBlossoms} />
+              </TooltipElement>
+            </div>
+            <div>
+              <small>
+                <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+              </small>
+              <br />
+              <TooltipElement
+                content={
+                  <>
+                    {this.buffedEchoes} casts buffed ({formatPercentage(percentBuffedEchoes)}%)
+                  </>
+                }
+              >
+                <ItemHealingDone amount={this.healingAddedToEcho} />
               </TooltipElement>
             </div>
           </div>

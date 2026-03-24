@@ -86,7 +86,6 @@ abstract class StatProcEnchantAnalyzer extends withDependencies(
       tooltip: (
         <>
           {this.procCount(this.totalProcs)}
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           The buff gives {valueExplanation} {statName}, and had a total uptime of{' '}
           <b>{formatDuration(uptime)}</b>, {formatPercentage(uptimePercentage, 1)}% of the fight.

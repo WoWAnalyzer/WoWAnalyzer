@@ -58,7 +58,6 @@ class LethalCalibration extends Analyzer.withDependencies({ spellUsable: SpellUs
           <>
             Lethal Calibration reduced Boomstick's cooldown by{' '}
             <strong>{(this.effectiveCDR / 1000).toFixed(1)}s</strong> total.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>{(this.wastedCDR / 1000).toFixed(1)}s</strong> was wasted (Boomstick not on
             cooldown).

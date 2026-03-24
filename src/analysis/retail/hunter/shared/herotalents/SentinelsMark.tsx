@@ -323,16 +323,6 @@ export default class SentinelsMark extends Analyzer.withDependencies({
 
     this.totalApplies += 1;
 
-    if (!this.isSurvival && this.hasMoonsBlessing) {
-      if (this.deps.spellUsable.isOnCooldown(TALENTS.AIMED_SHOT_TALENT.id)) {
-        this.deps.spellUsable.reduceCooldown(
-          TALENTS.AIMED_SHOT_TALENT.id,
-          AIMED_SHOT_CDR,
-          event.timestamp,
-        );
-      }
-    }
-
     this.activeMarks.set(event.targetID, {
       applyTimestamp: event.timestamp,
       targetName: this.owner.getTargetName(event),
@@ -343,16 +333,6 @@ export default class SentinelsMark extends Analyzer.withDependencies({
   }
 
   private onMarkRefresh(event: RefreshDebuffEvent) {
-    if (!this.isSurvival && this.hasMoonsBlessing) {
-      if (this.deps.spellUsable.isOnCooldown(TALENTS.AIMED_SHOT_TALENT.id)) {
-        this.deps.spellUsable.reduceCooldown(
-          TALENTS.AIMED_SHOT_TALENT.id,
-          AIMED_SHOT_CDR,
-          event.timestamp,
-        );
-      }
-    }
-
     this.totalRefreshes += 1;
     // Mark the existing mark as a fail and remove it from tracking.
     const previousMark = this.activeMarks.get(event.targetID);

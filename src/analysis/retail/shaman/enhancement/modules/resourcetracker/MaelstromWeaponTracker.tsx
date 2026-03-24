@@ -1,7 +1,6 @@
 import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EventType, FreeCastEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
@@ -26,19 +25,6 @@ class MaelstromWeaponTracker extends ResourceTracker {
     this.maxResource = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT)
       ? 10
       : 5;
-
-    this.addEventListener(Events.freecast.by(SELECTED_PLAYER), this.onFreeCast);
-  }
-
-  onFreeCast(event: FreeCastEvent) {
-    const castEvent: CastEvent = {
-      ...event,
-      type: EventType.Cast,
-    };
-    const cost = this.getAdjustedCost(castEvent);
-    if (cost) {
-      this._applySpender(event, cost, this.getResource(castEvent));
-    }
   }
 
   get wasted() {

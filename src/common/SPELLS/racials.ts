@@ -337,12 +337,6 @@ const spells = {
     name: 'Azerite Surge',
     icon: 'ability_earthen_azeritesurge',
   },
-  // Haranir
-  THORN_BLOOM: {
-    id: 1237885,
-    name: 'Thorn Bloom',
-    icon: 'inv_12_haranir_ability_thornbloom',
-  },
 } satisfies Record<string, Spell>;
 
 export default spells;

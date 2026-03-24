@@ -38,7 +38,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
-    if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
+    if (spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id) {
       spellInfo = this.getPomDetails(spellInfo);
     } else if (spellId === TALENTS.HALO_HOLY_TALENT.id) {
       spellInfo = this.getHaloDetails(spellInfo);
@@ -68,9 +68,12 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // We don't want PoM to get HPM credit for healing that we didn't spend mana on.
     const pomTicksWithoutSalv =
       this.prayerOfMending.pomHealTicks - this.prayerOfMending.pomTicksFromSalv;
-    spellInfo.healingDone = pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
-    spellInfo.overhealingDone = pomTicksWithoutSalv * this.prayerOfMending.averagePomTickOverheal;
-    spellInfo.healingAbsorbed = pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
+    spellInfo.healingDone =
+      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
+    spellInfo.overhealingDone =
+      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickOverheal;
+    spellInfo.healingAbsorbed =
+      pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
     return spellInfo;
   }
 

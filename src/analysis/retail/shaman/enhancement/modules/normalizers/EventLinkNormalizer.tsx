@@ -28,7 +28,6 @@ const thorimsInvocationCastLink: EventLink = {
   referencedEventType: [EventType.FreeCast],
   forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
   anyTarget: true,
-  reverseLinkRelation: EnhancementEventLinks.THORIMS_INVOCATION_LINK,
   isActive: (c) => c.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT),
 };
 const thorimsInvocationDamageLink: EventLink = {
@@ -45,7 +44,7 @@ const thorimsInvocationDamageLink: EventLink = {
     SPELLS.TEMPEST_CAST.id,
   ],
   referencedEventType: EventType.Damage,
-  forwardBufferMs: EventLinkBuffers.CastDamageBuffer * 5,
+  forwardBufferMs: EventLinkBuffers.CastDamageBuffer * 2,
   anyTarget: true,
 };
 const stormStrikeLink: EventLink = {

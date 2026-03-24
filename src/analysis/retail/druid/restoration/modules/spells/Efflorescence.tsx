@@ -144,7 +144,8 @@ class Efflorescence extends Analyzer {
           <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
         </b>{' '}
         is free and provides strong healing, especially when Lifebloom is maintained on a target
-        stacked with the raid. Keep Lifebloom on a squishier melee player for consistent value. With
+        stacked with the raid. Keep Lifebloom on a squishier melee player (e.g., Enhancement Shaman,
+        Rogue, Windwalker) for consistent value. With
         <b>
           <SpellLink spell={TALENTS_DRUID.LIFETREADING_TALENT} />
         </b>

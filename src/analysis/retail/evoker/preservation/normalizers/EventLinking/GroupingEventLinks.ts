@@ -24,12 +24,14 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
       SPELLS.EMERALD_BLOSSOM.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
     ],
     linkingEventType: [EventType.Heal, EventType.ApplyBuff],
     referencedEventId: [
       SPELLS.EMERALD_BLOSSOM.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
     ],
     referencedEventType: EventType.Heal,
     anyTarget: true,
@@ -79,9 +81,9 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
   // group echo heals together
   {
     linkRelation: ECHO_HEAL_GROUPING,
-    linkingEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id],
+    linkingEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id, SPELLS.SPIRITBLOOM_SPLIT.id],
     linkingEventType: [EventType.Heal, EventType.ApplyBuff],
-    referencedEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id],
+    referencedEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id, SPELLS.SPIRITBLOOM_SPLIT.id],
     referencedEventType: EventType.Heal,
     anyTarget: true,
     forwardBufferMs: 25,

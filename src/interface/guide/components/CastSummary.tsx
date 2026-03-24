@@ -67,7 +67,6 @@ export default function CastSummary({
     return (
       <div>
         <strong>No {spell.name} casts recorded.</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <small>
           Make sure you are using this spell if it is available to you and you are specced into it.

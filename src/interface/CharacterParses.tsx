@@ -519,7 +519,6 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.characterNotFoundDetails">
           Please check your input and make sure that you've selected the correct region and realm.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           If your input was correct, then make sure that someone in your raid logged the fight for
           you or check{' '}
@@ -531,9 +530,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             Warcraft Logs guide
           </a>{' '}
           to get started with logging on your own.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           When you know for sure that you have logs on Warcraft Logs and you still get this error,
           please message us on{' '}
@@ -556,15 +553,11 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         <Trans id="interface.characterParses.characterParses.errors.notRespondingDetails">
           It looks like we couldn't get a response in time from the API, this usually happens when
           the servers are under heavy load.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
           That would bypass the load-intensive character lookup and we should be able to analyze
           your report.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </Trans>
       );
@@ -572,9 +565,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.characterHiddenDetails">
           This character is hidden on warcraftlogs and we can't access the parses.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           You don't know how to make your character visible again? Check{' '}
           <a
@@ -613,9 +604,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.noParsesForTierDetails">
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Don't know how to log your fights? Check{' '}
           <a href={`${this.wclDomain}/help/start/`} target="_blank" rel="noopener noreferrer">
@@ -635,7 +624,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     }
 
     return (
-      <main className="container results">
+      <div className="container results">
         <header>
           <div
             className="background"
@@ -662,7 +651,6 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
               >
                 <WarcraftLogsIcon /> Warcraft Logs
               </a>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {battleNetUrl && (
                 <>
@@ -676,7 +664,6 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                     <ArmoryIcon style={{ marginRight: '0.3em' }} />
                     <Trans id="interface.armory.text">Armory</Trans>
                   </a>
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                 </>
               )}
@@ -834,9 +821,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   <span>
                     {this.props.region} &gt; {this.props.realm} &gt; {this.props.name}
                   </span>
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                 </span>
               )}
@@ -908,7 +893,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             </div>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }

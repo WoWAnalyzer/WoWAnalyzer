@@ -57,7 +57,6 @@ class ImmolationAura extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             The Immolation Aura total damage was {formatThousands(this.immolationAuraDamage)}.<br />
             The Immolation Aura total uptime was {formatDuration(immolationAuraUptime)}
           </>

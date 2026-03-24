@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 
 import { TALENTS_MONK } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -15,11 +15,6 @@ class InvokeXuen extends Analyzer {
   };
 
   protected spellUsable!: SpellUsable;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT);
-  }
 
   get guideSubsection(): JSX.Element {
     const explanation = (

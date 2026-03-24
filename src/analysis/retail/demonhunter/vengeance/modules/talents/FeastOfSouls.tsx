@@ -40,10 +40,8 @@ class FeastOfSouls extends Analyzer {
         tooltip={
           <>
             This shows the extra hps that the talent provides.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Effective healing:</strong> {formatNumber(this.heal)}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Overhealing:</strong> {formatNumber(this.overHeal)} |{' '}
             {formatPercentage(overHealPercent)}%

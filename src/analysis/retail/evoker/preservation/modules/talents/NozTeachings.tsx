@@ -52,6 +52,12 @@ class NozTeachings extends Analyzer {
     this.addEventListener(
       Events.empowerEnd
         .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.SPIRITBLOOM_TALENT, SPELLS.SPIRITBLOOM_FONT]),
+      this.onSbCast,
+    );
+    this.addEventListener(
+      Events.empowerEnd
+        .by(SELECTED_PLAYER)
         .spell([TALENTS_EVOKER.DREAM_BREATH_TALENT, SPELLS.DREAM_BREATH_FONT]),
       this.onDbCast,
     );
@@ -62,9 +68,11 @@ class NozTeachings extends Analyzer {
     let dbCdr = 0;
     let fbCdr = 0;
     if (this.hasFont) {
+      sbCdr = this.spellUsable.reduceCooldown(SPELLS.SPIRITBLOOM_FONT.id, REDUCTION_MS);
       dbCdr = this.spellUsable.reduceCooldown(SPELLS.DREAM_BREATH_FONT.id, REDUCTION_MS);
       fbCdr = this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH_FONT.id, REDUCTION_MS);
     } else {
+      sbCdr = this.spellUsable.reduceCooldown(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id, REDUCTION_MS);
       dbCdr = this.spellUsable.reduceCooldown(TALENTS_EVOKER.DREAM_BREATH_TALENT.id, REDUCTION_MS);
       fbCdr = this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH.id, REDUCTION_MS);
     }
@@ -113,6 +121,10 @@ class NozTeachings extends Analyzer {
               {formatDuration(this.fbWastedCdr)}
             </div>
             <div>
+              Total wasted <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> CDR:{' '}
+              {formatDuration(this.sbWastedCdr)}
+            </div>
+            <div>
               Total wasted <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> CDR:{' '}
               {formatDuration(this.dbWastedCdr)}
             </div>
@@ -126,6 +138,9 @@ class NozTeachings extends Analyzer {
                 this.averageSbCdr -
                 SPIRITUAL_CLARITY_REDUCTION * this.hasSpiritualClarity,
             )}{' '}
+            <small>
+              average <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> cooldown
+            </small>
           </div>
           <div>
             {formatDuration(BASE_EMPOWER_CD - this.averageFbCdr)}{' '}

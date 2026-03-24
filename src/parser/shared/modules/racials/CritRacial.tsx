@@ -118,7 +118,6 @@ class CritRacial extends Analyzer {
         value = (
           <>
             <ItemHealingDone amount={this.healing} />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <ItemDamageDone amount={this.damage} />
           </>

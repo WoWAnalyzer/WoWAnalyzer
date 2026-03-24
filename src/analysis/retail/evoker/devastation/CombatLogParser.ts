@@ -75,9 +75,6 @@ import {
   TwinFlame,
   FireTorrent,
 } from 'analysis/retail/evoker/shared';
-import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
-import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
-import RisingFury from './modules/talents/RisingFury';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -146,7 +143,6 @@ class CombatLogParser extends MainCombatLogParser {
     azureSweep: AzureSweep,
     shatteringStars: ShatteringStars,
     starSalvo: StarSalvo,
-    risingFury: RisingFury,
 
     // hero talents
     expandedLungs: ExpandedLungs,
@@ -169,8 +165,6 @@ class CombatLogParser extends MainCombatLogParser {
     pyre: Pyre,
 
     // tier
-    mid1Devastation2P: MID1Devastation2P,
-    mid1Devastation4P: MID1Devastation4P,
   };
 
   static guide = Guide;

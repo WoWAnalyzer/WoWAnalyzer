@@ -58,12 +58,9 @@ class RuneOfTheFallenCrusader extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.shared.runeOfTheFallenCrusader.statistic.tooltip">
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <strong>Uptime: </strong> {formatPercentage(this.uptime)}% <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <strong>Healing: </strong> {formatNumber(this.healing)} <br />
             <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {formatPercentage(this.overhealPercentage)} %) <br />
           </Trans>
         }

@@ -61,7 +61,6 @@ class ReportSelectionHeader extends PureComponent {
         return (
           <>
             <NameSearch type={SearchType.CHARACTER} />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <AlertWarning>
               <Trans id="interface.home.reportSelectionHeader.onlyRankedWCLogs">
@@ -153,7 +152,6 @@ class ReportSelectionHeader extends PureComponent {
                     Recently viewed
                   </Trans>
                 </small>
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
 
                 <ReportHistory reportHistory={reportHistory} />

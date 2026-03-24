@@ -112,7 +112,7 @@ const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
 const isMinified = import.meta.env.PROD;
 
-type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>];
 export type DependenciesDefinition = Record<string, DependencyDefinition>;
 
 interface ModuleErrorDetails {
@@ -687,7 +687,6 @@ class CombatLogParser {
 
     let results: ParseResults = new ParseResults();
 
-    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     const addStatistic = (statistic: any, basePosition: number, key: string) => {
       if (!statistic) {
         return;
@@ -765,7 +764,7 @@ class CombatLogParser {
     }
 
     const props = {
-      modules: this._modules as ModulesOf<any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+      modules: this._modules as ModulesOf<any>,
       info: this.info,
       events: this.eventHistory,
     };

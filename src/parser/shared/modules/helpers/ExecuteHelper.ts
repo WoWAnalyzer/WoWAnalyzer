@@ -427,7 +427,6 @@ class ExecuteHelper extends Analyzer {
     }
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   applySingleExecuteEnablerBuff(event: AbilityEvent<any>) {
     this.singleExecuteEnablerApplications += 1;
 
@@ -442,12 +441,10 @@ class ExecuteHelper extends Analyzer {
     });
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   refreshSingleExecuteEnablerBuff(event: AbilityEvent<any>) {
     this.singleExecuteEnablerApplications += 1;
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   removeSingleExecuteEnablerBuff(event: AbilityEvent<any>) {
     const range = this.currentBuffRanges.get(event.ability.guid);
     this.currentBuffRanges.delete(event.ability.guid);

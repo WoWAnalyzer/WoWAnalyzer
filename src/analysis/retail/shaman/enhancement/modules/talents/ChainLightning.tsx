@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EventType, FreeCastEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -21,32 +21,17 @@ class ChainLightning extends Analyzer.withDependencies({ spellUsable: SpellUsabl
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_LIGHTNING_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.freecast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_LIGHTNING_TALENT),
-      this.onCast,
-    );
   }
 
-  onCast(event: CastEvent | FreeCastEvent) {
+  onCast(event: CastEvent) {
     const hits =
       event._linkedEvents?.filter(
         (le) => le.relation === EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
       ).length || 0;
 
     if (hits < 2) {
-      const castEvent =
-        event.type === EventType.FreeCast
-          ? GetRelatedEvent<CastEvent>(
-              event,
-              EnhancementEventLinks.THORIMS_INVOCATION_LINK,
-              (relatedEvent) => relatedEvent.type === EventType.Cast,
-            )
-          : event;
-      if (!castEvent) {
-        return;
-      }
       addInefficientCastReason(
-        castEvent,
+        event,
         <>
           <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> only hit one target
         </>,

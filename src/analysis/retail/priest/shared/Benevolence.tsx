@@ -45,7 +45,6 @@ class Benevolence extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_PRIEST.BENEVOLENCE_TALENT}>
           <>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <ItemHealingDone amount={this.healing} /> <br />
           </>
         </TalentSpellText>

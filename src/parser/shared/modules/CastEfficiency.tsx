@@ -50,7 +50,6 @@ class CastEfficiency extends Analyzer {
    * recharges is the total number of times the spell has recharged (either come off cooldown or gained a charge)
    * Only works on spells entered into CastEfficiency list.
    */
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   private getCooldownInfo(ability: any) {
     const mainSpellId = ability.primarySpell;
     const history = this.spellHistory.historyBySpellId[mainSpellId];

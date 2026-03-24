@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
@@ -25,7 +26,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === TALENTS_HUNTER.RAPID_FIRE_TALENT.id) {
+    if (spellId === SPELLS.RAPID_FIRE.id) {
       return;
     }
     const isOnGCD = this.isOnGlobalCooldown(spellId);

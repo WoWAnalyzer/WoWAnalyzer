@@ -30,7 +30,7 @@ interface TotemEvent {
   damageDone: number;
   healingDone: number;
   manaRestored: number;
-  spellsGrounded?: any; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  spellsGrounded?: any;
 }
 
 class TotemTracker extends Analyzer {
@@ -192,7 +192,6 @@ class TotemTracker extends Analyzer {
     return null;
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   totemDeathEvent(event: any) {
     const targetId = event?.targetID || event.target?.id;
     const targetTotemelement = this.getTotemElementByTargetId(targetId);
@@ -202,7 +201,6 @@ class TotemTracker extends Analyzer {
   }
 
   // Used to track what spells are absorbed by grounding totem.
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   totemCastEvent(event: any) {
     const targetId = event?.targetID || event?.target?.id;
     const targetTotemelement = this.getTotemElementByTargetId(targetId);

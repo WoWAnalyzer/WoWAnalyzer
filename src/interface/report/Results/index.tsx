@@ -199,7 +199,7 @@ const Results = (props: PassedProps) => {
   return (
     <ResultsContext value={providerValue}>
       <CombatLogParserProvider combatLogParser={props.parser}>
-        <main
+        <div
           id="fight-results"
           className={`container results boss-${props.fight.boss} ${!showSideAd ? 'no-ad' : ''}`}
         >
@@ -243,7 +243,6 @@ const Results = (props: PassedProps) => {
                   <Trans id="interface.report.results.warning.build">
                     These results are analyzed under build different from the standard build. While
                     this will make some modules more accurate, some may also not provide the
-                    {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                     information you expect them to. <br /> Please report any issues you may find on
                     our GitHub or Discord.
                   </Trans>
@@ -261,7 +260,6 @@ const Results = (props: PassedProps) => {
                   <small>
                     <Trans id="interface.report.results.viewOn">View on</Trans>
                   </small>
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                   <Tooltip
                     content={t({
@@ -287,7 +285,6 @@ const Results = (props: PassedProps) => {
                       Logs
                     </a>
                   </Tooltip>
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                   <Tooltip
                     content={t({
@@ -321,7 +318,7 @@ const Results = (props: PassedProps) => {
             </div>
           </div>
           {showSideAd && <Ad location={Location.SideRail} />}
-        </main>
+        </div>
       </CombatLogParserProvider>
     </ResultsContext>
   );

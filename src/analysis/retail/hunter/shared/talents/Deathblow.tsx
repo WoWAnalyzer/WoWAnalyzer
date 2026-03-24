@@ -64,7 +64,6 @@ class Deathblow extends Analyzer {
         <BoringSpellValueText spell={TALENTS.DEATHBLOW_TALENT}>
           {this.deathblowProcs}
           <small> Deathblow procs.</small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.wastedProcs} <small> wasted Deathblow procs.</small>
         </BoringSpellValueText>

@@ -102,7 +102,6 @@ class Doom extends Analyzer {
         tooltip={
           <>
             {formatNumber(this.doom.damage)} damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Doom tracking - 20s debuff applied by Demonbolt when consuming Demonic Core
           </>
@@ -110,10 +109,8 @@ class Doom extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DOOM_DEBUFF}>
           <ItemDamageDone amount={this.doom.damage} />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.doom.applyDebuffCount} <small>Applications</small>
         </BoringSpellValueText>

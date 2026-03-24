@@ -49,7 +49,7 @@ const PatchCheckerContents = ({
   const isThisExpansion = reportPatch?.expansion === reportExpansion;
 
   return (
-    <main className="container offset">
+    <div className="container offset">
       <h1>
         {report.title} - {reportDate}
       </h1>
@@ -67,7 +67,6 @@ const PatchCheckerContents = ({
           )
         }
         pad={false}
-        subheading
       >
         <div className="flex wrapable">
           <div className="flex-main pad">
@@ -76,15 +75,11 @@ const PatchCheckerContents = ({
                 WoWAnalyzer is constantly being updated to support the latest changes. This can
                 cause some functionality to be modified for the latest talents/traits/trinkets or be
                 removed.
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 This could mean that some parts of your report will no longer be analysed
                 accurately.
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 If you would still like to view the analysis using the latest updates, you can click
                 'Continue anyway' below.
@@ -93,17 +88,12 @@ const PatchCheckerContents = ({
               <Trans id="interface.report.patchChecker.viewAnalysisOldExpansion">
                 Due to the number of class changes since the last expansion (class abilities,
                 talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 You can still access the Analysis by clicking 'Continue anyway' below if required.
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 If you would like to view the analysis on an older version of WoWAnalyzer,{' '}
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <a
                   href={reportPatch && makePreviousPatchUrl(reportPatch)}
                   onClick={handleClickContinue}
@@ -111,17 +101,14 @@ const PatchCheckerContents = ({
                 >
                   <Trans id="interface.report.patchChecker.clickHere">click here</Trans>
                 </a>
-                .{/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+                .
                 <br />
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 If you would still like to view the analysis using the latest updates, you can click
                 'Continue anyway' below.
               </Trans>
             )}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
 
             <div style={{ marginBottom: 15 }}>
@@ -157,7 +144,7 @@ const PatchCheckerContents = ({
           </div>
         </div>
       </Panel>
-    </main>
+    </div>
   );
 };
 

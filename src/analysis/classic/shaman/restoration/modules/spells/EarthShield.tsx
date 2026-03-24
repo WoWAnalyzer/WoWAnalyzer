@@ -93,7 +93,6 @@ class EarthShield extends Analyzer {
         <BoringValue label={<SpellLink spell={SPELLS.EARTH_SHIELD} />}>
           <div>
             <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <ItemHealingDone amount={this.healing} />
           </div>

@@ -26,7 +26,7 @@ export interface PerCastStat {
   /** Label describing what this stat represents */
   label: string;
   /** Detailed tooltip content for this stat */
-  tooltip?: React.ReactNode | null;
+  tooltip: React.ReactNode;
   /** Optional performance rating for color-coding this specific stat */
   performance?: QualitativePerformance;
 }
@@ -48,8 +48,6 @@ export interface PerCastData {
   timestamp: string;
   /** Optional additional details to show below the cast */
   details?: React.ReactNode;
-  /** Optional icon override for the details box. Set to null to suppress the default icon. */
-  detailsIcon?: React.ReactNode | null;
   additionalContent?: AdditionalContent;
 }
 
@@ -221,22 +219,19 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
         >
           <TimelineRow>
             <TimelineRectContainer>
-              {filteredCasts.map((cast, idx) => {
-                const index = casts.indexOf(cast) + 1;
-                const content = cast.tooltip
-                  ? cast.tooltip
-                  : `Cast #${index} · ${cast.timestamp} · ${cast.performance}`;
-                return (
-                  <Tooltip key={idx} content={content}>
-                    <TimelineRect
-                      style={{ width: `calc(${rectWidthPct}% - 3px)` }}
-                      color={qualitativePerformanceToColor(cast.performance)}
-                      active={idx === validIndex}
-                      onClick={() => setCurrentIndex(idx)}
-                    />
-                  </Tooltip>
-                );
-              })}
+              {filteredCasts.map((cast, idx) => (
+                <Tooltip
+                  key={idx}
+                  content={`Cast #${casts.indexOf(cast) + 1} · ${cast.timestamp} · ${cast.performance}`}
+                >
+                  <TimelineRect
+                    style={{ width: `calc(${rectWidthPct}% - 3px)` }}
+                    color={qualitativePerformanceToColor(cast.performance)}
+                    active={idx === validIndex}
+                    onClick={() => setCurrentIndex(idx)}
+                  />
+                </Tooltip>
+              ))}
             </TimelineRectContainer>
           </TimelineRow>
 
@@ -290,15 +285,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
             )}
 
             {currentCast!.details && (
-              <TipBox
-                icon={
-                  currentCast!.detailsIcon === undefined ? (
-                    <PerformanceMark perf={currentCast!.performance} />
-                  ) : (
-                    currentCast!.detailsIcon
-                  )
-                }
-              >
+              <TipBox icon={<PerformanceMark perf={currentCast!.performance} />}>
                 {currentCast!.details}
               </TipBox>
             )}

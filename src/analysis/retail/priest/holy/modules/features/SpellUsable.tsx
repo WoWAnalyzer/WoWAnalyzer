@@ -16,9 +16,9 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(cooldownTriggerEvent: AbilityEvent<any>, spellId: number) {
     // Epiphany free Prayer of Mending – do not consume a charge
     if (
-      spellId === SPELLS.PRAYER_OF_MENDING_CAST.id &&
+      spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id &&
       (HasRelatedEvent(cooldownTriggerEvent, 'EpiphanyPomCast') ||
-        this.selectedCombatant.hasBuff(SPELLS.EPIPHANY_BUFF.id, cooldownTriggerEvent.timestamp))
+       this.selectedCombatant.hasBuff(SPELLS.EPIPHANY_BUFF.id, cooldownTriggerEvent.timestamp))
     ) {
       return;
     }

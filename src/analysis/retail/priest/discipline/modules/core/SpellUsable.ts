@@ -9,14 +9,14 @@ class SpellUsable extends CoreSpellUsable {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PENANCE_CAST.id) {
+    if (spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id) {
       super.onCast(event);
       return;
     }
 
     if (this.isNewPenanceCast(event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
-      this.beginCooldown(event, SPELLS.PENANCE_CAST.id);
+      this.beginCooldown(event, SPELLS.PENANCE.id);
     }
   }
 

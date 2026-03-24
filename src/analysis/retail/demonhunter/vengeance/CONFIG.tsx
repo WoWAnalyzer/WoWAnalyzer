@@ -28,9 +28,7 @@ const config: Config = {
       opinion and suggestion is always great to make me improve it more and more for you. So, if you
       ever have anything to say, please leave a message in some channel that I'll be specifically
       showing to you later.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       You might have noticed that most of the suggestions focus mostly on improvements of you cast
       efficiency. This might seem silly and simple to analyze, but it's actually one of the most
@@ -41,9 +39,7 @@ const config: Config = {
       />{' '}
       and <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} /> to help mitigating this extra incoming
       damage.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       Also, I have implemented a pain chart tracker. It makes more visual to see if you are capping
       and wasting too much pain during the fight. It also shows the pain gained/spent breakdown for
@@ -52,9 +48,7 @@ const config: Config = {
       wiping your group or using a defensive cooldown to avoid it. As you might have experimented,
       this is one of the hardest things to improve and to master. My desire is to make this easier
       for you with this feature.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       If you have any more questions about Demon Hunters, feel free to pay a visit to{' '}
       <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">
@@ -66,14 +60,10 @@ const config: Config = {
       </a>{' '}
       but if you'd like to discuss anything related to this analyzer, leave a message on GitHub
       issue or message @ToppleTheNun on WoWAnalyzer Discord.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       <p style={textAlignStyle}>NOW YOU ARE PREPARED!</p>
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
     </>
   ),

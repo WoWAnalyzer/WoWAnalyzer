@@ -48,7 +48,7 @@ export interface SummaryDef {
 export interface CooldownSpell {
   spell: number;
   summary: (BUILT_IN_SUMMARY_TYPES | SummaryDef)[];
-  startBufferFilter?: EventFilter<any>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  startBufferFilter?: EventFilter<any>;
   startBufferMS?: number;
   startBufferEvents?: number;
   petID?: number;

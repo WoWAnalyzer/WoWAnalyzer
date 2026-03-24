@@ -7,12 +7,12 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: TALENTS_HUNTER.TRUESHOT_TALENT.id,
+        spellId: SPELLS.TRUESHOT.id,
         timelineHighlight: true,
-        triggeredBySpellId: TALENTS_HUNTER.TRUESHOT_TALENT.id,
+        triggeredBySpellId: SPELLS.TRUESHOT.id,
       },
       {
-        spellId: SPELLS.PRECISE_SHOTS_BUFF.id,
+        spellId: SPELLS.PRECISE_SHOTS.id,
         timelineHighlight: true,
         triggeredBySpellId: TALENTS_HUNTER.AIMED_SHOT_TALENT.id,
       },

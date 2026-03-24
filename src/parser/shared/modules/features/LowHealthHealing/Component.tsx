@@ -165,7 +165,6 @@ class LowHealthHealing extends PureComponent<LowHealthHealingProps, LowHealthHea
               });
             }}
           />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <Trans id="shared.lowHealthHealing.slider.minEffective">
             Min effective healing (percentage of target's health):
@@ -275,7 +274,6 @@ class LowHealthHealing extends PureComponent<LowHealthHealingProps, LowHealthHea
                 <Trans id="shared.lowHealthHealing.table.total">
                   Total healing done on targets below {this.state.maxPlayerHealthPercentage * 100}%
                   health: {formatNumber(total)} (spread over {count} seperate heals).
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                   Total healing done on targets below {this.state.maxPlayerHealthPercentage * 100}%
                   health for more than {Math.round(this.state.minHealOfMaxHealthPercentage * 100)}%

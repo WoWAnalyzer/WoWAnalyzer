@@ -133,7 +133,6 @@ export default class Demonsurge extends Analyzer {
           <TalentSpellText talent={TALENTS.DEMONSURGE_TALENT}>
             {Array.from(this.#consumedTriggers.values()).reduce((acc, curr) => acc + curr, 0)}{' '}
             <small>Demonsurges spent</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {Array.from(this.#wastedTriggers.values()).reduce((acc, curr) => acc + curr, 0)}{' '}
             <small>Demonsurges wasted</small>

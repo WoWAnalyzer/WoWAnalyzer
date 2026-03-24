@@ -72,10 +72,8 @@ class Lifebloom extends Analyzer {
     const tooltip = (
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         targetting <strong>{target.name}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {isClearcast && (
           <strong>
@@ -170,7 +168,6 @@ class Lifebloom extends Analyzer {
         <BoringValue label={<SpellLink spell={SPELLS.LIFEBLOOM_REGEN} />}>
           <div>
             <ManaIcon /> {formatNumber(this.manaFromLifebloom)} <small>mana returned</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <ManaIcon /> {formatNumber(this.mp5FromLifebloom)}
             <small> MP5</small>

@@ -81,7 +81,7 @@ export interface LocationState {
   /**
    * Record the locations of every entity seen.
    */
-  locations: Record<string, LocationEvent<any>>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  locations: Record<string, LocationEvent<any>>;
   /**
    * Record the least hitbox size that could be viable given observed ability usage.
    */
@@ -92,7 +92,6 @@ function HasResourceActor(event: AnyEvent): event is AnyEvent & { resourceActor:
   return 'resourceActor' in event;
 }
 
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 function playerLocation(state: LocationState, event: AnyEvent): LocationEvent<any> | undefined {
   if (
     HasLocation(event) &&
@@ -115,8 +114,7 @@ function playerLocation(state: LocationState, event: AnyEvent): LocationEvent<an
 
 function targetLocation(
   state: LocationState,
-  event: TargettedEvent<any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  event: TargettedEvent<any>,
 ): LocationEvent<any> | undefined {
   if (
     HasLocation(event) &&
@@ -129,7 +127,6 @@ function targetLocation(
   }
 }
 
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 function inferHitboxSize(state: LocationState, event: TargettedEvent<any> & LocationEvent<any>) {
   if (
     !HasSource(event) ||
@@ -196,12 +193,7 @@ export function updateLocationState(state: LocationState, event: AnyEvent): Loca
   return state;
 }
 
-const distance = (
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  source: LocationEvent<any>,
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  target: LocationEvent<any>,
-): number =>
+const distance = (source: LocationEvent<any>, target: LocationEvent<any>): number =>
   Math.sqrt(
     Math.pow(source.x / 100 - target.x / 100, 2) + Math.pow(source.y / 100 - target.y / 100, 2),
   );

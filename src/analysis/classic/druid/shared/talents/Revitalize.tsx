@@ -243,28 +243,24 @@ class Revitalize extends Analyzer {
                       {p.power.mana > 0 && (
                         <>
                           {formatNumber(p.power.mana)} mana
-                          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                           <br />
                         </>
                       )}
                       {p.power.rage > 0 && (
                         <>
                           {formatNumber(p.power.rage)} rage
-                          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                           <br />
                         </>
                       )}
                       {p.power.energy > 0 && (
                         <>
                           {formatNumber(p.power.energy)} energy
-                          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                           <br />
                         </>
                       )}
                       {p.power.runicPower > 0 && (
                         <>
                           {formatNumber(p.power.runicPower)} runic power
-                          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                           <br />
                         </>
                       )}

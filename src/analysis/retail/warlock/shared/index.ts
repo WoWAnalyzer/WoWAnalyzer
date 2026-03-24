@@ -4,4 +4,3 @@ export { default as WarlockMissingDotApplyDebuffPrePull } from './WarlockMissing
 export { default as DemonicCircle } from './spells/DemonicCircle';
 export { default as DarkPact } from './spells/DarkPact';
 export { default as UnendingResolve } from './spells/UnendingResolve';
-export { default as DemonicHealthstone } from './spells/DemonicHealthstone';

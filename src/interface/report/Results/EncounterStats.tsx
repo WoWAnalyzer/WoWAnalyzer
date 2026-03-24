@@ -232,14 +232,14 @@ class EncounterStats extends PureComponent<Props, State> {
   singleLog(log: WCLRanking) {
     return (
       <div
-        key={`${log.report.code}-${log.name}`}
+        key={`${log.reportID}-${log.name}`}
         className="col-md-12 flex-main"
         style={{ textAlign: 'left', margin: '5px auto' }}
       >
         <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
           <div className="flex-column col-md-6">
             <a
-              href={`https://wowanalyzer.com/report/${log.report.code}/${log.report.fightID}/${log.name}`}
+              href={`https://wowanalyzer.com/report/${log.reportID}/${log.fightID}/${log.name}`}
               target="_blank"
               rel="noopener noreferrer"
             >

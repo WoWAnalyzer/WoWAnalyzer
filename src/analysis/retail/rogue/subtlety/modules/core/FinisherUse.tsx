@@ -8,6 +8,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import SPELLS from 'common/SPELLS/rogue';
+import TALENTS from 'common/TALENTS/rogue';
 import { formatDurationMillisMinSec } from 'common/format';
 
 import { getTargetComboPoints, isInOpener, OPENER_MAX_DURATION_MS } from '../../constants';
@@ -22,10 +23,9 @@ export default class FinisherUse extends Analyzer {
 
     const trackedFinishers = [SPELLS.EVISCERATE];
 
-    // todo: secret technique is no longer a talent.
-    // if (this.selectedCombatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT)) {
-    //   trackedFinishers.push(TALENTS.SECRET_TECHNIQUE_TALENT);
-    // }
+    if (this.selectedCombatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT)) {
+      trackedFinishers.push(TALENTS.SECRET_TECHNIQUE_TALENT);
+    }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(trackedFinishers), this.onCast);
   }

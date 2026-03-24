@@ -81,10 +81,9 @@ class Disintegrate extends Analyzer {
 
   isCurrentCastMassDisintegrate = false;
 
-  /** Spells that you *can* clip with
+  /** Spells that you can/should clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
-   * Fill with most spells so it's easy to se what was used to clip with on the graph
    */
   trackedSpells = [
     SPELLS.LIVING_FLAME_CAST,
@@ -98,25 +97,8 @@ class Disintegrate extends Analyzer {
     TALENTS.DRAGONRAGE_TALENT,
     SPELLS.DEEP_BREATH,
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
-    SPELLS.AZURE_SWEEP,
-    TALENTS.OBSIDIAN_SCALES_TALENT,
-    TALENTS.ZEPHYR_TALENT,
-    SPELLS.HOVER,
-    TALENTS.RESCUE_TALENT,
+    TALENTS.AZURE_SWEEP_TALENT,
   ];
-
-  /** Spells that you should clip with */
-  goodClipSpellIds = [
-    SPELLS.FIRE_BREATH,
-    SPELLS.FIRE_BREATH_FONT,
-    SPELLS.ETERNITY_SURGE,
-    SPELLS.ETERNITY_SURGE_FONT,
-    SPELLS.DEEP_BREATH,
-    SPELLS.DEEP_BREATH_SCALECOMMANDER,
-  ].map((spell) => spell.id);
-
-  maxAllowedClippedTicks = 1;
-  maxAllowedEarlyChainedTicks = 0;
 
   graphData: GraphData[] = [];
 
@@ -329,15 +311,9 @@ class Disintegrate extends Analyzer {
         count: this.currentRemainingTicks,
         tooltip: 'Bad Chain, you chained before the 3rd tick.',
       });
-    } else if (this.currentRemainingTicks > this.maxAllowedEarlyChainedTicks + 1) {
-      this.problemPoints.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
-      });
-    }
-    // Clipped ticks outside of DR, bad
-    else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
+    } // Clipped ticks outside of DR, bad - for TWW S1 this is optimal
+    // In TWW S1 this is now optimal, will prolly become un-optimal again
+    /* else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
       this.problemPoints.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
@@ -346,21 +322,17 @@ class Disintegrate extends Analyzer {
           (this.currentRemainingTicks - 1) +
           ' tick(s) outside of Dragonrage',
       });
-    } else {
+    }  */
+    else {
       if (this.isCurrentCastMassDisintegrate) {
-        if (this.currentRemainingTicks >= 2) {
-          this.problemPoints.push({
-            timestamp: event.timestamp,
-            count: this.currentRemainingTicks,
-            tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
-          });
-        } else {
-          this.massDisintegrateCasts.push({
-            timestamp: event.timestamp,
-            count: this.currentRemainingTicks,
-            tooltip: 'Good Chain',
-          });
-        }
+        this.massDisintegrateCasts.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            this.currentRemainingTicks >= 2
+              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
+              : 'Good Chain',
+        });
       } else {
         this.disintegrateChainCasts.push({
           timestamp: event.timestamp,
@@ -420,17 +392,7 @@ class Disintegrate extends Analyzer {
             this.disintegrateClipSpell.ability.name +
             ' before the 3rd tick.',
         });
-      } else if (this.currentRemainingTicks > this.maxAllowedClippedTicks) {
-        this.problemPoints.push({
-          timestamp: event.timestamp,
-          count: this.currentRemainingTicks,
-          tooltip:
-            'Bad Clip, you clipped: ' +
-            this.currentRemainingTicks +
-            ' tick(s) with: ' +
-            this.disintegrateClipSpell.ability.name,
-        });
-      } else if (this.goodClipSpellIds.includes(this.disintegrateClipSpell.ability.guid)) {
+      } else {
         this.disintegrateClips.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
@@ -564,34 +526,33 @@ class Disintegrate extends Analyzer {
     return (
       <SubSection title="Disintegrate">
         <div>
-          <p>
-            Use the graph below to deep dive into your <SpellLink spell={DISINTEGRATE} /> casts.
-            <ul>
-              <li>
-                Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
-              </li>
-              {this.massDisintegrateCasts.length > 0 && (
-                <>
-                  <li>
-                    Mass Disintegrate Casts are highlighted in{' '}
-                    <span style={{ color: '#aa774f' }}>brown</span>
-                  </li>
-                </>
-              )}
-              <li>
-                Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
-              </li>
-              <li>
-                Clipped casts are highlighted in <span style={{ color: '#9b59b6' }}>purple</span>
-              </li>
-              <li>
-                Problem points are highlighted in <span style={{ color: 'red' }}>red</span>
-              </li>
-              <li>
-                <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.
-              </li>
-            </ul>
-          </p>
+          Use the graph below to deep dive into your <SpellLink spell={DISINTEGRATE} /> casts.
+          <ul>
+            <li>
+              Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
+            </li>
+            {this.massDisintegrateCasts.length > 0 && (
+              <>
+                <li>
+                  Mass Disintegrate Casts are highlighted in{' '}
+                  <span style={{ color: '#aa774f' }}>brown</span>
+                </li>
+              </>
+            )}
+            <li>
+              Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
+            </li>
+            <li>
+              Clipped casts are highlighted in <span style={{ color: '#9b59b6' }}>purple</span>
+            </li>
+            <li>
+              Problem points are highlighted in <span style={{ color: 'red' }}>red</span>
+            </li>
+            <li>
+              <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.
+            </li>
+          </ul>
+          <br />
           <b>
             <InformationIcon /> Mouseover each point on the graph for more detailed explanations.
           </b>

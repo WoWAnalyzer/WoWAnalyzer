@@ -86,7 +86,6 @@ class Analyzer extends EventSubscriber {
    * > `options`, options should be the last parameter.
    */
   static withDependencies<T extends Analyzer, D extends Dependencies>(
-    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     this: AnalyzerConstructor<T, any>,
     deps: D,
   ): AnalyzerConstructor<T, D> {
@@ -99,10 +98,10 @@ export default Analyzer;
 type AnalyzerConstructor<T extends Analyzer, Deps extends Dependencies> = {
   dependencies: Deps;
   applyDependencies: (options: Options, instance: Module) => void;
-} & (new (...args: any[]) => T & { readonly deps: InjectedDependencies<Deps> }); // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+} & (new (...args: any[]) => T & { readonly deps: InjectedDependencies<Deps> });
 
-type DependenciesOf<T extends AnalyzerConstructor<any, any>> = // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code. // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  T extends AnalyzerConstructor<any, infer Deps> ? Deps : never; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+type DependenciesOf<T extends AnalyzerConstructor<any, any>> =
+  T extends AnalyzerConstructor<any, infer Deps> ? Deps : never;
 
 /**
  * Creates a class which extends `Base` and has `deps` as dependencies, with correct
@@ -126,7 +125,7 @@ type DependenciesOf<T extends AnalyzerConstructor<any, any>> = // oxlint-disable
  */
 export function withDependencies<
   Deps extends Dependencies,
-  TBase extends AnalyzerConstructor<any, any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code. // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  TBase extends AnalyzerConstructor<any, any>,
 >(
   Base: TBase,
   deps?: Deps,
@@ -139,7 +138,6 @@ export function withDependencies<
 
     readonly deps: InjectedDependencies<Deps & DependenciesOf<TBase>>;
 
-    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     constructor(...args: any[]) {
       super(...args);
 
@@ -159,7 +157,7 @@ enum FunctionType {
   Suggestion,
 }
 
-type FunctionalEventFilter = EventFilter<any> | EventFilter<any>[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code. // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+type FunctionalEventFilter = EventFilter<any> | EventFilter<any>[];
 
 function buildFunctionalAnalyzer<Deps extends Dependencies, Result extends ReactNode>(
   functionType: FunctionType,
@@ -167,7 +165,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result extends React
   eventFilter: FunctionalEventFilter = Events.any,
   dependencies?: Deps,
 ) {
-  const eventFilters: EventFilter<any>[] = Array.isArray(eventFilter) ? eventFilter : [eventFilter]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  const eventFilters: EventFilter<any>[] = Array.isArray(eventFilter) ? eventFilter : [eventFilter];
 
   const deps = dependencies ?? {};
 

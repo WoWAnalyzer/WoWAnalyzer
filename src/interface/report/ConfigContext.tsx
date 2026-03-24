@@ -9,7 +9,7 @@ export const useMaybeConfig = (): Config | undefined => {
   // that refactor is...big enough that i'm not doing it today
   let report = undefined;
   try {
-    const data = useReport(); // oxlint-disable-line eslint-plugin-react-hooks/rules-of-hooks -- Baseline suppression. Try to fix if you edit this code.
+    const data = useReport();
     report = data.report;
   } catch {
     /* do nothing */
@@ -17,7 +17,7 @@ export const useMaybeConfig = (): Config | undefined => {
   let player = undefined;
 
   try {
-    const playerData = usePlayer(); // oxlint-disable-line eslint-plugin-react-hooks/rules-of-hooks -- Baseline suppression. Try to fix if you edit this code.
+    const playerData = usePlayer();
     player = playerData.player;
   } catch {
     /* do nothing */

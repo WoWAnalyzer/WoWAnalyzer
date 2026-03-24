@@ -1,7 +1,8 @@
-import AtonementHealingDone from './AtonementHealingDone';
+import AtonementHealingDone from 'analysis/retail/priest/discipline/modules/features/AtonementHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
+import { TooltipElement } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';

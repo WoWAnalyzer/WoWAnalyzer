@@ -39,7 +39,6 @@ export function binomialCDF(k: number, n: number, p: number) {
  * @param {Function} pmf Callback that returns probability of exactly K events happening in N tries. Parameters - K, N
  * @returns {{ max: Number, p: Number }} Maximum of given PMF function - argument and probability itself
  */
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export function findMax(n: number, pmf: (i: number, n: any) => any): { max: number; p: number } {
   let max = -1;
   let maxP = 0;
@@ -126,7 +125,6 @@ function setMinMaxProbabilities(
  * @param lookup {Array} Lookup table
  * @returns {Number} Probability
  */
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
   if (k === -1) {
     return 0;
@@ -157,7 +155,6 @@ function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
  * @param n {Number} Number of total tries
  * @param p {[Number]} Probability vector
  */
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 function poissonBinomialPMF(k: number, n: number, p: any[]) {
   // denoted in the paper as ξk, I'll call it Ek for simplicity
   // using the recursive formula in chapter 2.5
@@ -180,12 +177,10 @@ export function plotOneVariableBinomChart(
   trackedName = 'Procs',
   tooltipText: string = trackedName,
   yDomain: [number, number] = [0, 0.4],
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   xAxis: any = {
     title: trackedName,
     tickFormat: '~k',
   },
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   yAxis: any = {
     title: 'Likelihood',
   },

@@ -8,8 +8,9 @@ export const Abilities = genAbilities({
     spells.TIGER_PALM,
     spells.SPINNING_CRANE_KICK,
     spells.KEG_SMASH_TALENT,
+    spells.BREATH_OF_FIRE_TALENT,
   ],
-  cooldowns: [spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT, spells.EXPLODING_KEG_TALENT],
+  cooldowns: [spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT],
   defensives: [spells.FORTIFYING_BREW],
   omit: [spells.BREATH_OF_FIRE_TALENT],
 });

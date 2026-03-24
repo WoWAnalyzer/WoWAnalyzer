@@ -175,13 +175,13 @@ class HolyWordCDR extends Analyzer {
 
 // Breakdown interface (TWW tier removed)
 interface hwCDRBreakdown {
-  idealTotalCDR: number; // total CDR that would have happened if no waste (seconds)
-  actualTotalCDR: number; // actual CDR after waste (seconds)
-  cdrFromBase: number; // base CDR (seconds)
-  cdrFromLOTN: number; // Light of the Naaru contribution (seconds)
-  cdrFromApoth: number; // Apotheosis contribution (seconds)
+  idealTotalCDR: number;      // total CDR that would have happened if no waste (seconds)
+  actualTotalCDR: number;      // actual CDR after waste (seconds)
+  cdrFromBase: number;         // base CDR (seconds)
+  cdrFromLOTN: number;         // Light of the Naaru contribution (seconds)
+  cdrFromApoth: number;        // Apotheosis contribution (seconds)
   vohAffectsBase: boolean | undefined; // whether base came from Voice of Harmony
-  affectedSpell: number; // which Holy Word was reduced
+  affectedSpell: number;       // which Holy Word was reduced
 }
 
 export default HolyWordCDR;

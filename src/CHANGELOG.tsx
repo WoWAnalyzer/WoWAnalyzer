@@ -25,23 +25,12 @@ import {
   Vollmer,
   Yellot,
   Rex,
-  squided,
-  Gambyt,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 3, 23), "Update close kill times to match new WCL API", Putro),
-  change(date(2026, 3, 20), 'Update FoodChecker for Midnight', Gambyt),
-  change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),
-  change(date(2026, 3, 14), 'Add Support for Haranir Allied Race.', Vetyst),
-  change(date(2026, 3, 13), 'Update AugmentRuneChecked for Midnight and Add a AugmentRune Panel to the Preparations section.', Vetyst),
-  change(date(2026, 3, 13), 'Update EnchantChecker for Midnight.', Vetyst),
-  change(date(2026, 3, 10), 'Update GemChecker for Midnight', Vetyst),
-  change(date(2026, 3, 10), 'Update Flasks for Midnight.', Vetyst),
-  change(date(2026, 3, 10), 'Add <Main> Landmark to all pages.', Rex),
   change(date(2026, 3, 10), 'Update usable potions for Midnight.', Vetyst),
   change(date(2026, 3, 8), 'Add enchants to the character tab.', Vetyst),
   change(date(2026, 3, 8), 'Make Divs accessible to Keyboards and Screenreaders.', Rex),

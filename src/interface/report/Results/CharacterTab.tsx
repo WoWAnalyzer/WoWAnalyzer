@@ -48,7 +48,6 @@ const CharacterTab = (props: Props) => {
                         <WoWAnalyzerIcon mainColor="#FAB700" arrowColor="transparent" /> Character
                         parses
                       </Link>
-                      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                       <br />
                       <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
                         <ArmoryIcon />

@@ -58,9 +58,7 @@ class HotStreakGuide extends Analyzer {
       (hs) => hs.spender?.ability.guid === TALENTS.PYROBLAST_TALENT.id,
     ).length;
     const flamestrikeCount = this.hotStreak.hotStreaks.filter(
-      (hs) =>
-        hs.spender?.ability.guid === TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id ||
-        hs.spender?.ability.guid === TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
+      (hs) => hs.spender?.ability.guid === SPELLS.FLAMESTRIKE.id,
     ).length;
 
     return [

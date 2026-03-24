@@ -46,13 +46,11 @@ const TalentAggregateStatisticContainer = ({
             {smallFooter ? (
               <small>
                 *{footer}
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </small>
             ) : (
               <h3>
                 {footer}
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </h3>
             )}

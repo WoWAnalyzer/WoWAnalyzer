@@ -586,7 +586,7 @@ abstract class HotTracker extends Analyzer {
             ).toFixed(1)}s`,
           );
       });
-      hot.extensions = hot.extensions.filter((ext) => ext.amount !== 0); // filter all HoTs clipped to nothing
+      hot.extensions.filter((ext) => ext.amount !== 0); // filter all HoTs clipped to nothing
 
       // TODO do more stuff about clipped HoT duration (a suggestion?). Only suggest for clipping hardcasts, of course.
     }
@@ -690,18 +690,13 @@ abstract class HotTracker extends Analyzer {
         return;
       }
       const extUsed = Math.min(extension, ext.amount);
-      const healingAttributed = extUsed * healingPerTime;
-      ext.attribution.healing += healingAttributed;
+      ext.attribution.healing += extUsed * healingPerTime;
       ext.amount -= extUsed;
       extension -= extUsed;
-      extensionDebug &&
-        console.log(
-          `Extension tally for ${hot.name}: ${ext.attribution.name} credited ${healingAttributed.toFixed(0)} healing (${extUsed}ms used, ${ext.amount}ms remaining, total att healing: ${ext.attribution.healing.toFixed(0)})`,
-        );
     });
 
     // remove used up extensions
-    hot.extensions = hot.extensions.filter((ext) => ext.amount !== 0);
+    hot.extensions.filter((ext) => ext.amount !== 0);
   }
 
   /** Check if this HoT has any base extensions that apply to it, and add them if so */
@@ -710,25 +705,7 @@ abstract class HotTracker extends Analyzer {
     if (!extensions) {
       return;
     }
-    const oldOriginalEnd = hot.originalEnd;
-    extensions.forEach((e) => {
-      const existing = hot.extensions.find((ext) => ext.attribution.name === e.attribution.name);
-      if (existing) {
-        // On refresh, reset the base extension to its fresh value rather than stacking
-        const diff = e.amount - existing.amount;
-        existing.amount = e.amount;
-        hot.originalEnd -= diff;
-        e.attribution.procs += 1;
-        e.attribution.totalExtension += diff;
-      } else {
-        this._addOrExtendExtension(hot, e.attribution, e.amount);
-        hot.originalEnd -= e.amount;
-      }
-    });
-    extensionDebug &&
-      console.log(
-        `Base extensions registered for ${hot.name}: originalEnd shifted from +${oldOriginalEnd - hot.start}ms to +${hot.originalEnd - hot.start}ms (end=+${hot.end - hot.start}ms), extensions: [${hot.extensions.map((e) => `${e.attribution.name}:${e.amount}ms`).join(', ')}]`,
-      );
+    extensions.forEach((e) => this._addOrExtendExtension(hot, e.attribution, e.amount));
   }
 
   /** Apply the given extension amount attributed to the given Attribution to the given HoT */
@@ -903,7 +880,6 @@ abstract class HotTracker extends Analyzer {
    * Returns true iff the HoT tracking involving this event is in the expected state.
    * If unexpected state is found, returns falso and logs an appropriate warning.
    */
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _validateHot(event: AbilityEvent<any> & TargettedEvent<any>) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;

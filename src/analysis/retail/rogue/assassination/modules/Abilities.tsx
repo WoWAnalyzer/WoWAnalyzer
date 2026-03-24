@@ -200,6 +200,17 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.6,
         },
       },
+      {
+        spell: TALENTS.COLD_BLOOD_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
+      },
       // endregion
     ];
   }

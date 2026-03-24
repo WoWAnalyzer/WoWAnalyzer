@@ -53,10 +53,8 @@ class DemonicAppetite extends Analyzer {
         tooltip={
           <>
             {effectiveFuryGain} Effective Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyGain} Total Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyWaste} Fury wasted
           </>

@@ -113,11 +113,9 @@ class Swiftmend extends Analyzer {
     const tooltip = (
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         targetting <strong>{target.name}</strong> w/ <strong>{overhealPercentText}%</strong>{' '}
         overheal
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {unglyphed && hotChangeText}
       </>

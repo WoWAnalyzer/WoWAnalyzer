@@ -55,7 +55,7 @@ export interface EventLink {
    *  make false positives impossible - only need to use this when situations require it.
    *  By default, any number of links can be made if they meet the parameters */
   maximumLinks?: number | ((c: Combatant) => number);
-  /** If defined, this predicate will also be called with the candidate events and if false no link will be made */
+  /** If defined, this predicate will also be called with the candidate events and iff false no link will be made */
   additionalCondition?: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => boolean;
   /** If defined, this predicate will be called with the selected combatant to determine if this
    *  spec should be run. Will be called only once at the start of the normalize function.

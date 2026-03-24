@@ -108,16 +108,16 @@ const enchants = {
   // #endregion
 
   // #region RINGS
-  RING_AMANI_MASTERY_R1: {
+  RING_AMANI_MAST_R1: {
     id: 243954,
-    name: 'Enchant Ring - Amani Mastery',
+    name: 'Enchant Ring - Amani Mast',
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 7964,
     craftQuality: 1,
   },
-  RING_AMANI_MASTERY_R2: {
+  RING_AMANI_MAST_R2: {
     id: 243955,
-    name: 'Enchant Ring - Amani Mastert',
+    name: 'Enchant Ring - Amani Mast',
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 7965,
     craftQuality: 2,
@@ -206,30 +206,30 @@ const enchants = {
     effectId: 8021,
     craftQuality: 2,
   },
-  RING_THALASSIAN_VERSATILITY_R1: {
+  RING_THALASSIAN_VERS_R1: {
     id: 244012,
     name: 'Enchant Ring - Thalassian Vers',
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 8022,
     craftQuality: 1,
   },
-  RING_THALASSIAN_VERSATILITY_R2: {
+  RING_THALASSIAN_VERS_R2: {
     id: 244013,
-    name: 'Enchant Ring - Thalassian Versatility',
+    name: 'Enchant Ring - Thalassian Vers',
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 8023,
     craftQuality: 2,
   },
-  RING_ZULJINS_MASTERY_R1: {
+  RING_ZULJINS_MAST_R1: {
     id: 243958,
-    name: "Enchant Ring - Zul'jins Mastery",
+    name: "Enchant Ring - Zul'jins Mast",
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
     effectId: 7968,
     craftQuality: 1,
   },
-  RING_ZULJINS_MASTERY_R2: {
+  RING_ZULJINS_MAST_R2: {
     id: 243959,
-    name: "Enchant Ring - Zul'jins Mastery",
+    name: "Enchant Ring - Zul'jins Mast",
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
     effectId: 7969,
     craftQuality: 2,
@@ -425,16 +425,16 @@ const enchants = {
     effectId: 8039,
     craftQuality: 2,
   },
-  WEAPON_ARCANE_MASTERY_R1: {
+  WEAPON_ARCANE_MAST_R1: {
     id: 244030,
-    name: 'Enchant Weapon - Arcane Mastery',
+    name: 'Enchant Weapon - Arcane Mast',
     icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
     effectId: 8040,
     craftQuality: 1,
   },
-  WEAPON_ARCANE_MASTERY_R2: {
+  WEAPON_ARCANE_MAST_R2: {
     id: 244031,
-    name: 'Enchant Weapon - Arcane Mastery',
+    name: 'Enchant Weapon - Arcane Mast',
     icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
     effectId: 8041,
     craftQuality: 2,
@@ -671,95 +671,91 @@ const enchants = {
   },
   // #endregion
 
-  // #region LEG
-
-  BRIGHT_LINEN_SPELLTHREAD_R1: {
-    id: 240156,
-    name: 'Bright Linen Spellthread',
-    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
-    effectId: 7938,
-    craftQuality: 1,
-  },
-  BRIGHT_LINEN_SPELLTHREAD_R2: {
-    id: 240157,
-    name: 'Bright Linen Spellthread',
-    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
-    effectId: 7939,
-    craftQuality: 2,
-  },
-  SUNFIRE_SILK_SPELLTHREAD_R1: {
-    id: 240094,
-    name: 'Sunfire Silk Spellthread',
-    icon: 'inv_tailoring_spellthread_orange_spellthread',
-    effectId: 7934,
-    craftQuality: 1,
-  },
-  SUNFIRE_SILK_SPELLTHREAD_R2: {
-    id: 240133,
-    name: 'Sunfire Silk Spellthread',
-    icon: 'inv_tailoring_spellthread_orange_spellthread',
-    effectId: 7935,
-    craftQuality: 2,
-  },
-  ARCANOWEAVE_SPELLTHREAD_R1: {
-    id: 240154,
-    name: 'Arcanoweave Spellthread',
-    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
-    effectId: 7936,
-    craftQuality: 1,
-  },
-  ARCANOWEAVE_SPELLTHREAD_R2: {
-    id: 240155,
-    name: 'Arcanoweave Spellthread',
-    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
-    effectId: 7937,
-    craftQuality: 2,
-  },
-  THALASSIAN_SCOUT_ARMOR_KIT_R1: {
+  // #region OTHER
+  ENCHANT_16_AGI_STR_R1: {
     id: 244644,
-    name: 'Thalassian Scout Armor Kit',
+    name: '16 Agi/Str',
     icon: 'inv_12_profession_leatherworking_standart_armor_kit',
     effectId: 8160,
     craftQuality: 1,
   },
-  THALASSIAN_SCOUT_ARMOR_KIT_R2: {
+  ENCHANT_16_INT_R1: {
+    id: 240156,
+    name: '16 Int',
+    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
+    effectId: 7938,
+    craftQuality: 1,
+  },
+  ENCHANT_24_AGI_STR_R2: {
     id: 244645,
-    name: 'Thalassian Scout Armor Kit',
+    name: '24 Agi/Str',
     icon: 'inv_12_profession_leatherworking_standart_armor_kit',
     effectId: 8161,
     craftQuality: 2,
   },
-  FOREST_HUNTERS_ARMOR_KIT_R1: {
-    id: 244640,
-    name: "Forest Hunter's Armor Kit",
-    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
-    effectId: 8158,
-    craftQuality: 1,
-  },
-  FOREST_HUNTERS_ARMOR_KIT_R2: {
-    id: 244641,
-    name: "Forest Hunter's Armor Kit",
-    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
-    effectId: 8159,
+  ENCHANT_24_INT_R2: {
+    id: 240157,
+    name: '24 Int',
+    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
+    effectId: 7939,
     craftQuality: 2,
   },
-  BLOOD_KNIGHTS_ARMOR_KIT_R1: {
+  ENCHANT_32_AGI_STR_16_ARMOR_R1: {
     id: 244642,
-    name: "Blood Knight's Armor Kit",
+    name: '32 Agi/Str & 16 Armor',
     icon: 'inv_12_profession_leatherworking_thalassian_amor_kit',
     effectId: 8162,
     craftQuality: 1,
   },
-  BLOOD_KNIGHTS_ARMOR_KIT_R2: {
+  ENCHANT_32_AGI_STR_70_STA_R1: {
+    id: 244640,
+    name: '32 Agi/Str & 70 Sta',
+    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
+    effectId: 8158,
+    craftQuality: 1,
+  },
+  ENCHANT_32_INT_MANA_R1: {
+    id: 240154,
+    name: '32 Int & +% Mana',
+    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
+    effectId: 7936,
+    craftQuality: 1,
+  },
+  ENCHANT_32_INT_70_STA_R1: {
+    id: 240094,
+    name: '32 Int & 70 Sta',
+    icon: 'inv_tailoring_spellthread_orange_spellthread',
+    effectId: 7934,
+    craftQuality: 1,
+  },
+  ENCHANT_41_AGI_STR_115_STA_R2: {
+    id: 244641,
+    name: '41 Agi/Str & 115 Sta',
+    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
+    effectId: 8159,
+    craftQuality: 2,
+  },
+  ENCHANT_41_AGI_STR_27_ARMOR_R2: {
     id: 244643,
-    name: "Blood Knight's Armor Kit",
+    name: '41 Agi/Str & 27 Armor',
     icon: 'inv_12_profession_leatherworking_thalassian_amor_kit',
     effectId: 8163,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region OTHER
+  ENCHANT_41_INT_MANA_R2: {
+    id: 240155,
+    name: '41 Int & +% Mana',
+    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
+    effectId: 7937,
+    craftQuality: 2,
+  },
+  ENCHANT_41_INT_115_STA_R2: {
+    id: 240133,
+    name: '41 Int & 115 Sta',
+    icon: 'inv_tailoring_spellthread_orange_spellthread',
+    effectId: 7935,
+    craftQuality: 2,
+  },
   FARSTRIDERS_HAWKEYE_R1: {
     id: 257745,
     name: "Farstrider's Hawkeye",

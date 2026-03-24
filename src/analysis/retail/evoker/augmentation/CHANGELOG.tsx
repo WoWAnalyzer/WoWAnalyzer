@@ -5,8 +5,6 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
-  change(date(2026, 3, 17), <>Updated with further class tuning hotfixes.</>, KYZ),
-  change(date(2026, 3, 15), <>Updated with class tuning hotfixes.</>, KYZ),
   change(date(2026, 2, 7), <>Add statistics for <SpellLink spell={TALENTS.CONCENTRATED_POWER_TALENT} />.</>, Vollmer),
   change(date(2026, 1, 31), <>Several <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT}/> related updates.</>, KYZ),
   change(date(2026, 1, 19), <>Updated for Midnight.</>, KYZ),

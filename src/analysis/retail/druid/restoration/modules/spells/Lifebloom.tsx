@@ -37,7 +37,6 @@ class Lifebloom extends Analyzer {
   private hasVerdancy = false;
   private showCastPanel = false;
   private hasActiveLifebloom = false;
-  private activeLifebloomTarget: number | undefined = undefined;
   private possibleVerdancyBlooms = 0;
   private actualVerdancyBlooms = 0;
   private currentLifebloomStacks = 0;
@@ -81,7 +80,6 @@ class Lifebloom extends Analyzer {
   onApplyLifebloom(event: ApplyBuffEvent) {
     this.recordCast(event, this.currentLifebloomStacks);
     this.currentLifebloomStacks = 1;
-    this.activeLifebloomTarget = event.targetID;
 
     if (this.hasActiveLifebloom) {
       return;
@@ -96,14 +94,7 @@ class Lifebloom extends Analyzer {
       return;
     }
 
-    // Ignore Remove for a target that is no longer the active Lifebloom target
-    // (happens during target swaps when the new Apply arrives before the old Remove)
-    if (event.targetID !== this.activeLifebloomTarget) {
-      return;
-    }
-
     this.hasActiveLifebloom = false;
-    this.activeLifebloomTarget = undefined;
     this.currentLifebloomStacks = 0;
     if (this.lifebloomUptimes.length > 0) {
       this.lifebloomUptimes[this.lifebloomUptimes.length - 1].end = event.timestamp;
@@ -124,10 +115,6 @@ class Lifebloom extends Analyzer {
     bloomed?: boolean,
   ) {
     if (!this.showCastPanel) {
-      return;
-    }
-
-    if (event.prepull) {
       return;
     }
 
@@ -246,8 +233,8 @@ class Lifebloom extends Analyzer {
             <strong>
               <SpellLink spell={TALENTS_DRUID.EVERBLOOM_1_RESTORATION_TALENT} />
             </strong>
-            , target swapping your lifebloom becomes punishing. Any time you swap targets, Lifebloom
-            resets to 1 stack and loses throughput.
+            , target swaps are especially punishing. Any time you swap targets, Lifebloom resets to
+            1 stack and loses throughput.
             <br />
             <strong>{this.nonThreeStackCasts} casts not refreshing a 3-stack Lifebloom</strong>
           </p>

@@ -6,7 +6,6 @@ interface StackHistoryElement {
   stacks: number;
   timestamp: number;
 }
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
@@ -378,7 +377,6 @@ class Entity {
     }
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   applyBuff(buff: BuffEvent<any> & { start: number }) {
     this.buffs.push({
       end: null,

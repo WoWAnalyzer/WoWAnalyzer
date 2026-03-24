@@ -35,7 +35,6 @@ import HitCombo from './modules/talents/HitCombo';
 import HitComboGraph from './modules/talents/HitComboGraph';
 import HitComboTracker from './modules/talents/HitComboTracker';
 import InvokeXuen from './modules/talents/InvokeXuen';
-import Zenith from './modules/talents/Zenith';
 import {
   FistsOfFuryLinkNormalizer,
   FistsOfFuryNormalizer,
@@ -80,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     chiBurst: ChiBurst,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
     celestialConduit: CelestialConduit,
-    zenith: Zenith,
 
     // Guide helpers
     hitComboTracker: HitComboTracker,

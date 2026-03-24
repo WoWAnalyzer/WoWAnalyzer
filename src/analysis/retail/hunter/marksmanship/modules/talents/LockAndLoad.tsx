@@ -41,7 +41,7 @@ class LockAndLoad extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.LOCK_AND_LOAD_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AUTO_SHOT, SPELLS.BLEAK_ARROWS_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.AUTO_SHOT, SPELLS.BLEAK_ARROW_DAMAGE]),
       this.autoshotDamage,
     );
     this.addEventListener(
@@ -96,18 +96,12 @@ class LockAndLoad extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <p>
-              You had {this.noGainLNLProcs} {this.noGainLNLProcs === 1 ? `proc` : `procs`} with LnL
-              already active.
-            </p>
-            <p>
-              You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you
-              could expect to get over the encounter.
-            </p>
-            <p>
-              You had a total of {this.totalProcs} procs, and your expected amount of procs was{' '}
-              {formatNumber(this.expectedProcs)}.
-            </p>
+            You had {this.noGainLNLProcs} {this.noGainLNLProcs === 1 ? `proc` : `procs`} with LnL
+            already active. <br />
+            You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you
+            could expect to get over the encounter. <br />
+            You had a total of {this.totalProcs} procs, and your expected amount of procs was{' '}
+            {formatNumber(this.expectedProcs)}. <br />
             <ul>
               <li>
                 You have a ≈
@@ -131,12 +125,11 @@ class LockAndLoad extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_HUNTER.LOCK_AND_LOAD_TALENT}>
-          <div>
+          <>
             {this.totalProcs} <small>procs</small>
-          </div>
-          <div>
+            <br />
             {this.noGainLNLProcs} <small>wasted procs</small>
-          </div>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

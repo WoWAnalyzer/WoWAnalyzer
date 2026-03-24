@@ -1,22 +1,30 @@
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { PenanceBoltType, PenanceDamageEvent, PenanceHealEvent } from './PenanceHelper';
+import { PenanceDamageEvent } from './Helper';
 import { getDamageEvent } from '../../normalizers/AtonementTracker';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { SpellLink } from 'interface';
+
+interface DirtyHealEvent extends HealEvent {
+  penanceBoltNumber?: number;
+}
+
+interface DirtyDamageEvent extends DamageEvent {
+  penanceBoltNumber?: number;
+}
 
 class HarshDiscipline extends Analyzer {
-  readonly expectedBoltNumbers: number[] = [];
-  atonementHealing = 0;
-  directHealing = 0;
-  damage = 0;
+  private expectedBolts = 3;
+  private harshAtonement = 0;
+  private harshDirect = 0;
+  private damage = 0;
 
   constructor(options: Options) {
     super(options);
@@ -26,64 +34,63 @@ class HarshDiscipline extends Analyzer {
       return;
     }
 
-    this.expectedBoltNumbers = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
-      ? [5, 6]
-      : [4, 5];
-
+    this.expectedBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
+      ? 4
+      : 3;
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
         .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
-      this.onAtonementHeal,
+      this.onAtoneHeal,
     );
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.PENANCE_BOLT_DAMAGE, SPELLS.PENANCE_TWINSIGHT_BOLT_DAMAGE]),
-      this.onDamage,
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_HEAL, SPELLS.DARK_REPRIMAND_HEAL]),
+      this.onHeal,
     );
-    this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.PENANCE_BOLT_HEAL, SPELLS.PENANCE_TWINSIGHT_BOLT_HEAL]),
-      this.onPenanceHeal,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onAtonementHeal(event: HealEvent) {
+  onAtoneHeal(event: HealEvent) {
     if (!getDamageEvent(event)) {
       return;
     }
     const damageEvent = getDamageEvent(event) as PenanceDamageEvent;
 
     if (
-      damageEvent.penanceBoltType === PenanceBoltType.Normal &&
-      this.expectedBoltNumbers.includes(damageEvent.penanceBoltNumber)
+      damageEvent.ability.guid !== SPELLS.DARK_REPRIMAND_DAMAGE.id &&
+      damageEvent.ability.guid !== SPELLS.PENANCE.id
     ) {
-      this.atonementHealing += event.amount;
+      return;
     }
+
+    if (damageEvent.penanceBoltNumber < this.expectedBolts) {
+      return;
+    }
+    this.harshAtonement += event.amount;
   }
 
-  onDamage(event: PenanceDamageEvent) {
-    if (
-      event.penanceBoltType === PenanceBoltType.Normal &&
-      this.expectedBoltNumbers.includes(event.penanceBoltNumber)
-    ) {
-      this.damage += event.amount;
+  onDamage(event: DamageEvent) {
+    const { penanceBoltNumber } = event as DirtyDamageEvent;
+    if (typeof penanceBoltNumber !== 'number') {
+      return;
     }
+    if (penanceBoltNumber < this.expectedBolts) {
+      return;
+    }
+
+    this.damage += event.amount;
   }
 
-  onPenanceHeal(event: PenanceHealEvent) {
-    if (
-      event.penanceBoltType === PenanceBoltType.Normal &&
-      this.expectedBoltNumbers.includes(event.penanceBoltNumber)
-    ) {
-      this.directHealing += event.amount;
+  onHeal(event: HealEvent) {
+    const { penanceBoltNumber } = event as DirtyHealEvent;
+    if (typeof penanceBoltNumber !== 'number') {
+      return;
     }
-  }
+    if (penanceBoltNumber < this.expectedBolts) {
+      return;
+    }
 
-  get getTotalHealing() {
-    return this.atonementHealing + this.directHealing;
+    this.harshDirect += event.amount;
   }
 
   statistic() {
@@ -94,32 +101,19 @@ class HarshDiscipline extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <p>
-              The effective damage & healing contributed by{' '}
-              <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} />. Damage that caused{' '}
-              <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> healing is included.
-              Contributions are separated in the list below.
-            </p>
-            <ul>
-              <li>
-                Atonement:{' '}
-                <ItemHealingDone amount={this.atonementHealing} displayPercentage={false} />
-              </li>
-              <li>
-                Direct: <ItemHealingDone amount={this.directHealing} displayPercentage={false} />
-              </li>
-            </ul>
+            <br />
+            <strong>Atonement healing:</strong> {formatThousands(this.harshAtonement)}
+            <br />
+            <strong>Direct healing:</strong> {formatThousands(this.harshDirect)}
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}>
-          <div>
-            <ItemHealingDone amount={this.getTotalHealing} />
-          </div>
-          <div>
+        <>
+          <TalentSpellText talent={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}>
+            <ItemHealingDone amount={this.harshAtonement + this.harshDirect} /> <br />
             <ItemDamageDone amount={this.damage} />
-          </div>
-        </TalentSpellText>
+          </TalentSpellText>
+        </>
       </Statistic>
     );
   }

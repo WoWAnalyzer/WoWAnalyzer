@@ -75,8 +75,8 @@ class ShadowWordMadness extends Analyzer {
     return (this.castsDP * durationDP) / this.owner.fightDuration;
   }
 
-  /*
-  This information is interesting, but I don't really know if its helpful or harmful to see.
+  /*  
+  This information is interesting, but I don't really know if its helpful or harmful to see.  
   Until I find a better way to present it, I'm leaving it out for now.
 
   statistic() {

@@ -22,7 +22,7 @@ interface StackUptime {
   stacks: number;
 }
 
-export function encodeEventTargetString(event: TargettedEvent<any>): string; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+export function encodeEventTargetString(event: TargettedEvent<any>): string;
 export function encodeEventTargetString(event: AnyEvent): string | null;
 export function encodeEventTargetString(event: AnyEvent) {
   if (!HasTarget(event)) {
@@ -31,7 +31,7 @@ export function encodeEventTargetString(event: AnyEvent) {
   return encodeTargetString(event.targetID, event.targetInstance);
 }
 
-export function encodeEventSourceString(event: SourcedEvent<any>): string; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+export function encodeEventSourceString(event: SourcedEvent<any>): string;
 export function encodeEventSourceString(event: AnyEvent): string | null;
 export function encodeEventSourceString(event: AnyEvent) {
   if (!HasSource(event)) {

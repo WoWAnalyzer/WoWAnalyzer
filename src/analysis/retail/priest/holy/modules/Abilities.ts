@@ -10,6 +10,7 @@ import Combatant from 'parser/core/Combatant';
 import { L } from 'vitest/dist/chunks/reporters.d.BFLkQcL6.js';
 
 class Abilities extends CoreAbilities {
+
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
     this.abilitiesAffectedByHealingIncreases = HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID;
@@ -26,7 +27,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PRAYER_OF_MENDING_CAST.id,
+        spell: SPELLS.PRAYER_OF_MENDING_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => {
           let baseCD = 12;

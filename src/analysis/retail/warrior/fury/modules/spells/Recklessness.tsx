@@ -57,10 +57,8 @@ class Recklessness extends Analyzer.withDependencies({
         tooltip={
           <>
             <strong>Extra Rage Generated:</strong> {formatThousands(this.reckRageGen)}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Percent of total rage generated during recklessness:</strong>{' '}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {formatPercentage(this.ratioReckRageGen, 1)}%<br />
             <strong>Percent of total damage done during recklessness:</strong>{' '}
             {formatPercentage(this.reckDPS, 1)}% ({formatThousands(this.reckDamage)})

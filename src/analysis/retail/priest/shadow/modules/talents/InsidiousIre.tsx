@@ -80,7 +80,7 @@ class InsidiousIre extends Analyzer {
   }
 
   get mindBlastEfficiency() {
-    return this.ireDataForSpell(TALENTS.MIND_BLAST_TALENT).efficiency;
+    return this.ireDataForSpell(SPELLS.MIND_BLAST).efficiency;
   }
 
   get voidTorrentEfficiency() {
@@ -91,7 +91,7 @@ class InsidiousIre extends Analyzer {
   }
 
   statistic() {
-    const mindBlast = this.ireDataForSpell(TALENTS.MIND_BLAST_TALENT);
+    const mindBlast = this.ireDataForSpell(SPELLS.MIND_BLAST);
     const voidTorrent = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)
       ? this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT)
       : undefined;
@@ -108,10 +108,7 @@ class InsidiousIre extends Analyzer {
           >
             <ItemDamageDone amount={mindBlast.damageGained + (voidTorrent?.damageGained || 0)} />
           </BoringSpellValueText>
-          <BoringSpellValueText
-            key={TALENTS.MIND_BLAST_TALENT.id}
-            spell={TALENTS.MIND_BLAST_TALENT}
-          >
+          <BoringSpellValueText key={SPELLS.MIND_BLAST.id} spell={SPELLS.MIND_BLAST}>
             <div>
               <UptimeIcon /> {formatPercentage(mindBlast.efficiency)} % <small>efficiency</small>
             </div>
@@ -135,7 +132,7 @@ class InsidiousIre extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const mindBlast = this.ireDataForSpell(TALENTS.MIND_BLAST_TALENT);
+    const mindBlast = this.ireDataForSpell(SPELLS.MIND_BLAST);
     const voidTorrent = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)
       ? this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT)
       : undefined;
@@ -146,11 +143,10 @@ class InsidiousIre extends Analyzer {
           <b>
             <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} />
           </b>{' '}
-          adds damange to <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> and{' '}
+          adds damange to <SpellLink spell={SPELLS.MIND_BLAST} /> and{' '}
           <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> when{' '}
           <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />
           , and <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> are all active on the
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           target. <br />
           Be sure to cast these spells while Devouring Plague is on your target to increase their
           damage.

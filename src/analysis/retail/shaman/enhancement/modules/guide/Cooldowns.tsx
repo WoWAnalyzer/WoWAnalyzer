@@ -38,11 +38,11 @@ const COOLDOWNS: Cooldown[] = [
 function Cooldowns({ info, modules, events }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Core">
+      {modules.doomWinds.guideSubsection}
+      {modules.stormUnleashed.guideSubsection}
       {modules.elementalTempo.guideSubsection}
       {modules.hotHand.guideSubsection}
-      {modules.doomWinds.guideSubsection}
       {modules.primordialStorm.guideSubsection}
-      {modules.stormUnleashed.guideSubsection}
       <SubSection title="Cooldowns">
         <p>
           <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how

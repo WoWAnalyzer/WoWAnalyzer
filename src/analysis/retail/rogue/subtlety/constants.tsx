@@ -79,8 +79,7 @@ export const getBuilderSpells = (c: Combatant): Spell[] => {
 export const FINISHERS: Spell[] = [
   SPELLS.RUPTURE,
   SPELLS.EVISCERATE,
-  // todo: secret technique is no longer a talent.
-  // TALENTS.SECRET_TECHNIQUE_TALENT,
+  TALENTS.SECRET_TECHNIQUE_TALENT,
   SPELLS.SLICE_AND_DICE,
   SPELLS.KIDNEY_SHOT,
 ];

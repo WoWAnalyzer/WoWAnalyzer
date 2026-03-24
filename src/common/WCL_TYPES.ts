@@ -28,18 +28,19 @@ export interface WCLRankingsResponse {
 }
 
 export type WCLRanking = {
-  class: number;
-  duration: number;
-  faction: number;
-  gear: WCLRankingGear[];
-  hardModeLevel: number;
   name: string;
-  report: WCLRankingReport;
-  server: WCLRankingServer;
-  size: number;
-  spec: string;
+  class: number;
+  spec: number;
+  duration: number;
   startTime: number;
+  fightID: number;
+  reportID: string;
+  guildName: string;
+  serverName: string;
+  regionName: string;
+  hidden: boolean;
   talents: WCLRankingTalent[];
+  gear: WCLRankingGear[];
 } & (
   | {
       total: number;
@@ -47,18 +48,6 @@ export type WCLRanking = {
     }
   | { amount: number; bracketData: number }
 );
-
-interface WCLRankingReport {
-  code: string;
-  fightID: number;
-  startTime: number;
-}
-
-interface WCLRankingServer {
-  id: number;
-  name: string;
-  region: string;
-}
 
 interface WCLRankingTalent {
   name: string;
@@ -129,7 +118,7 @@ interface BossSeries {
   type: 'Boss';
   currentValues: number[];
   data: number[][];
-  events: any[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  events: any[];
   maxValues: number[];
 }
 

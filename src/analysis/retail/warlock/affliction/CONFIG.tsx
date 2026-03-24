@@ -21,7 +21,6 @@ const CONFIG: Config = {
       your play. While the goal of this tool is to improve your overall Affliction Warlock play, the
       tool is currently under active development and may provide suggestions that are incorrect or
       strange.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br /> <br />
       The tool is not perfect so I am always looking to improve it. If you have any suggestions or
       comments, don't hesitated to swing by the GitHub Issue linked below, or the{' '}

@@ -16,27 +16,20 @@ import {
   VOID_METAMORPHOSIS_BASE_SOULS_COST,
   VOID_METAMORPHOSIS_SOUL_GLUTTON_SOULS_COST,
 } from '../../constants';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class Reap extends Analyzer {
-  #reapEntries: BoxRowEntry[] = [];
+  reapEntries: BoxRowEntry[] = [];
 
-  #hasSoulGluttonTalent = this.selectedCombatant.hasTalent(
-    TALENTS_DEMON_HUNTER.SOUL_GLUTTON_TALENT,
-  );
-  #hasScythesEmbraceTalent = this.selectedCombatant.hasTalent(
-    TALENTS_DEMON_HUNTER.SCYTHES_EMBRACE_TALENT,
-  );
+  hasSoulGluttonTalent = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_GLUTTON_TALENT);
 
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REAP), this.#onReapCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REAP), this.onReapCast);
   }
 
-  #onReapCast(event: CastEvent) {
-    const soulsRequiredVoidMeta = this.#hasSoulGluttonTalent
+  onReapCast(event: CastEvent) {
+    const soulsRequiredVoidMeta = this.hasSoulGluttonTalent
       ? VOID_METAMORPHOSIS_SOUL_GLUTTON_SOULS_COST
       : VOID_METAMORPHOSIS_BASE_SOULS_COST;
     const availableSouls = this.selectedCombatant.getBuffStacks(SPELLS.SOUL_FRAGMENT_DEVOUR);
@@ -88,7 +81,7 @@ class Reap extends Analyzer {
       );
     }
 
-    this.#reapEntries.push({ value, tooltip });
+    this.reapEntries.push({ value, tooltip });
   }
 
   guideSubsection(): JSX.Element {
@@ -96,34 +89,15 @@ class Reap extends Analyzer {
       <>
         <p>
           Outside <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />, you have
-          access to <SpellLink spell={SPELLS.REAP} />,{' '}
-          {this.#hasScythesEmbraceTalent ? (
-            <>
-              which is very strong thanks to{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.SCYTHES_EMBRACE_TALENT} /> and should be
-              pressed on cooldown
-            </>
-          ) : (
-            <>
-              which is only to be used to quickly absorb the last few souls you need to get into{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
-            </>
-          )}
+          access to <SpellLink spell={SPELLS.REAP} />, which is only to be used to quickly absorb
+          the last few souls you need to get into{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
         </p>
       </>
     );
     const data = (
       <RoundedPanel>
-        {this.#hasScythesEmbraceTalent ? (
-          <CastEfficiencyBar
-            spell={SPELLS.REAP}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            minimizeIcons
-            slimLines
-          />
-        ) : (
-          <CastSummaryAndBreakdown spell={SPELLS.REAP} castEntries={this.#reapEntries} />
-        )}
+        <CastSummaryAndBreakdown spell={SPELLS.REAP} castEntries={this.reapEntries} />
       </RoundedPanel>
     );
     return (

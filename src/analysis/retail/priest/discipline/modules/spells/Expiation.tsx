@@ -40,7 +40,7 @@ class Expiation extends Analyzer {
         .spell([
           SPELLS.EXPIATION_DAMAGE,
           TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT,
-          TALENTS_PRIEST.MIND_BLAST_TALENT,
+          SPELLS.MIND_BLAST,
         ]),
       this.onDamage,
     );
@@ -57,7 +57,7 @@ class Expiation extends Analyzer {
     if (
       damageEvent?.ability.guid !== SPELLS.EXPIATION_DAMAGE.id &&
       damageEvent?.ability.guid !== TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id &&
-      damageEvent?.ability.guid !== TALENTS_PRIEST.MIND_BLAST_TALENT.id
+      damageEvent?.ability.guid !== SPELLS.MIND_BLAST.id
     ) {
       return;
     }
@@ -66,7 +66,7 @@ class Expiation extends Analyzer {
       this.expiationHealing += event.amount;
     }
 
-    if (damageEvent.ability.guid === TALENTS_PRIEST.MIND_BLAST_TALENT.id) {
+    if (damageEvent.ability.guid === SPELLS.MIND_BLAST.id) {
       this.mindBlastHealing += calculateEffectiveHealing(event, this.expiationIncrease);
     }
 
@@ -101,11 +101,10 @@ class Expiation extends Analyzer {
                 {formatNumber(this.deathHealing)}{' '}
               </li>
               <li>
-                <SpellLink spell={TALENTS_PRIEST.MIND_BLAST_TALENT} />:
-                {formatNumber(this.mindBlastHealing)}{' '}
+                <SpellLink spell={SPELLS.MIND_BLAST} />:{formatNumber(this.mindBlastHealing)}{' '}
               </li>
             </ul>
-            The bonus damage to <SpellLink spell={TALENTS_PRIEST.MIND_BLAST_TALENT} /> and{' '}
+            The bonus damage to <SpellLink spell={SPELLS.MIND_BLAST} /> and{' '}
             <SpellLink spell={TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT} /> was:{' '}
             {formatNumber(this.bonusDamage)}.
           </>
@@ -113,12 +112,10 @@ class Expiation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.EXPIATION_TALENT}>
-          <div>
-            <ItemHealingDone amount={totalHealing} />
-          </div>
-          <div>
+          <>
+            <ItemHealingDone amount={totalHealing} /> <br />
             <ItemDamageDone amount={this.bonusDamage + this.expiationDamage} />
-          </div>
+          </>
         </TalentSpellText>
       </Statistic>
     );

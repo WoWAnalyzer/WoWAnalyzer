@@ -99,7 +99,6 @@ export function CastEfficiencyBarElement({ spell }: { spell: Spell }) {
           <>
             {' '}
             - yellow when on cooldown, grey when available, white lines show casts.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Red highlights available times you could have fit a whole extra use of the ability.
           </>

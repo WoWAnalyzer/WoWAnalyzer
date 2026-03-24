@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Atonement from './Atonement';
@@ -37,7 +37,7 @@ class PowerWordRadiance extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE),
       this.onRadiance,
     );
 

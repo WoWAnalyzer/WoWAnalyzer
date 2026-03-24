@@ -34,7 +34,6 @@ const Footer = () => (
             </a>
           </Tooltip>
         </div>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
 
         <div className="attribution">
@@ -43,7 +42,6 @@ const Footer = () => (
             content={
               <>
                 Icon creators:
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 <ul>
                   <li>Fingerprint by IconsGhost</li>
@@ -73,13 +71,10 @@ const Footer = () => (
           >
             Icons by the <a href="https://thenounproject.com">Noun Project</a>.
           </TooltipElement>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           World of Warcraft and related artwork is copyright of Blizzard Entertainment, Inc.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           This is a fan site and we are not affiliated.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <Link to="/">Home</Link> &ndash; <Link to="/privacy">Privacy Policy</Link>
         </div>

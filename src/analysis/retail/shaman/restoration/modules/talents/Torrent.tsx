@@ -69,7 +69,6 @@ class Torrent extends Analyzer {
           <>
             <strong>{formatNumber(this.healing)}</strong> bonus healing (
             {formatNumber(this.overHealing)} overhealing)
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>{formatNumber(this.critIncrease)}</strong> estimated bonus healing from the
             increased critical strike chance. This is not included in the HPS value below.

@@ -81,7 +81,6 @@ class FocusCapTracker extends RegenResourceCapTracker {
         <Tooltip
           content={
             <>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               Natural Focus regen lost: <strong>{formatThousands(this.missedRegen)}</strong> <br />{' '}
               That is <strong>{formatPercentage(this.wastedPercent)}%</strong> of natural
               regenerated focus over the course of the encounter.

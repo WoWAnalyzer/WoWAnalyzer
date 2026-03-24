@@ -20,11 +20,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      branch: GameBranch.Retail,
-    },
-    {
       spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,

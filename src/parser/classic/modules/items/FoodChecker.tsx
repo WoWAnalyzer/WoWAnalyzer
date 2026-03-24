@@ -69,7 +69,6 @@ const DebugText = ({ stat }: { stat: PRIMARY_STAT }) => {
           <Fragment key={spellId}>
             <hr />
             <ItemLink id={FOOD_MAPPINGS[Number(spellId)].itemId} key={index} />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <RecommendedFoodList spellId={Number(spellId)} primary={stat} />
           </Fragment>

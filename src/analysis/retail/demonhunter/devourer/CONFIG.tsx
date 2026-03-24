@@ -22,17 +22,14 @@ const CONFIG: Config = {
       </p>
       <p>
         More resources for Devour:
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <a href="https://www.wowhead.com/guide/classes/demon-hunter/devourer/overview-pve-dps">
           Wowhead Guide
         </a>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <a href="https://www.icy-veins.com/wow/devourer-demon-hunter-pve-dps-guide">
           Icy Veins Guide
         </a>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <a href="https://discord.gg/felhammer">Demon Hunter class Discord</a>
       </p>

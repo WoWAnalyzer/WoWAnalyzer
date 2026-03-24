@@ -28,7 +28,6 @@ const CAUSED_BLOOM = 'CausedBloom';
 const CAUSED_TICK = 'CausedTick';
 const CAUSED_SUMMON = 'CausedSummon';
 const FROM_EVERBLOOM = 'FromEverbloom';
-const FROM_BLOOM = 'FromBloom';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -183,18 +182,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 5,
   },
-  // linking Verdancy heal to the bloom that triggered it
-  {
-    linkRelation: FROM_BLOOM,
-    linkingEventId: SPELLS.VERDANCY.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    maximumLinks: 1,
-  },
 ];
 
 /**
@@ -265,15 +252,6 @@ export function causedBloom(event: RemoveBuffEvent | RefreshBuffEvent): boolean 
  *  cast ID `TRANQUILITY_CAST`. */
 export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, CAUSED_TICK);
-}
-
-/** Returns the bloom heal event that triggered this Verdancy heal, if linked */
-export function getSourceBloom(event: HealEvent): HealEvent | undefined {
-  return GetRelatedEvents<HealEvent>(
-    event,
-    FROM_BLOOM,
-    (e): e is HealEvent => e.type === EventType.Heal,
-  ).pop();
 }
 
 export default CastLinkNormalizer;

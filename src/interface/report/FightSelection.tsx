@@ -42,7 +42,7 @@ const FightSelectionList = () => {
   usePageView('FightSelectionList');
 
   return (
-    <main className="container offset fight-selection">
+    <div className="container offset fight-selection">
       <div className="flex wrapable" style={{ marginBottom: 15 }}>
         <div className="flex-main" style={{ position: 'relative' }}>
           <div className="back-button">
@@ -110,7 +110,7 @@ const FightSelectionList = () => {
       {!isUnsupportedClassicVersion(report.gameVersion) && (
         <FightSelectionPanel report={report} killsOnly={killsOnly} />
       )}
-    </main>
+    </div>
   );
 };
 

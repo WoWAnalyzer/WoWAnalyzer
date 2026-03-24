@@ -68,7 +68,9 @@ class MassDisintegrate extends Analyzer {
 
     if (this.hasConcentratedPower) {
       this.maxTargets += CONCENTRATED_POWER_EXTRA_TARGETS;
-      this.maxTargetsForAmp += CONCENTRATED_POWER_EXTRA_TARGETS;
+      /** FIXME: This is commented out to account for a bug that causes the extra missing target multiplier to not apply
+       *   might also just be a intentional, who knows, if they ever "fix" it the logic for handling it is already in place */
+      //this.maxTargetsForAmp += CONCENTRATED_EXTRA_TARGETS;
     }
 
     this.addEventListener(
@@ -200,7 +202,10 @@ class MassDisintegrate extends Analyzer {
   }
 
   private attributeDamage(damageResult: DamageResult, targetCount: number) {
-    if (!this.hasConcentratedPower) {
+    if (
+      !this.hasConcentratedPower ||
+      (targetCount <= this.maxBaseTargets && this.maxBaseTargets === this.maxTargetsForAmp) // FIXME: Remove this check when the bug missing target multiplier bug is fixed
+    ) {
       this.damageFromAmp += damageResult.ampedDamage;
       this.damageFromExtraTargets += damageResult.extraDamage;
       return;
@@ -243,16 +248,8 @@ class MassDisintegrate extends Analyzer {
     return this.targetCount / this.castCount;
   }
 
-  get consumedBuffs() {
-    return this.castCount;
-  }
-
   get wastedBuffs() {
     return this.buffCount - this.castCount;
-  }
-
-  get totalBuffs() {
-    return this.buffCount;
   }
 
   statistic() {

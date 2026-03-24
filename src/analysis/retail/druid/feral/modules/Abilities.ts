@@ -145,10 +145,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled:
-          combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
-          !combatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
-        cooldown: combatant.getTalentRank(TALENTS_DRUID.FOCUSED_FRENZY_TALENT) ? 30 : 45,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
+        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 10,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -158,37 +156,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        timelineSortIndex: 21,
-      },
-      {
-        spell: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-        gcd: {
-          static: 1000,
-        },
-        timelineSortIndex: 21,
-      },
-      {
-        spell: TALENTS_DRUID.CHOMP_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.CHOMP_TALENT),
-        cooldown: 20,
-        // TODO: Adjust these values based on real world numerical outcomes
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.65,
-          majorIssueEfficiency: 0.5,
-        },
-        gcd: normalGcd,
         timelineSortIndex: 21,
       },
       {

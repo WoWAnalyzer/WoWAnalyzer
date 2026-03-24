@@ -9,7 +9,7 @@ export function Component() {
   usePageView('Home/News');
   return (
     <>
-      <DocumentTitle title="News" /> {/* prettiest is if the Home page has no title at all */}
+      <DocumentTitle /> {/* prettiest is if the Home page has no title at all */}
       <div className="flex flex-news">
         <div className="flex-main">
           <h1 id="news-top">

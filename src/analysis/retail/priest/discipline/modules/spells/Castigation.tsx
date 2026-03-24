@@ -1,98 +1,96 @@
 import {
   IsPenanceDamageEvent,
-  PenanceBoltType,
-  PenanceDamageEvent,
-  PenanceHealEvent,
-} from './PenanceHelper';
+  IsPenanceHealEvent,
+} from 'analysis/retail/priest/discipline/modules/spells/Helper';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import Penance from './Penance';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { getDamageEvent } from '../../normalizers/AtonementTracker';
-import {
-  PENANCE_BOLTS,
-  PENANCE_CASTIGATION_ADDITIONAL_BOLTS,
-} from 'analysis/retail/priest/discipline/constants';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { SpellLink } from 'interface';
-
-const PENANCE_CASTIGATION_BOLT_NUMBER = PENANCE_BOLTS + PENANCE_CASTIGATION_ADDITIONAL_BOLTS;
 
 class Castigation extends Analyzer {
-  atonementHealing = 0;
-  directHealing = 0;
+  static dependencies = {
+    penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
+  };
+
+  healing = 0;
   damage = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT);
-    if (!this.active) {
-      return;
-    }
-
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.PENANCE_BOLT_DAMAGE, SPELLS.PENANCE_TWINSIGHT_BOLT_DAMAGE]),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.PENANCE_BOLT_HEAL, SPELLS.PENANCE_TWINSIGHT_BOLT_HEAL]),
-      this.onPenanceHeal,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
         .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
-      this.onAtonementHeal,
+      this.onAtoneHeal,
     );
   }
 
-  onAtonementHeal(event: HealEvent) {
+  onAtoneHeal(event: HealEvent) {
     const damageEvent = getDamageEvent(event);
-    if (!damageEvent || !IsPenanceDamageEvent(damageEvent)) {
+    if (!damageEvent) {
+      return;
+    }
+    if (!IsPenanceDamageEvent(damageEvent)) {
       return;
     }
 
     if (
-      damageEvent.penanceBoltType === PenanceBoltType.Normal &&
-      damageEvent.penanceBoltNumber === PENANCE_CASTIGATION_BOLT_NUMBER
+      (damageEvent.ability.guid !== SPELLS.PENANCE.id &&
+        damageEvent.ability.guid !== SPELLS.DARK_REPRIMAND_DAMAGE.id) ||
+      damageEvent.penanceBoltNumber !== 3
     ) {
-      this.atonementHealing += event.amount;
+      return;
     }
+    this.healing += event.amount;
   }
 
-  onDamage(event: PenanceDamageEvent) {
+  onDamage(event: DamageEvent) {
+    if (!IsPenanceDamageEvent(event)) {
+      return;
+    }
+
     if (
-      event.penanceBoltType === PenanceBoltType.Normal &&
-      event.penanceBoltNumber === PENANCE_CASTIGATION_BOLT_NUMBER
+      (event.ability.guid !== SPELLS.PENANCE.id &&
+        event.ability.guid !== SPELLS.DARK_REPRIMAND_DAMAGE.id) ||
+      event.penanceBoltNumber !== 3
     ) {
-      this.damage += event.amount;
+      return;
     }
+
+    this.damage += event.amount;
   }
 
-  onPenanceHeal(event: PenanceHealEvent) {
-    if (
-      event.penanceBoltType === PenanceBoltType.Normal &&
-      event.penanceBoltNumber === PENANCE_CASTIGATION_BOLT_NUMBER
-    ) {
-      this.directHealing += event.amount;
+  onHeal(event: HealEvent) {
+    if (!IsPenanceHealEvent(event)) {
+      return;
     }
-  }
 
-  get getTotalHealing() {
-    return this.atonementHealing + this.directHealing;
+    const spellId = event.ability.guid;
+
+    // Friendly Penance Healing
+    if (spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.DARK_REPRIMAND_HEAL.id) {
+      if (event.penanceBoltNumber === 3) {
+        this.healing += event.amount;
+      }
+    }
   }
 
   statistic() {
+    const healing = this.healing || 0;
+    const damage = this.damage || 0;
+
     return (
       <Statistic
         size="flexible"
@@ -100,31 +98,18 @@ class Castigation extends Analyzer {
         position={STATISTIC_ORDER.CORE(4)}
         tooltip={
           <>
-            <p>
-              The effective damage & healing contributed by{' '}
-              <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />. Damage that caused{' '}
-              <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> healing is included.
-              Contributions are separated in the list below.
-            </p>
-            <ul>
-              <li>
-                Atonement:{' '}
-                <ItemHealingDone amount={this.atonementHealing} displayPercentage={false} />
-              </li>
-              <li>
-                Direct: <ItemHealingDone amount={this.directHealing} displayPercentage={false} />
-              </li>
-            </ul>
+            {' '}
+            The effective healing contributed by Castigation (
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total
+            healing done). Castigation also contributed{' '}
+            {formatNumber((damage / this.owner.fightDuration) * 1000)} DPS (
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))}% of total damage
+            done), the healing gain of this damage was included in the shown numbers.
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.CASTIGATION_TALENT}>
-          <div>
-            <ItemHealingDone amount={this.getTotalHealing} />
-          </div>
-          <div>
-            <ItemDamageDone amount={this.damage} />
-          </div>
+          <ItemHealingDone amount={healing} />
         </BoringSpellValueText>
       </Statistic>
     );

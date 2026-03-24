@@ -14,8 +14,8 @@ export function IntroSection() {
         The accuracy and problems pointed out here are <b>guidelines</b> and don't factor in raid
         conditions or edge cases. To find a good measure of success, you should compare your results
         to other top Hunters in the same fight with Warcraft Logs (e.g{' '}
-        <a href="https://www.warcraftlogs.com/zone/rankings/46?boss=3176&class=Hunter&spec=Survival">
-          Heroic Imperator Averzian Top 100
+        <a href="https://www.warcraftlogs.com/zone/rankings/44?boss=3129&class=Hunter&spec=Survival">
+          Mythic Plexus Sentinel Top 100
         </a>
         ).
       </p>

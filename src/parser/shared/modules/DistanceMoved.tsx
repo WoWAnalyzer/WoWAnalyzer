@@ -122,9 +122,7 @@ class DistanceMoved extends Analyzer {
           <Trans id="shared.distanceMoved.statistic.tooltip">
             Consider this when analyzing the fight, as some fights require more movement than
             others. Unnecessary movement can result in a DPS/HPS loss.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             In ≈{formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈
             {formatThousands(this.totalDistanceMoved)} yards (≈

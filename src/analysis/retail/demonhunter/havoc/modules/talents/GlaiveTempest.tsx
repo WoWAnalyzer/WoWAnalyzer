@@ -37,7 +37,6 @@ class GlaiveTempest extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         }

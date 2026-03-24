@@ -21,7 +21,7 @@ export const defaultConfig = {
 
 interface Props {
   spec: VisualizationSpec;
-  data: any; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  data: any;
   config?: Config;
   width?: number;
   height?: number;

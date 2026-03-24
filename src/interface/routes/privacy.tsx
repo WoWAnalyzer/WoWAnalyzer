@@ -372,11 +372,8 @@ http://www.networkadvertising.org/choices/"
         <p>
           You may contact us online concerning our Privacy Policy, or write to us at the following
           address:
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           RPGLogs, Attn: Data Privacy Manager <br />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           1301 Fannin St #2440 <br />
           Houston, TX 77002
         </p>

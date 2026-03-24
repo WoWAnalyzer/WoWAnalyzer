@@ -33,7 +33,7 @@ interface DefensiveTrigger<Apply extends EventType, Remove extends EventType> {
   applyTrigger: EventFilter<Apply>;
   removeTrigger: EventFilter<Remove>;
   trackOn: ResourceActor;
-  isMatchingApply: (event: AbilityEvent<any>) => boolean; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  isMatchingApply: (event: AbilityEvent<any>) => boolean;
 }
 
 /**
@@ -85,7 +85,6 @@ export interface MitigatedEvent {
  * since it pops up a lot and you *almost never* need to know the start/end types
  * (typically, you only need the timestamps).
  */
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export interface Mitigation<Apply extends EventType = any, Remove extends EventType = any> {
   start: AnyEvent<Apply>;
   end: AnyEvent<Remove> | FightEndEvent;

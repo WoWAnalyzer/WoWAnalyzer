@@ -4,7 +4,6 @@ import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import { ResourceLink, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/rogue';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
@@ -62,11 +61,14 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
     <Section title="Core Rotation">
       <p>
         Subtlety’s core rotation involves generating combo points with builders and spending them on
-        finishers. Cooldowns like <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> and{' '}
+        finishers. Cooldowns like <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> and{' '}
         <SpellLink spell={SPELLS.SHADOW_DANCE} /> should be optimized.
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       {modules.shadowDance.guideSubsection}
+      {modules.symbolsOfDeath.guideSubsection}
+      {modules.ruptureUptime.guideSubsection}
+      {modules.flagellationAnalysis.guideSubsection}
       {modules.shadowBlades.guideSubsection}
     </Section>
   );

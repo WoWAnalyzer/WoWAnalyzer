@@ -209,6 +209,16 @@ const spells = {
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
   },
+  SYMBOLS_OF_DEATH: {
+    id: 212283,
+    name: 'Symbols of Death',
+    icon: 'spell_shadow_rune',
+  },
+  FLAGELLATION: {
+    id: 384631,
+    name: 'Flagellation',
+    icon: 'inv_ability_rogue_flagellation',
+  },
   SHADOW_STEP: {
     id: 36554,
     name: 'Shadowstep',

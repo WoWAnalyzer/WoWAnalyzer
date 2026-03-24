@@ -32,12 +32,10 @@ export const AcceleratingBladeExplanation = () => {
             content={
               <div>
                 {primaryTargetScaling}% damage to primary target
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 {secondaryTargetScaling}% damage to secondary target
                 {info.combatant.hasTalent(TALENTS.BOUNCING_GLAIVES_TALENT) && (
                   <>
-                    {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                     <br />
                     {tertiaryTargetScaling}% damage to tertiary target
                   </>

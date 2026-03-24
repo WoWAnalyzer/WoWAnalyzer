@@ -3,7 +3,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -20,6 +20,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class NaturesSwiftness extends Analyzer {
   static AFFECTED_SPELLS = [
+    SPELLS.HEALING_SURGE,
     SPELLS.LIGHTNING_BOLT,
     TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
     TALENTS_SHAMAN.HEALING_RAIN_TALENT,
@@ -30,7 +31,7 @@ class NaturesSwiftness extends Analyzer {
 
   static GOOD_SPELLS = [TALENTS_SHAMAN.CHAIN_HEAL_TALENT.id];
 
-  static OK_SPELLS = [SPELLS.HEALING_WAVE.id, TALENTS_SHAMAN.HEALING_RAIN_TALENT.id];
+  static OK_SPELLS = [SPELLS.HEALING_SURGE.id, TALENTS_SHAMAN.HEALING_RAIN_TALENT.id];
 
   manaSaved = 0;
   castCount = 0;
@@ -47,20 +48,13 @@ class NaturesSwiftness extends Analyzer {
       this.onRelevantCast,
     );
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.NATURES_SWIFTNESS_BUFF, SPELLS.ANCESTRAL_SWIFTNESS_CAST]),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.NATURES_SWIFTNESS_BUFF),
       this.onApplyBuff,
     );
   }
 
   onRelevantCast(event: CastEvent) {
-    if (
-      !(
-        this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS_BUFF.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.ANCESTRAL_SWIFTNESS_CAST.id)
-      )
-    ) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS_BUFF.id)) {
       return;
     }
 
@@ -69,6 +63,14 @@ class NaturesSwiftness extends Analyzer {
     }
 
     if (!event.resourceCost) {
+      return;
+    }
+
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.SPIRITWALKERS_TIDAL_TOTEM_BUFF.id) &&
+      event.ability.guid === SPELLS.HEALING_SURGE.id
+    ) {
+      // if both SWTT and NS are present when a Healing Surge is cast, only SWTT is consumed base on my testing
       return;
     }
 
@@ -87,7 +89,7 @@ class NaturesSwiftness extends Analyzer {
     }
   }
 
-  onApplyBuff() {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.castCount += 1;
   }
 
@@ -143,13 +145,16 @@ class NaturesSwiftness extends Analyzer {
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
+        While{' '}
         <b>
           <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} />
         </b>{' '}
-        can save you a substantial amount of mana over the course of a fight. You should aim to use
-        it on your most expensive spells, like{' '}
-        <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />. Using it with{' '}
-        <SpellLink spell={SPELLS.HEALING_WAVE} /> could also save a life.
+        can be used to save someone's life with an instant{' '}
+        <SpellLink spell={SPELLS.HEALING_SURGE} />, it can also save you a substantial amount of
+        mana over the course of a fight. You should aim to use it on your most expensive spells,
+        like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} /> or sometimes{' '}
+        <SpellLink spell={SPELLS.HEALING_SURGE} />. Avoid using it with{' '}
+        <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
       </p>
     );
 
@@ -165,7 +170,6 @@ class NaturesSwiftness extends Analyzer {
               useThresholds
               gapHighlightMode={GapHighlight.FullCooldown}
             />{' '}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Casts </strong>
             <small>
@@ -190,9 +194,10 @@ class NaturesSwiftness extends Analyzer {
         </b>{' '}
         is a crucial spell for Farseer Shamans. You should aim to cast this on cooldown to maximize
         your Ancestor uptime through{' '}
-        <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} />. You should aim to use it
-        on your most expensive spells, like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />.
-        Avoid using it with <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
+        <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} /> . You should aim to use it
+        on your most expensive spells, like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />{' '}
+        or sometimes <SpellLink spell={SPELLS.HEALING_SURGE} />. Avoid using it with{' '}
+        <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
       </p>
     );
 
@@ -206,10 +211,8 @@ class NaturesSwiftness extends Analyzer {
             <CastEfficiencyBar
               spell={SPELLS.ANCESTRAL_SWIFTNESS_CAST}
               useThresholds
-              minimizeIcons
               gapHighlightMode={GapHighlight.FullCooldown}
             />{' '}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Casts </strong>
             <small>

@@ -63,20 +63,16 @@ class DemonBlades extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {effectiveFuryGain} Effective Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyGain} Total Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyWaste} Fury wasted
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.DEMON_BLADES}>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           {this.furyPerMin} <small>Fury per min</small> <br />
           {this.owner.formatItemDamageDone(this.damage)}
         </BoringSpellValueText>

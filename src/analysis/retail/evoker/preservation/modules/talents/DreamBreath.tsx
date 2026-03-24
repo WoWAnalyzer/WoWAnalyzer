@@ -104,9 +104,11 @@ class DreamBreath extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
         </b>{' '}
-        is your empowered healing ability and a very strong part of your kit. You should aim to use
-        it at Empower rank 1 in most scenarios, with the rare exception when you desperately need a
-        burst AoE heal.
+        is one of your empowered abilities and a very strong HoT. You should aim to use it at
+        Empower 1 in most scenarios, with the rare exception when you desperately need a burst AoE
+        heal. If talented into <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} />, always use{' '}
+        <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to casting{' '}
+        <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />.
       </p>
     );
 
@@ -115,9 +117,11 @@ class DreamBreath extends Analyzer {
       let value = QualitativePerformance.Fail;
       const groupSize = Object.keys(this.combatants.getEntities()).length;
       const maxTargets = groupSize > 5 ? 6 : 5;
-      if (cast.targetsHit >= maxTargets) {
+      const coyActive =
+        this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && cast.coyActive;
+      if (coyActive && cast.targetsHit >= maxTargets) {
         value = QualitativePerformance.Good;
-      } else if (cast.targetsHit >= maxTargets - 1) {
+      } else if (coyActive && cast.targetsHit >= maxTargets - 1) {
         value = QualitativePerformance.Ok;
       }
       const tooltip = (
@@ -125,6 +129,12 @@ class DreamBreath extends Analyzer {
           <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
           {this.owner.formatTimestamp(cast.timestamp)} <br />
           {cast.targetsHit} targets hit <br />
+          {this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
+            <>
+              <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> active:{' '}
+              {cast.coyActive ? 'Yes' : 'No'}
+            </>
+          )}
         </>
       );
       entries.push({ value, tooltip });

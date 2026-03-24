@@ -20,9 +20,7 @@ const config: Config = {
       <a href="https://discordapp.com/invite/Skyhold">Warrior Class Discord</a> if you need more
       specific advice or a more detailed guide than the ones available on{' '}
       <a href="https://www.icy-veins.com/wow/arms-warrior-pve-dps-guide">Icy-Veins</a> and{' '}
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <a href="https://www.wowhead.com/arms-warrior-guide">Wowhead</a>.<br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
     </>
   ),

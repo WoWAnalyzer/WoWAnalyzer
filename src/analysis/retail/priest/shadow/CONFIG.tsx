@@ -18,9 +18,7 @@ const config: Config = {
     <>
       Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
       useful. If you find any issues, please let DoxAshe#8269 know on Discord
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       If you need general help learning the spec, Wowhead has a great getting started guide for
       Shadow. You can find it{' '}
@@ -31,9 +29,7 @@ const config: Config = {
       >
         here
       </a>
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       .<br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       If you have any questions about playing Shadow Priest, join the Priest community at the{' '}
       <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">

@@ -39,7 +39,6 @@ class InnerDemons extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.damage)} damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Note that this only counts the direct damage from them, not Implosion damage (if used)
             from Wild Imps

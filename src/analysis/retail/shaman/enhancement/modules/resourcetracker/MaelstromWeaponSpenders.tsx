@@ -6,7 +6,6 @@ import Events, {
   CastEvent,
   DamageEvent,
   EventType,
-  FreeCastEvent,
   GetRelatedEvents,
   HealEvent,
 } from 'parser/core/Events';
@@ -39,10 +38,6 @@ class MaelstromWeaponSpenders extends Analyzer.withDependencies({
       this.onCast,
     );
     this.addEventListener(
-      Events.freecast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
-      this.onCast,
-    );
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
       this.onSpender,
     );
@@ -52,7 +47,7 @@ class MaelstromWeaponSpenders extends Analyzer.withDependencies({
     );
   }
 
-  onCast(event: CastEvent | FreeCastEvent) {
+  onCast(event: CastEvent) {
     this.recordNextSpenderAmount = true;
     this.isPrimordialStormRelatedDamage = event.ability.guid === SPELLS.PRIMORDIAL_STORM_CAST.id;
     if (event.ability.guid === TALENTS.CHAIN_LIGHTNING_TALENT.id) {

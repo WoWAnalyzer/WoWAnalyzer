@@ -18,11 +18,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.TEMPEST_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.ASCENDANCE_ELEMENTAL_BUFF.id,
         enabled:
           combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||

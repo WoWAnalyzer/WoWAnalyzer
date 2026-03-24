@@ -132,7 +132,6 @@ class TWW2TierSet extends Analyzer {
                 </ul>
               </>
             )}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <small>
               Note: Tracks tier set procs and empowered abilities. Damage attribution between
@@ -145,10 +144,8 @@ class TWW2TierSet extends Analyzer {
           <small>
             <ItemSetLink id={WARLOCK_TWW2_ID}>TWW Season 2 Tier Set</ItemSetLink>
           </small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.jackpotProcs} <small>procs</small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.has4Piece && (
             <>
@@ -156,7 +153,6 @@ class TWW2TierSet extends Analyzer {
               <small>
                 empowered <SpellLink spell={SPELLS.HAND_OF_GULDAN_CAST} /> casts
               </small>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </>
           )}

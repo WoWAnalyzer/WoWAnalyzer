@@ -126,8 +126,8 @@ export default class FillerUsage extends Analyzer {
         </p>
         <p>
           Your fillers are greatly buffed by their corresponding{' '}
-          <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> - aim to enter an Eclipse that matches
-          your current target count.
+          <SpellLink spell={SPELLS.ECLIPSE} /> - aim to enter an Eclipse that matches your current
+          target count.
         </p>
         {this.hasLunarCalling && (
           <p>

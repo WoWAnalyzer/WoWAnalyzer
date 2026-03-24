@@ -18,6 +18,7 @@ import { HEALING_RAIN_TARGETS } from '../../constants';
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
+const UNLEASH_LIFE_DURATION = 100;
 interface HealingRainTickInfo {
   timestamp: number;
   hits: number;
@@ -33,7 +34,18 @@ class HealingRain extends Analyzer {
   healingRainTicks: HealingRainTickInfo[] = [];
   maxTargets = HEALING_RAIN_TARGETS;
   totalMaxTargets = 0;
+  unleashLifeRemaining = false;
+  lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
   casts = 0;
+
+  unleashLifeSpells = {
+    [TALENTS.RIPTIDE_TALENT.id]: {},
+    [TALENTS.CHAIN_HEAL_TALENT.id]: {},
+    [SPELLS.HEALING_WAVE.id]: {},
+    [SPELLS.HEALING_SURGE.id]: {},
+    [TALENTS.HEALING_RAIN_TALENT.id]: {},
+    [TALENTS.DOWNPOUR_TALENT.id]: {},
+  };
 
   constructor(options: Options) {
     super(options);
@@ -43,7 +55,7 @@ class HealingRain extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
       this.onHealingRainHeal,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.#onHealingRainCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
   }
 
   get averageMaxTargets() {
@@ -89,10 +101,37 @@ class HealingRain extends Analyzer {
     }
   }
 
-  #onHealingRainCast(event: CastEvent) {
-    this.totalMaxTargets += HEALING_RAIN_TARGETS;
-    this.casts += 1;
-    this.maxTargets = HEALING_RAIN_TARGETS;
+  _onCast(event: CastEvent) {
+    const spellId = event.ability.guid;
+
+    if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
+      this.totalMaxTargets += HEALING_RAIN_TARGETS;
+      this.casts += 1;
+      this.maxTargets = HEALING_RAIN_TARGETS;
+      if (this.unleashLifeRemaining === true) {
+        this.maxTargets += 2;
+        this.totalMaxTargets += 2;
+      }
+    }
+
+    if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
+      this.unleashLifeRemaining = true;
+      this.lastUnleashLifeTimestamp = event.timestamp;
+    }
+
+    if (
+      this.unleashLifeRemaining &&
+      this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION <= event.timestamp
+    ) {
+      this.unleashLifeRemaining = false;
+      return;
+    }
+
+    if (this.unleashLifeRemaining) {
+      if (this.unleashLifeSpells[spellId]) {
+        this.unleashLifeRemaining = false;
+      }
+    }
   }
 
   /** Guide subsection describing the proper usage of Healing Rain */
@@ -103,9 +142,11 @@ class HealingRain extends Analyzer {
           <SpellLink spell={TALENTS_SHAMAN.HEALING_RAIN_TALENT} />
         </b>{' '}
         is one of your best sources of consistent throughput and can be augmented to do more healing
-        through <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} /> and more damage through{' '}
-        <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />. Aside from being strong throughput, this{' '}
-        spell also buffs <SpellLink spell={SPELLS.HEALING_WAVE} /> and{' '}
+        through <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
+        <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
+        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this{' '}
+        spell also buffs <SpellLink spell={SPELLS.HEALING_WAVE} />,{' '}
+        <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
         <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
         <SpellLink spell={TALENTS.DELUGE_TALENT} />
       </p>

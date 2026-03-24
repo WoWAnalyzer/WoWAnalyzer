@@ -12,17 +12,6 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational Spells
       {
-        spell: [SPELLS.SOLAR_ECLIPSE.id, SPELLS.LUNAR_ECLIPSE.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 32,
-        charges: combatant.hasTalent(TALENTS_DRUID.IMPROVED_ECLIPSE_TALENT) ? 2 : 1,
-        gcd: {
-          base: 500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DRUID.ECLIPSE_TALENT),
-        timelineSortIndex: 1,
-      },
-      {
         spell: SPELLS.STARSURGE_MOONKIN.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {

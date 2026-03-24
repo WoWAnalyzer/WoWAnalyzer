@@ -49,7 +49,6 @@ export default class ShatteredRestoration extends Analyzer {
         tooltip={
           <>
             This shows the extra hps that the talent provides.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Total extra healing:</strong> {formatNumber(effectiveHealing)}
           </>

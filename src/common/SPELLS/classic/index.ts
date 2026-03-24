@@ -67,7 +67,7 @@ const CLASSIC_SPELLS = proxyRestrictedTable(InternalSpellTable, 'CLASSIC_SPELLS'
 export default CLASSIC_SPELLS;
 
 export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
-  key ? InternalSpellTable[key as any] : undefined; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  key ? InternalSpellTable[key as any] : undefined;
 
 export const registerSpell = (id: number, name: string, icon: string) => {
   if (InternalSpellTable[id]) {

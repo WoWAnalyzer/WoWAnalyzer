@@ -44,9 +44,7 @@ const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
         and <a href="https://www.icy-veins.com/wow/class-guides">Icy Veins</a> guides to gain more
         knowledge about your spec and use this to analyze yourself. You can also try asking for help
         in a <a href="https://www.reddit.com/r/wow/wiki/discord">class Discord</a>.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         We have no ETA for an update to {specName} {i18n._(config.spec.className)}. We rely on
         volunteer contributors to maintain spec analysis, and seeing as {specName}{' '}

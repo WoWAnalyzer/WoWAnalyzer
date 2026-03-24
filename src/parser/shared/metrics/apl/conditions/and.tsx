@@ -1,9 +1,8 @@
 import type { Condition } from '../index';
 import { containsOptionalCondition } from './optionalRule';
 
-type ConditionMap = Record<string, Condition<any>>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+type ConditionMap = Record<string, Condition<any>>;
 
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export default function and(...conditions: Condition<any>[]): Condition<any> {
   const key = `and-${conditions.map((cnd) => cnd.key).join('-')}`;
   if (!import.meta.env.PROD && conditions.some(containsOptionalCondition)) {

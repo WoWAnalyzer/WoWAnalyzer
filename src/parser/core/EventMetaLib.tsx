@@ -21,7 +21,6 @@ function MetaCastReason({
       {originalReason ? (
         <>
           {originalReason}
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </>
       ) : null}

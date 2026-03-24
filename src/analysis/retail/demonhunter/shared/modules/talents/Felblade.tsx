@@ -67,13 +67,10 @@ class Felblade extends Analyzer {
         tooltip={
           <>
             {effectiveFuryGain} Effective Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyGain} Total Fury gained
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.furyWaste} Fury wasted
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {formatThousands(this.damage)} Total damage
           </>
@@ -82,7 +79,6 @@ class Felblade extends Analyzer {
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT}>
           <>
             {this.furyPerMin} <small>Fury per min</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <ItemDamageDone amount={this.damage} />
           </>

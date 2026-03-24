@@ -13,7 +13,6 @@ import Events, {
   CastEvent,
   HealEvent,
   RefreshBuffEvent,
-  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -42,12 +41,11 @@ const ALL_BOOST = 0.1;
 const ALL_MULT = 1 + ALL_BOOST;
 const REJUV_BOOST = 0.4;
 const WG_BASE_TARGETS = 5;
-const IMPROVED_WG_EXTRA_TARGETS = 2;
+const IMPROVED_WG_EXTRA_TARGETS = 2; // TODO: add module for improved wg
 const TOL_EXTRA_WG_TARGETS = 2;
 const TOL_DURATION = 30000;
 const BUFFER = 500;
 const REJUV_RAMP_WINDOW = 15_000;
-const POTENT_ENCHANTMENTS_DURATION_INCREASE = 6000; // ms
 
 const GOOD_REJUV_ACTIVE_THRESHOLD = 0.55;
 const OK_REJUV_ACTIVE_THRESHOLD = 0.4;
@@ -108,8 +106,6 @@ class TreeOfLife extends Analyzer {
     ),
   };
   hardcastTrackers: TreeOfLifeCast[] = [];
-  potentEnchantmentsHealing = 0;
-  activeReforestationChain: ReforestationChain | null = null;
 
   constructor(options: Options) {
     super(options);
@@ -143,16 +139,8 @@ class TreeOfLife extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
       this.onApplyTol,
     );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
-      this.onApplyTol,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED),
-      this.onTolExpired,
-    );
 
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.checkActive);
   }
 
   checkActive() {
@@ -177,29 +165,10 @@ class TreeOfLife extends Analyzer {
     });
   }
 
-  onApplyTol(event: ApplyBuffEvent | RefreshBuffEvent) {
+  onApplyTol(event: ApplyBuffEvent) {
     if (isFromHardcast(event)) {
       this.lastHardcastTimestamp = event.timestamp; // set here and on cast to avoid event ordering mishaps
-      return;
     }
-
-    if (this.activeReforestationChain) {
-      this.activeReforestationChain.procCount += 1;
-    } else {
-      this.activeReforestationChain = {
-        procCount: 1,
-        healingEvents: [],
-      };
-    }
-  }
-
-  onTolExpired(event: RemoveBuffEvent) {
-    this.finalizeReforestationChain(event.timestamp);
-  }
-
-  onFightEnd(event: AnyEvent) {
-    this.checkActive();
-    this.finalizeReforestationChain(event.timestamp);
   }
 
   onCast(event: CastEvent) {
@@ -243,35 +212,18 @@ class TreeOfLife extends Analyzer {
     }
 
     const hardcastTracker = this.getHardcastTrackerAt(event.timestamp);
-    const allBoostHealing = calculateEffectiveHealing(event, ALL_BOOST);
 
-    accumulator.allBoostHealing += allBoostHealing;
+    accumulator.allBoostHealing += calculateEffectiveHealing(event, ALL_BOOST);
     if (hardcastTracker) {
-      hardcastTracker.accumulator.allBoostHealing += allBoostHealing;
+      hardcastTracker.accumulator.allBoostHealing += calculateEffectiveHealing(event, ALL_BOOST);
     }
-
-    let rejuvBoostHealing = 0;
-    let extraWgsHealing = 0;
 
     if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
-      rejuvBoostHealing = calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
-      accumulator.rejuvBoostHealing += rejuvBoostHealing;
+      accumulator.rejuvBoostHealing += calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
       if (hardcastTracker) {
-        hardcastTracker.accumulator.rejuvBoostHealing += rejuvBoostHealing;
+        hardcastTracker.accumulator.rejuvBoostHealing +=
+          calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
       }
-    }
-
-    if (spellId === SPELLS.WILD_GROWTH.id) {
-      extraWgsHealing = calculateEffectiveHealing(event, this.wgIncrease / ALL_MULT);
-    }
-
-    if (accumulator === this.reforestation && this.activeReforestationChain) {
-      this.activeReforestationChain.healingEvents.push({
-        timestamp: event.timestamp,
-        allBoostHealing,
-        rejuvBoostHealing,
-        extraWgsHealing,
-      });
     }
   }
 
@@ -303,35 +255,6 @@ class TreeOfLife extends Analyzer {
       (tracker) =>
         tracker.timestamp <= timestamp && tracker.timestamp + TOL_DURATION + BUFFER >= timestamp,
     );
-  }
-
-  finalizeReforestationChain(windowEndTimestamp: number) {
-    if (!this.activeReforestationChain || this.activeReforestationChain.procCount < 1) {
-      this.activeReforestationChain = null;
-      return;
-    }
-
-    const potentWindowDuration =
-      POTENT_ENCHANTMENTS_DURATION_INCREASE * this.activeReforestationChain.procCount;
-    const potentWindowStart = windowEndTimestamp - potentWindowDuration;
-
-    this.activeReforestationChain.healingEvents.forEach((healingEvent) => {
-      if (
-        healingEvent.timestamp >= potentWindowStart &&
-        healingEvent.timestamp <= windowEndTimestamp
-      ) {
-        this.potentEnchantmentsHealing +=
-          healingEvent.allBoostHealing +
-          healingEvent.rejuvBoostHealing +
-          healingEvent.extraWgsHealing;
-      }
-    });
-
-    this.activeReforestationChain = null;
-  }
-
-  getPotentEnchantmentsHealing() {
-    return this.potentEnchantmentsHealing;
   }
 
   get suggestionThresholds() {
@@ -530,6 +453,7 @@ class TreeOfLife extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT}>
           <ItemPercentHealingDone amount={this._getTotalHealing(this.hardcast)} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );
@@ -547,18 +471,6 @@ interface TreeOfLifeCast {
   timestamp: number;
   accumulator: TolAccumulator;
   casts: CastEvent[];
-}
-
-interface ReforestationHealingEvent {
-  timestamp: number;
-  allBoostHealing: number;
-  rejuvBoostHealing: number;
-  extraWgsHealing: number;
-}
-
-interface ReforestationChain {
-  procCount: number;
-  healingEvents: ReforestationHealingEvent[];
 }
 
 export default TreeOfLife;

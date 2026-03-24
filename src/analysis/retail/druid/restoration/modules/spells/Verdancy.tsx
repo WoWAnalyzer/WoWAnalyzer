@@ -1,6 +1,6 @@
-import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -8,11 +8,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Events, { HealEvent } from 'parser/core/Events';
-import {
-  getSourceBloom,
-  isFromEverbloom,
-  isFromExpiringLifebloom,
-} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { isFromExpiringLifebloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { SpellLink } from 'interface';
 
 /**
  * **Verdancy**
@@ -21,80 +18,86 @@ import {
  * When Lifebloom blooms, up to 3 targets within your Efflorescence are healed for X.
  */
 class Verdancy extends Analyzer {
-  /** Verdancy healing from normal Lifebloom blooms (expiry/refresh) */
-  normalBloomHealing = 0;
-  /** Verdancy healing from Photosynthesis-triggered blooms */
-  photoBloomHealing = 0;
-  /** Verdancy healing from Everbloom Blooming Frenzy blooms */
-  everbloomBloomHealing = 0;
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
 
-  private hasPhotosynthesis = false;
-  private hasEverbloomRank3 = false;
+  protected abilityTracker!: AbilityTracker;
+
+  naturalBlooms = 0;
+  photoBlooms = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
 
-    this.hasPhotosynthesis = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
-    this.hasEverbloomRank3 = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT,
-    );
-
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VERDANCY),
-      this.onVerdancyHeal,
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BLOOM_HEAL),
+      this.onBloom,
     );
   }
 
-  private onVerdancyHeal = (event: HealEvent) => {
-    const effectiveHealing = event.amount + (event.absorbed || 0);
-    const sourceBloom = getSourceBloom(event);
-
-    if (sourceBloom && isFromEverbloom(sourceBloom)) {
-      this.everbloomBloomHealing += effectiveHealing;
-    } else if (sourceBloom && isFromExpiringLifebloom(sourceBloom)) {
-      this.normalBloomHealing += effectiveHealing;
+  onBloom(event: HealEvent) {
+    if (isFromExpiringLifebloom(event)) {
+      this.naturalBlooms += 1;
     } else {
-      // Photosynthesis or unlinked blooms
-      this.photoBloomHealing += effectiveHealing;
+      this.photoBlooms += 1;
     }
-  };
+  }
 
-  get totalVerdancyHealing() {
-    return this.normalBloomHealing + this.photoBloomHealing + this.everbloomBloomHealing;
+  get averageVerdancyHitsPerBloom() {
+    const blooms = this.abilityTracker.getAbility(SPELLS.LIFEBLOOM_BLOOM_HEAL.id).healingHits;
+    const verdancyHits = this.abilityTracker.getAbility(SPELLS.VERDANCY.id).healingHits;
+    return blooms === 0 ? 0 : verdancyHits / blooms;
   }
 
   statistic() {
+    const hasPhotosynthesis = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(6)}
+        position={STATISTIC_ORDER.OPTIONAL(6)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <strong>Verdancy healing breakdown</strong>
+            In order to maximize Verdancy healing, you need to consistently proc blooms and
+            consistently keep efflo under raiders.
             <ul>
               <li>
-                From normal blooms: <strong>{formatNumber(this.normalBloomHealing)}</strong>
+                Avg. hits per Bloom: <strong>{this.averageVerdancyHitsPerBloom.toFixed(1)}</strong>
               </li>
-              {this.hasPhotosynthesis && (
-                <li>
-                  From Photosynthesis blooms:{' '}
-                  <strong>{formatNumber(this.photoBloomHealing)}</strong>
-                </li>
-              )}
-              {this.hasEverbloomRank3 && (
-                <li>
-                  From Blooming Frenzy blooms:{' '}
-                  <strong>{formatNumber(this.everbloomBloomHealing)}</strong>
-                </li>
+              {hasPhotosynthesis ? (
+                <>
+                  <li>
+                    Natural Blooms:{' '}
+                    <strong>{this.owner.getPerMinute(this.naturalBlooms).toFixed(1)}</strong> per
+                    minute
+                  </li>
+                  <li>
+                    <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT} /> Blooms:{' '}
+                    <strong>{this.owner.getPerMinute(this.photoBlooms).toFixed(1)}</strong> per
+                    minute
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    Blooms per minute:{' '}
+                    <strong>
+                      {this.owner.getPerMinute(this.naturalBlooms + this.photoBlooms)}
+                    </strong>
+                  </li>
+                </>
               )}
             </ul>
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.VERDANCY_TALENT}>
-          <ItemPercentHealingDone amount={this.totalVerdancyHealing} />
+          <ItemPercentHealingDone
+            amount={this.abilityTracker.getAbilityHealing(SPELLS.VERDANCY.id)}
+          />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

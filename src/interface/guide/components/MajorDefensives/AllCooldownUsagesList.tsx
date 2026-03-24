@@ -245,7 +245,7 @@ export const BreakdownByDamageSource = <Apply extends EventType, Remove extends 
         </tr>
         {damageTakenRows.map(([spellId, events], ix) => {
           const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
-            | AbilityEvent<any> // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+            | AbilityEvent<any>
             | undefined;
 
           if (!keyEvent) {

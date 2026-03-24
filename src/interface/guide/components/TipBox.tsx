@@ -5,16 +5,14 @@ interface TipBoxProps {
   children: ReactNode;
   icon?: ReactNode;
   title?: string;
-  style?: React.CSSProperties;
-  className?: string;
 }
 
 /**
  * A reusable box for displaying tips, warnings, or informational messages in guides.``
  */
-export function TipBox({ children, icon, title, style, className }: TipBoxProps) {
+export function TipBox({ children, icon, title }: TipBoxProps) {
   return (
-    <Container style={style} className={className}>
+    <Container>
       <ContentWrapper>
         {icon && <IconWrapper>{icon}</IconWrapper>}
         <Content>

@@ -53,7 +53,7 @@ const FlaskPanel = ({ recommendedFlasks, expansion }: Props) => {
         </div>
       </PanelHeader>
       {performance === QualitativePerformance.Perfect && (
-        <p>You had the best flask active when starting the fight{showCurrentFlaskBuff}</p>
+        <p>You had the best food active when starting the fight{showCurrentFlaskBuff}</p>
       )}
       {performance === QualitativePerformance.Good && (
         <>

@@ -118,7 +118,6 @@ class ManaTideTotem extends Analyzer {
                 Mana restored
               </Trans>
             </small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <PeopleIcon /> {formatNumber(this.regenOnHealers)} <small>Mana restored (party)</small>
           </div>

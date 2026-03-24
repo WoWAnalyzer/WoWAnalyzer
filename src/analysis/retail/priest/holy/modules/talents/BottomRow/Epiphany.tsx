@@ -54,7 +54,7 @@ class Epiphany extends Analyzer {
     this.procsGained += 1;
 
     // Increase max charges of Prayer of Mending by 1
-    this.abilities.increaseMaxCharges(event, SPELLS.PRAYER_OF_MENDING_CAST.id, 1);
+    this.abilities.increaseMaxCharges(event, SPELLS.PRAYER_OF_MENDING_HEAL.id, 1);
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
@@ -66,7 +66,7 @@ class Epiphany extends Analyzer {
     }
 
     // Decrease max charges of Prayer of Mending by 1
-    this.abilities.decreaseMaxCharges(event, SPELLS.PRAYER_OF_MENDING_CAST.id, 1);
+    this.abilities.decreaseMaxCharges(event, SPELLS.PRAYER_OF_MENDING_HEAL.id, 1);
   }
 
   get utilization() {
@@ -82,8 +82,8 @@ class Epiphany extends Analyzer {
           <SpellLink spell={TALENTS.EPIPHANY_TALENT} />
         </b>{' '}
         gives your Holy Word spells a 25% chance to make your next{' '}
-        <SpellLink spell={SPELLS.PRAYER_OF_MENDING_CAST} /> cost no cooldown. Use Prayer of Mending
-        immediately when you get a proc to avoid wasting it.
+        <SpellLink spell={SPELLS.PRAYER_OF_MENDING_HEAL} /> cost no cooldown.
+        Use Prayer of Mending immediately when you get a proc to avoid wasting it.
       </p>
     );
 

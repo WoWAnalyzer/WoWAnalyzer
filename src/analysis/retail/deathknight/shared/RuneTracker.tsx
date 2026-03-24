@@ -339,9 +339,7 @@ class RuneTracker extends ResourceTracker {
         size="flexible"
         tooltip={
           <Trans id="deathknight.shared.runeTracker.statistic.tooltip">
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             Number of runes wasted: {formatNumber(this.runesWasted)} <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             These numbers only include runes wasted from passive regeneration. <br />
             The table below shows the time spent at any given number of runes available.
           </Trans>

@@ -60,8 +60,7 @@ export function CoreSection({ modules, events, info }: GuideProps<typeof CombatL
               for achieving good DPS as a caster.
             </b>
           </em>
-        </p>
-        <p>
+          <br />
           There should be no delay at all between your spell casts, it's better to start casting the
           wrong spell than to think for a few seconds and then cast the right spell. You should be
           able to handle a fight's mechanics with the minimum possible interruption to your casting.

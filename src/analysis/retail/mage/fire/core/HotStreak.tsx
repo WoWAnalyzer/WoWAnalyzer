@@ -21,12 +21,6 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
-const HOT_STREAK_SPENDERS = [
-  TALENTS.PYROBLAST_TALENT.id,
-  TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
-  TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
-];
-
 export default class HotStreak extends Analyzer {
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
@@ -73,7 +67,6 @@ export default class HotStreak extends Analyzer {
     ) {
       buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,

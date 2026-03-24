@@ -1,7 +1,7 @@
 // Some Typescript voodoo
 // https://stackoverflow.com/questions/59765469/typescript-merge-n-objects-preserving-types
 // https://stackoverflow.com/a/50375286/2398020
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
   ? I
   : never;
 
