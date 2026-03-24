@@ -11,6 +11,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA } from 'analysis/retail/evoker/shared';
 import { STRAFING_RUN_DURATION } from 'analysis/retail/evoker/devastation/constants';
 import { formatDurationMillisMinSec } from 'common/format';
+import { InformationIcon } from 'interface/icons';
 
 const EXPLANATION_PERCENTAGE = 70;
 function PassFail({
@@ -156,6 +157,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
 
   return (
     <SubSection title="No Wasted Procs">
+      <p>
+        <InformationIcon /> Note that procs that weren't used by the time the fight ended are
+        counted as wasted.
+      </p>
       <ExplanationAndDataSubSection
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
@@ -163,7 +168,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
             <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> procs are essential because they help
             you cast your primary damaging spells,
             <SpellLink spell={SPELLS.DISINTEGRATE} /> and{' '}
-            <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} />, for free. None should go to waste.
+            <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} />, for free.
+            <div>
+              <strong>None should go to waste.</strong>
+            </div>
           </p>
         }
         data={
@@ -183,9 +191,11 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           explanation={
             <p>
               <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT} /> procs allow you to cast{' '}
-              <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> instantly. Ideally none should go to
-              waste, but some may drop during an intense{' '}
-              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
+              <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> instantly.
+              <div>
+                Ideally none should go to waste, but some may drop during an intense{' '}
+                <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
+              </div>
             </p>
           }
           data={
@@ -217,6 +227,10 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
 
   return (
     <SubSection title="No Wasted Buffs">
+      <p>
+        <InformationIcon /> Note that buffs that weren't used by the time the fight ended are
+        counted as wasted.
+      </p>
       {hasMassDisintegrate && (
         <ExplanationAndDataSubSection
           explanationPercent={EXPLANATION_PERCENTAGE}
@@ -225,9 +239,11 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
               <strong>
                 <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />
               </strong>{' '}
-              is a powerful buff that increases the damage of{' '}
+              is a powerful buff gained by casting Empowers which increases the damage of{' '}
               <SpellLink spell={SPELLS.DISINTEGRATE} /> and allows it to strike multiple targets.
-              None should go to waste.
+              <div>
+                <strong>None should go to waste.</strong>
+              </div>
             </p>
           }
           data={
@@ -249,8 +265,10 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
               </strong>{' '}
               reduces the <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> cost of your next{' '}
               <strong>{IMMINENT_DESTRUCTION_INITIAL_STACKS_DEVA}</strong>{' '}
-              <SpellLink spell={SPELLS.DISINTEGRATE} /> and <SpellLink spell={SPELLS.PYRE} />. None
-              should go to waste.
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> and <SpellLink spell={SPELLS.PYRE} />.
+              <div>
+                <strong>None should go to waste.</strong>
+              </div>
             </p>
           }
           data={
@@ -274,8 +292,10 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
                 <SpellLink spell={TALENTS_EVOKER.STRAFING_RUN_TALENT} />
               </strong>{' '}
               allows <SpellLink spell={SPELLS.DEEP_BREATH} /> to be cast again within{' '}
-              {formatDurationMillisMinSec(STRAFING_RUN_DURATION, 0)} of being used. None should go
-              to waste.
+              {formatDurationMillisMinSec(STRAFING_RUN_DURATION, 0)} of being used.
+              <div>
+                <strong>None should go to waste.</strong>
+              </div>
             </p>
           }
           data={
