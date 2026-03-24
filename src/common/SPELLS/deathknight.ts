@@ -505,6 +505,13 @@ const spells = {
     runicPowerCost: 30,
   },
 
+  // Unholy Aura haste buff - stacks per active Magus of the Dead
+  UNHOLY_AURA_BUFF: {
+    id: 1268917,
+    name: 'Unholy Aura',
+    icon: 'ability_deathknight_decomposingaura',
+  },
+
   // Damage aura from Abomination pet
   DISEASE_CLOUD: {
     id: 1244102,
