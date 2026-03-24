@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage, formatNumber, formatDurationMillisMinSec } from 'common/format';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { SpellLink } from 'interface';
 import {
@@ -20,17 +20,16 @@ import CastOverview from 'interface/guide/components/CastOverview';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import { EventType } from 'parser/core/Events';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import InformationIcon from 'interface/icons/Information';
 
-class ShadowDanceGuide extends Analyzer {
-  static dependencies = {
-    damageDone: DamageDone,
-    energyTracker: EnergyTracker,
-    comboPointTracker: ComboPointTracker,
-    shadowDance: ShadowDance,
-    eventHistory: EventHistory,
-    spellUsable: SpellUsable,
-  };
-
+class ShadowDanceGuide extends Analyzer.withDependencies({
+  damageDone: DamageDone,
+  energyTracker: EnergyTracker,
+  comboPointTracker: ComboPointTracker,
+  shadowDance: ShadowDance,
+  eventHistory: EventHistory,
+  spellUsable: SpellUsable,
+}) {
   protected damageDone!: DamageDone;
   protected energyTracker!: EnergyTracker;
   protected comboPointTracker!: ComboPointTracker;
@@ -38,8 +37,8 @@ class ShadowDanceGuide extends Analyzer {
   protected eventHistory!: EventHistory;
   protected spellUsable!: SpellUsable;
 
-  isTrickster: boolean = this.selectedCombatant.hasTalent(TALENTS.UNSEEN_BLADE_TALENT);
-  isDeathstalker: boolean = this.selectedCombatant.hasTalent(TALENTS.DEATHSTALKERS_MARK_TALENT);
+  isTrickster = this.selectedCombatant.hasTalent(TALENTS.UNSEEN_BLADE_TALENT);
+  isDeathstalker = this.selectedCombatant.hasTalent(TALENTS.DEATHSTALKERS_MARK_TALENT);
 
   private evaluateShadowDanceUsage(dance: ShadowDanceData) {
     const energyAtCast = this.energyTracker.current;
@@ -70,7 +69,7 @@ class ShadowDanceGuide extends Analyzer {
       return {
         timestamp: dance.applied,
         performance: QualitativePerformance.Fail,
-        reason: `Enter Shadow Dance without enough energy for Eviscerate(35). Had ${energyAtCast} energy.`,
+        reason: `Entered Shadow Dance without enough energy for Eviscerate(35). Had ${energyAtCast} energy.`,
       };
     }
 
@@ -79,7 +78,7 @@ class ShadowDanceGuide extends Analyzer {
       return {
         timestamp: dance.applied,
         performance: QualitativePerformance.Fail,
-        reason: `Enter Shadow Dance without enough energy for Secret Technique(30). Had ${energyAtCast} energy.`,
+        reason: `Entered Shadow Dance without enough energy for Secret Technique(30). Had ${energyAtCast} energy.`,
       };
     }
 
@@ -88,7 +87,7 @@ class ShadowDanceGuide extends Analyzer {
       return {
         timestamp: dance.applied,
         performance: QualitativePerformance.Fail,
-        reason: `Enter Shadow Dance with suboptimal combo points. Had ${comboPointsAtCast} combo points.`,
+        reason: `Entered Shadow Dance with suboptimal combo points. Had ${comboPointsAtCast} combo points.`,
       };
     }
 
@@ -104,7 +103,7 @@ class ShadowDanceGuide extends Analyzer {
       return {
         timestamp: dance.applied,
         performance: QualitativePerformance.Good,
-        reason: `Good Shadow Dance usage! You could have been casted one more ability during this Shadow Dance.`,
+        reason: `Good Shadow Dance usage! You could have cast one more ability during this Shadow Dance.`,
       };
     }
 
@@ -134,7 +133,7 @@ class ShadowDanceGuide extends Analyzer {
             {this.isTrickster && <li>Enter with 6+ combo points.</li>}
             {this.isDeathstalker && <li>Enter with low combo points.</li>}
             <li>
-              Aling this cooldown with {secretTechniques}, except in the second use during{' '}
+              Align this cooldown with {secretTechniques}, except in the second use during{' '}
               {shadowBlades}.
             </li>
             <li>
@@ -147,6 +146,7 @@ class ShadowDanceGuide extends Analyzer {
 
         <p>
           <h5>
+            <InformationIcon />
             <i>Haste and GCDs notes</i>
           </h5>
           <p>
@@ -184,6 +184,8 @@ class ShadowDanceGuide extends Analyzer {
     const percentageDuringShadowDanceTooltip = (
       <>Fraction of total damage done through all {shadowDance} Uses.</>
     );
+
+    const activeTimeDuringShadowDanceTooltip = <>Average active time during {shadowDance} casts.</>;
 
     // Get cast sequences for each Shadow Dance window
     const danceSequenceEvents: CastSequenceEntry<ShadowDanceData>[] =
@@ -235,7 +237,7 @@ class ShadowDanceGuide extends Analyzer {
             tooltip: <>Total damage accumulated during this Shadow Dance</>,
           },
           {
-            value: `${formatNumber(dance.duration)}s`,
+            value: `${formatDurationMillisMinSec(dance.duration, 0)}`,
             label: 'Duration',
             tooltip: <>Duration of this Shadow Dance</>,
           },
@@ -270,6 +272,12 @@ class ShadowDanceGuide extends Analyzer {
               value: `${formatPercentage(this.shadowDance.danceTotalDamage / this.damageDone.total.effective)}%`,
               label: 'of Overall Damage',
               tooltip: percentageDuringShadowDanceTooltip,
+              performance: QualitativePerformance.Good,
+            },
+            {
+              value: `${formatPercentage(this.shadowDance.averageActiveTime)}%`,
+              label: 'active time during Shadow Dance',
+              tooltip: activeTimeDuringShadowDanceTooltip,
               performance: QualitativePerformance.Good,
             },
           ]}

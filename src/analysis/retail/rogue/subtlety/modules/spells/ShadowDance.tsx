@@ -5,7 +5,6 @@ import Events, {
   GetRelatedEvent,
   GetRelatedEvents,
   EventType,
-  RemoveBuffEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
@@ -13,12 +12,10 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import AlwaysBeCasting from 'analysis/retail/rogue/subtlety/modules/features/AlwaysBeCasting';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
-export default class ShadowDance extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-    alwaysBeCasting: AlwaysBeCasting,
-  };
-
+export default class ShadowDance extends Analyzer.withDependencies({
+  abilityTracker: AbilityTracker,
+  alwaysBeCasting: AlwaysBeCasting,
+}) {
   protected abilityTracker!: AbilityTracker;
   protected alwaysBeCasting!: AlwaysBeCasting;
 
@@ -50,7 +47,7 @@ export default class ShadowDance extends Analyzer {
   }
 
   private getRemoveTimestamp(event: ApplyBuffEvent): number {
-    const removeBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
+    const removeBuff = GetRelatedEvent(event, EventType.RemoveBuff);
     return removeBuff?.timestamp ?? this.owner.fight.end_time;
   }
 
@@ -78,14 +75,11 @@ export default class ShadowDance extends Analyzer {
   };
 
   get averageDamage() {
-    let total = 0;
-    this.danceData.forEach((d) => (total += d.totalDamage));
-    return total / this.abilityTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+    return this.danceTotalDamage / this.abilityTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
 
   get averageActiveTime() {
-    let active = 0;
-    this.danceData.forEach((d) => (active += d.activeTime || 0));
+    const active = this.danceData.reduce((active, dance) => active + (dance.activeTime || 0), 0);
     return active / this.abilityTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
 
