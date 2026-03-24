@@ -74,20 +74,20 @@ class EnergyCompressionHoly extends Analyzer {
               This number is included in the <SpellLink spell={PRIEST_TALENTS.DIVINE_HALO_TALENT} />
               /<SpellLink spell={PRIEST_TALENTS.POWER_SURGE_TALENT} /> results already.
             </small>{' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             Breakdown: <br />
             <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />:{' '}
             <ItemPercentHealingDone
               amount={this.totalEnergyCompressionHealing}
             ></ItemPercentHealingDone>{' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }

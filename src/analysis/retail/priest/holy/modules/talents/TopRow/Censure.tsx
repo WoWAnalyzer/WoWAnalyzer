@@ -52,10 +52,10 @@ class Censure extends Analyzer {
         tooltip={
           <>
             {this.chastiseCasts} Chastise Casts
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             {this.censureStuns} Chastise Stuns
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
           </>
         }

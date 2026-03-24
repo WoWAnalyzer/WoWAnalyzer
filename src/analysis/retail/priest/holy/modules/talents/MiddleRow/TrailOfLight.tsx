@@ -48,7 +48,7 @@ class TrailOfLight extends Analyzer {
               <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} /> Procs: $
               {this.totalToLProcs}
             </div>
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

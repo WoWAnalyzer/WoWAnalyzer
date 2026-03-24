@@ -70,7 +70,7 @@ class GuardianAngel extends Analyzer {
           <>
             You casted Guardian Spirit {this.gsValue} more times than you would have been able to
             without Guardian Angel.
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             You could have theoretically cast Guardian Spirit{' '}
             {this.gsGuardianSpiritCastsPossible - this.guardianSpiritCastCount} more times.
@@ -82,7 +82,7 @@ class GuardianAngel extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.GUARDIAN_ANGEL_TALENT}>
           {this.guardianSpiritRefreshCount} <small>Guardian Spirit resets</small>
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {this.guardianSpiritHealCount} <small>Guardian Spirits consumed</small>
         </BoringSpellValueText>

@@ -72,14 +72,14 @@ class ResonantEnergyHoly extends Analyzer {
         tooltip={
           <>
             {' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             Breakdown: <br />
             <SpellLink spell={TALENTS_PRIEST.RESONANT_ENERGY_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.resonantEnergyHealing}></ItemPercentHealingDone>{' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }

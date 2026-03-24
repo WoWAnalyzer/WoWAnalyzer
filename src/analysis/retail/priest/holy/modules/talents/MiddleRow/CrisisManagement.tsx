@@ -72,7 +72,7 @@ class CrisisManagement extends Analyzer {
               <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
               <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
             </div>{' '}
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>
               This value is approximated by attributing a percentage of each crit based on{' '}

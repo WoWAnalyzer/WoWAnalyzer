@@ -18,14 +18,14 @@ const config: Config = {
     <>
       Welcome to the Holy Priest analyzer. If you are new to holy, here are a few guides to get you
       started:
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+      {/* oxlint-disable-next-line @wowanalyzer/no-br */}
       <br />
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+      {/* oxlint-disable-next-line @wowanalyzer/no-br */}
       <br />
       <a href="https://www.icy-veins.com/wow/holy-priest-pve-healing-guide">Icy-Veins</a>
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+      {/* oxlint-disable-next-line @wowanalyzer/no-br */}
       <br />
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+      {/* oxlint-disable-next-line @wowanalyzer/no-br */}
       <br />
       Check out the{' '}
       <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">
