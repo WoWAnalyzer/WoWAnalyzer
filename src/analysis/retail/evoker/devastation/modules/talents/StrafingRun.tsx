@@ -61,6 +61,18 @@ class StrafingRun extends Analyzer {
     }
   }
 
+  get consumedBuffs() {
+    return this.buffsConsumed;
+  }
+
+  get wastedBuffs() {
+    return this.buffsWasted;
+  }
+
+  get totalBuffs() {
+    return this.consumedBuffs + this.wastedBuffs;
+  }
+
   statistic() {
     return (
       <Statistic

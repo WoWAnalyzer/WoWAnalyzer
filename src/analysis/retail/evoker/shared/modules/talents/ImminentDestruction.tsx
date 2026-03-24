@@ -118,6 +118,18 @@ class ImminentDestruction extends Analyzer {
     return true;
   }
 
+  get consumedBuffs() {
+    return this.buffStacksConsumed;
+  }
+
+  get wastedBuffs() {
+    return this.totalBuffs - this.consumedBuffs;
+  }
+
+  get totalBuffs() {
+    return this.totalBuffStacks;
+  }
+
   statistic() {
     const hasWastedBuffStacks = this.wastedBuffStacks > 0;
 

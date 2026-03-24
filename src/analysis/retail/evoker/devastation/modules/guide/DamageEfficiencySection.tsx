@@ -248,8 +248,8 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           }
           data={
             <PassFail
-              value={modules.massDisintegrate.castCount}
-              total={modules.massDisintegrate.buffCount}
+              value={modules.massDisintegrate.consumedBuffs}
+              total={modules.massDisintegrate.totalBuffs}
               passed={modules.massDisintegrate.wastedBuffs === 0}
             />
           }
@@ -273,12 +273,9 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           }
           data={
             <PassFail
-              value={modules.imminentDestruction.buffStacksConsumed}
-              total={modules.imminentDestruction.totalBuffStacks}
-              passed={
-                modules.imminentDestruction.buffStacksConsumed ===
-                modules.imminentDestruction.totalBuffStacks
-              }
+              value={modules.imminentDestruction.consumedBuffs}
+              total={modules.imminentDestruction.totalBuffs}
+              passed={modules.imminentDestruction.wastedBuffs === 0}
             />
           }
         />
@@ -300,9 +297,9 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           }
           data={
             <PassFail
-              value={modules.strafingRun.buffsConsumed}
-              total={modules.strafingRun.buffsWasted + modules.strafingRun.buffsConsumed}
-              passed={modules.strafingRun.buffsWasted === 0}
+              value={modules.strafingRun.consumedBuffs}
+              total={modules.strafingRun.totalBuffs}
+              passed={modules.strafingRun.wastedBuffs === 0}
             />
           }
         />
