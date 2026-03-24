@@ -193,8 +193,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
               <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT} /> procs allow you to cast{' '}
               <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> instantly.
               <div>
-                Ideally none should go to waste, but some may drop during an intense{' '}
-                <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
+                <strong>
+                  Ideally none should go to waste, but some may drop during an intense{' '}
+                  <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
+                </strong>
               </div>
             </p>
           }
@@ -220,10 +222,13 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
   );
   const hasStrafingRun = info.combatant.hasTalent(TALENTS_EVOKER.STRAFING_RUN_TALENT);
   const hasMassDisintegrate = info.combatant.hasTalent(TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT);
+  const hasAzureSweep = info.combatant.hasTalent(TALENTS_EVOKER.AZURE_SWEEP_TALENT);
 
-  if (!hasImminentDestruction && !hasStrafingRun && !hasMassDisintegrate) {
+  if (!hasImminentDestruction && !hasStrafingRun && !hasMassDisintegrate && !hasAzureSweep) {
     return null;
   }
+
+  console.log(modules.azureSweep.buffRatio);
 
   return (
     <SubSection title="No Wasted Buffs">
@@ -307,6 +312,33 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
               value={modules.strafingRun.consumedBuffs}
               total={modules.strafingRun.totalBuffs}
               passed={modules.strafingRun.wastedBuffs === 0}
+            />
+          }
+        />
+      )}
+      {hasAzureSweep && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <strong>
+                <SpellLink spell={TALENTS_EVOKER.AZURE_SWEEP_TALENT} />
+              </strong>{' '}
+              is an upgraded version of <SpellLink spell={SPELLS.AZURE_STRIKE} /> that is gained
+              after casting <SpellLink spell={SPELLS.ETERNITY_SURGE} />.
+              <div>
+                <strong>
+                  Ideally none should go to waste, but some may be wasted due to having to cast
+                  higher priority spells.
+                </strong>
+              </div>
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.azureSweep.consumedBuffs}
+              total={modules.azureSweep.totalBuffs}
+              passed={modules.azureSweep.buffRatio > 0.9}
             />
           }
         />
