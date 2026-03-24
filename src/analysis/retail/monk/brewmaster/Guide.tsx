@@ -40,12 +40,13 @@ export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
         <SubSection title="Rotation">
           <AplChoiceDescription />
         </SubSection>
-        <SubSection title="Major Cooldowns">
+        <SubSection title="Cooldowns">
           <Explanation>
             <p>
-              Major cooldowns like <SpellLink spell={spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} />{' '}
-              are a major contributor to your overall damage. As a tank, they are also key to
-              establishing threat on pull and when new enemies spawn or are pulled.
+              Cooldowns like <SpellLink spell={spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> and{' '}
+              <SpellLink spell={talents.EXPLODING_KEG_TALENT} /> are a major contributor to your
+              overall damage. As a tank, they are also key to establishing threat on pull and when
+              new enemies spawn or are pulled.
             </p>
             <p>
               It is generally correct to hold your cooldowns by a small amount in order to line up
@@ -67,6 +68,13 @@ export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
           {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
             <CastEfficiencyBar
               spell={talents.EXPLODING_KEG_TALENT}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}
+          {info.combatant.hasTalent(talents.CHI_BURST_TALENT) && (
+            <CastEfficiencyBar
+              spell={talents.CHI_BURST_TALENT}
               gapHighlightMode={GapHighlight.FullCooldown}
               useThresholds
             />
