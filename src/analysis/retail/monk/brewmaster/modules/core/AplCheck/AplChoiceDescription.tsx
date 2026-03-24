@@ -32,9 +32,8 @@ const StandardDescription = () => {
         <p>
           Using <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> adds an extra layer to the
           Brewmaster rotation. You <em>almost always</em> want to spend the{' '}
-          <SpellLink spell={talents.BLACKOUT_COMBO_TALENT}>Combo</SpellLink> on either{' '}
-          <SpellLink spell={SPELLS.TIGER_PALM} /> (in single-target) or{' '}
-          <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> (with 3+ targets).{' '}
+          <SpellLink spell={talents.BLACKOUT_COMBO_TALENT}>Combo</SpellLink> on
+          <SpellLink spell={SPELLS.TIGER_PALM} />.
         </p>
         <DivP>
           It can help to think of your rotation as small sequences like{' '}
@@ -64,14 +63,14 @@ const StandardDescription = () => {
               SPELLS.BLACKOUT_KICK_BRM,
               SPELLS.TIGER_PALM,
               talents.KEG_SMASH_TALENT,
-              talents.RISING_SUN_KICK_TALENT,
+              talents.EXPLODING_KEG_TALENT,
             ]}
           />{' '}
           and{' '}
           <SpellSeq
             spells={[
               SPELLS.BLACKOUT_KICK_BRM,
-              talents.RISING_SUN_KICK_TALENT,
+              talents.EXPLODING_KEG_TALENT,
               SPELLS.TIGER_PALM,
               talents.KEG_SMASH_TALENT,
             ]}
@@ -81,7 +80,7 @@ const StandardDescription = () => {
             spells={[
               SPELLS.BLACKOUT_KICK_BRM,
               talents.KEG_SMASH_TALENT,
-              talents.RISING_SUN_KICK_TALENT,
+              talents.EXPLODING_KEG_TALENT,
               SPELLS.TIGER_PALM,
             ]}
           />{' '}
@@ -130,8 +129,7 @@ export default function AplChoiceDescription(): JSX.Element {
       <p>
         After pushing <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />, you follow a simple priority
         focused on using strong, low-cooldown abilities like{' '}
-        <SpellLink spell={talents.KEG_SMASH_TALENT} /> and{' '}
-        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible.
+        <SpellLink spell={talents.KEG_SMASH_TALENT} />.
       </p>
       <Description aplChoice={aplChoice} />
       <SubSection>

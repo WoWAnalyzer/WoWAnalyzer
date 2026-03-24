@@ -24,6 +24,13 @@ const BUFFER_MS = 150;
 
 const DEBUG = false;
 
+/** Tracks one PotA proc (one SotF consumption) and how many extras landed */
+export interface PotaProc {
+  timestamp: number;
+  extrasCount: number;
+  fromHardcast: boolean;
+}
+
 /**
  * Many Resto HoTs can be applied from multiple different sources including talents and hardcasts.
  * In order to attribute where a HoT came from we have to keep all the
@@ -65,6 +72,11 @@ class HotAttributor extends Analyzer {
   powerOfTheArchdruidRegrowthAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Regrowth');
   rampantGrowthAttrib = HotTracker.getNewAttribution('RampantGrowth');
   // Convoke handled separately in Resto Convoke module
+
+  /** Per-proc tracking of how many PotA extras landed (for use by PowerOfTheArchdruid) */
+  potaProcs: PotaProc[] = [];
+  /** Tracks the current PotA proc being filled with extras */
+  private currentPotaProc: PotaProc | undefined;
 
   constructor(options: Options) {
     super(options);
@@ -123,6 +135,40 @@ class HotAttributor extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
       this.onHealRegrowth,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+
+    if (this.hasPowerOfTheArchdruid) {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
+        this.onPotaBuff,
+      );
+      this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
+        this.onPotaBuff,
+      );
+    }
+  }
+
+  onPotaBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (event.prepull) {
+      return;
+    }
+    // Finalize previous proc if any
+    if (this.currentPotaProc) {
+      this.potaProcs.push(this.currentPotaProc);
+    }
+    this.currentPotaProc = {
+      timestamp: event.timestamp,
+      extrasCount: 0,
+      fromHardcast: !isConvoking(this.selectedCombatant),
+    };
+  }
+
+  /** Called when a PotA extra is attributed — increments the current proc's extras count */
+  private trackPotaExtra() {
+    if (this.currentPotaProc) {
+      this.currentPotaProc.extrasCount += 1;
+    }
   }
 
   onApplyRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -141,6 +187,7 @@ class HotAttributor extends Analyzer {
       ) {
         this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRejuvAttrib, event);
         this._logAttrib(event, this.powerOfTheArchdruidRejuvAttrib);
+        this.trackPotaExtra();
       }
       this.lastConvokeRejuvOrRegrowthBuffTimestamp = event.timestamp;
       // convoke module adds the attribution for Convoke
@@ -148,6 +195,7 @@ class HotAttributor extends Analyzer {
     } else if (possiblePota) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRejuvAttrib, event);
       this._logAttrib(event, this.powerOfTheArchdruidRejuvAttrib);
+      this.trackPotaExtra();
     } else {
       this._logAttrib(event, undefined);
     }
@@ -183,6 +231,7 @@ class HotAttributor extends Analyzer {
       ) {
         this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRegrowthAttrib, event);
         this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);
+        this.trackPotaExtra();
       }
       if (!possibleRg) {
         this.lastConvokeRejuvOrRegrowthBuffTimestamp = event.timestamp;
@@ -195,6 +244,7 @@ class HotAttributor extends Analyzer {
     } else if (possiblePota) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRegrowthAttrib, event);
       this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);
+      this.trackPotaExtra();
     } else {
       this._logAttrib(event, undefined);
     }
@@ -296,6 +346,14 @@ class HotAttributor extends Analyzer {
             ' to ' +
             (typeof attrib === 'object' ? attrib.name : attrib),
         );
+    }
+  }
+
+  /** Finalize any in-progress PotA proc at fight end */
+  onFightEnd() {
+    if (this.currentPotaProc) {
+      this.potaProcs.push(this.currentPotaProc);
+      this.currentPotaProc = undefined;
     }
   }
 }

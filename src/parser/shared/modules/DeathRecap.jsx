@@ -208,11 +208,13 @@ class DeathRecap extends PureComponent {
                                 : `${sourceName} damaged you for a total of ${formatNumber(
                                     event.amount + (event.absorbed || 0),
                                   )}`}
+                              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                               <br />
                               {event.absorbed > 0 ? (
                                 <>
                                   {formatNumber(event.absorbed)} of this damage was absorbed and you
                                   took {formatNumber(event.amount)} damage
+                                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                                   <br />
                                 </>
                               ) : (
@@ -275,6 +277,7 @@ class DeathRecap extends PureComponent {
                                   spell={e.id}
                                 />
                               ))}
+                          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                           <br />
                           {event.debuffsUp &&
                             event.debuffsUp

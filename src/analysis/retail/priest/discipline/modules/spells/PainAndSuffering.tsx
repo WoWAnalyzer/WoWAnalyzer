@@ -28,9 +28,7 @@ class PainAndSuffering extends Analyzer {
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.PURGE_THE_WICKED_BUFF, SPELLS.SHADOW_WORD_PAIN]),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onDamage,
     );
   }
@@ -38,11 +36,7 @@ class PainAndSuffering extends Analyzer {
   onAtonement(event: AtonementAnalyzerEvent) {
     const { healEvent, damageEvent } = event;
 
-    if (
-      !damageEvent ||
-      (damageEvent.ability.guid !== SPELLS.PURGE_THE_WICKED_BUFF.id &&
-        damageEvent.ability.guid !== SPELLS.SHADOW_WORD_PAIN.id)
-    ) {
+    if (!damageEvent || damageEvent.ability.guid !== SPELLS.SHADOW_WORD_PAIN.id) {
       return;
     }
 
@@ -63,10 +57,12 @@ class PainAndSuffering extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spell={TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT}>
-          <>
-            <ItemHealingDone amount={this.healing} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
             <ItemDamageDone amount={this.damage} />
-          </>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

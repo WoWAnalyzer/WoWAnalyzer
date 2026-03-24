@@ -110,6 +110,7 @@ abstract class DotSnapshots extends Analyzer {
     this.startDot(event, prev);
   }
 
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   getUptimesForTarget(event: TargettedEvent<any>): DotUptime[] {
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.snapshotsByTarget[targetString]) {
@@ -208,6 +209,7 @@ abstract class DotSnapshots extends Analyzer {
   }
 
   /** Gets the time remaining on the DoT active on the given event's target at the time of the event (zero if DoT isn't active) */
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   getTimeRemaining(event: TargettedEvent<any>): number {
     const uptimes = this.getUptimesForTarget(event);
     if (uptimes.length > 0) {

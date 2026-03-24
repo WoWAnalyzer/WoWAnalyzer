@@ -33,8 +33,7 @@ class RaptorStrike extends Analyzer {
         <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />. There are several abilities that are
         stronger than <SpellLink spell={TALENTS.RAPTOR_STRIKE_TALENT} /> and it is ideal to keep
         them on cooldown and engage with spec mechanics that reduce their cooldown like{' '}
-        <SpellLink spell={TALENTS.LUNGE_TALENT} />, and{' '}
-        <SpellLink spell={TALENTS.GRENADE_JUGGLER_TALENT} />.
+        <SpellLink spell={TALENTS.LETHAL_CALIBRATION_TALENT} />.
       </p>
     );
     return explanation;

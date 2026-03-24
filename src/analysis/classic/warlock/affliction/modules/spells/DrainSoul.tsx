@@ -86,6 +86,7 @@ class DrainSoul extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
           </small>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </BoringSpellValueText>
       </Statistic>

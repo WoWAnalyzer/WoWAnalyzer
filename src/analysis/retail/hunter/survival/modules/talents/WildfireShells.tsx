@@ -61,6 +61,7 @@ class WildfireShells extends Analyzer.withDependencies({ spellUsable: SpellUsabl
           <>
             Wildfire Shells reduced Wildfire Bomb's cooldown by{' '}
             <strong>{(this.effectiveCDR / 1000).toFixed(1)}s</strong> total.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>{(this.wastedCDR / 1000).toFixed(1)}s</strong> was wasted (Wildfire Bomb not on
             cooldown).

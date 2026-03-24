@@ -82,6 +82,7 @@ class TwistOfFate extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.TWIST_OF_FATE_TALENT}>
           <ItemHealingDone amount={healing} />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>

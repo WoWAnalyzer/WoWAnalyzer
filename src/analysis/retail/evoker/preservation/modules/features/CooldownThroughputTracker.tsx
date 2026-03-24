@@ -26,18 +26,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
   ];
-  static castCooldowns = [
-    ...CoreCooldownThroughputTracker.castCooldowns,
-    {
-      spell: TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-      branch: GameBranch.Retail,
-    },
-  ];
+  static castCooldowns = [...CoreCooldownThroughputTracker.castCooldowns];
 
   static ignoredSpells = [...CoreCooldownThroughputTracker.ignoredSpells];
 }

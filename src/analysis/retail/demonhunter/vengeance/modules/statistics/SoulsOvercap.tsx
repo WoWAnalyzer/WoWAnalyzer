@@ -51,10 +51,13 @@ class SoulsOvercap extends Analyzer {
           <>
             You generated {formatNumber(this.soulFragmentsTracker.overcap)} souls at cap. These are
             absorbed automatically and aren't avalible to boost Spirit Bomb's damage.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Total Soul Fragments generated: {formatNumber(this.soulFragmentsTracker.soulsGenerated)}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Total Soul Fragments spent: {formatNumber(this.soulFragmentsTracker.soulsSpent)}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             At the end of the fight, you had {formatNumber(
               this.soulFragmentsTracker.currentSouls,

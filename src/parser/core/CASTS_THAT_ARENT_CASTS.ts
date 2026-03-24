@@ -178,6 +178,7 @@ const spells: number[] = [
   //endregion
 
   //region trinket
+  SPELLS.EYE_OF_THE_DROWNING_VOID.id,
   //endregion
   //region Embellishments
   //endregion

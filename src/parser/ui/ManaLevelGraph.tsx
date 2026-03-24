@@ -36,6 +36,7 @@ class ManaLevelGraph extends PureComponent<Props> {
   render() {
     const { mana, deaths, bossData } = this.props;
 
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     const baseEncoding: CompositeEncoding<any> = {
       x: {
         field: 'x',

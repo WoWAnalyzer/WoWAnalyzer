@@ -55,8 +55,28 @@ import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheD
 import Germination from 'analysis/retail/druid/restoration/modules/spells/Germination';
 import ThrivingVegetation from 'analysis/retail/druid/restoration/modules/spells/ThrivingVegetation';
 import RenewingSurge from 'analysis/retail/druid/restoration/modules/spells/RenewingSurge';
-import RootNetwork from 'analysis/retail/druid/restoration/modules/spells/RootNetwork';
+import RootNetwork from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/RootNetwork';
 import Everbloom from 'analysis/retail/druid/restoration/modules/spells/Everbloom';
+import ImprovedWildGrowth from 'analysis/retail/druid/restoration/modules/spells/ImprovedWildGrowth';
+import ProtectiveGrowth from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/ProtectiveGrowth';
+import GrovesInspiration from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/GrovesInspiration';
+import CenariusMight from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/CenariusMight';
+import PowerOfNature from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PowerOfNature';
+import DryadsDance from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/DryadsDance';
+import BounteousBloom from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/BounteousBloom';
+import EarlySpring from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/EarlySpring';
+import PowerOfTheDream from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PowerOfTheDream';
+import HarmonyOfTheGrove from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/HarmonyOfTheGrove';
+import PotentEnchantments from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PotentEnchantments';
+import HuntBeneathTheOpenSkies from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HuntBeneathTheOpenSkies';
+import StrategicInfusion from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/StrategicInfusion';
+import WildstalkersPower from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/WildstalkersPower';
+import HarmoniousConstitution from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HarmoniousConstitution';
+import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BondWithNature';
+import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/PatientCustodian';
+import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
+import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
+import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -119,12 +139,38 @@ class CombatLogParser extends CoreCombatLogParser {
     germination: Germination,
     thrivingVegetation: ThrivingVegetation,
     renewingSurge: RenewingSurge,
+    improvedWildGrowth: ImprovedWildGrowth,
+    powerOfTheDream: PowerOfTheDream,
+    liveliness: Liveliness,
+
+    // Keeper of the Grove
+    protectiveGrowth: ProtectiveGrowth,
+    cenariusMight: CenariusMight,
+    powerOfNature: PowerOfNature,
+    grovesInspiration: GrovesInspiration,
+    dryadsDance: DryadsDance,
+    bounteousBloom: BounteousBloom,
+    earlySpring: EarlySpring,
+    harmonyOfTheGrove: HarmonyOfTheGrove,
+    potentEnchantments: PotentEnchantments,
+
+    // Wildstalker
     rootNetwork: RootNetwork,
+    huntBeneathTheOpenSkies: HuntBeneathTheOpenSkies,
+    strategicInfusion: StrategicInfusion,
+    wildstalkersPower: WildstalkersPower,
+    harmoniousConstitution: HarmoniousConstitution,
+    bondWithNature: BondWithNature,
+    patientCustodian: PatientCustodian,
+    vigorousCreepers: VigorousCreepers,
 
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: RestoDruidHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Tier Set Modules
+    s1TierSet: S1TierSet,
   };
 
   static guide = Guide;

@@ -106,6 +106,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
         tooltip={
           <>
             {formatThousands(this.talentDamage)} talent damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {formatThousands(this.extraDamage)} damage added to Chaos Strike/Annihilation/Blade
             Dance/Death Sweep

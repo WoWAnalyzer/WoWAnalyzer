@@ -97,6 +97,7 @@ const SpecListItem = ({
       <div className="description">
         <h4 className={className}>{displayName}</h4>
         {supportDescription}
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {maintainerDescription}
       </div>

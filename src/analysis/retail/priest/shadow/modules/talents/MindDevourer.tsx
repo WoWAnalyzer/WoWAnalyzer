@@ -100,16 +100,19 @@ class MindDevourer extends Analyzer {
     };
 
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} />
-        </b>{' '}
-        is gained randomly from <SpellLink spell={SPELLS.MIND_BLAST} /> casts.
-        <br />
-        Before the buff expires, cast <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.
-        While you have this active, be careful using <SpellLink spell={SPELLS.MIND_BLAST} />, as it
-        may overwrite it.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} />
+          </b>{' '}
+          is gained randomly from <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> casts.
+        </p>
+        <p>
+          Before the buff expires, cast <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} />.
+          While you have this active, be careful using{' '}
+          <SpellLink spell={TALENTS.MIND_BLAST_TALENT} />, as it may overwrite it.
+        </p>
+      </>
     );
 
     const data = (

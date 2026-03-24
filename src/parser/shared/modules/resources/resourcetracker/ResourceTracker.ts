@@ -374,7 +374,7 @@ export default class ResourceTracker extends Analyzer {
    *   Used only to update current and max resources.
    */
   _applySpender(
-    event: AbilityEvent<any> & SourcedEvent<any>,
+    event: AbilityEvent<any> & SourcedEvent<any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code. // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     spent: number,
     resource?: ClassResources,
   ) {

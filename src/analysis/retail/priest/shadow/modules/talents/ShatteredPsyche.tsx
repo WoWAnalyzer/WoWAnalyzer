@@ -41,7 +41,7 @@ class ShatteredPsyche extends Analyzer {
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
       this.onMindBlast,
     );
   }

@@ -8,7 +8,7 @@ interface Props {
   end: number;
   offset: number;
   healingBySecond: Record<number, HealingValue>;
-  manaUpdates: any[];
+  manaUpdates: any[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 }
 
 class HealingDoneGraph extends PureComponent<Props> {
@@ -85,6 +85,7 @@ class HealingDoneGraph extends PureComponent<Props> {
         y: lastKnown * max,
       };
     });
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     const healing = Object.values(healingPerFrame).map((value: any, i: number) => ({
       x: labels[i],
       y: value / interval,
