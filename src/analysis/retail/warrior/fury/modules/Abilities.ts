@@ -169,7 +169,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ODYNS_FURY.id,
+        spell: TALENTS.ODYNS_FURY_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ODYNS_FURY_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
