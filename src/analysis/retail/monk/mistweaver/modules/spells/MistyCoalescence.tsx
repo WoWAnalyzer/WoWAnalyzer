@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { MISTY_COALESCENCE_MAX_INCREASE } from '../../constants';
+import { MISTY_COALESCENCE_MAX_INCREASE, MISTY_COALESCENCE_MAX_RAID_REMS } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -52,8 +52,13 @@ class MistyCoalescence extends Analyzer {
     this.remCounts.push(this.currentRems);
   }
 
+  get cappedGroupSize() {
+    return Math.min(this.combatants.playerCount, MISTY_COALESCENCE_MAX_RAID_REMS);
+  }
+
   get currentIncrease() {
-    return this.currentRems / this.combatants.playerCount;
+    const cappedRems = Math.min(this.currentRems, MISTY_COALESCENCE_MAX_RAID_REMS);
+    return cappedRems / this.cappedGroupSize;
   }
 
   get avgRems() {
@@ -61,7 +66,7 @@ class MistyCoalescence extends Analyzer {
   }
 
   get averageIncrease() {
-    return (this.avgRems / this.combatants.playerCount) * MISTY_COALESCENCE_MAX_INCREASE;
+    return (this.avgRems / this.cappedGroupSize) * MISTY_COALESCENCE_MAX_INCREASE;
   }
 
   statistic() {
