@@ -102,7 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
     PsychicVoice: Talents.Classwide.PsychicVoice,
 
     ProtectiveLight: ProtectiveLight,
-    SurgeOfLight: Talents.Classwide.SurgeOfLight,
     PrayerfulLitany: Talents.MiddleRow.PrayerfulLitany,
 
     Halo: Talents.Classwide.Halo,

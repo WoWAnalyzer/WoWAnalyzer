@@ -7,7 +7,6 @@ import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID } from '../constants';
 import { FullCombatant } from 'parser/core/Combatant';
 
 import Combatant from 'parser/core/Combatant';
-import { L } from 'vitest/dist/chunks/reporters.d.BFLkQcL6.js';
 
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
@@ -49,8 +48,8 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.PRAYER_OF_MENDING_HEAL.id],
       },
       {
-        spell: SPELLS.DESPERATE_PRAYER.id,
-        buffSpellId: SPELLS.DESPERATE_PRAYER.id,
+        spell: TALENTS.DESPERATE_PRAYER_TALENT.id,
+        buffSpellId: TALENTS.DESPERATE_PRAYER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         castEfficiency: {
@@ -110,16 +109,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.HOLY_WORD_SERENITY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT) ? 2 : 1,
-        cooldown: (haste: number) => {
-          let baseCD = 60;
-          if (combatant.hasTalent(TALENTS.HOLY_CELERITY_TALENT)) {
-            baseCD -= 15;
-          }
-          if (combatant.hasTalent(TALENTS.PROPHETS_INSIGHT_TALENT)) {
-            baseCD -= 5;
-          }
-          return baseCD;
-        },
+        cooldown:
+          60 -
+          15 * combatant.getTalentRank(TALENTS.HOLY_CELERITY_TALENT) -
+          5 * combatant.getTalentRank(TALENTS.PROPHETS_INSIGHT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -131,7 +124,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HALO_TALENT.id,
+        spell: TALENTS.HALO_HOLY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.HALO_HOLY_TALENT),
@@ -190,16 +183,10 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_WORD_CHASTISE_TALENT.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        cooldown: (haste: number) => {
-          let baseCD = 60;
-          if (combatant.hasTalent(TALENTS.HOLY_CELERITY_TALENT)) {
-            baseCD -= 15;
-          }
-          if (combatant.hasTalent(TALENTS.PROPHETS_INSIGHT_TALENT)) {
-            baseCD -= 5;
-          }
-          return baseCD;
-        },
+        cooldown:
+          60 -
+          15 * combatant.getTalentRank(TALENTS.HOLY_CELERITY_TALENT) -
+          5 * combatant.getTalentRank(TALENTS.PROPHETS_INSIGHT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -212,16 +199,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FADE.id,
+        spell: TALENTS.FADE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: (haste: number) => {
-          let baseCD = 30;
-          if (combatant.hasTalent(TALENTS.IMPROVED_FADE_TALENT)) {
-            const rank = combatant.getTalentRank(TALENTS.IMPROVED_FADE_TALENT);
-            baseCD -= 5 * rank;
-          }
-          return baseCD;
-        },
+        cooldown: 30 - 5 * combatant.getTalentRank(TALENTS.IMPROVED_FADE_TALENT),
         gcd: null,
       },
       {
@@ -244,7 +224,7 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.GUARDIAN_SPIRIT_HEAL.id],
       },
       {
-        spell: SPELLS.LEAP_OF_FAITH.id,
+        spell: TALENTS.LEAP_OF_FAITH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.MOVE_WITH_GRACE_TALENT) ? 60 : 90,
       },
@@ -256,7 +236,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PSYCHIC_SCREAM.id,
+        spell: TALENTS.PSYCHIC_SCREAM_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT) ? 30 : 40,
         gcd: {
@@ -264,7 +244,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MASS_DISPEL.id,
+        spell: TALENTS.MASS_DISPEL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: {
