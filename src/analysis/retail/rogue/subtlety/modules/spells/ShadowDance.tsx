@@ -11,13 +11,19 @@ import TALENTS from 'common/TALENTS/rogue';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import AlwaysBeCasting from 'analysis/retail/rogue/subtlety/modules/features/AlwaysBeCasting';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
+import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
 
 export default class ShadowDance extends Analyzer.withDependencies({
   abilityTracker: AbilityTracker,
   alwaysBeCasting: AlwaysBeCasting,
+  energyTracker: EnergyTracker,
+  comboPointTracker: ComboPointTracker,
 }) {
   protected abilityTracker!: AbilityTracker;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected energyTracker!: EnergyTracker;
+  protected comboPointTracker!: ComboPointTracker;
 
   // Conditional talent checks
   hasShadowBlades: boolean = this.selectedCombatant.hasTalent(TALENTS.SHADOW_BLADES_TALENT);
@@ -35,6 +41,8 @@ export default class ShadowDance extends Analyzer.withDependencies({
 
   private onApplyBuff(event: ApplyBuffEvent) {
     const damageEvents = this.getDamageEvents(event);
+    const energyAtCast = this.energyTracker.current;
+    const comboPointsAtCast = this.comboPointTracker.current;
 
     const removed = this.getRemoveTimestamp(event);
     this.danceData.push({
@@ -43,6 +51,8 @@ export default class ShadowDance extends Analyzer.withDependencies({
       damage: damageEvents,
       totalDamage: this.calculateTotalDamage(damageEvents),
       duration: removed - event.timestamp,
+      energyAtCast: energyAtCast,
+      comboPointsAtCast: comboPointsAtCast,
     });
   }
 
@@ -108,4 +118,6 @@ export interface ShadowDanceData {
   totalDamage: number;
   duration: number;
   numberAbilitiesUsed?: number;
+  energyAtCast: number;
+  comboPointsAtCast: number;
 }

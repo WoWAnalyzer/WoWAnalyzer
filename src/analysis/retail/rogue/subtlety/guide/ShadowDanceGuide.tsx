@@ -1,8 +1,6 @@
 import type { JSX } from 'react';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import ShadowDance, { ShadowDanceData } from '../modules/spells/ShadowDance';
-import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
-import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
@@ -24,15 +22,11 @@ import InformationIcon from 'interface/icons/Information';
 
 class ShadowDanceGuide extends Analyzer.withDependencies({
   damageDone: DamageDone,
-  energyTracker: EnergyTracker,
-  comboPointTracker: ComboPointTracker,
   shadowDance: ShadowDance,
   eventHistory: EventHistory,
   spellUsable: SpellUsable,
 }) {
   protected damageDone!: DamageDone;
-  protected energyTracker!: EnergyTracker;
-  protected comboPointTracker!: ComboPointTracker;
   protected shadowDance!: ShadowDance;
   protected eventHistory!: EventHistory;
   protected spellUsable!: SpellUsable;
@@ -41,8 +35,8 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
   isDeathstalker = this.selectedCombatant.hasTalent(TALENTS.DEATHSTALKERS_MARK_TALENT);
 
   private evaluateShadowDanceUsage(dance: ShadowDanceData) {
-    const energyAtCast = this.energyTracker.current;
-    const comboPointsAtCast = this.comboPointTracker.current;
+    const energyAtCast = dance.energyAtCast;
+    const comboPointsAtCast = dance.comboPointsAtCast;
     const hasShadowBladesActive =
       this.shadowDance.hasShadowBlades &&
       this.selectedCombatant.hasBuff(TALENTS.SHADOW_BLADES_TALENT, dance.applied);
@@ -237,7 +231,7 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
             tooltip: <>Total damage accumulated during this Shadow Dance</>,
           },
           {
-            value: `${formatDurationMillisMinSec(dance.duration, 0)}`,
+            value: `${formatDurationMillisMinSec(dance.duration, 2)}`,
             label: 'Duration',
             tooltip: <>Duration of this Shadow Dance</>,
           },
