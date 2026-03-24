@@ -78,7 +78,7 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
       <p>
         See the{' '}
         <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#advanced-disintegrate-chaining-and-clipping">
-          Chaining Chaining and Clipping
+          Disintegrate Chaining and Clipping
         </a>{' '}
         section on wowhead for a more in-depth explanation.
       </p>
