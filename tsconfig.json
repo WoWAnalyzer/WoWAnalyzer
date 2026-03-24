@@ -61,7 +61,6 @@
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/holy/CONFIG.tsx",
     "src/analysis/retail/rogue/assassination/CONFIG.tsx",
-    "src/analysis/retail/rogue/subtlety/CONFIG.tsx",
     "src/analysis/retail/rogue/outlaw/CONFIG.tsx",
     "src/analysis/retail/warrior/protection/CONFIG.tsx"
   ]

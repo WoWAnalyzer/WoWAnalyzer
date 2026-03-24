@@ -43,7 +43,8 @@ import RuptureUptime from './modules/spells/Rupture';
 import FlagellationAnalysis from './modules/spells/Flagellation';
 import { Flagellation } from 'analysis/retail/rogue/shared';
 import ShadowBlades from './modules/spells/ShadowBlades';
-import { ColdBlood } from 'analysis/retail/rogue/shared';
+import ShadowDanceGuide from './guide/ShadowDanceGuide';
+import SubletyNormalizer from './normalizers/SubletyNormalizers';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     shurikenStormNormalizer: ShurikenStormNormalizer,
+    SubletyNormalizer: SubletyNormalizer,
 
     //Resource
     comboPointTracker: ComboPointTracker,
@@ -106,6 +108,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
+
+    // Guide
+    shadowDanceGuide: ShadowDanceGuide,
   };
   static guide = Guide;
 }

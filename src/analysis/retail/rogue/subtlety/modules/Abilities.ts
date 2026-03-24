@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { hastedCooldown } from 'analysis/retail/hunter/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -27,6 +28,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EVISCERATE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.COUP_DE_GRACE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -101,9 +109,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS.SHADOW_BLADES_TALENT.id,
         cooldown: 90,
-        gcd: {
-          base: 1000,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           extraSuggestion: 'In most cases should be used on cooldown.',
@@ -113,9 +119,23 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_DANCE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
-        cooldown: 60,
+        cooldown: 20,
         charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_DANCE_TALENT) ? 1 : 0),
         gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
+        },
+      },
+      {
+        spell: SPELLS.SECRET_TECHNIQUE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: (haste) => hastedCooldown(25, haste),
+        charges: 1,
+        gcd: {
+          static: 1000,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,

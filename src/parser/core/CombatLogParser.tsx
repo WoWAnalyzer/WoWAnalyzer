@@ -52,6 +52,7 @@ import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
+import AncestralCall from '../shared/modules/racials/magharorc/AncestralCall';
 import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
 import SpellHistory from '../shared/modules/SpellHistory';
@@ -200,6 +201,7 @@ class CombatLogParser {
     stoneform: Stoneform,
     berserking: Berserking,
     bloodFury: BloodFury,
+    ancestralCall: AncestralCall,
     otherRacials: OtherRacials,
 
     // Items:
