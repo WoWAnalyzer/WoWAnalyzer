@@ -72,11 +72,15 @@ class BlindFury extends Analyzer {
         tooltip={
           <>
             Since this will always max out your Fury on cast, wasted and totals do not matter. Only
-            the amount effectively gained. <br />
-            A bad cast is when you cast Eye Beam with more than 50 Fury. At that point you are
-            wasting enough fury gained for it to be a DPS loss. <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+            the amount effectively gained. <br />A bad cast is when you cast Eye Beam with more than
+            50 Fury. At that point you are wasting enough fury gained for it to be a DPS loss.{' '}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+            <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.gained} Effective Fury gained
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         }
@@ -86,6 +90,7 @@ class BlindFury extends Analyzer {
           <small>
             bad <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> casts
           </small>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {this.furyPerMin} <small>Fury per min</small>
         </TalentSpellText>

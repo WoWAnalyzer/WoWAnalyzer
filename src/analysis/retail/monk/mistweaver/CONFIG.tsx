@@ -1,15 +1,15 @@
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
-import { Vohrr } from 'CONTRIBUTORS';
+import { swirl, Vohrr } from 'CONTRIBUTORS';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Vohrr],
+  contributors: [Vohrr, swirl],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0',
+  patchCompatibility: '12.0.0',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -29,7 +29,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    "report/N2wmMRtF7CJ6AXnT/99-Heroic+Mug'Zee,+Heads+of+Security+-+Kill+(5:48)/Vohrr/standard/statistics",
+    '/report/jfpNYwGr1879TyxK/50-Heroic+Fallen-King+Salhadaar+-+Kill+(7:01)/135-Zenicide/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -20,6 +20,7 @@ const CONFIG: Config = {
     <>
       Welcome! Thanks for checking out WoWAnalyzer. The Classic Unholy Death Knight guide is seeking
       a maintainer.
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       See the public GitHub repo or join our community Discord for information about contributing.
       Thanks!

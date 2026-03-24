@@ -1,6 +1,6 @@
 /**
  * All Priest abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
- * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID are in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 import Spell from 'common/SPELLS/Spell';
@@ -11,24 +11,19 @@ const spells = {
     id: 281265,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 40000,
+    manaCost: 1000,
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 100000,
-  },
-  DESPERATE_PRAYER: {
-    id: 19236,
-    name: 'Desperate Prayer',
-    icon: 'spell_holy_testoffaith',
+    manaCost: 2500,
   },
   MIND_SOOTHE: {
     id: 453,
     name: 'Mind Soothe',
     icon: 'spell_holy_mindsooth',
-    manaCost: 25000,
+    manaCost: 2500,
   },
   BORROWED_TIME_BUFF: {
     id: 390692,
@@ -47,67 +42,42 @@ const spells = {
     name: 'Mastery: Grace',
     icon: 'spell_holy_hopeandgrace',
   },
+  PLEA: {
+    id: 200829,
+    name: 'Plea',
+    icon: 'spell_priest_plea_yellow',
+  },
+  VOID_SHIELD: {
+    id: 1253593,
+    name: 'Void Shield',
+    icon: 'inv12_apextalent_priest_voidshield',
+  },
 
-  PENANCE: {
-    id: 47666,
-    name: 'Penance',
-    icon: 'spell_holy_penance',
-    manaCost: 4000,
-  },
-  PENANCE_HEAL: {
-    // Penance on a friendly player
-    id: 47750,
-    name: 'Penance',
-    icon: 'spell_holy_penance',
-    manaCost: 4000,
-  },
-  PENANCE_TWINSIGHT_DAMAGE: {
-    id: 1232571,
-    name: 'Penance (Twinsight)',
-    icon: 'spell_holy_penance',
-    manaCost: 0,
-  },
-  PENANCE_TWINSIGHT_HEALING: {
-    id: 1232567,
-    name: 'Penance (Twinsight)',
-    icon: 'spell_holy_penance',
-    manaCost: 0,
-  },
-  DARK_REPRIMAND_HEAL: {
-    id: 400187,
-    name: 'Dark Reprimand',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 4000,
-  },
-  DARK_REPRIMAND_DAMAGE: {
-    id: 373130,
-    name: 'Dark Reprimand',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 4000,
-  },
-  DARK_REPRIMAND_TWINSIGHT_DAMAGE: {
-    id: 1232592,
-    name: 'Dark Reprimand (Twinsight)',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 0,
-  },
-  DARK_REPRIMAND_TWINSIGHT_HEALING: {
-    id: 1232615,
-    name: 'Dark Reprimand (Twinsight)',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 0,
-  },
-  DARK_REPRIMAND_CAST: {
-    id: 400169,
-    name: 'Dark Reprimand',
-    icon: 'inv_artifact_powerofthedarkside',
-    manaCost: 4000,
-  },
   PENANCE_CAST: {
     id: 47540,
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 4000,
+  },
+  PENANCE_BOLT_DAMAGE: {
+    id: 47666,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_BOLT_HEAL: {
+    id: 47750,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_TWINSIGHT_BOLT_DAMAGE: {
+    id: 1232571,
+    name: 'Penance (Twinsight)',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_TWINSIGHT_BOLT_HEAL: {
+    id: 1232567,
+    name: 'Penance (Twinsight)',
+    icon: 'spell_holy_penance',
   },
   HARSH_DISCIPLINE_BUFF: {
     id: 373183,
@@ -123,7 +93,7 @@ const spells = {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 775000,
+    manaCost: 6500,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -139,76 +109,18 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 5000,
-  },
-  SHADOW_SMITE: {
-    id: 425529,
-    name: 'Smite',
-    icon: 'spell_fire_twilightflamestrike',
+    manaCost: 1000,
   },
   ULTIMATE_PENITENCE_DAMAGE: {
     id: 421543,
     name: 'Ultimate Penitence',
     icon: 'ability_priest_ascendance',
   },
-  POWER_WORD_RADIANCE: {
-    id: 194509,
-    name: 'Power Word: Radiance',
-    icon: 'spell_priest_power-word',
-    manaCost: 11250,
-  },
-  SHADOW_MEND: {
-    id: 186263,
-    name: 'Shadow Mend',
-    icon: 'spell_shadow_shadowmend',
-    manaCost: 1750,
-  },
-  RAPTURE: {
-    id: 47536,
-    name: 'Rapture',
-    icon: 'spell_holy_rapture',
-    manaCost: 7750,
-  },
-  PAIN_SUPPRESSION: {
-    id: 33206,
-    name: 'Pain Suppression',
-    icon: 'spell_holy_painsupression',
-    manaCost: 800,
-  },
-  MASS_DISPEL: {
-    id: 32375,
-    name: 'Mass Dispel',
-    icon: 'spell_arcane_massdispel',
-    manaCost: 200000,
-  },
-  LEAP_OF_FAITH: {
-    id: 73325,
-    name: 'Leap of Faith',
-    icon: 'priest_spell_leapoffaith_a',
-    manaCost: 65000,
-  },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
-    manaCost: 22500,
-  },
-  LIGHTS_WRATH: {
-    id: 207946,
-    name: "Light's Wrath",
-    icon: 'inv_staff_2h_artifacttome_d_01',
-  },
-  MIND_CONTROL: {
-    id: 605,
-    name: 'Mind Control',
-    icon: 'spell_shadow_shadowworddominate',
-    manaCost: 50000,
-  },
-  POWER_WORD_BARRIER_CAST: {
-    id: 62618,
-    name: 'Power Word: Barrier',
-    icon: 'spell_holy_powerwordbarrier',
-    manaCost: 2000,
+    manaCost: 2250,
   },
   POWER_WORD_BARRIER_BUFF: {
     id: 81782,
@@ -224,18 +136,12 @@ const spells = {
     id: 527,
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
-    manaCost: 32500,
+    manaCost: 3250,
   },
-  SHACKLE_UNDEAD: {
-    id: 9484,
-    name: 'Shackle Undead',
-    icon: 'spell_nature_slow',
-    manaCost: 30000,
-  },
-  SHADOWFIEND: {
-    id: 34433,
-    name: 'Shadowfiend',
-    icon: 'spell_shadow_shadowfiend',
+  VAMPIRIC_EMBRACE: {
+    id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
   },
   VOIDLING: {
     id: 254232,
@@ -266,17 +172,6 @@ const spells = {
     id: 193065,
     name: 'Protective Light',
     icon: 'spell_holy_holyprotection',
-  },
-  FADE: {
-    id: 586,
-    name: 'Fade',
-    icon: 'spell_magic_lesserinvisibilty',
-  },
-  PSYCHIC_SCREAM: {
-    id: 8122,
-    name: 'Psychic Scream',
-    icon: 'spell_shadow_psychicscream',
-    manaCost: 600,
   },
   ATONEMENT_HEAL_NON_CRIT: {
     id: 81751,
@@ -348,21 +243,6 @@ const spells = {
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
-  TWILIGHT_EQUILIBRIUM_SHADOW_BUFF: {
-    id: 390707,
-    name: 'Twilight Equilibrium',
-    icon: 'ability_priest_innerlightandshadow',
-  },
-  TWILIGHT_EQUILIBRIUM_HOLY_BUFF: {
-    id: 390706,
-    name: 'Twilight Equilibrium',
-    icon: 'ability_priest_innerlightandshadow',
-  },
-  MANIFESTED_TWILIGHT_BUFF_2P: {
-    id: 363943,
-    name: 'Manifested Twilight',
-    icon: 'ability_priest_innerlightandshadow',
-  },
 
   KAM_XIRAFF_BUFF: {
     id: 233997,
@@ -374,65 +254,23 @@ const spells = {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
-  TWIST_OF_FATE_BUFF_DISCIPLINE: {
-    id: 265258,
-    name: 'Twist of Fate',
-    icon: 'spell_shadow_mindtwisting',
-  },
-  SCHISM_DEBUFF: {
-    id: 214621,
-    name: 'Schism',
-    icon: 'spell_warlock_focusshadow',
-  },
-  ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
-    id: 214637,
-    name: "Dejahna's Inspiration",
-    icon: 'spell_holy_heal',
-  },
   PRAYER_CIRCLE_BUFF: {
     id: 321379,
     name: 'Prayer Circle',
     icon: 'spell_paladin_divinecircle',
   },
-  SANCTIFIED_PRAYERS_BUFF: {
-    id: 196490,
-    name: 'Sanctified Prayers',
-    icon: 'spell_holy_pureofheart',
-  },
 
   // Talents:
   // lv90
-  PURGE_THE_WICKED_TALENT: {
-    id: 204197,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-    manaCost: 4500,
-  },
-  PURGE_THE_WICKED_BUFF: {
-    id: 204213,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-  },
-  HALO_TALENT: {
-    id: 120517,
-    name: 'Halo',
-    icon: 'ability_priest_halo',
-    manaCost: 67500,
-  },
   EXPIATION_DAMAGE: {
     id: 390844,
     name: 'Expiation',
-    icon: 'spell-shadow-shadowpower',
+    icon: 'spell_shadow_shadowpower',
   },
   BURNING_VEHEMENCE_DAMAGE: {
     id: 400370,
     name: 'Burning Vehemence',
     icon: 'ability_paladin_sacredcleansing',
-  },
-  WORDS_OF_THE_PIOUS_BUFF: {
-    id: 390933,
-    name: 'Words of the Pious',
-    icon: 'ability_priest_clarityofwill',
   },
 
   //Voidweaver
@@ -446,7 +284,7 @@ const spells = {
     name: 'Collapsing Void',
     icon: 'inv_cosmicvoid_groundsate',
   },
-  VOID_BLAST_DAMAGE_DISC: {
+  VOID_BLAST_CAST_DISC: {
     id: 450215,
     name: 'Void Blast',
     icon: 'inv_cosmicvoid_missile',
@@ -467,7 +305,7 @@ const spells = {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 90000,
+    manaCost: 9000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -592,11 +430,6 @@ const spells = {
     name: 'Resonant Words',
     icon: 'spell_holy_holybolt',
   },
-  HEALING_CHORUS_TALENT_BUFF: {
-    id: 390885,
-    name: 'Healing Chorus',
-    icon: 'spell_holy_circleofrenewal',
-  },
   DIVINE_WORD_SERENITY_TALENT_BUFF: {
     id: 372791,
     name: 'Divine Favor: Serenity',
@@ -696,23 +529,12 @@ const spells = {
     icon: 'spell_holy_chastise',
     manaCost: 15000,
   },
-  PONTIFEX_TALENT_BUFF: {
-    id: 390989,
-    name: 'Pontifex',
-    icon: 'spell_priest_pontifex',
-  },
   DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
     id: 372787,
     name: 'Divine Word: Sanctuary',
     icon: 'priest_icon_chakra_blue',
   },
   // Shadow Spells
-  MIND_BLAST: {
-    id: 8092,
-    name: 'Mind Blast',
-    icon: 'spell_shadow_unholyfrenzy',
-    manaCost: 4000,
-  },
   MIND_FLAY: {
     id: 15407,
     name: 'Mind Flay',
@@ -733,20 +555,6 @@ const spells = {
     id: 343690,
     name: 'Mastery: Shadow Weaving',
     icon: 'spell_shadow_shadetruesight',
-  },
-
-  // From shadow word pain/vampiric touch:
-  VOID_ERUPTION_DAMAGE_1: {
-    id: 228360,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
-  },
-
-  // From shadow word pain/vampiric touch:
-  VOID_ERUPTION_DAMAGE_2: {
-    id: 228361,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
   },
 
   // Void torrent debuff applied on enemy
@@ -774,22 +582,10 @@ const spells = {
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
 
-  VAMPIRIC_EMBRACE_HEAL: {
-    id: 15290,
-    name: 'Vampiric Embrace',
-    icon: 'spell_shadow_unsummonbuilding',
-  },
-
   SILENCE: {
     id: 15487,
     name: 'Silence',
     icon: 'ability_priest_silence',
-  },
-
-  PURIFY_DISEASE: {
-    id: 213634,
-    name: 'Purify Disease',
-    icon: 'spell_holy_nullifydisease',
   },
 
   SHADOWFORM: {
@@ -801,13 +597,13 @@ const spells = {
     id: 2006,
     name: 'Resurrection',
     icon: 'spell_holy_resurrection',
+    manaCost: 2000,
   },
 
   MIND_VISION: {
     id: 2096,
     name: 'Mind Vision',
     icon: 'spell_holy_mindvision',
-    manaCost: 1000,
   },
 
   MIND_SEAR: {
@@ -1005,25 +801,6 @@ const spells = {
     id: 451235,
     name: 'Voidwraith',
     icon: 'warlock_curse_shadow',
-  },
-
-  //Shadow Tier
-  SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
-    id: 454638,
-    name: 'Devouring Chorus',
-    icon: 'spell_shadow_devouringplague',
-  },
-
-  SHADOW_PRIEST_TWW_TIER_2_4_SET: {
-    id: 1215703,
-    name: 'Priest Shadow 11.1 Class Set 4pc',
-    icon: 'trade_engineering',
-  },
-
-  SHADOW_PRIEST_TWW_TIER_2_2_SET: {
-    id: 1215702,
-    name: 'Priest Shadow 11.1 Class Set 2pc',
-    icon: 'trade_engineering',
   },
 
   EVANGELISM_HEAL: {

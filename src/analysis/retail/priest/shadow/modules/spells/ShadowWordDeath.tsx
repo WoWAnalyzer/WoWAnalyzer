@@ -30,6 +30,9 @@ class ShadowWordDeath extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;

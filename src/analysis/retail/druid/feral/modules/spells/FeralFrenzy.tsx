@@ -12,6 +12,7 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import { PerformanceMark } from 'interface/guide';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
+import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 
 /**
  * **Feral Frenzy**
@@ -30,6 +31,7 @@ export default class FeralFrenzy extends Analyzer {
   protected comboPointTracker!: ComboPointTracker;
   protected energyTracker!: EnergyTracker;
   protected enemies!: Enemies;
+  isFrantic = false;
 
   /** Tracker for each Feral Frenzy cast */
   ffTrackers: FeralFrenzyCast[] = [];
@@ -38,9 +40,18 @@ export default class FeralFrenzy extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
+    this.isFrantic = this.selectedCombatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT);
+
+    if (!this.isFrantic) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FERAL_FRENZY_TALENT),
+        this.onCastFf,
+      );
+      return;
+    }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FERAL_FRENZY_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
       this.onCastFf,
     );
   }
@@ -49,25 +60,38 @@ export default class FeralFrenzy extends Analyzer {
     const tfOnCast = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
     const cpsOnCast = this.comboPointTracker.current;
     const energyOnCast = this.energyTracker.current;
-
+    const isFrantic = this.isFrantic;
+    const damageEvents = getDamageHits(event);
+    const hitCount = new Set(damageEvents.map((e) => e.targetID)).size;
     this.ffTrackers.push({
       timestamp: event.timestamp,
       tfOnCast,
       cpsOnCast,
       energyOnCast,
+      isFrantic,
+      hitCount,
     });
   }
 
   /** Guide fragment showing a breakdown of each Feral Frenzy cast */
   get guideCastBreakdown() {
+    const isFrantic = this.isFrantic;
+    let talent = TALENTS_DRUID.FERAL_FRENZY_TALENT;
+    let addition = '';
+    if (isFrantic) {
+      talent = TALENTS_DRUID.FRANTIC_FRENZY_TALENT;
+      addition =
+        'Should be used within as large of packs as possible for you to gain the most benefit out of it.';
+    }
+
     const explanation = (
       <>
         <p>
           <strong>
-            <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT} />
+            <SpellLink spell={talent} />
           </strong>{' '}
           is a brief but extremely powerful bleed. Use it on cooldown. As it gives 5 combo points,
-          it's best used at low combo points in order not to waste them.
+          it's best used at low combo points in order not to waste them. {addition}
         </p>
       </>
     );
@@ -79,8 +103,7 @@ export default class FeralFrenzy extends Analyzer {
         {this.ffTrackers.map((cast, ix) => {
           const header = (
             <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT} />
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash; <SpellLink spell={talent} />
             </>
           );
 
@@ -93,7 +116,8 @@ export default class FeralFrenzy extends Analyzer {
 
           let overallPerf = QualitativePerformance.Good;
           overallPerf = getLowestPerf([overallPerf, cpsPerf]);
-
+          // TODO: We should add back in the Tiger's fury overlap now. Snapshotting may be gone, but
+          // talented correctly Tiger's fury and Feral Frenzy will always overlap.
           const checklistItems: CooldownExpandableItem[] = [];
           // FF is desynced with TF cooldown, and sims say send both on CD, so in proper use
           // only half of FF uses will have TF active. Leaving code in in case that changes.
@@ -108,7 +132,11 @@ export default class FeralFrenzy extends Analyzer {
           checklistItems.push({
             label: 'Combo Points on cast',
             result: <PerformanceMark perf={cpsPerf} />,
-            details: <>({cast.cpsOnCast} CPs)</>,
+            details: (
+              <>
+                ({cast.cpsOnCast} CPs) ({cast.hitCount} Targets hit ){' '}
+              </>
+            ),
           });
 
           return (
@@ -132,4 +160,6 @@ interface FeralFrenzyCast {
   tfOnCast: boolean;
   cpsOnCast: number;
   energyOnCast: number;
+  isFrantic: boolean; // Feral Frenzy can be upgraded to Frantic Frenzy now
+  hitCount: number; // The ability becomes AoE. This greatly changes the effeciency values.
 }

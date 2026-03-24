@@ -131,6 +131,7 @@ class DamageTaken extends Analyzer {
             {formatPercentage(magical / this.total.effective)}%)
           </li>
         </ul>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
 
         <strong>Damage taken by magic school:</strong>

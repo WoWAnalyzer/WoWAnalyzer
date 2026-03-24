@@ -54,7 +54,9 @@ export function Component() {
                   <h2>Patreon</h2>
                   Help fund further development by becoming a patron on Patreon.
                 </Trans>
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
 
                 <PatreonButton />
@@ -74,7 +76,9 @@ export function Component() {
                   </TooltipElement>
                   .
                 </Trans>
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
 
                 <GitHubButton />
@@ -144,7 +148,9 @@ export function Component() {
                 <div className="flex-main">
                   <Trans id="interface.premiumPage.unlocks.discord">
                     <h2>Discord name color</h2>
-                    <strong>We'll help anyone, but sometimes we can't avoid favoritism.</strong> Get
+                    <strong>
+                      We'll help anyone, but sometimes we can't avoid favoritism.
+                    </strong> Get
                     a distinct Discord name color befitting your contribution. See Patreon for
                     Patron specific name colors. Serious GitHub contributors get the yellow
                     contributor name color.

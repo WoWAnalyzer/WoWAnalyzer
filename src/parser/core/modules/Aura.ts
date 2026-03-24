@@ -27,6 +27,7 @@ export interface SpellbookAura {
 }
 
 class Aura {
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   static propTypes: Record<string, any> = {
     /**
      * REQUIRED The spell id. If an array of spell ids is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
@@ -88,6 +89,7 @@ class Aura {
       this._setProp(prop, props[prop as keyof SpellbookAura]);
     });
   }
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _setProp(prop: string, value: any) {
     this[prop as keyof SpellbookAura] = value;
   }

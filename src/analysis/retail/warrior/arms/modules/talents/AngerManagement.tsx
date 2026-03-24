@@ -45,6 +45,7 @@ class AngerManagement extends Analyzer {
       <Fragment key={id}>
         {SPELLS[id].name}: {formatDuration(this.effectiveReduction.get(id) || 0)} reduction (
         {formatDuration(this.wastedReduction.get(id) || 0)} wasted)
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
       </Fragment>
     ));

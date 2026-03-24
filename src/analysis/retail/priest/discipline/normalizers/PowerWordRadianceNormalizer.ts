@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 const BUFFS_TO_MOVE = [SPELLS.ATONEMENT_BUFF.id];
 const MAX_TIME_SINCE_CAST = 250; // ms
@@ -24,7 +25,7 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
 
       if (event.type === EventType.Cast) {
         const spellId = event.ability.guid;
-        if (spellId === SPELLS.POWER_WORD_RADIANCE.id) {
+        if (spellId === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
           lastRadianceTimestamp = event.timestamp;
           lastRadianceIndex = eventIndex;
         }

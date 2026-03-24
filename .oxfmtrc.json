@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "trailingComma": "all",
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "node_modules",
+    "/build",
+    "/src/localization/_build",
+    "/src/localization/*/*.js",
+    "/src/interface/static/bootstrap",
+    "CHANGELOG.tsx",
+    "CHANGELOG.js",
+    "pnpm-lock.yaml"
+  ]
+}

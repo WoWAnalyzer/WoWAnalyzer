@@ -87,6 +87,7 @@ class ManaSpring extends Analyzer {
               })}
             </ul>
             Mana Wasted: <ManaIcon /> {formatNumber(this.wasted)} wasted
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <small>Only mana restored to healers and arcane mages is included.</small>
           </>

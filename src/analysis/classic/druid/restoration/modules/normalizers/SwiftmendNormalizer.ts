@@ -30,6 +30,7 @@ class SwiftmendNormalizer extends EventLinkNormalizer {
   }
 }
 
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export function getRemovedHot(event: CastEvent): AbilityEvent<any> | undefined {
   return GetRelatedEvent(event, CONSUMED_HOT, HasAbility);
 }

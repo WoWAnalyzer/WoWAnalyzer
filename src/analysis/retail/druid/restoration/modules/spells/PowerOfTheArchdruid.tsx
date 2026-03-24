@@ -1,7 +1,7 @@
 import { formatNth, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { binomialCDF } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -9,11 +9,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import HotAttributor from 'analysis/retail/druid/restoration/modules/core/hottracking/HotAttributor';
+import HotAttributor, {
+  PotaProc,
+} from 'analysis/retail/druid/restoration/modules/core/hottracking/HotAttributor';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 
 const PROC_PROB = 0.6;
+const EXPECTED_EXTRAS = 2;
+/** Buffer for matching PotA proc timestamps to SotF consumption timestamps */
+const BUFFER_MS = 150;
 
 /**
  * **Power of the Archdruid**
@@ -29,26 +34,38 @@ class PowerOfTheArchdruid extends Analyzer {
 
   hotAttributor!: HotAttributor;
 
-  procs = 0;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT);
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
-      this.onApply,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
-      this.onApply,
-    );
   }
 
-  onApply(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (!event.prepull) {
-      this.procs += 1;
-    }
+  /** Per-proc tracking data from HotAttributor */
+  get potaProcs(): PotaProc[] {
+    return this.hotAttributor.potaProcs;
+  }
+
+  get procs(): number {
+    return this.potaProcs.length;
+  }
+
+  /** Number of hardcast SotF consumptions where PotA generated fewer than 2 extras */
+  get incompleteHardcastProcs(): number {
+    return this.potaProcs.filter((p) => p.fromHardcast && p.extrasCount < EXPECTED_EXTRAS).length;
+  }
+
+  /** Total number of hardcast PotA procs */
+  get totalHardcastProcs(): number {
+    return this.potaProcs.filter((p) => p.fromHardcast).length;
+  }
+
+  /** Check if a given timestamp corresponds to an incomplete hardcast PotA proc */
+  isIncompleteHardcastProcAt(timestamp: number): boolean {
+    return this.potaProcs.some(
+      (p) =>
+        p.fromHardcast &&
+        p.extrasCount < EXPECTED_EXTRAS &&
+        Math.abs(p.timestamp - timestamp) <= BUFFER_MS,
+    );
   }
 
   get rejuvsCreated() {
@@ -93,7 +110,14 @@ class PowerOfTheArchdruid extends Analyzer {
                 <strong>{this.owner.formatItemHealingDone(this.regrowthProcHealing)}</strong>
               </li>
             </ul>
-            <br />
+            {this.incompleteHardcastProcs > 0 && (
+              <>
+                <strong>{this.incompleteHardcastProcs}</strong> of{' '}
+                <strong>{this.totalHardcastProcs}</strong> procs created fewer than 2 extra HoTs —
+                make sure allies are within 20 yards of the target. (This does not include any procs
+                consumed during Convoke)
+              </>
+            )}
           </>
         }
       >

@@ -43,12 +43,15 @@ class EnergyCapTracker extends Analyzer {
         label="Wasted energy from being capped"
         tooltip={
           <>
-            Although it can be beneficial to wait and let your energy pool ready to be used at the
-            right time, you should still avoid letting it reach the cap.
-            <br />
-            You spent <strong>{formatPercentage(this.energyTracker.percentAtCap)}%</strong> of the
-            fight at capped energy, causing you to miss out on a total of{' '}
-            <strong>{this.energyTracker.rateWaste.toFixed(0)}</strong> energy from regeneration.
+            <p>
+              Although it can be beneficial to wait and let your energy pool ready to be used at the
+              right time, you should still avoid letting it reach the cap.
+            </p>
+            <p>
+              You spent <strong>{formatPercentage(this.energyTracker.percentAtCap)}%</strong> of the
+              fight at capped energy, causing you to miss out on a total of{' '}
+              <strong>{this.energyTracker.rateWaste.toFixed(0)}</strong> energy from regeneration.
+            </p>
           </>
         }
         footer={

@@ -41,7 +41,7 @@ class WealAndWoe extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE, SPELLS.VOID_BLAST_DAMAGE_DISC]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE, SPELLS.VOID_BLAST_CAST_DISC]),
       this.onDamage,
     );
     this.addEventListener(
@@ -55,7 +55,7 @@ class WealAndWoe extends Analyzer {
   onDamage(event: DamageEvent) {
     if (
       event.ability.guid !== SPELLS.SMITE.id &&
-      event.ability.guid !== SPELLS.VOID_BLAST_DAMAGE_DISC.id
+      event.ability.guid !== SPELLS.VOID_BLAST_CAST_DISC.id
     ) {
       return;
     }
@@ -85,7 +85,7 @@ class WealAndWoe extends Analyzer {
     }
     if (
       damageEvent.ability.guid !== SPELLS.SMITE.id &&
-      damageEvent.ability.guid !== SPELLS.VOID_BLAST_DAMAGE_DISC.id
+      damageEvent.ability.guid !== SPELLS.VOID_BLAST_CAST_DISC.id
     ) {
       return;
     }
@@ -130,10 +130,12 @@ class WealAndWoe extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.WEAL_AND_WOE_TALENT}>
-          <>
-            <ItemHealingDone amount={totalHealing} /> <br />
+          <div>
+            <ItemHealingDone amount={totalHealing} />
+          </div>
+          <div>
             <ItemDamageDone amount={this.damage} />
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

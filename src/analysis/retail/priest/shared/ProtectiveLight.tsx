@@ -1,7 +1,7 @@
 import { formatNumber } from 'common/format';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -47,7 +47,9 @@ class ProtectiveLight extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS.PROTECTIVE_LIGHT_TALENT}>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {formatNumber(this.damageReduced)} <small> damage reduced </small> <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS <br />
           </BoringSpellValueText>
         </>

@@ -27,7 +27,9 @@ class ConvokeSpiritsGuardian extends ConvokeSpirits {
             </strong>
             (Non-refreshable DoTs include Starfall) Refreshable DoTs and heals are not considered by
             this number, making it almost certainly an undercount of Convoke's true value.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.baseTooltip}
           </>
@@ -36,6 +38,7 @@ class ConvokeSpiritsGuardian extends ConvokeSpirits {
       >
         <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
           <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </BoringSpellValueText>
       </Statistic>

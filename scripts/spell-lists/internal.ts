@@ -3,8 +3,8 @@ import * as path from 'node:path';
 import * as gamedata from 'wow-dbc';
 import type { Dbc } from 'wow-dbc/dist/src/dbc';
 import { cleanIconName, downloadFileList, type FileList } from 'wow-dbc/dist/util/icon-name.js';
-import * as prettier from 'prettier';
-import prettierConfig from '../../.prettierrc.json' with { type: 'json' };
+import * as oxfmt from 'oxfmt';
+import oxfmtConfig from '../../.oxfmtrc.json' with { type: 'json' };
 
 const FILE_LISTS: Record<string, FileList> = {};
 
@@ -51,10 +51,12 @@ export async function generateSpellData(
       export default SPELLS;
     `;
 
-  return await prettier.format(output, {
-    ...prettierConfig,
-    parser: 'typescript',
-  } as prettier.Options);
+  return (
+    await oxfmt.format(`temp.ts`, output, {
+      ...oxfmtConfig,
+      parser: 'typescript',
+    } as oxfmt.FormatOptions)
+  ).code;
 }
 
 async function getSpellList(dbc: Dbc, branch: string, specId: number) {

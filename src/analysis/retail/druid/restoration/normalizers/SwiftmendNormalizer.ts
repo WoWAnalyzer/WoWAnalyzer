@@ -10,7 +10,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const REMOVE_BUFFER_MS = 50;
+const REMOVE_BUFFER_MS = 100;
 
 const CONSUMED_HOT = 'ConsumedHot';
 
@@ -27,7 +27,10 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.RENEWING_BLOOM.id,
     ],
     referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
     forwardBufferMs: REMOVE_BUFFER_MS,
+    backwardBufferMs: REMOVE_BUFFER_MS,
+    maximumLinks: 1,
   },
 ];
 

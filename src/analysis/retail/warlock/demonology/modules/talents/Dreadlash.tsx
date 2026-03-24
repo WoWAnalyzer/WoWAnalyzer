@@ -60,8 +60,10 @@ class Dreadlash extends Analyzer {
         tooltip={
           <>
             {formatThousands(total)} bonus damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} (
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {this.owner.formatItemDamageDone(this.bonusDamage)})<br />
             Bonus cleaved damage: {formatThousands(this.cleavedDamage)} (
             {this.owner.formatItemDamageDone(this.cleavedDamage)})

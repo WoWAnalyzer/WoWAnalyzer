@@ -1,7 +1,7 @@
 import { Expression, parseSync, Visitor } from 'oxc-parser';
 import { basename, join, resolve } from 'node:path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { format } from 'prettier';
+import { format } from 'oxfmt';
 
 // these can be safely imported because they don't include any big / complicated stuff
 import isLatestPatch from '../../src/game/isLatestPatch';
@@ -148,7 +148,7 @@ const rawTsFile = `
 
     export const SUPPORTED_SPECS = [${specs.map((spec) => spec!.fullName).join(', ')}];
   `;
-const formattedTsFile = await format(rawTsFile, { parser: 'typescript' });
+const formattedTsFile = await format('supportedSpecs.ts', rawTsFile, { parser: 'typescript' });
 
 const configDirectory = join(import.meta.dirname, '..', '..', 'e2e', 'generated');
 if (!existsSync(configDirectory)) {
@@ -156,7 +156,7 @@ if (!existsSync(configDirectory)) {
 }
 
 const pathToWriteConfigs = join(configDirectory, 'supportedSpecs.ts');
-writeFileSync(pathToWriteConfigs, formattedTsFile, {
+writeFileSync(pathToWriteConfigs, formattedTsFile.code, {
   encoding: 'utf-8',
 });
 console.log(`Wrote specs file to ${pathToWriteConfigs}`);
