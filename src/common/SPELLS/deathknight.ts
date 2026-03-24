@@ -489,6 +489,22 @@ const spells = {
     icon: 'achievement_character_human_male',
   },
 
+  // Necrotic Coil - replaces Death Coil after Army of the Dead when Forbidden Knowledge talent is active
+  NECROTIC_COIL: {
+    id: 1242174,
+    name: 'Necrotic Coil',
+    icon: 'spell_animamaldraxxus_missile',
+    runicPowerCost: 30,
+  },
+
+  // Graveyard - replaces Epidemic after Army of the Dead when Forbidden Knowledge talent is active
+  GRAVEYARD: {
+    id: 383269,
+    name: 'Graveyard',
+    icon: 'spell_necro_deathall',
+    runicPowerCost: 30,
+  },
+
   // Damage aura from Abomination pet
   DISEASE_CLOUD: {
     id: 1244102,
