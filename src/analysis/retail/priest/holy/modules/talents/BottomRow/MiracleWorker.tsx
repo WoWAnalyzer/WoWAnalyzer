@@ -81,6 +81,7 @@ class MiracleWorker extends Analyzer {
               extra <SpellLink spell={TALENTS.HOLY_WORD_SERENITY_TALENT} /> cast
               {extraSerenityCasts > 1 ? 's' : ''}.
             </small>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             {extraSanctifyCasts}{' '}
             <small>

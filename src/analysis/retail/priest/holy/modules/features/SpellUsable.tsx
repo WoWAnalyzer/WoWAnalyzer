@@ -13,6 +13,7 @@ class SpellUsable extends CoreSpellUsable {
     super(options);
   }
 
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
   beginCooldown(cooldownTriggerEvent: AbilityEvent<any>, spellId: number) {
     // Epiphany free Prayer of Mending – do not consume a charge
     if (

@@ -26,6 +26,7 @@ class PreemptiveCareHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.PREEMPTIVE_CARE_TALENT}>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <ItemPercentHealingDone amount={this.attribution.healing} /> <br />
         </TalentSpellText>
       </Statistic>

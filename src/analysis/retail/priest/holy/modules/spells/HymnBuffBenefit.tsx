@@ -173,9 +173,11 @@ class HymnBuffBenefit extends Analyzer {
             {' contribution to others.'}
             <div>
               <ItemPercentHealingDone amount={this.selfDivineHymnIncrease}></ItemPercentHealingDone>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               {' contribution to self.'} <br />
             </div>
             <div>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <br />
               If this healing was attributed to you from the other healers like Augmented Healing,
               you would have done{' '}
@@ -185,6 +187,7 @@ class HymnBuffBenefit extends Analyzer {
               more than your total on WCL.
             </div>
             <div>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <br />
               NOTE: This is an approximated value due to technical limitations. If you are seeing a
               negative number, please load the module first.

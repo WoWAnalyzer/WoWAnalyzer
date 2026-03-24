@@ -75,6 +75,7 @@ class EverlastingLight extends Analyzer {
           <>
             Total Healing: {formatNumber(this.rawAdditionalHealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>
@@ -87,6 +88,7 @@ class EverlastingLight extends Analyzer {
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
               <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
             </div>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>
               Notably this module currently is missing the contributions to{' '}

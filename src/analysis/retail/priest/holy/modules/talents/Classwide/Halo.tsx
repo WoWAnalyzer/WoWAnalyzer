@@ -103,6 +103,7 @@ class Halo extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.HALO_HOLY_TALENT}>
           <ItemHealingDone amount={this.haloHealing + this.eolContrib} />
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <ItemDamageDone amount={this.haloDamage} />
         </BoringSpellValueText>

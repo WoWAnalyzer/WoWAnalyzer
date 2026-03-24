@@ -141,6 +141,7 @@ class EmpyrealBlaze extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_PRIEST.EMPYREAL_BLAZE_TALENT}>
           <ItemManaGained amount={this.manaSaved} />
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {this.refreshCount} <small>refreshes (7s each)</small>
         </TalentSpellText>

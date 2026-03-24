@@ -16,10 +16,14 @@ class StatWeights extends BaseHealerStatValues {
   spellInfo = PRIEST_HEAL_INFO;
   qeLive = false;
 
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
   _hasteHpm(event: any, healVal: any) {
     return super._hasteHpm(event, healVal);
   }
 
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
   _criticalStrike(event: any, healVal: any) {
     if (this._isCrit(event)) {
       return super._criticalStrike(event, healVal);
@@ -35,6 +39,8 @@ class StatWeights extends BaseHealerStatValues {
     return 0;
   }
 
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
   _mastery(event: any, healVal: any) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ECHO_OF_LIGHT_HEAL.id) {

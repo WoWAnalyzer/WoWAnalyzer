@@ -32,6 +32,7 @@ class EchoOfLightMastery extends Analyzer {
     combatants: Combatants,
   };
   // All healing done by spells that can proc mastery
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
   masteryHealingBySpell: any = {};
   // The eol pools currently on a target
   targetMasteryPool: Record<

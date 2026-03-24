@@ -87,6 +87,7 @@ class PremonitionOfPiety extends Analyzer {
         <BoringSpellValueText spell={SPELLS.PREMONITION_OF_PIETY}>
           <ItemPercentHealingDone amount={this.totalHealingFromPietyAmp} />
           <small>{' amped healing'}</small>
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <ItemPercentHealingDone amount={this.totalPietyOverHealingMD} />
           <small>{' redirected'}</small>

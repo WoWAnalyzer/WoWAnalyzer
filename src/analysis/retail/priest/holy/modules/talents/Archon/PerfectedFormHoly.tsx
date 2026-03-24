@@ -97,12 +97,16 @@ class PerfectedFormHoly extends Analyzer {
           <>
             <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> triggers from
             <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} /> and contributes to{' '}
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />: <br />
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.perfectedFormApoth}></ItemPercentHealingDone>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }

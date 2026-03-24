@@ -59,6 +59,7 @@ class DesperateTimes extends Analyzer {
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
             </div>
           </>

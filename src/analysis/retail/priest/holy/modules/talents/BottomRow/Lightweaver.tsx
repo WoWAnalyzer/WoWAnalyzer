@@ -233,7 +233,9 @@ class Lightweaver extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             {`${overhealingTooltipString}% overhealing`} <br />
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown:</div>
             <div>
@@ -242,14 +244,17 @@ class Lightweaver extends Analyzer {
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.eolContrib} /> <br />
             </div>
             <div>
               <SpellLink spell={SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL} />:{' '}
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.trailHealing} /> <br />
             </div>
             <div>
               <SpellLink spell={SPELLS.BINDING_HEALS_TALENT_HEAL} />:{' '}
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.bindingHealing} /> <br />
             </div>
           </>

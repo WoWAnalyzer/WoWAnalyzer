@@ -45,6 +45,7 @@ class HolyCelerity extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_PRIEST.HOLY_CELERITY_TALENT}>
           <ItemCooldownReduction effective={this.totalCdr} />
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <small>total cooldown reduction</small>
         </TalentSpellText>

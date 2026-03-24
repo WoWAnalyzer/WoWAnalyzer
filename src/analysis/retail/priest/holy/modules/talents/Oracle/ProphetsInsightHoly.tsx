@@ -44,6 +44,7 @@ class ProphetsInsightHoly extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.PROPHETS_INSIGHT_TALENT}>
           <ItemCooldownReduction effective={this.totalCdr} />
+{/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <small>total cooldown reduction</small>
         </BoringSpellValueText>
