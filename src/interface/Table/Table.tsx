@@ -50,6 +50,10 @@ const TableCell = styled.div<TableCellProps>`
   @container (width < 500px) {
     ${(props) => (props.optional ? 'display: none;' : '')}
   }
+
+  &:last-of-type {
+    border-right: unset;
+  }
 `;
 
 const TableHeader = styled.div`
@@ -64,8 +68,8 @@ const TableHeader = styled.div`
   & ${TableCell} {
     border-color: ${design.level2.border};
 
-    &:first-of-type {
-      border-left: unset;
+    &:last-of-type {
+      border-right: unset;
     }
   }
 
