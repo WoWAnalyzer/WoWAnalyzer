@@ -1,5 +1,4 @@
 import TALENTS from 'common/TALENTS/priest';
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -72,8 +71,8 @@ class Apotheosis extends Analyzer {
     this.apotheosisCasts += 1;
 
     // Reset all Holy Words (restore all charges)
-    HOLY_WORD_IDS.forEach((spellId) => {
-      this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
+    HOLY_WORD_IDS.forEach(spellId => {
+        this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
     });
   }
 
@@ -106,13 +105,18 @@ class Apotheosis extends Analyzer {
         tooltip={
           <>
             For detailed Holy Word CDR breakdown, see the Holy Word module at the top.
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             Mana saved during Apotheosis (50% reduction):
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={TALENTS.HOLY_WORD_SERENITY_TALENT} />: {this.manaSavedFromSerenity}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={TALENTS.HOLY_WORD_SANCTIFY_TALENT} />: {this.manaSavedFromSanctify}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={TALENTS.HOLY_WORD_CHASTISE_TALENT} />: {this.manaSavedFromChastise}
           </>
@@ -123,6 +127,7 @@ class Apotheosis extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.APOTHEOSIS_TALENT}>
           <ItemManaGained amount={this.totalManaSaved} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <small>mana saved</small>
         </BoringSpellValueText>

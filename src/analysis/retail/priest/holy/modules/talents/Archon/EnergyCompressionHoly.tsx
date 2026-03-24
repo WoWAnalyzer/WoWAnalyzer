@@ -16,6 +16,11 @@ import PRIEST_TALENTS from 'common/TALENTS/priest';
 import { ENERGY_COMPRESSION_AMP } from '../../../constants';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 
+/**
+ * Energy Compression (Archon)
+ * Halo damage and healing is increased by 30%.
+ */
+
 class EnergyCompressionHoly extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -74,13 +79,16 @@ class EnergyCompressionHoly extends Analyzer {
               This number is included in the <SpellLink spell={PRIEST_TALENTS.DIVINE_HALO_TALENT} />
               /<SpellLink spell={PRIEST_TALENTS.POWER_SURGE_TALENT} /> results already.
             </small>{' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             Breakdown: <br />
             <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />:{' '}
             <ItemPercentHealingDone
               amount={this.totalEnergyCompressionHealing}
             ></ItemPercentHealingDone>{' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />

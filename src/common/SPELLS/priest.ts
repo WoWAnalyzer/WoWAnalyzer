@@ -7,6 +7,11 @@ import Spell from 'common/SPELLS/Spell';
 
 const spells = {
   // Shared
+  ESSENCE_DEVOURER_HEAL: {
+    id: 415673,
+    name: 'Essence Devourer',
+    icon: 'achievement_raid_terraceofendlessspring04',
+  },
   HOLY_NOVA_HEAL: {
     id: 281265,
     name: 'Holy Nova',
@@ -17,12 +22,7 @@ const spells = {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 100000,
-  },
-  DESPERATE_PRAYER: {
-    id: 19236,
-    name: 'Desperate Prayer',
-    icon: 'spell_holy_testoffaith',
+    manaCost: 2500,
   },
   MIND_SOOTHE: {
     id: 453,
@@ -151,42 +151,6 @@ const spells = {
     name: 'Ultimate Penitence',
     icon: 'ability_priest_ascendance',
   },
-  POWER_WORD_RADIANCE: {
-    id: 194509,
-    name: 'Power Word: Radiance',
-    icon: 'spell_priest_power-word',
-    manaCost: 11250,
-  },
-  SHADOW_MEND: {
-    id: 186263,
-    name: 'Shadow Mend',
-    icon: 'spell_shadow_shadowmend',
-    manaCost: 1750,
-  },
-  RAPTURE: {
-    id: 47536,
-    name: 'Rapture',
-    icon: 'spell_holy_rapture',
-    manaCost: 7750,
-  },
-  PAIN_SUPPRESSION: {
-    id: 33206,
-    name: 'Pain Suppression',
-    icon: 'spell_holy_painsupression',
-    manaCost: 800,
-  },
-  MASS_DISPEL: {
-    id: 32375,
-    name: 'Mass Dispel',
-    icon: 'spell_arcane_massdispel',
-    manaCost: 200000,
-  },
-  LEAP_OF_FAITH: {
-    id: 73325,
-    name: 'Leap of Faith',
-    icon: 'priest_spell_leapoffaith_a',
-    manaCost: 65000,
-  },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
@@ -303,16 +267,6 @@ const spells = {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
-  DIVINE_STAR_HEAL: {
-    id: 110745,
-    name: 'Halo',
-    icon: 'spell_priest_divinestar',
-  },
-  DIVINE_STAR_DAMAGE: {
-    id: 122128,
-    name: 'Halo',
-    icon: 'spell_priest_divinestar',
-  },
   SHADOW_DIVINE_STAR_HEAL: {
     id: 390981,
     name: 'Divine Star',
@@ -402,23 +356,6 @@ const spells = {
 
   // Talents:
   // lv90
-  PURGE_THE_WICKED_TALENT: {
-    id: 204197,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-    manaCost: 4500,
-  },
-  PURGE_THE_WICKED_BUFF: {
-    id: 204213,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-  },
-  HALO_TALENT: {
-    id: 120517,
-    name: 'Halo',
-    icon: 'ability_priest_halo',
-    manaCost: 67500,
-  },
   EXPIATION_DAMAGE: {
     id: 390844,
     name: 'Expiation',
@@ -504,7 +441,7 @@ const spells = {
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
   },
-  HOLY_WORDS: {
+  SERENDIPITY: {
     id: 63733,
     name: 'Holy Words',
     icon: 'spell_holy_serendipity',
@@ -535,35 +472,10 @@ const spells = {
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
   },
-  HOLY_WORD_SALVATION: {
-    id: 265202,
-    name: 'Holy Word: Salvation',
-    icon: 'spell_holy_archangel',
-  },
-  CIRCLE_OF_HEALING: {
-    id: 204883,
-    name: 'Circle of Healing',
-    icon: 'spell_holy_circleofrenewal',
-  },
-  POWER_WORD_LIFE: {
-    id: 373481,
-    name: 'Power Word: Life',
-    icon: 'ability_priest_holywordlife',
-  },
-  PREMONITION_OF_CLAIRVOYANCE: {
-    id: 440725,
-    name: 'Premonition of Clairvoyance',
-    icon: 'inv_inscription_vantusrune_progenitor',
-  },
-  PREMONITION_OF_PIETY: {
+  PIETY: {
     id: 443126,
     name: 'Premonition of Piety',
     icon: 'inv_ability_oraclepriest_premonitionpiety',
-  },
-  ESSENCE_DEVOURER_HEAL: {
-    id: 415673,
-    name: 'Essence Devourer',
-    icon: 'achievement_raid_terraceofendlessspring04',
   },
 
   // Buffs
@@ -627,7 +539,7 @@ const spells = {
     name: 'Premonition of Solace',
     icon: 'inv_ability_oraclepriest_premonitionsolace',
   },
-  PREMONITION_OF_PIETY_BUFF: {
+  PIETY_BUFF: {
     id: 428930,
     name: 'Premonition of Piety',
     icon: 'inv_ability_oraclepriest_premonitionpiety',
@@ -1030,6 +942,11 @@ const spells = {
     id: 472433,
     name: 'Evangelism',
     icon: 'spell_holy_divineillumination',
+  },
+  POWER_WORD_SHIELD_AS_APPLY: {
+    id: 1246768,
+    name: 'Power Word: Shield',
+    icon: 'spell_holy_powerwordshield',
   },
 } satisfies Record<string, Spell>;
 

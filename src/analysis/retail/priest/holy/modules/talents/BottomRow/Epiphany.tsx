@@ -20,7 +20,8 @@ import { formatPercentage } from 'common/format';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
- * Epiphany: Your Holy Words have a 25% chance to make your next Prayer of Mending cost no cooldown.
+ * Epiphany
+ * Your Holy Words have a 25% chance to make your next Prayer of Mending cost no cooldown.
  */
 class Epiphany extends Analyzer {
   static dependencies = {
@@ -82,8 +83,8 @@ class Epiphany extends Analyzer {
           <SpellLink spell={TALENTS.EPIPHANY_TALENT} />
         </b>{' '}
         gives your Holy Word spells a 25% chance to make your next{' '}
-        <SpellLink spell={SPELLS.PRAYER_OF_MENDING_CAST} /> cost no cooldown. Use Prayer of Mending
-        immediately when you get a proc to avoid wasting it.
+        <SpellLink spell={SPELLS.PRAYER_OF_MENDING_CAST} /> cost no cooldown.
+        Use Prayer of Mending immediately when you get a proc to avoid wasting it.
       </p>
     );
 

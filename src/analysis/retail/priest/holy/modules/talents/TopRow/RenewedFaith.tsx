@@ -14,6 +14,11 @@ import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 
+/**
+ * Renewed Faith
+ * Your healing on allies with your Renew is increased by 10%.
+ */
+
 class RenewedFaith extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -75,6 +80,7 @@ class RenewedFaith extends Analyzer {
           <>
             Total Healing: {formatNumber(this.rawAdditionalHealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

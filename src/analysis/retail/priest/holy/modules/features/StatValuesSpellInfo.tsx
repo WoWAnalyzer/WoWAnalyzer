@@ -81,7 +81,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.DESPERATE_PRAYER.id]: {
+  [TALENTS.DESPERATE_PRAYER_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -132,14 +132,6 @@ export default {
     vers: true,
   },
   [SPELLS.HALO_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.DIVINE_STAR_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

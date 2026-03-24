@@ -5,4 +5,11 @@ import Lightweaver from './Lightweaver';
 import MiracleWorker from './MiracleWorker';
 import Epiphany from './Epiphany';
 
-export { Apotheosis, DesperateTimes, DivineImage, Lightweaver, MiracleWorker, Epiphany };
+export {
+  Apotheosis,
+  DesperateTimes,
+  DivineImage,
+  Lightweaver,
+  MiracleWorker,
+  Epiphany,
+};

@@ -1,6 +1,5 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -65,7 +64,7 @@ class PrayerOfMending extends Analyzer {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id) {
+    if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
       this.pomCasts += 1;
     }
   }
@@ -108,7 +107,9 @@ class PrayerOfMending extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={SPELLS.PRAYER_OF_MENDING_CAST} useThresholds />;
+    const data = (
+      <CastEfficiencyPanel spell={SPELLS.PRAYER_OF_MENDING_CAST} useThresholds />
+    );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }

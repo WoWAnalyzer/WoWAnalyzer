@@ -200,7 +200,7 @@ class HolyWordCDRBySpell extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HOLY_WORDS}>
+        <BoringSpellValueText spell={SPELLS.SERENDIPITY}>
           Total holy word CDR from all sources.
         </BoringSpellValueText>
       </Statistic>

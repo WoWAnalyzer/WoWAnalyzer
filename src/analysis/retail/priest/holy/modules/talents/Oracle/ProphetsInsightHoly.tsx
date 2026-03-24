@@ -14,6 +14,11 @@ const HOLY_WORDS = [
 ];
 const COOLDOWN_REDUCTION_MS = 5000; // 5 seconds
 
+/**
+ * Prophet's Insight (Oracle)
+ * Reduces the cooldown of your Holy Words by 5 sec.
+ */
+
 class ProphetsInsightHoly extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -44,6 +49,7 @@ class ProphetsInsightHoly extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.PROPHETS_INSIGHT_TALENT}>
           <ItemCooldownReduction effective={this.totalCdr} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <small>total cooldown reduction</small>
         </BoringSpellValueText>

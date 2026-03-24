@@ -2,18 +2,12 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 
-/**
- *  ------------------------THE WAR WITHIN-----------------------
- */
-
-export const SPELLS_THAT_PROC_S1_4PC_HOLY = [TALENTS.PRAYER_OF_HEALING_TALENT, SPELLS.FLASH_HEAL];
-
-export const SPELLS_THAT_PROC_S1_4PC_HOLY_ID = [
-  TALENTS.PRAYER_OF_HEALING_TALENT.id,
-  SPELLS.FLASH_HEAL.id,
+export const HOLY_WORD_LIST = [
+  TALENTS.HOLY_WORD_CHASTISE_TALENT,
+  TALENTS.HOLY_WORD_SANCTIFY_TALENT,
+  TALENTS.HOLY_WORD_SERENITY_TALENT,
 ];
 
-export const HOLY_TWW_S1_4PC_CDR = 0.35;
 /**
  *  -------------------------TALENTS------------------------------
  */
@@ -23,76 +17,46 @@ export const HOLY_TWW_S1_4PC_CDR = 0.35;
 // afterlife - need to update in tww
 export const SPIRIT_OF_REDEMPTION_DURATION = 15000;
 // burning vehemence
-export const BV_DAMAGE_INCREASE_PER_RANK = [0, 0.3, 0.6];
+export const BV_DAMAGE_INCREASE_PER_RANK = [0, 0.3];
 // guardian angel
 export const GS_BASE_COOLDOWN_TIME = 60 * 3 * 1000;
 export const GS_MODIFIED_COOLDOWN_TIME = (60 + 10) * 1000; // one minute plus 10 seconds to account for the duration of the buff.
-// renewed faith
-export const RENEWED_FAITH_MULTIPLIER = 0.06;
-// sanctified prayers
-export const SANCTIFIED_PRAYERS_MULTIPLIER = 1.15;
 
 // MIDDLE ROW
 
+// apotheosis
+export const APOTH_MULTIPIER = 3;
 // enlightenment
 export const ENLIGHT_MAX_MANA = 2500000;
 export const ENLIGHT_BASE_MANA_REGEN = 0.04;
 export const ENLIGHT_SCALED_MANA_REGEN = 0.1;
-// everlasting light
-export const MAX_EVERLASTING_LIGHT_BUFF = 0.15;
-// healing chorus
-export const HEALING_CHORUS_BONUS_PER_STACK = 0.05;
-export const HEALING_CHORUS_MAX_STACKS = 20;
 // prayerful litany
-export const PRAYERFUL_LITANY_MULTIPLIER = 1;
+export const PRAYERFUL_LITANY_MULTIPLIER = 1.25;
 // prismatic echoes
-export const PRISMATIC_ECHOES_PER_RANK = 0.06;
-// crisis managment
-export const CRISIS_MANAGEMENT_PER_RANK = 0.075;
+export const PRISMATIC_ECHOES_PER_RANK = 0.08; // It's now not only 8% 1st rank, 2nd rank is 15% not 16%, have to edit EOL and PE modules
+export const PRISMATIC_ECHOES_RANK_ONE = 0.08;
+export const PRISMATIC_ECHOES_RANK_TWO = 0.15;
+// crisis management
+export const CRISIS_MANAGEMENT_PER_RANK = 0.15;
+// renewed faith
+export const RENEWED_FAITH_MULTIPLIER = 0.1;
+// light of the naaru
+export const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
 
 // BOTTOM ROW
 
-// answered prayers
-export const AP_HEALS_PER_TRIGGER_BY_RANK = [0, 100, 50];
 // desperate times
 export const DESP_TIMES_HEALING_MULTIPLIER_PER_RANK = 0.1;
-// divine word
-export const DAMAGE_INCREASE_FROM_CHASTISE = 0.2;
-export const CHASTISE_REFUNDED_COOLDOWN = 15;
-export const HEALING_INCREASE_FROM_SERENITY = 0.3;
-export const MANA_REDUCTION_FROM_SERENITY = 0.2;
-export const DW_ACTIVATOR_SPELL_INCREASE = 0.3;
 // lightweaver
-export const LW_HEALING_BONUS = 0.25;
+export const LW_HEALING_BONUS = 0.18;
 export const LW_OVERHEAL_THRESHOLD = 0.75;
 export const LW_CAST_TIME_DECREASE = 1 - 0.3;
-// pontifex
-export const PONTIFEX_HEALING_INCREASE = 0.06;
-// resonant words
-export const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.2, 0.4];
-export const HOLY_WORD_LIST = [
-  TALENTS.HOLY_WORD_CHASTISE_TALENT,
-  TALENTS.HOLY_WORD_SANCTIFY_TALENT,
-  TALENTS.HOLY_WORD_SERENITY_TALENT,
-];
-export const RESONANT_WORD_WHITELIST = [SPELLS.FLASH_HEAL, TALENTS.PRAYER_OF_HEALING_TALENT];
 
 // ORACLE VALUES
 
-export const FATEBENDER_SCALER = 1.4;
-//export const SOLACE_DR = 0.15;
-export const PIETY_OVERHEAL_MISDIRECT = 0.7;
-export const PIETY_AMP = 0.2;
-export const PREVENTIVE_MEASURES_DMG_AMP = 0.25;
-export const PREVENTIVE_MEASURES_HEAL_AMP = 0.4;
-export const PROPHETS_WILL_AMP = 0.3;
-export const PREEMPTIVE_CARE_RENEW_DUR = 6_000;
-
-export const PROPHETS_WILL_SPELLS_HOLY = [
-  SPELLS.FLASH_HEAL,
-  TALENTS_PRIEST.HOLY_WORD_SERENITY_TALENT,
-];
-
+// preventive measures
+export const PREVENTIVE_MEASURES_DMG_AMP = 0.4;
+export const PREVENTIVE_MEASURES_HEAL_AMP = 0.15;
 export const HOLY_DMG_ABILITIES_AFFECTED_BY_PM = [
   SPELLS.HOLY_FIRE,
   SPELLS.HOLY_NOVA_HEAL,
@@ -100,16 +64,26 @@ export const HOLY_DMG_ABILITIES_AFFECTED_BY_PM = [
   TALENTS_PRIEST.HOLY_NOVA_TALENT,
   SPELLS.SMITE,
 ];
+// prophets will
+export const PROPHETS_WILL_AMP = 0.3;
+export const PROPHETS_WILL_SPELLS_HOLY = [
+  SPELLS.FLASH_HEAL,
+  TALENTS_PRIEST.HOLY_WORD_SERENITY_TALENT,
+];
+// preemptive care
+export const PREEMPTIVE_CARE_EXTENSION_PERCENT = 0.4;
 
 // ARCHON VALUES
 
-export const EMPOWERED_SURGES_AMP = 0.3;
+// empowered surges
+export const EMPOWERED_SURGES_AMP = 0.05;
+// energy compression
 export const ENERGY_COMPRESSION_AMP = 0.3;
-export const APOTH_MULTIPIER = 3;
+// energy cycle CDR
 export const ENERGY_CYCLE_CDR = 4;
-export const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
-export const TWW_TIER1_2PC_CDR = 0.1;
+// perfected form
 export const PERFECTED_FORM_AMP = 0.1;
+// resonant energy
 export const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
 
 /**
@@ -123,7 +97,6 @@ export const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
 
 // CDR Special Events
 
-export const TWW_S1_HOLY_4PC_CDR_PROC = '4PC';
 export const HOLY_ENERGY_CYCLE_PROC = 'ENERGY_CYCLE';
 
 // renew attributor
@@ -131,19 +104,11 @@ export const BASE_RENEW_DURATION = 15;
 // not sure what the max is, df s3 tier could extend it to like 2min
 export const MAX_RENEW_DURATION = 50;
 
-// circle of healing
-export const COH_OVERHEAL_THRESHOLD = 0.75;
-export const COH_MAX_TARGETS_HIT = 5;
-
 // guardian spirit
 export const GUARDIAN_SPIRIT_HEALING_INCREASE = 0.6;
 
 // divine hymn
 export const BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
-export const GALES_OF_SONG_HEALING_INCREASE_PER_POINT = 0.02;
-
-// prayer of healing
-export const POH_MAX_TARGETS_HIT = 5;
 
 //Other classes use non ID calls
 export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
@@ -154,7 +119,6 @@ export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.BINDING_HEALS_TALENT_HEAL,
   SPELLS.PRAYER_OF_MENDING_CAST,
   SPELLS.DIVINE_HYMN_HEAL,
-  SPELLS.DIVINE_STAR_HEAL,
   SPELLS.HALO_HEAL,
   SPELLS.DIVINE_IMAGE_BLESSED_LIGHT_HEAL,
   SPELLS.DIVINE_IMAGE_DAZZLING_LIGHT_HEAL,
@@ -165,6 +129,7 @@ export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.LIGHTWELL_TALENT_HEAL,
   SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL,
   SPELLS.EMPOWERED_RENEW_TALENT_HEAL,
+  SPELLS.RENEW_HEAL,
 ];
 
 export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID =
@@ -177,25 +142,15 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   TALENTS.PRAYER_OF_HEALING_TALENT.id,
   TALENTS.HOLY_WORD_SERENITY_TALENT.id,
   TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
-  SPELLS.DESPERATE_PRAYER.id,
+  TALENTS.DESPERATE_PRAYER_TALENT.id,
   SPELLS.COSMIC_RIPPLE_HEAL.id,
   SPELLS.BINDING_HEALS_TALENT_HEAL.id,
   SPELLS.HALO_HEAL.id,
-  SPELLS.DIVINE_STAR_HEAL.id,
   SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL.id,
   SPELLS.HOLY_NOVA_HEAL.id,
   SPELLS.GUARDIAN_SPIRIT_HEAL.id,
   SPELLS.EMPOWERED_RENEW_TALENT_HEAL.id,
-];
-
-//List is all holy spells from: https://www.wowhead.com/spell=372761/divine-favor-chastise
-export const ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE = [
-  SPELLS.SMITE.id,
-  SPELLS.SHADOW_WORD_PAIN.id,
-  TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-  TALENTS.HOLY_WORD_CHASTISE_TALENT.id,
-  TALENTS.HOLY_NOVA_TALENT.id,
-  SPELLS.HOLY_FIRE.id,
+  SPELLS.RENEW_HEAL,
 ];
 
 export const ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT = [
@@ -205,7 +160,7 @@ export const ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT = [
 ];
 
 export const ABILITIES_THAT_DONT_TRIGGER_MASTERY = [
-  SPELLS.PREMONITION_OF_PIETY.id,
+  SPELLS.PIETY.id,
   SPELLS.DIVINE_IMAGE_BLESSED_LIGHT_HEAL.id,
   SPELLS.DIVINE_IMAGE_DAZZLING_LIGHT_HEAL.id,
   SPELLS.DIVINE_IMAGE_HEALING_LIGHT_HEAL.id,
@@ -224,7 +179,6 @@ export const EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY = [
   SPELLS.BINDING_HEALS_TALENT_HEAL.id,
   SPELLS.PRAYER_OF_MENDING_CAST.id,
   SPELLS.DIVINE_HYMN_HEAL.id,
-  SPELLS.DIVINE_STAR_HEAL.id,
   SPELLS.HALO_HEAL.id,
   SPELLS.DIVINE_IMAGE_BLESSED_LIGHT_HEAL.id,
   SPELLS.DIVINE_IMAGE_DAZZLING_LIGHT_HEAL.id,
@@ -237,13 +191,13 @@ export const EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY = [
   SPELLS.EMPOWERED_RENEW_TALENT_HEAL.id,
   //REMOVE WHEN PROPER EOL ATTRIB IS WRITTEN
   SPELLS.ECHO_OF_LIGHT_HEAL.id,
+  SPELLS.RENEW_HEAL,
 ];
-
-export const HOLY_DIRECT_HEALS = [SPELLS.FLASH_HEAL];
 
 export const serenityHWCDR = new Map<number, baseHolyWordCDR>([
   [SPELLS.FLASH_HEAL.id, { baseCDR: 6 }],
   [SPELLS.PRAYER_OF_MENDING_CAST.id, { baseCDR: 4, vohDependent: true }],
+  [TALENTS.PRAYER_OF_HEALING_TALENT.id, { baseCDR: 6 }],
 ]);
 
 export const sanctifyHWCDR = new Map<number, baseHolyWordCDR>([

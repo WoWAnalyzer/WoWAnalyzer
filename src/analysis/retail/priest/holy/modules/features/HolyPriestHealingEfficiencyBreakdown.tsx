@@ -31,6 +31,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 <Toggle
                   defaultChecked={false}
                   icons={false}
+                  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={(event: any) => this.setState({ detailedView: event.target.checked })}
                   id="detailed-toggle"
                 />
@@ -47,6 +48,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 <Toggle
                   defaultChecked={false}
                   icons={false}
+                  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={(event: any) => {
                     this.setState({ showEchoOfLight: event.target.checked });
                     (tracker as HolyPriestHealingEfficiencyTracker).includeEchoOfLight =
@@ -65,6 +67,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 <Toggle
                   defaultChecked={false}
                   icons={false}
+                  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={(event: any) => this.setState({ showCooldowns: event.target.checked })}
                   id="cooldown-toggle"
                 />
@@ -82,6 +85,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 <Toggle
                   defaultChecked
                   icons={false}
+                  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
                   onChange={(event: any) => this.setState({ showHealing: event.target.checked })}
                   id="healing-toggle"
                 />

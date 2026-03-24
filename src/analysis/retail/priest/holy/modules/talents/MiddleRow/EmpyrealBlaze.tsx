@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -17,8 +16,14 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const BASE_MANA = 2500000; // Priest base mana at level 80
+const BASE_MANA = 2500000;
 const HOLY_FIRE_MANA_COST = Math.floor(BASE_MANA * 0.0024); // 6000
+
+/**
+ * Empyreal Blaze
+ * Holy Word: Chastise causes your next 2 casts of Holy Fire to be instant, cost no mana, and incur no cooldown.
+ * Refreshing Holy Fire on a target now extends its duration by 7 sec.
+ */
 
 class EmpyrealBlaze extends Analyzer {
   static dependencies = {
@@ -31,19 +36,13 @@ class EmpyrealBlaze extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
 
-  /** Number of remaining empowered Holy Fire charges (from Chastise) */
   private empoweredStacks = 0;
-  /** Total empowered Holy Fire casts performed (for stats) */
   private empoweredCasts = 0;
-  /** Mana saved from free empowered casts */
   private manaSaved = 0;
 
-  /** Number of times Holy Fire was refreshed (each gives +7s) */
   private refreshCount = 0;
-  /** Total duration added from refreshes (ms) */
   private totalExtensionMs = 0;
 
-  /** Timestamp of the most recent empowered Holy Fire cast (to match with BeginCooldown) */
   private lastEmpoweredCastTimestamp = 0;
 
   constructor(options: Options) {
@@ -86,14 +85,11 @@ class EmpyrealBlaze extends Analyzer {
       this.empoweredStacks -= 1;
       this.empoweredCasts += 1;
 
-      // Track mana saved (use log cost if available, else fallback)
       const cost = event.rawResourceCost?.[0] ?? HOLY_FIRE_MANA_COST;
       this.manaSaved += cost;
 
-      // Remember the timestamp of this empowered cast
       this.lastEmpoweredCastTimestamp = event.timestamp;
     } else {
-      // Non-empowered casts should not affect the cooldown cancellation
       this.lastEmpoweredCastTimestamp = 0;
     }
   }
@@ -103,19 +99,17 @@ class EmpyrealBlaze extends Analyzer {
       event.updateType === UpdateSpellUsableType.BeginCooldown &&
       Math.abs(event.timestamp - this.lastEmpoweredCastTimestamp) < 50
     ) {
-      // This BeginCooldown belongs to an empowered Holy Fire – cancel it immediately
       const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HOLY_FIRE.id);
       if (cooldownRemaining > 0) {
         this.spellUsable.reduceCooldown(SPELLS.HOLY_FIRE.id, cooldownRemaining);
       }
-      // Reset the timestamp to avoid accidentally matching future casts
       this.lastEmpoweredCastTimestamp = 0;
     }
   }
 
   private onHolyFireRefresh(event: RefreshDebuffEvent) {
     this.refreshCount += 1;
-    this.totalExtensionMs += 7000; // 7 seconds
+    this.totalExtensionMs += 7000;
   }
 
   statistic() {
@@ -127,20 +121,15 @@ class EmpyrealBlaze extends Analyzer {
         tooltip={
           <>
             <ul>
-              <li>
-                <strong>{this.empoweredCasts}</strong> empowered Holy Fire casts (instant, free, no
-                cooldown)
-              </li>
-              <li>
-                <strong>{(this.totalExtensionMs / 1000).toFixed(1)}s</strong> total duration added
-                from refreshes
-              </li>
+              <li><strong>{this.empoweredCasts}</strong> empowered Holy Fire casts (instant, free, no cooldown)</li>
+              <li><strong>{(this.totalExtensionMs / 1000).toFixed(1)}s</strong> total duration added from refreshes</li>
             </ul>
           </>
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.EMPYREAL_BLAZE_TALENT}>
           <ItemManaGained amount={this.manaSaved} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {this.refreshCount} <small>refreshes (7s each)</small>
         </TalentSpellText>

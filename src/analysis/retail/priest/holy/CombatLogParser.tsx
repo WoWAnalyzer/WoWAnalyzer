@@ -126,7 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
     PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
 
     // Oracle Hero Talents
-    PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
+    Piety: Talents.Oracle.Piety,
     ProphetsInsightHoly: Talents.Oracle.ProphetsInsightHoly,
 
     // Holy Specific Oracle Hero Talents

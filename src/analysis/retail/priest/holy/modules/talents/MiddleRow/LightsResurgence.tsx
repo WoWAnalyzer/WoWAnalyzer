@@ -1,6 +1,5 @@
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -8,9 +7,13 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { BENEDICTION_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
+import { LR_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
 
-// Renamed class to reflect the new talent name
+/**
+ * Light's Resurgence
+ * Your Prayer of Mending has a 12% chance to leave a Renew on each target it heals.
+ */
+
 class LightsResurgence extends Analyzer {
   healingFromRenew = 0;
   overhealingFromRenew = 0;
@@ -27,7 +30,7 @@ class LightsResurgence extends Analyzer {
   }
 
   onRenewHeal(event: HealEvent) {
-    if (HasRelatedEvent(event, BENEDICTION_RENEW_HEALS)) {
+    if (HasRelatedEvent(event, LR_RENEW_HEALS)) {
       this.healingFromRenew += event.amount || 0;
       this.overhealingFromRenew += event.overheal || 0;
       this.absorptionFromRenew += event.absorbed || 0;

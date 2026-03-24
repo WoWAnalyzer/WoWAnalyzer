@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -29,11 +29,11 @@ class DesperatePrayer extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DESPERATE_PRAYER_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      Events.heal.to(SELECTED_PLAYER).spell(TALENTS.DESPERATE_PRAYER_TALENT),
       this.onHeal,
     );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -54,7 +54,7 @@ class DesperatePrayer extends Analyzer {
   }
 
   onDamageTaken(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.DESPERATE_PRAYER_TALENT.id)) {
       return;
     }
 
@@ -62,7 +62,7 @@ class DesperatePrayer extends Analyzer {
   }
 
   onDeath() {
-    if (!this.spellUsable.isOnCooldown(SPELLS.DESPERATE_PRAYER.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS.DESPERATE_PRAYER_TALENT.id)) {
       this.deathsWithDPReady += 1;
     }
   }
@@ -93,7 +93,7 @@ class DesperatePrayer extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spell={SPELLS.DESPERATE_PRAYER}>
+        <BoringSpellValueText spell={TALENTS.DESPERATE_PRAYER_TALENT}>
           {this.desperatePrayerUsages.length} Casts
         </BoringSpellValueText>
       </Statistic>

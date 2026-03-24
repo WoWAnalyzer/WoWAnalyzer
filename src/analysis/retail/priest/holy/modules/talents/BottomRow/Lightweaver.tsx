@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/';
-import { BadColor, GoodColor, PerfectColor } from 'interface/guide';
+import { GoodColor } from 'interface/guide';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -24,6 +24,12 @@ import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 type HealingSources = 'trailHealing' | 'bindingHealing' | 'healHealing';
+
+/**
+ * Lightweaver
+ * Flash Heal reduces the cast time of your next Prayer of Healing within 20 sec by 30% and increases its healing done by 18%.
+ * Can accumulate up to 4 charges.
+ */
 
 class Lightweaver extends Analyzer {
   static dependencies = {
@@ -189,8 +195,7 @@ class Lightweaver extends Analyzer {
         <small>
           <ul>
             <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast, where
-              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> is applied.
+              <span style={{ color: GoodColor }}>Green</span> is a good cast, where<SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />{' '}is applied.
             </li>
           </ul>
         </small>
@@ -233,7 +238,9 @@ class Lightweaver extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             {`${overhealingTooltipString}% overhealing`} <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown:</div>
             <div>
@@ -242,14 +249,17 @@ class Lightweaver extends Analyzer {
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.eolContrib} /> <br />
             </div>
             <div>
               <SpellLink spell={SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.trailHealing} /> <br />
             </div>
             <div>
               <SpellLink spell={SPELLS.BINDING_HEALS_TALENT_HEAL} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.bindingHealing} /> <br />
             </div>
           </>

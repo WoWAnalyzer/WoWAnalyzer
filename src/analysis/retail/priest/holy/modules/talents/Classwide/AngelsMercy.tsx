@@ -9,7 +9,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const DESPERATE_PRAYER_BASE_COOLDOWN = 90000;
 
-// Example Log: /report/1bgY6k8ADWJLzjPN/7-Mythic+Taloc+-+Kill+(5:45)/1-Cruzco
+/**
+ * Angel's Mercy
+ * Reduces the cooldown of Desperate Prayer by 20 sec.
+ */
+
 class AngelsMercy extends Analyzer {
   desperatePrayersCast = 0;
   desperatePrayerTimeReduced = 0;
@@ -19,7 +23,7 @@ class AngelsMercy extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DESPERATE_PRAYER_TALENT),
       this.onCast,
     );
   }

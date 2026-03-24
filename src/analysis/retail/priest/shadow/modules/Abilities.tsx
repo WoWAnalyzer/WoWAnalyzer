@@ -221,20 +221,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DESPERATE_PRAYER.id,
+        spell: TALENTS.DESPERATE_PRAYER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         gcd: null,
       },
       {
-        spell: SPELLS.LEAP_OF_FAITH.id,
+        spell: TALENTS.LEAP_OF_FAITH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90 - (combatant.hasTalent(TALENTS.MOVE_WITH_GRACE_TALENT) ? 30 : 0),
         gcd: null,
         enabled: combatant.hasTalent(TALENTS.LEAP_OF_FAITH_TALENT),
       },
       {
-        spell: SPELLS.FADE.id,
+        spell: TALENTS.FADE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30 - combatant.getTalentRank(TALENTS.IMPROVED_FADE_TALENT) * 5,
         gcd: null,
@@ -290,7 +290,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PSYCHIC_SCREAM.id,
+        spell: TALENTS.PSYCHIC_SCREAM_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 - (combatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT) ? 15 : 0),
         gcd: {
