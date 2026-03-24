@@ -89,12 +89,19 @@ class WildfireBomb extends Analyzer.withDependencies({
       this.sentinelProcs += 1;
     }
 
-    // Classify performance: Perfect if tipped + sentinel proc, Good if just tipped, Fail if not tipped
+    // Classify performance: pre-pull (first bomb within 5s of fight start) is always Good;
+    // This lets us deal with throwing a bomb late due to an early pull or other shenanigans on pull.
+    const isPrePull =
+      this.casts === 1 && !wasTipped && event.timestamp - this.owner.fight.start_time <= 5_000;
     let value: QualitativePerformance;
     let header: string;
     let color: string;
 
-    if (wasTipped && hadSentinelProc) {
+    if (isPrePull) {
+      value = QualitativePerformance.Good;
+      header = 'Good: pre-pull cast.';
+      color = GoodColor;
+    } else if (wasTipped && hadSentinelProc) {
       value = QualitativePerformance.Perfect;
       header = "Perfect: tipped and proc'd Sentinel's Mark.";
       color = PerfectColor;
