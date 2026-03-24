@@ -121,7 +121,7 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
           tree. During {shadowDance} we have increased damage and enhanced combo point and energy
           generation.
         </p>
-        <p>
+        <>
           In order to maximize damage you want to:
           <ul>
             {this.isTrickster && <li>Enter with 6+ combo points.</li>}
@@ -136,9 +136,9 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
             </li>
             <li>Cast as many abilities as you can.</li>
           </ul>
-        </p>
+        </>
 
-        <p>
+        <>
           <h5>
             <InformationIcon />
             <i>Haste and GCDs notes</i>
@@ -169,7 +169,7 @@ class ShadowDanceGuide extends Analyzer.withDependencies({
             </a>
             macros section for more information.
           </p>
-        </p>
+        </>
       </>
     );
 
