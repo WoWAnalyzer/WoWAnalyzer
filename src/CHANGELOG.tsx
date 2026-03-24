@@ -27,12 +27,14 @@ import {
   Rex,
   squided,
   Gambyt,
+  MarchingCube,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 24), "Add Ancestral Call (Mag'har Orc) racial support", MarchingCube),
   change(date(2026, 3, 23), "Update close kill times to match new WCL API", Putro),
   change(date(2026, 3, 20), 'Update FoodChecker for Midnight', Gambyt),
   change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),
