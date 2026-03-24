@@ -470,6 +470,11 @@ const spells = {
     manaCost: 90000,
   },
   PRAYER_OF_MENDING_HEAL: {
+    id: 33110,
+    name: 'Prayer of Mending',
+    icon: 'spell_holy_prayerofmendingtga',
+  },
+  PRAYER_OF_MENDING_CAST: {
     id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',

@@ -17,7 +17,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const BASE_MANA = 2500000;              // Priest base mana at level 80
+const BASE_MANA = 2500000; // Priest base mana at level 80
 const HOLY_FIRE_MANA_COST = Math.floor(BASE_MANA * 0.0024); // 6000
 
 class EmpyrealBlaze extends Analyzer {
@@ -127,8 +127,14 @@ class EmpyrealBlaze extends Analyzer {
         tooltip={
           <>
             <ul>
-              <li><strong>{this.empoweredCasts}</strong> empowered Holy Fire casts (instant, free, no cooldown)</li>
-              <li><strong>{(this.totalExtensionMs / 1000).toFixed(1)}s</strong> total duration added from refreshes</li>
+              <li>
+                <strong>{this.empoweredCasts}</strong> empowered Holy Fire casts (instant, free, no
+                cooldown)
+              </li>
+              <li>
+                <strong>{(this.totalExtensionMs / 1000).toFixed(1)}s</strong> total duration added
+                from refreshes
+              </li>
             </ul>
           </>
         }

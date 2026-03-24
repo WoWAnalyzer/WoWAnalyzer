@@ -56,8 +56,7 @@ class PrayerOfHealing extends Analyzer {
 
     // Analyze cast for guide section:
     // player is buffed by prayer circle or they don't have the talent
-    const prayerCirclePerfect =
-      this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id);
+    const prayerCirclePerfect = this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id);
 
     // check if Holy Word: Sanctify is not on cooldown when casting PoH to avoid wasted CDR.
     const sanctifyOffCd = this.selectedCombatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT)
@@ -106,13 +105,16 @@ class PrayerOfHealing extends Analyzer {
           <b>
             <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />{' '}
           </b>
-          is your primary healing tool.
-          It provides substantial burst healing on its own and is the most efficient way to reduce the cooldown of <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} />.
-          {' '}Try to cast it when you have stacks of <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> to reduce cast time and mana cost.
-        </p> 
+          is your primary healing tool. It provides substantial burst healing on its own and is the
+          most efficient way to reduce the cooldown of{' '}
+          <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} />. Try to cast it when you
+          have stacks of <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> to reduce cast time
+          and mana cost.
+        </p>
         <p>
-        If talented into <SpellLink spell={TALENTS_PRIEST.SPIRITWELL_TALENT} />, you can cast <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />{' '}
-        when you have procs of <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} />.
+          If talented into <SpellLink spell={TALENTS_PRIEST.SPIRITWELL_TALENT} />, you can cast{' '}
+          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> when you have procs of{' '}
+          <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} />.
         </p>
       </>
     );
@@ -126,11 +128,13 @@ class PrayerOfHealing extends Analyzer {
           <ul>
             <li>
               <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where
-              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />{' '}and <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} />{' '}is applied if talented into
+              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} /> is applied if talented into
               it.
             </li>
             <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast, where<SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />{' '}is applied.
+              <span style={{ color: GoodColor }}>Green</span> is a good cast, where
+              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> is applied.
             </li>
             <li>
               <span style={{ color: BadColor }}>Red</span> is a bad cast, where no buffs is applied.

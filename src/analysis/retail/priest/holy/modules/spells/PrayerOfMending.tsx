@@ -29,7 +29,7 @@ class PrayerOfMending extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_HEAL]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST]),
       this.onCast,
     );
     this.addEventListener(
@@ -100,7 +100,7 @@ class PrayerOfMending extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={SPELLS.PRAYER_OF_MENDING_HEAL} />
+          <SpellLink spell={SPELLS.PRAYER_OF_MENDING_CAST} />
         </b>{' '}
         is one of our most efficient spells and should be cast on cooldown. It is a heal that is
         triggered on the target when they take damage, and then bounces to a new target. Because its
@@ -108,9 +108,7 @@ class PrayerOfMending extends Analyzer {
       </p>
     );
 
-    const data = (
-      <CastEfficiencyPanel spell={SPELLS.PRAYER_OF_MENDING_HEAL} useThresholds />
-    );
+    const data = <CastEfficiencyPanel spell={SPELLS.PRAYER_OF_MENDING_CAST} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }

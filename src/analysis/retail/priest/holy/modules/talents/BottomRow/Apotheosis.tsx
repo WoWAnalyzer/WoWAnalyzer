@@ -12,7 +12,7 @@ import { HOLY_WORD_LIST } from '../../../constants';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { SpellLink } from 'interface';
 
-const HOLY_WORD_IDS = HOLY_WORD_LIST.map(spell => spell.id);
+const HOLY_WORD_IDS = HOLY_WORD_LIST.map((spell) => spell.id);
 const MANA_REDUCTION_PERCENT = 0.5; // 50% reduction
 
 /**
@@ -72,8 +72,8 @@ class Apotheosis extends Analyzer {
     this.apotheosisCasts += 1;
 
     // Reset all Holy Words (restore all charges)
-    HOLY_WORD_IDS.forEach(spellId => {
-        this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
+    HOLY_WORD_IDS.forEach((spellId) => {
+      this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
     });
   }
 

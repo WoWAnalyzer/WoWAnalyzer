@@ -238,7 +238,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: BUFFED_BY_EPIPHANY,
     linkingEventId: SPELLS.EPIPHANY_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
-    referencedEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
+    referencedEventId: SPELLS.PRAYER_OF_MENDING_CAST.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
