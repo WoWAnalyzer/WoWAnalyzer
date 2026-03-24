@@ -13,20 +13,20 @@ import { formatDuration, formatPercentage } from 'common/format';
 const STAT_RATING = 56;
 
 const BUFFS = {
-  [SPELLS.HASTY_HUNT.id]: {
-    spell: SPELLS.HASTY_HUNT,
+  [SPELLS.DARKMOON_SIGIL_HUNT_HASTE.id]: {
+    spell: SPELLS.DARKMOON_SIGIL_HUNT_HASTE,
     stat: STAT.HASTE,
   },
-  [SPELLS.FOCUSED_HUNT.id]: {
-    spell: SPELLS.FOCUSED_HUNT,
+  [SPELLS.DARKMOON_SIGIL_HUNT_CRIT.id]: {
+    spell: SPELLS.DARKMOON_SIGIL_HUNT_CRIT,
     stat: STAT.CRITICAL_STRIKE,
   },
-  [SPELLS.MASTERFUL_HUNT.id]: {
-    spell: SPELLS.MASTERFUL_HUNT,
+  [SPELLS.DARKMOON_SIGIL_HUNT_MASTERY.id]: {
+    spell: SPELLS.DARKMOON_SIGIL_HUNT_MASTERY,
     stat: STAT.MASTERY,
   },
-  [SPELLS.VERSATILE_HUNT.id]: {
-    spell: SPELLS.VERSATILE_HUNT,
+  [SPELLS.DARKMOON_SIGIL_HUNT_VERSATILITY.id]: {
+    spell: SPELLS.DARKMOON_SIGIL_HUNT_VERSATILITY,
     stat: STAT.VERSATILITY,
   },
 } satisfies Record<number, { spell: Spell; stat: STAT }>;
@@ -51,10 +51,10 @@ class DarkmoonSigilHunt extends EmbellishmentAnalyzer.withDependencies({
 
     const rating = this.statRating;
 
-    this.deps.statTracker.add(SPELLS.HASTY_HUNT.id, { haste: rating });
-    this.deps.statTracker.add(SPELLS.FOCUSED_HUNT.id, { crit: rating });
-    this.deps.statTracker.add(SPELLS.MASTERFUL_HUNT.id, { mastery: rating });
-    this.deps.statTracker.add(SPELLS.VERSATILE_HUNT.id, { versatility: rating });
+    this.deps.statTracker.add(SPELLS.DARKMOON_SIGIL_HUNT_HASTE.id, { haste: rating });
+    this.deps.statTracker.add(SPELLS.DARKMOON_SIGIL_HUNT_CRIT.id, { crit: rating });
+    this.deps.statTracker.add(SPELLS.DARKMOON_SIGIL_HUNT_MASTERY.id, { mastery: rating });
+    this.deps.statTracker.add(SPELLS.DARKMOON_SIGIL_HUNT_VERSATILITY.id, { versatility: rating });
 
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(Object.values(BUFFS).map((b) => b.spell)),
