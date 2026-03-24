@@ -4,7 +4,6 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID } from '../constants';
-import { FullCombatant } from 'parser/core/Combatant';
 
 import Combatant from 'parser/core/Combatant';
 

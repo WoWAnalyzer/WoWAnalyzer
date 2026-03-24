@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { CastEvent, HealEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -75,7 +75,7 @@ class EverlastingLight extends Analyzer {
           <>
             Total Healing: {formatNumber(this.rawAdditionalHealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>
@@ -88,7 +88,7 @@ class EverlastingLight extends Analyzer {
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
               <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
             </div>
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>
               Notably this module currently is missing the contributions to{' '}

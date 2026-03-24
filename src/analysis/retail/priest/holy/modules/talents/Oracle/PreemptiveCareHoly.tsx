@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { Options } from 'parser/core/Module';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -26,7 +26,7 @@ class PreemptiveCareHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.PREEMPTIVE_CARE_TALENT}>
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <ItemPercentHealingDone amount={this.attribution.healing} /> <br />
         </TalentSpellText>
       </Statistic>

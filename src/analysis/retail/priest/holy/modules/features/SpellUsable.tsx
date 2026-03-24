@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbilityEvent, HasRelatedEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
+import { AbilityEvent, HasRelatedEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
@@ -13,7 +12,7 @@ class SpellUsable extends CoreSpellUsable {
     super(options);
   }
 
-// oxlint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   beginCooldown(cooldownTriggerEvent: AbilityEvent<any>, spellId: number) {
     // Epiphany free Prayer of Mending – do not consume a charge
     if (

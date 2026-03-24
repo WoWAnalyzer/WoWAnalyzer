@@ -6,7 +6,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import Statistic from 'parser/ui/Statistic';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SPELLS from 'common/SPELLS';
 
 const HOLY_WORDS = [
   TALENTS_PRIEST.HOLY_WORD_SERENITY_TALENT,
@@ -45,7 +44,7 @@ class HolyCelerity extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_PRIEST.HOLY_CELERITY_TALENT}>
           <ItemCooldownReduction effective={this.totalCdr} />
-{/* oxlint-disable-next-line @wowanalyzer/no-br */}
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <small>total cooldown reduction</small>
         </TalentSpellText>

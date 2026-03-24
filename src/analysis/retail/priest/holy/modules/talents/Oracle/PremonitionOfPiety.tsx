@@ -4,7 +4,6 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -12,8 +11,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { PIETY_AMP } from '../../../constants';
-import { PIETY_OVERHEAL_MISDIRECT } from '../../../constants';
-import { FATEBENDER_SCALER } from '../../../constants';
 
 class PremonitionOfPiety extends Analyzer {
   static dependencies = {
@@ -28,7 +25,6 @@ class PremonitionOfPiety extends Analyzer {
   totalNonFBPietyOverhealingMD = 0;
 
   private scaledPietyAmp = PIETY_AMP;
-  private scaledPietyOH = PIETY_OVERHEAL_MISDIRECT;
   private pietyBuffActive = false;
 
   constructor(options: Options) {

@@ -1,6 +1,5 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
