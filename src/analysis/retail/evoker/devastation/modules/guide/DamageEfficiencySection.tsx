@@ -290,6 +290,13 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
               </strong>{' '}
               allows <SpellLink spell={SPELLS.DEEP_BREATH} /> to be cast again within{' '}
               {formatDurationMillisMinSec(STRAFING_RUN_DURATION, 0)} of being used.
+              {hasMassDisintegrate && (
+                <div>
+                  When playing as Scalecommander, you should wait with re-casting{' '}
+                  <SpellLink spell={SPELLS.DEEP_BREATH} /> until{' '}
+                  <SpellLink spell={TALENTS_EVOKER.MELT_ARMOR_TALENT} /> runs out.
+                </div>
+              )}
               <div>
                 <strong>None should go to waste.</strong>
               </div>
