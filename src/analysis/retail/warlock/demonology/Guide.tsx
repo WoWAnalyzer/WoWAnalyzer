@@ -26,8 +26,12 @@ function CoreSection({ modules }: GuideProps<typeof CombatLogParser>) {
 function CooldownSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
-      <CooldownSubsection />
-      <DemonicTyrantGuide />
+      <Section title="Cooldown Usage">
+        <CooldownSubsection />
+      </Section>
+      <Section title="Demonic Tyrant">
+        <DemonicTyrantGuide />
+      </Section>
     </Section>
   );
 }

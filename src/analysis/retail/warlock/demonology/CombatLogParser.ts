@@ -7,6 +7,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import LegionStrike from './modules/features/LegionStrike';
 import DemoPets from './modules/pets/DemoPets';
 import DemonicTyrant from './modules/features/DemonicTyrant';
+import SummonDoomguard from './modules/features/SummonDoomguard';
 import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
 import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
 import PowerSiphonHandler from './modules/pets/DemoPets/PowerSiphonHandler';
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     legionStrike: LegionStrike,
     DemonicTyrant: DemonicTyrant,
+    summonDoomguard: SummonDoomguard,
 
     // Core
     soulShardTracker: SoulShardTracker,
