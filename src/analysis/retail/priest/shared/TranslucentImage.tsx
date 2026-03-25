@@ -42,8 +42,10 @@ class TranslucentImage extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS.TRANSLUCENT_IMAGE_TALENT}>
-            {formatNumber(this.damageReduced)} <small> damage reduced </small> <br />
-            {formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS <br />
+            <div>
+              {formatNumber(this.damageReduced)} <small> damage reduced </small>
+            </div>
+            <div>{formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS</div>
           </BoringSpellValueText>
         </>
       </Statistic>

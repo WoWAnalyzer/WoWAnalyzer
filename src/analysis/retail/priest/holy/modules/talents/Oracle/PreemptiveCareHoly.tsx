@@ -28,7 +28,7 @@ interface RenewApplication {
  */
 
 class PreemptiveCareHoly extends Analyzer {
-  private activeRenews: Map<string, RenewApplication> = new Map();
+  private activeRenews = new Map<string, RenewApplication>();
   private healingAttributed = 0;
 
   constructor(options: Options) {

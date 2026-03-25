@@ -83,6 +83,7 @@ class EnergyCompressionHoly extends Analyzer {
             <br />
             {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             Breakdown: <br />
             <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />:{' '}
             <ItemPercentHealingDone
@@ -91,7 +92,7 @@ class EnergyCompressionHoly extends Analyzer {
             {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
           </>
         }
       >

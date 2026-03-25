@@ -101,15 +101,19 @@ class TwinsOfTheSunPriestess extends Analyzer {
     };
 
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT} />
-        </b>{' '}
-        gives you <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> when used on an ally.
-        <br />
-        When taking this talent, make sure to always use it on an ally. By using it on yourself, you
-        lose out on a free <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> for a raid member.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT} />
+          </b>{' '}
+          gives you <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> when used on an ally.
+        </p>
+        <p>
+          When taking this talent, make sure to always use it on an ally. By using it on yourself,
+          you lose out on a free <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> for a raid
+          member.
+        </p>
+      </>
     );
 
     const data = (
