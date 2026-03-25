@@ -1,7 +1,7 @@
+import { Options } from 'parser/core/Analyzer';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/monk';
-import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
@@ -11,7 +11,15 @@ const EVENT_ORDERS: EventOrder[] = [
     afterEventType: EventType.RemoveBuff,
     anyTarget: true,
   },
+  {
+    beforeEventId: SPELLS.SPINNING_CRANE_KICK.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.DANCE_OF_CHI_JI_BUFF.id,
+    afterEventType: EventType.RemoveBuffStack,
+    anyTarget: true,
+  },
 ];
+
 class DanceOfChiJiNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, EVENT_ORDERS);
