@@ -24,7 +24,7 @@ class AvatarOfTheStorm extends Analyzer {
     this.hasAvatarOfTheStorm = this.selectedCombatant.hasTalent(TALENTS.AVATAR_OF_THE_STORM_TALENT);
     this.hasStormSurge = this.selectedCombatant.hasTalent(TALENTS.STORM_SURGE_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_SHARED),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_SHARED),
       this.onAvatarCast,
     );
     this.addEventListener(
