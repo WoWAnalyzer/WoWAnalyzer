@@ -2828,3 +2828,8 @@ export const defgfed: Contributor = {
   github: 'defgfed',
   discord: 'defgfed',
 };
+
+export const MarchingCube: Contributor = {
+  nickname: 'MarchingCube',
+  github: 'MarchingCube',
+};

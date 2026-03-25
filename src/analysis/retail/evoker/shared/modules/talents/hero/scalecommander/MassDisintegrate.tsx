@@ -243,8 +243,16 @@ class MassDisintegrate extends Analyzer {
     return this.targetCount / this.castCount;
   }
 
+  get consumedBuffs() {
+    return this.castCount;
+  }
+
   get wastedBuffs() {
     return this.buffCount - this.castCount;
+  }
+
+  get totalBuffs() {
+    return this.buffCount;
   }
 
   statistic() {

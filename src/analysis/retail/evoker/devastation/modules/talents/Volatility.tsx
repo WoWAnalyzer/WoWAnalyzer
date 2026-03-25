@@ -115,10 +115,7 @@ class Volatility extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <li>
-              Procs: {Math.floor(this.volatilityProcs)}
-              <br />
-            </li>
+            <li>Procs: {Math.floor(this.volatilityProcs)}</li>
             <li>
               Expected procs: {Math.floor(this.volatilityProcAttempts * this.volatilityProcChance)}
             </li>

@@ -1,0 +1,10 @@
+.bofResetList {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 1rem;
+  margin-bottom: 0; // overrides base style
+
+  dt {
+    font-weight: normal;
+  }
+}

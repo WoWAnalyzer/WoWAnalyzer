@@ -66,7 +66,7 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
         <SpellLink spell={SPELLS.SHADOW_DANCE} /> should be optimized.
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
-      {modules.shadowDance.guideSubsection}
+      {modules.shadowDanceGuide.guideSubsection}
       {modules.shadowBlades.guideSubsection}
     </Section>
   );
