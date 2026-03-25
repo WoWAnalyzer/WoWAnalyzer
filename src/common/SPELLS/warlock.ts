@@ -254,7 +254,7 @@ const spells = {
     icon: 'inv_beholderwarlock',
   },
   UNSTABLE_AFFLICTION: {
-    id: 316099,
+    id: 1259790,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },

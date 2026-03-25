@@ -20,6 +20,11 @@ export default class BurstOfPower extends Analyzer.withDependencies({
       Events.removebuffstack.spell(SPELLS.BURST_OF_POWER_BUFF),
       this.resetBloodthirst,
     );
+
+    this.addEventListener(
+      Events.removebuff.spell(SPELLS.BURST_OF_POWER_BUFF),
+      this.resetBloodthirst,
+    );
   }
 
   private resetBloodthirst(): void {

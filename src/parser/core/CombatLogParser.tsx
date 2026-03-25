@@ -52,6 +52,7 @@ import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
+import AncestralCall from '../shared/modules/racials/magharorc/AncestralCall';
 import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
 import SpellHistory from '../shared/modules/SpellHistory';
@@ -97,6 +98,7 @@ import {
   DarkmoonSigilAscension,
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
+import { DarkmoonSigilHunt } from 'parser/retail/modules/items/midnight';
 import CritRacial from 'parser/shared/modules/racials/CritRacial';
 import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
@@ -112,7 +114,7 @@ const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
 const isMinified = import.meta.env.PROD;
 
-type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>];
+type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 export type DependenciesDefinition = Record<string, DependencyDefinition>;
 
 interface ModuleErrorDetails {
@@ -200,6 +202,7 @@ class CombatLogParser {
     stoneform: Stoneform,
     berserking: Berserking,
     bloodFury: BloodFury,
+    ancestralCall: AncestralCall,
     otherRacials: OtherRacials,
 
     // Items:
@@ -218,6 +221,7 @@ class CombatLogParser {
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,
+    darkmoonSigilHunt: DarkmoonSigilHunt,
 
     // Enchants
 
@@ -687,6 +691,7 @@ class CombatLogParser {
 
     let results: ParseResults = new ParseResults();
 
+    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     const addStatistic = (statistic: any, basePosition: number, key: string) => {
       if (!statistic) {
         return;
@@ -764,7 +769,7 @@ class CombatLogParser {
     }
 
     const props = {
-      modules: this._modules as ModulesOf<any>,
+      modules: this._modules as ModulesOf<any>, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
       info: this.info,
       events: this.eventHistory,
     };

@@ -6,24 +6,26 @@ import {
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
-
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import Abilities from './modules/features/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Darkglare from './modules/features/Darkglare';
-import DotUptimes from './modules/features/DotUptimes';
-import SoulShardDetails from './modules/resources/SoulShardDetails';
-import SoulShardTracker from './modules/resources/SoulShardTracker';
-import AbsoluteCorruption from './modules/spells/AbsoluteCorruption';
-import AgonyUptime from './modules/spells/Agony';
-import CorruptionUptime from './modules/spells/Corruption';
-import DrainSoul from './modules/spells/DrainSoul';
-import Haunt from './modules/spells/Haunt';
-import Nightfall from './modules/spells/Nightfall';
-import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
-import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
-import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
+import Abilities from './modules/core/Abilities';
+import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
+import Darkglare from './modules/analyzers/Darkglare';
+import SoulShardDetails from '../shared/resources/SoulShardDetails';
+import SoulShardTracker from '../shared/resources/SoulShardTracker';
+import SoulShardGraph from '../shared/resources/SoulShardGraph';
+import AbsoluteCorruption from './modules/analyzers/AbsoluteCorruption';
+import Agony from './modules/analyzers/Agony';
+import Corruption from './modules/analyzers/Corruption';
+import CorruptionUptime from './modules/guide/CorruptionUptime';
+import UnstableAffliction from './modules/analyzers/UnstableAffliction';
+import UnstableAfflictionCasts from './modules/analyzers/UnstableAfflictionEfficiency';
+import DrainSoul from './modules/analyzers/DrainSoul';
+import Haunt from './modules/analyzers/Haunt';
+import Nightfall from './modules/analyzers/Nightfall';
+import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
+import Guide from './Guide';
+import CullTheWeak from './modules/analyzers/CulltheWeak';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -42,14 +44,16 @@ class CombatLogParser extends CoreCombatLogParser {
     darkglare: Darkglare,
 
     // DoTs
-    agonyUptime: AgonyUptime,
+    agony: Agony,
+    corruption: Corruption,
     corruptionUptime: CorruptionUptime,
-    unstableAfflictionUptime: UnstableAfflictionUptime,
-    dotUptimes: DotUptimes,
+    unstableaffliction: UnstableAffliction,
+    unstableafflictionCasts: UnstableAfflictionCasts,
 
     // Resources
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    soulshardGraph: SoulShardGraph,
 
     // Talents
     absoluteCorruption: AbsoluteCorruption,
@@ -57,18 +61,20 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
     nightfall: Nightfall,
+    cullTheWeak: CullTheWeak,
 
     // Shared Spells
     unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
+    demonicHealthstone: DemonicHealthstone,
 
     // Items
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
-  static guide = FoundationGuide;
+  static guide = Guide;
 }
 
 export default CombatLogParser;

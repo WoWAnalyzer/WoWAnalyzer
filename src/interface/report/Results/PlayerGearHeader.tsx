@@ -13,6 +13,7 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
     <div className={`${player.player.type.replace(' ', '')} player-name`}>
       <Link to={makeCharacterUrl(player)}>
         {player.name}
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br></br>
         {player.characterProfile && player.characterProfile.realm}
       </Link>

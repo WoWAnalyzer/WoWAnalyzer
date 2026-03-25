@@ -41,8 +41,8 @@ const JadefireTeachingsDescription = () => {
   return (
     <>
       <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend hots and convert damage to
-      healing through <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
-      , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, <SpellLink spell={SPELLS.TIGER_PALM} />, and{' '}
+      healing through <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
+      <SpellLink spell={SPELLS.BLACKOUT_KICK} />, <SpellLink spell={SPELLS.TIGER_PALM} />, and{' '}
       <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} />.
     </>
   );

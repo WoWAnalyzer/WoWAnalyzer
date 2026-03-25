@@ -54,7 +54,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.MIND_CONTROL.id,
+        spellId: TALENTS.MIND_CONTROL_TALENT.id,
         timelineHighlight: true,
       },
       //Bloodlust

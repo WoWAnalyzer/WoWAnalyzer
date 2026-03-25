@@ -40,6 +40,8 @@ temp
 # Extension files nobody cares about
 /.idea/markdown-navigator.xml
 /.idea/markdown-navigator/profiles_settings.xml
+/.idea/OxfmtSettings.xml
+/.idea/OxcSettings.xml
 # PhpStorm
 /.idea/php.xml
 # Visual Studio code

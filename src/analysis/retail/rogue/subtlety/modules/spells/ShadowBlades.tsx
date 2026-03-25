@@ -37,9 +37,8 @@ export default class ShadowBlades extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} />
         </strong>{' '}
-        is one of Subtlety Rogue's most important cooldowns. It should be used strategically with{' '}
-        <SpellLink spell={SPELLS.FLAGELLATION} /> and major cooldowns like{' '}
-        <SpellLink spell={SPELLS.SHADOW_DANCE} />.
+        is the most important Subtlety Rogue cooldowns. It should be used strategically with{' '}
+        <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> and <SpellLink spell={SPELLS.SHADOW_DANCE} />.
       </p>
     );
 
@@ -66,20 +65,16 @@ export default class ShadowBlades extends Analyzer {
           </div>
         }
         noCastsTexts={{
-          noCastsOverride: 'No Flagellation casts detected! This is a major mistake.',
+          noCastsOverride: '',
         }}
       />
     );
   }
   private onCast(event: CastEvent) {
     const hasShadowDanceBuff = this.selectedCombatant.hasBuff(SPELLS.SHADOW_DANCE.id);
-    const hasFlagellationBuff = this.selectedCombatant.hasBuff(SPELLS.FLAGELLATION.id);
 
     this.cooldownUses.push(
-      createSpellUse({ event }, [
-        this.shadowDanceBuff(event, hasShadowDanceBuff),
-        this.flagellationBuff(event, hasFlagellationBuff),
-      ]),
+      createSpellUse({ event }, [this.shadowDanceBuff(event, hasShadowDanceBuff)]),
     );
   }
 
@@ -106,37 +101,6 @@ export default class ShadowBlades extends Analyzer {
             ) : (
               <>
                 <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was not present.
-              </>
-            )}
-          </div>
-        ),
-      },
-    );
-  }
-
-  private flagellationBuff(
-    event: CastEvent,
-    hasFlagellationBuff: boolean,
-  ): ChecklistUsageInfo | undefined {
-    const performance = hasFlagellationBuff
-      ? QualitativePerformance.Perfect
-      : QualitativePerformance.Fail;
-
-    return createChecklistItem(
-      'flagellation_alignment',
-      { event },
-      {
-        performance,
-        summary: <div>Flagellation Buff Alignment</div>,
-        details: (
-          <div>
-            {hasFlagellationBuff ? (
-              <>
-                <SpellLink spell={SPELLS.FLAGELLATION} /> buff was present.
-              </>
-            ) : (
-              <>
-                <SpellLink spell={SPELLS.FLAGELLATION} /> buff was not present.
               </>
             )}
           </div>

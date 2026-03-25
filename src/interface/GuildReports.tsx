@@ -75,11 +75,12 @@ interface State {
   reportsToShow: number;
   isLoading: boolean;
   error: MessageDescriptor | null;
-  errorMessage: any | null;
+  errorMessage: any | null; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   realmSlug: string;
   factionImage: string;
 }
 
+// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 interface QueryParams extends Record<string, any> {
   start: number;
   game?: string;
@@ -322,10 +323,13 @@ class GuildReports extends Component<Props, State> {
       errorMessage = (
         <Trans id="interface.guildReports.errors.guildNotFoundDetails">
           Please check your input and make sure that you've selected the correct region and realm.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           If your input was correct, then make sure that someone in your raid logged the fight for
           you or check out the {WCL_GUIDE} to get started with logging on your own.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           When you know for sure that you have logs on Warcraft Logs and you still get this error,
           please message us on {DISCORD} or create an issue on {GITHUB}.
@@ -336,10 +340,14 @@ class GuildReports extends Component<Props, State> {
         <Trans id="interface.guildReports.errors.notRespondingDetails">
           It looks like we couldn't get a response in time from the API, this usually happens when
           the servers are under heavy load.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
           That would bypass the guild lookup and we should be able to analyze your report.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </Trans>
       );
@@ -351,6 +359,7 @@ class GuildReports extends Component<Props, State> {
       errorMessage = (
         <Trans id="interface.guildReports.errors.details">
           {this.state.errorMessage}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Please message us on {DISCORD} or create an issue on {GITHUB} if this issue persists and
           we will fix it, eventually.
@@ -360,7 +369,9 @@ class GuildReports extends Component<Props, State> {
       errorMessage = (
         <Trans id="interface.guildReports.errors.noReportsForFilterDetails">
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Don't know how to log your fights? Check out the {WCL_GUIDE} to get started.
         </Trans>
@@ -378,7 +389,7 @@ class GuildReports extends Component<Props, State> {
     }
 
     return (
-      <div className="results">
+      <main className="results">
         <header>
           <div className="background">
             <div
@@ -401,6 +412,7 @@ class GuildReports extends Component<Props, State> {
               >
                 <WarcraftLogsIcon /> Warcraft Logs
               </a>
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {battleNetUrl && (
                 <>
@@ -414,6 +426,7 @@ class GuildReports extends Component<Props, State> {
                     <ArmoryIcon style={{ marginRight: '0.3em' }} />
                     <Trans id="interface.armory.text">Armory</Trans>
                   </a>
+                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                 </>
               )}
@@ -491,7 +504,9 @@ class GuildReports extends Component<Props, State> {
                   <span>
                     {this.props.region} &gt; {this.props.realm} &gt; {this.props.name}
                   </span>
+                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
+                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                   <br />
                 </span>
               )}
@@ -556,7 +571,7 @@ class GuildReports extends Component<Props, State> {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 }

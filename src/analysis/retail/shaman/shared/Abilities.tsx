@@ -355,6 +355,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 6,
         gcd: null,
+        enabled: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
       },
 
       /* Hidden Spells */

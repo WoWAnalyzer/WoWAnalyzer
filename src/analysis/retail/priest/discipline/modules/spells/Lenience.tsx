@@ -7,6 +7,9 @@ import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
+
 const LENIENCE_DR = 0.02;
 
 class Lenience extends Analyzer {
@@ -26,10 +29,11 @@ class Lenience extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
-    }).then((json: any) => {
+    }).then((json) => {
+      json = json as WCLDamageTakenTableResponse;
       console.log('Received LR damage taken', json);
       this.totalDamageTakenDuringAtonement = json.entries.reduce(
-        (damageTaken: number, entry: any) => damageTaken + entry.total,
+        (damageTaken: number, entry) => damageTaken + entry.total,
         0,
       );
     });
@@ -41,6 +45,7 @@ class Lenience extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
+        category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon spell={TALENTS_PRIEST.LENIENCE_TALENT} />}
         value={`>=${formatNumber((this.damageReducedDuringLenience / fightDuration) * 1000)} DRPS`}
         label="Damage reduced"

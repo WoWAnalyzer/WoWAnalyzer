@@ -101,6 +101,7 @@ class EarthShieldBreakdown extends Analyzer {
     return (
       <>
         <UptimeIcon /> {formatPercentage(uptime)}% uptime
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this.healingIcon()} <strong>{formatNumber(amount)}</strong> direct healing
       </>
@@ -119,10 +120,12 @@ class EarthShieldBreakdown extends Analyzer {
     return (
       <>
         <SpellLink spell={talents.EARTH_SHIELD_TALENT} />:
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this.shieldIcon()}{' '}
         <strong>{formatNumber(this.earthenHarmony.earthShielddamageReduced)}</strong> damage
         mitigated
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this.healingIcon()} <strong>{formatNumber(this.earthenHarmony.earthShieldHealing)}</strong>{' '}
         additional healing
@@ -135,10 +138,12 @@ class EarthShieldBreakdown extends Analyzer {
       <>
         <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> from{' '}
         <SpellLink spell={talents.ELEMENTAL_ORBIT_TALENT} />:
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this.shieldIcon()}{' '}
         <strong>{formatNumber(this.earthenHarmony.elementalOrbitDamageReduced)}</strong> damage
         mitigated
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {this.healingIcon()}{' '}
         <strong>{formatNumber(this.earthenHarmony.elementalOrbitEarthShieldHealing)}</strong>{' '}

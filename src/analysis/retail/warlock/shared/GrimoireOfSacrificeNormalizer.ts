@@ -11,6 +11,7 @@ class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const firstEventIndex = this.getFightStartIndex(events);
 
+    // oxlint-disable-next-line typescript-eslint/prefer-for-of -- Baseline suppression. Try to fix if you edit this code.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       if (

@@ -16,7 +16,7 @@ class SurvivalOfTheFittest extends MajorDefensiveBuff {
   mitPct: number = BASE_MITIGATION;
 
   constructor(options: Options) {
-    /* 
+    /*
     Requires a custom trigger on only the SELECTED_PLAYER because each cast of Survival of the Fittest applies 
     to the hunter pet as well and so it creates a cast breakdown for you and your pet with each use.
     */

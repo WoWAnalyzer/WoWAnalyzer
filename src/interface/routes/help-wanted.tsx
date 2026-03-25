@@ -33,7 +33,9 @@ export function Component() {
               contributing guidelines
             </a>{' '}
             if you want to give it a try.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             If you're unable to help out with improving our analysis, please consider signing up for{' '}
             <Link to="/premium">Premium</Link> instead.

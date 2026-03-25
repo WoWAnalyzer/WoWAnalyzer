@@ -4,12 +4,12 @@ import Events, { DamageEvent } from 'parser/core/Events';
 
 class Pet extends Analyzer {
   _sourceId: number | null = null;
-  _pets: any = {};
+  _pets: any = {}; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 
   constructor(options: Options) {
     super(options);
     this._pets = this.owner.report.friendlyPets.filter(
-      (pet: any) => pet.petOwner === this.owner.player.id,
+      (pet: any) => pet.petOwner === this.owner.player.id, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
 
@@ -37,8 +37,9 @@ class Pet extends Analyzer {
     }
   }
 
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   fetchPet(pet: any) {
-    return this.fetchPets.find((_pet: any) => _pet.guid === pet.id);
+    return this.fetchPets.find((_pet: any) => _pet.guid === pet.id); // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   }
 }
 

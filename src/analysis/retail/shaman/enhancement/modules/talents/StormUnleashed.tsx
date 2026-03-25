@@ -109,27 +109,7 @@ class StormUnleashed extends Analyzer {
     );
 
     const data = (
-      <SubSection>
-        <SubSection>
-          You wasted <SpellLink spell={SPELLS.STORM_UNLEASHED_BUFF} /> procs:
-          <ul>
-            {this.wastedRefreshes > 0 && (
-              <li>
-                Overwritten while already active: <strong>{this.wastedRefreshes}</strong>
-              </li>
-            )}
-            {this.wastedExpires > 0 && (
-              <li>
-                Expired unused: <strong>{this.wastedExpires}</strong>
-              </li>
-            )}
-            {this.wastedRefreshes === 0 && this.wastedExpires === 0 && <li>No wasted procs</li>}
-          </ul>
-          <div style={{ marginTop: 8 }}>
-            Total procs: <strong>{this.totalProcs}</strong>
-          </div>
-        </SubSection>
-        <hr />
+      <>
         <SubSection title={<SpellLink spell={SPELLS.CRASH_LIGHTNING_BUFF} />}>
           <p>
             The graph below shows your uptime and stack count of{' '}
@@ -142,13 +122,36 @@ class StormUnleashed extends Analyzer {
             endTime={fightEnd}
             maxStacks={crashLightningMaxStacks}
           />
+          {this.wastedRefreshes > 0 || this.wastedExpires > 0 ? (
+            <>
+              <hr />
+              <SubSection>
+                You wasted <SpellLink spell={SPELLS.STORM_UNLEASHED_BUFF} /> procs:
+                <ul>
+                  {this.wastedRefreshes > 0 && (
+                    <li>
+                      Overwritten while already active: <strong>{this.wastedRefreshes}</strong>
+                    </li>
+                  )}
+                  {this.wastedExpires > 0 && (
+                    <li>
+                      Expired unused: <strong>{this.wastedExpires}</strong>
+                    </li>
+                  )}
+                </ul>
+                <div style={{ marginTop: 8 }}>
+                  Total procs: <strong>{this.totalProcs}</strong>
+                </div>
+              </SubSection>
+            </>
+          ) : null}
         </SubSection>
-      </SubSection>
+      </>
     );
 
     return (
       <ExplanationAndDataSubSection
-        title={<SpellLink spell={SPELLS.STORM_UNLEASHED_BUFF} />}
+        title={SPELLS.STORM_UNLEASHED_BUFF.name}
         explanation={explanation}
         data={data}
       />

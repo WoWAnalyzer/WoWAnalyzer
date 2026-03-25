@@ -43,6 +43,7 @@ class AuthorityOfRadiantPower extends StatProcEnchantAnalyzer {
       tooltip: (
         <>
           {tooltip}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           The proc dealt{' '}
           <b style={{ color: color(MAGIC_SCHOOLS.ids.RADIANT) }}>

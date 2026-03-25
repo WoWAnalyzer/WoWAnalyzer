@@ -47,7 +47,7 @@ class EventEmitter extends Module {
       });
   }
 
-  _eventListenersByEventType: Record<string, BoundListener<any, any>[]> = {};
+  _eventListenersByEventType: Record<string, BoundListener<any, any>[]> = {}; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   numEventListeners = 0;
   /**
    * @param {string|EventFilter} eventFilter
@@ -62,7 +62,7 @@ class EventEmitter extends Module {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
     if (eventType === CATCH_ALL_EVENT) {
       Object.keys(this._eventListenersByEventType).forEach((e) => {
-        this.addEventListener(e as EventType, listener as any, module);
+        this.addEventListener(e as EventType, listener as any, module); // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
       });
     } else {
       this._eventListenersByEventType[eventType].push({
@@ -310,8 +310,8 @@ class EventEmitter extends Module {
   }
   // todo double check this 'event' shape... seems wrong
   fabricateEvent<T extends EventType>(
-    event: { type: T; [additionalProperties: string]: any },
-    trigger: any = null,
+    event: { type: T; [additionalProperties: string]: any }, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+    trigger: any = null, // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   ): AnyEvent<T> {
     const fabricatedEvent: AnyEvent<T> = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
@@ -332,6 +332,7 @@ class EventEmitter extends Module {
     }
   }
 
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _validateEvent(event: any) {
     if (!event.type) {
       console.log(event);

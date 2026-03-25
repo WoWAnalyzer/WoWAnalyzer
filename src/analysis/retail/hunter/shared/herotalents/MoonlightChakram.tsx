@@ -38,6 +38,7 @@ export default class MoonlightChakram extends Analyzer {
   private useEntries: BoxRowEntry[] = [];
   private isSurvival = false;
   private hasStalkAndStrike = false;
+  private lastTriggerTarget = 'unknown';
 
   constructor(options: Options) {
     super(options);
@@ -52,18 +53,21 @@ export default class MoonlightChakram extends Analyzer {
     this.hasStalkAndStrike = this.selectedCombatant.hasTalent(TALENTS.STALK_AND_STRIKE_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.TAKEDOWN_PLAYER]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.TRUESHOT_TALENT, SPELLS.TAKEDOWN_PLAYER]),
       this.onTriggerCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONLIGHT_CHAKRAM_CAST),
+      this.onChakramCast,
     );
   }
 
+  /** Handles missed Chakram windows — when Trueshot/Takedown fires but no Chakram follows */
   private onTriggerCast(event: CastEvent) {
-    // Chakram is a 15s duration availability after using cooldown.
+    this.lastTriggerTarget = this.owner.getTargetName(event) || 'unknown';
     const chakramCast = GetRelatedEvents(event, TRIGGER_TO_CHAKRAM_CAST)[0] as
       | CastEvent
       | undefined;
-    const chakramTarget = this.owner.getTargetName(event) || 'unknown';
-
     if (!chakramCast) {
       this.missedCasts += 1;
       this.useEntries.push({
@@ -73,21 +77,24 @@ export default class MoonlightChakram extends Analyzer {
             <h5 style={{ color: BadColor }}>
               FAIL: No <SpellLink spell={SPELLS.MOONLIGHT_CHAKRAM_CAST} /> cast
             </h5>
-            Target: <strong>{chakramTarget}</strong>
+            Target: <strong>{this.lastTriggerTarget}</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
           </>
         ),
       });
-      return;
     }
+  }
 
+  /** Handles Chakram casts — SpellUsable state is accurate here for CDR checks */
+  private onChakramCast(event: CastEvent) {
     this.chakramCasts += 1;
-    const targetName = this.owner.getTargetName(chakramCast) || chakramTarget;
+
+    const targetName = this.owner.getTargetName(event) || this.lastTriggerTarget;
 
     //Currently hits 16 times, but will only hit for 7 at level 90 with the extra hero talents
     // So analysis is a little weird. The important bit is did they even cast the ability or did they forget
-    const damageEvents =
-      (GetRelatedEvents(chakramCast, CHAKRAM_CAST_TO_DAMAGE) as DamageEvent[]) || [];
+    const damageEvents = (GetRelatedEvents(event, CHAKRAM_CAST_TO_DAMAGE) as DamageEvent[]) || [];
     const damage = damageEvents.reduce((sum, dmg) => sum + dmg.amount + (dmg.absorbed || 0), 0);
     const hits = damageEvents.length;
 
@@ -105,10 +112,8 @@ export default class MoonlightChakram extends Analyzer {
 
     if (this.hasStalkAndStrike) {
       if (this.isSurvival) {
-        const cdRemaining = this.spellUsable.cooldownRemaining(
-          TALENTS.WILDFIRE_BOMB_TALENT.id,
-          chakramCast.timestamp,
-        );
+        // event.timestamp is the Chakram cast time — SpellUsable state is correct here
+        const cdRemaining = this.spellUsable.cooldownRemaining(TALENTS.WILDFIRE_BOMB_TALENT.id);
         if (cdRemaining <= STALK_AND_STRIKE_CDR) {
           wastedCDR = STALK_AND_STRIKE_CDR - cdRemaining;
           if (wastedCDR > STALK_AND_STRIKE_WASTE_THRESHOLD) {
@@ -120,7 +125,7 @@ export default class MoonlightChakram extends Analyzer {
       } else {
         wastedLockAndLoad = this.selectedCombatant.hasBuff(
           SPELLS.LOCK_AND_LOAD_BUFF.id,
-          chakramCast.timestamp,
+          event.timestamp,
         );
         if (wastedLockAndLoad) {
           performance = QualitativePerformance.Fail;
@@ -149,20 +154,23 @@ export default class MoonlightChakram extends Analyzer {
           <h5 style={{ color }}>{perfLabel}</h5>
           <div>
             Damage: <strong>{damage.toLocaleString()}</strong> ({hits} {hits === 1 ? 'hit' : 'hits'}
-            )
+            ){/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Target: <strong>{targetName}</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.hasStalkAndStrike && this.isSurvival && wastedCDR > 0 && (
               <>
                 {wastedCDR > STALK_AND_STRIKE_WASTE_THRESHOLD ? 'BAD: ' : ''}Wasted{' '}
                 {(wastedCDR / 1000).toFixed(1)}s Wildfire Bomb CDR
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </>
             )}
             {this.hasStalkAndStrike && !this.isSurvival && wastedLockAndLoad && (
               <>
                 BAD: Wasted Lock and Load buff
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
               </>
             )}

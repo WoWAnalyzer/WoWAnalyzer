@@ -146,9 +146,25 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.SUMMON_INFERNAL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT) ? 90 : 120,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.MALEVOLENCE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -313,6 +329,24 @@ class Abilities extends SharedAbilities {
       },
       ...super.spellbook(),
     ];
+  }
+
+  isHavocable(spellId: number): boolean {
+    const havocSpells = [
+      SPELLS.CHAOS_BOLT.id,
+      TALENTS.SHADOWBURN_TALENT.id,
+      SPELLS.INCINERATE.id,
+      SPELLS.CONFLAGRATE.id,
+      TALENTS.SOUL_FIRE_TALENT.id,
+    ];
+
+    if (!this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)) {
+      havocSpells.push(SPELLS.IMMOLATE.id);
+    } else {
+      havocSpells.push(SPELLS.WITHER_CAST.id);
+    }
+
+    return havocSpells.includes(spellId);
   }
 }
 

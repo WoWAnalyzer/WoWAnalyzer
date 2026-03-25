@@ -1,174 +1,123 @@
-import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  ApplyBuffEvent,
+  GetRelatedEvent,
+  GetRelatedEvents,
+  EventType,
+} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
-import { SpellLink } from 'interface';
-import { SpellUse, ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
-import { createChecklistItem, createSpellUse } from 'parser/core/MajorCooldowns/MajorCooldown';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { HideGoodCastsSpellUsageSubSection } from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
-import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import AlwaysBeCasting from 'analysis/retail/rogue/subtlety/modules/features/AlwaysBeCasting';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
 import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
 
-export default class ShadowDance extends Analyzer {
-  static dependencies = {
-    energyTracker: EnergyTracker,
-    comboPointTracker: ComboPointTracker,
-  };
+export default class ShadowDance extends Analyzer.withDependencies({
+  abilityTracker: AbilityTracker,
+  alwaysBeCasting: AlwaysBeCasting,
+  energyTracker: EnergyTracker,
+  comboPointTracker: ComboPointTracker,
+}) {
+  protected abilityTracker!: AbilityTracker;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected energyTracker!: EnergyTracker;
+  protected comboPointTracker!: ComboPointTracker;
 
-  private cooldownUses: SpellUse[] = [];
-  private energyTracker!: EnergyTracker;
-  private comboPointTracker!: ComboPointTracker;
+  // Conditional talent checks
+  hasShadowBlades: boolean = this.selectedCombatant.hasTalent(TALENTS.SHADOW_BLADES_TALENT);
+
+  danceData: ShadowDanceData[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_DANCE), this.onCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_DANCE_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  get guideSubsection(): JSX.Element {
-    const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={SPELLS.SHADOW_DANCE} />
-        </strong>{' '}
-        is Subtlety Rogue's most important cooldown. It should be used strategically with{' '}
-        <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> and major cooldowns like{' '}
-        <SpellLink spell={TALENTS.FLAGELLATION_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} />.
-      </p>
-    );
-
-    const goodCasts = this.cooldownUses.filter(
-      (it) => it.performance === QualitativePerformance.Good,
-    ).length;
-    const totalCasts = this.cooldownUses.length;
-
-    return (
-      <HideGoodCastsSpellUsageSubSection
-        hideGoodCasts={false}
-        explanation={explanation}
-        uses={this.cooldownUses}
-        castBreakdownSmallText={<> - Red indicates a wasted Shadow Dance.</>}
-        onPerformanceBoxClick={logSpellUseEvent}
-        abovePerformanceDetails={
-          <div style={{ marginBottom: 10 }}>
-            <CastPerformanceSummary
-              spell={SPELLS.SHADOW_DANCE}
-              casts={goodCasts}
-              performance={QualitativePerformance.Good}
-              totalCasts={totalCasts}
-            />
-          </div>
-        }
-        noCastsTexts={{
-          noCastsOverride: 'No Shadow Dance casts detected! This is a major mistake.',
-        }}
-      />
-    );
-  }
-
-  private onCast(event: CastEvent) {
+  private onApplyBuff(event: ApplyBuffEvent) {
+    const damageEvents = this.getDamageEvents(event);
     const energyAtCast = this.energyTracker.current;
     const comboPointsAtCast = this.comboPointTracker.current;
-    const hasSymbolsActive = this.selectedCombatant.hasBuff(
-      SPELLS.SYMBOLS_OF_DEATH.id,
-      event.timestamp,
-    );
 
-    this.cooldownUses.push(
-      createSpellUse({ event }, [
-        this.energyPerformance(event, energyAtCast),
-        this.comboPointPerformance(event, comboPointsAtCast),
-        this.buffAlignmentPerformance(event, hasSymbolsActive),
-        this.energyPerformance(event, energyAtCast),
-      ]),
-    );
+    const removed = this.getRemoveTimestamp(event);
+    this.danceData.push({
+      applied: event.timestamp,
+      removed: removed,
+      damage: damageEvents,
+      totalDamage: this.calculateTotalDamage(damageEvents),
+      duration: removed - event.timestamp,
+      energyAtCast: energyAtCast,
+      comboPointsAtCast: comboPointsAtCast,
+    });
   }
 
-  private energyPerformance(
-    event: CastEvent,
-    energyAtCast: number,
-  ): ChecklistUsageInfo | undefined {
-    const isGoodEnergy = energyAtCast >= 60;
+  private getRemoveTimestamp(event: ApplyBuffEvent): number {
+    const removeBuff = GetRelatedEvent(event, EventType.RemoveBuff);
+    return removeBuff?.timestamp ?? this.owner.fight.end_time;
+  }
 
-    return createChecklistItem(
-      'shadow_dance_energy',
-      { event },
-      {
-        performance: isGoodEnergy ? QualitativePerformance.Perfect : QualitativePerformance.Good,
-        summary: <div>Energy Management</div>,
-        details: isGoodEnergy ? (
-          <div>
-            You activated <SpellLink spell={SPELLS.SHADOW_DANCE} /> with sufficient energy (
-            {energyAtCast}). Well played!
-          </div>
-        ) : (
-          <div>
-            You activated <SpellLink spell={SPELLS.SHADOW_DANCE} /> with only {energyAtCast} energy.
-            Try to start with at least 60 energy for maximum burst potential.
-          </div>
-        ),
+  private getDamageEvents(event: ApplyBuffEvent): DamageEvent[] {
+    return GetRelatedEvents(event, EventType.Damage);
+  }
+
+  private calculateTotalDamage(damageEvents: DamageEvent[]): number {
+    return damageEvents.reduce((total, dmg) => total + dmg.amount + (dmg.absorb || 0), 0);
+  }
+
+  onFightEnd() {
+    this.analyzeDance();
+  }
+
+  analyzeDance = () => {
+    this.danceData.forEach((d) => {
+      const activeTime = this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(
+        d.applied,
+        d.removed || this.owner.fight.end_time,
+      );
+      const activeTimePercent = activeTime / ((d.removed || this.owner.fight.end_time) - d.applied);
+      d.activeTime = activeTimePercent;
+    });
+  };
+
+  get averageDamage() {
+    return this.danceTotalDamage / this.abilityTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+  }
+
+  get averageActiveTime() {
+    const active = this.danceData.reduce((active, dance) => active + (dance.activeTime || 0), 0);
+    return active / this.abilityTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+  }
+
+  get danceTotalDamage() {
+    return this.danceData.reduce((total, dance) => total + dance.totalDamage, 0);
+  }
+
+  get shadowDanceActiveTimeThresholds() {
+    return {
+      actual: this.averageActiveTime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
-    );
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
+}
 
-  private comboPointPerformance(
-    event: CastEvent,
-    comboPointsAtCast: number,
-  ): ChecklistUsageInfo | undefined {
-    const isGoodCP = comboPointsAtCast === 0 || comboPointsAtCast >= 6;
-
-    return createChecklistItem(
-      'shadow_dance_cp',
-      { event },
-      {
-        performance: isGoodCP ? QualitativePerformance.Good : QualitativePerformance.Fail,
-        summary: <div>Combo Point Management</div>,
-        details: isGoodCP ? (
-          <div>
-            You used <SpellLink spell={SPELLS.SHADOW_DANCE} /> optimally with {comboPointsAtCast}{' '}
-            combo points.
-          </div>
-        ) : (
-          <div>
-            You used <SpellLink spell={SPELLS.SHADOW_DANCE} /> at{' '}
-            <strong>{comboPointsAtCast}</strong> combo points. Try to use it at{' '}
-            <strong> 6+ CP for a finisher</strong>.
-          </div>
-        ),
-      },
-    );
-  }
-
-  private buffAlignmentPerformance(
-    event: CastEvent,
-    hasSymbolsActive: boolean,
-  ): ChecklistUsageInfo | undefined {
-    return createChecklistItem(
-      'shadow_dance_alignment',
-      { event },
-      {
-        performance: hasSymbolsActive
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Fail,
-        summary: <div>Buff Alignment</div>,
-        details: (
-          <div>
-            {hasSymbolsActive ? (
-              <>
-                <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> was active.
-              </>
-            ) : (
-              <>
-                Missing <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} />.
-              </>
-            )}
-          </div>
-        ),
-      },
-    );
-  }
+export interface ShadowDanceData {
+  applied: number;
+  removed: number;
+  activeTime?: number;
+  damage: DamageEvent[];
+  totalDamage: number;
+  duration: number;
+  numberAbilitiesUsed?: number;
+  energyAtCast: number;
+  comboPointsAtCast: number;
 }

@@ -84,9 +84,10 @@ export default function CastEfficiencyBar({
       <>
         You cast <SpellLink spell={spell} /> <strong>{castEffic.casts}</strong> out of{' '}
         <strong>{castEffic.maxCasts}</strong> possible times.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         It was on cooldown for <strong>{formatPercentage(castEffic.efficiency, 0)}%</strong> of{' '}
-        {windowName}.
+        {windowName}.{/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {gotMaxCasts && '(100% cast efficiency because you used the maximum possible casts)'}
       </>

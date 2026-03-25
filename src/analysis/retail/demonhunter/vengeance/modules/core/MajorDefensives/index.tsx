@@ -38,6 +38,7 @@ const MajorDefensives = () => {
                 damage spikes
               </TooltipElement>{' '}
               as possible, and use any left over to cover periods of heavy, consistent damage.
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <small>
                 In the damage chart below, a spike highlighted in{' '}
@@ -51,6 +52,7 @@ const MajorDefensives = () => {
               You should <em>use</em> your cooldowns. This may seem silly&mdash;but not using major
               defensives is a common problem! For Vengeance Demon Hunters, it is also likely to be
               fatal.
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <small>
                 Below the damage chart, your cooldowns are shown. Large gaps may indicate that you

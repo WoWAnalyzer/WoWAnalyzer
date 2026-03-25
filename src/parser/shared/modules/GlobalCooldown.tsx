@@ -132,6 +132,7 @@ class GlobalCooldown extends Analyzer {
    * Trigger a `globalcooldown`-event at this timestamp for the `ability` in the provided event.
    * @param event
    */
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   triggerGlobalCooldown(event: AbilityEvent<any> & SourcedEvent<any>) {
     if (
       this.lastGlobalCooldown &&
@@ -185,6 +186,7 @@ class GlobalCooldown extends Analyzer {
       `Ability ${ability.name} (spellId: ${spellId}) defines a GCD property but provides neither a base nor static value.`,
     );
   }
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   _resolveAbilityGcdField(value: any) {
     if (typeof value === 'function') {
       return value.call(this.owner, this.selectedCombatant);

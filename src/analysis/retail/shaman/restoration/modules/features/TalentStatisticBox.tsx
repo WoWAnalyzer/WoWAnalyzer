@@ -70,9 +70,12 @@ class TalentStatisticBox extends Analyzer {
             the talent itself did, but also feeding and synergy or interactions with other spells or
             talents. The percentage shown is what you'd lose without the talent, ignoring what you'd
             gain from the other options.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Not Supported:</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Echo of the Elements
           </Trans>
