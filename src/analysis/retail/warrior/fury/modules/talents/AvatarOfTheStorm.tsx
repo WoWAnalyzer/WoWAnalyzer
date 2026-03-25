@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const THUNDER_CLAP_IDS = [SPELLS.THUNDER_CLAP.id, SPELLS.THUNDER_BLAST.id];
@@ -35,7 +35,7 @@ class AvatarOfTheStorm extends Analyzer {
 
   // With avatar of the storm, casting avatar resets thunder clap cd
   // and with storm surge, thunder clap cd is halved during avatar
-  onAvatarCast(event: CastEvent) {
+  onAvatarCast(event: ApplyBuffEvent) {
     if (this.hasAvatarOfTheStorm) {
       this.spellUsable.endCooldown(SPELLS.THUNDER_CLAP.id);
       this.spellUsable.endCooldown(SPELLS.THUNDER_BLAST.id);

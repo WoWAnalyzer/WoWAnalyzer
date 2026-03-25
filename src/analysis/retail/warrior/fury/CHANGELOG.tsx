@@ -1,4 +1,4 @@
-import { Nevdok } from 'CONTRIBUTORS';
+import { Gambyt, Nevdok } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
