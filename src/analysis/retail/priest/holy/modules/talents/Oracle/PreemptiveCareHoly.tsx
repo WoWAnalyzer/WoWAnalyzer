@@ -1,5 +1,10 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';

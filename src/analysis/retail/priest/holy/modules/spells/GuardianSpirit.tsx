@@ -114,7 +114,7 @@ class GuardianSpirit extends Analyzer {
               than your total on WCL.
             </div>
             <div>
-               {/* oxlint-disable-next-line @wowanalyzer/no-br */}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <br />
               NOTE: This is an approximated value due to technical limitations. If you are seeing a
               negative number, please load the module first.

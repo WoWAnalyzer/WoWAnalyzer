@@ -45,7 +45,10 @@ class Halo extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
+      this.onCast,
+    );
   }
 
   onDamage(event: DamageEvent) {

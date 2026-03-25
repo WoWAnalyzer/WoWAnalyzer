@@ -159,10 +159,9 @@ class HymnBuffBenefit extends Analyzer {
             <div>
               {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <br />
-              If this healing was attributed to you from other healers (like Augmented Healing),
-              you would have done{' '}
-              <ItemPercentHealingDone amount={this.hymnContribToOthers} /> more than your total on
-              WCL.
+              If this healing was attributed to you from other healers (like Augmented Healing), you
+              would have done <ItemPercentHealingDone amount={this.hymnContribToOthers} /> more than
+              your total on WCL.
             </div>
             <div>
               {/* oxlint-disable-next-line @wowanalyzer/no-br */}

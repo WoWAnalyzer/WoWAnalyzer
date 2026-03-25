@@ -21,7 +21,7 @@ class BindingHeals extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
   };
-  protected eolAttrib!: EOLAttrib;  
+  protected eolAttrib!: EOLAttrib;
   eolContrib = 0;
 
   occured = 0;

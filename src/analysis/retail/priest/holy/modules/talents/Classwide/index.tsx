@@ -6,12 +6,4 @@ import Halo from './Halo';
 import PsychicVoice from './PsychicVoice';
 import SurgeOfLight from '../../../../shared/SurgeOfLight';
 
-export {
-  AngelicFeather,
-  AngelsMercy,
-  BindingHeals,
-  BodyAndSoul,
-  Halo,
-  PsychicVoice,
-  SurgeOfLight,
-};
+export { AngelicFeather, AngelsMercy, BindingHeals, BodyAndSoul, Halo, PsychicVoice, SurgeOfLight };

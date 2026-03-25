@@ -71,7 +71,8 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // This represents the amount of healing done by HARD CASTING PoM.
     // We don't want PoM to get HPM credit for healing that we didn't spend mana on.
 
-    const pomTicksWithoutSalv = this.prayerOfMending.pomHealTicks - this.prayerOfMending.pomTicksFromSalv;
+    const pomTicksWithoutSalv =
+      this.prayerOfMending.pomHealTicks - this.prayerOfMending.pomTicksFromSalv;
     spellInfo.healingDone = pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;
     spellInfo.overhealingDone = pomTicksWithoutSalv * this.prayerOfMending.averagePomTickOverheal;
     spellInfo.healingAbsorbed = pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal;

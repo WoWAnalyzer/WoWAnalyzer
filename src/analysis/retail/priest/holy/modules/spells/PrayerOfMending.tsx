@@ -107,9 +107,7 @@ class PrayerOfMending extends Analyzer {
       </p>
     );
 
-    const data = (
-      <CastEfficiencyPanel spell={SPELLS.PRAYER_OF_MENDING_CAST} useThresholds />
-    );
+    const data = <CastEfficiencyPanel spell={SPELLS.PRAYER_OF_MENDING_CAST} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }

@@ -13,10 +13,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import SpellLink from 'interface/SpellLink';
 import { CRISIS_MANAGEMENT_PER_RANK } from '../../../constants';
 
-const AFFECTED_SPELLS = [
-  SPELLS.FLASH_HEAL,
-  TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT,
-];
+const AFFECTED_SPELLS = [SPELLS.FLASH_HEAL, TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT];
 
 /**
  * Crisis Management
@@ -66,7 +63,6 @@ class CrisisManagement extends Analyzer {
     const extraHealingFromCrit = raw - raw / 2;
     const effectiveExtraHealing = Math.max(0, extraHealingFromCrit - overheal);
 
-
     const totalCritChance = this.statTracker.currentCritPercentage + this.critIncrease;
     const fractionFromTalent = this.critIncrease / totalCritChance;
 
@@ -93,8 +89,8 @@ class CrisisManagement extends Analyzer {
             </div>
             <div>
               Note: This module does not yet account for contributions to{' '}
-              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> or other secondary healing
-              effects, which may undervalue the talent slightly.
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> or other secondary healing effects,
+              which may undervalue the talent slightly.
             </div>
           </>
         }

@@ -121,8 +121,14 @@ class EmpyrealBlaze extends Analyzer {
         tooltip={
           <>
             <ul>
-              <li><strong>{this.empoweredCasts}</strong> empowered Holy Fire casts (instant, free, no cooldown)</li>
-              <li><strong>{(this.totalExtensionMs / 1000).toFixed(1)}s</strong> total duration added from refreshes</li>
+              <li>
+                <strong>{this.empoweredCasts}</strong> empowered Holy Fire casts (instant, free, no
+                cooldown)
+              </li>
+              <li>
+                <strong>{(this.totalExtensionMs / 1000).toFixed(1)}s</strong> total duration added
+                from refreshes
+              </li>
             </ul>
           </>
         }

@@ -8,7 +8,6 @@ import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID } from '../constants';
 import Combatant from 'parser/core/Combatant';
 
 class Abilities extends CoreAbilities {
-
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
     this.abilitiesAffectedByHealingIncreases = HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID;

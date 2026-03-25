@@ -22,10 +22,7 @@ class Piety extends Analyzer {
 
     if (!this.active) return;
 
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PIETY),
-      this.onPietyHeal,
-    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PIETY), this.onPietyHeal);
   }
 
   private onPietyHeal(event: HealEvent) {

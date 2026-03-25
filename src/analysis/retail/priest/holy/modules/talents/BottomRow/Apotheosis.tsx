@@ -71,8 +71,8 @@ class Apotheosis extends Analyzer {
     this.apotheosisCasts += 1;
 
     // Reset all Holy Words (restore all charges)
-    HOLY_WORD_IDS.forEach(spellId => {
-        this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
+    HOLY_WORD_IDS.forEach((spellId) => {
+      this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
     });
   }
 

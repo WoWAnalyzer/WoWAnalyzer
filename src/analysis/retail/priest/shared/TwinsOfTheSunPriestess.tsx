@@ -24,7 +24,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   goodCasts = 0; // casts on allies
-  badCasts = 0;  // casts on self
+  badCasts = 0; // casts on self
   lastCast = 0;
 
   constructor(options: Options) {

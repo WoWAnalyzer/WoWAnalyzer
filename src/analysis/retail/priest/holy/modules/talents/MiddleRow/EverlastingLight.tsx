@@ -46,7 +46,7 @@ class EverlastingLight extends Analyzer {
   }
 
   private onTriggerCast(event: CastEvent) {
-    const manaResource = event.classResources?.find(r => r.type === RESOURCE_TYPES.MANA.id);
+    const manaResource = event.classResources?.find((r) => r.type === RESOURCE_TYPES.MANA.id);
     if (!manaResource) {
       return;
     }
@@ -77,7 +77,13 @@ class EverlastingLight extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringValueText label={<><SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} /></>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} />
+            </>
+          }
+        >
           <div>
             {avgBonusPct}% <small>avg. increased proc chance</small>
           </div>
