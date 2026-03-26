@@ -8,9 +8,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
 import { POWER_WORD_SHIELD_ATONEMENT_DUR } from '../../constants';
-
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 
 const INDEMNITY_EXTENSION_DUR = 4000;
@@ -76,7 +74,7 @@ class Indemnity extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS_PRIEST.INDEMNITY_TALENT}>
-            <ItemHealingDone amount={this.atonementHealing} /> <br />
+            <ItemHealingDone amount={this.atonementHealing} />
           </BoringSpellValueText>
         </>
       </Statistic>

@@ -13,6 +13,7 @@ const DemonicExplanation = ({ lineBreak }: Props) => {
   }
   return (
     <>
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       {lineBreak ? <br /> : ' '}
       It will grant <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> for a short duration when cast
       due to <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.

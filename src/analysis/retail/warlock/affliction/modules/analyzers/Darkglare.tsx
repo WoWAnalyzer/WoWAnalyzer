@@ -241,11 +241,15 @@ class Darkglare extends Analyzer {
         tooltip={
           <>
             Damage from extended dots <sup>*</sup>: {formatThousands(this.bonusDotDamage)} (
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
             Pet damage: {formatThousands(this.darkglareDamage)} (
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
             Combined damage: {formatThousands(totalDamage)} (
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {this.owner.formatItemDamageDone(totalDamage)})<br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <sup>*</sup> This only counts the damage that happened after the dot{' '}
             <u>should have fallen off</u> (but instead was extended with Darkglare).
@@ -265,8 +269,10 @@ class Darkglare extends Analyzer {
               bonus damage <sup>*</sup>
             </small>
           </TooltipElement>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {formatDPS(totalDamage)}{' '}
           <TooltipElement content="including pet damage">

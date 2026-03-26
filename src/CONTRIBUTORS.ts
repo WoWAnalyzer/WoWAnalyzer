@@ -2809,3 +2809,27 @@ export const Drowzen: Contributor = {
     },
   ],
 };
+
+export const Gambyt: Contributor = {
+  nickname: 'Gambyt',
+  github: 'tyler-lutz',
+  discord: 'tylerlutz',
+  mains: [
+    {
+      name: 'Gambyt',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://www.warcraftlogs.com/character/us/illidan/gambyt',
+    },
+  ],
+};
+
+export const defgfed: Contributor = {
+  nickname: 'defgfed',
+  github: 'defgfed',
+  discord: 'defgfed',
+};
+
+export const MarchingCube: Contributor = {
+  nickname: 'MarchingCube',
+  github: 'MarchingCube',
+};

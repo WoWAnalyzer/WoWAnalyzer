@@ -12,6 +12,7 @@ function CastingSubsection({ modules, events, info }: GuideProps<typeof CombatLo
           Continuously casting throughout an encounter is the single most important thing for
           achieving good DPS as a caster.
         </b>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         Some fights have unavoidable downtime due to phase transitions and the like, so in these
         cases 0% downtime will not be possible - do the best you can.

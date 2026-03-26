@@ -4,6 +4,7 @@ import { spellIconSpellObject } from './rules/spell-icon-spell-object.js';
 import { boringSpellValueTextSpellObject } from './rules/boring-spell-value-text-spell-object.js';
 import { linguiTMacroOutsideJsx } from './rules/lingui-t-macro-outside-jsx.js';
 import { eventMetaInefficientCast } from './rules/event-meta-inefficient-cast.js';
+import { noBrTag } from './rules/no-br.js';
 
 /** @type {import('eslint').Plugin} */
 const plugin = {
@@ -17,6 +18,7 @@ const plugin = {
     'boring-spell-value-text-spell-object': boringSpellValueTextSpellObject,
     'lingui-t-macro-outside-jsx': linguiTMacroOutsideJsx,
     'event-meta-inefficient-cast': eventMetaInefficientCast,
+    'no-br': noBrTag,
   },
   configs: {},
 };
@@ -35,6 +37,7 @@ Object.assign(plugin.configs, {
         'wowanalyzer/boring-spell-value-text-spell-object': 'error',
         'wowanalyzer/lingui-t-macro-outside-jsx': 'error',
         'wowanalyzer/event-meta-inefficient-cast': 'error',
+        'wowanalyzer/no-br -- Baseline suppression': 'error',
       },
     },
   ],

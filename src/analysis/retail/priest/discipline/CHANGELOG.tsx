@@ -5,6 +5,10 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 3, 22), <>Introduced Guide for <SpellLink spell={SPELLS.PENANCE_CAST} /> usage and updated interactions with <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />, <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} /> and <SpellLink spell={TALENTS_PRIEST.TWINSIGHT_TALENT} />.</>, Vetyst),
+  change(date(2026, 3, 20), <>Updated several StatisticBox deprecations.</>, Vetyst),
+  change(date(2026, 3, 20), <>Add <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime suggestions to the guide.</>, Vetyst),
+  change(date(2026, 3, 20), <>Update about page.</>, Vetyst),
   change(date(2026, 3, 18), <>Add <SpellLink spell={SPELLS.VOID_BLAST_CAST_DISC} /> to the spellbook.</>, Vetyst),
   change(date(2026, 3, 15), <>Implement statistics for <SpellLink spell={TALENTS_PRIEST.PROTECTOR_OF_THE_FRAIL_TALENT} /> talent.</>, Vetyst),
   change(date(2026, 3, 14), <>Enable spec for Midnight</>, Vetyst),

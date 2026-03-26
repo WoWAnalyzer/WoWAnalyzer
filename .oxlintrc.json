@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": false,
+    "typeCheck": false
+  },
   "plugins": [],
   "categories": {
     "correctness": "off"
@@ -30,11 +34,9 @@
     "src/analysis/retail/druid/restoration/**",
     "src/analysis/retail/druid/shared/**",
     "src/analysis/retail/evoker/augmentation/**",
-    "src/analysis/retail/evoker/devastation/**",
     "src/analysis/retail/evoker/preservation/**",
     "src/analysis/retail/evoker/shared/**",
     "src/analysis/retail/hunter/beastmastery/**",
-    "src/analysis/retail/hunter/marksmanship/**",
     "src/analysis/retail/mage/arcane/**",
     "src/analysis/retail/mage/fire/**",
     "src/analysis/retail/mage/frost/**",
@@ -47,12 +49,9 @@
     "src/analysis/retail/paladin/protection/**",
     "src/analysis/retail/paladin/retribution/**",
     "src/analysis/retail/paladin/shared/**",
-    "src/analysis/retail/priest/discipline/**",
     "src/analysis/retail/priest/holy/**",
     "src/analysis/retail/rogue/assassination/**",
-    "src/analysis/retail/rogue/subtlety/**",
     "src/analysis/retail/rogue/outlaw/**",
-    "src/analysis/retail/rogue/shared/**",
     "src/analysis/retail/shaman/elemental/**",
     "src/analysis/retail/shaman/enhancement/**",
     "src/analysis/retail/warrior/protection/**"
@@ -214,7 +213,8 @@
         "wowanalyzer/spell-icon-spell-object": "error",
         "wowanalyzer/boring-spell-value-text-spell-object": "error",
         "wowanalyzer/lingui-t-macro-outside-jsx": "error",
-        "wowanalyzer/event-meta-inefficient-cast": "error"
+        "wowanalyzer/event-meta-inefficient-cast": "error",
+        "wowanalyzer/no-br": "error"
       },
       "plugins": ["typescript", "react", "react-perf"],
       "jsPlugins": ["eslint-plugin-wowanalyzer"]

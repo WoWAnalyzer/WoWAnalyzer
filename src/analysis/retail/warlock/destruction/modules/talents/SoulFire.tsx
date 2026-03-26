@@ -41,7 +41,9 @@ class SoulFire extends Analyzer {
         tooltip={
           <>
             {formatThousands(damage)} damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             If fragments generated with Soul Fire were used on Chaos Bolts, they would deal an
             estimated {formatThousands(estimatedDamage)} damage (
@@ -55,6 +57,7 @@ class SoulFire extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
           </small>{' '}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {fragments} <small>generated Fragments</small>
         </BoringSpellValueText>

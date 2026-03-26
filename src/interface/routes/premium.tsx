@@ -54,7 +54,9 @@ export function Component() {
                   <h2>Patreon</h2>
                   Help fund further development by becoming a patron on Patreon.
                 </Trans>
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
 
                 <PatreonButton />
@@ -74,7 +76,9 @@ export function Component() {
                   </TooltipElement>
                   .
                 </Trans>
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
 
                 <GitHubButton />

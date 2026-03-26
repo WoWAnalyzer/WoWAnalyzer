@@ -137,6 +137,7 @@ class Backdraft extends Analyzer {
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <TalentSpellText talent={TALENTS.BACKDRAFT_TALENT}>
           {this.wastedStacks} <small>Wasted procs</small>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {formatPercentage(this.percentageOfChaosBoltAmongBuffedCasts, 0)}%
           <TooltipElement content={`${this.buffedChaosBoltCasts}/${this.totalBuffedCasts}`}>
@@ -144,6 +145,7 @@ class Backdraft extends Analyzer {
           </TooltipElement>
           {this.hasSoulFireTalent ? (
             <>
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {formatPercentage(this.percentageOfSoulFireAmongBuffedCasts, 0)}%
               <TooltipElement content={`${this.buffedSoulFireCasts}/${this.totalBuffedCasts}`}>

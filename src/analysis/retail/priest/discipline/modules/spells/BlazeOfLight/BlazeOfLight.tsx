@@ -16,10 +16,8 @@ import BlazeOfLightSourceDonut from './BlazeOfLightSourceDonut';
 const BLAZE_OF_LIGHT_SPELLS = [
   SPELLS.SMITE,
   SPELLS.VOID_BLAST_CAST_DISC,
-  SPELLS.PENANCE,
-  SPELLS.PENANCE_TWINSIGHT_DAMAGE,
-  SPELLS.DARK_REPRIMAND_DAMAGE,
-  SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE,
+  SPELLS.PENANCE_BOLT_DAMAGE,
+  SPELLS.PENANCE_TWINSIGHT_BOLT_DAMAGE,
 ];
 
 const BLAZE_OF_LIGHT_SPELL_IDS = BLAZE_OF_LIGHT_SPELLS.map((spell) => spell.id);
@@ -88,10 +86,12 @@ class BlazeOfLight extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spell={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT}>
-          <>
-            <ItemHealingDone amount={this.healing} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
             <ItemDamageDone amount={this.damage} />
-          </>
+          </div>
         </BoringSpellValueText>
         <BlazeOfLightSourceDonut abilityMap={this.abilityMap} healingMap={this.healingMap} />
       </Statistic>

@@ -61,6 +61,7 @@ export default class AgonizingFlames extends Analyzer {
         tooltip={
           <>
             This shows the extra dps that the talent provides.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <strong>Total extra damage:</strong> {formatNumber(this.extendedImmolationAuraDamage)}
           </>

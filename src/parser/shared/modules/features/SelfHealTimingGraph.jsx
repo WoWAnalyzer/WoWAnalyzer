@@ -202,6 +202,7 @@ class SelfHealTimingGraph extends Analyzer {
                 This plot shows you your <SpellLink spell={this.selfHealSpell.id} /> casts relative
                 to your Health Points to help you improve your{' '}
                 <SpellLink spell={this.selfHealSpell.id} /> timings.
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 Improving those timings by selfhealing at low health and the correct time will
                 remove a lot of pressure from your healers.
@@ -222,6 +223,7 @@ class SelfHealTimingGraph extends Analyzer {
           This plot shows you your <SpellLink spell={this.selfHealSpell.id} /> casts relative to
           your Health Points to help you improve your <SpellLink spell={this.selfHealSpell.id} />{' '}
           timings.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           Improving those timings by selfhealing at low health and the correct time will remove a
           lot of pressure from your healers.

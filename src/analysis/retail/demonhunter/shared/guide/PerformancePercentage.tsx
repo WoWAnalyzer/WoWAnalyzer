@@ -28,9 +28,11 @@ const PerformancePercentage = ({
         <>
           <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage {perfectSign}{' '}
           {formatPercentage(perfectPercentage, 0)}%
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
           {formatPercentage(goodPercentage, 0)}%
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
           {formatPercentage(okPercentage, 0)}%

@@ -626,6 +626,11 @@ const spells = {
     name: 'Cull',
     icon: 'inv_12_dh_void_ability_empoweredreap',
   },
+  ERADICATE: {
+    id: 1225826,
+    name: 'Eradicate',
+    icon: 'inv_12_dh_void_ability_eradicate',
+  },
   SHIFT: {
     id: 1234796,
     name: 'Shift',

@@ -76,6 +76,7 @@ class Cataclysm extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
           </small>{' '}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {averageTargetsHit.toFixed(2)} <small>average targets hit</small>
         </BoringSpellValueText>

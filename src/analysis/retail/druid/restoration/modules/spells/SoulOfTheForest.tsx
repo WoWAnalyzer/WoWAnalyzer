@@ -34,14 +34,14 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
-import Lifebloom from './Lifebloom';
+import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
 
 const SOTF_SPELLS = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION, SPELLS.REGROWTH];
 
 const REJUVENATION_HEALING_INCREASE = 0.6;
 const REGROWTH_HEALING_INCREASE = 0.6;
 
-const debug = true;
+const debug = false;
 
 /**
  * **Soul of the Forest**
@@ -52,11 +52,11 @@ const debug = true;
 class SoulOfTheForest extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
-    lifebloom: Lifebloom,
+    powerOfTheArchdruid: PowerOfTheArchdruid,
   };
 
   hotTracker!: HotTrackerRestoDruid;
-  lifebloom!: Lifebloom;
+  powerOfTheArchdruid!: PowerOfTheArchdruid;
 
   sotfRejuvInfo = {
     boost: REJUVENATION_HEALING_INCREASE,
@@ -197,41 +197,58 @@ class SoulOfTheForest extends Analyzer {
       this.lastBuffFromHardcast = false;
     } else {
       const buffed = getSotfBuffs(event);
+      const consumedByHardcastOrConvoke =
+        buffed.length > 0 && (isFromHardcast(buffed[0]) || isFromConvoke(buffed[0]));
+      if (!consumedByHardcastOrConvoke && !this.lastBuffFromHardcast) {
+        // SotF procced and consumed entirely within Convoke - don't count it
+        return;
+      }
+
       if (buffed.length === 0) {
         useText = 'Expired';
         value = QualitativePerformance.Fail;
         this.wastedBuffs += 1;
       } else {
-        if (!isFromHardcast(buffed[0]) && !isFromConvoke(buffed[0]) && !this.lastBuffFromHardcast) {
-          // SM during Convoke also consumed during Convoke - don't count it
-          return;
-        }
-
         // even if generated during Convoke, we count it if consumed by hardcast
         const firstGuid = buffed[0].ability.guid;
+        const hasPota = this.selectedCombatant.hasTalent(
+          TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT,
+        );
+        const incompletePota =
+          hasPota &&
+          isFromHardcast(buffed[0]) &&
+          this.powerOfTheArchdruid.isIncompleteHardcastProcAt(event.timestamp);
         if (
           firstGuid === SPELLS.REJUVENATION.id ||
           firstGuid === SPELLS.REJUVENATION_GERMINATION.id
         ) {
-          useText = <SpellLink spell={SPELLS.REJUVENATION} />;
-          value = QualitativePerformance.Good;
+          if (incompletePota) {
+            useText = (
+              <>
+                <SpellLink spell={SPELLS.REJUVENATION} /> - fewer than 2{' '}
+                <SpellLink spell={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT} /> extra HoTs
+              </>
+            );
+            value = QualitativePerformance.Fail;
+          } else {
+            useText = <SpellLink spell={SPELLS.REJUVENATION} />;
+            value = QualitativePerformance.Good;
+          }
         } else if (firstGuid === SPELLS.REGROWTH.id) {
-          useText = <SpellLink spell={SPELLS.REGROWTH} />;
-          value = QualitativePerformance.Good;
+          if (incompletePota) {
+            useText = (
+              <>
+                <SpellLink spell={SPELLS.REGROWTH} /> - fewer than 2{' '}
+                <SpellLink spell={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT} /> extra HoTs
+              </>
+            );
+            value = QualitativePerformance.Fail;
+          } else {
+            useText = <SpellLink spell={SPELLS.REGROWTH} />;
+            value = QualitativePerformance.Good;
+          }
         } else {
           console.warn('SoTF: SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
-        }
-
-        if (
-          this.selectedCombatant.hasTalent(TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT) &&
-          !this._hasActiveLifebloom(event.timestamp)
-        ) {
-          value = QualitativePerformance.Fail;
-          useText = (
-            <>
-              {useText} (no active <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />)
-            </>
-          );
         }
       }
       this.lastBuffFromHardcast = false;
@@ -247,10 +264,6 @@ class SoulOfTheForest extends Analyzer {
       );
       this.useEntries.push({ value, tooltip });
     }
-  }
-
-  private _hasActiveLifebloom(timestamp: number): boolean {
-    return this.lifebloom.hasActiveLifebloomAt(timestamp);
   }
 
   get rejuvHardcastUses() {
@@ -287,6 +300,8 @@ class SoulOfTheForest extends Analyzer {
 
   /** Guide subsection describing the proper usage of Soul of the Forest */
   get guideSubsection(): JSX.Element {
+    const hasPota = this.selectedCombatant.hasTalent(TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT);
+
     const explanation = (
       <p>
         <strong>
@@ -300,6 +315,13 @@ class SoulOfTheForest extends Analyzer {
             before casting Convoke. Never let a proc expire.
           </>
         )}
+        {hasPota && (
+          <>
+            {' '}
+            With <SpellLink spell={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT} />, make sure your
+            target is within 20 yards of at least 2 other allies when consuming a proc.
+          </>
+        )}
       </p>
     );
 
@@ -311,7 +333,14 @@ class SoulOfTheForest extends Analyzer {
           usesInsteadOfCasts
           goodExtraExplanation={<>used on Rejuvenation or Regrowth</>}
           badExtraExplanation={
-            <>proc expired, was overwritten, or consumed without active Lifebloom</>
+            hasPota ? (
+              <>
+                proc expired, was overwritten, or created less than 2 extra HoTs from Power of the
+                Archdruid
+              </>
+            ) : (
+              <>proc expired or was overwritten</>
+            )
           }
         />
       </div>
@@ -373,7 +402,6 @@ class SoulOfTheForest extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

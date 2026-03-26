@@ -22,7 +22,7 @@ import ReverseEntropy from './modules/talents/ReverseEntropy';
 import Shadowburn from './modules/talents/Shadowburn';
 import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
-import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Immolate from './modules/features/Immolate';
 import HavocAnalyzer from './modules/features/HavocAnalyzer';
 
@@ -65,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
+    demonicHealthstone: DemonicHealthstone,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

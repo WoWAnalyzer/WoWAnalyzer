@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
           : TALENTS.DREAM_BREATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30,
+        cooldown: combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30,
         gcd: {
           base: EMPOWER_BASE_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
@@ -57,21 +57,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT),
       },
       {
-        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
-          ? SPELLS.SPIRITBLOOM_FONT.id
-          : TALENTS.SPIRITBLOOM_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30,
-        gcd: {
-          base: EMPOWER_BASE_GCD,
-          minimum: EMPOWER_MINIMUM_GCD,
-        },
-        enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 15,
@@ -89,15 +74,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.REWIND_TALENT),
-      },
-      {
-        spell: TALENTS.EMERALD_COMMUNION_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.EMERALD_COMMUNION_TALENT),
       },
       {
         spell: TALENTS.DREAM_FLIGHT_TALENT.id,

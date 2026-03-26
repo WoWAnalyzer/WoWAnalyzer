@@ -85,6 +85,7 @@ class OverpowerAnalyzer extends Analyzer {
         value={
           <>
             {this.wastedProc} <small>wasted buffs</small>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {this.overpowerCasts} <small>total casts</small>
           </>
