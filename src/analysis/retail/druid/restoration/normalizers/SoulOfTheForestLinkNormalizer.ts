@@ -17,7 +17,7 @@ import { isFromConvoke, isFromHardcast } from './CastLinkNormalizer';
 const BUFFED_BY_SOTF = 'BuffedBySotf';
 const SOTF_BUFFS_HEAL = 'BuffsHeal';
 
-const SOTF_BUFFER_MS = 50;
+const SOTF_BUFFER_MS = 150;
 
 /** Additional condition for rejuv requires the SotF to be buffing nothing else */
 const REJUV_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =>

@@ -11,7 +11,6 @@ import Events, {
   EndChannelEvent,
   GetRelatedEvent,
   HasAbility,
-  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -24,21 +23,25 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
-const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
+// Same-tick FoF hits can fan out across multiple targets over more than one frame, but legitimate
+// next-tick hits will repeat previously hit targets. Keep a modest idle buffer for new targets and
+// use repeated targets to detect the next real tick without collapsing high-haste channels.
+const FISTS_OF_FURY_SAME_TICK_BUFFER_MS = 200;
 
 class FistsofFury extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  previousTickTimestamp = 0;
+  previousDamageTimestamp = 0;
   fistsTicks = 0;
   casts = 0;
 
   currentChannelTicks = 0;
+  currentTickTargets = new Set<number>();
 
-  // FoF will always hit one time, so this is ultimately a 1-indexed array of [1,5]
-  ticksHit = [0, 0, 0, 0, 0];
-  colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000'];
+  // FoF will always hit at least one time, so this is ultimately a 1-indexed array of [1,maxTicks]
+  ticksHit = [0, 0, 0, 0, 0, 0];
+  colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000', '#e6cc80'];
 
   clipped: Record<number, number> = {};
 
@@ -55,33 +58,40 @@ class FistsofFury extends Analyzer {
       this.onFistsDamage,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
-      this.onRemoveBuff,
-    );
-    this.addEventListener(
       Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
       this.onChannelEnd,
     );
   }
 
-  isNewFistsTick(timestamp: number) {
+  get expectedTicks() {
+    return this.selectedCombatant.hasTalent(TALENTS_MONK.CRASHING_FISTS_TALENT) ? 6 : 5;
+  }
+
+  isNewFistsTick(event: DamageEvent) {
     return (
-      !this.previousTickTimestamp ||
-      timestamp - this.previousTickTimestamp > FISTS_OF_FURY_MINIMUM_TICK_TIME
+      !this.previousDamageTimestamp ||
+      this.currentTickTargets.has(event.targetID) ||
+      event.timestamp - this.previousDamageTimestamp > FISTS_OF_FURY_SAME_TICK_BUFFER_MS
     );
   }
 
   onFistsDamage(event: DamageEvent) {
-    if (!this.isNewFistsTick(event.timestamp)) {
-      return;
+    if (this.isNewFistsTick(event)) {
+      this.currentChannelTicks += 1;
+      this.fistsTicks += 1;
+      this.currentTickTargets.clear();
     }
-    this.currentChannelTicks += 1;
-    this.fistsTicks += 1;
-    this.previousTickTimestamp = event.timestamp;
+
+    this.currentTickTargets.add(event.targetID);
+    this.previousDamageTimestamp = event.timestamp;
   }
 
-  onRemoveBuff(event: RemoveBuffEvent) {
-    if (this.currentChannelTicks > 5) {
+  finalizeChannel() {
+    if (this.currentChannelTicks <= 0) {
+      return;
+    }
+
+    if (this.currentChannelTicks > this.expectedTicks) {
       console.log('error, detected too many ticks of fof');
       return;
     }
@@ -90,15 +100,22 @@ class FistsofFury extends Analyzer {
   }
 
   onChannelEnd(event: EndChannelEvent) {
+    this.finalizeChannel();
     const nextAbility = GetRelatedEvent(event, 'fof-cast');
-    if (nextAbility !== undefined && HasAbility(nextAbility) && this.currentChannelTicks < 5) {
-      // FoF has 5 total damage events, so if the channel ended with less than that we assume it was clipped
+    if (
+      nextAbility !== undefined &&
+      HasAbility(nextAbility) &&
+      this.currentChannelTicks < this.expectedTicks
+    ) {
+      // FoF has 5 total damage events baseline, or 6 with Crashing Fists. Fewer than that means it was clipped.
       this.clipped[nextAbility.ability.guid] = (this.clipped[nextAbility.ability.guid] || 0) + 1;
     }
   }
 
   onFistsCast(event: CastEvent) {
     this.currentChannelTicks = 0;
+    this.previousDamageTimestamp = 0;
+    this.currentTickTargets.clear();
     this.casts += 1;
   }
 
@@ -119,9 +136,11 @@ class FistsofFury extends Analyzer {
   }
 
   donutChart(ticks: number[]) {
-    return Object.values(ticks).map((val, idx) => {
-      return { label: idx + 1, color: this.colors[idx], value: val };
-    });
+    return Object.values(ticks)
+      .slice(0, this.expectedTicks)
+      .map((val, idx) => {
+        return { label: idx + 1, color: this.colors[idx], value: val };
+      });
   }
 
   statistic() {
@@ -129,7 +148,9 @@ class FistsofFury extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
-        tooltip={<>Fists of Fury ticks 5 times over the duration of the channel.</>}
+        tooltip={
+          <>Fists of Fury ticks {this.expectedTicks} times over the duration of the channel.</>
+        }
         dropdown={
           <div className="pad">
             <DonutChart items={this.donutChart(this.ticksHit)} />

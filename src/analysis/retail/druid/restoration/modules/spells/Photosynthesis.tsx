@@ -70,18 +70,7 @@ class Photosynthesis extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <li>
-              <strong>{this.randomProccs}</strong> extra blooms
-            </li>
-            <li>
-              <strong>
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.extraBloomHealing),
-                )}
-                %
-              </strong>{' '}
-              total healing from extra blooms
-            </li>
+            <strong>{this.randomProccs}</strong> extra blooms
           </>
         }
       >

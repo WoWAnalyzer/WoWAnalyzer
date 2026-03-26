@@ -34,7 +34,6 @@
     "src/analysis/retail/druid/restoration/**",
     "src/analysis/retail/druid/shared/**",
     "src/analysis/retail/evoker/augmentation/**",
-    "src/analysis/retail/evoker/devastation/**",
     "src/analysis/retail/evoker/preservation/**",
     "src/analysis/retail/evoker/shared/**",
     "src/analysis/retail/hunter/beastmastery/**",
@@ -52,9 +51,7 @@
     "src/analysis/retail/paladin/shared/**",
     "src/analysis/retail/priest/holy/**",
     "src/analysis/retail/rogue/assassination/**",
-    "src/analysis/retail/rogue/subtlety/**",
     "src/analysis/retail/rogue/outlaw/**",
-    "src/analysis/retail/rogue/shared/**",
     "src/analysis/retail/shaman/elemental/**",
     "src/analysis/retail/shaman/enhancement/**",
     "src/analysis/retail/warrior/protection/**"

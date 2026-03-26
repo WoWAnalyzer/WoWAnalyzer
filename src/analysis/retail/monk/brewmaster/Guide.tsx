@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { useMemo, type JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
@@ -18,6 +18,20 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import InvokeNiuzaoSection from './modules/talents/InvokeNiuzao/InvokeNiuzaoSection';
 import StaggerPoolSection from './modules/core/StaggerPool/StaggerPoolSection';
 import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
+import { TipBox } from 'interface/guide/components';
+import {
+  amountBar,
+  literalNumberColumn,
+  OTHER_SPECIAL_ID,
+  spellName,
+} from 'interface/Table/ThroughputTable';
+import Table, { Column } from 'interface/Table/Table';
+import BlackoutCombo from './modules/spells/BlackoutCombo';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
+import PassFailBar from 'interface/guide/components/PassFailBar';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Spell from 'common/SPELLS/Spell';
+import styles from './Guide.module.scss';
 
 export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -39,13 +53,19 @@ export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
       <Section title="Rotation & Cooldowns">
         <SubSection title="Rotation">
           <AplChoiceDescription />
+          <RotationTipBoxRow>
+            <CastEfficiencyTipBox title={'Rotational Abilities'} spells={ROTATIONAL_SPELLS} />
+            <CastEfficiencyTipBox title={'Short-Cooldown Brews'} spells={ROTATIONAL_BREWS} />
+            <BlackoutComboTipBox />
+          </RotationTipBoxRow>
         </SubSection>
-        <SubSection title="Major Cooldowns">
+        <SubSection title="Cooldowns">
           <Explanation>
             <p>
-              Major cooldowns like <SpellLink spell={spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} />{' '}
-              are a major contributor to your overall damage. As a tank, they are also key to
-              establishing threat on pull and when new enemies spawn or are pulled.
+              Cooldowns like <SpellLink spell={spells.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> and{' '}
+              <SpellLink spell={talents.EXPLODING_KEG_TALENT} /> are a major contributor to your
+              overall damage. As a tank, they are also key to establishing threat on pull and when
+              new enemies spawn or are pulled.
             </p>
             <p>
               It is generally correct to hold your cooldowns by a small amount in order to line up
@@ -67,6 +87,13 @@ export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
           {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
             <CastEfficiencyBar
               spell={talents.EXPLODING_KEG_TALENT}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}
+          {info.combatant.hasTalent(talents.CHI_BURST_TALENT) && (
+            <CastEfficiencyBar
+              spell={talents.CHI_BURST_TALENT}
               gapHighlightMode={GapHighlight.FullCooldown}
               useThresholds
             />
@@ -124,4 +151,160 @@ function MasterOfHarmonySection(): JSX.Element | null {
       />
     </Section>
   );
+}
+
+function BlackoutComboTipBox() {
+  const blackoutCombo = useAnalyzer(BlackoutCombo);
+  const abilityTracker = useAnalyzer(DamageTracker);
+  const data = useMemo(() => {
+    if (!blackoutCombo || !abilityTracker) {
+      return [];
+    }
+
+    const data = Object.entries(blackoutCombo.spellsBOCWasUsedOn).map(([spellId, count]) => ({
+      spell: Number(spellId),
+      amount: count,
+      casts: abilityTracker.getAbility(Number(spellId)).casts as number | null,
+      type: '',
+    }));
+
+    data.push({
+      spell: OTHER_SPECIAL_ID,
+      type: 'Other',
+      amount: blackoutCombo.blackoutComboBuffs - blackoutCombo.blackoutComboConsumed,
+      casts: null,
+    });
+
+    return data;
+  }, [blackoutCombo, abilityTracker]);
+
+  if (!blackoutCombo || !abilityTracker || !blackoutCombo.active) {
+    return null;
+  }
+
+  return (
+    <div className={styles.rotationTipBox}>
+      <header>
+        <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />
+      </header>
+      <p>
+        <SpellLink spell={talents.BLACKOUT_COMBO_TALENT}>BoC</SpellLink> should be spent on{' '}
+        <SpellLink spell={SPELLS.TIGER_PALM} /> in virtually all situations. The main exception is
+        during <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT}>Niuzao</SpellLink> as{' '}
+        <SpellLink spell={talents.FLURRY_STRIKES_TALENT}>Shado-Pan</SpellLink>, where you may ignore{' '}
+        <SpellLink spell={talents.BLACKOUT_COMBO_TALENT}>BoC</SpellLink> entirely.
+      </p>
+      <div>
+        <Table
+          ctx={{
+            total: blackoutCombo.blackoutComboBuffs,
+            max: Math.max.apply(null, Object.values(blackoutCombo.spellsBOCWasUsedOn)),
+          }}
+          columns={{
+            spellName: spellName.withLabels({
+              [OTHER_SPECIAL_ID]: (
+                <TooltipElement
+                  content={
+                    'Combo buffs that were either overwritten or expired without being consumed.'
+                  }
+                >
+                  Wasted
+                </TooltipElement>
+              ),
+            }),
+            amountBar: amountBar('Combos'),
+            casts: literalNumberColumn('Casts', 'casts'),
+          }}
+          data={data}
+        />
+      </div>
+    </div>
+  );
+}
+
+const ROTATIONAL_SPELLS = [
+  SPELLS.BLACKOUT_KICK_BRM,
+  talents.KEG_SMASH_TALENT,
+  talents.BREATH_OF_FIRE_TALENT,
+];
+
+const ROTATIONAL_BREWS = [
+  talents.PURIFYING_BREW_TALENT,
+  talents.CELESTIAL_BREW_TALENT,
+  talents.CELESTIAL_INFUSION_TALENT,
+  talents.BLACK_OX_BREW_TALENT,
+];
+
+const castEfficiencyColumn: Column<{ casts: number; maxCasts: number }> = {
+  label: 'Cast Efficiency',
+  expand: true,
+  render({ casts, maxCasts }) {
+    return (
+      <div className={styles.castEfficiencyColumn}>
+        <PassFailBar pass={casts} total={maxCasts} />
+      </div>
+    );
+  },
+};
+
+function CastEfficiencyTipBox({
+  spells,
+  title,
+  children: description,
+}: {
+  spells: Spell[];
+  title: React.ReactNode;
+  children?: React.ReactNode;
+}) {
+  const castEfficiency = useAnalyzer(CastEfficiency);
+  const data = useMemo(() => {
+    if (!castEfficiency) {
+      return [];
+    }
+
+    return spells
+      .filter((spell) => castEfficiency.getCastEfficiencyForSpell(spell))
+      .map((spell) => {
+        const eff = castEfficiency.getCastEfficiencyForSpell(spell)!;
+
+        return {
+          casts: eff.casts,
+          maxCasts: eff.maxCasts,
+          cpm: eff.cpm.toFixed(1),
+          spell: spell.id,
+        };
+      });
+  }, [spells, castEfficiency]);
+
+  if (!castEfficiency) {
+    return null;
+  }
+
+  return (
+    <div className={styles.rotationTipBox}>
+      <header>{title}</header>
+      {description && <p>{description}</p>}
+      <div>
+        <Table
+          ctx={{}}
+          columns={{
+            spellName,
+            castEfficiencyColumn,
+            casts: literalNumberColumn('Casts', 'casts'),
+            maxCasts: literalNumberColumn('Max Casts', 'maxCasts'),
+            cpm: literalNumberColumn(
+              <TooltipElement content={'Casts per Minute'}>CPM</TooltipElement>,
+              'cpm',
+              false,
+            ),
+          }}
+          data={data}
+        />
+      </div>
+    </div>
+  );
+}
+
+function RotationTipBoxRow({ children }: { children: React.ReactNode }) {
+  return <div className={styles.rotationTipBoxRow}>{children}</div>;
 }

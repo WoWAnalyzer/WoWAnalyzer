@@ -70,7 +70,6 @@ class Channeling extends EventsNormalizer {
     // Priest
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
-    nextCastChannelSpec(SPELLS.DARK_REPRIMAND_CAST.id),
     buffChannelSpec(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id),
     buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id),

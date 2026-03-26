@@ -27,12 +27,16 @@ import {
   Rex,
   squided,
   Gambyt,
+  MarchingCube,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 24), <>Add <SpellLink spell={ITEMS.DARKMOON_SIGIL_HUNT} /> embellishment analyzer with stat buff tracking.</>, MarchingCube),
+  change(date(2026, 3, 24), "Add Ancestral Call (Mag'har Orc) racial support", MarchingCube),
+  change(date(2026, 3, 23), "Update close kill times to match new WCL API", Putro),
   change(date(2026, 3, 22), 'Update wowhead tooltips and healer base mana values for Midnight.', squided),
   change(date(2026, 3, 20), 'Update FoodChecker for Midnight', Gambyt),
   change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),

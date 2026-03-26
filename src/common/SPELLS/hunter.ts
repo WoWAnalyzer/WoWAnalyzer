@@ -176,7 +176,7 @@ const spells = {
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
-  SPOTTERS_MARK_BUFF: {
+  SPOTTERS_MARK_DEBUFF: {
     id: 466872,
     name: "Spotter's Mark",
     icon: 'inv_111_hunter_ability_eaglemark',
@@ -294,6 +294,11 @@ const spells = {
     id: 1262343,
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
+  STRIKE_AS_ONE: {
+    id: 1251779,
+    name: 'Strike as One',
+    icon: 'inv_coordinatedassault',
   },
   TAKEDOWN_PET_DAMAGE: {
     id: 1253862,

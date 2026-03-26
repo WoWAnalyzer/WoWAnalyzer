@@ -233,6 +233,21 @@ const spells = {
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
   },
+  TWIN_ECHOES_BUFF: {
+    id: 1242759,
+    name: 'Twin Echoes',
+    icon: 'inv_ability_evoker_greaterecho',
+  },
+  MERITHRAS_BLESSING_CAST: {
+    id: 1256581,
+    name: "Merithra's Blessing",
+    icon: 'ability_evoker_spiritbloom',
+  },
+  MERITHRAS_BLESSING_ABSORB: {
+    id: 1256688,
+    name: "Merithra's Blessing",
+    icon: 'ability_evoker_reversion_green',
+  },
   PANACEA_HEAL: {
     id: 387763,
     name: 'Panacea',
@@ -603,6 +618,11 @@ const spells = {
     name: 'Chronoflame',
     icon: 'inv_ability_chronowardenevoker_chronoflame',
   },
+  MERITHRAS_BLESSING_BUFF: {
+    id: 1256579,
+    name: "Merithra's Blessing",
+    icon: 'ability_evoker_spiritbloom',
+  },
   PRIMACY_BUFF: {
     id: 431654,
     name: 'Primacy',
@@ -778,6 +798,11 @@ const spells = {
     id: 1271799,
     name: 'Risen Fury',
     icon: 'ability_evoker_oppressingroar2',
+  },
+  STRAFING_RUN_BUFF: {
+    id: 1266165,
+    name: 'Strafing Run',
+    icon: 'ability_evoker_blackattunementalt',
   },
   // endregion
 } satisfies Record<string, Spell>;

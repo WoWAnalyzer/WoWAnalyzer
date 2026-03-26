@@ -62,11 +62,6 @@ class AimedShot extends Analyzer {
     );
   }
 
-  //Steady Shot reduces the cooldown of Aimed Shot by 2 seconds
-  onSteadyShot(event: CastEvent) {
-    this.spellUsable.reduceCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, 2000);
-  }
-
   onEvent(event: AnyEvent) {
     if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       return;

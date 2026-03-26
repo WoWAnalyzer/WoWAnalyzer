@@ -6,6 +6,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 24), <>Fixed <SpellLink spell={TALENTS_MONK.MISTY_COALESCENCE_TALENT} /> to correctly cap scaling at 20 players.</>, swirl),
+  change(date(2026, 3, 21), <>Added <SpellLink spell={TALENTS_MONK.MORNING_BREEZE_TALENT} /> module.</>, swirl),
   change(date(2026, 3, 20), <>Updated <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> perf box analysis</>, Vohrr),
   change(date(2026, 1, 30), <>Updated existing <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> modules, added <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, <SpellLink spell={TALENTS_MONK.EMPERORS_FAVOR_TALENT} />, and <SpellLink spell={TALENTS_MONK.TRANQUIL_TEA_TALENT} /> modules.</>, swirl),
   change(date(2026, 1, 22), <>Added <SpellLink spell={TALENTS_MONK.PEACEFUL_MENDING_TALENT} /> module.</>, swirl),
