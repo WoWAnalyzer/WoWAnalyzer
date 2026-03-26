@@ -54,26 +54,26 @@ class PrayerOfHealing extends Analyzer {
 
     let overallPerformance: QualitativePerformance;
     if (hasLightweaver) {
-      if (hasSurgeTalent && !hasSurgeBuff) {
-        overallPerformance = QualitativePerformance.Good;
-      } else {
+      if (hasSurgeBuff) {
         overallPerformance = QualitativePerformance.Perfect;
+      } else {
+        overallPerformance = QualitativePerformance.Good;
       }
     } else {
-      overallPerformance = QualitativePerformance.Fail;
+      if (hasSurgeBuff) {
+        overallPerformance = QualitativePerformance.Ok;
+      } else {
+        overallPerformance = QualitativePerformance.Fail;
+      }
     }
 
     const checklistItems: ChecklistUsageInfo[] = [];
 
-    const lightweaverItem = this.getLightweaverChecklistItem(
-      event,
-      hasLightweaver,
-      overallPerformance === QualitativePerformance.Perfect,
-    );
+    const lightweaverItem = this.getLightweaverChecklistItem(event, hasLightweaver, hasSurgeBuff);
     checklistItems.push(lightweaverItem);
 
     if (hasSurgeTalent) {
-      const surgeItem = this.getSurgeChecklistItem(event, hasSurgeBuff);
+      const surgeItem = this.getSurgeChecklistItem(event, hasLightweaver, hasSurgeBuff);
       checklistItems.push(surgeItem);
     }
 
@@ -93,7 +93,7 @@ class PrayerOfHealing extends Analyzer {
   private getLightweaverChecklistItem(
     event: CastEvent,
     hasLightweaver: boolean,
-    isPerfectCast: boolean,
+    hasSurgeBuff: boolean,
   ): ChecklistUsageInfo {
     const summary = (
       <div>
@@ -105,20 +105,20 @@ class PrayerOfHealing extends Analyzer {
     let details: JSX.Element;
 
     if (hasLightweaver) {
-      if (isPerfectCast) {
+      if (hasSurgeBuff) {
         performance = QualitativePerformance.Perfect;
         details = (
           <div>
-            You had <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> stacks when casting{' '}
-            <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />.
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied. You had stacks when
+            casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />. Great job!
           </div>
         );
       } else {
         performance = QualitativePerformance.Good;
         details = (
           <div>
-            You had <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> stacks when casting{' '}
-            <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />.
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied. You had stacks when
+            casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />. Good job!
           </div>
         );
       }
@@ -126,9 +126,9 @@ class PrayerOfHealing extends Analyzer {
       performance = QualitativePerformance.Fail;
       details = (
         <div>
-          You cast <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> without{' '}
-          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> stacks. Try to always have Lightweaver
-          before casting.
+          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff wasn't applied. You cast{' '}
+          <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> without stacks. Try to always have
+          Lightweaver before casting.
         </div>
       );
     }
@@ -142,7 +142,11 @@ class PrayerOfHealing extends Analyzer {
     };
   }
 
-  private getSurgeChecklistItem(event: CastEvent, hasSurgeBuff: boolean): ChecklistUsageInfo {
+  private getSurgeChecklistItem(
+    event: CastEvent,
+    hasLightweaver: boolean,
+    hasSurgeBuff: boolean,
+  ): ChecklistUsageInfo {
     const summary = (
       <div>
         <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff applied
@@ -153,23 +157,44 @@ class PrayerOfHealing extends Analyzer {
     let details: JSX.Element;
 
     if (hasSurgeBuff) {
-      performance = QualitativePerformance.Perfect;
-      details = (
-        <div>
-          You had <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> stacks when casting{' '}
-          <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />.
-        </div>
-      );
+      if (hasLightweaver) {
+        performance = QualitativePerformance.Perfect;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied. You had stacks
+            when casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />. Excellent!
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied, but{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> wasn't. Consider using them together
+            for maximum benefit.
+          </div>
+        );
+      }
     } else {
-      // Changed from Fail to Ok – now yellow circle
-      performance = QualitativePerformance.Ok;
-      details = (
-        <div>
-          You cast <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> without{' '}
-          <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> stacks. Consider using it for free
-          casts.
-        </div>
-      );
+      if (hasLightweaver) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied, but you had{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active. Consider using Surge of Light
+            when available.
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Fail;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied, and{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> wasn't active. You should aim to have
+            at least one buff.
+          </div>
+        );
+      }
     }
 
     return {
@@ -210,19 +235,20 @@ class PrayerOfHealing extends Analyzer {
     const castBreakdownSmallText = (
       <>
         {' '}
-        - <span className="goodCast">Green</span> is a good cast where{' '}
-        <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> is active.{' '}
+        - <span className="perfectCast">Blue</span> is a perfect cast with both{' '}
+        <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
+        <span className="goodCast">Green</span> is a good cast with{' '}
+        <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active but no{' '}
+        <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> stacks.{' '}
         {hasSurge && (
           <>
-            <span className="perfectCast">Blue</span> is a perfect cast where both{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> are active.{' '}
-            <span className="okCast">Yellow</span> is a cast where{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> is talented but not active.
+            <span className="okCast">Yellow</span> is an OK cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
           </>
         )}
-        <span className="badCast"> Red</span> is a bad cast without{' '}
-        <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.
+        <span className="badCast">Red</span> is a bad cast with neither buff active.
       </>
     );
 
