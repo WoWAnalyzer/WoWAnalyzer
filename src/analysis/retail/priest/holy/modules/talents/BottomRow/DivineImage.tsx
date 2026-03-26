@@ -12,6 +12,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const DEBUG = false;
 
+/**
+ * Divine Image
+ * Your Holy Words summon an image of a Naaru at your side. For 9 sec, whenever you cast a healing or damaging spell, the Naaru will cast a similar spell.
+ * If an image has already been summoned, that image is empowered instead.
+ */
+
 class DivineImage extends Analyzer {
   totalProcs = 0;
   totalHealing = 0;
@@ -85,6 +91,7 @@ class DivineImage extends Analyzer {
               )}
               % OH)
             </div>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>
               Notably this talent does not contribute to{' '}
@@ -95,6 +102,7 @@ class DivineImage extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.DIVINE_IMAGE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>

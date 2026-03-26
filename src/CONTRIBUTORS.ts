@@ -90,7 +90,13 @@ export const Amryu: Contributor = {
     },
   ],
 };
-
+export const Amiphite: Contributor = {
+  nickname: 'Amiphite',
+  github: 'Amiphite',
+  discord: 'amiphite',
+  avatar: avatar('Amiphite_avatar.png'),
+  about: 'Born to be a healer. Working on holy priest.',
+};
 export const Fashathus: Contributor = {
   nickname: 'Fashathus',
   github: 'SethEArnold',

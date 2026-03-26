@@ -12,6 +12,11 @@ import SPELLS from 'common/SPELLS';
 import { PRISMATIC_ECHOES_PER_RANK } from '../../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
+/**
+ * Prismatic Echoes
+ * Increases the healing done by your Mastery: Echo of Light by 8% and your Renew by 20%.
+ */
+
 class PrismaticEchoes extends Analyzer {
   private peMod = 0;
   private peTotal = 0;

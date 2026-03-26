@@ -5,14 +5,20 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { CRISIS_MANAGEMENT_PER_RANK, HOLY_DIRECT_HEALS } from '../../../constants';
+import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellLink from 'interface/SpellLink';
-import SPELLS from 'common/SPELLS';
+import { CRISIS_MANAGEMENT_PER_RANK } from '../../../constants';
+
+const AFFECTED_SPELLS = [SPELLS.FLASH_HEAL, TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT];
+
+/**
+ * Crisis Management
+ * Increases the critical strike chance of Flash Heal and Prayer of Healing by 15%.
+ */
 
 class CrisisManagement extends Analyzer {
   static dependencies = {
@@ -20,42 +26,47 @@ class CrisisManagement extends Analyzer {
   };
 
   protected statTracker!: StatTracker;
-  private cmMod = 0;
-  private cmTotal = 0;
-  private critMult = 2;
+  private totalAttributableHealing = 0;
+  private critIncrease = 0;
 
   constructor(options: Options) {
     super(options);
-
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CRISIS_MANAGEMENT_TALENT);
-    this.cmMod +=
-      this.selectedCombatant.getTalentRank(TALENTS_PRIEST.CRISIS_MANAGEMENT_TALENT) *
-      CRISIS_MANAGEMENT_PER_RANK;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HOLY_DIRECT_HEALS), this.cmHeal);
+    if (this.active) {
+      this.critIncrease = CRISIS_MANAGEMENT_PER_RANK;
+    }
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(AFFECTED_SPELLS),
+      this.onAffectedHeal,
+    );
   }
 
   /**
-   *  approximating value of crit rate increase by getting the total amount of
-   *  flash heal and heal crits, then attributing an average of each heal based on
-   *  crit inc from CM/total crit
+   * Estimates the healing contributed by the increased critical strike chance.
+   * For each critical heal of a spell that benefits from the talent, we calculate:
+   * - The extra healing from this heal being a crit compared to a non‑crit.
+   * - Then attribute a fraction of that extra healing equal to the proportion of
+   *   the increased crit chance relative to the player's total crit chance at that moment.
    */
-  cmHeal(event: HealEvent) {
+  private onAffectedHeal(event: HealEvent) {
     if (event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
+
     const amount = event.amount;
     const absorbed = event.absorbed || 0;
     const overheal = event.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const relativeHealingIncreaseFactor = this.critMult;
-    const healingIncrease = raw - raw / relativeHealingIncreaseFactor;
-    const effectiveHealing = healingIncrease - overheal;
 
-    const effectiveCritHit = Math.max(0, effectiveHealing);
+    const extraHealingFromCrit = raw - raw / 2;
+    const effectiveExtraHealing = Math.max(0, extraHealingFromCrit - overheal);
 
-    this.cmTotal +=
-      (effectiveCritHit * this.cmMod) / (this.statTracker.currentCritPercentage + this.cmMod);
+    const totalCritChance = this.statTracker.currentCritPercentage + this.critIncrease;
+    const fractionFromTalent = this.critIncrease / totalCritChance;
+
+    this.totalAttributableHealing += effectiveExtraHealing * fractionFromTalent;
   }
 
   statistic() {
@@ -67,22 +78,25 @@ class CrisisManagement extends Analyzer {
         tooltip={
           <>
             <div>
-              Notably this module currently is missing the contributions to{' '}
-              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />,{' '}
-              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
-              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
-            </div>{' '}
-            <br />
+              This talent increases the critical strike chance of{' '}
+              <SpellLink spell={SPELLS.FLASH_HEAL} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> by{' '}
+              {this.critIncrease * 100}%.
+            </div>
             <div>
-              This value is approximated by attributing a percentage of each crit based on{' '}
-              <SpellLink spell={TALENTS_PRIEST.CRISIS_MANAGEMENT_TALENT} /> compared to the player's{' '}
-              overall crit value at that moment.
+              The value shown is the estimated healing contributed by this additional crit chance,
+              based on the proportion of your total crit chance that comes from the talent.
+            </div>
+            <div>
+              Note: This module does not yet account for contributions to{' '}
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> or other secondary healing effects,
+              which may undervalue the talent slightly.
             </div>
           </>
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.CRISIS_MANAGEMENT_TALENT}>
-          <ItemPercentHealingDone amount={this.cmTotal} />
+          <ItemPercentHealingDone amount={this.totalAttributableHealing} />
         </TalentSpellText>
       </Statistic>
     );

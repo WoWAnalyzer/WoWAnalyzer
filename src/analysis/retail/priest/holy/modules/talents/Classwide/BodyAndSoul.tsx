@@ -6,6 +6,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+/**
+ * Body and Soul
+ * Holy: Prayer of Mending and Leap of Faith increase your target's movement speed by 40% for 3 sec.
+ */
+
 class BodyAndSoul extends Analyzer {
   buffCount = 0;
 

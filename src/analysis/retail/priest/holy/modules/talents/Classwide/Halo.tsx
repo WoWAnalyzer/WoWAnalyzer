@@ -16,7 +16,12 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-// Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
+/**
+ * Halo
+ * Creates a ring of Shadow energy around you that quickly expands to a 40 yd radius, healing allies for (161% of Spell Power) and dealing [(144.2% of Spell Power) * 1 * 1 * 1] Shadow damage to enemies.
+ * Healing reduced beyond 5 targets.
+ */
+
 class Halo extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -33,14 +38,17 @@ class Halo extends Analyzer {
     super(options);
     //Disable this module if Archon Hero tree is selected
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_HOLY_TALENT) &&
       !this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_SURGE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
+      this.onCast,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -59,13 +67,13 @@ class Halo extends Analyzer {
 
   get guideSubsectionHoly(): JSX.Element {
     // if player isn't running halo, don't show guide section
-    if (!this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_HOLY_TALENT)) {
       return <></>;
     }
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={SPELLS.HALO_TALENT} />
+          <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />
         </b>{' '}
         is a strong group heal on a medium length cooldown. You will want to cast this whenever the
         majority of the raid is injured. However, do not hold on to this cooldown too long to not
@@ -73,7 +81,7 @@ class Halo extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={SPELLS.HALO_TALENT} useThresholds />;
+    const data = <CastEfficiencyPanel spell={TALENTS_PRIEST.HALO_HOLY_TALENT} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
@@ -88,7 +96,7 @@ class Halo extends Analyzer {
           <>
             Breakdown:{' '}
             <div>
-              <SpellLink spell={TALENTS_PRIEST.HALO_SHARED_TALENT} />:{' '}
+              <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />:{' '}
               <ItemPercentHealingDone amount={this.haloHealing}></ItemPercentHealingDone>
             </div>
             <div>
@@ -98,8 +106,9 @@ class Halo extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.HALO_TALENT}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.HALO_HOLY_TALENT}>
           <ItemHealingDone amount={this.haloHealing + this.eolContrib} />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <ItemDamageDone amount={this.haloDamage} />
         </BoringSpellValueText>

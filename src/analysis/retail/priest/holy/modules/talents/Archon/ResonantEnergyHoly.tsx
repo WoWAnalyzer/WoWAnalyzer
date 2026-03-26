@@ -16,6 +16,11 @@ import { RESONANT_ENERGY_AMP_PER_STACK } from '../../../constants';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 
+/**
+ * Resonant Energy (Archon)
+ * Allies healed by your Halo receive 2% increased healing from you for 8 sec, stacking up to 5 times.
+ */
+
 class ResonantEnergyHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -72,11 +77,14 @@ class ResonantEnergyHoly extends Analyzer {
         tooltip={
           <>
             {' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             Breakdown: <br />
             <SpellLink spell={TALENTS_PRIEST.RESONANT_ENERGY_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.resonantEnergyHealing}></ItemPercentHealingDone>{' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }
