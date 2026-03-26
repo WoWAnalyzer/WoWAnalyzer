@@ -7,6 +7,7 @@ import {
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
+  KillShot,
   NaturalMending,
   RejuvenatingWind,
   SpellFocusCost,
@@ -35,7 +36,6 @@ import Trueshot from './modules/spells/Trueshot';
 import CallingTheShots from './modules/talents/CallingTheShots';
 
 import ExplosiveShot from '../shared/talents/ExplosiveShot';
-import KillShot from './modules/talents/KillShot';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Streamline from './modules/talents/Streamline';
