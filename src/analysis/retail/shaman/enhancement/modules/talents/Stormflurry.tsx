@@ -63,14 +63,12 @@ class Stormflurry extends Analyzer {
     if (stormstrikeDamageEvents.length <= 2) {
       return;
     }
-    stormstrikeDamageEvents
-      .filter((_, index) => index >= 2)
-      .forEach((damageEvent) => {
-        if (MAIN_HAND_DAMAGES.includes(damageEvent.ability.guid)) {
-          this.extraHits += 1;
-        }
-        this.extraDamage += damageEvent.amount + (damageEvent.absorb || 0);
-      });
+    stormstrikeDamageEvents.slice(2).forEach((damageEvent) => {
+      if (MAIN_HAND_DAMAGES.includes(damageEvent.ability.guid)) {
+        this.extraHits += 1;
+      }
+      this.extraDamage += damageEvent.amount + (damageEvent.absorb || 0);
+    });
   }
 
   statistic() {

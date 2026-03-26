@@ -14,6 +14,7 @@ import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { CastDetail, PerCastData } from 'interface/guide/components';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const CDR_MS_PER_STACK = 300;
 
@@ -36,13 +37,18 @@ type CastCdrBreakdown = {
   performance: QualitativePerformance;
 };
 
+type OverviewBreakdown = {
+  totalStacksSpent: number;
+  totalPotentialMs: number;
+  totalWastedMs: number;
+  perfectCasts: number;
+};
+
 class ElementalTempo extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
   abilities: Abilities,
 }) {
-  protected spellUsable!: SpellUsable;
-  protected abilities!: Abilities;
-
+  private spellModRates = new Map<number, number>();
   private casts: CastCdrBreakdown[] = [];
 
   constructor(options: Options) {
@@ -71,33 +77,6 @@ class ElementalTempo extends Analyzer.withDependencies({
    * so we convert wall-clock reductions to unscaled before applying them, then convert the
    * effective reduction back to wall-clock for waste calculations.
    */
-  private getSpellModRate(spellId: number): number {
-    const ability = this.deps.abilities.getAbility(spellId);
-    const canonicalId = ability ? ability.primarySpell : spellId;
-
-    const unscaledCooldown = this.deps.abilities.getExpectedCooldownDuration(canonicalId);
-    const scaledCooldown = this.deps.spellUsable.fullCooldownDuration(canonicalId);
-
-    if (!unscaledCooldown || !scaledCooldown) {
-      return 1;
-    }
-
-    return unscaledCooldown / scaledCooldown;
-  }
-
-  private calculateCdrWasteForSpell(spellId: number, cooldownReduction: number): ElementalTempCast {
-    const modRate = this.getSpellModRate(spellId);
-    const effectiveCdr =
-      this.deps.spellUsable.reduceCooldown(spellId, cooldownReduction * modRate) / modRate;
-    const wastedCdr = Math.max(0, cooldownReduction - effectiveCdr);
-
-    return {
-      totalMs: cooldownReduction,
-      effectiveMs: effectiveCdr,
-      wastedMs: wastedCdr,
-    };
-  }
-
   private onMaelstromSpenderCast(event: CastEvent | FreeCastEvent) {
     const stacksSpent = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
     if (!stacksSpent || stacksSpent <= 0) {
@@ -144,21 +123,6 @@ class ElementalTempo extends Analyzer.withDependencies({
 
     const bothAvailable = stormstrikeRemainingBefore <= 0 && lavaLashRemainingBefore <= 0;
 
-    let performance = QualitativePerformance.Fail;
-    if (bothAvailable && stacksSpent < 10) {
-      performance = QualitativePerformance.Fail;
-    } else if (bothAvailable && stacksSpent >= 10) {
-      performance = QualitativePerformance.Ok;
-    } else if (wastedPercent <= wasteFloor) {
-      performance = QualitativePerformance.Perfect;
-    } else if (wastedPercent < wasteFloor + 0.25 * (1 - wasteFloor)) {
-      performance = QualitativePerformance.Good;
-    } else if (wastedPercent < wasteFloor + 0.5 * (1 - wasteFloor)) {
-      performance = QualitativePerformance.Ok;
-    } else if (stacksSpent >= 10) {
-      performance = QualitativePerformance.Ok;
-    }
-
     const breakdown: CastCdrBreakdown = {
       timestamp: event.timestamp,
       spenderSpellId: event.ability.guid,
@@ -169,7 +133,7 @@ class ElementalTempo extends Analyzer.withDependencies({
       wastedPercent,
       wasteFloor,
       bothAvailable,
-      performance,
+      performance: this.getCastPerformance(stacksSpent, bothAvailable, wastedPercent, wasteFloor),
     };
 
     this.casts.push({
@@ -183,6 +147,61 @@ class ElementalTempo extends Analyzer.withDependencies({
         totalMs: Math.min(breakdown.lavaLash.totalMs, lavaLashRemainingBefore),
       },
     });
+  }
+
+  private getSpellModRate(spellId: number): number {
+    const cachedModRate = this.spellModRates.get(spellId);
+    if (cachedModRate !== undefined) {
+      return cachedModRate;
+    }
+
+    const ability = this.deps.abilities.getAbility(spellId);
+    const canonicalId = ability ? ability.primarySpell : spellId;
+
+    const unscaledCooldown = this.deps.abilities.getExpectedCooldownDuration(canonicalId);
+    const scaledCooldown = this.deps.spellUsable.fullCooldownDuration(canonicalId);
+
+    if (!unscaledCooldown || !scaledCooldown) {
+      return 1;
+    }
+
+    const modRate = unscaledCooldown / scaledCooldown;
+    this.spellModRates.set(spellId, modRate);
+    return modRate;
+  }
+
+  private calculateCdrWasteForSpell(spellId: number, cooldownReduction: number): ElementalTempCast {
+    const modRate = this.getSpellModRate(spellId);
+    const effectiveCdr =
+      this.deps.spellUsable.reduceCooldown(spellId, cooldownReduction * modRate) / modRate;
+    const wastedCdr = Math.max(0, cooldownReduction - effectiveCdr);
+
+    return {
+      totalMs: cooldownReduction,
+      effectiveMs: effectiveCdr,
+      wastedMs: wastedCdr,
+    };
+  }
+
+  private getCastPerformance(
+    stacksSpent: number,
+    bothAvailable: boolean,
+    wastedPercent: number,
+    wasteFloor: number,
+  ) {
+    if (bothAvailable) {
+      return stacksSpent >= 10 ? QualitativePerformance.Ok : QualitativePerformance.Fail;
+    }
+    if (wastedPercent <= wasteFloor) {
+      return QualitativePerformance.Perfect;
+    }
+    if (wastedPercent < wasteFloor + 0.25 * (1 - wasteFloor)) {
+      return QualitativePerformance.Good;
+    }
+    if (wastedPercent < wasteFloor + 0.5 * (1 - wasteFloor) || stacksSpent >= 10) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
   }
 
   private renderCastTooltip(cast: CastCdrBreakdown): JSX.Element {
@@ -227,6 +246,26 @@ class ElementalTempo extends Analyzer.withDependencies({
       return QualitativePerformance.Ok;
     }
     return QualitativePerformance.Fail;
+  }
+
+  private buildOverviewBreakdown(): OverviewBreakdown {
+    return this.casts.reduce<OverviewBreakdown>(
+      (totals, cast) => {
+        totals.totalStacksSpent += cast.stacksSpent;
+        totals.totalPotentialMs += cast.stormstrike.totalMs + cast.lavaLash.totalMs;
+        totals.totalWastedMs += cast.stormstrike.wastedMs + cast.lavaLash.wastedMs;
+        if (cast.performance === QualitativePerformance.Perfect) {
+          totals.perfectCasts += 1;
+        }
+        return totals;
+      },
+      {
+        totalStacksSpent: 0,
+        totalPotentialMs: 0,
+        totalWastedMs: 0,
+        perfectCasts: 0,
+      },
+    );
   }
 
   private buildCastEntries(): PerCastData[] {
@@ -285,30 +324,13 @@ class ElementalTempo extends Analyzer.withDependencies({
               cast.lavaLash.totalMs,
             ),
           },
-          {
-            value: `${formatPercentage(cast.wastedPercent, 1)}%`,
-            label: 'Total Waste',
-            tooltip: <>Combined waste across both abilities.</>,
-            performance: cast.performance,
-          },
         ],
       };
     });
   }
 
   private buildOverviewStats() {
-    const totalStacksSpent = this.casts.reduce((total, cast) => total + cast.stacksSpent, 0);
-    const totalPotentialMs = this.casts.reduce(
-      (total, cast) => total + cast.stormstrike.totalMs + cast.lavaLash.totalMs,
-      0,
-    );
-    const totalWastedMs = this.casts.reduce(
-      (total, cast) => total + cast.stormstrike.wastedMs + cast.lavaLash.wastedMs,
-      0,
-    );
-    const perfectCasts = this.casts.filter(
-      (cast) => cast.performance === QualitativePerformance.Perfect,
-    ).length;
+    const overview = this.buildOverviewBreakdown();
 
     return [
       {
@@ -322,7 +344,10 @@ class ElementalTempo extends Analyzer.withDependencies({
         ),
       },
       {
-        value: this.casts.length > 0 ? (totalStacksSpent / this.casts.length).toFixed(1) : '0.0',
+        value:
+          this.casts.length > 0
+            ? (overview.totalStacksSpent / this.casts.length).toFixed(1)
+            : '0.0',
         label: 'Avg Stacks Spent',
         tooltip: (
           <>
@@ -332,7 +357,10 @@ class ElementalTempo extends Analyzer.withDependencies({
         ),
       },
       {
-        value: `${formatPercentage(totalPotentialMs > 0 ? totalWastedMs / totalPotentialMs : 0, 1)}%`,
+        value: `${formatPercentage(
+          overview.totalPotentialMs > 0 ? overview.totalWastedMs / overview.totalPotentialMs : 0,
+          1,
+        )}%`,
         label: 'Avg Waste',
         tooltip: (
           <>
@@ -342,7 +370,7 @@ class ElementalTempo extends Analyzer.withDependencies({
         ),
       },
       {
-        value: `${perfectCasts}`,
+        value: `${overview.perfectCasts}`,
         label: 'Perfect Casts',
         tooltip: (
           <>
@@ -362,20 +390,23 @@ class ElementalTempo extends Analyzer.withDependencies({
 
     const explanation = (
       <>
-        <p>
-          <SpellLink spell={TALENTS.ELEMENTAL_TEMPO_TALENT} /> reduces the cooldown of{' '}
-          <SpellLink spell={SPELLS.STORMSTRIKE} /> (or <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />{' '}
-          during <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />) and{' '}
-          <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> whenever you consume{' '}
-          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks. The boxes below score each
-          spender cast by how much cooldown reduction was wasted.
-        </p>
-        <p>
-          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> spent by{' '}
-          <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> during{' '}
-          <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> &{' '}
-          <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> is not evaluated.
-        </p>
+        <div>
+          <p>
+            <SpellLink spell={TALENTS.ELEMENTAL_TEMPO_TALENT} /> reduces the cooldown of{' '}
+            <SpellLink spell={SPELLS.STORMSTRIKE} /> (or{' '}
+            <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> during{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />) and{' '}
+            <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> whenever you consume{' '}
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks. The boxes below score each
+            spender cast by how much cooldown reduction was wasted.
+          </p>
+          <p>
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> spent by{' '}
+            <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> during{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> &{' '}
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> is not evaluated.
+          </p>
+        </div>
       </>
     );
 
@@ -384,10 +415,14 @@ class ElementalTempo extends Analyzer.withDependencies({
         <CastOverview spell={TALENTS.ELEMENTAL_TEMPO_TALENT} stats={this.buildOverviewStats()} />
         <div>
           <HelperText>
-            Each box represents one <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> spender cast.
-            Hover a box to inspect how much cooldown reduction was wasted on{' '}
-            <SpellLink spell={SPELLS.STORMSTRIKE} /> or{' '}
-            <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />.
+            <strong>
+              Note: This section is informative only and is not suggestive of poor performance. If
+              you find you have significant downtime with both{' '}
+              <SpellLink spell={SPELLS.STORMSTRIKE} /> and{' '}
+              <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> on cooldown, the chart below may help
+              you determine if you're using your <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />{' '}
+              stacks efficiently.
+            </strong>
           </HelperText>
           <CastDetail title="Maelstrom Spender Casts" casts={this.buildCastEntries()} />
         </div>
@@ -397,8 +432,11 @@ class ElementalTempo extends Analyzer.withDependencies({
 }
 
 const HelperText = styled.small`
+  border: 1px solid var(--guide-bad-color);
+  border-radius: 4px;
+  padding: 8px;
   display: block;
-  color: rgba(255, 255, 255, 0.65);
+  color: white;
   margin-bottom: 12px;
 `;
 
