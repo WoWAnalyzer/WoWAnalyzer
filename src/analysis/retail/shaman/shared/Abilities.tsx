@@ -177,7 +177,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 90 : 120,
-        gcd: null,
+        gcd: {
+          static: 0,
+        },
       },
       {
         spell: TALENTS.PURGE_TALENT.id,

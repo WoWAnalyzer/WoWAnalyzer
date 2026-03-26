@@ -18,11 +18,13 @@ import Events, {
 } from 'parser/core/Events';
 import MaelstromTracker from '../resources/MaelstromTracker';
 import MaelstromSpenderInfo from '../core/MaelstromSpenderInfo';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
-  evaluateQualitativePerformanceByThreshold,
-  getLowestPerf,
-  QualitativePerformance,
-} from 'parser/ui/QualitativePerformance';
+  computeScore,
+  getAggregatedScore,
+  scoreFromBreakpoints,
+  scoreToQualitativePerformance,
+} from 'parser/ui/WeightedPerformance';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { type JSX, type ReactNode } from 'react';
 
@@ -105,7 +107,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
       event: event,
       hasMoTE:
         this.enabledTalents.masterOfTheElements &&
-        this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id, event.timestamp),
+        this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id, event.timestamp, 5),
       currentMaelstrom:
         this.deps.maelstromTracker.current +
         (this.deps.maelstromTracker.lastSpenderInfo?.amount ?? 0),
@@ -117,19 +119,19 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     this.spenderCasts.push(cast);
   }
 
-  private getLavaBurstOpportunityPerformance(cast: SpenderCast): QualitativePerformance {
+  private getLavaBurstScore(cast: SpenderCast): number {
     if (!this.enabledTalents.masterOfTheElements || cast.hasMoTE) {
-      return QualitativePerformance.Perfect;
+      return 1.0;
     }
+    return scoreFromBreakpoints(cast.lavaBurstAvailableDuration / 1000, [
+      { value: 0, score: 1.0 },
+      { value: 5, score: 0.75 },
+      { value: 10, score: 0.0 },
+    ]);
+  }
 
-    return evaluateQualitativePerformanceByThreshold({
-      actual: cast.lavaBurstAvailableDuration,
-      isLessThan: {
-        perfect: LAVA_BURST_PERFECT_MS,
-        good: LAVA_BURST_GOOD_MS,
-        ok: LAVA_BURST_OK_MS,
-      },
-    });
+  private getLavaBurstOpportunityPerformance(cast: SpenderCast): QualitativePerformance {
+    return scoreToQualitativePerformance(this.getLavaBurstScore(cast));
   }
 
   private isMoteRelevant(cast: SpenderCast): boolean {
@@ -147,16 +149,17 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     return this.getWasteSinceLastSpender(cast) > SIGNIFICANT_OVERCAP_WASTE;
   }
 
+  private getWasteScore(cast: SpenderCast): number {
+    return scoreFromBreakpoints(this.getWasteSinceLastSpender(cast), [
+      { value: 0, score: 1.0 },
+      { value: 5, score: 0.75 },
+      { value: 15, score: 0.5 },
+      { value: SIGNIFICANT_OVERCAP_WASTE, score: 0.0 },
+    ]);
+  }
+
   private getWastePerformance(cast: SpenderCast): QualitativePerformance {
-    if (this.getWasteSinceLastSpender(cast) <= 0) {
-      return QualitativePerformance.Perfect;
-    }
-
-    if (this.isSignificantOvercap(cast)) {
-      return QualitativePerformance.Fail;
-    }
-
-    return QualitativePerformance.Ok;
+    return scoreToQualitativePerformance(this.getWasteScore(cast));
   }
 
   private getMaelstromStat(cast: SpenderCast): PerCastStat {
@@ -294,20 +297,66 @@ class MaelstromSpenders extends Analyzer.withDependencies({
       stats.push(this.getMoteStat(cast));
     }
 
+    const overallScore = this.getOverallScore(cast);
+    stats.push({
+      value: `${Math.round(overallScore * 100)}%`,
+      label: 'Score',
+      performance: scoreToQualitativePerformance(overallScore),
+    });
+
     return stats;
+  }
+
+  /**
+   * Waste is weighted more heavily because overcapping a more serious misplay.
+   * The two LvB checks measure increasingly severe misses of the same optimization window.
+   */
+  private static readonly SCORING = {
+    wasteWeight: 2,
+    lavaBurstWeight: 1,
+    lavaBurstExtremeWeight: 1,
+    /** LvB available beyond this threshold (ms) incurs additional exponential penalty. */
+    lavaBurstExtremeThresholdMs: 10_000,
+    /** Decay rate for the exponential penalty; higher values produce a steeper falloff. */
+    lavaBurstExtremeDecayRate: 0.05,
+  } as const;
+
+  /** Exponential decay penalty for extreme LvB delays (>10s). */
+  private getExtremeLavaBurstScore(cast: SpenderCast): number {
+    if (!this.enabledTalents.masterOfTheElements || cast.hasMoTE) {
+      return 1.0;
+    }
+    return computeScore(cast.lavaBurstAvailableDuration, (ms) =>
+      ms <= MaelstromSpenders.SCORING.lavaBurstExtremeThresholdMs
+        ? 1.0
+        : Math.exp(
+            -MaelstromSpenders.SCORING.lavaBurstExtremeDecayRate *
+              (ms / 1000 - MaelstromSpenders.SCORING.lavaBurstExtremeThresholdMs / 1000),
+          ),
+    );
+  }
+
+  private getOverallScore(cast: SpenderCast): number {
+    return getAggregatedScore([
+      { score: this.getWasteScore(cast), weight: MaelstromSpenders.SCORING.wasteWeight },
+      {
+        score: this.getLavaBurstScore(cast),
+        weight: MaelstromSpenders.SCORING.lavaBurstWeight,
+      },
+      {
+        score: this.getExtremeLavaBurstScore(cast),
+        weight: MaelstromSpenders.SCORING.lavaBurstExtremeWeight,
+      },
+    ]);
   }
 
   private buildPerCastData(): PerCastData[] {
     return this.spenderCasts.map((cast) => {
       const stats = this.getCastStats(cast);
-      const statPerformances = stats.flatMap((stat) =>
-        stat.performance === undefined || stat.label === 'Maelstrom' ? [] : [stat.performance],
-      );
+      const overallScore = this.getOverallScore(cast);
 
       return {
-        performance: this.isSignificantOvercap(cast)
-          ? QualitativePerformance.Fail
-          : getLowestPerf(statPerformances),
+        performance: scoreToQualitativePerformance(overallScore),
         timestamp: this.owner.formatTimestamp(cast.event.timestamp),
         additionalContent: {
           title: 'Cast Details',
@@ -353,7 +402,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
             },
             {
               value: `${lavaBurstReadyMisses}`,
-              label: 'LvB-Ready Spends',
+              label: 'Missed MOTE Opportunities',
               tooltip: (
                 <>
                   Spenders cast without <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />{' '}
