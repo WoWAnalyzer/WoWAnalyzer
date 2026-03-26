@@ -65,7 +65,7 @@ class PrayerOfHealing extends Analyzer {
       if (hasLightweaver) {
         if (!hasSurgeOfLightTalent || hasSurgeOfLightBuff) {
           value = QualitativePerformance.Perfect;
-          pohCastText = 'Perfect cast: Lightweaver active and Surge of Light was also active';
+          pohCastText = 'Perfect cast: both Lightweaver and Surge of Light are active';
         } else {
           value = QualitativePerformance.Good;
           pohCastText = 'Good cast: Lightweaver active';
@@ -90,10 +90,12 @@ class PrayerOfHealing extends Analyzer {
 
   /** Guide subsection describing the proper usage of Prayer of Healing */
   get guideSubsection(): JSX.Element {
-    // if player cast 0 prayer of healings, don't show guide section
     if (this.prayerOfHealingCasts === 0) {
       return <></>;
     }
+
+    const hasSurge = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_LIGHT_TALENT);
+
     const explanation = (
       <>
         <p>
@@ -106,11 +108,13 @@ class PrayerOfHealing extends Analyzer {
           stacks of <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> to reduce cast time and mana
           cost.
         </p>
-        <p>
-          If talented into <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />, you can cast{' '}
-          <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> when you have a proc of{' '}
-          <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
-        </p>
+        {hasSurge && (
+          <p>
+            If talented into <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />, you can cast{' '}
+            <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> when you have stacks of{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
+          </p>
+        )}
       </>
     );
 
@@ -121,17 +125,34 @@ class PrayerOfHealing extends Analyzer {
         </strong>
         <small>
           <ul>
-            <li>
-              <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast: Lightweaver is
-              active and Surge of Light (if talented) is also active.
-            </li>
-            <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast: Lightweaver is active,
-              but Surge of Light (if talented) is not active.
-            </li>
-            <li>
-              <span style={{ color: BadColor }}>Red</span> is a bad cast: no Lightweaver stacks.
-            </li>
+            {hasSurge ? (
+              <>
+                <li>
+                  <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast where both{' '}
+                  <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
+                  <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> are active.
+                </li>
+                <li>
+                  <span style={{ color: GoodColor }}>Green</span> is a good cast where{' '}
+                  <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> is active.
+                </li>
+                <li>
+                  <span style={{ color: BadColor }}>Red</span> is a bad cast with no Lightweaver
+                  stacks.
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast where{' '}
+                  <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> is active.
+                </li>
+                <li>
+                  <span style={{ color: BadColor }}>Red</span> is a bad cast with no Lightweaver
+                  stacks.
+                </li>
+              </>
+            )}
           </ul>
         </small>
         <PerformanceBoxRow values={this.castEntries} />
