@@ -65,14 +65,14 @@ class PrayerOfHealing extends Analyzer {
       if (hasLightweaver) {
         if (!hasSurgeOfLightTalent || hasSurgeOfLightBuff) {
           value = QualitativePerformance.Perfect;
-          pohCastText = 'Perfect cast: both Lightweaver and Surge of Light are active';
+          pohCastText = 'Both Lightweaver and Surge of Light are active';
         } else {
           value = QualitativePerformance.Good;
-          pohCastText = 'Good cast: Lightweaver active';
+          pohCastText = 'Lightweaver buff active';
         }
       } else {
         value = QualitativePerformance.Fail;
-        pohCastText = 'Bad cast: no Lightweaver stacks';
+        pohCastText = 'No Lightweaver stacks';
       }
 
       const tooltip = (
