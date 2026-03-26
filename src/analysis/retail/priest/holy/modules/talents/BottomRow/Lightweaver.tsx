@@ -9,20 +9,13 @@ import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import {
-  getBindingFromHeal,
-  getHeal,
-  getTrailFromHeal,
-} from '../../../normalizers/CastLinkNormalizer';
+import { getHeal } from '../../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
-import { LW_CAST_TIME_DECREASE, LW_HEALING_BONUS, LW_OVERHEAL_THRESHOLD } from '../../../constants';
+import { LW_CAST_TIME_DECREASE, LW_OVERHEAL_THRESHOLD } from '../../../constants';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-
-type HealingSources = 'trailHealing' | 'bindingHealing' | 'prayerHealing';
 
 /**
  * Lightweaver
@@ -37,10 +30,6 @@ class Lightweaver extends Analyzer {
   protected eolAttrib!: EOLAttrib;
 
   overhealingDoneFromTalent = 0;
-
-  totalPrayerOfHealingCasts = 0;
-  unbuffedPrayerOfHealingCasts = 0;
-  highOverhealPrayerOfHealingCasts = 0;
 
   totalFlashHealCasts = 0;
   wastedBuffFlashHealCasts = 0;
@@ -65,10 +54,6 @@ class Lightweaver extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
-      this.onPrayerOfHealingCast,
-    );
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
       this.onFlashHealCast,
     );
@@ -80,44 +65,6 @@ class Lightweaver extends Analyzer {
       return false;
     }
     return (event.overheal || 0) / rawHealing >= LW_OVERHEAL_THRESHOLD;
-  }
-
-  private calculateHealing(healEvent: HealEvent, castEvent: CastEvent) {
-    const events: [HealingSources, HealEvent | undefined][] = [
-      ['trailHealing', getTrailFromHeal(castEvent)],
-      ['bindingHealing', getBindingFromHeal(castEvent)],
-      ['prayerHealing', healEvent],
-    ];
-
-    // iterate through each source of Lightweaver healing (Trail of Light, Binding Heals, the main Prayer of Healing)
-    events.forEach(([key, event]) => {
-      if (event) {
-        this[key] += calculateEffectiveHealing(event, LW_HEALING_BONUS);
-        this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, LW_HEALING_BONUS);
-        this.overhealingDoneFromTalent += calculateOverhealing(event, LW_HEALING_BONUS);
-      }
-    });
-  }
-
-  onPrayerOfHealingCast(event: CastEvent) {
-    // linked heal event exists (the main Prayer of Healing heal)
-    const healEvent = getHeal(event);
-    if (!healEvent) {
-      return;
-    }
-
-    this.totalPrayerOfHealingCasts += 1;
-
-    if (!this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF)) {
-      this.unbuffedPrayerOfHealingCasts += 1;
-      return;
-    }
-
-    this.calculateHealing(healEvent, event);
-
-    if (this.isHighOverheal(healEvent)) {
-      this.highOverhealPrayerOfHealingCasts += 1;
-    }
   }
 
   onFlashHealCast(event: CastEvent) {
@@ -132,14 +79,6 @@ class Lightweaver extends Analyzer {
         this.wastedBuffFlashHealCasts += 1;
       }
     }
-  }
-
-  get goodPrayerOfHealingCasts() {
-    return (
-      this.totalPrayerOfHealingCasts -
-      this.unbuffedPrayerOfHealingCasts -
-      this.highOverhealPrayerOfHealingCasts
-    );
   }
 
   get goodFlashHeals() {
