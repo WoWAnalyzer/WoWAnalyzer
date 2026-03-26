@@ -221,7 +221,7 @@ class PrayerOfHealing extends Analyzer {
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> is talented but not active.
           </>
         )}
-        <span className="badCast">Red</span> is a bad cast without{' '}
+        <span className="badCast"> Red</span> is a bad cast without{' '}
         <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.
       </>
     );
