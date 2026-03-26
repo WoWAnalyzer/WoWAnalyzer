@@ -14,7 +14,6 @@ import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { CastDetail, PerCastData } from 'interface/guide/components';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const CDR_MS_PER_STACK = 300;
 

@@ -19,8 +19,6 @@ export const PERFECT_WASTED_PERCENT = 0.1;
 export const GOOD_WASTED_PERCENT = 0.2;
 export const OK_WASTED_PERCENT = 0.3;
 
-const DEBUG = true;
-
 export type WasteClassification = 'avoidable' | 'unavoidable';
 
 export interface WasteEvent {
@@ -212,10 +210,6 @@ class MaelstromWeaponTracker extends ResourceTracker {
         this.unavoidableWaste += waste;
       }
       this.wasteEvents.push({ timestamp, spellId, waste, classification });
-      DEBUG &&
-        console.info(
-          `${this.owner.formatTimestamp(timestamp, 3)}: ${waste} ${classification} waste from spell ${maybeGetTalentOrSpell(spellId)?.name}`,
-        );
     }
     super._applyBuilder(spellId, gain, waste, timestamp, resource);
   }
