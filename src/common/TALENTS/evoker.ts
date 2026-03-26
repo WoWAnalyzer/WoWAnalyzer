@@ -209,7 +209,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115602],
     definitionIds: [{ id: 120614, specId: 1473 }],
-    manaCost: 35000,
+    manaCost: 3500,
   },
   CHARGED_BLAST_TALENT: {
     id: 370455,
@@ -370,7 +370,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115542],
     definitionIds: [{ id: 120554, specId: 1468 }],
-    manaCost: 122500,
+    manaCost: 12250,
   },
   DREAM_FLIGHT_TALENT: {
     id: 359816,
@@ -379,7 +379,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115573],
     definitionIds: [{ id: 120585, specId: 1468 }],
-    manaCost: 100000,
+    manaCost: 10000,
   },
   DREAM_OF_SPRING_TALENT: {
     id: 414969,
@@ -428,7 +428,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115496],
     definitionIds: [{ id: 120508, specId: 1473 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   ECHOING_STRIKE_TALENT: {
     id: 410784,
@@ -446,7 +446,7 @@ const talents = {
     entryIds: [115653],
     definitionIds: [{ id: 120665, specId: 1468 }],
     essenceCost: 2,
-    manaCost: 47500,
+    manaCost: 4750,
   },
   EMPATH_TALENT: {
     id: 376138,
@@ -588,7 +588,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115615],
     definitionIds: [{ id: 120627, specId: 1473 }],
-    manaCost: 250000,
+    manaCost: 25000,
   },
   EXTENDED_BATTLE_TALENT: {
     id: 441212,
@@ -901,7 +901,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115614],
     definitionIds: [{ id: 120626, specId: 1473 }],
-    manaCost: 35000,
+    manaCost: 3500,
   },
   LAY_WASTE_TALENT: {
     id: 371034,
@@ -1390,7 +1390,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115652],
     definitionIds: [{ id: 120664, specId: 1468 }],
-    manaCost: 55000,
+    manaCost: 5500,
   },
   REWIND_TALENT: {
     id: 363534,
@@ -1399,7 +1399,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115651],
     definitionIds: [{ id: 120663, specId: 1468 }],
-    manaCost: 137500,
+    manaCost: 13750,
   },
   RICOCHETING_PYROCLAST_TALENT: {
     id: 406659,
@@ -1504,7 +1504,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115601],
     definitionIds: [{ id: 120613, specId: 1473 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   SLIPSTREAM_TALENT: {
     id: 441257,
@@ -1569,7 +1569,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [133527],
     definitionIds: [{ id: 138313, specId: 1468 }],
-    manaCost: 100000,
+    manaCost: 10000,
   },
   STRAFING_RUN_TALENT: {
     id: 1266151,
@@ -1634,7 +1634,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115561],
     definitionIds: [{ id: 120573, specId: 1468 }],
-    manaCost: 187500,
+    manaCost: 18750,
   },
   TEMPORAL_ARTIFICER_TALENT: {
     id: 381922,
@@ -1707,7 +1707,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115650],
     definitionIds: [{ id: 120662, specId: 1468 }],
-    manaCost: 55000,
+    manaCost: 5500,
   },
   TIME_LORD_TALENT: {
     id: 372527,
@@ -1868,7 +1868,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115655],
     definitionIds: [{ id: 120667, specId: 1473 }],
-    manaCost: 82500,
+    manaCost: 8250,
   },
   VOLATILITY_TALENT: {
     id: 369089,
