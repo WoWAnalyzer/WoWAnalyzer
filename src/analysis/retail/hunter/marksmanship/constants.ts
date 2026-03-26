@@ -5,9 +5,6 @@ import TALENTS from 'common/TALENTS/hunter';
 /** Rapid Fire */
 //Rapid Fire generates 1 focus per hit
 export const RAPID_FIRE_FOCUS_PER_TICK = 1;
-/** Kill Shot */
-//Kill Shot is castable on enemies sub 20% hp
-export const KILL_SHOT_EXECUTE_RANGE = 0.2;
 /** Aimed Shot */
 //Aimed Shot has a baseline casttime of 2.5s
 export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;

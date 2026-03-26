@@ -19,6 +19,10 @@ export const MS_BUFFER_500 = 500;
 export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
 //endregion
 
+//region Spells
+/** Kill Shot */
+//Kill Shot is castable on enemies sub 20% hp
+export const KILL_SHOT_EXECUTE_RANGE = 0.2;
 /** Aspects */
 //This is the baseline cooldown of Aspect of the Turtle / Cheetah
 export const BASELINE_TURTLE_CHEETAH_CD = 180000;
