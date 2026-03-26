@@ -109,16 +109,14 @@ class PrayerOfHealing extends Analyzer {
         performance = QualitativePerformance.Perfect;
         details = (
           <div>
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied. You had stacks when
-            casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />. Great job!
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied.
           </div>
         );
       } else {
         performance = QualitativePerformance.Good;
         details = (
           <div>
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied. You had stacks when
-            casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />. Good job!
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied.
           </div>
         );
       }
@@ -126,8 +124,7 @@ class PrayerOfHealing extends Analyzer {
       performance = QualitativePerformance.Fail;
       details = (
         <div>
-          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff wasn't applied. You cast{' '}
-          <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> without stacks. Try to always have
+          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff wasn't applied. Try to always have
           Lightweaver before casting.
         </div>
       );
@@ -161,17 +158,14 @@ class PrayerOfHealing extends Analyzer {
         performance = QualitativePerformance.Perfect;
         details = (
           <div>
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied. You had stacks
-            when casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />. Excellent!
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied.
           </div>
         );
       } else {
         performance = QualitativePerformance.Ok;
         details = (
           <div>
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied, but{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> wasn't. Consider using them together
-            for maximum benefit.
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied.
           </div>
         );
       }
@@ -180,18 +174,16 @@ class PrayerOfHealing extends Analyzer {
         performance = QualitativePerformance.Ok;
         details = (
           <div>
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied, but you had{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active. Consider using Surge of Light
-            when available.
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied. Consider using
+            it for free casts.
           </div>
         );
       } else {
         performance = QualitativePerformance.Fail;
         details = (
           <div>
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied, and{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> wasn't active. You should aim to have
-            at least one buff.
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied. Consider using
+            it for free casts.
           </div>
         );
       }
