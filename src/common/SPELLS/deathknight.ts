@@ -489,12 +489,31 @@ const spells = {
     icon: 'achievement_character_human_male',
   },
 
+  // Buff granted by the Forbidden Knowledge apex talent after Army of the Dead
+  FORBIDDEN_KNOWLEDGE_BUFF: {
+    id: 1242223,
+    name: 'Forbidden Knowledge',
+    icon: 'inv12_apextalent_deathknight_forbiddenknowledge',
+  },
+
   // Necrotic Coil - replaces Death Coil after Army of the Dead when Forbidden Knowledge talent is active
   NECROTIC_COIL: {
     id: 1242174,
     name: 'Necrotic Coil',
     icon: 'spell_animamaldraxxus_missile',
     runicPowerCost: 30,
+  },
+  // Primary Shadowstrike damage to up to 3 foes
+  NECROTIC_COIL_DAMAGE_HIT: {
+    id: 1242178,
+    name: 'Necrotic Coil',
+    icon: 'spell_animamaldraxxus_missile',
+  },
+  // Shadow damage to all pierced enemies
+  NECROTIC_COIL_DAMAGE_PIERCE: {
+    id: 1242172,
+    name: 'Necrotic Coil',
+    icon: 'spell_animamaldraxxus_missile',
   },
 
   // Graveyard - replaces Epidemic after Army of the Dead when Forbidden Knowledge talent is active
@@ -503,6 +522,11 @@ const spells = {
     name: 'Graveyard',
     icon: 'spell_necro_deathall',
     runicPowerCost: 30,
+  },
+  GRAVEYARD_DAMAGE: {
+    id: 383313,
+    name: 'Graveyard',
+    icon: 'spell_necro_deathall',
   },
 
   // Unholy Aura haste buff - stacks per active Magus of the Dead
@@ -677,12 +701,6 @@ const spells = {
 
   ABOMINATION_LIMB_GRIP_TICK: {
     id: 383312,
-    name: 'Abomination Limb',
-    icon: 'ability_maldraxxus_deathknight',
-  },
-
-  ABOMINATION_LIMB_TICK: {
-    id: 383313,
     name: 'Abomination Limb',
     icon: 'ability_maldraxxus_deathknight',
   },

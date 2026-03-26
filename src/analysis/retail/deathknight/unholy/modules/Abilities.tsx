@@ -60,24 +60,6 @@ class Abilities extends CoreAbilities {
         range: 30,
       },
       {
-        spell: SPELLS.NECROTIC_COIL.id,
-        enabled: combatant.hasTalent(TALENTS.FORBIDDEN_KNOWLEDGE_1_UNHOLY_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        range: 30,
-      },
-      {
-        spell: SPELLS.GRAVEYARD.id,
-        enabled: combatant.hasTalent(TALENTS.FORBIDDEN_KNOWLEDGE_1_UNHOLY_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        range: 20,
-      },
-      {
         spell: SPELLS.DEATH_AND_DECAY.id,
         enabled: !combatant.hasTalent(TALENTS.SCYTHE_OF_DECAY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
