@@ -11,7 +11,6 @@ class Abilities extends CoreAbilities {
       /**
        * Shared spells handled in their own files:
        * Binding Shot
-       * Kill Shot
        * A Murder of Crows
        *
        */

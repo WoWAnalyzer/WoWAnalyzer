@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { TIERS } from 'game/TIERS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -33,14 +32,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLACK_ARROW_DAMAGE.id,
         enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.KILL_SHOT_MM_BM.id,
-        enabled: combatant.hasTalent(TALENTS.KILL_SHOT_SHARED_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -116,15 +107,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.CALL_OF_THE_WILD_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.has2PieceByTier(TIERS.TWW3) ? 60 : 120,
-        enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_WILD_TALENT),
         gcd: {
           base: 1500,
         },
