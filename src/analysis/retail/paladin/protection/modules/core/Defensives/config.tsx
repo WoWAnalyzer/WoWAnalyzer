@@ -5,6 +5,8 @@ import Combatant from 'parser/core/Combatant';
 import type Analyzer from 'parser/core/Analyzer';
 
 export const MAJOR_ANALYZERS = (_combatant: Combatant): (typeof Analyzer)[] => {
-  return [GuardianOfAncientKings, ArdentDefender];
+  const analyzers: (typeof Analyzer)[] = [GuardianOfAncientKings, ArdentDefender];
+  return analyzers;
 };
+
 export const TIMELINE_ANALYZERS = [ConsecrationDefensives] as const;

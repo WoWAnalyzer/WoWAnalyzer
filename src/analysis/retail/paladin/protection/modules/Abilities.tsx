@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT) ? 60 : 120,
         enabled:
           combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) &&
           !combatant.hasTalent(TALENTS.SENTINEL_TALENT),
@@ -215,9 +215,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
+        spell: SPELLS.HAMMER_OF_WRATH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 7.5 / (1 + haste),
+        cooldown: (haste: number) => 11 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -264,6 +264,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INTERCESSION.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.FINAL_STAND.id,
+        category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: TALENTS.DIVINE_TOLL_TALENT.id,

@@ -101,3 +101,5 @@ export class DuskAndDawn extends Analyzer {
     );
   }
 }
+
+export default DuskAndDawn;

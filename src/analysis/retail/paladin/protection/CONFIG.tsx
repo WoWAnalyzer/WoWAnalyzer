@@ -1,8 +1,8 @@
 import { emallson, Woliance } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
-
 import CHANGELOG from './CHANGELOG';
+
 import { SupportLevel } from 'parser/Config';
 
 export default {
@@ -11,7 +11,7 @@ export default {
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0.7',
-  supportLevel: SupportLevel.Unmaintained,
+  supportLevel: SupportLevel.Foundation,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (

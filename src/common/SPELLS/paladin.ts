@@ -8,6 +8,11 @@ import talents from 'common/TALENTS/paladin';
 
 const spells = {
   // Paladin:
+  HAMMER_OF_WRATH: {
+    id: 1241413,
+    name: 'Hammer of Wrath',
+    icon: 'inv12_ability_paladin_hammerofwrath',
+  },
   CRUSADER_STRIKE: {
     id: 35395,
     name: 'Crusader Strike',
@@ -527,6 +532,11 @@ const spells = {
 
   // Protection
   // GoAK has a different spell ID with Glyph of the Queen
+  FINAL_STAND: {
+    id: 204079,
+    name: 'Final Stand',
+    icon: 'spell_holy_crusade',
+  },
   GUARDIAN_OF_ANCIENT_KINGS_QUEEN: {
     id: 212641,
     name: 'Guardian of Ancient Kings',

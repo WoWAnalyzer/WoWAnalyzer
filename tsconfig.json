@@ -33,21 +33,18 @@
       "CONTRIBUTORS": ["./src/CONTRIBUTORS"],
       "mergeAllChangelogs": ["./src/mergeAllChangelogs"],
       "Root": ["./src/Root"],
-      "store": ["./src/store"]
+      "store": ["./src/store"],
     },
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
   },
   "include": ["types/**/*", "src/**/*"],
-  "exclude": [
-    "src/analysis/retail/druid/restoration",
-    "src/analysis/retail/paladin/protection",
-    "src/analysis/retail/rogue/outlaw"
-  ],
+  "exclude": ["src/analysis/retail/druid/restoration", "src/analysis/retail/rogue/outlaw"],
   "files": [
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/holy/CONFIG.tsx",
+    "src/analysis/retail/rogue/assassination/CONFIG.tsx",
     "src/analysis/retail/rogue/outlaw/CONFIG.tsx",
-    "src/analysis/retail/warrior/protection/CONFIG.tsx"
-  ]
+    "src/analysis/retail/warrior/protection/CONFIG.tsx",
+  ],
 }
