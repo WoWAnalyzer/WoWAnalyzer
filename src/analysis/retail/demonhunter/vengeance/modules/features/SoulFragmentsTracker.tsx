@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ChangeBuffStackEvent } from 'parser/core/Events';
 
-export const MAX_SOUL_FRAGMENTS = 5;
+export const MAX_SOUL_FRAGMENTS = 6;
 
 class SoulFragmentsTracker extends Analyzer {
   // includes wasted generation
