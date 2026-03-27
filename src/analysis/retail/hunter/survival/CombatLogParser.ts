@@ -37,6 +37,7 @@ import RaptorSwipeNormalizer from './normalizers/RaptorSwipeNormalizer';
 import RaptorSwipe from './modules/talents/RaptorSwipe';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import AplCheck from './modules/apl/AplCheck';
+import Takedown from './modules/talents/Takedown/Takedown';
 import MoonlightChakram from '../shared/herotalents/MoonlightChakram';
 import MoonlightChakramNormalizer from '../shared/normalizers/MoonlightChakramNormalizer';
 import SentinelsMark from '../shared/herotalents/SentinelsMark';
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deathTracker: DeathTracker,
 
     //Spells
+    takedown: Takedown,
     bloodseeker: Bloodseeker,
     killCommand: KillCommand,
     raptorStrike: RaptorStrike,
