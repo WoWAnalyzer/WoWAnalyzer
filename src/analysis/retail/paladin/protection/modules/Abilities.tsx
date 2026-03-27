@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT) ? 60 : 120,
         enabled: combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
       {

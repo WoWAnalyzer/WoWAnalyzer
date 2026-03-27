@@ -302,6 +302,11 @@ const spells = {
     name: 'Holy Bulwark',
     icon: 'spell_holy_greaterblessingofsanctuary',
   },
+  HOLY_BULWARK_TALENT: {
+    id: 432459,
+    name: 'Holy Bulwark',
+    icon: 'spell_holy_greaterblessingofsanctuary',
+  },
   BLESSING_OF_THE_FORGE_DAMAGE: {
     id: 447258,
     name: 'Blessing of the Forge',
