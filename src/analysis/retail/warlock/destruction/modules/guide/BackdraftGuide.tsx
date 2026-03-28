@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { PerformanceBoxRow, BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import SpellLink from 'interface/SpellLink';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -31,8 +32,15 @@ export function BackdraftGuide({ analyzer, fightStart, fightEnd }: BackdraftGuid
 
   const explanation = (
     <>
-      <SpellLink spell={SPELLS.BACKDRAFT} /> empowers your next Chaos Bolt, Incinerate, or Soul Fire
-      casts.
+      <p>
+        <SpellLink spell={SPELLS.BACKDRAFT} /> empowers your next Chaos Bolt, Incinerate, or Soul
+        Fire casts.
+      </p>
+      <small>
+        Prefer spending stacks on <SpellLink spell={SPELLS.CHAOS_BOLT} /> or{' '}
+        <SpellLink spell={TALENTS.SOUL_FIRE_TALENT} /> (green) over{' '}
+        <SpellLink spell={SPELLS.INCINERATE} /> (yellow).
+      </small>
     </>
   );
 
