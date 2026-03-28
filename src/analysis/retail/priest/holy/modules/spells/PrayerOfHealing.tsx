@@ -1,36 +1,33 @@
 import type { JSX } from 'react';
-import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
+import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { getPrayerOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { BadColor, GoodColor, PerfectColor } from 'interface/guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import styles from '../Styling.module.scss';
 
 class PrayerOfHealing extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
-
   prayerOfHealingCasts = 0;
   prayerOfHealingHealing = 0;
   prayerOfHealingOverhealing = 0;
   prayerOfHealingTargetsHit = 0;
 
-  /** Box row entry for each PoH cast */
-  castEntries: BoxRowEntry[] = [];
+  spellUses: SpellUse[] = [];
+
+  hasLightweaverTalent: boolean;
+  hasSurgeTalent: boolean;
+  hasSpiritwellTalent: boolean;
 
   constructor(options: Options) {
     super(options);
-
     this.active = this.selectedCombatant.hasTalent(TALENTS.PRAYER_OF_HEALING_TALENT);
+    this.hasLightweaverTalent = this.selectedCombatant.hasTalent(TALENTS.LIGHTWEAVER_TALENT);
+    this.hasSurgeTalent = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_LIGHT_TALENT);
+    this.hasSpiritwellTalent = this.selectedCombatant.hasTalent(TALENTS.SPIRITWELL_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
@@ -51,102 +48,305 @@ class PrayerOfHealing extends Analyzer {
   }
 
   onPohCast(event: CastEvent) {
-    // calculate healing numbers from heal events linked
     const healEvents = getPrayerOfHealingEvents(event);
-
-    // Analyze cast for guide section:
-    // player is buffed by prayer circle or they don't have the talent
-    const prayerCirclePerfect = this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id);
-
-    // check if Holy Word: Sanctify is not on cooldown when casting PoH to avoid wasted CDR.
-    const sanctifyOffCd = this.selectedCombatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT)
-      ? this.spellUsable.chargesAvailable(TALENTS.HOLY_WORD_SANCTIFY_TALENT.id) === 2
-      : this.spellUsable.chargesAvailable(TALENTS.HOLY_WORD_SANCTIFY_TALENT.id) === 1;
-
-    let value: QualitativePerformance;
-    let pohCastText = '';
-
-    // ignore casts that did not heal during fight, aka cast finished as boss dies
-    // even on isolated target, will have at least 1 heal event
     if (healEvents.length > 0) {
       this.prayerOfHealingCasts += 1;
-      if (sanctifyOffCd) {
-        pohCastText += `Holy Word: Sanctify is not on cooldown, try casting it first to avoid wasting CDR. `;
-      }
-
-      if (prayerCirclePerfect && !sanctifyOffCd) {
-        value = QualitativePerformance.Perfect;
-      } else if (!sanctifyOffCd) {
-        value = QualitativePerformance.Good;
-      } else {
-        value = QualitativePerformance.Fail;
-      }
-      const tooltip = (
-        <>
-          @<strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
-          <br />
-          {pohCastText}
-        </>
-      );
-
-      this.castEntries.push({ value, tooltip });
     }
+
+    const hasLightweaver = this.hasLightweaverTalent
+      ? this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF.id)
+      : false;
+    const surgeEnabled = this.hasSurgeTalent && this.hasSpiritwellTalent;
+    const hasSurgeBuff = surgeEnabled
+      ? this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id)
+      : false;
+
+    let overallPerformance: QualitativePerformance;
+    const checklistItems: ChecklistUsageInfo[] = [];
+
+    if (this.hasLightweaverTalent) {
+      if (hasLightweaver) {
+        if (hasSurgeBuff) {
+          overallPerformance = QualitativePerformance.Perfect;
+        } else {
+          overallPerformance = QualitativePerformance.Good;
+        }
+      } else {
+        if (hasSurgeBuff) {
+          overallPerformance = QualitativePerformance.Ok;
+        } else {
+          overallPerformance = QualitativePerformance.Fail;
+        }
+      }
+
+      const lightweaverItem = this.getLightweaverChecklistItem(event, hasLightweaver, hasSurgeBuff);
+      checklistItems.push(lightweaverItem);
+
+      if (surgeEnabled) {
+        const surgeItem = this.getSurgeChecklistItem(event, hasLightweaver, hasSurgeBuff);
+        checklistItems.push(surgeItem);
+      }
+    } else {
+      if (surgeEnabled) {
+        overallPerformance = hasSurgeBuff
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail;
+        const surgeItem = this.getSurgeOnlyChecklistItem(event, hasSurgeBuff);
+        checklistItems.push(surgeItem);
+      } else {
+        overallPerformance = QualitativePerformance.Ok;
+      }
+    }
+
+    const spellUse: SpellUse = {
+      event,
+      performance: overallPerformance,
+      checklistItems,
+      performanceExplanation:
+        overallPerformance === QualitativePerformance.Fail
+          ? 'Bad Usage'
+          : `${overallPerformance} Usage`,
+    };
+
+    this.spellUses.push(spellUse);
   }
 
-  /** Guide subsection describing the proper usage of Prayer of Healing */
-  get guideSubsection(): JSX.Element {
-    // if player cast 0 prayer of healings, don't show guide section
-    if (this.prayerOfHealingCasts === 0) {
-      return <></>;
-    }
-    const explanation = (
-      <>
-        <p>
-          <b>
-            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />{' '}
-          </b>
-          is your primary healing tool. It provides substantial burst healing on its own and is the
-          most efficient way to reduce the cooldown of{' '}
-          <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} />. Try to cast it when you
-          have stacks of <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> to reduce cast time
-          and mana cost.
-        </p>
-        <p>
-          If talented into <SpellLink spell={TALENTS_PRIEST.SPIRITWELL_TALENT} />, you can cast{' '}
-          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> when you have procs of{' '}
-          <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} />.
-        </p>
-      </>
-    );
-
-    const data = (
+  private getLightweaverChecklistItem(
+    event: CastEvent,
+    hasLightweaver: boolean,
+    hasSurgeBuff: boolean,
+  ): ChecklistUsageInfo {
+    const summary = (
       <div>
-        <strong>
-          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> cast breakdown
-        </strong>
-        <small>
-          <ul>
-            <li>
-              <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where
-              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> and{' '}
-              <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} /> is applied if talented into
-              it.
-            </li>
-            <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast, where
-              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> is applied.
-            </li>
-            <li>
-              <span style={{ color: BadColor }}>Red</span> is a bad cast, where no buffs is applied.
-            </li>
-          </ul>
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff applied
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+    let performance: QualitativePerformance;
+    let details: JSX.Element;
+
+    if (hasLightweaver) {
+      if (hasSurgeBuff) {
+        performance = QualitativePerformance.Perfect;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied.
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Good;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff was applied.
+          </div>
+        );
+      }
+    } else {
+      performance = QualitativePerformance.Fail;
+      details = (
+        <div>
+          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff wasn't applied. Try to always have
+          Lightweaver before casting.
+        </div>
+      );
+    }
+
+    return {
+      check: 'lightweaver-active',
+      timestamp: event.timestamp,
+      performance,
+      summary,
+      details,
+    };
+  }
+
+  private getSurgeChecklistItem(
+    event: CastEvent,
+    hasLightweaver: boolean,
+    hasSurgeBuff: boolean,
+  ): ChecklistUsageInfo {
+    const summary = (
+      <div>
+        <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff applied
+      </div>
+    );
+
+    let performance: QualitativePerformance;
+    let details: JSX.Element;
+
+    if (hasSurgeBuff) {
+      if (hasLightweaver) {
+        performance = QualitativePerformance.Perfect;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied.
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied.
+          </div>
+        );
+      }
+    } else {
+      if (hasLightweaver) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied. Consider using
+            it for free casts.
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Fail;
+        details = (
+          <div>
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied. Consider using
+            it for free casts.
+          </div>
+        );
+      }
+    }
+
+    return {
+      check: 'surge-of-light-active',
+      timestamp: event.timestamp,
+      performance,
+      summary,
+      details,
+    };
+  }
+
+  private getSurgeOnlyChecklistItem(event: CastEvent, hasSurgeBuff: boolean): ChecklistUsageInfo {
+    const summary = (
+      <div>
+        <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff applied
+      </div>
+    );
+
+    const performance = hasSurgeBuff ? QualitativePerformance.Good : QualitativePerformance.Fail;
+    const details = hasSurgeBuff ? (
+      <div>
+        <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff was applied.
+      </div>
+    ) : (
+      <div>
+        <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> buff wasn't applied. Consider using it
+        for free casts.
+      </div>
+    );
+
+    return {
+      check: 'surge-of-light-active',
+      timestamp: event.timestamp,
+      performance,
+      summary,
+      details,
+    };
+  }
+
+  get guideSubsection(): JSX.Element | null {
+    if (!this.active || this.spellUses.length === 0) {
+      return null;
+    }
+
+    const explanation = (
+      <section>
+        <strong>
+          <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />
+        </strong>{' '}
+        is your primary healing tool. It provides substantial burst healing on its own and is the
+        most efficient way to reduce the cooldown of{' '}
+        <SpellLink spell={TALENTS.HOLY_WORD_SANCTIFY_TALENT} />.
+        {this.hasLightweaverTalent && (
+          <>
+            {' '}
+            Try to cast it when you have stacks of <SpellLink
+              spell={TALENTS.LIGHTWEAVER_TALENT}
+            />{' '}
+            to reduce cast time and mana cost.
+          </>
+        )}
+        {this.hasSurgeTalent && this.hasSpiritwellTalent && (
+          <p>
+            If talented into <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />, you can cast{' '}
+            <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> when you have stacks of{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
+          </p>
+        )}
+      </section>
+    );
+
+    const surgeRelevant = this.hasSurgeTalent && this.hasSpiritwellTalent;
+    const hasLightweaver = this.hasLightweaverTalent;
+    const hasSurge = surgeRelevant;
+
+    let castBreakdownSmallText: JSX.Element | undefined;
+
+    let scenario: 'both' | 'lightweaver-only' | 'surge-only';
+    if (hasLightweaver && hasSurge) {
+      scenario = 'both';
+    } else if (hasLightweaver) {
+      scenario = 'lightweaver-only';
+    } else if (hasSurge) {
+      scenario = 'surge-only';
+    } else {
+      scenario = 'lightweaver-only';
+    }
+
+    switch (scenario) {
+      case 'both':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            - <span className={styles.perfectCast}>Blue</span> is a perfect cast with both{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
+            <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active but no{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> stacks.{' '}
+            <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />. <span className="badCast">Red</span>{' '}
+            is a bad cast with neither buff active.
+          </>
+        );
+        break;
+      case 'lightweaver-only':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.
+          </>
+        );
+        break;
+      case 'surge-only':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast without{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
+          </>
+        );
+        break;
+    }
+
+    return (
+      <ContextualSpellUsageSubSection
+        title="Prayer of Healing"
+        explanation={explanation}
+        uses={this.spellUses}
+        castBreakdownSmallText={castBreakdownSmallText}
+        abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
+      />
+    );
   }
 }
 
