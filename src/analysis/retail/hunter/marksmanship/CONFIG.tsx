@@ -20,7 +20,7 @@ const config: Config = {
         (Sentinel), Aimed Shot cooldown management, and on-use trinket alignment.
       </p>
       <p>
-        Focus on improving one thing at a time ΓÇö start with your Bulletstorm stack count and
+        Focus on improving one thing at a time - start with your Bulletstorm stack count and
         Trueshot window quality, as these have the highest impact on your parse.
       </p>
       <p>
@@ -55,5 +55,6 @@ const config: Config = {
   path: import.meta.url,
 };
 export default config;
+
 
 
