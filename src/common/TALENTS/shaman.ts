@@ -209,7 +209,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127851],
     definitionIds: [{ id: 132660, specId: 264 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   CHAINING_STORMS_TALENT: {
     id: 334308,
@@ -226,7 +226,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127861],
     definitionIds: [{ id: 132670, specId: 264 }],
-    manaCost: 112500,
+    manaCost: 11250,
   },
   CHAIN_LIGHTNING_TALENT: {
     id: 188443,
@@ -251,7 +251,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127884],
     definitionIds: [{ id: 132693, specId: 263 }],
-    manaCost: 250000,
+    manaCost: 25000,
   },
   COALESCING_WATER_TALENT: {
     id: 470076,
@@ -465,7 +465,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127871],
     definitionIds: [{ id: 132680, specId: 264 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   EARTH_SHOCK_TALENT: {
     id: 8042,
@@ -797,7 +797,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127904],
     definitionIds: [{ id: 132713, specId: 264 }],
-    manaCost: 60000,
+    manaCost: 6000,
   },
   GUST_OF_WIND_TALENT: {
     id: 192063,
@@ -814,7 +814,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101923],
     definitionIds: [{ id: 106911, specId: 264 }],
-    manaCost: 108000,
+    manaCost: 10800,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
     id: 392916,
@@ -839,7 +839,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [135486],
     definitionIds: [{ id: 140243, specId: 264 }],
-    manaCost: 28000,
+    manaCost: 2800,
   },
   HEED_MY_CALL_TALENT: {
     id: 443444,
@@ -1283,7 +1283,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127905],
     definitionIds: [{ id: 132714, specId: 264 }],
-    manaCost: 40000,
+    manaCost: 4000,
   },
   PURGING_FLAMES_TALENT: {
     id: 1259471,
@@ -1348,7 +1348,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101905],
     definitionIds: [{ id: 106805, specId: 264 }],
-    manaCost: 40000,
+    manaCost: 4000,
   },
   RIP_CURRENT_TALENT: {
     id: 1254251,
@@ -1413,7 +1413,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127857],
     definitionIds: [{ id: 132666, specId: 264 }],
-    manaCost: 70500,
+    manaCost: 7050,
   },
   SPIRITWALKERS_MOMENTUM_TALENT: {
     id: 443425,
@@ -1430,7 +1430,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101924],
     definitionIds: [{ id: 106915, specId: 264 }],
-    manaCost: 55000,
+    manaCost: 5500,
   },
   SPIRIT_WALK_TALENT: {
     id: 58875,
@@ -1615,7 +1615,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101841],
     definitionIds: [{ id: 106874, specId: 263 }],
-    manaCost: 30000,
+    manaCost: 3000,
   },
   SUPERCHARGE_TALENT: {
     id: 455110,
@@ -1955,7 +1955,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127909],
     definitionIds: [{ id: 132718, specId: 264 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   WIND_SHEAR_TALENT: {
     id: 57994,

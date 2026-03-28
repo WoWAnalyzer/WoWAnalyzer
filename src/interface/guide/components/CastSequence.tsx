@@ -12,6 +12,8 @@ export interface CastInSequence {
   spellName: string;
   icon: string;
   performance?: QualitativePerformance;
+  outlineColor?: string;
+  ghosted?: boolean;
   tooltip?: React.ReactNode;
 }
 
@@ -30,9 +32,11 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
   return (
     <Sequence>
       {casts.map((cast, castIdx) => {
-        const color = cast.performance
-          ? qualitativePerformanceToColor(cast.performance)
-          : 'rgba(255, 255, 255, 0.3)';
+        const color =
+          cast.outlineColor ??
+          (cast.performance
+            ? qualitativePerformanceToColor(cast.performance)
+            : 'rgba(255, 255, 255, 0.3)');
 
         const defaultTooltip = (
           <div>
@@ -42,7 +46,7 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
 
         return (
           <Tooltip key={castIdx} content={cast.tooltip || defaultTooltip}>
-            <SpellIcon size={iconSize} color={color}>
+            <SpellIcon size={iconSize} color={color} ghosted={cast.ghosted}>
               <img
                 src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
                 alt={cast.spellName}
@@ -162,6 +166,8 @@ const Sequence = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
   padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
   padding-bottom: 6px;
 
   &::-webkit-scrollbar {
@@ -180,24 +186,27 @@ const Sequence = styled.div`
   }
 `;
 
-const SpellIcon = styled.div<{ size: number; color: string }>`
+const SpellIcon = styled.div<{ size: number; color: string; ghosted?: boolean }>`
   position: relative;
   flex-shrink: 0;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  border: ${(props) =>
+    props.ghosted ? '2px solid rgba(210, 210, 210, 0.85)' : '1px solid rgba(0, 0, 0, 0.8)'};
   border-radius: 6px;
   outline: ${(props) =>
     props.color !== 'rgba(255, 255, 255, 0.3)' ? `3px solid ${props.color}` : 'none'};
   outline-offset: 0px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
+  opacity: ${(props) => (props.ghosted ? 0.68 : 1)};
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    filter: ${(props) => (props.ghosted ? 'grayscale(0.7)' : 'none')};
   }
 `;
 

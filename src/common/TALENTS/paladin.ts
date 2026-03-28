@@ -177,7 +177,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102532],
     definitionIds: [{ id: 107537, specId: 65 }],
-    manaCost: 112500,
+    manaCost: 11250,
   },
   BESTOW_LIGHT_TALENT: {
     id: 448040,
@@ -274,7 +274,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [128251],
     definitionIds: [{ id: 133058, specId: 70 }],
-    manaCost: 35000,
+    manaCost: 3500,
   },
   BLESSING_OF_PROTECTION_TALENT: {
     id: 1022,
@@ -283,7 +283,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102604],
     definitionIds: [{ id: 107609, specId: 70 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   BLESSING_OF_SACRIFICE_TALENT: {
     id: 6940,
@@ -292,7 +292,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102602],
     definitionIds: [{ id: 107607, specId: 70 }],
-    manaCost: 35000,
+    manaCost: 3500,
   },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
@@ -301,7 +301,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [111886],
     definitionIds: [{ id: 116891, specId: 66 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   BLESSING_OF_THE_FORGE_TALENT: {
     id: 433011,
@@ -318,7 +318,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102584],
     definitionIds: [{ id: 107589, specId: 70 }],
-    manaCost: 30000,
+    manaCost: 3000,
   },
   BONDS_OF_FELLOWSHIP_TALENT: {
     id: 432992,
@@ -415,7 +415,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102476],
     definitionIds: [{ id: 107481, specId: 70 }],
-    manaCost: 250000,
+    manaCost: 25000,
   },
   COMMANDING_LIGHT_TALENT: {
     id: 387781,
@@ -635,7 +635,7 @@ const talents = {
       { id: 141269, specId: 66 },
       { id: 140320, specId: 70 },
     ],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   DIVINE_WRATH_TALENT: {
     id: 406872,
@@ -717,7 +717,7 @@ const talents = {
     entryIds: [117692],
     definitionIds: [{ id: 122704, specId: 70 }],
     holyPowerCost: 3,
-    manaCost: 250000,
+    manaCost: 25000,
   },
   EXECUTION_SENTENCE_TALENT: {
     id: 343527,
@@ -1042,7 +1042,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [133480],
     definitionIds: [{ id: 138266, specId: 65 }],
-    manaCost: 65000,
+    manaCost: 6500,
   },
   HOLY_REPRIEVE_TALENT: {
     id: 469445,
@@ -1067,7 +1067,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102534],
     definitionIds: [{ id: 107539, specId: 65 }],
-    manaCost: 56000,
+    manaCost: 5600,
   },
   ILLUMINE_TALENT: {
     id: 431423,
@@ -1969,7 +1969,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102623],
     definitionIds: [{ id: 107628, specId: 70 }],
-    manaCost: 52500,
+    manaCost: 5250,
   },
   TYRS_DELIVERANCE_TALENT: {
     id: 1241275,

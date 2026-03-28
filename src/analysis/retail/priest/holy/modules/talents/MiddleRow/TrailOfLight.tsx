@@ -11,7 +11,11 @@ import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-// Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
+/**
+ * Trail of Light
+ * 25% of healing done by Flash Heal is replicated to the previous target you healed with those spells.
+ */
+
 class TrailOfLight extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -48,6 +52,7 @@ class TrailOfLight extends Analyzer {
               <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} /> Procs: $
               {this.totalToLProcs}
             </div>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

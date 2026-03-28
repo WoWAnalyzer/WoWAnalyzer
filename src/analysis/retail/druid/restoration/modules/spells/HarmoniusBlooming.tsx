@@ -34,9 +34,7 @@ class HarmoniusBlooming extends Analyzer {
    * so here we simply do the math to get the portion from only the extra stacks.
    */
   get extraStacksHealing() {
-    const totalMasteryHealing =
-      this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
-      this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id);
+    const totalMasteryHealing = this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id);
     const portionFromExtraStacks =
       HARMONIUS_BLOOMING_EXTRA_STACKS / (HARMONIUS_BLOOMING_EXTRA_STACKS + 1);
     return totalMasteryHealing * portionFromExtraStacks;

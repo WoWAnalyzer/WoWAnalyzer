@@ -8,6 +8,7 @@ import CombatLogParser from 'analysis/retail/hunter/survival/CombatLogParser';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS/hunter';
+import TakedownSection from '../../../talents/Takedown/TakedownSection';
 export default function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const castEfficiency = useAnalyzer(CastEfficiency);
   if (!info || !castEfficiency) {
@@ -45,6 +46,7 @@ export default function CooldownSection({ modules, info }: GuideProps<typeof Com
           gapHighlightMode={GapHighlight.FullCooldown}
         />
       )}
+      <TakedownSection />
     </Section>
   );
 }

@@ -15,9 +15,11 @@ import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 
-/*
-  Prayer of Healing heals for 30% more to the most injured ally it affects.
-*/
+/**
+ * Prayerful Litany
+ * The primary target of Prayer of Healing is healed for 125% more.
+ */
+
 class PrayerfulLitany extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -88,6 +90,7 @@ class PrayerfulLitany extends Analyzer {
           <>
             Total Healing: {formatNumber(this.effectiveAdditionalHealing + this.overhealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

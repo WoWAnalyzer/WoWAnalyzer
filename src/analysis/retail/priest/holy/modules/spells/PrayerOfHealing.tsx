@@ -56,9 +56,7 @@ class PrayerOfHealing extends Analyzer {
 
     // Analyze cast for guide section:
     // player is buffed by prayer circle or they don't have the talent
-    const prayerCirclePerfect =
-      this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id) ||
-      !this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT);
+    const prayerCirclePerfect = this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id);
 
     // check if Holy Word: Sanctify is not on cooldown when casting PoH to avoid wasted CDR.
     const sanctifyOffCd = this.selectedCombatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT)
@@ -86,6 +84,7 @@ class PrayerOfHealing extends Analyzer {
       const tooltip = (
         <>
           @<strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {pohCastText}
         </>
@@ -105,25 +104,18 @@ class PrayerOfHealing extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />
-          </b>{' '}
-          is a filler you can use to reduce the CD of{' '}
-          <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> which is good some tiers.
-          Currently in Nerub'ar Palace it is generally better to fill with{' '}
-          <SpellLink spell={SPELLS.FLASH_HEAL} /> or <SpellLink spell={SPELLS.GREATER_HEAL} /> with{' '}
-          <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> since{' '}
-          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> does very little healing of
-          its own.
+            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />{' '}
+          </b>
+          is your primary healing tool. It provides substantial burst healing on its own and is the
+          most efficient way to reduce the cooldown of{' '}
+          <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} />. Try to cast it when you
+          have stacks of <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> to reduce cast time
+          and mana cost.
         </p>
         <p>
-          If you are running <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} />, make sure to
-          apply it before casting <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />.
-          This spell does not smart heal and only hits the closest targets, even if they are full
-          hp.
-        </p>
-        <p>
-          Only ever cast this spell when{' '}
-          <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
+          If talented into <SpellLink spell={TALENTS_PRIEST.SPIRITWELL_TALENT} />, you can cast{' '}
+          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> when you have procs of{' '}
+          <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} />.
         </p>
       </>
     );
@@ -136,17 +128,17 @@ class PrayerOfHealing extends Analyzer {
         <small>
           <ul>
             <li>
-              <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where{' '}
-              <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} /> is applied if talented into
-              it, and <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
+              <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where
+              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.SURGE_OF_LIGHT_TALENT} /> is applied if talented into
+              it.
             </li>
             <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast, where{' '}
-              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
+              <span style={{ color: GoodColor }}>Green</span> is a good cast, where
+              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} /> is applied.
             </li>
             <li>
-              <span style={{ color: BadColor }}>Red</span> is a bad cast, where{' '}
-              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is off cooldown.
+              <span style={{ color: BadColor }}>Red</span> is a bad cast, where no buffs is applied.
             </li>
           </ul>
         </small>

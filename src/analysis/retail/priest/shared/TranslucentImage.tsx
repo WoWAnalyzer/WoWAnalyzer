@@ -1,6 +1,6 @@
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -42,10 +42,10 @@ class TranslucentImage extends Analyzer {
       >
         <>
           <BoringSpellValueText spell={TALENTS.TRANSLUCENT_IMAGE_TALENT}>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            {formatNumber(this.damageReduced)} <small> damage reduced </small> <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            {formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS <br />
+            <div>
+              {formatNumber(this.damageReduced)} <small> damage reduced </small>
+            </div>
+            <div>{formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS</div>
           </BoringSpellValueText>
         </>
       </Statistic>

@@ -12,7 +12,11 @@ import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-// Example Log: https://www.warcraftlogs.com/reports/awmQnfCHrBRY8PAp#fight=53&type=healing&source=79
+/**
+ * Binding Heals
+ * 20% of Flash Heal healing on other targets also heals you.
+ */
+
 class BindingHeals extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -61,6 +65,7 @@ class BindingHeals extends Analyzer {
               {formatPercentage(this.getOverhealPercent(this.selfHealing, this.selfOverhealing))}%
               OH)
             </div>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>
