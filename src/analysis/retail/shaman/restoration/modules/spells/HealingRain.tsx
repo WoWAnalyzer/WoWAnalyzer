@@ -38,12 +38,18 @@ class HealingRain extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
       this.onHealingRainHeal,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.#onHealingRainCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.HEALING_RAIN_TALENT),
+      this.onHealingRainCast,
+    );
   }
 
   get averageMaxTargets() {
@@ -89,7 +95,7 @@ class HealingRain extends Analyzer {
     }
   }
 
-  #onHealingRainCast(event: CastEvent) {
+  onHealingRainCast(event: CastEvent) {
     this.totalMaxTargets += HEALING_RAIN_TARGETS;
     this.casts += 1;
     this.maxTargets = HEALING_RAIN_TARGETS;
