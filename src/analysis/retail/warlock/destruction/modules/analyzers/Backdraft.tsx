@@ -3,7 +3,12 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { TooltipElement } from 'interface/Tooltip';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, RemoveBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  ApplyBuffStackEvent,
+} from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 import Statistic from 'parser/ui/Statistic';
@@ -74,6 +79,11 @@ class Backdraft extends Analyzer {
     );
 
     this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
+      this.onBackdraftRemoveStack,
+    );
+
+    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
       this.onBackdraftRemove,
     );
@@ -89,16 +99,35 @@ class Backdraft extends Analyzer {
     const stacks = event.stack || 0;
 
     if (stacks > this._maxStacks) {
-      this.wastedOvercapStacks += stacks - this._maxStacks;
+      const overcapped = stacks - this._maxStacks;
+      this.wastedOvercapStacks += overcapped;
       this._currentStacks = this._maxStacks;
+
+      this.uses.push({
+        event: event as unknown as CastEvent,
+        performance: QualitativePerformance.Fail,
+        checklistItems: [],
+        performanceExplanation: `Overcapped Backdraft by ${overcapped} stack${overcapped > 1 ? 's' : ''}`,
+      });
     } else {
       this._currentStacks = stacks;
     }
   }
 
+  onBackdraftRemoveStack(event: RemoveBuffStackEvent) {
+    this._currentStacks = event.stack;
+  }
+
   onBackdraftRemove(event: RemoveBuffEvent) {
     if (this._currentStacks > 0) {
       this.wastedExpiredStacks += this._currentStacks;
+
+      this.uses.push({
+        event: event as unknown as CastEvent,
+        performance: QualitativePerformance.Fail,
+        checklistItems: [],
+        performanceExplanation: `Backdraft expired with ${this._currentStacks} stack${this._currentStacks > 1 ? 's' : ''} remaining`,
+      });
     }
     this._currentStacks = 0;
   }
@@ -159,9 +188,9 @@ class Backdraft extends Analyzer {
   }
 
   getSpellUsesWithPotentialMisses(fightStart: number, fightEnd: number): SpellUse[] {
-    return this.uses.filter(
-      (use) => use.event.timestamp >= fightStart && use.event.timestamp <= fightEnd,
-    );
+    return this.uses
+      .filter((use) => use.event.timestamp >= fightStart && use.event.timestamp <= fightEnd)
+      .sort((a, b) => a.event.timestamp - b.event.timestamp);
   }
 
   get buffedChaosBoltCasts() {
