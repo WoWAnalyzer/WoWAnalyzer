@@ -8,7 +8,7 @@ import { getPrayerOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import '../Styling.scss';
+import styles from '../Styling.module.scss';
 
 class PrayerOfHealing extends Analyzer {
   prayerOfHealingCasts = 0;
@@ -301,13 +301,13 @@ class PrayerOfHealing extends Analyzer {
         castBreakdownSmallText = (
           <>
             {' '}
-            - <span className="perfectCast">Blue</span> is a perfect cast with both{' '}
+            - <span className={styles.perfectCast}>Blue</span> is a perfect cast with both{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
-            <span className="goodCast">Green</span> is a good cast with{' '}
+            <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active but no{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> stacks.{' '}
-            <span className="okCast">Yellow</span> is an OK cast with{' '}
+            <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active without{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />. <span className="badCast">Red</span>{' '}
             is a bad cast with neither buff active.
@@ -318,9 +318,9 @@ class PrayerOfHealing extends Analyzer {
         castBreakdownSmallText = (
           <>
             {' '}
-            - <span className="goodCast">Green</span> is a good cast with{' '}
+            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
-            <span className="badCast">Red</span> is a bad cast without{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast without{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.
           </>
         );
@@ -329,9 +329,9 @@ class PrayerOfHealing extends Analyzer {
         castBreakdownSmallText = (
           <>
             {' '}
-            - <span className="goodCast">Green</span> is a good cast with{' '}
+            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
-            <span className="badCast">Red</span> is a bad cast without{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast without{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
           </>
         );
