@@ -285,7 +285,6 @@ class PrayerOfHealing extends Analyzer {
 
     let castBreakdownSmallText: JSX.Element | undefined;
 
-    // Determine scenario using a simple key for switch
     let scenario: 'both' | 'lightweaver-only' | 'surge-only';
     if (hasLightweaver && hasSurge) {
       scenario = 'both';
@@ -294,8 +293,7 @@ class PrayerOfHealing extends Analyzer {
     } else if (hasSurge) {
       scenario = 'surge-only';
     } else {
-      // Fallback – no relevant talents, should not happen for a holy priest with PoH
-      scenario = 'lightweaver-only'; // just to satisfy compiler
+      scenario = 'lightweaver-only';
     }
 
     switch (scenario) {
