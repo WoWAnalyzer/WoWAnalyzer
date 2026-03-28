@@ -7,7 +7,6 @@ import DeathsCaress from './modules/core/DeathsCaress';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
 import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
 import BoneShield from './modules/features/BoneShield';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
@@ -27,16 +26,13 @@ import BloodShieldNormalizer from './modules/spells/BloodShield/normalizer';
 import DeathStrike from './modules/spells/DeathStrike';
 import DeathStrikeLinkNormalizer from './modules/spells/DeathStrike/normalizer';
 import Bloodworms from './modules/talents/Bloodworms';
-import BoneStorm from './modules/talents/Bonestorm';
 import Consumption from './modules/talents/Consumption';
 import FoulBulwark from './modules/talents/FoulBulwark';
 import Heartbreaker from './modules/talents/Heartbreaker';
 import Hemostasis from './modules/talents/Hemostasis';
-import MarkOfBlood from './modules/talents/MarkOfBlood';
 import RapidDecomposition from './modules/talents/RapidDecomposition';
 import RedThirst from './modules/talents/RedThirst';
 import RelishInBlood from './modules/talents/RelishInBlood';
-import Tombstone from './modules/talents/Tombstone';
 import Voracious from './modules/talents/Voracious';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import RuneTracker from './modules/core/RuneTracker';
@@ -62,7 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
     crimsonScourge: CrimsonScourge,
     dancingRuneWeapon: DancingRuneWeapon,
     initialMarrowrendCast: InitialMarrowrendCast,
-    blooddrinkerTicks: BlooddrinkerTicks,
     deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
     boneShield: BoneShield,
@@ -80,13 +75,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     redThirst: RedThirst,
-    boneStorm: BoneStorm,
-    markOfBlood: MarkOfBlood,
     hemostasis: Hemostasis,
     foulBulwark: FoulBulwark,
     heartbreaker: Heartbreaker,
     bloodworms: Bloodworms,
-    tombstone: Tombstone,
     voracious: Voracious,
     rapidDecomposition: RapidDecomposition,
     willOfTheNecropolis: WillOfTheNecropolis,

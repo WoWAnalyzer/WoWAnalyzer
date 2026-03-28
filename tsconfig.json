@@ -39,7 +39,6 @@
   },
   "include": ["types/**/*", "src/**/*"],
   "exclude": [
-    "src/analysis/retail/deathknight/blood",
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/druid/restoration",
     "src/analysis/retail/druid/shared",
