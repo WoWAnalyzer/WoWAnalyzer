@@ -1,4 +1,4 @@
-import {
+﻿import {
   BindingShot,
   BornToBeWild,
   CancelledCasts,
@@ -37,15 +37,15 @@ import TargetAcquisition from './modules/talents/TargetAcquisition';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Volley from './modules/talents/Volley';
+import Bulletstorm from './modules/talents/Bulletstorm';
+import MoonlightChakram from './modules/talents/MoonlightChakram';
 import FocusedAim from './modules/talents/FocusedAim';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from '../shared/talents/Deathblow';
 import SentinelsMark from '../shared/herotalents/SentinelsMark';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
-import OvinaxMercurialEgg from 'parser/retail/modules/items/thewarwithin/trinkets/OvinaxMercurialEgg';
-import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
-import SkardynsGrace from 'parser/retail/modules/items/thewarwithin/trinkets/SkardynsGrace';
 import BlackArrow from '../shared/talents/BlackArrow';
+import { AlgetharPuzzleBox, EmberwingFeather } from 'parser/retail/modules/items/midnight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = FoundationGuide;
@@ -88,6 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     aimedShot: AimedShot,
     volley: Volley,
+    bulletstorm: Bulletstorm,
+    moonlightChakram: MoonlightChakram,
     focusedAim: FocusedAim,
     lockAndLoad: LockAndLoad,
     callingTheShots: CallingTheShots,
@@ -105,14 +107,15 @@ class CombatLogParser extends CoreCombatLogParser {
     blackArrow: BlackArrow,
     sentinelsMark: SentinelsMark,
 
-    // items
-    ovinaxMercurialEgg: OvinaxMercurialEgg,
-    madQueensMandate: MadQueensMandate,
-    skardynsGrace: SkardynsGrace,
-
+    // Trinkets
+    algetharPuzzleBox: AlgetharPuzzleBox,
+    emberwingFeather: EmberwingFeather,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 
 export default CombatLogParser;
+
+
+

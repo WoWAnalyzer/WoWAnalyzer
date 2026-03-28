@@ -1,6 +1,5 @@
-import {
+﻿import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
-  WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_MODIFIER,
 } from 'analysis/retail/hunter/marksmanship/constants';
@@ -77,7 +76,7 @@ class PreciseShots extends Analyzer {
 
   onPreciseShotsApplication() {
     if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
-      this.buffsActive = WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS;
+      this.buffsActive = 2;
     } else {
       this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
     }
@@ -148,3 +147,4 @@ class PreciseShots extends Analyzer {
 }
 
 export default PreciseShots;
+
