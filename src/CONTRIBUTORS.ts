@@ -2844,6 +2844,7 @@ export const MarchingCube: Contributor = {
 export const Path: Contributor = {
   nickname: 'Path',
   github: 'jcahnProgramming',
+  avatar: avatar('path-avatar.jpg'),
   mains: [
     {
       name: 'Pathshunter',
@@ -2852,6 +2853,7 @@ export const Path: Contributor = {
     },
   ],
 };
+
 
 
 
