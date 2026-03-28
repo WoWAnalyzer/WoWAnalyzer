@@ -1,4 +1,4 @@
-import { Contributor } from 'common/contributor';
+﻿import { Contributor } from 'common/contributor';
 import SPECS from 'game/SPECS';
 
 /**
@@ -255,7 +255,7 @@ export const Boohbah: Contributor = {
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
-  discord: '💪Bicepspump💪#6318',
+  discord: 'ðŸ’ªBicepspumpðŸ’ª#6318',
   mains: [
     {
       name: 'Bicepspump',
@@ -636,9 +636,9 @@ export const joshinator: Contributor = {
   discord: 'joshinator#7267',
   mains: [
     {
-      name: 'Êxtêndêd',
+      name: 'ÃŠxtÃªndÃªd',
       spec: SPECS.BLOOD_DEATH_KNIGHT,
-      link: 'https://worldofwarcraft.com/en-gb/character/eredar/Êxtêndêd',
+      link: 'https://worldofwarcraft.com/en-gb/character/eredar/ÃŠxtÃªndÃªd',
     },
   ],
 };
@@ -774,7 +774,7 @@ export const Matardarix: Contributor = {
   avatar: avatar('matardarix-avatar.jpg'),
   mains: [
     {
-      name: 'Matärdarix',
+      name: 'MatÃ¤rdarix',
       spec: SPECS.BREWMASTER_MONK,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/hyjal/Mat%C3%A4rdarix',
     },
@@ -1033,7 +1033,7 @@ export const soloxcx: Contributor = {
   avatar: avatar('soloxcx-avatar.jpg'),
   mains: [
     {
-      name: 'Vaerminà',
+      name: 'VaerminÃ ',
       spec: SPECS.OUTLAW_ROGUE,
       link: 'https://worldofwarcraft.com/en-us/character/us/thrall/Vaermin%C3%A0',
     },
@@ -1141,13 +1141,13 @@ export const Vohrr: Contributor = {
 export const Vonn: Contributor = {
   nickname: 'Vonn',
   github: 'kenrms',
-  discord: 'vønn#2776',
+  discord: 'vÃ¸nn#2776',
   avatar: avatar('vonn-avatar.jpg'),
   mains: [
     {
-      name: 'Vønn',
+      name: 'VÃ¸nn',
       spec: SPECS.ENHANCEMENT_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/turalyon/vønn',
+      link: 'https://worldofwarcraft.com/en-us/character/turalyon/vÃ¸nn',
     },
   ],
 };
@@ -1198,7 +1198,7 @@ export const Amani: Contributor = {
   avatar: avatar('amani_avatar.png'),
   mains: [
     {
-      name: 'Аманя',
+      name: 'ÐÐ¼Ð°Ð½Ñ',
       spec: SPECS.ELEMENTAL_SHAMAN,
       link: 'https://www.warcraftlogs.com/character/id/42517322',
     },
@@ -1409,7 +1409,7 @@ export const Akhtal: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Yllanis',
     },
     {
-      name: 'Olwië',
+      name: 'OlwiÃ«',
       spec: SPECS.BREWMASTER_MONK,
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Olwi%C3%AB',
     },
@@ -1441,7 +1441,7 @@ export const Otthopsy: Contributor = {
       link: 'https://worldofwarcraft.com/fr-fr/character/eu/ysondre/otthopsy',
     },
     {
-      name: 'Rayhløren',
+      name: 'RayhlÃ¸ren',
       spec: SPECS.RESTORATION_DRUID,
       link: 'https://worldofwarcraft.com/fr-fr/character/eu/ysondre/rayhl%C3%B8ren',
     },
@@ -1472,7 +1472,7 @@ export const Makhai: Contributor = {
   discord: 'Makhai#3086',
   mains: [
     {
-      name: 'Mákhai#3086',
+      name: 'MÃ¡khai#3086',
       spec: SPECS.VENGEANCE_DEMON_HUNTER,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/defias-brotherhood/m%C3%A1khai',
     },
@@ -1537,7 +1537,7 @@ export const Procyon: Contributor = {
   discord: 'procy-dev#3837',
   mains: [
     {
-      name: 'Xígbar',
+      name: 'XÃ­gbar',
       spec: SPECS.SHADOW_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/X%C3%ADgbar',
     },
@@ -1788,19 +1788,19 @@ export const Yax: Contributor = {
   avatar: avatar('Yax-avatar.jpg'),
   mains: [
     {
-      name: 'Xyä',
+      name: 'XyÃ¤',
       spec: SPECS.VENGEANCE_DEMON_HUNTER,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Xy%C3%A4',
     },
   ],
   alts: [
     {
-      name: 'Blodhgärm',
+      name: 'BlodhgÃ¤rm',
       spec: SPECS.GUARDIAN_DRUID,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Blodhg%C3%A4rm',
     },
     {
-      name: 'Äxy',
+      name: 'Ã„xy',
       spec: SPECS.FURY_WARRIOR,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/%C3%84xy',
     },
@@ -1871,7 +1871,7 @@ export const Jeff: Contributor = {
   ],
   alts: [
     {
-      name: 'Wörgrin',
+      name: 'WÃ¶rgrin',
       spec: SPECS.BALANCE_DRUID,
       link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/W%C3%B6rgrin',
     },
@@ -2648,7 +2648,7 @@ export const SamuelMaverick: Contributor = {
   discord: 'samuel_maverick',
   mains: [
     {
-      name: 'Mäveríck',
+      name: 'MÃ¤verÃ­ck',
       spec: SPECS.SUBTLETY_ROGUE,
       link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/ragnaros/m%C3%A4ver%C3%ADck/',
     },
@@ -2797,7 +2797,7 @@ export const Katorri: Contributor = {
   github: 'katogaming88',
   mains: [
     {
-      name: 'Katorrí',
+      name: 'KatorrÃ­',
       spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/us/stormrage/katorr%C3%AD',
     },
@@ -2839,3 +2839,19 @@ export const MarchingCube: Contributor = {
   nickname: 'MarchingCube',
   github: 'MarchingCube',
 };
+
+
+export const Path: Contributor = {
+  nickname: 'Path',
+  github: 'jcahnProgramming',
+  mains: [
+    {
+      name: 'Pathshunter',
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/moon-guard/pathshunter',
+    },
+  ],
+};
+
+
+
