@@ -1,4 +1,4 @@
-import {
+﻿import {
   BindingShot,
   BornToBeWild,
   CancelledCasts,
@@ -46,6 +46,7 @@ import SentinelsMark from '../shared/herotalents/SentinelsMark';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import BlackArrow from '../shared/talents/BlackArrow';
 import { AlgetharPuzzleBox, EmberwingFeather } from 'parser/retail/modules/items/midnight';
+import EnchantChecker from './modules/core/EnchantChecker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = FoundationGuide;
@@ -111,11 +112,13 @@ class CombatLogParser extends CoreCombatLogParser {
     algetharPuzzleBox: AlgetharPuzzleBox,
     emberwingFeather: EmberwingFeather,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
+    enchantChecker: EnchantChecker,
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
 }
 
 export default CombatLogParser;
+
 
 
 
