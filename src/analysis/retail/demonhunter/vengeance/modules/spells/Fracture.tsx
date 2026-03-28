@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import TALENTS from 'common/TALENTS/demonhunter';
+import TALENTS, { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { SpellLink } from 'interface';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
@@ -8,6 +8,7 @@ import {
   UNRESTRAINED_FURY_SCALING,
   UNTETHERED_FURY_SCALING,
 } from 'analysis/retail/demonhunter/shared';
+import { CELESTIAL_ECHOES } from '../../constants';
 import {
   ChecklistUsageInfo,
   SpellUse,
@@ -29,16 +30,23 @@ import Combatant from 'parser/core/Combatant';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 
-const DEFAULT_IN_META_FURY_LIMIT = 55;
+const DEFAULT_IN_META_FURY_LIMIT = 60;
 const DEFAULT_NOT_META_FURY_LIMIT = 75;
 
-const IN_META_SOUL_FRAGMENTS_LIMIT = 3;
-const NOT_META_SOUL_FRAGMENTS_LIMIT = 4;
+const IN_META_SOUL_FRAGMENTS_LIMIT = 4;
+const NOT_META_SOUL_FRAGMENTS_LIMIT = 5;
 
 function getTalentMaxFuryIncreases(combatant: Combatant) {
   return (
     UNRESTRAINED_FURY_SCALING[combatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)] +
     UNTETHERED_FURY_SCALING[combatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)]
+  );
+}
+
+function getFuryModifier(combatant: Combatant) {
+  return (
+    getTalentMaxFuryIncreases(combatant) -
+    (combatant.hasTalent(TALENTS_DEMON_HUNTER.CELESTIAL_ECHOES_TALENT) ? CELESTIAL_ECHOES : 0)
   );
 }
 
@@ -52,10 +60,10 @@ export default class Fracture extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.#inMetaFuryLimit =
-      DEFAULT_IN_META_FURY_LIMIT + getTalentMaxFuryIncreases(this.selectedCombatant);
-    this.#notMetaFuryLimit =
-      DEFAULT_NOT_META_FURY_LIMIT + getTalentMaxFuryIncreases(this.selectedCombatant);
+    const furyModifier = getFuryModifier(this.selectedCombatant);
+
+    this.#inMetaFuryLimit = DEFAULT_IN_META_FURY_LIMIT + furyModifier;
+    this.#notMetaFuryLimit = DEFAULT_NOT_META_FURY_LIMIT + furyModifier;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRACTURE), this.onCast);
     this.addEventListener(
@@ -72,9 +80,9 @@ export default class Fracture extends Analyzer {
         </strong>{' '}
         is your primary <strong>builder</strong> for <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
         and <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-        s. Cast it when you have less than 4 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and
+        s. Cast it when you have less than 5 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and
         less than {this.#notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
-        <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
+        <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 4{' '}
         <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.#inMetaFuryLimit}{' '}
         <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
       </p>
@@ -119,8 +127,8 @@ export default class Fracture extends Analyzer {
 
   private onCast(event: CastEvent) {
     // Fractures are good IF:
-    // in Metamorphosis - < 3 Soul Fragments and < inMetaFury Fury
-    // out of Metamorphosis - < 4 Soul Fragments and < notMetaFury Fury
+    // in Metamorphosis - < 4 Soul Fragments and < inMetaFury Fury
+    // out of Metamorphosis - < 5 Soul Fragments and < notMetaFury Fury
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,

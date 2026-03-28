@@ -1,109 +1,96 @@
-import { formatNumber, formatPercentage } from 'common/format';
-import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { SpellLink } from 'interface';
+import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import { MAX_EVERLASTING_LIGHT_BUFF } from '../../../constants';
-import EOLAttrib from '../../core/EchoOfLightAttributor';
-import SpellLink from 'interface/SpellLink';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+
+const BASE_SURGE_PROC_CHANCE = 0.08;
+const MAX_ADDITIONAL_MULTIPLIER = 0.5;
+
+// Spells that can trigger Surge of Light
+const SURGE_TRIGGER_SPELLS = [
+  SPELLS.FLASH_HEAL,
+  TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT,
+  SPELLS.SMITE,
+  TALENTS_PRIEST.HOLY_NOVA_TALENT,
+];
 
 /**
- * Heal restores up to 15% additional health, based on your missing mana.
+ * Everlasting Light
+ * Surge of Light occurs up to 50% more often based on your missing mana.
  */
-class EverlastingLight extends Analyzer {
-  static dependencies = {
-    eolAttrib: EOLAttrib,
-  };
-  protected eolAttrib!: EOLAttrib;
-  eolContrib = 0;
 
-  currentHealingBonus = 0;
-  rawAdditionalHealing = 0;
-  effectiveAdditionalHealing = 0;
-  overhealing = 0;
+class EverlastingLight extends Analyzer {
+  private totalBonus = 0;
+  private eligibleCasts = 0;
+  private expectedExtraProcs = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.EVERLASTING_LIGHT_TALENT);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
-  }
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT);
 
-  get percentOverhealing() {
-    if (this.rawAdditionalHealing === 0) {
-      return 0;
+    if (!this.active) {
+      return;
     }
-    return this.overhealing / this.rawAdditionalHealing;
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SURGE_TRIGGER_SPELLS),
+      this.onTriggerCast,
+    );
   }
 
-  onCast(event: CastEvent) {
-    event.classResources &&
-      event.classResources.forEach((resource) => {
-        if (resource.type !== RESOURCE_TYPES.MANA.id) {
-          return;
-        }
-        const currentMana = resource.amount;
-        this.currentHealingBonus =
-          MAX_EVERLASTING_LIGHT_BUFF * Math.max(0, 1 - currentMana / resource.max);
-      });
-  }
-
-  onHeal(event: HealEvent) {
-    if (this.currentHealingBonus > 0) {
-      const rawHealAmount = event.amount * this.currentHealingBonus;
-      const effectiveHealAmount = calculateEffectiveHealing(event, this.currentHealingBonus);
-      const overHealAmount = calculateOverhealing(event, this.currentHealingBonus);
-
-      this.rawAdditionalHealing += rawHealAmount;
-      this.effectiveAdditionalHealing += effectiveHealAmount;
-      this.overhealing += overHealAmount;
-
-      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, this.currentHealingBonus);
+  private onTriggerCast(event: CastEvent) {
+    const manaResource = event.classResources?.find((r) => r.type === RESOURCE_TYPES.MANA.id);
+    if (!manaResource) {
+      return;
     }
+
+    const currentMana = manaResource.amount;
+    const maxMana = manaResource.max;
+
+    const missingManaPercent = Math.max(0, Math.min(1, (maxMana - currentMana) / maxMana));
+
+    const bonus = MAX_ADDITIONAL_MULTIPLIER * missingManaPercent;
+
+    this.totalBonus += bonus;
+    this.eligibleCasts += 1;
+    this.expectedExtraProcs += BASE_SURGE_PROC_CHANCE * bonus;
+  }
+
+  get averageBonus(): number {
+    return this.eligibleCasts === 0 ? 0 : this.totalBonus / this.eligibleCasts;
   }
 
   statistic() {
+    const avgBonusPct = formatPercentage(this.averageBonus, 1);
+    const extraProcs = this.expectedExtraProcs.toFixed(1);
+
     return (
       <Statistic
-        tooltip={
-          <>
-            Total Healing: {formatNumber(this.rawAdditionalHealing)} (
-            {formatPercentage(this.percentOverhealing)}% OH)
-            <br />
-            <div>Breakdown: </div>
-            <div>
-              <SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} />:{' '}
-              <ItemPercentHealingDone
-                amount={this.effectiveAdditionalHealing}
-              ></ItemPercentHealingDone>
-            </div>
-            <div>
-              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
-            </div>
-            <br />
-            <div>
-              Notably this module currently is missing the contributions to{' '}
-              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
-              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
-            </div>
-          </>
-        }
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spell={TALENTS.EVERLASTING_LIGHT_TALENT}>
-          <ItemHealingDone amount={this.effectiveAdditionalHealing + this.eolContrib} />
-        </BoringSpellValueText>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} />
+            </>
+          }
+        >
+          <div>
+            {avgBonusPct}% <small>avg. increased proc chance</small>
+          </div>
+          <div>
+            ≈{extraProcs} <small>extra Surge procs</small>
+          </div>
+        </BoringValueText>
       </Statistic>
     );
   }

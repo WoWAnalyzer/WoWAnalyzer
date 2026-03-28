@@ -26,6 +26,12 @@ import {
   isSurgeOfLightFromHalo,
 } from '../../../normalizers/CastLinkNormalizer';
 
+/**
+ * Manifested Power (Archon)
+ * Creating a Halo grants Surge of Light.
+ * Surge of Light: Your healing spells and Smite have an 8% chance to make your next Flash Heal instant and cost 50% less mana. Stacks to 2.
+ */
+
 class ManifestedPowerHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -139,14 +145,14 @@ class ManifestedPowerHoly extends Analyzer {
             {this.surgeOfLightProcsGainedFromHalo}
             <small>
               {' '}
-              procs gained from <SpellLink spell={PRIEST_TALENTS.HALO_SHARED_TALENT} />
+              procs gained from <SpellLink spell={PRIEST_TALENTS.HALO_HOLY_TALENT} />
             </small>{' '}
           </div>
           <div>
             {this.surgeOfLightProcsOverwrittenByHalo}
             <small>
               {' '}
-              overwritten procs from <SpellLink spell={PRIEST_TALENTS.HALO_SHARED_TALENT} />
+              overwritten procs from <SpellLink spell={PRIEST_TALENTS.HALO_HOLY_TALENT} />
             </small>
           </div>
         </BoringSpellValueText>

@@ -28,7 +28,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EFFLORESCENCE_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.EFFLORESCENCE_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS_DRUID.EFFLORESCENCE_TALENT) &&
+          !combatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,

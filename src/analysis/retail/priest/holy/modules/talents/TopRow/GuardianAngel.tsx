@@ -8,7 +8,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { GS_BASE_COOLDOWN_TIME, GS_MODIFIED_COOLDOWN_TIME } from '../../../constants';
 
-// Example Log: /report/mFarpncVW9ALwTq4/7-Mythic+Zek'voz+-+Kill+(8:52)/14-Praydien
+/**
+ * Guardian Angel
+ * When Guardian Spirit saves the target from death, it does not expire.
+ * When Guardian Spirit expires without saving the target from death, reduce its remaining cooldown to 60 seconds.
+ */
+
 class GuardianAngel extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -70,6 +75,7 @@ class GuardianAngel extends Analyzer {
           <>
             You casted Guardian Spirit {this.gsValue} more times than you would have been able to
             without Guardian Angel.
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             You could have theoretically cast Guardian Spirit{' '}
             {this.gsGuardianSpiritCastsPossible - this.guardianSpiritCastCount} more times.
@@ -81,6 +87,7 @@ class GuardianAngel extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.GUARDIAN_ANGEL_TALENT}>
           {this.guardianSpiritRefreshCount} <small>Guardian Spirit resets</small>
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           {this.guardianSpiritHealCount} <small>Guardian Spirits consumed</small>
         </BoringSpellValueText>

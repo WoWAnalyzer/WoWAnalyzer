@@ -13,10 +13,7 @@ import Events, {
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import {
-  causedBloom,
-  getHardcast,
-} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { getHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -26,6 +23,8 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const LB_COLOR = '#00bb44';
 const MAX_LIFEBLOOM_STACKS = 3;
+const LIFEBLOOM_DURATION_MS = 15000;
+const PANDEMIC = 0.3;
 
 /**
  * Components related to Lifebloom and Lifebloom's uptime.
@@ -42,6 +41,7 @@ class Lifebloom extends Analyzer {
   private actualVerdancyBlooms = 0;
   private currentLifebloomStacks = 0;
   private analyzedLifebloomCasts = 0;
+  private activeLifebloomLastRefreshAt: number | undefined = undefined;
 
   castEntries: BoxRowEntry[] = [];
   nonThreeStackCasts = 0;
@@ -82,6 +82,7 @@ class Lifebloom extends Analyzer {
     this.recordCast(event, this.currentLifebloomStacks);
     this.currentLifebloomStacks = 1;
     this.activeLifebloomTarget = event.targetID;
+    this.activeLifebloomLastRefreshAt = event.timestamp;
 
     if (this.hasActiveLifebloom) {
       return;
@@ -105,6 +106,7 @@ class Lifebloom extends Analyzer {
     this.hasActiveLifebloom = false;
     this.activeLifebloomTarget = undefined;
     this.currentLifebloomStacks = 0;
+    this.activeLifebloomLastRefreshAt = undefined;
     if (this.lifebloomUptimes.length > 0) {
       this.lifebloomUptimes[this.lifebloomUptimes.length - 1].end = event.timestamp;
     }
@@ -180,18 +182,26 @@ class Lifebloom extends Analyzer {
 
   onRefreshLifebloom(event: RefreshBuffEvent) {
     const preCastStacks = Math.max(1, this.currentLifebloomStacks);
+    const elapsedSinceLastRefresh =
+      this.activeLifebloomLastRefreshAt !== undefined
+        ? event.timestamp - this.activeLifebloomLastRefreshAt
+        : Number.NEGATIVE_INFINITY;
+    const isPandemicRefresh =
+      this.hasActiveLifebloom &&
+      this.activeLifebloomLastRefreshAt !== undefined &&
+      elapsedSinceLastRefresh >= LIFEBLOOM_DURATION_MS * (1 - PANDEMIC);
 
     this.possibleVerdancyBlooms += 1;
-    const bloomed = causedBloom(event);
-    if (bloomed) {
+    if (isPandemicRefresh) {
       this.actualVerdancyBlooms += 1;
     }
 
-    this.recordCast(event, preCastStacks, bloomed);
+    this.recordCast(event, preCastStacks, isPandemicRefresh);
 
     this.currentLifebloomStacks = this.hasEverbloom
       ? Math.min(MAX_LIFEBLOOM_STACKS, preCastStacks + 1)
       : 1;
+    this.activeLifebloomLastRefreshAt = event.timestamp;
   }
 
   /** The time at least one lifebloom was active */

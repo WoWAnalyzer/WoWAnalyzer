@@ -14,6 +14,11 @@ import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 
+/**
+ * Renewed Faith
+ * Your healing on allies with your Renew is increased by 10%.
+ */
+
 class RenewedFaith extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -34,11 +39,11 @@ class RenewedFaith extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW_HEAL),
       this.onRenewApplication,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW_HEAL),
       this.onRenewRemoval,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
@@ -75,6 +80,7 @@ class RenewedFaith extends Analyzer {
           <>
             Total Healing: {formatNumber(this.rawAdditionalHealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <div>Breakdown: </div>
             <div>

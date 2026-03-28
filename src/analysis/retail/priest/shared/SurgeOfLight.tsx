@@ -9,7 +9,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-// Example Log: /report/da4AL7QPr36btCmV/8-Heroic+Huntsman+Altimor+-+Kill+(5:13)/Daemonlight/standard/statistics
+/**
+ * Surge of Light
+ * Your healing spells and Smite have an 8% chance to make your next Flash Heal instant and cost 50% less mana. Stacks to 2.
+ */
+
 class SurgeOfLight extends Analyzer {
   solStacksGained = 0;
   solStacksLost = 0;
@@ -73,15 +77,15 @@ class SurgeOfLight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
         <TalentSpellText talent={TALENTS.SURGE_OF_LIGHT_TALENT}>
-          <div>
+          <>
             {this.solFlashHeals}{' '}
             <small>
               free <SpellLink spell={SPELLS.FLASH_HEAL} /> casts
             </small>
-          </div>
-          <div>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            <br />
             <ItemManaGained amount={this.solManaSaved} useAbbrev />
-          </div>
+          </>
         </TalentSpellText>
       </Statistic>
     );
