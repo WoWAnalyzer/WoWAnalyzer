@@ -2,20 +2,21 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ResourceChangeEvent } from 'parser/core/Events';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { Abilities } from '../../gen';
 
 /**
  * Analyzer to track additional and wasted Holy Power from Sanctified Wrath for Protection Paladins.
+ * During Avenging Wrath or Sentinel, Hammer of Wrath generates 1 additional Holy Power.
  */
 class SanctifiedWrathProtJudgement extends Analyzer {
-  buffedJudgements = 0;
+  buffedHammerCasts = 0;
+  hammerCasts = 0;
   holyPowerWastes: number[] = [];
-  CRIT_NO_HA_CHANGE = 4;
-  CRIT_YES_HA_CHANGE = 6;
   MAX_HOLY_POWER = 5;
 
   constructor(options: Options) {
@@ -26,59 +27,59 @@ class SanctifiedWrathProtJudgement extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_PROTECTION),
-      this.trackJudgmentCasts,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH),
+      this.trackHammerCasts,
     );
-    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.trackedWastedJudgmentHP);
+    // Listen to resource change events for the energize effect (may have a separate ID)
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_HP_ENERGIZE),
+      this.trackWastedHP,
+    );
   }
 
-  trackJudgmentCasts() {
-    if (
+  trackHammerCasts(event: CastEvent) {
+    const hasBuff =
       this.selectedCombatant.hasBuff(TALENTS.AVENGING_WRATH_TALENT.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.SENTINEL.id)
-    ) {
-      this.buffedJudgements += 1;
+      this.selectedCombatant.hasBuff(TALENTS.SENTINEL_TALENT.id);
+    if (hasBuff) {
+      this.hammerCasts += 1;
+      this.buffedHammerCasts += 2;
     }
   }
 
-  trackedWastedJudgmentHP(event: ResourceChangeEvent) {
-    const hasAW: boolean = this.selectedCombatant.hasBuff(TALENTS.AVENGING_WRATH_TALENT.id);
-
-    const judgementSource: boolean = event.ability.guid === SPELLS.JUDGMENT_HP_ENERGIZE.id;
-    const wastedHolyPower: boolean =
-      event.waste !== null && event.waste !== undefined && event.waste > 0;
-    if (hasAW && judgementSource) {
-      const wasteDueToSanctifiedWrath: number = this.wasteDueToSanctifiedWrath(event);
-      if (wastedHolyPower && wasteDueToSanctifiedWrath !== 0) {
-        this.holyPowerWastes.push(wasteDueToSanctifiedWrath);
-      }
+  trackWastedHP(event: ResourceChangeEvent) {
+    const hasBuff =
+      this.selectedCombatant.hasBuff(TALENTS.AVENGING_WRATH_TALENT.id) ||
+      this.selectedCombatant.hasBuff(TALENTS.SENTINEL_TALENT.id);
+    if (!hasBuff) {
+      return;
     }
-  }
 
-  /**
-   * Judgement can grant any of the following values of HP during Avenging Wrath:
-   * 2 - non-crit
-   * 4 - crit
-   *
-   * To consider the wasted holy power generation to be due to a bad Judgement during Avenging Wrath
-   * the cast must not have been made with >3 HP(crits are random so we let the wasted HP slide).
-   *
-   * @param event
-   * @returns Number of wasted Holy Power due to Sanctified Wrath talent.
-   */
-  wasteDueToSanctifiedWrath(event: ResourceChangeEvent): number {
-    const hpChange: number = event.resourceChange;
-    const preCastHP = this.MAX_HOLY_POWER - (hpChange - event.waste);
+    const wasted = event.waste || 0;
+    if (wasted === 0) {
+      return;
+    }
+
+    // Hammer of Wrath normally generates 1 Holy Power; with Sanctified Wrath it generates 2.
+    // If pre-cast HP > 3, the extra 1 HP will be wasted.
+    const preCastHP = this.MAX_HOLY_POWER - (event.resourceChange - wasted);
     if (preCastHP > 3) {
-      return event.waste;
-    } else {
-      return 0;
+      this.holyPowerWastes.push(wasted);
     }
+  }
+
+  get totalWastedHP(): number {
+    return this.holyPowerWastes.reduce((sum, cur) => sum + cur, 0);
+  }
+
+  get bonusHP(): number {
+    // Each buffed Hammer cast gives +1 Holy Power (instead of +0)
+    return this.buffedHammerCasts - this.totalWastedHP;
   }
 
   statistic() {
-    const totalWastedHP = this.holyPowerWastes.reduce((sum, current) => sum + current, 0);
-    const bonusHP = this.buffedJudgements * 2 - totalWastedHP;
+    const totalWastedHP = this.totalWastedHP;
+    const bonusHP = this.bonusHP;
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}
@@ -86,8 +87,9 @@ class SanctifiedWrathProtJudgement extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <b>{this.buffedJudgements * 2}</b> total additional Holy Power generated by Sanctified
-            Wrath.
+            <b>{this.hammerCasts}</b> Hammer of Wrath casts during Avenging Wrath or Sentinel.
+            <br />
+            <b>{this.buffedHammerCasts}</b> additional Holy Power generated (1 per cast).
             <br />
             <b>{totalWastedHP}</b> additional Holy Power wasted by overcapping.
           </>

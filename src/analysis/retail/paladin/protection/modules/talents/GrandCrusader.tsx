@@ -17,9 +17,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BASE_PROC_CHANCE = 0.15;
-
-const BASE_CDR_AMOUNT = 3000;
-const CJ_CDR_AMOUNT = 3000;
+const CJ_CDR_AMOUNT = 3000; // 3 seconds
 
 class GrandCrusader extends Analyzer.withDependencies({
   abilities: Abilities,
@@ -31,7 +29,6 @@ class GrandCrusader extends Analyzer.withDependencies({
   gcProcs = 0;
 
   procChance = BASE_PROC_CHANCE;
-  cdrAmount = BASE_CDR_AMOUNT;
 
   constructor(options: Options) {
     super(options);
@@ -53,10 +50,6 @@ class GrandCrusader extends Analyzer.withDependencies({
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
       this.trackGrandCrusaderProcs,
     );
-
-    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT)) {
-      this.cdrAmount += CJ_CDR_AMOUNT;
-    }
   }
 
   lastResetSource: CastEvent | DamageEvent | null = null;
@@ -82,16 +75,28 @@ class GrandCrusader extends Analyzer.withDependencies({
 
   trackGrandCrusaderProcs(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.gcProcs += 1;
-    this.deps.spellUsable.reduceCooldown(
-      SPELLS.JUDGMENT_CAST_PROTECTION.id,
-      this.cdrAmount,
-      event.timestamp,
-    );
+
+    // Always reset Avenger's Shield
     this.deps.spellUsable.endCooldown(TALENTS.AVENGERS_SHIELD_TALENT.id, event.timestamp);
+
+    // If the player has Crusader's Judgment, reduce Judgment and Hammer of Wrath by 3 seconds
+    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT)) {
+      this.deps.spellUsable.reduceCooldown(
+        SPELLS.JUDGMENT_CAST_PROTECTION.id,
+        CJ_CDR_AMOUNT,
+        event.timestamp,
+      );
+      if (this.selectedCombatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT)) {
+        this.deps.spellUsable.reduceCooldown(
+          TALENTS.HAMMER_OF_WRATH_TALENT.id,
+          CJ_CDR_AMOUNT,
+          event.timestamp,
+        );
+      }
+    }
   }
 
   statistic() {
-    //As we use a different formula than the standard one for XAxis, we send it along as a parameter
     const binomChartXAxis = {
       title: 'Reset %',
       tickFormat: (value: number) => `${formatPercentage(value / this.resetChances, 0)}%`,
@@ -106,6 +111,12 @@ class GrandCrusader extends Analyzer.withDependencies({
         tooltip={
           <>
             Grand Crusader reset the cooldown of Avenger's Shield {this.gcProcs} times.
+            {this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) && (
+              <>
+                <br />
+                Each proc also reduced the cooldown of Judgment (and Hammer of Wrath) by 3 seconds.
+              </>
+            )}
             <br />
             You had {this.resetChances} chances for Grand Crusader to trigger with a{' '}
             {formatPercentage(this.procChance, 0)}% chance to trigger.

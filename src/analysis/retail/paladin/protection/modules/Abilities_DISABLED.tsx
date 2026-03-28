@@ -7,6 +7,7 @@ import { TALENTS_PALADIN } from 'common/TALENTS';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
+
     return [
       {
         spell: SPELLS.CONSECRATION_CAST.id,
@@ -69,18 +70,6 @@ class Abilities extends CoreAbilities {
           suggestion: false,
         },
       },
-      {
-        spell: SPELLS.JUDGMENT_CAST_PROTECTION.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 5 / (1 + haste),
-        charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
       //COOLDOWNS
       {
         spell: [TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
@@ -117,6 +106,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
       },
+      // Avenging Wrath
       {
         spell: [TALENTS.AVENGING_WRATH_TALENT.id, TALENTS.AVENGING_WRATH_TALENT.id],
         buffSpellId: TALENTS.AVENGING_WRATH_TALENT.id,
@@ -126,31 +116,32 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
         cooldown: combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT) ? 60 : 120,
+        duration: combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT)
+          ? (combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT) ? 25000 : 20000) * 0.6
+          : combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT)
+            ? 25000
+            : 20000,
         enabled:
           combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) &&
           !combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
+
+      // Sentinel
       {
-        spell: [TALENTS.SENTINEL_TALENT.id, SPELLS.SENTINEL.id],
-        buffSpellId: SPELLS.SENTINEL.id,
+        spell: [TALENTS.SENTINEL_TALENT.id, TALENTS.SENTINEL_TALENT.id],
+        buffSpellId: TALENTS.SENTINEL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
         cooldown: combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT) ? 60 : 120,
+        duration: combatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT)
+          ? (combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT) ? 20000 : 16000) * 0.6
+          : combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT)
+            ? 20000
+            : 16000,
         enabled: combatant.hasTalent(TALENTS.SENTINEL_TALENT),
-      },
-      {
-        spell: SPELLS.LAY_ON_HANDS_EMPYREAL_WARD.id,
-        isDefensive: true,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 600,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.1,
-        },
-        enabled: combatant.hasTalent(TALENTS.EMPYREAL_WARD_TALENT),
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,
@@ -215,12 +206,29 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HAMMER_OF_WRATH.id,
+        spell: SPELLS.JUDGMENT_CAST_PROTECTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 11 / (1 + haste),
+        cooldown: (haste: number) => 5 / (1 + haste),
+        charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.HAMMER_OF_WRATH.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: (haste: number) => 5 / (1 + haste),
+        charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
       },
       {
         spell: SPELLS.HAND_OF_RECKONING.id,
@@ -255,7 +263,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.LAY_ON_HANDS_TALENT.id,
+        spell: SPELLS.LAY_ON_HANDS_CAST.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 600,
         gcd: null,
@@ -272,7 +280,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DIVINE_TOLL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 60 - 15 * combatant.getTalentRank(TALENTS.QUICKENED_INVOCATION_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

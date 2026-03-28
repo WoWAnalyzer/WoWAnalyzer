@@ -109,10 +109,10 @@ const spells = {
     name: 'Blessing of Dusk',
     icon: 'achievement_zone_newshadowmoonvalley',
   },
-  BLESSING_OF_DAWN: {
-    id: 385127,
+  BLESSING_OF_DAWN_REDIRECT: {
+    id: 210380,
     name: 'Blessing of Dawn',
-    icon: 'achievement_zone_valeofeternalblossoms',
+    icon: 'ability_deathwing_bloodcorruption_earth',
   },
   RELENTLESS_INQUISITOR_TALENT_BUFF: {
     id: 383389,
@@ -489,8 +489,13 @@ const spells = {
     name: 'Empyrean Power',
     icon: 'ability_paladin_sheathoflight',
   },
-  LAY_ON_HANDS_EMPYREAL_WARD: {
+  LAY_ON_HANDS_CAST: {
     id: 471195,
+    name: 'Lay on Hands',
+    icon: 'spell_holy_layonhands.jpg',
+  },
+  LAY_ON_HANDS_EMPYREAL_WARD: {
+    id: 387792,
     name: 'Lay on Hands',
     icon: 'spell_holy_layonhands.jpg',
   },
@@ -561,11 +566,6 @@ const spells = {
     id: 53600,
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
-  },
-  SENTINEL: {
-    id: 389539,
-    name: 'Sentinel',
-    icon: 'spell_holy_holynova',
   },
   GRAND_CRUSADER_BUFF: {
     id: 85416,

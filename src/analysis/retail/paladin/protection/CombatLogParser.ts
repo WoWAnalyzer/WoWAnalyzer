@@ -4,12 +4,15 @@ import {
   HolyPowerDetails,
   DivineToll,
   HolyPowerPerMinute,
-  DuskAndDawn,
+  BlessingOfDusk,
+  BlessingOfDawn,
+  Lightbearer,
+  Punishment,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import Abilities from './modules/Abilities';
+import { Abilities } from './gen';
 import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
@@ -22,10 +25,9 @@ import SpellUsable from './modules/features/SpellUsable';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
-import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import WordOfGlory from './modules/spells/WordOfGlory';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
-import FirstAvenger from './modules/talents/FirstAvenger';
+import SoaringShield from './modules/talents/SoaringShield';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
@@ -40,7 +42,6 @@ import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefens
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import Valiance from './modules/talents/Valiance';
-import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -56,7 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
-    lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
     judgment: Judgment,
@@ -84,11 +84,13 @@ class CombatLogParser extends CoreCombatLogParser {
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
-    firstAvenger: FirstAvenger,
+    soaringShield: SoaringShield,
     divineToll: DivineToll,
-    duskAndDawn: DuskAndDawn,
+    blessingOfDusk: BlessingOfDusk,
+    blessingOfDawn: BlessingOfDawn,
     valiance: Valiance,
     lightBearer: Lightbearer,
+    punishment: Punishment,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

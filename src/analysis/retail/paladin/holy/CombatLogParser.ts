@@ -1,5 +1,4 @@
 import {
-  HammerOfWrath,
   DivinePurpose,
   HolyPowerTracker,
   HolyPowerDetails,
@@ -103,7 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
     overhealing: Overhealing,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
-    hammerOfWrath: HammerOfWrath,
     builderUse: BuilderUse,
     apl: AplCheck,
 

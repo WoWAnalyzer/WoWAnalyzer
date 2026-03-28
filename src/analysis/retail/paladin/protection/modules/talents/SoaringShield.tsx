@@ -11,9 +11,9 @@ import type { ReactNode } from 'react';
 
 // One second bounce buffer for AS to bounce around and hit targets.
 const AVENGERS_SHIELD_BOUNCE_BUFFER = 1000;
-const TALENTLESS_NUM_OF_BOUNCES = 3;
+const BASELINE_BOUNCES = 3; // Initial hit + 2 baseline bounces
 
-class FirstAvenger extends Analyzer {
+class SoaringShield extends Analyzer {
   lastAvengersShieldCastTimestamp = 0;
   totalNumHits = 0;
   totalNumCasts = 0;
@@ -26,11 +26,11 @@ class FirstAvenger extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOARING_SHIELD_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
       this.trackAvengersShieldCasts,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SOARING_SHIELD_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
       this.trackAvengersShieldHits,
     );
   }
@@ -46,9 +46,7 @@ class FirstAvenger extends Analyzer {
         this.castToHitsMap.set(this.lastAvengersShieldCastTimestamp, []);
       }
       this.totalNumHits += 1;
-      const hits: DamageEvent[] | undefined = this.castToHitsMap.get(
-        this.lastAvengersShieldCastTimestamp,
-      );
+      const hits = this.castToHitsMap.get(this.lastAvengersShieldCastTimestamp);
       if (hits !== undefined) {
         hits.push(event);
       }
@@ -56,26 +54,18 @@ class FirstAvenger extends Analyzer {
   }
 
   getExtraDamageForCast(castTimestamp: number): number {
-    if (!this.castToHitsMap.has(castTimestamp)) {
+    const hits = this.castToHitsMap.get(castTimestamp);
+    if (!hits || hits.length === 0) {
       return 0;
     }
-    const hits: DamageEvent[] | undefined = this.castToHitsMap.get(castTimestamp);
-    if (hits === undefined) {
-      return 0;
-    }
-    const numExtraHits =
-      hits.length > TALENTLESS_NUM_OF_BOUNCES ? hits.length - TALENTLESS_NUM_OF_BOUNCES : 0;
-    return (
-      (hits
-        .map((damageEvent) => damageEvent.amount + (damageEvent.absorbed || 0))
-        .reduce((prev, current) => prev + current, 0) /
-        hits.length) *
-      numExtraHits
-    );
+    const numExtraHits = Math.max(0, hits.length - BASELINE_BOUNCES);
+    const averageHitDamage =
+      hits.reduce((sum, dmg) => sum + dmg.amount + (dmg.absorbed || 0), 0) / hits.length;
+    return averageHitDamage * numExtraHits;
   }
 
   get averageHitsPerCast(): number {
-    return this.totalNumHits / this.totalNumCasts;
+    return this.totalNumCasts === 0 ? 0 : this.totalNumHits / this.totalNumCasts;
   }
 
   get totalExtraDamage(): number {
@@ -85,7 +75,7 @@ class FirstAvenger extends Analyzer {
   }
 
   get averageExtraDamage(): number {
-    return this.totalExtraDamage / this.totalNumCasts;
+    return this.totalNumCasts === 0 ? 0 : this.totalExtraDamage / this.totalNumCasts;
   }
 
   statistic(): ReactNode {
@@ -97,9 +87,9 @@ class FirstAvenger extends Analyzer {
         tooltip={
           <>
             You hit on average <b>{formatNumber(this.averageHitsPerCast)}</b> enemies per cast of{' '}
-            <SpellLink spell={TALENTS.SOARING_SHIELD_TALENT} />
+            <SpellLink spell={TALENTS.AVENGERS_SHIELD_TALENT} />
             <br />
-            The extra hits from taking First Avenger contributed{' '}
+            The extra hits from <SpellLink spell={TALENTS.SOARING_SHIELD_TALENT} /> contributed{' '}
             <b>{formatNumber(this.totalExtraDamage)}</b> total extra damage.
           </>
         }
@@ -118,4 +108,4 @@ class FirstAvenger extends Analyzer {
   }
 }
 
-export default FirstAvenger;
+export default SoaringShield;
