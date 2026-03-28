@@ -1,4 +1,4 @@
-﻿import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 //region Spells
 /** Rapid Fire */
@@ -34,7 +34,9 @@ export const BULLETSTORM_DAMAGE_PER_STACK = 0.05;
 //endregion
 //region Talents
 /** Surging Shots */
-// Surging Shots gives a chance for Aimed Shot to reset the cooldown of Rapid Fire
+// Surging Shots increases Rapid Fire damage by 25%
+export const SURGING_SHOTS_DAMAGE_INCREASE = 0.25;
+// Surging Shots gives a 15% chance for Aimed Shot to reset Rapid Fire cooldown
 export const SURGING_SHOTS_RESET_CHANCE = 0.15;
 /** Calling the Shots */
 // 2.5 seconds CDR per 50 focus spent
