@@ -1,4 +1,4 @@
-﻿import { TALENTS_HUNTER } from 'common/TALENTS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -52,7 +52,6 @@ class Bulletstorm extends Analyzer {
         <BoringSpellValueText spell={TALENTS_HUNTER.BULLETSTORM_TALENT}>
           <SpellIcon spell={SPELLS.BULLETSTORM_BUFF} noLink />{' '}
           {this.averageStacks.toFixed(1)} <small>avg stacks per Aimed Shot</small>
-          <br />
           {this.castsWithZeroStacks > 0 && (
             <>
               <SpellIcon spell={TALENTS_HUNTER.AIMED_SHOT_TALENT} noLink />{' '}

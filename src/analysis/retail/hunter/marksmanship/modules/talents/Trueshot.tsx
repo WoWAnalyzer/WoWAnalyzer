@@ -1,4 +1,4 @@
-﻿import RapidFire from 'analysis/retail/hunter/marksmanship/modules/talents/RapidFire';
+import RapidFire from 'analysis/retail/hunter/marksmanship/modules/talents/RapidFire';
 import SteadyShot from 'analysis/retail/hunter/marksmanship/modules/spells/SteadyShot';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
@@ -73,9 +73,10 @@ class Trueshot extends Analyzer {
           {this.averageAimedShots.toFixed(1)} <small>Aimed Shots per Trueshot</small>
           {this.isSentinel && (
             <>
-              <br />
-              <SpellIcon spell={SPELLS.MOONLIGHT_CHAKRAM_CAST} noLink />{' '}
-              {this.averageMoonlightChakram.toFixed(1)} <small>Moonlight Chakram per Trueshot</small>
+              <div>
+                <SpellIcon spell={SPELLS.MOONLIGHT_CHAKRAM_CAST} noLink />{' '}
+                {this.averageMoonlightChakram.toFixed(1)} <small>Moonlight Chakram per Trueshot</small>
+              </div>
             </>
           )}
         </BoringSpellValueText>

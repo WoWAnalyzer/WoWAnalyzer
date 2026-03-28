@@ -1,4 +1,4 @@
-﻿import { change, date } from 'common/changelog';
+import { change, date } from 'common/changelog';
 import { Path } from 'CONTRIBUTORS';
 
 export default [

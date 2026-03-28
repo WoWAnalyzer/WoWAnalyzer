@@ -1,4 +1,4 @@
-﻿import { Path } from 'CONTRIBUTORS';
+import { Path } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';

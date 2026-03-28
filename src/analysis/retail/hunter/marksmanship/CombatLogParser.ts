@@ -1,4 +1,4 @@
-﻿import {
+import {
   BindingShot,
   BornToBeWild,
   CancelledCasts,

@@ -1,4 +1,4 @@
-﻿import { TALENTS_HUNTER } from 'common/TALENTS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -55,9 +55,10 @@ class MoonlightChakram extends Analyzer {
           <small>Trueshot windows with Moonlight Chakram</small>
           {this.missedChakrams > 0 && (
             <>
-              <br />
-              <span style={{ color: 'red' }}>{this.missedChakrams}</span>{' '}
-              <small>missed</small>
+              <div>
+                <span style={{ color: 'red' }}>{this.missedChakrams}</span>{' '}
+                <small>missed</small>
+              </div>
             </>
           )}
         </BoringSpellValueText>
