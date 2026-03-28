@@ -75,8 +75,6 @@ class Ascendance extends Analyzer {
             : castRatioPercentage > 50
               ? QualitativePerformance.Ok
               : QualitativePerformance.Fail;
-        console.log(castEvents);
-        console.log(validCasts);
 
         return {
           perf,
