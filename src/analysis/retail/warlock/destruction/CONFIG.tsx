@@ -40,7 +40,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/9dvKWtRTxa4Ab3Yj/8-Heroic+The+Silken+Court+-+Kill+(6:30)/Trundle',
+  exampleReport:
+    '/report/CQgrp23KT4kBFDAq/11-Heroic+Vaelgor+&+Ezzorak+-+Kill+(6:40)/73-Speakntongue/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
