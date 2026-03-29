@@ -75,6 +75,7 @@ export const RUSHING_WIND_KICK = 'RWK';
 // Spiritfont
 export const SPIRITFONT_PROC = 'SpiritfontProc';
 export const SPIRITFONT_TFT = 'SpiritfontTFT';
+export const SPIRITFONT_CONSUMED = 'SpiritfontConsumed';
 
 // Soothing Mist Channel
 export const SOOTHING_MIST_CHANNEL_START = 'SoothingMistChannelStart';
