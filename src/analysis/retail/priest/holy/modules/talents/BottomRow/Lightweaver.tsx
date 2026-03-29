@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/';
 import TALENTS from 'common/TALENTS/priest';
 import Statistic from 'parser/ui/Statistic';
@@ -13,15 +13,10 @@ import { getHeal } from '../../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
-import { LW_CAST_TIME_DECREASE, LW_OVERHEAL_THRESHOLD } from '../../../constants';
+import { LW_CAST_TIME_DECREASE } from '../../../constants';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-
-/**
- * Lightweaver
- * Flash Heal reduces the cast time of your next Prayer of Healing within 20 sec by 30% and increases its healing done by 18%.
- * Can accumulate up to 4 charges.
- */
+import styles from '../../Styling.module.scss';
 
 class Lightweaver extends Analyzer {
   static dependencies = {
@@ -33,12 +28,11 @@ class Lightweaver extends Analyzer {
 
   totalFlashHealCasts = 0;
   wastedBuffFlashHealCasts = 0;
-  highOverhealFlashHealCasts = 0;
+  surgeOfLightFlashHealCasts = 0;
 
   trailHealing = 0;
   bindingHealing = 0;
-  prayerHealing = 0; // direct healing from the buffed Prayer of Healing
-
+  prayerHealing = 0;
   eolContrib = 0;
 
   get totalHealing() {
@@ -59,31 +53,29 @@ class Lightweaver extends Analyzer {
     );
   }
 
-  isHighOverheal(event: HealEvent) {
-    const rawHealing = (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
-    if (rawHealing === 0) {
-      return false;
-    }
-    return (event.overheal || 0) / rawHealing >= LW_OVERHEAL_THRESHOLD;
-  }
-
   onFlashHealCast(event: CastEvent) {
     const healEvent = getHeal(event);
-    if (healEvent) {
-      this.totalFlashHealCasts += 1;
-      if (this.selectedCombatant.getBuffStacks(SPELLS.LIGHTWEAVER_TALENT_BUFF.id) < 2) {
-        if (this.isHighOverheal(healEvent)) {
-          this.highOverhealFlashHealCasts += 1;
-        }
-      } else {
-        this.wastedBuffFlashHealCasts += 1;
-      }
+    if (!healEvent) {
+      return;
+    }
+
+    this.totalFlashHealCasts += 1;
+
+    const hasSurgeBuff = this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id);
+    const lightweaverStacks = this.selectedCombatant.getBuffStacks(
+      SPELLS.LIGHTWEAVER_TALENT_BUFF.id,
+    );
+
+    if (hasSurgeBuff) {
+      this.surgeOfLightFlashHealCasts += 1;
+    } else if (lightweaverStacks >= 4) {
+      this.wastedBuffFlashHealCasts += 1;
     }
   }
 
   get goodFlashHeals() {
     return (
-      this.totalFlashHealCasts - this.wastedBuffFlashHealCasts - this.highOverhealFlashHealCasts
+      this.totalFlashHealCasts - this.wastedBuffFlashHealCasts - this.surgeOfLightFlashHealCasts
     );
   }
 
@@ -96,23 +88,24 @@ class Lightweaver extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />
         </b>{' '}
-        is a strong buff that you should be playing around to buff your{' '}
-        <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> casts. Try not to overcap your{' '}
-        <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> stacks to avoid wasting mana.
+        increases healing of <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> and reduces its
+        mana cost. Try to cast <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> more often to
+        consume <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> stacks and save mana in situations
+        when at least three party members are injured.
       </p>
     );
 
     const goodFlashHeals = {
       count: this.goodFlashHeals,
-      label: 'Good Flash Heal Casts',
+      label: 'Good Flash Heal casts',
     };
 
-    const highOverhealFlashHeals = {
-      count: this.highOverhealFlashHealCasts,
-      label: 'High‑overheal Flash Heal Casts',
+    const surgeFlashHeals = {
+      count: this.surgeOfLightFlashHealCasts,
+      label: 'Surge of Light Flash Heal casts',
     };
 
-    const wastedBuffFlashHeals = {
+    const wastedFlashHeals = {
       count: this.wastedBuffFlashHealCasts,
       label: 'Flash Heal casts with four stacks of Lightweaver already',
     };
@@ -124,13 +117,15 @@ class Lightweaver extends Analyzer {
         </strong>
         <small>
           {' '}
-          – Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          four stacks of <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
+          – <span className={styles.goodCast}>Green</span> is a good cast.{' '}
+          <span className={styles.okCast}>Yellow</span> is a cast with Surge of Light buff.{' '}
+          <span className={styles.badCast}>Red</span> is a cast with four stacks of{' '}
+          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
         </small>
         <GradiatedPerformanceBar
           good={goodFlashHeals}
-          ok={highOverhealFlashHeals}
-          bad={wastedBuffFlashHeals}
+          ok={surgeFlashHeals}
+          bad={wastedFlashHeals}
         />
       </div>
     );
