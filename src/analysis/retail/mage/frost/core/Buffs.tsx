@@ -20,16 +20,31 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT),
         timelineHighlight: true,
       },
-      // {
-      //   spellId: TALENTS.ICE_BARRIER_TALENT.id,
-      //   triggeredBySpellId: TALENTS.ICE_BARRIER_TALENT.id,
-      //   enabled: combatant.hasTalent(TALENTS.ICE_BARRIER_TALENT),
-      //   timelineHighlight: true,
-      // },
+      {
+        spellId: SPELLS.THERMAL_VOID_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.THERMAL_VOID_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: TALENTS.ICE_BARRIER_TALENT.id,
+        triggeredBySpellId: TALENTS.ICE_BARRIER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICE_BARRIER_TALENT),
+        timelineHighlight: true,
+      },
       {
         spellId: TALENTS.ICE_BLOCK_TALENT.id,
         triggeredBySpellId: TALENTS.ICE_BLOCK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT) &&
+          !combatant.hasTalent(TALENTS.ICE_COLD_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: TALENTS.ICE_COLD_TALENT.id,
+        triggeredBySpellId: TALENTS.ICE_COLD_TALENT.id,
+        enabled:
+          combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT) &&
+          combatant.hasTalent(TALENTS.ICE_COLD_TALENT),
         timelineHighlight: true,
       },
       {

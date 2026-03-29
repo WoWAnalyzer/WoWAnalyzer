@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { COMET_STORM_AOE_MIN_TARGETS, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
+import { COMET_STORM_AOE_MIN_TARGETS } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -47,9 +47,9 @@ class CometStorm extends Analyzer {
       if (enemy && !enemies.includes(enemy.guid)) {
         enemies.push(enemy.guid);
       }
-      if (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, d.timestamp))) {
-        shattered += 1;
-      }
+      //if (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, d.timestamp))) {
+      //  shattered += 1;
+      //}
     });
 
     const cometStormDetails = {
