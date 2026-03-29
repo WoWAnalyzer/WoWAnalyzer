@@ -188,6 +188,13 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
+      {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT) && (
+        <CastEfficiencyBar
+          spell={TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
     </SubSection>
   );
 }
