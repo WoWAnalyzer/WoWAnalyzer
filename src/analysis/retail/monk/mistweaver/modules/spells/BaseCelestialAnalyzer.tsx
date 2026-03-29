@@ -305,7 +305,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       const okDuration = expectedDuration - HEART_OF_THE_JADE_SERPENT_DURATION / 2;
 
       if (cast.hotjsOnCast && cast.hotjsActiveDuration >= expectedDuration) {
-        hotjsPerf = QualitativePerformance.Perfect;
+        hotjsPerf = QualitativePerformance.Good;
       } else if (cast.hotjsOnCast || cast.hotjsActiveDuration >= okDuration) {
         hotjsPerf = QualitativePerformance.Ok;
       }
