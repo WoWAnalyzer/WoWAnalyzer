@@ -77,6 +77,10 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
       this.handleChijiStart,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.onEnvmCast,
+    );
 
     //need a different eventlistener beacause chiji currently only applies 1 stack per cast of sck, not on each dmg event
     this.addEventListener(
@@ -98,15 +102,16 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.chijiUses += 1;
     this.castBokInWindow = false;
     this.castTrackers.push({
-      timestamp: event.timestamp,
-      totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
+      ...this.createBaseTracker(event),
       overcappedTotmStacks: 0,
-      siBuffId: this.currentSIBuffId,
-      totalEnvM: 0,
-      averageHaste: 0,
-      deathTimestamp: 0,
-      castRsk: false,
     });
+  }
+
+  onEnvmCast(event: CastEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
+    this.castTrackers.at(-1)!.totalEnvM += 1;
   }
 
   onBOK(event: CastEvent) {
