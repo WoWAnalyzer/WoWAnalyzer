@@ -271,12 +271,13 @@ class Spiritfont extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} />
         </b>{' '}
-        is our apex talent, a buff that causes several <SpellLink spell={SPELLS.SPIRITFONT_HOT} />s
-        to heal players after activation, stacking up to 2 charges. It is very important to never
-        let this buff refresh at 2 stacks or expire, as both the{' '}
-        <SpellLink spell={SPELLS.SPIRITFONT_HOT} />s and the resulting{' '}
-        <SpellLink spell={SPELLS.SPIRITFONT_CHI_COCOON} />s add up to a significant portion of your
-        healing.
+        is our Apex talent. It stacks up to 2 charges, and consuming a charge causes several{' '}
+        <SpellLink spell={SPELLS.SPIRITFONT_HOT} /> to heal players. Additionally, it increases the
+        damage and healing of your <SpellLink spell={this.activeRSKTalent} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />, with even greater increases
+        during <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} /> activity. It is
+        very important to never let this buff refresh at 2 stacks or expire, as all portions of the
+        Apex add up to a significant amount of your healing.
       </p>
     );
     const styleObj = {
