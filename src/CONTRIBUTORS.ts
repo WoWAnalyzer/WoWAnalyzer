@@ -722,13 +722,13 @@ export const fel1ne: Contributor = {
 export const Dambroda: Contributor = {
   nickname: 'Dambroda',
   github: 'Dambroda',
-  discord: 'Dambroda#1290',
+  discord: 'Dambroda',
   avatar: avatar('Dambroda-avatar.jpg'),
   mains: [
     {
       name: 'Dambroma',
       spec: SPECS.FROST_MAGE,
-      link: 'https://worldofwarcraft.com/en-us/character/stormrage/dambroma',
+      link: 'https://worldofwarcraft.com/en-us/character/area-52/dambroma',
     },
   ],
 };
