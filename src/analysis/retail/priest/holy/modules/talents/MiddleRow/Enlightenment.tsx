@@ -12,7 +12,11 @@ import {
   ENLIGHT_SCALED_MANA_REGEN,
 } from '../../../constants';
 
-// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
+/**
+ * Enlightenment
+ * You regenerate mana 10% faster.
+ */
+
 class Enlightenment extends Analyzer {
   static dependencies = {
     spiritOfRedemption: SpiritOfRedemption,

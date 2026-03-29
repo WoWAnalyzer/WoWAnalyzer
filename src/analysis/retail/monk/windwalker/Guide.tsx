@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import { AplSectionData } from 'interface/guide/components/Apl';
@@ -151,6 +152,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.invokeXuen.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ZENITH_TALENT) && modules.zenith.guideSubsection}
       </Section>
+      <Section title="Other cooldowns, buffs and procs">
+        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
+          modules.chiBurst.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT) &&
+          modules.danceOfChiJi.guideSubsection}
+        {(info.combatant.hasTalent(TALENTS_MONK.COMBO_BREAKER_TALENT) ||
+          info.combatant.hasTalent(TALENTS_MONK.SEQUENCED_STRIKES_TALENT)) &&
+          modules.comboBreaker.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_WINDWALKER_TALENT) &&
+          modules.rushingWindKick.guideSubsection}
+        {modules.touchOfKarma.guideSubsection}
+      </Section>
       <Section title="Core Rotation">
         <SubSection title="Overview">
           <p>
@@ -195,12 +208,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="APL Analysis">
           <AplSectionData checker={AplCheck.check} apl={windwalkerApl(info)} />
         </SubSection>
-      </Section>
-      <Section title="Other cooldowns, buffs and procs">
-        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
-          modules.chiBurst.guideSubsection}
-        {modules.comboBreaker.guideSubsection}
-        {modules.touchOfKarma.guideSubsection}
       </Section>
       <PreparationSection />
     </>

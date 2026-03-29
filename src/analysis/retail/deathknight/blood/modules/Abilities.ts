@@ -45,21 +45,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_ZONE_TALENT),
       },
       {
-        spell: TALENTS.SACRIFICIAL_PACT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SACRIFICIAL_PACT_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-        isDefensive: true,
-      },
-      {
         spell: TALENTS.DEATH_PACT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DEATH_PACT_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -91,38 +76,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 5,
-      },
-      {
-        spell: TALENTS.RUNE_TAP_TALENT.id,
-        buffSpellId: TALENTS.RUNE_TAP_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RUNE_TAP_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 25,
-        charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-        timelineSortIndex: 10,
-      },
-      {
-        spell: TALENTS.MARK_OF_BLOOD_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT),
-        cooldown: 6,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-        },
-        timelineSortIndex: 10,
       },
       //Rotational
       {
@@ -157,21 +110,6 @@ class Abilities extends CoreAbilities {
             'Should be used as an opener and usally used on CD. You may delay it a little so as to not over cap bone charges to much or if you know there is a large pack of adds incoming.',
         },
         timelineSortIndex: 9,
-      },
-      {
-        spell: TALENTS.BLOODDRINKER_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.`,
-        },
-        timelineSortIndex: 6,
       },
       {
         spell: TALENTS.SOUL_REAPER_TALENT.id,
@@ -237,40 +175,10 @@ class Abilities extends CoreAbilities {
         range: AbilityRange.Melee,
       },
       {
-        spell: TALENTS.RAISE_DEAD_SHARED_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_SHARED_TALENT),
+        spell: TALENTS.RAISE_DEAD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 120 - combatant.getTalentRank(TALENTS.DEATHS_MESSENGER_TALENT) * 30,
-      },
-      {
-        spell: TALENTS.BLOOD_TAP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BLOOD_TAP_TALENT),
-        cooldown: 60,
-        charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion: 'Use to generate extra runes at opportune times.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-        timelineSortIndex: 10,
-      },
-      {
-        spell: TALENTS.TOMBSTONE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.TOMBSTONE_TALENT),
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Use this on CD and try to only use it when it consumes 5 boneshield charges and can reduce 20 seconds off dancing rune weapon.',
-        },
-        timelineSortIndex: 10,
+        cooldown: 90,
       },
       {
         spell: TALENTS.REAPERS_MARK_TALENT.id,
@@ -280,16 +188,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS.BONESTORM_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT),
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 9,
       },
       //Utility
       {
@@ -341,16 +239,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 60,
         timelineSortIndex: 14,
-      },
-      {
-        spell: TALENTS.GOREFIENDS_GRASP_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.GOREFIENDS_GRASP_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT) ? 90 : 120,
-        timelineSortIndex: 11,
       },
       {
         spell: SPELLS.RAISE_ALLY.id,

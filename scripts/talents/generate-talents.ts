@@ -31,18 +31,18 @@ const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${P
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   1: { name: 'Warrior', baseMaxResource: 1000 },
-  2: { name: 'Paladin', baseMaxResource: 2500000 },
+  2: { name: 'Paladin', baseMaxResource: 250000 },
   3: { name: 'Hunter', baseMaxResource: 100 },
   4: { name: 'Rogue', baseMaxResource: 100 },
-  5: { name: 'Priest', baseMaxResource: 2500000 },
+  5: { name: 'Priest', baseMaxResource: 250000 },
   6: { name: 'Death Knight', baseMaxResource: 1000 },
-  7: { name: 'Shaman', baseMaxResource: 2500000 },
-  8: { name: 'Mage', baseMaxResource: 2500000 },
-  9: { name: 'Warlock', baseMaxResource: 2500000 },
-  10: { name: 'Monk', baseMaxResource: 2500000 },
-  11: { name: 'Druid', baseMaxResource: 2500000 },
+  7: { name: 'Shaman', baseMaxResource: 250000 },
+  8: { name: 'Mage', baseMaxResource: 250000 },
+  9: { name: 'Warlock', baseMaxResource: 250000 },
+  10: { name: 'Monk', baseMaxResource: 250000 },
+  11: { name: 'Druid', baseMaxResource: 250000 },
   12: { name: 'Demon Hunter', baseMaxResource: 100 },
-  13: { name: 'Evoker', baseMaxResource: 2500000 },
+  13: { name: 'Evoker', baseMaxResource: 250000 },
 };
 
 const withResources = (

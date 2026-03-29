@@ -85,13 +85,24 @@ const standardApl = build([
   CHP_SETUP,
   SPELLS.BLACKOUT_KICK,
   {
-    spell: SPELLS.CHI_BURST_TALENT,
-    condition: cnd.hasTalent(talents.MANIFESTATION_TALENT),
-    description: (
-      <>
-        Cast <SpellLink spell={SPELLS.CHI_BURST_TALENT} /> (as{' '}
-        <SpellLink spell={SPELLS.ASPECT_OF_HARMONY_TALENT}>MoH</SpellLink>)
-      </>
+    // special-case allowing BoF before Combo TP if doing so would
+    // not violate a later rule (manually listed: currently just Empty Barrel check)
+    // and would not delay your next BoK
+    spell: SPELLS.BREATH_OF_FIRE_TALENT,
+    condition: cnd.optionalRule(
+      cnd.describe(
+        cnd.and(
+          withCombo,
+          cnd.not(cnd.buffPresent(SPELLS_COMMON.EMPTY_BARREL_BUFF)),
+          cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK, { atLeast: 2000 }),
+        ),
+        (tense) => (
+          <>
+            it {tenseAlt(tense, 'is', 'was')} a correct{' '}
+            <SpellLink spell={SPELLS.BLACKOUT_COMBO_TALENT}>Combo</SpellLink> filler
+          </>
+        ),
+      ),
     ),
   },
   {
@@ -116,7 +127,6 @@ const standardApl = build([
     ),
   },
   SPELLS.BREATH_OF_FIRE_TALENT,
-  SPELLS.CHI_BURST_TALENT,
   SPELLS.KEG_SMASH_TALENT,
 ]);
 

@@ -16,6 +16,7 @@ import {
   spellCooldownRemaining,
 } from 'parser/shared/metrics/apl/conditions';
 import {
+  atTwoBlackoutKickStacks,
   aboutToCapEnergy,
   buildComboStrikesApl,
   danceOfChiJiExpiring,
@@ -132,7 +133,14 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
     },
     {
       spell: SPELLS.BLACKOUT_KICK,
-      condition: buffPresent(SPELLS.COMBO_BREAKER_BUFF),
+      condition: describe(
+        and(buffPresent(SPELLS.COMBO_BREAKER_BUFF), atTwoBlackoutKickStacks),
+        () => (
+          <>
+            you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> at 2 stacks
+          </>
+        ),
+      ),
     },
     TALENTS.SLICING_WINDS_TALENT,
     {

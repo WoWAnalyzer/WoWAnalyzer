@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbilityEvent, DispelEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
+import { AbilityEvent, HasRelatedEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
@@ -10,19 +10,16 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.dispel.by(SELECTED_PLAYER), this.onDispel);
   }
 
-  onDispel(event: DispelEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.PURIFY.id) {
-      super.beginCooldown(event, spellId);
-    }
-  }
-
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   beginCooldown(cooldownTriggerEvent: AbilityEvent<any>, spellId: number) {
-    // Essentially having the purify cast not be able to trigger the cooldown, the dispel event does it instead.
-    if (spellId === SPELLS.PURIFY.id) {
+    // Epiphany free Prayer of Mending – do not consume a charge
+    if (
+      spellId === SPELLS.PRAYER_OF_MENDING_CAST.id &&
+      (HasRelatedEvent(cooldownTriggerEvent, 'EpiphanyPomCast') ||
+        this.selectedCombatant.hasBuff(SPELLS.EPIPHANY_BUFF.id, cooldownTriggerEvent.timestamp))
+    ) {
       return;
     }
 

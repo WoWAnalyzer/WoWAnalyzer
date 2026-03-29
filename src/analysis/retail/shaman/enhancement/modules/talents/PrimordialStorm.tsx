@@ -40,6 +40,14 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   resourceTracker!: MaelstromWeaponTracker;
 
+  /**
+   * How many PStorm casts per DW/Ascendance cycle.
+   * 0 = skip sync (DRE or no relevant talent), 2 = DW (60s/30s), 4 = Ascendance (120s/30s)
+   */
+  private readonly dwSyncRatio: number;
+  /** Whether the build uses Ascendance (for labelling) */
+  private readonly hasAscendance: boolean;
+
   /** Total Sundering talent casts (excludes Earthsurge procs) */
   private totalSunderings = 0;
   /** Currently pending Sundering waiting for a PStorm follow-up */
@@ -49,13 +57,6 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
 
   /** 1-indexed counter of PStorm casts for DW sync tracking */
   private pstormCastIndex = 0;
-  /**
-   * How many PStorm casts per DW/Ascendance cycle.
-   * 0 = skip sync (DRE or no relevant talent), 2 = DW (60s/30s), 4 = Ascendance (120s/30s)
-   */
-  private readonly dwSyncRatio: number;
-  /** Whether the build uses Ascendance (for labelling) */
-  private readonly hasAscendance: boolean;
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRIMORDIAL_STORM_TALENT }, options);
@@ -203,11 +204,32 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     return '';
   }
 
-  private buildOverviewStats(): StatisticData[] {
-    const totalMaelstromUsed = this.casts.reduce(
-      (total, cast) => total + (cast.details.maelstromUsed ?? 0),
-      0,
+  private get syncDescription(): ReactNode {
+    return (
+      <>
+        {this.syncLabel} <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> cast should be paired
+        with <SpellLink spell={this.syncSpell} />.
+      </>
     );
+  }
+
+  private buildOverviewStats(): StatisticData[] {
+    let totalMaelstromUsed = 0;
+    let syncOpportunities = 0;
+    let syncedCasts = 0;
+
+    for (const cast of this.casts) {
+      totalMaelstromUsed += cast.details.maelstromUsed ?? 0;
+
+      if (!cast.details.shouldHaveHadDoomwinds) {
+        continue;
+      }
+
+      syncOpportunities += 1;
+      if (cast.details.hadDoomwinds) {
+        syncedCasts += 1;
+      }
+    }
 
     const sunderingsConsumed = this.totalSunderings - this.missedSunderings.length;
 
@@ -252,18 +274,10 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     ];
 
     if (this.dwSyncRatio > 0) {
-      const doomWindsExpected = this.casts.filter((cast) => cast.details.shouldHaveHadDoomwinds);
-      const doomWindsSynced = doomWindsExpected.filter((cast) => cast.details.hadDoomwinds).length;
       stats.push({
-        value:
-          doomWindsExpected.length > 0 ? `${doomWindsSynced}/${doomWindsExpected.length}` : '0/0',
+        value: syncOpportunities > 0 ? `${syncedCasts}/${syncOpportunities}` : '0/0',
         label: `${this.syncSpell.name} Sync`,
-        tooltip: (
-          <>
-            {this.syncLabel} <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> cast should be
-            paired with <SpellLink spell={this.syncSpell} />.
-          </>
-        ),
+        tooltip: this.syncDescription,
       });
     }
 
@@ -294,12 +308,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
         stats.push({
           value: details.shouldHaveHadDoomwinds ? (details.hadDoomwinds ? 'Yes' : 'No') : 'N/A',
           label: this.syncSpell.name,
-          tooltip: (
-            <>
-              {this.syncLabel} <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> cast should be
-              paired with <SpellLink spell={this.syncSpell} />.
-            </>
-          ),
+          tooltip: this.syncDescription,
           performance: spellUse.checklistItems.find((item) => item.check === 'doom-winds')
             ?.performance,
         });

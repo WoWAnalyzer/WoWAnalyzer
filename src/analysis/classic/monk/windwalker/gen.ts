@@ -26,10 +26,6 @@ export const Abilities = genAbilities({
   omit: [spells.JAB],
   overrides: {
     [spells.FISTS_OF_FURY.id]: (combatant, generated) => {
-      if (!generated) {
-        throw new Error(); // type checker can't tell that we're guaranteed to have this spell in the list
-      }
-
       const hofTierSetCount = combatant.tierPieces.filter((item) =>
         MSV_HOF_TOES_TIER_ITEM_IDS.includes(item.id),
       ).length;

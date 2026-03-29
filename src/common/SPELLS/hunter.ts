@@ -290,10 +290,20 @@ const spells = {
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
   },
+  RAPTOR_SWIPE_BUFF_2: {
+    id: 1275630,
+    name: 'Raptor Swipe',
+    icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
   RAPTOR_SWIPE_AOTE: {
     id: 1262343,
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
+  STRIKE_AS_ONE: {
+    id: 1251779,
+    name: 'Strike as One',
+    icon: 'inv_coordinatedassault',
   },
   TAKEDOWN_PET_DAMAGE: {
     id: 1253862,
