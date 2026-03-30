@@ -148,50 +148,7 @@ class SpinningCraneKick extends Analyzer {
   }
 
   statistic() {
-    // Spinning Crane Kick is usually not used outside aoe, so we're avoiding rendering it when it's not used
-    if (this.casts > 0) {
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.CORE(7)}
-          size="flexible"
-          tooltip={<>Total damage increase: {formatNumber(this.totalDamage)}</>}
-          dropdown={
-            <>
-              <table className="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>Stacks</th>
-                    <th>Casts</th>
-                    <th>Casts (%)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.values(this.stackHistory).map((e, i) => (
-                    <tr key={i}>
-                      <th>{i}</th>
-                      <td>{formatNumber(e)}</td>
-                      <td>{formatPercentage(e / this.casts)}%</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          }
-        >
-          <BoringSpellValueText spell={SPELLS.MARK_OF_THE_CRANE}>
-            <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
-            <small>
-              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of
-              total
-            </small>
-            <br />
-            {this.averageStacks.toFixed(2)} <small>Average stacks per cast</small>
-            <br />
-            {this.averageEnemiesHit.toFixed(2)} <small>Average enemies hit per cast</small>
-          </BoringSpellValueText>
-        </Statistic>
-      );
-    }
+    return null;
   }
 }
 

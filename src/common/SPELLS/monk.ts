@@ -921,6 +921,11 @@ const spells = {
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
   },
+  GLORY_OF_THE_DAWN_DAMAGE: {
+    id: 392959,
+    name: 'Glory of the Dawn',
+    icon: 'ability_monk_mightyoxkick',
+  },
   RUSHING_WIND_KICK_BUFF: {
     id: 1250554,
     name: 'Rushing Wind Kick',
