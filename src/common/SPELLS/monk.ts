@@ -540,8 +540,8 @@ const spells = {
   },
   SPIRITFONT_HOT: {
     id: 1260617,
-    name: 'Spiritfont',
-    icon: 'inv12_apextalent_monk_spiritfont',
+    name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
   },
   SPIRITFONT_ACTIVE_BUFF: {
     id: 1260670,

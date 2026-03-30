@@ -44,12 +44,11 @@ import {
   ZEN_PULSE_CONSUME,
   ZEN_PULSE_VIVIFY,
   STRENGTH_OF_THE_BLACK_OX,
+  SPIRITFONT_CONSUMED,
   JADE_BOND_ENVM,
   INSURANCE_FROM_REM,
   INSURANCE,
   RUSHING_WIND_KICK,
-  SPIRITFONT_PROC,
-  SPIRITFONT_TFT,
   SHEILUNS_GIFT_MAIN_TARGET,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
@@ -60,9 +59,8 @@ import { ENVELOPING_MIST_EVENT_LINKS } from './EventLinks/EnvelopingMistEventLin
 import { DAMAGING_ABILITIES_EVENT_LINKS } from './EventLinks/DamagingAbilitiesEventLinks';
 import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
 import { TIER_EVENT_LINKS } from './EventLinks/TierEventLinks';
+import { APEX_EVENT_LINKS } from './EventLinks/ApexEventLinks';
 import SPELLS from 'common/SPELLS';
-import { effectiveHealing } from 'parser/shared/modules/HealingValue';
-import { INVIGORATING_MISTS_INCREASE } from '../constants';
 
 const FOUND_REMS = new Map<string, number | null>();
 
@@ -80,6 +78,7 @@ const EVENT_LINKS: EventLink[] = [
   ...DAMAGING_ABILITIES_EVENT_LINKS,
   ...HERO_TALENT_EVENT_LINKS,
   ...TIER_EVENT_LINKS,
+  ...APEX_EVENT_LINKS,
   {
     linkRelation: RUSHING_WIND_KICK,
     linkingEventId: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
@@ -92,37 +91,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 5,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT);
-    },
-  },
-  {
-    linkRelation: SPIRITFONT_PROC,
-    linkingEventId: SPELLS.SPIRITFONT_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
-    referencedEventId: [
-      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-      TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
-      SPELLS.VIVIFY.id,
-      TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
-    ],
-    referencedEventType: EventType.Cast,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT);
-    },
-  },
-  {
-    linkRelation: SPIRITFONT_TFT,
-    linkingEventId: SPELLS.SPIRITFONT_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
-    referencedEventId: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
-    referencedEventType: EventType.Cast,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.SPIRITFONT_3_MISTWEAVER_TALENT);
     },
   },
 ];
@@ -334,6 +302,10 @@ export function isMTStackFromLifeCycles(
 
 export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
+}
+
+export function isSpiritfontConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
+  return HasRelatedEvent(event, SPIRITFONT_CONSUMED);
 }
 
 // hero talents
