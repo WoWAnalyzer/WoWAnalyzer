@@ -64,6 +64,8 @@ class BaseCelestialAnalyzer extends Analyzer {
   idealEnvmCastsUnhasted = 0;
   currentRskTalent: Talent;
   secretInfusionActive = false;
+  isFlowingWisdomActive = false;
+  isSpiritfontRank2Active = false;
   hotjsApplyTimestamp = -1;
 
   constructor(options: Options) {
@@ -71,10 +73,19 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
+
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
+
     this.secretInfusionActive = this.selectedCombatant.hasTalent(
       TALENTS_MONK.SECRET_INFUSION_TALENT,
     );
+    this.isFlowingWisdomActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.FLOWING_WISDOM_TALENT,
+    );
+    this.isSpiritfontRank2Active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT,
+    );
+
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
@@ -94,24 +105,31 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent), this.onRsk);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell([
-        SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, // hotjs from tft
-        SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY, // technically fine, i suppose
-      ]),
-      this.onHotjsApply,
-    );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY]),
-      this.onHotjsRemove,
-    );
     this.addEventListener(Events.fightend, this.onFightEnd);
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_ACTIVE_BUFF),
-      this.onSpiritfontActive,
-    );
+
+    if (this.isFlowingWisdomActive) {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell([
+          SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, // hotjs from tft
+          SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY, // technically fine, i suppose
+        ]),
+        this.onHotjsApply,
+      );
+      this.addEventListener(
+        Events.removebuff
+          .by(SELECTED_PLAYER)
+          .spell([SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY]),
+        this.onHotjsRemove,
+      );
+    }
+
+    if (this.isSpiritfontRank2Active) {
+      this.addEventListener(
+        Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_ACTIVE_BUFF),
+        this.onSpiritfontActive,
+      );
+    }
+
     const idealEnvmCastsUnhastedForGift = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
     )
@@ -267,7 +285,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     });
 
     //secret infusion duration
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+    if (this.secretInfusionActive) {
       let siPerf = QualitativePerformance.Good;
       if (!cast.siBuffId) {
         siPerf = QualitativePerformance.Fail;
@@ -298,7 +316,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     }
 
     // heart of the jade serpent (flowing wisdom) buff
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.FLOWING_WISDOM_TALENT)) {
+    if (this.isFlowingWisdomActive) {
       let hotjsPerf = QualitativePerformance.Fail;
       // tolerance set for tft rem global, should be active on celestial press
       const expectedDuration = HEART_OF_THE_JADE_SERPENT_DURATION - 1.5 / (1 + cast.averageHaste);
@@ -342,7 +360,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     }
 
     // spiritfont active - r2/3 of spiritfont increases envm/rsk further during it
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT)) {
+    if (this.isSpiritfontRank2Active) {
       const spiritfontPerf = cast.spiritfontActiveDuring
         ? QualitativePerformance.Good
         : QualitativePerformance.Fail;
