@@ -63,7 +63,10 @@ class BlackoutKick extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT)) {
       this.IMPORTANT_SPELLS.push(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id);
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.BLACKOUT_KICK_TOTM]),
+      this.onCast,
+    );
   }
 
   applyCdr(spellId: number): [number, number] {
@@ -78,6 +81,7 @@ class BlackoutKick extends Analyzer {
         BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
       effective += reductionMs;
+      wasted += cdr - reductionMs;
     }
     return [effective, wasted];
   }

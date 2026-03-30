@@ -6,6 +6,18 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 3, 29),
+    <>
+      Updated Windwalker statistics for current talents and cooldowns: fixed{' '}
+      <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> tick handling for{' '}
+      <SpellLink spell={TALENTS.CRASHING_FISTS_TALENT} />, added{' '}
+      <SpellLink spell={TALENTS.GLORY_OF_THE_DAWN_TALENT} /> tracking, updated{' '}
+      <SpellLink spell={TALENTS.XUENS_BATTLEGEAR_TALENT} /> cooldown reduction handling, and
+      cleaned obsolete statistics and cooldown entries.
+    </>,
+    Durpn,
+  ),
+  change(
     date(2026, 3, 21),
     <>
       Reworked <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />,{' '}

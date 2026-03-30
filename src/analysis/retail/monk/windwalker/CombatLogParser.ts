@@ -1,4 +1,4 @@
-import { JadefireStomp, MysticTouch, TouchOfDeath } from 'analysis/retail/monk/shared';
+import { MysticTouch, TouchOfDeath } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 // Features
@@ -7,7 +7,6 @@ import Buffs from './modules/Buffs';
 // import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import MoTCGraph from './modules/features/MoTCGraph';
 import JadeIgnition from './modules/talents/JadeIgnition';
 import XuensBattlegear from './modules/talents/XuensBattlegear';
 // Resources
@@ -31,6 +30,7 @@ import ChiBurst from './modules/spells/ChiBurst';
 import RisingSunKick from './modules/spells/RisingSunKick';
 import StrikeoftheWindlord from './modules/spells/StrikeoftheWindlord';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
+import GloryOfTheDawn from './modules/talents/GloryOfTheDawn';
 import HitCombo from './modules/talents/HitCombo';
 import HitComboGraph from './modules/talents/HitComboGraph';
 import HitComboTracker from './modules/talents/HitComboTracker';
@@ -74,8 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    moTCGraph: MoTCGraph,
-
     // Resources
     chiTracker: ChiTracker,
     chiDetails: ChiDetails,
@@ -84,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     danceOfChiJi: DanceOfChiJi,
+    gloryOfTheDawn: GloryOfTheDawn,
     hitCombo: HitCombo,
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
@@ -104,7 +103,6 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
-    jadefireStomp: JadefireStomp,
     risingSunKick: RisingSunKick,
     invokeXuen: InvokeXuen,
     slicingWinds: SlicingWinds,
