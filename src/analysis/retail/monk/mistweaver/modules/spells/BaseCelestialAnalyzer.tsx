@@ -246,12 +246,16 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   onHotjsRemove(event: RemoveBuffEvent) {
-    if (!this.celestialActive || this.hotjsApplyTimestamp === -1) {
+    if (this.hotjsApplyTimestamp === -1) {
       return;
     }
-    const duration =
-      event.timestamp - Math.max(this.hotjsApplyTimestamp, this.currentCelestialStart);
-    this.castTrackers.at(-1)!.hotjsActiveDuration += duration;
+
+    if (this.celestialActive) {
+      const duration =
+        event.timestamp - Math.max(this.hotjsApplyTimestamp, this.currentCelestialStart);
+      this.castTrackers.at(-1)!.hotjsActiveDuration += duration;
+    }
+
     this.hotjsApplyTimestamp = -1;
   }
 
