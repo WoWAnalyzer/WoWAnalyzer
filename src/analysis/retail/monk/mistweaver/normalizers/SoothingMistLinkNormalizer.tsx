@@ -16,9 +16,8 @@ import {
 import {
   SOOTHING_MIST_CHANNEL_START,
   SOOTHING_MIST_CHANNEL_END,
+  CAST_BUFFER_MS,
 } from './EventLinks/EventLinkConstants';
-
-const REAPPLY_BUFFER = 10; // ms
 
 class SoothingMistLinkNormalizer extends EventsNormalizer {
   constructor(options: Options) {
@@ -79,7 +78,7 @@ class SoothingMistLinkNormalizer extends EventsNormalizer {
         const reapplication = applyBuffEvents.some(
           (apply) =>
             apply.timestamp >= removeEvent.timestamp &&
-            apply.timestamp <= removeEvent.timestamp + REAPPLY_BUFFER,
+            apply.timestamp <= removeEvent.timestamp + CAST_BUFFER_MS,
         );
 
         if (reapplication) {
