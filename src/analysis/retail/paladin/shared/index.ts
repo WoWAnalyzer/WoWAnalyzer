@@ -8,3 +8,4 @@ export { default as BlessingOfDawn } from './BlessingOfDawn';
 export { default as BlessingOfDusk } from './BlessingOfDusk';
 export { default as Lightbearer } from './Lightbearer';
 export { default as Punishment } from './Punishment';
+export { default as HammerOfWrath } from './HammerOfWrath';

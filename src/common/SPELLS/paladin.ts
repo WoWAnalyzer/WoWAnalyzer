@@ -8,7 +8,7 @@ import talents from 'common/TALENTS/paladin';
 
 const spells = {
   // Paladin:
-  HAMMER_OF_WRATH: {
+  HAMMER_OF_WRATH_CAST: {
     id: 1241413,
     name: 'Hammer of Wrath',
     icon: 'inv12_ability_paladin_hammerofwrath',

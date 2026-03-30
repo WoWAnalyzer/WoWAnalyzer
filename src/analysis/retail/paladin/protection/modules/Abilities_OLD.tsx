@@ -218,7 +218,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HAMMER_OF_WRATH.id,
+        spell: SPELLS.HAMMER_OF_WRATH_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 5 / (1 + haste),
         charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,

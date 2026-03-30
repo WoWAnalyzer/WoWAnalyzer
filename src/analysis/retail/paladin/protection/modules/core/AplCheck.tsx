@@ -2,17 +2,39 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { suggestion as buildSuggestion } from 'parser/core/Analyzer';
-import aplCheck, { build } from 'parser/shared/metrics/apl';
+import { EventType } from 'parser/core/Events';
+import aplCheck, { Condition, build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import { SpellLink } from 'interface';
 
+// ===== Custom condition that acts as a counter =====
+const nextHolyArmamentsIsSacredWeapon: Condition<{ lastCast: number | null }> = {
+  key: 'nextHolyArmamentsIsSacredWeapon',
+  init: () => ({ lastCast: null }),
+  update: (state, event) => {
+    if (
+      event.type === EventType.Cast &&
+      (event.ability.guid === SPELLS.HOLY_BULWARK_TALENT.id ||
+        event.ability.guid === SPELLS.SACRED_WEAPON_TALENT.id)
+    ) {
+      return { lastCast: event.ability.guid };
+    }
+    return state;
+  },
+  validate: (state) => {
+    if (state.lastCast === null) return false;
+    return state.lastCast === SPELLS.HOLY_BULWARK_TALENT.id;
+  },
+  describe: (tense) => (
+    <>
+      the next Holy Armaments cast will be <SpellLink spell={SPELLS.SACRED_WEAPON_TALENT} />
+    </>
+  ),
+};
+
 // ===== Helper Conditions =====
 
-/**
- * Hammer of Wrath replaces Judgment when Avenging Wrath is active,
- * or when Sanctified Wrath is taken and Sentinel is active.
- */
 const hammerOfWrathCondition = cnd.or(
   cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT),
   cnd.and(cnd.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT), cnd.buffPresent(TALENTS.SENTINEL_TALENT)),
@@ -28,7 +50,7 @@ const consecrationMissing = cnd.or(
   cnd.and(
     cnd.hasTalent(TALENTS.CONSECRATION_IN_FLAME_TALENT),
     cnd.buffMissing(SPELLS.CONSECRATION_BUFF, {
-      duration: 14000, // 12s + 2s
+      duration: 14000,
       timeRemaining: 2000,
       pandemicCap: 1.3,
     }),
@@ -43,17 +65,11 @@ const consecrationMissing = cnd.or(
   ),
 );
 
-/**
- * Shield of the Righteous condition: 3-5 Holy Power OR Divine Purpose buff.
- */
 const shieldOfTheRighteousCondition = cnd.or(
   cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3, atMost: 5 }, 0),
   cnd.buffPresent(SPELLS.DIVINE_PURPOSE_BUFF),
 );
 
-/**
- * Divine Toll is used when Holy Power is 0, to avoid overcapping.
- */
 const divineTollCondition = cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atMost: 0 }, 0);
 
 // ===== APL Rules =====
@@ -68,25 +84,16 @@ export const apl = build([
     ),
   },
 
-  // 1. Holy Bulwark – only if talented into Lightsmith
-  {
-    spell: SPELLS.HOLY_BULWARK_TALENT,
-    condition: cnd.and(
-      cnd.hasTalent(TALENTS.HOLY_ARMAMENTS_TALENT),
-      cnd.spellCharges(SPELLS.HOLY_BULWARK_TALENT, { atLeast: 1 }),
-    ),
-  },
-
-  // 2. Sacred Weapon – not during Avenging Wrath
+  // 1. Sacred Weapon – use when it is the next ability and the button is available
   {
     spell: SPELLS.SACRED_WEAPON_TALENT,
     condition: cnd.and(
-      cnd.not(cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT)),
-      cnd.spellCharges(SPELLS.SACRED_WEAPON_TALENT, { atLeast: 1 }),
+      nextHolyArmamentsIsSacredWeapon,
+      cnd.spellAvailable(SPELLS.HOLY_BULWARK_TALENT),
     ),
   },
 
-  // 3. Avenging Wrath / Sentinel – use on cooldown
+  // 2. Avenging Wrath / Sentinel – use on cooldown
   {
     spell: TALENTS.AVENGING_WRATH_TALENT,
     condition: cnd.and(
@@ -102,13 +109,13 @@ export const apl = build([
     ),
   },
 
-  // 4. Shield of the Righteous
+  // 3. Shield of the Righteous
   {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
     condition: shieldOfTheRighteousCondition,
   },
 
-  // 5. Hammer of Wrath (replaces Judgment during buff)
+  // 4. Hammer of Wrath (replaces Judgment during buff)
   {
     spell: TALENTS.HAMMER_OF_WRATH_TALENT,
     condition: cnd.and(hammerOfWrathCondition, cnd.spellAvailable(TALENTS.HAMMER_OF_WRATH_TALENT)),

@@ -7,7 +7,6 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { Abilities } from '../../gen';
 
 /**
  * Analyzer to track additional and wasted Holy Power from Sanctified Wrath for Protection Paladins.
@@ -27,10 +26,9 @@ class SanctifiedWrathProtJudgement extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAMMER_OF_WRATH_CAST),
       this.trackHammerCasts,
     );
-    // Listen to resource change events for the energize effect (may have a separate ID)
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_HP_ENERGIZE),
       this.trackWastedHP,

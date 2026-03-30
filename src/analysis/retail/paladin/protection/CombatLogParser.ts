@@ -8,11 +8,12 @@ import {
   BlessingOfDawn,
   Lightbearer,
   Punishment,
+  HammerOfWrath,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import { Abilities } from './gen';
+import { Abilities } from './Abilities';
 import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     valiance: Valiance,
     lightBearer: Lightbearer,
     punishment: Punishment,
+    hammerOfWrath: HammerOfWrath,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

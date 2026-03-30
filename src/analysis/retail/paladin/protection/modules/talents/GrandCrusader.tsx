@@ -88,7 +88,7 @@ class GrandCrusader extends Analyzer.withDependencies({
       );
       if (this.selectedCombatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT)) {
         this.deps.spellUsable.reduceCooldown(
-          TALENTS.HAMMER_OF_WRATH_TALENT.id,
+          SPELLS.HAMMER_OF_WRATH_CAST.id,
           CJ_CDR_AMOUNT,
           event.timestamp,
         );
