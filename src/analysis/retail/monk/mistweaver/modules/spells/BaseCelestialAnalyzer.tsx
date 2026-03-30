@@ -67,6 +67,7 @@ class BaseCelestialAnalyzer extends Analyzer {
   isFlowingWisdomActive = false;
   isSpiritfontRank2Active = false;
   hotjsApplyTimestamp = -1;
+  hotjsCurrentHaste = 0;
 
   constructor(options: Options) {
     super(options);
@@ -238,6 +239,8 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   onHotjsApply(event: ApplyBuffEvent) {
+    this.hotjsCurrentHaste = this.haste.current;
+    console.log(this.hotjsCurrentHaste);
     this.hotjsApplyTimestamp = event.timestamp;
     if (!this.celestialActive) {
       return;
@@ -323,7 +326,8 @@ class BaseCelestialAnalyzer extends Analyzer {
     if (this.isFlowingWisdomActive) {
       let hotjsPerf = QualitativePerformance.Fail;
       // tolerance set for tft rem global, should be active on celestial press
-      const expectedDuration = HEART_OF_THE_JADE_SERPENT_DURATION - 1.5 / (1 + cast.averageHaste);
+      const expectedDuration =
+        HEART_OF_THE_JADE_SERPENT_DURATION - 1.5 / (1 + this.hotjsCurrentHaste);
       const okDuration = expectedDuration - HEART_OF_THE_JADE_SERPENT_DURATION / 2;
 
       if (cast.hotjsOnCast && cast.hotjsActiveDuration >= expectedDuration) {
