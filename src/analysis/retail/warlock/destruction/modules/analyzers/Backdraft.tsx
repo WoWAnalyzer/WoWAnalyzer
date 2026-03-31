@@ -36,15 +36,15 @@ class Backdraft extends Analyzer {
     };
   }
 
-  _maxStacks = 2;
-  _currentStacks = 0;
+  private _maxStacks = 2;
+  private _currentStacks = 0;
 
   wastedOvercapStacks = 0;
   wastedExpiredStacks = 0;
 
-  _buffedChaosBoltCasts = 0;
-  _buffedIncinerateCasts = 0;
-  _buffedSoulFireCasts = 0;
+  private _buffedChaosBoltCasts = 0;
+  private _buffedIncinerateCasts = 0;
+  private _buffedSoulFireCasts = 0;
 
   uses: SpellUse[] = [];
 
