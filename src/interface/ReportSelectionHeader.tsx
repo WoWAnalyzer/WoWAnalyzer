@@ -6,7 +6,7 @@ import CharacterIcon from 'interface/icons/Person';
 import Logo from 'interface/images/logo.svg?react';
 import NameSearch, { SearchType } from 'interface/NameSearch';
 import { getReportHistory } from 'interface/selectors/reportHistory';
-import PropTypes from 'prop-types';
+import { ReportHistoryState } from 'interface/reducers/reportHistory';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
@@ -14,50 +14,58 @@ import ReportHistory from './ReportHistory';
 import ReportSelecter from './ReportSelecter';
 
 import './Header.scss';
+import { RootState } from 'store';
+import * as React from 'react';
 
-const STATE_SEARCH_REPORT = 0;
-const STATE_SEARCH_CHAR = 1;
-const STATE_SEARCH_GUILD = 2;
+enum StateSearch {
+  Report,
+  Character,
+  Guild,
+}
 
-class ReportSelectionHeader extends PureComponent {
-  static propTypes = {
-    reportHistory: PropTypes.array.isRequired,
-  };
+interface Props {
+  reportHistory: ReportHistoryState;
+}
 
-  constructor(props) {
+interface State {
+  searchType: StateSearch;
+}
+
+class ReportSelectionHeader extends PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      searchType: STATE_SEARCH_REPORT,
+      searchType: StateSearch.Report,
     };
     this.handleCharacterSearchClick = this.handleCharacterSearchClick.bind(this);
     this.handleReportSearchClick = this.handleReportSearchClick.bind(this);
     this.handleGuildSearchClick = this.handleGuildSearchClick.bind(this);
   }
 
-  handleCharacterSearchClick(e) {
+  handleReportSearchClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     e.preventDefault();
     this.setState({
-      searchType: STATE_SEARCH_CHAR,
+      searchType: StateSearch.Report,
     });
   }
 
-  handleReportSearchClick(e) {
+  handleCharacterSearchClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     e.preventDefault();
     this.setState({
-      searchType: STATE_SEARCH_REPORT,
+      searchType: StateSearch.Character,
     });
   }
 
-  handleGuildSearchClick(e) {
+  handleGuildSearchClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     e.preventDefault();
     this.setState({
-      searchType: STATE_SEARCH_GUILD,
+      searchType: StateSearch.Guild,
     });
   }
 
   renderSearch() {
     switch (this.state.searchType) {
-      case STATE_SEARCH_CHAR:
+      case StateSearch.Character:
         return (
           <>
             <NameSearch type={SearchType.CHARACTER} />
@@ -73,9 +81,9 @@ class ReportSelectionHeader extends PureComponent {
             </AlertWarning>
           </>
         );
-      case STATE_SEARCH_GUILD:
+      case StateSearch.Guild:
         return <NameSearch type={SearchType.GUILD} />;
-      case STATE_SEARCH_REPORT:
+      case StateSearch.Report:
       default:
         return <ReportSelecter />;
     }
@@ -109,7 +117,7 @@ class ReportSelectionHeader extends PureComponent {
                     <li
                       key="report"
                       className={
-                        this.state.searchType === STATE_SEARCH_REPORT ? 'active' : undefined
+                        this.state.searchType === StateSearch.Report ? 'active' : undefined
                       }
                     >
                       <a href="/" style={{ padding: '5px' }} onClick={this.handleReportSearchClick}>
@@ -119,7 +127,9 @@ class ReportSelectionHeader extends PureComponent {
                     </li>
                     <li
                       key="character"
-                      className={this.state.searchType === STATE_SEARCH_CHAR ? 'active' : undefined}
+                      className={
+                        this.state.searchType === StateSearch.Character ? 'active' : undefined
+                      }
                     >
                       <a
                         href="/"
@@ -132,9 +142,7 @@ class ReportSelectionHeader extends PureComponent {
                     </li>
                     <li
                       key="guild"
-                      className={
-                        this.state.searchType === STATE_SEARCH_GUILD ? 'active' : undefined
-                      }
+                      className={this.state.searchType === StateSearch.Guild ? 'active' : undefined}
                     >
                       <a href="/" style={{ padding: '5px' }} onClick={this.handleGuildSearchClick}>
                         <GuildIcon />
@@ -166,7 +174,7 @@ class ReportSelectionHeader extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   reportHistory: getReportHistory(state),
 });
 
