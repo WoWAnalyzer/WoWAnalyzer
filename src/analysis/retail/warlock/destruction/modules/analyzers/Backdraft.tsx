@@ -5,6 +5,7 @@ import { TooltipElement } from 'interface/Tooltip';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   ApplyBuffStackEvent,
@@ -38,6 +39,7 @@ class Backdraft extends Analyzer {
 
   private _maxStacks = 2;
   private _currentStacks = 0;
+  private _lastBackdraftConsumptionTimestamp: number | null = null;
 
   wastedOvercapStacks = 0;
   wastedExpiredStacks = 0;
@@ -70,11 +72,12 @@ class Backdraft extends Analyzer {
       this.onSoulFireCast,
     );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([
-      SPELLS.INCINERATE,
-      SPELLS.CHAOS_BOLT,
-      TALENTS.SOUL_FIRE_TALENT
-    ]), this.onCast);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT, TALENTS.SOUL_FIRE_TALENT]),
+      this.onCast,
+    );
 
     // ✔ Correct stack authority (no drift)
     this.addEventListener(
@@ -91,6 +94,11 @@ class Backdraft extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
       this.onBackdraftRemove,
     );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
+      this.onBackdraftRefresh,
+    );
   }
 
   onConflagrateCast(event: CastEvent) {
@@ -100,21 +108,22 @@ class Backdraft extends Analyzer {
   }
 
   onBackdraftApplyStack(event: ApplyBuffStackEvent) {
-    const stacks = event.stack || 0;
+    // A stack was added without hitting the cap — just track the new count.
+    this._currentStacks = event.stack;
+  }
 
-    if (stacks > this._maxStacks) {
-      const overcapped = stacks - this._maxStacks;
-      this.wastedOvercapStacks += overcapped;
-      this._currentStacks = this._maxStacks;
+  onBackdraftRefresh(event: RefreshBuffEvent) {
+    // WoW fires refreshbuff instead of applybuffstack when Conflagrate is cast at max stacks —
+    // the new stacks are silently lost. Only record waste if we're actually tracking max stacks.
+    if (this._currentStacks === this._maxStacks) {
+      this.wastedOvercapStacks += this._maxStacks;
 
       this.uses.push({
         event: event as unknown as CastEvent,
         performance: QualitativePerformance.Fail,
         checklistItems: [],
-        performanceExplanation: `Overcapped Backdraft by ${overcapped} stack${overcapped > 1 ? 's' : ''}`,
+        performanceExplanation: `Overcapped Backdraft by ${this._maxStacks} stack${this._maxStacks > 1 ? 's' : ''}`,
       });
-    } else {
-      this._currentStacks = stacks;
     }
   }
 
@@ -123,7 +132,13 @@ class Backdraft extends Analyzer {
   }
 
   onBackdraftRemove(event: RemoveBuffEvent) {
-    if (this._currentStacks > 0) {
+    // If a consuming cast happened within 100ms of this removebuff, the buff was spent normally.
+    // Without this check, spending the last stack via a cast would incorrectly count as an expiration.
+    const likelyConsumed =
+      this._lastBackdraftConsumptionTimestamp !== null &&
+      event.timestamp - this._lastBackdraftConsumptionTimestamp <= 100;
+
+    if (!likelyConsumed && this._currentStacks > 0) {
       this.wastedExpiredStacks += this._currentStacks;
 
       this.uses.push({
@@ -171,6 +186,8 @@ class Backdraft extends Analyzer {
     const hasBackdraft = this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id);
     if (!hasBackdraft) return;
 
+    this._lastBackdraftConsumptionTimestamp = event.timestamp;
+
     let performance = QualitativePerformance.Ok;
 
     if (spellId === SPELLS.CHAOS_BOLT.id || spellId === TALENTS.SOUL_FIRE_TALENT.id) {
@@ -187,10 +204,9 @@ class Backdraft extends Analyzer {
     });
   }
 
-  getSpellUsesWithPotentialMisses(fightStart: number, fightEnd: number): SpellUse[] {
-    return this.uses
-      .filter((use) => use.event.timestamp >= fightStart && use.event.timestamp <= fightEnd)
-      .sort((a, b) => a.event.timestamp - b.event.timestamp);
+  // fightStart/fightEnd unused — misses are tracked directly via onBackdraftRemove/onBackdraftApplyStack
+  getSpellUsesWithPotentialMisses(_fightStart: number, _fightEnd: number): SpellUse[] {
+    return this.uses;
   }
 
   get buffedChaosBoltCasts() {
