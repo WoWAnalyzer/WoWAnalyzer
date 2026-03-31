@@ -7,15 +7,12 @@ import Logo from 'interface/images/logo.svg?react';
 import NameSearch, { SearchType } from 'interface/NameSearch';
 import { getReportHistory } from 'interface/selectors/reportHistory';
 import { ReportHistoryState } from 'interface/reducers/reportHistory';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-
 import ReportHistory from './ReportHistory';
 import ReportSelecter from './ReportSelecter';
-
-import './Header.scss';
 import { RootState } from 'store';
-import * as React from 'react';
+import './Header.scss';
 
 enum StateSearch {
   Report,
