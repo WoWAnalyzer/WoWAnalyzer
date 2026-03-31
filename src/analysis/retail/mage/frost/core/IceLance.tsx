@@ -20,21 +20,21 @@ import {
   SPENT_THERMAL_VOID,
 } from 'analysis/retail/mage/frost/normalizers/CastLinkNormalizer';
 
-type IceLanceCast = {
+interface IceLanceCast {
   cast: CastEvent;
   damageHits: number;
   highestShatteredStacks: number; // In the case of a cleaved IL, how many freezing stacks did the "better" target shatter?
   totalShatteredStacks: number;
   hadFingers: boolean;
   hadThermalVoid: boolean;
-};
+}
 
-type Results = {
+interface Results {
   donutData: Array<DonutItem>;
   totalCasts: number;
   totalHits: number;
   totalFreezingStacks: number;
-};
+}
 
 const ICE_LANCE = <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />;
 const FREEZING = <SpellLink spell={SPELLS.FREEZING} />;

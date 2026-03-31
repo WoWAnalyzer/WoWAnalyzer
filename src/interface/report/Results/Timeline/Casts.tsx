@@ -18,11 +18,10 @@ import {
 import { Fragment, CSSProperties, HTMLAttributes, ReactNode, use } from 'react';
 
 import './Casts.scss';
-import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { addInefficientCastReason, Reason } from 'parser/core/EventMetaLib';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
 import { TimelineSettingsContext } from './Settings';
-import { MessageDescriptor } from '@lingui/core';
 
 const ICON_WIDTH = 22;
 
@@ -69,7 +68,7 @@ export const isApplicableEvent =
  */
 export const highlightInefficientCast = (
   event: CastEvent | BeginChannelEvent | CastEvent[] | BeginChannelEvent[],
-  tooltip: ReactNode | MessageDescriptor,
+  tooltip: Reason,
 ) => {
   if (Array.isArray(event)) {
     event.forEach((e) => {

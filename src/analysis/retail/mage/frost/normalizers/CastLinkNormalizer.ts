@@ -13,10 +13,7 @@ export const SPENT_THERMAL_VOID = 'IceLanceThermalVoidSpent';
 const BUFF_APPLY = 'BuffApply';
 const BUFF_REMOVE = 'BuffRemove';
 const BUFF_REFRESH = 'BuffRefresh';
-const DEBUFF_APPLY = 'DebuffApply';
-const DEBUFF_REMOVE = 'DebuffRemove';
 const SPELL_CAST = 'SpellCast';
-const PRE_CAST = 'PreCast';
 const SPELL_DAMAGE = 'SpellDamage';
 const CLEAVE_DAMAGE = 'CleaveDamage';
 

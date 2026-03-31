@@ -40,22 +40,18 @@ class CometStorm extends Analyzer {
 
   onCometCast(event: CastEvent) {
     const damage: DamageEvent[] | undefined = GetRelatedEvents(event, 'SpellDamage');
-    let shattered = 0;
     const enemies: number[] = [];
     damage.forEach((d) => {
       const enemy = this.enemies.getEntity(d);
       if (enemy && !enemies.includes(enemy.guid)) {
         enemies.push(enemy.guid);
       }
-      //if (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, d.timestamp))) {
-      //  shattered += 1;
-      //}
     });
 
     const cometStormDetails = {
       cast: event,
       enemiesHit: enemies,
-      shatteredHits: shattered,
+      shatteredHits: 0, // TODO implement new freezing shatter tracker for cms
     };
     this.cometStorm.push(cometStormDetails);
 
@@ -120,7 +116,6 @@ class CometStorm extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
-    const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
 
     const explanation = (
       <>

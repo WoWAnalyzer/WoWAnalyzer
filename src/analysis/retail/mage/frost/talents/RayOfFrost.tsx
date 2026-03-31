@@ -1,5 +1,4 @@
 import type { JSX } from 'react';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -13,7 +12,6 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SpellSeq } from 'parser/ui/SpellSeq';
 import { PerformanceMark } from 'interface/guide';
 
 class RayOfFrost extends Analyzer {
@@ -92,16 +90,6 @@ class RayOfFrost extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
-
-    const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
-    const glacialAssault = <SpellLink spell={TALENTS.GLACIAL_ASSAULT_TALENT} />;
-
-    const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
-    const icelance = <SpellLink spell={SPELLS.ICE_LANCE_DAMAGE} />;
-
-    const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
-
-    const glacialAssaultKnown = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_ASSAULT_TALENT);
 
     const explanation = (
       <>

@@ -60,8 +60,8 @@ class Flurry extends Analyzer {
     }
   }
 
-  analyzeFlurry(): { label: any; color: string; value: number }[] {
-    const flurryCasts: { label: any; color: string; value: number }[] = [];
+  analyzeFlurry(): { label: React.ReactNode; color: string; value: number }[] {
+    const flurryCasts: { label: React.ReactNode; color: string; value: number }[] = [];
 
     let withBrainFreeze = 0;
     let withoutBrainFreeze = 0;
