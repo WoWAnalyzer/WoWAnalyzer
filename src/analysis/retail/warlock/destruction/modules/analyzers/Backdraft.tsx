@@ -173,11 +173,7 @@ class Backdraft extends Analyzer {
       performance = QualitativePerformance.Good;
     }
 
-    let spellName = 'Unknown Spell';
-
-    if (spellId === SPELLS.CHAOS_BOLT.id) spellName = 'Chaos Bolt';
-    if (spellId === SPELLS.INCINERATE.id) spellName = 'Incinerate';
-    if (spellId === TALENTS.SOUL_FIRE_TALENT.id) spellName = 'Soul Fire';
+    const spellName = SPELLS[spellId]?.name ?? 'Unknown Spell';
 
     this.uses.push({
       event,
