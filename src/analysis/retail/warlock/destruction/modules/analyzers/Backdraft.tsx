@@ -70,7 +70,11 @@ class Backdraft extends Analyzer {
       this.onSoulFireCast,
     );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([
+      SPELLS.INCINERATE,
+      SPELLS.CHAOS_BOLT,
+      TALENTS.SOUL_FIRE_TALENT
+    ]), this.onCast);
 
     // ✔ Correct stack authority (no drift)
     this.addEventListener(
