@@ -76,6 +76,7 @@ class ColossusSmash extends Analyzer.withDependencies({
             Your <SpellLink spell={TALENTS.COLOSSUS_SMASH_TALENT} /> contributed{' '}
             {formatThousands(this.totalDamages)} total damage (
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             This accounts for the hit damage dealt by{' '}
             <SpellLink spell={TALENTS.COLOSSUS_SMASH_TALENT} /> and the 30% increased damage debuff.

@@ -151,6 +151,7 @@ class AngerManagement extends Analyzer.withDependencies({
             )}{' '}
             of which {formatDuration(this.recklessnessCDR.wasted + this.ravagerCDR.wasted)} was
             wasted.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             <table className="table table-condensed">
               <thead>
@@ -188,6 +189,7 @@ class AngerManagement extends Analyzer.withDependencies({
           {this.talentRecklessness && (
             <div>
               <SpellLink spell={TALENTS.RECKLESSNESS_TALENT.id} style={{ fontSize: 16 }} />
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {this.extraRecklessnessCasts()} <small>extra casts</small>
             </div>
@@ -195,6 +197,7 @@ class AngerManagement extends Analyzer.withDependencies({
           {this.talentRavager && (
             <div>
               <SpellLink spell={TALENTS.RAVAGER_TALENT.id} style={{ fontSize: 16 }} />
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               {this.extraRavagerCasts()} <small>extra casts</small>
             </div>

@@ -71,10 +71,14 @@ const SupportCheckerIssue = ({
         <div className="flex wrapable">
           <div className="flex-main" style={{ minWidth: 400 }}>
             {children}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {maintainerStatus}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
 
             <Tooltip

@@ -16,39 +16,29 @@ export const GuideContainer = styled.div`
 `;
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const isEbBuild = info.combatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
-  const includeTalentSection =
+  const includeTalentSection = false; /*
     info.combatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT) ||
-    info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT) ||
-    isEbBuild;
+    info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT)
+    */
   return (
     <>
       <Section title="Core Spells and Buffs">
-        {info.combatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) &&
-          modules.consumeFlame.guideSubsection}
+        {modules.merithrasBlessing.guideSubsection}
         {modules.dreamBreath.guideSubsection}
-        {modules.spiritBloom.guideSubsection}
         {modules.essenceBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
-          !isEbBuild &&
           modules.resonatingSphere.guideSubsection}
-        {isEbBuild && modules.emeraldBlossom.guideSubsection}
+        {modules.emeraldBlossom.guideSubsection}
       </Section>
       <Section title="Healing cooldowns">
         {info.combatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT) &&
           modules.dreamFlight.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
-          info.combatant.hasTalent(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT) &&
-          modules.emeraldCommunion.guideSubsection}
       </Section>
       {includeTalentSection && (
         <Section title="Talents">
           {info.combatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT) &&
             modules.ouroboros.guideSubsection}
-          {info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT) && modules.stasis.guideSubsection}
-          {isEbBuild &&
-            info.combatant.hasTalent(TALENTS_EVOKER.ANCIENT_FLAME_TALENT) &&
-            modules.ancientFlame.guideSubsection}
+          {/*info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT) && modules.stasis.guideSubsection*/}
         </Section>
       )}
       <PreparationSection />

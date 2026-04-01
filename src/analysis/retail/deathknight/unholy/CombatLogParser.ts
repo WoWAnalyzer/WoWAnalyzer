@@ -9,6 +9,7 @@ import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker'
 import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
+import ForbiddenKnowledge from './modules/talents/ForbiddenKnowledge';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulReaper: SoulReaper,
     commanderOfTheDead: CommanderOfTheDead,
     suddenDoom: SuddenDoom,
+    forbiddenKnowledge: ForbiddenKnowledge,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

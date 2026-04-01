@@ -54,7 +54,9 @@ class SpiritWolf extends Analyzer {
         label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
         tooltip={
           <Trans id="shaman.shared.damageReduced.tooltip">
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             This is the lowest possible value. This value is pretty accurate for this log if you are
             looking at the actual gain over not having{' '}

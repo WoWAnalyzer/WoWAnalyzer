@@ -113,10 +113,12 @@ class Expiation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.EXPIATION_TALENT}>
-          <>
-            <ItemHealingDone amount={totalHealing} /> <br />
+          <div>
+            <ItemHealingDone amount={totalHealing} />
+          </div>
+          <div>
             <ItemDamageDone amount={this.bonusDamage + this.expiationDamage} />
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

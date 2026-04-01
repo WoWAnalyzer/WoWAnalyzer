@@ -33,7 +33,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91570],
     definitionIds: [{ id: 96572, specId: 265 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   ALYTHESSS_IRE_TALENT: {
     id: 1244941,
@@ -114,7 +114,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91454],
     definitionIds: [{ id: 96456, specId: 267 }],
-    manaCost: 37500,
+    manaCost: 3750,
   },
   BLACKENED_SOUL_TALENT: {
     id: 440043,
@@ -196,7 +196,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91488],
     definitionIds: [{ id: 96490, specId: 267 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   CHANNEL_DEMONFIRE_TALENT: {
     id: 196447,
@@ -205,7 +205,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [128599],
     definitionIds: [{ id: 133402, specId: 267 }],
-    manaCost: 37500,
+    manaCost: 3750,
   },
   CHAOS_BOLT_TALENT: {
     id: 116858,
@@ -247,7 +247,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91591],
     definitionIds: [{ id: 96593, specId: 267 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   CONFLAGRATION_OF_CHAOS_TALENT: {
     id: 387108,
@@ -312,7 +312,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [136107],
     definitionIds: [{ id: 140862, specId: 267 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   CURSE_OF_THE_SATYR_TALENT: {
     id: 440057,
@@ -329,7 +329,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [136106],
     definitionIds: [{ id: 140861, specId: 267 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   DARK_ACCORD_TALENT: {
     id: 386659,
@@ -346,7 +346,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [136120],
     definitionIds: [{ id: 140875, specId: 265 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   DARK_PACT_TALENT: {
     id: 108416,
@@ -411,7 +411,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124694],
     definitionIds: [{ id: 129532, specId: 267 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   DEMONIC_EMBRACE_TALENT: {
     id: 288843,
@@ -436,7 +436,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91466],
     definitionIds: [{ id: 96468, specId: 267 }],
-    manaCost: 250000,
+    manaCost: 25000,
   },
   DEMONIC_KNOWLEDGE_TALENT: {
     id: 386185,
@@ -906,7 +906,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91552],
     definitionIds: [{ id: 96554, specId: 265 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   HAVOC_TALENT: {
     id: 80240,
@@ -915,7 +915,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91493],
     definitionIds: [{ id: 96495, specId: 267 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   HELLBENT_COMMANDER_TALENT: {
     id: 1250897,
@@ -940,7 +940,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91458],
     definitionIds: [{ id: 96460, specId: 267 }],
-    manaCost: 45000,
+    manaCost: 4500,
   },
   ICHOR_OF_DEVILS_TALENT: {
     id: 386664,
@@ -1213,7 +1213,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91452],
     definitionIds: [{ id: 96454, specId: 267 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   NECROLYTE_TEACHINGS_TALENT: {
     id: 449620,
@@ -1538,7 +1538,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91457],
     definitionIds: [{ id: 96459, specId: 267 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   SHADOW_OF_DEATH_TALENT: {
     id: 449638,
@@ -1644,7 +1644,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [134221],
     definitionIds: [{ id: 138999, specId: 267 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   SOUL_LEECH_TALENT: {
     id: 108370,
@@ -1720,7 +1720,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91554],
     definitionIds: [{ id: 96556, specId: 265 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   SUMMON_DEMONIC_TYRANT_TALENT: {
     id: 265187,
@@ -1729,7 +1729,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125850],
     definitionIds: [{ id: 130681, specId: 266 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   SUMMON_DOOMGUARD_TALENT: {
     id: 1276672,
@@ -1756,7 +1756,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91502],
     definitionIds: [{ id: 96504, specId: 267 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   SUMMON_VILEFIEND_TALENT: {
     id: 1251778,

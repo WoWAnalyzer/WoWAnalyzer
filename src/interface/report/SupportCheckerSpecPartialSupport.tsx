@@ -27,7 +27,9 @@ const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => {
       <Trans id="interface.report.supportChecker.specPartialSupportDetails">
         This spec has received updates for the latest patch but it is still missing important
         elements needed to provide you with good and reliable feedback.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         We recommend reading the{' '}
         <a href="https://www.wowhead.com/class-guides">
@@ -36,7 +38,9 @@ const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => {
         and <a href="https://www.icy-veins.com/wow/class-guides">Icy Veins</a> guides to gain more
         knowledge about your spec and use this when analyzing yourself. You can also try asking for
         help in a <a href="https://www.reddit.com/r/wow/wiki/discord">class Discord</a>.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         We do not know when {config.spec.specName ? i18n._(config.spec.specName) : null}{' '}
         {i18n._(config.spec.className)} will have full support. It may take a while to fully support

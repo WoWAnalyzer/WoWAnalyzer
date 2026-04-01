@@ -5,27 +5,65 @@ import ResourceUsage from './modules/guide/ResourceUsage';
 import CooldownSubsection from './modules/guide/CooldownSubsection';
 import DefensivesGuide from '../shared/Defensives';
 import { HavocGuide } from './modules/guide/HavocGuide';
+import { DemonicHealthstoneGuide } from '../shared/DHSGuide';
+import { BackdraftGuide } from './modules/guide/BackdraftGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      {/* Core Section */}
       <Section title="Core">
         <Section title="DoT Uptime">{modules.immolateUptime.guideSubsection}</Section>
 
         <Section title="Cooldown Usage">
           <CooldownSubsection />
         </Section>
+      </Section>
 
-        {modules.havocAnalyzer?.active && (
-          <HavocGuide
-            havocAnalyzer={modules.havocAnalyzer}
-            formatTimestamp={modules.havocAnalyzer.getFormatTimestamp()}
-          />
+      {/* Rotation Section */}
+      <Section title="Rotation">
+        {modules.backdraft?.active && (
+          <Section title="Backdraft Usage">
+            <BackdraftGuide
+              analyzer={modules.backdraft}
+              fightStart={info.fightStart}
+              fightEnd={info.fightEnd}
+            />
+          </Section>
         )}
 
-        <DefensivesGuide modules={modules} events={events} info={info} />
-        <ResourceUsage modules={modules} events={events} info={info} />
+        {modules.havocAnalyzer?.active && (
+          <Section title="Havoc Usage">
+            <HavocGuide
+              havocAnalyzer={modules.havocAnalyzer}
+              formatTimestamp={modules.havocAnalyzer.getFormatTimestamp()}
+            />
+          </Section>
+        )}
+      </Section>
 
+      {/* Defensives Section */}
+      <Section title="Defensives">
+        <Section title="Healthstone Tracker">
+          {modules.demonicHealthstone?.active && (
+            <DemonicHealthstoneGuide
+              analyzer={modules.demonicHealthstone}
+              fightStart={info.fightStart}
+              fightEnd={info.fightEnd}
+            />
+          )}
+        </Section>
+
+        <DefensivesGuide modules={modules} events={events} info={info} />
+      </Section>
+
+      {/* Resource Usage Section */}
+      <Section title="Resource Usage">
+        <ResourceUsage modules={modules} events={events} info={info} />
+      </Section>
+
+      {/* Preparation Section */}
+      <Section title="Preparation">
         <PreparationSection />
       </Section>
     </>

@@ -13,7 +13,6 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/Abilities';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import SpellManaCost from './modules/core/SpellManaCost';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AtonementApplicationSource from './modules/features/AtonementApplicationSource';
@@ -28,7 +27,6 @@ import Castigation from './modules/spells/Castigation';
 import Grace from './modules/features/Grace';
 import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
-import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
@@ -41,14 +39,18 @@ import Guide from './Guide';
 import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
-import AtonementNormalizer from './normalizers/AtonementTracker';
 import AbyssalReverie from './modules/spells/AbyssalReverie';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
 import EternalBarrier from './modules/spells/EternalBarrier';
 import Benevolence from '../shared/Benevolence';
 import SurgeOfLight from 'analysis/retail/priest/shared/SurgeOfLight';
-import ProtectorOfTheFrail from 'analysis/retail/priest/discipline/modules/spells/ProtectorOfTheFrail';
+import ProtectorOfTheFrail from './modules/spells/ProtectorOfTheFrail';
+import DotUptimes from './modules/features/DotUptimes';
+import ShadowWordPain from 'analysis/retail/priest/shared/ShadowWordPain';
+import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
+import EventLinkNormalizer from './normalizers/EventLinkNormalizer';
+import AtonementNormalizer from './normalizers/AtonementTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,9 +59,10 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     atonementNormalizer: AtonementNormalizer,
+    eventLinkNormalizer: EventLinkNormalizer,
 
     spellUsable: SpellUsable,
-    spellManaCost: SpellManaCost,
+    spellManaCost: CoreSpellManaCost,
     lowHealthHealing: LowHealthHealing,
     abilities: Abilities,
     channeling: Channeling,
@@ -82,7 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
-    purgeTheWicked: EncroachingShadows,
+    encroachingShadows: EncroachingShadows,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
     enduringLuminescense: EnduringLuminescense,
     powerWordRadiance: PowerWordRadiance,
@@ -93,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     desperatePrayer: DesperatePrayer,
 
-    sinsOfTheMany: SinsOfTheMany,
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,
     expiation: Expiation,
@@ -105,11 +107,15 @@ class CombatLogParser extends CoreCombatLogParser {
     protectiveLight: ProtectiveLight,
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
-    aegisOfWrath: EternalBarrier,
+    eternalBarrier: EternalBarrier,
     SurgeOfLight: SurgeOfLight,
     benevolence: Benevolence,
     translucentImage: TranslucentImage,
     protectorOfTheFrail: ProtectorOfTheFrail,
+    shadowWordPain: ShadowWordPain,
+
+    // Guide
+    dotUptimes: DotUptimes,
   };
   static guide = Guide;
 }

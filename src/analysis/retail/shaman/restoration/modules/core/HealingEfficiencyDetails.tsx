@@ -16,10 +16,12 @@ class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
             <Trans id="shaman.restoration.healingEfficiencyDetails">
               <SpellLink spell={SPELLS.RESURGENCE} /> mana gained is removed from the spell, meaning
               the mana spent of that spell will be lower.
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               Healing that is caused by the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> buff,
               is added to <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> instead of the spell
               that was buffed.
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
               <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> is given the healing from its
               healing buff and is removed from the spells that were buffed.

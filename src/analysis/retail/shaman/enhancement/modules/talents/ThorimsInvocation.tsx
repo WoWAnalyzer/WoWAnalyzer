@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
+import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -43,32 +44,31 @@ class ThorimsInvocation extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
   gcd: GlobalCooldown,
 }) {
-  protected lastSpellId: number | undefined;
+  protected readonly ascendanceDuration: number;
   protected procs: Record<number, ThorimsInvocationProc> = {
     [SPELLS.LIGHTNING_BOLT.id]: { casts: 0, damage: 0 },
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: { casts: 0, hits: 0, damage: 0 },
     [SPELLS.TEMPEST_CAST.id]: { casts: 0, hits: 0, damage: 0 },
   };
-  protected lastSpellCast: number | null = null;
   protected ascendanceEndTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT);
-    if (!this.active) {
-      return;
-    }
-    const ascendanceDuration = this.selectedCombatant.hasTalent(
+    this.ascendanceDuration = this.selectedCombatant.hasTalent(
       TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT,
     )
       ? 6000
       : 15000;
 
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
-      (event: ApplyBuffEvent) =>
-        (this.ascendanceEndTimestamp = event.timestamp + ascendanceDuration),
+      this.onAscendanceApplied,
     );
     this.addEventListener(
       Events.cast
@@ -76,6 +76,10 @@ class ThorimsInvocation extends Analyzer.withDependencies({
         .spell([SPELLS.STORMSTRIKE, SPELLS.WINDSTRIKE_CAST, TALENTS.CRASH_LIGHTNING_TALENT]),
       this.onCast,
     );
+  }
+
+  private onAscendanceApplied(event: ApplyBuffEvent) {
+    this.ascendanceEndTimestamp = event.timestamp + this.ascendanceDuration;
   }
 
   onCast(event: CastEvent) {
@@ -110,7 +114,6 @@ class ThorimsInvocation extends Analyzer.withDependencies({
       0,
     );
     this.procs[spellId].hits! += hits;
-    this.lastSpellCast = spellId;
 
     if (spellId === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
       // get linked event
@@ -167,98 +170,38 @@ class ThorimsInvocation extends Analyzer.withDependencies({
     );
   }
 
-  get lightningBoltStatisticTooltip() {
-    const proc = this.procs[SPELLS.LIGHTNING_BOLT.id];
-    const castComponent = (
-      <>
-        <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
-        {': '}
-        <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
-      </>
-    );
-    const damageComponent =
-      proc.casts > 0 ? (
-        <>
-          {' - '}
-          <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
-          <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
-        </>
-      ) : (
-        <></>
-      );
-
-    return (
-      <>
-        <div>
-          {castComponent}
-          {damageComponent}
-        </div>
-      </>
-    );
-  }
-
-  get tempestStatisticTooltip() {
-    const proc = this.procs[SPELLS.TEMPEST_CAST.id];
+  private buildSpellTooltip(
+    spell: Spell,
+    proc: ThorimsInvocationProc,
+    includeHits = false,
+    includeTotalDamageIcon = true,
+  ) {
     if (proc.casts === 0) {
       return <></>;
     }
-    const castComponent = (
-      <>
-        <SpellLink spell={SPELLS.TEMPEST_CAST} />
-        {': '}
-        <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
-      </>
-    );
-    const damageComponent = (
-      <>
-        {' - '}
-        <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
-        <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
-      </>
-    );
+
+    const hitsComponent =
+      includeHits && (proc.hits ?? 0) > proc.casts ? (
+        <>
+          {' '}
+          (<strong>{formatNumber(proc.hits ?? 0)}</strong> hits)
+        </>
+      ) : null;
 
     return (
       <>
         <div>
-          {castComponent}
-          {damageComponent}
+          <SpellLink spell={spell} />
+          {': '}
+          <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
+          {hitsComponent}
+          {' - '}
+          {includeTotalDamageIcon && <DamageIcon />} <strong>{formatNumber(proc.damage)}</strong>{' '}
+          damage done (<DamageIcon /> <strong>{formatNumber(proc.damage / proc.casts)}</strong> per
+          cast)
         </div>
       </>
     );
-  }
-
-  get chainLightningStatisticTooltip() {
-    const proc = this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id];
-    if (proc.casts > 0) {
-      const hitsComponent =
-        proc.hits! > proc.casts ? (
-          <>
-            {' '}
-            (<strong>
-              {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].hits!)}
-            </strong>{' '}
-            hits)
-          </>
-        ) : (
-          <></>
-        );
-
-      return (
-        <>
-          <div>
-            <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />
-            {': '}
-            <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
-            {hitsComponent}
-            {' - '}
-            <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
-            <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
-          </div>
-        </>
-      );
-    } else {
-      return <></>;
-    }
   }
 
   statistic() {
@@ -269,9 +212,14 @@ class ThorimsInvocation extends Analyzer.withDependencies({
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            {this.lightningBoltStatisticTooltip}
-            {this.tempestStatisticTooltip}
-            {this.chainLightningStatisticTooltip}
+            {this.buildSpellTooltip(SPELLS.LIGHTNING_BOLT, this.procs[SPELLS.LIGHTNING_BOLT.id])}
+            {this.buildSpellTooltip(SPELLS.TEMPEST_CAST, this.procs[SPELLS.TEMPEST_CAST.id])}
+            {this.buildSpellTooltip(
+              TALENTS.CHAIN_LIGHTNING_TALENT,
+              this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id],
+              true,
+              false,
+            )}
           </>
         }
       >

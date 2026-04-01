@@ -1,6 +1,5 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  AbsorbedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
@@ -17,7 +16,6 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
-import { INSIGHT_CDR_ABILITIES, SPELLS_THAT_PROC_S1_4PC_HOLY_ID } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 
@@ -33,31 +31,31 @@ export const BUFFED_BY_SURGE_OF_LIGHT_CAST = 'BuffedBySurgeOfLightCast';
 const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
-const GET_SPELL_CAST_FROM_INSIGHT_CHARGE = 'GetSpellCastFromInsightCharge';
 export const ECHO_OF_LIGHT_BUFF_REFRESH = 'EchOfLightRefresh';
 export const ECHO_OF_LIGHT_ATTRIB_EVENT = 'GetEchoOfLight';
-export const HARDCAST_POWER_WORD_SHIELD = 'HardCastPowerWordShield';
 export const POWER_WORD_SHIELD_ABSORB = 'PowerWordShieldAbsorb';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
 export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
 export const LIGHTWELL_RENEW = 'LightwellRenew';
 export const SALVATION_RENEW = 'SalvationRenew';
-export const BENEDICTION_RENEW = 'BenedictionRenew';
-export const BENEDICTION_RENEW_HEALS = 'BenedictionRenewHeal';
 export const REVIT_PRAYER_RENEW = 'RevitalizingPrayersRenew';
 export const HARDCAST_RENEW = 'HardCastRenew';
 export const HOLY_TWW_S1_4PC = 'HolyTwwS14pc';
 export const HEAL_TRAIL = 'LightweaverTrail';
 export const HEAL_BINDING = 'LightweaverBinding';
+export const LR_RENEW = 'LightsResurgenceRenew';
+export const LR_RENEW_HEALS = 'LightsResurgenceRenewHeal';
+
+const BUFFED_BY_EPIPHANY = 'EpiphanyPomCast';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: FROM_HARDCAST,
-    linkingEventId: [SPELLS.GREATER_HEAL.id, SPELLS.FLASH_HEAL.id],
+    linkingEventId: [SPELLS.FLASH_HEAL.id],
     linkingEventType: EventType.Cast,
-    referencedEventId: [SPELLS.GREATER_HEAL.id, SPELLS.FLASH_HEAL.id],
+    referencedEventId: [SPELLS.FLASH_HEAL.id],
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -109,55 +107,40 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    linkRelation: LIGHTWELL_RENEW_HEALS,
-    reverseLinkRelation: LIGHTWELL_RENEW_HEALS,
-    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: 6000 + CAST_BUFFER_MS,
-    anyTarget: false,
-  },
-  {
-    linkRelation: LIGHTWELL_RENEW,
-    reverseLinkRelation: LIGHTWELL_RENEW,
-    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: false,
-  },
-  {
-    linkRelation: BENEDICTION_RENEW,
-    reverseLinkRelation: BENEDICTION_RENEW,
-    linkingEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: false,
-  },
-  {
     linkRelation: HARDCAST_RENEW,
     reverseLinkRelation: HARDCAST_RENEW,
     linkingEventId: SPELLS.RENEW_HEAL.id,
     linkingEventType: EventType.Cast,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
   },
   {
-    linkRelation: HARDCAST_POWER_WORD_SHIELD,
-    reverseLinkRelation: HARDCAST_POWER_WORD_SHIELD,
-    linkingEventId: SPELLS.POWER_WORD_SHIELD.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.POWER_WORD_SHIELD.id,
+    linkRelation: LR_RENEW,
+    reverseLinkRelation: LR_RENEW,
+    linkingEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.RENEW_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
+  },
+  {
+    linkRelation: LR_RENEW_HEALS,
+    reverseLinkRelation: LR_RENEW_HEALS,
+    linkingEventId: SPELLS.RENEW_HEAL.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.RENEW_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 15000 + CAST_BUFFER_MS,
+    anyTarget: false,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(linkingEvent, LR_RENEW) &&
+        !HasRelatedEvent(referencedEvent, SALVATION_RENEW_HEALS)
+      );
+    },
   },
   {
     linkRelation: POWER_WORD_SHIELD_ABSORB,
@@ -168,9 +151,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Absorbed,
     forwardBufferMs: 15000 + CAST_BUFFER_MS,
     anyTarget: false,
-    additionalCondition(linkingEvent) {
-      return !HasRelatedEvent(linkingEvent, HARDCAST_POWER_WORD_SHIELD);
-    },
   },
   {
     linkRelation: ECHO_OF_LIGHT_ATTRIB_EVENT,
@@ -180,22 +160,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Heal,
     forwardBufferMs: 6000,
     anyTarget: false,
-  },
-  {
-    linkRelation: BENEDICTION_RENEW_HEALS,
-    reverseLinkRelation: BENEDICTION_RENEW_HEALS,
-    linkingEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: 15000 + CAST_BUFFER_MS,
-    anyTarget: false,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        HasRelatedEvent(linkingEvent, BENEDICTION_RENEW) &&
-        !HasRelatedEvent(referencedEvent, SALVATION_RENEW_HEALS)
-      );
-    },
   },
   {
     linkRelation: BUFFED_BY_SURGE_OF_LIGHT,
@@ -222,7 +186,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: SURGE_OF_LIGHT_APPLIED_BY_HALO,
     reverseLinkRelation: HALO_LINKED_TO_SURGE_OF_LIGHT,
-    linkingEventId: [SPELLS.HALO_TALENT.id, SPELLS.UNCAT_ARCHON_HALO_RETURN_BUFF.id],
+    linkingEventId: [TALENTS_PRIEST.HALO_HOLY_TALENT.id, SPELLS.UNCAT_ARCHON_HALO_RETURN_BUFF.id],
     linkingEventType: EventType.ApplyBuff,
     referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
     referencedEventType: [EventType.ApplyBuffStack, EventType.ApplyBuff, EventType.RefreshBuff],
@@ -233,34 +197,10 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_PRIEST.MANIFESTED_POWER_TALENT);
     },
   },
-  {
-    linkRelation: SPELL_SPENDS_INSIGHT_CHARGE,
-    reverseLinkRelation: GET_SPELL_CAST_FROM_INSIGHT_CHARGE,
-    linkingEventId: INSIGHT_CDR_ABILITIES,
-    linkingEventType: EventType.Cast,
-    referencedEventId: [SPELLS.PREMONITION_OF_INSIGHT_BUFF.id],
-    referencedEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS_PRIEST.PREMONITION_TALENT);
-    },
-  },
-  {
-    linkRelation: HOLY_TWW_S1_4PC,
-    linkingEventId: SPELLS_THAT_PROC_S1_4PC_HOLY_ID,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS_THAT_PROC_S1_4PC_HOLY_ID,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-  },
   // link heals to trail
   {
     linkRelation: HEAL_TRAIL,
-    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventId: SPELLS.FLASH_HEAL.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL.id,
     referencedEventType: EventType.Heal,
@@ -270,11 +210,21 @@ const EVENT_LINKS: EventLink[] = [
   // link lightweaver heals to binding heal
   {
     linkRelation: HEAL_BINDING,
-    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventId: SPELLS.FLASH_HEAL.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.BINDING_HEALS_TALENT_HEAL.id,
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
+    linkRelation: BUFFED_BY_EPIPHANY,
+    linkingEventId: SPELLS.EPIPHANY_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.PRAYER_OF_MENDING_CAST.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
 ];
@@ -347,10 +297,6 @@ export function removesInsightCharge(event: CastEvent): boolean {
 
 export function isRenewFromSalv(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, SALVATION_RENEW);
-}
-
-export function isPWSHardCast(event: AbsorbedEvent): boolean {
-  return HasRelatedEvent(event, HARDCAST_POWER_WORD_SHIELD);
 }
 
 export function getSOLFlashCast(

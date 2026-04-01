@@ -94,7 +94,9 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             Active Time is the amount of time you were actively casting something or waiting for a
             Global Cooldown. The remaining time was downtime; you cast nothing and weren't waiting
             for a global cooldown (i.e. "AFK time").
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             You were active for <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of
             the fight. You spent <strong>{formatPercentage(this.healingTimePercentage)}%</strong> of
@@ -104,7 +106,9 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             </strong>{' '}
             of the time casting offensive spells and{' '}
             <strong>{formatPercentage(this.downtimePercentage)}%</strong> of the time doing nothing.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             See the timeline for details.
           </Trans>

@@ -20,11 +20,6 @@ export const Abilities = genAbilities({
   ],
   overrides: {
     [spells.DARK_SOUL_KNOWLEDGE.id]: (combatant, generated) => {
-      if (!generated) {
-        throw new Error(
-          "type checker can't tell that we're guaranteed to have this spell in the list",
-        );
-      }
       const archimondes = combatant.hasClassicTalent(spells.ARCHIMONDES_DARKNESS_TALENT);
       if (archimondes) {
         return {
@@ -34,11 +29,6 @@ export const Abilities = genAbilities({
       } else return generated;
     },
     [spells.IMP_SWARM.id]: (combatant, generated) => {
-      if (!generated) {
-        throw new Error(
-          "type checker can't tell that we're guaranteed to have this spell in the list",
-        );
-      }
       const impswarm = combatant.hasGlyph(spells.GLYPH_OF_IMP_SWARM.glyphId);
       if (impswarm) {
         return {

@@ -5,6 +5,10 @@ import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 29), <>Fix handling of pre-pull <SpellLink spell={SPELLS.CHI_BURST_TALENT} /> casts.</>, emallson),
+  change(date(2026, 3, 24), <>Add cast breakdowns and <SpellLink spell={SPELLS.BLACKOUT_COMBO_TALENT} /> breakdown to Rotation section.</>, emallson),
+  change(date(2026, 3, 24), <>Allow using <SpellLink spell={SPELLS.BREATH_OF_FIRE_TALENT} /> before combo <SpellLink spell={SPELLS.TIGER_PALM} /> in the APL in some cases.</>, emallson),
+  change(date(2026, 3, 24), <>Move <SpellLink spell={SPELLS.CHI_BURST_TALENT} /> out of the main APL and into the cooldown list to improve APL behavior.</>, emallson),
   change(date(2026, 3, 16), <>Add several missing sources of <SpellLink spell={SPELLS.KEG_SMASH_TALENT} /> and Brew CDR / resets.</>, emallson),
   change(date(2026, 3, 16), <>Add rotation support for Midnight S1</>, emallson),
   change(date(2026, 2, 22), <>Add new <SpellLink spell={SPELLS.STAGGER_TALENT} /> implementation and section</>, emallson),

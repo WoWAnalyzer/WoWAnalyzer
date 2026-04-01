@@ -93,17 +93,20 @@ import WayOfTheSerpent from './modules/spells/WayOfTheSerpent';
 import MovementTracker from './modules/features/MovementDuringBuffTracker';
 import WayOfTheCrane from './modules/spells/WayOfTheCrane';
 import AncientTeachingsLinkNormalizer from './normalizers/AncientTeachingsLinkNormalizer';
+import SoothingMistLinkNormalizer from './normalizers/SoothingMistLinkNormalizer';
 import PeacefulMending from './modules/spells/PeacefulMending';
 import Spiritfont from './modules/spells/Spiritfont';
 import InvigoratingMists from './modules/spells/InvigoratingMists';
 import EmperorsFavor from './modules/spells/EmperorsFavor';
 import TranquilTea from './modules/spells/TranquilTea';
+import MorningBreeze from './modules/spells/MorningBreeze';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
     ancientTeachingsLinkNormalizer: AncientTeachingsLinkNormalizer,
+    soothingMistLinkNormalizer: SoothingMistLinkNormalizer,
     celestialConduitNormalizer: CelestialConduitNormalizer,
     conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     hotApplicationNormalizer: HotApplicationNormalizer,
@@ -199,6 +202,7 @@ class CombatLogParser extends CoreCombatLogParser {
     invigoratingMists: InvigoratingMists,
     emperorsFavor: EmperorsFavor,
     tranquilTea: TranquilTea,
+    morningBreeze: MorningBreeze,
 
     // Hero Talents
     // Conduit

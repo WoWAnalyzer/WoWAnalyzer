@@ -6,9 +6,11 @@ import {
   ESSENCE_BURST_LINK,
   MAX_ESSENCE_BURST_DURATION,
   EB_REVERSION,
+  EB_MERITHRAS,
   SPARK_OF_INSIGHT,
   FROM_HARDCAST,
   EB_BUFFER_MS,
+  EB_ENERGY_CYCLES,
 } from './constants';
 
 export const ESSENCE_BURST_EVENT_LINKS: EventLink[] = [
@@ -31,14 +33,49 @@ export const ESSENCE_BURST_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: EB_REVERSION,
     reverseLinkRelation: EB_REVERSION,
-    linkingEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
-    linkingEventType: EventType.ApplyBuff,
+    linkingEventId: TALENTS_EVOKER.REVERSION_TALENT.id,
+    linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.ESSENCE_BURST_BUFF.id,
     referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
-    forwardBufferMs: 1500,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
-      return !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT);
+      return (
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
+        !HasRelatedEvent(linkingEvent, EB_MERITHRAS) &&
+        !HasRelatedEvent(linkingEvent, EB_ENERGY_CYCLES)
+      );
+    },
+  },
+  {
+    linkRelation: EB_MERITHRAS,
+    reverseLinkRelation: EB_MERITHRAS,
+    linkingEventId: SPELLS.MERITHRAS_BLESSING_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
+        !HasRelatedEvent(linkingEvent, EB_REVERSION) &&
+        !HasRelatedEvent(linkingEvent, EB_ENERGY_CYCLES)
+      );
+    },
+  },
+  {
+    linkRelation: EB_ENERGY_CYCLES,
+    reverseLinkRelation: EB_ENERGY_CYCLES,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
+    referencedEventId: SPELLS.TEMPORAL_BURST_BUFF.id,
+    referencedEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
+        !HasRelatedEvent(linkingEvent, EB_REVERSION) &&
+        !HasRelatedEvent(linkingEvent, EB_MERITHRAS)
+      );
     },
   },
   {
@@ -47,6 +84,7 @@ export const ESSENCE_BURST_EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
     linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
     referencedEventId: [
+      SPELLS.CHRONO_FLAME_CAST.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.LIVING_FLAME_DAMAGE.id,
       SPELLS.LIVING_FLAME_CAST.id,
@@ -59,7 +97,9 @@ export const ESSENCE_BURST_EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
-        !HasRelatedEvent(linkingEvent, EB_REVERSION)
+        !HasRelatedEvent(linkingEvent, EB_REVERSION) &&
+        !HasRelatedEvent(linkingEvent, EB_MERITHRAS) &&
+        !HasRelatedEvent(linkingEvent, EB_ENERGY_CYCLES)
       );
     },
   },
