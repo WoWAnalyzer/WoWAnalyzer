@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS/';
 import TALENTS from 'common/TALENTS/priest';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
@@ -23,8 +22,6 @@ class Lightweaver extends Analyzer {
     eolAttrib: EOLAttrib,
   };
   protected eolAttrib!: EOLAttrib;
-
-  overhealingDoneFromTalent = 0;
 
   totalFlashHealCasts = 0;
   wastedBuffFlashHealCasts = 0;
@@ -134,22 +131,13 @@ class Lightweaver extends Analyzer {
   }
 
   statistic() {
-    const overhealingTooltipString = formatPercentage(
-      this.overhealingDoneFromTalent /
-        (this.prayerHealing +
-          this.trailHealing +
-          this.bindingHealing +
-          this.overhealingDoneFromTalent),
-    );
-
     return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <div>{`${overhealingTooltipString}% overhealing`}</div>
-            <div style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>Breakdown:</div>
+            <div style={{ marginBottom: '0.5rem' }}>Breakdown:</div>
             <div>
               <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />:{' '}
               <ItemPercentHealingDone amount={this.prayerHealing} />
