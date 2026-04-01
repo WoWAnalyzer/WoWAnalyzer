@@ -16,6 +16,7 @@ const MS_BUFFER = 100;
 export const ABUNDANCE_MANA_REDUCTION = 0.08;
 const ABUNDANCE_INCREASED_CRIT = 0.08;
 const IMP_REGROWTH_CRIT_BONUS = 0.4;
+const INTENSITY_CRIT_HEAL_MULTIPLIER = 2.6;
 
 /**
  * **Abundance**
@@ -29,6 +30,7 @@ class Abundance extends Analyzer.withDependencies({
   combatants: Combatants,
 }) {
   hasImpRegrowth: boolean;
+  hasIntensity: boolean;
 
   /** Total healing attributable to increased crit */
   totalEffCritHealing = 0;
@@ -47,6 +49,7 @@ class Abundance extends Analyzer.withDependencies({
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
     this.hasImpRegrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.IMPROVED_REGROWTH_TALENT);
+    this.hasIntensity = this.selectedCombatant.hasTalent(TALENTS_DRUID.INTENSITY_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHit);
   }
@@ -73,11 +76,14 @@ class Abundance extends Analyzer.withDependencies({
     const bonusCrit = Math.min(1 - currCrit, stacks * ABUNDANCE_INCREASED_CRIT);
 
     this.totalEffCritGain += bonusCrit;
-    this.totalEffCritHealing += calculateEffectiveHealingFromCritIncrease(
-      event,
-      currCrit,
-      bonusCrit,
-    );
+    this.totalEffCritHealing += this.hasIntensity
+      ? calculateEffectiveHealingFromCritIncrease(
+          event,
+          currCrit,
+          bonusCrit,
+          INTENSITY_CRIT_HEAL_MULTIPLIER,
+        )
+      : calculateEffectiveHealingFromCritIncrease(event, currCrit, bonusCrit);
   }
 
   // The mana discount is relevant only for non-free Regrowth casts, deal with it here
