@@ -18,36 +18,38 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Blood depends a lot on using his runes and how they're used in order to perform well.
-      <br />
-      Overusing <SpellLink spell={TALENTS.MARROWREND_TALENT} /> for example reduces the amount of
-      runic power you can generate, directly affecting the amount of{' '}
-      <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} />
-      's.
-      <br />
-      <br />
-      Not only the amount of <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} />
-      's are important, timing is aswell. Make sure to check them in the 'Death Strike Timing'-tab
-      below.
-      <br />
-      The rest of this analyzer focuses a lot on maximizing your damage output, buff uptimes,
-      cooldown usage and more or less usefull statistics.
-      <br />
-      Your best defensive rotation is also your best offensive one, so optimizing your output means
-      you'll optimize your survivability aswell.
-      <br />
-      <br />
-      If you find any issues or have something you'd like to see added, open an issue on{' '}
-      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, contact us on{' '}
-      <a href="https://discord.gg/AxphPxU">Discord</a> or DM us on Discord.
-      <br />
-      <br />
-      Make sure to check out the <a href="https://discord.gg/acherus">
-        Death Knight Class Discord
-      </a>{' '}
-      if you need more specific advice or a more detailed guide than the ones available on{' '}
-      <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and{' '}
-      <a href="https://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
+      <p>
+        Blood depends a lot on using his runes and how they're used in order to perform well.
+        Overusing <SpellLink spell={TALENTS.MARROWREND_TALENT} /> for example reduces the amount of
+        runic power you can generate, directly affecting the amount of{' '}
+        <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} />
+        's.
+      </p>
+      <p>
+        Not only the amount of <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} />
+        's are important, timing is aswell. Make sure to check them in the 'Death Strike Timing'-tab
+        below.
+      </p>
+      <p>
+        The rest of this analyzer focuses a lot on maximizing your damage output, buff uptimes,
+        cooldown usage and more or less usefull statistics.
+      </p>
+      <p>
+        Your best defensive rotation is also your best offensive one, so optimizing your output means
+        you'll optimize your survivability aswell.
+      </p>
+      <p>
+        If you find any issues or have something you'd like to see added, open an issue on{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, contact us on{' '}
+        <a href="https://discord.gg/AxphPxU">Discord</a> or DM us on Discord.
+      </p>
+      <p>
+        Make sure to check out the{' '}
+        <a href="https://discord.gg/acherus">Death Knight Class Discord</a> if you need more specific
+        advice or a more detailed guide than the ones available on{' '}
+        <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and{' '}
+        <a href="https://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
