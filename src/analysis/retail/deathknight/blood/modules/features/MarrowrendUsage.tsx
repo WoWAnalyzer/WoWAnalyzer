@@ -178,13 +178,15 @@ class MarrowrendUsage extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.marrowrendUsage.statistic.tooltip">
-            {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad
-            casts.
-            <br />
-            {this.badMRCasts} casts with more than {REFRESH_AT_STACKS} stacks of Bone Shield wasting{' '}
-            {this.bsStacksWasted} stacks.
-            <br />
-            <br />
+            <p>
+              {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad
+              casts.
+            </p>
+            <p>
+              {this.badMRCasts} casts with more than {REFRESH_AT_STACKS} stacks of Bone Shield
+              wasting {this.bsStacksWasted} stacks.
+            </p>
+            <p></p>
             Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if
             Bone Shield has less than 6sec of its duration left.
           </Trans>

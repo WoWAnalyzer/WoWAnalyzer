@@ -128,6 +128,7 @@ const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['dat
   </div>
 );
 
+// oxlint-disable-next-line typescript/no-explicit-any
 const deathStrikeTooltip: StringFieldDefWithCondition<any>[] = [
   { field: 'hitPoints', type: 'quantitative', format: '.3~s', title: 'Hit Points' },
   { field: 'amount', type: 'quantitative', format: '.3~s', title: 'Healing' },
@@ -231,6 +232,7 @@ const DeathStrikeProblemChart = ({
     () => ({
       runicPower: events
         .filter(
+          // oxlint-disable-next-line typescript/no-explicit-any
           (event): event is AnyEvent & Required<Pick<BaseCastEvent<any>, 'classResources'>> =>
             'classResources' in event && event.classResources !== undefined,
         )
@@ -249,6 +251,7 @@ const DeathStrikeProblemChart = ({
         })
         .filter(Boolean),
       health: events.filter(
+        // oxlint-disable-next-line typescript/no-explicit-any
         (event): event is HitpointsEvent<any> =>
           HasHitpoints(event) &&
           ((event.targetID === info.playerId && event.resourceActor === ResourceActor.Target) ||
