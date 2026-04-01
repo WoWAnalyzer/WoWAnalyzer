@@ -14,6 +14,8 @@ import FuriousGazeExplanation from '../../../modules/talents/EyeBeam/FuriousGaze
 
 interface EyeBeamCooldownCast extends CooldownTrigger<CastEvent> {
   triggeredFuriousGaze: boolean;
+  startedDuringInertia: boolean;
+  fullyDuringInertia: boolean;
 }
 
 export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
@@ -23,7 +25,13 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
 
   constructor(options: Options) {
     super({ spell: TALENTS.EYE_BEAM_TALENT }, options);
-    this.active = this.active && this.selectedCombatant.hasTalent(TALENTS.FURIOUS_GAZE_TALENT);
+
+    const hasReleventTalents =
+      this.selectedCombatant.hasTalent(TALENTS.FURIOUS_GAZE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.INERTIA_TALENT);
+
+    this.active = this.active && hasReleventTalents;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.EYE_BEAM_TALENT),
       this.onCast,
@@ -38,6 +46,13 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
             <SpellLink spell={TALENTS.EYE_BEAM_TALENT} />
           </strong>{' '}
           is a channeled ability that deals heavy chaos damage to all enemies in front of you.
+          {this.selectedCombatant.hasTalent(TALENTS.INERTIA_TALENT) && (
+            <>
+              {' '}
+              For optimal usage with <SpellLink spell={TALENTS.INERTIA_TALENT} />, the full channel
+              should fit inside <SpellLink spell={SPELLS.INERTIA_BUFF} />.
+            </>
+          )}
         </section>
         <section>
           <DemonicExplanation />
@@ -49,7 +64,7 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
 
   explainPerformance(cast: EyeBeamCooldownCast): SpellUse {
     const furiousGazePerformance = this.furiousGazePerformance(cast);
-
+    const inertiaPerformance = this.inertiaPerformance(cast);
     const checklistItems: ChecklistUsageInfo[] = [];
     if (furiousGazePerformance) {
       checklistItems.push({
@@ -58,7 +73,13 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
         ...furiousGazePerformance,
       });
     }
-
+    if (inertiaPerformance) {
+      checklistItems.push({
+        check: 'inertia',
+        timestamp: cast.event.timestamp,
+        ...inertiaPerformance,
+      });
+    }
     const actualPerformance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
     );
@@ -105,10 +126,81 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
     };
   }
 
+  private inertiaPerformance(cast: EyeBeamCooldownCast): UsageInfo | undefined {
+    if (!this.selectedCombatant.hasTalent(TALENTS.INERTIA_TALENT)) {
+      return undefined;
+    }
+    if (cast.fullyDuringInertia) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: <div>Fully channeled during Inertia</div>,
+        details: (
+          <div>
+            You fully channeled <SpellLink spell={TALENTS.EYE_BEAM_TALENT} /> during{' '}
+            <SpellLink spell={SPELLS.INERTIA_BUFF} />. Good job!
+          </div>
+        ),
+      };
+    }
+    if (cast.startedDuringInertia) {
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: <div>Started during Inertia</div>,
+        details: (
+          <div>
+            You started <SpellLink spell={TALENTS.EYE_BEAM_TALENT} /> during{' '}
+            <SpellLink spell={SPELLS.INERTIA_BUFF} />, but the full channel did not fit inside the
+            buff window.
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: <div>Cast outside Inertia</div>,
+      details: (
+        <div>
+          You cast <SpellLink spell={TALENTS.EYE_BEAM_TALENT} /> without{' '}
+          <SpellLink spell={SPELLS.INERTIA_BUFF} /> covering the full channel. Try to line up the
+          entire channel inside the buff window.
+        </div>
+      ),
+    };
+  }
+
+  private getInertiaWindow(event: CastEvent) {
+    const activeInertiaBuff = this.selectedCombatant.getBuff(
+      SPELLS.INERTIA_BUFF.id,
+      event.timestamp,
+    );
+    if (!activeInertiaBuff) {
+      return {
+        startedDuringInertia: false,
+        fullyDuringInertia: false,
+      };
+    }
+    const channelEnd = event.channel?.timestamp;
+    if (!channelEnd) {
+      return {
+        startedDuringInertia: true,
+        fullyDuringInertia: false,
+      };
+    }
+    const inertiaEnd = activeInertiaBuff.end ?? Number.POSITIVE_INFINITY;
+    return {
+      startedDuringInertia: true,
+      fullyDuringInertia: inertiaEnd >= channelEnd,
+    };
+  }
+
   private onCast(event: CastEvent) {
+    const inertiaWindow = this.getInertiaWindow(event);
+
     this.recordCooldown({
       event,
       triggeredFuriousGaze: getFuriousGazeBuffApplication(event) !== undefined,
+      startedDuringInertia: inertiaWindow.startedDuringInertia,
+      fullyDuringInertia: inertiaWindow.fullyDuringInertia,
     });
   }
 }

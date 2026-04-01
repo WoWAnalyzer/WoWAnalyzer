@@ -86,8 +86,8 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
-      <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
+      <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
       {info.combatant.hasTalent(TALENTS.SIGIL_OF_SPITE_TALENT) &&
         explanationAndDataSubsection(
           <div>
@@ -111,6 +111,7 @@ function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
     <Section title="Rotation">
       <HideExplanationsToggle id="hide-explanations-rotations" />
       <HideGoodCastsToggle id="hide-good-casts-rotations" />
+      {/* {modules.eyeBeam.guideSubsection()} */}
       {modules.throwGlaive.guideSubsection()}
       {modules.exergy.guideSubsection()}
       {modules.unboundChaos.guideSubsection()}
