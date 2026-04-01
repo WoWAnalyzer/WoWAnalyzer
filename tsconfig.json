@@ -58,7 +58,6 @@
     "src/analysis/retail/rogue/shared"
   ],
   "files": [
-    "src/analysis/retail/deathknight/blood/CONFIG.tsx",
     "src/analysis/retail/deathknight/frost/CONFIG.tsx",
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
     "src/analysis/retail/evoker/preservation/CONFIG.tsx",

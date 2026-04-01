@@ -176,6 +176,10 @@ export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
 };
+export const Badkad: Contributor = {
+  nickname: 'Badkad',
+  github: 'Badkad',
+};
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
   github: 'Salarissia',
