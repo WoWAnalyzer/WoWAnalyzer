@@ -35,8 +35,8 @@ const config: Config = {
         cooldown usage and more or less usefull statistics.
       </p>
       <p>
-        Your best defensive rotation is also your best offensive one, so optimizing your output means
-        you'll optimize your survivability aswell.
+        Your best defensive rotation is also your best offensive one, so optimizing your output
+        means you'll optimize your survivability aswell.
       </p>
       <p>
         If you find any issues or have something you'd like to see added, open an issue on{' '}
@@ -45,8 +45,8 @@ const config: Config = {
       </p>
       <p>
         Make sure to check out the{' '}
-        <a href="https://discord.gg/acherus">Death Knight Class Discord</a> if you need more specific
-        advice or a more detailed guide than the ones available on{' '}
+        <a href="https://discord.gg/acherus">Death Knight Class Discord</a> if you need more
+        specific advice or a more detailed guide than the ones available on{' '}
         <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and{' '}
         <a href="https://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
       </p>
