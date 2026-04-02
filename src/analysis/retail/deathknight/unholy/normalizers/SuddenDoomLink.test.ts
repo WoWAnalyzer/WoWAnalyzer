@@ -1,7 +1,7 @@
 import { Options } from 'parser/core/Analyzer';
 import { AnyEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import { SuddenDoomLinkNormalizer, SuddenDoomStackLinkNormalizer } from './SuddenDoomLink';
+import { SuddenDoomLinkNormalizer } from './SuddenDoomLink';
 
 const SUDDEN_DOOM_ID = SPELLS.SUDDEN_DOOM_BUFF.id;
 const DEATH_COIL_ID = SPELLS.DEATH_COIL.id;
@@ -43,12 +43,12 @@ function makeCast(timestamp: number, spellId = DEATH_COIL_ID, sourceID = 1): Any
   } as AnyEvent;
 }
 
-describe('SuddenDoomLinkNormalizer', () => {
-  function normalize(events: AnyEvent[]) {
-    const normalizer = new SuddenDoomLinkNormalizer({} as Options);
-    return normalizer.normalize(events);
-  }
+function normalize(events: AnyEvent[]) {
+  const normalizer = new SuddenDoomLinkNormalizer({} as Options);
+  return normalizer.normalize(events);
+}
 
+describe('SuddenDoomLinkNormalizer (removebuff)', () => {
   it('links removebuff to a cast at the same timestamp', () => {
     const removeBuff = makeRemoveBuff(1000);
     const cast = makeCast(1000);
@@ -116,7 +116,7 @@ describe('SuddenDoomLinkNormalizer', () => {
 
   it('does not link a non-consumer spell', () => {
     const removeBuff = makeRemoveBuff(1000);
-    const cast = makeCast(1000, 999999); // unrelated spell
+    const cast = makeCast(1000, 999999);
 
     normalize([removeBuff, cast]);
 
@@ -125,19 +125,14 @@ describe('SuddenDoomLinkNormalizer', () => {
   });
 });
 
-describe('SuddenDoomStackLinkNormalizer', () => {
-  function normalize(events: AnyEvent[]) {
-    const normalizer = new SuddenDoomStackLinkNormalizer({} as Options);
-    return normalizer.normalize(events);
-  }
-
+describe('SuddenDoomLinkNormalizer (removebuffstack)', () => {
   it('links removebuffstack to a cast at the same timestamp', () => {
     const removeStack = makeRemoveBuffStack(1000);
     const cast = makeCast(1000);
 
     normalize([removeStack, cast]);
 
-    const linked = GetRelatedEvents(removeStack, 'sudden-doom-stack-consumption');
+    const linked = GetRelatedEvents(removeStack, 'sudden-doom-consumption');
     expect(linked).toHaveLength(1);
     expect(linked[0]).toBe(cast);
   });
@@ -148,7 +143,7 @@ describe('SuddenDoomStackLinkNormalizer', () => {
 
     normalize([removeStack, cast]);
 
-    const linked = GetRelatedEvents(removeStack, 'sudden-doom-stack-consumption');
+    const linked = GetRelatedEvents(removeStack, 'sudden-doom-consumption');
     expect(linked).toHaveLength(1);
     expect(linked[0]).toBe(cast);
   });
@@ -159,7 +154,7 @@ describe('SuddenDoomStackLinkNormalizer', () => {
 
     normalize([cast, removeStack]);
 
-    const linked = GetRelatedEvents(removeStack, 'sudden-doom-stack-consumption');
+    const linked = GetRelatedEvents(removeStack, 'sudden-doom-consumption');
     expect(linked).toHaveLength(1);
     expect(linked[0]).toBe(cast);
   });
@@ -170,7 +165,7 @@ describe('SuddenDoomStackLinkNormalizer', () => {
 
     normalize([removeStack, cast]);
 
-    const reverseLinked = GetRelatedEvents(cast, 'sudden-doom-consumed-stack');
+    const reverseLinked = GetRelatedEvents(cast, 'sudden-doom-consumed-buff');
     expect(reverseLinked).toHaveLength(1);
     expect(reverseLinked[0]).toBe(removeStack);
   });
@@ -181,7 +176,7 @@ describe('SuddenDoomStackLinkNormalizer', () => {
 
     normalize([removeStack, cast]);
 
-    const linked = GetRelatedEvents(removeStack, 'sudden-doom-stack-consumption');
+    const linked = GetRelatedEvents(removeStack, 'sudden-doom-consumption');
     expect(linked).toHaveLength(0);
   });
 });

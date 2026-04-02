@@ -11,15 +11,15 @@ const SD_CONSUMERS = [
 ];
 
 /**
- * Links Sudden Doom removebuff events to their consuming cast events.
- * WCL can order removebuff before cast at the same timestamp, making
- * flag-based consumption detection unreliable. This normalizer links
+ * Links Sudden Doom removebuff and removebuffstack events to their consuming
+ * cast events. WCL can order removal events before cast at the same timestamp,
+ * making flag-based consumption detection unreliable. This normalizer links
  * them so the analyzer can check for a linked cast instead.
  */
 export const { normalizer: SuddenDoomLinkNormalizer, linkHelper: SuddenDoomConsumption } =
   EventLinkNormalizer.build({
     linkRelation: 'sudden-doom-consumption',
-    linkingEventType: EventType.RemoveBuff,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     linkingEventId: SPELLS.SUDDEN_DOOM_BUFF.id,
     referencedEventId: SD_CONSUMERS,
     referencedEventType: EventType.Cast,
@@ -28,23 +28,4 @@ export const { normalizer: SuddenDoomLinkNormalizer, linkHelper: SuddenDoomConsu
     anyTarget: true,
     maximumLinks: 1,
     reverseLinkRelation: 'sudden-doom-consumed-buff',
-  });
-
-/**
- * Links Sudden Doom removebuffstack events to their consuming cast events.
- * Same WCL ordering issue as removebuff — removebuffstack can fire before
- * the cast, which would cause double-counting if onCast also tracks it.
- */
-export const { normalizer: SuddenDoomStackLinkNormalizer, linkHelper: SuddenDoomStackConsumption } =
-  EventLinkNormalizer.build({
-    linkRelation: 'sudden-doom-stack-consumption',
-    linkingEventType: EventType.RemoveBuffStack,
-    linkingEventId: SPELLS.SUDDEN_DOOM_BUFF.id,
-    referencedEventId: SD_CONSUMERS,
-    referencedEventType: EventType.Cast,
-    backwardBufferMs: 500,
-    forwardBufferMs: 500,
-    anyTarget: true,
-    maximumLinks: 1,
-    reverseLinkRelation: 'sudden-doom-consumed-stack',
   });

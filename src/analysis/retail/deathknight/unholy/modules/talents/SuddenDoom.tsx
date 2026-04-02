@@ -6,6 +6,7 @@ import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
+  FightEndEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
@@ -16,10 +17,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import {
-  SuddenDoomConsumption,
-  SuddenDoomStackConsumption,
-} from '../../normalizers/SuddenDoomLink';
+import { SuddenDoomConsumption } from '../../normalizers/SuddenDoomLink';
 
 export interface SuddenDoomProc {
   timestamp: number;
@@ -28,6 +26,7 @@ export interface SuddenDoomProc {
 
 class SuddenDoom extends Analyzer {
   private currentStacks = 0;
+  private lastRemoveBuffStackTimestamp: number | null = null;
 
   readonly procs: SuddenDoomProc[] = [];
 
@@ -64,6 +63,7 @@ class SuddenDoom extends Analyzer {
         .spell([SPELLS.DEATH_COIL, SPELLS.EPIDEMIC, DK_SPELLS.NECROTIC_COIL, DK_SPELLS.GRAVEYARD]),
       this.onCast,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onApplyBuff(_event: ApplyBuffEvent) {
@@ -77,15 +77,22 @@ class SuddenDoom extends Analyzer {
   onRemoveBuffStack(event: RemoveBuffStackEvent) {
     // 2 → 1 stack (consumption at 2 stacks).
     // Use event link to confirm this was a cast consumption, mirroring onRemoveBuff logic.
-    const linkedCast = SuddenDoomStackConsumption.first(event);
+    const linkedCast = SuddenDoomConsumption.first(event);
     if (linkedCast) {
       this.procs.push({ timestamp: event.timestamp, type: 'consumed' });
     }
+    this.lastRemoveBuffStackTimestamp = event.timestamp;
     this.currentStacks = event.stack;
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    // Already at max stacks and a new proc arrived — the oldest is wasted
+    // WCL fires refreshbuff at the same timestamp as removebuffstack when a new proc
+    // arrives as one is consumed (2→1 + new proc). That's not an overwrite — the
+    // consumed stack was already tracked by onRemoveBuffStack.
+    if (this.lastRemoveBuffStackTimestamp === event.timestamp) {
+      return;
+    }
+    // Genuine overwrite: already at max stacks and a new proc arrived
     this.procs.push({ timestamp: event.timestamp, type: 'overwritten' });
   }
 
@@ -100,7 +107,10 @@ class SuddenDoom extends Analyzer {
     if (linkedCast) {
       this.procs.push({ timestamp: event.timestamp, type: 'consumed' });
     } else {
-      this.procs.push({ timestamp: event.timestamp, type: 'expired' });
+      // All remaining stacks expired — each is a wasted proc
+      for (let i = 0; i < this.currentStacks; i += 1) {
+        this.procs.push({ timestamp: event.timestamp, type: 'expired' });
+      }
     }
     this.currentStacks = 0;
   }
@@ -124,6 +134,13 @@ class SuddenDoom extends Analyzer {
       this.currentStacks = 0;
     }
     // If stacks > 1, removebuffstack handles the consumption tracking
+  }
+
+  onFightEnd(event: FightEndEvent) {
+    for (let i = 0; i < this.currentStacks; i += 1) {
+      this.procs.push({ timestamp: event.timestamp, type: 'expired' });
+    }
+    this.currentStacks = 0;
   }
 
   /** Get procs within a time range */
