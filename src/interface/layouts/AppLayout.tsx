@@ -53,6 +53,8 @@ export function AppLayout() {
               className="btn btn-primary"
               href="https://browser-update.org/update-browser.html"
               style={{ textTransform: 'none' }}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Update your Browser
             </a>
