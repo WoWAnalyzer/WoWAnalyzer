@@ -72,7 +72,7 @@ class CommanderOfTheDead extends Analyzer {
     return (
       <Statistic
         tooltip={`You buffed ${this.commanderBuffs} out of ${this.petSummons} pets buffed with Commander of the Dead`}
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.CORE(3)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >

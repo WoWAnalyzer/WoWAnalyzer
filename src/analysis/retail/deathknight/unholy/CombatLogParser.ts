@@ -15,6 +15,7 @@ import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
+import UnholyAura from './modules/talents/UnholyAura';
 import LesserGhoul from './modules/features/LesserGhoul';
 import RunicPowerGraph from './modules/core/RunicPowerGraph';
 import RuneGraph from './modules/core/RuneGraph';
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     commanderOfTheDead: CommanderOfTheDead,
     suddenDoom: SuddenDoom,
     forbiddenKnowledge: ForbiddenKnowledge,
+    unholyAura: UnholyAura,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
