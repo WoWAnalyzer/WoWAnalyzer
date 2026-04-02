@@ -2839,3 +2839,20 @@ export const MarchingCube: Contributor = {
   nickname: 'MarchingCube',
   github: 'MarchingCube',
 };
+
+export const Hezaerd: Contributor = {
+  nickname: 'Hezaerd',
+  github: 'Hezaerd',
+  discord: 'Hezaerd',
+  avatar: avatar('hezaerd-avatar.png'),
+  mains: [
+    {
+      name: 'Hezaerd',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://warcraftlogs.com/character/eu/hyjal/hezaerd',
+    },
+  ],
+  links: {
+    Website: 'https://hezaerd.com',
+  },
+};
