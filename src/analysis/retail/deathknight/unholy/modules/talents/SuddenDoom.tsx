@@ -11,12 +11,15 @@ import Events, {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SuddenDoomConsumption } from '../../normalizers/SuddenDoomLink';
+import {
+  SuddenDoomConsumption,
+  SuddenDoomStackConsumption,
+} from '../../normalizers/SuddenDoomLink';
 
 export interface SuddenDoomProc {
   timestamp: number;
@@ -72,8 +75,12 @@ class SuddenDoom extends Analyzer {
   }
 
   onRemoveBuffStack(event: RemoveBuffStackEvent) {
-    // 2 → 1 stack (consumption at 2 stacks)
-    this.procs.push({ timestamp: event.timestamp, type: 'consumed' });
+    // 2 → 1 stack (consumption at 2 stacks).
+    // Use event link to confirm this was a cast consumption, mirroring onRemoveBuff logic.
+    const linkedCast = SuddenDoomStackConsumption.first(event);
+    if (linkedCast) {
+      this.procs.push({ timestamp: event.timestamp, type: 'consumed' });
+    }
     this.currentStacks = event.stack;
   }
 
@@ -100,12 +107,19 @@ class SuddenDoom extends Analyzer {
 
   onCast(event: CastEvent) {
     if (this.currentStacks <= 0) {
-      // Either no buff, or removebuff already fired at the same timestamp (WCL ordering).
-      // In that case, onRemoveBuff already handled it via the event link.
+      // Either no buff, or removebuff/removebuffstack already fired at the same
+      // timestamp (WCL ordering). In that case, the event link handler already
+      // recorded the consumption.
       return;
     }
 
     if (this.currentStacks === 1) {
+      // Check if removebuffstack already recorded this consumption at the same timestamp
+      // (WCL can fire removebuffstack before cast when going 2→1)
+      const lastProc = this.procs[this.procs.length - 1];
+      if (lastProc?.timestamp === event.timestamp && lastProc.type === 'consumed') {
+        return;
+      }
       this.procs.push({ timestamp: event.timestamp, type: 'consumed' });
       this.currentStacks = 0;
     }
@@ -169,7 +183,7 @@ class SuddenDoom extends Analyzer {
             {formatPercentage(this.efficiency, 0)}% <small>efficiency</small>
           </div>
           <div>
-            {formatNumber(this.procsPerMinute)} <small>procs/min</small>
+            {this.procsPerMinute.toFixed(1)} <small>procs/min</small>
           </div>
         </BoringSpellValueText>
         <div style={{ padding: '8px' }}>

@@ -2,7 +2,10 @@ import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknigh
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
-import { SuddenDoomLinkNormalizer } from './normalizers/SuddenDoomLink';
+import {
+  SuddenDoomLinkNormalizer,
+  SuddenDoomStackLinkNormalizer,
+} from './normalizers/SuddenDoomLink';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
@@ -30,6 +33,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     suddenDoomLinkNormalizer: SuddenDoomLinkNormalizer,
+    suddenDoomStackLinkNormalizer: SuddenDoomStackLinkNormalizer,
 
     // Features
     plagueEfficiency: PlagueEfficiency,
