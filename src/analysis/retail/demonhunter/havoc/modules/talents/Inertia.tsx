@@ -128,7 +128,7 @@ export default class Inertia extends Analyzer {
 
     const explanation = (
       <>
-        <section>
+        <p>
           <strong>
             <SpellLink spell={TALENTS_DEMON_HUNTER.INERTIA_TALENT} />
           </strong>{' '}
@@ -138,11 +138,11 @@ export default class Inertia extends Analyzer {
           <SpellLink spell={SPELLS.FEL_RUSH_CAST} /> or{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} /> triggers{' '}
           <SpellLink spell={SPELLS.INERTIA_BUFF} /> for 5 seconds.
-        </section>
-        <section>
+        </p>
+        <p>
           During that window, try to fit in as many of your highest-value abilities as possible
           instead of spending globals on filler.
-        </section>
+        </p>
       </>
     );
 

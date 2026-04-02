@@ -26,11 +26,11 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
   constructor(options: Options) {
     super({ spell: TALENTS.EYE_BEAM_TALENT }, options);
 
-    const hasReleventTalents =
+    const hasRelevantTalents =
       this.selectedCombatant.hasTalent(TALENTS.FURIOUS_GAZE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.INERTIA_TALENT);
 
-    this.active = this.active && hasReleventTalents;
+    this.active = hasRelevantTalents;
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.EYE_BEAM_TALENT),
@@ -50,7 +50,7 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
             <>
               {' '}
               For optimal usage with <SpellLink spell={TALENTS.INERTIA_TALENT} />, the full channel
-              should fit inside <SpellLink spell={SPELLS.INERTIA_BUFF} />.
+              should fit inside the <SpellLink spell={SPELLS.INERTIA_BUFF} /> buff window.
             </>
           )}
         </section>
@@ -144,7 +144,7 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
     }
     if (cast.startedDuringInertia) {
       return {
-        performance: QualitativePerformance.Fail,
+        performance: QualitativePerformance.Ok,
         summary: <div>Started during Inertia</div>,
         details: (
           <div>
