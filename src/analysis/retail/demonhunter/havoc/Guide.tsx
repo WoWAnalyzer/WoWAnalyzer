@@ -6,7 +6,6 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import {
@@ -87,18 +86,18 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
-      <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
-      {info.combatant.hasTalent(TALENTS.SIGIL_OF_SPITE_TALENT) &&
+      {info.combatant.hasTalent(TALENTS.ESSENCE_BREAK_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.SIGIL_OF_SPITE_TALENT} /> coming soon!
+            Per-cast breakdown for <SpellLink spell={TALENTS.ESSENCE_BREAK_TALENT} /> coming soon!
           </div>,
           <></>,
         )}
-      {info.combatant.hasTalent(TALENTS.GLAIVE_TEMPEST_TALENT) &&
+      {info.combatant.hasTalent(TALENTS.ART_OF_THE_GLAIVE_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.GLAIVE_TEMPEST_TALENT} /> coming soon!
+            Per-cast breakdown for <SpellLink spell={TALENTS.ART_OF_THE_GLAIVE_TALENT} /> coming
+            soon!
           </div>,
           <></>,
         )}
@@ -106,7 +105,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
   );
 }
 
-function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Rotation">
       <HideExplanationsToggle id="hide-explanations-rotations" />
@@ -117,9 +116,14 @@ function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
         pairings.
       </p>
       {modules.inertia.guideSubsection()}
-      {/* {modules.throwGlaive.guideSubsection()}
-      {modules.exergy.guideSubsection()}
-      {modules.unboundChaos.guideSubsection()} */}
+      {/* {modules.throwGlaive.guideSubsection()} */}
+      {info.combatant.hasTalent(TALENTS.ESSENCE_BREAK_TALENT) &&
+        explanationAndDataSubsection(
+          <div>
+            Per-cast breakdown for <SpellLink spell={TALENTS.ESSENCE_BREAK_TALENT} /> coming soon!
+          </div>,
+          <></>,
+        )}
     </Section>
   );
 }
