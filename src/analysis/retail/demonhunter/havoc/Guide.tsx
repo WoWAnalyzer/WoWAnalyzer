@@ -111,7 +111,7 @@ function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
     <Section title="Rotation">
       <HideExplanationsToggle id="hide-explanations-rotations" />
       <HideGoodCastsToggle id="hide-good-casts-rotations" />
-      {/* {modules.eyeBeam.guideSubsection()} */}
+      {modules.inertia.guideSubsection()}
       {modules.throwGlaive.guideSubsection()}
       {modules.exergy.guideSubsection()}
       {modules.unboundChaos.guideSubsection()}

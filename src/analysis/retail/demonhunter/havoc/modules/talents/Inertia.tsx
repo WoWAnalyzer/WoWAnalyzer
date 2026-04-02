@@ -1,0 +1,96 @@
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import { formatDuration, formatPercentage } from 'common/format';
+import Statistic from 'parser/ui/Statistic';
+import UptimeIcon from 'interface/icons/Uptime';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { JSX } from 'react';
+import SpellLink from 'interface/SpellLink';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+
+export default class Inertia extends Analyzer {
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT);
+  }
+
+  get buffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.INERTIA_BUFF.id) / this.owner.fightDuration;
+  }
+
+  get buffDuration() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.INERTIA_BUFF.id);
+  }
+
+  get buffHistory() {
+    return this.selectedCombatant.getBuffHistory(SPELLS.INERTIA_BUFF.id);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.buffUptime,
+      isLessThan: {
+        minor: 0.1,
+        average: 0.18,
+        major: 0.22,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`The Inertia buff total uptime was ${formatDuration(this.buffDuration)}.`}
+      >
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.INERTIA_TALENT}>
+          <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
+        </TalentSpellText>
+      </Statistic>
+    );
+  }
+
+  guideSubsection(): JSX.Element | null {
+    if (!this.active) {
+      return null;
+    }
+
+    const explanation = (
+      <section>
+        <strong>
+          <SpellLink spell={TALENTS_DEMON_HUNTER.INERTIA_TALENT} />
+        </strong>{' '}
+        provides an 18% damage increase for 5 seconds after casting{' '}
+        <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_HAVOC_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />.
+      </section>
+    );
+
+    const data = (
+      <RoundedPanel>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS_DEMON_HUNTER.INERTIA_TALENT} />
+          </strong>{' '}
+          uptime
+        </p>
+        {uptimeBarSubStatistic(this.owner.fight, {
+          spells: [SPELLS.INERTIA_BUFF],
+          uptimes: this.buffHistory.map((buff) => ({
+            start: buff.start,
+            end: buff.end ?? this.owner.fight.end_time,
+          })),
+        })}
+      </RoundedPanel>
+    );
+
+    return <ExplanationAndDataSubSection explanation={explanation} data={data} title="Inertia" />;
+  }
+}
