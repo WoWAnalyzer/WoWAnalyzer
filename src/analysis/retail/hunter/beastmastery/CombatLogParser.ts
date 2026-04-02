@@ -41,7 +41,6 @@ import Guide from './modules/guide/Guide';
 import FrenzyBuffStackTracker from './modules/guide/sections/rotation/FrenzyBuffStackTracker';
 import FrenzyBuffStackGraph from './modules/guide/sections/rotation/FrenzyBuffStackGraph';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
-import BarbedShotNormalizer from './normalizers/BarbedShotNormalizer';
 import Bloodshed from './modules/talents/Bloodshed';
 import HunterEventLinkNormalizers from '../shared/normalizers/HunterEventLinkNormalizers';
 
@@ -73,7 +72,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     direCommandNormalizer: DireCommandNormalizer,
-    barbedShotNormalizer: BarbedShotNormalizer,
     hunterEventLinkNormalizer: HunterEventLinkNormalizers,
 
     //DeathTracker

@@ -38,13 +38,6 @@ export default function RotationSection({ modules, info }: GuideProps<typeof Com
           segments show when the spell was cooling down. Red segments highlight times when you could
           have fit a whole extra use of the cooldown.
         </Trans>
-        {info.combatant.hasTalent(TALENTS.CALL_OF_THE_WILD_TALENT) && (
-          <CastEfficiencyBar
-            spell={TALENTS.CALL_OF_THE_WILD_TALENT}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            minimizeIcons
-          />
-        )}
         {info.combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT) && (
           <CastEfficiencyBar
             spell={TALENTS.BESTIAL_WRATH_TALENT}
