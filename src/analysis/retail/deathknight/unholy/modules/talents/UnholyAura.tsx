@@ -45,19 +45,19 @@ class UnholyAura extends Analyzer {
     });
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
       this.handleStacks,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
       this.handleStacks,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
       this.handleStacks,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
       this.handleStacks,
     );
     this.addEventListener(Events.fightend, this.handleStacks);
