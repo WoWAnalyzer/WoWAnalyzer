@@ -21,6 +21,9 @@ import {
   DREAM_BREATH_CAST,
   DREAM_BREATH_FROM_STASIS,
   STASIS_BUFFER,
+  MERITHRAS_PROC_GENERATION,
+  MERITHRAS_HEALING,
+  MERITHRAS_BOUNCING_TIME,
 } from './constants';
 
 export const GREEN_EVENT_LINKS: EventLink[] = [
@@ -131,6 +134,29 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.RemoveBuff,
     backwardBufferMs: STASIS_BUFFER,
     maximumLinks: 1,
+    anyTarget: true,
+  },
+  {
+    linkRelation: MERITHRAS_PROC_GENERATION,
+    linkingEventId: SPELLS.MERITHRAS_BLESSING_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [
+      TALENTS_EVOKER.ECHO_TALENT.id,
+      SPELLS.EMERALD_BLOSSOM_CAST.id,
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+      SPELLS.DREAM_BREATH_FONT.id,
+    ],
+    referencedEventType: [EventType.Cast, EventType.EmpowerEnd],
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
+    linkRelation: MERITHRAS_HEALING,
+    linkingEventId: SPELLS.MERITHRAS_BLESSING_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.MERITHRAS_BLESSING_CAST.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: MERITHRAS_BOUNCING_TIME,
     anyTarget: true,
   },
 ];
