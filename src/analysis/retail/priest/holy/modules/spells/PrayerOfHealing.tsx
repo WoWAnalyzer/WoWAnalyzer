@@ -340,34 +340,32 @@ class PrayerOfHealing extends Analyzer {
     let castBreakdownSmallText: JSX.Element | undefined;
 
     let scenario:
-      | 'both'
+      | 'lightweaver-both'
       | 'lightweaver-only'
-      | 'surge-only'
-      | 'divinity-only'
       | 'lightweaver-surge'
       | 'lightweaver-divinity'
       | 'surge-divinity';
-    if (hasLightweaver && hasSurge && hasDivinity) scenario = 'both';
+    if (hasLightweaver && hasSurge && hasDivinity) scenario = 'lightweaver-both';
     else if (hasLightweaver && hasSurge) scenario = 'lightweaver-surge';
     else if (hasLightweaver && hasDivinity) scenario = 'lightweaver-divinity';
     else if (hasSurge && hasDivinity) scenario = 'surge-divinity';
     else if (hasLightweaver) scenario = 'lightweaver-only';
-    else if (hasSurge) scenario = 'surge-only';
-    else if (hasDivinity) scenario = 'divinity-only';
     else scenario = 'lightweaver-only';
 
     switch (scenario) {
-      case 'both':
+      case 'lightweaver-both':
         castBreakdownSmallText = (
           <>
             {' '}
             - <span className={styles.perfectCast}>Blue</span> is a perfect cast with{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />,{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> and{' '}
-            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active.{' '}
-            <span className={styles.goodCast}>Green</span> is a good cast with at least one of these
-            buffs. <span className={styles.okCast}>Yellow</span> is an OK cast with one buff but
-            without <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
+            <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
+            <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active but without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
             <span className={styles.badCast}>Red</span> is a bad cast with none of the buffs active.
           </>
         );
@@ -381,8 +379,9 @@ class PrayerOfHealing extends Analyzer {
             <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
             <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
-            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> buff without{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
             <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
           </>
         );
@@ -393,26 +392,6 @@ class PrayerOfHealing extends Analyzer {
             {' '}
             - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
-            <span className={styles.badCast}>Red</span> is a bad cast without it.
-          </>
-        );
-        break;
-      case 'surge-only':
-        castBreakdownSmallText = (
-          <>
-            {' '}
-            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
-            <span className={styles.badCast}>Red</span> is a bad cast without it.
-          </>
-        );
-        break;
-      case 'divinity-only':
-        castBreakdownSmallText = (
-          <>
-            {' '}
-            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
-            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active.{' '}
             <span className={styles.badCast}>Red</span> is a bad cast without it.
           </>
         );
