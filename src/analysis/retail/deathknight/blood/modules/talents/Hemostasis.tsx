@@ -83,10 +83,11 @@ class Hemostasis extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.hemostasis.statistic.tooltip">
-            Resulting in {formatNumber(this.damage)} additional damage and {formatNumber(this.heal)}{' '}
-            additional healing.
-            <br />
-            You gained {this.gainedBuffs} and wasted {this.wastedBuffs} stacks.
+            <p>
+              Resulting in {formatNumber(this.damage)} additional damage and{' '}
+              {formatNumber(this.heal)} additional healing. You gained {this.gainedBuffs} and wasted{' '}
+              {this.wastedBuffs} stacks.
+            </p>
           </Trans>
         }
       >

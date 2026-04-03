@@ -72,9 +72,12 @@ class WillOfTheNecropolis extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.willOfTheNecropolis.statistic.tooltip">
-            <strong>Total Damage Absorbed: </strong> {formatNumber(this.totalWotnAbsorbed)} <br />
-            <strong>Activated: </strong> {this.activated}
-            <br />
+            <p>
+              <strong>Total Damage Absorbed: </strong> {formatNumber(this.totalWotnAbsorbed)}
+            </p>
+            <p>
+              <strong>Activated: </strong> {this.activated}
+            </p>
             <strong>Absorbed 5% Max Health or more count: </strong> {this.goodAbsorbCount}
           </Trans>
         }

@@ -51,7 +51,6 @@
     "src/analysis/retail/rogue/outlaw"
   ],
   "files": [
-    "src/analysis/retail/deathknight/blood/CONFIG.tsx",
     "src/analysis/retail/deathknight/frost/CONFIG.tsx",
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
