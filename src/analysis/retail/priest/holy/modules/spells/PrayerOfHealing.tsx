@@ -344,13 +344,18 @@ class PrayerOfHealing extends Analyzer {
       | 'lightweaver-only'
       | 'lightweaver-surge'
       | 'lightweaver-divinity'
-      | 'surge-divinity';
+      | 'surge-divinity'
+      | 'surge-only'
+      | 'divinity-only'
+      | 'none';
     if (hasLightweaver && hasSurge && hasDivinity) scenario = 'lightweaver-both';
     else if (hasLightweaver && hasSurge) scenario = 'lightweaver-surge';
     else if (hasLightweaver && hasDivinity) scenario = 'lightweaver-divinity';
     else if (hasSurge && hasDivinity) scenario = 'surge-divinity';
+    else if (hasSurge) scenario = 'surge-only';
+    else if (hasDivinity) scenario = 'divinity-only';
     else if (hasLightweaver) scenario = 'lightweaver-only';
-    else scenario = 'lightweaver-only';
+    else scenario = 'none';
 
     switch (scenario) {
       case 'lightweaver-both':
@@ -364,22 +369,35 @@ class PrayerOfHealing extends Analyzer {
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
             <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
-            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active but without{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active without{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
-            <span className={styles.badCast}>Red</span> is a bad cast with none of the buffs active.
+            <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
           </>
         );
         break;
       case 'lightweaver-surge':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            - <span className={styles.perfectCast}>Blue</span> is a perfect cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
+            <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
+            <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
+          </>
+        );
+        break;
       case 'lightweaver-divinity':
-      case 'surge-divinity':
         castBreakdownSmallText = (
           <>
             {' '}
             <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
             <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
             <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active without{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
             <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
@@ -395,6 +413,22 @@ class PrayerOfHealing extends Analyzer {
             <span className={styles.badCast}>Red</span> is a bad cast without it.
           </>
         );
+        break;
+      case 'surge-divinity':
+      case 'surge-only':
+      case 'divinity-only':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast without it.
+          </>
+        );
+        break;
+      default:
+        castBreakdownSmallText = undefined;
         break;
     }
 
