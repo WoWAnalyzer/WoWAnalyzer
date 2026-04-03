@@ -71,6 +71,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 500,
         },
+        enabled: !combatant.hasTalent(TALENTS_MONK.COMBAT_WISDOM_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -93,15 +94,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT),
         castEfficiency: {
           suggestion: true,
-        },
-      },
-      {
-        spell: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
-        gcd: {
-          base: 1000,
         },
       },
       {
@@ -132,17 +124,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STORM_EARTH_AND_FIRE_CAST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: null,
-        charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
         spell: TALENTS_MONK.ZENITH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
@@ -162,6 +143,9 @@ class Abilities extends CoreAbilities {
           base: 1000,
           minimum: 750,
         },
+        enabled:
+          combatant.hasTalent(TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT) &&
+          combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -305,11 +289,6 @@ class Abilities extends CoreAbilities {
           base: 1000,
           minimum: 750,
         },
-      },
-      {
-        spell: SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
       },
       // Defensives
       {

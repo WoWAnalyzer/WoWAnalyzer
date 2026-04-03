@@ -9,6 +9,9 @@ import Events, {
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
@@ -29,8 +32,14 @@ import {
   SPIRITFONT_PROC,
   SPIRITFONT_TFT,
 } from '../../normalizers/EventLinks/EventLinkConstants';
+import { isSpiritfontConsumed } from '../../normalizers/CastLinkNormalizer';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class Spiritfont extends Analyzer {
   rskDamage = 0;
@@ -43,6 +52,8 @@ class Spiritfont extends Analyzer {
   proccedSpiritfonts = 0;
   spiritfontHealing = 0;
   chiCocoonHealing = 0;
+  wastedBuffs = 0;
+  entries: BoxRowEntry[] = [];
 
   envRskIncrease = 0;
   activeRSKTalent = SPELLS.RISING_SUN_KICK_DAMAGE;
@@ -86,6 +97,18 @@ class Spiritfont extends Analyzer {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_BUFF),
       this.handleSfApply,
     );
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_BUFF),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_BUFF),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_BUFF),
+      this.onRemoveBuffStack,
+    );
   }
 
   handleSfApply(event: ApplyBuffEvent | ApplyBuffStackEvent) {
@@ -96,6 +119,52 @@ class Spiritfont extends Analyzer {
     } else {
       this.tftSpiritfonts += 1; // fallback for tfts casted before combat
     }
+  }
+
+  private onRefreshBuff(event: RefreshBuffEvent) {
+    this.wastedBuffs += 1;
+    this.entries.push({
+      value: QualitativePerformance.Fail,
+      tooltip: (
+        <>
+          <div>Refreshed @ {this.owner.formatTimestamp(event.timestamp)}</div>
+        </>
+      ),
+    });
+  }
+
+  private onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    const isConsumed = isSpiritfontConsumed(event);
+    if (!isConsumed) {
+      this.wastedBuffs += 1;
+    }
+    this.entries.push({
+      value: isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
+      tooltip: (
+        <>
+          <div>
+            {isConsumed ? 'Consumed ' : 'Expired '}@ {this.owner.formatTimestamp(event.timestamp)}
+          </div>
+        </>
+      ),
+    });
+  }
+
+  private onRemoveBuff(event: RemoveBuffEvent) {
+    const isConsumed = isSpiritfontConsumed(event);
+    if (!isConsumed) {
+      this.wastedBuffs += 1;
+    }
+    this.entries.push({
+      value: isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
+      tooltip: (
+        <>
+          <div>
+            {isConsumed ? 'Consumed ' : 'Expired '}@ {this.owner.formatTimestamp(event.timestamp)}
+          </div>
+        </>
+      ),
+    });
   }
 
   handleSpiritfontHeal(event: HealEvent) {
@@ -194,6 +263,43 @@ class Spiritfont extends Analyzer {
 
   get point4Healing() {
     return this.tftSpiritfontHealing + this.chiCocoonHealing;
+  }
+
+  get guideSubsection() {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} />
+        </b>{' '}
+        is our Apex talent. It stacks up to 2 charges, and consuming a charge causes several{' '}
+        <SpellLink spell={SPELLS.SPIRITFONT_HOT} /> to heal players. Additionally, it increases the
+        damage and healing of your <SpellLink spell={this.activeRSKTalent} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />, with even greater increases
+        during <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} /> activity. It is
+        very important to never let this buff refresh at 2 stacks or expire, as all portions of the
+        Apex add up to a significant amount of your healing.
+      </p>
+    );
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> utilization
+          </strong>
+          <PerformanceBoxRow values={this.entries} />
+          <div style={styleObj}>
+            <b>{this.wastedBuffs}</b> <small style={styleObjInner}>wasted buffs</small>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

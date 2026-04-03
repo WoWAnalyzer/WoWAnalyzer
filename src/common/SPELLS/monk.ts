@@ -540,8 +540,8 @@ const spells = {
   },
   SPIRITFONT_HOT: {
     id: 1260617,
-    name: 'Spiritfont',
-    icon: 'inv12_apextalent_monk_spiritfont',
+    name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
   },
   SPIRITFONT_ACTIVE_BUFF: {
     id: 1260670,
@@ -920,6 +920,11 @@ const spells = {
     id: 185099,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
+  },
+  GLORY_OF_THE_DAWN_DAMAGE: {
+    id: 392959,
+    name: 'Glory of the Dawn',
+    icon: 'ability_monk_mightyoxkick',
   },
   RUSHING_WIND_KICK_BUFF: {
     id: 1250554,

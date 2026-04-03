@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 3, 29), <>Updated Celestial analysis, APL checks, and general healing cooldowns updates.</>, swirl),
   change(date(2026, 3, 24), <>Fixed <SpellLink spell={TALENTS_MONK.MISTY_COALESCENCE_TALENT} /> to correctly cap scaling at 20 players.</>, swirl),
   change(date(2026, 3, 21), <>Added <SpellLink spell={TALENTS_MONK.MORNING_BREEZE_TALENT} /> module.</>, swirl),
   change(date(2026, 3, 20), <>Updated <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> perf box analysis</>, Vohrr),

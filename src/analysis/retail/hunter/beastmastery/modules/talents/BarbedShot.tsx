@@ -52,9 +52,7 @@ class BarbedShot extends Analyzer {
   barbedShotStacks: number[][] = [];
   lastBarbedShotStack = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
-  frenzyBuffDuration: number = this.selectedCombatant.hasTalent(TALENTS.SAVAGERY_TALENT)
-    ? SAVAGERY_FRENZY_DURATION
-    : ORIGINAL_FRENZY_DURATION;
+  frenzyBuffDuration: number = ORIGINAL_FRENZY_DURATION;
 
   //Guide specific variables
   castEntries: (BoxRowEntry & { event: CastEvent })[] = [];
@@ -316,22 +314,6 @@ class BarbedShot extends Analyzer {
     }
 
     if (
-      this.selectedCombatant.hasTalent(TALENTS.WILD_CALL_TALENT) &&
-      barbedShotFractionalCharges > 1.4
-    ) {
-      const tooltip = (
-        <>
-          {baseTooltip}
-          You had <strong>{barbedShotFractionalCharges.toFixed(1)}</strong> charges of{' '}
-          <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> while talented into{' '}
-          <SpellLink spell={TALENTS.WILD_CALL_TALENT} /> giving you more resets.
-        </>
-      );
-      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
-      return;
-    }
-
-    if (
       barbedShotCharges === 1 &&
       bestialWrathOnCooldown &&
       currentGCDWithBuffer > this.spellUsable.cooldownRemaining(TALENTS.BARBED_SHOT_TALENT.id)
@@ -365,19 +347,6 @@ class BarbedShot extends Analyzer {
       return;
     }
 
-    if (this.selectedCombatant.hasTalent(TALENTS.SAVAGERY_TALENT)) {
-      const tooltip = (
-        <>
-          {baseTooltip}
-          You used <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> while talented into{' '}
-          <SpellLink spell={TALENTS.SAVAGERY_TALENT} /> giving your{' '}
-          <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> a longer duration.
-        </>
-      );
-      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
-      return;
-    }
-
     const badTooltip = (
       <>
         {baseTooltip} You didn't fulfill any of the criteria of casting a good{' '}
@@ -405,10 +374,8 @@ class BarbedShot extends Analyzer {
           <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />
         </strong>{' '}
         is your primary <strong>builder</strong> for <strong>Focus</strong>, and is used to maintain{' '}
-        <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> on your pet. With{' '}
-        <SpellLink spell={TALENTS.BARBED_WRATH_TALENT} /> talented it helps to lower the cooldown of{' '}
-        <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> by a significant amount. Therefore you
-        should aim to keep <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> and{' '}
+        <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> on your pet. Therefore you should aim to
+        keep <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> and{' '}
         <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> rolling to maximize the potential of your{' '}
         <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> usage.
       </p>

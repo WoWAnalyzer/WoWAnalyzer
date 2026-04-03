@@ -35,6 +35,7 @@ export default function RotationSection({
           segments show when the spell was cooling down. Red segments highlight times when you could
           have fit a whole extra use of the cooldown.
         </Trans>
+        {modules.raptorSwipe.guideSubsection}
         {modules.wildfireBomb.guideSubsection}
         {modules.boomstick.guideSubsection}
       </SubSection>

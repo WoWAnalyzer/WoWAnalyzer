@@ -13,10 +13,8 @@ export interface Cooldown {
 }
 
 const cooldownsToCheck: Cooldown[] = [
-  { spell: SPELLS.SHADOW_DANCE },
-  // todo: fix secret technique CD graph
-  // { spell: SPELLS.SECRET_TECHNIQUE },
-  { spell: TALENTS.SHURIKEN_TORNADO_TALENT },
+  { spell: TALENTS.SHADOW_BLADES_TALENT },
+  { spell: SPELLS.SECRET_TECHNIQUE },
   { spell: SPELLS.VANISH },
 ];
 
@@ -44,7 +42,7 @@ const CooldownGraphSubsection = () => {
 
   return (
     <SubSection>
-      <p>
+      <div>
         <strong>Cooldown Graph</strong> - This graph visualizes the usage of your cooldowns and
         highlights areas where optimizations can be made.
         <ul>
@@ -60,7 +58,7 @@ const CooldownGraphSubsection = () => {
         </ul>
         For Subtlety, <strong>Shadow Dance</strong> usage is crucial, as they define your burst
         windows.
-      </p>
+      </div>
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar
           key={cooldownCheck.spell.id}

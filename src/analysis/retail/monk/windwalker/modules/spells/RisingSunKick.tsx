@@ -22,9 +22,7 @@ class RisingSunKick extends Analyzer {
           <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
         </b>{' '}
         is one of your primary dps skills and should be used immediately in most cases, as dictated
-        by the APL. When <SpellLink spell={TALENTS_MONK.XUENS_BATTLEGEAR_TALENT} /> is talented,{' '}
-        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> reduces the cooldown of{' '}
-        <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} /> by 4 seconds.
+        by the APL.
       </p>
     );
 

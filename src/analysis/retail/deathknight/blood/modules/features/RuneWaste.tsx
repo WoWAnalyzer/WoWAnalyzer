@@ -186,6 +186,7 @@ function boneShieldViolations(violations: Violation[]) {
   };
 }
 
+// oxlint-disable-next-line typescript/no-explicit-any
 const DescribeBoneShieldWaste: ViolationExplainer<any>['describe'] = ({ violation }) => {
   const isMarrowrend = violation.actualCast.ability.guid === talents.MARROWREND_TALENT.id;
   return (

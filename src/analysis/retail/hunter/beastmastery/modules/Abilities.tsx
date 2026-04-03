@@ -32,15 +32,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLACK_ARROW_DAMAGE.id,
-        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.KILL_SHOT_MM_BM.id,
-        enabled: combatant.hasTalent(TALENTS.KILL_SHOT_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -116,15 +108,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.CALL_OF_THE_WILD_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.has2PieceByTier(TIERS.TWW3) ? 60 : 120,
-        enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_WILD_TALENT),
         gcd: {
           base: 1500,
         },
@@ -207,7 +190,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MISDIRECTION.id,
+        spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {

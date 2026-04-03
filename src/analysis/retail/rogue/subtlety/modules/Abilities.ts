@@ -67,7 +67,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_DANCE_TALENT) ? 1 : 0),
-        cooldown: 60,
+        cooldown: 20,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -125,8 +125,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
+          recommendedEfficiency: 0.8,
+          extraSuggestion:
+            'Use Secret Technique whenever is available with Shadow Dance. Hold it for Shadow Blades.',
         },
       },
       {
