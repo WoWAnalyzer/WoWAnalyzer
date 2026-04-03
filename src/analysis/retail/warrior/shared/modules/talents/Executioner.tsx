@@ -11,7 +11,6 @@ class Executioner extends Analyzer.withDependencies({
 }) {
   constructor(options: Options) {
     super(options);
-    console.log(this.selectedCombatant.hasTalent(talents.BLADESTORM_TALENT));
     this.active = this.selectedCombatant.hasTalent(talents.BLADESTORM_TALENT);
 
     this.addEventListener(

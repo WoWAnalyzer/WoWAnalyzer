@@ -4,7 +4,7 @@ import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
@@ -16,7 +16,6 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
  */
 
 const COLOSSUS_SMASH_BONUS_DAMAGE = 0.3;
-const ARMS_WARRIOR_APEX4_COLOSSUS_SMASH_CDR = 2000;
 
 class ColossusSmash extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
@@ -34,19 +33,6 @@ class ColossusSmash extends Analyzer.withDependencies({
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.COLOSSUS_SMASH_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
-    if (this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_WARFARE_3_ARMS_TALENT)) {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEROIC_STRIKE),
-        this.onHeroicStrikeCast,
-      );
-    }
-  }
-
-  onHeroicStrikeCast(event: CastEvent) {
-    this.deps.spellUsable.reduceCooldown(
-      SPELLS.COLOSSUS_SMASH.id,
-      ARMS_WARRIOR_APEX4_COLOSSUS_SMASH_CDR,
-    );
   }
 
   _onDamage(event: DamageEvent) {
