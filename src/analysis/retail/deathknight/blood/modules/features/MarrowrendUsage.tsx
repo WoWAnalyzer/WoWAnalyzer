@@ -186,9 +186,10 @@ class MarrowrendUsage extends Analyzer {
               {this.badMRCasts} casts with more than {REFRESH_AT_STACKS} stacks of Bone Shield
               wasting {this.bsStacksWasted} stacks.
             </p>
-            <p></p>
-            Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if
-            Bone Shield has less than 6sec of its duration left.
+            <p>
+              Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if
+              Bone Shield has less than 6sec of its duration left.
+            </p>
           </Trans>
         }
       >
