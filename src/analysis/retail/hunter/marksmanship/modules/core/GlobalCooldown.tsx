@@ -1,4 +1,5 @@
 import { TALENTS_HUNTER } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
@@ -6,9 +7,6 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 class GlobalCooldown extends CoreGlobalCooldown {
   aimedShotTimestamp: number | null = null;
 
-  /**
-   * Barrage and Rapid Fire GCDs are triggered when fabricating channel events
-   */
   constructor(options: Options) {
     super(options);
     this.addEventListener(
@@ -42,6 +40,13 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     if (spellId === TALENTS_HUNTER.AIMED_SHOT_TALENT.id && this.aimedShotTimestamp === null) {
       return 0;
+    }
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_HUNTER.PRECISE_SHOTS_TALENT) &&
+      (spellId === SPELLS.ARCANE_SHOT.id || spellId === SPELLS.MULTISHOT_MM.id) &&
+      this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS_BUFF.id)
+    ) {
+      return 750;
     }
     return gcd;
   }
