@@ -14,10 +14,10 @@ import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow'
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const MAX_STACKS = 3;
 const LOW_FOCUS_THRESHOLD = 30;
-const FOCUS_RESOURCE_TYPE = 2;
 const HOWL_BUFFS = [
   SPELLS.HOWL_OF_THE_PACKLEADER_WYVERN,
   SPELLS.HOWL_OF_THE_PACKLEADER_BEAR,
@@ -73,16 +73,14 @@ class TipOfTheSpear extends BuffStackTracker {
       tippableSpells.push(TALENTS.TAKEDOWN_TALENT);
     }
 
-    if (tippableSpells.length > 0) {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(tippableSpells),
-        this.onTippableCast,
-      );
-    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(tippableSpells),
+      this.onTippableCast,
+    );
   }
 
   private getFocus(event: CastEvent): number {
-    return event.classResources?.find((r) => r.type === FOCUS_RESOURCE_TYPE)?.amount ?? Infinity;
+    return event.classResources?.find((r) => r.type === RESOURCE_TYPES.FOCUS.id)?.amount ?? 0;
   }
 
   private onTippableCast = (event: CastEvent) => {
