@@ -7,6 +7,9 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 class GlobalCooldown extends CoreGlobalCooldown {
   aimedShotTimestamp: number | null = null;
 
+  /**
+   * Barrage and Rapid Fire GCDs are triggered when fabricating channel events
+   */
   constructor(options: Options) {
     super(options);
     this.addEventListener(
