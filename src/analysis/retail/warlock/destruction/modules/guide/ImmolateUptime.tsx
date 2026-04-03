@@ -5,7 +5,7 @@ import type { JSX } from 'react';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
-import Immolate from '../features/Immolate';
+import Immolate from '../analyzers/Immolate';
 
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';

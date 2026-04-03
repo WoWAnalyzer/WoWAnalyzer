@@ -29,23 +29,16 @@ class BestialWrath extends Analyzer {
   wastedBWReduction = 0;
   casts = 0;
   accumulatedFocusAtBWCast = 0;
-  hasBarbedWrath = false;
 
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT);
-    this.hasBarbedWrath = this.selectedCombatant.hasTalent(TALENTS.BARBED_WRATH_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
       this.onBestialWrathCast,
     );
-    this.hasBarbedWrath &&
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARBED_SHOT_TALENT),
-        this.onBarbedShotCast,
-      );
   }
 
   get percentUptime() {
@@ -147,34 +140,6 @@ class BestialWrath extends Analyzer {
                     </>
                   </td>
                 </tr>
-                {this.hasBarbedWrath && (
-                  <>
-                    <tr>
-                      <td className="text-left">Gained Bestial Wraths</td>
-                      <td>
-                        <>
-                          {this.gainedBestialWraths.toFixed(1)}
-                          <SpellIcon spell={TALENTS.BESTIAL_WRATH_TALENT} />
-                        </>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left">CDR Efficiency</td>
-                      <td>
-                        <>
-                          {formatNumber(this.effectiveBWReduction / 1000)}s /{' '}
-                          {this.totalPossibleCDR / 1000}s
-                        </>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="text-left">CDR Efficiency %</td>
-                      <td>
-                        {formatPercentage(this.effectiveBWReduction / this.totalPossibleCDR)}%
-                      </td>
-                    </tr>
-                  </>
-                )}
               </tbody>
             </table>
           </>

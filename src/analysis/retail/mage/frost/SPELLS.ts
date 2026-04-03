@@ -62,6 +62,11 @@ const spells = {
     name: "Winter's Chill",
     icon: 'spell_frost_frostward',
   },
+  GLACIAL_SPIKE: {
+    id: 199786,
+    name: 'Glacial Spike',
+    icon: 'ability_mage_glacialspike',
+  },
   GLACIAL_SPIKE_BUFF: {
     id: 199844,
     name: 'Glacial Spike!',
@@ -86,6 +91,11 @@ const spells = {
     id: 84721,
     name: 'Frozen orb',
     icon: 'spell_frost_frozenorb',
+  },
+  COMET_STORM_CAST: {
+    id: 153595,
+    name: 'Comet Storm',
+    icon: 'spell_mage_cometstorm2',
   },
   COMET_STORM_DAMAGE: {
     id: 153596,
@@ -145,6 +155,21 @@ const spells = {
   FREEZING: {
     id: 1221389,
     name: 'Freezing',
+    icon: 'inv12_ability_mage_freezing',
+  },
+  THERMAL_VOID_BUFF: {
+    id: 1247730,
+    name: 'Thermal Void',
+    icon: 'spell_mage_thermalvoid',
+  },
+  FROST_SPLINTER: {
+    id: 443722,
+    name: 'Frost Splinter',
+    icon: 'inv_ability_spellslingermage_splintersblue',
+  },
+  SHATTER_DAMAGE: {
+    id: 1246949,
+    name: 'Shatter',
     icon: 'inv12_ability_mage_freezing',
   },
 } satisfies Record<string, Spell>;

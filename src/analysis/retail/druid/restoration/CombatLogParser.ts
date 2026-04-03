@@ -32,6 +32,7 @@ import Reforestation from 'analysis/retail/druid/restoration/modules/spells/Refo
 import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
 import VerdantInfusion from 'analysis/retail/druid/restoration/modules/spells/VerdantInfusion';
 import Abundance from 'analysis/retail/druid/restoration/modules/spells/Abundance';
+import Intensity from 'analysis/retail/druid/restoration/modules/spells/Intensity';
 import Flourish from 'analysis/retail/druid/restoration/modules/spells/Flourish';
 import Photosynthesis from 'analysis/retail/druid/restoration/modules/spells/Photosynthesis';
 import SoulOfTheForest from 'analysis/retail/druid/restoration/modules/spells/SoulOfTheForest';
@@ -122,6 +123,7 @@ class CombatLogParser extends CoreCombatLogParser {
     photosynthesis: Photosynthesis,
     flourish: Flourish,
     abundance: Abundance,
+    intensity: Intensity,
     convokeSpirits: ConvokeSpiritsResto,
     memoryoftheMotherTree: PowerOfTheArchdruid,
     verdantInfusion: VerdantInfusion,
