@@ -16,6 +16,7 @@ import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SuddenDoomConsumption } from '../../normalizers/SuddenDoomLink';
 
@@ -194,7 +195,11 @@ class SuddenDoom extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(12)} size="flexible">
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(12)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
         <BoringSpellValueText spell={SPELLS.SUDDEN_DOOM_BUFF}>
           <div>
             {formatPercentage(this.efficiency, 0)}% <small>efficiency</small>
