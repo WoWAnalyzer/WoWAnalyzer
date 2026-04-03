@@ -1,11 +1,10 @@
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
   EventType,
-  DamageEvent,
   CastEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
@@ -13,17 +12,13 @@ import Events, {
   ApplyBuffStackEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SHATTER_DEBUFFS } from '../../shared';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { ICE_LANCE_SPENDER } from 'analysis/retail/mage/frost/normalizers/CastLinkNormalizer';
 
 class FingersOfFrost extends Analyzer {
   static dependencies = {
@@ -32,11 +27,7 @@ class FingersOfFrost extends Analyzer {
   protected enemies!: Enemies;
 
   fingers: {
-    apply: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent;
-    remove: RemoveBuffEvent | undefined;
-    spender: CastEvent | undefined;
     expired: boolean;
-    munched: boolean;
     overcapped: boolean;
     spendDelay: number | undefined;
   }[] = [];
@@ -58,23 +49,18 @@ class FingersOfFrost extends Analyzer {
   }
 
   onFingersProc(event: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent) {
+    // Ignore buff refreshes that occur automatically when consuming a stack
     if (event.type === EventType.RefreshBuff && GetRelatedEvent(event, 'BuffRemove')) {
       return;
     }
-    const remove: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'BuffRemove');
-    const spender: CastEvent | undefined = remove && GetRelatedEvent(remove, 'SpellCast');
-    const damage: DamageEvent | undefined = spender && GetRelatedEvent(spender, 'SpellDamage');
+    const removeEvent: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'BuffRemove');
+    const spender: CastEvent | undefined =
+      removeEvent && GetRelatedEvent(removeEvent, ICE_LANCE_SPENDER);
     const fingersStacks: number =
       this.selectedCombatant.getBuff(SPELLS.FINGERS_OF_FROST_BUFF.id, event.timestamp - 10)
         ?.stacks || 0;
-    const enemy = damage && this.enemies.getEntity(damage);
     this.fingers.push({
-      apply: event,
-      remove: remove,
-      spender: spender,
       expired: !spender,
-      munched:
-        SHATTER_DEBUFFS.some((effect) => enemy?.hasBuff(effect.id, damage?.timestamp)) || false,
       overcapped: event.type === EventType.RefreshBuff && fingersStacks === 2,
       spendDelay: spender && spender.timestamp - event.timestamp,
     });
@@ -82,6 +68,10 @@ class FingersOfFrost extends Analyzer {
 
   get expiredProcs() {
     return this.fingers.filter((f) => f.expired).length;
+  }
+
+  get expiredPercent() {
+    return this.expiredProcs / this.totalProcs;
   }
 
   get averageSpendDelaySeconds() {
@@ -94,10 +84,6 @@ class FingersOfFrost extends Analyzer {
     return this.totalProcs - this.expiredProcs;
   }
 
-  get munchedProcs() {
-    return this.fingers.filter((f) => f.munched).length;
-  }
-
   get overcappedProcs() {
     return this.fingers.filter((f) => f.overcapped).length;
   }
@@ -106,139 +92,71 @@ class FingersOfFrost extends Analyzer {
     return this.fingers.length;
   }
 
-  get munchedPercent() {
-    return this.munchedProcs / this.totalProcs;
-  }
-
   get overcappedPercent() {
     return this.overcappedProcs / this.totalProcs;
   }
 
-  get munchedProcsThresholds() {
-    return {
-      actual: this.munchedPercent,
-      isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get overcappedProcsThresholds() {
-    return {
-      actual: this.overcappedPercent,
-      isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get munchedPerformance() {
-    let performance = QualitativePerformance.Perfect;
-    if (this.munchedPercent > 0.3) {
-      performance = QualitativePerformance.Fail;
-    } else if (this.munchedPercent > 0.2) {
-      performance = QualitativePerformance.Ok;
-    } else if (this.munchedPercent > 0.1) {
-      performance = QualitativePerformance.Good;
-    }
-    return performance;
-  }
-
-  get overcappedPerformance() {
-    let performance = QualitativePerformance.Perfect;
-    if (this.overcappedPercent > 0.3) {
-      performance = QualitativePerformance.Fail;
-    } else if (this.overcappedPercent > 0.2) {
-      performance = QualitativePerformance.Ok;
-    } else if (this.overcappedPercent > 0.1) {
-      performance = QualitativePerformance.Good;
-    }
-    return performance;
+  get wastedProcs() {
+    return this.expiredProcs + this.overcappedProcs;
   }
 
   get utilizationPercentage() {
-    return 1 - this.expiredProcs / this.totalProcs || 0;
+    return 1 - (this.wastedProcs / this.totalProcs || 0);
   }
 
-  get fingersProcUtilizationThresholds() {
-    return {
-      actual: this.utilizationPercentage,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+  get overcappedPerformance() {
+    const overcappedPercent = this.overcappedPercent;
+    if (overcappedPercent > 0.1) {
+      return QualitativePerformance.Fail;
+    } else if (overcappedPercent > 0.05) {
+      return QualitativePerformance.Ok;
+    } else if (overcappedPercent > 0.025) {
+      return QualitativePerformance.Good;
+    }
+    return QualitativePerformance.Perfect;
+  }
+
+  get expiredPerformance() {
+    const expiredPercent = this.expiredPercent;
+    if (expiredPercent > 0.1) {
+      return QualitativePerformance.Fail;
+    } else if (expiredPercent > 0.05) {
+      return QualitativePerformance.Ok;
+    } else if (expiredPercent > 0.025) {
+      return QualitativePerformance.Good;
+    }
+    return QualitativePerformance.Perfect;
   }
 
   get utilizationPerformance() {
-    let performance = QualitativePerformance.Perfect;
-    if (this.utilizationPercentage < 0.7) {
-      performance = QualitativePerformance.Fail;
-    } else if (this.utilizationPercentage < 0.85) {
-      performance = QualitativePerformance.Ok;
-    } else if (this.utilizationPercentage < 0.95) {
-      performance = QualitativePerformance.Good;
+    const utilization = this.utilizationPercentage;
+    if (utilization < 0.7) {
+      return QualitativePerformance.Fail;
+    } else if (utilization < 0.85) {
+      return QualitativePerformance.Ok;
+    } else if (utilization < 0.95) {
+      return QualitativePerformance.Good;
     }
-    return performance;
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(30)}
-        size="flexible"
-        tooltip={
-          <>
-            "Munching" a proc refers to a situation where you have a Fingers of Frost proc at the
-            same time that Winters Chill is on the target. This essentially leads to a wasted
-            Fingers of Frost proc since Fingers of Frost and Winter's Chill both do the same thing,
-            and casting Ice Lance will remove both a Fingers of Frost proc and a stack of Winter's
-            Chill. This is sometimes unavoidable, but if you have both a Fingers of Frost proc and a
-            Brain Freeze proc, you can minimize this by ensuring that you use the Fingers of Frost
-            procs first before you start casting Frostbolt and Flurry to use the Brain Freeze proc.
-          </>
-        }
-      >
-        <BoringSpellValueText spell={TALENTS.FINGERS_OF_FROST_TALENT}>
-          {formatPercentage(this.munchedPercent, 0)}% <small>Munched Fingers of Frost procs</small>
-          <br />
-          {formatNumber(this.averageSpendDelaySeconds)}s <small>Avg. delay to spend procs</small>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+    return QualitativePerformance.Perfect;
   }
 
   get guideSubsection() {
     const fingersOfFrost = <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
-    const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
-
     const fingersOfFrostIcon = <SpellIcon spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
 
     const explanation = (
-      <div>
-        <p>
-          {/* Not sure if this remains true */}
-          Try to utilize {fingersOfFrost} procs before {brainFreeze} if you have both of them. By
-          doing this you will avoid "munching" {fingersOfFrost} procs.
-        </p>
-      </div>
+      <>
+        Try to utilize {fingersOfFrost} procs quickly to avoid overcapping them or letting them
+        expire.
+      </>
     );
 
     const utilizationTooltip = (
       <>
-        {this.totalProcs - this.expiredProcs} / {this.totalProcs} procs
+        {this.totalProcs - this.wastedProcs} / {this.totalProcs} spent procs
       </>
     );
-
-    const munchedTooltip = <>{this.munchedProcs} procs</>;
+    const expiredTooltip = <>{this.expiredProcs} procs</>;
     const overcappedTooltip = <>{this.overcappedProcs} procs</>;
 
     const data = (
@@ -252,18 +170,18 @@ class FingersOfFrost extends Analyzer {
           >
             {fingersOfFrostIcon}{' '}
             <TooltipElement content={utilizationTooltip}>
-              {formatPercentage(this.utilizationPercentage, 0)} % <small>utilization</small>
+              {formatPercentage(this.utilizationPercentage, 0)} % <small>utilized</small>
             </TooltipElement>
           </div>
           <div
             style={{
-              color: qualitativePerformanceToColor(this.munchedPerformance),
+              color: qualitativePerformanceToColor(this.expiredPerformance),
               fontSize: '20px',
             }}
           >
             {fingersOfFrostIcon}{' '}
-            <TooltipElement content={munchedTooltip}>
-              {formatPercentage(this.munchedPercent, 0)} % <small>munched</small>
+            <TooltipElement content={expiredTooltip}>
+              {formatPercentage(this.expiredPercent, 0)} % <small>expired</small>
             </TooltipElement>
           </div>
           <div

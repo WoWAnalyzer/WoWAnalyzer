@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import Events, { DamageEvent } from 'parser/core/Events';
 import {
   WINGLEADER_CDR_PER_HIT_MS,
+  WINGLEADER_CDR_PER_HIT_MS_DEVASTATION,
   WINGLEADER_MAX_HITS,
 } from 'analysis/retail/evoker/shared/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -19,12 +20,9 @@ const BUFFER = 50;
 
 /** Bombardments reduce the cooldown of Deep Breath by 1 sec for each target struck,
  * up to 3 sec. */
-class Wingleader extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-  protected spellUsable!: SpellUsable;
-
+class Wingleader extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+}) {
   damageRecord: Record<
     number,
     {
@@ -32,6 +30,11 @@ class Wingleader extends Analyzer {
       hits: number;
     }
   > = {};
+
+  wingleaderCDR =
+    this.owner.selectedCombatant.specId === SPECS.DEVASTATION_EVOKER.id
+      ? WINGLEADER_CDR_PER_HIT_MS_DEVASTATION
+      : WINGLEADER_CDR_PER_HIT_MS;
 
   effectiveCDR = 0;
   wastedCDR = 0;
@@ -83,11 +86,11 @@ class Wingleader extends Analyzer {
     }
 
     record.hits += 1;
-    const effectiveCDR = this.spellUsable.reduceCooldown(
+    const effectiveCDR = this.deps.spellUsable.reduceCooldown(
       this.breathSpell.id,
-      WINGLEADER_CDR_PER_HIT_MS,
+      this.wingleaderCDR,
     );
-    const wastedCDR = WINGLEADER_CDR_PER_HIT_MS - effectiveCDR;
+    const wastedCDR = this.wingleaderCDR - effectiveCDR;
 
     this.effectiveCDR += effectiveCDR / 1000;
     this.wastedCDR += wastedCDR / 1000;

@@ -136,11 +136,11 @@ class WaterElemental extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Water Elemental was casting for {formatPercentage(this.petActiveTimePercentage)} % of
-            the fight (Downtime: {formatPercentage(this.petDowntimePercentage)} %).
-            <br />
-            Your Water Elemental began casting {this.petTotalCasts} times.
-            <br />
+            <p>
+              Water Elemental was casting for {formatPercentage(this.petActiveTimePercentage)} % of
+              the fight (Downtime: {formatPercentage(this.petDowntimePercentage)} %).
+            </p>
+            <p>Your Water Elemental began casting {this.petTotalCasts} times.</p>
             <ul>
               <li>
                 {this._waterboltHits} casts dealt a total damage of{' '}
@@ -156,12 +156,15 @@ class WaterElemental extends Analyzer {
         }
       >
         <BoringValueText label="Water Elemental">
-          <UptimeIcon /> {formatPercentage(this.petActiveTimePercentage)}% <small>Pet uptime</small>
-          <br />
-          <CooldownIcon /> {formatNumber(
-            this._waterboltDamage / (this.owner.fightDuration / 1000),
-          )}{' '}
-          <small>Pet DPS</small>
+          <p>
+            <UptimeIcon /> {formatPercentage(this.petActiveTimePercentage)}%{' '}
+            <small>Pet uptime</small>
+          </p>
+          <p>
+            <CooldownIcon />{' '}
+            {formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))}{' '}
+            <small>Pet DPS</small>
+          </p>
         </BoringValueText>
       </Statistic>
     );

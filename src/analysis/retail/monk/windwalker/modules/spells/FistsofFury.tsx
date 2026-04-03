@@ -27,6 +27,9 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 // next-tick hits will repeat previously hit targets. Keep a modest idle buffer for new targets and
 // use repeated targets to detect the next real tick without collapsing high-haste channels.
 const FISTS_OF_FURY_SAME_TICK_BUFFER_MS = 200;
+const BASE_FISTS_OF_FURY_TICKS = 5;
+const CRASHING_FISTS_FISTS_OF_FURY_TICKS = 6;
+const MAX_FISTS_OF_FURY_TICKS = 6;
 
 class FistsofFury extends Analyzer {
   static dependencies = {
@@ -64,7 +67,9 @@ class FistsofFury extends Analyzer {
   }
 
   get expectedTicks() {
-    return this.selectedCombatant.hasTalent(TALENTS_MONK.CRASHING_FISTS_TALENT) ? 6 : 5;
+    return this.selectedCombatant.getTalentRank(TALENTS_MONK.CRASHING_FISTS_TALENT) > 0
+      ? CRASHING_FISTS_FISTS_OF_FURY_TICKS
+      : BASE_FISTS_OF_FURY_TICKS;
   }
 
   isNewFistsTick(event: DamageEvent) {
@@ -77,8 +82,7 @@ class FistsofFury extends Analyzer {
 
   onFistsDamage(event: DamageEvent) {
     if (this.isNewFistsTick(event)) {
-      this.currentChannelTicks += 1;
-      this.fistsTicks += 1;
+      this.currentChannelTicks = Math.min(this.currentChannelTicks + 1, MAX_FISTS_OF_FURY_TICKS);
       this.currentTickTargets.clear();
     }
 
@@ -91,12 +95,9 @@ class FistsofFury extends Analyzer {
       return;
     }
 
-    if (this.currentChannelTicks > this.expectedTicks) {
-      console.log('error, detected too many ticks of fof');
-      return;
-    }
-
-    this.ticksHit[this.currentChannelTicks - 1] += 1;
+    const finalizedTicks = Math.min(this.currentChannelTicks, this.expectedTicks);
+    this.fistsTicks += finalizedTicks;
+    this.ticksHit[finalizedTicks - 1] += 1;
   }
 
   onChannelEnd(event: EndChannelEvent) {
@@ -124,12 +125,13 @@ class FistsofFury extends Analyzer {
   }
 
   get suggestionThresholds() {
+    const expectedTicks = this.expectedTicks;
     return {
       actual: this.averageTicks,
       isLessThan: {
-        minor: 5,
-        average: 4.75,
-        major: 4.5,
+        minor: expectedTicks,
+        average: expectedTicks - 0.25,
+        major: expectedTicks - 0.5,
       },
       style: ThresholdStyle.DECIMAL,
     };
@@ -170,13 +172,9 @@ class FistsofFury extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} />
         </b>{' '}
-        is one of your primary dps skills, and should be channeled to completion.
-        <br />
-        <br />
-        When <SpellLink spell={TALENTS_MONK.XUENS_BATTLEGEAR_TALENT} /> is talented, it gives the
-        buff <SpellLink spell={SPELLS.PRESSURE_POINT_BUFF} />, increasing the critical strike chance
-        of all <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
-        's over the next 5 seconds by 40%.
+        is one of your primary dps skills, and should be channeled to completion. It ticks{' '}
+        {BASE_FISTS_OF_FURY_TICKS} times by default, or {CRASHING_FISTS_FISTS_OF_FURY_TICKS} times
+        with <SpellLink spell={TALENTS_MONK.CRASHING_FISTS_TALENT} />.
       </p>
     );
 

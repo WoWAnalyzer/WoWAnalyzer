@@ -135,7 +135,10 @@ class UnleashLife extends Analyzer {
     );
 
     this.goodSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
-    this.okSpells.push(TALENTS.RIPTIDE_TALENT.id, SPELLS.HEALING_WAVE.id);
+    this.okSpells.push(SPELLS.HEALING_WAVE.id);
+    if (this.selectedCombatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT)) {
+      this.okSpells.push(TALENTS.RIPTIDE_TALENT.id);
+    }
   }
   //necessary because riptide can be spellqued into the spell that actually consumed UL and event linking will match both
   _wasAlreadyConsumed(event: CastEvent | HealEvent) {

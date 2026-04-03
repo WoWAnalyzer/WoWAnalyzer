@@ -7,13 +7,13 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const CAST_BUFFER_MS = 75;
 
+export const ICE_LANCE_SPENDER = 'IceLanceSpenderCast';
+export const SPENT_FINGERS_OF_FROST = 'IceLanceFingersOfFrostSpent';
+export const SPENT_THERMAL_VOID = 'IceLanceThermalVoidSpent';
 const BUFF_APPLY = 'BuffApply';
 const BUFF_REMOVE = 'BuffRemove';
 const BUFF_REFRESH = 'BuffRefresh';
-const DEBUFF_APPLY = 'DebuffApply';
-const DEBUFF_REMOVE = 'DebuffRemove';
 const SPELL_CAST = 'SpellCast';
-const PRE_CAST = 'PreCast';
 const SPELL_DAMAGE = 'SpellDamage';
 const CLEAVE_DAMAGE = 'CleaveDamage';
 
@@ -48,10 +48,13 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
-      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === false;
+      return (
+        !isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) &&
+        !HasRelatedEvent(referencedEvent, SPELL_CAST)
+      );
     },
     maximumLinks: 1,
-    forwardBufferMs: 1000,
+    forwardBufferMs: 1500,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -63,10 +66,13 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
-      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === true;
+      return (
+        isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) &&
+        !HasRelatedEvent(referencedEvent, SPELL_CAST)
+      );
     },
     maximumLinks: 1,
-    forwardBufferMs: 1000,
+    forwardBufferMs: 1500,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -93,40 +99,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    reverseLinkRelation: DEBUFF_APPLY,
-    linkingEventId: SPELLS.WINTERS_CHILL.id,
-    linkingEventType: EventType.ApplyDebuff,
-    linkRelation: DEBUFF_REMOVE,
-    referencedEventId: SPELLS.WINTERS_CHILL.id,
-    referencedEventType: EventType.RemoveDebuff,
-    maximumLinks: 1,
-    forwardBufferMs: 7000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: DEBUFF_APPLY,
-    linkingEventId: SPELLS.WINTERS_CHILL.id,
-    linkingEventType: EventType.ApplyDebuff,
-    linkRelation: SPELL_CAST,
-    referencedEventId: TALENTS.FLURRY_TALENT.id,
-    referencedEventType: EventType.Cast,
-    maximumLinks: 1,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: 1000,
-  },
-  {
-    reverseLinkRelation: DEBUFF_APPLY,
-    linkingEventId: SPELLS.WINTERS_CHILL.id,
-    linkingEventType: EventType.ApplyDebuff,
-    linkRelation: PRE_CAST,
-    referencedEventId: [SPELLS.FROSTBOLT.id],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    maximumLinks: 1,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: 1000,
-  },
-  {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
     linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
@@ -141,6 +113,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 18_000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  // If you have multiple stacks of FoF, consuming one will refresh duration of the remaining stack.
   {
     reverseLinkRelation: BUFF_REMOVE,
     linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
@@ -154,16 +127,28 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    reverseLinkRelation: BUFF_REMOVE,
+    reverseLinkRelation: SPENT_FINGERS_OF_FROST,
     linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    linkRelation: SPELL_CAST,
+    linkRelation: ICE_LANCE_SPENDER,
     referencedEventId: TALENTS.ICE_LANCE_TALENT.id,
     referencedEventType: EventType.Cast,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
-      return !HasRelatedEvent(referencedEvent, BUFF_REMOVE);
+      return !HasRelatedEvent(referencedEvent, SPENT_FINGERS_OF_FROST);
     },
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPENT_THERMAL_VOID,
+    linkingEventId: SPELLS.THERMAL_VOID_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: ICE_LANCE_SPENDER,
+    referencedEventId: TALENTS.ICE_LANCE_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -180,9 +165,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
-  /**
-   * Relation: Icy Veins Remove Buff <=> Icy Veins Spell Cast (60s before remove)
-   */
   {
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.COMET_STORM_TALENT.id,
