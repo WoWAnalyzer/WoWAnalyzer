@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,36 +21,68 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "analysis/*": ["./src/analysis/*"],
-      "analysis": ["./src/analysis"],
-      "common/*": ["./src/common/*"],
-      "common": ["./src/common"],
-      "game/*": ["./src/game/*"],
-      "game": ["./src/game"],
-      "interface/*": ["./src/interface/*"],
-      "interface": ["./src/interface"],
-      "localization/*": ["./src/localization/*"],
-      "localization": ["./src/localization"],
-      "parser/*": ["./src/parser/*"],
-      "parser": ["./src/parser"],
-      "CHANGELOG": ["./src/CHANGELOG"],
-      "CONTRIBUTORS": ["./src/CONTRIBUTORS"],
-      "mergeAllChangelogs": ["./src/mergeAllChangelogs"],
-      "Root": ["./src/Root"],
-      "store": ["./src/store"]
+      "analysis/*": [
+        "./src/analysis/*"
+      ],
+      "analysis": [
+        "./src/analysis"
+      ],
+      "common/*": [
+        "./src/common/*"
+      ],
+      "common": [
+        "./src/common"
+      ],
+      "game/*": [
+        "./src/game/*"
+      ],
+      "game": [
+        "./src/game"
+      ],
+      "interface/*": [
+        "./src/interface/*"
+      ],
+      "interface": [
+        "./src/interface"
+      ],
+      "localization/*": [
+        "./src/localization/*"
+      ],
+      "localization": [
+        "./src/localization"
+      ],
+      "parser/*": [
+        "./src/parser/*"
+      ],
+      "parser": [
+        "./src/parser"
+      ],
+      "CHANGELOG": [
+        "./src/CHANGELOG"
+      ],
+      "CONTRIBUTORS": [
+        "./src/CONTRIBUTORS"
+      ],
+      "mergeAllChangelogs": [
+        "./src/mergeAllChangelogs"
+      ],
+      "Root": [
+        "./src/Root"
+      ],
+      "store": [
+        "./src/store"
+      ]
     },
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["types/**/*", "src/**/*"],
+  "include": [
+    "types/**/*",
+    "src/**/*"
+  ],
   "exclude": [
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/druid/restoration",
-    "src/analysis/retail/druid/shared",
-    "src/analysis/retail/monk/shared",
-    "src/analysis/retail/paladin/holy",
     "src/analysis/retail/paladin/protection",
-    "src/analysis/retail/paladin/retribution",
-    "src/analysis/retail/paladin/shared",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw"
   ],
