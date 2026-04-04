@@ -359,7 +359,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103677],
     definitionIds: [{ id: 108682, specId: 258 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   DISPERSING_LIGHT_TALENT: {
     id: 1215265,
@@ -408,7 +408,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103755],
     definitionIds: [{ id: 108760, specId: 257 }],
-    manaCost: 110000,
+    manaCost: 11000,
   },
   DIVINE_IMAGE_TALENT: {
     id: 392988,
@@ -449,7 +449,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103678],
     definitionIds: [{ id: 108683, specId: 258 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   EFFICIENT_PRAYERS_TALENT: {
     id: 1247131,
@@ -674,7 +674,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [134273],
     definitionIds: [{ id: 139046, specId: 257 }],
-    manaCost: 67500,
+    manaCost: 6750,
   },
   HALO_SHADOW_TALENT: {
     id: 120644,
@@ -683,7 +683,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117300],
     definitionIds: [{ id: 122312, specId: 258 }],
-    manaCost: 67500,
+    manaCost: 6750,
   },
   HARSH_DISCIPLINE_TALENT: {
     id: 373180,
@@ -764,7 +764,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103766],
     definitionIds: [{ id: 108771, specId: 257 }],
-    manaCost: 83125,
+    manaCost: 8313,
   },
   HOLY_WORD_SERENITY_TALENT: {
     id: 2050,
@@ -773,7 +773,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103775],
     definitionIds: [{ id: 108780, specId: 257 }],
-    manaCost: 59375,
+    manaCost: 5938,
   },
   IDOL_OF_CTHUN_TALENT: {
     id: 377349,
@@ -937,7 +937,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103867],
     definitionIds: [{ id: 108872, specId: 258 }],
-    manaCost: 65000,
+    manaCost: 6500,
   },
   LENIENCE_TALENT: {
     id: 238063,
@@ -1042,7 +1042,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [136157],
     definitionIds: [{ id: 140912, specId: 258 }],
-    manaCost: 200000,
+    manaCost: 20000,
   },
   MASTERMIND_TALENT: {
     id: 391151,
@@ -1139,7 +1139,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103865],
     definitionIds: [{ id: 108870, specId: 258 }],
-    manaCost: 37500,
+    manaCost: 3750,
   },
   MIND_CONTROL_TALENT: {
     id: 605,
@@ -1148,7 +1148,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103862],
     definitionIds: [{ id: 108867, specId: 258 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   MIND_DEVOURER_TALENT: {
     id: 373202,
@@ -1237,7 +1237,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103713],
     definitionIds: [{ id: 108718, specId: 256 }],
-    manaCost: 40000,
+    manaCost: 4000,
   },
   PAIN_TRANSFORMATION_TALENT: {
     id: 372991,
@@ -1326,7 +1326,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103687],
     definitionIds: [{ id: 108692, specId: 256 }],
-    manaCost: 100000,
+    manaCost: 10000,
   },
   POWER_WORD_RADIANCE_TALENT: {
     id: 194509,
@@ -1335,7 +1335,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103722],
     definitionIds: [{ id: 108727, specId: 256 }],
-    manaCost: 135000,
+    manaCost: 13500,
   },
   PRAYERFUL_LITANY_TALENT: {
     id: 391209,
@@ -1360,7 +1360,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103767],
     definitionIds: [{ id: 108772, specId: 257 }],
-    manaCost: 131250,
+    manaCost: 13125,
   },
   PREEMPTIVE_CARE_TALENT: {
     id: 440671,
@@ -1441,7 +1441,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103851],
     definitionIds: [{ id: 108856, specId: 258 }],
-    manaCost: 30000,
+    manaCost: 3000,
   },
   PSYCHIC_VOICE_TALENT: {
     id: 196704,
@@ -1466,7 +1466,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103854],
     definitionIds: [{ id: 108859, specId: 258 }],
-    manaCost: 250000,
+    manaCost: 25000,
   },
   QUICKENED_PULSE_TALENT: {
     id: 1266845,
@@ -1587,7 +1587,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103843],
     definitionIds: [{ id: 108848, specId: 258 }],
-    manaCost: 30000,
+    manaCost: 3000,
   },
   SHADOWFIEND_TALENT: {
     id: 34433,

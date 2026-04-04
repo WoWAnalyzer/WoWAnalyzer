@@ -4,7 +4,6 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -13,19 +12,20 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 
 const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 4000;
+const XUENS_BATTLEGEAR_TRIGGER_SPELLS = [
+  SPELLS.RISING_SUN_KICK_DAMAGE,
+  SPELLS.GLORY_OF_THE_DAWN_DAMAGE,
+];
 
 class XuensBattlegear extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    abilityTracker: AbilityTracker,
   };
 
   protected spellUsable!: SpellUsable;
-  protected abilityTracker!: AbilityTracker;
 
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
-  buffedHits = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,15 +35,12 @@ class XuensBattlegear extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_DAMAGE),
-      this.onRisingSunKickHit,
+      Events.damage.by(SELECTED_PLAYER).spell(XUENS_BATTLEGEAR_TRIGGER_SPELLS),
+      this.onTriggerDamage,
     );
   }
 
-  onRisingSunKickHit(event: DamageEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.PRESSURE_POINT_BUFF.id)) {
-      this.buffedHits += 1;
-    }
+  onTriggerDamage(event: DamageEvent) {
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
     if (!isCrit) {
       return;
@@ -62,10 +59,6 @@ class XuensBattlegear extends Analyzer {
 
   get wastedReductionPerMinute() {
     return (this.wastedFistsOfFuryReductionMs / this.owner.fightDuration) * 60;
-  }
-
-  get totalHits() {
-    return this.abilityTracker.getAbility(SPELLS.RISING_SUN_KICK_DAMAGE.id).damageHits;
   }
 
   get suggestionThresholds() {
@@ -98,15 +91,6 @@ class XuensBattlegear extends Analyzer {
             />{' '}
             {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-            <br />
-            <SpellIcon
-              spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
-              style={{
-                height: '1.3em',
-                marginTop: '-1.em',
-              }}
-            />{' '}
-            {this.buffedHits} / {this.totalHits} <small>Buffed / Total hits</small>
           </span>
         </BoringSpellValueText>
       </Statistic>

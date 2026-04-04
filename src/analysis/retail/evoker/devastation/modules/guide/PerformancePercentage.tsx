@@ -26,14 +26,18 @@ const PerformancePercentage = ({
       performance={performance}
       tooltip={
         <>
-          <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage {perfectSign}{' '}
-          {formatPercentage(perfectPercentage, 0)}%
-          <br />
-          <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
-          {formatPercentage(goodPercentage, 0)}%
-          <br />
-          <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
-          {formatPercentage(okPercentage, 0)}%
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage {perfectSign}{' '}
+            {formatPercentage(perfectPercentage, 0)}%
+          </div>
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
+            {formatPercentage(goodPercentage, 0)}%
+          </div>
+          <div>
+            <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
+            {formatPercentage(okPercentage, 0)}%
+          </div>
         </>
       }
     >

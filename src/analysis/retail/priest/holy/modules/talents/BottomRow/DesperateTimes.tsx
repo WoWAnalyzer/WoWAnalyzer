@@ -13,7 +13,11 @@ import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 
-//Example log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
+/**
+ * Desperate Times
+ * Increases healing by 10% on friendly targets at or below 50% health.
+ */
+
 class DesperateTimes extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,
@@ -59,6 +63,7 @@ class DesperateTimes extends Analyzer {
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
             </div>
           </>

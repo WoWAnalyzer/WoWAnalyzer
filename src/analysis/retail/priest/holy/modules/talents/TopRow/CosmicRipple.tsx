@@ -11,7 +11,11 @@ import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-// Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
+/**
+ * Cosmic Ripple
+ * When Holy Word: Serenity or Holy Word: Sanctify finish their cooldown, you emit a burst of light that heals up to 5 injured targets within 40 yards for (122.693% of Spell Power).
+ */
+
 class CosmicRipple extends Analyzer {
   static dependencies = {
     eolAttrib: EOLAttrib,

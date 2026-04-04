@@ -6,6 +6,7 @@ import CooldownSubsection from './modules/guide/CooldownSubsection';
 import DefensivesGuide from '../shared/Defensives';
 import { HavocGuide } from './modules/guide/HavocGuide';
 import { DemonicHealthstoneGuide } from '../shared/DHSGuide';
+import { BackdraftGuide } from './modules/guide/BackdraftGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -19,15 +20,27 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </Section>
       </Section>
 
-      {/* Havoc Section */}
-      {modules.havocAnalyzer?.active && (
-        <Section title="Havoc">
-          <HavocGuide
-            havocAnalyzer={modules.havocAnalyzer}
-            formatTimestamp={modules.havocAnalyzer.getFormatTimestamp()}
-          />
-        </Section>
-      )}
+      {/* Rotation Section */}
+      <Section title="Rotation">
+        {modules.backdraft?.active && (
+          <Section title="Backdraft Usage">
+            <BackdraftGuide
+              analyzer={modules.backdraft}
+              fightStart={info.fightStart}
+              fightEnd={info.fightEnd}
+            />
+          </Section>
+        )}
+
+        {modules.havocAnalyzer?.active && (
+          <Section title="Havoc Usage">
+            <HavocGuide
+              havocAnalyzer={modules.havocAnalyzer}
+              formatTimestamp={modules.havocAnalyzer.getFormatTimestamp()}
+            />
+          </Section>
+        )}
+      </Section>
 
       {/* Defensives Section */}
       <Section title="Defensives">
@@ -40,6 +53,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             />
           )}
         </Section>
+
         <DefensivesGuide modules={modules} events={events} info={info} />
       </Section>
 

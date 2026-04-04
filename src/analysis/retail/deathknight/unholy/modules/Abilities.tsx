@@ -119,7 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
         gcd: null,
       },
       {
@@ -161,7 +161,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_CHARGE.id,
         enabled: combatant.hasTalent(TALENTS.DEATH_CHARGE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        charges: 1,
+        charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         cooldown: 45,
         gcd: null,
       },

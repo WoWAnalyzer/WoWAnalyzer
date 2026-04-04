@@ -3,7 +3,14 @@ import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DeathEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  DeathEvent,
+  EventType,
+  HasHitpoints,
+  HealEvent,
+  HitpointsEvent,
+} from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -29,6 +36,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
   stagger: StaggerPool,
   pb: PurifyingBrew,
 }) {
+  _hpEvents: HitpointsEvent<EventType>[] = [];
   _deathEvents: DeathEvent[] = [];
   _lastHp: number | null = null;
   _lastMaxHp: number | null = null;
@@ -36,6 +44,8 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
   constructor(options: Options) {
     super(options);
 
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._damage);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this._heal);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this._death);
   }
 
@@ -81,6 +91,38 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
         ],
       },
       layer: [
+        {
+          data: {
+            name: 'hp',
+          },
+          mark: {
+            type: 'area',
+            color: 'rgb(38, 62, 41)',
+            interpolate: 'step',
+          },
+          transform: [
+            {
+              calculate: `datum.timestamp - ${startTime}`,
+              as: 'timestamp_shifted',
+            },
+          ],
+          encoding: {
+            x: xAxis,
+            y: {
+              field: 'hitPoints',
+              type: 'quantitative' as const,
+              title: null,
+            },
+            tooltip: [
+              {
+                field: 'hitPoints',
+                type: 'quantitative' as const,
+                title: 'Hit Points',
+                format: '.3~s',
+              },
+            ],
+          },
+        },
         {
           mark: {
             type: 'line' as const,
@@ -164,6 +206,13 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
           }) satisfies StaggerEvent,
       );
 
+      let hpEvents = this._hpEvents.map(({ timestamp, hitPoints }) => {
+        return {
+          timestamp: timestamp,
+          hitPoints: hitPoints,
+        };
+      });
+
       return (
         <div
           className="graph-container"
@@ -180,6 +229,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
                   combined: staggerEvents,
                   purifies: this.deps.pb.purifies,
                   deaths: this._deathEvents,
+                  hp: hpEvents,
                 }}
                 width={width}
                 height={height}
@@ -191,6 +241,20 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
     } else {
       return null;
     }
+  }
+
+  _damage(event: DamageEvent) {
+    if (!HasHitpoints(event)) {
+      return;
+    }
+    this._hpEvents.push(event);
+  }
+
+  _heal(event: HealEvent) {
+    if (!HasHitpoints(event)) {
+      return;
+    }
+    this._hpEvents.push(event);
   }
 
   _death(event: DeathEvent) {

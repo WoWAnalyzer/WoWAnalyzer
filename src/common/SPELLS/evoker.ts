@@ -799,6 +799,11 @@ const spells = {
     name: 'Risen Fury',
     icon: 'ability_evoker_oppressingroar2',
   },
+  STRAFING_RUN_BUFF: {
+    id: 1266165,
+    name: 'Strafing Run',
+    icon: 'ability_evoker_blackattunementalt',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 

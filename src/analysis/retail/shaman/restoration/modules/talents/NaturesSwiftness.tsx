@@ -146,9 +146,10 @@ class NaturesSwiftness extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} />
         </b>{' '}
-        can save you a substantial amount of mana over the course of a fight. You should aim to use
-        it on your most expensive spells, like{' '}
-        <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />. Using it with{' '}
+        is a very important spell as every cast gives you one{' '}
+        <SpellLink spell={SPELLS.STORMSTREAM_TOTEM} />. It can also save you a substantial amount of
+        mana over the course of a fight. You should aim to use it on your most expensive spells,
+        like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />. Using it with{' '}
         <SpellLink spell={SPELLS.HEALING_WAVE} /> could also save a life.
       </p>
     );
@@ -190,9 +191,11 @@ class NaturesSwiftness extends Analyzer {
         </b>{' '}
         is a crucial spell for Farseer Shamans. You should aim to cast this on cooldown to maximize
         your Ancestor uptime through{' '}
-        <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} />. You should aim to use it
-        on your most expensive spells, like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />.
-        Avoid using it with <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
+        <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} /> and how many{' '}
+        <SpellLink spell={TALENTS_SHAMAN.STORMSTREAM_TOTEM_3_RESTORATION_TALENT} /> you generate.
+        You should aim to use it on your most expensive spells, like{' '}
+        <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />. Avoid using it with{' '}
+        <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
       </p>
     );
 

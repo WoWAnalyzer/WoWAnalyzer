@@ -1,17 +1,15 @@
-import PremonitionOfSolace from './PremonitionOfSolace';
-import PremonitionOfPiety from './PremonitionOfPiety';
+import Piety from './Piety';
 import PreventiveMeasuresHoly from './PreventiveMeasuresHoly';
-import PremonitionOfInsight from './PremonitionOfInsight';
 import PreemptiveCareHoly from './PreemptiveCareHoly';
 import ProphetsWillHoly from './ProphetsWillHoly';
 import AssuredSafetyHoly from './AssuredSafetyHoly';
+import ProphetsInsightHoly from './ProphetsInsightHoly';
 
 export {
-  PremonitionOfSolace,
-  PremonitionOfPiety,
+  Piety,
   PreventiveMeasuresHoly,
-  PremonitionOfInsight,
   PreemptiveCareHoly,
   ProphetsWillHoly,
   AssuredSafetyHoly,
+  ProphetsInsightHoly,
 };

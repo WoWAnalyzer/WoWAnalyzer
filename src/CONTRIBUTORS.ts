@@ -90,7 +90,13 @@ export const Amryu: Contributor = {
     },
   ],
 };
-
+export const Amiphite: Contributor = {
+  nickname: 'Amiphite',
+  github: 'Amiphite',
+  discord: 'amiphite',
+  avatar: avatar('Amiphite_avatar.png'),
+  about: 'Born to be a healer. Working on holy priest.',
+};
 export const Fashathus: Contributor = {
   nickname: 'Fashathus',
   github: 'SethEArnold',
@@ -175,6 +181,10 @@ export const enragednuke: Contributor = {
 export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
+};
+export const Badkad: Contributor = {
+  nickname: 'Badkad',
+  github: 'Badkad',
 };
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
@@ -2827,4 +2837,15 @@ export const defgfed: Contributor = {
   nickname: 'defgfed',
   github: 'defgfed',
   discord: 'defgfed',
+};
+
+export const MarchingCube: Contributor = {
+  nickname: 'MarchingCube',
+  github: 'MarchingCube',
+};
+
+export const NotStirred: Contributor = {
+  nickname: 'NotStirred',
+  github: 'NotStirred',
+  discord: 'NotStirred',
 };
