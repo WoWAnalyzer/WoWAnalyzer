@@ -209,9 +209,9 @@ class MerithrasBlessing extends Analyzer {
               <small>
                 <SpellLink spell={SPELLS.MERITHRAS_BLESSING_ABSORB} />
               </small>
-              <div>
-                <ItemHealingDone amount={this.absorbHealing} />
-              </div>
+            </div>
+            <div>
+              <ItemHealingDone amount={this.absorbHealing} />
             </div>
           </div>
         </div>

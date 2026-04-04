@@ -81,11 +81,13 @@ class EmeraldBlossom extends Analyzer {
     }
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(timestamp)}</strong>, Targets hit:{' '}
-        <strong>{events.length}</strong>
-        <div>
+        <p>
+          @ <strong>{this.owner.formatTimestamp(timestamp)}</strong>, Targets hit:{' '}
+          <strong>{events.length}</strong>
+        </p>
+        <p>
           Healing: {formatNumber(effective)} ({formatPercentage(overhealPercent)}% overheal)
-        </div>
+        </p>
       </>
     );
     this.castEntries.push({ value, tooltip });

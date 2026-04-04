@@ -244,12 +244,13 @@ class Vivify extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.INVIGORATING_MISTS_TALENT}>
-          <>
+          <div>
             {this.averageRemPerVivify.toFixed(2)}{' '}
             <small>
               Average Cleaves per <SpellLink spell={SPELLS.VIVIFY} />
             </small>
-            <br />
+          </div>
+          <div>
             <TooltipElement
               content={
                 <>
@@ -259,7 +260,7 @@ class Vivify extends Analyzer {
             >
               {formatNumber(this.avgHealingPerCast)} <small>healing per cast</small>
             </TooltipElement>
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

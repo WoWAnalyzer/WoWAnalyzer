@@ -76,10 +76,15 @@ class LegacyOfWisdom extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT}>
-          <ItemHealingDone amount={this.healing} />
-          <br />
-          {this.buffIcon} {this.missedHits.toFixed(2)} <small> missed hits</small> <br />
-          <Uptime /> {this.extraGcds.toFixed(2)} <small>saved GCDs</small>
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
+            {this.buffIcon} {this.missedHits.toFixed(2)} <small> missed hits</small>
+          </div>
+          <div>
+            <Uptime /> {this.extraGcds.toFixed(2)} <small>saved GCDs</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

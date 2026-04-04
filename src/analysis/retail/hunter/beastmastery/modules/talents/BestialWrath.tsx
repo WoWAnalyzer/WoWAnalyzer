@@ -1,7 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellIcon } from 'interface';
 import { ResourceIcon } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

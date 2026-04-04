@@ -291,7 +291,7 @@ class EssenceBurst extends Analyzer {
         );
       const tooltip = (
         <>
-          <div>Buff removed @ {this.owner.formatTimestamp(info.timestamp)}</div>
+          <p>Buff removed @ {this.owner.formatTimestamp(info.timestamp)}</p>
           {spellString}
         </>
       );

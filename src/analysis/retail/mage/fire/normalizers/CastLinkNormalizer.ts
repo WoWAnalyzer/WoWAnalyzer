@@ -4,7 +4,6 @@ import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import {
   ApplyBuffEvent,
   BeginCastEvent,
-  Buff,
   CastEvent,
   DamageEvent,
   EventType,

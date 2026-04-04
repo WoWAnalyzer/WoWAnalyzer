@@ -19,7 +19,8 @@ const config: Config = {
       <p>
         Welcome to the Augmentation Analyzer! My aim is to provide you with tailored suggestions to
         enhance your Augmentation Evoker gameplay.
-        <br />
+      </p>
+      <p>
         If you have any questions or wish to contribute, please don't hesitate to reach out in the
         <code>#Augmentation</code> channel in the{' '}
         <a href="http://discord.gg/https://discord.gg/evoker">Wyrmrest Temple</a>.

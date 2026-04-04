@@ -49,13 +49,14 @@ export default class SunderedFirmament extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(15)} size="flexible">
         <TalentSpellText talent={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT}>
-          <>
+          <div>
             <ResourceIcon id={RESOURCE_TYPES.ASTRAL_POWER.id} />{' '}
             {formatNumber(this.owner.getPerMinute(this.gainedAP))}{' '}
             <small>Astral Power per minute</small>
-            <br />
+          </div>
+          <div>
             <ItemPercentDamageDone amount={this.totalDamage} />
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

@@ -56,11 +56,14 @@ class ArtOfWarProbability extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Reset Chance: {this.procChance * 100} % on a normal hit and{' '}
-            {this.procChanceWithCrit * 100} % on a critical strike
-            <br />
-            Total Swings: {this.totalChances} <br />
-            Total Art of War Procs : {this.procsGained}
+            <p>
+              Reset Chance: {this.procChance * 100} % on a normal hit and{' '}
+              {this.procChanceWithCrit * 100} % on a critical strike
+            </p>
+            <ul>
+              <li>Total Swings: {this.totalChances}</li>
+              <li>Total Art of War Procs : {this.procsGained}</li>
+            </ul>
           </>
         }
       >

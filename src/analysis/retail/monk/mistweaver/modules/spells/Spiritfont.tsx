@@ -370,9 +370,12 @@ class Spiritfont extends Analyzer {
         }
       >
         <TalentSpellText talent={talents.SPIRITFONT_1_MISTWEAVER_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          <ItemDamageDone amount={this.totalDamage} />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.totalDamage} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

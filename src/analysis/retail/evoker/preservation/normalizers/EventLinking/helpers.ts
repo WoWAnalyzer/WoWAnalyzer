@@ -55,8 +55,8 @@ import {
   ECHO_CONSUMPTION,
 } from './constants';
 
-/** Returns true if the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcastEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
+/** Returns true iff the given buff application or heal can be matched back to a hardcast */
+export function isFromHardcastEcho(event: AnyEvent): boolean {
   return HasRelatedEvent(event, ECHO) || HasRelatedEvent(event, ECHO_REMOVAL);
 }
 

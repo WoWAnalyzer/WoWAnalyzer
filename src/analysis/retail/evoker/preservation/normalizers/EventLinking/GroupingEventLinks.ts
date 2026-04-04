@@ -37,8 +37,8 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 25,
     additionalCondition(linkingEvent, referencedEvent) {
       if (
-        (linkingEvent as AbilityEvent<string>).ability.guid !==
-        (referencedEvent as AbilityEvent<string>).ability.guid
+        (linkingEvent as AbilityEvent<EventType>).ability.guid !==
+        (referencedEvent as AbilityEvent<EventType>).ability.guid
       ) {
         return false;
       } else if (
@@ -88,8 +88,8 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 25,
     additionalCondition(linkingEvent, referencedEvent) {
       if (
-        (linkingEvent as AbilityEvent<string>).ability.guid !==
-        (referencedEvent as AbilityEvent<string>).ability.guid
+        (linkingEvent as AbilityEvent<EventType>).ability.guid !==
+        (referencedEvent as AbilityEvent<EventType>).ability.guid
       ) {
         return false;
       } else if (

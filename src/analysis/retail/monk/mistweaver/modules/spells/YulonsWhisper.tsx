@@ -65,12 +65,15 @@ class YulonsWhisper extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
       >
         <TalentSpellText talent={TALENTS_MONK.YULONS_WHISPER_TALENT}>
-          {formatNumber(this.avgHealPerCast)}{' '}
-          <small>
-            healing per <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> cast
-          </small>
-          <br />
-          {this.averageYWCount.toFixed(2)} <small>average targets</small>
+          <div>
+            {formatNumber(this.avgHealPerCast)}{' '}
+            <small>
+              healing per <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> cast
+            </small>
+          </div>
+          <div>
+            {this.averageYWCount.toFixed(2)} <small>average targets</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

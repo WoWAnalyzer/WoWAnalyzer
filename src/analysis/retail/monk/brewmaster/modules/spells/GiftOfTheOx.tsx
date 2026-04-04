@@ -86,9 +86,8 @@ export default class GiftOfTheOx extends Analyzer {
           <>
             You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed{' '}
             {formatNumber(this.orbsConsumed)} of them, healing for{' '}
-            <b>{formatNumber(this.totalHealing)}</b>.<br />
-            {formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over{' '}
-            {formatNumber(this.expelHarmCasts)} casts.
+            <b>{formatNumber(this.totalHealing)}</b>. {formatNumber(this.expelHarmOrbsConsumed)} of
+            these were consumed with Expel Harm over {formatNumber(this.expelHarmCasts)} casts.
           </>
         }
       >

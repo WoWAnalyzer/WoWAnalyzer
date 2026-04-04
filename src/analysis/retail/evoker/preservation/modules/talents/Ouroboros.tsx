@@ -147,7 +147,9 @@ class Ouroboros extends Analyzer {
           <div>
             <ItemHealingDone amount={this.totalhealing} />
           </div>
-          {this.avgStacks.toFixed(1)} <small>average stacks</small>
+          <div>
+            {this.avgStacks.toFixed(1)} <small>average stacks</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

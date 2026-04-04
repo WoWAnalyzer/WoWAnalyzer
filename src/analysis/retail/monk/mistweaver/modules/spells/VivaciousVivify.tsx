@@ -5,19 +5,13 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  HealEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { isVivaciousVivification } from '../../normalizers/CastLinkNormalizer';
 import { CelestialHooks } from 'analysis/retail/monk/shared';
 
 class VivaciousVivification extends Analyzer {
@@ -57,7 +51,6 @@ class VivaciousVivification extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
       this.onBuffRemove,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivifyHeal);
     this.unusableUptimes.push({
       start: this.owner.fight.start_time,
       end: -1,
@@ -112,11 +105,6 @@ class VivaciousVivification extends Analyzer {
   onBuffRemove(event: RemoveBuffEvent) {
     if (this.inUsablePeriod) {
       this.endUsablePeriod(event.timestamp);
-    }
-  }
-
-  onVivifyHeal(event: HealEvent) {
-    if (isVivaciousVivification(event)) {
     }
   }
 

@@ -47,7 +47,9 @@ class FieldOfDreams extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
           <div>
             <TooltipElement
               content={

@@ -157,14 +157,14 @@ class DivinePurpose extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.DIVINE_PURPOSE_SHARED_TALENT}>
           {this.healingDone > 0 && (
-            <>
-              <ItemHealingDone amount={this.healingDone} /> <br />
-            </>
+            <div>
+              <ItemHealingDone amount={this.healingDone} />
+            </div>
           )}
           {this.damageDone > 0 && (
-            <>
-              <ItemDamageDone amount={this.damageDone} /> <br />
-            </>
+            <div>
+              <ItemDamageDone amount={this.damageDone} />
+            </div>
           )}
         </TalentSpellText>
         {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}

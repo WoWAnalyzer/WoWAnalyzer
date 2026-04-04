@@ -149,7 +149,7 @@ class DreamBreath extends Analyzer {
             <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
             {this.owner.formatTimestamp(cast.timestamp)}
           </div>
-          {cast.targetsHit} targets hit
+          <div>{cast.targetsHit} targets hit</div>
         </>
       );
       entries.push({ value, tooltip });

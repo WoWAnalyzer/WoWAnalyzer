@@ -94,31 +94,38 @@ class ProtectionOfTyr extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <>
-            Effective Healing: {formatNumber(this.healing)} <br />
-            Overhealing: {formatNumber(this.overheal)} <br />
-            Unique Healers: {formatNumber(this.uniqueCombatants.length)} <br />
-            <br />
-            Healing During <SpellLink spell={SPELLS.AURA_MASTERY} /> Breakdown: <br />
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Cast</th>
-                  <th>Total Healing</th>
-                  <th>Amped Healing</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.auraMasteryCastsTotalHealing.map((healing, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{formatNumber(healing)}</td>
-                    <td>{formatNumber(this.auraMasteryCastsAmpedHealing[index])}</td>
+            <ul>
+              <li>Effective Healing: {formatNumber(this.healing)}</li>
+              <li>Overhealing: {formatNumber(this.overheal)}</li>
+              <li>Unique Healers: {formatNumber(this.uniqueCombatants.length)}</li>
+            </ul>
+            <div>
+              <p>
+                Healing During <SpellLink spell={SPELLS.AURA_MASTERY} /> Breakdown:{' '}
+              </p>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Cast</th>
+                    <th>Total Healing</th>
+                    <th>Amped Healing</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            Minimum Heal: {formatNumber(this.minHeal)} <br />
-            Maximum Heal: {formatNumber(this.maxHeal)} <br />
+                </thead>
+                <tbody>
+                  {this.auraMasteryCastsTotalHealing.map((healing, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{formatNumber(healing)}</td>
+                      <td>{formatNumber(this.auraMasteryCastsAmpedHealing[index])}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <ul>
+              <li>Minimum Heal: {formatNumber(this.minHeal)}</li>
+              <li>Maximum Heal: {formatNumber(this.maxHeal)}</li>
+            </ul>
           </>
         }
       >

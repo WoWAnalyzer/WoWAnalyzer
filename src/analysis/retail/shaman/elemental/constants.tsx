@@ -24,6 +24,8 @@ export enum NORMALIZER_ORDER {
 export enum EVENT_LINKS {
   Stormkeeper = 'stormkeeper',
   CallOfTheAncestors = 'call-of-the-ancestor',
+  MasterOfTheElementsBuff = 'master-of-the-elements-buff',
+  MasterOfTheElementsConsume = 'master-of-the-elements-consume',
 }
 
 type OverloadSpell = {
@@ -64,4 +66,17 @@ export const OVERLOAD_SPELLS: OverloadSpell[] = [
     spell: TALENTS.TEMPEST_TALENT,
     overloadSpell: SPELLS.TEMPEST_OVERLOAD,
   },
+];
+
+export const MASTER_OF_THE_ELEMENTS_SPELL_WHITELIST = [
+  TALENTS.FROST_SHOCK_TALENT,
+  SPELLS.LIGHTNING_BOLT,
+  TALENTS.CHAIN_LIGHTNING_TALENT,
+  SPELLS.TEMPEST_CAST,
+  TALENTS.ELEMENTAL_BLAST_TALENT,
+  TALENTS.EARTH_SHOCK_TALENT,
+  TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
+  TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
+  TALENTS.VOLTAIC_BLAZE_TALENT,
+  SPELLS.FLAME_SHOCK,
 ];

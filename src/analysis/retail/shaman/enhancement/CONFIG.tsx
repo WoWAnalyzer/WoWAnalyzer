@@ -17,10 +17,11 @@ const config: Config = {
         Analytics are being developed for a level 80 The War Within character on beta. Right now the
         Enhancement Analyzer is a work-in-progress, and only holds very basic functionality.
       </AlertWarning>
-      <br />
-      Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or
-      suggestions, feel free to reach out to Seriousnes via Discord (seriousnes) or drop an issue in
-      the GitHub repo.
+      <p>
+        Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or
+        suggestions, feel free to reach out to Seriousnes via Discord (seriousnes) or drop an issue
+        in the GitHub repo.
+      </p>
     </>
   ),
   exampleReport:

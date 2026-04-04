@@ -143,30 +143,31 @@ class TimeSpiral extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_EVOKER.TIME_SPIRAL_TALENT}>
           <div>
-            <SoupIcon /> {this.personalBuffsUsed}
-            <small>
-              {' '}
-              personal <SpellLink spell={SPELLS.HOVER} /> casts gained
-            </small>
+            <div>
+              <SoupIcon /> {this.personalBuffsUsed}
+              <small>
+                {' '}
+                personal <SpellLink spell={SPELLS.HOVER} /> casts gained
+              </small>
+            </div>
             {personalBuffsWasted > 0 && (
-              <>
-                <br />
+              <div>
                 <WarningIcon /> {personalBuffsWasted}
                 <small>
                   {' '}
                   personal <SpellLink spell={SPELLS.HOVER} /> casts wasted
                 </small>
-              </>
+              </div>
             )}
-            <br />
-            <InformationIcon /> {this.externalBuffsUsed}
-            <small> external buffs used</small>
+            <div>
+              <InformationIcon /> {this.externalBuffsUsed}
+              <small> external buffs used</small>
+            </div>
             {externalBuffsWasted > 0 && (
-              <>
-                <br />
+              <div>
                 <WarningIcon /> {externalBuffsWasted}
                 <small> external buffs unused</small>
-              </>
+              </div>
             )}
           </div>
         </TalentSpellText>

@@ -141,7 +141,9 @@ class Reversion extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.REVERSION_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
           <div>
             <TooltipElement
               content={
