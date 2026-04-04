@@ -3,7 +3,14 @@ import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, DeathEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  DeathEvent,
+  EventType,
+  HasHitpoints,
+  HealEvent,
+  HitpointsEvent,
+} from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -29,7 +36,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
   stagger: StaggerPool,
   pb: PurifyingBrew,
 }) {
-  _hpEvents: (HealEvent | DamageEvent)[] = [];
+  _hpEvents: HitpointsEvent<EventType>[] = [];
   _deathEvents: DeathEvent[] = [];
   _lastHp: number | null = null;
   _lastMaxHp: number | null = null;
@@ -100,19 +107,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
             },
           ],
           encoding: {
-            x: {
-              field: 'x',
-              type: 'quantitative' as const,
-              axis: {
-                labelExpr: formatTime('datum.value'),
-                tickCount: 25,
-                grid: false,
-              },
-              scale: {
-                nice: false,
-              },
-              title: null,
-            },
+            x: xAxis,
             y: {
               field: 'hitPoints',
               type: 'quantitative' as const,
@@ -211,14 +206,12 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
           }) satisfies StaggerEvent,
       );
 
-      let hpEvents = this._hpEvents
-        .filter((event) => event.hitPoints !== undefined)
-        .map(({ timestamp, hitPoints }) => {
-          return {
-            x: timestamp - startTime,
-            hitPoints: hitPoints!!, // !! filtered above
-          };
-        });
+      let hpEvents = this._hpEvents.map(({ timestamp, hitPoints }) => {
+        return {
+          timestamp: timestamp,
+          hitPoints: hitPoints,
+        };
+      });
 
       return (
         <div
@@ -251,10 +244,16 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
   }
 
   _damage(event: DamageEvent) {
+    if (!HasHitpoints(event)) {
+      return;
+    }
     this._hpEvents.push(event);
   }
 
   _heal(event: HealEvent) {
+    if (!HasHitpoints(event)) {
+      return;
+    }
     this._hpEvents.push(event);
   }
 
