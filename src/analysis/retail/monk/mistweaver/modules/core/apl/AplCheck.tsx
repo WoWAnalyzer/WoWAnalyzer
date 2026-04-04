@@ -8,19 +8,6 @@ import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 
-const AOE_SCK = {
-  spell: SPELLS.SPINNING_CRANE_KICK,
-  condition: cnd.and(
-    cnd.targetsHit(
-      { atLeast: 4 },
-      {
-        targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
-      },
-    ),
-    cnd.hasTalent(talents.WAY_OF_THE_CRANE_TALENT),
-  ),
-};
-
 const VIVIFY_8_REMS = {
   spell: SPELLS.VIVIFY,
   condition: cnd.describe(

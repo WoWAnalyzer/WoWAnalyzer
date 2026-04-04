@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { formatPercentage, formatDuration } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -20,7 +20,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 
 import ArcaneSurge, { ArcaneSurgeData } from '../analyzers/ArcaneSurge';
 
-const ARCANE_CHARGE_MAX_STACKS = 4;
 const SURGE_PRE_WINDOW = 10000;
 const SURGE_POST_WINDOW = 5000; // 7.5 seconds before and after
 
@@ -77,12 +76,7 @@ class ArcaneSurgeGuide extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const arcaneOrb = <SpellLink spell={SPELLS.ARCANE_ORB} />;
-    const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const evocation = <SpellLink spell={TALENTS.EVOCATION_TALENT} />;
-    const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
-    const arcaneMissiles = <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} />;
 
     const explanation = (
       <>

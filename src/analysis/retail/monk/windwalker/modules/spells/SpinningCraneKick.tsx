@@ -1,13 +1,9 @@
-import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 
 const MARK_OF_THE_CRANE_DURATION = 20000;

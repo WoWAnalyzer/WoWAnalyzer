@@ -124,7 +124,6 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         Additional bonus healing from the extra
-        <br />
         <SpellLink spell={talents.ENVELOPING_MIST_TALENT} /> buff uptime by source:
         <hr />
         <DonutChart items={items} />
@@ -211,7 +210,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         <strong>{this.risingMist.vivCleaves}</strong> total extra{' '}
-        <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} /> hits from extended <br />
+        <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} /> hits from extended
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> by source:
         <hr />
         <DonutChart items={items} />
@@ -246,7 +245,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         <strong>{this.risingMist.zpHits}</strong> total extra{' '}
-        <SpellLink spell={talents.ZEN_PULSE_TALENT} /> hits from extended <br />
+        <SpellLink spell={talents.ZEN_PULSE_TALENT} /> hits from extended
         <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> by source:
         <hr />
         <DonutChart items={items} />

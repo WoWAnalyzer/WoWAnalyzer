@@ -100,23 +100,21 @@ class HeartOfTheJadeSerpent extends HotJS {
     const tooltip = (
       <>
         {this.currentFof === 0 && (
-          <>
+          <div>
             <SpellLink spell={spells.FISTS_OF_FURY_CAST} /> was not used during the window
-          </>
+          </div>
         )}
         {this.currentSotwl !== 0 && (
-          <>
-            <br />
+          <div>
             <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> should not be used
             within the window
-          </>
+          </div>
         )}
         {this.currentUnityWithin !== 0 && (
-          <>
-            <br />
+          <div>
             <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> should not be used within the
             window
-          </>
+          </div>
         )}
       </>
     );
@@ -147,27 +145,29 @@ class HeartOfTheJadeSerpent extends HotJS {
 
   guideSubsection(conduitClipAnalysis: JSX.Element): JSX.Element {
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />
-        </strong>{' '}
-        massively reduces the cooldowns of your major abilities, and as such at least one{' '}
-        <SpellLink spell={spells.FISTS_OF_FURY_CAST} /> should be cast in each buff window.
-        <br />
-        <br />
-        This buff is actived whenever{' '}
-        <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> (as part of{' '}
-        <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} />) are cast. To avoid
-        clipping the window short, casting either of them while{' '}
-        <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> is active should be
-        avoided.
-        <br />
-        <br />
-        While active, muliple major abilities have massively hastened cooldowns. These can easily
-        reset atleast once during the duration with high enough haste, or with help from{' '}
-        <SpellLink spell={spells.BLACKOUT_KICK} />.
-      </p>
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />
+          </strong>{' '}
+          massively reduces the cooldowns of your major abilities, and as such at least one{' '}
+          <SpellLink spell={spells.FISTS_OF_FURY_CAST} /> should be cast in each buff window.
+        </p>
+        <p>
+          This buff is actived whenever{' '}
+          <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> or{' '}
+          <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> (as part of{' '}
+          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} />) are cast. To avoid
+          clipping the window short, casting either of them while{' '}
+          <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> is active should be
+          avoided.
+        </p>
+        <p>
+          While active, muliple major abilities have massively hastened cooldowns. These can easily
+          reset atleast once during the duration with high enough haste, or with help from{' '}
+          <SpellLink spell={spells.BLACKOUT_KICK} />.
+        </p>
+      </>
     );
 
     const data = (
@@ -185,8 +185,6 @@ class HeartOfTheJadeSerpent extends HotJS {
               <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> were cast), yellow indicates
               one mistake, while red indicates multiple mistakes.
             </small>
-            <br />
-            <br />
             <PerformanceBoxRow values={this.castEntries} />
           </div>
         </RoundedPanel>

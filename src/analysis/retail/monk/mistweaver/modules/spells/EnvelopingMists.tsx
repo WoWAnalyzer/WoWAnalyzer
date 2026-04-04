@@ -143,7 +143,8 @@ class EnvelopingMists extends Analyzer {
             >
               {formatNumber(this.healingPerCast)} <small>healing per cast</small>
             </TooltipElement>
-            <br />
+          </div>
+          <div>
             {formatNumber(this.healingIncrease)} <small>total healing from the buff</small>
           </div>
         </TalentSpellText>

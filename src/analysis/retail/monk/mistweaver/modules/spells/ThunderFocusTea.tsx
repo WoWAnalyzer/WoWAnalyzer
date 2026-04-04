@@ -217,13 +217,15 @@ class ThunderFocusTea extends Analyzer {
             <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast efficiency
           </strong>
           <div>
-            {this.subStatistic()} <br />
-            <strong>Casts </strong>
-            <small>
-              - Green indicates a correct{' '}
-              <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast, while red indicates
-              an incorrect cast.
-            </small>
+            {this.subStatistic()}
+            <p>
+              <strong>Casts </strong>
+              <small>
+                - Green indicates a correct{' '}
+                <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast, while red
+                indicates an incorrect cast.
+              </small>
+            </p>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
         </RoundedPanel>

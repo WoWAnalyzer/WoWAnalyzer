@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import EventsNormalizer from 'parser/core/EventsNormalizer';

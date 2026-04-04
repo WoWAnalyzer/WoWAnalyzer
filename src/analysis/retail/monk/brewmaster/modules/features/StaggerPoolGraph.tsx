@@ -206,7 +206,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
           }) satisfies StaggerEvent,
       );
 
-      let hpEvents = this._hpEvents.map(({ timestamp, hitPoints }) => {
+      const hpEvents = this._hpEvents.map(({ timestamp, hitPoints }) => {
         return {
           timestamp: timestamp,
           hitPoints: hitPoints,

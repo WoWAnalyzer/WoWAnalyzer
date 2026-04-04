@@ -142,7 +142,7 @@ export default class StaggerPool extends Analyzer {
   // TODO: this probably shouldn't live here? needed for stagger damage table
   public readonly observedSpellSchools: Map<number, number> = new Map();
 
-  private remainingTicks: number = 0;
+  private remainingTicks = 0;
   private readonly totalTickCount: number;
 
   /**
@@ -153,7 +153,7 @@ export default class StaggerPool extends Analyzer {
    * The other big gotcha for comparing these is the rapid pool clearing that occurs if you don't take damage for long enough.
    * This is mostly relevant for M+, where rapid pool clearing occurs between packs and causes damage in to no longer match damage out.
    */
-  public totalTickDamageTaken: number = 0;
+  public totalTickDamageTaken = 0;
 
   constructor(options: Options) {
     super(options);

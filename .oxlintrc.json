@@ -92,7 +92,8 @@
         "no-unused-vars": [
           "error",
           {
-            "args": "none"
+            "args": "none",
+            "destructuredArrayIgnorePattern": "^_"
           }
         ],
         "no-useless-backreference": "error",
@@ -135,10 +136,10 @@
         "typescript/array-type": "off",
         "typescript/ban-tslint-comment": "error",
         "typescript/class-literal-property-style": "error",
-        "typescript/consistent-generic-constructors": "error",
+        "typescript/consistent-generic-constructors": "off",
         "typescript/consistent-indexed-object-style": "error",
         "typescript/consistent-type-assertions": "error",
-        "typescript/consistent-type-definitions": "error",
+        "typescript/consistent-type-definitions": "off",
         "typescript/no-confusing-non-null-assertion": "error",
         "no-empty-function": "error",
         "typescript/no-inferrable-types": "error",

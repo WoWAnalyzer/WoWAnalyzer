@@ -597,8 +597,8 @@ class BuffTargetHelper extends Analyzer {
               each of your Ebon Might windows. Refreshing Ebon Might is counted as a new window.
             </p>
             <p>
-              Damage events that doesn't get amplified by your buffs will be ignored. <br />
-              Tanks, Healers and other Augmentations are not included. <br />
+              Damage events that doesn't get amplified by your buffs will be ignored. Tanks, Healers
+              and other Augmentations are not included.
             </p>
             {/*             <p>
               This module will also produce a note for{' '}

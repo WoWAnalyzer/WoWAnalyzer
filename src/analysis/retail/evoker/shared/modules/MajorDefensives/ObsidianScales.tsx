@@ -36,16 +36,17 @@ class ObsidianScales extends MajorDefensiveBuff {
 
   description() {
     return (
-      <p>
-        <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> reduces the damage you take by 30%.
+      <>
+        <p>
+          <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> reduces the damage you take by 30%.
+        </p>
         {this.hasHardenedScales && (
-          <>
-            <br />
+          <p>
             <SpellLink spell={TALENTS.HARDENED_SCALES_TALENT} /> increases this mitigation to{' '}
             <strong>{this.mitPct * 100}%</strong>.
-          </>
+          </p>
         )}
-      </p>
+      </>
     );
   }
 

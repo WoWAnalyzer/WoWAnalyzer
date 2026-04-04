@@ -18,15 +18,22 @@ const config: Config = {
   description: (
     <>
       If you are looking for help improving your gameplay, refer to the resources below:
-      <br />
-      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
-        Mage Class Discord
-      </a>{' '}
-      <br />
-      <a href="https://www.wowhead.com/fire-mage-guide" target="_blank" rel="noopener noreferrer">
-        Wowhead (Fire Mage Guide)
-      </a>{' '}
-      <br />
+      <ul>
+        <li>
+          <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
+            Mage Class Discord
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.wowhead.com/fire-mage-guide"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wowhead (Fire Mage Guide)
+          </a>
+        </li>
+      </ul>
     </>
   ),
   pages: {

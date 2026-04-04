@@ -56,11 +56,10 @@ class MotesOfAcceleration extends Analyzer {
             <InformationIcon /> {this.motesCollected}
             <small> motes collected</small>
             {motesWasted > 0 && (
-              <>
-                <br />
+              <div>
                 <WarningIcon /> {motesWasted}
                 <small> motes unused</small>
-              </>
+              </div>
             )}
           </div>
         </TalentSpellText>

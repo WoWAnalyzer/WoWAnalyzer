@@ -178,27 +178,31 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   get guideCastBreakdown() {
     const explanationPercent = 55;
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
-        </strong>{' '}
-        requires some preparation to be used optimally. Get all of your{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> charges and{' '}
-        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> on cooldown. <hr />
-        Your first ability after casting{' '}
-        <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> should be{' '}
-        <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to immediately utilize the{' '}
-        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks granted by{' '}
-        <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-        <hr />
-        During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
-        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> only when other buffs like{' '}
-        <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} /> are active to maximize{' '}
-        your healing. <br />
-        It is important to avoid overcapping on{' '}
-        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} />.
-      </p>
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+          </strong>{' '}
+          requires some preparation to be used optimally. Get all of your{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> charges and{' '}
+          <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> on cooldown. <hr />
+          Your first ability after casting{' '}
+          <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> should be{' '}
+          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to immediately utilize the{' '}
+          <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks granted by{' '}
+          <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
+          <hr />
+          During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
+          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> only when other buffs like{' '}
+          <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> or{' '}
+          <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} /> are active to maximize{' '}
+          your healing.
+        </p>
+        <p>
+          It is important to avoid overcapping on{' '}
+          <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} />.
+        </p>
+      </>
     );
 
     const data = (
@@ -311,15 +315,17 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           label={
             <>
               <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> and
-              <br />
               <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />
             </>
           }
         >
           <>
-            <ItemHealingDone amount={this.totalHealing} />
-            <br />
-            {formatNumber(this.missedGlobals)} <small>missed GCDs</small>
+            <div>
+              <ItemHealingDone amount={this.totalHealing} />
+            </div>
+            <div>
+              {formatNumber(this.missedGlobals)} <small>missed GCDs</small>
+            </div>
           </>
         </BoringValueText>
       </Statistic>

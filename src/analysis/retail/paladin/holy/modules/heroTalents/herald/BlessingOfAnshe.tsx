@@ -79,13 +79,13 @@ class BlessingOfAnshe extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
-          <>
-            Effective Healing: {formatNumber(this.healingDone)} <br />
-            Overhealing: {formatNumber(this.overhealing)} <br />
-            Effective Damage: {formatNumber(this.damageDone)} <br />
-            Total Procs: {this.procs} <br />
-            Wasted Procs: {this.refreshes} <br />
-          </>
+          <ul>
+            <li>Effective Healing: {formatNumber(this.healingDone)}</li>
+            <li>Overhealing: {formatNumber(this.overhealing)}</li>
+            <li>Effective Damage: {formatNumber(this.damageDone)}</li>
+            <li>Total Procs: {this.procs}</li>
+            <li>Wasted Procs: {this.refreshes}</li>
+          </ul>
         }
       >
         <TalentSpellText talent={TALENTS.BLESSING_OF_ANSHE_TALENT}>

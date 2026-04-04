@@ -31,7 +31,7 @@ class SpellUsable extends CoreSpellUsable {
     this.lastPotentialTriggerForRskReset = event;
   }
 
-  beginCooldown(triggerEvent: AbilityEvent<any>, _spellId: number) {
+  beginCooldown(triggerEvent: AbilityEvent<EventType>, _spellId: number) {
     if (triggerEvent.type === EventType.FreeCast) {
       //Ignore FreeCast events as they are events that have been modified or fabricated
       //They indicate that a different spell caused it to cast

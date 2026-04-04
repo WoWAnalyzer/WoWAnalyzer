@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import type Spell from 'common/SPELLS/Spell';
-import { TALENTS_MONK } from 'common/TALENTS';
 import SpellLink from 'interface/SpellLink';
 import { EventType, GetRelatedEvents, HasAbility, HasTarget } from 'parser/core/Events';
 import { Condition, tenseAlt } from 'parser/shared/metrics/apl';
