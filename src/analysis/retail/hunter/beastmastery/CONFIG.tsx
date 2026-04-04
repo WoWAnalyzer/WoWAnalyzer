@@ -15,39 +15,43 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello and welcome to the Beast Mastery Hunter analyzer! I hope that the suggestions given will
-      be helpful in aiding you improve your overall performance. Try and focus on improving only a
-      few things at a time, until those become ingrained in your muscle memory so as to not be
-      concentrating on many different things.
-      <br />
-      <br />
-      If you want to learn more about Beast Mastery Hunters, join the Hunter community on the
-      Trueshot Lodge Discord:{' '}
-      <a href="https://www.discord.gg/trueshot" target="_blank" rel="noopener noreferrer">
-        discord.gg/trueshot
-      </a>
-      . The <kbd>#beast-mastery</kbd> channel has a lot of helpful people, and if you post your logs
-      in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement from the
-      community.
-      <br />
-      <br />
-      For general gameplay guides and tips, please refer to the{' '}
-      <a
-        href="https://www.wowhead.com/guide/classes/hunter/beast-mastery/overview-pve-dps"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wowhead
-      </a>{' '}
-      or{' '}
-      <a
-        href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy-veins
-      </a>{' '}
-      guide.
+      <p>
+        Hello and welcome to the Beast Mastery Hunter analyzer! I hope that the suggestions given
+        will be helpful in aiding you improve your overall performance. Try and focus on improving
+        only a few things at a time, until those become ingrained in your muscle memory so as to not
+        be concentrating on many different things.
+      </p>
+      <p />
+      <p>
+        If you want to learn more about Beast Mastery Hunters, join the Hunter community on the
+        Trueshot Lodge Discord:{' '}
+        <a href="https://www.discord.gg/trueshot" target="_blank" rel="noopener noreferrer">
+          discord.gg/trueshot
+        </a>
+        . The <kbd>#beast-mastery</kbd> channel has a lot of helpful people, and if you post your
+        logs in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement
+        from the community.
+      </p>
+      <p />
+      <p>
+        For general gameplay guides and tips, please refer to the{' '}
+        <a
+          href="https://www.wowhead.com/guide/classes/hunter/beast-mastery/overview-pve-dps"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wowhead
+        </a>{' '}
+        or{' '}
+        <a
+          href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Icy-veins
+        </a>{' '}
+        guide.
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

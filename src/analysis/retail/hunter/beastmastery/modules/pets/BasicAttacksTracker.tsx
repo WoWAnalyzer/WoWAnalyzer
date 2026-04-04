@@ -144,7 +144,8 @@ class BasicAttacks extends Analyzer {
       >
         <BoringSpellValueText spell={this.usedBasicAttack}>
           <>
-            <ItemDamageDone amount={this.damage} /> <br />
+            <ItemDamageDone amount={this.damage} />
+            <p />
             {formatNumber(
               this.timeBetweenAttacks / this.chainCasts - NO_DELAY_TIME_BETWEEN_BASIC_ATK,
             )}{' '}
