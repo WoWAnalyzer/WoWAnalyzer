@@ -1,6 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatSeconds } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -13,6 +12,7 @@ import GuideSection from 'interface/guide/components/GuideSection';
 import ResourceLink from 'interface/ResourceLink';
 import Events, {
   CastEvent,
+  GetRelatedEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
@@ -27,6 +27,7 @@ import {
 } from 'parser/ui/WeightedPerformance';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { type JSX, type ReactNode } from 'react';
+import { EVENT_LINKS } from '../../constants';
 
 interface SpenderCast {
   event: CastEvent;
@@ -107,7 +108,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
       event: event,
       hasMoTE:
         this.enabledTalents.masterOfTheElements &&
-        this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id, event.timestamp, 5),
+        GetRelatedEvent(event, EVENT_LINKS.MasterOfTheElementsConsume) !== undefined,
       currentMaelstrom:
         this.deps.maelstromTracker.current +
         (this.deps.maelstromTracker.lastSpenderInfo?.amount ?? 0),
@@ -286,7 +287,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     );
   }
 
-  private getCastStats(cast: SpenderCast): PerCastStat[] {
+  private getCastStats(cast: SpenderCast, overallScore: number): PerCastStat[] {
     const stats: PerCastStat[] = [this.getMaelstromStat(cast), this.getLavaBurstStat(cast)];
 
     if (this.getWasteSinceLastSpender(cast) > 0) {
@@ -297,7 +298,6 @@ class MaelstromSpenders extends Analyzer.withDependencies({
       stats.push(this.getMoteStat(cast));
     }
 
-    const overallScore = this.getOverallScore(cast);
     stats.push({
       value: `${Math.round(overallScore * 100)}%`,
       label: 'Score',
@@ -312,7 +312,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
    * The two LvB checks measure increasingly severe misses of the same optimization window.
    */
   private static readonly SCORING = {
-    wasteWeight: 2,
+    wasteWeight: 3,
     lavaBurstWeight: 1,
     lavaBurstExtremeWeight: 1,
     /** LvB available beyond this threshold (ms) incurs additional exponential penalty. */
@@ -352,8 +352,8 @@ class MaelstromSpenders extends Analyzer.withDependencies({
 
   private buildPerCastData(): PerCastData[] {
     return this.spenderCasts.map((cast) => {
-      const stats = this.getCastStats(cast);
       const overallScore = this.getOverallScore(cast);
+      const stats = this.getCastStats(cast, overallScore);
 
       return {
         performance: scoreToQualitativePerformance(overallScore),
