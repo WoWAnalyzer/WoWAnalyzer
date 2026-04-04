@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { TIERS } from 'game/TIERS';
-import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
   AnyEvent,
@@ -53,7 +52,7 @@ class SpellUsable extends CoreSpellUsable {
     super.onCast(event);
   }
 
-  beginCooldown(triggerEvent: AbilityEvent<any>, _spellId: number) {
+  beginCooldown(triggerEvent: AbilityEvent<EventType>, _spellId: number) {
     if (triggerEvent.type === EventType.FreeCast) {
       //Ignore FreeCast events as they are events that have been modified or fabricated
       //They indicate that a different spell caused it to cast

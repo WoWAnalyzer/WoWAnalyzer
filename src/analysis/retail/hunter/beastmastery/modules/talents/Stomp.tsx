@@ -56,7 +56,7 @@ class Stomp extends Analyzer {
         <BoringSpellValueText spell={TALENTS.STOMP_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
-            <br />
+            <p />
             <AverageTargetsHit
               casts={this.casts}
               hits={this.hasAC ? this.hits / AMOUNT_OF_PETS_WITH_AC : this.hits}
