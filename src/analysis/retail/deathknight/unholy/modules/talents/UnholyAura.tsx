@@ -1,17 +1,8 @@
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/deathknight';
 import TALENTS from 'common/TALENTS/deathknight';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
-import Events, {
-  EventType,
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-  FightEndEvent,
-} from 'parser/core/Events';
-import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -25,9 +16,6 @@ class UnholyAura extends Analyzer {
 
   protected haste!: Haste;
   hastePerStack = 0;
-  buffStacks = new Map<number, number[]>();
-  lastStacks = 0;
-  lastUpdate = this.owner.fight.start_time;
 
   constructor(options: Options) {
     super(options);
@@ -43,57 +31,17 @@ class UnholyAura extends Analyzer {
     this.haste.addHasteBuff(SPELLS.UNHOLY_AURA_BUFF.id, {
       hastePerStack: this.hastePerStack,
     });
-
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
-      this.handleStacks,
-    );
-    this.addEventListener(
-      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
-      this.handleStacks,
-    );
-    this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
-      this.handleStacks,
-    );
-    this.addEventListener(
-      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.UNHOLY_AURA_BUFF),
-      this.handleStacks,
-    );
-    this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  private getOrCreateBucket(stacks: number): number[] {
-    let bucket = this.buffStacks.get(stacks);
-    if (!bucket) {
-      bucket = [];
-      this.buffStacks.set(stacks, bucket);
-    }
-    return bucket;
-  }
-
-  handleStacks(
-    event:
-      | ApplyBuffEvent
-      | ApplyBuffStackEvent
-      | RemoveBuffEvent
-      | RemoveBuffStackEvent
-      | FightEndEvent,
-  ) {
-    this.getOrCreateBucket(this.lastStacks).push(event.timestamp - this.lastUpdate);
-    if (event.type === EventType.FightEnd) {
-      return;
-    }
-    this.lastUpdate = event.timestamp;
-    this.lastStacks = currentStacks(event);
+  get stackUptimes(): Record<number, number> {
+    return this.selectedCombatant.getStackBuffUptimes(SPELLS.UNHOLY_AURA_BUFF.id);
   }
 
   get averageStacks() {
-    let avgStacks = 0;
-    this.buffStacks.forEach((durations, stacks) => {
-      avgStacks += (durations.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * stacks;
-    });
-    return avgStacks;
+    return (
+      this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.UNHOLY_AURA_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   get averageHaste() {
@@ -122,10 +70,9 @@ class UnholyAura extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {[...this.buffStacks.entries()]
-                .sort(([a], [b]) => a - b)
-                .map(([stacks, durations]) => {
-                  const totalTime = durations.reduce((a, b) => a + b, 0);
+              {Object.entries(this.stackUptimes)
+                .sort(([a], [b]) => Number(a) - Number(b))
+                .map(([stacks, totalTime]) => {
                   if (totalTime === 0) {
                     return null;
                   }
