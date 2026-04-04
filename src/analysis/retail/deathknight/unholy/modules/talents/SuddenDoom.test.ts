@@ -105,11 +105,7 @@ function setup(events: AnyEvent[]) {
 
 describe('SuddenDoom analyzer', () => {
   it('tracks a simple consume: applybuff → cast → removebuff', () => {
-    const module = setup([
-      applybuff(1000),
-      cast(1200),
-      removebuff(1450),
-    ]);
+    const module = setup([applybuff(1000), cast(1200), removebuff(1450)]);
 
     expect(module.consumedProcs).toBe(1);
     expect(module.wastedProcs).toBe(0);
@@ -117,10 +113,7 @@ describe('SuddenDoom analyzer', () => {
   });
 
   it('tracks an expired proc (removebuff with no cast nearby)', () => {
-    const module = setup([
-      applybuff(1000),
-      removebuff(11000),
-    ]);
+    const module = setup([applybuff(1000), removebuff(11000)]);
 
     expect(module.consumedProcs).toBe(0);
     expect(module.wastedExpires).toBe(1);
@@ -150,12 +143,7 @@ describe('SuddenDoom analyzer', () => {
 
   it('counts a genuine overwrite when refreshbuff fires without removebuffstack', () => {
     // At 1 stack, no removebuffstack, refreshbuff alone = true overwrite
-    const module = setup([
-      applybuff(1000),
-      refreshbuff(5000),
-      cast(6000),
-      removebuff(6250),
-    ]);
+    const module = setup([applybuff(1000), refreshbuff(5000), cast(6000), removebuff(6250)]);
 
     expect(module.consumedProcs).toBe(1);
     expect(module.wastedRefreshes).toBe(1);
@@ -164,11 +152,7 @@ describe('SuddenDoom analyzer', () => {
 
   it('expires all stacks when a multi-stack buff expires', () => {
     // 2 stacks expire without any cast — both are wasted
-    const module = setup([
-      applybuff(1000),
-      applybuffstack(2000, 2),
-      removebuff(15000),
-    ]);
+    const module = setup([applybuff(1000), applybuffstack(2000, 2), removebuff(15000)]);
 
     expect(module.consumedProcs).toBe(0);
     expect(module.wastedExpires).toBe(2);
@@ -215,11 +199,7 @@ describe('SuddenDoom analyzer', () => {
   });
 
   it('expires active stacks on fight end', () => {
-    const module = setup([
-      applybuff(1000),
-      applybuffstack(2000, 2),
-      fightend(5000),
-    ]);
+    const module = setup([applybuff(1000), applybuffstack(2000, 2), fightend(5000)]);
 
     expect(module.consumedProcs).toBe(0);
     expect(module.wastedExpires).toBe(2);
@@ -227,12 +207,7 @@ describe('SuddenDoom analyzer', () => {
   });
 
   it('does not add expired procs on fight end if already consumed', () => {
-    const module = setup([
-      applybuff(1000),
-      cast(2000),
-      removebuff(2250),
-      fightend(5000),
-    ]);
+    const module = setup([applybuff(1000), cast(2000), removebuff(2250), fightend(5000)]);
 
     expect(module.consumedProcs).toBe(1);
     expect(module.wastedExpires).toBe(0);
@@ -242,11 +217,7 @@ describe('SuddenDoom analyzer', () => {
   it('does not double-count when cast fires before removebuff', () => {
     // Cast at 2000, removebuff at 2250 (within 500ms link window)
     // Both onCast and onRemoveBuff see this — should only count once
-    const module = setup([
-      applybuff(1000),
-      cast(2000),
-      removebuff(2250),
-    ]);
+    const module = setup([applybuff(1000), cast(2000), removebuff(2250)]);
 
     expect(module.consumedProcs).toBe(1);
     expect(module.totalProcs).toBe(1);
