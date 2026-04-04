@@ -90,7 +90,7 @@ class Bloodshed extends Analyzer {
         tooltip={
           <>
             {`Your target took ${formatNumber(this.bleedDamage)} bleed damage from Bloodshed.`}
-            <br />
+            <p />
             {`Your pet did ${formatNumber(
               this.increasedDamage,
             )} extra damage while Bloodshed was active.`}

@@ -54,7 +54,7 @@ class AspectOfTheBeast extends Analyzer {
         <BoringSpellValueText spell={TALENTS.ASPECT_OF_THE_BEAST_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
-            <br />
+            <p />
             <ItemHealingDone amount={this.healing} />
           </>
         </BoringSpellValueText>

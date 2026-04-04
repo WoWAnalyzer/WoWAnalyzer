@@ -24,7 +24,6 @@ import BasicAttacks from './modules/pets/BasicAttacksTracker';
 import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
 import Focus from './modules/resources/Focus';
-import BarbedShot from './modules/talents/BarbedShot';
 import BeastCleave from './modules/talents/BeastCleave';
 import BestialWrath from './modules/talents/BestialWrath';
 import CobraShot from './modules/talents/CobraShot';
@@ -38,8 +37,6 @@ import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import DireCommandNormalizer from './normalizers/DireCommandNormalizer';
 import Guide from './modules/guide/Guide';
-import FrenzyBuffStackTracker from './modules/guide/sections/rotation/FrenzyBuffStackTracker';
-import FrenzyBuffStackGraph from './modules/guide/sections/rotation/FrenzyBuffStackGraph';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import Bloodshed from './modules/talents/Bloodshed';
 import HunterEventLinkNormalizers from '../shared/normalizers/HunterEventLinkNormalizers';
@@ -58,8 +55,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     //Guide
-    frenzyBuffStackTracker: FrenzyBuffStackTracker,
-    frenzyBuffStackGraph: FrenzyBuffStackGraph,
     focusGraph: FocusGraph,
 
     //Resources
@@ -84,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
     cobraShot: CobraShot,
-    barbedShot: BarbedShot,
     killShot: KillShot,
 
     //Talents
