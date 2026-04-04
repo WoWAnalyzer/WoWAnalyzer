@@ -97,11 +97,13 @@ class Bloodworms extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.bloodworms.statistic.tooltip">
-            <strong>Damage:</strong> {formatThousands(this.totalDamage)} /{' '}
-            {this.owner.formatItemDamageDone(this.totalDamage)}
-            <br />
-            <strong>Number of worms summoned:</strong> {this.totalSummons}
-            <br />
+            <p>
+              <strong>Damage:</strong> {formatThousands(this.totalDamage)} /{' '}
+              {this.owner.formatItemDamageDone(this.totalDamage)}
+            </p>
+            <p>
+              <strong>Number of worms summoned:</strong> {this.totalSummons}
+            </p>
             <strong>Number of worms popped early:</strong> {this.poppedWorms}
           </Trans>
         }
