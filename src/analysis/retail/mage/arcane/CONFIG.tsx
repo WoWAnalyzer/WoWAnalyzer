@@ -18,31 +18,41 @@ const config: Config = {
   description: (
     <>
       If you are looking for help improving your gameplay, refer to the resources below:
-      <br />
-      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
-        Mage Class Discord
-      </a>{' '}
-      <br />
-      <a href="https://discord.gg/UrczP9U" target="_blank" rel="noopener noreferrer">
-        Arcane Spec Discord
-      </a>{' '}
-      <br />
-      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">
-        Altered Time (Mage Forums/Guides)
-      </a>{' '}
-      <br />
-      <a href="https://www.wowhead.com/arcane-mage-guide" target="_blank" rel="noopener noreferrer">
-        Wowhead (Arcane Mage Guide)
-      </a>{' '}
-      <br />
-      <a
-        href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy Veins (Arcane Mage Guide)
-      </a>{' '}
-      <br />
+      <ul>
+        <li>
+          <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
+            Mage Class Discord
+          </a>
+        </li>
+        <li>
+          <a href="https://discord.gg/UrczP9U" target="_blank" rel="noopener noreferrer">
+            Arcane Spec Discord
+          </a>
+        </li>
+        <li>
+          <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">
+            Altered Time (Mage Forums/Guides)
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.wowhead.com/arcane-mage-guide"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wowhead (Arcane Mage Guide)
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Icy Veins (Arcane Mage Guide)
+          </a>
+        </li>
+      </ul>
     </>
   ),
   pages: {

@@ -307,17 +307,21 @@ class CelestialConduit extends Analyzer {
 
     const explanationPercent = 47.5;
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={currentSpell} />
-        </strong>
-        <br />
-        Before casting <SpellLink spell={currentSpell} />, make sure that all spells reduced by{' '}
-        <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> are on cooldown so that
-        the extra CDR granted when casting <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is
-        not wasted. Additionally, make sure to never cancel the spell and to hit at least 5 targets
-        in order to get the maximum healing/damage buff (up to 30%).
-      </p>
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={currentSpell} />
+          </strong>
+        </p>
+        <p>
+          Before casting <SpellLink spell={currentSpell} />, make sure that all spells reduced by{' '}
+          <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> are on cooldown so
+          that the extra CDR granted when casting{' '}
+          <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is not wasted. Additionally, make
+          sure to never cancel the spell and to hit at least 5 targets in order to get the maximum
+          healing/damage buff (up to 30%).
+        </p>
+      </>
     );
 
     const data = (

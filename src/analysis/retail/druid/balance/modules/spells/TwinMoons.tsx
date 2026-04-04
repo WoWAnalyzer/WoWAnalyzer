@@ -49,12 +49,13 @@ export default class TwinMoons extends Analyzer {
         tooltip={`The listed damage value counts ONLY the boost to Moonfire's damage, and does not account for the saved GCDs incurred by producing extra moonfire debuffs.`}
       >
         <TalentSpellText talent={TALENTS_DRUID.TWIN_MOONS_TALENT}>
-          <>
+          <div>
             <ItemPercentDamageDone amount={this.damage} />
-            <br />
+          </div>
+          <div>
             {this.owner.getPerMinute(this.extraHits).toFixed(1)}{' '}
             <small>extra moonfires per minute</small>
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

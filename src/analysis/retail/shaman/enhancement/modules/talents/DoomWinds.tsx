@@ -26,7 +26,6 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Abilities from '../Abilities';
 import Haste from 'parser/shared/modules/Haste';
-import { formatPercentage } from 'common/format';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';

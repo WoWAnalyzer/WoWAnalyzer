@@ -7,6 +7,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
+  EventType,
   RefreshBuffEvent,
   TargettedEvent,
 } from 'parser/core/Events';
@@ -240,7 +241,7 @@ class ConvokeSpirits extends Analyzer {
     };
   }
 
-  onHit(event: AbilityEvent<any> & TargettedEvent<any>) {
+  onHit(event: AbilityEvent<EventType> & TargettedEvent<EventType>) {
     const spellId = event.ability.guid;
 
     const isNewHit = this.isNewHit(spellId);
@@ -340,7 +341,7 @@ class ConvokeSpirits extends Analyzer {
   /**
    * True iff a hit with the given traveling spellId could plausibly have come from a hardcast
    */
-  wasProbablyHardcast(event: AbilityEvent<any> & TargettedEvent<any>): boolean {
+  wasProbablyHardcast(event: AbilityEvent<EventType> & TargettedEvent<EventType>): boolean {
     const lastCast: CastEvent | undefined = this.lastTravelingSpellCast[event.ability.guid];
     return (
       lastCast !== undefined &&

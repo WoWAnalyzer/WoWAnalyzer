@@ -15,16 +15,18 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The
-      goal is to provide targeted suggestions to improve your overall Mistweaver Monk play. The
-      suggestions are based on the current theorycrafting and practical knowledge from some of the
-      best Mistweavers playing this game. (And even some former mistweavers who still like to help
-      us dreamers out.)
-      <br />
-      <br />
-      The tool is not perfect so we are always looking to improve it. If you have any suggestions or
-      comments, don't hesitated to open an issue on the Github repo. Thanks and we hope you continue
-      to enjoy the tool!
+      <p>
+        Hello all! Thanks so much for taking the time use this tool as a way to improve your play.
+        The goal is to provide targeted suggestions to improve your overall Mistweaver Monk play.
+        The suggestions are based on the current theorycrafting and practical knowledge from some of
+        the best Mistweavers playing this game. (And even some former mistweavers who still like to
+        help us dreamers out.)
+      </p>
+      <p>
+        The tool is not perfect so we are always looking to improve it. If you have any suggestions
+        or comments, don't hesitated to open an issue on the Github repo. Thanks and we hope you
+        continue to enjoy the tool!
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

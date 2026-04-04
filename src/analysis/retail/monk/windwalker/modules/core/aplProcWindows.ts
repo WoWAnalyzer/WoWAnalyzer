@@ -1,7 +1,6 @@
 import { maybeGetSpell } from 'common/SPELLS';
 import type { CastInSequence } from 'interface/guide/components/CastSequence';
 import {
-  type AnyEvent,
   type ApplyBuffStackEvent,
   type CastEvent,
   EventType,

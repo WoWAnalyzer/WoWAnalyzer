@@ -180,6 +180,7 @@ class TalentHealingStatistic extends Analyzer {
     );
 
     // Add key to each entry for rendering
+    // oxlint-disable-next-line react/no-clone-element
     return sortedTalentList.map((talent, index) => cloneElement(talent, { key: index }));
   }
 
@@ -189,15 +190,17 @@ class TalentHealingStatistic extends Analyzer {
         title={<Trans id="monk.mistweaver.talentBox.title">Talent Summary</Trans>}
         tooltip={
           <Trans id="monk.mistweaver.talentBox.tooltip">
-            The purpose of this is to show the overall HPS impact of each talent. So not only what
-            the talent itself did, but also feeding and synergy or interactions with other spells or
-            talents. The percentage shown is what you'd lose without the talent, ignoring what you'd
-            gain from the other options.
-            <br />
-            <br />
-            Note: Due to the synergies that exist between certain talents there is some overlap in
-            the HPS contribution shown. Detailed breakdowns of each talent's impact can be found in
-            the Talents Section.
+            <p>
+              The purpose of this is to show the overall HPS impact of each talent. So not only what
+              the talent itself did, but also feeding and synergy or interactions with other spells
+              or talents. The percentage shown is what you'd lose without the talent, ignoring what
+              you'd gain from the other options.
+            </p>
+            <p>
+              Note: Due to the synergies that exist between certain talents there is some overlap in
+              the HPS contribution shown. Detailed breakdowns of each talent's impact can be found
+              in the Talents Section.
+            </p>
           </Trans>
         }
         position={STATISTIC_ORDER.CORE(9)}

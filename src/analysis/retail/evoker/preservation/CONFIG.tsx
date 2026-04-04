@@ -1,4 +1,4 @@
-import { Trevor, Harrek } from 'CONTRIBUTORS';
+import { Harrek } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
@@ -16,12 +16,16 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello everyone! Thank you for taking the time use this tool as a way to improve your play. The
-      goal is to provide targeted suggestions to improve your overall Preservation Evoker play.
-      <br />
-      We are currently updating it to support all the parts of the specialization for Midnight. If
-      you have any question or concern please reach out to the staff in the{' '}
-      <a href="https://discord.gg/evoker">Evoker Discord</a>
+      <p>
+        Hello everyone! Thank you for taking the time use this tool as a way to improve your play.
+        The goal is to provide targeted suggestions to improve your overall Preservation Evoker
+        play.
+      </p>
+      <p>
+        We are currently updating it to support all the parts of the specialization for Midnight. If
+        you have any question or concern please reach out to the staff in the{' '}
+        <a href="https://discord.gg/evoker">Evoker Discord</a>
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

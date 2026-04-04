@@ -162,7 +162,6 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
               )}
             </ul>
             <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.
-            <br />
           </>
         }
       >

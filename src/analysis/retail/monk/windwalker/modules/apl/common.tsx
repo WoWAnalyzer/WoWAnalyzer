@@ -61,10 +61,10 @@ const comboStrikesCondition = (spell: Spell | Spell[]) =>
     ? and(...spell.map((candidate) => comboStrikesSafe(candidate)))
     : comboStrikesSafe(spell);
 
-function withHiddenConstraint(
-  visibleCondition: Condition<any> | undefined,
-  hiddenCondition: Condition<any>,
-): Condition<{ visibleCondition: any; hiddenCondition: any }> {
+function withHiddenConstraint<Visible, Hidden>(
+  visibleCondition: Condition<Visible> | undefined,
+  hiddenCondition: Condition<Hidden>,
+): Condition<{ visibleCondition?: Visible; hiddenCondition: Hidden }> {
   return {
     key: visibleCondition
       ? `visible-${visibleCondition.key}-hidden-${hiddenCondition.key}`
@@ -79,14 +79,14 @@ function withHiddenConstraint(
     }),
     update: (state, event) => ({
       visibleCondition: visibleCondition
-        ? visibleCondition.update(state.visibleCondition, event)
+        ? visibleCondition.update(state.visibleCondition!, event)
         : state.visibleCondition,
       hiddenCondition: hiddenCondition.update(state.hiddenCondition, event),
     }),
     validate: (state, event, spell, lookahead) =>
       hiddenCondition.validate(state.hiddenCondition, event, spell, lookahead) &&
       (visibleCondition
-        ? visibleCondition.validate(state.visibleCondition, event, spell, lookahead)
+        ? visibleCondition.validate(state.visibleCondition!, event, spell, lookahead)
         : true),
     describe: (tense) => visibleCondition?.describe(tense) ?? '',
     tooltip: visibleCondition?.tooltip,

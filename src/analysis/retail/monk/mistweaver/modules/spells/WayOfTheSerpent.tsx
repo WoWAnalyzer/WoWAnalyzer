@@ -33,8 +33,8 @@ class WayOfTheSerpent extends Analyzer {
 
   activeVivifySpell = SPELLS.VIVIFY;
 
-  vivifySheilunsHealing: number = 0;
-  renewingMistHealing: number = 0;
+  vivifySheilunsHealing = 0;
+  renewingMistHealing = 0;
 
   soothingMistChannelEnds: Set<number> = new Set();
 
@@ -160,9 +160,12 @@ class WayOfTheSerpent extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.WAY_OF_THE_SERPENT_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          {formatNumber(soomMovement + cjlMovement)} <small>yards moved while channeling</small>
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            {formatNumber(soomMovement + cjlMovement)} <small>yards moved while channeling</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

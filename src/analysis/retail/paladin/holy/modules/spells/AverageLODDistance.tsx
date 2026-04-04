@@ -107,7 +107,7 @@ class FillerFlashOfLight extends Analyzer {
             </>
           }
         >
-          {this.plot} <br />
+          {this.plot}
           {(distanceSum / this.distanceCount).toFixed(2)} <small>yards</small>
         </BoringValueText>
       </Statistic>

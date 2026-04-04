@@ -114,7 +114,6 @@ class ElementalAssault extends Analyzer.withDependencies({
   }
 
   statistic() {
-    const totalMaelstrom = this.maelstromWeaponGained;
     return (
       <TalentAggregateStatisticContainer
         title={

@@ -136,7 +136,7 @@ class BlackoutKick extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
-          <span>
+          <p>
             <SpellIcon
               spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
               style={{
@@ -146,7 +146,8 @@ class BlackoutKick extends Analyzer {
             />{' '}
             {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-            <br />
+          </p>
+          <p>
             <SpellIcon
               spell={SPELLS.FISTS_OF_FURY_CAST}
               style={{
@@ -156,7 +157,7 @@ class BlackoutKick extends Analyzer {
             />{' '}
             {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-          </span>
+          </p>
         </BoringSpellValueText>
       </Statistic>
     );

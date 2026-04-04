@@ -11,7 +11,6 @@ import CastOverview from 'interface/guide/components/CastOverview';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 import ArcaneMissiles, { ArcaneMissilesData } from '../analyzers/ArcaneMissiles';
-import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
 
 const MISSILE_EARLY_CLIP_DELAY = 200;
 
