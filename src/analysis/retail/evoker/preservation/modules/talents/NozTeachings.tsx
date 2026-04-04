@@ -58,6 +58,7 @@ class NozTeachings extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    // oxlint-disable-next-line eslint/prefer-const -- baseline suppression
     let sbCdr = 0;
     let dbCdr = 0;
     let fbCdr = 0;

@@ -23,7 +23,6 @@ import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/componen
 import { PRESCIENCE_BASE_DURATION_MS, TIMEWALKER_BASE_EXTENSION } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
 import Toggle from 'react-toggle';
-import { TIERS } from 'game/TIERS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BuffTargetHelperInfoLabel from './BuffTargetHelperInfoLabel';
 import { ABILITY_BLACKLIST, ABILITY_NO_EM_SCALING } from '../../util/abilityFilter';
@@ -179,7 +178,7 @@ class BuffTargetHelper extends Analyzer {
 
   /** Generate filter based on our ability filters */
   getFilter(noEbonScaling: boolean) {
-    let filter = `(not ability.id in(${this.abilityBlacklist})) 
+    let filter = `(not ability.id in(${this.abilityBlacklist}))
     AND (${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
     AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
 
@@ -319,8 +318,8 @@ class BuffTargetHelper extends Analyzer {
 
   getTop4Pumpers(topPumpersData: [string, number[]][][]) {
     const top4PumpersData = [];
-    for (let i = 0; i < topPumpersData.length; i += 1) {
-      const top4 = topPumpersData[i].slice(0, 4);
+    for (const row of topPumpersData) {
+      const top4 = row.slice(0, 4);
       top4PumpersData.push(top4);
     }
     return top4PumpersData;
@@ -442,6 +441,7 @@ class BuffTargetHelper extends Analyzer {
       12_000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
     // First two casts in fight should be 2x Prescience
     // We are assuming that count of 3 is long prescience so we go 3->1->2(start)
+    // oxlint-disable-next-line eslint/no-unused-vars -- baseline suppression
     let prescienceCount = 2;
     // Start 2 seconds in to mimic what HenryG does
     let curTime = prescienceCooldown + 2_000;
