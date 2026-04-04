@@ -301,6 +301,11 @@ const spells = {
     name: 'Benediction',
     icon: 'inv12_apextalent_priest_benediction',
   },
+  DIVINITY_BUFF: {
+    id: 1216314,
+    name: 'Divinity',
+    icon: 'ability_priest_rayofhope',
+  },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
