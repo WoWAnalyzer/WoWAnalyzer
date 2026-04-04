@@ -22,6 +22,7 @@ import AplProcWindowDetail from '../core/AplProcWindowDetail';
 import { buildAplProcWindows, type AplProcWindow } from '../core/aplProcWindows';
 import windwalkerApl from '../apl/WindwalkerApl';
 
+// oxlint-disable-next-line no-unused-vars
 const RUSHING_WIND_KICK_PROC_CHANCE = 0.6;
 const RUSHING_WIND_KICK_MAX_STACKS = 1;
 

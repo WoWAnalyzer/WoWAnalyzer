@@ -49,7 +49,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_SHOT.id,
         buffSpellId: TALENTS_HUNTER.PRECISE_SHOTS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-
         gcd: {
           base: 1500,
         },

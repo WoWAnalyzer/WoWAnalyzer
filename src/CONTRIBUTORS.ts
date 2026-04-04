@@ -182,6 +182,10 @@ export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
 };
+export const Badkad: Contributor = {
+  nickname: 'Badkad',
+  github: 'Badkad',
+};
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
   github: 'Salarissia',
@@ -2838,4 +2842,10 @@ export const defgfed: Contributor = {
 export const MarchingCube: Contributor = {
   nickname: 'MarchingCube',
   github: 'MarchingCube',
+};
+
+export const NotStirred: Contributor = {
+  nickname: 'NotStirred',
+  github: 'NotStirred',
+  discord: 'NotStirred',
 };

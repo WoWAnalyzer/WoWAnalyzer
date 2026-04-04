@@ -95,9 +95,12 @@ class LifeCocoon extends Analyzer {
         tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}
       >
         <TalentSpellText talent={TALENTS_MONK.LIFE_COCOON_TALENT}>
-          <ItemHealingDone amount={this.healing} />
-          <br />
-          <small>Increased HoT Healing</small>
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
+            <small>Increased HoT Healing</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

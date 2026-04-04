@@ -5,7 +5,9 @@ import { Amiphite, Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2026, 3, 26), <><SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> and <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> update.</>, Amiphite),
+  change(date(2026, 4, 1), <><SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> update.</>, Amiphite),
+  change(date(2026, 4, 1), <><SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> guide section update: <SpellLink spell={TALENTS.SPIRITWELL_TALENT} /> and
+  <SpellLink spell={TALENTS.DIVINITY_TALENT} /> support.</>, Amiphite),
   change(date(2026, 3, 19), <>Partially updated for patch 12.0.1. Still need to implement modules and some talents.</>, Amiphite),
   change(date(2025, 6, 8), <>Add preparation section to overview.</>, Vetyst),
   change(date(2025, 6, 8), <>Add statistics for <SpellLink spell={TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />.</>, Vetyst),

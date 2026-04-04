@@ -44,7 +44,8 @@ class Chronoflame extends Analyzer {
         <TalentSpellText talent={TALENTS_EVOKER.CHRONO_FLAME_TALENT}>
           <div>
             <ItemDamageDone amount={this.chronoflameDamage} />
-            <br />
+          </div>
+          <div>
             <ItemHealingDone amount={this.chronoflameHealing} />
           </div>
         </TalentSpellText>

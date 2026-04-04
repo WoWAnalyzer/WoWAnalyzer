@@ -254,25 +254,32 @@ class AvengingCrusader extends Analyzer {
       <TalentAggregateStatisticContainer
         tooltip={
           <>
-            <ItemHealingDone amount={this.totalHealing} /> <br />
-            Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b> <br />
-            Overhealed: <b>{formatPercentage(overheal / (this.totalHealing + overheal))}%</b>
-            <br />
-            Beacon healing:{' '}
-            <b>
-              {formatNumber(this.getHealingSourceAmount(SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id))}
-            </b>
-            <br />
-            Beacon overhealed:{' '}
-            <b>
-              {formatPercentage(
-                beaconOverheal /
-                  (beaconOverheal +
-                    this.getHealingSourceAmount(SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id)),
-              )}
-              %
-            </b>
-            <br />
+            <p>
+              <ItemHealingDone amount={this.totalHealing} />
+            </p>
+            <p>
+              Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b>
+            </p>
+            <p>
+              Overhealed: <b>{formatPercentage(overheal / (this.totalHealing + overheal))}%</b>
+            </p>
+            <p>
+              Beacon healing:{' '}
+              <b>
+                {formatNumber(this.getHealingSourceAmount(SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id))}
+              </b>
+            </p>
+            <p>
+              Beacon overhealed:{' '}
+              <b>
+                {formatPercentage(
+                  beaconOverheal /
+                    (beaconOverheal +
+                      this.getHealingSourceAmount(SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id)),
+                )}
+                %
+              </b>
+            </p>
           </>
         }
         title={

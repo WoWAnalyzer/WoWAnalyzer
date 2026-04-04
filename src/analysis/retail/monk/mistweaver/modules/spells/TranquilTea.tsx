@@ -8,12 +8,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import Events, {
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-  CastEvent,
-  HealEvent,
-} from 'parser/core/Events';
+import Events, { RemoveBuffEvent, RemoveBuffStackEvent, CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SheilunsGift from './SheilunsGift';
 import { getSheilunsGiftHits } from '../../normalizers/CastLinkNormalizer';

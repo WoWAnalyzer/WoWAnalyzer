@@ -106,7 +106,6 @@ export default class ControlOfTheDream extends Analyzer.withDependencies({
               <Fragment key={spellId}>
                 <SpellIcon spell={spellId} /> {(cdrInfo.totalEffectiveCdr / 1_000).toFixed(0)}s{' '}
                 <small>eff. CDR</small> / {cdrInfo.earlyCasts} <small>early casts</small>
-                <br />
               </Fragment>
             ))}
           </>

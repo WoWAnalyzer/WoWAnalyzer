@@ -116,9 +116,12 @@ class T33TierSet extends Analyzer {
           <ItemHealingDone amount={this.insurance2pHotHealing + this.insurance2pProcHealing} />
           {this.renderDonutChart(this.insurance2pHotHealing, this.insurance2pProcHealing)}
           <h4>4 piece</h4>
-          <ItemHealingDone amount={this.insurance4pHotHealing + this.insurance4pProcHealing} />
-          <br />
-          <ItemCooldownReduction effective={this.effectiveCdrMs} waste={this.wastedCdrMs} />
+          <div>
+            <ItemHealingDone amount={this.insurance4pHotHealing + this.insurance4pProcHealing} />
+          </div>
+          <div>
+            <ItemCooldownReduction effective={this.effectiveCdrMs} waste={this.wastedCdrMs} />
+          </div>
           {this.renderDonutChart(this.insurance4pHotHealing, this.insurance4pProcHealing)}
         </div>
       </Statistic>
