@@ -34,7 +34,6 @@
     "src/analysis/retail/druid/restoration/**",
     "src/analysis/retail/druid/shared/**",
     "src/analysis/retail/evoker/augmentation/**",
-    "src/analysis/retail/evoker/preservation/**",
     "src/analysis/retail/evoker/shared/**",
     "src/analysis/retail/hunter/beastmastery/**",
     "src/analysis/retail/mage/arcane/**",

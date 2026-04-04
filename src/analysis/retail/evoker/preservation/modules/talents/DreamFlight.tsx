@@ -111,7 +111,6 @@ class DreamFlight extends Analyzer {
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
           </div>
-          <br />
           {this.castInfo.map((info, idx) => {
             const header = (
               <>

@@ -278,9 +278,6 @@ class EssenceBurst extends Analyzer {
           value = QualitativePerformance.Ok;
         }
       }
-      const badEcho =
-        info.spell === TALENTS_EVOKER.ECHO_TALENT.id &&
-        this.selectedCombatant.hasTalent(TALENTS_EVOKER.TWIN_ECHOES_TALENT);
       if (info.spell === 0) {
         value = QualitativePerformance.Fail;
       }
@@ -294,8 +291,7 @@ class EssenceBurst extends Analyzer {
         );
       const tooltip = (
         <>
-          Buff removed @ {this.owner.formatTimestamp(info.timestamp)}
-          <br />
+          <div>Buff removed @ {this.owner.formatTimestamp(info.timestamp)}</div>
           {spellString}
         </>
       );

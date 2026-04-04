@@ -1,5 +1,4 @@
 import {
-  AbilityEvent,
   HasRelatedEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
@@ -56,8 +55,8 @@ import {
   ECHO_CONSUMPTION,
 } from './constants';
 
-/** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
+/** Returns true if the given buff application or heal can be matched back to a hardcast */
+export function isFromHardcastEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
   return HasRelatedEvent(event, ECHO) || HasRelatedEvent(event, ECHO_REMOVAL);
 }
 
@@ -342,4 +341,8 @@ export function getMerithrasHealing(event: CastEvent) {
 
 export function getEchoConsumptions(event: CastEvent) {
   return GetRelatedEvents<RemoveBuffEvent>(event, ECHO_CONSUMPTION);
+}
+
+export function isFromTipTheScales(event: CastEvent) {
+  return HasRelatedEvent(event, 'TipTheScalesConsume');
 }

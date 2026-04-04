@@ -144,7 +144,9 @@ class Ouroboros extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.OUROBOROS_TALENT}>
-          <ItemHealingDone amount={this.totalhealing} /> <br />
+          <div>
+            <ItemHealingDone amount={this.totalhealing} />
+          </div>
           {this.avgStacks.toFixed(1)} <small>average stacks</small>
         </TalentSpellText>
       </Statistic>

@@ -116,10 +116,10 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
     ],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_FONT.id],
-    referencedEventType: EventType.EmpowerEnd,
+    referencedEventType: [EventType.EmpowerEnd, EventType.Cast],
     reverseLinkRelation: DREAM_BREATH_CAST,
     backwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
   {

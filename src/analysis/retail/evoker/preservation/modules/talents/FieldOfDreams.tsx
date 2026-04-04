@@ -48,19 +48,20 @@ class FieldOfDreams extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          <TooltipElement
-            content={
-              <ul>
-                <li>{formatNumber(this.totalHealing)} effective healing</li>
-                <li>{formatNumber(this.totalOverhealing)} overheal</li>
-              </ul>
-            }
-          >
-            <small>
-              {this.numProcs} extra <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> procs
-            </small>
-          </TooltipElement>
+          <div>
+            <TooltipElement
+              content={
+                <ul>
+                  <li>{formatNumber(this.totalHealing)} effective healing</li>
+                  <li>{formatNumber(this.totalOverhealing)} overheal</li>
+                </ul>
+              }
+            >
+              <small>
+                {this.numProcs} extra <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> procs
+              </small>
+            </TooltipElement>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

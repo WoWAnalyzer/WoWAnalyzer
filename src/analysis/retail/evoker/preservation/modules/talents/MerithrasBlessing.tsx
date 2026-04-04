@@ -31,6 +31,7 @@ class MerithrasBlessing extends Analyzer {
   castHealing = 0;
   absorbHealing = 0;
   badRefreshes: number[] = [];
+  lastRefresh = 0;
   castData: MerithrasCastData[] = [];
 
   dreamBreathCasts = [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_FONT.id];
@@ -81,7 +82,12 @@ class MerithrasBlessing extends Analyzer {
 
   onRefresh(event: RefreshBuffEvent) {
     const generatingCast = getMerithrasGeneratingCast(event);
-    if (generatingCast && this.dreamBreathCasts.includes(generatingCast.ability.guid)) {
+    if (
+      generatingCast &&
+      this.dreamBreathCasts.includes(generatingCast.ability.guid) &&
+      this.lastRefresh !== event.timestamp
+    ) {
+      this.lastRefresh = event.timestamp;
       this.badRefreshes.push(event.timestamp);
     }
   }
@@ -137,22 +143,27 @@ class MerithrasBlessing extends Analyzer {
         value = QualitativePerformance.Fail;
         tooltip = (
           <>
-            {tooltip} <br />
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> was used while{' '}
-            <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> was already active.
+            <div>{tooltip}</div>
+            <div>
+              <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> was used while{' '}
+              <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> was already active.
+            </div>
           </>
         );
       } else {
         const castInfo = ev.data!;
         const totalRawHealing = castInfo.effectiveHealing + castInfo.overhealing;
         const overhealPercent = totalRawHealing > 0 ? castInfo.overhealing / totalRawHealing : 0;
+        if (overhealPercent > 0.4) value = QualitativePerformance.Ok;
         tooltip = (
           <>
-            {tooltip} <br />
-            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />s consumed: {castInfo.echoConsumptions}{' '}
-            <br />
-            Effective Healing: {formatNumber(castInfo.effectiveHealing)} <br />
-            Overhealing: {formatPercentage(overhealPercent, 1)}%
+            <div>{tooltip}</div>
+            <div>
+              <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />s consumed:{' '}
+              {castInfo.echoConsumptions}{' '}
+            </div>
+            <div>Effective Healing: {formatNumber(castInfo.effectiveHealing)}</div>
+            <div>Overhealing: {formatPercentage(overhealPercent, 1)}%</div>
           </>
         );
       }
@@ -190,15 +201,17 @@ class MerithrasBlessing extends Analyzer {
               <small>
                 <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} />
               </small>
-              <br />
-              <ItemHealingDone amount={this.castHealing} />
+              <div>
+                <ItemHealingDone amount={this.castHealing} />
+              </div>
             </div>
             <div>
               <small>
                 <SpellLink spell={SPELLS.MERITHRAS_BLESSING_ABSORB} />
               </small>
-              <br />
-              <ItemHealingDone amount={this.absorbHealing} />
+              <div>
+                <ItemHealingDone amount={this.absorbHealing} />
+              </div>
             </div>
           </div>
         </div>
