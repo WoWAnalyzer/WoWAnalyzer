@@ -21,8 +21,7 @@ class BetweenTheEyesDamageTracker extends FilteredDamageTracker {
       return false;
     }
 
-    const hasRuthlessPrecision = this.selectedCombatant.hasBuff(SPELLS.RUTHLESS_PRECISION.id);
-    return hasRuthlessPrecision;
+    return true;
   }
 }
 

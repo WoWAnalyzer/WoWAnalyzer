@@ -556,35 +556,25 @@ const spells = {
   },
 
   //Buffs
-  SKULL_AND_CROSSBONES: {
-    id: 199603,
-    name: 'Skull and Crossbones',
-    icon: 'ability_rogue_rollthebones01',
+  ONE_OF_A_KIND: {
+    id: 1214933,
+    name: 'One of a Kind',
+    icon: 'inv12_ability_rogue_rollthebones_one',
   },
-  GRAND_MELEE: {
-    id: 193358,
-    name: 'Grand Melee',
-    icon: 'ability_rogue_rollthebones02',
+  DOUBLE_TROUBLE: {
+    id: 1214934,
+    name: 'Double Trouble',
+    icon: 'inv12_ability_rogue_rollthebones_two',
   },
-  RUTHLESS_PRECISION: {
-    id: 193357,
-    name: 'Ruthless Precision',
-    icon: 'ability_rogue_rollthebones03',
+  TRIPLE_THREAT: {
+    id: 1214935,
+    name: 'Triple Threat',
+    icon: 'inv12_ability_rogue_rollthebones_three',
   },
-  TRUE_BEARING: {
-    id: 193359,
-    name: 'True Bearing',
-    icon: 'ability_rogue_rollthebones04',
-  },
-  BURIED_TREASURE: {
-    id: 199600,
-    name: 'Buried Treasure',
-    icon: 'ability_rogue_rollthebones05',
-  },
-  BROADSIDE: {
-    id: 193356,
-    name: 'Broadside',
-    icon: 'ability_rogue_rollthebones07',
+  JACKPOT: {
+    id: 1214937,
+    name: 'Jackpot',
+    icon: 'inv12_ability_rogue_rollthebones_jackpot',
   },
   BLADE_RUSH_TALENT_BUFF: {
     // This is the energy gain buff

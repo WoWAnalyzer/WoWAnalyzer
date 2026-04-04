@@ -3,7 +3,6 @@ import {
   EchoingReprimand,
   EnergyDetails,
   EnergyTracker,
-  Flagellation,
   SpellEnergyCost,
   InstantPoison,
   ThistleTeaCastLinkNormalizer,
@@ -97,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     bladeRush: BladeRush,
     echoingReprimand: EchoingReprimand,
-    flagellation: Flagellation,
     adrenalineRush: AdrenalineRush,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use

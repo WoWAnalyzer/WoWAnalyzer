@@ -21,10 +21,6 @@ class BetweenTheEyes extends Analyzer {
   protected hasImprovedBteTalent = this.selectedCombatant.hasTalent(
     TALENTS_ROGUE.IMPROVED_BETWEEN_THE_EYES_TALENT,
   );
-  protected hasCtOTalent = this.selectedCombatant.hasTalent(TALENTS_ROGUE.COUNT_THE_ODDS_TALENT);
-  protected hasGSWTalent = this.selectedCombatant.hasTalent(
-    TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT,
-  );
 
   constructor(options: Options) {
     super(options);

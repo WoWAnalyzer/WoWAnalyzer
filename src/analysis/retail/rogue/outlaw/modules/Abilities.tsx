@@ -58,17 +58,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.GHOSTLY_STRIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 35,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-        enabled: combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT),
-      },
-      {
         spell: SPELLS.BETWEEN_THE_EYES.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
@@ -109,12 +98,6 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         charges: 3,
         enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
-      },
-      {
-        spell: TALENTS.COLD_BLOOD_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
       },
       {
         spell: TALENTS.BLADE_RUSH_TALENT.id,
@@ -215,18 +198,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
         charges: combatant.hasTalent(TALENTS.WITHOUT_A_TRACE_TALENT) ? 2 : 1,
-        castEfficiency: {
-          suggestion: true,
-          extraSuggestion: (
-            <>
-              In most fights this can be used on cooldown for an{' '}
-              <SpellLink spell={SPELLS.AMBUSH} icon />, but it's perfectly fine to save this for a{' '}
-              <SpellLink spell={SPELLS.CHEAP_SHOT} icon /> on adds, especially when talented for{' '}
-              <SpellLink spell={TALENTS.STING_LIKE_A_BEE_TALENT} icon />.
-            </>
-          ),
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
       },
       {
         spell: SPELLS.GRAPPLING_HOOK.id,

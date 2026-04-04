@@ -2297,7 +2297,19 @@ export const Seriousnes: Contributor = {
     },
   ],
 };
-
+export const Silverkage: Contributor = {
+  nickname: 'Silverkage',
+  github: 'tinkerer12345',
+  discord: 'Cloud U',
+  avatar: avatar('cloud-u-avatar.jpg'),
+  mains: [
+    {
+      name: 'Silverkage',
+      spec: SPECS.OUTLAW_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/silvermoon/Silverkage',
+    },
+  ],
+};
 export const CodersKitchen: Contributor = {
   nickname: 'coders-kitchen',
   github: 'coders-kitchen',

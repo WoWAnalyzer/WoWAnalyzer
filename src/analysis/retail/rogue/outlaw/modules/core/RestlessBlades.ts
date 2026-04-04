@@ -15,7 +15,6 @@ const AFFECTED_ABILITIES: number[] = [
   SPELLS.BETWEEN_THE_EYES.id,
   SPELLS.SPRINT.id,
   SPELLS.GRAPPLING_HOOK.id,
-  TALENTS.GHOSTLY_STRIKE_TALENT.id,
   TALENTS.BLADE_RUSH_TALENT.id,
   TALENTS.KILLING_SPREE_TALENT.id,
   SPELLS.VANISH.id,
@@ -24,11 +23,8 @@ const AFFECTED_ABILITIES: number[] = [
   SPELLS.BLADE_FLURRY.id,
 ];
 
-const FLOAT_LIKE_A_BUTTERFLY_ABILITIES: number[] = [SPELLS.FEINT.id, TALENTS.EVASION_TALENT.id];
-
-const FLOAT_LIKE_A_BUTTERFLY_CDR = 500;
 const RESTLESS_BLADES_BASE_CDR = 1000;
-const TRUE_BEARING_CDR = 500;
+const TRIPLE_THREAT_CDR = 300;
 
 const SUPER_CHARGED_COMBO_POINT_WORTH = 2;
 const FORCED_INDUCTION_COMBO_POINT_WORTH = 1;
@@ -40,7 +36,6 @@ class RestlessBlades extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  hasFloatLikeAButterfly = this.selectedCombatant.hasTalent(TALENTS.FLOAT_LIKE_A_BUTTERFLY_TALENT);
   hasSuperCharger = this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGER_TALENT);
   hasForcedInduction = this.selectedCombatant.hasTalent(TALENTS.FORCED_INDUCTION_TALENT);
 
@@ -85,27 +80,13 @@ class RestlessBlades extends Analyzer {
       spent += COUP_DE_GRACE_EXTRA_COMBO_POINT_WORTH;
     }
 
-    const trueBearingCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id)
-      ? TRUE_BEARING_CDR
+    const tripleThreatCDR = this.selectedCombatant.hasBuff(SPELLS.TRIPLE_THREAT.id)
+      ? TRIPLE_THREAT_CDR
       : 0;
 
-    const cdrAmount = (RESTLESS_BLADES_BASE_CDR + trueBearingCDR) * spent;
+    const cdrAmount = (RESTLESS_BLADES_BASE_CDR + tripleThreatCDR) * spent;
 
-    AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, cdrAmount));
-
-    if (this.hasFloatLikeAButterfly) {
-      const butterflyCDRAmount = (FLOAT_LIKE_A_BUTTERFLY_CDR + trueBearingCDR) * spent;
-
-      FLOAT_LIKE_A_BUTTERFLY_ABILITIES.forEach((spell) =>
-        this.reduceCooldown(spell, butterflyCDRAmount),
-      );
-    }
-  }
-
-  private reduceCooldown(spellId: number, amount: number) {
-    if (this.spellUsable.isOnCooldown(spellId)) {
-      this.spellUsable.reduceCooldown(spellId, amount);
-    }
+    return cdrAmount;
   }
 }
 

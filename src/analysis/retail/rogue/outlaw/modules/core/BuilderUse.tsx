@@ -79,11 +79,7 @@ export default class BuilderUse extends Analyzer {
   }
 
   private pistolShotUsage(cpAtCast: number) {
-    if (this.hasKeepItRolling) {
-      return (this.selectedCombatant.hasBuff(SPELLS.BROADSIDE) && cpAtCast <= 1) || cpAtCast <= 3;
-    }
-
-    return cpAtCast <= 4;
+    return cpAtCast <= 3;
   }
 
   private ambushUsage(cpAtCast: number) {
@@ -130,8 +126,6 @@ export default class BuilderUse extends Analyzer {
       case SPELLS.AMBUSH.id:
       case SPELLS.AMBUSH_PROC.id:
         return this.ambushUsage(cpAtCast);
-      case talents.GHOSTLY_STRIKE_TALENT.id:
-        return true;
     }
 
     return cpAtCast <= this.finishers.recommendedFinisherPoints();
