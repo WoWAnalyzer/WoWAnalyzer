@@ -153,36 +153,44 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
           (s) to prevent overcapping charges during Yulon's duration, and be sure to have at least 1
           proc of <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> available.{' '}
-          <hr />
+        </p>
+        <hr />
+        <p>
           It is crucial to pair <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
           <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> for the several
           buffs that <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> provides,
           including:
-          <ol>
-            <li>
-              <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} />
-            </li>
-            <li>
-              <SpellLink spell={TALENTS_MONK.FLOWING_WISDOM_TALENT} /> via{' '}
-              <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />
-            </li>
-            <li>
-              <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> via{' '}
-              <SpellLink spell={TALENTS_MONK.DEEP_CLARITY_TALENT} />
-            </li>
-            <li>
-              <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />
-            </li>
-          </ol>
+        </p>
+        <ol>
+          <li>
+            <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} />
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.FLOWING_WISDOM_TALENT} /> via{' '}
+            <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> via{' '}
+            <SpellLink spell={TALENTS_MONK.DEEP_CLARITY_TALENT} />
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />
+          </li>
+        </ol>
+        <p>
           If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
           <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> for a multiplicative haste bonus
-          <hr />
+        </p>
+        <hr />
+        <p>
           Be sure to cast <SpellLink spell={this.currentRskTalent} /> before your first{' '}
           <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
           <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> falls off to extend their duration.
-          <hr />
+        </p>
+        <hr />
+        <p>
           Be sure to follow up your{' '}
           <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
           <SpellLink spell={SPELLS.VIVIFY} /> to consume your{' '}

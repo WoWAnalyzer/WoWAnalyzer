@@ -191,7 +191,9 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to immediately utilize the{' '}
           <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks granted by{' '}
           <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-          <hr />
+        </p>
+        <hr />
+        <p>
           During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
           <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> only when other buffs like{' '}
           <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> or{' '}

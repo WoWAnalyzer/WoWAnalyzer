@@ -182,13 +182,15 @@ class ThunderFocusTea extends Analyzer {
   /** Guide subsection describing the proper usage of TFT */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
-        </b>{' '}
-        is an important spell used to empower other abilities. It should be used on cooldown at all
-        times and the spell that you use it on depends on your talent selection, in general try to
-        adhere to the following priority list
+      <>
+        <p>
+          <b>
+            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
+          </b>{' '}
+          is an important spell used to empower other abilities. It should be used on cooldown at
+          all times and the spell that you use it on depends on your talent selection, in general
+          try to adhere to the following priority list
+        </p>
         <ol>
           <li>
             <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> talented <Arrow />{' '}
@@ -208,7 +210,7 @@ class ThunderFocusTea extends Analyzer {
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
         </ol>
-      </p>
+      </>
     );
     const data = (
       <div>

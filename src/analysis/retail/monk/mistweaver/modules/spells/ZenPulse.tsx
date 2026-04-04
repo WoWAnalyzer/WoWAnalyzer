@@ -189,8 +189,8 @@ class ZenPulse extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <div>
+      <>
+        <p>
           <b>
             <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />
           </b>{' '}
@@ -200,13 +200,13 @@ class ZenPulse extends Analyzer {
           <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> is increased by 6% per target with{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> up to 30%, so it is important to have at
           least 5 ReMs active before consuming the buff.
-        </div>
-        <div style={{ paddingTop: '1em' }}>
+        </p>
+        <p style={{ paddingTop: '1em' }}>
           It is very important to make sure that you never let this buff expire. Ideally try to
           consume this buff to minimize overheal while ensuring that you have a high number of{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> buffs active.
-        </div>
-      </p>
+        </p>
+      </>
     );
     const styleObj = {
       fontSize: 20,
