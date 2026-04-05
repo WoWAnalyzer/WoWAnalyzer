@@ -41,21 +41,13 @@
   "exclude": [
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/druid/restoration",
-    "src/analysis/retail/druid/shared",
-    "src/analysis/retail/hunter/beastmastery",
-    "src/analysis/retail/monk/shared",
-    "src/analysis/retail/paladin/holy",
     "src/analysis/retail/paladin/protection",
-    "src/analysis/retail/paladin/retribution",
-    "src/analysis/retail/paladin/shared",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw"
   ],
   "files": [
-    "src/analysis/retail/deathknight/blood/CONFIG.tsx",
     "src/analysis/retail/deathknight/frost/CONFIG.tsx",
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
-    "src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/holy/CONFIG.tsx",
     "src/analysis/retail/rogue/assassination/CONFIG.tsx",

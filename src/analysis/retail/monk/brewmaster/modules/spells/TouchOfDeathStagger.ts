@@ -1,6 +1,5 @@
 import { Options } from 'parser/core/Analyzer';
 import StaggerStatistic from '../tools/StaggerAnalyzer';
-import talents from 'common/TALENTS/monk';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from '../../spell-list_Monk_Brewmaster.retail';
 import { touchOfDeathClear } from '../../normalizers/StaggerClearSourceLinkNormalizer';

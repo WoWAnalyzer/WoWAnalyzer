@@ -121,8 +121,8 @@ class TyrsDeliverance extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Direct Healing Done: {formatNumber(this.healing)} <br />
-            Direct Overhealing Done: {formatNumber(this.overhealing)} <br />
+            <div>Direct Healing Done: {formatNumber(this.healing)}</div>
+            <div>Direct Overhealing Done: {formatNumber(this.overhealing)}</div>
             {BUFFED_SPELLS.map((spell) => (
               <div key={spell.id}>
                 <SpellLink spell={spell} /> healing increased:{' '}

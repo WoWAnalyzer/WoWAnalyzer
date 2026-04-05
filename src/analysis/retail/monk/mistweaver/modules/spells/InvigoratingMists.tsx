@@ -55,11 +55,14 @@ class InvigoratingMists extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Effective <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> healing:{' '}
-            {formatNumber(this.healing)}
-            <br />
-            Overhealing: {formatNumber(this.overhealing)} (
-            {formatPercentage(this.overhealing / (this.healing + this.overhealing))}%)
+            <div>
+              Effective <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> healing:{' '}
+              {formatNumber(this.healing)}
+            </div>
+            <div>
+              Overhealing: {formatNumber(this.overhealing)} (
+              {formatPercentage(this.overhealing / (this.healing + this.overhealing))}%)
+            </div>
           </>
         }
       >

@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { MistweaverApl } from './AplCheck';
 

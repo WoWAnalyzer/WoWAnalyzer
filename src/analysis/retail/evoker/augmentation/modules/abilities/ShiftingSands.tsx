@@ -348,19 +348,23 @@ class ShiftingSands extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT)) {
       explanation = (
         <section>
-          <strong>
-            <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />
-          </strong>{' '}
-          gives a Versatility buff to one of your allies when you cast your empowers,{' '}
-          <SpellLink spell={SPELLS.UPHEAVAL} /> and <SpellLink spell={SPELLS.FIRE_BREATH} />,
-          preferring targets with <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} /> active.
-          <br />
-          Additionally, <SpellLink spell={TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT} /> have a
-          chance when consumed to apply <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> to a nearby
-          target as if you had cast an empower.
-          <br />
-          Ideally you should try to buff targets that also have{' '}
-          <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> active.
+          <p>
+            <strong>
+              <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />
+            </strong>{' '}
+            gives a Versatility buff to one of your allies when you cast your empowers,{' '}
+            <SpellLink spell={SPELLS.UPHEAVAL} /> and <SpellLink spell={SPELLS.FIRE_BREATH} />,
+            preferring targets with <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} /> active.
+          </p>
+          <p>
+            Additionally, <SpellLink spell={TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT} /> have a
+            chance when consumed to apply <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> to a
+            nearby target as if you had cast an empower.
+          </p>
+          <p>
+            Ideally you should try to buff targets that also have{' '}
+            <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> active.
+          </p>
         </section>
       );
     }

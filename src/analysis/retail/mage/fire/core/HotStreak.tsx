@@ -21,12 +21,6 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
-const HOT_STREAK_SPENDERS = [
-  TALENTS.PYROBLAST_TALENT.id,
-  TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
-  TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
-];
-
 export default class HotStreak extends Analyzer {
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
@@ -61,7 +55,7 @@ export default class HotStreak extends Analyzer {
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'precast');
     const targetHealth = spender && HasTarget(spender) && this.allTargetsHealth[spender.targetID];
 
-    let buff: Spell[] = [];
+    const buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
       buff.push(TALENTS.SCORCH_TALENT);
     } else if (

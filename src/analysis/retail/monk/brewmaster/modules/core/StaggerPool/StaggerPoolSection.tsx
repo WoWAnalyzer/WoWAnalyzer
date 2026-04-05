@@ -9,7 +9,6 @@ import {
   OTHER_SPECIAL_ID,
   spellName,
 } from 'interface/Table/ThroughputTable';
-import { EventType } from 'parser/core/Events';
 import QuickSip from '../../talents/QuickSip';
 import StaggeringStrikes from '../../talents/StaggeringStrikes';
 import TranquilSpirit from '../../talents/TranquilSpirit';
@@ -59,13 +58,13 @@ const SummaryDL = styled.dl`
 export default function StaggerPoolSection(): JSX.Element | null {
   const graph = useAnalyzer(StaggerPoolGraph);
   const stagger = useAnalyzer(StaggerPool);
+  const totalAbsorb = useMemo(() => {
+    return stagger?.totalDamageByAbility.values().reduce((total, v) => total + v, 0) ?? 0;
+  }, [stagger]);
+
   if (!stagger) {
     return null;
   }
-
-  const totalAbsorb = useMemo(() => {
-    return stagger.totalDamageByAbility.values().reduce((total, v) => total + v, 0);
-  }, [stagger]);
 
   return (
     <>
@@ -163,7 +162,7 @@ function StaggerTakenTable(): JSX.Element | null {
     }
     let rows = [];
 
-    for (const [spellId, total] of stagger?.totalDamageByAbility) {
+    for (const [spellId, total] of stagger.totalDamageByAbility) {
       rows.push({
         spell: spellId,
         school: stagger.observedSpellSchools.get(spellId) ?? 1,

@@ -30,14 +30,14 @@ class MerithrasBlessing extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MERITHRAS_BLESSING_BUFF),
       this.onApply,
     );
-    (this.addEventListener(
+    this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MERITHRAS_BLESSING_BUFF),
       this.onRefresh,
-    ),
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.MERITHRAS_BLESSING_CAST),
-        this.onHeal,
-      ));
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.MERITHRAS_BLESSING_CAST),
+      this.onHeal,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.MERITHRAS_BLESSING_ABSORB),
       this.onAbsorb,
@@ -71,28 +71,24 @@ class MerithrasBlessing extends Analyzer {
 
     const entries: BoxRowEntry[] = [];
     this.procs.forEach((info) => {
-      let tooltip = (
-        <>
-          <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> @{' '}
-          {this.owner.formatTimestamp(info.timestamp)}
-        </>
-      );
       if (info.refreshed) {
-        let value = QualitativePerformance.Fail;
-        let tooltip = (
+        const value = QualitativePerformance.Fail;
+        const tooltip = (
           <>
-            <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> @{' '}
-            {this.owner.formatTimestamp(info.timestamp)} <br />
+            <p>
+              <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> @{' '}
+              {this.owner.formatTimestamp(info.timestamp)}{' '}
+            </p>
             Refreshed without consuming
           </>
         );
         entries.push({ value, tooltip });
       } else {
-        let value = QualitativePerformance.Good;
-        let tooltip = (
+        const value = QualitativePerformance.Good;
+        const tooltip = (
           <>
             <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> @{' '}
-            {this.owner.formatTimestamp(info.timestamp)} <br />
+            {this.owner.formatTimestamp(info.timestamp)}
           </>
         );
         entries.push({ value, tooltip });
@@ -130,14 +126,16 @@ class MerithrasBlessing extends Analyzer {
               <small>
                 <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} />
               </small>
-              <br />
+            </div>
+            <div>
               <ItemHealingDone amount={this.castHealing} />
             </div>
             <div>
               <small>
                 <SpellLink spell={SPELLS.MERITHRAS_BLESSING_ABSORB} />
               </small>
-              <br />
+            </div>
+            <div>
               <ItemHealingDone amount={this.absorbHealing} />
             </div>
           </div>

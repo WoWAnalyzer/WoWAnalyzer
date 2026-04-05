@@ -30,9 +30,9 @@ class EbonMightNormalizer extends EventsNormalizer {
     ...EventsNormalizer.dependencies,
     castLinkNormalizer: CastLinkNormalizer,
   };
-  normalize(events: any[]): any[] {
-    const fixedEvents: any[] = [];
-    events.forEach((event: AnyEvent, idx: number) => {
+  normalize(events: AnyEvent[]): AnyEvent[] {
+    const fixedEvents: AnyEvent[] = [];
+    events.forEach((event: AnyEvent) => {
       const linkedEvents = HasRelatedEvent(event, EBON_MIGHT_BUFF_LINKS);
       const removeApplyLinks = HasRelatedEvent(event, EBON_MIGHT_APPLY_REMOVE_LINK);
       /** for now I haven't seen the personal buff being applied twice, so we can easily
@@ -45,16 +45,16 @@ class EbonMightNormalizer extends EventsNormalizer {
         const fabricatedBuffEvent = {
           ...event,
           type: EventType.RefreshBuff,
-          _fabricated: true,
-        };
+          __fabricated: true,
+        } satisfies AnyEvent;
         fixedEvents.push(fabricatedBuffEvent);
       } else if (removeApplyLinks) {
         if (event.type === EventType.ApplyBuff) {
           const fabricatedBuffEvent = {
             ...event,
             type: EventType.RefreshBuff,
-            _fabricated: true,
-          };
+            __fabricated: true,
+          } satisfies AnyEvent;
           fixedEvents.push(fabricatedBuffEvent);
         }
       } else {

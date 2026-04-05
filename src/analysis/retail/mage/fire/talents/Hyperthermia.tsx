@@ -43,10 +43,12 @@ class Hyperthermia extends Analyzer {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spell={SPELLS.HYPERTHERMIA_BUFF}>
-          {formatNumber(this.totalProcs)} <small>Total Procs</small>
-          <br />
-          {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small>
-          <br />
+          <div>
+            {formatNumber(this.totalProcs)} <small>Total Procs</small>
+          </div>
+          <div>
+            {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

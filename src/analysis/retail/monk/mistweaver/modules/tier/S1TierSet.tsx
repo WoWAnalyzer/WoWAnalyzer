@@ -115,47 +115,53 @@ class S1TierSet extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
         tooltip={
-          <>
-            <strong>2pc Piece Healing: {formatNumber(this.twoPieceHealing)} </strong>
-            <br />
+          <ul>
+            <li>
+              <strong>2pc Piece Healing: {formatNumber(this.twoPieceHealing)} </strong>
+            </li>
             {this.hasFourPiece && (
               <>
-                <strong>4pc Healing: {formatNumber(this.fourPieceHealing)}</strong> <br />
-                <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> applied from 4pc:{' '}
-                {this.additionalRems} <br />
-                <SpellLink spell={SPELLS.INVIGORATING_MISTS_HEAL} /> hits from 4pc:{' '}
-                {this.additionalInvigoratingMistHits} <br />
+                <li>
+                  <strong>4pc Healing: {formatNumber(this.fourPieceHealing)}</strong>{' '}
+                </li>
+                <li>
+                  <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> applied from 4pc:{' '}
+                  {this.additionalRems}{' '}
+                </li>
+                <li>
+                  <SpellLink spell={SPELLS.INVIGORATING_MISTS_HEAL} /> hits from 4pc:{' '}
+                  {this.additionalInvigoratingMistHits}{' '}
+                </li>
                 {this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) && (
-                  <>
+                  <li>
                     <SpellLink spell={SPELLS.ZEN_PULSE_HEAL} /> hits from 4pc:{' '}
-                    {this.additionalZenPulseHits} <br />
-                  </>
+                    {this.additionalZenPulseHits}
+                  </li>
                 )}
                 {this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT) && (
-                  <>
+                  <li>
                     <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> hits from 4pc rems:{' '}
-                    {this.additionalTearOfMorningProcs} <br />
-                  </>
+                    {this.additionalTearOfMorningProcs}
+                  </li>
                 )}
                 {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
-                  <>
+                  <li>
                     <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> procs from 4pc rems:{' '}
-                    {this.additionalMistyPeaksProcs} <br />
-                  </>
+                    {this.additionalMistyPeaksProcs}
+                  </li>
                 )}
               </>
             )}
-          </>
+          </ul>
         }
       >
         <BoringItemSetValueText setId={MONK_MID1_ID} title="Mistweaver Season 1 Tier Set">
-          2pc: <br />
+          <div>2pc:</div>
           <ItemHealingDone amount={this.twoPieceHealing} />
           {this.hasFourPiece && (
             <>
               <hr />
-              4pc:
-              <br />
+              <div>4pc:</div>
               <ItemHealingDone amount={this.fourPieceHealing} />
             </>
           )}

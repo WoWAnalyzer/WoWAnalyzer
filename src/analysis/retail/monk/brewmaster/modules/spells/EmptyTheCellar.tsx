@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SharedBrews from '../core/SharedBrews';
 import { Options } from 'parser/core/Module';
 import SPELLS from '../../spell-list_Monk_Brewmaster.retail';

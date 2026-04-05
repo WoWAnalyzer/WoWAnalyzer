@@ -11,7 +11,6 @@ import CastDetail, {
 import Analyzer from 'parser/core/Analyzer';
 import ArcaneBarrage, { ArcaneBarrageData } from '../analyzers/ArcaneBarrage';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ARCANE_SALVO_MAX_STACKS } from '../../shared';
 
 class ArcaneBarrageGuide extends Analyzer {
   static dependencies = {

@@ -49,8 +49,9 @@ class RapidDecomposition extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.rapidDecomposition.statistic.tooltip">
-            <strong>Blood Plague:</strong> {this.owner.formatItemDamageDone(this.bpDamage)}
-            <br />
+            <p>
+              <strong>Blood Plague:</strong> {this.owner.formatItemDamageDone(this.bpDamage)}
+            </p>
             <strong>{this.DD_DAMAGE_TICK.name}:</strong>{' '}
             {this.owner.formatItemDamageDone(this.dndDamage)}
           </Trans>

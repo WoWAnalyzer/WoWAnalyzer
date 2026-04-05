@@ -56,9 +56,12 @@ class FeveredIncantation extends Analyzer {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spell={TALENTS.FEVERED_INCANTATION_TALENT}>
-          <ItemDamageDone amount={this.damageDuringBuff()} />
-          <br />
-          <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
+          <div>
+            <ItemDamageDone amount={this.damageDuringBuff()} />
+          </div>
+          <div>
+            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

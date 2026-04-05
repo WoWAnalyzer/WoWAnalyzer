@@ -26,7 +26,8 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
         on cooldown, along with spending essence on{' '}
         <SpellLink spell={TALENTS_EVOKER.ERUPTION_TALENT} />; using{' '}
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> to fill in the gaps.
-        <br />
+      </p>
+      <p>
         Your main cooldown, <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />, should be
         used when enemies will survive its full duration, favouring high damage phases.
       </p>
@@ -71,11 +72,13 @@ function BlisteringScalesSection({ modules, info }: GuideProps<typeof CombatLogP
     <SubSection title="Blistering Scales">
       <ExplanationRow>
         <Explanation>
-          <strong>
-            <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />
-          </strong>{' '}
-          provides your target with 20% of your armor. <br />
-          This should be kept up on the currently actively tanking player.
+          <p>
+            <strong>
+              <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />
+            </strong>{' '}
+            provides your target with 20% of your armor.
+          </p>
+          <p>This should be kept up on the currently actively tanking player.</p>
         </Explanation>
         <RoundedPanel>
           <p>

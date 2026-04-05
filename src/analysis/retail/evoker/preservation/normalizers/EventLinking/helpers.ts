@@ -1,5 +1,4 @@
 import {
-  AbilityEvent,
   HasRelatedEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
@@ -54,7 +53,7 @@ import {
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
+export function isFromHardcastEcho(event: AnyEvent): boolean {
   return HasRelatedEvent(event, ECHO) || HasRelatedEvent(event, ECHO_REMOVAL);
 }
 

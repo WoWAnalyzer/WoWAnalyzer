@@ -135,24 +135,32 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   get guideCastBreakdown() {
     const explanationPercent = 47.5;
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-        </strong>
-        <br />
-        Before casting <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, make
-        sure that <SpellLink spell={this.currentRskTalent} /> is on cooldown, and make to sure cast{' '}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? (
-          <>at least one </>
-        ) : (
-          <>all </>
-        )}{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
-        (s) to prevent overcapping charges during Yulon's duration, and be sure to have at least 1
-        proc of <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> available. <hr />
-        It is crucial to pair <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> for the several
-        buffs that <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> provides, including:
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
+          </strong>
+        </p>
+        <p>
+          Before casting <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
+          make sure that <SpellLink spell={this.currentRskTalent} /> is on cooldown, and make to
+          sure cast{' '}
+          {this.selectedCombatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? (
+            <>at least one </>
+          ) : (
+            <>all </>
+          )}{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
+          (s) to prevent overcapping charges during Yulon's duration, and be sure to have at least 1
+          proc of <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> available.{' '}
+        </p>
+        <hr />
+        <p>
+          It is crucial to pair <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> for the several
+          buffs that <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> provides,
+          including:
+        </p>
         <ol>
           <li>
             <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} />
@@ -169,22 +177,28 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />
           </li>
         </ol>
-        If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
-        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> for a multiplicative haste bonus
+        <p>
+          If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
+          <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> for a multiplicative haste bonus
+        </p>
         <hr />
-        Be sure to cast <SpellLink spell={this.currentRskTalent} /> before your first{' '}
-        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> falls off to extend their duration.
+        <p>
+          Be sure to cast <SpellLink spell={this.currentRskTalent} /> before your first{' '}
+          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> falls off to extend their duration.
+        </p>
         <hr />
-        Be sure to follow up your{' '}
-        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
-        <SpellLink spell={SPELLS.VIVIFY} /> to consume your{' '}
-        <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> with the highest amount of{' '}
-        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />s and{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s possible.
-      </p>
+        <p>
+          Be sure to follow up your{' '}
+          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
+          <SpellLink spell={SPELLS.VIVIFY} /> to consume your{' '}
+          <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> with the highest amount of{' '}
+          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />s and{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s possible.
+        </p>
+      </>
     );
 
     const data = (
@@ -270,7 +284,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           label={
             <>
               <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and
-              <br />
               <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />
             </>
           }

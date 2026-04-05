@@ -1,15 +1,10 @@
-import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Talent } from 'common/TALENTS/types';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink, Tooltip, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import DonutChart from 'parser/ui/DonutChart';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { SPELL_COLORS } from '../../constants';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CooldownExpandable, {

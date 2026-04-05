@@ -19,15 +19,15 @@ class ConvokeSpiritsBalance extends ConvokeSpirits {
         size="flexible"
         tooltip={
           <>
-            <strong>
-              Damage amount listed considers only the direct damage and non-refreshable DoT damage
-              done by convoked abilities!{' '}
-            </strong>
-            (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and Astral
-            Power gains are all not considered by this number, making it almost certainly an
-            undercount of Convoke's true value.
-            <br />
-            <br />
+            <p>
+              <strong>
+                Damage amount listed considers only the direct damage and non-refreshable DoT damage
+                done by convoked abilities!{' '}
+              </strong>
+              (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and
+              Astral Power gains are all not considered by this number, making it almost certainly
+              an undercount of Convoke's true value.
+            </p>
             {this.baseTooltip}
           </>
         }
@@ -35,7 +35,6 @@ class ConvokeSpiritsBalance extends ConvokeSpirits {
       >
         <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
           <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );
