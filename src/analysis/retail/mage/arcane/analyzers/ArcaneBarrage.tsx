@@ -73,13 +73,11 @@ export default class ArcaneBarrage extends Analyzer {
     const touchRemove: RemoveDebuffEvent | undefined =
       touchApply && GetRelatedEvent(touchApply, EventType.RemoveDebuff);
     const touchRemaining = touchRemove && touchRemove.timestamp - event.timestamp;
-    this.log(touchRemaining);
 
     const surgeApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'surgeBuff');
     const surgeRemove: RemoveBuffEvent | undefined =
       surgeApply && GetRelatedEvent(surgeApply, EventType.RemoveBuff);
     const surgeRemaining = surgeRemove && surgeRemove.timestamp - event.timestamp;
-    this.log(surgeRemaining);
 
     this.barrageData.push({
       cast: event,
