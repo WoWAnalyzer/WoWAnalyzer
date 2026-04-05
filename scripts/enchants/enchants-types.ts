@@ -6,6 +6,7 @@ export type EnchantmentInternalEntry = {
   value: Enchant;
 };
 
+// extend this type if more enchantment types are used from the static data
 export type EnchantmentStaticDataEntry = ItemEnchantmentStaticDataEntry;
 
 // https://www.raidbots.com/static/data/live/enchantments.json
@@ -36,7 +37,7 @@ export type ItemEnchantmentStaticDataEntry = {
  * At the time of implementation, only item enchants contain `spellId` property
  */
 export const isItemEnchantment = (
-  entry: ItemEnchantmentStaticDataEntry,
+  entry: EnchantmentStaticDataEntry,
 ): entry is ItemEnchantmentStaticDataEntry => 'spellId' in entry;
 
 // https://www.raidbots.com/static/data/live/temp-enchants.json
