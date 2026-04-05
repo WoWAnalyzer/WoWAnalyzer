@@ -6,6 +6,7 @@ import {
   MasterOfTime,
   IceBlock,
   IceCold,
+  BarrierDiffusion,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBarrier: ElementalBarrier,
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
+    barrierDiffusion: BarrierDiffusion,
 
     // Defensives - Shared
     iceBlock: IceBlock,
