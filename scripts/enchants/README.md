@@ -18,14 +18,9 @@ pnpm run generate-enchants
 pnpm run generate-enchants:ptr
 ```
 
-#### Updating WoW Build Numbers
+#### New Expansions
 
-If the data becomes outdated or the script fails to find new items, update the build numbers in `scripts/enchants/enchants-helpers.ts`:
-
-```typescript
-export const LIVE_WOW_BUILD_NUMBER = '12.0.1.66220';
-export const PTR_WOW_BUILD_NUMBER = '12.0.1.66220';
-```
+When generating enchants for a new expansion, you will need to update the `EXPANSION` constant in `scripts/enchants/enchants-helpers.ts` to match the new expansion.
 
 #### Troubleshooting
 
