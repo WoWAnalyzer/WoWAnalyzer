@@ -394,7 +394,11 @@ const spells = {
   },
 
   //Cooldowns
-
+  PREPARATION: {
+    id: 1277933,
+    name: 'Preparation',
+    icon: 'ability_rogue_preparation',
+  },
   //Procs/Poisons
   DEADLY_POISON_PROC: {
     id: 113780,
@@ -479,8 +483,6 @@ const spells = {
     icon: 'trade_engineering',
   },
 
-  //Outlaw
-
   //Builders
   SINISTER_STRIKE: {
     id: 193315,
@@ -521,7 +523,7 @@ const spells = {
     icon: 'inv_weapon_rifle_01',
   },
   ROLL_THE_BONES: {
-    id: 315508,
+    id: 1214909,
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
   },
@@ -628,7 +630,7 @@ const spells = {
     icon: 'spell_shadow_ritualofsacrifice',
   },
 
-  // TWW Hero Talents
+  // Trickster Hero Talents
   COUP_DE_GRACE_CAST: {
     id: 441776,
     name: 'Coup de Grace',
@@ -649,7 +651,12 @@ const spells = {
     name: 'Dispatch',
     icon: 'ability_rogue_waylay',
   },
-
+  // Fatebound
+  FATEBOUND_COIN_TAILS: {
+    id: 452538,
+    name: 'Fatebound Coin (Tails)',
+    icon: 'inv_ability_fateboundrogue_handoffatetails',
+  },
   // Damage
   EVISCERATE_SHADOWED_FINISHERS_DAMAGE: {
     id: 328082,

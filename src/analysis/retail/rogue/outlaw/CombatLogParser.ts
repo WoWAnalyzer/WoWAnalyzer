@@ -19,6 +19,7 @@ import Energy from './modules/core/Energy';
 import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import RestlessBlades from './modules/core/RestlessBlades';
+import Preparation from './modules/talents/Preparation';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Finishers from './modules/features/Finishers';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeRush: BladeRush,
     echoingReprimand: EchoingReprimand,
     adrenalineRush: AdrenalineRush,
+    preparation: Preparation,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [
