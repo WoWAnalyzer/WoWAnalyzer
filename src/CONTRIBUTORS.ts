@@ -2849,3 +2849,9 @@ export const NotStirred: Contributor = {
   github: 'NotStirred',
   discord: 'NotStirred',
 };
+
+export const Biggerbits: Contributor = {
+  nickname: 'Biggerbits',
+  github: 'zprobinson',
+  discord: 'msrobinson',
+};
