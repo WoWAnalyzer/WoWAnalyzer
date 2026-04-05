@@ -150,7 +150,6 @@ const IconWrapper = styled.span`
 `;
 
 const Header = styled.div`
-  font-size: 1em;
   margin-bottom: 6px;
 `;
 
@@ -158,6 +157,30 @@ const Content = styled.div`
   margin-bottom: 0;
   line-height: 1.5;
 `;
+
+function TimestampsContent({
+  timestamps,
+  formatTimestamp,
+  maxTimestamps,
+}: {
+  timestamps: number[];
+  formatTimestamp: (timestamp: number) => string;
+  maxTimestamps: number;
+}) {
+  if (timestamps.length === 0) {
+    return null;
+  }
+  return (
+    <TimestampsList>
+      <strong>Affected casts:</strong>{' '}
+      {timestamps
+        .slice(0, maxTimestamps)
+        .map((ts) => formatTimestamp(ts))
+        .join(', ')}
+      {timestamps.length > maxTimestamps && ` (+${timestamps.length - maxTimestamps} more)`}
+    </TimestampsList>
+  );
+}
 
 interface TipBoxWithTimestampsProps extends TipBoxProps {
   timestamps: number[];
@@ -178,27 +201,17 @@ export function TipBoxWithTimestamps({
   return (
     <TipBox {...props}>
       {children}
-      {timestamps.length > 0 && (
-        <TimestampsList>
-          <strong>Affected casts:</strong>{' '}
-          {timestamps
-            .slice(0, maxTimestamps)
-            .map((ts) => formatTimestamp(ts))
-            .join(', ')}
-          {timestamps.length > maxTimestamps && ` (+${timestamps.length - maxTimestamps} more)`}
-        </TimestampsList>
-      )}
+      <TimestampsContent
+        timestamps={timestamps}
+        formatTimestamp={formatTimestamp}
+        maxTimestamps={maxTimestamps}
+      />
     </TipBox>
   );
 }
 
-interface PerformanceTipBoxProps {
-  children: ReactNode;
+interface PerformanceTipBoxProps extends Omit<TipBoxProps, 'type'> {
   performance: QualitativePerformance;
-  title?: string;
-  icon?: ReactNode;
-  hideIcon?: boolean;
-  layout?: 'inline' | 'block';
 }
 
 /**
@@ -247,16 +260,11 @@ export function PerformanceTipBoxWithTimestamps({
   return (
     <PerformanceTipBox {...props}>
       {children}
-      {timestamps.length > 0 && (
-        <TimestampsList>
-          <strong>Affected casts:</strong>{' '}
-          {timestamps
-            .slice(0, maxTimestamps)
-            .map((ts) => formatTimestamp(ts))
-            .join(', ')}
-          {timestamps.length > maxTimestamps && ` (+${timestamps.length - maxTimestamps} more)`}
-        </TimestampsList>
-      )}
+      <TimestampsContent
+        timestamps={timestamps}
+        formatTimestamp={formatTimestamp}
+        maxTimestamps={maxTimestamps}
+      />
     </PerformanceTipBox>
   );
 }
