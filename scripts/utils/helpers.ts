@@ -110,7 +110,7 @@ export function slugify(
   }
   if (removeBracketsContent) {
     // Remove all contents within []
-    str = str.replace(/ *\[[^)]*] */g, '');
+    str = str.replace(/ *\[[^\]]*] */g, '');
   }
 
   str = str
