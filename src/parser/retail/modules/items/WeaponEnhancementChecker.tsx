@@ -4,15 +4,15 @@ import BaseWeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnha
 // Example logs with missing enhancement:
 // /report/tqbL2gBn8HvWAmrK/73-Mythic+Echo+of+Doragosa+-+Kill+(1:42)/Xepheris/standard/overview
 
-const MIN_ENHANCEMENT_IDS = [
-  ITEMS.WEIGHTED_BOOMSHOTS_R1.effectId,
-  ITEMS.LACED_ZOOMSHOTS_R1.effectId,
-  ITEMS.SMUGGLERS_ENCHANTED_EDGE_R1.effectId,
-  ITEMS.OIL_OF_DAWN_R1.effectId,
-  ITEMS.THALASSIAN_PHOENIX_OIL_R1.effectId,
-  ITEMS.REFULGENT_WEIGHTSTONE_R1.effectId,
-  ITEMS.REFULGENT_WHETSTONE_R1.effectId,
-] as const satisfies number[];
+// const MIN_ENHANCEMENT_IDS = [
+//   ITEMS.WEIGHTED_BOOMSHOTS_R1.effectId,
+//   ITEMS.LACED_ZOOMSHOTS_R1.effectId,
+//   ITEMS.SMUGGLERS_ENCHANTED_EDGE_R1.effectId,
+//   ITEMS.OIL_OF_DAWN_R1.effectId,
+//   ITEMS.THALASSIAN_PHOENIX_OIL_R1.effectId,
+//   ITEMS.REFULGENT_WEIGHTSTONE_R1.effectId,
+//   ITEMS.REFULGENT_WHETSTONE_R1.effectId,
+// ] as const satisfies number[];
 
 const MAX_ENHANCEMENT_IDS = [
   ITEMS.WEIGHTED_BOOMSHOTS_R2.effectId,
@@ -36,10 +36,6 @@ const MAX_ENHANCEMENT_IDS = [
 class WeaponEnhancementChecker extends BaseWeaponEnhancementChecker {
   get MaxEnchantIds() {
     return MAX_ENHANCEMENT_IDS;
-  }
-
-  get MinEnchantIds() {
-    return MIN_ENHANCEMENT_IDS;
   }
 }
 
