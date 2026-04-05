@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import {
+  AnyEvent,
   CastEvent,
   EventType,
   GetRelatedEvent,
@@ -32,6 +33,8 @@ const CustomType = {
   BARRAGE_CAST: 'barrageCast',
   REFUND_BUFF: 'refundBuff',
   PREVIOUS_CAST: 'previousCast',
+  TOUCH_DEBUFF: 'touchDebuff',
+  SURGE_BUFF: 'surgeBuff',
 };
 
 const EVENT_LINKS = createEventLinks(
@@ -39,19 +42,6 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.ARCANE_EXPLOSION.id,
     parentType: EventType.Cast,
     links: [link(EventType.Damage, { anyTarget: true })],
-  },
-
-  {
-    spell: SPELLS.ARCANE_BARRAGE.id,
-    parentType: EventType.Cast,
-    links: [
-      link(EventType.Damage, { forwardBuffer: 2000, anyTarget: true }),
-      link(CustomType.PRECAST, {
-        id: [SPELLS.ARCANE_BLAST.id, TALENTS.ARCANE_SURGE_TALENT.id],
-        anyTarget: true,
-        type: EventType.Cast,
-      }),
-    ],
   },
 
   {
@@ -98,6 +88,12 @@ const EVENT_LINKS = createEventLinks(
     links: [
       link(EventType.Damage, { maxLinks: 1, anyTarget: true }),
       link(EventType.ApplyBuff, { id: SPELLS.ARCANE_SURGE_BUFF.id, maxLinks: 1, anyTarget: true }),
+    ],
+  },
+  {
+    spell: SPELLS.ARCANE_SURGE_BUFF.id,
+    parentType: EventType.ApplyBuff,
+    links: [
       link(EventType.RemoveBuff, {
         id: SPELLS.ARCANE_SURGE_BUFF.id,
         maxLinks: 1,
@@ -137,14 +133,6 @@ const EVENT_LINKS = createEventLinks(
       link(EventType.RemoveDebuff, { forwardBuffer: 15000, maxLinks: 1, anyTarget: true }),
       link(EventType.ResourceChange, { id: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id, anyTarget: true }),
       {
-        relation: CustomType.REFUND_BUFF,
-        type: EventType.RemoveBuff,
-        id: [SPELLS.BURDEN_OF_POWER_BUFF.id, SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id],
-        maxLinks: 1,
-        anyTarget: true,
-        backwardBuffer: 500,
-      },
-      {
         relation: EventType.Damage,
         type: EventType.Damage,
         id: [
@@ -160,9 +148,39 @@ const EVENT_LINKS = createEventLinks(
           return debuffEnd ? referencedEvent.timestamp < debuffEnd.timestamp : false;
         },
       },
+      link(CustomType.BARRAGE_CAST, {
+        type: EventType.Cast,
+        id: SPELLS.ARCANE_BARRAGE.id,
+        maxLinks: 1,
+        anyTarget: true,
+        forwardBuffer: 1500,
+        backwardBuffer: 1500,
+      }),
     ],
   },
-
+  {
+    spell: SPELLS.ARCANE_BARRAGE.id,
+    parentType: EventType.Cast,
+    links: [
+      link(EventType.Damage, { forwardBuffer: 2000, anyTarget: true }),
+      link(CustomType.TOUCH_DEBUFF, {
+        type: EventType.ApplyDebuff,
+        id: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+        maxLinks: 1,
+        anyTarget: true,
+        backwardBuffer: 13000,
+        condition: isDebuffActive,
+      }),
+      link(CustomType.SURGE_BUFF, {
+        type: EventType.ApplyBuff,
+        id: SPELLS.ARCANE_SURGE_BUFF.id,
+        maxLinks: 1,
+        anyTarget: true,
+        backwardBuffer: 16000,
+        condition: isBuffActive,
+      }),
+    ],
+  },
   {
     spell: SPELLS.CLEARCASTING_ARCANE.id,
     parentType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
@@ -197,15 +215,6 @@ const EVENT_LINKS = createEventLinks(
         forwardBuffer: 15000,
         type: EventType.Cast,
       }),
-      link(EventType.RemoveBuff, { forwardBuffer: 15000, maxLinks: 1, anyTarget: true }),
-      {
-        relation: CustomType.BARRAGE_CAST,
-        type: EventType.Cast,
-        id: SPELLS.ARCANE_BARRAGE.id,
-        maxLinks: 1,
-        anyTarget: true,
-        forwardBuffer: 60000, // We don't know when next barrage is, check 1 min ahead
-      },
     ],
   },
 
@@ -251,6 +260,18 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 export function getHitCount(aoeCastEvent: CastEvent): number {
   return GetRelatedEvents(aoeCastEvent, EventType.Damage).length;
+}
+
+/** Returns true if the debuff on `referencedEvent` (an ApplyDebuff) was still active at the time of `linkingEvent`. */
+export function isDebuffActive(linkingEvent: AnyEvent, referencedEvent: AnyEvent): boolean {
+  const debuffEnd = GetRelatedEvent(referencedEvent, EventType.RemoveDebuff);
+  return !debuffEnd || debuffEnd.timestamp >= linkingEvent.timestamp;
+}
+
+/** Returns true if the buff on `referencedEvent` (an ApplyBuff) was still active at the time of `linkingEvent`. */
+export function isBuffActive(linkingEvent: AnyEvent, referencedEvent: AnyEvent): boolean {
+  const buffEnd = GetRelatedEvent(referencedEvent, EventType.RemoveBuff);
+  return !buffEnd || buffEnd.timestamp >= linkingEvent.timestamp;
 }
 
 export default CastLinkNormalizer;
