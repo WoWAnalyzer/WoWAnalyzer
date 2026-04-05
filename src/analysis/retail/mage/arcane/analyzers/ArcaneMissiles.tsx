@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, GetRelatedEvents, DamageEvent, EventType } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import { ARCANE_MISSILES_BASE_TICKS, CLEARCASTING_BASE_STACKS } from '../../shared';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';

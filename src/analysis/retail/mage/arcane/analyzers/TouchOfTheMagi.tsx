@@ -8,10 +8,8 @@ import Events, {
   RemoveDebuffEvent,
   GetRelatedEvent,
   GetRelatedEvents,
-  RemoveBuffEvent,
   EventType,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
