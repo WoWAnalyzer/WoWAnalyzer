@@ -34,6 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 5), <>Add script for generating enchants data and update Midnight enchants data</>, Vollmer),
   change(date(2026, 4, 2), <>Link out-dated browsers to a functional website alternative</>, Vetyst),
   change(date(2026, 3, 31), <>Convert ReportHistory to TypeScript.</>, Vetyst),
   change(date(2026, 3, 24), <>Add <SpellLink spell={ITEMS.DARKMOON_SIGIL_HUNT} /> embellishment analyzer with stat buff tracking.</>, MarchingCube),
