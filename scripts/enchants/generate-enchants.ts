@@ -1,9 +1,8 @@
-import { readJsonFromUrl } from 'scripts/utils/helpers';
+import { getRaidbotsStaticDataUrl, readJsonFromUrl } from 'scripts/utils/helpers';
 import fs from 'fs';
 import {
   isItemEnchantment,
   EnchantmentStaticDataEntry,
-  RaidbotsStaticDataFile,
   TempEnchantsStaticDataEntry,
 } from 'scripts/enchants/enchants-types';
 import {
@@ -12,15 +11,9 @@ import {
   mapTempEnchantsStaticDataToInternalEntries,
   printEnchants,
 } from 'scripts/enchants/enchants-helpers';
+import { RaidbotsStaticDataFile } from 'scripts/utils/raidbots-types';
 
 const ENCHANTS_DIR = `./src/common/ITEMS/midnight/enchants.ts`;
-
-// 'live' uses latests live data - can also specify a specific build instead if needed
-const LIVE_STATIC_DATA_URL = `https://www.raidbots.com/static/data/live`;
-const PTR_STATIC_DATA_URL = `https://www.raidbots.com/static/data/ptr`;
-
-const getRaidbotsStaticDataUrl = (dataType: RaidbotsStaticDataFile, ptr: boolean = false) =>
-  ptr ? `${PTR_STATIC_DATA_URL}/${dataType}.json` : `${LIVE_STATIC_DATA_URL}/${dataType}.json`;
 
 const EXPANSION = 11;
 const filterToExpansion = <T extends { expansion?: number }>(entry: T): boolean =>

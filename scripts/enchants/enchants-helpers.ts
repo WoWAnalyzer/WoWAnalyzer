@@ -1,19 +1,22 @@
 import {
   EnchantmentInternalEntry,
-  ItemEffectEntry,
   ItemEnchantmentStaticDataEntry,
-  ItemXItemEffectEntry,
-  SpellEffectEntry,
   TempEnchantsStaticDataEntry,
 } from 'scripts/enchants/enchants-types';
 import { Enchant } from 'common/ITEMS/Item';
-import { csvToObject, readCsvFromUrl, slugify } from 'scripts/utils/helpers';
-
-// https://wago.tools/api/builds/latest
-const LIVE_WOW_BUILD_NUMBER = '12.0.1.66220';
-const PTR_WOW_BUILD_NUMBER = '12.0.1.66220';
-
-const BASE_DBC_URL = 'https://wago.tools/db2';
+import {
+  csvToObject,
+  getDbcCsvUrl,
+  getLatestDbcBuild,
+  readCsvFromUrl,
+  slugify,
+} from 'scripts/utils/helpers';
+import {
+  DBCTable,
+  ItemEffectEntry,
+  ItemXItemEffectEntry,
+  SpellEffectEntry,
+} from 'scripts/utils/dbc-types';
 
 export function printEnchants(enchants: {
   type: string;
@@ -115,12 +118,12 @@ function mapTempEnchantToEnchant(
 // region Item ID to Effect ID
 
 async function fetchItemIdToEffectIdDbcData(isPTR: boolean) {
-  const build = isPTR ? PTR_WOW_BUILD_NUMBER : LIVE_WOW_BUILD_NUMBER;
+  const build = await (isPTR ? getLatestDbcBuild('wowxptr') : getLatestDbcBuild());
 
   const [itemXItemEffectRaw, itemEffectRaw, spellEffectRaw] = await Promise.all([
-    readCsvFromUrl(`${BASE_DBC_URL}/ItemXItemEffect/csv?build=${build}`),
-    readCsvFromUrl(`${BASE_DBC_URL}/ItemEffect/csv?build=${build}`),
-    readCsvFromUrl(`${BASE_DBC_URL}/SpellEffect/csv?build=${build}`),
+    readCsvFromUrl(getDbcCsvUrl(DBCTable.ItemXItemEffect, build)),
+    readCsvFromUrl(getDbcCsvUrl(DBCTable.ItemEffect, build)),
+    readCsvFromUrl(getDbcCsvUrl(DBCTable.SpellEffect, build)),
   ]);
 
   return {

@@ -17,14 +17,23 @@ import {
   TalentEntry,
   TalentNode,
 } from './talent-tree-types';
-import { camalize, csvToObject, readCsvFromUrl, readJsonFromUrl } from 'scripts/utils/helpers';
+import {
+  camalize,
+  csvToObject,
+  getDbcCsvUrl,
+  getRaidbotsStaticDataUrl,
+  readCsvFromUrl,
+  readJsonFromUrl,
+} from 'scripts/utils/helpers';
+import { DBCTable } from 'scripts/utils/dbc-types';
+import { RaidbotsStaticDataFile } from 'scripts/utils/raidbots-types';
 
 const LIVE_WOW_BUILD_NUMBER = '12.0.1.66220';
-const LIVE_TALENT_DATA_URL = `https://www.raidbots.com/static/data/${LIVE_WOW_BUILD_NUMBER}/talents.json`;
-const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
+const LIVE_TALENT_DATA_URL = getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.Talents);
+const LIVE_SPELLPOWER_DATA_URL = getDbcCsvUrl(DBCTable.SpellPower, LIVE_WOW_BUILD_NUMBER);
 const PTR_WOW_BUILD_NUMBER = '12.0.1.66220';
-const PTR_TALENT_DATA_URL = `https://www.raidbots.com/static/data/${PTR_WOW_BUILD_NUMBER}/talents.json`;
-const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
+const PTR_TALENT_DATA_URL = getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.Talents, true);
+const PTR_SPELLPOWER_DATA_URL = getDbcCsvUrl(DBCTable.SpellPower, PTR_WOW_BUILD_NUMBER);
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   1: { name: 'Warrior', baseMaxResource: 1000 },

@@ -1,17 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
 
-// https://www.raidbots.com/static/data/live/metadata.json
-export enum RaidbotsStaticDataFile {
-  EnchantmentsAll = 'enchantments-all',
-  Enchantments = 'enchantments',
-  Gems = 'gems',
-  TempEnchants = 'temp-enchants',
-  Potions = 'potions',
-  Augments = 'augments',
-  Flasks = 'flasks',
-  Foods = 'foods',
-}
-
 export type EnchantmentInternalEntry = {
   type: string;
   key: string;
@@ -79,22 +67,3 @@ type ItemLimitCategory = {
   quantity: number;
   flags: number;
 };
-
-// https://wago.tools/db2/ItemXItemEffect
-export interface ItemXItemEffectEntry {
-  ItemID: number;
-  ItemEffectID: number;
-}
-
-// https://wago.tools/db2/ItemEffect
-export interface ItemEffectEntry {
-  ID: number;
-  SpellID: number;
-}
-
-// https://wago.tools/db2/SpellEffect
-export interface SpellEffectEntry {
-  SpellID: number;
-  EffectMiscValue_0: number;
-  Effect: number;
-}

@@ -1,6 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { DBCBuilds, DBCTable } from 'scripts/utils/dbc-types';
+import { RaidbotsStaticDataFile } from 'scripts/utils/raidbots-types';
+
+const BASE_DBC_URL = 'https://wago.tools';
+const BASE_RAIDBOTS_STATIC_DATA_URL = 'https://www.raidbots.com/static/data';
 
 const CACHE_DIR = path.resolve(process.cwd(), '.cache');
 
@@ -38,8 +43,8 @@ export async function fetchWithCache(
 /**
  * Requires NodeJS 18+ (or 17 with experimental flag)
  */
-export async function readJsonFromUrl<T>(url: string): Promise<T> {
-  const data = await fetchWithCache(url);
+export async function readJsonFromUrl<T>(url: string, forceRefresh = false): Promise<T> {
+  const data = await fetchWithCache(url, { forceRefresh });
   return JSON.parse(data);
 }
 
@@ -81,8 +86,8 @@ export function readCsvFromFile(file: string) {
   return fs.readFileSync(path.resolve(__dirname, file), { encoding: 'utf-8' });
 }
 
-export async function readCsvFromUrl(url: string) {
-  return fetchWithCache(url);
+export async function readCsvFromUrl(url: string, forceRefresh = false) {
+  return fetchWithCache(url, { forceRefresh });
 }
 
 export function camalize(str: string) {
@@ -114,4 +119,26 @@ export function slugify(
     .replace(/([ -])/g, '_'); // Transform - into _
 
   return str.toUpperCase();
+}
+
+export function getDbcCsvUrl(type: DBCTable, build: string) {
+  return `${BASE_DBC_URL}/db2/${type}/csv?build=${build}`;
+}
+
+export async function getLatestDbcBuild(version: keyof DBCBuilds = 'wow') {
+  const builds = await readJsonFromUrl<DBCBuilds>(`${BASE_DBC_URL}/api/builds/latest`);
+
+  return builds[version].version;
+}
+
+export function getRaidbotsStaticDataUrl(
+  dataFile: RaidbotsStaticDataFile,
+  ptr: boolean = false,
+  build?: string,
+) {
+  if (build) {
+    return `${BASE_RAIDBOTS_STATIC_DATA_URL}/${build}/${dataFile}.json`;
+  }
+
+  return `${BASE_RAIDBOTS_STATIC_DATA_URL}/${ptr ? 'ptr' : 'live'}/${dataFile}.json`;
 }
