@@ -20,6 +20,7 @@ import ArcaneMissiles from './analyzers/ArcaneMissiles';
 import ArcaneBarrage from './analyzers/ArcaneBarrage';
 import ArcaneOrb from './analyzers/ArcaneOrb';
 import ArcaneSurge from './analyzers/ArcaneSurge';
+import SpellfrostTeachings from './talents/SpellfrostTeachings';
 
 //Guide
 import Guide from './Guide';
@@ -74,6 +75,9 @@ class CombatLogParser extends CoreCombatLogParser {
     presenceOfMindGuide: PresenceOfMindGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
     manaChart: ManaChart,
+
+    //Talents - Arcane
+    spellfrostTeachings: SpellfrostTeachings,
 
     //Talents - Shared
     quickWitted: QuickWitted,
