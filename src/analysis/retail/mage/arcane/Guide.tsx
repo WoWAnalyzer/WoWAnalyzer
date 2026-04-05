@@ -115,18 +115,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&
           modules.presenceOfMindGuide.guideSubsection}
       </Section>
-
-      <Section title="Buffs & Procs">
-        <>
-          Arcane Mage has several buffs and procs that need to be managed properly in order to get
-          the most out of them and maximize your damage. Ranging from things as simple as making
-          sure you use all of your <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs to more
-          complex things like getting as much damage as possible into your burn phases and damage
-          buff windows, these buffs are all important and will play a large part in maximizing your
-          overall and burst damage.
-        </>
-        {modules.clearcastingGuide.guideSubsection}
-      </Section>
       <Section title="Cooldowns">
         <>
           As is the case with most damage specs, properly utilizing your damage cooldowns will go a
