@@ -13,6 +13,12 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 
+/**
+ * Power Surge (Archon)
+ * Casting Halo also causes you to create a Halo around you at 100% effectiveness every 5 sec for 10 sec.
+ * Divine Halo: Halo now centers around you and returns to you after it reaches its maximum distance, healing allies and damaging enemies each time it passes through them.
+ */
+
 class PowerSurgeAndDivineHaloHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -41,7 +47,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.DIVINE_HALO_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
       this.newHaloCast,
     );
 
@@ -56,7 +62,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.HALO_HOLY_TALENT),
       this.removeArchonOut,
     );
   }
@@ -107,27 +113,36 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
         tooltip={
           <>
             {'If you only cast your first '}
-            <SpellLink spell={SPELLS.HALO_TALENT} />
+            <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />
             {' each time, it would have done: '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             {<ItemPercentHealingDone amount={this.firstHaloHealing}></ItemPercentHealingDone>}{' '}
             directly
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <ItemPercentHealingDone amount={this.firstHaloEol}></ItemPercentHealingDone> from{' '}
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <ItemPercentDamageDone amount={this.firstHaloDamage}></ItemPercentDamageDone> of your
             damage
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br /> Total breakdown of healing from all 6 events per cast: <br />{' '}
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
-            <SpellLink spell={TALENTS_PRIEST.HALO_SHARED_TALENT} />:{' '}
+            <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.totalArchonHaloHealing}></ItemPercentHealingDone>
             {this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT) && (
               <>
+                {/* oxlint-disable-next-line @wowanalyzer/no-br */}
                 <br />
+                {/* oxlint-disable-next-line @wowanalyzer/no-br */}
                 <br />
                 {'This includes the amp from '}
                 <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />
@@ -140,14 +155,16 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
         <TalentSpellText talent={TALENTS_PRIEST.POWER_SURGE_TALENT}>
           <small>
             {'All 6 events per cast of '}
-            <SpellLink spell={SPELLS.HALO_TALENT} />
+            <SpellLink spell={TALENTS_PRIEST.HALO_HOLY_TALENT} />
             {' from the base spell and both '}
             <SpellLink spell={TALENTS_PRIEST.POWER_SURGE_TALENT} />
             {' and '}
             <SpellLink spell={TALENTS_PRIEST.DIVINE_HALO_TALENT} />
             {' did:'}
           </small>
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
+          {/* oxlint-disable-next-line @wowanalyzer/no-br */}
           <br />
           <div>
             <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing} />

@@ -1,127 +1,97 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatDurationMillisMinSec } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
-import Abilities from '../Abilities';
+import Analyzer from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
   ApplyBuffEvent,
   BeginCastEvent,
+  BeginChannelEvent,
   CastEvent,
+  EndChannelEvent,
   EventType,
   FightEndEvent,
   GlobalCooldownEvent,
+  ResourceChangeEvent,
   RefreshBuffEvent,
+  SpendResourceEvent,
 } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   evaluateQualitativePerformanceByThreshold,
   getAveragePerf,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
-import { ReactNode } from 'react';
+import { type JSX } from 'react';
 import SpellLink from 'interface/SpellLink';
-import {
-  EmbeddedTimelineContainer,
-  SpellTimeline,
-} from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import Casts from 'interface/report/Results/Timeline/Casts';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import Uptime from 'interface/icons/Uptime';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastDetail, {
+  type PerCastData,
+  type PerCastStat,
+} from 'interface/guide/components/CastDetail';
+import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
+import MaelstromSpenderInfo, { type Spender } from '../core/MaelstromSpenderInfo';
 import MaelstromTracker from '../resources/MaelstromTracker';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Spell from 'common/SPELLS/Spell';
-import { getGlobalCooldown, shouldHaveGlobalCooldown } from 'analysis/retail/shaman/shared/shared';
-
-enum AscendanceSource {
-  Ascendance,
-  DeeplyRootedElements,
-}
+import { getGlobalCooldown } from 'analysis/retail/shaman/shared/shared';
+import { OVERLOAD_SPELLS } from '../../constants';
 
 interface AscendanceTimeline {
   start: number;
   end?: number | null;
-  events: AnyEvent[];
-  performance?: QualitativePerformance | null;
+  events: AscendanceTimelineEvent[];
 }
 
-interface AscendanceCooldownCast extends CooldownTrigger<
-  CastEvent | ApplyBuffEvent | RefreshBuffEvent
-> {
-  source: AscendanceSource;
+type CancelChannelEvent = AnyEvent<EventType.CancelChannel>;
+
+type AscendanceTimelineEvent =
+  | BeginCastEvent
+  | CastEvent
+  | BeginChannelEvent
+  | EndChannelEvent
+  | CancelChannelEvent;
+
+interface AscendanceCooldownCast {
+  event: CastEvent | ApplyBuffEvent | RefreshBuffEvent;
   timeline: AscendanceTimeline;
+  startingMaelstrom: number;
   endingMaelstrom: number;
+  spendersCast: number;
+  maelstromSpent: number;
+  resourceChanges: ResourceChangeEvent[];
 }
 
-interface SpenderCasts {
-  count: number;
-  noProcBeforeEnd?: boolean | undefined;
+interface CastWindowInterval {
+  start: number;
+  end: number;
+  cancelled: boolean;
+  triggerEvent: CastEvent | BeginCastEvent | BeginChannelEvent;
 }
 
-interface Spender {
-  spell: Spell & { maelstromCost: number };
-  costReduction: number;
-}
+const overloadCapableSpellIds = new Set(OVERLOAD_SPELLS.map(({ spell }) => spell.id));
 
-const maelstromSpenders: number[] = [
-  TALENTS.ELEMENTAL_BLAST_TALENT.id,
-  TALENTS.EARTH_SHOCK_TALENT.id,
-  TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
-  TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
-];
-
-const DISABLE_DRE_CALCULATIONS = true;
-
-class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
-  static dependencies = {
-    ...MajorCooldown.dependencies,
-    abilities: Abilities,
-    enemies: Enemies,
-    spellUsable: SpellUsable,
-    maelstromTracker: MaelstromTracker,
-  };
-
-  protected abilities!: Abilities;
-  protected enemies!: Enemies;
-  protected spellUsable!: SpellUsable;
-  protected maelstromTracker!: MaelstromTracker;
-
-  protected castsBeforeAscendanceProc: SpenderCasts[] = [];
+class Ascendance extends Analyzer.withDependencies({
+  maelstromTracker: MaelstromTracker,
+  spenderInfo: MaelstromSpenderInfo,
+}) {
+  protected cooldownWindows: AscendanceCooldownCast[] = [];
   protected currentCooldown: AscendanceCooldownCast | null = null;
   protected globalCooldownEnds = 0;
   protected ascendanceWasCast = false;
-  protected spender: Spender = {
-    spell: TALENTS.EARTH_SHOCK_TALENT,
-    costReduction: this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT) ? 5 : 0,
-  };
 
   constructor(options: Options) {
-    super({ spell: TALENTS.ASCENDANCE_ELEMENTAL_TALENT }, options);
+    super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
-
-    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
-      this.spender.spell = TALENTS.ELEMENTAL_BLAST_TALENT;
-      this.spender.costReduction = this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT)
-        ? 10
-        : 0;
-    }
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onResourceChange);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
       this.onApplyAscendance,
@@ -142,23 +112,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
 
-    this.addEventListener(Events.any.by(SELECTED_PLAYER), this.onCast);
-
-    if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
-      // initialize the ascendance proc counter in case the player cast a proc-eligible spell before casting ascendance
-      this.castsBeforeAscendanceProc.push({ count: 0 });
-      this.addEventListener(
-        Events.cast
-          .by(SELECTED_PLAYER)
-          .spell([
-            TALENTS.EARTH_SHOCK_TALENT,
-            TALENTS.ELEMENTAL_BLAST_TALENT,
-            TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
-            TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
-          ]),
-        this.onProcEligibleCast,
-      );
-    }
+    this.addEventListener(Events.any.by(SELECTED_PLAYER), this.onTimelineEvent);
+    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
   onGlobalCooldown(event: GlobalCooldownEvent) {
@@ -173,21 +128,18 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       return;
     }
 
-    if (!this.ascendanceWasCast && event.type !== EventType.Cast) {
-      this.castsBeforeAscendanceProc.push({ count: 0 });
-    }
-
     if (!this.currentCooldown) {
       this.currentCooldown = {
         event: event,
-        source: this.ascendanceWasCast
-          ? AscendanceSource.Ascendance
-          : AscendanceSource.DeeplyRootedElements,
         timeline: {
           start: Math.max(event.timestamp, this.globalCooldownEnds),
           events: [],
         },
-        endingMaelstrom: this.maelstromTracker.current,
+        startingMaelstrom: this.deps.maelstromTracker.current,
+        endingMaelstrom: this.deps.maelstromTracker.current,
+        spendersCast: 0,
+        maelstromSpent: 0,
+        resourceChanges: [],
       };
     }
   }
@@ -195,215 +147,302 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   onAscendanceEnd(event: AnyEvent | FightEndEvent) {
     if (this.currentCooldown) {
       this.currentCooldown.timeline.end = event.timestamp;
-      // this.currentCooldown.endingMaelstrom = this.maelstromTracker.current;
-      this.recordCooldown(this.currentCooldown);
+      this.currentCooldown.endingMaelstrom = this.deps.maelstromTracker.current;
+      this.cooldownWindows.push(this.currentCooldown);
       this.currentCooldown = null;
     }
   }
 
   onFightEnd(event: FightEndEvent) {
-    const cast = this.castsBeforeAscendanceProc.at(-1);
-    if (cast) {
-      cast.noProcBeforeEnd = true;
-    }
     this.onAscendanceEnd(event);
   }
 
-  onProcEligibleCast(event: CastEvent) {
-    this.castsBeforeAscendanceProc.at(-1)!.count += 1;
+  private isTimelineEvent(event: AnyEvent): event is AscendanceTimelineEvent {
+    return (
+      event.type === EventType.BeginCast ||
+      event.type === EventType.Cast ||
+      event.type === EventType.BeginChannel ||
+      event.type === EventType.EndChannel ||
+      event.type === EventType.CancelChannel
+    );
   }
 
-  onCast(event: AnyEvent) {
-    if (this.currentCooldown) {
-      if (shouldHaveGlobalCooldown(event)) {
-        const globalCooldown = getGlobalCooldown(event);
-        if (!globalCooldown) {
-          return;
+  onTimelineEvent(event: AnyEvent) {
+    if (!this.currentCooldown || !this.isTimelineEvent(event)) {
+      return;
+    }
+
+    this.currentCooldown.timeline.events.push(event);
+  }
+
+  onSpendResource(event: SpendResourceEvent) {
+    if (!this.currentCooldown) {
+      return;
+    }
+
+    this.currentCooldown.endingMaelstrom = this.deps.maelstromTracker.current;
+
+    if (this.deps.spenderInfo.isMaelstromSpender(event.ability.guid)) {
+      this.currentCooldown.spendersCast += 1;
+      this.currentCooldown.maelstromSpent += event.resourceChange;
+    }
+  }
+
+  onResourceChange(event: ResourceChangeEvent) {
+    if (
+      !this.currentCooldown ||
+      event.resourceChangeType !== RESOURCE_TYPES.MAELSTROM.id ||
+      event.targetID !== this.selectedCombatant.id
+    ) {
+      return;
+    }
+
+    this.currentCooldown.resourceChanges.push(event);
+  }
+
+  private getGlobalCooldownEnd(event: CastEvent | BeginCastEvent | BeginChannelEvent) {
+    const cooldown = getGlobalCooldown(event);
+    return cooldown ? cooldown.timestamp + cooldown.duration : event.timestamp;
+  }
+
+  private findMatchingChannelInterval(
+    intervals: CastWindowInterval[],
+    beginChannel: BeginChannelEvent,
+  ) {
+    return intervals.find(
+      (interval) =>
+        interval.triggerEvent.type === EventType.BeginChannel &&
+        interval.triggerEvent === beginChannel,
+    );
+  }
+
+  private findMatchingIntervalForBeginChannel(
+    intervals: CastWindowInterval[],
+    beginChannel: BeginChannelEvent,
+  ) {
+    if (beginChannel.trigger?.type === EventType.BeginCast) {
+      return intervals.find(
+        (interval) =>
+          (interval.triggerEvent.type === EventType.BeginChannel &&
+            interval.triggerEvent === beginChannel) ||
+          (interval.triggerEvent.type === EventType.BeginCast &&
+            interval.triggerEvent === beginChannel.trigger),
+      );
+    }
+
+    return this.findMatchingChannelInterval(intervals, beginChannel);
+  }
+
+  private findMatchingBeginCastInterval(intervals: CastWindowInterval[], castEvent: CastEvent) {
+    return intervals.find(
+      (interval) =>
+        interval.triggerEvent.type === EventType.BeginCast &&
+        interval.triggerEvent.castEvent === castEvent,
+    );
+  }
+
+  private getCancelledChannelTarget(event: CancelChannelEvent): BeginChannelEvent | undefined {
+    const cancelEvent = event as CancelChannelEvent & {
+      beginChannel?: BeginChannelEvent;
+      trigger?: AnyEvent;
+    };
+
+    if (cancelEvent.beginChannel) {
+      return cancelEvent.beginChannel;
+    }
+
+    if (cancelEvent.trigger?.type === EventType.BeginChannel) {
+      return cancelEvent.trigger;
+    }
+
+    return undefined;
+  }
+
+  private buildCastIntervals(cast: AscendanceCooldownCast): CastWindowInterval[] {
+    const intervals: CastWindowInterval[] = [];
+
+    for (const event of cast.timeline.events) {
+      if (event.type === EventType.BeginCast) {
+        intervals.push({
+          start: event.timestamp,
+          end: this.getGlobalCooldownEnd(event),
+          cancelled: event.isCancelled,
+          triggerEvent: event,
+        });
+        continue;
+      }
+
+      if (event.type === EventType.Cast) {
+        const beginCastInterval = this.findMatchingBeginCastInterval(intervals, event);
+        if (beginCastInterval) {
+          beginCastInterval.end = Math.max(beginCastInterval.end, this.getGlobalCooldownEnd(event));
+          beginCastInterval.cancelled = beginCastInterval.cancelled || false;
+          continue;
+        }
+
+        intervals.push({
+          start: event.timestamp,
+          end: this.getGlobalCooldownEnd(event),
+          cancelled: false,
+          triggerEvent: event,
+        });
+        continue;
+      }
+
+      if (event.type === EventType.BeginChannel) {
+        const existingInterval = this.findMatchingIntervalForBeginChannel(intervals, event);
+        if (existingInterval) {
+          existingInterval.end = Math.max(existingInterval.end, this.getGlobalCooldownEnd(event));
+          existingInterval.cancelled = existingInterval.cancelled || event.isCancelled;
+          continue;
+        }
+
+        intervals.push({
+          start: event.timestamp,
+          end: this.getGlobalCooldownEnd(event),
+          cancelled: event.isCancelled,
+          triggerEvent: event,
+        });
+        continue;
+      }
+
+      if (event.type === EventType.EndChannel) {
+        const interval = this.findMatchingIntervalForBeginChannel(intervals, event.beginChannel);
+        if (interval) {
+          interval.end = Math.max(interval.end, event.timestamp);
+          interval.cancelled = interval.cancelled || event.beginChannel.isCancelled;
+        }
+        continue;
+      }
+
+      if (event.type === EventType.CancelChannel) {
+        const beginChannel = this.getCancelledChannelTarget(event);
+        if (!beginChannel) {
+          continue;
+        }
+
+        const interval = this.findMatchingIntervalForBeginChannel(intervals, beginChannel);
+        if (interval) {
+          interval.end = Math.max(interval.end, event.timestamp);
+          interval.cancelled = true;
         }
       }
-      if (event.type === EventType.Cast) {
-        this.currentCooldown.endingMaelstrom = this.maelstromTracker.current;
+    }
+
+    return intervals.sort((left, right) => left.start - right.start);
+  }
+
+  private getDowntime(cast: AscendanceCooldownCast) {
+    const windowEnd = cast.timeline.end ?? cast.event.timestamp;
+    const intervals = this.buildCastIntervals(cast);
+
+    if (windowEnd <= cast.timeline.start) {
+      return 0;
+    }
+
+    if (intervals.length === 0) {
+      return windowEnd - cast.timeline.start;
+    }
+
+    let downtime = 0;
+    let cursor = cast.timeline.start;
+
+    for (const interval of intervals) {
+      const start = Math.max(interval.start, cast.timeline.start);
+      const end = Math.min(interval.end, windowEnd);
+
+      if (start > cursor) {
+        downtime += start - cursor;
       }
-      this.currentCooldown.timeline.events.push(event);
+
+      cursor = Math.max(cursor, end);
     }
+
+    if (windowEnd > cursor) {
+      downtime += windowEnd - cursor;
+    }
+
+    return downtime;
   }
 
-  get AscendanceUptime() {
-    return (
-      this.selectedCombatant.getBuffUptime(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) /
-      this.owner.fightDuration
+  private getTrailingAvailableTime(cast: AscendanceCooldownCast) {
+    return Math.max(
+      (cast.timeline.end ?? cast.event.timestamp) -
+        this.buildCastIntervals(cast).reduce(
+          (currentMax, interval) => Math.max(currentMax, interval.end),
+          cast.timeline.start,
+        ),
+      0,
     );
   }
 
-  get spellCasts(): BeginCastEvent[] {
-    return this.casts.flatMap((c) =>
-      c.timeline.events.filter((e) => e.type === EventType.BeginCast),
-    ) as BeginCastEvent[];
+  private getAverageGlobalCooldown(cast: AscendanceCooldownCast) {
+    const gcdDurations = this.getActionableCastIntervals(cast)
+      .map((interval) => getGlobalCooldown(interval.triggerEvent))
+      .filter((event): event is GlobalCooldownEvent => event !== undefined)
+      .map((event) => event.duration);
+
+    if (gcdDurations.length === 0) {
+      return 1500;
+    }
+
+    return gcdDurations.reduce((total, duration) => total + duration, 0) / gcdDurations.length;
   }
 
-  statistic() {
-    if (
-      !DISABLE_DRE_CALCULATIONS &&
-      this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)
-    ) {
-      // don't include casts that didn't lead to a proc in casts per proc statistic
-      const castsBeforeAscendanceProc = this.castsBeforeAscendanceProc
-        .filter((cast: SpenderCasts) => !cast.noProcBeforeEnd && cast.count > 0)
-        .map((cast: SpenderCasts) => cast.count);
-      const minToProc = Math.min(...castsBeforeAscendanceProc);
-      const maxToProc = Math.max(...castsBeforeAscendanceProc);
-      const median = getMedian(castsBeforeAscendanceProc)!;
-      // do include them in overall casts to get the expected procs based on simulation results
-      const totalCasts = this.castsBeforeAscendanceProc.reduce(
-        (total, current: SpenderCasts) => (total += current.count),
-        0,
-      );
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL()}
-          category={STATISTIC_CATEGORY.TALENTS}
-          size="flexible"
-          tooltip={
-            castsBeforeAscendanceProc.length > 0 ? (
-              <>
-                <ul>
-                  <li>Min casts before proc: {minToProc}</li>
-                  <li>Max casts before proc: {maxToProc}</li>
-                  <li>Total casts: {totalCasts}</li>
-                </ul>
-              </>
-            ) : null
-          }
-        >
-          <TalentSpellText talent={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT}>
-            {castsBeforeAscendanceProc.length > 0 ? (
-              <>
-                <div>
-                  {formatNumber(median)} <small>casts per proc</small>
-                </div>
-                <div>
-                  {formatNumber(
-                    this.castsBeforeAscendanceProc.filter((c) => !c.noProcBeforeEnd).length,
-                  )}{' '}
-                  <small>
-                    <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> procs
-                  </small>
-                </div>
-                <div>
-                  <Uptime />{' '}
-                  {formatPercentage(
-                    this.selectedCombatant.getBuffUptime(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) /
-                      this.owner.fightDuration,
-                    2,
-                  )}
-                  % <small>uptime</small>
-                </div>
-              </>
-            ) : (
-              <>
-                <div style={{ fontSize: 20 }}>No procs after {totalCasts} casts.</div>
-              </>
-            )}
-          </TalentSpellText>
-        </Statistic>
+  private isAscendanceActivationEvent(event: CastEvent | BeginCastEvent | BeginChannelEvent) {
+    return event.ability.guid === TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id;
+  }
+
+  private getActionableCastIntervals(cast: AscendanceCooldownCast) {
+    return this.buildCastIntervals(cast).filter(
+      (interval) =>
+        interval.triggerEvent.sourceID === this.selectedCombatant.id &&
+        !this.isAscendanceActivationEvent(interval.triggerEvent),
+    );
+  }
+
+  private getNetMaelstromGenerated(events: ResourceChangeEvent[]) {
+    return events.reduce(
+      (total, event) => total + Math.max(event.resourceChange - event.waste, 0),
+      0,
+    );
+  }
+
+  private getMaxSpenders(cast: AscendanceCooldownCast) {
+    const actionableIntervals = this.getActionableCastIntervals(cast);
+    const lastInterval = actionableIntervals.at(-1);
+    const averageGlobalCooldown = this.getAverageGlobalCooldown(cast);
+    const trailingAvailableTime = this.getTrailingAvailableTime(cast);
+
+    let spendableGeneration = this.getNetMaelstromGenerated(cast.resourceChanges);
+
+    if (lastInterval && trailingAvailableTime < averageGlobalCooldown) {
+      spendableGeneration -= this.getNetMaelstromGenerated(
+        cast.resourceChanges.filter((event) => event.timestamp >= lastInterval.start),
       );
     }
+
+    const totalSpendableMaelstrom = cast.startingMaelstrom + Math.max(spendableGeneration, 0);
+
+    return Math.max(Math.floor(totalSpendableMaelstrom / this.spenderCost), cast.spendersCast);
   }
 
-  description(): ReactNode {
-    return (
-      <>
-        <ol>
-          <li>
-            <strong>Uptime</strong>: You need to maximise the number of casts during your{' '}
-            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> window. It is often worth
-            pairing with <SpellLink spell={TALENTS.SPIRITWALKERS_GRACE_TALENT} /> to ensure movement
-            doesn't impact on your overall casts.
-          </li>
-          <li>
-            Try to avoid casting spells that don't interact with{' '}
-            <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />, such as{' '}
-            <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> and{' '}
-            <SpellLink spell={SPELLS.FLAME_SHOCK} />.
-          </li>
-          <li>
-            If possible, try to cast <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> before{' '}
-            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> to not lose casting uptime.
-          </li>
-        </ol>
-      </>
-    );
-  }
-
-  explainPerformance(cast: AscendanceCooldownCast): SpellUse {
-    const checklistItems: ChecklistUsageInfo[] = [
-      this.explainSpenderPerformance(cast),
-      this.explainEndingMaelstrom(cast),
-    ];
-
-    const timeline = (
-      <div
-        style={{
-          overflowX: 'scroll',
-        }}
-      >
-        <EmbeddedTimelineContainer
-          secondWidth={60}
-          secondsShown={(cast.timeline.end! - cast.timeline.start) / 1000}
-        >
-          <SpellTimeline>
-            <Casts
-              start={cast.timeline.start}
-              movement={undefined}
-              secondWidth={60}
-              events={cast.timeline.events}
-            />
-          </SpellTimeline>
-        </EmbeddedTimelineContainer>
-      </div>
-    );
+  private getSpenderPerformance(cast: AscendanceCooldownCast): PerCastStat {
+    const maxSpenders = this.getMaxSpenders(cast);
+    const missedSpenders = Math.max(maxSpenders - cast.spendersCast, 0);
 
     return {
-      event: cast.event,
-      checklistItems: [
-        {
-          check: 'source',
-          timestamp: cast.event.timestamp,
-          performance: QualitativePerformance.Perfect,
-          summary: null,
-          details: (
-            <div>
-              Source:{' '}
-              {cast.source === AscendanceSource.Ascendance ? (
-                <>
-                  <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> cooldown used
-                </>
-              ) : (
-                <>
-                  <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} /> triggered.
-                </>
-              )}
-            </div>
-          ),
-        },
-        ...checklistItems,
-      ],
-      performance: getAveragePerf(checklistItems.map((i) => i.performance)),
-      performanceExplanation: 'Usage',
-      extraDetails: timeline,
-    };
-  }
-
-  get spenderCost() {
-    return this.spender.spell.maelstromCost - this.spender.costReduction;
-  }
-
-  explainEndingMaelstrom(cast: AscendanceCooldownCast): ChecklistUsageInfo {
-    const missedSpenders = Math.floor(cast.endingMaelstrom / this.spenderCost);
-
-    return {
-      check: 'ending-maelstrom',
-      timestamp: cast.event.timestamp,
+      value: `${cast.spendersCast}/${maxSpenders}`,
+      label: 'Spenders',
+      tooltip: (
+        <>
+          You cast <strong>{cast.spendersCast}</strong> out of a maximum of{' '}
+          <strong>{maxSpenders}</strong> <SpellLink spell={this.spender.spell} /> casts this window,
+          based on starting <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />, net{' '}
+          <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> gained during Ascendance, and any gain
+          that happened too late to convert into another spender.
+        </>
+      ),
       performance: evaluateQualitativePerformanceByThreshold({
         actual: missedSpenders,
         isLessThanOrEqual: {
@@ -412,65 +451,209 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           ok: 2,
         },
       }),
-      summary: (
+    };
+  }
+
+  private getDowntimePerformance(cast: AscendanceCooldownCast): PerCastStat {
+    const downtime = this.getDowntime(cast);
+
+    return {
+      value: formatDurationMillisMinSec(downtime, 1),
+      label: 'Downtime',
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: downtime,
+        isLessThan: {
+          perfect: 500,
+          good: 1250,
+          ok: 2000,
+        },
+      }),
+    };
+  }
+
+  private getNonOverloadCapableSpellCount(cast: AscendanceCooldownCast) {
+    return this.getActionableCastIntervals(cast).filter((interval) => {
+      const event = interval.triggerEvent;
+
+      return (
+        event.sourceID === this.selectedCombatant.id &&
+        getGlobalCooldown(event) !== undefined &&
+        !overloadCapableSpellIds.has(event.ability.guid)
+      );
+    }).length;
+  }
+
+  private getNonOverloadCapableSpellBreakdown(cast: AscendanceCooldownCast) {
+    const spellCounts = new Map<number, { name: string; count: number }>();
+
+    this.getActionableCastIntervals(cast).forEach((interval) => {
+      const event = interval.triggerEvent;
+      if (
+        event.sourceID !== this.selectedCombatant.id ||
+        getGlobalCooldown(event) === undefined ||
+        overloadCapableSpellIds.has(event.ability.guid)
+      ) {
+        return;
+      }
+
+      const existing = spellCounts.get(event.ability.guid);
+      if (existing) {
+        existing.count += 1;
+        return;
+      }
+
+      spellCounts.set(event.ability.guid, {
+        name: event.ability.name,
+        count: 1,
+      });
+    });
+
+    return Array.from(spellCounts.entries())
+      .map(([spellId, spellData]) => ({ spellId, ...spellData }))
+      .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name));
+  }
+
+  private getNonOverloadPerformance(cast: AscendanceCooldownCast): PerCastStat {
+    const nonOverloadSpellCount = this.getNonOverloadCapableSpellCount(cast);
+    const nonOverloadSpellBreakdown = this.getNonOverloadCapableSpellBreakdown(cast);
+
+    return {
+      value: `${nonOverloadSpellCount}`,
+      label: 'Non-Overload Spells',
+      tooltip: (
         <>
-          Ended with {cast.endingMaelstrom} <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />
+          Spells cast that cannot trigger <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />:
+          {nonOverloadSpellBreakdown.length > 0 ? (
+            <ul>
+              {nonOverloadSpellBreakdown.map((spell) => (
+                <li key={spell.spellId}>
+                  <SpellLink spell={spell.spellId} />: {spell.count}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </>
       ),
-      details: (
-        <div>
-          You ended <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> with{' '}
-          {cast.endingMaelstrom} <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />.{' '}
-          {cast.endingMaelstrom > this.spenderCost ? (
-            <>
-              You could have cast {missedSpenders} more <SpellLink spell={this.spender.spell} />
-              's
-            </>
-          ) : null}
-        </div>
-      ),
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: nonOverloadSpellCount,
+        isLessThanOrEqual: {
+          perfect: 0,
+          good: 1,
+          ok: 2,
+        },
+      }),
     };
   }
 
-  explainSpenderPerformance(cast: AscendanceCooldownCast) {
-    const spendersCast = cast.timeline.events.filter(
-      (e) => e.type === EventType.Cast && maelstromSpenders.includes(e.ability.guid),
-    ).length;
-    return {
-      check: 'spender-casts',
-      timestamp: cast.event.timestamp,
-      performance: QualitativePerformance.Perfect,
-      summary: <>Maelstrom spenders cast: {spendersCast}</>,
-      details: <div>You cast {spendersCast} maelstrom spender(s) during ascendance.</div>,
-    };
-  }
+  private buildSpellSequence(cast: AscendanceCooldownCast): CastInSequence[] {
+    return this.getActionableCastIntervals(cast).map((interval) => {
+      const event = interval.triggerEvent;
+      const ability = event.ability;
+      const isCancelled =
+        (event.type === EventType.BeginChannel || event.type === EventType.BeginCast) &&
+        (interval.cancelled || event.isCancelled);
 
-  get guideSubsection() {
-    return (
-      this.active && (
-        <CooldownUsage
-          analyzer={this}
-          title={
-            <>
-              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />
-            </>
-          }
-        />
-      )
-    );
-  }
-}
-
-function getMedian(values: number[]): number | undefined {
-  if (values.length > 0) {
-    values.sort(function (a, b) {
-      return a - b;
+      return {
+        timestamp: event.timestamp,
+        spellId: ability.guid,
+        spellName: ability.name,
+        icon: ability.abilityIcon.replace('.jpg', ''),
+        performance: isCancelled ? QualitativePerformance.Fail : undefined,
+        tooltip: (
+          <>
+            <strong>
+              {event.type === EventType.BeginChannel || event.type === EventType.BeginCast
+                ? 'Started'
+                : 'Cast'}
+            </strong>{' '}
+            <SpellLink spell={ability.guid} />
+            <div>@ {this.owner.formatTimestamp(event.timestamp)}</div>
+            {isCancelled ? <div>Cast never finished.</div> : null}
+          </>
+        ),
+      };
     });
-    const half = Math.floor(values.length / 2);
-    if (values.length % 2) {
-      return values[half];
+  }
+
+  get spenderCost() {
+    return this.deps.spenderInfo.spenderCost;
+  }
+
+  get spender(): Spender {
+    return this.deps.spenderInfo.spender;
+  }
+
+  private buildPerCastData(): PerCastData[] {
+    return this.cooldownWindows.map((cast) => {
+      const sequence = this.buildSpellSequence(cast);
+      const spendersStat = this.getSpenderPerformance(cast);
+      const downtimeStat = this.getDowntimePerformance(cast);
+      const nonOverloadStat = this.getNonOverloadPerformance(cast);
+      const scoredStats = [spendersStat, downtimeStat, nonOverloadStat];
+
+      return {
+        performance: getAveragePerf(
+          scoredStats.flatMap((stat) => (stat.performance === undefined ? [] : [stat.performance])),
+        ),
+        timestamp: this.owner.formatTimestamp(cast.event.timestamp),
+        stats: [
+          ...scoredStats,
+          {
+            value: `${cast.endingMaelstrom}`,
+            label: 'Ending Maelstrom',
+            performance: spendersStat.performance,
+          },
+        ],
+        details: null,
+        additionalContent:
+          sequence.length > 0
+            ? {
+                title: 'Cast Sequence',
+                content: <SpellSequence casts={sequence} iconSize={36} />,
+              }
+            : undefined,
+      };
+    });
+  }
+
+  get guideSubsection(): JSX.Element | null {
+    if (!this.active) {
+      return null;
     }
-    return (values[half - 1] + values[half]) / 2.0;
+
+    const explanation = (
+      <>
+        <ol>
+          <li>
+            <strong>Uptime</strong>: You want to maximize the number of casts inside each{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> window. Pairing it with{' '}
+            <SpellLink spell={TALENTS.SPIRITWALKERS_GRACE_TALENT} /> can help preserve uptime while
+            moving.
+          </li>
+          <li>
+            Try to avoid spending globals on spells that do not contribute much during{' '}
+            <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />, such as{' '}
+            <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> or{' '}
+            <SpellLink spell={SPELLS.FLAME_SHOCK} /> refreshes.
+          </li>
+          <li>
+            If possible, cast <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> before{' '}
+            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> so the window is not spent on
+            setup.
+          </li>
+        </ol>
+      </>
+    );
+
+    return (
+      <GuideSection
+        spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT}
+        explanation={explanation}
+        explanationPercent={30}
+      >
+        <CastDetail title="Ascendance Windows" casts={this.buildPerCastData()} />
+      </GuideSection>
+    );
   }
 }
 

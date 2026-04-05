@@ -6,14 +6,13 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import RisingSunKick from './RisingSunKick';
-import RisingMist from './RisingMist';
 import { SpellLink, TooltipElement } from 'interface';
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
 import RushingWindKick from './RushingWindKick';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 /*
  * Add in Statistic box to show average time between RSK casts when Rising Mist is talented.

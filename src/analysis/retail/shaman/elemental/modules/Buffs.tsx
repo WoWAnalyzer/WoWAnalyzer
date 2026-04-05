@@ -18,6 +18,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.TEMPEST_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.ASCENDANCE_ELEMENTAL_BUFF.id,
         enabled:
           combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
@@ -56,6 +61,11 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.MIDNIGHT_S1_THUNDEROUS_VELOCITY_BUFF.id,
         enabled: combatant.has2PieceByTier(TIERS.MID1),
         triggeredBySpellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
+      },
+      {
+        spellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+        triggeredBySpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
       },
     ];
   }

@@ -10,6 +10,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellLink } from 'interface';
 
 /**
+ * Miracle Worker
  * Holy Word: Serenity and Holy Word: Sanctify gain an additional charge.
  */
 class MiracleWorker extends Analyzer {
@@ -81,6 +82,7 @@ class MiracleWorker extends Analyzer {
               extra <SpellLink spell={TALENTS.HOLY_WORD_SERENITY_TALENT} /> cast
               {extraSerenityCasts > 1 ? 's' : ''}.
             </small>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             {extraSanctifyCasts}{' '}
             <small>

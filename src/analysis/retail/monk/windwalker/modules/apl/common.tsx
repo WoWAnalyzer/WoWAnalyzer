@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/monk';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellLink from 'interface/SpellLink';
 import Combatant from 'parser/core/Combatant';
+import { EventType } from 'parser/core/Events';
 import { Apl, Condition, Rule, build, tenseAlt } from 'parser/shared/metrics/apl';
 import {
   and,
@@ -13,7 +14,6 @@ import {
   describe,
   hasResource,
   hasTalent,
-  lastSpellCast,
   optionalRule,
   not,
 } from 'parser/shared/metrics/apl/conditions';
@@ -22,20 +22,49 @@ import {
   BASE_ENERGY_MAX,
   INNER_PEACE_ENERGY_MAX_ADDITION,
 } from '../resources/EnergyCapTracker';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 const DANCE_OF_CHI_JI_DURATION_MS = 15000;
 
-const comboStrikesSafe = (spell: Spell) => not(lastSpellCast(spell));
+const MASTERY_AFFECTED_IDS = new Set(ABILITIES_AFFECTED_BY_MASTERY.map((spell) => spell.id));
+
+function lastMasterySpellCast(spell: Spell): Condition<boolean> {
+  let sourceID: number;
+  return {
+    key: `lastMasterySpellCast-${spell.id}`,
+    init: (info) => {
+      sourceID = info.playerId;
+      return false;
+    },
+    update: (state, event) => {
+      if (event.type !== EventType.Cast || event.sourceID !== sourceID) {
+        return state;
+      }
+      if (!MASTERY_AFFECTED_IDS.has(event.ability.guid)) {
+        return state;
+      }
+      return event.ability.guid === spell.id;
+    },
+    validate: (state) => state,
+    describe: () => (
+      <>
+        your last mastery-relevant cast was <SpellLink spell={spell.id} />
+      </>
+    ),
+  };
+}
+
+const comboStrikesSafe = (spell: Spell) => not(lastMasterySpellCast(spell));
 
 const comboStrikesCondition = (spell: Spell | Spell[]) =>
   Array.isArray(spell)
     ? and(...spell.map((candidate) => comboStrikesSafe(candidate)))
     : comboStrikesSafe(spell);
 
-function withHiddenConstraint(
-  visibleCondition: Condition<any> | undefined,
-  hiddenCondition: Condition<any>,
-): Condition<{ visibleCondition: any; hiddenCondition: any }> {
+function withHiddenConstraint<Visible, Hidden>(
+  visibleCondition: Condition<Visible> | undefined,
+  hiddenCondition: Condition<Hidden>,
+): Condition<{ visibleCondition?: Visible; hiddenCondition: Hidden }> {
   return {
     key: visibleCondition
       ? `visible-${visibleCondition.key}-hidden-${hiddenCondition.key}`
@@ -50,14 +79,14 @@ function withHiddenConstraint(
     }),
     update: (state, event) => ({
       visibleCondition: visibleCondition
-        ? visibleCondition.update(state.visibleCondition, event)
+        ? visibleCondition.update(state.visibleCondition!, event)
         : state.visibleCondition,
       hiddenCondition: hiddenCondition.update(state.hiddenCondition, event),
     }),
     validate: (state, event, spell, lookahead) =>
       hiddenCondition.validate(state.hiddenCondition, event, spell, lookahead) &&
       (visibleCondition
-        ? visibleCondition.validate(state.visibleCondition, event, spell, lookahead)
+        ? visibleCondition.validate(state.visibleCondition!, event, spell, lookahead)
         : true),
     describe: (tense) => visibleCondition?.describe(tense) ?? '',
     tooltip: visibleCondition?.tooltip,
@@ -119,6 +148,7 @@ export const aboutToCapEnergy = (combatant: Combatant) =>
  * stacks, which is the point where further proc value can be lost.
  */
 export const notAtTwoBlackoutKickStacks = buffStacks(SPELLS.COMBO_BREAKER_BUFF, { atMost: 1 });
+export const atTwoBlackoutKickStacks = buffStacks(SPELLS.COMBO_BREAKER_BUFF, { atLeast: 2 });
 
 /**
  * During Zenith with Obsidian Spiral, Tiger Palm and expiring Dance of Chi-Ji

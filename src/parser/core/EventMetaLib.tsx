@@ -7,13 +7,9 @@ import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
 import type { BeginChannelEvent, CastEvent, EventMeta } from './Events';
 
-function MetaCastReason({
-  originalReason,
-  reason,
-}: {
-  originalReason: ReactNode;
-  reason: ReactNode | MessageDescriptor;
-}) {
+export type Reason = ReactNode | MessageDescriptor;
+
+function MetaCastReason({ originalReason, reason }: { originalReason: ReactNode; reason: Reason }) {
   const { i18n } = useLingui();
 
   return (
@@ -21,6 +17,7 @@ function MetaCastReason({
       {originalReason ? (
         <>
           {originalReason}
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </>
       ) : null}
@@ -29,10 +26,7 @@ function MetaCastReason({
   );
 }
 
-export function addInefficientCastReason(
-  event: BeginChannelEvent | CastEvent,
-  reason?: ReactNode | MessageDescriptor,
-) {
+export function addInefficientCastReason(event: BeginChannelEvent | CastEvent, reason?: Reason) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
   event.meta ??= {};
   event.meta.isInefficientCast = true;
@@ -44,10 +38,7 @@ export function addInefficientCastReason(
   );
 }
 
-export function addEnhancedCastReason(
-  event: BeginChannelEvent | CastEvent,
-  reason?: ReactNode | MessageDescriptor,
-) {
+export function addEnhancedCastReason(event: BeginChannelEvent | CastEvent, reason?: Reason) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
   event.meta ??= {};
   event.meta.isEnhancedCast = true;
@@ -61,7 +52,7 @@ export function addEnhancedCastReason(
 
 export function addAdditionalCastInformation(
   event: BeginChannelEvent | CastEvent,
-  reason?: ReactNode | MessageDescriptor,
+  reason?: Reason,
 ) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
   event.meta ??= {};

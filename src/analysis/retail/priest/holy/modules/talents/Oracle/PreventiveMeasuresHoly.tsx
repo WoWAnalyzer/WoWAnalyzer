@@ -20,6 +20,12 @@ import SpellLink from 'interface/SpellLink';
 
 //Unlike the premonition nodes, this is different between disc/holy
 
+/**
+ * Preventive Measures (Oracle)
+ * Increases the healing done by Prayer of Mending by 15%.
+ * All damage dealt by Smite, Holy Fire and Holy Nova increased by 40%.
+ */
+
 class PreventiveMeasuresHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,

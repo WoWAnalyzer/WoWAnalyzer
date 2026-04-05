@@ -29,6 +29,7 @@ import Spiritfont from '../spells/Spiritfont';
 import InvigoratingMists from '../spells/InvigoratingMists';
 import EmperorsFavor from '../spells/EmperorsFavor';
 import TranquilTea from '../spells/TranquilTea';
+import MorningBreeze from '../spells/MorningBreeze';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -58,6 +59,7 @@ class TalentHealingStatistic extends Analyzer {
     invigoratingMists: InvigoratingMists,
     emperorsFavor: EmperorsFavor,
     tranquilTea: TranquilTea,
+    morningBreeze: MorningBreeze,
   };
 
   protected risingMist!: RisingMist;
@@ -87,6 +89,7 @@ class TalentHealingStatistic extends Analyzer {
   protected invigoratingMists!: InvigoratingMists;
   protected emperorsFavor!: EmperorsFavor;
   protected tranquilTea!: TranquilTea;
+  protected morningBreeze!: MorningBreeze;
 
   buildTalentList() {
     const talentList = [];
@@ -168,12 +171,16 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.TRANQUIL_TEA_TALENT)) {
       talentList.push(this.tranquilTea.subStatistic());
     }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MORNING_BREEZE_TALENT)) {
+      talentList.push(this.morningBreeze.subStatistic());
+    }
 
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
     );
 
     // Add key to each entry for rendering
+    // oxlint-disable-next-line react/no-clone-element
     return sortedTalentList.map((talent, index) => cloneElement(talent, { key: index }));
   }
 
@@ -183,15 +190,17 @@ class TalentHealingStatistic extends Analyzer {
         title={<Trans id="monk.mistweaver.talentBox.title">Talent Summary</Trans>}
         tooltip={
           <Trans id="monk.mistweaver.talentBox.tooltip">
-            The purpose of this is to show the overall HPS impact of each talent. So not only what
-            the talent itself did, but also feeding and synergy or interactions with other spells or
-            talents. The percentage shown is what you'd lose without the talent, ignoring what you'd
-            gain from the other options.
-            <br />
-            <br />
-            Note: Due to the synergies that exist between certain talents there is some overlap in
-            the HPS contribution shown. Detailed breakdowns of each talent's impact can be found in
-            the Talents Section.
+            <p>
+              The purpose of this is to show the overall HPS impact of each talent. So not only what
+              the talent itself did, but also feeding and synergy or interactions with other spells
+              or talents. The percentage shown is what you'd lose without the talent, ignoring what
+              you'd gain from the other options.
+            </p>
+            <p>
+              Note: Due to the synergies that exist between certain talents there is some overlap in
+              the HPS contribution shown. Detailed breakdowns of each talent's impact can be found
+              in the Talents Section.
+            </p>
           </Trans>
         }
         position={STATISTIC_ORDER.CORE(9)}

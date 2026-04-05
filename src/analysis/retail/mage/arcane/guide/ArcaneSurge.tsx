@@ -8,7 +8,6 @@ import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import CastSequence, {
-  SpellSequence,
   type CastSequenceEntry,
   type CastInSequence,
 } from 'interface/guide/components/CastSequence';

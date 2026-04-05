@@ -25,7 +25,7 @@ class SpellUsable extends CoreSpellUsable {
     super.onCast(event);
 
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.RAGING_BLOW.id) {
+    if (spellId === SPELLS.RAGING_BLOW.id || spellId === SPELLS.CRUSHING_BLOW.id) {
       this.lastPotentialTriggerForRagingBlow = event;
     }
 
@@ -38,7 +38,10 @@ class SpellUsable extends CoreSpellUsable {
     cooldownTriggerEvent: AbilityEvent<EventType>,
     spellId: number = cooldownTriggerEvent.ability.guid,
   ) {
-    if (this.hasImprovedRagingBlow && spellId === SPELLS.RAGING_BLOW.id) {
+    if (
+      this.hasImprovedRagingBlow &&
+      (spellId === SPELLS.RAGING_BLOW.id || spellId === SPELLS.CRUSHING_BLOW.id)
+    ) {
       // Raging Blow has a 25% chance to reset its own cooldown when cast. The combatlog has no events for this, so we have to do this hack to account for it. This ends the cooldown upon a new cast if it turns out to still be on cooldown so it looks to be working ok.
       if (!this.isAvailable(spellId)) {
         this.endCooldown(

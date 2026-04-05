@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
-import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { MistweaverApl } from './AplCheck';
 
@@ -10,14 +10,14 @@ const aplTitle = (choice: MistweaverApl) => {
       return (
         <>
           <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} />{' '}
         </>
       );
     case MistweaverApl.RisingMistRushingWindKick:
       return (
         <>
           <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} /> /{' '}
+          <SpellLink spell={talents.RUSHING_WIND_KICK_MISTWEAVER_TALENT} />{' '}
         </>
       );
     case MistweaverApl.WayOfTheCrane:

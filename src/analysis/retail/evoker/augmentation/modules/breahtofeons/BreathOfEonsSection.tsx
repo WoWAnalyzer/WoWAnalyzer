@@ -248,7 +248,6 @@ const BreathOfEonsSection: FC<Props> = ({
           <SpellLink spell={TALENTS.OVERLORD_TALENT} />, and{' '}
           <SpellLink spell={TALENTS.COMMAND_SQUADRON_TALENT} />, greatly increasing your personal
           damage.
-          <br />
         </p>
         <div>
           <p>

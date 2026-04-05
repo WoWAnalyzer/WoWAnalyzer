@@ -58,7 +58,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Preface & Disclaimers">
-        <>
+        <p>
           The analysis in this guide is provided in collaboration with Porom and the rest of the
           staff of the <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When
           reviewing this information, keep in mind that WoWAnalyzer is limited to the information
@@ -66,17 +66,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           intentionally doing something suboptimal because the fight or strat required it (such as
           Forced Downtime or holding cooldowns for a burn phase). Because of this, we recommend
           comparing your analysis against a top 100 log for the same boss.
-          <br />
-          <br />
+        </p>
+        <p>
           For additional assistance in improving your gameplay, or to have someone look more in
           depth at your combat logs, please visit the{' '}
           <a href="https://discord.gg/makGfZA">Altered Time</a> discord.
-          <br />
-          <br />
+        </p>
+        <p>
           If you notice any issues or errors in this analysis ... or if there is additional analysis
           you would like added, please ping <code>@Sharrq</code> in the{' '}
           <a href="https://discord.gg/makGfZA">Altered Time</a> discord.
-        </>
+        </p>
       </Section>
       <Section title="Core">
         {alwaysBeCastingSubsection}

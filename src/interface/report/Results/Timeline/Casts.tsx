@@ -18,7 +18,7 @@ import {
 import { Fragment, CSSProperties, HTMLAttributes, ReactNode, use } from 'react';
 
 import './Casts.scss';
-import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { addInefficientCastReason, Reason } from 'parser/core/EventMetaLib';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
 import { TimelineSettingsContext } from './Settings';
@@ -68,7 +68,7 @@ export const isApplicableEvent =
  */
 export const highlightInefficientCast = (
   event: CastEvent | BeginChannelEvent | CastEvent[] | BeginChannelEvent[],
-  tooltip: string,
+  tooltip: Reason,
 ) => {
   if (Array.isArray(event)) {
     event.forEach((e) => {
@@ -416,6 +416,7 @@ const generateTooltip = (meta?: EventMeta) => {
           {castReason ? (
             <>
               {castReason}
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </>
           ) : null}
@@ -430,6 +431,7 @@ const generateTooltip = (meta?: EventMeta) => {
           {castReason ? (
             <>
               {castReason}
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
             </>
           ) : null}

@@ -111,18 +111,28 @@ class JadefireStomp extends Analyzer {
         tooltip={
           <>
             {this.specIsMW && (
-              <>
-                {formatNumber(this.healing)}{' '}
-                <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
-                {formatNumber(this.overhealing)} overheal) <br />
-                {formatNumber(this.gomHealing)} <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
-                ({formatNumber(this.gomOverhealing)} overheal)
-                <br />
-                {this.resets} <small>resets</small> <br />
-                {(this.targetsDamaged / this.jfsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
-                <br />
-                {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
-              </>
+              <ul>
+                <li>
+                  {formatNumber(this.healing)}{' '}
+                  <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
+                  {formatNumber(this.overhealing)} overheal){' '}
+                </li>
+                <li>
+                  {formatNumber(this.gomHealing)} <SpellLink spell={SPELLS.GUSTS_OF_MISTS} />{' '}
+                  healing ({formatNumber(this.gomOverhealing)} overheal)
+                </li>
+                <li>
+                  {this.resets} <small>resets</small>{' '}
+                </li>
+                <li>
+                  {(this.targetsDamaged / this.jfsCasts).toFixed(2)}{' '}
+                  <small>Foes Hit per cast</small>
+                </li>
+                <li>
+                  {(this.targetsHealed / this.jfsCasts).toFixed(2)}{' '}
+                  <small>Allies Hit per cast</small>
+                </li>
+              </ul>
             )}
           </>
         }
@@ -130,8 +140,9 @@ class JadefireStomp extends Analyzer {
         <TalentSpellText talent={TALENTS_MONK.JADEFIRE_STOMP_TALENT}>
           {this.specIsMW ? (
             <>
-              <ItemHealingDone amount={this.totalHealing} />
-              <br />
+              <div>
+                <ItemHealingDone amount={this.totalHealing} />
+              </div>
               <TooltipElement
                 content={
                   <>
@@ -144,10 +155,16 @@ class JadefireStomp extends Analyzer {
             </>
           ) : (
             <>
-              {this.resets} <small>resets</small> <br />
-              {(this.targetsDamaged / this.jfsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
-              <br />
-              {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
+              <div>
+                {this.resets} <small>resets</small>
+              </div>
+              <div>
+                {(this.targetsDamaged / this.jfsCasts).toFixed(2)}{' '}
+                <small>Foes Hit per cast</small>{' '}
+              </div>
+              <div>
+                {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
+              </div>
             </>
           )}
         </TalentSpellText>

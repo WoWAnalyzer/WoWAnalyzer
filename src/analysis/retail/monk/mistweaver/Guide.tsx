@@ -79,6 +79,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.vivaciousVivification.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) &&
           modules.zenPulse.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT) &&
+          modules.spiritfont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT) &&
           modules.strengthOfTheBlackOx.guideSubsection}
       </Section>
@@ -144,7 +146,6 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
           {modules.sheilunsGiftCloudGraph.plot}
         </RoundedPanel>
       </div>
-      <br />
       <RoundedPanel>
         <div style={styleObj}>
           <SpellIcon spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} style={{ height: '28px' }} />{' '}
@@ -186,6 +187,13 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
+      {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT) && (
+        <CastEfficiencyBar
+          spell={TALENTS_MONK.CELESTIAL_CONDUIT_MISTWEAVER_TALENT}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
     </SubSection>
   );
 }

@@ -15,6 +15,10 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
+    {
+      spell: TALENTS_MONK.ZENITH_TALENT.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+    },
   ];
 }
 

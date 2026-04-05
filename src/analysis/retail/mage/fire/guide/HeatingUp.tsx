@@ -7,7 +7,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
 
-import HeatingUp from '../core/HeatingUp';
+import HeatingUp, { HeatingUpCrits } from '../core/HeatingUp';
 import Spell from 'common/SPELLS/Spell';
 import { CastOverview } from 'interface/guide/components';
 import { formatPercentage } from 'common/format';
@@ -39,7 +39,7 @@ class HeatingUpGuide extends Analyzer {
     return stats;
   }
 
-  private evaluateHeatingUpCrit(hu: any): CastEvaluation {
+  private evaluateHeatingUpCrit(hu: HeatingUpCrits): CastEvaluation {
     const maxFireBlastCharges =
       1 +
       this.selectedCombatant.getTalentRank(TALENTS.FERVENT_FLICKERING_TALENT) +

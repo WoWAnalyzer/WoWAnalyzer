@@ -1,4 +1,4 @@
-import { type JSX, type ReactNode } from 'react';
+import { type JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink, SpellIcon } from 'interface';
@@ -16,10 +16,7 @@ import CastDetail, {
 import Analyzer from 'parser/core/Analyzer';
 import ArcaneBarrage, { ArcaneBarrageData } from '../analyzers/ArcaneBarrage';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ARCANE_SALVO_MAX_STACKS } from '../../shared';
 import { CastEvaluation, TipBox } from 'interface/guide/components';
-import ArcaneSurge from '../analyzers/ArcaneSurge';
-import GloriousIncandescence from '../../shared/analyzers/GloriousIncandescense';
 
 class ArcaneBarrageGuide extends Analyzer {
   static dependencies = {
@@ -41,21 +38,13 @@ class ArcaneBarrageGuide extends Analyzer {
   isSpellslingerOrb: boolean = this.isSpellslinger && this.hasOrbMastery;
 
   private readonly MAX_ARCANE_CHARGES = 4;
-  private readonly LOW_MANA_THRESHOLD = 0.3;
   private readonly NO_MANA_THRESHOLD = 0.1;
-  private readonly LOW_HEALTH_THRESHOLD = 0.35;
-  private readonly AOE_THRESHOLD = 3;
 
   private evaluateBarrageCast(cast: ArcaneBarrageData): CastEvaluation {
     const hasMaxCharges = cast.charges >= this.MAX_ARCANE_CHARGES;
-    const isAOE = cast.targetsHit >= this.AOE_THRESHOLD;
-    const hasLowMana = cast.mana !== undefined && cast.mana <= this.LOW_MANA_THRESHOLD;
     const hasNoMana = cast.mana !== undefined && cast.mana <= this.NO_MANA_THRESHOLD;
-    const hasLowHealth = cast.health !== undefined && cast.health <= this.LOW_HEALTH_THRESHOLD;
     const hasClearcasting = cast.activeBuffs.includes(SPELLS.CLEARCASTING_ARCANE.id);
-    const hasArcaneSoul = cast.activeBuffs.includes(SPELLS.ARCANE_SOUL_BUFF.id);
     const hasOPMissiles = cast.activeBuffs.includes(SPELLS.OVERPOWERED_MISSILES_BUFF.id);
-    const targetHasTouch = cast.activeBuffs.includes(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id);
 
     // NO MANA
     if (cast.mana && hasNoMana) {

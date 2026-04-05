@@ -89,14 +89,15 @@ class SoulOfTheForest extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
         <TalentSpellText talent={TALENTS_DRUID.SOUL_OF_THE_FOREST_BALANCE_TALENT}>
-          <>
+          <div>
             <ResourceIcon id={RESOURCE_TYPES.ASTRAL_POWER.id} />{' '}
             {formatNumber(this.owner.getPerMinute(this.totalAp))}{' '}
             <small>Astral Power per minute</small>
-            <br />
+          </div>
+          <div>
             <SpellIcon spell={SPELLS.STARFIRE} noLink />{' '}
             <ItemPercentDamageDone amount={this.starfireDamage} />
-          </>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

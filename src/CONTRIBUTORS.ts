@@ -90,7 +90,13 @@ export const Amryu: Contributor = {
     },
   ],
 };
-
+export const Amiphite: Contributor = {
+  nickname: 'Amiphite',
+  github: 'Amiphite',
+  discord: 'amiphite',
+  avatar: avatar('Amiphite_avatar.png'),
+  about: 'Born to be a healer. Working on holy priest.',
+};
 export const Fashathus: Contributor = {
   nickname: 'Fashathus',
   github: 'SethEArnold',
@@ -175,6 +181,10 @@ export const enragednuke: Contributor = {
 export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
+};
+export const Badkad: Contributor = {
+  nickname: 'Badkad',
+  github: 'Badkad',
 };
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
@@ -722,13 +732,13 @@ export const fel1ne: Contributor = {
 export const Dambroda: Contributor = {
   nickname: 'Dambroda',
   github: 'Dambroda',
-  discord: 'Dambroda#1290',
+  discord: 'Dambroda',
   avatar: avatar('Dambroda-avatar.jpg'),
   mains: [
     {
       name: 'Dambroma',
       spec: SPECS.FROST_MAGE,
-      link: 'https://worldofwarcraft.com/en-us/character/stormrage/dambroma',
+      link: 'https://worldofwarcraft.com/en-us/character/area-52/dambroma',
     },
   ],
 };
@@ -2808,4 +2818,34 @@ export const Drowzen: Contributor = {
       link: 'https://www.warcraftlogs.com/character/us/moon-guard/drowzen',
     },
   ],
+};
+
+export const Gambyt: Contributor = {
+  nickname: 'Gambyt',
+  github: 'tyler-lutz',
+  discord: 'tylerlutz',
+  mains: [
+    {
+      name: 'Gambyt',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://www.warcraftlogs.com/character/us/illidan/gambyt',
+    },
+  ],
+};
+
+export const defgfed: Contributor = {
+  nickname: 'defgfed',
+  github: 'defgfed',
+  discord: 'defgfed',
+};
+
+export const MarchingCube: Contributor = {
+  nickname: 'MarchingCube',
+  github: 'MarchingCube',
+};
+
+export const NotStirred: Contributor = {
+  nickname: 'NotStirred',
+  github: 'NotStirred',
+  discord: 'NotStirred',
 };

@@ -11,6 +11,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { PROPHETS_WILL_AMP, PROPHETS_WILL_SPELLS_HOLY } from '../../../constants';
 
+/**
+ * Prophet's Will (Oracle)
+ * Your Flash Heal and Holy Word: Serenity are 30% more effective when cast on yourself.
+ */
+
 class ProphetsWillHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,

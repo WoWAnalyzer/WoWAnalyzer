@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/deathknight';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -41,9 +40,6 @@ class DeathsCaress extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS),
       this.onDamage,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT)) {
-      this.spellsThatShouldBeUsedFirst.push(TALENTS.BLOODDRINKER_TALENT.id);
-    }
   }
 
   onCast(event: CastEvent) {

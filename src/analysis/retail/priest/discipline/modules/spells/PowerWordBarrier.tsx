@@ -7,6 +7,7 @@ import { EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import { WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.2;
 
@@ -34,9 +35,10 @@ class PowerWordBarrier extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} GROUP BY target ON target END`,
-    }).then((json: any) => {
+    }).then((json) => {
+      json = json as WCLDamageTakenTableResponse;
       this.totalDamageTakenDuringPWB = json.entries.reduce(
-        (damageTaken: number, entry: any) => damageTaken + entry.total,
+        (damageTaken: number, entry) => damageTaken + entry.total,
         0,
       );
     });

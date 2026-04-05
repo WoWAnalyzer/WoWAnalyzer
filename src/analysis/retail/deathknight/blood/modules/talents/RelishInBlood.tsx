@@ -76,12 +76,17 @@ class RelishInBlood extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.relishInBlood.statistic.tooltip">
-            <strong>RP wasted: </strong> {this.runicPowerWasted} (
-            {formatPercentage(this.rpWastePercentage)} %)
-            <br />
-            <strong>Healing: </strong> {formatNumber(this.healing)} <br />
-            <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
-            {formatPercentage(this.overhealPercentage)} %) <br />
+            <p>
+              <strong>RP wasted: </strong> {this.runicPowerWasted} (
+              {formatPercentage(this.rpWastePercentage)} %)
+            </p>
+            <p>
+              <strong>Healing: </strong> {formatNumber(this.healing)}
+            </p>
+            <p>
+              <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
+              {formatPercentage(this.overhealPercentage)} %)
+            </p>
           </Trans>
         }
       >

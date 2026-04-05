@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { SpellIcon, SpellLink, AlertInfo } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TrackedBuffEvent } from 'parser/core/Entity';
@@ -66,7 +66,7 @@ export default class Eclipse extends Analyzer {
         <div className="flex main-bar">
           <div className="flex-sub bar-label">
             <span>
-              <SpellIcon spell={SPELLS.ECLIPSE} />{' '}
+              <SpellIcon spell={TALENTS_DRUID.ECLIPSE_TALENT} />{' '}
             </span>
             {formatPercentage(percentUptime, 0)}% <small>uptime</small>
           </div>
@@ -86,8 +86,8 @@ export default class Eclipse extends Analyzer {
     const explanation = (
       <>
         <p>
-          Cast <SpellLink spell={SPELLS.ECLIPSE} /> on cooldown. It has a 32-second cooldown, lasts
-          15 seconds, and dramatically increases your damage.
+          Cast <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> on cooldown. It has a 32-second
+          cooldown, lasts 15 seconds, and dramatically increases your damage.
         </p>
         <p>
           Your last filler cast determines which Eclipse you enter:
@@ -102,23 +102,20 @@ export default class Eclipse extends Analyzer {
         </p>
         <p>
           <SpellLink spell={SPELLS.WRATH} /> is single target. <SpellLink spell={SPELLS.STARFIRE} />{' '}
-          cleaves. <br />
+          cleaves.{' '}
+        </p>
+        <p>
           Choose <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> when hitting 3 or more stacked targets.
           Choose <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> for 1 to 2 targets.
         </p>
-        <AlertInfo>
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
           <p>
             <strong>
-              <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} /> talented{' '}
+              <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} /> talented:{' '}
             </strong>
+            This talent restricts you from casting <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
           </p>
-          <strong>
-            <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} />:
-          </strong>{' '}
-          <p>
-            Restricts you from casting <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
-          </p>
-        </AlertInfo>
+        )}
       </>
     );
 

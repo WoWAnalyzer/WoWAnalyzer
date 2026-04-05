@@ -107,7 +107,7 @@ class SandsOfTime extends Analyzer {
       extendedDuplicate = false;
     }
     const spell = possibleExtends.event.ability.guid;
-    let performance =
+    const performance =
       extendedDuplicate && extendedEbonMight
         ? QualitativePerformance.Perfect
         : extendedEbonMight
@@ -118,7 +118,7 @@ class SandsOfTime extends Analyzer {
         Extended with <SpellLink spell={spell} />
       </div>
     );
-    let details =
+    const details =
       extendedDuplicate && extendedEbonMight ? (
         <div>
           You extended your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
@@ -168,20 +168,24 @@ class SandsOfTime extends Analyzer {
     }
     const explanation = (
       <section>
-        <strong>
-          <SpellLink spell={SPELLS.SANDS_OF_TIME} />
-        </strong>{' '}
-        extends the duration of your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />{' '}
-        {this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) && (
-          <>
-            and <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT} />
-          </>
-        )}{' '}
-        when casting <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.UPHEAVAL} />
-        , <SpellLink spell={TALENTS.ERUPTION_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />.<br></br>
-        You should never cast these spells outside your{' '}
-        <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> windows.
+        <p>
+          <strong>
+            <SpellLink spell={SPELLS.SANDS_OF_TIME} />
+          </strong>{' '}
+          extends the duration of your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />{' '}
+          {this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) && (
+            <>
+              and <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT} />
+            </>
+          )}{' '}
+          when casting <SpellLink spell={SPELLS.FIRE_BREATH} />,{' '}
+          <SpellLink spell={SPELLS.UPHEAVAL} />, <SpellLink spell={TALENTS.ERUPTION_TALENT} /> or{' '}
+          <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />.
+        </p>
+        <p>
+          You should never cast these spells outside your{' '}
+          <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> windows.
+        </p>
       </section>
     );
     return (

@@ -1,5 +1,4 @@
 import {
-  AbilityEvent,
   HasRelatedEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
@@ -49,10 +48,12 @@ import {
   ENGULF_CONSUME_FLAME,
   VERDANT_EMBRACE_INSURANCE,
   INSURANCE_APPLICATION,
+  EB_MERITHRAS,
+  EB_ENERGY_CYCLES,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
+export function isFromHardcastEcho(event: AnyEvent): boolean {
   return HasRelatedEvent(event, ECHO) || HasRelatedEvent(event, ECHO_REMOVAL);
 }
 
@@ -170,7 +171,11 @@ export function isEbFromHardcast(
   if (!lfEvent) {
     return false;
   }
-  return lfEvent.type === EventType.Cast;
+  return (
+    lfEvent.type === EventType.Cast ||
+    lfEvent.type === EventType.Heal ||
+    lfEvent.type === EventType.Damage
+  );
 }
 
 export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
@@ -205,6 +210,34 @@ export function isEbFromReversion(
     event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   }
   return HasRelatedEvent(event, EB_REVERSION);
+}
+
+export function isEbFromMerithras(
+  event:
+    | ApplyBuffEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent,
+) {
+  if (event.type === EventType.RemoveBuff || event.type === EventType.RemoveBuffStack) {
+    event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
+  }
+  return HasRelatedEvent(event, EB_MERITHRAS);
+}
+
+export function isEbFromEnergyCycles(
+  event:
+    | ApplyBuffEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent,
+) {
+  if (event.type === EventType.RemoveBuff || event.type === EventType.RemoveBuffStack) {
+    event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
+  }
+  return HasRelatedEvent(event, EB_ENERGY_CYCLES);
 }
 
 export function getTimeOfNeedHealing(event: SummonEvent) {

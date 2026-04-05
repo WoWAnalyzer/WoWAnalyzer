@@ -3,28 +3,27 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Guide from './Guide';
 import SpellUsable from './modules/core/SpellUsable';
-import Abilities from './modules/features/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Backdraft from './modules/talents/Backdraft';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Havoc from './modules/talents/Havoc';
+import Abilities from './modules/core/Abilities';
+import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
+import Backdraft from './modules/analyzers/Backdraft';
+import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
+import Havoc from './modules/analyzers/Havoc';
 import ImmolateUptime from './modules/guide/ImmolateUptime';
-import RainOfFire from './modules/features/RainOfFire';
+import RainOfFire from './modules/analyzers/RainOfFire';
 import SoulShardDetails from '../shared/resources/SoulShardDetails';
 import SoulShardTracker from '../shared/resources/SoulShardTracker';
 import SoulShardGraph from '../shared/resources/SoulShardGraph';
-import Cataclysm from './modules/talents/Cataclysm';
-import ChannelDemonfire from './modules/talents/ChannelDemonfire';
-import FireAndBrimstone from './modules/talents/FireAndBrimstone';
-import Flashover from './modules/talents/Flashover';
-import InternalCombustion from './modules/talents/InternalCombustion';
-import ReverseEntropy from './modules/talents/ReverseEntropy';
-import Shadowburn from './modules/talents/Shadowburn';
-import SoulFire from './modules/talents/SoulFire';
-import FlashPoint from './modules/talents/FlashPoint';
-import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
-import Immolate from './modules/features/Immolate';
-import HavocAnalyzer from './modules/features/HavocAnalyzer';
+import Cataclysm from './modules/analyzers/Cataclysm';
+import ChannelDemonfire from './modules/analyzers/ChannelDemonfire';
+import FireAndBrimstone from './modules/analyzers/FireAndBrimstone';
+import InternalCombustion from './modules/analyzers/InternalCombustion';
+import ReverseEntropy from './modules/analyzers/ReverseEntropy';
+import Shadowburn from './modules/analyzers/Shadowburn';
+import SoulFire from './modules/analyzers/SoulFire';
+import FlashPoint from './modules/analyzers/FlashPoint';
+import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
+import Immolate from './modules/analyzers/Immolate';
+import HavocAnalyzer from './modules/analyzers/HavocAnalyzer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,7 +49,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
 
     // Talents
-    flashover: Flashover,
     soulFire: SoulFire,
     reverseEntropy: ReverseEntropy,
     internalCombustion: InternalCombustion,
@@ -65,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
+    demonicHealthstone: DemonicHealthstone,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

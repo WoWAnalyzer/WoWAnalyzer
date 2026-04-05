@@ -19,6 +19,11 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 
+/**
+ * Perfected Form (Archon)
+ * Your healing done is increased by 10% while Apotheosis is active.
+ */
+
 class PerfectedFormHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -97,12 +102,16 @@ class PerfectedFormHoly extends Analyzer {
           <>
             <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> triggers from
             <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} /> and contributes to{' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />: <br />
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.perfectedFormApoth}></ItemPercentHealingDone>
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }

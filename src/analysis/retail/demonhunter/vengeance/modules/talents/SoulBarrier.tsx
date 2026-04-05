@@ -89,10 +89,13 @@ class SoulBarrier extends Analyzer {
         tooltip={
           <>
             Average Buff Length: <strong>{formatNumber(avgBuffLength)} seconds</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Total Damage Absorbed: <strong>{formatNumber(this.totalAbsorbed)}</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Healing <strong>{this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Total Casts: <strong>{this.casts}</strong>
           </>

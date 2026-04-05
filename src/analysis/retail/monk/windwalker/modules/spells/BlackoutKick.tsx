@@ -63,7 +63,10 @@ class BlackoutKick extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT)) {
       this.IMPORTANT_SPELLS.push(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id);
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.BLACKOUT_KICK_TOTM]),
+      this.onCast,
+    );
   }
 
   applyCdr(spellId: number): [number, number] {
@@ -78,6 +81,7 @@ class BlackoutKick extends Analyzer {
         BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
       effective += reductionMs;
+      wasted += cdr - reductionMs;
     }
     return [effective, wasted];
   }
@@ -132,7 +136,7 @@ class BlackoutKick extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
-          <span>
+          <p>
             <SpellIcon
               spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
               style={{
@@ -142,7 +146,8 @@ class BlackoutKick extends Analyzer {
             />{' '}
             {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-            <br />
+          </p>
+          <p>
             <SpellIcon
               spell={SPELLS.FISTS_OF_FURY_CAST}
               style={{
@@ -152,7 +157,7 @@ class BlackoutKick extends Analyzer {
             />{' '}
             {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-          </span>
+          </p>
         </BoringSpellValueText>
       </Statistic>
     );

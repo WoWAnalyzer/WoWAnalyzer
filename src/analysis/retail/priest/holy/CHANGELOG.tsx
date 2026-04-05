@@ -1,10 +1,14 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
+import { Amiphite, Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2026, 4, 1), <><SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> update.</>, Amiphite),
+  change(date(2026, 4, 1), <><SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> guide section update: <SpellLink spell={TALENTS.SPIRITWELL_TALENT} /> and
+  <SpellLink spell={TALENTS.DIVINITY_TALENT} /> support.</>, Amiphite),
+  change(date(2026, 3, 19), <>Partially updated for patch 12.0.1. Still need to implement modules and some talents.</>, Amiphite),
   change(date(2025, 6, 8), <>Add preparation section to overview.</>, Vetyst),
   change(date(2025, 6, 8), <>Add statistics for <SpellLink spell={TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />.</>, Vetyst),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
@@ -29,24 +33,24 @@ export default [
   change(date(2024, 8, 24), <>Added Cast time hps component to lightweaver and other statistic display improvements </>, Liavre),
   change(date(2024, 8, 20), <>Implemented both Oracle and Archon + minor fixes </>, Liavre),
   change(date(2024, 8, 13), <>Deleted references to Mindgames (old talent) </>, Liavre),
-  change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>, Arlie),
+  change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={TALENTS.DESPERATE_PRAYER_TALENT} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>, Arlie),
   change(
     date(2024, 4, 18),
     <>
       Partially updated for patch 10.2.6. Implementation still may be lacking. {' '}
       Update Pontifex, {' '}
-      Implement <SpellLink spell={TALENTS_PRIEST.LIGHTWELL_TALENT} />, {' '}
+      Implement Lightwell, {' '}
       Update Holy Word: Salvation to better claim Renew healing, {' '}
       Update <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT} /> to better claim Renew healing, {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} />, {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.DIVINE_WORD_TALENT} />, {' '}
+      Update Resonant Words, {' '}
+      Update Divine Word, {' '}
       Update Healing Chorus, and{' '}
       Update <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />
     </>,
     Saeldur,
   ),
   change(date(2023, 8, 1), <>Add <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT}/></>, Hana),
-  change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
+  change(date(2023, 7, 3), 'Update SpellLink usage.', Topple),
   change(date(2023, 5, 11), <>Fix crash in Holy Priest T30 module</>, Trevor),
   change(date(2023, 4, 26), <>Restyle Surge of Light and import it for Discipline</>, Hana),
   change(date(2023, 4, 20), <>Add support for Aberrus, the Shadowed Crucible tier set.</>, squided),
@@ -63,7 +67,7 @@ export default [
     <>
       Updated for patch 10.0.7. Temporarily disabled{' '}
       <SpellLink spell={TALENTS_PRIEST.DIVINE_IMAGE_TALENT} /> module due to combat log issues. Fix{' '}
-      <SpellLink spell={TALENTS_PRIEST.DIVINE_WORD_TALENT} /> module.
+      Divine Word module.
     </>,
     squided,
   ),
@@ -89,7 +93,7 @@ export default [
   change(
     date(2022, 11, 26),
     <>
-      Updated <SpellLink spell={TALENTS.DIVINE_WORD_TALENT} /> to new hotfix value.
+      Updated Divine Word to new hotfix value.
     </>,
     Litena,
   ),
@@ -113,7 +117,7 @@ export default [
   change(
     date(2022, 11, 3),
     <>
-      Added support for <SpellLink spell={TALENTS.DIVINE_WORD_TALENT} /> and Searing Light.
+      Added support for Divine Word and Searing Light.
     </>,
     Litena,
   ),
@@ -151,7 +155,7 @@ export default [
       New talent file structure and support for <SpellLink
         spell={TALENTS.DESPERATE_TIMES_TALENT}
       />{' '}
-      and <SpellLink spell={TALENTS.ANSWERED_PRAYERS_TALENT} />.{' '}
+      and Answered Prayers.{' '}
     </>,
     Litena,
   ),

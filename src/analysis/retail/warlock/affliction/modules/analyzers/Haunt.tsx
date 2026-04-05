@@ -100,6 +100,7 @@ class Haunt extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.bonusDmg)} bonus damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </>
         }

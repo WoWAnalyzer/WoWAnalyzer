@@ -37,6 +37,7 @@ class DiabolicRitualEmpowers extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.DIABOLIC_RITUAL_TALENT}>
           <small>Ruination, Infernal bolt damage</small>
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>

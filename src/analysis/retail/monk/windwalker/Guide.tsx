@@ -23,15 +23,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Preface & Disclaimers">
         <>
-          The analysis in this guide is provided in collaboration with the{' '}
-          <a href="https://discord.com/invite/peakofserenity">Peak of Serenity</a> Discord. Keep in
-          mind that WoWAnalyzer is limited to what is present in your combat log, and we cannot
-          always detect intentional deviations such as holding cooldowns for a specific strategy.
-          <br />
-          <br />
-          If you notice any issues or errors in this analysis or have feature requests, please reach
-          out to <code>@durpn</code> in the{' '}
-          <a href="https://discord.com/invite/peakofserenity">Peak of Serenity</a> Discord.
+          <p>
+            The analysis in this guide is provided in collaboration with the{' '}
+            <a href="https://discord.com/invite/peakofserenity">Peak of Serenity</a> Discord. Keep
+            in mind that WoWAnalyzer is limited to what is present in your combat log, and we cannot
+            always detect intentional deviations such as holding cooldowns for a specific strategy.
+          </p>
+          <p>
+            If you notice any issues or errors in this analysis or have feature requests, please
+            reach out to <code>@durpn</code> in the{' '}
+            <a href="https://discord.com/invite/peakofserenity">Peak of Serenity</a> Discord.
+          </p>
         </>
       </Section>
       <Section title="Core Spells and Buffs">
@@ -151,6 +153,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.invokeXuen.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ZENITH_TALENT) && modules.zenith.guideSubsection}
       </Section>
+      <Section title="Other cooldowns, buffs and procs">
+        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
+          modules.chiBurst.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT) &&
+          modules.danceOfChiJi.guideSubsection}
+        {(info.combatant.hasTalent(TALENTS_MONK.COMBO_BREAKER_TALENT) ||
+          info.combatant.hasTalent(TALENTS_MONK.SEQUENCED_STRIKES_TALENT)) &&
+          modules.comboBreaker.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_WINDWALKER_TALENT) &&
+          modules.rushingWindKick.guideSubsection}
+        {modules.touchOfKarma.guideSubsection}
+      </Section>
       <Section title="Core Rotation">
         <SubSection title="Overview">
           <p>
@@ -196,12 +210,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <AplSectionData checker={AplCheck.check} apl={windwalkerApl(info)} />
         </SubSection>
       </Section>
-      <Section title="Other cooldowns, buffs and procs">
-        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
-          modules.chiBurst.guideSubsection}
-        {modules.comboBreaker.guideSubsection}
-        {modules.touchOfKarma.guideSubsection}
-      </Section>
       <PreparationSection />
     </>
   );
@@ -222,11 +230,9 @@ function MasteryGraph({ modules, events, info }: GuideProps<typeof CombatLogPars
         <SpellLink spell={TALENTS_MONK.HIT_COMBO_TALENT} /> as it causes the mastery drop to double
         dip.
         {info.combatant.hasTalent(TALENTS_MONK.HIT_COMBO_TALENT) && (
-          <>
-            <br />
-            <br />
+          <p>
             The graph visualizes all drops, and the time it takes to get back to the full effect.
-          </>
+          </p>
         )}
       </p>
     </>

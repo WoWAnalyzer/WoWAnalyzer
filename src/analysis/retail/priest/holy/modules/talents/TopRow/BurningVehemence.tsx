@@ -10,6 +10,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { BV_DAMAGE_INCREASE_PER_RANK } from '../../../constants';
 
+/**
+ * Burning Vehemence
+ * Increases the damage of Holy Fire by 30%.
+ * Holy Fire deals 75% of its initial damage to all nearby enemies within 12 yards of your target. Damage reduced beyond 5 targets.
+ */
+
 class BurningVehemence extends Analyzer {
   damageBonus = 0;
   damageFromTalent = 0;

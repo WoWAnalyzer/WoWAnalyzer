@@ -59,11 +59,11 @@ class WildfireShells extends Analyzer.withDependencies({ spellUsable: SpellUsabl
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Wildfire Shells reduced Wildfire Bomb's cooldown by{' '}
-            <strong>{(this.effectiveCDR / 1000).toFixed(1)}s</strong> total.
-            <br />
-            <strong>{(this.wastedCDR / 1000).toFixed(1)}s</strong> was wasted (Wildfire Bomb not on
-            cooldown).
+            <p>Wildfire Shells reduced Wildfire Bomb's cooldown by </p>
+            <p>
+              <strong>{(this.wastedCDR / 1000).toFixed(1)}s</strong> was wasted (Wildfire Bomb not
+              on cooldown).
+            </p>
           </>
         }
       >

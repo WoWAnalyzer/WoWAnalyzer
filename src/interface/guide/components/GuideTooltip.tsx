@@ -29,6 +29,7 @@ export default function GuideTooltip({
         {tooltipItems.map((t, i) => (
           <div key={i}>
             <PerformanceMark perf={t.perf} /> {t.detail}
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </div>
         ))}

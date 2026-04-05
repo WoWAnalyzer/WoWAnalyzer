@@ -1,32 +1,50 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatNumber, formatSeconds } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
-import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
+import CastDetail, {
+  type PerCastData,
+  type PerCastStat,
+} from 'interface/guide/components/CastDetail';
+import CastOverview from 'interface/guide/components/CastOverview';
+import GuideSection from 'interface/guide/components/GuideSection';
+import ResourceLink from 'interface/ResourceLink';
 import Events, {
   CastEvent,
+  GetRelatedEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
-import { formatNumber } from 'common/format';
-import { SpellLink } from 'interface';
-import ResourceLink from 'interface/ResourceLink';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import MaelstromTracker from '../resources/MaelstromTracker';
+import MaelstromSpenderInfo from '../core/MaelstromSpenderInfo';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  computeScore,
+  getAggregatedScore,
+  scoreFromBreakpoints,
+  scoreToQualitativePerformance,
+} from 'parser/ui/WeightedPerformance';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { ReactNode } from 'react';
+import { type JSX, type ReactNode } from 'react';
+import { EVENT_LINKS } from '../../constants';
 
 interface SpenderCast {
   event: CastEvent;
   hasMoTE: boolean;
   currentMaelstrom: number;
   lavaBurstAvailableDuration: number;
+  wasteSinceLastSpender: number;
 }
+
+const LAVA_BURST_AVAILABLE_GRACE_MS = 10;
+const LAVA_BURST_PERFECT_MS = 2000;
+const LAVA_BURST_OK_MS = 5000;
+const SIGNIFICANT_OVERCAP_WASTE = 25;
 
 class MaelstromSpenders extends Analyzer.withDependencies({
   maelstromTracker: MaelstromTracker,
+  spenderInfo: MaelstromSpenderInfo,
   spellUsable: SpellUsable,
 }) {
   spenderCasts: SpenderCast[] = [];
@@ -36,6 +54,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
   };
 
   oneChargeLavaBurstTimestamp: number | null = this.owner.fight.start_time;
+  lastRecordedTotalWaste = 0;
 
   constructor(options: Options) {
     super(options);
@@ -45,14 +64,7 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     };
 
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([
-          TALENTS.EARTH_SHOCK_TALENT,
-          TALENTS.ELEMENTAL_BLAST_TALENT,
-          TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
-          TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
-        ]),
+      Events.cast.by(SELECTED_PLAYER).spell(this.deps.spenderInfo.maelstromSpenders),
       this.onSpenderCast,
     );
 
@@ -76,16 +88,6 @@ class MaelstromSpenders extends Analyzer.withDependencies({
     return cap;
   }
 
-  /**
-   * Get the primary spender spell ID for the selected combatant.
-   */
-  get primarySpender(): number {
-    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
-      return TALENTS.ELEMENTAL_BLAST_TALENT.id;
-    }
-    return TALENTS.EARTH_SHOCK_TALENT.id;
-  }
-
   onLavaBustUsable(event: UpdateSpellUsableEvent) {
     if (event.updateType === UpdateSpellUsableType.RestoreCharge && event.chargesAvailable === 1) {
       this.oneChargeLavaBurstTimestamp = event.timestamp;
@@ -97,311 +99,364 @@ class MaelstromSpenders extends Analyzer.withDependencies({
   }
 
   onSpenderCast(event: CastEvent) {
+    const totalWaste = this.deps.maelstromTracker.wasted;
+    const wasteSinceLastSpender = Math.max(totalWaste - this.lastRecordedTotalWaste, 0);
+    this.lastRecordedTotalWaste = totalWaste;
+
     const cast: SpenderCast = {
       event: event,
       hasMoTE:
         this.enabledTalents.masterOfTheElements &&
-        this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id, event.timestamp),
+        GetRelatedEvent(event, EVENT_LINKS.MasterOfTheElementsConsume) !== undefined,
       currentMaelstrom:
         this.deps.maelstromTracker.current +
         (this.deps.maelstromTracker.lastSpenderInfo?.amount ?? 0),
       lavaBurstAvailableDuration: this.oneChargeLavaBurstTimestamp
         ? event.timestamp - this.oneChargeLavaBurstTimestamp
         : 0,
+      wasteSinceLastSpender,
     };
     this.spenderCasts.push(cast);
   }
 
-  // Create a checklist item for Master of the Elements state
-  private createMoteChecklistItem(cast: SpenderCast): ChecklistUsageInfo {
-    const explanation = (
-      <>
-        <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> was{' '}
-        {cast.hasMoTE ? 'active' : 'not active'}
-      </>
-    );
-
-    return {
-      timestamp: cast.event.timestamp,
-      summary: explanation,
-      check: 'has-mote',
-      performance: cast.hasMoTE ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
-      details: <div>{explanation}</div>,
-    };
+  private getLavaBurstScore(cast: SpenderCast): number {
+    if (!this.enabledTalents.masterOfTheElements || cast.hasMoTE) {
+      return 1.0;
+    }
+    return scoreFromBreakpoints(cast.lavaBurstAvailableDuration / 1000, [
+      { value: 0, score: 1.0 },
+      { value: 5, score: 0.75 },
+      { value: 10, score: 0.0 },
+    ]);
   }
 
-  // Create a comprehensive checklist item for spender selection (merging Echoes and spender logic)
-  private createSpenderSelectionChecklistItem(cast: SpenderCast): ChecklistUsageInfo {
-    const isEarthquake = this.isEarthquake(cast.event.ability.guid);
-    let performance = QualitativePerformance.Perfect;
-    let explanation: ReactNode;
+  private getLavaBurstOpportunityPerformance(cast: SpenderCast): QualitativePerformance {
+    return scoreToQualitativePerformance(this.getLavaBurstScore(cast));
+  }
 
-    explanation = (
-      <>
-        <SpellLink spell={cast.event.ability.guid} /> was cast.
-      </>
+  private isMoteRelevant(cast: SpenderCast): boolean {
+    return (
+      this.enabledTalents.masterOfTheElements &&
+      (cast.hasMoTE || cast.lavaBurstAvailableDuration >= LAVA_BURST_AVAILABLE_GRACE_MS)
     );
+  }
 
+  private getWasteSinceLastSpender(cast: SpenderCast): number {
+    return Math.max(cast.wasteSinceLastSpender, 0);
+  }
+
+  private isSignificantOvercap(cast: SpenderCast): boolean {
+    return this.getWasteSinceLastSpender(cast) > SIGNIFICANT_OVERCAP_WASTE;
+  }
+
+  private getWasteScore(cast: SpenderCast): number {
+    return scoreFromBreakpoints(this.getWasteSinceLastSpender(cast), [
+      { value: 0, score: 1.0 },
+      { value: 5, score: 0.75 },
+      { value: 15, score: 0.5 },
+      { value: SIGNIFICANT_OVERCAP_WASTE, score: 0.0 },
+    ]);
+  }
+
+  private getWastePerformance(cast: SpenderCast): QualitativePerformance {
+    return scoreToQualitativePerformance(this.getWasteScore(cast));
+  }
+
+  private getMaelstromStat(cast: SpenderCast): PerCastStat {
     return {
-      timestamp: cast.event.timestamp,
-      summary: (
+      value: `${formatNumber(cast.currentMaelstrom)}/${formatNumber(this.maelstromCap)}`,
+      label: 'Maelstrom',
+      performance: this.getWastePerformance(cast),
+      tooltip: (
         <>
-          <SpellLink spell={cast.event.ability.guid} /> cast
+          Your <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> immediately before this spender.
         </>
       ),
-      check: 'spender-type',
-      performance: performance,
-      details: <div>{explanation}</div>,
     };
   }
 
-  // Create a checklist item for Lava Burst charges state
-  private createLavaBurstChecklistItem(cast: SpenderCast): ChecklistUsageInfo {
-    let performance: QualitativePerformance;
-    let details: ReactNode;
+  private getWasteSinceLastSpenderStat(cast: SpenderCast): PerCastStat {
+    const wasteSinceLastSpender = this.getWasteSinceLastSpender(cast);
 
-    if (cast.lavaBurstAvailableDuration < 10) {
-      performance = QualitativePerformance.Perfect;
-      details = (
+    return {
+      value: formatNumber(wasteSinceLastSpender),
+      label: 'Waste Since Last',
+      performance: this.getWastePerformance(cast),
+      tooltip: (
         <>
-          <div>
-            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> was unavailable.
-          </div>
+          Actual <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> lost to overcap since your
+          previous spender cast.
         </>
-      );
-    } else if (cast.lavaBurstAvailableDuration < 1000) {
-      // It's okay if LvB just became available or we're about to cap
-      performance = QualitativePerformance.Ok;
-      details = (
+      ),
+    };
+  }
+
+  private getMoteStat(cast: SpenderCast): PerCastStat {
+    return {
+      value: cast.hasMoTE ? 'Yes' : 'No',
+      label: 'MoTE',
+      performance: cast.hasMoTE
+        ? QualitativePerformance.Perfect
+        : this.getLavaBurstOpportunityPerformance(cast),
+      tooltip: (
         <>
+          Whether <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> was active when this
+          spender was cast.
+        </>
+      ),
+    };
+  }
+
+  private getLavaBurstStat(cast: SpenderCast): PerCastStat {
+    const performance = this.getLavaBurstOpportunityPerformance(cast);
+    const value =
+      cast.lavaBurstAvailableDuration < LAVA_BURST_AVAILABLE_GRACE_MS
+        ? 'No'
+        : `${formatSeconds(cast.lavaBurstAvailableDuration, 1)}s`;
+
+    return {
+      value: value,
+      label: 'LvB Ready',
+      performance: this.enabledTalents.masterOfTheElements ? performance : undefined,
+      tooltip: (
+        <>
+          Time that <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> had at least one charge ready
+          before this spender cast.
+        </>
+      ),
+    };
+  }
+
+  private getCastDetails(cast: SpenderCast): ReactNode {
+    let recommendation: ReactNode | null = null;
+    let context: ReactNode | null = null;
+    const wasteSinceLastSpender = this.getWasteSinceLastSpender(cast);
+
+    if (this.isSignificantOvercap(cast)) {
+      context = (
+        <div>
+          You wasted <strong>{formatNumber(wasteSinceLastSpender)}</strong>{' '}
+          <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> by not spending earlier. Wasting this
+          much <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> is a significant mistake.
+        </div>
+      );
+    } else if (wasteSinceLastSpender > 0) {
+      context = (
+        <div>
+          You were at the <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> cap. Spend earlier to
+          avoid overcapping and wasting <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />.
+        </div>
+      );
+    }
+
+    if (
+      this.enabledTalents.masterOfTheElements &&
+      !cast.hasMoTE &&
+      cast.lavaBurstAvailableDuration >= LAVA_BURST_AVAILABLE_GRACE_MS
+    ) {
+      if (cast.lavaBurstAvailableDuration < LAVA_BURST_PERFECT_MS) {
+        recommendation = (
           <div>
             <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> was available for less than{' '}
             <strong>{formatSeconds(cast.lavaBurstAvailableDuration, 1)}s</strong>.
           </div>
-        </>
-      );
-    } else {
-      performance = QualitativePerformance.Fail;
-      details = (
-        <>
+        );
+      } else {
+        recommendation = (
           <div>
-            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />: One or more charges available for{' '}
-            <strong>{formatSeconds(cast.lavaBurstAvailableDuration, 1)}s</strong> prior to spender
-            cast.
+            One or more charges of <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> had been
+            available for <strong>{formatSeconds(cast.lavaBurstAvailableDuration, 1)}s</strong> -
+            you should have cast it earlier to have{' '}
+            <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> active.
           </div>
-        </>
-      );
-    }
-
-    return {
-      timestamp: cast.event.timestamp,
-      summary: (
-        <>
-          <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />{' '}
-          {cast.lavaBurstAvailableDuration > 0 ? 'available' : 'not available'}
-        </>
-      ),
-      check: 'lava-burst',
-      performance: performance,
-      details: details,
-    };
-  }
-
-  // Create a checklist item for Maelstrom cap state
-  private createMaelstromCapChecklistItem(cast: SpenderCast): ChecklistUsageInfo {
-    const nearCap = this.nearMaelstromCap(cast.currentMaelstrom);
-    return {
-      timestamp: cast.event.timestamp,
-      summary: (
-        <>
-          <strong>{cast.currentMaelstrom}</strong> <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />
-        </>
-      ),
-      check: 'maelstrom',
-      performance: nearCap ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
-      details: (
-        <div>
-          <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />:{' '}
-          <strong>
-            {formatNumber(cast.currentMaelstrom)}/{formatNumber(this.maelstromCap)}{' '}
-          </strong>
-        </div>
-      ),
-    };
-  }
-
-  calculateCastPerformance(cast: SpenderCast): QualitativePerformance {
-    if (this.enabledTalents.masterOfTheElements) {
-      // Prefer casting spenders with the MoTE buff; exceptions are allowed when near-capping.
-      if (cast.hasMoTE) {
-        return QualitativePerformance.Perfect;
+        );
       }
     }
 
-    if (this.nearMaelstromCap(cast.currentMaelstrom)) {
-      return cast.lavaBurstAvailableDuration < 1000
-        ? QualitativePerformance.Good
-        : QualitativePerformance.Ok;
-    } else {
-      return QualitativePerformance.Fail;
-    }
+    return (
+      <>
+        <ul>
+          <li>
+            Spell Cast: <SpellLink spell={cast.event.ability.guid} />
+          </li>
+          {context && <li>{context}</li>}
+          {recommendation && <li>{recommendation}</li>}
+        </ul>
+      </>
+    );
   }
 
-  get guideSubsection() {
+  private getCastStats(cast: SpenderCast, overallScore: number): PerCastStat[] {
+    const stats: PerCastStat[] = [this.getMaelstromStat(cast), this.getLavaBurstStat(cast)];
+
+    if (this.getWasteSinceLastSpender(cast) > 0) {
+      stats.push(this.getWasteSinceLastSpenderStat(cast));
+    }
+
+    if (this.isMoteRelevant(cast)) {
+      stats.push(this.getMoteStat(cast));
+    }
+
+    stats.push({
+      value: `${Math.round(overallScore * 100)}%`,
+      label: 'Score',
+      performance: scoreToQualitativePerformance(overallScore),
+    });
+
+    return stats;
+  }
+
+  /**
+   * Waste is weighted more heavily because overcapping a more serious misplay.
+   * The two LvB checks measure increasingly severe misses of the same optimization window.
+   */
+  private static readonly SCORING = {
+    wasteWeight: 3,
+    lavaBurstWeight: 1,
+    lavaBurstExtremeWeight: 1,
+    /** LvB available beyond this threshold (ms) incurs additional exponential penalty. */
+    lavaBurstExtremeThresholdMs: 10_000,
+    /** Decay rate for the exponential penalty; higher values produce a steeper falloff. */
+    lavaBurstExtremeDecayRate: 0.05,
+  } as const;
+
+  /** Exponential decay penalty for extreme LvB delays (>10s). */
+  private getExtremeLavaBurstScore(cast: SpenderCast): number {
+    if (!this.enabledTalents.masterOfTheElements || cast.hasMoTE) {
+      return 1.0;
+    }
+    return computeScore(cast.lavaBurstAvailableDuration, (ms) =>
+      ms <= MaelstromSpenders.SCORING.lavaBurstExtremeThresholdMs
+        ? 1.0
+        : Math.exp(
+            -MaelstromSpenders.SCORING.lavaBurstExtremeDecayRate *
+              (ms / 1000 - MaelstromSpenders.SCORING.lavaBurstExtremeThresholdMs / 1000),
+          ),
+    );
+  }
+
+  private getOverallScore(cast: SpenderCast): number {
+    return getAggregatedScore([
+      { score: this.getWasteScore(cast), weight: MaelstromSpenders.SCORING.wasteWeight },
+      {
+        score: this.getLavaBurstScore(cast),
+        weight: MaelstromSpenders.SCORING.lavaBurstWeight,
+      },
+      {
+        score: this.getExtremeLavaBurstScore(cast),
+        weight: MaelstromSpenders.SCORING.lavaBurstExtremeWeight,
+      },
+    ]);
+  }
+
+  private buildPerCastData(): PerCastData[] {
+    return this.spenderCasts.map((cast) => {
+      const overallScore = this.getOverallScore(cast);
+      const stats = this.getCastStats(cast, overallScore);
+
+      return {
+        performance: scoreToQualitativePerformance(overallScore),
+        timestamp: this.owner.formatTimestamp(cast.event.timestamp),
+        additionalContent: {
+          title: 'Cast Details',
+          content: this.getCastDetails(cast),
+        },
+        stats: stats,
+      };
+    });
+  }
+
+  private buildOverviewStats() {
+    const totalCasts = this.spenderCasts.length;
+    const castsWithMote = this.spenderCasts.filter((cast) => cast.hasMoTE).length;
+    const lavaBurstReadyMisses = this.spenderCasts.filter(
+      (cast) => !cast.hasMoTE && cast.lavaBurstAvailableDuration >= LAVA_BURST_OK_MS,
+    ).length;
+    const averageMaelstrom =
+      totalCasts > 0
+        ? this.spenderCasts.reduce((total, cast) => total + cast.currentMaelstrom, 0) / totalCasts
+        : 0;
+
+    return [
+      {
+        value: `${totalCasts}`,
+        label: 'Total Spenders',
+        tooltip: null,
+      },
+      {
+        value: formatNumber(averageMaelstrom),
+        label: 'Avg Maelstrom',
+        tooltip: null,
+      },
+      ...(this.enabledTalents.masterOfTheElements
+        ? [
+            {
+              value: `${castsWithMote}`,
+              label: 'MoTE Casts',
+              tooltip: null,
+              performance:
+                castsWithMote === totalCasts
+                  ? QualitativePerformance.Perfect
+                  : QualitativePerformance.Ok,
+            },
+            {
+              value: `${lavaBurstReadyMisses}`,
+              label: 'Missed MOTE Opportunities',
+              tooltip: (
+                <>
+                  Spenders cast without <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />{' '}
+                  while <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> was already ready.
+                </>
+              ),
+              performance:
+                lavaBurstReadyMisses === 0
+                  ? QualitativePerformance.Perfect
+                  : QualitativePerformance.Fail,
+            },
+          ]
+        : []),
+    ];
+  }
+
+  get guideSubsection(): JSX.Element | null {
     if (this.spenderCasts.length === 0) {
       return null;
     }
 
-    const spellUses: SpellUse[] = this.spenderCasts.map((cast) => {
-      // Create all potential checklist items
-      const maelstromCapChecklistItem = this.createMaelstromCapChecklistItem(cast);
-      const lavaBurstCharges = this.createLavaBurstChecklistItem(cast);
-      const spenderSelectionChecklistItem = this.createSpenderSelectionChecklistItem(cast);
-      const moteChecklistItem = this.createMoteChecklistItem(cast);
-
-      const checks = [spenderSelectionChecklistItem];
-
-      if (this.enabledTalents.masterOfTheElements) {
-        checks.push(moteChecklistItem);
-      }
-
-      let extraDetail: ReactNode | null = null;
-      const performance = this.calculateCastPerformance(cast);
-      // If not perfect, add additional details
-      if (performance !== QualitativePerformance.Perfect) {
-        checks.push(maelstromCapChecklistItem);
-
-        // If MoTE wasn't active, show lava burst availability to explain why.
-        if (!this.enabledTalents.masterOfTheElements || !cast.hasMoTE) {
-          checks.push(lavaBurstCharges);
-        }
-
-        const warnings: ReactNode[] = [];
-        warnings.push(<li key="maelstrom-warning">{this.getMaelstromWarning(cast)}</li>);
-
-        if (cast.lavaBurstAvailableDuration > 1000) {
-          warnings.push(
-            <li key="lava-burst-warning">
-              One or more charges of <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> were available
-              for <strong>{formatSeconds(cast.lavaBurstAvailableDuration, 1)}s</strong> - you should
-              have cast it earlier
-              {this.enabledTalents.masterOfTheElements ? (
-                <>
-                  {' '}
-                  to have <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> active.
-                </>
-              ) : (
-                '.'
-              )}
-            </li>,
-          );
-        }
-
-        extraDetail = (
-          <>
-            Try improving on one or more of the following to maximize your damage output:
-            <ul>{warnings}</ul>
-          </>
-        );
-      }
-
-      const use: SpellUse = {
-        event: cast.event,
-        checklistItems: checks,
-        performance: performance,
-        extraDetails: extraDetail,
-      };
-      return use;
-    });
-
-    const performances: BoxRowEntry[] = spellUses.map((use) => {
-      const tooltipText =
-        use.performance === QualitativePerformance.Perfect
-          ? 'Perfect cast'
-          : 'Inefficient cast, see details';
-
-      return {
-        value: use.performance,
-        tooltip: tooltipText,
-      };
-    });
-
     const explanation = (
       <>
         <p>
-          You should aim to cast your <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> spenders
-          {this.enabledTalents.masterOfTheElements ? (
-            <>
-              {' '}
-              with the <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> buff active to
-              maximize your damage output, or to avoid overcapping{' '}
-              <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> (within 15 of your maximum).
-            </>
-          ) : (
-            <>
-              {' '}
-              to avoid overcapping <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> (within 15 of
-              your maximum).
-            </>
-          )}
+          <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> spenders are now often used earlier, so
+          this section does not expect every cast to happen near cap.
         </p>
+        {this.enabledTalents.masterOfTheElements ? (
+          <p>
+            The only casts flagged here are spenders used without{' '}
+            <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> after{' '}
+            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> was already ready. If{' '}
+            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> was unavailable, spending early is
+            treated as fine.
+          </p>
+        ) : (
+          <p>These cards are informational and show when each spender was cast.</p>
+        )}
       </>
     );
 
     return (
-      <SpellUsageSubSection
-        title={
-          <>
-            <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> Spender Usage
-          </>
-        }
+      <GuideSection
+        spell={this.deps.spenderInfo.primarySpender}
         explanation={explanation}
-        performances={performances}
-        uses={spellUses}
-      />
+        explanationPercent={30}
+      >
+        <CastOverview
+          spell={this.deps.spenderInfo.primarySpender}
+          stats={this.buildOverviewStats()}
+        />
+        <CastDetail title="Maelstrom Spender Casts" casts={this.buildPerCastData()} />
+      </GuideSection>
     );
   }
-
-  getMaelstromWarning(cast: SpenderCast): ReactNode {
-    if (cast.currentMaelstrom > this.maelstromCap - 15) {
-      return (
-        <>
-          You were {cast.currentMaelstrom === this.maelstromCap ? 'at' : 'near'} the{' '}
-          <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> cap. Spend earlier to avoid overcapping
-          and wasting <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />.
-        </>
-      );
-    } else {
-      return (
-        <>
-          You were not near the <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> cap and did not
-          need to spend <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />.
-        </>
-      );
-    }
-  }
-
-  // Calculate effective cap threshold (where it becomes ok to spend without MoTE)
-  nearMaelstromCap(current: number): boolean {
-    return current >= this.maelstromCap - 15;
-  }
-
-  isEarthquake(spellId: number): boolean {
-    return [
-      TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
-      TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
-    ].includes(spellId);
-  }
-}
-
-/**
- * Formats a duration in milliseconds as seconds with a specified precision.
- * @param durationMs - The duration in milliseconds to format.
- * @param precision - The number of decimal places to include in the result.
- * @returns The formatted duration in seconds, rounded to the specified precision.
- */
-function formatSeconds(durationMs: number, precision: number): number {
-  return Math.round((durationMs * Math.pow(10, precision)) / 1000) / Math.pow(10, precision);
 }
 
 export default MaelstromSpenders;

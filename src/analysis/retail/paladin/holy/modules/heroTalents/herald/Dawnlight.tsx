@@ -142,7 +142,6 @@ class Dawnlight extends Analyzer {
               <div>Overhealing: {formatNumber(this.totalOverhealing)}</div>
               <div>Total Damage: {formatNumber(this.totalDamage)}</div>
             </div>
-            <br />
             <div>
               <div>
                 <SpellLink spell={SPELLS.DAWNLIGHT_HEAL} /> Main Target Healing:{' '}
@@ -160,7 +159,6 @@ class Dawnlight extends Analyzer {
                 {formatNumber(this.damageSource.get(SPELLS.DAWNLIGHT_DAMAGE.id)?.totalAmount || 0)}
               </div>
             </div>
-            <br />
             <div>
               <div>
                 <SpellLink spell={SPELLS.SUNS_AVATAR_HEAL} /> Healing:{' '}

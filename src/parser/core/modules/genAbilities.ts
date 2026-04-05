@@ -17,9 +17,12 @@ export interface GenAbilityConfig {
   rotational: GenSpell[];
   cooldowns: GenSpell[];
   defensives: GenSpell[];
+  /**
+   * Overrides for generated spells. These handlers are only called if a spell has a definition in the generated spell list.
+   */
   overrides?: Record<
     number,
-    (combatant: Combatant, generated?: SpellbookAbility) => SpellbookAbility
+    (combatant: Combatant, generated: SpellbookAbility) => SpellbookAbility
   >;
   /**
    * Spells to be omitted from abilities. Typically, these are added externally (such as by ExecuteHelper).
@@ -78,13 +81,19 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
       return [
         ...spells.filter((spell) => !config.overrides?.[spell.spell as number]),
         ...others.filter((spell) => !config.overrides?.[spell.spell as number]),
-        ...Object.entries(config.overrides ?? {}).map(([key, fn]) =>
-          fn(
-            this.selectedCombatant,
-            spells.find((spell) => spell.spell === Number(key)) ??
-              others.find((spell) => spell.spell === Number(key)),
-          ),
-        ),
+        ...Object.keys(config.overrides ?? {})
+          .filter((spellId) => allSpells[Number(spellId)] !== undefined)
+          .map(
+            (spellId) =>
+              spells.concat(others).find((spell) => spell.spell === Number(spellId)) ??
+              spellbookDefinition(
+                this.selectedCombatant,
+                allSpells[Number(spellId)],
+                SPELL_CATEGORY.OTHERS,
+                allSpells,
+              ),
+          )
+          .map((spell) => config.overrides![spell.spell as number](this.selectedCombatant, spell)),
       ];
     }
   };

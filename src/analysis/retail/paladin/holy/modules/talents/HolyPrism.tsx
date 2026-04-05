@@ -148,13 +148,10 @@ class HolyPrismTargetsHit extends Analyzer {
         size="small"
         tooltip={
           <>
-            Casts are AoE only Casts
-            <br />
-            Targets hit are ALL targets Hit including 100% overhealing
-            <br />
-            Pets hit are ONLY pets Hit including 100% overheal
-            <br />
-            Hurt Non-Pets hit are all non pets excluding 100% overheal
+            <p>Casts are AoE only Casts</p>
+            <p>Targets hit are ALL targets Hit including 100% overhealing</p>
+            <p>Pets hit are ONLY pets Hit including 100% overheal</p>
+            <p>Hurt Non-Pets hit are all non pets excluding 100% overheal</p>
             <ul>
               <li>Casts: {this.casts}</li>
               <li>
@@ -218,7 +215,6 @@ class HolyPrismTargetsHit extends Analyzer {
             <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spenders after casting{' '}
             <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> to take advantage of{' '}
             <SpellLink spell={TALENTS.SUNS_AVATAR_TALENT} />.
-            <br />
           </>
         )}
       </p>
@@ -231,12 +227,14 @@ class HolyPrismTargetsHit extends Analyzer {
             <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
-            {this.subStatistic()} <br />
-            <strong>Casts </strong>
-            <small>
-              - Green indicates a correct <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> cast,
-              while yellow indicates an ok cast.
-            </small>
+            {this.subStatistic()}
+            <p>
+              <strong>Casts </strong>
+              <small>
+                - Green indicates a correct <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> cast,
+                while yellow indicates an ok cast.
+              </small>
+            </p>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
         </RoundedPanel>

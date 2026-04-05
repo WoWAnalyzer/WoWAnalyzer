@@ -15,13 +15,6 @@ export const BESTIAL_WRATH_BASE_CD = 90000;
 //endregion
 
 //region Talents
-/** Barbed Shot */
-//max stacks your pet can have of the Frenzy buff
-export const MAX_FRENZY_STACKS = 3;
-//Frenzy lasts 8 seconds normally, but can be adjusted by some effects
-export const ORIGINAL_FRENZY_DURATION = 8000;
-//Frenzy lasts 10 seconds with Savagery talent
-export const SAVAGERY_FRENZY_DURATION = 10000;
 /** Pack Tactics */
 export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 /** Bloodshed */

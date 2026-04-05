@@ -41,14 +41,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.GREATER_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.FLASH_HEAL.id]: {
     int: true,
     crit: true,
@@ -73,14 +65,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [TALENTS.RENEW_TALENT.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
   [TALENTS.HOLY_WORD_SERENITY_TALENT.id]: {
     int: true,
     crit: true,
@@ -97,7 +81,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.DESPERATE_PRAYER.id]: {
+  [TALENTS.DESPERATE_PRAYER_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -148,14 +132,6 @@ export default {
     vers: true,
   },
   [SPELLS.HALO_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.DIVINE_STAR_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

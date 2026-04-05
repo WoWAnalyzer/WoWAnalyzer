@@ -66,6 +66,12 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT),
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.FORBIDDEN_KNOWLEDGE_BUFF.id,
+        triggeredBySpellId: TALENTS.ARMY_OF_THE_DEAD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.FORBIDDEN_KNOWLEDGE_1_UNHOLY_TALENT),
+        timelineHighlight: true,
+      },
     ];
   }
 }

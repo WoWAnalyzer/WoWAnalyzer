@@ -821,7 +821,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 117907,
-    masteryCoefficient: 4.2,
+    masteryCoefficient: 13.86,
     branch: GameBranch.Retail,
     ranking: {
       class: 5,

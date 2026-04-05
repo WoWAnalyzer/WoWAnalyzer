@@ -6,6 +6,8 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
+  change(date(2026, 3, 30),  <>Update <SpellLink spell={TALENTS.WINGLEADER_TALENT} /> CDR modifier.</>, Vollmer),
+  change(date(2026, 3, 23), "Update guide section for midnight and introduce new No Wasted Buffs section.", Vollmer),
   change(date(2026, 3, 17), <>Add statistics for <SpellLink spell={TALENTS.RISING_FURY_3_DEVASTATION_TALENT}/> and <ItemSetLink id={EVOKER_MID1_ID}>MID Season 1 Tier Set</ItemSetLink>.</>, Vollmer),
   change(date(2026, 2, 7), <>Add statistics for <SpellLink spell={TALENTS.CONCENTRATED_POWER_TALENT} />.</>, Vollmer),
   change(date(2026, 2, 1), <>Improve statistics for <SpellLink spell={TALENTS.IRIDESCENCE_TALENT} />.</>, Vollmer),

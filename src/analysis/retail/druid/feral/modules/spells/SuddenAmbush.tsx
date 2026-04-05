@@ -164,6 +164,7 @@ class SuddenAmbush extends Snapshots {
       perfExplanation = (
         <h5 style={{ color: OkColor }}>
           Careful, you early overwrote an already strong Rake.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -174,9 +175,11 @@ class SuddenAmbush extends Snapshots {
         <strong>
           Consumed with <SpellLink spell={SPELLS.RAKE} />
         </strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {isRakeOnTarget ? (
           <>
@@ -229,6 +232,7 @@ class SuddenAmbush extends Snapshots {
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
           Bad because there was no Rake on the target
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -237,6 +241,7 @@ class SuddenAmbush extends Snapshots {
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
           Bad because the Rake on target was within the refresh window
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -245,6 +250,7 @@ class SuddenAmbush extends Snapshots {
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
           Bad because the Rake on target was weak
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
       );
@@ -255,9 +261,11 @@ class SuddenAmbush extends Snapshots {
         <strong>
           Consumed with <SpellLink spell={SPELLS.SHRED} />
         </strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {isRakeOnTarget ? (
           <>
@@ -298,6 +306,7 @@ class SuddenAmbush extends Snapshots {
         <>
           <h5 style={{ color: BadColor }}>
             Bad because you let a proc expire
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
           </h5>
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
@@ -330,6 +339,7 @@ class SuddenAmbush extends Snapshots {
       <>
         <h5 style={{ color: BadColor }}>
           Bad because you overwrote a proc
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
         </h5>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
@@ -406,7 +416,9 @@ class SuddenAmbush extends Snapshots {
             This is the damage from the increase to Shred and Rake damage caused by Sudden Ambush
             procs. This underrates the total benefit of Sudden Ambush because it does not count the
             increased crit chance and additional combo point from Shred.
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Buff Utilization: <strong>{formatPercentage(this.saUtil, 1)}%</strong>
             <ul>
@@ -426,6 +438,7 @@ class SuddenAmbush extends Snapshots {
                 </li>
               )}
             </ul>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Breakdown by spell{' '}
             {hasDcr && (
