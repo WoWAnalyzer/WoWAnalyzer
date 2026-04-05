@@ -102,7 +102,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 120,
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
