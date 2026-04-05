@@ -1,6 +1,6 @@
 // TODO this should be unified?
-import { readCsvFromUrl, csvToObject } from '../talents/talent-tree-helpers';
 import * as fs from 'fs';
+import { csvToObject, readCsvFromUrl } from 'scripts/utils/helpers';
 
 const BUILD_NUMBER = '11.0.2.56110';
 

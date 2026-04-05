@@ -1,14 +1,10 @@
 import fs from 'fs';
 
 import {
-  camalize,
   createTalentKey,
-  csvToObject,
   findResourceCost,
   findResourceCostPerSecond,
   printTalents,
-  readCsvFromUrl,
-  readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
   ClassNodeType,
@@ -21,6 +17,7 @@ import {
   TalentEntry,
   TalentNode,
 } from './talent-tree-types';
+import { camalize, csvToObject, readCsvFromUrl, readJsonFromUrl } from 'scripts/utils/helpers';
 
 const LIVE_WOW_BUILD_NUMBER = '12.0.1.66220';
 const LIVE_TALENT_DATA_URL = `https://www.raidbots.com/static/data/${LIVE_WOW_BUILD_NUMBER}/talents.json`;
