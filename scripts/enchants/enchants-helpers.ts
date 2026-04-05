@@ -54,17 +54,23 @@ export function getKeyedEnchantmentInternalEntries(entries: EnchantmentInternalE
   return Object.values(map);
 }
 
+function createEnchantKey(name: string, craftingQuality?: number, category?: string) {
+  const rank = craftingQuality ? `_R${craftingQuality}` : '';
+  const categoryName = category && category !== 'Other' ? `${category}_` : '';
+
+  return `${categoryName}${slugify(name, true)}${rank}`.toUpperCase();
+}
+
 // region Item Enchants
 
 export function mapItemEnchantmentStaticDataToInternalEntries(
   entries: ItemEnchantmentStaticDataEntry[],
 ): EnchantmentInternalEntry[] {
   return entries.map((entry) => {
-    const category = entry?.categoryName ? `${entry.categoryName.split(' ')[0]}` : 'Other';
-
+    const categoryName = getItemEnchantmentCategoryName(entry);
     return {
-      type: category,
-      key: createEnchantKey(entry.itemName, entry.craftingQuality, entry.categoryName),
+      type: categoryName,
+      key: createEnchantKey(entry.itemName, entry.craftingQuality, categoryName),
       value: mapItemEnchantmentToEnchant(entry),
     };
   });
@@ -73,11 +79,57 @@ export function mapItemEnchantmentStaticDataToInternalEntries(
 function mapItemEnchantmentToEnchant(entry: ItemEnchantmentStaticDataEntry): Enchant {
   return {
     id: entry?.itemId ?? -1,
-    name: entry?.baseDisplayName ?? entry.itemName ?? entry.displayName,
+    name: getItemEnchantmentName(entry),
     icon: entry?.itemIcon ?? entry.spellIcon,
     effectId: entry.id,
     craftQuality: entry.craftingQuality,
   };
+}
+
+/**
+ * Enchants with no categoryName will generally look like this:
+ * "displayName": "32 Int & 70 Sta"
+ * "itemName": "Sunfire Silk Spellthread"
+ *
+ * Whilst enchants with categoryName will generally look like this:
+ * "baseDisplayName": "Enchant Ring - Amani Mast"
+ * "displayName": "Enchant Ring - Amani Mast 1"
+ * "itemName": "Amani Mastery"
+ * "categoryName": "Rings Enchants"
+ *
+ * For some reason "Mastery" is getting truncated in the `baseDisplayName` field.
+ * There can also be some weird spelling mistakes present in `baseDisplayName`.
+ *
+ * So this helper function will try to fix these issues.
+ */
+function getItemEnchantmentName(entry: ItemEnchantmentStaticDataEntry) {
+  if (!entry.categoryName) {
+    return entry.itemName;
+  }
+
+  const categoryName = getItemEnchantmentCategoryName(entry);
+
+  return `Enchant ${categoryName} - ${entry.itemName}`;
+}
+
+function getItemEnchantmentCategoryName(entry: ItemEnchantmentStaticDataEntry) {
+  if (!entry.categoryName) {
+    return 'Other';
+  }
+
+  const category = entry.categoryName.split(' ')[0];
+
+  // Format the category to match in-game naming
+  switch (category) {
+    case 'Rings':
+      return 'Ring';
+    case 'Boot':
+      return 'Boots';
+    case 'Shoulder':
+      return 'Shoulders';
+    default:
+      return category;
+  }
 }
 
 // endregion
@@ -211,13 +263,6 @@ async function getEffectIdMapForItemIds(
 
     return acc;
   }, {});
-}
-
-function createEnchantKey(name: string, craftingQuality?: number, category?: string) {
-  const rank = craftingQuality ? `_R${craftingQuality}` : '';
-  const categoryName = category ? `${category.split(' ')[0]}_` : '';
-
-  return `${categoryName}${slugify(name, true)}${rank}`.toUpperCase();
 }
 
 // endregion
