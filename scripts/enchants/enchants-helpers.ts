@@ -143,13 +143,23 @@ export async function mapTempEnchantsStaticDataToInternalEntries(
   const itemIds = tempEnchants.map((entry) => entry.itemId);
   const effectIdMap = await getEffectIdMapForItemIds(itemIds, isPTR);
 
-  return tempEnchants.map((entry) => {
-    return {
-      type: 'Temporary Weapon Enchants',
-      key: createEnchantKey(entry.name, entry.craftingQuality),
-      value: mapTempEnchantToEnchant(entry, effectIdMap[entry.itemId]),
-    };
-  });
+  return tempEnchants
+    .map((entry) => {
+      const effectId = effectIdMap[entry.itemId];
+      if (!effectId) {
+        console.warn(
+          `Missing effectId mapping for temporary enchant itemId ${entry.itemId} (${entry.name})`,
+        );
+        return null;
+      }
+
+      return {
+        type: 'Temporary Weapon Enchants',
+        key: createEnchantKey(entry.name, entry.craftingQuality),
+        value: mapTempEnchantToEnchant(entry, effectId),
+      };
+    })
+    .filter((x) => x !== null);
 }
 
 function mapTempEnchantToEnchant(
