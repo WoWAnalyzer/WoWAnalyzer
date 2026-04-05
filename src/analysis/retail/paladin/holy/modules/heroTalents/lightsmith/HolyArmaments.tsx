@@ -142,48 +142,56 @@ class HolyArmaments extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
-          <>
-            <SpellLink spell={SPELLS.HOLY_BULWARK_BUFF} /> Absorb Healing:{' '}
-            {formatNumber(this.totalAbsorbHealing)} <br />
-            <br />
-            <SpellLink spell={SPELLS.SACRED_WEAPON_HEAL} /> Healing:{' '}
-            {formatNumber(this.healingSource[SPELLS.SACRED_WEAPON_HEAL.id])} <br />
-            <SpellLink spell={SPELLS.SACRED_WEAPON_DAMAGE} /> Damage:{' '}
-            {formatNumber(this.damageSource[SPELLS.SACRED_WEAPON_DAMAGE.id])} <br />
-            <br />
-            <SpellLink spell={SPELLS.BLESSING_OF_THE_FORGE_DAMAGE} /> Healing:
-            <ul>
-              <li>
-                <SpellLink spell={SPELLS.RADIANT_AURA_HEAL} /> from{' '}
-                <SpellLink spell={SPELLS.LIGHT_OF_DAWN_HEAL} />:{' '}
-                {formatNumber(this.healingSource[SPELLS.RADIANT_AURA_HEAL.id])}
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.SACRED_WORD_HEAL} /> from{' '}
-                <SpellLink spell={SPELLS.WORD_OF_GLORY} />:{' '}
-                {formatNumber(this.healingSource[SPELLS.SACRED_WORD_HEAL.id])}
-              </li>
-            </ul>
-            <SpellLink spell={SPELLS.BLESSING_OF_THE_FORGE_DAMAGE} /> Damage:{' '}
-            {formatNumber(this.damageSource[SPELLS.BLESSING_OF_THE_FORGE_DAMAGE.id])} <br />
-            <br />
-            <SpellLink spell={TALENTS.HOLY_ARMAMENTS_TALENT} /> Applications:{' '}
-            <ul>
-              <li>
-                <SpellLink spell={TALENTS.HOLY_ARMAMENTS_TALENT} />:{' '}
-                {formatNumber(this.appliedFromCast)}
-              </li>
-              <li>
-                <SpellLink spell={TALENTS.DIVINE_INSPIRATION_TALENT} />:{' '}
-                {formatNumber(this.appliedFromDivineInspiration)}
-              </li>
-              <li>
-                <SpellLink spell={TALENTS.BLESSING_OF_THE_FORGE_TALENT} />:{' '}
-                {formatNumber(this.appliedFromWings)}
-              </li>
-            </ul>
-            <br />
-          </>
+          <ul>
+            <li>
+              <SpellLink spell={SPELLS.HOLY_BULWARK_BUFF} /> Absorb Healing:{' '}
+              {formatNumber(this.totalAbsorbHealing)}
+            </li>
+            <li>
+              <SpellLink spell={SPELLS.SACRED_WEAPON_HEAL} /> Healing:{' '}
+              {formatNumber(this.healingSource[SPELLS.SACRED_WEAPON_HEAL.id])}
+            </li>
+            <li>
+              <SpellLink spell={SPELLS.SACRED_WEAPON_DAMAGE} /> Damage:{' '}
+              {formatNumber(this.damageSource[SPELLS.SACRED_WEAPON_DAMAGE.id])}
+            </li>
+            <li>
+              <SpellLink spell={SPELLS.BLESSING_OF_THE_FORGE_DAMAGE} /> Healing:
+              <ul>
+                <li>
+                  <SpellLink spell={SPELLS.RADIANT_AURA_HEAL} /> from{' '}
+                  <SpellLink spell={SPELLS.LIGHT_OF_DAWN_HEAL} />:{' '}
+                  {formatNumber(this.healingSource[SPELLS.RADIANT_AURA_HEAL.id])}
+                </li>
+                <li>
+                  <SpellLink spell={SPELLS.SACRED_WORD_HEAL} /> from{' '}
+                  <SpellLink spell={SPELLS.WORD_OF_GLORY} />:{' '}
+                  {formatNumber(this.healingSource[SPELLS.SACRED_WORD_HEAL.id])}
+                </li>
+              </ul>
+            </li>
+            <li>
+              <SpellLink spell={SPELLS.BLESSING_OF_THE_FORGE_DAMAGE} /> Damage:{' '}
+              {formatNumber(this.damageSource[SPELLS.BLESSING_OF_THE_FORGE_DAMAGE.id])}
+            </li>
+            <li>
+              <SpellLink spell={TALENTS.HOLY_ARMAMENTS_TALENT} /> Applications:{' '}
+              <ul>
+                <li>
+                  <SpellLink spell={TALENTS.HOLY_ARMAMENTS_TALENT} />:{' '}
+                  {formatNumber(this.appliedFromCast)}
+                </li>
+                <li>
+                  <SpellLink spell={TALENTS.DIVINE_INSPIRATION_TALENT} />:{' '}
+                  {formatNumber(this.appliedFromDivineInspiration)}
+                </li>
+                <li>
+                  <SpellLink spell={TALENTS.BLESSING_OF_THE_FORGE_TALENT} />:{' '}
+                  {formatNumber(this.appliedFromWings)}
+                </li>
+              </ul>
+            </li>
+          </ul>
         }
       >
         <TalentSpellText talent={TALENTS.HOLY_ARMAMENTS_TALENT}>

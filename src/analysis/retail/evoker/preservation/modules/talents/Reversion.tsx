@@ -141,18 +141,21 @@ class Reversion extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.REVERSION_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          <TooltipElement
-            content={
-              <>
-                Each hot was extended by an average of {(this.averageExtension / 1000).toFixed(1)}{' '}
-                seconds
-              </>
-            }
-          >
-            {(this.averageDuration / 1000).toFixed(1)}s <small>average HoT duration</small>
-          </TooltipElement>
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <TooltipElement
+              content={
+                <>
+                  Each hot was extended by an average of {(this.averageExtension / 1000).toFixed(1)}{' '}
+                  seconds
+                </>
+              }
+            >
+              {(this.averageDuration / 1000).toFixed(1)}s <small>average HoT duration</small>
+            </TooltipElement>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

@@ -15,7 +15,7 @@ class SpellUsable extends CoreSpellUsable.withDependencies({
   ...CoreSpellUsable.dependencies,
 }) {
   beginCooldown(
-    triggeringEvent: AbilityEvent<any>,
+    triggeringEvent: AbilityEvent<EventType>,
     spellId: number = triggeringEvent.ability.guid,
   ) {
     if (triggeringEvent.type === EventType.FreeCast) {
@@ -25,7 +25,7 @@ class SpellUsable extends CoreSpellUsable.withDependencies({
     if (
       spellId === TALENTS.CRASH_LIGHTNING_TALENT.id &&
       GetRelatedEvent<RemoveBuffEvent | RemoveBuffStackEvent>(
-        triggeringEvent,
+        triggeringEvent as AnyEvent,
         EnhancementEventLinks.STORM_UNLEASHED_LINK,
         (e: AnyEvent) =>
           (e.type === EventType.RemoveBuff || e.type === EventType.RemoveBuffStack) &&

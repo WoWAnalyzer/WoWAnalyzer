@@ -1,6 +1,5 @@
 import type { JSX } from 'react';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';

@@ -7,7 +7,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
 
-import HeatShimmer from '../talents/HeatShimmer';
+import HeatShimmer, { HeatShimmerProcs } from '../talents/HeatShimmer';
 import { formatDurationMillisMinSec } from 'common/format';
 import { CastOverview } from 'interface/guide/components';
 
@@ -37,11 +37,11 @@ class HeatShimmerGuide extends Analyzer {
     return stats;
   }
 
-  private evaluateHeatShimmer(hs: any): CastEvaluation {
+  private evaluateHeatShimmer(hs: HeatShimmerProcs): CastEvaluation {
     // FAIL CONDITIONS
     if (!hs.spender) {
       return {
-        timestamp: hs.buffApply.timestamp,
+        timestamp: hs.buffApply!.timestamp,
         performance: QualitativePerformance.Fail,
         reason: 'Heat Shimmer proc expired.',
       };
@@ -50,7 +50,7 @@ class HeatShimmerGuide extends Analyzer {
     // GOOD CONDITIONS
     if (hs.spender) {
       return {
-        timestamp: hs.buffApply.timestamp,
+        timestamp: hs.buffApply!.timestamp,
         performance: QualitativePerformance.Good,
         reason: 'Heat Shimmer proc spent.',
       };
@@ -58,7 +58,7 @@ class HeatShimmerGuide extends Analyzer {
 
     // DEFAULT
     return {
-      timestamp: hs.buffApply.timestamp,
+      timestamp: hs.buffApply!.timestamp,
       performance: QualitativePerformance.Fail,
       reason: 'Unknown Performance Condition (Please report this)',
     };

@@ -182,6 +182,10 @@ export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
 };
+export const Badkad: Contributor = {
+  nickname: 'Badkad',
+  github: 'Badkad',
+};
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
   github: 'Salarissia',
@@ -728,13 +732,13 @@ export const fel1ne: Contributor = {
 export const Dambroda: Contributor = {
   nickname: 'Dambroda',
   github: 'Dambroda',
-  discord: 'Dambroda#1290',
+  discord: 'Dambroda',
   avatar: avatar('Dambroda-avatar.jpg'),
   mains: [
     {
       name: 'Dambroma',
       spec: SPECS.FROST_MAGE,
-      link: 'https://worldofwarcraft.com/en-us/character/stormrage/dambroma',
+      link: 'https://worldofwarcraft.com/en-us/character/area-52/dambroma',
     },
   ],
 };
@@ -2838,4 +2842,10 @@ export const defgfed: Contributor = {
 export const MarchingCube: Contributor = {
   nickname: 'MarchingCube',
   github: 'MarchingCube',
+};
+
+export const NotStirred: Contributor = {
+  nickname: 'NotStirred',
+  github: 'NotStirred',
+  discord: 'NotStirred',
 };

@@ -84,15 +84,21 @@ class UpliftedSpirits extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Effective Healing From Additional <SpellLink spell={this.activeTalent} /> Casts:{' '}
-            {formatNumber(this.effectiveHealingIncrease)}
-            <br />
-            Healing from <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Increase:{' '}
-            {formatNumber(this.usHealing)}
-            <br />
-            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
-            <br />
-            Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+            <div>
+              Effective Healing From Additional <SpellLink spell={this.activeTalent} /> Casts:{' '}
+              {formatNumber(this.effectiveHealingIncrease)}
+            </div>
+            <div>
+              Healing from <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Increase:{' '}
+              {formatNumber(this.usHealing)}
+            </div>
+            <div>
+              Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)}{' '}
+              Seconds
+            </div>
+            <div>
+              Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+            </div>
           </>
         }
       >

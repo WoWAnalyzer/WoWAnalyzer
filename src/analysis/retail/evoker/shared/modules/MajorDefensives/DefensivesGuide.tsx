@@ -19,7 +19,8 @@ const MajorDefensives = () => {
           Effectively using your major defensive cooldowns is an important aspect of your
           performance, as it will not only increase your own survivability, but also your entire
           raid by allowing healers to focus on keeping others alive.
-          <br />
+        </p>
+        <p>
           As an <span className="Evoker">Evoker</span> you have access to short CD defensives such
           as <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> and{' '}
           <SpellLink spell={TALENTS.ZEPHYR_TALENT} />.
@@ -39,25 +40,27 @@ const MajorDefensives = () => {
               damage spikes
             </TooltipElement>{' '}
             as possible, and use any left over to cover periods of heavy, consistent damage.
-            <br />
-            <small>
-              In the damage chart below, a spike highlighted in{' '}
-              <Highlight color={GoodColor} textColor="black">
-                green
-              </Highlight>{' '}
-              was covered by a defensive.
-            </small>
+            <p>
+              <small>
+                In the damage chart below, a spike highlighted in{' '}
+                <Highlight color={GoodColor} textColor="black">
+                  green
+                </Highlight>{' '}
+                was covered by a defensive.
+              </small>
+            </p>
           </li>
           <li>
             You should <em>use</em> your cooldowns. This may seem silly&mdash;but not using
             defensives is a common problem! For <span className="Evoker">Evokers</span>, it is also
             likely to be fatal, since most of your mitigation lies in your active cooldowns.
-            <br />
-            <small>
-              Below the damage chart, your cooldowns are shown. Large gaps may indicate that you
-              could get more uses&mdash;but remember that covering spikes is more important than
-              maximizing total casts!
-            </small>
+            <p>
+              <small>
+                Below the damage chart, your cooldowns are shown. Large gaps may indicate that you
+                could get more uses&mdash;but remember that covering spikes is more important than
+                maximizing total casts!
+              </small>
+            </p>
           </li>
         </ol>
       </Explanation>

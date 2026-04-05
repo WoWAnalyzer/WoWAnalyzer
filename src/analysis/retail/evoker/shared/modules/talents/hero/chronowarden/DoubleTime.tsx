@@ -1,3 +1,4 @@
+// oxlint-disable no-unused-vars -- baseline suppression
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -112,7 +113,8 @@ class DoubleTime extends Analyzer {
             <small>
               <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
             </small>
-            <br />
+          </div>
+          <div>
             {(this.sumDbDurations / this.totalDbs).toFixed(1)}s{' '}
             <small>
               average <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> duration
@@ -122,7 +124,8 @@ class DoubleTime extends Analyzer {
             <small>
               <SpellLink spell={SPELLS.FIRE_BREATH} />
             </small>
-            <br />
+          </div>
+          <div>
             {(this.sumFbDurations / this.totalFbs).toFixed(1)}s{' '}
             <small>
               average <SpellLink spell={SPELLS.FIRE_BREATH} /> duration

@@ -772,7 +772,8 @@ class HotHand extends Analyzer.withDependencies({
           &rarr; 2 &rarr; 2 &rarr; 1 like sequence. Casting {lavaLashLink} &rarr; consuming 10
           stacks of <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> can allow you to cast{' '}
           {lavaLashLink} without an additional filler spell.
-          <br />
+        </p>
+        <p>
           The section to the right shows breakdown of each time {hotHandLink} procced, and how well
           you utilised the window.
         </p>
@@ -788,9 +789,8 @@ class HotHand extends Analyzer.withDependencies({
             </>
           ) : null}
         </p>
+        <p>An example sequence may look something like this:</p>
         <p>
-          An example sequence may look something like this:
-          <br />
           {lavaLashLink} &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
           <SpellIcon spell={SPELLS.STORMSTRIKE} /> &rarr;
@@ -1033,19 +1033,18 @@ class HotHand extends Analyzer.withDependencies({
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS.HOT_HAND_TALENT}>
-          <>
+          <div>
             <ItemDamageDone amount={this.buffedLavaLashDamage} />
-            <br />
+          </div>
+          <div>
             {this.averageLavaLashCastsPerProc.toFixed(2)} <small>average casts per proc</small>
-            <br />
-            {this.hasTotemicMomentum && this.totemicMomentumProcsForStats > 0 && (
-              <>
-                {formatDurationMillisMinSec(this.averageTotemicMomentumExtension, 1)}{' '}
-                <small>average extension per proc</small>
-                <br />
-              </>
-            )}
-          </>
+          </div>
+          {this.hasTotemicMomentum && this.totemicMomentumProcsForStats > 0 && (
+            <div>
+              {formatDurationMillisMinSec(this.averageTotemicMomentumExtension, 1)}{' '}
+              <small>average extension per proc</small>
+            </div>
+          )}
         </TalentSpellText>
       </Statistic>
     );

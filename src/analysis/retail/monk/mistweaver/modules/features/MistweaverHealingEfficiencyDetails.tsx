@@ -12,34 +12,39 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
         title="Mana efficiency"
         explanation={
           <>
-            <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing is added to the appropriate spell
-            that caused the gust. <br />
+            <p>
+              <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing is added to the appropriate spell
+              that caused the gust.
+            </p>
             {this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) && (
-              <>
+              <p>
                 <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> is given to{' '}
                 <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> since it is the spell that
-                applied the buff. <br />
-              </>
+                applied the buff.
+              </p>
             )}
-            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> healing from{' '}
-            {this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT) && (
-              <>
-                <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> is given to the spell that
-                procced it. <br />
-              </>
-            )}
-            {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
-              <>
-                <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> healing is attributed to the
-                source cast of the <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> that procced it.
-              </>
-            )}
-            {this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) && (
-              <>
-                <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> healing is attributed to{' '}
-                <SpellLink spell={SPELLS.VIVIFY} />.
-              </>
-            )}
+            <p>
+              <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> healing from{' '}
+              {this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT) && (
+                <>
+                  <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> is given to the spell
+                  that procced it.
+                </>
+              )}
+              {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
+                <>
+                  <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> healing is attributed to the
+                  source cast of the <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> that procced
+                  it.
+                </>
+              )}
+              {this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) && (
+                <>
+                  <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> healing is attributed to{' '}
+                  <SpellLink spell={SPELLS.VIVIFY} />.
+                </>
+              )}
+            </p>
           </>
         }
         pad={false}

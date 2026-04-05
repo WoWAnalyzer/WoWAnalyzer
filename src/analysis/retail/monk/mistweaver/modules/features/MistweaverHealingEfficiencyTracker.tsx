@@ -164,7 +164,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getSheilunsGiftDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = spellInfo.healingDone;
     return spellInfo;
   }
 

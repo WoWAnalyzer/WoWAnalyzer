@@ -6,7 +6,7 @@ import { PassFailCheckmark } from 'interface/guide';
 import InformationIcon from 'interface/icons/Information';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -35,8 +35,6 @@ const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH, SPELLS.TRANQUI
 
 const NATURES_SWIFTNESS_BOOST = 2;
 
-const RECENT_TRANQUILITY_DURATION = 8_000;
-
 /**
  * Resto's extension to the Convoke the Spirits display. Includes healing attribution.
  * Convokable healing abilities:
@@ -56,8 +54,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   /** Mapping from convoke cast number to a tracker for that cast - note that index zero will always be empty */
   restoConvokeTracker: RestoConvokeCast[] = [];
-  /** Timestamp of the last Tranquility cast (or null if there wasn't one) */
-  lastTranquilityTimestamp?: number;
 
   constructor(options: Options) {
     super(options);
@@ -74,11 +70,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       Events.heal.by(SELECTED_PLAYER).spell(CONVOKED_DIRECT_HEALS),
       this.onRestoDirectHeal,
     );
-    this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) &&
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRANQUILITY_CAST),
-        this.onTranquilityCast,
-      );
   }
 
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -127,9 +118,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
       this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
     const wgsOnCast = this.hotTracker.getHotCount(SPELLS.WILD_GROWTH.id);
-    const recentlyTranquility =
-      this.lastTranquilityTimestamp !== undefined &&
-      event.timestamp - this.lastTranquilityTimestamp < RECENT_TRANQUILITY_DURATION;
 
     this.restoConvokeTracker[this.cast] = {
       totalAttribution,
@@ -137,12 +125,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       nsAttribution,
       rejuvsOnCast,
       wgsOnCast,
-      recentlyTranquility,
     };
-  }
-
-  onTranquilityCast(event: CastEvent) {
-    this.lastTranquilityTimestamp = event.timestamp;
   }
 
   get currentConvokeAttribution(): Attribution {
@@ -241,10 +224,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
           const wgRamp = restoCast.wgsOnCast > 0;
           const rejuvRamp = restoCast.rejuvsOnCast > 0;
-          const noRecentTranquility = !restoCast.recentlyTranquility;
           const syncWithReforestation = !hasReforestation || cast.form === 'Tree of Life';
           const overallPerf =
-            wgRamp && rejuvRamp && noRecentTranquility && syncWithReforestation
+            wgRamp && rejuvRamp && syncWithReforestation
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 
@@ -267,31 +249,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             result: <PassFailCheckmark pass={rejuvRamp} />,
             details: <>({restoCast.rejuvsOnCast} HoTs active)</>,
           });
-          hasFlourish &&
-            checklistItems.push({
-              label: (
-                <>
-                  Avoid recent <SpellLink spell={SPELLS.TRANQUILITY_CAST} />{' '}
-                  <Tooltip
-                    hoverable
-                    content={
-                      <>
-                        When casting <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> and{' '}
-                        <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> together, Convoke should
-                        generally go first so its HoTs can be extended by Tranquility's flourish
-                        ticks. If you got an <i className="glyphicon glyphicon-remove fail-mark" />{' '}
-                        here, it means you cast Tranquility shortly before this Convoke.
-                      </>
-                    }
-                  >
-                    <span>
-                      <InformationIcon />
-                    </span>
-                  </Tooltip>
-                </>
-              ),
-              result: <PassFailCheckmark pass={noRecentTranquility} />,
-            });
           hasReforestation &&
             checklistItems.push({
               label: (
@@ -435,8 +392,6 @@ interface RestoConvokeCast {
   wgsOnCast: number;
   /** The number of Rejuvs out at the moment this Convoke is cast */
   rejuvsOnCast: number;
-  /** True iff the player cast Tranquility recently (you generally want to Convoke before it) */
-  recentlyTranquility: boolean;
 }
 
 export default ConvokeSpiritsResto;

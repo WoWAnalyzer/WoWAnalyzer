@@ -155,15 +155,17 @@ class Accretion extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            These values are averaged gain from extra casts of{' '}
-            <SpellLink spell={TALENTS.UPHEAVAL_TALENT} />, based on your overall damage.
-            <br />
-            Realistically these values can, and will, range more broadly in actual gameplay since
-            when you get the extra casts off will matter a lot. eg. extra casts inside of{' '}
-            <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> , or alongside your allies big CDs
-            for <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> will increase the value provided.
-            <br />
-            This also doesn't take opportunity cost into account.
+            <p>
+              These values are averaged gain from extra casts of{' '}
+              <SpellLink spell={TALENTS.UPHEAVAL_TALENT} />, based on your overall damage.
+            </p>
+            <p>
+              Realistically these values can, and will, range more broadly in actual gameplay since
+              when you get the extra casts off will matter a lot. eg. extra casts inside of{' '}
+              <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> , or alongside your allies big CDs
+              for <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> will increase the value provided.
+            </p>
+            <p>This also doesn't take opportunity cost into account.</p>
           </>
         }
       >
@@ -189,10 +191,9 @@ class Accretion extends Analyzer {
             <p>
               You didn't gain enough CDR to get any extra casts of{' '}
               <SpellLink spell={TALENTS.UPHEAVAL_TALENT} />.
-              <br />
-              This is either caused by you not casting <SpellLink
-                spell={TALENTS.ERUPTION_TALENT}
-              />{' '}
+            </p>
+            <p>
+              This is either caused by you not casting <SpellLink spell={TALENTS.ERUPTION_TALENT} />{' '}
               enough, or the fight being too short.
             </p>
           </div>

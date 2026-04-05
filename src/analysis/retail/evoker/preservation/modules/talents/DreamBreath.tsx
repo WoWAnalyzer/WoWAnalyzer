@@ -122,9 +122,11 @@ class DreamBreath extends Analyzer {
       }
       const tooltip = (
         <>
-          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
-          {this.owner.formatTimestamp(cast.timestamp)} <br />
-          {cast.targetsHit} targets hit <br />
+          <div>
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(cast.timestamp)}
+          </div>
+          <div>{cast.targetsHit} targets hit</div>
         </>
       );
       entries.push({ value, tooltip });

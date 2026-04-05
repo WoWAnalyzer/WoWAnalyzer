@@ -96,22 +96,27 @@ class EmpyreanLegacy extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Effective Healing: {formatNumber(this.totalHealing)} <br />
-            Overhealing: {formatNumber(this.totalOverhealing)} <br />
-            <br />
-            The number of <SpellLink spell={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT} /> buffs you
-            receive <br />
-            is directly tied to your <SpellLink spell={SPELLS.JUDGMENT_CAST} /> casts. <br />
-            <br />
-            Fight Duration: {fightDuration} seconds <br />
-            <SpellLink spell={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT} /> internal cooldown: 20 seconds{' '}
-            <br />
-            <SpellLink spell={SPELLS.JUDGMENT_CAST} /> casts: {judgmentCastEfficiency?.casts}/
-            {judgmentCastEfficiency?.maxCasts} <br />
-            <br />
-            Possible buffs: {possibleBuffs} <br />
-            Actual buffs: {this.buffsGained} <br />
-            Consumed buffs: {this.buffsUsed}
+            <div>Effective Healing: {formatNumber(this.totalHealing)} </div>
+            <div>Overhealing: {formatNumber(this.totalOverhealing)} </div>
+            <div>
+              The number of <SpellLink spell={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT} /> buffs you
+              receive is directly tied to your <SpellLink spell={SPELLS.JUDGMENT_CAST} />{' '}
+              casts.{' '}
+            </div>
+            <div>Fight Duration: {fightDuration} seconds </div>
+            <div>
+              <SpellLink spell={TALENTS.EMPYREAN_LEGACY_HOLY_TALENT} /> internal cooldown: 20
+              seconds
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.JUDGMENT_CAST} /> casts: {judgmentCastEfficiency?.casts}/
+              {judgmentCastEfficiency?.maxCasts}{' '}
+            </div>
+            <ul>
+              <li>Possible buffs: {possibleBuffs}</li>
+              <li>Actual buffs: {this.buffsGained}</li>
+              <li>Consumed buffs: {this.buffsUsed}</li>
+            </ul>
           </>
         }
       >

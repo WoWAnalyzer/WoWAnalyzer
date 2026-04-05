@@ -45,11 +45,7 @@ class SaveThemAll extends Analyzer {
         position={STATISTIC_ORDER.CORE(12)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            Total Healed: {formatNumber(this.totalHealed)} <br />
-          </>
-        }
+        tooltip={<>Total Healed: {formatNumber(this.totalHealed)}</>}
       >
         <TalentSpellText talent={TALENTS_MONK.SAVE_THEM_ALL_TALENT}>
           <ItemHealingDone amount={this.totalHealed} />
