@@ -31,20 +31,20 @@ export default class Clearcasting extends Analyzer {
       event,
       EventType.RemoveBuff,
     );
-    const missiles: CastEvent | undefined = GetRelatedEvent(event, 'consume');
+    const spender: CastEvent | undefined = GetRelatedEvent(event, 'consume');
 
     this.clearcastingProcs.push({
       applied: event.timestamp,
       removed: removeBuff?.timestamp,
-      missileCast: missiles,
-      expired: !missiles,
+      spender,
+      expired: !spender,
     });
   }
 }
 
 export interface ClearcastingData {
   applied: number;
-  removed: number | undefined;
-  missileCast: CastEvent | undefined;
+  removed?: number;
+  spender?: CastEvent;
   expired: boolean;
 }

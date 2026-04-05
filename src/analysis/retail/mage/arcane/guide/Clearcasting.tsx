@@ -1,5 +1,6 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Analyzer from 'parser/core/Analyzer';
@@ -15,28 +16,22 @@ class ClearcastingGuide extends Analyzer {
 
   protected clearcasting!: Clearcasting;
 
-  /**
-   * Evaluates a single Clearcasting proc for CastSummary.
-   * Returns performance and reason for tooltip display.
-   *
-   * Evaluation priority: fail → perfect → default
-   */
   private evaluateClearcastingProc(cc: ClearcastingData): CastEvaluation {
     // Fail conditions (highest priority)
     if (cc.expired) {
       return {
         timestamp: cc.applied,
         performance: QualitativePerformance.Fail,
-        reason: 'Expired unused - significant DPS loss',
+        reason: 'Clearcasting expired.',
       };
     }
 
     // Perfect conditions
-    if (!cc.expired) {
+    if (cc.spender) {
       return {
         timestamp: cc.applied,
         performance: QualitativePerformance.Perfect,
-        reason: 'Perfect - used Clearcasting proc before it expired',
+        reason: `Clearcasting used on ${cc.spender.ability.name}.`,
       };
     }
 
@@ -50,17 +45,15 @@ class ClearcastingGuide extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
+    const arcaneMissiles = <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} />;
+    const arcaneExplosion = <SpellLink spell={SPELLS.ARCANE_EXPLOSION} />;
 
     const explanation = (
       <>
-        Ensure you are spending your <b>{clearcasting}</b> procs effectively with {clearcasting}.
-        <ul>
-          <li>
-            Never let procs expire without getting used, unless you have no choice because of forced
-            downtime.
-          </li>
-          <li>Avoid overcapping on procs.</li>
-        </ul>
+        <b>{clearcasting}</b> is a proc that interacts with {arcaneMissiles} and {arcaneExplosion}.
+        Refer to the various rotational sections above for guidance on how to utilize {clearcasting}{' '}
+        in your rotation. Beyond that, you should just ensure your {clearcasting} procs are not
+        expiring and are not overcapping.
       </>
     );
 

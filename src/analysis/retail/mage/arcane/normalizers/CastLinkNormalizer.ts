@@ -193,7 +193,7 @@ const EVENT_LINKS = createEventLinks(
         condition: (linking, referenced) => !HasRelatedEvent(referenced, EventType.ApplyBuff),
       }),
       link(CustomType.CONSUME, {
-        id: TALENTS.ARCANE_MISSILES_TALENT.id,
+        id: [TALENTS.ARCANE_MISSILES_TALENT.id, SPELLS.ARCANE_EXPLOSION.id],
         forwardBuffer: 21000,
         maxLinks: 1,
         anyTarget: true,
