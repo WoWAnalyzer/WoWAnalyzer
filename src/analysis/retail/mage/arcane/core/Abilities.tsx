@@ -48,6 +48,13 @@ class Abilities extends CoreAbilities {
         },
         damageSpellIds: [SPELLS.ARCANE_ORB_DAMAGE.id],
       },
+      {
+        spell: TALENTS.ARCANE_PULSE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       // Cooldowns
       {
