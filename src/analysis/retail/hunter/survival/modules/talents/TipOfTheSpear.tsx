@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
+import { KCFocusLink } from '../../normalizers/KillCommandNormalizer';
 import BuffStackTracker from 'parser/shared/modules/BuffStackTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -34,7 +35,6 @@ class TipOfTheSpear extends BuffStackTracker {
   private firstCastSeen = false;
 
   private isPackLeader = false;
-  private focusGained = 0;
   private hasPrimalSurge = false;
   private hasTwinFangs = false;
 
@@ -46,7 +46,6 @@ class TipOfTheSpear extends BuffStackTracker {
     }
 
     this.isPackLeader = this.selectedCombatant.hasTalent(TALENTS.HOWL_OF_THE_PACK_LEADER_TALENT);
-    this.focusGained = this.isPackLeader ? 20 : 25;
     this.hasPrimalSurge = this.selectedCombatant.hasTalent(TALENTS.PRIMAL_SURGE_TALENT);
     this.hasTwinFangs = this.selectedCombatant.hasTalent(TALENTS.TWIN_FANGS_TALENT);
 
@@ -138,20 +137,22 @@ class TipOfTheSpear extends BuffStackTracker {
     this.killCommandCasts += 1;
     const currentStacks = this.current;
     const stacksGained = this.hasPrimalSurge ? 2 : 1;
-
     const potentialStacks = currentStacks + stacksGained;
-    const currentFocus = this.getFocus(event) - this.focusGained;
-    const isLowFocus = currentFocus < LOW_FOCUS_THRESHOLD;
+
+    if (potentialStacks > MAX_STACKS) {
+      this.wastedStacks += potentialStacks - MAX_STACKS;
+    }
+
+    const focusEvent = KCFocusLink.first(event);
+    // amount is post-generation; subtract effective focus gained to recover pre-cast focus.
+    const preCastFocus = focusEvent
+      ? this.getFocus(event) - (focusEvent.resourceChange - focusEvent.waste)
+      : this.getFocus(event);
+    const isLowFocus = preCastFocus < LOW_FOCUS_THRESHOLD;
 
     const hasHowlBuff = HOWL_BUFFS.some((spell) =>
       this.selectedCombatant.hasBuff(spell.id, event.timestamp),
     );
-
-    // Track waste
-    if (potentialStacks > MAX_STACKS) {
-      const waste = potentialStacks - MAX_STACKS;
-      this.wastedStacks += waste;
-    }
 
     let value: QualitativePerformance;
     let header: string;
@@ -160,7 +161,7 @@ class TipOfTheSpear extends BuffStackTracker {
     if (isLowFocus) {
       // Low focus is always an acceptable reason to Kill Command regardless of stacks.
       value = QualitativePerformance.Good;
-      header = `Good: low focus (${currentFocus})`;
+      header = `Good: low focus (${preCastFocus})`;
       color = GoodColor;
     } else if (this.isPackLeader) {
       // Pack Leader rules:
@@ -202,6 +203,9 @@ class TipOfTheSpear extends BuffStackTracker {
       }
     }
 
+    const focusGained = focusEvent ? focusEvent.resourceChange - focusEvent.waste : 0;
+    const focusWasted = focusEvent ? focusEvent.waste : 0;
+
     const targetName = this.owner.getTargetName(event);
     const tooltip = (
       <div>
@@ -211,6 +215,16 @@ class TipOfTheSpear extends BuffStackTracker {
         <div>
           Current stacks: <strong>{currentStacks}</strong> →{' '}
           <strong>{Math.min(potentialStacks, MAX_STACKS)}</strong>
+        </div>
+        <div>
+          Focus before cast: <strong>{preCastFocus}</strong> | Gained:{' '}
+          <strong>{focusGained}</strong>
+          {focusWasted > 0 && (
+            <>
+              {' '}
+              | Wasted: <strong>{focusWasted}</strong>
+            </>
+          )}
         </div>
         {this.hasPrimalSurge && (
           <div>
