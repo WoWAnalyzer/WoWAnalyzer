@@ -4,8 +4,10 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AurasModule from 'parser/core/modules/Auras';
+import CastHealInfo from 'parser/shared/modules/CastHealInfo';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
+import Toggle from 'react-toggle';
 
 import './Timeline.scss';
 import Auras from './Auras';
@@ -59,6 +61,7 @@ class Timeline extends PureComponent {
     this.state = {
       zoom: 2,
       filteredEnemyCasts: [],
+      showHealTargets: false,
     };
     this.handleToggle = this.handleToggle.bind(this);
   }
@@ -159,6 +162,9 @@ class Timeline extends PureComponent {
 
   render() {
     const { parser, abilities, auras, movement } = this.props;
+    const { showHealTargets } = this.state;
+
+    const castHealInfo = parser.getOptionalModule(CastHealInfo);
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -185,6 +191,7 @@ class Timeline extends PureComponent {
             className="spell-timeline"
             style={{
               '--cast-bars': castEvents.length,
+              '--heal-targets-extra': showHealTargets && castHealInfo ? '74px' : '0px',
               // explicitly setting the width here allows the legend to
               // continue following the left edge of the scroll container
               // for the entire width of the timeline
@@ -198,6 +205,19 @@ class Timeline extends PureComponent {
               offset={this.offset}
               skipInterval={skipInterval}
             />
+            {castHealInfo && (
+              <div className="npc-toggle-container">
+                <span className="text-left toggle-control npc-toggle-options">
+                  <Toggle
+                    defaultChecked={false}
+                    icons={false}
+                    onChange={() => this.handleToggle('showHealTargets')}
+                    id="heal-targets-toggle"
+                  />
+                  <label htmlFor="heal-targets-toggle">Show Heal Targets</label>
+                </span>
+              </div>
+            )}
             <Auras
               start={this.start}
               end={this.end}
@@ -220,6 +240,7 @@ class Timeline extends PureComponent {
                   events={events}
                   // Only show on the main cast bar since that should default to standard casts
                   movement={index === castEvents.length - 1 ? movement : undefined}
+                  castHealInfo={showHealTargets ? castHealInfo : undefined}
                 />
               ))}
             </TimeIndicators>
