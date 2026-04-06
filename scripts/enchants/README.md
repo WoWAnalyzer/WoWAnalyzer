@@ -1,6 +1,6 @@
 ### Enchantment Generation Script Usage
 
-The scripts in `scripts/enchants` are used to automatically update the enchantment data for the application by fetching the latest definitions from Raidbots and Wago Tools.
+The scripts in `scripts/enchants` are used to automatically update the enchantment data for the application by fetching the latest definitions from Raidbots and DBC.
 
 #### Running the Script
 
@@ -20,7 +20,7 @@ pnpm run generate-enchants:ptr
 
 #### New Expansions
 
-When generating enchants for a new expansion, you will need to update the `EXPANSION` constant in `scripts/enchants/enchants-helpers.ts` to match the new expansion.
+When generating enchants for a new expansion, you will need to update the `EXPANSION` / `ENCHANTS_DIR` constants in `scripts/enchants/generate-enchants.ts` to match the new expansion.
 
 #### Troubleshooting
 
