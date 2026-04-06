@@ -139,7 +139,21 @@ function getItemEnchantmentCategoryName(entry: ItemEnchantmentStaticDataEntry) {
 export async function mapTempEnchantsStaticDataToInternalEntries(
   tempEnchants: TempEnchantsStaticDataEntry[],
   isPTR: boolean = false,
-): Promise<EnchantmentInternalEntry[]> {
+) {
+  /** Static data should always contain effectId, but in the off chance it doesn't, we'll try to
+   * map the temporary enchants to the effectId from the itemId. */
+  const hasEffectIds = tempEnchants.every((entry) => Boolean(entry.effectId && entry.effectId > 0));
+
+  if (hasEffectIds) {
+    return tempEnchants.map((entry) => {
+      return {
+        type: 'Temporary Weapon Enchants',
+        key: createEnchantKey(entry.name, entry.craftingQuality),
+        value: mapTempEnchantToEnchant(entry, entry.effectId!),
+      };
+    });
+  }
+
   const itemIds = tempEnchants.map((entry) => entry.itemId);
   const effectIdMap = await getEffectIdMapForItemIds(itemIds, isPTR);
 

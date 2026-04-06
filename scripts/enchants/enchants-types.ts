@@ -49,6 +49,7 @@ export type TempEnchantsStaticDataEntry = {
   icon: string; // inv_12_profession_enchanting_manaoil_red
   expansion: number;
   craftingQuality: Enchant['craftQuality'];
+  effectId?: number; // should always be present going forward from April 6th 2026 - but marked as optional, so it's clear that it can be missing
 };
 
 type EnchantmentStat = {
