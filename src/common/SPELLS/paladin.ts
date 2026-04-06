@@ -409,6 +409,11 @@ const spells = {
     name: 'Divine Hammer',
     icon: 'classicon_paladin',
   },
+  DIVINE_HAMMER_FAKE_CAST: {
+    id: 1236942,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+  },
   JUDGMENT_DEBUFF: {
     id: 197277,
     name: 'Judgment',
