@@ -2,12 +2,14 @@ import { Enchant } from 'common/ITEMS/Item';
 import { TIER_BY_CLASSES } from 'common/ITEMS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import Faction, { factionFromWclId } from 'game/Faction';
 import RACES, { Race } from 'game/RACES';
 import { findByBossId } from 'game/raids';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, EventType, Item, TalentEntry } from 'parser/core/Events';
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
+import type { Stats } from 'parser/shared/modules/StatTracker';
 import { TIERS } from 'game/TIERS';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
@@ -78,7 +80,37 @@ class Combatant extends Entity {
     return this.owner.characterProfile;
   }
 
-  _combatantInfo: CombatantInfoEvent | undefined;
+  protected combatantInfo: CombatantInfoEvent | undefined;
+
+  get faction(): Faction | undefined {
+    if (!this.combatantInfo) {
+      return undefined;
+    }
+    return factionFromWclId(this.combatantInfo.faction);
+  }
+
+  get pullStats(): Stats | undefined {
+    const info = this.combatantInfo;
+    if (!info) {
+      return undefined;
+    }
+    return {
+      strength: info.strength,
+      agility: info.agility,
+      intellect: info.intellect,
+      stamina: info.stamina,
+      crit: info.critSpell,
+      // Haste is reported per attack type; pick whichever the spec uses.
+      // Falls back to 0 because some test fixtures omit all three fields.
+      haste: info.hasteSpell || info.hasteRanged || info.hasteMelee || 0,
+      mastery: info.mastery,
+      versatility: info.versatilityHealingDone,
+      avoidance: info.avoidance,
+      leech: info.leech,
+      speed: info.speed,
+      armor: info.armor,
+    };
+  }
 
   _ilvl: number | undefined;
   public get ilvl() {
@@ -119,7 +151,7 @@ class Combatant extends Entity {
   }
 
   get talentTree(): TalentEntry[] {
-    return this._combatantInfo?.talentTree.filter((it) => !IGNORED.includes(it.id)) ?? [];
+    return this.combatantInfo?.talentTree.filter((it) => !IGNORED.includes(it.id)) ?? [];
   }
 
   hasClassicTalent(spell: number | { id: number }): boolean {
@@ -190,11 +222,11 @@ class Combatant extends Entity {
   }
 
   hasGlyph(id: number): boolean {
-    if (!this._combatantInfo) {
+    if (!this.combatantInfo) {
       return false;
     }
 
-    this._importGlyphs(this._combatantInfo);
+    this._importGlyphs(this.combatantInfo);
     return this.glyphIds?.has(id) ?? false;
   }
 
@@ -417,10 +449,10 @@ class Combatant extends Entity {
   }
 
   setIdBySpecByTier(tier: TIERS) {
-    if (!this._combatantInfo) {
+    if (this.specId === undefined) {
       return undefined;
     }
-    return TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
+    return TIER_BY_CLASSES[tier]?.[getClassBySpecId(this.specId)];
   }
 
   has2PieceByTier(tier: TIERS) {
@@ -477,8 +509,16 @@ export default Combatant;
  * The combatant representing the player, which always has full details.
  */
 export class FullCombatant extends Combatant {
-  _combatantInfo: CombatantInfoEvent;
+  protected override combatantInfo: CombatantInfoEvent;
   readonly specId: number;
+
+  override get faction(): Faction {
+    return super.faction!;
+  }
+
+  override get pullStats(): Stats {
+    return super.pullStats!;
+  }
 
   constructor(parser: CombatLogParser, player: PlayerDetails, combatantInfo: CombatantInfoEvent) {
     super(parser, player);
@@ -489,7 +529,7 @@ export class FullCombatant extends Combatant {
       this.specId = player.specID ?? parser.config.spec.id;
     }
 
-    this._combatantInfo = {
+    this.combatantInfo = {
       ...combatantInfo,
     };
 
