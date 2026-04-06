@@ -10,8 +10,6 @@ import {
   lastSpellCast,
 } from 'parser/shared/metrics/apl/conditions';
 import { build, Rule } from 'parser/shared/metrics/apl';
-import { buffsCount } from './buffsCount';
-import { ROLL_THE_BONES_BUFFS } from '../../constants';
 import { builderComboPointAmount, finisherComboPointAmount } from './comboPointAmount';
 
 const hasLowCPFinisherCondition = () => {
@@ -20,12 +18,9 @@ const hasLowCPFinisherCondition = () => {
 
 const rtbKirCondition = () => {
   return or(
-    buffPresent(ROLL_THE_BONES_BUFFS[2]) ||
-      buffPresent(ROLL_THE_BONES_BUFFS[3]) ||
-      buffPresent(ROLL_THE_BONES_BUFFS[4]),
-
-    // buffsCount(ROLL_THE_BONES_BUFFS, 3, 'lessThan'),
-    // Could be cast another cast over due to OGCD spells etc, so we we just wrap it in always
+    buffPresent(SPELLS.DOUBLE_TROUBLE) ||
+      buffPresent(SPELLS.TRIPLE_THREAT) ||
+      buffPresent(SPELLS.JACKPOT),
     always(lastSpellCast(TALENTS.KEEP_IT_ROLLING_TALENT)),
   );
 };
@@ -34,9 +29,9 @@ const COOLDOWNS: Rule[] = [
   {
     spell: TALENTS.KEEP_IT_ROLLING_TALENT,
     condition:
-      buffPresent(ROLL_THE_BONES_BUFFS[2]) ||
-      buffPresent(ROLL_THE_BONES_BUFFS[3]) ||
-      buffPresent(ROLL_THE_BONES_BUFFS[4]),
+      buffPresent(SPELLS.DOUBLE_TROUBLE) ||
+      buffPresent(SPELLS.TRIPLE_THREAT) ||
+      buffPresent(SPELLS.JACKPOT),
   },
   {
     spell: SPELLS.ROLL_THE_BONES,

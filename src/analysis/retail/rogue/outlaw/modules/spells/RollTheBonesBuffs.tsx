@@ -44,45 +44,47 @@ class RollTheBonesBuffs extends Analyzer {
           <b>
             <SpellLink spell={SPELLS.ROLL_THE_BONES} />{' '}
           </b>
-          This is one of the most important spells for efficient gameplay. When pressed it has a
-          chance of giving a buff that goes from stage 1 to stage 4. Most of the power is baked into
-          the first 2 stages whom are the most accessible to maintain.
-          <br />
-          <br />
-          Depending on which stage you enter, you will also receive all the buffs of the previous
-          stages.
-          <br />
-          <br />
-          For example, if you gain Stage 3, you will not only gain the cooldown reduction increase
-          from Restless Blades, but also gain the bonuses to Sinister Strike and Ambush from Stages
-          1 and 2.
-          <br />
-          <br />
-          The current odds of receiving the buffs seem to be 55% chance to gain Stage 1, 30% chance
-          to gain Stage 2, 10% chance to gain Stage 3, and a 5% chance to gain Stage 4. (Source:{' '}
-          <a href="https://www.icy-veins.com/wow/outlaw-rogue-pve-dps-rotation-cooldowns-abilities">
-            Icy veins
-          </a>
-          )
+          <p>
+            This is one of the most important spells for efficient gameplay. When pressed it has a
+            chance of giving a buff that goes from stage 1 to stage 4. Most of the power is baked
+            into the first 2 stages whom are the most accessible to maintain.
+          </p>
+          <p>
+            Depending on which stage you enter, you will also receive all the buffs of the previous
+            stages.
+          </p>
+          <p>
+            For example, if you gain Stage 3, you will not only gain the cooldown reduction increase
+            from Restless Blades, but also gain the bonuses to Sinister Strike and Ambush from
+            Stages 1 and 2.
+          </p>
+          <p>
+            The current odds of receiving the buffs seem to be 55% chance to gain Stage 1, 30%
+            chance to gain Stage 2, 10% chance to gain Stage 3, and a 5% chance to gain Stage 4.
+          </p>
+          <p>
+            (Source:{' '}
+            <a href="https://www.icy-veins.com/wow/outlaw-rogue-pve-dps-rotation-cooldowns-abilities">
+              Icy veins
+            </a>
+            )
+          </p>
         </p>
         <ul>
-          <br />
           <li>
             <b>
               <SpellLink spell={SPELLS.ONE_OF_A_KIND} />
             </b>{' '}
             - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> has a 20% increased chance to strike
-            twice and grant <SpellLink spell={SPELLS.OPPORTUNITY} /> .
+            twice and grant <SpellLink spell={SPELLS.OPPORTUNITY} />
           </li>
-          <br />
           <li>
             <b>
               <SpellLink spell={SPELLS.DOUBLE_TROUBLE} />
             </b>{' '}
             - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> and <SpellLink spell={SPELLS.AMBUSH} />{' '}
-            generate 1 additional combo point and deal 15% increased damage.
+            generate 1 additional combo point and deal 15% increased damage
           </li>
-          <br />
           <li>
             <b>
               <SpellLink spell={SPELLS.TRIPLE_THREAT} />
@@ -90,26 +92,16 @@ class RollTheBonesBuffs extends Analyzer {
             - <SpellLink spell={SPELLS.RESTLESS_BLADES_TALENT} /> cooldown reduction increased by
             30%.
           </li>
-          <br />
           <li>
             <b>
               <SpellLink spell={SPELLS.JACKPOT} />
             </b>{' '}
             - Critical strike chance increased by 10%.
           </li>
-          <br />
         </ul>
       </>
     );
-    //const colors = ['#6a9ecb', '6600CC', '#f19206', '#5a4752', '#ffbf02', '#701110'];
-
-    const rollTheBonesBarSpec: UptimeBarSpec = {
-      spells: [SPELLS.ROLL_THE_BONES],
-      uptimes: this.selectedCombatant.getBuffHistory(SPELLS.ROLL_THE_BONES).map((buff) => ({
-        start: buff.start,
-        end: buff.end ?? this.owner.currentTimestamp,
-      })),
-    };
+    const colors = ['#6a9ecb', '#c06c52', '#f19206', '#ffbf02', '#760200'];
 
     const subBuffsBarSpecs: UptimeBarSpec[] = ROLL_THE_BONES_BUFFS.map((buff, idx) => ({
       spells: [buff],
@@ -117,8 +109,18 @@ class RollTheBonesBuffs extends Analyzer {
         start: buff.start,
         end: buff.end ?? this.owner.currentTimestamp,
       })),
-      //color: colors[idx],
+      color: colors[idx],
     }));
+
+    const rollTheBonesBarSpec: UptimeBarSpec = {
+      spells: [SPELLS.ROLL_THE_BONES],
+      uptimes: ROLL_THE_BONES_BUFFS.flatMap((buff) =>
+        this.selectedCombatant.getBuffHistory(buff.id),
+      ).map((buff) => ({
+        start: buff.start,
+        end: buff.end ?? this.owner.currentTimestamp,
+      })),
+    };
 
     const data = (
       <RoundedPanel>
