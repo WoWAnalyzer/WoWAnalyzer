@@ -68,10 +68,7 @@ class FightSelectionPanelList extends PureComponent<Props> {
                     {pulls.map((pull) => {
                       const duration = Math.round(pull.end_time - pull.start_time);
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
-                      // pull.fightPercentage is in 1/100ths of a percent (10000 = 100% HP remaining).
-                      const bossHpRemaining = pull.kill ? 0 : pull.fightPercentage! / 100;
-                      // Flag wipes where the boss had less than 2% HP left as a close call.
-                      const isCloseCall = !pull.kill && bossHpRemaining > 0 && bossHpRemaining < 2;
+                      const bossHpRemaining = (pull.fightPercentage! / 100).toFixed(2);
 
                       return (
                         <Link
@@ -82,50 +79,29 @@ class FightSelectionPanelList extends PureComponent<Props> {
                           <div className="flex">
                             <div className="flex-main">
                               <Icon />{' '}
-                              {pull.kill ? (
-                                <Trans id="interface.report.fightSelectionPanelList.kill">
-                                  Kill
-                                </Trans>
-                              ) : (
-                                <Trans id="interface.report.fightSelectionPanelList.wipe">
-                                  Wipe {getWipeCount(fights, pull)}
-                                </Trans>
-                              )}
+                              <span style={{ whiteSpace: 'nowrap' }}>
+                                {pull.kill ? (
+                                  <Trans id="interface.report.fightSelectionPanelList.kill">
+                                    Kill
+                                  </Trans>
+                                ) : (
+                                  `${bossHpRemaining}%`
+                                )}{' '}
+                                <small style={{ opacity: 0.65 }}>
+                                  #{getWipeCount(fights, pull)}
+                                </small>
+                              </span>
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}
-                              <span style={{ position: 'relative', display: 'inline-block' }}>
-                                <ProgressBar
-                                  percentage={
-                                    pull.kill ? 100 : (10000 - pull.fightPercentage!) / 100
-                                  }
-                                  width={100}
-                                  height={8}
-                                  tooltip={
-                                    pull.kill
-                                      ? 'Kill'
-                                      : `Boss had ${bossHpRemaining.toFixed(2)}% HP remaining`
-                                  }
-                                />
-                                {isCloseCall && (
-                                  <div
-                                    style={{
-                                      position: 'absolute',
-                                      left: '50%',
-                                      top: '100%',
-                                      transform: 'translateX(-50%)',
-                                      marginTop: -3,
-                                      color: '#ffd100',
-                                      fontSize: 10,
-                                      lineHeight: 1,
-                                      pointerEvents: 'none',
-                                      whiteSpace: 'nowrap',
-                                    }}
-                                  >
-                                    Close Call: {bossHpRemaining.toFixed(2)}%
-                                  </div>
-                                )}
-                              </span>
+                              <ProgressBar
+                                percentage={pull.kill ? 100 : (10000 - pull.fightPercentage!) / 100}
+                                width={100}
+                                height={8}
+                                tooltip={
+                                  pull.kill ? 'Kill' : `Boss had ${bossHpRemaining}% HP remaining`
+                                }
+                              />
                             </div>
                           </div>
                         </Link>
