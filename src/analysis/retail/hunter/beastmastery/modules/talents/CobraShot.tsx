@@ -137,7 +137,7 @@ class CobraShot extends Analyzer {
                 when Kill Command wasn't on cooldown.{' '}
               </>
             )}
-            {this.wastedCasts > 0 && this.wastedKCReductionMs > 0 && <br />}
+            {this.wastedCasts > 0 && this.wastedKCReductionMs > 0 && <p />}
             {this.wastedKCReductionMs > 0 &&
               `You wasted ${this.wastedCDR.toFixed(
                 2,
@@ -148,7 +148,7 @@ class CobraShot extends Analyzer {
         <BoringSpellValueText spell={TALENTS.COBRA_SHOT_TALENT}>
           <>
             {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
-            <br />
+            <p />
             {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}%{' '}
             <small>effectiveness</small>
           </>

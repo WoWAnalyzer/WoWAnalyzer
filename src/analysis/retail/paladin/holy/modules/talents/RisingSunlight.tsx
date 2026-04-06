@@ -111,11 +111,11 @@ class RisingSunlight extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
-          <>
-            Effective Healing: {formatNumber(this.healing)} <br />
-            Overhealing: {formatNumber(this.overheal)} <br />
-            Average Healing Increase: {formatPercentage(this.averageHealingIncrease())}%
-          </>
+          <ul>
+            <li>Effective Healing: {formatNumber(this.healing)}</li>
+            <li>Overhealing: {formatNumber(this.overheal)}</li>
+            <li>Average Healing Increase: {formatPercentage(this.averageHealingIncrease())}%</li>
+          </ul>
         }
       >
         <TalentSpellText talent={TALENTS.RISING_SUNLIGHT_TALENT}>

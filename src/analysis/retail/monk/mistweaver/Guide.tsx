@@ -146,7 +146,6 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
           {modules.sheilunsGiftCloudGraph.plot}
         </RoundedPanel>
       </div>
-      <br />
       <RoundedPanel>
         <div style={styleObj}>
           <SpellIcon spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} style={{ height: '28px' }} />{' '}

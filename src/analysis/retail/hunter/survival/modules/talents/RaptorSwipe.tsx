@@ -83,11 +83,12 @@ class RaptorSwipe extends Analyzer {
       color = BadColor;
     }
 
-    const targetsHit = damageEvents.length;
+    const targetsHit = new Set(damageEvents.map((dmg) => dmg.targetID)).size;
     const swipeDamage = damageEvents.reduce(
       (sum, dmg) => sum + dmg.amount + (dmg.absorbed ?? 0),
       0,
     );
+    const strikeAsOneTargets = new Set(strikeAsOneEvents.map((dmg) => dmg.targetID)).size;
     const tooltip = (
       <div>
         <h5 style={{ color }}>{header}</h5>
@@ -98,7 +99,7 @@ class RaptorSwipe extends Analyzer {
         </div>
         {strikeAsOneDamage > 0 && (
           <div>
-            <SpellLink spell={SPELLS.STRIKE_AS_ONE} />: <strong>{strikeAsOneEvents.length}</strong>{' '}
+            <SpellLink spell={SPELLS.STRIKE_AS_ONE} />: <strong>{strikeAsOneTargets}</strong>{' '}
             targets hit <small>({formatNumber(strikeAsOneDamage)} damage)</small>
           </div>
         )}

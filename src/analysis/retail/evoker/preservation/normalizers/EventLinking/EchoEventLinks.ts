@@ -4,6 +4,7 @@ import {
   EB_BUFFER_MS,
   ECHO,
   ECHO_BUFFER,
+  ECHO_CONSUMPTION,
   ECHO_REMOVAL,
   ECHO_TEMPORAL_ANOMALY,
   FROM_HARDCAST,
@@ -186,5 +187,15 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
         c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
       );
     },
+  },
+  {
+    linkRelation: ECHO_CONSUMPTION,
+    linkingEventId: [SPELLS.MERITHRAS_BLESSING_CAST.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    referencedEventType: EventType.RemoveBuff,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
   },
 ];

@@ -12,7 +12,6 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
-import { formatPercentage } from 'common/format';
 
 const CAST_BUFFER_MS = 250;
 

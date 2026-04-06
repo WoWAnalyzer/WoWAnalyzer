@@ -87,11 +87,14 @@ class SymbioticBloom extends Analyzer {
         }
         tooltip={
           <>
-            <SpellLink spell={TALENTS.SYMBIOTIC_BLOOM_TALENT} /> contributed{' '}
-            {formatNumber(this.totalHealingFromSymbioticBloomBuff)} healing.
-            <br />
-            NOTE: This metric uses an approximation to calculate contribution from the buff due to
-            technical limitations.
+            <p>
+              <SpellLink spell={TALENTS.SYMBIOTIC_BLOOM_TALENT} /> contributed{' '}
+              {formatNumber(this.totalHealingFromSymbioticBloomBuff)} healing.
+            </p>
+            <p>
+              NOTE: This metric uses an approximation to calculate contribution from the buff due to
+              technical limitations.
+            </p>
           </>
         }
       />

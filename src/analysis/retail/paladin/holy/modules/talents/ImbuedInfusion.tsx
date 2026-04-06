@@ -105,15 +105,17 @@ class ImbuedInfusion extends Analyzer {
         tooltip={
           <>
             <Trans id="paladin.holy.modules.talents.imbuedinfusion.tooltip">
-              You consumed Infusion of Light <b>{this.wastedHolyShockReductionCount}</b> time
-              {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off
-              cooldown.
-              <br />
-              This wasted <b>{(this.wastedHolyShockReductionMs / 1000).toFixed(1)}</b> seconds of
-              Holy Shock cooldown reduction,
-              <br />
-              preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
-              Shock cast{this.holyShocksCastsLost === 1 ? '' : 's'}.<br />
+              <p>
+                You consumed Infusion of Light <b>{this.wastedHolyShockReductionCount}</b> time
+                {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off
+                cooldown.
+              </p>
+              <p>
+                This wasted <b>{(this.wastedHolyShockReductionMs / 1000).toFixed(1)}</b> seconds of
+                Holy Shock cooldown reduction, preventing you from{' '}
+                <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy Shock cast
+                {this.holyShocksCastsLost === 1 ? '' : 's'}.
+              </p>
             </Trans>
           </>
         }

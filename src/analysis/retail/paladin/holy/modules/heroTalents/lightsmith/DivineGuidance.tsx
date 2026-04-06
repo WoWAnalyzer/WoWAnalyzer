@@ -56,10 +56,10 @@ class DivineGuidance extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            Effective Healing: {formatNumber(this.healingDone)} <br />
-            Overhealing: {formatNumber(this.overhealing)} <br />
-            Damage Done: {formatNumber(this.damageDone)} <br />
-            Wasted Stacks: {formatNumber(this.wastedStacks)}
+            <li>Effective Healing: {formatNumber(this.healingDone)}</li>
+            <li>Overhealing: {formatNumber(this.overhealing)}</li>
+            <li>Damage Done: {formatNumber(this.damageDone)}</li>
+            <li>Wasted Stacks: {formatNumber(this.wastedStacks)}</li>
           </>
         }
       >

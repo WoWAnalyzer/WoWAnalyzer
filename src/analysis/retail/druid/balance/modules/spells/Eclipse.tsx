@@ -102,7 +102,9 @@ export default class Eclipse extends Analyzer {
         </p>
         <p>
           <SpellLink spell={SPELLS.WRATH} /> is single target. <SpellLink spell={SPELLS.STARFIRE} />{' '}
-          cleaves. <br />
+          cleaves.{' '}
+        </p>
+        <p>
           Choose <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> when hitting 3 or more stacked targets.
           Choose <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> for 1 to 2 targets.
         </p>

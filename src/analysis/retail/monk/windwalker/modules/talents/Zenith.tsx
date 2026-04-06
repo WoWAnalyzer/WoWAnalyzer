@@ -145,7 +145,7 @@ class Zenith extends Analyzer.withDependencies({
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={TALENTS_MONK.ZENITH_TALENT}>
-          <span>
+          <div>
             <SpellIcon
               spell={SPELLS.BLACKOUT_KICK}
               style={{
@@ -155,7 +155,8 @@ class Zenith extends Analyzer.withDependencies({
             />{' '}
             {formatNumber(this.blackoutKicksDuringZenith)}{' '}
             <small>Blackout Kicks during Zenith</small>
-            <br />
+          </div>
+          <div>
             <SpellIcon
               spell={TALENTS_MONK.OBSIDIAN_SPIRAL_TALENT}
               style={{
@@ -169,7 +170,7 @@ class Zenith extends Analyzer.withDependencies({
                 ? 'Chi generated during Zenith'
                 : 'Chi that would have been generated during Zenith (requires Obsidian Spiral)'}
             </small>
-          </span>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

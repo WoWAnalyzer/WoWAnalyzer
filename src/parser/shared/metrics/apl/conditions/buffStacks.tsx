@@ -7,7 +7,7 @@ import { Range, formatRange } from './index';
 
 export default function buffStacks(spell: Spell, range: Range): Condition<number> {
   return {
-    key: `buffPresent-${spell.id}`,
+    key: `buffStacks-${spell.id}`,
     init: () => 0,
     update: (state, event) => {
       switch (event.type) {

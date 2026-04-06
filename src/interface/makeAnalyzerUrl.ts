@@ -6,9 +6,9 @@ import CharacterProfile from 'parser/core/CharacterProfile';
 
 export function makePlainUrl(
   reportCode?: string,
-  fightId?: string,
+  fightId?: number,
   fightName?: string,
-  playerId?: string,
+  playerId?: number,
   playerName?: string,
   tab = 'standard',
 ) {
@@ -17,8 +17,12 @@ export function makePlainUrl(
     parts.push(`report/${reportCode}`);
     if (fightId) {
       parts.push(fightName ? `${fightId}-${prettyEncodeURI(fightName)}` : `${fightId}`);
-      if (playerId) {
-        parts.push(playerName ? `${playerId}-${prettyEncodeURI(playerName)}` : `${playerId}`);
+      if (playerId || playerName) {
+        if (playerName) {
+          parts.push(prettyEncodeURI(playerName));
+        } else {
+          parts.push(playerName ? `${playerId}-${prettyEncodeURI(playerName)}` : `${playerId}`);
+        }
         if (tab) {
           parts.push(tab);
         }

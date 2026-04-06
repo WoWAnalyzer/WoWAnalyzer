@@ -89,8 +89,12 @@ class VeilOfPride extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} /> <br />
-          {(this.sheilunsGift.averageClouds / 2).toFixed(1)} <small>extra clouds</small>
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            {(this.sheilunsGift.averageClouds / 2).toFixed(1)} <small>extra clouds</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

@@ -48,8 +48,6 @@ class CelestialConduit extends CommonCelestialConduit {
             <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_WINDWALKER_TALENT} /> was channeled to
             completion)
           </small>
-          <br />
-          <br />
           <PerformanceBoxRow values={this.castEntries(this.castInfoList)} />
         </div>
       </>

@@ -282,7 +282,7 @@ class DancingMists extends Analyzer {
     return (
       <>
         <strong>{procs}</strong> additional <SpellLink spell={spell} />{' '}
-        {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
+        {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from
         <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} /> by duplication source:
         <hr />
         <DonutChart items={items} />
@@ -481,7 +481,6 @@ class DancingMists extends Analyzer {
             content={
               <>
                 The number of additional <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
-                <br />
                 procced on casts and bounces:
                 <hr />
                 <DonutChart items={this.sourceDataItems} />

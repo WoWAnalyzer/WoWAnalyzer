@@ -80,12 +80,15 @@ class Ossuary extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.ossuary.statistic.tooltip">
-            {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without
-            Ossuary up.
-            <br />
-            {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary up.
-            <br />
-            {formatPercentage(this.uptime)}% uptime.
+            <p>
+              {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without
+              Ossuary up.
+            </p>
+            <p>
+              {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary
+              up.
+              {formatPercentage(this.uptime)}% uptime.
+            </p>
           </Trans>
         }
       >

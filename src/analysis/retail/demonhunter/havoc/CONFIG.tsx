@@ -10,8 +10,8 @@ const CONFIG: Config = {
   contributors: [Topple],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.0',
-  supportLevel: SupportLevel.Unmaintained,
+  patchCompatibility: '12.0.1',
+  supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -25,7 +25,7 @@ const CONFIG: Config = {
       More resources for Havoc:
       {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">
+      <a href="https://discord.gg/felhammer" target="_blank" rel="noopener noreferrer">
         Demon Hunter Class Discord
       </a>{' '}
       {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
