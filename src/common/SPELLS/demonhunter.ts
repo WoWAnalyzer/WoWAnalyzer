@@ -556,6 +556,16 @@ const spells = {
     name: 'Initiative',
     icon: 'ability_rogue_surpriseattack',
   },
+  INERTIA: {
+    id: 427640,
+    name: 'Inertia',
+    icon: 'inv_10_inscription3_pigments_black',
+  },
+  INERTIA_BUFF: {
+    id: 427641,
+    name: 'Inertia',
+    icon: 'ability_garrosh_empowered_whirling_corruption',
+  },
   SOULSCAR: {
     id: 390181,
     name: 'Soulrend',

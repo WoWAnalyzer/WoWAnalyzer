@@ -2,7 +2,7 @@ import { expect, test } from './fixtures';
 
 const reportCode = 'VqRJyj1fx3DCwHnb';
 const reportTitle = 'HoF / ToES';
-const fightLinkName = 'Kill 3:31';
+const fightLinkName = 'Kill #1 3:31';
 const fightUrlPart = '5-Heroic+Lei+Shi+-+Kill+(3:31)';
 const bossTitle = `Heroic Lei Shi - Kill (3:31)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;

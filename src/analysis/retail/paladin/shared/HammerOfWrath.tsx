@@ -21,7 +21,6 @@ class HammerofWrath extends ExecuteHelper {
   static executeOutsideRangeEnablers: Spell[] = [
     TALENTS.AVENGING_WRATH_TALENT,
     TALENTS.AVENGING_CRUSADER_TALENT,
-    TALENTS.CRUSADE_TALENT,
   ];
   static modifiesDamage = false;
 

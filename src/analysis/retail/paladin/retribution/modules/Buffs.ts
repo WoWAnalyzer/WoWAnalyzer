@@ -31,12 +31,6 @@ class Buffs extends CoreAuras {
       // Throughput cooldowns
       {
         spellId: TALENTS.AVENGING_WRATH_TALENT.id,
-        enabled: !combatant.hasTalent(TALENTS.CRUSADE_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: TALENTS.CRUSADE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CRUSADE_TALENT),
         timelineHighlight: true,
       },
       // Utility

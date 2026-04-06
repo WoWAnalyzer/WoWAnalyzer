@@ -66,7 +66,7 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
     linkingEventType: EventType.ApplyBuff,
     referencedEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
-    referencedEventType: EventType.ApplyBuff,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     anyTarget: true,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,

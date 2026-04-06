@@ -57,7 +57,7 @@ const config: Config = {
       {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
       If you have any more questions about Demon Hunters, feel free to pay a visit to{' '}
-      <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">
+      <a href="https://discord.gg/felhammer" target="_blank" rel="noopener noreferrer">
         The Fel Hammer Discord
       </a>
       , if it's about a general tanking issue, there's also the{' '}

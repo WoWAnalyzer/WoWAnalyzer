@@ -34,6 +34,7 @@ import WildfireShells from './modules/talents/WildfireShells';
 import LethalCalibration from './modules/talents/LethalCalibration';
 import WildfireBombNormalizer from './normalizers/WildfireBombNormalizer';
 import RaptorSwipeNormalizer from './normalizers/RaptorSwipeNormalizer';
+import KillCommandNormalizer from './normalizers/KillCommandNormalizer';
 import RaptorSwipe from './modules/talents/RaptorSwipe';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import AplCheck from './modules/apl/AplCheck';
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     boomstickNormalizer: BoomstickNormalizer,
     wildfireBombNormalizer: WildfireBombNormalizer,
     raptorSwipeNormalizer: RaptorSwipeNormalizer,
+    killCommandNormalizer: KillCommandNormalizer,
     moonlightChakramNormalizer: MoonlightChakramNormalizer,
     sentinelsMarkNormalizer: SentinelsMarkNormalizer,
     EventLinkNormalizers: EventLinkNormalizer,

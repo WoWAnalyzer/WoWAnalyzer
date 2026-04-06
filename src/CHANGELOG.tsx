@@ -35,7 +35,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 4, 5), <>Add toggleable heal target display to the timeline, showing who was healed, for how much, and at what HP.</>, Thias),
+  change(date(2026, 4, 6), <>Add toggleable heal target display to the timeline, showing who was healed, for how much, and at what HP.</>, Thias),
+  change(date(2026, 4, 6), <>Improve visuals for close calls in pull selection</>, Thias),
   change(date(2026, 4, 2), <>Link out-dated browsers to a functional website alternative</>, Vetyst),
   change(date(2026, 3, 31), <>Convert ReportHistory to TypeScript.</>, Vetyst),
   change(date(2026, 3, 24), <>Add <SpellLink spell={ITEMS.DARKMOON_SIGIL_HUNT} /> embellishment analyzer with stat buff tracking.</>, MarchingCube),
