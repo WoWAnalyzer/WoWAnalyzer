@@ -11,7 +11,7 @@ const CASTS_DURING_WAKE = 'DivineHammerDuringCrusade';
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: CASTS_DURING_WAKE,
-    referencedEventId: [SPELLS.DIVINE_HAMMER_CAST.id, SPELLS.HAMMER_OF_LIGHT.id],
+    referencedEventId: [SPELLS.HAMMER_OF_LIGHT.id],
     referencedEventType: EventType.Cast,
     linkingEventId: TALENTS_PALADIN.WAKE_OF_ASHES_TALENT.id,
     linkingEventType: EventType.Cast,
