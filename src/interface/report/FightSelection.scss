@@ -38,6 +38,8 @@
       .icon {
         font-size: 1.22em;
         margin-right: 2px;
+      }
+      .icon:not(.ProgressBar) {
         vertical-align: -0.18em;
       }
     }
