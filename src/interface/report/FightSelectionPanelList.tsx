@@ -98,9 +98,6 @@ class FightSelectionPanelList extends PureComponent<Props> {
                                 percentage={pull.kill ? 100 : (10000 - pull.fightPercentage!) / 100}
                                 width={100}
                                 height={8}
-                                tooltip={
-                                  pull.kill ? 'Kill' : `Boss had ${bossHpRemaining}% HP remaining`
-                                }
                               />
                             </div>
                           </div>
