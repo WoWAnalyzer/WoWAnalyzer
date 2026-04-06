@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 6), <>Replace external usages of <code>Combatant._combatantInfo</code> with proper public getters and introduce a <code>Faction</code> enum.</>, Thias),
   change(date(2026, 4, 6), <>Improve visuals for close calls in pull selection</>, Thias),
   change(date(2026, 4, 2), <>Link out-dated browsers to a functional website alternative</>, Vetyst),
   change(date(2026, 3, 31), <>Convert ReportHistory to TypeScript.</>, Vetyst),
