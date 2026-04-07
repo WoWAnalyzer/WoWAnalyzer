@@ -41,12 +41,7 @@
   "exclude": [
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/druid/restoration",
-    "src/analysis/retail/druid/shared",
-    "src/analysis/retail/monk/shared",
-    "src/analysis/retail/paladin/holy",
     "src/analysis/retail/paladin/protection",
-    "src/analysis/retail/paladin/retribution",
-    "src/analysis/retail/paladin/shared",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw"
   ],

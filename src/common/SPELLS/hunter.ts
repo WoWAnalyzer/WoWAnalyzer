@@ -416,12 +416,12 @@ const spells = {
   //region Sentinel Hero Talents
   DONT_LOOK_BACK_BUFF: {
     id: 451447,
-    name: 'Lunar Storm',
+    name: "Don't Look Back",
     icon: 'ability_racial_forceshield',
   },
   LUNAR_STORM_DAMAGE: {
     id: 1253733,
-    name: "Don't Look Back",
+    name: 'Lunar Storm',
     icon: 'artifactability_balancedruid_moonandstars',
   },
   MOONLIGHT_CHAKRAM_BUFF: {

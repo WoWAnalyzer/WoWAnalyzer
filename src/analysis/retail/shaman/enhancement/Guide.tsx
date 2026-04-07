@@ -13,23 +13,26 @@ export default function Guide(props: GuideProps<typeof CombatLogParser>) {
     <>
       <Section title="Preface & Disclaimers">
         <>
-          The analysis in this guide is provided by <Contributor {...Seriousnes} /> in collaboration
-          with the members and staff of the <a href="https://discord.gg/earthshrine">Earthshrine</a>{' '}
-          Shaman discord. When reviewing this information, keep in mind that WoWAnalyzer is limited
-          to the information that is present in your combat log. As a result, we have no way of
-          knowing if you were intentionally doing something suboptimal because the fight or strat
-          required it (such as Forced Downtime or holding cooldowns for a burn phase). Because of
-          this, we recommend comparing your analysis against a top 100 log for the same boss.
-          <br />
-          <br />
-          For additional assistance in improving your gameplay, or to have someone look more in
-          depth at your combat logs, please visit the{' '}
-          <a href="https://discord.gg/earthshrine">Earthshrine</a> discord.
-          <br />
-          <br />
-          If you notice any issues or errors in this analysis or if there is additional analysis you
-          would like added, please ping <code>@Seriousnes</code> in the{' '}
-          <a href="https://discord.gg/earthshrine">Earthshrine</a> discord.
+          <p>
+            The analysis in this guide is provided by <Contributor {...Seriousnes} /> in
+            collaboration with the members and staff of the{' '}
+            <a href="https://discord.gg/earthshrine">Earthshrine</a> Shaman discord. When reviewing
+            this information, keep in mind that WoWAnalyzer is limited to the information that is
+            present in your combat log. As a result, we have no way of knowing if you were
+            intentionally doing something suboptimal because the fight or strat required it (such as
+            Forced Downtime or holding cooldowns for a burn phase). Because of this, we recommend
+            comparing your analysis against a top 100 log for the same boss.
+          </p>
+          <p>
+            For additional assistance in improving your gameplay, or to have someone look more in
+            depth at your combat logs, please visit the{' '}
+            <a href="https://discord.gg/earthshrine">Earthshrine</a> discord.
+          </p>
+          <p>
+            If you notice any issues or errors in this analysis or if there is additional analysis
+            you would like added, please ping <code>@Seriousnes</code> in the{' '}
+            <a href="https://discord.gg/earthshrine">Earthshrine</a> discord.
+          </p>
         </>
       </Section>
       <Cooldowns {...props} />

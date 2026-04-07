@@ -98,13 +98,12 @@ class Judgment extends Analyzer {
         <div key={castNum}>
           {spell.name} Judgment Consumptions: {castNum} (
           {formatNumber(this.spellDamageMap.get(spell) || 0)} total extra damage)
-          <br />
         </div>,
       );
     });
     return (
       <>
-        Total Judgments Consumed: {this.totalJudgmentConsumptions} <br />
+        <div>Total Judgments Consumed: {this.totalJudgmentConsumptions}</div>
         {tooltipRows}
       </>
     );

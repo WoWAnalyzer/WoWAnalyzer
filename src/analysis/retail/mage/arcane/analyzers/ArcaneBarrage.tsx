@@ -35,7 +35,7 @@ export default class ArcaneBarrage extends Analyzer {
   }
 
   onBarrage(event: CastEvent) {
-    let activeBuffs: number[] = [];
+    const activeBuffs: number[] = [];
 
     // Clearcasting
     if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE, event.timestamp - 10)) {

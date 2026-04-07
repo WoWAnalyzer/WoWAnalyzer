@@ -3,7 +3,6 @@ import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import TALENTS from 'common/TALENTS/evoker';
 import { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { DENSE_ENERGY_ESSENCE_REDUCTION } from 'analysis/retail/evoker/devastation/constants';
 import { VOLCANISM_ESSENCE_REDUCTION } from 'analysis/retail/evoker/augmentation/constants';
 
 class SpellEssenceCost extends SpellResourceCost {

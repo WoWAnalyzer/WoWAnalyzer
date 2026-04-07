@@ -127,8 +127,6 @@ class TitansGift extends Analyzer {
   statistic() {
     const percentBuffedBlossoms =
       this.totalBlossomsCasted !== 0 ? this.buffedBlossoms / this.totalBlossomsCasted : 0;
-    const percentBuffedEchoes =
-      this.totalEchoesCasted !== 0 ? this.buffedEchoes / this.totalEchoesCasted : 0;
     // Titans Gift for Blossom is way more important right now to match guides, Echo attribution needs more work still so im leaving it for later
     return (
       <Statistic
@@ -145,7 +143,8 @@ class TitansGift extends Analyzer {
               <small>
                 <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
               </small>
-              <br />
+            </div>
+            <div>
               <TooltipElement
                 content={
                   <>

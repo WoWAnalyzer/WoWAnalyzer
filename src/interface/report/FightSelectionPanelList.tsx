@@ -68,6 +68,7 @@ class FightSelectionPanelList extends PureComponent<Props> {
                     {pulls.map((pull) => {
                       const duration = Math.round(pull.end_time - pull.start_time);
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
+                      const bossHpRemaining = (pull.fightPercentage! / 100).toFixed(2);
 
                       return (
                         <Link
@@ -78,15 +79,18 @@ class FightSelectionPanelList extends PureComponent<Props> {
                           <div className="flex">
                             <div className="flex-main">
                               <Icon />{' '}
-                              {pull.kill ? (
-                                <Trans id="interface.report.fightSelectionPanelList.kill">
-                                  Kill
-                                </Trans>
-                              ) : (
-                                <Trans id="interface.report.fightSelectionPanelList.wipe">
-                                  Wipe {getWipeCount(fights, pull)}
-                                </Trans>
-                              )}
+                              <span style={{ whiteSpace: 'nowrap' }}>
+                                {pull.kill ? (
+                                  <Trans id="interface.report.fightSelectionPanelList.kill">
+                                    Kill
+                                  </Trans>
+                                ) : (
+                                  `${bossHpRemaining}%`
+                                )}{' '}
+                                <small style={{ opacity: 0.65 }}>
+                                  #{getWipeCount(fights, pull)}
+                                </small>
+                              </span>
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}

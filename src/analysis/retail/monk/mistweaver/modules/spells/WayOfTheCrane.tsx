@@ -32,15 +32,15 @@ class WayOfTheCrane extends Analyzer {
 
   protected critEffectBonus!: CritEffectBonus;
 
-  tigerPalmDamage: number = 0;
-  tigerPalmHealing: number = 0;
-  tigerPalmOverheal: number = 0;
-  blackoutKickDamage: number = 0;
-  blackoutKickHealing: number = 0;
-  blackoutKickOverheal: number = 0;
-  spinningCraneKickDamage: number = 0;
-  spinningCraneKickHealing: number = 0;
-  spinningCraneKickOverheal: number = 0;
+  tigerPalmDamage = 0;
+  tigerPalmHealing = 0;
+  tigerPalmOverheal = 0;
+  blackoutKickDamage = 0;
+  blackoutKickHealing = 0;
+  blackoutKickOverheal = 0;
+  spinningCraneKickDamage = 0;
+  spinningCraneKickHealing = 0;
+  spinningCraneKickOverheal = 0;
 
   constructor(options: Options) {
     super(options);
@@ -202,9 +202,12 @@ class WayOfTheCrane extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.WAY_OF_THE_CRANE_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          <ItemDamageDone amount={this.tigerPalmDamage + this.blackoutKickDamage} />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.tigerPalmDamage + this.blackoutKickDamage} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

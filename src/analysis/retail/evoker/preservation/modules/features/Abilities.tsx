@@ -29,7 +29,9 @@ class Abilities extends CoreAbilities {
           : TALENTS.DREAM_BREATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30,
+        cooldown:
+          (combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30) -
+          (combatant.hasTalent(TALENTS.INSTABILITY_MATRIX_TALENT) ? 3 : 0),
         gcd: {
           base: EMPOWER_BASE_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
@@ -59,7 +61,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 15,
+        cooldown: 15 - (combatant.hasTalent(TALENTS.NOZDORMU_ADEPT_TALENT) ? 4 : 0),
         gcd: {
           base: 1500,
         },

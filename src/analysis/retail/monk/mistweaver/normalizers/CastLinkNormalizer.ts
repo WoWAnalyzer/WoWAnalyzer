@@ -2,7 +2,6 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
 import {
-  AbilityEvent,
   AnyEvent,
   ApplyBuffEvent,
   EventType,
@@ -129,7 +128,7 @@ export function getSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcast(event: AbilityEvent<any>): boolean {
+export function isFromHardcast(event: AnyEvent): boolean {
   if (HasRelatedEvent(event, FROM_RAPID_DIFFUSION) || HasRelatedEvent(event, FROM_MISTY_PEAKS)) {
     return false;
   }

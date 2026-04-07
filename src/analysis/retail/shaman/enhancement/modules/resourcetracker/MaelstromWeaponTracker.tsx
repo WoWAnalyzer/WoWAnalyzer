@@ -1,4 +1,3 @@
-import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

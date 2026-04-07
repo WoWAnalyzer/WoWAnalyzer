@@ -64,12 +64,14 @@ class MysticTouch extends Analyzer {
         label="Mystic Touch Damage Increased"
         tooltip={
           <>
-            If this number is zero then another monk most likely applyed mystic touch before you.
-            <br />
-            If you want to see the value Mystic Touch provided you will need to go to their log to
-            find out.
-            <br />
-            Total Physical Damage Queried: {formatNumber(this.totalDamageAdded)}
+            <p>
+              If this number is zero then another monk most likely applyed mystic touch before you.
+            </p>
+            <p>
+              If you want to see the value Mystic Touch provided you will need to go to their log to
+              find out.
+            </p>
+            <p>Total Physical Damage Queried: {formatNumber(this.totalDamageAdded)}</p>
           </>
         }
         drilldown={makeWclUrl(this.owner.report.code, {
