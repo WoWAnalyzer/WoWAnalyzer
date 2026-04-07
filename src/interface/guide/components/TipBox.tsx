@@ -77,7 +77,7 @@ function TipBoxLayout({
   const hasHeader = icon || title;
   return (
     <Container $color={color} role={role}>
-      <Content>
+      <div>
         {hasHeader && (
           <TitleWrapper $color={color}>
             <strong>
@@ -87,7 +87,7 @@ function TipBoxLayout({
           </TitleWrapper>
         )}
         {children}
-      </Content>
+      </div>
     </Container>
   );
 }
@@ -99,6 +99,7 @@ const Container = styled.div<{ $color: string }>`
   padding: 12px 16px;
   margin-top: 12px;
   margin-bottom: 8px;
+  line-height: 1.5;
 `;
 
 const TitleWrapper = styled.span<{ $color: string }>`
@@ -117,10 +118,6 @@ const IconWrapper = styled.span`
     width: 1em;
     height: 1em;
   }
-`;
-
-const Content = styled.div`
-  line-height: 1.5;
 `;
 
 interface PerformanceTipBoxProps extends Omit<TipBoxProps, 'type'> {
