@@ -70,6 +70,7 @@ import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import CastHealInfo from '../shared/modules/CastHealInfo';
 import Analyzer from './Analyzer';
 import { FullCombatant } from './Combatant';
 import EventFilter from './EventFilter';
@@ -148,6 +149,7 @@ class CombatLogParser {
     spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
 
     // Analyzers
+    castHealInfo: CastHealInfo,
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,

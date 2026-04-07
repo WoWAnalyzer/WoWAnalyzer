@@ -229,6 +229,72 @@ $npc-content-offset: 4em;
       top: 7px;
     }
 
+    &.has-heal-targets {
+      height: var(--heal-bottom, 22px);
+
+      &:before {
+        height: 100%;
+      }
+    }
+
+    .heal-target-label {
+      --heal-level: 0;
+
+      position: absolute;
+      top: 22px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      text-align: center;
+      cursor: default;
+      z-index: 4;
+      line-height: 1.2;
+
+      .heal-target-arrow {
+        width: 1px;
+        height: calc(10px + var(--heal-level) * 35px);
+        background: rgba(0, 180, 0, 0.5);
+        margin: 0 auto;
+
+        // upward arrow
+        &:before {
+          content: '';
+          display: block;
+          width: 0;
+          height: 0;
+          margin-left: -3px;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          border-bottom: 5px solid rgba(0, 180, 0, 0.6);
+        }
+      }
+
+      .heal-target-text {
+        background: rgba(0, 0, 0, 0.75);
+        border: 1px solid rgba(0, 160, 0, 0.5);
+        border-radius: 3px;
+        padding: 2px 5px;
+      }
+
+      .heal-target-name {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      .heal-target-echo {
+        color: rgba(150, 200, 255, 0.9);
+        font-size: 10px;
+      }
+
+      .heal-target-amount {
+        font-size: 10px;
+        color: rgba(0, 210, 0, 0.9);
+      }
+
+      &.heal-target-offgcd {
+        top: calc(76px + var(--offgcd-level, 0) * 25px);
+      }
+    }
+
     .movement {
       border-radius: 3px;
       background-color: rgba(0, 47, 255, 0.2);

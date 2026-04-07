@@ -22,8 +22,13 @@ import { addInefficientCastReason, Reason } from 'parser/core/EventMetaLib';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
 import { TimelineSettingsContext } from './Settings';
+import CastHealInfoModule from 'parser/shared/modules/CastHealInfo';
+import { formatNumber, formatPercentage } from 'common/format';
 
 const ICON_WIDTH = 22;
+const ICON_HEIGHT = 22;
+const OFFGCD_BASE_TOP = 54;
+const OFFGCD_LEVEL_HEIGHT = 25;
 
 const isApplicableCastEvent = (event: CastEvent | BeginChannelEvent | FreeCastEvent) => {
   const spellId = event.ability.guid;
@@ -91,6 +96,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   events: AnyEvent[];
   movement?: MovementInstance[];
   overlapOffGcds?: boolean;
+  castHealInfo?: CastHealInfoModule;
 }
 
 const Casts = ({
@@ -100,6 +106,7 @@ const Casts = ({
   events,
   movement,
   overlapOffGcds,
+  castHealInfo,
   ...others
 }: Props) => {
   const timelineSettings = use(TimelineSettingsContext);
@@ -162,6 +169,14 @@ const Casts = ({
     );
   };
 
+  // Track heal target label positions to stack overlapping ones
+  const HEAL_LABEL_WIDTH = 80; // approximate width of a label in px
+  const HEAL_LABEL_HEIGHT = 50; // height per stacked level
+  const HEAL_LABEL_TEXT_HEIGHT = 30; // approximate height of the text box
+  const _healLabelPositions: { left: number; level: number }[] = [];
+  let _maxHealLevel = 0;
+  let _maxHealBottom = 0; // track the lowest point any heal label reaches
+
   let hasLowered = false;
   let _lastLowered: number | null = null;
   let _level = 0;
@@ -191,6 +206,10 @@ const Casts = ({
       _lastLowered = left;
       hasLowered = true;
     }
+
+    // Store for renderHealTarget
+    _lastCastIsOffGcd = lower;
+    _lastCastOffGcdLevel = level;
 
     const meta = event.meta;
     const castReason = generateTooltip(meta);
@@ -326,22 +345,162 @@ const Casts = ({
     );
   };
 
+  // Track off-GCD info from the most recent renderCast call
+  let _lastCastIsOffGcd = false;
+  let _lastCastOffGcdLevel = 0;
+
+  const renderHealTarget = (event: CastEvent | BeginChannelEvent | FreeCastEvent): ReactNode => {
+    if (!castHealInfo) {
+      return null;
+    }
+    const healData = castHealInfo.getHealDataForEvent(event);
+    if (!healData || healData.heals.length === 0) {
+      return null;
+    }
+
+    const left = getOffsetLeft(event.timestamp);
+    const mainHeal = healData.heals[0];
+    const targetName = castHealInfo.getTargetName(mainHeal.targetID);
+    const effective = mainHeal.amount + mainHeal.absorbed;
+    const echoCount = healData.heals.length - 1;
+
+    // Find the lowest level where this label doesn't overlap
+    let healLevel = 0;
+    for (let tryLevel = 0; ; tryLevel++) {
+      const overlaps = _healLabelPositions.some(
+        (pos) => pos.level === tryLevel && Math.abs(left - pos.left) < HEAL_LABEL_WIDTH,
+      );
+      if (!overlaps) {
+        healLevel = tryLevel;
+        break;
+      }
+    }
+    _healLabelPositions.push({ left, level: healLevel });
+    _maxHealLevel = Math.max(_maxHealLevel, healLevel);
+
+    const tooltipContent = (
+      <>
+        {healData.heals.map((heal, i) => {
+          const healEffective = heal.amount + heal.absorbed;
+          return (
+            <div key={i}>
+              {castHealInfo.getTargetName(heal.targetID)}
+              {heal.isMainTarget && healData.heals.length > 1 && (
+                <span style={{ opacity: 0.7 }}> (direct)</span>
+              )}
+              {' - '}
+              {formatNumber(healEffective)} ({formatPercentage(heal.hpBeforePct, 0)}% HP)
+              {heal.overheal > 0 && (
+                <span style={{ opacity: 0.7 }}> ({formatNumber(heal.overheal)} OH)</span>
+              )}
+            </div>
+          );
+        })}
+        {healData.heals.length > 1 && (
+          <div
+            style={{
+              marginTop: 4,
+              borderTop: '1px solid rgba(255,255,255,0.2)',
+              paddingTop: 4,
+            }}
+          >
+            <strong>Total:</strong> {formatNumber(healData.totalEffective)}
+            {healData.totalOverheal > 0 && (
+              <span style={{ opacity: 0.7 }}> ({formatNumber(healData.totalOverheal)} OH)</span>
+            )}
+          </div>
+        )}
+        <a
+          href={castHealInfo.getWclUrl(event.timestamp, healData.healAbilityId)}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: 10,
+            color: 'rgba(150, 200, 255, 0.9)',
+            marginTop: 4,
+            display: 'block',
+          }}
+        >
+          View on WCL
+        </a>
+      </>
+    );
+
+    const isOffGcd = _lastCastIsOffGcd;
+    const offGcdLevel = _lastCastOffGcdLevel;
+
+    const offGcdLabelTop = OFFGCD_BASE_TOP + ICON_HEIGHT + offGcdLevel * OFFGCD_LEVEL_HEIGHT;
+    if (isOffGcd) {
+      _maxHealBottom = Math.max(_maxHealBottom, offGcdLabelTop + HEAL_LABEL_TEXT_HEIGHT);
+    } else {
+      _maxHealBottom = Math.max(
+        _maxHealBottom,
+        ICON_HEIGHT + 10 + healLevel * HEAL_LABEL_HEIGHT + HEAL_LABEL_TEXT_HEIGHT,
+      );
+    }
+
+    return (
+      <Fragment key={`healtarget-${event.timestamp}-${event.ability.guid}`}>
+        <div
+          className={`heal-target-label ${isOffGcd ? 'heal-target-offgcd' : ''}`}
+          style={
+            {
+              left: isOffGcd ? left : left + ICON_WIDTH / 2,
+              '--heal-level': healLevel,
+              '--offgcd-level': offGcdLevel,
+            } as CSSProperties
+          }
+        >
+          {!isOffGcd && <div className="heal-target-arrow" />}
+          <Tooltip content={tooltipContent} direction="down" distance={0} arrow={false} hoverable>
+            <div className="heal-target-text">
+              <div className="heal-target-name">
+                {targetName}
+                {echoCount > 0 && <span className="heal-target-echo"> +{echoCount}</span>}
+              </div>
+              <div className="heal-target-amount">{formatNumber(effective)}</div>
+            </div>
+          </Tooltip>
+        </div>
+      </Fragment>
+    );
+  };
+
   const renderEvent = (event: AnyEvent) => {
+    let castElement: ReactNode = null;
+    let healElement: ReactNode = null;
+
     switch (event.type) {
       case EventType.FreeCast:
       case EventType.Cast:
-        return renderCast(event);
+        castElement = renderCast(event);
+        healElement = renderHealTarget(event);
+        break;
       case EventType.BeginChannel:
-        return renderBeginChannel(event);
+        castElement = renderBeginChannel(event);
+        healElement = renderHealTarget(event);
+        break;
       case EventType.EndChannel:
-        return renderChannel(event);
+        castElement = renderChannel(event);
+        break;
       case EventType.GlobalCooldown:
-        return renderGlobalCooldown(event);
+        castElement = renderGlobalCooldown(event);
+        break;
       case EventType.AutoAttackCooldown:
-        return renderSwingCooldown(event);
+        castElement = renderSwingCooldown(event);
+        break;
       default:
         return null;
     }
+
+    return (
+      <Fragment
+        key={`event-${event.timestamp}-${event.type}-${'ability' in event ? event.ability.guid : ''}`}
+      >
+        {castElement}
+        {healElement}
+      </Fragment>
+    );
   };
 
   const content = events.map(renderEvent);
@@ -382,13 +541,14 @@ const Casts = ({
 
   return (
     <div
-      className="casts"
+      className={`casts ${castHealInfo ? 'has-heal-targets' : ''}`}
       {...others}
       style={{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         '--levels': hasLowered ? _maxLevel : 0,
         '--has-levels': hasLowered ? 1 : 0,
+        '--heal-bottom': castHealInfo && _maxHealBottom > 0 ? `${_maxHealBottom}px` : undefined,
         ...others.style,
       }}
     >

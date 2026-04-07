@@ -37,13 +37,13 @@
 }
 
 .time-line-container + .cooldowns {
-  margin-top: 22px;
+  margin-top: calc(22px + var(--heal-targets-extra, 0px));
 }
 
 /* Time indicator */
 .spell-timeline .time-line {
   white-space: nowrap;
-  height: calc(var(--cast-bars) * 22px);
+  height: calc(var(--cast-bars) * (22px + var(--heal-targets-extra, 0px)));
   position: absolute;
   top: 0;
 
