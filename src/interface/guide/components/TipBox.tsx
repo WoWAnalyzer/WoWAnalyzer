@@ -12,7 +12,6 @@ interface TipBoxProps {
   title?: string;
   type?: TipBoxType;
   hideIcon?: boolean;
-  layout?: 'inline' | 'block';
 }
 
 interface VariantStyle {
@@ -49,27 +48,14 @@ function getVariantStyle(type: TipBoxType): VariantStyle {
  *
  * For performance-driven boxes, use `PerformanceTipBox` instead.
  */
-export function TipBox({
-  children,
-  icon,
-  title,
-  type = 'info',
-  hideIcon = false,
-  layout = 'inline',
-}: TipBoxProps) {
+export function TipBox({ children, icon, title, type = 'info', hideIcon = false }: TipBoxProps) {
   const { color, defaultIcon, defaultTitle } = getVariantStyle(type);
   const resolvedIcon = hideIcon ? undefined : (icon ?? defaultIcon);
   const resolvedTitle = title ?? defaultTitle;
   const role = type === 'warning' || type === 'error' ? 'alert' : 'note';
 
   return (
-    <TipBoxLayout
-      color={color}
-      role={role}
-      icon={resolvedIcon}
-      title={resolvedTitle}
-      layout={layout}
-    >
+    <TipBoxLayout color={color} role={role} icon={resolvedIcon} title={resolvedTitle}>
       {children}
     </TipBoxLayout>
   );
@@ -80,44 +66,28 @@ function TipBoxLayout({
   role,
   icon,
   title,
-  layout,
   children,
 }: {
   color: string;
   role: string;
   icon?: ReactNode;
   title?: string;
-  layout: 'inline' | 'block';
   children: ReactNode;
 }) {
   const hasHeader = icon || title;
   return (
     <Container $color={color} role={role}>
-      {layout === 'block' ? (
-        <>
-          {hasHeader && (
-            <Header>
-              <TitleWrapper $color={color}>
-                {icon && <IconWrapper>{icon}</IconWrapper>}
-                {title && <strong>{title}</strong>}
-              </TitleWrapper>
-            </Header>
-          )}
-          <Content>{children}</Content>
-        </>
-      ) : (
-        <Content>
-          {hasHeader && (
-            <TitleWrapper $color={color}>
-              <strong>
-                {icon && <IconWrapper>{icon}</IconWrapper>}
-                {title && <>{title}: </>}
-              </strong>
-            </TitleWrapper>
-          )}
-          {children}
-        </Content>
-      )}
+      <Content>
+        {hasHeader && (
+          <TitleWrapper $color={color}>
+            <strong>
+              {icon && <IconWrapper>{icon}</IconWrapper>}
+              {title && <>{title}: </>}
+            </strong>
+          </TitleWrapper>
+        )}
+        {children}
+      </Content>
     </Container>
   );
 }
@@ -137,7 +107,7 @@ const TitleWrapper = styled.span<{ $color: string }>`
 
 const IconWrapper = styled.span`
   display: inline-block;
-  vertical-align: -0.2em;
+  vertical-align: -0.1em;
   line-height: 1;
   margin-right: 0.4em;
   font-size: 1.4em;
@@ -149,66 +119,9 @@ const IconWrapper = styled.span`
   }
 `;
 
-const Header = styled.div`
-  margin-bottom: 6px;
-`;
-
 const Content = styled.div`
-  margin-bottom: 0;
   line-height: 1.5;
 `;
-
-function TimestampsContent({
-  timestamps,
-  formatTimestamp,
-  maxTimestamps,
-}: {
-  timestamps: number[];
-  formatTimestamp: (timestamp: number) => string;
-  maxTimestamps: number;
-}) {
-  if (timestamps.length === 0) {
-    return null;
-  }
-  return (
-    <TimestampsList>
-      <strong>Affected casts:</strong>{' '}
-      {timestamps
-        .slice(0, maxTimestamps)
-        .map((ts) => formatTimestamp(ts))
-        .join(', ')}
-      {timestamps.length > maxTimestamps && ` (+${timestamps.length - maxTimestamps} more)`}
-    </TimestampsList>
-  );
-}
-
-interface TipBoxWithTimestampsProps extends TipBoxProps {
-  timestamps: number[];
-  formatTimestamp: (timestamp: number) => string;
-  maxTimestamps?: number;
-}
-
-/**
- * TipBox variant that includes affected timestamps
- */
-export function TipBoxWithTimestamps({
-  children,
-  timestamps,
-  formatTimestamp,
-  maxTimestamps = 5,
-  ...props
-}: TipBoxWithTimestampsProps) {
-  return (
-    <TipBox {...props}>
-      {children}
-      <TimestampsContent
-        timestamps={timestamps}
-        formatTimestamp={formatTimestamp}
-        maxTimestamps={maxTimestamps}
-      />
-    </TipBox>
-  );
-}
 
 interface PerformanceTipBoxProps extends Omit<TipBoxProps, 'type'> {
   performance: QualitativePerformance;
@@ -231,46 +144,14 @@ export function PerformanceTipBox({
   title,
   icon,
   hideIcon = false,
-  layout = 'inline',
 }: PerformanceTipBoxProps) {
   const color = PERFORMANCE_COLORS[performance];
   const resolvedIcon = hideIcon ? undefined : (icon ?? <PerformanceMark perf={performance} />);
   const role = performance === QualitativePerformance.Fail ? 'alert' : 'note';
 
   return (
-    <TipBoxLayout color={color} role={role} icon={resolvedIcon} title={title} layout={layout}>
+    <TipBoxLayout color={color} role={role} icon={resolvedIcon} title={title}>
       {children}
     </TipBoxLayout>
   );
 }
-
-interface PerformanceTipBoxWithTimestampsProps extends PerformanceTipBoxProps {
-  timestamps: number[];
-  formatTimestamp: (timestamp: number) => string;
-  maxTimestamps?: number;
-}
-
-export function PerformanceTipBoxWithTimestamps({
-  children,
-  timestamps,
-  formatTimestamp,
-  maxTimestamps = 5,
-  ...props
-}: PerformanceTipBoxWithTimestampsProps) {
-  return (
-    <PerformanceTipBox {...props}>
-      {children}
-      <TimestampsContent
-        timestamps={timestamps}
-        formatTimestamp={formatTimestamp}
-        maxTimestamps={maxTimestamps}
-      />
-    </PerformanceTipBox>
-  );
-}
-
-const TimestampsList = styled.div`
-  margin-top: 8px;
-  font-size: 0.9em;
-  opacity: 0.8;
-`;

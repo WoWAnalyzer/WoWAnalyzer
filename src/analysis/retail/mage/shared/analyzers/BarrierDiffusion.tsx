@@ -23,6 +23,8 @@ class BarrierDiffusion extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.BLAZING_BARRIER_TALENT),
       this.onBarrierRemoved,
     );
+    //TODO: Verify the reduction on Ice Barrier works properly when both charges are used
+    //and the first charge naturally expires.
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ICE_BARRIER_TALENT),
       this.onBarrierRemoved,

@@ -10,13 +10,7 @@ export {
   type CastSequenceEntry,
   type CastInSequence,
 } from './CastSequence';
-export {
-  TipBox,
-  TipBoxWithTimestamps,
-  PerformanceTipBox,
-  PerformanceTipBoxWithTimestamps,
-  type TipBoxType,
-} from './TipBox';
+export { TipBox, PerformanceTipBox, type TipBoxType } from './TipBox';
 export {
   StatsRow,
   HelperText,
