@@ -114,7 +114,7 @@ class RollTheBonesBuffs extends Analyzer {
 
     const rollTheBonesBarSpec: UptimeBarSpec = {
       spells: [SPELLS.ROLL_THE_BONES],
-      uptimes: ROLL_THE_BONES_BUFFS.flatMap((buff) =>
+      uptimes: ROLL_THE_BONES_BUFFS.flatMap((buff, idx) =>
         this.selectedCombatant.getBuffHistory(buff.id),
       ).map((buff) => ({
         start: buff.start,
@@ -123,12 +123,17 @@ class RollTheBonesBuffs extends Analyzer {
     };
 
     const data = (
-      <RoundedPanel>
-        {uptimeBarSubStatistic(this.owner.fight, rollTheBonesBarSpec, subBuffsBarSpecs)}
-      </RoundedPanel>
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.ROLL_THE_BONES} /> uptime
+          </strong>
+          {uptimeBarSubStatistic(this.owner.fight, rollTheBonesBarSpec, subBuffsBarSpecs)}
+        </RoundedPanel>
+      </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(explanation, data, 40);
   }
 
   statistic() {
