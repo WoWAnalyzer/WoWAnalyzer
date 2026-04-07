@@ -6,7 +6,7 @@ import { SpellIcon, SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import ChiTracker from 'analysis/retail/monk/windwalker/modules/resources/ChiTracker';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -15,6 +15,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+
+const ADDITIONAL_BLACKOUT_KICK_CDR_MS = 1000;
+const TOTM_CONSUME_WINDOW_MS = 400;
 
 class Zenith extends Analyzer.withDependencies({
   chi: ChiTracker,
@@ -26,6 +29,7 @@ class Zenith extends Analyzer.withDependencies({
   private chiGeneratedPotential = 0;
   private readonly hasObsidianSpiral: boolean = false;
   private readonly zenithDurationMs: number = 15000;
+  private lastBlackoutKickTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
@@ -46,6 +50,14 @@ class Zenith extends Analyzer.withDependencies({
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.BLACKOUT_KICK_TOTM]),
       this.onBlackoutKick,
     );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
+      this.onTotmConsumed,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
+      this.onTotmConsumed,
+    );
   }
 
   private isZenithActive(timestamp: number) {
@@ -62,6 +74,19 @@ class Zenith extends Analyzer.withDependencies({
     if (!this.isZenithActive(event.timestamp)) {
       return;
     }
+
+    this.lastBlackoutKickTimestamp = event.timestamp;
+    this.deps.spellUsable.reduceCooldown(
+      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+      ADDITIONAL_BLACKOUT_KICK_CDR_MS,
+      event.timestamp,
+    );
+    this.deps.spellUsable.reduceCooldown(
+      TALENTS_MONK.FISTS_OF_FURY_TALENT.id,
+      ADDITIONAL_BLACKOUT_KICK_CDR_MS,
+      event.timestamp,
+    );
+
     this.blackoutKicksDuringZenith += 1;
     this.chiGeneratedPotential += 1;
     if (this.hasObsidianSpiral) {
@@ -75,6 +100,28 @@ class Zenith extends Analyzer.withDependencies({
         event.timestamp,
       );
     }
+  }
+
+  private onTotmConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    if (!this.isZenithActive(event.timestamp)) {
+      return;
+    }
+    if (event.timestamp - this.lastBlackoutKickTimestamp > TOTM_CONSUME_WINDOW_MS) {
+      return;
+    }
+
+    // Match the inferred TotM bonus strike so Zenith grants its extra 1s CDR
+    // even when the bonus Blackout Kick is not logged as a separate cast.
+    this.deps.spellUsable.reduceCooldown(
+      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+      ADDITIONAL_BLACKOUT_KICK_CDR_MS,
+      event.timestamp,
+    );
+    this.deps.spellUsable.reduceCooldown(
+      TALENTS_MONK.FISTS_OF_FURY_TALENT.id,
+      ADDITIONAL_BLACKOUT_KICK_CDR_MS,
+      event.timestamp,
+    );
   }
 
   get guideSubsection(): JSX.Element {

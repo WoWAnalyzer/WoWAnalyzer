@@ -48,11 +48,15 @@ import {
 import ComboBreakerCastLinkNormalizer from './normalizers/ComboBreakerCastLinkNormalizer';
 import DanceOfChiJiCastLinkNormalizer from './normalizers/DanceOfChiJiCastLinkNormalizer';
 import CelestialConduit from './modules/talents/CelestialConduit';
+import CyclonesDrift from './modules/talents/CyclonesDrift';
 import SlicingWinds from './modules/spells/SlicingWinds';
 import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
+import VeteransEye from '../shared/hero/ShadoPan/VeteransEye';
 import RushingWindKick from './modules/talents/RushingWindKick';
+import GloryOfTheDawnLinkNormalizer from './normalizers/GloryOfTheDawnLinkNormalizer';
 import RushingWindKickGenerationNormalizer from './normalizers/RushingWindKickGenerationNormalizer';
 import RushingWindKickCastLinkNormalizer from './normalizers/RushingWindKickCastLinkNormalizer';
+import XuensBattlegearNormalizer from './normalizers/XuensBattlegearNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -66,8 +70,10 @@ class CombatLogParser extends CoreCombatLogParser {
     cracklingJadeLightningNormalizer: CracklingJadeLightningNormalizer,
     cracklingJadeLightningLinkNormalizer: CracklingJadeLightningLinkNormalizer,
     comboBreakerLinkNormalizer: ComboBreakerCastLinkNormalizer,
+    gloryOfTheDawnLinkNormalizer: GloryOfTheDawnLinkNormalizer,
     rushingWindKickGenerationNormalizer: RushingWindKickGenerationNormalizer,
     rushingWindKickLinkNormalizer: RushingWindKickCastLinkNormalizer,
+    xuensBattlegearNormalizer: XuensBattlegearNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -88,6 +94,8 @@ class CombatLogParser extends CoreCombatLogParser {
     chiBurst: ChiBurst,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
     celestialConduit: CelestialConduit,
+    cyclonesDrift: CyclonesDrift,
+    veteransEye: VeteransEye,
     zenith: Zenith,
     rushingWindKick: RushingWindKick,
 
