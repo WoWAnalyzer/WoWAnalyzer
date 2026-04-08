@@ -137,7 +137,8 @@ class Duplicate extends Analyzer {
           <TalentSpellText talent={TALENTS_EVOKER.DUPLICATE_1_AUGMENTATION_TALENT}>
             <div>
               <ItemDamageDone amount={this.petDamage + this.personalDamage + this.externalDamage} />
-              <br />
+            </div>
+            <div>
               <InformationIcon /> {formatPercentage(buffUptime, 2)}%<small> Duplicate uptime</small>
             </div>
           </TalentSpellText>
@@ -157,7 +158,8 @@ class Duplicate extends Analyzer {
           <TalentSpellText talent={TALENTS_EVOKER.DUPLICATE_1_AUGMENTATION_TALENT}>
             <div>
               <ItemDamageDone amount={this.petDamage} />
-              <br />
+            </div>
+            <div>
               <InformationIcon /> {formatPercentage(buffUptime, 2)}%<small> Duplicate uptime</small>
             </div>
           </TalentSpellText>

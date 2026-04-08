@@ -77,6 +77,7 @@ class KillCommand extends Analyzer {
           <>
             {formatDurationMillisMinSec(this.effectiveReductionMs)}{' '}
             <small>cooldown reduction.</small>
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {formatDurationMillisMinSec(this.wastedReductionMs)} <small>wasted.</small>
           </>

@@ -40,8 +40,8 @@ export default class HeatingUp extends Analyzer {
   hasScorch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
 
   heatingUpCrits: HeatingUpCrits[] = [];
-  convertedBuffs: number = 0;
-  totalHeatingUp: number = 0;
+  convertedBuffs = 0;
+  totalHeatingUp = 0;
 
   constructor(options: Options) {
     super(options);
@@ -68,12 +68,13 @@ export default class HeatingUp extends Analyzer {
       return;
     }
 
-    let buff: Spell[] = [];
+    const buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
       buff.push(TALENTS.SCORCH_TALENT);
     } else if (this.hasFirestarter && targetHealth && targetHealth > 0.9) {
       buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
+      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,

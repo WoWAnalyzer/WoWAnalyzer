@@ -192,11 +192,11 @@ class RapidDiffusion extends Analyzer {
     return (
       <>
         <strong>{procs}</strong> additional <SpellLink spell={spell} />{' '}
-        {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
+        {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from
         <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
         {spell.id !== SPELLS.RENEWING_MIST_CAST.id && (
           <>
-            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s<br />
+            <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />s
           </>
         )}{' '}
         by source ability:

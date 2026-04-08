@@ -51,11 +51,14 @@ class EchoingReprimand extends Analyzer {
         tooltip={`${formatNumber(this.damage)} total damage done.`}
       >
         <TalentSpellText talent={TALENTS.ECHOING_REPRIMAND_TALENT}>
-          <ItemDamageDone amount={this.damage} />
-          <br />
-          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-          {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-          <small> Combo Points gained</small>
+          <p>
+            <ItemDamageDone amount={this.damage} />
+          </p>
+          <p>
+            <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+            {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+            <small> Combo Points gained</small>
+          </p>
         </TalentSpellText>
       </Statistic>
     );

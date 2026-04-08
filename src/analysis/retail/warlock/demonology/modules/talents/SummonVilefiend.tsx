@@ -201,10 +201,12 @@ class SummonVilefiend extends Analyzer {
         tooltip={
           <>
             {formatThousands(damage)} total damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {summonCount} summons cast
             {abilityBreakdown.length > 0 && (
               <>
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
                 <strong>Pet Abilities:</strong>
                 {abilityBreakdown}

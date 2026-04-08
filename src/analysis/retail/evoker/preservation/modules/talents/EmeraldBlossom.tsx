@@ -81,13 +81,13 @@ class EmeraldBlossom extends Analyzer {
     }
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(timestamp)}</strong>, Targets hit:{' '}
-        <strong>{events.length}</strong>
-        <br />
-        <>
+        <p>
+          @ <strong>{this.owner.formatTimestamp(timestamp)}</strong>, Targets hit:{' '}
+          <strong>{events.length}</strong>
+        </p>
+        <p>
           Healing: {formatNumber(effective)} ({formatPercentage(overhealPercent)}% overheal)
-        </>
-        <br />
+        </p>
       </>
     );
     this.castEntries.push({ value, tooltip });
@@ -141,11 +141,12 @@ class EmeraldBlossom extends Analyzer {
     };
     const explanation = (
       <p>
-        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> is the core spell in the Blossom talent build
-        for Preservation Evokers. It is critical to cast{' '}
-        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> on targets that are nearby other allies (more
-        often than not this is a melee) so that you can fully utilize its healing, while trying to
-        not overheal in the process.
+        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> is a core spell in the Preservation Evoker kit.
+        It is important to cast it on targets that are nearby other allies and only while you have{' '}
+        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> available. Every{' '}
+        <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> cast will generate a stack of{' '}
+        <SpellLink spell={TALENTS_EVOKER.TWIN_ECHOES_TALENT} /> which gives you an extra{' '}
+        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> later on.
       </p>
     );
     const data = (
@@ -160,9 +161,7 @@ class EmeraldBlossom extends Analyzer {
               - Blue is a perfect cast with {this.perfectThreshold} targets hit, Green is a good
               cast with {this.goodThreshold} or more with moderate to low overhealing, Yellow is an
               ok cast with a moderate amount of overheal, and Red is a bad cast with high overheal
-              or few targets hit. This graphic does not include{' '}
-              <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} /> due to their inherent
-              randomness.
+              or few targets hit.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>

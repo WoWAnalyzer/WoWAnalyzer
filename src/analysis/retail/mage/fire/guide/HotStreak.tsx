@@ -8,7 +8,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
 
-import HotStreak from '../core/HotStreak';
+import HotStreak, { HotStreakProc } from '../core/HotStreak';
 import { CastOverview, StackedBar, type StackedBarSegment } from 'interface/guide/components';
 import { formatDurationMillisMinSec } from 'common/format';
 
@@ -58,7 +58,9 @@ class HotStreakGuide extends Analyzer {
       (hs) => hs.spender?.ability.guid === TALENTS.PYROBLAST_TALENT.id,
     ).length;
     const flamestrikeCount = this.hotStreak.hotStreaks.filter(
-      (hs) => hs.spender?.ability.guid === SPELLS.FLAMESTRIKE.id,
+      (hs) =>
+        hs.spender?.ability.guid === TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id ||
+        hs.spender?.ability.guid === TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
     ).length;
 
     return [
@@ -77,7 +79,7 @@ class HotStreakGuide extends Analyzer {
     ];
   }
 
-  private evaluateHotStreakProc(hs: any): CastEvaluation {
+  private evaluateHotStreakProc(hs: HotStreakProc): CastEvaluation {
     // FAIL CONDITIONS
     if (hs.expired) {
       return {

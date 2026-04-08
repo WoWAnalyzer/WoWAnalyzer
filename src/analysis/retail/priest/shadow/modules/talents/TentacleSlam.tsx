@@ -123,6 +123,7 @@ class TentacleSlam extends Analyzer {
   get guideSubsection(): JSX.Element {
     if (this.damage === 0) {
       //if ShadowCrash doesn't deal damage, this section isn't needed.
+      /* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */
       return <br />;
     }
 
@@ -132,6 +133,7 @@ class TentacleSlam extends Analyzer {
           <SpellLink spell={TALENTS.TENTACLE_SLAM_TALENT} />
         </b>{' '}
         deals damage and applies <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> to targets it hits.
+        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         Use <SpellLink spell={TALENTS.TENTACLE_SLAM_TALENT} /> to apply your DoTs, and generate
         insanity. You may want to hold this ability if it will allow you to hit more targets.

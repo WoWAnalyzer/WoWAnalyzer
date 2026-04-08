@@ -12,7 +12,7 @@ import {
 import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EventType, HasAbility } from 'parser/core/Events';
+import Events, { DamageEvent, EventType } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';

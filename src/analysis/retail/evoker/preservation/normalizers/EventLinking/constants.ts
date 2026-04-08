@@ -6,6 +6,7 @@ export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo a
 export const TA_ECHO_REMOVAL = 'TaEchoRemoval'; // for linking TA echo removal to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
+export const ECHO_CONSUMPTION = 'EchoConsumption'; //Linking casts to all the echoes they consume
 // END ECHO constants
 export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
@@ -26,6 +27,8 @@ export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
 export const STASIS_FILLING = 'StasisFilling';
 export const EB_REVERSION = 'EssenceBurstReversion';
+export const EB_MERITHRAS = 'EssenceBurstMerithras';
+export const EB_ENERGY_CYCLES = 'EssenceBurstEnergyCycle';
 export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
 export const REVERSION = 'Reversion';
@@ -37,12 +40,12 @@ export const FIRE_BREATH = 'FireBreath';
 export const FIRE_BREATH_CAST = 'FireBreathCast';
 export const ENGULF_DREAM_BREATH = 'EngulfDreamBreath';
 export const ENGULF_CONSUME_FLAME = 'EngulfConsumeFlame';
-export const SPIRITBLOOM_CAST = 'SpiritbloomCast';
-export const SPIRITBLOOM_FROM_STASIS = 'SpiritbloomFromStasis';
 export const TEMPORAL_COMPRESSION_REVERSION = 'TemporalCompressionReversion';
 export const LIFEBIND_HEAL_EMPOWER = 'LifebindHealEmpower'; //Lifebind heal event to the empower that caused it
 export const VERDANT_EMBRACE_INSURANCE = 'VerdantEmbraceInsurance'; //Verdant Embrace heal event to the insurance that it applied
 export const INSURANCE_APPLICATION = 'InsuranceApplication';
+export const MERITHRAS_PROC_GENERATION = 'MerithrasProcGeneration'; //Cast that generated the Merithras buff
+export const MERITHRAS_HEALING = 'MerithrasHealing'; //Healing from a Merithras cast
 
 export enum ECHO_TYPE {
   NONE,
@@ -64,10 +67,9 @@ export const TIME_OF_NEED_DURATION = 8000;
 export const LIVING_FLAME_FLIGHT_TIME = 1000;
 export const MAX_DREAM_BREATH_DURATION = 28000;
 export const MAX_FIRE_BREATH_DURATION = 36000;
-export const TITANS_GIFT_INC = 0.25;
+export const TITANS_GIFT_INC = 0.35;
 export const FULL_STASIS_DURATION = 60000; //Need to grab all the way from stasis release back to spells that filled it. Maybe better way?
 export const ENGULF_CONSUME_BUFFER = 500;
-export const SPIRITBLOOM_HOT_DURATION = 8000;
 export const LIFEBIND_DURATION = 5000;
 export const LIFEBIND_BATCHING = 200;
-export const INSURANCE_MAX_DURATION = 15000;
+export const MERITHRAS_BOUNCING_TIME = 1500;

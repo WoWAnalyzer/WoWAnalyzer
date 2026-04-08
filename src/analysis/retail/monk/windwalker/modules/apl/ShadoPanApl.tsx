@@ -14,6 +14,7 @@ import {
   spellCooldownRemaining,
 } from 'parser/shared/metrics/apl/conditions';
 import {
+  atTwoBlackoutKickStacks,
   aboutToCapEnergy,
   buildComboStrikesApl,
   danceOfChiJiExpiring,
@@ -95,7 +96,30 @@ export default function shadoPanApl(combatant: Combatant): Apl {
     },
     {
       spell: SPELLS.BLACKOUT_KICK,
-      condition: buffPresent(SPELLS.COMBO_BREAKER_BUFF),
+      condition: describe(
+        or(
+          and(buffPresent(SPELLS.COMBO_BREAKER_BUFF), atTwoBlackoutKickStacks),
+          buffPresent(TALENTS.ZENITH_TALENT),
+        ),
+        () => (
+          <>
+            you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> at 2 stacks or{' '}
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active
+          </>
+        ),
+      ),
+    },
+    {
+      spell: SPELLS.SPINNING_CRANE_KICK,
+      condition: describe(
+        and(buffPresent(TALENTS.ZENITH_TALENT), hasResource(RESOURCE_TYPES.CHI, { atLeast: 4 })),
+        () => (
+          <>
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active and you have more than 3{' '}
+            <SpellLink spell={RESOURCE_TYPES.CHI} />
+          </>
+        ),
+      ),
     },
     TALENTS.SLICING_WINDS_TALENT,
     {

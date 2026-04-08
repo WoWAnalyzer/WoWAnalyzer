@@ -24,14 +24,12 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
       SPELLS.EMERALD_BLOSSOM.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
-      SPELLS.SPIRITBLOOM_SPLIT.id,
     ],
     linkingEventType: [EventType.Heal, EventType.ApplyBuff],
     referencedEventId: [
       SPELLS.EMERALD_BLOSSOM.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
-      SPELLS.SPIRITBLOOM_SPLIT.id,
     ],
     referencedEventType: EventType.Heal,
     anyTarget: true,
@@ -39,8 +37,8 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 25,
     additionalCondition(linkingEvent, referencedEvent) {
       if (
-        (linkingEvent as AbilityEvent<any>).ability.guid !==
-        (referencedEvent as AbilityEvent<any>).ability.guid
+        (linkingEvent as AbilityEvent<EventType>).ability.guid !==
+        (referencedEvent as AbilityEvent<EventType>).ability.guid
       ) {
         return false;
       } else if (
@@ -68,7 +66,7 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
     linkingEventType: EventType.ApplyBuff,
     referencedEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
-    referencedEventType: EventType.ApplyBuff,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     anyTarget: true,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -81,17 +79,17 @@ export const GROUPING_EVENT_LINKS: EventLink[] = [
   // group echo heals together
   {
     linkRelation: ECHO_HEAL_GROUPING,
-    linkingEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id, SPELLS.SPIRITBLOOM_SPLIT.id],
+    linkingEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id],
     linkingEventType: [EventType.Heal, EventType.ApplyBuff],
-    referencedEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id, SPELLS.SPIRITBLOOM_SPLIT.id],
+    referencedEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id],
     referencedEventType: EventType.Heal,
     anyTarget: true,
     forwardBufferMs: 25,
     backwardBufferMs: 25,
     additionalCondition(linkingEvent, referencedEvent) {
       if (
-        (linkingEvent as AbilityEvent<any>).ability.guid !==
-        (referencedEvent as AbilityEvent<any>).ability.guid
+        (linkingEvent as AbilityEvent<EventType>).ability.guid !==
+        (referencedEvent as AbilityEvent<EventType>).ability.guid
       ) {
         return false;
       } else if (

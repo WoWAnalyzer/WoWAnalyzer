@@ -11,22 +11,18 @@ import Events, {
   HealEvent,
 } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-import {
-  BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK,
-  GALES_OF_SONG_HEALING_INCREASE_PER_POINT,
-} from '../../constants';
+import { BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK } from '../../constants';
 import Combatants from 'parser/shared/modules/Combatants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 class HymnBuffBenefit extends Analyzer {
-  // This is an approximation. See the reasoning below.
   totalHealingFromHymnBuffPerStack = [0, 0, 0, 0, 0];
   selfDivineHymnIncrease = 0;
 
-  divineHymnTotalHealingIncreasePerStack = 0;
+  divineHymnTotalHealingIncreasePerStack = BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK;
+
   filter(stackCount = 1) {
-    // The first stack is an apply buff event, not an apply buff stack event
     if (stackCount === 1) {
       return `IN RANGE
      FROM type='${EventType.ApplyBuff}'
@@ -65,7 +61,6 @@ class HymnBuffBenefit extends Analyzer {
 
   load() {
     const promises = [];
-    // This just reduces the number of calls we make (making 5 is probably not great)
     for (let i = 1; i <= this.maxHymnStacks; i += 1) {
       promises.push(this.makeHymnQuery(i));
     }
@@ -73,18 +68,12 @@ class HymnBuffBenefit extends Analyzer {
   }
 
   makeHymnQuery(stackCount: number) {
-    // Hymn stacks up to 5 times, we have to grab the healing for each stack count in order to use the multiplyer effectivly.
     return fetchWcl<WCLHealingTableResponse>(`report/tables/healing/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter(stackCount),
     }).then((json) => {
-      // This is an array just to make debugging easier.
       this.totalHealingFromHymnBuffPerStack[stackCount - 1] += json.entries.reduce(
-        // Because this is a % healing increase and we are unable to parse each healing event individually for its effective healing,
-        // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
-        // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
-        // lot of overhealing occurs.
         (healingFromBuff: number, entry: WCLHealing) =>
           healingFromBuff +
           (entry.total -
@@ -107,10 +96,7 @@ class HymnBuffBenefit extends Analyzer {
     if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_HYMN_TALENT)) {
       this.active = false;
     }
-    this.divineHymnTotalHealingIncreasePerStack =
-      BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK +
-      this.selectedCombatant.getTalentRank(TALENTS.GALES_OF_SONG_TALENT) *
-        GALES_OF_SONG_HEALING_INCREASE_PER_POINT;
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL),
       this.onBuffStackApply,
@@ -135,10 +121,7 @@ class HymnBuffBenefit extends Analyzer {
 
   onHeal(event: HealEvent) {
     const target = this.combatants.getEntity(event);
-
-    if (target === null) {
-      return;
-    }
+    if (!target) return;
 
     const divineHymnStacks = target.getBuffStacks(
       SPELLS.DIVINE_HYMN_HEAL,
@@ -167,26 +150,23 @@ class HymnBuffBenefit extends Analyzer {
         tooltip={
           <>
             <div>
-              <SpellLink spell={TALENTS.DIVINE_HYMN_TALENT} /> Breakdown:{' '}
+              <SpellLink spell={TALENTS.DIVINE_HYMN_TALENT} /> Breakdown:
             </div>
-            <ItemPercentHealingDone amount={this.hymnContribToOthers}></ItemPercentHealingDone>
-            {' contribution to others.'}
+            <ItemPercentHealingDone amount={this.hymnContribToOthers} /> contribution to others.
             <div>
-              <ItemPercentHealingDone amount={this.selfDivineHymnIncrease}></ItemPercentHealingDone>
-              {' contribution to self.'} <br />
+              <ItemPercentHealingDone amount={this.selfDivineHymnIncrease} /> contribution to self.
             </div>
             <div>
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <br />
-              If this healing was attributed to you from the other healers like Augmented Healing,
-              you would have done{' '}
-              <ItemPercentHealingDone
-                amount={this.hymnContribToOthers}
-              ></ItemPercentHealingDone>{' '}
-              more than your total on WCL.
+              If this healing was attributed to you from other healers (like Augmented Healing), you
+              would have done <ItemPercentHealingDone amount={this.hymnContribToOthers} /> more than
+              your total on WCL.
             </div>
             <div>
+              {/* oxlint-disable-next-line @wowanalyzer/no-br */}
               <br />
-              NOTE: This is an approximated value due to technical limitations. If you are seeing a
+              NOTE: This is an approximated value due to technical limitations. If you see a
               negative number, please load the module first.
             </div>
           </>

@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { TIERS } from 'game/TIERS';
-import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
   AnyEvent,
@@ -20,7 +19,6 @@ class SpellUsable extends CoreSpellUsable {
   lastPotentialTriggerForBarbedShotReset: AnyEvent | null = null;
   lastPotentialTriggerForKillCommandReset: AnyEvent | null = null;
 
-  private _has2pc = false;
   private _tierCanResetBarbedShot = false;
   private _barbedShotResetsFromT29 = 0;
 
@@ -34,24 +32,12 @@ class SpellUsable extends CoreSpellUsable {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT),
       this.onAutoShotDamage,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_SHARED_DAMAGE),
-      this.onKillCommandDamage,
-    );
-    this._has2pc = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
   }
 
   onAutoShotDamage(event: DamageEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
       this.lastPotentialTriggerForBarbedShotReset = event;
       this._tierCanResetBarbedShot = false;
-    }
-  }
-
-  onKillCommandDamage(event: DamageEvent) {
-    if (this._has2pc) {
-      this.lastPotentialTriggerForBarbedShotReset = event;
-      this._tierCanResetBarbedShot = true;
     }
   }
 

@@ -1,5 +1,12 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EventType, FreeCastEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  FreeCastEvent,
+  GetRelatedEvent,
+  GetRelatedEvents,
+} from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -28,10 +35,11 @@ class ChainLightning extends Analyzer.withDependencies({ spellUsable: SpellUsabl
   }
 
   onCast(event: CastEvent | FreeCastEvent) {
-    const hits =
-      event._linkedEvents?.filter(
-        (le) => le.relation === EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
-      ).length || 0;
+    const hits = GetRelatedEvents<DamageEvent>(
+      event,
+      EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
+      (relatedEvent) => relatedEvent.type === EventType.Damage,
+    ).length;
 
     if (hits < 2) {
       const castEvent =

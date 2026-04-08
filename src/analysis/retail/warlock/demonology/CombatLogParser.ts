@@ -28,7 +28,7 @@ import DiabolicRitualEmpowers from './modules/talents/DiabolicRitualEmpowers';
 import SoulShardDetails from '../shared/resources/SoulShardDetails';
 import SoulShardTracker from '../shared/resources/SoulShardTracker';
 import SoulShardGraph from '../shared/resources/SoulShardGraph';
-import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
+import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -72,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
+    demonicHealthstone: DemonicHealthstone,
 
     // Tier / Racial
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

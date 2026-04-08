@@ -88,9 +88,9 @@ class GleamingRays extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            Effective Healing: {formatNumber(this.healingDone)} <br />
-            Overhealing: {formatNumber(this.overhealing)} <br />
-            Effective Damage: {formatNumber(this.damageDone)}
+            <li>Effective Healing: {formatNumber(this.healingDone)}</li>
+            <li>Overhealing: {formatNumber(this.overhealing)}</li>
+            <li>Effective Damage: {formatNumber(this.damageDone)}</li>
           </>
         }
       >

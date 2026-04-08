@@ -8,26 +8,6 @@ import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 
-const AOE_SCK = {
-  spell: SPELLS.SPINNING_CRANE_KICK,
-  condition: cnd.and(
-    cnd.targetsHit(
-      { atLeast: 4 },
-      {
-        targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
-      },
-    ),
-    cnd.hasTalent(talents.WAY_OF_THE_CRANE_TALENT),
-  ),
-};
-
-const SHEILUNS_SHAOHAOS = {
-  spell: talents.SHEILUNS_GIFT_TALENT,
-  condition: cnd.optionalRule(
-    cnd.buffStacks(SPELLS.SHEILUN_CLOUD_BUFF, { atLeast: 4, atMost: 10 }),
-  ),
-};
-
 const VIVIFY_8_REMS = {
   spell: SPELLS.VIVIFY,
   condition: cnd.describe(
@@ -100,6 +80,14 @@ const BLACK_OX_PROC = {
   ),
 };
 
+const SPIRITFONT_PROC = {
+  spell: talents.ENVELOPING_MIST_TALENT,
+  condition: cnd.and(
+    cnd.buffStacks(SPELLS.SPIRITFONT_BUFF, { atLeast: 2, atMost: 2 }),
+    cnd.hasTalent(talents.SPIRITFONT_1_MISTWEAVER_TALENT),
+  ),
+};
+
 const MANA_TEA_20_STACKS = {
   spell: SPELLS.MANA_TEA_CAST,
   condition: cnd.buffStacks(SPELLS.MANA_TEA_STACK, { atLeast: 20, atMost: 20 }),
@@ -144,6 +132,7 @@ const commonTop = [
       cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
     ),
   },
+  SPIRITFONT_PROC,
   BLACK_OX_PROC,
   MANA_TEA_20_STACKS,
 ];
@@ -184,7 +173,7 @@ const rotation_rm_at_sg = build([
   {
     spell: SPELLS.TIGER_PALM,
     condition: cnd.optionalRule(
-      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
+      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 4 }),
     ),
   },
 ]);
@@ -201,14 +190,13 @@ const rotation_rm_rwk_sg = build([
   },
   ...commonTop,
   ZP_VIVIFY_5_REMS,
-  SHEILUNS_SHAOHAOS,
   VIVIFY_8_REMS,
   REM_REMAINING,
   BLACKOUT_KICK,
   {
     spell: SPELLS.TIGER_PALM,
     condition: cnd.optionalRule(
-      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
+      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 4 }),
     ),
   },
 ]);

@@ -43,11 +43,10 @@ class HealingPerHolyPower extends Analyzer {
   glimmerStat() {
     if (this.selectedCombatant.hasTalent(TALENTS.GLISTENING_RADIANCE_TALENT)) {
       return (
-        <>
+        <div>
           Total healing from <SpellLink spell={TALENTS.GLISTENING_RADIANCE_TALENT} /> procs:{' '}
           {formatNumber(this.totalGlimmerHealing)}
-          <br />
-        </>
+        </div>
       );
     }
     return null;
@@ -61,11 +60,13 @@ class HealingPerHolyPower extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
-            Total healing by spenders, divided by total number of holy power spent on those spenders{' '}
-            <br />
-            Total healing from spenders: {formatNumber(this.totalEffectiveHealing)} <br />
+            <div>
+              Total healing by spenders, divided by total number of holy power spent on those
+              spenders{' '}
+            </div>
+            <div>Total healing from spenders: {formatNumber(this.totalEffectiveHealing)}</div>
             {this.glimmerStat()}
-            Total spenders: {formatNumber(this.totalSpenders)}
+            <div>Total spenders: {formatNumber(this.totalSpenders)}</div>
           </>
         }
       >

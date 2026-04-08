@@ -331,7 +331,7 @@ export function GetRelatedEvents<T extends AnyEvent>(
 }
 
 /** Gets the first event related to the given event with the given relation (key). Events will not
- * by default have any relations, you must hadd them with an {@link EventLinkNormalizer}. */
+ * by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
 export function GetRelatedEvent<T extends AnyEvent>(
   event: AnyEvent,
   relation: string,

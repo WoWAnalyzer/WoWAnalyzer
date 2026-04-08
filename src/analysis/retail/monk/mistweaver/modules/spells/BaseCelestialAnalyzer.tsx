@@ -9,9 +9,14 @@ import Events, {
   HealEvent,
   DamageEvent,
   EventType,
+  ApplyBuffEvent,
 } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SECRET_INFUSION_BUFFS, getCurrentRSKTalent } from '../../constants';
+import {
+  HEART_OF_THE_JADE_SERPENT_DURATION,
+  SECRET_INFUSION_BUFFS,
+  getCurrentRSKTalent,
+} from '../../constants';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
@@ -31,6 +36,10 @@ export interface BaseCelestialTracker {
   deathTimestamp: number; // when pet died
   castRsk: boolean; // true if player cast rsk during yulon
   siBuffId: number | undefined; // true if SI buff was active at the beginning of celestial
+  hotjsOnCast: boolean; // hotjs active at celestial cast time
+  hotjsDuringWindow: boolean; // hotjs became active during celestial
+  hotjsActiveDuration: number; // time in ms that hotjs was active during celestial
+  spiritfontActiveDuring: boolean; // spiritfont active buff was present during celestial
 }
 const ENVM_HASTE_FACTOR = 0.55; // this factor determines how harsh to be for ideal envm casts
 const CHIJI_GIFT_ENVMS = 2.5;
@@ -55,16 +64,29 @@ class BaseCelestialAnalyzer extends Analyzer {
   idealEnvmCastsUnhasted = 0;
   currentRskTalent: Talent;
   secretInfusionActive = false;
+  isFlowingWisdomActive = false;
+  isSpiritfontRank2Active = false;
+  hotjsApplyTimestamp = -1;
+  hotjsCurrentHaste = 0;
 
   constructor(options: Options) {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
+
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
+
     this.secretInfusionActive = this.selectedCombatant.hasTalent(
       TALENTS_MONK.SECRET_INFUSION_TALENT,
     );
+    this.isFlowingWisdomActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.FLOWING_WISDOM_TALENT,
+    );
+    this.isSpiritfontRank2Active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT,
+    );
+
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
@@ -80,14 +102,35 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_BUFF),
       this.handleCelestialDeath,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
-      this.onEnvmCast,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent), this.onRsk);
+    this.addEventListener(Events.fightend, this.onFightEnd);
+
+    if (this.isFlowingWisdomActive) {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell([
+          SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, // hotjs from tft
+          SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY, // technically fine, i suppose
+        ]),
+        this.onHotjsApply,
+      );
+      this.addEventListener(
+        Events.removebuff
+          .by(SELECTED_PLAYER)
+          .spell([SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY]),
+        this.onHotjsRemove,
+      );
+    }
+
+    if (this.isSpiritfontRank2Active) {
+      this.addEventListener(
+        Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_ACTIVE_BUFF),
+        this.onSpiritfontActive,
+      );
+    }
+
     const idealEnvmCastsUnhastedForGift = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
     )
@@ -102,6 +145,24 @@ class BaseCelestialAnalyzer extends Analyzer {
     return this.celestialHooks.celestialActive;
   }
 
+  protected createBaseTracker(event: CastEvent): BaseCelestialTracker {
+    return {
+      timestamp: event.timestamp,
+      siBuffId: this.currentSIBuffId,
+      totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
+      totalEnvM: 0,
+      averageHaste: 0,
+      deathTimestamp: 0,
+      castRsk: false,
+      hotjsOnCast:
+        this.selectedCombatant.hasBuff(SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF.id) ||
+        this.selectedCombatant.hasBuff(SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id),
+      hotjsDuringWindow: false,
+      hotjsActiveDuration: 0,
+      spiritfontActiveDuring: false,
+    };
+  }
+
   onSummon(event: CastEvent) {
     this.currentCelestialStart = event.timestamp;
     this.hasteDataPoints = [];
@@ -114,6 +175,29 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.castTrackers.at(-1)!.castRsk = true;
   }
 
+  onSpiritfontActive() {
+    if (!this.celestialActive) {
+      return;
+    }
+    this.castTrackers.at(-1)!.spiritfontActiveDuring = true;
+  }
+
+  private finalizeCelestialWindow(endTimestamp: number) {
+    this.celestialWindows.set(this.currentCelestialStart, endTimestamp);
+
+    if (this.hotjsApplyTimestamp !== -1) {
+      const duration =
+        endTimestamp - Math.max(this.hotjsApplyTimestamp, this.currentCelestialStart);
+      this.castTrackers.at(-1)!.hotjsActiveDuration += duration;
+      this.hotjsApplyTimestamp = -1;
+    }
+
+    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
+    this.castTrackers.at(-1)!.deathTimestamp = endTimestamp;
+    this.currentCelestialStart = -1;
+    this.lastCelestialEnd = endTimestamp;
+  }
+
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
     // only chiji logs death events
     if (event.type === EventType.Death) {
@@ -123,11 +207,13 @@ class BaseCelestialAnalyzer extends Analyzer {
       }
     }
     siDebug && console.log('Celestial Death: ', this.owner.formatTimestamp(event.timestamp));
-    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
-    this.currentCelestialStart = -1;
-    this.lastCelestialEnd = event.timestamp;
-    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
-    this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
+    this.finalizeCelestialWindow(event.timestamp);
+  }
+
+  onFightEnd() {
+    if (this.currentCelestialStart !== -1 && this.castTrackers.length > 0) {
+      this.finalizeCelestialWindow(this.owner.fight.end_time);
+    }
   }
 
   onAction(event: HealEvent | CastEvent | DamageEvent) {
@@ -152,11 +238,28 @@ class BaseCelestialAnalyzer extends Analyzer {
     ];
   }
 
-  onEnvmCast(event: CastEvent) {
+  onHotjsApply(event: ApplyBuffEvent) {
+    this.hotjsCurrentHaste = this.haste.current;
+    console.log(this.hotjsCurrentHaste);
+    this.hotjsApplyTimestamp = event.timestamp;
     if (!this.celestialActive) {
       return;
     }
-    this.castTrackers.at(-1)!.totalEnvM += 1;
+    this.castTrackers.at(-1)!.hotjsDuringWindow = true;
+  }
+
+  onHotjsRemove(event: RemoveBuffEvent) {
+    if (this.hotjsApplyTimestamp === -1) {
+      return;
+    }
+
+    if (this.celestialActive) {
+      const duration =
+        event.timestamp - Math.max(this.hotjsApplyTimestamp, this.currentCelestialStart);
+      this.castTrackers.at(-1)!.hotjsActiveDuration += duration;
+    }
+
+    this.hotjsApplyTimestamp = -1;
   }
 
   getExpectedEnvmCasts(avgHaste: number) {
@@ -189,7 +292,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     });
 
     //secret infusion duration
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+    if (this.secretInfusionActive) {
       let siPerf = QualitativePerformance.Good;
       if (!cast.siBuffId) {
         siPerf = QualitativePerformance.Fail;
@@ -218,6 +321,69 @@ class BaseCelestialAnalyzer extends Analyzer {
         details: <>{this.getSiBuffType(cast)}</>,
       });
     }
+
+    // heart of the jade serpent (flowing wisdom) buff
+    if (this.isFlowingWisdomActive) {
+      let hotjsPerf = QualitativePerformance.Fail;
+      // tolerance set for tft rem global, should be active on celestial press
+      const expectedDuration =
+        HEART_OF_THE_JADE_SERPENT_DURATION - 1.5 / (1 + this.hotjsCurrentHaste);
+      const okDuration = expectedDuration - HEART_OF_THE_JADE_SERPENT_DURATION / 2;
+
+      if (cast.hotjsOnCast && cast.hotjsActiveDuration >= expectedDuration) {
+        hotjsPerf = QualitativePerformance.Good;
+      } else if (cast.hotjsOnCast || cast.hotjsActiveDuration >= okDuration) {
+        hotjsPerf = QualitativePerformance.Ok;
+      }
+
+      allPerfs.push(hotjsPerf);
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> buff{' '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  Grants Haste with <SpellLink spell={TALENTS_MONK.FLOWING_WISDOM_TALENT} />. Cast{' '}
+                  <strong>before</strong> celestial to avoid wasting GCDs.
+                </>
+              }
+            >
+              <span>
+                <InformationIcon />
+              </span>
+            </Tooltip>
+          </>
+        ),
+        result: <PerformanceMark perf={hotjsPerf} />,
+        details: (
+          <>
+            {cast.hotjsActiveDuration > 0
+              ? `${(cast.hotjsActiveDuration / 1000).toFixed(1)}s active`
+              : 'None'}
+          </>
+        ),
+      });
+    }
+
+    // spiritfont active - r2/3 of spiritfont increases envm/rsk further during it
+    if (this.isSpiritfontRank2Active) {
+      const spiritfontPerf = cast.spiritfontActiveDuring
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
+      allPerfs.push(spiritfontPerf);
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> active buff
+          </>
+        ),
+        result: <PerformanceMark perf={spiritfontPerf} />,
+        details: <>{cast.spiritfontActiveDuring ? 'Yes' : 'No'}</>,
+      });
+    }
+
     return [allPerfs, checklistItems];
   }
 

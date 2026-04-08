@@ -346,8 +346,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     };
 
     // rather than using a prepull normalizer, look for the first maelstrom weapon buff event and set current
-    for (let index = 0; index < events.length; index += 1) {
-      const event = events[index];
+    for (const event of events) {
       if (HasAbility(event) && event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id) {
         if (!HasRelatedEvent(event, MAELSTROM_WEAPON_LINK_REVERSE)) {
           return 0;
@@ -446,7 +445,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             (e) => SPEND_EVENT_TYPES.includes(e.type),
           );
 
-          let cost = current - cr.amount;
+          const cost = current - cr.amount;
 
           cr.cost = cost;
           cr.amount = current;

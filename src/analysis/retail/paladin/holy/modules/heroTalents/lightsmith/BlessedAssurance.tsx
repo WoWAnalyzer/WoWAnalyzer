@@ -114,32 +114,36 @@ class BlessedAssurance extends Analyzer {
         tooltip={
           <>
             {!this.hasAC && (
-              <>
+              <div>
                 No healing to be received from{' '}
                 <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} /> if{' '}
-                <SpellLink spell={TALENTS.AVENGING_CRUSADER_TALENT} /> is not taken. <br />
-              </>
+                <SpellLink spell={TALENTS.AVENGING_CRUSADER_TALENT} /> is not taken.
+              </div>
             )}
-            <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />{' '}
-            <SpellLink spell={SPELLS.CRUSADER_STRIKE} />
-            s: {this.blessedAssuranceCrusaderStrikes.length}
-            <br />
+            <p>
+              <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />{' '}
+              <SpellLink spell={SPELLS.CRUSADER_STRIKE} />
+              s: {this.blessedAssuranceCrusaderStrikes.length}
+            </p>
             {this.hasAC && (
-              <>
-                <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />{' '}
-                <SpellLink spell={SPELLS.CRUSADER_STRIKE} />s during{' '}
-                <SpellLink spell={SPELLS.AVENGING_CRUSADER} />:{' '}
-                {this.blessedAssuranceCrusaderStrikesInsideAC}
-                <br />
-                Healing from <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />:{' '}
-                {formatNumber(this.healingDone)}
-                <br />
-                Healing from <SpellLink spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} /> via{' '}
-                <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />:{' '}
-                {formatNumber(this.healingTransfered)}
-                <br />
-                Overhealing: {formatNumber(this.totalOverhealing)}
-              </>
+              <ul>
+                <li>
+                  <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />{' '}
+                  <SpellLink spell={SPELLS.CRUSADER_STRIKE} />s during{' '}
+                  <SpellLink spell={SPELLS.AVENGING_CRUSADER} />:{' '}
+                  {this.blessedAssuranceCrusaderStrikesInsideAC}
+                </li>
+                <li>
+                  Healing from <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />:{' '}
+                  {formatNumber(this.healingDone)}
+                </li>
+                <li>
+                  Healing from <SpellLink spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} /> via{' '}
+                  <SpellLink spell={TALENTS.BLESSED_ASSURANCE_TALENT} />:{' '}
+                  {formatNumber(this.healingTransfered)}
+                </li>
+                <li>Overhealing: {formatNumber(this.totalOverhealing)}</li>
+              </ul>
             )}
           </>
         }

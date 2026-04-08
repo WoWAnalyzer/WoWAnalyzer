@@ -31,7 +31,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLACK_ARROW_DAMAGE.id,
-        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -189,7 +189,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MISDIRECTION.id,
+        spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {

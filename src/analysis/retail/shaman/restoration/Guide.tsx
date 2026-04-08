@@ -15,23 +15,21 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.riptide.guideSubsection}
         {info.combatant.hasTalent(talents.SURGING_TOTEM_TALENT)
           ? modules.surgingTotem.guideSubsection
-          : modules.healingRain.guideSubsection}
-        {info.combatant.hasTalent(talents.ANCESTRAL_SWIFTNESS_TALENT) &&
-          modules.naturesSwiftness.farseerGuideSubsection}
+          : info.combatant.hasTalent(talents.HEALING_RAIN_TALENT) &&
+            modules.healingRain.guideSubsection}
+        {info.combatant.hasTalent(talents.ANCESTRAL_SWIFTNESS_TALENT)
+          ? modules.naturesSwiftness.farseerGuideSubsection
+          : modules.naturesSwiftness.guideSubsection}
         {info.combatant.hasTalent(talents.EARTH_SHIELD_TALENT) &&
           modules.earthShield.guideSubsection}
         {info.combatant.hasTalent(talents.UNLEASH_LIFE_TALENT) &&
           modules.unleashLife.guideSubsection}
+        {modules.healingStreamTotem.guideSubsection}
       </Section>
-      <Section title="Short Cooldowns"></Section>
       <Section title="Healing Cooldowns">
+        {modules.ascendance.guideSubsection}
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
       </Section>
-
-      {info.combatant.hasTalent(talents.NATURES_SWIFTNESS_TALENT) &&
-        !info.combatant.hasTalent(talents.ANCESTRAL_SWIFTNESS_TALENT) && (
-          <Section title="Mana efficiency">{modules.naturesSwiftness.guideSubsection}</Section>
-        )}
 
       <PreparationSection />
     </>

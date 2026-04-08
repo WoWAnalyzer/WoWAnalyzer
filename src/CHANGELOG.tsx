@@ -25,12 +25,30 @@ import {
   Vollmer,
   Yellot,
   Rex,
+  squided,
+  Gambyt,
+  MarchingCube,
+  Thias,
+  Hezaerd,
+  Dambroda,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 7), "Fix typing of `get tierPieces`", Thias),
+  change(date(2026, 4, 6), "Allow deselecting an open spell usage entry by clicking it again.", Hezaerd),
+  change(date(2026, 4, 6), <>Improve visuals for close calls in pull selection</>, Thias),
+  change(date(2026, 4, 6), <>Updated item stat scaling values for Midnight stat squish</>, Dambroda),
+  change(date(2026, 4, 2), <>Link out-dated browsers to a functional website alternative</>, Vetyst),
+  change(date(2026, 3, 31), <>Convert ReportHistory to TypeScript.</>, Vetyst),
+  change(date(2026, 3, 24), <>Add <SpellLink spell={ITEMS.DARKMOON_SIGIL_HUNT} /> embellishment analyzer with stat buff tracking.</>, MarchingCube),
+  change(date(2026, 3, 24), "Add Ancestral Call (Mag'har Orc) racial support", MarchingCube),
+  change(date(2026, 3, 23), "Update close kill times to match new WCL API", Putro),
+  change(date(2026, 3, 22), 'Update wowhead tooltips and healer base mana values for Midnight.', squided),
+  change(date(2026, 3, 20), 'Update FoodChecker for Midnight', Gambyt),
+  change(date(2026, 3, 18), 'Fixed bug with HoT Extension tracking.', squided),
   change(date(2026, 3, 14), 'Add Support for Haranir Allied Race.', Vetyst),
   change(date(2026, 3, 13), 'Update AugmentRuneChecked for Midnight and Add a AugmentRune Panel to the Preparations section.', Vetyst),
   change(date(2026, 3, 13), 'Update EnchantChecker for Midnight.', Vetyst),

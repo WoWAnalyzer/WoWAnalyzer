@@ -61,6 +61,7 @@ export const MAELSTROM_ABILITIES: Record<string, MaelstromAbility> = {
     searchDirection: SearchDirection.ForwardsOnly,
     matchMode: MatchMode.MatchLast,
   },
+  // Lightning Bolt and Chain Lightning deal 20% increased damage and have a 20% chance to refund the Maelstrom Weapon spent.
   THUNDER_CAPACITOR: {
     spellId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST.id],
     type: MaelstromAbilityType.Builder,

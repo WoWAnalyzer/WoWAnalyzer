@@ -7,7 +7,6 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
-// TODO TWW - CONTROL OF THE DREAM LMAO
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
@@ -22,14 +21,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WILD_GROWTH.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 10,
+        cooldown: 10 - combatant.getTalentRank(TALENTS_DRUID.EARLY_SPRING_TALENT), // 1 sec CDR from Early Spring
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.EFFLORESCENCE_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.EFFLORESCENCE_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS_DRUID.EFFLORESCENCE_TALENT) &&
+          !combatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -54,7 +55,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIFTMEND.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
+        cooldown: 15 - combatant.getTalentRank(TALENTS_DRUID.EARLY_SPRING_TALENT), // 1 sec CDR from Early Spring,
         charges: combatant.hasTalent(TALENTS_DRUID.PROSPERITY_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
@@ -77,19 +78,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         healSpellIds: [SPELLS.LIFEBLOOM_BLOOM_HEAL.id],
-      },
-      {
-        spell: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: null, // odd that it's off GCD, but it is
-        cooldown: 20 - combatant.getTalentRank(TALENTS_DRUID.EARLY_SPRING_TALENT) * 3,
-        charges: 3,
-        castEfficiency: {
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.3,
-        },
       },
       // Cooldowns
       {
@@ -121,20 +109,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90 - combatant.getTalentRank(TALENTS_DRUID.IMPROVED_IRONBARK_TALENT) * 20,
         gcd: null,
-      },
-      {
-        spell: TALENTS_DRUID.FLOURISH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.3,
-        },
       },
       {
         spell: TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,

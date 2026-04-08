@@ -234,7 +234,6 @@ const spells = {
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
-    manaCost: 1840,
   },
   TRANQUILITY_HEAL: {
     // this ID is the direct heal, the HoT heal, the HoT buff, and the 'tick cast'
@@ -261,33 +260,22 @@ const spells = {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-    manaCost: 2200,
   },
   REJUVENATION: {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
-    manaCost: 1100,
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
-    manaCost: 1700,
   },
   LIFEBLOOM_HOT_HEAL: {
     // also the cast ID
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
-    manaCost: 800,
-  },
-  LIFEBLOOM_UNDERGROWTH_HOT_HEAL: {
-    // with the Undergrowth talent, BOTH lifeblooms will have this ID
-    id: 188550,
-    name: 'Lifebloom',
-    icon: 'inv_misc_herb_felblossom',
-    manaCost: 800,
   },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
@@ -303,7 +291,6 @@ const spells = {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
-    manaCost: 1700,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
@@ -320,7 +307,6 @@ const spells = {
     id: 18562,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
-    manaCost: 800,
   },
   ABUNDANCE_BUFF: {
     id: 207640,
@@ -503,22 +489,6 @@ const spells = {
     id: 422382,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-  },
-  // Regrowth cast by Dryad from Sylvan Beckoning
-  DRYAD_REGROWTH: {
-    id: 1264664,
-    name: 'Regrowth',
-    icon: 'spell_nature_resistnature',
-  },
-  DRYAD_TRANQUILITY: {
-    id: 1264659,
-    name: 'Tranquility',
-    icon: 'spell_nature_tranquility',
-  },
-  DRYAD_SPIRIT_OF_THE_THICKET: {
-    id: 1264905,
-    name: 'Spirit of the Thicket',
-    icon: 'spell_unused',
   },
   EVERBLOOM_SPLASH_HEAL: {
     id: 1244341,
@@ -868,11 +838,20 @@ const spells = {
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
   },
-  ECLIPSE: {
-    id: 79577,
-    name: 'Eclipse',
+  // Eclipse Casts
+  SOLAR_ECLIPSE: {
+    id: 1233346,
+    name: 'Solar Eclipse',
     icon: 'ability_druid_eclipseorange',
   },
+  LUNAR_ECLIPSE: {
+    id: 1233272,
+    name: 'Lunar Eclipse',
+    icon: 'ability_druid_eclipse',
+  },
+  // Eclipse Buffs
+  // TODO Rename to ECLIPSE_SOLAR_BUFF & ECLIPSE_LUNAR_BUFF
+  // Used in classic module too
   ECLIPSE_SOLAR: {
     id: 48517,
     name: 'Eclipse (Solar)',
@@ -1374,6 +1353,46 @@ const spells = {
     id: 434141,
     name: 'Dream Bloom',
     icon: 'inv_ability_keeperofthegrovedruid_dreamsurge_fiendly',
+  },
+  // Regrowth cast by Dryad from Sylvan Beckoning
+  DRYAD_REGROWTH: {
+    id: 1264664,
+    name: 'Regrowth',
+    icon: 'spell_nature_resistnature',
+  },
+  // Tranquility cast by Dryad from Sylvan Beckoning
+  DRYAD_TRANQUILITY: {
+    id: 1264659,
+    name: 'Tranquility',
+    icon: 'spell_nature_tranquility',
+  },
+  // Heal event from the spirit of the thicket dryad
+  DRYAD_SPIRIT_OF_THE_THICKET_HEAL: {
+    id: 1264905,
+    name: 'Spirit of the Thicket',
+    icon: 'spell_unused',
+  },
+  // Buff on player while spirit of the thicket dryad is active
+  DRYAD_SPIRIT_OF_THE_THICKET_BUFF: {
+    id: 1264911,
+    name: 'Spirit of the Thicket',
+    icon: 'ui_darkshore_warfront_alliance_dryad',
+  },
+  // Buff on player while sylvan beckoning dryad is active
+  SYLVAN_BECKONING_ACTIVE: {
+    id: 1264618,
+    name: 'Sylvan Beckoning',
+    icon: 'ui_darkshore_warfront_alliance_dryad',
+  },
+  POWER_OF_NATURE: {
+    id: 428866,
+    name: 'Power of Nature',
+    icon: 'spll_nature_naturesblessing',
+  },
+  HARMONY_OF_THE_GROVE: {
+    id: 428737,
+    name: 'Harmony of the Grove',
+    icon: 'ability_druid_forceofnature',
   },
 } satisfies Record<string, Spell>;
 

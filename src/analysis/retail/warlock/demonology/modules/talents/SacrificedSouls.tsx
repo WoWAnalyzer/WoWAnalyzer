@@ -105,14 +105,18 @@ class SacrificedSouls extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.totalBonusDamage)} bonus damage
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             Bonus Shadow Bolt damage: {formatThousands(this._shadowBoltDamage)} (
+            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             {this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
             Bonus Demonbolt damage: {formatThousands(this._demonboltDamage)} (
             {this.owner.formatItemDamageDone(this._demonboltDamage)})
             {hasPS && (
               <>
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />
+                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
                 <br />* Since you have Power Siphon talent, it's highly likely that it messes up
                 getting current pets at certain time because sometimes the number of Imps we
                 sacrifice in code doesn't agree with what happens in logs. Therefore, this value is

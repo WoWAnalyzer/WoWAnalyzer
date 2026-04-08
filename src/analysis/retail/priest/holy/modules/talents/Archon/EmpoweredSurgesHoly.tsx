@@ -16,6 +16,11 @@ import { EMPOWERED_SURGES_AMP } from '../../../constants';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 
+/**
+ * Empowered Surges (Archon)
+ * Your spells affected by Surge of Light heal for 5% more while Surge of Light is active.
+ */
+
 class EmpoweredSurgesHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,

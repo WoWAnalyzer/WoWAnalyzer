@@ -59,10 +59,10 @@ class Heartbreaker extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.heartbreaker.statistic.tooltip">
-            Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death
-            Strikes.
-            <br />
-            Your Heart Strike hit on average {this.averageHeartStrikeHits} targets.
+            <p>
+              Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death
+              Strikes. Your Heart Strike hit on average {this.averageHeartStrikeHits} targets.
+            </p>
           </Trans>
         }
       >

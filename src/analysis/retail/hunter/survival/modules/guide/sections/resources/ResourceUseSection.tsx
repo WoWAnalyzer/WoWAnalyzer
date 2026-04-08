@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import CombatLogParser from 'analysis/retail/hunter/survival/CombatLogParser';
 import {
   RESOURCES_HUNTER_AVERAGE_THRESHOLD,
@@ -8,15 +8,11 @@ import {
 import TALENTS from 'common/TALENTS/hunter';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceLink } from 'interface';
+import { ResourceLink, TooltipElement } from 'interface';
 import { ModulesOf, PerformanceMark, Section, SubSection } from 'interface/guide';
 import PerformanceStrongWithTooltip from 'interface/PerformanceStrongWithTooltip';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-
-// The current design of Survival makes it so that Tip of the Spear is a more important resource to manage than Focus.
-// Particularly for Sentinel, but this applies to Pack Leader as well. This will become more solidified once
-// Apex Talent's are available and Strike as One proc's from every consumption of Tip.
 
 export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogParser>) {
   return (
@@ -26,29 +22,6 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
         message: 'Resource Use',
       })}
     >
-      <SubSection title="Tip of the Spear">
-        <p>
-          Your <SpellLink spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT} /> <strong>builds</strong>{' '}
-          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} /> stacks. These stacks are consumed
-          one per cast of your <strong>Direct Damage</strong> dealing abilities. It is essential to
-          good play to avoid wasting stacks by only generating when you have 0 stacks of{' '}
-          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />.
-        </p>
-        <p>
-          You wasted {modules.tipOfTheSpear.totalWastedStacks} stacks of{' '}
-          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />.
-        </p>
-        {modules.tipOfTheSpear.guideSubsection}
-        <p>
-          <strong>
-            {' '}
-            Tip of the Spear does not buff the periodic damage of abilities like{' '}
-            <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />, or{' '}
-            <SpellLink spell={TALENTS.FLAMEFANG_PITCH_TALENT} />.
-          </strong>
-        </p>
-      </SubSection>
-      <hr />
       <SubSection
         title={t({
           id: 'guide.hunter.survival.sections.resources.focus.title',
@@ -58,9 +31,26 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
         <p>
           With proper <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} /> management, you should
           avoid most issues with focus and waste will be minimal to non-existant. It will
-          occasionally be impossible to avoid capping <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />{' '}
-          but that is ok. You should be fitting 2-3 abilities between each cast of Kill Command
-          which will maintain a healthy buffer between capping and running out of focus.
+          occasionally be impossible to avoid capping <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />
+          {'. '}
+          As Pack Leader, it is occasionally impossible to avoid running out of focus. Sentinel does
+          not have this issue.{' '}
+          <TooltipElement
+            content={
+              <>
+                Sentinel gains 5 extra focus per{' '}
+                <SpellLink spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT} /> and uses{' '}
+                <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> more often than Pack Leader,
+                which only costs 10 focus. Pack Leader largely ignores Bomb in favour of Raptor
+                Strike and so spends focus faster. This is offset by Pack Leader&apos;s{' '}
+                <SpellLink spell={TALENTS.LETHAL_BARBS_TALENT} /> talent which generates 2 focus per
+                auto attack, but it is still not enough to completely avoid downtime. It is however
+                minimal with proper play: as low as a total of 3s in a 5 minute fight.
+              </>
+            }
+          >
+            (?)
+          </TooltipElement>
         </p>
         The chart below shows your <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> over the course of
         the encounter. You wasted{' '}
@@ -68,14 +58,18 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           performance={modules.focusTracker.percentAtCapPerformance}
           tooltip={
             <>
-              <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage &lt;={' '}
-              {formatPercentage(RESOURCES_HUNTER_MINOR_THRESHOLD, 0)}%
-              <br />
-              <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
-              {formatPercentage(RESOURCES_HUNTER_AVERAGE_THRESHOLD, 0)}%
-              <br />
-              <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
-              {formatPercentage(RESOURCES_HUNTER_MAJOR_THRESHOLD, 0)}%{' '}
+              <p>
+                <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage &lt;={' '}
+                {formatPercentage(RESOURCES_HUNTER_MINOR_THRESHOLD, 0)}%
+              </p>
+              <p>
+                <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
+                {formatPercentage(RESOURCES_HUNTER_AVERAGE_THRESHOLD, 0)}%
+              </p>
+              <p>
+                <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
+                {formatPercentage(RESOURCES_HUNTER_MAJOR_THRESHOLD, 0)}%
+              </p>
             </>
           }
         >

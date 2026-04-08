@@ -110,8 +110,9 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
         {parses.map((elem) => {
           const url = makePlainUrl(
             elem.report_code,
-            elem.report_fight.toString(),
+            elem.report_fight,
             elem.difficulty + ' ' + elem.name,
+            undefined,
             elem.advanced ? elem.character_name : '',
           );
           return (

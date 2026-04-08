@@ -44,8 +44,7 @@ class ElementalPrepullNormalizer extends EventsNormalizer {
 
     if (this.ancestorSourceId) {
       // find the first damage instance for an ancestor
-      for (let index = 0; index < events.length; index += 1) {
-        const event = events[index];
+      for (const event of events) {
         if (!this._timestampCheck(event, ancestorDuration)) {
           // these sneaky buggers are out of order, tsk tsk
           if (event.type !== EventType.PhaseStart && event.type !== EventType.PhaseEnd) {

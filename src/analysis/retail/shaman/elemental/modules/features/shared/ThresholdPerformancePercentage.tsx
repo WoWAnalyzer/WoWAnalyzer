@@ -82,16 +82,20 @@ const ThresoldPerformancePercentage = ({ threshold, percentage, flatAmount }: Pr
     <PerformanceStrongWithTooltip
       performance={performance}
       tooltip={
-        <>
-          <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage {perfectSign}{' '}
-          {formatPercentage(threshold.perfect, 0)}%
-          <br />
-          <PerformanceMark perf={QualitativePerformance.Good} /> Good usage {signJsx}={' '}
-          {formatPercentage(threshold.good, 0)}%
-          <br />
-          <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage {signJsx}={' '}
-          {formatPercentage(threshold.ok, 0)}%
-        </>
+        <ul>
+          <li>
+            <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage {perfectSign}{' '}
+            {formatPercentage(threshold.perfect, 0)}%
+          </li>
+          <li>
+            <PerformanceMark perf={QualitativePerformance.Good} /> Good usage {signJsx}={' '}
+            {formatPercentage(threshold.good, 0)}%
+          </li>
+          <li>
+            <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage {signJsx}={' '}
+            {formatPercentage(threshold.ok, 0)}%
+          </li>
+        </ul>
       }
     >
       {child}

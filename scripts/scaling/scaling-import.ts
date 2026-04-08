@@ -2,7 +2,7 @@
 import { readCsvFromUrl, csvToObject } from '../talents/talent-tree-helpers';
 import * as fs from 'fs';
 
-const BUILD_NUMBER = '11.0.2.56110';
+const BUILD_NUMBER = '12.0.1.66709';
 
 interface RandPoint {
   ID: string;

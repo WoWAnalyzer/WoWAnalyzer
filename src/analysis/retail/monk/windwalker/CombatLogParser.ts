@@ -1,4 +1,4 @@
-import { JadefireStomp, MysticTouch, TouchOfDeath } from 'analysis/retail/monk/shared';
+import { MysticTouch, TouchOfDeath } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 // Features
@@ -7,7 +7,6 @@ import Buffs from './modules/Buffs';
 // import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import MoTCGraph from './modules/features/MoTCGraph';
 import JadeIgnition from './modules/talents/JadeIgnition';
 import XuensBattlegear from './modules/talents/XuensBattlegear';
 // Resources
@@ -24,13 +23,14 @@ import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
 // Talents
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
-import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
+import { default as DanceOfChiJiNormalizer } from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import Guide from './Guide';
 import ChiBurst from './modules/spells/ChiBurst';
 import RisingSunKick from './modules/spells/RisingSunKick';
 import StrikeoftheWindlord from './modules/spells/StrikeoftheWindlord';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
+import GloryOfTheDawn from './modules/talents/GloryOfTheDawn';
 import HitCombo from './modules/talents/HitCombo';
 import HitComboGraph from './modules/talents/HitComboGraph';
 import HitComboTracker from './modules/talents/HitComboTracker';
@@ -45,9 +45,18 @@ import {
   CracklingJadeLightningLinkNormalizer,
   CracklingJadeLightningNormalizer,
 } from './normalizers/CracklingJadeLightningNormalizer';
+import ComboBreakerCastLinkNormalizer from './normalizers/ComboBreakerCastLinkNormalizer';
+import DanceOfChiJiCastLinkNormalizer from './normalizers/DanceOfChiJiCastLinkNormalizer';
 import CelestialConduit from './modules/talents/CelestialConduit';
+import CyclonesDrift from './modules/talents/CyclonesDrift';
 import SlicingWinds from './modules/spells/SlicingWinds';
 import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
+import VeteransEye from '../shared/hero/ShadoPan/VeteransEye';
+import RushingWindKick from './modules/talents/RushingWindKick';
+import GloryOfTheDawnLinkNormalizer from './normalizers/GloryOfTheDawnLinkNormalizer';
+import RushingWindKickGenerationNormalizer from './normalizers/RushingWindKickGenerationNormalizer';
+import RushingWindKickCastLinkNormalizer from './normalizers/RushingWindKickCastLinkNormalizer';
+import XuensBattlegearNormalizer from './normalizers/XuensBattlegearNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,18 +64,22 @@ class CombatLogParser extends CoreCombatLogParser {
     mysticTouch: MysticTouch,
     spellUsable: SpellUsable,
     chiJiNormalizer: DanceOfChiJiNormalizer,
+    danceOfChiJiLinkNormalizer: DanceOfChiJiCastLinkNormalizer,
     fofNormalizer: FistsOfFuryNormalizer,
     fofLinkNormalizer: FistsOfFuryLinkNormalizer,
     cracklingJadeLightningNormalizer: CracklingJadeLightningNormalizer,
     cracklingJadeLightningLinkNormalizer: CracklingJadeLightningLinkNormalizer,
+    comboBreakerLinkNormalizer: ComboBreakerCastLinkNormalizer,
+    gloryOfTheDawnLinkNormalizer: GloryOfTheDawnLinkNormalizer,
+    rushingWindKickGenerationNormalizer: RushingWindKickGenerationNormalizer,
+    rushingWindKickLinkNormalizer: RushingWindKickCastLinkNormalizer,
+    xuensBattlegearNormalizer: XuensBattlegearNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    moTCGraph: MoTCGraph,
-
     // Resources
     chiTracker: ChiTracker,
     chiDetails: ChiDetails,
@@ -75,12 +88,16 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     danceOfChiJi: DanceOfChiJi,
+    gloryOfTheDawn: GloryOfTheDawn,
     hitCombo: HitCombo,
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
     celestialConduit: CelestialConduit,
+    cyclonesDrift: CyclonesDrift,
+    veteransEye: VeteransEye,
     zenith: Zenith,
+    rushingWindKick: RushingWindKick,
 
     // Guide helpers
     hitComboTracker: HitComboTracker,
@@ -94,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
-    jadefireStomp: JadefireStomp,
     risingSunKick: RisingSunKick,
     invokeXuen: InvokeXuen,
     slicingWinds: SlicingWinds,

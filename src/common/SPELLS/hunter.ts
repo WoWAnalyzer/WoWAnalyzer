@@ -121,25 +121,50 @@ const spells = {
   //endregion
 
   //region Marksmanship
-  STEADY_SHOT_FOCUS: {
-    id: 77443,
-    name: 'Steady Shot',
-    icon: 'ability_hunter_steadyshot',
+  BULLETSTORM_BUFF: {
+    id: 389020,
+    name: 'Bulletstorm',
+    icon: 'ability_hunter_markedshot',
   },
-  TRUESHOT: {
-    id: 288613,
-    name: 'Trueshot',
-    icon: 'ability_trueshot',
+  BULLSEYE_BUFF: {
+    id: 204090,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
   },
-  BURSTING_SHOT: {
-    id: 186387,
-    name: 'Bursting Shot',
-    icon: 'ability_hunter_burstingshot',
+  DEATHBLOW_BUFF: {
+    id: 378770,
+    name: 'Deathblow',
+    icon: 'ability_hunter_runningshot',
   },
-  RAPID_FIRE: {
-    id: 257044,
-    name: 'Rapid Fire',
-    icon: 'ability_hunter_efficiency',
+  DOUBLE_TAP_BUFF: {
+    id: 260402,
+    name: 'Double Tap',
+    icon: 'ability_hunter_crossfire',
+  },
+  LOCK_AND_LOAD_BUFF: {
+    id: 194594,
+    name: 'Lock and Load',
+    icon: 'ability_hunter_lockandload',
+  },
+  MASTER_MARKSMAN_DEBUFF: {
+    id: 269576,
+    name: 'Master Marksman',
+    icon: 'ability_hunter_mastermarksman',
+  },
+  MULTISHOT_MM: {
+    id: 257620,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+  },
+  PRECISE_SHOTS_BUFF: {
+    id: 260242,
+    name: 'Precise Shots',
+    icon: 'ability_hunter_snipertraining',
+  },
+  QUICK_DRAW_BUFF: {
+    id: 1279347,
+    name: 'Quick Draw',
+    icon: 'ability_rogue_pistolshot',
   },
   RAPID_FIRE_DAMAGE: {
     id: 257045,
@@ -151,85 +176,30 @@ const spells = {
     name: 'Rapid Fire',
     icon: 'ability_hunter_efficiency',
   },
-  MULTISHOT_MM: {
-    id: 257620,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
+  SPOTTERS_MARK_DEBUFF: {
+    id: 466872,
+    name: "Spotter's Mark",
+    icon: 'inv_111_hunter_ability_eaglemark',
   },
-  MASTER_MARKSMAN_DEBUFF: {
-    id: 269576,
-    name: 'Master Marksman',
-    icon: 'ability_hunter_mastermarksman',
-  },
-  TRAILBLAZER_BUFF: {
-    id: 231390,
-    name: 'Trailblazer',
-    icon: 'ability_hunter_aspectmastery',
-  },
-  STEADY_FOCUS_BUFF: {
-    id: 193534,
-    name: 'Steady Focus',
-    icon: 'ability_hunter_improvedsteadyshot',
-  },
-  VOLLEY_DAMAGE: {
-    id: 260247,
-    name: 'Volley',
-    icon: 'buff_epichunter',
-  },
-  LOCK_AND_LOAD_BUFF: {
-    id: 194594,
-    name: 'Lock and Load',
-    icon: 'ability_hunter_lockandload',
-  },
-  SURVIVAL_OF_THE_FITTEST_LONE_WOLF: {
-    id: 281195,
-    name: 'Survival of the Fittest',
-    icon: 'spell_nature_spiritarmor',
-  },
-  PRECISE_SHOTS: {
-    id: 260242,
-    name: 'Precise Shots',
-    icon: 'ability_hunter_focusedaim',
+  STEADY_SHOT_FOCUS: {
+    id: 77443,
+    name: 'Steady Shot',
+    icon: 'ability_hunter_steadyshot',
   },
   TRICK_SHOTS_BUFF: {
     id: 257622,
     name: 'Trick Shots',
     icon: 'inv_trickshot',
   },
-  LONE_WOLF_BUFF: {
-    id: 164273,
-    name: 'Lone Wolf',
-    icon: 'spell_hunter_lonewolf',
+  VOLLEY_BUFF: {
+    id: 260243,
+    name: 'Volley',
+    icon: 'ability_hunter_rapidkilling',
   },
-  STREAMLINE_BUFF: {
-    id: 342076,
-    name: 'Streamline',
-    icon: 'ability_hunter_runningshot',
-  },
-  CHIMAERA_SHOT_MM_NATURE_DAMAGE: {
-    id: 344120,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
-  CHIMAERA_SHOT_MM_FROST_DAMAGE: {
-    id: 344121,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
-  DEATHBLOW_BUFF: {
-    id: 378770,
-    name: 'Deathblow',
-    icon: 'ability_hunter_runningshot',
-  },
-  SERPENT_STING_MM: {
-    id: 271788,
-    name: 'Serpent Sting',
-    icon: 'spell_hunter_exoticmunitions_poisoned',
-  },
-  BLEAK_ARROW_DAMAGE: {
-    id: 467718,
-    name: 'Bleak Arrows',
-    icon: 'inv_quiver_1h_mawraid_d_01.jpg',
+  VOLLEY_DAMAGE: {
+    id: 260247,
+    name: 'Volley',
+    icon: 'buff_epichunter',
   },
   //endregion
 
@@ -320,10 +290,20 @@ const spells = {
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
   },
+  RAPTOR_SWIPE_BUFF_2: {
+    id: 1275630,
+    name: 'Raptor Swipe',
+    icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
   RAPTOR_SWIPE_AOTE: {
     id: 1262343,
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
+  STRIKE_AS_ONE: {
+    id: 1251779,
+    name: 'Strike as One',
+    icon: 'inv_coordinatedassault',
   },
   TAKEDOWN_PET_DAMAGE: {
     id: 1253862,
@@ -342,42 +322,7 @@ const spells = {
   },
   //endregion
 
-  //region Hero Talents
-  SENTINELS_MARK_DEBUFF: {
-    id: 1253601,
-    name: "Sentinel's Mark",
-    icon: 'ability_ardenweald_hunter',
-  },
-  MOONLIGHT_CHAKRAM_CAST: {
-    id: 1264949,
-    name: 'Moonlight Chakram',
-    icon: 'inv_ability_hunter_deathchakram',
-  },
-  MOONLIGHT_CHAKRAM_DAMAGE: {
-    id: 1266081,
-    name: 'Moonlight Chakram',
-    icon: 'inv_ability_hunter_deathchakram',
-  },
-  URSINE_FURY_BEASTS: {
-    id: 170364,
-    name: 'Dire Beast',
-    icon: 'Ability_hunter_bestialdiscipline',
-  },
-  HOWL_WYVERN_BUFF: {
-    id: 462515, //Update this to the ID
-    name: 'Howl of the Packleader',
-    icon: 'inv_misc_elitewyvern',
-  },
-  WAILING_ARROW_DAMAGE: {
-    id: 392058,
-    name: 'Wailing Arrow',
-    icon: 'ability_theblackarrow',
-  },
-  WAILING_ARROW_DAMAGE_FOCUS: {
-    id: 392060,
-    name: 'Wailing Arrow',
-    icon: 'ability_theblackarrow',
-  },
+  //region Dark Ranger Hero Talents
   BLACK_ARROW_DAMAGE: {
     id: 466930,
     name: 'Black Arrow',
@@ -392,6 +337,64 @@ const spells = {
     id: 468572,
     name: 'Black Arrow',
     icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLEAK_ARROWS_DAMAGE: {
+    id: 467718,
+    name: 'Bleak Arrows',
+    icon: 'inv_quiver_1h_mawraid_d_01.jpg',
+  },
+  BLEAK_POWDER_DAMAGE: {
+    id: 467914,
+    name: 'Bleak Powder',
+    icon: 'inv_misc_powder_tin',
+  },
+  DARK_MINION_BLIGHTED_ARROW: {
+    id: 1264364,
+    name: 'Blighted Arrow',
+    icon: 'inv_crossbow_2h_maw_c_01',
+  },
+  DARK_MINION_CAST: {
+    id: 1264345,
+    name: 'Dark Minion',
+    icon: 'spell_shadow_animatedead',
+  },
+  DARK_MINION_SHOOT: {
+    id: 1264357,
+    name: 'Shoot',
+    icon: 'ability_marksmanship',
+  },
+  WAILING_ARROW_BUFF: {
+    id: 459808,
+    name: 'Wailing Arrow',
+    icon: 'ability_hunter_murderofcrows',
+  },
+  WAILING_ARROW_DEBUFF: {
+    id: 392058,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  WAILING_ARROW_DAMAGE: {
+    id: 392060,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  WITHERING_FIRE_BUFF: {
+    id: 466991,
+    name: 'Withering Fire',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  //endregion
+
+  //region Pack Leader Hero Talents
+  URSINE_FURY_BEASTS: {
+    id: 170364,
+    name: 'Dire Beast',
+    icon: 'Ability_hunter_bestialdiscipline',
+  },
+  HOWL_WYVERN_BUFF: {
+    id: 462515, //Update this to the ID
+    name: 'Howl of the Packleader',
+    icon: 'inv_misc_elitewyvern',
   },
   STAMPEDE_READY_BUFF: {
     id: 1258338,
@@ -408,7 +411,51 @@ const spells = {
     name: 'Stampede',
     icon: 'ability_hunter_bestialdiscipline',
   },
-  //rendregion
+  //endregion
+
+  //region Sentinel Hero Talents
+  DONT_LOOK_BACK_BUFF: {
+    id: 451447,
+    name: "Don't Look Back",
+    icon: 'ability_racial_forceshield',
+  },
+  LUNAR_STORM_DAMAGE: {
+    id: 1253733,
+    name: 'Lunar Storm',
+    icon: 'artifactability_balancedruid_moonandstars',
+  },
+  MOONLIGHT_CHAKRAM_BUFF: {
+    id: 1264946,
+    name: 'Moonlight Chakram',
+    icon: 'inv_ability_hunter_deathchakram',
+  },
+  MOONLIGHT_CHAKRAM_CAST: {
+    id: 1264949,
+    name: 'Moonlight Chakram',
+    icon: 'inv_ability_hunter_deathchakram',
+  },
+  MOONLIGHT_CHAKRAM_DAMAGE: {
+    id: 1266081,
+    name: 'Moonlight Chakram',
+    icon: 'inv_ability_hunter_deathchakram',
+  },
+  SANCTIFIED_ARMAMENTS_DEBUFF: {
+    id: 1253836,
+    name: 'Sanctified Armaments',
+    icon: 'inv_polearm_2h_arakkoa_c_01',
+  },
+  SENTINELS_MARK_DEBUFF: {
+    id: 1253601,
+    name: "Sentinel's Mark",
+    icon: 'ability_ardenweald_hunter',
+  },
+  STARGAZER_BUFF: {
+    id: 1253750,
+    name: 'Stargazer',
+    icon: 'icon_7fx_nightborn_astromancer_blue',
+  },
+  //endregion
+
   //region Shared Talents
   EXPLOSIVE_SHOT_DAMAGE: {
     id: 212680,
@@ -505,8 +552,8 @@ const spells = {
     name: 'Freezing Trap',
     icon: 'spell_frost_chainsofice',
   },
-  MISDIRECTION: {
-    id: 34477,
+  MISDIRECTION_BUFF: {
+    id: 35079,
     name: 'Misdrection',
     icon: 'ability_hunter_misdirection',
   },
@@ -544,6 +591,11 @@ const spells = {
     id: 19801,
     name: 'Tranquilizing Shot',
     icon: 'spell_nature_drowsy',
+  },
+  TRAILBLAZER_BUFF: {
+    id: 231390,
+    name: 'Trailblazer',
+    icon: 'ability_hunter_aspectmastery',
   },
   //endregion
 

@@ -110,6 +110,16 @@ export function formatMilliseconds(duration: number): string {
 }
 
 /**
+ * Formats a duration in milliseconds as seconds with a specified precision.
+ * @param durationMs - The duration in milliseconds to format.
+ * @param precision - The number of decimal places to include in the result.
+ * @returns The formatted duration in seconds, rounded to the specified precision.
+ */
+export function formatSeconds(durationMs: number, precision: number): number {
+  return Math.round((durationMs * Math.pow(10, precision)) / 1000) / Math.pow(10, precision);
+}
+
+/**
  * Formats a number into the ordinal form.
  * Ex: 2nd, 7th, 20th, 23rd, 52nd, 135th, 301st
  */

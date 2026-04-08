@@ -55,7 +55,7 @@ export default class HotStreak extends Analyzer {
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'precast');
     const targetHealth = spender && HasTarget(spender) && this.allTargetsHealth[spender.targetID];
 
-    let buff: Spell[] = [];
+    const buff: Spell[] = [];
     if (this.hasScorch && targetHealth && targetHealth < 0.3) {
       buff.push(TALENTS.SCORCH_TALENT);
     } else if (
@@ -67,6 +67,7 @@ export default class HotStreak extends Analyzer {
     ) {
       buff.push(TALENTS.FIRESTARTER_TALENT);
     } else if (
+      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       this.selectedCombatant.hasBuff(
         TALENTS.COMBUSTION_TALENT.id,
         event.timestamp - COMBUSTION_END_BUFFER,

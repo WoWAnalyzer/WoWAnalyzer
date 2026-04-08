@@ -33,13 +33,17 @@ import BoomstickNormalizer from './normalizers/BoomstickNormalizer';
 import WildfireShells from './modules/talents/WildfireShells';
 import LethalCalibration from './modules/talents/LethalCalibration';
 import WildfireBombNormalizer from './normalizers/WildfireBombNormalizer';
+import RaptorSwipeNormalizer from './normalizers/RaptorSwipeNormalizer';
+import KillCommandNormalizer from './normalizers/KillCommandNormalizer';
+import RaptorSwipe from './modules/talents/RaptorSwipe';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import AplCheck from './modules/apl/AplCheck';
+import Takedown from './modules/talents/Takedown/Takedown';
 import MoonlightChakram from '../shared/herotalents/MoonlightChakram';
 import MoonlightChakramNormalizer from '../shared/normalizers/MoonlightChakramNormalizer';
 import SentinelsMark from '../shared/herotalents/SentinelsMark';
 import SentinelsMarkNormalizer from '../shared/normalizers/SentinelsMarkNormalizer';
-import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers'; // This has a pack leader normalizer in it useful to Survival so not deleting yet.
+import EventLinkNormalizer from '../shared/normalizers/HunterEventLinkNormalizers';
 import StampedeAnalyzer from '../shared/herotalents/Stampede';
 import HowlBoar from '../shared/herotalents/HowlBoar';
 class CombatLogParser extends CoreCombatLogParser {
@@ -73,6 +77,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
     boomstickNormalizer: BoomstickNormalizer,
     wildfireBombNormalizer: WildfireBombNormalizer,
+    raptorSwipeNormalizer: RaptorSwipeNormalizer,
+    killCommandNormalizer: KillCommandNormalizer,
     moonlightChakramNormalizer: MoonlightChakramNormalizer,
     sentinelsMarkNormalizer: SentinelsMarkNormalizer,
     EventLinkNormalizers: EventLinkNormalizer,
@@ -81,9 +87,11 @@ class CombatLogParser extends CoreCombatLogParser {
     deathTracker: DeathTracker,
 
     //Spells
+    takedown: Takedown,
     bloodseeker: Bloodseeker,
     killCommand: KillCommand,
     raptorStrike: RaptorStrike,
+    raptorSwipe: RaptorSwipe,
     wildfireBomb: WildfireBomb,
     boomstick: Boomstick,
     tipOfTheSpear: TipOfTheSpear,

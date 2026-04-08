@@ -2,6 +2,7 @@ import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknigh
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
+import { SuddenDoomLinkNormalizer } from './normalizers/SuddenDoomLink';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
@@ -9,11 +10,13 @@ import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker'
 import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
+import ForbiddenKnowledge from './modules/talents/ForbiddenKnowledge';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
+import UnholyAura from './modules/talents/UnholyAura';
 import LesserGhoul from './modules/features/LesserGhoul';
 import RunicPowerGraph from './modules/core/RunicPowerGraph';
 import RuneGraph from './modules/core/RuneGraph';
@@ -27,6 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
+    suddenDoomLinkNormalizer: SuddenDoomLinkNormalizer,
 
     // Features
     plagueEfficiency: PlagueEfficiency,
@@ -37,6 +41,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulReaper: SoulReaper,
     commanderOfTheDead: CommanderOfTheDead,
     suddenDoom: SuddenDoom,
+    forbiddenKnowledge: ForbiddenKnowledge,
+    unholyAura: UnholyAura,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

@@ -68,8 +68,6 @@ class MistWrap extends Analyzer {
   }
 
   genericHeal(event: HealEvent) {
-    const spellId = event.ability.guid;
-
     if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
       return;
     }
@@ -129,13 +127,12 @@ class MistWrap extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Effective HoT Healing: {formatNumber(this.effectiveHealing)}
-            <br />
-            HoT Overhealing: {formatNumber(this.overHealing)}
-            <br />
-            <br />
-            Bonus Healing from extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
-            duration: {formatNumber(this.envMistHealingBoost)}
+            <div>Effective HoT Healing: {formatNumber(this.effectiveHealing)}</div>
+            <div>HoT Overhealing: {formatNumber(this.overHealing)}</div>
+            <div>
+              Bonus Healing from extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
+              duration: {formatNumber(this.envMistHealingBoost)}
+            </div>
           </>
         }
       >

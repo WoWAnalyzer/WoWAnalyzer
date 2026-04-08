@@ -6,6 +6,7 @@ import Events, {
   CastEvent,
   HealEvent,
   RemoveBuffEvent,
+  GetRelatedEvents,
 } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import {
@@ -21,6 +22,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { SpellLink } from 'interface/index';
 import { formatPercentage, formatNumber } from 'common/format';
 import MovementDuringBuffTracker from '../features/MovementDuringBuffTracker';
+import { SOOTHING_MIST_CHANNEL_END } from '../../normalizers/EventLinks/EventLinkConstants';
 
 class WayOfTheSerpent extends Analyzer {
   static dependencies = {
@@ -31,8 +33,10 @@ class WayOfTheSerpent extends Analyzer {
 
   activeVivifySpell = SPELLS.VIVIFY;
 
-  vivifySheilunsHealing: number = 0;
-  renewingMistHealing: number = 0;
+  vivifySheilunsHealing = 0;
+  renewingMistHealing = 0;
+
+  soothingMistChannelEnds: Set<number> = new Set();
 
   constructor(options: Options) {
     super(options);
@@ -49,18 +53,40 @@ class WayOfTheSerpent extends Analyzer {
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
-      this.onChannelStart,
+      this.onSoothingMistCast,
+    );
+    this.addEventListener(
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell(TALENTS_MONK.SOOTHING_MIST_TALENT)
+        .to(SELECTED_PLAYER),
+      this.onSoothingMistEnd,
     );
     this.addEventListener(
       Events.BeginChannel.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
       this.onChannelStart,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_MONK.SOOTHING_MIST_TALENT, SPELLS.CRACKLING_JADE_LIGHTNING]),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
       this.onChannelEnd,
     );
+  }
+
+  onSoothingMistCast(event: CastEvent) {
+    this.movementTracker.startTracking(event.ability.guid, event.timestamp);
+
+    const channelEndEvents = GetRelatedEvents(event, SOOTHING_MIST_CHANNEL_END);
+    if (channelEndEvents.length > 0) {
+      const endEvent = channelEndEvents[0] as RemoveBuffEvent;
+      this.soothingMistChannelEnds.add(endEvent.timestamp);
+    }
+  }
+
+  onSoothingMistEnd(event: RemoveBuffEvent) {
+    if (this.soothingMistChannelEnds.has(event.timestamp)) {
+      this.movementTracker.stopTracking(TALENTS_MONK.SOOTHING_MIST_TALENT.id, event.timestamp);
+      this.soothingMistChannelEnds.delete(event.timestamp);
+    }
   }
 
   onChannelStart(event: CastEvent | BeginChannelEvent) {
@@ -134,9 +160,12 @@ class WayOfTheSerpent extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.WAY_OF_THE_SERPENT_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          {formatNumber(soomMovement + cjlMovement)} <small>yards moved while channeling</small>
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            {formatNumber(soomMovement + cjlMovement)} <small>yards moved while channeling</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

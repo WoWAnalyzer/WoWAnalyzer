@@ -1,11 +1,18 @@
 import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, EmpowerEndEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  EmpowerEndEvent,
+  CastEvent,
+  GetRelatedEvents,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { getBuffEvents } from '../../normalizers/EventLinking/helpers';
+import { isFromTipTheScales } from '../../normalizers/EventLinking/helpers';
+import { DREAM_BREATH_CAST } from '../../normalizers/EventLinking/constants';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -17,7 +24,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 
 interface CastInfo {
   timestamp: number;
-  coyActive: boolean;
   targetsHit: number;
   counted: boolean;
 }
@@ -29,61 +35,78 @@ class DreamBreath extends Analyzer {
   protected combatants!: Combatants;
   totalBreaths = 0;
   totalApplications = 0;
-  processedEvents: Set<ApplyBuffEvent> = new Set<ApplyBuffEvent>();
-  casts: CastInfo[] = [];
+  processedEvents: Set<ApplyBuffEvent | RefreshBuffEvent> = new Set<
+    ApplyBuffEvent | RefreshBuffEvent
+  >();
+  casts: Map<number, CastInfo> = new Map<number, CastInfo>();
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_FONT]),
-      this.onApply,
+      Events.empowerEnd
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.DREAM_BREATH_TALENT, SPELLS.DREAM_BREATH_FONT]),
+      this.onEmpowerEnd,
     );
     // an empowerend will not be generated if using tip the scales
     this.addEventListener(
-      Events.empowerEnd
+      Events.cast
         .by(SELECTED_PLAYER)
         .spell([TALENTS_EVOKER.DREAM_BREATH_TALENT, SPELLS.DREAM_BREATH_FONT]),
       this.onCast,
     );
   }
 
-  onCast(event: EmpowerEndEvent) {
+  onEmpowerEnd(event: EmpowerEndEvent) {
+    const buffApplications = GetRelatedEvents<ApplyBuffEvent | RefreshBuffEvent>(
+      event,
+      DREAM_BREATH_CAST,
+    );
     this.totalBreaths += 1;
     const info = {
       timestamp: event.timestamp,
-      coyActive: this.selectedCombatant.hasBuff(SPELLS.CALL_OF_YSERA_BUFF.id),
-      targetsHit: 0,
+      targetsHit: this.getTargetCount(buffApplications),
       counted: false,
     };
-    this.casts.push(info);
+    this.casts.set(event.timestamp, info);
   }
 
-  onApply(event: ApplyBuffEvent) {
-    if (this.processedEvents.has(event)) {
-      return;
+  onCast(event: CastEvent) {
+    if (isFromTipTheScales(event)) {
+      const buffApplications = GetRelatedEvents<ApplyBuffEvent | RefreshBuffEvent>(
+        event,
+        DREAM_BREATH_CAST,
+      );
+      this.totalBreaths += 1;
+      const info = {
+        timestamp: event.timestamp,
+        targetsHit: this.getTargetCount(buffApplications),
+        counted: false,
+      };
+      this.casts.set(event.timestamp, info);
     }
-    const events = getBuffEvents(event);
-    const info = this.casts.at(-1)!;
-    events.forEach((ev) => {
-      this.processedEvents.add(ev);
-      // check that target is a player and not pet
-      const target = this.combatants.getEntity(ev);
-      // make sure its not a stasis DB
-      if (info && !info.counted && target !== null) {
-        this.casts.at(-1)!.targetsHit += 1;
+  }
+
+  getTargetCount(buffApplications: (ApplyBuffEvent | RefreshBuffEvent)[]) {
+    let targetsHit = 0;
+    buffApplications.forEach((buff) => {
+      if (!this.processedEvents.has(buff) && buff.ability.guid !== SPELLS.DREAM_BREATH_ECHO.id) {
+        const target = this.combatants.getEntity(buff);
+        if (target !== null) {
+          targetsHit += 1;
+        }
       }
     });
-    if (info) {
-      info.counted = true;
-    }
+    return targetsHit;
   }
 
   get averageTargetsHit() {
-    return (
-      this.casts.reduce((prev, cur) => {
-        return prev + cur.targetsHit;
-      }, 0) / this.casts.length
-    );
+    if (this.casts.size === 0) return 0;
+    let sum = 0;
+    this.casts.forEach((cast) => {
+      sum += cast.targetsHit;
+    });
+    return sum / this.casts.size;
   }
 
   get suggestionThresholds() {
@@ -104,11 +127,9 @@ class DreamBreath extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
         </b>{' '}
-        is one of your empowered abilities and a very strong HoT. You should aim to use it at
-        Empower 1 in most scenarios, with the rare exception when you desperately need a burst AoE
-        heal. If talented into <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} />, always use{' '}
-        <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to casting{' '}
-        <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />.
+        is your empowered healing ability and a very strong part of your kit. You should aim to use
+        it at Empower rank 1 in most scenarios, with the rare exception when you desperately need a
+        burst AoE heal.
       </p>
     );
 
@@ -117,24 +138,18 @@ class DreamBreath extends Analyzer {
       let value = QualitativePerformance.Fail;
       const groupSize = Object.keys(this.combatants.getEntities()).length;
       const maxTargets = groupSize > 5 ? 6 : 5;
-      const coyActive =
-        this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && cast.coyActive;
-      if (coyActive && cast.targetsHit >= maxTargets) {
+      if (cast.targetsHit >= maxTargets) {
         value = QualitativePerformance.Good;
-      } else if (coyActive && cast.targetsHit >= maxTargets - 1) {
+      } else if (cast.targetsHit >= maxTargets - 1) {
         value = QualitativePerformance.Ok;
       }
       const tooltip = (
         <>
-          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
-          {this.owner.formatTimestamp(cast.timestamp)} <br />
-          {cast.targetsHit} targets hit <br />
-          {this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
-            <>
-              <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> active:{' '}
-              {cast.coyActive ? 'Yes' : 'No'}
-            </>
-          )}
+          <div>
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(cast.timestamp)}
+          </div>
+          <div>{cast.targetsHit} targets hit</div>
         </>
       );
       entries.push({ value, tooltip });

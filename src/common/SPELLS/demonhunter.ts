@@ -556,6 +556,16 @@ const spells = {
     name: 'Initiative',
     icon: 'ability_rogue_surpriseattack',
   },
+  INERTIA: {
+    id: 427640,
+    name: 'Inertia',
+    icon: 'inv_10_inscription3_pigments_black',
+  },
+  INERTIA_BUFF: {
+    id: 427641,
+    name: 'Inertia',
+    icon: 'ability_garrosh_empowered_whirling_corruption',
+  },
   SOULSCAR: {
     id: 390181,
     name: 'Soulrend',
@@ -625,6 +635,11 @@ const spells = {
     id: 1245453,
     name: 'Cull',
     icon: 'inv_12_dh_void_ability_empoweredreap',
+  },
+  ERADICATE: {
+    id: 1225826,
+    name: 'Eradicate',
+    icon: 'inv_12_dh_void_ability_eradicate',
   },
   SHIFT: {
     id: 1234796,

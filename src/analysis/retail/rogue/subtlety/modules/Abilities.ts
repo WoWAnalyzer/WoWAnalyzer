@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { hastedCooldown } from 'analysis/retail/hunter/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -27,6 +28,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EVISCERATE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.COUP_DE_GRACE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -59,7 +67,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_DANCE_TALENT) ? 1 : 0),
-        cooldown: 60,
+        cooldown: 20,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -72,19 +80,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.SYMBOLS_OF_DEATH.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
-        cooldown: 30,
-        charges: 1 + (combatant.hasTalent(TALENTS.DEATH_PERCEPTION_TALENT) ? 2 : 0),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion:
-            'This is the most important rotational ability, try to always use it on cooldown.',
         },
       },
       // Rotational AOE
@@ -101,9 +96,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS.SHADOW_BLADES_TALENT.id,
         cooldown: 90,
-        gcd: {
-          base: 1000,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           extraSuggestion: 'In most cases should be used on cooldown.',
@@ -113,13 +106,28 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_DANCE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
-        cooldown: 60,
+        cooldown: 20,
         charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_DANCE_TALENT) ? 1 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
+        },
+      },
+      {
+        spell: SPELLS.SECRET_TECHNIQUE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: (haste) => hastedCooldown(25, haste),
+        charges: 1,
+        gcd: {
+          static: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion:
+            'Use Secret Technique whenever is available with Shadow Dance. Hold it for Shadow Blades.',
         },
       },
       {
@@ -131,34 +139,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: TALENTS.SECRET_TECHNIQUE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          static: 1000,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT),
-      },
-      {
-        spell: SPELLS.SYMBOLS_OF_DEATH.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
-        charges: 1 + (combatant.hasTalent(TALENTS.DEATH_PERCEPTION_TALENT) ? 2 : 0),
-        cooldown: 30,
-        gcd: {
-          static: 1000,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion:
-            'This is the most important rotational ability, try to always use it on cooldown.',
         },
       },
       {

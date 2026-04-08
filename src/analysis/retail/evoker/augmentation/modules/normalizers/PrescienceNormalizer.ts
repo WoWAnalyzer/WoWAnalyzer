@@ -28,8 +28,8 @@ class PrescienceNormalizer extends EventsNormalizer {
   };
   protected combatants!: Combatants;
   protected stats!: StatTracker;
-  normalize(events: any[]): any[] {
-    const fixedEvents: any[] = [];
+  normalize(events: AnyEvent[]): AnyEvent[] {
+    const fixedEvents: AnyEvent[] = [];
     const targetStatus: Record<number, boolean> = {};
     events.forEach((event: AnyEvent, idx: number) => {
       const linkedEvents = HasRelatedEvent(event, PRESCIENCE_APPLY_REMOVE_LINK);
@@ -67,8 +67,8 @@ class PrescienceNormalizer extends EventsNormalizer {
                 },
                 type: EventType.Cast,
                 prepull: true,
-                _fabricated: true,
-              };
+                __fabricated: true,
+              } satisfies AnyEvent;
               fixedEvents.push(fabricatedCastEvent);
             }
           }

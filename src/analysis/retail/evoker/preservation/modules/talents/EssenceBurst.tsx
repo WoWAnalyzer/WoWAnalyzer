@@ -13,7 +13,9 @@ import Events, {
 } from 'parser/core/Events';
 import {
   didSparkProcEssenceBurst,
+  isEbFromEnergyCycles,
   isEbFromHardcast,
+  isEbFromMerithras,
   isEbFromReversion,
 } from '../../normalizers/EventLinking/helpers';
 import { getEssenceBurstConsumeAbility } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
@@ -40,6 +42,8 @@ enum EB_SOURCE {
   REVERSION,
   SPARK,
   LF_HARDCAST,
+  MERITHRAS,
+  ENERGY_CYCLES,
   NONE,
 }
 
@@ -92,6 +96,10 @@ class EssenceBurst extends Analyzer {
       source = EB_SOURCE.SPARK;
     } else if (isEbFromReversion(event)) {
       source = EB_SOURCE.REVERSION;
+    } else if (isEbFromMerithras(event)) {
+      source = EB_SOURCE.MERITHRAS;
+    } else if (isEbFromEnergyCycles(event)) {
+      source = EB_SOURCE.ENERGY_CYCLES;
     } else if (isEbFromHardcast(event)) {
       source = EB_SOURCE.LF_HARDCAST;
     }
@@ -125,13 +133,15 @@ class EssenceBurst extends Analyzer {
   }
 
   onBuffRefresh(event: RefreshBuffEvent) {
-    this.casts.push({
-      timestamp: event.timestamp,
-      expired: false,
-      refreshed: true,
-      spell: 0,
-      source: this.getEbSource(event),
-    });
+    if (!this.selectedCombatant.hasBuff(SPELLS.MERITHRAS_BLESSING_BUFF.id, event.timestamp - 1)) {
+      this.casts.push({
+        timestamp: event.timestamp,
+        expired: false,
+        refreshed: true,
+        spell: 0,
+        source: this.getEbSource(event),
+      });
+    }
   }
 
   get averageManaSavedForHealingSpells() {
@@ -172,7 +182,15 @@ class EssenceBurst extends Analyzer {
     this.casts.forEach((cast) => {
       sourceCount.set(cast.source, (sourceCount.get(cast.source) ?? 0) + 1);
     });
+    console.log(sourceCount);
     const items = [
+      {
+        color: SPELL_COLORS.MERITHRAS_BLESSING,
+        label: "Merithra's Blessing",
+        spellId: SPELLS.MERITHRAS_BLESSING_CAST.id,
+        value: sourceCount.get(EB_SOURCE.MERITHRAS) ?? 0,
+        valueTooltip: sourceCount.get(EB_SOURCE.MERITHRAS),
+      },
       {
         color: SPELL_COLORS.REVERSION,
         label: 'Reversion',
@@ -182,7 +200,7 @@ class EssenceBurst extends Analyzer {
       },
       {
         color: SPELL_COLORS.LIVING_FLAME,
-        label: 'Living Flame Hardcast',
+        label: 'Living Flame',
         spellId: SPELLS.LIVING_FLAME_CAST.id,
         value: sourceCount.get(EB_SOURCE.LF_HARDCAST) ?? 0,
         valueTooltip: sourceCount.get(EB_SOURCE.LF_HARDCAST),
@@ -193,6 +211,13 @@ class EssenceBurst extends Analyzer {
         spellId: TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT.id,
         value: sourceCount.get(EB_SOURCE.SPARK) ?? 0,
         valueTooltip: sourceCount.get(EB_SOURCE.SPARK),
+      },
+      {
+        color: SPELL_COLORS.FLUTTERING_SEEDLING,
+        label: 'Energy Cycles',
+        spellId: TALENTS_EVOKER.ENERGY_CYCLES_TALENT.id,
+        value: sourceCount.get(EB_SOURCE.ENERGY_CYCLES) ?? 0,
+        valueTooltip: sourceCount.get(EB_SOURCE.ENERGY_CYCLES),
       },
     ].filter((item) => {
       return item.value > 0;
@@ -226,29 +251,34 @@ class EssenceBurst extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />
         </b>{' '}
-        is a core buff that you should never let expire or refresh. In general, if you are playing
-        an <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> focused build then all procs should be used
-        on it and otherwise they should be spent on <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
-        . If you choose to talent into <SpellLink spell={TALENTS_EVOKER.ENERGY_LOOP_TALENT} />, then
-        you should use some procs on <SpellLink spell={SPELLS.DISINTEGRATE} />, but this talent
-        should generally not be taken as it is an HPS loss.
+        is a core buff that you should never let expire or refresh. In general, you should consume
+        all of them with <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> unless you already have two
+        stacks of <SpellLink spell={TALENTS_EVOKER.TWIN_ECHOES_TALENT} />, in which case you would
+        consume them on <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> instead. If you choose to
+        talent into <SpellLink spell={TALENTS_EVOKER.ENERGY_LOOP_TALENT} />, then you should use
+        some procs on <SpellLink spell={SPELLS.DISINTEGRATE} />, but this talent should only be
+        taken on scenarios where extra mana is really needed.
       </p>
     );
 
     const entries: BoxRowEntry[] = [];
     this.casts.forEach((info) => {
       let value = QualitativePerformance.Good;
-      const badDisintegrate =
+      if (
         !this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENERGY_LOOP_TALENT) &&
-        info.spell === SPELLS.DISINTEGRATE.id;
-      const badEb =
-        info.spell === SPELLS.EMERALD_BLOSSOM_CAST.id &&
-        !this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT) &&
-        !this.selectedCombatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT);
-      const badEcho =
-        info.spell === TALENTS_EVOKER.ECHO_TALENT.id &&
-        this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
-      if (info.spell === 0 || badEb || badDisintegrate || badEcho) {
+        info.spell === SPELLS.DISINTEGRATE.id
+      ) {
+        value = QualitativePerformance.Fail;
+      }
+      if (info.spell === TALENTS_EVOKER.ECHO_TALENT.id) {
+        if (
+          !this.selectedCombatant.hasTalent(TALENTS_EVOKER.TWIN_ECHOES_TALENT) ||
+          this.selectedCombatant.getBuffStacks(SPELLS.TWIN_ECHOES_BUFF.id, info.timestamp) !== 2
+        ) {
+          value = QualitativePerformance.Ok;
+        }
+      }
+      if (info.spell === 0) {
         value = QualitativePerformance.Fail;
       }
       const spellString =
@@ -261,8 +291,7 @@ class EssenceBurst extends Analyzer {
         );
       const tooltip = (
         <>
-          Buff removed @ {this.owner.formatTimestamp(info.timestamp)}
-          <br />
+          <p>Buff removed @ {this.owner.formatTimestamp(info.timestamp)}</p>
           {spellString}
         </>
       );

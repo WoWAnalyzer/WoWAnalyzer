@@ -1051,6 +1051,11 @@ const spells = {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
   },
+  CALL_OF_THE_ANCESTORS_CHAIN_HEAL: {
+    id: 447433,
+    name: 'Chain Heal',
+    icon: 'spell_nature_healingwavegreater',
+  },
   // Totemic
   SURGING_TOTEM_RECALL: {
     id: 1221348,

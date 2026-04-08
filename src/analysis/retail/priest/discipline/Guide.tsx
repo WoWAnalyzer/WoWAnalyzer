@@ -1,8 +1,6 @@
 import type { JSX } from 'react';
-import SPELLS from 'common/SPELLS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { SpellLink } from 'interface';
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section } from 'interface/guide';
 import type CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
@@ -16,11 +14,13 @@ export default function Guide({
   return (
     <>
       <Section title="Short cooldowns">
+        {modules.penance.guideSubsection}
         {info.combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT) &&
           modules.powerWordRadiance.guideSubsection}
         {info.combatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT) &&
           modules.selfAtonementAnalyzer.guideSubsection}
       </Section>
+      <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
       <PreparationSection />
     </>
   );

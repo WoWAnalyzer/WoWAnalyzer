@@ -20,14 +20,14 @@ const ZONES: Zone[] = [
     id: 47,
     name: 'Mythic+ Season 1',
     frozen: false,
-    useBetaTooltips: true,
+    useBetaTooltips: false,
     encounters: Object.values(MythicPlusSeasonOne.bosses),
   },
   {
     id: 46,
     name: 'Voidspire / Dreamrift / MQD',
     frozen: false,
-    useBetaTooltips: true,
+    useBetaTooltips: false,
     encounters: Object.values(VSDRMQD.bosses),
   },
 ];

@@ -6,7 +6,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
 
-import Meteor from '../talents/Meteor';
+import Meteor, { MeteorCasts } from '../talents/Meteor';
 import { formatDurationMillisMinSec } from 'common/format';
 
 class MeteorGuide extends Analyzer {
@@ -18,7 +18,7 @@ class MeteorGuide extends Analyzer {
   hasBurnout: boolean = this.selectedCombatant.hasTalent(TALENTS.BURNOUT_TALENT);
   hasBlastZone: boolean = this.selectedCombatant.hasTalent(TALENTS.BLAST_ZONE_TALENT);
 
-  private evaluateMeteor(m: any): CastEvaluation {
+  private evaluateMeteor(m: MeteorCasts): CastEvaluation {
     // FAIL CONDITIONS
     if (m.targetsHit === 0) {
       return {
@@ -37,11 +37,11 @@ class MeteorGuide extends Analyzer {
     }
 
     // PERFECT CONDITIONS
-    if (this.hasBurnout && m.landedDuringCombust && m.timeTillCombustEnd < 8000) {
+    if (this.hasBurnout && m.landedDuringCombust && (m.timeTillCombustEnd ?? Infinity) < 8000) {
       return {
         timestamp: m.cast.timestamp,
         performance: QualitativePerformance.Perfect,
-        reason: `Meteor landed within Burnout range (${formatDurationMillisMinSec(m.timeTillCombustEnd)} until Combust Ends)`,
+        reason: `Meteor landed within Burnout range (${formatDurationMillisMinSec(m.timeTillCombustEnd!)} until Combust Ends)`,
       };
     }
 

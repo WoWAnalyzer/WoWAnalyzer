@@ -1,4 +1,4 @@
-import { Nevdok, nullDozzer } from 'CONTRIBUTORS';
+import { Gambyt, Nevdok, nullDozzer } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
@@ -6,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [nullDozzer, Nevdok],
+  contributors: [Gambyt, nullDozzer, Nevdok],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0',
@@ -20,13 +20,15 @@ const config: Config = {
       <a href="https://discordapp.com/invite/Skyhold">Warrior Class Discord</a> if you need more
       specific advice or a more detailed guide than the ones available on{' '}
       <a href="https://www.icy-veins.com/wow/fury-warrior-pve-dps-guide">Icy-Veins</a> and{' '}
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <a href="https://www.wowhead.com/fury-warrior-guide">Wowhead</a>.<br />
+      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/qbmMZPDg8JXyax13/6-Mythic+Ulgrax+the+Devourer+-+Kill+(7:13)/Loundy/standard/overview',
+    '/report/bHMXxYWcKRPD4FT6/40-Heroic+Imperator+Averzian+-+Kill+(4:05)/30-Gambyt/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -58,7 +58,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Preface & Disclaimers">
-        <>
+        <p>
           The analysis in this guide is provided in collaboration with Porom and the rest of the
           staff of the <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When
           reviewing this information, keep in mind that WoWAnalyzer is limited to the information
@@ -66,17 +66,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           intentionally doing something suboptimal because the fight or strat required it (such as
           Forced Downtime or holding cooldowns for a burn phase). Because of this, we recommend
           comparing your analysis against a top 100 log for the same boss.
-          <br />
-          <br />
+        </p>
+        <p>
           For additional assistance in improving your gameplay, or to have someone look more in
           depth at your combat logs, please visit the{' '}
           <a href="https://discord.gg/makGfZA">Altered Time</a> discord.
-          <br />
-          <br />
+        </p>
+        <p>
           If you notice any issues or errors in this analysis ... or if there is additional analysis
           you would like added, please ping <code>@Sharrq</code> in the{' '}
           <a href="https://discord.gg/makGfZA">Altered Time</a> discord.
-        </>
+        </p>
       </Section>
       <Section title="Core">
         {alwaysBeCastingSubsection}
@@ -115,18 +115,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&
           modules.presenceOfMindGuide.guideSubsection}
       </Section>
-
-      <Section title="Buffs & Procs">
-        <>
-          Arcane Mage has several buffs and procs that need to be managed properly in order to get
-          the most out of them and maximize your damage. Ranging from things as simple as making
-          sure you use all of your <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs to more
-          complex things like getting as much damage as possible into your burn phases and damage
-          buff windows, these buffs are all important and will play a large part in maximizing your
-          overall and burst damage.
-        </>
-        {modules.clearcastingGuide.guideSubsection}
-      </Section>
       <Section title="Cooldowns">
         <>
           As is the case with most damage specs, properly utilizing your damage cooldowns will go a
@@ -143,6 +131,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
+        {info.combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT) && (
+          <CastEfficiencyBar
+            spell={SPELLS.ARCANE_ORB}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
+            showExplanation
+          />
+        )}
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) && (
           <CastEfficiencyBar
             spell={TALENTS.PRESENCE_OF_MIND_TALENT}
