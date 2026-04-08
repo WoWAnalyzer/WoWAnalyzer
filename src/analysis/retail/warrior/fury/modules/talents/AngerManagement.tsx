@@ -25,29 +25,27 @@ class AngerManagement extends Analyzer.withDependencies({
     effective: 0,
     wasted: 0,
   };
-  private ravagerCDR = {
+  private avatarCDR = {
     effective: 0,
     wasted: 0,
   };
 
-  private talentAngerManagement = false;
-  private talentRecklessness = false;
-  private talentAvatar = false;
-  private talentRavager = false;
+  private hasAngerManagement = false;
+  private hasRecklessness = false;
+  private hasAvatar = false;
   private furyApexRampageCostReduction = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.talentAngerManagement = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
-    this.talentRecklessness = this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT);
-    this.talentAvatar = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
-    this.talentRavager = this.selectedCombatant.hasTalent(TALENTS.RAVAGER_TALENT);
+    this.hasAngerManagement = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
+    this.hasRecklessness = this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT);
+    this.hasAvatar = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
 
     this.furyApexRampageCostReduction =
       this.selectedCombatant.getTalentRank(TALENTS.RAMPAGING_BERSERKER_2_FURY_TALENT) * 15; // fury apex reduces rampage rage cost by 15 rage per rank
 
-    this.active = this.talentAngerManagement && (this.talentRecklessness || this.talentRavager);
+    this.active = this.hasAngerManagement && (this.hasRecklessness || this.hasAvatar);
 
     if (!this.active) {
       return;
@@ -80,27 +78,18 @@ class AngerManagement extends Analyzer.withDependencies({
     this.totalRageSpent += rageSpent;
     const reduction = (rageSpent / RAGE_NEEDED_FOR_PROC) * CDR_PER_PROC;
 
-    if (this.talentRavager) {
-      const effectiveReduction = this.deps.spellUsable.reduceCooldown(
-        TALENTS.RAVAGER_TALENT.id,
-        reduction,
-      );
-      this.ravagerCDR.effective += effectiveReduction;
-      this.ravagerCDR.wasted += reduction - effectiveReduction;
-    }
-
-    if (this.talentRecklessness) {
-      const effectiveReduction = this.deps.spellUsable.reduceCooldown(
-        TALENTS.RECKLESSNESS_TALENT.id,
-        reduction,
-      );
-      this.recklessnessCDR.effective += effectiveReduction;
-      this.recklessnessCDR.wasted += reduction - effectiveReduction;
-    }
-
-    if (this.talentAvatar) {
+    if (this.hasAvatar) {
       const effectiveReduction = this.deps.spellUsable.reduceCooldown(
         TALENTS.AVATAR_TALENT.id,
+        reduction,
+      );
+      this.avatarCDR.effective += effectiveReduction;
+      this.avatarCDR.wasted += reduction - effectiveReduction;
+    }
+
+    if (this.hasRecklessness) {
+      const effectiveReduction = this.deps.spellUsable.reduceCooldown(
+        TALENTS.RECKLESSNESS_TALENT.id,
         reduction,
       );
       this.recklessnessCDR.effective += effectiveReduction;
@@ -128,10 +117,10 @@ class AngerManagement extends Analyzer.withDependencies({
       this.recklessnessCDR.effective,
     );
 
-  private extraRavagerCasts = () =>
+  private extraAvatarCasts = () =>
     this.extraCasts(
-      this.deps.spellUsable.fullCooldownDuration(TALENTS.RAVAGER_TALENT.id),
-      this.ravagerCDR.effective,
+      this.deps.spellUsable.fullCooldownDuration(TALENTS.AVATAR_TALENT.id),
+      this.avatarCDR.effective,
     );
 
   statistic() {
@@ -146,10 +135,10 @@ class AngerManagement extends Analyzer.withDependencies({
             {formatDuration(
               this.recklessnessCDR.effective +
                 this.recklessnessCDR.wasted +
-                this.ravagerCDR.effective +
-                this.ravagerCDR.wasted,
+                this.avatarCDR.effective +
+                this.avatarCDR.wasted,
             )}{' '}
-            of which {formatDuration(this.recklessnessCDR.wasted + this.ravagerCDR.wasted)} was
+            of which {formatDuration(this.recklessnessCDR.wasted + this.avatarCDR.wasted)} was
             wasted.
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
@@ -162,7 +151,7 @@ class AngerManagement extends Analyzer.withDependencies({
                 </tr>
               </thead>
               <tbody>
-                {this.talentRecklessness && (
+                {this.hasRecklessness && (
                   <tr>
                     <td>
                       <SpellLink spell={TALENTS.RECKLESSNESS_TALENT.id} />
@@ -171,13 +160,13 @@ class AngerManagement extends Analyzer.withDependencies({
                     <td>{formatDuration(this.recklessnessCDR.wasted)}</td>
                   </tr>
                 )}
-                {this.talentRavager && (
+                {this.hasAvatar && (
                   <tr>
                     <td>
-                      <SpellLink spell={TALENTS.RAVAGER_TALENT.id} />
+                      <SpellLink spell={TALENTS.AVATAR_TALENT.id} />
                     </td>
-                    <td>{formatDuration(this.ravagerCDR.effective)}</td>
-                    <td>{formatDuration(this.ravagerCDR.wasted)}</td>
+                    <td>{formatDuration(this.avatarCDR.effective)}</td>
+                    <td>{formatDuration(this.avatarCDR.wasted)}</td>
                   </tr>
                 )}
               </tbody>
@@ -186,7 +175,7 @@ class AngerManagement extends Analyzer.withDependencies({
         }
       >
         <BoringSpellValueText spell={TALENTS.ANGER_MANAGEMENT_TALENT}>
-          {this.talentRecklessness && (
+          {this.hasRecklessness && (
             <div>
               <SpellLink spell={TALENTS.RECKLESSNESS_TALENT.id} style={{ fontSize: 16 }} />
               {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
@@ -194,12 +183,12 @@ class AngerManagement extends Analyzer.withDependencies({
               {this.extraRecklessnessCasts()} <small>extra casts</small>
             </div>
           )}
-          {this.talentRavager && (
+          {this.hasAvatar && (
             <div>
-              <SpellLink spell={TALENTS.RAVAGER_TALENT.id} style={{ fontSize: 16 }} />
+              <SpellLink spell={TALENTS.AVATAR_TALENT.id} style={{ fontSize: 16 }} />
               {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
               <br />
-              {this.extraRavagerCasts()} <small>extra casts</small>
+              {this.extraAvatarCasts()} <small>extra casts</small>
             </div>
           )}
         </BoringSpellValueText>

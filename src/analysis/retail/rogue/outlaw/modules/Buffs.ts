@@ -51,30 +51,21 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.RUTHLESS_PRECISION.id,
-        timelineHighlight: false,
+        spellId: SPELLS.ONE_OF_A_KIND.id,
+        timelineHighlight: true,
       },
       {
-        spellId: SPELLS.GRAND_MELEE.id,
-        timelineHighlight: false,
+        spellId: SPELLS.DOUBLE_TROUBLE.id,
+        timelineHighlight: true,
       },
       {
-        spellId: SPELLS.BROADSIDE.id,
-        timelineHighlight: false,
+        spellId: SPELLS.TRIPLE_THREAT.id,
+        timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SKULL_AND_CROSSBONES.id,
-        timelineHighlight: false,
+        spellId: SPELLS.JACKPOT.id,
+        timelineHighlight: true,
       },
-      {
-        spellId: SPELLS.BURIED_TREASURE.id,
-        timelineHighlight: false,
-      },
-      {
-        spellId: SPELLS.TRUE_BEARING.id,
-        timelineHighlight: false,
-      },
-
       // Misc
       {
         spellId: TALENTS.CLOAK_OF_SHADOWS_TALENT.id,

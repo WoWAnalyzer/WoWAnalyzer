@@ -6,6 +6,7 @@ import {
   MasterOfTime,
   IceBlock,
   IceCold,
+  BarrierDiffusion,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBarrier: ElementalBarrier,
     quickWitted: QuickWitted,
     masterOfTime: MasterOfTime,
+    barrierDiffusion: BarrierDiffusion,
 
     // Defensives - Shared
     iceBlock: IceBlock,

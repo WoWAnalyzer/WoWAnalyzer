@@ -53,7 +53,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.LICHBORNE.id,
+        spell: SPELLS.LICHBORNE.id, //NOTE: No longer defensive
         enabled: combatant.hasTalent(TALENTS.UNHOLY_ENDURANCE_TALENT), //Provides 15% DR if you take this talent
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120 - combatant.getTalentRank(TALENTS.DEATHS_MESSENGER_TALENT) * 30,
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           base: 1500,
-        },
+        }, //NOTE: Need to implement new CONSUMPTION_TALENT with empowerment
         timelineSortIndex: 5,
       },
       //Rotational
@@ -102,7 +102,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 120,
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
