@@ -14,8 +14,13 @@ import { TALENTS_MONK } from 'common/TALENTS';
 const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 4000;
 const XUENS_BATTLEGEAR_TRIGGER_SPELLS = [
   SPELLS.RISING_SUN_KICK_DAMAGE,
+  SPELLS.RUSHING_WIND_KICK_DAMAGE,
   SPELLS.GLORY_OF_THE_DAWN_DAMAGE,
 ];
+
+type PreAppliedXuensBattlegearDamageEvent = DamageEvent & {
+  preAppliedXuensBattlegearReductionMs?: number;
+};
 
 class XuensBattlegear extends Analyzer {
   static dependencies = {
@@ -43,6 +48,14 @@ class XuensBattlegear extends Analyzer {
   onTriggerDamage(event: DamageEvent) {
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
     if (!isCrit) {
+      return;
+    }
+    const preAppliedReductionMs = (event as PreAppliedXuensBattlegearDamageEvent)
+      .preAppliedXuensBattlegearReductionMs;
+    if (preAppliedReductionMs !== undefined) {
+      this.effectiveFistsOfFuryReductionMs += preAppliedReductionMs;
+      this.wastedFistsOfFuryReductionMs +=
+        FISTS_OF_FURY_COOLDOWN_REDUCTION_MS - preAppliedReductionMs;
       return;
     }
     if (!this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {

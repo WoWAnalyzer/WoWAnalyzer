@@ -66,6 +66,7 @@ class StatTracker extends Analyzer {
 
     //region Phials
     // TODO: Figure out how to make this work with multiple ranks of phials
+    [SPELLS.FLASK_OF_THE_BLOOD_KNIGHTS.id]: { haste: 152 },
     // endregion
 
     //region Food
@@ -96,6 +97,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Other
+    [SPELLS.AKILZONS_CRY_OF_VICTORY.id]: { haste: 75, speed: 24 },
     // endregion
 
     // region Racials
@@ -332,7 +334,7 @@ class StatTracker extends Analyzer {
   /**
    * Adds a stat multiplier to tracking
    */
-  addStatMultiplier(statMult: StatMultiplier, changeCurrentStats = false): void {
+  addStatMultiplier(statMult: StatMultiplier, changeCurrentStats = false, source?: string): void {
     const delta: StatBuff = {};
     Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier === undefined) {
@@ -345,7 +347,7 @@ class StatTracker extends Analyzer {
 
       debug &&
         console.log(
-          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+          `${source ? `StatTracker[${source}]` : 'StatTracker'}: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
             statKey
           ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );

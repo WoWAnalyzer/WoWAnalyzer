@@ -25,7 +25,7 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.ENRAGE.id,
         enabled: hasTalent(TALENTS.RAMPAGE_TALENT) || hasTalent(TALENTS.BLOODTHIRST_TALENT),
         timelineHighlight: true,
-        triggeredBySpellId: [SPELLS.RAMPAGE.id, SPELLS.BLOODTHIRST.id, SPELLS.ONSLAUGHT.id],
+        triggeredBySpellId: [SPELLS.RAMPAGE.id, SPELLS.BLOODTHIRST.id],
       },
       {
         spellId: SPELLS.FRENZY.id,

@@ -29,14 +29,19 @@ import {
   Gambyt,
   MarchingCube,
   Thias,
+  Hezaerd,
+  Dambroda,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 4, 6), <>Replace external usages of <code>Combatant._combatantInfo</code> with proper public getters and introduce a <code>Faction</code> enum.</>, Thias),
+  change(date(2026, 4, 8), <>Replace external usages of <code>Combatant._combatantInfo</code> with proper public getters and introduce a <code>Faction</code> enum.</>, Thias),
+  change(date(2026, 4, 7), "Fix typing of `get tierPieces`", Thias),
+  change(date(2026, 4, 6), "Allow deselecting an open spell usage entry by clicking it again.", Hezaerd),
   change(date(2026, 4, 6), <>Improve visuals for close calls in pull selection</>, Thias),
+  change(date(2026, 4, 6), <>Updated item stat scaling values for Midnight stat squish</>, Dambroda),
   change(date(2026, 4, 2), <>Link out-dated browsers to a functional website alternative</>, Vetyst),
   change(date(2026, 3, 31), <>Convert ReportHistory to TypeScript.</>, Vetyst),
   change(date(2026, 3, 24), <>Add <SpellLink spell={ITEMS.DARKMOON_SIGIL_HUNT} /> embellishment analyzer with stat buff tracking.</>, MarchingCube),

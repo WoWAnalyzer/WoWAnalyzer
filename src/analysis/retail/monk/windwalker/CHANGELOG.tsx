@@ -6,6 +6,24 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 4, 3),
+    <>
+      Fixed cooldown availability for{' '}
+      <SpellLink spell={TALENTS.WHIRLING_DRAGON_PUNCH_TALENT} />,{' '}
+      <SpellLink spell={TALENTS.STRIKE_OF_THE_WINDLORD_TALENT} />,{' '}
+      <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} />,{' '}
+      <SpellLink spell={TALENTS.RISING_SUN_KICK_TALENT} />, and{' '}
+      <SpellLink spell={TALENTS.ZENITH_TALENT} /> by correcting Midnight
+      Season 1 set and <SpellLink spell={TALENTS.COMMUNION_WITH_WIND_TALENT} />{' '}
+      cooldown updates, adding missing haste sources, counting{' '}
+      <SpellLink spell={SPELLS.RUSHING_WIND_KICK_CAST} /> crits for{' '}
+      <SpellLink spell={TALENTS.XUENS_BATTLEGEAR_TALENT} />, and inferring
+      hidden <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY} />{' '}
+      bonus-strike cooldown reduction.
+    </>,
+    Durpn,
+  ),
+  change(
     date(2026, 3, 29),
     <>
       Updated Windwalker statistics for current talents and cooldowns: fixed{' '}

@@ -12,6 +12,7 @@ import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import type { Stats } from 'parser/shared/modules/StatTracker';
 import { TIERS } from 'game/TIERS';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import { isPresent } from 'common/typeGuards';
 
 import Entity from './Entity';
 import { PlayerDetails, PlayerInfo } from './Player';
@@ -445,7 +446,7 @@ class Combatant extends Entity {
 
   // region Tier
   get tierPieces(): Item[] {
-    return [this.head, this.shoulder, this.chest, this.legs, this.hands];
+    return [this.head, this.shoulder, this.chest, this.legs, this.hands].filter(isPresent);
   }
 
   setIdBySpecByTier(tier: TIERS) {
@@ -461,7 +462,7 @@ class Combatant extends Entity {
       console.error('Unable to find set ID for spec and tier');
       return false;
     }
-    return this.tierPieces.filter((gear) => gear?.setID === setID).length >= 2;
+    return this.tierPieces.filter((gear) => gear.setID === setID).length >= 2;
   }
 
   has4PieceByTier(tier: TIERS) {
@@ -470,7 +471,7 @@ class Combatant extends Entity {
       console.error('Unable to find set ID for spec and tier');
       return false;
     }
-    return this.tierPieces.filter((gear) => gear?.setID === setID).length >= 4;
+    return this.tierPieces.filter((gear) => gear.setID === setID).length >= 4;
   }
 
   // endregion

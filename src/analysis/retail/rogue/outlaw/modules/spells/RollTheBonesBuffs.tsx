@@ -44,61 +44,64 @@ class RollTheBonesBuffs extends Analyzer {
           <b>
             <SpellLink spell={SPELLS.ROLL_THE_BONES} />{' '}
           </b>
-          is an ability that when cast gives you a 79% chance of 1 buff, a 20% chance of 2 buffs,
-          and a 1% chance at 5 buffs. These buffs do the following:
+          <p>
+            This is one of the most important spells for efficient gameplay. When pressed it has a
+            chance of giving a buff that goes from stage 1 to stage 4. Most of the power is baked
+            into the first 2 stages whom are the most accessible to maintain.
+          </p>
+          <p>
+            Depending on which stage you enter, you will also receive all the buffs of the previous
+            stages.
+          </p>
+          <p>
+            For example, if you gain Stage 3, you will not only gain the cooldown reduction increase
+            from Restless Blades, but also gain the bonuses to Sinister Strike and Ambush from
+            Stages 1 and 2.
+          </p>
+          <p>
+            The current odds of receiving the buffs seem to be 55% chance to gain Stage 1, 30%
+            chance to gain Stage 2, 10% chance to gain Stage 3, and a 5% chance to gain Stage 4.
+          </p>
+          <p>
+            (Source:{' '}
+            <a href="https://www.icy-veins.com/wow/outlaw-rogue-pve-dps-rotation-cooldowns-abilities">
+              Icy veins
+            </a>
+            )
+          </p>
         </p>
         <ul>
           <li>
             <b>
-              <SpellLink spell={SPELLS.BROADSIDE} />
+              <SpellLink spell={SPELLS.ONE_OF_A_KIND} />
             </b>{' '}
-            - Combo Point generators grant 1 additional combo point and deal bonus damage.
+            - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> has a 20% increased chance to strike
+            twice and grant <SpellLink spell={SPELLS.OPPORTUNITY} />
           </li>
           <li>
             <b>
-              <SpellLink spell={SPELLS.BURIED_TREASURE} />
+              <SpellLink spell={SPELLS.DOUBLE_TROUBLE} />
             </b>{' '}
-            - Increased energy regen.
+            - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> and <SpellLink spell={SPELLS.AMBUSH} />{' '}
+            generate 1 additional combo point and deal 15% increased damage
           </li>
           <li>
             <b>
-              <SpellLink spell={SPELLS.GRAND_MELEE} />
+              <SpellLink spell={SPELLS.TRIPLE_THREAT} />
             </b>{' '}
-            - 5% increased damage, and 10% increased <SpellLink spell={SPELLS.BLADE_FLURRY} />{' '}
-            damage.
+            - <SpellLink spell={SPELLS.RESTLESS_BLADES_TALENT} /> cooldown reduction increased by
+            30%.
           </li>
           <li>
             <b>
-              <SpellLink spell={SPELLS.RUTHLESS_PRECISION} />
+              <SpellLink spell={SPELLS.JACKPOT} />
             </b>{' '}
-            - 15% increased crit for all abilities, 60% increased crit for{' '}
-            <SpellLink spell={SPELLS.BETWEEN_THE_EYES} />.
-          </li>
-          <li>
-            <b>
-              <SpellLink spell={SPELLS.SKULL_AND_CROSSBONES} />
-            </b>{' '}
-            - Chance to proc <SpellLink spell={SPELLS.OPPORTUNITY} /> increased.
-          </li>
-          <li>
-            <b>
-              <SpellLink spell={SPELLS.TRUE_BEARING} />
-            </b>{' '}
-            - <SpellLink spell={SPELLS.RESTLESS_BLADES_TALENT} /> increased to 1.5 seconds per combo
-            point spent.
+            - Critical strike chance increased by 10%.
           </li>
         </ul>
       </>
     );
-    //const colors = ['#6a9ecb', '6600CC', '#f19206', '#5a4752', '#ffbf02', '#701110'];
-
-    const rollTheBonesBarSpec: UptimeBarSpec = {
-      spells: [SPELLS.ROLL_THE_BONES],
-      uptimes: this.selectedCombatant.getBuffHistory(SPELLS.ROLL_THE_BONES).map((buff) => ({
-        start: buff.start,
-        end: buff.end ?? this.owner.currentTimestamp,
-      })),
-    };
+    const colors = ['#6a9ecb', '#c06c52', '#f19206', '#ffbf02', '#760200'];
 
     const subBuffsBarSpecs: UptimeBarSpec[] = ROLL_THE_BONES_BUFFS.map((buff, idx) => ({
       spells: [buff],
@@ -106,16 +109,31 @@ class RollTheBonesBuffs extends Analyzer {
         start: buff.start,
         end: buff.end ?? this.owner.currentTimestamp,
       })),
-      //color: colors[idx],
+      color: colors[idx],
     }));
 
+    const rollTheBonesBarSpec: UptimeBarSpec = {
+      spells: [SPELLS.ROLL_THE_BONES],
+      uptimes: ROLL_THE_BONES_BUFFS.flatMap((buff, idx) =>
+        this.selectedCombatant.getBuffHistory(buff.id),
+      ).map((buff) => ({
+        start: buff.start,
+        end: buff.end ?? this.owner.currentTimestamp,
+      })),
+    };
+
     const data = (
-      <RoundedPanel>
-        {uptimeBarSubStatistic(this.owner.fight, rollTheBonesBarSpec, subBuffsBarSpecs)}
-      </RoundedPanel>
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.ROLL_THE_BONES} /> uptime
+          </strong>
+          {uptimeBarSubStatistic(this.owner.fight, rollTheBonesBarSpec, subBuffsBarSpecs)}
+        </RoundedPanel>
+      </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(explanation, data, 40);
   }
 
   statistic() {
