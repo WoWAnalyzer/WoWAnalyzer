@@ -8,24 +8,26 @@ import Events, {
   RemoveDebuffEvent,
   GetRelatedEvent,
   GetRelatedEvents,
-  RemoveBuffEvent,
   EventType,
 } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import { MageStatistic } from '../../shared/components';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 export default class TouchOfTheMagi extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     chargeTracker: ArcaneChargeTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    spellUsable: SpellUsable,
   };
   protected abilityTracker!: AbilityTracker;
   protected chargeTracker!: ArcaneChargeTracker;
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected spellUsable!: SpellUsable;
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
 
@@ -42,33 +44,21 @@ export default class TouchOfTheMagi extends Analyzer {
   }
 
   onTouch(event: ApplyDebuffEvent) {
-    const damageEvents = this.getDamageEvents(event);
-
-    this.touchData.push({
-      applied: event.timestamp,
-      removed: this.getRemoveTimestamp(event),
-      charges: this.chargeTracker.current,
-      refundBuff: this.hasRefundBuff(event),
-      damage: damageEvents,
-      totalDamage: this.calculateTotalDamage(damageEvents),
-    });
-  }
-
-  private getRemoveTimestamp(event: ApplyDebuffEvent): number {
+    const damageEvents: DamageEvent[] = GetRelatedEvents(event, EventType.Damage);
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(
       event,
       EventType.RemoveDebuff,
     );
-    return removeDebuff?.timestamp ?? this.owner.fight.end_time;
-  }
 
-  private getDamageEvents(event: ApplyDebuffEvent): DamageEvent[] {
-    return GetRelatedEvents(event, EventType.Damage);
-  }
-
-  private hasRefundBuff(event: ApplyDebuffEvent): boolean {
-    const refundBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'refundBuff');
-    return refundBuff !== undefined;
+    this.touchData.push({
+      applied: event.timestamp,
+      removed: removeDebuff?.timestamp || this.owner.fight.end_time,
+      charges: this.chargeTracker.current,
+      damage: damageEvents,
+      totalDamage: this.calculateTotalDamage(damageEvents),
+      surgeCD: this.spellUsable.cooldownRemaining(TALENTS.ARCANE_SURGE_TALENT.id, event.timestamp),
+      arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF, event.timestamp - 10),
+    });
   }
 
   private calculateTotalDamage(damageEvents: DamageEvent[]): number {
@@ -104,16 +94,15 @@ export default class TouchOfTheMagi extends Analyzer {
     return active / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts;
   }
 
-  get touchMagiActiveTimeThresholds() {
-    return {
-      actual: this.averageActiveTime,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+  activeTimeUtil(activePercent: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: activePercent,
+      isGreaterThan: {
+        perfect: 0.95,
+        good: 0.9,
+        ok: 0.8,
       },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    });
   }
 
   statistic() {
@@ -129,8 +118,9 @@ export interface TouchOfTheMagiData {
   applied: number;
   removed: number;
   charges: number;
-  refundBuff: boolean;
   activeTime?: number;
   damage: DamageEvent[];
   totalDamage: number;
+  surgeCD: number;
+  arcaneSoul: boolean;
 }
