@@ -2617,6 +2617,12 @@ export const Kivlov: Contributor = {
   ],
 };
 
+export const SheenMachine: Contributor = {
+  nickname: 'SheenMachine',
+  github: 'swhild3n',
+  discord: 'sheenmachine',
+};
+
 export const Nevdok: Contributor = {
   nickname: 'Nevdok',
   github: 'GeoffreyBalshaw',

@@ -8,7 +8,6 @@ export { default as FocusCapTracker } from './FocusCapTracker';
 export { default as FocusDetails } from './FocusDetails';
 export { default as FocusTracker } from './FocusTracker';
 export { default as FocusUsage } from './FocusUsage';
-export { default as KillShot } from './talents/KillShot';
 export { default as MasterMarksman } from './talents/MasterMarksman';
 export { default as NaturalMending } from './talents/NaturalMending';
 export { default as RejuvenatingWind } from './talents/RejuvenatingWind';

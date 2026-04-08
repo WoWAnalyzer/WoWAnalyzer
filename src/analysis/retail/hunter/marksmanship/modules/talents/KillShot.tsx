@@ -10,7 +10,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { KILL_SHOT_EXECUTE_RANGE } from '../constants';
+import { KILL_SHOT_EXECUTE_RANGE } from '../../constants';
 class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
