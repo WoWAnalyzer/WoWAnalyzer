@@ -97,6 +97,11 @@ const spells = {
     name: 'Arcane Soul',
     icon: 'inv_soulbarrier',
   },
+  ARCANE_SPLINTER_DAMAGE: {
+    id: 443763,
+    name: 'Arcane Splinter',
+    icon: 'inv_ability_spellslingermage_splinterspurple',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

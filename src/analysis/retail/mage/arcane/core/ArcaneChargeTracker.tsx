@@ -4,7 +4,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
-const debug = true;
+const debug = false;
 const MAX_ARCANE_CHARGES = 4;
 
 class ArcaneChargeTracker extends ResourceTracker {

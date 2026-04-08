@@ -1,4 +1,4 @@
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent, CastEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_ROGUE } from 'common/TALENTS/rogue';
@@ -13,28 +13,24 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_ROGUE.CRACKSHOT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_ROGUE.ACE_UP_YOUR_SLEEVE_TALENT);
 
-    this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.STEALTH_BUFF, SPELLS.VANISH_BUFF, SPELLS.SUBTERFUGE_BUFF]),
-      this.onStealth,
-    );
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.bteReset);
   }
 
-  private onStealth(event: ApplyBuffEvent) {
-    super.endCooldown(SPELLS.BETWEEN_THE_EYES.id, event.timestamp);
+  private bteReset(event: ResourceChangeEvent) {
+    if (
+      event.ability.guid == TALENTS_ROGUE.ACE_UP_YOUR_SLEEVE_TALENT.id ||
+      event.ability.guid == TALENTS_ROGUE.GRAVEDIGGER_3_OUTLAW_TALENT.id
+    ) {
+      super.endCooldown(SPELLS.BETWEEN_THE_EYES.id, event.timestamp);
+    }
   }
 
   beginCooldown(cooldownTriggerEvent: CastEvent, _spellId: number) {
     const spellId = cooldownTriggerEvent.ability.guid;
 
-    if (
-      spellId === SPELLS.BETWEEN_THE_EYES.id &&
-      (this.selectedCombatant.hasBuff(SPELLS.SUBTERFUGE_BUFF) ||
-        this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF))
-    ) {
+    if (spellId === SPELLS.BETWEEN_THE_EYES.id) {
       return;
     }
 

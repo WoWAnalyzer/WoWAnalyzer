@@ -35,6 +35,7 @@ export { default as LogoutIcon } from './Logout';
 export { default as ManaIcon } from './Mana';
 export { default as MasteryIcon } from './Mastery';
 export { default as MegaphoneIcon } from './Megaphone';
+export { default as NoteIcon } from './Note';
 export { default as MoreIcon } from './More';
 export { default as PatreonIcon } from './Patreon';
 export { default as PatreonTinyIcon } from './PatreonTiny';

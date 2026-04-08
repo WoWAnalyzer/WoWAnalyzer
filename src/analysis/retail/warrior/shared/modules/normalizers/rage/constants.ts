@@ -24,8 +24,6 @@ export const RECKLESSNESS_INCREASE = 0.5;
 
 export const PIERCING_CHALLENGE_INCREASE = 1;
 
-export const STORM_OF_STEEL_INCREASE = 10;
-
 const BASE_RAGE_GENERATION = 1.75;
 
 /**

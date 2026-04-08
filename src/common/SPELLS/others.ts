@@ -38,6 +38,11 @@ const spells = {
     name: 'Speed',
     icon: 'petbattle_speed',
   },
+  AKILZONS_CRY_OF_VICTORY: {
+    id: 1252818,
+    name: "Akil'zon's Cry of Victory",
+    icon: 'ability_hunter_pathfinding2',
+  },
   ANCIENT_HEALING_POTION: {
     id: 188016,
     name: 'Ancient Healing Potion',

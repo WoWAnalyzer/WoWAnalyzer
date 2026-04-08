@@ -168,11 +168,6 @@ const spells = {
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
   },
-  SLAUGHTERING_STRIKES_BUFF: {
-    id: 393931,
-    name: 'Slaughtering Strikes',
-    icon: 'inv_axe_2h_orcwarrior_c_01',
-  },
   SPELL_REFLECTION: {
     id: 23920,
     name: 'Spell Reflection',
@@ -242,11 +237,6 @@ const spells = {
     id: 85739,
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
-  },
-  ONSLAUGHT: {
-    id: 315720,
-    name: 'Onslaught',
-    icon: 'ability_warrior_trauma',
   },
   WINNING_STREAK_BUFF_FURY: {
     id: 1216561,
@@ -544,11 +534,6 @@ const spells = {
   },
 
   // Talents
-  SUDDEN_DEATH_FURY_TALENT_BUFF: {
-    id: 280776,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
-  },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
     name: 'Bladestorm',
@@ -615,11 +600,6 @@ const spells = {
     id: 393951,
     name: 'Bloodcraze',
     icon: 'ability_creature_cursed_02',
-  },
-  ASHEN_JUGGERNAUT: {
-    id: 392537,
-    name: 'Ashen Juggernaut',
-    icon: 'warrior_talent_icon_skirmisher',
   },
   EXECUTIONER_TALENT_BUFF: {
     id: 445584,

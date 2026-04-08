@@ -11,7 +11,7 @@ const config: Config = {
   contributors: [Sharrq],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.0',
+  patchCompatibility: '12.0.1',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -59,15 +59,14 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec is not being updated for The War Within or Midnight Prepatch. All analysis is in
-          preparation of Midnight's full release.
+          This spec has been fully updated for Midnight (As of April 4). If anything is missing or
+          incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/YG9R3NkhwmBDv871/28-Heroic+Sikran,+Captain+of+the+Sureki+-+Kill+(3:37)/Coeus/standard',
+  exampleReport: '/report/ar37HGqfWFLNk8w6/26-Heroic+Vorasius+-+Kill+(4:07)/189-Alysseda/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

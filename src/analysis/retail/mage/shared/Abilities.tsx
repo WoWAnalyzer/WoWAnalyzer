@@ -102,7 +102,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         enabled: combatant.hasTalent(TALENTS.ICE_BARRIER_TALENT),
         charges: combatant.hasTalent(TALENTS.GLACIAL_BULWARK_TALENT) ? 2 : 1,
-        cooldown: 30, // TODO - Barrier diffusion reduces by 5 sec if removed
+        cooldown: 30,
         gcd: {
           base: 500,
         },
@@ -117,20 +117,16 @@ class Abilities extends CoreAbilities {
           base: 500,
         },
       },
-      // {
-      //   spell: TALENTS.PRISMATIC_BARRIER_TALENT.id,
-      //   buffSpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
-      //   category: SPELL_CATEGORY.DEFENSIVE,
-      //   enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
-      //   cooldown:
-      //     combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-      //     combatant.hasBuff(TALENTS.PRISMATIC_BARRIER_TALENT.id)
-      //       ? 25 / 1.3
-      //       : 25,
-      //   gcd: {
-      //     base: 500,
-      //   },
-      // },
+      {
+        spell: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+        buffSpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
+        cooldown: 30,
+        gcd: {
+          base: 500,
+        },
+      },
       {
         spell: TALENTS.ICE_BLOCK_TALENT.id,
         buffSpellId: TALENTS.ICE_BLOCK_TALENT.id,
@@ -233,14 +229,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      // {
-      //   spell: TALENTS.SLOW_TALENT.id,
-      //   category: SPELL_CATEGORY.UTILITY,
-      //   enabled: combatant.hasTalent(TALENTS.SLOW_TALENT),
-      //   gcd: {
-      //     base: 1500,
-      //   },
-      // },
       {
         spell: TALENTS.SPELLSTEAL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,

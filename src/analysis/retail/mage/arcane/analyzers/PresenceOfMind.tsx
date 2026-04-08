@@ -1,22 +1,19 @@
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
-import Events, {
-  CastEvent,
-  DamageEvent,
-  GetRelatedEvents,
-  GetRelatedEvent,
-  RemoveBuffEvent,
-  RemoveDebuffEvent,
-  EventType,
-} from 'parser/core/Events';
+import Events, { CastEvent, GetRelatedEvents } from 'parser/core/Events';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 export default class PresenceOfMind extends Analyzer {
   static dependencies = {
     chargeTracker: ArcaneChargeTracker,
+    spellUsable: SpellUsable,
   };
+
   protected chargeTracker!: ArcaneChargeTracker;
+  protected spellUsable!: SpellUsable;
 
   pomData: PresenceOfMindData[] = [];
 
@@ -30,47 +27,22 @@ export default class PresenceOfMind extends Analyzer {
   }
 
   onPresenceMind(event: CastEvent) {
-    const touchCancelDelay = this.getTouchCancelDelay(event);
-
     this.pomData.push({
       cast: event,
-      targets: this.getBarrageTargetCount(event),
       charges: this.chargeTracker.current,
       stacksUsed: this.getBuffedCastCount(event),
-      usedTouchEnd: touchCancelDelay !== undefined,
-      touchCancelDelay,
+      orbCharges: this.spellUsable.chargesAvailable(TALENTS.ARCANE_ORB_TALENT.id),
+      orbCD: this.spellUsable.cooldownRemaining(TALENTS.ARCANE_ORB_TALENT.id),
+      clearcasting: this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE),
     });
   }
 
-  private getBarrageTargetCount(event: CastEvent): number | undefined {
-    const barrage: CastEvent | undefined = GetRelatedEvent(event, 'barrageCast');
-    if (!barrage) {
-      return undefined;
-    }
-    const barrageHits: DamageEvent[] | undefined = GetRelatedEvents(barrage, EventType.Damage);
-    return barrageHits?.length;
-  }
-
   private getBuffedCastCount(event: CastEvent): number {
-    const blasts: CastEvent[] | undefined = GetRelatedEvents(event, EventType.Cast);
+    const blasts: CastEvent[] | undefined = GetRelatedEvents(event, 'consume');
     const buffedCasts = blasts.filter((b) =>
       this.selectedCombatant.hasBuff(TALENTS.PRESENCE_OF_MIND_TALENT.id, b.timestamp),
     );
     return buffedCasts.length || 0;
-  }
-
-  private getTouchCancelDelay(event: CastEvent): number | undefined {
-    const buffRemove: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
-    const touchRemove: RemoveDebuffEvent | undefined = GetRelatedEvent(
-      event,
-      EventType.RemoveDebuff,
-    );
-
-    if (!touchRemove || !buffRemove || buffRemove.timestamp <= touchRemove.timestamp) {
-      return undefined;
-    }
-
-    return buffRemove.timestamp - touchRemove.timestamp;
   }
 }
 
@@ -79,6 +51,7 @@ export interface PresenceOfMindData {
   targets?: number;
   charges: number;
   stacksUsed: number;
-  usedTouchEnd?: boolean;
-  touchCancelDelay?: number;
+  orbCharges: number;
+  orbCD: number;
+  clearcasting: boolean;
 }
