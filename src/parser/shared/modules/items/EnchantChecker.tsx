@@ -8,17 +8,21 @@ import { Item } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
+import { SlotMap } from 'parser/core/Combatant';
+import typedKeys from 'common/typedKeys';
 
 class EnchantChecker extends Analyzer {
-  get EnchantableSlots(): Record<number, JSX.Element> {
+  get EnchantableSlots(): SlotMap<JSX.Element> {
     return {};
   }
 
-  get EnchantableGear(): Record<number, Item> {
+  get EnchantableGear(): SlotMap<Item> {
     const enchantSlots = this.EnchantableSlots;
-    return Object.keys(enchantSlots).reduce<Record<number, Item>>((obj, slot) => {
-      const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+    return typedKeys(enchantSlots).reduce<SlotMap<Item>>((obj, slot) => {
+      const item = this.selectedCombatant.getGear(slot);
+      if (!item) {
+        return obj;
+      }
 
       // If there is no offhand, disregard the item.
       // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enchant.
@@ -26,7 +30,7 @@ class EnchantChecker extends Analyzer {
       if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
         return obj;
       }
-      obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+      obj[slot] = item;
 
       return obj;
     }, {});
@@ -46,7 +50,7 @@ class EnchantChecker extends Analyzer {
 
   get slotsMissingEnchant() {
     const gear = this.EnchantableGear;
-    return Object.keys(gear).filter((slot) => !this.hasEnchant(gear[Number(slot)]));
+    return typedKeys(gear).filter((slot) => !this.hasEnchant(gear[slot]!));
   }
 
   get numSlotsMissingEnchant() {
@@ -55,8 +59,8 @@ class EnchantChecker extends Analyzer {
 
   get slotsMissingMaxEnchant() {
     const gear = this.EnchantableGear;
-    return Object.keys(gear).filter(
-      (slot) => this.hasEnchant(gear[Number(slot)]) && !this.hasMaxEnchant(gear[Number(slot)]),
+    return typedKeys(gear).filter(
+      (slot) => this.hasEnchant(gear[slot]!) && !this.hasMaxEnchant(gear[slot]!),
     );
   }
 
@@ -203,19 +207,18 @@ class EnchantChecker extends Analyzer {
   }
 
   getEnchantmentBoxRowEntries(
-    recommendedEnchants: Record<number, EnchantItem[]> = {},
+    recommendedEnchants: SlotMap<EnchantItem[]> = {},
   ): EnchantmentBoxRowEntry[] {
     const gear = this.EnchantableGear;
-    const enchantSlots: Record<number, JSX.Element> = this.EnchantableSlots;
+    const enchantSlots = this.EnchantableSlots;
 
-    return Object.keys(gear).map<EnchantmentBoxRowEntry>((slot) => {
-      const slotNumber = Number(slot);
-      const item = gear[slotNumber];
-      const slotName = enchantSlots[slotNumber];
-      const recommendedEnchantments = recommendedEnchants[slotNumber];
+    return typedKeys(gear).map<EnchantmentBoxRowEntry>((slot) => {
+      const item = gear[slot]!;
+      const slotName = enchantSlots[slot]!;
+      const recommendedEnchantments = recommendedEnchants[slot];
       return {
         item,
-        slotName: this.boxRowItemLink(item, slotName ?? GEAR_SLOT_NAMES[slotNumber]),
+        slotName: this.boxRowItemLink(item, slotName),
         value: this.boxRowPerformance(
           item,
           recommendedEnchantments?.map((it) => it.effectId),

@@ -37,6 +37,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 8), "Refactor gear `getters` in Combatant class", Thias),
   change(date(2026, 4, 7), "Fix typing of `get tierPieces`", Thias),
   change(date(2026, 4, 6), "Allow deselecting an open spell usage entry by clicking it again.", Hezaerd),
   change(date(2026, 4, 6), <>Improve visuals for close calls in pull selection</>, Thias),

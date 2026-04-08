@@ -7,21 +7,23 @@ import SPECS from 'game/SPECS';
 import { ItemLink } from 'interface';
 import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
 import Analyzer from 'parser/core/Analyzer';
+import { SlotMap } from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import typedKeys from 'common/typedKeys';
 import type { JSX } from 'react';
 
 // Example logs with missing enhancement:
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
 
-const WEAPON_SLOTS = {
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+const WEAPON_SLOTS: SlotMap<JSX.Element> = {
+  MAINHAND: <Trans id="common.slots.weapon">Weapon</Trans>,
+  OFFHAND: <Trans id="common.slots.offhand">OffHand</Trans>,
 };
 
 class WeaponEnhancementChecker extends Analyzer {
-  get WeaponSlots(): Record<number, JSX.Element> {
+  get WeaponSlots(): SlotMap<JSX.Element> {
     return WEAPON_SLOTS;
   }
 
@@ -29,7 +31,7 @@ class WeaponEnhancementChecker extends Analyzer {
     return [];
   }
 
-  get enhanceableWeapons() {
+  get enhanceableWeapons(): SlotMap<Item> {
     // totemic resto shamans can enchant a shield
     const includeShield =
       (this.selectedCombatant.spec === SPECS.ELEMENTAL_SHAMAN &&
@@ -37,8 +39,11 @@ class WeaponEnhancementChecker extends Analyzer {
       (this.selectedCombatant.spec === SPECS.RESTORATION_SHAMAN &&
         this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUPPORTIVE_IMBUEMENTS_TALENT));
 
-    return Object.keys(this.WeaponSlots).reduce((obj: Record<number, Item>, slot) => {
-      const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+    return typedKeys(this.WeaponSlots).reduce<SlotMap<Item>>((obj, slot) => {
+      const item = this.selectedCombatant.getGear(slot);
+      if (!item) {
+        return obj;
+      }
 
       // If there is no offhand, disregard the item.
       // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enhancement.
@@ -50,7 +55,7 @@ class WeaponEnhancementChecker extends Analyzer {
       ) {
         return obj;
       }
-      obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+      obj[slot] = item;
 
       return obj;
     }, {});
@@ -62,9 +67,8 @@ class WeaponEnhancementChecker extends Analyzer {
 
   get weaponsMissingEnhancement() {
     const gear = this.enhanceableWeapons;
-    return Object.keys(gear).length > 0
-      ? Object.keys(gear).filter((slot) => !this.hasEnhancement(gear[Number(slot)]))
-      : null;
+    const slots = typedKeys(gear);
+    return slots.length > 0 ? slots.filter((slot) => !this.hasEnhancement(gear[slot]!)) : null;
   }
 
   get numWeaponsMissingEnhancement() {
@@ -73,9 +77,8 @@ class WeaponEnhancementChecker extends Analyzer {
 
   get weaponsMissingMaxEnhancement() {
     const gear = this.enhanceableWeapons;
-    return Object.keys(gear).filter(
-      (slot) =>
-        this.hasEnhancement(gear[Number(slot)]) && !this.hasMaxEnhancement(gear[Number(slot)]),
+    return typedKeys(gear).filter(
+      (slot) => this.hasEnhancement(gear[slot]!) && !this.hasMaxEnhancement(gear[slot]!),
     );
   }
 
@@ -235,16 +238,15 @@ class WeaponEnhancementChecker extends Analyzer {
   }
 
   getWeaponEnhancementBoxRowEntries(
-    recommendedWeaponEnhancements: Record<number, Enchant[]> = {},
+    recommendedWeaponEnhancements: SlotMap<Enchant[]> = {},
   ): EnhancementBoxRowEntry[] {
     const gear = this.enhanceableWeapons;
-    const enchantSlots: Record<number, JSX.Element> = this.WeaponSlots;
+    const enchantSlots = this.WeaponSlots;
 
-    return Object.keys(gear).map<EnhancementBoxRowEntry>((slot) => {
-      const slotNumber = Number(slot);
-      const item = gear[slotNumber];
-      const slotName = enchantSlots[slotNumber];
-      const recommendedEnchantments = recommendedWeaponEnhancements[slotNumber];
+    return typedKeys(gear).map<EnhancementBoxRowEntry>((slot) => {
+      const item = gear[slot]!;
+      const slotName = enchantSlots[slot]!;
+      const recommendedEnchantments = recommendedWeaponEnhancements[slot];
       return {
         item,
         slotName: this.boxRowItemLink(item, slotName),

@@ -2,9 +2,10 @@ import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import EnchantmentBoxRow from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { Enchant } from 'common/ITEMS/Item';
+import { GearSlotName } from 'parser/core/Combatant';
 
 interface Props {
-  recommendedEnchantments?: Record<number, Enchant[]>;
+  recommendedEnchantments?: Partial<Record<GearSlotName, Enchant[]>>;
 }
 const EnchantmentSubSection = ({ recommendedEnchantments }: Props) => {
   const enchantChecker = useAnalyzer(EnchantChecker);

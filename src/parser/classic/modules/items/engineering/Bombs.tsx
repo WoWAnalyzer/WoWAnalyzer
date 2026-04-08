@@ -1,6 +1,5 @@
 import Abilities from 'parser/core/modules/Abilities';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS/classic';
 
@@ -9,9 +8,9 @@ export default class Bombs extends Analyzer.withDependencies({ abilities: Abilit
     super(options);
 
     const combatant = this.selectedCombatant;
-    const belt = combatant._getGearItemBySlotId(GEAR_SLOTS.WAIST).onUseEnchant;
-    const gloves = combatant._getGearItemBySlotId(GEAR_SLOTS.HANDS).onUseEnchant;
-    const cloak = combatant._getGearItemBySlotId(GEAR_SLOTS.BACK).onUseEnchant;
+    const belt = combatant.getGear('WAIST')?.onUseEnchant;
+    const gloves = combatant.getGear('HANDS')?.onUseEnchant;
+    const cloak = combatant.getGear('BACK')?.onUseEnchant;
     this.active =
       belt === SPELLS.NITRO_BOOSTS.enchantId ||
       gloves === SPELLS.HYPERSPEED_ACCELERATION.enchantId ||

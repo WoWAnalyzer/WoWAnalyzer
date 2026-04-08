@@ -1,6 +1,7 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { Item } from 'parser/core/Events';
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import { GearSlotName } from 'parser/core/Combatant';
 import { ReactNode } from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -9,35 +10,28 @@ import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 
 export type AnySlot = 'any-slot';
+export type EmbellishmentSlot = GearSlotName | GearSlotName[] | AnySlot;
 
 class EmbellishmentAnalyzer extends Analyzer {
   protected embellishment: Enchant;
   protected slot: Item[];
 
-  constructor(embellishment: Enchant, slotId: number | number[] | AnySlot, options: Options) {
+  constructor(embellishment: Enchant, slot: EmbellishmentSlot, options: Options) {
     super(options);
     this.embellishment = embellishment;
-    this.slot = this.getItemSlots(this.embellishment.effectId, slotId);
+    this.slot = this.getItemSlots(this.embellishment.effectId, slot);
     this.active = this.slot.length > 0;
   }
 
-  protected getItemSlots(effectId: number, slotId: number | number[] | AnySlot) {
-    const slots = [];
-
-    if (typeof slotId === 'number') {
-      const item = this.selectedCombatant._getGearItemBySlotId(slotId);
-      if (this.checkItemBonusIds(effectId, item)) {
-        slots.push(item);
-      }
-    } else if (Array.isArray(slotId)) {
-      slotId.forEach((id) => slots.push(this.getItemSlots(effectId, id)));
-    } else {
-      this.selectedCombatant.gear
-        .filter((item) => this.checkItemBonusIds(effectId, item))
-        .forEach((item) => slots.push(item));
+  protected getItemSlots(effectId: number, slot: EmbellishmentSlot): Item[] {
+    if (slot === 'any-slot') {
+      return this.selectedCombatant.gear.filter((item) => this.checkItemBonusIds(effectId, item));
     }
-
-    return slots;
+    if (Array.isArray(slot)) {
+      return slot.flatMap((s) => this.getItemSlots(effectId, s));
+    }
+    const item = this.selectedCombatant.getGear(slot);
+    return item && this.checkItemBonusIds(effectId, item) ? [item] : [];
   }
 
   protected checkItemBonusIds(effectId: number, item: Item): boolean {

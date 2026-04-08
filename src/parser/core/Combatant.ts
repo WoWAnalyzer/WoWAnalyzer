@@ -23,6 +23,9 @@ interface Spell {
   id: number;
 }
 
+export type GearSlotName = keyof typeof GEAR_SLOTS;
+export type SlotMap<T> = Partial<Record<GearSlotName, T>>;
+
 class Combatant extends Entity {
   readonly player: PlayerInfo;
 
@@ -202,15 +205,10 @@ class Combatant extends Entity {
   // endregion
 
   hasWeaponEnchant(enchant: Enchant) {
-    if (this.mainHand && this.mainHand.permanentEnchant === enchant.effectId) {
-      return true;
-    }
-
-    if (this.offHand && this.offHand.permanentEnchant === enchant.effectId) {
-      return true;
-    }
-
-    return false;
+    return (
+      this.getGear('MAINHAND')?.permanentEnchant === enchant.effectId ||
+      this.getGear('OFFHAND')?.permanentEnchant === enchant.effectId
+    );
   }
 
   // region Gear
@@ -239,161 +237,48 @@ class Combatant extends Entity {
     });
   }
 
-  _getGearItemBySlotId(slotId: number) {
-    return this._gearItemsBySlotId[slotId];
-  }
-
-  _getGearItemGemsBySlotId(slotId: number) {
-    if (this._gearItemsBySlotId[slotId]) {
-      return this._gearItemsBySlotId[slotId].gems;
-    }
-    return undefined;
-  }
-
   get gear() {
     return Object.values(this._gearItemsBySlotId);
   }
 
-  get head() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);
+  getGear(slot: GearSlotName): Item | undefined {
+    return this._gearItemsBySlotId[GEAR_SLOTS[slot]];
   }
 
-  hasHead(itemId: number) {
-    return this.head && this.head.id === itemId;
+  hasGear(slot: GearSlotName, itemId: number): boolean {
+    return this.getGear(slot)?.id === itemId;
   }
 
-  get neck() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.NECK);
-  }
-
-  hasNeck(itemId: number) {
-    return this.neck && this.neck.id === itemId;
-  }
-
-  get shoulder() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.SHOULDER);
-  }
-
-  hasShoulder(itemId: number) {
-    return this.shoulder && this.shoulder.id === itemId;
-  }
-
-  get back() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.BACK);
-  }
-
-  hasBack(itemId: number) {
-    return this.back && this.back.id === itemId;
-  }
-
-  get chest() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.CHEST);
-  }
-
-  hasChest(itemId: number) {
-    return this.chest && this.chest.id === itemId;
-  }
-
-  get wrists() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.WRISTS);
-  }
-
-  hasWrists(itemId: number) {
-    return this.wrists && this.wrists.id === itemId;
-  }
-
-  get hands() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.HANDS);
-  }
-
-  hasHands(itemId: number) {
-    return this.hands && this.hands.id === itemId;
-  }
-
-  get waist() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.WAIST);
-  }
-
-  hasWaist(itemId: number) {
-    return this.waist && this.waist.id === itemId;
-  }
-
-  get legs() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.LEGS);
-  }
-
-  hasLegs(itemId: number) {
-    return this.legs && this.legs.id === itemId;
-  }
-
-  get feet() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.FEET);
-  }
-
-  hasFeet(itemId: number) {
-    return this.feet && this.feet.id === itemId;
-  }
-
-  get finger1() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.FINGER1);
-  }
-
-  get finger2() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.FINGER2);
-  }
-
-  getFinger(itemId: number) {
-    if (this.finger1 && this.finger1.id === itemId) {
-      return this.finger1;
+  getFinger(itemId: number): Item | undefined {
+    const finger1 = this.getGear('FINGER1');
+    if (finger1?.id === itemId) {
+      return finger1;
     }
-    if (this.finger2 && this.finger2.id === itemId) {
-      return this.finger2;
+    const finger2 = this.getGear('FINGER2');
+    if (finger2?.id === itemId) {
+      return finger2;
     }
-
     return undefined;
   }
 
-  hasFinger(itemId: number) {
+  hasFinger(itemId: number): boolean {
     return this.getFinger(itemId) !== undefined;
   }
 
-  get trinket1() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET1);
-  }
-
-  get trinket2() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
-  }
-
-  getTrinket(itemId: number) {
-    if (this.trinket1 && this.trinket1.id === itemId) {
-      return this.trinket1;
+  getTrinket(itemId: number): Item | undefined {
+    const trinket1 = this.getGear('TRINKET1');
+    if (trinket1?.id === itemId) {
+      return trinket1;
     }
-    if (this.trinket2 && this.trinket2.id === itemId) {
-      return this.trinket2;
+    const trinket2 = this.getGear('TRINKET2');
+    if (trinket2?.id === itemId) {
+      return trinket2;
     }
-
     return undefined;
   }
 
-  hasTrinket(itemId: number) {
+  hasTrinket(itemId: number): boolean {
     return this.getTrinket(itemId) !== undefined;
-  }
-
-  hasMainHand(itemId: number) {
-    return this.mainHand && this.mainHand.id === itemId;
-  }
-
-  get mainHand() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.MAINHAND);
-  }
-
-  hasOffHand(itemId: number) {
-    return this.offHand && this.offHand.id === itemId;
-  }
-
-  get offHand() {
-    return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
   private itemMap = new Map<number, Item>();
@@ -414,7 +299,13 @@ class Combatant extends Entity {
 
   // region Tier
   get tierPieces(): Item[] {
-    return [this.head, this.shoulder, this.chest, this.legs, this.hands].filter(isPresent);
+    return [
+      this.getGear('HEAD'),
+      this.getGear('SHOULDER'),
+      this.getGear('CHEST'),
+      this.getGear('LEGS'),
+      this.getGear('HANDS'),
+    ].filter(isPresent);
   }
 
   setIdBySpecByTier(tier: TIERS) {
