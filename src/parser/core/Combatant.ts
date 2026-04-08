@@ -99,10 +99,10 @@ class Combatant extends Entity {
       agility: info.agility,
       intellect: info.intellect,
       stamina: info.stamina,
-      crit: info.critSpell,
+      crit: Math.max(info.critSpell ?? 0, info.critMelee ?? 0, info.critRanged ?? 0),
       // Haste is reported per attack type; pick whichever the spec uses.
       // Falls back to 0 because some test fixtures omit all three fields.
-      haste: info.hasteSpell || info.hasteRanged || info.hasteMelee || 0,
+      haste: Math.max(info.hasteSpell ?? 0, info.hasteMelee ?? 0, info.hasteRanged ?? 0),
       mastery: info.mastery,
       versatility: info.versatilityHealingDone,
       avoidance: info.avoidance,
