@@ -10,9 +10,6 @@ import {
   lastSpellCast,
 } from 'parser/shared/metrics/apl/conditions';
 import { build, Rule } from 'parser/shared/metrics/apl';
-import { buffsCount } from './buffsCount';
-import { ROLL_THE_BONES_BUFFS } from '../../constants';
-import { notInSubterfugeSoon } from './notInSubterfugeSoon';
 import { builderComboPointAmount, finisherComboPointAmount } from './comboPointAmount';
 
 const hasLowCPFinisherCondition = () => {
@@ -21,8 +18,9 @@ const hasLowCPFinisherCondition = () => {
 
 const rtbKirCondition = () => {
   return or(
-    buffsCount(ROLL_THE_BONES_BUFFS, 3, 'lessThan'),
-    // Could be cast another cast over due to OGCD spells etc, so we we just wrap it in always
+    buffPresent(SPELLS.DOUBLE_TROUBLE) ||
+      buffPresent(SPELLS.TRIPLE_THREAT) ||
+      buffPresent(SPELLS.JACKPOT),
     always(lastSpellCast(TALENTS.KEEP_IT_ROLLING_TALENT)),
   );
 };
@@ -30,7 +28,10 @@ const rtbKirCondition = () => {
 const COOLDOWNS: Rule[] = [
   {
     spell: TALENTS.KEEP_IT_ROLLING_TALENT,
-    condition: buffsCount(ROLL_THE_BONES_BUFFS, 4, 'atLeast'),
+    condition:
+      buffPresent(SPELLS.DOUBLE_TROUBLE) ||
+      buffPresent(SPELLS.TRIPLE_THREAT) ||
+      buffPresent(SPELLS.JACKPOT),
   },
   {
     spell: SPELLS.ROLL_THE_BONES,
@@ -41,13 +42,12 @@ const COOLDOWNS: Rule[] = [
 const FINISHERS: Rule[] = [
   {
     spell: TALENTS.KILLING_SPREE_TALENT,
-    condition: and(notInSubterfugeSoon(), finisherComboPointAmount(6)),
+    condition: and(finisherComboPointAmount(6)),
   },
   {
     spell: SPELLS.COUP_DE_GRACE_CAST,
     condition: and(
       buffStacks(SPELLS.COUP_DE_GRACE_BUFF, { atLeast: 4 }),
-      notInSubterfugeSoon(),
       finisherComboPointAmount(6),
     ),
   },
@@ -61,7 +61,7 @@ const FINISHERS: Rule[] = [
   },
   {
     spell: SPELLS.DISPATCH,
-    condition: finisherComboPointAmount(6),
+    condition: finisherComboPointAmount(5),
   },
   {
     spell: SPELLS.DISPATCH,
@@ -72,19 +72,11 @@ const FINISHERS: Rule[] = [
 const BUILDERS: Rule[] = [
   {
     spell: SPELLS.PISTOL_SHOT,
-    condition: and(
-      buffPresent(SPELLS.OPPORTUNITY),
-      buffMissing(SPELLS.BROADSIDE),
-      builderComboPointAmount(3),
-    ),
+    condition: and(buffPresent(SPELLS.OPPORTUNITY), builderComboPointAmount(2)),
   },
   {
     spell: SPELLS.PISTOL_SHOT,
-    condition: and(
-      buffPresent(SPELLS.OPPORTUNITY),
-      buffPresent(SPELLS.BROADSIDE),
-      builderComboPointAmount(1),
-    ),
+    condition: and(buffPresent(SPELLS.OPPORTUNITY), builderComboPointAmount(3)),
   },
   SPELLS.SINISTER_STRIKE,
 ];

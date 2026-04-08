@@ -394,7 +394,11 @@ const spells = {
   },
 
   //Cooldowns
-
+  PREPARATION: {
+    id: 1277933,
+    name: 'Preparation',
+    icon: 'ability_rogue_preparation',
+  },
   //Procs/Poisons
   DEADLY_POISON_PROC: {
     id: 113780,
@@ -479,8 +483,6 @@ const spells = {
     icon: 'trade_engineering',
   },
 
-  //Outlaw
-
   //Builders
   SINISTER_STRIKE: {
     id: 193315,
@@ -521,7 +523,7 @@ const spells = {
     icon: 'inv_weapon_rifle_01',
   },
   ROLL_THE_BONES: {
-    id: 315508,
+    id: 1214909,
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
   },
@@ -556,35 +558,25 @@ const spells = {
   },
 
   //Buffs
-  SKULL_AND_CROSSBONES: {
-    id: 199603,
-    name: 'Skull and Crossbones',
-    icon: 'ability_rogue_rollthebones01',
+  ONE_OF_A_KIND: {
+    id: 1214933,
+    name: 'One of a Kind',
+    icon: 'inv12_ability_rogue_rollthebones_one',
   },
-  GRAND_MELEE: {
-    id: 193358,
-    name: 'Grand Melee',
-    icon: 'ability_rogue_rollthebones02',
+  DOUBLE_TROUBLE: {
+    id: 1214934,
+    name: 'Double Trouble',
+    icon: 'inv12_ability_rogue_rollthebones_two',
   },
-  RUTHLESS_PRECISION: {
-    id: 193357,
-    name: 'Ruthless Precision',
-    icon: 'ability_rogue_rollthebones03',
+  TRIPLE_THREAT: {
+    id: 1214935,
+    name: 'Triple Threat',
+    icon: 'inv12_ability_rogue_rollthebones_three',
   },
-  TRUE_BEARING: {
-    id: 193359,
-    name: 'True Bearing',
-    icon: 'ability_rogue_rollthebones04',
-  },
-  BURIED_TREASURE: {
-    id: 199600,
-    name: 'Buried Treasure',
-    icon: 'ability_rogue_rollthebones05',
-  },
-  BROADSIDE: {
-    id: 193356,
-    name: 'Broadside',
-    icon: 'ability_rogue_rollthebones07',
+  JACKPOT: {
+    id: 1214937,
+    name: 'Jackpot',
+    icon: 'inv12_ability_rogue_rollthebones_jackpot',
   },
   BLADE_RUSH_TALENT_BUFF: {
     // This is the energy gain buff
@@ -638,7 +630,7 @@ const spells = {
     icon: 'spell_shadow_ritualofsacrifice',
   },
 
-  // TWW Hero Talents
+  // Trickster Hero Talents
   COUP_DE_GRACE_CAST: {
     id: 441776,
     name: 'Coup de Grace',
@@ -659,7 +651,12 @@ const spells = {
     name: 'Dispatch',
     icon: 'ability_rogue_waylay',
   },
-
+  // Fatebound
+  FATEBOUND_COIN_TAILS: {
+    id: 452538,
+    name: 'Fatebound Coin (Tails)',
+    icon: 'inv_ability_fateboundrogue_handoffatetails',
+  },
   // Damage
   EVISCERATE_SHADOWED_FINISHERS_DAMAGE: {
     id: 328082,
