@@ -8,10 +8,12 @@ import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsTog
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import PerformancePercentage from 'analysis/retail/evoker/devastation/modules/guide/PerformancePercentage';
+import PerformanceStrong from 'interface/PerformanceStrong';
+import { formatPercentage } from 'common/format';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export function CoreRotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -35,6 +37,10 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
       <HideExplanationsToggle id="hide-explanations-rotations" />
       <HideGoodCastsToggle id="hide-good-casts-rotations" />
 
+      {modules.sandsOfTime.guideSubsection()}
+
+      <AlwaysBeCastingSection modules={modules} events={events} info={info} />
+
       <EssenceGraphSection modules={modules} events={events} info={info} />
 
       <SubSection title="Buff Graph">
@@ -45,17 +51,9 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
         {modules.buffTrackerGraph.plot}
       </SubSection>
 
-      <BlisteringScalesSection modules={modules} events={events} info={info} />
-
-      <SubSection>
-        <CooldownUsage analyzer={modules.prescience} title="Prescience" />
-      </SubSection>
-
-      {modules.sandsOfTime.guideSubsection()}
-
-      {modules.shiftingSands.guideSubsection()}
-
       {modules.moltenEmbers.guideSubsection()}
+
+      <BlisteringScalesSection modules={modules} events={events} info={info} />
     </Section>
   );
 }
@@ -135,6 +133,43 @@ function EssenceGraphSection({ modules, events, info }: GuideProps<typeof Combat
         of your <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} />.
       </p>
       {modules.essenceGraph.plot}
+    </SubSection>
+  );
+}
+
+function AlwaysBeCastingSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection title="Always be Casting">
+      <p>
+        <em>
+          <b>
+            Continuously chaining casts throughout an encounter is the single most important thing
+            for achieving good DPS as a caster.
+          </b>
+        </em>
+      </p>
+      <p>
+        There should be no delay at all between your spell casts, it's better to start casting the
+        wrong spell than to think for a few seconds and then cast the right spell. You should be
+        able to handle a fight's mechanics with the minimum possible interruption to your casting.
+        Some fights have unavoidable downtime due to phase transitions and the like, so in these
+        cases 0% downtime will not be possible - do the best you can.
+      </p>
+      <p>
+        Active Time:{' '}
+        <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+          {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+        </PerformanceStrong>{' '}
+        Cancelled Casts:{' '}
+        <PerformanceStrong performance={modules.cancelledCasts.CancelledPerformance}>
+          {formatPercentage(modules.cancelledCasts.cancelledPercentage, 1)}%
+        </PerformanceStrong>{' '}
+      </p>
+      <ActiveTimeGraph
+        activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+        fightStart={info.fightStart}
+        fightEnd={info.fightEnd}
+      />
     </SubSection>
   );
 }

@@ -7,12 +7,10 @@ import Guide from './Guide';
 
 import SandsOfTime from './modules/abilities/SandsOfTime';
 import EbonMight from './modules/abilities/EbonMight';
-import ShiftingSands from './modules/abilities/ShiftingSands';
 import BreathOfEonsRotational from './modules/breahtofeons/BreathOfEonsRotational';
 
 import TimeSkip from './modules/talents/TimeSkip';
 import Accretion from './modules/talents/Accretion';
-import Prescience from './modules/talents/Prescience';
 import Anachronism from './modules/talents/Anachronism';
 import PupilOfAlexstrasza from './modules/talents/PupilOfAlexstrasza';
 import RicochetingPyroclast from './modules/talents/RicochetingPyroclast';
@@ -82,6 +80,9 @@ import {
   ImminentDestructionCastLinkNormalizer,
 } from 'analysis/retail/evoker/shared';
 
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
@@ -124,14 +125,12 @@ class CombatLogParser extends MainCombatLogParser {
     sandsOfTime: SandsOfTime,
     breathOfEonsRotational: BreathOfEonsRotational,
     ebonMight: EbonMight,
-    shiftingSands: ShiftingSands,
 
     // Talents
     timeSkip: TimeSkip,
     accretion: Accretion,
     blisteringScalesGraph: BlisteringScalesGraph,
     blisteringScalesStackTracker: BlisteringScalesStackTracker,
-    prescience: Prescience,
     anachronism: Anachronism,
     pupilOfAlexstrasza: PupilOfAlexstrasza,
     ricochetingPyroclast: RicochetingPyroclast,
@@ -167,6 +166,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
+    alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
 
     // Tier
     MID1Augmentation2P: MID1Augmentation2P,
