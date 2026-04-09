@@ -18,7 +18,6 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import DireCommand from './modules/talents/DireCommand';
 import BasicAttacks from './modules/pets/BasicAttacksTracker';
 import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
@@ -34,7 +33,6 @@ import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import MasterMarksman from '../shared/talents/MasterMarksman';
-import DireCommandNormalizer from './normalizers/DireCommandNormalizer';
 import Guide from './modules/guide/Guide';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import Bloodshed from './modules/talents/Bloodshed';
@@ -65,7 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
 
     //Normalizers
-    direCommandNormalizer: DireCommandNormalizer,
     hunterEventLinkNormalizer: HunterEventLinkNormalizers,
 
     //DeathTracker
@@ -91,7 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
-    direCommand: DireCommand,
     masterMarksman: MasterMarksman,
     bloodshed: Bloodshed,
     tranquilizingShot: TranquilizingShot,

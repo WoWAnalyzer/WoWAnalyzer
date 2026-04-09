@@ -23,13 +23,8 @@ const spells = {
     name: 'Stomp',
     icon: 'ability_warstomp',
   },
-  DIRE_BEAST_BUFF: {
-    id: 281036,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
-  },
   DIRE_BEAST_SUMMON: {
-    id: 304051,
+    id: 1283818,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
@@ -37,6 +32,11 @@ const spells = {
     id: 219199,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
+  },
+  DARK_HOUND_SUMMON: {
+    id: 442419,
+    name: 'Dark Hound',
+    icon: 'inv_darkhoundmount_draka_blue',
   },
   DIRE_PACK_BUFF: {
     id: 378747,
