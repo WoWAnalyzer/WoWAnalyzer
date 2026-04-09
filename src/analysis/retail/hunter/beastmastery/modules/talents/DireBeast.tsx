@@ -83,7 +83,7 @@ class DireBeast extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<>The number of times Dire Beast was activated and the total damage it did.</>}
+        tooltip={<>The number of times Dire Beast was activated and its DPS</>}
         dropdown={
           <>
             <table className="table table-condensed">
@@ -93,7 +93,7 @@ class DireBeast extends Analyzer {
                     <b>Statistic</b>
                   </td>
                   <td>
-                    <b>Info</b>
+                    <b>Activations</b>
                   </td>
                 </tr>
               </thead>
