@@ -17,9 +17,9 @@ import Button from 'interface/controls/Button';
 const FilterContainer = styled.div`
   grid-area: filter;
   display: flex;
+  align-self: start;
   align-items: start;
   gap: 0.25rem;
-  margin-top: 0.6rem;
 `;
 
 const Btn = styled(Button)`
@@ -40,6 +40,7 @@ const PullNavBtn = styled(Button)`
 
   & .glyphicon {
     font-size: 75%;
+    top: 0;
   }
 `;
 
@@ -354,9 +355,9 @@ function usePullNavigation({ fight, selectedPhaseIndex, handlePhaseSelection }: 
 
   const goToNextPull = useCallback(() => {
     if (canGoNext) {
-      handlePhaseSelection(
-        selectedPhaseIndex === SELECTION_ALL_PHASES ? 0 : selectedPhaseIndex + 1,
-      );
+      const isAllPhases = selectedPhaseIndex === SELECTION_ALL_PHASES;
+      const isCustomPhase = selectedPhaseIndex === SELECTION_CUSTOM_PHASE;
+      handlePhaseSelection(isAllPhases || isCustomPhase ? 0 : selectedPhaseIndex + 1);
     }
   }, [canGoNext, handlePhaseSelection, selectedPhaseIndex]);
 
