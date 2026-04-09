@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
-import { qualitativePerformanceToColor, PerformanceMark } from 'interface/guide';
+import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useState, useMemo, useCallback, useRef } from 'react';
-import { TipBox } from './TipBox';
+import { PerformanceTipBox } from './TipBox';
 import GuideDataWrapper, {
   HelperText,
   HelperTextRow,
@@ -290,17 +290,12 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
             )}
 
             {currentCast!.details && (
-              <TipBox
-                icon={
-                  currentCast!.detailsIcon === undefined ? (
-                    <PerformanceMark perf={currentCast!.performance} />
-                  ) : (
-                    currentCast!.detailsIcon
-                  )
-                }
+              <PerformanceTipBox
+                performance={currentCast!.performance}
+                icon={currentCast!.detailsIcon !== undefined ? currentCast!.detailsIcon : undefined}
               >
                 {currentCast!.details}
-              </TipBox>
+              </PerformanceTipBox>
             )}
 
             <CardAccentBar color={castColor} />

@@ -6,6 +6,7 @@ import {
   MasterOfTime,
   IceBlock,
   IceCold,
+  BarrierDiffusion,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -16,11 +17,11 @@ import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
-import Clearcasting from './analyzers/Clearcasting';
 import ArcaneMissiles from './analyzers/ArcaneMissiles';
 import ArcaneBarrage from './analyzers/ArcaneBarrage';
 import ArcaneOrb from './analyzers/ArcaneOrb';
 import ArcaneSurge from './analyzers/ArcaneSurge';
+import SpellfrostTeachings from './talents/SpellfrostTeachings';
 
 //Guide
 import Guide from './Guide';
@@ -30,7 +31,6 @@ import ArcaneMissilesGuide from './guide/ArcaneMissiles';
 import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
 import PresenceOfMindGuide from './guide/PresenceOfMind';
-import ClearcastingGuide from './guide/Clearcasting';
 
 //Items
 
@@ -64,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaLevelChart: ManaLevelChart,
     cancelledCasts: CancelledCasts,
     arcaneSurge: ArcaneSurge,
-    clearcasting: Clearcasting,
     arcaneMissiles: ArcaneMissiles,
     arcaneBarrage: ArcaneBarrage,
     arcaneOrb: ArcaneOrb,
@@ -76,8 +75,10 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneBarrageGuide: ArcaneBarrageGuide,
     presenceOfMindGuide: PresenceOfMindGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
-    clearcastingGuide: ClearcastingGuide,
     manaChart: ManaChart,
+
+    //Talents - Arcane
+    spellfrostTeachings: SpellfrostTeachings,
 
     //Talents - Shared
     quickWitted: QuickWitted,
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBarrier: ElementalBarrier,
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
+    barrierDiffusion: BarrierDiffusion,
 
     // Defensives - Shared
     iceBlock: IceBlock,

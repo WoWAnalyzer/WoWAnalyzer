@@ -10,7 +10,7 @@ import UptimeBar from 'parser/ui/UptimeBar';
 import SpellLink from 'interface/SpellLink';
 import { formatDuration, formatPercentage } from 'common/format';
 
-const STAT_RATING = 56;
+const STAT_RATING = 85;
 
 const BUFFS = {
   [SPELLS.DARKMOON_SIGIL_HUNT_HASTE.id]: {

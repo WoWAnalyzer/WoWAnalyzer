@@ -2,6 +2,7 @@ import { GuideProps } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CombatLogParser from '../../CombatLogParser';
 import ResourceUseSection from './sections/resources/ResourceUseSection';
+import TipOfTheSpearSection from './sections/resources/TipOfTheSpearSection';
 import RotationSection from './sections/rotation/RotationSection';
 import ActiveTime from './sections/rotation/ActiveTime';
 import Cooldown from './sections/rotation/Cooldown';
@@ -16,6 +17,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <IntroSection />
       <ActiveTime modules={modules} events={events} info={info} />
       <ResourceUseSection {...modules} />
+      <TipOfTheSpearSection {...modules} />
       <Cooldown modules={modules} events={events} info={info} />
       <RotationSection modules={modules} events={events} info={info} />
       <HeroSection modules={modules} events={events} info={info} />

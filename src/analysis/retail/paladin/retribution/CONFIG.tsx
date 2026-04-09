@@ -44,7 +44,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/9VPGaQY84MzWfZAx/10-Mythic+Fractillus+-+Kill+(1:17)/9-Âjax/standard/overview',
+    '/report/zP2X4aL87KM9cBrC/60-Mythic+Vorasius+-+Kill+(6:05)/6-Ancalainur/standard/overview',
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,

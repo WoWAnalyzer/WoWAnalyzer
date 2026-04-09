@@ -6,18 +6,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
 import OutlawEnergyCapTracker from 'analysis/retail/rogue/outlaw/modules/core/OutlawEnergyCapTracker';
 
-export const ROLL_THE_BONES_CATEGORIES = {
-  LOW_VALUE: 'low',
-  HIGH_VALUE: 'high',
-};
-
-interface CastValue {
-  sleight_of_hand: number;
-  base: number;
-}
-
-type BuffValueMap = Record<number, CastValue>;
-
 export interface RTBCast extends CastEvent {
   appliedBuffs: Spell[];
   duration: number;
@@ -25,21 +13,6 @@ export interface RTBCast extends CastEvent {
   timestampEnd?: number;
   RTBIsDelayed?: boolean;
 }
-
-const BROADSIDE_VALUE: CastValue = { sleight_of_hand: 2, base: 3 };
-const TRUE_BEARING_VALUE: CastValue = { sleight_of_hand: 2, base: 3 };
-const RUTHLESS_PRECISION_VALUE: CastValue = { sleight_of_hand: 2, base: 2 };
-const SKULL_AND_CROSSBONES_VALUE: CastValue = { sleight_of_hand: 2, base: 2 };
-const BURIED_TREASURE_VALUE: CastValue = { sleight_of_hand: 1, base: 1 };
-const GRAND_MELEE_VALUE: CastValue = { sleight_of_hand: 1, base: 1 };
-
-const BUFF_VALUE_BY_ID: BuffValueMap = [];
-BUFF_VALUE_BY_ID[SPELLS.BROADSIDE.id] = BROADSIDE_VALUE;
-BUFF_VALUE_BY_ID[SPELLS.TRUE_BEARING.id] = TRUE_BEARING_VALUE;
-BUFF_VALUE_BY_ID[SPELLS.RUTHLESS_PRECISION.id] = RUTHLESS_PRECISION_VALUE;
-BUFF_VALUE_BY_ID[SPELLS.SKULL_AND_CROSSBONES.id] = SKULL_AND_CROSSBONES_VALUE;
-BUFF_VALUE_BY_ID[SPELLS.BURIED_TREASURE.id] = BURIED_TREASURE_VALUE;
-BUFF_VALUE_BY_ID[SPELLS.GRAND_MELEE.id] = GRAND_MELEE_VALUE;
 
 // e.g. 1 combo point is 12 seconds, 3 combo points is 24 seconds
 const PANDEMIC_WINDOW = 0.3;
@@ -69,13 +42,6 @@ class RollTheBonesCastTracker extends Analyzer {
   protected energyCapTracker!: OutlawEnergyCapTracker;
 
   rolltheBonesCastEvents: RTBCast[] = [];
-  rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce(
-    (map: Record<string, RTBCast[]>, label: string) => {
-      map[label] = [];
-      return map;
-    },
-    {},
-  );
 
   constructor(options: Options) {
     super(options);
@@ -83,16 +49,6 @@ class RollTheBonesCastTracker extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES),
       this.processCast,
     );
-  }
-
-  categorizeCast(cast: RTBCast) {
-    let combat_buffs_value = 0;
-    cast.appliedBuffs.forEach((buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].base));
-    if (combat_buffs_value > 2) {
-      return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
-    }
-
-    return ROLL_THE_BONES_CATEGORIES.LOW_VALUE;
   }
 
   castRemainingDuration(cast: RTBCast) {
@@ -136,7 +92,6 @@ class RollTheBonesCastTracker extends Analyzer {
     };
 
     this.rolltheBonesCastEvents.push(newCast);
-    this.rolltheBonesCastValues[this.categorizeCast(newCast)].push(newCast);
   }
 }
 

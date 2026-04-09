@@ -16,7 +16,11 @@ class OutlawComboPointTracker extends ComboPointTracker {
     if (spellId === SPELLS.SINISTER_STRIKE_PROC.id) {
       let amount = 1;
 
-      if (this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id)) {
+      if (
+        this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TROUBLE.id) ||
+        this.selectedCombatant.hasBuff(SPELLS.TRIPLE_THREAT.id) ||
+        this.selectedCombatant.hasBuff(SPELLS.JACKPOT.id)
+      ) {
         amount = 2;
       }
 

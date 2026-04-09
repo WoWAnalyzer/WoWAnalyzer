@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+    change(date(2026, 4, 5), <>Updated cooldown of <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />.</>, Badkad),
     change(date(2026, 4, 1), "Added basic support for Midnight", Badkad),
   change(date(2025, 9, 29), <>Updated cooldown and CDR of <SpellLink spell={talents.ANTI_MAGIC_ZONE_TALENT} />.</>, Arlie),
   change(date(2024, 11, 20), <>Add basic support for San'layn abilities.</>, emallson),

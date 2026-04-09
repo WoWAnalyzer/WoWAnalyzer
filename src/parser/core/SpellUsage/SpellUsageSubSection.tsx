@@ -232,6 +232,11 @@ const SpellUsageSubSection = ({
 
   const onClickBox = useCallback(
     (index: number) => {
+      if (selectedUse === index) {
+        setSelectedUse(undefined);
+        onPerformanceBoxClick?.(undefined);
+        return;
+      }
       if (index >= performances.length) {
         setSelectedUse(undefined);
         onPerformanceBoxClick?.(undefined);
@@ -240,7 +245,7 @@ const SpellUsageSubSection = ({
         onPerformanceBoxClick?.(uses.at(index));
       }
     },
-    [onPerformanceBoxClick, performances.length, uses],
+    [onPerformanceBoxClick, performances.length, selectedUse, uses],
   );
 
   // hideGoodCasts is in the dependency list because we want this to run whenever

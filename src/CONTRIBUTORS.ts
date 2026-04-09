@@ -2301,7 +2301,19 @@ export const Seriousnes: Contributor = {
     },
   ],
 };
-
+export const Silverkage: Contributor = {
+  nickname: 'Silverkage',
+  github: 'tinkerer12345',
+  discord: 'Cloud U',
+  avatar: avatar('cloud-u-avatar.jpg'),
+  mains: [
+    {
+      name: 'Silverkage',
+      spec: SPECS.OUTLAW_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/silvermoon/Silverkage',
+    },
+  ],
+};
 export const CodersKitchen: Contributor = {
   nickname: 'coders-kitchen',
   github: 'coders-kitchen',
@@ -2605,6 +2617,12 @@ export const Kivlov: Contributor = {
   ],
 };
 
+export const SheenMachine: Contributor = {
+  nickname: 'SheenMachine',
+  github: 'swhild3n',
+  discord: 'sheenmachine',
+};
+
 export const Nevdok: Contributor = {
   nickname: 'Nevdok',
   github: 'GeoffreyBalshaw',
@@ -2844,10 +2862,33 @@ export const MarchingCube: Contributor = {
   github: 'MarchingCube',
 };
 
+export const Hezaerd: Contributor = {
+  nickname: 'Hezaerd',
+  github: 'Hezaerd',
+  discord: 'Hezaerd',
+  avatar: avatar('hezaerd-avatar.png'),
+  mains: [
+    {
+      name: 'Hezaerd',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://warcraftlogs.com/character/eu/hyjal/hezaerd',
+    },
+  ],
+  links: {
+    Website: 'https://hezaerd.com',
+  },
+};
+
 export const NotStirred: Contributor = {
   nickname: 'NotStirred',
   github: 'NotStirred',
   discord: 'NotStirred',
+};
+
+export const Thias: Contributor = {
+  nickname: 'Thias',
+  github: 'math280h',
+  discord: 'thias.',
 };
 
 export const Biggerbits: Contributor = {

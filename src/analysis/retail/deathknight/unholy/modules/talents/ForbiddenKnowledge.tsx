@@ -83,7 +83,7 @@ export default class ForbiddenKnowledge extends ExecuteHelper.withDependencies({
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >

@@ -36,6 +36,7 @@ import Exergy from './modules/talents/Exergy';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import TacticalRetreat from './modules/talents/TacticalRetreat';
 import Initiative from './modules/talents/Initiative';
+import Inertia from './modules/talents/Inertia';
 import EyeBeamNormalizer from './normalizers/EyeBeamNormalizer';
 import Ragefire from './modules/talents/Ragefire';
 import InnerDemon from './modules/talents/InnerDemon';
@@ -104,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfSpite: SigilOfSpite,
     tacticalRetreat: TacticalRetreat,
     initiative: Initiative,
+    inertia: Inertia,
     ragefire: Ragefire,
     innerDemon: InnerDemon,
     soulscar: Soulscar,

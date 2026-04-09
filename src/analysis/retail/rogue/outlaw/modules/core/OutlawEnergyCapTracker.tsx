@@ -1,15 +1,13 @@
 import { EnergyCapTracker } from 'analysis/retail/rogue/shared';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
-const BURIED_TREASURE_REGEN = 4;
 const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 
 class OutlawEnergyCapTracker extends EnergyCapTracker {
   static buffsChangeMax = [TALENTS.ADRENALINE_RUSH_TALENT.id];
-  static buffsChangeRegen = [TALENTS.ADRENALINE_RUSH_TALENT, SPELLS.BURIED_TREASURE];
+  static buffsChangeRegen = [TALENTS.ADRENALINE_RUSH_TALENT];
 
   constructor(options: Options) {
     super(options);
@@ -37,12 +35,6 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
   }
 
   private onRegenRateBuffsUpdate(event: ApplyBuffEvent | RemoveBuffEvent) {
-    const buriedTreasureRegenBase = this.combatantHasBuffActive(
-      SPELLS.BURIED_TREASURE.id,
-      event.timestamp,
-    )
-      ? BURIED_TREASURE_REGEN
-      : 0;
     const adrenalineRushRegenRate = this.combatantHasBuffActive(
       TALENTS.ADRENALINE_RUSH_TALENT.id,
       event.timestamp,
@@ -50,9 +42,7 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
       ? ADRENALINE_RUSH_REGEN_MULTIPLIER
       : 1;
     this.energyTracker.triggerRateChange(
-      (this.energyTracker.baseRegen + buriedTreasureRegenBase) *
-        this.energyTracker.vigorRegen *
-        adrenalineRushRegenRate,
+      this.energyTracker.baseRegen * this.energyTracker.vigorRegen * adrenalineRushRegenRate,
     );
   }
 }

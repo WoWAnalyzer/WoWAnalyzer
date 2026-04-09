@@ -14,7 +14,6 @@ import { TIERS } from 'game/TIERS';
 interface WakeOfAshesCooldownCast extends CooldownTrigger<CastEvent> {
   hammerOfLightCasts: number;
   targetHasExecutionSentenceOnCast: boolean;
-  divineHammerCastDuringWake: boolean;
 }
 
 class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
@@ -78,7 +77,6 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
   explainPerformance(cast: WakeOfAshesCooldownCast): SpellUse {
     const executionSentencePerformance = this.executionSentencePerformance(cast);
     const hammerOfLightPerformance = this.hammerOfLightPerformance(cast);
-    const divineHammerPerformance = this.divineHammerPerformance(cast);
 
     const checklistItems = [];
 
@@ -94,13 +92,6 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
         check: 'exec',
         timestamp: cast.event.timestamp,
         ...executionSentencePerformance,
-      });
-    }
-    if (divineHammerPerformance) {
-      checklistItems.push({
-        check: 'dh',
-        timestamp: cast.event.timestamp,
-        ...divineHammerPerformance,
       });
     }
 
@@ -195,37 +186,9 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
     };
   }
 
-  private divineHammerPerformance(cast: WakeOfAshesCooldownCast): UsageInfo | undefined {
-    if (!cast.divineHammerCastDuringWake) {
-      return undefined;
-    }
-
-    return {
-      performance: QualitativePerformance.Ok,
-      summary: (
-        <>
-          <SpellLink spell={TALENTS_PALADIN.DIVINE_HAMMER_TALENT} /> cast during{' '}
-          <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} />
-        </>
-      ),
-      details: (
-        <>
-          <>
-            You cast <SpellLink spell={TALENTS_PALADIN.DIVINE_HAMMER_TALENT} /> during your
-            cooldowns. Use it beforehand, if available.
-          </>
-        </>
-      ),
-    };
-  }
-
   onCast(event: CastEvent) {
     this.recordCooldown({
       event,
-      divineHammerCastDuringWake:
-        getCastsDuringWake(event).filter(
-          (castEvent) => castEvent.ability.guid === SPELLS.DIVINE_HAMMER_CAST.id,
-        ).length > 0,
       hammerOfLightCasts: getCastsDuringWake(event).filter(
         (castEvent) => castEvent.ability.guid === SPELLS.HAMMER_OF_LIGHT.id,
       ).length,
