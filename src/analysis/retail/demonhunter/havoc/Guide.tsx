@@ -1,6 +1,8 @@
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GoodColor, GuideProps, Section, SubSection, useAnalyzers } from 'interface/guide';
 import TALENTS from 'common/TALENTS/demonhunter';
+import SPELLS from 'common/SPELLS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
+import { Highlight } from 'interface/Highlight';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
@@ -18,6 +20,9 @@ import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsTog
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import Blur from './modules/spells/Blur';
+import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
+import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -25,6 +30,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
       <RotationSection modules={modules} events={events} info={info} />
+      <DefensivesSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -124,6 +130,51 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           </div>,
           <></>,
         )}
+    </Section>
+  );
+}
+
+function DefensivesSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  const defensiveAnalyzers = useAnalyzers([Blur]);
+
+  return (
+    <Section title="Defensives">
+      <p>
+        <SpellLink spell={SPELLS.BLUR} /> is Havoc's primary personal defensive. Using it well helps
+        you survive dangerous moments more reliably and reduces avoidable pressure on your healers.
+      </p>
+      <p>
+        Because Blur has a relatively short cooldown, it should usually be used proactively for
+        meaningful incoming damage rather than held too long waiting for a perfect emergency.
+      </p>
+      <p>When reviewing your Blur usage, focus on two questions:</p>
+      <ol>
+        <li>
+          Did Blur cover dangerous spikes or other high-pressure damage windows?
+          <p>
+            <small>
+              In the damage chart below, a spike highlighted in{' '}
+              <Highlight color={GoodColor} textColor="black">
+                green
+              </Highlight>{' '}
+              was covered by Blur.
+            </small>
+          </p>
+        </li>
+        <li>
+          Was Blur used often enough across the fight, or was it held long enough to lose value?
+          <p>
+            <small>
+              The cooldown timeline below shows whether casts were timed around threatening damage
+              and whether long gaps may have cost you additional uses.
+            </small>
+          </p>
+        </li>
+      </ol>
+      <SubSection title="Damage Taken">
+        <Timeline analyzers={defensiveAnalyzers} />
+      </SubSection>
+      <AllCooldownUsageList analyzers={defensiveAnalyzers} />
     </Section>
   );
 }
