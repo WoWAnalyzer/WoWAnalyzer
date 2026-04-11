@@ -158,9 +158,7 @@ const ReportSelecter = () => {
     e.preventDefault();
 
     if (!reportCode) {
-      toast.warning(
-        defineMessage({ id: 'interface.reportSelecter.enterReport', message: `Enter a report first.` }),
-      );
+      toast.warning('Enter a report first.');
       return;
     }
 
