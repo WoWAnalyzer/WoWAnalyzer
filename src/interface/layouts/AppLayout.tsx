@@ -69,7 +69,7 @@ export function AppLayout() {
       <Hotkeys />
       <ScrollRestoration />
       <ProgressBar />
-      <Toaster theme="dark" position="top-center" richColors />
+      <Toaster theme="dark" position="top-center" richColors closeButton />
     </>
   );
 }
