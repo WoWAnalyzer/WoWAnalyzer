@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 4, 10), <>Fixed bug in statistic for <SpellLink spell={TALENTS_DRUID.STRATEGIC_INFUSION_TALENT}/>.</>, squided),
   change(date(2026, 3, 31), <>Remove recent tranquility check from convoke guide. Fix Abundancy module to account for Intensity crit bonus. Add Intensity module.</>, squided),
   change(date(2026, 3, 23), <>Update mana efficiency calculations and cooldowns tab for Midnight.</>, squided),
   change(date(2026, 3, 22), <>Implement liveliness talent statistic. Fix bug in lifebloom guide's cast analysis.</>, squided),
