@@ -2828,3 +2828,17 @@ export const defgfed: Contributor = {
   github: 'defgfed',
   discord: 'defgfed',
 };
+
+export const Chiso: Contributor = {
+  nickname: 'Chiso',
+  github: 'Extrasza',
+  discord: 'mattchi_',
+  avatar: avatar('chiso-avatar.jpg'),
+  mains: [
+    {
+      name: 'Fraus',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://www.warcraftlogs.com/character/us/azralon/fraus',
+    },
+  ],
+};
