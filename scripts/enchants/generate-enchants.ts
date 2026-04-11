@@ -4,11 +4,11 @@ import {
   isItemEnchantment,
   EnchantmentStaticDataEntry,
   TempEnchantsStaticDataEntry,
-  EnchantmentInternalEntry,
+  EnchantmentEntry,
 } from 'scripts/enchants/enchants-types';
 import {
   groupEnchantsByType,
-  mapTempEnchantsStaticDataToInternalEntries,
+  getTempEnchantEntries,
   printEnchants,
   createEnchantKey,
 } from 'scripts/enchants/enchants-helpers';
@@ -26,9 +26,9 @@ async function generateEnchants(isPTR: boolean = false) {
   );
 
   const itemEnchants = enchantsData.filter(isItemEnchantment);
-  const enchantsForExpansion = itemEnchants.filter(filterToExpansion);
+  const itemEnchantsForExpansion = itemEnchants.filter(filterToExpansion);
 
-  const itemEnchantsInternalEntries: EnchantmentInternalEntry[] = enchantsForExpansion
+  const itemEnchantEntries: EnchantmentEntry[] = itemEnchantsForExpansion
     .map((entry) => {
       let categoryName = 'Other';
 
@@ -86,18 +86,15 @@ async function generateEnchants(isPTR: boolean = false) {
     })
     .filter((x) => x !== null);
 
-  const itemEnchantsByType = groupEnchantsByType(itemEnchantsInternalEntries);
+  const itemEnchantsByType = groupEnchantsByType(itemEnchantEntries);
 
   const tempEnchantsData: TempEnchantsStaticDataEntry[] = await readJsonFromUrl(
     getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.TempEnchants, isPTR),
   );
 
   const tempEnchantsForExpansion = tempEnchantsData.filter(filterToExpansion);
-  const temporaryEnchantmentsInternalEntries = await mapTempEnchantsStaticDataToInternalEntries(
-    tempEnchantsForExpansion,
-    isPTR,
-  );
-  const keyedTemporaryEnchantsByType = groupEnchantsByType(temporaryEnchantmentsInternalEntries);
+  const tempEnchantEntries = await getTempEnchantEntries(tempEnchantsForExpansion, isPTR);
+  const tempEnchantsByType = groupEnchantsByType(tempEnchantEntries);
 
   // WRITE TO FILE
   console.log(`Writing enchants...`);
@@ -108,7 +105,7 @@ import { Enchant } from 'common/ITEMS/Item';
 
 const enchants = {
   ${itemEnchantsByType
-    .concat(...keyedTemporaryEnchantsByType)
+    .concat(...tempEnchantsByType)
     .map(printEnchants)
     .join('')}
 } satisfies Record<string, Enchant>;

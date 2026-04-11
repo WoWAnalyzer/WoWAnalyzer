@@ -1,6 +1,6 @@
 import { Enchant } from 'common/ITEMS/Item';
 
-export type EnchantmentInternalEntry = {
+export type EnchantmentEntry = {
   type: string;
   key: string;
   value: Enchant;

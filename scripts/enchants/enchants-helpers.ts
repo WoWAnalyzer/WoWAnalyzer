@@ -1,7 +1,4 @@
-import {
-  EnchantmentInternalEntry,
-  TempEnchantsStaticDataEntry,
-} from 'scripts/enchants/enchants-types';
+import { EnchantmentEntry, TempEnchantsStaticDataEntry } from 'scripts/enchants/enchants-types';
 import { Enchant } from 'common/ITEMS/Item';
 import {
   csvToObject,
@@ -29,21 +26,22 @@ export function printEnchants(enchants: {
   `;
 }
 
-export function groupEnchantsByType(entries: EnchantmentInternalEntry[]) {
-  const map = entries.reduce<
-    Record<string, { type: string; enchants: EnchantmentInternalEntry[] }>
-  >((acc, entry) => {
-    if (!acc[entry.type]) {
-      acc[entry.type] = {
-        type: entry.type,
-        enchants: [],
-      };
-    }
+export function groupEnchantsByType(entries: EnchantmentEntry[]) {
+  const map = entries.reduce<Record<string, { type: string; enchants: EnchantmentEntry[] }>>(
+    (acc, entry) => {
+      if (!acc[entry.type]) {
+        acc[entry.type] = {
+          type: entry.type,
+          enchants: [],
+        };
+      }
 
-    acc[entry.type].enchants.push(entry);
+      acc[entry.type].enchants.push(entry);
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {},
+  );
 
   return Object.values(map);
 }
@@ -57,7 +55,7 @@ export function createEnchantKey(name: string, craftingQuality?: number, categor
 
 // region Temporary Enchants
 
-export async function mapTempEnchantsStaticDataToInternalEntries(
+export async function getTempEnchantEntries(
   tempEnchants: TempEnchantsStaticDataEntry[],
   isPTR: boolean = false,
 ) {
