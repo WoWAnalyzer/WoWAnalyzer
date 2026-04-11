@@ -43,7 +43,7 @@ export const BREATH_OF_EONS_DEBUFF_LINK = 'breathOfEonsDebuffLink';
 
 const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
 const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
-const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
+export const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
 export const UPHEAVAL_CAST_DAM_LINK = 'upheavalCastDamLink';
 export const UPHEAVAL_RUMBLING_EARTH_LINK = 'upheavalRumblingEarthLink';
 

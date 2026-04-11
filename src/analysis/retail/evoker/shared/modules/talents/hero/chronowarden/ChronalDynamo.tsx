@@ -9,6 +9,9 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import SPECS from 'game/SPECS';
+import { isFromAfterimageDamage } from '../../../normalizers/AfterimageDamageCastLinkNormalizer';
+import { CHRONAL_DYNAMO_MULTIPLIER } from 'analysis/retail/evoker/shared';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
 /**
  * The cast time of Chrono Flames is reduced by 10%.
@@ -39,11 +42,15 @@ class ChronalDynamo extends Analyzer {
   }
 
   onHealAug(event: HealEvent) {
-    this.chronalDynamoHealing += event.amount;
+    this.chronalDynamoHealing += calculateEffectiveHealing(event, CHRONAL_DYNAMO_MULTIPLIER);
   }
 
   onDamage(event: DamageEvent) {
-    //this.chronalDynamoDamage += event.amount;
+    //Currently, this just never returns, and counts all damage as non-Afterimage.
+    if (isFromAfterimageDamage(event)) {
+      return;
+    }
+    this.chronalDynamoDamage += calculateEffectiveDamage(event, CHRONAL_DYNAMO_MULTIPLIER);
   }
 
   statistic() {
