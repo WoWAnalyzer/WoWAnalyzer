@@ -9,11 +9,29 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { DamageEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import { LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
 
+const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
 //Test this
 const BUFFER = 1000;
 
 const EVENT_LINKS: EventLink[] = [
+  {
+    linkRelation: AFTERIMAGE_CAST_LINK,
+    reverseLinkRelation: AFTERIMAGE_CAST_LINK,
+    linkingEventId: [
+      TALENTS.UPHEAVAL_TALENT.id,
+      SPELLS.UPHEAVAL_FONT.id,
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+    ],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: BUFFER,
+    backwardBufferMs: BUFFER,
+    maximumLinks: 3,
+  },
   {
     linkRelation: AFTERIMAGE_DAMAGE_LINK,
     reverseLinkRelation: AFTERIMAGE_DAMAGE_LINK,
@@ -28,7 +46,11 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(_linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
-        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK)
+        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
+        HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK)
+        // If Fire Breath becomes able to be procced without a cast (e.g. like Undermine tier set, or Stasis),
+        // this last condition will have to change. This hasn't happened for this empower yet, but has been
+        // possible for every other empower.
       );
     },
   },
@@ -48,8 +70,9 @@ const EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(referencedEvent, AFTERIMAGE_DAMAGE_LINK) &&
         !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
         !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
+        HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK) &&
         HasRelatedEvent(linkingEvent, UPHEAVAL_CAST_DAM_LINK)
-        // If something like the Undermine tier set is added again, this last condition will have to change.
+        // If something like the Undermine tier set is added again, the last two conditions will have to change.
       );
     },
   },

@@ -9,7 +9,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import SPECS from 'game/SPECS';
-import { isFromAfterimageDamage } from '../../../normalizers/AfterimageDamageCastLinkNormalizer';
+import { isFromAfterimageDamage } from '../../../normalizers/ChronowardenCastLinkNormalizer';
 import { CHRONAL_DYNAMO_MULTIPLIER } from 'analysis/retail/evoker/shared';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 

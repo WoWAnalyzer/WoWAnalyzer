@@ -79,7 +79,7 @@ import {
   NozdormuAdept,
   ChronalDynamo,
   ImminentDestructionCastLinkNormalizer,
-  AfterimageDamageCastLinkNormalizer,
+  ChronowardenCastLinkNormalizer,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -99,7 +99,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     imminentDestructionCastLinkNormalizer: ImminentDestructionCastLinkNormalizer,
-    afterimageDamageCastLinkNormalizer: AfterimageDamageCastLinkNormalizer,
+    chronowardenCastLinkNormalizer: ChronowardenCastLinkNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
