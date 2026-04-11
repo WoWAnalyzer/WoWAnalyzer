@@ -18,7 +18,6 @@ import SymbioticBloom from './modules/talents/SymbioticBloom';
 import TectonicLocus from './modules/talents/TectonicLocus';
 import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
-import MoltenEmbers from './modules/talents/MoltenEmbers';
 import RumblingEarth from './modules/talents/RumblingEarth';
 import MomentumShift from './modules/talents/MomentumShift';
 import Overlord from './modules/talents/Overlord';
@@ -138,7 +137,6 @@ class CombatLogParser extends MainCombatLogParser {
     tectonicLocus: TectonicLocus,
     volcanism: Volcanism,
     blisteringScales: BlisteringScales,
-    moltenEmbers: MoltenEmbers,
     rumblingEarth: RumblingEarth,
     momentumShift: MomentumShift,
     overlord: Overlord,
