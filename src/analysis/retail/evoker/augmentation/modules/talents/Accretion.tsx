@@ -17,6 +17,10 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import { SpellLink } from 'interface';
 import DonutChart from 'parser/ui/DonutChart';
+import {
+  getChronoFlameDamageLink,
+  isFromAfterimageDamage,
+} from 'analysis/retail/evoker/shared/modules/normalizers/ChronowardenCastLinkNormalizer';
 
 /**
  * Eruption reduces the remaining cooldown of Upheaval by 1.0 sec.
@@ -38,6 +42,8 @@ class Accretion extends Analyzer {
   totalDamageDone = 0;
   totalShiftingSandsDamage = 0;
   totalShiftingSandsApplications = 0;
+  totalAfterimageDamage = 0;
+  totalEmpowerCasts = 0;
   totalUpheavalDamage = 0;
   totalUpheavalCasts = 0;
   effectiveUpheavalCDR = 0;
@@ -45,6 +51,7 @@ class Accretion extends Analyzer {
 
   accretionEbonMight = 0;
   accretionShiftingSands = 0;
+  accretionAfterimage = 0;
   accretionUpheaval = 0;
 
   constructor(options: Options) {
@@ -63,6 +70,7 @@ class Accretion extends Analyzer {
       this.onBuffApply,
     );
     this.addEventListener(Events.damage, this.onDamage);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerCast);
     this.addEventListener(Events.fightend, this.calcAccretionValue);
   }
 
@@ -87,6 +95,10 @@ class Accretion extends Analyzer {
     this.totalUpheavalCasts += 1;
   }
 
+  onEmpowerCast() {
+    this.totalEmpowerCasts += 1;
+  }
+
   onDamage(event: DamageEvent) {
     if (
       event.ability.guid === SPELLS.UPHEAVAL_DAM.id ||
@@ -99,6 +111,10 @@ class Accretion extends Analyzer {
     }
     if (event.ability.guid === SPELLS.SHIFTING_SANDS_BUFF.id) {
       this.totalShiftingSandsDamage += event.amount + (event.absorbed ?? 0);
+    }
+    if (event.ability.guid === SPELLS.LIVING_FLAME_DAMAGE.id && isFromAfterimageDamage(event)) {
+      this.totalAfterimageDamage += event.amount + (event.absorbed ?? 0);
+      this.totalAfterimageDamage += getChronoFlameDamageLink(event)?.amount ?? 0;
     }
     this.totalDamageDone += event.amount + (event.absorbed ?? 0);
   }
@@ -118,6 +134,10 @@ class Accretion extends Analyzer {
 
     this.accretionShiftingSands = avgShiftingSandsDamage * additionalUpheavalCastsViaCdr;
 
+    const avgAfterimageDamage = this.totalAfterimageDamage / this.totalEmpowerCasts;
+
+    this.accretionAfterimage = avgAfterimageDamage * additionalUpheavalCastsViaCdr;
+
     const cdrUpheavalExtension =
       (this.ebonMightUpheavalExtension / this.totalUpheavalCasts) * additionalUpheavalCastsViaCdr;
 
@@ -126,6 +146,13 @@ class Accretion extends Analyzer {
 
   statistic() {
     const damageSources = [
+      {
+        color: 'rgb(255, 0, 0)',
+        label: 'Afterimage',
+        spellId: TALENTS.AFTERIMAGE_TALENT.id,
+        valueTooltip: formatNumber(this.accretionAfterimage),
+        value: this.accretionAfterimage,
+      },
       {
         color: 'rgb(255, 255, 0)',
         label: 'Shifting Sands',
