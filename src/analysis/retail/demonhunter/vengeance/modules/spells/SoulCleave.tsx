@@ -37,6 +37,9 @@ export default class SoulCleave extends Analyzer {
   private isAnnhilator = false;
   private soulsInMeta = 0;
   private soulsOutOfMeta = 0;
+  private get soulThreshold(): number {
+    return this.selectedCombatant.hasTalent(TALENTS.UNTETHERED_RAGE_2_VENGEANCE_TALENT) ? 3 : 2;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -58,8 +61,6 @@ export default class SoulCleave extends Analyzer {
       <>
         {' '}
         Use <SpellLink spell={SPELLS.SOUL_CLEAVE} /> when you would not otherwise use{' '}
-        <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />. Always try to press{' '}
-        <SpellLink spell={SPELLS.SOUL_CLEAVE} /> at least once after every{' '}
         <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />.
       </>
     ) : null;
@@ -70,7 +71,7 @@ export default class SoulCleave extends Analyzer {
         </strong>{' '}
         is your primary <strong>spender</strong> of <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
         <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-        s. It consumes up to 2 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+        s. It consumes up to {this.soulThreshold} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
         s.
         {spiritBombSnippet}
       </p>
