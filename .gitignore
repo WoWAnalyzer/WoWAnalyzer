@@ -10,6 +10,11 @@
 
 # scripts
 /scripts/talents/*.json
+/scripts/enchants/*.json
+
+# cache
+/.cache
+/scripts/enchants/.cache
 
 # misc
 .DS_Store

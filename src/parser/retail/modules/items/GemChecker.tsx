@@ -2,7 +2,6 @@ import type { JSX } from 'react';
 import ITEMS from 'common/ITEMS';
 import Item, { CraftedItem } from 'common/ITEMS/Item';
 import GEMS from 'common/ITEMS/midnight/gems';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import ItemLink from 'interface/ItemLink';
 import { Item as EventItem } from 'parser/core/Events';
 import BaseGemChecker, { GemmableSlotConfig } from 'parser/shared/modules/items/GemChecker';
@@ -103,15 +102,15 @@ const PVE_GEM_IDS: number[] = [
 
 class GemChecker extends BaseGemChecker {
   private static retailGemSlots = {
-    [GEAR_SLOTS.NECK]: retailJewelrySlots,
-    [GEAR_SLOTS.FINGER1]: retailJewelrySlots,
-    [GEAR_SLOTS.FINGER2]: retailJewelrySlots,
-    [GEAR_SLOTS.HEAD]: retailBodySlots,
-    [GEAR_SLOTS.WRISTS]: retailBodySlots,
-    [GEAR_SLOTS.WAIST]: retailBodySlots,
-  };
+    HEAD: retailBodySlots,
+    NECK: retailJewelrySlots,
+    WRISTS: retailBodySlots,
+    WAIST: retailBodySlots,
+    FINGER1: retailJewelrySlots,
+    FINGER2: retailJewelrySlots,
+  } as const;
 
-  get GemableSlots(): Record<number, GemmableSlotConfig> {
+  get GemableSlots() {
     return GemChecker.retailGemSlots;
   }
 

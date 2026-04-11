@@ -36,9 +36,8 @@ class WeaponEnchantAnalyzer<R extends EnchantRank = EnchantRank> extends Analyze
     this.enchantSpell = enchantSpell;
     this.ranks = ranks;
 
-    const { mainHand, offHand } = this.selectedCombatant;
-    this.mainHand = this.getRank(mainHand);
-    this.offHand = this.getRank(offHand);
+    this.mainHand = this.getRank(this.selectedCombatant.getGear('MAINHAND'));
+    this.offHand = this.getRank(this.selectedCombatant.getGear('OFFHAND'));
 
     this.active = this.mainHand != null || this.offHand != null;
   }

@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS/classic/shaman';
+import Faction from 'game/Faction';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
-    const faction = combatant._combatantInfo.faction === 1 ? 'Alliance' : 'Horde';
+    const faction = combatant.faction;
     return [
       // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
       // Rotational
@@ -78,13 +79,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOODLUST.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
-        enabled: faction === 'Horde',
+        enabled: faction === Faction.Horde,
       },
       {
         spell: SPELLS.HEROISM.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
-        enabled: faction === 'Alliance',
+        enabled: faction === Faction.Alliance,
       },
       {
         spell: [SPELLS.CLEANSE_SPIRIT.id],

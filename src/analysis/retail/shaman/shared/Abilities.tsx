@@ -3,6 +3,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
+import Faction from 'game/Faction';
 import SPECS from 'game/SPECS';
 import { Options } from 'parser/core/Analyzer';
 
@@ -19,19 +20,19 @@ class Abilities extends CoreAbilities {
 
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
-    const faction = combatant._combatantInfo.faction === 1 ? 'Alliance' : 'Horde';
+    const faction = combatant.faction;
     return [
       {
         spell: SPELLS.BLOODLUST.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
-        enabled: faction === 'Horde',
+        enabled: faction === Faction.Horde,
       },
       {
         spell: SPELLS.HEROISM.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
-        enabled: faction === 'Alliance',
+        enabled: faction === Faction.Alliance,
       },
       {
         spell: SPELLS.SKYFURY.id,
