@@ -5,7 +5,6 @@ import {
   Trailblazer,
   BornToBeWild,
   BindingShot,
-  KillShot,
   FocusTracker,
   FocusDetails,
   SpellFocusCost,
@@ -79,7 +78,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
     cobraShot: CobraShot,
-    killShot: KillShot,
 
     //Talents
     direBeast: DireBeast,

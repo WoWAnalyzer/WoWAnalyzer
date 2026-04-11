@@ -2617,6 +2617,12 @@ export const Kivlov: Contributor = {
   ],
 };
 
+export const SheenMachine: Contributor = {
+  nickname: 'SheenMachine',
+  github: 'swhild3n',
+  discord: 'sheenmachine',
+};
+
 export const Nevdok: Contributor = {
   nickname: 'Nevdok',
   github: 'GeoffreyBalshaw',
@@ -2883,4 +2889,10 @@ export const Thias: Contributor = {
   nickname: 'Thias',
   github: 'math280h',
   discord: 'thias.',
+};
+
+export const Biggerbits: Contributor = {
+  nickname: 'Biggerbits',
+  github: 'zprobinson',
+  discord: 'msrobinson',
 };

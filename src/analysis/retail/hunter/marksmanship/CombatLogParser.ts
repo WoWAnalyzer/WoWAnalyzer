@@ -7,7 +7,6 @@ import {
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
-  KillShot,
   NaturalMending,
   RejuvenatingWind,
   SpellFocusCost,
@@ -25,6 +24,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
 import SurgingShots from './modules/talents/SurgingShots';
+import KillShot from './modules/talents/KillShot';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 import AimedShot from './modules/talents/AimedShot';

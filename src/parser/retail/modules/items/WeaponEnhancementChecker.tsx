@@ -5,25 +5,23 @@ import BaseWeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnha
 // /report/tqbL2gBn8HvWAmrK/73-Mythic+Echo+of+Doragosa+-+Kill+(1:42)/Xepheris/standard/overview
 
 // const MIN_ENHANCEMENT_IDS = [
-//   ITEMS.ALGARI_MANA_OIL_R1.effectId,
-//   ITEMS.ALGARI_MANA_OIL_R2.effectId,
-//   ITEMS.IRONCLAW_WEIGHSTONE_R1.effectId,
-//   ITEMS.IRONCLAW_WEIGHSTONE_R2.effectId,
-//   ITEMS.IRONCLAW_WHETSTONE_R1.effectId,
-//   ITEMS.IRONCLAW_WHETSTONE_R2.effectId,
-//   ITEMS.OIL_OF_BELEDARS_GRACE_R1.effectId,
-//   ITEMS.OIL_OF_BELEDARS_GRACE_R2.effectId,
-//   ITEMS.OIL_OF_BELEDARS_GRACE_R3.effectId,
-//   ITEMS.OIL_OF_DEEP_TOXINS_R1.effectId,
-//   ITEMS.OIL_OF_DEEP_TOXINS_R2.effectId,
-//   ITEMS.OIL_OF_DEEP_TOXINS_R3.effectId,
+//   ITEMS.WEIGHTED_BOOMSHOTS_R1.effectId,
+//   ITEMS.LACED_ZOOMSHOTS_R1.effectId,
+//   ITEMS.SMUGGLERS_ENCHANTED_EDGE_R1.effectId,
+//   ITEMS.OIL_OF_DAWN_R1.effectId,
+//   ITEMS.THALASSIAN_PHOENIX_OIL_R1.effectId,
+//   ITEMS.REFULGENT_WEIGHTSTONE_R1.effectId,
+//   ITEMS.REFULGENT_WHETSTONE_R1.effectId,
 // ] as const satisfies number[];
 
 const MAX_ENHANCEMENT_IDS = [
-  ITEMS.ALGARI_MANA_OIL_R3.effectId,
-  ITEMS.BUBBLING_WAX.effectId,
-  ITEMS.IRONCLAW_WEIGHSTONE_R3.effectId,
-  ITEMS.IRONCLAW_WHETSTONE_R3.effectId,
+  ITEMS.WEIGHTED_BOOMSHOTS_R2.effectId,
+  ITEMS.LACED_ZOOMSHOTS_R2.effectId,
+  ITEMS.SMUGGLERS_ENCHANTED_EDGE_R2.effectId,
+  ITEMS.OIL_OF_DAWN_R2.effectId,
+  ITEMS.THALASSIAN_PHOENIX_OIL_R2.effectId,
+  ITEMS.REFULGENT_WEIGHTSTONE_R2.effectId,
+  ITEMS.REFULGENT_WHETSTONE_R2.effectId,
   // shaman effects
   ITEMS.WINDFURY_WEAPON.effectId,
   ITEMS.FLAMETONGUE_WEAPON.effectId,
