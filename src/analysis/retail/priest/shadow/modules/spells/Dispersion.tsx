@@ -1,71 +1,72 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import TALENTS from 'common/TALENTS/priest';
+import {
+  MajorDefensiveBuff,
+  absoluteMitigation,
+  buff,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
+import SpellLink from 'interface/SpellLink';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { ReactNode } from 'react';
 
-import { DISPERSION_BASE_CD, DISPERSION_UPTIME_MS } from '../../constants';
+const DISPERSION_DAMAGE_REDUCTION = 0.75;
 
-class Disperion extends Analyzer {
-  _previousDispersionCast: ApplyBuffEvent | null = null;
-  dispersionUptime = 0;
-  maxDispersionTime = 0;
-  dispersedTime = 0;
+class Dispersion extends MajorDefensiveBuff {
+  hasIntangibility: boolean;
+  hasHeightenedAlteration: boolean;
 
   constructor(options: Options) {
-    super(options);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION),
-      this.onBuffApplied,
+    super(SPELLS.DISPERSION, buff(SPELLS.DISPERSION), options);
+    this.active = true;
+    this.hasIntangibility = this.selectedCombatant.hasTalent(TALENTS.INTANGIBILITY_TALENT);
+    this.hasHeightenedAlteration = this.selectedCombatant.hasTalent(
+      TALENTS.HEIGHTENED_ALTERATION_TALENT,
     );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION),
-      this.onBuffRemoved,
-    );
+
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
-  //TODO: Check if this still works since its been changed from Any
-  _dispersions: Record<string, { start: number; end?: number }> = {};
-
-  get dispersions() {
-    return Object.keys(this._dispersions).map((key) => this._dispersions[key]);
-  }
-
-  get suggestionThresholds() {
-    this.dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
-    this.maxDispersionTime =
-      Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) *
-      DISPERSION_UPTIME_MS;
-    this.dispersedTime = this.dispersionUptime / this.maxDispersionTime;
-    return {
-      actual: this.dispersedTime,
-      isGreaterThan: {
-        minor: 0.5,
-        average: 0.65,
-        major: 0.75,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  onBuffApplied(event: ApplyBuffEvent) {
-    this._dispersions[event.timestamp] = {
-      start: event.timestamp,
-    };
-
-    this._previousDispersionCast = event;
-  }
-
-  onBuffRemoved(event: RemoveBuffEvent) {
-    if (this._previousDispersionCast != null) {
-      this._dispersions[this._previousDispersionCast.timestamp] = {
-        ...this._dispersions[this._previousDispersionCast.timestamp],
-        end: event.timestamp,
-      };
-
-      this._previousDispersionCast = null;
+  private onDamageTaken(event: DamageEvent) {
+    if (!this.defensiveActive || event.sourceIsFriendly) {
+      return;
     }
+
+    this.recordMitigation({
+      event,
+      mitigatedAmount: absoluteMitigation(event, DISPERSION_DAMAGE_REDUCTION),
+    });
+  }
+
+  description(): ReactNode {
+    const duration = this.hasHeightenedAlteration ? 8 : 6;
+    return (
+      <p>
+        <SpellLink spell={SPELLS.DISPERSION} /> reduces the damage you take by 75% for {duration}{' '}
+        seconds.
+        {this.hasHeightenedAlteration && (
+          <>
+            {' '}
+            <SpellLink spell={TALENTS.HEIGHTENED_ALTERATION_TALENT} /> extends its duration by 2
+            seconds.
+          </>
+        )}
+        {this.hasIntangibility && (
+          <>
+            {' '}
+            <SpellLink spell={TALENTS.INTANGIBILITY_TALENT} /> also heals you for 25% of your
+            maximum health over its duration and reduces its cooldown by 30 seconds.
+          </>
+        )}
+      </p>
+    );
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.GENERAL} />;
   }
 }
 
-export default Disperion;
+export default Dispersion;

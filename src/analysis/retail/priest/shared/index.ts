@@ -1,4 +1,8 @@
-export { default as DesperatePrayer } from './DesperatePrayer';
+export { default as DesperatePrayer } from './spells/DesperatePrayer';
+export { default as Fade } from './spells/Fade';
+export { default as PowerWordShield } from './spells/PowerWordShield';
+export { default as ProtectiveLight } from './spells/ProtectiveLight';
+export { default as DefensivesGuide } from './Defensives';
 export { default as ShadowfiendNormalizer } from './ShadowfiendNormalizer';
 export { default as TwinsOfTheSunPriestess } from './TwinsOfTheSunPriestess';
 export { default as TranslucentImage } from './TranslucentImage';

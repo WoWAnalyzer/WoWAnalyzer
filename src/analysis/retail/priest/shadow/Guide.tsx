@@ -6,6 +6,10 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import CooldownGraphSubsection from './modules/guide/CooldownGraphSubsection';
 import ResourceSubsection from './modules/guide/ResourceSubsection';
 import CastingSubsection from './modules/guide/CastingSubsection';
+import DefensivesGuide from '../shared/Defensives';
+import DesperatePrayer from '../shared/spells/DesperatePrayer';
+import Fade from '../shared/spells/Fade';
+import Dispersion from './modules/spells/Dispersion';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -56,6 +60,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.MANIFESTED_POWER_TALENT) &&
           modules.mindFlayInsanity.guideSubsection}
       </Section>
+
+      <DefensivesGuide analyzers={[DesperatePrayer, Dispersion, Fade]} />
 
       {/* TODO:
       <Section title="Action Priority List"></>
