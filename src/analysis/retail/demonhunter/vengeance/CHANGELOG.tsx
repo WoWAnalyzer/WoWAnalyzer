@@ -7,6 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 11), <>Corrected behaviour of MID1 4PC proc rate calculation and updated <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT}/> analysis to Midnight use cases</>, Quaarkz),
   change(date(2026, 3, 28), <>Vengeance <SpellLink spell={SPELLS.FRACTURE} /> soul and fury thresholds updated to Midnight values.</>, Quaarkz),
   change(date(2026, 1, 25), <><SpellLink spell={TALENTS.CALCIFIED_SPIKES_TALENT} /> DR added to <SpellLink spell={SPELLS.DEMON_SPIKES} /> mitigation.</>, Quaarkz),
   change(date(2025, 12, 21), <>Update value of MID1 2PC and delete Demonic for VDH.</>, Quaarkz),
