@@ -30,7 +30,7 @@ export function printEnchants(enchants: {
   `;
 }
 
-export function getKeyedEnchantmentInternalEntries(entries: EnchantmentInternalEntry[]) {
+export function groupEnchantsByType(entries: EnchantmentInternalEntry[]) {
   const map = entries.reduce<
     Record<string, { type: string; enchants: EnchantmentInternalEntry[] }>
   >((acc, entry) => {

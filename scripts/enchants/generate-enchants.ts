@@ -7,7 +7,7 @@ import {
 } from 'scripts/enchants/enchants-types';
 import {
   mapItemEnchantmentStaticDataToInternalEntries,
-  getKeyedEnchantmentInternalEntries,
+  groupEnchantsByType,
   mapTempEnchantsStaticDataToInternalEntries,
   printEnchants,
 } from 'scripts/enchants/enchants-helpers';
@@ -28,7 +28,7 @@ async function generateEnchants(isPTR: boolean = false) {
   const enchantsForExpansion = itemEnchants.filter(filterToExpansion);
   const itemEnchantsInternalEntries =
     mapItemEnchantmentStaticDataToInternalEntries(enchantsForExpansion);
-  const keyedEnchantsByType = getKeyedEnchantmentInternalEntries(itemEnchantsInternalEntries);
+  const keyedEnchantsByType = groupEnchantsByType(itemEnchantsInternalEntries);
 
   const tempEnchantsData: TempEnchantsStaticDataEntry[] = await readJsonFromUrl(
     getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.TempEnchants, isPTR),
@@ -39,9 +39,7 @@ async function generateEnchants(isPTR: boolean = false) {
     tempEnchantsForExpansion,
     isPTR,
   );
-  const keyedTemporaryEnchantsByType = getKeyedEnchantmentInternalEntries(
-    temporaryEnchantmentsInternalEntries,
-  );
+  const keyedTemporaryEnchantsByType = groupEnchantsByType(temporaryEnchantmentsInternalEntries);
 
   // WRITE TO FILE
   console.log(`Writing enchants...`);
