@@ -45,8 +45,8 @@ export default class Vengeance extends Analyzer {
 
   protected computeBaseAttackPower(): number {
     // prepull stats could shift this but not by much compared to vengeance
-    const combatantinfo = this.selectedCombatant._combatantInfo;
-    return 2 * Math.max(combatantinfo.strength, combatantinfo.agility);
+    const { strength, agility } = this.selectedCombatant.pullStats;
+    return 2 * Math.max(strength, agility);
   }
 
   protected recordAttackPower(event: AnyEvent) {
