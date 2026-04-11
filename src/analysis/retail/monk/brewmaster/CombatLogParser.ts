@@ -54,6 +54,7 @@ import Buffs from './modules/core/Buffs';
 import EmptyBarrel from './modules/talents/BringMeAnother/EmptyBarrel';
 import ExplodingKeg from './modules/spells/ExplodingKeg';
 import EmptyTheCellar from './modules/spells/EmptyTheCellar';
+import NiuzaosResolve from './modules/talents/NiuzaosResolve';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -124,6 +125,7 @@ class CombatLogParser extends CoreCombatLogParser {
     InvokeNiuzaoStagger,
     EmptyBarrel,
     EmptyTheCellar,
+    NiuzaosResolve,
 
     apl: AplCheck,
   };
