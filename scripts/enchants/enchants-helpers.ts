@@ -113,6 +113,7 @@ function mapTempEnchantToEnchant(
 // region Item ID to Effect ID
 
 async function fetchItemIdToEffectIdDbcData(isPTR: boolean) {
+  console.warn('downloading file lists from wago.tools, this might take a bit...');
   const build = await (isPTR ? getLatestDbcBuild('wowxptr') : getLatestDbcBuild());
 
   const [itemXItemEffectRaw, itemEffectRaw, spellEffectRaw] = await Promise.all([

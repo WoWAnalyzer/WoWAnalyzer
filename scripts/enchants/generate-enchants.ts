@@ -21,6 +21,7 @@ const filterToExpansion = <T extends { expansion?: number }>(entry: T): boolean 
   entry.expansion === EXPANSION;
 
 async function generateEnchants(isPTR: boolean = false) {
+  console.log('generating enchants...');
   const enchantsData: EnchantmentStaticDataEntry[] = await readJsonFromUrl(
     getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.Enchantments, isPTR),
   );
@@ -87,7 +88,9 @@ async function generateEnchants(isPTR: boolean = false) {
     .filter((x) => x !== null);
 
   const itemEnchantsByType = groupEnchantsByType(itemEnchantEntries);
+  console.log('finished generating enchants');
 
+  console.log('generating temporary enchants...');
   const tempEnchantsData: TempEnchantsStaticDataEntry[] = await readJsonFromUrl(
     getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.TempEnchants, isPTR),
   );
@@ -95,6 +98,7 @@ async function generateEnchants(isPTR: boolean = false) {
   const tempEnchantsForExpansion = tempEnchantsData.filter(filterToExpansion);
   const tempEnchantEntries = await getTempEnchantEntries(tempEnchantsForExpansion, isPTR);
   const tempEnchantsByType = groupEnchantsByType(tempEnchantEntries);
+  console.log('finished generating temporary enchants');
 
   // WRITE TO FILE
   console.log(`Writing enchants...`);
