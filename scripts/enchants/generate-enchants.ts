@@ -13,7 +13,7 @@ import {
 } from 'scripts/enchants/enchants-helpers';
 import { RaidbotsStaticDataFile } from 'scripts/utils/raidbots-types';
 
-const ENCHANTS_DIR = `./src/common/ITEMS/midnight/enchants.ts`;
+const ENCHANTS_FILE = `./src/common/ITEMS/midnight/enchants.ts`;
 
 const EXPANSION = 11;
 const filterToExpansion = <T extends { expansion?: number }>(entry: T): boolean =>
@@ -46,7 +46,7 @@ async function generateEnchants(isPTR: boolean = false) {
   // WRITE TO FILE
   console.log(`Writing enchants...`);
   fs.writeFileSync(
-    ENCHANTS_DIR,
+    ENCHANTS_FILE,
     `// Generated file, changes will eventually be overwritten!
 import { Enchant } from 'common/ITEMS/Item';
 
