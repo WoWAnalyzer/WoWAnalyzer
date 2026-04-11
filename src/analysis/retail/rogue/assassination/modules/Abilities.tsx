@@ -143,20 +143,6 @@ class Abilities extends CoreAbilities {
 
       // region Cooldowns
       {
-        spell: SPELLS.ECHOING_REPRIMAND.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT),
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-      },
-      {
         spell: TALENTS.DEATHMARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 2 * 60,

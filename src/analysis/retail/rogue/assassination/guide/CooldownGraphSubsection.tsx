@@ -16,8 +16,6 @@ const cooldownsToCheck: Cooldown[] = [
   { spell: SPELLS.VANISH },
   { spell: TALENTS.KINGSBANE_TALENT },
   { spell: TALENTS.DEATHMARK_TALENT },
-  { spell: SPELLS.ECHOING_REPRIMAND },
-  { spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT },
 ];
 
 const CooldownGraphSubsection = () => {
