@@ -17,7 +17,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: AFTERIMAGE_DAMAGE_LINK,
     linkingEventId: SPELLS.FIRE_BREATH_DOT.id,
-    linkingEventType: EventType.ApplyDebuff,
+    linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
