@@ -20,7 +20,7 @@ pnpm run generate-enchants:ptr
 
 #### New Expansions
 
-When generating enchants for a new expansion, you will need to update the `EXPANSION` / `ENCHANTS_DIR` constants in `scripts/enchants/generate-enchants.ts` to match the new expansion.
+When generating enchants for a new expansion, you will need to update the `EXPANSION` / `ENCHANTS_FILE` constants in `scripts/enchants/generate-enchants.ts` to match the new expansion.
 
 #### Troubleshooting
 
