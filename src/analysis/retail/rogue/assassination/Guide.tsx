@@ -92,6 +92,7 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
       {modules.envenom.guideSubsection}
       {info.combatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT) &&
         modules.crimsonTempest.guideSubsection}
+      {info.combatant.hasTalent(TALENTS.DEATHMARK_TALENT) && modules.deathmark.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );

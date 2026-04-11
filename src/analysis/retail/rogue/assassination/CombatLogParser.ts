@@ -17,13 +17,13 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import GarroteUptimeAndSnapshots from './modules/spells/GarroteUptimeAndSnapshots';
 import RuptureUptimeAndSnapshots from './modules/spells/RuptureUptimeAndSnapshots';
 import CrimsonTempest from './modules/talents/CrimsonTempest';
+import Deathmark from './modules/spells/Deathmark';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import DotUptimesAndSnapshots from './modules/features/DotUptimesAndSnapshots';
 import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
 import HitCountAoE from './modules/core/HitCountAoE';
 import Envenom from './modules/spells/Envenom';
-import ThistleTea from './modules/talents/ThistleTea';
 import Guide from './Guide';
 import Mutilate from './modules/spells/Mutilate';
 import MutilateVanishLinkNormalizer from './normalizers/MutilateVanishLinkNormalizer';
@@ -68,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     crimsonTempest: CrimsonTempest,
-    thistleTea: ThistleTea,
+    deathmark: Deathmark,
     kingsbane: Kingsbane,
 
     // Racials
