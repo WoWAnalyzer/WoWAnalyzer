@@ -2,21 +2,16 @@ import Analyzer from 'parser/core/Analyzer';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 import UptimeIcon from 'interface/icons/Uptime';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import TALENTS from 'common/TALENTS/rogue';
-
 import GarroteUptimeAndSnapshots from '../spells/GarroteUptimeAndSnapshots';
 import RuptureUptimeAndSnapshots from '../spells/RuptureUptimeAndSnapshots';
-import CrimsonTempestUptimeAndSnapshots from '../talents/CrimsonTempestUptimeAndSnapshots';
 
 export default class DotUptimesAndSnapshots extends Analyzer {
   static dependencies = {
     ...Analyzer.dependencies,
-    crimsonTempestUptimeAndSnapshots: CrimsonTempestUptimeAndSnapshots,
     garroteUptimeAndSnapshots: GarroteUptimeAndSnapshots,
     ruptureUptimeAndSnapshots: RuptureUptimeAndSnapshots,
   };
 
-  protected crimsonTempestUptimeAndSnapshots!: CrimsonTempestUptimeAndSnapshots;
   protected garroteUptimeAndSnapshots!: GarroteUptimeAndSnapshots;
   protected ruptureUptimeAndSnapshots!: RuptureUptimeAndSnapshots;
 
@@ -39,8 +34,6 @@ export default class DotUptimesAndSnapshots extends Analyzer {
       >
         {this.garroteUptimeAndSnapshots.subStatistic()}
         {this.ruptureUptimeAndSnapshots.subStatistic()}
-        {this.selectedCombatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT) &&
-          this.crimsonTempestUptimeAndSnapshots.subStatistic()}
       </UptimeMultiBarStatistic>
     );
   }

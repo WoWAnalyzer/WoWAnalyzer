@@ -16,7 +16,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import GarroteUptimeAndSnapshots from './modules/spells/GarroteUptimeAndSnapshots';
 import RuptureUptimeAndSnapshots from './modules/spells/RuptureUptimeAndSnapshots';
-import CrimsonTempestUptimeAndSnapshots from './modules/talents/CrimsonTempestUptimeAndSnapshots';
+import CrimsonTempest from './modules/talents/CrimsonTempest';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import DotUptimesAndSnapshots from './modules/features/DotUptimesAndSnapshots';
 import BuilderUse from './modules/core/BuilderUse';
@@ -67,7 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mutilate: Mutilate,
 
     // Talents
-    crimsonTempestUptimeAndSnapshots: CrimsonTempestUptimeAndSnapshots,
+    crimsonTempest: CrimsonTempest,
     thistleTea: ThistleTea,
     kingsbane: Kingsbane,
 

@@ -12,7 +12,6 @@ import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/Guide
 
 export default class HitCountAoE extends CoreHitCountAoE {
   private readonly fanOfKnivesTracker: FanOfKnivesAoETracker;
-  private readonly crimsonTempestTracker?: CrimsonTempestAoETracker;
 
   constructor(options: Options) {
     super(options);
@@ -25,16 +24,6 @@ export default class HitCountAoE extends CoreHitCountAoE {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAN_OF_KNIVES),
       this.onFanOfKnivesCast,
     );
-
-    if (this.selectedCombatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT)) {
-      this.crimsonTempestTracker = this.registerAoeTracker(
-        this.newAoeTracker(TALENTS.CRIMSON_TEMPEST_TALENT),
-      );
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CRIMSON_TEMPEST_TALENT),
-        this.onCrimsonTempestCast,
-      );
-    }
   }
 
   getHitCountForCast(event: CastEvent): number {
@@ -92,8 +81,6 @@ export default class HitCountAoE extends CoreHitCountAoE {
   }
 
   get guideSubsection(): JSX.Element {
-    const hasCrimsonTempest = this.selectedCombatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT);
-
     return (
       <SubSection>
         <p>
@@ -109,17 +96,6 @@ export default class HitCountAoE extends CoreHitCountAoE {
             </div>
             {this.fanOfKnivesChart}
           </RoundedPanel>
-          {hasCrimsonTempest && (
-            <RoundedPanel>
-              <div>
-                <strong>
-                  <SpellLink spell={TALENTS.CRIMSON_TEMPEST_TALENT} />{' '}
-                </strong>{' '}
-                should only be used on multiple targets.
-              </div>
-              {this.crimsonTempestChart}
-            </RoundedPanel>
-          )}
         </SideBySidePanels>
       </SubSection>
     );
@@ -168,12 +144,6 @@ export default class HitCountAoE extends CoreHitCountAoE {
       this.fanOfKnivesTracker.twoHitCasts += 1;
     }
   }
-
-  private onCrimsonTempestCast(event: CastEvent) {
-    if (this.crimsonTempestTracker) {
-      this.onAoeCast(event, this.crimsonTempestTracker);
-    }
-  }
 }
 
 type FanOfKnivesAoETracker = SpellAoeTracker & {
@@ -181,5 +151,3 @@ type FanOfKnivesAoETracker = SpellAoeTracker & {
 };
 const isFanOfKnivesAoETracker = (tracker: SpellAoeTracker): tracker is FanOfKnivesAoETracker =>
   'twoHitCasts' in tracker && typeof tracker.twoHitCasts === 'number';
-
-type CrimsonTempestAoETracker = SpellAoeTracker;
