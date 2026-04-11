@@ -1,6 +1,5 @@
 import {
   EnchantmentInternalEntry,
-  ItemEnchantmentStaticDataEntry,
   TempEnchantsStaticDataEntry,
 } from 'scripts/enchants/enchants-types';
 import { Enchant } from 'common/ITEMS/Item';
@@ -49,85 +48,12 @@ export function groupEnchantsByType(entries: EnchantmentInternalEntry[]) {
   return Object.values(map);
 }
 
-function createEnchantKey(name: string, craftingQuality?: number, category?: string) {
+export function createEnchantKey(name: string, craftingQuality?: number, category?: string) {
   const rank = craftingQuality ? `_R${craftingQuality}` : '';
   const categoryName = category && category !== 'Other' ? `${category}_` : '';
 
   return `${categoryName}${slugify(name, true)}${rank}`.toUpperCase();
 }
-
-// region Item Enchants
-
-export function mapItemEnchantmentStaticDataToInternalEntries(
-  entries: ItemEnchantmentStaticDataEntry[],
-): EnchantmentInternalEntry[] {
-  return entries.map((entry) => {
-    const categoryName = getItemEnchantmentCategoryName(entry);
-    return {
-      type: categoryName,
-      key: createEnchantKey(entry.itemName, entry.craftingQuality, categoryName),
-      value: mapItemEnchantmentToEnchant(entry),
-    };
-  });
-}
-
-function mapItemEnchantmentToEnchant(entry: ItemEnchantmentStaticDataEntry): Enchant {
-  return {
-    id: entry?.itemId ?? -1,
-    name: getItemEnchantmentName(entry),
-    icon: entry?.itemIcon ?? entry.spellIcon,
-    effectId: entry.id,
-    craftQuality: entry.craftingQuality,
-  };
-}
-
-/**
- * Enchants with no categoryName will generally look like this:
- * "displayName": "32 Int & 70 Sta"
- * "itemName": "Sunfire Silk Spellthread"
- *
- * Whilst enchants with categoryName will generally look like this:
- * "baseDisplayName": "Enchant Ring - Amani Mast"
- * "displayName": "Enchant Ring - Amani Mast 1"
- * "itemName": "Amani Mastery"
- * "categoryName": "Rings Enchants"
- *
- * For some reason "Mastery" is getting truncated in the `baseDisplayName` field.
- * There can also be some weird spelling mistakes present in `baseDisplayName`.
- *
- * So this helper function will try to fix these issues.
- */
-function getItemEnchantmentName(entry: ItemEnchantmentStaticDataEntry) {
-  if (!entry.categoryName) {
-    return entry.itemName;
-  }
-
-  const categoryName = getItemEnchantmentCategoryName(entry);
-
-  return `Enchant ${categoryName} - ${entry.itemName}`;
-}
-
-function getItemEnchantmentCategoryName(entry: ItemEnchantmentStaticDataEntry) {
-  if (!entry.categoryName) {
-    return 'Other';
-  }
-
-  const category = entry.categoryName.split(' ')[0];
-
-  // Format the category to match in-game naming
-  switch (category) {
-    case 'Rings':
-      return 'Ring';
-    case 'Boot':
-      return 'Boots';
-    case 'Shoulder':
-      return 'Shoulders';
-    default:
-      return category;
-  }
-}
-
-// endregion
 
 // region Temporary Enchants
 
