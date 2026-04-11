@@ -15,7 +15,7 @@ import TALENTS from 'common/TALENTS/evoker';
  * Inferno's Blessing deals 40% increased damage.
  * Sands of Time also extends Inferno's Blessing. [NYI]
  */
-class NozdormuAdept extends Analyzer {
+class MightyInferno extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
@@ -52,4 +52,4 @@ class NozdormuAdept extends Analyzer {
   }
 }
 
-export default NozdormuAdept;
+export default MightyInferno;
