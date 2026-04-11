@@ -13,39 +13,39 @@ export interface EnemyInfo extends Unit {
 }
 
 class Enemy extends Entity {
-  get name() {
-    return this._baseInfo.name;
+  private readonly baseInfo: EnemyInfo;
+  readonly instanceID: number;
+
+  override get name() {
+    return this.baseInfo.name;
   }
 
   /** Generally "NPC" */
   get type() {
-    return this._baseInfo.type;
+    return this.baseInfo.type;
   }
 
   /** Generally "Boss" or "NPC" */
   get subType() {
-    return this._baseInfo.subType;
+    return this.baseInfo.subType;
   }
 
   get guid() {
-    return this._baseInfo.guid;
+    return this.baseInfo.guid;
   }
 
   get id() {
-    return this._baseInfo.id;
+    return this.baseInfo.id;
   }
 
-  get instanceID() {
-    return this._instanceID;
+  get fights() {
+    return this.baseInfo.fights;
   }
-
-  _baseInfo: EnemyInfo;
-  _instanceID: number;
 
   constructor(owner: CombatLogParser, baseInfo: EnemyInfo, instanceID = 0) {
     super(owner);
-    this._baseInfo = baseInfo;
-    this._instanceID = instanceID;
+    this.baseInfo = baseInfo;
+    this.instanceID = instanceID;
   }
 }
 

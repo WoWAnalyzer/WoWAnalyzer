@@ -86,7 +86,7 @@ class DrainSoul extends Analyzer {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
       .filter((enemy) => enemy.subType === 'NPC')
-      .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
+      .reduce((count, enemy) => count + enemy.fights[0].instances, 0);
     this._shardsGained =
       this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) -
       this._subtractBossShards;
