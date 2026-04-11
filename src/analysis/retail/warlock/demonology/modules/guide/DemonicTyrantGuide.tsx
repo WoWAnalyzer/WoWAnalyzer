@@ -70,36 +70,35 @@ function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBre
       : cast.doomguardAvailable && !cast.doomguardCast
         ? 0 // available but skipped
         : 5;
-  // Diabolist wants 5 shards to fuel HoG casts; Soul Harvester only needs 2.
+  // Diabolist: 1 point per shard, capped at 5.
+  // Non-Diabolist: Tyrant grants 3 shards on cast, so 2 is ideal. 0–1 is ok/good, 3 is ok, 4 is poor, 5 is bad.
   const shardsOnCastScore = isDialobist
-    ? cast.shardsOnCast >= 5
+    ? Math.min(cast.shardsOnCast, 5)
+    : cast.shardsOnCast === 2
       ? 5
-      : cast.shardsOnCast >= 3
-        ? 3
-        : cast.shardsOnCast >= 1
-          ? 1
-          : 0
-    : cast.shardsOnCast >= 2
-      ? 5
-      : cast.shardsOnCast === 1
-        ? 3
-        : 0;
+      : cast.shardsOnCast <= 1
+        ? 4
+        : cast.shardsOnCast === 3
+          ? 3
+          : cast.shardsOnCast === 4
+            ? 1
+            : 0; // 5 shards
 
-  // Optional talents take a fixed 5pts each; the remaining pool is split proportionally among base components.
-  // This means base component weights shift depending on which optional talents are taken.
+  // Optional talents take a fixed 5pts each; shardsOnCast is also fixed at 5 (raw score is already 0–5).
+  // The remaining pool is split proportionally among hog, dreadstalkers, and shardsEnd.
   const grimoireMax = grimoireScore !== null ? 5 : 0;
   const doomguardMax = doomguardScore !== null ? 5 : 0;
-  const basePool = 100 - grimoireMax - doomguardMax;
+  const shardsOnCastMax = 5;
+  const basePool = 100 - grimoireMax - doomguardMax - shardsOnCastMax;
 
-  // Raw relative weights for base components (must sum to a consistent total for scaling).
-  const BASE_WEIGHTS = { hog: 50, dreadstalkers: 15, shardsEnd: 15, shardsOnCast: 5 };
+  // Raw relative weights for the three proportionally-scaled base components.
+  const BASE_WEIGHTS = { hog: 50, dreadstalkers: 15, shardsEnd: 15 };
   const BASE_WEIGHT_TOTAL = Object.values(BASE_WEIGHTS).reduce((a, b) => a + b, 0);
   const w = (weight: number) => Math.round((weight / BASE_WEIGHT_TOTAL) * basePool);
 
   const hogMax = w(BASE_WEIGHTS.hog);
   const dreadstalkerMax = w(BASE_WEIGHTS.dreadstalkers);
   const shardsEndMax = w(BASE_WEIGHTS.shardsEnd);
-  const shardsOnCastMax = w(BASE_WEIGHTS.shardsOnCast);
 
   const scaledHog = Math.round(
     (Math.min(totalSpenderCasts, maxExpectedCasts) / maxExpectedCasts) * hogMax,
@@ -109,7 +108,7 @@ function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBre
   const scaledGrimoire = grimoireScore !== null ? Math.round((grimoireScore / 5) * grimoireMax) : 0;
   const scaledDoomguard =
     doomguardScore !== null ? Math.round((doomguardScore / 5) * doomguardMax) : 0;
-  const scaledShardsOnCast = Math.round((shardsOnCastScore / 5) * shardsOnCastMax);
+  const scaledShardsOnCast = shardsOnCastScore; // raw score is already 0–5, max is fixed at 5
 
   const components: ScoreBreakdown['components'] = [
     {
@@ -132,8 +131,6 @@ function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBre
     label: 'Soul Shards at cast',
     score: scaledShardsOnCast,
     max: shardsOnCastMax,
-    displayScore: shardsOnCastScore,
-    displayMax: 5,
   });
 
   const rawScore =
@@ -148,7 +145,8 @@ function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBre
   return { total, totalSpenderCasts, maxExpectedCasts, components };
 }
 
-// Maps a numeric window score to a performance rating, requiring ≥ maxExpectedCasts spender casts to qualify for Perfect.
+// Maps a numeric window score to a performance rating.
+// Perfect requires ≥ maxExpectedCasts spender casts; Good requires ≥ 6.
 function scoreToPerf(
   score: number,
   totalSpenderCasts?: number,
@@ -156,8 +154,9 @@ function scoreToPerf(
 ): QualitativePerformance {
   const spenderRequirementMet =
     totalSpenderCasts === undefined || totalSpenderCasts >= maxExpectedCasts;
+  const goodSpenderRequirementMet = totalSpenderCasts === undefined || totalSpenderCasts >= 6;
   if (score >= 95 && spenderRequirementMet) return QualitativePerformance.Perfect;
-  if (score >= 70) return QualitativePerformance.Good;
+  if (score >= 80 && goodSpenderRequirementMet) return QualitativePerformance.Good;
   if (score >= 50) return QualitativePerformance.Ok;
   return QualitativePerformance.Fail;
 }
@@ -255,7 +254,7 @@ function getTyrantFeedback(
 
   if (grimoireAvailable && !grimoireCast && !grimoireCastDuringWindow)
     feedback.push(
-      "Cast your Grimoire cooldown before Tyrant so you don't waste GCDs during the window.",
+      "Grimoire was available but wasn't used this window. If you're holding it for a burn phase that's fine, otherwise cast it before Tyrant to avoid wasting GCDs during the window.",
     );
   else if (grimoireAvailable && grimoireCastDuringWindow)
     // Only flag if Grimoire was available before Tyrant — if it came off CD during the window, the in-window cast is correct.
@@ -270,11 +269,18 @@ function getTyrantFeedback(
   if (doomguardAvailable && !doomguardCast)
     feedback.push("Cast Summon Doomguard before Tyrant so you don't waste GCDs during the window.");
 
-  const shardsThreshold = isDialobist ? 5 : 2;
-  if (shardsOnCast < shardsThreshold)
-    feedback.push(
-      `You entered the Tyrant window with ${shardsOnCast} Soul Shard${shardsOnCast === 1 ? '' : 's'}. Try to pool at least ${shardsThreshold} Soul Shards before casting Tyrant${isDialobist ? ' to fuel Ruination casts' : ''}.`,
-    );
+  if (isDialobist) {
+    if (shardsOnCast < 5)
+      feedback.push(
+        `You entered the Tyrant window with ${shardsOnCast} Soul Shard${shardsOnCast === 1 ? '' : 's'}. Try to pool at least 5 Soul Shards before casting Tyrant to fuel Hand of Gul'dan casts.`,
+      );
+  } else {
+    // Tyrant grants 3 shards on cast — 2 is ideal, 0–1 is fine, 4+ is wasteful.
+    if (shardsOnCast >= 4)
+      feedback.push(
+        `You entered the Tyrant window with ${shardsOnCast} Soul Shard${shardsOnCast === 1 ? '' : 's'}. Aim for around 2 — Tyrant grants 3 shards on cast, so higher counts cap your shards and waste resources.`,
+      );
+  }
 
   if (demonicCoresOnCast === 0 && !isFirstWindow)
     feedback.push(
@@ -292,12 +298,19 @@ function getTyrantFeedback(
     );
   }
 
+  const [summary, ...details] = feedback;
+
   return (
-    <ul>
-      {feedback.map((line, i) => (
-        <p key={i}>{line}</p>
-      ))}
-    </ul>
+    <div>
+      <p>{summary}</p>
+      {details.length > 0 && (
+        <ul style={{ paddingLeft: 20, margin: 0 }}>
+          {details.map((line, i) => (
+            <li key={i}>{line}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -375,7 +388,7 @@ function DemonicTyrantGuide(): JSX.Element | null {
             label: 'Soul Shards at Cast',
             value: Math.round(cast.shardsOnCast),
             tooltip:
-              'Soul Shards available when Demonic Tyrant was cast. Aim for 2+ (Soul Harvester) or 5 (Diabolist).',
+              'Soul Shards available when Demonic Tyrant was cast. Aim for ~2 (Soul Harvester) — Tyrant grants 3 shards on cast, so 0–2 is fine while 4+ is wasteful. Diabolist should aim for 5.',
           },
           ...(index > 0 || hasPowerSiphon
             ? [

@@ -36,7 +36,11 @@ export default class DemonicTyrant extends Analyzer {
   lastGrimoireCast = 0;
   lastDoomguardCast = 0;
   demonicCoreStacks = 0;
-  shardDeltaInWindow = 0;
+  // Last known shard count from SoulShardTracker while inside a Tyrant window.
+  latestShardsInWindow = 0;
+  // Tracks gains (in shards) after Tyrant cast to retroactively compute shardsOnCast from the first window spender.
+  private gainsBeforeFirstWindowSpend = 0;
+  private pendingRetroactiveShardsOnCast = false;
 
   constructor(options: Options) {
     super(options);
@@ -142,9 +146,12 @@ export default class DemonicTyrant extends Analyzer {
           event.timestamp - this.lastDoomguardCast <= DOOMGUARD_DURATION
         : null;
 
-    // Close the previous window before opening a new one, then reset the shard delta accumulator.
+    // Close the previous window before opening a new one.
     this.tryFinalizeWindow(event.timestamp);
-    this.shardDeltaInWindow = 0;
+    this.latestShardsInWindow = this.soulShardTracker.current;
+    this.gainsBeforeFirstWindowSpend = 0;
+    // Only needed before the first ever spend — after that the tracker has accurate absolute state.
+    this.pendingRetroactiveShardsOnCast = this.soulShardTracker.spent === 0;
 
     const tyrant: TyrantCastData = {
       cast: event.timestamp,
@@ -176,6 +183,18 @@ export default class DemonicTyrant extends Analyzer {
 
     if (event.timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) return;
 
+    // Retroactively set shardsOnCast: first spender's pre-spend amount minus gains since Tyrant cast.
+    if (this.pendingRetroactiveShardsOnCast) {
+      const resource = this.soulShardTracker.getResource(event);
+      if (resource !== undefined) {
+        this.currentTyrant.shardsOnCast = Math.max(
+          0,
+          Math.round(resource.amount - this.gainsBeforeFirstWindowSpend),
+        );
+      }
+      this.pendingRetroactiveShardsOnCast = false;
+    }
+
     this.currentTyrant.handOfGuldanCasts += 1;
   }
 
@@ -184,9 +203,7 @@ export default class DemonicTyrant extends Analyzer {
     if (!this.currentTyrant) return;
     if (this.currentTyrant.shardsAtWindowEnd !== null) return;
     if (timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) {
-      this.currentTyrant.shardsAtWindowEnd = Math.round(
-        Math.max(0, this.currentTyrant.shardsOnCast + this.shardDeltaInWindow),
-      );
+      this.currentTyrant.shardsAtWindowEnd = Math.round(Math.max(0, this.latestShardsInWindow));
     }
   }
 
@@ -194,9 +211,7 @@ export default class DemonicTyrant extends Analyzer {
   onFightEnd(event: FightEndEvent) {
     if (!this.currentTyrant) return;
     if (this.currentTyrant.shardsAtWindowEnd === null) {
-      this.currentTyrant.shardsAtWindowEnd = Math.round(
-        Math.max(0, this.currentTyrant.shardsOnCast + this.shardDeltaInWindow),
-      );
+      this.currentTyrant.shardsAtWindowEnd = Math.round(Math.max(0, this.latestShardsInWindow));
     }
     if (event.timestamp < this.currentTyrant.cast + TYRANT_WINDOW_MS) {
       this.currentTyrant.fightEndedDuringWindow = true;
@@ -236,20 +251,22 @@ export default class DemonicTyrant extends Analyzer {
     if (event.resourceChangeType !== RESOURCE_TYPES.SOUL_SHARDS.id) return;
     if (!this.currentTyrant) return;
     if (event.timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) return;
-    // ResourceChangeEvent values are in raw units (×10); divide to get real shard counts.
-    this.shardDeltaInWindow += Math.round((event.resourceChange - (event.waste ?? 0)) / 10);
+
+    // Accumulate effective gains (÷10 from ×10 log units) until the first window spender.
+    if (this.pendingRetroactiveShardsOnCast) {
+      const lastUpdate = this.soulShardTracker.resourceUpdates.at(-1);
+      if (lastUpdate?.type === 'gain') {
+        this.gainsBeforeFirstWindowSpend += (lastUpdate.change ?? 0) / 10;
+      }
+    }
+
+    this.latestShardsInWindow = this.soulShardTracker.current;
   }
 
   onAnyPlayerCast(event: CastEvent) {
     if (!this.currentTyrant) return;
     if (event.timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) return;
-    const shardResource = event.classResources?.find(
-      (r) => r.type === RESOURCE_TYPES.SOUL_SHARDS.id,
-    );
-    // SoulShardTracker.onCast already normalizes cost by /10 in-place before this fires.
-    if (shardResource?.cost) {
-      this.shardDeltaInWindow -= shardResource.cost;
-    }
+    this.latestShardsInWindow = this.soulShardTracker.current;
   }
 
   onDemonicCoreApply(_event: ApplyBuffEvent) {

@@ -7,6 +7,7 @@ class SoulShardTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.SOUL_SHARDS;
+    this.maxResource = 5;
   }
 
   onCast(event: CastEvent) {
