@@ -5,6 +5,7 @@ import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 11), <>Add <SpellLink spell={SPELLS.NIUZAOS_RESOLVE_TALENT} /> statistic.</>, emallson),
   change(date(2026, 4, 4), <>Add hit points graph to stagger plot.</>, NotStirred),
   change(date(2026, 3, 29), <>Fix handling of pre-pull <SpellLink spell={SPELLS.CHI_BURST_TALENT} /> casts.</>, emallson),
   change(date(2026, 3, 24), <>Add cast breakdowns and <SpellLink spell={SPELLS.BLACKOUT_COMBO_TALENT} /> breakdown to Rotation section.</>, emallson),
