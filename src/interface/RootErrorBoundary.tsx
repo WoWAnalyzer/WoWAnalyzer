@@ -4,54 +4,13 @@ import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { PureComponent, ErrorInfo, ReactNode } from 'react';
+import { toast } from 'sonner';
 
+import { classifyUiError, type ClassifiedUiError, type ErrorSource } from './errorHandling';
 import { EventsParseError } from './report/hooks/useEventParser';
 
-interface HandledError {
-  message: string;
-  stack?: string;
-  filename?: string;
-}
-
-// Some errors are triggered by third party scripts, such as browser plug-ins.
-// These errors should generally not affect the application, so we can safely ignore them for
-// our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the
-// app, that triggers a different error so those third party issues are still handled.
-const isTriggeredByExternalScript = (error: HandledError) => {
-  if (!error || error.message === 'Script error.') {
-    return true;
-  }
-
-  // The stack trace includes links to each script involved in the error. Find
-  // the first relevant link and check if it was one of our scripts.
-  if (!error.stack) {
-    return true;
-  }
-  const paths = error.stack
-    .split('\n')
-    // The first line may point to the page the error occurred on rather than
-    // the script that caused it, so ignore that to avoid false positives.
-    .splice(1)
-    .map((line) => line.match(/(https?:\/\/[^/]+)\//))
-    .filter((line) => line);
-  const firstPath = paths[0];
-  if (!firstPath) {
-    return true;
-  }
-  if (firstPath[1] !== window.location.origin) {
-    return true;
-  }
-  // Sometimes the second line can cause it (relevant for ads).
-  const secondPath = paths[1];
-  if (!secondPath) {
-    return true;
-  }
-  if (secondPath[1] !== window.location.origin) {
-    return true;
-  }
-
-  return false;
-};
+const NON_FATAL_ERROR_TOAST_DURATION = 10000;
+const NON_FATAL_ERROR_TOAST_DEDUPE_MS = 10000;
 
 interface Props {
   children: ReactNode;
@@ -62,6 +21,8 @@ interface State {
 }
 
 class RootErrorBoundary extends PureComponent<Props, State> {
+  private recentNonFatalToasts = new Map<string, number>();
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -84,7 +45,7 @@ class RootErrorBoundary extends PureComponent<Props, State> {
   componentDidCatch(error: Error, { componentStack }: ErrorInfo) {
     // we don't call captureException here because it will be called by the child ErrorBoundary
     // this boundary exists primarily for dev mode.
-    this.error(error, componentStack);
+    this.handleCaughtError(error, componentStack, 'componentDidCatch');
   }
 
   handleErrorEvent(event: ErrorEvent) {
@@ -95,27 +56,75 @@ class RootErrorBoundary extends PureComponent<Props, State> {
       return;
     }
     console.log('Caught a global error');
-    this.error(error, 'error');
+    this.handleCaughtError(error, 'error', 'window-error');
   }
   handleUnhandledrejectionEvent(event: PromiseRejectionEvent) {
     console.log('Caught a global unhandledrejection');
-    this.error(event.reason, 'unhandledrejection');
+    this.handleCaughtError(event.reason, 'unhandledrejection', 'unhandledrejection');
   }
 
-  error(error: Error | undefined, details?: string | null) {
-    if (!error) {
+  private shouldSkipNonFatalToast(classifiedError: ClassifiedUiError) {
+    const now = Date.now();
+    const lastShown = this.recentNonFatalToasts.get(classifiedError.fingerprint);
+
+    for (const [fingerprint, timestamp] of this.recentNonFatalToasts.entries()) {
+      if (now - timestamp >= NON_FATAL_ERROR_TOAST_DEDUPE_MS) {
+        this.recentNonFatalToasts.delete(fingerprint);
+      }
+    }
+
+    if (lastShown && now - lastShown < NON_FATAL_ERROR_TOAST_DEDUPE_MS) {
+      return true;
+    }
+
+    this.recentNonFatalToasts.set(classifiedError.fingerprint, now);
+    return false;
+  }
+
+  private showNonFatalErrorToast(classifiedError: ClassifiedUiError) {
+    if (this.shouldSkipNonFatalToast(classifiedError)) {
       return;
     }
-    // NOTE: These filters only prevent the error state from being triggered. Sentry automatically logs them regardless.
-    if (isTriggeredByExternalScript(error)) {
+
+    if (import.meta.env.DEV) {
+      console.error('Caught a recoverable global error', classifiedError.error);
+    }
+
+    toast.error(
+      <Trans id="interface.rootErrorBoundary.nonFatalErrorTitle">
+        Something went wrong, but the page can keep working.
+      </Trans>,
+      {
+        description: classifiedError.message,
+        duration: NON_FATAL_ERROR_TOAST_DURATION,
+        action: {
+          label: 'Reload',
+          onClick: () => window.location.reload(),
+        },
+      },
+    );
+  }
+
+  private handleCaughtError(
+    error: unknown,
+    details?: string | null,
+    source: ErrorSource = 'window-error',
+  ) {
+    const classifiedError = classifyUiError(error, source);
+    if (!classifiedError) {
       console.log('Ignored because it looks like a third party error.');
       return;
     }
 
-    (window.errors = window.errors || []).push(error);
+    (window.errors = window.errors || []).push(classifiedError.error);
+
+    if (classifiedError.severity === 'nonFatal') {
+      this.showNonFatalErrorToast(classifiedError);
+      return;
+    }
 
     this.setState({
-      error: error,
+      error: classifiedError.error,
       errorDetails: details,
     });
   }
@@ -138,7 +147,6 @@ class RootErrorBoundary extends PureComponent<Props, State> {
         );
       }
 
-      // TODO: Instead of hiding the entire app, show a small toaster instead. Not all uncaught errors are fatal.
       return (
         <FullscreenError
           error={<Trans id="interface.rootErrorBoundary.errorOccurred">An error occurred.</Trans>}
