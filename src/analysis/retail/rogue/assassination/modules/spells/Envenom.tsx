@@ -46,8 +46,8 @@ export default class Envenom extends Analyzer {
         <strong>
           <SpellLink spell={SPELLS.ENVENOM} />
         </strong>{' '}
-        is your direct damage finisher. Use it when you've already applied{' '}
-        <SpellLink spell={SPELLS.RUPTURE} /> to enemies. Always use{' '}
+        is your direct damage finisher. Use it when yous already have a{' '}
+        <SpellLink spell={SPELLS.RUPTURE} /> applied to your target. Always use{' '}
         <SpellLink spell={SPELLS.ENVENOM} /> at {targetCps}+ CPs.
       </p>
     );
