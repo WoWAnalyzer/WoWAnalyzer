@@ -130,12 +130,25 @@ jobs:
         with:
           node-version: '22.x'
       - run: pnpm install --frozen-lockfile
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(pnpm exec playwright --version | tr ' ' '-')" >> $GITHUB_OUTPUT
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
       - uses: actions/download-artifact@v4
         with:
           name: e2e-build
       - run: tar -xzf dist.tar.gz
       - name: Install Playwright deps
         run: pnpm exec playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+      - name: Install Playwright system deps only
+        run: pnpm exec playwright install-deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
       - name: Run Playwright tests
         run: pnpm run e2e --shard=${{ matrix.shard }}/4
       - uses: actions/upload-artifact@v4
