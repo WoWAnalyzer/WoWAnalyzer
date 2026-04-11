@@ -13,7 +13,6 @@ class MitigationCheck extends CoreMitigationCheck {
       SPELLS.BLOOD_SHIELD.id,
       TALENTS.VAMPIRIC_BLOOD_TALENT.id,
       TALENTS.ICEBOUND_FORTITUDE_TALENT.id,
-      TALENTS.TOMBSTONE_TALENT.id,
     ];
   }
 }

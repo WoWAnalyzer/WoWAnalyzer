@@ -92,7 +92,6 @@ class MissedRampage extends Analyzer {
         this.selectedCombatant.hasBuff(SPELLS.ENRAGE) &&
         !(
           event.ability.guid === SPELLS.RAGING_BLOW.id &&
-          this.selectedCombatant.getBuffStacks(SPELLS.SLAUGHTERING_STRIKES_BUFF) < 5 &&
           this.selectedCombatant.hasBuff(SPELLS.BRUTAL_FINISH_BUFF)
         )
       ) {

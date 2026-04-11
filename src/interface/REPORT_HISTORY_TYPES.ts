@@ -1,0 +1,5 @@
+enum REPORT_HISTORY_TYPES {
+  REPORT,
+  CHARACTER,
+}
+export default REPORT_HISTORY_TYPES;

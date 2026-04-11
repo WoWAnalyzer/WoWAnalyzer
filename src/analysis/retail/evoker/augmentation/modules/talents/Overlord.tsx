@@ -84,13 +84,16 @@ class Overlord extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS.OVERLORD_TALENT}>
-          <ItemDamageDone amount={this.overlordDamage} />
-          <br />
-          <VersatilityIcon /> {this.motesSpawned}
-          <small>
-            {' '}
-            <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT} /> generated
-          </small>
+          <div>
+            <ItemDamageDone amount={this.overlordDamage} />
+          </div>
+          <div>
+            <VersatilityIcon /> {this.motesSpawned}
+            <small>
+              {' '}
+              <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT} /> generated
+            </small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

@@ -11,7 +11,6 @@ class Abilities extends CoreAbilities {
       /**
        * Shared spells handled in their own files:
        * Binding Shot
-       * Kill Shot
        * A Murder of Crows
        *
        */
@@ -49,7 +48,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_SHOT.id,
         buffSpellId: TALENTS_HUNTER.PRECISE_SHOTS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-
         gcd: {
           base: 1500,
         },

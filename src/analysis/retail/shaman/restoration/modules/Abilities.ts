@@ -6,7 +6,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { i18n } from '@lingui/core';
-
+import { TIERS } from 'game/TIERS';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TrackedRestoShamanAbility } from './core/RestorationAbilityTracker';
 
@@ -58,13 +58,24 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: totemGCD,
         },
-        cooldown: 30 - (combatant.hasTalent(TALENTS.TOTEMIC_MOMENTUM_TALENT) ? 3 : 0) - totemCDR,
-        castEfficiency: {
-          suggestion: false,
-          // majorIssueEfficiency: 0.5,
-          // averageIssueEfficiency: 0.7,
-          // recommendedEfficiency: 0.9,
-        },
+        cooldown:
+          30 -
+          (combatant.hasTalent(TALENTS.TOTEMIC_MOMENTUM_TALENT) ? 3 : 0) -
+          (combatant.hasTalent(TALENTS.WATER_TOTEM_MASTERY_TALENT) ? 5 : 0) -
+          totemCDR,
+        castEfficiency: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT)
+          ? {
+              suggestion: false,
+              majorIssueEfficiency: 0.7,
+              averageIssueEfficiency: 0.8,
+              recommendedEfficiency: 0.9,
+            }
+          : {
+              suggestion: false,
+              majorIssueEfficiency: 0.6,
+              averageIssueEfficiency: 0.7,
+              recommendedEfficiency: 0.8,
+            },
         healSpellIds: [SPELLS.HEALING_STREAM_TOTEM_HEAL.id],
       },
       {
@@ -106,9 +117,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: false,
-          // majorIssueEfficiency: 0.3,
-          // averageIssueEfficiency: 0.5,
-          // recommendedEfficiency: 0.7,
+          majorIssueEfficiency: 0.5,
+          averageIssueEfficiency: 0.7,
+          recommendedEfficiency: 0.8,
         },
         healSpellIds: [SPELLS.HEALING_RAIN_HEAL.id],
       },
@@ -116,7 +127,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_RAIN_TOTEMIC.id,
         enabled: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30 - totemCDR,
+        cooldown: 25,
         timelineSortIndex: 17,
         gcd: null,
         castEfficiency: {
@@ -132,16 +143,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT),
         buffSpellId: TALENTS.UNLEASH_LIFE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 17,
+        cooldown: 20 - (combatant.has2PieceByTier(TIERS.MID1) ? 3 : 0),
         timelineSortIndex: 5,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: false,
-          // majorIssueEfficiency: 0.5,
-          // averageIssueEfficiency: 0.7,
-          // recommendedEfficiency: 0.9,
+          majorIssueEfficiency: 0.7,
+          averageIssueEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -517,6 +528,12 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: false,
+          majorIssueEfficiency: 0.7,
+          averageIssueEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
@@ -524,6 +541,12 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: null,
         cooldown: 30,
+        castEfficiency: {
+          suggestion: false,
+          majorIssueEfficiency: 0.7,
+          averageIssueEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.SURGING_TOTEM.id,

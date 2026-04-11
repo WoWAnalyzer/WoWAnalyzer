@@ -29,10 +29,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={
           <Trans id="mage.frost.alwaysBeCasting.statistic.tooltip">
-            Downtime is available time not used to cast anything (including not having your GCD
-            rolling). This can be caused by delays between casting spells, latency, cast
-            interrupting or just simply not casting anything (e.g. due to movement/stunned).
-            <br />
+            <p>
+              Downtime is available time not used to cast anything (including not having your GCD
+              rolling). This can be caused by delays between casting spells, latency, cast
+              interrupting or just simply not casting anything (e.g. due to movement/stunned).
+            </p>
             <ul>
               <li>
                 You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your

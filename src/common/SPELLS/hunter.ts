@@ -290,10 +290,20 @@ const spells = {
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
   },
+  RAPTOR_SWIPE_BUFF_2: {
+    id: 1275630,
+    name: 'Raptor Swipe',
+    icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
   RAPTOR_SWIPE_AOTE: {
     id: 1262343,
     name: 'Raptor Swipe',
     icon: 'inv12_apextalent_hunter_raptorswipe',
+  },
+  STRIKE_AS_ONE: {
+    id: 1251779,
+    name: 'Strike as One',
+    icon: 'inv_coordinatedassault',
   },
   TAKEDOWN_PET_DAMAGE: {
     id: 1253862,
@@ -406,12 +416,12 @@ const spells = {
   //region Sentinel Hero Talents
   DONT_LOOK_BACK_BUFF: {
     id: 451447,
-    name: 'Lunar Storm',
+    name: "Don't Look Back",
     icon: 'ability_racial_forceshield',
   },
   LUNAR_STORM_DAMAGE: {
     id: 1253733,
-    name: "Don't Look Back",
+    name: 'Lunar Storm',
     icon: 'artifactability_balancedruid_moonandstars',
   },
   MOONLIGHT_CHAKRAM_BUFF: {

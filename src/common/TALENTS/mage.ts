@@ -25,7 +25,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80174],
     definitionIds: [{ id: 85177, specId: 64 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   AMPLIFICATION_TALENT: {
     id: 236628,
@@ -58,7 +58,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126537],
     definitionIds: [{ id: 131363, specId: 62 }],
-    manaCost: 375000,
+    manaCost: 37500,
   },
   ARCANE_ORB_TALENT: {
     id: 153626,
@@ -67,7 +67,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [128689],
     definitionIds: [{ id: 133492, specId: 62 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   ARCANE_PULSE_TALENT: {
     id: 1241462,
@@ -76,7 +76,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126509],
     definitionIds: [{ id: 131335, specId: 62 }],
-    manaCost: 100000,
+    manaCost: 10000,
   },
   ARCANE_SALVO_TALENT: {
     id: 384452,
@@ -190,7 +190,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80178],
     definitionIds: [{ id: 85181, specId: 63 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   BLIZZARD_1_FROST_TALENT: {
     id: 190356,
@@ -199,7 +199,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [134421],
     definitionIds: [{ id: 139193, specId: 64 }],
-    manaCost: 62500,
+    manaCost: 6250,
   },
   BLIZZARD_2_FROST_TALENT: {
     id: 1248829,
@@ -208,7 +208,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [134538],
     definitionIds: [{ id: 139306, specId: 64 }],
-    manaCost: 62500,
+    manaCost: 6250,
   },
   BRAINSTORM_TALENT: {
     id: 461261,
@@ -329,7 +329,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124756],
     definitionIds: [{ id: 129594, specId: 63 }],
-    manaCost: 250000,
+    manaCost: 25000,
   },
   COMET_STORM_TALENT: {
     id: 1247777,
@@ -426,7 +426,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125819],
     definitionIds: [{ id: 130651, specId: 64 }],
-    manaCost: 100000,
+    manaCost: 10000,
   },
   DUALCASTING_ADEPT_TALENT: {
     id: 1248014,
@@ -611,7 +611,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124750],
     definitionIds: [{ id: 129588, specId: 63 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   FLAMESTRIKE_1_FIRE_TALENT: {
     id: 2120,
@@ -620,7 +620,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [135619],
     definitionIds: [{ id: 140375, specId: 63 }],
-    manaCost: 37500,
+    manaCost: 3750,
   },
   FLAMESTRIKE_2_FIRE_TALENT: {
     id: 1254851,
@@ -629,7 +629,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [135602],
     definitionIds: [{ id: 140358, specId: 63 }],
-    manaCost: 37500,
+    manaCost: 3750,
   },
   FLAME_ACCELERANT_TALENT: {
     id: 453282,
@@ -686,7 +686,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80243],
     definitionIds: [{ id: 85246, specId: 64 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   FOCUSING_CRYSTAL_TALENT: {
     id: 461257,
@@ -770,7 +770,7 @@ const talents = {
       { id: 141214, specId: 63 },
       { id: 122251, specId: 64 },
     ],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   FROSTFIRE_EMPOWERMENT_TALENT: {
     id: 431176,
@@ -803,7 +803,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80242],
     definitionIds: [{ id: 85245, specId: 64 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   FROZEN_TOUCH_TALENT: {
     id: 205030,
@@ -956,7 +956,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80176],
     definitionIds: [{ id: 85179, specId: 64 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   ICE_BLOCK_TALENT: {
     id: 45438,
@@ -981,7 +981,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80241],
     definitionIds: [{ id: 85244, specId: 64 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   ICE_NOVA_TALENT: {
     id: 157997,
@@ -1270,7 +1270,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115878],
     definitionIds: [{ id: 120890, specId: 64 }],
-    manaCost: 150000,
+    manaCost: 15000,
   },
   MASS_POLYMORPH_TALENT: {
     id: 383121,
@@ -1279,7 +1279,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [134198],
     definitionIds: [{ id: 138978, specId: 64 }],
-    manaCost: 100000,
+    manaCost: 10000,
   },
   MASTER_OF_ESCAPE_TALENT: {
     id: 210476,
@@ -1336,7 +1336,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124786],
     definitionIds: [{ id: 129624, specId: 63 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   MIRROR_IMAGE_TALENT: {
     id: 55342,
@@ -1345,7 +1345,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80183],
     definitionIds: [{ id: 85186, specId: 64 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   MOLTEN_CHILL_TALENT: {
     id: 1262844,
@@ -1466,7 +1466,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80180],
     definitionIds: [{ id: 85183, specId: 62 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   PRODIGIOUS_SAVANT_TALENT: {
     id: 384612,
@@ -1483,7 +1483,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124759],
     definitionIds: [{ id: 129597, specId: 63 }],
-    manaCost: 37500,
+    manaCost: 3750,
   },
   PYROCLASM_TALENT: {
     id: 269650,
@@ -1524,7 +1524,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80216],
     definitionIds: [{ id: 85219, specId: 64 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   REACTIVE_BARRIER_TALENT: {
     id: 444827,
@@ -1549,7 +1549,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80175],
     definitionIds: [{ id: 85178, specId: 64 }],
-    manaCost: 32500,
+    manaCost: 3250,
   },
   RESONANCE_TALENT: {
     id: 205028,
@@ -1582,7 +1582,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80144],
     definitionIds: [{ id: 85147, specId: 64 }],
-    manaCost: 200000,
+    manaCost: 20000,
   },
   RONDURMANCY_TALENT: {
     id: 449596,
@@ -1615,7 +1615,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [136879],
     definitionIds: [{ id: 141642, specId: 63 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   SEVERE_TEMPERATURES_TALENT: {
     id: 431189,
@@ -1640,7 +1640,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80163],
     definitionIds: [{ id: 85166, specId: 64 }],
-    manaCost: 50000,
+    manaCost: 5000,
   },
   SIGNATURE_SPELL_TALENT: {
     id: 470021,
@@ -1713,7 +1713,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [80140],
     definitionIds: [{ id: 85143, specId: 64 }],
-    manaCost: 525000,
+    manaCost: 52500,
   },
   SPLINTERING_ORBS_TALENT: {
     id: 444256,
@@ -1770,7 +1770,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [134406],
     definitionIds: [{ id: 139178, specId: 64 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   SUNFURY_EXECUTION_TALENT: {
     id: 449349,
@@ -1883,7 +1883,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126538],
     definitionIds: [{ id: 131364, specId: 62 }],
-    manaCost: 125000,
+    manaCost: 12500,
   },
   WHITE_OUT_TALENT: {
     id: 1281638,

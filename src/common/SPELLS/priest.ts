@@ -7,6 +7,11 @@ import Spell from 'common/SPELLS/Spell';
 
 const spells = {
   // Shared
+  ESSENCE_DEVOURER_HEAL: {
+    id: 415673,
+    name: 'Essence Devourer',
+    icon: 'achievement_raid_terraceofendlessspring04',
+  },
   HOLY_NOVA_HEAL: {
     id: 281265,
     name: 'Holy Nova',
@@ -24,6 +29,11 @@ const spells = {
     name: 'Mind Soothe',
     icon: 'spell_holy_mindsooth',
     manaCost: 2500,
+  },
+  CRYSTALLINE_REFLECTION_TALENT_HEAL: {
+    id: 373462,
+    name: 'Crystalline Reflection',
+    icon: 'ability_priest_reflectiveshield',
   },
   BORROWED_TIME_BUFF: {
     id: 390692,
@@ -198,16 +208,6 @@ const spells = {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
-  DIVINE_STAR_HEAL: {
-    id: 110745,
-    name: 'Halo',
-    icon: 'spell_priest_divinestar',
-  },
-  DIVINE_STAR_DAMAGE: {
-    id: 122128,
-    name: 'Halo',
-    icon: 'spell_priest_divinestar',
-  },
   SHADOW_DIVINE_STAR_HEAL: {
     id: 390981,
     name: 'Divine Star',
@@ -296,11 +296,15 @@ const spells = {
   },
 
   // Holy Priest Spells
-  GREATER_HEAL: {
-    id: 2060,
-    name: 'Heal',
-    icon: 'spell_holy_greaterheal',
-    manaCost: 60000,
+  BENEDICTION: {
+    id: 1262763,
+    name: 'Benediction',
+    icon: 'inv12_apextalent_priest_benediction',
+  },
+  DIVINITY_BUFF: {
+    id: 1216314,
+    name: 'Divinity',
+    icon: 'ability_priest_rayofhope',
   },
   FLASH_HEAL: {
     id: 2061,
@@ -310,6 +314,11 @@ const spells = {
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
+    name: 'Prayer of Mending',
+    icon: 'spell_holy_prayerofmendingtga',
+  },
+  PRAYER_OF_MENDING_CAST: {
+    id: 33076,
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
   },
@@ -338,7 +347,7 @@ const spells = {
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
   },
-  HOLY_WORDS: {
+  SERENDIPITY: {
     id: 63733,
     name: 'Holy Words',
     icon: 'spell_holy_serendipity',
@@ -369,35 +378,10 @@ const spells = {
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
   },
-  HOLY_WORD_SALVATION: {
-    id: 265202,
-    name: 'Holy Word: Salvation',
-    icon: 'spell_holy_archangel',
-  },
-  CIRCLE_OF_HEALING: {
-    id: 204883,
-    name: 'Circle of Healing',
-    icon: 'spell_holy_circleofrenewal',
-  },
-  POWER_WORD_LIFE: {
-    id: 373481,
-    name: 'Power Word: Life',
-    icon: 'ability_priest_holywordlife',
-  },
-  PREMONITION_OF_CLAIRVOYANCE: {
-    id: 440725,
-    name: 'Premonition of Clairvoyance',
-    icon: 'inv_inscription_vantusrune_progenitor',
-  },
-  PREMONITION_OF_PIETY: {
+  PIETY: {
     id: 443126,
     name: 'Premonition of Piety',
     icon: 'inv_ability_oraclepriest_premonitionpiety',
-  },
-  ESSENCE_DEVOURER_HEAL: {
-    id: 415673,
-    name: 'Essence Devourer',
-    icon: 'achievement_raid_terraceofendlessspring04',
   },
 
   // Buffs
@@ -456,7 +440,7 @@ const spells = {
     name: 'Premonition of Solace',
     icon: 'inv_ability_oraclepriest_premonitionsolace',
   },
-  PREMONITION_OF_PIETY_BUFF: {
+  PIETY_BUFF: {
     id: 428930,
     name: 'Premonition of Piety',
     icon: 'inv_ability_oraclepriest_premonitionpiety',
@@ -465,6 +449,11 @@ const spells = {
     id: 428933,
     name: 'Premonition of Insight',
     icon: 'inv_ability_oraclepriest_premonitioninsight',
+  },
+  EPIPHANY_BUFF: {
+    id: 414556,
+    name: 'Epiphany',
+    icon: 'ability_mage_studentofthemind',
   },
   HOLY_PRIEST_TWW_4PC_DISPLAY: {
     id: 453678,
@@ -798,6 +787,11 @@ const spells = {
     id: 472433,
     name: 'Evangelism',
     icon: 'spell_holy_divineillumination',
+  },
+  POWER_WORD_SHIELD_AS_APPLY: {
+    id: 1246768,
+    name: 'Power Word: Shield',
+    icon: 'spell_holy_powerwordshield',
   },
 } satisfies Record<string, Spell>;
 

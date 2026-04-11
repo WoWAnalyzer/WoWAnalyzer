@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
+import TALENTS from 'common/TALENTS/paladin';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -29,32 +29,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.HIDDEN,
         castEfficiency: {
           suggestion: false,
-        },
-      },
-      {
-        spell: SPELLS.DIVINE_HAMMER_CAST.id,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_HAMMER_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        buffSpellId: TALENTS_PALADIN.DIVINE_HAMMER_TALENT.id,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.CRUSADE.id,
-        enabled:
-          combatant.hasTalent(TALENTS.CRUSADE_TALENT) &&
-          !combatant.hasTalent(TALENTS.RADIANT_GLORY_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        buffSpellId: SPELLS.CRUSADE.id,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion:
-            'This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.',
         },
       },
       {
@@ -89,7 +63,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.DIVINE_TOLL_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(TALENTS.QUICKENED_INVOCATION_TALENT) ? 30 : 60,
         castEfficiency: {
           recommendedEfficiency: 0.9,
         },

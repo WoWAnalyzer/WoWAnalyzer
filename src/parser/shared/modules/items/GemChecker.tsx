@@ -9,10 +9,12 @@ import {
 } from 'common/ITEMS/thewarwithin/socketBonusId';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { GearSlotName, SlotMap } from 'parser/core/Combatant';
 import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
-import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
+import GEAR_SLOTS, { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
+import typedKeys from 'common/typedKeys';
 import {
   buildEventItemGemPlaceholders,
   maxSocketCountForGemmableSlotConfig,
@@ -49,30 +51,30 @@ export interface GemmableSlotConfig {
 }
 
 class GemChecker extends Analyzer {
-  get GemableSlots(): Record<number, GemmableSlotConfig> {
+  get GemableSlots(): SlotMap<GemmableSlotConfig> {
     return {};
   }
 
-  get GemableGear(): Record<number, EventItem> {
+  get GemableGear(): SlotMap<EventItem> {
     const gemSlots = this.GemableSlots;
-    return Object.keys(gemSlots).reduce<Record<number, EventItem>>((obj, slot) => {
-      const innerSlot = Number(slot);
-
-      obj[innerSlot] = this.selectedCombatant._getGearItemBySlotId(innerSlot);
-
+    return typedKeys(gemSlots).reduce<SlotMap<EventItem>>((obj, slot) => {
+      const item = this.selectedCombatant.getGear(slot);
+      if (item) {
+        obj[slot] = item;
+      }
       return obj;
     }, {});
   }
 
-  private maxSocketCount(slot: number, ignoreTimeGates = false): number {
+  private maxSocketCount(slot: GearSlotName, ignoreTimeGates = false): number {
     return maxSocketCountForGemmableSlotConfig(this.GemableSlots[slot], ignoreTimeGates);
   }
 
-  hasTimeGatedSockets(slot: number): boolean {
-    return this.GemableSlots[slot]?.timeGated;
+  hasTimeGatedSockets(slot: GearSlotName): boolean {
+    return this.GemableSlots[slot]?.timeGated ?? false;
   }
 
-  missingGemCount(item: EventItem, slot: number) {
+  missingGemCount(item: EventItem, slot: GearSlotName) {
     const gemArrayLength: number = item.gems?.length ?? 0;
     const socketCount = eventItemGemSocketCount(item);
     const maxSockets = this.maxSocketCount(slot);
@@ -109,7 +111,7 @@ class GemChecker extends Analyzer {
   //Add a row for the actual Gem in the future to evaluate each
   boxRowPerformance(
     item: EventItem,
-    slotNumber: number,
+    slot: GearSlotName,
     slotName: JSX.Element,
     recommendedGems?: number[],
   ) {
@@ -177,11 +179,11 @@ class GemChecker extends Analyzer {
       );
     }
 
-    const missingGems = this.missingGemCount(item, slotNumber);
+    const missingGems = this.missingGemCount(item, slot);
 
     if (missingGems > 0) {
-      gemRank.push(...this.buildGemPlaceholders(item, slotNumber));
-      const socketAdditionItemId = this.GemableSlots[slotNumber]?.socketingItemId;
+      gemRank.push(...this.buildGemPlaceholders(item, slot));
+      const socketAdditionItemId = this.GemableSlots[slot]?.socketingItemId;
 
       equipmentPerformance = QualitativePerformance.Fail;
       tooltipContent.push(
@@ -192,15 +194,15 @@ class GemChecker extends Analyzer {
           {socketAdditionItemId && (
             <div>
               You can use <ItemLink id={socketAdditionItemId} /> to add gem socket, up to a maximum
-              of {this.maxSocketCount(slotNumber, true)}.
+              of {this.maxSocketCount(slot, true)}.
             </div>
           )}
         </Trans>,
       );
-    } else if (this.hasTimeGatedSockets(slotNumber) && eventItemGemSocketCount(item) === 0) {
-      gemRank.push(...this.buildGemPlaceholders(item, slotNumber));
+    } else if (this.hasTimeGatedSockets(slot) && eventItemGemSocketCount(item) === 0) {
+      gemRank.push(...this.buildGemPlaceholders(item, slot));
 
-      const socketAdditionItemId = this.GemableSlots[slotNumber]?.socketingItemId;
+      const socketAdditionItemId = this.GemableSlots[slot]?.socketingItemId;
 
       equipmentPerformance = TIME_GATED_UPGRADE;
       tooltipContent.push(
@@ -226,8 +228,8 @@ class GemChecker extends Analyzer {
     return null;
   }
 
-  buildGemPlaceholders(item: EventItem, slotNumber: number): { gem: EventGem }[] {
-    return buildEventItemGemPlaceholders(item, this.GemableSlots[slotNumber]);
+  buildGemPlaceholders(item: EventItem, slot: GearSlotName): { gem: EventGem }[] {
+    return buildEventItemGemPlaceholders(item, this.GemableSlots[slot]);
   }
 
   boxRowItemLink(item: EventItem, slotName: JSX.Element) {
@@ -242,24 +244,22 @@ class GemChecker extends Analyzer {
     const gear = this.GemableGear;
 
     // Filter out items that cannot have gems
-    return Object.keys(gear)
+    return typedKeys(gear)
       .filter((slot) => {
-        const slotNumber = Number(slot);
-        const item = gear[slotNumber];
+        const item = gear[slot]!;
         return (
           // Check if the item has gems
           eventItemHasGemSocket(item) ||
-          this.maxSocketCount(slotNumber, true) > 0 ||
+          this.maxSocketCount(slot, true) > 0 ||
           (item.gems && item.gems.length > 0)
         );
       })
       .map<GemBoxRowEntry>((slot) => {
-        const slotNumber = Number(slot);
-        const item = gear[slotNumber];
-        const slotName = GEAR_SLOT_NAMES[slotNumber];
+        const item = gear[slot]!;
+        const slotName = GEAR_SLOT_NAMES[GEAR_SLOTS[slot]];
 
         // Use boxRowPerformance to calculate the value
-        const performance = this.boxRowPerformance(item, slotNumber, slotName, recommendedGems);
+        const performance = this.boxRowPerformance(item, slot, slotName, recommendedGems);
 
         return {
           item,

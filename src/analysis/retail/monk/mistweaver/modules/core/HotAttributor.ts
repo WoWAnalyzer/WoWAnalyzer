@@ -23,7 +23,6 @@ import {
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { isFromTFT } from '../../normalizers/EventLinks/TierEventLinks';
-import { hasConditionalFieldOrDatumDef } from 'vega-lite/build/src/channeldef';
 import { CelestialHooks } from 'analysis/retail/monk/shared';
 
 const debug = false;
@@ -134,7 +133,6 @@ class HotAttributor extends Analyzer {
       //thank you blizzard for adding random inconsistent versions of spells into the game that dont adhere to the same rules
       //as other buffs with the same Id that are sourced from different abilities
       hot.maxDuration = 20000;
-      this.hotTracker.hotInfo;
     } else if (isFromRapidDiffusion(event)) {
       //rapid diffusion rem
       this._attributeRapidDiffusionRem(event, hot);

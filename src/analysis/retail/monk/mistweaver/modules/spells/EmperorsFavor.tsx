@@ -65,9 +65,12 @@ class EmperorsFavor extends Analyzer.withDependencies({
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_MONK.EMPERORS_FAVOR_TALENT}>
-          <ItemHealingDone amount={this.healing} />
-          <br />
-          <Uptime /> {(this.timeSaved / 1000).toFixed(2)}s <small>time saved</small>
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
+            <Uptime /> {(this.timeSaved / 1000).toFixed(2)}s <small>time saved</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

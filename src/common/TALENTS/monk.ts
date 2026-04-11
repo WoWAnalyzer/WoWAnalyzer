@@ -201,7 +201,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [136562],
     definitionIds: [{ id: 141335, specId: 270 }],
-    manaCost: 125000,
+    manaCost: 12500,
   },
   CELESTIAL_CONDUIT_WINDWALKER_TALENT: {
     id: 1248989,
@@ -632,7 +632,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124922],
     definitionIds: [{ id: 129760, specId: 270 }],
-    manaCost: 90000,
+    manaCost: 9000,
   },
   ESCAPE_FROM_REALITY_TALENT: {
     id: 394110,
@@ -994,7 +994,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124914],
     definitionIds: [{ id: 129752, specId: 270 }],
-    manaCost: 125000,
+    manaCost: 12500,
   },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 132578,
@@ -1019,7 +1019,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124915],
     definitionIds: [{ id: 129753, specId: 270 }],
-    manaCost: 125000,
+    manaCost: 12500,
   },
   IRONSHELL_BREW_TALENT: {
     id: 388814,
@@ -1141,7 +1141,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124875],
     definitionIds: [{ id: 129713, specId: 270 }],
-    manaCost: 60000,
+    manaCost: 6000,
   },
   LIGHTER_THAN_AIR_TALENT: {
     id: 449582,
@@ -1174,7 +1174,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124920],
     definitionIds: [{ id: 129758, specId: 270 }],
-    manaCost: 25000,
+    manaCost: 2500,
   },
   MANIFESTATION_TALENT: {
     id: 450875,
@@ -1571,7 +1571,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124918],
     definitionIds: [{ id: 129756, specId: 270 }],
-    manaCost: 109350,
+    manaCost: 10935,
   },
   RESTORE_BALANCE_TALENT: {
     id: 442719,
@@ -1591,7 +1591,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124919],
     definitionIds: [{ id: 129757, specId: 270 }],
-    manaCost: 109350,
+    manaCost: 10935,
   },
   REVOLVING_WHIRL_TALENT: {
     id: 451524,
@@ -1633,7 +1633,7 @@ const talents = {
     entryIds: [124985],
     definitionIds: [{ id: 129823, specId: 270 }],
     chiCost: 2,
-    manaCost: 62500,
+    manaCost: 6250,
   },
   ROAR_FROM_THE_HEAVENS_TALENT: {
     id: 451043,
@@ -1667,7 +1667,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [128221],
     definitionIds: [{ id: 133028, specId: 270 }],
-    manaCost: 31250,
+    manaCost: 3125,
   },
   RUSHING_WIND_KICK_WINDWALKER_TALENT: {
     id: 1250566,
@@ -1764,7 +1764,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124904],
     definitionIds: [{ id: 129742, specId: 270 }],
-    manaCost: 75000,
+    manaCost: 7500,
   },
   SHUFFLE_TALENT: {
     id: 322120,
@@ -1822,7 +1822,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124933],
     definitionIds: [{ id: 129771, specId: 270 }],
-    manaCostPerSecond: 10000,
+    manaCostPerSecond: 1000,
     energyCostPerSecond: 15,
   },
   SPEAR_HAND_STRIKE_TALENT: {

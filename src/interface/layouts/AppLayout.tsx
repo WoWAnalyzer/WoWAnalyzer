@@ -51,10 +51,12 @@ export function AppLayout() {
             {/* Lower case the button so it doesn't seem to aggressive */}
             <a
               className="btn btn-primary"
-              href="https://outdatedbrowser.com/"
+              href="https://browser-update.org/update-browser.html"
               style={{ textTransform: 'none' }}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Download a proper browser
+              Update your Browser
             </a>
           </FullscreenError>
         )}

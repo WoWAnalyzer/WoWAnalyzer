@@ -86,17 +86,12 @@ class Stasis extends Analyzer {
 
   getSpellLink(key: number, spellPair: [number, number]) {
     if (spellPair[0] === 0) {
-      return (
-        <>
-          Unknown spell cast before pull <br />
-        </>
-      );
+      return <>Unknown spell cast before pull</>;
     }
     return (
-      <>
+      <div>
         <SpellLink key={key} spell={spellPair[0]} /> @ {this.owner.formatTimestamp(spellPair[1])}
-        <br />
-      </>
+      </div>
     );
   }
 
@@ -333,7 +328,6 @@ class Stasis extends Analyzer {
         <SpellLink spell={TALENTS_EVOKER.REWIND_TALENT} />
         {
           <div>
-            <br />
             In general, you should always store{' '}
             <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />,{' '}
             <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />, and
@@ -351,7 +345,6 @@ class Stasis extends Analyzer {
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
           </div>
-          <br />
           {this.stasisInfos.map((info, idx) => {
             const header = (
               <>
@@ -421,27 +414,30 @@ class Stasis extends Analyzer {
         wide
       >
         <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> <small>spell breakdown</small>
-        <br />
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast #</th>
-              <th>Cast Time</th>
-              <th>Consume Time</th>
-              <th>Spells</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.stasisInfos.map((info, index) => (
-              <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>{this.owner.formatTimestamp(info.castTime)}</td>
-                <td>{this.owner.formatTimestamp(info.consumeTime)}</td>
-                <td>{info.spells.map((spellPair, idx2) => this.getSpellLink(idx2, spellPair))}</td>
+        <div>
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast #</th>
+                <th>Cast Time</th>
+                <th>Consume Time</th>
+                <th>Spells</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.stasisInfos.map((info, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{this.owner.formatTimestamp(info.castTime)}</td>
+                  <td>{this.owner.formatTimestamp(info.consumeTime)}</td>
+                  <td>
+                    {info.spells.map((spellPair, idx2) => this.getSpellLink(idx2, spellPair))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Statistic>
     );
   }

@@ -89,6 +89,27 @@ class AzureSweep extends Analyzer {
     this.currentStacks = event.stack;
   }
 
+  get consumedBuffs() {
+    return this.buffsUsed;
+  }
+
+  get wastedBuffs() {
+    return this.buffsWasted + this.buffsOvercapped;
+  }
+
+  get totalBuffs() {
+    return this.wastedBuffs + this.consumedBuffs;
+  }
+
+  get buffRatio() {
+    const wastedBuffs = this.wastedBuffs;
+    if (wastedBuffs === 0) {
+      return 1;
+    }
+
+    return 1 - wastedBuffs / this.totalBuffs;
+  }
+
   statistic() {
     const items = [
       {

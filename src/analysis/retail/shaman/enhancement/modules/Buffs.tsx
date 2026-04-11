@@ -52,11 +52,6 @@ class Buffs extends ClassBuffs {
         spellId: TALENTS.VOLTAIC_BLAZE_TALENT.id,
         timelineHighlight: true,
       },
-      {
-        spellId: SPELLS.STORM_UNLEASHED_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.STORM_UNLEASHED_1_ENHANCEMENT_TALENT),
-        timelineHighlight: true,
-      },
     ];
   }
 }

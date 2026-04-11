@@ -31,9 +31,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: SUDDEN_DEATH_REMOVE_BUFF_STACK,
-    linkingEventId: [SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF.id],
+    linkingEventId: [SPELLS.SUDDEN_DEATH_TALENT_BUFF.id],
     linkingEventType: EventType.RefreshBuff,
-    referencedEventId: SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF.id,
+    referencedEventId: SPELLS.SUDDEN_DEATH_TALENT_BUFF.id,
     referencedEventType: EventType.RemoveBuffStack,
     forwardBufferMs: SUDDEN_DEATH_BUFF_BUFFER_MS,
     backwardBufferMs: SUDDEN_DEATH_BUFF_BUFFER_MS,

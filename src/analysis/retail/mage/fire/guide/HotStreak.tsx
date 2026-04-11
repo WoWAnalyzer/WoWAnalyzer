@@ -8,7 +8,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
 
-import HotStreak from '../core/HotStreak';
+import HotStreak, { HotStreakProc } from '../core/HotStreak';
 import { CastOverview, StackedBar, type StackedBarSegment } from 'interface/guide/components';
 import { formatDurationMillisMinSec } from 'common/format';
 
@@ -79,7 +79,7 @@ class HotStreakGuide extends Analyzer {
     ];
   }
 
-  private evaluateHotStreakProc(hs: any): CastEvaluation {
+  private evaluateHotStreakProc(hs: HotStreakProc): CastEvaluation {
     // FAIL CONDITIONS
     if (hs.expired) {
       return {

@@ -29,7 +29,9 @@ const actorName: Column<{ actorId: number }> = {
   },
 };
 
-export const spellName: Column<{ spell: number | Spell; school?: number; isPet?: boolean }> = {
+export const spellName: Column<{ spell: number | Spell; school?: number; isPet?: boolean }> & {
+  withLabels(labels: Record<number, React.ReactNode>): typeof spellName;
+} = {
   label: 'Ability',
   render({ spell, school, isPet }) {
     if (spell === OTHER_SPECIAL_ID) {
@@ -42,15 +44,40 @@ export const spellName: Column<{ spell: number | Spell; school?: number; isPet?:
       </>
     );
   },
+  withLabels(labels: Record<number, React.ReactNode>): typeof spellName {
+    const parentRender = this.render.bind(this);
+    return {
+      ...this,
+      render({ spell, school, isPet }, ctx) {
+        const id = typeof spell === 'number' ? spell : spell.id;
+        if (id in labels) {
+          if (id === OTHER_SPECIAL_ID) {
+            return labels[id];
+          } else {
+            return (
+              <>
+                <SpellLink className={school ? `spell-school-${school}` : ''} spell={spell}>
+                  {labels[id]}
+                </SpellLink>
+                {isPet ? <>&nbsp;(Pet)</> : null}
+              </>
+            );
+          }
+        }
+
+        return parentRender({ spell, school, isPet }, ctx);
+      },
+    };
+  },
 };
 
 export const amountBar = (
-  type: EventType.Damage | EventType.Heal,
+  label: string,
 ): Column<
   { amount: number; school?: number; type?: string; isAbsorb?: boolean },
   { max: number; total: number }
 > => ({
-  label: type === EventType.Damage ? 'Damage' : 'Healing',
+  label,
   render({ amount, school, type, isAbsorb }, { max, total }) {
     return (
       <div
@@ -85,13 +112,14 @@ export const amountBar = (
 export const literalNumberColumn = <K extends string>(
   label: React.ReactNode,
   key: K,
-): Column<Record<K, number>> => ({
+  optional = true,
+): Column<Record<K, number | null>> => ({
   label,
   render(row) {
     return row[key];
   },
   align: 'right',
-  optional: true,
+  optional,
 });
 
 const critPct: Column<{ hits: number; crits: number }> = {
@@ -447,7 +475,7 @@ function ThroughputTableRaw({
     <Table
       columns={{
         nameColumn,
-        amountBar: amountBar(type),
+        amountBar: amountBar(type === EventType.Damage ? 'Damage' : 'Healing'),
         hits: literalNumberColumn('Hits', 'hits'),
         avgHit,
         critPct,

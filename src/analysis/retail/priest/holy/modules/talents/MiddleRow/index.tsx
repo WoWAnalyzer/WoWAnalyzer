@@ -1,19 +1,19 @@
-import Benediction from './Benediction';
+import LightsResurgence from './LightsResurgence';
 import Enlightenment from './Enlightenment';
-import PrayerCircle from './PrayerCircle';
 import TrailOfLight from './TrailOfLight';
 import EverlastingLight from './EverlastingLight';
 import PrayerfulLitany from './PrayerfulLitany';
 import PrismaticEchoes from './PrismaticEchoes';
 import CrisisManagement from './CrisisManagement';
+import HolyCelerity from './HolyCelerity';
 
 export {
-  Benediction,
+  LightsResurgence,
   Enlightenment,
-  PrayerCircle,
   TrailOfLight,
   EverlastingLight,
   PrayerfulLitany,
   PrismaticEchoes,
   CrisisManagement,
+  HolyCelerity,
 };

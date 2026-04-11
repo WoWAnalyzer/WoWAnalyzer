@@ -60,6 +60,7 @@ export enum EventLinkBuffers {
   PrimordialWave = 15500,
   Stormstrike = 900,
   StormUnleashed = 5,
+  WhirlingFire = 10,
   CastDamageBuffer = 100,
   SURGING_ELEMENTS_BUFFER = 250,
   LIGHTNING_BOLT_BUFFER = 150,
@@ -79,7 +80,8 @@ export enum EnhancementEventLinks {
   STORM_UNLEASHED_LINK = 'storm-unleashed',
   SUNDERING_LINK = 'sundering',
   REACTIVITY_LINK = 'reactivity',
-  WHIRLING_FIRE_LINK = 'whirling-fire',
+  WHIRLING_FIRE_HOT_HAND_LINK = 'whirling-fire-hot-hand',
+  WHIRLING_FIRE_LAVA_LASH_LINK = 'whirling-fire-lava-lash',
 }
 
 export const GCD_TOLERANCE = 25;

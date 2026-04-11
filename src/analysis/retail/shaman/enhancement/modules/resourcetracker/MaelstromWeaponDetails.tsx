@@ -20,13 +20,11 @@ class MaelstromWeaponDetails extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE()}
         tooltip={
-          <>
-            {this.maelstromWeaponTracker.generated} stacks gained
-            <br />
-            {this.maelstromWeaponTracker.wasted} stacks wasted
-            <br />
-            {spentPerSecond.toFixed(2)} spent per second
-          </>
+          <ul>
+            <li>{this.maelstromWeaponTracker.generated} stacks gained</li>
+            <li>{this.maelstromWeaponTracker.wasted} stacks wasted</li>
+            <li>{spentPerSecond.toFixed(2)} spent per second</li>
+          </ul>
         }
       >
         <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON_BUFF}>

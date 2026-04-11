@@ -1,21 +1,8 @@
-import AnsweredPrayers from './AnsweredPrayers';
 import Apotheosis from './Apotheosis';
 import DesperateTimes from './DesperateTimes';
 import DivineImage from './DivineImage';
-import DivineWord from './DivineWord';
 import Lightweaver from './Lightweaver';
-import ResonantWords from './ResonantWords';
 import MiracleWorker from './MiracleWorker';
-import Lightwell from './Lightwell';
+import Epiphany from './Epiphany';
 
-export {
-  AnsweredPrayers,
-  Apotheosis,
-  DesperateTimes,
-  DivineImage,
-  DivineWord,
-  Lightweaver,
-  ResonantWords,
-  MiracleWorker,
-  Lightwell,
-};
+export { Apotheosis, DesperateTimes, DivineImage, Lightweaver, MiracleWorker, Epiphany };

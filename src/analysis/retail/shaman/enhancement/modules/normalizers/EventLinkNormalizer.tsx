@@ -120,28 +120,32 @@ const sunderingDamageLink: EventLink = {
   isActive: (c) => c.hasTalent(TALENTS.EARTHSURGE_TALENT) || c.hasTalent(TALENTS.SUNDERING_TALENT),
 };
 const whirlingFireHotHandLink: EventLink = {
-  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
+  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_HOT_HAND_LINK,
   linkingEventId: SPELLS.HOT_HAND_BUFF.id,
   linkingEventType: EventType.ApplyBuff,
   referencedEventId: SPELLS.WHIRLING_FIRE.id,
   referencedEventType: EventType.RemoveBuff,
-  reverseLinkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
-  forwardBufferMs: 5,
+  reverseLinkRelation: EnhancementEventLinks.WHIRLING_FIRE_HOT_HAND_LINK,
+  forwardBufferMs: EventLinkBuffers.WhirlingFire,
+  backwardBufferMs: EventLinkBuffers.WhirlingFire,
+  maximumLinks: 1,
 };
 const whirlingFireLavaLashLink: EventLink = {
-  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
+  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LAVA_LASH_LINK,
   linkingEventId: SPELLS.WHIRLING_FIRE.id,
   linkingEventType: EventType.RemoveBuff,
   referencedEventId: TALENTS.LAVA_LASH_TALENT.id,
   referencedEventType: EventType.Cast,
-  backwardBufferMs: EventLinkBuffers.CastDamageBuffer,
+  forwardBufferMs: EventLinkBuffers.WhirlingFire,
+  backwardBufferMs: EventLinkBuffers.WhirlingFire,
   anyTarget: true,
+  maximumLinks: 1,
   additionalCondition: (le, _) => {
     if (le.type === EventType.RemoveBuff && le.ability.guid === SPELLS.WHIRLING_FIRE.id) {
       return (
         GetRelatedEvent<ApplyBuffEvent>(
           le,
-          EnhancementEventLinks.WHIRLING_FIRE_LINK,
+          EnhancementEventLinks.WHIRLING_FIRE_HOT_HAND_LINK,
           (e) => e.type === EventType.ApplyBuff && e.ability.guid === SPELLS.HOT_HAND_BUFF.id,
         ) !== undefined
       );

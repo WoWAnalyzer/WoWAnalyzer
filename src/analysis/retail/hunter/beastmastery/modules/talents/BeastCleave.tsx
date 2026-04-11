@@ -119,7 +119,7 @@ class BeastCleave extends Analyzer {
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
               <ItemDamageDone amount={this.damage} />
-              <br />
+              <p />
               <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
             </>
           </BoringSpellValueText>

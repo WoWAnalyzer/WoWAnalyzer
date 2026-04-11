@@ -1,8 +1,9 @@
 // TODO this should be unified?
-import { readCsvFromUrl, csvToObject } from '../talents/talent-tree-helpers';
 import * as fs from 'fs';
+import { csvToObject, getDbcCsvUrl, readCsvFromUrl } from 'scripts/utils/helpers';
+import { DBCTable } from 'scripts/utils/dbc-types';
 
-const BUILD_NUMBER = '11.0.2.56110';
+const BUILD_NUMBER = '12.0.1.66709';
 
 interface RandPoint {
   ID: string;
@@ -15,9 +16,7 @@ async function ensureDirectory() {
 }
 
 async function importRandPoints() {
-  const res = await readCsvFromUrl(
-    `https://wago.tools/db2/RandPropPoints/csv?build=${BUILD_NUMBER}`,
-  );
+  const res = await readCsvFromUrl(getDbcCsvUrl(DBCTable.RandPropPoints, BUILD_NUMBER));
   const data = csvToObject<RandPoint>(res);
 
   const result: number[] = [];

@@ -5,11 +5,16 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/deathknight';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import Cooldowns from './guide/CooldownSection';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
 export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <IntroSection />
+
+      <Section title="Active Time">
+        <FoundationDowntimeSection />
+      </Section>
 
       <Section title="Cooldown Tracking">
         <Cooldowns />

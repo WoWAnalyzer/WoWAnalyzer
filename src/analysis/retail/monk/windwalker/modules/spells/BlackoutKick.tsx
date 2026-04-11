@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -56,6 +56,9 @@ class BlackoutKick extends Analyzer {
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
+  lastBlackoutKickTimestamp = 0;
+
+  static TOTM_CONSUME_WINDOW_MS = 400;
 
   constructor(options: Options) {
     super(options);
@@ -63,7 +66,34 @@ class BlackoutKick extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT)) {
       this.IMPORTANT_SPELLS.push(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id);
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.BLACKOUT_KICK_TOTM]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
+      this.onTotmConsumed,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
+      this.onTotmConsumed,
+    );
+  }
+
+  onTotmConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    if (event.timestamp - this.lastBlackoutKickTimestamp > BlackoutKick.TOTM_CONSUME_WINDOW_MS) {
+      return;
+    }
+
+    // Warcraft Logs often omits a separate BLACKOUT_KICK_TOTM cast, but the buff
+    // consumption still implies the bonus strike and its matching cooldown reduction.
+    const [effectiveRsk, wastedRsk] = this.applyCdr(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+    this.effectiveRisingSunKickReductionMs += effectiveRsk;
+    this.wastedRisingSunKickReductionMs += wastedRsk;
+
+    const [effectiveFoF, wastedFoF] = this.applyCdr(SPELLS.FISTS_OF_FURY_CAST.id);
+    this.effectiveFistsOfFuryReductionMs += effectiveFoF;
+    this.wastedFistsOfFuryReductionMs += wastedFoF;
   }
 
   applyCdr(spellId: number): [number, number] {
@@ -78,11 +108,13 @@ class BlackoutKick extends Analyzer {
         BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
       effective += reductionMs;
+      wasted += cdr - reductionMs;
     }
     return [effective, wasted];
   }
 
   onCast(event: CastEvent) {
+    this.lastBlackoutKickTimestamp = event.timestamp;
     const availableImportantCast = this.IMPORTANT_SPELLS.filter((spellId) =>
       this.spellUsable.isAvailable(spellId),
     );
@@ -132,7 +164,7 @@ class BlackoutKick extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
-          <span>
+          <p>
             <SpellIcon
               spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
               style={{
@@ -142,7 +174,8 @@ class BlackoutKick extends Analyzer {
             />{' '}
             {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-            <br />
+          </p>
+          <p>
             <SpellIcon
               spell={SPELLS.FISTS_OF_FURY_CAST}
               style={{
@@ -152,7 +185,7 @@ class BlackoutKick extends Analyzer {
             />{' '}
             {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}{' '}
             <small>Seconds reduced</small>
-          </span>
+          </p>
         </BoringSpellValueText>
       </Statistic>
     );

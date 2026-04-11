@@ -62,6 +62,11 @@ class Buffs extends CoreAuras {
         enabled: combatant.has2PieceByTier(TIERS.MID1),
         triggeredBySpellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
       },
+      {
+        spellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+        triggeredBySpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+      },
     ];
   }
 }

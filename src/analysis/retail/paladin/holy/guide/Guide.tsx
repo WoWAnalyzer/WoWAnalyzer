@@ -53,7 +53,8 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
           won't result in significant overhealing, it's usually the best option. This is because{' '}
           <SpellLink spell={talents.LIGHT_OF_DAWN_TALENT} /> tends to overheal and targets allies
           randomly, making it less effective.
-          <br />
+        </p>
+        <p>
           When using{' '}
           {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
             <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />

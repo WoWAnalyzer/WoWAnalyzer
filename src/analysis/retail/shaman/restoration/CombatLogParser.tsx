@@ -19,9 +19,9 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
 import HealingRain from './modules/spells/HealingRain';
-import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import EarthlivingWeapon from './modules/talents/EarthlivingWeapon';
+import HealingStreamTotem from './modules/spells/HealingStreamTotem';
 
 import Resurgence from './modules/spells/Resurgence';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
@@ -50,6 +50,7 @@ import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
 // Shared
 
 // Normalizers
+import EarthShieldNormalizer from './normalizers/EarthShieldNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
@@ -125,9 +126,9 @@ class CombatLogParser extends CoreCombatLogParser {
     riptide: Riptide,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
-    healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
+    healingStreamTotem: HealingStreamTotem,
 
     waterShield: WaterShield,
     spiritLinkDamageReduction: SpiritLinkDamageReduction,
@@ -140,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalOrbit: ElementalOrbit,
 
     // Normalizers
+    earthShieldNormalizer: EarthShieldNormalizer,
     surgingTotemPrePullNormalizer: SurgingTotemPrePullNormalizer,
     riptideNormalizer: RiptideNormalizer,
     castLinkNormalizer: CastLinkNormalizer,

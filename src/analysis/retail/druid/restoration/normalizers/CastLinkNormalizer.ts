@@ -73,16 +73,6 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: SPELLS.WILD_GROWTH.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.WILD_GROWTH.id,

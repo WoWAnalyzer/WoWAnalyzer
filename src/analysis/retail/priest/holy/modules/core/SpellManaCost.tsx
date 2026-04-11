@@ -15,7 +15,7 @@ class SpellManaCost extends CoreSpellManaCost {
       return cost;
     }
 
-    // Apotheosis talent reduces the mana cost of Holy Word spells by 100%
+    // Apotheosis talent reduces the mana cost of Holy Word spells by 50%
     if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT.id, event.timestamp)) {
       const isAbilityAffectedByApotheosis =
         ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT.includes(spellId);
@@ -25,9 +25,9 @@ class SpellManaCost extends CoreSpellManaCost {
             TALENTS.APOTHEOSIS_TALENT.name,
             'is active, reducing cost (',
             cost,
-            ') by 100%',
+            ') by 50%',
           );
-        cost = 0;
+        cost = Math.floor(cost * 0.5); // 50% reduction, rounded down (typical for mana costs)
       }
     }
 

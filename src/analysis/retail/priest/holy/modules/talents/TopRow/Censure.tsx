@@ -7,7 +7,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-// Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
+/**
+ * Censure
+ * Holy Word: Chastise stuns the target for 4 sec and is not broken by damage.
+ */
+
 class Censure extends Analyzer {
   chastiseCasts = 0;
   censureStuns = 0;
@@ -52,8 +56,10 @@ class Censure extends Analyzer {
         tooltip={
           <>
             {this.chastiseCasts} Chastise Casts
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
             {this.censureStuns} Chastise Stuns
+            {/* oxlint-disable-next-line @wowanalyzer/no-br */}
             <br />
           </>
         }

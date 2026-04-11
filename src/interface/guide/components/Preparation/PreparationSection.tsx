@@ -6,12 +6,13 @@ import ConsumablesSubSection from './ConsumablesSubSection';
 import EnhancementSubSection from 'interface/guide/components/Preparation/EnhancementSubSection';
 import Expansion, { isRetailExpansion, RETAIL_EXPANSION } from 'game/Expansion';
 import GemSubSection from './GemSubSection';
+import { GearSlotName } from 'parser/core/Combatant';
 
 interface Props {
-  recommendedEnchantments?: Record<number, Enchant[]>;
+  recommendedEnchantments?: Partial<Record<GearSlotName, Enchant[]>>;
   recommendedFlasks?: Spell[];
   recommendedFoods?: Spell[];
-  recommendedWeaponEnhancements?: Record<number, Enchant[]>;
+  recommendedWeaponEnhancements?: Partial<Record<GearSlotName, Enchant[]>>;
   expansion?: Expansion;
   recommendedGems?: number[];
 }
