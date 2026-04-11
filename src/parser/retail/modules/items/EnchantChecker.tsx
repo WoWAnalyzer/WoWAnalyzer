@@ -2,40 +2,20 @@ import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/midnight/enchants';
 import SPELLS from 'common/SPELLS/deathknight';
-import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
+import { GearSlotName } from 'parser/core/Combatant';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/CBAkyFWJVR1xXPgQ/?fight=34&source=29
 
-const AGI_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
-
-const STR_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
-
-const INT_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+const ENCHANTABLE_SLOTS: Partial<Record<GearSlotName, JSX.Element>> = {
+  CHEST: <Trans id="common.slots.chest">Chest</Trans>,
+  LEGS: <Trans id="common.slots.legs">Legs</Trans>,
+  FEET: <Trans id="common.slots.boots">Boots</Trans>,
+  FINGER1: <Trans id="common.slots.ring">Ring</Trans>,
+  FINGER2: <Trans id="common.slots.ring">Ring</Trans>,
+  MAINHAND: <Trans id="common.slots.weapon">Weapon</Trans>,
+  OFFHAND: <Trans id="common.slots.offhand">OffHand</Trans>,
 };
 
 const MIN_ENCHANT_IDS = [
@@ -182,12 +162,8 @@ const MAX_ENCHANT_IDS = [
 ] as const satisfies number[];
 
 class EnchantChecker extends BaseEnchantChecker {
-  get EnchantableSlots(): Record<number, JSX.Element> {
-    return this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.AGILITY
-      ? AGI_ENCHANTABLE_SLOTS
-      : this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.STRENGTH
-        ? STR_ENCHANTABLE_SLOTS
-        : INT_ENCHANTABLE_SLOTS;
+  get EnchantableSlots() {
+    return ENCHANTABLE_SLOTS;
   }
 
   get MinEnchantIds(): number[] {
