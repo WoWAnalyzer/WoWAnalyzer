@@ -46,7 +46,6 @@ class ChronalDynamo extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    //Currently, this just never returns, and counts all damage as non-Afterimage.
     if (isFromAfterimageDamage(event)) {
       return;
     }

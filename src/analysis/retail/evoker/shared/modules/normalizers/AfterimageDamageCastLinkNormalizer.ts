@@ -16,6 +16,7 @@ const BUFFER = 1000;
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: AFTERIMAGE_DAMAGE_LINK,
+    reverseLinkRelation: AFTERIMAGE_DAMAGE_LINK,
     linkingEventId: SPELLS.FIRE_BREATH_DOT.id,
     linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
@@ -33,6 +34,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: AFTERIMAGE_DAMAGE_LINK,
+    reverseLinkRelation: AFTERIMAGE_DAMAGE_LINK,
     linkingEventId: SPELLS.UPHEAVAL_DAM.id,
     linkingEventType: EventType.Damage,
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
@@ -57,6 +59,7 @@ class AfterimageCastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
     this.active = this.selectedCombatant.hasTalent(TALENTS.AFTERIMAGE_TALENT);
+    this.priority += 100;
   }
 }
 
