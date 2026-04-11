@@ -102,12 +102,12 @@ const PVE_GEM_IDS: number[] = [
 
 class GemChecker extends BaseGemChecker {
   private static retailGemSlots = {
-    NECK: retailJewelrySlots,
-    FINGER1: retailJewelrySlots,
-    FINGER2: retailJewelrySlots,
     HEAD: retailBodySlots,
+    NECK: retailJewelrySlots,
     WRISTS: retailBodySlots,
     WAIST: retailBodySlots,
+    FINGER1: retailJewelrySlots,
+    FINGER2: retailJewelrySlots,
   } as const;
 
   get GemableSlots() {
