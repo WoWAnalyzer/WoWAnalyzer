@@ -31,22 +31,3 @@ export interface DBCBuild {
   product_config: string;
   cdn_config: string;
 }
-
-// https://wago.tools/db2/ItemXItemEffect
-export interface ItemXItemEffectEntry {
-  ItemID: number;
-  ItemEffectID: number;
-}
-
-// https://wago.tools/db2/ItemEffect
-export interface ItemEffectEntry {
-  ID: number;
-  SpellID: number;
-}
-
-// https://wago.tools/db2/SpellEffect
-export interface SpellEffectEntry {
-  SpellID: number;
-  EffectMiscValue_0: number;
-  Effect: number;
-}

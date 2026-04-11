@@ -11,12 +11,7 @@ import {
   readCsvFromUrl,
   slugify,
 } from 'scripts/utils/helpers';
-import {
-  DBCTable,
-  ItemEffectEntry,
-  ItemXItemEffectEntry,
-  SpellEffectEntry,
-} from 'scripts/utils/dbc-types';
+import { DBCTable } from 'scripts/utils/dbc-types';
 
 export function printEnchants(enchants: {
   type: string;
@@ -287,6 +282,25 @@ async function getEffectIdMapForItemIds(
 
     return acc;
   }, {});
+}
+
+// https://wago.tools/db2/ItemXItemEffect
+interface ItemXItemEffectEntry {
+  ItemID: number;
+  ItemEffectID: number;
+}
+
+// https://wago.tools/db2/ItemEffect
+interface ItemEffectEntry {
+  ID: number;
+  SpellID: number;
+}
+
+// https://wago.tools/db2/SpellEffect
+interface SpellEffectEntry {
+  SpellID: number;
+  EffectMiscValue_0: number;
+  Effect: number;
 }
 
 // endregion
