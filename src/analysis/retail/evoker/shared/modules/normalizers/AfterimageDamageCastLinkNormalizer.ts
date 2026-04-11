@@ -46,7 +46,7 @@ const EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(referencedEvent, AFTERIMAGE_DAMAGE_LINK) &&
         !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
         !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
-        HasRelatedEvent(referencedEvent, UPHEAVAL_CAST_DAM_LINK)
+        HasRelatedEvent(linkingEvent, UPHEAVAL_CAST_DAM_LINK)
         // If something like the Undermine tier set is added again, this last condition will have to change.
       );
     },
