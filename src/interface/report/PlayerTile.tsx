@@ -3,6 +3,7 @@ import { getClassName } from 'game/ROLES';
 import Icon from 'interface/Icon';
 import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
+import Tooltip from 'interface/Tooltip';
 import Config from 'parser/Config';
 import { PlayerDetails } from 'parser/core/Player';
 import { ReactNode, useEffect } from 'react';
@@ -26,14 +27,11 @@ interface BlockLoadingProps {
   message: string;
 }
 const BlockLoading = ({ children, message }: BlockLoadingProps) => (
-  <span
-    className="player"
-    onClick={() => {
-      alert(message);
-    }}
-  >
-    {children}
-  </span>
+  <Tooltip content={message}>
+    <span className="player" style={{ cursor: 'not-allowed', opacity: 0.6 }}>
+      {children}
+    </span>
+  </Tooltip>
 );
 
 interface BasicBlockLoadingProps extends Omit<BlockLoadingProps, 'children'> {

@@ -1,6 +1,7 @@
 import { Trans, t } from '@lingui/macro';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import REGION_CODES from './REGION_CODES';
 import Tooltip from './Tooltip';
@@ -157,7 +158,9 @@ const ReportSelecter = () => {
     e.preventDefault();
 
     if (!reportCode) {
-      alert('Enter a report first.');
+      toast.warning(
+        defineMessage({ id: 'interface.reportSelecter.enterReport', message: `Enter a report first.` }),
+      );
       return;
     }
 

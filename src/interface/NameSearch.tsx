@@ -7,6 +7,7 @@ import { REALM_LIST, CLASSIC_REALM_LIST } from 'game/RealmList';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+import { toast } from 'sonner';
 import { useLingui } from '@lingui/react';
 import { RETAIL_EXPANSION_NAME, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 
@@ -43,7 +44,7 @@ const NameSearch = ({ type }: Props) => {
       const makePageUrl = type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
 
       if (!game || !region || !realm || !name) {
-        alert(
+        toast.warning(
           i18n._(
             defineMessage({
               id: 'interface.nameSearch.pleaseSelect',
@@ -56,7 +57,7 @@ const NameSearch = ({ type }: Props) => {
 
       // Checking for guild-exists here makes it more user-friendly and saves WCL-requests when guild doesn't exist
       if (loading) {
-        alert(
+        toast.info(
           i18n._(
             defineMessage({
               id: 'interface.nameSearch.stillWorking',
@@ -76,7 +77,7 @@ const NameSearch = ({ type }: Props) => {
           response = await fetch(makeCharacterApiUrl(undefined, region, realm, name));
         }
         if (response.status === 500) {
-          alert(
+          toast.error(
             i18n._(
               defineMessage({
                 id: 'interface.nameSearch.noResponse',
@@ -87,7 +88,7 @@ const NameSearch = ({ type }: Props) => {
           setLoading(false);
           return;
         } else if (response.status === 404) {
-          alert(
+          toast.error(
             i18n._(
               defineMessage({
                 id: 'interface.nameSearch.nameNotFound',
@@ -98,7 +99,7 @@ const NameSearch = ({ type }: Props) => {
           setLoading(false);
           return;
         } else if (!response.ok) {
-          alert(
+          toast.error(
             i18n._(
               defineMessage({
                 id: 'interface.nameSearch.noAPIResponse',
