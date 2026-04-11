@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { csvToObject, getDbcCsvUrl, readCsvFromUrl } from 'scripts/utils/helpers';
 import { DBCTable } from 'scripts/utils/dbc-types';
 
-const BUILD_NUMBER = '11.0.2.56110';
+const BUILD_NUMBER = '12.0.1.66709';
 
 interface RandPoint {
   ID: string;

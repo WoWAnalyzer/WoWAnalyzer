@@ -20,7 +20,6 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
  *  https://www.warcraftlogs.com/reports/vM8zdCPFhZkxfW3y?fight=45&type=casts&source=13
  *  https://www.warcraftlogs.com/reports/bzfPd1NBxRa9hG7n?fight=17&type=casts&source=15
  */
-const ASHEN_JUGGERNAUT_DURATION = 15000;
 const SUDDEN_DEATH_DURATION = 12000;
 const BUFF_REFRESH_BUFFER = 3000;
 const RAMPAGE_RAGE_COST = 80;
@@ -51,7 +50,6 @@ class SlayerExecute extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.SLAYERS_DOMINANCE_TALENT);
-    this.hasAshenJuggernaut = false; //this.selectedCombatant.hasTalent(talents.ASHEN_JUGGERNAUT_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_FURY), this.onCast);
 
     this.addEventListener(
@@ -72,15 +70,15 @@ class SlayerExecute extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
       this.onSuddenDeathStackChange,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
       this.onSuddenDeathStackChange,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF),
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
       this.updateRemoveBuffStack,
     );
   }
@@ -122,20 +120,12 @@ class SlayerExecute extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    let usedForAshenJuggernaut = false;
     let usedForSuddenDeath = false;
     let usedForMarkedForExecution = false;
 
-    if (this.ashenJuggernautExpirationTimestamp - event.timestamp < BUFF_REFRESH_BUFFER) {
-      usedForAshenJuggernaut = true;
-    }
-    // Assume new AJ duration on cast of Execute
-    // which is true unless the execute is parried
-    this.ashenJuggernautExpirationTimestamp = event.timestamp + ASHEN_JUGGERNAUT_DURATION;
-
     if (
       this.suddenDeathExpirationTimestamp - event.timestamp < BUFF_REFRESH_BUFFER ||
-      this.selectedCombatant.getBuffStacks(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF) === 2
+      this.selectedCombatant.getBuffStacks(SPELLS.SUDDEN_DEATH_TALENT_BUFF) === 2
     ) {
       usedForSuddenDeath = true;
     }
@@ -157,7 +147,6 @@ class SlayerExecute extends Analyzer {
     this.rbWasAvailable = this.spellUsable.isAvailable(SPELLS.RAGING_BLOW.id);
 
     if (
-      !usedForAshenJuggernaut &&
       !usedForSuddenDeath &&
       !usedForMarkedForExecution &&
       (this.rbWasAvailable || this.ramWasAvailable)
@@ -165,7 +154,7 @@ class SlayerExecute extends Analyzer {
       this.overusedExecutes += 1;
       addInefficientCastReason(
         event,
-        'Execute was used without high stacks of Marked for Execution, or when neither Ashen Juggernaut nor Sudden Death were near expiring',
+        "Execute was used without high stacks of Marked for Execution, or when Sudden Death wasn't near expiring",
       );
     }
   }

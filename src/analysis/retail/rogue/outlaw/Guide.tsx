@@ -143,10 +143,6 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         <ul>
           <li>
             {' '}
-            <SpellLink spell={TALENTS.GHOSTLY_STRIKE_TALENT} />
-          </li>
-          <li>
-            {' '}
             <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
           </li>
           <li>
@@ -162,7 +158,6 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
 
 const cooldownsToCheck: Cooldown[] = [
   { spell: TALENTS.ADRENALINE_RUSH_TALENT },
-  { spell: SPELLS.VANISH },
   { spell: TALENTS.KILLING_SPREE_TALENT },
   { spell: TALENTS.KEEP_IT_ROLLING_TALENT },
 ];

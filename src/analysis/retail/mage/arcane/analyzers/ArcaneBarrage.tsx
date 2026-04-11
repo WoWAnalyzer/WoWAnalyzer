@@ -5,6 +5,10 @@ import Events, {
   GetRelatedEvents,
   GetRelatedEvent,
   EventType,
+  ApplyDebuffEvent,
+  RemoveDebuffEvent,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -12,6 +16,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import { getManaPercentage, getTargetHealthPercentage } from '../../shared/helpers';
 import Enemies from 'parser/shared/modules/Enemies';
+
+const MS_BUFFER = 250;
 
 export default class ArcaneBarrage extends Analyzer {
   static dependencies = {
@@ -43,7 +49,7 @@ export default class ArcaneBarrage extends Analyzer {
     }
 
     // Arcane Soul
-    if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF, event.timestamp - 10)) {
       activeBuffs.push(SPELLS.ARCANE_SOUL_BUFF.id);
     }
 
@@ -58,17 +64,47 @@ export default class ArcaneBarrage extends Analyzer {
       activeBuffs.push(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id);
     }
 
+    //Arcane Surge buff
+    if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_SURGE_BUFF)) {
+      activeBuffs.push(SPELLS.ARCANE_SURGE_BUFF.id);
+    }
+
+    const touchApply: ApplyDebuffEvent | undefined = GetRelatedEvent(event, 'touchDebuff');
+    const touchRemove: RemoveDebuffEvent | undefined =
+      touchApply && GetRelatedEvent(touchApply, EventType.RemoveDebuff);
+    const touchRemaining = touchRemove && touchRemove.timestamp - event.timestamp;
+
+    const surgeApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'surgeBuff');
+    const surgeRemove: RemoveBuffEvent | undefined =
+      surgeApply && GetRelatedEvent(surgeApply, EventType.RemoveBuff);
+    const surgeRemaining = surgeRemove && surgeRemove.timestamp - event.timestamp;
+
     this.barrageData.push({
       cast: event,
       mana: getManaPercentage(event),
-      charges: this.arcaneChargeTracker.current,
       precast: GetRelatedEvent(event, 'precast'),
+      charges: this.arcaneChargeTracker.current,
       targetsHit: GetRelatedEvents(event, EventType.Damage).length || 0,
       activeBuffs,
       salvoStacks:
         this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF, event.timestamp - 10)?.stacks || 0,
       arcaneOrbAvail: this.spellUsable.isAvailable(SPELLS.ARCANE_ORB.id),
       touchCD: this.spellUsable.cooldownRemaining(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id),
+      touchRemaining,
+      surgeRemaining,
+      touchApply,
+      barrageBefore:
+        touchApply &&
+        event.timestamp < touchApply.timestamp &&
+        touchApply.timestamp - event.timestamp < MS_BUFFER
+          ? true
+          : false,
+      barrageAfter:
+        touchApply &&
+        event.timestamp > touchApply.timestamp &&
+        event.timestamp - touchApply.timestamp < MS_BUFFER
+          ? true
+          : false,
       health: getTargetHealthPercentage(event),
     });
 
@@ -79,12 +115,17 @@ export default class ArcaneBarrage extends Analyzer {
 export interface ArcaneBarrageData {
   cast: CastEvent;
   mana?: number;
-  charges: number;
   precast?: CastEvent;
+  charges: number;
   targetsHit: number;
   activeBuffs: number[];
   salvoStacks: number;
   arcaneOrbAvail: boolean;
   touchCD: number;
+  touchRemaining?: number;
+  surgeRemaining?: number;
+  touchApply?: ApplyDebuffEvent;
+  barrageBefore: boolean;
+  barrageAfter: boolean;
   health?: number;
 }

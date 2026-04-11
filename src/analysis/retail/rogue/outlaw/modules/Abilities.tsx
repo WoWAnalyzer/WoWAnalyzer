@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import { TIERS } from 'game/TIERS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -58,17 +58,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.GHOSTLY_STRIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 35,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-        enabled: combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT),
-      },
-      {
         spell: SPELLS.BETWEEN_THE_EYES.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
@@ -82,6 +71,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
+      },
+      // Hero Talents
+      {
+        spell: SPELLS.FATEBOUND_COIN_TAILS.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: null,
       },
       // Rotational (AOE)
       {
@@ -111,18 +106,13 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
       },
       {
-        spell: TALENTS.COLD_BLOOD_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
-      },
-      {
         spell: TALENTS.BLADE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
+        cooldown: this.selectedCombatant.has4PieceByTier(TIERS.MID1) ? 54 : 60,
         gcd: {
           static: standardGcd,
         },
+        enabled: combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT),
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
@@ -132,7 +122,6 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        enabled: combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT),
       },
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
@@ -155,9 +144,18 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.KEEP_IT_ROLLING_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 7 * 60,
+        cooldown: 6 * 60,
         gcd: null,
         enabled: combatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT),
+      },
+      {
+        spell: SPELLS.PREPARATION.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 240,
+        gcd: {
+          static: standardGcd,
+        },
+        enabled: combatant.hasTalent(TALENTS.PREPARATION_TALENT),
       },
       // Defensive
       {
@@ -215,18 +213,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
         charges: combatant.hasTalent(TALENTS.WITHOUT_A_TRACE_TALENT) ? 2 : 1,
-        castEfficiency: {
-          suggestion: true,
-          extraSuggestion: (
-            <>
-              In most fights this can be used on cooldown for an{' '}
-              <SpellLink spell={SPELLS.AMBUSH} icon />, but it's perfectly fine to save this for a{' '}
-              <SpellLink spell={SPELLS.CHEAP_SHOT} icon /> on adds, especially when talented for{' '}
-              <SpellLink spell={TALENTS.STING_LIKE_A_BEE_TALENT} icon />.
-            </>
-          ),
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
       },
       {
         spell: SPELLS.GRAPPLING_HOOK.id,

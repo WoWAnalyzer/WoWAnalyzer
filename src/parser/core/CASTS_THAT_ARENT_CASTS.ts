@@ -115,6 +115,7 @@ const spells: number[] = [
   SPELLS.EMPYREAN_HAMMER.id,
   TALENTS_PALADIN.DIVINE_HAMMER_TALENT.id,
   SPELLS.DIVINE_HAMMER_EXTEND.id,
+  SPELLS.DIVINE_HAMMER_FAKE_CAST.id,
   //endregion
 
   //region shaman

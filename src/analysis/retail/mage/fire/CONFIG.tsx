@@ -47,8 +47,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/NFpVzkxLJKh8r3Pf/48-Mythic+One-Armed+Bandit+-+Kill+(6:48)/Forgyy/standard',
+  exampleReport: '/report/THzwYBJAqnDLVfgp/51-Heroic+Vorasius+-+Kill+(5:43)/53-Dharon/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
