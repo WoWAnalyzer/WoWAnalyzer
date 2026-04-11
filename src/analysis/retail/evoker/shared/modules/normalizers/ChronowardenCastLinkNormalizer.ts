@@ -6,13 +6,15 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { DamageEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
+import { DamageEvent, EventType, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
 import { LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
 
 const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
+const CHRONO_FLAME_DAMAGE_LINK = 'ChronoFlameDamageLink';
 //Test this
-const BUFFER = 1000;
+const AFTERIMAGE_BUFFER = 1000;
+const CAST_BUFFER_MS = 100;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -28,8 +30,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: true,
-    forwardBufferMs: BUFFER,
-    backwardBufferMs: BUFFER,
+    forwardBufferMs: AFTERIMAGE_BUFFER,
     maximumLinks: 3,
   },
   {
@@ -40,7 +41,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
-    forwardBufferMs: BUFFER,
+    forwardBufferMs: AFTERIMAGE_BUFFER,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.AFTERIMAGE_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
@@ -62,7 +63,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
-    forwardBufferMs: BUFFER,
+    forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.AFTERIMAGE_TALENT) && c.hasTalent(TALENTS.UPHEAVAL_TALENT),
     additionalCondition(linkingEvent, referencedEvent) {
@@ -76,6 +77,18 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: CHRONO_FLAME_DAMAGE_LINK,
+    reverseLinkRelation: CHRONO_FLAME_DAMAGE_LINK,
+    linkingEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.CHRONO_FLAME_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: false,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.CHRONO_FLAME_TALENT),
+  },
 ];
 
 class AfterimageCastLinkNormalizer extends EventLinkNormalizer {
@@ -88,6 +101,10 @@ class AfterimageCastLinkNormalizer extends EventLinkNormalizer {
 
 export function isFromAfterimageDamage(event: DamageEvent): boolean {
   return HasRelatedEvent(event, AFTERIMAGE_DAMAGE_LINK);
+}
+
+export function getChronoFlameDamageLink(event: DamageEvent): DamageEvent {
+  return GetRelatedEvent(event, CHRONO_FLAME_DAMAGE_LINK) as DamageEvent;
 }
 
 export default AfterimageCastLinkNormalizer;

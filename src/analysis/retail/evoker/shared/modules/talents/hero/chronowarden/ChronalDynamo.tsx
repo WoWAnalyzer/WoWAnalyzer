@@ -35,17 +35,20 @@ class ChronalDynamo extends Analyzer {
         this.onHealAug,
       );
     }
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_DAMAGE),
-      this.onDamage,
-    );
+    // Needs a separate damage handler for Preservation with Lifespark [NYI]
+    if (!this.selectedCombatant.hasTalent(TALENTS.LIFESPARK_TALENT)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_DAMAGE),
+        this.onDamageNoLifespark,
+      );
+    }
   }
 
   onHealAug(event: HealEvent) {
     this.chronalDynamoHealing += calculateEffectiveHealing(event, CHRONAL_DYNAMO_MULTIPLIER);
   }
 
-  onDamage(event: DamageEvent) {
+  onDamageNoLifespark(event: DamageEvent) {
     if (isFromAfterimageDamage(event)) {
       return;
     }

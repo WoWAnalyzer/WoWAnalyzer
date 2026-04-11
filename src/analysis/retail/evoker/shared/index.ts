@@ -42,6 +42,7 @@ export { default as ImminentDestructionCastLinkNormalizer } from './modules/norm
 export { default as EssenceWell } from './modules/talents/hero/flameshaper/EssenceWell';
 export { default as TwinFlame } from './modules/talents/hero/flameshaper/TwinFlame';
 export { default as FireTorrent } from './modules/talents/hero/flameshaper/FireTorrent';
+export { default as Afterimage } from './modules/talents/hero/chronowarden/Afterimage';
 export { default as ChronalDynamo } from './modules/talents/hero/chronowarden/ChronalDynamo';
 export { default as ChronowardenCastLinkNormalizer } from './modules/normalizers/ChronowardenCastLinkNormalizer';
 export * from './constants';
