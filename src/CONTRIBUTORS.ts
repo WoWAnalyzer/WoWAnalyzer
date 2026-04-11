@@ -2890,3 +2890,9 @@ export const Thias: Contributor = {
   github: 'math280h',
   discord: 'thias.',
 };
+
+export const Biggerbits: Contributor = {
+  nickname: 'Biggerbits',
+  github: 'zprobinson',
+  discord: 'msrobinson',
+};
