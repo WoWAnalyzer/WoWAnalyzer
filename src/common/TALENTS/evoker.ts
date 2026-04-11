@@ -456,14 +456,6 @@ const talents = {
     entryIds: [115545],
     definitionIds: [{ id: 120557, specId: 1468 }],
   },
-  ENERGY_CYCLES_TALENT: {
-    id: 1260568,
-    name: 'Energy Cycles',
-    icon: 'ability_evoker_innatemagic4',
-    maxRanks: 1,
-    entryIds: [135742],
-    definitionIds: [{ id: 140497, specId: 1473 }],
-  },
   ENERGY_LOOP_TALENT: {
     id: 372233,
     name: 'Energy Loop',
@@ -1047,6 +1039,14 @@ const talents = {
     entryIds: [117549],
     definitionIds: [{ id: 122561, specId: 1473 }],
   },
+  MIGHTY_INFERNO_TALENT: {
+    id: 1291457,
+    name: 'Mighty Inferno',
+    icon: 'ability_warlock_burningembers',
+    maxRanks: 1,
+    entryIds: [126305], // check this and definitionIds
+    definitionIds: [{ id: 131131, specId: 1473 }],
+  },
   MOLTEN_BLOOD_TALENT: {
     id: 410643,
     name: 'Molten Blood',
@@ -1054,14 +1054,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [115510],
     definitionIds: [{ id: 120522, specId: 1473 }],
-  },
-  MOLTEN_EMBERS_TALENT: {
-    id: 459725,
-    name: 'Molten Embers',
-    icon: 'ability_evoker_earthensky',
-    maxRanks: 1,
-    entryIds: [126305],
-    definitionIds: [{ id: 131131, specId: 1473 }],
   },
   MOMENTUM_SHIFT_TALENT: {
     id: 408004,

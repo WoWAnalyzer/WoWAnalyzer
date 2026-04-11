@@ -7,35 +7,35 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { NOZDORMU_ADEPT_PRESCIENCE_MULTIPLIER } from 'analysis/retail/evoker/augmentation/constants';
+import { MIGHTY_INFERNO_DAMAGE_MULTIPLIER } from '../../constants';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 
 /**
- * Aug: Prescience grants 1% additional critical strike chance and has 2 sec reduced cooldown.
- * Pres [NYI]: Temporal Anomaly has 15% reduced mana cost and 4 sec reduced cooldown.
+ * Inferno's Blessing deals 40% increased damage.
+ * Sands of Time also extends Inferno's Blessing. [NYI]
  */
 class NozdormuAdept extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.NOZDORMU_ADEPT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MIGHTY_INFERNO_TALENT);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INFERNOS_BLESSING_DAMAGE),
       this.onDamage,
     );
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, NOZDORMU_ADEPT_PRESCIENCE_MULTIPLIER);
+    this.damage += calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(13)}
+        position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
@@ -44,7 +44,7 @@ class NozdormuAdept extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.NOZDORMU_ADEPT_TALENT}>
+        <TalentSpellText talent={TALENTS.MIGHTY_INFERNO_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </TalentSpellText>
       </Statistic>
