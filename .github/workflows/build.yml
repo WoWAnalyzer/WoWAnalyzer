@@ -6,19 +6,7 @@ env:
   CI: true
 
 jobs:
-  prepare:
-    name: 'Install dependencies'
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
-        with:
-          node-version: '22.x'
-      - run: pnpm install --frozen-lockfile
-
   typecheck:
-    needs: [prepare]
     name: 'Typecheck'
     runs-on: ubuntu-24.04
     steps:
@@ -27,11 +15,11 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run typecheck
 
   lint-test:
-    needs: [prepare]
     name: 'Lint / Format / Test'
     runs-on: ubuntu-24.04
     steps:
@@ -40,13 +28,13 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run format:check
       - run: pnpm run test
 
   build:
-    needs: [prepare]
     name: 'Build'
     runs-on: ubuntu-24.04
     if: github.repository == 'wowanalyzer/wowanalyzer'
@@ -58,6 +46,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -81,7 +70,6 @@ jobs:
           path: dist.tar.gz
 
   e2e-build:
-    needs: [prepare]
     name: 'e2e-build'
     runs-on: ubuntu-24.04
     steps:
@@ -90,6 +78,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: |
@@ -129,6 +118,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
         with:
@@ -149,7 +139,6 @@ jobs:
   # required as mistakes in i18n tags may trigger errors, and we skip the
   # extraction in the build for performance in PRs.
   extract-verify:
-    needs: [prepare]
     name: 'Verify i18n messages'
     runs-on: ubuntu-24.04
     if: github.event_name == 'pull_request'
@@ -159,6 +148,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: pnpm run extract
@@ -219,6 +209,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
+          cache: 'pnpm'
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
       - run: pnpm install --frozen-lockfile
       - run: node scripts/require-changelog-entry.cjs
