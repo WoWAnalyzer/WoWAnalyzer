@@ -1,6 +1,6 @@
 import {
   PUPIL_OF_ALEXSTRASZA_LINK,
-  UPHEAVAL_RUMBLING_EARTH_LINK,
+  UPHEAVAL_CAST_DAM_LINK,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
@@ -44,9 +44,10 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(referencedEvent, AFTERIMAGE_DAMAGE_LINK) &&
-        !HasRelatedEvent(linkingEvent, UPHEAVAL_RUMBLING_EARTH_LINK) &&
         !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
-        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK)
+        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
+        HasRelatedEvent(referencedEvent, UPHEAVAL_CAST_DAM_LINK)
+        // If something like the Undermine tier set is added again, this last condition will have to change.
       );
     },
   },
