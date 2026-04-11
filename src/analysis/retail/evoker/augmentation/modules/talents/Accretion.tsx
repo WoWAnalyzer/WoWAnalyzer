@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   ACCRETION_CDR_MS,
+  DUPLICATE_EBON_MIGHT_MULTIPLIER,
   EMPOWER_EXTENSION_MS,
   SANDS_OF_TIME_CRIT_MOD,
 } from 'analysis/retail/evoker/augmentation/constants';
@@ -21,6 +22,7 @@ import {
   getChronoFlameDamageLink,
   isFromAfterimageDamage,
 } from 'analysis/retail/evoker/shared/modules/normalizers/ChronowardenCastLinkNormalizer';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 /**
  * Eruption reduces the remaining cooldown of Upheaval by 1.0 sec.
@@ -37,9 +39,11 @@ class Accretion extends Analyzer {
     ? SPELLS.UPHEAVAL_FONT
     : SPELLS.UPHEAVAL;
 
+  duplicateExtensionMod =
+    this.selectedCombatant.getTalentRank(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) / 2;
+
   totalEbonMightDamage = 0;
   totalEruptionCasts = 0;
-  totalDamageDone = 0;
   totalShiftingSandsDamage = 0;
   totalShiftingSandsApplications = 0;
   totalAfterimageDamage = 0;
@@ -48,11 +52,14 @@ class Accretion extends Analyzer {
   totalUpheavalCasts = 0;
   effectiveUpheavalCDR = 0;
   ebonMightUpheavalExtension = 0;
+  totalDuplicateDamage = 0;
+  duplicateUpheavalExtension = 0;
 
   accretionEbonMight = 0;
   accretionShiftingSands = 0;
   accretionAfterimage = 0;
   accretionUpheaval = 0;
+  accretionDuplicate = 0;
 
   constructor(options: Options) {
     super(options);
@@ -69,7 +76,29 @@ class Accretion extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_SANDS_BUFF),
       this.onBuffApply,
     );
-    this.addEventListener(Events.damage, this.onDamage);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.DUPLICATE_ERUPTION, SPELLS.DUPLICATE_FIRE_BREATH, SPELLS.UPHEAVAL_DAM]),
+      this.onDuplicateDamage,
+    );
+    this.addEventListener(
+      Events.damage.spell([
+        SPELLS.UPHEAVAL_DAM,
+        SPELLS.UPHEAVAL_DOT,
+        SPELLS.SHIFTING_SANDS_BUFF,
+        SPELLS.LIVING_FLAME_DAMAGE,
+      ]),
+      this.onDamage,
+    );
+    if (this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_3_AUGMENTATION_TALENT)) {
+      this.addEventListener(Events.damage.spell(TALENTS.EBON_MIGHT_TALENT), this.onEbonDamageDupe);
+    } else {
+      this.addEventListener(
+        Events.damage.spell(TALENTS.EBON_MIGHT_TALENT),
+        this.onEbonDamageNoDupe,
+      );
+    }
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerCast);
     this.addEventListener(Events.fightend, this.calcAccretionValue);
   }
@@ -92,11 +121,33 @@ class Accretion extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.EBON_MIGHT_BUFF_PERSONAL.id)) {
       this.ebonMightUpheavalExtension += EMPOWER_EXTENSION_MS * critMod;
     }
+    if (this.selectedCombatant.hasBuff(SPELLS.DUPLICATE_SELF_BUFF.id)) {
+      this.duplicateUpheavalExtension +=
+        EMPOWER_EXTENSION_MS * critMod * this.duplicateExtensionMod;
+    }
     this.totalUpheavalCasts += 1;
   }
 
   onEmpowerCast() {
     this.totalEmpowerCasts += 1;
+  }
+
+  onDuplicateDamage(event: DamageEvent) {
+    this.totalDuplicateDamage += event.amount + (event.absorbed ?? 0);
+  }
+
+  onEbonDamageNoDupe(event: DamageEvent) {
+    this.totalEbonMightDamage += event.amount + (event.absorbed ?? 0);
+  }
+
+  onEbonDamageDupe(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DUPLICATE_SELF_BUFF.id)) {
+      const dupeDamageAmount = calculateEffectiveDamage(event, DUPLICATE_EBON_MIGHT_MULTIPLIER);
+      this.totalDuplicateDamage += dupeDamageAmount;
+      this.totalEbonMightDamage += event.amount - dupeDamageAmount;
+    } else {
+      this.totalEbonMightDamage += event.amount + (event.absorbed ?? 0);
+    }
   }
 
   onDamage(event: DamageEvent) {
@@ -106,9 +157,6 @@ class Accretion extends Analyzer {
     ) {
       this.totalUpheavalDamage += event.amount + (event.absorbed ?? 0);
     }
-    if (event.ability.guid === TALENTS.EBON_MIGHT_TALENT.id) {
-      this.totalEbonMightDamage += event.amount + (event.absorbed ?? 0);
-    }
     if (event.ability.guid === SPELLS.SHIFTING_SANDS_BUFF.id) {
       this.totalShiftingSandsDamage += event.amount + (event.absorbed ?? 0);
     }
@@ -116,13 +164,13 @@ class Accretion extends Analyzer {
       this.totalAfterimageDamage += event.amount + (event.absorbed ?? 0);
       this.totalAfterimageDamage += getChronoFlameDamageLink(event)?.amount ?? 0;
     }
-    this.totalDamageDone += event.amount + (event.absorbed ?? 0);
   }
 
   private calcAccretionValue() {
     const EbonMightUptime = this.selectedCombatant.getBuffUptime(
       SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     );
+    const DuplicateUptime = this.selectedCombatant.getBuffUptime(SPELLS.DUPLICATE_SELF_BUFF.id);
     const additionalUpheavalCastsViaCdr = Math.floor(this.effectiveUpheavalCDR / (36 * 1000));
 
     const avgUpheavalCastDamage = this.totalUpheavalDamage / this.totalUpheavalCasts;
@@ -142,17 +190,12 @@ class Accretion extends Analyzer {
       (this.ebonMightUpheavalExtension / this.totalUpheavalCasts) * additionalUpheavalCastsViaCdr;
 
     this.accretionEbonMight = (this.totalEbonMightDamage / EbonMightUptime) * cdrUpheavalExtension;
+
+    this.accretionDuplicate = (this.totalDuplicateDamage / DuplicateUptime) * cdrUpheavalExtension;
   }
 
   statistic() {
     const damageSources = [
-      {
-        color: 'rgb(255, 0, 0)',
-        label: 'Afterimage',
-        spellId: TALENTS.AFTERIMAGE_TALENT.id,
-        valueTooltip: formatNumber(this.accretionAfterimage),
-        value: this.accretionAfterimage,
-      },
       {
         color: 'rgb(255, 255, 0)',
         label: 'Shifting Sands',
@@ -175,6 +218,24 @@ class Accretion extends Analyzer {
         value: this.accretionEbonMight,
       },
     ];
+    if (this.selectedCombatant.hasTalent(TALENTS.AFTERIMAGE_TALENT)) {
+      damageSources.push({
+        color: 'rgb(255, 0, 0)',
+        label: 'Afterimage',
+        spellId: TALENTS.AFTERIMAGE_TALENT.id,
+        valueTooltip: formatNumber(this.accretionAfterimage),
+        value: this.accretionAfterimage,
+      });
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS.DUPLICATE_1_AUGMENTATION_TALENT)) {
+      damageSources.push({
+        color: 'rgb(200, 200, 0)',
+        label: 'Duplicate',
+        spellId: TALENTS.DUPLICATE_1_AUGMENTATION_TALENT.id,
+        valueTooltip: formatNumber(this.accretionDuplicate),
+        value: this.accretionDuplicate,
+      });
+    }
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
