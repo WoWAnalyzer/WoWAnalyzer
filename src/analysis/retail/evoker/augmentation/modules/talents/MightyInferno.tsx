@@ -37,7 +37,7 @@ class NozdormuAdept extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.HERO_TALENTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             <li>Damage: {formatNumber(this.damage)}</li>

@@ -1044,7 +1044,7 @@ const talents = {
     name: 'Mighty Inferno',
     icon: 'ability_warlock_burningembers',
     maxRanks: 1,
-    entryIds: [126305], // check this and definitionIds
+    entryIds: [126305],
     definitionIds: [{ id: 131131, specId: 1473 }],
   },
   MOLTEN_BLOOD_TALENT: {
