@@ -77,6 +77,7 @@ import {
   RefinedEssence,
   CommandSquadron,
   NozdormuAdept,
+  ChronalDynamo,
   ImminentDestructionCastLinkNormalizer,
 } from 'analysis/retail/evoker/shared';
 
@@ -163,6 +164,7 @@ class CombatLogParser extends MainCombatLogParser {
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
     nozdormuAdept: NozdormuAdept,
+    chronalDynamo: ChronalDynamo,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

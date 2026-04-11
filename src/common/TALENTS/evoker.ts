@@ -219,6 +219,14 @@ const talents = {
     entryIds: [115628],
     definitionIds: [{ id: 120640, specId: 1467 }],
   },
+  CHRONAL_DYNAMO_TALENT: {
+    id: 1291522,
+    name: 'Chronal Dynamo',
+    icon: 'inv_10_dungeonjewelry_dragon_trinket_1arcanemagical_red',
+    maxRanks: 1,
+    entryIds: [135742], // Check IDs
+    definitionIds: [{ id: 140497, specId: 1473 }],
+  },
   CHRONOBOON_TALENT: {
     id: 1260484,
     name: 'Chronoboon',
@@ -1044,7 +1052,7 @@ const talents = {
     name: 'Mighty Inferno',
     icon: 'ability_warlock_burningembers',
     maxRanks: 1,
-    entryIds: [126305],
+    entryIds: [126305], // Check IDs
     definitionIds: [{ id: 131131, specId: 1473 }],
   },
   MOLTEN_BLOOD_TALENT: {
