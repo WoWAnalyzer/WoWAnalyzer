@@ -123,10 +123,13 @@ class MightyInferno extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS.MIGHTY_INFERNO_TALENT}>
-          <ItemDamageDone amount={this.damage} />
-          <div></div>
-          <InformationIcon /> {formatNumber(this.totalInfernosExtension)} sec
-          <small> extra duration granted</small>
+          <div>
+            <ItemDamageDone amount={this.damage} />
+          </div>
+          <div>
+            <InformationIcon /> {formatNumber(this.totalInfernosExtension)} sec
+            <small> extra duration granted</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );
