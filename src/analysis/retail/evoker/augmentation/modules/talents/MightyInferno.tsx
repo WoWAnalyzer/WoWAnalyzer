@@ -75,17 +75,17 @@ class MightyInferno extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    this.onInfernosRemove(event.targetID, event.timestamp, false);
+    this.onInfernosRemove(event.targetID, event.timestamp);
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    this.onInfernosRemove(event.targetID, event.timestamp, false);
+    this.onInfernosRemove(event.targetID, event.timestamp);
     this.onInfernosApply(event.targetID, event.timestamp);
   }
 
   onFightEnd(event: FightEndEvent) {
     Object.keys(this.infernoApps).forEach((targetID) => {
-      this.onInfernosRemove(Number(targetID), event.timestamp, true);
+      this.onInfernosRemove(Number(targetID), event.timestamp);
     });
   }
 
@@ -97,7 +97,7 @@ class MightyInferno extends Analyzer {
     });
   }
 
-  onInfernosRemove(targetID: number, timestamp: number, fightEndOrRefresh: boolean) {
+  onInfernosRemove(targetID: number, timestamp: number) {
     const index = this.infernoApps.findIndex((app) => app.playerID === targetID);
     if (index === -1) {
       return;

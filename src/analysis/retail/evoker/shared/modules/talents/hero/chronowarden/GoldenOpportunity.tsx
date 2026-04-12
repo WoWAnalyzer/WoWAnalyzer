@@ -61,7 +61,7 @@ class GoldenOpportunity extends Analyzer {
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    this.onPrescienceRemove(event.targetID, event.timestamp, false);
+    this.onPrescienceRemove(event.targetID, event.timestamp, true);
     this.onPrescienceApply(event.targetID, event.timestamp);
   }
 
