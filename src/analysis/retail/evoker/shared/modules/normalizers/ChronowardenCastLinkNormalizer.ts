@@ -7,7 +7,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { DamageEvent, EventType, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
-import { LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
+import { isFromLeapingFlames, LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
 
 const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
@@ -32,6 +32,13 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: AFTERIMAGE_BUFFER,
     maximumLinks: 3,
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
+        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
+        !isFromLeapingFlames(referencedEvent as DamageEvent)
+      );
+    },
   },
   {
     linkRelation: AFTERIMAGE_DAMAGE_LINK,
@@ -48,6 +55,7 @@ const EVENT_LINKS: EventLink[] = [
       return (
         !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
         !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
+        !isFromLeapingFlames(referencedEvent as DamageEvent) &&
         HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK)
         // If Fire Breath becomes able to be procced without a cast (e.g. like Undermine tier set, or Stasis),
         // this last condition will have to change. This hasn't happened for this empower yet, but has been
@@ -71,6 +79,7 @@ const EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(referencedEvent, AFTERIMAGE_DAMAGE_LINK) &&
         !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
         !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
+        !isFromLeapingFlames(referencedEvent as DamageEvent) &&
         HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK) &&
         HasRelatedEvent(linkingEvent, UPHEAVAL_CAST_DAM_LINK)
         // If something like the Undermine tier set is added again, the last two conditions will have to change.
