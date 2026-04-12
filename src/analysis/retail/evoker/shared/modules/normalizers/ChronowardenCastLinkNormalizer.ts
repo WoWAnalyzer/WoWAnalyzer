@@ -8,6 +8,7 @@ import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { DamageEvent, EventType, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
 import { isFromLeapingFlames, LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
+import { AFTERIMAGE_MAX_HITS } from '../../constants';
 
 const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
@@ -31,7 +32,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     forwardBufferMs: AFTERIMAGE_BUFFER,
-    maximumLinks: 3,
+    maximumLinks: AFTERIMAGE_MAX_HITS,
     additionalCondition(_linkingEvent, referencedEvent) {
       return isNotFromOtherLFSources(referencedEvent as DamageEvent);
     },
