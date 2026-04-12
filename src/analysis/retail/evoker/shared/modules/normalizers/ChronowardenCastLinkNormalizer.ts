@@ -6,7 +6,13 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { DamageEvent, EventType, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
+import {
+  DamageEvent,
+  EventType,
+  GetRelatedEvent,
+  GetRelatedEvents,
+  HasRelatedEvent,
+} from 'parser/core/Events';
 import { isFromLeapingFlames, LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
 import { AFTERIMAGE_MAX_HITS } from '../../constants';
 
@@ -37,6 +43,7 @@ const EVENT_LINKS: EventLink[] = [
       return isNotFromOtherLFSources(referencedEvent as DamageEvent);
     },
   },
+  // To be updated
   {
     linkRelation: AFTERIMAGE_DAMAGE_LINK,
     reverseLinkRelation: AFTERIMAGE_DAMAGE_LINK,
@@ -59,23 +66,37 @@ const EVENT_LINKS: EventLink[] = [
     },
   },
   {
-    linkRelation: AFTERIMAGE_DAMAGE_LINK,
-    reverseLinkRelation: AFTERIMAGE_DAMAGE_LINK,
-    linkingEventId: SPELLS.UPHEAVAL_DAM.id,
-    linkingEventType: EventType.Damage,
+    linkRelation: AFTERIMAGE_DAMAGE_LINK, // link added to EmpowerEnd event
+    reverseLinkRelation: AFTERIMAGE_CAST_LINK, // link added to Damage event
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
-    anyTarget: false,
-    forwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: AFTERIMAGE_BUFFER,
     isActive: (c) => c.hasTalent(TALENTS.AFTERIMAGE_TALENT) && c.hasTalent(TALENTS.UPHEAVAL_TALENT),
     additionalCondition(linkingEvent, referencedEvent) {
+      if (!isNotFromOtherLFSources(referencedEvent as DamageEvent)) {
+        return false;
+      }
+
+      const empowerHits = GetRelatedEvents(linkingEvent, UPHEAVAL_CAST_DAM_LINK);
+      if (empowerHits.length === 0) {
+        return false;
+      }
+      let LFtargetWasHit = false;
+      empowerHits.forEach((event) => {
+        if ((event as DamageEvent).targetID === (referencedEvent as DamageEvent).targetID) {
+          LFtargetWasHit = true;
+        }
+      });
+      if (!LFtargetWasHit) {
+        return false;
+      }
+      const currentAfterimageLinks = GetRelatedEvents(linkingEvent, AFTERIMAGE_DAMAGE_LINK).length;
+
       return (
-        !HasRelatedEvent(referencedEvent, AFTERIMAGE_DAMAGE_LINK) &&
-        isNotFromOtherLFSources(referencedEvent as DamageEvent) &&
-        HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK) &&
-        HasRelatedEvent(linkingEvent, UPHEAVAL_CAST_DAM_LINK)
-        // If something like the Undermine tier set is added again, the last two conditions will have to change.
+        currentAfterimageLinks < AFTERIMAGE_MAX_HITS && empowerHits.length > currentAfterimageLinks
       );
     },
   },
