@@ -208,8 +208,6 @@ const Casts = ({
     return renderIcon(event, {
       className,
       style: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         '--level': level > 0 ? level : undefined,
       },
       children: lower ? <div className="time-indicator" /> : undefined,
@@ -371,8 +369,6 @@ const Casts = ({
           style={{
             left,
             width: (duration / 1000) * secondWidth,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             '--rate-height': actualMovementDurationEstimate,
           }}
         />
@@ -385,8 +381,6 @@ const Casts = ({
       className="casts"
       {...others}
       style={{
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         '--levels': hasLowered ? _maxLevel : 0,
         '--has-levels': hasLowered ? 1 : 0,
         ...others.style,

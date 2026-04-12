@@ -32,6 +32,4 @@ beforeEach(() => {
 afterEach(cleanup);
 
 // make jest things think vitest is jest
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- Uhhh
-// @ts-ignore
-global.jest = vi;
+(globalThis as Record<string, unknown>).jest = vi;
