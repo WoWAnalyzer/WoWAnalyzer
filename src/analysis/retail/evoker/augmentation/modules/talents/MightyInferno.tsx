@@ -84,9 +84,7 @@ class MightyInferno extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
-    Object.keys(this.infernoApps).forEach((targetID) => {
-      this.onInfernosRemove(Number(targetID), event.timestamp);
-    });
+    this.infernoApps.forEach((app) => this.onInfernosRemove(app.playerID, event.timestamp));
   }
 
   onInfernosApply(targetID: number, timestamp: number) {
