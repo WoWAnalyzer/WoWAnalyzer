@@ -105,8 +105,8 @@ export function isFromAfterimageDamage(event: DamageEvent): boolean {
   return HasRelatedEvent(event, AFTERIMAGE_DAMAGE_LINK);
 }
 
-export function getChronoFlameDamageLink(event: DamageEvent): DamageEvent {
-  return GetRelatedEvent(event, CHRONO_FLAME_DAMAGE_LINK) as DamageEvent;
+export function getChronoFlameDamageLink(event: DamageEvent): DamageEvent | undefined {
+  return GetRelatedEvent<DamageEvent>(event, CHRONO_FLAME_DAMAGE_LINK);
 }
 
 function isNotFromOtherLFSources(event: DamageEvent) {
