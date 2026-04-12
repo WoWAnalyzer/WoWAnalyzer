@@ -33,11 +33,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: AFTERIMAGE_BUFFER,
     maximumLinks: 3,
     additionalCondition(_linkingEvent, referencedEvent) {
-      return (
-        !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
-        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
-        !isFromLeapingFlames(referencedEvent as DamageEvent)
-      );
+      return isNotFromOtherLFSources(referencedEvent as DamageEvent);
     },
   },
   {
@@ -53,9 +49,7 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (c) => c.hasTalent(TALENTS.AFTERIMAGE_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
       return (
-        !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
-        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
-        !isFromLeapingFlames(referencedEvent as DamageEvent) &&
+        isNotFromOtherLFSources(referencedEvent as DamageEvent) &&
         HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK)
         // If Fire Breath becomes able to be procced without a cast (e.g. like Undermine tier set, or Stasis),
         // this last condition will have to change. This hasn't happened for this empower yet, but has been
@@ -77,9 +71,7 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(referencedEvent, AFTERIMAGE_DAMAGE_LINK) &&
-        !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) &&
-        !HasRelatedEvent(referencedEvent, PUPIL_OF_ALEXSTRASZA_LINK) &&
-        !isFromLeapingFlames(referencedEvent as DamageEvent) &&
+        isNotFromOtherLFSources(referencedEvent as DamageEvent) &&
         HasRelatedEvent(referencedEvent, AFTERIMAGE_CAST_LINK) &&
         HasRelatedEvent(linkingEvent, UPHEAVAL_CAST_DAM_LINK)
         // If something like the Undermine tier set is added again, the last two conditions will have to change.
@@ -114,6 +106,14 @@ export function isFromAfterimageDamage(event: DamageEvent): boolean {
 
 export function getChronoFlameDamageLink(event: DamageEvent): DamageEvent {
   return GetRelatedEvent(event, CHRONO_FLAME_DAMAGE_LINK) as DamageEvent;
+}
+
+function isNotFromOtherLFSources(event: DamageEvent) {
+  return (
+    !HasRelatedEvent(event, LIVING_FLAME_CAST_HIT) &&
+    !HasRelatedEvent(event, PUPIL_OF_ALEXSTRASZA_LINK) &&
+    !isFromLeapingFlames(event)
+  );
 }
 
 export default AfterimageCastLinkNormalizer;
