@@ -582,6 +582,11 @@ const spells = {
     name: 'Intimidation',
     icon: 'ability_devour',
   },
+  INTIMIDATION_MM: {
+    id: 474421,
+    name: 'Intimidation',
+    icon: 'artifactability_survivalhunter_eaglesbite',
+  },
   CHIMAERA_SHOT_FOCUS: {
     id: 204304,
     name: 'Chimaera Shot',
