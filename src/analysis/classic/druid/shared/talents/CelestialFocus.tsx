@@ -2,6 +2,8 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { AnyEvent } from 'parser/core/Events';
 import Haste from '../Haste';
 
+// TODO: Update for MoP Classic (spell 84738). Currently hardcoded disabled.
+
 /**
  * 3/3 Celestial Focus (CF) talent adds 3% spell haste
  */
@@ -16,7 +18,8 @@ class CelestialFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.talentPoints[0] >= 18;
+    // NOTE: Hardcoded disabled until updated for MoP Classic
+    this.active = false;
     if (!this.active) {
       return;
     }
