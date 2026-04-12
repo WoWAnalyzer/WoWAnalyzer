@@ -49,9 +49,6 @@ importers:
       core-js:
         specifier: 3.36.1
         version: 3.36.1
-      es6-error:
-        specifier: ^4.1.1
-        version: 4.1.1
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -2603,9 +2600,6 @@ packages:
 
   es-module-lexer@1.7.0:
     resolution: {integrity: sha512-jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==}
-
-  es6-error@4.1.1:
-    resolution: {integrity: sha512-Um/+FxMr9CISWh0bi5Zv0iOD+4cFh5qLeks1qhAopKVAJw3drgKbKySikp7wGhDL0HPeaja0P5ULZrxLkniUVg==}
 
   esbuild@0.25.1:
     resolution: {integrity: sha512-BGO5LtrGC7vxnqucAe/rmvKdJllfGaYWdyABvyMoXQlfYMb2bbRuReWR5tEGE//4LcNJj9XrkovTqNYRFZHAMQ==}
@@ -6642,8 +6636,6 @@ snapshots:
       isarray: 2.0.5
 
   es-module-lexer@1.7.0: {}
-
-  es6-error@4.1.1: {}
 
   esbuild@0.25.1:
     optionalDependencies:
