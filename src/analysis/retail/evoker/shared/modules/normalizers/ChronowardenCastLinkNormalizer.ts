@@ -109,7 +109,7 @@ export function getChronoFlameDamageLink(event: DamageEvent): DamageEvent | unde
   return GetRelatedEvent<DamageEvent>(event, CHRONO_FLAME_DAMAGE_LINK);
 }
 
-function isNotFromOtherLFSources(event: DamageEvent) {
+function isNotFromOtherLFSources(event: DamageEvent): boolean {
   return (
     !HasRelatedEvent(event, LIVING_FLAME_CAST_HIT) &&
     !HasRelatedEvent(event, PUPIL_OF_ALEXSTRASZA_LINK) &&
