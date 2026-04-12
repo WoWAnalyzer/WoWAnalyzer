@@ -78,6 +78,9 @@ class SpellUsable extends Analyzer {
   protected _globalModRate = 1;
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
   protected _spellModRates: Record<number, number> = {};
+  /** Spell ID currently being processed by reduceCooldown, used to prevent
+   *  re-entrant charge expiry via onEvent during multi-charge reductions */
+  private reducingCooldownId: number | null = null;
 
   public cooldownErrorCount = 0;
   public unknownAbilityErrorCount = 0;
@@ -372,7 +375,6 @@ class SpellUsable extends Analyzer {
       return 0;
     }
 
-    let effectiveReductionMs = reductionMs;
     /*
      * Applying a time-based reduction interacts differently with haste and modRate.
      * Haste does not scale the time-based reduction, while modRate does.
@@ -383,24 +385,44 @@ class SpellUsable extends Analyzer {
      * Case 2: +100% haste, no modRate : cooldown finishes at 2 seconds
      * Case 3: no haste, +100% modRate : cooldown finishes at 3 seconds
      */
-    // calculate and apply reduction
     const modRate = this._getSpellModRate(cdSpellId);
     const scaledReductionMs = reductionMs / modRate;
+
+    // Calculate effective reduction before modifying state.
+    // For multi-charge spells, compute the total remaining cooldown across all charges.
+    const chargesOnCd = cdInfo.maxCharges - cdInfo.chargesAvailable;
+    const currentChargeRemaining = cdInfo.expectedEnd - timestamp;
+    const totalRemainingScaledCd =
+      currentChargeRemaining + (chargesOnCd - 1) * cdInfo.currentRechargeDuration;
+    let effectiveReductionMs: number;
+    if (scaledReductionMs >= totalRemainingScaledCd) {
+      effectiveReductionMs = totalRemainingScaledCd * modRate;
+    } else {
+      effectiveReductionMs = reductionMs;
+    }
+
     cdInfo.expectedEnd -= scaledReductionMs;
 
-    // if this restores a charge or ends the cooldown, we need to handle that
-    if (timestamp >= cdInfo.expectedEnd) {
-      const carryoverCdr = timestamp - cdInfo.expectedEnd;
+    // Prevent onEvent from expiring this spell while we handle it in the loop below
+    this.reducingCooldownId = cdSpellId;
+    try {
+      while (timestamp >= cdInfo.expectedEnd) {
+        const carryoverCdr = timestamp - cdInfo.expectedEnd;
 
-      // calculate effective reduction based on unscaled amount
-      if (cdInfo.maxCharges - cdInfo.chargesAvailable === 1) {
-        // this reduction will end the cooldown, so some of it will be wasted
-        const scaledEffectiveReduction = scaledReductionMs - carryoverCdr;
-        effectiveReductionMs = scaledEffectiveReduction * modRate;
+        if (cdInfo.maxCharges - cdInfo.chargesAvailable === 1) {
+          this.endCooldown(spellId, timestamp);
+          break;
+        }
+
+        const prevExpectedEnd = cdInfo.expectedEnd;
+        this._resetCooldown(cdSpellId, cdInfo, timestamp, carryoverCdr);
+        if (cdInfo.expectedEnd === prevExpectedEnd) {
+          break; // _resetCooldown didn't advance - avoid infinite loop
+        }
+        this.endCooldown(spellId, timestamp); // we reset CD here, so don't want end cooldown to do it too
       }
-
-      this._resetCooldown(cdSpellId, cdInfo, timestamp, carryoverCdr);
-      this.endCooldown(spellId, timestamp); // we reset CD here, so don't want end cooldown to do it too
+    } finally {
+      this.reducingCooldownId = null;
     }
 
     DEBUG &&
@@ -486,7 +508,7 @@ class SpellUsable extends Analyzer {
     const currentTimestamp = event.timestamp;
 
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
-      if (cdInfo.expectedEnd <= currentTimestamp) {
+      if (cdInfo.expectedEnd <= currentTimestamp && Number(spellId) !== this.reducingCooldownId) {
         this.endCooldown(Number(spellId), cdInfo.expectedEnd, true);
       }
     });
