@@ -12,11 +12,6 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.BESTIAL_WRATH_TALENT.id,
       },
       {
-        spellId: SPELLS.DIRE_BEAST_BUFF.id,
-        timelineHighlight: true,
-        triggeredBySpellId: TALENTS.DIRE_BEAST_TALENT.id,
-      },
-      {
         //shows pet buff, since that is what is interesting to see and the player buff is 8 different spellIDs
         spellId: SPELLS.BARBED_SHOT_PET_BUFF.id,
         timelineHighlight: true,
