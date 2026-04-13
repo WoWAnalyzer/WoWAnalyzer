@@ -126,8 +126,8 @@ export default class SpiritBomb extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />
         </strong>{' '}
-        is your primary AoE <strong>spender</strong> of <strong>Fury</strong> and{' '}
-        <strong>Soul Fragments</strong>. It consumes all available Soul Fragments (up to 5) and does
+        is your strongest AoE <strong>spender</strong> of <strong>Fury</strong> and{' '}
+        <strong>Soul Fragments</strong>. It consumes all available Soul Fragments (up to 6) and does
         more damage for each Soul Fragment consumed. Cast it when you have {this.soulsOutOfMeta}+
         Soul Fragments available. In <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when
         you have {this.soulsInMeta}+ Soul Fragments available.
@@ -196,14 +196,12 @@ export default class SpiritBomb extends Analyzer {
   }
 
   private getCastSingleTargetPerformance(event: CastEvent): UsageInfo {
-    const summary = <div>Cast in AoE</div>;
-
     const damageEvents = getSpiritBombDamages(event);
     const isAoE = damageEvents.length > 1;
     if (isAoE) {
       return {
         performance: QualitativePerformance.Good,
-        summary,
+        summary: <div>Cast in AoE</div>,
         details: <div>You hit {damageEvents.length} targets with this cast.</div>,
       };
     }
@@ -211,8 +209,8 @@ export default class SpiritBomb extends Analyzer {
     const hasFieryDemise = this.selectedCombatant.hasTalent(TALENTS.FIERY_DEMISE_TALENT);
     if (!hasFieryDemise) {
       return {
-        performance: QualitativePerformance.Fail,
-        summary,
+        performance: QualitativePerformance.Ok,
+        summary: <div>Cast in ST (no Fiery Demise)</div>,
         details: (
           <div>
             You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> in single target without{' '}
@@ -226,10 +224,11 @@ export default class SpiritBomb extends Analyzer {
       .map((event) => this.enemies.getEntity(event))
       .filter((enemy): enemy is Enemy => enemy !== null)
       .filter((enemy) => enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp));
+
     if (targetsThatHadFieryBrand.length === 0) {
       return {
-        performance: QualitativePerformance.Fail,
-        summary,
+        performance: QualitativePerformance.Ok,
+        summary: <div>Cast in ST (no Fiery Demise)</div>,
         details: (
           <div>
             You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> in single target without{' '}
@@ -238,14 +237,14 @@ export default class SpiritBomb extends Analyzer {
         ),
       };
     }
+
     return {
-      performance: QualitativePerformance.Ok,
-      summary,
+      performance: QualitativePerformance.Good,
+      summary: <div>Cast in ST (Fiery Demise)</div>,
       details: (
         <div>
           You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> in single target with{' '}
-          <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> applied to the target. This is okay, but
-          you should really consider casting <SpellLink spell={SPELLS.SOUL_CLEAVE} /> instead.
+          <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> applied to the target. Good usage.
         </div>
       ),
     };

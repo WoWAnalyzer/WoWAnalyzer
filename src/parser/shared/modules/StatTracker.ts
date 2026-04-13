@@ -247,25 +247,7 @@ class StatTracker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    // TODO: Use combatantinfo event directly
-    this._pullStats = {
-      strength: this.selectedCombatant._combatantInfo.strength,
-      agility: this.selectedCombatant._combatantInfo.agility,
-      intellect: this.selectedCombatant._combatantInfo.intellect,
-      stamina: this.selectedCombatant._combatantInfo.stamina,
-      crit: this.selectedCombatant._combatantInfo.critSpell,
-      haste:
-        this.selectedCombatant._combatantInfo.hasteSpell ||
-        this.selectedCombatant._combatantInfo.hasteRanged ||
-        this.selectedCombatant._combatantInfo.hasteMelee ||
-        0, // the || 0 fixes tests where combatantinfo may not be defined
-      mastery: this.selectedCombatant._combatantInfo.mastery,
-      versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
-      avoidance: this.selectedCombatant._combatantInfo.avoidance,
-      leech: this.selectedCombatant._combatantInfo.leech,
-      speed: this.selectedCombatant._combatantInfo.speed,
-      armor: this.selectedCombatant._combatantInfo.armor,
-    };
+    this._pullStats = this.selectedCombatant.pullStats;
 
     if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
       this.isClassic = true;

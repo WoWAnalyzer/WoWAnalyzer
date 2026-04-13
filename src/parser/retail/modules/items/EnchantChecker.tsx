@@ -2,40 +2,20 @@ import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/midnight/enchants';
 import SPELLS from 'common/SPELLS/deathknight';
-import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
+import { GearSlotName } from 'parser/core/Combatant';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/CBAkyFWJVR1xXPgQ/?fight=34&source=29
 
-const AGI_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
-
-const STR_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
-
-const INT_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+const ENCHANTABLE_SLOTS: Partial<Record<GearSlotName, JSX.Element>> = {
+  CHEST: <Trans id="common.slots.chest">Chest</Trans>,
+  LEGS: <Trans id="common.slots.legs">Legs</Trans>,
+  FEET: <Trans id="common.slots.boots">Boots</Trans>,
+  FINGER1: <Trans id="common.slots.ring">Ring</Trans>,
+  FINGER2: <Trans id="common.slots.ring">Ring</Trans>,
+  MAINHAND: <Trans id="common.slots.weapon">Weapon</Trans>,
+  OFFHAND: <Trans id="common.slots.offhand">OffHand</Trans>,
 };
 
 const MIN_ENCHANT_IDS = [
@@ -68,8 +48,8 @@ const MIN_ENCHANT_IDS = [
   ITEMS.RING_AMANI_MASTERY_R2.effectId,
   ITEMS.RING_EYES_OF_THE_EAGLE_R1.effectId,
   ITEMS.RING_NATURES_FURY_R1.effectId,
-  ITEMS.RING_NATURES_FURY_R2.effectId,
   ITEMS.RING_NATURES_WRATH_R1.effectId,
+  ITEMS.RING_NATURES_WRATH_R2.effectId,
   ITEMS.RING_SILVERMOONS_ALACRITY_R1.effectId,
   ITEMS.RING_SILVERMOONS_TENACITY_R1.effectId,
   ITEMS.RING_THALASSIAN_HASTE_R1.effectId,
@@ -92,7 +72,7 @@ const MIN_ENCHANT_IDS = [
   // #endregion
 
   // #region Shoulder
-  ITEMS.SHOULDERS_AKILZONS_CELERITY_R1.effectId,
+  ITEMS.SHOULDERS_AKILZONS_SWIFTNESS_R1.effectId,
   ITEMS.SHOULDERS_AMIRDRASSILS_GRACE_R1.effectId,
   ITEMS.SHOULDERS_FLIGHT_OF_THE_EAGLE_R1.effectId,
   ITEMS.SHOULDERS_FLIGHT_OF_THE_EAGLE_R2.effectId,
@@ -109,7 +89,7 @@ const MIN_ENCHANT_IDS = [
   ITEMS.WEAPON_BERSERKERS_RAGE_R1.effectId,
   ITEMS.WEAPON_FLAMES_OF_THE_SINDOREI_R1.effectId,
   ITEMS.WEAPON_JANALAIS_PRECISION_R1.effectId,
-  ITEMS.WEAPON_STR_OF_HALAZZI_R1.effectId,
+  ITEMS.WEAPON_STRENGTH_OF_HALAZZI_R1.effectId,
   ITEMS.WEAPON_WORLDSOUL_AEGIS_R1.effectId,
   ITEMS.WEAPON_WORLDSOUL_CRADLE_R1.effectId,
   ITEMS.WEAPON_WORLDSOUL_TENACITY_R1.effectId,
@@ -139,10 +119,10 @@ const MAX_ENCHANT_IDS = [
 
   // #region Ring
   ITEMS.RING_EYES_OF_THE_EAGLE_R2.effectId,
-  ITEMS.RING_NATURES_WRATH_R2.effectId,
   ITEMS.RING_SILVERMOONS_ALACRITY_R2.effectId,
   ITEMS.RING_SILVERMOONS_TENACITY_R2.effectId,
   ITEMS.RING_ZULJINS_MASTERY_R2.effectId,
+  ITEMS.RING_NATURES_FURY_R2.effectId,
   // #endregion
 
   // #region Helm
@@ -152,7 +132,7 @@ const MAX_ENCHANT_IDS = [
   // #endregion
 
   // #region Shoulder
-  ITEMS.SHOULDERS_AKILZONS_CELERITY_R2.effectId,
+  ITEMS.SHOULDERS_AKILZONS_SWIFTNESS_R2.effectId,
   ITEMS.SHOULDERS_AMIRDRASSILS_GRACE_R2.effectId,
   ITEMS.SHOULDERS_SILVERMOONS_MENDING_R2.effectId,
   // #endregion
@@ -163,7 +143,7 @@ const MAX_ENCHANT_IDS = [
   ITEMS.WEAPON_BERSERKERS_RAGE_R2.effectId,
   ITEMS.WEAPON_FLAMES_OF_THE_SINDOREI_R2.effectId,
   ITEMS.WEAPON_JANALAIS_PRECISION_R2.effectId,
-  ITEMS.WEAPON_STR_OF_HALAZZI_R2.effectId,
+  ITEMS.WEAPON_STRENGTH_OF_HALAZZI_R2.effectId,
   ITEMS.WEAPON_WORLDSOUL_AEGIS_R2.effectId,
   ITEMS.WEAPON_WORLDSOUL_CRADLE_R2.effectId,
   ITEMS.WEAPON_WORLDSOUL_TENACITY_R2.effectId,
@@ -182,12 +162,8 @@ const MAX_ENCHANT_IDS = [
 ] as const satisfies number[];
 
 class EnchantChecker extends BaseEnchantChecker {
-  get EnchantableSlots(): Record<number, JSX.Element> {
-    return this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.AGILITY
-      ? AGI_ENCHANTABLE_SLOTS
-      : this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.STRENGTH
-        ? STR_ENCHANTABLE_SLOTS
-        : INT_ENCHANTABLE_SLOTS;
+  get EnchantableSlots() {
+    return ENCHANTABLE_SLOTS;
   }
 
   get MinEnchantIds(): number[] {

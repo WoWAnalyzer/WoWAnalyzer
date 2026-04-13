@@ -1,20 +1,23 @@
 import type { JSX } from 'react';
 import GEAR_SLOTS, { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
+import { GearSlotName } from 'parser/core/Combatant';
 
-const ENCHANTABLE_SLOTS = Object.fromEntries(
-  [
-    GEAR_SLOTS.HEAD,
-    GEAR_SLOTS.SHOULDER,
-    GEAR_SLOTS.CHEST,
-    GEAR_SLOTS.LEGS,
-    GEAR_SLOTS.FEET,
-    GEAR_SLOTS.WRISTS,
-    GEAR_SLOTS.HANDS,
-    GEAR_SLOTS.BACK,
-    GEAR_SLOTS.MAINHAND,
-    GEAR_SLOTS.OFFHAND,
-  ].map((slot) => [slot, GEAR_SLOT_NAMES[slot as keyof typeof GEAR_SLOT_NAMES]]),
+const ENCHANTABLE_SLOT_NAMES = [
+  'HEAD',
+  'SHOULDER',
+  'CHEST',
+  'LEGS',
+  'FEET',
+  'WRISTS',
+  'HANDS',
+  'BACK',
+  'MAINHAND',
+  'OFFHAND',
+] as const satisfies readonly GearSlotName[];
+
+const ENCHANTABLE_SLOTS: Partial<Record<GearSlotName, JSX.Element>> = Object.fromEntries(
+  ENCHANTABLE_SLOT_NAMES.map((slot) => [slot, GEAR_SLOT_NAMES[GEAR_SLOTS[slot]]]),
 );
 
 const MIN_ENCHANT_IDS = [
@@ -122,7 +125,7 @@ const MAX_ENCHANT_IDS = [
 ];
 
 class EnchantChecker extends BaseEnchantChecker {
-  get EnchantableSlots(): Record<number, JSX.Element> {
+  get EnchantableSlots() {
     return ENCHANTABLE_SLOTS;
   }
 

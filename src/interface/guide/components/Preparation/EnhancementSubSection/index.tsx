@@ -2,10 +2,11 @@ import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import EnhancementBoxRow from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
 import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 import { Enchant } from 'common/ITEMS/Item';
+import { GearSlotName } from 'parser/core/Combatant';
 
 interface Props {
   recommendedLegEnhancements?: Enchant[];
-  recommendedWeaponEnhancements?: Record<number, Enchant[]>;
+  recommendedWeaponEnhancements?: Partial<Record<GearSlotName, Enchant[]>>;
 }
 const EnchantmentSubSection = ({ recommendedWeaponEnhancements }: Props) => {
   const weaponEnhancementChecker = useAnalyzer(WeaponEnhancementChecker);

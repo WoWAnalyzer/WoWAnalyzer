@@ -91,7 +91,10 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
     },
     TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
     TALENTS.FISTS_OF_FURY_TALENT,
-    TALENTS.RUSHING_WIND_KICK_WINDWALKER_TALENT,
+    {
+      spell: SPELLS.RUSHING_WIND_KICK_CAST,
+      condition: buffPresent(SPELLS.RUSHING_WIND_KICK_BUFF),
+    },
     {
       spell: SPELLS.SPINNING_CRANE_KICK,
       condition: describe(
@@ -119,7 +122,8 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
           ),
           and(
             hasTalent(TALENTS.RUSHING_WIND_KICK_WINDWALKER_TALENT),
-            spellCooldownRemaining(TALENTS.RUSHING_WIND_KICK_WINDWALKER_TALENT, { atMost: 1 }),
+            buffPresent(SPELLS.RUSHING_WIND_KICK_BUFF),
+            spellCooldownRemaining(SPELLS.RUSHING_WIND_KICK_CAST, { atMost: 1 }),
             hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
           ),
           and(danceOfChiJiExpiring, hasResource(RESOURCE_TYPES.CHI, { atMost: 1 })),
