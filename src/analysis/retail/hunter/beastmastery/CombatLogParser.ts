@@ -27,7 +27,6 @@ import BestialWrath from './modules/talents/BestialWrath';
 import CobraShot from './modules/talents/CobraShot';
 import AnimalCompanion from './modules/talents/AnimalCompanion';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
-import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stomp from './modules/talents/Stomp';
@@ -77,7 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cobraShot: CobraShot,
 
     //Talents
-    direBeast: DireBeast,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
     killerCobra: KillerCobra,
