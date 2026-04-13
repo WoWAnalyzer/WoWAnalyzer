@@ -10,16 +10,6 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      //region Baseline Rotational
-      {
-        spell: SPELLS.ARCANE_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      //endregion
-
       //region Talents
       {
         spell: TALENTS.COBRA_SHOT_TALENT.id,
