@@ -143,9 +143,24 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: HIT_TARGET,
     reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.FERAL_FRENZY_DEBUFF.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: 5000, // 5 flickers take time to play out
+    backwardBufferMs: 0,
+    anyTarget: true,
+    maximumLinks: 50,
+    isActive: (c) =>
+      c.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
+      !c.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT),
+  },
+  {
+    linkRelation: HIT_TARGET,
+    reverseLinkRelation: FROM_HARDCAST,
     linkingEventId: TALENTS_DRUID.FRANTIC_FRENZY_TALENT.id,
     linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.FRANTIC_FRENZY_DEBUFF.id, // the damage spell ID, not the talent
+    referencedEventId: SPELLS.FRANTIC_FRENZY_DEBUFF.id,
     referencedEventType: EventType.Damage,
     forwardBufferMs: 5000, // 5 flickers take time to play out
     backwardBufferMs: 0,

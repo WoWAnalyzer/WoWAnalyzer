@@ -4,20 +4,15 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EventType, TargettedEvent } from 'parser/core/Events';
 
-import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import {
-  ACCEPTABLE_CPS,
-  cdSpell,
   FB_SPELLS,
-  FEROCIOUS_BITE_ENERGY,
-  FEROCIOUS_BITE_MAX_DRAIN,
+  MIN_ACCEPTABLE_CPS,
   getAcceptableCps,
-  getFerociousBiteMaxDrain,
 } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -39,14 +34,10 @@ class FerociousBite extends Analyzer {
 
   protected rip!: RipUptimeAndSnapshots;
 
-  hasSotf: boolean;
-
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
-
-    this.hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onFbCast);
   }
@@ -63,23 +54,6 @@ class FerociousBite extends Analyzer {
       return; // parried FBs don't drain and don't cost CPs - shouldn't evaluate
     }
 
-    const duringBerserkAndSotf =
-      this.hasSotf &&
-      (this.selectedCombatant.hasBuff(SPELLS.BERSERK_CAT.id) ||
-        this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id));
-    const extraEnergyUsed = getAdditionalEnergyUsed(event);
-    const maxExtraEnergy = getFerociousBiteMaxDrain(this.selectedCombatant);
-    const usedMax = extraEnergyUsed >= maxExtraEnergy;
-
-    if (!duringBerserkAndSotf && usedMax) {
-      addInefficientCastReason(
-        event,
-        `Used with low energy, causing only ${extraEnergyUsed}
-        extra energy to be turned in to bonus damage. You should always cast Ferocious Bite with
-        the full extra energy available in order to maximize damage`,
-      );
-    }
-
     // fill out cast entry
     let timeLeftOnRip = 0;
     // target is optional in cast event, but we know FB cast will always have it
@@ -87,11 +61,11 @@ class FerociousBite extends Analyzer {
       timeLeftOnRip = this.rip.getTimeRemaining(event as TargettedEvent<EventType>);
     }
     const cpsUsed = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+    const currAcceptableCps = getAcceptableCps(this.selectedCombatant, event.timestamp);
     const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
 
     let value: QualitativePerformance = QualitativePerformance.Good;
     let perfExplanation: React.ReactNode = undefined;
-    const currAcceptableCps = getAcceptableCps(this.selectedCombatant);
     if (cpsUsed < currAcceptableCps) {
       value = QualitativePerformance.Fail;
       perfExplanation = (
@@ -101,14 +75,9 @@ class FerociousBite extends Analyzer {
           <br />
         </h5>
       );
-    } else if (!usedMax && !duringBerserkAndSotf) {
-      value = QualitativePerformance.Fail;
-      perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          Bad because you cast at too low energy
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
+      addInefficientCastReason(
+        event,
+        `Used with only ${cpsUsed} CPs (need at least ${currAcceptableCps})`,
       );
     } else if (!acceptableTimeLeftOnRip) {
       value = QualitativePerformance.Ok;
@@ -125,13 +94,6 @@ class FerociousBite extends Analyzer {
       <>
         {perfExplanation}@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
         <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        Extra energy used:{' '}
-        <strong>
-          {extraEnergyUsed} / {maxExtraEnergy}
-        </strong>{' '}
-        {duringBerserkAndSotf && '(during Berserk)'}
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {timeLeftOnRip === 0 ? (
@@ -161,19 +123,9 @@ class FerociousBite extends Analyzer {
         <strong>
           <SpellLink spell={SPELLS.FEROCIOUS_BITE} />
         </strong>{' '}
-        is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-        use Bite with at least {ACCEPTABLE_CPS} CPs. Bite can consume up to{' '}
-        {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage - this boost is very
-        efficient and you should always wait until{' '}
-        {FEROCIOUS_BITE_MAX_DRAIN + FEROCIOUS_BITE_ENERGY} energy to use Bite.{' '}
-        {this.hasSotf && (
-          <>
-            One exception: because you have{' '}
-            <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT} />, it is acceptable to
-            use low energy bites during <SpellLink spell={cdSpell(this.selectedCombatant)} /> in
-            order to get extra finishers in.
-          </>
-        )}
+        is your direct damage finisher. Use it when you've already applied Rip to enemies. Use Bite
+        with at least {MIN_ACCEPTABLE_CPS} CPs, or {MIN_ACCEPTABLE_CPS + 1}+ during{' '}
+        <SpellLink spell={SPELLS.BERSERK_CAT} />.
       </p>
     );
 
@@ -192,7 +144,7 @@ class FerociousBite extends Analyzer {
           spell={SPELLS.FEROCIOUS_BITE}
           castEntries={this.castEntries}
           okExtraExplanation={<>used on target with low duration Rip</>}
-          badExtraExplanation={<>&lt;25 extra energy + not during Berserk, or low CPs</>}
+          badExtraExplanation={<>low CPs</>}
         />
       </div>
     );

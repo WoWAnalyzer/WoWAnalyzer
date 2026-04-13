@@ -182,6 +182,7 @@ export function getTigersFuryDamageBonus(c: Combatant): number {
 export const BLOODTALONS_DAMAGE_BONUS = 0.25;
 export const LIONS_STRENGTH_DAMAGE_BONUS = 0.15;
 export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
+export const SUDDEN_ABUSH_DAMAGE_BONUS = 0.5;
 
 /** Max time left on a DoT for us to not yell if snapshot is downgraded */
 export const SNAPSHOT_DOWNGRADE_BUFFER = 2000;
@@ -206,10 +207,18 @@ export function cdSpell(c: Combatant): Spell {
 // MISC
 //
 
-/** Minimum acceptable number of CPs to use with a finisher (currently always 5, leaving as function in case this changes again) */
-export function getAcceptableCps(_: Combatant): number {
-  return ACCEPTABLE_CPS;
+/** Minimum acceptable number of CPs to use with a finisher.
+ *  During Berserk/Incarnation, 5 CPs are required. Otherwise 4 CPs is acceptable.
+ *  This might change in the 12.0.5 patch */
+export function getAcceptableCps(c: Combatant, atTimestamp?: number): number {
+  const inBerserk =
+    c.hasBuff(SPELLS.BERSERK_CAT.id, atTimestamp) ||
+    c.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id, atTimestamp);
+  return inBerserk ? MAX_CPS : MIN_ACCEPTABLE_CPS;
 }
+/** Minimum acceptable CPs for a finisher outside of Berserk */
+export const MIN_ACCEPTABLE_CPS = 4;
+/** Maximum CPs - required for finishers during Berserk */
 export const ACCEPTABLE_CPS = 5;
 
 /** Effective combo points used by a Convoke'd Ferocious Bite */

@@ -142,6 +142,13 @@ class ApexPredatorsCraving extends Analyzer {
     return this.biteDamage + this.rampantFerocityDamage;
   }
 
+  get buffUptime() {
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.APEX_PREDATORS_CRAVING_BUFF.id) /
+      this.owner.fightDuration
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -228,15 +235,20 @@ class ApexPredatorsCraving extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT}>
-          <ItemPercentDamageDone amount={this.totalDamage} />
-          {this.hasSotf && (
-            <>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-              <SpellIcon spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} />{' '}
-              {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>
-            </>
-          )}
+          <div>
+            <ItemPercentDamageDone amount={this.totalDamage} />
+          </div>
+          <div>
+            <UptimeIcon /> {formatPercentage(this.buffUptime, 1)}% <small>buff uptime</small>
+          </div>
+          <div>
+            {this.hasSotf && (
+              <>
+                <SpellIcon spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} />{' '}
+                {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>
+              </>
+            )}
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

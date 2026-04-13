@@ -156,7 +156,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.RAKE_BLEED.id);
+    return this.combinedUptimeHistory;
   }
 
   /** Subsection explaining the use of Rake and providing performance statistics */

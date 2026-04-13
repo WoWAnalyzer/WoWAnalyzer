@@ -15,11 +15,12 @@ import {
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/druid/feral/constants';
 import { SpellLink } from 'interface';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -117,7 +118,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_FERAL.id);
+    return this.combinedUptimeHistory;
   }
 
   /** Subsection explaining the use of Lunar Inspiration and providing performance statistics */
@@ -144,14 +145,12 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
         </RoundedPanel>
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        <strong>Moonfire casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot), Red
-          is a bad cast (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for
-          more details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <CastSummaryAndBreakdown
+          spell={SPELLS.MOONFIRE_FERAL}
+          castEntries={this.castEntries}
+          okExtraExplanation={<>clipped duration but upgraded snapshot</>}
+          badExtraExplanation={<>clipped duration or downgraded snapshot w/ &gt;2s remaining</>}
+        />
       </div>
     );
 

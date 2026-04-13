@@ -210,6 +210,17 @@ abstract class Snapshots extends Analyzer {
     return this.applicableSnapshots.filter((as) => as.isPresent(this.selectedCombatant, timestamp));
   }
 
+  /** Combined uptime periods derived from snapshot tracking data.
+   *  Use this for the primary uptime bar to ensure consistency with snapshot sub-bars.
+   *  This is to fix an issue where because the time metrics used are slightly different you can result in values
+   *  over 100% which from an analysis perspective isn't exactly helpful */
+  get combinedUptimeHistory(): ClosedTimePeriod[] {
+    return mergeTimePeriods(
+      Object.values(this.snapshotsByTarget).flatMap((uptimes) => uptimes),
+      this.owner.currentTimestamp,
+    );
+  }
+
   get snapshotUptimes(): UptimeBarSpec[] {
     return this.applicableSnapshots.map((as) => this._getSnapshotUptimesForBuff(as));
   }

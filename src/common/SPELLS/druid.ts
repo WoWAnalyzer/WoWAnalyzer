@@ -1120,7 +1120,7 @@ const spells = {
   },
   // buff from Sudden Ambush talent
   SUDDEN_AMBUSH_BUFF: {
-    id: 391974,
+    id: 1244483,
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },

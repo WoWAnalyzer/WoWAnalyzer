@@ -1,27 +1,16 @@
 import type { JSX } from 'react';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
 import Events, {
   ApplyBuffEvent,
-  ApplyDebuffEvent,
-  DamageEvent,
+  CastEvent,
   RefreshBuffEvent,
-  RefreshDebuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import {
-  getSuddenAmbushBoostedDamage,
-  isBoostedBySuddenAmbush,
-} from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import {
-  getRakeDuration,
-  PANDEMIC_FRACTION,
-  PROWL_RAKE_DAMAGE_BONUS,
-} from 'analysis/retail/druid/feral/constants';
-import Enemies, { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import { SUDDEN_ABUSH_DAMAGE_BONUS } from 'analysis/retail/druid/feral/constants';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -33,15 +22,12 @@ import { formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { BadColor, OkColor } from 'interface/guide';
+import { BadColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import Snapshots, {
-  PROWL_SPEC,
-  SnapshotSpec,
-  TIGERS_FURY_SPEC,
-} from 'analysis/retail/druid/feral/modules/core/Snapshots';
-import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+
+const SA_BUFF_BUFFER = 50;
 
 /**
  * **Sudden Ambush**
@@ -49,22 +35,23 @@ import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBr
  *
  * Finishing moves have a 6% chance per combo point spent to make your next Rake or Shred
  * deal damage as though you were stealthed.
+ *
+ * Detects SA usage by checking if the buff is active at the time of Shred/Swipe/Rake casts,
+ * which is more reliable than depending on RemoveBuff event linking.
  */
-class SuddenAmbush extends Snapshots {
-  static dependencies = {
-    ...Snapshots.dependencies,
-    enemies: Enemies,
-  };
-  protected enemies!: Enemies;
-
-  /** Number of shreads boosted by SA */
+class SuddenAmbush extends Analyzer {
+  /** Number of shreds boosted by SA */
   boostedShreds = 0;
   /** Number of rakes boosted by SA */
   boostedRakes = 0;
+  /** Number of swipes boosted by SA */
+  boostedSwipes = 0;
   /** Total damage added to Shred by SA boost */
   boostedShredDamage = 0;
   /** Total damage added to Rake by SA boost */
   boostedRakeDamage = 0;
+  /** Total damage added to Swipe by SA boost */
+  boostedSwipeDamage = 0;
 
   /** SA buffs gained */
   saGained = 0;
@@ -75,14 +62,11 @@ class SuddenAmbush extends Snapshots {
   /** SA buffs overwritten */
   saOverwritten = 0;
 
-  /** Set of targets for whom the last applied Rake was boosted by SA */
-  saBoostedRakeTargets: Set<string> = new Set<string>();
-
   /** Per use entries for the Guide */
   useEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
-    super(SPELLS.RAKE, SPELLS.RAKE_BLEED, [TIGERS_FURY_SPEC, PROWL_SPEC], options);
+    super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.SUDDEN_AMBUSH_TALENT);
 
@@ -91,278 +75,115 @@ class SuddenAmbush extends Snapshots {
       this.onGainSa,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_AMBUSH_BUFF),
-      this.onUseSa,
-    );
-    this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_AMBUSH_BUFF),
       this.onOverwriteSa,
     );
-
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHRED), this.onSaShred);
-
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RAKE_BLEED),
-      this.onApplyRake,
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_AMBUSH_BUFF),
+      this.onRemoveSa,
     );
+
+    // Detect SA consumption by checking buff at cast time
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.RAKE_BLEED),
-      this.onApplyRake,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAKE_BLEED),
-      this.onRakeBleedDamage,
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHRED, SPELLS.SWIPE_CAT, SPELLS.RAKE]),
+      this.onSaConsumerCast,
     );
   }
 
-  // Uses the 'Snapshots' framework seprately from the RakeUptimeAndSnapshots module to capture SA specific info
-
-  getDotExpectedDuration(): number {
-    return getRakeDuration(this.selectedCombatant);
-  }
-
-  getDotFullDuration(): number {
-    return getRakeDuration(this.selectedCombatant);
-  }
-
-  getTotalDotUptime(): number {
-    return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id);
-  }
-
-  handleApplication(
-    application: ApplyDebuffEvent | RefreshDebuffEvent,
-    snapshots: SnapshotSpec[],
-    prevSnapshots: SnapshotSpec[] | null,
-    power: number,
-    prevPower: number,
-    remainingOnPrev: number,
-    clipped: number,
-  ) {
-    const cast = getHardcast(application);
-    if (!cast) {
-      return; // no entry needed for 'uncontrolled' rakes from DCR or Convoke
-    }
-    if (!isBoostedBySuddenAmbush(application)) {
-      // most Rake handling is in RakeUptimeAndSnapshots module,
-      // here we only need to look at SA buffed Rakes
-      return;
-    }
-
-    const targetName = this.owner.getTargetName(cast);
-    const wasUpgrade = power > prevPower;
-
-    const isRakeOnTarget = prevSnapshots !== null;
-    const wasPrevRakeProwlBuffed =
-      prevSnapshots !== null &&
-      prevSnapshots.find((ss) => ss.name === PROWL_SPEC.name) !== undefined;
-
-    let value: QualitativePerformance = QualitativePerformance.Good;
-    let perfExplanation: React.ReactNode = undefined;
-
-    if (!wasUpgrade && clipped > 0) {
-      value = QualitativePerformance.Ok;
-      perfExplanation = (
-        <h5 style={{ color: OkColor }}>
-          Careful, you early overwrote an already strong Rake.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
-      );
-    }
-
-    const tooltip = (
-      <>
-        <strong>
-          Consumed with <SpellLink spell={SPELLS.RAKE} />
-        </strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        {isRakeOnTarget ? (
-          <>
-            Previous rake on target had <strong>{(remainingOnPrev / 1000).toFixed(1)}s</strong> left
-            and{' '}
-            {wasPrevRakeProwlBuffed ? (
-              <strong>
-                <SpellLink spell={TALENTS_DRUID.POUNCING_STRIKES_TALENT} /> buff
-              </strong>
-            ) : (
-              <strong>no buff</strong>
-            )}
-          </>
-        ) : (
-          <>
-            <b>No Rake on target!</b>
-          </>
-        )}
-      </>
-    );
-
-    this.useEntries.push({
-      value,
-      tooltip,
-    });
-  }
-
-  onSaShred(event: DamageEvent) {
-    if (!isBoostedBySuddenAmbush(event)) {
-      return;
-    }
-    const cast = getHardcast(event);
-    if (!cast) {
-      return; // no entry needed for 'uncontrolled' shreds from Convoke
-    }
-
-    const latestUptime = this.getLatestUptimeForTarget(event);
-    const isRakeOnTarget = latestUptime !== undefined;
-    const timeLeftOnRake = this.getTimeRemaining(event);
-    const isRakeProwlBuffed = latestUptime
-      ? latestUptime.snapshots.find((ss) => ss.name === PROWL_SPEC.name) !== undefined
-      : false;
-    const targetName = this.owner.getTargetName(event);
-
-    let value: QualitativePerformance = QualitativePerformance.Good;
-    let perfExplanation: React.ReactNode = undefined;
-
-    if (!isRakeOnTarget) {
-      value = QualitativePerformance.Fail;
-      perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          Bad because there was no Rake on the target
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
-      );
-    } else if (timeLeftOnRake <= getRakeDuration(this.selectedCombatant) * PANDEMIC_FRACTION) {
-      value = QualitativePerformance.Fail;
-      perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          Bad because the Rake on target was within the refresh window
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
-      );
-    } else if (!isRakeProwlBuffed) {
-      value = QualitativePerformance.Fail;
-      perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          Bad because the Rake on target was weak
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
-      );
-    }
-
-    const tooltip = (
-      <>
-        <strong>
-          Consumed with <SpellLink spell={SPELLS.SHRED} />
-        </strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        {isRakeOnTarget ? (
-          <>
-            Rake on target had <strong>{(timeLeftOnRake / 1000).toFixed(1)}s</strong> left and{' '}
-            {isRakeProwlBuffed ? (
-              <strong>
-                <SpellLink spell={TALENTS_DRUID.POUNCING_STRIKES_TALENT} /> buff
-              </strong>
-            ) : (
-              <strong>no buff</strong>
-            )}
-          </>
-        ) : (
-          <>
-            <b>No Rake on target!</b>
-          </>
-        )}
-      </>
-    );
-
-    this.useEntries.push({
-      value,
-      tooltip,
-    });
-  }
-
-  onGainSa(event: ApplyBuffEvent) {
+  onGainSa(_event: ApplyBuffEvent) {
     this.saGained += 1;
   }
 
-  onUseSa(event: RemoveBuffEvent) {
-    const boostedDamageEvents: DamageEvent[] = getSuddenAmbushBoostedDamage(event);
-    if (boostedDamageEvents.length === 0) {
-      this.saExpired += 1;
+  onOverwriteSa(_event: RefreshBuffEvent) {
+    this.saGained += 1;
+    this.saOverwritten += 1;
+  }
 
-      const value = QualitativePerformance.Fail;
-      const tooltip = (
-        <>
-          <h5 style={{ color: BadColor }}>
-            Bad because you let a proc expire
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
-          @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        </>
-      );
+  onRemoveSa(event: RemoveBuffEvent) {
+    // If the buff expired without being consumed by a cast, mark it as expired.
+    // Used procs are already tracked in onSaConsumerCast, so we only need to handle expirations.
+    // Since onSaConsumerCast fires on cast events (which happen before removebuff),
+    // if this removebuff wasn't preceded by a cast, it's an expiration.
+    const totalAccountedFor = this.saUsed + this.saExpired + this.saOverwritten;
+    if (totalAccountedFor < this.saGained) {
+      // This removal wasn't from a cast - it expired
+      this.saExpired += 1;
       this.useEntries.push({
-        value,
-        tooltip,
-      });
-    } else {
-      this.saUsed += 1;
-      // with Double Clawed Rake, possible more than one damage event is boosted
-      boostedDamageEvents.forEach((d) => {
-        if (d.ability.guid === SPELLS.SHRED.id) {
-          this.boostedShreds += 1;
-          this.boostedShredDamage += calculateEffectiveDamage(d, PROWL_RAKE_DAMAGE_BONUS);
-        } else if (d.ability.guid === SPELLS.RAKE.id) {
-          this.boostedRakes += 1;
-          this.boostedRakeDamage += calculateEffectiveDamage(d, PROWL_RAKE_DAMAGE_BONUS);
-        }
+        value: QualitativePerformance.Fail,
+        tooltip: (
+          <>
+            <h5 style={{ color: BadColor }}>
+              Bad because you let a proc expire
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+              <br />
+            </h5>
+            @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+          </>
+        ),
       });
     }
   }
 
-  onOverwriteSa(event: RefreshBuffEvent) {
-    this.saOverwritten += 1;
+  onSaConsumerCast(event: CastEvent) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.SUDDEN_AMBUSH_BUFF.id, event.timestamp, SA_BUFF_BUFFER)
+    ) {
+      return;
+    }
 
-    const value = QualitativePerformance.Fail;
-    const tooltip = (
-      <>
-        <h5 style={{ color: BadColor }}>
-          Bad because you overwrote a proc
+    this.saUsed += 1;
+
+    const spellId = event.ability.guid;
+    const isRake = spellId === SPELLS.RAKE.id;
+    const spell =
+      spellId === SPELLS.SHRED.id
+        ? SPELLS.SHRED
+        : spellId === SPELLS.SWIPE_CAT.id
+          ? SPELLS.SWIPE_CAT
+          : SPELLS.RAKE;
+    const targetName = this.owner.getTargetName(event);
+
+    this.useEntries.push({
+      value: isRake ? QualitativePerformance.Fail : QualitativePerformance.Good,
+      tooltip: (
+        <>
+          <strong>
+            Consumed with <SpellLink spell={spell} />
+          </strong>
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-        </h5>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-      </>
-    );
-    this.useEntries.push({
-      value,
-      tooltip,
+          {isRake && (
+            <h5 style={{ color: BadColor }}>
+              Sudden Ambush only buffs Rake's initial damage now, not the bleed. Prefer using it on{' '}
+              <SpellLink spell={SPELLS.SHRED} /> or <SpellLink spell={SPELLS.SWIPE_CAT} /> instead.
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+              <br />
+            </h5>
+          )}
+          @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
+          <strong>{targetName || 'unknown'}</strong>
+        </>
+      ),
     });
-  }
 
-  onApplyRake(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    if (isBoostedBySuddenAmbush(event)) {
-      this.saBoostedRakeTargets.add(encodeEventTargetString(event) || '');
-    } else {
-      this.saBoostedRakeTargets.delete(encodeEventTargetString(event) || '');
-    }
-  }
-
-  onRakeBleedDamage(event: DamageEvent) {
-    if (this.saBoostedRakeTargets.has(encodeEventTargetString(event) || '')) {
-      this.boostedRakeDamage += calculateEffectiveDamage(event, PROWL_RAKE_DAMAGE_BONUS);
-    }
+    // Track damage from linked hits
+    const damageHits = getDamageHits(event);
+    damageHits.forEach((d) => {
+      switch (d.ability.guid) {
+        case SPELLS.SHRED.id:
+          this.boostedShreds += 1;
+          this.boostedShredDamage += calculateEffectiveDamage(d, SUDDEN_ABUSH_DAMAGE_BONUS);
+          break;
+        case SPELLS.RAKE.id:
+          this.boostedRakes += 1;
+          this.boostedRakeDamage += calculateEffectiveDamage(d, SUDDEN_ABUSH_DAMAGE_BONUS);
+          break;
+        case SPELLS.SWIPE_CAT.id:
+          this.boostedSwipes += 1;
+          this.boostedSwipeDamage += calculateEffectiveDamage(d, SUDDEN_ABUSH_DAMAGE_BONUS);
+          break;
+      }
+    });
   }
 
   get saEnding() {
@@ -374,7 +195,7 @@ class SuddenAmbush extends Snapshots {
   }
 
   get totalDamage() {
-    return this.boostedRakeDamage + this.boostedShredDamage;
+    return this.boostedRakeDamage + this.boostedShredDamage + this.boostedSwipeDamage;
   }
 
   get guideSubsection(): JSX.Element {
@@ -383,10 +204,11 @@ class SuddenAmbush extends Snapshots {
         <strong>
           <SpellLink spell={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT} />
         </strong>{' '}
-        buffs your next <SpellLink spell={SPELLS.SHRED} /> or <SpellLink spell={SPELLS.RAKE} />.
-        Consuming the proc with <SpellLink spell={SPELLS.RAKE} /> is almost always preferred - the
-        only time you should consume with <SpellLink spell={SPELLS.SHRED} /> is when your target
-        already has a high duration buffed <SpellLink spell={SPELLS.RAKE} />.
+        buffs your next <SpellLink spell={SPELLS.SHRED} />, <SpellLink spell={SPELLS.SWIPE_CAT} />,
+        or <SpellLink spell={SPELLS.RAKE} />. You should spend the proc on{' '}
+        <SpellLink spell={SPELLS.SHRED} /> (single target) or <SpellLink spell={SPELLS.SWIPE_CAT} />{' '}
+        (AoE). Avoid using it on <SpellLink spell={SPELLS.RAKE} /> as it only buffs the initial
+        damage, not the bleed.
       </p>
     );
 
@@ -405,17 +227,16 @@ class SuddenAmbush extends Snapshots {
   }
 
   statistic() {
-    const hasDcr = this.selectedCombatant.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT);
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(3)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(6)} // number based on talent row
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the damage from the increase to Shred and Rake damage caused by Sudden Ambush
-            procs. This underrates the total benefit of Sudden Ambush because it does not count the
-            increased crit chance and additional combo point from Shred.
+            This is the damage from the increase to Shred, Swipe, and Rake initial damage caused by
+            Sudden Ambush procs. This underrates the total benefit of Sudden Ambush because it does
+            not count the increased crit chance and additional combo point from Shred.
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
@@ -440,14 +261,7 @@ class SuddenAmbush extends Snapshots {
             </ul>
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
-            Breakdown by spell{' '}
-            {hasDcr && (
-              <>
-                (possibly more hits than uses due to{' '}
-                <SpellLink spell={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT} />)
-              </>
-            )}
-            :
+            Breakdown by spell:
             <ul>
               <li>
                 <SpellLink spell={SPELLS.SHRED} />: Boosted <strong>{this.boostedShreds}</strong>{' '}
@@ -455,8 +269,13 @@ class SuddenAmbush extends Snapshots {
                 <strong>&gt;{this.owner.formatItemDamageDone(this.boostedShredDamage)}</strong>
               </li>
               <li>
+                <SpellLink spell={SPELLS.SWIPE_CAT} />: Boosted{' '}
+                <strong>{this.boostedSwipes}</strong> hits for{' '}
+                <strong>&gt;{this.owner.formatItemDamageDone(this.boostedSwipeDamage)}</strong>
+              </li>
+              <li>
                 <SpellLink spell={SPELLS.RAKE} />: Boosted <strong>{this.boostedRakes}</strong> hits
-                for <strong>{this.owner.formatItemDamageDone(this.boostedRakeDamage)}</strong>
+                for <strong>&gt;{this.owner.formatItemDamageDone(this.boostedRakeDamage)}</strong>
               </li>
             </ul>
           </>
