@@ -62,13 +62,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MULTI_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS.BESTIAL_WRATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
