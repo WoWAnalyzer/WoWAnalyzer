@@ -9,6 +9,7 @@ import { Ability, AnyEvent, HasAbility, HasSource, HasTarget } from 'parser/core
 import { useMemo, useState, useCallback } from 'react';
 import { useCombatLogParser } from './report/CombatLogParserContext';
 import { formatDuration } from 'common/format';
+import { toast } from 'sonner';
 import SpellLink from './SpellLink';
 
 export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParser }) {
@@ -270,7 +271,7 @@ function CopySpellData({ ability }: { ability: Ability }) {
       const text = `${key}: ${data},`;
       await navigator.clipboard.writeText(text);
     } catch {
-      alert('Unable to copy data to clipboard');
+      toast.error('Unable to copy data to clipboard');
     }
   }, [ability]);
   return <CopyTextLink onClick={copy}>(copy definition)</CopyTextLink>;

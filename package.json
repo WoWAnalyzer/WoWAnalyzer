@@ -37,6 +37,7 @@
     "redux": "5.0.1",
     "redux-thunk": "3.1.0",
     "sass-text-stroke": "1.2.0",
+    "sonner": "2.0.7",
     "spin-delay": "2.0.1",
     "swr": "2.3.6",
     "universal-cookie": "^4.0.4",

@@ -9,6 +9,7 @@ import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Footer from 'interface/Footer';
 import PortalTarget from 'interface/PortalTarget';
 import Hotkeys from 'interface/Hotkeys';
+import { Toaster } from 'sonner';
 import 'react-toggle/style.css';
 
 import '../App.scss';
@@ -68,6 +69,7 @@ export function AppLayout() {
       <Hotkeys />
       <ScrollRestoration />
       <ProgressBar />
+      <Toaster theme="dark" position="top-center" richColors closeButton />
     </>
   );
 }

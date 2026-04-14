@@ -21,6 +21,7 @@ import DocumentTitle from 'interface/DocumentTitle';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
 import { i18n } from '@lingui/core';
+import { toast } from 'sonner';
 import useSWR from 'swr';
 import { PlayerDetails } from 'parser/core/Player';
 import makeApiUrl from 'common/makeApiUrl';
@@ -152,7 +153,7 @@ const PlayerLoader = ({ children }: Props) => {
 
   if (playerId && (!player || !config)) {
     if (!player) {
-      alert(
+      toast.error(
         i18n._(
           defineMessage({
             id: 'interface.report.render.dataNotAvailable',
@@ -161,7 +162,7 @@ const PlayerLoader = ({ children }: Props) => {
         ),
       );
     } else if (!config) {
-      alert(
+      toast.error(
         i18n._(
           defineMessage({
             id: 'interface.report.render.notSupported',

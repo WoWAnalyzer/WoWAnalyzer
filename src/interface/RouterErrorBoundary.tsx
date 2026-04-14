@@ -3,10 +3,12 @@ import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { useRouteError } from 'react-router-dom';
 
+import { normalizeThrownError } from './errorHandling';
 import { EventsParseError } from './report/hooks/useEventParser';
 
 const RouterErrorBoundary = () => {
-  const error = useRouteError();
+  const routeError = useRouteError();
+  const error = normalizeThrownError(routeError);
 
   if (error instanceof EventsParseError) {
     return (
@@ -24,7 +26,6 @@ const RouterErrorBoundary = () => {
     );
   }
 
-  // TODO: Instead of hiding the entire app, show a small toaster instead. Not all uncaught errors are fatal.
   return (
     <FullscreenError
       error={<Trans id="interface.rootErrorBoundary.errorOccurred">An error occurred.</Trans>}
@@ -35,14 +36,12 @@ const RouterErrorBoundary = () => {
       }
       background={ApiDownBackground}
       errorDetails={
-        error instanceof Error ? (
-          <>
-            <p>{error.message}</p>
-            <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-              {error.stack}
-            </pre>
-          </>
-        ) : undefined
+        <>
+          <p>{error.message}</p>
+          <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+            {error.stack}
+          </pre>
+        </>
       }
     >
       <div className="text-muted">
