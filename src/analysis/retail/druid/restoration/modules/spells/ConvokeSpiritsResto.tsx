@@ -2,7 +2,7 @@ import { ConvokeSpirits } from 'analysis/retail/druid/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, Tooltip } from 'interface';
-import { PassFailCheckmark } from 'interface/guide';
+import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import InformationIcon from 'interface/icons/Information';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -226,9 +226,11 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           const rejuvRamp = restoCast.rejuvsOnCast > 0;
           const syncWithReforestation = !hasReforestation || cast.form === 'Tree of Life';
           const overallPerf =
-            wgRamp && rejuvRamp && syncWithReforestation
-              ? QualitativePerformance.Good
-              : QualitativePerformance.Fail;
+            !wgRamp || !rejuvRamp
+              ? QualitativePerformance.Fail
+              : syncWithReforestation
+                ? QualitativePerformance.Good
+                : QualitativePerformance.Ok;
 
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
@@ -272,7 +274,13 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                   </Tooltip>
                 </>
               ),
-              result: <PassFailCheckmark pass={syncWithReforestation} />,
+              result: (
+                <PerformanceMark
+                  perf={
+                    syncWithReforestation ? QualitativePerformance.Good : QualitativePerformance.Ok
+                  }
+                />
+              ),
             });
 
           return (

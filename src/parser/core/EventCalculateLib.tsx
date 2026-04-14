@@ -61,7 +61,9 @@ export function calculateEffectiveHealingFromCritIncrease(
   const nonOverheal = amount + absorbed;
   const raw = amount + absorbed + overheal;
   const baseHeal = raw / critHealMultiplier;
-  const baseCritHeal = baseHeal * (currentCrit / (percentCritIncrease + currentCrit));
+  const critBonusFactor = critHealMultiplier - 1;
+  const baseCritHeal =
+    baseHeal * critBonusFactor * (currentCrit / (percentCritIncrease + currentCrit));
   const effectiveCritHeal = Math.max(0, nonOverheal - baseHeal);
   return Math.max(0, effectiveCritHeal - baseCritHeal);
 }

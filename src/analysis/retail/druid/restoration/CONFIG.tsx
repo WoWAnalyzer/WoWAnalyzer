@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [squided],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.0',
+  patchCompatibility: '12.0.1',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -48,8 +48,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/34V2WhNLp9jzd1fX/60-Mythic+One-Armed+Bandit+-+Kill+(6:48)/Ninjaristic/standard',
+  exampleReport: '/report/x8dZm6HcvrG1QKyC/66-Mythic+Vorasius+-+Kill+(6:17)/Phasedruid/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
