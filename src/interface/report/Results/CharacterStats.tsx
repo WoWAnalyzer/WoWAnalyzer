@@ -11,74 +11,68 @@ import STAT, {
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const getStatRating = (statTracker: StatTracker, stat: STAT) => {
+  const stats = statTracker.startingStats;
   switch (stat) {
     case STAT.STRENGTH:
-      return statTracker.startingStrengthRating;
+      return stats.strength;
     case STAT.AGILITY:
-      return statTracker.startingAgilityRating;
+      return stats.agility;
     case STAT.INTELLECT:
-      return statTracker.startingIntellectRating;
+      return stats.intellect;
     case STAT.STAMINA:
-      return statTracker.startingStaminaRating;
+      return stats.stamina;
     case STAT.CRITICAL_STRIKE:
-      return statTracker.startingCritRating;
+      return stats.crit;
     case STAT.HASTE:
-      return statTracker.startingHasteRating;
+      return stats.haste;
     case STAT.MASTERY:
-      return statTracker.startingMasteryRating;
+      return stats.mastery;
     case STAT.VERSATILITY:
-      return statTracker.startingVersatilityRating;
+      return stats.versatility;
     case STAT.LEECH:
-      return statTracker.startingLeechRating;
+      return stats.leech;
     case STAT.AVOIDANCE:
-      return statTracker.startingAvoidanceRating;
+      return stats.avoidance;
     case STAT.SPEED:
-      return statTracker.startingSpeedRating;
+      return stats.speed;
     default:
       return 0;
   }
 };
 
 const getStatPercentage = (statTracker: StatTracker, stat: STAT) => {
+  const stats = statTracker.startingStats;
   switch (stat) {
     case STAT.CRITICAL_STRIKE:
-      return statTracker.critPercentage(statTracker.startingCritRating, true);
+      return statTracker.critPercentage(stats.crit, true);
     case STAT.HASTE:
-      return statTracker.hastePercentage(statTracker.startingHasteRating, true);
+      return statTracker.hastePercentage(stats.haste, true);
     case STAT.MASTERY:
       return statTracker.hasMasteryCoefficient
-        ? statTracker.masteryPercentage(statTracker.startingMasteryRating, true)
+        ? statTracker.masteryPercentage(stats.mastery, true)
         : null;
     case STAT.VERSATILITY:
-      return statTracker.versatilityPercentage(statTracker.startingVersatilityRating, true);
+      return statTracker.versatilityPercentage(stats.versatility, true);
     case STAT.LEECH:
-      return statTracker.leechPercentage(statTracker.startingLeechRating, true);
+      return statTracker.leechPercentage(stats.leech, true);
     case STAT.AVOIDANCE:
-      return statTracker.avoidancePercentage(statTracker.startingAvoidanceRating, true);
+      return statTracker.avoidancePercentage(stats.avoidance, true);
     case STAT.SPEED:
-      return statTracker.speedPercentage(statTracker.startingSpeedRating, true);
+      return statTracker.speedPercentage(stats.speed, true);
     default:
       return null;
   }
 };
 
 const getPrimaryStat = (statTracker: StatTracker) => {
-  if (
-    statTracker.startingStrengthRating > statTracker.startingAgilityRating &&
-    statTracker.startingStrengthRating > statTracker.startingIntellectRating
-  ) {
+  const { strength, agility, intellect } = statTracker.startingStats;
+  if (strength > agility && strength > intellect) {
     return STAT.STRENGTH;
   }
-  if (
-    statTracker.startingAgilityRating > statTracker.startingStrengthRating &&
-    statTracker.startingAgilityRating > statTracker.startingIntellectRating
-  ) {
+  if (agility > strength && agility > intellect) {
     return STAT.AGILITY;
   }
-  if (
-    statTracker.startingIntellectRating > statTracker.startingStrengthRating &&
-    statTracker.startingIntellectRating > statTracker.startingAgilityRating
-  ) {
+  if (intellect > strength && intellect > agility) {
     return STAT.INTELLECT;
   }
   return STAT.UNKNOWN;

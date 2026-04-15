@@ -92,12 +92,14 @@ class Combatant extends Entity {
     return factionFromWclId(this.combatantInfo.faction);
   }
 
-  get pullStats(): Stats | undefined {
-    const info = this.combatantInfo;
-    if (!info) {
-      return undefined;
-    }
-    return {
+  /**
+   * Player stats at the start of the pull, with any spec-specific `statMultipliers` applied.
+   * Frozen at construction; safe to share without copying.
+   */
+  readonly pullStats: Readonly<Stats> | undefined;
+
+  protected buildPullStats(info: CombatantInfoEvent): Readonly<Stats> {
+    const stats: Stats = {
       strength: info.strength,
       agility: info.agility,
       intellect: info.intellect,
@@ -113,6 +115,15 @@ class Combatant extends Entity {
       speed: info.speed,
       armor: info.armor,
     };
+    const modifiers = this.owner.config.statMultipliers;
+    if (modifiers) {
+      for (const [stat, multiplier] of Object.entries(modifiers)) {
+        if (multiplier !== undefined) {
+          stats[stat as keyof Stats] *= multiplier;
+        }
+      }
+    }
+    return Object.freeze(stats);
   }
 
   readonly ilvl: number | undefined;
@@ -386,15 +397,12 @@ export default Combatant;
  */
 export class FullCombatant extends Combatant {
   protected override combatantInfo: CombatantInfoEvent;
+  override readonly pullStats: Readonly<Stats>;
   override readonly ilvl: number | undefined;
   readonly specId: number;
 
   override get faction(): Faction {
     return super.faction!;
-  }
-
-  override get pullStats(): Stats {
-    return super.pullStats!;
   }
 
   constructor(parser: CombatLogParser, player: PlayerDetails, combatantInfo: CombatantInfoEvent) {
@@ -414,6 +422,8 @@ export class FullCombatant extends Combatant {
     this.importTalentTree(combatantInfo.talentTree);
     this.parseGear(combatantInfo.gear);
     this.parsePrepullBuffs(combatantInfo.auras);
+
+    this.pullStats = this.buildPullStats(combatantInfo);
 
     this.ilvl =
       this.gear.length > 0
