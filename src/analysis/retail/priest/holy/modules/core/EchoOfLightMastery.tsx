@@ -18,8 +18,7 @@ import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
  * UNTIL THEN, JUST THE FRONT END IS DISABLED.
  */
 
-// widened to boolean so TS doesn't narrow to literal `false` and flag DEBUG && ... as unreachable
-const DEBUG = false as boolean;
+const DEBUG = false;
 const CUTOFF_PERCENT = 0.01;
 
 interface EoLHealEvent extends HealEvent {
