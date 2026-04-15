@@ -18,7 +18,6 @@
     "@wowanalyzer/react-tooltip-lite": "github:ToppleTheNun/react-tooltip-lite#react-19",
     "clsx": "2.1.1",
     "core-js": "3.36.1",
-    "es6-error": "^4.1.1",
     "prop-types": "^15.8.1",
     "rc-slider": "^10.5.0",
     "react": "19.2.0",
