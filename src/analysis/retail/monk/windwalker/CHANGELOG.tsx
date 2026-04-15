@@ -6,6 +6,16 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 4, 12),
+    <>
+      Gated <SpellLink spell={SPELLS.RUSHING_WIND_KICK_CAST} /> priority and chi reservation on
+      the proc buff actually being active in both Windwalker hero-spec APLs, and expanded the{' '}
+      <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> guide to call out how{' '}
+      <SpellLink spell={TALENTS.MOMENTUM_BOOST_TALENT} /> makes late ticks especially valuable.
+    </>,
+    Durpn,
+  ),
+  change(
     date(2026, 4, 3),
     <>
       Fixed cooldown availability for{' '}

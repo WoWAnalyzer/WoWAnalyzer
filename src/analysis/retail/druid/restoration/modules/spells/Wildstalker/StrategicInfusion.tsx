@@ -9,6 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const STRATEGIC_INFUSION_INCREASED_CRIT_CHANCE = 0.04;
 
@@ -35,7 +36,7 @@ export default class StrategicInfusion extends Analyzer {
   }
 
   private onHeal(event: HealEvent) {
-    if (!event.tick) {
+    if (!event.tick || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
 

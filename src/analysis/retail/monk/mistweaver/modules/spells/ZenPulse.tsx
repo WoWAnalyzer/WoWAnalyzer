@@ -19,7 +19,11 @@ import { TooltipElement } from 'interface/Tooltip';
 import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { ZEN_PULSE_INCREASE_PER_STACK, ZEN_PULSE_MAX_HITS_FOR_BOOST } from '../../constants';
+import {
+  getSelectedPrimaryHeal,
+  ZEN_PULSE_INCREASE_PER_STACK,
+  ZEN_PULSE_MAX_HITS_FOR_BOOST,
+} from '../../constants';
 import Abilities from '../features/Abilities';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -55,7 +59,10 @@ class ZenPulse extends Analyzer {
       this.onHeal,
     );
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onViv);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, TALENTS_MONK.SHEILUNS_GIFT_TALENT]),
+      this.onCast,
+    );
 
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ZEN_PULSE_BUFF),
@@ -160,7 +167,7 @@ class ZenPulse extends Analyzer {
     return { overheal: avgOverhealing, perf: QualitativePerformance.Good };
   }
 
-  private onViv(event: HealEvent) {
+  private onCast(event: HealEvent) {
     const zenPulseHits = getZenPulseHitsPerCast(event);
     if (!zenPulseHits.length) {
       return;
@@ -195,8 +202,9 @@ class ZenPulse extends Analyzer {
             <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />
           </b>{' '}
           is a buff that procs off of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> that makes
-          your next <SpellLink spell={SPELLS.VIVIFY} /> cast do additional healing on your target
-          and all targets with <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />. The healing done by{' '}
+          your next <SpellLink spell={getSelectedPrimaryHeal(this.selectedCombatant)} /> cast do
+          additional healing on your target and all targets with{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />. The healing done by{' '}
           <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> is increased by 6% per target with{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> up to 30%, so it is important to have at
           least 5 ReMs active before consuming the buff.
@@ -273,7 +281,7 @@ class ZenPulse extends Analyzer {
           <hr />
           {this.avgHitsPerConsume.toFixed(2)}{' '}
           <small>
-            Average hits per <SpellLink spell={SPELLS.VIVIFY} />
+            Average hits per <SpellLink spell={getSelectedPrimaryHeal(this.selectedCombatant)} />
           </small>
           <div></div>
           <TooltipElement

@@ -188,6 +188,12 @@ export function getCurrentCelestialTalent(player: Combatant): Talent {
     : TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT;
 }
 
+export function getSelectedPrimaryHeal(player: Combatant): Talent | Spell {
+  return player.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)
+    ? TALENTS_MONK.SHEILUNS_GIFT_TALENT
+    : SPELLS.VIVIFY;
+}
+
 export function getCurrentAncientTeachingsTransferCoefficient(player: Combatant): number {
   let coefficient = AT_TRANSFER_COEFFICIENT;
 

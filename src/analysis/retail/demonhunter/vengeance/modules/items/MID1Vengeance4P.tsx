@@ -18,6 +18,7 @@ import { formatPercentage } from 'common/format';
 class MID1Vengeance4P extends Analyzer {
   #explosionProcs = 0;
   #fractureCount = 0;
+  #lastExplosion = 0;
 
   static readonly EXPECTED_PROC_CHANCE = 0.3;
 
@@ -35,8 +36,13 @@ class MID1Vengeance4P extends Analyzer {
       this.onFractureCast,
     );
   }
-
   private onDetonationDamage = (event: DamageEvent) => {
+    // Only count the first hit within a small time window (200ms)
+    // This prevents counting multiple targets hit by the same explosion
+    if (this.#lastExplosion + 200 > event.timestamp) {
+      return;
+    }
+    this.#lastExplosion = event.timestamp;
     this.#explosionProcs += 1;
   };
 
@@ -47,9 +53,8 @@ class MID1Vengeance4P extends Analyzer {
   statistic(): React.ReactNode {
     const fractures = this.#fractureCount;
     const realProcs = this.#explosionProcs;
-    const expectedProcs = this.#fractureCount * MID1Vengeance4P.EXPECTED_PROC_CHANCE;
-    const actualRatePercent =
-      this.#fractureCount === 0 ? 0 : this.#explosionProcs / this.#fractureCount;
+    const expectedProcs = fractures * MID1Vengeance4P.EXPECTED_PROC_CHANCE;
+    const actualRatePercent = this.#fractureCount === 0 ? 0 : realProcs / fractures;
     const expectedRatePct = MID1Vengeance4P.EXPECTED_PROC_CHANCE;
 
     return (

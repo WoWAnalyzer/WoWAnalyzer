@@ -129,7 +129,6 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       {modules.sigilOfFlame.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
         modules.spiritBomb.guideSubsection()}
-      {modules.soulCleave.guideSubsection()}
     </Section>
   );
 }
