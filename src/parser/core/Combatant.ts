@@ -201,16 +201,6 @@ class Combatant extends Entity {
     return foundDefinitionId.id;
   }
 
-  /**
-   * The number of points spent in each tree.
-   *
-   * Result is empty for expansions after Wrath.
-   * @deprecated this needs to be removed
-   */
-  get talentPoints(): number[] {
-    return [];
-  }
-
   private glyphIds?: Set<number>;
 
   private importGlyphs(event: CombatantInfoEvent) {
