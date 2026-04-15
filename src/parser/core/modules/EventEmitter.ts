@@ -255,10 +255,7 @@ class EventEmitter extends Module {
     }
     this._isHandlingEvent = false;
 
-    // TODO fix
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.owner.eventHistory.push(event);
+    this.owner.eventHistory.push(event as AnyEvent);
     // Some modules need to have a primitive value to cause re-renders
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
