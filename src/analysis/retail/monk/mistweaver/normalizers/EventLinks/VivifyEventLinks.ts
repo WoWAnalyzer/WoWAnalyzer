@@ -4,7 +4,7 @@ import { EventType } from 'parser/core/Events';
 import {
   VIVIFY,
   CAST_BUFFER_MS,
-  ZEN_PULSE_VIVIFY,
+  ZEN_PULSE_CAST,
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
   SHEILUNS_GIFT_MAIN_TARGET,
@@ -24,8 +24,8 @@ export const VIVIFY_EVENT_LINKS: EventLink[] = [
     anyTarget: true,
   },
   {
-    linkRelation: ZEN_PULSE_VIVIFY,
-    linkingEventId: [SPELLS.VIVIFY.id],
+    linkRelation: ZEN_PULSE_CAST,
+    linkingEventId: [SPELLS.VIVIFY.id, TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
     linkingEventType: [EventType.Heal],
     referencedEventId: [SPELLS.ZEN_PULSE_HEAL.id],
     referencedEventType: [EventType.Heal],
