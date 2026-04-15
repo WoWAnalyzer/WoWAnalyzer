@@ -31,7 +31,6 @@
     "src/analysis/retail/deathknight/frost/**",
     "src/analysis/retail/druid/restoration/**",
     "src/analysis/retail/paladin/protection/**",
-    "src/analysis/retail/rogue/assassination/**",
     "src/analysis/retail/rogue/outlaw/**",
     "src/analysis/retail/warrior/protection/**"
   ],
