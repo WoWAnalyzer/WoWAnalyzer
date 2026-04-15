@@ -490,6 +490,11 @@ const spells = {
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
   },
+  NATURES_BOUNTY: {
+    id: 1264376,
+    name: "Nature's Bounty",
+    icon: 'spell_nature_resistnature',
+  },
   EVERBLOOM_SPLASH_HEAL: {
     id: 1244341,
     name: 'Everbloom',
