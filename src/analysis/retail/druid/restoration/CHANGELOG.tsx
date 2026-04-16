@@ -8,6 +8,7 @@ export default [
   change(date(2026, 4, 15), <>Fix <SpellLink spell={TALENTS_DRUID.EVERBLOOM_2_RESTORATION_TALENT}/> interactions with <SpellLink spell={TALENTS_DRUID.POWER_OF_NATURE_TALENT}/> and <SpellLink spell={TALENTS_DRUID.VIGOROUS_CREEPERS_TALENT}/>.</>, squided),
   change(date(2026, 4, 14), <>Add Nature's Bounty healing to <SpellLink spell={TALENTS_DRUID.GROVES_INSPIRATION_TALENT}/>. Add tooltip to <SpellLink spell={TALENTS_DRUID.HARMONY_OF_THE_GROVE_TALENT}/>.</>, squided),
   change(date(2026, 4, 14), <>Fixed bug in statistic for <SpellLink spell={TALENTS_DRUID.POWER_OF_NATURE_TALENT}/>.</>, squided),
+  change(date(2026, 4, 13), <>Added <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT}/> graph to guide section. Fixed bugs in statistics for Abundance and Strategic Infusion.</>, squided),
   change(date(2026, 4, 10), <>Fixed bug in statistic for <SpellLink spell={TALENTS_DRUID.STRATEGIC_INFUSION_TALENT}/>.</>, squided),
   change(date(2026, 3, 31), <>Remove recent tranquility check from convoke guide. Fix Abundancy module to account for Intensity crit bonus. Add Intensity module.</>, squided),
   change(date(2026, 3, 23), <>Update mana efficiency calculations and cooldowns tab for Midnight.</>, squided),
