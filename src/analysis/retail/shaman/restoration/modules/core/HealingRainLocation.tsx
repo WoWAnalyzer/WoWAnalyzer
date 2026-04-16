@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
+import { OVERFLOWING_SHORES_RANGE_INCREASE } from '../../constants';
 
 /**
  * Module to find the position of healing rain, and return how much extra healing spells modified by healing rain did.
@@ -23,7 +24,6 @@ interface Location {
   ellipseWidth: number;
   ellipseHeight: number;
 }
-const OVERFLOWING_SHORES_INCREASE = 400; // increases radius by 2 yards -> 4 yard diameter
 
 class HealingRainLocation extends Analyzer {
   static dependencies = {
@@ -32,11 +32,7 @@ class HealingRainLocation extends Analyzer {
 
   protected combatants!: Combatants;
 
-  healingRainDiameter =
-    (2000 +
-      OVERFLOWING_SHORES_INCREASE *
-        this.selectedCombatant.getTalentRank(TALENTS.OVERFLOWING_SHORES_TALENT)) *
-    1.05; // 5% margin of error
+  healingRainDiameter = (2400 + OVERFLOWING_SHORES_RANGE_INCREASE) * 1.05; // 5% margin of error
   healingRainEvents: HealEvent[] = [];
   newHealingRain = false;
   lastHealingRainTick = 0;
@@ -52,6 +48,10 @@ class HealingRainLocation extends Analyzer {
     );
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_RAIN_TALENT),
+      this.healingRainCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SURGING_TOTEM),
       this.healingRainCast,
     );
   }

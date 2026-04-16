@@ -13,8 +13,7 @@ import {
 } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-
-const OVERSURGE_INCREASE = 1.5;
+import { OVERSURGE_INCREASE } from '../../../constants';
 
 export default class Oversurge extends Analyzer {
   healingDoneFromTalent = 0;
