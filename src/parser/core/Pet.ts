@@ -13,23 +13,23 @@ export interface PetInfo extends Unit {
 }
 
 class Pet extends Entity {
-  get name() {
-    return this._baseInfo.name;
+  private readonly baseInfo: PetInfo;
+
+  override get name() {
+    return this.baseInfo.name;
   }
 
   get type() {
-    return this._baseInfo.type;
+    return this.baseInfo.type;
   }
 
   get guid() {
-    return this._baseInfo.guid;
+    return this.baseInfo.guid;
   }
-
-  _baseInfo: PetInfo;
 
   constructor(owner: CombatLogParser, baseInfo: PetInfo) {
     super(owner);
-    this._baseInfo = baseInfo;
+    this.baseInfo = baseInfo;
   }
 }
 

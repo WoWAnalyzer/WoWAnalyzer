@@ -1,6 +1,5 @@
 import { captureException } from 'common/errorLogger';
 import { uploadServerMetrics, type Selection } from 'common/server-metrics';
-import ExtendableError from 'es6-error';
 import Config, { configName, SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -19,12 +18,11 @@ const MAX_BATCH_DURATION = 66.67; // ms
 const bench = (id: string) => console.time(id);
 const benchEnd = (id: string) => console.timeEnd(id);
 
-export class EventsParseError extends ExtendableError {
-  reason?: ExtendableError;
-  constructor(reason: ExtendableError) {
-    super();
+export class EventsParseError extends Error {
+  reason?: Error;
+  constructor(reason: Error) {
+    super(`An error occurred while parsing events: ${reason.message}`);
     this.reason = reason;
-    this.message = `An error occurred while parsing events: ${reason.message}`;
   }
 }
 

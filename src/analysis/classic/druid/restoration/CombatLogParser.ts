@@ -1,7 +1,7 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import { Haste, CelestialFocus, GiftOfTheEarthmother } from '../shared';
+import { Haste } from '../shared';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
@@ -14,7 +14,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 // Healer Features
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
-import Revitalize from '../shared/talents/Revitalize';
 import Rejuvenation from './modules/spells/Rejuvenation';
 import HotTrackerRestoDruid from './modules/core/HotTrackerRestoDruid';
 import Guide from './Guide';
@@ -55,10 +54,6 @@ class CombatLogParser extends BaseCombatLogParser {
     wildGrowth: WildGrowth,
     innervate: Innervate,
     lifebloom: Lifebloom,
-    // Talents
-    celestialFocus: CelestialFocus,
-    giftOfTheEarthmother: GiftOfTheEarthmother,
-    revitalise: Revitalize,
     omenOfClarity: OmenOfClarity,
   };
 

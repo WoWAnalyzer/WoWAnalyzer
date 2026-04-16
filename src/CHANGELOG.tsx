@@ -38,6 +38,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 11), 'Removed deprecated `get talentPoints`, update/removed talents for MoP Classic that used the functionality.', Thias),
+  change(date(2026, 4, 11), 'Refactor Combatant to use proper private/protected types instead of `_` named fields', Thias),
   change(date(2026, 4, 10), 'Allow deselecting an open defensives cast breakdown entry by clicking it again.', Hezaerd),
   change(date(2026, 4, 8), "Refactor gear `getters` in Combatant class", Thias),
   change(date(2026, 4, 8), <>Replace external usages of <code>Combatant._combatantInfo</code> with proper public getters and introduce a <code>Faction</code> enum.</>, Thias),

@@ -83,10 +83,7 @@ class ManaLevelChartComponent extends PureComponent<Props, State> {
       }),
     );
 
-    // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-    const bossData = this.state.bossHealth.series.map((series: any) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    const bossData = this.state.bossHealth.series.map((series) => {
       const data = series.data.map(([timestamp, health]) => ({ x: timestamp - start, y: health }));
 
       return {
