@@ -8,6 +8,8 @@ import {
   RIPTIDE_BASE_DURATION,
   WAVESPEAKERS_BLESSING,
   UNLEASH_LIFE,
+  EARTHLIVING_BASE_DURATION,
+  IMBUEMENT_MASTERY_DURATION,
 } from '../../constants';
 import Combatant from 'parser/core/Combatant';
 
@@ -72,10 +74,13 @@ class RiptideTracker extends HotTracker {
       },
       {
         spell: SPELLS.EARTHLIVING_WEAPON_HEAL,
-        duration: 6000,
+        duration: EARTHLIVING_BASE_DURATION,
         tickPeriod: 2000,
         baseExtensions: [
-          { attribution: imbuementMasteryAttribution, amount: isTotemic ? 3000 : 0 },
+          {
+            attribution: imbuementMasteryAttribution,
+            amount: isTotemic ? IMBUEMENT_MASTERY_DURATION : 0,
+          },
         ],
       },
     ];

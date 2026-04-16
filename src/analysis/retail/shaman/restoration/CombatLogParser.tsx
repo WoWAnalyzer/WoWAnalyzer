@@ -33,6 +33,7 @@ import Downpour from './modules/talents/Downpour';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Torrent from './modules/talents/Torrent';
 import UnleashLife from './modules/talents/UnleashLife';
+import EarthenAccord from './modules/talents/EarthenAccord';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import WhiteWater from './modules/talents/WhiteWater';
@@ -45,6 +46,9 @@ import AmplificationCore from './modules/talents/totemic/AmplificationCore';
 import Oversurge from './modules/talents/totemic/Oversurge';
 import Splitstream from './modules/talents/totemic/Splitstream';
 import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
+import Earthsurge from './modules/talents/totemic/Earthsurge';
+import PulseCapacitor from './modules/talents/totemic/PulseCapacitor';
+import SupportiveImbuements from './modules/talents/totemic/SupportiveImbuements';
 // Spells
 // Tiers
 // Shared
@@ -96,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     torrent: Torrent,
     unleashLife: UnleashLife,
+    earthenAccord: EarthenAccord,
     deluge: Deluge,
     ancestralVigor: AncestralVigor,
     downpour: Downpour,
@@ -121,6 +126,9 @@ class CombatLogParser extends CoreCombatLogParser {
     oversurge: Oversurge,
     splitstream: Splitstream,
     imbuementMastery: ImbuementMastery,
+    earthsurge: Earthsurge,
+    pulseCapacitor: PulseCapacitor,
+    supportiveImbuements: SupportiveImbuements,
 
     // Spells
     riptide: Riptide,
