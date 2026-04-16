@@ -34,7 +34,6 @@ import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Guide from './modules/guide/Guide';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
-import Bloodshed from './modules/talents/Bloodshed';
 import HunterEventLinkNormalizers from '../shared/normalizers/HunterEventLinkNormalizers';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -87,7 +86,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
     masterMarksman: MasterMarksman,
-    bloodshed: Bloodshed,
     tranquilizingShot: TranquilizingShot,
     deathblow: Deathblow,
 

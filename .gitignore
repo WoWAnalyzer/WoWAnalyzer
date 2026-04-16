@@ -50,7 +50,9 @@ temp
 # PhpStorm
 /.idea/php.xml
 # Visual Studio code
-/.vscode
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/settings.json
 **.code-workspace
 .vs
 

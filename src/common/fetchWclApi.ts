@@ -1,5 +1,4 @@
 import { captureException } from 'common/errorLogger';
-import ExtendableError from 'es6-error';
 import { AnyEvent } from 'parser/core/Events';
 
 import { QueryParams } from './makeApiUrl';
@@ -12,23 +11,23 @@ import {
   WCLEventsResponse,
 } from './WCL_TYPES';
 
-export class ApiDownError extends ExtendableError {}
-export class LogNotFoundError extends ExtendableError {}
-export class CharacterNotFoundError extends ExtendableError {}
-export class GuildNotFoundError extends ExtendableError {}
-export class UnauthorizedError extends ExtendableError {}
-export class JsonParseError extends ExtendableError {
-  originalError?: ExtendableError;
+export class ApiDownError extends Error {}
+export class LogNotFoundError extends Error {}
+export class CharacterNotFoundError extends Error {}
+export class GuildNotFoundError extends Error {}
+export class UnauthorizedError extends Error {}
+export class JsonParseError extends Error {
+  originalError?: Error;
   raw?: string;
-  constructor(originalError?: ExtendableError, raw?: string) {
+  constructor(originalError?: Error, raw?: string) {
     super();
     this.originalError = originalError;
     this.raw = raw;
   }
 }
-export class WclApiError extends ExtendableError {}
-export class UnknownApiError extends ExtendableError {}
-export class CorruptResponseError extends ExtendableError {}
+export class WclApiError extends Error {}
+export class UnknownApiError extends Error {}
+export class CorruptResponseError extends Error {}
 
 const HTTP_CODES = {
   OK: 200,

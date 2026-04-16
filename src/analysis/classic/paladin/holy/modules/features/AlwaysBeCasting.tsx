@@ -7,7 +7,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.FLASH_OF_LIGHT.id,
     SPELLS.HOLY_LIGHT.id,
     SPELLS.HOLY_SHOCK.id,
-    SPELLS.AURA_MASTERY.id,
     SPELLS.LAY_ON_HANDS.id,
     // JUDGEMENTS
     SPELLS.JUDGEMENT.id,

@@ -34,6 +34,8 @@ export default class PowerOfNature extends Analyzer {
           SPELLS.EFFLORESCENCE_HEAL,
           SPELLS.LIFEBLOOM_HOT_HEAL,
           SPELLS.LIFEBLOOM_BLOOM_HEAL,
+          SPELLS.THRIVING_VEGETATION,
+          SPELLS.EVERBLOOM_SPLASH_HEAL,
         ]),
       this.onHeal,
     );

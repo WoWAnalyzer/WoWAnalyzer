@@ -42,14 +42,12 @@ class Module {
     // as we move towards a `this.deps` world, this ceases to be a problem.
     //
     // See https://github.com/Microsoft/TypeScript/issues/6110, https://github.com/microsoft/TypeScript/issues/37640 for more info
-    Object.keys(options)
-      // i don't like listing these out by name, but it prevents a TON of existing tests from breaking
-      .filter((key) => key !== 'priority' && key !== 'owner')
-      .forEach((key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        instance[key] = options[key];
-      });
+    Object.assign(
+      instance,
+      Object.fromEntries(
+        Object.entries(options).filter(([key]) => key !== 'priority' && key !== 'owner'),
+      ),
+    );
   }
 
   get consoleMeta() {

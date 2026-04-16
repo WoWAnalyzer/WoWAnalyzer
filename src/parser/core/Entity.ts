@@ -15,7 +15,7 @@ export interface TrackedBuffEvent extends BuffEvent<any> {
   stacks: number;
 }
 
-class Entity {
+abstract class Entity {
   owner: CombatLogParser;
   constructor(owner: CombatLogParser) {
     this.owner = owner;
@@ -51,10 +51,7 @@ class Entity {
     return (buff: TrackedBuffEvent) => HasSource(buff) && buff.sourceID === sourceID;
   }
 
-  // Override in extended classes
-  get name(): string {
-    throw new Error('attempted to access name of unimplemented Entity');
-  }
+  abstract get name(): string;
 
   activeBuffs(forTimestamp: number | null = null, bufferTime = 0, minimalActiveTime = 0) {
     const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;

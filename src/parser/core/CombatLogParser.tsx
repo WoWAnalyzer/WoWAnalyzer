@@ -318,13 +318,9 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore populated dynamically but object keys still strongly typed
-    this.disabledModules = {};
-    //initialize disabled modules for each state
-    Object.values(ModuleError).forEach((key) => {
-      this.disabledModules[key] = [];
-    });
+    this.disabledModules = Object.fromEntries(
+      Object.values(ModuleError).map((key) => [key, [] as ModuleErrorDetails[]]),
+    ) as Record<ModuleError, ModuleErrorDetails[]>;
     const ctor = this.constructor as typeof CombatLogParser;
     this.initializeModules({
       ...ctor.internalModules,

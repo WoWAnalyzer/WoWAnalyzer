@@ -14,14 +14,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: SPELLS.AVENGING_WRATH.id,
       summary: [BUILT_IN_SUMMARY_TYPES.HEALING],
     },
-    {
-      spell: SPELLS.DIVINE_SACRIFICE.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.ABSORBED, BUILT_IN_SUMMARY_TYPES.HEALING],
-    },
-    {
-      spell: SPELLS.AURA_MASTERY.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.ABSORBED, BUILT_IN_SUMMARY_TYPES.HEALING],
-    },
   ];
 }
 
