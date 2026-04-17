@@ -41,7 +41,7 @@ class HeatShimmerGuide extends Analyzer {
     // FAIL CONDITIONS
     if (!hs.spender) {
       return {
-        timestamp: hs.buffRemove.timestamp,
+        timestamp: hs.buffApply!.timestamp,
         performance: QualitativePerformance.Fail,
         reason: 'Heat Shimmer proc expired.',
       };
@@ -50,14 +50,15 @@ class HeatShimmerGuide extends Analyzer {
     // GOOD CONDITIONS
     if (hs.spender) {
       return {
-        timestamp: hs.buffRemove.timestamp,
+        timestamp: hs.buffApply!.timestamp,
         performance: QualitativePerformance.Good,
         reason: 'Heat Shimmer proc spent.',
       };
     }
 
+    // DEFAULT
     return {
-      timestamp: hs.buffRemove.timestamp,
+      timestamp: hs.buffApply!.timestamp,
       performance: QualitativePerformance.Fail,
       reason: 'Unknown Performance Condition (Please report this)',
     };
