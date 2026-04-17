@@ -2,10 +2,11 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import SpellLink from 'interface/SpellLink';
 import { change, date } from 'common/changelog';
-import { Sharrq } from 'CONTRIBUTORS';
+import { Thias, Sharrq } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 17), <>Fixed an issue where <SpellLink spell={TALENTS.HEAT_SHIMMER_TALENT} /> procs were not being correctly evaluated.</>, Thias),
   change(date(2026, 3, 20), <>Fixed an issue that prevented <SpellLink spell={TALENTS.FLAMESTRIKE_2_FIRE_TALENT} /> from being detected as a <SpellLink spell={SPELLS.HOT_STREAK} /> spender if the player chose the talent to cast <SpellLink spell={TALENTS.FLAMESTRIKE_2_FIRE_TALENT} /> at your target instead of your cursor.</>, Sharrq),
   change(date(2026, 3, 20), <>Fixed an issue that caused some <SpellLink spell={SPELLS.FIRE_BLAST.id} /> casts to not detect that <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active.</>, Sharrq),
   change(date(2026, 3, 6), <>Removed Searing Touch and Feel the Burn modules.</>, Sharrq),
