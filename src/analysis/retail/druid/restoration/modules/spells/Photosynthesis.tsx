@@ -1,4 +1,4 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -11,8 +11,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { isFromExpiringLifebloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import {
+  isFromExpiringLifebloom,
+  isFromEverbloom,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
+import Verdancy from 'analysis/retail/druid/restoration/modules/spells/Verdancy';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 /**
@@ -25,15 +29,17 @@ class Photosynthesis extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     lifebloom: Lifebloom,
+    verdancy: Verdancy,
   };
 
   protected combatants!: Combatants;
   protected lifebloom!: Lifebloom;
+  protected verdancy!: Verdancy;
 
   /** Total healing from randomly procced blooms */
   extraBloomHealing = 0;
   /** Number of random blooms */
-  randomProccs = 0;
+  randomProcs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -46,16 +52,19 @@ class Photosynthesis extends Analyzer {
     );
   }
 
-  // TODO: update this once SotF has a cast link setup
   onLifebloomProc(event: HealEvent) {
-    if (!isFromExpiringLifebloom(event)) {
-      this.randomProccs += 1;
+    if (!isFromExpiringLifebloom(event) && !isFromEverbloom(event)) {
+      this.randomProcs += 1;
       this.extraBloomHealing += event.amount + (event.absorbed || 0);
     }
   }
 
+  get verdancyHealing(): number {
+    return this.verdancy.active ? this.verdancy.photoBloomHealing : 0;
+  }
+
   get totalHealing(): number {
-    return this.extraBloomHealing;
+    return this.extraBloomHealing + this.verdancyHealing;
   }
 
   get percentHealing(): number {
@@ -70,7 +79,23 @@ class Photosynthesis extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <strong>{this.randomProccs}</strong> extra blooms
+            <strong>Photosynthesis healing breakdown</strong>
+            <ul>
+              <li>
+                Extra bloom healing: <strong>{formatNumber(this.extraBloomHealing)}</strong>
+              </li>
+              {this.verdancyHealing > 0 && (
+                <li>
+                  Verdancy healing from Photosynthesis blooms:{' '}
+                  <strong>{formatNumber(this.verdancyHealing)}</strong>
+                </li>
+              )}
+            </ul>
+            <p>
+              <em>
+                <strong>{this.randomProcs}</strong> extra blooms
+              </em>
+            </p>
           </>
         }
       >

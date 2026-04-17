@@ -10,13 +10,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Lifebloom from './Lifebloom';
+import Verdancy from './Verdancy';
 
 class Everbloom extends Analyzer {
   static dependencies = {
     lifebloom: Lifebloom,
+    verdancy: Verdancy,
   };
 
   lifebloom!: Lifebloom;
+  verdancy!: Verdancy;
 
   splashHealing = 0;
   stackBonusHealing = 0;
@@ -116,7 +119,16 @@ class Everbloom extends Analyzer {
   }
 
   get totalEverbloomHealing() {
-    return this.stackBonusHealing + this.splashHealing + this.everbloomBloomHealing;
+    return (
+      this.stackBonusHealing +
+      this.splashHealing +
+      this.everbloomBloomHealing +
+      this.verdancyHealing
+    );
+  }
+
+  get verdancyHealing() {
+    return this.verdancy.active ? this.verdancy.everbloomBloomHealing : 0;
   }
 
   statistic() {
@@ -158,6 +170,12 @@ class Everbloom extends Analyzer {
                     Rank 3 linked blooms: <strong>{this.everbloomBloomCount}</strong>
                   </li>
                 </>
+              )}
+              {this.verdancyHealing > 0 && (
+                <li>
+                  Verdancy healing from Everbloom blooms:{' '}
+                  <strong>{formatNumber(this.verdancyHealing)}</strong>
+                </li>
               )}
             </ul>
             {this.hasRank3Enabled && (
