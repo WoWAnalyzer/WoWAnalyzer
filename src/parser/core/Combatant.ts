@@ -229,6 +229,7 @@ class Combatant extends Entity {
 
   // region Gear
   private gearItemsBySlotId: Record<number, Item> = {};
+  private gearItemsById = new Map<number, Item>();
 
   protected parseGear(gear: Item[]) {
     const equipedSets: number[][] = [];
@@ -250,6 +251,7 @@ class Combatant extends Entity {
       }
 
       this.gearItemsBySlotId[index] = equippedItem;
+      this.gearItemsById.set(equippedItem.id, equippedItem);
     });
   }
 
@@ -297,18 +299,8 @@ class Combatant extends Entity {
     return this.getTrinket(itemId) !== undefined;
   }
 
-  private itemMap = new Map<number, Item>();
-  private scannedForItems = false;
-
-  getItem(itemId: number) {
-    if (!this.scannedForItems && this.itemMap.size === 0) {
-      Object.values(this.gearItemsBySlotId).forEach((item) => {
-        this.itemMap.set(item.id, item);
-      });
-      this.scannedForItems = true;
-    }
-
-    return this.itemMap.get(itemId);
+  getItem(itemId: number): Item | undefined {
+    return this.gearItemsById.get(itemId);
   }
 
   // endregion
