@@ -5,12 +5,15 @@ import Combatant from 'parser/core/Combatant';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { ERRATIC_FELHEART_SCALING } from 'analysis/retail/demonhunter/shared';
 
-export function getInfernalStrikeCooldown(combatant: Combatant) {
-  const baseCooldown = 20;
+export function getInfernalStrikeBaseCooldown(combatant: Combatant) {
+  const baseCooldown = 15;
   const erraticFelheartReduction =
     ERRATIC_FELHEART_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.ERRATIC_FELHEART_TALENT)];
-  const flatReduced = baseCooldown;
-  return flatReduced - flatReduced * erraticFelheartReduction;
+  return baseCooldown - erraticFelheartReduction;
+}
+
+export function getInfernalStrikeCooldown(combatant: Combatant, haste = 0) {
+  return getInfernalStrikeBaseCooldown(combatant) / (1 + haste);
 }
 
 /*  When considering Infernal Strike, it is worth tracking how much time is spent overcapped on charges.
@@ -18,7 +21,9 @@ export function getInfernalStrikeCooldown(combatant: Combatant) {
     or shortly after gaining a second use. */
 export default class InfernalStrike extends Analyzer {
   infernalCasts = 0;
-  infernalCharges = 2;
+  infernalCharges = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT)
+    ? 2
+    : 1;
   lastCastTimestamp = 0;
   currentCastTimestamp = 0;
   castsAtCap = 0;
@@ -56,21 +61,27 @@ export default class InfernalStrike extends Analyzer {
 
   onCast(event: CastEvent) {
     this.currentCastTimestamp = event.timestamp;
+    const rechargeMs = getInfernalStrikeBaseCooldown(this.selectedCombatant) * 1000;
 
     // Track recharge
-    if (this.currentCastTimestamp > this.lastCastTimestamp + 12000) {
+    if (this.currentCastTimestamp > this.lastCastTimestamp + rechargeMs) {
       this.infernalCharges += 1;
     }
     this.infernalCasts += 1;
 
     // Track overcapped data
-    if (this.infernalCharges === 2) {
+    const maxCharges = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT)
+      ? 2
+      : 1;
+    if (this.infernalCharges === maxCharges) {
       this.castsAtCap += 1;
       if (this.lastCastTimestamp > 0) {
-        this.secsOverCap += (this.currentCastTimestamp - this.lastCastTimestamp - 1200) / 1000;
+        this.secsOverCap +=
+          (this.currentCastTimestamp - this.lastCastTimestamp - rechargeMs) / 1000;
       }
     }
 
     this.infernalCharges -= 1;
+    this.lastCastTimestamp = this.currentCastTimestamp;
   }
 }
