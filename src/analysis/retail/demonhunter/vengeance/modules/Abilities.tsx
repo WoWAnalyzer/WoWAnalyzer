@@ -50,7 +50,7 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.FRACTURE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) =>
-          (5 -
+          (6 -
             PERFECTLY_BALANCED_GLAIVE_SCALING_FRACTURE[
               combatant.getTalentRank(TALENTS.PERFECTLY_BALANCED_GLAIVE_TALENT)
             ]) /
@@ -131,7 +131,7 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.DEMON_SPIKES.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) => 20 / (1 + haste),
-        charges: 2,
+        charges: combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_RESILIENCE_TALENT) ? 2 : 1,
         isDefensive: true,
       },
 
@@ -176,6 +176,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.SPIRIT_BOMB_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.SPIRIT_BOMB_TALENT),
+        cooldown: (haste) => 25 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -272,7 +273,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: getInfernalStrikeCooldown(combatant),
+        cooldown: (haste) => getInfernalStrikeCooldown(combatant, haste),
         charges: 1 + (combatant.hasTalent(TALENTS.BLAZING_PATH_TALENT) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
