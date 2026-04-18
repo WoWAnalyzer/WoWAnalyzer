@@ -92,20 +92,21 @@ class PreciseShots extends Analyzer {
   }
 
   onRFPreciseShotsApplication() {
-    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.NO_SCOPE_TALENT)) {
-      if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
-        if (this.buffsActive == WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS) {
-          this.overwrittenProcs += 1;
-        }
-        if (this.buffsActive != WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS) {
-          this.buffsActive += 1;
-        }
-      } else {
-        if (this.buffsActive == PRECISE_SHOTS_ASSUMED_PROCS) {
-          this.overwrittenProcs += 1;
-        }
-        this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
+    if (!this.selectedCombatant.hasTalent(TALENTS_HUNTER.NO_SCOPE_TALENT)) {
+      return;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
+      if (this.buffsActive == WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS) {
+        this.overwrittenProcs += 1;
       }
+      if (this.buffsActive != WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS) {
+        this.buffsActive += 1;
+      }
+    } else {
+      if (this.buffsActive == PRECISE_SHOTS_ASSUMED_PROCS) {
+        this.overwrittenProcs += 1;
+      }
+      this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
     }
   }
 
