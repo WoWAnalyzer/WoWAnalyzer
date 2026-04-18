@@ -47,8 +47,10 @@ export const LONE_WOLF_AFFECTED_SPELLS = [
 export const WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS = 2;
 //Precise Shots procs without Windrunner talents
 export const PRECISE_SHOTS_ASSUMED_PROCS = 1;
-//Precise Shots increase damage of Arcane or Multi-Shot by 100%
-export const PRECISE_SHOTS_MODIFIER = 1;
+//Precise Shots increase damage of Arcane or Multi-Shot by 180% per stack with Windrunner
+export const WINDRUNNER_PRECISE_SHOTS_MODIFIER = 1.8;
+//Precise Shots increase damage of Arcane or Multi-Shot by 200% per stack without Windrunner
+export const PRECISE_SHOTS_MODIFIER = 2;
 //Because the spells have traveltime we need to take it into account
 export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
 /** Steady Shot */
