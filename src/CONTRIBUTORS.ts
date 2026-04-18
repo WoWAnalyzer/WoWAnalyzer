@@ -2904,3 +2904,9 @@ export const Biggerbits: Contributor = {
   github: 'zprobinson',
   discord: 'msrobinson',
 };
+
+export const Guminator: Contributor = {
+  nickname: 'Guminator',
+  github: 'DanielVagner',
+  discord: 'Guminator',
+};
