@@ -2579,7 +2579,15 @@ export const PandaGoesBaa: Contributor = {
 export const Quaarkz: Contributor = {
   nickname: 'Quaarkz',
   github: 'Quaarkz',
+  avatar: avatar('Quaarkz-avatar.jpg'),
   discord: 'Quaarkz',
+  mains: [
+    {
+      name: 'Quaarkz',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/es-es/character/eu/sanguino/Quaarkz',
+    },
+  ],
 };
 
 export const Rzial: Contributor = {
