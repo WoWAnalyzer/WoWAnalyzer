@@ -2908,5 +2908,17 @@ export const Biggerbits: Contributor = {
 export const Guminator: Contributor = {
   nickname: 'Guminator',
   github: 'DanielVagner',
-  discord: 'Guminator',
+  discord: 'guminatorr',
+  mains: [
+    {
+      name: 'Guuminator',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/drakthul/guuminator/',
+    },
+    {
+      name: 'Guuminator',
+      spec: SPECS.BREWMASTER_MONK,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/drakthul/guminnator/',
+    },
+  ],
 };
