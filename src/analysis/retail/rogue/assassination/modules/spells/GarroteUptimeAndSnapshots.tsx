@@ -69,20 +69,20 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     let snapshotSummary = <div>Good snapshot usage</div>;
     let snapshotDetails = (
       <div>
-        Good snapshot usage.
-        <br />
-        Snapshots:{' '}
-        <strong>
-          {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
-        </strong>
+        <p>Good snapshot usage.</p>
+        <p>
+          Snapshots:{' '}
+          <strong>
+            {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
+          </strong>
+        </p>
         {prevSnapshots != null && (
-          <>
-            <br />
+          <p>
             Previous Snapshots:{' '}
             <strong>
               {prevSnapshots.length === 0 ? 'NONE' : prevSnapshots.map((it) => it.name).join(', ')}
             </strong>
-          </>
+          </p>
         )}
       </div>
     );
@@ -91,23 +91,25 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
       snapshotSummary = <div>Unacceptable downgrade of snapshot</div>;
       snapshotDetails = (
         <div>
-          Unacceptable downgrade of snapshot. Try not to overwrite your snapshotted Garrote unless
-          it's within the last {formatDurationMillisMinSec(SNAPSHOT_DOWNGRADE_BUFFER)}.
-          <br />
-          Snapshots:{' '}
-          <strong>
-            {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
-          </strong>
+          <p>
+            Unacceptable downgrade of snapshot. Try not to overwrite your snapshotted Garrote unless
+            it's within the last {formatDurationMillisMinSec(SNAPSHOT_DOWNGRADE_BUFFER)}.
+          </p>
+          <p>
+            Snapshots:{' '}
+            <strong>
+              {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
+            </strong>
+          </p>
           {prevSnapshots != null && (
-            <>
-              <br />
+            <p>
               Previous Snapshots:{' '}
               <strong>
                 {prevSnapshots.length === 0
                   ? 'NONE'
                   : prevSnapshots.map((it) => it.name).join(', ')}
               </strong>
-            </>
+            </p>
           )}
         </div>
       );
@@ -129,22 +131,22 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
         </div>
       ) : (
         <div>
-          Clipped existing snapshotted Garrote. Try not to clip your snapshotted Garotte.
-          <br />
-          Snapshots:{' '}
-          <strong>
-            {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
-          </strong>
+          <p>Clipped existing snapshotted Garrote. Try not to clip your snapshotted Garotte.</p>
+          <p>
+            Snapshots:{' '}
+            <strong>
+              {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
+            </strong>
+          </p>
           {prevSnapshots != null && (
-            <>
-              <br />
+            <p>
               Previous Snapshots:{' '}
               <strong>
                 {prevSnapshots.length === 0
                   ? 'NONE'
                   : prevSnapshots.map((it) => it.name).join(', ')}
               </strong>
-            </>
+            </p>
           )}
         </div>
       );
