@@ -2905,6 +2905,20 @@ export const Biggerbits: Contributor = {
   discord: 'msrobinson',
 };
 
+export const Chiso: Contributor = {
+  nickname: 'Chiso',
+  github: 'Extrasza',
+  discord: 'mattchi_',
+  avatar: avatar('chiso-avatar.jpg'),
+  mains: [
+    {
+      name: 'Fraus',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://www.warcraftlogs.com/character/us/azralon/fraus',
+    },
+  ],
+};
+
 export const Guminator: Contributor = {
   nickname: 'Guminator',
   github: 'DanielVagner',

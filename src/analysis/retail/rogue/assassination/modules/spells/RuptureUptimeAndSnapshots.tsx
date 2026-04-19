@@ -150,8 +150,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
         <strong>
           <SpellLink spell={SPELLS.RUPTURE} />
         </strong>{' '}
-        is your highest damage-per-energy single target spender. Try to maintain 100% uptime. Don't
-        refresh early.
+        is your highest damage-per-energy spender. Try to maintain 100% uptime. Don't refresh early.
       </p>
     );
 
@@ -162,7 +161,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
         abovePerformanceDetails={
           <RoundedPanelWithBottomMargin>
             <div>
-              <strong>Rupture uptime / snapshots</strong>
+              <strong>Rupture uptime</strong>
               <small> - Try to get as close to 100% as the encounter allows!</small>
             </div>
             {this.subStatistic()}

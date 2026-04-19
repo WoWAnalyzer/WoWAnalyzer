@@ -19,7 +19,7 @@ const getMaxComboPoints = (c: Combatant) => {
 };
 
 export const getTargetComboPoints = (c: Combatant) => {
-  return 4;
+  return 5;
 };
 
 export const RUPTURE_BASE_DURATION = 4000;
