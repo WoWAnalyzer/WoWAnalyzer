@@ -24,6 +24,7 @@ import InvokeNiuzaoStagger from '../../talents/InvokeNiuzao/InvokeNiuzaoStagger'
 import Tooltip from 'interface/Tooltip';
 import { InformationIcon } from 'interface/icons';
 import AlertInfo from 'interface/AlertInfo';
+import AlertWarning from 'interface/AlertWarning';
 
 const SideBySide = styled.div`
   margin-top: ${design.gaps.large};
@@ -58,6 +59,7 @@ const SummaryDL = styled.dl`
 export default function StaggerPoolSection(): JSX.Element | null {
   const graph = useAnalyzer(StaggerPoolGraph);
   const stagger = useAnalyzer(StaggerPool);
+  const tranquilSpirit = useAnalyzer(TranquilSpirit);
   const totalAbsorb = useMemo(() => {
     return stagger?.totalDamageByAbility.values().reduce((total, v) => total + v, 0) ?? 0;
   }, [stagger]);
@@ -73,6 +75,14 @@ export default function StaggerPoolSection(): JSX.Element | null {
         Midnight to handle all of the new talents that purify or prevent Stagger. If you see errors,
         please contact <code>@emallson</code> on Discord.
       </AlertInfo>
+      {(tranquilSpirit?.missedClearsPerMinute ?? 0) >= 1 && (
+        <AlertWarning>
+          <SpellLink spell={SPELLS.TRANQUIL_SPIRIT_TALENT} /> is missing a high number of{' '}
+          <SpellLink spell={SPELLS.STAGGER_TALENT} /> clearing events (
+          {tranquilSpirit!.missedClearsPerMinute.toFixed(1)} per minute). Please report this log to{' '}
+          <code>@emallson</code> on Discord for investigation.
+        </AlertWarning>
+      )}
       <SubSection title={<SpellLink spell={SPELLS.STAGGER_TALENT} />}>
         <SummaryDL>
           <dt>

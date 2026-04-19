@@ -3,6 +3,11 @@ import SPELLS from '../spell-list_Monk_Brewmaster.retail';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
+import {
+  blackoutKickPrimaryTarget,
+  kegSmashPrimaryTarget,
+  spinningCraneKickTick,
+} from './PrimaryTargetLinks';
 
 const CLEAR_LINK_RELATIONS = new Set<string>();
 
@@ -50,6 +55,46 @@ const quickSipLink = {
     return combatant.hasTalent(SPELLS.QUICK_SIP_TALENT);
   },
   ...COMMON_CLEAR_LINK,
+  additionalCondition(linkingEvent: AnyEvent, referencedEvent: AnyEvent) {
+    // apply the common mutual-exclusion condition
+    if (!COMMON_CLEAR_LINK.additionalCondition(linkingEvent, referencedEvent)) {
+      return false;
+    }
+
+    if (linkingEvent.type !== EventType.Damage) {
+      return false;
+    }
+
+    let link;
+    switch (linkingEvent.ability.guid) {
+      case SPELLS.KEG_SMASH_TALENT.id:
+        link = kegSmashPrimaryTarget;
+        break;
+      case SPELLS.BLACKOUT_KICK.id:
+        link = blackoutKickPrimaryTarget;
+        break;
+      case SPELLS.SPINNING_CRANE_KICK_HIDDEN.id:
+        link = spinningCraneKickTick;
+        break;
+    }
+
+    const cast = link!.first(linkingEvent);
+    if (!cast) {
+      return true; // give up, should be rare.
+    }
+
+    if (linkingEvent.ability.guid === SPELLS.SPINNING_CRANE_KICK_HIDDEN.id) {
+      // we need to check that we are looking at the first hit *of this tick*
+      const events = link!.reverse.get(cast);
+      return (
+        events.find((event) => Math.abs(event.timestamp - linkingEvent.timestamp) < 100) ===
+        linkingEvent
+      );
+    }
+
+    // only allow the first hit
+    return link!.reverse.first(cast) === linkingEvent;
+  },
 } satisfies EventLink;
 
 const staggeringStrikesLink = {
@@ -101,6 +146,7 @@ const CLEAR_LINKS = [
 CLEAR_LINKS.forEach((link) => CLEAR_LINK_RELATIONS.add(link.linkRelation));
 
 export default class StaggerClearSourceLinkNormalizer extends EventLinkNormalizer {
+  priority = 100;
   constructor(options: Options) {
     super(options, CLEAR_LINKS);
   }
