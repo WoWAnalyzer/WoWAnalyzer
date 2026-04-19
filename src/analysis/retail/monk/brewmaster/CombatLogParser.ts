@@ -52,6 +52,11 @@ import EmptyBarrel from './modules/talents/BringMeAnother/EmptyBarrel';
 import ExplodingKeg from './modules/spells/ExplodingKeg';
 import EmptyTheCellar from './modules/spells/EmptyTheCellar';
 import NiuzaosResolve from './modules/talents/NiuzaosResolve';
+import {
+  BlackoutKickPrimaryTargetNormalizer,
+  KegSmashPrimaryTargetNormalizer,
+  SpinningCraneKickTickNormalizer,
+} from './normalizers/PrimaryTargetLinks';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +105,9 @@ class CombatLogParser extends CoreCombatLogParser {
     StaggerPreventedLinkNormalizer,
     MantraOfPurityStaggerPrevented,
     StaggerClearSourceLinkNormalizer,
+    KegSmashPrimaryTargetNormalizer,
+    BlackoutKickPrimaryTargetNormalizer,
+    SpinningCraneKickTickNormalizer,
 
     // Talents
     scaldingBrew: ScaldingBrew,
