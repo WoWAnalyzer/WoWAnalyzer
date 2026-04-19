@@ -1,4 +1,3 @@
-import GameBranch from 'game/GameBranch';
 import { makeCharacterUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import { Link } from 'react-router-dom';
@@ -19,8 +18,7 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
       </Link>
     </div>
     <div>
-      {player.race && player.race.name} {player.player.type}{' '}
-      {player.owner.config.branch !== GameBranch.Retail && `(${player.talentPoints.join('/')})`}
+      {player.race && player.race.name} {player.player.type}
     </div>
     <div>
       <b>Average ilvl:</b> {Math.round(averageIlvl)}

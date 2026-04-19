@@ -41,7 +41,7 @@ import {
   CRANE_STYLE_SCK,
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
-  ZEN_PULSE_VIVIFY,
+  ZEN_PULSE_CAST,
   STRENGTH_OF_THE_BLACK_OX,
   SPIRITFONT_CONSUMED,
   JADE_BOND_ENVM,
@@ -277,7 +277,7 @@ export function isVivaciousVivification(event: HealEvent) {
 }
 
 export function getZenPulseHitsPerCast(event: HealEvent): HealEvent[] {
-  return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_VIVIFY);
+  return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_CAST);
 }
 
 export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {

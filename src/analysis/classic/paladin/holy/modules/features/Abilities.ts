@@ -4,7 +4,6 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.selectedCombatant;
     return [
       // Rotational
       {
@@ -39,22 +38,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.AURA_MASTERY.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        enabled: combatant.talentPoints[0] >= 10,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-        },
-      },
-      {
         spell: [SPELLS.DIVINE_FAVOR.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        enabled: combatant.talentPoints[0] >= 20,
-        cooldown: 120,
+        cooldown: 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -65,17 +52,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 60,
-      },
-      {
-        spell: [SPELLS.DIVINE_SACRIFICE.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1500 },
-        enabled: combatant.talentPoints[1] >= 10,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-        },
       },
       {
         spell: [SPELLS.LAY_ON_HANDS.id],
@@ -101,7 +77,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
         cooldown: 6,
-        enabled: combatant.talentPoints[0] >= 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -112,7 +87,6 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.BEACON_OF_LIGHT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
-        enabled: combatant.talentPoints[0] >= 50,
       },
       {
         spell: [SPELLS.JUDGEMENT.id],

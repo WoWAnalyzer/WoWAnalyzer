@@ -29,7 +29,7 @@ const TRIAGE_THRESHOLD = 0.3;
 /** Max time from cast to heal event to consider the events linked */
 const MS_BUFFER = 100;
 /** Min stacks required to consider a regrowth efficient */
-const ABUNDANCE_EXCEPTION_STACKS = 4; // 4 stacks regrowth is now cheaper than rejuv
+const ABUNDANCE_EXCEPTION_STACKS = 6;
 /** Overheal percent at or below which we consider the direct heal effective */
 const LOW_OVERHEAL_THRESHOLD = 0.4;
 const PANDEMIC = 0.3;

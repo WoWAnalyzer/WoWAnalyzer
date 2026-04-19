@@ -19,6 +19,8 @@ const HARMONY_OF_THE_GROVE_HEALING_INCREASE = 0.05;
  */
 export default class HarmonyOfTheGrove extends Analyzer {
   totalHealing = 0;
+  totalStacks = 0;
+  healEvents = 0;
 
   constructor(options: Options) {
     super(options);
@@ -29,6 +31,10 @@ export default class HarmonyOfTheGrove extends Analyzer {
 
   onHeal(event: HealEvent) {
     const stacks = this.selectedCombatant.getBuffStacks(SPELLS.HARMONY_OF_THE_GROVE.id);
+
+    this.totalStacks += stacks;
+    this.healEvents += 1;
+
     if (stacks === 0) {
       return;
     }
@@ -39,12 +45,21 @@ export default class HarmonyOfTheGrove extends Analyzer {
     );
   }
 
+  get avgStacks() {
+    return this.healEvents === 0 ? 0 : this.totalStacks / this.healEvents;
+  }
+
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            Average stacks while healing: <strong>{this.avgStacks.toFixed(2)}</strong>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.HARMONY_OF_THE_GROVE_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />

@@ -168,14 +168,22 @@ class FistsofFury extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} />
-        </b>{' '}
-        is one of your primary dps skills, and should be channeled to completion. It ticks{' '}
-        {BASE_FISTS_OF_FURY_TICKS} times by default, or {CRASHING_FISTS_FISTS_OF_FURY_TICKS} times
-        with <SpellLink spell={TALENTS_MONK.CRASHING_FISTS_TALENT} />.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} />
+          </b>{' '}
+          is one of your primary dps skills, and should be channeled to completion. It ticks{' '}
+          {BASE_FISTS_OF_FURY_TICKS} times by default, or {CRASHING_FISTS_FISTS_OF_FURY_TICKS} times
+          with <SpellLink spell={TALENTS_MONK.CRASHING_FISTS_TALENT} />.
+        </p>
+        <p>
+          With <SpellLink spell={TALENTS_MONK.MOMENTUM_BOOST_TALENT} />, each tick of{' '}
+          <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} /> ramps the damage of the next tick.
+          That means the back half of the channel is worth significantly more than the front half,
+          so clipping it early is especially punishing.
+        </p>
+      </>
     );
 
     const data = (

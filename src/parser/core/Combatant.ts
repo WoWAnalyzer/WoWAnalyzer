@@ -31,9 +31,8 @@ export type SlotMap<T> = Partial<Record<GearSlotName, T>>;
 class Combatant extends Entity {
   readonly player: PlayerInfo;
 
-  private _name: string;
-  public get name() {
-    return this._name;
+  override get name() {
+    return this.player.name;
   }
 
   get id() {
@@ -116,15 +115,10 @@ class Combatant extends Entity {
     };
   }
 
-  _ilvl: number | undefined;
-  public get ilvl() {
-    return this._ilvl;
-  }
+  readonly ilvl: number | undefined;
 
   constructor(parser: CombatLogParser, player: PlayerDetails) {
     super(parser);
-
-    this._name = player.name;
 
     this.player = this.owner.players.find((info) => info.id === player.id)!;
     this.specId =
@@ -139,16 +133,16 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _classicTalentPoints: Set<number> = new Set<number>();
+  private classicTalentPoints: Set<number> = new Set<number>();
 
-  _parseTalents(talents: Spell[]) {
+  protected parseTalents(talents: Spell[]) {
     talents?.forEach(({ id }) => {
-      this._classicTalentPoints.add(id);
+      this.classicTalentPoints.add(id);
     });
   }
 
   private treeTalentsByEntryId = new Map<number, TalentEntry>();
-  protected _importTalentTree(talents: TalentEntry[]) {
+  protected importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
       this.treeTalentsByEntryId.set(talent.id, talent);
     });
@@ -160,7 +154,7 @@ class Combatant extends Entity {
 
   hasClassicTalent(spell: number | { id: number }): boolean {
     const id = typeof spell === 'number' ? spell : spell.id;
-    return this._classicTalentPoints.has(id);
+    return this.classicTalentPoints.has(id);
   }
 
   /** Returns true if this combatant has the specified talent. Will be true for any number of
@@ -207,19 +201,9 @@ class Combatant extends Entity {
     return foundDefinitionId.id;
   }
 
-  /**
-   * The number of points spent in each tree.
-   *
-   * Result is empty for expansions after Wrath.
-   * @deprecated this needs to be removed
-   */
-  get talentPoints(): number[] {
-    return [];
-  }
-
   private glyphIds?: Set<number>;
 
-  private _importGlyphs(event: CombatantInfoEvent) {
+  private importGlyphs(event: CombatantInfoEvent) {
     if (this.glyphIds === undefined && event.customPowerSet) {
       this.glyphIds = new Set(event.customPowerSet.map((power) => power.traitID));
     }
@@ -230,7 +214,7 @@ class Combatant extends Entity {
       return false;
     }
 
-    this._importGlyphs(this.combatantInfo);
+    this.importGlyphs(this.combatantInfo);
     return this.glyphIds?.has(id) ?? false;
   }
 
@@ -246,7 +230,7 @@ class Combatant extends Entity {
   // region Gear
   private gearItemsBySlotId: Record<number, Item> = {};
 
-  _parseGear(gear: Item[]) {
+  protected parseGear(gear: Item[]) {
     const equipedSets: number[][] = [];
 
     gear
@@ -367,7 +351,7 @@ class Combatant extends Entity {
 
   // endregion
 
-  _parsePrepullBuffs(buffs: Buff[]) {
+  protected parsePrepullBuffs(buffs: Buff[]) {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo,
     // but not all prepull buffs are in there and ApplyBuff finds more. We
     // should update ApplyBuff to add the other buffs to the auras prop of the
@@ -402,6 +386,7 @@ export default Combatant;
  */
 export class FullCombatant extends Combatant {
   protected override combatantInfo: CombatantInfoEvent;
+  override readonly ilvl: number | undefined;
   readonly specId: number;
 
   override get faction(): Faction {
@@ -425,12 +410,12 @@ export class FullCombatant extends Combatant {
       ...combatantInfo,
     };
 
-    this._parseTalents(combatantInfo.talents);
-    this._importTalentTree(combatantInfo.talentTree);
-    this._parseGear(combatantInfo.gear);
-    this._parsePrepullBuffs(combatantInfo.auras);
+    this.parseTalents(combatantInfo.talents);
+    this.importTalentTree(combatantInfo.talentTree);
+    this.parseGear(combatantInfo.gear);
+    this.parsePrepullBuffs(combatantInfo.auras);
 
-    this._ilvl =
+    this.ilvl =
       this.gear.length > 0
         ? this.gear.map((item) => item.itemLevel).reduce((sum, val) => sum + val, 0) /
           this.gear.length

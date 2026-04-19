@@ -66,14 +66,16 @@ class Torrent extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
-          <>
-            <strong>{formatNumber(this.healing)}</strong> bonus healing (
-            {formatNumber(this.overHealing)} overhealing)
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            <strong>{formatNumber(this.critIncrease)}</strong> estimated bonus healing from the
-            increased critical strike chance. This is not included in the HPS value below.
-          </>
+          <div>
+            <div>
+              <strong>{formatNumber(this.healing)}</strong> bonus healing (
+              {formatNumber(this.overHealing)} overhealing)
+            </div>
+            <div>
+              <strong>{formatNumber(this.critIncrease)}</strong> estimated bonus healing from the
+              increased critical strike chance. This is not included in the HPS value below.
+            </div>
+          </div>
         }
       >
         <TalentSpellText talent={TALENTS.TORRENT_TALENT}>

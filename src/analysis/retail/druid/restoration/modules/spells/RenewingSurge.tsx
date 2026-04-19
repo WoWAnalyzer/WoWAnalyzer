@@ -50,9 +50,11 @@ export default class RenewingSurge extends Analyzer.withDependencies({ spellUsab
     const swiftmendHeal = getDirectHeal(event);
     if (swiftmendHeal) {
       const targetHealthPercent = calculateHealTargetHealthPercent(swiftmendHeal);
-      this.castsWithKnownHealth += 1;
-      this.totalHealthPercent += targetHealthPercent;
-      const missingHealth = 1 - targetHealthPercent;
+      if (!isNaN(targetHealthPercent)) {
+        this.castsWithKnownHealth += 1;
+        this.totalHealthPercent += targetHealthPercent;
+      }
+      const missingHealth = 1 - (isNaN(targetHealthPercent) ? 1 : targetHealthPercent);
       const scalingFactor = Math.min(1, missingHealth / MAX_SCALING_MISSING_HEALTH);
       cdrPercent = BASE_CDR_PERCENT + (MAX_CDR_PERCENT - BASE_CDR_PERCENT) * scalingFactor;
     }

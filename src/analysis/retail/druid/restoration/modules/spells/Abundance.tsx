@@ -42,7 +42,7 @@ class Abundance extends Analyzer.withDependencies({
   totalManaStacks = 0;
   /** Number of non-free Regrowth casts */
   manaCasts = 0;
-  /** Number of Regrowths (including free from Clearcast/NS or procced from Convoke) */
+  /** Number of Regrowth healing events (direct and periodic) */
   allHits = 0;
 
   constructor(options: Options) {
@@ -54,11 +54,9 @@ class Abundance extends Analyzer.withDependencies({
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHit);
   }
 
-  // The crit bonus is relevant for all Regrowth direct heals - deal with it here
+  // Crit attribution applies to all Regrowth healing events, direct and periodic.
+  // Improved Regrowth itself is only a direct-heal modifier.
   onHit(event: HealEvent) {
-    if (event.tick) {
-      return; // only tally the direct heals
-    }
     const stacks = this.selectedCombatant.getOwnBuffStacks(SPELLS.ABUNDANCE_BUFF);
 
     this.allHits += 1;
@@ -66,7 +64,7 @@ class Abundance extends Analyzer.withDependencies({
 
     // more complex calc for effective crit gain because we can't go over 100%
     let currCrit = this.deps.statTracker.currentCritPercentage;
-    if (this.hasImpRegrowth) {
+    if (this.hasImpRegrowth && !event.tick) {
       const tar = this.deps.combatants.getEntity(event);
       if (tar && tar.hasOwnBuff(SPELLS.REGROWTH)) {
         currCrit += IMP_REGROWTH_CRIT_BONUS;
@@ -100,7 +98,7 @@ class Abundance extends Analyzer.withDependencies({
     this.totalManaStacks += stacks;
   }
 
-  /** Average stacks for any Regrowth direct heal */
+  /** Average stacks for Regrowth healing events (direct and periodic) */
   get avgStacks() {
     return this.allHits === 0 ? 0 : this.totalStacks / this.allHits;
   }
@@ -129,9 +127,9 @@ class Abundance extends Analyzer.withDependencies({
         tooltip={
           <>
             <p>
-              The listed average stacks counts all direct Regrowth heals. The mana portion is only
-              relevant to non-free casts however - your average stacks on non-free Regrowth casts
-              was <strong>{this.avgManaStacks.toFixed(1)}</strong>.
+              The listed average stacks counts all Regrowth heals (direct and periodic). The mana
+              portion is only relevant to non-free casts however - your average stacks on non-free
+              Regrowth casts was <strong>{this.avgManaStacks.toFixed(1)}</strong>.
             </p>
             <p>
               <ul>
