@@ -382,7 +382,8 @@ function DemonicTyrantGuide(): JSX.Element | null {
           {
             label: 'Max Demonic Power Stacks',
             value: cast.maxDemonicPowerStacks,
-            tooltip: 'Highest stacks of Demonic Power the Tyrant had during the window',
+            tooltip:
+              'Highest stacks of Demonic Power during the window. Each active demon (Wild Imps, Dreadstalkers, Felguard) grants one stack.',
           },
           {
             label: 'Soul Shards at Cast',
