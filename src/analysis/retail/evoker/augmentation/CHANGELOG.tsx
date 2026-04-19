@@ -4,7 +4,7 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
-  change(date(2026, 4, 12), <>Updated for 12.0.5.</>, KYZ),
+  change(date(2026, 4, 20), <>Updated for 12.0.5.</>, KYZ),
   change(date(2026, 4, 8), <>Significant updates to guide section.</>, KYZ),
   change(date(2026, 3, 17), <>Updated with further class tuning hotfixes.</>, KYZ),
   change(date(2026, 3, 15), <>Updated with class tuning hotfixes.</>, KYZ),
