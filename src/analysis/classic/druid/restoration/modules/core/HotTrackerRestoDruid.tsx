@@ -7,14 +7,10 @@ class HotTrackerRestoDruid extends HotTracker {
   };
 
   _generateHotInfo(): HotInfo[] {
-    const HasNaturesSplendourTalent = this.selectedCombatant.talentPoints[0] >= 11;
-
-    const rejuvDuration = 15000 + (HasNaturesSplendourTalent ? 3000 : 0);
-
     return [
       {
         spell: SPELLS.REJUVENATION,
-        duration: rejuvDuration,
+        duration: 15000,
         tickPeriod: 3000,
       },
       {

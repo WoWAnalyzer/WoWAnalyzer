@@ -46,7 +46,6 @@ import FelDevastation from './modules/talents/FelDevastation';
 import ImmolationAuraLinker from './normalizers/ImmolationAuraLinker';
 import SoulCleaveEventLinkNormalizer from './normalizers/SoulCleaveEventLinkNormalizer';
 import SpiritBombEventLinkNormalizer from './normalizers/SpiritBombEventLinkNormalizer';
-import SoulCleave from './modules/spells/SoulCleave';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
 import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
 import FieryBrand2 from './modules/core/MajorDefensives/FieryBrand';
@@ -95,7 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     infernalStrike: InfernalStrike,
     metamorphosis: Metamorphosis,
-    soulCleave: SoulCleave,
     defensiveBuffs: DefensiveBuffs,
     demonSoulBuff: DemonSoulBuff,
 

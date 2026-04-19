@@ -735,12 +735,17 @@ const spells = {
   STORMSTREAM_TOTEM: {
     id: 1267068,
     name: 'Stormstream Totem',
-    icon: 'ability_shaman_manatidetotem',
+    icon: 'inv12_apextalent_shaman_stormstreamtotem',
   },
   STORMSTREAM_TOTEM_HEAL: {
     id: 1267745,
     name: 'Stormstream Totem',
-    icon: 'ability_shaman_manatidetotem',
+    icon: 'inv12_apextalent_shaman_stormstreamtotem',
+  },
+  STORMSWELL_HEAL: {
+    id: 1268684,
+    name: 'Stormstream Totem',
+    icon: 'inv12_apextalent_shaman_stormstreamtotem',
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -939,7 +944,7 @@ const spells = {
     icon: 'spell_nature_elementalprecision_1',
   },
   MANA_SPRING_RESTORATION: {
-    id: 404551,
+    id: 381931,
     name: 'Mana Spring',
     icon: 'spell_nature_manaregentotem',
   },

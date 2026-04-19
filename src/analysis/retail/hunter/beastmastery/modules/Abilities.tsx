@@ -10,16 +10,6 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      //region Baseline Rotational
-      {
-        spell: SPELLS.ARCANE_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      //endregion
-
       //region Talents
       {
         spell: TALENTS.COBRA_SHOT_TALENT.id,
@@ -62,13 +52,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MULTI_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS.BESTIAL_WRATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -87,19 +70,6 @@ class Abilities extends CoreAbilities {
               <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />.
             </>
           ),
-        },
-      },
-      {
-        spell: TALENTS.BLOODSHED_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BLOODSHED_TALENT),
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
         },
       },
       {

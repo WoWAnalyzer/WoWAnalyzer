@@ -17,13 +17,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
- * Example log:
- * https://www.warcraftlogs.com/reports/MnzYCvDHdLGZJkAg#fight=7&type=damage-done&source=24&ability=118459
- *
- * This module also tracks the amount of multi-shot casts that did not trigger any beast cleave damage
- * Example log:
- * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1
+ * After you Wild Thrash, your pet's melee attacks also strike all nearby enemies for 40% of the damage for the next 8.0 sec. Deals reduced damage beyond 8 targets.
  */
 class BeastCleave extends Analyzer {
   damage = 0;
