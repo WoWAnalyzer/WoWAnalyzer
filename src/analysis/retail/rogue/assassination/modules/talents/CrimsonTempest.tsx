@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ResourceChangeEvent } from 'parser/core/Events';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellUse, ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import SPELLS from 'common/SPELLS/rogue';
@@ -19,6 +19,7 @@ export default class CrimsonTempestUsage extends Analyzer {
 
   protected enemies!: Enemies;
   cooldownUses: SpellUse[] = [];
+  private lastCastEvent: CastEvent | undefined;
 
   constructor(options: Options) {
     super(options);
@@ -29,9 +30,17 @@ export default class CrimsonTempestUsage extends Analyzer {
     }
 
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CRIMSON_TEMPEST_TALENT),
+      this.onCrimsonTempestCast,
+    );
+    this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.CRIMSON_TEMPEST_TALENT),
       this.onCrimsonTempestResourceChange,
     );
+  }
+
+  private onCrimsonTempestCast(event: CastEvent) {
+    this.lastCastEvent = event;
   }
 
   private onCrimsonTempestResourceChange(event: ResourceChangeEvent) {
@@ -44,7 +53,7 @@ export default class CrimsonTempestUsage extends Analyzer {
     );
 
     this.cooldownUses.push({
-      event: event as any,
+      event,
       performance: finalPerformance,
       checklistItems,
       performanceExplanation:
@@ -82,7 +91,9 @@ export default class CrimsonTempestUsage extends Analyzer {
           <SpellLink spell={SPELLS.GARROTE} /> and <SpellLink spell={SPELLS.RUPTURE} /> to spread.
         </div>
       );
-      addInefficientCastReason(event as any, details);
+      if (this.lastCastEvent) {
+        addInefficientCastReason(this.lastCastEvent, details);
+      }
     }
 
     return {
@@ -108,7 +119,9 @@ export default class CrimsonTempestUsage extends Analyzer {
           Combo Points.
         </div>
       );
-      addInefficientCastReason(event as any, details);
+      if (this.lastCastEvent) {
+        addInefficientCastReason(this.lastCastEvent, details);
+      }
     } else {
       details = <div>You generated Combo Points with this cast.</div>;
     }
