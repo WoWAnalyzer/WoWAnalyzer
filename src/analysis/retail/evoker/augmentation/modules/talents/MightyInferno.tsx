@@ -26,7 +26,7 @@ import { InformationIcon } from 'interface/icons';
 interface infernoApplication {
   playerID: number;
   timestamp: number;
-  baseInfernosDuration: number;
+  masteryPercentage: number;
 }
 
 /**
@@ -84,17 +84,16 @@ class MightyInferno extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
-    this.infernoApps.forEach((app) => this.onInfernosRemove(app.playerID, event.timestamp));
+    Object.keys(this.infernoApps).forEach((targetID) => {
+      this.onInfernosRemove(Number(targetID), event.timestamp);
+    });
   }
 
   onInfernosApply(targetID: number, timestamp: number) {
     this.infernoApps.push({
       playerID: targetID,
       timestamp,
-      baseInfernosDuration:
-        (INFERNOS_BLESSING_BASE_DURATION_MS *
-          (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage)) /
-        1000,
+      masteryPercentage: this.stats.currentMasteryPercentage,
     });
   }
 
@@ -106,7 +105,11 @@ class MightyInferno extends Analyzer {
     const infernosDuration = (timestamp - this.infernoApps[index].timestamp) / 1000;
     // While refreshing Inferno's Blessing with Fire Breath will appear to set the duration to 10 or 11 sec,
     // this is actually 8 sec and then immediately being extended by 2 or 3 sec.
-    const extensionValue = infernosDuration - this.infernoApps[index].baseInfernosDuration;
+    const baseInfernosDuration =
+      (INFERNOS_BLESSING_BASE_DURATION_MS *
+        (1 + TIMEWALKER_BASE_EXTENSION + this.infernoApps[index].masteryPercentage)) /
+      1000;
+    const extensionValue = infernosDuration - baseInfernosDuration;
     if (extensionValue > 0) {
       this.totalInfernosExtension += extensionValue;
     }
