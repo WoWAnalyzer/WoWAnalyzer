@@ -1,4 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -29,23 +30,22 @@ class SoulBarrier extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT);
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_BUFF),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.absorbed.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_BUFF),
       this.onAbsorb,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_BUFF),
       this.onRemoveBuff,
     );
   }
 
   get uptime() {
     return (
-      this.selectedCombatant.getBuffUptime(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id) /
-      this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_BUFF.id) / this.owner.fightDuration
     );
   }
 
@@ -71,7 +71,7 @@ class SoulBarrier extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    if (event.ability.guid !== TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id) {
+    if (event.ability.guid !== SPELLS.SOUL_BARRIER_BUFF.id) {
       return;
     }
     this.buffRemoved = event.timestamp;
