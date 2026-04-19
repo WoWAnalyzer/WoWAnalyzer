@@ -11,11 +11,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       {/* DoT Uptime Section */}
-      <Section title="Dot Uptimes">
-        {modules.agony.guideSubsection}
-        {modules.corruptionUptime.guideSubsection}
-        {modules.haunt.guideSubsection}
-      </Section>
+      <Section title="Dot Uptimes">{modules.dotUptimesGuide.guideSubsection}</Section>
 
       {/* Unstable Affliction Section */}
       <Section title="Unstable Affliction">

@@ -17,7 +17,7 @@ import SoulShardGraph from '../shared/resources/SoulShardGraph';
 import AbsoluteCorruption from './modules/analyzers/AbsoluteCorruption';
 import Agony from './modules/analyzers/Agony';
 import Corruption from './modules/analyzers/Corruption';
-import CorruptionUptime from './modules/guide/CorruptionUptime';
+import DotUptimesGuide from './modules/guide/DotUptimesGuide';
 import UnstableAffliction from './modules/analyzers/UnstableAffliction';
 import UnstableAfflictionCasts from './modules/analyzers/UnstableAfflictionEfficiency';
 import DrainSoul from './modules/analyzers/DrainSoul';
@@ -46,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // DoTs
     agony: Agony,
     corruption: Corruption,
-    corruptionUptime: CorruptionUptime,
+    dotUptimesGuide: DotUptimesGuide,
     unstableaffliction: UnstableAffliction,
     unstableafflictionCasts: UnstableAfflictionCasts,
 
