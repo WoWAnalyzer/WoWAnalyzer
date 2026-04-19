@@ -13,7 +13,6 @@ import BlackOxBrew from '../spells/BlackOxBrew';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import AnvilStave from '../talents/AnvilStave';
-import PressTheAdvantage from '../talents/PressTheAdvantage';
 import { Abilities } from '../../gen';
 
 const deps = {
@@ -22,7 +21,6 @@ const deps = {
   bob: BlackOxBrew,
   anvilStave: AnvilStave,
   abilities: Abilities,
-  pta: PressTheAdvantage,
 };
 
 class BrewCDR extends Analyzer.withDependencies(deps) {
@@ -43,7 +41,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
   }
 
   get totalCDR() {
-    const { ks, tp, bob, anvilStave, pta } = this.deps;
+    const { ks, tp, bob, anvilStave } = this.deps;
     let totalCDR = 0;
     // add in KS CDR...
     totalCDR += ks.cdr;
@@ -54,12 +52,11 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
     // ...and BoB...
     totalCDR += bob.cdr[talents.PURIFYING_BREW_TALENT.id];
     totalCDR += anvilStave.cdr;
-    totalCDR += pta.brewCDRTotal;
     return totalCDR;
   }
 
   get maxTotalCDR() {
-    const { ks, tp, bob, pta } = this.deps;
+    const { ks, tp, bob } = this.deps;
     // some passive talents like anvil & stave don't track wasted cdr (yet?)
     return (
       ks.wastedCDR +
@@ -67,7 +64,6 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
       tp.wastedCDR +
       tp.wastedFpCdr +
       bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] +
-      pta.wastedBrewCDR +
       this.totalCDR
     );
   }
@@ -101,7 +97,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
   }
 
   statistic() {
-    const { ks, pta, tp, bob, anvilStave } = this.deps;
+    const { ks, tp, bob, anvilStave } = this.deps;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -121,21 +117,19 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
                   <strong>{(ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)
                 </li>
               )}
-              {!pta.active && (
-                <>
+              <>
+                <li>
+                  {tp.totalCasts} Tiger Palm hits — <strong>{(tp.cdr / 1000).toFixed(2)}s</strong> (
+                  <strong>{(tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+                </li>
+                {this.selectedCombatant.hasTalent(talents.FACE_PALM_TALENT) && (
                   <li>
-                    {tp.totalCasts} Tiger Palm hits — <strong>{(tp.cdr / 1000).toFixed(2)}s</strong>{' '}
-                    (<strong>{(tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+                    {tp.totalCasts} Face Palm triggers —{' '}
+                    <strong>{(tp.fpCdr / 1000).toFixed(2)}s</strong> (
+                    <strong>{(tp.wastedFpCdr / 1000).toFixed(2)}s</strong> wasted)
                   </li>
-                  {this.selectedCombatant.hasTalent(talents.FACE_PALM_TALENT) && (
-                    <li>
-                      {tp.totalCasts} Face Palm triggers —{' '}
-                      <strong>{(tp.fpCdr / 1000).toFixed(2)}s</strong> (
-                      <strong>{(tp.wastedFpCdr / 1000).toFixed(2)}s</strong> wasted)
-                    </li>
-                  )}
-                </>
-              )}
+                )}
+              </>
               {bob.active && (
                 <li>
                   {bob.casts} Black Ox Brew casts —{' '}
@@ -151,13 +145,6 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
                 <li>
                   {anvilStave.count} Anvil & Stave triggers -{' '}
                   <strong>{(anvilStave.cdr / 1000).toFixed(2)}s</strong>
-                </li>
-              )}
-              {pta.active && (
-                <li>
-                  {pta.meleeCount} Press the Advantage triggers -{' '}
-                  <strong>{(pta.brewCDRTotal / 1000).toFixed(2)}s</strong> (
-                  <strong>{(pta.wastedBrewCDR / 1000).toFixed(2)}s</strong> wasted)
                 </li>
               )}
             </ul>

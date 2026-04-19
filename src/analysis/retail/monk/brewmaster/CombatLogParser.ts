@@ -33,9 +33,6 @@ import TranquilSpirit from './modules/talents/TranquilSpirit';
 import Salsalabims from './modules/talents/Salsalabims';
 import AnvilStave from './modules/talents/AnvilStave';
 import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
-import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
-import PressTheAdvantage from './modules/talents/PressTheAdvantage';
-import PressTheAdvantageNormalizer from './modules/talents/PressTheAdvantage/normalizer';
 import VeteransEye from '../shared/hero/ShadoPan/VeteransEye';
 import EnergyTracker from './modules/core/EnergyTracker';
 import EnergyGraph from './modules/core/EnergyGraph';
@@ -97,8 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     cbNorm: CelestialBrewNormalizer,
     bofNorm: BreathOfFireDebuffTargetNormalizer,
-    sckNorm: SpinningCraneKickLinkNormalizer,
-    ptaNorm: PressTheAdvantageNormalizer,
     aohNorm: AspectOfHarmonyLinkNormalizer,
     expelOxOrbNorm: ExpelOxOrbsNormalizer,
     VitalFlameNormalizer,
@@ -116,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tranquilSpirit: TranquilSpirit,
     salsalabims: Salsalabims,
     anvilStave: AnvilStave,
-    pta: PressTheAdvantage,
     stormstoutsLastKeg: StormtoutsLastKeg,
     veteransEye: VeteransEye,
     AspectOfHarmony,
