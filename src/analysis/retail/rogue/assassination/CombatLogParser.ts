@@ -28,6 +28,7 @@ import Guide from './Guide';
 import Mutilate from './modules/spells/Mutilate';
 import MutilateVanishLinkNormalizer from './normalizers/MutilateVanishLinkNormalizer';
 import KingsbaneLinkNormalizer from './normalizers/KingsbaneLinkNormalizer';
+import DeathmarkImprovedGarroteLinkNormalizer from './normalizers/DeathmarkImprovedGarroteLinkNormalizer';
 import Kingsbane from './modules/talents/Kingsbane';
 import BlindsideEventOrderNormalizer from './normalizers/BlindsideEventOrderNormalizer';
 
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     mutilateVanishLinkNormalizer: MutilateVanishLinkNormalizer,
+    deathmarkImprovedGarroteLinkNormalizer: DeathmarkImprovedGarroteLinkNormalizer,
     kingsbaneNormalizer: KingsbaneLinkNormalizer,
     blindsideEventOrderNormalizer: BlindsideEventOrderNormalizer,
 

@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import { SpellUse, ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
-import { createChecklistItem, createSpellUse } from 'parser/core/MajorCooldowns/MajorCooldown';
+import { createChecklistItem } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { HideGoodCastsSpellUsageSubSection } from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
@@ -13,7 +13,10 @@ import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/Cas
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Enemies from 'parser/shared/modules/Enemies';
 import { getMatchingDeathmarkOrKingsbaneCast } from 'analysis/retail/rogue/assassination/normalizers/KingsbaneLinkNormalizer';
-import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import {
+  getMatchingImprovedGarroteApply,
+  getMatchingImprovedGarroteRemove,
+} from 'analysis/retail/rogue/assassination/normalizers/DeathmarkImprovedGarroteLinkNormalizer';
 
 export default class Deathmark extends Analyzer {
   static dependencies = {
@@ -89,9 +92,14 @@ export default class Deathmark extends Analyzer {
       this.garroteAndVanishCheck(event),
     ].filter((it): it is ChecklistUsageInfo => it !== undefined);
 
-    const actualPerformance = combineQualitativePerformances(
-      checklistItems.map((item) => item.performance),
-    );
+    const performances = checklistItems.map((item) => item.performance);
+    const actualPerformance = performances.some((p) => p === QualitativePerformance.Fail)
+      ? QualitativePerformance.Fail
+      : performances.some((p) => p === QualitativePerformance.Perfect)
+        ? QualitativePerformance.Perfect
+        : performances.some((p) => p === QualitativePerformance.Good)
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Ok;
 
     this.cooldownUses.push({
       event,
@@ -141,35 +149,38 @@ export default class Deathmark extends Analyzer {
   }
 
   private garroteAndVanishCheck(event: CastEvent): ChecklistUsageInfo | undefined {
-    const enemy = this.enemies.getEntity(event);
-    const hasImprovedGarrote = enemy ? enemy.hasBuff(SPELLS.GARROTE.id, event.timestamp) : false;
+    const linkedGarroteRemove = getMatchingImprovedGarroteRemove(event);
+    const linkedGarroteApply = getMatchingImprovedGarroteApply(event);
+    // Needs to check if buff was consumed before Deathmark, active at cast, or applied during Deathmark window
+    const hadImprovedGarroteActive =
+      linkedGarroteRemove !== undefined || linkedGarroteApply !== undefined;
 
     const isVanishAvailable = this.spellUsable.isAvailable(SPELLS.VANISH.id);
 
-    let performance = QualitativePerformance.Good;
+    let performance = QualitativePerformance.Perfect;
     let details: ReactNode;
 
-    if (hasImprovedGarrote) {
+    if (hadImprovedGarroteActive) {
       details = (
         <div>
-          Target had <SpellLink spell={SPELLS.IMPROVED_GARROTE_BUFF} /> active. Good job!
+          You had <SpellLink spell={SPELLS.IMPROVED_GARROTE_BUFF} /> active. Good job!
         </div>
       );
     } else if (isVanishAvailable) {
       performance = QualitativePerformance.Ok;
       details = (
         <div>
-          Target did not have <SpellLink spell={SPELLS.IMPROVED_GARROTE_BUFF} /> active, but{' '}
+          You did not have <SpellLink spell={SPELLS.IMPROVED_GARROTE_BUFF} /> active, but{' '}
           <SpellLink spell={SPELLS.VANISH} /> was available. Try to use{' '}
           <SpellLink spell={SPELLS.VANISH} /> to apply an Improved Garrote before{' '}
           <SpellLink spell={TALENTS.DEATHMARK_TALENT} />!
         </div>
       );
     } else {
-      performance = QualitativePerformance.Ok;
+      performance = QualitativePerformance.Good;
       details = (
         <div>
-          Target did not have <SpellLink spell={SPELLS.IMPROVED_GARROTE_BUFF} /> active and{' '}
+          You did not have <SpellLink spell={SPELLS.IMPROVED_GARROTE_BUFF} /> active and{' '}
           <SpellLink spell={SPELLS.VANISH} /> was not available!
         </div>
       );
