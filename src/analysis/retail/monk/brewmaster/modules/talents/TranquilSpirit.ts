@@ -13,6 +13,10 @@ import { OkColor } from 'interface/guide';
 export default class TranquilSpirit extends StaggerAnalyzer {
   missingClears = 0;
 
+  get missedClearsPerMinute() {
+    return this.missingClears / (this.owner.fightDuration / 1000 / 60);
+  }
+
   constructor(options: Options) {
     super(talents.TRANQUIL_SPIRIT_TALENT, options);
 
