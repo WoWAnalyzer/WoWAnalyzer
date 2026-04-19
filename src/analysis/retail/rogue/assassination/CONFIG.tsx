@@ -16,24 +16,26 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hey Assassination Rogues! <br /> <br />
-      If you want to learn more about Assassination, head over to{' '}
-      <a
-        href="https://www.wowhead.com/guide/classes/rogue/assassination/overview-pve-dps"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wowhead
-      </a>
-      , or check out{' '}
-      <a
-        href="https://www.icy-veins.com/wow/assassination-rogue-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy-veins
-      </a>
-      to learn more about talents, gear and tips .
+      <p>Hey Assassination Rogues!</p>
+      <p>
+        If you want to learn more about Assassination, head over to{' '}
+        <a
+          href="https://www.wowhead.com/guide/classes/rogue/assassination/overview-pve-dps"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wowhead
+        </a>
+        , or check out{' '}
+        <a
+          href="https://www.icy-veins.com/wow/assassination-rogue-pve-dps-guide"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Icy-veins
+        </a>{' '}
+        to learn more about talents, gear and tips.
+      </p>
     </>
   ),
   pages: {
