@@ -7,6 +7,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 19), <>Fix <SpellLink spell={SPELLS.FRAILTY} /> uptime analysis activation and <SpellLink spell={TALENTS.FIERY_DEMISE_TALENT} /> target checks for Midnight behavior.</>, Guminator),
   change(date(2026, 4, 18), <>Fix <SpellLink spell={SPELLS.DEMON_SPIKES} /> usage segmentation in the major defensive breakdown.</>, Guminator),
   change(date(2026, 4, 18), <>Update <SpellLink spell={SPELLS.FRACTURE} />, <SpellLink spell={SPELLS.DEMON_SPIKES} />, <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />, and <SpellLink spell={SPELLS.INFERNAL_STRIKE} /> spellbook values for Midnight.</>, Guminator),
   change(date(2026, 4, 12), <>Bump Vengeance to partial support</>, Quaarkz),
