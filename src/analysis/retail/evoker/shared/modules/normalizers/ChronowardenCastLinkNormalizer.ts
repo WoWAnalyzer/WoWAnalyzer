@@ -13,9 +13,11 @@ import { AFTERIMAGE_MAX_HITS } from '../../constants';
 const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
 const CHRONO_FLAME_DAMAGE_LINK = 'ChronoFlameDamageLink';
-//Test this
-const AFTERIMAGE_BUFFER = 1000; // This neeeds to be long, as Afterimage has travel time. 750 is too short, while more than 1000 shows little difference.
-const CAST_BUFFER_MS = 100;
+// Afterimage has a travel time, buffer needs to be relatively large.
+// The cast link also needs an additional delay, as the cast event comes earlier.
+const AFTERIMAGE_CAST_BUFFER = 1250;
+const AFTERIMAGE_DAMAGE_BUFFER = 1050;
+const CHRONO_FLAME_BUFFER = 200; // This sometimes has a longer delay than expected.
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -31,7 +33,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: true,
-    forwardBufferMs: AFTERIMAGE_BUFFER,
+    forwardBufferMs: AFTERIMAGE_CAST_BUFFER,
     maximumLinks: AFTERIMAGE_MAX_HITS,
     additionalCondition(_linkingEvent, referencedEvent) {
       return isNotFromOtherLFSources(referencedEvent as DamageEvent);
@@ -45,7 +47,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
-    forwardBufferMs: AFTERIMAGE_BUFFER,
+    forwardBufferMs: AFTERIMAGE_DAMAGE_BUFFER,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.AFTERIMAGE_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
@@ -66,7 +68,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
-    forwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: AFTERIMAGE_DAMAGE_BUFFER,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.AFTERIMAGE_TALENT) && c.hasTalent(TALENTS.UPHEAVAL_TALENT),
     additionalCondition(linkingEvent, referencedEvent) {
@@ -87,7 +89,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.CHRONO_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
-    forwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CHRONO_FLAME_BUFFER,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.CHRONO_FLAME_TALENT),
   },
