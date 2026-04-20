@@ -221,6 +221,21 @@ const CooldownDetails = ({ mit, dpCast }: { mit?: Mitigation; dpCast?: Desperate
       </CooldownDetailsContainer>
     );
   }
+  // Scale dynamically to whichever is larger: normal max HP or the
+  // total effective HP the player reached (currentHp + heal + pool
+  // absorbed). This way row 3 fills completely when the bonus pool
+  // was fully consumed, while rows 1/2 still have meaningful spacing
+  // around the normal max HP marker.
+  const maxHp = dpCast.preCastMaxHp;
+  const currentHp = maxHp * dpCast.hpPercentPreCast;
+  const totalReach = currentHp + dpCast.effectiveHeal + dpCast.bonusHpUsed;
+  const totalScale = Math.max(maxHp, totalReach);
+  const normalHpEnd = totalScale > 0 ? maxHp / totalScale : 1;
+  const hpFrac = totalScale > 0 ? currentHp / totalScale : 0;
+  const healFrac = totalScale > 0 ? dpCast.effectiveHeal / totalScale : 0;
+  const poolFrac = totalScale > 0 ? dpCast.bonusHpUsed / totalScale : 0;
+  const aboveNormalMax = Math.max(0, 1 - normalHpEnd);
+  const missingAfterHeal = Math.max(0, normalHpEnd - hpFrac - healFrac);
 
   return (
     <CooldownDetailsContainer>
@@ -231,23 +246,9 @@ const CooldownDetails = ({ mit, dpCast }: { mit?: Mitigation; dpCast?: Desperate
               <strong>Usage info</strong>
             </td>
           </tr>
-          {(() => {
-            // Scale dynamically to whichever is larger: normal max HP or the
-            // total effective HP the player reached (currentHp + heal + pool
-            // absorbed). This way row 3 fills completely when the bonus pool
-            // was fully consumed, while rows 1/2 still have meaningful spacing
-            // around the normal max HP marker.
-            const maxHp = dpCast.preCastMaxHp;
-            const currentHp = maxHp * dpCast.hpPercentPreCast;
-            const totalReach = currentHp + dpCast.effectiveHeal + dpCast.bonusHpUsed;
-            const totalScale = Math.max(maxHp, totalReach);
-            const normalHpEnd = totalScale > 0 ? maxHp / totalScale : 1;
-            const hpFrac = totalScale > 0 ? currentHp / totalScale : 0;
-            const healFrac = totalScale > 0 ? dpCast.effectiveHeal / totalScale : 0;
-            const poolFrac = totalScale > 0 ? dpCast.bonusHpUsed / totalScale : 0;
-            const aboveNormalMax = Math.max(0, 1 - normalHpEnd);
-            const missingAfterHeal = Math.max(0, normalHpEnd - hpFrac - healFrac);
-            return (
+          {<>
+                ...    
+          </>}
               <>
                 <tr>
                   <td>HP before cast</td>
