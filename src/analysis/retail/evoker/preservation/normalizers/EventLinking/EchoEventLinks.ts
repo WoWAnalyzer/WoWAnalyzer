@@ -104,10 +104,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return (
-        c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
-        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
-      );
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
     },
   },
   /* ECHO REMOVAL TO HEAL */
@@ -158,10 +155,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return (
-        c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
-        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
-      );
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
     },
   },
   // special handling for TA Echo EB because it heals 3-5 targets and happens after 2s
@@ -182,10 +176,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return (
-        c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
-        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
-      );
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
     },
   },
   {
