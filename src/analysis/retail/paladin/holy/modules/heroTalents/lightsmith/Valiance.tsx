@@ -39,7 +39,7 @@ class Valiance extends Analyzer {
     }
 
     const effectiveCdr = this.spellUsable.reduceCooldown(
-      TALENTS.HOLY_ARMAMENTS_TALENT.id,
+      TALENTS.HOLY_ARMAMENTS_HOLY_TALENT.id,
       VALIANCE_REDUCTION,
     );
     const wastedCdr = VALIANCE_REDUCTION - effectiveCdr;
@@ -57,7 +57,7 @@ class Valiance extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.VALIANCE_TALENT}>
           <div>
-            <SpellIcon spell={TALENTS.HOLY_ARMAMENTS_TALENT} />{' '}
+            <SpellIcon spell={TALENTS.HOLY_ARMAMENTS_HOLY_TALENT} />{' '}
             <ItemCooldownReduction
               effective={this.effectiveHolyArmamentsReductionMs}
               {...(this.wastedHolyArmamentsReductionMs > 0 && {
