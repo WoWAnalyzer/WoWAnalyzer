@@ -2936,3 +2936,9 @@ export const Guminator: Contributor = {
     },
   ],
 };
+
+export const Baumritter: Contributor = {
+  nickname: 'Baumritter',
+  github: 'Baumritter',
+  discord: 'baumritter',
+};
