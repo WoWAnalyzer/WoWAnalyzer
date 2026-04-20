@@ -1008,16 +1008,21 @@ const talents = {
     entryIds: [102597],
     definitionIds: [{ id: 107602, specId: 70 }],
   },
-  HOLY_ARMAMENTS_TALENT: {
+  HOLY_ARMAMENTS_HOLY_TALENT: {
+    id: 1289728,
+    name: 'Holy Armaments',
+    icon: 'inv_ability_lightsmithpaladin_holybulwark',
+    maxRanks: 1,
+    entryIds: [136795],
+    definitionIds: [{ id: 141558, specId: 65 }],
+  },
+  HOLY_ARMAMENTS_PROTECTION_TALENT: {
     id: 432459,
     name: 'Holy Armaments',
     icon: 'inv_ability_lightsmithpaladin_holybulwark',
     maxRanks: 1,
-    entryIds: [136795, 117882],
-    definitionIds: [
-      { id: 141558, specId: 65 },
-      { id: 122894, specId: 66 },
-    ],
+    entryIds: [117882],
+    definitionIds: [{ id: 122894, specId: 66 }],
   },
   HOLY_BLADE_TALENT: {
     id: 383342,
