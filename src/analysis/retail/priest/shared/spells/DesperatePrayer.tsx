@@ -171,24 +171,24 @@ class DesperatePrayer extends MajorDefensiveBuff {
     const maxHpBonusPct = this.hasLightsInspiration ? 35 : 25;
     const duration = this.hasDesperateMeasures ? 20 : 10;
     return (
-      <p>
-        <SpellLink spell={TALENTS.DESPERATE_PRAYER_TALENT} /> increases your maximum health by{' '}
-        {maxHpBonusPct}% for {duration} seconds and instantly heals you for that amount.
+      <>
+        <p>
+          <SpellLink spell={TALENTS.DESPERATE_PRAYER_TALENT} /> increases your maximum health by{' '}
+          {maxHpBonusPct}% for {duration} seconds and instantly heals you for that amount.
+        </p>
         {this.hasLightsInspiration && (
-          <>
-            {' '}
+          <p>
             <SpellLink spell={TALENTS.LIGHTS_INSPIRATION_TALENT} /> boosts the max health increase
             from 25% to 35%.
-          </>
+          </p>
         )}
         {this.hasDesperateMeasures && (
-          <>
-            {' '}
-            <SpellLink spell={TALENTS.DESPERATE_MEASURES_TALENT} /> extends the buff duration from
-            10 to 20 seconds.
-          </>
+          <p>
+            <SpellLink spell={TALENTS.DESPERATE_MEASURES_TALENT} /> extends the buff duration from 10
+            to 20 seconds.
+          </p>
         )}
-      </p>
+      </>
     );
   }
 
