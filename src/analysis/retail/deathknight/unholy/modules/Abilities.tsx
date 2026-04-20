@@ -61,7 +61,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
-        enabled: !combatant.hasTalent(TALENTS.SCYTHE_OF_DECAY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
