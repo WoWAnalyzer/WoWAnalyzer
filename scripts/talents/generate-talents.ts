@@ -25,7 +25,7 @@ import {
 const LIVE_WOW_BUILD_NUMBER = '12.0.1.66220';
 const LIVE_TALENT_DATA_URL = `https://www.raidbots.com/static/data/${LIVE_WOW_BUILD_NUMBER}/talents.json`;
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
-const PTR_WOW_BUILD_NUMBER = '12.0.5.66741';
+const PTR_WOW_BUILD_NUMBER = '12.0.1.66220';
 const PTR_TALENT_DATA_URL = `https://www.raidbots.com/static/data/${PTR_WOW_BUILD_NUMBER}/talents.json`;
 const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 

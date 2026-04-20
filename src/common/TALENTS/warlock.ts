@@ -252,7 +252,7 @@ const talents = {
   CONFLAGRATION_OF_CHAOS_TALENT: {
     id: 387108,
     name: 'Conflagration of Chaos',
-    icon: 'inv_shadowflame_buff',
+    icon: 'spell_shadow_scourgebuild',
     maxRanks: 1,
     entryIds: [91478],
     definitionIds: [{ id: 96480, specId: 267 }],

@@ -1721,9 +1721,9 @@ const talents = {
     entryIds: [136688],
     definitionIds: [{ id: 141460, specId: 258 }],
   },
-  STRENGTH_OF_RESOLVE_TALENT: {
+  STRENGTH_OF_SOUL_TALENT: {
     id: 1250820,
-    name: 'Strength of Resolve',
+    name: 'Strength of Soul',
     icon: 'spell_holy_ashestoashes',
     maxRanks: 1,
     entryIds: [103837],

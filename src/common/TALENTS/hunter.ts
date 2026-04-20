@@ -237,6 +237,14 @@ const talents = {
     entryIds: [128384],
     definitionIds: [{ id: 133190, specId: 254 }],
   },
+  BULLET_HELL_TALENT: {
+    id: 473378,
+    name: 'Bullet Hell',
+    icon: 'buff_epichunter',
+    maxRanks: 1,
+    entryIds: [128403],
+    definitionIds: [{ id: 133209, specId: 254 }],
+  },
   BULLSEYE_TALENT: {
     id: 204089,
     name: 'Bullseye',
@@ -350,8 +358,8 @@ const talents = {
     name: 'Critical Precision',
     icon: 'ability_impalingbolt',
     maxRanks: 1,
-    entryIds: [128375],
-    definitionIds: [{ id: 133181, specId: 254 }],
+    entryIds: [136741],
+    definitionIds: [{ id: 141513, specId: 254 }],
   },
   CUNNING_TALENT: {
     id: 474440,
@@ -488,15 +496,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [126341],
     definitionIds: [{ id: 131167, specId: 255 }],
-  },
-  EXPLOSIVE_SHOT_TALENT: {
-    id: 212431,
-    name: 'Explosive Shot',
-    icon: 'ability_hunter_explosiveshot',
-    maxRanks: 1,
-    entryIds: [137378],
-    definitionIds: [{ id: 142138, specId: 254 }],
-    focusCost: 20,
   },
   FEATHERED_FRENZY_TALENT: {
     id: 470943,
@@ -758,6 +757,14 @@ const talents = {
     entryIds: [117568],
     definitionIds: [{ id: 122580, specId: 255 }],
   },
+  IN_THE_RHYTHM_TALENT: {
+    id: 407404,
+    name: 'In the Rhythm',
+    icon: 'ability_hunter_longshots',
+    maxRanks: 1,
+    entryIds: [128368],
+    definitionIds: [{ id: 133174, specId: 254 }],
+  },
   JAGGED_WOUNDS_TALENT: {
     id: 1265044,
     name: 'Jagged Wounds',
@@ -855,6 +862,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [126432],
     definitionIds: [{ id: 131258, specId: 253 }],
+  },
+  LETHALITY_TALENT: {
+    id: 1259922,
+    name: 'Lethality',
+    icon: 'ability_hunter_quickshot',
+    maxRanks: 2,
+    entryIds: [128709],
+    definitionIds: [{ id: 133511, specId: 254 }],
   },
   LETHAL_BARBS_TALENT: {
     id: 1264781,
@@ -1053,8 +1068,8 @@ const talents = {
     name: 'No Scope',
     icon: 'inv_eng_crowsnestscope',
     maxRanks: 1,
-    entryIds: [137375],
-    definitionIds: [{ id: 142135, specId: 254 }],
+    entryIds: [128375],
+    definitionIds: [{ id: 133181, specId: 254 }],
   },
   OBSIDIAN_ARROWHEAD_TALENT: {
     id: 471350,
@@ -1159,14 +1174,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [128399],
     definitionIds: [{ id: 133205, specId: 254 }],
-  },
-  PRECISION_DETONATION_TALENT: {
-    id: 471369,
-    name: 'Precision Detonation',
-    icon: 'ability_hunter_explosiveshot',
-    maxRanks: 1,
-    entryIds: [137377],
-    definitionIds: [{ id: 142137, specId: 254 }],
   },
   PRECISION_STRIKES_TALENT: {
     id: 1267003,
@@ -1423,8 +1430,8 @@ const talents = {
     name: 'Shrapnel Shot',
     icon: 'spell_sandexplosion',
     maxRanks: 1,
-    entryIds: [137376],
-    definitionIds: [{ id: 142136, specId: 254 }],
+    entryIds: [135735],
+    definitionIds: [{ id: 140490, specId: 254 }],
   },
   SIC_EM_TALENT: {
     id: 1253137,
@@ -1585,6 +1592,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [137056],
     definitionIds: [{ id: 141819, specId: 254 }],
+  },
+  TARGET_ACQUISITION_TALENT: {
+    id: 473379,
+    name: 'Target Acquisition',
+    icon: 'ability_rogue_findweakness',
+    maxRanks: 1,
+    entryIds: [128390],
+    definitionIds: [{ id: 133196, specId: 254 }],
   },
   TAR_COATED_BINDINGS_TALENT: {
     id: 459460,

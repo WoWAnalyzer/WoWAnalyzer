@@ -1193,14 +1193,6 @@ const talents = {
     entryIds: [112513],
     definitionIds: [{ id: 117518, specId: 259 }],
   },
-  NEGOTIABLE_CONTRACT_TALENT: {
-    id: 1292996,
-    name: 'Negotiable Contract',
-    icon: 'ability_revendreth_rogue',
-    maxRanks: 1,
-    entryIds: [137379],
-    definitionIds: [{ id: 142139, specId: 259 }],
-  },
   NIGHT_TERRORS_TALENT: {
     id: 277953,
     name: 'Night Terrors',
@@ -1456,14 +1448,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [117133],
     definitionIds: [{ id: 122145, specId: 259 }],
-  },
-  SANGUINE_VIAL_TALENT: {
-    id: 1293135,
-    name: 'Sanguine Vial',
-    icon: 'inv_misc_potiona5',
-    maxRanks: 1,
-    entryIds: [137380],
-    definitionIds: [{ id: 142140, specId: 261 }],
   },
   SCENT_OF_BLOOD_TALENT: {
     id: 381799,

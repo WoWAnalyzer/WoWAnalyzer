@@ -986,7 +986,7 @@ const talents = {
   MASS_DISINTEGRATE_TALENT: {
     id: 436335,
     name: 'Mass Disintegrate',
-    icon: 'inv_1205_ability_evoker_massdisintegration',
+    icon: 'ability_evoker_dragonrage2_blue',
     maxRanks: 1,
     entryIds: [117536],
     definitionIds: [{ id: 122548, specId: 1467 }],
@@ -1039,14 +1039,6 @@ const talents = {
     entryIds: [137005],
     definitionIds: [{ id: 141768, specId: 1468 }],
   },
-  MIGHTY_INFERNO_TALENT: {
-    id: 1291457,
-    name: 'Mighty Inferno',
-    icon: 'ability_warlock_burningembers',
-    maxRanks: 1,
-    entryIds: [126305],
-    definitionIds: [{ id: 131131, specId: 1473 }],
-  },
   MIGHT_OF_THE_BLACK_DRAGONFLIGHT_TALENT: {
     id: 441705,
     name: 'Might of the Black Dragonflight',
@@ -1054,6 +1046,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [117549],
     definitionIds: [{ id: 122561, specId: 1473 }],
+  },
+  MIGHTY_INFERNO_TALENT: {
+    id: 1291457,
+    name: 'Mighty Inferno',
+    icon: 'ability_warlock_burningembers',
+    maxRanks: 1,
+    entryIds: [126305],
+    definitionIds: [{ id: 131131, specId: 1473 }],
   },
   MOLTEN_BLOOD_TALENT: {
     id: 410643,
@@ -1330,7 +1330,7 @@ const talents = {
   REGENERATIVE_CHITIN_TALENT: {
     id: 406907,
     name: 'Regenerative Chitin',
-    icon: 'inv12_ability_evoker_blisteringscalesinfinite',
+    icon: 'inv_tradeskill_skinning_prismaticscale',
     maxRanks: 1,
     entryIds: [115511],
     definitionIds: [{ id: 120523, specId: 1473 }],
@@ -1366,6 +1366,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [115596],
     definitionIds: [{ id: 120608, specId: 1473 }],
+  },
+  RESONATING_SPHERE_TALENT: {
+    id: 376236,
+    name: 'Resonating Sphere',
+    icon: 'ability_evoker_bronze_01',
+    maxRanks: 1,
+    entryIds: [115563],
+    definitionIds: [{ id: 120575, specId: 1468 }],
   },
   REVERBERATIONS_TALENT: {
     id: 431615,
@@ -1635,15 +1643,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [115570],
     definitionIds: [{ id: 120582, specId: 1468 }],
-  },
-  TEMPORAL_BARRIER_TALENT: {
-    id: 1291636,
-    name: 'Temporal Barrier',
-    icon: 'ability_evoker_bronze_01',
-    maxRanks: 1,
-    entryIds: [115563],
-    definitionIds: [{ id: 120575, specId: 1468 }],
-    manaCost: 18750,
   },
   TEMPORAL_BURST_TALENT: {
     id: 431695,
