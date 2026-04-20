@@ -27,6 +27,7 @@ import Nightfall from './modules/analyzers/Nightfall';
 import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Guide from './Guide';
 import CullTheWeak from './modules/analyzers/CulltheWeak';
+import SiphonLife from './modules/analyzers/SiphonLife';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     haunt: Haunt,
     nightfall: Nightfall,
     cullTheWeak: CullTheWeak,
+    siphonLife: SiphonLife,
 
     // Shared Spells
     unendingResolve: UnendingResolve,
