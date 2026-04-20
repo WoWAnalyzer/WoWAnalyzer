@@ -9,6 +9,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Abilities from './modules/core/Abilities';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
+import CancelledCasts from './modules/core/CancelledCasts';
 import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
 import Darkglare from './modules/analyzers/Darkglare';
 import SoulShardDetails from '../shared/resources/SoulShardDetails';
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
     darkglare: Darkglare,
 

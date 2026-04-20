@@ -240,46 +240,52 @@ class Darkglare extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Damage from extended dots <sup>*</sup>: {formatThousands(this.bonusDotDamage)} (
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            {this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
-            Pet damage: {formatThousands(this.darkglareDamage)} (
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            {this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
-            Combined damage: {formatThousands(totalDamage)} (
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            {this.owner.formatItemDamageDone(totalDamage)})<br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            <sup>*</sup> This only counts the damage that happened after the dot{' '}
-            <u>should have fallen off</u> (but instead was extended with Darkglare).
+            <p>
+              Damage from extended dots <sup>*</sup>: {formatThousands(this.bonusDotDamage)} (
+              {this.owner.formatItemDamageDone(this.bonusDotDamage)})
+            </p>
+            <p>
+              Pet damage: {formatThousands(this.darkglareDamage)} (
+              {this.owner.formatItemDamageDone(this.darkglareDamage)})
+            </p>
+            <p>
+              Combined damage: {formatThousands(totalDamage)} (
+              {this.owner.formatItemDamageDone(totalDamage)})
+            </p>
+            <p>
+              <sup>*</sup> This only counts the damage that happened after the dot{' '}
+              <u>should have fallen off</u> (but instead was extended with Darkglare).
+            </p>
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
-          {formatDPS(this.bonusDotDamage)}{' '}
-          <TooltipElement
-            content={
-              <>
-                damage from DoTs after they <u>should have fallen off</u>, but were extended instead
-              </>
-            }
-          >
-            <small>
-              bonus damage <sup>*</sup>
-            </small>
-          </TooltipElement>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-          {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-          {formatDPS(totalDamage)}{' '}
-          <TooltipElement content="including pet damage">
-            <small>
-              total damage <sup>*</sup>
-            </small>
-          </TooltipElement>
+          <div>
+            {formatDPS(this.bonusDotDamage)}{' '}
+            <TooltipElement
+              content={
+                <>
+                  damage from DoTs after they <u>should have fallen off</u>, but were extended
+                  instead
+                </>
+              }
+            >
+              <small>
+                bonus damage <sup>*</sup>
+              </small>
+            </TooltipElement>
+          </div>
+          <div>
+            {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
+          </div>
+          <div>
+            {formatDPS(totalDamage)}{' '}
+            <TooltipElement content="including pet damage">
+              <small>
+                total damage <sup>*</sup>
+              </small>
+            </TooltipElement>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

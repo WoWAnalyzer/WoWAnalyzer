@@ -17,30 +17,36 @@ const CONFIG: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello fellow Netherlords! Thank you for taking the time to use this tool as a way to improve
-      your play. While the goal of this tool is to improve your overall Affliction Warlock play, the
-      tool is currently under active development and may provide suggestions that are incorrect or
-      strange.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br /> <br />
-      The tool is not perfect so I am always looking to improve it. If you have any suggestions or
-      comments, don't hesitated to swing by the GitHub Issue linked below, or the{' '}
-      <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
-        Council of the Black Harvest Discord
-      </a>{' '}
-      or{' '}
-      <a href="https://www.kalamazi.gg/guides/affliction" target="_blank" rel="noopener noreferrer">
-        Kalamazi&apos;s Affliction Guide
-      </a>{' '}
-      or{' '}
-      <a
-        href="https://www.method.gg/guides/affliction-warlock"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Method&apos;s Affliction Guide
-      </a>
-      Thanks and I hope you continue to enjoy the tool!
+      <p>
+        Hello fellow Netherlords! Thank you for taking the time to use this tool as a way to improve
+        your play. While the goal of this tool is to improve your overall Affliction Warlock play,
+        the tool is currently under active development and may provide suggestions that are
+        incorrect or strange.
+      </p>
+      <p>
+        The tool is not perfect so I am always looking to improve it. If you have any suggestions or
+        comments, don't hesitated to swing by the GitHub Issue linked below, or the{' '}
+        <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
+          Council of the Black Harvest Discord
+        </a>{' '}
+        or{' '}
+        <a
+          href="https://www.kalamazi.gg/guides/affliction"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Kalamazi&apos;s Affliction Guide
+        </a>{' '}
+        or{' '}
+        <a
+          href="https://www.method.gg/guides/affliction-warlock"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Method&apos;s Affliction Guide
+        </a>
+        . Thanks and I hope you continue to enjoy the tool!
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
