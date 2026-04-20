@@ -51,8 +51,6 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
         {modules.buffTrackerGraph.plot}
       </SubSection>
 
-      {modules.moltenEmbers.guideSubsection()}
-
       <BlisteringScalesSection modules={modules} events={events} info={info} />
     </Section>
   );
