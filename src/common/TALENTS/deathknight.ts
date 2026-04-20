@@ -125,12 +125,12 @@ const talents = {
     definitionIds: [{ id: 138301, specId: 252 }],
   },
   BLIGHTFALL_TALENT: {
-    id: 1242616,
+    id: 1271974,
     name: 'Blightfall',
     icon: 'inv_nullstone_shadow',
     maxRanks: 1,
-    entryIds: [96332],
-    definitionIds: [{ id: 101334, specId: 252 }],
+    entryIds: [133513],
+    definitionIds: [{ id: 138299, specId: 252 }],
   },
   BLINDING_SLEET_TALENT: {
     id: 207167,
@@ -383,6 +383,14 @@ const talents = {
     entryIds: [131618],
     definitionIds: [{ id: 136419, specId: 251 }],
   },
+  CYCLE_OF_DEATH_TALENT: {
+    id: 1290864,
+    name: 'Cycle of Death',
+    icon: 'ability_ironmaidens_whirlofblood',
+    maxRanks: 1,
+    entryIds: [96289],
+    definitionIds: [{ id: 101291, specId: 252 }],
+  },
   DANCE_OF_MIDNIGHT_1_BLOOD_TALENT: {
     id: 1264506,
     name: 'Dance of Midnight',
@@ -533,8 +541,8 @@ const talents = {
     name: 'Ebon Fever',
     icon: 'spell_shadow_creepingplague',
     maxRanks: 1,
-    entryIds: [96294],
-    definitionIds: [{ id: 101296, specId: 252 }],
+    entryIds: [96334],
+    definitionIds: [{ id: 101336, specId: 252 }],
   },
   ECHOING_FURY_TALENT: {
     id: 1265855,
@@ -1078,14 +1086,6 @@ const talents = {
     entryIds: [96203],
     definitionIds: [{ id: 101205, specId: 252 }],
   },
-  MARCH_OF_MADNESS_TALENT: {
-    id: 1241707,
-    name: 'March of Madness',
-    icon: 'inv_10xp_worldevent_special_ghoulfigure',
-    maxRanks: 1,
-    entryIds: [133521],
-    definitionIds: [{ id: 138307, specId: 252 }],
-  },
   MARROWREND_TALENT: {
     id: 195182,
     name: 'Marrowrend',
@@ -1133,8 +1133,8 @@ const talents = {
     name: 'Morbidity',
     icon: 'spell_necro_deathlyecho',
     maxRanks: 1,
-    entryIds: [96334],
-    definitionIds: [{ id: 101336, specId: 252 }],
+    entryIds: [96294],
+    definitionIds: [{ id: 101296, specId: 252 }],
   },
   MURDEROUS_EFFICIENCY_TALENT: {
     id: 207061,
@@ -1283,14 +1283,6 @@ const talents = {
     entryIds: [96255],
     definitionIds: [{ id: 101257, specId: 250 }],
   },
-  PESTILENCE_TALENT: {
-    id: 1271974,
-    name: 'Pestilence',
-    icon: 'spell_shadow_plaguecloud',
-    maxRanks: 1,
-    entryIds: [133513],
-    definitionIds: [{ id: 138299, specId: 252 }],
-  },
   PILLAR_OF_FROST_TALENT: {
     id: 51271,
     name: 'Pillar of Frost',
@@ -1338,8 +1330,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [133522],
     definitionIds: [{ id: 138308, specId: 252 }],
-    runesCost: 1,
     runicPowerCost: -10,
+    runesCost: 1,
   },
   PUTRID_ECHOES_TALENT: {
     id: 377580,
@@ -1535,14 +1527,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [133516],
     definitionIds: [{ id: 138302, specId: 252 }],
-  },
-  SCYTHE_OF_DECAY_TALENT: {
-    id: 1242561,
-    name: 'Scythe of Decay',
-    icon: 'ability_ironmaidens_whirlofblood',
-    maxRanks: 1,
-    entryIds: [96289],
-    definitionIds: [{ id: 101291, specId: 252 }],
   },
   SHATTERING_BLADE_TALENT: {
     id: 207057,
