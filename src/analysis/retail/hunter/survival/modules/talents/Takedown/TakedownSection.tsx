@@ -22,7 +22,6 @@ export default function TakedownSection(): JSX.Element | null {
     return null;
   }
 
-  const isPackLeader = takedown.isPackLeader;
   const hasTwinFangs = info.combatant.hasTalent(TALENTS.TWIN_FANGS_TALENT);
   const hasBoomstick = info.combatant.hasTalent(TALENTS.BOOMSTICK_TALENT);
 
@@ -32,12 +31,6 @@ export default function TakedownSection(): JSX.Element | null {
         <p>
           Always enter <SpellLink spell={TALENTS.TAKEDOWN_TALENT} /> with a{' '}
           <SpellLink spell={SPELLS.RAPTOR_SWIPE_BUFF} /> buff active.
-          {isPackLeader && (
-            <>
-              {' '}
-              Never cast <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> during the window.
-            </>
-          )}
         </p>
         {hasBoomstick && (
           <p>

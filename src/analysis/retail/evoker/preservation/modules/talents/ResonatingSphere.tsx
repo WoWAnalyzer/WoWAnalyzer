@@ -24,7 +24,7 @@ class ResonatingSphere extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
   }
 
   get guideSubsection(): JSX.Element {
@@ -76,7 +76,7 @@ class ResonatingSphere extends Analyzer {
       },
     ];
 
-    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT)) {
       items.push({
         color: SPELL_COLORS.TA_ECHO,
         label: 'Temporal Anomaly Echo',

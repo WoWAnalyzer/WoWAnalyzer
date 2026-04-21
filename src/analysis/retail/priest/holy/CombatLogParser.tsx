@@ -1,5 +1,12 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import { TranslucentImage, TwinsOfTheSunPriestess } from 'analysis/retail/priest/shared';
+import {
+  DesperatePrayer,
+  Fade,
+  PowerWordShield,
+  ProtectiveLight,
+  TranslucentImage,
+  TwinsOfTheSunPriestess,
+} from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -25,7 +32,7 @@ import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
-import ProtectiveLight from '../shared/ProtectiveLight';
+
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
@@ -39,6 +46,11 @@ import EmpyrealBlaze from './modules/talents/MiddleRow/EmpyrealBlaze';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Defensives
+    desperatePrayer: DesperatePrayer,
+    fade: Fade,
+    powerWordShield: PowerWordShield,
+
     spellManaCost: SpellManaCost,
     abilities: Abilities,
     lowHealthHealing: LowHealthHealing,

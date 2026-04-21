@@ -1,5 +1,7 @@
 import {
   DesperatePrayer,
+  Fade,
+  ProtectiveLight,
   ShadowfiendNormalizer,
   TranslucentImage,
   TwinsOfTheSunPriestess,
@@ -38,7 +40,7 @@ import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 import Guide from './Guide';
 import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
-import ProtectiveLight from '../shared/ProtectiveLight';
+
 import AbyssalReverie from './modules/spells/AbyssalReverie';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
@@ -95,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castigation: Castigation,
     atonement: Atonement,
     desperatePrayer: DesperatePrayer,
+    fade: Fade,
 
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,

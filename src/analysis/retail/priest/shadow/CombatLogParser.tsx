@@ -1,7 +1,11 @@
 import {
-  TwistOfFate,
+  DesperatePrayer,
+  Fade,
+  PowerWordShield,
+  ProtectiveLight,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
+  TwistOfFate,
 } from 'analysis/retail/priest/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -100,7 +104,11 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
     darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
+    desperatePrayer: DesperatePrayer,
     dispersion: Dispersion,
+    fade: Fade,
+    powerWordShield: PowerWordShield,
+    protectiveLight: ProtectiveLight,
     distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
     idolOfNzoth: IdolOfNzoth,

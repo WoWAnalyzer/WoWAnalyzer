@@ -33,7 +33,6 @@ import RapidFire from './modules/talents/RapidFire';
 import SteadyShot from './modules/spells/SteadyShot';
 import Trueshot from './modules/talents/Trueshot';
 import CallingTheShots from './modules/talents/CallingTheShots';
-import TargetAcquisition from './modules/talents/TargetAcquisition';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Volley from './modules/talents/Volley';
@@ -93,7 +92,6 @@ class CombatLogParser extends CoreCombatLogParser {
     callingTheShots: CallingTheShots,
     deathblow: Deathblow,
     surgingShots: SurgingShots,
-    targetAcquisition: TargetAcquisition,
 
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,

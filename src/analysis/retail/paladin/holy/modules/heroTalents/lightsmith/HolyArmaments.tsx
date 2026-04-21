@@ -40,7 +40,7 @@ class HolyArmaments extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_ARMAMENTS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_ARMAMENTS_HOLY_TALENT);
     this.hasAC = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT);
 
     this.addEventListener(
@@ -67,7 +67,7 @@ class HolyArmaments extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SACRED_WEAPON_TALENT, TALENTS.HOLY_ARMAMENTS_TALENT]),
+        .spell([SPELLS.SACRED_WEAPON_TALENT, TALENTS.HOLY_ARMAMENTS_HOLY_TALENT]),
       this.onCast,
     );
 
@@ -175,10 +175,10 @@ class HolyArmaments extends Analyzer {
               {formatNumber(this.damageSource[SPELLS.BLESSING_OF_THE_FORGE_DAMAGE.id])}
             </li>
             <li>
-              <SpellLink spell={TALENTS.HOLY_ARMAMENTS_TALENT} /> Applications:{' '}
+              <SpellLink spell={TALENTS.HOLY_ARMAMENTS_HOLY_TALENT} /> Applications:{' '}
               <ul>
                 <li>
-                  <SpellLink spell={TALENTS.HOLY_ARMAMENTS_TALENT} />:{' '}
+                  <SpellLink spell={TALENTS.HOLY_ARMAMENTS_HOLY_TALENT} />:{' '}
                   {formatNumber(this.appliedFromCast)}
                 </li>
                 <li>
@@ -194,7 +194,7 @@ class HolyArmaments extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText talent={TALENTS.HOLY_ARMAMENTS_TALENT}>
+        <TalentSpellText talent={TALENTS.HOLY_ARMAMENTS_HOLY_TALENT}>
           <div>
             <ItemHealingDone amount={this.totalHealing} />
           </div>
