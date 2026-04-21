@@ -11,7 +11,7 @@ const config: Config = {
   contributors: [Sharrq],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.1',
+  patchCompatibility: '12.0.5',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -40,7 +40,7 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec has been fully updated for Midnight (As of March 6). If anything is missing or
+          This spec has been fully updated for Midnight (As of April 21). If anything is missing or
           incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
