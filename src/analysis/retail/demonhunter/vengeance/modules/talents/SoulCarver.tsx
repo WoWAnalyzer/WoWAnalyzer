@@ -121,7 +121,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
     if (!enemy) {
       return false;
     }
-    return enemy.hasBuff(SPELLS.FRAILTY.id, event.timestamp);
+    return enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp);
   }
 
   private fieryDemisePerformance(cast: SoulCarverCooldownCast): UsageInfo | undefined {
