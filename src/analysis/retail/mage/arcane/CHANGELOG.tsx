@@ -14,6 +14,7 @@ const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />
 const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />
 
 export default [
+  change(date(2026, 4, 21), <>Updated Spec Compatability to 12.0.5.</>, Sharrq),
   change(date(2026, 4, 4), <>Updated Spec Compatability to 12.0.1.</>, Sharrq),
   change(date(2026, 4, 4), <>Removed {clearcasting} expiration and overcap checks.</>, Sharrq),
   change(date(2026, 4, 4), <>Updated {arcaneBarrage}, {arcaneOrb}, {arcaneMissiles}, {touchOfTheMagi}, {arcaneSurge}, and {presenceOfMind} to support the Spellslinger Missiles, Spellslinger Orbs, and Sunfury builds and rotations.</>, Sharrq),
