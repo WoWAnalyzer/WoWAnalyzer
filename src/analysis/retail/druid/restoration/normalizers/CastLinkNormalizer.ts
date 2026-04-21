@@ -29,6 +29,7 @@ const CAUSED_TICK = 'CausedTick';
 const CAUSED_SUMMON = 'CausedSummon';
 const FROM_EVERBLOOM = 'FromEverbloom';
 const FROM_BLOOM = 'FromBloom';
+const FROM_CONVOKE_SOTF_CONSUME = 'FromConvokeSotfConsume';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -160,6 +161,23 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
+  // linking SotF remove-buff events to convoke-generated consume events
+  {
+    linkRelation: APPLIED_HEAL,
+    reverseLinkRelation: FROM_CONVOKE_SOTF_CONSUME,
+    linkingEventId: [
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
+      SPELLS.REGROWTH.id,
+    ],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
+    referencedEventId: SPELLS.SOUL_OF_THE_FOREST_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition: (linkingEvent: AnyEvent) => HasRelatedEvent(linkingEvent, FROM_CONVOKE),
+  },
   // linking lifebloom's bloom heal to the apex talent bloom
   {
     linkRelation: CAUSED_BLOOM,
@@ -172,6 +190,8 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: EVERBLOOM_BUFFER_MS,
     anyTarget: true,
     maximumLinks: 3, // Everbloom rank 4 causes 3 blooms in rapid succession
+    additionalCondition: (linkingEvent: AnyEvent) =>
+      !HasRelatedEvent(linkingEvent, FROM_CONVOKE_SOTF_CONSUME),
   },
   // linking Verdancy heal to the bloom that triggered it
   {
