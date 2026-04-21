@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Vollmer, KYZ, Baumritter } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
+import SPELLS from 'common/SPELLS';
 
 export default [
   change(date(2026, 4, 21), <>Updated for 12.0.5.</>, KYZ),
