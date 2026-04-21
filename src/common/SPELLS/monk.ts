@@ -709,6 +709,11 @@ const spells = {
     name: 'Gift of the Ox',
     icon: 'ability_monk_healthsphere',
   },
+  NIUZAOS_RESOLVE: {
+    id: 1241109,
+    name: "Niuzao's Resolve",
+    icon: 'inv_ability_monk_renewingmists_active.jpg',
+  },
   BLACKOUT_COMBO_BUFF: {
     id: 228563,
     name: 'Blackout Combo',

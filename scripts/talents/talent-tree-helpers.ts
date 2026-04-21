@@ -1,69 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-
 import { GenericTalentInterface, ISpellpower, ResourceTypes } from './talent-tree-types';
-
-const debug = false;
-/**
- * Requires NodeJS 18+ (or 17 with experimental flag)
- */
-export async function readJsonFromUrl<T>(url: string): Promise<T> {
-  const res = await fetch(url)
-    .then((res) => res.json())
-    .catch((err) => {
-      throw err;
-    });
-  return res;
-}
-
-export function csvToObject<T>(csvString: string): T[] {
-  // /\r?\n/ for better Windows support
-  const lines = csvString.split(/\r?\n/);
-
-  const result: T[] = [];
-
-  const headers = lines[0].split(',');
-
-  // eslint-disable-next-line no-plusplus
-  for (let i = 1; i < lines.length - 1; i++) {
-    const obj: any = {};
-    const currentline = lines[i].split(',');
-
-    // eslint-disable-next-line no-plusplus
-    for (let j = 0; j < headers.length; j++) {
-      obj[headers[j]] = obj[headers[j]] || {};
-      obj[headers[j]] = currentline[j];
-    }
-
-    result.push(obj as T);
-  }
-
-  debug &&
-    fs.writeFileSync(
-      `.${__dirname.replace(process.cwd(), '')}/generated.json`,
-      JSON.stringify(result),
-    );
-  //JSON
-  return result;
-}
-
-export function readCsvFromFile(file: string) {
-  return fs.readFileSync(path.resolve(__dirname, file), { encoding: 'utf-8' });
-}
-
-export async function readCsvFromUrl(url: string) {
-  const res = await fetch(url, {
-    method: 'get',
-    headers: {
-      'content-type': 'test/csv;charset=UTF-8',
-    },
-  })
-    .then((res) => res.text())
-    .catch((err) => {
-      throw err;
-    });
-  return res;
-}
+import { slugify } from 'scripts/utils/helpers';
 
 export function printTalents(
   talentObj: Array<{ key: string; value: GenericTalentInterface }> | undefined,
@@ -102,25 +38,11 @@ export function createTalentKey(talentName: string, specName?: string) {
   //Celestial Alignment [SL version, No initial damage]
   //Moonfire/Sunfire + 3/6s
   //This tries to clean it as good as possible, without spending too much time on it since these names will probably be fixed as alpha progresses
-  const cleanedTalentName = talentName
-    //.replace(/ *\([^)]*\) */g, '') //Remove all contents within a ()
-    //.replace(/ *\[[^)]*\] */g, '') // Remove all contents within []
-    .replace(/([,':[\]()/+%&!])/g, '') // Remove ,':[]()/+%&! symbols
-    .trim() //Remove any weird whitespaces that might remain
-    .replace(/([ -])/g, '_'); // Transform - into _
+  const cleanedTalentName = slugify(talentName);
 
   return `${cleanedTalentName.toUpperCase()}${
     specName ? `_${specName.toUpperCase().replace(' ', '_')}` : ''
   }_TALENT`;
-}
-
-export function camalize(str: string) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
-    if (Number(match) === 0) {
-      return '';
-    } // or if (/\s+/.test(match)) for white spaces
-    return index === 0 ? match.toLowerCase() : match.toUpperCase();
-  });
 }
 
 export function findResourceCost(

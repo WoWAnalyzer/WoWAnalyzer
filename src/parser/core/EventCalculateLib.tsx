@@ -42,28 +42,35 @@ export function calculateEffectiveHealing(
 }
 
 /**
- * Calculate what percent of a heal damage event can be attributed to a percent crit increase
- * @param event a crit heal event
- * @param currentCrit current crit percentage (excluding crit buff)
- * @param percentCritIncrease percent buff to calculate effect of
- * @param critHealMultiplier multiplier for critical heals (e.g., 2.2 for 220% healing)
- * @return amount of crit heal attributable to percent crit increase
+ * Calculate what percent of a heal event can be attributed to a flat crit bonus (like +4% crit chance).
+ *
+ * ## Technical Details
+ * This function uses an *amortized* model of events. It "steals" a part of each event proportional to the crit increase
+ * and returns it (after removing overhealing). This doesn't make sense on any individual heal (crit %
+ * increases don't increase the amount healed), but does make sense when you add up the totals
+ * at the end, because you should get extra total healing on average.
+ *
+ * @param event a critical heal event
+ * @param currentCrit the current critical strike percentage without the crit buff (example: 0.05 is 5%)
+ * @param flatCritIncrease the critical strike increase being added by the buff (example: if your buff adds 4% crit, this is 0.04)
+ * @param critHealMultiplier the multiplier for critical healing. this is usually 2 (the default value), but some effects increase it
  */
 export function calculateEffectiveHealingFromCritIncrease(
   event: LightWeightHealingEvent,
   currentCrit: number,
-  percentCritIncrease: number,
+  flatCritIncrease: number,
   critHealMultiplier = 2,
-) {
-  const amount = event.amount;
-  const absorbed = event.absorbed || 0;
-  const overheal = event.overheal || 0;
-  const nonOverheal = amount + absorbed;
-  const raw = amount + absorbed + overheal;
-  const baseHeal = raw / critHealMultiplier;
-  const baseCritHeal = baseHeal * (currentCrit / (percentCritIncrease + currentCrit));
-  const effectiveCritHeal = Math.max(0, nonOverheal - baseHeal);
-  return Math.max(0, effectiveCritHeal - baseCritHeal);
+): number {
+  // 1 - the total amount of healing done (including overhealing)
+  const raw = event.amount + (event.absorbed ?? 0) + (event.overheal ?? 0);
+  // 2 - the amount of (1) that is done due to it being a critical heal
+  const additionalHealingFromCrit = raw - raw / critHealMultiplier;
+  // 3 - the amount of (2) that is attributed to increased crit chance.
+  const amountFromCritIncrease =
+    additionalHealingFromCrit -
+    (additionalHealingFromCrit * currentCrit) / (currentCrit + flatCritIncrease);
+  // 4 - remove overhealing from (3), returning 0 if it is all overhealing)
+  return Math.max(0, amountFromCritIncrease - (event.overheal ?? 0));
 }
 
 /**

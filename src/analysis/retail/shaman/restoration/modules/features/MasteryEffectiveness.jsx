@@ -12,7 +12,7 @@ import Panel from 'parser/ui/Panel';
 import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_MASTERY, BASE_ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 class MasteryEffectiveness extends Analyzer {
@@ -145,7 +145,7 @@ class MasteryEffectiveness extends Analyzer {
 
   get spellReport() {
     const statsBySpellId = this.masteryHealEvents.reduce((obj, event) => {
-      if (!BASE_ABILITIES_AFFECTED_BY_MASTERY.some((s) => s.id === event.ability.guid)) {
+      if (!ABILITIES_AFFECTED_BY_MASTERY.some((s) => s.id === event.ability.guid)) {
         return obj;
       }
       // Update the spell-totals

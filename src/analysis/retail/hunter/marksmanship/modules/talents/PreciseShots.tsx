@@ -2,6 +2,7 @@ import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
   WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_ASSUMED_PROCS,
+  WINDRUNNER_PRECISE_SHOTS_MODIFIER,
   PRECISE_SHOTS_MODIFIER,
 } from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
@@ -31,8 +32,8 @@ class PreciseShots extends Analyzer {
   damage = 0;
   buffsActive = 0;
   buffsSpent = 0;
-  minOverwrittenProcs = 0;
-  maxOverwrittenProcs = 0;
+  inFlightStacks = 0;
+  overwrittenProcs = 0;
   buffedShotInFlight: number | null = null;
 
   protected spellUsable!: SpellUsable;
@@ -41,8 +42,12 @@ class PreciseShots extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.PRECISE_SHOTS_TALENT);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
-      this.onPreciseShotsApplication,
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS_HUNTER.AIMED_SHOT_TALENT]),
+      this.onASPreciseShotsApplication,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS_HUNTER.RAPID_FIRE_TALENT]),
+      this.onRFPreciseShotsApplication,
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRECISE_SHOTS_BUFF),
@@ -60,7 +65,7 @@ class PreciseShots extends Analyzer {
   }
 
   get preciseShotsUtilizationPercentage() {
-    return this.buffsSpent / (this.buffsSpent + this.minOverwrittenProcs);
+    return this.buffsSpent / (this.buffsSpent + this.overwrittenProcs);
   }
 
   get preciseShotsWastedThreshold() {
@@ -75,7 +80,10 @@ class PreciseShots extends Analyzer {
     };
   }
 
-  onPreciseShotsApplication() {
+  onASPreciseShotsApplication() {
+    if (this.buffsActive != 0) {
+      this.overwrittenProcs += 1;
+    }
     if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
       this.buffsActive = WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS;
     } else {
@@ -83,14 +91,28 @@ class PreciseShots extends Analyzer {
     }
   }
 
-  onPreciseShotsRemoval() {
-    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
-      this.buffsSpent += 2;
-      this.buffsActive = 0;
-    } else {
-      this.buffsSpent += 1;
-      this.buffsActive = 0;
+  onRFPreciseShotsApplication() {
+    if (!this.selectedCombatant.hasTalent(TALENTS_HUNTER.NO_SCOPE_TALENT)) {
+      return;
     }
+    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
+      if (this.buffsActive == WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS) {
+        this.overwrittenProcs += 1;
+      }
+      if (this.buffsActive != WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS) {
+        this.buffsActive += 1;
+      }
+    } else {
+      if (this.buffsActive == PRECISE_SHOTS_ASSUMED_PROCS) {
+        this.overwrittenProcs += 1;
+      }
+      this.buffsActive = PRECISE_SHOTS_ASSUMED_PROCS;
+    }
+  }
+
+  onPreciseShotsRemoval() {
+    this.buffsSpent += this.buffsActive;
+    this.buffsActive = 0;
   }
 
   onPreciseCast(event: CastEvent) {
@@ -98,6 +120,7 @@ class PreciseShots extends Analyzer {
       return;
     }
     this.buffedShotInFlight = event.timestamp;
+    this.inFlightStacks = this.buffsActive;
   }
 
   onPreciseDamage(event: DamageEvent) {
@@ -106,7 +129,14 @@ class PreciseShots extends Analyzer {
       return;
     }
     if (this.buffedShotInFlight < event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
-      this.damage += calculateEffectiveDamage(event, PRECISE_SHOTS_MODIFIER);
+      if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)) {
+        this.damage += calculateEffectiveDamage(
+          event,
+          WINDRUNNER_PRECISE_SHOTS_MODIFIER * this.inFlightStacks,
+        );
+      } else {
+        this.damage += calculateEffectiveDamage(event, PRECISE_SHOTS_MODIFIER);
+      }
     }
     if (event.ability.guid === SPELLS.ARCANE_SHOT.id) {
       this.buffedShotInFlight = null;
@@ -129,8 +159,11 @@ class PreciseShots extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            You wasted between {this.minOverwrittenProcs} and {this.maxOverwrittenProcs} Precise
-            Shots procs by casting Aimed Shot when you already had Precise Shots active
+            You wasted {this.overwrittenProcs} Precise Shots procs by casting{' '}
+            {this.selectedCombatant.hasTalent(TALENTS_HUNTER.WINDRUNNER_QUIVER_TALENT)
+              ? 'Aimed Shot or Rapid Fire'
+              : 'Aimed Shot'}{' '}
+            when you already had Precise Shots active.
           </>
         }
       >

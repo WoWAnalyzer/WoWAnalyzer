@@ -9,9 +9,10 @@ import { formatNumber } from 'common/format';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/shaman/restoration/constants';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
-
-const AMPLIFICATION_CORE_HEALING_INCREASE = 0.03;
-const SURGING_TOTEM_DURATION = 24000;
+import {
+  AMPLIFICATION_CORE_HEALING_INCREASE,
+  SURGING_TOTEM_DURATION,
+} from 'analysis/retail/shaman/restoration/constants';
 
 export default class AmplificationCore extends Analyzer {
   healingDoneFromTalent = 0;

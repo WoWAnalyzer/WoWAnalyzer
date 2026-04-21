@@ -11,6 +11,15 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
 const POWER_OF_NATURE_HEALING_INCREASE = 0.1;
 
+const REJUV_SPELLS = [
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+  SPELLS.THRIVING_VEGETATION.id,
+];
+const EFFLO_SPELLS = [SPELLS.EFFLORESCENCE_HEAL.id];
+const LIFEBLOOM_SPELLS = [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_BLOOM_HEAL.id];
+const EVERBLOOM_SPELLS = [SPELLS.EVERBLOOM_SPLASH_HEAL.id];
+
 /**
  * **Power of Nature**
  * Hero Talent - Keeper of the Grove
@@ -19,6 +28,10 @@ const POWER_OF_NATURE_HEALING_INCREASE = 0.1;
  */
 export default class PowerOfNature extends Analyzer {
   totalHealing = 0;
+  rejuvHealing = 0;
+  effloHealing = 0;
+  lifebloomHealing = 0;
+  everbloomHealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -34,6 +47,8 @@ export default class PowerOfNature extends Analyzer {
           SPELLS.EFFLORESCENCE_HEAL,
           SPELLS.LIFEBLOOM_HOT_HEAL,
           SPELLS.LIFEBLOOM_BLOOM_HEAL,
+          SPELLS.THRIVING_VEGETATION,
+          SPELLS.EVERBLOOM_SPLASH_HEAL,
         ]),
       this.onHeal,
     );
@@ -45,10 +60,19 @@ export default class PowerOfNature extends Analyzer {
       return;
     }
 
-    this.totalHealing += calculateEffectiveHealing(
-      event,
-      POWER_OF_NATURE_HEALING_INCREASE * stacks,
-    );
+    const healing = calculateEffectiveHealing(event, POWER_OF_NATURE_HEALING_INCREASE * stacks);
+    this.totalHealing += healing;
+
+    const spellId = event.ability.guid;
+    if (REJUV_SPELLS.includes(spellId)) {
+      this.rejuvHealing += healing;
+    } else if (EFFLO_SPELLS.includes(spellId)) {
+      this.effloHealing += healing;
+    } else if (LIFEBLOOM_SPELLS.includes(spellId)) {
+      this.lifebloomHealing += healing;
+    } else if (EVERBLOOM_SPELLS.includes(spellId)) {
+      this.everbloomHealing += healing;
+    }
   }
 
   statistic() {
@@ -57,6 +81,33 @@ export default class PowerOfNature extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <ul>
+            {this.rejuvHealing > 0 && (
+              <li>
+                Rejuvenation: <strong>{this.owner.formatItemHealingDone(this.rejuvHealing)}</strong>
+              </li>
+            )}
+            {this.effloHealing > 0 && (
+              <li>
+                Efflorescence:{' '}
+                <strong>{this.owner.formatItemHealingDone(this.effloHealing)}</strong>
+              </li>
+            )}
+            {this.lifebloomHealing > 0 && (
+              <li>
+                Lifebloom:{' '}
+                <strong>{this.owner.formatItemHealingDone(this.lifebloomHealing)}</strong>
+              </li>
+            )}
+            {this.everbloomHealing > 0 && (
+              <li>
+                Everbloom:{' '}
+                <strong>{this.owner.formatItemHealingDone(this.everbloomHealing)}</strong>
+              </li>
+            )}
+          </ul>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.POWER_OF_NATURE_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />

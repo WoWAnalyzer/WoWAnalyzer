@@ -41,6 +41,7 @@ import AplCheck from './modules/core/AplCheck';
 import Executioner from '../shared/modules/talents/Executioner';
 import AvatarOfTheStorm from './modules/talents/AvatarOfTheStorm';
 import BurstOfPower from './modules/talents/BurstOfPower';
+import ThunderBlast from './modules/spells/ThunderBlast';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     executioner: Executioner,
     avatarOfTheStorm: AvatarOfTheStorm,
     burstOfPower: BurstOfPower,
+    thunderBlast: ThunderBlast,
 
     // Debuggers
     rageCountDebugger: RageCountDebugger,

@@ -2,7 +2,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CoreHitCountAoE, { SpellAoeTracker } from 'parser/core/HitCountAoE';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ReactNode, type JSX } from 'react';
-import { BadColor, GoodColor, PerfectColor, SubSection, VeryBadColor } from 'interface/guide';
+import { BadColor, PerfectColor, SubSection, VeryBadColor } from 'interface/guide';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import { getHitCount } from '../../normalizers/CastLinkNormalizer';
@@ -12,7 +12,6 @@ import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/Guide
 
 export default class HitCountAoE extends CoreHitCountAoE {
   private readonly fanOfKnivesTracker: FanOfKnivesAoETracker;
-  private readonly crimsonTempestTracker?: CrimsonTempestAoETracker;
 
   constructor(options: Options) {
     super(options);
@@ -25,16 +24,6 @@ export default class HitCountAoE extends CoreHitCountAoE {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAN_OF_KNIVES),
       this.onFanOfKnivesCast,
     );
-
-    if (this.selectedCombatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT)) {
-      this.crimsonTempestTracker = this.registerAoeTracker(
-        this.newAoeTracker(TALENTS.CRIMSON_TEMPEST_TALENT),
-      );
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CRIMSON_TEMPEST_TALENT),
-        this.onCrimsonTempestCast,
-      );
-    }
   }
 
   getHitCountForCast(event: CastEvent): number {
@@ -46,54 +35,47 @@ export default class HitCountAoE extends CoreHitCountAoE {
       return <strong>You never used this spell!</strong>;
     }
 
-    const items = [
-      {
-        color: PerfectColor,
-        label: 'Hit 3+ Targets',
-        value: this.fanOfKnivesTracker.multiHitCasts - this.fanOfKnivesTracker.twoHitCasts,
-      },
-      {
-        color: BadColor,
-        label: 'Hit 1-2 Targets',
-        value: this.fanOfKnivesTracker.oneHitCasts + this.fanOfKnivesTracker.twoHitCasts,
-      },
-      {
-        color: VeryBadColor,
-        label: 'Hit 0 Targets',
-        value: this.fanOfKnivesTracker.zeroHitCasts,
-      },
-    ];
-    return <DonutChart items={items} />;
-  }
+    const items = [];
 
-  get crimsonTempestChart() {
-    if (!this.crimsonTempestTracker || this.crimsonTempestTracker.casts === 0) {
-      return <strong>You never used this spell!</strong>;
+    const hasBlindside = this.selectedCombatant.hasTalent(TALENTS.BLINDSIDE_TALENT);
+    if (hasBlindside) {
+      items.push(
+        {
+          color: PerfectColor,
+          label: 'Hit 3+ Targets',
+          value: this.fanOfKnivesTracker.multiHitCasts - this.fanOfKnivesTracker.twoHitCasts,
+        },
+        {
+          color: BadColor,
+          label: 'Hit 1-2 Targets',
+          value: this.fanOfKnivesTracker.oneHitCasts + this.fanOfKnivesTracker.twoHitCasts,
+        },
+      );
+    } else {
+      items.push(
+        {
+          color: PerfectColor,
+          label: 'Hit 2+ Targets',
+          value: this.fanOfKnivesTracker.multiHitCasts,
+        },
+        {
+          color: BadColor,
+          label: 'Hit 1 Targets',
+          value: this.fanOfKnivesTracker.oneHitCasts + this.fanOfKnivesTracker.twoHitCasts,
+        },
+      );
     }
 
-    const items = [
-      {
-        color: PerfectColor,
-        label: 'Hit 2+ Targets',
-        value: this.crimsonTempestTracker.multiHitCasts,
-      },
-      {
-        color: GoodColor,
-        label: 'Hit 1 Target',
-        value: this.crimsonTempestTracker.oneHitCasts,
-      },
-      {
-        color: VeryBadColor,
-        label: 'Hit 0 Targets',
-        value: this.crimsonTempestTracker.zeroHitCasts,
-      },
-    ];
+    items.push({
+      color: VeryBadColor,
+      label: 'Hit 0 Targets',
+      value: this.fanOfKnivesTracker.zeroHitCasts,
+    });
+
     return <DonutChart items={items} />;
   }
 
   get guideSubsection(): JSX.Element {
-    const hasCrimsonTempest = this.selectedCombatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT);
-
     return (
       <SubSection>
         <p>
@@ -105,21 +87,14 @@ export default class HitCountAoE extends CoreHitCountAoE {
               <strong>
                 <SpellLink spell={SPELLS.FAN_OF_KNIVES} />{' '}
               </strong>{' '}
-              should only be used on three or more targets.
+              should only be used on two or more targets.
+              <p>
+                If you're talented into <SpellLink spell={TALENTS.BLINDSIDE_TALENT} />, you should
+                be casting on three or more targets instead.
+              </p>
             </div>
             {this.fanOfKnivesChart}
           </RoundedPanel>
-          {hasCrimsonTempest && (
-            <RoundedPanel>
-              <div>
-                <strong>
-                  <SpellLink spell={TALENTS.CRIMSON_TEMPEST_TALENT} />{' '}
-                </strong>{' '}
-                should only be used on multiple targets.
-              </div>
-              {this.crimsonTempestChart}
-            </RoundedPanel>
-          )}
         </SideBySidePanels>
       </SubSection>
     );
@@ -168,12 +143,6 @@ export default class HitCountAoE extends CoreHitCountAoE {
       this.fanOfKnivesTracker.twoHitCasts += 1;
     }
   }
-
-  private onCrimsonTempestCast(event: CastEvent) {
-    if (this.crimsonTempestTracker) {
-      this.onAoeCast(event, this.crimsonTempestTracker);
-    }
-  }
 }
 
 type FanOfKnivesAoETracker = SpellAoeTracker & {
@@ -181,5 +150,3 @@ type FanOfKnivesAoETracker = SpellAoeTracker & {
 };
 const isFanOfKnivesAoETracker = (tracker: SpellAoeTracker): tracker is FanOfKnivesAoETracker =>
   'twoHitCasts' in tracker && typeof tracker.twoHitCasts === 'number';
-
-type CrimsonTempestAoETracker = SpellAoeTracker;

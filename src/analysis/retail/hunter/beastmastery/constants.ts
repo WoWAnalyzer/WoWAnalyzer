@@ -21,13 +21,8 @@ export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 //Bloodshed increases the damage done by pets by 15%
 export const BLOODSHED_DAMAGE_AMP = 0.15;
 /** Dire Beast */
-//Dire Beast increases haste by 5% while active
-export const DIRE_BEAST_HASTE_PERCENT = 0.05;
 //Dire Beast lasts for 8 seconds baseline
 export const DIRE_BEAST_BASE_DURATION = 8000;
-/** Dire Frenzy */
-//Dire Frenzy increases the duration of Dire Beast by 1 second per rank (up to 2 seconds)
-export const DIRE_FRENZY_INCREASE_DB_TIME = [0, 1000, 2000];
 /** Aspect of the Beast */
 //Aspect of the Beast increase pet damage and healing done by 30%
 export const AOTB_MULTIPLIER = 0.3;
@@ -116,7 +111,6 @@ export const BARBED_SHOT_REGEN = 5;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.COBRA_SHOT_TALENT,
-  SPELLS.MULTI_SHOT,
   TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT,
   SPELLS.WING_CLIP,
 ];

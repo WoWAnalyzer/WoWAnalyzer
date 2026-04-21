@@ -9,6 +9,7 @@ const spells: number[] = [
    */
   SPELLS.FIRE_BLAST.id,
   TALENTS.COMBUSTION_TALENT.id,
+  SPELLS.HOVER.id,
 ];
 
 export default spells;

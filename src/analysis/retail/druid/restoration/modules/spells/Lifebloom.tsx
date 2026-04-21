@@ -36,7 +36,7 @@ class Lifebloom extends Analyzer {
   private hasVerdancy = false;
   private showCastPanel = false;
   private hasActiveLifebloom = false;
-  private activeLifebloomTarget: number | undefined = undefined;
+  activeLifebloomTarget: number | undefined = undefined;
   private possibleVerdancyBlooms = 0;
   private actualVerdancyBlooms = 0;
   private currentLifebloomStacks = 0;

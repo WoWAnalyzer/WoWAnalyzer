@@ -1,6 +1,5 @@
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import { FullCombatant } from 'parser/core/Combatant';
-import { Item } from 'parser/core/Events';
 
 import './PlayerInfo.scss';
 import PlayerGearHeader from './PlayerGearHeader';
@@ -10,10 +9,6 @@ import PlayerInfoGems from './PlayerInfoGems';
 import PlayerInfoTalents from './PlayerInfoTalents';
 import GameBranch from 'game/GameBranch';
 import { CLASS_NAMES } from 'game/CLASSES';
-
-function _parseGear(gear: Item[]) {
-  return gear.reduce((gearItemsBySlotId: Item[], item: Item) => gearItemsBySlotId.concat(item), []);
-}
 
 interface Props {
   combatant: FullCombatant;
@@ -41,7 +36,7 @@ export const classBackgroundImage = (className?: string, region?: string): strin
 
 const PlayerInfo = ({ combatant }: Props) => {
   const isRetail = combatant.owner.config.branch === GameBranch.Retail;
-  const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
+  const gear = combatant.gear;
   const talents = combatant.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
   const classBackground = combatant.characterProfile?.class

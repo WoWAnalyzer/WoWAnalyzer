@@ -18,15 +18,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Always Be Casting">
         <FoundationDowntimeSectionV2 />
       </Section>
-      <Section title="Core Spells">
-        {modules.rejuvenation.guideSubsection}
-        {modules.wildGrowth.guideSubsection}
-        {modules.regrowthAndClearcasting.guideSubsection}
-        {modules.lifebloom.guideSubsection}
-        {modules.efflorescence.guideSubsection}
+      <Section title="Core Spells and Buffs">
         {modules.swiftmend.guideSubsection}
+        {modules.wildGrowth.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT) && (
+          <SubSection>{modules.abundanceGraph.guideSubsection}</SubSection>
+        )}
         {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
           modules.soulOfTheForest.guideSubsection}
+        {modules.lifebloom.guideSubsection}
+        {modules.efflorescence.guideSubsection}
+        {modules.rejuvenation.guideSubsection}
+        {modules.regrowthAndClearcasting.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
         <p>

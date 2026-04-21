@@ -24,10 +24,6 @@ class OmenOfClarity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.talentPoints[2] >= 11;
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING),

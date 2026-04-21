@@ -14,15 +14,33 @@ import Select from 'interface/controls/Select';
 import useClickOutsideHandler from 'interface/hooks/useClickOutsideHandler';
 import Button from 'interface/controls/Button';
 
-const Btn = styled(Button)`
+const FilterContainer = styled.div`
   grid-area: filter;
-
+  display: flex;
   align-self: start;
-  margin-top: 0.6rem;
+  align-items: start;
+  gap: 0.25rem;
+`;
 
+const Btn = styled(Button)`
   & .glyphicon {
     padding-right: 0.25rem;
     font-size: 75%;
+  }
+`;
+
+const PullNavBtn = styled(Button)`
+  padding: 0 0.5rem;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: none;
+  }
+
+  & .glyphicon {
+    font-size: 75%;
+    top: 0;
   }
 `;
 
@@ -71,11 +89,18 @@ export default function FilterButton(props: Props): JSX.Element | null {
     return 'Filter';
   }, [props.selectedPhaseIndex, props.timeFilter, phases, props.fight]);
 
+  const { hasDungeonPulls, canGoPrev, canGoNext, goToPrevPull, goToNextPull } =
+    usePullNavigation(props);
+
   return (
     <>
-      <Btn ref={ref} onClick={toggleMenu}>
-        <span className="glyphicon glyphicon-filter" /> {filterLabel}
-      </Btn>
+      <FilterContainer>
+        {hasDungeonPulls && <PrevPullButton disabled={!canGoPrev} onClick={goToPrevPull} />}
+        <Btn ref={ref} onClick={toggleMenu}>
+          <span className="glyphicon glyphicon-filter" /> {filterLabel}
+        </Btn>
+        {hasDungeonPulls && <NextPullButton disabled={!canGoNext} onClick={goToNextPull} />}
+      </FilterContainer>
       {showMenu &&
         createPortal(
           <FilterMenu
@@ -290,4 +315,51 @@ function usePhases() {
   }, [report?.phases, fight]);
 
   return phases;
+}
+
+interface PullNavBtnProps {
+  disabled: boolean;
+  onClick: () => void;
+}
+
+function PrevPullButton({ disabled, onClick }: PullNavBtnProps): JSX.Element {
+  return (
+    <PullNavBtn onClick={onClick} disabled={disabled} aria-label="Previous pull">
+      <span className="glyphicon glyphicon-chevron-left" aria-hidden />
+    </PullNavBtn>
+  );
+}
+
+function NextPullButton({ disabled, onClick }: PullNavBtnProps): JSX.Element {
+  return (
+    <PullNavBtn onClick={onClick} disabled={disabled} aria-label="Next pull">
+      <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+    </PullNavBtn>
+  );
+}
+
+function usePullNavigation({ fight, selectedPhaseIndex, handlePhaseSelection }: Props) {
+  const pullCount = fight.dungeonPulls?.length ?? 0;
+  const hasDungeonPulls = pullCount > 0;
+
+  const canGoPrev = hasDungeonPulls && selectedPhaseIndex > 0;
+  const canGoNext =
+    hasDungeonPulls &&
+    (selectedPhaseIndex === SELECTION_ALL_PHASES || selectedPhaseIndex < pullCount - 1);
+
+  const goToPrevPull = useCallback(() => {
+    if (canGoPrev) {
+      handlePhaseSelection(selectedPhaseIndex - 1);
+    }
+  }, [canGoPrev, handlePhaseSelection, selectedPhaseIndex]);
+
+  const goToNextPull = useCallback(() => {
+    if (canGoNext) {
+      const isAllPhases = selectedPhaseIndex === SELECTION_ALL_PHASES;
+      const isCustomPhase = selectedPhaseIndex === SELECTION_CUSTOM_PHASE;
+      handlePhaseSelection(isAllPhases || isCustomPhase ? 0 : selectedPhaseIndex + 1);
+    }
+  }, [canGoNext, handlePhaseSelection, selectedPhaseIndex]);
+
+  return { hasDungeonPulls, canGoPrev, canGoNext, goToPrevPull, goToNextPull };
 }

@@ -1,9 +1,128 @@
+// Generated file, changes will eventually be overwritten!
 import { Enchant } from 'common/ITEMS/Item';
 
-// For effectIds, see https://github.com/simulationcraft/simc/blob/midnight/engine/dbc/generated/permanent_enchant.inc
-
 const enchants = {
-  // #region CHEST
+  // region Other
+  SUNFIRE_SILK_SPELLTHREAD_R1: {
+    id: 240094,
+    name: 'Sunfire Silk Spellthread',
+    icon: 'inv_tailoring_spellthread_orange_spellthread',
+    effectId: 7934,
+    craftQuality: 1,
+  },
+  SUNFIRE_SILK_SPELLTHREAD_R2: {
+    id: 240133,
+    name: 'Sunfire Silk Spellthread',
+    icon: 'inv_tailoring_spellthread_orange_spellthread',
+    effectId: 7935,
+    craftQuality: 2,
+  },
+  ARCANOWEAVE_SPELLTHREAD_R1: {
+    id: 240154,
+    name: 'Arcanoweave Spellthread',
+    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
+    effectId: 7936,
+    craftQuality: 1,
+  },
+  ARCANOWEAVE_SPELLTHREAD_R2: {
+    id: 240155,
+    name: 'Arcanoweave Spellthread',
+    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
+    effectId: 7937,
+    craftQuality: 2,
+  },
+  BRIGHT_LINEN_SPELLTHREAD_R1: {
+    id: 240156,
+    name: 'Bright Linen Spellthread',
+    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
+    effectId: 7938,
+    craftQuality: 1,
+  },
+  BRIGHT_LINEN_SPELLTHREAD_R2: {
+    id: 240157,
+    name: 'Bright Linen Spellthread',
+    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
+    effectId: 7939,
+    craftQuality: 2,
+  },
+  FOREST_HUNTERS_ARMOR_KIT_R1: {
+    id: 244640,
+    name: "Forest Hunter's Armor Kit",
+    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
+    effectId: 8158,
+    craftQuality: 1,
+  },
+  FOREST_HUNTERS_ARMOR_KIT_R2: {
+    id: 244641,
+    name: "Forest Hunter's Armor Kit",
+    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
+    effectId: 8159,
+    craftQuality: 2,
+  },
+  THALASSIAN_SCOUT_ARMOR_KIT_R1: {
+    id: 244644,
+    name: 'Thalassian Scout Armor Kit',
+    icon: 'inv_12_profession_leatherworking_standart_armor_kit',
+    effectId: 8160,
+    craftQuality: 1,
+  },
+  THALASSIAN_SCOUT_ARMOR_KIT_R2: {
+    id: 244645,
+    name: 'Thalassian Scout Armor Kit',
+    icon: 'inv_12_profession_leatherworking_standart_armor_kit',
+    effectId: 8161,
+    craftQuality: 2,
+  },
+  BLOOD_KNIGHTS_ARMOR_KIT_R1: {
+    id: 244642,
+    name: "Blood Knight's Armor Kit",
+    icon: 'inv_12_profession_leatherworking_thalassian_amor_kit',
+    effectId: 8162,
+    craftQuality: 1,
+  },
+  BLOOD_KNIGHTS_ARMOR_KIT_R2: {
+    id: 244643,
+    name: "Blood Knight's Armor Kit",
+    icon: 'inv_12_profession_leatherworking_thalassian_amor_kit',
+    effectId: 8163,
+    craftQuality: 2,
+  },
+  SMUGGLERS_LYNXEYE_R1: {
+    id: 257747,
+    name: "Smuggler's Lynxeye",
+    icon: 'inv_10_engineering_scope_color2',
+    effectId: 8612,
+    craftQuality: 1,
+  },
+  SMUGGLERS_LYNXEYE_R2: {
+    id: 257748,
+    name: "Smuggler's Lynxeye",
+    icon: 'inv_10_engineering_scope_color2',
+    effectId: 8613,
+    craftQuality: 2,
+  },
+  FARSTRIDERS_HAWKEYE_R1: {
+    id: 257745,
+    name: "Farstrider's Hawkeye",
+    icon: 'inv_10_engineering_scope_color4',
+    effectId: 8614,
+    craftQuality: 1,
+  },
+  FARSTRIDERS_HAWKEYE_R2: {
+    id: 257746,
+    name: "Farstrider's Hawkeye",
+    icon: 'inv_10_engineering_scope_color4',
+    effectId: 8615,
+    craftQuality: 2,
+  },
+  MIDNIGHT_ANGLERS_GRAND_LINE: {
+    id: 262796,
+    name: "Midnight Angler's Grand Line",
+    icon: 'inv_10_tailoring_embroiderythread_color1',
+    effectId: 8638,
+  },
+  // endregion
+  // region Chest
   CHEST_MARK_OF_NALORAKK_R1: {
     id: 243946,
     name: 'Enchant Chest - Mark of Nalorakk',
@@ -16,20 +135,6 @@ const enchants = {
     name: 'Enchant Chest - Mark of Nalorakk',
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
     effectId: 7957,
-    craftQuality: 2,
-  },
-  CHEST_MARK_OF_THE_MAGISTER_R1: {
-    id: 244002,
-    name: 'Enchant Chest - Mark of the Magister',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8012,
-    craftQuality: 1,
-  },
-  CHEST_MARK_OF_THE_MAGISTER_R2: {
-    id: 244003,
-    name: 'Enchant Chest - Mark of the Magister',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8013,
     craftQuality: 2,
   },
   CHEST_MARK_OF_THE_ROOTWARDEN_R1: {
@@ -60,23 +165,108 @@ const enchants = {
     effectId: 7987,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region BOOT
-  BOOTS_FARSTRIDERS_HUNT_R1: {
-    id: 244008,
-    name: "Enchant Boots - Farstrider's Hunt",
+  CHEST_MARK_OF_THE_MAGISTER_R1: {
+    id: 244002,
+    name: 'Enchant Chest - Mark of the Magister',
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8018,
+    effectId: 8012,
     craftQuality: 1,
   },
-  BOOTS_FARSTRIDERS_HUNT_R2: {
-    id: 244009,
-    name: "Enchant Boots - Farstrider's Hunt",
+  CHEST_MARK_OF_THE_MAGISTER_R2: {
+    id: 244003,
+    name: 'Enchant Chest - Mark of the Magister',
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8019,
+    effectId: 8013,
     craftQuality: 2,
   },
+  // endregion
+  // region Helm
+  HELM_HEX_OF_LEECHING_R1: {
+    id: 243948,
+    name: 'Enchant Helm - Hex of Leeching',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 7958,
+    craftQuality: 1,
+  },
+  HELM_HEX_OF_LEECHING_R2: {
+    id: 243949,
+    name: 'Enchant Helm - Hex of Leeching',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 7959,
+    craftQuality: 2,
+  },
+  HELM_EMPOWERED_HEX_OF_LEECHING_R1: {
+    id: 243950,
+    name: 'Enchant Helm - Empowered Hex of Leeching',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7960,
+    craftQuality: 1,
+  },
+  HELM_EMPOWERED_HEX_OF_LEECHING_R2: {
+    id: 243951,
+    name: 'Enchant Helm - Empowered Hex of Leeching',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7961,
+    craftQuality: 2,
+  },
+  HELM_BLESSING_OF_SPEED_R1: {
+    id: 243978,
+    name: 'Enchant Helm - Blessing of Speed',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 7988,
+    craftQuality: 1,
+  },
+  HELM_BLESSING_OF_SPEED_R2: {
+    id: 243979,
+    name: 'Enchant Helm - Blessing of Speed',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 7989,
+    craftQuality: 2,
+  },
+  HELM_EMPOWERED_BLESSING_OF_SPEED_R1: {
+    id: 243980,
+    name: 'Enchant Helm - Empowered Blessing of Speed',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7990,
+    craftQuality: 1,
+  },
+  HELM_EMPOWERED_BLESSING_OF_SPEED_R2: {
+    id: 243981,
+    name: 'Enchant Helm - Empowered Blessing of Speed',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7991,
+    craftQuality: 2,
+  },
+  HELM_RUNE_OF_AVOIDANCE_R1: {
+    id: 244004,
+    name: 'Enchant Helm - Rune of Avoidance',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 8014,
+    craftQuality: 1,
+  },
+  HELM_RUNE_OF_AVOIDANCE_R2: {
+    id: 244005,
+    name: 'Enchant Helm - Rune of Avoidance',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 8015,
+    craftQuality: 2,
+  },
+  HELM_EMPOWERED_RUNE_OF_AVOIDANCE_R1: {
+    id: 244006,
+    name: 'Enchant Helm - Empowered Rune of Avoidance',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8016,
+    craftQuality: 1,
+  },
+  HELM_EMPOWERED_RUNE_OF_AVOIDANCE_R2: {
+    id: 244007,
+    name: 'Enchant Helm - Empowered Rune of Avoidance',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8017,
+    craftQuality: 2,
+  },
+  // endregion
+  // region Boots
   BOOTS_LYNXS_DEXTERITY_R1: {
     id: 243952,
     name: "Enchant Boots - Lynx's Dexterity",
@@ -105,9 +295,22 @@ const enchants = {
     effectId: 7993,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region RINGS
+  BOOTS_FARSTRIDERS_HUNT_R1: {
+    id: 244008,
+    name: "Enchant Boots - Farstrider's Hunt",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8018,
+    craftQuality: 1,
+  },
+  BOOTS_FARSTRIDERS_HUNT_R2: {
+    id: 244009,
+    name: "Enchant Boots - Farstrider's Hunt",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8019,
+    craftQuality: 2,
+  },
+  // endregion
+  // region Ring
   RING_AMANI_MASTERY_R1: {
     id: 243954,
     name: 'Enchant Ring - Amani Mastery',
@@ -117,7 +320,7 @@ const enchants = {
   },
   RING_AMANI_MASTERY_R2: {
     id: 243955,
-    name: 'Enchant Ring - Amani Mastert',
+    name: 'Enchant Ring - Amani Mastery',
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 7965,
     craftQuality: 2,
@@ -136,18 +339,18 @@ const enchants = {
     effectId: 7967,
     craftQuality: 2,
   },
-  RING_NATURES_FURY_R1: {
-    id: 243986,
-    name: "Enchant Ring - Nature's Fury",
+  RING_ZULJINS_MASTERY_R1: {
+    id: 243958,
+    name: "Enchant Ring - Zul'jin's Mastery",
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7996,
+    effectId: 7968,
     craftQuality: 1,
   },
-  RING_NATURES_FURY_R2: {
-    id: 243987,
-    name: "Enchant Ring - Nature's Fury",
+  RING_ZULJINS_MASTERY_R2: {
+    id: 243959,
+    name: "Enchant Ring - Zul'jin's Mastery",
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7997,
+    effectId: 7969,
     craftQuality: 2,
   },
   RING_NATURES_WRATH_R1: {
@@ -162,6 +365,48 @@ const enchants = {
     name: "Enchant Ring - Nature's Wrath",
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 7995,
+    craftQuality: 2,
+  },
+  RING_NATURES_FURY_R1: {
+    id: 243986,
+    name: "Enchant Ring - Nature's Fury",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7996,
+    craftQuality: 1,
+  },
+  RING_NATURES_FURY_R2: {
+    id: 243987,
+    name: "Enchant Ring - Nature's Fury",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7997,
+    craftQuality: 2,
+  },
+  RING_THALASSIAN_HASTE_R1: {
+    id: 244010,
+    name: 'Enchant Ring - Thalassian Haste',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 8020,
+    craftQuality: 1,
+  },
+  RING_THALASSIAN_HASTE_R2: {
+    id: 244011,
+    name: 'Enchant Ring - Thalassian Haste',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 8021,
+    craftQuality: 2,
+  },
+  RING_THALASSIAN_VERSATILITY_R1: {
+    id: 244012,
+    name: 'Enchant Ring - Thalassian Versatility',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 8022,
+    craftQuality: 1,
+  },
+  RING_THALASSIAN_VERSATILITY_R2: {
+    id: 244013,
+    name: 'Enchant Ring - Thalassian Versatility',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
+    effectId: 8023,
     craftQuality: 2,
   },
   RING_SILVERMOONS_ALACRITY_R1: {
@@ -192,166 +437,8 @@ const enchants = {
     effectId: 8027,
     craftQuality: 2,
   },
-  RING_THALASSIAN_HASTE_R1: {
-    id: 244010,
-    name: 'Enchant Ring - Thalassian Haste',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8020,
-    craftQuality: 1,
-  },
-  RING_THALASSIAN_HASTE_R2: {
-    id: 244011,
-    name: 'Enchant Ring - Thalassian Haste',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8021,
-    craftQuality: 2,
-  },
-  RING_THALASSIAN_VERSATILITY_R1: {
-    id: 244012,
-    name: 'Enchant Ring - Thalassian Vers',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8022,
-    craftQuality: 1,
-  },
-  RING_THALASSIAN_VERSATILITY_R2: {
-    id: 244013,
-    name: 'Enchant Ring - Thalassian Versatility',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8023,
-    craftQuality: 2,
-  },
-  RING_ZULJINS_MASTERY_R1: {
-    id: 243958,
-    name: "Enchant Ring - Zul'jins Mastery",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7968,
-    craftQuality: 1,
-  },
-  RING_ZULJINS_MASTERY_R2: {
-    id: 243959,
-    name: "Enchant Ring - Zul'jins Mastery",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7969,
-    craftQuality: 2,
-  },
-  // #endregion
-
-  // #region HELM
-  HELM_BLESSING_OF_SPEED_R1: {
-    id: 243978,
-    name: 'Enchant Helm - Blessing of Speed',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 7988,
-    craftQuality: 1,
-  },
-  HELM_BLESSING_OF_SPEED_R2: {
-    id: 243979,
-    name: 'Enchant Helm - Blessing of Speed',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 7989,
-    craftQuality: 2,
-  },
-  HELM_EMPOWERED_BLESSING_OF_SPEED_R1: {
-    id: 243980,
-    name: 'Enchant Helm - Empowered Blessing of Speed',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7990,
-    craftQuality: 1,
-  },
-  HELM_EMPOWERED_BLESSING_OF_SPEED_R2: {
-    id: 243981,
-    name: 'Enchant Helm - Empowered Blessing of Speed',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7991,
-    craftQuality: 2,
-  },
-  HELM_EMPOWERED_HEX_OF_LEECHING_R1: {
-    id: 243950,
-    name: 'Enchant Helm - Empowered Hex of Leeching',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7960,
-    craftQuality: 1,
-  },
-  HELM_EMPOWERED_HEX_OF_LEECHING_R2: {
-    id: 243951,
-    name: 'Enchant Helm - Empowered Hex of Leeching',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7961,
-    craftQuality: 2,
-  },
-  HELM_EMPOWERED_RUNE_OF_AVOIDANCE_R1: {
-    id: 244006,
-    name: 'Enchant Helm - Empowered Rune of Avoidance',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8016,
-    craftQuality: 1,
-  },
-  HELM_EMPOWERED_RUNE_OF_AVOIDANCE_R2: {
-    id: 244007,
-    name: 'Enchant Helm - Empowered Rune of Avoidance',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8017,
-    craftQuality: 2,
-  },
-  HELM_HEX_OF_LEECHING_R1: {
-    id: 243948,
-    name: 'Enchant Helm - Hex of Leeching',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 7958,
-    craftQuality: 1,
-  },
-  HELM_HEX_OF_LEECHING_R2: {
-    id: 243949,
-    name: 'Enchant Helm - Hex of Leeching',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 7959,
-    craftQuality: 2,
-  },
-  HELM_RUNE_OF_AVOIDANCE_R1: {
-    id: 244004,
-    name: 'Enchant Helm - Rune of Avoidance',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8014,
-    craftQuality: 1,
-  },
-  HELM_RUNE_OF_AVOIDANCE_R2: {
-    id: 244005,
-    name: 'Enchant Helm - Rune of Avoidance',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8015,
-    craftQuality: 2,
-  },
-  // #endregion
-
-  // #region SHOULDER
-  SHOULDERS_AKILZONS_CELERITY_R1: {
-    id: 243962,
-    name: "Enchant Shoulders - Akil'zon's Celerity",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7972,
-    craftQuality: 1,
-  },
-  SHOULDERS_AKILZONS_CELERITY_R2: {
-    id: 243963,
-    name: "Enchant Shoulders - Akil'zon's Celerity",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 7973,
-    craftQuality: 2,
-  },
-  SHOULDERS_AMIRDRASSILS_GRACE_R1: {
-    id: 243990,
-    name: "Enchant Shoulders - Amirdrassil's Grace",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8000,
-    craftQuality: 1,
-  },
-  SHOULDERS_AMIRDRASSILS_GRACE_R2: {
-    id: 243991,
-    name: "Enchant Shoulders - Amirdrassil's Grace",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8001,
-    craftQuality: 2,
-  },
+  // endregion
+  // region Shoulders
   SHOULDERS_FLIGHT_OF_THE_EAGLE_R1: {
     id: 243960,
     name: 'Enchant Shoulders - Flight of the Eagle',
@@ -364,6 +451,20 @@ const enchants = {
     name: 'Enchant Shoulders - Flight of the Eagle',
     icon: 'inv_12_profession_enchanting_enchantedvellum_green',
     effectId: 7971,
+    craftQuality: 2,
+  },
+  SHOULDERS_AKILZONS_SWIFTNESS_R1: {
+    id: 243962,
+    name: "Enchant Shoulders - Akil'zon's Swiftness",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7972,
+    craftQuality: 1,
+  },
+  SHOULDERS_AKILZONS_SWIFTNESS_R2: {
+    id: 243963,
+    name: "Enchant Shoulders - Akil'zon's Swiftness",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 7973,
     craftQuality: 2,
   },
   SHOULDERS_NATURES_GRACE_R1: {
@@ -380,18 +481,18 @@ const enchants = {
     effectId: 7999,
     craftQuality: 2,
   },
-  SHOULDERS_SILVERMOONS_MENDING_R1: {
-    id: 244020,
-    name: "Enchant Shoulders - Silvermoon's Mending",
+  SHOULDERS_AMIRDRASSILS_GRACE_R1: {
+    id: 243990,
+    name: "Enchant Shoulders - Amirdrassil's Grace",
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8030,
+    effectId: 8000,
     craftQuality: 1,
   },
-  SHOULDERS_SILVERMOONS_MENDING_R2: {
-    id: 244021,
-    name: "Enchant Shoulders - Silvermoon's Mending",
+  SHOULDERS_AMIRDRASSILS_GRACE_R2: {
+    id: 243991,
+    name: "Enchant Shoulders - Amirdrassil's Grace",
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8031,
+    effectId: 8001,
     craftQuality: 2,
   },
   SHOULDERS_THALASSIAN_RECOVERY_R1: {
@@ -408,138 +509,22 @@ const enchants = {
     effectId: 8029,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region WEAPON
-  WEAPON_ACUITY_OF_THE_RENDOREI_R1: {
-    id: 244028,
-    name: "Enchant Weapon - Acuity of the Ren'dorei",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8038,
+  SHOULDERS_SILVERMOONS_MENDING_R1: {
+    id: 244020,
+    name: "Enchant Shoulders - Silvermoon's Mending",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8030,
     craftQuality: 1,
   },
-  WEAPON_ACUITY_OF_THE_RENDOREI_R2: {
-    id: 244029,
-    name: "Enchant Weapon - Acuity of the Ren'dorei",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8039,
+  SHOULDERS_SILVERMOONS_MENDING_R2: {
+    id: 244021,
+    name: "Enchant Shoulders - Silvermoon's Mending",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8031,
     craftQuality: 2,
   },
-  WEAPON_ARCANE_MASTERY_R1: {
-    id: 244030,
-    name: 'Enchant Weapon - Arcane Mastery',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8040,
-    craftQuality: 1,
-  },
-  WEAPON_ARCANE_MASTERY_R2: {
-    id: 244031,
-    name: 'Enchant Weapon - Arcane Mastery',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8041,
-    craftQuality: 2,
-  },
-  WEAPON_BERSERKERS_RAGE_R1: {
-    id: 243972,
-    name: "Enchant Weapon - Berserker's Rage",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 7982,
-    craftQuality: 1,
-  },
-  WEAPON_BERSERKERS_RAGE_R2: {
-    id: 243973,
-    name: "Enchant Weapon - Berserker's Rage",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 7983,
-    craftQuality: 2,
-  },
-  WEAPON_FLAMES_OF_THE_SINDOREI_R1: {
-    id: 244026,
-    name: "Enchant Weapon - Flames of the Sin'dorei",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8036,
-    craftQuality: 1,
-  },
-  WEAPON_FLAMES_OF_THE_SINDOREI_R2: {
-    id: 244027,
-    name: "Enchant Weapon - Flames of the Sin'dorei",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8037,
-    craftQuality: 2,
-  },
-  WEAPON_JANALAIS_PRECISION_R1: {
-    id: 243970,
-    name: "Enchant Weapon - Jan'alai's Precision",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 7980,
-    craftQuality: 1,
-  },
-  WEAPON_JANALAIS_PRECISION_R2: {
-    id: 243971,
-    name: "Enchant Weapon - Jan'alai's Precision",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 7981,
-    craftQuality: 2,
-  },
-  WEAPON_STR_OF_HALAZZI_R1: {
-    id: 243968,
-    name: 'Enchant Weapon - Str of Halazzi',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 7978,
-    craftQuality: 1,
-  },
-  WEAPON_STR_OF_HALAZZI_R2: {
-    id: 243969,
-    name: 'Enchant Weapon - Str of Halazzi',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 7979,
-    craftQuality: 2,
-  },
-  WEAPON_WORLDSOUL_AEGIS_R1: {
-    id: 243998,
-    name: 'Enchant Weapon - Worldsoul Aegis',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8008,
-    craftQuality: 1,
-  },
-  WEAPON_WORLDSOUL_AEGIS_R2: {
-    id: 243999,
-    name: 'Enchant Weapon - Worldsoul Aegis',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8009,
-    craftQuality: 2,
-  },
-  WEAPON_WORLDSOUL_CRADLE_R1: {
-    id: 243996,
-    name: 'Enchant Weapon - Worldsoul Cradle',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8006,
-    craftQuality: 1,
-  },
-  WEAPON_WORLDSOUL_CRADLE_R2: {
-    id: 243997,
-    name: 'Enchant Weapon - Worldsoul Cradle',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8007,
-    craftQuality: 2,
-  },
-  WEAPON_WORLDSOUL_TENACITY_R1: {
-    id: 244000,
-    name: 'Enchant Weapon - Worldsoul Tenacity',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8010,
-    craftQuality: 1,
-  },
-  WEAPON_WORLDSOUL_TENACITY_R2: {
-    id: 244001,
-    name: 'Enchant Weapon - Worldsoul Tenacity',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
-    effectId: 8011,
-    craftQuality: 2,
-  },
-  // #endregion
-
-  // #region TOOL
+  // endregion
+  // region Tool
   TOOL_AMANI_PERCEPTION_R1: {
     id: 243964,
     name: 'Enchant Tool - Amani Perception',
@@ -554,16 +539,16 @@ const enchants = {
     effectId: 7975,
     craftQuality: 2,
   },
-  TOOL_AMANI_RESOURCFULNESS_R1: {
+  TOOL_AMANI_RESOURCEFULNESS_R1: {
     id: 243966,
-    name: 'Enchant Tool - Amani Resourcfulness',
+    name: 'Enchant Tool - Amani Resourcefulness',
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
     effectId: 7976,
     craftQuality: 1,
   },
-  TOOL_AMANI_RESOURCFULNESS_R2: {
+  TOOL_AMANI_RESOURCEFULNESS_R2: {
     id: 243967,
-    name: 'Enchant Tool - Amani Resourcfulness',
+    name: 'Enchant Tool - Amani Resourcefulness',
     icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
     effectId: 7977,
     craftQuality: 2,
@@ -596,20 +581,6 @@ const enchants = {
     effectId: 8005,
     craftQuality: 2,
   },
-  TOOL_RENDOREI_INGENUITY_R1: {
-    id: 244024,
-    name: "Enchant Tool - Ren'dorei Ingenuity",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8034,
-    craftQuality: 1,
-  },
-  TOOL_RENDOREI_INGENUITY_R2: {
-    id: 244025,
-    name: "Enchant Tool - Ren'dorei Ingenuity",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
-    effectId: 8035,
-    craftQuality: 2,
-  },
   TOOL_SINDOREI_DEFTNESS_R1: {
     id: 244022,
     name: "Enchant Tool - Sin'dorei Deftness",
@@ -624,171 +595,249 @@ const enchants = {
     effectId: 8033,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region ILLUSIONS
-  ILLUSORY_ADORNMENT_BLOOMING_LIGHT_R1: {
-    id: 244032,
-    name: 'Illusory Adornment - Blooming Light',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8042,
+  TOOL_RENDOREI_INGENUITY_R1: {
+    id: 244024,
+    name: "Enchant Tool - Ren'dorei Ingenuity",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8034,
     craftQuality: 1,
   },
-  ILLUSORY_ADORNMENT_BLOOMING_LIGHT_R2: {
-    id: 244033,
-    name: 'Illusory Adornment - Blooming Light',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8043,
+  TOOL_RENDOREI_INGENUITY_R2: {
+    id: 244025,
+    name: "Enchant Tool - Ren'dorei Ingenuity",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_blue',
+    effectId: 8035,
     craftQuality: 2,
   },
-  ILLUSORY_ADORNMENT_NATURES_EMBRACE_R1: {
-    id: 244034,
-    name: "Illusory Adornment - Nature's Embrace",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8044,
+  // endregion
+  // region Weapon
+  WEAPON_STRENGTH_OF_HALAZZI_R1: {
+    id: 243968,
+    name: 'Enchant Weapon - Strength of Halazzi',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 7978,
     craftQuality: 1,
   },
-  ILLUSORY_ADORNMENT_NATURES_EMBRACE_R2: {
-    id: 244035,
-    name: "Illusory Adornment - Nature's Embrace",
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8045,
+  WEAPON_STRENGTH_OF_HALAZZI_R2: {
+    id: 243969,
+    name: 'Enchant Weapon - Strength of Halazzi',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 7979,
     craftQuality: 2,
   },
-  ILLUSORY_ADORNMENT_VOIDTOUCHED_R1: {
-    id: 244036,
-    name: 'Illusory Adornment - Voidtouched',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8046,
+  WEAPON_JANALAIS_PRECISION_R1: {
+    id: 243970,
+    name: "Enchant Weapon - Jan'alai's Precision",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 7980,
     craftQuality: 1,
   },
-  ILLUSORY_ADORNMENT_VOIDTOUCHED_R2: {
-    id: 244037,
-    name: 'Illusory Adornment - Voidtouched',
-    icon: 'inv_12_profession_enchanting_enchantedvellum_green',
-    effectId: 8047,
+  WEAPON_JANALAIS_PRECISION_R2: {
+    id: 243971,
+    name: "Enchant Weapon - Jan'alai's Precision",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 7981,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region LEG
-
-  BRIGHT_LINEN_SPELLTHREAD_R1: {
-    id: 240156,
-    name: 'Bright Linen Spellthread',
-    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
-    effectId: 7938,
+  WEAPON_BERSERKERS_RAGE_R1: {
+    id: 243972,
+    name: "Enchant Weapon - Berserker's Rage",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 7982,
     craftQuality: 1,
   },
-  BRIGHT_LINEN_SPELLTHREAD_R2: {
-    id: 240157,
-    name: 'Bright Linen Spellthread',
-    icon: 'inv_12_tailoring_spellthread_blue_spellthread',
-    effectId: 7939,
+  WEAPON_BERSERKERS_RAGE_R2: {
+    id: 243973,
+    name: "Enchant Weapon - Berserker's Rage",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 7983,
     craftQuality: 2,
   },
-  SUNFIRE_SILK_SPELLTHREAD_R1: {
-    id: 240094,
-    name: 'Sunfire Silk Spellthread',
-    icon: 'inv_tailoring_spellthread_orange_spellthread',
-    effectId: 7934,
+  WEAPON_WORLDSOUL_CRADLE_R1: {
+    id: 243996,
+    name: 'Enchant Weapon - Worldsoul Cradle',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8006,
     craftQuality: 1,
   },
-  SUNFIRE_SILK_SPELLTHREAD_R2: {
-    id: 240133,
-    name: 'Sunfire Silk Spellthread',
-    icon: 'inv_tailoring_spellthread_orange_spellthread',
-    effectId: 7935,
+  WEAPON_WORLDSOUL_CRADLE_R2: {
+    id: 243997,
+    name: 'Enchant Weapon - Worldsoul Cradle',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8007,
     craftQuality: 2,
   },
-  ARCANOWEAVE_SPELLTHREAD_R1: {
-    id: 240154,
-    name: 'Arcanoweave Spellthread',
-    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
-    effectId: 7936,
+  WEAPON_WORLDSOUL_AEGIS_R1: {
+    id: 243998,
+    name: 'Enchant Weapon - Worldsoul Aegis',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8008,
     craftQuality: 1,
   },
-  ARCANOWEAVE_SPELLTHREAD_R2: {
-    id: 240155,
-    name: 'Arcanoweave Spellthread',
-    icon: 'inv_12_tailoring_spellthread_violet_spellthread',
-    effectId: 7937,
+  WEAPON_WORLDSOUL_AEGIS_R2: {
+    id: 243999,
+    name: 'Enchant Weapon - Worldsoul Aegis',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8009,
     craftQuality: 2,
   },
-  THALASSIAN_SCOUT_ARMOR_KIT_R1: {
-    id: 244644,
-    name: 'Thalassian Scout Armor Kit',
-    icon: 'inv_12_profession_leatherworking_standart_armor_kit',
-    effectId: 8160,
+  WEAPON_WORLDSOUL_TENACITY_R1: {
+    id: 244000,
+    name: 'Enchant Weapon - Worldsoul Tenacity',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8010,
     craftQuality: 1,
   },
-  THALASSIAN_SCOUT_ARMOR_KIT_R2: {
-    id: 244645,
-    name: 'Thalassian Scout Armor Kit',
-    icon: 'inv_12_profession_leatherworking_standart_armor_kit',
-    effectId: 8161,
+  WEAPON_WORLDSOUL_TENACITY_R2: {
+    id: 244001,
+    name: 'Enchant Weapon - Worldsoul Tenacity',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8011,
     craftQuality: 2,
   },
-  FOREST_HUNTERS_ARMOR_KIT_R1: {
-    id: 244640,
-    name: "Forest Hunter's Armor Kit",
-    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
-    effectId: 8158,
+  WEAPON_FLAMES_OF_THE_SINDOREI_R1: {
+    id: 244026,
+    name: "Enchant Weapon - Flames of the Sin'dorei",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8036,
     craftQuality: 1,
   },
-  FOREST_HUNTERS_ARMOR_KIT_R2: {
-    id: 244641,
-    name: "Forest Hunter's Armor Kit",
-    icon: 'inv_12_profession_leatherworking_amani_armor_kit',
-    effectId: 8159,
+  WEAPON_FLAMES_OF_THE_SINDOREI_R2: {
+    id: 244027,
+    name: "Enchant Weapon - Flames of the Sin'dorei",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8037,
     craftQuality: 2,
   },
-  BLOOD_KNIGHTS_ARMOR_KIT_R1: {
-    id: 244642,
-    name: "Blood Knight's Armor Kit",
-    icon: 'inv_12_profession_leatherworking_thalassian_amor_kit',
-    effectId: 8162,
+  WEAPON_ACUITY_OF_THE_RENDOREI_R1: {
+    id: 244028,
+    name: "Enchant Weapon - Acuity of the Ren'dorei",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8038,
     craftQuality: 1,
   },
-  BLOOD_KNIGHTS_ARMOR_KIT_R2: {
-    id: 244643,
-    name: "Blood Knight's Armor Kit",
-    icon: 'inv_12_profession_leatherworking_thalassian_amor_kit',
-    effectId: 8163,
+  WEAPON_ACUITY_OF_THE_RENDOREI_R2: {
+    id: 244029,
+    name: "Enchant Weapon - Acuity of the Ren'dorei",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8039,
     craftQuality: 2,
   },
-  // #endregion
-
-  // #region OTHER
-  FARSTRIDERS_HAWKEYE_R1: {
-    id: 257745,
-    name: "Farstrider's Hawkeye",
-    icon: 'inv_10_engineering_scope_color4',
-    effectId: 8614,
+  WEAPON_ARCANE_MASTERY_R1: {
+    id: 244030,
+    name: 'Enchant Weapon - Arcane Mastery',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8040,
     craftQuality: 1,
   },
-  FARSTRIDERS_HAWKEYE_R2: {
-    id: 257746,
-    name: "Farstrider's Hawkeye",
-    icon: 'inv_10_engineering_scope_color4',
-    effectId: 8615,
+  WEAPON_ARCANE_MASTERY_R2: {
+    id: 244031,
+    name: 'Enchant Weapon - Arcane Mastery',
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8041,
     craftQuality: 2,
   },
-  SMUGGLERS_LYNXEYE_R1: {
-    id: 257747,
-    name: "Smuggler's Lynxeye",
-    icon: 'inv_10_engineering_scope_color2',
-    effectId: 8612,
+  // endregion
+  // region Temporary Weapon Enchants
+  REFULGENT_WHETSTONE_R2: {
+    id: 237371,
+    name: 'Refulgent Whetstone (Quality 2)',
+    icon: 'inv_12_profession_blacksmithing_whetstones_silver',
+    effectId: 7905,
+    craftQuality: 2,
+  },
+  REFULGENT_WHETSTONE_R1: {
+    id: 237370,
+    name: 'Refulgent Whetstone (Quality 1)',
+    icon: 'inv_12_profession_blacksmithing_whetstones_green',
+    effectId: 7906,
     craftQuality: 1,
   },
-  SMUGGLERS_LYNXEYE_R2: {
-    id: 257748,
-    name: "Smuggler's Lynxeye",
-    icon: 'inv_10_engineering_scope_color2',
-    effectId: 8613,
+  REFULGENT_WEIGHTSTONE_R2: {
+    id: 237369,
+    name: 'Refulgent Weightstone (Quality 2)',
+    icon: 'inv_12_profession_blacksmithing_weightstone_silver',
+    effectId: 7908,
     craftQuality: 2,
   },
-  // #endregion
+  REFULGENT_WEIGHTSTONE_R1: {
+    id: 237367,
+    name: 'Refulgent Weightstone (Quality 1)',
+    icon: 'inv_12_profession_blacksmithing_weightstone_green',
+    effectId: 7907,
+    craftQuality: 1,
+  },
+  THALASSIAN_PHOENIX_OIL_R2: {
+    id: 243734,
+    name: 'Thalassian Phoenix Oil (Quality 2)',
+    icon: 'inv_12_profession_enchanting_manaoil_red',
+    effectId: 8052,
+    craftQuality: 2,
+  },
+  THALASSIAN_PHOENIX_OIL_R1: {
+    id: 243733,
+    name: 'Thalassian Phoenix Oil (Quality 1)',
+    icon: 'inv_12_profession_enchanting_manaoil_red',
+    effectId: 8051,
+    craftQuality: 1,
+  },
+  OIL_OF_DAWN_R2: {
+    id: 243736,
+    name: 'Oil of Dawn (Quality 2)',
+    icon: 'inv_12_profession_enchanting_manaoil_orange',
+    effectId: 8054,
+    craftQuality: 2,
+  },
+  OIL_OF_DAWN_R1: {
+    id: 243735,
+    name: 'Oil of Dawn (Quality 1)',
+    icon: 'inv_12_profession_enchanting_manaoil_orange',
+    effectId: 8053,
+    craftQuality: 1,
+  },
+  SMUGGLERS_ENCHANTED_EDGE_R2: {
+    id: 243738,
+    name: "Smuggler's Enchanted Edge (Quality 2)",
+    icon: 'inv_12_profession_enchanting_manaoil_purple',
+    effectId: 8056,
+    craftQuality: 2,
+  },
+  SMUGGLERS_ENCHANTED_EDGE_R1: {
+    id: 243737,
+    name: "Smuggler's Enchanted Edge (Quality 1)",
+    icon: 'inv_12_profession_enchanting_manaoil_purple',
+    effectId: 8055,
+    craftQuality: 1,
+  },
+  LACED_ZOOMSHOTS_R2: {
+    id: 257750,
+    name: 'Laced Zoomshots (Quality 2)',
+    icon: 'inv_ammo_bullet_06',
+    effectId: 8609,
+    craftQuality: 2,
+  },
+  LACED_ZOOMSHOTS_R1: {
+    id: 257749,
+    name: 'Laced Zoomshots (Quality 1)',
+    icon: 'inv_ammo_bullet_06',
+    effectId: 8608,
+    craftQuality: 1,
+  },
+  WEIGHTED_BOOMSHOTS_R2: {
+    id: 257752,
+    name: 'Weighted Boomshots (Quality 2)',
+    icon: 'inv_ammo_bullet_05',
+    effectId: 8611,
+    craftQuality: 2,
+  },
+  WEIGHTED_BOOMSHOTS_R1: {
+    id: 257751,
+    name: 'Weighted Boomshots (Quality 1)',
+    icon: 'inv_ammo_bullet_05',
+    effectId: 8610,
+    craftQuality: 1,
+  },
+  // endregion
 } satisfies Record<string, Enchant>;
 
 export default enchants;
