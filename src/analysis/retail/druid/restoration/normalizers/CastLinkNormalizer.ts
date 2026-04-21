@@ -171,7 +171,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: EVERBLOOM_BUFFER_MS,
     backwardBufferMs: EVERBLOOM_BUFFER_MS,
     anyTarget: true,
-    maximumLinks: 5,
+    maximumLinks: 3, // Everbloom rank 4 causes 3 blooms in rapid succession
   },
   // linking Verdancy heal to the bloom that triggered it
   {

@@ -5,7 +5,6 @@ import { SpellLink, Tooltip } from 'interface';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import InformationIcon from 'interface/icons/Information';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -32,8 +31,6 @@ const CONVOKED_HOTS = [
   SPELLS.WILD_GROWTH,
 ];
 const CONVOKED_DIRECT_HEALS = [SPELLS.SWIFTMEND, SPELLS.REGROWTH, SPELLS.TRANQUILITY_HEAL];
-
-const NATURES_SWIFTNESS_BOOST = 2;
 
 /**
  * Resto's extension to the Convoke the Spirits display. Includes healing attribution.
@@ -75,16 +72,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!isFromHardcast(event) && isConvoking(this.selectedCombatant)) {
       this.hotTracker.addAttributionFromApply(this.currentConvokeAttribution, event);
-      if (
-        event.ability.guid === SPELLS.REGROWTH.id &&
-        this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS.id)
-      ) {
-        this.hotTracker.addBoostFromApply(
-          this.currentNsConvokeAttribution,
-          NATURES_SWIFTNESS_BOOST,
-          event,
-        );
-      }
     }
   }
 
@@ -94,15 +81,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         return;
       }
       this.currentConvokeAttribution.healing += event.amount + (event.absorbed || 0);
-      if (
-        event.ability.guid === SPELLS.REGROWTH.id &&
-        this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS.id)
-      ) {
-        this.currentNsConvokeAttribution.healing += calculateEffectiveHealing(
-          event,
-          NATURES_SWIFTNESS_BOOST,
-        );
-      }
     }
   }
 
@@ -113,7 +91,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     const flourishExtensionAttribution = HotTracker.getNewAttribution(
       `Convoke #${this.cast} Flourish extension`,
     );
-    const nsAttribution = HotTracker.getNewAttribution("Nature's Swiftness Convoke #" + this.cast);
     const rejuvsOnCast =
       this.hotTracker.getHotCount(SPELLS.REJUVENATION.id) +
       this.hotTracker.getHotCount(SPELLS.REJUVENATION_GERMINATION.id);
@@ -122,7 +99,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     this.restoConvokeTracker[this.cast] = {
       totalAttribution,
       flourishExtensionAttribution,
-      nsAttribution,
       rejuvsOnCast,
       wgsOnCast,
     };
@@ -134,10 +110,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   get currentConvokeFlourishExtensionAttribution(): Attribution {
     return this.restoConvokeTracker[this.cast].flourishExtensionAttribution;
-  }
-
-  get currentNsConvokeAttribution(): Attribution {
-    return this.restoConvokeTracker[this.cast].nsAttribution;
   }
 
   get totalHealing(): number {
@@ -158,18 +130,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   get convokeCount(): number {
     // attributions start indexed from 1
     return this.restoConvokeTracker.length - 1;
-  }
-
-  get totalNsConvokeHealing(): number {
-    return this.restoConvokeTracker.reduce((sum, cast) => sum + cast.nsAttribution.healing, 0);
-  }
-
-  get nsBoostedConvokeRegrowthCount(): number {
-    return this.restoConvokeTracker.reduce((sum, cast) => sum + cast.nsAttribution.procs, 0);
-  }
-
-  get nsBoostedConvokeCount(): number {
-    return this.restoConvokeTracker.filter((cast) => cast.nsAttribution.healing !== 0).length;
   }
 
   /** Guide fragment showing a breakdown of each Convoke cast */
@@ -316,28 +276,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             Healing amount is attributed by tracking the healing spells cast by Convoke
             {hasCenariusGuidance && ', including possible Flourish Tranquility procs'}. This amount
             includes mastery benefit from the proceed HoTs.
-            {this.totalNsConvokeHealing !== 0 && (
-              <>
-                <br />
-                <br />
-                In addition, you took advantage of the fact that{' '}
-                <SpellLink spell={SPELLS.NATURES_SWIFTNESS} /> boosts convoked Regrowth healing
-                without consuming the buff. Nature's swiftness was active during{' '}
-                <strong>
-                  {this.nsBoostedConvokeCount} out of {this.convokeCount}
-                </strong>{' '}
-                casts, during which it boosted{' '}
-                <strong>{this.nsBoostedConvokeRegrowthCount} Regrowths</strong> and caused{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.totalNsConvokeHealing),
-                    1,
-                  )}
-                  %
-                </strong>{' '}
-                of total healing. This amount is included in the top-line Convoke healing amount.
-              </>
-            )}
           </>
         }
         dropdown={
@@ -393,9 +331,6 @@ interface RestoConvokeCast {
   totalAttribution: Attribution;
   /** A special tracker for Flourish extension healing due to Tranquility procced by this Convoke cast */
   flourishExtensionAttribution: Attribution;
-  /** Nature's Swiftness boosts convoked Regrowths but does not consume the buff.
-   * This attributor specifically tracks the healing due to this. */
-  nsAttribution: Attribution;
   /** The number of Wild Growths out at the moment this Convoke is cast */
   wgsOnCast: number;
   /** The number of Rejuvs out at the moment this Convoke is cast */

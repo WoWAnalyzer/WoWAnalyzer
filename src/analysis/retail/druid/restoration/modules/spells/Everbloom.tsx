@@ -12,6 +12,15 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Lifebloom from './Lifebloom';
 import Verdancy from './Verdancy';
 
+/**
+ * **Everbloom**
+ * Spec Apex Talent
+ *
+ * Rank 1: Lifebloom stacks every 5 sec, stacking up to 3 times.
+ * Rank 2/3: 25%/50% of Lifebloom's final bloom heals up to 6 injured allies within 40 yds.
+ * Rank 4: Lifebloom bursts into a Blooming Frenzy when you consume Soul of the Forest, causing it to bloom 3 times in rapid succession.
+ *
+ */
 class Everbloom extends Analyzer {
   static dependencies = {
     lifebloom: Lifebloom,
