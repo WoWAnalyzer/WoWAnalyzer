@@ -2579,7 +2579,15 @@ export const PandaGoesBaa: Contributor = {
 export const Quaarkz: Contributor = {
   nickname: 'Quaarkz',
   github: 'Quaarkz',
+  avatar: avatar('Quaarkz-avatar.jpg'),
   discord: 'Quaarkz',
+  mains: [
+    {
+      name: 'Quaarkz',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/es-es/character/eu/sanguino/Quaarkz',
+    },
+  ],
 };
 
 export const Rzial: Contributor = {
@@ -2895,4 +2903,42 @@ export const Biggerbits: Contributor = {
   nickname: 'Biggerbits',
   github: 'zprobinson',
   discord: 'msrobinson',
+};
+
+export const Chiso: Contributor = {
+  nickname: 'Chiso',
+  github: 'Extrasza',
+  discord: 'mattchi_',
+  avatar: avatar('chiso-avatar.jpg'),
+  mains: [
+    {
+      name: 'Fraus',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://www.warcraftlogs.com/character/us/azralon/fraus',
+    },
+  ],
+};
+
+export const Guminator: Contributor = {
+  nickname: 'Guminator',
+  github: 'DanielVagner',
+  discord: 'guminatorr',
+  mains: [
+    {
+      name: 'Guuminator',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/drakthul/guuminator/',
+    },
+    {
+      name: 'Guuminator',
+      spec: SPECS.BREWMASTER_MONK,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/drakthul/guminnator/',
+    },
+  ],
+};
+
+export const Baumritter: Contributor = {
+  nickname: 'Baumritter',
+  github: 'Baumritter',
+  discord: 'baumritter',
 };

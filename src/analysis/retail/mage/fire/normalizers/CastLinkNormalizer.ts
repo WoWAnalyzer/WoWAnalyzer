@@ -212,7 +212,7 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.HEAT_SHIMMER_BUFF.id,
     parentType: EventType.RemoveBuff,
     links: [
-      link(EventType.ApplyBuff, { backwardBuffer: 15_000, maxLinks: 1 }),
+      link(EventType.ApplyBuff, { backwardBuffer: 90_000, maxLinks: 1 }),
       link(CustomType.CONSUME, {
         id: TALENTS.SCORCH_TALENT.id,
         type: EventType.Cast,

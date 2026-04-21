@@ -150,7 +150,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     if (!enemy) {
       return false;
     }
-    return enemy.hasBuff(SPELLS.FRAILTY.id, event.timestamp);
+    return enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp);
   }
 
   private fieryDemisePerformance(cast: FelDevastationCooldownCast): UsageInfo | undefined {
@@ -195,7 +195,6 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
       return undefined;
     }
 
-    // Sin Soulcrush: análisis simple (aplicado o no)
     const atLeastOneTargetHasFrailty = cast.damage.some((it) => it.targetStacksOfFrailty > 0);
 
     if (!atLeastOneTargetHasFrailty) {
@@ -216,7 +215,6 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
       };
     }
 
-    // Con o sin Soulcrush, solo importa si está aplicado (1+ stacks = Perfect, 0 = Fail)
     return {
       performance: QualitativePerformance.Perfect,
       summary: (

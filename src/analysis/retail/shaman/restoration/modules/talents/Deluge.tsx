@@ -4,18 +4,16 @@ import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { HealEvent, BeginCastEvent } from 'parser/core/Events';
+import Events, { HealEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
+import { DELUGE_HEALING_INCREASE } from '../../constants';
 import HealingRainLocation from '../core/HealingRainLocation';
 import RiptideTracker from '../core/RiptideTracker';
-
-const DELUGE_HEALING_INCREASE = 0.1; //per rank
 
 /**
  * Chain Heal heals for an additional 20% on targets within your Healing Rain or affected by your Riptide.
@@ -38,8 +36,7 @@ class Deluge extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT);
-    this.delugeIncrease =
-      this.selectedCombatant.getTalentRank(TALENTS.DELUGE_TALENT) * DELUGE_HEALING_INCREASE;
+    this.delugeIncrease = DELUGE_HEALING_INCREASE;
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
@@ -48,6 +45,10 @@ class Deluge extends Analyzer {
     );
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_RAIN_TALENT),
+      this._onHealingRainBegincast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SURGING_TOTEM, SPELLS.HEALING_RAIN_TOTEMIC]),
       this._onHealingRainBegincast,
     );
     this.addEventListener(Events.fightend, this._onFightEnd);
@@ -78,8 +79,8 @@ class Deluge extends Analyzer {
 
   // Due to the nature of having to wait until rain is over, to be able to find out its position,
   // we only start processing the healing contribution on the next cast of Healing Rain or at the end of combat.
-  _onHealingRainBegincast(event: BeginCastEvent) {
-    if (event.isCancelled) {
+  _onHealingRainBegincast(event: BeginCastEvent | CastEvent) {
+    if ('isCancelled' in event && event.isCancelled) {
       return;
     }
     this.recordHealing();

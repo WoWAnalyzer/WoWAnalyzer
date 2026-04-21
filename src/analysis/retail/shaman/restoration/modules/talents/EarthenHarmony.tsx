@@ -5,11 +5,11 @@ import fetchWcl from 'common/fetchWclApi';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import {
+  EARTHEN_HARMONY_DAMAGE_REDUCTION,
+  EARTHEN_HARMONY_HEALING_INCREASE,
+} from '../../constants';
 import Combatants from 'parser/shared/modules/Combatants';
-
-const DAMAGE_REDUCTION_PER_POINT = 0.03;
-const HEALING_INCREASE_PER_POINT = 0.5;
-const HEALTH_THRESHOLD = 0.75;
 
 class EarthenHarmony extends Analyzer {
   static dependencies = {
@@ -21,10 +21,8 @@ class EarthenHarmony extends Analyzer {
   eOESApply = -1;
   firstESBuffDone = false;
   firstEOESBuffDone = false;
-  damageReduction;
   damageTakenWithEarthShield = 0;
   damageTakenWithElementalOrbitEarthShield = 0;
-  healingIncrease;
   earthShieldHealing = 0;
   elementalOrbitEarthShieldHealing = 0;
   elementalOrbitActive = false;
@@ -32,12 +30,6 @@ class EarthenHarmony extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.EARTHEN_HARMONY_TALENT);
     this.elementalOrbitActive = this.selectedCombatant.hasTalent(talents.ELEMENTAL_ORBIT_TALENT);
-    this.damageReduction =
-      DAMAGE_REDUCTION_PER_POINT *
-      this.selectedCombatant.getTalentRank(talents.EARTHEN_HARMONY_TALENT);
-    this.healingIncrease =
-      HEALING_INCREASE_PER_POINT *
-      this.selectedCombatant.getTalentRank(talents.EARTHEN_HARMONY_TALENT);
 
     if (!this.active) {
       return;
@@ -69,13 +61,16 @@ class EarthenHarmony extends Analyzer {
   }
 
   get earthShielddamageReduced() {
-    return (this.damageTakenWithEarthShield / (1 - this.damageReduction)) * this.damageReduction;
+    return (
+      (this.damageTakenWithEarthShield / (1 - EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
+      EARTHEN_HARMONY_DAMAGE_REDUCTION
+    );
   }
 
   get elementalOrbitDamageReduced() {
     return (
-      (this.damageTakenWithElementalOrbitEarthShield / (1 - this.damageReduction)) *
-      this.damageReduction
+      (this.damageTakenWithElementalOrbitEarthShield / (1 - EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
+      EARTHEN_HARMONY_DAMAGE_REDUCTION
     );
   }
 
@@ -115,19 +110,16 @@ class EarthenHarmony extends Analyzer {
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    if (!this.targetIsBelowHpThreshold(event)) {
-      return;
-    }
     const combatant = this.combatants.getEntity(event);
     if (!combatant) {
       return;
     }
     if (combatant.hasBuff(talents.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.earthShieldHealing += calculateEffectiveHealing(event, this.healingIncrease);
+      this.earthShieldHealing += calculateEffectiveHealing(event, this.getHealingIncrease(event));
     } else if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
       this.elementalOrbitEarthShieldHealing += calculateEffectiveHealing(
         event,
-        this.healingIncrease,
+        this.getHealingIncrease(event),
       );
     }
   }
@@ -187,9 +179,10 @@ class EarthenHarmony extends Analyzer {
       });
   }
 
-  targetIsBelowHpThreshold(event: HealEvent) {
-    const hpPercent = (event.hitPoints - event.amount) / event.maxHitPoints;
-    return hpPercent < HEALTH_THRESHOLD;
+  getHealingIncrease(event: HealEvent) {
+    const hpPercentAtStart = (event.hitPoints - event.amount) / event.maxHitPoints;
+    const scalingFactor = Math.min(1, Math.max(0, (1 - hpPercentAtStart) / 0.5));
+    return EARTHEN_HARMONY_HEALING_INCREASE * scalingFactor;
   }
 }
 

@@ -39,6 +39,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2026, 4, 21), 'Improve glyph loading by pre-loading during initialization instead of lazy load', Thias),
+  change(date(2026, 4, 13), "Fix calculation for Effective Healing From Crit Increase when using a non standard crit heal multiplier.", squided),
   change(date(2026, 4, 11), 'Removed deprecated `get talentPoints`, update/removed talents for MoP Classic that used the functionality.', Thias),
   change(date(2026, 4, 11), 'Refactor Combatant to use proper private/protected types instead of `_` named fields', Thias),
   change(date(2026, 4, 10), 'Allow deselecting an open defensives cast breakdown entry by clicking it again.', Hezaerd),

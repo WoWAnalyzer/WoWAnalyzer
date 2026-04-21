@@ -1,5 +1,5 @@
 import { change, date } from 'common/changelog';
-import { Quaarkz, Topple, Vollmer } from 'CONTRIBUTORS';
+import { Guminator, Quaarkz, Topple, Vollmer } from 'CONTRIBUTORS';
 import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/demonhunter';
@@ -7,8 +7,12 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
-  change(date(2026, 4, 12), <>Delete <SpellLink spell={SPELLS.SOUL_CLEAVE}/> analysis and update <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT}/></>, Quaarkz),
-  change(date(2026, 4, 11), <>Corrected behaviour of MID1 4PC proc rate calculation and updated <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT}/> analysis to Midnight use cases</>, Quaarkz),
+  change(date(2026, 4, 19), <>Fix <SpellLink spell={SPELLS.FRAILTY} /> uptime analysis activation, <SpellLink spell={TALENTS.FIERY_DEMISE_TALENT} /> target checks, and <SpellLink spell={TALENTS.SOUL_BARRIER_TALENT} /> cooldown/statistic display for Midnight behavior.</>, Guminator),
+  change(date(2026, 4, 18), <>Fix <SpellLink spell={SPELLS.DEMON_SPIKES} /> usage segmentation in the major defensive breakdown.</>, Guminator),
+  change(date(2026, 4, 18), <>Update <SpellLink spell={SPELLS.FRACTURE} />, <SpellLink spell={SPELLS.DEMON_SPIKES} />, <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />, and <SpellLink spell={SPELLS.INFERNAL_STRIKE} /> spellbook values for Midnight.</>, Guminator),
+  change(date(2026, 4, 12), <>Bump Vengeance to partial support</>, Quaarkz),
+  change(date(2026, 4, 12), <>Delete <SpellLink spell={SPELLS.SOUL_CLEAVE} /> analysis and update <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} /></>, Quaarkz),
+  change(date(2026, 4, 11), <>Corrected behaviour of MID1 4PC proc rate calculation and updated <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> analysis to Midnight use cases</>, Quaarkz),
   change(date(2026, 3, 28), <>Vengeance <SpellLink spell={SPELLS.FRACTURE} /> soul and fury thresholds updated to Midnight values.</>, Quaarkz),
   change(date(2026, 1, 25), <><SpellLink spell={TALENTS.CALCIFIED_SPIKES_TALENT} /> DR added to <SpellLink spell={SPELLS.DEMON_SPIKES} /> mitigation.</>, Quaarkz),
   change(date(2025, 12, 21), <>Update value of MID1 2PC and delete Demonic for VDH.</>, Quaarkz),

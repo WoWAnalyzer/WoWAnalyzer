@@ -4,11 +4,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import RiptideTracker from '../../core/RiptideTracker';
-import { IMBUEMENT_MASTERY_ATT_NAME } from '../../core/RiptideTracker';
+import EarthlivingTracker from '../../core/EarthlivingTracker';
+import { IMBUEMENT_MASTERY_ATT_NAME } from '../../core/EarthlivingTracker';
 
 export default class ImbuementMastery extends Analyzer.withDependencies({
-  hotTracker: RiptideTracker,
+  hotTracker: EarthlivingTracker,
 }) {
   constructor(options: Options) {
     super(options);

@@ -1,6 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
-import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
+import Events, { CastEvent, HasTarget } from 'parser/core/Events';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -46,8 +46,8 @@ export default class Envenom extends Analyzer {
         <strong>
           <SpellLink spell={SPELLS.ENVENOM} />
         </strong>{' '}
-        is your direct damage finisher. Use it when you've already applied{' '}
-        <SpellLink spell={SPELLS.RUPTURE} /> to enemies. Always use{' '}
+        is your direct damage finisher. Use it when you already have a{' '}
+        <SpellLink spell={SPELLS.RUPTURE} /> applied to your target. Always use{' '}
         <SpellLink spell={SPELLS.ENVENOM} /> at {targetCps}+ CPs.
       </p>
     );
@@ -117,10 +117,8 @@ export default class Envenom extends Analyzer {
   private determineEnvenomDuringRupturePerformance(event: CastEvent): ChecklistUsageInfo {
     let timeLeftOnRupture = 0;
     // target is optional in cast event, but we know Envenom cast will always have it
-    if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
-      timeLeftOnRupture = this.ruptureUptimeAndSnapshots.getTimeRemaining(
-        event as TargettedEvent<any>,
-      );
+    if (HasTarget(event)) {
+      timeLeftOnRupture = this.ruptureUptimeAndSnapshots.getTimeRemaining(event);
     }
     const acceptableTimeLeftOnRupture = timeLeftOnRupture >= MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS;
 
