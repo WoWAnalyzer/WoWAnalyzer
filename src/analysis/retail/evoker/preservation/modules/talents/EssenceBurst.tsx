@@ -13,7 +13,6 @@ import Events, {
 } from 'parser/core/Events';
 import {
   didSparkProcEssenceBurst,
-  isEbFromEnergyCycles,
   isEbFromHardcast,
   isEbFromMerithras,
   isEbFromReversion,
@@ -43,7 +42,6 @@ enum EB_SOURCE {
   SPARK,
   LF_HARDCAST,
   MERITHRAS,
-  ENERGY_CYCLES,
   NONE,
 }
 
@@ -98,8 +96,6 @@ class EssenceBurst extends Analyzer {
       source = EB_SOURCE.REVERSION;
     } else if (isEbFromMerithras(event)) {
       source = EB_SOURCE.MERITHRAS;
-    } else if (isEbFromEnergyCycles(event)) {
-      source = EB_SOURCE.ENERGY_CYCLES;
     } else if (isEbFromHardcast(event)) {
       source = EB_SOURCE.LF_HARDCAST;
     }

@@ -749,6 +749,11 @@ const spells = {
     name: "Inferno's Blessing",
     icon: 'ability_evoker_infernosblessing',
   },
+  INFERNOS_BLESSING_DAMAGE: {
+    id: 410265,
+    name: "Inferno's Blessing",
+    icon: 'ability_evoker_infernosblessing',
+  },
   COMMAND_SQUADRON_PYRE: {
     id: 1236970,
     name: 'Pyre (Command Squadron)',

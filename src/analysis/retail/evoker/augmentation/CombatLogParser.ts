@@ -24,6 +24,7 @@ import Overlord from './modules/talents/Overlord';
 import HoardedPower from './modules/talents/HoardedPower';
 import MotesOfPossibility from './modules/talents/MotesOfPossibility';
 import Duplicate from './modules/talents/Duplicate';
+import MightyInferno from './modules/talents/MightyInferno';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -76,7 +77,10 @@ import {
   RefinedEssence,
   CommandSquadron,
   NozdormuAdept,
+  ChronalDynamo,
+  Afterimage,
   ImminentDestructionCastLinkNormalizer,
+  ChronowardenCastLinkNormalizer,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -96,6 +100,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     imminentDestructionCastLinkNormalizer: ImminentDestructionCastLinkNormalizer,
+    chronowardenCastLinkNormalizer: ChronowardenCastLinkNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
@@ -143,6 +148,7 @@ class CombatLogParser extends MainCombatLogParser {
     hoardedPower: HoardedPower,
     motesOfPossibility: MotesOfPossibility,
     duplicate: Duplicate,
+    mightyInferno: MightyInferno,
 
     // hero talents
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
@@ -161,6 +167,8 @@ class CombatLogParser extends MainCombatLogParser {
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
     nozdormuAdept: NozdormuAdept,
+    afterimage: Afterimage,
+    chronalDynamo: ChronalDynamo,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
