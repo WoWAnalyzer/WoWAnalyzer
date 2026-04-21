@@ -84,9 +84,7 @@ class MightyInferno extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
-    Object.keys(this.infernoApps).forEach((targetID) => {
-      this.onInfernosRemove(Number(targetID), event.timestamp);
-    });
+    this.infernoApps.forEach((app) => this.onInfernosRemove(app.playerID, event.timestamp, true));
   }
 
   onInfernosApply(targetID: number, timestamp: number) {
@@ -100,7 +98,11 @@ class MightyInferno extends Analyzer {
     });
   }
 
-  onInfernosRemove(targetID: number, timestamp: number) {
+  onInfernosRemove(targetID: number, timestamp: number, fightEnd = false) {
+    if (fightEnd && !this.owner.players[targetID]) {
+      // Pets often fail to log a remove buff event, ignore them
+      return;
+    }
     const index = this.infernoApps.findIndex((app) => app.playerID === targetID);
     if (index === -1) {
       return;
