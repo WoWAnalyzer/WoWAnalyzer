@@ -3,6 +3,9 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import { GuideProps, Section } from 'interface/guide';
 import type CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import DefensivesGuide from '../shared/Defensives';
+import DesperatePrayer from '../shared/spells/DesperatePrayer';
+import Fade from '../shared/spells/Fade';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 30;
 
@@ -21,6 +24,7 @@ export default function Guide({
           modules.selfAtonementAnalyzer.guideSubsection}
       </Section>
       <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
+      <DefensivesGuide analyzers={[DesperatePrayer, Fade]} />
       <PreparationSection />
     </>
   );
