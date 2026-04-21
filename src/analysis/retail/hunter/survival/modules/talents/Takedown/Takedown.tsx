@@ -22,7 +22,6 @@ export interface TakedownCast {
   tipStacks: number;
   boomstickCooldownAtCast: number;
   hasBoomstickBeforeCast: boolean;
-  wildfireBombCastInWindow: boolean;
   wastedTipStacks: number;
   castsInWindow: CastEvent[];
   windowEnd: number;
@@ -74,10 +73,6 @@ export default class Takedown extends Analyzer.withDependencies({ spellUsable: S
     if (window && event.timestamp <= window.windowEnd) {
       window.castsInWindow.push(event);
 
-      if (event.ability.guid === TALENTS.WILDFIRE_BOMB_TALENT.id) {
-        window.wildfireBombCastInWindow = true;
-      }
-
       // Kill Command while TotS would overflow the cap = wasted stacks
       if (event.ability.guid === TALENTS.KILL_COMMAND_SURVIVAL_TALENT.id) {
         const tipStacks = this.selectedCombatant.getBuffStacks(SPELLS.TIP_OF_THE_SPEAR_CAST.id);
@@ -112,7 +107,6 @@ export default class Takedown extends Analyzer.withDependencies({ spellUsable: S
       tipStacks,
       boomstickCooldownAtCast,
       hasBoomstickBeforeCast,
-      wildfireBombCastInWindow: false,
       wastedTipStacks: 0,
       castsInWindow: [],
       windowEnd,
@@ -193,38 +187,7 @@ export default class Takedown extends Analyzer.withDependencies({ spellUsable: S
       });
     }
 
-    // 3. No Wildfire Bomb during the Takedown window (Pack Leader only)
-    if (this.isPackLeader) {
-      const wfbPerf = cast.wildfireBombCastInWindow
-        ? QualitativePerformance.Fail
-        : QualitativePerformance.Good;
-      downgrade(wfbPerf);
-      items.push({
-        label: (
-          <>
-            <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />{' '}
-            <TooltipElement
-              content={
-                <>
-                  <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> to extend{' '}
-                  <SpellLink spell={SPELLS.WYVERNS_CRY} /> should be held until after{' '}
-                  <SpellLink spell={TALENTS.TAKEDOWN_TALENT} /> ends, or only used when out of focus
-                  and out of <SpellLink spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT} /> charges.
-                </>
-              }
-            >
-              (?)
-            </TooltipElement>
-          </>
-        ),
-        result: <PerformanceMark perf={wfbPerf} />,
-        details: cast.wildfireBombCastInWindow ? (
-          <TooltipElement content="cast during Takedown window">(?)</TooltipElement>
-        ) : null,
-      });
-    }
-
-    // 4. Wasted Tip of the Spear (KC cast while capped)
+    // 3. Wasted Tip of the Spear (KC cast while capped)
     const tipWastePerf =
       cast.wastedTipStacks === 0 ? QualitativePerformance.Good : QualitativePerformance.Fail;
     downgrade(tipWastePerf);
