@@ -157,7 +157,7 @@ class EchoBreakdown extends Analyzer {
       </>
     ) : (
       <>
-        <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT} />
+        <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
       </>
     );
     return (
@@ -174,7 +174,7 @@ class EchoBreakdown extends Analyzer {
       </>
     ) : (
       <>
-        <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT} />
+        <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
       </>
     );
     const items = [
@@ -214,7 +214,7 @@ class EchoBreakdown extends Analyzer {
       </>
     ) : (
       <>
-        <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT} />
+        <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
       </>
     );
     const items = [

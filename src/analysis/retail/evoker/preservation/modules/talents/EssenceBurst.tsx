@@ -212,13 +212,6 @@ class EssenceBurst extends Analyzer {
         value: sourceCount.get(EB_SOURCE.SPARK) ?? 0,
         valueTooltip: sourceCount.get(EB_SOURCE.SPARK),
       },
-      {
-        color: SPELL_COLORS.FLUTTERING_SEEDLING,
-        label: 'Energy Cycles',
-        spellId: TALENTS_EVOKER.ENERGY_CYCLES_TALENT.id,
-        value: sourceCount.get(EB_SOURCE.ENERGY_CYCLES) ?? 0,
-        valueTooltip: sourceCount.get(EB_SOURCE.ENERGY_CYCLES),
-      },
     ].filter((item) => {
       return item.value > 0;
     });

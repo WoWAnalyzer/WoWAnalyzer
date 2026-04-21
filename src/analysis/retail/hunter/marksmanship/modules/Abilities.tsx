@@ -93,7 +93,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.VOLLEY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45 - (combatant.hasTalent(TALENTS.BULLET_HELL_TALENT) ? 15 : 0),
+        cooldown: 45,
         enabled: combatant.hasTalent(TALENTS.VOLLEY_TALENT),
         gcd: {
           base: 1500,

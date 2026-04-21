@@ -1138,12 +1138,12 @@ const talents = {
     definitionIds: [{ id: 106900, specId: 263 }],
   },
   OVERFLOWING_MAELSTROM_TALENT: {
-    id: 384149,
+    id: 384143,
     name: 'Overflowing Maelstrom',
-    icon: 'spell_nature_elementalabsorption',
+    icon: 'inv_magic_swirl_color3',
     maxRanks: 1,
-    entryIds: [101801],
-    definitionIds: [{ id: 106880, specId: 263 }],
+    entryIds: [101802],
+    definitionIds: [{ id: 106871, specId: 263 }],
   },
   OVERFLOWING_SHORES_TALENT: {
     id: 383222,
@@ -1302,12 +1302,12 @@ const talents = {
     definitionIds: [{ id: 106927, specId: 264 }],
   },
   RAGING_MAELSTROM_TALENT: {
-    id: 384143,
+    id: 384149,
     name: 'Raging Maelstrom',
-    icon: 'inv_magic_swirl_color3',
+    icon: 'spell_nature_elementalabsorption',
     maxRanks: 1,
-    entryIds: [101802],
-    definitionIds: [{ id: 106871, specId: 263 }],
+    entryIds: [101801],
+    definitionIds: [{ id: 106880, specId: 263 }],
   },
   REACTIVE_WARDING_TALENT: {
     id: 462454,
