@@ -48,8 +48,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.WILDFIRE_BOMB_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.GUERRILLA_TACTICS_TALENT) ? 2 : 1,
-        cooldown: (haste) =>
-          hastedCooldown(18 - (combatant.hasTalent(TALENTS.LUNGE_TALENT) ? 1 : 0), haste),
+        cooldown: (haste) => hastedCooldown(18, haste),
         gcd: {
           base: 1500,
         },
