@@ -203,18 +203,13 @@ class Combatant extends Entity {
 
   private glyphIds?: Set<number>;
 
-  private importGlyphs(event: CombatantInfoEvent) {
-    if (this.glyphIds === undefined && event.customPowerSet) {
+  protected importGlyphs(event: CombatantInfoEvent) {
+    if (event.customPowerSet) {
       this.glyphIds = new Set(event.customPowerSet.map((power) => power.traitID));
     }
   }
 
   hasGlyph(id: number): boolean {
-    if (!this.combatantInfo) {
-      return false;
-    }
-
-    this.importGlyphs(this.combatantInfo);
     return this.glyphIds?.has(id) ?? false;
   }
 
@@ -414,6 +409,7 @@ export class FullCombatant extends Combatant {
     this.importTalentTree(combatantInfo.talentTree);
     this.parseGear(combatantInfo.gear);
     this.parsePrepullBuffs(combatantInfo.auras);
+    this.importGlyphs(combatantInfo);
 
     this.ilvl =
       this.gear.length > 0

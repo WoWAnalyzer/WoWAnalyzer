@@ -318,6 +318,11 @@ const spells = {
     name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
+  SOUL_BARRIER_BUFF: {
+    id: 263648,
+    name: 'Soul Barrier',
+    icon: 'spell_shadow_soulleech',
+  },
   COLLECTIVE_ANGUISH_EYE_BEAM: {
     id: 391058,
     name: 'Collective Anguish',

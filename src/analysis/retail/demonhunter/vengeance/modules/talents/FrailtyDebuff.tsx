@@ -20,7 +20,6 @@ class FrailtyDebuff extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULCRUSH_TALENT);
