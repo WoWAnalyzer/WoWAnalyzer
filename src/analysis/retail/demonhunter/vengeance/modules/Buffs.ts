@@ -46,7 +46,7 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME.id,
       },
       {
-        spellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
+        spellId: SPELLS.SOUL_BARRIER_BUFF.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
       },
