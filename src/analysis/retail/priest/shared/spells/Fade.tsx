@@ -1,3 +1,4 @@
+import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import {
   MajorDefensiveBuff,
@@ -46,27 +47,30 @@ class Fade extends MajorDefensiveBuff {
     perf: QualitativePerformance;
     explanation?: ReactNode;
   } {
+    const perfectPct = formatPercentage(PERFECT_MITIGATION_HP_FRACTION, 0);
+    const goodPct = formatPercentage(GOOD_MITIGATION_HP_FRACTION, 0);
+    const okPct = formatPercentage(OK_MITIGATION_HP_FRACTION, 0);
     if (mit.amount >= this.firstSeenMaxHp * PERFECT_MITIGATION_HP_FRACTION) {
       return {
         perf: QualitativePerformance.Perfect,
-        explanation: 'Usage mitigated over 10% of your max HP in damage',
+        explanation: `Usage mitigated over ${perfectPct}% of your max HP in damage`,
       };
     }
     if (mit.amount >= this.firstSeenMaxHp * GOOD_MITIGATION_HP_FRACTION) {
       return {
         perf: QualitativePerformance.Good,
-        explanation: 'Usage mitigated 5-10% of your max HP in damage',
+        explanation: `Usage mitigated ${goodPct}-${perfectPct}% of your max HP in damage`,
       };
     }
     if (mit.amount >= this.firstSeenMaxHp * OK_MITIGATION_HP_FRACTION) {
       return {
         perf: QualitativePerformance.Ok,
-        explanation: 'Usage mitigated 2-5% of your max HP in damage',
+        explanation: `Usage mitigated ${okPct}-${goodPct}% of your max HP in damage`,
       };
     }
     return {
       perf: QualitativePerformance.Fail,
-      explanation: 'Usage mitigated less than 2% of your max HP in damage - wasted cast',
+      explanation: `Usage mitigated less than ${okPct}% of your max HP in damage - wasted cast`,
     };
   }
 
@@ -74,8 +78,8 @@ class Fade extends MajorDefensiveBuff {
     return (
       <p>
         With <SpellLink spell={TALENTS.TRANSLUCENT_IMAGE_TALENT} />,{' '}
-        <SpellLink spell={TALENTS.FADE_TALENT} /> reduces the damage you take by 10% for its
-        duration.
+        <SpellLink spell={TALENTS.FADE_TALENT} /> reduces the damage you take by{' '}
+        {formatPercentage(TRANSLUCENT_IMAGE_DAMAGE_REDUCTION, 0)}% for its duration.
       </p>
     );
   }

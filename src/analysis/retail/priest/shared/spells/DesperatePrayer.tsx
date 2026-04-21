@@ -30,24 +30,24 @@ interface DesperatePrayerCast {
   bonusHpPool: number;
   bonusHpUsed: number;
   effectiveHeal: number;
+  absorbedHeal: number;
+  overheal: number;
+  runningHp: number;
 }
 
-const PERFECT_VALUE_FRACTION = 0.9;
+const PERFECT_VALUE_FRACTION = 0.85;
 const GOOD_VALUE_FRACTION = 0.5;
 const OK_VALUE_FRACTION = 0.25;
 
-class DesperatePrayer extends MajorDefensiveBuff {
-  static dependencies = {
-    ...MajorDefensiveBuff.dependencies,
-    spellUsable: SpellUsable,
-  };
-  protected spellUsable!: SpellUsable;
-
+class DesperatePrayer extends MajorDefensiveBuff.withDependencies({
+  spellUsable: SpellUsable,
+}) {
   hasLightsInspiration: boolean;
   hasDesperateMeasures: boolean;
 
   casts: DesperatePrayerCast[] = [];
   deathsWithDPReady = 0;
+  private lastDamageTaken?: DamageEvent;
 
   constructor(options: Options) {
     super(TALENTS.DESPERATE_PRAYER_TALENT, buff(TALENTS.DESPERATE_PRAYER_TALENT), options);
@@ -72,11 +72,16 @@ class DesperatePrayer extends MajorDefensiveBuff {
   }
 
   private onHeal(event: HealEvent) {
-    const maxHitPoints = event.maxHitPoints ?? 0;
-    const preCastMaxHp = maxHitPoints / (1 + this.maxHpBonus);
+    // When the DP buff and heal fire on the same frame, event.maxHitPoints
+    // can still reflect the pre-buff ceiling even though hitPoints already
+    // includes the bonus. Fall back to hitPoints when that happens so the
+    // post-buff max HP is correct.
+    const postBuffMaxHp = Math.max(event.maxHitPoints ?? 0, event.hitPoints);
+    const preCastMaxHp = postBuffMaxHp / (1 + this.maxHpBonus);
     const bonusHpPool = preCastMaxHp * this.maxHpBonus;
-    const preHealHp = event.hitPoints - event.amount;
-    const preCastHp = Math.max(0, preHealHp - bonusHpPool);
+    // DP only raises the max-HP ceiling; current HP is unchanged until the
+    // heal fires. So pre-cast HP equals HP right before this heal event.
+    const preCastHp = Math.max(0, event.hitPoints - event.amount);
     this.casts.push({
       timestamp: event.timestamp,
       preCastMaxHp,
@@ -84,6 +89,9 @@ class DesperatePrayer extends MajorDefensiveBuff {
       bonusHpPool,
       bonusHpUsed: 0,
       effectiveHeal: event.amount,
+      absorbedHeal: event.absorbed ?? 0,
+      overheal: event.overheal ?? 0,
+      runningHp: event.hitPoints,
     });
     // The heal itself is not damage, so we don't feed it to recordMitigation -
     // that would pollute `BreakdownByDamageSource` with Desperate Prayer as a
@@ -92,20 +100,31 @@ class DesperatePrayer extends MajorDefensiveBuff {
   }
 
   private onDamageTaken(event: DamageEvent) {
-    if (!this.defensiveActive || event.sourceIsFriendly) {
+    this.lastDamageTaken = event;
+    if (!this.defensiveActive(event) || event.sourceIsFriendly) {
       return;
     }
     const cast = this.casts.at(-1);
     if (!cast) {
       return;
     }
+    // The bonus "pool" isn't a shield - DP just raises max HP. Damage only
+    // counts as pool absorption when it reduces HP from above the pre-cast
+    // max toward it. If a damage event lacks hitPoints, fall back to our
+    // running HP estimate so we don't just drop the event.
+    const postHitHp = event.hitPoints ?? Math.max(0, cast.runningHp - event.amount);
+    const preHitHp = event.hitPoints !== undefined ? postHitHp + event.amount : cast.runningHp;
+    cast.runningHp = postHitHp;
+    const bonusTop = cast.preCastMaxHp + cast.bonusHpPool;
+    const damageInBonus = Math.max(
+      0,
+      Math.min(preHitHp, bonusTop) - Math.max(postHitHp, cast.preCastMaxHp),
+    );
     const remaining = Math.max(0, cast.bonusHpPool - cast.bonusHpUsed);
-    if (remaining <= 0) {
-      return;
-    }
-    const incoming = event.amount + (event.absorbed ?? 0);
-    const usedFromPool = Math.min(remaining, incoming);
+    const usedFromPool = Math.min(remaining, damageInBonus);
     cast.bonusHpUsed += usedFromPool;
+    // Always record the damage event so the breakdown shows damage sources
+    // during the buff window, even when the pool absorbed nothing.
     this.recordMitigation({
       event,
       mitigatedAmount: usedFromPool,
@@ -128,15 +147,20 @@ class DesperatePrayer extends MajorDefensiveBuff {
     explanation?: ReactNode;
   } {
     const cast = this.castForMitigation(mit);
-    if (!cast) {
+    if (!cast || cast.bonusHpPool <= 0) {
       return { perf: QualitativePerformance.Ok };
     }
-    // Theoretical max: both the heal and the bonus HP pool fully realised.
-    const maxValue = cast.bonusHpPool * 2;
-    if (maxValue <= 0) {
-      return { perf: QualitativePerformance.Ok };
-    }
-    const valueFraction = (cast.effectiveHeal + cast.bonusHpUsed) / maxValue;
+    // Heal that fills the bonus HP territory is redundant - the bonus pool
+    // already provides that effective HP. Only count heal up to what the
+    // player was actually missing before the cast. Absorbed heal still counts.
+    const preCastHp = cast.preCastMaxHp * cast.hpPercentPreCast;
+    const preCastMissingHp = Math.max(0, cast.preCastMaxHp - preCastHp);
+    const usefulHeal = Math.min(cast.effectiveHeal + cast.absorbedHeal, preCastMissingHp);
+    // Max possible value = heal filling up to (missing HP capped at pool) +
+    // pool fully absorbing. A cast at full HP tops out at just the pool, not
+    // 2x pool, since there's no missing HP for the heal to usefully fill.
+    const maxValue = Math.min(preCastMissingHp, cast.bonusHpPool) + cast.bonusHpPool;
+    const valueFraction = (usefulHeal + cast.bonusHpUsed) / maxValue;
     if (valueFraction >= PERFECT_VALUE_FRACTION) {
       return {
         perf: QualitativePerformance.Perfect,
@@ -162,13 +186,19 @@ class DesperatePrayer extends MajorDefensiveBuff {
   }
 
   private onDeath() {
-    if (!this.spellUsable.isOnCooldown(TALENTS.DESPERATE_PRAYER_TALENT.id)) {
-      this.deathsWithDPReady += 1;
+    if (this.deps.spellUsable.isOnCooldown(TALENTS.DESPERATE_PRAYER_TALENT.id)) {
+      return;
     }
+    const overkill = this.lastDamageTaken?.overkill ?? 0;
+    const maxHp = this.lastDamageTaken?.maxHitPoints ?? 0;
+    if (overkill > maxHp * this.maxHpBonus * 2) {
+      return;
+    }
+    this.deathsWithDPReady += 1;
   }
 
   description(): ReactNode {
-    const maxHpBonusPct = this.hasLightsInspiration ? 35 : 25;
+    const maxHpBonusPct = formatPercentage(this.maxHpBonus, 0);
     const duration = this.hasDesperateMeasures ? 20 : 10;
     return (
       <>
@@ -184,8 +214,8 @@ class DesperatePrayer extends MajorDefensiveBuff {
         )}
         {this.hasDesperateMeasures && (
           <p>
-            <SpellLink spell={TALENTS.DESPERATE_MEASURES_TALENT} /> extends the buff duration from 10
-            to 20 seconds.
+            <SpellLink spell={TALENTS.DESPERATE_MEASURES_TALENT} /> extends the buff duration from
+            10 to 20 seconds.
           </p>
         )}
       </>
@@ -221,21 +251,27 @@ const CooldownDetails = ({ mit, dpCast }: { mit?: Mitigation; dpCast?: Desperate
       </CooldownDetailsContainer>
     );
   }
-  // Scale dynamically to whichever is larger: normal max HP or the
-  // total effective HP the player reached (currentHp + heal + pool
-  // absorbed). This way row 3 fills completely when the bonus pool
-  // was fully consumed, while rows 1/2 still have meaningful spacing
-  // around the normal max HP marker.
+
+  // Shared scale across both rows: the post-buff max HP (pre-cast max +
+  // bonus pool). This way the bars always align visually, and the top of
+  // the bar represents the maximum HP the player could have reached during
+  // the buff.
   const maxHp = dpCast.preCastMaxHp;
   const currentHp = maxHp * dpCast.hpPercentPreCast;
-  const totalReach = currentHp + dpCast.effectiveHeal + dpCast.bonusHpUsed;
-  const totalScale = Math.max(maxHp, totalReach);
+  const totalScale = maxHp + dpCast.bonusHpPool;
   const normalHpEnd = totalScale > 0 ? maxHp / totalScale : 1;
   const hpFrac = totalScale > 0 ? currentHp / totalScale : 0;
   const healFrac = totalScale > 0 ? dpCast.effectiveHeal / totalScale : 0;
-  const poolFrac = totalScale > 0 ? dpCast.bonusHpUsed / totalScale : 0;
-  const aboveNormalMax = Math.max(0, 1 - normalHpEnd);
-  const missingAfterHeal = Math.max(0, normalHpEnd - hpFrac - healFrac);
+  const absorbedFrac = totalScale > 0 ? dpCast.absorbedHeal / totalScale : 0;
+  const missingAfterHeal = Math.max(0, normalHpEnd - hpFrac - healFrac - absorbedFrac);
+  // Hide the "missing HP" red segment when the heal was absorbed by a debuff
+  const showMissingSegment = missingAfterHeal > 0 && dpCast.absorbedHeal === 0;
+  const trailingFrac = Math.max(
+    0,
+    1 - hpFrac - healFrac - absorbedFrac - (showMissingSegment ? missingAfterHeal : 0),
+  );
+  const poolUsedFrac = totalScale > 0 ? dpCast.bonusHpUsed / totalScale : 0;
+  const bonusTerritoryFrac = totalScale > 0 ? dpCast.bonusHpPool / totalScale : 0;
 
   return (
     <CooldownDetailsContainer>
@@ -246,99 +282,83 @@ const CooldownDetails = ({ mit, dpCast }: { mit?: Mitigation; dpCast?: Desperate
               <strong>Usage info</strong>
             </td>
           </tr>
-          {<>
-                ...    
-          </>}
-              <>
-                <tr>
-                  <td>HP before cast</td>
-                  <NumericColumn>
-                    {formatNumber(currentHp)} ({formatPercentage(dpCast.hpPercentPreCast, 0)}%)
-                  </NumericColumn>
-                  <TableSegmentContainer>
-                    <MitigationTooltipSegment
-                      color="rgb(80, 196, 76)"
-                      maxWidth={100}
-                      width={hpFrac}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgb(176, 28, 60)"
-                      maxWidth={100}
-                      width={normalHpEnd - hpFrac}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgba(255, 255, 255, 0.05)"
-                      maxWidth={100}
-                      width={aboveNormalMax}
-                    />
-                  </TableSegmentContainer>
-                </tr>
-                <tr>
-                  <td>Heal</td>
-                  <NumericColumn>
-                    {formatNumber(dpCast.effectiveHeal)} (
-                    {formatPercentage(
-                      maxHp > 0 ? Math.min(1, (currentHp + dpCast.effectiveHeal) / maxHp) : 0,
-                      0,
-                    )}
-                    %)
-                  </NumericColumn>
-                  <TableSegmentContainer>
-                    <MitigationTooltipSegment
-                      color="rgba(80, 196, 76, 0.25)"
-                      maxWidth={100}
-                      width={hpFrac}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgb(80, 196, 76)"
-                      maxWidth={100}
-                      width={healFrac}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgba(176, 28, 60, 0.25)"
-                      maxWidth={100}
-                      width={missingAfterHeal}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgba(255, 255, 255, 0.05)"
-                      maxWidth={100}
-                      width={aboveNormalMax}
-                    />
-                  </TableSegmentContainer>
-                </tr>
-                <tr>
-                  <td>Extra HP absorbed</td>
-                  <NumericColumn>
-                    {formatNumber(dpCast.bonusHpUsed)} (
-                    {formatPercentage(
-                      maxHp > 0
-                        ? (currentHp + dpCast.effectiveHeal + dpCast.bonusHpUsed) / maxHp
-                        : 0,
-                      0,
-                    )}
-                    %)
-                  </NumericColumn>
-                  <TableSegmentContainer>
-                    <MitigationTooltipSegment
-                      color="rgba(80, 196, 76, 0.25)"
-                      maxWidth={100}
-                      width={hpFrac + healFrac}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgb(255, 193, 37)"
-                      maxWidth={100}
-                      width={poolFrac}
-                    />
-                    <MitigationTooltipSegment
-                      color="rgba(255, 255, 255, 0.05)"
-                      maxWidth={100}
-                      width={Math.max(0, 1 - hpFrac - healFrac - poolFrac)}
-                    />
-                  </TableSegmentContainer>
-                </tr>
-              </>
-            );
-          })()}
+          <tr>
+            <td>HP + Heal</td>
+            <NumericColumn>
+              {formatNumber(currentHp)}
+              {dpCast.effectiveHeal > 0 && ` + ${formatNumber(dpCast.effectiveHeal)}`} (
+              {formatPercentage(maxHp > 0 ? (currentHp + dpCast.effectiveHeal) / maxHp : 0, 0)}
+              %){dpCast.absorbedHeal > 0 && ` + ${formatNumber(dpCast.absorbedHeal)} absorbed`}
+              {dpCast.overheal > 0 && ` - ${formatNumber(dpCast.overheal)} wasted`}
+            </NumericColumn>
+            <TableSegmentContainer>
+              {hpFrac > 0 && (
+                <MitigationTooltipSegment color="rgb(80, 196, 76)" maxWidth={100} width={hpFrac} />
+              )}
+              {healFrac > 0 && (
+                <MitigationTooltipSegment
+                  color="rgb(128, 232, 120)"
+                  maxWidth={100}
+                  width={healFrac}
+                />
+              )}
+              {absorbedFrac > 0 && (
+                <MitigationTooltipSegment
+                  color="rgb(155, 89, 182)"
+                  maxWidth={100}
+                  width={absorbedFrac}
+                />
+              )}
+              {showMissingSegment && (
+                <MitigationTooltipSegment
+                  color="rgb(176, 28, 60)"
+                  maxWidth={100}
+                  width={missingAfterHeal}
+                />
+              )}
+              {trailingFrac > 0 && (
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.05)"
+                  maxWidth={100}
+                  width={trailingFrac}
+                />
+              )}
+            </TableSegmentContainer>
+          </tr>
+          <tr>
+            <td>Extra HP absorbed</td>
+            <NumericColumn>
+              {formatNumber(dpCast.bonusHpUsed)} (
+              {formatPercentage(
+                dpCast.bonusHpPool > 0 ? dpCast.bonusHpUsed / dpCast.bonusHpPool : 0,
+                0,
+              )}
+              % of pool)
+            </NumericColumn>
+            <TableSegmentContainer>
+              {normalHpEnd > 0 && (
+                <MitigationTooltipSegment
+                  color="rgba(80, 196, 76, 0.25)"
+                  maxWidth={100}
+                  width={normalHpEnd}
+                />
+              )}
+              {poolUsedFrac > 0 && (
+                <MitigationTooltipSegment
+                  color="rgb(255, 193, 37)"
+                  maxWidth={100}
+                  width={poolUsedFrac}
+                />
+              )}
+              {bonusTerritoryFrac - poolUsedFrac > 0 && (
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.05)"
+                  maxWidth={100}
+                  width={Math.max(0, bonusTerritoryFrac - poolUsedFrac)}
+                />
+              )}
+            </TableSegmentContainer>
+          </tr>
         </tbody>
       </table>
       <BreakdownByDamageSource mit={mit} />

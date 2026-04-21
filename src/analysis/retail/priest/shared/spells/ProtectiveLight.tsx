@@ -1,3 +1,4 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import {
@@ -46,22 +47,25 @@ class ProtectiveLight extends MajorDefensiveBuff {
     perf: QualitativePerformance;
     explanation?: ReactNode;
   } {
+    const perfectPct = formatPercentage(PERFECT_MITIGATION_HP_FRACTION, 0);
+    const okPct = formatPercentage(OK_MITIGATION_HP_FRACTION, 1);
+    const badPct = formatPercentage(BAD_MITIGATION_HP_FRACTION, 0);
     if (mit.amount >= this.firstSeenMaxHp * PERFECT_MITIGATION_HP_FRACTION) {
       return {
         perf: QualitativePerformance.Perfect,
-        explanation: 'Usage mitigated over 10% of your max HP in damage',
+        explanation: `Usage mitigated over ${perfectPct}% of your max HP in damage`,
       };
     }
     if (mit.amount < this.firstSeenMaxHp * BAD_MITIGATION_HP_FRACTION) {
       return {
         perf: QualitativePerformance.Fail,
-        explanation: 'Usage mitigated less than 1% of your max HP in damage - wasted cast',
+        explanation: `Usage mitigated less than ${badPct}% of your max HP in damage - wasted cast`,
       };
     }
     if (mit.amount < this.firstSeenMaxHp * OK_MITIGATION_HP_FRACTION) {
       return {
         perf: QualitativePerformance.Ok,
-        explanation: 'Usage mitigated less than 2.5% of your max HP in damage',
+        explanation: `Usage mitigated less than ${okPct}% of your max HP in damage`,
       };
     }
     return { perf: QualitativePerformance.Good };
@@ -69,16 +73,17 @@ class ProtectiveLight extends MajorDefensiveBuff {
 
   description(): ReactNode {
     const neverTriggered = this.mitigations.length === 0;
+    const drPct = formatPercentage(PROTECTIVE_LIGHT_DAMAGE_REDUCTION, 0);
     return (
       <>
         <p>
-          <SpellLink spell={TALENTS.PROTECTIVE_LIGHT_TALENT} /> reduces the damage you take by 10%
-          for 10 seconds after casting <SpellLink spell={SPELLS.FLASH_HEAL} /> on yourself.
+          <SpellLink spell={TALENTS.PROTECTIVE_LIGHT_TALENT} /> reduces the damage you take by{' '}
+          {drPct}% for 10 seconds after casting <SpellLink spell={SPELLS.FLASH_HEAL} /> on yourself.
         </p>
         {neverTriggered && (
           <p style={{ color: 'red' }}>
             <strong>You took this talent but never triggered it.</strong> Cast{' '}
-            <SpellLink spell={SPELLS.FLASH_HEAL} /> on yourself to activate the 10% damage
+            <SpellLink spell={SPELLS.FLASH_HEAL} /> on yourself to activate the {drPct}% damage
             reduction.
           </p>
         )}

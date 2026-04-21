@@ -1,3 +1,4 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import {
@@ -43,24 +44,24 @@ class Dispersion extends MajorDefensiveBuff {
   description(): ReactNode {
     const duration = this.hasHeightenedAlteration ? 8 : 6;
     return (
-      <p>
-        <SpellLink spell={SPELLS.DISPERSION} /> reduces the damage you take by 75% for {duration}{' '}
-        seconds.
+      <>
+        <p>
+          <SpellLink spell={SPELLS.DISPERSION} /> reduces the damage you take by{' '}
+          {formatPercentage(DISPERSION_DAMAGE_REDUCTION, 0)}% for {duration} seconds.
+        </p>
         {this.hasHeightenedAlteration && (
-          <>
-            {' '}
+          <p>
             <SpellLink spell={TALENTS.HEIGHTENED_ALTERATION_TALENT} /> extends its duration by 2
             seconds.
-          </>
+          </p>
         )}
         {this.hasIntangibility && (
-          <>
-            {' '}
+          <p>
             <SpellLink spell={TALENTS.INTANGIBILITY_TALENT} /> also heals you for 25% of your
             maximum health over its duration and reduces its cooldown by 30 seconds.
-          </>
+          </p>
         )}
-      </p>
+      </>
     );
   }
 
