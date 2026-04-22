@@ -32,11 +32,11 @@ class Redoubt extends Analyzer {
   }
 
   bonusStaminaGain(statTracker: StatTracker) {
-    return statTracker.startingStaminaRating * STAT_MODIFIER;
+    return statTracker.startingStats.stamina * STAT_MODIFIER;
   }
 
   bonusStrenghGain(statTracker: StatTracker) {
-    return statTracker.startingStrengthRating * STAT_MODIFIER;
+    return statTracker.startingStats.strength * STAT_MODIFIER;
   }
 
   get averageStacks() {

@@ -2,7 +2,7 @@ import COMBATANTINFO from 'parser/core/tests/COMBATANTINFO.json';
 
 import { FullCombatant } from './Combatant';
 
-function getCombatant(parser = null, combatantInfo = null) {
+function getCombatant(parser = null, combatantInfo = null, config = {}) {
   const parserStub = {
     players: [
       {
@@ -13,6 +13,7 @@ function getCombatant(parser = null, combatantInfo = null) {
     fight: {
       start_time: 0,
     },
+    config,
   };
   return new FullCombatant(
     parser || parserStub,
@@ -123,6 +124,41 @@ describe('Combatant', () => {
     it('returns false when neither weapon carries the enchant', () => {
       // mainhand 128868 has no permanentEnchant in the fixture
       expect(getCombatant().hasWeaponEnchant({ effectId: 99999 })).toBe(false);
+    });
+  });
+
+  describe('pullStats', () => {
+    it('returns raw stats from combatantInfo when no statMultipliers are configured', () => {
+      const stats = getCombatant().pullStats;
+      expect(stats.strength).toBe(5932);
+      expect(stats.armor).toBe(2000);
+      expect(stats.intellect).toBe(51633);
+      expect(stats.crit).toBe(6122);
+      expect(stats.haste).toBe(8962);
+    });
+
+    it('applies configured spec statMultipliers', () => {
+      const stats = getCombatant(null, null, { statMultipliers: { armor: 1.25 } }).pullStats;
+      expect(stats.armor).toBe(2500);
+      // unrelated stats are unaffected
+      expect(stats.strength).toBe(5932);
+      expect(stats.intellect).toBe(51633);
+    });
+
+    it('ignores statMultiplier entries whose value is undefined', () => {
+      const stats = getCombatant(null, null, {
+        statMultipliers: { armor: undefined, strength: 1.5 },
+      }).pullStats;
+      expect(stats.armor).toBe(2000);
+      expect(stats.strength).toBe(5932 * 1.5);
+    });
+
+    it('is frozen so callers cannot mutate the shared snapshot', () => {
+      const stats = getCombatant().pullStats;
+      expect(Object.isFrozen(stats)).toBe(true);
+      expect(() => {
+        stats.armor = 9999;
+      }).toThrow();
     });
   });
 });

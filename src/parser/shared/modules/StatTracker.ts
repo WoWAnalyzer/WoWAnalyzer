@@ -121,8 +121,6 @@ class StatTracker extends Analyzer {
 
   // all known stat buffs
   statBuffs: StatBuffsByGuid;
-  // the player's stat ratings at pull
-  _pullStats: PlayerStats;
   // the player's 'current' stat ratings
   _currentStats: PlayerStats;
 
@@ -247,20 +245,18 @@ class StatTracker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this._pullStats = this.selectedCombatant.pullStats;
 
     if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
       this.isClassic = true;
     }
 
-    this.applySpecModifiers();
-
     this.statBuffs = {
       ...StatTracker.DEFAULT_BUFFS,
     };
 
+    // Copy: pullStats is frozen, but _currentStats is mutated by buff event handlers.
     this._currentStats = {
-      ...this._pullStats,
+      ...this.selectedCombatant.pullStats,
     };
 
     // Really hoping people don't run around with wrong armor types
@@ -391,65 +387,11 @@ class StatTracker extends Analyzer {
     changeCurrentStats && this.forceChangeStats(delta, null, true);
   }
 
-  applySpecModifiers(): void {
-    const modifiers: StatMultiplier = this.config.statMultipliers || {};
-    Object.entries(modifiers).forEach(([stat, multiplier]: [string, number | undefined]) => {
-      if (multiplier !== undefined) {
-        this._pullStats[stat as keyof Stats] *= multiplier;
-      }
-    });
-  }
-
-  /*
-   * Stat rating at pull.
-   * Should be identical to what you get from Combatant.
+  /**
+   * Stat ratings at pull, with any spec `statMultipliers` applied.
    */
-  get startingStrengthRating(): number {
-    return this._pullStats.strength;
-  }
-
-  get startingAgilityRating(): number {
-    return this._pullStats.agility;
-  }
-
-  get startingIntellectRating(): number {
-    return this._pullStats.intellect;
-  }
-
-  get startingStaminaRating(): number {
-    return this._pullStats.stamina;
-  }
-
-  get startingCritRating(): number {
-    return this._pullStats.crit;
-  }
-
-  get startingHasteRating(): number {
-    return this._pullStats.haste;
-  }
-
-  get startingMasteryRating(): number {
-    return this._pullStats.mastery;
-  }
-
-  get startingVersatilityRating(): number {
-    return this._pullStats.versatility;
-  }
-
-  get startingAvoidanceRating(): number {
-    return this._pullStats.avoidance;
-  }
-
-  get startingLeechRating(): number {
-    return this._pullStats.leech;
-  }
-
-  get startingSpeedRating(): number {
-    return this._pullStats.speed;
-  }
-
-  get startingArmorRating(): number {
-    return this._pullStats.armor;
+  get startingStats(): Readonly<Stats> {
+    return this.selectedCombatant.pullStats;
   }
 
   /*
