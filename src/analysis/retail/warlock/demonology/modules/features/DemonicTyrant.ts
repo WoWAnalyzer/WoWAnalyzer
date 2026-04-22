@@ -240,8 +240,8 @@ export default class DemonicTyrant extends Analyzer {
 
     let stacks = 1;
 
-    if ('stack' in event) {
-      stacks = (event as ApplyBuffStackEvent).stack ?? 1;
+    if (event.type === EventType.ApplyBuffStack) {
+      stacks = event.stack ?? 1;
     }
 
     if (stacks > this.currentTyrant.maxDemonicPowerStacks) {
