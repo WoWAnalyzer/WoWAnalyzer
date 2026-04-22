@@ -1,10 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -18,8 +13,6 @@ class SummonDoomguard extends Analyzer.withDependencies({
   effectiveCdrMs = 0;
   wastedCdrMs = 0;
 
-  currentDemonicCoreStacks = 0;
-
   constructor(options: Options) {
     super(options);
 
@@ -29,39 +22,13 @@ class SummonDoomguard extends Analyzer.withDependencies({
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onCoreApply,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onCoreStack,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onCoreRemove,
-    );
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMONBOLT),
       this.onDemonboltCast,
     );
   }
 
-  onCoreApply(_event: ApplyBuffEvent) {
-    this.currentDemonicCoreStacks = 1;
-  }
-
-  onCoreStack(event: ApplyBuffStackEvent) {
-    this.currentDemonicCoreStacks = event.stack;
-  }
-
-  onCoreRemove(_event: RemoveBuffEvent) {
-    this.currentDemonicCoreStacks = 0;
-  }
-
   onDemonboltCast(_event: CastEvent) {
-    if (this.currentDemonicCoreStacks <= 0) return;
-
-    this.currentDemonicCoreStacks -= 1;
+    if (!this.selectedCombatant.getBuff(SPELLS.DEMONIC_CORE_BUFF.id)) return;
 
     const actualReduction = this.deps.spellUsable.reduceCooldown(
       TALENTS.SUMMON_DOOMGUARD_TALENT.id,

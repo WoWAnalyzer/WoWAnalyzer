@@ -9,8 +9,6 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   FightEndEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
 import SoulShardTracker from 'analysis/retail/warlock/shared/resources/SoulShardTracker';
@@ -35,7 +33,6 @@ export default class DemonicTyrant extends Analyzer {
   lastDreadstalkersCast = 0;
   lastGrimoireCast = 0;
   lastDoomguardCast = 0;
-  demonicCoreStacks = 0;
   // Last known shard count from SoulShardTracker while inside a Tyrant window.
   latestShardsInWindow = 0;
   // Tracks gains (in shards) after Tyrant cast to retroactively compute shardsOnCast from the first window spender.
@@ -79,24 +76,6 @@ export default class DemonicTyrant extends Analyzer {
       this.onDoomguardCast,
     );
 
-    // Demonic Core stack tracking
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onDemonicCoreApply,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onDemonicCoreApplyStack,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onDemonicCoreRemove,
-    );
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
-      this.onDemonicCoreRemoveStack,
-    );
-
     // Track shard gains — use to(SELECTED_PLAYER) since energize events target the player, not sourced by them.
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onShardGain);
 
@@ -119,7 +98,8 @@ export default class DemonicTyrant extends Analyzer {
       dreadstalkersActive && timeSinceDreadstalkers > DREADSTALKERS_DURATION / 2;
 
     const shardsOnCast = this.soulShardTracker.current;
-    const demonicCoresOnCast = this.demonicCoreStacks;
+    const demonicCoresOnCast =
+      this.selectedCombatant.getBuff(SPELLS.DEMONIC_CORE_BUFF.id)?.stacks ?? 0;
 
     // Resolve which Grimoire talent the player has and whether it was cast before this Tyrant.
     const grimoireTalent = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_IMP_LORD_TALENT)
@@ -267,22 +247,6 @@ export default class DemonicTyrant extends Analyzer {
     if (!this.currentTyrant) return;
     if (event.timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) return;
     this.latestShardsInWindow = this.soulShardTracker.current;
-  }
-
-  onDemonicCoreApply(_event: ApplyBuffEvent) {
-    this.demonicCoreStacks = 1;
-  }
-
-  onDemonicCoreApplyStack(event: ApplyBuffStackEvent) {
-    this.demonicCoreStacks = event.stack;
-  }
-
-  onDemonicCoreRemove(_event: RemoveBuffEvent) {
-    this.demonicCoreStacks = 0;
-  }
-
-  onDemonicCoreRemoveStack(event: RemoveBuffStackEvent) {
-    this.demonicCoreStacks = event.stack;
   }
 
   // Tracks the peak Demonic Power stack count reached during the Tyrant window (listens to all sources, not just SELECTED_PLAYER).
