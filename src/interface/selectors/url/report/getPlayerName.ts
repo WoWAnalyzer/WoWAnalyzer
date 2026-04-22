@@ -7,9 +7,10 @@ export const getPlayerNameFromParam = (param: string | null | undefined) => {
     const hasSeparator = index !== -1;
     const hasAnonSeparator = player.includes('+');
     if (hasSeparator) {
-      return player.substr(index + 1);
+      return decodeURIComponent(player.substring(index + 1));
     }
     if (hasAnonSeparator) {
+      // anonymous names don't need uri component decoding, since they're anonymous
       return player.replace('+', ' ');
     }
     if (!Number.isInteger(player)) {
