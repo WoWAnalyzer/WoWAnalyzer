@@ -446,52 +446,52 @@ function DemonicTyrantGuide(): JSX.Element | null {
           scoreBreakdown.maxExpectedCasts,
         ),
         // Splits casts into in-window and post-window groups, ghosting post-window entries.
-        additionalContent: sequenceEntry
-          ? (() => {
-              const tyrantWindowEnd = cast.cast + TYRANT_WINDOW_MS;
-              const inWindowCasts = sequenceEntry.casts.filter(
-                (c) => c.timestamp <= tyrantWindowEnd,
-              );
-              const postWindowCasts = sequenceEntry.casts
-                .filter((c) => c.timestamp > tyrantWindowEnd)
-                .map((c) => ({
-                  ...c,
-                  ghosted: true as const,
-                  tooltip: (
-                    <div>
-                      <strong>{c.spellName}</strong>
-                      <p>
-                        <em>Cast after the Tyrant window ended</em>
-                      </p>
-                    </div>
-                  ),
-                }));
-              return {
-                title: 'Cast Sequence',
-                content: (
-                  <>
-                    <SpellSequence casts={inWindowCasts} iconSize={40} />
-                    {postWindowCasts.length > 0 && (
-                      <>
-                        <div
-                          style={{
-                            fontSize: '1.1rem',
-                            color: 'rgba(255, 255, 255, 0.4)',
-                            marginTop: 4,
-                            marginBottom: 2,
-                            fontStyle: 'italic',
-                          }}
-                        >
-                          cast after the tyrant window ended
-                        </div>
-                        <SpellSequence casts={postWindowCasts} iconSize={40} />
-                      </>
-                    )}
-                  </>
+        additionalContent: (() => {
+          let additionalContent = undefined;
+          if (sequenceEntry) {
+            const tyrantWindowEnd = cast.cast + TYRANT_WINDOW_MS;
+            const inWindowCasts = sequenceEntry.casts.filter((c) => c.timestamp <= tyrantWindowEnd);
+            const postWindowCasts = sequenceEntry.casts
+              .filter((c) => c.timestamp > tyrantWindowEnd)
+              .map((c) => ({
+                ...c,
+                ghosted: true as const,
+                tooltip: (
+                  <div>
+                    <strong>{c.spellName}</strong>
+                    <p>
+                      <em>Cast after the Tyrant window ended</em>
+                    </p>
+                  </div>
                 ),
-              };
-            })()
-          : undefined,
+              }));
+            additionalContent = {
+              title: 'Cast Sequence',
+              content: (
+                <>
+                  <SpellSequence casts={inWindowCasts} iconSize={40} />
+                  {postWindowCasts.length > 0 && (
+                    <>
+                      <div
+                        style={{
+                          fontSize: '1.1rem',
+                          color: 'rgba(255, 255, 255, 0.4)',
+                          marginTop: 4,
+                          marginBottom: 2,
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        cast after the tyrant window ended
+                      </div>
+                      <SpellSequence casts={postWindowCasts} iconSize={40} />
+                    </>
+                  )}
+                </>
+              ),
+            };
+          }
+          return additionalContent;
+        })(),
       };
     });
   }, [demonicTyrant, eventHistory, tyrantSequenceEvents, isDialobist, hasPowerSiphon]);
