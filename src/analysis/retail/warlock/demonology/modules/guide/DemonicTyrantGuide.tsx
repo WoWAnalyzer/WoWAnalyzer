@@ -41,106 +41,91 @@ function scoreTyrantWindow(cast: TyrantCastData, isDialobist: boolean): ScoreBre
   const maxExpectedCasts = cast.fightEndedDuringWindow
     ? Math.max(1, Math.round(8 * windowFraction))
     : 8;
-  const dreadstalkerScore = cast.dreadstalkersActive
-    ? cast.dreadstalkersTooEarly
-      ? 11 // active but summoned in the first half of their duration (too early)
-      : 15 // active and timed well
-    : cast.dreadstalkersCastDuringWindow
-      ? 7 // cast inside the window (wastes a GCD)
-      : 0; // not active at all
+
+  let dreadstalkerScore: number;
+  if (cast.dreadstalkersActive) {
+    dreadstalkerScore = cast.dreadstalkersTooEarly ? 11 : 15;
+  } else if (cast.dreadstalkersCastDuringWindow) {
+    dreadstalkerScore = 7; // cast inside the window wastes a GCD
+  } else {
+    dreadstalkerScore = 0;
+  }
+
   // If the fight ended early, leftover shards aren't the player's fault — full points.
   const missedCasts =
     cast.fightEndedDuringWindow || cast.shardsAtWindowEnd === null
       ? 0
       : Math.floor(cast.shardsAtWindowEnd / 3);
-  const shardsEndScore = missedCasts === 0 ? 15 : missedCasts === 1 ? 8 : missedCasts === 2 ? 3 : 0; // penalizes leftover shards that could have been spender casts
+  let shardsEndScore: number;
+  if (missedCasts === 0) shardsEndScore = 15;
+  else if (missedCasts === 1) shardsEndScore = 8;
+  else if (missedCasts === 2) shardsEndScore = 3;
+  else shardsEndScore = 0;
+
   // If grimoire was on CD when Tyrant was cast but used during the window, it came off CD naturally — full points.
   const grimoireCameOffCdDuringWindow = cast.grimoireCastDuringWindow && !cast.grimoireAvailable;
-  const grimoireScore =
-    cast.grimoireAvailable === null
-      ? null // not talented — excluded from scoring
-      : cast.grimoireAvailable && !cast.grimoireCast && !cast.grimoireCastDuringWindow
-        ? 0 // available but never cast
-        : cast.grimoireCastDuringWindow && !grimoireCameOffCdDuringWindow
-          ? 2 // was available before Tyrant but cast during window instead (wastes a GCD)
-          : 5; // cast before the window, or came off CD during the window (both ideal)
-  const doomguardScore =
-    cast.doomguardAvailable === null
-      ? null // not talented — excluded from scoring
-      : cast.doomguardAvailable && !cast.doomguardCast
-        ? 0 // available but skipped
-        : 5;
+  let grimoireScore: number | null;
+  if (cast.grimoireAvailable === null) {
+    grimoireScore = null; // not talented — excluded from scoring
+  } else if (cast.grimoireAvailable && !cast.grimoireCast && !cast.grimoireCastDuringWindow) {
+    grimoireScore = 0; // available but never cast
+  } else if (cast.grimoireCastDuringWindow && !grimoireCameOffCdDuringWindow) {
+    grimoireScore = 2; // was available before Tyrant but cast during window instead (wastes a GCD)
+  } else {
+    grimoireScore = 5; // cast before the window, or came off CD during the window (both ideal)
+  }
+
+  let doomguardScore: number | null;
+  if (cast.doomguardAvailable === null) {
+    doomguardScore = null; // not talented — excluded from scoring
+  } else if (cast.doomguardAvailable && !cast.doomguardCast) {
+    doomguardScore = 0; // available but skipped
+  } else {
+    doomguardScore = 5;
+  }
+
   // Diabolist: 1 point per shard, capped at 5.
-  // Non-Diabolist: Tyrant grants 3 shards on cast, so 2 is ideal. 0–1 is ok/good, 3 is ok, 4 is poor, 5 is bad.
-  const shardsOnCastScore = isDialobist
-    ? Math.min(cast.shardsOnCast, 5)
-    : cast.shardsOnCast === 2
-      ? 5
-      : cast.shardsOnCast <= 1
-        ? 4
-        : cast.shardsOnCast === 3
-          ? 3
-          : cast.shardsOnCast === 4
-            ? 1
-            : 0; // 5 shards
+  // Non-Diabolist: Tyrant grants 3 shards on cast, so 2 is ideal — each shard above 2 is wasted (overcaps on cast), costing 2 points.
+  let shardsOnCastScore: number;
+  if (isDialobist) {
+    shardsOnCastScore = Math.min(cast.shardsOnCast, 5);
+  } else {
+    const wastedShards = Math.max(0, cast.shardsOnCast - 2);
+    shardsOnCastScore = Math.max(0, 5 - wastedShards * 2);
+  }
 
-  // Optional talents take a fixed 5pts each; shardsOnCast is also fixed at 5 (raw score is already 0–5).
-  // The remaining pool is split proportionally among hog, dreadstalkers, and shardsEnd.
-  const grimoireMax = grimoireScore !== null ? 5 : 0;
-  const doomguardMax = doomguardScore !== null ? 5 : 0;
-  const shardsOnCastMax = 5;
-  const basePool = 100 - grimoireMax - doomguardMax - shardsOnCastMax;
+  // Fixed weights per component. Each raw score is already in range 0..weight, so raw scores
+  // are used directly as contributions. Absent talents are excluded and the sum normalizes to 100.
+  const grimoireWeight = grimoireScore !== null ? 5 : 0;
+  const doomguardWeight = doomguardScore !== null ? 5 : 0;
+  const totalWeight = 50 + 15 + 15 + grimoireWeight + doomguardWeight + 5;
 
-  // Raw relative weights for the three proportionally-scaled base components.
-  const BASE_WEIGHTS = { hog: 50, dreadstalkers: 15, shardsEnd: 15 };
-  const BASE_WEIGHT_TOTAL = Object.values(BASE_WEIGHTS).reduce((a, b) => a + b, 0);
-  const w = (weight: number) => Math.round((weight / BASE_WEIGHT_TOTAL) * basePool);
+  const hogRatio = Math.min(totalSpenderCasts, maxExpectedCasts) / maxExpectedCasts;
+  const rawScore =
+    hogRatio * 50 +
+    dreadstalkerScore +
+    shardsEndScore +
+    (grimoireScore ?? 0) +
+    (doomguardScore ?? 0) +
+    shardsOnCastScore;
+  const total = Math.round((rawScore / totalWeight) * 100);
 
-  const hogMax = w(BASE_WEIGHTS.hog);
-  const dreadstalkerMax = w(BASE_WEIGHTS.dreadstalkers);
-  const shardsEndMax = w(BASE_WEIGHTS.shardsEnd);
-
-  const scaledHog = Math.round(
-    (Math.min(totalSpenderCasts, maxExpectedCasts) / maxExpectedCasts) * hogMax,
-  );
-  const scaledDreadstalker = Math.round((dreadstalkerScore / 15) * dreadstalkerMax);
-  const scaledShardsEnd = Math.round((shardsEndScore / 15) * shardsEndMax);
-  const scaledGrimoire = grimoireScore !== null ? Math.round((grimoireScore / 5) * grimoireMax) : 0;
-  const scaledDoomguard =
-    doomguardScore !== null ? Math.round((doomguardScore / 5) * doomguardMax) : 0;
-  const scaledShardsOnCast = shardsOnCastScore; // raw score is already 0–5, max is fixed at 5
+  const spenderLabel = isDialobist
+    ? `HoG / Ruination casts (${totalSpenderCasts} / ${maxExpectedCasts})`
+    : `Hand of Gul'dan casts (${totalSpenderCasts} / ${maxExpectedCasts})`;
 
   const components: ScoreBreakdown['components'] = [
-    {
-      label: isDialobist
-        ? `HoG / Ruination casts (${totalSpenderCasts} / ${maxExpectedCasts})`
-        : `Hand of Gul'dan casts (${totalSpenderCasts} / ${maxExpectedCasts})`,
-      score: scaledHog,
-      max: hogMax,
-    },
-    { label: 'Dreadstalkers timing', score: scaledDreadstalker, max: dreadstalkerMax },
-    { label: 'Shards at window end', score: scaledShardsEnd, max: shardsEndMax },
+    { label: spenderLabel, score: Math.round(hogRatio * 50), max: 50 },
+    { label: 'Dreadstalkers timing', score: dreadstalkerScore, max: 15 },
+    { label: 'Shards at window end', score: shardsEndScore, max: 15 },
   ];
   if (grimoireScore !== null) {
-    components.push({ label: 'Grimoire cast', score: scaledGrimoire, max: grimoireMax });
+    components.push({ label: 'Grimoire cast', score: grimoireScore, max: 5 });
   }
   if (doomguardScore !== null) {
-    components.push({ label: 'Doomguard cast', score: scaledDoomguard, max: doomguardMax });
+    components.push({ label: 'Doomguard cast', score: doomguardScore, max: 5 });
   }
-  components.push({
-    label: 'Soul Shards at cast',
-    score: scaledShardsOnCast,
-    max: shardsOnCastMax,
-  });
-
-  const rawScore =
-    scaledHog +
-    scaledDreadstalker +
-    scaledShardsEnd +
-    scaledGrimoire +
-    scaledDoomguard +
-    scaledShardsOnCast;
-  const total = Math.min(100, rawScore);
+  components.push({ label: 'Soul Shards at cast', score: shardsOnCastScore, max: 5 });
 
   return { total, totalSpenderCasts, maxExpectedCasts, components };
 }
@@ -433,6 +418,11 @@ function DemonicTyrantGuide(): JSX.Element | null {
                     </span>
                   </div>
                 ))}
+                {(cast.grimoireAvailable === null || cast.doomguardAvailable === null) && (
+                  <div style={{ marginTop: 6, opacity: 0.6, fontStyle: 'italic' }}>
+                    Untalented cooldowns excluded; total normalized to 100.
+                  </div>
+                )}
               </div>
             ),
           },
