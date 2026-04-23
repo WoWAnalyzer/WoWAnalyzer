@@ -103,12 +103,12 @@ class RampantFerocity extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Average splash hits per Bite: <strong>{this.avgTargetsHit.toFixed(1)}</strong>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            <div>
+              Average splash hits per Bite: <strong>{this.avgTargetsHit.toFixed(1)}</strong>
+            </div>
             {(hasApex || hasConvoke) && (
               <>
-                Breakdown per Bite source:
+                <div>Breakdown per Bite source:</div>
                 <ul>
                   <li>Hardcast: {this._formattedPercentDamage(this.hardcastRfDamage)}</li>
                   {hasApex && (

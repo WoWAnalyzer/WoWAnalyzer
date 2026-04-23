@@ -69,11 +69,7 @@ class FerociousBite extends Analyzer {
     if (cpsUsed < currAcceptableCps) {
       value = QualitativePerformance.Fail;
       perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          Bad because you used less than {currAcceptableCps} CPs
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
+        <h5 style={{ color: BadColor }}>Bad because you used less than {currAcceptableCps} CPs</h5>
       );
       addInefficientCastReason(
         event,
@@ -84,27 +80,26 @@ class FerociousBite extends Analyzer {
       perfExplanation = (
         <h5 style={{ color: OkColor }}>
           Questionable because you cast when Rip was close to expiring
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
         </h5>
       );
     }
 
     const tooltip = (
       <>
-        {perfExplanation}@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
-        <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        {timeLeftOnRip === 0 ? (
-          <>
+        {perfExplanation}
+        <div>
+          @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
+          <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
+        </div>
+        <div>
+          {timeLeftOnRip === 0 ? (
             <strong>No Rip on target!</strong>
-          </>
-        ) : (
-          <>
-            Time remaining on Rip: <strong>{(timeLeftOnRip / 1000).toFixed(1)}s</strong>
-          </>
-        )}
+          ) : (
+            <>
+              Time remaining on Rip: <strong>{(timeLeftOnRip / 1000).toFixed(1)}s</strong>
+            </>
+          )}
+        </div>
       </>
     );
 
@@ -132,13 +127,11 @@ class FerociousBite extends Analyzer {
     const data = (
       <div>
         {hasConvokeOrApex && (
-          <>
+          <p>
             The below cast evaluations consider only CP spending Bites -{' '}
             <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> and{' '}
             <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} /> procs aren't included.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </>
+          </p>
         )}
         <CastSummaryAndBreakdown
           spell={SPELLS.FEROCIOUS_BITE}

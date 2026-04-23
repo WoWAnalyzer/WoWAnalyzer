@@ -105,51 +105,34 @@ class RipUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
             Bad because you used only {cpsUsed} CPs (need at least {currAcceptableCps})
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
           </h5>
         );
       } else if (clipped > CLIP_BUFFER) {
         value = QualitativePerformance.Fail;
-        perfExplanation = (
-          <h5 style={{ color: BadColor }}>
-            Bad because you refreshed too early
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
-        );
+        perfExplanation = <h5 style={{ color: BadColor }}>Bad because you refreshed too early</h5>;
       } else if (clipped > 0) {
         value = QualitativePerformance.Ok;
         perfExplanation = (
-          <h5 style={{ color: OkColor }}>
-            Careful, you refreshed this a little early
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
+          <h5 style={{ color: OkColor }}>Careful, you refreshed this a little early</h5>
         );
       }
 
       const tooltip = (
         <>
-          {perfExplanation}@ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
-          <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          {perfExplanation}
+          <div>
+            @ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
+            <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
+          </div>
           {!wasNewApplication && (
-            <>
+            <div>
               Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-              {clipped > 0 && (
-                <>
-                  <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-                </>
-              )}
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-            </>
+              {clipped > 0 && <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>}
+            </div>
           )}
-          Snapshots: <strong>{snapshots.map((ss) => ss.name).join(', ')}</strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div>
+            Snapshots: <strong>{snapshots.map((ss) => ss.name).join(', ')}</strong>
+          </div>
         </>
       );
       this.castEntries.push({ value, tooltip });
@@ -207,8 +190,6 @@ class RipUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
         <CastSummaryAndBreakdown
           spell={SPELLS.RIP}
           castEntries={this.castEntries}

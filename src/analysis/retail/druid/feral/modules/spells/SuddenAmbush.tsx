@@ -112,12 +112,8 @@ class SuddenAmbush extends Analyzer {
         value: QualitativePerformance.Fail,
         tooltip: (
           <>
-            <h5 style={{ color: BadColor }}>
-              Bad because you let a proc expire
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-            </h5>
-            @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+            <h5 style={{ color: BadColor }}>Bad because you let a proc expire</h5>@{' '}
+            <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
           </>
         ),
       });
@@ -147,17 +143,15 @@ class SuddenAmbush extends Analyzer {
       value: isRake ? QualitativePerformance.Fail : QualitativePerformance.Good,
       tooltip: (
         <>
-          <strong>
-            Consumed with <SpellLink spell={spell} />
-          </strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div>
+            <strong>
+              Consumed with <SpellLink spell={spell} />
+            </strong>
+          </div>
           {isRake && (
             <h5 style={{ color: BadColor }}>
               Sudden Ambush only buffs Rake's initial damage now, not the bleed. Prefer using it on{' '}
               <SpellLink spell={SPELLS.SHRED} /> or <SpellLink spell={SPELLS.SWIPE_CAT} /> instead.
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
             </h5>
           )}
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
@@ -234,14 +228,14 @@ class SuddenAmbush extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the damage from the increase to Shred, Swipe, and Rake initial damage caused by
-            Sudden Ambush procs. This underrates the total benefit of Sudden Ambush because it does
-            not count the increased crit chance and additional combo point from Shred.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            Buff Utilization: <strong>{formatPercentage(this.saUtil, 1)}%</strong>
+            <p>
+              This is the damage from the increase to Shred, Swipe, and Rake initial damage caused
+              by Sudden Ambush procs. This underrates the total benefit of Sudden Ambush because it
+              does not count the increased crit chance and additional combo point from Shred.
+            </p>
+            <div>
+              Buff Utilization: <strong>{formatPercentage(this.saUtil, 1)}%</strong>
+            </div>
             <ul>
               <li>
                 <SpellIcon spell={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT} /> Used:{' '}
@@ -259,9 +253,7 @@ class SuddenAmbush extends Analyzer {
                 </li>
               )}
             </ul>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            Breakdown by spell:
+            <div>Breakdown by spell:</div>
             <ul>
               <li>
                 <SpellLink spell={SPELLS.SHRED} />: Boosted <strong>{this.boostedShreds}</strong>{' '}

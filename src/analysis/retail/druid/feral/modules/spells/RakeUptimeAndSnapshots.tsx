@@ -79,11 +79,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
     if (wasUnacceptableDowngrade) {
       value = QualitativePerformance.Fail;
       perfExplanation = (
-        <h5 style={{ color: BadColor }}>
-          Bad because you refreshed early with a weaker snapshot
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
+        <h5 style={{ color: BadColor }}>Bad because you refreshed early with a weaker snapshot</h5>
       );
     } else if (clipped > CLIP_BUFFER) {
       if (wasUpgrade) {
@@ -91,59 +87,43 @@ class RakeUptimeAndSnapshots extends Snapshots {
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
             You refreshed this too early, but upgraded the snapshot
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
           </h5>
         );
       } else {
         value = QualitativePerformance.Fail;
-        perfExplanation = (
-          <h5 style={{ color: BadColor }}>
-            Bad because you refreshed too early
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
-        );
+        perfExplanation = <h5 style={{ color: BadColor }}>Bad because you refreshed too early</h5>;
       }
     } else if (clipped > 0) {
       value = QualitativePerformance.Ok;
       perfExplanation = (
-        <h5 style={{ color: OkColor }}>
-          Careful, you refreshed this a little early
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-        </h5>
+        <h5 style={{ color: OkColor }}>Careful, you refreshed this a little early</h5>
       );
     }
 
     const tooltip = (
       <>
-        {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        {perfExplanation}
+        <div>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+          <strong>{targetName || 'unknown'}</strong>
+        </div>
         {prevSnapshotNames !== null && (
-          <>
+          <div>
             Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-            {clipped > 0 && (
-              <>
-                <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-              </>
-            )}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </>
+            {clipped > 0 && <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>}
+          </div>
         )}
-        Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div>
+          Snapshots:{' '}
+          <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
+        </div>
         {prevSnapshotNames !== null && (
-          <>
+          <div>
             Prev Snapshots:{' '}
             <strong>
               {prevSnapshotNames.length === 0 ? 'NONE' : prevSnapshotNames.join(', ')}
             </strong>
-          </>
+          </div>
         )}
       </>
     );
@@ -184,8 +164,6 @@ class RakeUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
         <CastSummaryAndBreakdown
           spell={SPELLS.RAKE}
           castEntries={this.castEntries}

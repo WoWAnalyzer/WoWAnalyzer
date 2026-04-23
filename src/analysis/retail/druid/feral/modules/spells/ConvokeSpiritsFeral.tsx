@@ -41,17 +41,15 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <strong>
-              Damage amount listed considers only the direct damage and non-refreshable DoT damage
-              done by convoked abilities!{' '}
-            </strong>
-            (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and the
-            energy and damage boost from Tiger's Fury are all not considered by this number, making
-            it almost certainly an undercount of Convoke's true value.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            <p>
+              <strong>
+                Damage amount listed considers only the direct damage and non-refreshable DoT damage
+                done by convoked abilities!{' '}
+              </strong>
+              (Non-refreshable DoTs are Starfall and Feral Frenzy) Refreshable DoTs, heals, and the
+              energy and damage boost from Tiger's Fury are all not considered by this number,
+              making it almost certainly an undercount of Convoke's true value.
+            </p>
             {this.baseTooltip}
           </>
         }
@@ -59,8 +57,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
       >
         <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
           <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );

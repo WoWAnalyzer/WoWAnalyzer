@@ -241,14 +241,13 @@ class ApexPredatorsCraving extends Analyzer {
           <div>
             <UptimeIcon /> {formatPercentage(this.buffUptime, 1)}% <small>buff uptime</small>
           </div>
-          <div>
-            {this.hasSotf && (
-              <>
-                <SpellIcon spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} />{' '}
-                {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>
-              </>
-            )}
-          </div>
+
+          {this.hasSotf && (
+            <div>
+              <SpellIcon spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} />{' '}
+              {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>
+            </div>
+          )}
         </BoringSpellValueText>
       </Statistic>
     );

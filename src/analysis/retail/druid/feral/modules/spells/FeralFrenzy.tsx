@@ -87,7 +87,7 @@ export default class FeralFrenzy extends Analyzer {
     const talent = this.talent;
 
     const explanation = (
-      <>
+      <div>
         <p>
           <strong>
             <SpellLink spell={talent} />
@@ -96,15 +96,15 @@ export default class FeralFrenzy extends Analyzer {
           it's best used at 2 or fewer combo points in order not to waste them.
           {this.isFrantic &&
             ' Should be used within as large of packs as possible for you to gain the most benefit out of it.'}
-          {this.isFocused && (
-            <>
-              {' '}
-              With <SpellLink spell={TALENTS_DRUID.FOCUSED_FRENZY_TALENT} />, always use it during{' '}
-              <SpellLink spell={SPELLS.TIGERS_FURY} />.
-            </>
-          )}
         </p>
-      </>
+        {this.isFocused && (
+          <p>
+            {' '}
+            With <SpellLink spell={TALENTS_DRUID.FOCUSED_FRENZY_TALENT} />, always use it during{' '}
+            <SpellLink spell={SPELLS.TIGERS_FURY} />.
+          </p>
+        )}
+      </div>
     );
 
     const data = (

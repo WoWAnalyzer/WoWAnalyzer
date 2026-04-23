@@ -81,32 +81,27 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+          <strong>{targetName || 'unknown'}</strong>
+        </div>
         {prevSnapshotNames !== null && (
-          <>
+          <div>
             Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-            {clipped > 0 && (
-              <>
-                <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-              </>
-            )}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </>
+            {clipped > 0 && <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>}
+          </div>
         )}
-        Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div>
+          Snapshots:{' '}
+          <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
+        </div>
         {prevSnapshotNames !== null && (
-          <>
+          <div>
             Prev Snapshots:{' '}
             <strong>
               {prevSnapshotNames.length === 0 ? 'NONE' : prevSnapshotNames.join(', ')}
             </strong>
-          </>
+          </div>
         )}
       </>
     );
@@ -136,21 +131,23 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
     const data = (
       <div>
-        <RoundedPanel>
-          <div>
-            <strong>Moonfire uptime / snapshots</strong>
-            <small> - Try to get as close to 100% as the encounter allows!</small>
-          </div>
-          {this.subStatistic()}
-        </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        <CastSummaryAndBreakdown
-          spell={SPELLS.MOONFIRE_FERAL}
-          castEntries={this.castEntries}
-          okExtraExplanation={<>clipped duration but upgraded snapshot</>}
-          badExtraExplanation={<>clipped duration or downgraded snapshot w/ &gt;2s remaining</>}
-        />
+        <div>
+          <RoundedPanel>
+            <div>
+              <strong>Moonfire uptime / snapshots</strong>
+              <small> - Try to get as close to 100% as the encounter allows!</small>
+            </div>
+            {this.subStatistic()}
+          </RoundedPanel>
+        </div>
+        <div>
+          <CastSummaryAndBreakdown
+            spell={SPELLS.MOONFIRE_FERAL}
+            castEntries={this.castEntries}
+            okExtraExplanation={<>clipped duration but upgraded snapshot</>}
+            badExtraExplanation={<>clipped duration or downgraded snapshot w/ &gt;2s remaining</>}
+          />
+        </div>
       </div>
     );
 
