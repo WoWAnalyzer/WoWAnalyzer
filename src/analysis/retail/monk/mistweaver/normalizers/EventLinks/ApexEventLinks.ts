@@ -7,6 +7,7 @@ import {
   SPIRITFONT_PROC,
   SPIRITFONT_TFT,
   SPIRITFONT_CONSUMED,
+  SPIRITFONT_FALSE_REFRESH,
 } from './EventLinkConstants';
 
 export const APEX_EVENT_LINKS: EventLink[] = [
@@ -50,6 +51,19 @@ export const APEX_EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
     anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT);
+    },
+  },
+  {
+    linkRelation: SPIRITFONT_FALSE_REFRESH,
+    linkingEventId: SPELLS.SPIRITFONT_BUFF.id,
+    linkingEventType: EventType.RefreshBuff,
+    referencedEventId: SPELLS.SPIRITFONT_BUFF.id,
+    referencedEventType: EventType.RemoveBuffStack,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT);
     },

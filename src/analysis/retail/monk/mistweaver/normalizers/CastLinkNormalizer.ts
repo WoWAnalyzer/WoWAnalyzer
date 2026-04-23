@@ -44,6 +44,7 @@ import {
   ZEN_PULSE_CAST,
   STRENGTH_OF_THE_BLACK_OX,
   SPIRITFONT_CONSUMED,
+  SPIRITFONT_FALSE_REFRESH,
   JADE_BOND_ENVM,
   INSURANCE_FROM_REM,
   INSURANCE,
@@ -303,8 +304,13 @@ export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
 }
 
+// apex talent (spiritfont)
 export function isSpiritfontConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return HasRelatedEvent(event, SPIRITFONT_CONSUMED);
+}
+
+export function isSpiritfontFalseRefresh(event: RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, SPIRITFONT_FALSE_REFRESH);
 }
 
 // hero talents
