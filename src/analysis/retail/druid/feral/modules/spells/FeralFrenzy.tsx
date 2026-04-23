@@ -12,7 +12,6 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
-import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -96,15 +95,12 @@ export default class FeralFrenzy extends Analyzer {
     const cpsOnCast = this.comboPointTracker.current;
     const energyOnCast = this.energyTracker.current;
     const isFrantic = this.isFrantic;
-    const damageEvents = getDamageHits(event);
-    const hitCount = new Set(damageEvents.map((e) => e.targetID)).size;
     this.ffTrackers.push({
       timestamp: event.timestamp,
       tfOnCast,
       cpsOnCast,
       energyOnCast,
       isFrantic,
-      hitCount,
       damage: 0,
       damageByEnemy: new Map(),
     });
@@ -185,7 +181,7 @@ export default class FeralFrenzy extends Analyzer {
             details: (
               <>
                 ({cast.cpsOnCast} CPs)
-                {this.isFrantic && <> ({cast.hitCount} Targets hit)</>}
+                {this.isFrantic && <> ({cast.damageByEnemy.size} Targets hit)</>}
               </>
             ),
           });
@@ -228,46 +224,79 @@ export default class FeralFrenzy extends Analyzer {
 
   get castBreakdownTable() {
     return (
-      <table className="table table-condensed">
+      <table className="table table-condensed" style={{ textAlign: 'left' }}>
         <thead>
           <tr>
-            <th>Cast #</th>
-            <th>Time</th>
-            <th>Damage</th>
-            <th>Enemies Hit</th>
+            <th style={{ textAlign: 'center' }}>Cast #</th>
+            <th style={{ textAlign: 'left' }}>Time</th>
+            <th style={{ textAlign: 'left' }}>Cast Damage</th>
+            <th style={{ textAlign: 'left' }}>Enemy</th>
+            <th style={{ textAlign: 'center' }}># Hit</th>
+            <th style={{ textAlign: 'left' }}>Damage</th>
           </tr>
         </thead>
         <tbody>
-          {this.ffTrackers.map((cast, index) => (
-            <tr key={index}>
-              <th scope="row">{index + 1}</th>
-              <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
-              <td>{formatNumber(cast.damage)}</td>
-              <td>
-                {Array.from(
-                  Array.from(cast.damageByEnemy.values())
-                    .reduce((acc, { name, damage }) => {
-                      const existing = acc.get(name);
-                      if (existing) {
-                        existing.count += 1;
-                        existing.damage += damage;
-                      } else {
-                        acc.set(name, { count: 1, damage });
-                      }
-                      return acc;
-                    }, new Map<string, { count: number; damage: number }>())
-                    .entries(),
-                )
-                  .sort(([, a], [, b]) => b.damage - a.damage)
-                  .map(([name, { count, damage }], i) => (
-                    <div key={i}>
-                      {name}
-                      {count > 1 && `(${count})`} — {formatNumber(damage)}
-                    </div>
-                  ))}
-              </td>
-            </tr>
-          ))}
+          {this.ffTrackers.flatMap((cast, index) => {
+            const grouped = Array.from(
+              Array.from(cast.damageByEnemy.values())
+                .reduce((acc, { name, damage }) => {
+                  const existing = acc.get(name);
+                  if (existing) {
+                    existing.count += 1;
+                    existing.damage += damage;
+                  } else {
+                    acc.set(name, { count: 1, damage });
+                  }
+                  return acc;
+                }, new Map<string, { count: number; damage: number }>())
+                .entries(),
+            ).sort(([, a], [, b]) => b.damage - a.damage);
+
+            if (grouped.length === 0) {
+              return [
+                <tr key={index}>
+                  <th scope="row" style={{ textAlign: 'center' }}>
+                    {index + 1}
+                  </th>
+                  <td style={{ textAlign: 'left' }}>
+                    {this.owner.formatTimestamp(cast.timestamp)}
+                  </td>
+                  <td style={{ textAlign: 'left' }}>{formatNumber(cast.damage)}</td>
+                  <td colSpan={3} style={{ textAlign: 'left' }}>
+                    —
+                  </td>
+                </tr>,
+              ];
+            }
+
+            return grouped.map(([name, { count, damage }], i) => {
+              const subRowStyle = {
+                textAlign: 'left' as const,
+                ...(i > 0 ? { borderTopColor: 'transparent' } : {}),
+                ...(i < grouped.length - 1 ? { borderBottomColor: 'transparent' } : {}),
+              };
+              return (
+                <tr key={`${index}-${i}`}>
+                  {i === 0 && (
+                    <>
+                      <th scope="row" rowSpan={grouped.length} style={{ textAlign: 'center' }}>
+                        {index + 1}
+                      </th>
+                      <td rowSpan={grouped.length} style={{ textAlign: 'left' }}>
+                        {this.owner.formatTimestamp(cast.timestamp)}
+                      </td>
+                      <td rowSpan={grouped.length} style={{ textAlign: 'left' }}>
+                        {formatNumber(cast.damage)}
+                      </td>
+                    </>
+                  )}
+                  <td style={subRowStyle}>{name}</td>
+                  <td style={{ ...subRowStyle, textAlign: 'center' }}>{count}</td>
+                  <td style={subRowStyle}>{formatNumber(damage)}</td>
+                </tr>
+              );
+            });
+          })}
         </tbody>
       </table>
     );
@@ -280,7 +309,6 @@ interface FeralFrenzyCast {
   cpsOnCast: number;
   energyOnCast: number;
   isFrantic: boolean; // Feral Frenzy can be upgraded to Frantic Frenzy now
-  hitCount: number; // The ability becomes AoE. This greatly changes the effeciency values.
   /** Total damage (all hits + bleed ticks) attributed to this cast */
   damage: number;
   /** Damage broken down per enemy, keyed by `${targetID}.${targetInstance}` */
