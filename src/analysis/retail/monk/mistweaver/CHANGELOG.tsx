@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 23), <>Updated spec compatibility to patch 12.0.5.</>, swirl),
   change(date(2026, 4, 15), <>Fixed a bug with <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> statistic and guide subsection analysis when <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> is talented.</>, Vohrr),
   change(date(2026, 3, 29), <>Updated Celestial analysis, APL checks, and general healing cooldowns updates.</>, swirl),
   change(date(2026, 3, 24), <>Fixed <SpellLink spell={TALENTS_MONK.MISTY_COALESCENCE_TALENT} /> to correctly cap scaling at 20 players.</>, swirl),
