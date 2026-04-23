@@ -11,7 +11,7 @@ const config: Config = {
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0.1',
-  supportLevel: SupportLevel.MaintainedPartial,
+  supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -72,7 +72,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: "/report/hY6vg1LxqzmR94XG/126-Heroic+Broodtwister+Ovi'nax+-+Kill+(6:24)/Meurthe/",
+  exampleReport:
+    '/report/FHfng1KdRc98Z6VP/27-Mythic+Imperator+Averzian+-+Kill+(6:53)/1-Katorrí/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

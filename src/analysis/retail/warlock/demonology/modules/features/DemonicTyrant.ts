@@ -1,19 +1,53 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
-import Events, { CastEvent, SummonEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  EventType,
+  FightEndEvent,
+  RemoveBuffEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
+import SoulShardTracker from 'analysis/retail/warlock/shared/resources/SoulShardTracker';
 
 const DREADSTALKERS_DURATION = 12000;
-const TYRANT_WINDOW_MS = 20000;
+const GRIMOIRE_DURATION = 20000;
+const DOOMGUARD_DURATION = 12000;
+export const TYRANT_WINDOW_MS = 25000;
+const DEMONIC_POWER_SPELL_ID = 1276788;
 
 export default class DemonicTyrant extends Analyzer {
+  static dependencies = {
+    soulShardTracker: SoulShardTracker,
+    spellUsable: SpellUsable,
+  };
+  protected soulShardTracker!: SoulShardTracker;
+  protected spellUsable!: SpellUsable;
+
   tyrantData: TyrantCastData[] = [];
   currentTyrant: TyrantCastData | null = null;
 
   lastDreadstalkersCast = 0;
+  lastGrimoireCast = 0;
+  lastDoomguardCast = 0;
+  // Tracks gains (in shards) after Tyrant cast to retroactively compute shardsOnCast from the first window spender.
+  private gainsBeforeFirstWindowSpend = 0;
+  private pendingRetroactiveShardsOnCast = false;
 
   constructor(options: Options) {
     super(options);
+
+    // Use the Apex talent buff (longer window) if the player has it, otherwise the base Tyrant buff.
+    const hasApex =
+      this.selectedCombatant.hasTalent(TALENTS.DOMINION_OF_ARGUS_1_DEMONOLOGY_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DOMINION_OF_ARGUS_2_DEMONOLOGY_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DOMINION_OF_ARGUS_3_DEMONOLOGY_TALENT);
+    const windowBuff = hasApex ? SPELLS.DOMINION_OF_ARGUS_BUFF : SPELLS.SUMMON_DEMONIC_TYRANT;
 
     // Tyrant cast
     this.addEventListener(
@@ -21,16 +55,16 @@ export default class DemonicTyrant extends Analyzer {
       this.onTyrantCast,
     );
 
-    // Hand of Gul'dan cast
+    // Window end via buff removal
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HAND_OF_GULDAN_CAST),
-      this.onHandOfGuldanCast,
+      Events.removebuff.to(SELECTED_PLAYER).spell(windowBuff),
+      this.onTyrantEnd,
     );
 
-    // Wild imp summons
+    // Hand of Gul'dan and Ruination (Diabolist) — both count as shard spender casts
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.WILD_IMP_HOG_SUMMON),
-      this.onImpSummon,
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.HAND_OF_GULDAN_CAST, SPELLS.RUINATION_CAST]),
+      this.onSpenderCast,
     );
 
     // Dreadstalkers cast
@@ -38,6 +72,32 @@ export default class DemonicTyrant extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS),
       this.onDreadstalkersCast,
     );
+
+    // Grimoire: Imp Lord / Fel Ravager cast tracking
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.GRIMOIRE_IMP_LORD_TALENT),
+      this.onGrimoireCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT),
+      this.onGrimoireCast,
+    );
+
+    // Doomguard cast tracking
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SUMMON_DOOMGUARD_TALENT),
+      this.onDoomguardCast,
+    );
+
+    // Track shard gains — use to(SELECTED_PLAYER) since energize events target the player, not sourced by them.
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onShardGain);
+
+    // Finalize last window at fight end
+    this.addEventListener(Events.fightend, this.onFightEnd);
+
+    // Demonic Power stack tracking (not filtered to SELECTED_PLAYER — Tyrant is a pet)
+    this.addEventListener(Events.applybuff, this.onDemonicPower);
+    this.addEventListener(Events.applybuffstack, this.onDemonicPower);
   }
 
   onTyrantCast(event: CastEvent) {
@@ -47,49 +107,170 @@ export default class DemonicTyrant extends Analyzer {
     const dreadstalkersTooEarly =
       dreadstalkersActive && timeSinceDreadstalkers > DREADSTALKERS_DURATION / 2;
 
+    const shardsOnCast = this.soulShardTracker.current;
+    const demonicCoresOnCast =
+      this.selectedCombatant.getBuff(SPELLS.DEMONIC_CORE_BUFF.id)?.stacks ?? 0;
+
+    // Resolve which Grimoire talent the player has and whether it was cast before this Tyrant.
+    const grimoireTalent = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_IMP_LORD_TALENT)
+      ? TALENTS.GRIMOIRE_IMP_LORD_TALENT
+      : this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT)
+        ? TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT
+        : null;
+    const grimoireAvailable = grimoireTalent
+      ? this.spellUsable.isAvailable(grimoireTalent.id)
+      : null;
+    const grimoireCast =
+      grimoireAvailable != null
+        ? this.lastGrimoireCast !== 0 &&
+          event.timestamp - this.lastGrimoireCast <= GRIMOIRE_DURATION
+        : null;
+
+    // Check if Doomguard was cast recently enough to still be active during this Tyrant window.
+    const doomguardAvailable = this.selectedCombatant.hasTalent(TALENTS.SUMMON_DOOMGUARD_TALENT)
+      ? this.spellUsable.isAvailable(TALENTS.SUMMON_DOOMGUARD_TALENT.id)
+      : null;
+    const doomguardCast =
+      doomguardAvailable != null
+        ? this.lastDoomguardCast !== 0 &&
+          event.timestamp - this.lastDoomguardCast <= DOOMGUARD_DURATION
+        : null;
+
+    this.gainsBeforeFirstWindowSpend = 0;
+    // Only needed before the first ever spend — after that the tracker has accurate absolute state.
+    this.pendingRetroactiveShardsOnCast = this.soulShardTracker.spent === 0;
+
     const tyrant: TyrantCastData = {
       cast: event.timestamp,
       handOfGuldanCasts: 0,
-      impsSummoned: 0,
+      maxDemonicPowerStacks: 0,
       dreadstalkersActive,
       dreadstalkersTooEarly,
+      shardsOnCast,
+      demonicCoresOnCast,
+      grimoireAvailable,
+      grimoireCast,
+      doomguardAvailable,
+      doomguardCast,
+      shardsAtWindowEnd: null,
+      fightEndedDuringWindow: false,
+      actualWindowDurationMs: TYRANT_WINDOW_MS,
+      dreadstalkersCastDuringWindow: false,
+      grimoireCastDuringWindow: false,
     };
 
     this.tyrantData.push(tyrant);
     this.currentTyrant = tyrant;
   }
 
-  onHandOfGuldanCast(event: CastEvent) {
+  // Called when the tracked window buff (Dominion of Argus or Summon Demonic Tyrant) expires.
+  onTyrantEnd(event: RemoveBuffEvent) {
+    if (!this.currentTyrant) return;
+    if (this.currentTyrant.shardsAtWindowEnd !== null) return;
+
+    this.currentTyrant.shardsAtWindowEnd = Math.round(Math.max(0, this.soulShardTracker.current));
+    this.currentTyrant.actualWindowDurationMs = event.timestamp - this.currentTyrant.cast;
+    this.currentTyrant = null;
+  }
+
+  onSpenderCast(event: CastEvent) {
     if (!this.currentTyrant) return;
 
-    if (event.timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) {
-      this.currentTyrant = null;
-      return;
+    // Retroactively set shardsOnCast: first spender's pre-spend amount minus gains since Tyrant cast.
+    if (this.pendingRetroactiveShardsOnCast) {
+      const resource = this.soulShardTracker.getResource(event);
+      if (resource !== undefined) {
+        this.currentTyrant.shardsOnCast = Math.max(
+          0,
+          Math.round(resource.amount - this.gainsBeforeFirstWindowSpend),
+        );
+      }
+      this.pendingRetroactiveShardsOnCast = false;
     }
 
     this.currentTyrant.handOfGuldanCasts += 1;
   }
 
-  onImpSummon(event: SummonEvent) {
+  // Closes the active window if the fight ends before the buff naturally expires.
+  onFightEnd(event: FightEndEvent) {
     if (!this.currentTyrant) return;
-
-    if (event.timestamp > this.currentTyrant.cast + TYRANT_WINDOW_MS) {
-      this.currentTyrant = null;
-      return;
+    if (this.currentTyrant.shardsAtWindowEnd === null) {
+      this.currentTyrant.shardsAtWindowEnd = Math.round(Math.max(0, this.soulShardTracker.current));
+      this.currentTyrant.fightEndedDuringWindow = true;
+      this.currentTyrant.actualWindowDurationMs = event.timestamp - this.currentTyrant.cast;
     }
-
-    this.currentTyrant.impsSummoned += 1;
   }
 
   onDreadstalkersCast(event: CastEvent) {
     this.lastDreadstalkersCast = event.timestamp;
+    if (this.currentTyrant) {
+      this.currentTyrant.dreadstalkersCastDuringWindow = true;
+    }
+  }
+
+  // Records last Grimoire cast timestamp and flags if it fell inside the Tyrant window.
+  onGrimoireCast(event: CastEvent) {
+    this.lastGrimoireCast = event.timestamp;
+    if (this.currentTyrant) {
+      this.currentTyrant.grimoireCastDuringWindow = true;
+    }
+  }
+
+  // Records last Doomguard cast timestamp for pre-Tyrant alignment checks.
+  onDoomguardCast(event: CastEvent) {
+    this.lastDoomguardCast = event.timestamp;
+  }
+
+  onShardGain(event: ResourceChangeEvent) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.SOUL_SHARDS.id) return;
+    if (!this.currentTyrant) return;
+
+    // Accumulate effective gains (÷10 from ×10 log units) until the first window spender.
+    if (this.pendingRetroactiveShardsOnCast) {
+      const lastUpdate = this.soulShardTracker.resourceUpdates.at(-1);
+      if (lastUpdate?.type === 'gain') {
+        this.gainsBeforeFirstWindowSpend += (lastUpdate.change ?? 0) / 10;
+      }
+    }
+  }
+
+  // Tracks the peak Demonic Power stack count reached during the Tyrant window (listens to all sources, not just SELECTED_PLAYER).
+  onDemonicPower(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+    if (!this.currentTyrant) return;
+    if (event.ability?.guid !== DEMONIC_POWER_SPELL_ID) return;
+
+    let stacks = 1;
+
+    if (event.type === EventType.ApplyBuffStack) {
+      stacks = event.stack ?? 1;
+    }
+
+    if (stacks > this.currentTyrant.maxDemonicPowerStacks) {
+      this.currentTyrant.maxDemonicPowerStacks = stacks;
+    }
   }
 }
 
 export interface TyrantCastData {
   cast: number;
   handOfGuldanCasts: number;
-  impsSummoned: number;
+  maxDemonicPowerStacks: number;
   dreadstalkersActive: boolean;
   dreadstalkersTooEarly: boolean;
+  shardsOnCast: number;
+  demonicCoresOnCast: number;
+  /** null if neither Grimoire: Imp Lord nor Grimoire: Fel Ravager is talented */
+  grimoireAvailable: boolean | null;
+  /** null if neither Grimoire: Imp Lord nor Grimoire: Fel Ravager is talented */
+  grimoireCast: boolean | null;
+  /** null if not talented */
+  doomguardAvailable: boolean | null;
+  /** null if not talented */
+  doomguardCast: boolean | null;
+  shardsAtWindowEnd: number | null;
+  fightEndedDuringWindow: boolean;
+  /** Actual window duration in ms — shorter than TYRANT_WINDOW_MS if the fight ended early */
+  actualWindowDurationMs: number;
+  dreadstalkersCastDuringWindow: boolean;
+  grimoireCastDuringWindow: boolean;
 }

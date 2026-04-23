@@ -388,6 +388,12 @@ const spells = {
     name: 'Summon Demonic Tyrant',
     icon: 'inv_summondemonictyrant',
   },
+  // Buff applied to the player while the Demonic Tyrant is active (Apex talent); ~25s duration
+  DOMINION_OF_ARGUS_BUFF: {
+    id: 1276166,
+    name: 'Dominion of Argus',
+    icon: 'inv12_apextalent_warlock_dominionofargus',
+  },
   GRIMOIRE_IMP_LORD: {
     id: 1276452,
     name: 'Grimoire: Imp Lord',

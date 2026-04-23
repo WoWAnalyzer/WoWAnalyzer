@@ -22,6 +22,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       duration: 20,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
+    {
+      spell: TALENTS.SUMMON_DOOMGUARD_TALENT.id,
+      duration: 12,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+    },
   ];
 }
 
