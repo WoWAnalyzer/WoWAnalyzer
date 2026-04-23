@@ -91,6 +91,7 @@ import S1TierSet from './modules/tier/S1TierSet';
 import AmplifiedRush from './modules/spells/AmplifiedRush';
 import WayOfTheSerpent from './modules/spells/WayOfTheSerpent';
 import MovementTracker from './modules/features/MovementDuringBuffTracker';
+import CastingWhileMoving from './modules/features/CastingWhileMoving';
 import WayOfTheCrane from './modules/spells/WayOfTheCrane';
 import AncientTeachingsLinkNormalizer from './normalizers/AncientTeachingsLinkNormalizer';
 import SoothingMistLinkNormalizer from './normalizers/SoothingMistLinkNormalizer';
@@ -140,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     talentHealingStatistic: TalentHealingStatistic,
     risingMistBreakdown: RisingMistBreakdown,
     movementTracker: MovementTracker,
+    castingWhileMoving: CastingWhileMoving,
 
     // Guide helpers
     sheilunsGiftCloudTracker: SheilunsGiftCloudTracker,
