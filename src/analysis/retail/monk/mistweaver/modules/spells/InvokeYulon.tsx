@@ -283,7 +283,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and
+              <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
               <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />
             </>
           }
