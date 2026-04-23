@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 4, 23), <>Fix module showing as not updated for 12.0.5</>, KYZ),
   change(date(2026, 4, 21), <>Updated for 12.0.5.</>, KYZ),
   change(date(2026, 4, 20), <>Fixed <SpellLink spell={SPELLS.HOVER} /> not counting as castable while casting</>, Baumritter),
   change(date(2026, 4, 8), <>Significant updates to guide section.</>, KYZ),
