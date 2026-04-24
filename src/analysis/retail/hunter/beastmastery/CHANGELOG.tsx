@@ -1,6 +1,7 @@
 import { change, date } from 'common/changelog';
 import { Putro, SheenMachine} from 'CONTRIBUTORS';
 export default [
+  change(date(2026, 4, 24), "Add Beast Mastery spec for 12.0.5", []),
   change(date(2026, 4, 14), "Remove more outdated spells and modules", SheenMachine),
   change(date(2026, 4, 12), "Remove Dire Beast module", SheenMachine),
   change(date(2026, 4, 9), "Remove Kill Shot module", SheenMachine),
