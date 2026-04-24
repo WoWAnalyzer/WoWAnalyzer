@@ -25,6 +25,7 @@ import ResonatingSphere from './modules/talents/ResonatingSphere';
 import TimeLord from './modules/talents/TimeLord';
 import RenewingBreath from './modules/talents/RenewingBreath';
 import FieldOfDreams from './modules/talents/FieldOfDreams';
+import FlutteringSeedlings from './modules/talents/FlutteringSeedlings';
 import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 //import Stasis from './modules/talents/Stasis';
@@ -133,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     merithrasBlessing: MerithrasBlessing,
     renewingBreath: RenewingBreath,
     fieldOfDreams: FieldOfDreams,
+    flutteringSeedlings: FlutteringSeedlings,
     exhilBurst: ExhilBurst,
     //stasis: Stasis,
     timeOfNeed: TimeOfNeed,

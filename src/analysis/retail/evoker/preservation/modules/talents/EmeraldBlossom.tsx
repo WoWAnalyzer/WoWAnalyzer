@@ -72,7 +72,7 @@ class EmeraldBlossom extends Analyzer {
       timestamp = timestamp < ev.timestamp ? timestamp : ev.timestamp;
     });
     const overhealPercent = overheal / (overheal + effective);
-    if (events.length < this.goodThreshold || overhealPercent > 0.8) {
+    if (events.length < this.goodThreshold) {
       value = QualitativePerformance.Fail;
     } else if (overhealPercent > 0.7) {
       value = QualitativePerformance.Ok;

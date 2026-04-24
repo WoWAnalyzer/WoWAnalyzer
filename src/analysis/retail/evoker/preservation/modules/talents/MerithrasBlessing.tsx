@@ -85,7 +85,7 @@ class MerithrasBlessing extends Analyzer {
     if (
       generatingCast &&
       this.dreamBreathCasts.includes(generatingCast.ability.guid) &&
-      this.lastRefresh !== event.timestamp
+      (event.timestamp - 50 > this.lastRefresh || this.lastRefresh === 0)
     ) {
       this.lastRefresh = event.timestamp;
       this.badRefreshes.push(event.timestamp);
