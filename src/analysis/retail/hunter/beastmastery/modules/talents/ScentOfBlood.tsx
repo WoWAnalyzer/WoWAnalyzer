@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellUsable from '../core/SpellUsable';
 
 /**
- * Activating Bestial Wrath grants 1/2 charges of Barbed Shot. (depending on points)
+ * Activating Bestial Wrath grants 1 charges of Barbed Shot.
  *
  * Example log:
  */
@@ -31,16 +31,12 @@ class ScentOfBlood extends Analyzer {
     this.shotRecharges = this.selectedCombatant.getTalentRank(TALENTS.SCENT_OF_BLOOD_TALENT);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
-      this.bestialWrathApplication,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
-      this.bestialWrathApplication,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
+      this.onBestialWrathCast,
     );
   }
 
-  bestialWrathApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+  onBestialWrathCast(event: CastEvent) {
     const chargesAvailable = this.spellUsable.chargesAvailable(TALENTS.BARBED_SHOT_TALENT.id);
     if (this.shotRecharges === 2) {
       this.spellUsable.endCooldown(TALENTS.BARBED_SHOT_TALENT.id, event.timestamp, false, true);
