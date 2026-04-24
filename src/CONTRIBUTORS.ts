@@ -2942,3 +2942,8 @@ export const Baumritter: Contributor = {
   github: 'Baumritter',
   discord: 'baumritter',
 };
+
+export const Banshu: Contributor = {
+  nickname: '番獣',
+  github: 'いきそう',
+};

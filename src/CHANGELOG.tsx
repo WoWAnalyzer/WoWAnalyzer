@@ -32,12 +32,14 @@ import {
   Thias,
   Hezaerd,
   Dambroda,
+  Banshu,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 26), 'Add bug with damage mitigation function `absoluteMitigation`', Banshu),
   change(date(2026, 4, 22), 'Add Midnight raid boss abilities to uptime timelines.', emallson),
   change(date(2026, 4, 21), 'Improve glyph loading by pre-loading during initialization instead of lazy load', Thias),
   change(date(2026, 4, 20), "Regenerate talents for 12.0.5.", Vollmer),
