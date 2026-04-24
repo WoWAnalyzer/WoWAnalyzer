@@ -66,7 +66,7 @@ export const MAELSTROM_ABILITIES: Record<string, MaelstromAbility> = {
     spellId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST.id],
     type: MaelstromAbilityType.Builder,
     enabled: (c: Combatant) => c.hasTalent(TALENTS.THUNDER_CAPACITOR_TALENT),
-    maximum: (c: Combatant) => (c.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT) ? 10 : 5),
+    maximum: (c: Combatant) => (c.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5),
     linkFromEventType: [EventType.Cast, EventType.FreeCast],
     forwardBufferMs: BufferMs.StaticAccumulation,
     spellIdOverride: TALENTS.THUNDER_CAPACITOR_TALENT.id,

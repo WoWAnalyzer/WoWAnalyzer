@@ -82,9 +82,11 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     super(options);
     this.priority = NormalizerOrder.MaelstromWeaponResourceNormalizer;
     // maximum stack count of the maelstrom weapon buff
-    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5;
+    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT)
+      ? 10
+      : 5;
     // maximum number of maelstrom weapon stacks that can be consumed at once
-    this.maxSpend = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT) ? 10 : 5;
+    this.maxSpend = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5;
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
