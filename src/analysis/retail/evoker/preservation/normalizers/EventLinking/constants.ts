@@ -33,6 +33,7 @@ export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
 export const REVERSION = 'Reversion';
 export const EMERALD_BLOSSOM_CAST = 'EmeraldBlossomCast'; //Find first heal event from a Blossom cast
+export const VERDANT_EMBRACE_BLOSSOM = 'VerdantEmbraceBlossom'; //Emerald Blossom heals spawned from tierset bonus Verdant Embrace
 export const DREAM_BREATH = 'DreamBreath';
 export const DREAM_BREATH_CAST = 'DreamBreathCast'; //Apply buff and Refresh buff to Cast event
 export const DREAM_BREATH_FROM_STASIS = 'DreamBreathFromStasis';
@@ -51,6 +52,12 @@ export enum ECHO_TYPE {
   NONE,
   TA,
   HARDCAST,
+}
+
+export enum BLOSSOM_SOURCE {
+  BLOSSOM_CAST,
+  VERDANT_EMBRACE,
+  FIELD_OF_DREAMS,
 }
 
 export const CAST_BUFFER_MS = 100;
