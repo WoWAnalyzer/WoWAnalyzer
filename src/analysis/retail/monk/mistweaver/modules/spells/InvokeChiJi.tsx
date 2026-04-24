@@ -316,7 +316,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> and
+              <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> and{' '}
               <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />
             </>
           }

@@ -1,13 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  BeginChannelEvent,
-  CastEvent,
-  HealEvent,
-  RemoveBuffEvent,
-  GetRelatedEvents,
-} from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import {
   WAY_OF_THE_SERPENT_VIV_SG_INCREASE,
@@ -21,22 +15,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { SpellLink } from 'interface/index';
 import { formatPercentage, formatNumber } from 'common/format';
-import MovementDuringBuffTracker from '../features/MovementDuringBuffTracker';
-import { SOOTHING_MIST_CHANNEL_END } from '../../normalizers/EventLinks/EventLinkConstants';
 
 class WayOfTheSerpent extends Analyzer {
-  static dependencies = {
-    movementTracker: MovementDuringBuffTracker,
-  };
-
-  protected movementTracker!: MovementDuringBuffTracker;
-
   activeVivifySpell = SPELLS.VIVIFY;
 
   vivifySheilunsHealing = 0;
   renewingMistHealing = 0;
-
-  soothingMistChannelEnds: Set<number> = new Set();
 
   constructor(options: Options) {
     super(options);
@@ -50,51 +34,6 @@ class WayOfTheSerpent extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell([this.activeVivifySpell, SPELLS.RENEWING_MIST_HEAL]),
       this.onHeal,
     );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
-      this.onSoothingMistCast,
-    );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell(TALENTS_MONK.SOOTHING_MIST_TALENT)
-        .to(SELECTED_PLAYER),
-      this.onSoothingMistEnd,
-    );
-    this.addEventListener(
-      Events.BeginChannel.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
-      this.onChannelStart,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
-      this.onChannelEnd,
-    );
-  }
-
-  onSoothingMistCast(event: CastEvent) {
-    this.movementTracker.startTracking(event.ability.guid, event.timestamp);
-
-    const channelEndEvents = GetRelatedEvents(event, SOOTHING_MIST_CHANNEL_END);
-    if (channelEndEvents.length > 0) {
-      const endEvent = channelEndEvents[0] as RemoveBuffEvent;
-      this.soothingMistChannelEnds.add(endEvent.timestamp);
-    }
-  }
-
-  onSoothingMistEnd(event: RemoveBuffEvent) {
-    if (this.soothingMistChannelEnds.has(event.timestamp)) {
-      this.movementTracker.stopTracking(TALENTS_MONK.SOOTHING_MIST_TALENT.id, event.timestamp);
-      this.soothingMistChannelEnds.delete(event.timestamp);
-    }
-  }
-
-  onChannelStart(event: CastEvent | BeginChannelEvent) {
-    this.movementTracker.startTracking(event.ability.guid, event.timestamp);
-  }
-
-  onChannelEnd(event: RemoveBuffEvent) {
-    this.movementTracker.stopTracking(event.ability.guid, event.timestamp);
   }
 
   get totalHealing(): number {
@@ -124,11 +63,6 @@ class WayOfTheSerpent extends Analyzer {
   }
 
   statistic() {
-    const soomMovement = this.movementTracker.getTotalMovement(
-      TALENTS_MONK.SOOTHING_MIST_TALENT.id,
-    );
-    const cjlMovement = this.movementTracker.getTotalMovement(SPELLS.CRACKLING_JADE_LIGHTNING.id);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
@@ -144,28 +78,11 @@ class WayOfTheSerpent extends Analyzer {
               <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> additional healing:{' '}
               {formatNumber(this.renewingMistHealing)}
             </div>
-            {soomMovement > 0 && (
-              <div>
-                Movement during <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />:{' '}
-                {formatNumber(soomMovement)} yards
-              </div>
-            )}
-            {cjlMovement > 0 && (
-              <div>
-                Movement during <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} />:{' '}
-                {formatNumber(cjlMovement)} yards
-              </div>
-            )}
           </>
         }
       >
         <TalentSpellText talent={TALENTS_MONK.WAY_OF_THE_SERPENT_TALENT}>
-          <div>
-            <ItemHealingDone amount={this.totalHealing} />
-          </div>
-          <div>
-            {formatNumber(soomMovement + cjlMovement)} <small>yards moved while channeling</small>
-          </div>
+          <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>
     );

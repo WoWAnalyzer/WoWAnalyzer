@@ -32,7 +32,10 @@ import {
   SPIRITFONT_PROC,
   SPIRITFONT_TFT,
 } from '../../normalizers/EventLinks/EventLinkConstants';
-import { isSpiritfontConsumed } from '../../normalizers/CastLinkNormalizer';
+import {
+  isSpiritfontConsumed,
+  isSpiritfontFalseRefresh,
+} from '../../normalizers/CastLinkNormalizer';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -122,6 +125,8 @@ class Spiritfont extends Analyzer {
   }
 
   private onRefreshBuff(event: RefreshBuffEvent) {
+    if (isSpiritfontFalseRefresh(event)) return;
+
     this.wastedBuffs += 1;
     this.entries.push({
       value: QualitativePerformance.Fail,
