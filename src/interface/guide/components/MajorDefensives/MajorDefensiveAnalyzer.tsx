@@ -108,6 +108,9 @@ type InProgressMitigation<Apply extends EventType, Remove extends EventType> = P
  */
 export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
   const actualAmount = event.amount + (event.absorbed ?? 0) + (event.overkill ?? 0);
+  if (mitPct >= 1) {
+    return actualAmount;
+  }
   const priorAmount = actualAmount * (1 / (1 - mitPct));
   return priorAmount - actualAmount;
 }
