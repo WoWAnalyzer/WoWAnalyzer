@@ -1,7 +1,6 @@
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -11,12 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill
  * Command.
- *
- * Example log:
- * https://www.warcraftlogs.com/reports/M8dWYrRvmbnADCcZ#fight=11&type=damage-done&source=169
- *
  */
-
 class KillerCobra extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -34,18 +28,6 @@ class KillerCobra extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COBRA_SHOT_TALENT),
       this.onCobraCast,
     );
-  }
-
-  get wastedKillerCobraThreshold() {
-    return {
-      actual: this.wastedKillerCobraCobraShots,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   onCobraCast() {
