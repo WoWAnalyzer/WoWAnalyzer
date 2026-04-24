@@ -34,7 +34,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: BOOSTED_BY_SA,
     linkingEventId: SPELLS.SUDDEN_AMBUSH_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
-    referencedEventId: [SPELLS.RAKE.id, SPELLS.SHRED.id],
+    referencedEventId: [SPELLS.RAKE.id, SPELLS.SHRED.id, SPELLS.SWIPE_CAT.id],
     referencedEventType: EventType.Damage,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
