@@ -5,7 +5,7 @@ import { useLingui } from '@lingui/react';
 import { ReactNode } from 'react';
 import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
-import type { BeginChannelEvent, CastEvent, EventMeta } from './Events';
+import type { BeginChannelEvent, CastEvent, EventMeta, FreeCastEvent } from './Events';
 
 export type Reason = ReactNode | MessageDescriptor;
 
@@ -51,7 +51,7 @@ export function addEnhancedCastReason(event: BeginChannelEvent | CastEvent, reas
 }
 
 export function addAdditionalCastInformation(
-  event: BeginChannelEvent | CastEvent,
+  event: BeginChannelEvent | CastEvent | FreeCastEvent,
   reason?: Reason,
 ) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
