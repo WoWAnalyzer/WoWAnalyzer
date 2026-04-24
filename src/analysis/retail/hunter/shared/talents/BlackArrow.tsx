@@ -10,29 +10,30 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class BlackArrow extends Analyzer {
   damage = 0;
-  private activeBlackArrowTalent = this.selectedCombatant.hasTalent(
-    TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT,
-  )
-    ? TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT
-    : this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_MARKSMANSHIP_TALENT)
-      ? TALENTS.BLACK_ARROW_MARKSMANSHIP_TALENT
-      : null;
+  readonly activeBlackArrowTalent;
+
   constructor(options: Options) {
     super(options);
-    this.active = this.activeBlackArrowTalent !== null;
-    if (!this.active) {
+
+    if (this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT)) {
+      this.activeBlackArrowTalent = TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT;
+      this.active = true;
+    } else if (this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_MARKSMANSHIP_TALENT)) {
+      this.activeBlackArrowTalent = TALENTS.BLACK_ARROW_MARKSMANSHIP_TALENT;
+      this.active = true;
+    } else {
+      this.active = false;
       return;
     }
+
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_ARROW_DAMAGE),
-      this.onBlackArrowDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_ARROW_DAMAGE_2),
-      this.onBlackArrowDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_ARROW_DAMAGE_3),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.BLACK_ARROW_DAMAGE,
+          SPELLS.BLACK_ARROW_DAMAGE_2,
+          SPELLS.BLACK_ARROW_DAMAGE_3,
+        ]),
       this.onBlackArrowDamage,
     );
   }
@@ -46,7 +47,7 @@ class BlackArrow extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <BoringSpellValueText spell={this.activeBlackArrowTalent!}>
           <ItemDamageDone amount={this.damage} />

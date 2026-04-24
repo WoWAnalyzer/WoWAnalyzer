@@ -3,6 +3,7 @@ export { default as BornToBeWild } from './talents/BornToBeWild';
 export { default as CancelledCasts } from './CancelledCasts';
 export { default as Channeling } from 'parser/shared/normalizers/Channeling';
 export { default as Deathblow } from './talents/Deathblow';
+export { default as BlackArrow } from './talents/BlackArrow';
 export { default as DeathTracker } from './DeathTracker';
 export { default as FocusCapTracker } from './FocusCapTracker';
 export { default as FocusDetails } from './FocusDetails';
