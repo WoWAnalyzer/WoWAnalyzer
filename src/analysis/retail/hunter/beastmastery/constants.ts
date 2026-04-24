@@ -5,21 +5,30 @@ import TALENTS from 'common/TALENTS/hunter';
 
 /** Cobra Shot */
 //Cobra Shot reduces the cooldown of Kill Command by 1 second by default
-export const COBRA_SHOT_CDR_MS = 1000;
+export const COBRA_SHOT_KC_CDR_MS = 1000;
+export const BARBED_SCALES_CDR_MS = 2000;
+export const MASTER_HANDLER_CDR_MS = 500;
+export const WAR_ORDERS_CDR_MS = 3000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 /** Bestial Wrath */
-//Bestial Wrath
-export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
 export const BESTIAL_WRATH_BASE_CD = 90000;
+export const BESTIAL_WRATH_BEAST_WITHIN_CDR_MS = 60000;
+export const BESTIAL_WRATH_DURATION_MS = 15000;
+/** Withering Fire */
+export const WITHERING_FIRE_DURATION_MS = 10000;
 //endregion
 
 //region Talents
 /** Pack Tactics */
 export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
-/** Bloodshed */
-//Bloodshed increases the damage done by pets by 15%
-export const BLOODSHED_DAMAGE_AMP = 0.15;
+export const PACK_MENTALITY_CDR_MS = 4000;
+export const HOWL_BUFFS = [
+  SPELLS.HOWL_OF_THE_PACKLEADER_WYVERN,
+  SPELLS.HOWL_OF_THE_PACKLEADER_BEAR,
+  SPELLS.HOWL_OF_THE_PACKLEADER_BOAR,
+];
+
 /** Dire Beast */
 //Dire Beast lasts for 8 seconds baseline
 export const DIRE_BEAST_BASE_DURATION = 8000;
@@ -32,12 +41,6 @@ export const AOTB_ABILITIES_NOT_AFFECTED: number[] = [
   TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
   SPELLS.STOMP_DAMAGE.id,
 ];
-/** Killer Instinct */
-//Killer Instinct is a execution like talent that activates at target hp sub 35%
-export const KILLER_INSTINCT_THRESHOLD = 0.35;
-//When Killer Instinct is active Kill Command does 50% more damage
-export const KILLER_INSTINCT_MULTIPLIER = 0.5;
-
 /** Stampede */
 // The potential amount of hits per target per stampede cast.
 // By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.
@@ -46,14 +49,8 @@ export const STAMPEDE_POTENTIAL_HITS = 18;
 /** Stomp */
 //If you have Animal Companion, Stomp will hit twice per cast - so we need to be aware of that
 export const AMOUNT_OF_PETS_WITH_AC = 2;
-/** Thrill of the Hunt */
-//Thrill of the Hunt can stack up to 4 times
-export const MAX_THRILL_STACKS = 4;
-//Each stack of Thrill of the Hunt gives 2% crit
-export const CRIT_PER_THRILL_STACK = 0.02;
 /** Dire Command */
-//Dire Command has a 10% chance to summon a dire beast per rank
-export const DIRE_COMMAND_PROC_CHANCE = [0, 0.1, 0.2, 0.3];
+export const DIRE_COMMAND_PROC_CHANCE = 0.2;
 //endregion
 
 //region Pets
@@ -78,12 +75,6 @@ export const NO_DELAY_TIME_BETWEEN_BASIC_ATK = 3000;
 export const BASE_BM_FOCUS_REGEN = 5;
 //Beast Mastery has 120 focus at start
 export const BASE_BM_FOCUS_MAX = 100;
-//Minor threshold for focus wastage on focus generators
-export const FOCUS_THRESHOLD_MINOR = 0.05;
-//Average threshold for focus wastage on focus generators
-export const FOCUS_THRESHOLD_AVG = 0.075;
-//Major threshold for focus wastage on focus generators
-export const FOCUS_THRESHOLD_MAJOR = 0.125;
 //The 8 focus regen buffs connected to Barbed Shot
 export const BARBED_SHOT_FOCUS_REGEN_BUFFS = [
   SPELLS.BARBED_SHOT_BUFF,
@@ -112,6 +103,9 @@ export const BARBED_SHOT_REGEN = 5;
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.COBRA_SHOT_TALENT,
   TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT,
+  TALENTS.WILD_THRASH_TALENT,
   SPELLS.WING_CLIP,
+  SPELLS.BLACK_ARROW_DAMAGE,
+  SPELLS.WAILING_ARROW_DAMAGE,
 ];
 //endregion

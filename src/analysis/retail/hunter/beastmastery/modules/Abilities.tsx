@@ -5,12 +5,14 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { BESTIAL_WRATH_BASE_CD, BESTIAL_WRATH_BEAST_WITHIN_CDR_MS } from '../constants';
+import { NATURAL_MENDING_CDR_MS } from '../../shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      //region Talents
+      //region Rotational
       {
         spell: TALENTS.COBRA_SHOT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.COBRA_SHOT_TALENT),
@@ -23,6 +25,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLACK_ARROW_DAMAGE.id,
         enabled: combatant.hasTalent(TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 10,
         gcd: {
           base: 1500,
         },
@@ -46,16 +49,38 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BARBED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: 2,
-        cooldown: (haste) => hastedCooldown(12, haste),
+        cooldown: (haste) => hastedCooldown(18, haste),
         gcd: {
           base: 1500,
         },
       },
       {
+        spell: SPELLS.WAILING_ARROW_DAMAGE.id,
+        enabled: combatant.hasTalent(TALENTS.WAILING_DEAD_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.WILD_THRASH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WILD_THRASH_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      //endregion
+
+      //region Cooldowns
+      {
         spell: TALENTS.BESTIAL_WRATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        cooldown:
+          (combatant.hasTalent(TALENTS.THE_BEAST_WITHIN_TALENT)
+            ? BESTIAL_WRATH_BASE_CD - BESTIAL_WRATH_BEAST_WITHIN_CDR_MS
+            : BESTIAL_WRATH_BASE_CD) / 1000,
         gcd: {
           base: 1500,
         },
@@ -65,18 +90,29 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
-              <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> should be cast on cooldown as its
-              cooldown is quickly reset again through{' '}
-              <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />.
+              <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> is our main cooldown that gives us
+              most of our damage.
             </>
           ),
         },
       },
+      //endregion
+
+      //region Talents
       {
         spell: TALENTS.CAMOUFLAGE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.ROAR_OF_SACRIFICE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 120,
+        enabled: combatant.hasTalent(TALENTS.ROAR_OF_SACRIFICE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -89,7 +125,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180 - (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
+        cooldown: combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT) ? 150 : 180,
         gcd: {
           static: 0,
         },
@@ -98,7 +134,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 120,
+        cooldown:
+          120 - combatant.getTalentRank(TALENTS.NATURAL_MENDING_TALENT) * NATURAL_MENDING_CDR_MS,
         gcd: {
           base: 1500,
         },
@@ -109,16 +146,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         charges: combatant.hasTalent(TALENTS.PADDED_ARMOR_TALENT) ? 2 : 1,
-        cooldown: 120 - (combatant.hasTalent(TALENTS.LONE_SURVIVOR_TALENT) ? 30 : 0),
-        gcd: {
-          static: 0,
-        },
-      },
-      {
-        spell: SPELLS.FORTITUDE_OF_THE_BEAR.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        isDefensive: true,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.LONE_SURVIVOR_TALENT) ? 90 : 120,
         gcd: {
           static: 0,
         },
@@ -129,7 +157,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 180 - (combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
+        cooldown: combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT) ? 150 : 180,
         gcd: {
           static: 0,
         },
@@ -140,6 +168,13 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         gcd: {
           static: 0,
+        },
+      },
+      {
+        spell: SPELLS.WING_CLIP.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
         },
       },
       {
@@ -226,6 +261,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INTIMIDATION.id,
+        enabled: combatant.hasTalent(TALENTS.INTIMIDATION_SHARED_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: {

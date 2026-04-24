@@ -12,6 +12,7 @@ export const MS_BUFFER_100 = 100;
 export const MS_BUFFER_250 = 250;
 //Whenever we need to use 1 second buffers
 export const ONE_SECOND_IN_MS = 1000;
+export const MS_BUFFER_1500 = 1500;
 //Whenever we need to use 500ms buffers
 export const MS_BUFFER_500 = 500;
 /** Death Tracker */
@@ -33,6 +34,7 @@ export const AMOC_BASE_DURATION = 15000;
 /** Barrage */
 //Barrage hits up to 10 times per cast
 export const BARRAGE_HITS_PER_CAST = 10;
+export const SNAKESKIN_QUIVER_PROBABILITY = 0.15;
 /** Born to be Wild */
 //Born To Be Wild reduces the cooldown of these three aspect abilities
 export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
@@ -43,8 +45,8 @@ export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
 //Hogstrider has two damage IDs
 export const PL_HOGSTRIDER_DAMAGE = [SPELLS.PL_HOGSTRIDER_DAMAGE_1, SPELLS.PL_HOGSTRIDER_DAMAGE_2];
 /** Natural Mending */
-//1 second per 12 focus spent
-export const NATURAL_MENDING_CDR_PER_FOCUS = 1000 / 12;
+// 30s per rank
+export const NATURAL_MENDING_CDR_MS = 30_000;
 /** Survival of the Fittest */
 export const SURVIVAL_OF_THE_FITTEST_BASE_CD = 120000;
 //endregion
