@@ -143,7 +143,7 @@ class ResourceUsage extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(12)}>
+      <Statistic position={STATISTIC_ORDER.CORE(12)} size="flexible">
         <div className="pad">
           <label>
             <ResourceLink id={this.resourceTypeID} /> usage
