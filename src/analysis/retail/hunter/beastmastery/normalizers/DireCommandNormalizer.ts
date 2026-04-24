@@ -7,8 +7,8 @@ class DireCommandNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     const killCommandCastId = TALENTS_HUNTER.KILL_COMMAND_BEAST_MASTERY_TALENT.id;
-    const direBeastCastId = [TALENTS_HUNTER.DIRE_BEAST_TALENT.id, SPELLS.DIRE_BEAST_GLYPHED.id];
-    const direBeastSummonCastId = [SPELLS.DIRE_BEAST_SUMMON.id, SPELLS.DIRE_BEAST_GLYPHED.id];
+    const direBeastCastId = [TALENTS_HUNTER.DIRE_BEAST_TALENT.id];
+    const direBeastSummonCastId = [SPELLS.DIRE_BEAST_SUMMON.id];
     const relevantIds = [killCommandCastId, ...direBeastCastId];
     const bufferMs = 50;
 

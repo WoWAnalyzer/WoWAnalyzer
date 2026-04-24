@@ -23,13 +23,20 @@ const spells = {
     name: 'Stomp',
     icon: 'ability_warstomp',
   },
-  DIRE_BEAST_SUMMON: {
-    id: 1283818,
+  DIRE_BEAST_BUFF: {
+    id: 281036,
     name: 'Dire Beast',
-    icon: 'ability_hunter_sickem',
+    icon: 'ability_hunter_longevity',
   },
-  DIRE_BEAST_GLYPHED: {
-    id: 219199,
+  // Canonical Dire Beast summon ID. All variants (Dark Ranger, Pack Leader) are
+  // normalised to this ID by DireBeastSummonNormalizer before analysis.
+  DIRE_BEAST_SUMMON: {
+    id: 204526,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  DIRE_BEAST_SUMMON2: {
+    id: 1283817,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
@@ -37,6 +44,16 @@ const spells = {
     id: 442419,
     name: 'Dark Hound',
     icon: 'inv_darkhoundmount_draka_blue',
+  },
+  HATI_SUMMON: {
+    id: 459739,
+    name: 'Summon Hati',
+    icon: 'inv_mount_spectralwolf',
+  },
+  FENRYR_SUMMON: {
+    id: 459733,
+    name: 'Summon Fenryr',
+    icon: 'inv_wolfdraenormountrusticyellow',
   },
   DIRE_PACK_BUFF: {
     id: 378747,
@@ -113,10 +130,10 @@ const spells = {
     name: 'Bloodshed',
     icon: 'ability_hunter_killcommand',
   },
-  CALL_OF_THE_WILD_TEMPORARY_PET_BUFF: {
-    id: 361582,
-    name: 'Call of the Wild',
-    icon: 'ability_hunter_pet_assist',
+  NATURES_ALLY_BUFF: {
+    id: 1276720,
+    name: "Nature's Ally",
+    icon: 'ability_hunter_goforthethroat',
   },
   //endregion
 
@@ -733,7 +750,7 @@ const spells = {
   HOWL_OF_THE_PACKLEADER_BUFF: {
     id: 471876,
     name: 'Howl of the Pack Leader',
-    icon: 'ability_hunter_killcommand',
+    icon: 'inv_ability_packleaderhunter_vicioushunt',
   },
   HOWL_OF_THE_PACKLEADER_WYVERN: {
     id: 471878,

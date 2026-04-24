@@ -64,9 +64,9 @@ const spells: number[] = [
 
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
-  SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast
-  SPELLS.DIRE_BEAST_GLYPHED.id, //Additional cast event associated with summoning a Dire Beast with Glyph of Dire Stable
-  SPELLS.DIRE_BEAST_SUMMON.id, // Turned into a passive proc
+  SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast (all variants normalised to this ID)
+  SPELLS.DIRE_BEAST_SUMMON2.id, // Fixes console spam for dire beast
+  SPELLS.DARK_HOUND_SUMMON.id, //Dark Ranger Dire Command proc summon
   SPELLS.URSINE_FURY_BEASTS.id, // Pack Leader - Ursine Fury Spawns 2 beasts. Spams out console about duplicate IDs
   //endregion
 
