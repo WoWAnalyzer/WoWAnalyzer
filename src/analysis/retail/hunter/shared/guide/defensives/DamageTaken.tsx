@@ -1,4 +1,4 @@
-import { GoodColor, Section, SubSection, useAnalyzers } from 'interface/guide';
+import { GoodColor, Section, SubSection, useAnalyzers, useInfo } from 'interface/guide';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import Explanation from 'interface/guide/components/Explanation';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
@@ -8,9 +8,16 @@ import { Highlight } from 'interface/Highlight';
 import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import SurvivalOfTheFittest from 'analysis/retail/hunter/shared/talents/SurvivalOfTheFittest';
+import AspectOfTheTurtle from 'analysis/retail/hunter/shared/talents/AspectOfTheTurtle';
+import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
 const MajorDefensives = () => {
-  const defensiveAnalyzers = [SurvivalOfTheFittest];
+  const info = useInfo();
+  const combatParser = useCombatLogParser();
+  const activeAnalyzers = combatParser.combatLogParser.activeModules.map((mod) => mod.constructor);
+  const defensiveAnalyzers = [SurvivalOfTheFittest, AspectOfTheTurtle].filter((analyzer) =>
+    activeAnalyzers.includes(analyzer),
+  );
 
   return (
     <Section title="Defensives">
@@ -22,9 +29,11 @@ const MajorDefensives = () => {
           raid by allowing healers to focus on keeping others alive.
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          As a <span className="Hunter">Survival Hunter</span> you have access to one relatively
-          short CD defensive in <SpellLink spell={TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT} />, one
-          heal in
+          As a <span className="Hunter">
+            {info?.combatant?.spec?.wclSpecName ?? ''} Hunter
+          </span> you
+          have access to one relatively short CD defensive in{' '}
+          <SpellLink spell={TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT} />, one heal in
           <SpellLink spell={SPELLS.EXHILARATION} />, and a Pseudo-Immunity in
           <SpellLink spell={SPELLS.ASPECT_OF_THE_TURTLE} />. Turtle will deflect nearly every attack
           cast <strong> after</strong>
