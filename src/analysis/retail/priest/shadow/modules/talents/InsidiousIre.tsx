@@ -155,9 +155,6 @@ class InsidiousIre extends Analyzer {
           Be sure to cast these spells while Devouring Plague is on your target to increase their
           damage.
         </p>
-        {!this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) ? (
-          <b>You should really talent Void Torrent in combination with this talent!</b>
-        ) : null}
       </>
     );
 
