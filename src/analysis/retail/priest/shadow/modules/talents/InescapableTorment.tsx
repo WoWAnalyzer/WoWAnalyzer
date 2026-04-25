@@ -142,8 +142,7 @@ class InescapableTorment extends Analyzer {
         </b>{' '}
         is a powerful cooldown when talented into{' '}
         <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} />.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
         Casting <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> or{' '}
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> during{' '}
         <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> extends its duration by 0.7 seconds
@@ -154,8 +153,7 @@ class InescapableTorment extends Analyzer {
     const data = (
       <div>
         <strong>Mindbender Extension</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
         <UptimeIcon /> <strong>{this.totalTime.toFixed(1)}</strong> <small> seconds</small>
         <PerformanceBoxRow values={this.MBExtension} />
       </div>

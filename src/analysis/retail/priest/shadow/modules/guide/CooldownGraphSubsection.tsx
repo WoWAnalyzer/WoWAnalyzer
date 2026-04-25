@@ -79,8 +79,7 @@ const CoreCooldownsGraph = () => {
           <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> should be used before this.
         </>
       )}
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
+      <div />
       {/*
       <strong>
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
@@ -99,7 +98,7 @@ const CoreCooldownsGraph = () => {
           </>
         )}
       </>
-      <br />
+      <div />
       */}
       {info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT) && (
         <>
@@ -109,8 +108,7 @@ const CoreCooldownsGraph = () => {
           </strong>{' '}
           is an improved version of Mind Blast which is only available while{' '}
           <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF} /> is active.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div />
         </>
       )}
       {info!.combatant.hasTalent(TALENTS.VOIDFORM_TALENT) && (
@@ -121,8 +119,7 @@ const CoreCooldownsGraph = () => {
           </strong>{' '}
           is a powerful spell that should be cast on cooldown while you have access to it during{' '}
           <SpellLink spell={SPELLS.VOIDFORM} />
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div />
         </>
       )}
     </p>
@@ -187,8 +184,7 @@ const ShortCooldownsGraph = () => {
           is a channeled spell that should be used as often as possible with{' '}
           <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> on its target. It should be
           channeled for its full duration.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div />
         </>
       )}
 
@@ -199,8 +195,7 @@ const ShortCooldownsGraph = () => {
           </strong>{' '}
           is used to apply and refresh <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />. This can be held
           if it would allow you to apply your dots to more targets.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div />
         </>
       )}
     </p>

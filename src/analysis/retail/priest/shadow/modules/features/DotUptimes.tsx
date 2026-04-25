@@ -26,10 +26,9 @@ class DotUptimes extends Analyzer {
   get guideSubsection() {
     const explanation = (
       <p>
-        <b>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          Keep your DoTs up on the boss. <br />
-        </b>
+        <div>
+          <b>Keep your DoTs up on the boss.</b>
+        </div>
         In addition to dealing damage, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> and{' '}
         <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> increase all your damage through{' '}
         <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
@@ -49,12 +48,12 @@ class DotUptimes extends Analyzer {
   get guideSubsectionDP() {
     const explanation = (
       <p>
-        <b>
-          Maximize the uptime of <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> while not
-          wasting insanity.
-        </b>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div>
+          <b>
+            Maximize the uptime of <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> while
+            not wasting insanity.
+          </b>
+        </div>
         Unlike most DoTs, when reapplied any remaining damage will be added to the new effect. In
         addition to dealing damage, it increases all your damage through{' '}
         <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
