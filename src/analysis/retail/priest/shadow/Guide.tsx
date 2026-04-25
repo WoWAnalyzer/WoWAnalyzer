@@ -46,7 +46,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </Section>
         <Section title="Major Cooldowns">
           <CooldownGraphSubsection.LongCooldownsGraph />
-          {info.combatant.hasTalent(TALENTS.VOIDFORM_TALENT) && modules.voidform.guideSubsection}
+          {info.combatant.hasTalent(
+            TALENTS.ANCIENT_MADNESS_TALENT || TALENTS.SUSTAINED_POTENCY_TALENT,
+          ) && modules.voidform.guideSubsection}
           {info.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) &&
             modules.inescapableTorment.guideSubsection}
         </Section>
