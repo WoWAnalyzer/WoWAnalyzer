@@ -5,6 +5,7 @@ import { DoxAshe, Thias, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2026, 4, 25), <>Fix Cooldown Efficiency of <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> </>,DoxAshe),
   change(date(2026, 4, 11), <>Added Defensive usage to guide section.</>, Thias),
   change(date(2026, 3, 14), <>Updated spellbook</>,Vetyst),
   change(date(2026, 2, 24), <>Fix issues in guide view with <SpellLink spell={TALENTS.COLLAPSING_VOID_TALENT}/> </>,DoxAshe),
