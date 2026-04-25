@@ -82,32 +82,35 @@ function binomialDistribution(n: number, k: number) {
   return result;
 }
 
-function resetProbabilityArray(
-  actualProcs: number,
-  procAttempts: number,
-  procChance: number | number[],
-) {
-  const procProbabilities: { x: number; y: number }[] = Array.from(
-    { length: procAttempts },
-    (_x, i: number) => {
-      if (typeof procChance === 'number') {
-        return { x: i, y: binomialPMF(i, procAttempts, procChance) };
-      } else {
-        return { x: i, y: poissonBinomialPMF(i, procAttempts, procChance) };
-      }
-    },
+function resetProbabilityArray(procAttempts: number, procChance: number | number[]) {
+  if (typeof procChance === 'number') {
+    return Array.from({ length: procAttempts }, (_x, i: number) => ({
+      x: i,
+      y: binomialPMF(i, procAttempts, procChance),
+    }));
+  }
+  if (procChance.length !== procAttempts) {
+    throw new Error(
+      'You must supply a probability vector with the same length as the number of total tries into Poisson Binomial PMF',
+    );
+  }
+  // Share one lookup table across all k values: each Ekj(k, j) cell is
+  // computed at most once.
+  const lookup: (number | null)[][] = [...Array(procAttempts + 1)].map(() =>
+    Array(procAttempts + 1).fill(null),
   );
-
-  return procProbabilities;
+  return Array.from({ length: procAttempts }, (_x, i: number) => ({
+    x: i,
+    y: Ekj(i, procAttempts, procChance, lookup),
+  }));
 }
 
 function setMinMaxProbabilities(
-  actualProcs: number,
   procAttempts: number,
   procChance: number | number[],
   threshold = 0.001,
 ) {
-  const procProbabilities = resetProbabilityArray(actualProcs, procAttempts, procChance);
+  const procProbabilities = resetProbabilityArray(procAttempts, procChance);
   const rangeMin = procProbabilities.findIndex(({ y }) => y >= threshold);
   const rangeMax = rangeMin + procProbabilities.slice(rangeMin).findIndex(({ y }) => y < threshold);
 
@@ -126,8 +129,7 @@ function setMinMaxProbabilities(
  * @param lookup {Array} Lookup table
  * @returns {Number} Probability
  */
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
+function Ekj(k: number, j: number, p: number[], lookup: (number | null)[][]): number {
   if (k === -1) {
     return 0;
   }
@@ -137,8 +139,9 @@ function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
   if (k === 0 && j === 0) {
     return 1;
   }
-  if (lookup[k][j] !== null) {
-    return lookup[k][j];
+  const cached = lookup[k][j];
+  if (cached !== null) {
+    return cached;
   }
   // literature uses 1-based indices for probabilities, as we're using an array, we have to use 0 based
   const value: number =
@@ -157,8 +160,7 @@ function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
  * @param n {Number} Number of total tries
  * @param p {[Number]} Probability vector
  */
-// oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-function poissonBinomialPMF(k: number, n: number, p: any[]) {
+function poissonBinomialPMF(k: number, n: number, p: number[]) {
   // denoted in the paper as ξk, I'll call it Ek for simplicity
   // using the recursive formula in chapter 2.5
   if (p.length !== n) {
@@ -169,7 +171,7 @@ function poissonBinomialPMF(k: number, n: number, p: any[]) {
   // Using a lookup table to simplify recursion a little bit
   // construct an (n+1) x (n+1) lookup table (because Ek,j uses indexes from 0 to n INCLUSIVE, with this we don't have to subtract indexes all the time)
   // intentionally set tu nulls so we know which values are computed or not
-  const lookup = [...Array(n + 1)].map((_) => Array(n + 1).fill(null));
+  const lookup: (number | null)[][] = [...Array(n + 1)].map(() => Array(n + 1).fill(null));
   return Ekj(k, n, p, lookup);
 }
 
@@ -202,7 +204,6 @@ export function plotOneVariableBinomChart(
     return null;
   }
   const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(
-    actualProcs,
     procAttempts,
     procChance,
   );
