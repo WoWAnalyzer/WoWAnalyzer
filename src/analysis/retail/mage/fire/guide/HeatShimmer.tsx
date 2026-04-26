@@ -33,15 +33,29 @@ class HeatShimmerGuide extends Analyzer {
       tooltip: <>Number of procs that expired before they could be spent.</>,
       performance: this.heatShimmer.expiredProcsPerformance,
     });
+    stats.push({
+      value: `${this.heatShimmer.overwrittenProcs}`,
+      label: 'Overwritten Procs',
+      tooltip: <>Number of procs that were refreshed (overwritten) before they could be spent.</>,
+      performance: this.heatShimmer.overwrittenProcsPerformance,
+    });
 
     return stats;
   }
 
   private evaluateHeatShimmer(hs: HeatShimmerProcs): CastEvaluation {
     // FAIL CONDITIONS
+    if (hs.overwritten) {
+      return {
+        timestamp: hs.buffApply.timestamp,
+        performance: QualitativePerformance.Fail,
+        reason: 'Heat Shimmer proc overwritten.',
+      };
+    }
+
     if (!hs.spender) {
       return {
-        timestamp: hs.buffApply!.timestamp,
+        timestamp: hs.buffApply.timestamp,
         performance: QualitativePerformance.Fail,
         reason: 'Heat Shimmer proc expired.',
       };
@@ -50,7 +64,7 @@ class HeatShimmerGuide extends Analyzer {
     // GOOD CONDITIONS
     if (hs.spender) {
       return {
-        timestamp: hs.buffApply!.timestamp,
+        timestamp: hs.buffApply.timestamp,
         performance: QualitativePerformance.Good,
         reason: 'Heat Shimmer proc spent.',
       };
@@ -58,7 +72,7 @@ class HeatShimmerGuide extends Analyzer {
 
     // DEFAULT
     return {
-      timestamp: hs.buffApply!.timestamp,
+      timestamp: hs.buffApply.timestamp,
       performance: QualitativePerformance.Fail,
       reason: 'Unknown Performance Condition (Please report this)',
     };
