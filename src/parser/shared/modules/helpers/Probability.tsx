@@ -105,11 +105,18 @@ function resetProbabilityArray(procAttempts: number, procChance: number | number
   }));
 }
 
-function setMinMaxProbabilities(
+/**
+ * @internal
+ */
+export function computeProbabilityRange(
   procAttempts: number,
   procChance: number | number[],
   threshold = 0.001,
 ) {
+  if (procAttempts <= 0) {
+    throw new Error('cannot compute probability range for proc with 0 attempts');
+  }
+
   const procProbabilities = resetProbabilityArray(procAttempts, procChance);
   const rangeMin = procProbabilities.findIndex(({ y }) => y >= threshold);
   const rangeMax = rangeMin + procProbabilities.slice(rangeMin).findIndex(({ y }) => y < threshold);
@@ -175,6 +182,9 @@ function poissonBinomialPMF(k: number, n: number, p: number[]) {
   return Ekj(k, n, p, lookup);
 }
 
+/**
+ * @param procChance the chance of the proc occurring. use the array form ONLY if the proc chance can vary (such as if crits have a higher proc chance than non-crits). the array should contain the proc chance of each proc attempt. when the array form is used, this is significantly slower.
+ */
 export function plotOneVariableBinomChart(
   actualProcs: number,
   procAttempts: number,
@@ -203,7 +213,7 @@ export function plotOneVariableBinomChart(
   if (procAttempts < 1) {
     return null;
   }
-  const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(
+  const { procProbabilities, rangeMin, rangeMax } = computeProbabilityRange(
     procAttempts,
     procChance,
   );
