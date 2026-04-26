@@ -14,7 +14,7 @@ import { DEMOLISH_DAMAGE_CAST } from '../../normalizers/DemolishNormalizer';
 import { DEFAULT_EXECUTE_THRESHOLD, MASSACRE_EXECUTE_THRESHOLD } from '../core/AplCheck';
 
 const COLOSSAL_MIGHT_MAX_STACKS = 10;
-const COLOSSAL_MIGHT_CD_REDUCTION = 2000; // ms
+const COLOSSAL_MIGHT_CD_REDUCTION = 5000; // ms
 
 class Demolish extends Analyzer {
   static dependencies = {

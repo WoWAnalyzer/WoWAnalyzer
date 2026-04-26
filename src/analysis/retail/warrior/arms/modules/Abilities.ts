@@ -43,6 +43,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.HEROIC_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: TALENTS.REND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {

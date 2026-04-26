@@ -39,8 +39,14 @@ class Executioner extends Analyzer.withDependencies({
 
   onExecute(event: CastEvent) {
     const executionerStacks = this.selectedCombatant.getBuffStacks(SPELLS.EXECUTIONER_TALENT_BUFF);
+    const hadSuddenDeath = this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_TALENT_BUFF);
 
-    this.deps.spellUsable.reduceCooldown(SPELLS.BLADESTORM.id, executionerStacks * 5000);
+    // only reduce cd if was SD exe
+    // 5 seconds per executioner stack
+    // SD buff looks like it's removed very shortly after exe cast so should be safe to check
+    if (hadSuddenDeath) {
+      this.deps.spellUsable.reduceCooldown(SPELLS.BLADESTORM.id, executionerStacks * 5000);
+    }
   }
 
   onBladestorm(event: CastEvent) {
