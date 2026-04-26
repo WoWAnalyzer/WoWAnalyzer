@@ -4,6 +4,7 @@ import SpellLink from 'interface/SpellLink';
 import { change, date } from 'common/changelog';
 import { Sharrq } from 'CONTRIBUTORS';
 
+const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />
 const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />
 const arcaneOrb = <SpellLink spell={TALENTS.ARCANE_ORB_TALENT} />
 const arcaneMissiles = <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} />
@@ -14,6 +15,7 @@ const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />
 const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />
 
 export default [
+  change(date(2026, 4, 26), <>Removed {arcaneCharge}s check from {touchOfTheMagi} for Spellslinger.</>, Sharrq),
   change(date(2026, 4, 21), <>Updated Spec Compatability to 12.0.5.</>, Sharrq),
   change(date(2026, 4, 4), <>Updated Spec Compatability to 12.0.1.</>, Sharrq),
   change(date(2026, 4, 4), <>Removed {clearcasting} expiration and overcap checks.</>, Sharrq),
