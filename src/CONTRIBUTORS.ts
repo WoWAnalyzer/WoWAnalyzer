@@ -2942,3 +2942,9 @@ export const Baumritter: Contributor = {
   github: 'Baumritter',
   discord: 'baumritter',
 };
+
+export const Ateis: Contributor = {
+  nickname: 'Ateis',
+  github: 'victor-brossard',
+  discord: 'Ateis',
+};

@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Rex, Sref, Vollmer } from 'CONTRIBUTORS';
+import { Ateis, Rex, Sref, Vollmer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 4, 27), <>Improved tracking of Haste.  Fixed some spells. Added support for <SpellLink spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT}/></>, Ateis),
   change(date(2026, 3, 18), <>Core Rotation Rework: Starlord now tracks Max-stack uptime, Per-eclipse spender performance. Updated example log</>, Rex),
+  change(date(2026, 3, 7), <>Activating Balance Druid analyzer for Midnight! Apex talents not yet implemented.</>, Rex),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 4), <>Marked as updated for 11.1.0.</>, Sref),
   change(date(2024, 11, 18), <>Fixed an issue where <SpellLink spell={TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT} /> wouldn't show in cooldowns tab when <SpellLink spell={TALENTS_DRUID.ORBITAL_STRIKE_TALENT} /> talent is chosen.</>, Sref),
@@ -15,5 +17,4 @@ export default [
   change(date(2024, 7, 27), <>Added support for <SpellLink spell={TALENTS_DRUID.LUNATION_TALENT} /></>, Sref),
   change(date(2024, 7, 23), <>Reworked statistics for <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_BALANCE_TALENT} />, <SpellLink spell={TALENTS_DRUID.TWIN_MOONS_TALENT} />, and <SpellLink spell={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT} /> to be more clear.</>, Sref),
   change(date(2024, 7, 23), <>Activating Balance Druid analyzer for The War Within! Hero talent analyzers not yet implemented.</>, Sref),
-  change(date(2026, 3, 7), <>Activating Balance Druid analyzer for Midnight! Apex talents not yet implemented.</>, Rex),
 ];
