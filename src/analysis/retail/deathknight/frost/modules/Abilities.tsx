@@ -87,19 +87,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.REMORSELESS_WINTER.id,
-        buffSpellId: SPELLS.REMORSELESS_WINTER.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
         spell: talents.HOWLING_BLAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
