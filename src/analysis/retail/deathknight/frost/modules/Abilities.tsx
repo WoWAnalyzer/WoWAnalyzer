@@ -78,12 +78,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT),
       },
-      /*{
-        spell: talents.RAISE_DEAD_SHARED_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: combatant.hasTalent(talents.DEATHS_MESSENGER_TALENT) ? 90 : 120,
-      },*/
       // ROTATIONAL
       {
         spell: talents.OBLITERATE_TALENT.id,
