@@ -72,6 +72,7 @@ import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
 import InvokedNightmare from './modules/talents/InvokedNightmare';
 import TormentingWhispers from './modules/talents/TormentingWhispers';
+import DescendingDarkness from './modules/talents/DescendingDarkness';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -131,7 +132,8 @@ class CombatLogParser extends MainCombatLogParser {
     voidTorrent: VoidTorrent,
     voidTouched: VoidTouched,
     invokedNightmare: InvokedNightmare,
-    TormentingWhispers: TormentingWhispers,
+    tormentingWhispers: TormentingWhispers,
+    descendingDarkness: DescendingDarkness,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,
