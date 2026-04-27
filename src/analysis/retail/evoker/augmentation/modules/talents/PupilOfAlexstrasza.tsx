@@ -6,6 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { CastEvent } from 'parser/core/Events';
 import { getPupilDamageEvent } from '../normalizers/CastLinkNormalizer';
+import { getChronoFlameDamageLink } from 'analysis/retail/evoker/shared/modules/normalizers/ChronowardenCastLinkNormalizer';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -22,19 +23,38 @@ class PupilOfAlexstrasza extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.LIVING_FLAME_CAST, SPELLS.CHRONO_FLAME_CAST]),
-      this.onCast,
-    );
+    if (this.selectedCombatant.hasTalent(TALENTS.CHRONO_FLAME_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHRONO_FLAME_CAST),
+        this.onChronoFlameCast,
+      );
+    } else {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_CAST),
+        this.onLivingFlameCast,
+      );
+    }
   }
 
-  onCast(event: CastEvent) {
+  onLivingFlameCast(event: CastEvent) {
     const damageEvent = getPupilDamageEvent(event);
     if (!damageEvent) {
       return;
     }
-
     this.PupilOfAlexstraszaDamage += damageEvent.amount + (damageEvent.absorbed ?? 0);
+  }
+
+  onChronoFlameCast(event: CastEvent) {
+    const damageEvent = getPupilDamageEvent(event);
+    if (!damageEvent) {
+      return;
+    }
+    this.PupilOfAlexstraszaDamage += damageEvent.amount + (damageEvent.absorbed ?? 0);
+    const chronoDamageEvent = getChronoFlameDamageLink(damageEvent);
+    if (!chronoDamageEvent) {
+      return;
+    }
+    this.PupilOfAlexstraszaDamage += chronoDamageEvent.amount + (chronoDamageEvent.absorbed ?? 0);
   }
 
   statistic() {
