@@ -5,7 +5,7 @@ import { DoxAshe, Thias, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2026, 4, 26), <>Add <SpellLink spell={TALENTS.INVOKED_NIGHTMARE_TALENT}/> statistic</>,DoxAshe),
+  change(date(2026, 4, 26), <>Add <SpellLink spell={TALENTS.INVOKED_NIGHTMARE_TALENT}/>, <SpellLink spell={TALENTS.TORMENTING_WHISPERS_TALENT}/>, statistics</>,DoxAshe),
   change(date(2026, 4, 25), <>Fix Cooldown Efficiency of <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> </>,DoxAshe),
   change(date(2026, 4, 11), <>Added Defensive usage to guide section.</>, Thias),
   change(date(2026, 3, 14), <>Updated spellbook</>,Vetyst),

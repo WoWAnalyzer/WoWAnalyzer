@@ -1,5 +1,4 @@
 import TALENTS from 'common/TALENTS/priest';
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { DamageEvent } from 'parser/core/Events';
 import Events from 'parser/core/Events';
@@ -9,32 +8,32 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import { INVOKED_NIGHTMARE_DAMAGE_PER_RANK } from '../../constants';
+import { TORMENTING_WHISPERS_DAMAGE_PER_RANK } from '../../constants';
 
-class InvokedNightmare extends Analyzer {
+class TormentingWhispers extends Analyzer {
   damage = 0;
 
-  multiplierInvokedNightmare =
-    this.selectedCombatant.getTalentRank(TALENTS.INVOKED_NIGHTMARE_TALENT) *
-    INVOKED_NIGHTMARE_DAMAGE_PER_RANK;
+  multiplierTormentingWhispers =
+    this.selectedCombatant.getTalentRank(TALENTS.TORMENTING_WHISPERS_TALENT) *
+    TORMENTING_WHISPERS_DAMAGE_PER_RANK;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.INVOKED_NIGHTMARE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TORMENTING_WHISPERS_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
-      this.onSWPDamage,
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_MADNESS_TALENT),
+      this.onSWMDamage,
     );
   }
 
-  onSWPDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, this.multiplierInvokedNightmare);
+  onSWMDamage(event: DamageEvent) {
+    this.damage += calculateEffectiveDamage(event, this.multiplierTormentingWhispers);
   }
 
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spell={TALENTS.INVOKED_NIGHTMARE_TALENT}>
+        <BoringSpellValueText spell={TALENTS.TORMENTING_WHISPERS_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />
           </div>
@@ -44,4 +43,4 @@ class InvokedNightmare extends Analyzer {
   }
 }
 
-export default InvokedNightmare;
+export default TormentingWhispers;
