@@ -16,6 +16,7 @@ import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import StaggerPool from '../core/StaggerPool';
 import PurifyingBrew from '../talents/PurifyingBrew';
+import HighTolerance from '../spells/HighTolerance';
 
 interface StaggerEvent {
   timestamp: number;
@@ -35,6 +36,7 @@ interface StaggerEvent {
 class StaggerPoolGraph extends Analyzer.withDependencies({
   stagger: StaggerPool,
   pb: PurifyingBrew,
+  ht: HighTolerance,
 }) {
   _hpEvents: HitpointsEvent<EventType>[] = [];
   _deathEvents: DeathEvent[] = [];
@@ -148,9 +150,9 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
           },
           mark: {
             type: 'point' as const,
-            color: '#00ff96',
             filled: true,
             size: 60,
+            opacity: 1,
           },
           transform: [
             {
@@ -164,6 +166,13 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
               field: 'oldPooledAmount',
               type: 'quantitative' as const,
               title: null,
+            },
+            color: {
+              condition: {
+                test: 'datum["isElevated"] || datum["isElevated"] == null',
+                value: '#00ff96',
+              },
+              value: '#c41f3b',
             },
             tooltip: [
               { field: 'amount', title: 'Amount Purified', format: '.3~s' },
@@ -213,6 +222,13 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
         };
       });
 
+      const purifyEvents = this.deps.pb.purifies.map((point) => ({
+        ...point,
+        isElevated: this.selectedCombatant.hasTalent(talents.HIGH_TOLERANCE_TALENT)
+          ? this.deps.ht.uptime.some((e) => e.start < point.timestamp && e.end > point.timestamp)
+          : null,
+      }));
+
       return (
         <div
           className="graph-container"
@@ -227,7 +243,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
                 spec={spec}
                 data={{
                   combined: staggerEvents,
-                  purifies: this.deps.pb.purifies,
+                  purifies: purifyEvents,
                   deaths: this._deathEvents,
                   hp: hpEvents,
                 }}
