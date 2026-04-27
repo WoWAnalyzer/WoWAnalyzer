@@ -73,6 +73,7 @@ import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
 import InvokedNightmare from './modules/talents/InvokedNightmare';
 import TormentingWhispers from './modules/talents/TormentingWhispers';
 import DescendingDarkness from './modules/talents/DescendingDarkness';
+import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -134,6 +135,7 @@ class CombatLogParser extends MainCombatLogParser {
     invokedNightmare: InvokedNightmare,
     tormentingWhispers: TormentingWhispers,
     descendingDarkness: DescendingDarkness,
+    surgeOfInsanity: SurgeOfInsanity,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,
