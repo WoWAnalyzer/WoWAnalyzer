@@ -30,6 +30,8 @@ import CelestialAlignment from 'analysis/retail/druid/balance/modules/spells/Cel
 import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
 import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
 import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
+import SpellUsable from 'analysis/retail/druid/balance/modules/features/SpellUsable';
+import Haste from 'analysis/retail/druid/balance/modules/core/Haste';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -38,6 +40,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Core
     activeDruidForm: ActiveDruidForm,
+    haste: Haste,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
@@ -58,6 +61,7 @@ class CombatLogParser extends MainCombatLogParser {
     buffs: Buffs,
     dotUptimes: DotUptimes,
     eclipse: Eclipse,
+    spellUsable: SpellUsable,
     //Talents
     twinMoons: TwinMoons,
     starlord: Starlord,

@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.SOLAR_ECLIPSE.id, SPELLS.LUNAR_ECLIPSE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 32,
+        cooldown: 32 - (combatant.hasTalent(TALENTS_DRUID.SCULPT_THE_STARS_TALENT) ? 2 : 0),
         charges: combatant.hasTalent(TALENTS_DRUID.IMPROVED_ECLIPSE_TALENT) ? 2 : 1,
         gcd: {
           base: 500,
@@ -80,23 +80,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: cdSpell(combatant).id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: cdCooldown(combatant),
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        charges: combatant.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT) ? 2 : 1,
-        gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
-        timelineSortIndex: 9,
-      },
-      {
-        spell: cdSpell(combatant).id,
-        buffSpellId: cdSpell(combatant).id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: cdCooldown(combatant),
         enabled:
-          combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
-          !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
+          combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) ||
+          combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -108,7 +94,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.EARLY_SPRING_TALENT) * 15,
+        cooldown: 60 - (combatant.hasTalent(TALENTS_DRUID.EARLY_SPRING_TALENT) ? 15 : 0),
         enabled: combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT),
         gcd: {
           base: 1500,
@@ -125,7 +111,7 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         enabled: combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT),
         gcd: {
-          base: 1500,
+          base: 1000,
         },
         charges: 3,
         castEfficiency: {
@@ -136,10 +122,9 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Your <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} />,{' '}
-              <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} /> and{' '}
-              <SpellLink spell={SPELLS.FULL_MOON} /> cast efficiency can be improved, try keeping
-              yourself at low Moon charges at all times; you should (almost) never be at max (3)
-              charges.
+              <SpellLink spell={SPELLS.HALF_MOON} /> and <SpellLink spell={SPELLS.FULL_MOON} /> cast
+              efficiency can be improved, try keeping yourself at low Moon charges at all times; you
+              should (almost) never be at max (3) charges.
             </>
           ),
         },
@@ -149,7 +134,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.RADIANT_MOONLIGHT_TALENT) ? 45 : 60,
+        cooldown: 60 - (combatant.hasTalent(TALENTS_DRUID.RADIANT_MOONLIGHT_TALENT) ? 15 : 0),
         enabled: combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT),
         gcd: {
           base: 1500,
@@ -164,9 +149,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CONVOKE_SPIRITS.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ELUNES_GUIDANCE_TALENT) ? 60 : 120,
+        enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
         gcd: {
           base: 1500,
         },

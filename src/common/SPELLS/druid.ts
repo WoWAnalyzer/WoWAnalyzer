@@ -303,6 +303,12 @@ const spells = {
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
   },
+  // The buff that is triggered by the talent.
+  CENARIUS_MIGHT: {
+    id: 455801,
+    name: "Cenarius' Might",
+    icon: 'achievement_reputation_guardiansofcenarius',
+  },
   SWIFTMEND: {
     id: 18562,
     name: 'Swiftmend',

@@ -60,12 +60,11 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.STARLORD.id]: {
     hastePerStack: 0.04,
   },
-  [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
-  [SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id]: 0.1,
-  [SPELLS.NATURES_GRACE.id]: 0.15,
+  [SPELLS.CENARIUS_MIGHT.id]: 0.08,
   [SPELLS.FRANTIC_MOMENTUM.id]: 0.1,
   [SPELLS.SAVAGE_FURY_BUFF.id]: 0.1,
   // Guardian Berserk handled in spec module
+  // Balance Celestial Alignment and Incarn handled in spec module
   //endregion
 
   //region Paladin
