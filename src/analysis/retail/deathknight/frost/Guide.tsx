@@ -88,13 +88,6 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CastEfficiencyBar
-          spell={SPELLS.REMORSELESS_WINTER}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      </div>
       {info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
