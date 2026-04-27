@@ -78,12 +78,12 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT),
       },
-      {
+      /*{
         spell: talents.RAISE_DEAD_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: combatant.hasTalent(talents.DEATHS_MESSENGER_TALENT) ? 90 : 120,
-      },
+      },*/
       // ROTATIONAL
       {
         spell: talents.OBLITERATE_TALENT.id,
@@ -139,7 +139,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
+ /*     {
         spell: talents.SACRIFICIAL_PACT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT),
-      },
+      },*/
       {
         spell: talents.REAPERS_MARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
