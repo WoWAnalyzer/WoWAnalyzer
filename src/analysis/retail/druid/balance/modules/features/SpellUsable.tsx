@@ -96,7 +96,7 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
 
-    // Only handle these 3 spells are impacted by Control of the Dream :
+    // Only these 3 spells are impacted by Control of the Dream :
     // - Force of Nature
     // - Primary CD (Celestial Alignment or Incarnation)
     // - Convoke the Spirits
