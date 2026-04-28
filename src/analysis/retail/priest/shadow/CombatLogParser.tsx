@@ -75,6 +75,7 @@ import TormentingWhispers from './modules/talents/TormentingWhispers';
 import DescendingDarkness from './modules/talents/DescendingDarkness';
 import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 import HauntingShadows from './modules/talents/HauntingShadows';
+import MentalDecay from './modules/talents/MentalDecay';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -138,6 +139,7 @@ class CombatLogParser extends MainCombatLogParser {
     descendingDarkness: DescendingDarkness,
     surgeOfInsanity: SurgeOfInsanity,
     hauntingShadows: HauntingShadows,
+    mentalDecay: MentalDecay,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,
