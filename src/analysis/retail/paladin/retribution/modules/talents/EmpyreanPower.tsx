@@ -28,7 +28,6 @@ class EmpyreanPower extends Analyzer {
   buffRemovedTimestamp = 0;
 
   totalChances = 0;
-  procProbabilities: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -60,7 +59,6 @@ class EmpyreanPower extends Analyzer {
 
   castCounter() {
     this.totalChances += 1;
-    this.procProbabilities.push(CRUSADING_STRIKE_EMPYREAN_POWER_CHANCE);
   }
 
   divineStormDamage(event: DamageEvent) {
@@ -107,8 +105,12 @@ class EmpyreanPower extends Analyzer {
         <BoringSpellValueText spell={SPELLS.EMPYREAN_POWER_TALENT_BUFF}>
           <ItemDamageDone amount={this.damageDone} />
         </BoringSpellValueText>
-        {this.procProbabilities.length > 0
-          ? plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)
+        {this.totalChances > 0
+          ? plotOneVariableBinomChart(
+              this.procsGained,
+              this.totalChances,
+              CRUSADING_STRIKE_EMPYREAN_POWER_CHANCE,
+            )
           : null}
       </Statistic>
     );
