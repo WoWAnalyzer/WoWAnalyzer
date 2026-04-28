@@ -1,9 +1,9 @@
 import { formatDuration } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import CASTS_THAT_ARE_EMPOWERS from 'parser/core/CASTS_THAT_ARE_EMPOWERS';
 import Events, {
   AbilityEvent,
+  AnyEvent,
   BeginChannelEvent,
   CastEvent,
   EmpowerEndEvent,
@@ -21,7 +21,6 @@ import GameBranch from 'game/GameBranch';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
-const EMPOWER_GCD = 500; // GCD for an Empower spell which is triggered on cast/cancel/end
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
 
@@ -74,6 +73,10 @@ class GlobalCooldown extends Analyzer {
     return Boolean(this.getGlobalCooldownDuration(spellId));
   }
 
+  isEmpowerSpell(event: AnyEvent): boolean {
+    return Boolean(event._linkedEvents?.find((x) => x.relation == 'EmpowerEnd'));
+  }
+
   _currentChannel: BeginChannelEvent | EndChannelEvent | null = null;
   /**
    * Listening to `beginchannel` instead of `begincast` since this also includes *channeled* abilities which don't usually trigger a `begincast` event.
@@ -93,8 +96,8 @@ class GlobalCooldown extends Analyzer {
       isCancelled = event.trigger.isCancelled;
     }
     //const isCancelled = event.trigger?.isCancelled;
-    if (isOnGCD && !isCancelled && !CASTS_THAT_ARE_EMPOWERS.includes(spellId)) {
-      event.globalCooldown = this.triggerGlobalCooldown(event, false);
+    if (isOnGCD && !isCancelled && !this.isEmpowerSpell(event)) {
+      event.globalCooldown = this.triggerGlobalCooldown(event);
     }
   }
   /**
@@ -102,7 +105,7 @@ class GlobalCooldown extends Analyzer {
    */
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (CASTS_THAT_ARE_EMPOWERS.includes(spellId)) {
+    if (this.isEmpowerSpell(event)) {
       // Empower spells trigger a unique 500ms gcd and need to be excluded
       return;
     }
@@ -133,11 +136,11 @@ class GlobalCooldown extends Analyzer {
       // The GCD occurred already at the start of this channel
       return;
     }
-    event.globalCooldown = this.triggerGlobalCooldown(event, false);
+    event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
   onEmpowerEnd(event: EmpowerEndEvent) {
-    event.globalCooldown = this.triggerGlobalCooldown(event, true);
+    event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
   /**
@@ -145,7 +148,7 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  triggerGlobalCooldown(event: AbilityEvent<any> & SourcedEvent<any>, empower: boolean) {
+  triggerGlobalCooldown(event: AbilityEvent<any> & SourcedEvent<any>) {
     if (
       this.lastGlobalCooldown &&
       this.lastGlobalCooldown.timestamp === event.timestamp &&
@@ -164,8 +167,7 @@ class GlobalCooldown extends Analyzer {
         sourceID: event.sourceID,
         targetID: event.sourceID, // no guarantees the original targetID is the player
         timestamp: event.timestamp,
-        duration:
-          empower == true ? EMPOWER_GCD : this.getGlobalCooldownDuration(event.ability.guid),
+        duration: this.getGlobalCooldownDuration(event.ability.guid),
       },
       event,
     );
@@ -181,9 +183,6 @@ class GlobalCooldown extends Analyzer {
     if (!ability) {
       // Most abilities we don't know (e.g. aren't in the spellbook) also aren't on the GCD
       return 0;
-    }
-    if (CASTS_THAT_ARE_EMPOWERS.includes(spellId)) {
-      return EMPOWER_GCD;
     }
 
     const gcd = this._resolveAbilityGcdField(ability.gcd);
