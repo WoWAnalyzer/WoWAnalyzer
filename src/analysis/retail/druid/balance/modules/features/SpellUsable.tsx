@@ -1,14 +1,18 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbilityEvent, CastEvent, EventType } from 'parser/core/Events';
+import Events, {
+  AbilityEvent,
+  EventType,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { cdSpell } from 'analysis/retail/druid/balance/constants';
 import Spell from 'common/SPELLS/Spell';
-import Abilities from '../Abilities';
 import Combatant from 'parser/core/Combatant';
-import Ability from 'parser/core/modules/Ability';
 
-const DEBUG = true;
+const DEBUG = false;
+// Control of the Dream caps its CD reduction at 15s
 const CD_REDUCTION_CAP_IN_MS = 15_000;
 
 /* Override spell usable to handle CD reduction from Control of the Dream.
@@ -26,17 +30,13 @@ const CD_REDUCTION_CAP_IN_MS = 15_000;
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
-    abilities: Abilities,
   };
 
-  combatant: Combatant;
-  primaryCd: Spell;
-  forceOfNatureCasts: CastEvent[] = [];
-  forceOfNatureLastCdReductionInMs: number = CD_REDUCTION_CAP_IN_MS;
-  primaryCdCasts: CastEvent[] = [];
-  primaryCdLastCdReductionInMs: number = CD_REDUCTION_CAP_IN_MS;
-  convokeTheSpiritsCasts: CastEvent[] = [];
-  convokeTheSpiritsLastCdReductionInMs: number = CD_REDUCTION_CAP_IN_MS;
+  private readonly combatant: Combatant;
+  private readonly primaryCd: Spell;
+  private forceOfNatureLastCooldownEnd: number | undefined = undefined;
+  private primaryCdLastLastCooldownEnd: number | undefined = undefined;
+  private convokeTheSpiritsLastCooldownEnd: number | undefined = undefined;
 
   constructor(options: Options) {
     super(options);
@@ -44,29 +44,43 @@ class SpellUsable extends CoreSpellUsable {
     this.combatant = options.owner.selectedCombatant;
     this.primaryCd = cdSpell(options.owner.selectedCombatant);
 
+    // Only activate if Control of the Dream talent is taken
+    if (!this.combatant.hasTalent(TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT)) {
+      return;
+    }
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FORCE_OF_NATURE_TALENT),
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FORCE_OF_NATURE_TALENT),
       this.onForceOfNature,
     );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.primaryCd), this.onPrimaryCd);
+    this.addEventListener(
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(this.primaryCd),
+      this.onPrimaryCd,
+    );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
       this.onConvokeTheSpirits,
     );
   }
 
-  private onForceOfNature(event: CastEvent) {
-    this.forceOfNatureCasts.push(event);
+  private onForceOfNature(event: UpdateSpellUsableEvent) {
+    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+      this.forceOfNatureLastCooldownEnd = event.timestamp;
+    }
   }
 
-  private onPrimaryCd(event: CastEvent) {
-    this.primaryCdCasts.push(event);
+  private onPrimaryCd(event: UpdateSpellUsableEvent) {
+    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+      this.primaryCdLastLastCooldownEnd = event.timestamp;
+    }
   }
 
-  private onConvokeTheSpirits(event: CastEvent) {
-    this.convokeTheSpiritsCasts.push(event);
+  private onConvokeTheSpirits(event: UpdateSpellUsableEvent) {
+    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+      this.convokeTheSpiritsLastCooldownEnd = event.timestamp;
+    }
   }
 
   beginCooldown(triggerEvent: AbilityEvent<EventType>, _spellId: number) {
@@ -76,7 +90,7 @@ class SpellUsable extends CoreSpellUsable {
     // and do it BEFORE reducing the cooldown duration (otherwise nothing to reduce)
     super.beginCooldown(triggerEvent, spellId);
 
-    // Without Control of the Dream, there is no CD reduction.
+    // Without Control of the Dream, there is no CD reduction
     if (!this.combatant.hasTalent(TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT)) {
       return;
     }
@@ -93,35 +107,21 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
 
-    // Ensure now that we can retrieve the Ability
-    const ability = this.deps.abilities.getAbility(spellId);
-    if (ability === undefined) {
-      DEBUG &&
-        console.error(
-          `[${triggerEvent.timestamp}] Could not retrieve Ability with Id=${spellId}. SpellUsable for Balance Druid cannot be computed.`,
-        );
-      return;
-    }
-
     // Define these variables to handle all abilities the same way
     let spell: Spell;
-    let spellsAlreadyCast: CastEvent[];
-    let lastCdReductionInMs: number;
+    let lastCooldownEnd: number | undefined;
     switch (spellId) {
       case TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id:
         spell = TALENTS_DRUID.FORCE_OF_NATURE_TALENT;
-        spellsAlreadyCast = this.forceOfNatureCasts;
-        lastCdReductionInMs = this.forceOfNatureLastCdReductionInMs;
+        lastCooldownEnd = this.forceOfNatureLastCooldownEnd;
         break;
       case this.primaryCd.id:
         spell = this.primaryCd;
-        spellsAlreadyCast = this.primaryCdCasts;
-        lastCdReductionInMs = this.primaryCdLastCdReductionInMs;
+        lastCooldownEnd = this.primaryCdLastLastCooldownEnd;
         break;
       case TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id:
         spell = TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT;
-        spellsAlreadyCast = this.convokeTheSpiritsCasts;
-        lastCdReductionInMs = this.convokeTheSpiritsLastCdReductionInMs;
+        lastCooldownEnd = this.convokeTheSpiritsLastCooldownEnd;
         break;
       default:
         // Should not happen because of guard clause above.
@@ -132,7 +132,7 @@ class SpellUsable extends CoreSpellUsable {
         return;
     }
 
-    // We can discard talents that do not have their max number of charges
+    // We can discard spells that do not have their max number of charges
     if (this.hasNotMaximumNumberOfCharges(triggerEvent, spellId, spell)) {
       DEBUG &&
         console.info(
@@ -141,35 +141,17 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
 
-    DEBUG &&
-      console.info(
-        `[${triggerEvent.timestamp}] ${spellsAlreadyCast.length} ${spell.name} already casted`,
-      );
-    const cooldownReductionInMs = this.getCooldownReductionMs(
-      triggerEvent,
-      ability,
-      spell,
-      spellsAlreadyCast,
-      lastCdReductionInMs,
-    );
+    const castInfo = lastCooldownEnd
+      ? `previous cooldown ended at ${lastCooldownEnd}`
+      : 'CD never ended';
+    DEBUG && console.info(`[${triggerEvent.timestamp}] ${spell.name}: ${castInfo}`);
+    const cooldownReductionInMs = this.getCooldownReductionMs(triggerEvent, lastCooldownEnd);
 
     const reductionMsApplied = this.reduceCooldown(
       spellId,
       cooldownReductionInMs,
       triggerEvent.timestamp,
     );
-
-    switch (spellId) {
-      case TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id:
-        this.forceOfNatureLastCdReductionInMs = reductionMsApplied;
-        break;
-      case this.primaryCd.id:
-        this.primaryCdLastCdReductionInMs = reductionMsApplied;
-        break;
-      case TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id:
-        this.convokeTheSpiritsLastCdReductionInMs = reductionMsApplied;
-        break;
-    }
 
     DEBUG &&
       console.info(
@@ -179,36 +161,16 @@ class SpellUsable extends CoreSpellUsable {
 
   private getCooldownReductionMs(
     triggerEvent: AbilityEvent<EventType>,
-    ability: Ability,
-    spell: Spell,
-    spellsAlreadyCast: CastEvent[],
-    lastCdReductionInMs: number,
+    lastCooldownEnd: number | undefined,
   ) {
-    if (spellsAlreadyCast.length === 0) {
-      // By default, we assume the ability was off CD for more than 15s pre-combat (15s is the CD reduction cap).
-      // We have no way of knowing exactly how long it has been off CD pre-combat, but it should be true most of the time.
+    if (lastCooldownEnd === undefined) {
+      // Assume ability was available for at least the cap duretion (15s) pre-pull.
+      // We have no way of knowing exactly how long it was off CD pre-combat,
+      // but this is a reasonnable assumption for most pull scenarios.
       return CD_REDUCTION_CAP_IN_MS;
     } else {
-      // Otherwise, we need to compute how long the ability has been off CD since the last time it was cast
-      const lastCast = spellsAlreadyCast[spellsAlreadyCast.length - 1];
-      const timeElapsedSinceLastCastInMs = triggerEvent.timestamp - lastCast.timestamp;
-
-      // haste = 0 is okay because none of these abilities has a hasted cooldown.
-      const spellCooldownInMs = ability?.getCooldown(0) * 1_000;
-      DEBUG &&
-        console.info(
-          `[${triggerEvent.timestamp}] Last cast of ${spell.name} was at ${lastCast.timestamp} (${timeElapsedSinceLastCastInMs}ms ago)`,
-        );
-
-      // We reduce the spell CD each time, therefore the previous spell cast may have had a smaller CD.
-      const previousSpellCastCooldownInMs = spellCooldownInMs - lastCdReductionInMs;
-      DEBUG &&
-        console.info(
-          `[${triggerEvent.timestamp}] Cooldown of ${spell.name} was ${previousSpellCastCooldownInMs}ms (nominal cooldown of ${spellCooldownInMs} - previous CD reduction of ${lastCdReductionInMs})`,
-        );
-
-      const timeElapsedSinceSpellAvailable =
-        timeElapsedSinceLastCastInMs - previousSpellCastCooldownInMs;
+      // Otherwise, we need to compute how long the ability has been off CD
+      const timeElapsedSinceSpellAvailable = triggerEvent.timestamp - lastCooldownEnd;
 
       // CD reduction is capped.
       return Math.min(timeElapsedSinceSpellAvailable, CD_REDUCTION_CAP_IN_MS);

@@ -38,6 +38,9 @@ class TestCombatLogParser extends CombatLogParser {
   get selectedCombatant() {
     return this._combatant;
   }
+  set selectedCombatant(combatant: FullCombatant) {
+    this._combatant = combatant;
+  }
 
   constructor(
     config: Config = DEFAULT_CONFIG,
