@@ -6,6 +6,9 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 class Haste extends CoreHaste {
   constructor(options: Options) {
     super(options);
+    /* https://www.wowhead.com/spell=429420/potent-enchantments (as-of 12.0.5)
+     * "Whirling Stars increases the haste you gain during Celestial Alignment by an additional 10%."
+     */
     if (
       this.selectedCombatant.hasTalent(TALENTS_DRUID.POTENT_ENCHANTMENTS_TALENT) &&
       this.selectedCombatant.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT)

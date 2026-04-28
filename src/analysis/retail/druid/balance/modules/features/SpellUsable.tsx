@@ -17,10 +17,10 @@ const CD_REDUCTION_CAP_IN_MS = 15_000;
 
 /* Override spell usable to handle CD reduction from Control of the Dream.
  * -----------------------------------------------------------------------
- * Control of the Dream :
- * Time elapsed while your major abilities are available to be used or at maximum charges
+ * https://www.wowhead.com/spell=434249/control-of-the-dream (as-of 12.0.5)
+ * " Time elapsed while your major abilities are available to be used or at maximum charges
  * is subtracted from that ability's cooldown after the next time you use it, up to 15 seconds.
- * Affects Force of Nature, Celestial Alignment, and Convoke the Spirits.
+ * Affects Force of Nature, Celestial Alignment, and Convoke the Spirits. "
  * -----------------------------------------------------------------------
  * No direct events to listen to, therefore we manually track the casts of
  * - Force of Nature
