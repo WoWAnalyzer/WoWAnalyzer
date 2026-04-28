@@ -38,6 +38,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 4, 25), "Fix `reduceCooldown` not correctly applying to multiple charges", Thias),
   change(date(2026, 4, 25), 'Fix certain extremely long loading times by improving probability calculations from O(n^3) to O(n^2).', Thias),
   change(date(2026, 4, 22), 'Add Midnight raid boss abilities to uptime timelines.', emallson),
   change(date(2026, 4, 21), 'Improve glyph loading by pre-loading during initialization instead of lazy load', Thias),

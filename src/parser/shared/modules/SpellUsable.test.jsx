@@ -160,6 +160,53 @@ describe('core/Modules/SpellUsable', () => {
       const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000);
       expect(reduction).toBe(5000);
     });
+    it('reducing a spell with multiple charges on cooldown by enough to restore all charges ends the cooldown', () => {
+      abilitiesMock.getMaxCharges = jest.fn(() => 2);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      // Both charges on cooldown. First recharges at 7500, second at 15000.
+      // Reduce by 16000 at t=0 -> should restore both charges.
+      const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 16000);
+      expect(reduction).toBe(15000); // only 15000 was effective (total CD for 2 charges)
+      expect(module.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
+    });
+    it('reducing a 3-charge spell restores multiple charges and leaves remainder on last charge', () => {
+      abilitiesMock.getMaxCharges = jest.fn(() => 3);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      // All 3 charges on cooldown. Recharges at 7500, 15000, 22500.
+      // Reduce by 20000 at t=0 -> should restore 2 charges, leave 2500ms on the third.
+      const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 20000);
+      expect(reduction).toBe(20000); // all used since spell is still on CD
+      expect(module.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
+      expect(module.chargesAvailable(SPELLS.FAKE_SPELL.id)).toBe(2);
+      expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(2500);
+    });
+    it('reducing a 3-charge spell by enough to restore all charges ends the cooldown', () => {
+      abilitiesMock.getMaxCharges = jest.fn(() => 3);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      // All 3 charges on cooldown. Total CD = 22500ms.
+      // Reduce by 25000 at t=0 -> restores all, 2500ms wasted.
+      const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 25000);
+      expect(reduction).toBe(22500);
+      expect(module.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
+    });
+    it('reducing multiple charges works correctly partway through a recharge', () => {
+      abilitiesMock.getMaxCharges = jest.fn(() => 3);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      // Advance to t=5000. First charge has 2500ms left, total remaining = 17500ms.
+      // CDR of 10000 = 2500 (finishes 1st) + 7500 (finishes 2nd) = exactly 10000, restoring 2 charges.
+      parser.currentTimestamp = 5000;
+      const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 10000);
+      expect(reduction).toBe(10000);
+      expect(module.chargesAvailable(SPELLS.FAKE_SPELL.id)).toBe(2);
+      expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500); // full duration for 3rd charge
+    });
     it('cooldownRemaining on a spell not on cooldown returns 0', () => {
       expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(0);
     });
