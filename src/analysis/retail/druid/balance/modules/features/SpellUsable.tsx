@@ -22,10 +22,11 @@ const CD_REDUCTION_CAP_IN_MS = 15_000;
  * is subtracted from that ability's cooldown after the next time you use it, up to 15 seconds.
  * Affects Force of Nature, Celestial Alignment, and Convoke the Spirits. "
  * -----------------------------------------------------------------------
- * No direct events to listen to, therefore we manually track the casts of
+ * No direct events to listen to for this CD reduction, therefore we track the cooldown events of
  * - Force of Nature
  * - Primary CD (Celestial Alignment or Incarnation)
  * - Convoke the Spirits
+ * and manually compute the CD reduction and apply it.
  */
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
