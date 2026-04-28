@@ -17,6 +17,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import StaggerPool from '../core/StaggerPool';
 import PurifyingBrew from '../talents/PurifyingBrew';
 import HighTolerance from '../spells/HighTolerance';
+import { OkColor } from 'interface/guide';
 
 interface StaggerEvent {
   timestamp: number;
@@ -153,6 +154,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
             filled: true,
             size: 60,
             opacity: 1,
+            strokeWidth: 1,
           },
           transform: [
             {
@@ -172,7 +174,14 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
                 test: 'datum["isElevated"] || datum["isElevated"] == null',
                 value: '#00ff96',
               },
-              value: '#c41f3b',
+              value: OkColor,
+            },
+            stroke: {
+              condition: {
+                test: 'datum["isElevated"] || datum["isElevated"] == null',
+                value: undefined,
+              },
+              value: 'black',
             },
             tooltip: [
               { field: 'amount', title: 'Amount Purified', format: '.3~s' },
@@ -222,12 +231,18 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
         };
       });
 
-      const purifyEvents = this.deps.pb.purifies.map((point) => ({
-        ...point,
-        isElevated: this.selectedCombatant.hasTalent(talents.HIGH_TOLERANCE_TALENT)
-          ? this.deps.ht.uptime.some((e) => e.start < point.timestamp && e.end > point.timestamp)
-          : null,
-      }));
+      const hasHT = this.selectedCombatant.hasTalent(talents.HIGH_TOLERANCE_TALENT);
+      const purifyEvents = !hasHT
+        ? this.deps.pb.purifies
+        : this.deps.pb.purifies.map((point) => {
+            // check if the buff was active when this cast occurred (strict before to deal with removals that occur exactly when you cast)
+            const previousBuffEvent = this.deps.ht.uptime.getBefore(point.timestamp, true);
+            const isElevated = previousBuffEvent?.type === EventType.ApplyBuff;
+            return {
+              ...point,
+              isElevated,
+            };
+          });
 
       return (
         <div

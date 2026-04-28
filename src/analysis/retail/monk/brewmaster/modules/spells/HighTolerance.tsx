@@ -2,14 +2,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import spells from '../../spell-list_Monk_Brewmaster.retail';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent, EventType } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringValue from 'parser/ui/BoringValueText';
-import { Uptime } from 'parser/ui/UptimeBar';
 import { formatDurationMinSec } from 'common/format';
 import SpellLink from 'interface/SpellLink';
+import StateHistory, { EventHistory } from 'parser/core/StateHistory';
 
 const CDR_PER_RANK = 3000;
 
@@ -19,7 +19,7 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
   protected cdrAmount = 0;
   protected wastedCdr = 0;
 
-  uptime: Uptime[] = [];
+  uptime: EventHistory<EventType.ApplyBuff | EventType.RemoveBuff> = new StateHistory([]);
 
   constructor(options: Options) {
     super(options);
@@ -39,7 +39,6 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ELEVATED_STAGGER_BUFF),
       this.onRemoveBuff,
     );
-    this.addEventListener(Events.fightend, this.finalize);
   }
 
   private elevatedStaggerCdr(_event: CastEvent): void {
@@ -55,35 +54,11 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
   }
 
   private onApplyBuff(event: ApplyBuffEvent) {
-    const uptime: Uptime = {
-      start: event.timestamp,
-      end: event.timestamp,
-    };
-
-    this.uptime.push(uptime);
+    this.uptime.data.push(event);
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
-    const last = this.uptime[this.uptime.length - 1];
-    if (last) {
-      last.end = event.timestamp;
-    } else {
-      const uptime: Uptime = {
-        start: this.owner.fight.start_time,
-        end: event.timestamp,
-      };
-
-      this.uptime.push(uptime);
-    }
-  }
-
-  private finalize() {
-    const last = this.uptime[this.uptime.length - 1];
-    if (!last || last.end !== last.start) {
-      return;
-    }
-
-    last.end = this.owner.fight.end_time;
+    this.uptime.data.push(event);
   }
 
   statistic() {
