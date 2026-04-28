@@ -150,14 +150,10 @@ class InsidiousIre extends Analyzer {
           <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> when{' '}
           <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />
           , and <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> are all active on the
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          target. <br />
+          target. <div />
           Be sure to cast these spells while Devouring Plague is on your target to increase their
           damage.
         </p>
-        {!this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) ? (
-          <b>You should really talent Void Torrent in combination with this talent!</b>
-        ) : null}
       </>
     );
 

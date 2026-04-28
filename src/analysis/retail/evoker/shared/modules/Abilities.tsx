@@ -79,13 +79,17 @@ class Abilities extends CoreAbilities {
         charges: combatant.hasTalent(TALENTS.LEGACY_OF_THE_LIFEBINDER_TALENT) ? 2 : 1,
       },
       {
-        spell: SPELLS.LIVING_FLAME_CAST.id,
+        spell: combatant.hasTalent(TALENTS.CHRONO_FLAME_TALENT)
+          ? SPELLS.CHRONO_FLAME_CAST.id
+          : SPELLS.LIVING_FLAME_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         range: BASE_EVOKER_RANGE,
-        damageSpellIds: [SPELLS.LIVING_FLAME_DAMAGE.id],
+        damageSpellIds: combatant.hasTalent(TALENTS.CHRONO_FLAME_TALENT)
+          ? [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.CHRONO_FLAME_DAMAGE.id]
+          : [SPELLS.LIVING_FLAME_DAMAGE.id],
       },
       {
         spell: SPELLS.AZURE_STRIKE.id,
@@ -205,8 +209,13 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.OPPRESSING_ROAR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120 * interwovenThreadsMultiplier,
+        cooldown: combatant.hasTalent(TALENTS.OVERAWE_TALENT)
+          ? 90 * interwovenThreadsMultiplier
+          : 120 * interwovenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT),
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: TALENTS.RESCUE_TALENT.id,
@@ -238,7 +247,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HOVER.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30 * interwovenThreadsMultiplier,
+        cooldown: combatant.hasTalent(TALENTS.WARP_TALENT)
+          ? 25 * interwovenThreadsMultiplier
+          : 30 * interwovenThreadsMultiplier,
         charges: combatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT) ? 2 : 1,
         gcd: null,
         enabled: true,
@@ -296,6 +307,11 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT),
+      },
+      {
+        spell: SPELLS.VISAGE.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
       },
       //endregion
     ];

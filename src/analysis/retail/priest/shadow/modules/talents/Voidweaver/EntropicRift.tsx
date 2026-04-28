@@ -195,20 +195,17 @@ class EntropicRift extends Analyzer {
         </b>{' '}
         deals damage to all targets in the area at the end of{' '}
         <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
         This damage is increased by 20% per cast of{' '}
         <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> while the rift is active.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
       </p>
     );
 
     const data = (
       <div>
         <strong>Rift Damage Increase</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
         <PerformanceBoxRow values={this.RiftDamageIncrease} />
       </div>
     );
@@ -222,20 +219,17 @@ class EntropicRift extends Analyzer {
           <SpellLink spell={TALENTS.DARKENING_HORIZON_TALENT} />
         </b>{' '}
         increases the duration of <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
         The duration is increased by 1 second per cast of{' '}
         <SpellLink spell={TALENTS.VOID_BLAST_TALENT} />, up to 3 seconds.
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
       </p>
     );
 
     const data = (
       <div>
         <strong>Rift Duration Increase</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div />
         <PerformanceBoxRow values={this.RiftDurationIncrease} />
       </div>
     );

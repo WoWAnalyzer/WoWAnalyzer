@@ -664,7 +664,7 @@ const spells = {
   // Shadow items:
 
   TENTACLE_SLAM_TALENT_DAMAGE: {
-    id: 205386, //TODO: find damage id
+    id: 1227621,
     name: 'Tentacle Slam',
     icon: 'inv12_ability_priest_tentacleslam',
   },

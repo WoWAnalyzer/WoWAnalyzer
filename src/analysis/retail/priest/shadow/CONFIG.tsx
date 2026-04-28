@@ -10,41 +10,39 @@ const config: Config = {
   contributors: [DoxAshe],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.0',
+  patchCompatibility: '12.0.5',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
-      useful. If you find any issues, please let DoxAshe#8269 know on Discord
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      If you need general help learning the spec, Wowhead has a great getting started guide for
-      Shadow. You can find it{' '}
-      <a
-        href="https://www.wowhead.com/shadow-priest-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        here
-      </a>
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      .<br />
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-      If you have any questions about playing Shadow Priest, join the Priest community at the{' '}
-      <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">
-        Warcraft Priests discord channel
-      </a>
-      .
+      <p>
+        Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
+        useful. If you find any issues, please let DoxAshe#8269 know on Discord
+      </p>
+      <p>
+        If you need general help learning the spec, Wowhead has a great getting started guide for
+        Shadow. You can find it{' '}
+        <a
+          href="https://www.wowhead.com/shadow-priest-guide"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          here.
+        </a>
+      </p>
+      <p>
+        If you have any questions about playing Shadow Priest, join the Priest community at the{' '}
+        <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">
+          Warcraft Priests discord channel
+        </a>
+        .
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    'report/YdRCjPN2bTXJ6Maq/1-Heroic+Plexus+Sentinel+-+Kill+(2:03)/16-Doxashe/standard',
+    'report/Wk4jnvwAdF1pbgcf/3-LFR+Imperator+Averzian+-+Kill+(3:10)/6-Doxashe/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -57,11 +57,9 @@ class Shadowform extends Analyzer {
           <p>
             <b>
               Stay in <SpellLink spell={SPELLS.SHADOWFORM} /> or{' '}
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <SpellLink spell={SPELLS.VOIDFORM} />. <br />
+              <SpellLink spell={SPELLS.VOIDFORM} />. <div />
             </b>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            These forms increase your shadow damage by 10%. <br />
+            These forms increase your shadow damage by 10%. <div />
             <b>
               You were out of shadowform for{' '}
               <PerformanceStrong performance={this.DowntimePerformance}>
