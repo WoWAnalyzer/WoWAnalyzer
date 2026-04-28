@@ -40,8 +40,8 @@ class FinisherUse extends Analyzer {
     }
 
     this.totalFinisherCasts += 1;
-
-    if (cpsSpent < getAcceptableCps(this.selectedCombatant)) {
+    /** Added time stamps to allow us to buff track at the time of casts for performance metrics */
+    if (cpsSpent < getAcceptableCps(this.selectedCombatant, event.timestamp)) {
       if (
         event.ability.guid === SPELLS.RIP.id ||
         event.ability.guid === TALENTS_DRUID.PRIMAL_WRATH_TALENT.id

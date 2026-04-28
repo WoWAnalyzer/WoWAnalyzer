@@ -4,8 +4,8 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { DamageEvent } from 'parser/core/Events';
 import Events from 'parser/core/Events';
 import {
-  calculateEffectiveDamage,
   calculateEffectiveDamageFromCritIncrease,
+  calculateEffectiveDamageFromCritDamageIncrease,
 } from 'parser/core/EventCalculateLib';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -64,10 +64,10 @@ class Mastermind extends Analyzer {
         this.mastermindCritChance,
       );
 
-      //Extra damage from having extra crit damage increase
-      //The increase in crit damage increases amount of extra damage critical hits do (in this case, from 100% to 120% or 140%, depending on talent ranks)
-      //so the while it increases the critical damage by 20% or 40%, it only increases the total damage of the event by half that amount
-      this.damage += calculateEffectiveDamage(event, this.mastermindCritDamage / 2);
+      this.damage += calculateEffectiveDamageFromCritDamageIncrease(
+        event,
+        this.mastermindCritDamage,
+      );
     }
   }
 

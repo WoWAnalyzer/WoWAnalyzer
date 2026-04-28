@@ -38,7 +38,14 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 4, 11), "Fix `reduceCooldown` not correctly applying to multiple charges", Thias),
+  change(date(2026, 4, 25), "Fix `reduceCooldown` not correctly applying to multiple charges", Thias),
+  change(date(2026, 4, 25), 'Fix certain extremely long loading times by improving probability calculations from O(n^3) to O(n^2).', Thias),
+  change(date(2026, 4, 22), 'Add Midnight raid boss abilities to uptime timelines.', emallson),
+  change(date(2026, 4, 21), 'Improve glyph loading by pre-loading during initialization instead of lazy load', Thias),
+  change(date(2026, 4, 20), "Regenerate talents for 12.0.5.", Vollmer),
+  change(date(2026, 4, 13), "Fix calculation for Effective Healing From Crit Increase when using a non standard crit heal multiplier.", squided),
+  change(date(2026, 4, 11), 'Removed deprecated `get talentPoints`, update/removed talents for MoP Classic that used the functionality.', Thias),
+  change(date(2026, 4, 11), 'Refactor Combatant to use proper private/protected types instead of `_` named fields', Thias),
   change(date(2026, 4, 10), 'Allow deselecting an open defensives cast breakdown entry by clicking it again.', Hezaerd),
   change(date(2026, 4, 8), "Refactor gear `getters` in Combatant class", Thias),
   change(date(2026, 4, 8), <>Replace external usages of <code>Combatant._combatantInfo</code> with proper public getters and introduce a <code>Faction</code> enum.</>, Thias),

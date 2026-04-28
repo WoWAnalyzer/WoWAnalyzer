@@ -10,22 +10,12 @@ import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
 import './ManaTideTotem.scss';
 import WaterShield from './WaterShield';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
-
-const MANA_REGEN_PER_SECOND = 100_000 / 5;
-
-const SPELLS_PROCCING_RESURGENCE = {
-  [SPELLS.HEALING_WAVE.id]: 0.008,
-  [SPELLS.HEALING_SURGE.id]: 0.0048,
-  [TALENTS.UNLEASH_LIFE_TALENT.id]: 0.0048,
-  [TALENTS.RIPTIDE_TALENT.id]: 0.0048,
-  [TALENTS.CHAIN_HEAL_TALENT.id]: 0.002,
-};
+import { RESURGENCE_SPELLS, MANA_REGENERATION_PER_SECOND } from '../../constants';
 
 interface ResurgenceInfo {
   spellId: number;
@@ -52,13 +42,7 @@ class Resurgence extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.HEALING_SURGE,
-          SPELLS.HEALING_WAVE,
-          TALENTS.CHAIN_HEAL_TALENT,
-          TALENTS.UNLEASH_LIFE_TALENT,
-          TALENTS.RIPTIDE_TALENT,
-        ]),
+        .spell([SPELLS.HEALING_WAVE, TALENTS.CHAIN_HEAL_TALENT, TALENTS.RIPTIDE_TALENT]),
       this.onRelevantHeal,
     );
     this.addEventListener(
@@ -83,7 +67,7 @@ class Resurgence extends Analyzer {
 
     if (event.hitType === HIT_TYPES.CRIT) {
       this.resurgence[spellId].resurgenceTotal +=
-        SPELLS_PROCCING_RESURGENCE[spellId] * this.manaTracker.maxResource;
+        RESURGENCE_SPELLS[spellId] * this.manaTracker.maxResource;
       this.resurgence[spellId].castAmount += 1;
     }
   }
@@ -93,7 +77,7 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    const naturalManaRegen = (this.owner.fightDuration / 1000) * MANA_REGEN_PER_SECOND;
+    const naturalManaRegen = (this.owner.fightDuration / 1000) * MANA_REGENERATION_PER_SECOND;
     const wsMana = this.waterShield.regenOnPlayer;
     return naturalManaRegen + this.totalResurgenceGain + this.manaTracker.maxResource + wsMana;
   }

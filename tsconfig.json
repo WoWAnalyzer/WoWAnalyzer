@@ -42,7 +42,6 @@
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/druid/restoration",
     "src/analysis/retail/paladin/protection",
-    "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw"
   ],
   "files": [
@@ -50,7 +49,6 @@
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
     "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/holy/CONFIG.tsx",
-    "src/analysis/retail/rogue/assassination/CONFIG.tsx",
     "src/analysis/retail/rogue/outlaw/CONFIG.tsx",
     "src/analysis/retail/warrior/protection/CONFIG.tsx"
   ]

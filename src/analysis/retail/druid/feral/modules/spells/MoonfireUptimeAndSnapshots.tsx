@@ -15,11 +15,12 @@ import {
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/druid/feral/constants';
 import { SpellLink } from 'interface';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -80,32 +81,27 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+          <strong>{targetName || 'unknown'}</strong>
+        </div>
         {prevSnapshotNames !== null && (
-          <>
+          <div>
             Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-            {clipped > 0 && (
-              <>
-                <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-              </>
-            )}
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </>
+            {clipped > 0 && <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>}
+          </div>
         )}
-        Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
+        <div>
+          Snapshots:{' '}
+          <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
+        </div>
         {prevSnapshotNames !== null && (
-          <>
+          <div>
             Prev Snapshots:{' '}
             <strong>
               {prevSnapshotNames.length === 0 ? 'NONE' : prevSnapshotNames.join(', ')}
             </strong>
-          </>
+          </div>
         )}
       </>
     );
@@ -117,7 +113,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_FERAL.id);
+    return this.combinedUptimeHistory;
   }
 
   /** Subsection explaining the use of Lunar Inspiration and providing performance statistics */
@@ -135,23 +131,23 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
     const data = (
       <div>
-        <RoundedPanel>
-          <div>
-            <strong>Moonfire uptime / snapshots</strong>
-            <small> - Try to get as close to 100% as the encounter allows!</small>
-          </div>
-          {this.subStatistic()}
-        </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        <strong>Moonfire casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot), Red
-          is a bad cast (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for
-          more details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <div>
+          <RoundedPanel>
+            <div>
+              <strong>Moonfire uptime / snapshots</strong>
+              <small> - Try to get as close to 100% as the encounter allows!</small>
+            </div>
+            {this.subStatistic()}
+          </RoundedPanel>
+        </div>
+        <div>
+          <CastSummaryAndBreakdown
+            spell={SPELLS.MOONFIRE_FERAL}
+            castEntries={this.castEntries}
+            okExtraExplanation={<>clipped duration but upgraded snapshot</>}
+            badExtraExplanation={<>clipped duration or downgraded snapshot w/ &gt;2s remaining</>}
+          />
+        </div>
       </div>
     );
 

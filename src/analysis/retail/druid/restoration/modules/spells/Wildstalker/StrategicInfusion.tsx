@@ -1,5 +1,6 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalculateLib';
@@ -8,9 +9,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import HIT_TYPES from 'game/HIT_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const STRATEGIC_INFUSION_INCREASED_CRIT_CHANCE = 0.04;
+const ABUNDANCE_INCREASED_CRIT = 0.08;
+const INTENSITY_CRIT_HEAL_MULTIPLIER = 2.6;
 
 /**
  * **Strategic Infusion**
@@ -25,21 +29,34 @@ export default class StrategicInfusion extends Analyzer {
 
   protected statTracker!: StatTracker;
 
+  hasAbundance = false;
+  hasIntensity = false;
+
   healing = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STRATEGIC_INFUSION_TALENT);
+    this.hasAbundance = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
+    this.hasIntensity = this.selectedCombatant.hasTalent(TALENTS_DRUID.INTENSITY_TALENT);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   private onHeal(event: HealEvent) {
-    if (!event.tick) {
+    if (!event.tick || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
 
-    const currentCrit = Math.min(1, this.statTracker.currentCritPercentage);
+    const isRegrowthTick = event.ability.guid === SPELLS.REGROWTH.id;
+    let currentCrit = Math.min(1, this.statTracker.currentCritPercentage);
+
+    if (isRegrowthTick && this.hasAbundance) {
+      const abundanceStacks = this.selectedCombatant.getOwnBuffStacks(SPELLS.ABUNDANCE_BUFF);
+      const abundanceCritBonus = abundanceStacks * ABUNDANCE_INCREASED_CRIT;
+      currentCrit = Math.min(1, currentCrit + abundanceCritBonus);
+    }
+
     const strategicInfusionCritBonus = Math.min(
       1 - currentCrit,
       STRATEGIC_INFUSION_INCREASED_CRIT_CHANCE,
@@ -49,11 +66,15 @@ export default class StrategicInfusion extends Analyzer {
       return;
     }
 
-    this.healing += calculateEffectiveHealingFromCritIncrease(
-      event,
-      currentCrit,
-      strategicInfusionCritBonus,
-    );
+    this.healing +=
+      this.hasIntensity && isRegrowthTick
+        ? calculateEffectiveHealingFromCritIncrease(
+            event,
+            currentCrit,
+            strategicInfusionCritBonus,
+            INTENSITY_CRIT_HEAL_MULTIPLIER,
+          )
+        : calculateEffectiveHealingFromCritIncrease(event, currentCrit, strategicInfusionCritBonus);
   }
 
   statistic() {

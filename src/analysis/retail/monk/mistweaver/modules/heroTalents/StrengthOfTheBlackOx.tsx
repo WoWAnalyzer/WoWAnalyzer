@@ -72,7 +72,6 @@ class StrengthOfTheBlackOx extends Analyzer {
           </div>
           {isConsumed && (
             <div>
-              <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> or{' '}
               <SpellLink spell={getCurrentCelestialTalent(this.selectedCombatant)} /> active:{' '}
               <strong>{hasBuff ? 'Yes' : 'No'}</strong>
             </div>
@@ -91,9 +90,8 @@ class StrengthOfTheBlackOx extends Analyzer {
         is a buff that makes your next <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
         have a reduced cast time and apply a shield to 5 nearby allies. It is very important to
         never let this buff refresh or expire as it is a considerable amount of shielding. Try to
-        have <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> or{' '}
-        <SpellLink spell={getCurrentCelestialTalent(this.selectedCombatant)} /> active when casting{' '}
-        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> as it is very expensive.
+        have <SpellLink spell={getCurrentCelestialTalent(this.selectedCombatant)} /> active when
+        casting <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> as it is very expensive.
       </p>
     );
     const styleObj = {

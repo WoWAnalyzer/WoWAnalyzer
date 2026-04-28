@@ -1,7 +1,11 @@
 import {
-  TwistOfFate,
+  DesperatePrayer,
+  Fade,
+  PowerWordShield,
+  ProtectiveLight,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
+  TwistOfFate,
 } from 'analysis/retail/priest/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -66,6 +70,14 @@ import Voidheart from './modules/talents/Voidweaver/Voidheart';
 import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
+import InvokedNightmare from './modules/talents/InvokedNightmare';
+import TormentingWhispers from './modules/talents/TormentingWhispers';
+import DescendingDarkness from './modules/talents/DescendingDarkness';
+import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
+import HauntingShadows from './modules/talents/HauntingShadows';
+import MentalDecay from './modules/talents/MentalDecay';
+import PhantomMenace from './modules/talents/PhatomMenace';
+import InstilledDoubt from './modules/talents/InstilledDoubt';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -100,7 +112,11 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
     darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
+    desperatePrayer: DesperatePrayer,
     dispersion: Dispersion,
+    fade: Fade,
+    powerWordShield: PowerWordShield,
+    protectiveLight: ProtectiveLight,
     distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
     idolOfNzoth: IdolOfNzoth,
@@ -120,6 +136,14 @@ class CombatLogParser extends MainCombatLogParser {
     tormentedSpirits: TormentedSpirits,
     voidTorrent: VoidTorrent,
     voidTouched: VoidTouched,
+    invokedNightmare: InvokedNightmare,
+    tormentingWhispers: TormentingWhispers,
+    descendingDarkness: DescendingDarkness,
+    surgeOfInsanity: SurgeOfInsanity,
+    hauntingShadows: HauntingShadows,
+    mentalDecay: MentalDecay,
+    phantomMenace: PhantomMenace,
+    instilledDoubt: InstilledDoubt,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,

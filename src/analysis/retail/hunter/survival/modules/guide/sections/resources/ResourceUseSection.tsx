@@ -8,7 +8,7 @@ import {
 import TALENTS from 'common/TALENTS/hunter';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceLink, TooltipElement } from 'interface';
+import { ResourceLink } from 'interface';
 import { ModulesOf, PerformanceMark, Section, SubSection } from 'interface/guide';
 import PerformanceStrongWithTooltip from 'interface/PerformanceStrongWithTooltip';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -33,24 +33,6 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           avoid most issues with focus and waste will be minimal to non-existant. It will
           occasionally be impossible to avoid capping <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />
           {'. '}
-          As Pack Leader, it is occasionally impossible to avoid running out of focus. Sentinel does
-          not have this issue.{' '}
-          <TooltipElement
-            content={
-              <>
-                Sentinel gains 5 extra focus per{' '}
-                <SpellLink spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT} /> and uses{' '}
-                <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> more often than Pack Leader,
-                which only costs 10 focus. Pack Leader largely ignores Bomb in favour of Raptor
-                Strike and so spends focus faster. This is offset by Pack Leader&apos;s{' '}
-                <SpellLink spell={TALENTS.LETHAL_BARBS_TALENT} /> talent which generates 2 focus per
-                auto attack, but it is still not enough to completely avoid downtime. It is however
-                minimal with proper play: as low as a total of 3s in a 5 minute fight.
-              </>
-            }
-          >
-            (?)
-          </TooltipElement>
         </p>
         The chart below shows your <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> over the course of
         the encounter. You wasted{' '}

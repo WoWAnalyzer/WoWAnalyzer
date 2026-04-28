@@ -39,10 +39,8 @@ const EB_FROM_AZURE_STRIKE = 'ebFromAzureStrike';
 const EB_FROM_PRESCIENCE = 'ebFromPrescience';
 const EB_FROM_LF_CAST = 'ebFromLFCast';
 const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
-const EB_FROM_ENERGY_CYCLES = 'ebFromEnergyCycles';
 const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
-const ENERGY_CYCLES_BUFFER = 6_000;
 
 const EB_FROM_RISEN_FURY = 'ebFromRisenFury';
 
@@ -70,48 +68,6 @@ const EB_FROM_ESSENCE_WELL = 'ebFromEssenceWell';
  *    In this example the EB could land within our EB_FROM_LF_CAST search and be incorrectly attributed.
  */
 const EVENT_LINKS: EventLink[] = [
-  {
-    // unlike emerald trance, energy cycles gives EB on buff application
-    linkRelation: EB_FROM_ENERGY_CYCLES,
-    reverseLinkRelation: EB_FROM_ENERGY_CYCLES,
-    linkingEventId: SPELLS.TEMPORAL_BURST_BUFF.id,
-    linkingEventType: EventType.ApplyBuff,
-    referencedEventId: EB_BUFF_IDS,
-    referencedEventType: EB_GENERATION_EVENT_TYPES,
-    anyTarget: true,
-    forwardBufferMs: ESSENCE_BURST_BUFFER,
-    backwardBufferMs: ESSENCE_BURST_BUFFER,
-    maximumLinks: 1,
-    isActive: (c) => c.hasTalent(TALENTS.ENERGY_CYCLES_TALENT),
-  },
-  {
-    linkRelation: EB_FROM_ENERGY_CYCLES,
-    reverseLinkRelation: EB_FROM_ENERGY_CYCLES,
-    linkingEventId: SPELLS.TEMPORAL_BURST_BUFF.id,
-    linkingEventType: EventType.ApplyBuff,
-    referencedEventId: EB_BUFF_IDS,
-    referencedEventType: EB_GENERATION_EVENT_TYPES,
-    anyTarget: true,
-    forwardBufferMs: ENERGY_CYCLES_BUFFER * 5 + ESSENCE_BURST_BUFFER,
-    maximumLinks: 5,
-    isActive: (c) => c.hasTalent(TALENTS.ENERGY_CYCLES_TALENT),
-    additionalCondition(linkingEvent, referencedEvent) {
-      // reused from Emerald Trance
-      // applies one EB each 6_000 ms for the duration of the buff (30_000ms)
-      // so check if the timestamp difference is divisible by 6_000 allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
-      const timeDiff = Math.abs(
-        (linkingEvent.timestamp - referencedEvent.timestamp) % ENERGY_CYCLES_BUFFER,
-      );
-      if (
-        timeDiff > ESSENCE_BURST_BUFFER &&
-        ENERGY_CYCLES_BUFFER - timeDiff > ESSENCE_BURST_BUFFER // it can probably come early
-      ) {
-        return false;
-      }
-
-      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
-    },
-  },
   {
     linkRelation: EB_FROM_RISEN_FURY,
     reverseLinkRelation: EB_FROM_RISEN_FURY,
@@ -299,7 +255,6 @@ export const EBSource = {
   LivingFlameHeal: EB_FROM_LF_HEAL,
   DivertedPower: EB_FROM_DIVERTED_POWER,
   EssenceWell: EB_FROM_ESSENCE_WELL,
-  EnergyCycles: EB_FROM_ENERGY_CYCLES,
   RisenFury: EB_FROM_RISEN_FURY,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];

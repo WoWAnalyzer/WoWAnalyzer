@@ -126,8 +126,7 @@ class ShadowyInsight extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT} />
         </b>{' '}
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        is gained randomly from <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> damage. <br />
+        is gained randomly from <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> damage. <div />
         Cast <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> while the buff is active to avoid
         wasting procs.
       </p>

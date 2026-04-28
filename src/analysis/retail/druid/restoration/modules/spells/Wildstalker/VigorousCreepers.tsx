@@ -12,6 +12,7 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
+import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
 
 const VIGOROUS_CREEPERS_HEALING_INCREASE = 0.2;
 const VIGOROUS_CREEPERS_DAMAGE_INCREASE = 0.04;
@@ -25,14 +26,17 @@ const VIGOROUS_CREEPERS_DAMAGE_INCREASE = 0.04;
  */
 export default class VigorousCreepers extends Analyzer {
   healing = 0;
+  everbloomHealing = 0;
   damage = 0;
 
   static dependencies = {
     combatants: Combatants,
     enemies: Enemies,
+    lifebloom: Lifebloom,
   };
   protected combatants!: Combatants;
   protected enemies!: Enemies;
+  protected lifebloom!: Lifebloom;
 
   constructor(options: Options) {
     super(options);
@@ -43,6 +47,14 @@ export default class VigorousCreepers extends Analyzer {
   }
 
   private onHeal(event: HealEvent) {
+    // Everbloom splash heals don't double-dip on healing increases.
+    // Their amount is derived from the Lifebloom heal on the original target,
+    // so we check if the Lifebloom target has Symbiotic Blooms instead.
+    if (event.ability.guid === SPELLS.EVERBLOOM_SPLASH_HEAL.id) {
+      this.handleEverbloomHeal(event);
+      return;
+    }
+
     const target = this.combatants.getEntity(event);
     if (!target) {
       return;
@@ -54,6 +66,31 @@ export default class VigorousCreepers extends Analyzer {
     }
 
     this.healing += calculateEffectiveHealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
+  }
+
+  /**
+   * Everbloom splash healing is based on the Lifebloom target's heal amount,
+   * which already includes the Vigorous Creepers bonus if the LB target has Symbiotic Blooms.
+   * We attribute that bonus here by checking the LB target's buff, not the splash target's.
+   */
+  private handleEverbloomHeal(event: HealEvent) {
+    const lbTargetId = this.lifebloom.activeLifebloomTarget;
+    if (lbTargetId === undefined) {
+      return;
+    }
+
+    const lbTarget = this.combatants.getEntities()[lbTargetId];
+    if (!lbTarget) {
+      return;
+    }
+
+    if (!lbTarget.hasBuff(SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER, event.timestamp, 0, 0)) {
+      return;
+    }
+
+    const amount = calculateEffectiveHealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
+    this.healing += amount;
+    this.everbloomHealing += amount;
   }
 
   private onDamage(event: DamageEvent) {
@@ -71,6 +108,14 @@ export default class VigorousCreepers extends Analyzer {
         position={STATISTIC_ORDER.CORE(4)}
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         size="flexible"
+        tooltip={
+          this.everbloomHealing > 0 ? (
+            <>
+              Includes <strong>{this.owner.formatItemHealingDone(this.everbloomHealing)}</strong>{' '}
+              from Everbloom splash healing.
+            </>
+          ) : undefined
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.VIGOROUS_CREEPERS_TALENT}>
           <ItemPercentHealingDone amount={this.healing} />

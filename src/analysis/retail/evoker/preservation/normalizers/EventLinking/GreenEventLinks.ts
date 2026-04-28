@@ -9,13 +9,12 @@ import {
   HasRelatedEvent,
 } from 'parser/core/Events';
 import {
-  FIELD_OF_DREAMS_PROC,
   EB_BUFFER_MS,
-  EB_VARIANCE_BUFFER,
   DREAM_BREATH_CALL_OF_YSERA_HOT,
   CAST_BUFFER_MS,
   DREAM_BREATH_CALL_OF_YSERA,
   EMERALD_BLOSSOM_CAST,
+  VERDANT_EMBRACE_BLOSSOM,
   DREAM_BREATH,
   MAX_DREAM_BREATH_DURATION,
   DREAM_BREATH_CAST,
@@ -27,21 +26,6 @@ import {
 } from './constants';
 
 export const GREEN_EVENT_LINKS: EventLink[] = [
-  // link eb heal proc to fluttering heal
-  {
-    linkRelation: FIELD_OF_DREAMS_PROC,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
-    referencedEventType: EventType.Heal,
-    anyTarget: true,
-    backwardBufferMs: EB_BUFFER_MS + 500,
-    maximumLinks: 1,
-    additionalCondition(linkingEvent, referencedEvent) {
-      const diff = EB_BUFFER_MS - (linkingEvent.timestamp - referencedEvent.timestamp);
-      return Math.abs(diff) < EB_VARIANCE_BUFFER;
-    },
-  },
   //link Call of Ysera Removal to the heals
   {
     linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
@@ -75,7 +59,7 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: EMERALD_BLOSSOM_CAST,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.FLUTTERING_SEEDLINGS_HEAL.id],
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.EMERALD_BLOSSOM_CAST.id,
     referencedEventType: EventType.Cast,
@@ -83,7 +67,20 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     backwardBufferMs: EB_BUFFER_MS + 150,
     additionalCondition(linkingEvent, referencedEvent) {
-      return linkingEvent.timestamp - referencedEvent.timestamp > 1500;
+      return linkingEvent.timestamp - referencedEvent.timestamp > 1450;
+    },
+  },
+  {
+    linkRelation: VERDANT_EMBRACE_BLOSSOM,
+    linkingEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.FLUTTERING_SEEDLINGS_HEAL.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    backwardBufferMs: EB_BUFFER_MS + 150,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return linkingEvent.timestamp - referencedEvent.timestamp > 1450;
     },
   },
   {

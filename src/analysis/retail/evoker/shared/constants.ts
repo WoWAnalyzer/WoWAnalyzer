@@ -74,7 +74,8 @@ export const BLACK_DAMAGE_SPELLS = [
 export const EXPANDED_LUNG_INCREASE = 0.3;
 
 export const PRIMACY_HASTE_PER_STACK = 3;
-export const THREAD_OF_FATE_BASE_DURATION_MS = 10_000;
+export const CHRONAL_DYNAMO_MULTIPLIER = 0.5;
+export const AFTERIMAGE_MAX_HITS = 3;
 
 // Scalecommander changes ID for deep breath
 export const DEEP_BREATH_SPELLS = [SPELLS.DEEP_BREATH, SPELLS.DEEP_BREATH_SCALECOMMANDER];

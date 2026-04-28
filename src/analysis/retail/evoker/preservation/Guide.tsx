@@ -26,7 +26,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.merithrasBlessing.guideSubsection}
         {modules.dreamBreath.guideSubsection}
         {modules.essenceBurst.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
           modules.resonatingSphere.guideSubsection}
         {modules.emeraldBlossom.guideSubsection}
       </Section>

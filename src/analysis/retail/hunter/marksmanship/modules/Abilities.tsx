@@ -137,7 +137,10 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180 - (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
+        cooldown:
+          180 -
+          (combatant.hasTalent(TALENTS.IMPROVED_ASPECT_OF_THE_TURTLE_TALENT) ? 30 : 0) -
+          combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT) * 15,
         gcd: {
           static: 0,
         },
@@ -200,7 +203,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 180 - (combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT) ? 30 : 0),
+        cooldown:
+          150 -
+          (combatant.hasTalent(TALENTS.IMPROVED_ASPECT_OF_THE_CHEETAH_TALENT) ? 30 : 0) -
+          combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT) * 15 -
+          (combatant.hasTalent(TALENTS.CONDITIONING_TALENT) ? 30 : 0),
         gcd: {
           static: 0,
         },
@@ -236,6 +243,28 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
       },
+      {
+        spell: SPELLS.WING_CLIP.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.TRANQUILIZING_SHOT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.HARRIERS_CRY.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 360,
+        gcd: {
+          static: 0,
+        },
+      },
       //endregion
 
       //region Pets
@@ -256,7 +285,14 @@ class Abilities extends CoreAbilities {
           static: 0,
         },
       },
-
+      {
+        spell: SPELLS.INTIMIDATION_MM.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+      },
       {
         spell: SPELLS.INTIMIDATION.id,
         category: SPELL_CATEGORY.UTILITY,

@@ -1,5 +1,6 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import { Trans } from '@lingui/react/macro';
 import talents from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Module';
@@ -18,11 +19,14 @@ class EarthlivingWeapon extends Analyzer {
   static dependencies = {
     earthlivingTracker: EarthlivingTracker,
     combatants: Combatants,
+    statTracker: StatTracker,
   };
   protected earthlivingTracker!: EarthlivingTracker;
   protected combatants!: Combatants;
+  protected statTracker!: StatTracker;
   improved = false;
   totalHealing = 0;
+  improvedHealing = 0;
   healingBySource = new Map<number, number>();
 
   constructor(options: Options) {
@@ -46,6 +50,18 @@ class EarthlivingWeapon extends Analyzer {
       const earthliving = this.earthlivingTracker.hots[event.targetID][event.ability.guid];
       const source = this.earthlivingTracker.getSourceSpellId(earthliving);
       const amount = event.amount + (event.absorbed || 0);
+
+      if (this.improved) {
+        const masteryPercent = this.statTracker.currentMasteryPercentage;
+        const currentHealthPercent = (event.hitPoints - event.amount) / event.maxHitPoints;
+        const masteryEffectiveness = Math.max(0, 1 - currentHealthPercent);
+
+        const baseHealing = amount / (1 + masteryPercent * masteryEffectiveness * 2.5);
+        const bonusHealing = baseHealing * (masteryPercent * masteryEffectiveness * 1.5);
+
+        this.improvedHealing += bonusHealing;
+      }
+
       const prev = this.healingBySource.get(source) || 0;
       this.healingBySource.set(source, prev + amount);
       this.totalHealing += amount;
@@ -120,6 +136,11 @@ class EarthlivingWeapon extends Analyzer {
         <TalentSpellText talent={talents.EARTHLIVING_WEAPON_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
+        {this.improved && (
+          <TalentSpellText talent={talents.IMPROVED_EARTHLIVING_WEAPON_TALENT}>
+            <ItemHealingDone amount={this.improvedHealing} />
+          </TalentSpellText>
+        )}
         <aside className="pad">
           <hr />
           <header>

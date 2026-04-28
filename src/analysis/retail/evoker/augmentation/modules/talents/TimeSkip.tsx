@@ -78,7 +78,9 @@ class TimeSkip extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TIME_SKIP_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.TIME_SKIP_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.TIME_SKIP_TALENT),
       this.onApplyBuff,

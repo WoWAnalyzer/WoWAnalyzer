@@ -10,7 +10,7 @@ import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerf
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
-import { PerformanceMark } from 'interface/guide';
+import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 
@@ -32,6 +32,7 @@ export default class FeralFrenzy extends Analyzer {
   protected energyTracker!: EnergyTracker;
   protected enemies!: Enemies;
   isFrantic = false;
+  isFocused = false;
 
   /** Tracker for each Feral Frenzy cast */
   ffTrackers: FeralFrenzyCast[] = [];
@@ -41,6 +42,7 @@ export default class FeralFrenzy extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
     this.isFrantic = this.selectedCombatant.hasTalent(TALENTS_DRUID.FRANTIC_FRENZY_TALENT);
+    this.isFocused = this.selectedCombatant.hasTalent(TALENTS_DRUID.FOCUSED_FRENZY_TALENT);
 
     if (!this.isFrantic) {
       this.addEventListener(
@@ -73,27 +75,36 @@ export default class FeralFrenzy extends Analyzer {
     });
   }
 
+  get talent() {
+    if (this.isFrantic) {
+      return TALENTS_DRUID.FRANTIC_FRENZY_TALENT;
+    }
+    return TALENTS_DRUID.FERAL_FRENZY_TALENT;
+  }
+
   /** Guide fragment showing a breakdown of each Feral Frenzy cast */
   get guideCastBreakdown() {
-    const isFrantic = this.isFrantic;
-    let talent = TALENTS_DRUID.FERAL_FRENZY_TALENT;
-    let addition = '';
-    if (isFrantic) {
-      talent = TALENTS_DRUID.FRANTIC_FRENZY_TALENT;
-      addition =
-        'Should be used within as large of packs as possible for you to gain the most benefit out of it.';
-    }
+    const talent = this.talent;
 
     const explanation = (
-      <>
+      <div>
         <p>
           <strong>
             <SpellLink spell={talent} />
           </strong>{' '}
           is a brief but extremely powerful bleed. Use it on cooldown. As it gives 5 combo points,
-          it's best used at low combo points in order not to waste them. {addition}
+          it's best used at 2 or fewer combo points in order not to waste them.
+          {this.isFrantic &&
+            ' Should be used within as large of packs as possible for you to gain the most benefit out of it.'}
         </p>
-      </>
+        {this.isFocused && (
+          <p>
+            {' '}
+            With <SpellLink spell={TALENTS_DRUID.FOCUSED_FRENZY_TALENT} />, always use it during{' '}
+            <SpellLink spell={SPELLS.TIGERS_FURY} />.
+          </p>
+        )}
+      </div>
     );
 
     const data = (
@@ -110,31 +121,36 @@ export default class FeralFrenzy extends Analyzer {
           let cpsPerf = QualitativePerformance.Good;
           if (cast.cpsOnCast > 4) {
             cpsPerf = QualitativePerformance.Fail;
-          } else if (cast.cpsOnCast > 1) {
+          } else if (cast.cpsOnCast > 2) {
             cpsPerf = QualitativePerformance.Ok;
           }
 
           let overallPerf = QualitativePerformance.Good;
           overallPerf = getLowestPerf([overallPerf, cpsPerf]);
-          // TODO: We should add back in the Tiger's fury overlap now. Snapshotting may be gone, but
-          // talented correctly Tiger's fury and Feral Frenzy will always overlap.
+
           const checklistItems: CooldownExpandableItem[] = [];
-          // FF is desynced with TF cooldown, and sims say send both on CD, so in proper use
-          // only half of FF uses will have TF active. Leaving code in in case that changes.
-          // checklistItems.push({
-          //   label: (
-          //     <>
-          //       <SpellLink spell={SPELLS.TIGERS_FURY} /> active
-          //     </>
-          //   ),
-          //   result: <PassFailCheckmark pass={cast.tfOnCast} />,
-          // });
+
+          if (this.isFocused) {
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink spell={SPELLS.TIGERS_FURY} /> active
+                </>
+              ),
+              result: <PassFailCheckmark pass={cast.tfOnCast} />,
+            });
+            if (!cast.tfOnCast) {
+              overallPerf = QualitativePerformance.Fail;
+            }
+          }
+
           checklistItems.push({
             label: 'Combo Points on cast',
             result: <PerformanceMark perf={cpsPerf} />,
             details: (
               <>
-                ({cast.cpsOnCast} CPs) ({cast.hitCount} Targets hit ){' '}
+                ({cast.cpsOnCast} CPs)
+                {this.isFrantic && <> ({cast.hitCount} Targets hit)</>}
               </>
             ),
           });

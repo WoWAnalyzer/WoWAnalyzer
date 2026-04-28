@@ -22,12 +22,13 @@ export default class Mutilate extends Analyzer {
   get guideSubsection() {
     const explanation = (
       <p>
-        Assassination's primary non-stealth single target <strong>builder</strong> is{' '}
+        Assassination's primary non-stealth single target builder is{' '}
         <strong>
           <SpellLink spell={SPELLS.MUTILATE} />
         </strong>
         . You should never use <SpellLink spell={SPELLS.MUTILATE} /> during{' '}
-        <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} /> or <SpellLink spell={SPELLS.VANISH_BUFF} />.
+        <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} /> or <SpellLink spell={SPELLS.VANISH_BUFF} />,
+        and should be casting <SpellLink spell={SPELLS.AMBUSH} /> instead.
       </p>
     );
 

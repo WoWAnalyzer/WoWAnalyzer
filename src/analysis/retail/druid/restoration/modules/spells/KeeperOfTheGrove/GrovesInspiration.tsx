@@ -32,7 +32,7 @@ export default class GrovesInspiration extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.REGROWTH, SPELLS.WILD_GROWTH, SPELLS.SWIFTMEND]),
+        .spell([SPELLS.REGROWTH, SPELLS.WILD_GROWTH, SPELLS.SWIFTMEND, SPELLS.NATURES_BOUNTY]),
       this.onHeal,
     );
 

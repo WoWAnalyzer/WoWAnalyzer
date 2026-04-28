@@ -380,14 +380,14 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT),
       },
       {
-        spell: [TALENTS.HOLY_ARMAMENTS_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
+        spell: [TALENTS.HOLY_ARMAMENTS_HOLY_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         charges: 2,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_TALENT),
+        enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_HOLY_TALENT),
       },
       {
         spell: TALENTS.TYRS_DELIVERANCE_TALENT.id,

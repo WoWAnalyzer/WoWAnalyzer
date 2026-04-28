@@ -78,16 +78,16 @@ class DoubleClawedRake extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the damage from Rake DoTs applied by Double-Clawed Rake. It is at best an
-            approximation of this talent's impact because of opportunity cost factors (Without DCR
-            you might have tab-Raked the 2nd target, with it you cast Swipe instead)
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            Over the course of this encounter, <strong>{this.extraRakes}</strong> extra Rake DoTs
-            were created by this talent, or{' '}
-            <strong>{this.owner.getPerMinute(this.extraRakes).toFixed(1)} per minute</strong>.
+            <p>
+              This is the damage from Rake DoTs applied by Double-Clawed Rake. It is at best an
+              approximation of this talent's impact because of opportunity cost factors (Without DCR
+              you might have tab-Raked the 2nd target, with it you cast Swipe instead)
+            </p>
+            <p>
+              Over the course of this encounter, <strong>{this.extraRakes}</strong> extra Rake DoTs
+              were created by this talent, or{' '}
+              <strong>{this.owner.getPerMinute(this.extraRakes).toFixed(1)} per minute</strong>.
+            </p>
           </>
         }
       >

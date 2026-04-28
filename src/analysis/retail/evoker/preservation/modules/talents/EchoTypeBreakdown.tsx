@@ -15,7 +15,7 @@ class EchoTypeBreakdown extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
       this.onEchoApply,
@@ -41,7 +41,7 @@ class EchoTypeBreakdown extends Analyzer {
       },
     ];
 
-    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT)) {
       items.push({
         color: SPELL_COLORS.TA_ECHO,
         label: 'Temporal Anomaly Echo',

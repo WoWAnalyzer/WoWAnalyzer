@@ -80,68 +80,11 @@ export default class Kingsbane extends MajorCooldown<KingsbaneCooldownTrigger> {
             <SpellLink spell={SPELLS.ENVENOM} /> during your windows.
           </p>
         </ExplanationSection>
-        {this.selectedCombatant.hasTalent(TALENTS.IMPROVED_SHIV_TALENT) && (
-          <ExplanationSection>
-            <p>
-              <strong>
-                <SpellLink spell={TALENTS.IMPROVED_SHIV_TALENT} />
-              </strong>{' '}
-              makes any cast of <SpellLink spell={SPELLS.SHIV} /> cause your target to take{' '}
-              <strong>30%</strong> increased nature damage from you. This is incredibly important to
-              apply before you cast <SpellLink spell={TALENTS.KINGSBANE_TALENT} />.
-            </p>
-          </ExplanationSection>
-        )}
-        {this.selectedCombatant.hasTalent(TALENTS.LIGHTWEIGHT_SHIV_TALENT) ? (
-          <ExplanationSection>
-            <p>
-              <strong>
-                <SpellLink spell={TALENTS.LIGHTWEIGHT_SHIV_TALENT} />
-              </strong>{' '}
-              gives you a second charge of <SpellLink spell={SPELLS.SHIV} />, which is an easy way
-              to apply another poison that buffs your <SpellLink spell={TALENTS.KINGSBANE_TALENT} />
-              .
-            </p>
-          </ExplanationSection>
-        ) : (
-          <ExplanationSection>
-            <p>
-              <strong>
-                <SpellLink spell={TALENTS.LIGHTWEIGHT_SHIV_TALENT} />
-              </strong>{' '}
-              gives you a second charge of <SpellLink spell={SPELLS.SHIV} />, which is an easy way
-              to apply another poison that buffs your <SpellLink spell={TALENTS.KINGSBANE_TALENT} />
-              . You are not currently talented into it, but you should{' '}
-              <strong>very strongly</strong> consider it. All analysis here assumes that you will
-              take it.
-            </p>
-          </ExplanationSection>
-        )}
       </>
     );
   }
 
   explainPerformance(trigger: KingsbaneCooldownTrigger): SpellUse {
-    if (!this.selectedCombatant.hasTalent(TALENTS.LIGHTWEIGHT_SHIV_TALENT)) {
-      return createSpellUse(trigger, [
-        createChecklistItem('lightweight-shiv', trigger, {
-          performance: QualitativePerformance.Fail,
-          summary: (
-            <div>
-              Talented into <SpellLink spell={TALENTS.LIGHTWEIGHT_SHIV_TALENT} />
-            </div>
-          ),
-          details: (
-            <div>
-              Did not have <SpellLink spell={TALENTS.LIGHTWEIGHT_SHIV_TALENT} /> talented. In order
-              to get the maximum amount of damage possible out of{' '}
-              <SpellLink spell={TALENTS.KINGSBANE_TALENT} />, you should use{' '}
-              <SpellLink spell={TALENTS.LIGHTWEIGHT_SHIV_TALENT} />.
-            </div>
-          ),
-        }),
-      ]);
-    }
     if (!hasEnemy(trigger)) {
       return createSpellUse(trigger, [
         createChecklistItem('hit-a-valid-target', trigger, {
@@ -160,7 +103,6 @@ export default class Kingsbane extends MajorCooldown<KingsbaneCooldownTrigger> {
     return createSpellUse(trigger, [
       this.explainDeathmarkPerformance(trigger),
       this.explainEnvenomPerformance(trigger),
-      this.explainImprovedShivPerformance(trigger),
       this.explainShivPerformance(trigger),
     ]);
   }
@@ -408,50 +350,6 @@ export default class Kingsbane extends MajorCooldown<KingsbaneCooldownTrigger> {
           You cast <SpellLink spell={TALENTS.SHIV_TALENT} /> within{' '}
           {formatDurationMillisMinSec(SHIV_KINGSBANE_BUFFER_MS)} after casting{' '}
           <SpellLink spell={TALENTS.KINGSBANE_TALENT} />. Good job!
-        </div>
-      ),
-    });
-  }
-
-  private explainImprovedShivPerformance(
-    trigger: KingsbaneCooldownTriggerWithEnemy,
-  ): ChecklistUsageInfo | undefined {
-    if (!this.selectedCombatant.hasTalent(TALENTS.IMPROVED_SHIV_TALENT)) {
-      return undefined;
-    }
-
-    const summary = (
-      <div>
-        Target has <SpellLink spell={SPELLS.SHIV_DEBUFF} />
-      </div>
-    );
-    const hasShivDebuff = trigger.enemy.hasBuff(SPELLS.SHIV_DEBUFF.id, trigger.event.timestamp);
-
-    if (!hasShivDebuff) {
-      return createChecklistItem('improved-shiv', trigger, {
-        performance: QualitativePerformance.Fail,
-        summary,
-        details: (
-          <div>
-            You cast <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> while the target did not have
-            the <SpellLink spell={SPELLS.SHIV_DEBUFF} /> debuff. Try to always cast{' '}
-            <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> after casting{' '}
-            <SpellLink spell={TALENTS.SHIV_TALENT} /> because of the nature damage amplification it
-            provides due to <SpellLink spell={TALENTS.IMPROVED_SHIV_TALENT} />.
-          </div>
-        ),
-      });
-    }
-
-    return createChecklistItem('improved-shiv', trigger, {
-      performance: QualitativePerformance.Good,
-      summary,
-      details: (
-        <div>
-          You cast <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> after casting{' '}
-          <SpellLink spell={TALENTS.SHIV_TALENT} /> and benefited from the nature damage
-          amplification it provides due to <SpellLink spell={TALENTS.IMPROVED_SHIV_TALENT} />. Good
-          job!
         </div>
       ),
     });

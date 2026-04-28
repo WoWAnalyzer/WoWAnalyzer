@@ -31,7 +31,7 @@ export const CRANE_STYLE_SCK = 'CraneStyleSCK';
 // Vivify
 export const VIVIFY = 'Vivify';
 export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
-export const ZEN_PULSE_VIVIFY = 'ZenPulseVivify';
+export const ZEN_PULSE_CAST = 'ZenPulseCast';
 export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
 export const SHEILUNS_GIFT = 'SheilunsGift';
@@ -76,6 +76,7 @@ export const RUSHING_WIND_KICK = 'RWK';
 export const SPIRITFONT_PROC = 'SpiritfontProc';
 export const SPIRITFONT_TFT = 'SpiritfontTFT';
 export const SPIRITFONT_CONSUMED = 'SpiritfontConsumed';
+export const SPIRITFONT_FALSE_REFRESH = 'SpiritfontFalseRefresh';
 
 // Soothing Mist Channel
 export const SOOTHING_MIST_CHANNEL_START = 'SoothingMistChannelStart';

@@ -21,7 +21,6 @@ import {
   TA_ECHO_REMOVAL,
   LIVING_FLAME_CALL_OF_YSERA,
   DREAM_BREATH_CALL_OF_YSERA_HOT,
-  FIELD_OF_DREAMS_PROC,
   LIFEBIND_HEAL,
   ECHO_TYPE,
   LIFEBIND,
@@ -49,10 +48,11 @@ import {
   VERDANT_EMBRACE_INSURANCE,
   INSURANCE_APPLICATION,
   EB_MERITHRAS,
-  EB_ENERGY_CYCLES,
   MERITHRAS_PROC_GENERATION,
   MERITHRAS_HEALING,
   ECHO_CONSUMPTION,
+  BLOSSOM_SOURCE,
+  VERDANT_EMBRACE_BLOSSOM,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -76,7 +76,17 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
 }
 
 export function isFromFieldOfDreams(event: HealEvent) {
-  return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
+  return getBlossomSource(event) == BLOSSOM_SOURCE.FIELD_OF_DREAMS;
+}
+
+export function getBlossomSource(event: HealEvent) {
+  if (HasRelatedEvent(event, EMERALD_BLOSSOM_CAST)) {
+    return BLOSSOM_SOURCE.BLOSSOM_CAST;
+  } else if (HasRelatedEvent(event, VERDANT_EMBRACE_BLOSSOM)) {
+    return BLOSSOM_SOURCE.VERDANT_EMBRACE;
+  } else {
+    return BLOSSOM_SOURCE.FIELD_OF_DREAMS;
+  }
 }
 
 export function didEchoExpire(event: RemoveBuffEvent) {
@@ -227,20 +237,6 @@ export function isEbFromMerithras(
     event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   }
   return HasRelatedEvent(event, EB_MERITHRAS);
-}
-
-export function isEbFromEnergyCycles(
-  event:
-    | ApplyBuffEvent
-    | RefreshBuffEvent
-    | ApplyBuffStackEvent
-    | RemoveBuffEvent
-    | RemoveBuffStackEvent,
-) {
-  if (event.type === EventType.RemoveBuff || event.type === EventType.RemoveBuffStack) {
-    event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
-  }
-  return HasRelatedEvent(event, EB_ENERGY_CYCLES);
 }
 
 export function getTimeOfNeedHealing(event: SummonEvent) {

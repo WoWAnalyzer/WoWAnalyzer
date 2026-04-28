@@ -25,6 +25,7 @@ import ResonatingSphere from './modules/talents/ResonatingSphere';
 import TimeLord from './modules/talents/TimeLord';
 import RenewingBreath from './modules/talents/RenewingBreath';
 import FieldOfDreams from './modules/talents/FieldOfDreams';
+import FlutteringSeedlings from './modules/talents/FlutteringSeedlings';
 import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 //import Stasis from './modules/talents/Stasis';
@@ -67,6 +68,7 @@ import {
   MotesOfAcceleration,
   TimeSpiral,
   MobilityCastLinkNormalizer,
+  ChronowardenCastLinkNormalizer,
 } from '../shared';
 import ConsumeFlame from './modules/talents/ConsumeFlame';
 
@@ -83,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
+    chronowardenCastLinkNormalizer: ChronowardenCastLinkNormalizer,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -133,6 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     merithrasBlessing: MerithrasBlessing,
     renewingBreath: RenewingBreath,
     fieldOfDreams: FieldOfDreams,
+    flutteringSeedlings: FlutteringSeedlings,
     exhilBurst: ExhilBurst,
     //stasis: Stasis,
     timeOfNeed: TimeOfNeed,

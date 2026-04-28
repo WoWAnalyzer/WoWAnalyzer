@@ -210,9 +210,22 @@ const EVENT_LINKS = createEventLinks(
   },
   {
     spell: SPELLS.HEAT_SHIMMER_BUFF.id,
+    parentType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    links: [
+      link(EventType.RemoveBuff, { forwardBuffer: 11_000, maxLinks: 1 }),
+      link(EventType.RefreshBuff, {
+        forwardBuffer: 11_000,
+        maxLinks: 1,
+        condition: (linkingEvent, referencedEvent) => {
+          return linkingEvent.timestamp === referencedEvent.timestamp ? false : true;
+        },
+      }),
+    ],
+  },
+  {
+    spell: SPELLS.HEAT_SHIMMER_BUFF.id,
     parentType: EventType.RemoveBuff,
     links: [
-      link(EventType.ApplyBuff, { backwardBuffer: 15_000, maxLinks: 1 }),
       link(CustomType.CONSUME, {
         id: TALENTS.SCORCH_TALENT.id,
         type: EventType.Cast,

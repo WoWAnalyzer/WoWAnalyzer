@@ -225,7 +225,9 @@ class Swiftmend extends Analyzer {
     const baseText = this.hasVi ? (
       <>
         is our spot heal that extends all HoTs on its target due to{' '}
-        <SpellLink spell={TALENTS_DRUID.VERDANT_INFUSION_TALENT} />.
+        <SpellLink spell={TALENTS_DRUID.VERDANT_INFUSION_TALENT} />. Try to cast on your{' '}
+        <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} /> target to reduce manual Lifebloom
+        re-applications.
       </>
     ) : (
       <>

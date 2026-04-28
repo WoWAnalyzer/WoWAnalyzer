@@ -14,6 +14,8 @@ import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS/classic/druid';
 
+// TODO: Update for MoP Classic (spell 48544). Currently hardcoded disabled.
+
 type ResourcesByPlayer = Record<
   number,
   {
@@ -65,7 +67,11 @@ class Revitalize extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.talentPoints[2] >= 43;
+    // NOTE: Hardcoded disabled until updated for MoP Classic
+    this.active = false;
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]),
       this.onHealCast,

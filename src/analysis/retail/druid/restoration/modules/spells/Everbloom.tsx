@@ -10,13 +10,25 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Lifebloom from './Lifebloom';
+import Verdancy from './Verdancy';
 
+/**
+ * **Everbloom**
+ * Spec Apex Talent
+ *
+ * Rank 1: Lifebloom stacks every 5 sec, stacking up to 3 times.
+ * Rank 2/3: 25%/50% of Lifebloom's final bloom heals up to 6 injured allies within 40 yds.
+ * Rank 4: Lifebloom bursts into a Blooming Frenzy when you consume Soul of the Forest, causing it to bloom 3 times in rapid succession.
+ *
+ */
 class Everbloom extends Analyzer {
   static dependencies = {
     lifebloom: Lifebloom,
+    verdancy: Verdancy,
   };
 
   lifebloom!: Lifebloom;
+  verdancy!: Verdancy;
 
   splashHealing = 0;
   stackBonusHealing = 0;
@@ -116,7 +128,16 @@ class Everbloom extends Analyzer {
   }
 
   get totalEverbloomHealing() {
-    return this.stackBonusHealing + this.splashHealing + this.everbloomBloomHealing;
+    return (
+      this.stackBonusHealing +
+      this.splashHealing +
+      this.everbloomBloomHealing +
+      this.verdancyHealing
+    );
+  }
+
+  get verdancyHealing() {
+    return this.verdancy.active ? this.verdancy.everbloomBloomHealing : 0;
   }
 
   statistic() {
@@ -158,6 +179,12 @@ class Everbloom extends Analyzer {
                     Rank 3 linked blooms: <strong>{this.everbloomBloomCount}</strong>
                   </li>
                 </>
+              )}
+              {this.verdancyHealing > 0 && (
+                <li>
+                  Verdancy healing from Everbloom blooms:{' '}
+                  <strong>{formatNumber(this.verdancyHealing)}</strong>
+                </li>
               )}
             </ul>
             {this.hasRank3Enabled && (

@@ -32,20 +32,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHIV.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        charges: 1 + combatant.getTalentRank(TALENTS.LIGHTWEIGHT_SHIV_TALENT),
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-      },
-      {
         spell: SPELLS.MUTILATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -114,6 +100,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.SHIV.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30, // Toxic Stiletto can reduce it's cooldown by 15s.
+        charges: 1,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
         spell: SPELLS.SPRINT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
@@ -147,20 +142,6 @@ class Abilities extends CoreAbilities {
       // endregion
 
       // region Cooldowns
-      {
-        spell: SPELLS.ECHOING_REPRIMAND.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT),
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-      },
       {
         spell: TALENTS.DEATHMARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,

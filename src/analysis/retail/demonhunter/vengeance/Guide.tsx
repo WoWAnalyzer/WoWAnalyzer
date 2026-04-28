@@ -129,7 +129,6 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       {modules.sigilOfFlame.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
         modules.spiritBomb.guideSubsection()}
-      {modules.soulCleave.guideSubsection()}
     </Section>
   );
 }
@@ -146,10 +145,6 @@ const cooldowns: Cooldown[] = [
   {
     spell: TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT,
     isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT),
-  },
-  {
-    spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
   },
   {
     spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT,

@@ -68,10 +68,6 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   // Guardian Berserk handled in spec module
   //endregion
 
-  //region Hunter
-  [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
-  //endregion
-
   //region Paladin
   [SPELLS.RELENTLESS_INQUISITOR_TALENT_BUFF.id]: {
     hastePerStack: 0.01,

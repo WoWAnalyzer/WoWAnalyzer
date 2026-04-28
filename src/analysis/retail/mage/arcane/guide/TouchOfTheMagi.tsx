@@ -34,18 +34,10 @@ class TouchOfTheMagiGuide extends Analyzer {
   isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
 
   private evaluateTouchCast(cast: TouchOfTheMagiData): CastEvaluation {
-    const noCharges = cast.charges === 0;
     const activeTime = cast.activeTime || 0;
     const activeTimePerf = this.touchOfTheMagi.activeTimeUtil(activeTime) as QualitativePerformance;
 
     // Fail conditions (highest priority)
-    if (this.isSpellslinger && !noCharges) {
-      return {
-        timestamp: cast.applied,
-        performance: QualitativePerformance.Fail,
-        reason: `You had ${cast.charges} Arcane Charges. You should cast Arcane Barrage to dump your charges just before Touch of the Magi.`,
-      };
-    }
 
     if (activeTimePerf === QualitativePerformance.Fail) {
       return {

@@ -7,36 +7,44 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/EventLinking/helpers';
+import { isFromFieldOfDreams } from '../../normalizers/EventLinking/helpers';
 
 class FieldOfDreams extends Analyzer {
   countedTimestamps: Set<number> = new Set<number>();
   numProcs = 0;
-  totalHealing = 0;
-  totalOverhealing = 0;
+  totalBlossomHealing = 0;
+  totalBlossomOverhealing = 0;
+  totalSeedlingsHealing = 0;
+  totalSeedlingsOverhealing = 0;
+  latestTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM),
-      this.onEbHeal,
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.EMERALD_BLOSSOM, SPELLS.FLUTTERING_SEEDLINGS_HEAL]),
+      this.onFodHeal,
     );
   }
 
-  onEbHeal(event: HealEvent) {
-    if (this.countedTimestamps.has(event.timestamp) || !isFromFieldOfDreams(event)) {
-      return;
+  onFodHeal(event: HealEvent) {
+    if (isFromFieldOfDreams(event)) {
+      if (event.ability.guid == SPELLS.EMERALD_BLOSSOM.id) {
+        this.totalBlossomHealing += event.amount + (event.absorbed || 0);
+        this.totalBlossomOverhealing += event.overheal || 0;
+      } else {
+        this.totalSeedlingsHealing += event.amount + (event.absorbed || 0);
+        this.totalSeedlingsOverhealing += event.overheal || 0;
+      }
+      if (event.timestamp > this.latestTimestamp + 50) {
+        this.numProcs += 1;
+        this.latestTimestamp = event.timestamp;
+      }
     }
-    const allEvents = getHealEvents(event);
-    allEvents.forEach((ev) => {
-      this.totalHealing += (ev.amount || 0) + (ev.absorbed || 0);
-      this.totalOverhealing += ev.overheal || 0;
-    });
-    this.numProcs += 1;
-    this.countedTimestamps.add(event.timestamp);
   }
 
   statistic() {
@@ -45,24 +53,38 @@ class FieldOfDreams extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
+            <ul>
+              <li>{formatNumber(this.totalBlossomHealing)} effective healing</li>
+              <li>{formatNumber(this.totalBlossomOverhealing)} overheal</li>
+            </ul>
+            <SpellLink spell={TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT} />
+            <ul>
+              <li>{formatNumber(this.totalSeedlingsHealing)} effective healing</li>
+              <li>{formatNumber(this.totalSeedlingsOverhealing)} overheal</li>
+            </ul>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}>
           <div>
-            <ItemHealingDone amount={this.totalHealing} />
+            <small>
+              <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
+            </small>
           </div>
+          <ItemHealingDone amount={this.totalBlossomHealing} />
           <div>
-            <TooltipElement
-              content={
-                <ul>
-                  <li>{formatNumber(this.totalHealing)} effective healing</li>
-                  <li>{formatNumber(this.totalOverhealing)} overheal</li>
-                </ul>
-              }
-            >
-              <small>
-                {this.numProcs} extra <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> procs
-              </small>
-            </TooltipElement>
+            <small>
+              <SpellLink spell={TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT} />
+            </small>
+          </div>
+          <ItemHealingDone amount={this.totalSeedlingsHealing} />
+          <div>
+            <small>
+              {this.numProcs} extra <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> procs
+            </small>
           </div>
         </TalentSpellText>
       </Statistic>

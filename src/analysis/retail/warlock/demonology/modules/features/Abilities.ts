@@ -106,13 +106,6 @@ class Abilities extends SharedAbilities {
           base: 1500,
         },
       },
-      // TODO: figure which spell triggers this now
-      // {
-      //   spell: SPELLS.FELSTORM.id,
-      //   category: SPELL_CATEGORY.ROTATIONAL,
-      //   cooldown: 45,
-      //   gcd: null,
-      // },
       {
         spell: SPELLS.IMPLOSION_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -172,6 +165,21 @@ class Abilities extends SharedAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         enabled: combatant.hasTalent(TALENTS.GRIMOIRE_FEL_RAVAGER_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
+        },
+      },
+      {
+        spell: TALENTS.SUMMON_DOOMGUARD_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
+        enabled: combatant.hasTalent(TALENTS.SUMMON_DOOMGUARD_TALENT),
         gcd: {
           base: 1500,
         },

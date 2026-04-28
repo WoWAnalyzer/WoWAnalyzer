@@ -17,9 +17,7 @@ import MajorCooldown, {
 import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationLinkNormalizer';
 import { isDefined } from 'common/typeGuards';
 
-const PERFECT_FRAILTY_STACKS = 3;
-const GOOD_FRAILTY_STACKS = 2;
-const OK_FRAILTY_STACKS = 1;
+const PERFECT_FRAILTY_STACKS = 1;
 
 interface FelDevastationDamage {
   targetStacksOfFrailty: number;
@@ -152,7 +150,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     if (!enemy) {
       return false;
     }
-    return enemy.hasBuff(SPELLS.FRAILTY.id, event.timestamp);
+    return enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp);
   }
 
   private fieryDemisePerformance(cast: FelDevastationCooldownCast): UsageInfo | undefined {
@@ -196,23 +194,10 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     if (!this.selectedCombatant.hasTalent(TALENTS.VULNERABILITY_TALENT)) {
       return undefined;
     }
-    if (!this.selectedCombatant.hasTalent(TALENTS.SOULCRUSH_TALENT)) {
-      const atLeastOneTargetHasFrailty = cast.damage.some((it) => it.targetStacksOfFrailty > 0);
-      if (atLeastOneTargetHasFrailty) {
-        return {
-          performance: QualitativePerformance.Perfect,
-          summary: (
-            <div>
-              <SpellLink spell={SPELLS.FRAILTY} /> applied to target(s)
-            </div>
-          ),
-          details: (
-            <div>
-              <SpellLink spell={SPELLS.FRAILTY} /> applied to target(s).
-            </div>
-          ),
-        };
-      }
+
+    const atLeastOneTargetHasFrailty = cast.damage.some((it) => it.targetStacksOfFrailty > 0);
+
+    if (!atLeastOneTargetHasFrailty) {
       return {
         performance: QualitativePerformance.Fail,
         summary: (
@@ -224,91 +209,22 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
           <div>
             <SpellLink spell={SPELLS.FRAILTY} /> not applied to target(s). Make sure to apply{' '}
             <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink spell={TALENTS.SOUL_CARVER_TALENT} />.
-          </div>
-        ),
-      };
-    }
-
-    const atLeastOneTargetHasPerfectFrailty = cast.damage.find(
-      (it) => it.targetStacksOfFrailty >= PERFECT_FRAILTY_STACKS,
-    );
-    const atLeastOneTargetHasGoodFrailty = cast.damage.find(
-      (it) => it.targetStacksOfFrailty >= GOOD_FRAILTY_STACKS,
-    );
-    const atLeastOneTargetHasOkFrailty = cast.damage.find(
-      (it) => it.targetStacksOfFrailty >= OK_FRAILTY_STACKS,
-    );
-    const mostStacksOfFrailty = Math.max(...cast.damage.map((it) => it.targetStacksOfFrailty), 0);
-
-    if (atLeastOneTargetHasPerfectFrailty) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        summary: (
-          <div>
-            {atLeastOneTargetHasPerfectFrailty.targetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to 1+ target(s).
-          </div>
-        ),
-        details: (
-          <div>
-            {atLeastOneTargetHasPerfectFrailty.targetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to 1+ target(s).
-          </div>
-        ),
-      };
-    }
-    if (atLeastOneTargetHasGoodFrailty) {
-      return {
-        performance: QualitativePerformance.Good,
-        summary: (
-          <div>
-            {atLeastOneTargetHasGoodFrailty.targetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to 1+ target(s)
-          </div>
-        ),
-        details: (
-          <div>
-            Only {atLeastOneTargetHasGoodFrailty.targetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to 1+ target(s). Try applying at least{' '}
-            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink spell={TALENTS.SOUL_CARVER_TALENT} />.
-          </div>
-        ),
-      };
-    }
-    if (atLeastOneTargetHasOkFrailty) {
-      return {
-        performance: QualitativePerformance.Ok,
-        summary: (
-          <div>
-            {atLeastOneTargetHasOkFrailty.targetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to 1+ target
-          </div>
-        ),
-        details: (
-          <div>
-            Only {atLeastOneTargetHasOkFrailty.targetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to 1+ target(s). Try applying at least{' '}
-            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
             <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} />.
           </div>
         ),
       };
     }
+
     return {
-      performance: QualitativePerformance.Fail,
+      performance: QualitativePerformance.Perfect,
       summary: (
         <div>
-          {mostStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> applied to target
+          <SpellLink spell={SPELLS.FRAILTY} /> applied to target(s)
         </div>
       ),
       details: (
         <div>
-          Only {mostStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> applied to
-          target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-          <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
-          <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} />.
+          <SpellLink spell={SPELLS.FRAILTY} /> applied to target(s).
         </div>
       ),
     };

@@ -9,17 +9,23 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AuspiciousSpirits from '../talents/AuspiciousSpirits';
 import TormentedSpirits from '../talents/TormentedSpirits';
-import PhantasmalPathogen from '../talents/SpectralHorrors';
+import SpectralHorrors from '../talents/SpectralHorrors';
+import HauntingShadows from '../talents/HauntingShadows';
+import PhantomMenace from '../talents/PhatomMenace';
 
 class ShadowyApparitions extends Analyzer {
   static dependencies = {
     auspiciousSpirits: AuspiciousSpirits,
     tormentedSpirits: TormentedSpirits,
-    phantasmalPathogen: PhantasmalPathogen,
+    spectralHorrors: SpectralHorrors,
+    hauntingShadows: HauntingShadows,
+    phantomMenace: PhantomMenace,
   };
   protected auspiciousSpirits!: AuspiciousSpirits;
   protected tormentedSpirits!: TormentedSpirits;
-  protected phantasmalPathogen!: PhantasmalPathogen;
+  protected spectralHorrors!: SpectralHorrors;
+  protected hauntingShadows!: HauntingShadows;
+  protected phantomMenace!: PhantomMenace;
 
   damage = 0;
 
@@ -58,7 +64,15 @@ class ShadowyApparitions extends Analyzer {
           : null}
 
         {this.selectedCombatant.hasTalent(TALENTS.SPECTRAL_HORRORS_TALENT)
-          ? this.phantasmalPathogen.subStatistic()
+          ? this.spectralHorrors.subStatistic()
+          : null}
+
+        {this.selectedCombatant.hasTalent(TALENTS.HAUNTING_SHADOWS_TALENT)
+          ? this.hauntingShadows.subStatistic()
+          : null}
+
+        {this.selectedCombatant.hasTalent(TALENTS.PHANTOM_MENACE_TALENT)
+          ? this.phantomMenace.subStatistic()
           : null}
       </Statistic>
     );

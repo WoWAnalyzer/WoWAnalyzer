@@ -41,9 +41,10 @@ import {
   CRANE_STYLE_SCK,
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
-  ZEN_PULSE_VIVIFY,
+  ZEN_PULSE_CAST,
   STRENGTH_OF_THE_BLACK_OX,
   SPIRITFONT_CONSUMED,
+  SPIRITFONT_FALSE_REFRESH,
   JADE_BOND_ENVM,
   INSURANCE_FROM_REM,
   INSURANCE,
@@ -277,7 +278,7 @@ export function isVivaciousVivification(event: HealEvent) {
 }
 
 export function getZenPulseHitsPerCast(event: HealEvent): HealEvent[] {
-  return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_VIVIFY);
+  return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_CAST);
 }
 
 export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {
@@ -303,8 +304,13 @@ export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
 }
 
+// apex talent (spiritfont)
 export function isSpiritfontConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return HasRelatedEvent(event, SPIRITFONT_CONSUMED);
+}
+
+export function isSpiritfontFalseRefresh(event: RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, SPIRITFONT_FALSE_REFRESH);
 }
 
 // hero talents

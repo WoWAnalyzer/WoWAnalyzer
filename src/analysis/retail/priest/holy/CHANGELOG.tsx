@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Amiphite, Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
+import { Amiphite, Arlie, Hana, Litena, Liavre, squided, Topple, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst, Thias } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2026, 4, 11), <>Added Defensive usage to guide section.</>, Thias),
   change(date(2026, 4, 1), <><SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> update.</>, Amiphite),
   change(date(2026, 4, 1), <><SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> guide section update: <SpellLink spell={TALENTS.SPIRITWELL_TALENT} /> and
   <SpellLink spell={TALENTS.DIVINITY_TALENT} /> support.</>, Amiphite),

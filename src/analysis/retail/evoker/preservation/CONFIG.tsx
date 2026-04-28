@@ -10,8 +10,8 @@ const config: Config = {
   contributors: [Harrek],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.1',
-  supportLevel: SupportLevel.MaintainedPartial,
+  patchCompatibility: '12.0.5',
+  supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -22,8 +22,7 @@ const config: Config = {
         play.
       </p>
       <p>
-        We are currently updating it to support all the parts of the specialization for Midnight. If
-        you have any question or concern please reach out to the staff in the{' '}
+        If you have any question or concern please reach out to the staff in the{' '}
         <a href="https://discord.gg/evoker">Evoker Discord</a>
       </p>
     </>

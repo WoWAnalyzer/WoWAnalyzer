@@ -18,7 +18,6 @@ import {
   getPrimalWrath,
 } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import Snapshots, {
-  hasSpec,
   SnapshotSpec,
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
@@ -90,109 +89,50 @@ class RipUptimeAndSnapshots extends Snapshots {
       const targetName = this.owner.getTargetName(ripCast);
       const cpsUsed = getResourceSpent(ripCast, RESOURCE_TYPES.COMBO_POINTS);
       const wasNewApplication = prevSnapshots === null;
-      const wasUpgrade = prevPower < power;
 
       /** Perf logic:
-       *  3 or 4 CPs, but is initial Rip -> Green
-       *  3 or 4 CPs, but  upgrades Snapshot -> Yellow
-       *  < 5 CPs without an excuse -> Red
-       *  Missing BT -> Red
-       *  Missing TF -> Yellow
-       *  Clip Duration (but upgrade Snapshot) -> Yellow
-       *  Clip Duration more than threshold duration -> Red
+       *  Low CPs, but is initial Rip -> Green (getting it up matters more)
+       *  Low CPs on refresh -> Red
+       *  Refreshed outside pandemic -> Red
+       *  Refreshed slightly early (within clip buffer) -> Ok
        *  None of the Above -> Green
        */
       let value: QualitativePerformance = QualitativePerformance.Good;
       let perfExplanation: React.ReactNode = undefined;
-      const currAcceptableCps = getAcceptableCps(this.selectedCombatant);
-      if (cpsUsed < 3) {
+      const currAcceptableCps = getAcceptableCps(this.selectedCombatant, ripCast.timestamp);
+      if (cpsUsed < currAcceptableCps && !wasNewApplication) {
         value = QualitativePerformance.Fail;
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
-            Bad because you used only {cpsUsed} CPs
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
-        );
-      } else if (cpsUsed < currAcceptableCps && this.castEntries.length > 0 && !wasUpgrade) {
-        value = QualitativePerformance.Fail;
-        perfExplanation = (
-          <h5 style={{ color: BadColor }}>
-            Bad because you used less than {currAcceptableCps} CPs
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            Bad because you used only {cpsUsed} CPs (need at least {currAcceptableCps})
           </h5>
         );
       } else if (clipped > CLIP_BUFFER) {
-        if (wasUpgrade) {
-          value = QualitativePerformance.Ok;
-          perfExplanation = (
-            <h5 style={{ color: OkColor }}>
-              You upgraded the snapshot at the cost of refreshing early
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-            </h5>
-          );
-        } else {
-          value = QualitativePerformance.Fail;
-          perfExplanation = (
-            <h5 style={{ color: BadColor }}>
-              Bad because you refreshed too early
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-            </h5>
-          );
-        }
+        value = QualitativePerformance.Fail;
+        perfExplanation = <h5 style={{ color: BadColor }}>Bad because you refreshed too early</h5>;
       } else if (clipped > 0) {
         value = QualitativePerformance.Ok;
         perfExplanation = (
-          <h5 style={{ color: OkColor }}>
-            Careful, you refreshed this a little early
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
-        );
-      } else if (!hasSpec(snapshots, TIGERS_FURY_SPEC)) {
-        value = QualitativePerformance.Ok;
-        perfExplanation = (
-          <h5 style={{ color: OkColor }}>
-            Supoptimal because no Tiger's Fury snapshot
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
-        );
-      } else if (cpsUsed < currAcceptableCps && this.castEntries.length !== 0 && wasUpgrade) {
-        value = QualitativePerformance.Ok;
-        perfExplanation = (
-          <h5 style={{ color: OkColor }}>
-            Only {cpsUsed} CPs, but upgraded snapshot
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </h5>
+          <h5 style={{ color: OkColor }}>Careful, you refreshed this a little early</h5>
         );
       }
 
       const tooltip = (
         <>
-          {perfExplanation}@ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
-          <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          {perfExplanation}
+          <div>
+            @ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
+            <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
+          </div>
           {!wasNewApplication && (
-            <>
+            <div>
               Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-              {clipped > 0 && (
-                <>
-                  <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-                </>
-              )}
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-            </>
+              {clipped > 0 && <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>}
+            </div>
           )}
-          Snapshots: <strong>{snapshots.map((ss) => ss.name).join(', ')}</strong>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
+          <div>
+            Snapshots: <strong>{snapshots.map((ss) => ss.name).join(', ')}</strong>
+          </div>
         </>
       );
       this.castEntries.push({ value, tooltip });
@@ -237,7 +177,7 @@ class RipUptimeAndSnapshots extends Snapshots {
             <SpellLink spell={TALENTS_DRUID.PRIMAL_WRATH_TALENT} />.
           </>
         )}{' '}
-        Don't refresh early, and try to always snapshot <SpellLink spell={SPELLS.TIGERS_FURY} />.
+        Only refresh in the pandemic window (last 30% of duration).
       </p>
     );
 
@@ -250,13 +190,11 @@ class RipUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
         <CastSummaryAndBreakdown
           spell={SPELLS.RIP}
           castEntries={this.castEntries}
-          okExtraExplanation={<>clipped duration but upgraded snapshot or missing Tigers Fury</>}
-          badExtraExplanation={<>clipped duration</>}
+          okExtraExplanation={<>slightly early refresh</>}
+          badExtraExplanation={<>refreshed outside pandemic or low CPs</>}
         />
       </div>
     );
@@ -265,7 +203,7 @@ class RipUptimeAndSnapshots extends Snapshots {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.RIP.id);
+    return this.combinedUptimeHistory;
   }
 
   subStatistic() {
