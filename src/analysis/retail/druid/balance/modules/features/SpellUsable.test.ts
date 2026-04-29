@@ -73,10 +73,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.isOnCooldown(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(true);
@@ -90,10 +87,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(SPELLS.CELESTIAL_ALIGNMENT, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.isOnCooldown(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(true);
@@ -107,10 +101,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.isOnCooldown(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id)).toBe(true);
@@ -137,10 +128,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
@@ -157,10 +145,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
@@ -179,10 +164,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
@@ -207,10 +189,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.chargesAvailable(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(1);
@@ -228,10 +207,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.chargesAvailable(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(0);
@@ -254,10 +230,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(
@@ -285,10 +258,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
@@ -312,10 +282,7 @@ describe('Balance Druid SpellUsable', () => {
       ];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
@@ -338,10 +305,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(SPELLS.CELESTIAL_ALIGNMENT, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(
@@ -360,10 +324,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(SPELLS.CELESTIAL_ALIGNMENT_ORBITAL_STRIKE, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(SPELLS.CELESTIAL_ALIGNMENT_ORBITAL_STRIKE.id)).toBe(
@@ -382,10 +343,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id)).toBe(
@@ -405,10 +363,7 @@ describe('Balance Druid SpellUsable', () => {
       const events = [castEvent(SPELLS.INCARNATION_ORBITAL_STRIKE, 0)];
 
       // Act
-      events.forEach((event) => {
-        parser.currentTimestamp = event.timestamp;
-        eventEmitter.triggerEvent(event);
-      });
+      parser.processEvents(events);
 
       // Assert
       expect(module.cooldownRemaining(SPELLS.INCARNATION_ORBITAL_STRIKE.id)).toBe(
