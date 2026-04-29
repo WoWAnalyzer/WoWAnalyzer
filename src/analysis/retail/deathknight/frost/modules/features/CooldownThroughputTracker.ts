@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import GameBranch from 'game/GameBranch';
 
@@ -21,9 +20,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
   ];
 
-  static ignoredSpells = [
-    ...CoreCooldownThroughputTracker.ignoredSpells,
-  ];
+  static ignoredSpells = [...CoreCooldownThroughputTracker.ignoredSpells];
 }
 
 export default CooldownThroughputTracker;
