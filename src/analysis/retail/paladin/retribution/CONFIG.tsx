@@ -8,7 +8,7 @@ import { Texleretour } from 'CONTRIBUTORS';
 const config: Config = {
   contributors: [Texleretour],
   branch: GameBranch.Retail,
-  patchCompatibility: '12.0.0',
+  patchCompatibility: '12.0.5',
   supportLevel: SupportLevel.MaintainedPartial,
   description: (
     <>

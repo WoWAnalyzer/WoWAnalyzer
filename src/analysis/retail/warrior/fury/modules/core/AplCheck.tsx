@@ -19,6 +19,14 @@ export const MASSACRE_EXECUTE_THRESHOLD = 0.35;
 export const DEFAULT_EXECUTE_THRESHOLD = 0.2;
 
 export const apl = (info: PlayerInfo): Apl => {
+  const rampageRageThreshold = 1000;
+  // threshold below which builders are still better than spending (100 rage)
+  // in the future this will probably be based on talents
+
+  const apexRampageRageReduction =
+    info.combatant.getTalentRank(TALENTS.RAMPAGING_BERSERKER_2_FURY_TALENT) * 150;
+  // fury apex reduces rampage rage cost by 15 rage per rank
+
   const executeThreshold = info.combatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT)
     ? MASSACRE_EXECUTE_THRESHOLD
     : DEFAULT_EXECUTE_THRESHOLD;
@@ -29,25 +37,24 @@ export const apl = (info: PlayerInfo): Apl => {
   const executeSpell = info.combatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT)
     ? SPELLS.EXECUTE_FURY_MASSACRE
     : SPELLS.EXECUTE_FURY;
-
-  const rampageRageThreshold = 1000;
-  // threshold below which builders are still better than spending (115 rage)
-  // in the future this will probably be based on talents
-
-  const apexRampageRageReduction =
-    info.combatant.getTalentRank(TALENTS.RAMPAGING_BERSERKER_2_FURY_TALENT) * 150;
-  // fury apex reduces rampage rage cost by 15 rage per rank
+  const rampageUsable = cnd.or(
+    cnd.and(
+      cnd.buffPresent(SPELLS.RECKLESSNESS),
+      cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
+    ),
+    cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
+  );
 
   return info.combatant.hasTalent(TALENTS.SLAYERS_DOMINANCE_TALENT)
     ? buildSlayerApl(
-        executeThreshold,
+        rampageUsable,
         executeUsable,
         executeSpell,
         rampageRageThreshold,
         apexRampageRageReduction,
       )
     : buildThaneApl(
-        executeThreshold,
+        rampageUsable,
         executeUsable,
         executeSpell,
         rampageRageThreshold,
@@ -56,18 +63,18 @@ export const apl = (info: PlayerInfo): Apl => {
 };
 
 export const buildSlayerApl = (
-  executeThreshold: number,
+  rampageUsable: Condition<boolean>,
   executeUsable: Condition<boolean>,
   executeSpell: Spell,
   rampageRageThreshold: number,
   apexRampageRageReduction: number,
 ): Apl => {
   return build([
-    // Enrage
+    // Enrage or high rage ramp
     {
       spell: SPELLS.RAMPAGE,
       condition: cnd.and(
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
+        rampageUsable,
         cnd.or(
           cnd.buffMissing(SPELLS.ENRAGE),
           cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
@@ -98,10 +105,7 @@ export const buildSlayerApl = (
     // rampage during reck
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.RECKLESSNESS),
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
-      ),
+      condition: cnd.and(cnd.buffPresent(SPELLS.RECKLESSNESS), rampageUsable),
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />
@@ -149,7 +153,7 @@ export const buildSlayerApl = (
     // fallback rampage
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
+      condition: rampageUsable,
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} />
@@ -171,24 +175,27 @@ export const buildSlayerApl = (
 };
 
 export const buildThaneApl = (
-  executeThreshold: number,
+  rampageUsable: Condition<boolean>,
   executeUsable: Condition<boolean>,
   executeSpell: Spell,
   rampageRageThreshold: number,
   apexRampageRageReduction: number,
 ): Apl => {
   return build([
-    // Enrage
+    // Enrage or high rage ramp
     {
       spell: SPELLS.RAMPAGE,
       condition: cnd.and(
-        cnd.buffMissing(SPELLS.ENRAGE),
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
+        rampageUsable,
+        cnd.or(
+          cnd.buffMissing(SPELLS.ENRAGE),
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
+        ),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} /> to apply <SpellLink spell={SPELLS.ENRAGE} /> if
-          it is missing
+          Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage, or to
+          apply <SpellLink spell={SPELLS.ENRAGE} /> if it is missing
         </>
       ),
     },
@@ -203,18 +210,6 @@ export const buildThaneApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.THUNDER_BLAST} /> with 2 stacks
-        </>
-      ),
-    },
-
-    // high rage rampage
-    {
-      spell: SPELLS.RAMPAGE,
-      condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: rampageRageThreshold }),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.RAMPAGE} /> above {rampageRageThreshold / 10} rage to avoid
-          overcapping
         </>
       ),
     },
@@ -236,10 +231,7 @@ export const buildThaneApl = (
     // rampage during reck
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.RECKLESSNESS),
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 - apexRampageRageReduction }),
-      ),
+      condition: cnd.and(cnd.buffPresent(SPELLS.RECKLESSNESS), rampageUsable),
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} /> during <SpellLink spell={SPELLS.RECKLESSNESS} />
@@ -278,10 +270,10 @@ export const buildThaneApl = (
     // Exe conditions
     {
       spell: executeSpell,
-      condition: cnd.and(executeUsable, cnd.hasTalent(TALENTS.DEEP_WOUNDS_TALENT)),
+      condition: executeUsable,
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} /> if specced into its respective talents
+          Cast <SpellLink spell={executeSpell} />
         </>
       ),
     },
@@ -317,7 +309,7 @@ export const buildThaneApl = (
     // fallback rampage
     {
       spell: SPELLS.RAMPAGE,
-      condition: cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 800 }),
+      condition: rampageUsable,
       description: (
         <>
           Cast <SpellLink spell={SPELLS.RAMPAGE} />

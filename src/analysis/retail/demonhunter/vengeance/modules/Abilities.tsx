@@ -50,7 +50,7 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.FRACTURE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) =>
-          (6 -
+          (5.5 -
             PERFECTLY_BALANCED_GLAIVE_SCALING_FRACTURE[
               combatant.getTalentRank(TALENTS.PERFECTLY_BALANCED_GLAIVE_TALENT)
             ]) /
