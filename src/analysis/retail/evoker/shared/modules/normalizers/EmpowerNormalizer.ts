@@ -3,6 +3,7 @@ import {
   AddRelatedEvent,
   AnyEvent,
   CastEvent,
+  EmpowerCancelEvent,
   EmpowerEndEvent,
   EventType,
   GetRelatedEvent,
@@ -11,10 +12,12 @@ import {
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EMPOWERS } from '../../constants';
+import SPELLS from 'common/SPELLS';
 
 const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
 const EMPOWER_CAST = 'EmpoweredCast';
-const EMPOWER_END = 'EmpowerEnd';
+export const EMPOWER_END = 'EmpowerEnd';
+export const EMPOWER_CANCEL = 'EmpowerCancel';
 
 const EMPOWERED_CAST_BUFFER = 6000;
 const TIP_THE_SCALES_CONSUME_BUFFER = 25;
@@ -56,6 +59,14 @@ const EVENT_LINKS: EventLink[] = [
   },
 ];
 
+// These empowers have their buffs tagged as unlogged which makes precise determination of cancel times impossible
+const UNLOGGED_EMPOWERS = [
+  SPELLS.UPHEAVAL.id,
+  SPELLS.UPHEAVAL_FONT.id,
+  SPELLS.ETERNITY_SURGE.id,
+  SPELLS.ETERNITY_SURGE_FONT.id,
+];
+
 /** Creates links between cast Events and EmpowerEnd events for Empowers which can then be
  * used to verify whether the cast was finished or cancelled - will also create links between
  * Empower cast that consumed Tip the Scales.
@@ -76,18 +87,8 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     this.priority -= 100;
   }
 
-  /** Create EmpowerEnd events for Empowers cast with Tip the Scales
-   * Also creates EMPOWERED_CAST link between the Cast and EmpowerEnd event */
-  normalize(rawEvents: AnyEvent[]): AnyEvent[] {
-    // Create initial EventLinks that we can then reference later
-    const events = super.normalize(rawEvents);
-
+  fixTTS(events: AnyEvent[], hasFont: boolean): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
-    const hasFont =
-      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
-      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
-      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT);
-
     events.forEach((event) => {
       if (event.type !== EventType.Cast || !isFromTipTheScales(event)) {
         if (event.type !== EventType.EmpowerEnd || event.empowermentLevel > 0) {
@@ -115,6 +116,83 @@ class EmpowerNormalizer extends EventLinkNormalizer {
       fixedEvents.push(fabricatedEvent);
     });
     return fixedEvents;
+  }
+  fixCancelCast(events: AnyEvent[]): AnyEvent[] {
+    const fixedEvents: AnyEvent[] = [];
+    let waitingForEnd = 0;
+    events.forEach((event) => {
+      if (
+        (waitingForEnd == 0 &&
+          (event.type !== EventType.Cast ||
+            !EMPOWERS.includes(event.ability.guid) ||
+            isFromTipTheScales(event) ||
+            HasRelatedEvent(event, EMPOWER_END))) ||
+        (waitingForEnd != 0 &&
+          (event.type !== EventType.RemoveBuff || !EMPOWERS.includes(event.ability.guid)))
+      ) {
+        fixedEvents.push(event);
+        return;
+      }
+      // Instantly push the unloggeds because you cant track them anyway
+      // Wait for Removebuff for logged ones
+      if (event.type === EventType.Cast) {
+        if (UNLOGGED_EMPOWERS.includes(event.ability.guid)) {
+          const fabricatedEvent: EmpowerCancelEvent = {
+            ability: event.ability,
+            timestamp: event.timestamp,
+            sourceID: event.sourceID,
+            sourceIsFriendly: event.sourceIsFriendly,
+            targetID: event.targetID,
+            targetIsFriendly: event.targetIsFriendly,
+            type: EventType.EmpowerCancel,
+            __fabricated: true,
+          };
+
+          AddRelatedEvent(event, EMPOWER_CANCEL, fabricatedEvent);
+          AddRelatedEvent(fabricatedEvent, EMPOWER_CANCEL, event);
+
+          fixedEvents.push(event);
+          fixedEvents.push(fabricatedEvent);
+        } else {
+          fixedEvents.push(event);
+          waitingForEnd = event.ability.guid;
+        }
+      }
+      if (event.type === EventType.RemoveBuff && waitingForEnd == event.ability.guid) {
+        const fabricatedEvent: EmpowerCancelEvent = {
+          ability: event.ability,
+          timestamp: event.timestamp,
+          sourceID: event.sourceID,
+          sourceIsFriendly: event.sourceIsFriendly,
+          targetID: event.targetID,
+          targetIsFriendly: event.targetIsFriendly,
+          type: EventType.EmpowerCancel,
+          __fabricated: true,
+        };
+
+        AddRelatedEvent(event, EMPOWER_CANCEL, fabricatedEvent);
+        AddRelatedEvent(fabricatedEvent, EMPOWER_CANCEL, event);
+
+        fixedEvents.push(event);
+        fixedEvents.push(fabricatedEvent);
+        waitingForEnd = 0;
+      }
+    });
+    return fixedEvents;
+  }
+
+  /** Create EmpowerEnd events for Empowers cast with Tip the Scales
+   * Also creates EMPOWERED_CAST link between the Cast and EmpowerEnd event */
+  normalize(rawEvents: AnyEvent[]): AnyEvent[] {
+    // Create initial EventLinks that we can then reference later
+    const events = super.normalize(rawEvents);
+
+    const hasFont =
+      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
+      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT);
+
+    return this.fixCancelCast(this.fixTTS(events, hasFont));
   }
 }
 

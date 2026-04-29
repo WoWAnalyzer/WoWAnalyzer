@@ -3,13 +3,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, {
   AbilityEvent,
-  AnyEvent,
   BeginChannelEvent,
   CastEvent,
+  EmpowerCancelEvent,
   EmpowerEndEvent,
   EndChannelEvent,
   EventType,
   GlobalCooldownEvent,
+  HasRelatedEvent,
   SourcedEvent,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -20,6 +21,10 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
+import {
+  EMPOWER_CANCEL,
+  EMPOWER_END,
+} from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
@@ -49,6 +54,7 @@ class GlobalCooldown extends Analyzer {
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
     this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerEnd);
+    this.addEventListener(Events.empowerCancel.by(SELECTED_PLAYER), this.onEmpowerEnd);
 
     if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
       this.minDuration = MIN_GCD_CLASSIC;
@@ -73,8 +79,16 @@ class GlobalCooldown extends Analyzer {
     return Boolean(this.getGlobalCooldownDuration(spellId));
   }
 
-  isEmpowerSpell(event: AnyEvent): boolean {
-    return Boolean(event._linkedEvents?.find((x) => x.relation == 'EmpowerEnd'));
+  isEmpowerSpell(event: CastEvent | BeginChannelEvent): boolean {
+    // LinkedEvents for Channels are nested deeper
+    if (event.type === EventType.Cast) {
+      return Boolean(HasRelatedEvent(event, EMPOWER_END) || HasRelatedEvent(event, EMPOWER_CANCEL));
+    } else {
+      return Boolean(
+        HasRelatedEvent(event.trigger!, EMPOWER_END) ||
+        HasRelatedEvent(event.trigger!, EMPOWER_CANCEL),
+      );
+    }
   }
 
   _currentChannel: BeginChannelEvent | EndChannelEvent | null = null;
@@ -83,6 +97,9 @@ class GlobalCooldown extends Analyzer {
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    */
   onBeginChannel(event: BeginChannelEvent) {
+    if (!this.isEmpowerSpell(event)) {
+      return;
+    }
     if (!event.trigger || event.trigger.type !== EventType.Cast) {
       // if the trigger is a cast event, then the beginchannel event came after the cast event, in which case we don't want to set the current channel to avoid getting false matches in the next `onCast` trigger
       this._currentChannel = event;
@@ -95,8 +112,8 @@ class GlobalCooldown extends Analyzer {
     if (event.trigger && event.trigger.type === EventType.BeginCast) {
       isCancelled = event.trigger.isCancelled;
     }
-    //const isCancelled = event.trigger?.isCancelled;
-    if (isOnGCD && !isCancelled && !this.isEmpowerSpell(event)) {
+
+    if (isOnGCD && !isCancelled) {
       event.globalCooldown = this.triggerGlobalCooldown(event);
     }
   }
@@ -139,7 +156,11 @@ class GlobalCooldown extends Analyzer {
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
-  onEmpowerEnd(event: EmpowerEndEvent) {
+  onEmpowerEnd(event: EmpowerEndEvent | EmpowerCancelEvent) {
+    event.type === EventType.EmpowerCancel &&
+      console.log('Cancel', this.owner.formatTimestamp(event.timestamp, 3));
+    event.type === EventType.EmpowerEnd &&
+      console.log('End', this.owner.formatTimestamp(event.timestamp, 3));
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 

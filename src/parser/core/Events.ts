@@ -43,6 +43,7 @@ export enum EventType {
   Spellsteal = 'spellsteal',
   EmpowerStart = 'empowerstart',
   EmpowerEnd = 'empowerend',
+  EmpowerCancel = 'empowercancel',
   Leech = 'leech',
   // added in 11.0
   StaggerClear = 'staggerclear',
@@ -155,6 +156,7 @@ interface MappedEventTypes {
   [EventType.Spellsteal]: SpellstealEvent;
   [EventType.EmpowerStart]: EmpowerStartEvent;
   [EventType.EmpowerEnd]: EmpowerEndEvent;
+  [EventType.EmpowerCancel]: EmpowerCancelEvent;
   [EventType.Leech]: LeechEvent;
   [EventType.StaggerClear]: StaggerClearEvent;
   [EventType.StaggerPrevented]: StaggerPreventedEvent;
@@ -490,6 +492,7 @@ export type EmpowerStartEvent = BaseCastEvent<EventType.EmpowerStart>;
 export interface EmpowerEndEvent extends BaseCastEvent<EventType.EmpowerEnd> {
   empowermentLevel: number;
 }
+export type EmpowerCancelEvent = BaseCastEvent<EventType.EmpowerCancel>;
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -1420,6 +1423,9 @@ const Events = {
   },
   get empowerEnd() {
     return new EventFilter(EventType.EmpowerEnd);
+  },
+  get empowerCancel() {
+    return new EventFilter(EventType.EmpowerCancel);
   },
   get leech() {
     return new EventFilter(EventType.Leech);
