@@ -120,7 +120,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
- /*     {
+      /*     {
         spell: talents.SACRIFICIAL_PACT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
