@@ -15,6 +15,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { HealthIcon, IntellectIcon } from 'interface/icons';
 import SpellLink from 'interface/SpellLink';
 import { calculatePrimaryStat } from 'parser/core/stats';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 // base taken from wowhead
 // https://www.wowhead.com/item=249341/volatile-void-suffuser
@@ -29,7 +30,9 @@ interface ProcData {
   ability: Ability;
 }
 
-export default class VolatileVoidSuffuser extends Analyzer {
+export default class VolatileVoidSuffuser extends Analyzer.withDependencies({
+  statTracker: StatTracker,
+}) {
   protected procs: ProcData[] = [];
 
   intellectProc = BASE_INTELLECT;
@@ -80,6 +83,8 @@ export default class VolatileVoidSuffuser extends Analyzer {
     // int proc + ((1% of int proc) per 1% missing hp)
     const intellectGained =
       this.intellectProc + (this.intellectProc / 100) * (missingHealthPercent * 100);
+
+    this.deps.statTracker.add(SPELLS.VOID_SUFFUSION.id, { intellect: intellectGained });
 
     this.procs.push({
       timestamp,
