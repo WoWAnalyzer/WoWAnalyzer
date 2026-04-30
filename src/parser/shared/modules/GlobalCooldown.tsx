@@ -157,10 +157,6 @@ class GlobalCooldown extends Analyzer {
   }
 
   onEmpowerEnd(event: EmpowerEndEvent | EmpowerCancelEvent) {
-    event.type === EventType.EmpowerCancel &&
-      console.log('Cancel', this.owner.formatTimestamp(event.timestamp, 3));
-    event.type === EventType.EmpowerEnd &&
-      console.log('End', this.owner.formatTimestamp(event.timestamp, 3));
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
