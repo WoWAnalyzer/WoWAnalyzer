@@ -269,6 +269,12 @@ class SpellUsable extends Analyzer {
     } else {
       // trigger an end cooldown and then immediately a begin cooldown
       // we're treating this as a missed natural CD expiration, so pass true to 'reset cooldown'
+      console.warn(
+        'Cooldown began at %ims for Spell Id=%i but it was already on cooldown (until %ims).',
+        triggeringEvent.timestamp,
+        spellId,
+        cdInfo.expectedEnd,
+      );
       this.endCooldown(cdSpellId, triggeringEvent.timestamp, true);
       this.beginCooldown(triggeringEvent, spellId);
     }
