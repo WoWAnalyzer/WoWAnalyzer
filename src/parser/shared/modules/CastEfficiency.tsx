@@ -319,13 +319,24 @@ class CastEfficiency extends Analyzer {
       rawMaxCasts = undefined;
     }
 
-    // Shouldn't this floor it?
-    const maxCasts = Math.ceil(rawMaxCasts || 0);
+    // rawMaxCasts is actually the number of cooldowns you could fully restore during the fights.
+    // So if you could restore 3 full CDs of 60s during a fight of 185s, it means that you can cast at
+    // 1) t=0s
+    // 2) t=60s
+    // 3) t=120s
+    // 4) t=180s
+    // which is 4 times. But in this case rawMaxCasts=3.08333.
+    // The solution is thus to count the CDs that can be fully restored (here 3) and
+    // add 1 because we are counting the number of casts and not the number of CDs.
+    // (same as counting the number of pickets based on a picket fence length and the total length of the fence).
+    const maxCasts = Math.floor(rawMaxCasts || 0) + 1;
 
     let efficiency;
     if (ability.castEfficiency.maxCasts) {
       // legacy support for custom maxCasts
-      efficiency = Math.min(1, casts / rawMaxCasts! || 0);
+      // We need to use maxCasts and not rawMaxCasts because the efficiency here
+      // is the number of casts that could actually be cast (so get rid of decimals that are meaningless)
+      efficiency = Math.min(1, casts / maxCasts! || 0);
     } else {
       // Cast efficiency calculated as the percent of fight time spell was unavailable
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
@@ -334,7 +345,9 @@ class CastEfficiency extends Analyzer {
         const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD;
         efficiency = timeUnavailable / availableFightDuration;
       } else if (includeNoCooldownEfficiency) {
-        efficiency = casts / rawMaxCasts!;
+        // We need to use maxCasts and not rawMaxCasts because the efficiency here
+        // is the number of casts that could actually be cast (so get rid of decimals that are meaningless)
+        efficiency = casts / maxCasts!;
       } else {
         efficiency = null;
       }

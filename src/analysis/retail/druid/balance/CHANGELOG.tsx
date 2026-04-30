@@ -4,7 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
-  change(date(2026, 4, 27), <>Improved tracking of Haste. Fixed some spells. Fixed suggestion of <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT}/>. Added support for <SpellLink spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT}/></>, Ateis),
+  change(date(2026, 4, 27), <>Improved tracking of Haste. Fixed some spells. Fixed suggestion of <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT}/>. Fix support for <SpellLink spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT}/></>, Ateis),
   change(date(2026, 3, 18), <>Core Rotation Rework: Starlord now tracks Max-stack uptime, Per-eclipse spender performance. Updated example log</>, Rex),
   change(date(2026, 3, 7), <>Activating Balance Druid analyzer for Midnight! Apex talents not yet implemented.</>, Rex),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
