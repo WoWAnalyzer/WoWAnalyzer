@@ -9,15 +9,14 @@ const config: Config = {
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0.5',
-  supportLevel: SupportLevel.MaintainedFull,
+  supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       <p>
-        Welcome to the Frost Death Knight analyzer! This analyzer only has basic support but I hope
-        you find what is here to be useful. If you have any comments or suggestions feel free to
-        contact Nooseknitter on Discord.
+        Welcome to the Frost Death Knight analyzer! If you have any comments or suggestions feel
+        free to contact Nooseknitter on Discord. I am actively working on improving the analyzer.
       </p>
       <p>More resources for Frost:</p>
       <ul>
