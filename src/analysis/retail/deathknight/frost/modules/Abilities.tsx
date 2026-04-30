@@ -120,15 +120,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      /*     {
-        spell: talents.SACRIFICIAL_PACT_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT),
-      },*/
       {
         spell: talents.REAPERS_MARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
