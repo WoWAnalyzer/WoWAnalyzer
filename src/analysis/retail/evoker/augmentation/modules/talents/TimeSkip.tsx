@@ -136,18 +136,7 @@ class TimeSkip extends Analyzer {
       if (!this.spellUsable.isOnCooldown(spellId)) {
         return;
       }
-      let amountToCDR = CDRAmount;
-
-      // Spells with charges don't like getting 2 charges reduced at once, so this is a workaround.
-      // example prescience in this log: https://www.warcraftlogs.com/reports/ykxmq2ZDrKTWH7Fj/?fight=4&source=1
-      if (this.spellUsable.chargesOnCooldown(spellId) > 1) {
-        const remainingCooldown = this.spellUsable.cooldownRemaining(spellId);
-        if (remainingCooldown < amountToCDR) {
-          amountToCDR -= this.spellUsable.reduceCooldown(spellId, remainingCooldown);
-        }
-      }
-
-      this.spellUsable.reduceCooldown(spellId, amountToCDR);
+      this.spellUsable.reduceCooldown(spellId, CDRAmount);
     });
   }
 }

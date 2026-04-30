@@ -514,6 +514,11 @@ const spells = {
     name: 'Rush of Light',
     icon: 'spell_holy_borrowedtime',
   },
+  HAMMER_OF_WRATH_RET: {
+    id: 24275,
+    name: 'Hammer of Wrath',
+    icon: 'inv12_ability_paladin_hammerofwrath',
+  },
 
   // Protection
   // GoAK has a different spell ID with Glyph of the Queen
