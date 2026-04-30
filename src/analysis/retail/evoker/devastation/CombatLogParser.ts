@@ -46,8 +46,7 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
-  GlobalCooldown,
+  TipTheScalesNormalizer,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -82,9 +81,8 @@ import RisingFury from './modules/talents/RisingFury';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,

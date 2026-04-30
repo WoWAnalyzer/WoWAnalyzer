@@ -39,6 +39,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        isEmpower: true,
       },
       {
         spell: TALENTS.ECHO_TALENT.id,

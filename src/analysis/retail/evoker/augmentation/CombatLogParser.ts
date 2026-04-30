@@ -46,8 +46,8 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
+  TipTheScalesNormalizer,
   SpellUsable,
-  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -80,7 +80,6 @@ import {
   Afterimage,
   ImminentDestructionCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
-  EmpowerNormalizer,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -89,9 +88,8 @@ import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,

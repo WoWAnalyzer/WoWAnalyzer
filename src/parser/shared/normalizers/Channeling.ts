@@ -15,19 +15,19 @@ import {
   BeginCastEvent,
   BeginChannelEvent,
   CastEvent,
+  EmpowerCancelEvent,
   EndChannelEvent,
   EventType,
   HasAbility,
   HasSource,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
-import {
-  getEmpowerEndEvent,
-  isFromTipTheScales,
-} from 'parser/shared/normalizers/EmpowerNormalizer';
+import { getEmpowerEndEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
 import PrePullCooldowns from './PrePullCooldowns';
+import { isFromTipTheScales } from 'analysis/retail/evoker/shared/modules/normalizers/TipTheScalesNormalizer';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -77,10 +77,11 @@ class Channeling extends EventsNormalizer {
     // Evoker
     empowerChannelSpec(SPELLS.FIRE_BREATH.id),
     empowerChannelSpec(SPELLS.FIRE_BREATH_FONT.id),
-    empowerChannelSpec(SPELLS.ETERNITY_SURGE.id),
-    empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
-    empowerChannelSpec(SPELLS.UPHEAVAL.id),
-    empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
+    empowerChannelSpec(SPELLS.ETERNITY_SURGE.id, false),
+    empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id, false),
+    empowerChannelSpec(SPELLS.UPHEAVAL.id, false),
+
+    empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id, false),
     // empowerChannelSpec(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id),
     empowerChannelSpec(SPELLS.SPIRITBLOOM_FONT.id),
     empowerChannelSpec(TALENTS_EVOKER.DREAM_BREATH_TALENT.id),
@@ -316,6 +317,27 @@ function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState
   }
 }
 
+/** Cancels the current empower and fabricates an event since empowers trigger a gcd on cancel
+ * @param channelState the current channel state
+ * @param currentEvent the current event being handled */
+function cancelCurrentEmpower(currentEvent: RemoveBuffEvent, channelState: ChannelState) {
+  if (channelState.unresolvedChannel !== null) {
+    channelState.unresolvedChannel.isCancelled = true;
+    channelState.unresolvedChannel = null;
+    const fabricatedEvent: EmpowerCancelEvent = {
+      ability: currentEvent.ability,
+      timestamp: currentEvent.timestamp,
+      sourceID: currentEvent.sourceID,
+      sourceIsFriendly: currentEvent.sourceIsFriendly,
+      targetID: currentEvent.targetID,
+      targetIsFriendly: currentEvent.targetIsFriendly,
+      type: EventType.EmpowerCancel,
+      __fabricated: true,
+    };
+    channelState.eventsInserter.addAfterEvent(fabricatedEvent, currentEvent);
+  }
+}
+
 /**
  * Helper to create a channel spec handler for the common case of a channeled spell that can be delimited by a buff.
  * These cases involve a channeled spell that produces a Cast and ApplyBuff event (with the same guid)
@@ -413,9 +435,14 @@ function buffAndNextCastChannelSpec(spellId: number): ChannelSpec {
  * This handler works by handling empower cast events with the given guid, and then finding the matched empowerend
  * event through event links, and then making the pair of beginchannel and endchannel events based on them.
  *
+ * Empower spells have an aura attached similar to spells handled by buffChannelSpec.
+ * These are handled the same way the aforementioned spec does it but with the addition of the empowercancel event for the gcd module.
+ * Some empower spells do not log their aura in which case no event is generated and the channel is just cancelled normally.
+ *
  * @param spellId the guid for the tracked Empower Cast event.
+ * @param isUnlogged manual flag for empower spells that have the No Aura Log flag set
  */
-function empowerChannelSpec(spellId: number): ChannelSpec {
+function empowerChannelSpec(spellId: number, isUnlogged?: boolean): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
@@ -436,7 +463,22 @@ function empowerChannelSpec(spellId: number): ChannelSpec {
       } else {
         // Empower didn't finish channeling so we cancel the channel
         // NOTE: if cancelCurrentChannel gets reworked to push a cancel channel event, this potentially needs to change
-        cancelCurrentChannel(event, state);
+        // Stole this from buffChannelspec as all empowers except the ones THAT DONT LOG behave like this
+        if (isUnlogged) {
+          cancelCurrentChannel(event, state);
+        } else {
+          for (let idx = _eventIndex + 1; idx < _events.length; idx += 1) {
+            const laterEvent = _events[idx];
+            if (
+              HasAbility(laterEvent) &&
+              laterEvent.ability.guid === spellId &&
+              laterEvent.type === EventType.RemoveBuff
+            ) {
+              cancelCurrentEmpower(laterEvent, state);
+              break;
+            }
+          }
+        }
       }
     }
   };

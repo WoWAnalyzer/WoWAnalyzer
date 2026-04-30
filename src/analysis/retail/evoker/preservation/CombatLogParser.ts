@@ -51,9 +51,8 @@ import {
   EssenceBurstRefreshNormalizer,
   EssenceBurstCastLinkNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
+  TipTheScalesNormalizer,
   SpellUsable,
-  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   SourceOfMagic,
@@ -113,9 +112,8 @@ class CombatLogParser extends CoreCombatLogParser {
     mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
 
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     //talents
     ancientFlame: AncientFlame,

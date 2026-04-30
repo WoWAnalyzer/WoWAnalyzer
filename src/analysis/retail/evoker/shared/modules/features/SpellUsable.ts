@@ -2,8 +2,8 @@ import { CastEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import EmpowerNormalizer, {
   empowerFinishedCasting,
-  EMPOWERS,
-} from '../../../../../../parser/shared/normalizers/EmpowerNormalizer';
+} from 'parser/shared/normalizers/EmpowerNormalizer';
+import { EMPOWERS } from '../../constants';
 
 /** Empowers go on cooldown from the moment you start channeling them,
  * but if you cancel the cast the cooldown resets/doesn't actually invoke.

@@ -74,6 +74,7 @@ class Abilities extends Module {
   abilities: Ability[] = [];
   activeAbilities: Ability[] = [];
   abilitiesAffectedByHealingIncreases: number[] = [];
+  abilitiesThatAreEmpowers: number[] | undefined = undefined;
 
   constructor(args: Options) {
     super(args);
@@ -222,6 +223,15 @@ class Abilities extends Module {
 
   getAffectedByHealingIncreases(spellId: number) {
     return this.abilitiesAffectedByHealingIncreases.includes(spellId);
+  }
+
+  getIsEmpower(spellId: number) {
+    if (this.abilitiesThatAreEmpowers == undefined) {
+      this.abilitiesThatAreEmpowers = this.abilities
+        .filter((x) => x.isEmpower)
+        .flatMap((ability) => ability.spell);
+    }
+    return this.abilitiesThatAreEmpowers.includes(spellId);
   }
 }
 

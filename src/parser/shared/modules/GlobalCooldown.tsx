@@ -10,7 +10,6 @@ import Events, {
   EndChannelEvent,
   EventType,
   GlobalCooldownEvent,
-  HasRelatedEvent,
   SourcedEvent,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -21,7 +20,6 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
-import { EMPOWER_CANCEL, EMPOWER_END } from 'parser/shared/normalizers/EmpowerNormalizer';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
@@ -78,15 +76,7 @@ class GlobalCooldown extends Analyzer {
 
   /** Returns true if this ability has the empower specific events linked, false if not */
   isEmpowerSpell(event: CastEvent | BeginChannelEvent): boolean {
-    // LinkedEvents for Channels are nested deeper
-    if (event.type === EventType.Cast) {
-      return Boolean(HasRelatedEvent(event, EMPOWER_END) || HasRelatedEvent(event, EMPOWER_CANCEL));
-    } else {
-      return Boolean(
-        HasRelatedEvent(event.trigger!, EMPOWER_END) ||
-        HasRelatedEvent(event.trigger!, EMPOWER_CANCEL),
-      );
-    }
+    return Boolean(this.abilities.getIsEmpower(event.ability.guid));
   }
 
   _currentChannel: BeginChannelEvent | EndChannelEvent | null = null;
