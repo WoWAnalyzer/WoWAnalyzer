@@ -110,6 +110,8 @@ import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/Downtim
 import { ServerMetrics } from 'common/server-metrics';
 import IncorporealEssenceGorger from 'parser/retail/modules/items/thewarwithin/trinkets/IncorporealEssenceGorger';
 import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
+import VolatileVoidSuffuser from 'parser/retail/modules/items/midnight/trinkets/VolatileVoidSuffuser';
+import LightOfTheCosmicCrescendo from 'parser/retail/modules/items/midnight/trinkets/LightOfTheCosmicCrescendo';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -220,6 +222,8 @@ class CombatLogParser {
     mereldarsToll: MereldarsToll,
     cirralConcoctory: CirralConcoctory,
     incorporealEssenceGorger: IncorporealEssenceGorger,
+    volatileVoidSuffuser: VolatileVoidSuffuser,
+    lightOfTheCosmicCrescendo: LightOfTheCosmicCrescendo,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,

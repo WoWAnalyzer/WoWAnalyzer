@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -83,12 +84,18 @@ class RaptorSwipe extends Analyzer {
       color = BadColor;
     }
 
-    const targetsHit = new Set(damageEvents.map((dmg) => dmg.targetID)).size;
+    // Strike as One fires from both the Apex proc and the regular Tip spend, so
+    // .length would double-count targets. Deduplicating by targetID + targetInstance
+    // gives distinct targets hit (same-name mobs share a targetID but differ by instance).
+    const uniqueTargets = (events: DamageEvent[]) =>
+      new Set(events.map((e) => encodeTargetString(e.targetID, e.targetInstance))).size;
+
+    const targetsHit = uniqueTargets(damageEvents);
     const swipeDamage = damageEvents.reduce(
       (sum, dmg) => sum + dmg.amount + (dmg.absorbed ?? 0),
       0,
     );
-    const strikeAsOneTargets = new Set(strikeAsOneEvents.map((dmg) => dmg.targetID)).size;
+    const strikeAsOneTargets = uniqueTargets(strikeAsOneEvents);
     const tooltip = (
       <div>
         <h5 style={{ color }}>{header}</h5>

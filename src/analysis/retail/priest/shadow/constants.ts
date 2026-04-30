@@ -16,7 +16,7 @@ export const INESCAPABLE_TORMENT_EXTENSION = 0.7;
 
 export const VOID_FORM_DURATION = 20;
 
-export const INSIDIOUS_IRE_DAMAGE_PER_RANK = 0.1;
+export const INSIDIOUS_IRE_DAMAGE_PER_RANK = 0.125;
 
 export const SPECTRAL_HORROR_DAMAGE = 0.5;
 
