@@ -669,6 +669,12 @@ const spells = {
     icon: 'inv12_ability_priest_tentacleslam',
   },
 
+  INSIDIOUS_IRE_TALENT_BUFF: {
+    id: 373213,
+    name: 'Insidious Ire',
+    icon: 'spell_fire_twilightcano',
+  },
+
   INESCAPABLE_TORMENT_TALENT_DAMAGE: {
     id: 373442,
     name: 'Inescapable Torment',

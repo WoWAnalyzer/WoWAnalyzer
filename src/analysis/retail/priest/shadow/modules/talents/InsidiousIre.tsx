@@ -23,8 +23,12 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 
   Void Torrent
   Mind Blast
+  Void Blast
+  Void Volley
+  Mind Flay
+  Mind Flay: Insanity
 
-  And only applies when ALL of the following debuffs are present
+  And only applies when you have the buff, which occurs when ALL of the following debuffs are present on ANY target
 
   Shadow Word: Pain
   Vamperic Touch
@@ -55,12 +59,10 @@ class InsidiousIre extends Analyzer {
     // Partition casts by if the target was affected by all three dots and thus would have been ired
     const [ired, unIred] = damageInstances.reduce<[DamageEvent[], DamageEvent[]]>(
       (result, damage) => {
-        const enemy = this.enemies.getEntity(damage);
-        const wasIred =
-          enemy &&
-          enemy.hasBuff(SPELLS.SHADOW_WORD_PAIN.id, damage.timestamp) &&
-          enemy.hasBuff(SPELLS.VAMPIRIC_TOUCH.id, damage.timestamp) &&
-          enemy.hasBuff(TALENTS.SHADOW_WORD_MADNESS_TALENT.id, damage.timestamp);
+        const wasIred = this.selectedCombatant.hasBuff(
+          SPELLS.INSIDIOUS_IRE_TALENT_BUFF,
+          damage.timestamp,
+        );
         result[wasIred ? 0 : 1].push(damage);
         return result;
       },
@@ -79,22 +81,14 @@ class InsidiousIre extends Analyzer {
     };
   }
 
-  get mindBlastEfficiency() {
-    return this.ireDataForSpell(TALENTS.MIND_BLAST_TALENT).efficiency;
-  }
-
-  get voidTorrentEfficiency() {
-    if (!this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)) {
-      return 1.0;
-    }
-    return this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT).efficiency;
-  }
-
   statistic() {
     const mindBlast = this.ireDataForSpell(TALENTS.MIND_BLAST_TALENT);
-    const voidTorrent = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)
-      ? this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT)
-      : undefined;
+    const voidTorrent = this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT);
+    const voidVolley = this.ireDataForSpell(SPELLS.VOID_VOLLEY_DAMAGE);
+    const voidBlast = this.ireDataForSpell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST);
+    const mindFlayInsanity = this.ireDataForSpell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE);
+    const mindFlay = this.ireDataForSpell(SPELLS.MIND_FLAY);
+
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -106,7 +100,16 @@ class InsidiousIre extends Analyzer {
             key={TALENTS.INSIDIOUS_IRE_TALENT.id}
             spell={TALENTS.INSIDIOUS_IRE_TALENT}
           >
-            <ItemDamageDone amount={mindBlast.damageGained + (voidTorrent?.damageGained || 0)} />
+            <ItemDamageDone
+              amount={
+                mindBlast.damageGained +
+                voidTorrent.damageGained +
+                voidVolley.damageGained +
+                voidBlast.damageGained +
+                mindFlayInsanity.damageGained +
+                mindFlay.damageGained
+              }
+            />
           </BoringSpellValueText>
           <BoringSpellValueText
             key={TALENTS.MIND_BLAST_TALENT.id}
@@ -117,18 +120,62 @@ class InsidiousIre extends Analyzer {
             </div>
             <ItemDamageDone amount={mindBlast.damageGained} />
           </BoringSpellValueText>
-          {voidTorrent ? (
+
+          {this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) && (
+            <>
+              <BoringSpellValueText
+                key={TALENTS.VOID_BLAST_TALENT.id}
+                spell={TALENTS.VOID_BLAST_TALENT}
+              >
+                <div>
+                  <UptimeIcon /> {formatPercentage(voidBlast.efficiency)} %{' '}
+                  <small>efficiency</small>
+                </div>
+                <ItemDamageDone amount={voidBlast.damageGained} />
+              </BoringSpellValueText>
+
+              <BoringSpellValueText
+                key={TALENTS.VOID_TORRENT_TALENT.id}
+                spell={TALENTS.VOID_TORRENT_TALENT}
+              >
+                <div>
+                  <UptimeIcon /> {formatPercentage(voidTorrent.efficiency)} %{' '}
+                  <small>efficiency</small>
+                </div>
+                <ItemDamageDone amount={voidTorrent.damageGained} />
+              </BoringSpellValueText>
+            </>
+          )}
+
+          <BoringSpellValueText
+            key={SPELLS.VOID_VOLLEY_DAMAGE.id}
+            spell={SPELLS.VOID_VOLLEY_DAMAGE}
+          >
+            <div>
+              <UptimeIcon /> {formatPercentage(voidVolley.efficiency)} % <small>efficiency</small>
+            </div>
+            <ItemDamageDone amount={voidVolley.damageGained} />
+          </BoringSpellValueText>
+
+          <BoringSpellValueText key={SPELLS.MIND_FLAY.id} spell={SPELLS.MIND_FLAY}>
+            <div>
+              <UptimeIcon /> {formatPercentage(mindFlay.efficiency)} % <small>efficiency</small>
+            </div>
+            <ItemDamageDone amount={mindFlay.damageGained} />
+          </BoringSpellValueText>
+
+          {this.selectedCombatant.hasTalent(TALENTS.HALO_SHADOW_TALENT) && (
             <BoringSpellValueText
-              key={TALENTS.VOID_TORRENT_TALENT.id}
-              spell={TALENTS.VOID_TORRENT_TALENT}
+              key={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id}
+              spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE}
             >
               <div>
-                <UptimeIcon /> {formatPercentage(voidTorrent.efficiency)} %{' '}
+                <UptimeIcon /> {formatPercentage(mindFlayInsanity.efficiency)} %{' '}
                 <small>efficiency</small>
               </div>
-              <ItemDamageDone amount={voidTorrent.damageGained} />
+              <ItemDamageDone amount={mindFlayInsanity.damageGained} />
             </BoringSpellValueText>
-          ) : null}
+          )}
         </>
       </Statistic>
     );
@@ -136,9 +183,11 @@ class InsidiousIre extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const mindBlast = this.ireDataForSpell(TALENTS.MIND_BLAST_TALENT);
-    const voidTorrent = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)
-      ? this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT)
-      : undefined;
+    const voidTorrent = this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT);
+    const voidVolley = this.ireDataForSpell(SPELLS.VOID_VOLLEY_DAMAGE);
+    const voidBlast = this.ireDataForSpell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST);
+    const mindFlayInsanity = this.ireDataForSpell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE);
+    //const mindFlay = this.ireDataForSpell(SPELLS.MIND_FLAY)
 
     const explanation = (
       <>
@@ -146,13 +195,25 @@ class InsidiousIre extends Analyzer {
           <b>
             <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} />
           </b>{' '}
-          adds damange to <SpellLink spell={TALENTS.MIND_BLAST_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> when{' '}
-          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />
-          , and <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> are all active on the
-          target. <div />
-          Be sure to cast these spells while Devouring Plague is on your target to increase their
-          damage.
+          is active when <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />,{' '}
+          <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />, and{' '}
+          <SpellLink spell={TALENTS.SHADOW_WORD_MADNESS_TALENT} /> are all on a target. <div />
+          This increases the damage of <SpellLink spell={SPELLS.MIND_FLAY} />,{' '}
+          <SpellLink spell={SPELLS.VOID_VOLLEY_CAST} />,{' '}
+          <SpellLink spell={TALENTS.MIND_BLAST_TALENT} />,{' '}
+          {this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) && (
+            <>
+              <SpellLink spell={TALENTS.VOID_BLAST_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
+            </>
+          )}
+          {this.selectedCombatant.hasTalent(TALENTS.HALO_SHADOW_TALENT) && (
+            <>
+              {' '}
+              and <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} />
+            </>
+          )}
+          . <div>Try to make sure this buff is active when casting these powerful spells.</div>
         </p>
       </>
     );
@@ -161,11 +222,35 @@ class InsidiousIre extends Analyzer {
       <div>
         <strong>Mindblast breakdown</strong>
         <GradiatedPerformanceBar good={mindBlast.instancesHit} bad={mindBlast.instancesMissed} />
-        <strong>Void Torrent breakdown</strong>
-        <GradiatedPerformanceBar
-          good={voidTorrent?.instancesHit || 0}
-          bad={voidTorrent?.instancesMissed || 1}
-        />
+
+        {this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) && (
+          <>
+            <strong>VoidBlast breakdown</strong>
+            <GradiatedPerformanceBar
+              good={voidBlast.instancesHit}
+              bad={voidBlast.instancesMissed}
+            />
+            <strong>Void Torrent breakdown</strong>
+            <GradiatedPerformanceBar
+              good={voidTorrent.instancesHit}
+              bad={voidTorrent.instancesMissed}
+            />
+          </>
+        )}
+
+        <strong>Void Volley breakdown</strong>
+        <GradiatedPerformanceBar good={voidVolley.instancesHit} bad={voidVolley.instancesMissed} />
+        {/*<strong>Mind Flay breakdown</strong> <GradiatedPerformanceBar good={mindFlay.instancesHit} bad={mindFlay.instancesMissed} />*/}
+
+        {this.selectedCombatant.hasTalent(TALENTS.HALO_SHADOW_TALENT) && (
+          <>
+            <strong>Mind Flay Insanity breakdown</strong>
+            <GradiatedPerformanceBar
+              good={mindFlayInsanity.instancesHit}
+              bad={mindFlayInsanity.instancesMissed}
+            />
+          </>
+        )}
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
