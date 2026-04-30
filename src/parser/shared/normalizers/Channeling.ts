@@ -26,7 +26,7 @@ import { Options } from 'parser/core/Module';
 import {
   getEmpowerEndEvent,
   isFromTipTheScales,
-} from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+} from 'parser/shared/normalizers/EmpowerNormalizer';
 import PrePullCooldowns from './PrePullCooldowns';
 
 /**

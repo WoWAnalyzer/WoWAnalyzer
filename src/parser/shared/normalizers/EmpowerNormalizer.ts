@@ -1,4 +1,3 @@
-import TALENTS from 'common/TALENTS/evoker';
 import {
   AddRelatedEvent,
   AnyEvent,
@@ -11,8 +10,37 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EMPOWERS } from '../../constants';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_EVOKER, TALENTS_MONK } from 'common/TALENTS';
+
+export const EMPOWERS = [
+  // Shared
+  SPELLS.FIRE_BREATH.id,
+  SPELLS.FIRE_BREATH_FONT.id,
+  // Devastation
+  SPELLS.ETERNITY_SURGE.id,
+  SPELLS.ETERNITY_SURGE_FONT.id,
+  // Augmentation
+  SPELLS.UPHEAVAL.id,
+  SPELLS.UPHEAVAL_FONT.id,
+  // Preservation
+  // TALENTS.SPIRITBLOOM_TALENT.id,
+  SPELLS.SPIRITBLOOM_FONT.id,
+  TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+  SPELLS.DREAM_BREATH_FONT.id,
+  // Monk
+  TALENTS_MONK.SLICING_WINDS_TALENT.id,
+  // Earthen
+  SPELLS.AZERITE_SURGE.id,
+];
+
+// These empowers have their buffs tagged as unlogged which makes precise determination of cancel times impossible
+const UNLOGGED_EMPOWERS = [
+  SPELLS.UPHEAVAL.id,
+  SPELLS.UPHEAVAL_FONT.id,
+  SPELLS.ETERNITY_SURGE.id,
+  SPELLS.ETERNITY_SURGE_FONT.id,
+];
 
 const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
 const EMPOWER_CAST = 'EmpoweredCast';
@@ -26,7 +54,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: TIP_THE_SCALES_CONSUME,
     reverseLinkRelation: TIP_THE_SCALES_CONSUME,
-    linkingEventId: TALENTS.TIP_THE_SCALES_TALENT.id,
+    linkingEventId: TALENTS_EVOKER.TIP_THE_SCALES_TALENT.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: EMPOWERS,
     referencedEventType: EventType.Cast,
@@ -35,7 +63,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: TIP_THE_SCALES_CONSUME_BUFFER,
     maximumLinks: 1,
     isActive(c) {
-      return c.hasTalent(TALENTS.TIP_THE_SCALES_TALENT);
+      return c.hasTalent(TALENTS_EVOKER.TIP_THE_SCALES_TALENT);
     },
   },
   {
@@ -59,14 +87,6 @@ const EVENT_LINKS: EventLink[] = [
   },
 ];
 
-// These empowers have their buffs tagged as unlogged which makes precise determination of cancel times impossible
-const UNLOGGED_EMPOWERS = [
-  SPELLS.UPHEAVAL.id,
-  SPELLS.UPHEAVAL_FONT.id,
-  SPELLS.ETERNITY_SURGE.id,
-  SPELLS.ETERNITY_SURGE_FONT.id,
-];
-
 /** Creates links between cast Events and EmpowerEnd events for Empowers which can then be
  * used to verify whether the cast was finished or cancelled - will also create links between
  * Empower cast that consumed Tip the Scales.
@@ -76,9 +96,9 @@ const UNLOGGED_EMPOWERS = [
  *
  * Empowers can be released at empowerment level 0, which actually is a cancelled cast,
  * since the empower doesn't go on cooldown or trigger anything.
- * Instead of trying to handle this edgecase in all possible places, we will simply just remove it from the event loop here.
- * NOTE: We don't apply `EMPOWER_END` / `EMPOWER_CAST` links to these events so `getEmpowerEndEvent` will not return them.
- * https://www.warcraftlogs.com/reports/ZJyaVLcRTAWf1g87?fight=16&type=summary&source=222&pins=2%24Off%24%23a04D8A%24expression%24ability.name+in%28%22Eternity+Surge%22%2C%22Fire+Breath%22%2C%22Tip+the+Scales%22%29+and+type+not+in+%28%22damage%22%2C%22applydebuff%22%2C%22removedebuff%22%2C%22refreshdebuff%22%29&view=events
+ *
+ * To handle this we look at the complementary buff with the spell id and trigger an EmpowerCancel event when the BuffRemove event happens.
+ * There are a few spells that do not have a logged buff attached which instead get the EmpowerCancel event attached to the CastEvent itself
  * */
 class EmpowerNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
@@ -87,6 +107,8 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     this.priority -= 100;
   }
 
+  /** Create EmpowerEnd events for Empowers cast with Tip the Scales
+   * Also creates EMPOWERED_CAST link between the Cast and EmpowerEnd event */
   fixTTS(events: AnyEvent[], hasFont: boolean): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event) => {
@@ -117,6 +139,8 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     });
     return fixedEvents;
   }
+
+  /** Create EmpowerCancel events for Empowers the were cancelled */
   fixCancelCast(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
     let waitingForEnd = 0;
@@ -181,16 +205,14 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     return fixedEvents;
   }
 
-  /** Create EmpowerEnd events for Empowers cast with Tip the Scales
-   * Also creates EMPOWERED_CAST link between the Cast and EmpowerEnd event */
   normalize(rawEvents: AnyEvent[]): AnyEvent[] {
     // Create initial EventLinks that we can then reference later
     const events = super.normalize(rawEvents);
 
     const hasFont =
-      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
-      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
-      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT);
+      this.owner.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
+      this.owner.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+      this.owner.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT);
 
     return this.fixCancelCast(this.fixTTS(events, hasFont));
   }

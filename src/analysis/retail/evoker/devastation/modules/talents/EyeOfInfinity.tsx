@@ -14,7 +14,7 @@ import { EYE_OF_INFINITY_MULTIPLIER } from 'analysis/retail/evoker/devastation/c
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { getEternitySurgeDamageEvents } from '../normalizers/CastLinkNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
-import { getEmpowerEndEvent } from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+import { getEmpowerEndEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
 
 class EyeOfInfinity extends Analyzer {
   totalDamage = 0;

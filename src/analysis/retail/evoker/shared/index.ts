@@ -1,5 +1,5 @@
 export { default as LeapingFlamesNormalizer } from './modules/normalizers/LeapingFlamesNormalizer';
-export { default as EmpowerNormalizer } from './modules/normalizers/EmpowerNormalizer';
+export { default as EmpowerNormalizer } from '../../../../parser/shared/normalizers/EmpowerNormalizer';
 export { default as SpellUsable } from './modules/features/SpellUsable';
 export { default as GlobalCooldown } from './modules/features/GlobalCooldown';
 export { default as LivingFlameNormalizer } from './modules/normalizers/LivingFlameNormalizer';

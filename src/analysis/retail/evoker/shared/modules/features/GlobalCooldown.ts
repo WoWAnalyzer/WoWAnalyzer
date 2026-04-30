@@ -1,10 +1,11 @@
-import { EMPOWERS, EMPOWER_CANCELED_GCD, EMPOWER_MINIMUM_GCD } from '../..';
+import { EMPOWER_CANCELED_GCD, EMPOWER_MINIMUM_GCD } from '../..';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import EmpowerNormalizer, {
   empowerFinishedCasting,
   isFromTipTheScales,
-} from '../normalizers/EmpowerNormalizer';
+  EMPOWERS,
+} from '../../../../../../parser/shared/normalizers/EmpowerNormalizer';
 
 /**
  * Empowers GCD functions slightly different than normal GCDs.

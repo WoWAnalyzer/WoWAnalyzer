@@ -46,7 +46,6 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
   SpellUsable,
   GlobalCooldown,
   SpellEssenceCost,
@@ -81,6 +80,7 @@ import {
   Afterimage,
   ImminentDestructionCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
+  EmpowerNormalizer,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
