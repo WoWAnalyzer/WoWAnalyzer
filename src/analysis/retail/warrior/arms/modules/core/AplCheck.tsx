@@ -64,12 +64,16 @@ export const buildSlayerApl = (
     {
       spell: SPELLS.MORTAL_STRIKE,
       condition: cnd.and(
-        cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
+        cnd.or(
+          cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
+          cnd.debuffPresent(SPELLS.COLOSSUS_SMASH_DEBUFF),
+        ),
         cnd.inExecute(executeThreshold),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range with 2 stacks of{' '}
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range during{' '}
+          <SpellLink spell={SPELLS.COLOSSUS_SMASH_DEBUFF} /> or with 2 stacks of{' '}
           <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} />
         </>
       ),
@@ -78,10 +82,10 @@ export const buildSlayerApl = (
     // OP inside execute with low rage
     {
       spell: SPELLS.OVERPOWER,
-      condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 900 }), executeUsable),
+      condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 800 }), executeUsable),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with below 90 rage
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with below 80 rage
         </>
       ),
     },
@@ -97,7 +101,29 @@ export const buildSlayerApl = (
       ),
     },
 
+    // OP inside execute
+    {
+      spell: SPELLS.OVERPOWER,
+      condition: cnd.inExecute(executeThreshold),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range
+        </>
+      ),
+    },
+
     // outside of execute prio
+
+    // HS
+    {
+      spell: SPELLS.HEROIC_STRIKE,
+      condition: cnd.buffPresent(SPELLS.MASTER_OF_WARFARE),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.HEROIC_STRIKE} />
+        </>
+      ),
+    },
 
     // MS outside execute
     {
@@ -117,17 +143,6 @@ export const buildSlayerApl = (
       description: (
         <>
           Cast <SpellLink spell={executeSpell} />
-        </>
-      ),
-    },
-
-    // HS
-    {
-      spell: SPELLS.HEROIC_STRIKE,
-      condition: cnd.buffPresent(SPELLS.MASTER_OF_WARFARE),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.HEROIC_STRIKE} />
         </>
       ),
     },
@@ -164,6 +179,38 @@ export const buildColossusApl = (
   return build([
     // execute prio
 
+    // HS inside execute
+    {
+      spell: SPELLS.HEROIC_STRIKE,
+      condition: cnd.and(
+        cnd.inExecute(executeThreshold),
+        cnd.buffPresent(SPELLS.MASTER_OF_WARFARE),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.HEROIC_STRIKE} /> while in execute range
+        </>
+      ),
+    },
+
+    // MS in exe
+    {
+      spell: SPELLS.MORTAL_STRIKE,
+      condition: cnd.and(
+        cnd.inExecute(executeThreshold),
+        cnd.or(
+          cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
+          cnd.not(cnd.hasTalent(TALENTS.EXECUTIONERS_PRECISION_TALENT)),
+        ),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> in execute range, with 2 stacks of{' '}
+          <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> if it is talented
+        </>
+      ),
+    },
+
     // Exe with SD
     {
       spell: executeSpell,
@@ -179,45 +226,18 @@ export const buildColossusApl = (
       ),
     },
 
-    // HS inside execute
+    // Exe with DW and high rage
     {
-      spell: SPELLS.HEROIC_STRIKE,
+      spell: executeSpell,
       condition: cnd.and(
         cnd.inExecute(executeThreshold),
-        cnd.buffPresent(SPELLS.MASTER_OF_WARFARE),
+        cnd.hasTalent(TALENTS.DEEP_WOUNDS_TALENT),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 750 }),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.HEROIC_STRIKE} /> while in execute range
-        </>
-      ),
-    },
-
-    // OP in exe
-    {
-      spell: SPELLS.OVERPOWER,
-      condition: cnd.and(
-        cnd.inExecute(executeThreshold),
-        cnd.or(
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 400 }),
-          cnd.spellCharges(SPELLS.OVERPOWER, { atLeast: 2 }),
-        ),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> in execute range when you have two charges, or
-          are below 40 rage
-        </>
-      ),
-    },
-
-    // MS in exe
-    {
-      spell: SPELLS.MORTAL_STRIKE,
-      condition: cnd.and(cnd.inExecute(executeThreshold)),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> in execute range
+          Cast <SpellLink spell={executeSpell} /> with above 75 rage if{' '}
+          <SpellLink spell={TALENTS.DEEP_WOUNDS_TALENT} /> is talented
         </>
       ),
     },
@@ -236,10 +256,14 @@ export const buildColossusApl = (
     // exe in exe
     {
       spell: executeSpell,
-      condition: cnd.and(executeUsable, cnd.inExecute(executeThreshold)),
+      condition: cnd.and(
+        executeUsable,
+        cnd.inExecute(executeThreshold),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atLeast: 750 }),
+      ),
       description: (
         <>
-          Cast <SpellLink spell={executeSpell} /> in execute range
+          Cast <SpellLink spell={executeSpell} /> in execute range while above 75 rage
         </>
       ),
     },
@@ -279,18 +303,6 @@ export const buildColossusApl = (
       ),
     },
 
-    // Exe with SD
-    {
-      spell: executeSpell,
-      condition: cnd.buffPresent(SPELLS.SUDDEN_DEATH_TALENT_BUFF),
-      description: (
-        <>
-          Cast <SpellLink spell={executeSpell} /> with{' '}
-          <SpellLink spell={SPELLS.SUDDEN_DEATH_TALENT_BUFF} />
-        </>
-      ),
-    },
-
     // OP no exe
     {
       spell: SPELLS.OVERPOWER,
@@ -298,6 +310,17 @@ export const buildColossusApl = (
       description: (
         <>
           Cast <SpellLink spell={SPELLS.OVERPOWER} />
+        </>
+      ),
+    },
+
+    // Exe with SD
+    {
+      spell: executeSpell,
+      condition: executeUsable,
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} />
         </>
       ),
     },

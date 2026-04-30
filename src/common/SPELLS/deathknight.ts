@@ -136,6 +136,11 @@ const spells = {
     name: 'Heartbreaker',
     icon: 'spell_deathknight_deathstrike',
   },
+  UMBILICUS_ETERNUS_BUFF: {
+    id: 391527,
+    name: 'Umbilicus Eternus',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
 
   // region Frost Specialization
 

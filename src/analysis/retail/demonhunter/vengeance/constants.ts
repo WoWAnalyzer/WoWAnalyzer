@@ -20,4 +20,4 @@ export const ANNIHILATOR_SPIRIT_BOMB_SOULS_OUT_OF_META = 5;
 
 export const CALCIFIED_SPIKES_DR = 0.05;
 
-export const CELESTIAL_ECHOES = 5;
+export const CELESTIAL_ECHOES = 3;

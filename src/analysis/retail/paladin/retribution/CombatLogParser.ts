@@ -1,5 +1,6 @@
 import {
   DivinePurpose,
+  HammerOfWrath,
   HolyPowerDetails,
   HolyPowerPerMinute,
   HolyPowerTracker,
@@ -13,7 +14,6 @@ import ArtOfWar from 'analysis/retail/paladin/retribution/modules/talents/ArtOfW
 import ArtOfWarProbability from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWarProbability';
 import BladeOfJustice from 'analysis/retail/paladin/retribution/modules/talents/BladeOfJustice';
 import CrusaderStrike from './modules/core/CrusaderStrike';
-import HammerofWrathRetribution from 'analysis/retail/paladin/retribution/modules/talents/HammerofWrath';
 import ShieldOfVengeance from 'analysis/retail/paladin/retribution/modules/talents/ShieldOfVengeance';
 import WakeOfAshes from 'analysis/retail/paladin/retribution/modules/talents/WakeOfAshes';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -59,7 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
     crusade: Crusade,
     wakeofAshes: WakeOfAshes,
-    hammerofWrathRetribution: HammerofWrathRetribution,
+    hammerofWrath: HammerOfWrath,
     empyreanPower: EmpyreanPower,
     expurgation: Expurgation,
     executionSentence: ExecutionSentence,

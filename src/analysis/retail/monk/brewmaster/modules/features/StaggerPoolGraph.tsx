@@ -16,6 +16,8 @@ import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import StaggerPool from '../core/StaggerPool';
 import PurifyingBrew from '../talents/PurifyingBrew';
+import HighTolerance from '../spells/HighTolerance';
+import { OkColor } from 'interface/guide';
 
 interface StaggerEvent {
   timestamp: number;
@@ -35,6 +37,7 @@ interface StaggerEvent {
 class StaggerPoolGraph extends Analyzer.withDependencies({
   stagger: StaggerPool,
   pb: PurifyingBrew,
+  ht: HighTolerance,
 }) {
   _hpEvents: HitpointsEvent<EventType>[] = [];
   _deathEvents: DeathEvent[] = [];
@@ -148,9 +151,10 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
           },
           mark: {
             type: 'point' as const,
-            color: '#00ff96',
             filled: true,
             size: 60,
+            opacity: 1,
+            strokeWidth: 1,
           },
           transform: [
             {
@@ -164,6 +168,20 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
               field: 'oldPooledAmount',
               type: 'quantitative' as const,
               title: null,
+            },
+            color: {
+              condition: {
+                test: 'datum["isElevated"] || datum["isElevated"] == null',
+                value: '#00ff96',
+              },
+              value: OkColor,
+            },
+            stroke: {
+              condition: {
+                test: 'datum["isElevated"] || datum["isElevated"] == null',
+                value: undefined,
+              },
+              value: 'black',
             },
             tooltip: [
               { field: 'amount', title: 'Amount Purified', format: '.3~s' },
@@ -213,6 +231,19 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
         };
       });
 
+      const hasHT = this.selectedCombatant.hasTalent(talents.HIGH_TOLERANCE_TALENT);
+      const purifyEvents = !hasHT
+        ? this.deps.pb.purifies
+        : this.deps.pb.purifies.map((point) => {
+            // check if the buff was active when this cast occurred (strict before to deal with removals that occur exactly when you cast)
+            const previousBuffEvent = this.deps.ht.uptime.getBefore(point.timestamp, true);
+            const isElevated = previousBuffEvent?.type === EventType.ApplyBuff;
+            return {
+              ...point,
+              isElevated,
+            };
+          });
+
       return (
         <div
           className="graph-container"
@@ -227,7 +258,7 @@ class StaggerPoolGraph extends Analyzer.withDependencies({
                 spec={spec}
                 data={{
                   combined: staggerEvents,
-                  purifies: this.deps.pb.purifies,
+                  purifies: purifyEvents,
                   deaths: this._deathEvents,
                   hp: hpEvents,
                 }}
