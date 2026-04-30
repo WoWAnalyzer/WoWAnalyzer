@@ -1,5 +1,4 @@
 import {
-  AnyEvent,
   CastEvent,
   EmpowerEndEvent,
   EventType,
@@ -76,11 +75,6 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     super(options, EVENT_LINKS);
     // Set to high priority so it runs before other normalizers
     this.priority -= 100;
-  }
-
-  normalize(rawEvents: AnyEvent[]): AnyEvent[] {
-    const events = super.normalize(rawEvents);
-    return events;
   }
 }
 
