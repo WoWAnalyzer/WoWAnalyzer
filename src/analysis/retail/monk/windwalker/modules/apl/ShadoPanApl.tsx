@@ -14,7 +14,6 @@ import {
   spellCooldownRemaining,
 } from 'parser/shared/metrics/apl/conditions';
 import {
-  atTwoBlackoutKickStacks,
   aboutToCapEnergy,
   buildComboStrikesApl,
   danceOfChiJiExpiring,
@@ -70,6 +69,7 @@ export default function shadoPanApl(combatant: Combatant): Apl {
       ),
     },
     TALENTS.RISING_SUN_KICK_TALENT,
+    TALENTS.ZENITH_STOMP_TALENT,
     {
       spell: SPELLS.TIGER_PALM,
       condition: describe(
@@ -101,13 +101,10 @@ export default function shadoPanApl(combatant: Combatant): Apl {
     {
       spell: SPELLS.BLACKOUT_KICK,
       condition: describe(
-        or(
-          and(buffPresent(SPELLS.COMBO_BREAKER_BUFF), atTwoBlackoutKickStacks),
-          buffPresent(TALENTS.ZENITH_TALENT),
-        ),
+        or(buffPresent(SPELLS.COMBO_BREAKER_BUFF), buffPresent(TALENTS.ZENITH_TALENT)),
         () => (
           <>
-            you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> at 2 stacks or{' '}
+            you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> or{' '}
             <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active
           </>
         ),
@@ -131,6 +128,7 @@ export default function shadoPanApl(combatant: Combatant): Apl {
       condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
     },
     SPELLS.BLACKOUT_KICK,
+    SPELLS.SPINNING_CRANE_KICK,
     SPELLS.TIGER_PALM,
   ]);
 }
