@@ -4,7 +4,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
-const BAR_COLOR = '#9933cc';
+const BAR_COLOR = '#5E008D';
 
 class MoonfireUptime extends Analyzer {
   get suggestionThresholds() {

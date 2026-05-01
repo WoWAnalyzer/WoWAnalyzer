@@ -31,6 +31,8 @@ import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheD
 import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
 import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 import Haste from 'analysis/retail/druid/balance/modules/core/Haste';
+import DotRefresh from 'analysis/retail/druid/balance/modules/features/DotRefresh';
+import EclipseResource from 'analysis/retail/druid/balance/modules/features/EclipseResource';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -59,7 +61,9 @@ class CombatLogParser extends MainCombatLogParser {
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     buffs: Buffs,
     dotUptimes: DotUptimes,
+    dotRefresh: DotRefresh,
     eclipse: Eclipse,
+    eclipseResource: EclipseResource,
 
     //Talents
     twinMoons: TwinMoons,

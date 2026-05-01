@@ -9,6 +9,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 /**
  * Wide statistics box for tracking the most important Balance DoT uptimes
@@ -32,8 +33,9 @@ class DotUptimes extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.SUNFIRE} />
         </b>{' '}
-        are high damage-per-cast-time DoTs that further boost your spell damage via Mastery.
-        Maintaining 100% uptime is your highest priority.
+        are high damage-per-cast-time DoTs that synergize well with many talents like{' '}
+        <SpellLink spell={TALENTS_DRUID.SHOOTING_STARS_TALENT} />. Maintaining 100% uptime is your
+        highest priority.
       </p>
     );
 
