@@ -18,7 +18,6 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import InvokeNiuzaoSection from './modules/talents/InvokeNiuzao/InvokeNiuzaoSection';
 import StaggerPoolSection from './modules/core/StaggerPool/StaggerPoolSection';
 import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
-import { TipBox } from 'interface/guide/components';
 import {
   amountBar,
   literalNumberColumn,

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -20,7 +20,7 @@ class MistyCoalescence extends Analyzer {
   combatants!: Combatants;
   currentRems = 0;
   healing = 0;
-  constructor(options: any) {
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_COALESCENCE_TALENT);
     this.addEventListener(
@@ -82,9 +82,12 @@ class MistyCoalescence extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.MISTY_COALESCENCE_TALENT}>
-          {formatPercentage(this.averageIncrease)}% <small> average increase</small>
-          <br />
-          <ItemHealingDone amount={this.healing} />
+          <div>
+            {formatPercentage(this.averageIncrease)}% <small> average increase</small>
+          </div>
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

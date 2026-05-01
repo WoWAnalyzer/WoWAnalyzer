@@ -48,9 +48,12 @@ class GloryOfTheDawn extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={TALENTS_MONK.GLORY_OF_THE_DAWN_TALENT}>
-          {formatPercentage(this.critRate, 0)}% <small>Crit rate</small>
-          <br />
-          {this.critHits} / {this.totalHits} <small>Crits / Hits</small>
+          <div>
+            {formatPercentage(this.critRate, 0)}% <small>Crit rate</small>
+          </div>
+          <div>
+            {this.critHits} / {this.totalHits} <small>Crits / Hits</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

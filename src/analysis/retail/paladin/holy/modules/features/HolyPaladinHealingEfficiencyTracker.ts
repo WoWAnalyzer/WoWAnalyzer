@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbilityEvent, GetRelatedEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbilityEvent, EventType, GetRelatedEvent, HealEvent } from 'parser/core/Events';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
@@ -18,7 +18,7 @@ class HolyPaladinHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   onHeal(event: HealEvent) {
     if (event.ability.guid === SPELLS.HOLY_SHOCK_HEAL.id) {
-      const source = GetRelatedEvent<AbilityEvent<any>>(event, HOLY_SHOCK_SOURCE);
+      const source = GetRelatedEvent(event, HOLY_SHOCK_SOURCE) as AbilityEvent<EventType>;
       if (source) {
         const triggerID = source.ability.guid;
         this.holyShockHealing[triggerID] =

@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 3, 31), <>Remove recent tranquility check from convoke guide. Fix Abundancy module to account for Intensity crit bonus. Add Intensity module.</>, squided),
   change(date(2026, 3, 23), <>Update mana efficiency calculations and cooldowns tab for Midnight.</>, squided),
   change(date(2026, 3, 22), <>Implement liveliness talent statistic. Fix bug in lifebloom guide's cast analysis.</>, squided),
   change(date(2026, 3, 20), <>Bug fixes for wild growth CDR statistics, lifebloom uptime in guide, and Soul of the Forest Consumes. Improved Power of the Archdruid tracking.</>, squided),

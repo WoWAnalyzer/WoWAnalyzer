@@ -16,39 +16,45 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello there! Welcome to the analyzer for Elemental Shaman! This analyzer has functionalities
-      that I hope you find useful when playing the spec. If you have any input or suggestions please
-      ask questions in the #elemental channel in the{' '}
-      <a href="https://discord.gg/earthshrine">Earthshrine discord</a>.
-      <br />
-      <br />
-      <br />
-      More resources for Elemental:
-      <br />
-      <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">
-        Shaman Class Discord
-      </a>{' '}
-      <br />
-      <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">
-        Storm, Earth and Lava
-      </a>{' '}
-      <br />
-      <a
-        href="https://www.wowhead.com/elemental-shaman-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wowhead Guide
-      </a>{' '}
-      <br />
-      <a
-        href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy Veins Guide
-      </a>{' '}
-      <br />
+      <p>
+        Hello there! Welcome to the analyzer for Elemental Shaman! This analyzer has functionalities
+        that I hope you find useful when playing the spec. If you have any input or suggestions
+        please ask questions in the #elemental channel in the{' '}
+        <a href="https://discord.gg/earthshrine">Earthshrine discord</a>.
+      </p>
+      <p>
+        More resources for Elemental:
+        <ul>
+          <li>
+            <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">
+              Shaman Class Discord
+            </a>
+          </li>
+          <li>
+            <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">
+              Storm, Earth and Lava
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.wowhead.com/elemental-shaman-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wowhead Guide
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Icy Veins Guide
+            </a>
+          </li>
+        </ul>
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

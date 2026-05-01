@@ -28,6 +28,7 @@ import CometStorm from './talents/CometStorm';
 import RayOfFrost from './talents/RayOfFrost';
 import SplittingIce from './talents/SplittingIce';
 import SpellfrostTeachings from 'analysis/retail/mage/frost/talents/SpellfrostTeachings';
+import Glaciate from 'analysis/retail/mage/frost/talents/Glaciate';
 
 //Normalizers
 import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flurry: Flurry,
     coldSnap: ColdSnap,
     spellfrostTeachings: SpellfrostTeachings,
+    glaciate: Glaciate,
 
     //Talents - Shared
     elementalBarrier: ElementalBarrier,

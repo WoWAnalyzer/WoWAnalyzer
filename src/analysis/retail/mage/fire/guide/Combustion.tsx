@@ -11,7 +11,7 @@ import CastDetail, { type PerCastData } from 'interface/guide/components/CastDet
 import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
 import { EventType, GetRelatedEvent, CastEvent } from 'parser/core/Events';
 
-import CombustionCasts from '../core/Combustion';
+import CombustionCasts, { CombustionCast } from '../core/Combustion';
 
 class CombustionGuide extends Analyzer {
   static dependencies = {
@@ -20,7 +20,7 @@ class CombustionGuide extends Analyzer {
 
   protected combustion!: CombustionCasts;
 
-  private evaluateCombustionCast(cb: any): CastEvaluation {
+  private evaluateCombustionCast(cb: CombustionCast): CastEvaluation {
     const combustDuration = cb.remove - cb.cast.timestamp;
     const activeTimePercent = cb.activeTime / combustDuration;
 
@@ -28,7 +28,7 @@ class CombustionGuide extends Analyzer {
     const delayPerf = this.combustion.combustionCastDelayPerformance(cb.castDelay);
 
     // Check for hardcast Fireballs during Combustion (fail)
-    const fireballCasts = cb.spellCasts.filter((sc: any) => {
+    const fireballCasts = cb.spellCasts.filter((sc: CastEvent) => {
       if (sc.ability.guid !== SPELLS.FIREBALL.id) {
         return false;
       }

@@ -21,6 +21,7 @@ class PrayerOfHealing extends Analyzer {
   hasLightweaverTalent: boolean;
   hasSurgeTalent: boolean;
   hasSpiritwellTalent: boolean;
+  hasDivinityTalent: boolean;
 
   constructor(options: Options) {
     super(options);
@@ -28,6 +29,7 @@ class PrayerOfHealing extends Analyzer {
     this.hasLightweaverTalent = this.selectedCombatant.hasTalent(TALENTS.LIGHTWEAVER_TALENT);
     this.hasSurgeTalent = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_LIGHT_TALENT);
     this.hasSpiritwellTalent = this.selectedCombatant.hasTalent(TALENTS.SPIRITWELL_TALENT);
+    this.hasDivinityTalent = this.selectedCombatant.hasTalent(TALENTS.DIVINITY_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
@@ -60,6 +62,9 @@ class PrayerOfHealing extends Analyzer {
     const hasSurgeBuff = surgeEnabled
       ? this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id)
       : false;
+    const hasDivinityBuff = this.hasDivinityTalent
+      ? this.selectedCombatant.hasBuff(SPELLS.DIVINITY_BUFF.id)
+      : false;
 
     let overallPerformance: QualitativePerformance;
     const checklistItems: ChecklistUsageInfo[] = [];
@@ -72,7 +77,8 @@ class PrayerOfHealing extends Analyzer {
           overallPerformance = QualitativePerformance.Good;
         }
       } else {
-        if (hasSurgeBuff) {
+        const anyBuffActive = hasSurgeBuff || hasDivinityBuff;
+        if (anyBuffActive) {
           overallPerformance = QualitativePerformance.Ok;
         } else {
           overallPerformance = QualitativePerformance.Fail;
@@ -86,13 +92,31 @@ class PrayerOfHealing extends Analyzer {
         const surgeItem = this.getSurgeChecklistItem(event, hasLightweaver, hasSurgeBuff);
         checklistItems.push(surgeItem);
       }
+
+      if (hasDivinityBuff) {
+        const divinityItem = this.getDivinityChecklistItem(
+          event,
+          hasDivinityBuff,
+          overallPerformance === QualitativePerformance.Perfect,
+        );
+        checklistItems.push(divinityItem);
+      }
     } else {
-      if (surgeEnabled) {
-        overallPerformance = hasSurgeBuff
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Fail;
-        const surgeItem = this.getSurgeOnlyChecklistItem(event, hasSurgeBuff);
-        checklistItems.push(surgeItem);
+      if (surgeEnabled || this.hasDivinityTalent) {
+        const anyBuffActive = hasSurgeBuff || hasDivinityBuff;
+        if (anyBuffActive) {
+          overallPerformance =
+            hasSurgeBuff && hasDivinityBuff
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Ok;
+        } else {
+          overallPerformance = QualitativePerformance.Fail;
+        }
+
+        if (surgeEnabled) {
+          const surgeItem = this.getSurgeOnlyChecklistItem(event, hasSurgeBuff);
+          checklistItems.push(surgeItem);
+        }
       } else {
         overallPerformance = QualitativePerformance.Ok;
       }
@@ -247,6 +271,35 @@ class PrayerOfHealing extends Analyzer {
     };
   }
 
+  private getDivinityChecklistItem(
+    event: CastEvent,
+    _hasDivinityBuff: boolean,
+    isPerfectCast: boolean,
+  ): ChecklistUsageInfo {
+    const summary = (
+      <div>
+        <SpellLink spell={TALENTS.DIVINITY_TALENT} /> buff applied
+      </div>
+    );
+
+    const performance = isPerfectCast
+      ? QualitativePerformance.Perfect
+      : QualitativePerformance.Good;
+    const details = (
+      <div>
+        <SpellLink spell={TALENTS.DIVINITY_TALENT} /> buff was applied.
+      </div>
+    );
+
+    return {
+      check: 'divinity-active',
+      timestamp: event.timestamp,
+      performance,
+      summary,
+      details,
+    };
+  }
+
   get guideSubsection(): JSX.Element | null {
     if (!this.active || this.spellUses.length === 0) {
       return null;
@@ -271,7 +324,7 @@ class PrayerOfHealing extends Analyzer {
         )}
         {this.hasSurgeTalent && this.hasSpiritwellTalent && (
           <p>
-            If talented into <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />, you can cast{' '}
+            If talented into <SpellLink spell={TALENTS.SPIRITWELL_TALENT} />, you can cast{' '}
             <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> when you have stacks of{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
           </p>
@@ -282,35 +335,72 @@ class PrayerOfHealing extends Analyzer {
     const surgeRelevant = this.hasSurgeTalent && this.hasSpiritwellTalent;
     const hasLightweaver = this.hasLightweaverTalent;
     const hasSurge = surgeRelevant;
+    const hasDivinity = this.hasDivinityTalent;
 
     let castBreakdownSmallText: JSX.Element | undefined;
 
-    let scenario: 'both' | 'lightweaver-only' | 'surge-only';
-    if (hasLightweaver && hasSurge) {
-      scenario = 'both';
-    } else if (hasLightweaver) {
-      scenario = 'lightweaver-only';
-    } else if (hasSurge) {
-      scenario = 'surge-only';
-    } else {
-      scenario = 'lightweaver-only';
-    }
+    let scenario:
+      | 'lightweaver-both'
+      | 'lightweaver-only'
+      | 'lightweaver-surge'
+      | 'lightweaver-divinity'
+      | 'surge-divinity'
+      | 'surge-only'
+      | 'divinity-only'
+      | 'none';
+    if (hasLightweaver && hasSurge && hasDivinity) scenario = 'lightweaver-both';
+    else if (hasLightweaver && hasSurge) scenario = 'lightweaver-surge';
+    else if (hasLightweaver && hasDivinity) scenario = 'lightweaver-divinity';
+    else if (hasSurge && hasDivinity) scenario = 'surge-divinity';
+    else if (hasSurge) scenario = 'surge-only';
+    else if (hasDivinity) scenario = 'divinity-only';
+    else if (hasLightweaver) scenario = 'lightweaver-only';
+    else scenario = 'none';
 
     switch (scenario) {
-      case 'both':
+      case 'lightweaver-both':
         castBreakdownSmallText = (
           <>
             {' '}
-            - <span className={styles.perfectCast}>Blue</span> is a perfect cast with both{' '}
+            - <span className={styles.perfectCast}>Blue</span> is a perfect cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
             <span className={styles.goodCast}>Green</span> is a good cast with{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active but no{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> stacks.{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
+            <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
+          </>
+        );
+        break;
+      case 'lightweaver-surge':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            - <span className={styles.perfectCast}>Blue</span> is a perfect cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
+            <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
             <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
             <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active without{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />. <span className="badCast">Red</span>{' '}
-            is a bad cast with neither buff active.
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
+          </>
+        );
+        break;
+      case 'lightweaver-divinity':
+        castBreakdownSmallText = (
+          <>
+            {' '}
+            <span className={styles.goodCast}>Green</span> is a good cast with{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
+            <span className={styles.okCast}>Yellow</span> is an OK cast with{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active without{' '}
+            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast with no buffs active.
           </>
         );
         break;
@@ -320,21 +410,25 @@ class PrayerOfHealing extends Analyzer {
             {' '}
             - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
             <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> active.{' '}
-            <span className={styles.badCast}>Red</span> is a bad cast without{' '}
-            <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />.
+            <span className={styles.badCast}>Red</span> is a bad cast without it.
           </>
         );
         break;
+      case 'surge-divinity':
       case 'surge-only':
+      case 'divinity-only':
         castBreakdownSmallText = (
           <>
             {' '}
             - <span className={styles.goodCast}>Green</span> is a good cast with{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> active.{' '}
-            <span className={styles.badCast}>Red</span> is a bad cast without{' '}
-            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} />.
+            <SpellLink spell={TALENTS.SURGE_OF_LIGHT_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.DIVINITY_TALENT} /> active.{' '}
+            <span className={styles.badCast}>Red</span> is a bad cast without it.
           </>
         );
+        break;
+      default:
+        castBreakdownSmallText = undefined;
         break;
     }
 

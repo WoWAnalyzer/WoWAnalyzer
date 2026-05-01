@@ -3,7 +3,7 @@ import TALENTS from 'common/TALENTS/warlock';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import Abilities from './Abilities';
+import Abilities from '../core/Abilities';
 
 export default class HavocAnalyzer extends Analyzer {
   static dependencies = {

@@ -24,7 +24,7 @@ class PotentMana extends SourceOfMagic {
       .map((window) => {
         const filter = `
         ((source.name='${window.player}' OR source.owner.name='${window.player}') AND
-        timestamp>=${window.start - this.owner.fight.start_time} AND 
+        timestamp>=${window.start - this.owner.fight.start_time} AND
         timestamp<=${window.end - this.owner.fight.start_time})
         `;
         return filter;
@@ -39,7 +39,7 @@ class PotentMana extends SourceOfMagic {
       .map((window) => {
         const filter = `
         ((source.name='${window.player}' OR source.owner.name='${window.player}') AND
-        timestamp>=${window.start - this.owner.fight.start_time} AND 
+        timestamp>=${window.start - this.owner.fight.start_time} AND
         timestamp<=${window.end - this.owner.fight.start_time})
         `;
         return filter;
@@ -132,14 +132,15 @@ class PotentMana extends SourceOfMagic {
           }
           label={<SpellLink spell={TALENTS.POTENT_MANA_TALENT} icon={false} />}
           tooltip={
-            <>
-              <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> contributed ≈
-              {formatNumber(this.totalHealingFromPotentMana)} healing and ≈
-              {formatNumber(this.totalDamageFromPotentMana)} damage.
-              <br />
+            <div>
+              <p>
+                <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> contributed ≈
+                {formatNumber(this.totalHealingFromPotentMana)} healing and ≈
+                {formatNumber(this.totalDamageFromPotentMana)} damage.
+              </p>
               NOTE: This metric uses an approximation to calculate contribution from the buff due to
               technical limitations.
-            </>
+            </div>
           }
         />
       </>

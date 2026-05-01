@@ -178,7 +178,7 @@ class DireCommand extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.DIRE_COMMAND_TALENT}>
           <ItemDamageDone amount={this.damage} />
-          <br />
+          <p />
           <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% <small>Haste</small>
         </BoringSpellValueText>
       </Statistic>

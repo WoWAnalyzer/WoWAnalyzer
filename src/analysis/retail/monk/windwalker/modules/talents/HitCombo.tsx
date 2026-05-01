@@ -70,20 +70,22 @@ class HitCombo extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Total damage increase: {formatNumber(this.totalDamage)}
-            <br />
-            Uptime is weighted so less stacks count less towards 100% uptime
+            <div>Total damage increase: {formatNumber(this.totalDamage)}</div>
+            <div>Uptime is weighted so less stacks count less towards 100% uptime</div>
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS_MONK.HIT_COMBO_TALENT}>
-          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small>
-          <br />
-          <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of
-            total
-          </small>
+          <div>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small>
+          </div>
+          <div>
+            <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
+            <small>
+              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of
+              total
+            </small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

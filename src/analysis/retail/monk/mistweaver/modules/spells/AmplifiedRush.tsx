@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class AmplifiedRush extends Analyzer {
-  healing: number = 0;
+  healing = 0;
 
   constructor(options: Options) {
     super(options);

@@ -91,18 +91,16 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
             <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />
           </strong>{' '}
           is an ability that enhances the performance of DPS players by granting them Critical
-          Strike chance and the damage multiplier <SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />
-          .
-          <br />
-          {this.selectedCombatant.hasTalent(TALENTS.CLAIRVOYANT_TALENT) && (
-            <>
-              With <SpellLink spell={TALENTS.CLAIRVOYANT_TALENT} /> talented,{' '}
-              <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT} /> have a chance to apply{' '}
-              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> to players who consume them. These
-              uses are not included in this cast breakdown.
-            </>
-          )}
+          Strike chance and the damage multiplier <SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />.
         </p>
+        {this.selectedCombatant.hasTalent(TALENTS.CLAIRVOYANT_TALENT) && (
+          <p>
+            With <SpellLink spell={TALENTS.CLAIRVOYANT_TALENT} /> talented,{' '}
+            <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT} /> have a chance to apply{' '}
+            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> to players who consume them. These uses
+            are not included in this cast breakdown.
+          </p>
+        )}
       </>
     );
   }

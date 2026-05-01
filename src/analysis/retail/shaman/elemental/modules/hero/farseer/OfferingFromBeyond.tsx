@@ -9,7 +9,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { Talent } from 'common/TALENTS/types';
 
 const COOLDOWN_REDUCTION_PER_CAST = 3000;
 
@@ -55,12 +54,16 @@ class OfferingFromBeyond extends Analyzer.withDependencies({
         size="flexible"
       >
         <TalentSpellText talent={TALENTS.OFFERING_FROM_BEYOND_TALENT}>
-          <CooldownIcon /> {formatNumber(this.effectiveCooldownReduction / 1000)}s effective CDR{' '}
-          <br />
-          <small>
-            {formatNumber((this.totalCooldownReduction - this.effectiveCooldownReduction) / 1000)}{' '}
-            sec wasted
-          </small>
+          <div>
+            <CooldownIcon /> {formatNumber(this.effectiveCooldownReduction / 1000)}s effective
+            CDR{' '}
+          </div>
+          <div>
+            <small>
+              {formatNumber((this.totalCooldownReduction - this.effectiveCooldownReduction) / 1000)}{' '}
+              sec wasted
+            </small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

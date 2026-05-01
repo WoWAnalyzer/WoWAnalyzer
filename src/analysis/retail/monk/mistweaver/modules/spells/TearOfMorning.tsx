@@ -241,22 +241,25 @@ class TearOfMorning extends Analyzer {
         }
       >
         <TalentSpellText talent={talents.TEAR_OF_MORNING_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          <TooltipElement
-            content={
-              <>
-                This is the average effective healing done per cast of{' '}
-                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />, excluding any healing
-                contributed by <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />, if talented.
-              </>
-            }
-          >
-            {formatNumber(this.avgHealingPerCast)}{' '}
-            <small>
-              healing per <SpellLink spell={talents.ENVELOPING_MIST_TALENT} />
-            </small>
-          </TooltipElement>
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <TooltipElement
+              content={
+                <>
+                  This is the average effective healing done per cast of{' '}
+                  <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />, excluding any healing
+                  contributed by <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />, if talented.
+                </>
+              }
+            >
+              {formatNumber(this.avgHealingPerCast)}{' '}
+              <small>
+                healing per <SpellLink spell={talents.ENVELOPING_MIST_TALENT} />
+              </small>
+            </TooltipElement>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

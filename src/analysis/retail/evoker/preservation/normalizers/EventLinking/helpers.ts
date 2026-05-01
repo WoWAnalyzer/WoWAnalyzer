@@ -1,5 +1,4 @@
 import {
-  AbilityEvent,
   HasRelatedEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
@@ -51,10 +50,13 @@ import {
   INSURANCE_APPLICATION,
   EB_MERITHRAS,
   EB_ENERGY_CYCLES,
+  MERITHRAS_PROC_GENERATION,
+  MERITHRAS_HEALING,
+  ECHO_CONSUMPTION,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
+export function isFromHardcastEcho(event: AnyEvent): boolean {
   return HasRelatedEvent(event, ECHO) || HasRelatedEvent(event, ECHO_REMOVAL);
 }
 
@@ -327,4 +329,20 @@ export function isInsuranceFromVe(event: HealEvent) {
   if (insuranceApplication) {
     return HasRelatedEvent(insuranceApplication, VERDANT_EMBRACE_INSURANCE);
   }
+}
+
+export function getMerithrasGeneratingCast(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return GetRelatedEvent<CastEvent>(event, MERITHRAS_PROC_GENERATION);
+}
+
+export function getMerithrasHealing(event: CastEvent) {
+  return GetRelatedEvents<HealEvent>(event, MERITHRAS_HEALING);
+}
+
+export function getEchoConsumptions(event: CastEvent) {
+  return GetRelatedEvents<RemoveBuffEvent>(event, ECHO_CONSUMPTION);
+}
+
+export function isFromTipTheScales(event: CastEvent) {
+  return HasRelatedEvent(event, 'TipTheScalesConsume');
 }

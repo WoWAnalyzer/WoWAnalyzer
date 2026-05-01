@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie';
 
-interface ReportHistoryEntry {
+export interface ReportHistoryEntry {
   code: string;
   title?: string;
   start?: number;
@@ -24,7 +24,7 @@ const cookieOptions = {
   maxAge: 86400 * 365, // 1 year
 };
 
-type ReportHistoryState = ReportHistoryEntry[];
+export type ReportHistoryState = ReportHistoryEntry[];
 const initialState: ReportHistoryState =
   cookies.get<ReportHistoryEntry[]>(COOKIE_NAME) || ([] as ReportHistoryState);
 
