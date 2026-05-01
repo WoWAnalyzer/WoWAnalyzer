@@ -19,6 +19,7 @@ import Energy from './modules/core/Energy';
 import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import RestlessBlades from './modules/core/RestlessBlades';
+import DeadlyPursuit from './modules/core/DeadlyPursuit';
 import Preparation from './modules/talents/Preparation';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Finishers from './modules/features/Finishers';
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     builderUse: BuilderUse,
     finisherUse: FinisherUse,
+    deadlyPursuit: DeadlyPursuit,
 
     //Core
     restlessBlades: RestlessBlades,
