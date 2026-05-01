@@ -71,7 +71,7 @@ class RestlessBlades extends Analyzer {
   }
 
   private onSpendResource(event: SpendResourceEvent) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
+    if (event.resourceChangeType != RESOURCE_TYPES.COMBO_POINTS.id) {
       return;
     }
 
@@ -91,9 +91,20 @@ class RestlessBlades extends Analyzer {
         : (cdrAmount = cdrAmount * TRIPLE_THREAT_CDR);
     }
 
+    if (spent > 0) {
+      this.addDebugAnnotation(event, {
+        color: '#ff9100',
+        summary: `Reducing Restless Blades cooldown by ${cdrAmount} secs due to spending ${spent} combo points${hasRollTheBonesCDR ? ' with Roll the Bones triple threat buff' : ''} on ${event.ability.name} ${this.hasForcedInduction ? ' with Forced Induction' : ''}${this.hasSuperCharger ? ` (${SUPER_CHARGED_COMBO_POINT_WORTH} combo points worth from Supercharger)` : ''}.`,
+      });
+    }
+
     AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, cdrAmount));
 
     return cdrAmount;
+  }
+
+  public reduceRestlessBladesCDR(amount: number) {
+    AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, amount));
   }
 
   private reduceCooldown(spellId: number, amount: number) {

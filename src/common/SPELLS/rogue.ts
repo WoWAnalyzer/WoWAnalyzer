@@ -594,6 +594,11 @@ const spells = {
     name: 'Find Weakness',
     icon: 'ability_rogue_findweakness',
   },
+  DEADLY_PURSUIT: {
+    id: 1259614,
+    name: 'Deadly Pursuit',
+    icon: 'ability_rogue_murderspree',
+  },
 
   //Procs
   COMBO_POINT: {

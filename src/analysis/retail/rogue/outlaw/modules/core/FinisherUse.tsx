@@ -12,6 +12,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BetweenTheEyes from '../spells/BetweenTheEyes';
+import OutlawComboPointsTracker from '../core/OutlawComboPointTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
@@ -23,11 +24,13 @@ export default class FinisherUse extends Analyzer {
     finishers: Finishers,
     spellUsable: SpellUsable,
     betweenTheEyes: BetweenTheEyes,
+    outlawComboPointsTracker: OutlawComboPointsTracker,
   };
 
   protected finishers!: Finishers;
   protected spellUsable!: SpellUsable;
   protected betweenTheEyes!: BetweenTheEyes;
+  protected outlawComboPointsTracker!: OutlawComboPointsTracker;
 
   totalFinisherCasts = 0;
   lowCpFinisherCasts = 0;
@@ -63,6 +66,8 @@ export default class FinisherUse extends Analyzer {
   }
 
   private onCast(event: CastEvent) {
+    this.outlawComboPointsTracker.clearCharges(event);
+
     const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
     const spellId = event.ability.guid;
 

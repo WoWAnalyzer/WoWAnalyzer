@@ -1,6 +1,7 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import {
+  ApplyBuffEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
@@ -22,6 +23,7 @@ const HIT_TARGET = 'HitTarget';
 const OPPORTUNITY_CONSUME = 'OpportunityConsume';
 const AUDACITY_CONSUME = 'AudacityConsume';
 const IMPROVED_ADRENALINE_RUSH = 'ImprovedAdrenalineRush';
+const DEADLY_PURSUIT_LINK = 'deadly-pursuit-link';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -79,6 +81,16 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     anyTarget: true,
   },
+  {
+    linkRelation: DEADLY_PURSUIT_LINK,
+    linkingEventId: SPELLS.DEADLY_PURSUIT.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.DEADLY_PURSUIT.id,
+    referencedEventType: EventType.RemoveBuff,
+    forwardBufferMs: 15000,
+    backwardBufferMs: 15000,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -110,6 +122,16 @@ export function consumedOpportunity(
 
 export function consumedAudacity(event: CastEvent | RemoveBuffEvent): boolean {
   return HasRelatedEvent(event, AUDACITY_CONSUME);
+}
+
+export function getRemovedDeadlyPursuit(event: ApplyBuffEvent): number {
+  const removed = GetRelatedEvent<RemoveBuffEvent>(event, DEADLY_PURSUIT_LINK);
+
+  if (!removed) {
+    return 0;
+  }
+
+  return removed.timestamp - event.timestamp;
 }
 
 export function getGeneratedAdrenalineRushComboPoints(event: CastEvent): number {
