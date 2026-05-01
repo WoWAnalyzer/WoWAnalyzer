@@ -15,7 +15,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { HealthIcon, IntellectIcon } from 'interface/icons';
 import SpellLink from 'interface/SpellLink';
 import { calculatePrimaryStat } from 'parser/core/stats';
-import StatTracker from 'parser/shared/modules/StatTracker';
+import StatTracker, { StatBuff } from 'parser/shared/modules/StatTracker';
 
 // base taken from wowhead
 // https://www.wowhead.com/item=249341/volatile-void-suffuser
@@ -34,6 +34,7 @@ export default class VolatileVoidSuffuser extends Analyzer.withDependencies({
   statTracker: StatTracker,
 }) {
   protected procs: ProcData[] = [];
+  private currentTotalIntellect = 0;
 
   intellectProc = BASE_INTELLECT;
 
@@ -68,10 +69,10 @@ export default class VolatileVoidSuffuser extends Analyzer.withDependencies({
   private lastHealEvent: HealEvent | null = null;
 
   private onBuffGain(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.recordProc(event.timestamp);
+    this.recordProc(event);
   }
 
-  private recordProc(timestamp: number) {
+  private recordProc(event: ApplyBuffEvent | ApplyBuffStackEvent) {
     if (!this.lastHealEvent || !HasHitpoints(this.lastHealEvent)) return;
 
     const healEvent = this.lastHealEvent;
@@ -84,15 +85,27 @@ export default class VolatileVoidSuffuser extends Analyzer.withDependencies({
     const intellectGained =
       this.intellectProc + (this.intellectProc / 100) * (missingHealthPercent * 100);
 
-    this.deps.statTracker.add(SPELLS.VOID_SUFFUSION.id, { intellect: intellectGained });
+    this.changeStats(intellectGained, event);
 
     this.procs.push({
-      timestamp,
+      timestamp: event.timestamp,
       targetHealthPercent,
       missingHealthPercent,
       intellectGained,
       ability: healEvent.ability,
     });
+  }
+
+  private changeStats(intellectGained: number, event: ApplyBuffEvent | ApplyBuffStackEvent) {
+    const oldTotal = this.currentTotalIntellect;
+    this.currentTotalIntellect += intellectGained;
+
+    const statBuff: StatBuff = {
+      itemId: ITEMS.VOLATILE_VOID_SUFFUSER.id,
+      intellect: -oldTotal + this.currentTotalIntellect,
+    };
+
+    this.deps.statTracker.forceChangeStats(statBuff, event);
   }
 
   get totalProcs() {
