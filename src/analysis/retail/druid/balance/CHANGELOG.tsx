@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 5, 1), <>Updated various texts in the guide. Added 'DoT Refreshes' and 'Resources when entering Ecplise' subsections.</>, Ateis),
   change(date(2026, 4, 27), <>Improved tracking of Haste. Fixed some spells. Fixed suggestion of <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT}/>. Fix support for <SpellLink spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT}/></>, Ateis),
   change(date(2026, 3, 18), <>Core Rotation Rework: Starlord now tracks Max-stack uptime, Per-eclipse spender performance. Updated example log</>, Rex),
   change(date(2026, 3, 7), <>Activating Balance Druid analyzer for Midnight! Apex talents not yet implemented.</>, Rex),
