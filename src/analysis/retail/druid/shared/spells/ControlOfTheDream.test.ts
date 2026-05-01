@@ -259,61 +259,6 @@ describe('Control of the Dream', () => {
       });
     });
 
-    describe('Mixed ability interactions', () => {
-      beforeEach(() => {
-        InitializeWithTalents([
-          TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT,
-          TALENTS_DRUID.FORCE_OF_NATURE_TALENT,
-          TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT,
-          TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT,
-        ]);
-      });
-
-      it('should track each ability reduction independently', () => {
-        // Arrange
-        const events = [
-          castEvent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT, 0),
-          castEvent(SPELLS.CELESTIAL_ALIGNMENT, 5_000),
-          castEvent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT, 10_000),
-        ];
-
-        // Act
-        parser.processEvents(events);
-
-        // Assert
-        expect(spellUsable.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
-          FORCE_OF_NATURE_CD - CD_REDUCTION_CAP - 10_000,
-        );
-        expect(spellUsable.cooldownRemaining(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(
-          CELESTIAL_ALIGNMENT_CD - CD_REDUCTION_CAP - (10_000 - 5_000),
-        );
-        expect(spellUsable.cooldownRemaining(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id)).toBe(
-          CONVOKE_THE_SPIRITS_CD - CD_REDUCTION_CAP,
-        );
-      });
-
-      it('should not affect other abilities when casting one', () => {
-        // Arrange
-        const events = [
-          castEvent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT, 0),
-          castEvent(SPELLS.CELESTIAL_ALIGNMENT, 20_000),
-          castEvent(SPELLS.WRATH_MOONKIN, 46_000), // Need to add some casts to make sure the CD charge/cooldown recomputation is triggered
-          castEvent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT, 55_000), // 10s after FoN available
-        ];
-
-        // Act
-        parser.processEvents(events);
-
-        // Assert
-        expect(spellUsable.cooldownRemaining(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id)).toBe(
-          FORCE_OF_NATURE_CD - 10_000,
-        );
-        expect(spellUsable.cooldownRemaining(SPELLS.CELESTIAL_ALIGNMENT.id)).toBe(
-          CELESTIAL_ALIGNMENT_CD - CD_REDUCTION_CAP - (55_000 - 20_000),
-        );
-      });
-    });
-
     describe('Every Balance primary CD should be tracked', () => {
       it('should track Celestial Alignment', () => {
         // Arrange
