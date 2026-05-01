@@ -31,57 +31,6 @@ const CA_COLOR = '#11bbbb';
  * Arcane spells deal 15% additional damage and Starfire damage is increased by 40%.
  */
 export default class Eclipse extends Analyzer {
-  mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
-    return uptimes.map((uptime) => ({
-      start: uptime.start,
-      end: uptime.end !== null ? uptime.end : this.owner.currentTimestamp,
-      customColor,
-    }));
-  }
-
-  get uptimeBar() {
-    const solarEclipseUptimes = this.mapWithColor(
-      this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_SOLAR.id),
-      SOLAR_ECLIPSE_COLOR,
-    );
-    const lunarEclipseUptimes = this.mapWithColor(
-      this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_LUNAR.id),
-      LUNAR_ECLIPSE_COLOR,
-    );
-    const caUptimes = this.mapWithColor(
-      this.selectedCombatant.getBuffHistory(cdSpell(this.selectedCombatant).id),
-      CA_COLOR,
-    );
-    const allUptimes = solarEclipseUptimes.concat(lunarEclipseUptimes).concat(caUptimes);
-
-    const combinedUptime = mergeTimePeriods(allUptimes, this.owner.fight.end_time).reduce(
-      (acc, up) => acc + up.end - up.start,
-      0,
-    );
-    const totalFightTime = this.owner.fight.end_time - this.owner.fight.start_time;
-    const percentUptime = combinedUptime / totalFightTime;
-
-    return (
-      <div className="flex-main multi-uptime-bar">
-        <div className="flex main-bar">
-          <div className="flex-sub bar-label">
-            <span>
-              <SpellIcon spell={TALENTS_DRUID.ECLIPSE_TALENT} />{' '}
-            </span>
-            {formatPercentage(percentUptime, 0)}% <small>uptime</small>
-          </div>
-          <div className="flex-main chart">
-            <UptimeBar
-              uptimeHistory={allUptimes}
-              start={this.owner.fight.start_time}
-              end={this.owner.fight.end_time}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   get guideSubsection(): JSX.Element {
     const explanation = (
       <>
@@ -140,5 +89,56 @@ export default class Eclipse extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data);
+  }
+
+  private mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
+    return uptimes.map((uptime) => ({
+      start: uptime.start,
+      end: uptime.end !== null ? uptime.end : this.owner.currentTimestamp,
+      customColor,
+    }));
+  }
+
+  private get uptimeBar() {
+    const solarEclipseUptimes = this.mapWithColor(
+      this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_SOLAR.id),
+      SOLAR_ECLIPSE_COLOR,
+    );
+    const lunarEclipseUptimes = this.mapWithColor(
+      this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_LUNAR.id),
+      LUNAR_ECLIPSE_COLOR,
+    );
+    const caUptimes = this.mapWithColor(
+      this.selectedCombatant.getBuffHistory(cdSpell(this.selectedCombatant).id),
+      CA_COLOR,
+    );
+    const allUptimes = solarEclipseUptimes.concat(lunarEclipseUptimes).concat(caUptimes);
+
+    const combinedUptime = mergeTimePeriods(allUptimes, this.owner.fight.end_time).reduce(
+      (acc, up) => acc + up.end - up.start,
+      0,
+    );
+    const totalFightTime = this.owner.fight.end_time - this.owner.fight.start_time;
+    const percentUptime = combinedUptime / totalFightTime;
+
+    return (
+      <div className="flex-main multi-uptime-bar">
+        <div className="flex main-bar">
+          <div className="flex-sub bar-label">
+            <span>
+              <SpellIcon spell={TALENTS_DRUID.ECLIPSE_TALENT} />{' '}
+            </span>
+            {formatPercentage(percentUptime, 0)}% <small>uptime</small>
+          </div>
+          <div className="flex-main chart">
+            <UptimeBar
+              uptimeHistory={allUptimes}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+            />
+          </div>
+        </div>
+      </div>
+    );
   }
 }
