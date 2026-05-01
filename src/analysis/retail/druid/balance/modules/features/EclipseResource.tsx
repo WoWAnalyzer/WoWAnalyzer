@@ -2,13 +2,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import AstralPowerTracker from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Events, { CastEvent } from 'parser/core/Events';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * Wide statistics box for tracking the most important Balance DoT uptimes
@@ -53,9 +54,10 @@ class EclipseResource extends Analyzer {
     const explanation = (
       <>
         <p>
-          Before entering an Eclipse, make sure you have enough resources to cast{' '}
-          <SpellLink spell={SPELLS.STARSURGE_MOONKIN} /> or <SpellLink spell={SPELLS.STARFALL} />{' '}
-          <strong>3 times</strong> at the start of the Eclipse.
+          Before entering an Eclipse, pool <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} /> in
+          order to cast <SpellLink spell={SPELLS.STARSURGE_MOONKIN} /> or{' '}
+          <SpellLink spell={SPELLS.STARFALL} /> <strong>3 times</strong> as soon as possible during
+          the Eclipse.
         </p>
         <p>
           This maximizes the output of talents like{' '}
