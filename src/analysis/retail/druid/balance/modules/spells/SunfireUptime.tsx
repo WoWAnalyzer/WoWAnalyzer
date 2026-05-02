@@ -142,7 +142,7 @@ class SunfireUptime extends Analyzer {
     return {
       timestamp: castImpact.castEvent.timestamp,
       performance: performance,
-      reason: `${newDebuffCount} created, ${refreshCount} refreshed, ${overwriteCount} overwriten`,
+      reason: `${newDebuffCount} created, ${refreshCount} refreshed, ${overwriteCount} overwritten`,
     };
   }
 
