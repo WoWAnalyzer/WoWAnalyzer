@@ -203,7 +203,7 @@ export const Bonebasher: Contributor = {
   github: 'Bonebasher',
 };
 export const Mahmud17: Contributor = {
-  nickname: 'Mahmud17',
+  nickname: 'Sadrai',
   github: 'Mahmud17',
 };
 export const bhawkins6177: Contributor = {
