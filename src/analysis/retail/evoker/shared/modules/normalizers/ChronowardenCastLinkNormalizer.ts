@@ -6,13 +6,20 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { DamageEvent, EventType, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
+import {
+  DamageEvent,
+  EventType,
+  GetRelatedEvent,
+  HasRelatedEvent,
+  HealEvent,
+} from 'parser/core/Events';
 import { isFromLeapingFlames, LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
 import { AFTERIMAGE_MAX_HITS } from '../../constants';
 
 const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
 const CHRONO_FLAME_DAMAGE_LINK = 'ChronoFlameDamageLink';
+const CHRONO_FLAME_HEAL_LINK = 'ChronoFlameHealLink';
 // Afterimage has a travel time, buffer needs to be relatively large.
 // The cast link also needs an additional delay, as the cast event comes earlier.
 const AFTERIMAGE_CAST_BUFFER = 1250;
@@ -93,6 +100,18 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.CHRONO_FLAME_TALENT),
   },
+  {
+    linkRelation: CHRONO_FLAME_HEAL_LINK,
+    reverseLinkRelation: CHRONO_FLAME_HEAL_LINK,
+    linkingEventId: SPELLS.LIVING_FLAME_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.CHRONO_FLAME_HEAL.id,
+    referencedEventType: EventType.Heal,
+    anyTarget: false,
+    forwardBufferMs: CHRONO_FLAME_BUFFER,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.CHRONO_FLAME_TALENT),
+  },
 ];
 
 class AfterimageCastLinkNormalizer extends EventLinkNormalizer {
@@ -109,6 +128,10 @@ export function isFromAfterimageDamage(event: DamageEvent): boolean {
 
 export function getChronoFlameDamageLink(event: DamageEvent): DamageEvent | undefined {
   return GetRelatedEvent<DamageEvent>(event, CHRONO_FLAME_DAMAGE_LINK);
+}
+
+export function getChronoFlameHealLink(event: HealEvent): HealEvent | undefined {
+  return GetRelatedEvent<HealEvent>(event, CHRONO_FLAME_HEAL_LINK);
 }
 
 function isNotFromOtherLFSources(event: DamageEvent): boolean {

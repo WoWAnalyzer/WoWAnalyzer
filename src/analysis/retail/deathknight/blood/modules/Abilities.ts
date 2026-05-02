@@ -27,6 +27,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
+        spell: TALENTS.UMBILICUS_ETERNUS_TALENT.id,
+        buffSpellId: SPELLS.UMBILICUS_ETERNUS_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.UMBILICUS_ETERNUS_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,

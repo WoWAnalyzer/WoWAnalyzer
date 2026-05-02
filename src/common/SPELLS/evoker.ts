@@ -605,17 +605,17 @@ const spells = {
   },
   CHRONO_FLAME_CAST: {
     id: 431443,
-    name: 'Chronoflame',
+    name: 'Chrono Flames',
     icon: 'inv_ability_chronowardenevoker_chronoflame',
   },
   CHRONO_FLAME_HEAL: {
     id: 431483,
-    name: 'Chronoflame',
+    name: 'Chrono Flame',
     icon: 'inv_ability_chronowardenevoker_chronoflame',
   },
   CHRONO_FLAME_DAMAGE: {
     id: 431583,
-    name: 'Chronoflame',
+    name: 'Chrono Flame',
     icon: 'inv_ability_chronowardenevoker_chronoflame',
   },
   MERITHRAS_BLESSING_BUFF: {

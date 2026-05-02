@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -26,7 +27,7 @@ class AuspiciousSpirits extends Analyzer {
   }
 
   onApparitionDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+    this.damage += calculateEffectiveDamage(event, AUSPICIOUS_SPIRITS_DAMAGE_MULTIPLIER);
   }
 
   onApparitionGain(event: ResourceChangeEvent) {
@@ -38,9 +39,7 @@ class AuspiciousSpirits extends Analyzer {
     return (
       <BoringSpellValueText spell={TALENTS.AUSPICIOUS_SPIRITS_TALENT}>
         <div>
-          <ItemDamageDone
-            amount={this.damage - this.damage / AUSPICIOUS_SPIRITS_DAMAGE_MULTIPLIER}
-          />
+          <ItemDamageDone amount={this.damage} />
         </div>
         <div>
           <ItemInsanityGained amount={this.insanity} />

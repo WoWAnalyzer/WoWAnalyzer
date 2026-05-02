@@ -68,6 +68,7 @@ import {
   MotesOfAcceleration,
   TimeSpiral,
   MobilityCastLinkNormalizer,
+  ChronowardenCastLinkNormalizer,
 } from '../shared';
 import ConsumeFlame from './modules/talents/ConsumeFlame';
 
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
+    chronowardenCastLinkNormalizer: ChronowardenCastLinkNormalizer,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,

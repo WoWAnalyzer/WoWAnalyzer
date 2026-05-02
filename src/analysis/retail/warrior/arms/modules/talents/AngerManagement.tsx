@@ -10,7 +10,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { Fragment } from 'react';
 
 /**
- * Every 20 Rage you spend reduces the remaining cooldown on Colossus Smash and Bladestorm by 1 sec.
+ * Every 20 Rage you spend reduces the remaining cooldown on Colossus Smash and Avatar by 1 sec.
  */
 
 const RAGE_NEEDED_FOR_A_PROC = 20;

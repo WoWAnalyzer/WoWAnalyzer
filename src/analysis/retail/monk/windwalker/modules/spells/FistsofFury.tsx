@@ -28,8 +28,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 // use repeated targets to detect the next real tick without collapsing high-haste channels.
 const FISTS_OF_FURY_SAME_TICK_BUFFER_MS = 200;
 const BASE_FISTS_OF_FURY_TICKS = 5;
-const CRASHING_FISTS_FISTS_OF_FURY_TICKS = 6;
-const MAX_FISTS_OF_FURY_TICKS = 6;
+const MAX_FISTS_OF_FURY_TICKS = 5;
 
 class FistsofFury extends Analyzer {
   static dependencies = {
@@ -67,9 +66,7 @@ class FistsofFury extends Analyzer {
   }
 
   get expectedTicks() {
-    return this.selectedCombatant.getTalentRank(TALENTS_MONK.CRASHING_FISTS_TALENT) > 0
-      ? CRASHING_FISTS_FISTS_OF_FURY_TICKS
-      : BASE_FISTS_OF_FURY_TICKS;
+    return BASE_FISTS_OF_FURY_TICKS;
   }
 
   isNewFistsTick(event: DamageEvent) {
@@ -108,7 +105,7 @@ class FistsofFury extends Analyzer {
       HasAbility(nextAbility) &&
       this.currentChannelTicks < this.expectedTicks
     ) {
-      // FoF has 5 total damage events baseline, or 6 with Crashing Fists. Fewer than that means it was clipped.
+      // FoF has 5 total damage events. Fewer than that means it was clipped.
       this.clipped[nextAbility.ability.guid] = (this.clipped[nextAbility.ability.guid] || 0) + 1;
     }
   }
@@ -174,8 +171,9 @@ class FistsofFury extends Analyzer {
             <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} />
           </b>{' '}
           is one of your primary dps skills, and should be channeled to completion. It ticks{' '}
-          {BASE_FISTS_OF_FURY_TICKS} times by default, or {CRASHING_FISTS_FISTS_OF_FURY_TICKS} times
-          with <SpellLink spell={TALENTS_MONK.CRASHING_FISTS_TALENT} />.
+          {BASE_FISTS_OF_FURY_TICKS} times over the duration of the channel.{' '}
+          <SpellLink spell={TALENTS_MONK.CRASHING_FISTS_TALENT} /> now increases its damage rather
+          than extending the channel.
         </p>
         <p>
           With <SpellLink spell={TALENTS_MONK.MOMENTUM_BOOST_TALENT} />, each tick of{' '}

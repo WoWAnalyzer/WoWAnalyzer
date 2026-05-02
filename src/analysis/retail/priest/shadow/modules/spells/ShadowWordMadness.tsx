@@ -32,7 +32,6 @@ class ShadowWordMadness extends Analyzer {
   }
 
   get uptime() {
-    console.log('we got here', this.enemies.getBuffUptime(TALENTS.SHADOW_WORD_MADNESS_TALENT.id));
     return (
       this.enemies.getBuffUptime(TALENTS.SHADOW_WORD_MADNESS_TALENT.id) / this.owner.fightDuration
     );

@@ -18,15 +18,14 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DIVINE_PURPOSE_BUFF.id,
+        spellId: SPELLS.DIVINE_PURPOSE_BUFF_RET.id,
         enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_RETRIBUTION_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FIRES_OF_JUSTICE_BUFF.id,
-      },
-      {
-        spellId: SPELLS.RIGHTEOUS_VERDICT_BUFF.id,
+        spellId: SPELLS.ART_OF_WAR.id,
+        enabled: combatant.hasTalent(TALENTS.ART_OF_WAR_TALENT),
+        timelineHighlight: true,
       },
       // Throughput cooldowns
       {

@@ -14,10 +14,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import { MASTERMIND_CRIT_CHANCE_PER_RANK } from '../../constants';
-import { MASTERMIND_CRIT_DAMAGE_PER_RANK } from '../../constants';
+import { INSTILLED_DOUBT_CRIT_CHANCE_PER_RANK } from '../../constants';
+import { INSTILLED_DOUBT_CRIT_DAMAGE_PER_RANK } from '../../constants';
 
-class Mastermind extends Analyzer {
+class InstilledDoubt extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
@@ -27,28 +27,23 @@ class Mastermind extends Analyzer {
   damage = 0;
   buffStacks = 0;
 
-  mastermindCritChance =
-    MASTERMIND_CRIT_CHANCE_PER_RANK *
-    this.selectedCombatant.getTalentRank(TALENTS.MASTERMIND_TALENT); //increase in crit chance
-  mastermindCritDamage =
-    MASTERMIND_CRIT_DAMAGE_PER_RANK *
-    this.selectedCombatant.getTalentRank(TALENTS.MASTERMIND_TALENT); //increase in crit damage
+  instilledDoubtCritChance =
+    INSTILLED_DOUBT_CRIT_CHANCE_PER_RANK *
+    this.selectedCombatant.getTalentRank(TALENTS.INSTILLED_DOUBT_TALENT); //increase in crit chance
+  instilledDoubtCritDamage =
+    INSTILLED_DOUBT_CRIT_DAMAGE_PER_RANK *
+    this.selectedCombatant.getTalentRank(TALENTS.INSTILLED_DOUBT_TALENT); //increase in crit damage
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTERMIND_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INSTILLED_DOUBT_TALENT);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_BLAST_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_TOUCH),
       this.onSpell,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
-      this.onSpell,
-    );
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY), this.onSpell);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onSpell,
     );
   }
@@ -61,12 +56,12 @@ class Mastermind extends Analyzer {
         //Extra damage from having extra crit chance
         event,
         this.statTracker.currentCritPercentage,
-        this.mastermindCritChance,
+        this.instilledDoubtCritChance,
       );
 
       this.damage += calculateEffectiveDamageFromCritDamageIncrease(
         event,
-        this.mastermindCritDamage,
+        this.instilledDoubtCritDamage,
       );
     }
   }
@@ -78,7 +73,7 @@ class Mastermind extends Analyzer {
         size="flexible"
         tooltip="This is the damage gained from the critical chance and damage increase"
       >
-        <BoringSpellValueText spell={TALENTS.MASTERMIND_TALENT}>
+        <BoringSpellValueText spell={TALENTS.INSTILLED_DOUBT_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />
           </div>
@@ -88,4 +83,4 @@ class Mastermind extends Analyzer {
   }
 }
 
-export default Mastermind;
+export default InstilledDoubt;

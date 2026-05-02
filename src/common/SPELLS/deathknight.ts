@@ -136,6 +136,11 @@ const spells = {
     name: 'Heartbreaker',
     icon: 'spell_deathknight_deathstrike',
   },
+  UMBILICUS_ETERNUS_BUFF: {
+    id: 391527,
+    name: 'Umbilicus Eternus',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
 
   // region Frost Specialization
 
@@ -697,12 +702,6 @@ const spells = {
     id: 49039,
     name: 'Lichborne',
     icon: 'spell_shadow_raisedead',
-  },
-
-  ABOMINATION_LIMB_GRIP_TICK: {
-    id: 383312,
-    name: 'Abomination Limb',
-    icon: 'ability_maldraxxus_deathknight',
   },
 
   RUNE_1: {

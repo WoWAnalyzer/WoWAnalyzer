@@ -10,6 +10,10 @@ import {
   getLivingFlameCastHit,
   getLeapingCast,
 } from '../normalizers/LeapingFlamesNormalizer';
+import {
+  getChronoFlameDamageLink,
+  getChronoFlameHealLink,
+} from 'analysis/retail/evoker/shared/modules/normalizers/ChronowardenCastLinkNormalizer';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -117,6 +121,7 @@ class LeapingFlames extends Analyzer {
         if (event.type === EventType.Damage) {
           acc.damageHits += 1;
           this.leapingFlamesDamage += event.amount + (event.absorbed ?? 0);
+          this.leapingFlamesDamage += getChronoFlameDamageLink(event)?.amount ?? 0;
         } else {
           const absHealAmount = event.amount + (event.absorbed ?? 0);
 
@@ -126,6 +131,8 @@ class LeapingFlames extends Analyzer {
           if (absHealAmount > 0) {
             acc.healHits += 1;
           }
+          this.leapingFlamesHealing += getChronoFlameHealLink(event)?.amount ?? 0;
+          this.leapingFlamesOverHealing += getChronoFlameHealLink(event)?.overheal ?? 0;
         }
         return acc;
       },

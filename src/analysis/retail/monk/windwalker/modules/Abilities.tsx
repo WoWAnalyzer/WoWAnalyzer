@@ -13,9 +13,9 @@ class Abilities extends CoreAbilities {
     const communionWithWindReduction = combatant.hasTalent(TALENTS_MONK.COMMUNION_WITH_WIND_TALENT)
       ? 5
       : 0;
-    const zenithCooldownReduction = combatant.hasTalent(TALENTS_MONK.EFFICIENT_TRAINING_TALENT)
-      ? 10
-      : 0;
+    const zenithCooldownReduction =
+      (combatant.hasTalent(TALENTS_MONK.EFFICIENT_TRAINING_TALENT) ? 10 : 0) +
+      (combatant.hasTalent(TALENTS_MONK.SPIRITUAL_FOCUS_TALENT) ? 20 : 0);
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
     // Serenity's interaction with cooldowns is handled in the Serenity module
     return [
