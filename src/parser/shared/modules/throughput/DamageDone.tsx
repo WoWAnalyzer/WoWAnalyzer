@@ -1,18 +1,126 @@
-import { formatThousands, formatPercentage, formatDuration } from 'common/format';
-import rankingColor from 'common/getRankingColor';
+import fetchWcl from 'common/fetchWclApi';
+import { formatThousands } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
-import { Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
-import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
+import { WCLDamageDoneTableResponse, WclTable } from 'common/WCL_TYPES';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { useEffect, useState } from 'react';
 
 import DamageValue from '../DamageValue';
-import { i18n } from '@lingui/core';
 import Enemies from '../Enemies';
+
+interface DamageDoneStatisticProps {
+  chartData: Array<{ time: number; val: number }>;
+  eventDps: number;
+  eventTotalDamage: number;
+  fightDuration: number;
+  fightId: number;
+  fightEnd: number;
+  fightStart: number;
+  playerId: number;
+  reportCode: string;
+}
+
+interface WclDamageDoneStats {
+  totalDamage: number;
+  dps: number;
+}
+
+const DamageDoneStatistic = ({
+  chartData,
+  eventDps,
+  eventTotalDamage,
+  fightDuration,
+  fightId,
+  fightEnd,
+  fightStart,
+  playerId,
+  reportCode,
+}: DamageDoneStatisticProps) => {
+  const [wclDamageDone, setWclDamageDone] = useState<WclDamageDoneStats | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      try {
+        const table = await fetchWcl<WCLDamageDoneTableResponse>(
+          `report/tables/${WclTable.DamageDone}/${reportCode}`,
+          {
+            start: fightStart,
+            end: fightEnd,
+            actorid: playerId,
+          },
+        );
+
+        const totalDamage = table.entries.reduce(
+          (damageDone, entry) => damageDone + entry.total,
+          0,
+        );
+        const totalTime = table.totalTime || fightDuration;
+        const dps = totalTime > 0 ? (totalDamage / totalTime) * 1000 : 0;
+
+        if (!cancelled) {
+          setWclDamageDone({ totalDamage, dps });
+        }
+      } catch (error) {
+        console.warn('Failed to load WCL damage-done table for the damage statistic:', error);
+        if (!cancelled) {
+          setWclDamageDone({ totalDamage: eventTotalDamage, dps: eventDps });
+        }
+      }
+    };
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [eventDps, eventTotalDamage, fightDuration, fightEnd, fightStart, playerId, reportCode]);
+
+  const displayedDps = wclDamageDone?.dps ?? eventDps;
+  const isLoading = !wclDamageDone;
+
+  return (
+    <StatisticBar
+      position={STATISTIC_ORDER.CORE(1)}
+      ultrawide
+      large={false}
+      wide={false}
+      style={{ marginBottom: 20, overflow: 'hidden' }}
+    >
+      <div className="flex">
+        <div className="flex-sub icon">
+          <img src="/img/sword.png" alt="Damage" />
+        </div>
+        <div className="flex-sub value" style={{ width: 190 }}>
+          {isLoading ? 'Loading WCL DPS...' : `${formatThousands(displayedDps)} DPS`}
+        </div>
+        <div className="flex-main chart">
+          <a
+            href={makeWclUrl(reportCode, { fight: fightId, source: playerId, type: 'damage-done' })}
+          >
+            {displayedDps > 0 && (
+              <AutoSizer disableWidth>
+                {({ height }) => (
+                  <FlushLineChart
+                    data={chartData}
+                    duration={fightDuration / 1000}
+                    height={height}
+                  />
+                )}
+              </AutoSizer>
+            )}
+          </a>
+        </div>
+      </div>
+    </StatisticBar>
+  );
+};
 
 class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
   constructor(options: Options) {
@@ -85,94 +193,23 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
     }
 
     const data = Object.entries(this.bySecond).map(([sec, val]) => ({
-      time: sec,
+      time: Number(sec),
       val: val.effective,
     }));
 
     const perSecond = (this.total.effective / this.owner.fightDuration) * 1000;
-    const wclUrl = makeWclUrl(this.owner.report.code, {
-      fight: this.owner.fightId,
-      source: this.owner.playerId,
-      type: 'damage-done',
-    });
-
     return (
-      <StatisticBar
-        position={STATISTIC_ORDER.CORE(1)}
-        ultrawide
-        large={false}
-        wide={false}
-        style={{ marginBottom: 20, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
-      >
-        <div className="flex">
-          <div className="flex-sub icon">
-            <img src="/img/sword.png" alt="Damage" />
-          </div>
-          <Tooltip
-            content={
-              <>
-                Total damage done: <strong>{formatThousands(this.total.effective)}</strong>
-              </>
-            }
-          >
-            <div className="flex-sub value" style={{ width: 190 }}>
-              {formatThousands(perSecond)} DPS
-            </div>
-          </Tooltip>
-          <div
-            className="flex-sub"
-            style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}
-          >
-            <ThroughputPerformance throughput={perSecond} metric="dps">
-              {({ performance, topThroughput, medianDuration }) =>
-                performance &&
-                performance !== UNAVAILABLE &&
-                medianDuration && (
-                  <Tooltip
-                    content={
-                      <>
-                        Your DPS compared to the DPS of a top 100 player. To become a top 100{' '}
-                        <span className={this.selectedCombatant.player.type.replace(' ', '')}>
-                          {this.selectedCombatant.spec?.specName
-                            ? i18n._(this.selectedCombatant.spec.specName)
-                            : null}{' '}
-                          {this.selectedCombatant.player.type}
-                        </span>{' '}
-                        on this fight you need to do at least{' '}
-                        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                        <strong>{formatThousands(topThroughput || 0)} DPS</strong>.<br />
-                        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                        <br />
-                        Your fight lasted {formatDuration(this.owner.fightDuration)}. The median
-                        duration of the fights in the top 100 was {formatDuration(medianDuration)}.
-                      </>
-                    }
-                  >
-                    <div className={rankingColor(performance)} style={{ cursor: 'help' }}>
-                      {performance >= 1 ? 'TOP 100' : `${formatPercentage(performance, 0)}%`}
-                    </div>
-                  </Tooltip>
-                )
-              }
-            </ThroughputPerformance>
-          </div>
-          <div className="flex-main chart">
-            <a href={wclUrl}>
-              {perSecond > 0 && (
-                <AutoSizer disableWidth>
-                  {({ height }) => (
-                    <FlushLineChart
-                      data={data}
-                      duration={this.owner.fightDuration / 1000}
-                      height={height}
-                    />
-                  )}
-                </AutoSizer>
-              )}
-            </a>
-          </div>
-        </div>
-      </StatisticBar>
+      <DamageDoneStatistic
+        chartData={data}
+        eventDps={perSecond}
+        eventTotalDamage={this.total.effective}
+        fightDuration={this.owner.fightDuration}
+        fightId={this.owner.fightId}
+        fightEnd={this.owner.fight.end_time}
+        fightStart={this.owner.fight.start_time}
+        playerId={this.owner.playerId}
+        reportCode={this.owner.report.code}
+      />
     );
   }
 }
