@@ -21,7 +21,7 @@ class DotRefresh extends Analyzer {
       <p>
         Apply <SpellLink spell={SPELLS.MOONFIRE_CAST} /> and{' '}
         <SpellLink spell={SPELLS.SUNFIRE_CAST} /> on targets missing the DoT or within the pandemic
-        window (30% of its duration).
+        window (30% of its duration) to avoid wasting GCDs.
       </p>
     );
 

@@ -33,6 +33,7 @@ import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 import Haste from 'analysis/retail/druid/balance/modules/core/Haste';
 import DotRefresh from 'analysis/retail/druid/balance/modules/features/DotRefresh';
 import EclipseResource from 'analysis/retail/druid/balance/modules/features/EclipseResource';
+import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/MoonfireTracker';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -54,6 +55,7 @@ class CombatLogParser extends MainCombatLogParser {
     channeling: Channeling,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    moonfireTracker: MoonfireTracker,
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     fillerUsage: FillerUsage,

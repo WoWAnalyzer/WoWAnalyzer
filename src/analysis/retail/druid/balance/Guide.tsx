@@ -117,7 +117,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       </p>
 
       <Section title="DoTs">
-        {modules.dotUptimes.guideSubsection}
+        {modules.dotUptimes.guideSubsectionV2}
         {modules.dotRefresh.guideSubsection}
       </Section>
       <Section title="Eclipse">

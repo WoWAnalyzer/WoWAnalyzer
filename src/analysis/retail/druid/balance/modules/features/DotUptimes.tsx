@@ -50,6 +50,32 @@ class DotUptimes extends Analyzer {
     return explanationAndDataSubsection(explanation, data);
   }
 
+  get guideSubsectionV2() {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={SPELLS.MOONFIRE_CAST} />
+        </b>{' '}
+        and{' '}
+        <b>
+          <SpellLink spell={SPELLS.SUNFIRE} />
+        </b>{' '}
+        are high damage-per-cast-time DoTs that synergize well with many talents like{' '}
+        <SpellLink spell={TALENTS_DRUID.SHOOTING_STARS_TALENT} />. Maintaining 100% uptime is your
+        highest priority, even if some fights have unavoidable downtime (e.g. phase transitions).
+      </p>
+    );
+
+    const data = (
+      <RoundedPanel>
+        {this.moonfireUptime.subStatisticV2()}
+        {this.sunfireUptime.subStatistic()}
+      </RoundedPanel>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
+  }
+
   statistic() {
     return (
       <UptimeMultiBarStatistic
