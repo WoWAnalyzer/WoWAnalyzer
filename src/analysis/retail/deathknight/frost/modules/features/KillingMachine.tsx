@@ -16,7 +16,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { Fragment, type JSX } from 'react';
+import type { JSX } from 'react';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import RuneTracker from './RuneTracker';
@@ -157,10 +157,14 @@ class KillingMachineEfficiency extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            You wasted {this.totalWastedProcs} out of {this.totalProcs} Killing Machine procs (
-            {formatPercentage(this.wastedProcRate)}%). <br />
-            {this.expiredKMProcs} procs expired without being used and {this.refreshedKMProcs} procs
-            were overwritten by new procs.
+            <div>
+              You wasted {this.totalWastedProcs} out of {this.totalProcs} Killing Machine procs (
+              {formatPercentage(this.wastedProcRate)}%).
+            </div>
+            <div>
+              {this.expiredKMProcs} procs expired without being used and {this.refreshedKMProcs}{' '}
+              procs were overwritten by new procs.
+            </div>
           </>
         }
       >

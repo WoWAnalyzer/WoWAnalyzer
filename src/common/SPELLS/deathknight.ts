@@ -704,12 +704,6 @@ const spells = {
     icon: 'spell_shadow_raisedead',
   },
 
-  ABOMINATION_LIMB_GRIP_TICK: {
-    id: 383312,
-    name: 'Abomination Limb',
-    icon: 'ability_maldraxxus_deathknight',
-  },
-
   RUNE_1: {
     id: -101,
     name: 'Rune 1',

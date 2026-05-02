@@ -2,14 +2,6 @@
 import { Talent } from './types';
 
 const talents = {
-  ABOMINATION_LIMB_TALENT: {
-    id: 1263569,
-    name: 'Abomination Limb',
-    icon: 'ability_maldraxxus_deathknight',
-    maxRanks: 1,
-    entryIds: [136213],
-    definitionIds: [{ id: 140986, specId: 250 }],
-  },
   ALL_WILL_SERVE_TALENT: {
     id: 194916,
     name: 'All Will Serve',
