@@ -270,7 +270,12 @@ class DebuffTracker extends Analyzer {
 
     // Log cast impact
     if (correspondingCast) {
-      this.logCastImpact(correspondingCast, targetId, CastImpactType.NewDebuff, remainingDuration);
+      this.storeCastImpact(
+        correspondingCast,
+        targetId,
+        CastImpactType.NewDebuff,
+        remainingDuration,
+      );
     }
 
     DEBUG &&
@@ -303,7 +308,12 @@ class DebuffTracker extends Analyzer {
 
     // Log cast impact
     if (correspondingCast) {
-      this.logCastImpact(correspondingCast, targetId, CastImpactType.Overwrite, remainingDuration);
+      this.storeCastImpact(
+        correspondingCast,
+        targetId,
+        CastImpactType.Overwrite,
+        remainingDuration,
+      );
     }
 
     DEBUG &&
@@ -327,7 +337,7 @@ class DebuffTracker extends Analyzer {
 
     // Log cast impact
     if (correspondingCast) {
-      this.logCastImpact(
+      this.storeCastImpact(
         correspondingCast,
         targetId,
         CastImpactType.RefreshDuringPandemicWindow,
@@ -356,7 +366,7 @@ class DebuffTracker extends Analyzer {
 
     // Log cast impact
     if (correspondingCast) {
-      this.logCastImpact(correspondingCast, targetId, CastImpactType.NewDebuff, 0);
+      this.storeCastImpact(correspondingCast, targetId, CastImpactType.NewDebuff, 0);
     }
 
     DEBUG &&
@@ -380,7 +390,7 @@ class DebuffTracker extends Analyzer {
       .find((linkedEventEvent) => isCorrespondingEvent(linkedEventEvent));
   }
 
-  private logCastImpact(
+  private storeCastImpact(
     castEvent: CastEvent,
     targetId: number,
     castImpactType: CastImpactType,
