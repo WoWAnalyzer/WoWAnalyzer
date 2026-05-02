@@ -34,6 +34,7 @@ export interface CastImpactPerTarget {
 
 export interface CastImpact {
   castEvent: CastEvent;
+  /* targetId is crafted to be unique, does not match the regular targetId. Check the implementation. */
   castImpactPerTargetId: Record<string, CastImpactPerTarget>;
 }
 
