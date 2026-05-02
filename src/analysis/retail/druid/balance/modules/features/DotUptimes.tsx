@@ -52,26 +52,40 @@ class DotUptimes extends Analyzer {
 
   get guideSubsectionV2() {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={SPELLS.MOONFIRE_CAST} />
-        </b>{' '}
-        and{' '}
-        <b>
-          <SpellLink spell={SPELLS.SUNFIRE} />
-        </b>{' '}
-        are high damage-per-cast-time DoTs that synergize well with many talents like{' '}
-        <SpellLink spell={TALENTS_DRUID.SHOOTING_STARS_TALENT} />. Maintaining 100% uptime is your
-        highest priority, even if some fights have unavoidable downtime (e.g. phase transitions).
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={SPELLS.MOONFIRE_CAST} />
+          </b>{' '}
+          and{' '}
+          <b>
+            <SpellLink spell={SPELLS.SUNFIRE} />
+          </b>{' '}
+          are high damage-per-cast-time DoTs that synergize well with many talents like{' '}
+          <SpellLink spell={TALENTS_DRUID.SHOOTING_STARS_TALENT} />. Maintaining 100% uptime is your
+          highest priority, provided the target will live long enough for the DoT to yield value.
+        </p>
+        <p>
+          Apply <SpellLink spell={SPELLS.MOONFIRE_CAST} /> and{' '}
+          <SpellLink spell={SPELLS.SUNFIRE_CAST} /> on targets missing the DoT or within the
+          pandemic window (30% of its duration) to avoid wasting GCDs.
+        </p>
+        <p>
+          100% uptime is not always achievable due to encounter-specific transitions; analyze top
+          players' reports to establish a baseline for a specific encounter.
+        </p>
+      </>
     );
 
-    const data = (
-      <RoundedPanel>
-        {this.moonfireUptime.subStatisticV2()}
-        {this.sunfireUptime.subStatistic()}
-      </RoundedPanel>
-    );
+    const data = <RoundedPanel>{this.moonfireUptime.subStatisticV2()}</RoundedPanel>;
+
+    return explanationAndDataSubsection(explanation, data);
+  }
+
+  get guideSubsectionV2part2() {
+    const explanation = <></>;
+
+    const data = <RoundedPanel>{this.sunfireUptime.subStatisticV2()}</RoundedPanel>;
 
     return explanationAndDataSubsection(explanation, data);
   }

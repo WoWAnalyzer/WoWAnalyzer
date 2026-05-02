@@ -9,23 +9,21 @@ import {
   evaluateQualitativePerformanceByThreshold,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import EarlyDotRefreshesInstants from 'analysis/retail/druid/balance/modules/features/EarlyDotRefreshesInstants';
-import MoonfireTracker, {
+import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/MoonfireTracker';
+import {
   CastImpact,
   CastImpactType,
-} from 'analysis/retail/druid/balance/modules/spells/MoonfireTracker';
+} from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
 
 const BAR_COLOR = '#5E008D';
 
 class MoonfireUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     moonfireTracker: MoonfireTracker,
   };
 
   protected enemies!: Enemies;
-  protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected moonfireTracker!: MoonfireTracker;
 
   get uptimeHistory() {
@@ -71,13 +69,14 @@ class MoonfireUptime extends Analyzer {
     const goodCastEvaluationsCount = castEvaluations.filter(
       (castEvaluation) =>
         castEvaluation.performance == QualitativePerformance.Perfect ||
-        castEvaluation.performance == QualitativePerformance.Good,
+        castEvaluation.performance == QualitativePerformance.Good ||
+        castEvaluation.performance == QualitativePerformance.Ok,
     ).length;
     const goodCastsPercent = goodCastEvaluationsCount / castEvaluations.length;
     stats.push({
       value: `${formatPercentage(goodCastsPercent, 1)}%`,
-      label: 'Good casts',
-      tooltip: <>Percentage of good/perfect casts as described below.</>,
+      label: 'Useful casts',
+      tooltip: <>Percentage of casts that were perfect/good/okay</>,
     });
 
     return stats;

@@ -33,7 +33,7 @@ export default function CastOverview({ spell, stats, additionalContent }: CastOv
           {stats.map((stat, index) => {
             const color = stat.performance
               ? qualitativePerformanceToColor(stat.performance)
-              : '#ffffff';
+              : '#dadada';
 
             return (
               <Tooltip key={index} content={stat.tooltip}>

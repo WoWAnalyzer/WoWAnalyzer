@@ -4,12 +4,12 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import DebuffTracker from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
 
-const MOONFIRE_DURATION_MS = 18_000;
+const SUNFIRE_DURATION_MS = 18_000;
 const DEBUG = false;
 
-class MoonfireTracker extends DebuffTracker {
+class SunfireTracker extends DebuffTracker {
   constructor(options: Options) {
-    super(SPELLS.MOONFIRE_DEBUFF, MOONFIRE_DURATION_MS, options);
+    super(SPELLS.SUNFIRE, SUNFIRE_DURATION_MS, options);
 
     // -------------------------------------------------------------------------------------------------------
     // Aetherial Kindling
@@ -51,4 +51,4 @@ class MoonfireTracker extends DebuffTracker {
   }
 }
 
-export default MoonfireTracker;
+export default SunfireTracker;

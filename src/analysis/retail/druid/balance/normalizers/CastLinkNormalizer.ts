@@ -53,6 +53,18 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true, // want to catch Twin Moonfire cleaves here
     maximumLinks: 2, // remote but real possiblity of accidentally picking up Treant moonfires, cap links if that happens
   },
+  {
+    linkRelation: HITS_TARGET,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.SUNFIRE_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.SUNFIRE.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true, // want to catch Twin Moonfire cleaves here
+    maximumLinks: 2, // remote but real possiblity of accidentally picking up Treant moonfires, cap links if that happens
+  },
   // wild mushroom bursts exactly 1 sec after cast - TODO any danger of overlap if player spams at high haste?
   {
     linkRelation: FROM_HARDCAST,
