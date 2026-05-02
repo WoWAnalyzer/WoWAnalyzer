@@ -16,8 +16,17 @@ const CDR_PER_RANK = 3000;
 class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   protected ranks = 0;
 
+  protected elevatedPurifyCount = 0;
   protected cdrAmount = 0;
   protected wastedCdr = 0;
+
+  get elevatedPurifyCountTotal(): number {
+    return this.elevatedPurifyCount;
+  }
+
+  get elevatedPurifyCdr(): number {
+    return this.cdrAmount;
+  }
 
   uptime: EventHistory<EventType.ApplyBuff | EventType.RemoveBuff> = new StateHistory([]);
 
@@ -43,6 +52,7 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
 
   private elevatedStaggerCdr(_event: CastEvent): void {
     if (this.selectedCombatant.hasBuff(SPELLS.ELEVATED_STAGGER_BUFF)) {
+      this.elevatedPurifyCount += 1;
       // note: this is NOT shared brew CDR! it is only Purifying Brew!
       const actualCdr = this.deps.spellUsable.reduceCooldown(
         spells.PURIFYING_BREW_TALENT.id,
@@ -71,11 +81,11 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
         <BoringValue
           label={
             <>
-              <SpellLink spell={spells.HIGH_TOLERANCE_TALENT} /> Purify CDR
+              <SpellLink spell={spells.HIGH_TOLERANCE_TALENT} /> Elevated Purifies
             </>
           }
         >
-          {formatDurationMinSec(this.cdrAmount / 1000)}
+          {this.elevatedPurifyCount} casts / {formatDurationMinSec(this.cdrAmount / 1000)} CDR
         </BoringValue>
       </Statistic>
     );
