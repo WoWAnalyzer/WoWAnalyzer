@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { CastEvaluation, CastOverview } from 'interface/guide/components';
+import { CastEvaluation, CastOverview, StatisticData } from 'interface/guide/components';
 import CastSummary from 'src/interface/guide/components/CastSummary';
 import { formatPercentage } from 'common/format';
 import {
@@ -14,6 +14,7 @@ import {
   CastImpact,
   CastImpactType,
 } from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
+import Events from 'parser/core/Events';
 
 const BAR_COLOR = '#8F5D00';
 
@@ -26,8 +27,19 @@ class SunfireUptime extends Analyzer {
   protected enemies!: Enemies;
   protected sunfireTracker!: SunfireTracker;
 
-  get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.SUNFIRE.id);
+  private sunfireCastCount = 0;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUNFIRE_CAST),
+      this.onSunfire,
+    );
+  }
+
+  onSunfire() {
+    this.sunfireCastCount++;
   }
 
   subStatistic() {
@@ -58,22 +70,30 @@ class SunfireUptime extends Analyzer {
       label: 'Sunfire Uptime',
       tooltip: <>Sunfire uptime percentage</>,
       performance: uptimePercentPerformance,
-    });
+    } as StatisticData);
+
+    // Cast count
+    stats.push({
+      value: this.sunfireCastCount.toString(),
+      label: 'Sunfire Casts',
+    } as StatisticData);
 
     // Good casts
     const castEvaluations = this.buildCastEvaluations();
-    const goodCastEvaluationsCount = castEvaluations.filter(
+    const usefulCastEvaluationsCount = castEvaluations.filter(
       (castEvaluation) =>
         castEvaluation.performance == QualitativePerformance.Perfect ||
         castEvaluation.performance == QualitativePerformance.Good ||
         castEvaluation.performance == QualitativePerformance.Ok,
     ).length;
-    const goodCastsPercent = goodCastEvaluationsCount / castEvaluations.length;
+    const usefulCastsPercent = usefulCastEvaluationsCount / castEvaluations.length;
+    const usefulCastsPercentPerformance = this.getUsefulCastsPercentPerformance(usefulCastsPercent);
     stats.push({
-      value: `${formatPercentage(goodCastsPercent, 1)}%`,
+      value: `${formatPercentage(usefulCastsPercent, 1)}%`,
       label: 'Useful casts',
       tooltip: <>Percentage of casts that were perfect/good/okay</>,
-    });
+      performance: usefulCastsPercentPerformance,
+    } as StatisticData);
 
     return stats;
   }
@@ -135,6 +155,21 @@ class SunfireUptime extends Analyzer {
         ok: 0.85,
       },
     });
+  }
+
+  private getUsefulCastsPercentPerformance(usefulCastsPercent: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: usefulCastsPercent,
+      isGreaterThanOrEqual: {
+        perfect: 0.9,
+        good: 0.8,
+        ok: 0.7,
+      },
+    });
+  }
+
+  private get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.SUNFIRE.id);
   }
 }
 

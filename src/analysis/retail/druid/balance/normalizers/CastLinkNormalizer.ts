@@ -13,7 +13,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 const CAST_BUFFER_MS = 100;
 const MUSHROOM_BUFFER_MS = 1_100;
 
-const FROM_HARDCAST = 'FromHardcast';
+export const FROM_HARDCAST = 'FromHardcast';
 const HITS_TARGET = 'HitsTarget';
 const GENERATES_AP = 'GeneratesAp';
 

@@ -3,13 +3,14 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import DebuffTracker from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
+import { FROM_HARDCAST } from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
 
 const SUNFIRE_DURATION_MS = 18_000;
 const DEBUG = false;
 
 class SunfireTracker extends DebuffTracker {
   constructor(options: Options) {
-    super(SPELLS.SUNFIRE, SUNFIRE_DURATION_MS, options);
+    super(SPELLS.SUNFIRE, SUNFIRE_DURATION_MS, FROM_HARDCAST, options);
 
     // -------------------------------------------------------------------------------------------------------
     // Aetherial Kindling

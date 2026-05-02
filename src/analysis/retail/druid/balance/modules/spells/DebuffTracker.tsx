@@ -42,11 +42,18 @@ class DebuffTracker extends Analyzer {
   castImpactsPerEvent: Record<number, CastImpact> = {};
   private readonly debuffDuration: number;
   private readonly debuffSpell: Spell;
+  private readonly linkedEventRelation: string;
 
-  constructor(debuffSpell: Spell, debuffDuration: number, options: Options) {
+  constructor(
+    debuffSpell: Spell,
+    debuffDuration: number,
+    linkedEventRelation: string,
+    options: Options,
+  ) {
     super(options);
     this.debuffDuration = debuffDuration;
     this.debuffSpell = debuffSpell;
+    this.linkedEventRelation = linkedEventRelation;
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(this.debuffSpell),
@@ -367,7 +374,7 @@ class DebuffTracker extends Analyzer {
     }
 
     return debuffEvent._linkedEvents
-      ?.filter((linkedEvent) => linkedEvent.relation == 'FromHardcast')
+      ?.filter((linkedEvent) => linkedEvent.relation == this.linkedEventRelation)
       ?.map((linkedEvent) => linkedEvent.event)
       .find((linkedEventEvent) => isCorrespondingEvent(linkedEventEvent));
   }

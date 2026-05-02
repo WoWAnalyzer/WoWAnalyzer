@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { CastEvaluation, CastOverview } from 'interface/guide/components';
+import { CastEvaluation, CastOverview, StatisticData } from 'interface/guide/components';
 import CastSummary from 'src/interface/guide/components/CastSummary';
 import { formatPercentage } from 'common/format';
 import {
@@ -14,6 +14,7 @@ import {
   CastImpact,
   CastImpactType,
 } from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
+import Events from 'parser/core/Events';
 
 const BAR_COLOR = '#5E008D';
 
@@ -26,8 +27,19 @@ class MoonfireUptime extends Analyzer {
   protected enemies!: Enemies;
   protected moonfireTracker!: MoonfireTracker;
 
-  get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_DEBUFF.id);
+  private moonfireCastCount = 0;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE_CAST),
+      this.onMoonfire,
+    );
+  }
+
+  onMoonfire() {
+    this.moonfireCastCount++;
   }
 
   subStatistic() {
@@ -62,24 +74,43 @@ class MoonfireUptime extends Analyzer {
       label: 'Moonfire Uptime',
       tooltip: <>Moonfire uptime percentage</>,
       performance: uptimePercentPerformance,
-    });
+    } as StatisticData);
+
+    // Cast count
+    stats.push({
+      value: this.moonfireCastCount.toString(),
+      label: 'Moonfire Casts',
+    } as StatisticData);
 
     // Good casts
     const castEvaluations = this.buildCastEvaluations();
-    const goodCastEvaluationsCount = castEvaluations.filter(
+    const usefulCastEvaluationsCount = castEvaluations.filter(
       (castEvaluation) =>
         castEvaluation.performance == QualitativePerformance.Perfect ||
         castEvaluation.performance == QualitativePerformance.Good ||
         castEvaluation.performance == QualitativePerformance.Ok,
     ).length;
-    const goodCastsPercent = goodCastEvaluationsCount / castEvaluations.length;
+    const usefulCastsPercent = usefulCastEvaluationsCount / castEvaluations.length;
+    const usefulCastsPercentPerformance = this.getUsefulCastsPercentPerformance(usefulCastsPercent);
     stats.push({
-      value: `${formatPercentage(goodCastsPercent, 1)}%`,
+      value: `${formatPercentage(usefulCastsPercent, 1)}%`,
       label: 'Useful casts',
       tooltip: <>Percentage of casts that were perfect/good/okay</>,
-    });
+      performance: usefulCastsPercentPerformance,
+    } as StatisticData);
 
     return stats;
+  }
+
+  private getUsefulCastsPercentPerformance(usefulCastsPercent: number) {
+    return evaluateQualitativePerformanceByThreshold({
+      actual: usefulCastsPercent,
+      isGreaterThanOrEqual: {
+        perfect: 0.9,
+        good: 0.8,
+        ok: 0.7,
+      },
+    });
   }
 
   private getUptimePercentPerformance(uptimePercent: number) {
@@ -139,6 +170,10 @@ class MoonfireUptime extends Analyzer {
       performance: performance,
       reason: `${newDebuffCount} created, ${refreshCount} refreshed, ${overwriteCount} overwriten`,
     };
+  }
+
+  private get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.MOONFIRE_DEBUFF.id);
   }
 }
 
