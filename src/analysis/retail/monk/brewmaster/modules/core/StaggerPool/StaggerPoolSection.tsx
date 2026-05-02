@@ -114,7 +114,7 @@ export default function StaggerPoolSection(): JSX.Element | null {
         </SummaryDL>
         <Explanation>
           This chart shows the amount of damage in the <SpellLink spell={spells.STAGGER_TALENT} />{' '}
-          pool over time, with <SpellLink spell={spells.PURIFYING_BREW_TALENT} /> casts highlighted
+          pool over time, with <SpellLink spell={spells.PURIFYING_BREW_TALENT} /> casts highlighted.
           {graph?.deps.ht.active == true && (
             <>
               {' '}
