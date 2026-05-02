@@ -31,6 +31,7 @@ import {
 import { CHAINED_CAST, CHAINED_FROM_CAST } from './DisintegrateChainCastLinks';
 import { ETERNITY_SURGE_FROM_CAST } from './EternitySurgeNormalizer';
 import { DEEP_BREATH_SPELL_IDS } from 'analysis/retail/evoker/shared';
+import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 
 const BURNOUT_CONSUME = 'BurnoutConsumption';
 const SNAPFIRE_CONSUME = 'SnapfireConsumption';
@@ -361,6 +362,10 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    EmpowerNormalizer: EmpowerNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }

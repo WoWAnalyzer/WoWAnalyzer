@@ -1,4 +1,5 @@
 import {
+  AddRelatedEvent,
   CastEvent,
   EmpowerEndEvent,
   EventType,
@@ -7,28 +8,9 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import SPELLS from 'common/SPELLS';
-import { TALENTS_EVOKER, TALENTS_MONK } from 'common/TALENTS';
+import Abilities from 'parser/core/modules/Abilities';
 
-// Maybe get a reasonable list of empower spells that doesnt require manual updating ?
-const EMPOWERS = [
-  // Shared
-  SPELLS.FIRE_BREATH.id,
-  SPELLS.FIRE_BREATH_FONT.id,
-  // Devastation
-  SPELLS.ETERNITY_SURGE.id,
-  SPELLS.ETERNITY_SURGE_FONT.id,
-  // Augmentation
-  SPELLS.UPHEAVAL.id,
-  SPELLS.UPHEAVAL_FONT.id,
-  // Preservation
-  // TALENTS.SPIRITBLOOM_TALENT.id,
-  SPELLS.SPIRITBLOOM_FONT.id,
-  TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
-  SPELLS.DREAM_BREATH_FONT.id,
-  SPELLS.AZERITE_SURGE.id,
-  TALENTS_MONK.SLICING_WINDS_TALENT.id,
-];
+const EMPOWERS: number[] = [];
 
 export const EMPOWER_CAST = 'EmpoweredCast';
 export const EMPOWER_END = 'EmpowerEnd';
@@ -66,16 +48,31 @@ const EVENT_LINKS: EventLink[] = [
  *
  * Empowers can be released at empowerment level 0, which actually is a cancelled cast,
  * since the empower doesn't go on cooldown or trigger anything.
+ * The handling of this happens in the channeling module
  *
- * To handle this we look at the complementary buff with the spell id and trigger an EmpowerCancel event when the BuffRemove event happens.
- * There are a few spells that do not have a logged buff attached which instead get the EmpowerCancel event attached to the CastEvent itself
  * */
 class EmpowerNormalizer extends EventLinkNormalizer {
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    abilities: Abilities,
+  };
+
   constructor(options: Options) {
     super(options, EVENT_LINKS);
-    // Set to high priority so it runs before other normalizers
-    this.priority -= 100;
+    this.owner
+      .getModule(Abilities)
+      ?.abilitiesThatAreEmpowers.forEach((a: number) => EMPOWERS.push(a));
+    console.log(EMPOWERS);
+    this.active = EMPOWERS.length > 0;
+    //Run ASAP
+    this.priority = this.owner.getModule(Abilities).priority;
   }
+}
+
+/** Use this to retroactively create a cast link */
+export function createCastEndLink(castEvent: CastEvent, empowerEndEvent: EmpowerEndEvent) {
+  AddRelatedEvent(castEvent, EMPOWER_END, empowerEndEvent);
+  AddRelatedEvent(empowerEndEvent, EMPOWER_CAST, castEvent);
 }
 
 /** Use this to verify if an Empower was cancelled or finished casting.

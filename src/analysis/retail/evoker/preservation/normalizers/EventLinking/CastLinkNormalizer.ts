@@ -7,6 +7,7 @@ import { ECHO_EVENT_LINKS } from './EchoEventLinks';
 import { BRONZE_EVENT_LINKS } from './BronzeEventLinks';
 import { GREEN_EVENT_LINKS } from './GreenEventLinks';
 import { RED_EVENT_LINKS } from './RedEventLinks';
+import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 
 const EVENT_LINKS: EventLink[] = [
   ...ECHO_EVENT_LINKS,
@@ -30,6 +31,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
     essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    EmpowerNormalizer: EmpowerNormalizer,
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);

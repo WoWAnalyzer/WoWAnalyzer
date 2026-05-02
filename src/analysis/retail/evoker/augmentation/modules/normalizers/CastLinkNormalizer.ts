@@ -20,6 +20,7 @@ import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import PrePullCooldowns from 'parser/shared/normalizers/PrePullCooldowns';
 import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { BREATH_OF_EONS_SPELL_IDS } from '../../constants';
+import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
@@ -431,7 +432,11 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   // We need to ensure this normalizer runs after the PrePullCooldownsNormalizer
   // This is necessary if we want BreathOfEons module to function properly
   // With pre-pull casts of Breath of Eons
-  static dependencies = { ...EventLinkNormalizer.dependencies, prePullCooldowns: PrePullCooldowns };
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    prePullCooldowns: PrePullCooldowns,
+    EmpowerNormalizer: EmpowerNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }

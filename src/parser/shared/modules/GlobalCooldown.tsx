@@ -5,7 +5,6 @@ import Events, {
   AbilityEvent,
   BeginChannelEvent,
   CastEvent,
-  EmpowerCancelEvent,
   EmpowerEndEvent,
   EndChannelEvent,
   EventType,
@@ -49,7 +48,6 @@ class GlobalCooldown extends Analyzer {
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
     this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerTrigger);
-    this.addEventListener(Events.empowerCancel.by(SELECTED_PLAYER), this.onEmpowerTrigger);
 
     if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
       this.minDuration = MIN_GCD_CLASSIC;
@@ -76,7 +74,7 @@ class GlobalCooldown extends Analyzer {
 
   /** Returns true if this ability has the empower specific events linked, false if not */
   isEmpowerSpell(event: CastEvent | BeginChannelEvent): boolean {
-    return Boolean(this.abilities.getIsEmpower(event.ability.guid));
+    return this.abilities.getIsEmpower(event.ability.guid);
   }
 
   _currentChannel: BeginChannelEvent | EndChannelEvent | null = null;
@@ -144,9 +142,8 @@ class GlobalCooldown extends Analyzer {
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
-  /** Empower global cooldown handling for empower end and empower cancel events.
-   * Currently only evoker empower spells have these events linked / added*/
-  onEmpowerTrigger(event: EmpowerEndEvent | EmpowerCancelEvent) {
+  /** Empower global cooldown handling for empower end and empower cancel events.*/
+  onEmpowerTrigger(event: EmpowerEndEvent) {
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 

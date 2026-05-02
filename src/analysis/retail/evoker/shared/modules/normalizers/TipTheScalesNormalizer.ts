@@ -1,5 +1,5 @@
+import TALENTS from 'common/TALENTS/evoker';
 import {
-  AddRelatedEvent,
   AnyEvent,
   CastEvent,
   EmpowerEndEvent,
@@ -8,12 +8,8 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { TALENTS_EVOKER } from 'common/TALENTS';
-import { EMPOWERS as EMPOWERS_EVOKER } from 'analysis/retail/evoker/shared';
-import EmpowerNormalizer, {
-  EMPOWER_CAST,
-  EMPOWER_END,
-} from 'parser/shared/normalizers/EmpowerNormalizer';
+import EmpowerNormalizer, { createCastEndLink } from 'parser/shared/normalizers/EmpowerNormalizer';
+import { EMPOWERS } from '../../constants';
 
 const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
 
@@ -23,16 +19,16 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: TIP_THE_SCALES_CONSUME,
     reverseLinkRelation: TIP_THE_SCALES_CONSUME,
-    linkingEventId: TALENTS_EVOKER.TIP_THE_SCALES_TALENT.id,
+    linkingEventId: TALENTS.TIP_THE_SCALES_TALENT.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: EMPOWERS_EVOKER,
+    referencedEventId: EMPOWERS,
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: TIP_THE_SCALES_CONSUME_BUFFER,
     backwardBufferMs: TIP_THE_SCALES_CONSUME_BUFFER,
     maximumLinks: 1,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.TIP_THE_SCALES_TALENT);
+      return c.hasTalent(TALENTS.TIP_THE_SCALES_TALENT);
     },
   },
 ];
@@ -51,10 +47,12 @@ const EVENT_LINKS: EventLink[] = [
 class TipTheScalesNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
-    empowerNormalizer: EmpowerNormalizer,
+    EmpowerNormalizer: EmpowerNormalizer,
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    // EmpowerNormalizer will always run first if given the same priority since this module is only loaded when EmpowerNormalizer is loaded
+    this.priority = this.owner.getModule(EmpowerNormalizer).priority;
   }
 
   /** Create EmpowerEnd events for Empowers cast with Tip the Scales
@@ -64,9 +62,9 @@ class TipTheScalesNormalizer extends EventLinkNormalizer {
     const events = super.normalize(rawEvents);
 
     const hasFont =
-      this.owner.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
-      this.owner.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
-      this.owner.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT);
+      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
+      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+      this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT);
 
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event) => {
@@ -89,8 +87,7 @@ class TipTheScalesNormalizer extends EventLinkNormalizer {
         __fabricated: true,
       };
 
-      AddRelatedEvent(event, EMPOWER_END, fabricatedEvent);
-      AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, event);
+      createCastEndLink(event, fabricatedEvent);
 
       fixedEvents.push(event);
       fixedEvents.push(fabricatedEvent);
