@@ -72,10 +72,10 @@ class DotUptimes extends Analyzer {
             or <SpellLink spell={SPELLS.STARFIRE} />.
           </li>
           <li>
-            <strong>Efficiency:</strong> Refresh during the Pandemic window (last 30%) to extend the
-            duration without wasting Global Cooldowns. A low useful casts score (widgets on the
-            right) is often a symptom of useless DoTs spammed during movement phases. Try to pool{' '}
-            <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} /> beforehand and cast{' '}
+            <strong>Efficiency:</strong> Refresh DoTs during the Pandemic window (last 30%) to
+            extend the duration without wasting Global Cooldowns. If your Useful Casts score is low,
+            you may be over-refreshing DoTs while moving. To optimize movement, pool{' '}
+            <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} /> ahead of time and cast{' '}
             <SpellLink spell={TALENTS_DRUID.STARSURGE_SHARED_TALENT} /> or{' '}
             <SpellLink spell={SPELLS.STARFALL_CAST} /> while moving.
           </li>
