@@ -83,7 +83,7 @@ class GlobalCooldown extends Analyzer {
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    */
   onBeginChannel(event: BeginChannelEvent) {
-    if (!this.isEmpowerSpell(event)) {
+    if (this.isEmpowerSpell(event)) {
       return;
     }
     if (!event.trigger || event.trigger.type !== EventType.Cast) {
