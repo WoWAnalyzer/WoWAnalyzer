@@ -62,7 +62,6 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     this.owner
       .getModule(Abilities)
       ?.abilitiesThatAreEmpowers.forEach((a: number) => EMPOWERS.push(a));
-    console.log(EMPOWERS);
     this.active = EMPOWERS.length > 0;
     //Run ASAP
     this.priority = this.owner.getModule(Abilities).priority;

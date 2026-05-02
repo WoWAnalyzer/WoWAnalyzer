@@ -25,10 +25,7 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
-import EmpowerNormalizer, {
-  createCastEndLink,
-  getEmpowerEndEvent,
-} from 'parser/shared/normalizers/EmpowerNormalizer';
+import { createCastEndLink, getEmpowerEndEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
 import PrePullCooldowns from './PrePullCooldowns';
 import { isFromTipTheScales } from 'analysis/retail/evoker/shared/modules/normalizers/TipTheScalesNormalizer';
 
@@ -56,8 +53,6 @@ class Channeling extends EventsNormalizer {
     ...EventsNormalizer.dependencies,
     /** We add dependency to PrePullCooldowns to ensure we also normalize fabricated pre-pull events */
     prePullCooldowns: PrePullCooldowns,
-    /** Dependency is necessary because every tipped empower would be incorrectly marked as cancelled */
-    EmpowerNormalizer: EmpowerNormalizer,
   };
   /**
    * Listing of all special case handlers for channels
@@ -348,7 +343,6 @@ function cancelCurrentEmpower(currentEvent: RemoveBuffEvent, channelState: Chann
     channelState.eventsInserter.addAfterEvent(empowerEnd, currentEvent);
 
     channelState.unresolvedChannel = null;
-    console.log(empowerEnd);
   }
 }
 
