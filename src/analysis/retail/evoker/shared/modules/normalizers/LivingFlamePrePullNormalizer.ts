@@ -5,7 +5,6 @@ import { AnyEvent, ApplyDebuffEvent, BeginCastEvent, EventType } from 'parser/co
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import Haste from 'parser/shared/modules/Haste';
 import { isRealCast } from 'parser/shared/normalizers/Channeling';
-import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 
 /**
  * Living flame is a very common pre-pull cast
@@ -17,7 +16,6 @@ import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 class LivingFlamePrePullNormalizer extends EventsNormalizer {
   static dependencies = {
     ...EventsNormalizer.dependencies,
-    EmpowerNormalizer: EmpowerNormalizer,
     haste: Haste,
   };
   protected haste!: Haste;

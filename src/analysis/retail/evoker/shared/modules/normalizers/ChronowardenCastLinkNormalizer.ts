@@ -15,7 +15,7 @@ import {
 } from 'parser/core/Events';
 import { isFromLeapingFlames, LIVING_FLAME_CAST_HIT } from './LeapingFlamesNormalizer';
 import { AFTERIMAGE_MAX_HITS } from '../../constants';
-import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
+import TipTheScalesNormalizer from './TipTheScalesNormalizer';
 
 const AFTERIMAGE_CAST_LINK = 'AfterimageCastLink';
 const AFTERIMAGE_DAMAGE_LINK = 'AfterimageDamageLink';
@@ -118,7 +118,7 @@ const EVENT_LINKS: EventLink[] = [
 class AfterimageCastLinkNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
-    EmpowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);

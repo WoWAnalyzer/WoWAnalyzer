@@ -7,37 +7,13 @@ import {
   HasRelatedEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
-
-const EMPOWERS: number[] = [];
 
 export const EMPOWER_CAST = 'EmpoweredCast';
 export const EMPOWER_END = 'EmpowerEnd';
 
 const EMPOWERED_CAST_BUFFER = 6000;
-
-const EVENT_LINKS: EventLink[] = [
-  {
-    linkRelation: EMPOWER_CAST,
-    reverseLinkRelation: EMPOWER_END,
-    linkingEventId: EMPOWERS,
-    linkingEventType: EventType.EmpowerEnd,
-    referencedEventId: EMPOWERS,
-    referencedEventType: EventType.Cast,
-    /** We only look backwards from the empowerEnd event to not accidentally add the link to a cancelled cast */
-    backwardBufferMs: EMPOWERED_CAST_BUFFER,
-    anyTarget: true,
-    maximumLinks: 1,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        (linkingEvent as EmpowerEndEvent).empowermentLevel > 0 &&
-        (linkingEvent as EmpowerEndEvent).ability.guid ===
-          (referencedEvent as CastEvent).ability.guid
-      );
-    },
-  },
-];
 
 /** Creates links between cast Events and EmpowerEnd events for Empowers which can then be
  * used to verify whether the cast was finished or cancelled - will also create links between
@@ -56,15 +32,35 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     ...EventLinkNormalizer.dependencies,
     abilities: Abilities,
   };
-
   constructor(options: Options) {
-    super(options, EVENT_LINKS);
-    this.owner
+    super(options, []);
+
+    const empowers = this.owner // can abstract this to a method in abilities, but don't really think we need to tbh
       .getModule(Abilities)
-      ?.abilitiesThatAreEmpowers.forEach((a: number) => EMPOWERS.push(a));
-    this.active = EMPOWERS.length > 0;
-    //Run ASAP
-    this.priority = this.owner.getModule(Abilities).priority;
+      .activeAbilities.filter((a) => a.isEmpower)
+      .flatMap((a) => a.spell);
+
+    this.active = empowers.length > 0;
+
+    this.eventLinks.push({
+      linkRelation: EMPOWER_CAST,
+      reverseLinkRelation: EMPOWER_END,
+      linkingEventId: empowers,
+      linkingEventType: EventType.EmpowerEnd,
+      referencedEventId: empowers,
+      referencedEventType: EventType.Cast,
+      /** We only look backwards from the empowerEnd event to not accidentally add the link to a cancelled cast */
+      backwardBufferMs: EMPOWERED_CAST_BUFFER,
+      anyTarget: true,
+      maximumLinks: 1,
+      additionalCondition(linkingEvent, referencedEvent) {
+        return (
+          (linkingEvent as EmpowerEndEvent).empowermentLevel > 0 &&
+          (linkingEvent as EmpowerEndEvent).ability.guid ===
+            (referencedEvent as CastEvent).ability.guid
+        );
+      },
+    });
   }
 }
 
