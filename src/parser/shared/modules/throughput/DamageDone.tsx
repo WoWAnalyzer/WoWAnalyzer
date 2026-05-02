@@ -11,6 +11,14 @@ import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerforma
 import AutoSizer from 'react-virtualized-auto-sizer';
 
 import DamageValue from '../DamageValue';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import SPELLS from 'common/SPELLS/evoker';
+import {
+  EBON_MIGHT_PERSONAL_DAMAGE_AMP,
+  BREATH_OF_EONS_MULTIPLIER,
+  GOLDEN_OPPORTUNITY_PRESCIENCE_MULTIPLIER,
+  SHIFTING_SANDS_MASTERY_COEFFICIENT,
+} from 'analysis/retail/evoker/augmentation/constants';
 import { i18n } from '@lingui/core';
 import Enemies from '../Enemies';
 
@@ -24,6 +32,10 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
 
   _total = DamageValue.empty();
   private _totalBoss = DamageValue.empty();
+  _augmentedExtra = 0;
+
+  _augmentationDamageTotal = 0;
+  _augmentationBreakdown: Record<number, number> = {};
 
   get total() {
     return this._total;
@@ -60,6 +72,34 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
         this.bySecond[secondsIntoFight] = DamageValue.empty();
       }
       this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight].addEvent(event);
+
+      // Track damage done while any augmentation buff is active, and attribute extra damage
+      try {
+        const augmentationBuffs: Array<{ id: number | undefined; multiplier?: number }> = [
+          { id: SPELLS.EBON_MIGHT_BUFF_EXTERNAL?.id, multiplier: EBON_MIGHT_PERSONAL_DAMAGE_AMP },
+          { id: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF?.id, multiplier: BREATH_OF_EONS_MULTIPLIER },
+          { id: SPELLS.PRESCIENCE_BUFF?.id, multiplier: GOLDEN_OPPORTUNITY_PRESCIENCE_MULTIPLIER },
+          { id: SPELLS.SHIFTING_SANDS_BUFF?.id, multiplier: SHIFTING_SANDS_MASTERY_COEFFICIENT },
+        ];
+
+        let anyAug = false;
+        augmentationBuffs.forEach((b) => {
+          if (!b.id) return;
+          if (this.selectedCombatant.hasBuff(b.id, event.timestamp)) {
+            anyAug = true;
+            this._augmentationBreakdown[b.id] =
+              (this._augmentationBreakdown[b.id] || 0) + event.amount + (event.absorbed || 0);
+            if (b.multiplier) {
+              this._augmentedExtra += calculateEffectiveDamage(event, b.multiplier as number);
+            }
+          }
+        });
+        if (anyAug) {
+          this._augmentationDamageTotal += event.amount + (event.absorbed || 0);
+        }
+      } catch (error) {
+        console.warn('Failed to track augmentation buffs:', error);
+      }
     }
   }
   onByPlayerPetDamage(event: DamageEvent) {
@@ -73,6 +113,34 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
       const petId = event.sourceID;
       if (petId) {
         this._byPet[petId] = this.byPet(petId).addEvent(event);
+      }
+
+      // Track augmentation damage for pets similarly
+      try {
+        const augmentationBuffs: Array<{ id: number | undefined; multiplier?: number }> = [
+          { id: SPELLS.EBON_MIGHT_BUFF_EXTERNAL?.id, multiplier: EBON_MIGHT_PERSONAL_DAMAGE_AMP },
+          { id: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF?.id, multiplier: BREATH_OF_EONS_MULTIPLIER },
+          { id: SPELLS.PRESCIENCE_BUFF?.id, multiplier: GOLDEN_OPPORTUNITY_PRESCIENCE_MULTIPLIER },
+          { id: SPELLS.SHIFTING_SANDS_BUFF?.id, multiplier: SHIFTING_SANDS_MASTERY_COEFFICIENT },
+        ];
+
+        let anyAug = false;
+        augmentationBuffs.forEach((b) => {
+          if (!b.id) return;
+          if (this.selectedCombatant.hasBuff(b.id, event.timestamp)) {
+            anyAug = true;
+            this._augmentationBreakdown[b.id] =
+              (this._augmentationBreakdown[b.id] || 0) + event.amount + (event.absorbed || 0);
+            if (b.multiplier) {
+              this._augmentedExtra += calculateEffectiveDamage(event, b.multiplier as number);
+            }
+          }
+        });
+        if (anyAug) {
+          this._augmentationDamageTotal += event.amount + (event.absorbed || 0);
+        }
+      } catch (error) {
+        console.warn('Failed to track augmentation buffs:', error);
       }
     }
   }
@@ -90,6 +158,10 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
     }));
 
     const perSecond = (this.total.effective / this.owner.fightDuration) * 1000;
+    // Normalized DPS attempts to remove damage attributable to augmentation buffs so we can compare
+    // a player's baseline performance without augmentation. We currently attribute Ebon Might as a 20% buff.
+    const normalizedDamage = Math.max(0, this.total.effective - this._augmentedExtra);
+    const normalizedPerSecond = (normalizedDamage / this.owner.fightDuration) * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
       fight: this.owner.fightId,
       source: this.owner.playerId,
@@ -116,7 +188,49 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
             }
           >
             <div className="flex-sub value" style={{ width: 190 }}>
-              {formatThousands(perSecond)} DPS
+              {this._augmentedExtra > 0 ? (
+                <div>
+                  <div style={{ fontWeight: 600 }}>{formatThousands(perSecond)} DPS</div>
+                  <div style={{ fontSize: 12, color: '#999', marginTop: 6 }}>
+                    <Tooltip
+                      content={
+                        <>
+                          Due to Evoker augmentation buffs you were boosted by{' '}
+                          <strong>
+                            {formatPercentage(
+                              // boost relative to baseline
+                              this.total.effective - this._augmentedExtra > 0
+                                ? this._augmentedExtra /
+                                    (this.total.effective - this._augmentedExtra)
+                                : 0,
+                              1,
+                            )}
+                          </strong>
+                          . This amounts to roughly{' '}
+                          <strong>
+                            {formatThousands(
+                              (this._augmentedExtra / this.owner.fightDuration) * 1000,
+                            )}
+                          </strong>{' '}
+                          DPS added. Without augmentation your DPS would be{' '}
+                          <strong>{formatThousands(normalizedPerSecond)}</strong>.
+                        </>
+                      }
+                    >
+                      <span style={{ textDecoration: 'underline', cursor: 'help' }}>
+                        Augmented DPS
+                      </span>
+                    </Tooltip>
+                    : <strong>{formatThousands(perSecond)}</strong>
+                  </div>
+                  <div style={{ fontSize: 12, color: '#999', marginTop: 3 }}>
+                    <span>Normalized DPS: </span>
+                    <strong>{formatThousands(normalizedPerSecond)}</strong>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ fontWeight: 600 }}>{formatThousands(perSecond)} DPS</div>
+              )}
             </div>
           </Tooltip>
           <div
