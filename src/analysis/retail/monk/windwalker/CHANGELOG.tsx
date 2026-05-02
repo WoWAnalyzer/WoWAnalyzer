@@ -6,6 +6,17 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 4, 30),
+    <>
+      Updated <SpellLink spell={TALENTS.ZENITH_TALENT} /> cooldown handling to a 90-second base
+      cooldown with <SpellLink spell={TALENTS.EFFICIENT_TRAINING_TALENT} /> reducing it by 10
+      seconds and <SpellLink spell={TALENTS.SPIRITUAL_FOCUS_TALENT} /> reducing it by 20 seconds,
+      and removed the <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} /> Chi gain/waste breakdown
+      from Zenith guide and statistic output pending further investigation.
+    </>,
+    Durpn,
+  ),
+  change(
     date(2026, 4, 12),
     <>
       Gated <SpellLink spell={SPELLS.RUSHING_WIND_KICK_CAST} /> priority and chi reservation on

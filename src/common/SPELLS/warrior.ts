@@ -440,7 +440,7 @@ const spells = {
     icon: 'warrior_talent_icon_skirmisher',
   },
   MASTER_OF_WARFARE: {
-    id: 1269394,
+    id: 1269391,
     name: 'Master of Warfare',
     icon: 'inv12_apextalent_warrior_masterofwarfare',
   },

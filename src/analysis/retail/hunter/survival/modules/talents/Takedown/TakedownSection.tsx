@@ -23,7 +23,6 @@ export default function TakedownSection(): JSX.Element | null {
   }
 
   const hasTwinFangs = info.combatant.hasTalent(TALENTS.TWIN_FANGS_TALENT);
-  const hasBoomstick = info.combatant.hasTalent(TALENTS.BOOMSTICK_TALENT);
 
   return (
     <SubSection title={<SpellLink spell={TALENTS.TAKEDOWN_TALENT} />}>
@@ -32,36 +31,32 @@ export default function TakedownSection(): JSX.Element | null {
           Always enter <SpellLink spell={TALENTS.TAKEDOWN_TALENT} /> with a{' '}
           <SpellLink spell={SPELLS.RAPTOR_SWIPE_BUFF} /> buff active.
         </p>
-        {hasBoomstick && (
-          <p>
-            When <SpellLink spell={TALENTS.BOOMSTICK_TALENT} /> is available, weave it directly
-            before Takedown: Prime Swipe if not active → Boomstick → Takedown.
-          </p>
-        )}
+
         {hasTwinFangs ? (
           <p>
             With <SpellLink spell={TALENTS.TWIN_FANGS_TALENT} />, Takedown generates{' '}
-            <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST} /> stacks on its own. Spend one stack
-            immediately to make room for the beast spawn: Swipe → Kill Command → Strike → Swipe →
-            Strike → Kill Command → Swipe.
+            <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST} /> stacks on its own. Aim to enter
+            Takedown with 0 stacks to maximise effectiveness of Twin Fangs.
           </p>
         ) : (
           <p>
-            Without <SpellLink spell={TALENTS.TWIN_FANGS_TALENT} />, ensure{' '}
-            <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST} /> is active when casting Takedown. If
-            you have 0-1 stack after casting Takedown, you can Kill Command immediately, otherwise
-            spend one stack on Raptor and then Kill Command to spawn the beast.
+            Without <SpellLink spell={TALENTS.TWIN_FANGS_TALENT} />, Takedown does not generate{' '}
+            <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST} /> stacks on its own. Use{' '}
+            <SpellLink spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT} /> before Takedown to maximise
+            stacks during Takedown.
           </p>
         )}
+        <p>
+          The analysis below is done as if you are in a situation in which you can follow the APL.
+          Some fights may dictate that you do not prime Swipe, or that you immediately Kill Command
+          to spawn a beast such as the tight timings on Mythic Averzian. In these cases, the
+          suggestions below may not be applicable.
+        </p>
       </Explanation>
       <CooldownGrid
         label={<SpellLink spell={TALENTS.TAKEDOWN_TALENT} />}
         timeline={{
-          cooldowns: [
-            TALENTS.KILL_COMMAND_SURVIVAL_TALENT,
-            TALENTS.WILDFIRE_BOMB_TALENT,
-            TALENTS.BOOMSTICK_TALENT,
-          ],
+          cooldowns: [TALENTS.KILL_COMMAND_SURVIVAL_TALENT, TALENTS.WILDFIRE_BOMB_TALENT],
         }}
         table={{
           type: EventType.Damage,

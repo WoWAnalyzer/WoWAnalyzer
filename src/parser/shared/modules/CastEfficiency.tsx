@@ -334,9 +334,7 @@ class CastEfficiency extends Analyzer {
     let efficiency;
     if (ability.castEfficiency.maxCasts) {
       // legacy support for custom maxCasts
-      // We need to use maxCasts and not rawMaxCasts because the efficiency here
-      // is the number of casts that could actually be cast (so get rid of decimals that are meaningless)
-      efficiency = Math.min(1, casts / maxCasts! || 0);
+      efficiency = Math.min(1, casts / rawMaxCasts! || 0);
     } else {
       // Cast efficiency calculated as the percent of fight time spell was unavailable
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
@@ -345,9 +343,7 @@ class CastEfficiency extends Analyzer {
         const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD;
         efficiency = timeUnavailable / availableFightDuration;
       } else if (includeNoCooldownEfficiency) {
-        // We need to use maxCasts and not rawMaxCasts because the efficiency here
-        // is the number of casts that could actually be cast (so get rid of decimals that are meaningless)
-        efficiency = casts / maxCasts!;
+        efficiency = casts / rawMaxCasts!;
       } else {
         efficiency = null;
       }

@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
-import { emallson, NotStirred } from 'CONTRIBUTORS';
+import { emallson, Mahmud17, NotStirred, kate } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
+import spells from 'common/SPELLS';
 import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 2), <>Add an Elevated Purifying Brew comparison box to Stagger Management with cast efficiency, total casts, elevated casts, max casts, and elevated cooldown reduction for <SpellLink spell={SPELLS.PURIFYING_BREW_TALENT} /> while <SpellLink spell={spells.ELEVATED_STAGGER_BUFF} /> is active (CDR shown as mm:ss).</>, Mahmud17),
+  change(date(2026, 4, 26), <>Mark purify events in Overview Stagger Pool chart green if cast while <SpellLink spell={spells.ELEVATED_STAGGER_BUFF} /> is applied or <SpellLink spell={SPELLS.HIGH_IMPACT_TALENT} />isn't talented, otherwise red.</>, kate),
   change(date(2026, 4, 19), <>Fix <SpellLink spell={SPELLS.QUICK_SIP_TALENT} /> having too much <SpellLink spell={SPELLS.STAGGER_TALENT} /> clearing attributed to it, which resulted in <SpellLink spell={SPELLS.TRANQUIL_SPIRIT_TALENT} /> being undervalued (and sometimes crashing).</>, emallson),
   change(date(2026, 4, 19), <>Remove outdated <SpellLink spell={SPELLS.PRESS_THE_ADVANTAGE_TALENT} /> analysis.</>, emallson),
   change(date(2026, 4, 11), <>Add <SpellLink spell={SPELLS.NIUZAOS_RESOLVE_TALENT} /> statistic.</>, emallson),

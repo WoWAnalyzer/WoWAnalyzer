@@ -16,7 +16,6 @@ import {
   spellCooldownRemaining,
 } from 'parser/shared/metrics/apl/conditions';
 import {
-  atTwoBlackoutKickStacks,
   aboutToCapEnergy,
   buildComboStrikesApl,
   danceOfChiJiExpiring,
@@ -108,6 +107,7 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
       ),
     },
     TALENTS.RISING_SUN_KICK_TALENT,
+    TALENTS.ZENITH_STOMP_TALENT,
     {
       spell: SPELLS.TIGER_PALM,
       condition: describe(
@@ -137,14 +137,11 @@ export default function conduitOfTheCelestialsApl(combatant: Combatant): Apl {
     },
     {
       spell: SPELLS.BLACKOUT_KICK,
-      condition: describe(
-        and(buffPresent(SPELLS.COMBO_BREAKER_BUFF), atTwoBlackoutKickStacks),
-        () => (
-          <>
-            you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> at 2 stacks
-          </>
-        ),
-      ),
+      condition: describe(buffPresent(SPELLS.COMBO_BREAKER_BUFF), () => (
+        <>
+          you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />
+        </>
+      )),
     },
     TALENTS.SLICING_WINDS_TALENT,
     {
