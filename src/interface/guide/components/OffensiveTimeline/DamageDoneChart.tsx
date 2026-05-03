@@ -2,7 +2,7 @@ import { GoodColor, useEvents, useInfo } from 'interface/guide';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
 import { memo } from 'react';
-import { VisualizationSpec } from 'react-vega';
+import { SignalListener, VisualizationSpec } from 'react-vega';
 import { BuffWindow } from './buffWindows';
 
 const BUFF_WINDOW_SHIFT = 500;
@@ -17,10 +17,12 @@ export const DamageDoneChart = memo(
     buffWindows,
     yScale,
     width,
+    onHover,
   }: {
     buffWindows: BuffWindow[];
     yScale?: number;
     width: number;
+    onHover?: SignalListener;
   }) => {
     const events = useEvents();
     const info = useInfo();
@@ -65,6 +67,17 @@ export const DamageDoneChart = memo(
               legend: null,
             },
           },
+          params: [
+            {
+              name: 'hover',
+              select: {
+                type: 'point',
+                on: 'mouseover',
+                clear: 'mouseout',
+                fields: ['startTime'],
+              },
+            },
+          ],
         },
         {
           mark: {
@@ -122,6 +135,7 @@ export const DamageDoneChart = memo(
           height={200}
           spec={spec}
           config={{ ...defaultConfig, autosize: { type: 'pad', contains: 'content' } }}
+          signalListeners={onHover ? { hover: onHover } : undefined}
         />
       </div>
     );

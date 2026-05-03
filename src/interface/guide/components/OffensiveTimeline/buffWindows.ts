@@ -12,6 +12,7 @@ export interface BuffWindow {
   /** fight-relative milliseconds */
   endTime: number;
   color?: string;
+  spellId: number;
 }
 
 /**
@@ -29,7 +30,7 @@ export function extractBuffWindows(
 ): BuffWindow[] {
   const windows: BuffWindow[] = [];
 
-  const pushWindow = (start: number, end: number, color?: string) => {
+  const pushWindow = (start: number, end: number, spellId: number, color?: string) => {
     const clampedStart = Math.max(start, fightStart);
     const clampedEnd = Math.min(end, fightEnd);
     if (clampedEnd <= clampedStart) {
@@ -39,6 +40,7 @@ export function extractBuffWindows(
       startTime: clampedStart - fightStart,
       endTime: clampedEnd - fightStart,
       color,
+      spellId,
     });
   };
 
@@ -60,13 +62,13 @@ export function extractBuffWindows(
       if (event.type === EventType.ApplyBuff) {
         openStart = event.timestamp;
       } else if (event.type === EventType.RemoveBuff) {
-        pushWindow(openStart ?? fightStart, event.timestamp, buff.color);
+        pushWindow(openStart ?? fightStart, event.timestamp, spellId, buff.color);
         openStart = undefined;
       }
     }
 
     if (openStart !== undefined) {
-      pushWindow(openStart, fightEnd, buff.color);
+      pushWindow(openStart, fightEnd, spellId, buff.color);
     }
   }
 

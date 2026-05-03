@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { useEvents, useInfo } from 'interface/guide';
-import { useMemo, type JSX } from 'react';
+import { useCallback, useMemo, useState, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { SignalListener } from 'react-vega';
 import { CHART_DATA_PLOT_LEFT_OFFSET, DamageDoneChart } from './DamageDoneChart';
 import CooldownAvailabilityRow from './CooldownAvailabilityRow';
+import BuffDisplay from './BuffDisplay';
 import { BuffSpec, extractBuffWindows } from './buffWindows';
 
 interface CooldownSpec {
@@ -19,6 +21,10 @@ interface Props {
 }
 
 const ICON_SIZE = 24;
+
+const BarsContainer = styled.div`
+  margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
+`;
 
 const RowsContainer = styled.div`
   margin-top: 4px;
@@ -55,6 +61,15 @@ const RowIcon = styled.div`
 export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Element | null {
   const info = useInfo();
   const events = useEvents();
+  const [hoverStartTime, setHoverStartTime] = useState<number | null>(null);
+
+  const onHover = useCallback((_event: string, item: { startTime: number[] }) => {
+    if (item.startTime === undefined) {
+      setHoverStartTime(null);
+    } else {
+      setHoverStartTime(item.startTime[0]);
+    }
+  }, []) as SignalListener;
 
   const buffWindows = useMemo(() => {
     if (!info) {
@@ -71,7 +86,19 @@ export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Eleme
     <AutoSizer disableHeight>
       {({ width }) => (
         <div style={{ width }}>
-          <DamageDoneChart buffWindows={buffWindows} yScale={yScale} width={width} />
+          <DamageDoneChart
+            buffWindows={buffWindows}
+            yScale={yScale}
+            width={width}
+            onHover={onHover}
+          />
+          <BarsContainer>
+            <BuffDisplay
+              buffs={buffWindows}
+              fightDuration={info.fightDuration}
+              hoverStartTime={hoverStartTime}
+            />
+          </BarsContainer>
           <RowsContainer>
             {cooldowns.map((cd) => (
               <Row key={cd.spell.id}>

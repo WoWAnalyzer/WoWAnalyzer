@@ -123,7 +123,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         {modules.eclipseResource.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
           <OffensiveTimeline
-            cooldowns={[{ spell: cdSpell(info.combatant) }]}
+            cooldowns={[{ spell: cdSpell(info.combatant) }, { spell: SPELLS.ECLIPSE_SOLAR }]}
             buffs={[
               { spell: cdSpell(info.combatant), color: '#26d4c8' },
               { spell: SPELLS.ECLIPSE_SOLAR, color: '#e58a3a' },
