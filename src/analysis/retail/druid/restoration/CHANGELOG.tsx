@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 5, 2), <>Fix bug in <SpellLink spell={TALENTS_DRUID.BOND_WITH_NATURE_TALENT}/> statistic.</>, squided),
   change(date(2026, 4, 21), <>Fix bug in <SpellLink spell={TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT}/> statistic to not count SotF consumes during convoke.</>, squided),
   change(date(2026, 4, 21), <>Updates for the 12.0.5 patch.</>, squided),
   change(date(2026, 4, 15), <>Add <SpellLink spell={TALENTS_DRUID.VERDANCY_TALENT}/> healing to be included in the <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT}/> and <SpellLink spell={TALENTS_DRUID.EVERBLOOM_2_RESTORATION_TALENT}/> healing statistics. Fix <SpellLink spell={TALENTS_DRUID.RENEWING_SURGE_TALENT}/> to calculate properly when healing NPCs like the crystals on Midnight Falls.</>, squided),
