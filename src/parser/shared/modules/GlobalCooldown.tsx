@@ -19,6 +19,7 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
+import { getEmpowerCastEvent } from '../normalizers/EmpowerNormalizer';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
@@ -142,8 +143,17 @@ class GlobalCooldown extends Analyzer {
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
-  /** Empower global cooldown handling for empower end and empower cancel events.*/
+  /** Empower global cooldown handling for empower end and empower cancel events.
+   * If Empower Cast Attached is instant (Tip The Scales) then instead attach the gcd to the cast and the empoerend for display purposes in the timeline
+   */
   onEmpowerTrigger(event: EmpowerEndEvent) {
+    const castEvent = getEmpowerCastEvent(event);
+    if (castEvent !== undefined && castEvent.timestamp == event.timestamp) {
+      console.log(castEvent);
+      castEvent.globalCooldown = this.triggerGlobalCooldown(castEvent);
+      event.globalCooldown = castEvent.globalCooldown;
+      return;
+    }
     event.globalCooldown = this.triggerGlobalCooldown(event);
   }
 
