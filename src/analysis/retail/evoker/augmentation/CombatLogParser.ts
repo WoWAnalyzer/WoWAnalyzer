@@ -82,6 +82,7 @@ import {
   ImminentDestructionCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
   TemporalBurstStackNormalizer,
+  TemporalBurst,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -171,6 +172,7 @@ class CombatLogParser extends MainCombatLogParser {
     nozdormuAdept: NozdormuAdept,
     afterimage: Afterimage,
     chronalDynamo: ChronalDynamo,
+    temporalBurst: TemporalBurst,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

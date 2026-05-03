@@ -70,6 +70,7 @@ import {
   MobilityCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
   TemporalBurstStackNormalizer,
+  TemporalBurst,
 } from '../shared';
 import ConsumeFlame from './modules/talents/ConsumeFlame';
 
@@ -160,6 +161,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primacy: Primacy,
     timeConvergence: TimeConvergence,
     motesOfAcceleration: MotesOfAcceleration,
+    temporalBurst: TemporalBurst,
 
     // other
   };
