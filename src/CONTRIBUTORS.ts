@@ -206,10 +206,6 @@ export const bhawkins6177: Contributor = {
   nickname: 'bhawkins6177',
   github: 'bhawkins6177',
 };
-export const Mahmud17: Contributor = {
-  nickname: 'Sadrai',
-  github: 'Mahmud17',
-};
 export const Sharrq: Contributor = {
   nickname: 'Sharrq',
   github: 'Sharrq',
