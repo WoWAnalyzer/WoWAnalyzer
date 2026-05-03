@@ -10,11 +10,9 @@ import {
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
 import SunfireTracker from 'analysis/retail/druid/balance/modules/spells/SunfireTracker';
-import {
-  CastImpact,
-  CastImpactType,
-} from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
+import { DotUptimeHelper } from 'analysis/retail/druid/balance/modules/spells/DotUptimeHelper';
+import { cdSpell } from 'analysis/retail/druid/balance/constants';
 
 const BAR_COLOR = '#8F5D00';
 
@@ -28,6 +26,8 @@ class SunfireUptime extends Analyzer {
   protected sunfireTracker!: SunfireTracker;
 
   private sunfireCastCount = 0;
+  private mainSpellCasts: CastEvent[] = [];
+  private eclipseSpellCasts: CastEvent[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -36,10 +36,28 @@ class SunfireUptime extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUNFIRE_CAST),
       this.onSunfire,
     );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(cdSpell(this.selectedCombatant)),
+      this.onMainSpell,
+    );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_ECLIPSE, SPELLS.LUNAR_ECLIPSE]),
+      this.onEclipseSpell,
+    );
   }
 
   onSunfire() {
     this.sunfireCastCount++;
+  }
+
+  onMainSpell(event: CastEvent) {
+    this.mainSpellCasts.push(event);
+  }
+
+  onEclipseSpell(event: CastEvent) {
+    this.eclipseSpellCasts.push(event);
   }
 
   subStatistic() {
@@ -101,49 +119,16 @@ class SunfireUptime extends Analyzer {
   private buildCastEvaluations(): CastEvaluation[] {
     const castEvaluations: CastEvaluation[] = [];
     for (const [, castImpact] of Object.entries(this.sunfireTracker.castImpactsPerEvent)) {
-      const castEvalution = this.buildCastEvaluation(castImpact);
+      const castEvalution = DotUptimeHelper.buildCastEvaluation(
+        castImpact,
+        this.owner.selectedCombatant,
+        this.mainSpellCasts,
+        this.eclipseSpellCasts,
+      );
       castEvaluations.push(castEvalution);
     }
 
     return castEvaluations;
-  }
-
-  private buildCastEvaluation(castImpact: CastImpact): CastEvaluation {
-    let newDebuffCount = 0;
-    let refreshCount = 0;
-    let overwriteCount = 0;
-    for (const [, castImpactPerTargetId] of Object.entries(castImpact.castImpactPerTargetId)) {
-      if (castImpactPerTargetId.castImpactType == CastImpactType.NewDebuff) {
-        newDebuffCount++;
-      }
-
-      if (castImpactPerTargetId.castImpactType == CastImpactType.RefreshDuringPandemicWindow) {
-        refreshCount++;
-      }
-
-      if (castImpactPerTargetId.castImpactType == CastImpactType.Overwrite) {
-        overwriteCount++;
-      }
-    }
-
-    let performance = QualitativePerformance.Ok;
-    if (overwriteCount > 0 && newDebuffCount == 0 && refreshCount == 0) {
-      performance = QualitativePerformance.Fail;
-    }
-
-    if (overwriteCount <= newDebuffCount + refreshCount) {
-      performance = QualitativePerformance.Good;
-    }
-
-    if (overwriteCount == 0) {
-      performance = QualitativePerformance.Perfect;
-    }
-
-    return {
-      timestamp: castImpact.castEvent.timestamp,
-      performance: performance,
-      reason: `${newDebuffCount} created, ${refreshCount} refreshed, ${overwriteCount} overwritten`,
-    };
   }
 
   private getUptimePercentPerformance(uptimePercent: number) {
