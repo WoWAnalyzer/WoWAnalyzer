@@ -1,26 +1,21 @@
 import styled from '@emotion/styled';
-import Spell from 'common/SPELLS/Spell';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { useEvents, useInfo } from 'interface/guide';
 import { useCallback, useMemo, useState, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { SignalListener } from 'react-vega';
+import { cdSpell } from 'analysis/retail/druid/balance/constants';
 import { CHART_DATA_PLOT_LEFT_OFFSET, DamageDoneChart } from './DamageDoneChart';
 import CooldownAvailabilityRow from './CooldownAvailabilityRow';
 import BuffDisplay from './BuffDisplay';
-import { BuffSpec, extractBuffWindows } from './buffWindows';
-
-interface CooldownSpec {
-  spell: Spell;
-}
-
-interface Props {
-  cooldowns: CooldownSpec[];
-  buffs: BuffSpec[];
-  yScale?: number;
-}
+import { extractBuffWindows } from './buffWindows';
 
 const ICON_SIZE = 24;
+
+const CD_COLOR = '#26d4c8';
+const SOLAR_COLOR = '#e58a3a';
+const LUNAR_COLOR = '#7ab2ff';
 
 const BarsContainer = styled.div`
   margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
@@ -58,7 +53,7 @@ const RowIcon = styled.div`
   }
 `;
 
-export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Element | null {
+export default function Timeline(): JSX.Element | null {
   const info = useInfo();
   const events = useEvents();
   const [hoverStartTime, setHoverStartTime] = useState<number | null>(null);
@@ -71,14 +66,27 @@ export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Eleme
     }
   }, []) as SignalListener;
 
+  const cooldownSpell = info ? cdSpell(info.combatant) : null;
+  const cooldownSpells = cooldownSpell ? [cooldownSpell, SPELLS.SOLAR_ECLIPSE] : [];
+
   const buffWindows = useMemo(() => {
-    if (!info) {
+    if (!info || !cooldownSpell) {
       return [];
     }
-    return extractBuffWindows(events, buffs, info.combatant.id, info.fightStart, info.fightEnd);
-  }, [events, buffs, info]);
+    return extractBuffWindows(
+      events,
+      [
+        { spellId: cooldownSpell.id, color: CD_COLOR },
+        { spellId: SPELLS.ECLIPSE_SOLAR.id, color: SOLAR_COLOR },
+        { spellId: SPELLS.ECLIPSE_LUNAR.id, color: LUNAR_COLOR },
+      ],
+      info.combatant.id,
+      info.fightStart,
+      info.fightEnd,
+    );
+  }, [events, info, cooldownSpell]);
 
-  if (!info) {
+  if (!info || !cooldownSpell) {
     return null;
   }
 
@@ -86,12 +94,7 @@ export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Eleme
     <AutoSizer disableHeight>
       {({ width }) => (
         <div style={{ width }}>
-          <DamageDoneChart
-            buffWindows={buffWindows}
-            yScale={yScale}
-            width={width}
-            onHover={onHover}
-          />
+          <DamageDoneChart buffWindows={buffWindows} width={width} onHover={onHover} />
           <BarsContainer>
             <BuffDisplay
               buffs={buffWindows}
@@ -100,12 +103,12 @@ export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Eleme
             />
           </BarsContainer>
           <RowsContainer>
-            {cooldowns.map((cd) => (
-              <Row key={cd.spell.id}>
+            {cooldownSpells.map((spell) => (
+              <Row key={spell.id}>
                 <RowIcon>
-                  <SpellIcon spell={cd.spell.id} />
+                  <SpellIcon spell={spell.id} />
                 </RowIcon>
-                <CooldownAvailabilityRow spell={cd.spell} />
+                <CooldownAvailabilityRow spell={spell} />
               </Row>
             ))}
           </RowsContainer>

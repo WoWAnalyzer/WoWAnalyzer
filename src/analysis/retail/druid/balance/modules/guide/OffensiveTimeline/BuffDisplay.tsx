@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
-import { GoodColor } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import { BuffWindow } from './buffWindows';
@@ -78,7 +77,7 @@ const BuffDisplay = ({ buffs, fightDuration, hoverStartTime }: Props) => {
                   start={buff.startTime}
                   end={buff.endTime}
                   fightDuration={fightDuration}
-                  color={buff.color ?? GoodColor}
+                  color={buff.color}
                 />
               </Tooltip>
             );

@@ -1,4 +1,4 @@
-import { GoodColor, useEvents, useInfo } from 'interface/guide';
+import { useEvents, useInfo } from 'interface/guide';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
 import { memo } from 'react';
@@ -15,12 +15,10 @@ export const CHART_DATA_PLOT_LEFT_OFFSET = 50;
 export const DamageDoneChart = memo(
   ({
     buffWindows,
-    yScale,
     width,
     onHover,
   }: {
     buffWindows: BuffWindow[];
-    yScale?: number;
     width: number;
     onHover?: SignalListener;
   }) => {
@@ -41,7 +39,7 @@ export const DamageDoneChart = memo(
     const buffData = buffWindows.map((w) => ({
       startTime: w.startTime,
       endTime: w.endTime,
-      color: w.color ?? GoodColor,
+      color: w.color,
     }));
 
     const data = {
@@ -120,7 +118,7 @@ export const DamageDoneChart = memo(
               title: 'Damage Done per Second',
               type: 'quantitative',
               axis: { format: '~s', grid: false },
-              scale: { zero: true, ...(yScale ? { domain: [0, yScale] } : {}) },
+              scale: { zero: true },
             },
           },
         },

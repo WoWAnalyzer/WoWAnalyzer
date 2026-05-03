@@ -15,7 +15,7 @@ import {
   PERFECT_ASP_WASTED,
 } from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import OffensiveTimeline from 'interface/guide/components/OffensiveTimeline';
+import OffensiveTimeline from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { ASTRAL_POWER_SCALE_FACTOR, cdSpell } from 'analysis/retail/druid/balance/constants';
 
@@ -122,14 +122,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         {modules.eclipse.guideSubsection}
         {modules.eclipseResource.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
-          <OffensiveTimeline
-            cooldowns={[{ spell: cdSpell(info.combatant) }, { spell: SPELLS.ECLIPSE_SOLAR }]}
-            buffs={[
-              { spell: cdSpell(info.combatant), color: '#26d4c8' },
-              { spell: SPELLS.ECLIPSE_SOLAR, color: '#e58a3a' },
-              { spell: SPELLS.ECLIPSE_LUNAR, color: '#7ab2ff' },
-            ]}
-          />
+          <OffensiveTimeline />
         )}
       </Section>
       {modules.fillerUsage.guideSubsection}
