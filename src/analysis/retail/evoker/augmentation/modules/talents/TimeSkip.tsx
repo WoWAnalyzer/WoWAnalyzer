@@ -105,10 +105,6 @@ class TimeSkip extends Analyzer {
       this.temporalBurstRemoveStacks = this.selectedCombatant.getBuffStacks(
         SPELLS.TEMPORAL_BURST_BUFF,
       );
-      if (this.temporalBurstApplyStacks == 1 && this.temporalBurstRemoveStacks > 20) {
-        // log error causes 30 stacks to instead appear as 1 stack
-        this.temporalBurstApplyStacks = 30;
-      }
     }
     this.calculateCDR();
   }
