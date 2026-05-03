@@ -12,7 +12,7 @@ const NO_CHARGES_COLOR = '#75736d';
 const RowContainer = styled.div`
   position: relative;
   height: 16px;
-  margin-top: 2px;
+  width: 100%;
 `;
 
 const Segment = styled.div<{

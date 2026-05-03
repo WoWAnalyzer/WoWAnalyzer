@@ -19,7 +19,6 @@ interface Props {
 }
 
 const ICON_SIZE = 24;
-const ICON_GAP = 8;
 
 const RowsContainer = styled.div`
   margin-top: 4px;
@@ -29,14 +28,28 @@ const RowsContainer = styled.div`
 const Row = styled.div`
   position: relative;
   margin-top: 2px;
+  min-height: ${ICON_SIZE}px;
+  display: flex;
+  align-items: center;
 `;
 
 const RowIcon = styled.div`
   position: absolute;
-  left: -${ICON_SIZE + ICON_GAP}px;
+  left: -${ICON_SIZE}px;
   top: 0;
   width: ${ICON_SIZE}px;
   height: ${ICON_SIZE}px;
+  z-index: 1;
+
+  img.icon.game {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: block;
+    border: 1px solid #75736d;
+    border-radius: 0;
+    box-shadow: 0 0 3px #000;
+  }
 `;
 
 export default function Timeline({ cooldowns, buffs, yScale }: Props): JSX.Element | null {
