@@ -4,7 +4,6 @@ import {
   EmpowerEndEvent,
   EventType,
   GetRelatedEvent,
-  HasRelatedEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
@@ -74,7 +73,8 @@ export function createCastEndLink(castEvent: CastEvent, empowerEndEvent: Empower
  *
  * Returns true if the Empower was instant cast with Tip the Scales or if it has an associated empowerEnd event  */
 export function empowerFinishedCasting(event: CastEvent): boolean {
-  return HasRelatedEvent(event, EMPOWER_END);
+  const endEvent: EmpowerEndEvent | undefined = GetRelatedEvent(event, EMPOWER_END);
+  return endEvent !== undefined && endEvent.empowermentLevel > 0;
 }
 /** Get the associated empowerEnd event for an Empower cast */
 export function getEmpowerEndEvent(event: CastEvent): EmpowerEndEvent | undefined {
