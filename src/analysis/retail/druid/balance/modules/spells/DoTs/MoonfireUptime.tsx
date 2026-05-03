@@ -3,16 +3,16 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { CastEvaluation, CastOverview, StatisticData } from 'interface/guide/components';
-import CastSummary from 'src/interface/guide/components/CastSummary';
+import CastSummary from 'interface/guide/components/CastSummary';
 import { formatPercentage } from 'common/format';
 import {
   evaluateQualitativePerformanceByThreshold,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/MoonfireTracker';
+import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/DoTs/MoonfireTracker';
 import Events, { CastEvent } from 'parser/core/Events';
 import { cdSpell } from 'analysis/retail/druid/balance/constants';
-import { DotUptimeHelper } from 'analysis/retail/druid/balance/modules/spells/DotUptimeHelper';
+import { DotUptimeHelper } from 'analysis/retail/druid/balance/modules/spells/DoTs/DotUptimeHelper';
 
 const BAR_COLOR = '#5E008D';
 

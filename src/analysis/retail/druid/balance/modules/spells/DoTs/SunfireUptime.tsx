@@ -3,15 +3,15 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { CastEvaluation, CastOverview, StatisticData } from 'interface/guide/components';
-import CastSummary from 'src/interface/guide/components/CastSummary';
+import CastSummary from 'interface/guide/components/CastSummary';
 import { formatPercentage } from 'common/format';
 import {
   evaluateQualitativePerformanceByThreshold,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import SunfireTracker from 'analysis/retail/druid/balance/modules/spells/SunfireTracker';
+import SunfireTracker from 'analysis/retail/druid/balance/modules/spells/DoTs/SunfireTracker';
 import Events, { CastEvent } from 'parser/core/Events';
-import { DotUptimeHelper } from 'analysis/retail/druid/balance/modules/spells/DotUptimeHelper';
+import { DotUptimeHelper } from 'analysis/retail/druid/balance/modules/spells/DoTs/DotUptimeHelper';
 import { cdSpell } from 'analysis/retail/druid/balance/constants';
 
 const BAR_COLOR = '#8F5D00';

@@ -11,8 +11,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import DotUptimes from './modules/features/DotUptimes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import FillerUsage from './modules/features/FillerUsage';
-import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
-import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
+import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/DoTs/MoonfireUptime';
+import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/DoTs/SunfireUptime';
 import SoulOfTheForest from 'analysis/retail/druid/balance/modules/spells/SoulOfTheForest';
 import Starlord from 'analysis/retail/druid/balance/modules/spells/Starlord';
 import TwinMoons from 'analysis/retail/druid/balance/modules/spells/TwinMoons';
@@ -32,8 +32,8 @@ import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLi
 import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 import Haste from 'analysis/retail/druid/balance/modules/core/Haste';
 import EclipseResource from 'analysis/retail/druid/balance/modules/features/EclipseResource';
-import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/MoonfireTracker';
-import SunfireTracker from 'analysis/retail/druid/balance/modules/spells/SunfireTracker';
+import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/DoTs/MoonfireTracker';
+import SunfireTracker from 'analysis/retail/druid/balance/modules/spells/DoTs/SunfireTracker';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {

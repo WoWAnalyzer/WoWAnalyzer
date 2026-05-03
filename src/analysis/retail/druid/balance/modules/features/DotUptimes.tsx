@@ -3,8 +3,8 @@ import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
-import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
-import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
+import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/DoTs/MoonfireUptime';
+import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/DoTs/SunfireUptime';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { ResourceLink, SpellLink } from 'interface';

@@ -1,7 +1,7 @@
 import {
   CastImpact,
   CastImpactType,
-} from 'analysis/retail/druid/balance/modules/spells/DebuffTracker';
+} from 'analysis/retail/druid/balance/modules/spells/DoTs/DebuffTracker';
 import { CastEvaluation } from 'interface/guide/components';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CastEvent } from 'parser/core/Events';
