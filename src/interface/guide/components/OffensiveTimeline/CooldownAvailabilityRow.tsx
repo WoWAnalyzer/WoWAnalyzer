@@ -64,6 +64,9 @@ const CooldownAvailabilityRow = ({ spell }: { spell: Spell }) => {
   let lastMax = events[0]?.maxCharges ?? 1;
 
   for (const event of events) {
+    if (event.timestamp >= info.fightEnd) {
+      break;
+    }
     if (event.timestamp > lastTimestamp) {
       segments.push({
         start: lastTimestamp,

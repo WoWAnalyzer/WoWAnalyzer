@@ -4,7 +4,7 @@ import { SpellIcon } from 'interface';
 import { useEvents, useInfo } from 'interface/guide';
 import { useMemo, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { CHART_LEFT_PADDING, CHART_RIGHT_PADDING, DamageDoneChart } from './DamageDoneChart';
+import { CHART_DATA_PLOT_LEFT_OFFSET, DamageDoneChart } from './DamageDoneChart';
 import CooldownAvailabilityRow from './CooldownAvailabilityRow';
 import { BuffSpec, extractBuffWindows } from './buffWindows';
 
@@ -23,18 +23,17 @@ const ICON_GAP = 8;
 
 const RowsContainer = styled.div`
   margin-top: 4px;
+  margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
 `;
 
 const Row = styled.div`
   position: relative;
   margin-top: 2px;
-  padding-left: ${CHART_LEFT_PADDING}px;
-  padding-right: ${CHART_RIGHT_PADDING}px;
 `;
 
 const RowIcon = styled.div`
   position: absolute;
-  left: ${CHART_LEFT_PADDING - ICON_SIZE - ICON_GAP}px;
+  left: -${ICON_SIZE + ICON_GAP}px;
   top: 0;
   width: ${ICON_SIZE}px;
   height: ${ICON_SIZE}px;

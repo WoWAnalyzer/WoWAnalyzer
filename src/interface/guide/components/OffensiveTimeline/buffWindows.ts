@@ -29,6 +29,19 @@ export function extractBuffWindows(
 ): BuffWindow[] {
   const windows: BuffWindow[] = [];
 
+  const pushWindow = (start: number, end: number, color?: string) => {
+    const clampedStart = Math.max(start, fightStart);
+    const clampedEnd = Math.min(end, fightEnd);
+    if (clampedEnd <= clampedStart) {
+      return;
+    }
+    windows.push({
+      startTime: clampedStart - fightStart,
+      endTime: clampedEnd - fightStart,
+      color,
+    });
+  };
+
   for (const buff of buffs) {
     const spellId = buff.spell.id;
     let openStart: number | undefined;
@@ -47,22 +60,13 @@ export function extractBuffWindows(
       if (event.type === EventType.ApplyBuff) {
         openStart = event.timestamp;
       } else if (event.type === EventType.RemoveBuff) {
-        const start = openStart ?? fightStart;
-        windows.push({
-          startTime: start - fightStart,
-          endTime: event.timestamp - fightStart,
-          color: buff.color,
-        });
+        pushWindow(openStart ?? fightStart, event.timestamp, buff.color);
         openStart = undefined;
       }
     }
 
     if (openStart !== undefined) {
-      windows.push({
-        startTime: openStart - fightStart,
-        endTime: fightEnd - fightStart,
-        color: buff.color,
-      });
+      pushWindow(openStart, fightEnd, buff.color);
     }
   }
 

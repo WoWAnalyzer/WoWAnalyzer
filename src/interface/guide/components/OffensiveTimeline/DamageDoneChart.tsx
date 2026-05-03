@@ -8,11 +8,9 @@ import { BuffWindow } from './buffWindows';
 const BUFF_WINDOW_SHIFT = 500;
 const DAMAGE_AREA_COLOR = '#e8b339';
 
-/** Pixel padding inside the chart between its left edge and the data plot.
- *  The cooldown rows below the chart use this to align with the data plot. */
-export const CHART_LEFT_PADDING = 55;
-/** Pixel padding inside the chart between its right edge and the data plot. */
-export const CHART_RIGHT_PADDING = 20;
+/** Pixels reserved on the left of the container for axis labels. The chart's
+ *  data plot starts at this pixel offset so cooldown rows below align here. */
+export const CHART_DATA_PLOT_LEFT_OFFSET = 50;
 
 export const DamageDoneChart = memo(
   ({
@@ -50,7 +48,6 @@ export const DamageDoneChart = memo(
     };
 
     const spec: VisualizationSpec = {
-      padding: { left: CHART_LEFT_PADDING, right: CHART_RIGHT_PADDING, top: 5, bottom: 25 },
       layer: [
         {
           mark: {
@@ -117,6 +114,16 @@ export const DamageDoneChart = memo(
       ],
     };
 
-    return <BaseChart data={data} width={width} height={200} spec={spec} config={defaultConfig} />;
+    return (
+      <div style={{ display: 'grid', justifyItems: 'end', width }}>
+        <BaseChart
+          data={data}
+          width={width - CHART_DATA_PLOT_LEFT_OFFSET}
+          height={200}
+          spec={spec}
+          config={{ ...defaultConfig, autosize: { type: 'pad', contains: 'content' } }}
+        />
+      </div>
+    );
   },
 );
