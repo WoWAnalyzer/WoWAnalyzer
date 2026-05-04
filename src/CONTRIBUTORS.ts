@@ -2959,3 +2959,16 @@ export const Nooseknitter: Contributor = {
     },
   ],
 };
+
+export const WillyRS: Contributor = {
+  nickname: 'WillyRS',
+  github: 'EmmanueleVilla',
+  discord: 'willyrs',
+  mains: [
+    {
+      name: 'Angelicaah',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/pozzo-delleternit%C3%A0/angelicaah/',
+    },
+  ],
+};
