@@ -5,7 +5,6 @@ import CombatLogParser from './CombatLogParser';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import SPELLS from 'common/SPELLS';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
@@ -88,13 +87,6 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CastEfficiencyBar
-          spell={SPELLS.REMORSELESS_WINTER}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      </div>
       {info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
