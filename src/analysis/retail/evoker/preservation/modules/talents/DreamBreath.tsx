@@ -58,6 +58,7 @@ class DreamBreath extends Analyzer {
   }
 
   onEmpowerEnd(event: EmpowerEndEvent) {
+    if (event.empowermentLevel === 0) return;
     const buffApplications = GetRelatedEvents<ApplyBuffEvent | RefreshBuffEvent>(
       event,
       DREAM_BREATH_CAST,

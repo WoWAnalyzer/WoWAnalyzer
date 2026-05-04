@@ -15,17 +15,15 @@ import {
   BeginCastEvent,
   BeginChannelEvent,
   CastEvent,
-  EmpowerEndEvent,
   EndChannelEvent,
   EventType,
   HasAbility,
   HasSource,
-  RemoveBuffEvent,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
-import { createCastEndLink, getEmpowerEndEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
+import { getEmpowerEndEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
 import PrePullCooldowns from './PrePullCooldowns';
 import { isFromTipTheScales } from 'analysis/retail/evoker/shared/modules/normalizers/TipTheScalesNormalizer';
 
@@ -77,11 +75,11 @@ class Channeling extends EventsNormalizer {
     // Evoker
     empowerChannelSpec(SPELLS.FIRE_BREATH.id),
     empowerChannelSpec(SPELLS.FIRE_BREATH_FONT.id),
-    empowerChannelSpec(SPELLS.ETERNITY_SURGE.id, true),
-    empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id, true),
-    empowerChannelSpec(SPELLS.UPHEAVAL.id, true),
+    empowerChannelSpec(SPELLS.ETERNITY_SURGE.id),
+    empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
+    empowerChannelSpec(SPELLS.UPHEAVAL.id),
 
-    empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id, true),
+    empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
     // empowerChannelSpec(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id),
     empowerChannelSpec(SPELLS.SPIRITBLOOM_FONT.id),
     empowerChannelSpec(TALENTS_EVOKER.DREAM_BREATH_TALENT.id),
@@ -317,35 +315,6 @@ function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState
   }
 }
 
-/** Cancels the current empower and fabricates an event since empowers trigger a gcd on cancel
- * @param channelState the current channel state
- * @param currentEvent the current event being handled */
-function cancelCurrentEmpower(currentEvent: RemoveBuffEvent, channelState: ChannelState) {
-  if (channelState.unresolvedChannel !== null) {
-    channelState.unresolvedChannel.isCancelled = true;
-
-    const empowerEnd: EmpowerEndEvent = {
-      ability: currentEvent.ability,
-      timestamp: currentEvent.timestamp,
-      sourceID: currentEvent.sourceID,
-      sourceIsFriendly: currentEvent.sourceIsFriendly,
-      targetID: currentEvent.targetID,
-      targetIsFriendly: currentEvent.targetIsFriendly,
-      empowermentLevel: 0,
-      type: EventType.EmpowerEnd,
-      __fabricated: true,
-    };
-
-    // Create Event Link because the EmpowerNormalizer won't
-    if (channelState.unresolvedChannel.trigger !== undefined) {
-      createCastEndLink(channelState.unresolvedChannel.trigger as CastEvent, empowerEnd);
-    }
-    channelState.eventsInserter.addAfterEvent(empowerEnd, currentEvent);
-
-    channelState.unresolvedChannel = null;
-  }
-}
-
 /**
  * Helper to create a channel spec handler for the common case of a channeled spell that can be delimited by a buff.
  * These cases involve a channeled spell that produces a Cast and ApplyBuff event (with the same guid)
@@ -448,9 +417,8 @@ function buffAndNextCastChannelSpec(spellId: number): ChannelSpec {
  * Some empower spells do not log their aura in which case no event is generated and the channel is just cancelled normally.
  *
  * @param spellId the guid for the tracked Empower Cast event.
- * @param noAuraLog manual flag for empower spells that have the No Aura Log flag set
  */
-function empowerChannelSpec(spellId: number, noAuraLog?: boolean): ChannelSpec {
+function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
@@ -471,22 +439,7 @@ function empowerChannelSpec(spellId: number, noAuraLog?: boolean): ChannelSpec {
       } else {
         // Empower didn't finish channeling so we cancel the channel
         // NOTE: if cancelCurrentChannel gets reworked to push a cancel channel event, this potentially needs to change
-        // Stole this from buffChannelspec as all empowers except the ones THAT DONT LOG behave like this
-        if (noAuraLog) {
-          cancelCurrentChannel(event, state);
-        } else {
-          for (let idx = _eventIndex + 1; idx < _events.length; idx += 1) {
-            const laterEvent = _events[idx];
-            if (
-              HasAbility(laterEvent) &&
-              laterEvent.ability.guid === spellId &&
-              laterEvent.type === EventType.RemoveBuff
-            ) {
-              cancelCurrentEmpower(laterEvent, state);
-              break;
-            }
-          }
-        }
+        cancelCurrentChannel(event, state);
       }
     }
   };

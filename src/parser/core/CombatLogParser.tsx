@@ -145,7 +145,7 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
-    EmpowerNormalizer: EmpowerNormalizer,
+    empowerNormalizer: EmpowerNormalizer,
     channeling: Channeling,
 
     // Enhancers

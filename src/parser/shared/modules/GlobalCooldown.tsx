@@ -149,7 +149,6 @@ class GlobalCooldown extends Analyzer {
   onEmpowerTrigger(event: EmpowerEndEvent) {
     const castEvent = getEmpowerCastEvent(event);
     if (castEvent !== undefined && castEvent.timestamp == event.timestamp) {
-      console.log(castEvent);
       castEvent.globalCooldown = this.triggerGlobalCooldown(castEvent);
       event.globalCooldown = castEvent.globalCooldown;
       return;

@@ -1,9 +1,11 @@
 import {
   AddRelatedEvent,
+  AnyEvent,
   CastEvent,
   EmpowerEndEvent,
   EventType,
   GetRelatedEvent,
+  HasAbility,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
@@ -23,7 +25,6 @@ const EMPOWERED_CAST_BUFFER = 6000;
  *
  * Empowers can be released at empowerment level 0, which actually is a cancelled cast,
  * since the empower doesn't go on cooldown or trigger anything.
- * The handling of this happens in the channeling module
  *
  * */
 class EmpowerNormalizer extends EventLinkNormalizer {
@@ -31,22 +32,26 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     ...EventLinkNormalizer.dependencies,
     abilities: Abilities,
   };
+
+  private empowers: number[] = [];
+
   constructor(options: Options) {
     super(options, []);
 
-    const empowers = this.owner // can abstract this to a method in abilities, but don't really think we need to tbh
+    this.empowers = this.owner // can abstract this to a method in abilities, but don't really think we need to tbh
       .getModule(Abilities)
       .activeAbilities.filter((a) => a.isEmpower)
       .flatMap((a) => a.spell);
 
-    this.active = empowers.length > 0;
+    this.active = this.empowers.length > 0;
+    this.priority = 20; // Ensures this runs before all of the spec specific modules
 
     this.eventLinks.push({
       linkRelation: EMPOWER_CAST,
       reverseLinkRelation: EMPOWER_END,
-      linkingEventId: empowers,
+      linkingEventId: this.empowers,
       linkingEventType: EventType.EmpowerEnd,
-      referencedEventId: empowers,
+      referencedEventId: this.empowers,
       referencedEventType: EventType.Cast,
       /** We only look backwards from the empowerEnd event to not accidentally add the link to a cancelled cast */
       backwardBufferMs: EMPOWERED_CAST_BUFFER,
@@ -60,6 +65,68 @@ class EmpowerNormalizer extends EventLinkNormalizer {
         );
       },
     });
+  }
+
+  /** If an empower cast is missing the empowerend then search for the remove buff event until you either find the next cast or the event (Instant Cast Empowers and certain empowers don't produce removeBuff events) */
+  normalize(rawEvents: AnyEvent[]): AnyEvent[] {
+    // Create initial EventLinks that we can then reference later
+    const events = super.normalize(rawEvents);
+
+    const fixedEvents: AnyEvent[] = [];
+    let eventIndex = 0;
+    events.forEach((event) => {
+      if (
+        event.type !== EventType.Cast ||
+        !this.empowers.includes(event.ability.guid) ||
+        getEmpowerEndEvent(event)
+      ) {
+        if (event.type !== EventType.EmpowerEnd || event.empowermentLevel > 0) {
+          fixedEvents.push(event);
+        }
+        eventIndex++;
+        return;
+      }
+      let pushed = false;
+      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
+        const laterEvent = events[idx];
+        pushed = false;
+        if (
+          HasAbility(laterEvent) &&
+          laterEvent.ability.guid === event.ability.guid &&
+          laterEvent.type === EventType.Cast
+        ) {
+          fixedEvents.push(event);
+          pushed = true;
+          break;
+        } else if (
+          HasAbility(laterEvent) &&
+          laterEvent.ability.guid === event.ability.guid &&
+          laterEvent.type === EventType.RemoveBuff
+        ) {
+          const fabricatedEvent: EmpowerEndEvent = {
+            ability: event.ability,
+            timestamp: laterEvent.timestamp,
+            sourceID: event.sourceID,
+            sourceIsFriendly: event.sourceIsFriendly,
+            targetID: event.targetID,
+            targetIsFriendly: event.targetIsFriendly,
+            type: EventType.EmpowerEnd,
+            empowermentLevel: 0,
+            __fabricated: true,
+          };
+
+          createCastEndLink(event, fabricatedEvent);
+
+          fixedEvents.push(event);
+          fixedEvents.push(fabricatedEvent);
+          pushed = true;
+          break;
+        }
+      }
+      if (pushed === false) fixedEvents.push(event);
+      eventIndex++;
+    });
+    return fixedEvents;
   }
 }
 

@@ -10,7 +10,6 @@ import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import EmpowerNormalizer, { createCastEndLink } from 'parser/shared/normalizers/EmpowerNormalizer';
 import { EMPOWERS } from '../../constants';
-import Channeling from 'parser/shared/normalizers/Channeling';
 
 const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
 
@@ -48,12 +47,11 @@ const EVENT_LINKS: EventLink[] = [
 class TipTheScalesNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
-    EmpowerNormalizer: EmpowerNormalizer,
+    empowerNormalizer: EmpowerNormalizer,
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
-    // This needs to run before Channeling else errors happen (This cant be a dep for channeling as its evoker specific)
-    this.priority = this.owner.getModule(Channeling).priority - 1;
+    this.priority = this.owner.getModule(EmpowerNormalizer).priority + 1; // Run right after EmpowerNormalizer to prevent errors
   }
 
   /** Create EmpowerEnd events for Empowers cast with Tip the Scales
