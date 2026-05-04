@@ -1,4 +1,7 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
+import SPELLS from 'common/SPELLS';
+import { cdSpell } from 'analysis/retail/druid/balance/constants';
+import Combatant from 'parser/core/Combatant';
 
 export interface BuffWindow {
   /** fight-relative milliseconds */
@@ -14,6 +17,10 @@ interface TrackedBuff {
   color: string;
 }
 
+const CD_COLOR = '#26d4c8';
+const SOLAR_COLOR = '#e58a3a';
+const LUNAR_COLOR = '#7ab2ff';
+
 /**
  * Walks events for the given buffs on the player and produces fight-relative
  * {startTime, endTime} windows. Handles buffs that were already up at pull
@@ -22,12 +29,17 @@ interface TrackedBuff {
  */
 export function extractBuffWindows(
   events: AnyEvent[],
-  trackedBuffs: TrackedBuff[],
-  playerId: number,
+  combatant: Combatant,
   fightStart: number,
   fightEnd: number,
 ): BuffWindow[] {
   const windows: BuffWindow[] = [];
+  const mainSpell = cdSpell(combatant);
+  const trackedBuffs: TrackedBuff[] = [
+    { spellId: mainSpell.id, color: CD_COLOR },
+    { spellId: SPELLS.ECLIPSE_SOLAR.id, color: SOLAR_COLOR },
+    { spellId: SPELLS.ECLIPSE_LUNAR.id, color: LUNAR_COLOR },
+  ];
 
   const pushWindow = (start: number, end: number, spellId: number, color: string) => {
     const clampedStart = Math.max(start, fightStart);
@@ -35,6 +47,7 @@ export function extractBuffWindows(
     if (clampedEnd <= clampedStart) {
       return;
     }
+
     windows.push({
       startTime: clampedStart - fightStart,
       endTime: clampedEnd - fightStart,
@@ -53,7 +66,7 @@ export function extractBuffWindows(
       if (event.ability.guid !== buff.spellId) {
         continue;
       }
-      if (event.targetID !== playerId) {
+      if (event.targetID !== combatant.id) {
         continue;
       }
 
@@ -70,5 +83,42 @@ export function extractBuffWindows(
     }
   }
 
-  return windows;
+  // Remove or update Solar/Lunar Eclipse windows that overlap a CA/Incarn window
+  const mainSpellWindows = windows.filter((window) => window.spellId === mainSpell.id);
+  const eclipseWindows = windows.filter((window) => window.spellId !== mainSpell.id);
+  const trimmedEclipseWindows: BuffWindow[] = [];
+  for (const eclipseWindow of eclipseWindows) {
+    // Remove eclipe windows that are entirely contained within a CA/Incarn window
+    // Use 100ms precision to account for events not being perfectly on time
+    const isInsideMainSpellWindow = mainSpellWindows.some(
+      (mainWindow) =>
+        Math.abs(mainWindow.endTime - eclipseWindow.endTime) < 100 &&
+        Math.abs(mainWindow.startTime - eclipseWindow.startTime) < 100,
+    );
+    if (isInsideMainSpellWindow) {
+      continue;
+    }
+
+    // Update eclipe windows that start within a CA/Incarn window
+    // Use 100ms precision to account for events not being perfectly on time
+    const mainSpellWindowSameStartTime = mainSpellWindows.find(
+      (mainWindow) => Math.abs(mainWindow.startTime - eclipseWindow.startTime) < 200,
+    );
+    if (mainSpellWindowSameStartTime != undefined) {
+      eclipseWindow.startTime = mainSpellWindowSameStartTime.endTime;
+    }
+
+    // Update eclipe windows that end within a CA/Incarn window
+    // Use 100ms precision to account for events not being perfectly on time
+    const mainSpellWindowSameEndTime = mainSpellWindows.find(
+      (mainWindow) => Math.abs(mainWindow.endTime - eclipseWindow.endTime) < 200,
+    );
+    if (mainSpellWindowSameEndTime != undefined) {
+      eclipseWindow.endTime = mainSpellWindowSameEndTime.startTime;
+    }
+
+    trimmedEclipseWindows.push(eclipseWindow);
+  }
+
+  return [...mainSpellWindows, ...trimmedEclipseWindows];
 }

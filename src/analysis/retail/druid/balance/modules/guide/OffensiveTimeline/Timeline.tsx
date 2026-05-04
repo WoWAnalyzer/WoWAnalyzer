@@ -5,17 +5,14 @@ import { useEvents, useInfo } from 'interface/guide';
 import { useCallback, useMemo, useState, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { SignalListener } from 'react-vega';
-import { cdSpell } from 'analysis/retail/druid/balance/constants';
+import { cdDuration, cdSpell } from 'analysis/retail/druid/balance/constants';
 import { CHART_DATA_PLOT_LEFT_OFFSET, DamageDoneChart } from './DamageDoneChart';
 import CooldownAvailabilityRow from './CooldownAvailabilityRow';
 import BuffDisplay from './BuffDisplay';
 import { extractBuffWindows } from './buffWindows';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const ICON_SIZE = 24;
-
-const CD_COLOR = '#26d4c8';
-const SOLAR_COLOR = '#e58a3a';
-const LUNAR_COLOR = '#7ab2ff';
 
 const BarsContainer = styled.div`
   margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
@@ -66,29 +63,36 @@ export default function Timeline(): JSX.Element | null {
     }
   }, []) as SignalListener;
 
-  const cooldownSpell = info ? cdSpell(info.combatant) : null;
-  const cooldownSpells = cooldownSpell ? [cooldownSpell, SPELLS.SOLAR_ECLIPSE] : [];
-
   const buffWindows = useMemo(() => {
-    if (!info || !cooldownSpell) {
+    if (!info) {
       return [];
     }
-    return extractBuffWindows(
-      events,
-      [
-        { spellId: cooldownSpell.id, color: CD_COLOR },
-        { spellId: SPELLS.ECLIPSE_SOLAR.id, color: SOLAR_COLOR },
-        { spellId: SPELLS.ECLIPSE_LUNAR.id, color: LUNAR_COLOR },
-      ],
-      info.combatant.id,
-      info.fightStart,
-      info.fightEnd,
-    );
-  }, [events, info, cooldownSpell]);
 
-  if (!info || !cooldownSpell) {
+    return extractBuffWindows(events, info.combatant, info.fightStart, info.fightEnd);
+  }, [events, info]);
+
+  if (!info) {
     return null;
   }
+
+  const mainSpell = cdSpell(info.combatant);
+  const cooldownSpells = [mainSpell, SPELLS.SOLAR_ECLIPSE, TALENTS_DRUID.FORCE_OF_NATURE_TALENT];
+
+  if (info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT)) {
+    cooldownSpells.push(SPELLS.CONVOKE_SPIRITS);
+  }
+
+  if (info.combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT)) {
+    cooldownSpells.push(TALENTS_DRUID.FURY_OF_ELUNE_TALENT);
+  }
+
+  const cooldownSpellsDuration: Record<number, number> = {
+    [mainSpell.id]: cdDuration(info.combatant),
+    [SPELLS.SOLAR_ECLIPSE.id]: 15000,
+    [TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id]: 10000,
+    [SPELLS.CONVOKE_SPIRITS.id]: 4000,
+    [TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id]: 8000,
+  };
 
   return (
     <AutoSizer disableHeight>
@@ -108,7 +112,10 @@ export default function Timeline(): JSX.Element | null {
                 <RowIcon>
                   <SpellIcon spell={spell.id} />
                 </RowIcon>
-                <CooldownAvailabilityRow spell={spell} />
+                <CooldownAvailabilityRow
+                  spell={spell}
+                  durationMs={cooldownSpellsDuration[spell.id]}
+                />
               </Row>
             ))}
           </RowsContainer>
