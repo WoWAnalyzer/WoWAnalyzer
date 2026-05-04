@@ -18,7 +18,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { GuideDataWrapper } from 'interface/guide/components';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
-const ICON_SIZE = 24;
+const ICON_SIZE = 26;
 
 const BarsContainer = styled.div`
   margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
@@ -27,11 +27,13 @@ const BarsContainer = styled.div`
 const RowsContainer = styled.div`
   margin-top: 4px;
   margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 `;
 
 const Row = styled.div`
   position: relative;
-  margin-top: 2px;
   min-height: ${ICON_SIZE}px;
   display: flex;
   align-items: center;

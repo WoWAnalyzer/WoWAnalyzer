@@ -12,7 +12,7 @@ export const NO_CHARGES_COLOR = '#75736d';
 
 const RowContainer = styled.div`
   position: relative;
-  height: 16px;
+  height: 18px;
   width: 100%;
 `;
 
@@ -33,7 +33,7 @@ const Segment = styled.div<{
 const CastBox = styled.div<{ at: number; fightDuration: number; activeTime: number }>`
   position: absolute;
   top: -3px;
-  height: 22px;
+  height: 24px;
   width: ${({ at, activeTime, fightDuration }) =>
     (Math.min(activeTime, fightDuration - at) / fightDuration) * 100}%;
   border-radius: 3px;
@@ -141,19 +141,17 @@ const CooldownAvailabilityRow = ({ spell, durationMs }: CooldownAvailabilityRowP
     });
   }
 
-  const castTimestamps = events
+  const castRanges = events
     .filter(
       (event) =>
         event.timestamp < info.fightEnd &&
         (event.updateType === UpdateSpellUsableType.BeginCooldown ||
           event.updateType === UpdateSpellUsableType.UseCharge),
     )
-    .map((event) => event.timestamp);
-
-  const castRanges = castTimestamps.map((ts) => ({
-    start: ts - info.fightStart,
-    end: Math.min(ts - info.fightStart + durationMs, info.fightDuration),
-  }));
+    .map((event) => ({
+      start: event.timestamp - info.fightStart,
+      end: Math.min(event.timestamp - info.fightStart + durationMs, info.fightDuration),
+    }));
 
   return (
     <RowContainer>
@@ -185,26 +183,20 @@ const CooldownAvailabilityRow = ({ spell, durationMs }: CooldownAvailabilityRowP
           </Tooltip>
         ));
       })}
-      {castTimestamps.map((timestamp) => (
+      {castRanges.map((range) => (
         <Tooltip
-          key={`cast-${timestamp}`}
+          key={`cast-${range.start}`}
           content={
             <>
               <SpellLink spell={spell.id} />
               {' @ '}
-              {formatDuration(timestamp - info.fightStart)}
+              {formatDuration(range.start)}
               {' - '}
-              {formatDuration(
-                Math.min(timestamp - info.fightStart + durationMs, info.fightDuration),
-              )}
+              {formatDuration(range.end)}
             </>
           }
         >
-          <CastBox
-            at={timestamp - info.fightStart}
-            fightDuration={info.fightDuration}
-            activeTime={durationMs}
-          />
+          <CastBox at={range.start} fightDuration={info.fightDuration} activeTime={durationMs} />
         </Tooltip>
       ))}
     </RowContainer>

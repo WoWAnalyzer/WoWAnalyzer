@@ -37,21 +37,17 @@ export default class Eclipse extends Analyzer {
         <p>
           <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> has a 32-second cooldown, lasts 15
           seconds, and dramatically increases your damage. Cast it as often as possible, while
-          making sure you have enough resources beforehand and you align it with other Cooldowns (if
-          possible).
+          making sure you align it with other Cooldowns (if possible).
         </p>
-        <p>
-          {' '}
-          It is important to choose the correct Eclipse:
-          <ul>
-            <li>
-              3+ stacked targets → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
-            </li>
-            <li>
-              1 to 2 targets → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
-            </li>
-          </ul>
-        </p>
+        <p>It is important to choose the correct Eclipse:</p>
+        <ul>
+          <li>
+            3+ stacked targets → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
+          </li>
+          <li>
+            1 to 2 targets → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
+          </li>
+        </ul>
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
           <p>
             <strong>
@@ -61,8 +57,8 @@ export default class Eclipse extends Analyzer {
           </p>
         )}
         {!this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
-          <p>
-            Your last filler cast determines which Eclipse you enter:
+          <>
+            <p>Your last filler cast determines which Eclipse you enter:</p>
             <ul>
               <li>
                 <SpellLink spell={SPELLS.WRATH} /> (single target) →{' '}
@@ -73,7 +69,19 @@ export default class Eclipse extends Analyzer {
                 <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
               </li>
             </ul>
-          </p>
+          </>
+        )}
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
+          <>
+            <hr />
+            <p>
+              <strong>
+                <SpellLink spell={cdSpell(this.selectedCombatant)} /> talented:{' '}
+              </strong>
+              This is a very important cooldown, as it gives you both Solar and Lunar eclipes for
+              its duration. Do not clip an active Eclipse window while using it !
+            </p>
+          </>
         )}
       </>
     );

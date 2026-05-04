@@ -120,10 +120,11 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <Section title="DoTs">{modules.dotUptimes.guideSubsectionV2}</Section>
       <Section title="Eclipse">
         {modules.eclipse.guideSubsection}
-        {modules.eclipseResource.guideSubsection}
+        <div style={{ marginBottom: '20px' }} />
         {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
           <OffensiveTimeline />
         )}
+        {modules.eclipseResource.guideSubsection}
       </Section>
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
