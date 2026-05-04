@@ -102,12 +102,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.FROSTSCYTHE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-        },
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },

@@ -1,5 +1,4 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -41,9 +40,7 @@ class Frostscythe extends Analyzer {
       this.goodCasts += 1;
     }
     this.casts += 1;
-    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp)
-      ? 1
-      : 2;
+    this.hitThreshold = 3;
     this.hits = 0;
   }
 
@@ -79,7 +76,7 @@ class Frostscythe extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
+        tooltip={`A good cast is one where you hit 3+ targets. You had ${this.goodCasts} / ${this.casts} good casts`}
       >
         <BoringSpellValueText spell={talents.FROSTSCYTHE_TALENT}>
           <>

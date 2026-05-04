@@ -12,7 +12,6 @@ import RimeEfficiency from './modules/features/RimeEfficiency';
 import FrostRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneGraph from './modules/features/RuneGraph';
 import RuneTracker from './modules/features/RuneTracker';
-import SpellUsable from './modules/features/SpellUsable';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerGraph from './modules/runicpower/RunicPowerGraph';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
@@ -27,7 +26,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     runeforgeChecker: FrostRuneForgeChecker,
 
