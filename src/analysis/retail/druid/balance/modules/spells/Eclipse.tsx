@@ -1,20 +1,21 @@
 import type { JSX } from 'react';
-import Analyzer from 'parser/core/Analyzer';
-import { SpellIcon, SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, EventType } from 'parser/core/Events';
+import EventHistory from 'parser/shared/modules/EventHistory';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import { cdSpell } from 'analysis/retail/druid/balance/constants';
-import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
+import { cdDuration, cdSpell } from 'analysis/retail/druid/balance/constants';
+import AlwaysBeCasting from 'analysis/retail/druid/balance/modules/features/AlwaysBeCasting';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { mergeTimePeriods } from 'parser/core/mergeTimePeriods';
-import { Highlight } from 'interface/Highlight';
 import { TALENTS_DRUID } from 'common/TALENTS';
-
-const SOLAR_ECLIPSE_COLOR = '#8F5D00';
-const LUNAR_ECLIPSE_COLOR = '#3C3C8A';
-const CA_COLOR = '#006661';
+import { CastDetail, CastOverview, StatisticData } from 'interface/guide/components';
+import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
+import { type PerCastData } from 'interface/guide/components/CastDetail';
+import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 /**
  * **Eclipse**
@@ -30,7 +31,38 @@ const CA_COLOR = '#006661';
  * Eclipse (Lunar)
  * Arcane spells deal 15% additional damage and Starfire damage is increased by 40%.
  */
-export default class Eclipse extends Analyzer {
+const ECLIPSE_COOLDOWN_MS = 32000;
+const ECLIPSE_DURATION_MS = 15000;
+
+const deps = {
+  alwaysBeCasting: AlwaysBeCasting,
+  eventHistory: EventHistory,
+};
+
+export default class Eclipse extends Analyzer.withDependencies(deps) {
+  private eclipseCastEvents: CastEvent[] = [];
+  private cdCastEvents: CastEvent[] = [];
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_ECLIPSE, SPELLS.LUNAR_ECLIPSE]),
+      this.onEclipseCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(cdSpell(this.selectedCombatant)),
+      this.onCdCast,
+    );
+  }
+
+  private onEclipseCast(event: CastEvent) {
+    this.eclipseCastEvents.push(event);
+  }
+
+  private onCdCast(event: CastEvent) {
+    this.cdCastEvents.push(event);
+  }
+
   get guideSubsection(): JSX.Element {
     const explanation = (
       <>
@@ -76,88 +108,217 @@ export default class Eclipse extends Analyzer {
             <hr />
             <p>
               <strong>
-                <SpellLink spell={cdSpell(this.selectedCombatant)} /> talented:{' '}
+                <SpellLink spell={cdSpell(this.selectedCombatant)} /> talented
               </strong>
-              This is a very important cooldown, as it gives you both Solar and Lunar eclipes for
-              its duration. Do not clip an active Eclipse window while using it !
             </p>
+            <p>
+              This is a very important cooldown, as it gives you both Solar and Lunar eclipes for
+              its duration. Your other cooldowns should be aligned with this spell as a top
+              priority.
+            </p>
+            <p>
+              Ensure you'll have full target uptime during its duration (do not use it when it will
+              be interrupted by a fight mechanic).
+            </p>
+            <p>Do not clip an active Eclipse window while using it !</p>
           </>
         )}
       </>
     );
 
     const data = (
-      <div>
-        <RoundedPanel>
-          <div>
-            <strong>Eclipse uptimes</strong> -{' '}
-            <Highlight color={SOLAR_ECLIPSE_COLOR} textColor="white">
-              Solar
-            </Highlight>{' '}
-            <Highlight color={LUNAR_ECLIPSE_COLOR} textColor="white">
-              Lunar
-            </Highlight>{' '}
-            <Highlight color={CA_COLOR} textColor="white">
-              Both (Celestial Alignment)
-            </Highlight>
-          </div>
-          {this.uptimeBar}
-        </RoundedPanel>
-      </div>
+      <RoundedPanel>
+        <CastOverview spell={TALENTS_DRUID.ECLIPSE_TALENT} stats={this.buildStats()} />
+        <CastDetail title="Eclipse Casts" casts={this.buildEclipsePerCastData()} />
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
+          <CastDetail title={`${this.cdShortName} Casts`} casts={this.buildCdPerCastData()} />
+        )}
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);
   }
 
-  private mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
-    return uptimes.map((uptime) => ({
-      start: uptime.start,
-      end: uptime.end !== null ? uptime.end : this.owner.currentTimestamp,
-      customColor,
-    }));
+  private get cdShortName(): string {
+    return this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
+      ? 'Incarnation'
+      : cdSpell(this.selectedCombatant).name;
   }
 
-  private get uptimeBar() {
-    const solarEclipseUptimes = this.mapWithColor(
-      this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_SOLAR.id),
-      SOLAR_ECLIPSE_COLOR,
-    );
-    const lunarEclipseUptimes = this.mapWithColor(
-      this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_LUNAR.id),
-      LUNAR_ECLIPSE_COLOR,
-    );
-    const caUptimes = this.mapWithColor(
-      this.selectedCombatant.getBuffHistory(cdSpell(this.selectedCombatant).id),
-      CA_COLOR,
-    );
-    const allUptimes = solarEclipseUptimes.concat(lunarEclipseUptimes).concat(caUptimes);
+  private buildStats(): StatisticData[] {
+    return [
+      {
+        value: `${formatPercentage(this.percentUptime, 1)}%`,
+        label: 'Eclipse Uptime',
+        tooltip: <>Combined uptime of Solar Eclipse, Lunar Eclipse, and Celestial Alignment</>,
+      },
+      {
+        value: `${formatPercentage(this.percentEclipseEfficiency, 1)}%`,
+        label: 'Eclipse Efficiency',
+        tooltip: (
+          <>
+            Percentage of the fight during which Solar Eclipse had no charges available (active or
+            on cooldown). Higher is better.
+          </>
+        ),
+      },
+      ...(this.selectedCombatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT)
+        ? [
+            {
+              value: `${formatPercentage(this.percentMainCdEfficiency, 1)}%`,
+              label: `${this.cdShortName} Efficiency`,
+              tooltip: (
+                <>
+                  Percentage of the fight during which {this.cdShortName} had no charges available
+                  (active or on cooldown). Higher is better.
+                </>
+              ),
+            } as StatisticData,
+          ]
+        : []),
+    ];
+  }
+
+  private get percentUptime(): number {
+    const allUptimes = [
+      ...this.getUptimePeriods(SPELLS.ECLIPSE_SOLAR.id),
+      ...this.getUptimePeriods(SPELLS.ECLIPSE_LUNAR.id),
+      ...this.getUptimePeriods(cdSpell(this.selectedCombatant).id),
+    ];
 
     const combinedUptime = mergeTimePeriods(allUptimes, this.owner.fight.end_time).reduce(
       (acc, up) => acc + up.end - up.start,
       0,
     );
-    const totalFightTime = this.owner.fight.end_time - this.owner.fight.start_time;
-    const percentUptime = combinedUptime / totalFightTime;
+    return combinedUptime / (this.owner.fight.end_time - this.owner.fight.start_time);
+  }
 
-    return (
-      <div className="flex-main multi-uptime-bar">
-        <div className="flex main-bar">
-          <div className="flex-sub bar-label">
-            <span>
-              <SpellIcon spell={TALENTS_DRUID.ECLIPSE_TALENT} />{' '}
-            </span>
-            {formatPercentage(percentUptime, 0)}% <small>uptime</small>
-          </div>
-          <div className="flex-main chart">
-            <UptimeBar
-              uptimeHistory={allUptimes}
-              start={this.owner.fight.start_time}
-              end={this.owner.fight.end_time}
-              timeTooltip={true}
-            />
-          </div>
-        </div>
-      </div>
+  private get percentMainCdEfficiency(): number {
+    const fightEnd = this.owner.fight.end_time;
+    const mainCdDuration = cdDuration(this.selectedCombatant) * 1000;
+    const cooldownPeriods = this.cdCastEvents.map((e) => ({
+      // Add 200ms to remove the cast of Incarn/CA itself
+      start: e.timestamp + 200,
+      end: Math.min(e.timestamp + mainCdDuration, fightEnd),
+    }));
+    const totalOnCooldown = mergeTimePeriods(cooldownPeriods, fightEnd).reduce(
+      (acc, p) => acc + p.end - p.start,
+      0,
     );
+    return totalOnCooldown / (fightEnd - this.owner.fight.start_time);
+  }
+
+  private get percentEclipseEfficiency(): number {
+    const fightEnd = this.owner.fight.end_time;
+    const cooldownPeriods = this.eclipseCastEvents.map((e) => ({
+      // Add 200ms to remove the cast of Eclipse itself
+      start: e.timestamp + 200,
+      end: Math.min(e.timestamp + ECLIPSE_COOLDOWN_MS, fightEnd),
+    }));
+    const totalOnCooldown = mergeTimePeriods(cooldownPeriods, fightEnd).reduce(
+      (acc, p) => acc + p.end - p.start,
+      0,
+    );
+    return totalOnCooldown / (fightEnd - this.owner.fight.start_time);
+  }
+
+  private buildEclipsePerCastData(): PerCastData[] {
+    const solarBuffPeriods = this.getUptimePeriods(SPELLS.ECLIPSE_SOLAR.id);
+    const lunarBuffPeriods = this.getUptimePeriods(SPELLS.ECLIPSE_LUNAR.id);
+
+    return this.eclipseCastEvents.map((event) => {
+      const windowEnd = Math.min(event.timestamp + ECLIPSE_DURATION_MS, this.owner.fight.end_time);
+      const activeTime = this.deps.alwaysBeCasting.getActiveTimePercentageInWindow(
+        // Add 200ms to remove the cast of Eclipse itself
+        event.timestamp + 200,
+        windowEnd,
+      );
+      const activeTimePerf = evaluateQualitativePerformanceByThreshold({
+        actual: activeTime,
+        isGreaterThanOrEqual: { perfect: 0.95, good: 0.9, ok: 0.8 },
+      });
+
+      const isSolar = event.ability.guid === SPELLS.SOLAR_ECLIPSE.id;
+      const buffPeriod = (isSolar ? solarBuffPeriods : lunarBuffPeriods).find(
+        (p) => Math.abs(p.start - event.timestamp) < 1000,
+      );
+      const durationMs = buffPeriod
+        ? buffPeriod.end - buffPeriod.start
+        : windowEnd - event.timestamp;
+
+      const castSequence: CastInSequence[] = this.deps.eventHistory
+        .getEvents([EventType.Cast], {
+          searchBackwards: false,
+          // Add 200ms to remove the cast of Eclipse itself
+          startTimestamp: event.timestamp + 200,
+          duration: windowEnd - event.timestamp,
+        })
+        .map((e) => ({
+          timestamp: e.timestamp,
+          spellId: e.ability.guid,
+          spellName: e.ability.name,
+          icon: e.ability.abilityIcon.replace('.jpg', ''),
+          performance: undefined,
+        }));
+
+      return {
+        performance: activeTimePerf,
+        stats: [
+          {
+            value: `${formatPercentage(activeTime, 1)}%`,
+            label: 'Active Time',
+            tooltip: <>Percentage of time spent actively casting during this Eclipse window</>,
+            performance: activeTimePerf,
+          },
+          {
+            value: `${(durationMs / 1000).toFixed(1)}s`,
+            label: 'Duration',
+            tooltip: <>Actual duration of this Eclipse buff</>,
+          },
+        ],
+        timestamp: this.owner.formatTimestamp(event.timestamp),
+        additionalContent: {
+          title: 'Cast Sequence',
+          content: <SpellSequence casts={castSequence} iconSize={40} />,
+        },
+      };
+    });
+  }
+
+  private buildCdPerCastData(): PerCastData[] {
+    const durationMs = cdDuration(this.selectedCombatant);
+    return this.cdCastEvents.map((event) => {
+      const windowEnd = Math.min(event.timestamp + durationMs, this.owner.fight.end_time);
+      const activeTime = this.deps.alwaysBeCasting.getActiveTimePercentageInWindow(
+        // Add 200ms to remove the cast of Incarn/CA itself
+        event.timestamp + 200,
+        windowEnd,
+      );
+      const activeTimePerf = evaluateQualitativePerformanceByThreshold({
+        actual: activeTime,
+        isGreaterThanOrEqual: { perfect: 0.95, good: 0.9, ok: 0.8 },
+      });
+      return {
+        performance: activeTimePerf,
+        stats: [
+          {
+            value: `${formatPercentage(activeTime, 0)}%`,
+            label: 'Active Time',
+            tooltip: (
+              <>Percentage of time spent actively casting during this {this.cdShortName} window</>
+            ),
+            performance: activeTimePerf,
+          },
+        ],
+        timestamp: this.owner.formatTimestamp(event.timestamp),
+      };
+    });
+  }
+
+  private getUptimePeriods(spellId: number): { start: number; end: number }[] {
+    return this.selectedCombatant.getBuffHistory(spellId).map((uptime: TrackedBuffEvent) => ({
+      start: uptime.start,
+      end: uptime.end !== null ? uptime.end : this.owner.currentTimestamp,
+    }));
   }
 }

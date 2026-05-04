@@ -58,7 +58,7 @@ const RowIcon = styled.div`
   }
 `;
 
-export default function Timeline(): JSX.Element | null {
+export default function OffensiveTimeline(): JSX.Element | null {
   const info = useInfo();
   const events = useEvents();
   const [hoverStartTime, setHoverStartTime] = useState<number | null>(null);
