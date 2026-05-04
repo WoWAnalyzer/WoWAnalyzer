@@ -30,7 +30,7 @@ class MasterTheDarkness extends Analyzer {
 
   onCast(event: CastEvent) {
     this.totalPenanceCasts++;
-    if (this.selectedCombatant.hasBuff(SPELLS.MASTER_THE_DARKNESS_BUFF, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MASTER_THE_DARKNESS_BUFF)) {
       this.wastedPenanceCasts.push(event);
     }
   }
