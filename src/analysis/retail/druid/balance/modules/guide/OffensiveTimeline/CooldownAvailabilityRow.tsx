@@ -6,9 +6,9 @@ import { useAnalyzer, useInfo } from 'interface/guide';
 import { UpdateSpellUsableType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const ALL_CHARGES_COLOR = '#4a90e2';
-const SOME_CHARGES_COLOR = '#3fa34d';
-const NO_CHARGES_COLOR = '#75736d';
+export const ALL_CHARGES_COLOR = '#4a90e2';
+export const SOME_CHARGES_COLOR = '#3fa34d';
+export const NO_CHARGES_COLOR = '#75736d';
 
 const RowContainer = styled.div`
   position: relative;
@@ -61,6 +61,33 @@ interface CooldownAvailabilityRowProps {
   spell: Spell;
   durationMs: number;
 }
+
+const getVisibleSubRanges = (
+  segStart: number,
+  segEnd: number,
+  castRanges: Array<{ start: number; end: number }>,
+): Array<{ start: number; end: number }> => {
+  const sorted = castRanges
+    .filter((r) => r.end > segStart && r.start < segEnd)
+    .sort((a, b) => a.start - b.start);
+
+  const result: Array<{ start: number; end: number }> = [];
+  let cursor = segStart;
+
+  for (const range of sorted) {
+    const clampedStart = Math.max(range.start, segStart);
+    if (clampedStart > cursor) {
+      result.push({ start: cursor, end: clampedStart });
+    }
+    cursor = Math.max(cursor, Math.min(range.end, segEnd));
+  }
+
+  if (cursor < segEnd) {
+    result.push({ start: cursor, end: segEnd });
+  }
+
+  return result;
+};
 
 const segmentColor = (charges: number, maxCharges: number) => {
   if (charges <= 0) {
@@ -123,39 +150,62 @@ const CooldownAvailabilityRow = ({ spell, durationMs }: CooldownAvailabilityRowP
     )
     .map((event) => event.timestamp);
 
+  const castRanges = castTimestamps.map((ts) => ({
+    start: ts - info.fightStart,
+    end: Math.min(ts - info.fightStart + durationMs, info.fightDuration),
+  }));
+
   return (
     <RowContainer>
-      {segments.map((seg, idx) => (
+      {segments.flatMap((seg, idx) => {
+        const segStart = seg.start - info.fightStart;
+        const segEnd = seg.end - info.fightStart;
+        return getVisibleSubRanges(segStart, segEnd, castRanges).map((range, rIdx) => (
+          <Tooltip
+            key={`seg-${seg.start}-${idx}-${rIdx}`}
+            content={
+              <>
+                {seg.charges <= 0 ? 'On cooldown' : 'Available'}
+                {' @ '}
+                {formatDuration(range.start)}
+                {' - '}
+                {formatDuration(range.end)}
+                {' ('}
+                {seg.charges}/{seg.maxCharges}
+                {seg.maxCharges > 1 ? ' charges)' : ' charge)'}
+              </>
+            }
+          >
+            <Segment
+              start={range.start}
+              end={range.end}
+              fightDuration={info.fightDuration}
+              color={segmentColor(seg.charges, seg.maxCharges)}
+            />
+          </Tooltip>
+        ));
+      })}
+      {castTimestamps.map((timestamp) => (
         <Tooltip
-          key={`${seg.start}-${idx}`}
+          key={`cast-${timestamp}`}
           content={
             <>
               <SpellLink spell={spell.id} />
               {' @ '}
-              {formatDuration(seg.start - info.fightStart)}
+              {formatDuration(timestamp - info.fightStart)}
               {' - '}
-              {formatDuration(seg.end - info.fightStart)}
-              {' ('}
-              {seg.charges}/{seg.maxCharges}
-              {' charges)'}
+              {formatDuration(
+                Math.min(timestamp - info.fightStart + durationMs, info.fightDuration),
+              )}
             </>
           }
         >
-          <Segment
-            start={seg.start - info.fightStart}
-            end={seg.end - info.fightStart}
+          <CastBox
+            at={timestamp - info.fightStart}
             fightDuration={info.fightDuration}
-            color={segmentColor(seg.charges, seg.maxCharges)}
+            activeTime={durationMs}
           />
         </Tooltip>
-      ))}
-      {castTimestamps.map((timestamp) => (
-        <CastBox
-          key={`cast-${timestamp}`}
-          at={timestamp - info.fightStart}
-          fightDuration={info.fightDuration}
-          activeTime={durationMs}
-        />
       ))}
     </RowContainer>
   );

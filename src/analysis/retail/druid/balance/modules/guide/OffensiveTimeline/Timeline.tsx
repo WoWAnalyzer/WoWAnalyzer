@@ -7,10 +7,16 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { SignalListener } from 'react-vega';
 import { cdDuration, cdSpell } from 'analysis/retail/druid/balance/constants';
 import { CHART_DATA_PLOT_LEFT_OFFSET, DamageDoneChart } from './DamageDoneChart';
-import CooldownAvailabilityRow from './CooldownAvailabilityRow';
+import CooldownAvailabilityRow, {
+  ALL_CHARGES_COLOR,
+  NO_CHARGES_COLOR,
+  SOME_CHARGES_COLOR,
+} from './CooldownAvailabilityRow';
 import BuffDisplay from './BuffDisplay';
 import { extractBuffWindows } from './buffWindows';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { GuideDataWrapper } from 'interface/guide/components';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const ICON_SIZE = 24;
 
@@ -95,32 +101,78 @@ export default function Timeline(): JSX.Element | null {
   };
 
   return (
-    <AutoSizer disableHeight>
-      {({ width }) => (
-        <div style={{ width }}>
-          <DamageDoneChart buffWindows={buffWindows} width={width} onHover={onHover} />
-          <BarsContainer>
-            <BuffDisplay
-              buffs={buffWindows}
-              fightDuration={info.fightDuration}
-              hoverStartTime={hoverStartTime}
-            />
-          </BarsContainer>
-          <RowsContainer>
-            {cooldownSpells.map((spell) => (
-              <Row key={spell.id}>
-                <RowIcon>
-                  <SpellIcon spell={spell.id} />
-                </RowIcon>
-                <CooldownAvailabilityRow
-                  spell={spell}
-                  durationMs={cooldownSpellsDuration[spell.id]}
+    <RoundedPanel>
+      <AutoSizer disableHeight>
+        {({ width }) => (
+          <div style={{ width }}>
+            <GuideDataWrapper bare title={`Eclipse timeline`}>
+              <DamageDoneChart buffWindows={buffWindows} width={width} onHover={onHover} />
+              <BarsContainer>
+                <BuffDisplay
+                  buffs={buffWindows}
+                  fightDuration={info.fightDuration}
+                  hoverStartTime={hoverStartTime}
                 />
-              </Row>
-            ))}
-          </RowsContainer>
-        </div>
-      )}
-    </AutoSizer>
+              </BarsContainer>
+            </GuideDataWrapper>
+            <div style={{ height: '10px' }} />
+            <GuideDataWrapper bare title={`Cooldown availability`}>
+              <RowsContainer>
+                {cooldownSpells.map((spell) => (
+                  <Row key={spell.id}>
+                    <RowIcon>
+                      <SpellIcon spell={spell.id} />
+                    </RowIcon>
+                    <CooldownAvailabilityRow
+                      spell={spell}
+                      durationMs={cooldownSpellsDuration[spell.id]}
+                    />
+                  </Row>
+                ))}
+              </RowsContainer>
+              <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div
+                    style={{
+                      height: '12px',
+                      width: '12px',
+                      flexShrink: 0,
+                      backgroundColor: ALL_CHARGES_COLOR,
+                    }}
+                  />{' '}
+                  <small>All charges available</small>
+                </div>
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '-3px' }}
+                >
+                  <div
+                    style={{
+                      height: '12px',
+                      width: '12px',
+                      flexShrink: 0,
+                      backgroundColor: SOME_CHARGES_COLOR,
+                    }}
+                  />{' '}
+                  <small>Some charges available</small>
+                </div>
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '-3px' }}
+                >
+                  <div
+                    style={{
+                      height: '12px',
+                      width: '12px',
+                      flexShrink: 0,
+                      backgroundColor: NO_CHARGES_COLOR,
+                    }}
+                  />{' '}
+                  <small>Not available</small>
+                </div>
+              </div>
+            </GuideDataWrapper>
+          </div>
+        )}
+      </AutoSizer>
+    </RoundedPanel>
   );
 }
