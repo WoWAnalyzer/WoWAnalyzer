@@ -62,7 +62,11 @@ const spells = {
     name: 'Void Shield',
     icon: 'inv12_apextalent_priest_voidshield',
   },
-
+  MASTER_THE_DARKNESS_BUFF: {
+    id: 1253591,
+    name: 'Master the Darkness',
+    icon: 'inv12_apextalent_priest_voidshield',
+  },
   PENANCE_CAST: {
     id: 47540,
     name: 'Penance',
@@ -749,7 +753,7 @@ const spells = {
 
   PSYCHIC_LINK_TALENT_DAMAGE: {
     id: 199486,
-    name: 'Psychich Link',
+    name: 'Psychic Link',
     icon: 'ability_priest_psychiclink',
   },
 

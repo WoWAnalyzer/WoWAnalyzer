@@ -12,13 +12,11 @@ import RimeEfficiency from './modules/features/RimeEfficiency';
 import FrostRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneGraph from './modules/features/RuneGraph';
 import RuneTracker from './modules/features/RuneTracker';
-import SpellUsable from './modules/features/SpellUsable';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerGraph from './modules/runicpower/RunicPowerGraph';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
-import GatheringStorm from './modules/talents/GatheringStorm';
 import EmpowerRuneWeapon from './modules/talents/EmpowerRuneWeapon';
 import SoulReaper from '../shared/talents/SoulReaper';
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
@@ -28,7 +26,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     runeforgeChecker: FrostRuneForgeChecker,
 
@@ -48,7 +45,6 @@ class CombatLogParser extends CoreCombatLogParser {
     runicPowerGraph: RunicPowerGraph,
 
     //talents
-    gatheringStorm: GatheringStorm,
     frostscythe: Frostscythe,
     empowerRuneWeapon: EmpowerRuneWeapon,
     soulReaper: SoulReaper,

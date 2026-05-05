@@ -202,6 +202,10 @@ export const Bonebasher: Contributor = {
   nickname: 'Bonebasher',
   github: 'Bonebasher',
 };
+export const Mahmud17: Contributor = {
+  nickname: 'Sadrai',
+  github: 'Mahmud17',
+};
 export const bhawkins6177: Contributor = {
   nickname: 'bhawkins6177',
   github: 'bhawkins6177',
@@ -2941,4 +2945,30 @@ export const Baumritter: Contributor = {
   nickname: 'Baumritter',
   github: 'Baumritter',
   discord: 'baumritter',
+};
+
+export const Nooseknitter: Contributor = {
+  nickname: 'Noose',
+  github: 'wjbonne',
+  discord: 'Nooseknitter',
+  mains: [
+    {
+      name: 'Nooseknitter',
+      spec: SPECS.FROST_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/nooseknitter',
+    },
+  ],
+};
+
+export const WillyRS: Contributor = {
+  nickname: 'WillyRS',
+  github: 'EmmanueleVilla',
+  discord: 'willyrs',
+  mains: [
+    {
+      name: 'Angelicaah',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/pozzo-delleternit%C3%A0/angelicaah/',
+    },
+  ],
 };
