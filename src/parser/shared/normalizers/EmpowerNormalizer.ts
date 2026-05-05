@@ -6,6 +6,7 @@ import {
   EventType,
   GetRelatedEvent,
   HasAbility,
+  HasRelatedEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
@@ -13,6 +14,7 @@ import Abilities from 'parser/core/modules/Abilities';
 
 export const EMPOWER_CAST = 'EmpoweredCast';
 export const EMPOWER_END = 'EmpowerEnd';
+const EMPOWER_CANCEL = 'EmpowerCancel';
 
 const EMPOWERED_CAST_BUFFER = 6000;
 
@@ -34,37 +36,66 @@ class EmpowerNormalizer extends EventLinkNormalizer {
   };
 
   private empowers: number[] = [];
+  private trackedEmpowers: number[];
 
   constructor(options: Options) {
     super(options, []);
 
-    this.empowers = this.owner // can abstract this to a method in abilities, but don't really think we need to tbh
+    // Includes ALL Empowers
+    this.empowers = this.owner
       .getModule(Abilities)
-      .activeAbilities.filter((a) => a.isEmpower)
+      .activeAbilities.filter((a) => a.isEmpower > 0)
+      .flatMap((a) => a.spell);
+
+    // Includes only Empowers which don't have the NoAuraLog flag
+    this.trackedEmpowers = this.owner
+      .getModule(Abilities)
+      .activeAbilities.filter((a) => a.isEmpower > 1)
       .flatMap((a) => a.spell);
 
     this.active = this.empowers.length > 0;
     this.priority = 20; // Ensures this runs before all of the spec specific modules
 
-    this.eventLinks.push({
-      linkRelation: EMPOWER_CAST,
-      reverseLinkRelation: EMPOWER_END,
-      linkingEventId: this.empowers,
-      linkingEventType: EventType.EmpowerEnd,
-      referencedEventId: this.empowers,
-      referencedEventType: EventType.Cast,
-      /** We only look backwards from the empowerEnd event to not accidentally add the link to a cancelled cast */
-      backwardBufferMs: EMPOWERED_CAST_BUFFER,
-      anyTarget: true,
-      maximumLinks: 1,
-      additionalCondition(linkingEvent, referencedEvent) {
-        return (
-          (linkingEvent as EmpowerEndEvent).empowermentLevel > 0 &&
-          (linkingEvent as EmpowerEndEvent).ability.guid ===
-            (referencedEvent as CastEvent).ability.guid
-        );
+    this.eventLinks.push(
+      {
+        linkRelation: EMPOWER_CAST,
+        reverseLinkRelation: EMPOWER_END,
+        linkingEventId: this.empowers,
+        linkingEventType: EventType.EmpowerEnd,
+        referencedEventId: this.empowers,
+        referencedEventType: EventType.Cast,
+        /** We only look backwards from the empowerEnd event to not accidentally add the link to a cancelled cast */
+        backwardBufferMs: EMPOWERED_CAST_BUFFER,
+        anyTarget: true,
+        maximumLinks: 1,
+        additionalCondition(linkingEvent, referencedEvent) {
+          return (
+            (linkingEvent as EmpowerEndEvent).empowermentLevel > 0 &&
+            (linkingEvent as EmpowerEndEvent).ability.guid ===
+              (referencedEvent as CastEvent).ability.guid
+          );
+        },
       },
-    });
+      {
+        linkRelation: EMPOWER_CAST,
+        reverseLinkRelation: EMPOWER_CANCEL,
+        linkingEventId: this.empowers,
+        linkingEventType: EventType.EmpowerEnd,
+        referencedEventId: this.empowers,
+        referencedEventType: EventType.Cast,
+        /** We only look backwards from the empowerEnd event to not accidentally add the link to the wrong cancelled cast */
+        backwardBufferMs: EMPOWERED_CAST_BUFFER,
+        anyTarget: true,
+        maximumLinks: 1,
+        additionalCondition(linkingEvent, referencedEvent) {
+          return (
+            (linkingEvent as EmpowerEndEvent).empowermentLevel === 0 &&
+            (linkingEvent as EmpowerEndEvent).ability.guid ===
+              (referencedEvent as CastEvent).ability.guid
+          );
+        },
+      },
+    );
   }
 
   /** If an empower cast is missing the empowerend then search for the remove buff event until you either find the next cast or the event (Instant Cast Empowers and certain empowers don't produce removeBuff events) */
@@ -73,32 +104,33 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     const events = super.normalize(rawEvents);
 
     const fixedEvents: AnyEvent[] = [];
-    let eventIndex = 0;
-    events.forEach((event) => {
+    events.forEach((event, index) => {
+      // Exclude
+      // - Non-Casts
+      // - Non-Empowers
+      // - Empowers that don't track anyway
+      // - Empowers who already have a EmpowerEnd Event
       if (
         event.type !== EventType.Cast ||
-        !this.empowers.includes(event.ability.guid) ||
-        getEmpowerEndEvent(event)
+        !this.trackedEmpowers.includes(event.ability.guid) ||
+        HasRelatedEvent(event, EMPOWER_END)
       ) {
-        if (event.type !== EventType.EmpowerEnd || event.empowermentLevel > 0) {
-          fixedEvents.push(event);
-        }
-        eventIndex++;
+        fixedEvents.push(event);
         return;
       }
-      let pushed = false;
-      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
+
+      fixedEvents.push(event); // Push real event
+
+      for (let idx = index + 1; idx < events.length; idx += 1) {
         const laterEvent = events[idx];
-        pushed = false;
+        // Filter out TTS casts
         if (
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === event.ability.guid &&
           laterEvent.type === EventType.Cast
-        ) {
-          fixedEvents.push(event);
-          pushed = true;
+        )
           break;
-        } else if (
+        else if (
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === event.ability.guid &&
           laterEvent.type === EventType.RemoveBuff
@@ -115,25 +147,17 @@ class EmpowerNormalizer extends EventLinkNormalizer {
             __fabricated: true,
           };
 
-          createCastEndLink(event, fabricatedEvent);
+          AddRelatedEvent(event, EMPOWER_CANCEL, fabricatedEvent);
+          AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, event);
 
-          fixedEvents.push(event);
           fixedEvents.push(fabricatedEvent);
-          pushed = true;
           break;
         }
       }
-      if (pushed === false) fixedEvents.push(event);
-      eventIndex++;
     });
+
     return fixedEvents;
   }
-}
-
-/** Use this to retroactively create a cast link */
-export function createCastEndLink(castEvent: CastEvent, empowerEndEvent: EmpowerEndEvent) {
-  AddRelatedEvent(castEvent, EMPOWER_END, empowerEndEvent);
-  AddRelatedEvent(empowerEndEvent, EMPOWER_CAST, castEvent);
 }
 
 /** Use this to verify if an Empower was cancelled or finished casting.
@@ -143,9 +167,15 @@ export function empowerFinishedCasting(event: CastEvent): boolean {
   const endEvent: EmpowerEndEvent | undefined = GetRelatedEvent(event, EMPOWER_END);
   return endEvent !== undefined && endEvent.empowermentLevel > 0;
 }
+
 /** Get the associated empowerEnd event for an Empower cast */
 export function getEmpowerEndEvent(event: CastEvent): EmpowerEndEvent | undefined {
   return GetRelatedEvent(event, EMPOWER_END, (e) => e.type === EventType.EmpowerEnd);
+}
+
+/** Get the associated empowerEnd event for a cancelled Empower cast */
+export function getCancelledEmpowerEndEvent(event: CastEvent): EmpowerEndEvent | undefined {
+  return GetRelatedEvent(event, EMPOWER_CANCEL, (e) => e.type === EventType.EmpowerEnd);
 }
 
 export function getEmpowerCastEvent(event: EmpowerEndEvent): CastEvent | undefined {

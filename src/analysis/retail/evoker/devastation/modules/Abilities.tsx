@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/evoker';
 import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
-import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { EMPOWER_STATUS, SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
 import { BASE_EVOKER_RANGE, EMPOWER_MINIMUM_GCD } from '../../shared';
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         },
         range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
-        isEmpower: true,
+        isEmpower: EMPOWER_STATUS.NoAuraLog,
       },
       {
         spell: SPELLS.AZURE_SWEEP.id,

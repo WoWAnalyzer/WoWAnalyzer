@@ -1,5 +1,6 @@
 import TALENTS from 'common/TALENTS/evoker';
 import {
+  AddRelatedEvent,
   AnyEvent,
   CastEvent,
   EmpowerEndEvent,
@@ -8,7 +9,10 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import EmpowerNormalizer, { createCastEndLink } from 'parser/shared/normalizers/EmpowerNormalizer';
+import EmpowerNormalizer, {
+  EMPOWER_CAST,
+  EMPOWER_END,
+} from 'parser/shared/normalizers/EmpowerNormalizer';
 import { EMPOWERS } from '../../constants';
 
 const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
@@ -86,7 +90,8 @@ class TipTheScalesNormalizer extends EventLinkNormalizer {
         __fabricated: true,
       };
 
-      createCastEndLink(event, fabricatedEvent);
+      AddRelatedEvent(event, EMPOWER_END, fabricatedEvent);
+      AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, event);
 
       fixedEvents.push(event);
       fixedEvents.push(fabricatedEvent);

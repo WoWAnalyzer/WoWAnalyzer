@@ -31,7 +31,7 @@ class EyeOfInfinity extends Analyzer {
 
   private onCast(event: CastEvent) {
     const empowerEndEvent = getEmpowerEndEvent(event);
-    if (!empowerEndEvent) return;
+    if (!empowerEndEvent || empowerEndEvent.empowermentLevel === 0) return;
 
     const damageEvents = getEternitySurgeDamageEvents(empowerEndEvent);
     if (!damageEvents.length) return;
