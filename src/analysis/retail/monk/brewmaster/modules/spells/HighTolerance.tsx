@@ -11,7 +11,7 @@ import { formatDurationMinSec } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import StateHistory, { EventHistory } from 'parser/core/StateHistory';
 
-const CDR_PER_RANK = 3000;
+const CDR_PER_RANK = 2000;
 
 class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   protected ranks = 0;
