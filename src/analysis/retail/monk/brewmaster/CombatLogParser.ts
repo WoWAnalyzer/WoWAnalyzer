@@ -57,12 +57,14 @@ import {
   KegSmashPrimaryTargetNormalizer,
   SpinningCraneKickTickNormalizer,
 } from './normalizers/PrimaryTargetLinks';
+import SpellUsable from './modules/core/SpellUsable';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     healingDone: HealingDone,
     damageTaken: DamageTaken,
+    spellUsable: SpellUsable,
     brewCdr: BrewCDR,
     brews: SharedBrews,
     channeling: Channeling,
