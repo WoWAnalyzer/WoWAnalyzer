@@ -6,6 +6,7 @@ import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 6), <>Adjust <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} /> logic to apply CDR before consuming a charge (replicating the in-game bug).</>, emallson),
   change(date(2026, 5, 6), <>Update <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} /> CDR to reflect the recent nerfs.</>, emallson),
   change(date(2026, 5, 6), <>Update support of <SpellLink spell={SPELLS.ANVIL_AND_STAVE_TALENT} />.</>, emallson),
   change(date(2026, 5, 2), <>Add an Elevated Purifying Brew comparison box to Stagger Management with cast efficiency, total casts, elevated casts, max casts, and elevated cooldown reduction for <SpellLink spell={SPELLS.PURIFYING_BREW_TALENT} /> while <SpellLink spell={spells.ELEVATED_STAGGER_BUFF} /> is active (CDR shown as mm:ss).</>, Mahmud17),
