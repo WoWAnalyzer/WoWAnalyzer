@@ -1,4 +1,5 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { i18n } from '@lingui/core';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';

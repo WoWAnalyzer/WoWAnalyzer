@@ -24,7 +24,7 @@ This project upgrades dependencies over time. Do not assume specific version num
 ```typescript
 // Example component with Emotion styling
 import styled from '@emotion/styled';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 const Container = styled.div`
   padding: 20px;
