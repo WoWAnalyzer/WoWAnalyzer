@@ -1,5 +1,4 @@
 import talents from 'common/TALENTS/deathknight';
-import spells from 'common/SPELLS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CooldownExpandable, {
   CooldownExpandableItem,
@@ -106,11 +105,12 @@ export default class EmpowerRuneWeapon extends Analyzer {
         <strong>
           <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_TALENT} />
         </strong>{' '}
-        is a strong resource cooldown used primarily to extend{' '}
-        <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />. It is best used to extend your
-        Breath when you notice you can no longer generate enough RP to stop the drain. This is
-        typically when you have no Runes available and do not get a
-        <SpellLink spell={spells.RUNIC_EMPOWERMENT} /> proc
+        is an off-gcd <SpellLink spell={talents.KILLING_MACHINE_TALENT} /> and Runic Power
+        generator. It helps us reduce the number of no-KM{' '}
+        <SpellLink spell={talents.OBLITERATE_TALENT} />s we cast in a fight, as well as providing a
+        ton of resources. Furthermore, during <SpellLink spell={talents.PILLAR_OF_FROST_TALENT} />{' '}
+        with <SpellLink spell={talents.OBLITERATION_TALENT} />, it gives a lot of free casts of{' '}
+        <SpellLink spell={talents.OBLITERATE_TALENT} /> which is a lot of value.
       </p>
     );
 

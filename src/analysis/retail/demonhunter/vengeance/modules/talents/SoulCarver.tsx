@@ -12,12 +12,8 @@ import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { isDefined } from 'common/typeGuards';
 
-const PERFECT_FRAILTY_STACKS = 5;
-const GOOD_FRAILTY_STACKS = 3;
-const OK_FRAILTY_STACKS = 1;
-
 interface SoulCarverCooldownCast extends CooldownTrigger<CastEvent> {
-  primaryTargetStacksOfFrailty: number;
+  hasFrailtyDebuff: boolean;
   hasFieryBrandDebuff: boolean;
 }
 
@@ -44,7 +40,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
           <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
         </strong>{' '}
         is a burst of damage that also generates a decent chunk of Soul Fragments.
-        <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
+        <VulnerabilityExplanation />
         <FieryDemiseExplanation />
       </>
     );
@@ -97,20 +93,20 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
   private onCast(event: CastEvent) {
     this.recordCooldown({
       event,
-      primaryTargetStacksOfFrailty: this.getTargetStacksOfFrailty(event),
+      hasFrailtyDebuff: this.doesTargetHaveFrailty(event),
       hasFieryBrandDebuff: this.doesTargetHaveFieryBrand(event),
     });
   }
 
-  private getTargetStacksOfFrailty(event: CastEvent | undefined) {
+  private doesTargetHaveFrailty(event: CastEvent | undefined) {
     if (!event) {
-      return 0;
+      return false;
     }
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
-      return 0;
+      return false;
     }
-    return enemy.getBuffStacks(SPELLS.FRAILTY.id, event.timestamp);
+    return enemy.hasBuff(SPELLS.FRAILTY.id, event.timestamp);
   }
 
   private doesTargetHaveFieryBrand(event: CastEvent | undefined) {
@@ -165,22 +161,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
     if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT)) {
       return undefined;
     }
-    if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULCRUSH_TALENT)) {
-      if (cast.primaryTargetStacksOfFrailty > 0) {
-        return {
-          performance: QualitativePerformance.Perfect,
-          summary: (
-            <div>
-              <SpellLink spell={SPELLS.FRAILTY} /> applied to target
-            </div>
-          ),
-          details: (
-            <div>
-              <SpellLink spell={SPELLS.FRAILTY} /> applied to target.
-            </div>
-          ),
-        };
-      }
+    if (!cast.hasFrailtyDebuff) {
       return {
         performance: QualitativePerformance.Fail,
         summary: (
@@ -198,75 +179,16 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
       };
     }
 
-    if (cast.primaryTargetStacksOfFrailty >= PERFECT_FRAILTY_STACKS) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        summary: (
-          <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
-            applied to target
-          </div>
-        ),
-        details: (
-          <div>
-            Had {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
-            applied to target.
-          </div>
-        ),
-      };
-    }
-    if (cast.primaryTargetStacksOfFrailty >= GOOD_FRAILTY_STACKS) {
-      return {
-        performance: QualitativePerformance.Good,
-        summary: (
-          <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
-            applied to target
-          </div>
-        ),
-        details: (
-          <div>
-            Only {cast.primaryTargetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to target. Try applying at least{' '}
-            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
-          </div>
-        ),
-      };
-    }
-    if (cast.primaryTargetStacksOfFrailty >= OK_FRAILTY_STACKS) {
-      return {
-        performance: QualitativePerformance.Ok,
-        summary: (
-          <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
-            applied to target
-          </div>
-        ),
-        details: (
-          <div>
-            Only {cast.primaryTargetStacksOfFrailty} stack(s) of{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> applied to target. Try applying at least{' '}
-            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
-          </div>
-        ),
-      };
-    }
     return {
-      performance: QualitativePerformance.Fail,
+      performance: QualitativePerformance.Perfect,
       summary: (
         <div>
-          {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
-          applied to target
+          <SpellLink spell={SPELLS.FRAILTY} /> applied to target
         </div>
       ),
       details: (
         <div>
-          Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
-          applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-          <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+          <SpellLink spell={SPELLS.FRAILTY} /> applied to target.
         </div>
       ),
     };

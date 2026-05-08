@@ -69,6 +69,8 @@ import {
   TimeSpiral,
   MobilityCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
+  TemporalBurstStackNormalizer,
+  TemporalBurst,
 } from '../shared';
 import ConsumeFlame from './modules/talents/ConsumeFlame';
 
@@ -86,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
     chronowardenCastLinkNormalizer: ChronowardenCastLinkNormalizer,
+    temporalBurstStackNormalizer: TemporalBurstStackNormalizer,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -158,6 +161,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primacy: Primacy,
     timeConvergence: TimeConvergence,
     motesOfAcceleration: MotesOfAcceleration,
+    temporalBurst: TemporalBurst,
 
     // other
   };

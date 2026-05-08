@@ -8,7 +8,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import SPELLS from 'common/SPELLS';
 
 const BOND_WITH_NATURE_HEALING_INCREASE = 0.04;
 
@@ -25,13 +24,10 @@ export default class BondWithNature extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BOND_WITH_NATURE_TALENT);
 
-    this.addEventListener(Events.heal.to(this.selectedCombatant.id), this.onHeal);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
   }
 
   private onHeal(event: HealEvent) {
-    if (event.targetID !== this.selectedCombatant.id) {
-      return;
-    }
     this.healing += calculateEffectiveHealing(event, BOND_WITH_NATURE_HEALING_INCREASE);
   }
 
