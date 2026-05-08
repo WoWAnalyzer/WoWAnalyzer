@@ -199,7 +199,7 @@ class ApplyBuff extends EventsNormalizer {
       );
 
     const applyBuffStackEvent: ApplyBuffStackEvent = {
-      // These are all the properties a normal `applybuff` event would have.
+      // These are all the properties a normal `applybuffstack` event would have.
       timestamp: firstStartTimestamp + 1, // After the fabricated ApplyBuffEvent
       type: EventType.ApplyBuffStack,
       ability: event.ability,
