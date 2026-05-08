@@ -13,7 +13,7 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import { PlayerInfo } from '../../core/Player';
 
-const debug = true;
+const debug = false;
 
 /**
  * Some buffs like Bloodlust and Holy Avenger when they are applied pre-combat it doesn't show up as an `applybuff` event nor in the `combatantinfo` buffs array. It can still be detected by looking for a `removebuff` event, this uses that to detect it and then fabricates an `applybuff` event at the start of the log.
