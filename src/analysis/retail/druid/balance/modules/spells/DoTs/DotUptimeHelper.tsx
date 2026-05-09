@@ -22,22 +22,18 @@ export abstract class DotUptimeHelper {
     let refreshCount = 0;
     let overwriteCount = 0;
     let overwriteShortestDuration: number | undefined = undefined;
-    for (const [, castImpactPerTargetId] of Object.entries(castImpact.castImpactPerTargetId)) {
-      if (castImpactPerTargetId.castImpactType == CastImpactType.NewDebuff) {
+    for (const impactPerTarget of Object.values(castImpact.castImpactPerTargetId)) {
+      if (impactPerTarget.castImpactType === CastImpactType.NewDebuff) {
         newDebuffCount++;
-      }
-
-      if (castImpactPerTargetId.castImpactType == CastImpactType.RefreshDuringPandemicWindow) {
+      } else if (impactPerTarget.castImpactType === CastImpactType.RefreshDuringPandemicWindow) {
         refreshCount++;
-      }
-
-      if (castImpactPerTargetId.castImpactType == CastImpactType.Overwrite) {
+      } else if (impactPerTarget.castImpactType === CastImpactType.Overwrite) {
         overwriteCount++;
         if (
           overwriteShortestDuration === undefined ||
-          overwriteShortestDuration > castImpactPerTargetId.remainingDurationBeforeCast
+          overwriteShortestDuration > impactPerTarget.remainingDurationBeforeCast
         ) {
-          overwriteShortestDuration = castImpactPerTargetId.remainingDurationBeforeCast;
+          overwriteShortestDuration = impactPerTarget.remainingDurationBeforeCast;
         }
       }
     }
@@ -64,11 +60,11 @@ export abstract class DotUptimeHelper {
     combatant: Combatant,
   ): CastEvaluation {
     let performance = QualitativePerformance.Ok;
-    if (overwriteCount == 0) {
+    if (overwriteCount === 0) {
       performance = QualitativePerformance.Perfect;
     } else if (overwriteCount <= newDebuffCount + refreshCount) {
       performance = QualitativePerformance.Good;
-    } else if (newDebuffCount == 0 && refreshCount == 0) {
+    } else if (newDebuffCount === 0 && refreshCount === 0) {
       performance = QualitativePerformance.Fail;
     }
 
@@ -76,16 +72,16 @@ export abstract class DotUptimeHelper {
     // Arbitrary limit defined as DoTs that would not last at least 10s during an Incarn/Celestial Alignment.
     // (and Eclipse for Keeper of the Groves only).
     // In this case, rebrand a Fail cast as an Ok cast with the correct reason.
-    if (performance == QualitativePerformance.Fail && overwriteShortestDuration !== undefined) {
+    if (performance === QualitativePerformance.Fail && overwriteShortestDuration !== undefined) {
       const castTimeStamp = castImpact.castEvent.timestamp;
       // Check Keeper of the Groves specific talent
       const isKeeper = combatant.hasTalent(TALENTS_DRUID.DREAM_SURGE_TALENT);
 
-      // // Calculate delay until the next burst window
+      // Calculate delay until the next burst window
       const nextMain = mainSpellCasts.find((c) => c.timestamp >= castTimeStamp)?.timestamp;
       const nextEclipse = eclipseSpellCasts.find((c) => c.timestamp >= castTimeStamp)?.timestamp;
       const delayBeforeNextBurst =
-        Math.min(nextMain ?? Infinity, (isKeeper ? nextEclipse : Infinity) ?? Infinity) -
+        Math.min(nextMain ?? Infinity, isKeeper ? (nextEclipse ?? Infinity) : Infinity) -
         castTimeStamp;
       const isJustBeforeBurst = delayBeforeNextBurst <= DotUptimeHelper.MAX_DELAY_NEXT_BURST_WINDOW; // 3s
 
@@ -100,7 +96,7 @@ export abstract class DotUptimeHelper {
             timestamp: castTimeStamp,
             performance: QualitativePerformance.Ok,
             reason: `${overwriteCount} overwritten just before a burst window to guarantee 10s of uptime throughout`,
-          } as CastEvaluation;
+          };
         } else {
           const durationDuringBurstInSeconds = (
             (overwriteShortestDuration - delayBeforeNextBurst) /
@@ -110,7 +106,7 @@ export abstract class DotUptimeHelper {
             timestamp: castTimeStamp,
             performance: QualitativePerformance.Fail,
             reason: `${overwriteCount} overwritten just before a burst window but would have lasted ${durationDuringBurstInSeconds}s throughout`,
-          } as CastEvaluation;
+          };
         }
       }
     }
@@ -119,6 +115,6 @@ export abstract class DotUptimeHelper {
       timestamp: castImpact.castEvent.timestamp,
       performance: performance,
       reason: `${newDebuffCount} created, ${refreshCount} refreshed, ${overwriteCount} overwritten`,
-    } as CastEvaluation;
+    };
   }
 }

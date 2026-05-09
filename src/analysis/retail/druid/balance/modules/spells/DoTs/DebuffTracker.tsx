@@ -1,6 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AnyEvent,
   ApplyDebuffEvent,
   CastEvent,
   RefreshDebuffEvent,
@@ -228,8 +227,7 @@ class DebuffTracker extends Analyzer {
       return;
     }
 
-    const isInPandemicWindow =
-      remainingDuration > 0 && remainingDuration <= PANDEMIC_WINDOW * this.debuffDuration;
+    const isInPandemicWindow = remainingDuration <= PANDEMIC_WINDOW * this.debuffDuration;
     // Refresh during pandemic window
     if (isInPandemicWindow) {
       this.refreshDebuff(remainingDuration, targetId, eventTimeStamp, correspondingCast);
@@ -380,14 +378,10 @@ class DebuffTracker extends Analyzer {
   private getCorrespondingCast(
     debuffEvent: ApplyDebuffEvent | RefreshDebuffEvent,
   ): CastEvent | undefined {
-    function isCorrespondingEvent(event: AnyEvent): event is CastEvent {
-      return event && event.type == 'cast';
-    }
-
-    return debuffEvent._linkedEvents
-      ?.filter((linkedEvent) => linkedEvent.relation == this.linkedEventRelation)
-      ?.map((linkedEvent) => linkedEvent.event)
-      .find((linkedEventEvent) => isCorrespondingEvent(linkedEventEvent));
+    return (debuffEvent._linkedEvents ?? [])
+      .filter((linkedEvent) => linkedEvent.relation === this.linkedEventRelation)
+      .map((linkedEvent) => linkedEvent.event)
+      .find((e): e is CastEvent => e.type === 'cast');
   }
 
   private storeCastImpact(
@@ -413,7 +407,7 @@ class DebuffTracker extends Analyzer {
    * Therefore, we also need to use the targetInstance which is an incrementing ID.
    */
   private buildTargetId(event: ApplyDebuffEvent | RefreshDebuffEvent | RemoveDebuffEvent) {
-    return event.targetID * 1_000_000 + (event.targetInstance || 0);
+    return event.targetID * 1_000_000 + (event.targetInstance ?? 0);
   }
 }
 
