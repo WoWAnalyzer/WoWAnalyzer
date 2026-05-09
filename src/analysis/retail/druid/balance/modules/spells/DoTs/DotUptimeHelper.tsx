@@ -77,20 +77,18 @@ export abstract class DotUptimeHelper {
     // (and Eclipse for Keeper of the Groves only).
     // In this case, rebrand a Fail cast as an Ok cast with the correct reason.
     if (performance == QualitativePerformance.Fail && overwriteShortestDuration !== undefined) {
-      // Find next relevant timestamps
       const castTimeStamp = castImpact.castEvent.timestamp;
-      const nextMain = mainSpellCasts.find((c) => c.timestamp >= castTimeStamp)?.timestamp;
-      const nextEclipse = eclipseSpellCasts.find((c) => c.timestamp >= castTimeStamp)?.timestamp;
-
       // Check Keeper of the Groves specific talent
       const isKeeper = combatant.hasTalent(TALENTS_DRUID.DREAM_SURGE_TALENT);
 
-      // Calculate delay until the next burst window
+      // // Calculate delay until the next burst window
+      const nextMain = mainSpellCasts.find((c) => c.timestamp >= castTimeStamp)?.timestamp;
+      const nextEclipse = eclipseSpellCasts.find((c) => c.timestamp >= castTimeStamp)?.timestamp;
       const delayBeforeNextBurst =
         Math.min(nextMain ?? Infinity, (isKeeper ? nextEclipse : Infinity) ?? Infinity) -
         castTimeStamp;
-
       const isJustBeforeBurst = delayBeforeNextBurst <= DotUptimeHelper.MAX_DELAY_NEXT_BURST_WINDOW; // 3s
+
       // The DoT would expire within the first 10s of next burst window
       const dotWouldExpireTooSoon =
         delayBeforeNextBurst + DotUptimeHelper.MIN_DOT_DURATION_BURST_WINDOW >
