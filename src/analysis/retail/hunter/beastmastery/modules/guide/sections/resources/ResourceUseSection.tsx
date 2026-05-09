@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import CombatLogParser from 'analysis/retail/hunter/beastmastery/CombatLogParser';
 import {
   RESOURCES_HUNTER_AVERAGE_THRESHOLD,
