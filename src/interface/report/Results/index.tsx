@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import getFightName from 'common/getFightName';
 import makeWclUrl from 'common/makeWclUrl';
 import { findByBossId } from 'game/raids';
