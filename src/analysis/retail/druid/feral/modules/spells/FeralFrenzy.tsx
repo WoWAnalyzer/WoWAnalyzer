@@ -3,7 +3,7 @@ import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoi
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import Enemies from 'parser/shared/modules/Enemies';
+import Enemies, { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -81,7 +81,7 @@ export default class FeralFrenzy extends Analyzer {
 
     const enemy = this.enemies.getEntity(event);
     const name = enemy?.name ?? 'Unknown';
-    const key = `${event.targetID}.${event.targetInstance ?? 0}`;
+    const key = encodeEventTargetString(event);
     const existing = currentCast.damageByEnemy.get(key);
     if (existing) {
       existing.damage += amount;
@@ -311,6 +311,6 @@ interface FeralFrenzyCast {
   isFrantic: boolean; // Feral Frenzy can be upgraded to Frantic Frenzy now
   /** Total damage (all hits + bleed ticks) attributed to this cast */
   damage: number;
-  /** Damage broken down per enemy, keyed by `${targetID}.${targetInstance}` */
+  /** Damage broken down per enemy, keyed by `encodeEventTargetString` */
   damageByEnemy: Map<string, { name: string; damage: number }>;
 }
