@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Thias, Vetyst } from 'CONTRIBUTORS';
+import { Thias, Vetyst, WillyRS } from 'CONTRIBUTORS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-  
+
 export default [
+  change(date(2026, 5, 1), <>Added proc checks for <SpellLink spell={SPELLS.MASTER_THE_DARKNESS_BUFF} /> for Discipline Priest.</>, WillyRS),
   change(date(2026, 4, 11), <>Added Defensive usage to guide section.</>, Thias),
   change(date(2026, 3, 22), <>Introduced Guide for <SpellLink spell={SPELLS.PENANCE_CAST} /> usage and updated interactions with <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />, <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} /> and <SpellLink spell={TALENTS_PRIEST.TWINSIGHT_TALENT} />.</>, Vetyst),
   change(date(2026, 3, 20), <>Updated several StatisticBox deprecations.</>, Vetyst),

@@ -40,7 +40,7 @@ import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 import Guide from './Guide';
 import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
-
+import MasterTheDarkness from './modules/spells/MasterTheDarkness';
 import AbyssalReverie from './modules/spells/AbyssalReverie';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
@@ -106,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
     blazeOfLight: BlazeOfLight,
+    masterTheDarkness: MasterTheDarkness,
     selfAtonementAnalyzer: SelfAtonementAnalyzer,
     protectiveLight: ProtectiveLight,
     abyssalReverie: AbyssalReverie,
