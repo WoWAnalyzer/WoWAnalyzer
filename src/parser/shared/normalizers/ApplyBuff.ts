@@ -60,7 +60,7 @@ class ApplyBuff extends EventsNormalizer {
             const spell = maybeGetTalentOrSpell(spellId);
 
             debug &&
-              console.warn(
+              this.warn(
                 'Found a buff on',
                 (playersById[targetId] && playersById[targetId].name) || '???',
                 'in the combatantinfo that was applied before the pull and never dropped:',
@@ -124,7 +124,7 @@ class ApplyBuff extends EventsNormalizer {
         }
 
         debug &&
-          console.warn(
+          this.warn(
             'Found a buff on',
             (playersById[targetId] && playersById[targetId].name) || '???',
             'that was applied before the pull:',
@@ -187,7 +187,7 @@ class ApplyBuff extends EventsNormalizer {
 
     const previousStackCount = event.stack + (event.type === EventType.ApplyBuffStack ? -1 : 1);
     debug &&
-      console.warn(
+      this.warn(
         'Found a buff on',
         (playerInfo && playerInfo.name) || '???',
         'that was applied before the pull:',
@@ -200,7 +200,7 @@ class ApplyBuff extends EventsNormalizer {
 
     const applyBuffStackEvent: ApplyBuffStackEvent = {
       // These are all the properties a normal `applybuffstack` event would have.
-      timestamp: firstStartTimestamp + 1, // After the fabricated ApplyBuffEvent
+      timestamp: firstStartTimestamp,
       type: EventType.ApplyBuffStack,
       ability: event.ability,
       sourceID: sourceId,
