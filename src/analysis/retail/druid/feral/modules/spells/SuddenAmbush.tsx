@@ -26,6 +26,7 @@ import { BadColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const SA_BUFF_BUFFER = 50;
 
@@ -95,6 +96,11 @@ class SuddenAmbush extends Analyzer {
   }
 
   onOverwriteSa(_event: RefreshBuffEvent) {
+    // Convoke can randomly proc SA while one is already up — not the player's choice,
+    // so don't count the gain or the overwrite.
+    if (isConvoking(this.selectedCombatant)) {
+      return;
+    }
     this.saGained += 1;
     this.saOverwritten += 1;
   }
@@ -105,19 +111,25 @@ class SuddenAmbush extends Analyzer {
     // Since onSaConsumerCast fires on cast events (which happen before removebuff),
     // if this removebuff wasn't preceded by a cast, it's an expiration.
     const totalAccountedFor = this.saUsed + this.saExpired + this.saOverwritten;
-    if (totalAccountedFor < this.saGained) {
-      // This removal wasn't from a cast - it expired
-      this.saExpired += 1;
-      this.useEntries.push({
-        value: QualitativePerformance.Fail,
-        tooltip: (
-          <>
-            <h5 style={{ color: BadColor }}>Bad because you let a proc expire</h5>@{' '}
-            <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-          </>
-        ),
-      });
+    if (totalAccountedFor >= this.saGained) {
+      return;
     }
+    // Convoke fires Rake/Shred/Swipe without producing cast events, so a consume during
+    // a Convoke channel isn't the player's choice — count as used and don't penalize.
+    if (isConvoking(this.selectedCombatant)) {
+      this.saUsed += 1;
+      return;
+    }
+    this.saExpired += 1;
+    this.useEntries.push({
+      value: QualitativePerformance.Fail,
+      tooltip: (
+        <>
+          <h5 style={{ color: BadColor }}>Bad because you let a proc expire</h5>@{' '}
+          <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+        </>
+      ),
+    });
   }
 
   onSaConsumerCast(event: CastEvent) {
