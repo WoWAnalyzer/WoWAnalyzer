@@ -116,11 +116,8 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         for more rotation details.
       </p>
 
-      <Section title="DoTs">{modules.dotUptimes.guideSubsectionV2}</Section>
-      <Section title="Eclipse">
-        {modules.eclipse.guideSubsection}
-        {modules.eclipseResource.guideSubsection}
-      </Section>
+      <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
+      <Section title="Eclipse">{modules.eclipse.guideSubsection}</Section>
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT) && modules.starlord.guideSubsection}

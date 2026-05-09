@@ -12,9 +12,9 @@ import { mergeTimePeriods } from 'parser/core/mergeTimePeriods';
 import { Highlight } from 'interface/Highlight';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const SOLAR_ECLIPSE_COLOR = '#8F5D00';
-const LUNAR_ECLIPSE_COLOR = '#3C3C8A';
-const CA_COLOR = '#006661';
+const SOLAR_ECLIPSE_COLOR = '#bb9922';
+const LUNAR_ECLIPSE_COLOR = '#1111cc';
+const CA_COLOR = '#11bbbb';
 
 /**
  * **Eclipse**
@@ -31,77 +31,7 @@ const CA_COLOR = '#006661';
  * Arcane spells deal 15% additional damage and Starfire damage is increased by 40%.
  */
 export default class Eclipse extends Analyzer {
-  get guideSubsection(): JSX.Element {
-    const explanation = (
-      <>
-        <p>
-          <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> has a 32-second cooldown, lasts 15
-          seconds, and dramatically increases your damage. Cast it as often as possible, while
-          making sure you have enough resources beforehand and you align it with other Cooldowns (if
-          possible).
-        </p>
-        <p>
-          {' '}
-          It is important to choose the correct Eclipse:
-          <ul>
-            <li>
-              3+ stacked targets → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
-            </li>
-            <li>
-              1 to 2 targets → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
-            </li>
-          </ul>
-        </p>
-        {this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
-          <p>
-            <strong>
-              <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} /> talented:{' '}
-            </strong>
-            This talent restricts you from casting <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
-          </p>
-        )}
-        {!this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
-          <p>
-            Your last filler cast determines which Eclipse you enter:
-            <ul>
-              <li>
-                <SpellLink spell={SPELLS.WRATH} /> (single target) →{' '}
-                <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
-              </li>
-              <li>
-                <SpellLink spell={SPELLS.STARFIRE} /> (cleave) →{' '}
-                <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
-              </li>
-            </ul>
-          </p>
-        )}
-      </>
-    );
-
-    const data = (
-      <div>
-        <RoundedPanel>
-          <div>
-            <strong>Eclipse uptimes</strong> -{' '}
-            <Highlight color={SOLAR_ECLIPSE_COLOR} textColor="white">
-              Solar
-            </Highlight>{' '}
-            <Highlight color={LUNAR_ECLIPSE_COLOR} textColor="white">
-              Lunar
-            </Highlight>{' '}
-            <Highlight color={CA_COLOR} textColor="white">
-              Both (Celestial Alignment)
-            </Highlight>
-          </div>
-          {this.uptimeBar}
-        </RoundedPanel>
-      </div>
-    );
-
-    return explanationAndDataSubsection(explanation, data);
-  }
-
-  private mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
+  mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
     return uptimes.map((uptime) => ({
       start: uptime.start,
       end: uptime.end !== null ? uptime.end : this.owner.currentTimestamp,
@@ -109,7 +39,7 @@ export default class Eclipse extends Analyzer {
     }));
   }
 
-  private get uptimeBar() {
+  get uptimeBar() {
     const solarEclipseUptimes = this.mapWithColor(
       this.selectedCombatant.getBuffHistory(SPELLS.ECLIPSE_SOLAR.id),
       SOLAR_ECLIPSE_COLOR,
@@ -145,11 +75,70 @@ export default class Eclipse extends Analyzer {
               uptimeHistory={allUptimes}
               start={this.owner.fight.start_time}
               end={this.owner.fight.end_time}
-              timeTooltip={true}
             />
           </div>
         </div>
       </div>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <>
+        <p>
+          Cast <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> on cooldown. It has a 32-second
+          cooldown, lasts 15 seconds, and dramatically increases your damage.
+        </p>
+        <p>
+          Your last filler cast determines which Eclipse you enter:
+          <ul>
+            <li>
+              <SpellLink spell={SPELLS.WRATH} /> → <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
+            </li>
+            <li>
+              <SpellLink spell={SPELLS.STARFIRE} /> → <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />
+            </li>
+          </ul>
+        </p>
+        <p>
+          <SpellLink spell={SPELLS.WRATH} /> is single target. <SpellLink spell={SPELLS.STARFIRE} />{' '}
+          cleaves.{' '}
+        </p>
+        <p>
+          Choose <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> when hitting 3 or more stacked targets.
+          Choose <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> for 1 to 2 targets.
+        </p>
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT) && (
+          <p>
+            <strong>
+              <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} /> talented:{' '}
+            </strong>
+            This talent restricts you from casting <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />
+          </p>
+        )}
+      </>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div>
+            <strong>Eclipse uptimes</strong> -{' '}
+            <Highlight color={SOLAR_ECLIPSE_COLOR} textColor="black">
+              Solar
+            </Highlight>{' '}
+            <Highlight color={LUNAR_ECLIPSE_COLOR} textColor="white">
+              Lunar
+            </Highlight>{' '}
+            <Highlight color={CA_COLOR} textColor="black">
+              Both (Celestial Alignment)
+            </Highlight>
+          </div>
+          {this.uptimeBar}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }

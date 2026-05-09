@@ -49,7 +49,6 @@ class EarlyDotRefreshes extends Analyzer {
   casts: Record<
     number,
     {
-      totalCasts: number;
       badCasts: number;
       addedDuration: number;
       wastedDuration: number;
@@ -62,7 +61,6 @@ class EarlyDotRefreshes extends Analyzer {
     ctor.dots.forEach((dot) => {
       this.targets[dot.debuffId] = {};
       this.casts[dot.castId] = {
-        totalCasts: 0,
         badCasts: 0,
         addedDuration: 0,
         wastedDuration: 0,
@@ -146,7 +144,6 @@ class EarlyDotRefreshes extends Analyzer {
     if (!this.lastCastBuffer || timeSinceCast < this.lastCastBuffer) {
       return;
     }
-    this.casts[this.lastCast.ability.guid].totalCasts += 1;
     this.casts[this.lastCast.ability.guid].addedDuration += this.lastCastMaxEffect;
     this.isLastCastBad(event);
     this.lastGCD = undefined;
@@ -162,7 +159,6 @@ class EarlyDotRefreshes extends Analyzer {
     if (this.lastCastGoodExtension || !this.lastCast) {
       return; // Should not be marked as bad.
     }
-
     const dot = this.getDotByCast(this.lastCast.ability.guid);
     const text = dot && this.getLastBadCastText(event, dot);
     if (text && text !== '') {
