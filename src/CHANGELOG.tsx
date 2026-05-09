@@ -39,6 +39,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 9), 'Update build tooling.', Topple),
   change(date(2026, 5, 8), 'Fix number of stacks for Buffs at start of fight.', Ateis),
   change(date(2026, 5, 6), 'Prepare i18n support for update.', Topple),
   change(date(2026, 5, 3), 'Use WCL-selected player damage DPS in the throughput stat and simplify the throughput boxes by removing hover details.', Mahmud17),
