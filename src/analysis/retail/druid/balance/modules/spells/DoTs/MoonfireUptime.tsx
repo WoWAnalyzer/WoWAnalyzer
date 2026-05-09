@@ -68,7 +68,7 @@ class MoonfireUptime extends Analyzer {
     });
   }
 
-  subStatisticV2() {
+  castOverviewAndSummary() {
     return (
       <>
         <CastOverview spell={SPELLS.MOONFIRE_DEBUFF} stats={this.buildStats()} />

@@ -21,6 +21,7 @@ import DebuffTracker, {
 } from 'analysis/retail/druid/balance/modules/spells/DoTs/DebuffTracker';
 import { Options } from 'parser/core/Analyzer';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const DEBUFF_DURATION = 18_000; // 18 seconds (Moonfire)
 const TEST_SPELL = SPELLS.MOONFIRE_DEBUFF;
@@ -74,7 +75,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000; // targetInstance is undefined, so +0
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId].history).toHaveLength(1);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId].history[0]).toEqual({
@@ -104,7 +105,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId].history).toHaveLength(2);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId].history[0]).toEqual({
@@ -136,7 +137,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId].currentDebuff).toBeDefined();
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId].currentDebuff).toEqual({
@@ -167,8 +168,8 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTarget1 = target1 * 1_000_000;
-      const internalTarget2 = target2 * 1_000_000;
+      const internalTarget1 = encodeTargetString(target1);
+      const internalTarget2 = encodeTargetString(target2);
 
       // Verify each target has its own debuff history
       expect(Object.keys(debuffTracker.debuffHistoryPerTargetId)).toHaveLength(2);
@@ -207,9 +208,9 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTarget1 = targetId * 1_000_000; // undefined becomes 0
-      const internalTarget2 = targetId * 1_000_000 + 1;
-      const internalTarget3 = targetId * 1_000_000 + 2;
+      const internalTarget1 = encodeTargetString(targetId);
+      const internalTarget2 = encodeTargetString(targetId, 1);
+      const internalTarget3 = encodeTargetString(targetId, 2);
 
       // Verify three separate debuff trackers exist
       expect(Object.keys(debuffTracker.debuffHistoryPerTargetId)).toHaveLength(3);
@@ -248,7 +249,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
 
       // Verify cast impact type
@@ -281,7 +282,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
 
       // Verify new end time: 14,120 + 18,000 + 4,000 = 36,120
@@ -320,7 +321,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
 
       // Verify old debuff moved to history with endTimestamp=8,120
@@ -366,7 +367,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
 
       // Old debuff should be in history with its natural expiration time
@@ -544,7 +545,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
 
       // Verify the cast impact is defined and linked to the cast
       const castImpact = debuffTracker.castImpactsPerEvent[cast.timestamp];
@@ -576,9 +577,9 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTarget1 = target1 * 1_000_000;
-      const internalTarget2 = target2 * 1_000_000;
-      const internalTarget3 = target3 * 1_000_000;
+      const internalTarget1 = encodeTargetString(target1);
+      const internalTarget2 = encodeTargetString(target2);
+      const internalTarget3 = encodeTargetString(target3);
 
       // Verify single cast impact with 3 targets
       const castImpact = debuffTracker.castImpactsPerEvent[cast.timestamp];
@@ -610,7 +611,7 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTargetId = targetId * 1_000_000;
+      const internalTargetId = encodeTargetString(targetId);
 
       // Should still track debuff history correctly
       expect(debuffTracker.debuffHistoryPerTargetId[internalTargetId]).toBeDefined();
@@ -650,9 +651,9 @@ describe('DebuffTracker', () => {
       parser.processEvents(events);
 
       // Assert
-      const internalTarget1 = target1 * 1_000_000;
-      const internalTarget2 = target2And3Id * 1_000_000 + target2Instance;
-      const internalTarget3 = target2And3Id * 1_000_000 + target3Instance;
+      const internalTarget1 = encodeTargetString(target1);
+      const internalTarget2 = encodeTargetString(target2And3Id, target2Instance);
+      const internalTarget3 = encodeTargetString(target2And3Id, target3Instance);
 
       const castImpact = debuffTracker.castImpactsPerEvent[cast3.timestamp];
       expect(castImpact).toBeDefined();

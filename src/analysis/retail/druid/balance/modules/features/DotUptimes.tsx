@@ -63,9 +63,9 @@ class DotUptimes extends Analyzer {
 
     const data = (
       <div>
-        <RoundedPanel>{this.moonfireUptime.subStatisticV2()}</RoundedPanel>
+        <RoundedPanel>{this.moonfireUptime.castOverviewAndSummary()}</RoundedPanel>
         <div className="row" style={{ height: '20px' }} />
-        <RoundedPanel>{this.sunfireUptime.subStatisticV2()}</RoundedPanel>
+        <RoundedPanel>{this.sunfireUptime.castOverviewAndSummary()}</RoundedPanel>
       </div>
     );
 

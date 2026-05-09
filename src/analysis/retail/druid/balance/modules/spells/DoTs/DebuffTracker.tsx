@@ -6,6 +6,7 @@ import Events, {
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const PANDEMIC_WINDOW = 0.3;
 const DEBUG = false;
@@ -154,7 +155,7 @@ class DebuffTracker extends Analyzer {
     this.removeDebuff(targetId, event);
   }
 
-  private removeDebuff(targetId: number, event: RemoveDebuffEvent) {
+  private removeDebuff(targetId: string, event: RemoveDebuffEvent) {
     const currentDebuff = this.debuffHistoryPerTargetId[targetId]?.currentDebuff;
     if (currentDebuff === undefined) {
       DEBUG &&
@@ -178,7 +179,7 @@ class DebuffTracker extends Analyzer {
   }
 
   private applyDebuff(
-    targetId: number,
+    targetId: string,
     eventTimeStamp: number,
     correspondingCast: CastEvent | undefined,
   ) {
@@ -241,7 +242,7 @@ class DebuffTracker extends Analyzer {
   private replaceExistingExpiredDebuff(
     eventTimeStamp: number,
     remainingDuration: number,
-    targetId: number,
+    targetId: string,
     correspondingCast: CastEvent | undefined,
   ) {
     DEBUG &&
@@ -285,7 +286,7 @@ class DebuffTracker extends Analyzer {
   }
 
   private overwriteDebuff(
-    targetId: number,
+    targetId: string,
     eventTimeStamp: number,
     correspondingCast: CastEvent | undefined,
     remainingDuration: number,
@@ -324,7 +325,7 @@ class DebuffTracker extends Analyzer {
 
   private refreshDebuff(
     remainingDuration: number,
-    targetId: number,
+    targetId: string,
     eventTimeStamp: number,
     correspondingCast: CastEvent | undefined,
   ) {
@@ -352,7 +353,7 @@ class DebuffTracker extends Analyzer {
   }
 
   private startNewDebuff(
-    targetId: number,
+    targetId: string,
     eventTimeStamp: number,
     correspondingCast: CastEvent | undefined,
   ) {
@@ -386,7 +387,7 @@ class DebuffTracker extends Analyzer {
 
   private storeCastImpact(
     castEvent: CastEvent,
-    targetId: number,
+    targetId: string,
     castImpactType: CastImpactType,
     remainingDurationBeforeCast: number,
   ) {
@@ -406,8 +407,8 @@ class DebuffTracker extends Analyzer {
   /** The targetId is not unique, it is the same for all adds of the same type.
    * Therefore, we also need to use the targetInstance which is an incrementing ID.
    */
-  private buildTargetId(event: ApplyDebuffEvent | RefreshDebuffEvent | RemoveDebuffEvent) {
-    return event.targetID * 1_000_000 + (event.targetInstance ?? 0);
+  private buildTargetId(event: ApplyDebuffEvent | RefreshDebuffEvent | RemoveDebuffEvent): string {
+    return encodeEventTargetString(event);
   }
 }
 
