@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 import { BREATH_OF_EONS_SPELLS } from '../../constants';
 import {
   MAX_SKIP_CDR_BASE,
@@ -37,6 +38,7 @@ class TimeSkip extends Analyzer {
     SPELLS.FIRE_BREATH,
     SPELLS.FIRE_BREATH_FONT,
     ...BREATH_OF_EONS_SPELLS,
+    ...DEEP_BREATH_SPELLS,
     TALENTS.BLISTERING_SCALES_TALENT,
     TALENTS.SPATIAL_PARADOX_TALENT,
     TALENTS.PRESCIENCE_TALENT,
@@ -55,7 +57,6 @@ class TimeSkip extends Analyzer {
     TALENTS.SLEEP_WALK_TALENT,
     TALENTS.VERDANT_EMBRACE_TALENT,
     TALENTS.LANDSLIDE_TALENT,
-    TALENTS.RENEWING_BLAZE_TALENT,
     TALENTS.OBSIDIAN_SCALES_TALENT,
     TALENTS.EXPUNGE_TALENT,
     TALENTS.EBON_MIGHT_TALENT,
@@ -105,10 +106,6 @@ class TimeSkip extends Analyzer {
       this.temporalBurstRemoveStacks = this.selectedCombatant.getBuffStacks(
         SPELLS.TEMPORAL_BURST_BUFF,
       );
-      if (this.temporalBurstApplyStacks == 1 && this.temporalBurstRemoveStacks > 20) {
-        // log error causes 30 stacks to instead appear as 1 stack
-        this.temporalBurstApplyStacks = 30;
-      }
     }
     this.calculateCDR();
   }
