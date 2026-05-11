@@ -6,6 +6,14 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 5, 10),
+    <>
+      Added <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} /> to tracked rotational abilities and
+      updated Windwalker patch compatibility to `12.0.5`.
+    </>,
+    Durpn,
+  ),
+  change(
     date(2026, 4, 30),
     <>
       Updated <SpellLink spell={TALENTS.ZENITH_TALENT} /> cooldown handling to a 90-second base
