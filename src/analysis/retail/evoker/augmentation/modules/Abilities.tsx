@@ -50,7 +50,9 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.PRESCIENCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12 * interwovenThreadsMultiplier,
+        cooldown: combatant.hasTalent(TALENTS.NOZDORMU_ADEPT_TALENT)
+          ? 10 * interwovenThreadsMultiplier
+          : 12 * interwovenThreadsMultiplier,
         charges: 2,
         gcd: {
           base: 1500,

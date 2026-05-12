@@ -61,9 +61,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
-        run: |
-          pnpm run extract
-          pnpm exec lingui compile
+        run: pnpm run extract
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
@@ -92,9 +90,7 @@ jobs:
           node-version: '22.x'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
-        run: |
-          pnpm run extract
-          pnpm exec lingui compile
+        run: pnpm run extract
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT

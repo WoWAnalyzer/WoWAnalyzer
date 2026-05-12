@@ -2972,3 +2972,9 @@ export const WillyRS: Contributor = {
     },
   ],
 };
+
+export const Ateis: Contributor = {
+  nickname: 'Ateis',
+  github: 'victor-brossard',
+  discord: 'Ateis',
+};

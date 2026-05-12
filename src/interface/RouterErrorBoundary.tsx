@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { useRouteError } from 'react-router-dom';

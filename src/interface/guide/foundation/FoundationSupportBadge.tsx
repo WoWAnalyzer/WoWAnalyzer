@@ -2,7 +2,8 @@ import type { JSX } from 'react';
 import styled from '@emotion/styled';
 import { OkMark } from '../index';
 import { TooltipElement } from 'interface/Tooltip';
-import { Trans, defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { i18n } from '@lingui/core';
 
 const BadgeContainer = styled.span`

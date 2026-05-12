@@ -1,4 +1,4 @@
-import { Plural, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { useLingui } from '@lingui/react';
 import isLatestPatch from 'game/isLatestPatch';
 import AlertInfo from 'interface/AlertInfo';

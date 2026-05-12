@@ -17,8 +17,6 @@ import MajorCooldown, {
 import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationLinkNormalizer';
 import { isDefined } from 'common/typeGuards';
 
-const PERFECT_FRAILTY_STACKS = 1;
-
 interface FelDevastationDamage {
   targetStacksOfFrailty: number;
   hasFieryBrandDebuff: boolean;
@@ -55,7 +53,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
           is a large burst of damage and healing.
         </section>
         <section>
-          <VulnerabilityExplanation lineBreak numberOfFrailtyStacks={PERFECT_FRAILTY_STACKS} />
+          <VulnerabilityExplanation lineBreak />
           <FieryDemiseExplanation includeDownInFlames lineBreak />
         </section>
       </>

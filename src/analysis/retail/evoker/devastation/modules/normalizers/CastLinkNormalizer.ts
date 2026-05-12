@@ -52,6 +52,7 @@ const SHATTERING_STAR_DAMAGE = 'ShatteringStarDamage';
 const ETERNITY_SURGE_SHATTER_STAR_LINK = 'EternitySurgeShatterStarLink';
 
 const CONSUME_FLAME_TICK = 'ConsumeFlameTick';
+const CONSUME_FLAME_DAMAGE_LINK = 'ConsumeFlameDamageLink';
 const FIRE_BREATH_REMOVE_DEBUFF = 'FireBreathRemoveDebuff';
 const FIRE_BREATH_REMOVE_CONSUME_FLAME_BUFFER_MS = 250;
 
@@ -358,6 +359,20 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.CONSUME_FLAME_TALENT),
   },
+  {
+    linkRelation: CONSUME_FLAME_DAMAGE_LINK,
+    reverseLinkRelation: CONSUME_FLAME_DAMAGE_LINK,
+    linkingEventId: [SPELLS.DISINTEGRATE.id, SPELLS.PYRE.id],
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.CONSUME_FLAME_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.CONSUME_FLAME_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, CONSUME_FLAME_DAMAGE_LINK);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -642,6 +657,10 @@ export function getFireBreathDebuffEvents(
 
 export function getConsumeFlameTickEvent(event: RemoveDebuffEvent) {
   return GetRelatedEvent<DamageEvent>(event, CONSUME_FLAME_TICK);
+}
+
+export function getConsumeFlameDamageLinkEvent(event: DamageEvent) {
+  return GetRelatedEvent<DamageEvent>(event, CONSUME_FLAME_DAMAGE_LINK);
 }
 
 export default CastLinkNormalizer;

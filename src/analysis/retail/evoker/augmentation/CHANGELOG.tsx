@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 5, 6), <>Implement <SpellLink spell={TALENTS.TEMPORAL_BURST_TALENT} /> CDR.</>, KYZ),
   change(date(2026, 4, 27), <>Update <SpellLink spell={TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT} /> and <SpellLink spell={TALENTS.LEAPING_FLAMES_TALENT} /> modules to include <SpellLink spell={SPELLS.CHRONO_FLAME_CAST} /> damage.</>, KYZ),
   change(date(2026, 4, 23), <>Fix module showing as not updated for 12.0.5.</>, KYZ),
   change(date(2026, 4, 21), <>Updated for 12.0.5.</>, KYZ),

@@ -37,6 +37,7 @@ import StrafingRunNormalizer from './modules/normalizers/StrafingRun';
 import AzureSweep from './modules/talents/AzureSweep';
 import ShatteringStars from './modules/talents/ShatteringStars';
 import StarSalvo from './modules/talents/StarSalvo';
+import ConsumeFlame from './modules/talents/ConsumeFlame';
 
 // Shared
 import {
@@ -158,6 +159,7 @@ class CombatLogParser extends MainCombatLogParser {
     slipstream: Slipstream,
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
+    consumeFlame: ConsumeFlame,
 
     // core abilities
     disintegrate: Disintegrate,

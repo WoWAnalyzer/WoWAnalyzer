@@ -51,7 +51,7 @@ then
 fi
 
 # Verify i18n
-if ! pnpm run extract && pnpm exec lingui compile;
+if ! pnpm run extract;
 then
   echo "i18n verification failed."
   exit 1

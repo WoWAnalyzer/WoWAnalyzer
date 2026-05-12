@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useMemo } from 'react';
-import { defineMessage, t, Trans } from '@lingui/macro';
+import { defineMessage, t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import getFightName from 'common/getFightName';
 import { isUnsupportedClassicVersion, wclGameVersionToBranch } from 'game/VERSIONS';
 import ActivityIndicator from 'interface/ActivityIndicator';

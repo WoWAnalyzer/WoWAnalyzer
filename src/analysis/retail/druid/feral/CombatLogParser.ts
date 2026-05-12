@@ -41,6 +41,7 @@ import SaberJaws from 'analysis/retail/druid/feral/modules/spells/SaberJaws';
 import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
 import MercilessClaws from 'analysis/retail/druid/feral/modules/spells/MercilessClaws';
 import Chomp from 'analysis/retail/druid/feral/modules/spells/Chomp';
+import InfectedWounds from 'analysis/retail/druid/feral/modules/spells/InfectedWounds';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     saberJaws: SaberJaws,
     mercilessClaws: MercilessClaws,
     chomp: Chomp,
+    infectedWounds: InfectedWounds,
     // TODO TWW - might actually want a Tiger's Tenacity module now
 
     // tier
