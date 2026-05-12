@@ -2,7 +2,6 @@ import BaseHotJS, {
   HEART_BUFFS,
 } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
 import { MISTWEAVER_HEART_SPELLS } from 'analysis/retail/monk/shared/hero/ConduitOfTheCelestials/constants';
-import SPELLS from 'common/SPELLS/monk';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { formatDuration, formatPercentage } from 'common/format';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
@@ -23,15 +22,7 @@ import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAgg
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SPELL_COLORS } from '../../constants';
-
-const SPELL_COLOR_MAP: Partial<Record<number, string>> = {
-  [SPELLS.RENEWING_MIST_CAST.id]: SPELL_COLORS.RENEWING_MIST,
-  [TALENTS_MONK.RISING_SUN_KICK_TALENT.id]: SPELL_COLORS.RISING_SUN_KICK,
-  [TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id]: SPELL_COLORS.RISING_SUN_KICK,
-  [TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id]: '#ffd700',
-  [TALENTS_MONK.LIFE_COCOON_TALENT.id]: '#a8d8a8',
-};
+import { ID_TO_SPELL_COLOR } from '../../constants';
 
 class HeartOfTheJadeSerpent extends BaseHotJS {
   static override dependencies = {
@@ -49,15 +40,14 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
   private totalExtraCdrMs = new Map<number, number>();
   private totalWastedCdrMs = new Map<number, number>();
   private totalWindowUptimeMs = 0;
-
-  private get heartSpellIds(): number[] {
-    return MISTWEAVER_HEART_SPELLS(
-      this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
-    );
-  }
+  private readonly heartSpellIds: number[];
 
   constructor(options: Options) {
     super(options);
+
+    this.heartSpellIds = MISTWEAVER_HEART_SPELLS(
+      this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT),
+    );
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(HEART_BUFFS),
@@ -142,6 +132,7 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
   private extraCasts(spellId: number): number {
     const cdr = this.totalExtraCdrMs.get(spellId) ?? 0;
     const abilityCd = this.abilities.getAbility(spellId)?.cooldown;
+    // hasted cooldowns (like rsk, having a cooldown = fn()) use spellUsable
     const baseCd =
       (typeof abilityCd === 'number' ? abilityCd * 1000 : null) ??
       (this.spellUsable.fullCooldownDuration(spellId) || 12_000);
@@ -164,7 +155,7 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
         {
           spell,
           amount: extraCasts,
-          color: SPELL_COLOR_MAP[spellId],
+          color: ID_TO_SPELL_COLOR[spellId],
           tooltip: (
             <>
               <div>
@@ -195,6 +186,8 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
             <strong>{Math.floor(this.totalExtraCasts)}</strong> <small>extra casts</small>
           </>
         }
+        footer={<>Estimated via cumulative cooldown reduction gained during the buff</>}
+        smallFooter
         tooltip={
           <>
             <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> uptime:{' '}
