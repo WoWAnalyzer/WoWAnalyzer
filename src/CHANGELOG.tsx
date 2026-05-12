@@ -33,8 +33,8 @@ import {
   Hezaerd,
   Dambroda,
   Baumritter,
-  Mahmud17,
-  Mahmud17, Ateis,
+  Mahmud17, 
+  Ateis,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
