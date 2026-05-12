@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 12), <>Added cast analysis to <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> cast efficiency overview.</>, swirl),
   change(date(2026, 4, 23), <>Fixed a bug with <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> performance, fixed <SpellLink spell={TALENTS_MONK.SAVE_THEM_ALL_TALENT} /> showing as 0% for events without hitpoints data, removed <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> reference from <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} />, and moved "casting while moving" module out of <SpellLink spell={TALENTS_MONK.WAY_OF_THE_SERPENT_TALENT}/>.</>, swirl),
   change(date(2026, 4, 15), <>Fixed a bug with <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> statistic and guide subsection analysis when <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> is talented.</>, Vohrr),
   change(date(2026, 3, 29), <>Updated Celestial analysis, APL checks, and general healing cooldowns updates.</>, swirl),
