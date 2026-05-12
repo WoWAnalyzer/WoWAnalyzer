@@ -11,6 +11,7 @@ import {
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
+import { EMPOWER_STATUS } from 'parser/core/modules/Ability';
 
 export const EMPOWER_CAST = 'EmpoweredCast';
 export const EMPOWER_END = 'EmpowerEnd';
@@ -44,13 +45,13 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     // Includes ALL Empowers
     this.empowers = this.owner
       .getModule(Abilities)
-      .activeAbilities.filter((a) => a.isEmpower > 0)
+      .activeAbilities.filter((a) => a.empowerType !== null)
       .flatMap((a) => a.spell);
 
     // Includes only Empowers which don't have the NoAuraLog flag
     this.trackedEmpowers = this.owner
       .getModule(Abilities)
-      .activeAbilities.filter((a) => a.isEmpower > 1)
+      .activeAbilities.filter((a) => a.empowerType === EMPOWER_STATUS.FullTrack)
       .flatMap((a) => a.spell);
 
     this.active = this.empowers.length > 0;

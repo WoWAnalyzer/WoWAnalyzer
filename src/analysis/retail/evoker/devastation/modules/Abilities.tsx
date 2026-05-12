@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         },
         range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
-        isEmpower: EMPOWER_STATUS.NoAuraLog,
+        empowerType: EMPOWER_STATUS.NoAuraLog,
       },
       {
         spell: SPELLS.AZURE_SWEEP.id,

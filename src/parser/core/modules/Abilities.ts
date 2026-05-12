@@ -229,7 +229,7 @@ class Abilities extends Module {
   private populateEmpowers() {
     if (this.abilitiesThatAreEmpowers.length === 0) {
       this.abilitiesThatAreEmpowers = this.abilities
-        .filter((x) => x.isEmpower > 0)
+        .filter((x) => x.empowerType !== null)
         .flatMap((ability) => ability.spell);
     }
   }

@@ -16,7 +16,6 @@ import { MessageDescriptor } from '@lingui/core';
  * @param FullTrack - Spell in an Empower and logs it's buff
  */
 export enum EMPOWER_STATUS {
-  NotEmpower = 0,
   NoAuraLog = 1,
   FullTrack = 2,
 }
@@ -142,7 +141,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * A enum value to indicate the spell is a empower type spell.
    * Use {@link EMPOWER_STATUS} for this.
    */
-  isEmpower?: EMPOWER_STATUS;
+  empowerType?: EMPOWER_STATUS;
   /**
    * A boolean to indicate it can not be detected whether the player his this
    * spells. This makes it so the spell is hidden when there are 0 casts in the
@@ -241,7 +240,7 @@ class Ability {
   recommendedEfficiency = null;
   isDefensive = null;
   isUndetectable = null;
-  isEmpower = EMPOWER_STATUS.NotEmpower;
+  empowerType = null;
   castEfficiency: NonNullable<SpellbookAbility['castEfficiency']> = {
     suggestion: false,
     recommendedEfficiency: undefined,

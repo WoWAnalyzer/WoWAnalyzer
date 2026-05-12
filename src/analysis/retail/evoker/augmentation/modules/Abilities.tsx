@@ -45,7 +45,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
         enabled: combatant.hasTalent(TALENTS.UPHEAVAL_TALENT),
-        isEmpower: EMPOWER_STATUS.NoAuraLog,
+        empowerType: EMPOWER_STATUS.NoAuraLog,
       },
       {
         spell: TALENTS.PRESCIENCE_TALENT.id,

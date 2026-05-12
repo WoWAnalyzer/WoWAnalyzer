@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        isEmpower: EMPOWER_STATUS.FullTrack,
+        empowerType: EMPOWER_STATUS.FullTrack,
       },
       {
         spell: TALENTS.ECHO_TALENT.id,
