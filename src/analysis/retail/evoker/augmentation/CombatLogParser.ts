@@ -126,7 +126,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Core
     abilities: Abilities,
     buffs: Buffs,
-    EmpowerNormalizer: EmpowerAnalyzer,
+    EmpowerAnalyzer: EmpowerAnalyzer,
 
     // Abilities
     sandsOfTime: SandsOfTime,
