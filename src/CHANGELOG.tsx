@@ -41,7 +41,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 5, 12), 'Updated various modules for correct Empower GCD usage', Baumritter),
+  change(date(2026, 5, 13), 'Updated various modules for correct Empower GCD usage', Baumritter),
   change(date(2026, 5, 8), 'Fix number of stacks for Buffs at start of fight.', Ateis),
   change(date(2026, 5, 6), 'Prepare i18n support for update.', Topple),
   change(date(2026, 5, 3), 'Use WCL-selected player damage DPS in the throughput stat and simplify the throughput boxes by removing hover details.', Mahmud17),
