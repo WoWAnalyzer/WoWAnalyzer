@@ -1,17 +1,14 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EmpowerEndEvent } from 'parser/core/Events';
-import { EMPOWERS } from '../../constants';
+import Events, { CastEvent, EmpowerEndEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import SpellLink from 'interface/SpellLink';
-import EmpowerNormalizer, {
-  getEmpowerEndEvent,
-  isFromTipTheScales,
-} from '../normalizers/EmpowerNormalizer';
 import { TALENTS_EVOKER as TALENTS } from 'common/TALENTS';
 import { StackedBar, StackedBarSegment } from 'interface/guide/components';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
+import EmpowerNormalizer, { EMPOWER_CAST } from 'parser/shared/normalizers/EmpowerNormalizer';
+import { isFromTipTheScales } from '../normalizers/TipTheScalesNormalizer';
 
 /** H Value for the HSL Color Type */
 const COLORMAP = {
@@ -26,16 +23,14 @@ const COLORMAP = {
   [SPELLS.ETERNITY_SURGE_FONT.id]: 190,
 };
 
-const DEBUG = false;
-
 interface EmpowerChart {
   spellId: number;
   segments: StackedBarSegment[];
 }
 interface EmpowerData {
   spellId: number;
-  /** 1,2,3,4,Tip */
-  rankCounts: [number, number, number, number, number];
+  /** Tip,0,1,2,3,4 */
+  rankCounts: [number, number, number, number, number, number];
 }
 
 class EmpowerAnalyzer extends Analyzer {
@@ -51,7 +46,6 @@ class EmpowerAnalyzer extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerEnd);
     this.addEventListener(Events.fightend, this.finalize);
   }
@@ -59,7 +53,7 @@ class EmpowerAnalyzer extends Analyzer {
   initializeData(spellId: number) {
     const datum: EmpowerData = {
       spellId: spellId,
-      rankCounts: [0, 0, 0, 0, 0],
+      rankCounts: [0, 0, 0, 0, 0, 0],
     };
     this.data.push(datum);
     return datum;
@@ -69,69 +63,60 @@ class EmpowerAnalyzer extends Analyzer {
     return this.data.find((x) => x.spellId == spellId);
   }
 
-  addCount(spellId: number, empowerRank: number) {
-    let datum = this.getDataBySpellId(spellId);
-    if (datum == undefined) datum = this.initializeData(spellId);
-    datum.rankCounts[empowerRank]++;
-  }
-
-  onCast(event: CastEvent) {
-    if (!EMPOWERS.includes(event.ability.guid)) return;
-
-    if (isFromTipTheScales(event)) {
-      const end = getEmpowerEndEvent(event);
-      if (end !== undefined) {
-        this.addCount(event.ability.guid, 4);
-      }
-    } else this.currentEmpower = event;
+  addCount(spellId: number, empowerRank = -1) {
+    const entry = this.getDataBySpellId(spellId) || this.initializeData(spellId);
+    entry.rankCounts[empowerRank + 1]++;
   }
 
   onEmpowerEnd(event: EmpowerEndEvent) {
-    if (this.currentEmpower !== undefined) {
-      this.addCount(this.currentEmpower.ability.guid, event.empowermentLevel - 1);
-      this.currentEmpower = undefined;
-    }
+    const castEvent = GetRelatedEvent(event, EMPOWER_CAST, (e) => e.type === EventType.Cast);
+    console.log(castEvent);
+    if (
+      castEvent !== undefined &&
+      castEvent.type === EventType.Cast &&
+      isFromTipTheScales(castEvent)
+    )
+      this.addCount(event.ability.guid);
+    else this.addCount(event.ability.guid, event.empowermentLevel);
   }
 
   finalize() {
     this.chartSegments = this.data.map(this.generateChartSegments);
-    DEBUG && console.log('Data', this.data);
   }
 
   generateChartSegments(empowerData: EmpowerData): EmpowerChart {
-    DEBUG && console.log(empowerData.spellId, COLORMAP[empowerData.spellId]);
     const chartSegments: StackedBarSegment[] = [
       {
         color: `hsl(${COLORMAP[empowerData.spellId]}, 40%, 30%)`,
         label: 'Rank 1',
-        value: empowerData.rankCounts[0],
-        tooltip: <>{empowerData.rankCounts[0]} casts finished at Rank 1.</>,
+        value: empowerData.rankCounts[2],
+        tooltip: <>{empowerData.rankCounts[2]} casts finished at Rank 1.</>,
       },
       {
         color: `hsl(${COLORMAP[empowerData.spellId]}, 45%, 40%)`,
         label: 'Rank 2',
-        value: empowerData.rankCounts[1],
-        tooltip: <>{empowerData.rankCounts[1]} casts finished at Rank 2.</>,
+        value: empowerData.rankCounts[3],
+        tooltip: <>{empowerData.rankCounts[3]} casts finished at Rank 2.</>,
       },
       {
         color: `hsl(${COLORMAP[empowerData.spellId]}, 50%, 50%)`,
         label: 'Rank 3',
-        value: empowerData.rankCounts[2],
-        tooltip: <>{empowerData.rankCounts[2]} casts finished at Rank 3.</>,
+        value: empowerData.rankCounts[4],
+        tooltip: <>{empowerData.rankCounts[4]} casts finished at Rank 3.</>,
       },
       {
         color: `hsl(${COLORMAP[empowerData.spellId]}, 55%, 60%)`,
         label: 'Rank 4',
-        value: empowerData.rankCounts[3],
-        tooltip: <>{empowerData.rankCounts[3]} casts finished at Rank 4.</>,
+        value: empowerData.rankCounts[5],
+        tooltip: <>{empowerData.rankCounts[5]} casts finished at Rank 4.</>,
       },
       {
         color: `hsl(${COLORMAP[empowerData.spellId]}, 60%, 70%)`,
         label: TALENTS.TIP_THE_SCALES_TALENT.name,
-        value: empowerData.rankCounts[4],
+        value: empowerData.rankCounts[0],
         tooltip: (
           <>
-            {empowerData.rankCounts[4]} casts finished at maximum rank via{' '}
+            {empowerData.rankCounts[0]} casts finished at maximum rank via{' '}
             <SpellLink spell={TALENTS.TIP_THE_SCALES_TALENT.id} />.
           </>
         ),
