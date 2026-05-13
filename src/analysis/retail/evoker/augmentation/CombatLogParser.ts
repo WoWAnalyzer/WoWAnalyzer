@@ -46,9 +46,8 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
+  TipTheScalesNormalizer,
   SpellUsable,
-  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -81,6 +80,8 @@ import {
   Afterimage,
   ImminentDestructionCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
+  TemporalBurstStackNormalizer,
+  TemporalBurst,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -90,9 +91,8 @@ import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
@@ -109,6 +109,7 @@ class CombatLogParser extends MainCombatLogParser {
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
     imminentDestruction: ImminentDestruction,
+    temporalBurstStackNormalizer: TemporalBurstStackNormalizer,
 
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
@@ -171,6 +172,7 @@ class CombatLogParser extends MainCombatLogParser {
     nozdormuAdept: NozdormuAdept,
     afterimage: Afterimage,
     chronalDynamo: ChronalDynamo,
+    temporalBurst: TemporalBurst,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

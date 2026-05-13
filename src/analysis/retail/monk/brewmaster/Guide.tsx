@@ -1,5 +1,6 @@
 import { useMemo, type JSX } from 'react';
 import SPELLS from 'common/SPELLS';
+import { formatDurationMinSec } from 'common/format';
 import { SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
@@ -29,6 +30,7 @@ import BlackoutCombo from './modules/spells/BlackoutCombo';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import HighTolerance from './modules/spells/HighTolerance';
 import Spell from 'common/SPELLS/Spell';
 import styles from './Guide.module.scss';
 
@@ -48,6 +50,9 @@ export default function Guide({ info }: GuideProps<typeof CombatLogParser>) {
           damage by 50% or more.
         </p>
         <StaggerPoolSection />
+        <RotationTipBoxRow>
+          <ElevatedPurifyTipBox />
+        </RotationTipBoxRow>
       </Section>
       <Section title="Rotation & Cooldowns">
         <SubSection title="Rotation">
@@ -246,6 +251,14 @@ const castEfficiencyColumn: Column<{ casts: number; maxCasts: number }> = {
   },
 };
 
+const elevatedCdrColumn: Column<{ elevatedCdrMs: number }> = {
+  label: 'Elevated CDR',
+  render({ elevatedCdrMs }) {
+    return formatDurationMinSec(elevatedCdrMs / 1000);
+  },
+  align: 'right',
+};
+
 function CastEfficiencyTipBox({
   spells,
   title,
@@ -296,6 +309,61 @@ function CastEfficiencyTipBox({
               'cpm',
               false,
             ),
+          }}
+          data={data}
+        />
+      </div>
+    </div>
+  );
+}
+
+function ElevatedPurifyTipBox() {
+  const castEfficiency = useAnalyzer(CastEfficiency);
+  const highTolerance = useAnalyzer(HighTolerance);
+
+  const data = useMemo(() => {
+    if (!castEfficiency || !highTolerance?.active) {
+      return [];
+    }
+
+    const eff = castEfficiency.getCastEfficiencyForSpell(spells.PURIFYING_BREW_TALENT);
+    if (!eff) {
+      return [];
+    }
+
+    return [
+      {
+        spell: spells.PURIFYING_BREW_TALENT.id,
+        casts: eff.casts,
+        elevatedCasts: highTolerance.elevatedPurifyCountTotal,
+        elevatedCdrMs: highTolerance.elevatedPurifyCdr,
+        maxCasts: eff.maxCasts,
+      },
+    ];
+  }, [castEfficiency, highTolerance]);
+
+  if (!castEfficiency || !highTolerance?.active) {
+    return null;
+  }
+
+  return (
+    <div className={styles.rotationTipBox}>
+      <header>Elevated Purifying Brew</header>
+      <p>
+        This compares <SpellLink spell={spells.PURIFYING_BREW_TALENT} /> casts during{' '}
+        <SpellLink spell={SPELLS.ELEVATED_STAGGER_BUFF} /> against your total casts, so you can see
+        how many casts gained the extra High Tolerance value.
+      </p>
+      <div>
+        <Table
+          ctx={{}}
+          columns={{
+            spellName,
+            castEfficiencyColumn,
+            casts: literalNumberColumn('Casts', 'casts'),
+            elevatedCasts: literalNumberColumn('Elevated Casts', 'elevatedCasts'),
+            elevatedCdrColumn,
+            maxCasts: literalNumberColumn('Max Casts', 'maxCasts'),
           }}
           data={data}
         />

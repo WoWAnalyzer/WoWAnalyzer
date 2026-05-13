@@ -37,6 +37,7 @@ import StrafingRunNormalizer from './modules/normalizers/StrafingRun';
 import AzureSweep from './modules/talents/AzureSweep';
 import ShatteringStars from './modules/talents/ShatteringStars';
 import StarSalvo from './modules/talents/StarSalvo';
+import ConsumeFlame from './modules/talents/ConsumeFlame';
 
 // Shared
 import {
@@ -46,8 +47,7 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
-  GlobalCooldown,
+  TipTheScalesNormalizer,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -82,9 +82,8 @@ import RisingFury from './modules/talents/RisingFury';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
@@ -160,6 +159,7 @@ class CombatLogParser extends MainCombatLogParser {
     slipstream: Slipstream,
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
+    consumeFlame: ConsumeFlame,
 
     // core abilities
     disintegrate: Disintegrate,

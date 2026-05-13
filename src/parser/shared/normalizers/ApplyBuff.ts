@@ -1,10 +1,11 @@
 import {
   AnyEvent,
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   EventType,
   HasAbility,
-  HasTarget,
   HasSource,
+  HasTarget,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
@@ -59,7 +60,7 @@ class ApplyBuff extends EventsNormalizer {
             const spell = maybeGetTalentOrSpell(spellId);
 
             debug &&
-              console.warn(
+              this.warn(
                 'Found a buff on',
                 (playersById[targetId] && playersById[targetId].name) || '???',
                 'in the combatantinfo that was applied before the pull and never dropped:',
@@ -151,11 +152,68 @@ class ApplyBuff extends EventsNormalizer {
         events.splice(firstEventIndex, 0, applybuff);
         // It shouldn't happen twice, but better be safe than sorry.
         this._buffsAppliedByPlayerId[targetId].push(spellId);
+
+        if (sourceId !== undefined) {
+          this.normalizeMissingBuffStack(
+            event,
+            firstStartTimestamp,
+            sourceId,
+            targetId,
+            events,
+            firstEventIndex,
+            playersById[targetId],
+          );
+        }
       }
     }
     // endregion
 
     return events;
+  }
+
+  private normalizeMissingBuffStack(
+    event: AnyEvent,
+    firstStartTimestamp: number,
+    sourceId: number,
+    targetId: number,
+    events: AnyEvent[],
+    firstEventIndex: number,
+    playerInfo: PlayerInfo | undefined,
+  ) {
+    // Only these 2 events can give us a number of stacks
+    if (event.type !== EventType.ApplyBuffStack && event.type !== EventType.RemoveBuffStack) {
+      return;
+    }
+
+    const previousStackCount = event.stack + (event.type === EventType.ApplyBuffStack ? -1 : 1);
+    debug &&
+      this.warn(
+        'Found a buff on',
+        (playerInfo && playerInfo.name) || '???',
+        'that was applied before the pull:',
+        event.ability.name,
+        event.ability.guid,
+        '! Fabricating an `applybuffstack` event to ensure the stack count (',
+        previousStackCount,
+        ') is correct at start of fight.',
+      );
+
+    const applyBuffStackEvent: ApplyBuffStackEvent = {
+      // These are all the properties a normal `applybuffstack` event would have.
+      timestamp: firstStartTimestamp,
+      type: EventType.ApplyBuffStack,
+      ability: event.ability,
+      sourceID: sourceId,
+      sourceIsFriendly: event.sourceIsFriendly,
+      targetID: targetId,
+      targetIsFriendly: event.targetIsFriendly,
+      stack: previousStackCount,
+      // Custom properties:
+      prepull: true,
+      __fabricated: true,
+    };
+
+    events.splice(firstEventIndex + 1, 0, applyBuffStackEvent);
   }
 }
 

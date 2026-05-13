@@ -3,7 +3,7 @@ import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS/evoker';
-import { EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../../shared';
+import { EMPOWER_MINIMUM_GCD } from '../../shared';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 40 * interwovenThreadsMultiplier,
         gcd: {
-          base: EMPOWER_BASE_GCD,
+          base: EMPOWER_MINIMUM_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
         },
         castEfficiency: {
@@ -45,11 +45,14 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
         enabled: combatant.hasTalent(TALENTS.UPHEAVAL_TALENT),
+        isEmpower: true,
       },
       {
         spell: TALENTS.PRESCIENCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12 * interwovenThreadsMultiplier,
+        cooldown: combatant.hasTalent(TALENTS.NOZDORMU_ADEPT_TALENT)
+          ? 10 * interwovenThreadsMultiplier
+          : 12 * interwovenThreadsMultiplier,
         charges: 2,
         gcd: {
           base: 1500,

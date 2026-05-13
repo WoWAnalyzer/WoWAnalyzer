@@ -5,18 +5,19 @@ import {
   CastEvent,
   EmpowerEndEvent,
   EventType,
-  GetRelatedEvent,
   HasRelatedEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+import EmpowerNormalizer, {
+  EMPOWER_AURA,
+  EMPOWER_CAST,
+  EMPOWER_END,
+} from 'parser/shared/normalizers/EmpowerNormalizer';
 import { EMPOWERS } from '../../constants';
 
 const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
-const EMPOWER_CAST = 'EmpoweredCast';
-const EMPOWER_END = 'EmpowerEnd';
 
-const EMPOWERED_CAST_BUFFER = 6000;
 const TIP_THE_SCALES_CONSUME_BUFFER = 25;
 
 const EVENT_LINKS: EventLink[] = [
@@ -35,25 +36,6 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS.TIP_THE_SCALES_TALENT);
     },
   },
-  {
-    linkRelation: EMPOWER_CAST,
-    reverseLinkRelation: EMPOWER_END,
-    linkingEventId: EMPOWERS,
-    linkingEventType: EventType.EmpowerEnd,
-    referencedEventId: EMPOWERS,
-    referencedEventType: EventType.Cast,
-    /** We only look backwards from the empowerEnd event to not accidentally add the link to a cancelled cast */
-    backwardBufferMs: EMPOWERED_CAST_BUFFER,
-    anyTarget: true,
-    maximumLinks: 1,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        (linkingEvent as EmpowerEndEvent).empowermentLevel > 0 &&
-        (linkingEvent as EmpowerEndEvent).ability.guid ===
-          (referencedEvent as CastEvent).ability.guid
-      );
-    },
-  },
 ];
 
 /** Creates links between cast Events and EmpowerEnd events for Empowers which can then be
@@ -65,15 +47,16 @@ const EVENT_LINKS: EventLink[] = [
  *
  * Empowers can be released at empowerment level 0, which actually is a cancelled cast,
  * since the empower doesn't go on cooldown or trigger anything.
- * Instead of trying to handle this edgecase in all possible places, we will simply just remove it from the event loop here.
- * NOTE: We don't apply `EMPOWER_END` / `EMPOWER_CAST` links to these events so `getEmpowerEndEvent` will not return them.
- * https://www.warcraftlogs.com/reports/ZJyaVLcRTAWf1g87?fight=16&type=summary&source=222&pins=2%24Off%24%23a04D8A%24expression%24ability.name+in%28%22Eternity+Surge%22%2C%22Fire+Breath%22%2C%22Tip+the+Scales%22%29+and+type+not+in+%28%22damage%22%2C%22applydebuff%22%2C%22removedebuff%22%2C%22refreshdebuff%22%29&view=events
+ * This is handled in the channeling module via empowerChannelSpec
  * */
-class EmpowerNormalizer extends EventLinkNormalizer {
+class TipTheScalesNormalizer extends EventLinkNormalizer {
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    empowerNormalizer: EmpowerNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
-    // Set to high priority so it runs before other normalizers
-    this.priority -= 100;
+    this.priority = this.owner.getModule(EmpowerNormalizer).priority + 1; // Run right after EmpowerNormalizer to prevent errors
   }
 
   /** Create EmpowerEnd events for Empowers cast with Tip the Scales
@@ -82,14 +65,18 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     // Create initial EventLinks that we can then reference later
     const events = super.normalize(rawEvents);
 
-    const fixedEvents: AnyEvent[] = [];
     const hasFont =
       this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
       this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
       this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT);
 
+    const fixedEvents: AnyEvent[] = [];
     events.forEach((event) => {
-      if (event.type !== EventType.Cast || !isFromTipTheScales(event)) {
+      if (
+        event.type !== EventType.Cast ||
+        !isFromTipTheScales(event) ||
+        HasRelatedEvent(event, EMPOWER_AURA)
+      ) {
         if (event.type !== EventType.EmpowerEnd || event.empowermentLevel > 0) {
           fixedEvents.push(event);
         }
@@ -123,20 +110,4 @@ export function isFromTipTheScales(event: CastEvent): boolean {
   return HasRelatedEvent(event, TIP_THE_SCALES_CONSUME);
 }
 
-/** Use this to verify if an Empower was cancelled or finished casting.
- *
- * Returns true if the Empower was instant cast with Tip the Scales or if it has an associated empowerEnd event  */
-export function empowerFinishedCasting(event: CastEvent): boolean {
-  return HasRelatedEvent(event, EMPOWER_END) || isFromTipTheScales(event);
-}
-
-/** Get the associated empowerEnd event for an Empower cast */
-export function getEmpowerEndEvent(event: CastEvent): EmpowerEndEvent | undefined {
-  return GetRelatedEvent(event, EMPOWER_END, (e) => e.type === EventType.EmpowerEnd);
-}
-
-export function getEmpowerCastEvent(event: EmpowerEndEvent): CastEvent | undefined {
-  return GetRelatedEvent(event, EMPOWER_CAST, (e) => e.type === EventType.Cast);
-}
-
-export default EmpowerNormalizer;
+export default TipTheScalesNormalizer;

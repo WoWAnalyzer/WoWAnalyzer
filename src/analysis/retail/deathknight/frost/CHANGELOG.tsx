@@ -1,11 +1,7 @@
 import { change, date } from 'common/changelog';
-import { TALENTS_DEATH_KNIGHT } from 'common/TALENTS';
-import { Arlie, Boohbah, Khazak } from 'CONTRIBUTORS';
-import SpellLink from 'interface/SpellLink';
+import { Nooseknitter} from 'CONTRIBUTORS';
 
 export default [
-  change(date(2025, 9, 29), <>Updated cooldown and CDR of <SpellLink spell={TALENTS_DEATH_KNIGHT.ANTI_MAGIC_ZONE_TALENT} />.</>, Arlie),
-  change(date(2024, 10, 31), 'Update Deathbringer talent data for 11.0.5', Khazak),
-  change(date(2024, 10, 8), 'Fix outdated analysys and bugs to complete the transition from Dragonflight to The War Within', Khazak),
-  change(date(2024, 9, 21), 'Updates for 11.0.2: General bug fixes and tweaks to ensure spec matches live - Boohbah', Boohbah),
+  change(date(2026, 5, 2),  'Updated analysis for Frostscythe, Empower Rune Weapon, and Breath of Sindragosa', Nooseknitter),
+  change(date(2026, 4, 27), 'Updates for 12.0.5: Enabling Frost DK', Nooseknitter),
 ];

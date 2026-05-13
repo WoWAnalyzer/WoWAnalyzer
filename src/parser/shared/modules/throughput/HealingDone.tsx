@@ -1,17 +1,13 @@
-import { formatThousands, formatPercentage } from 'common/format';
-import rankingColor from 'common/getRankingColor';
+import { formatThousands } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
-import { Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
-import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
 import HealingValue from '../HealingValue';
-import { i18n } from '@lingui/core';
 
 class HealingDone extends Analyzer {
   constructor(options: Options) {
@@ -135,47 +131,8 @@ class HealingDone extends Analyzer {
           <div className="flex-sub icon">
             <img src="/img/healing.png" alt="Healing" />
           </div>
-          <Tooltip
-            content={
-              <>
-                Total healing done: <strong>{formatThousands(this.total.effective)}</strong>
-              </>
-            }
-          >
-            <div className="flex-sub value" style={{ width: 190 }}>
-              {formatThousands(perSecond)} HPS
-            </div>
-          </Tooltip>
-          <div
-            className="flex-sub"
-            style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}
-          >
-            <ThroughputPerformance throughput={perSecond} metric="hps">
-              {({ performance, topThroughput }) =>
-                performance &&
-                performance !== UNAVAILABLE && (
-                  <Tooltip
-                    content={
-                      <>
-                        Your HPS compared to the HPS of a top 100 player. To become a top 100{' '}
-                        <span className={this.selectedCombatant.player.type.replace(' ', '')}>
-                          {this.selectedCombatant.spec?.specName
-                            ? i18n._(this.selectedCombatant.spec.specName)
-                            : null}{' '}
-                          {this.selectedCombatant.player.type}
-                        </span>{' '}
-                        on this fight you need to do at least{' '}
-                        <strong>{formatThousands(topThroughput || 0)} HPS</strong>.
-                      </>
-                    }
-                  >
-                    <div className={rankingColor(performance)} style={{ cursor: 'help' }}>
-                      {performance >= 1 ? 'TOP 100' : `${formatPercentage(performance, 0)}%`}
-                    </div>
-                  </Tooltip>
-                )
-              }
-            </ThroughputPerformance>
+          <div className="flex-sub value" style={{ width: 190 }}>
+            {formatThousands(perSecond)} HPS
           </div>
           <div className="flex-main chart" style={{ padding: 0 }}>
             <a href={wclUrl}>

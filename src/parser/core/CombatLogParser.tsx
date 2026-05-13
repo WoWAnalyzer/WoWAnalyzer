@@ -109,6 +109,7 @@ import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeU
 import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
 import { ServerMetrics } from 'common/server-metrics';
 import IncorporealEssenceGorger from 'parser/retail/modules/items/thewarwithin/trinkets/IncorporealEssenceGorger';
+import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 import VolatileVoidSuffuser from 'parser/retail/modules/items/midnight/trinkets/VolatileVoidSuffuser';
 import LightOfTheCosmicCrescendo from 'parser/retail/modules/items/midnight/trinkets/LightOfTheCosmicCrescendo';
 // This prints to console anything that the DI has to do
@@ -144,6 +145,7 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
+    empowerNormalizer: EmpowerNormalizer,
     channeling: Channeling,
 
     // Enhancers

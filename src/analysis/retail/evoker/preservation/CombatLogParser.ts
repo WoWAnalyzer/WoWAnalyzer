@@ -51,9 +51,8 @@ import {
   EssenceBurstRefreshNormalizer,
   EssenceBurstCastLinkNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
+  TipTheScalesNormalizer,
   SpellUsable,
-  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   SourceOfMagic,
@@ -69,6 +68,8 @@ import {
   TimeSpiral,
   MobilityCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
+  TemporalBurstStackNormalizer,
+  TemporalBurst,
 } from '../shared';
 import ConsumeFlame from './modules/talents/ConsumeFlame';
 
@@ -86,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
     chronowardenCastLinkNormalizer: ChronowardenCastLinkNormalizer,
+    temporalBurstStackNormalizer: TemporalBurstStackNormalizer,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -113,9 +115,8 @@ class CombatLogParser extends CoreCombatLogParser {
     mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
 
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     //talents
     ancientFlame: AncientFlame,
@@ -158,6 +159,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primacy: Primacy,
     timeConvergence: TimeConvergence,
     motesOfAcceleration: MotesOfAcceleration,
+    temporalBurst: TemporalBurst,
 
     // other
   };

@@ -1,7 +1,7 @@
-import type { LinguiConfig } from '@lingui/conf';
+import { defineConfig } from '@lingui/cli';
 import { formatter } from '@lingui/format-json';
 
-const config: LinguiConfig = {
+export default defineConfig({
   catalogs: [
     {
       path: 'src/localization/{locale}/messages',
@@ -17,6 +17,4 @@ const config: LinguiConfig = {
   },
   format: formatter({ style: 'minimal' }),
   orderBy: 'messageId',
-};
-
-export default config;
+});

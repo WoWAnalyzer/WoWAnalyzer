@@ -22,6 +22,7 @@ import {
   RISING_FURY_MAX_STACKS,
   RISEN_FURY_EB_INTERVAL_MS,
 } from 'analysis/retail/evoker/devastation/constants';
+import TipTheScalesNormalizer from './TipTheScalesNormalizer';
 
 export const EB_GENERATION_EVENT_TYPES = [
   EventType.RefreshBuff,
@@ -237,6 +238,7 @@ class EssenceBurstCastLinkNormalizer extends EventLinkNormalizer {
   static dependencies = {
     ...EventLinkNormalizer.dependencies,
     essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);

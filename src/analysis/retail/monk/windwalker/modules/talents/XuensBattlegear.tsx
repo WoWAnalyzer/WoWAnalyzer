@@ -12,6 +12,8 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 
 const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 4000;
+const SPINNING_CRANE_KICK_REDUCTION_PER_TARGET_MS = 500;
+const SPINNING_CRANE_KICK_MAX_REDUCTION_MS = 2500;
 const XUENS_BATTLEGEAR_TRIGGER_SPELLS = [
   SPELLS.RISING_SUN_KICK_DAMAGE,
   SPELLS.RUSHING_WIND_KICK_DAMAGE,
@@ -31,6 +33,8 @@ class XuensBattlegear extends Analyzer {
 
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
+  private spinningCraneKickTargetIds = new Set<number>();
+  private spinningCraneKickReductionMs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -42,6 +46,14 @@ class XuensBattlegear extends Analyzer {
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(XUENS_BATTLEGEAR_TRIGGER_SPELLS),
       this.onTriggerDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.onSpinningCraneKickCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE),
+      this.onSpinningCraneKickDamage,
     );
   }
 
@@ -68,6 +80,35 @@ class XuensBattlegear extends Analyzer {
       this.effectiveFistsOfFuryReductionMs += reductionMs;
       this.wastedFistsOfFuryReductionMs += FISTS_OF_FURY_COOLDOWN_REDUCTION_MS - reductionMs;
     }
+  }
+
+  onSpinningCraneKickCast() {
+    this.spinningCraneKickTargetIds.clear();
+    this.spinningCraneKickReductionMs = 0;
+  }
+
+  onSpinningCraneKickDamage(event: DamageEvent) {
+    if (this.spinningCraneKickReductionMs >= SPINNING_CRANE_KICK_MAX_REDUCTION_MS) {
+      return;
+    }
+    if (this.spinningCraneKickTargetIds.has(event.targetID)) {
+      return;
+    }
+
+    this.spinningCraneKickTargetIds.add(event.targetID);
+    this.spinningCraneKickReductionMs += SPINNING_CRANE_KICK_REDUCTION_PER_TARGET_MS;
+
+    if (!this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {
+      this.wastedFistsOfFuryReductionMs += SPINNING_CRANE_KICK_REDUCTION_PER_TARGET_MS;
+      return;
+    }
+
+    const reductionMs = this.spellUsable.reduceCooldown(
+      SPELLS.FISTS_OF_FURY_CAST.id,
+      SPINNING_CRANE_KICK_REDUCTION_PER_TARGET_MS,
+    );
+    this.effectiveFistsOfFuryReductionMs += reductionMs;
+    this.wastedFistsOfFuryReductionMs += SPINNING_CRANE_KICK_REDUCTION_PER_TARGET_MS - reductionMs;
   }
 
   get wastedReductionPerMinute() {

@@ -28,7 +28,6 @@
     "lingui.config.ts",
     "playwright.config.ts",
     "vite.config.ts",
-    "src/analysis/retail/deathknight/frost/**",
     "src/analysis/retail/druid/restoration/**",
     "src/analysis/retail/paladin/protection/**",
     "src/analysis/retail/rogue/outlaw/**",

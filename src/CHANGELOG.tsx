@@ -32,12 +32,19 @@ import {
   Thias,
   Hezaerd,
   Dambroda,
+  Baumritter,
+  Mahmud17, 
+  Ateis,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 13), 'Updated various modules for correct Empower GCD usage', Baumritter),
+  change(date(2026, 5, 8), 'Fix number of stacks for Buffs at start of fight.', Ateis),
+  change(date(2026, 5, 6), 'Prepare i18n support for update.', Topple),
+  change(date(2026, 5, 3), 'Use WCL-selected player damage DPS in the throughput stat and simplify the throughput boxes by removing hover details.', Mahmud17),
   change(date(2026, 4, 29), <>Added trinket support for <ItemLink id={ITEMS.VOLATILE_VOID_SUFFUSER.id} /> and <ItemLink id={ITEMS.LIGHT_OF_THE_COSMIC_CRESCENDO.id} />.</>, swirl),
   change(date(2026, 4, 25), "Fix `reduceCooldown` not correctly applying to multiple charges", Thias),
   change(date(2026, 4, 25), 'Fix certain extremely long loading times by improving probability calculations from O(n^3) to O(n^2).', Thias),

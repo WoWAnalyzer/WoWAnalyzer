@@ -1,8 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import spells from '../../spell-list_Monk_Brewmaster.retail';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent, EventType } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent, EventType, CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -10,14 +9,40 @@ import BoringValue from 'parser/ui/BoringValueText';
 import { formatDurationMinSec } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import StateHistory, { EventHistory } from 'parser/core/StateHistory';
+import type SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const CDR_PER_RANK = 3000;
+const CDR_PER_RANK = 2000;
 
-class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
+// CDR for HT is handled in SpellUsable in order to deal with the bug where CDR is applied *before* a charge is consumed.
+class HighTolerance extends Analyzer {
   protected ranks = 0;
 
+  protected elevatedPurifyCount = 0;
   protected cdrAmount = 0;
   protected wastedCdr = 0;
+
+  get elevatedPurifyCountTotal(): number {
+    return this.elevatedPurifyCount;
+  }
+
+  get elevatedPurifyCdr(): number {
+    return this.cdrAmount;
+  }
+
+  /**
+   * Externally-callable method to apply HT CDR. this is used by Brew's SpellUsable to apply CDR *before* the cast, matching in-game behavior.
+   */
+  public reducePurifyCooldown(event: CastEvent, spellUsable: SpellUsable): void {
+    if (!this.active) {
+      return;
+    }
+
+    const cdr = this.ranks * CDR_PER_RANK;
+    const actualAmount = spellUsable.reduceCooldown(spells.PURIFYING_BREW_TALENT.id, cdr);
+    this.cdrAmount += actualAmount;
+    this.wastedCdr += cdr - actualAmount;
+    this.elevatedPurifyCount += 1;
+  }
 
   uptime: EventHistory<EventType.ApplyBuff | EventType.RemoveBuff> = new StateHistory([]);
 
@@ -27,11 +52,6 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
     this.active = this.ranks > 0;
 
     this.addEventListener(
-      Events.cast.spell(spells.PURIFYING_BREW_TALENT).by(SELECTED_PLAYER),
-      this.elevatedStaggerCdr,
-    );
-
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ELEVATED_STAGGER_BUFF),
       this.onApplyBuff,
     );
@@ -39,18 +59,6 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ELEVATED_STAGGER_BUFF),
       this.onRemoveBuff,
     );
-  }
-
-  private elevatedStaggerCdr(_event: CastEvent): void {
-    if (this.selectedCombatant.hasBuff(SPELLS.ELEVATED_STAGGER_BUFF)) {
-      // note: this is NOT shared brew CDR! it is only Purifying Brew!
-      const actualCdr = this.deps.spellUsable.reduceCooldown(
-        spells.PURIFYING_BREW_TALENT.id,
-        this.ranks * CDR_PER_RANK,
-      );
-      this.cdrAmount += actualCdr;
-      this.wastedCdr += this.ranks * CDR_PER_RANK - actualCdr;
-    }
   }
 
   private onApplyBuff(event: ApplyBuffEvent) {
@@ -67,15 +75,22 @@ class HighTolerance extends Analyzer.withDependencies({ spellUsable: SpellUsable
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            {formatDurationMinSec(this.wastedCdr / 1000)} CDR wasted. Note that{' '}
+            <strong>High Tolerance has a bug</strong> causing cooldown reduction to be applied
+            before consuming a charge.
+          </>
+        }
       >
         <BoringValue
           label={
             <>
-              <SpellLink spell={spells.HIGH_TOLERANCE_TALENT} /> Purify CDR
+              <SpellLink spell={spells.HIGH_TOLERANCE_TALENT} /> Elevated Purifies
             </>
           }
         >
-          {formatDurationMinSec(this.cdrAmount / 1000)}
+          {this.elevatedPurifyCount} casts / {formatDurationMinSec(this.cdrAmount / 1000)} CDR
         </BoringValue>
       </Statistic>
     );

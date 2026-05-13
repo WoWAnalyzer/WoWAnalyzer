@@ -61,6 +61,8 @@ abstract class Entity {
   }
 
   /**
+   * Check if this entity has a buff. There is a fast-path that is **MUCH** faster if only `spell` or `spell` + `sourceID` are specified.
+   *
    * @param {number | Spell} spell buff (ID) to check for
    * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
    * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.

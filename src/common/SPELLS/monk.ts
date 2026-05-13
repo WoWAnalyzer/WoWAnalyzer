@@ -457,6 +457,16 @@ const spells = {
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
   },
+  ZENITH_STOMP_DAMAGE: {
+    id: 1272696,
+    name: 'Zenith Stomp',
+    icon: 'inv_ability_monk_jadefirestomp',
+  },
+  ZENITH_STOMP_CAST: {
+    id: 1291484,
+    name: 'Zenith Stomp',
+    icon: 'inv_ability_monk_jadefirestomp',
+  },
   YULONS_WHISPER_HEAL: {
     id: 388044,
     name: "Yu'lon's Whisper",
