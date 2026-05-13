@@ -1,4 +1,12 @@
-import { CastEvent, EmpowerEndEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
+import {
+  AddRelatedEvent,
+  AnyEvent,
+  CastEvent,
+  EmpowerEndEvent,
+  EventType,
+  GetRelatedEvent,
+  HasRelatedEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -93,6 +101,56 @@ class EmpowerNormalizer extends EventLinkNormalizer {
         maximumLinks: 1,
       },
     );
+  }
+
+  /** If an empower cast is missing the empowerend then search for the remove buff event until you either find the next cast or the event (Instant Cast Empowers and certain empowers don't produce removeBuff events) */
+  normalize(rawEvents: AnyEvent[]): AnyEvent[] {
+    // Create initial EventLinks that we can then reference later
+    const events = super.normalize(rawEvents);
+
+    const fixedEvents: AnyEvent[] = [];
+    events.forEach((event) => {
+      // Exclude
+      // - Non-Casts
+      // - Non-Empowers
+      // - Empowers that don't track anyway
+      // - Empowers who already have a EmpowerEnd Event
+      if (event.type !== EventType.Cast || HasRelatedEvent(event, EMPOWER_END)) {
+        fixedEvents.push(event);
+        return;
+      }
+
+      fixedEvents.push(event); // Push real event
+
+      const auraEvent = GetRelatedEvent(
+        event,
+        EMPOWER_AURA,
+        (e) => e.type === EventType.RemoveBuff,
+      );
+
+      if (
+        auraEvent !== undefined &&
+        auraEvent.type === EventType.RemoveBuff &&
+        auraEvent.ability.guid === event.ability.guid
+      ) {
+        const fabricatedEvent: EmpowerEndEvent = {
+          ability: event.ability,
+          timestamp: auraEvent.timestamp,
+          sourceID: event.sourceID,
+          sourceIsFriendly: event.sourceIsFriendly,
+          targetID: event.targetID,
+          targetIsFriendly: event.targetIsFriendly,
+          type: EventType.EmpowerEnd,
+          empowermentLevel: 0,
+          __fabricated: true,
+        };
+        AddRelatedEvent(event, EMPOWER_CANCEL, fabricatedEvent);
+        AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, event);
+        fixedEvents.push(fabricatedEvent);
+      }
+    });
+
+    return fixedEvents;
   }
 }
 
