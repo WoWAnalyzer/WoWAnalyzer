@@ -9,17 +9,6 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import Abilities from './Abilities';
 import { MessageDescriptor } from '@lingui/core';
 
-/**
- * This seperation is needed to tell subsequent modules how to handle each empower without creating constants
- * @param NotEmpower - Spell is not an Empower
- * @param NoAuraLog - Spell is an Empower but doesn't log it's buff
- * @param FullTrack - Spell in an Empower and logs it's buff
- */
-export enum EMPOWER_STATUS {
-  NoAuraLog = 1,
-  FullTrack = 2,
-}
-
 export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
   /**
    * REQUIRED The spell id. If an array of spell ids is
@@ -138,10 +127,9 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   isDefensive?: boolean;
   /**
-   * A enum value to indicate the spell is a empower type spell.
-   * Use {@link EMPOWER_STATUS} for this.
+   * A boolean to indicate the spell is an empower.
    */
-  empowerType?: EMPOWER_STATUS;
+  isEmpower?: boolean;
   /**
    * A boolean to indicate it can not be detected whether the player his this
    * spells. This makes it so the spell is hidden when there are 0 casts in the
@@ -240,7 +228,7 @@ class Ability {
   recommendedEfficiency = null;
   isDefensive = null;
   isUndetectable = null;
-  empowerType = null;
+  isEmpower = null;
   castEfficiency: NonNullable<SpellbookAbility['castEfficiency']> = {
     suggestion: false,
     recommendedEfficiency: undefined,

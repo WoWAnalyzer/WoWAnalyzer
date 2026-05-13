@@ -1,7 +1,7 @@
 import TALENTS from 'common/TALENTS/evoker';
 import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { EMPOWER_STATUS, SpellbookAbility } from 'parser/core/modules/Ability';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELLS from 'common/SPELLS/evoker';
 import { EMPOWER_MINIMUM_GCD } from 'analysis/retail/evoker/shared';
 
@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        empowerType: EMPOWER_STATUS.FullTrack,
+        isEmpower: true,
       },
       {
         spell: TALENTS.ECHO_TALENT.id,

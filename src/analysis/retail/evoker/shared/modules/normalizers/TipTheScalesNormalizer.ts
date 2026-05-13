@@ -10,6 +10,7 @@ import {
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import EmpowerNormalizer, {
+  EMPOWER_AURA,
   EMPOWER_CAST,
   EMPOWER_END,
 } from 'parser/shared/normalizers/EmpowerNormalizer';
@@ -71,7 +72,11 @@ class TipTheScalesNormalizer extends EventLinkNormalizer {
 
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event) => {
-      if (event.type !== EventType.Cast || !isFromTipTheScales(event)) {
+      if (
+        event.type !== EventType.Cast ||
+        !isFromTipTheScales(event) ||
+        HasRelatedEvent(event, EMPOWER_AURA)
+      ) {
         if (event.type !== EventType.EmpowerEnd || event.empowermentLevel > 0) {
           fixedEvents.push(event);
         }

@@ -1,18 +1,9 @@
-import {
-  AddRelatedEvent,
-  AnyEvent,
-  CastEvent,
-  EmpowerEndEvent,
-  EventType,
-  GetRelatedEvent,
-  HasAbility,
-  HasRelatedEvent,
-} from 'parser/core/Events';
+import { CastEvent, EmpowerEndEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
-import { EMPOWER_STATUS } from 'parser/core/modules/Ability';
 
+export const EMPOWER_AURA = 'EmpowerAura';
 export const EMPOWER_CAST = 'EmpoweredCast';
 export const EMPOWER_END = 'EmpowerEnd';
 const EMPOWER_CANCEL = 'EmpowerCancel';
@@ -37,7 +28,6 @@ class EmpowerNormalizer extends EventLinkNormalizer {
   };
 
   private empowers: number[] = [];
-  private trackedEmpowers: number[];
 
   constructor(options: Options) {
     super(options, []);
@@ -45,13 +35,7 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     // Includes ALL Empowers
     this.empowers = this.owner
       .getModule(Abilities)
-      .activeAbilities.filter((a) => a.empowerType !== null)
-      .flatMap((a) => a.spell);
-
-    // Includes only Empowers which don't have the NoAuraLog flag
-    this.trackedEmpowers = this.owner
-      .getModule(Abilities)
-      .activeAbilities.filter((a) => a.empowerType === EMPOWER_STATUS.FullTrack)
+      .activeAbilities.filter((a) => a.isEmpower)
       .flatMap((a) => a.spell);
 
     this.active = this.empowers.length > 0;
@@ -96,73 +80,23 @@ class EmpowerNormalizer extends EventLinkNormalizer {
           );
         },
       },
+      {
+        linkRelation: EMPOWER_AURA,
+        reverseLinkRelation: EMPOWER_AURA,
+        linkingEventId: this.empowers,
+        linkingEventType: EventType.RemoveBuff,
+        referencedEventId: this.empowers,
+        referencedEventType: EventType.Cast,
+        /** We only look backwards from the empowerEnd event to not accidentally add the link to the wrong cast */
+        backwardBufferMs: EMPOWERED_CAST_BUFFER,
+        anyTarget: true,
+        maximumLinks: 1,
+      },
     );
-  }
-
-  /** If an empower cast is missing the empowerend then search for the remove buff event until you either find the next cast or the event (Instant Cast Empowers and certain empowers don't produce removeBuff events) */
-  normalize(rawEvents: AnyEvent[]): AnyEvent[] {
-    // Create initial EventLinks that we can then reference later
-    const events = super.normalize(rawEvents);
-
-    const fixedEvents: AnyEvent[] = [];
-    events.forEach((event, index) => {
-      // Exclude
-      // - Non-Casts
-      // - Non-Empowers
-      // - Empowers that don't track anyway
-      // - Empowers who already have a EmpowerEnd Event
-      if (
-        event.type !== EventType.Cast ||
-        !this.trackedEmpowers.includes(event.ability.guid) ||
-        HasRelatedEvent(event, EMPOWER_END)
-      ) {
-        fixedEvents.push(event);
-        return;
-      }
-
-      fixedEvents.push(event); // Push real event
-
-      for (let idx = index + 1; idx < events.length; idx += 1) {
-        const laterEvent = events[idx];
-        // Filter out TTS casts
-        if (
-          HasAbility(laterEvent) &&
-          laterEvent.ability.guid === event.ability.guid &&
-          laterEvent.type === EventType.Cast
-        )
-          break;
-        else if (
-          HasAbility(laterEvent) &&
-          laterEvent.ability.guid === event.ability.guid &&
-          laterEvent.type === EventType.RemoveBuff
-        ) {
-          const fabricatedEvent: EmpowerEndEvent = {
-            ability: event.ability,
-            timestamp: laterEvent.timestamp,
-            sourceID: event.sourceID,
-            sourceIsFriendly: event.sourceIsFriendly,
-            targetID: event.targetID,
-            targetIsFriendly: event.targetIsFriendly,
-            type: EventType.EmpowerEnd,
-            empowermentLevel: 0,
-            __fabricated: true,
-          };
-
-          AddRelatedEvent(event, EMPOWER_CANCEL, fabricatedEvent);
-          AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, event);
-
-          fixedEvents.push(fabricatedEvent);
-          break;
-        }
-      }
-    });
-
-    return fixedEvents;
   }
 }
 
 /** Use this to verify if an Empower was cancelled or finished casting.
- *
  * Returns true if the Empower was instant cast with Tip the Scales or if it has an associated empowerEnd event  */
 export function empowerFinishedCasting(event: CastEvent): boolean {
   const endEvent: EmpowerEndEvent | undefined = GetRelatedEvent(event, EMPOWER_END);

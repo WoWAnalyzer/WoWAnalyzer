@@ -3,7 +3,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPECS from 'game/SPECS';
 import Combatant from 'parser/core/Combatant';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { EMPOWER_STATUS, SpellbookAbility } from 'parser/core/modules/Ability';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import {
   ASHES_IN_MOTION_CD_REDUCTION_SECONDS,
@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
         }),
         range: BASE_EVOKER_RANGE,
         charges: combatant.hasTalent(TALENTS.LEGACY_OF_THE_LIFEBINDER_TALENT) ? 2 : 1,
-        empowerType: EMPOWER_STATUS.FullTrack,
+        isEmpower: true,
       },
       {
         spell: combatant.hasTalent(TALENTS.CHRONO_FLAME_TALENT)
