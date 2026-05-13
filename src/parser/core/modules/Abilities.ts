@@ -74,6 +74,7 @@ class Abilities extends Module {
   abilities: Ability[] = [];
   activeAbilities: Ability[] = [];
   abilitiesAffectedByHealingIncreases: number[] = [];
+  abilitiesThatAreEmpowers: number[] = [];
 
   constructor(args: Options) {
     super(args);
@@ -85,6 +86,7 @@ class Abilities extends Module {
     const abilityClass = (this.constructor as typeof Abilities).ABILITY_CLASS;
     this.abilities = spellbook.map((options) => new abilityClass(this, options));
     this.activeAbilities = this.abilities.filter((ability) => ability.enabled);
+    this.populateEmpowers();
   }
 
   /**
@@ -222,6 +224,17 @@ class Abilities extends Module {
 
   getAffectedByHealingIncreases(spellId: number) {
     return this.abilitiesAffectedByHealingIncreases.includes(spellId);
+  }
+
+  private populateEmpowers() {
+    if (this.abilitiesThatAreEmpowers.length === 0) {
+      this.abilitiesThatAreEmpowers = this.abilities
+        .filter((x) => x.isEmpower)
+        .flatMap((ability) => ability.spell);
+    }
+  }
+  getIsEmpower(spellId: number) {
+    return this.abilitiesThatAreEmpowers.includes(spellId);
   }
 }
 

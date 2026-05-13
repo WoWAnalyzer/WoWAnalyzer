@@ -1,4 +1,4 @@
-import { empowerFinishedCasting } from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+import { empowerFinishedCasting } from 'parser/shared/normalizers/EmpowerNormalizer';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';

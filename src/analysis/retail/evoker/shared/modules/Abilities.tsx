@@ -9,7 +9,6 @@ import {
   ASHES_IN_MOTION_CD_REDUCTION_SECONDS,
   BASE_EVOKER_RANGE,
   CLOBBERING_SWEEP_CDR,
-  EMPOWER_BASE_GCD,
   EMPOWER_MINIMUM_GCD,
   HEAVY_WINGBEATS_CDR,
 } from '../constants';
@@ -67,7 +66,7 @@ class Abilities extends CoreAbilities {
               : 0)) *
           interwovenThreadsMultiplier,
         gcd: {
-          base: EMPOWER_BASE_GCD,
+          base: EMPOWER_MINIMUM_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
         },
         ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
@@ -78,6 +77,7 @@ class Abilities extends CoreAbilities {
         }),
         range: BASE_EVOKER_RANGE,
         charges: combatant.hasTalent(TALENTS.LEGACY_OF_THE_LIFEBINDER_TALENT) ? 2 : 1,
+        isEmpower: true,
       },
       {
         spell: combatant.hasTalent(TALENTS.CHRONO_FLAME_TALENT)
