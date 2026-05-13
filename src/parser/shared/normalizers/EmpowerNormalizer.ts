@@ -95,7 +95,7 @@ class EmpowerNormalizer extends EventLinkNormalizer {
         linkingEventType: EventType.RemoveBuff,
         referencedEventId: this.empowers,
         referencedEventType: EventType.Cast,
-        /** We only look backwards from the empowerEnd event to not accidentally add the link to the wrong cast */
+        /** We only look backwards from the removebuff event to not accidentally add the link to the wrong cast */
         backwardBufferMs: EMPOWERED_CAST_BUFFER,
         anyTarget: true,
         maximumLinks: 1,
@@ -110,32 +110,26 @@ class EmpowerNormalizer extends EventLinkNormalizer {
 
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event) => {
-      // Exclude
-      // - Non-Casts
-      // - Non-Empowers
-      // - Empowers that don't track anyway
-      // - Empowers who already have a EmpowerEnd Event
-      if (event.type !== EventType.Cast || HasRelatedEvent(event, EMPOWER_END)) {
-        fixedEvents.push(event);
+      fixedEvents.push(event);
+
+      if (
+        event.type !== EventType.RemoveBuff ||
+        !this.empowers.includes(event.ability.guid) ||
+        !HasRelatedEvent(event, EMPOWER_AURA)
+      ) {
         return;
       }
 
-      fixedEvents.push(event); // Push real event
-
-      const auraEvent = GetRelatedEvent(
-        event,
-        EMPOWER_AURA,
-        (e) => e.type === EventType.RemoveBuff,
-      );
+      const castEvent = GetRelatedEvent(event, EMPOWER_AURA, (e) => e.type === EventType.Cast);
 
       if (
-        auraEvent !== undefined &&
-        auraEvent.type === EventType.RemoveBuff &&
-        auraEvent.ability.guid === event.ability.guid
+        castEvent !== undefined &&
+        castEvent.type === EventType.Cast &&
+        castEvent.ability.guid === event.ability.guid
       ) {
         const fabricatedEvent: EmpowerEndEvent = {
           ability: event.ability,
-          timestamp: auraEvent.timestamp,
+          timestamp: event.timestamp,
           sourceID: event.sourceID,
           sourceIsFriendly: event.sourceIsFriendly,
           targetID: event.targetID,
@@ -144,8 +138,8 @@ class EmpowerNormalizer extends EventLinkNormalizer {
           empowermentLevel: 0,
           __fabricated: true,
         };
-        AddRelatedEvent(event, EMPOWER_CANCEL, fabricatedEvent);
-        AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, event);
+        AddRelatedEvent(castEvent, EMPOWER_CANCEL, fabricatedEvent);
+        AddRelatedEvent(fabricatedEvent, EMPOWER_CAST, castEvent);
         fixedEvents.push(fabricatedEvent);
       }
     });
