@@ -103,7 +103,7 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     );
   }
 
-  /** If an empower cast is missing the empowerend then search for the remove buff event until you either find the next cast or the event (Instant Cast Empowers and certain empowers don't produce removeBuff events) */
+  /** If an empower cast is missing the empowerend then get the linked removebuff event and create the empowerend event accordingly */
   normalize(rawEvents: AnyEvent[]): AnyEvent[] {
     // Create initial EventLinks that we can then reference later
     const events = super.normalize(rawEvents);
