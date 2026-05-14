@@ -70,13 +70,14 @@ class MightyInferno extends Analyzer {
     const ampDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
     this.ampedDamage += ampDamage;
     const playerId = event.supportID ? event.supportID : event.sourceID;
+    console.log(playerId);
     const index = this.infernoApps.findIndex((app) => app.playerID === playerId);
     if (index === -1) {
       return;
     }
-    //if (((event.timestamp - this.infernoApps[index].timestamp) - this.infernoApps[index].baseInfernosDuration) > 0) {
-
-    //}
+    if (event.timestamp - this.infernoApps[index].baseEndTimestamp) {
+      this.extensionDamage += event.amount - ampDamage;
+    }
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -126,10 +127,16 @@ class MightyInferno extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <li>Damage from amp: {formatNumber(this.ampedDamage)}</li>
+            <li>Damage from extension: {formatNumber(this.extensionDamage)}</li>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS.MIGHTY_INFERNO_TALENT}>
           <div>
-            <ItemDamageDone amount={this.ampedDamage} />
+            <ItemDamageDone amount={this.ampedDamage + this.extensionDamage} />
           </div>
           <div>
             <InformationIcon /> {formatNumber(this.totalInfernosExtension / 1000)} sec
