@@ -8,10 +8,8 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AnyEvent,
   ApplyBuffEvent,
   CastEvent,
-  EventType,
   FightEndEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
@@ -59,7 +57,7 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
       this.onWindowRemove,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(Events.any, this.onAny);
+    this.addEventListener(Events.UpdateSpellUsable, this.onUpdateSpellUsable);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -99,13 +97,10 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
     this.activeSegments.set(event.ability.guid, event.timestamp);
   }
 
-  private onAny(event: AnyEvent) {
-    if (!this.inWindow || event.type !== EventType.UpdateSpellUsable) return;
-    const usable = event as UpdateSpellUsableEvent;
+  private onUpdateSpellUsable(event: UpdateSpellUsableEvent) {
+    if (!this.inWindow || event.updateType !== UpdateSpellUsableType.EndCooldown) return;
 
-    if (usable.updateType !== UpdateSpellUsableType.EndCooldown) return;
-
-    const spellId = usable.ability.guid;
+    const spellId = event.ability.guid;
     const segStart = this.activeSegments.get(spellId);
     if (segStart !== undefined) {
       this.accumulate(spellId, event.timestamp - segStart);
