@@ -31,6 +31,8 @@ export interface CastEvaluation {
 interface CastSummaryProps {
   /** The spell being analyzed */
   spell: Spell;
+  /** Optional overriding title */
+  title?: string;
   /** Array of cast evaluations to display */
   casts: CastEvaluation[];
   /** Whether to show expandable per-cast breakdown. Default: false */
@@ -57,6 +59,7 @@ const PERF_LEVELS = [
  */
 export default function CastSummary({
   spell,
+  title,
   casts,
   showBreakdown = false,
   startExpanded = false,
@@ -135,7 +138,7 @@ export default function CastSummary({
   return (
     <GuideDataWrapper
       bare
-      title={`${spell.name} Casts`}
+      title={title ?? `${spell.name} Casts`}
       subtitle="Performance"
       stats={statsContent}
     >
