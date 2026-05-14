@@ -50,6 +50,7 @@ import {
   INSURANCE,
   RUSHING_WIND_KICK,
   SHEILUNS_GIFT_MAIN_TARGET,
+  DANCE_OF_CHI_JI_CONSUME,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -329,6 +330,11 @@ export function isInsuranceFromHardcast(event: HealEvent) {
     return false;
   }
   return isFromHardcast(remApply) || isFromRapidDiffusion(remApply);
+}
+
+// damage -> heal
+export function isDanceOfChiJi(event: CastEvent): boolean {
+  return HasRelatedEvent(event, DANCE_OF_CHI_JI_CONSUME);
 }
 
 export default CastLinkNormalizer;

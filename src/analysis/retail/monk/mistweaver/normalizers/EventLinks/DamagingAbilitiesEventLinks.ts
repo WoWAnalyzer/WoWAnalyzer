@@ -8,6 +8,7 @@ import {
   BLACKOUT_KICK_CAST_LINK,
   RSK_CAST_LINK,
   RWK_DAMAGE_CAST_LINK,
+  DANCE_OF_CHI_JI_CONSUME,
 } from './EventLinkConstants';
 import { WAY_OF_THE_CRANE_TP_STRIKES } from '../../constants';
 
@@ -55,6 +56,21 @@ export const DAMAGING_ABILITIES_EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT);
+    },
+  },
+  {
+    linkRelation: DANCE_OF_CHI_JI_CONSUME,
+    reverseLinkRelation: DANCE_OF_CHI_JI_CONSUME,
+    linkingEventId: SPELLS.SPINNING_CRANE_KICK.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DANCE_OF_CHI_JI_MW_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT);
     },
   },
 ];
