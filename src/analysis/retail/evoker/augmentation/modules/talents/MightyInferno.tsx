@@ -67,7 +67,8 @@ class MightyInferno extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
+    const ampedDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
+    this.damage += ampedDamage;
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -92,9 +93,8 @@ class MightyInferno extends Analyzer {
       playerID: targetID,
       timestamp,
       baseInfernosDuration:
-        (INFERNOS_BLESSING_BASE_DURATION_MS *
-          (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage)) /
-        1000,
+        INFERNOS_BLESSING_BASE_DURATION_MS *
+        (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage),
     });
   }
 
@@ -103,7 +103,7 @@ class MightyInferno extends Analyzer {
     if (index === -1) {
       return;
     }
-    const infernosDuration = (timestamp - this.infernoApps[index].timestamp) / 1000;
+    const infernosDuration = timestamp - this.infernoApps[index].timestamp;
     // While refreshing Inferno's Blessing with Fire Breath will appear to set the duration to 10 or 11 sec,
     // this is actually 8 sec and then immediately being extended by 2 or 3 sec.
     const extensionValue = infernosDuration - this.infernoApps[index].baseInfernosDuration;
@@ -125,7 +125,7 @@ class MightyInferno extends Analyzer {
             <ItemDamageDone amount={this.damage} />
           </div>
           <div>
-            <InformationIcon /> {formatNumber(this.totalInfernosExtension)} sec
+            <InformationIcon /> {formatNumber(this.totalInfernosExtension / 1000)} sec
             <small> extra duration granted</small>
           </div>
         </TalentSpellText>
