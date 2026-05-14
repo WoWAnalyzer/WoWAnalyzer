@@ -15,6 +15,7 @@ import {
   EmpowerEndEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import TipTheScalesNormalizer from './TipTheScalesNormalizer';
 
 export const LEAPING_FLAMES_HITS = 'leapingFlamesHits';
 export const LEAPING_FLAMES_CONSUME = 'leapingFlamesConsume';
@@ -145,6 +146,10 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class LeapingFlamesNormalizer extends EventLinkNormalizer {
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }

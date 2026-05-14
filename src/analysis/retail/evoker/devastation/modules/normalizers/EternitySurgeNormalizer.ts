@@ -12,6 +12,7 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
 import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from '../../constants';
+import { TipTheScalesNormalizer } from 'analysis/retail/evoker/shared';
 
 export const ETERNITY_SURGE_FROM_CAST = 'EternitySurgeFromCast';
 
@@ -46,6 +47,10 @@ const ETERNITY_SURGE_IDS = new Set<number>([
  * the headache is not really worth the effort.
  */
 class EternitySurgeNormalizer extends EventsNormalizer {
+  static dependencies = {
+    ...EventsNormalizer.dependencies,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
+  };
   constructor(options: Options) {
     super(options);
     this.active =

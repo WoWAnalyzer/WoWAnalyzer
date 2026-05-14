@@ -22,25 +22,27 @@ import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { InformationIcon } from 'interface/icons';
+import { SpellLink } from 'interface/index';
 
 interface infernoApplication {
   playerID: number;
-  timestamp: number;
-  baseInfernosDuration: number;
+  baseEndTimestamp: number;
 }
 
 /**
  * Inferno's Blessing deals 40% increased damage.
- * Sands of Time also extends Inferno's Blessing. [NYI]
  */
 class MightyInferno extends Analyzer {
   static dependencies = {
     stats: StatTracker,
   };
   protected stats!: StatTracker;
-  damage = 0;
+  ampedDamage = 0;
+  extensionDamage = 0;
   infernoApps: infernoApplication[] = [];
   totalInfernosExtension = 0;
+  // This can mess with the results.
+  hasReceivedExternalInfernos = false;
 
   constructor(options: Options) {
     super(options);
@@ -64,10 +66,32 @@ class MightyInferno extends Analyzer {
       this.onRemoveBuff,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
+
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INFERNOS_BLESSING_BUFF),
+      this.onReceiveBuff,
+    );
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
+    const playerId = event.supportID ? event.supportID : event.sourceID;
+    if (
+      this.hasReceivedExternalInfernos &&
+      playerId === this.selectedCombatant.id &&
+      !this.selectedCombatant.hasOwnBuff(SPELLS.INFERNOS_BLESSING_BUFF.id)
+    ) {
+      // This damage belongs to another Aug
+      return;
+    }
+    const ampDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
+    this.ampedDamage += ampDamage;
+    const index = this.infernoApps.findIndex((app) => app.playerID === playerId);
+    if (index === -1) {
+      return;
+    }
+    if (event.timestamp - this.infernoApps[index].baseEndTimestamp) {
+      this.extensionDamage += event.amount - ampDamage;
+    }
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -90,12 +114,17 @@ class MightyInferno extends Analyzer {
   onInfernosApply(targetID: number, timestamp: number) {
     this.infernoApps.push({
       playerID: targetID,
-      timestamp,
-      baseInfernosDuration:
-        (INFERNOS_BLESSING_BASE_DURATION_MS *
-          (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage)) /
-        1000,
+      baseEndTimestamp:
+        timestamp +
+        INFERNOS_BLESSING_BASE_DURATION_MS *
+          (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage),
     });
+  }
+
+  onReceiveBuff(event: ApplyBuffEvent) {
+    if (event.sourceID != this.owner.selectedCombatant.id) {
+      this.hasReceivedExternalInfernos = true;
+    }
   }
 
   onInfernosRemove(targetID: number, timestamp: number) {
@@ -103,10 +132,9 @@ class MightyInferno extends Analyzer {
     if (index === -1) {
       return;
     }
-    const infernosDuration = (timestamp - this.infernoApps[index].timestamp) / 1000;
     // While refreshing Inferno's Blessing with Fire Breath will appear to set the duration to 10 or 11 sec,
     // this is actually 8 sec and then immediately being extended by 2 or 3 sec.
-    const extensionValue = infernosDuration - this.infernoApps[index].baseInfernosDuration;
+    const extensionValue = timestamp - this.infernoApps[index].baseEndTimestamp;
     if (extensionValue > 0) {
       this.totalInfernosExtension += extensionValue;
     }
@@ -119,13 +147,25 @@ class MightyInferno extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <li>Damage from amp: {formatNumber(this.ampedDamage)}</li>
+            <li>Damage from extension: {formatNumber(this.extensionDamage)}</li>
+            {this.hasReceivedExternalInfernos && (
+              <li>
+                You received {<SpellLink spell={TALENTS.INFERNOS_BLESSING_TALENT} />} from another
+                Evoker, which can cause these damage numbers to be too large.
+              </li>
+            )}
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS.MIGHTY_INFERNO_TALENT}>
           <div>
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.ampedDamage + this.extensionDamage} />
           </div>
           <div>
-            <InformationIcon /> {formatNumber(this.totalInfernosExtension)} sec
+            <InformationIcon /> {formatNumber(this.totalInfernosExtension / 1000)} sec
             <small> extra duration granted</small>
           </div>
         </TalentSpellText>
