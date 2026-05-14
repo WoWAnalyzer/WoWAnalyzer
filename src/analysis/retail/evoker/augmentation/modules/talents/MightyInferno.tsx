@@ -26,7 +26,7 @@ import { InformationIcon } from 'interface/icons';
 interface infernoApplication {
   playerID: number;
   timestamp: number;
-  baseInfernosDuration: number;
+  baseEndTimestamp: number;
 }
 
 /**
@@ -38,7 +38,8 @@ class MightyInferno extends Analyzer {
     stats: StatTracker,
   };
   protected stats!: StatTracker;
-  damage = 0;
+  ampedDamage = 0;
+  extensionDamage = 0;
   infernoApps: infernoApplication[] = [];
   totalInfernosExtension = 0;
 
@@ -67,8 +68,16 @@ class MightyInferno extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    const ampedDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
-    this.damage += ampedDamage;
+    const ampDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
+    this.ampedDamage += ampDamage;
+    const playerId = event.supportID ? event.supportID : event.sourceID;
+    const index = this.infernoApps.findIndex((app) => app.playerID === playerId);
+    if (index === -1) {
+      return;
+    }
+    //if (((event.timestamp - this.infernoApps[index].timestamp) - this.infernoApps[index].baseInfernosDuration) > 0) {
+
+    //}
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -92,9 +101,10 @@ class MightyInferno extends Analyzer {
     this.infernoApps.push({
       playerID: targetID,
       timestamp,
-      baseInfernosDuration:
+      baseEndTimestamp:
+        timestamp +
         INFERNOS_BLESSING_BASE_DURATION_MS *
-        (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage),
+          (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage),
     });
   }
 
@@ -103,10 +113,9 @@ class MightyInferno extends Analyzer {
     if (index === -1) {
       return;
     }
-    const infernosDuration = timestamp - this.infernoApps[index].timestamp;
     // While refreshing Inferno's Blessing with Fire Breath will appear to set the duration to 10 or 11 sec,
     // this is actually 8 sec and then immediately being extended by 2 or 3 sec.
-    const extensionValue = infernosDuration - this.infernoApps[index].baseInfernosDuration;
+    const extensionValue = timestamp - this.infernoApps[index].baseEndTimestamp;
     if (extensionValue > 0) {
       this.totalInfernosExtension += extensionValue;
     }
@@ -122,7 +131,7 @@ class MightyInferno extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.MIGHTY_INFERNO_TALENT}>
           <div>
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.ampedDamage} />
           </div>
           <div>
             <InformationIcon /> {formatNumber(this.totalInfernosExtension / 1000)} sec
