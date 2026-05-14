@@ -1,5 +1,5 @@
 import { change, date } from 'common/changelog';
-import { Topple, Vollmer, Hezaerd } from 'CONTRIBUTORS';
+import { Topple, Vollmer, Hezaerd, Zogmaw } from 'CONTRIBUTORS';
 import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 12), <>Add <SpellLink spell={SPELLS.BLUR} /> charges and clean up old havoc spells.</>, Zogmaw),
   change(date(2026, 4, 10), <>Add <SpellLink spell={SPELLS.BLUR} /> analysis to Havoc analysis.</>, Hezaerd),
   change(date(2026, 4, 2), <>Add initial Havoc analysis for <SpellLink spell={TALENTS.INERTIA_TALENT} /> and clean up outdated guide talent references.</>, Hezaerd),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
