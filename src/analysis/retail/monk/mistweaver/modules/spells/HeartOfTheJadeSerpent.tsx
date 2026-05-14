@@ -12,6 +12,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   EventType,
+  FightEndEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
@@ -59,6 +60,7 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.any, this.onAny);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   private onWindowApply(event: ApplyBuffEvent) {
@@ -75,6 +77,13 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
         this.activeSegments.set(spellId, event.timestamp);
       }
     }
+  }
+
+  private onFightEnd(event: FightEndEvent) {
+    if (!this.inWindow) return;
+
+    this.flushSegments(event.timestamp);
+    this.inWindow = false;
   }
 
   private onWindowRemove(event: RemoveBuffEvent) {
