@@ -35,6 +35,8 @@ interface CastSummaryProps {
   casts: CastEvaluation[];
   /** Whether to show expandable per-cast breakdown. Default: false */
   showBreakdown?: boolean;
+  /** Whether the breakdown should start expanded. Default: false */
+  startExpanded?: boolean;
 }
 
 /** Performance level definitions — order determines display order in the badge grid */
@@ -57,10 +59,11 @@ export default function CastSummary({
   spell,
   casts,
   showBreakdown = false,
+  startExpanded = false,
 }: CastSummaryProps): JSX.Element {
   const { fight } = useFight();
   const formatTimestamp = (timestamp: number) => formatDuration(timestamp - fight.start_time);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(startExpanded);
 
   // Show "no casts" message if there are no casts
   if (!casts || casts.length === 0) {
