@@ -22,6 +22,7 @@ import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { InformationIcon } from 'interface/icons';
+import { SpellLink } from 'interface/index';
 
 interface infernoApplication {
   playerID: number;
@@ -30,7 +31,6 @@ interface infernoApplication {
 
 /**
  * Inferno's Blessing deals 40% increased damage.
- * Sands of Time also extends Inferno's Blessing. [NYI]
  */
 class MightyInferno extends Analyzer {
   static dependencies = {
@@ -41,6 +41,8 @@ class MightyInferno extends Analyzer {
   extensionDamage = 0;
   infernoApps: infernoApplication[] = [];
   totalInfernosExtension = 0;
+  // This can mess with the results.
+  hasReceivedExternalInfernos = false;
 
   constructor(options: Options) {
     super(options);
@@ -64,12 +66,25 @@ class MightyInferno extends Analyzer {
       this.onRemoveBuff,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
+
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INFERNOS_BLESSING_BUFF),
+      this.onReceiveBuff,
+    );
   }
 
   onDamage(event: DamageEvent) {
+    const playerId = event.supportID ? event.supportID : event.sourceID;
+    if (
+      this.hasReceivedExternalInfernos &&
+      playerId === this.selectedCombatant.id &&
+      !this.selectedCombatant.hasOwnBuff(SPELLS.INFERNOS_BLESSING_BUFF.id)
+    ) {
+      // This damage belongs to another Aug
+      return;
+    }
     const ampDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
     this.ampedDamage += ampDamage;
-    const playerId = event.supportID ? event.supportID : event.sourceID;
     const index = this.infernoApps.findIndex((app) => app.playerID === playerId);
     if (index === -1) {
       return;
@@ -106,6 +121,12 @@ class MightyInferno extends Analyzer {
     });
   }
 
+  onReceiveBuff(event: ApplyBuffEvent) {
+    if (event.sourceID != this.owner.selectedCombatant.id) {
+      this.hasReceivedExternalInfernos = true;
+    }
+  }
+
   onInfernosRemove(targetID: number, timestamp: number) {
     const index = this.infernoApps.findIndex((app) => app.playerID === targetID);
     if (index === -1) {
@@ -130,6 +151,12 @@ class MightyInferno extends Analyzer {
           <>
             <li>Damage from amp: {formatNumber(this.ampedDamage)}</li>
             <li>Damage from extension: {formatNumber(this.extensionDamage)}</li>
+            {this.hasReceivedExternalInfernos && (
+              <li>
+                You received {<SpellLink spell={TALENTS.INFERNOS_BLESSING_TALENT} />} from another
+                Evoker, which can cause these damage numbers to be too large.
+              </li>
+            )}
           </>
         }
       >
