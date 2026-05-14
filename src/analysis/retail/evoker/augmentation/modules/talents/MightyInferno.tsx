@@ -70,7 +70,6 @@ class MightyInferno extends Analyzer {
     const ampDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
     this.ampedDamage += ampDamage;
     const playerId = event.supportID ? event.supportID : event.sourceID;
-    console.log(playerId);
     const index = this.infernoApps.findIndex((app) => app.playerID === playerId);
     if (index === -1) {
       return;
