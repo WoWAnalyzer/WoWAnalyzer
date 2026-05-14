@@ -131,11 +131,16 @@ class HeartOfTheJadeSerpent extends BaseHotJS {
 
   private extraCasts(spellId: number): number {
     const cdr = this.totalExtraCdrMs.get(spellId) ?? 0;
-    const abilityCd = this.abilities.getAbility(spellId)?.cooldown;
+    const ability = this.abilities.getAbility(spellId);
+    const abilityCd = ability?.cooldown;
     // hasted cooldowns (like rsk, having a cooldown = fn()) use spellUsable
     const baseCd =
-      (typeof abilityCd === 'number' ? abilityCd * 1000 : null) ??
-      (this.spellUsable.fullCooldownDuration(spellId) || 12_000);
+      typeof abilityCd === 'number'
+        ? abilityCd * 1000
+        : this.spellUsable.fullCooldownDuration(spellId);
+    if (!baseCd) {
+      throw new Error(`${ability?.name} ${spellId} has no cooldown, cannot calculate extra casts`);
+    }
     return cdr / baseCd;
   }
 
