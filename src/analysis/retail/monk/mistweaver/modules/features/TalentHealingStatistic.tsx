@@ -32,6 +32,7 @@ import TranquilTea from '../spells/TranquilTea';
 import MorningBreeze from '../spells/MorningBreeze';
 import Mistline from '../spells/Mistline';
 import VitalExpenditure from '../spells/VitalExpenditure';
+import DanceOfChiJi from '../spells/DanceOfChiJi';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -64,6 +65,7 @@ class TalentHealingStatistic extends Analyzer {
     morningBreeze: MorningBreeze,
     mistline: Mistline,
     vitalExpenditure: VitalExpenditure,
+    danceOfChiJi: DanceOfChiJi,
   };
 
   protected risingMist!: RisingMist;
@@ -96,6 +98,7 @@ class TalentHealingStatistic extends Analyzer {
   protected morningBreeze!: MorningBreeze;
   protected mistline!: Mistline;
   protected vitalExpenditure!: VitalExpenditure;
+  protected danceOfChiJi!: DanceOfChiJi;
 
   buildTalentList() {
     const talentList = [];
@@ -185,6 +188,9 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.VITAL_EXPENDITURE_TALENT)) {
       talentList.push(this.vitalExpenditure.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT)) {
+      talentList.push(this.danceOfChiJi.subStatistic());
     }
 
     const sortedTalentList = talentList.sort(
