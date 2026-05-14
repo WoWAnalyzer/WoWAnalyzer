@@ -25,7 +25,6 @@ import { InformationIcon } from 'interface/icons';
 
 interface infernoApplication {
   playerID: number;
-  timestamp: number;
   baseEndTimestamp: number;
 }
 
@@ -100,7 +99,6 @@ class MightyInferno extends Analyzer {
   onInfernosApply(targetID: number, timestamp: number) {
     this.infernoApps.push({
       playerID: targetID,
-      timestamp,
       baseEndTimestamp:
         timestamp +
         INFERNOS_BLESSING_BASE_DURATION_MS *
