@@ -6,7 +6,7 @@ import Explanation from 'interface/guide/components/Explanation';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 interface GuideSectionProps {
-  spell: Spell;
+  spell?: Spell;
   title?: string;
   explanation: ReactNode;
   children: ReactNode;
@@ -16,8 +16,8 @@ interface GuideSectionProps {
 
 /**
  * Guide section with explanation and data panel in side-by-side or vertical layout.
- * @param spell - The spell this section is about
- * @param title - Custom title (default: uses spell name)
+ * @param spell - The spell this section is about (used as default title)
+ * @param title - Custom title (overrides spell name; omit both for no title)
  * @param explanation - Explanation content
  * @param children - Data panel content
  * @param verticalLayout - Use vertical instead of side-by-side layout (default: false)
@@ -31,7 +31,7 @@ export default function GuideSection({
   verticalLayout = false,
   explanationPercent = 40,
 }: GuideSectionProps): JSX.Element {
-  const sectionTitle = title || spell.name;
+  const sectionTitle = title ?? spell?.name;
 
   // Wrap children in divs with spacing
   const childArray = Array.isArray(children) ? children : [children];
