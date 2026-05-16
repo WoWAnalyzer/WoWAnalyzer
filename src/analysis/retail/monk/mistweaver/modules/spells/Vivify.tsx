@@ -3,6 +3,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
+import { PerformanceMark } from 'interface/guide';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 import CastOverview from 'interface/guide/components/CastOverview';
@@ -31,6 +32,36 @@ const RAPID_DIFFUSION_SPELLS = [
 ];
 const BASE_AVERAGE_REMS = 2.22;
 const RM_AVG_REM_DIFF = 3;
+
+const VIVIFY_LEGEND = (
+  <div
+    style={{
+      padding: '10px 12px',
+      borderRadius: '6px',
+      border: '1px solid rgba(255,255,255,0.08)',
+      background: 'rgba(0,0,0,0.16)',
+      display: 'grid',
+      gap: '0.6rem',
+    }}
+  >
+    <div style={{ display: 'grid', gap: '0.5rem' }}>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect - High ReM count and low
+        overheal
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Good} /> Good - High ReM count and moderate
+        overheal, OR moderate ReM count and low overheal
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Ok} /> Ok - At least 5 ReMs or low overheal
+      </div>
+      <div>
+        <PerformanceMark perf={QualitativePerformance.Fail} /> Fail - Low ReMs and high overheal
+      </div>
+    </div>
+  </div>
+);
 
 type InvigoratingMistHealPerPlayer = Record<number, Set<string>>;
 
@@ -195,6 +226,7 @@ class Vivify extends Analyzer {
           <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> as often as possible.
         </p>
+        {VIVIFY_LEGEND}
       </>
     );
 
