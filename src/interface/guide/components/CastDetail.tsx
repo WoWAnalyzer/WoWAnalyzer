@@ -261,22 +261,24 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
               </HeaderNavBtn>
             </CardHeader>
 
-            <StatsGrid style={{ marginBottom: '10px' }}>
-              {currentCast!.stats.map((stat, statIdx) => {
-                const statColor = stat.performance
-                  ? qualitativePerformanceToColor(stat.performance)
-                  : castColor;
-                return (
-                  <Tooltip key={statIdx} content={stat.tooltip}>
-                    <StatCard color={statColor}>
-                      <StatCardValue color={statColor}>{stat.value}</StatCardValue>
-                      <StatCardDivider color={statColor} />
-                      <StatCardLabel>{stat.label}</StatCardLabel>
-                    </StatCard>
-                  </Tooltip>
-                );
-              })}
-            </StatsGrid>
+            {currentCast!.stats.length > 0 && (
+              <StatsGrid style={{ marginBottom: '10px' }}>
+                {currentCast!.stats.map((stat, statIdx) => {
+                  const statColor = stat.performance
+                    ? qualitativePerformanceToColor(stat.performance)
+                    : castColor;
+                  return (
+                    <Tooltip key={statIdx} content={stat.tooltip}>
+                      <StatCard color={statColor}>
+                        <StatCardValue color={statColor}>{stat.value}</StatCardValue>
+                        <StatCardDivider color={statColor} />
+                        <StatCardLabel>{stat.label}</StatCardLabel>
+                      </StatCard>
+                    </Tooltip>
+                  );
+                })}
+              </StatsGrid>
+            )}
 
             {currentCast!.additionalContent && (
               <AdditionalContentContainer>
