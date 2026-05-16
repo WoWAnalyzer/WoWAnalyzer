@@ -79,16 +79,17 @@ class RisingSunKick extends Analyzer {
         <b>
           <SpellLink spell={this.currentRskTalent} />
         </b>{' '}
-        is one of your primary damaging spells but is also you highest priority healing spell{' '}
-        {'(alongside '} <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
-        {') '}due to its synergy with <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />{' '}
+        is one of your primary damaging spells but is also your highest priority healing spell
+        (alongside <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />) due to its synergy with{' '}
+        <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />
         {this.selectedCombatant.hasTalent(TALENTS_MONK.POOL_OF_MISTS_TALENT) && (
           <>
-            , <SpellLink spell={TALENTS_MONK.POOL_OF_MISTS_TALENT} />,{' '}
+            , <SpellLink spell={TALENTS_MONK.POOL_OF_MISTS_TALENT} />
           </>
         )}
-        and <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as possible
-        is essential for maintaining high counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />
+        , and <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as
+        possible is essential for maintaining high counts of{' '}
+        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} />.
       </p>
     );
 

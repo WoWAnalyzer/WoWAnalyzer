@@ -22,7 +22,6 @@ export const StatsRow = styled.div`
 export const HelperText = styled.div`
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.4);
-  margin-top: 4px;
   font-style: italic;
 `;
 
@@ -56,6 +55,7 @@ const SectionHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-top: 4px;
   margin-bottom: 10px;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -64,6 +64,10 @@ const SectionHeader = styled.div`
 /** Bare wrapper — matches SectionContainer spacing without the box styling */
 const BareSection = styled.div`
   margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 /** Left side: title + subtitle stacked vertically */

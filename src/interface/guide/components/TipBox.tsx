@@ -95,8 +95,11 @@ function TipBoxLayout({
 const Container = styled.div<{ $color: string }>`
   background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid ${(p) => p.$color}66;
-  border-radius: 6px;
-  padding: 12px 16px;
+  border-radius: 4px;
+  padding: 6px 16px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
   margin-top: 12px;
   margin-bottom: 8px;
   line-height: 1.5;
