@@ -3,13 +3,16 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
+import CastOverview from 'interface/guide/components/CastOverview';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -58,7 +61,7 @@ class Vivify extends Analyzer {
   dancingMistActive: boolean;
   rapidDiffusionActive: boolean;
 
-  castEntries: BoxRowEntry[] = [];
+  castEntries: PerCastData[] = [];
   vivifyGoodCrits = 0;
   vivifyWastedCrits = 0;
 
@@ -169,56 +172,86 @@ class Vivify extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const styleObj = {
-      fontSize: 20,
-    };
-    const styleObjInner = {
-      fontSize: 15,
-    };
+    const totalHealing = this.cleaveHealing + this.mainTargetHealing;
+    const totalRaw =
+      this.cleaveHealing +
+      this.cleaveOverhealing +
+      this.mainTargetHealing +
+      this.mainTargetOverhealing;
+    const avgOverheal = totalRaw > 0 ? 1 - totalHealing / totalRaw : 0;
+
     const explanation = (
-      <p>
-        <SpellLink spell={SPELLS.VIVIFY} /> can be one of your best healing spells when you have
-        high enough counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> out on the raid via{' '}
-        <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />, and will be a major portion of your
-        healing when used correctly. <SpellLink spell={SPELLS.VIVIFY} />
-        's effectiveness goes hand in hand with your <SpellLink
-          spell={SPELLS.RENEWING_MIST_CAST}
-        />{' '}
-        count - the more you have out at a given time, the more healing and better mana efficiency
-        this spell has. This further emphasizes the importance of casting your rotational abilities
-        in <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
-        <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> as often as possible.{' '}
-      </p>
-    );
-    const data = (
-      <div>
-        <RoundedPanel>
-          <div>
-            <strong>
-              <SpellLink spell={SPELLS.VIVIFY} /> casts
-            </strong>{' '}
-            <small>
-              Blue is a perfect cast - high rem count and low overheal. Green is a good cast - high
-              rem count and moderate overheal OR moderate rem count and low overheal. Yellow is an
-              ok cast - at least 5 rems or low overheal. Mouseover to see details about each cast.
-            </small>
-            <PerformanceBoxRow values={this.castEntries} />
-          </div>
-          <div style={styleObj}>
-            <small style={styleObjInner}>
-              <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> -{' '}
-            </small>
-            <strong>{this.averageRemPerVivify.toFixed(1)}</strong>{' '}
-            <small>
-              average cleaves per <SpellLink spell={SPELLS.VIVIFY} />
-            </small>
-          </div>
-        </RoundedPanel>
-      </div>
+      <>
+        <p>
+          <SpellLink spell={SPELLS.VIVIFY} /> can be one of your best healing spells when you have
+          high enough counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> out on the raid via{' '}
+          <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />, and will be a major portion of your
+          healing when used correctly. <SpellLink spell={SPELLS.VIVIFY} />
+          's effectiveness goes hand in hand with your{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> count - the more you have out at a given
+          time, the more healing and better mana efficiency this spell has. This further emphasizes
+          the importance of casting your rotational abilities in{' '}
+          <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
+          <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> as often as possible.
+        </p>
+      </>
     );
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+    const stats = [
+      {
+        value: this.averageRemPerVivify.toFixed(1),
+        label: 'Avg ReMs Per Cast',
+        tooltip: (
+          <>
+            Average number of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> targets cleaved per{' '}
+            <SpellLink spell={SPELLS.VIVIFY} /> cast via{' '}
+            <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />
+          </>
+        ),
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: this.averageRemPerVivify,
+          isGreaterThanOrEqual: {
+            perfect: 8,
+            good: 6,
+            ok: 4,
+          },
+        }),
+      },
+      {
+        value: `${formatPercentage(avgOverheal)}%`,
+        label: 'Avg Overheal',
+        tooltip: <>Average overheal across all {this.casts} casts</>,
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: avgOverheal,
+          isLessThanOrEqual: { perfect: 0.3, good: 0.55, ok: 0.7 },
+        }),
+      },
+      {
+        value: formatNumber(this.avgHealingPerCast),
+        label: 'Avg Healing Per Cast',
+        tooltip: (
+          <>
+            {formatNumber(this.avgRawPerCast)} <small>raw healing per cast</small>
+          </>
+        ),
+      },
+    ];
+
+    return (
+      <GuideSection explanation={explanation} explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}>
+        <CastOverview
+          spell={SPELLS.VIVIFY}
+          title={
+            <>
+              <SpellLink spell={SPELLS.VIVIFY} /> Overview
+            </>
+          }
+          stats={stats}
+        />
+        <CastDetail title="Vivify Casts" casts={this.castEntries} />
+      </GuideSection>
+    );
   }
 
   statistic() {
@@ -334,18 +367,36 @@ class Vivify extends Analyzer {
       value = QualitativePerformance.Ok;
     }
 
-    const tooltip = (
-      <>
-        @ <strong>{this.owner.formatTimestamp(vivifyHeal.timestamp)}</strong>, ReMs:{' '}
-        <strong>{rems}</strong>
-        <div></div>
-        <>
-          Healing: {formatNumber(healingPerCast)} ({formatPercentage(percentOverheal)}% overheal)
-        </>
-        <div></div>
-      </>
-    );
-    this.castEntries.push({ value, tooltip });
+    this.castEntries.push({
+      timestamp: this.owner.formatTimestamp(vivifyHeal.timestamp),
+      performance: value,
+      stats: [
+        {
+          value: `${rems}`,
+          label: 'ReMs Hit',
+          performance: evaluateQualitativePerformanceByThreshold({
+            actual: rems,
+            isGreaterThanOrEqual: {
+              perfect: 8 + rmConst,
+              good: 6 + rmConst,
+              ok: 4 + rmConst,
+            },
+          }),
+        },
+        {
+          value: `${formatPercentage(percentOverheal)}%`,
+          label: 'Overheal',
+          performance: evaluateQualitativePerformanceByThreshold({
+            actual: percentOverheal,
+            isLessThanOrEqual: { perfect: 0.3, good: 0.55, ok: 0.7 },
+          }),
+        },
+        {
+          value: formatNumber(healingPerCast),
+          label: 'Healing',
+        },
+      ],
+    });
   }
 }
 
