@@ -22,7 +22,6 @@ export const StatsRow = styled.div`
 export const HelperText = styled.div`
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.4);
-  margin-top: 4px;
   font-style: italic;
 `;
 
