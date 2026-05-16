@@ -82,7 +82,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.PUTREFY_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        charges: combatant.hasTalent(TALENTS.PUTRID_ECHOES_TALENT) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.PUTRID_ECHOES_TALENT) ? 3 : 1,
         gcd: {
           base: 1500,
         },
