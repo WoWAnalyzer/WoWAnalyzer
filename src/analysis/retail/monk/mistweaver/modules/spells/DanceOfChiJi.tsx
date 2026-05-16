@@ -117,47 +117,6 @@ class DanceOfChiJi extends Analyzer {
     this.healing += calculateEffectiveHealing(event, DANCE_OF_CHI_JI_INCREASE);
   }
 
-  get consumedProcs() {
-    return this.procs.total - this.procs.wasted - this.procs.expired;
-  }
-
-  get usedProcRate() {
-    return this.procs.total > 0 ? this.consumedProcs / this.procs.total : 0;
-  }
-
-  get consumedPerformance(): QualitativePerformance {
-    return evaluateQualitativePerformanceByThreshold({
-      actual: this.usedProcRate,
-      isGreaterThanOrEqual: {
-        perfect: 1,
-        good: 0.9,
-        ok: 0.7,
-      },
-    });
-  }
-
-  get wastedPerformance(): QualitativePerformance {
-    return evaluateQualitativePerformanceByThreshold({
-      actual: this.procs.wasted,
-      isLessThanOrEqual: {
-        perfect: 0,
-        good: 0,
-        ok: 2,
-      },
-    });
-  }
-
-  get expiredPerformance(): QualitativePerformance {
-    return evaluateQualitativePerformanceByThreshold({
-      actual: this.procs.expired,
-      isLessThanOrEqual: {
-        perfect: 0,
-        good: 0,
-        ok: 2,
-      },
-    });
-  }
-
   subStatistic() {
     return (
       <StatisticListBoxItem
@@ -222,36 +181,18 @@ class DanceOfChiJi extends Analyzer {
 
     const stats = [
       {
-        value: `${formatPercentage(this.usedProcRate, 1)}%`,
-        label: 'Consumed Buffs',
-        tooltip: (
-          <>
-            {this.consumedProcs} of {this.procs.total} buffs consumed
-          </>
-        ),
-        performance: this.consumedPerformance,
-      },
-      {
-        value: `${this.procs.expired}`,
-        label: 'Expired Buffs',
-        tooltip: (
-          <>
-            Number of <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_MW_BUFF} /> procs that expired before
-            they could be spent.
-          </>
-        ),
-        performance: this.expiredPerformance,
-      },
-      {
-        value: `${this.procs.wasted}`,
+        value: `${this.procs.expired + this.procs.wasted}`,
         label: 'Wasted Buffs',
         tooltip: (
           <>
-            Number of <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_MW_BUFF} /> procs that were lost
-            because the buff was refreshed before it could be consumed.{' '}
+            <div>{this.procs.expired} expired</div>
+            <div>{this.procs.wasted} refreshed</div>
           </>
         ),
-        performance: this.wastedPerformance,
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: this.procs.expired + this.procs.wasted,
+          isLessThanOrEqual: { perfect: 0, good: 0, ok: 2 },
+        }),
       },
     ];
 
