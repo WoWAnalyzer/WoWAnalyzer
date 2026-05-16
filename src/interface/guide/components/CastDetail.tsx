@@ -115,7 +115,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
 
   // Width % for timeline rectangles:
   // ≤5 casts → 20% each (max), scales down to 5% at 20, wraps after 20
-  const rectWidthPct = Math.max(100 / Math.max(filteredCount, 5), 100 / 30);
+  const rectWidthPct = Math.max(100 / Math.max(filteredCount, 5), 100 / 20);
 
   const handlePrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : filteredCasts.length - 1));
