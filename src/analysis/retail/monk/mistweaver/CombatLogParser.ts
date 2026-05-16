@@ -75,7 +75,7 @@ import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
 import PoolOfMists from './modules/spells/PoolOfMists';
-import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
+import HeartOfTheJadeSerpent from './modules/spells/HeartOfTheJadeSerpent';
 import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
