@@ -304,7 +304,7 @@ class Vivify extends Analyzer {
           <div>
             {this.averageRemPerVivify.toFixed(2)}{' '}
             <small>
-              Average Cleaves per <SpellLink spell={SPELLS.VIVIFY} />
+              average cleaves per <SpellLink spell={SPELLS.VIVIFY} />
             </small>
           </div>
           <div>
