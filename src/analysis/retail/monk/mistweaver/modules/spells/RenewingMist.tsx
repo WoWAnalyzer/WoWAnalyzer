@@ -83,7 +83,7 @@ class RenewingMist extends Analyzer {
         due to its synergy with <SpellLink spell={SPELLS.VIVIFY} />,{' '}
         <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />,{' '}
         <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} />, and{' '}
-        <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />
+        <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />.
       </p>
     );
 
