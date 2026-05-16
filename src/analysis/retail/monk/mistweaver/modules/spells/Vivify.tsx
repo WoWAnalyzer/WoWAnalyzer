@@ -24,6 +24,7 @@ import {
 } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { getInvigHitsPerCast, isFromVivify } from '../../normalizers/CastLinkNormalizer';
+import { TipBox } from 'interface/guide/components';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -34,33 +35,22 @@ const BASE_AVERAGE_REMS = 2.22;
 const RM_AVG_REM_DIFF = 3;
 
 const VIVIFY_LEGEND = (
-  <div
-    style={{
-      padding: '10px 12px',
-      borderRadius: '6px',
-      border: '1px solid rgba(255,255,255,0.08)',
-      background: 'rgba(0,0,0,0.16)',
-      display: 'grid',
-      gap: '0.6rem',
-    }}
-  >
-    <div style={{ display: 'grid', gap: '0.5rem' }}>
-      <div>
-        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect - High ReM count and low
-        overheal
-      </div>
-      <div>
-        <PerformanceMark perf={QualitativePerformance.Good} /> Good - High ReM count and moderate
-        overheal, OR moderate ReM count and low overheal
-      </div>
-      <div>
-        <PerformanceMark perf={QualitativePerformance.Ok} /> Ok - At least 5 ReMs or low overheal
-      </div>
-      <div>
-        <PerformanceMark perf={QualitativePerformance.Fail} /> Fail - Low ReMs and high overheal
-      </div>
+  <TipBox hideIcon>
+    <div>
+      <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect - High ReM count and low
+      overheal
     </div>
-  </div>
+    <div>
+      <PerformanceMark perf={QualitativePerformance.Good} /> Good - High ReM count and moderate
+      overheal, OR moderate ReM count and low overheal
+    </div>
+    <div>
+      <PerformanceMark perf={QualitativePerformance.Ok} /> Ok - At least 5 ReMs or low overheal
+    </div>
+    <div>
+      <PerformanceMark perf={QualitativePerformance.Fail} /> Fail - Low ReMs and high overheal
+    </div>
+  </TipBox>
 );
 
 type InvigoratingMistHealPerPlayer = Record<number, Set<string>>;
@@ -218,8 +208,10 @@ class Vivify extends Analyzer {
           high enough counts of <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> out on the raid via{' '}
           <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> and{' '}
           <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />, and will be a major portion of your
-          healing when used correctly. <SpellLink spell={SPELLS.VIVIFY} />
-          's effectiveness goes hand in hand with your{' '}
+          healing when used correctly.
+        </p>
+        <p>
+          The spell's effectiveness goes hand in hand with your{' '}
           <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> count - the more you have out at a given
           time, the more healing and better mana efficiency this spell has. This further emphasizes
           the importance of casting your rotational abilities in{' '}
