@@ -93,9 +93,7 @@ class RenewingMist extends Analyzer {
           <strong>
             <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> cast efficiency
           </strong>
-          <div className="flex-main chart" style={{ padding: 15 }}>
-            {this.subStatistic()}
-          </div>
+          {this.subStatistic()}
         </RoundedPanel>
       </div>
     );
