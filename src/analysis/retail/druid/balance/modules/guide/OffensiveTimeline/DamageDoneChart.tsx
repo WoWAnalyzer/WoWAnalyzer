@@ -115,7 +115,7 @@ export const DamageDoneChart = memo(
             },
             y: {
               field: 'amount',
-              title: 'Damage Done per Second',
+              title: 'DPS',
               type: 'quantitative',
               axis: { format: '~s', grid: false },
               scale: { zero: true },

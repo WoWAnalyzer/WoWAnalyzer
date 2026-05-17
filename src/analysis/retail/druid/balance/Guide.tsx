@@ -146,7 +146,6 @@ function CooldownsSection({ modules, events, info }: GuideProps<typeof CombatLog
         duration).
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
-      <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
     </Section>
   );
 }
@@ -186,15 +185,6 @@ function CooldownGraphSubsection({ info }: GuideProps<typeof CombatLogParser>) {
           useThresholds
         />
       )}
-    </SubSection>
-  );
-}
-
-function CooldownBreakdownSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <SubSection>
-      {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
-        modules.celestialAlignment.guideCastBreakdown}
     </SubSection>
   );
 }

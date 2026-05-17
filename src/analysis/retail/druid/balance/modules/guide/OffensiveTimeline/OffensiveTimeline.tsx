@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { useInfo } from 'interface/guide';
 import { useCallback, useMemo, useState, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -102,6 +102,52 @@ export default function OffensiveTimeline(): JSX.Element | null {
         {({ width }) => (
           <div style={{ width }}>
             <GuideDataWrapper bare title={`Eclipse timeline`}>
+              <div>These timelines showcase your Eclipses and cooldown usage.</div>
+              <div>
+                You have several short cooldowns:
+                {info.combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT) && (
+                  <span>
+                    {' '}
+                    <SpellLink spell={TALENTS_DRUID.FORCE_OF_NATURE_TALENT} />
+                  </span>
+                )}
+                {info.combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT) && (
+                  <span>
+                    {' '}
+                    <SpellLink spell={TALENTS_DRUID.FURY_OF_ELUNE_TALENT} />
+                  </span>
+                )}
+                {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
+                  <span>
+                    {' '}
+                    <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} />
+                  </span>
+                )}
+                . They must be aligned with <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> and{' '}
+                <SpellLink spell={cdSpell(info.combatant)} />.
+              </div>
+              <div>Use your cooldowns based on this priority:</div>
+              <ul style={{ margin: '5px 0 5px 0' }}>
+                <li>
+                  <strong>Priority 1:</strong> Avoid capping! Never let either{' '}
+                  <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> or{' '}
+                  <SpellLink spell={cdSpell(info.combatant)} /> sit fully charged.
+                </li>
+                <li>
+                  <strong>Priority 2:</strong> Use <SpellLink spell={cdSpell(info.combatant)} />{' '}
+                  when your short cooldowns are available.
+                </li>
+                <li>
+                  <strong>Priority 3:</strong> If <SpellLink spell={cdSpell(info.combatant)} /> is
+                  unavailable and your short cooldowns are available, use them with a standard{' '}
+                  <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> instead.
+                </li>
+              </ul>
+              <div style={{ marginBottom: '20px', marginTop: '10px', fontStyle: 'italic' }}>
+                <strong>Note:</strong> It is perfectly fine to delay your cooldowns for a few
+                seconds to play around encounter mechanics — such as holding them during heavy
+                movement or saving them for upcoming high-priority focus like adds spawning.
+              </div>
               <DamageDoneChart buffWindows={buffWindows} width={width} onHover={onHover} />
               <BarsContainer>
                 <BuffDisplay
@@ -112,7 +158,7 @@ export default function OffensiveTimeline(): JSX.Element | null {
               </BarsContainer>
             </GuideDataWrapper>
             <div style={{ height: '10px' }} />
-            <GuideDataWrapper bare title={`Cooldown availability`}>
+            <GuideDataWrapper bare title={`Cooldowns`}>
               <RowsContainer>
                 {cooldownSpells
                   .map((spell) => ({ spell, durationMs: cooldownSpellsDuration.get(spell.id) }))
