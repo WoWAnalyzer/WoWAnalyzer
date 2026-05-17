@@ -3,7 +3,7 @@ import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
-import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/EclipseAndMainSpellBuffWindows';
+import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
 
 const BuffRows = styled.div`
   margin-top: 4px;

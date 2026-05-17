@@ -3,8 +3,12 @@ import Spell from 'common/SPELLS/Spell';
 import { formatDuration } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';
-import { UpdateSpellUsableType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { TimeWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
+import {
+  computeAbilityActiveTimeWindows,
+  computeChargingTimeWindows,
+} from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/Helper';
 
 export const ALL_CHARGES_COLOR = '#4a90e2';
 export const SOME_CHARGES_COLOR = '#3fa34d';
@@ -50,43 +54,37 @@ const CastBox = styled.div<{ at: number; fightDuration: number; activeTime: numb
   left: ${({ at, fightDuration }) => (at / fightDuration) * 100}%;
 `;
 
-interface ChargeSegment {
-  start: number;
-  end: number;
-  charges: number;
-  maxCharges: number;
-}
-
 interface CooldownAvailabilityRowProps {
   spell: Spell;
   durationMs: number;
 }
 
-const getVisibleSubRanges = (
-  segStart: number,
-  segEnd: number,
-  castRanges: Array<{ start: number; end: number }>,
+// Segments are rendered beneath "Ability active" overlay boxes, so only the uncovered portions need to be drawn.
+// This returns the sub-ranges ("gaps") of [windowStart, windowEnd] not covered by any overlay.
+const getUncoveredSubRanges = (
+  chargingTimeWindowStart: number,
+  chargingTimeWindowEnd: number,
+  abilityActiveTimeWindows: TimeWindow[],
 ): Array<{ start: number; end: number }> => {
-  const sorted = castRanges
-    .filter((r) => r.end > segStart && r.start < segEnd)
-    .sort((a, b) => a.start - b.start);
+  const sortedAbilityActiveTimeWindows = abilityActiveTimeWindows
+    .filter((w) => w.startTime < chargingTimeWindowEnd && w.endTime > chargingTimeWindowStart)
+    .sort((a, b) => a.startTime - b.startTime);
 
-  const result: Array<{ start: number; end: number }> = [];
-  let cursor = segStart;
+  const gaps: Array<{ start: number; end: number }> = [];
+  let cursor = chargingTimeWindowStart;
 
-  for (const range of sorted) {
-    const clampedStart = Math.max(range.start, segStart);
-    if (clampedStart > cursor) {
-      result.push({ start: cursor, end: clampedStart });
+  for (const abilityActiveTimeWindow of sortedAbilityActiveTimeWindows) {
+    if (cursor < abilityActiveTimeWindow.startTime) {
+      gaps.push({ start: cursor, end: abilityActiveTimeWindow.startTime });
     }
-    cursor = Math.max(cursor, Math.min(range.end, segEnd));
+    cursor = Math.max(cursor, Math.min(abilityActiveTimeWindow.endTime, chargingTimeWindowEnd));
   }
 
-  if (cursor < segEnd) {
-    result.push({ start: cursor, end: segEnd });
+  if (cursor < chargingTimeWindowEnd) {
+    gaps.push({ start: cursor, end: chargingTimeWindowEnd });
   }
 
-  return result;
+  return gaps;
 };
 
 const segmentColor = (charges: number, maxCharges: number) => {
@@ -107,70 +105,42 @@ const CooldownAvailabilityRow = ({ spell, durationMs }: CooldownAvailabilityRowP
     return null;
   }
 
-  const events = spellUsable.history(spell.id).data;
-
-  const segments: ChargeSegment[] = [];
-  // The spell starts the fight fully available. Until we see the first event we
-  // don't know maxCharges, so default to 1 (it's overridden as soon as an event arrives).
-  let lastTimestamp = info.fightStart;
-  let lastCharges = events[0]?.maxCharges ?? 1;
-  let lastMax = events[0]?.maxCharges ?? 1;
-
-  for (const event of events) {
-    if (event.timestamp >= info.fightEnd) {
-      break;
-    }
-    if (event.timestamp > lastTimestamp) {
-      segments.push({
-        start: lastTimestamp,
-        end: event.timestamp,
-        charges: lastCharges,
-        maxCharges: lastMax,
-      });
-    }
-    lastTimestamp = event.timestamp;
-    lastCharges = event.chargesAvailable;
-    lastMax = event.maxCharges;
-  }
-  if (lastTimestamp < info.fightEnd) {
-    segments.push({
-      start: lastTimestamp,
-      end: info.fightEnd,
-      charges: lastCharges,
-      maxCharges: lastMax,
-    });
-  }
-
-  const castRanges = events
-    .filter(
-      (event) =>
-        event.timestamp < info.fightEnd &&
-        (event.updateType === UpdateSpellUsableType.BeginCooldown ||
-          event.updateType === UpdateSpellUsableType.UseCharge),
-    )
-    .map((event) => ({
-      start: event.timestamp - info.fightStart,
-      end: Math.min(event.timestamp - info.fightStart + durationMs, info.fightDuration),
-    }));
+  const updateSpellUsableEvents = spellUsable.history(spell.id).data;
+  const chargingTimeWindows = computeChargingTimeWindows(
+    updateSpellUsableEvents,
+    info.fightStart,
+    info.fightEnd,
+  );
+  const abilityActiveTimeWindows = computeAbilityActiveTimeWindows(
+    updateSpellUsableEvents,
+    info.fightStart,
+    info.fightEnd,
+    info.fightDuration,
+    durationMs,
+  );
 
   return (
     <RowContainer>
-      {segments.flatMap((seg, idx) => {
-        const segStart = seg.start - info.fightStart;
-        const segEnd = seg.end - info.fightStart;
-        return getVisibleSubRanges(segStart, segEnd, castRanges).map((range, rIdx) => (
+      {chargingTimeWindows.flatMap((chargingTimeWindow, idx) => {
+        const chargingTimeWindowStart = chargingTimeWindow.startTime - info.fightStart;
+        const chargingTimeWindowEnd = chargingTimeWindow.endTime - info.fightStart;
+        return getUncoveredSubRanges(
+          chargingTimeWindowStart,
+          chargingTimeWindowEnd,
+          abilityActiveTimeWindows,
+        ).map((range, rIdx) => (
           <Tooltip
-            key={`seg-${seg.start}-${idx}-${rIdx}`}
+            key={`seg-${chargingTimeWindow.startTime}-${idx}-${rIdx}`}
             content={
               <>
-                {seg.charges <= 0 ? 'On cooldown' : 'Available'}
+                {chargingTimeWindow.charges <= 0 ? 'On cooldown' : 'Available'}
                 {' @ '}
                 {formatDuration(range.start)}
                 {' - '}
                 {formatDuration(range.end)}
                 {' ('}
-                {seg.charges}/{seg.maxCharges}
-                {seg.maxCharges > 1 ? ' charges)' : ' charge)'}
+                {chargingTimeWindow.charges}/{chargingTimeWindow.maxCharges}
+                {chargingTimeWindow.maxCharges > 1 ? ' charges)' : ' charge)'}
               </>
             }
           >
@@ -178,25 +148,29 @@ const CooldownAvailabilityRow = ({ spell, durationMs }: CooldownAvailabilityRowP
               start={range.start}
               end={range.end}
               fightDuration={info.fightDuration}
-              color={segmentColor(seg.charges, seg.maxCharges)}
+              color={segmentColor(chargingTimeWindow.charges, chargingTimeWindow.maxCharges)}
             />
           </Tooltip>
         ));
       })}
-      {castRanges.map((range) => (
+      {abilityActiveTimeWindows.map((range) => (
         <Tooltip
-          key={`cast-${range.start}`}
+          key={`cast-${range.startTime}`}
           content={
             <>
               <SpellLink spell={spell.id} />
               {' @ '}
-              {formatDuration(range.start)}
+              {formatDuration(range.startTime)}
               {' - '}
-              {formatDuration(range.end)}
+              {formatDuration(range.endTime)}
             </>
           }
         >
-          <CastBox at={range.start} fightDuration={info.fightDuration} activeTime={durationMs} />
+          <CastBox
+            at={range.startTime}
+            fightDuration={info.fightDuration}
+            activeTime={durationMs}
+          />
         </Tooltip>
       ))}
     </RowContainer>

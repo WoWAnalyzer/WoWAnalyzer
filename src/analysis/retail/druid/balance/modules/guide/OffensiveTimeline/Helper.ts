@@ -1,16 +1,71 @@
+import { UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/core/Events';
+import {
+  BuffWindow,
+  ChargingTimeWindows,
+  TimeWindow,
+} from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
+import Combatant from 'parser/core/Combatant';
 import SPELLS from 'common/SPELLS';
 import { cdSpell } from 'analysis/retail/druid/balance/constants';
-import Combatant from 'parser/core/Combatant';
-import { TimeWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/timeWindow';
-
-export interface BuffWindow extends TimeWindow {
-  color: string;
-  spellId: number;
-}
 
 const CD_COLOR = '#26d4c8';
 const SOLAR_COLOR = '#e58a3a';
 const LUNAR_COLOR = '#7ab2ff';
+
+export const computeChargingTimeWindows = (
+  events: UpdateSpellUsableEvent[],
+  fightStart: number,
+  fightEnd: number,
+): ChargingTimeWindows[] => {
+  // Assume fight starts with full charges
+  const initialCharges = events[0]?.maxCharges ?? 1;
+
+  const chargeChangeEvents = [
+    { timestamp: fightStart, charges: initialCharges, maxCharges: initialCharges },
+    ...events
+      .filter((e) => e.timestamp < fightEnd)
+      .map((e) => ({
+        timestamp: e.timestamp,
+        charges: e.chargesAvailable,
+        maxCharges: e.maxCharges,
+      })),
+  ];
+
+  return chargeChangeEvents.flatMap((chargeChangeEvent, i) => {
+    // Charging until next event that changes the number of charges available
+    const endTime = chargeChangeEvents[i + 1]?.timestamp ?? fightEnd;
+    return chargeChangeEvent.timestamp < endTime
+      ? [
+          {
+            startTime: chargeChangeEvent.timestamp,
+            endTime,
+            charges: chargeChangeEvent.charges,
+            maxCharges: chargeChangeEvent.maxCharges,
+          },
+        ]
+      : [];
+  });
+};
+
+export const computeAbilityActiveTimeWindows = (
+  events: UpdateSpellUsableEvent[],
+  fightStart: number,
+  fightEnd: number,
+  fightDuration: number,
+  durationMs: number,
+): TimeWindow[] =>
+  events
+    // These 2 events indicate an Ability being activated
+    .filter(
+      (event) =>
+        event.timestamp < fightEnd &&
+        (event.updateType === UpdateSpellUsableType.BeginCooldown ||
+          event.updateType === UpdateSpellUsableType.UseCharge),
+    )
+    .map((event) => ({
+      startTime: event.timestamp - fightStart,
+      endTime: Math.min(event.timestamp - fightStart + durationMs, fightDuration),
+    }));
 
 export function getEclipseAndMainSpellBuffWindows(
   combatant: Combatant,

@@ -3,7 +3,7 @@ import { DamageEvent, EventType } from 'parser/core/Events';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
 import { memo } from 'react';
 import { SignalListener, VisualizationSpec } from 'react-vega';
-import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/EclipseAndMainSpellBuffWindows';
+import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
 
 const BUFF_WINDOW_SHIFT = 500;
 const DAMAGE_AREA_COLOR = '#e8b339';

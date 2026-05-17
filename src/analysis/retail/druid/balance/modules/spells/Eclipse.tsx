@@ -5,7 +5,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TrackedBuffEvent } from 'parser/core/Entity';
 import { cdDuration, cdSpell } from 'analysis/retail/druid/balance/constants';
 import AlwaysBeCasting from 'analysis/retail/druid/balance/modules/features/AlwaysBeCasting';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -16,6 +15,7 @@ import { CastDetail, CastOverview, StatisticData } from 'interface/guide/compone
 import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
 import { type PerCastData } from 'interface/guide/components/CastDetail';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
+import { getEclipseAndMainSpellBuffWindows } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/Helper';
 
 /**
  * **Eclipse**
@@ -152,7 +152,7 @@ export default class Eclipse extends Analyzer.withDependencies(deps) {
   private buildStats(): StatisticData[] {
     return [
       {
-        value: `${formatPercentage(this.percentUptime, 1)}%`,
+        value: `${formatPercentage(this.percentEclipseUptime, 1)}%`,
         label: 'Eclipse Uptime',
         tooltip: <>Combined uptime of Solar Eclipse, Lunar Eclipse, and Celestial Alignment</>,
       },
@@ -183,18 +183,39 @@ export default class Eclipse extends Analyzer.withDependencies(deps) {
     ];
   }
 
-  private get percentUptime(): number {
-    const allUptimes = [
-      ...this.getUptimePeriods(SPELLS.ECLIPSE_SOLAR.id),
-      ...this.getUptimePeriods(SPELLS.ECLIPSE_LUNAR.id),
-      ...this.getUptimePeriods(cdSpell(this.selectedCombatant).id),
-    ];
-
-    const combinedUptime = mergeTimePeriods(allUptimes, this.owner.fight.end_time).reduce(
+  private get percentEclipseUptime(): number {
+    const fightStart = this.owner.fight.start_time;
+    const fightEnd = this.owner.fight.end_time;
+    const buffWindows = getEclipseAndMainSpellBuffWindows(
+      this.selectedCombatant,
+      fightStart,
+      fightEnd,
+    );
+    const allEclipseUptimes = buffWindows
+      .filter((w) => w.spellId === SPELLS.ECLIPSE_SOLAR.id || w.spellId === SPELLS.ECLIPSE_LUNAR.id)
+      .map((w) => ({
+        start: w.startTime + fightStart,
+        end: w.endTime + fightStart,
+      }));
+    const combinedUptime = mergeTimePeriods(allEclipseUptimes, fightEnd).reduce(
       (acc, up) => acc + up.end - up.start,
       0,
     );
-    return combinedUptime / (this.owner.fight.end_time - this.owner.fight.start_time);
+    return combinedUptime / (fightEnd - fightStart);
+  }
+
+  private get percentEclipseEfficiency(): number {
+    const fightEnd = this.owner.fight.end_time;
+    const cooldownPeriods = this.eclipseCastEvents.map((e) => ({
+      // Add 200ms to remove the cast of Eclipse itself
+      start: e.timestamp + 200,
+      end: Math.min(e.timestamp + ECLIPSE_COOLDOWN_MS, fightEnd),
+    }));
+    const totalOnCooldown = mergeTimePeriods(cooldownPeriods, fightEnd).reduce(
+      (acc, p) => acc + p.end - p.start,
+      0,
+    );
+    return totalOnCooldown / (fightEnd - this.owner.fight.start_time);
   }
 
   private get percentMainCdEfficiency(): number {
@@ -212,23 +233,20 @@ export default class Eclipse extends Analyzer.withDependencies(deps) {
     return totalOnCooldown / (fightEnd - this.owner.fight.start_time);
   }
 
-  private get percentEclipseEfficiency(): number {
-    const fightEnd = this.owner.fight.end_time;
-    const cooldownPeriods = this.eclipseCastEvents.map((e) => ({
-      // Add 200ms to remove the cast of Eclipse itself
-      start: e.timestamp + 200,
-      end: Math.min(e.timestamp + ECLIPSE_COOLDOWN_MS, fightEnd),
-    }));
-    const totalOnCooldown = mergeTimePeriods(cooldownPeriods, fightEnd).reduce(
-      (acc, p) => acc + p.end - p.start,
-      0,
-    );
-    return totalOnCooldown / (fightEnd - this.owner.fight.start_time);
-  }
-
   private buildEclipsePerCastData(): PerCastData[] {
-    const solarBuffPeriods = this.getUptimePeriods(SPELLS.ECLIPSE_SOLAR.id);
-    const lunarBuffPeriods = this.getUptimePeriods(SPELLS.ECLIPSE_LUNAR.id);
+    const fightStart = this.owner.fight.start_time;
+    const fightEnd = this.owner.fight.end_time;
+    const buffWindows = getEclipseAndMainSpellBuffWindows(
+      this.selectedCombatant,
+      fightStart,
+      fightEnd,
+    );
+    const solarBuffPeriods = buffWindows
+      .filter((w) => w.spellId === SPELLS.ECLIPSE_SOLAR.id)
+      .map((w) => ({ start: w.startTime + fightStart, end: w.endTime + fightStart }));
+    const lunarBuffPeriods = buffWindows
+      .filter((w) => w.spellId === SPELLS.ECLIPSE_LUNAR.id)
+      .map((w) => ({ start: w.startTime + fightStart, end: w.endTime + fightStart }));
 
     return this.eclipseCastEvents.map((event) => {
       const windowEnd = Math.min(event.timestamp + ECLIPSE_DURATION_MS, this.owner.fight.end_time);
@@ -317,12 +335,5 @@ export default class Eclipse extends Analyzer.withDependencies(deps) {
         timestamp: this.owner.formatTimestamp(event.timestamp),
       };
     });
-  }
-
-  private getUptimePeriods(spellId: number): { start: number; end: number }[] {
-    return this.selectedCombatant.getBuffHistory(spellId).map((uptime: TrackedBuffEvent) => ({
-      start: uptime.start,
-      end: uptime.end !== null ? uptime.end : this.owner.currentTimestamp,
-    }));
   }
 }

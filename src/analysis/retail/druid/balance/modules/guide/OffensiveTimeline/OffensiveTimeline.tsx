@@ -5,7 +5,8 @@ import { useInfo } from 'interface/guide';
 import { useCallback, useMemo, useState, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { SignalListener } from 'react-vega';
-import { cdDuration, cdSpell } from 'analysis/retail/druid/balance/constants';
+import { cdSpell } from 'analysis/retail/druid/balance/constants';
+import { CooldownSpellsDuration } from './CooldownSpellsDuration';
 import { CHART_DATA_PLOT_LEFT_OFFSET, DamageDoneChart } from './DamageDoneChart';
 import CooldownAvailabilityRow, {
   ALL_CHARGES_COLOR,
@@ -13,10 +14,10 @@ import CooldownAvailabilityRow, {
   SOME_CHARGES_COLOR,
 } from './CooldownAvailabilityRow';
 import BuffDisplay from './BuffDisplay';
-import { getEclipseAndMainSpellBuffWindows } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/EclipseAndMainSpellBuffWindows';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { GuideDataWrapper } from 'interface/guide/components';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { getEclipseAndMainSpellBuffWindows } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/Helper';
 
 const ICON_SIZE = 26;
 
@@ -93,13 +94,7 @@ export default function OffensiveTimeline(): JSX.Element | null {
     cooldownSpells.push(TALENTS_DRUID.FURY_OF_ELUNE_TALENT);
   }
 
-  const cooldownSpellsDuration: Record<number, number> = {
-    [mainSpell.id]: cdDuration(info.combatant),
-    [SPELLS.SOLAR_ECLIPSE.id]: 15_000,
-    [TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id]: 10_000,
-    [SPELLS.CONVOKE_SPIRITS.id]: 4_000,
-    [TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id]: 8_000,
-  };
+  const cooldownSpellsDuration = new CooldownSpellsDuration(info.combatant);
 
   return (
     <RoundedPanel>
@@ -119,17 +114,17 @@ export default function OffensiveTimeline(): JSX.Element | null {
             <div style={{ height: '10px' }} />
             <GuideDataWrapper bare title={`Cooldown availability`}>
               <RowsContainer>
-                {cooldownSpells.map((spell) => (
-                  <Row key={spell.id}>
-                    <RowIcon>
-                      <SpellIcon spell={spell.id} />
-                    </RowIcon>
-                    <CooldownAvailabilityRow
-                      spell={spell}
-                      durationMs={cooldownSpellsDuration[spell.id]}
-                    />
-                  </Row>
-                ))}
+                {cooldownSpells
+                  .map((spell) => ({ spell, durationMs: cooldownSpellsDuration.get(spell.id) }))
+                  .filter(({ durationMs }) => durationMs !== undefined)
+                  .map(({ spell, durationMs }) => (
+                    <Row key={spell.id}>
+                      <RowIcon>
+                        <SpellIcon spell={spell.id} />
+                      </RowIcon>
+                      <CooldownAvailabilityRow spell={spell} durationMs={durationMs!} />
+                    </Row>
+                  ))}
               </RowsContainer>
               <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
