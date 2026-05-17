@@ -19,7 +19,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import {
-  CHAIN_HEAL_TARGETS,
   RESTORATION_COLORS,
   UNLEASH_LIFE_HEALING_INCREASE,
   UNLEASH_LIFE_REMOVE_MS,
@@ -58,8 +57,6 @@ interface TooltipData {
   spellId: number;
   amount: number;
   active: boolean;
-  extraHits?: number;
-  missedHits?: number;
 }
 /**
  * Unleash Life:
@@ -91,16 +88,9 @@ class UnleashLife extends Analyzer {
       casts: 0,
     },
   };
+
   //ul direct
   directHealing = 0;
-
-  //healing wave
-  healingWaveHealing = 0;
-
-  //chain heal
-  chainHealHealing = 0;
-  missedJumps = 0;
-
   unleashLifeCount = 0;
   ulActive = false;
   lastUlSpellId = -1;
@@ -248,22 +238,10 @@ class UnleashLife extends Analyzer {
 
   private _onChainHeal(event: CastEvent) {
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
-    if (orderedChainHeal.length > 0) {
-      //target count check --- if less than 4 (5 w/ancestral reach), no extra hit
-      if (
-        orderedChainHeal.length >
-        CHAIN_HEAL_TARGETS + this.selectedCombatant.getTalentRank(TALENTS.ANCESTRAL_REACH_TALENT)
-      ) {
-        const extraHit = orderedChainHeal.splice(orderedChainHeal.length - 1);
-        this.healingMap[event.ability.guid].amount += this._tallyHealing(extraHit);
-      } else {
-        this.missedJumps += 1;
-      }
-      this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
-        orderedChainHeal,
-        UNLEASH_LIFE_HEALING_INCREASE,
-      );
-    }
+    this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
+      orderedChainHeal,
+      UNLEASH_LIFE_HEALING_INCREASE,
+    );
   }
 
   private _tallyHealingIncrease(events: HealEvent[], healIncrease: number): number {
@@ -272,13 +250,6 @@ class UnleashLife extends Analyzer {
         (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
         0,
       );
-    }
-    return 0;
-  }
-
-  private _tallyHealing(events: HealEvent[]): number {
-    if (events.length > 0) {
-      return events.reduce((amount, event) => amount + event.amount, 0);
     }
     return 0;
   }
@@ -301,34 +272,10 @@ class UnleashLife extends Analyzer {
             <strong>{formatNumber(primary.amount)} </strong> extra{' '}
             <SpellLink spell={primary.spellId} /> healing
           </li>
-          {primary && primary.extraHits && (
-            <li>
-              <strong>{primary.extraHits}</strong> extra hits{' '}
-              {primary.missedHits! > 0 ? (
-                <>
-                  , <strong>{primary.missedHits}</strong> missed
-                </>
-              ) : (
-                <></>
-              )}
-            </li>
-          )}
           {secondary && secondary.active && (
             <li>
               <strong>{formatNumber(secondary.amount)}</strong> extra{' '}
               <SpellLink spell={secondary.spellId} /> healing
-            </li>
-          )}
-          {secondary && secondary.active && secondary.extraHits && (
-            <li>
-              <strong>{secondary.extraHits}</strong> extra hits{' '}
-              {secondary.missedHits! > 0 ? (
-                <>
-                  , <strong>{secondary.missedHits}</strong> missed
-                </>
-              ) : (
-                <></>
-              )}
             </li>
           )}
           <li>
@@ -368,8 +315,6 @@ class UnleashLife extends Analyzer {
           spellId: TALENTS.CHAIN_HEAL_TALENT.id,
           amount: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
           active: this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT),
-          extraHits: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].casts - this.missedJumps,
-          missedHits: this.missedJumps,
         }),
       },
       {
@@ -379,7 +324,7 @@ class UnleashLife extends Analyzer {
         value: this.healingMap[SPELLS.HEALING_WAVE.id].amount,
         valueTooltip: this._tooltip({
           spellId: SPELLS.HEALING_WAVE.id,
-          amount: this.healingWaveHealing,
+          amount: this.healingMap[SPELLS.HEALING_WAVE.id].amount,
           active: true,
         }),
       },
