@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { useEvents, useInfo } from 'interface/guide';
+import { useInfo } from 'interface/guide';
 import { useCallback, useMemo, useState, type JSX } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { SignalListener } from 'react-vega';
@@ -13,7 +13,7 @@ import CooldownAvailabilityRow, {
   SOME_CHARGES_COLOR,
 } from './CooldownAvailabilityRow';
 import BuffDisplay from './BuffDisplay';
-import { extractBuffWindows } from './buffWindows';
+import { getEclipseAndMainSpellBuffWindows } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/EclipseAndMainSpellBuffWindows';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { GuideDataWrapper } from 'interface/guide/components';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -60,7 +60,6 @@ const RowIcon = styled.div`
 
 export default function OffensiveTimeline(): JSX.Element | null {
   const info = useInfo();
-  const events = useEvents();
   const [hoverStartTime, setHoverStartTime] = useState<number | null>(null);
 
   const onHover = useCallback((_event: string, item: { startTime: number[] }) => {
@@ -76,8 +75,8 @@ export default function OffensiveTimeline(): JSX.Element | null {
       return [];
     }
 
-    return extractBuffWindows(events, info.combatant, info.fightStart, info.fightEnd);
-  }, [events, info]);
+    return getEclipseAndMainSpellBuffWindows(info.combatant, info.fightStart, info.fightEnd);
+  }, [info]);
 
   if (!info) {
     return null;
@@ -96,10 +95,10 @@ export default function OffensiveTimeline(): JSX.Element | null {
 
   const cooldownSpellsDuration: Record<number, number> = {
     [mainSpell.id]: cdDuration(info.combatant),
-    [SPELLS.SOLAR_ECLIPSE.id]: 15000,
-    [TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id]: 10000,
-    [SPELLS.CONVOKE_SPIRITS.id]: 4000,
-    [TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id]: 8000,
+    [SPELLS.SOLAR_ECLIPSE.id]: 15_000,
+    [TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id]: 10_000,
+    [SPELLS.CONVOKE_SPIRITS.id]: 4_000,
+    [TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id]: 8_000,
   };
 
   return (

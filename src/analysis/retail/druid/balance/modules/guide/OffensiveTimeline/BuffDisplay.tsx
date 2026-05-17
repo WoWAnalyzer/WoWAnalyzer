@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
-import { BuffWindow } from './buffWindows';
+import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/EclipseAndMainSpellBuffWindows';
 
 const BuffRows = styled.div`
   margin-top: 4px;
@@ -40,9 +41,13 @@ interface Props {
   hoverStartTime: number | null;
 }
 
+const BUFF_ROW_ORDER = [SPELLS.ECLIPSE_SOLAR.id, SPELLS.ECLIPSE_LUNAR.id];
+const buffRowOrder = (spellId: number) => {
+  const idx = BUFF_ROW_ORDER.indexOf(spellId);
+  return idx === -1 ? BUFF_ROW_ORDER.length : idx;
+};
+
 const BuffDisplay = ({ buffs, fightDuration, hoverStartTime }: Props) => {
-  // Group windows by spellId in first-seen order so each distinct buff gets its own row
-  // and overlapping windows from different buffs don't visually stack.
   const groups: { spellId: number; windows: BuffWindow[] }[] = [];
   const indexBySpellId = new Map<number, number>();
   for (const buff of buffs) {
@@ -54,6 +59,7 @@ const BuffDisplay = ({ buffs, fightDuration, hoverStartTime }: Props) => {
     }
     groups[idx].windows.push(buff);
   }
+  groups.sort((a, b) => buffRowOrder(a.spellId) - buffRowOrder(b.spellId));
 
   return (
     <BuffRows>

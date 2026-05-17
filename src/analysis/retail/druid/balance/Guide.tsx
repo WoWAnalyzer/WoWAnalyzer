@@ -15,7 +15,7 @@ import {
   PERFECT_ASP_WASTED,
 } from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import OffensiveTimeline from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline';
+import OffensiveTimeline from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/OffensiveTimeline';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { ASTRAL_POWER_SCALE_FACTOR, cdSpell } from 'analysis/retail/druid/balance/constants';
 

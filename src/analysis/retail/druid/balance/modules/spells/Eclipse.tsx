@@ -67,9 +67,12 @@ export default class Eclipse extends Analyzer.withDependencies(deps) {
     const explanation = (
       <>
         <p>
-          <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> has a 32-second cooldown, lasts 15
-          seconds, and dramatically increases your damage. Cast it as often as possible, while
-          making sure you align it with other Cooldowns (if possible).
+          <strong>
+            <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} />
+          </strong>{' '}
+          has a 32-second cooldown, lasts 15 seconds, and dramatically increases your damage. Cast
+          it as often as possible, while making sure you align it with other Cooldowns (if
+          possible).
         </p>
         <p>It is important to choose the correct Eclipse:</p>
         <ul>
@@ -112,13 +115,14 @@ export default class Eclipse extends Analyzer.withDependencies(deps) {
               </strong>
             </p>
             <p>
-              This is a very important cooldown, as it gives you both Solar and Lunar eclipes for
-              its duration. Your other cooldowns should be aligned with this spell as a top
-              priority.
+              This is a very important cooldown, as it gives you both{' '}
+              <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> and{' '}
+              <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> for its duration. Your other cooldowns
+              should be aligned with this spell as a top priority.
             </p>
             <p>
-              Ensure you'll have full target uptime during its duration (do not use it when it will
-              be interrupted by a fight mechanic).
+              Ensure you will have full target uptime during its duration (do not use it when it
+              will be interrupted by a fight mechanic).
             </p>
             <p>Do not clip an active Eclipse window while using it !</p>
           </>
