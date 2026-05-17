@@ -7,6 +7,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2026, 5, 16), <>Refreshed UI elements of the performance modules in the Overview tab.</>, swirl),
+  change(date(2026, 5, 14), <>Fixed a bug with <SpellLink spell={SPELLS.ANCIENT_TEACHINGS} /> events doubling on filters.</>, swirl),
   change(date(2026, 5, 13), <>Added <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT}/> CDR analysis.</>, swirl),
   change(date(2026, 5, 12), <>Improved cast analysis of <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> cast efficiency.</>, swirl),
   change(date(2026, 4, 23), <>Fixed a bug with <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> performance, fixed <SpellLink spell={TALENTS_MONK.SAVE_THEM_ALL_TALENT} /> showing as 0% for events without hitpoints data, removed <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> reference from <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} />, and moved "casting while moving" module out of <SpellLink spell={TALENTS_MONK.WAY_OF_THE_SERPENT_TALENT}/>.</>, swirl),
