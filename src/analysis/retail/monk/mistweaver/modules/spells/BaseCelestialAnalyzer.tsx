@@ -240,7 +240,6 @@ class BaseCelestialAnalyzer extends Analyzer {
 
   onHotjsApply(event: ApplyBuffEvent) {
     this.hotjsCurrentHaste = this.haste.current;
-    console.log(this.hotjsCurrentHaste);
     this.hotjsApplyTimestamp = event.timestamp;
     if (!this.celestialActive) {
       return;
