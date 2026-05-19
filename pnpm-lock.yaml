@@ -67,9 +67,6 @@ importers:
       react-router-dom:
         specifier: ^6.30.3
         version: 6.30.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      react-select-search:
-        specifier: ^4.1.9
-        version: 4.1.9(prop-types@15.8.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react-textfit:
         specifier: ^1.1.1
         version: 1.1.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -3916,13 +3913,6 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
-
-  react-select-search@4.1.9:
-    resolution: {integrity: sha512-ubP+J4v8ODCfdR2AMds5l9st6M2F5cJnDfYjtHQPNma22gAlSK/FDBYac4ZmH29cQwsSOpUrmnyBsGWI5hP30w==}
-    peerDependencies:
-      prop-types: ^15.8.1
-      react: ^19.0.0 || ^18.0.1 || ^17.0.1
-      react-dom: ^19.0.0 || ^18.0.1 || ^17.0.1
 
   react-test-renderer@19.2.0:
     resolution: {integrity: sha512-zLCFMHFE9vy/w3AxO0zNxy6aAupnCuLSVOJYDe/Tp+ayGI1f2PLQsFVPANSD42gdSbmYx5oN+1VWDhcXtq7hAQ==}
@@ -8096,12 +8086,6 @@ snapshots:
     dependencies:
       '@remix-run/router': 1.23.2
       react: 19.2.6
-
-  react-select-search@4.1.9(prop-types@15.8.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
-    dependencies:
-      prop-types: 15.8.1
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
 
   react-test-renderer@19.2.0(react@19.2.6):
     dependencies:

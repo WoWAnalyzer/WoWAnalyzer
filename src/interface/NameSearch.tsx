@@ -6,7 +6,6 @@ import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import { REALM_LIST, CLASSIC_REALM_LIST } from 'game/RealmList';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SelectSearch from 'react-select-search';
 import { useLingui } from '@lingui/react';
 import { RETAIL_EXPANSION_NAME, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 
@@ -185,33 +184,35 @@ const NameSearch = ({ type }: Props) => {
           </option>
         ))}
       </select>
-      <SelectSearch
+      <select
         key={currentRegion}
-        className="realm"
-        search
-        options={currentRealms[currentRegion].map((elem) => ({
-          value: elem.name,
-          name: elem.name,
-        }))}
+        className="form-control realm"
         value={currentRealm}
-        onChange={(value) => {
-          if (typeof value === 'string') {
-            setCurrentRealm(value);
+        onChange={(event) => {
+          if (event.target.value) {
+            setCurrentRealm(event.target.value);
           }
         }}
-        placeholder={i18n._(
-          defineMessage({
-            id: 'interface.nameSearch.realm',
-            message: `Realm`,
-          }),
-        )}
-        onBlur={() => {
-          // do nothing
-        }}
-        onFocus={() => {
-          // do nothing
-        }}
-      />
+      >
+        <option value="" disabled>
+          {i18n._(
+            defineMessage({
+              id: 'interface.nameSearch.realm',
+              message: `Realm`,
+            }),
+          )}
+        </option>
+        {currentRealms[currentRegion]
+          .map((elem) => ({
+            value: elem.name,
+            name: elem.name,
+          }))
+          .map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.name}
+            </option>
+          ))}
+      </select>
       <input
         type="text"
         name="code"
