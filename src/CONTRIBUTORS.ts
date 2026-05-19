@@ -2978,3 +2978,16 @@ export const Ateis: Contributor = {
   github: 'victor-brossard',
   discord: 'Ateis',
 };
+
+export const Zogmaw: Contributor = {
+  nickname: 'Zogmaw',
+  github: 'Zogmaw',
+  discord: 'zokor',
+  mains: [
+    {
+      name: 'Zogmaw',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/stormrage/Zogmaw',
+    },
+  ],
+};

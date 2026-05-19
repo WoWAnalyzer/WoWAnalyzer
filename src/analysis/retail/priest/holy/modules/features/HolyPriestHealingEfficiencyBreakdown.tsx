@@ -6,7 +6,7 @@ import {
   HealingEfficiencyTable,
 } from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
 import { useState } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 
 import HolyPriestHealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
 

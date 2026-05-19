@@ -6,7 +6,7 @@ import { TooltipElement } from 'interface';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 
 class BeaconHealingBreakdown extends Component {
   static propTypes = {

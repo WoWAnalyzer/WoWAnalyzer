@@ -42,6 +42,10 @@ class VeilOfPride extends Analyzer {
   onHeal(event: HealEvent) {
     const total = this.sheilunsGift.curClouds + this.sheilunsGift.cloudsLostSinceLastCast;
     const baseStacks = Math.min(10, Math.floor(total / 2));
+    if (baseStacks === 0) {
+      // sheiluns gift can be cast at 0 stacks
+      return;
+    }
     const extraStacks = this.sheilunsGift.curClouds - baseStacks;
     // double clouds = 100% increase -> 2x / x - 1 = 1
     const increase = this.sheilunsGift.curClouds / baseStacks - 1;
