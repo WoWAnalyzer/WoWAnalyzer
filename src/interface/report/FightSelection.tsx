@@ -7,7 +7,7 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import Tooltip from 'interface/Tooltip';
 import { ReactNode, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 import { FightProvider } from 'interface/report/context/FightContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import { isUnsupportedClassicVersion } from 'game/VERSIONS';

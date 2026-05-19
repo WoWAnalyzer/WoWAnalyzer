@@ -1,6 +1,6 @@
 import Tooltip from 'interface/Tooltip';
 import InformationIcon from 'interface/icons/Information';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 import { ReactNode } from 'react';
 
 interface VerticallyAlignedToggleProps {

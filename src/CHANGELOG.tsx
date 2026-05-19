@@ -41,6 +41,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 19), 'Update build tooling.', Topple),
   change(date(2026, 5, 16), 'Minor adjustments to base performance UI elements.', swirl),
   change(date(2026, 5, 13), 'Updated various modules for correct Empower GCD usage', Baumritter),
   change(date(2026, 5, 8), 'Fix number of stacks for Buffs at start of fight.', Ateis),

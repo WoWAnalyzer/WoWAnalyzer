@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import ReadableListing from 'interface/ReadableListing';
 import { getLanguage } from 'interface/selectors/language';
 import { TooltipElement } from 'interface/Tooltip';
@@ -8,9 +7,11 @@ import { useDispatch } from 'react-redux';
 
 import languages from './languages';
 import { setLanguage } from './reducers/language';
+import { useLingui } from '@lingui/react';
 
 const LanguageSwitcher = () => {
   const [expanded, setExpanded] = useState(false);
+  const { i18n } = useLingui();
 
   const language = useWaSelector(getLanguage);
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const LanguageSwitcher = () => {
   return (
     <a onClick={() => setExpanded(true)}>
       <TooltipElement
-        content={t({
+        content={i18n._({
           id: 'interface.languageSwitcher.clickToSwitch',
           message: `Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`,
         })}

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 
 interface Props {
   analyzer: AtonementHealingDone;

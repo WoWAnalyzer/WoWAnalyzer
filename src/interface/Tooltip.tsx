@@ -1,6 +1,8 @@
 import { CSSProperties, ReactNode, type JSX } from 'react';
 
-import ReactTooltip, { TooltipProps as ReactTooltipProps } from '@wowanalyzer/react-tooltip-lite';
+import ReactTooltip, {
+  TooltipProps as ReactTooltipProps,
+} from 'interface/react-tooltip-lite/Tooltip';
 
 import './Tooltip.scss';
 
@@ -30,9 +32,9 @@ const Tooltip = ({
   return (
     <ReactTooltip
       {...others}
+      content={content}
       direction={direction}
       tipContentHover={hoverable}
-      content={content}
       portalContainer={document.getElementById('portal-root')!}
     >
       {children}
@@ -73,7 +75,7 @@ export const TooltipElement = ({
       {innerContent}
     </ReactTooltip>
   ) : (
-    innerContent
+    <>innerContent</>
   );
 };
 
