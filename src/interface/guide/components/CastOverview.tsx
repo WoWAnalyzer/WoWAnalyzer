@@ -40,7 +40,7 @@ export default function CastOverview({
           {stats.map((stat, index) => {
             const color = stat.performance
               ? qualitativePerformanceToColor(stat.performance)
-              : '#ffffff';
+              : '#dadada';
 
             return (
               <Tooltip key={index} content={stat.tooltip}>
