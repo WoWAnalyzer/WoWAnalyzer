@@ -86,6 +86,7 @@ import {
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -125,6 +126,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Core
     abilities: Abilities,
     buffs: Buffs,
+    EmpowerAnalyzer: EmpowerAnalyzer,
 
     // Abilities
     sandsOfTime: SandsOfTime,
