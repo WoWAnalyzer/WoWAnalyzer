@@ -31,10 +31,14 @@ export interface CastEvaluation {
 interface CastSummaryProps {
   /** The spell being analyzed */
   spell: Spell;
+  /** Optional overriding title */
+  title?: string;
   /** Array of cast evaluations to display */
   casts: CastEvaluation[];
   /** Whether to show expandable per-cast breakdown. Default: false */
   showBreakdown?: boolean;
+  /** Whether the breakdown should start expanded. Default: false */
+  startExpanded?: boolean;
 }
 
 /** Performance level definitions — order determines display order in the badge grid */
@@ -55,12 +59,14 @@ const PERF_LEVELS = [
  */
 export default function CastSummary({
   spell,
+  title,
   casts,
   showBreakdown = false,
+  startExpanded = false,
 }: CastSummaryProps): JSX.Element {
   const { fight } = useFight();
   const formatTimestamp = (timestamp: number) => formatDuration(timestamp - fight.start_time);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(startExpanded);
 
   // Show "no casts" message if there are no casts
   if (!casts || casts.length === 0) {
@@ -132,7 +138,7 @@ export default function CastSummary({
   return (
     <GuideDataWrapper
       bare
-      title={`${spell.name} Casts`}
+      title={title ?? `${spell.name} Casts`}
       subtitle="Performance"
       stats={statsContent}
     >

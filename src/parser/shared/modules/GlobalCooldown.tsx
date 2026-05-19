@@ -5,6 +5,7 @@ import Events, {
   AbilityEvent,
   BeginChannelEvent,
   CastEvent,
+  EmpowerEndEvent,
   EndChannelEvent,
   EventType,
   GlobalCooldownEvent,
@@ -18,6 +19,7 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import SpellLink from 'interface/SpellLink';
+import { getEmpowerCastEvent } from '../normalizers/EmpowerNormalizer';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
 const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
@@ -46,6 +48,7 @@ class GlobalCooldown extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
     this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onEmpowerTrigger);
 
     if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
       this.minDuration = MIN_GCD_CLASSIC;
@@ -70,12 +73,20 @@ class GlobalCooldown extends Analyzer {
     return Boolean(this.getGlobalCooldownDuration(spellId));
   }
 
+  /** Returns true if this ability has the empower specific events linked, false if not */
+  isEmpowerSpell(event: CastEvent | BeginChannelEvent): boolean {
+    return this.abilities.getIsEmpower(event.ability.guid);
+  }
+
   _currentChannel: BeginChannelEvent | EndChannelEvent | null = null;
   /**
    * Listening to `beginchannel` instead of `begincast` since this also includes *channeled* abilities which don't usually trigger a `begincast` event.
    * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
    */
   onBeginChannel(event: BeginChannelEvent) {
+    if (this.isEmpowerSpell(event)) {
+      return;
+    }
     if (!event.trigger || event.trigger.type !== EventType.Cast) {
       // if the trigger is a cast event, then the beginchannel event came after the cast event, in which case we don't want to set the current channel to avoid getting false matches in the next `onCast` trigger
       this._currentChannel = event;
@@ -88,7 +99,7 @@ class GlobalCooldown extends Analyzer {
     if (event.trigger && event.trigger.type === EventType.BeginCast) {
       isCancelled = event.trigger.isCancelled;
     }
-    //const isCancelled = event.trigger?.isCancelled;
+
     if (isOnGCD && !isCancelled) {
       event.globalCooldown = this.triggerGlobalCooldown(event);
     }
@@ -98,6 +109,10 @@ class GlobalCooldown extends Analyzer {
    */
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
+    if (this.isEmpowerSpell(event)) {
+      // Empower spells trigger a unique 500ms gcd and need to be excluded
+      return;
+    }
     const isOnGCD = this.isOnGlobalCooldown(spellId);
     if (!isOnGCD) {
       // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
@@ -123,6 +138,19 @@ class GlobalCooldown extends Analyzer {
 
     if (isChannelingSameSpell) {
       // The GCD occurred already at the start of this channel
+      return;
+    }
+    event.globalCooldown = this.triggerGlobalCooldown(event);
+  }
+
+  /** Empower global cooldown handling for empower end and empower cancel events.
+   * If Empower Cast Attached is instant (Tip The Scales) then instead attach the gcd to the cast and the empoerend for display purposes in the timeline
+   */
+  onEmpowerTrigger(event: EmpowerEndEvent) {
+    const castEvent = getEmpowerCastEvent(event);
+    if (castEvent !== undefined && castEvent.timestamp == event.timestamp) {
+      castEvent.globalCooldown = this.triggerGlobalCooldown(castEvent);
+      event.globalCooldown = castEvent.globalCooldown;
       return;
     }
     event.globalCooldown = this.triggerGlobalCooldown(event);
@@ -169,6 +197,7 @@ class GlobalCooldown extends Analyzer {
       // Most abilities we don't know (e.g. aren't in the spellbook) also aren't on the GCD
       return 0;
     }
+
     const gcd = this._resolveAbilityGcdField(ability.gcd);
     if (!gcd) {
       // If gcd isn't set, null, or 0 (falsey), the spell isn't on the GCD. ps. you should set gcd to null to be explicit.

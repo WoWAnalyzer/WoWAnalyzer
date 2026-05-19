@@ -1,6 +1,8 @@
 import { CastEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import EmpowerNormalizer, { empowerFinishedCasting } from '../normalizers/EmpowerNormalizer';
+import EmpowerNormalizer, {
+  empowerFinishedCasting,
+} from 'parser/shared/normalizers/EmpowerNormalizer';
 import { EMPOWERS } from '../../constants';
 
 /** Empowers go on cooldown from the moment you start channeling them,

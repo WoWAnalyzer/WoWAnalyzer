@@ -22,6 +22,7 @@ import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import {
+  SPIRITFONT_MAX_STACKS,
   SPIRITFONT_R1_ENV_RSK_INCREASE,
   SPIRITFONT_R2_ENV_RSK_INCREASE,
   SPIRITFONT_INCREASE_DURING_HOT,
@@ -38,11 +39,14 @@ import {
 } from '../../normalizers/CastLinkNormalizer';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastSummary, { type CastEvaluation } from 'interface/guide/components/CastSummary';
+import CastOverview from 'interface/guide/components/CastOverview';
 
 class Spiritfont extends Analyzer {
   rskDamage = 0;
@@ -55,8 +59,9 @@ class Spiritfont extends Analyzer {
   proccedSpiritfonts = 0;
   spiritfontHealing = 0;
   chiCocoonHealing = 0;
-  wastedBuffs = 0;
-  entries: BoxRowEntry[] = [];
+  refreshedBuffs = 0;
+  expiredBuffs = 0;
+  entries: CastEvaluation[] = [];
 
   envRskIncrease = 0;
   activeRSKTalent = SPELLS.RISING_SUN_KICK_DAMAGE;
@@ -79,9 +84,7 @@ class Spiritfont extends Analyzer {
       this.handleEnv,
     );
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.RISING_SUN_KICK_DAMAGE, SPELLS.RUSHING_WIND_KICK_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell(this.activeRSKTalent),
       this.handleRsk,
     );
     this.addEventListener(
@@ -110,7 +113,7 @@ class Spiritfont extends Analyzer {
     );
     this.addEventListener(
       Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.SPIRITFONT_BUFF),
-      this.onRemoveBuffStack,
+      this.onRemoveBuff,
     );
   }
 
@@ -127,48 +130,23 @@ class Spiritfont extends Analyzer {
   private onRefreshBuff(event: RefreshBuffEvent) {
     if (isSpiritfontFalseRefresh(event)) return;
 
-    this.wastedBuffs += 1;
+    this.refreshedBuffs += 1;
     this.entries.push({
-      value: QualitativePerformance.Fail,
-      tooltip: (
-        <>
-          <div>Refreshed @ {this.owner.formatTimestamp(event.timestamp)}</div>
-        </>
-      ),
+      timestamp: event.timestamp,
+      performance: QualitativePerformance.Fail,
+      reason: `Refreshed at ${SPIRITFONT_MAX_STACKS} stacks`,
     });
   }
 
-  private onRemoveBuffStack(event: RemoveBuffStackEvent) {
+  private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
     const isConsumed = isSpiritfontConsumed(event);
     if (!isConsumed) {
-      this.wastedBuffs += 1;
+      this.expiredBuffs += 1;
     }
     this.entries.push({
-      value: isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
-      tooltip: (
-        <>
-          <div>
-            {isConsumed ? 'Consumed ' : 'Expired '}@ {this.owner.formatTimestamp(event.timestamp)}
-          </div>
-        </>
-      ),
-    });
-  }
-
-  private onRemoveBuff(event: RemoveBuffEvent) {
-    const isConsumed = isSpiritfontConsumed(event);
-    if (!isConsumed) {
-      this.wastedBuffs += 1;
-    }
-    this.entries.push({
-      value: isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
-      tooltip: (
-        <>
-          <div>
-            {isConsumed ? 'Consumed ' : 'Expired '}@ {this.owner.formatTimestamp(event.timestamp)}
-          </div>
-        </>
-      ),
+      timestamp: event.timestamp,
+      performance: isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
+      reason: isConsumed ? 'Consumed' : 'Expired',
     });
   }
 
@@ -276,35 +254,51 @@ class Spiritfont extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} />
         </b>{' '}
-        is our Apex talent. It stacks up to 2 charges, and consuming a charge causes several{' '}
-        <SpellLink spell={SPELLS.SPIRITFONT_HOT} /> to heal players. Additionally, it increases the
-        damage and healing of your <SpellLink spell={this.activeRSKTalent} /> and{' '}
+        is our Apex talent. It stacks up to {SPIRITFONT_MAX_STACKS} charges, and consuming a charge
+        causes several <SpellLink spell={SPELLS.SPIRITFONT_HOT} /> to heal players. Additionally, it
+        increases the damage and healing of your <SpellLink spell={this.activeRSKTalent} /> and{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />, with even greater increases
         during <SpellLink spell={TALENTS_MONK.SPIRITFONT_2_MISTWEAVER_TALENT} /> activity. It is
-        very important to never let this buff refresh at 2 stacks or expire, as all portions of the
-        Apex add up to a significant amount of your healing.
+        very important to never let this buff refresh at {SPIRITFONT_MAX_STACKS} stacks or expire,
+        as all portions of the Apex add up to a significant amount of your healing.
       </p>
     );
-    const styleObj = {
-      fontSize: 20,
-    };
-    const styleObjInner = {
-      fontSize: 15,
-    };
-    const data = (
-      <div>
-        <RoundedPanel>
-          <strong>
-            <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> utilization
-          </strong>
-          <PerformanceBoxRow values={this.entries} />
-          <div style={styleObj}>
-            <b>{this.wastedBuffs}</b> <small style={styleObjInner}>wasted buffs</small>
-          </div>
-        </RoundedPanel>
-      </div>
+    const stats = [
+      {
+        value: `${this.expiredBuffs + this.refreshedBuffs}`,
+        label: 'Wasted Buffs',
+        tooltip: (
+          <>
+            <div>{this.expiredBuffs} expired</div>
+            <div>{this.refreshedBuffs} refreshed</div>
+          </>
+        ),
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: this.expiredBuffs + this.refreshedBuffs,
+          isLessThanOrEqual: { perfect: 0, good: 0, ok: 2 },
+        }),
+      },
+    ];
+    return (
+      <GuideSection explanation={explanation} explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}>
+        <CastOverview
+          spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT}
+          title={
+            <>
+              <SpellLink spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT} /> Overview
+            </>
+          }
+          stats={stats}
+        />
+        <CastSummary
+          spell={TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT}
+          title={'Buff Utilization'}
+          casts={this.entries}
+          showBreakdown
+          startExpanded
+        />
+      </GuideSection>
     );
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

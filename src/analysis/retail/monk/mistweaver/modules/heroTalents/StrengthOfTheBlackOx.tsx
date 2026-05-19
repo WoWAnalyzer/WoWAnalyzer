@@ -5,11 +5,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { isStrengthOfTheBlackOxConsumed } from '../../normalizers/CastLinkNormalizer';
 import SpellLink from 'interface/SpellLink';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
+import GuideSection from 'interface/guide/components/GuideSection';
+import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
+import CastOverview from 'interface/guide/components/CastOverview';
 import { CelestialHooks } from 'analysis/retail/monk/shared';
 import { getCurrentCelestialTalent } from '../../constants';
 
@@ -17,8 +20,9 @@ class StrengthOfTheBlackOx extends Analyzer {
   static dependencies = {
     celestial: CelestialHooks,
   };
-  wastedBuffs = 0;
-  entries: BoxRowEntry[] = [];
+  refreshedBuffs = 0;
+  expiredBuffs = 0;
+  entries: PerCastData[] = [];
   protected celestial!: CelestialHooks;
 
   constructor(options: Options) {
@@ -37,14 +41,12 @@ class StrengthOfTheBlackOx extends Analyzer {
   }
 
   private onRefreshBuff(event: RefreshBuffEvent) {
-    this.wastedBuffs += 1;
+    this.refreshedBuffs += 1;
     this.entries.push({
-      value: QualitativePerformance.Fail,
-      tooltip: (
-        <>
-          <div>Refreshed @ {this.owner.formatTimestamp(event.timestamp)}</div>
-        </>
-      ),
+      timestamp: this.owner.formatTimestamp(event.timestamp),
+      performance: QualitativePerformance.Fail,
+      stats: [],
+      details: 'Buff refreshed before being consumed',
     });
   }
 
@@ -55,28 +57,26 @@ class StrengthOfTheBlackOx extends Analyzer {
   private onRemoveBuff(event: RemoveBuffEvent) {
     const isConsumed = isStrengthOfTheBlackOxConsumed(event);
     if (!isConsumed) {
-      this.wastedBuffs += 1;
+      this.expiredBuffs += 1;
     }
     const hasBuff = this.hasManaBuff();
+    const performance =
+      isConsumed && hasBuff
+        ? QualitativePerformance.Perfect
+        : isConsumed !== hasBuff
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail;
     this.entries.push({
-      value:
-        isConsumed && hasBuff
-          ? QualitativePerformance.Perfect
-          : isConsumed !== hasBuff
-            ? QualitativePerformance.Good
-            : QualitativePerformance.Fail,
-      tooltip: (
+      timestamp: this.owner.formatTimestamp(event.timestamp),
+      performance,
+      stats: [],
+      details: isConsumed ? (
         <>
-          <div>
-            {isConsumed ? 'Consumed ' : 'Expired '}@ {this.owner.formatTimestamp(event.timestamp)}
-          </div>
-          {isConsumed && (
-            <div>
-              <SpellLink spell={getCurrentCelestialTalent(this.selectedCombatant)} /> active:{' '}
-              <strong>{hasBuff ? 'Yes' : 'No'}</strong>
-            </div>
-          )}
+          Consumed {hasBuff ? 'with' : 'without'}{' '}
+          <SpellLink spell={getCurrentCelestialTalent(this.selectedCombatant)} /> active
         </>
+      ) : (
+        'Buff expired before being consumed'
       ),
     });
   }
@@ -94,26 +94,36 @@ class StrengthOfTheBlackOx extends Analyzer {
         casting <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> as it is very expensive.
       </p>
     );
-    const styleObj = {
-      fontSize: 20,
-    };
-    const styleObjInner = {
-      fontSize: 15,
-    };
-    const data = (
-      <div>
-        <RoundedPanel>
-          <strong>
-            <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} /> utilization
-          </strong>
-          <PerformanceBoxRow values={this.entries} />
-          <div style={styleObj}>
-            <b>{this.wastedBuffs}</b> <small style={styleObjInner}>wasted buffs</small>
-          </div>
-        </RoundedPanel>
-      </div>
+    const stats = [
+      {
+        value: `${this.expiredBuffs + this.refreshedBuffs}`,
+        label: 'Wasted Buffs',
+        tooltip: (
+          <>
+            <div>{this.expiredBuffs} expired</div>
+            <div>{this.refreshedBuffs} refreshed</div>
+          </>
+        ),
+        performance: evaluateQualitativePerformanceByThreshold({
+          actual: this.expiredBuffs + this.refreshedBuffs,
+          isLessThanOrEqual: { perfect: 0, good: 0, ok: 2 },
+        }),
+      },
+    ];
+    return (
+      <GuideSection explanation={explanation} explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}>
+        <CastOverview
+          spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}
+          title={
+            <>
+              <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT} /> Overview
+            </>
+          }
+          stats={stats}
+        />
+        <CastDetail title="Buff Utilization" casts={this.entries} />
+      </GuideSection>
     );
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 

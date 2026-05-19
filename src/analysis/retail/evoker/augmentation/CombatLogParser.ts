@@ -46,9 +46,8 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
+  TipTheScalesNormalizer,
   SpellUsable,
-  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -91,9 +90,8 @@ import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,

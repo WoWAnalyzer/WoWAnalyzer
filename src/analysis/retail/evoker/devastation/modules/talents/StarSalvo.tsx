@@ -6,7 +6,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import DonutChart from 'parser/ui/DonutChart';
-import { getEmpowerCastEvent } from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+import { getEmpowerCastEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { formatNumber } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';

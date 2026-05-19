@@ -8,6 +8,12 @@ import { MISTWEAVER_HEART_SPELLS, WINDWALKER_HEART_SPELLS } from '../constants';
 
 const HEART_COOLDOWN_RATE = 0.75;
 
+export const HEART_BUFFS = [
+  SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF,
+  SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY,
+  SPELLS.HEART_OF_THE_JADE_SERPENT_AVATAR,
+];
+
 class HeartOfTheJadeSerpent extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -24,22 +30,22 @@ class HeartOfTheJadeSerpent extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT);
 
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY]),
+      Events.applybuff.by(SELECTED_PLAYER).spell(HEART_BUFFS),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF, SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY]),
+      Events.removebuff.by(SELECTED_PLAYER).spell(HEART_BUFFS),
       this.onRemoveBuff,
     );
   }
 
+  protected rateChange(abilityId: number): number {
+    const unity = abilityId === SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id;
+    return (unity ? 2 : 1) * HEART_COOLDOWN_RATE;
+  }
+
   private onApplyBuff(event: ApplyBuffEvent) {
-    const unity = event.ability.guid === SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id;
-    const rateChange = 1 + (unity ? 2 : 1) * HEART_COOLDOWN_RATE;
+    const rateChange = 1 + this.rateChange(event.ability.guid);
 
     this.isMW
       ? this.spellUsable.applyCooldownRateChange(
@@ -57,8 +63,7 @@ class HeartOfTheJadeSerpent extends Analyzer {
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
-    const unity = event.ability.guid === SPELLS.HEART_OF_THE_JADE_SERPENT_UNITY.id;
-    const rateChange = 1 + (unity ? 2 : 1) * HEART_COOLDOWN_RATE;
+    const rateChange = 1 + this.rateChange(event.ability.guid);
 
     this.isMW
       ? this.spellUsable.removeCooldownRateChange(

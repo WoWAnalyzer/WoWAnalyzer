@@ -116,7 +116,7 @@ class Revival extends Analyzer {
         <strong>
           <SpellLink spell={this.getRevivalTalent()} />
         </strong>{' '}
-        is a fairly straightforward cooldown that should be used to heal burst damage events with a
+        is a fairly straightforward cooldown that should be used to heal burst damage events.
       </p>
     );
     const data = (

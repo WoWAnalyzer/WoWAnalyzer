@@ -1,7 +1,6 @@
 export { default as LeapingFlamesNormalizer } from './modules/normalizers/LeapingFlamesNormalizer';
-export { default as EmpowerNormalizer } from './modules/normalizers/EmpowerNormalizer';
 export { default as SpellUsable } from './modules/features/SpellUsable';
-export { default as GlobalCooldown } from './modules/features/GlobalCooldown';
+export { default as TipTheScalesNormalizer } from './modules/normalizers/TipTheScalesNormalizer';
 export { default as LivingFlameNormalizer } from './modules/normalizers/LivingFlameNormalizer';
 export { default as EssenceBurstCastLinkNormalizer } from './modules/normalizers/EssenceBurstCastLinkNormalizer';
 export { default as EssenceBurstRefreshNormalizer } from './modules/normalizers/EssenceBurstRefreshNormalizer';

@@ -165,6 +165,11 @@ const spells = {
     name: 'Heart of the Jade Serpent',
     icon: 'ability_monk_summonserpentstatue',
   },
+  HEART_OF_THE_JADE_SERPENT_AVATAR: {
+    id: 1238904,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_summonserpentstatue',
+  },
   CELESTIAL_CONDUIT_CASTABLE_WW: {
     id: 1248992,
     name: 'Celestial Conduit',
