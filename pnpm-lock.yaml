@@ -253,7 +253,7 @@ importers:
         version: 4.1.5(@types/node@22.19.18)(@vitest/ui@4.1.5)(jsdom@22.1.0)(vite@8.0.10(@types/node@22.19.18)(jiti@2.4.2)(sass@1.93.2)(tsx@4.20.6))
       wow-dbc:
         specifier: github:RPGLogs/wow-dbc#main
-        version: https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/f96cff8d6354247059cbc7d373cdad20add0da7f
+        version: git+https://git@github.com:RPGLogs/wow-dbc.git#f96cff8d6354247059cbc7d373cdad20add0da7f
 
   packages/eslint-plugin-wowanalyzer:
     dependencies:
@@ -4641,6 +4641,7 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -4673,8 +4674,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  wow-dbc@https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/f96cff8d6354247059cbc7d373cdad20add0da7f:
-    resolution: {tarball: https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/f96cff8d6354247059cbc7d373cdad20add0da7f}
+  wow-dbc@git+https://git@github.com:RPGLogs/wow-dbc.git#f96cff8d6354247059cbc7d373cdad20add0da7f:
+    resolution: {commit: f96cff8d6354247059cbc7d373cdad20add0da7f, repo: git@github.com:RPGLogs/wow-dbc.git, type: git}
     version: 0.1.0
 
   wrap-ansi@7.0.0:
@@ -9045,7 +9046,7 @@ snapshots:
       siginfo: 2.0.0
       stackback: 0.0.2
 
-  wow-dbc@https://codeload.github.com/RPGLogs/wow-dbc/tar.gz/f96cff8d6354247059cbc7d373cdad20add0da7f:
+  wow-dbc@git+https://git@github.com:RPGLogs/wow-dbc.git#f96cff8d6354247059cbc7d373cdad20add0da7f:
     dependencies:
       udsv: 0.6.0
 
