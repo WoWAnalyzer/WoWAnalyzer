@@ -1,4 +1,4 @@
-import Tooltip from '@wowanalyzer/react-tooltip-lite';
+import Tooltip from 'interface/react-tooltip-lite/Tooltip';
 import Spell from 'common/SPELLS/Spell';
 import { formatDuration } from 'common/format';
 import { Info } from 'parser/core/metric';

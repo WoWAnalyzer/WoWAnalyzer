@@ -29,7 +29,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Core">
       <AlertWarning>Apex Talents not yet implemented.</AlertWarning>
@@ -44,10 +44,15 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
         </p>
         <p>
           There should be no delay at all between your spell casts, it's better to start casting the
-          wrong spell than to think for a few seconds and then cast the right spell. You should be
-          able to handle a fight's mechanics with the minimum possible interruption to your casting.
-          Some fights have unavoidable downtime due to phase transitions and the like, so in these
-          cases 0% downtime will not be possible - do the best you can.
+          wrong spell than to think for a few seconds and then cast the right spell.
+        </p>
+        <p>
+          Minimize movement-based interruptions by pooling{' '}
+          <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} /> in advance and using instant-cast{' '}
+          <SpellLink spell={SPELLS.STARSURGE_MOONKIN} /> and{' '}
+          <SpellLink spell={SPELLS.STARFALL_CAST} /> while moving. Some fights have unavoidable
+          downtime due to phase transitions and the like, so in these cases 0% downtime will not be
+          possible - do the best you can.
         </p>
         <p>
           Active Time:{' '}
@@ -83,14 +88,15 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
           percentage={modules.astralPowerTracker.percentWasted}
           flatAmount={modules.astralPowerTracker.wasted * ASTRAL_POWER_SCALE_FACTOR}
         />{' '}
-        of your <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} />.
+        of your <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} /> (More details in 'Astral Power
+        usage' tab).
       </SubSection>
       {modules.astralPowerGraph.plot}
     </Section>
   );
 }
 
-function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Rotation">
       <p>
@@ -99,19 +105,19 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
         uptimes, and spending Astral Power to avoid overcapping. After fulfilling these priorities,
         open GCDs are filled with
         <SpellLink spell={SPELLS.WRATH} /> or <SpellLink spell={SPELLS.STARFIRE} /> depending on
-        Eclipse type and target count. Refer to the spec guide for more{' '}
+        Eclipse type and target count. Refer to{' '}
         <a
           href="https://www.wowhead.com/guide/classes/druid/balance/rotation-cooldowns-pve-dps"
           target="_blank"
           rel="noopener noreferrer"
         >
-          rotation details
-        </a>
-        .
+          the spec guide
+        </a>{' '}
+        for more rotation details.
       </p>
 
-      {modules.dotUptimes.guideSubsection}
-      {modules.eclipse.guideSubsection}
+      <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
+      <Section title="Eclipse">{modules.eclipse.guideSubsection}</Section>
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT) && modules.starlord.guideSubsection}
@@ -137,7 +143,7 @@ function CooldownsSection({ modules, events, info }: GuideProps<typeof CombatLog
   );
 }
 
-function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+function CooldownGraphSubsection({ info }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
       <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
@@ -176,11 +182,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
   );
 }
 
-function CooldownBreakdownSubsection({
-  modules,
-  events,
-  info,
-}: GuideProps<typeof CombatLogParser>) {
+function CooldownBreakdownSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
       {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&

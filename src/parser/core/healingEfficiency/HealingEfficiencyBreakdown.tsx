@@ -4,7 +4,7 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import PerformanceBar from 'parser/ui/PerformanceBar';
 import { useState } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 import type Spell from 'common/SPELLS/Spell';

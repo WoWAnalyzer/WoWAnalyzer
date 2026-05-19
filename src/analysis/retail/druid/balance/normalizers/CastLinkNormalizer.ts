@@ -13,7 +13,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 const CAST_BUFFER_MS = 100;
 const MUSHROOM_BUFFER_MS = 1_100;
 
-const FROM_HARDCAST = 'FromHardcast';
+export const FROM_HARDCAST = 'FromHardcast';
 const HITS_TARGET = 'HitsTarget';
 const GENERATES_AP = 'GeneratesAp';
 
@@ -47,6 +47,18 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.MOONFIRE_CAST.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.MOONFIRE_DEBUFF.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true, // want to catch Twin Moonfire cleaves here
+    maximumLinks: 2, // remote but real possiblity of accidentally picking up Treant moonfires, cap links if that happens
+  },
+  {
+    linkRelation: HITS_TARGET,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.SUNFIRE_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.SUNFIRE.id,
     referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,

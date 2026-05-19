@@ -1,9 +1,9 @@
 import { TooltipElement } from 'interface/Tooltip';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 
-import 'react-toggle/style.css';
+import 'interface/react-toggle/style.css';
 
 import Changelog from './Changelog';
 

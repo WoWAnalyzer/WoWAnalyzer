@@ -7,7 +7,7 @@ import { SpellLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
 import { PlayerInfo } from 'parser/core/Player';
 import { Component } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 
 import PerformanceBar from './PerformanceBar';
 

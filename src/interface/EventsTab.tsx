@@ -7,14 +7,14 @@ import SpellLink from 'interface/SpellLink';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import { Ability, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import { useReducer } from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import Table, {
   Column,
   defaultRowRenderer as defaultTableRowRenderer,
 } from 'react-virtualized/dist/commonjs/Table';
 
-import 'react-toggle/style.css';
+import 'interface/react-toggle/style.css';
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
 import CombatLogParser from 'parser/core/CombatLogParser';

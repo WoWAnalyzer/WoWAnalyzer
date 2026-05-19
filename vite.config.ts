@@ -1,14 +1,14 @@
 /// <reference types="vitest/config" />
 
-import { join } from 'node:path';
 import process from 'node:process';
 
-import { lingui } from '@lingui/vite-plugin';
+import { lingui, linguiTransformerBabelPreset } from '@lingui/vite-plugin';
+import babel from '@rolldown/plugin-babel';
+import emotion from '@rolldown/plugin-emotion';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import { globSync } from 'glob';
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
 import checker from 'vite-plugin-checker';
 
@@ -63,14 +63,13 @@ export default defineConfig((env) => ({
     },
   },
   plugins: [
-    tsconfigPaths(),
-    react({
-      plugins: [
-        ['@swc/plugin-emotion', {}],
-        // always enabled because it powers the macros
-        ['@lingui/swc-plugin', {}],
-      ],
+    react(),
+    lingui(),
+    babel({
+      presets: [linguiTransformerBabelPreset()],
     }),
+    emotion(),
+    svgr(),
     {
       name: 'vite-plugin-wowanalyzer-index-html-inject-ga',
       transformIndexHtml: (html) =>
@@ -78,8 +77,6 @@ export default defineConfig((env) => ({
           ? html.replace('</head>', GOOGLE_ANALYTICS_SCRIPT)
           : html,
     },
-    lingui(),
-    svgr(),
     process.env.SENTRY_AUTH_TOKEN
       ? sentryVitePlugin({
           org: 'wowanalyzer',
@@ -107,17 +104,7 @@ export default defineConfig((env) => ({
     include: ['@emotion/styled/base'],
   },
   resolve: {
-    alias: {
-      analysis: join(__dirname, 'src', 'analysis'),
-      common: join(__dirname, 'src', 'common'),
-      game: join(__dirname, 'src', 'game'),
-      interface: join(__dirname, 'src', 'interface'),
-      localization: join(__dirname, 'src', 'localization'),
-      parser: join(__dirname, 'src', 'parser'),
-      // TEMP this fixes build errors while some retail specs are disabled
-      // vite-tsconfig-paths does not support the `files` option
-      CONTRIBUTORS: join(__dirname, 'src', 'CONTRIBUTORS'),
-    },
+    tsconfigPaths: true,
   },
   server: {
     open: true,

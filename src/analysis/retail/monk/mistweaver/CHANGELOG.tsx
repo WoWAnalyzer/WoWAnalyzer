@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 18), <>Fixed <SpellLink spell={TALENTS_MONK.VEIL_OF_PRIDE_TALENT} /> correctly evaluating 0-cloud casts.</>, swirl),
   change(date(2026, 5, 16), <>Refreshed UI elements of the performance modules in the Overview tab.</>, swirl),
   change(date(2026, 5, 14), <>Fixed a bug with <SpellLink spell={SPELLS.ANCIENT_TEACHINGS} /> events doubling on filters.</>, swirl),
   change(date(2026, 5, 13), <>Added <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT}/> CDR analysis.</>, swirl),
