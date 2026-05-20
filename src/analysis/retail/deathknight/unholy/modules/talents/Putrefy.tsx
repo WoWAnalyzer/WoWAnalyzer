@@ -14,20 +14,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellUsable from '../core/SpellUsable';
 
-export interface PutrefySpend {
-  timestamp: number;
-  duringDarkTransformation: boolean;
-}
-
-interface PutrefySpendTotals {
-  chargesSpentDuringDarkTransformation: number;
-  chargesSpentOutsideDarkTransformation: number;
-}
-
 class Putrefy extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
-  readonly spends: PutrefySpend[] = [];
+  private chargesSpentDuringDarkTransformation = 0;
+  private chargesSpentOutsideDarkTransformation = 0;
 
   constructor(options: Options) {
     super(options);
@@ -58,14 +49,12 @@ class Putrefy extends Analyzer.withDependencies({
       return;
     }
 
-    const duringDarkTransformation = this.selectedCombatant.hasBuff(
-      DK_SPELLS.DARK_TRANSFORMATION_BUFF,
-    );
+    if (this.selectedCombatant.hasBuff(DK_SPELLS.DARK_TRANSFORMATION_BUFF)) {
+      this.chargesSpentDuringDarkTransformation += 1;
+      return;
+    }
 
-    this.spends.push({
-      timestamp: event.timestamp,
-      duringDarkTransformation,
-    });
+    this.chargesSpentOutsideDarkTransformation += 1;
   }
 
   private onHarbingerOfDoomLesserGhoulSummon(_event: SummonEvent) {
@@ -73,28 +62,13 @@ class Putrefy extends Analyzer.withDependencies({
   }
 
   get totalChargesSpent(): number {
-    return this.spends.length;
+    return this.chargesSpentDuringDarkTransformation + this.chargesSpentOutsideDarkTransformation;
   }
 
   statistic() {
-    const spendTotals = this.spends.reduce<PutrefySpendTotals>(
-      (totals, spend) => {
-        if (spend.duringDarkTransformation) {
-          totals.chargesSpentDuringDarkTransformation += 1;
-        } else {
-          totals.chargesSpentOutsideDarkTransformation += 1;
-        }
-
-        return totals;
-      },
-      {
-        chargesSpentDuringDarkTransformation: 0,
-        chargesSpentOutsideDarkTransformation: 0,
-      },
-    );
     const efficiency =
       this.totalChargesSpent > 0
-        ? 1 - spendTotals.chargesSpentOutsideDarkTransformation / this.totalChargesSpent
+        ? 1 - this.chargesSpentOutsideDarkTransformation / this.totalChargesSpent
         : 1;
 
     return (
@@ -114,16 +88,16 @@ class Putrefy extends Analyzer.withDependencies({
               {
                 color: '#22c55e',
                 label: 'During Dark Transformation',
-                value: spendTotals.chargesSpentDuringDarkTransformation,
+                value: this.chargesSpentDuringDarkTransformation,
                 valuePercent: false,
-                valueTooltip: `${spendTotals.chargesSpentDuringDarkTransformation} Putrefy charges spent during Dark Transformation`,
+                valueTooltip: `${this.chargesSpentDuringDarkTransformation} Putrefy charges spent during Dark Transformation`,
               },
               {
                 color: '#ef4444',
                 label: 'Outside Dark Transformation',
-                value: spendTotals.chargesSpentOutsideDarkTransformation,
+                value: this.chargesSpentOutsideDarkTransformation,
                 valuePercent: false,
-                valueTooltip: `${spendTotals.chargesSpentOutsideDarkTransformation} Putrefy charges spent outside Dark Transformation`,
+                valueTooltip: `${this.chargesSpentOutsideDarkTransformation} Putrefy charges spent outside Dark Transformation`,
               },
             ]}
           />
