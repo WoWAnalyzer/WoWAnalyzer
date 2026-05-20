@@ -1,16 +1,21 @@
+import { formatDuration } from 'common/format';
+import { Tooltip } from 'interface';
 import { useEvents, useInfo } from 'interface/guide';
 import { DamageEvent, EventType } from 'parser/core/Events';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
 import { memo } from 'react';
 import { SignalListener, VisualizationSpec } from 'react-vega';
 import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
+import { useFight } from 'interface/report/context/FightContext';
+import { useReport } from 'interface/report/context/ReportContext';
+import useBossPhaseEvents from 'interface/report/hooks/useBossPhaseEvents';
 
 const BUFF_WINDOW_SHIFT = 500;
 const DAMAGE_AREA_COLOR = '#e8b339';
 
 /** Pixels reserved on the left of the container for axis labels. The chart's
  *  data plot starts at this pixel offset so cooldown rows below align here. */
-export const CHART_DATA_PLOT_LEFT_OFFSET = 50;
+export const CHART_DATA_PLOT_LEFT_OFFSET = 45;
 
 export const DamageDoneChart = memo(
   ({
@@ -24,8 +29,11 @@ export const DamageDoneChart = memo(
   }) => {
     const events = useEvents();
     const info = useInfo();
+    const { fight } = useFight();
+    const { report } = useReport();
+    const { events: bossPhaseEvents } = useBossPhaseEvents({ report, fight });
 
-    if (!info) {
+    if (!info || !fight || !report || !bossPhaseEvents) {
       return null;
     }
 
@@ -41,6 +49,21 @@ export const DamageDoneChart = memo(
       endTime: w.endTime,
       color: w.color,
     }));
+
+    const phaseData: { startTime: number; endTime: number; name: string }[] = [];
+    let phaseStart: (typeof bossPhaseEvents)[number] | undefined;
+    for (const event of bossPhaseEvents) {
+      if (event.type === EventType.PhaseStart) {
+        phaseStart = event;
+      } else if (phaseStart && event.type === EventType.PhaseEnd) {
+        phaseData.push({
+          startTime: phaseStart.timestamp - info.fightStart,
+          endTime: event.timestamp - info.fightStart,
+          name: phaseStart.phase.name.split(':')[0],
+        });
+        phaseStart = undefined;
+      }
+    }
 
     const data = {
       buffs: buffData,
@@ -125,16 +148,74 @@ export const DamageDoneChart = memo(
       ],
     };
 
+    const chartWidth = width - CHART_DATA_PLOT_LEFT_OFFSET;
+
     return (
-      <div style={{ display: 'grid', justifyItems: 'end', width }}>
-        <BaseChart
-          data={data}
-          width={width - CHART_DATA_PLOT_LEFT_OFFSET}
-          height={200}
-          spec={spec}
-          config={{ ...defaultConfig, autosize: { type: 'pad', contains: 'content' } }}
-          signalListeners={onHover ? { hover: onHover } : undefined}
-        />
+      <div style={{ width }}>
+        {phaseData.length > 0 && (
+          <div
+            style={{ position: 'relative', height: 28, marginLeft: CHART_DATA_PLOT_LEFT_OFFSET }}
+          >
+            {phaseData.map(({ startTime, endTime, name }) => (
+              <Tooltip
+                key={startTime}
+                content={
+                  <>
+                    {name}
+                    {' @ '}
+                    {formatDuration(startTime)}
+                    {' - '}
+                    {formatDuration(endTime)}
+                  </>
+                }
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: `${(startTime / info.fightDuration) * 100}%`,
+                    width: `${((endTime - startTime) / info.fightDuration) * 100}%`,
+                    height: 24,
+                    background: '#201d15',
+                    border: '1px solid black',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    cursor: 'default',
+                  }}
+                >
+                  <span
+                    style={{
+                      color: '#f3eded',
+                      fontSize: 10,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                      minWidth: 0,
+                      width: '100%',
+                      textAlign: 'center',
+                      padding: '0 4px',
+                    }}
+                  >
+                    {name}
+                  </span>
+                </div>
+              </Tooltip>
+            ))}
+          </div>
+        )}
+        <div style={{ display: 'grid', justifyItems: 'end' }}>
+          <BaseChart
+            data={data}
+            width={chartWidth}
+            height={200}
+            spec={spec}
+            config={{ ...defaultConfig, autosize: { type: 'pad', contains: 'content' } }}
+            signalListeners={onHover ? { hover: onHover } : undefined}
+          />
+        </div>
       </div>
     );
   },
