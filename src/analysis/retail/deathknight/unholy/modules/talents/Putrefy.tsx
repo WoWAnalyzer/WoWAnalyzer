@@ -20,7 +20,6 @@ export interface PutrefySpend {
 }
 
 interface PutrefySpendTotals {
-  totalChargesSpent: number;
   chargesSpentDuringDarkTransformation: number;
   chargesSpentOutsideDarkTransformation: number;
 }
@@ -73,11 +72,13 @@ class Putrefy extends Analyzer.withDependencies({
     this.deps.spellUsable.reduceCooldown(TALENTS.PUTREFY_TALENT.id, 2500);
   }
 
+  get totalChargesSpent(): number {
+    return this.spends.length;
+  }
+
   statistic() {
     const spendTotals = this.spends.reduce<PutrefySpendTotals>(
       (totals, spend) => {
-        totals.totalChargesSpent += 1;
-
         if (spend.duringDarkTransformation) {
           totals.chargesSpentDuringDarkTransformation += 1;
         } else {
@@ -87,14 +88,13 @@ class Putrefy extends Analyzer.withDependencies({
         return totals;
       },
       {
-        totalChargesSpent: 0,
         chargesSpentDuringDarkTransformation: 0,
         chargesSpentOutsideDarkTransformation: 0,
       },
     );
     const efficiency =
-      spendTotals.totalChargesSpent > 0
-        ? 1 - spendTotals.chargesSpentOutsideDarkTransformation / spendTotals.totalChargesSpent
+      this.totalChargesSpent > 0
+        ? 1 - spendTotals.chargesSpentOutsideDarkTransformation / this.totalChargesSpent
         : 1;
 
     return (
