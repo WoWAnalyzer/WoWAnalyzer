@@ -24,9 +24,6 @@ import {
 import { getEternalHuntConsumption } from 'analysis/retail/demonhunter/havoc/normalizers/EternalHuntNormalizer';
 
 export default class EternalHunt extends Analyzer {
-  // EB and AG casts
-  private castEvents: CastEvent[] = [];
-
   // Eternal Hunt buffs
   private buffStartEvents: ApplyBuffEvent[] = [];
   private buffRemoveEvents: RemoveBuffEvent[] = [];
@@ -45,16 +42,6 @@ export default class EternalHunt extends Analyzer {
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT || SPELLS.ABYSSAL_GAZE),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.THE_HUNT_HAVOC_TALENT),
-      this.onCast,
-    );
-    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EMPOWERED_EYEBEAM_BUFF),
       this.onRemoveBuff,
     );
@@ -63,10 +50,6 @@ export default class EternalHunt extends Analyzer {
 
   private onApplyBuff(event: ApplyBuffEvent) {
     this.buffStartEvents.push(event);
-  }
-
-  private onCast(event: CastEvent) {
-    this.castEvents.push(event);
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
