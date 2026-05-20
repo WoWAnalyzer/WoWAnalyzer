@@ -488,11 +488,6 @@ const spells = {
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },
-  FEL_ERUPTION: {
-    id: 211881,
-    name: 'Fel Eruption',
-    icon: 'ability_bossfellord_felspike',
-  },
 
   // Havoc Talents
   DEMONIC_APPETITE_FURY: {
@@ -609,6 +604,11 @@ const spells = {
   EYE_BEAM_DAMAGE: {
     id: 198030,
     name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  EMPOWERED_EYEBEAM_BUFF: {
+    id: 1271144,
+    name: 'Empowered Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
   //endregion

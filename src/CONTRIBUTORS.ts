@@ -2983,6 +2983,7 @@ export const Zogmaw: Contributor = {
   nickname: 'Zogmaw',
   github: 'Zogmaw',
   discord: 'zokor',
+  avatar: avatar('zogmaw-avatar.png'),
   mains: [
     {
       name: 'Zogmaw',
@@ -2990,4 +2991,9 @@ export const Zogmaw: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/stormrage/Zogmaw',
     },
   ],
+  links: {
+    'Havoc Website': 'https://prepared.gg/',
+    Twitch: 'https://www.twitch.tv/zokor',
+    Youtube: 'https://www.youtube.com/@Zogmaw',
+  },
 };
