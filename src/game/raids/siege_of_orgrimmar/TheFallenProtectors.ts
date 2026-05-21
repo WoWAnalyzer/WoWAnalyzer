@@ -1,7 +1,7 @@
 import type { Boss } from '../index';
 
 const boss: Boss = {
-  id: 1598,
+  id: 51598,
   name: 'TheFallenProtectors',
   fight: {},
 };

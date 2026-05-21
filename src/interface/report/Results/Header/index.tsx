@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { i18n } from '@lingui/core';
 import { defineMessage } from '@lingui/core/macro';
-import { findZoneByBossId, type Boss } from 'game/raids';
+import { findZoneByBossId, normalizedEncounterId, type Boss } from 'game/raids';
 import {
   AboutIcon,
   ArmorIcon,
@@ -365,7 +365,7 @@ function CharacterMiniBox({
 }
 
 function BossMiniBox({ boss, fight }: Pick<HeaderProps, 'boss' | 'fight'>): JSX.Element | null {
-  const normalizedBossId = (boss?.id ?? fight.boss) % 50_000;
+  const normalizedBossId = normalizedEncounterId(boss?.id ?? fight.boss);
   let icon =
     boss?.icon ?? `https://assets.rpglogs.com/img/warcraft/bosses/${normalizedBossId}-icon.jpg`;
 

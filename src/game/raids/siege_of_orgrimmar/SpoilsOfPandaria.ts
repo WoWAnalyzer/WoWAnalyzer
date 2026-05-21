@@ -1,7 +1,7 @@
 import type { Boss } from '../index';
 
 const boss: Boss = {
-  id: 1594,
+  id: 51594,
   name: 'Spoils of Pandaria',
   fight: {},
 };
