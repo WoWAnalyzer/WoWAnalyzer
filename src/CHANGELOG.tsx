@@ -41,6 +41,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 21), "Fix events tab crashing after build tooling updates", Putro),
   change(date(2026, 5, 19), 'Add Siege of Orgrimmar Raid / Bosses for MoP Classic', jazminite),
   change(date(2026, 5, 19), 'Update build tooling.', Topple),
   change(date(2026, 5, 16), 'Minor adjustments to base performance UI elements.', swirl),

@@ -9,10 +9,7 @@ import { Ability, EventType, HasAbility, HasSource, HasTarget } from 'parser/cor
 import { useReducer } from 'react';
 import Toggle from 'interface/react-toggle';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import Table, {
-  Column,
-  defaultRowRenderer as defaultTableRowRenderer,
-} from 'react-virtualized/dist/commonjs/Table';
+import { Table, Column, defaultTableRowRenderer } from 'react-virtualized';
 
 import 'interface/react-toggle/style.css';
 import 'react-virtualized/styles.css';
