@@ -33,13 +33,16 @@ export default class EternalHunt extends Analyzer {
 
   private consumers: CastEvent[] = [];
   private uses: SpellUse[] = [];
+  private hasAbyssalGaze = false;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
       TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT,
     );
-
+    this.hasAbyssalGaze = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.DEMONIC_INTENSITY_TALENT,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EMPOWERED_EYEBEAM_BUFF),
       this.onApplyBuff,
@@ -127,8 +130,11 @@ export default class EternalHunt extends Analyzer {
       };
     }
     if (consumption && consumption.ability.guid === TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id) {
+      const performance = this.hasAbyssalGaze
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Perfect;
       return {
-        performance: QualitativePerformance.Good,
+        performance: performance,
         summary,
         details: (
           <div>
@@ -167,7 +173,7 @@ export default class EternalHunt extends Analyzer {
         </p>
         <p>
           Spend this on <SpellLink spell={SPELLS.ABYSSAL_GAZE} /> every time it's up to empower it
-          further. Without <SpellLink spell={SPELLS.ABYSSAL_GAZE} />, spend it on a normal{' '}
+          further. Otherwise, spend it with{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} />
         </p>
       </>
@@ -218,14 +224,31 @@ export default class EternalHunt extends Analyzer {
     const totalConsumptions = this.consumers.length;
     const totalBuffs = this.buffStartEvents.length;
 
+    if (this.hasAbyssalGaze) {
+      return (
+        <>
+          <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+            <TalentSpellText talent={TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT}>
+              {totalBuffs} <small>Total buffs applied</small>
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+              <br />
+              {abyssalGazeConsumptions.length} <small>Consumed by Abyssal Gaze</small>
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+              <br />
+              {eyeBeamConsumptions.length} <small>Consumed by Eye Beam</small>
+              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+              <br />
+              {totalBuffs - totalConsumptions} <small>Wasted Buffs</small>
+            </TalentSpellText>
+          </Statistic>
+        </>
+      );
+    }
     return (
       <>
         <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
           <TalentSpellText talent={TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT}>
             {totalBuffs} <small>Total buffs applied</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {abyssalGazeConsumptions.length} <small>Consumed by Abyssal Gaze</small>
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {eyeBeamConsumptions.length} <small>Consumed by Eye Beam</small>
