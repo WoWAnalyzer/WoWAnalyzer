@@ -9,6 +9,7 @@ import {
   toes as TerraceOfEndlessSpring,
 } from './mop_msv_hof_toes';
 import ThroneOfThunder from './throne_of_thunder';
+import SiegeOfOrgrimmar from './siege_of_orgrimmar';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -78,6 +79,7 @@ const raids = {
   MogushanVaults,
   HeartOfFear,
   TerraceOfEndlessSpring,
+  SiegeOfOrgrimmar,
 };
 
 function findByDungeonBossId(id: number) {
@@ -100,4 +102,11 @@ export function findZoneByBossId(id: number): Raid | undefined {
   return Object.values(raids as Record<string, Raid>)
     .concat(Object.values(dungeons as Record<string, Raid>))
     .find((zone) => Object.values(zone.bosses).some((boss) => boss.id === id));
+}
+
+/**
+ * WCL adds 50,000 to repeated encounter IDs to distinguish them. This modifier is *not* present on `originalBoss`, though, and most assets are not copied to the duplicated IDs.
+ */
+export function normalizedEncounterId(id: number): number {
+  return id % 50_000;
 }
