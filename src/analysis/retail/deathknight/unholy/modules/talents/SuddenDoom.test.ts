@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import DK_SPELLS from 'common/SPELLS/deathknight';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
@@ -9,6 +10,7 @@ import SuddenDoom from './SuddenDoom';
 const SD = SPELLS.SUDDEN_DOOM_BUFF.id;
 const DC = SPELLS.DEATH_COIL.id;
 const NC = DK_SPELLS.NECROTIC_COIL.id;
+const SS = 55090;
 
 function applybuff(timestamp: number): AnyEvent {
   return {
@@ -79,7 +81,7 @@ function fightend(timestamp: number): AnyEvent {
   } as AnyEvent;
 }
 
-function cast(timestamp: number, spellId = DC): AnyEvent {
+function cast(timestamp: number, spellId = DC, runicPowerRaw?: number): AnyEvent {
   return {
     type: EventType.Cast,
     timestamp,
@@ -88,6 +90,17 @@ function cast(timestamp: number, spellId = DC): AnyEvent {
     targetID: 2,
     targetIsFriendly: false,
     ability: { guid: spellId, name: 'Death Coil', type: 32, abilityIcon: '' },
+    classResources:
+      runicPowerRaw === undefined
+        ? undefined
+        : [
+            {
+              type: RESOURCE_TYPES.RUNIC_POWER.id,
+              amount: runicPowerRaw,
+              cost: 0,
+              max: 1300,
+            },
+          ],
   } as AnyEvent;
 }
 
@@ -141,13 +154,80 @@ describe('SuddenDoom analyzer', () => {
     expect(module.totalProcs).toBe(2);
   });
 
-  it('counts a genuine overwrite when refreshbuff fires without removebuffstack', () => {
-    // At 1 stack, no removebuffstack, refreshbuff alone = true overwrite
+  it('does not count refreshbuff as overwritten when it arrives before removebuffstack', () => {
+    const module = setup([
+      applybuff(1000),
+      applybuffstack(2000, 2),
+      cast(3000),
+      refreshbuff(3250),
+      removebuffstack(3250, 1),
+      cast(4000),
+      removebuff(4250),
+    ]);
+
+    expect(module.consumedProcs).toBe(2);
+    expect(module.wastedRefreshes).toBe(0);
+    expect(module.wastedExpires).toBe(0);
+    expect(module.totalProcs).toBe(2);
+  });
+
+  it('does not create a phantom consume window when cast is before applybuffstack and linked removal is later', () => {
+    const module = setup([
+      applybuff(1000),
+      cast(3000, NC),
+      applybuffstack(3070, 2),
+      removebuffstack(3250, 1),
+      refreshbuff(3250),
+      cast(4000, NC),
+      removebuff(4250),
+    ]);
+
+    expect(module.consumedProcs).toBe(2);
+    expect(module.wastedProcs).toBe(0);
+    expect(module.totalProcs).toBe(2);
+    expect(module.procWindows).toHaveLength(2);
+    expect(module.procWindows[0].casts).toHaveLength(1);
+    expect(module.procWindows[0].casts[0].spellId).toBe(NC);
+    expect(module.procWindows[1].casts).toHaveLength(1);
+    expect(module.procWindows[1].casts[0].spellId).toBe(NC);
+  });
+
+  it('does not count refreshbuff as overwrite when only 1 stack is active', () => {
     const module = setup([applybuff(1000), refreshbuff(5000), cast(6000), removebuff(6250)]);
 
     expect(module.consumedProcs).toBe(1);
+    expect(module.wastedRefreshes).toBe(0);
+    expect(module.totalProcs).toBe(1);
+  });
+
+  it('counts overwrite when refreshbuff happens at 2 stacks without a same-timestamp consume', () => {
+    const module = setup([
+      applybuff(1000),
+      applybuffstack(2000, 2),
+      refreshbuff(3000),
+      fightend(4000),
+    ]);
+
+    expect(module.consumedProcs).toBe(0);
     expect(module.wastedRefreshes).toBe(1);
-    expect(module.totalProcs).toBe(2);
+    expect(module.wastedExpires).toBe(2);
+    expect(module.totalProcs).toBe(3);
+  });
+
+  it('preserves cast history on overwritten windows', () => {
+    const module = setup([
+      applybuff(1000),
+      applybuffstack(2000, 2),
+      cast(2500, SS, 200),
+      refreshbuff(3000),
+      fightend(4000),
+    ]);
+
+    const overwrittenWindow = module.procWindows.find((w) => w.resolution === 'overwritten');
+
+    expect(overwrittenWindow).toBeDefined();
+    expect(overwrittenWindow!.casts).toHaveLength(1);
+    expect(overwrittenWindow!.casts[0].spellId).toBe(SS);
   });
 
   it('expires all stacks when a multi-stack buff expires', () => {
@@ -176,6 +256,10 @@ describe('SuddenDoom analyzer', () => {
     expect(module.consumedProcs).toBe(2);
     expect(module.wastedProcs).toBe(0);
     expect(module.totalProcs).toBe(2);
+    expect(module.procWindows[0].casts[0].suddenDoomStacks).toBe(2);
+    expect(module.procWindows[1].casts).toHaveLength(1);
+    expect(module.procWindows[1].casts[0].spellId).toBe(NC);
+    expect(module.procWindows[1].casts[0].suddenDoomStacks).toBe(1);
   });
 
   it('handles multiple sequential procs correctly', () => {
@@ -221,5 +305,29 @@ describe('SuddenDoom analyzer', () => {
 
     expect(module.consumedProcs).toBe(1);
     expect(module.totalProcs).toBe(1);
+  });
+
+  it('tracks casts while a proc is active until consumption', () => {
+    const module = setup([
+      applybuff(1000),
+      cast(1200, SS, 100),
+      cast(1300, DC, 250),
+      removebuff(1450),
+    ]);
+
+    expect(module.procWindows).toHaveLength(1);
+    expect(module.procWindows[0].resolution).toBe('consumed');
+    expect(module.procWindows[0].casts).toHaveLength(2);
+    expect(module.procWindows[0].casts[0].spellId).toBe(SS);
+    expect(module.procWindows[0].casts[0].hadEnoughRunicPower).toBe(false);
+    expect(module.procWindows[0].casts[1].spellId).toBe(DC);
+    expect(module.procWindows[0].casts[1].hadEnoughRunicPower).toBe(true);
+  });
+
+  it('flags expired procs that had at least one 15+ RP cast opportunity', () => {
+    const module = setup([applybuff(1000), cast(1500, SS, 200), removebuff(11000)]);
+
+    expect(module.wastedExpires).toBe(1);
+    expect(module.expiredWithSpendableRunicPower).toBe(1);
   });
 });
