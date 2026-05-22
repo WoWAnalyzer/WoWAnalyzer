@@ -4,12 +4,12 @@ import { isInternetExplorer } from 'interface/selectors/internetExplorer';
 import { getOpenModalCount } from 'interface/selectors/openModals';
 import { useEffect } from 'react';
 import FullscreenError from 'interface/FullscreenError';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Footer from 'interface/Footer';
 import PortalTarget from 'interface/PortalTarget';
 import Hotkeys from 'interface/Hotkeys';
-import 'react-toggle/style.css';
+import 'interface/react-toggle/style.css';
 
 import '../App.scss';
 import { setInternetExplorer } from '../reducers/internetExplorer';

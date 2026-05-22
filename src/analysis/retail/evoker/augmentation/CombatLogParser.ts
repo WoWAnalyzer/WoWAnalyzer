@@ -46,9 +46,8 @@ import {
   EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
-  EmpowerNormalizer,
+  TipTheScalesNormalizer,
   SpellUsable,
-  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -87,13 +86,13 @@ import {
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Empower Normalizer
-    empowerNormalizer: EmpowerNormalizer,
+    TipTheScalesNormalizer: TipTheScalesNormalizer,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
 
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
@@ -127,6 +126,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Core
     abilities: Abilities,
     buffs: Buffs,
+    EmpowerAnalyzer: EmpowerAnalyzer,
 
     // Abilities
     sandsOfTime: SandsOfTime,

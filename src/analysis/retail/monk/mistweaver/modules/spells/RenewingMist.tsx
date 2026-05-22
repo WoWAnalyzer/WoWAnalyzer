@@ -83,7 +83,7 @@ class RenewingMist extends Analyzer {
         due to its synergy with <SpellLink spell={SPELLS.VIVIFY} />,{' '}
         <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />,{' '}
         <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} />, and{' '}
-        <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />
+        <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />.
       </p>
     );
 
@@ -93,9 +93,7 @@ class RenewingMist extends Analyzer {
           <strong>
             <SpellLink spell={SPELLS.RENEWING_MIST_CAST} /> cast efficiency
           </strong>
-          <div className="flex-main chart" style={{ padding: 15 }}>
-            {this.subStatistic()}
-          </div>
+          {this.subStatistic()}
         </RoundedPanel>
       </div>
     );

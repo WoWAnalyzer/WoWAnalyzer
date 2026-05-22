@@ -1,7 +1,7 @@
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import { useConfig } from './ConfigContext';
@@ -30,7 +30,11 @@ import Report from 'parser/core/Report';
 import { Link, useNavigate } from 'react-router-dom';
 import { WCLFight } from 'parser/core/Fight';
 import handleApiError from './handleApiError';
-import { type CombatantInfoEvent } from 'parser/core/Events';
+import { EventType, type CombatantInfoEvent } from 'parser/core/Events';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
+import GameBranch from 'game/GameBranch';
+import { fetchCombatants } from 'common/fetchWclApi';
+import { normalizedEncounterId } from 'game/raids';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -164,14 +168,51 @@ const ResultsLoader = () => {
     events,
   });
 
-  const playerCombatantInfo = useMemo(
-    () =>
-      events?.find(
-        (event): event is CombatantInfoEvent =>
-          event.type === 'combatantinfo' && event.sourceID === player.id,
-      ),
-    [events, player.id],
-  );
+  const [playerCombatantInfo, setPlayerCombatantInfo] = useState<CombatantInfoEvent | undefined>();
+
+  useEffect(() => {
+    const existing = events?.find(
+      (event): event is CombatantInfoEvent =>
+        event.type === EventType.CombatantInfo && event.sourceID === player.id,
+    );
+
+    let cancelled = false;
+    if (existing) {
+      setPlayerCombatantInfo(existing);
+    } else if (wclGameVersionToBranch(report.gameVersion) === GameBranch.Classic) {
+      // in classic, RP handling may split the first part of a fight out into a separate "fight". check it for combatantinfo asynchronously
+      const prevFight = report.fights.find((other) => other.id === fight.id - 1);
+      if (
+        prevFight &&
+        prevFight.boss === 0 &&
+        prevFight.originalBoss === normalizedEncounterId(fight.boss)
+      ) {
+        fetchCombatants(report.code, prevFight.start_time, prevFight.end_time)
+          .then((combatantinfo) => {
+            if (cancelled) {
+              return;
+            }
+
+            const prevInfo = combatantinfo.find(
+              (event): event is CombatantInfoEvent =>
+                event.type === EventType.CombatantInfo && event.sourceID === player.id,
+            );
+            if (prevInfo) {
+              // the `current ?? prevInfo` prevents react dev mode from reprocessing data again
+              setPlayerCombatantInfo((current) => current ?? prevInfo);
+            }
+          })
+          .catch((error) => {
+            // don't fail in a visible way
+            console.error('failed to load previous combatantinfo', error);
+          });
+      }
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [events, player.id, report, fight]);
 
   // Original code only rendered EventParser if
   // > !this.state.isLoadingParser &&

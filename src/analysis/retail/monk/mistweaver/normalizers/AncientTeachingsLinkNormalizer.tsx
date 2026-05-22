@@ -381,6 +381,11 @@ class AncientTeachingsLinkNormalizer extends EventsNormalizer {
     const ability = DAMAGE_ABILITIES.find((a) => a.spellIds.includes(damageEvent.ability.guid));
     if (!ability) return;
 
+    // guard against reruns to avoid doubly linked events thhat have already been processed
+    if (damageEvent._linkedEvents?.some((link) => link.relation === ability.linkRelation)) {
+      return;
+    }
+
     const healsToLink = heals.slice(0, AT_MAX_TARGETS);
     healsToLink.forEach((healEvent) => {
       AddRelatedEvent(damageEvent, ability.linkRelation, healEvent);

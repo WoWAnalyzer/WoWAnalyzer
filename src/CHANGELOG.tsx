@@ -32,13 +32,22 @@ import {
   Thias,
   Hezaerd,
   Dambroda,
-  Mahmud17,
+  Baumritter,
+  Mahmud17, 
+  Ateis,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 21), "Fix events tab crashing after build tooling updates", Putro),
+  change(date(2026, 5, 19), 'Add Siege of Orgrimmar Raid / Bosses for MoP Classic', jazminite),
+  change(date(2026, 5, 19), 'Update build tooling.', Topple),
+  change(date(2026, 5, 16), 'Minor adjustments to base performance UI elements.', swirl),
+  change(date(2026, 5, 13), 'Updated various modules for correct Empower GCD usage', Baumritter),
+  change(date(2026, 5, 8), 'Fix number of stacks for Buffs at start of fight.', Ateis),
+  change(date(2026, 5, 6), 'Prepare i18n support for update.', Topple),
   change(date(2026, 5, 3), 'Use WCL-selected player damage DPS in the throughput stat and simplify the throughput boxes by removing hover details.', Mahmud17),
   change(date(2026, 4, 29), <>Added trinket support for <ItemLink id={ITEMS.VOLATILE_VOID_SUFFUSER.id} /> and <ItemLink id={ITEMS.LIGHT_OF_THE_COSMIC_CRESCENDO.id} />.</>, swirl),
   change(date(2026, 4, 25), "Fix `reduceCooldown` not correctly applying to multiple charges", Thias),

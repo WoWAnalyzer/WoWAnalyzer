@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -21,14 +22,20 @@ export interface StatisticData {
 
 interface CastOverviewProps {
   spell: Spell;
+  title?: ReactNode;
   stats: StatisticData[];
   additionalContent?: AdditionalContent;
 }
 
-export default function CastOverview({ spell, stats, additionalContent }: CastOverviewProps) {
+export default function CastOverview({
+  spell,
+  title,
+  stats,
+  additionalContent,
+}: CastOverviewProps) {
   return (
     <div style={{ marginBottom: '18px' }}>
-      <GuideDataWrapper bare title={`${spell.name} Overview`}>
+      <GuideDataWrapper bare title={title ?? `${spell.name} Overview`}>
         <StatsGrid>
           {stats.map((stat, index) => {
             const color = stat.performance

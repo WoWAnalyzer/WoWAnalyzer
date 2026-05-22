@@ -68,7 +68,7 @@ class SunfireUptime extends Analyzer {
     });
   }
 
-  subStatisticV2() {
+  castOverviewAndSummary() {
     return (
       <>
         <CastOverview spell={SPELLS.SUNFIRE} stats={this.buildStats()} />

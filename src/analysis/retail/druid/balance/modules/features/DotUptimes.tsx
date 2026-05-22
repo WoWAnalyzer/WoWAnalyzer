@@ -26,33 +26,6 @@ class DotUptimes extends Analyzer {
 
   get guideSubsection() {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={SPELLS.MOONFIRE_CAST} />
-        </b>{' '}
-        and{' '}
-        <b>
-          <SpellLink spell={SPELLS.SUNFIRE} />
-        </b>{' '}
-        are high damage-per-cast-time DoTs that synergize well with many talents like{' '}
-        <SpellLink spell={TALENTS_DRUID.SHOOTING_STARS_TALENT} />. Maintaining 100% uptime is your
-        highest priority.
-      </p>
-    );
-
-    const data = (
-      <RoundedPanel>
-        <strong>DoT Uptimes</strong>
-        {this.moonfireUptime.subStatistic()}
-        {this.sunfireUptime.subStatistic()}
-      </RoundedPanel>
-    );
-
-    return explanationAndDataSubsection(explanation, data);
-  }
-
-  get guideSubsectionV2() {
-    const explanation = (
       <>
         <p>
           <b>
@@ -90,9 +63,9 @@ class DotUptimes extends Analyzer {
 
     const data = (
       <div>
-        <RoundedPanel>{this.moonfireUptime.subStatisticV2()}</RoundedPanel>
+        <RoundedPanel>{this.moonfireUptime.castOverviewAndSummary()}</RoundedPanel>
         <div className="row" style={{ height: '20px' }} />
-        <RoundedPanel>{this.sunfireUptime.subStatisticV2()}</RoundedPanel>
+        <RoundedPanel>{this.sunfireUptime.castOverviewAndSummary()}</RoundedPanel>
       </div>
     );
 

@@ -31,7 +31,6 @@ import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheD
 import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
 import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 import Haste from 'analysis/retail/druid/balance/modules/core/Haste';
-import EclipseResource from 'analysis/retail/druid/balance/modules/features/EclipseResource';
 import MoonfireTracker from 'analysis/retail/druid/balance/modules/spells/DoTs/MoonfireTracker';
 import SunfireTracker from 'analysis/retail/druid/balance/modules/spells/DoTs/SunfireTracker';
 
@@ -65,7 +64,6 @@ class CombatLogParser extends MainCombatLogParser {
     buffs: Buffs,
     dotUptimes: DotUptimes,
     eclipse: Eclipse,
-    eclipseResource: EclipseResource,
 
     //Talents
     twinMoons: TwinMoons,

@@ -53,7 +53,6 @@ class JadefireTeachings extends Analyzer {
   }
 
   lastDamageEvent(event: DamageEvent) {
-    if (event.ability.guid === SPELLS.JADEFIRE_STOMP_DAMAGE.id) console.log('JFS Damage: ', event);
     this.lastDamageSpellID = event.ability.guid;
 
     if (!this.damageSpellToHealing.has(this.lastDamageSpellID)) {

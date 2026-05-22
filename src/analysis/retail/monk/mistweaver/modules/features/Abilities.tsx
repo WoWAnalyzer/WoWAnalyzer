@@ -68,7 +68,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         castEfficiency: {
           suggestion: true,
         },

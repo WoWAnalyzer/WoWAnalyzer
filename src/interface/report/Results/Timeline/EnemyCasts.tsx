@@ -13,7 +13,7 @@ import {
 } from 'react';
 import './Casts.scss';
 import * as React from 'react';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 import { fetchEvents } from 'common/fetchWclApi';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import TimeIndicators from './TimeIndicators';

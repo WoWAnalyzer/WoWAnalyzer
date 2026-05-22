@@ -23,11 +23,9 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
-import {
-  getEmpowerEndEvent,
-  isFromTipTheScales,
-} from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+import { getEmpowerEndEvent } from 'parser/shared/normalizers/EmpowerNormalizer';
 import PrePullCooldowns from './PrePullCooldowns';
+import { isFromTipTheScales } from 'analysis/retail/evoker/shared/modules/normalizers/TipTheScalesNormalizer';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -80,6 +78,7 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.ETERNITY_SURGE.id),
     empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
     empowerChannelSpec(SPELLS.UPHEAVAL.id),
+
     empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
     // empowerChannelSpec(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id),
     empowerChannelSpec(SPELLS.SPIRITBLOOM_FONT.id),
@@ -412,6 +411,10 @@ function buffAndNextCastChannelSpec(spellId: number): ChannelSpec {
 /**
  * This handler works by handling empower cast events with the given guid, and then finding the matched empowerend
  * event through event links, and then making the pair of beginchannel and endchannel events based on them.
+ *
+ * Empower spells have an aura attached similar to spells handled by buffChannelSpec.
+ * These are handled the same way the aforementioned spec does it but additionally an empowerEnd event with empowermentRank 0 is generated.
+ * Some empower spells do not log their aura in which case no event is generated and the channel is just cancelled normally.
  *
  * @param spellId the guid for the tracked Empower Cast event.
  */

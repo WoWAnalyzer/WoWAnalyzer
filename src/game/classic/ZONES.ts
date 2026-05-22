@@ -1,6 +1,7 @@
 import { Zone } from 'game/ZONES';
 import { msv, hof, toes } from 'game/raids/mop_msv_hof_toes';
 import tot from 'game/raids/throne_of_thunder';
+import soo from 'game/raids/siege_of_orgrimmar';
 
 const ZONES: Zone[] = [
   {
@@ -39,6 +40,12 @@ const ZONES: Zone[] = [
     name: 'Throne of Thunder',
     frozen: false,
     encounters: Object.values(tot.bosses),
+  },
+  {
+    id: 1054,
+    name: 'Siege of Orgrimmar',
+    frozen: false,
+    encounters: Object.values(soo.bosses),
   },
 ];
 

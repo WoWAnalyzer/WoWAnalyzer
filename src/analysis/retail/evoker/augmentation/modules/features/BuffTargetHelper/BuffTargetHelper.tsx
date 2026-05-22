@@ -22,7 +22,7 @@ import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 import { PRESCIENCE_BASE_DURATION_MS, TIMEWALKER_BASE_EXTENSION } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
-import Toggle from 'react-toggle';
+import Toggle from 'interface/react-toggle';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BuffTargetHelperInfoLabel from './BuffTargetHelperInfoLabel';
 import { ABILITY_BLACKLIST, ABILITY_NO_EM_SCALING } from '../../util/abilityFilter';

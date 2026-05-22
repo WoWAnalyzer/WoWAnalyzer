@@ -145,14 +145,6 @@ class Abilities extends SharedAbilities {
       },
 
       // CC, interupts, and utility
-      {
-        spell: SPELLS.FEL_ERUPTION.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
 
       // DPS Cooldowns
       {
@@ -212,6 +204,7 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.BLUR.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
+        charges: combatant.hasTalent(TALENTS.DEMONIC_RESILIENCE_TALENT) ? 2 : 1,
       },
       ...super.spellbook(),
     ];
