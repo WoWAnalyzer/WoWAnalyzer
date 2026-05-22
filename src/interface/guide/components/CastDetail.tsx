@@ -249,12 +249,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
                 <span className="nav-label">Prev</span>
               </HeaderNavBtn>
               <CastMeta>
-                <HeaderPerfBadge color={castColor}>
-                  {
-                    PERF_LEVELS.find((perfLevel) => perfLevel.perf === currentCast!.performance)!
-                      .label
-                  }
-                </HeaderPerfBadge>
+                <HeaderPerfBadge color={castColor}>{currentCast!.performance}</HeaderPerfBadge>
                 <CastLabel>
                   Cast {originalIndex + 1} / {filteredCount} · {currentCast!.timestamp}
                 </CastLabel>
@@ -515,7 +510,6 @@ const AdditionalContentContainer = styled.div`
   background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.07);
-  overflow-x: auto;
 `;
 
 const AdditionalContentHeading = styled.div`
