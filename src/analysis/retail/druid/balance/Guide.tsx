@@ -124,7 +124,6 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
           <OffensiveTimeline />
         )}
-        {modules.eclipseResource.guideSubsection}
       </Section>
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
