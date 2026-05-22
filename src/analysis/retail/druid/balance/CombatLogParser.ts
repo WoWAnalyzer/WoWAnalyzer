@@ -26,6 +26,7 @@ import Eclipse from 'analysis/retail/druid/balance/modules/spells/Eclipse';
 import SpenderUsage from 'analysis/retail/druid/balance/modules/features/SpenderUsage';
 import NewMoon from 'analysis/retail/druid/balance/modules/spells/NewMoon';
 import WildMushroom from 'analysis/retail/druid/balance/modules/spells/WildMushroom';
+import CelestialAlignment from 'analysis/retail/druid/balance/modules/spells/CelestialAlignment';
 import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
 import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
 import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
@@ -75,6 +76,7 @@ class CombatLogParser extends MainCombatLogParser {
     sunderedFirmament: SunderedFirmament,
     newMoon: NewMoon,
     wildMushroom: WildMushroom,
+    celestialAlignment: CelestialAlignment,
 
     //Hero Talents
     lunation: Lunation,
