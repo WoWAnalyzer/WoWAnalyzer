@@ -235,16 +235,6 @@ export default class Inertia extends Analyzer {
     const quickBurstStart =
       firstBurstCast !== undefined && firstBurstCast.timestamp - start <= QUICK_BURST_START_MS;
 
-    if (abyssalGazeCast) {
-      console.log('AG Info');
-      console.log(abyssalGazeCast);
-      console.log(abyssalGazeCast.channel?.timestamp);
-      console.log(end);
-    }
-    if (eyeBeamCast) {
-      console.log('EB Info');
-      console.log(eyeBeamCast);
-    }
     return {
       event,
       start,
@@ -393,9 +383,6 @@ export default class Inertia extends Analyzer {
         ),
       };
     }
-    // if (window.startedAbyssalGazeDuringWindow) {
-    //   console.log('AG Info');
-    // }
 
     if (window.startedEyeBeamDuringWindow || window.startedAbyssalGazeDuringWindow) {
       return {
