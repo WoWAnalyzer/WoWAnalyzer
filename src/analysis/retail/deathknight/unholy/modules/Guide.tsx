@@ -14,6 +14,7 @@ export default function Guide({ modules, info }: GuideProps<typeof CombatLogPars
       <IntroSection />
 
       <Section title="Core Spells and Buffs">
+        {modules.plagueEfficiency.guideSubsection}
         {info.combatant.hasTalent(TALENTS.PUTREFY_TALENT) && modules.putrefy.guideSubsection}
       </Section>
 
