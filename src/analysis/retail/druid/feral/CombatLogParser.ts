@@ -42,6 +42,9 @@ import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalize
 import MercilessClaws from 'analysis/retail/druid/feral/modules/spells/MercilessClaws';
 import Chomp from 'analysis/retail/druid/feral/modules/spells/Chomp';
 import InfectedWounds from 'analysis/retail/druid/feral/modules/spells/InfectedWounds';
+import UnseenPredator from 'analysis/retail/druid/feral/modules/spells/UnseenPredator';
+import TigersFuryWindows from 'analysis/retail/druid/feral/modules/spells/TigersFuryWindows';
+import MID1TierSet from 'analysis/retail/druid/feral/modules/tier/MID1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // spells
     tigersFuryEnergy: TigersFuryEnergy,
+    tigersFuryWindows: TigersFuryWindows,
     hitCountAoe: HitCountAoE,
 
     // talents
@@ -103,7 +107,11 @@ class CombatLogParser extends CoreCombatLogParser {
     infectedWounds: InfectedWounds,
     // TODO TWW - might actually want a Tiger's Tenacity module now
 
+    // apex talent
+    unseenPredator: UnseenPredator,
+
     // tier
+    mid1TierSet: MID1TierSet,
   };
 
   static guide = Guide;
