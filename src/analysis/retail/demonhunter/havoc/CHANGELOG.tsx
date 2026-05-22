@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 21), <>Fixing <SpellLink spell={TALENTS.INERTIA_TALENT} /> analysis to work with <SpellLink spell={SPELLS.ABYSSAL_GAZE} />.</>, Zogmaw),
   change(date(2026, 5, 12), <>Add <SpellLink spell={SPELLS.BLUR} /> charges and clean up old havoc spells.</>, Zogmaw),
   change(date(2026, 4, 10), <>Add <SpellLink spell={SPELLS.BLUR} /> analysis to Havoc analysis.</>, Hezaerd),
   change(date(2026, 4, 2), <>Add initial Havoc analysis for <SpellLink spell={TALENTS.INERTIA_TALENT} /> and clean up outdated guide talent references.</>, Hezaerd),
