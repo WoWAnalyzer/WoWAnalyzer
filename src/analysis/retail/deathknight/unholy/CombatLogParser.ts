@@ -13,6 +13,7 @@ import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
 import ForbiddenKnowledge from './modules/talents/ForbiddenKnowledge';
 import Putrefy from './modules/talents/Putrefy';
+import FesteringScythe from './modules/talents/FesteringScythe';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     forbiddenKnowledge: ForbiddenKnowledge,
     unholyAura: UnholyAura,
     putrefy: Putrefy,
+    festeringScythe: FesteringScythe,
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
