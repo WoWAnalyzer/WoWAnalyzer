@@ -16,7 +16,7 @@ import Putrefy from './modules/talents/Putrefy';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
-import SoulReaper from '../shared/talents/SoulReaper';
+import SoulReaper from './modules/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import UnholyAura from './modules/talents/UnholyAura';
 import LesserGhoul from './modules/features/LesserGhoul';

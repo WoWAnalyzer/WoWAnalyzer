@@ -4,6 +4,7 @@ import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Putrefy from './talents/Putrefy';
+import SoulReaper from './talents/SoulReaper';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -110,6 +111,19 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: TALENTS.SOUL_REAPER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 15,
+        castEfficiency: {
+          maxCasts: () => this.owner.getModule(SoulReaper).maxCasts,
+        },
+        gcd: {
+          base: 1500,
+        },
+        range: AbilityRange.Melee,
       },
 
       // region Defensives
