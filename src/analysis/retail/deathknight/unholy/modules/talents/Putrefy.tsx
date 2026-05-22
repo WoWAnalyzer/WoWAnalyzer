@@ -19,6 +19,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import type { CSSProperties, JSX } from 'react';
 import SpellUsable from '../core/SpellUsable';
 
+// Cooldown reduction (in milliseconds) applied to Putrefy when Harbinger of Doom summons a Lesser Ghoul
+const HARBINGER_OF_DOOM_PUTREFY_CDR_MS = 2500;
+
 const LEGEND_DOT_BASE_STYLE: CSSProperties = {
   display: 'inline-block',
   width: '8px',
@@ -90,7 +93,10 @@ class Putrefy extends Analyzer.withDependencies({
   }
 
   private onHarbingerOfDoomLesserGhoulSummon(_event: SummonEvent) {
-    this.deps.spellUsable.reduceCooldown(TALENTS.PUTREFY_TALENT.id, 2500);
+    this.deps.spellUsable.reduceCooldown(
+      TALENTS.PUTREFY_TALENT.id,
+      HARBINGER_OF_DOOM_PUTREFY_CDR_MS,
+    );
   }
 
   get totalChargesSpent(): number {
