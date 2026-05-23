@@ -58,6 +58,8 @@ interface InertiaWindow {
   burstGlobalCount: number;
   startedEyeBeamDuringWindow: boolean;
   fullyChanneledEyeBeamDuringWindow: boolean;
+  startedAbyssalGazeDuringWindow: boolean;
+  fullyChanneledAbyssalGazeDuringWindow: boolean;
   triggeredFuriousGaze: boolean;
   quickBurstStart: boolean;
 }
@@ -216,6 +218,7 @@ export default class Inertia extends Analyzer {
     const eyeBeamCast = casts.find(
       (cast) => cast.ability.guid === TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id,
     );
+    const abyssalGazeCast = casts.find((cast) => cast.ability.guid === SPELLS.ABYSSAL_GAZE.id);
     const deathSweepCasts = casts.filter((cast) => cast.ability.guid === SPELLS.DEATH_SWEEP.id);
     const annihilationCasts = casts.filter((cast) => cast.ability.guid === SPELLS.ANNIHILATION.id);
     const fillerCasts = casts.filter((cast) => !BURST_WINDOW_SPELLS.has(cast.ability.guid));
@@ -231,6 +234,7 @@ export default class Inertia extends Analyzer {
     );
     const quickBurstStart =
       firstBurstCast !== undefined && firstBurstCast.timestamp - start <= QUICK_BURST_START_MS;
+
     return {
       event,
       start,
@@ -244,6 +248,12 @@ export default class Inertia extends Analyzer {
       startedEyeBeamDuringWindow: Boolean(eyeBeamCast),
       fullyChanneledEyeBeamDuringWindow: Boolean(
         eyeBeamCast && eyeBeamCast.channel?.timestamp && eyeBeamCast.channel.timestamp <= end,
+      ),
+      startedAbyssalGazeDuringWindow: Boolean(abyssalGazeCast),
+      fullyChanneledAbyssalGazeDuringWindow: Boolean(
+        abyssalGazeCast &&
+        abyssalGazeCast.channel?.timestamp &&
+        abyssalGazeCast.channel.timestamp <= end,
       ),
       triggeredFuriousGaze: eyeBeamCast
         ? getFuriousGazeBuffApplication(eyeBeamCast) !== undefined
@@ -353,7 +363,7 @@ export default class Inertia extends Analyzer {
   }
 
   private eyeBeamPerformance(window: InertiaWindow): UsageInfo {
-    if (window.fullyChanneledEyeBeamDuringWindow) {
+    if (window.fullyChanneledEyeBeamDuringWindow || window.fullyChanneledAbyssalGazeDuringWindow) {
       return {
         performance: QualitativePerformance.Perfect,
         summary: <div>Fully channeled Eye Beam during Inertia</div>,
@@ -374,7 +384,7 @@ export default class Inertia extends Analyzer {
       };
     }
 
-    if (window.startedEyeBeamDuringWindow) {
+    if (window.startedEyeBeamDuringWindow || window.startedAbyssalGazeDuringWindow) {
       return {
         performance: QualitativePerformance.Ok,
         summary: <div>Started Eye Beam during Inertia</div>,
