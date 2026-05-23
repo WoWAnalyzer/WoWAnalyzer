@@ -74,12 +74,9 @@ export default class EternalHunt extends Analyzer {
 
   private onRemoveBuff(event: RemoveBuffEvent) {
     const consumption = getEternalHuntConsumption(event);
-    console.log('Buff Removed!');
-    console.log(consumption);
     if (consumption) {
       this.consumers.push(consumption);
     }
-    // Maybe need to add some other push for buffs that expire without being consumed?
     this.buffRemoveEvents.push(event);
   }
 
@@ -229,16 +226,18 @@ export default class EternalHunt extends Analyzer {
         <>
           <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
             <TalentSpellText talent={TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT}>
-              {totalBuffs} <small>Total buffs applied</small>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-              {abyssalGazeConsumptions.length} <small>Consumed by Abyssal Gaze</small>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-              {eyeBeamConsumptions.length} <small>Consumed by Eye Beam</small>
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-              {totalBuffs - totalConsumptions} <small>Wasted Buffs</small>
+              <p>
+                {totalBuffs} <small>Total buffs applied</small>
+              </p>
+              <p>
+                {abyssalGazeConsumptions.length} <small>Consumed by Abyssal Gaze</small>
+              </p>
+              <p>
+                {eyeBeamConsumptions.length} <small>Consumed by Eye Beam</small>
+              </p>
+              <p>
+                {totalBuffs - totalConsumptions} <small>Wasted Buffs</small>
+              </p>
             </TalentSpellText>
           </Statistic>
         </>
@@ -248,13 +247,15 @@ export default class EternalHunt extends Analyzer {
       <>
         <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
           <TalentSpellText talent={TALENTS_DEMON_HUNTER.ETERNAL_HUNT_1_HAVOC_TALENT}>
-            {totalBuffs} <small>Total buffs applied</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {eyeBeamConsumptions.length} <small>Consumed by Eye Beam</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {totalBuffs - totalConsumptions} <small>Wasted Buffs</small>
+            <p>
+              {totalBuffs} <small>Total buffs applied</small>
+            </p>
+            <p>
+              {eyeBeamConsumptions.length} <small>Consumed by Eye Beam</small>
+            </p>
+            <p>
+              {totalBuffs - totalConsumptions} <small>Wasted Buffs</small>
+            </p>
           </TalentSpellText>
         </Statistic>
       </>
