@@ -1,4 +1,3 @@
-import GlobalCooldown from 'analysis/retail/hunter/beastmastery/modules/core/GlobalCooldown';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -10,8 +9,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { COBRA_SHOT_CDR_MS, COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT } from '../../constants';
+import { COBRA_SHOT_KC_CDR_MS, COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT } from '../../constants';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * A quick shot causing Physical damage.
@@ -31,7 +31,7 @@ class CobraShot extends Analyzer {
   wastedKCReductionMs = 0;
   wastedCasts = 0;
   casts = 0;
-  cobraShotCDR = COBRA_SHOT_CDR_MS;
+  cobraShotCDR = COBRA_SHOT_KC_CDR_MS;
 
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
@@ -43,7 +43,6 @@ class CobraShot extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COBRA_SHOT_TALENT),
       this.onCobraShotCast,
     );
-    this.cobraShotCDR += this.selectedCombatant.hasTalent(TALENTS.COBRA_SENSES_TALENT) ? 1000 : 0;
   }
 
   get totalPossibleCDR() {
@@ -119,7 +118,7 @@ class CobraShot extends Analyzer {
     } else {
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(
         TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
-        COBRA_SHOT_CDR_MS,
+        COBRA_SHOT_KC_CDR_MS,
       );
     }
   }
@@ -130,24 +129,18 @@ class CobraShot extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         tooltip={
-          <>
-            {this.wastedCasts > 0 && (
-              <>
-                You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot
-                when Kill Command wasn't on cooldown.{' '}
-              </>
-            )}
-            {this.wastedCasts > 0 && this.wastedKCReductionMs > 0 && <p />}
-            {this.wastedKCReductionMs > 0 &&
-              `You wasted ${this.wastedCDR.toFixed(
-                2,
-              )} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
-          </>
+          this.wastedCasts > 0 && (
+            <>
+              You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot
+              when Kill Command wasn't on cooldown.
+            </>
+          )
         }
       >
         <BoringSpellValueText spell={TALENTS.COBRA_SHOT_TALENT}>
           <>
-            {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
+            {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s{' '}
+            <small>effective CDR</small>
             <p />
             {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}%{' '}
             <small>effectiveness</small>

@@ -10,7 +10,6 @@ import {
   NaturalMending,
   RejuvenatingWind,
   SpellFocusCost,
-  Trailblazer,
   TranquilizingShot,
 } from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -96,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
     tranquilizingShot: TranquilizingShot,
-    trailblazer: Trailblazer,
     naturalMending: NaturalMending,
     bornToBeWild: BornToBeWild,
     masterMarksman: MasterMarksman,

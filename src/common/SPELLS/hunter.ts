@@ -60,42 +60,7 @@ const spells = {
   },
   BARBED_SHOT_BUFF: {
     id: 246152,
-    name: 'Barbed Shot (1)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_2: {
-    id: 246851,
-    name: 'Barbed Shot (2)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_3: {
-    id: 246852,
-    name: 'Barbed Shot (3)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_4: {
-    id: 246853,
-    name: 'Barbed Shot (4)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_5: {
-    id: 246854,
-    name: 'Barbed Shot (5)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_6: {
-    id: 284255,
-    name: 'Barbed Shot (6)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_7: {
-    id: 284257,
-    name: 'Barbed Shot (7)',
-    icon: 'ability_hunter_barbedshot',
-  },
-  BARBED_SHOT_BUFF_8: {
-    id: 284258,
-    name: 'Barbed Shot (8)',
+    name: 'Barbed Shot',
     icon: 'ability_hunter_barbedshot',
   },
   BARBED_SHOT_PET_BUFF: {
@@ -117,6 +82,16 @@ const spells = {
     id: 361582,
     name: 'Call of the Wild',
     icon: 'ability_hunter_pet_assist',
+  },
+  PACK_TACTICS_ENERGIZE: {
+    id: 1282660,
+    name: 'Pack Tactics',
+    icon: 'ability_hunter_barbedshot',
+  },
+  SERPENTINE_STRIKES_ENERGIZE: {
+    id: 1282710,
+    name: 'Serpentine Strikes',
+    icon: 'ability_hunter_cobrashot',
   },
   //endregion
 
@@ -731,9 +706,9 @@ const spells = {
   //endregion
 
   HOWL_OF_THE_PACKLEADER_BUFF: {
-    id: 471876,
+    id: 471877,
     name: 'Howl of the Pack Leader',
-    icon: 'ability_hunter_killcommand',
+    icon: 'inv_ability_packleaderhunter_vicioushunt',
   },
   HOWL_OF_THE_PACKLEADER_WYVERN: {
     id: 471878,
@@ -743,7 +718,7 @@ const spells = {
   HOWL_OF_THE_PACKLEADER_BEAR: {
     id: 472325,
     name: 'Howl of the Pack Leader - Bear',
-    icon: 'ability_hunter_killcommand',
+    icon: 'ability_hunter_pet_bear',
   },
   HOWL_OF_THE_PACKLEADER_BEAR_SUMMON: {
     id: 471990,

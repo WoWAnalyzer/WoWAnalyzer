@@ -1,6 +1,10 @@
 import { change, date } from 'common/changelog';
+import { TALENTS_HUNTER } from 'common/TALENTS/hunter';
 import { Putro, SheenMachine} from 'CONTRIBUTORS';
+import { SpellLink } from 'interface/index';
 export default [
+  change(date(2026, 5, 23), "Fixed some issues with focus regeneration analyzers", Putro),
+  change(date(2026, 5, 23), <>Added support for <SpellLink spell={TALENTS_HUNTER.BARBED_SCALES_TALENT} />, <SpellLink spell={TALENTS_HUNTER.DIRE_COMMAND_TALENT} /> and <SpellLink spell={TALENTS_HUNTER.WAR_ORDERS_TALENT} />  </>, Putro),
   change(date(2026, 4, 14), "Remove more outdated spells and modules", SheenMachine),
   change(date(2026, 4, 12), "Remove Dire Beast module", SheenMachine),
   change(date(2026, 4, 9), "Remove Kill Shot module", SheenMachine),

@@ -2,6 +2,7 @@ import { Putro } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
+import CHANGELOG from './CHANGELOG';
 // import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
@@ -62,7 +63,7 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.BEAST_MASTERY_HUNTER,
   // The contents of your changelog.
-  changelog: [], // CHANGELOG,
+  changelog: CHANGELOG,
   //The CombatLogParser class for your spec.
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "BeastMasteryHunter" */).then(

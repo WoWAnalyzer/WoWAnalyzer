@@ -1,7 +1,4 @@
-import {
-  BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS,
-  BARBED_SHOT_REGEN,
-} from 'analysis/retail/hunter/beastmastery/constants';
+import { BARBED_SHOT_REGEN } from 'analysis/retail/hunter/beastmastery/constants';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -12,6 +9,7 @@ import {
   RESOURCES_HUNTER_AVERAGE_THRESHOLD,
   RESOURCES_HUNTER_MAJOR_THRESHOLD,
 } from './constants';
+import SPELLS from 'common/SPELLS';
 
 class FocusTracker extends ResourceTracker {
   constructor(options: Options) {
@@ -40,11 +38,15 @@ class FocusTracker extends ResourceTracker {
     }
     const spellId = event.ability.guid;
     let waste = 0;
-    let gain;
-    gain = event.resourceChange;
-    if (BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS.includes(spellId)) {
-      waste = BARBED_SHOT_REGEN - gain;
-      gain = gain - waste;
+    let gain = event.resourceChange;
+
+    if (spellId === SPELLS.BARBED_SHOT_BUFF.id) {
+      const stacks = this.selectedCombatant.getBuffStacks(
+        SPELLS.BARBED_SHOT_BUFF.id,
+        event.timestamp,
+      );
+      const totalPossibleGain = stacks * BARBED_SHOT_REGEN;
+      waste = totalPossibleGain - gain;
     } else {
       waste = event.waste;
       gain = event.resourceChange - waste;
