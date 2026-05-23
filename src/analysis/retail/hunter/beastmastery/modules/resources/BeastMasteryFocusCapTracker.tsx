@@ -10,7 +10,7 @@ import {
 class BeastMasteryFocusCapTracker extends FocusCapTracker {
   getBaseRegenRate() {
     return this.selectedCombatant.hasTalent(TALENTS_HUNTER.PACK_TACTICS_TALENT)
-      ? BASE_BM_FOCUS_REGEN * PACK_TACTICS_FOCUS_REGEN_INCREASE
+      ? BASE_BM_FOCUS_REGEN * (1 + PACK_TACTICS_FOCUS_REGEN_INCREASE)
       : BASE_BM_FOCUS_REGEN;
   }
 

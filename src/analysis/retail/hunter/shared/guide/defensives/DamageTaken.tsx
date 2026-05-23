@@ -1,4 +1,4 @@
-import { GoodColor, Section, SubSection, useAnalyzers } from 'interface/guide';
+import { GoodColor, Section, SubSection, useAnalyzers, useInfo } from 'interface/guide';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import Explanation from 'interface/guide/components/Explanation';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
@@ -8,10 +8,15 @@ import { Highlight } from 'interface/Highlight';
 import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import SurvivalOfTheFittest from 'analysis/retail/hunter/shared/talents/SurvivalOfTheFittest';
+import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
 const MajorDefensives = () => {
-  const defensiveAnalyzers = [SurvivalOfTheFittest];
-
+  const info = useInfo();
+  const combatParser = useCombatLogParser();
+  const activeAnalyzers = combatParser.combatLogParser.activeModules.map((mod) => mod.constructor);
+  const defensiveAnalyzers = [SurvivalOfTheFittest].filter((analyzer) =>
+    activeAnalyzers.includes(analyzer),
+  );
   return (
     <Section title="Defensives">
       <HideExplanationsToggle id="hide-explanations-major-defensives" />
@@ -20,11 +25,11 @@ const MajorDefensives = () => {
           Effectively using your major defensive cooldowns is an important aspect of your
           performance, as it will not only increase your own survivability, but also your entire
           raid by allowing healers to focus on keeping others alive.
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-          As a <span className="Hunter">Survival Hunter</span> you have access to one relatively
-          short CD defensive in <SpellLink spell={TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT} />, one
-          heal in
+        </p>
+        <p>
+          As a <span className="Hunter">{info?.combatant?.spec?.wclSpecName ?? ''} Hunter</span> you
+          have access to one relatively short CD defensive in{' '}
+          <SpellLink spell={TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT} />, one heal in
           <SpellLink spell={SPELLS.EXHILARATION} />, and a Pseudo-Immunity in
           <SpellLink spell={SPELLS.ASPECT_OF_THE_TURTLE} />. Turtle will deflect nearly every attack
           cast <strong> after</strong>
@@ -46,27 +51,27 @@ const MajorDefensives = () => {
               damage spikes
             </TooltipElement>{' '}
             as possible, and use any left over to cover periods of heavy, consistent damage.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            <small>
-              In the damage chart below, a spike highlighted in{' '}
-              <Highlight color={GoodColor} textColor="black">
-                green
-              </Highlight>{' '}
-              was covered by a defensive.
-            </small>
+            <p>
+              <small>
+                In the damage chart below, a spike highlighted in{' '}
+                <Highlight color={GoodColor} textColor="black">
+                  green
+                </Highlight>{' '}
+                was covered by a defensive.
+              </small>
+            </p>
           </li>
           <li>
             You should <em>use</em> your cooldowns. This may seem silly&mdash;but not using
             defensives is a common problem! For <span className="Hunter">Hunters</span>, it is also
             likely to be fatal, since most of your mitigation lies in your active cooldowns.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            <small>
-              Below the damage chart, your cooldowns are shown. Large gaps may indicate that you
-              could get more uses&mdash;but remember that covering spikes is more important than
-              maximizing total casts!
-            </small>
+            <p>
+              <small>
+                Below the damage chart, your cooldowns are shown. Large gaps may indicate that you
+                could get more uses&mdash;but remember that covering spikes is more important than
+                maximizing total casts!
+              </small>
+            </p>
           </li>
         </ol>
       </Explanation>

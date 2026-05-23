@@ -80,9 +80,12 @@ class Bloodseeker extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.BLOODSEEKER_TALENT}>
           <>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <ItemDamageDone amount={this.damage} /> <br />
-            {formatPercentage(this.averageAttackSpeedGain)}% <small>atk speed gain</small>
+            <div>
+              <ItemDamageDone amount={this.damage} />
+            </div>
+            <p>
+              {formatPercentage(this.averageAttackSpeedGain)}% <small>atk speed gain</small>
+            </p>
           </>
         </BoringSpellValueText>
       </Statistic>

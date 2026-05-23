@@ -1,7 +1,5 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceIcon } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -27,7 +25,6 @@ class BestialWrath extends Analyzer {
   effectiveBWReduction = 0;
   wastedBWReduction = 0;
   casts = 0;
-  accumulatedFocusAtBWCast = 0;
 
   protected spellUsable!: SpellUsable;
 
@@ -51,28 +48,12 @@ class BestialWrath extends Analyzer {
     return this.effectiveBWReduction / BESTIAL_WRATH_BASE_CD;
   }
 
-  get averageFocusAtBestialWrathCast() {
-    return this.accumulatedFocusAtBWCast / this.casts;
-  }
-
   get totalPossibleCDR() {
     return this.wastedBWReduction + this.effectiveBWReduction;
   }
 
   get effectiveBestialWrathCDRPercent() {
     return this.effectiveBWReduction / this.totalPossibleCDR;
-  }
-
-  get focusOnBestialWrathCastThreshold() {
-    return {
-      actual: this.averageFocusAtBestialWrathCast,
-      isLessThan: {
-        minor: 40,
-        average: 30,
-        major: 20,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   get cdrEfficiencyBestialWrathThreshold() {
@@ -89,12 +70,6 @@ class BestialWrath extends Analyzer {
 
   onBestialWrathCast(event: CastEvent) {
     this.casts += 1;
-    const resource = event.classResources?.find(
-      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
-    );
-    if (resource) {
-      this.accumulatedFocusAtBWCast += resource.amount || 0;
-    }
   }
 
   onBarbedShotCast() {
@@ -113,37 +88,7 @@ class BestialWrath extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        size="flexible"
-        dropdown={
-          <>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <td className="text-left">
-                    <b>Statistic</b>
-                  </td>
-                  <td>
-                    <b>Info</b>
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="text-left">Average focus on cast</td>
-                  <td>
-                    <>
-                      {formatNumber(this.averageFocusAtBestialWrathCast)}
-                      <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink />
-                    </>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </>
-        }
-      >
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(2)} size="flexible">
         <BoringSpellValueText spell={TALENTS.BESTIAL_WRATH_TALENT}>
           <>
             <UptimeIcon /> {this.percentUptime}% <small>uptime</small>
