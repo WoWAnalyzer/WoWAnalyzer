@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Brandrewsss, MarchingCube } from 'CONTRIBUTORS';
+import { Brandrewsss, MarchingCube, Myrx } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/deathknight';
 
 export default [
+  change(date(2026, 5, 15), <>Added analysis for <SpellLink spell={TALENTS.PUTREFY_TALENT} /> usage.</>, Myrx),
   change(date(2026, 4, 10), <>Added Active Time section to the guide with ability uptime, melee uptime, and downtime tracking.</>, MarchingCube),
   change(date(2026, 4, 2), <>Add <SpellLink spell={TALENTS.UNHOLY_AURA_TALENT} /> haste tracking per active Magus of the Dead.</>, MarchingCube),
   change(date(2026, 4, 2), <>Reworked <SpellLink spell={TALENTS.SUDDEN_DOOM_TALENT} /> tracking with stack support, fixed false overwrites from simultaneous procs, and fixed multi-stack expiration counting.</>, MarchingCube),

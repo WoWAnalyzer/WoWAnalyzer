@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/deathknight';
 import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import Putrefy from './talents/Putrefy';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -82,7 +83,10 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.PUTREFY_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        charges: combatant.hasTalent(TALENTS.PUTRID_ECHOES_TALENT) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.PUTRID_ECHOES_TALENT) ? 3 : 1,
+        castEfficiency: {
+          casts: (_castCount, parser) => parser.getModule(Putrefy).totalChargesSpent,
+        },
         gcd: {
           base: 1500,
         },

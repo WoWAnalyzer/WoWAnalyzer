@@ -7,10 +7,12 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
+import SpellUsable from './modules/core/SpellUsable';
 import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
 import ForbiddenKnowledge from './modules/talents/ForbiddenKnowledge';
+import Putrefy from './modules/talents/Putrefy';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
@@ -27,6 +29,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     abilities: Abilities,
     buffs: Buffs,
+    spellUsable: SpellUsable,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
@@ -43,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     suddenDoom: SuddenDoom,
     forbiddenKnowledge: ForbiddenKnowledge,
     unholyAura: UnholyAura,
-
+    putrefy: Putrefy,
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
