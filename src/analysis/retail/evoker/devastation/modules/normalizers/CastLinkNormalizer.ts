@@ -68,9 +68,6 @@ const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
 const DEEP_BREATH_FLIGHT_TIME_MS = 4_000; // 3s + some leeway
 const TWIN_FLAME_TRAVEL_TIME_MS = 1_000;
 
-export const INVALID_DRAGONRAGE_REMOVE = 'InvalidDragonrageRemove';
-const INVALID_DRAGONRAGE_REMOVE_BUFFER_MS = 50; // Biggest observed diff was 1ms but no harm in making it a bit larger
-
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BURNOUT_CONSUME,
@@ -375,18 +372,6 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(_linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, CONSUME_FLAME_DAMAGE_LINK);
     },
-  },
-  {
-    linkRelation: INVALID_DRAGONRAGE_REMOVE,
-    reverseLinkRelation: INVALID_DRAGONRAGE_REMOVE,
-    linkingEventId: TALENTS.DRAGONRAGE_TALENT.id,
-    linkingEventType: EventType.ApplyBuff,
-    referencedEventId: TALENTS.DRAGONRAGE_TALENT.id,
-    referencedEventType: EventType.RemoveBuff,
-    forwardBufferMs: INVALID_DRAGONRAGE_REMOVE_BUFFER_MS,
-    backwardBufferMs: INVALID_DRAGONRAGE_REMOVE_BUFFER_MS,
-    maximumLinks: 1,
-    isActive: (c) => c.hasTalent(TALENTS.DRAGONRAGE_TALENT),
   },
 ];
 
