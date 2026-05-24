@@ -1,6 +1,6 @@
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   position = STATISTIC_ORDER.CORE(1);

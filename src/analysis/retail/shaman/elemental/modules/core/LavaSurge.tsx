@@ -4,13 +4,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, EndChannelEvent, RefreshBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-class LavaSurge extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
-
+class LavaSurge extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+}) {
   private lavaSurgeDuringLvB = false;
   private isCastingLvB = false;
 
@@ -42,8 +38,13 @@ class LavaSurge extends Analyzer {
     if (this.isCastingLvB) {
       this.lavaSurgeDuringLvB = true;
     }
-    if (this.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp, false, false);
+    if (this.deps.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)) {
+      this.deps.spellUsable.endCooldown(
+        TALENTS.LAVA_BURST_TALENT.id,
+        event.timestamp,
+        false,
+        false,
+      );
     }
   }
 
@@ -52,8 +53,16 @@ class LavaSurge extends Analyzer {
     if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id, event.timestamp)) {
       return;
     }
-    if (this.lavaSurgeDuringLvB && this.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp + 1, false, false);
+    if (
+      this.lavaSurgeDuringLvB &&
+      this.deps.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)
+    ) {
+      this.deps.spellUsable.endCooldown(
+        TALENTS.LAVA_BURST_TALENT.id,
+        event.timestamp + 1,
+        false,
+        false,
+      );
     }
     this.lavaSurgeDuringLvB = false;
   }

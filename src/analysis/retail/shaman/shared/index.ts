@@ -1,8 +1,10 @@
-export { default as ElementalBlast } from '../elemental/modules/talents/ElementalBlast';
 export { default as AnkhNormalizer } from './core/AnkhNormalizer';
 export { default as FlameShock } from './core/FlameShock';
 export { default as AstralShift } from './talents/AstralShift';
 export { default as EarthShield } from './talents/EarthShield';
 export * from './talents/EarthShield';
+export { default as EarthenHarmony } from './talents/EarthenHarmony';
+export { default as ElementalBlast } from './talents/ElementalBlast';
+export { default as NaturesGuardian } from './talents/NaturesGuardian';
 export { default as SpiritWolf } from './talents/SpiritWolf';
 export { default as StaticCharge } from './talents/StaticCharge';

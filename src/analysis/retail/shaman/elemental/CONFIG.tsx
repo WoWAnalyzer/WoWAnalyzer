@@ -22,39 +22,37 @@ export default {
         please ask questions in the #elemental channel in the{' '}
         <a href="https://discord.gg/earthshrine">Earthshrine discord</a>.
       </p>
-      <p>
-        More resources for Elemental:
-        <ul>
-          <li>
-            <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">
-              Shaman Class Discord
-            </a>
-          </li>
-          <li>
-            <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">
-              Storm, Earth and Lava
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.wowhead.com/elemental-shaman-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Wowhead Guide
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Icy Veins Guide
-            </a>
-          </li>
-        </ul>
-      </p>
+      <p>More resources for Elemental:</p>
+      <ul>
+        <li>
+          <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">
+            Shaman Class Discord
+          </a>
+        </li>
+        <li>
+          <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">
+            Storm, Earth and Lava
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.wowhead.com/elemental-shaman-guide"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wowhead Guide
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Icy Veins Guide
+          </a>
+        </li>
+      </ul>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
