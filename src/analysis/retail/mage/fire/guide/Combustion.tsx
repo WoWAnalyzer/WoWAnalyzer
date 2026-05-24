@@ -13,6 +13,13 @@ import { EventType, GetRelatedEvent, CastEvent } from 'parser/core/Events';
 
 import CombustionCasts, { CombustionCast } from '../core/Combustion';
 
+const HOT_STREAK_CASTS = [
+  TALENTS.PYROBLAST_TALENT.id,
+  SPELLS.FLAMESTRIKE.id,
+  TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
+  TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
+];
+
 class CombustionGuide extends Analyzer {
   static dependencies = {
     combustion: CombustionCasts,
@@ -171,10 +178,7 @@ class CombustionGuide extends Analyzer {
       const activeTimePerf = this.combustion.activeTimePerformance(cb.activeTime, combustDuration);
       const delayPerf = this.combustion.combustionCastDelayPerformance(cb.castDelay);
       const hotStreakCasts = cb.spellCasts.filter((sc) => {
-        return (
-          sc.ability.guid === TALENTS.PYROBLAST_TALENT.id ||
-          sc.ability.guid === SPELLS.FLAMESTRIKE.id
-        );
+        return HOT_STREAK_CASTS.includes(sc.ability.guid);
       });
       const sequenceEntry = combustSequences[index];
 
