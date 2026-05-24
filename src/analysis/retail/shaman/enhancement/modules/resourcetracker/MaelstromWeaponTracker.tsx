@@ -127,7 +127,9 @@ class MaelstromWeaponTracker extends ResourceTracker {
     this.refundOnMiss = false;
     this.refundOnMissAmount = 0;
     this.isRegenHasted = false;
-    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5;
+    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT)
+      ? 10
+      : 5;
 
     this.addEventListener(Events.freecast.by(SELECTED_PLAYER), this.onFreeCast);
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGlobalCooldown);
