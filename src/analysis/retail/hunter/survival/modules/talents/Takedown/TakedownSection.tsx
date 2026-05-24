@@ -27,11 +27,6 @@ export default function TakedownSection(): JSX.Element | null {
   return (
     <SubSection title={<SpellLink spell={TALENTS.TAKEDOWN_TALENT} />}>
       <Explanation>
-        <p>
-          Always enter <SpellLink spell={TALENTS.TAKEDOWN_TALENT} /> with a{' '}
-          <SpellLink spell={SPELLS.RAPTOR_SWIPE_BUFF} /> buff active.
-        </p>
-
         {hasTwinFangs ? (
           <p>
             With <SpellLink spell={TALENTS.TWIN_FANGS_TALENT} />, Takedown generates{' '}
@@ -46,12 +41,6 @@ export default function TakedownSection(): JSX.Element | null {
             stacks during Takedown.
           </p>
         )}
-        <p>
-          The analysis below is done as if you are in a situation in which you can follow the APL.
-          Some fights may dictate that you do not prime Swipe, or that you immediately Kill Command
-          to spawn a beast such as the tight timings on Mythic Averzian. In these cases, the
-          suggestions below may not be applicable.
-        </p>
       </Explanation>
       <CooldownGrid
         label={<SpellLink spell={TALENTS.TAKEDOWN_TALENT} />}
