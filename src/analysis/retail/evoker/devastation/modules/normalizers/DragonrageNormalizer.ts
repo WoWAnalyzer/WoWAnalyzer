@@ -11,11 +11,10 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: INVALID_DRAGONRAGE_REMOVE,
     reverseLinkRelation: INVALID_DRAGONRAGE_REMOVE,
     linkingEventId: TALENTS.DRAGONRAGE_TALENT.id,
-    linkingEventType: EventType.ApplyBuff,
+    linkingEventType: EventType.RemoveBuff,
     referencedEventId: TALENTS.DRAGONRAGE_TALENT.id,
-    referencedEventType: EventType.RemoveBuff,
+    referencedEventType: EventType.ApplyBuff,
     forwardBufferMs: INVALID_DRAGONRAGE_REMOVE_BUFFER_MS,
-    backwardBufferMs: INVALID_DRAGONRAGE_REMOVE_BUFFER_MS,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.DRAGONRAGE_TALENT),
   },
@@ -24,6 +23,8 @@ const EVENT_LINKS: EventLink[] = [
 /** This Normalizer fixes an issue that happens very sporadically, where Dragonrage gets removed and reapplied on the same tick.
  * This is has no effect on actual gameplay and will just mess up the analyzers (Likely some hallucination by the log).
  * As a remedy we just remove both events.
+ * Issue is visible in the following log (also applies to the other fight in the log):
+ * https://www.warcraftlogs.com/reports/bmZzt7RXcAq9KMW6?fight=1&type=auras&source=4&ability=375087&view=events
  * */
 class DragonrageNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
