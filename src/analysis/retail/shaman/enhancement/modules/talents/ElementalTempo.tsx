@@ -12,6 +12,12 @@ import GuideSection from 'interface/guide/components/GuideSection';
 import CastOverview from 'interface/guide/components/CastOverview';
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  computeScore,
+  getAggregatedScore,
+  scoreFromBreakpoints,
+  scoreToQualitativePerformance,
+} from 'parser/ui/WeightedPerformance';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { CastDetail, PerCastData } from 'interface/guide/components';
 
@@ -30,17 +36,12 @@ type CastCdrBreakdown = {
   isAscendanceActive: boolean;
   stormstrike: ElementalTempCast;
   lavaLash: ElementalTempCast;
-  wastedPercent: number;
-  wasteFloor: number;
-  bothAvailable: boolean;
-  performance: QualitativePerformance;
 };
 
 type OverviewBreakdown = {
   totalStacksSpent: number;
   totalPotentialMs: number;
   totalWastedMs: number;
-  perfectCasts: number;
 };
 
 class ElementalTempo extends Analyzer.withDependencies({
@@ -110,40 +111,18 @@ class ElementalTempo extends Analyzer.withDependencies({
     const stormstrike = this.calculateCdrWasteForSpell(stormstrikeSpellId, cooldownReduction);
     const lavaLash = this.calculateCdrWasteForSpell(TALENTS.LAVA_LASH_TALENT.id, cooldownReduction);
 
-    const totalPotentialMs = cooldownReduction * 2;
-    const totalWastedMs = stormstrike.wastedMs + lavaLash.wastedMs;
-    const wastedPercent = totalPotentialMs > 0 ? totalWastedMs / totalPotentialMs : 0;
-    const ssFullCd = this.deps.spellUsable.fullCooldownDuration(stormstrikeSpellId);
-    const llFullCd = this.deps.spellUsable.fullCooldownDuration(TALENTS.LAVA_LASH_TALENT.id);
-    const wasteFloor =
-      ssFullCd > 0 && llFullCd > 0
-        ? (cooldownReduction / (2 * ssFullCd) + cooldownReduction / (2 * llFullCd)) / 2
-        : 0;
-
-    const bothAvailable = stormstrikeRemainingBefore <= 0 && lavaLashRemainingBefore <= 0;
-
-    const breakdown: CastCdrBreakdown = {
+    this.casts.push({
       timestamp: event.timestamp,
       spenderSpellId: event.ability.guid,
       stacksSpent,
       isAscendanceActive,
-      stormstrike: stormstrike,
-      lavaLash: lavaLash,
-      wastedPercent,
-      wasteFloor,
-      bothAvailable,
-      performance: this.getCastPerformance(stacksSpent, bothAvailable, wastedPercent, wasteFloor),
-    };
-
-    this.casts.push({
-      ...breakdown,
       stormstrike: {
-        ...breakdown.stormstrike,
-        totalMs: Math.min(breakdown.stormstrike.totalMs, stormstrikeRemainingBefore),
+        ...stormstrike,
+        totalMs: Math.min(stormstrike.totalMs, stormstrikeRemainingBefore),
       },
       lavaLash: {
-        ...breakdown.lavaLash,
-        totalMs: Math.min(breakdown.lavaLash.totalMs, lavaLashRemainingBefore),
+        ...lavaLash,
+        totalMs: Math.min(lavaLash.totalMs, lavaLashRemainingBefore),
       },
     });
   }
@@ -182,25 +161,79 @@ class ElementalTempo extends Analyzer.withDependencies({
     };
   }
 
-  private getCastPerformance(
-    stacksSpent: number,
-    bothAvailable: boolean,
-    wastedPercent: number,
-    wasteFloor: number,
-  ) {
-    if (bothAvailable) {
-      return stacksSpent >= 10 ? QualitativePerformance.Ok : QualitativePerformance.Fail;
+  /**
+   * Scoring constants for weighted performance evaluation.
+   *
+   * The per-spell waste decay is scaled inversely by (5 / stacksSpent) so that
+   * higher stack counts produce gentler scoring curves, reflecting the reality
+   * that large CDR amounts are unlikely to be fully utilised by both abilities.
+   */
+  private static readonly SCORING = {
+    /** Weight for Stormstrike/Windstrike CDR waste */
+    ssWasteWeight: 1,
+    /** Weight for Lava Lash CDR waste */
+    llWasteWeight: 1,
+    /** Weight for stack count bonus (rewards spending at high stacks) */
+    stackBonusWeight: 2,
+    /**
+     * Base exponential decay rate for per-spell waste scoring.
+     * Effective decay = wasteDecayBase × (5 / stacksSpent).
+     */
+    wasteDecayBase: 1.5,
+  } as const;
+
+  /** Score a single spell's CDR waste using exponential decay, scaled by stacks spent. */
+  private getSpellWasteScore(wastedMs: number, stacksSpent: number): number {
+    const totalCdr = stacksSpent * CDR_MS_PER_STACK;
+    if (totalCdr <= 0) {
+      return 1.0;
     }
-    if (wastedPercent <= wasteFloor) {
-      return QualitativePerformance.Perfect;
-    }
-    if (wastedPercent < wasteFloor + 0.25 * (1 - wasteFloor)) {
-      return QualitativePerformance.Good;
-    }
-    if (wastedPercent < wasteFloor + 0.5 * (1 - wasteFloor) || stacksSpent >= 10) {
-      return QualitativePerformance.Ok;
-    }
-    return QualitativePerformance.Fail;
+    const wasteFraction = wastedMs / totalCdr;
+    const scaledDecay = ElementalTempo.SCORING.wasteDecayBase * (5 / stacksSpent);
+    return computeScore(wasteFraction, (f) => Math.exp(-scaledDecay * f));
+  }
+
+  /** Higher stack counts are rewarded — spending at 10 is always desirable. */
+  private getStackScore(stacksSpent: number): number {
+    return scoreFromBreakpoints(stacksSpent, [
+      { value: 5, score: 0.5 },
+      { value: 8, score: 0.85 },
+      { value: 10, score: 1.0 },
+    ]);
+  }
+
+  /**
+   * Per-check minimum score (floor) for waste checks, scaling with stacks spent.
+   * At 10 stacks, waste scores are floored at 0.8 so that high-stack casts are
+   * never significantly penalised regardless of cooldown state.
+   */
+  private getWasteMinScore(stacksSpent: number): number {
+    return scoreFromBreakpoints(stacksSpent, [
+      { value: 5, score: 0 },
+      { value: 8, score: 0.5 },
+      { value: 10, score: 0.8 },
+    ]);
+  }
+
+  /** Weighted aggregate of per-spell waste and stack bonus scores. */
+  private getOverallScore(cast: CastCdrBreakdown): number {
+    const wasteMinScore = this.getWasteMinScore(cast.stacksSpent);
+    return getAggregatedScore([
+      {
+        score: this.getSpellWasteScore(cast.stormstrike.wastedMs, cast.stacksSpent),
+        weight: ElementalTempo.SCORING.ssWasteWeight,
+        minScore: wasteMinScore,
+      },
+      {
+        score: this.getSpellWasteScore(cast.lavaLash.wastedMs, cast.stacksSpent),
+        weight: ElementalTempo.SCORING.llWasteWeight,
+        minScore: wasteMinScore,
+      },
+      {
+        score: this.getStackScore(cast.stacksSpent),
+        weight: ElementalTempo.SCORING.stackBonusWeight,
+      },
+    ]);
   }
 
   private renderCastTooltip(cast: CastCdrBreakdown): JSX.Element {
@@ -228,41 +261,18 @@ class ElementalTempo extends Analyzer.withDependencies({
     );
   }
 
-  private getWastePerformance(
-    cast: CastCdrBreakdown,
-    wastedMs: number,
-    totalMs: number,
-  ): QualitativePerformance {
-    if (totalMs === 0) {
-      return QualitativePerformance.Perfect;
-    }
-    const spellWaste = wastedMs / totalMs;
-    if (spellWaste <= cast.wasteFloor) {
-      return QualitativePerformance.Perfect;
-    } else if (spellWaste < cast.wasteFloor + 0.25 * (1 - cast.wasteFloor)) {
-      return QualitativePerformance.Good;
-    } else if (spellWaste < cast.wasteFloor + 0.5 * (1 - cast.wasteFloor)) {
-      return QualitativePerformance.Ok;
-    }
-    return QualitativePerformance.Fail;
-  }
-
   private buildOverviewBreakdown(): OverviewBreakdown {
     return this.casts.reduce<OverviewBreakdown>(
       (totals, cast) => {
         totals.totalStacksSpent += cast.stacksSpent;
         totals.totalPotentialMs += cast.stormstrike.totalMs + cast.lavaLash.totalMs;
         totals.totalWastedMs += cast.stormstrike.wastedMs + cast.lavaLash.wastedMs;
-        if (cast.performance === QualitativePerformance.Perfect) {
-          totals.perfectCasts += 1;
-        }
         return totals;
       },
       {
         totalStacksSpent: 0,
         totalPotentialMs: 0,
         totalWastedMs: 0,
-        perfectCasts: 0,
       },
     );
   }
@@ -273,11 +283,12 @@ class ElementalTempo extends Analyzer.withDependencies({
         ? SPELLS.WINDSTRIKE_CAST
         : SPELLS.STORMSTRIKE;
       const totalCdr = cast.stacksSpent * CDR_MS_PER_STACK;
+      const overallScore = this.getOverallScore(cast);
 
       const ssLabel = cast.isAscendanceActive ? 'Windstrike' : 'Stormstrike';
 
       return {
-        performance: cast.performance,
+        performance: scoreToQualitativePerformance(overallScore),
         timestamp: this.owner.formatTimestamp(cast.timestamp),
         tooltip: this.renderCastTooltip(cast),
         stats: [
@@ -301,10 +312,8 @@ class ElementalTempo extends Analyzer.withDependencies({
                 <SpellLink spell={stormstrikeLabel} />.
               </>
             ),
-            performance: this.getWastePerformance(
-              cast,
-              cast.stormstrike.wastedMs,
-              cast.stormstrike.totalMs,
+            performance: scoreToQualitativePerformance(
+              this.getSpellWasteScore(cast.stormstrike.wastedMs, cast.stacksSpent),
             ),
           },
           {
@@ -317,10 +326,8 @@ class ElementalTempo extends Analyzer.withDependencies({
                 <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />.
               </>
             ),
-            performance: this.getWastePerformance(
-              cast,
-              cast.lavaLash.wastedMs,
-              cast.lavaLash.totalMs,
+            performance: scoreToQualitativePerformance(
+              this.getSpellWasteScore(cast.lavaLash.wastedMs, cast.stacksSpent),
             ),
           },
         ],
@@ -330,6 +337,10 @@ class ElementalTempo extends Analyzer.withDependencies({
 
   private buildOverviewStats() {
     const overview = this.buildOverviewBreakdown();
+    const perfectCasts = this.casts.filter(
+      (c) =>
+        scoreToQualitativePerformance(this.getOverallScore(c)) === QualitativePerformance.Perfect,
+    ).length;
 
     return [
       {
@@ -369,7 +380,7 @@ class ElementalTempo extends Analyzer.withDependencies({
         ),
       },
       {
-        value: `${overview.perfectCasts}`,
+        value: `${perfectCasts}`,
         label: 'Perfect Casts',
         tooltip: (
           <>
