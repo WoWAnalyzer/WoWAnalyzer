@@ -1,4 +1,5 @@
 import { formatPercentage } from 'common/format';
+import SPECS from 'game/SPECS';
 import CrossIcon from 'interface/icons/Cross';
 import { Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
@@ -7,6 +8,7 @@ import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/hunter';
 
 /**
  * Tracks the amount of cancelled casts in %.
@@ -17,6 +19,9 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 class CancelledCasts extends CoreCancelledCasts {
   constructor(options: Options) {
     super(options);
+    this.active =
+      this.selectedCombatant.spec !== SPECS.BEAST_MASTERY_HUNTER ||
+      this.selectedCombatant.hasTalent(TALENTS.BLACK_ARROW_BEAST_MASTERY_TALENT);
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting
       ...CASTS_THAT_ARENT_CASTS,

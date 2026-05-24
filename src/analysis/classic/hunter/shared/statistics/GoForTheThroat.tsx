@@ -38,12 +38,14 @@ const GoForTheThroat = statistic((events, { fightDuration, playerId, fightId, re
       })}
     >
       <BoringSpellValueText spell={GO_FOR_THE_THROAT}>
-        {formatThousands((focusGained / fightDuration) * 1000 * 5)} focus gained{' '}
-        <small>per 5sec</small>
-        {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-        <br />
-        {formatThousands((focusWasted / fightDuration) * 1000 * 5)} focus wasted{' '}
-        <small>per 5sec</small>
+        <p>
+          {formatThousands((focusGained / fightDuration) * 1000 * 5)} focus gained{' '}
+          <small>per 5sec</small>
+        </p>
+        <p>
+          {formatThousands((focusWasted / fightDuration) * 1000 * 5)} focus wasted{' '}
+          <small>per 5sec</small>
+        </p>
       </BoringSpellValueText>
     </Statistic>
   );

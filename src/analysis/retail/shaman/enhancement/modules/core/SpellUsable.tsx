@@ -52,6 +52,11 @@ class SpellUsable extends CoreSpellUsable.withDependencies({
           this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
           super.isAvailable(spellId)
         );
+      case TALENTS.CRASH_LIGHTNING_TALENT.id:
+        return (
+          super.isAvailable(spellId) ||
+          this.selectedCombatant.hasBuff(SPELLS.STORM_UNLEASHED_BUFF.id)
+        );
       default:
         return super.isAvailable(spellId);
     }

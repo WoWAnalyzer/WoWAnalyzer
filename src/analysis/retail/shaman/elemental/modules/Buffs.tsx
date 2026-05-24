@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { TIERS } from 'game/TIERS';
 import { SpellbookAura } from 'parser/core/modules/Aura';
-import CoreAuras from 'parser/core/modules/Auras';
+import CoreAuras from '../../shared/Buffs';
 
 class Buffs extends CoreAuras {
   auras(): SpellbookAura[] {
@@ -10,7 +10,8 @@ class Buffs extends CoreAuras {
 
     // This should include ALL buffs that can be applied by your spec.
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
-    return [
+    const buffs = [
+      ...super.auras(),
       {
         spellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         triggeredBySpellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
@@ -68,6 +69,10 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
       },
     ];
+
+    const swg = buffs.find((buff) => buff.spellId === TALENTS.SPIRITWALKERS_GRACE_TALENT.id);
+    if (swg) swg.timelineHighlight = true;
+    return buffs;
   }
 }
 

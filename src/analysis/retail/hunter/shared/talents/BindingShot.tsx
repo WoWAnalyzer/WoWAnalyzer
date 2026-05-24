@@ -78,10 +78,13 @@ class BindingShot extends Analyzer {
         <Statistic position={STATISTIC_ORDER.OPTIONAL(14)} size="flexible" category={this.category}>
           <BoringSpellValueText spell={TALENTS.BINDING_SHOT_TALENT}>
             <>
-              {this._roots} <small>roots</small> / {this._applications} <small>possible</small>{' '}
-              {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-              <br />
-              {this._casts} <small>casts</small>
+              <p>
+                {this._roots} <small>roots</small> / {this._applications}{' '}
+                <small>possible</small>{' '}
+              </p>
+              <p>
+                {this._casts} <small>casts</small>
+              </p>
             </>
           </BoringSpellValueText>
         </Statistic>

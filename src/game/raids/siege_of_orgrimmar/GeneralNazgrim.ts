@@ -1,7 +1,7 @@
 import type { Boss } from '../index';
 
 const boss: Boss = {
-  id: 1603,
+  id: 51603,
   name: 'General Nazgrim',
   fight: {},
 };

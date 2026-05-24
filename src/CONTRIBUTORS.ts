@@ -2874,6 +2874,13 @@ export const MarchingCube: Contributor = {
   github: 'MarchingCube',
 };
 
+export const Myrx: Contributor = {
+  nickname: 'Myrx',
+  github: 'BenBurnett',
+  discord: 'Myrx',
+  avatar: avatar('myrx-avatar.png'),
+};
+
 export const Hezaerd: Contributor = {
   nickname: 'Hezaerd',
   github: 'Hezaerd',

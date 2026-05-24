@@ -19,6 +19,7 @@ const scorch = <SpellLink spell={SPELLS.SCORCH} />
 
 // prettier-ignore
 export default [
+  change(date(2026, 5, 24), <>Fixed an issue causing {combustion} to not properly count all iterations of {flamestrike} as a {hotStreak} cast.</>, Sharrq),
   change(date(2026, 4, 26), <>Fixed an issue causing {heatShimmer} to not properly account for buff refreshes.</>, Sharrq),
   change(date(2026, 4, 21), <>Updated Spec Compatability to 12.0.5.</>, Sharrq),
   change(date(2026, 4, 17), <>Temporarily fix crash of {heatShimmer} by extending the buffer</>, Thias),

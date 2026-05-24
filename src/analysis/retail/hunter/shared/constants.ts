@@ -6,6 +6,8 @@ import TALENTS from 'common/TALENTS/hunter';
 //A simple function to calculate hasted cooldowns
 export const hastedCooldown = (baseCD: number, haste: number) => baseCD / (1 + haste);
 /** MS Buffers */
+//A shorter 50ms buffer
+export const MS_BUFFER_50 = 50;
 //A 100ms buffer is standard to use since logs aren't precise to the millisecond for events
 export const MS_BUFFER_100 = 100;
 //Whenever we need to use 250ms buffers

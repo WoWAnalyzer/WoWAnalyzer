@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { TALENTS_PALADIN, TALENTS_SHAMAN } from 'common/TALENTS';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
 const spells: number[] = [
   /**
@@ -120,7 +120,6 @@ const spells: number[] = [
 
   //region shaman
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
-  TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
   SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
   SPELLS.HEALING_RAIN_TOTEMIC.id,
   SPELLS.DOOM_WINDS_TICK.id,

@@ -26,11 +26,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={
           <>
-            Downtime is available time not used to cast anything (including not having your GCD
-            rolling). This can be caused by delays between casting spells, latency, cast
-            interrupting, or not casting anything maybe due to movement or being stunned.
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            <p>
+              Downtime is available time not used to cast anything (including not having your GCD
+              rolling). This can be caused by delays between casting spells, latency, cast
+              interrupting, or not casting anything maybe due to movement or being stunned.
+            </p>
             <ul>
               <li>
                 You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your

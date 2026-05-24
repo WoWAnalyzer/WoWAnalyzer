@@ -29,6 +29,11 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id,
       },
       {
+        spellId: SPELLS.INERTIA_BUFF.id,
+        timelineHighlight: true,
+        triggeredBySpellId: SPELLS.INERTIA_BUFF.id,
+      },
+      {
         spellId: SPELLS.BLUR_BUFF.id,
         triggeredBySpellId: SPELLS.BLUR.id,
       },

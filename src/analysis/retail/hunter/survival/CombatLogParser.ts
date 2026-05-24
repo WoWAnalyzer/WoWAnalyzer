@@ -10,7 +10,6 @@ import {
   NaturalMending,
   RejuvenatingWind,
   SpellFocusCost,
-  Trailblazer,
   TranquilizingShot,
 } from '../shared';
 import Abilities from './modules/Abilities';
@@ -102,7 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,
-    trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
     survivalOfTheFittest: SurvivalOfTheFittest,
     stampedeAnalyzer: StampedeAnalyzer,

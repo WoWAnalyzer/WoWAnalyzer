@@ -102,6 +102,7 @@ class Channeling extends EventsNormalizer {
     // Demon Hunter
     buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id), // TODO special handling because of the two buffs?
     buffChannelSpec(TALENTS_DEMON_HUNTER.VOID_RAY_TALENT.id),
+    buffChannelSpec(SPELLS.ABYSSAL_GAZE.id),
     // Shaman
     // Hunter
     buffChannelSpec(TALENTS_HUNTER.RAPID_FIRE_TALENT.id),

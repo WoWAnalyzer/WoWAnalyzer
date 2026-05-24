@@ -75,11 +75,13 @@ class KillCommand extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.WILDFIRE_INFUSION_TALENT}>
           <>
-            {formatDurationMillisMinSec(this.effectiveReductionMs)}{' '}
-            <small>cooldown reduction.</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {formatDurationMillisMinSec(this.wastedReductionMs)} <small>wasted.</small>
+            <p>
+              {formatDurationMillisMinSec(this.effectiveReductionMs)}{' '}
+              <small>cooldown reduction.</small>
+            </p>
+            <p>
+              {formatDurationMillisMinSec(this.wastedReductionMs)} <small>wasted.</small>
+            </p>
           </>
         </BoringSpellValueText>
       </Statistic>

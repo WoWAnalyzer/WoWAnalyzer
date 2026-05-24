@@ -286,20 +286,20 @@ class Boomstick extends Analyzer.withDependencies({ haste: Haste }) {
       >
         <BoringSpellValueText spell={TALENTS.BOOMSTICK_TALENT}>
           <>
-            <ItemDamageDone amount={this.totalDamage} />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {this.totalHits} <small>targets hit</small>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {(this.totalTicks > 0 ? this.totalHits / this.totalTicks : 0).toFixed(1)}{' '}
-            <small>avg targets/tick</small>
+            <div>
+              <ItemDamageDone amount={this.totalDamage} />
+            </div>
+            <p>
+              {this.totalHits} <small>targets hit</small>
+            </p>
+            <p>
+              {(this.totalTicks > 0 ? this.totalHits / this.totalTicks : 0).toFixed(1)}{' '}
+              <small>avg targets/tick</small>
+            </p>
             {this.clippedCasts > 0 && (
-              <>
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                <br />
+              <p>
                 {this.clippedCasts} <small>clipped casts</small>
-              </>
+              </p>
             )}
           </>
         </BoringSpellValueText>

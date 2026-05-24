@@ -3,14 +3,19 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import { IntroSection } from './guide/IntroSection';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/deathknight';
+import TALENTS from 'common/TALENTS/deathknight';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import Cooldowns from './guide/CooldownSection';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
-export default function Guide({ modules }: GuideProps<typeof CombatLogParser>) {
+export default function Guide({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <IntroSection />
+
+      <Section title="Core Spells and Buffs">
+        {info.combatant.hasTalent(TALENTS.PUTREFY_TALENT) && modules.putrefy.guideSubsection}
+      </Section>
 
       <Section title="Active Time">
         <FoundationDowntimeSection />
