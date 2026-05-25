@@ -1135,6 +1135,12 @@ const spells = {
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },
+  // stacking damage buff from Hunger for Battle talent (triggers on Rip-target death)
+  HUNGER_FOR_BATTLE_BUFF: {
+    id: 1244553,
+    name: 'Hunger for Battle',
+    icon: 'ability_druid_predatoryinstincts',
+  },
   // Buff procced by Apex Predator's Craving talent
   APEX_PREDATORS_CRAVING_BUFF: {
     id: 391882,

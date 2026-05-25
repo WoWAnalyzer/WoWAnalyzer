@@ -34,6 +34,8 @@ import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
 import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
 import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
 import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
+import BloodSpattered from 'analysis/retail/druid/feral/modules/spells/BloodSpattered';
+import HungerForBattle from 'analysis/retail/druid/feral/modules/spells/HungerForBattle';
 import CarnivorousInstinct from 'analysis/retail/druid/feral/modules/spells/CarnivorousInstinct';
 import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
@@ -98,6 +100,8 @@ class CombatLogParser extends CoreCombatLogParser {
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
     tasteForBlood: TasteForBlood,
+    bloodSpattered: BloodSpattered,
+    hungerForBattle: HungerForBattle,
     carnivorousInstinct: CarnivorousInstinct,
     omenAndMomentOfClarity: OmenAndMomentOfClarity,
     feralFrenzy: FeralFrenzy,
