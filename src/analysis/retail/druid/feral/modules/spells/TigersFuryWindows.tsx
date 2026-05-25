@@ -191,28 +191,64 @@ class TigersFuryWindows extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    return (
-      <SubSection title="Tiger's Fury Windows">
+    return <TigersFuryWindowsView windows={this.windows} owner={this.owner} />;
+  }
+}
+
+function TigersFuryWindowsView({
+  windows,
+  owner,
+}: {
+  windows: TfWindow[];
+  owner: TigersFuryWindows['owner'];
+}): JSX.Element {
+  const [showAll, setShowAll] = useState(false);
+  const restCount = Math.max(0, windows.length - 1);
+  const visibleWindows = showAll ? windows : windows.slice(0, 1);
+
+  return (
+    <SubSection title="Tiger's Fury Windows">
+      <p>
+        Every <SpellLink spell={SPELLS.TIGERS_FURY} /> window below shows the casts you fit into it.
+        Auto-attacks are hidden. Casts triggered by{' '}
+        <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> are dimmed since they aren't
+        part of your manual rotation. The first window is shown as an example; use the button below
+        to reveal the rest.
+      </p>
+      {windows.length === 0 ? (
         <p>
-          Every <SpellLink spell={SPELLS.TIGERS_FURY} /> window below shows the casts you fit into
-          it. Auto-attacks are hidden. Casts triggered by{' '}
-          <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> are dimmed since they
-          aren't part of your manual rotation.
+          <em>No Tiger's Fury casts in this fight.</em>
         </p>
-        {this.windows.length === 0 ? (
-          <p>
-            <em>No Tiger's Fury casts in this fight.</em>
-          </p>
-        ) : (
+      ) : (
+        <>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {this.windows.map((win, i) => (
-              <TfWindowCard key={i} window={win} owner={this.owner} />
+            {visibleWindows.map((win, i) => (
+              <TfWindowCard key={i} window={win} owner={owner} />
             ))}
           </div>
-        )}
-      </SubSection>
-    );
-  }
+          {restCount > 0 && (
+            <div style={{ marginTop: 10 }}>
+              <button
+                type="button"
+                onClick={() => setShowAll((v) => !v)}
+                style={{
+                  background: 'none',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  borderRadius: 4,
+                  padding: '4px 12px',
+                  color: '#fab700',
+                  cursor: 'pointer',
+                  fontSize: '0.9em',
+                }}
+              >
+                {showAll ? 'Collapse Windows' : `Show Windows (${restCount} more)`}
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </SubSection>
+  );
 }
 
 function TfWindowCard({
@@ -222,9 +258,9 @@ function TfWindowCard({
   window: TfWindow;
   owner: TigersFuryWindows['owner'];
 }): JSX.Element {
-  const [expanded, setExpanded] = useState(false);
-  const collapsible = win.casts.length > COLLAPSED_CAST_LIMIT;
-  const visibleCasts = expanded ? win.casts : win.casts.slice(0, COLLAPSED_CAST_LIMIT);
+  const [castsExpanded, setCastsExpanded] = useState(false);
+  const castsCollapsible = win.casts.length > COLLAPSED_CAST_LIMIT;
+  const visibleCasts = castsExpanded ? win.casts : win.casts.slice(0, COLLAPSED_CAST_LIMIT);
 
   const startLabel = owner.formatTimestamp(win.castTimestamp);
   const endLabel = owner.formatTimestamp(win.castTimestamp + win.durationMs);
@@ -325,11 +361,11 @@ function TfWindowCard({
                   <CastRow key={i} cast={cast} />
                 ))}
               </ol>
-              {collapsible && (
+              {castsCollapsible && (
                 <div style={{ marginTop: 6, fontSize: '0.9em' }}>
                   <button
                     type="button"
-                    onClick={() => setExpanded((v) => !v)}
+                    onClick={() => setCastsExpanded((v) => !v)}
                     style={{
                       background: 'none',
                       border: 'none',
@@ -339,7 +375,7 @@ function TfWindowCard({
                       textDecoration: 'underline',
                     }}
                   >
-                    {expanded
+                    {castsExpanded
                       ? 'Show less'
                       : `Show more (${win.casts.length - COLLAPSED_CAST_LIMIT})`}
                   </button>
