@@ -2,7 +2,7 @@ import { change, date } from 'common/changelog';
 import {  Drowzen } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2026, 5, 24), "", Drowzen),
+  change(date(2026, 5, 24), "Added Analyzers for Hunger For Battle and BloodSpattered; Collapsable Tiger's Fury Window List", Drowzen),
   change(date(2026, 5, 21), "Added Tiger's Fury Windows guide subsection — per-TF cast breakdown of what you cast inside each window; energy/CPs at start are now correctly the pre-cast values, not post-energize", Drowzen),
   change(date(2026, 5, 16), "Ferocious Bite no longer flags low-Rip warnings when the target dies within 5s of the cast (verified via Rake/Rip bleed ending early — switching to a still-alive target still counts)", Drowzen),
   change(date(2026, 5, 13), "Added Sprouts of the Luminous Bloom (Midnight S1) tier set statistic", Drowzen),
