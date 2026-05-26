@@ -58,6 +58,8 @@ import ConsumingFireNormalizer from 'analysis/retail/demonhunter/havoc/normalize
 import TheHuntNormalizer from './normalizers/TheHuntNormalizer';
 import TheHunt from 'analysis/retail/demonhunter/havoc/modules/talents/TheHunt';
 import DemonBlades from 'analysis/retail/demonhunter/havoc/modules/spells/DemonBlades';
+import EternalHunt from './modules/talents/EternalHunt';
+import EternalHuntNormalizer from './normalizers/EternalHuntNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -73,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousGazeEventLinkNormalizer: FuriousGazeNormalizer,
     unboundChaosNormalizer: UnboundChaosNormalizer,
     consumingFireNormalizer: ConsumingFireNormalizer,
+    eternalHuntNormalizer: EternalHuntNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -119,6 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
     disruptingFury: DisruptingFury,
     eyeBeam: EyeBeam,
     unboundChaos: UnboundChaos,
+    eternalHunt: EternalHunt,
 
     // Hero
     demonsurge: Demonsurge,
