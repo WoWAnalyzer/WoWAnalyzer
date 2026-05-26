@@ -4,13 +4,7 @@ import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import DonutChart from 'parser/ui/DonutChart';
@@ -33,11 +27,6 @@ const GOOD_CAST_COLOR = '#22c55e';
 const BAD_CAST_COLOR = '#ef4444';
 const STACK_LINE_COLOR = '#5dd7fc';
 
-type StackTimelinePoint = {
-  timestamp: number;
-  stacks: number;
-};
-
 type CastTimelinePoint = {
   timestamp: number;
   stacks: number;
@@ -53,7 +42,6 @@ class ScourgeStrike extends Analyzer {
   private castsWithLesserGhoulStacks = 0;
   private castsWithoutLesserGhoulStacks = 0;
 
-  private readonly lesserGhoulStackTimeline: StackTimelinePoint[] = [];
   private readonly scourgeStrikeCastTimeline: CastTimelinePoint[] = [];
 
   constructor(options: Options) {
@@ -64,56 +52,10 @@ class ScourgeStrike extends Analyzer {
       return;
     }
 
-    this.recordLesserGhoulStacks(this.owner.fight.start_time, 0);
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
-      this.onLesserGhoulApplyBuff,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
-      this.onLesserGhoulApplyBuffStack,
-    );
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
-      this.onLesserGhoulRemoveBuffStack,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LESSER_GHOUL_BUFF),
-      this.onLesserGhoulRemoveBuff,
-    );
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SCOURGE_STRIKE_TALENT),
       this.onScourgeStrikeCast,
     );
-  }
-
-  private onLesserGhoulApplyBuff(event: ApplyBuffEvent) {
-    this.recordLesserGhoulStacks(event.timestamp, 1);
-  }
-
-  private onLesserGhoulApplyBuffStack(event: ApplyBuffStackEvent) {
-    this.recordLesserGhoulStacks(event.timestamp, event.stack);
-  }
-
-  private onLesserGhoulRemoveBuffStack(event: RemoveBuffStackEvent) {
-    this.recordLesserGhoulStacks(event.timestamp, event.stack);
-  }
-
-  private onLesserGhoulRemoveBuff(event: RemoveBuffEvent) {
-    this.recordLesserGhoulStacks(event.timestamp, 0);
-  }
-
-  private recordLesserGhoulStacks(timestamp: number, stacks: number) {
-    const previousPoint = this.lesserGhoulStackTimeline[this.lesserGhoulStackTimeline.length - 1];
-
-    if (previousPoint?.timestamp === timestamp) {
-      previousPoint.stacks = stacks;
-      return;
-    }
-
-    this.lesserGhoulStackTimeline.push({ timestamp, stacks });
   }
 
   private onScourgeStrikeCast(event: CastEvent) {
@@ -172,10 +114,14 @@ class ScourgeStrike extends Analyzer {
       goodCastData.push(castPoint);
     });
 
-    const stackData = [...this.lesserGhoulStackTimeline];
-    const lastStackPoint = stackData[stackData.length - 1];
     const fightEnd = this.owner.fight.end_time;
-
+    const stackData = [
+      { timestamp: this.owner.fight.start_time, stacks: 0 },
+      ...this.selectedCombatant
+        .getBuffHistory(SPELLS.LESSER_GHOUL_BUFF)
+        .flatMap((buff) => buff.stackHistory),
+    ];
+    const lastStackPoint = stackData.at(-1);
     if (lastStackPoint && lastStackPoint.timestamp < fightEnd) {
       stackData.push({ timestamp: fightEnd, stacks: lastStackPoint.stacks });
     }
