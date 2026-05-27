@@ -13,6 +13,7 @@ import Events, {
 } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
+import Abilities from 'parser/core/modules/Abilities';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -44,6 +45,7 @@ interface MissedFreeSoulReaperRecord {
 class SoulReaper extends ExecuteHelper.withDependencies({
   spellUsable: SpellUsable,
   enemies: Enemies,
+  abilities: Abilities,
 }) {
   public static readonly executeSources = SELECTED_PLAYER;
   public static readonly lowerThreshold = SOUL_REAPER_EXECUTE_THRESHOLD;
@@ -127,7 +129,7 @@ class SoulReaper extends ExecuteHelper.withDependencies({
       return putrefyStateBeforeCast.chargesAvailable;
     }
 
-    return this.deps.spellUsable.deps.abilities.getMaxCharges(TALENTS.PUTREFY_TALENT.id) || 1;
+    return this.deps.abilities.getMaxCharges(TALENTS.PUTREFY_TALENT.id) || 1;
   }
 
   private onSRCast(event: CastEvent) {
