@@ -6,13 +6,12 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
-  ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   FightEndEvent,
   RemoveBuffEvent,
-  RemoveDebuffEvent,
 } from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -44,6 +43,7 @@ interface MissedFreeSoulReaperRecord {
 
 class SoulReaper extends ExecuteHelper.withDependencies({
   spellUsable: SpellUsable,
+  enemies: Enemies,
 }) {
   public static readonly executeSources = SELECTED_PLAYER;
   public static readonly lowerThreshold = SOUL_REAPER_EXECUTE_THRESHOLD;
@@ -51,13 +51,6 @@ class SoulReaper extends ExecuteHelper.withDependencies({
   public static readonly countCooldownAsExecuteTime = false;
 
   maxCasts = 0;
-
-  /**
-   * Targets currently carrying Dread Plague.  Execute-window tracking is
-   * restricted to these targets so that trash adds (which never have Dread
-   * Plague applied by the player) do not inflate the execute duration.
-   */
-  private readonly drPlaguedTargets = new Set<number>();
 
   private dtWindowOpen = false;
   private debuffWindowDamage = 0;
@@ -67,7 +60,6 @@ class SoulReaper extends ExecuteHelper.withDependencies({
   private readonly darkTransformationStartTimestamps: number[] = [];
   private readonly soulReaperCasts: SoulReaperCastRecord[] = [];
   private readonly missedFreeSoulReaperWindows: MissedFreeSoulReaperRecord[] = [];
-  private readonly debuffedTargets = new Set<number>();
 
   constructor(options: Options) {
     super(options);
@@ -76,17 +68,6 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     if (!this.active) {
       return;
     }
-
-    // Dread Plague presence is our "this target matters" signal for execute
-    // window tracking (see isTargetInHealthExecuteWindow override below).
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.DREAD_PLAGUE),
-      this.onDrPlagueApply,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DREAD_PLAGUE),
-      this.onDrPlagueRemove,
-    );
 
     // Dark Transformation window tracking — DT resets SR's cooldown and allows
     // one free cast on any target
@@ -103,16 +84,6 @@ class SoulReaper extends ExecuteHelper.withDependencies({
       this.onSRCast,
     );
 
-    // Debuff application/removal on targets
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SOUL_REAPER_DEBUFF),
-      this.onDebuffApply,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SOUL_REAPER_DEBUFF),
-      this.onDebuffRemove,
-    );
-
     // Caster-only sources for debuff attribution.
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
 
@@ -126,18 +97,10 @@ class SoulReaper extends ExecuteHelper.withDependencies({
    * spend their whole life below 35% HP — from inflating the execute window.
    */
   isTargetInHealthExecuteWindow(event: DamageEvent): boolean {
-    if (!this.drPlaguedTargets.has(event.targetID)) {
+    if (!this.deps.enemies.getEntity(event)?.hasBuff(SPELLS.DREAD_PLAGUE.id)) {
       return false;
     }
     return super.isTargetInHealthExecuteWindow(event);
-  }
-
-  private onDrPlagueApply(event: ApplyDebuffEvent) {
-    this.drPlaguedTargets.add(event.targetID);
-  }
-
-  private onDrPlagueRemove(event: RemoveDebuffEvent) {
-    this.drPlaguedTargets.delete(event.targetID);
   }
 
   private onDTApply(_event: ApplyBuffEvent) {
@@ -179,22 +142,17 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     }
   }
 
-  private onDebuffApply(event: ApplyDebuffEvent) {
-    this.debuffedTargets.add(event.targetID);
-  }
-
-  private onDebuffRemove(event: RemoveDebuffEvent) {
-    this.debuffedTargets.delete(event.targetID);
-  }
-
   private onPlayerDamage(event: DamageEvent) {
-    if (this.debuffedTargets.has(event.targetID) && this.isAttributedPlayerDamage(event)) {
+    if (
+      this.deps.enemies.getEntity(event)?.hasBuff(SPELLS.SOUL_REAPER_DEBUFF.id) &&
+      this.isAttributedPlayerDamage(event)
+    ) {
       this.addDebuffWindowDamage(event);
     }
   }
 
   private onPetDamage(event: DamageEvent) {
-    if (this.debuffedTargets.has(event.targetID)) {
+    if (this.deps.enemies.getEntity(event)?.hasBuff(SPELLS.SOUL_REAPER_DEBUFF.id)) {
       this.addDebuffWindowDamage(event);
     }
   }
