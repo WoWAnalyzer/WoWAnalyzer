@@ -1141,6 +1141,12 @@ const spells = {
     name: 'Hunger for Battle',
     icon: 'ability_druid_predatoryinstincts',
   },
+  // energize event from Hunger for Battle talent (10 energy on Rip-target death)
+  HUNGER_FOR_BATTLE_ENERGIZE: {
+    id: 1244550,
+    name: 'Hunger for Battle',
+    icon: 'ability_druid_predatoryinstincts',
+  },
   // Buff procced by Apex Predator's Craving talent
   APEX_PREDATORS_CRAVING_BUFF: {
     id: 391882,

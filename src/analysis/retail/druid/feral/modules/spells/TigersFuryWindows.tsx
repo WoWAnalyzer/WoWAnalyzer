@@ -12,6 +12,7 @@ import Events, {
 } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import { SubSection } from 'interface/guide';
+import { colors } from 'interface/design-system';
 import { formatNumber } from 'common/format';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
@@ -54,10 +55,12 @@ class TigersFuryWindows extends Analyzer {
   /** Full TF damage bonus, including Carnivorous Instinct rank. Constant per fight. */
   private tfDamageBonus = 0;
 
-  /** Targets whose current Rip was applied with TF up — its ticks are TF-boosted. */
-  private targetsWithTfRip: Set<string> = new Set();
-  private targetsWithTfRakeBleed: Set<string> = new Set();
-  private targetsWithTfMoonfire: Set<string> = new Set();
+  /** Per spell ID, the targets whose current snapshot of that DoT was taken under TF.
+   *  Pre-populated for every spell in TF_SNAPSHOT_DEBUFFS so .get() never returns undefined
+   *  inside the listener (which is filtered to those same spells). */
+  private tfSnapshottedTargets: Map<number, Set<string>> = new Map(
+    TF_SNAPSHOT_DEBUFFS.map((spell) => [spell.id, new Set<string>()]),
+  );
 
   constructor(options: Options) {
     super(options);
@@ -146,36 +149,20 @@ class TigersFuryWindows extends Analyzer {
 
   /** Mirrors CarnivorousInstinct: direct hits check the live buff, DoT ticks check the snapshot. */
   private damageBenefitsFromTf(event: DamageEvent): boolean {
-    const spellId = event.ability.guid;
-    const target = encodeEventTargetString(event) || '';
-    if (spellId === SPELLS.RIP.id) {
-      return this.targetsWithTfRip.has(target);
-    }
-    if (spellId === SPELLS.RAKE_BLEED.id) {
-      return this.targetsWithTfRakeBleed.has(target);
-    }
-    if (spellId === SPELLS.MOONFIRE_FERAL.id) {
-      return this.targetsWithTfMoonfire.has(target);
+    const set = this.tfSnapshottedTargets.get(event.ability.guid);
+    if (set) {
+      return set.has(encodeEventTargetString(event) || '');
     }
     return this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
   }
 
   onTfSnapshotApply(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    const spellId = event.ability.guid;
-    const target = encodeEventTargetString(event) || '';
-    const hasTf = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
-    const set =
-      spellId === SPELLS.RIP.id
-        ? this.targetsWithTfRip
-        : spellId === SPELLS.RAKE_BLEED.id
-          ? this.targetsWithTfRakeBleed
-          : spellId === SPELLS.MOONFIRE_FERAL.id
-            ? this.targetsWithTfMoonfire
-            : undefined;
+    const set = this.tfSnapshottedTargets.get(event.ability.guid);
     if (!set) {
-      return;
+      return; // shouldn't happen — listener is filtered to TF_SNAPSHOT_DEBUFFS
     }
-    if (hasTf) {
+    const target = encodeEventTargetString(event) || '';
+    if (this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id)) {
       set.add(target);
     } else {
       set.delete(target);
@@ -236,7 +223,7 @@ function TigersFuryWindowsView({
                   border: '1px solid rgba(255, 255, 255, 0.15)',
                   borderRadius: 4,
                   padding: '4px 12px',
-                  color: '#fab700',
+                  color: colors.wowaYellow,
                   cursor: 'pointer',
                   fontSize: '0.9em',
                 }}
@@ -320,7 +307,7 @@ function TfWindowCard({
               flexWrap: 'wrap',
             }}
           >
-            <strong style={{ color: '#fab700', fontSize: '1.05em' }}>
+            <strong style={{ color: colors.wowaYellow, fontSize: '1.05em' }}>
               Tiger's Fury ({startLabel} {'→'} {endLabel})
             </strong>
             <small style={{ opacity: 0.7 }}>
@@ -370,7 +357,7 @@ function TfWindowCard({
                       background: 'none',
                       border: 'none',
                       padding: 0,
-                      color: '#fab700',
+                      color: colors.wowaYellow,
                       cursor: 'pointer',
                       textDecoration: 'underline',
                     }}

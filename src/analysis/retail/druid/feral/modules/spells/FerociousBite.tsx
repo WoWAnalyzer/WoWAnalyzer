@@ -24,7 +24,7 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { getAdditionalEnergyUsed } from 'analysis/retail/druid/feral/normalizers/FerociousBiteDrainLinkNormalizer';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
-import Enemies from 'parser/shared/modules/Enemies';
+import Enemies, { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -57,7 +57,7 @@ class FerociousBite extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    this.lastDamageByTarget.set(targetKey(event.targetID, event.targetInstance), event.timestamp);
+    this.lastDamageByTarget.set(encodeEventTargetString(event), event.timestamp);
   }
 
   onFbCast(event: CastEvent) {
@@ -101,7 +101,7 @@ class FerociousBite extends Analyzer {
       energyUsed,
       maxTotalEnergy,
       timeLeftOnRip,
-      targetKey: targetKey(event.targetID, event.targetInstance),
+      targetKey: encodeEventTargetString(event),
       hadBleedAtCast: hadBleed,
     });
   }
@@ -127,7 +127,7 @@ class FerociousBite extends Analyzer {
     // Verify the target actually died (not just that we switched away — a Rip refresh would still
     // tick on a living target). Bleeds tick independently, so if a bleed was up at cast time and
     // our last damage stops within the grace window, the bleed stopped → target died.
-    const lastDmgTs = this.lastDamageByTarget.get(tk);
+    const lastDmgTs = tk !== null ? this.lastDamageByTarget.get(tk) : undefined;
     const lastDmgDeltaMs = lastDmgTs !== undefined ? lastDmgTs - event.timestamp : Infinity;
     const targetDiesSoon = hadBleedAtCast && lastDmgDeltaMs <= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
 
@@ -240,11 +240,7 @@ interface RawFbCast {
   energyUsed: number;
   maxTotalEnergy: number;
   timeLeftOnRip: number;
-  targetKey: string;
+  targetKey: string | null;
   /** Rake/Rip presence on target at cast time, used by the death-grace exemption */
   hadBleedAtCast: boolean;
-}
-
-function targetKey(targetID: number | undefined, targetInstance: number | undefined): string {
-  return `${targetID ?? -1}:${targetInstance ?? 0}`;
 }

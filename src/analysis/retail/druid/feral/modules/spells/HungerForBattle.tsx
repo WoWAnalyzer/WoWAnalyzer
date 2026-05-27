@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -11,7 +11,6 @@ import { Icon, SpellLink } from 'interface';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 const BOOST_PER_STACK = 0.05;
-const ENERGY_PER_PROC = 10;
 
 /**
  * **Hunger for Battle**
@@ -19,37 +18,29 @@ const ENERGY_PER_PROC = 10;
  *
  * When an enemy afflicted by your Rip dies, gain 10 Energy and your damage dealt is increased by
  * 5% for 8 sec, stacking up to 5 times.
- *
- * Each apply/stack/refresh of the buff counts as a proc (one Rip-target death → 10 energy).
- * Refresh at max stacks still counts as a proc — the energy is granted but the stack count is
- * already capped.
  */
 class HungerForBattle extends Analyzer {
   damage = 0;
   procCount = 0;
+  energyGained = 0;
+  energyWasted = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.HUNGER_FOR_BATTLE_TALENT);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HUNGER_FOR_BATTLE_BUFF),
-      this.onProc,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.HUNGER_FOR_BATTLE_BUFF),
-      this.onProc,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HUNGER_FOR_BATTLE_BUFF),
-      this.onProc,
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.HUNGER_FOR_BATTLE_ENERGIZE),
+      this.onEnergize,
     );
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  onProc() {
+  onEnergize(event: ResourceChangeEvent) {
     this.procCount += 1;
+    this.energyGained += event.resourceChange - event.waste;
+    this.energyWasted += event.waste;
   }
 
   onDamage(event: DamageEvent) {
@@ -58,10 +49,6 @@ class HungerForBattle extends Analyzer {
       return;
     }
     this.damage += calculateEffectiveDamage(event, stacks * BOOST_PER_STACK);
-  }
-
-  get energyGained(): number {
-    return this.procCount * ENERGY_PER_PROC;
   }
 
   statistic() {
@@ -81,7 +68,10 @@ class HungerForBattle extends Analyzer {
                 Procs: <strong>{this.procCount}</strong>
               </li>
               <li>
-                Total energy gained: <strong>{this.energyGained}</strong>
+                Energy gained: <strong>{this.energyGained}</strong>
+              </li>
+              <li>
+                Energy wasted (overcapped): <strong>{this.energyWasted}</strong>
               </li>
             </ul>
           </>
