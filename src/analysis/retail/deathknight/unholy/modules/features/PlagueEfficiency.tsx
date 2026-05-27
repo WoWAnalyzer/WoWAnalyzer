@@ -7,68 +7,99 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { PerformanceLabel } from 'parser/ui/PerformanceLabel';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import type { JSX } from 'react';
 
-const PERFECT_DISEASE_UPTIME_THRESHOLD = 0.99;
-const GOOD_DISEASE_UPTIME_THRESHOLD = 0.97;
-const OK_DISEASE_UPTIME_THRESHOLD = 0.95;
-const TARGET_DISEASE_UPTIME_PERCENT = Math.round(PERFECT_DISEASE_UPTIME_THRESHOLD * 100);
-const TRACKED_DISEASES = [SPELLS.VIRULENT_PLAGUE, SPELLS.DREAD_PLAGUE] as const;
+const PERFECT_DREAD_COVERAGE_THRESHOLD = 1;
+const GOOD_DREAD_COVERAGE_THRESHOLD = 0.99;
+const OK_DREAD_COVERAGE_THRESHOLD = 0.98;
+const TARGET_DREAD_COVERAGE_PERCENT = Math.round(GOOD_DREAD_COVERAGE_THRESHOLD * 100);
+const TIMELINE_ROW_SPACING_ADJUSTMENT_PX = -16;
 
-class PlagueEfficiency extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
+type DiseaseSpell = typeof SPELLS.VIRULENT_PLAGUE | typeof SPELLS.DREAD_PLAGUE;
 
-  protected enemies!: Enemies;
-  private diseaseMetricsCache?: Array<{
-    spell: (typeof TRACKED_DISEASES)[number];
-    uptime: number;
-    history: ReturnType<Enemies['getDebuffHistory']>;
-    performance: QualitativePerformance;
-  }>;
+type DiseaseMetric = {
+  spell: DiseaseSpell;
+  uptime: number;
+  history: ReturnType<Enemies['getDebuffHistory']>;
+};
+
+type DreadPlagueCoverageMetric = {
+  uptime: number;
+  performance: QualitativePerformance;
+};
+
+type DiseaseMetricKey = 'virulent' | 'dread';
+
+class PlagueEfficiency extends Analyzer.withDependencies({
+  enemies: Enemies,
+}) {
+  private diseaseMetricsCache?: Record<DiseaseMetricKey, DiseaseMetric>;
+  private dreadPlagueCoverageCache?: DreadPlagueCoverageMetric;
 
   private getDiseaseUptime(spellId: number) {
-    return this.enemies.getBuffUptime(spellId) / this.owner.fightDuration;
+    return this.deps.enemies.getBuffUptime(spellId) / this.owner.fightDuration;
   }
 
-  private getDiseasePerformance(uptime: number): QualitativePerformance {
-    if (uptime >= PERFECT_DISEASE_UPTIME_THRESHOLD) {
+  private getDiseaseMetrics(disease: DiseaseSpell): DiseaseMetric {
+    const uptime = this.getDiseaseUptime(disease.id);
+    return {
+      spell: disease,
+      uptime,
+      history: this.deps.enemies.getDebuffHistory(disease.id),
+    };
+  }
+
+  private getCoveragePerformance(uptime: number): QualitativePerformance {
+    if (uptime >= PERFECT_DREAD_COVERAGE_THRESHOLD) {
       return QualitativePerformance.Perfect;
     }
-    if (uptime >= GOOD_DISEASE_UPTIME_THRESHOLD) {
+    if (uptime >= GOOD_DREAD_COVERAGE_THRESHOLD) {
       return QualitativePerformance.Good;
     }
-    if (uptime >= OK_DISEASE_UPTIME_THRESHOLD) {
+    if (uptime >= OK_DREAD_COVERAGE_THRESHOLD) {
       return QualitativePerformance.Ok;
     }
     return QualitativePerformance.Fail;
   }
 
-  private getDiseaseMetrics(disease: (typeof TRACKED_DISEASES)[number]) {
-    const uptime = this.getDiseaseUptime(disease.id);
-    return {
-      spell: disease,
-      uptime,
-      history: this.enemies.getDebuffHistory(disease.id),
-      performance: this.getDiseasePerformance(uptime),
-    };
-  }
-
   private get diseaseMetrics() {
-    if (!this.diseaseMetricsCache) {
-      this.diseaseMetricsCache = TRACKED_DISEASES.map((disease) => this.getDiseaseMetrics(disease));
-    }
+    this.diseaseMetricsCache ??= {
+      virulent: this.getDiseaseMetrics(SPELLS.VIRULENT_PLAGUE),
+      dread: this.getDiseaseMetrics(SPELLS.DREAD_PLAGUE),
+    };
 
     return this.diseaseMetricsCache;
   }
 
-  get guideSubsection(): JSX.Element {
+  private get timelineMetrics() {
     const diseaseMetrics = this.diseaseMetrics;
+    return [diseaseMetrics.virulent, diseaseMetrics.dread] as const;
+  }
+
+  private get dreadPlagueCoverage() {
+    this.dreadPlagueCoverageCache ??= (() => {
+      const diseaseMetrics = this.diseaseMetrics;
+      const uptime =
+        diseaseMetrics.virulent.uptime === 0
+          ? 0
+          : diseaseMetrics.dread.uptime / diseaseMetrics.virulent.uptime;
+      return {
+        uptime,
+        performance: this.getCoveragePerformance(uptime),
+      };
+    })();
+
+    return this.dreadPlagueCoverageCache;
+  }
+
+  get guideSubsection(): JSX.Element {
+    const timelineMetrics = this.timelineMetrics;
+    const dreadPlagueCoverage = this.dreadPlagueCoverage;
 
     const explanation = (
       <>
@@ -89,19 +120,39 @@ class PlagueEfficiency extends Analyzer {
 
     const data = (
       <div>
+        <div style={{ marginBottom: '14px' }}>
+          <strong>
+            Primary metric: <SpellLink spell={SPELLS.DREAD_PLAGUE} /> during{' '}
+            <SpellLink spell={SPELLS.VIRULENT_PLAGUE} />
+          </strong>
+          <div style={{ fontSize: '1.5em', fontWeight: 700, marginTop: '4px', lineHeight: 1.1 }}>
+            <PerformanceLabel performance={dreadPlagueCoverage.performance}>
+              {formatPercentage(dreadPlagueCoverage.uptime)}%
+            </PerformanceLabel>
+          </div>
+          <small>
+            Target: {TARGET_DREAD_COVERAGE_PERCENT}%+ coverage while{' '}
+            <SpellLink spell={SPELLS.VIRULENT_PLAGUE} /> is active.
+          </small>
+        </div>
         <div style={{ marginBottom: '6px' }}>
           <strong>Disease timeline</strong>
         </div>
         <p>
-          Keep both diseases rolling with minimal gaps. {TARGET_DISEASE_UPTIME_PERCENT}%+ uptime is
-          the goal.
+          Keep <SpellLink spell={SPELLS.VIRULENT_PLAGUE} /> rolling with minimal gaps.
+          <SpellLink spell={SPELLS.DREAD_PLAGUE} /> should mirror that uptime as closely as
+          possible.
         </p>
-        {diseaseMetrics.map((disease) => (
-          <div key={disease.spell.id}>
+        {timelineMetrics.map((metric, index) => (
+          <div
+            key={metric.spell.id}
+            style={
+              index === 0 ? { marginBottom: `${TIMELINE_ROW_SPACING_ADJUSTMENT_PX}px` } : undefined
+            }
+          >
             {uptimeBarSubStatistic(this.owner.fight, {
-              spells: [disease.spell],
-              uptimes: disease.history,
-              perf: disease.performance,
+              spells: [metric.spell],
+              uptimes: metric.history,
             })}
           </div>
         ))}
@@ -112,13 +163,21 @@ class PlagueEfficiency extends Analyzer {
   }
 
   statistic() {
-    const diseaseMetrics = this.diseaseMetrics;
+    const timelineMetrics = this.timelineMetrics;
+    const dreadPlagueCoverage = this.dreadPlagueCoverage;
 
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
-        {diseaseMetrics.map((disease) => (
-          <BoringSpellValueText key={disease.spell.id} spell={disease.spell.id}>
-            <UptimeIcon /> {formatPercentage(disease.uptime)}% <small>Disease Uptime</small>
+        <BoringSpellValueText spell={SPELLS.DREAD_PLAGUE.id}>
+          <PerformanceLabel performance={dreadPlagueCoverage.performance}>
+            {' '}
+            {formatPercentage(dreadPlagueCoverage.uptime)}%
+          </PerformanceLabel>{' '}
+          <small>Efficiency</small>
+        </BoringSpellValueText>
+        {timelineMetrics.map((metric) => (
+          <BoringSpellValueText key={metric.spell.id} spell={metric.spell.id}>
+            <UptimeIcon /> {formatPercentage(metric.uptime)}% <small>Uptime</small>
           </BoringSpellValueText>
         ))}
       </Statistic>
