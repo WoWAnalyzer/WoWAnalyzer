@@ -383,12 +383,15 @@ class SoulReaper extends ExecuteHelper.withDependencies({
         firstCastInDarkTransformationWindows,
         darkTransformationContext.nextDarkTransformationTimestamp,
       );
-      const darkTransformationCooldownRemaining =
-        cast.darkTransformationWindowId !== null
-          ? 'Active'
-          : darkTransformationContext.nextDarkTransformationTimestamp === null
-            ? 'N/A'
-            : `${((darkTransformationContext.nextDarkTransformationTimestamp - cast.timestamp) / 1000).toFixed(1)}s`;
+      const inDarkTransformation = cast.darkTransformationWindowId !== null;
+      let darkTransformationCooldownRemaining: string;
+      if (inDarkTransformation) {
+        darkTransformationCooldownRemaining = 'Active';
+      } else if (darkTransformationContext.nextDarkTransformationTimestamp === null) {
+        darkTransformationCooldownRemaining = 'N/A';
+      } else {
+        darkTransformationCooldownRemaining = `${((darkTransformationContext.nextDarkTransformationTimestamp - cast.timestamp) / 1000).toFixed(1)}s`;
+      }
 
       details.push({
         timestamp: cast.timestamp,
@@ -396,7 +399,7 @@ class SoulReaper extends ExecuteHelper.withDependencies({
           performance: castAssessment.performance,
           timestamp: this.owner.formatTimestamp(cast.timestamp),
           stats: this.buildCastStats(
-            cast.darkTransformationWindowId !== null ? 'During DT' : 'Outside DT',
+            inDarkTransformation ? 'During DT' : 'Outside DT',
             cast.putrefyChargesAtCast,
             darkTransformationCooldownRemaining,
           ),
