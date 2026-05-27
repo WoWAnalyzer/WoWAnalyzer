@@ -47,8 +47,6 @@ class ThunderFocusTea extends Analyzer {
   private castsBySpell = new Map<number, number>();
 
   private castsTft = 0;
-  private correctCasts = 0;
-
   private ftActive = false;
   private currentRskTalent: Talent;
   private currentCelestial: Talent;
@@ -167,45 +165,13 @@ class ThunderFocusTea extends Analyzer {
     firstSpellId: number,
     secondSpellId: number | null,
   ): { performance: QualitativePerformance; summary: JSX.Element } {
-    let performance: QualitativePerformance;
-
-    const isYulon = this.currentCelestial === TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
-
-    if (isYulon && this.ftActive && secondSpellId !== null) {
-      // just scoring first charge on yu'on as an automatic fail - losing
-      // SI's haste buff is too big of a loss to justify giving any other result.
-      if (firstSpellId !== SPELLS.RENEWING_MIST_CAST.id) {
-        performance = QualitativePerformance.Fail;
-      } else if (secondSpellId === SPELLS.RENEWING_MIST_CAST.id) {
-        performance = QualitativePerformance.Perfect;
-      } else if (secondSpellId === this.currentRskTalent.id) {
-        performance = QualitativePerformance.Good;
-      } else if (secondSpellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
-        performance = QualitativePerformance.Ok;
-      } else {
-        performance = QualitativePerformance.Fail;
-      }
-    } else {
-      // 2x weight to first empower due to secret infusion only buffing the first
-      const score =
-        secondSpellId !== null
-          ? Math.round((2 * this.spellScore(firstSpellId) + this.spellScore(secondSpellId)) / 3)
-          : this.spellScore(firstSpellId);
-      performance = numberToQualitativePerformance(score);
-    }
-    const label = performance as string;
-    if (
-      performance === QualitativePerformance.Perfect ||
-      performance === QualitativePerformance.Good
-    ) {
-      this.correctCasts += 1;
-    }
+    const performance = this.computePerformance(firstSpellId, secondSpellId);
 
     return {
       performance,
       summary: (
         <>
-          {label}: <SpellLink spell={firstSpellId} />
+          {performance as string}: <SpellLink spell={firstSpellId} />
           {secondSpellId !== null && (
             <>
               {' '}
@@ -215,6 +181,38 @@ class ThunderFocusTea extends Analyzer {
         </>
       ),
     };
+  }
+
+  private computePerformance(
+    firstSpellId: number,
+    secondSpellId: number | null,
+  ): QualitativePerformance {
+    const isYulon = this.currentCelestial === TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
+
+    if (!isYulon || !this.ftActive || secondSpellId === null) {
+      // 2x weight to first empower due to secret infusion only buffing the first
+      const score =
+        secondSpellId !== null
+          ? Math.round((2 * this.spellScore(firstSpellId) + this.spellScore(secondSpellId)) / 3)
+          : this.spellScore(firstSpellId);
+      return numberToQualitativePerformance(score);
+    }
+
+    // just scoring yu'lon focused thunder as rem first only -
+    // losing SI's haste buff on the first empower is too costly
+    if (firstSpellId !== SPELLS.RENEWING_MIST_CAST.id) {
+      return QualitativePerformance.Fail;
+    }
+    if (secondSpellId === SPELLS.RENEWING_MIST_CAST.id) {
+      return QualitativePerformance.Perfect;
+    }
+    if (secondSpellId === this.currentRskTalent.id) {
+      return QualitativePerformance.Good;
+    }
+    if (secondSpellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
   }
 
   private buffedCast(event: CastEvent) {
