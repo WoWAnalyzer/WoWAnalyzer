@@ -11,6 +11,7 @@ import Events, {
   FightEndEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Enemies from 'parser/shared/modules/Enemies';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import Abilities from 'parser/core/modules/Abilities';
@@ -160,7 +161,7 @@ class SoulReaper extends ExecuteHelper.withDependencies({
   }
 
   private addDebuffWindowDamage(event: DamageEvent) {
-    this.debuffWindowDamage += event.amount + (event.absorbed ?? 0);
+    this.debuffWindowDamage += calculateEffectiveDamage(event, 0.2);
   }
 
   private isAttributedPlayerDamage(event: DamageEvent): boolean {
@@ -469,10 +470,7 @@ class SoulReaper extends ExecuteHelper.withDependencies({
   }
 
   statistic() {
-    // The SOUL_REAPER_DEBUFF amplifies all player damage to that target by 20%.
-    // Combat logs already include this amplification, so the "extra" damage is:
-    //   bonus = amplified - base = 1.2x - x = 0.2x = amplified / 6
-    const debuffBonus = this.debuffWindowDamage / 6;
+    const debuffBonus = this.debuffWindowDamage;
     const directDamage = this.executeDamage;
     const totalGain = directDamage + debuffBonus;
 
