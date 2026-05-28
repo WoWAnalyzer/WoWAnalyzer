@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/deathknight';
 
 export default [
+  change(date(2026, 5, 27), <>Improved Plague efficiency analysis.</>, Myrx),
   change(date(2026, 5, 23), <>Added analysis for <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} /> usage.</>, Myrx),
   change(date(2026, 5, 23), <>Added <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> analysis and better cooldown tracking.</>, Myrx),
   change(date(2026, 5, 23), <>Added <SpellLink spell={TALENTS.FESTERING_SCYTHE_TALENT} /> analysis and added explanation and cast detail breakdown to guide.</>, Myrx),
