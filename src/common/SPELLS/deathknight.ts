@@ -372,6 +372,12 @@ const spells = {
     icon: 'ability_deathknight_soulreaper',
   },
 
+  SOUL_REAPER_DEBUFF: {
+    id: 1241521,
+    name: 'Soul Reaper',
+    icon: 'ability_deathknight_soulreaper',
+  },
+
   SUDDEN_DOOM_BUFF: {
     id: 81340,
     name: 'Sudden Doom',
