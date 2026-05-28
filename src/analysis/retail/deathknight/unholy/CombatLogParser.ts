@@ -13,6 +13,7 @@ import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
 import ForbiddenKnowledge from './modules/talents/ForbiddenKnowledge';
 import Putrefy from './modules/talents/Putrefy';
+import ScourgeStrike from './modules/talents/ScourgeStrike';
 import FesteringScythe from './modules/talents/FesteringScythe';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     suddenDoomLinkNormalizer: SuddenDoomLinkNormalizer,
+    scourgeStrike: ScourgeStrike,
 
     // Features
     plagueEfficiency: PlagueEfficiency,
