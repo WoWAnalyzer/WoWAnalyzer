@@ -6,6 +6,8 @@ import TALENTS from 'common/TALENTS/deathknight';
 
 export default [
   change(date(2026, 5, 23), <>Added analysis for <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} /> usage.</>, Myrx),
+  change(date(2026, 5, 23), <>Added <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> analysis and better cooldown tracking.</>, Myrx),
+  change(date(2026, 5, 23), <>Added <SpellLink spell={TALENTS.FESTERING_SCYTHE_TALENT} /> analysis and added explanation and cast detail breakdown to guide.</>, Myrx),
   change(date(2026, 5, 23), <>Added Virulent Plague and Dread Plague uptime and explanation to the guide.</>, Myrx),  
   change(date(2026, 5, 15), <>Added analysis for <SpellLink spell={TALENTS.PUTREFY_TALENT} /> usage.</>, Myrx),
   change(date(2026, 4, 10), <>Added Active Time section to the guide with ability uptime, melee uptime, and downtime tracking.</>, MarchingCube),

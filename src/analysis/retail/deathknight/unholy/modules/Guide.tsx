@@ -15,8 +15,11 @@ export default function Guide({ modules, info }: GuideProps<typeof CombatLogPars
 
       <Section title="Core Spells and Buffs">
         {modules.plagueEfficiency.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.FESTERING_SCYTHE_TALENT) &&
+          modules.festeringScythe.guideSubsection}
         {info.combatant.hasTalent(TALENTS.PUTREFY_TALENT) && modules.putrefy.guideSubsection}
         {modules.scourgeStrike.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT) && modules.soulReaper.guideSubsection}
       </Section>
 
       <Section title="Active Time">
