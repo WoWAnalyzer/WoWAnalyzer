@@ -13,10 +13,12 @@ import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/talents/SuddenDoom';
 import ForbiddenKnowledge from './modules/talents/ForbiddenKnowledge';
 import Putrefy from './modules/talents/Putrefy';
+import ScourgeStrike from './modules/talents/ScourgeStrike';
+import FesteringScythe from './modules/talents/FesteringScythe';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
 import RunicPowerTracker from './modules/core/RunicPowerTracker';
 import PlagueEfficiency from './modules/features/PlagueEfficiency';
-import SoulReaper from '../shared/talents/SoulReaper';
+import SoulReaper from './modules/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import UnholyAura from './modules/talents/UnholyAura';
 import LesserGhoul from './modules/features/LesserGhoul';
@@ -34,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     suddenDoomLinkNormalizer: SuddenDoomLinkNormalizer,
+    scourgeStrike: ScourgeStrike,
 
     // Features
     plagueEfficiency: PlagueEfficiency,
@@ -47,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     forbiddenKnowledge: ForbiddenKnowledge,
     unholyAura: UnholyAura,
     putrefy: Putrefy,
+    festeringScythe: FesteringScythe,
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
