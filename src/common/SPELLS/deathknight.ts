@@ -279,6 +279,13 @@ const spells = {
     runicPowerCost: -20,
   },
 
+  // Buff on the player while Festering Scythe is active
+  FESTERING_SCYTHE_BUFF: {
+    id: 1241077,
+    name: 'Festering Scythe',
+    icon: 'inv_polearm_2h_mawnecromancerboss_d_01_darkblue',
+  },
+
   DEATH_CHARGE: {
     id: 444347,
     name: 'Death Charge',
