@@ -21,7 +21,7 @@ function applybuff(timestamp: number): AnyEvent {
     targetID: 1,
     targetIsFriendly: true,
     ability: { guid: SD, name: 'Sudden Doom', type: 1, abilityIcon: '' },
-  } as AnyEvent;
+  };
 }
 
 function applybuffstack(timestamp: number, stack: number): AnyEvent {
@@ -34,7 +34,7 @@ function applybuffstack(timestamp: number, stack: number): AnyEvent {
     targetIsFriendly: true,
     stack,
     ability: { guid: SD, name: 'Sudden Doom', type: 1, abilityIcon: '' },
-  } as AnyEvent;
+  };
 }
 
 function removebuffstack(timestamp: number, stack: number): AnyEvent {
@@ -47,7 +47,7 @@ function removebuffstack(timestamp: number, stack: number): AnyEvent {
     targetIsFriendly: true,
     stack,
     ability: { guid: SD, name: 'Sudden Doom', type: 1, abilityIcon: '' },
-  } as AnyEvent;
+  };
 }
 
 function refreshbuff(timestamp: number): AnyEvent {
@@ -59,7 +59,7 @@ function refreshbuff(timestamp: number): AnyEvent {
     targetID: 1,
     targetIsFriendly: true,
     ability: { guid: SD, name: 'Sudden Doom', type: 1, abilityIcon: '' },
-  } as AnyEvent;
+  };
 }
 
 function removebuff(timestamp: number): AnyEvent {
@@ -71,7 +71,7 @@ function removebuff(timestamp: number): AnyEvent {
     targetID: 1,
     targetIsFriendly: true,
     ability: { guid: SD, name: 'Sudden Doom', type: 1, abilityIcon: '' },
-  } as AnyEvent;
+  };
 }
 
 function fightend(timestamp: number): AnyEvent {
@@ -89,7 +89,7 @@ function cast(timestamp: number, spellId = DC, runicPowerRaw?: number): AnyEvent
     sourceIsFriendly: true,
     targetID: 2,
     targetIsFriendly: false,
-    ability: { guid: spellId, name: 'Death Coil', type: 32, abilityIcon: '' },
+    ability: { guid: spellId, name: 'Death Coil', type: 32, abilityIcon: 'ability_deathcoil' },
     classResources:
       runicPowerRaw === undefined
         ? undefined
@@ -101,7 +101,7 @@ function cast(timestamp: number, spellId = DC, runicPowerRaw?: number): AnyEvent
               max: 1300,
             },
           ],
-  } as AnyEvent;
+  };
 }
 
 function setup(events: AnyEvent[]) {
@@ -110,6 +110,21 @@ function setup(events: AnyEvent[]) {
     priority: 0,
   }) as EventLinkNormalizer;
   const module = parser.loadModule(SuddenDoom, { priority: 1 }) as SuddenDoom;
+
+  // Stub dependencies so the module works in the test environment.
+  // abilities: onAnyCast uses this to filter off-GCD / external casts — return a valid on-GCD ability for every spell.
+  // runicPowerTracker: fallback when classResources is absent from a cast event.
+  const moduleWithDeps = module as unknown as {
+    deps: {
+      abilities: { getAbility: (_spellId: number) => { gcd: { static: number } } };
+      runicPowerTracker: { current: number };
+    };
+  };
+
+  moduleWithDeps.deps.abilities = {
+    getAbility: (_spellId: number) => ({ gcd: { static: 1500 } }),
+  };
+  moduleWithDeps.deps.runicPowerTracker = { current: 0 };
 
   const normalized = linkNorm.normalize(events);
   parser.processEvents(normalized);
