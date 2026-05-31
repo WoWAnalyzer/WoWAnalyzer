@@ -3,6 +3,7 @@ import { Kivlov,
  } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2026,5,31), 'Boomstick fix and Tip of the Spear Analysis adjustment', Kivlov),
   change(date(2026,5,24), 'Swipe ready for Takedown no longer suggested', Kivlov),
   change(date(2026,5,10), 'APL Checker temporarily disabled', Kivlov),
   change(date(2026,4,28), 'Takedown Analyser adjustment. Swipe counting fix', Kivlov),
