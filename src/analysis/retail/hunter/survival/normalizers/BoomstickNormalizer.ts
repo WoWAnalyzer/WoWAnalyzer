@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/hunter';
 import TALENTS from 'common/TALENTS/hunter';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType } from 'parser/core/Events';
+import { EventType, HasAbility } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
@@ -34,7 +34,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
   },
-  // Link the EndChannel event to potential clipped ability
+  // Link the EndChannel event to potential clipped ability (exclude melee explicitly to avoid any false positive display in case a melee sneaks out with the cast that interrupted it).
   {
     linkRelation: BOOMSTICK_NEXT_CAST,
     linkingEventId: TALENTS.BOOMSTICK_TALENT.id,
@@ -44,6 +44,8 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 100,
     anyTarget: true,
     maximumLinks: 1,
+    additionalCondition: (_linkingEvent, referencedEvent) =>
+      !HasAbility(referencedEvent) || referencedEvent.ability.guid !== 1,
   },
 ];
 
