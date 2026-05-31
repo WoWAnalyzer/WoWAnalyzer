@@ -1,4 +1,4 @@
-import { Gazh, Katorri } from 'CONTRIBUTORS';
+import { Katorri } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
@@ -8,7 +8,7 @@ import { SupportLevel } from 'parser/Config';
 
 const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Gazh, Katorri],
+  contributors: [Katorri],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0.5',
@@ -50,7 +50,8 @@ const CONFIG: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/mQMF8YnCpTctZK7w/44-Heroic+The+Silken+Court+-+Kill+(7:53)/Desolater',
+  exampleReport:
+    '/report/qdGa21vBHtLJrgnb/27-Heroic+Lightblinded+Vanguard+-+Kill+(3:28)/1-Katorriwl/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
