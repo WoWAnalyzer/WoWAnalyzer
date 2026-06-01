@@ -5,9 +5,11 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   EmpowerEndEvent,
+  EventType,
   FightEndEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const {
   DISINTEGRATE,
@@ -20,10 +22,23 @@ const {
 
 const { DRAGONRAGE_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
 
+const EXTENSION_PERFORMANCE_THRESHHOLDS = {
+  PERFECT: 6,
+  GOOD: 4,
+};
+
+const EMPOWER_PERFORMANCE_THRESHHOLDS = {
+  PERFECT: 3,
+  GOOD: 2,
+};
+
 export interface RageWindowCounter {
   start: number;
   fireBreaths: number;
   eternitySurges: number;
+  extensionPerf: QualitativePerformance;
+  fireBreathPerf: QualitativePerformance;
+  eternitySurgePerf: QualitativePerformance;
   essenceBursts: number;
   pyres: number;
   disintegrateTicks: number;
@@ -50,12 +65,12 @@ class DragonRage extends Analyzer {
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       (event) => {
-        this.onRemoveDragonrage(event);
+        this.onDragonrageEnd(event);
       },
     );
 
     this.addEventListener(Events.fightend, (event) => {
-      this.endOfFightCheck(event);
+      this.onDragonrageEnd(event);
     });
 
     this.addEventListener(
@@ -107,15 +122,54 @@ class DragonRage extends Analyzer {
       pyres: 0,
       end: 0,
       fightEndDuringDR: false,
+      extensionPerf: QualitativePerformance.Fail,
+      eternitySurgePerf: QualitativePerformance.Fail,
+      fireBreathPerf: QualitativePerformance.Fail,
     };
   }
 
-  onRemoveDragonrage(event: RemoveBuffEvent) {
-    this.inDragonRageWindow = false;
-    if (this.rageWindowCounters[this.totalCasts] === undefined) {
-      return;
+  onDragonrageEnd(event: RemoveBuffEvent | FightEndEvent) {
+    if (this.inDragonRageWindow) {
+      this.inDragonRageWindow = false;
+      if (this.rageWindowCounters[this.totalCasts] === undefined) {
+        return;
+      }
+      if (event.type === EventType.FightEnd)
+        this.rageWindowCounters[this.totalCasts].fightEndDuringDR = true;
+
+      this.rageWindowCounters[this.totalCasts].end = event.timestamp;
+
+      this.rageWindowCounters[this.totalCasts].fireBreathPerf = this.evaluateEmpowerPerformance(
+        this.rageWindowCounters[this.totalCasts].fireBreaths,
+      );
+
+      this.rageWindowCounters[this.totalCasts].eternitySurgePerf = this.evaluateEmpowerPerformance(
+        this.rageWindowCounters[this.totalCasts].eternitySurges,
+      );
+
+      const extensions =
+        this.rageWindowCounters[this.totalCasts].fireBreaths +
+        this.rageWindowCounters[this.totalCasts].eternitySurges;
+
+      this.rageWindowCounters[this.totalCasts].extensionPerf =
+        extensions >= EXTENSION_PERFORMANCE_THRESHHOLDS.PERFECT
+          ? QualitativePerformance.Perfect
+          : extensions >= EXTENSION_PERFORMANCE_THRESHHOLDS.GOOD
+            ? QualitativePerformance.Good
+            : this.rageWindowCounters[this.totalCasts].fightEndDuringDR
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail;
     }
-    this.rageWindowCounters[this.totalCasts].end = event.timestamp;
+  }
+
+  private evaluateEmpowerPerformance(castCount: number) {
+    return castCount >= EMPOWER_PERFORMANCE_THRESHHOLDS.PERFECT
+      ? QualitativePerformance.Perfect
+      : castCount >= EMPOWER_PERFORMANCE_THRESHHOLDS.GOOD
+        ? QualitativePerformance.Good
+        : this.rageWindowCounters[this.totalCasts].fightEndDuringDR
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
   }
 
   onEmpowerCast(event: CastEvent | EmpowerEndEvent) {
@@ -130,15 +184,6 @@ class DragonRage extends Analyzer {
       case ETERNITY_SURGE.name:
         this.currentRageWindow.eternitySurges += 1;
         break;
-    }
-  }
-
-  // Fix edgecase where DR window was registered but wasn't ended due to fight ending during the window
-  endOfFightCheck(event: FightEndEvent) {
-    if (this.inDragonRageWindow) {
-      this.inDragonRageWindow = false;
-      this.rageWindowCounters[this.totalCasts].fightEndDuringDR = true;
-      this.rageWindowCounters[this.totalCasts].end = event.timestamp;
     }
   }
 
