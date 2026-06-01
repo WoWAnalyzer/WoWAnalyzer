@@ -34,9 +34,9 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
           }
         >
           Empowers
-        </TooltipElement>{' '}
-        by making the most of the talents: <SpellLink spell={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
+        </TooltipElement>
+        , by making the most of the talents: <SpellLink spell={TALENTS_EVOKER.CAUSALITY_TALENT} />{' '}
+        and <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
         To generate <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> procs inside of{' '}

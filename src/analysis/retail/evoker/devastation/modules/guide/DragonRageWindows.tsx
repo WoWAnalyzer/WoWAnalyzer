@@ -116,13 +116,13 @@ function Statistics({ window }: { window: RageWindowCounter }) {
           </PerformanceStrong>
         </li>
         <li>
-          <SpellLink spell={SPELLS.FIRE_BREATH} /> -
+          <SpellLink spell={SPELLS.FIRE_BREATH} /> -{' '}
           <PerformanceStrong performance={window.fireBreathPerf}>
             {window.fireBreaths} casts
           </PerformanceStrong>
         </li>
         <li>
-          <SpellLink spell={SPELLS.ETERNITY_SURGE} /> -
+          <SpellLink spell={SPELLS.ETERNITY_SURGE} /> -{' '}
           <PerformanceStrong performance={window.eternitySurgePerf}>
             {window.eternitySurges} casts
           </PerformanceStrong>
