@@ -1,4 +1,4 @@
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/evoker';
 import { GuideProps, Section } from 'interface/guide';
@@ -24,10 +24,18 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and guaranteed{' '}
         <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> procs, we need to utilize the talent{' '}
         <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT} /> to extend the buff duration as long as
-        possible. We do this by getting in <strong>at least</strong> 2 rounds of{' '}
-        <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT} /> and{' '}
-        <SpellLink spell={SPELLS.FIRE_BREATH} /> by making the most of the talents:{' '}
-        <SpellLink spell={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
+        possible. We do this by getting casting <strong>at least</strong> 4{' '}
+        <TooltipElement
+          content={
+            <>
+              <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT} /> and{' '}
+              <SpellLink spell={SPELLS.FIRE_BREATH} />
+            </>
+          }
+        >
+          Empowers
+        </TooltipElement>{' '}
+        by making the most of the talents: <SpellLink spell={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
