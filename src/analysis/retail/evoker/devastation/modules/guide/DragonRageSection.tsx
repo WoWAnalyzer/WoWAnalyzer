@@ -24,7 +24,7 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and guaranteed{' '}
         <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> procs, we need to utilize the talent{' '}
         <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT} /> to extend the buff duration as long as
-        possible. We do this by getting casting <strong>at least</strong> 4{' '}
+        possible. We do this by casting <strong>at least</strong> 4{' '}
         <TooltipElement
           content={
             <>
