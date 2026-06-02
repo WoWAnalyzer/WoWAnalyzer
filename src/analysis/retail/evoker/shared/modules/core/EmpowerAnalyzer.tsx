@@ -70,7 +70,6 @@ class EmpowerAnalyzer extends Analyzer {
 
   onEmpowerEnd(event: EmpowerEndEvent) {
     const castEvent = GetRelatedEvent(event, EMPOWER_CAST, (e) => e.type === EventType.Cast);
-    console.log(castEvent);
     if (
       castEvent !== undefined &&
       castEvent.type === EventType.Cast &&

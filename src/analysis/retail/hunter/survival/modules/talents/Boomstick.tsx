@@ -51,11 +51,12 @@ class Boomstick extends Analyzer.withDependencies({ haste: Haste }) {
   private totalTicks = 0;
   private useEntries: BoxRowEntry[] = [];
   private clippedCasts = 0;
+  private hasteAtCast: Map<number, number> = new Map();
 
   private static readonly BUCKET_WINDOW_MS = 100;
   private static readonly EXPECTED_TICKS = 4;
-  private static readonly BASE_TICK_INTERVAL_MS = 800;
-  private static readonly TICK_MATCH_TOLERANCE_MS = 400; // Haste issue with live, return to 200 and tick interval to 1000 on midnight release
+  private static readonly BASE_TICK_INTERVAL_MS = 1000;
+  private static readonly TICK_MATCH_TOLERANCE_MS = 200;
 
   constructor(options: Options) {
     super(options);
@@ -65,10 +66,20 @@ class Boomstick extends Analyzer.withDependencies({ haste: Haste }) {
     }
 
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BOOMSTICK_TALENT),
+      this.onCast,
+    );
+
+    this.addEventListener(
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS.BOOMSTICK_TALENT),
       this.onEndChannel,
     );
   }
+
+  // Capture haste at the start of the channel
+  private onCast = (event: CastEvent) => {
+    this.hasteAtCast.set(event.timestamp, this.deps.haste.current);
+  };
 
   private onEndChannel = (event: EndChannelEvent) => {
     const cast = GetRelatedEvent<CastEvent>(event, BOOMSTICK_CAST_END);
@@ -139,8 +150,8 @@ class Boomstick extends Analyzer.withDependencies({ haste: Haste }) {
       return acc;
     }, []);
 
-    // Calculate expected tick times based on haste
-    const hasteAtCast = this.deps.haste.current;
+    // Use haste captured at cast start to adjust tick interval
+    const hasteAtCast = this.hasteAtCast.get(cast.timestamp) ?? this.deps.haste.current;
     const tickInterval = Boomstick.BASE_TICK_INTERVAL_MS / (1 + hasteAtCast);
 
     // Match each expected tick slot to actual damage buckets

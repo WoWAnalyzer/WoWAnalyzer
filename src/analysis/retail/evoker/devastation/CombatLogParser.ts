@@ -78,6 +78,7 @@ import {
 import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
 import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
 import RisingFury from './modules/talents/RisingFury';
+import DragonrageNormalizer from './modules/normalizers/DragonrageNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -119,6 +120,7 @@ class CombatLogParser extends MainCombatLogParser {
     eternitySurgeNormalizer: EternitySurgeNormalizer,
     disintegrateChainCastLinks: DisintegrateChainCastLinks,
     strafingRunNormalizer: StrafingRunNormalizer,
+    dragonrageNormalizer: DragonrageNormalizer,
 
     // features
     //apls: AplCheck,

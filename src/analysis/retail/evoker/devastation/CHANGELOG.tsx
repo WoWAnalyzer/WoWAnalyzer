@@ -7,6 +7,8 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
+  change(date(2026, 6, 1), <>Updated display of <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> module</>, Baumritter),
+  change(date(2026, 5, 24), <>Corrected logging issues for <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /></>, Baumritter),
   change(date(2026, 5, 10), <>Added breakdown chart for <SpellLink spell={TALENTS.CONSUME_FLAME_TALENT} /> triggers</>, KYZ),
   change(date(2026, 4, 20), <>Fixed <SpellLink spell={SPELLS.HOVER} /> not counting as castable while casting</>, Baumritter),
   change(date(2026, 3, 30),  <>Update <SpellLink spell={TALENTS.WINGLEADER_TALENT} /> CDR modifier.</>, Vollmer),

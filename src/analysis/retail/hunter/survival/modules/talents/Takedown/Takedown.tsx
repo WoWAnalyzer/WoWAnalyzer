@@ -15,7 +15,6 @@ const MAX_TIP_STACKS = 3;
 export interface TakedownCast {
   castEvent: CastEvent;
   isFirstTakedown: boolean;
-  hasRaptorSwipeBuff: boolean;
   tipStacks: number;
   wastedTipStacks: number;
   castsInWindow: CastEvent[];
@@ -73,9 +72,6 @@ export default class Takedown extends Analyzer {
 
   private onTakedown(event: CastEvent) {
     const isFirstTakedown = this.takedownCasts.length === 0;
-    const hasRaptorSwipeBuff =
-      this.selectedCombatant.hasBuff(SPELLS.RAPTOR_SWIPE_BUFF.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.RAPTOR_SWIPE_BUFF_2.id);
     const tipStacks = this.selectedCombatant.getBuffStacks(SPELLS.TIP_OF_THE_SPEAR_CAST.id);
 
     const windowEnd = event.timestamp + TAKEDOWN_WINDOW_MS + WINDOW_EXTENSION_MS;
@@ -83,7 +79,6 @@ export default class Takedown extends Analyzer {
     this.takedownCasts.push({
       castEvent: event,
       isFirstTakedown,
-      hasRaptorSwipeBuff,
       tipStacks,
       wastedTipStacks: 0,
       castsInWindow: [],
@@ -104,35 +99,7 @@ export default class Takedown extends Analyzer {
       }
     };
 
-    // 1. Raptor Swipe buffed before cast
-    const swipeBuffPerf = cast.hasRaptorSwipeBuff
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
-    downgrade(swipeBuffPerf);
-    items.push({
-      label: (
-        <>
-          <SpellLink spell={SPELLS.RAPTOR_SWIPE_BUFF} />{' '}
-          <TooltipElement
-            content={
-              <>
-                <SpellLink spell={SPELLS.RAPTOR_SWIPE_BUFF} /> can be primed to maximise the number
-                of <SpellLink spell={TALENTS.STRIKE_AS_ONE_TALENT} /> procs from our Apex Talent
-                during <SpellLink spell={TALENTS.TAKEDOWN_TALENT} />.
-              </>
-            }
-          >
-            (?)
-          </TooltipElement>
-        </>
-      ),
-      result: <PerformanceMark perf={swipeBuffPerf} />,
-      details: !cast.hasRaptorSwipeBuff ? (
-        <TooltipElement content="not primed before cast">(?) </TooltipElement>
-      ) : null,
-    });
-
-    // 2. Tip of the Spear stacks at cast
+    // 1. Tip of the Spear stacks at cast
     if (this.hasTwinFangs) {
       // Twin Fangs generates TotS during Takedown, so ideally enter with 0 stacks
       const tipPerf =
@@ -203,14 +170,15 @@ export default class Takedown extends Analyzer {
       });
     }
 
-    // 3. Wasted Tip of the Spear (KC cast while capped)
+    // 2. Wasted Tip of the Spear (KC cast while capped)
     const tipWastePerf =
       cast.wastedTipStacks === 0 ? QualitativePerformance.Good : QualitativePerformance.Fail;
     downgrade(tipWastePerf);
     items.push({
       label: (
         <>
-          <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST} />{' '}
+          <SpellLink spell={SPELLS.TIP_OF_THE_SPEAR_CAST} />
+          {'  waste '}
           <TooltipElement
             content={
               <>

@@ -18,7 +18,6 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
 import EmpowerRuneWeapon from './modules/talents/EmpowerRuneWeapon';
-import SoulReaper from '../shared/talents/SoulReaper';
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -47,7 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //talents
     frostscythe: Frostscythe,
     empowerRuneWeapon: EmpowerRuneWeapon,
-    soulReaper: SoulReaper,
 
     //hero talents
     ExterminateCostNormalizer,

@@ -92,6 +92,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
+      {modules.eternalHunt.guideSubsection()}
       {info.combatant.hasTalent(TALENTS.ESSENCE_BREAK_TALENT) &&
         explanationAndDataSubsection(
           <div>
