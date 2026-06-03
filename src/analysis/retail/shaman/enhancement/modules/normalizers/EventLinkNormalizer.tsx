@@ -7,6 +7,7 @@ import { NormalizerOrder } from './constants';
 import {
   EnhancementEventLinks,
   EventLinkBuffers,
+  MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   STORMSTRIKE_DAMAGE_IDS,
   STORMSTRIKE_SPELL_IDS,
 } from '../../constants';
@@ -164,6 +165,59 @@ const stormUnleashedConsumeLink: EventLink = {
   reverseLinkRelation: EnhancementEventLinks.STORM_UNLEASHED_LINK,
   isActive: (c) => c.hasTalent(TALENTS.STORM_UNLEASHED_1_ENHANCEMENT_TALENT),
 };
+const WHIRLING_BUFF_DURATION_MS = 24_000;
+
+const whirlingEarthConsumeLink: EventLink = {
+  linkRelation: EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK,
+  linkingEventId: SPELLS.WHIRLING_EARTH.id,
+  linkingEventType: EventType.ApplyBuff,
+  referencedEventId: TALENTS.SUNDERING_TALENT.id,
+  referencedEventType: EventType.Cast,
+  forwardBufferMs: WHIRLING_BUFF_DURATION_MS,
+  backwardBufferMs: 0,
+  anyTarget: true,
+  maximumLinks: 1,
+  reverseLinkRelation: EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK,
+  isActive: (c) => c.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+};
+const whirlingFireConsumeLink: EventLink = {
+  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK,
+  linkingEventId: SPELLS.WHIRLING_FIRE.id,
+  linkingEventType: EventType.ApplyBuff,
+  referencedEventId: TALENTS.LAVA_LASH_TALENT.id,
+  referencedEventType: EventType.Cast,
+  forwardBufferMs: WHIRLING_BUFF_DURATION_MS,
+  backwardBufferMs: 0,
+  anyTarget: true,
+  maximumLinks: 1,
+  reverseLinkRelation: EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK,
+  isActive: (c) => c.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+};
+const whirlingAirConsumeLink: EventLink = {
+  linkRelation: EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
+  linkingEventId: SPELLS.WHIRLING_AIR.id,
+  linkingEventType: EventType.ApplyBuff,
+  referencedEventId: [...MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS, TALENTS.CRASH_LIGHTNING_TALENT.id],
+  referencedEventType: EventType.Cast,
+  forwardBufferMs: WHIRLING_BUFF_DURATION_MS,
+  backwardBufferMs: 0,
+  anyTarget: true,
+  maximumLinks: 1,
+  reverseLinkRelation: EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
+  isActive: (c) => c.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+};
+const tempestConsumeLink: EventLink = {
+  linkRelation: EnhancementEventLinks.TEMPEST_CONSUME_LINK,
+  linkingEventId: SPELLS.TEMPEST_BUFF.id,
+  linkingEventType: EventType.RemoveBuff,
+  referencedEventId: SPELLS.TEMPEST_CAST.id,
+  referencedEventType: [EventType.Cast, EventType.FreeCast],
+  forwardBufferMs: 100,
+  backwardBufferMs: 100,
+  anyTarget: true,
+  reverseLinkRelation: EnhancementEventLinks.TEMPEST_CONSUME_LINK,
+  isActive: (c) => c.hasTalent(TALENTS.TEMPEST_TALENT),
+};
 
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
@@ -180,6 +234,10 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       whirlingFireHotHandLink,
       whirlingFireLavaLashLink,
       stormUnleashedConsumeLink,
+      whirlingEarthConsumeLink,
+      whirlingFireConsumeLink,
+      whirlingAirConsumeLink,
+      tempestConsumeLink,
     ]);
 
     this.priority = NormalizerOrder.EventLinkNormalizer;
