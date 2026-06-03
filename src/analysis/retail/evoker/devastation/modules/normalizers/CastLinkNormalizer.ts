@@ -449,6 +449,11 @@ export function getDisintegrateDebuffEvents(
   ];
 }
 
+/** Returns the cast event that caused the apply/refresh debuff event */
+export function getDisintegrateCast(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+  return GetRelatedEvents<CastEvent>(event, DISINTEGRATE_DEBUFF);
+}
+
 /**
  * Returns the damage events associated with a Disintegrate cast.
  *

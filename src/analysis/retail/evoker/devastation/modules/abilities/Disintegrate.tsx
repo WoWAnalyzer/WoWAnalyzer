@@ -20,22 +20,40 @@ import ExplanationGraph, {
   SpellTracker,
   generateGraphData,
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import {
   DISINTEGRATE_REMOVE_APPLY,
+  getDisintegrateCast,
   getDisintegrateTargetCount,
   isFromMassDisintegrate,
   isMassDisintegrateDebuff,
   isMassDisintegrateTick,
 } from '../normalizers/CastLinkNormalizer';
-import { isMythicPlus } from 'common/isMythicPlus';
 import { InformationIcon } from 'interface/icons';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { GetDisintegrateTicks } from '../../constants';
+import PassFailBar from 'interface/guide/components/PassFailBar';
 
 const { DISINTEGRATE } = SPELLS;
 
 const { DRAGONRAGE_TALENT } = TALENTS;
+
+const CHAIN_WINDOW_BUFFER = 150;
+const CHAIN_WINDOW_BATCH_MINIMUM = 3;
+
+const THRESHOLD_MAX_CLIPPED_TICKS = 1;
+const THRESHOLD_MAX_EARLY_CHAINED_TICKS = 0;
+
+interface CastCounter {
+  DisintCasts: number;
+  DisintTicks: number;
+  DragonrageTicks: number;
+  DragonrageCasts: number;
+  MassDisintCasts: number;
+  MassDisintTicks: number;
+  MassDisintTargets: number;
+  MassDisintIntoDisChainTicks: number; // This is here for one reason. Chaining Mass Dis into Disint will break the tick counters. This fixes that.
+}
 
 /**
  * Disintegrate is Devastation's ST spender, it is one of the primary focus points of your rotation.
@@ -59,14 +77,18 @@ const { DRAGONRAGE_TALENT } = TALENTS;
 
 class Disintegrate extends Analyzer {
   /** Variables used for Clipping/Chaining efficiency */
-  totalCasts = 0;
-  totalTicks = 0;
-  dragonRageTicks = 0;
-  dragonRageCasts = 0;
   inDragonRageWindow = false;
 
-  totalMassDisintegrateTargets = 0;
-  totalMassDisintegrateTicks = 0;
+  totalCastCounter: CastCounter = {
+    DisintCasts: 0,
+    DisintTicks: 0,
+    DragonrageTicks: 0,
+    DragonrageCasts: 0,
+    MassDisintCasts: 0,
+    MassDisintTicks: 0,
+    MassDisintTargets: 0,
+    MassDisintIntoDisChainTicks: 0,
+  };
 
   currentMainTarget = '';
 
@@ -79,7 +101,19 @@ class Disintegrate extends Analyzer {
   fightStartTime = 0;
   fightEndTime = 0;
 
+  isPreviousCastMassDisintegrate = false;
   isCurrentCastMassDisintegrate = false;
+
+  currentCastCounter: CastCounter = {
+    DisintCasts: 0,
+    DisintTicks: 0,
+    DragonrageTicks: 0,
+    DragonrageCasts: 0,
+    MassDisintCasts: 0,
+    MassDisintTicks: 0,
+    MassDisintTargets: 0,
+    MassDisintIntoDisChainTicks: 0,
+  };
 
   /** Spells that you *can* clip with
    * Any other spell used to clip Disintegrate
@@ -115,10 +149,8 @@ class Disintegrate extends Analyzer {
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
   ].map((spell) => spell.id);
 
-  maxAllowedClippedTicks = 1;
-  maxAllowedEarlyChainedTicks = 0;
-
   graphData: GraphData[] = [];
+  explanations: JSX.Element[] = [];
 
   disintegrateTicksCounter: SpellTracker[] = [];
   disintegrateCasts: SpellTracker[] = [];
@@ -130,6 +162,10 @@ class Disintegrate extends Analyzer {
 
   ticksPerDisintegrate = 0;
   ticksPerChainedDisintegrate = 0;
+
+  chainWindowStart = 0;
+  chainWindowCount = 0;
+  chainWindowEnd = 0;
 
   constructor(options: Options) {
     super(options);
@@ -179,10 +215,11 @@ class Disintegrate extends Analyzer {
       }),
     );
 
-    this.addEventListener(Events.fightend, () => {
+    this.addEventListener(Events.fightend, (e) => {
       /* console.log(this.totalMassDisintegrateTargets);
       console.log(this.totalMassDisintegrateTicks); */
-      this.pushToGraphData();
+      // Pushes remaining windows
+      this.pushToGraphData(e.timestamp);
     });
 
     this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
@@ -211,16 +248,16 @@ class Disintegrate extends Analyzer {
 
   onDisintegrateTick(event: DamageEvent) {
     if (isMassDisintegrateTick(event)) {
-      this.totalMassDisintegrateTicks += 1;
+      this.currentCastCounter.MassDisintTicks += 1;
       return;
     }
 
     if (this.isCurrentCastMassDisintegrate) {
-      this.totalMassDisintegrateTicks += 1;
+      this.currentCastCounter.MassDisintTicks += 1;
     } else {
-      this.totalTicks += 1;
+      this.currentCastCounter.DisintTicks += 1;
       if (this.inDragonRageWindow) {
-        this.dragonRageTicks += 1;
+        this.currentCastCounter.DragonrageTicks += 1;
       }
     }
 
@@ -238,28 +275,38 @@ class Disintegrate extends Analyzer {
   }
 
   onDisintegrateCast(event: CastEvent) {
+    // Need to do this here instead of onRemoveDebuff because ending a window in a Mass Dis cast would lose ticks (Mass Dis ticks fire after the removeDebuff)
+    if (this.chainWindowEnd !== 0) {
+      this.pushToGraphData(this.chainWindowEnd);
+      this.chainWindowEnd = 0;
+    }
+
     const isMassDisintegrate = isFromMassDisintegrate(event);
+    this.isPreviousCastMassDisintegrate = this.isCurrentCastMassDisintegrate;
     this.isCurrentCastMassDisintegrate = isMassDisintegrate;
 
     if (isMassDisintegrate) {
-      this.totalMassDisintegrateTargets += getDisintegrateTargetCount(event);
+      this.currentCastCounter.MassDisintTargets += getDisintegrateTargetCount(event);
+      this.currentCastCounter.MassDisintCasts += 1;
     } else {
-      this.totalCasts += 1;
+      this.currentCastCounter.DisintCasts += 1;
       if (this.inDragonRageWindow) {
-        this.dragonRageCasts += 1;
+        this.currentCastCounter.DragonrageCasts += 1;
       }
     }
   }
 
   get tickData() {
-    const regularTicks = this.totalTicks - this.dragonRageTicks;
+    const regularTicks = this.totalCastCounter.DisintTicks - this.totalCastCounter.DragonrageTicks;
     const totalPossibleRegularTicks =
-      (this.totalCasts - this.dragonRageCasts) * this.ticksPerDisintegrate;
-    const dragonRageTicks = this.dragonRageTicks;
-    const totalPossibleDragonRageTicks = this.dragonRageCasts * this.ticksPerDisintegrate;
+      (this.totalCastCounter.DisintCasts - this.totalCastCounter.DragonrageCasts) *
+      this.ticksPerDisintegrate;
+    const dragonRageTicks = this.totalCastCounter.DragonrageTicks;
+    const totalPossibleDragonRageTicks =
+      this.totalCastCounter.DragonrageCasts * this.ticksPerDisintegrate;
 
     const totalPossibleMassDisintegrateTicks =
-      this.totalMassDisintegrateTargets * this.ticksPerDisintegrate;
+      this.totalCastCounter.MassDisintTargets * this.ticksPerDisintegrate;
 
     return {
       regularTicks,
@@ -268,7 +315,7 @@ class Disintegrate extends Analyzer {
       dragonRageTicks,
       totalPossibleDragonRageTicks,
       dragonRageTickRatio: dragonRageTicks / totalPossibleDragonRageTicks,
-      massDisintegrateTicks: this.totalMassDisintegrateTicks,
+      massDisintegrateTicks: this.totalCastCounter.MassDisintTicks,
       totalPossibleMassDisintegrateTicks,
     };
   }
@@ -297,10 +344,12 @@ class Disintegrate extends Analyzer {
     });
 
     if (this.isCurrentCastMassDisintegrate) {
+      const targets = getDisintegrateTargetCount(getDisintegrateCast(event)[0]);
+
       this.massDisintegrateCasts.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
-        tooltip: 'Mass Disintegrate Cast',
+        tooltip: `Mass Disintegrate Cast: ${targets} target(s)`,
       });
     } else {
       this.disintegrateCasts.push({
@@ -309,6 +358,22 @@ class Disintegrate extends Analyzer {
         tooltip: 'Cast',
       });
     }
+    if (this.chainWindowCount === 0) {
+      // Doing this here to remove Dragonrage events that ended between 2 windows
+      this.dragonrageBuffCounter = [];
+
+      this.chainWindowStart = event.timestamp;
+
+      // Since we are creating windows we have to reenable the Dragonrage Buff if it was already active
+      if (this.inDragonRageWindow) {
+        this.dragonrageBuffCounter.push({
+          timestamp: event.timestamp - CHAIN_WINDOW_BUFFER,
+          count: this.ticksPerChainedDisintegrate,
+          tooltip: '',
+        });
+      }
+    }
+    this.chainWindowCount += 1;
   }
 
   onRefreshDebuff(event: RefreshDebuffEvent | ApplyDebuffEvent) {
@@ -317,63 +382,76 @@ class Disintegrate extends Analyzer {
     }
     this.currentMainTarget = encodeEventTargetString(event);
 
-    // Clipped before GCD, very bad
-    if (
-      this.currentRemainingTicks >=
-      (this.isCurrentCastChained
-        ? this.ticksPerChainedDisintegrate - 2
-        : this.ticksPerDisintegrate - 2)
-    ) {
-      this.problemPoints.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip: 'Bad Chain, you chained before the 3rd tick.',
-      });
-    } else if (this.currentRemainingTicks > this.maxAllowedEarlyChainedTicks + 1) {
-      this.problemPoints.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
-      });
-    }
-    // Clipped ticks outside of DR, bad
-    else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
-      this.problemPoints.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip:
-          'Bad Chain, you clipped: ' +
-          (this.currentRemainingTicks - 1) +
-          ' tick(s) outside of Dragonrage',
-      });
-    } else {
-      if (this.isCurrentCastMassDisintegrate) {
-        if (this.currentRemainingTicks >= 2) {
-          this.problemPoints.push({
-            timestamp: event.timestamp,
-            count: this.currentRemainingTicks,
-            tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
-          });
-        } else {
-          this.massDisintegrateCasts.push({
-            timestamp: event.timestamp,
-            count: this.currentRemainingTicks,
-            tooltip: 'Good Chain',
-          });
-        }
-      } else {
-        this.disintegrateChainCasts.push({
+    // Fixes the edgecase where the last tick and the new cast fall on the same timestamp resulting in a fake refreshdebuff event.
+    if (this.currentRemainingTicks > 0) {
+      // Clipped before GCD, very bad
+      if (
+        this.currentRemainingTicks >=
+        (this.isCurrentCastChained
+          ? this.ticksPerChainedDisintegrate - 2
+          : this.ticksPerDisintegrate - 2)
+      ) {
+        this.problemPoints.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip: 'Bad Chain, you chained before the 3rd tick.',
+        });
+      } else if (this.currentRemainingTicks > THRESHOLD_MAX_EARLY_CHAINED_TICKS + 1) {
+        this.problemPoints.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
+        });
+      }
+      // Clipped ticks outside of DR, bad
+      else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
+        this.problemPoints.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
           tooltip:
-            this.currentRemainingTicks >= 2
-              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
-              : 'Good Chain',
+            'Bad Chain, you clipped: ' +
+            (this.currentRemainingTicks - 1) +
+            ' tick(s) outside of Dragonrage',
         });
+      } else {
+        if (this.isCurrentCastMassDisintegrate) {
+          if (this.currentRemainingTicks >= 2) {
+            this.problemPoints.push({
+              timestamp: event.timestamp,
+              count: this.currentRemainingTicks,
+              tooltip: 'Bad Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ' tick(s)',
+            });
+          } else {
+            this.disintegrateChainCasts.push({
+              timestamp: event.timestamp,
+              count: this.currentRemainingTicks,
+              tooltip: 'Good Chain',
+            });
+          }
+        } else {
+          // Chaining Mass Dis -> Dis is a big no-no
+          if (this.isPreviousCastMassDisintegrate) {
+            this.problemPoints.push({
+              timestamp: event.timestamp,
+              count: this.currentRemainingTicks,
+              tooltip: 'Bad Chain, chained Mass Disintegrate into Disintegrate',
+            });
+            this.currentCastCounter.MassDisintIntoDisChainTicks += 1;
+          } else
+            this.disintegrateChainCasts.push({
+              timestamp: event.timestamp,
+              count: this.currentRemainingTicks,
+              tooltip:
+                this.currentRemainingTicks >= 2
+                  ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
+                  : 'Good Chain',
+            });
+        }
       }
+
+      this.isCurrentCastChained = true;
     }
 
-    this.isCurrentCastChained = true;
     /** Chained Disintegrate moves over one tick from current cast (Pandemic) */
     this.currentRemainingTicks =
       this.ticksPerDisintegrate + Math.min(this.currentRemainingTicks, 1);
@@ -383,11 +461,23 @@ class Disintegrate extends Analyzer {
       count: this.currentRemainingTicks,
     });
 
-    this.disintegrateCasts.push({
-      timestamp: event.timestamp,
-      count: this.currentRemainingTicks,
-      tooltip: 'Cast',
-    });
+    if (this.isCurrentCastMassDisintegrate) {
+      const targets = getDisintegrateTargetCount(getDisintegrateCast(event)[0]);
+
+      this.massDisintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: `Mass Disintegrate Cast: ${targets} target(s)`,
+      });
+    } else {
+      this.disintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Cast',
+      });
+    }
+
+    this.chainWindowCount += 1;
   }
 
   onRemoveDebuff(event: RemoveDebuffEvent) {
@@ -420,7 +510,7 @@ class Disintegrate extends Analyzer {
             this.disintegrateClipSpell.ability.name +
             ' before the 3rd tick.',
         });
-      } else if (this.currentRemainingTicks > this.maxAllowedClippedTicks) {
+      } else if (this.currentRemainingTicks > THRESHOLD_MAX_CLIPPED_TICKS) {
         this.problemPoints.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
@@ -472,10 +562,15 @@ class Disintegrate extends Analyzer {
       count: this.currentRemainingTicks,
       tooltip: '',
     });
+
+    if (this.chainWindowCount >= CHAIN_WINDOW_BATCH_MINIMUM) {
+      this.chainWindowEnd = event.timestamp;
+      this.chainWindowCount = 0;
+    }
   }
 
-  /** Generate graph data */
-  pushToGraphData() {
+  /** Generate graph data and clear all trackers for next window.*/
+  pushToGraphData(timestamp: number) {
     // don't generate graph data if Disintegrate hasn't been used.
     if (this.disintegrateTicksCounter.length === 0) {
       return;
@@ -511,13 +606,13 @@ class Disintegrate extends Analyzer {
         spellTracker: this.disintegrateChainCasts,
         type: 'point',
         color: 'orange',
-        label: 'Disintegrate Chain Casts',
+        label: 'Chain Casts',
       },
       {
         spellTracker: this.disintegrateClips,
         type: 'point',
         color: '#9b59b6',
-        label: 'Disintegrate Clips',
+        label: 'Clips',
       },
       {
         spellTracker: this.problemPoints,
@@ -527,29 +622,124 @@ class Disintegrate extends Analyzer {
       },
     ];
 
-    /** If we are in a dungeon we only want to show the graph for bosses
-     * So we split it up into multigraphs.
-     */
-    if (isMythicPlus(this.owner.fight)) {
-      this.owner.fight.dungeonPulls?.forEach((dungeonPull) => {
-        if (dungeonPull.boss) {
-          const newGraphData = generateGraphData(
-            dataSeries,
-            dungeonPull.start_time,
-            dungeonPull.end_time,
-            dungeonPull.name,
-          );
-          this.graphData.push(newGraphData);
-        }
-      });
-    } else {
-      const newGraphData = generateGraphData(
-        dataSeries,
-        this.owner.fight.start_time,
-        this.owner.fight.end_time,
-      );
-      this.graphData.push(newGraphData);
-    }
+    const content = (
+      <>
+        <table className="graph-explanations">
+          <tbody>
+            <tr>
+              <td>
+                <strong>General</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <SpellLink spell={SPELLS.DISINTEGRATE} /> Casts
+              </td>
+              <td>{this.currentCastCounter.DisintCasts} cast(s)</td>
+            </tr>
+            {this.currentCastCounter.MassDisintCasts > 0 && (
+              <tr>
+                <td>
+                  <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> Casts
+                </td>
+                <td>{this.currentCastCounter.MassDisintCasts} cast(s)</td>
+              </tr>
+            )}
+          </tbody>
+          <tbody>
+            <tr>
+              <td>
+                <strong>Tick Usage</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <SpellLink spell={SPELLS.DISINTEGRATE} /> Efficiency
+              </td>
+              <td>
+                {this.currentCastCounter.DisintTicks -
+                  this.currentCastCounter.MassDisintIntoDisChainTicks}
+                /{this.currentCastCounter.DisintCasts * this.ticksPerDisintegrate}
+              </td>
+              <td>
+                <PassFailBar
+                  pass={
+                    this.currentCastCounter.DisintTicks -
+                    this.currentCastCounter.MassDisintIntoDisChainTicks
+                  }
+                  total={this.currentCastCounter.DisintCasts * this.ticksPerDisintegrate}
+                />
+              </td>
+            </tr>
+            {this.currentCastCounter.MassDisintTicks > 0 && (
+              <tr>
+                <td>
+                  <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> Efficiency
+                </td>
+                <td>
+                  <TooltipElement
+                    content={
+                      <>
+                        Losing ticks on <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />, despite
+                        having no problem points, might be caused by mobs dying, which is
+                        unavoidable.
+                      </>
+                    }
+                  >
+                    {this.currentCastCounter.MassDisintTicks}/
+                    {this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
+                  </TooltipElement>
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={this.currentCastCounter.MassDisintTicks}
+                    total={this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
+                  />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </>
+    );
+    this.explanations.push(content);
+
+    const newGraphData = generateGraphData(
+      dataSeries,
+      this.chainWindowStart - CHAIN_WINDOW_BUFFER,
+      timestamp + CHAIN_WINDOW_BUFFER,
+      'Chain Window',
+    );
+    this.graphData.push(newGraphData);
+
+    this.totalCastCounter.DisintCasts += this.currentCastCounter.DisintCasts;
+    this.totalCastCounter.DisintTicks += this.currentCastCounter.DisintTicks;
+    this.totalCastCounter.DragonrageCasts += this.currentCastCounter.DragonrageCasts;
+    this.totalCastCounter.DragonrageTicks += this.currentCastCounter.DragonrageTicks;
+    this.totalCastCounter.MassDisintCasts += this.currentCastCounter.MassDisintCasts;
+    this.totalCastCounter.MassDisintTicks += this.currentCastCounter.MassDisintTicks;
+    this.totalCastCounter.MassDisintTargets += this.currentCastCounter.MassDisintTargets;
+    this.totalCastCounter.MassDisintIntoDisChainTicks +=
+      this.currentCastCounter.MassDisintIntoDisChainTicks;
+
+    this.currentCastCounter = {
+      DisintCasts: 0,
+      DisintTicks: 0,
+      DragonrageTicks: 0,
+      DragonrageCasts: 0,
+      MassDisintCasts: 0,
+      MassDisintTicks: 0,
+      MassDisintTargets: 0,
+      MassDisintIntoDisChainTicks: 0,
+    };
+
+    this.disintegrateTicksCounter = [];
+    this.disintegrateCasts = [];
+    this.massDisintegrateCasts = [];
+    this.disintegrateChainCasts = [];
+    this.disintegrateClips = [];
+    this.problemPoints = [];
+    this.dragonrageBuffCounter = [];
   }
 
   /** Evaluate individual disintegrate casts */
@@ -562,45 +752,24 @@ class Disintegrate extends Analyzer {
     }
 
     return (
-      <SubSection title="Disintegrate">
+      <SubSection title="Cast Analysis">
         <div>
           <p>
-            Use the graph below to deep dive into your <SpellLink spell={DISINTEGRATE} /> casts.
-            <ul>
-              <li>
-                Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
-              </li>
-              {this.massDisintegrateCasts.length > 0 && (
-                <>
-                  <li>
-                    Mass Disintegrate Casts are highlighted in{' '}
-                    <span style={{ color: '#aa774f' }}>brown</span>
-                  </li>
-                </>
-              )}
-              <li>
-                Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
-              </li>
-              <li>
-                Clipped casts are highlighted in <span style={{ color: '#9b59b6' }}>purple</span>
-              </li>
-              <li>
-                Problem points are highlighted in <span style={{ color: 'red' }}>red</span>
-              </li>
-              <li>
-                <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.
-              </li>
-            </ul>
+            For further analysis, use the graph below to deep dive into your{' '}
+            <SpellLink spell={DISINTEGRATE} /> casts. For the sake of simplicity the casts are
+            batched into groups which preserve chains and contain at least 3 casts .
           </p>
           <b>
-            <InformationIcon /> Mouseover each point on the graph for more detailed explanations.
+            <InformationIcon /> Mouseover each point on the graph for more detailed
+            explanations.{' '}
           </b>
         </div>
         <ExplanationGraph
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
           graphData={this.graphData}
-          yAxisName="Ticks"
+          yAxisName="Remaining Ticks"
+          explanations={this.explanations}
         />
       </SubSection>
     );

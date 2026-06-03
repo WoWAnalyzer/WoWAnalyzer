@@ -39,116 +39,9 @@ function PassFail({
 export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Damage Efficiency">
-      <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
       <NoWastedBuffsSubsection {...props} />
     </Section>
-  );
-}
-
-function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  const tickData = modules.disintegrate.tickData;
-  if (tickData.regularTicks === 0) {
-    return null;
-  }
-
-  const isEarlyChainingOptimal = false;
-
-  return (
-    <SubSection title="Clipping/Chaining Disintegrate">
-      <p>
-        You should always aim to chain <SpellLink spell={SPELLS.DISINTEGRATE} />. Chaining refers to
-        recasting <SpellLink spell={SPELLS.DISINTEGRATE} /> while already channeling a{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> after the penultimate (second to last) tick in
-        order to channel two <SpellLink spell={SPELLS.DISINTEGRATE} /> in a row without downtime or
-        losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> functions as a DoT.
-      </p>
-      {isEarlyChainingOptimal && (
-        <p>
-          Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be clipping{' '}
-          <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick with more important spells
-          such <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.ETERNITY_SURGE} />
-          , <SpellLink spell={SPELLS.SHATTERING_STAR} /> or{' '}
-          <SpellLink spell={SPELLS.BURNOUT_BUFF} />. As well as early chaining your{' '}
-          <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick to maximize resources
-          generation and expenditure.
-        </p>
-      )}
-      <p>
-        See the{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#advanced-disintegrate-chaining-and-clipping">
-          Disintegrate Chaining and Clipping
-        </a>{' '}
-        section on wowhead for a more in-depth explanation.
-      </p>
-      <ExplanationAndDataSubSection
-        explanationPercent={EXPLANATION_PERCENTAGE}
-        explanation={
-          <div>
-            <p>
-              <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency outside of{' '}
-              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
-            </p>
-            <p>You should not be dropping any ticks here.</p>
-          </div>
-        }
-        data={
-          <PassFail
-            value={tickData.regularTicks}
-            total={tickData.totalPossibleRegularTicks}
-            passed={tickData.regularTickRatio > 0.95}
-          />
-        }
-      />
-      <ExplanationAndDataSubSection
-        explanationPercent={EXPLANATION_PERCENTAGE}
-        explanation={
-          <div>
-            <p>
-              <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency during{' '}
-              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
-            </p>
-            <p>
-              It can sometimes be beneficial to clip <SpellLink spell={SPELLS.DISINTEGRATE} /> early
-              in order to to cast more important spells.
-            </p>
-          </div>
-        }
-        data={
-          <PassFail
-            value={tickData.dragonRageTicks}
-            total={tickData.totalPossibleDragonRageTicks}
-            /*customTotal={tickData.totalPossibleDragonRageTicks * 0.75}*/
-            passed={tickData.dragonRageTickRatio > 0.9}
-          />
-        }
-      />
-
-      {info.combatant.hasTalent(TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT) && (
-        <ExplanationAndDataSubSection
-          explanationPercent={EXPLANATION_PERCENTAGE}
-          explanation={
-            <div>
-              <p>
-                <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> efficiency
-              </p>
-              <p>You should not be dropping any ticks here.</p>
-            </div>
-          }
-          data={
-            <PassFail
-              value={tickData.massDisintegrateTicks}
-              total={tickData.totalPossibleMassDisintegrateTicks}
-              passed={
-                tickData.massDisintegrateTicks === tickData.totalPossibleMassDisintegrateTicks
-              }
-            />
-          }
-        />
-      )}
-      {modules.disintegrate.guideSubSection()}
-    </SubSection>
   );
 }
 
@@ -228,7 +121,7 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
     return null;
   }
 
-  console.log(modules.azureSweep.buffRatio);
+  //console.log(modules.azureSweep.buffRatio);
 
   return (
     <SubSection title="No Wasted Buffs">
