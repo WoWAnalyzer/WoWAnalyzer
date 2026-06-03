@@ -1,16 +1,16 @@
 import { GuideProps, PassFailCheckmark, Section, SubSection } from 'interface/guide';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';
 import SPELLS from 'common/SPELLS';
 
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import { JSX } from 'react';
+import Spell from 'common/SPELLS/Spell';
+import { WarningIcon } from 'interface/icons';
 
 const EXPLANATION_PERCENTAGE = 70;
-
-const DRAGONRAGE_CLIPPING_USED = true;
-const DRAGONRAGE_EARLY_CHAINING_USED = true;
 
 function PassFail({
   value,
@@ -60,17 +60,23 @@ export function Disintegrate(props: GuideProps<typeof CombatLogParser>) {
             </li>
             <li>
               <strong>Clipping</strong> - Clipping refers to interrupting a channel of{' '}
-              <SpellLink spell={SPELLS.DISINTEGRATE} /> early by using another spell. This is
-              situationally good but usually bad.
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> early by using another spell.
             </li>
             <li>
-              For further information about <strong>Chaining and Clipping</strong>, including which
-              spells you should clip <SpellLink spell={SPELLS.DISINTEGRATE} /> for, see{' '}
+              For further information, including which spells you should clip{' '}
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> for, see{' '}
               <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#advanced-disintegrate-chaining-and-clipping">
                 Disintegrate Chaining and Clipping
               </a>{' '}
             </li>
           </ul>
+          <div>
+            <strong>
+              <WarningIcon /> Clipping is usually a very minor DPS gain, if any at all. The modules
+              below will elaborate whether clipping is relevant. Addtionally it is prefered to chain
+              correctly if clipping incorrectly is likely
+            </strong>
+          </div>
         </SubSection>
       </div>
       <DisintegrateSubsection {...props} />
@@ -84,8 +90,30 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
     return null;
   }
 
+  const goodClipSpells: Spell[] = [];
+  modules.disintegrate.goodClipSpells.forEach((spell) => {
+    if (!goodClipSpells.find((x) => x.name === spell.name)) {
+      goodClipSpells.push(spell);
+    }
+  });
+
+  const clipLogic = modules.disintegrate.activeChainClipLogic;
+
+  // Good Clipping Spells
+  const elements: JSX.Element[] = [];
+  goodClipSpells.forEach((id) => {
+    elements.push(
+      <li>
+        <SpellLink spell={id}></SpellLink>
+      </li>,
+    );
+  });
+  const clippedSpellsContent = (
+    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{elements}</ul>
+  );
+
   return (
-    <SubSection title="Wasted Ticks">
+    <SubSection title="Overall Tick Efficiency">
       <ExplanationAndDataSubSection
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
@@ -93,7 +121,33 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
             <b>
               Efficiency outside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </b>
-            <p>You should not be dropping any ticks here.</p>
+            {clipLogic.thresholdEarlyChainTicks > 1 || clipLogic.allowGoodClipping ? (
+              <p>
+                {clipLogic.thresholdEarlyChainTicks > 1 && (
+                  <>
+                    You should be early chaining <SpellLink spell={SPELLS.DISINTEGRATE} />
+                  </>
+                )}
+                {clipLogic.thresholdEarlyChainTicks > 1 && clipLogic.allowGoodClipping ? (
+                  <> and you </>
+                ) : clipLogic.allowGoodClipping ? (
+                  <>You </>
+                ) : (
+                  <>.</>
+                )}
+                {clipLogic.allowGoodClipping && (
+                  <>
+                    should be clipping <SpellLink spell={SPELLS.DISINTEGRATE} /> in favor of{' '}
+                    <TooltipElement content={clippedSpellsContent}>
+                      high-value spells
+                    </TooltipElement>
+                    .
+                  </>
+                )}
+              </p>
+            ) : (
+              <p>You should not be dropping any ticks here.</p>
+            )}
           </div>
         }
         data={
@@ -111,27 +165,35 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
             <b>
               Efficiency during <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </b>
-            {DRAGONRAGE_EARLY_CHAINING_USED && DRAGONRAGE_CLIPPING_USED ? (
+            {clipLogic.thresholdEarlyChainTicksDragonrage > 1 ||
+            clipLogic.allowGoodClippingDragonrage ? (
               <p>
-                You should be early chaining <SpellLink spell={SPELLS.DISINTEGRATE} /> and you
-                should be clipping <SpellLink spell={SPELLS.DISINTEGRATE} /> in favor of high
-                priority spells.
-              </p>
-            ) : DRAGONRAGE_EARLY_CHAINING_USED || DRAGONRAGE_CLIPPING_USED ? (
-              <p>
-                {DRAGONRAGE_EARLY_CHAINING_USED && (
-                  <p>
-                    You should be early chaining <SpellLink spell={SPELLS.DISINTEGRATE} />.
-                  </p>
+                During Dragonrage,{' '}
+                {clipLogic.thresholdEarlyChainTicksDragonrage > 1 && (
+                  <>
+                    you should be early chaining <SpellLink spell={SPELLS.DISINTEGRATE} />
+                  </>
                 )}
-                {DRAGONRAGE_CLIPPING_USED && (
-                  <p>
-                    You should be early chaining <SpellLink spell={SPELLS.DISINTEGRATE} />.
-                  </p>
+                {clipLogic.thresholdEarlyChainTicksDragonrage > 1 &&
+                clipLogic.allowGoodClippingDragonrage ? (
+                  <> and you </>
+                ) : clipLogic.allowGoodClippingDragonrage ? (
+                  <>you </>
+                ) : (
+                  <>.</>
+                )}
+                {clipLogic.allowGoodClippingDragonrage && (
+                  <>
+                    should be clipping <SpellLink spell={SPELLS.DISINTEGRATE} /> in favor of{' '}
+                    <TooltipElement content={clippedSpellsContent}>
+                      high-value spells
+                    </TooltipElement>
+                    .
+                  </>
                 )}
               </p>
             ) : (
-              <p>You should not be dropping any ticks here.</p>
+              <p>During Dragonrage, you should not be dropping any ticks.</p>
             )}
           </div>
         }
