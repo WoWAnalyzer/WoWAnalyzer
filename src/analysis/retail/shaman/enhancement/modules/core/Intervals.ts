@@ -44,4 +44,23 @@ export class Intervals {
 
     this.intervals[this.intervals.length - 1].end(timestamp);
   }
+
+  /**
+   * Total time within [start, end] that any interval was active. Treats an
+   * in-progress interval as ending at `end`.
+   */
+  overlapWith(start: number, end: number): number {
+    if (end <= start) {
+      return 0;
+    }
+    let total = 0;
+    for (const interval of this.intervals) {
+      const overlapStart = Math.max(interval.startTime, start);
+      const overlapEnd = Math.min(interval.endTime ?? end, end);
+      if (overlapEnd > overlapStart) {
+        total += overlapEnd - overlapStart;
+      }
+    }
+    return total;
+  }
 }

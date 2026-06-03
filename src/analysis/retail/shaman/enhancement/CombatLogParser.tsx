@@ -43,7 +43,10 @@ import MaelstromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefre
 import ThunderCapacitor from './modules/talents/ThunderCapacitor';
 import PrimordialStorm from './modules/talents/PrimordialStorm';
 import Earthsurge from './modules/hero/totemic/Earthsurge';
+import Tempest from './modules/hero/stormbringer/Tempest';
 import StormUnleashed from './modules/talents/StormUnleashed';
+import SurgingTotem from './modules/talents/SurgingTotem';
+import FireNova from './modules/talents/FireNova';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -93,9 +96,12 @@ class CombatLogParser extends CoreCombatLogParser {
     thunderCapacitor: ThunderCapacitor,
     primordialStorm: PrimordialStorm,
     stormUnleashed: StormUnleashed,
+    surgingTotem: SurgingTotem,
+    fireNova: FireNova,
 
     // Hero Talents
     earthsurge: Earthsurge,
+    tempest: Tempest,
 
     // Normalizers
     maelstromRefreshBuffNormalizer: MaelstromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack

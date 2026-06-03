@@ -73,6 +73,7 @@ export enum EnhancementEventLinks {
   STORMSTRIKE_LINK = 'stormstrike',
   CHAIN_LIGHTNING_LINK = 'chain-lightning',
   TEMPEST_LINK = 'tempest',
+  TEMPEST_CONSUME_LINK = 'tempest-consume',
   MAELSTROM_SPENDER_LINK = 'maelstrom-spender',
   LIGHTNING_BOLT_LINK = 'lightning-bolt',
   MAELSTROM_GENERATOR_LINK = 'maelstrom-generator',
@@ -82,6 +83,9 @@ export enum EnhancementEventLinks {
   REACTIVITY_LINK = 'reactivity',
   WHIRLING_FIRE_HOT_HAND_LINK = 'whirling-fire-hot-hand',
   WHIRLING_FIRE_LAVA_LASH_LINK = 'whirling-fire-lava-lash',
+  WHIRLING_EARTH_CONSUME_LINK = 'whirling-earth-consume',
+  WHIRLING_FIRE_CONSUME_LINK = 'whirling-fire-consume',
+  WHIRLING_AIR_CONSUME_LINK = 'whirling-air-consume',
 }
 
 export const GCD_TOLERANCE = 25;

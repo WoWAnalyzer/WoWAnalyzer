@@ -1003,6 +1003,11 @@ const spells = {
     name: 'Whirling Fire',
     icon: 'inv_10_elementalcombinedfoozles_fire',
   },
+  PRIMAL_CATALYST_BUFF: {
+    id: 1260880,
+    name: 'Primal Catalyst',
+    icon: 'misc_legionfall_shaman',
+  },
   TIDEWATERS_HEAL: {
     id: 462425,
     name: 'Tidewaters',
