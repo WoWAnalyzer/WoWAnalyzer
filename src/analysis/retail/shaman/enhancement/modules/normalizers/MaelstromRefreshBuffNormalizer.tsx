@@ -4,7 +4,7 @@ import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { NormalizerOrder } from './constants';
 
-class EnhancementRefreshBuffNormalizer extends EventsNormalizer {
+class MaelstromRefreshBuffNormalizer extends EventsNormalizer {
   constructor(options: Options) {
     super(options);
 
@@ -43,4 +43,4 @@ class EnhancementRefreshBuffNormalizer extends EventsNormalizer {
   }
 }
 
-export default EnhancementRefreshBuffNormalizer;
+export default MaelstromRefreshBuffNormalizer;

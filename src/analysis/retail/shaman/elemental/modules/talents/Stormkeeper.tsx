@@ -5,7 +5,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 

@@ -2,7 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -14,19 +14,9 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
 
-/**
- * Stormstrike has a 25% chance to strike the target an additional time for
- * 40% of normal damage. This effect can chain off of itself.
- *
- * Example Log:
- *
- */
-class Stormflurry extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-  protected abilityTracker!: AbilityTracker;
-
+class Stormflurry extends Analyzer.withDependencies({
+  abilityTracker: AbilityTracker,
+}) {
   protected extraHits = 0;
   protected extraDamage = 0;
 
@@ -48,18 +38,16 @@ class Stormflurry extends Analyzer {
   get totalStormstrikeCasts() {
     return STORMSTRIKE_CAST_SPELLS.reduce(
       (casts: number, spell: Spell) =>
-        (casts += this.abilityTracker.getAbility(spell.id).casts || 0),
+        (casts += this.deps.abilityTracker.getAbility(spell.id).casts || 0),
       0,
     );
   }
 
   onStormstrike(event: CastEvent) {
-    if (!event._linkedEvents) {
-      return;
-    }
-    const stormstrikeDamageEvents = event._linkedEvents
-      .filter((le) => le.relation === EnhancementEventLinks.STORMSTRIKE_LINK)
-      .map((le) => le.event as DamageEvent);
+    const stormstrikeDamageEvents = GetRelatedEvents<DamageEvent>(
+      event,
+      EnhancementEventLinks.STORMSTRIKE_LINK,
+    );
     if (stormstrikeDamageEvents.length <= 2) {
       return;
     }
