@@ -34,7 +34,7 @@ function PassFail({
   );
 }
 
-export function Disintegrate(props: GuideProps<typeof CombatLogParser>) {
+export function DisintegrateSection(props: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Disintegrate">
       <div>
