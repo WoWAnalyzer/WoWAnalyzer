@@ -68,7 +68,7 @@ import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 import AncestralReach from './modules/talents/AncestralReach';
 import FlowOfTheTides from './modules/talents/FlowOfTheTides';
 import EarthShieldBreakdown from './modules/features/EarthShieldBreakdown';
-import EarthenHarmony from './modules/talents/EarthenHarmony';
+import EarthenHarmony from '../shared/talents/EarthenHarmony';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';

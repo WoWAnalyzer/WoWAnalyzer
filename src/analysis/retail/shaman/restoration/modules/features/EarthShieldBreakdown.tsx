@@ -1,5 +1,4 @@
-import { EarthShield } from 'analysis/retail/shaman/shared';
-import EarthenHarmony from '../talents/EarthenHarmony';
+import { EarthShield, EarthenHarmony } from 'analysis/retail/shaman/shared';
 import ElementalOrbit from 'analysis/retail/shaman/shared/talents/ElementalOrbit';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';

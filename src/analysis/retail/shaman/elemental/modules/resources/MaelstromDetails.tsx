@@ -3,7 +3,8 @@ import { Expandable, Icon, ResourceLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import MaelstromTracker from './MaelstromTracker';
 import { ThresholdStyle } from 'parser/core/ParseResults';

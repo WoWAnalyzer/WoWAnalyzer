@@ -92,7 +92,7 @@ interface HotHandWindow {
   lavaLashCooldownRemainingAtEnd: number;
   totemicMomentumExtension: number;
   thorimsActiveRanges: { start: number; end: number }[];
-  unusedGcdTime: number;
+  idleGapDurations: number[];
 }
 
 interface TotemicMomentumBreakdown {
@@ -316,7 +316,11 @@ class HotHand extends Analyzer.withDependencies({
       return;
     }
 
-    this.activeWindow.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
+    const gapStart = Math.max(this.globalCooldownEnds, this.activeWindow.start);
+    const idleGap = event.timestamp - gapStart;
+    if (idleGap > 0) {
+      this.activeWindow.idleGapDurations.push(idleGap);
+    }
 
     if (event.ability.guid !== TALENTS.LAVA_LASH_TALENT.id) {
       // still call for side effects (cast annotations on high-priority abilities)
@@ -340,7 +344,7 @@ class HotHand extends Analyzer.withDependencies({
       addInefficientCastReason(
         event,
         <>
-          <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> was not active!
+          <SpellLink spell={SPELLS.SURGING_TOTEM} /> was not active!
         </>,
       );
     }
@@ -397,14 +401,18 @@ class HotHand extends Analyzer.withDependencies({
       end: event.timestamp,
       gcdRemainingAtEnd: 0,
       lavaLashCooldownRemainingAtEnd: 0,
-      unusedGcdTime: 0,
+      idleGapDurations: [],
       totemicMomentumExtension: 0,
       thorimsActiveRanges: [],
     };
   }
 
   private finalizeWindow(window: HotHandWindow, event: RemoveBuffEvent | FightEndEvent) {
-    window.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
+    const tailGapStart = Math.max(this.globalCooldownEnds, window.start);
+    const tailIdleGap = event.timestamp - tailGapStart;
+    if (tailIdleGap > 0) {
+      window.idleGapDurations.push(tailIdleGap);
+    }
     window.end = event.timestamp;
     window.gcdRemainingAtEnd = Math.max(this.globalCooldownEnds - event.timestamp, 0);
     window.lavaLashCooldownRemainingAtEnd = this.deps.spellUsable.cooldownRemaining(
@@ -456,6 +464,30 @@ class HotHand extends Analyzer.withDependencies({
     return this.hotHandActive.totalDuration / this.owner.fightDuration;
   }
 
+  /**
+   * Total Hot Hand active duration (ms) that falls inside [start, end].
+   * Used by other modules to attribute Hot Hand uptime to their own windows.
+   */
+  activeDurationDuring(start: number, end: number): number {
+    return this.hotHandActive.overlapWith(start, end);
+  }
+
+  /**
+   * Average Totemic Momentum extension performance across Hot Hand windows
+   * whose activity overlaps [start, end]. Returns null when the player isn't
+   * talented into Totemic Momentum, or no Hot Hand windows fell in the range.
+   */
+  extensionPerformanceDuring(start: number, end: number): QualitativePerformance | null {
+    if (!this.hasTotemicMomentum) {
+      return null;
+    }
+    const overlapping = this.windows.filter((w) => w.start < end && w.end > start);
+    if (overlapping.length === 0) {
+      return null;
+    }
+    return getAveragePerf(overlapping.map((w) => this.getTotemicMomentumBreakdown(w).performance));
+  }
+
   private get averageLavaLashCastsPerProc() {
     return this.hotHandActive.intervalsCount > 0
       ? this.buffedCasts / this.hotHandActive.intervalsCount
@@ -497,7 +529,7 @@ class HotHand extends Analyzer.withDependencies({
 
   private getUnusedGlobalCooldowns(cast: HotHandWindow) {
     const avgGcd = this.getAverageGcdOfWindow(cast);
-    return Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    return cast.idleGapDurations.reduce((total, gap) => total + Math.floor(gap / avgGcd), 0);
   }
 
   private getThorimsOverlapRatio(cast: HotHandWindow) {
@@ -715,7 +747,7 @@ class HotHand extends Analyzer.withDependencies({
 
   private getGcdPerformance(cast: HotHandWindow) {
     const avgGcd = this.getAverageGcdOfWindow(cast);
-    const unusedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    const unusedGlobalCooldowns = this.getUnusedGlobalCooldowns(cast);
     const estimatedPotentialCasts = (cast.end - cast.start) / avgGcd;
     if (estimatedPotentialCasts <= 0) {
       return QualitativePerformance.Perfect;

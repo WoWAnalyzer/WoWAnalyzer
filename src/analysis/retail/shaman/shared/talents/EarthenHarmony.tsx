@@ -8,7 +8,7 @@ import Events, { ApplyBuffEvent, EventType, HealEvent, RemoveBuffEvent } from 'p
 import {
   EARTHEN_HARMONY_DAMAGE_REDUCTION,
   EARTHEN_HARMONY_HEALING_INCREASE,
-} from '../../constants';
+} from '../../restoration/constants';
 import Combatants from 'parser/shared/modules/Combatants';
 
 class EarthenHarmony extends Analyzer {
@@ -124,9 +124,6 @@ class EarthenHarmony extends Analyzer {
     }
   }
 
-  /** We need the damage taken by the target during Earth Shield in order to calculate the damage
-   *  reduction, which isn't present in the main event stream we have. This forms and sends the
-   *  required custom query */
   loadFirstBuffDamageTakenDuringEarthShield(
     start: number,
     end: number,
