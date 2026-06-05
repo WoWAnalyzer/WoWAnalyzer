@@ -62,6 +62,7 @@ interface Props {
   graphData: GraphData[];
   yAxisName: string;
   explanations?: JSX.Element[];
+  noLegend?: boolean;
 }
 
 /**
@@ -178,6 +179,7 @@ const ExplanationGraph: FC<Props> = ({
   graphData,
   yAxisName,
   explanations,
+  noLegend,
 }) => {
   /** Logic for handling display of windows */
   const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
@@ -365,9 +367,12 @@ const ExplanationGraph: FC<Props> = ({
       y: yAxis,
       color: {
         scale: { range: colorRange },
-        legend: {
-          symbolOpacity: 1,
-        },
+        legend:
+          noLegend !== undefined
+            ? null
+            : {
+                symbolOpacity: 1,
+              },
       },
     },
 
