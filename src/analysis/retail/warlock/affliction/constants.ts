@@ -28,5 +28,5 @@ export const getDotDurations = (combatant: Combatant): Record<number, number> =>
     : defaultDurations;
 
 // Corruption Talent Modifiers
-export const SL_DAMAGE_BONUS = 0.2;
+export const SL_DAMAGE_BONUS = 0.3;
 export const AC_DAMAGE_BONUS = 0.15;

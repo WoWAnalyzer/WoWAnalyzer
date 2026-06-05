@@ -43,13 +43,11 @@ class AbsoluteCorruption extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            {formatThousands(this.bonusDmg)} bonus damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            Note: This only accounts for the passive 15% increased damage of Corruption. Actual
-            bonus damage should be higher due to saved GCDs.
+            <p>{formatThousands(this.bonusDmg)} bonus damage</p>
+            <p>
+              Note: This only accounts for the passive 15% increased damage of Corruption. Actual
+              bonus damage should be higher due to saved GCDs.
+            </p>
           </>
         }
       >

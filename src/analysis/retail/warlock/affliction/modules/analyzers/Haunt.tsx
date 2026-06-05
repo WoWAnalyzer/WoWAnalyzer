@@ -1,19 +1,11 @@
-import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { type JSX } from 'react';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
 const BAR_COLOR = '#00C853';
 
@@ -92,35 +84,6 @@ class Haunt extends Analyzer {
     }
   }
 
-  statistic() {
-    return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={
-          <>
-            {formatThousands(this.bonusDmg)} bonus damage
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-          </>
-        }
-      >
-        <BoringSpellValueText spell={TALENTS.HAUNT_TALENT}>
-          <div>
-            {formatPercentage(this.uptime)} % <small>uptime</small>
-          </div>
-          <div>
-            {formatNumber(this.dps)} DPS{' '}
-            <small>
-              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of
-              total
-            </small>
-          </div>
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
-
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
       spells: [TALENTS.HAUNT_TALENT],
@@ -128,58 +91,6 @@ class Haunt extends Analyzer {
       color: BAR_COLOR,
       perf: this.DowntimePerformance,
     });
-  }
-
-  get guideSubsection(): JSX.Element {
-    const explanation = (
-      <>
-        <p>
-          <b>
-            Keep <SpellLink spell={TALENTS.HAUNT_TALENT} /> active on your primary target.
-          </b>
-        </p>
-
-        <p>
-          <SpellLink spell={TALENTS.HAUNT_TALENT} /> increases your damage dealt to the target by{' '}
-          <TooltipElement
-            content={
-              <>
-                Haunt's damage bonus:
-                <ul>
-                  <li>+12% baseline</li>
-                  {this.shadowOfNathrezaBonus > 0 && (
-                    <li>
-                      +{formatPercentage(this.shadowOfNathrezaBonus, 0)}% from{' '}
-                      <SpellLink spell={TALENTS.SHADOW_OF_NATHREZA_2_AFFLICTION_TALENT} />
-                    </li>
-                  )}
-                </ul>
-              </>
-            }
-          >
-            <b>{formatPercentage(this.hauntDamageBonus, 0)}%</b>
-          </TooltipElement>{' '}
-          for 18 seconds. You should always reapply it before it falls off.
-        </p>
-
-        {this.DowntimePerformance === QualitativePerformance.Ok && (
-          <p style={{ color: 'orange' }}>
-            Your Haunt uptime is average. Try to refresh it more consistently.
-          </p>
-        )}
-
-        {this.DowntimePerformance === QualitativePerformance.Fail && (
-          <p style={{ color: 'red' }}>
-            Your Haunt uptime is low! Focus on keeping it applied at all times.
-          </p>
-        )}
-      </>
-    );
-
-    const data = <RoundedPanel>{this.subStatistic()}</RoundedPanel>;
-
-    // ✅ Pass explanation and data as object
-    return ExplanationAndDataSubSection({ explanation, data });
   }
 }
 

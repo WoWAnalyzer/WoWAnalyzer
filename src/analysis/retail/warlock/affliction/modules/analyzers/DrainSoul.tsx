@@ -102,13 +102,15 @@ class DrainSoul extends Analyzer {
         tooltip={`${formatThousands(damage)} total damage`}
       >
         <BoringSpellValueText spell={TALENTS.DRAIN_SOUL_TALENT}>
-          {formatNumber(dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
-          </small>
-          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-          <br />
-          <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
+          <div>
+            {formatNumber(dps)} DPS{' '}
+            <small>
+              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
+            </small>
+          </div>
+          <div>
+            <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

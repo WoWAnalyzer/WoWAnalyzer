@@ -9,6 +9,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Abilities from './modules/core/Abilities';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
+import CancelledCasts from './modules/core/CancelledCasts';
 import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
 import Darkglare from './modules/analyzers/Darkglare';
 import SoulShardDetails from '../shared/resources/SoulShardDetails';
@@ -17,7 +18,7 @@ import SoulShardGraph from '../shared/resources/SoulShardGraph';
 import AbsoluteCorruption from './modules/analyzers/AbsoluteCorruption';
 import Agony from './modules/analyzers/Agony';
 import Corruption from './modules/analyzers/Corruption';
-import CorruptionUptime from './modules/guide/CorruptionUptime';
+import DotUptimesGuide from './modules/guide/DotUptimesGuide';
 import UnstableAffliction from './modules/analyzers/UnstableAffliction';
 import UnstableAfflictionCasts from './modules/analyzers/UnstableAfflictionEfficiency';
 import DrainSoul from './modules/analyzers/DrainSoul';
@@ -26,6 +27,7 @@ import Nightfall from './modules/analyzers/Nightfall';
 import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '../shared';
 import Guide from './Guide';
 import CullTheWeak from './modules/analyzers/CulltheWeak';
+import SiphonLife from './modules/analyzers/SiphonLife';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -40,13 +42,14 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
     darkglare: Darkglare,
 
     // DoTs
     agony: Agony,
     corruption: Corruption,
-    corruptionUptime: CorruptionUptime,
+    dotUptimesGuide: DotUptimesGuide,
     unstableaffliction: UnstableAffliction,
     unstableafflictionCasts: UnstableAfflictionCasts,
 
@@ -62,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     haunt: Haunt,
     nightfall: Nightfall,
     cullTheWeak: CullTheWeak,
+    siphonLife: SiphonLife,
 
     // Shared Spells
     unendingResolve: UnendingResolve,

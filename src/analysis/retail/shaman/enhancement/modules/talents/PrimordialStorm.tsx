@@ -29,6 +29,8 @@ interface PrimordialStormCast extends CooldownTrigger<CastEvent> {
     shouldHaveHadDoomwinds: boolean;
     hadDoomwinds: boolean;
     sunderingTimestamp: number | undefined;
+    /** When hadDoomwinds is true: was the Sundering cast before the DW window started? null when not applicable. */
+    sunderingBeforeDoomwinds: boolean | null;
   };
 }
 
@@ -139,11 +141,18 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
     const shouldHaveHadDoomwinds =
       this.dwSyncRatio > 0 && this.pstormCastIndex % this.dwSyncRatio === 0;
 
+    const sunderingBeforeDoomwinds = this.computeSunderingBeforeDoomwinds(
+      event.timestamp,
+      hadDoomwinds,
+      sunderingTimestamp,
+    );
+
     const details: PrimordialStormCast['details'] = {
       shouldHaveHadDoomwinds,
       hadDoomwinds,
       maelstromUsed: this.resourceTracker.lastSpenderInfo?.amount ?? 0,
       sunderingTimestamp,
+      sunderingBeforeDoomwinds,
     };
 
     const lis: ReactNode[] = [];
@@ -160,6 +169,15 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
       lis.push(
         <>
           Cast with less than 10 <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />
+        </>,
+      );
+    }
+
+    if (details.sunderingBeforeDoomwinds === false) {
+      lis.push(
+        <>
+          <SpellLink spell={TALENTS.SUNDERING_TALENT} /> should be cast before pressing{' '}
+          <SpellLink spell={this.syncSpell} /> so this cast doesn't waste GCDs setting up.
         </>,
       );
     }
@@ -191,6 +209,31 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
   /** The buff spell to check for the sync window being active */
   private get windowBuff(): Spell {
     return this.hasAscendance ? TALENTS.ASCENDANCE_ENHANCEMENT_TALENT : SPELLS.DOOM_WINDS_BUFF;
+  }
+
+  /**
+   * Was the Sundering that fed this PStorm cast before the DW window started?
+   * Returns null when not applicable (no DW sync, no DW active, or no Sundering involved).
+   */
+  private computeSunderingBeforeDoomwinds(
+    castTimestamp: number,
+    hadDoomwinds: boolean,
+    sunderingTimestamp: number | undefined,
+  ): boolean | null {
+    if (!hadDoomwinds || this.dwSyncRatio === 0 || sunderingTimestamp === undefined) {
+      return null;
+    }
+
+    const buffHistory = this.selectedCombatant.getBuffHistory(this.windowBuff.id);
+    const activeBuff = buffHistory.find(
+      (b) => b.start <= castTimestamp && (b.end === null || b.end >= castTimestamp),
+    );
+
+    if (!activeBuff) {
+      return null;
+    }
+
+    return sunderingTimestamp < activeBuff.start;
   }
 
   /** Label for "Every Nth" DW sync frequency */
@@ -314,6 +357,22 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
         });
       }
 
+      if (details.sunderingBeforeDoomwinds !== null) {
+        stats.push({
+          value: details.sunderingBeforeDoomwinds ? 'Pre' : 'Inside',
+          label: 'Setup',
+          tooltip: (
+            <>
+              <SpellLink spell={TALENTS.SUNDERING_TALENT} /> should be cast before pressing{' '}
+              <SpellLink spell={this.syncSpell} /> so{' '}
+              <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> is ready.
+            </>
+          ),
+          performance: spellUse.checklistItems.find((item) => item.check === 'sundering-setup')
+            ?.performance,
+        });
+      }
+
       return {
         performance: spellUse.performance,
         timestamp: this.owner.formatTimestamp(cast.event.timestamp),
@@ -391,6 +450,14 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
           <SpellLink spell={SPELLS.LIGHTNING_BOLT} />/
           <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> that is automatically cast.
         </p>
+        {this.dwSyncRatio > 0 && (
+          <p>
+            Cast <SpellLink spell={TALENTS.SUNDERING_TALENT} /> just before pressing{' '}
+            <SpellLink spell={this.syncSpell} /> so {pstorm} is ready immediately. Casting{' '}
+            <SpellLink spell={TALENTS.SUNDERING_TALENT} /> during{' '}
+            <SpellLink spell={this.syncSpell} /> wastes setup GCDs.
+          </p>
+        )}
       </>
     );
   }
@@ -444,6 +511,35 @@ class PrimordialStorm extends MajorCooldown<PrimordialStormCast> {
         details: (
           <div>
             <SpellLink spell={this.syncSpell} /> {details.hadDoomwinds ? '' : 'not '}active.
+          </div>
+        ),
+      });
+    }
+
+    /**
+     * Sundering Setup (only when this PStorm landed inside DW)
+     */
+    if (details.sunderingBeforeDoomwinds !== null) {
+      checklistItems.push({
+        check: 'sundering-setup',
+        timestamp: cast.event.timestamp,
+        performance: details.sunderingBeforeDoomwinds
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Fail,
+        summary: (
+          <>
+            <SpellLink spell={TALENTS.SUNDERING_TALENT} /> cast{' '}
+            {details.sunderingBeforeDoomwinds ? 'before' : 'after'}{' '}
+            <SpellLink spell={this.syncSpell} />
+          </>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={TALENTS.SUNDERING_TALENT} /> was cast{' '}
+            {details.sunderingBeforeDoomwinds
+              ? 'before the window opened'
+              : 'inside the window, wasting setup GCDs'}
+            .
           </div>
         ),
       });

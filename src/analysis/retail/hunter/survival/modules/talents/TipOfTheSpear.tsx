@@ -2,8 +2,14 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
-import { KCFocusLink } from '../../normalizers/KillCommandNormalizer';
+import Events, {
+  CastEvent,
+  BeginCastEvent,
+  ResourceChangeEvent,
+  GetRelatedEvent,
+  HasAbility,
+} from 'parser/core/Events';
+import { KC_FOCUS_LINK, KC_NEXT_CAST } from '../../normalizers/KillCommandNormalizer';
 import BuffStackTracker from 'parser/shared/modules/BuffStackTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -14,7 +20,7 @@ import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBr
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import { BadColor, GoodColor } from 'interface/guide';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const MAX_STACKS = 3;
@@ -82,6 +88,16 @@ class TipOfTheSpear extends BuffStackTracker {
     return event.classResources?.find((r) => r.type === RESOURCE_TYPES.FOCUS.id)?.amount ?? 0;
   }
 
+  // Check if the next ability cast after this Kill Command is Takedown
+  private isNextCastTakedown(event: CastEvent): boolean {
+    const nextCast = GetRelatedEvent<CastEvent | BeginCastEvent>(event, KC_NEXT_CAST);
+    return (
+      nextCast !== undefined &&
+      HasAbility(nextCast) &&
+      nextCast.ability.guid === TALENTS.TAKEDOWN_TALENT.id
+    );
+  }
+
   private onTippableCast = (event: CastEvent) => {
     const wasTipped = this.selectedCombatant.hasBuff(
       SPELLS.TIP_OF_THE_SPEAR_CAST.id,
@@ -143,7 +159,7 @@ class TipOfTheSpear extends BuffStackTracker {
       this.wastedStacks += potentialStacks - MAX_STACKS;
     }
 
-    const focusEvent = KCFocusLink.first(event);
+    const focusEvent = GetRelatedEvent<ResourceChangeEvent>(event, KC_FOCUS_LINK);
     // amount is post-generation; subtract effective focus gained to recover pre-cast focus.
     const preCastFocus = focusEvent
       ? this.getFocus(event) - (focusEvent.resourceChange - focusEvent.waste)
@@ -175,10 +191,17 @@ class TipOfTheSpear extends BuffStackTracker {
         value = QualitativePerformance.Good;
         header = 'Good: generated at 0 stacks.';
         color = GoodColor;
-      } else if (!hasHowlBuff && currentStacks <= 2) {
-        value = QualitativePerformance.Ok;
-        header = `Ok: generated at ${currentStacks} stack${currentStacks !== 1 ? 's' : ''}.`;
-        color = OkColor;
+      } else if (!hasHowlBuff && currentStacks === 1) {
+        // 1 stack is acceptable if the next cast is Takedown (reactive ability)
+        if (this.isNextCastTakedown(event)) {
+          value = QualitativePerformance.Good;
+          header = 'Good: generated at 1 stack into Takedown.';
+          color = GoodColor;
+        } else {
+          value = QualitativePerformance.Fail;
+          header = `Bad: generated at ${currentStacks} stack${currentStacks !== 1 ? 's' : ''}.`;
+          color = BadColor;
+        }
       } else {
         value = QualitativePerformance.Fail;
         const wastedAmount = potentialStacks - MAX_STACKS;
@@ -186,15 +209,22 @@ class TipOfTheSpear extends BuffStackTracker {
         color = BadColor;
       }
     } else {
-      // Sentinel rules: 0 stacks = Good, 1 stack = Ok, 2+ = Bad (wastage).
+      // Sentinel rules: 0 stacks = Good, 1 stack = Bad, 2+ = Bad (wastage).
       if (currentStacks === 0) {
         value = QualitativePerformance.Good;
         header = 'Good: generated at 0 stacks.';
         color = GoodColor;
       } else if (currentStacks === 1) {
-        value = QualitativePerformance.Ok;
-        header = 'Ok: generated at 1 stack.';
-        color = OkColor;
+        // 1 stack is acceptable if the next cast is Takedown (reactive ability)
+        if (this.isNextCastTakedown(event)) {
+          value = QualitativePerformance.Good;
+          header = 'Good: generated at 1 stack into Takedown.';
+          color = GoodColor;
+        } else {
+          value = QualitativePerformance.Fail;
+          header = 'Bad: generated at 1 stack.';
+          color = BadColor;
+        }
       } else {
         value = QualitativePerformance.Fail;
         const wastedAmount = potentialStacks - MAX_STACKS;

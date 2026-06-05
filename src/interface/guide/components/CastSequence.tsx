@@ -6,6 +6,12 @@ import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import GuideDataWrapper, { HelperText, HelperTextRow, SectionContainer } from './GuideDataWrapper';
 
+export interface CastOverlay {
+  spellId: number;
+  spellName: string;
+  icon: string;
+}
+
 export interface CastInSequence {
   timestamp: number;
   spellId: number;
@@ -15,6 +21,8 @@ export interface CastInSequence {
   outlineColor?: string;
   ghosted?: boolean;
   tooltip?: React.ReactNode;
+  /** Up to 2 small badges rendered in the top-right/bottom-right corners. */
+  overlays?: CastOverlay[];
 }
 
 interface SpellSequenceProps {
@@ -44,6 +52,8 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
           </div>
         );
 
+        const overlays = cast.overlays?.slice(0, 2) ?? [];
+
         return (
           <Tooltip key={castIdx} content={cast.tooltip || defaultTooltip}>
             <SpellIcon size={iconSize} color={color} ghosted={cast.ghosted}>
@@ -51,6 +61,18 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
                 src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
                 alt={cast.spellName}
               />
+              {overlays.map((overlay, overlayIdx) => (
+                <Overlay
+                  key={overlay.spellId}
+                  size={iconSize}
+                  position={overlayIdx === 0 ? 'top' : 'bottom'}
+                >
+                  <img
+                    src={`https://wow.zamimg.com/images/wow/icons/large/${overlay.icon}.jpg`}
+                    alt={overlay.spellName}
+                  />
+                </Overlay>
+              ))}
             </SpellIcon>
           </Tooltip>
         );
@@ -255,4 +277,23 @@ const NavCounter = styled.div`
   color: rgba(255, 255, 255, 0.75);
   min-width: 36px;
   text-align: center;
+`;
+
+const Overlay = styled.div<{ size: number; position: 'top' | 'bottom' }>`
+  position: absolute;
+  right: -3px;
+  ${(props) => (props.position === 'top' ? 'top: -3px;' : 'bottom: -3px;')}
+  width: ${(props) => Math.round(props.size * 0.45)}px;
+  height: ${(props) => Math.round(props.size * 0.45)}px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 `;

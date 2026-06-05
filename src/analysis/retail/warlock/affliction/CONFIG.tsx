@@ -1,4 +1,4 @@
-import { Gazh, Katorri } from 'CONTRIBUTORS';
+import { Katorri } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
@@ -8,7 +8,7 @@ import { SupportLevel } from 'parser/Config';
 
 const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Gazh, Katorri],
+  contributors: [Katorri],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '12.0.5',
@@ -17,34 +17,41 @@ const CONFIG: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello fellow Netherlords! Thank you for taking the time to use this tool as a way to improve
-      your play. While the goal of this tool is to improve your overall Affliction Warlock play, the
-      tool is currently under active development and may provide suggestions that are incorrect or
-      strange.
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br /> <br />
-      The tool is not perfect so I am always looking to improve it. If you have any suggestions or
-      comments, don't hesitated to swing by the GitHub Issue linked below, or the{' '}
-      <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
-        Council of the Black Harvest Discord
-      </a>{' '}
-      or{' '}
-      <a href="https://www.kalamazi.gg/guides/affliction" target="_blank" rel="noopener noreferrer">
-        Kalamazi&apos;s Affliction Guide
-      </a>{' '}
-      or{' '}
-      <a
-        href="https://www.method.gg/guides/affliction-warlock"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Method&apos;s Affliction Guide
-      </a>
-      Thanks and I hope you continue to enjoy the tool!
+      <p>
+        Hello fellow Netherlords! Thank you for taking the time to use this tool as a way to improve
+        your play. While the goal of this tool is to improve your overall Affliction Warlock play,
+        the tool is currently under active development and may provide suggestions that are
+        incorrect or strange.
+      </p>
+      <p>
+        The tool is not perfect so I am always looking to improve it. If you have any suggestions or
+        comments, don't hesitated to swing by the GitHub Issue linked below, or the{' '}
+        <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
+          Council of the Black Harvest Discord
+        </a>{' '}
+        or{' '}
+        <a
+          href="https://www.kalamazi.gg/guides/affliction"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Kalamazi&apos;s Affliction Guide
+        </a>{' '}
+        or{' '}
+        <a
+          href="https://www.method.gg/guides/affliction-warlock"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Method&apos;s Affliction Guide
+        </a>
+        . Thanks and I hope you continue to enjoy the tool!
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/mQMF8YnCpTctZK7w/44-Heroic+The+Silken+Court+-+Kill+(7:53)/Desolater',
+  exampleReport:
+    '/report/qdGa21vBHtLJrgnb/27-Heroic+Lightblinded+Vanguard+-+Kill+(3:28)/1-Katorriwl/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

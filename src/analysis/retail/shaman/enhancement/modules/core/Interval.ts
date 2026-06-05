@@ -1,8 +1,8 @@
 const debug = false;
 
 export class Interval {
-  protected startTime: number;
-  protected endTime: number | undefined = undefined;
+  startTime: number;
+  endTime: number | undefined = undefined;
 
   constructor(timestamp: number) {
     this.startTime = timestamp;
