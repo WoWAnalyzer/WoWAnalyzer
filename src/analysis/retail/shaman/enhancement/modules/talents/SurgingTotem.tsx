@@ -1,56 +1,72 @@
 import type { JSX } from 'react';
+import styled from '@emotion/styled';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
-  EventType,
   GetRelatedEvent,
+  HasRelatedEvent,
+  RemoveBuffEvent,
   SummonEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon, SpellLink } from 'interface';
-import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
+import { PassFailCheckmark, qualitativePerformanceToColor } from 'interface/guide';
+import { formatDurationMillisMinSec } from 'common/format';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
-  evaluateQualitativePerformanceByThreshold,
-  getAveragePerf,
-  QualitativePerformance,
-} from 'parser/ui/QualitativePerformance';
+  computeScore,
+  getAggregatedScore,
+  scoreToQualitativePerformance,
+  type ScoredCheck,
+} from 'parser/ui/WeightedPerformance';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastOverview, { type StatisticData } from 'interface/guide/components/CastOverview';
-import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
-import {
-  SpellSequence,
-  type CastInSequence,
-  type CastOverlay,
-} from 'interface/guide/components/CastSequence';
+import CastDetail, {
+  type PerCastData,
+  type PerCastStat,
+} from 'interface/guide/components/CastDetail';
+import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
 import { EnhancementEventLinks } from '../../constants';
 import HotHand from './HotHand';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+
+const WhirlingStatValue = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1.3rem;
+  white-space: nowrap;
+`;
 
 const SURGING_TOTEM_DURATION_MS = 30_000;
-const SURGING_TOTEM_COOLDOWN_MS = 60_000;
-const MAX_UPTIME = SURGING_TOTEM_DURATION_MS / SURGING_TOTEM_COOLDOWN_MS; // 0.5
+const DOOM_WINDS_IN_POSITION_COLOR = '#3b9dff';
+
+type WhirlingElement = 'earth' | 'fire' | 'air';
 
 interface SurgingWindow {
   summon: SummonEvent;
   earth: ApplyBuffEvent | null;
   fire: ApplyBuffEvent | null;
   air: ApplyBuffEvent | null;
+  airRemove: RemoveBuffEvent | null;
   catalyst: ApplyBuffEvent | null;
+  doomWinds: ApplyBuffEvent | null;
+  casts: CastEvent[];
 }
 
-class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
-  private tracksWhirlingElements = false;
+class SurgingTotem extends Analyzer.withDependencies({
+  hotHand: HotHand,
+  eventEmitter: EventEmitter,
+}) {
   private tracksHotHand = false;
   private windows: SurgingWindow[] = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
-    this.tracksWhirlingElements = this.selectedCombatant.hasTalent(
-      TALENTS.WHIRLING_ELEMENTS_TALENT,
-    );
     this.tracksHotHand = this.selectedCombatant.hasTalent(TALENTS.HOT_HAND_TALENT);
     if (!this.active) {
       return;
@@ -61,23 +77,19 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
       this.onSummon,
     );
 
-    if (this.tracksWhirlingElements) {
-      this.addEventListener(
-        Events.applybuff
-          .by(SELECTED_PLAYER)
-          .spell([
-            SPELLS.WHIRLING_EARTH,
-            SPELLS.WHIRLING_FIRE,
-            SPELLS.WHIRLING_AIR,
-            SPELLS.PRIMAL_CATALYST_BUFF,
-          ]),
-        this.onWhirlingApply,
-      );
-    }
-  }
-
-  private get summonCount() {
-    return this.windows.length;
+    this.addEventListener(
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.WHIRLING_EARTH,
+          SPELLS.WHIRLING_FIRE,
+          SPELLS.WHIRLING_AIR,
+          SPELLS.PRIMAL_CATALYST_BUFF,
+          SPELLS.DOOM_WINDS_BUFF,
+        ]),
+      this.onApplyBuffs,
+    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   private get currentWindow(): SurgingWindow | null {
@@ -90,11 +102,28 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
       earth: null,
       fire: null,
       air: null,
+      airRemove: null,
       catalyst: null,
+      doomWinds: null,
+      casts: [],
     });
   }
 
-  private onWhirlingApply(event: ApplyBuffEvent) {
+  private onCast(event: CastEvent) {
+    if (event.ability.guid === SPELLS.SURGING_TOTEM.id) {
+      return;
+    }
+    if (!event.globalCooldown && event.ability.guid !== TALENTS.DOOM_WINDS_TALENT.id) {
+      return;
+    }
+    const window = this.currentWindow;
+    if (!window) {
+      return;
+    }
+    window.casts.push(event);
+  }
+
+  private onApplyBuffs(event: ApplyBuffEvent) {
     const window = this.currentWindow;
     if (!window) {
       return;
@@ -112,61 +141,37 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
       case SPELLS.PRIMAL_CATALYST_BUFF.id:
         window.catalyst = event;
         break;
+      case SPELLS.DOOM_WINDS_BUFF.id:
+        window.doomWinds ??= event;
+        break;
     }
   }
 
-  private getConsumer(apply: ApplyBuffEvent | null, link: EnhancementEventLinks) {
-    if (!apply) {
+  private resolveAirConsumer(window: SurgingWindow): CastEvent | undefined {
+    if (!window.air) {
       return undefined;
     }
-    return GetRelatedEvent<CastEvent>(apply, link, (e) => e.type === EventType.Cast);
+    const cast = GetRelatedEvent<CastEvent>(
+      window.air,
+      EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
+    );
+    if (!cast) {
+      return undefined;
+    }
+    const trigger = GetRelatedEvent<CastEvent>(cast, EnhancementEventLinks.THORIMS_INVOCATION_LINK);
+    if (trigger && window.casts.includes(trigger)) {
+      return trigger;
+    }
+    if (window.casts.includes(cast)) {
+      return cast;
+    }
+    return undefined;
   }
 
-  private earthConsumer(window: SurgingWindow) {
-    return this.getConsumer(window.earth, EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK);
-  }
-
-  private fireConsumer(window: SurgingWindow) {
-    return this.getConsumer(window.fire, EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK);
-  }
-
-  private airConsumer(window: SurgingWindow) {
-    return this.getConsumer(window.air, EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK);
-  }
-
-  // End of a window's totem coverage: capped at the 30s duration, but cut
-  // short if the totem was overwritten by a later summon or the fight ended.
   private windowEnd(index: number) {
     const summonAt = this.windows[index].summon.timestamp;
     const nextSummonAt = this.windows[index + 1]?.summon.timestamp ?? Infinity;
     return Math.min(summonAt + SURGING_TOTEM_DURATION_MS, nextSummonAt, this.owner.fight.end_time);
-  }
-
-  private get totalActiveDuration() {
-    let total = 0;
-    for (let i = 0; i < this.windows.length; i++) {
-      total += this.windowEnd(i) - this.windows[i].summon.timestamp;
-    }
-    return total;
-  }
-
-  private get uptime() {
-    return this.owner.fightDuration > 0 ? this.totalActiveDuration / this.owner.fightDuration : 0;
-  }
-
-  private get uptimeRatioOfMax() {
-    return MAX_UPTIME > 0 ? this.uptime / MAX_UPTIME : 0;
-  }
-
-  private get uptimePerformance(): QualitativePerformance {
-    return evaluateQualitativePerformanceByThreshold({
-      actual: this.uptimeRatioOfMax,
-      isGreaterThanOrEqual: {
-        perfect: 0.96,
-        good: 0.9,
-        ok: 0.8,
-      },
-    });
   }
 
   private hotHandDuringWindow(index: number) {
@@ -176,45 +181,14 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
     );
   }
 
-  // Returns 1, 2, or 3 indicating the chronological order each Whirling buff
-  // was consumed within this Surging Totem window. null = no consumer.
-  private windowConsumeOrder(window: SurgingWindow) {
-    const earth = this.earthConsumer(window);
-    const fire = this.fireConsumer(window);
-    const air = this.airConsumer(window);
-
-    const entries: { kind: 'earth' | 'fire' | 'air'; timestamp: number }[] = [];
-    if (earth) {
-      entries.push({ kind: 'earth', timestamp: earth.timestamp });
-    }
-    if (fire) {
-      entries.push({ kind: 'fire', timestamp: fire.timestamp });
-    }
-    if (air) {
-      entries.push({ kind: 'air', timestamp: air.timestamp });
-    }
-    entries.sort((a, b) => a.timestamp - b.timestamp);
-
-    const positions = new Map<string, number>();
-    entries.forEach((e, i) => positions.set(e.kind, i + 1));
-
-    return {
-      earth: positions.get('earth') ?? null,
-      fire: positions.get('fire') ?? null,
-      air: positions.get('air') ?? null,
-    };
-  }
-
-  // Position-aware row performance — ideal positions are Earth=1, Fire=2, Air=3.
-  // Air additionally requires the consume to happen inside Doom Winds for Perfect.
-  private earthRowPerformance(window: SurgingWindow, position: number | null) {
+  private earthRowPerformance(position: number | null) {
     if (position === null) {
       return QualitativePerformance.Fail;
     }
     return position === 1 ? QualitativePerformance.Perfect : QualitativePerformance.Ok;
   }
 
-  private fireRowPerformance(window: SurgingWindow, position: number | null) {
+  private fireRowPerformance(position: number | null) {
     if (position === null) {
       return QualitativePerformance.Fail;
     }
@@ -222,10 +196,9 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
   }
 
   private airRowPerformance(
-    window: SurgingWindow,
+    consumer: CastEvent | undefined,
     position: number | null,
   ): QualitativePerformance {
-    const consumer = this.airConsumer(window);
     if (!consumer || position === null) {
       return QualitativePerformance.Fail;
     }
@@ -241,43 +214,13 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
   }
 
   private buildOverviewStats(): StatisticData[] {
-    return [
-      {
-        value: `${this.summonCount}`,
-        label: 'Total Summons',
-        tooltip: (
-          <>
-            Total <SpellLink spell={SPELLS.SURGING_TOTEM} /> casts during the fight.
-          </>
-        ),
-      },
-      {
-        value: `${formatPercentage(this.uptime, 1)}%`,
-        label: 'Uptime',
-        tooltip: (
-          <>
-            Percentage of the fight with an active <SpellLink spell={SPELLS.SURGING_TOTEM} />. The
-            totem lasts 30s on a 60s cooldown, so the maximum possible uptime is{' '}
-            {formatPercentage(MAX_UPTIME, 0)}%.
-          </>
-        ),
-        performance: this.uptimePerformance,
-      },
-    ];
-  }
-
-  private overlayFor(spell: Spell): CastOverlay {
-    return {
-      spellId: spell.id,
-      spellName: spell.name,
-      icon: spell.icon,
-    };
+    return [];
   }
 
   private spellToSequence(
     spell: Spell,
     timestamp: number,
-    overlays: CastOverlay[],
+    overlays: React.ReactNode[],
   ): CastInSequence {
     return {
       timestamp,
@@ -288,123 +231,222 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
     };
   }
 
-  // Builds the visual cast sequence in chronological order so it agrees with
-  // the position labels. ST is always first, then consumers in actual cast
-  // order, then ghosted slots for any buffs that applied but were never
-  // consumed.
-  private buildWindowSequence(
+  private castSlot(
+    cast: CastEvent,
+    performance: QualitativePerformance | undefined,
+    overlays: React.ReactNode[],
+  ): CastInSequence {
+    return {
+      timestamp: cast.timestamp,
+      spellId: cast.ability.guid,
+      spellName: cast.ability.name,
+      icon: cast.ability.abilityIcon.replace('.jpg', ''),
+      performance,
+      overlays,
+    };
+  }
+
+  private doomWindsSlot(cast: CastEvent, inPosition: boolean): CastInSequence {
+    return {
+      timestamp: cast.timestamp,
+      spellId: cast.ability.guid,
+      spellName: cast.ability.name,
+      icon: cast.ability.abilityIcon.replace('.jpg', ''),
+      performance: inPosition ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+      outlineColor: inPosition
+        ? DOOM_WINDS_IN_POSITION_COLOR
+        : qualitativePerformanceToColor(QualitativePerformance.Fail),
+    };
+  }
+
+  private ghostedDoomWinds(): CastInSequence {
+    return {
+      timestamp: 0,
+      spellId: TALENTS.DOOM_WINDS_TALENT.id,
+      spellName: TALENTS.DOOM_WINDS_TALENT.name,
+      icon: TALENTS.DOOM_WINDS_TALENT.icon,
+      performance: QualitativePerformance.Fail,
+      ghosted: true,
+    };
+  }
+
+  private expectedFillerCast(
     window: SurgingWindow,
-    order: ReturnType<typeof this.windowConsumeOrder>,
-  ): CastInSequence[] {
-    const items: CastInSequence[] = [
-      this.spellToSequence(SPELLS.SURGING_TOTEM, window.summon.timestamp, []),
+    consumers: Partial<Record<WhirlingElement, CastEvent>>,
+    doomWindsCast: CastEvent | undefined,
+    timestamp: number,
+  ): JSX.Element {
+    let expected: React.ReactNode = <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />;
+
+    for (const element of ['earth', 'fire', 'air'] as WhirlingElement[]) {
+      const applied = window[element];
+      const consumer = consumers[element];
+      const available =
+        applied != null &&
+        applied.timestamp <= timestamp &&
+        (consumer == null || consumer.timestamp > timestamp);
+      if (!available) {
+        continue;
+      }
+      if (element === 'earth') {
+        expected = <SpellLink spell={TALENTS.SUNDERING_TALENT} />;
+      } else if (element === 'fire') {
+        expected = <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />;
+      } else {
+        const airConsumer = (
+          <>
+            <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} /> or{' '}
+            <SpellLink spell={SPELLS.PRIMORDIAL_STORM_CAST} />
+          </>
+        );
+        const doomWindsPending = doomWindsCast == null || doomWindsCast.timestamp > timestamp;
+        expected = doomWindsPending ? (
+          <>
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> &rarr; {airConsumer}
+          </>
+        ) : (
+          airConsumer
+        );
+      }
+      break;
+    }
+
+    return <>This cast should have been {expected}.</>;
+  }
+
+  private windowAnalysis(window: SurgingWindow) {
+    const consumers: Partial<Record<WhirlingElement, CastEvent>> = {};
+    let doomWindsCast: CastEvent | undefined;
+
+    for (const cast of window.casts) {
+      if (cast.ability.guid === TALENTS.DOOM_WINDS_TALENT.id) {
+        doomWindsCast ??= cast;
+        continue;
+      }
+      if (
+        !consumers.earth &&
+        HasRelatedEvent(cast, EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK)
+      ) {
+        consumers.earth = cast;
+      }
+      if (
+        !consumers.fire &&
+        HasRelatedEvent(cast, EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK)
+      ) {
+        consumers.fire = cast;
+      }
+    }
+
+    consumers.air = this.resolveAirConsumer(window);
+
+    const consumeOrder = (['earth', 'fire', 'air'] as WhirlingElement[])
+      .filter((element) => consumers[element])
+      .sort((a, b) => consumers[a]!.timestamp - consumers[b]!.timestamp);
+
+    const positions: Record<WhirlingElement, number | null> = {
+      earth: null,
+      fire: null,
+      air: null,
+    };
+    consumeOrder.forEach((element, index) => {
+      positions[element] = index + 1;
+    });
+
+    const earthPerf = this.earthRowPerformance(positions.earth);
+    const firePerf = this.fireRowPerformance(positions.fire);
+    const airPerf = this.airRowPerformance(consumers.air, positions.air);
+
+    const orderedConsumers = consumeOrder.map((element) => consumers[element]!);
+    const lastConsumer = orderedConsumers[orderedConsumers.length - 1];
+    let endTimestamp = lastConsumer ? lastConsumer.timestamp : window.summon.timestamp;
+
+    if (doomWindsCast && doomWindsCast.timestamp > endTimestamp) {
+      endTimestamp = doomWindsCast.timestamp;
+    }
+
+    const doomWindsInPosition =
+      doomWindsCast != null &&
+      consumers.fire != null &&
+      doomWindsCast.timestamp >= consumers.fire.timestamp &&
+      (consumers.air == null || doomWindsCast.timestamp <= consumers.air.timestamp);
+
+    const sequence: CastInSequence[] = [
+      {
+        timestamp: window.summon.timestamp,
+        spellId: SPELLS.SURGING_TOTEM.id,
+        spellName: SPELLS.SURGING_TOTEM.name,
+        icon: SPELLS.SURGING_TOTEM.icon,
+      },
     ];
 
-    const earth = this.earthConsumer(window);
-    const fire = this.fireConsumer(window);
-    const air = this.airConsumer(window);
+    let fillerCount = 0;
+    let doomWindsShown = false;
+    let firstConsumerSeen = false;
 
-    const consumers: CastInSequence[] = [];
-
-    if (earth) {
-      consumers.push({
-        timestamp: earth.timestamp,
-        spellId: earth.ability.guid,
-        spellName: earth.ability.name,
-        icon: earth.ability.abilityIcon.replace('.jpg', ''),
-        performance: this.earthRowPerformance(window, order.earth),
-        overlays: [this.overlayFor(SPELLS.WHIRLING_EARTH)],
-        tooltip: (
-          <div>
-            <strong>{earth.ability.name}</strong> consumed{' '}
-            <SpellLink spell={SPELLS.WHIRLING_EARTH} /> ({this.orderLabel(order.earth)})
-          </div>
-        ),
-      });
-    }
-
-    if (fire) {
-      const overlays = [this.overlayFor(SPELLS.WHIRLING_FIRE)];
-      if (window.catalyst) {
-        overlays.push(this.overlayFor(SPELLS.PRIMAL_CATALYST_BUFF));
+    for (const cast of window.casts) {
+      if (cast.timestamp > endTimestamp) {
+        break;
       }
-      consumers.push({
-        timestamp: fire.timestamp,
-        spellId: fire.ability.guid,
-        spellName: fire.ability.name,
-        icon: fire.ability.abilityIcon.replace('.jpg', ''),
-        performance: this.fireRowPerformance(window, order.fire),
-        overlays,
-        tooltip: (
-          <div>
-            <strong>{fire.ability.name}</strong> consumed <SpellLink spell={SPELLS.WHIRLING_FIRE} />
-            {window.catalyst && (
-              <>
-                {' '}
-                and <SpellLink spell={SPELLS.PRIMAL_CATALYST_BUFF} />
-              </>
-            )}{' '}
-            ({this.orderLabel(order.fire)})
-          </div>
-        ),
-      });
-    }
-
-    if (air) {
-      const inDw = this.selectedCombatant.hasBuff(SPELLS.DOOM_WINDS_BUFF.id, air.timestamp);
-      const overlays = [this.overlayFor(SPELLS.WHIRLING_AIR)];
-      if (inDw) {
-        overlays.push(this.overlayFor(SPELLS.DOOM_WINDS_BUFF));
+      if (cast === consumers.earth) {
+        firstConsumerSeen = true;
+        sequence.push(
+          this.castSlot(cast, earthPerf, [<SpellIcon spell={SPELLS.WHIRLING_EARTH} noLink />]),
+        );
+      } else if (cast === consumers.fire) {
+        firstConsumerSeen = true;
+        const overlays = [<SpellIcon spell={SPELLS.WHIRLING_FIRE} noLink />];
+        if (window.catalyst) {
+          overlays.push(<SpellIcon spell={SPELLS.PRIMAL_CATALYST_BUFF} noLink />);
+        }
+        sequence.push(this.castSlot(cast, firePerf, overlays));
+      } else if (cast === consumers.air) {
+        firstConsumerSeen = true;
+        const overlays = [<SpellIcon spell={SPELLS.WHIRLING_AIR} noLink />];
+        if (this.selectedCombatant.hasBuff(SPELLS.DOOM_WINDS_BUFF.id, cast.timestamp)) {
+          overlays.push(<SpellIcon spell={SPELLS.DOOM_WINDS_BUFF} noLink />);
+        }
+        sequence.push(this.castSlot(cast, airPerf, overlays));
+      } else if (cast === doomWindsCast) {
+        doomWindsShown = true;
+        sequence.push(this.doomWindsSlot(cast, doomWindsInPosition));
+      } else if (firstConsumerSeen) {
+        fillerCount += 1;
+        const sequenceEntry = this.castSlot(cast, QualitativePerformance.Fail, []);
+        sequenceEntry.tooltip = this.expectedFillerCast(
+          window,
+          consumers,
+          doomWindsCast,
+          cast.timestamp,
+        );
+        sequence.push(sequenceEntry);
+      } else {
+        sequence.push(this.castSlot(cast, undefined, []));
       }
-      consumers.push({
-        timestamp: air.timestamp,
-        spellId: air.ability.guid,
-        spellName: air.ability.name,
-        icon: air.ability.abilityIcon.replace('.jpg', ''),
-        performance: this.airRowPerformance(window, order.air),
-        overlays,
-        tooltip: (
-          <div>
-            <strong>{air.ability.name}</strong> consumed <SpellLink spell={SPELLS.WHIRLING_AIR} />
-            {inDw && (
-              <>
-                {' '}
-                inside <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />
-              </>
-            )}{' '}
-            ({this.orderLabel(order.air)})
-          </div>
-        ),
-      });
     }
 
-    consumers.sort((a, b) => a.timestamp - b.timestamp);
-    items.push(...consumers);
-
-    // Trailing ghosted slots for applied-but-unconsumed buffs.
-    if (window.earth && !earth) {
-      items.push(this.expiredSlot(SPELLS.WHIRLING_EARTH, window.earth));
+    if (window.earth && !consumers.earth) {
+      sequence.push(this.expiredSlot(SPELLS.WHIRLING_EARTH, window.earth));
     }
-    if (window.fire && !fire) {
-      items.push(this.expiredSlot(SPELLS.WHIRLING_FIRE, window.fire));
+    if (window.fire && !consumers.fire) {
+      sequence.push(this.expiredSlot(SPELLS.WHIRLING_FIRE, window.fire));
     }
-    if (window.air && !air) {
-      items.push({
-        timestamp: window.air.timestamp,
-        spellId: SPELLS.WHIRLING_AIR.id,
-        spellName: SPELLS.WHIRLING_AIR.name,
-        icon: SPELLS.WHIRLING_AIR.icon,
-        performance: QualitativePerformance.Fail,
-        ghosted: true,
-        tooltip: (
-          <div>
-            <SpellLink spell={SPELLS.WHIRLING_AIR} /> expired without being consumed.
-          </div>
-        ),
-      });
+    if (window.air && !consumers.air) {
+      sequence.push(this.expiredSlot(SPELLS.WHIRLING_AIR, window.air));
+    }
+    if (!doomWindsShown) {
+      sequence.push(this.ghostedDoomWinds());
     }
 
-    return items;
+    return {
+      sequence,
+      positions,
+      earthPerf,
+      firePerf,
+      airPerf,
+      doomWindsInPosition,
+      doomWindsCast: doomWindsCast != null,
+      fillerCount,
+    };
   }
 
   private expiredSlot(buff: Spell, apply: ApplyBuffEvent): CastInSequence {
@@ -415,11 +457,6 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
       icon: buff.icon,
       performance: QualitativePerformance.Fail,
       ghosted: true,
-      tooltip: (
-        <div>
-          <SpellLink spell={buff} /> expired without being consumed.
-        </div>
-      ),
     };
   }
 
@@ -430,77 +467,192 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
     return 'Expired';
   }
 
+  private whirlingStat(
+    spell: Spell,
+    position: number | null,
+    idealPosition: number,
+    performance: QualitativePerformance,
+  ): PerCastStat {
+    const correct = position === idealPosition;
+    return {
+      value: (
+        <WhirlingStatValue>
+          {spell.name} <PassFailCheckmark pass={correct} />
+        </WhirlingStatValue>
+      ),
+      label: this.orderLabel(position),
+      tooltip: correct ? null : position !== null ? (
+        <>
+          Used {this.orderLabel(position)} but should have been used{' '}
+          {this.orderLabel(idealPosition)}.
+        </>
+      ) : (
+        <>
+          <SpellLink spell={spell} /> expired without being consumed.
+        </>
+      ),
+      performance,
+    };
+  }
+
+  private ordinalWord(position: number): string {
+    return position === 1 ? 'first' : position === 2 ? 'second' : 'third';
+  }
+
+  private elementDetail(buff: Spell, consumer: Spell, position: number | null, ideal: number) {
+    if (position === ideal) {
+      return (
+        <>
+          Consumed <SpellLink spell={buff} /> {this.ordinalWord(ideal)} with{' '}
+          <SpellLink spell={consumer} />.
+        </>
+      );
+    }
+    if (position === null) {
+      return (
+        <>
+          <SpellLink spell={buff} /> expired unused - spend it {this.ordinalWord(ideal)} with{' '}
+          <SpellLink spell={consumer} />.
+        </>
+      );
+    }
+    return (
+      <>
+        Consumed <SpellLink spell={buff} /> {this.ordinalWord(position)}, but it should be spent{' '}
+        {this.ordinalWord(ideal)} with <SpellLink spell={consumer} />.
+      </>
+    );
+  }
+
+  private airDetail(position: number | null) {
+    if (position === 3) {
+      return (
+        <>
+          Consumed <SpellLink spell={SPELLS.WHIRLING_AIR} /> third under{' '}
+          <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> with{' '}
+          <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} /> or{' '}
+          <SpellLink spell={SPELLS.PRIMORDIAL_STORM_CAST} />.
+        </>
+      );
+    }
+    if (position === null) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.WHIRLING_AIR} /> expired unused - spend it third under{' '}
+          <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> with{' '}
+          <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} /> or{' '}
+          <SpellLink spell={SPELLS.PRIMORDIAL_STORM_CAST} />.
+        </>
+      );
+    }
+    return (
+      <>
+        Consumed <SpellLink spell={SPELLS.WHIRLING_AIR} /> {this.ordinalWord(position)}, but it
+        should be spent third under <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />.
+      </>
+    );
+  }
+
+  private doomWindsDetail(wasCast: boolean, inPosition: boolean) {
+    if (inPosition) {
+      return;
+    }
+    if (!wasCast) {
+      return (
+        <>
+          <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> wasn't used - cast it immediately before
+          your <SpellLink spell={SPELLS.WHIRLING_AIR} /> consumer.
+        </>
+      );
+    }
+    return (
+      <>
+        <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> was not cast immediately before the{' '}
+        <SpellLink spell={SPELLS.WHIRLING_AIR} /> consumer.
+      </>
+    );
+  }
+
+  private consumeDetails(analysis: ReturnType<SurgingTotem['windowAnalysis']>): JSX.Element {
+    const doomWindDetails = this.doomWindsDetail(
+      analysis.doomWindsCast,
+      analysis.doomWindsInPosition,
+    );
+
+    return (
+      <>
+        After each <SpellLink spell={SPELLS.SURGING_TOTEM} />, spend the{' '}
+        <SpellLink spell={TALENTS.WHIRLING_ELEMENTS_TALENT} /> buffs in order:
+        <ol>
+          <li>
+            {this.elementDetail(
+              SPELLS.WHIRLING_EARTH,
+              TALENTS.SUNDERING_TALENT,
+              analysis.positions.earth,
+              1,
+            )}
+          </li>
+          <li>
+            {this.elementDetail(
+              SPELLS.WHIRLING_FIRE,
+              TALENTS.LAVA_LASH_TALENT,
+              analysis.positions.fire,
+              2,
+            )}
+          </li>
+          <li>{this.airDetail(analysis.positions.air)}</li>
+          {doomWindDetails && <li>{doomWindDetails}</li>}
+        </ol>
+      </>
+    );
+  }
+
+  private qpToScore(performance: QualitativePerformance): number {
+    switch (performance) {
+      case QualitativePerformance.Perfect:
+        return 1;
+      case QualitativePerformance.Good:
+        return 0.75;
+      case QualitativePerformance.Ok:
+        return 0.5;
+      case QualitativePerformance.Fail:
+        return 0;
+    }
+  }
+
+  private fillerScore(count: number): number {
+    return computeScore(count, [
+      { value: 0, score: 1 },
+      { value: 1, score: 0.7 },
+      { value: 3, score: 0.25 },
+      { value: 6, score: 0 },
+    ]);
+  }
+
   private buildPerCastData(): PerCastData[] {
     return this.windows.map((window, index) => {
-      const order = this.windowConsumeOrder(window);
       const stats: PerCastData['stats'] = [];
-      const performances: QualitativePerformance[] = [];
+      const checks: ScoredCheck[] = [];
+      let sequence: CastInSequence[] | null = null;
+      let details: JSX.Element | null = null;
 
-      if (this.tracksWhirlingElements) {
-        const earth = this.earthConsumer(window);
-        const fire = this.fireConsumer(window);
-        const air = this.airConsumer(window);
+      const analysis = this.windowAnalysis(window);
+      sequence = analysis.sequence;
+      details = this.consumeDetails(analysis);
 
-        const earthPerf = this.earthRowPerformance(window, order.earth);
-        const firePerf = this.fireRowPerformance(window, order.fire);
-        const airPerf = this.airRowPerformance(window, order.air);
-        performances.push(earthPerf, firePerf, airPerf);
+      stats.push(
+        this.whirlingStat(SPELLS.WHIRLING_EARTH, analysis.positions.earth, 1, analysis.earthPerf),
+        this.whirlingStat(SPELLS.WHIRLING_FIRE, analysis.positions.fire, 2, analysis.firePerf),
+        this.whirlingStat(SPELLS.WHIRLING_AIR, analysis.positions.air, 3, analysis.airPerf),
+      );
 
-        stats.push(
-          {
-            value: this.orderLabel(order.earth),
-            label: 'Whirling Earth',
-            tooltip: (
-              <>
-                <SpellLink spell={SPELLS.WHIRLING_EARTH} />{' '}
-                {earth ? <>was consumed.</> : <>expired without being consumed.</>}
-              </>
-            ),
-            performance: earthPerf,
-          },
-          {
-            value: this.orderLabel(order.fire),
-            label: 'Whirling Fire',
-            tooltip: (
-              <>
-                <SpellLink spell={SPELLS.WHIRLING_FIRE} />{' '}
-                {fire ? (
-                  <>
-                    was consumed
-                    {window.catalyst && (
-                      <>
-                        {' '}
-                        with <SpellLink spell={SPELLS.PRIMAL_CATALYST_BUFF} />
-                      </>
-                    )}
-                    .
-                  </>
-                ) : (
-                  <>expired without being consumed.</>
-                )}
-              </>
-            ),
-            performance: firePerf,
-          },
-          {
-            value: this.orderLabel(order.air),
-            label: 'Whirling Air',
-            tooltip: (
-              <>
-                <SpellLink spell={SPELLS.WHIRLING_AIR} />{' '}
-                {air ? (
-                  <>
-                    was consumed by <SpellLink spell={air.ability.guid} />.
-                  </>
-                ) : (
-                  <>expired without being consumed.</>
-                )}
-              </>
-            ),
-            performance: airPerf,
-          },
-        );
-      }
+      checks.push(
+        { score: this.qpToScore(analysis.earthPerf), weight: 1 },
+        { score: this.qpToScore(analysis.firePerf), weight: 1 },
+        { score: this.qpToScore(analysis.airPerf), weight: 1 },
+        { score: analysis.doomWindsInPosition ? 1 : 0, weight: 1 },
+        { score: this.fillerScore(analysis.fillerCount), weight: 2 },
+      );
 
       if (this.tracksHotHand) {
         const hotHandMs = this.hotHandDuringWindow(index);
@@ -509,15 +661,14 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
           this.windowEnd(index),
         );
         if (hotHandPerf !== null) {
-          performances.push(hotHandPerf);
+          checks.push({ score: this.qpToScore(hotHandPerf), weight: 1 });
         }
         stats.push({
           value: formatDurationMillisMinSec(hotHandMs, 1),
           label: 'Hot Hand',
           tooltip: (
             <>
-              Time <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was active during this{' '}
-              <SpellLink spell={SPELLS.SURGING_TOTEM} /> window. Rating reflects{' '}
+              Time <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was active. Rating reflects{' '}
               <SpellLink spell={TALENTS.TOTEMIC_MOMENTUM_TALENT} /> extension efficiency.
             </>
           ),
@@ -527,18 +678,18 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
 
       const result: PerCastData = {
         performance:
-          performances.length > 0 ? getAveragePerf(performances) : QualitativePerformance.Perfect,
+          checks.length > 0
+            ? scoreToQualitativePerformance(getAggregatedScore(checks))
+            : QualitativePerformance.Perfect,
         timestamp: this.owner.formatTimestamp(window.summon.timestamp),
-        detailsIcon: null,
         stats,
       };
 
-      if (this.tracksWhirlingElements) {
-        result.additionalContent = {
-          title: 'Consume Sequence',
-          content: <SpellSequence casts={this.buildWindowSequence(window, order)} iconSize={48} />,
-        };
-      }
+      result.additionalContent = {
+        title: 'Consume Sequence',
+        content: <SpellSequence casts={sequence} iconSize={48} />,
+      };
+      result.details = details;
 
       return result;
     });
@@ -553,31 +704,39 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
             <SpellLink spell={SPELLS.SURGING_TOTEM} />
           </strong>
           , <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />, and{' '}
-          <SpellLink spell={TALENTS.SUNDERING_TALENT} /> in sync. Drifting any of them apart costs
-          you a full <SpellLink spell={TALENTS.WHIRLING_ELEMENTS_TALENT} /> window's worth of
-          damage.
+          <SpellLink spell={TALENTS.SUNDERING_TALENT} /> in sync. Any drfit can have major impacts
+          on your damage output.
         </p>
-        {this.tracksWhirlingElements && (
-          <>
-            <p>
-              After each <SpellLink spell={SPELLS.SURGING_TOTEM} />, execute in order:{' '}
-              <SpellLink spell={TALENTS.SUNDERING_TALENT} /> →{' '}
-              <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> → save{' '}
-              <SpellLink spell={SPELLS.WHIRLING_AIR} /> for the next{' '}
+
+        <p>
+          After each <SpellLink spell={SPELLS.SURGING_TOTEM} />, execute in order:{' '}
+          <ol>
+            <li>
+              <SpellLink spell={TALENTS.SUNDERING_TALENT} /> (consume{' '}
+              <SpellLink spell={SPELLS.WHIRLING_EARTH} />
+              ).
+            </li>
+            <li>
+              <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> (consume{' '}
+              <SpellLink spell={SPELLS.WHIRLING_FIRE} />
+              ).
+            </li>
+            <li>
+              <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> &rarr; Consume{' '}
+              <SpellLink spell={SPELLS.WHIRLING_AIR} /> immediately, ideally with
               <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} /> or{' '}
-              <SpellLink spell={SPELLS.PRIMORDIAL_STORM_CAST} /> inside{' '}
-              <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />.
-            </p>
-            <p>An example sequence may look something like this:</p>
-            <p>
-              <SpellIcon spell={SPELLS.SURGING_TOTEM} /> &rarr;
-              <SpellIcon spell={TALENTS.SUNDERING_TALENT} /> &rarr;
-              <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-              <SpellIcon spell={TALENTS.DOOM_WINDS_TALENT} /> &rarr;
-              <SpellIcon spell={TALENTS.CRASH_LIGHTNING_TALENT} />
-            </p>
-          </>
-        )}
+              <SpellLink spell={SPELLS.PRIMORDIAL_STORM_CAST} />.
+            </li>
+          </ol>
+        </p>
+        <p>An example sequence may look something like this:</p>
+        <p>
+          <SpellIcon spell={SPELLS.SURGING_TOTEM} /> &rarr;
+          <SpellIcon spell={TALENTS.SUNDERING_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.DOOM_WINDS_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.CRASH_LIGHTNING_TALENT} />
+        </p>
       </>
     );
   }
@@ -595,7 +754,7 @@ class SurgingTotem extends Analyzer.withDependencies({ hotHand: HotHand }) {
       />,
     ];
 
-    if ((this.tracksWhirlingElements || this.tracksHotHand) && this.windows.length > 0) {
+    if (this.tracksHotHand && this.windows.length > 0) {
       children.push(
         <CastDetail key="windows" title="Surging Totem Windows" casts={this.buildPerCastData()} />,
       );

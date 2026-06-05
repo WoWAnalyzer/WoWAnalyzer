@@ -7,7 +7,6 @@ import { NormalizerOrder } from './constants';
 import {
   EnhancementEventLinks,
   EventLinkBuffers,
-  MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   STORMSTRIKE_DAMAGE_IDS,
   STORMSTRIKE_SPELL_IDS,
 } from '../../constants';
@@ -177,7 +176,6 @@ const whirlingEarthConsumeLink: EventLink = {
   backwardBufferMs: 0,
   anyTarget: true,
   maximumLinks: 1,
-  reverseLinkRelation: EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK,
   isActive: (c) => c.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
 };
 const whirlingFireConsumeLink: EventLink = {
@@ -190,20 +188,22 @@ const whirlingFireConsumeLink: EventLink = {
   backwardBufferMs: 0,
   anyTarget: true,
   maximumLinks: 1,
-  reverseLinkRelation: EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK,
   isActive: (c) => c.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
 };
 const whirlingAirConsumeLink: EventLink = {
   linkRelation: EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
   linkingEventId: SPELLS.WHIRLING_AIR.id,
   linkingEventType: EventType.ApplyBuff,
-  referencedEventId: [...MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS, TALENTS.CRASH_LIGHTNING_TALENT.id],
-  referencedEventType: EventType.Cast,
+  referencedEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.PRIMORDIAL_STORM_CAST.id,
+  ],
+  referencedEventType: [EventType.Cast, EventType.FreeCast],
   forwardBufferMs: WHIRLING_BUFF_DURATION_MS,
   backwardBufferMs: 0,
   anyTarget: true,
   maximumLinks: 1,
-  reverseLinkRelation: EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
   isActive: (c) => c.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
 };
 const tempestConsumeLink: EventLink = {
