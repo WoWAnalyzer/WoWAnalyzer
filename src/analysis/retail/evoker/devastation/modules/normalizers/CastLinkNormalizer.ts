@@ -451,7 +451,7 @@ export function getDisintegrateDebuffEvents(
 
 /** Returns the cast event that caused the apply/refresh debuff event */
 export function getDisintegrateCast(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-  return GetRelatedEvents<CastEvent>(event, DISINTEGRATE_DEBUFF);
+  return GetRelatedEvent<CastEvent>(event, DISINTEGRATE_DEBUFF);
 }
 
 /**

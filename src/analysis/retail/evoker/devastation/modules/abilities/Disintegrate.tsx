@@ -126,8 +126,7 @@ class Disintegrate extends Analyzer {
     SPELLS.ETERNITY_SURGE_FONT,
     SPELLS.DEEP_BREATH,
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
-  ];
-  goodClipSpellIds: number[] = [];
+  ]; // The idea behind this change is that the spells are used to generate a tooltip in the guide. Only the ids wouldn't work for that afaik.
 
   ticksPerDisintegrate = 0;
   ticksPerChainedDisintegrate = 0;
@@ -343,13 +342,7 @@ class Disintegrate extends Analyzer {
     });
 
     if (this.isCurrentCastMassDisintegrate) {
-      const targets = getDisintegrateTargetCount(getDisintegrateCast(event)[0]);
-
-      this.massDisintegrateCasts.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip: `Mass Disintegrate Cast: ${targets} target(s)`,
-      });
+      this.massDisintegrateCastInsert(event);
     } else {
       this.disintegrateCasts.push({
         timestamp: event.timestamp,
@@ -452,13 +445,7 @@ class Disintegrate extends Analyzer {
     });
 
     if (this.isCurrentCastMassDisintegrate) {
-      const targets = getDisintegrateTargetCount(getDisintegrateCast(event)[0]);
-
-      this.massDisintegrateCasts.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip: `Mass Disintegrate Cast: ${targets} target(s)`,
-      });
+      this.massDisintegrateCastInsert(event);
     } else {
       this.disintegrateCasts.push({
         timestamp: event.timestamp,
@@ -506,10 +493,14 @@ class Disintegrate extends Analyzer {
       else if (
         (this.inDragonRageWindow &&
           this.activeChainClipLogic.allowGoodClippingDragonrage &&
-          this.goodClipSpellIds.includes(this.disintegrateClipSpell.ability.guid)) ||
+          this.goodClipSpells.find(
+            (spell) => spell.id === this.disintegrateClipSpell?.ability.guid,
+          ) !== undefined) ||
         (!this.inDragonRageWindow &&
           this.activeChainClipLogic.allowGoodClipping &&
-          this.goodClipSpellIds.includes(this.disintegrateClipSpell.ability.guid))
+          this.goodClipSpells.find(
+            (spell) => spell.id === this.disintegrateClipSpell?.ability.guid,
+          ) !== undefined)
       ) {
         this.disintegrateClips.push({
           timestamp: event.timestamp,
@@ -559,6 +550,25 @@ class Disintegrate extends Analyzer {
     if (this.chainWindowCount >= CHAIN_WINDOW_BATCH_MINIMUM) {
       this.chainWindowEnd = event.timestamp;
       this.chainWindowCount = 0;
+    }
+  }
+
+  private massDisintegrateCastInsert(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+    const castEvent = getDisintegrateCast(event);
+    if (castEvent !== undefined) {
+      const targets = getDisintegrateTargetCount(castEvent);
+
+      this.massDisintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: `Mass Disintegrate Cast: ${targets} target(s)`,
+      });
+    } else {
+      this.massDisintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: `Mass Disintegrate Cast`,
+      });
     }
   }
 

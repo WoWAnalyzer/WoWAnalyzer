@@ -121,8 +121,6 @@ function NoWastedBuffsSubsection({ modules, info }: GuideProps<typeof CombatLogP
     return null;
   }
 
-  //console.log(modules.azureSweep.buffRatio);
-
   return (
     <SubSection title="No Wasted Buffs">
       <p>
