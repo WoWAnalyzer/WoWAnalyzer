@@ -10,12 +10,11 @@ import { DemonicHealthstoneGuide } from '../shared/DHSGuide';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      {/* Always Be Casting Section */}
+      <Section title="Always Be Casting">{modules.alwaysBeCasting.guideSubsection}</Section>
+
       {/* DoT Uptime Section */}
-      <Section title="Dot Uptimes">
-        {modules.agony.guideSubsection}
-        {modules.corruptionUptime.guideSubsection}
-        {modules.haunt.guideSubsection}
-      </Section>
+      <Section title="Dot Uptimes">{modules.dotUptimesGuide.guideSubsection}</Section>
 
       {/* Unstable Affliction Section */}
       <Section title="Unstable Affliction">
