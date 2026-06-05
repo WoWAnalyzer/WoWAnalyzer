@@ -238,21 +238,21 @@ class FesteringScythe extends Analyzer {
     const legend = (
       <TipBox hideIcon>
         <div>
-          <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect - Refreshed with under 3
-          seconds remaining, or with 1 or fewer <SpellLink spell={DK_SPELLS.LESSER_GHOUL_BUFF} />{' '}
-          stacks
+          <PerformanceMark perf={QualitativePerformance.Perfect} /> <strong>Perfect</strong> -
+          Refreshed with under 3 seconds remaining, or with 1 or fewer{' '}
+          <SpellLink spell={DK_SPELLS.LESSER_GHOUL_BUFF} /> stacks
         </div>
         <div>
-          <PerformanceMark perf={QualitativePerformance.Good} /> Good - Refreshed in the 3 to 5
-          second window
+          <PerformanceMark perf={QualitativePerformance.Good} /> <strong>Good</strong> - Refreshed
+          in the 3 to 5 second window
         </div>
         <div>
-          <PerformanceMark perf={QualitativePerformance.Ok} /> Ok - Refreshed safely, but earlier
-          than the recommended window
+          <PerformanceMark perf={QualitativePerformance.Ok} /> <strong>Ok</strong> - Refreshed
+          safely, but earlier than the recommended window
         </div>
         <div>
-          <PerformanceMark perf={QualitativePerformance.Fail} /> Fail - The buff fell off before you
-          reapplied it
+          <PerformanceMark perf={QualitativePerformance.Fail} /> <strong>Fail</strong> - The buff
+          fell off before you reapplied it
         </div>
       </TipBox>
     );

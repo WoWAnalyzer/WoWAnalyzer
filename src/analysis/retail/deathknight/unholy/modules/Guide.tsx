@@ -20,6 +20,7 @@ export default function Guide({ modules, info }: GuideProps<typeof CombatLogPars
         {info.combatant.hasTalent(TALENTS.PUTREFY_TALENT) && modules.putrefy.guideSubsection}
         {modules.scourgeStrike.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT) && modules.soulReaper.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SUDDEN_DOOM_TALENT) && modules.suddenDoom.guideSubsection}
       </Section>
 
       <Section title="Active Time">
