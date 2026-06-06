@@ -133,6 +133,8 @@ class EmeraldBlossom extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
+    if (this.castEntries.length === 0) return <></>;
+
     const styleObj = {
       fontSize: 20,
     };
