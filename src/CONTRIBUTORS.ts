@@ -3007,13 +3007,13 @@ export const Zogmaw: Contributor = {
 
 export const Xinito: Contributor = {
   nickname: 'Xinito',
-  github: '-',
-  discord: '-',
+  github: '1337Xinito',
+  discord: 'Xinito',
   mains: [
     {
       name: 'Skullbonka',
       spec: SPECS.FURY_WARRIOR,
-      link: 'https://classic.warcraftlogs.com/character/eu/everlook/amryu',
+      link: 'https://classic.warcraftlogs.com/character/eu/garalon/skullbonka',
     },
   ],
 };
