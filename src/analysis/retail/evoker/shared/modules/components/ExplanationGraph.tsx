@@ -367,12 +367,11 @@ const ExplanationGraph: FC<Props> = ({
       y: yAxis,
       color: {
         scale: { range: colorRange },
-        legend:
-          noLegend !== undefined
-            ? null
-            : {
-                symbolOpacity: 1,
-              },
+        legend: noLegend
+          ? null
+          : {
+              symbolOpacity: 1,
+            },
       },
     },
 
@@ -383,7 +382,7 @@ const ExplanationGraph: FC<Props> = ({
   // If the x-axis is too long, we enable horizontal scrolling, for better readability
   const graphLength =
     graphData[currentWindowIndex].endTime - graphData[currentWindowIndex].startTime;
-  const threshold = 0.6 * 60 * 1000;
+  const threshold = 30000; // Anything longer than threshold in ms gets a scrollbar
 
   // Calculate the width percentage so the graph has consistent size
   const widthPercentage = graphLength > threshold ? (graphLength / threshold) * 100 : 100;

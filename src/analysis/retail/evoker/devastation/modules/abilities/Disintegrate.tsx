@@ -9,6 +9,7 @@ import Events, {
   BeginCastEvent,
   CastEvent,
   DamageEvent,
+  FightEndEvent,
   HasRelatedEvent,
   RefreshDebuffEvent,
   RemoveBuffEvent,
@@ -83,7 +84,7 @@ const defaultWindowData = {
   name: '',
   start: 0,
   end: 0,
-  windowEndedorPushed: false,
+  windowEndedOrPushed: false,
 };
 type WindowData = typeof defaultWindowData;
 
@@ -214,57 +215,11 @@ class Disintegrate extends Analyzer {
       this.onRemoveDebuff,
     );
 
-    /** Grab the spell we clipped with - this event always happens before the debuffRemove event
-     * (Atleast for all the logs I've looked at so far) */
     [Events.cast, Events.begincast].forEach((type) =>
-      this.addEventListener(type.by(SELECTED_PLAYER).spell(this.trackedSpells), (event) => {
-        if (this.currentRemainingTicks > 0) {
-          this.disintegrateClipSpell = event;
-        }
-        // Check if the pull/dragonrage window has ended
-        // This placement ensures that all casts are finished before ending a window (cut-off casts are both ugly and useless for analysis)
-        if (!this.isMythicPlus && this.windowData.windowEndedorPushed) {
-          this.windowData.end = event.timestamp;
-          this.pushToGraphData(this.windowData);
-          this.windowData = {
-            start: event.timestamp,
-            end: 0,
-            windowEndedorPushed: false,
-            name: 'No Cooldowns',
-          };
-        } else if (
-          this.isMythicPlus &&
-          this.pullIndex < this.pullData.length - 1 &&
-          event.timestamp > this.pullData[this.pullIndex + 1].start
-        ) {
-          this.pullData[this.pullIndex].end = event.timestamp;
-          this.pushToGraphData(this.pullData[this.pullIndex]);
-          // Pulls don't care if Dragonrage is still running so we need to push another "start" for the graph to show the window
-          if (this.inDragonRageWindow) {
-            this.dragonrageBuffCounter.push({
-              timestamp: this.pullData[this.pullIndex + 1].start - WINDOW_BUFFER,
-              count: this.ticksPerChainedDisintegrate,
-              tooltip: '',
-            });
-          }
-          this.pullIndex++;
-        }
-      }),
+      this.addEventListener(type.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onGeneralCast),
     );
 
-    this.addEventListener(Events.fightend, (e) => {
-      // Pushes remaining windows
-      if (this.isMythicPlus) {
-        if (!this.pullData[this.pullIndex].windowEndedorPushed) {
-          this.pullData[this.pullIndex].end = e.timestamp;
-          console.log(this.pullData);
-          this.pushToGraphData(this.pullData[this.pullIndex]);
-        }
-      } else {
-        this.windowData.end = e.timestamp;
-        this.pushToGraphData(this.windowData);
-      }
-    });
+    this.addEventListener(Events.fightend, this.onFightEnd);
 
     this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
     this.ticksPerChainedDisintegrate = GetDisintegrateTicks(
@@ -277,7 +232,7 @@ class Disintegrate extends Analyzer {
           this.windowData = {
             start: dungeonPull.start_time,
             end: 0,
-            windowEndedorPushed: false,
+            windowEndedOrPushed: true, // Mark Trash pulls as EndedorPushed to exclude them
             name: 'Trash',
           };
         }
@@ -287,7 +242,7 @@ class Disintegrate extends Analyzer {
           this.windowData = {
             start: dungeonPull.start_time,
             end: 0,
-            windowEndedorPushed: false,
+            windowEndedOrPushed: false,
             name: dungeonPull.name,
           };
           this.pullData.push(this.windowData);
@@ -295,6 +250,16 @@ class Disintegrate extends Analyzer {
         }
       });
     }
+  }
+
+  /** Grab the spell we clipped with - this event always happens before the debuffRemove event
+   * (Atleast for all the logs I've looked at so far) */
+  onGeneralCast(event: CastEvent | BeginCastEvent) {
+    if (this.currentRemainingTicks > 0) {
+      this.disintegrateClipSpell = event;
+    }
+
+    if (this.currentRemainingTicks === 0) this.finishRecordingWindow(event);
   }
 
   onApplyDragonrage(event: ApplyBuffEvent) {
@@ -306,8 +271,8 @@ class Disintegrate extends Analyzer {
       this.windowData = {
         start: event.timestamp,
         end: 0,
-        windowEndedorPushed: false,
-        name: 'Dragonrage Window',
+        windowEndedOrPushed: false,
+        name: 'Window',
       };
     }
     this.dragonrageBuffCounter.push({
@@ -327,7 +292,7 @@ class Disintegrate extends Analyzer {
     this.inDragonRageWindow = false;
 
     if (!this.isMythicPlus) {
-      this.windowData.windowEndedorPushed = true;
+      this.windowData.windowEndedOrPushed = true;
     }
   }
 
@@ -360,6 +325,7 @@ class Disintegrate extends Analyzer {
   }
 
   onDisintegrateCast(event: CastEvent) {
+    if (this.currentRemainingTicks === 0) this.finishRecordingWindow(event);
     const isMassDisintegrate = isFromMassDisintegrate(event);
     this.isPreviousCastMassDisintegrate = this.isCurrentCastMassDisintegrate;
     this.isCurrentCastMassDisintegrate = isMassDisintegrate;
@@ -582,6 +548,61 @@ class Disintegrate extends Analyzer {
     });
   }
 
+  onFightEnd(event: FightEndEvent) {
+    // Pushes remaining windows
+    if (this.isMythicPlus) {
+      if (!this.pullData[this.pullIndex].windowEndedOrPushed) {
+        this.pullData[this.pullIndex].end = event.timestamp;
+        this.pushToGraphData(this.pullData[this.pullIndex]);
+      }
+    } else {
+      this.windowData.end = event.timestamp;
+      this.pushToGraphData(this.windowData);
+    }
+
+    // Sanity Checks
+    if (
+      this.totalCastCounter.MassDisintTicks >
+      this.totalCastCounter.MassDisintTargets * this.ticksPerDisintegrate
+    ) {
+      this.addDebugAnnotation(event, {
+        color: BadColor,
+        summary: `More Mass Disintegrate Ticks than possible. (${this.totalCastCounter.MassDisintTicks}/${this.totalCastCounter.MassDisintTargets * this.ticksPerDisintegrate}). See other annotations for a likely cause`,
+      });
+    }
+  }
+
+  private finishRecordingWindow(event: CastEvent | BeginCastEvent | ApplyDebuffEvent) {
+    // Check if the pull/dragonrage window has ended
+    if (!this.isMythicPlus && this.windowData.windowEndedOrPushed) {
+      this.windowData.end = event.timestamp;
+      this.pushToGraphData(this.windowData);
+      this.windowData = {
+        start: event.timestamp,
+        end: 0,
+        windowEndedOrPushed: false,
+        name: 'Window',
+      };
+    } else if (
+      this.isMythicPlus &&
+      this.pullIndex < this.pullData.length - 1 &&
+      event.timestamp > this.pullData[this.pullIndex + 1].start
+    ) {
+      this.pullData[this.pullIndex].end = event.timestamp;
+      if (!this.pullData[this.pullIndex].windowEndedOrPushed)
+        this.pushToGraphData(this.pullData[this.pullIndex]);
+      // Pulls don't care if Dragonrage is still running so we need to push another "start" for the graph to show the window
+      if (this.inDragonRageWindow) {
+        this.dragonrageBuffCounter.push({
+          timestamp: this.pullData[this.pullIndex + 1].start - WINDOW_BUFFER,
+          count: this.ticksPerChainedDisintegrate,
+          tooltip: '',
+        });
+      }
+      this.pullIndex++;
+    }
+  }
+
   private massDisintegrateCastInsert(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     const castEvent = getDisintegrateCast(event);
     if (castEvent !== undefined) {
@@ -600,14 +621,15 @@ class Disintegrate extends Analyzer {
       });
       this.addDebugAnnotation(event, {
         color: BadColor,
-        summary: 'Found no targets for Mass Disintegrate',
+        summary:
+          'Found no targets for Mass Disintegrate. Known to be caused by instance recycling (Two Mobs in the log have the same ID)',
       });
     }
   }
 
   /** Generate graph data and clear all trackers for next window.*/
   pushToGraphData(windowData: WindowData) {
-    windowData.windowEndedorPushed = true;
+    windowData.windowEndedOrPushed = true;
 
     /** Create our dataSeries*/
     const dataSeries: DataSeries[] = [
@@ -682,18 +704,24 @@ class Disintegrate extends Analyzer {
                   <td>{this.currentCastCounter.MassDisintCasts} cast(s)</td>
                 </tr>
               )}
-              <tr>
-                <td>Chains</td>
-                <td>{this.disintegrateChainCasts.length} chain(s)</td>
-              </tr>
-              <tr>
-                <td>Clips</td>
-                <td>{this.disintegrateClips.length} clip(s)</td>
-              </tr>
-              <tr>
-                <td>Problem Points</td>
-                <td>{this.problemPoints.length} problem(s)</td>
-              </tr>
+              {this.disintegrateChainCasts.length > 0 && (
+                <tr>
+                  <td>Chains</td>
+                  <td>{this.disintegrateChainCasts.length} chain(s)</td>
+                </tr>
+              )}
+              {this.disintegrateClips.length > 0 && (
+                <tr>
+                  <td>Clips</td>
+                  <td>{this.disintegrateClips.length} clip(s)</td>
+                </tr>
+              )}
+              {this.problemPoints.length > 0 && (
+                <tr>
+                  <td>Problem Points</td>
+                  <td>{this.problemPoints.length} problem(s)</td>
+                </tr>
+              )}
             </tbody>
             <tbody>
               <tr>
@@ -725,20 +753,28 @@ class Disintegrate extends Analyzer {
                   <td>
                     <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />
                   </td>
-                  <td>
-                    <TooltipElement
-                      content={
-                        <>
-                          Losing ticks on <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />,
-                          despite having no problem points, might be caused by mobs dying, which is
-                          unavoidable.
-                        </>
-                      }
-                    >
+                  {this.currentCastCounter.MassDisintTicks <
+                  this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate ? (
+                    <td>
+                      <TooltipElement
+                        content={
+                          <>
+                            Losing ticks on <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />,
+                            despite having no problem points, might be caused by mobs dying, which
+                            is unavoidable.
+                          </>
+                        }
+                      >
+                        {this.currentCastCounter.MassDisintTicks}/
+                        {this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
+                      </TooltipElement>
+                    </td>
+                  ) : (
+                    <>
                       {this.currentCastCounter.MassDisintTicks}/
                       {this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
-                    </TooltipElement>
-                  </td>
+                    </>
+                  )}
                   <td>
                     <PassFailBar
                       pass={this.currentCastCounter.MassDisintTicks}
@@ -800,6 +836,11 @@ class Disintegrate extends Analyzer {
     const totalPossibleMassDisintegrateTicks =
       this.totalCastCounter.MassDisintTargets * this.ticksPerDisintegrate;
 
+    const massDisintTicks = Math.min(
+      this.totalCastCounter.MassDisintTicks,
+      totalPossibleMassDisintegrateTicks,
+    );
+
     return {
       regularTicks,
       totalPossibleRegularTicks,
@@ -807,7 +848,7 @@ class Disintegrate extends Analyzer {
       dragonRageTicks,
       totalPossibleDragonRageTicks,
       dragonRageTickRatio: dragonRageTicks / totalPossibleDragonRageTicks,
-      massDisintegrateTicks: this.totalCastCounter.MassDisintTicks,
+      massDisintegrateTicks: massDisintTicks,
       totalPossibleMassDisintegrateTicks,
     };
   }
@@ -829,20 +870,20 @@ class Disintegrate extends Analyzer {
             <SpellLink spell={DISINTEGRATE} /> casts.{' '}
             {this.isMythicPlus ? (
               <>
-                The windows of casts are seperated into boss pulls and the time between boss
-                pulls.{' '}
+                The windows of casts are seperated into boss pulls. The time between them gets
+                excluded as its not useful for analysis.
               </>
             ) : (
               <>
                 The windows of casts are seperated into Dragonrage windows and the time between
-                them.{' '}
+                them.
               </>
             )}
           </p>
           <table>
             <tbody>
               <tr>
-                <td width={75}>
+                <td width={150}>
                   <strong>Legend </strong>
                 </td>
               </tr>
@@ -870,7 +911,7 @@ class Disintegrate extends Analyzer {
                     Orange
                   </span>
                 </td>
-                <td>Chain Points</td>
+                <td>Chained Casts</td>
               </tr>
               <tr>
                 <td>
@@ -878,7 +919,7 @@ class Disintegrate extends Analyzer {
                     Purple
                   </span>
                 </td>
-                <td>Clip Points</td>
+                <td>Clipped Casts</td>
               </tr>
               <tr>
                 <td>
@@ -891,7 +932,7 @@ class Disintegrate extends Analyzer {
               <tr>
                 <td>
                   <span style={{ backgroundColor: 'white', color: 'Black', padding: '0 3px' }}>
-                    White
+                    White Background
                   </span>
                 </td>
                 <td>Dragonrage Windows</td>
