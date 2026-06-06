@@ -677,6 +677,15 @@ class Disintegrate extends Analyzer {
       },
     ];
 
+    const clampedDisintTicks = Math.min(
+      this.currentCastCounter.DisintTicks - this.currentCastCounter.MassDisintIntoDisChainTicks,
+      this.currentCastCounter.DisintCasts * this.ticksPerDisintegrate,
+    );
+    const clampedMassDisintTicks = Math.min(
+      this.currentCastCounter.MassDisintTicks,
+      this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate,
+    );
+
     /** If no Disintegrates were used push an empty div instead of nothing to preserve formatting */
     const content =
       this.disintegrateTicksCounter.length === 0 ? (
@@ -706,13 +715,13 @@ class Disintegrate extends Analyzer {
               )}
               {this.disintegrateChainCasts.length > 0 && (
                 <tr>
-                  <td>Chains</td>
+                  <td>Chained Casts</td>
                   <td>{this.disintegrateChainCasts.length} chain(s)</td>
                 </tr>
               )}
               {this.disintegrateClips.length > 0 && (
                 <tr>
-                  <td>Clips</td>
+                  <td>Clipped Casts</td>
                   <td>{this.disintegrateClips.length} clip(s)</td>
                 </tr>
               )}
@@ -734,16 +743,12 @@ class Disintegrate extends Analyzer {
                   <SpellLink spell={SPELLS.DISINTEGRATE} />
                 </td>
                 <td>
-                  {this.currentCastCounter.DisintTicks -
-                    this.currentCastCounter.MassDisintIntoDisChainTicks}
-                  /{this.currentCastCounter.DisintCasts * this.ticksPerDisintegrate}
+                  {clampedDisintTicks}/
+                  {this.currentCastCounter.DisintCasts * this.ticksPerDisintegrate}
                 </td>
                 <td>
                   <PassFailBar
-                    pass={
-                      this.currentCastCounter.DisintTicks -
-                      this.currentCastCounter.MassDisintIntoDisChainTicks
-                    }
+                    pass={clampedDisintTicks}
                     total={this.currentCastCounter.DisintCasts * this.ticksPerDisintegrate}
                   />
                 </td>
@@ -753,7 +758,7 @@ class Disintegrate extends Analyzer {
                   <td>
                     <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} />
                   </td>
-                  {this.currentCastCounter.MassDisintTicks <
+                  {clampedMassDisintTicks <
                   this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate ? (
                     <td>
                       <TooltipElement
@@ -765,19 +770,19 @@ class Disintegrate extends Analyzer {
                           </>
                         }
                       >
-                        {this.currentCastCounter.MassDisintTicks}/
+                        {clampedMassDisintTicks}/
                         {this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
                       </TooltipElement>
                     </td>
                   ) : (
                     <>
-                      {this.currentCastCounter.MassDisintTicks}/
+                      {clampedMassDisintTicks}/
                       {this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
                     </>
                   )}
                   <td>
                     <PassFailBar
-                      pass={this.currentCastCounter.MassDisintTicks}
+                      pass={clampedMassDisintTicks}
                       total={this.currentCastCounter.MassDisintTargets * this.ticksPerDisintegrate}
                     />
                   </td>
@@ -869,10 +874,7 @@ class Disintegrate extends Analyzer {
             For further analysis, use the graph below to deep dive into your{' '}
             <SpellLink spell={DISINTEGRATE} /> casts.{' '}
             {this.isMythicPlus ? (
-              <>
-                The windows of casts are seperated into boss pulls. The time between them gets
-                excluded as its not useful for analysis.
-              </>
+              <>The windows of casts are seperated into boss pulls.</>
             ) : (
               <>
                 The windows of casts are seperated into Dragonrage windows and the time between
@@ -951,6 +953,7 @@ class Disintegrate extends Analyzer {
           yAxisName="Remaining Ticks"
           explanations={this.explanations}
           noLegend={true}
+          scrollThresholdOverride={30000}
         />
       </SubSection>
     );
