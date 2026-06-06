@@ -9,21 +9,23 @@ import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 const CS_WINDOW_DURATION = 6500; // milliseconds
-const GCD_DURATION = 1500; // milliseconds
-const MAX_GCD_CASTS_PER_WINDOW = Math.floor(CS_WINDOW_DURATION / GCD_DURATION); // ~4
+const STORM_BOLT_CD = 30000; // milliseconds
+const DRAGON_ROAR_CD = 60000; // milliseconds
 
-interface AbilityStat {
-  inWindow: number;
-  total: number;
+interface SpellStats {
+  castsInWindow: number;
+  theoreticalOpportunities: number;
 }
 
 /**
- * Tracks Colossus Smash window optimization. CS applies a ~6.5s armor-bypass
- * debuff on a ~20s cooldown. This analyzer measures:
- * - GCD ability usage (Storm Bolt, Raging Blow, Execute, Dragon Roar) - limited to ~4 per window
- * - Off-GCD ability usage (Heroic Strike) - unlimited, rage-dependent
+ * Tracks Colossus Smash window optimization. Measures whether burst spells
+ * were used when they were available during the armor-bypass window.
  *
- * This reveals whether the player is efficiently using the burst window.
+ * For cooldown-based spells (Storm Bolt, Dragon Roar): tracks when they
+ * came off cooldown relative to CS windows and whether they were cast.
+ *
+ * For non-cooldown spells (Raging Blow, Execute, Heroic Strike): tracks
+ * what % of casts occurred during windows.
  */
 class ColossusSmashWindowStrategy extends Analyzer {
   static dependencies = {
@@ -32,40 +34,44 @@ class ColossusSmashWindowStrategy extends Analyzer {
   protected enemies!: Enemies;
 
   private csWindowStarts: number[] = [];
-  private stormBoltStats: AbilityStat = { inWindow: 0, total: 0 };
-  private dragonRoarStats: AbilityStat = { inWindow: 0, total: 0 };
-  private ragingBlowStats: AbilityStat = { inWindow: 0, total: 0 };
-  private executeStats: AbilityStat = { inWindow: 0, total: 0 };
-  private heroicStrikeStats: AbilityStat = { inWindow: 0, total: 0 };
+  private stormBoltCasts: number[] = [];
+  private dragonRoarCasts: number[] = [];
+  private ragingBlowStats = { inWindow: 0, total: 0 };
+  private executeStats = { inWindow: 0, total: 0 };
+  private heroicStrikeStats = { inWindow: 0, total: 0 };
 
   constructor(options: Options) {
     super(options);
 
-    // Track when CS windows start
+    // Track CS windows and spell casts
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLOSSUS_SMASH),
       this.onColossusSmashCast,
     );
 
-    // Track GCD abilities
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_BOLT_TALENT),
-      this.onStormBolt,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT),
-      this.onDragonRoar,
-    );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE), this.onExecute);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAGING_BLOW),
-      this.onRagingBlow,
+      this.onStormBoltCast,
     );
 
-    // Track off-GCD abilities
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT),
+      this.onDragonRoarCast,
+    );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAGING_BLOW),
+      this.onRagingBlowCast,
+    );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE),
+      this.onExecuteCast,
+    );
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEROIC_STRIKE),
-      this.onHeroicStrike,
+      this.onHeroicStrikeCast,
     );
   }
 
@@ -79,39 +85,92 @@ class ColossusSmashWindowStrategy extends Analyzer {
     );
   }
 
-  private recordCast(stat: AbilityStat, event: CastEvent) {
-    stat.total++;
+  private onStormBoltCast(event: CastEvent) {
+    this.stormBoltCasts.push(event.timestamp);
+  }
+
+  private onDragonRoarCast(event: CastEvent) {
+    this.dragonRoarCasts.push(event.timestamp);
+  }
+
+  private onRagingBlowCast(event: CastEvent) {
+    this.ragingBlowStats.total++;
     if (this.isInWindow(event.timestamp)) {
-      stat.inWindow++;
+      this.ragingBlowStats.inWindow++;
     }
   }
 
-  private onStormBolt(event: CastEvent) {
-    this.recordCast(this.stormBoltStats, event);
+  private onExecuteCast(event: CastEvent) {
+    this.executeStats.total++;
+    if (this.isInWindow(event.timestamp)) {
+      this.executeStats.inWindow++;
+    }
   }
 
-  private onDragonRoar(event: CastEvent) {
-    this.recordCast(this.dragonRoarStats, event);
+  private onHeroicStrikeCast(event: CastEvent) {
+    this.heroicStrikeStats.total++;
+    if (this.isInWindow(event.timestamp)) {
+      this.heroicStrikeStats.inWindow++;
+    }
   }
 
-  private onExecute(event: CastEvent) {
-    this.recordCast(this.executeStats, event);
+  private calculateCooldownOpportunities(cooldownDuration: number): SpellStats {
+    const fightStart = this.owner.fight.start_time;
+
+    // For each CS window, check if the spell is available (off cooldown) at the window start
+    let theoreticalOpportunities = 0;
+
+    for (const csWindowStart of this.csWindowStarts) {
+      // Check how much cooldown would be remaining at this CS window start
+      const timeSinceFightStart = csWindowStart - fightStart;
+      const numCooldownResets = Math.floor(timeSinceFightStart / cooldownDuration);
+      const lastResetTime = fightStart + numCooldownResets * cooldownDuration;
+
+      // The spell is available at csWindowStart if its last reset was before now
+      if (lastResetTime <= csWindowStart) {
+        theoreticalOpportunities++;
+      }
+    }
+
+    return { castsInWindow: 0, theoreticalOpportunities };
   }
 
-  private onRagingBlow(event: CastEvent) {
-    this.recordCast(this.ragingBlowStats, event);
+  private getStormBoltStats(): SpellStats {
+    if (this.stormBoltCasts.length === 0) {
+      return { castsInWindow: 0, theoreticalOpportunities: 0 };
+    }
+
+    const stats = this.calculateCooldownOpportunities(STORM_BOLT_CD);
+
+    // Count how many casts were in windows
+    stats.castsInWindow = this.stormBoltCasts.filter((castTime) =>
+      this.isInWindow(castTime),
+    ).length;
+
+    return stats;
   }
 
-  private onHeroicStrike(event: CastEvent) {
-    this.recordCast(this.heroicStrikeStats, event);
+  private getDragonRoarStats(): SpellStats {
+    if (this.dragonRoarCasts.length === 0) {
+      return { castsInWindow: 0, theoreticalOpportunities: 0 };
+    }
+
+    const stats = this.calculateCooldownOpportunities(DRAGON_ROAR_CD);
+
+    // Count how many casts were in windows
+    stats.castsInWindow = this.dragonRoarCasts.filter((castTime) =>
+      this.isInWindow(castTime),
+    ).length;
+
+    return stats;
   }
 
-  private renderAbilityStat(spellId: number, stat: AbilityStat): JSX.Element | null {
-    if (stat.total === 0) {
+  private renderCooldownSpellStat(spellId: number, stats: SpellStats): JSX.Element | null {
+    if (stats.theoreticalOpportunities === 0) {
       return null;
     }
 
-    const percentage = stat.inWindow / stat.total;
+    const efficiency = stats.castsInWindow / stats.theoreticalOpportunities;
 
     return (
       <div
@@ -119,27 +178,69 @@ class ColossusSmashWindowStrategy extends Analyzer {
         style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
       >
         <SpellIcon spell={spellId} />
-        <span style={{ fontWeight: 'bold', minWidth: 50 }}>{formatPercentage(percentage, 0)}%</span>
+        <span style={{ fontWeight: 'bold', minWidth: 50 }}>{formatPercentage(efficiency, 0)}%</span>
         <span style={{ fontSize: '0.85em', color: '#888' }}>
-          ({stat.inWindow}/{stat.total})
+          ({stats.castsInWindow}/{stats.theoreticalOpportunities} opportunities)
+        </span>
+      </div>
+    );
+  }
+
+  private renderNoOpportunities(spellId: number): JSX.Element | null {
+    if (this.stormBoltCasts.length === 0 && this.dragonRoarCasts.length === 0) {
+      return null;
+    }
+
+    return (
+      <div
+        key={spellId}
+        style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
+      >
+        <SpellIcon spell={spellId} />
+        <span style={{ fontSize: '0.85em', color: '#888' }}>Not cast during fight</span>
+      </div>
+    );
+  }
+
+  private renderRegularSpellStat(
+    spellId: number,
+    stats: { inWindow: number; total: number },
+  ): JSX.Element | null {
+    if (stats.total === 0) {
+      return null;
+    }
+
+    const efficiency = stats.inWindow / stats.total;
+
+    return (
+      <div
+        key={spellId}
+        style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
+      >
+        <SpellIcon spell={spellId} />
+        <span style={{ fontWeight: 'bold', minWidth: 50 }}>{formatPercentage(efficiency, 0)}%</span>
+        <span style={{ fontSize: '0.85em', color: '#888' }}>
+          ({stats.inWindow}/{stats.total} casts)
         </span>
       </div>
     );
   }
 
   statistic(): JSX.Element | null {
-    const totalWindows = this.csWindowStarts.length;
-    if (totalWindows === 0) {
+    const hasData =
+      this.csWindowStarts.length > 0 &&
+      (this.stormBoltCasts.length > 0 ||
+        this.dragonRoarCasts.length > 0 ||
+        this.ragingBlowStats.total > 0 ||
+        this.executeStats.total > 0 ||
+        this.heroicStrikeStats.total > 0);
+
+    if (!hasData) {
       return null;
     }
 
-    const totalGcdCasts =
-      this.stormBoltStats.inWindow +
-      this.dragonRoarStats.inWindow +
-      this.executeStats.inWindow +
-      this.ragingBlowStats.inWindow;
-    const theoreticalMaxGcdCasts = totalWindows * MAX_GCD_CASTS_PER_WINDOW;
-    const gcdEfficiency = totalGcdCasts / theoreticalMaxGcdCasts;
+    const stormBoltStats = this.getStormBoltStats();
+    const dragonRoarStats = this.getDragonRoarStats();
 
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(11)}>
@@ -148,34 +249,25 @@ class ColossusSmashWindowStrategy extends Analyzer {
             Colossus Smash Window Optimization
           </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-              <span style={{ minWidth: 140, fontWeight: 'bold' }}>GCD Efficiency</span>
-              <span style={{ fontWeight: 'bold', minWidth: 50 }}>
-                {formatPercentage(gcdEfficiency, 0)}%
-              </span>
-              <span style={{ fontSize: '0.85em', color: '#888' }}>
-                ({totalGcdCasts}/{theoreticalMaxGcdCasts} casts)
-              </span>
-            </div>
-            <div
-              style={{ fontSize: '0.85em', color: '#888', paddingLeft: '8px', marginBottom: '8px' }}
-            >
-              ~{MAX_GCD_CASTS_PER_WINDOW} per window × {totalWindows} windows
-            </div>
-          </div>
-
           <div style={{ marginBottom: '12px' }}>
             <div
               style={{ fontSize: '0.85em', fontWeight: 'bold', marginBottom: '8px', color: '#666' }}
             >
-              Per Ability (% in window):
+              Cooldown-based (% of opportunities):
             </div>
-            {this.renderAbilityStat(SPELLS.STORM_BOLT_TALENT.id, this.stormBoltStats)}
-            {this.renderAbilityStat(SPELLS.DRAGON_ROAR_TALENT.id, this.dragonRoarStats)}
-            {this.renderAbilityStat(SPELLS.RAGING_BLOW.id, this.ragingBlowStats)}
-            {this.renderAbilityStat(SPELLS.EXECUTE.id, this.executeStats)}
-            {this.renderAbilityStat(SPELLS.HEROIC_STRIKE.id, this.heroicStrikeStats)}
+            {this.renderCooldownSpellStat(SPELLS.STORM_BOLT_TALENT.id, stormBoltStats)}
+            {this.renderCooldownSpellStat(SPELLS.DRAGON_ROAR_TALENT.id, dragonRoarStats)}
+          </div>
+
+          <div>
+            <div
+              style={{ fontSize: '0.85em', fontWeight: 'bold', marginBottom: '8px', color: '#666' }}
+            >
+              Rage-based (% of casts in window):
+            </div>
+            {this.renderRegularSpellStat(SPELLS.RAGING_BLOW.id, this.ragingBlowStats)}
+            {this.renderRegularSpellStat(SPELLS.EXECUTE.id, this.executeStats)}
+            {this.renderRegularSpellStat(SPELLS.HEROIC_STRIKE.id, this.heroicStrikeStats)}
           </div>
         </div>
       </StatisticBar>
