@@ -6,6 +6,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Spells
+import Guide from './Guide';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -16,6 +17,8 @@ class CombatLogParser extends BaseCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
