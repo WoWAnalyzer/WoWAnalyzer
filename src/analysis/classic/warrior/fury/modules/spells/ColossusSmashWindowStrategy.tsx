@@ -134,7 +134,7 @@ class ColossusSmashWindowStrategy extends Analyzer {
 
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(11)}>
-        <div style={{ padding: '12px 0' }}>
+        <div style={{ padding: '12px 15px' }}>
           <div style={{ marginBottom: '12px', fontWeight: 'bold' }}>
             Colossus Smash Window Usage
           </div>
