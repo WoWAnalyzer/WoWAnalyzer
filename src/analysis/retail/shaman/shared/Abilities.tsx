@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         category: combatant.hasTalent(TALENTS.PRIMORDIAL_BOND_TALENT)
           ? SPELL_CATEGORY.DEFENSIVE
           : SPELL_CATEGORY.UTILITY,
-        cooldown: 300,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },

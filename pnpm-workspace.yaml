@@ -1,3 +1,6 @@
 packages:
   - 'packages/**'
   - 'scripts/background-images'
+
+patchedDependencies:
+  'vega-embed@6.20.2': 'patches/vega-embed@6.20.2.patch'

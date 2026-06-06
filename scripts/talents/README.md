@@ -14,6 +14,12 @@ To run it once
 $ npx tsx .\scripts\talents\generate-talents.ts
 ```
 
+On linux the \ have to be replaced with / to make the new command work. It otherwise tries to escape the command.
+
+```shell script
+pnpm exec tsx ./scripts/talents/generate-talents.ts
+```
+
 To watch the file continously:
 
 ```shell script

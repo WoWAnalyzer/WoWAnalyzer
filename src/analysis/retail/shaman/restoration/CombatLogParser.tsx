@@ -13,7 +13,6 @@ import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-import SpellUsable from './modules/features/SpellUsable';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Talents
 import ChainHeal from './modules/spells/ChainHeal';
@@ -93,7 +92,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     earthShieldBreakdown: EarthShieldBreakdown,
 

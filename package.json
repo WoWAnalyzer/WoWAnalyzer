@@ -123,10 +123,5 @@
       "pnpm run lint:fix"
     ]
   },
-  "packageManager": "pnpm@9.5.0",
-  "pnpm": {
-    "patchedDependencies": {
-      "vega-embed@6.20.2": "patches/vega-embed@6.20.2.patch"
-    }
-  }
+  "packageManager": "pnpm@9.5.0"
 }
