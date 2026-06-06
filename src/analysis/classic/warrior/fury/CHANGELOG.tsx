@@ -4,6 +4,11 @@ import { Amryu, Xinito } from 'CONTRIBUTORS';
 export default [
   change(
     date(2026, 6, 6),
+    'Add Colossus Smash Window Strategy analyzer to track burst spell usage within the armor-bypass window.',
+    Xinito,
+  ),
+  change(
+    date(2026, 6, 6),
     'Add Colossus Smash to the rotation and add a Colossus Smash debuff uptime statistic.',
     Xinito,
   ),
