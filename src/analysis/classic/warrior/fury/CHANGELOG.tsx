@@ -4,14 +4,15 @@ import { Amryu, Xinito } from 'CONTRIBUTORS';
 export default [
   change(
     date(2026, 6, 6),
-    'Add Colossus Smash Window Strategy analyzer to track burst spell usage within the armor-bypass window.',
+    'Refine the Colossus Smash Window analyzer: fix the opportunity counting, gate Raging Blow on its "Raging Blow!" proc, and drop Dragon Roar (magic damage does not benefit from the window).',
     Xinito,
   ),
   change(
     date(2026, 6, 6),
-    'Add Colossus Smash to the rotation and add a Colossus Smash debuff uptime statistic.',
+    'Add Colossus Smash Window Strategy analyzer to track burst spell usage within the armor-bypass window.',
     Xinito,
   ),
+  change(date(2026, 6, 6), 'Add Colossus Smash to the rotation.', Xinito),
   change(
     date(2026, 6, 6),
     'Migrate abilities to the generated spellbook (fixing talent gating, AOE categories and bogus cast efficiency on rage dumps).',

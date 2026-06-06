@@ -1032,6 +1032,18 @@ const SPELLS = {
     name: 'Raging Blow Off-Hand',
     icon: 'warrior_wild_strike.jpg',
   },
+  // The "Raging Blow!" proc (granted by Enrage, max 2 stacks). Raging Blow can only
+  // be cast while this is active; each cast consumes a stack.
+  RAGING_BLOW_BUFF: {
+    id: 131116,
+    grantedBy: 13046,
+    type: 'temporary',
+    iconID: 589119,
+    passive: false,
+    hidden: 'always',
+    name: 'Raging Blow!',
+    icon: 'warrior_wild_strike.jpg',
+  },
   PLATE_SPECIALIZATION_PASSIVE: {
     id: 86110,
     type: 'baseline',

@@ -3,14 +3,13 @@ import { formatPercentage } from 'common/format';
 import SPELLS from '../../spell-list_Warrior_Fury.classic';
 import { SpellIcon } from 'interface';
 import Analyzer, { type Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 const CS_WINDOW_DURATION = 6500; // milliseconds
 const STORM_BOLT_CD = 30000; // milliseconds
-const DRAGON_ROAR_CD = 60000; // milliseconds
 
 interface SpellStats {
   castsInWindow: number;
@@ -21,11 +20,20 @@ interface SpellStats {
  * Tracks Colossus Smash window optimization. Measures whether burst spells
  * were used when they were available during the armor-bypass window.
  *
- * For cooldown-based spells (Storm Bolt, Dragon Roar): tracks when they
- * came off cooldown relative to CS windows and whether they were cast.
+ * For cooldown-based spells (Storm Bolt): tracks when they came off cooldown
+ * relative to CS windows and whether they were cast.
  *
- * For non-cooldown spells (Raging Blow, Execute, Heroic Strike): tracks
- * what % of casts occurred during windows.
+ * For Raging Blow: it can only be cast while the "Raging Blow!" proc is up
+ * (granted by Enrage, max 2 stacks), so a flat "% of casts in window" would be
+ * misleading. Instead we count a CS window as an opportunity only when the proc
+ * was available during it, and check whether Raging Blow was cast to spend it —
+ * mirroring the wowsims Fury APL, which dumps the proc inside the window.
+ *
+ * For the remaining rage spenders (Execute, Heroic Strike): tracks what % of
+ * casts occurred during windows.
+ *
+ * Note: Colossus Smash only amplifies physical damage, so magic-damage
+ * abilities (e.g. Dragon Roar) gain nothing from the window and are excluded.
  */
 class ColossusSmashWindowStrategy extends Analyzer {
   static dependencies = {
@@ -35,8 +43,10 @@ class ColossusSmashWindowStrategy extends Analyzer {
 
   private csWindowStarts: number[] = [];
   private stormBoltCasts: number[] = [];
-  private dragonRoarCasts: number[] = [];
-  private ragingBlowStats = { inWindow: 0, total: 0 };
+  private ragingBlowCasts: number[] = [];
+  // Intervals during which the "Raging Blow!" proc was up (stacks >= 1).
+  private procIntervals: { start: number; end: number }[] = [];
+  private currentProcStart: number | null = null;
   private executeStats = { inWindow: 0, total: 0 };
   private heroicStrikeStats = { inWindow: 0, total: 0 };
 
@@ -55,13 +65,19 @@ class ColossusSmashWindowStrategy extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT),
-      this.onDragonRoarCast,
-    );
-
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAGING_BLOW),
       this.onRagingBlowCast,
+    );
+
+    // Track when the Raging Blow! proc is available so we know which CS windows
+    // actually offered a chance to spend it.
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RAGING_BLOW_BUFF),
+      this.onRagingBlowProcApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RAGING_BLOW_BUFF),
+      this.onRagingBlowProcRemove,
     );
 
     this.addEventListener(
@@ -89,50 +105,66 @@ class ColossusSmashWindowStrategy extends Analyzer {
     this.stormBoltCasts.push(event.timestamp);
   }
 
-  private onDragonRoarCast(event: CastEvent) {
-    this.dragonRoarCasts.push(event.timestamp);
+  private trackWindowStat(stats: { inWindow: number; total: number }, timestamp: number) {
+    stats.total++;
+    if (this.isInWindow(timestamp)) {
+      stats.inWindow++;
+    }
   }
 
   private onRagingBlowCast(event: CastEvent) {
-    this.ragingBlowStats.total++;
-    if (this.isInWindow(event.timestamp)) {
-      this.ragingBlowStats.inWindow++;
+    this.ragingBlowCasts.push(event.timestamp);
+  }
+
+  private onRagingBlowProcApply(event: ApplyBuffEvent) {
+    if (this.currentProcStart === null) {
+      this.currentProcStart = event.timestamp;
+    }
+  }
+
+  private onRagingBlowProcRemove(event: RemoveBuffEvent) {
+    if (this.currentProcStart !== null) {
+      this.procIntervals.push({ start: this.currentProcStart, end: event.timestamp });
+      this.currentProcStart = null;
     }
   }
 
   private onExecuteCast(event: CastEvent) {
-    this.executeStats.total++;
-    if (this.isInWindow(event.timestamp)) {
-      this.executeStats.inWindow++;
-    }
+    this.trackWindowStat(this.executeStats, event.timestamp);
   }
 
   private onHeroicStrikeCast(event: CastEvent) {
-    this.heroicStrikeStats.total++;
-    if (this.isInWindow(event.timestamp)) {
-      this.heroicStrikeStats.inWindow++;
-    }
+    this.trackWindowStat(this.heroicStrikeStats, event.timestamp);
   }
 
-  private calculateCooldownOpportunities(cooldownDuration: number): SpellStats {
+  private calculateCooldownOpportunities(casts: number[], cooldownDuration: number): SpellStats {
     const fightStart = this.owner.fight.start_time;
+    // Reconstruct the spell's actual cooldown timeline from its casts. The spell
+    // is assumed available at pull and goes on cooldown for `cooldownDuration`
+    // after each cast. A CS window counts as an opportunity only if the spell was
+    // off cooldown at some point during that window — so a 30s-cooldown spell can
+    // not be "available" for every ~20s CS window.
+    const sortedCasts = [...casts].sort((a, b) => a - b);
 
-    // For each CS window, check if the spell is available (off cooldown) at the window start
     let theoreticalOpportunities = 0;
 
     for (const csWindowStart of this.csWindowStarts) {
-      // Check how much cooldown would be remaining at this CS window start
-      const timeSinceFightStart = csWindowStart - fightStart;
-      const numCooldownResets = Math.floor(timeSinceFightStart / cooldownDuration);
-      const lastResetTime = fightStart + numCooldownResets * cooldownDuration;
+      const csWindowEnd = csWindowStart + CS_WINDOW_DURATION;
 
-      // The spell is available at csWindowStart if its last reset was before now
-      if (lastResetTime <= csWindowStart) {
+      // Cooldown state entering the window is set by the last cast before it started.
+      const lastCastBeforeWindow = sortedCasts.filter((castTime) => castTime < csWindowStart).pop();
+      const availableFrom =
+        lastCastBeforeWindow === undefined ? fightStart : lastCastBeforeWindow + cooldownDuration;
+
+      // Off cooldown for at least part of the window => the player could have cast it here.
+      if (availableFrom < csWindowEnd) {
         theoreticalOpportunities++;
       }
     }
 
-    return { castsInWindow: 0, theoreticalOpportunities };
+    const castsInWindow = casts.filter((castTime) => this.isInWindow(castTime)).length;
+
+    return { castsInWindow, theoreticalOpportunities };
   }
 
   private getStormBoltStats(): SpellStats {
@@ -140,29 +172,44 @@ class ColossusSmashWindowStrategy extends Analyzer {
       return { castsInWindow: 0, theoreticalOpportunities: 0 };
     }
 
-    const stats = this.calculateCooldownOpportunities(STORM_BOLT_CD);
-
-    // Count how many casts were in windows
-    stats.castsInWindow = this.stormBoltCasts.filter((castTime) =>
-      this.isInWindow(castTime),
-    ).length;
-
-    return stats;
+    return this.calculateCooldownOpportunities(this.stormBoltCasts, STORM_BOLT_CD);
   }
 
-  private getDragonRoarStats(): SpellStats {
-    if (this.dragonRoarCasts.length === 0) {
+  private getRagingBlowStats(): SpellStats {
+    // Close out a proc that was still up when the fight ended.
+    const intervals = [...this.procIntervals];
+    if (this.currentProcStart !== null) {
+      intervals.push({ start: this.currentProcStart, end: this.owner.fight.end_time });
+    }
+
+    if (this.ragingBlowCasts.length === 0 && intervals.length === 0) {
       return { castsInWindow: 0, theoreticalOpportunities: 0 };
     }
 
-    const stats = this.calculateCooldownOpportunities(DRAGON_ROAR_CD);
+    // Raging Blow has no cooldown, so several casts can land in one window. We
+    // therefore measure this per-window rather than per-cast: a CS window is an
+    // opportunity if the Raging Blow! proc was up during it, and it's "taken" if
+    // at least one Raging Blow was cast inside it. This keeps the ratio in 0-100%.
+    let theoreticalOpportunities = 0;
+    let castsInWindow = 0;
+    for (const csWindowStart of this.csWindowStarts) {
+      const csWindowEnd = csWindowStart + CS_WINDOW_DURATION;
+      const procAvailable = intervals.some(
+        (interval) => interval.start < csWindowEnd && interval.end >= csWindowStart,
+      );
+      if (!procAvailable) {
+        continue;
+      }
+      theoreticalOpportunities++;
+      const spentInWindow = this.ragingBlowCasts.some(
+        (castTime) => castTime >= csWindowStart && castTime < csWindowEnd,
+      );
+      if (spentInWindow) {
+        castsInWindow++;
+      }
+    }
 
-    // Count how many casts were in windows
-    stats.castsInWindow = this.dragonRoarCasts.filter((castTime) =>
-      this.isInWindow(castTime),
-    ).length;
-
-    return stats;
+    return { castsInWindow, theoreticalOpportunities };
   }
 
   private renderCooldownSpellStat(spellId: number, stats: SpellStats): JSX.Element | null {
@@ -182,22 +229,6 @@ class ColossusSmashWindowStrategy extends Analyzer {
         <span style={{ fontSize: '0.85em', color: '#888' }}>
           ({stats.castsInWindow}/{stats.theoreticalOpportunities} opportunities)
         </span>
-      </div>
-    );
-  }
-
-  private renderNoOpportunities(spellId: number): JSX.Element | null {
-    if (this.stormBoltCasts.length === 0 && this.dragonRoarCasts.length === 0) {
-      return null;
-    }
-
-    return (
-      <div
-        key={spellId}
-        style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
-      >
-        <SpellIcon spell={spellId} />
-        <span style={{ fontSize: '0.85em', color: '#888' }}>Not cast during fight</span>
       </div>
     );
   }
@@ -230,8 +261,7 @@ class ColossusSmashWindowStrategy extends Analyzer {
     const hasData =
       this.csWindowStarts.length > 0 &&
       (this.stormBoltCasts.length > 0 ||
-        this.dragonRoarCasts.length > 0 ||
-        this.ragingBlowStats.total > 0 ||
+        this.ragingBlowCasts.length > 0 ||
         this.executeStats.total > 0 ||
         this.heroicStrikeStats.total > 0);
 
@@ -240,12 +270,21 @@ class ColossusSmashWindowStrategy extends Analyzer {
     }
 
     const stormBoltStats = this.getStormBoltStats();
-    const dragonRoarStats = this.getDragonRoarStats();
+    const ragingBlowStats = this.getRagingBlowStats();
 
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(11)}>
         <div style={{ padding: '12px 15px' }}>
-          <div style={{ marginBottom: '12px', fontWeight: 'bold' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '12px',
+              fontWeight: 'bold',
+            }}
+          >
+            <SpellIcon spell={SPELLS.COLOSSUS_SMASH.id} />
             Colossus Smash Window Optimization
           </div>
 
@@ -253,10 +292,10 @@ class ColossusSmashWindowStrategy extends Analyzer {
             <div
               style={{ fontSize: '0.85em', fontWeight: 'bold', marginBottom: '8px', color: '#666' }}
             >
-              Cooldown-based (% of opportunities):
+              Cooldown / proc-based (% of opportunities):
             </div>
             {this.renderCooldownSpellStat(SPELLS.STORM_BOLT_TALENT.id, stormBoltStats)}
-            {this.renderCooldownSpellStat(SPELLS.DRAGON_ROAR_TALENT.id, dragonRoarStats)}
+            {this.renderCooldownSpellStat(SPELLS.RAGING_BLOW.id, ragingBlowStats)}
           </div>
 
           <div>
@@ -265,7 +304,6 @@ class ColossusSmashWindowStrategy extends Analyzer {
             >
               Rage-based (% of casts in window):
             </div>
-            {this.renderRegularSpellStat(SPELLS.RAGING_BLOW.id, this.ragingBlowStats)}
             {this.renderRegularSpellStat(SPELLS.EXECUTE.id, this.executeStats)}
             {this.renderRegularSpellStat(SPELLS.HEROIC_STRIKE.id, this.heroicStrikeStats)}
           </div>
