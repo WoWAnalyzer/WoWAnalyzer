@@ -1,8 +1,13 @@
 import { Enchant } from 'common/ITEMS/Item';
 
-// Mists of Pandaria enchants. `id` is the enchanting scroll/armor-kit item id and `effectId` is the
-// `permanentEnchant` (SpellItemEnchantment) effect id, both sourced from wowsims/mop
-// (assets/database/db.json). Used to render recommended-enchant tooltips in the Preparation tab.
+// Curated best-in-slot melee/strength-DPS Mists of Pandaria enchants — one recommended pick per
+// slot (Strength inscriptions/armor kits, Dancing Steel, etc.). This is intentionally NOT a
+// complete MoP enchant list: it only backs the "recommended enchant" tooltips in the Preparation
+// tab. The comprehensive set of enchants accepted when *grading* a slot lives in the classic
+// EnchantChecker's MAX_ENCHANT_IDS (parser/classic/modules/items/EnchantChecker).
+//
+// `id` is the enchanting scroll/armor-kit item id and `effectId` is the `permanentEnchant`
+// (SpellItemEnchantment) effect id, both sourced from wowsims/mop (assets/database/db.json).
 const enchants = {
   // #region Shoulder
   GREATER_TIGER_FANG_INSCRIPTION: {
