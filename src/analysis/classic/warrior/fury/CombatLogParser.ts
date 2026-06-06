@@ -7,6 +7,7 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Spells
 import ColossusSmash from './modules/spells/ColossusSmash';
+import ColossusSmashWindowStrategy from './modules/spells/ColossusSmashWindowStrategy';
 import Guide from './Guide';
 
 class CombatLogParser extends BaseCombatLogParser {
@@ -18,6 +19,7 @@ class CombatLogParser extends BaseCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
     colossusSmash: ColossusSmash,
+    colossusSmashWindowStrategy: ColossusSmashWindowStrategy,
   };
 
   static guide = Guide;
