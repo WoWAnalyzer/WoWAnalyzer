@@ -7,7 +7,23 @@ import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDo
 import { useExpansionContext } from 'interface/report/ExpansionContext';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Enchant } from 'common/ITEMS/Item';
+import ENCHANTS from 'common/ITEMS/classic/enchants';
+import { GearSlotName } from 'parser/core/Combatant';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+
+// Best-in-slot Mists of Pandaria enchants for Fury Warriors (sourced from wowsims/mop gear sets).
+const RECOMMENDED_ENCHANTS: Partial<Record<GearSlotName, Enchant[]>> = {
+  SHOULDER: [ENCHANTS.GREATER_TIGER_FANG_INSCRIPTION],
+  BACK: [ENCHANTS.ENCHANT_CLOAK_SUPERIOR_CRITICAL_STRIKE],
+  CHEST: [ENCHANTS.ENCHANT_CHEST_GLORIOUS_STATS],
+  WRISTS: [ENCHANTS.ENCHANT_BRACER_EXCEPTIONAL_STRENGTH],
+  HANDS: [ENCHANTS.ENCHANT_GLOVES_SUPER_STRENGTH],
+  LEGS: [ENCHANTS.ANGERHIDE_LEG_ARMOR],
+  FEET: [ENCHANTS.ENCHANT_BOOTS_PANDARENS_STEP],
+  MAINHAND: [ENCHANTS.ENCHANT_WEAPON_DANCING_STEEL],
+  OFFHAND: [ENCHANTS.ENCHANT_WEAPON_DANCING_STEEL],
+};
 
 export default function Guide(): JSX.Element {
   const { expansion } = useExpansionContext();
@@ -17,7 +33,7 @@ export default function Guide(): JSX.Element {
         <FuryDowntimeSection />
         <FoundationCooldownSection />
       </Section>
-      <PreparationSection expansion={expansion} />
+      <PreparationSection expansion={expansion} recommendedEnchantments={RECOMMENDED_ENCHANTS} />
     </>
   );
 }

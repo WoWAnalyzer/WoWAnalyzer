@@ -4,6 +4,11 @@ import { Amryu, Xinito } from 'CONTRIBUTORS';
 export default [
   change(
     date(2026, 6, 6),
+    'Update the Preparation tab enchant checker to Mists of Pandaria data (no more Head enchant, recognises MoP enchants) and recommend the best-in-slot Fury enchants.',
+    Xinito,
+  ),
+  change(
+    date(2026, 6, 6),
     'Show Bladestorm as a situational AOE spell instead of an on-cooldown cooldown, so it no longer reads as a missed cast on single-target fights.',
     Xinito,
   ),
