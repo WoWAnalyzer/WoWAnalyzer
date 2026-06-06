@@ -4,6 +4,11 @@ import { Amryu, Xinito } from 'CONTRIBUTORS';
 export default [
   change(
     date(2026, 6, 6),
+    'Show Bladestorm as a situational AOE spell instead of an on-cooldown cooldown, so it no longer reads as a missed cast on single-target fights.',
+    Xinito,
+  ),
+  change(
+    date(2026, 6, 6),
     'Refine the Colossus Smash Window analyzer: fix the opportunity counting, gate Raging Blow on its "Raging Blow!" proc, and drop Dragon Roar (magic damage does not benefit from the window).',
     Xinito,
   ),

@@ -20,7 +20,6 @@ export const Abilities = genAbilities({
     spells.BLOODBATH_TALENT,
     spells.STORM_BOLT_TALENT,
     spells.DRAGON_ROAR_TALENT,
-    spells.BLADESTORM_TALENT,
     spells.SKULL_BANNER,
   ],
   defensives: [
@@ -51,6 +50,16 @@ export const Abilities = genAbilities({
     }),
     [spells.HEROIC_STRIKE.id]: (_combatant, generated) => ({
       ...generated,
+      cooldown: undefined,
+    }),
+    // Bladestorm is an AOE-only DPS cooldown (the MoP Fury APL only casts it when
+    // numberTargets > 1). On single-target fights it is correctly never used, so
+    // grouping it with on-cooldown cooldowns made it read as a missed "0/N casts"
+    // cooldown. Present it as a situational AOE spell (plain cast count, no cast
+    // efficiency) instead.
+    [spells.BLADESTORM_TALENT.id]: (_combatant, generated) => ({
+      ...generated,
+      category: SPELL_CATEGORY.ROTATIONAL_AOE,
       cooldown: undefined,
     }),
   },
