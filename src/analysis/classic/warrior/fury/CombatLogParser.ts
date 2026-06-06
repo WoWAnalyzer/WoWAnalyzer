@@ -1,7 +1,7 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Features
-import Abilities from './modules/features/Abilities';
+import { Abilities } from './gen';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
