@@ -3004,3 +3004,16 @@ export const Zogmaw: Contributor = {
     Youtube: 'https://www.youtube.com/@Zogmaw',
   },
 };
+
+export const Xinito: Contributor = {
+  nickname: 'Xinito',
+  github: '-',
+  discord: '-',
+  mains: [
+    {
+      name: 'Skullbonka',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://classic.warcraftlogs.com/character/eu/everlook/amryu',
+    },
+  ],
+};
