@@ -1,0 +1,5 @@
+@use 'interface/design-system' as design;
+
+.ColoredText {
+  color: var(--color);
+}

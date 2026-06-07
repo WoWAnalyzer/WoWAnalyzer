@@ -1,0 +1,44 @@
+@use 'interface/design-system' as design;
+
+.AplSubsectionHeader {
+  font-weight: bold;
+}
+
+.AplSummaryTable {
+  td {
+    padding-right: 1rem;
+    width: 99%;
+  }
+
+  td:last-child {
+    min-width: 10em;
+  }
+}
+
+.ValueData {
+  text-align: right;
+}
+
+.AplViolationContainer {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+}
+
+.AplLayout {
+  display: grid;
+  grid-template-areas: 'summary problems' 'timeline timeline';
+  grid-template-columns: 10fr 8fr;
+  grid-gap: 2rem;
+
+  .AplRuleList/* TODO-OVERRIDE */ {
+    grid-area: summary;
+  }
+
+  .AplViolationContainer/* TODO-OVERRIDE */ {
+    grid-area: problems;
+  }
+
+  .AplViolationTimelineContainer/* TODO-OVERRIDE */ {
+    grid-area: timeline;
+  }
+}

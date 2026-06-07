@@ -3,31 +3,15 @@ import Spell from 'common/SPELLS/Spell';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./ManaChart.module.scss";
 import fetchWcl from 'common/fetchWclApi';
 
-const LegendContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 8px 0;
-  margin-bottom: 8px;
-  justify-content: center;
-`;
+const LegendContainer = cssComponent("div", styles.LegendContainer, [] as const);
 
-const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-`;
+const LegendItem = cssComponent("div", styles.LegendItem, [] as const);
 
-const LegendSymbol = styled.div<{ color: string }>`
-  width: 16px;
-  height: 16px;
-  background-color: ${(props) => props.color};
-  border-radius: 2px;
-`;
+const LegendSymbol = cssComponent("div", styles.LegendSymbol, ["color"] as const);
 
 interface ManaUpdate {
   timestamp: number;

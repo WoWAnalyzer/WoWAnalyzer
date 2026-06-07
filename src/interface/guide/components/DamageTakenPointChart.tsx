@@ -1,5 +1,6 @@
 import { useMemo, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './DamageTakenPointChart.module.scss';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
@@ -62,39 +63,14 @@ interface DamageTakenPointChartProps {
 
 type Props = DamageTakenPointChartProps;
 
-const HitTimelineContainer = styled.div`
-  display: grid;
-  grid-template-columns: calc(150px - 1rem) 1fr;
-  gap: 1rem;
-  height: 20px;
-  padding: 0 10px;
-  margin: 5px 0;
+const HitTimelineContainer = cssComponent('div', styles.HitTimelineContainer, [] as const);
 
-  & > :first-child {
-    justify-self: start;
-    align-self: start;
-    padding-left: 1rem;
-  }
-`;
+const HitTimelineBar = cssComponent('div', styles.HitTimelineBar, [] as const);
 
-const HitTimelineBar = styled.div`
-  position: relative;
-  width: 100%;
-  height: 20px;
-`;
-
-const HitTimelineSlice = styled.div<{
-  color: string;
-  widthPct: number;
-}>`
-  width: max(1px, ${(props) => props.widthPct * 100}%);
-  background-color: ${(props) => props.color};
-  height: 100%;
-  position: absolute;
-  top: 0;
-  border: 1px solid black;
-  box-sizing: content-box;
-`;
+const HitTimelineSlice = cssComponent('div', styles.HitTimelineSlice, [
+  'color',
+  'widthPct',
+] as const);
 
 const damageSourceStyle: React.CSSProperties = {
   overflowX: 'hidden',

@@ -1,7 +1,9 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './MitigationSegments.module.scss';
 import { formatNumber } from 'common/format';
 import Tooltip from 'interface/Tooltip';
 import { CSSProperties, ReactNode } from 'react';
+import clsx from 'clsx';
 
 export interface MitigationSegment {
   amount: number;
@@ -9,43 +11,18 @@ export interface MitigationSegment {
   description: ReactNode;
 }
 
-const roundedContainerStyles = `
-  border-radius: 2px;
-  overflow: clip;
-
-  & div:first-child {
-    border-radius: 2px 0 0 2px;
-  }
-`;
-
-const MitigationSegmentContainer = styled.div<{ rounded?: boolean }>`
-  width: 100%;
-  height: 1em;
-  text-align: left;
-  line-height: 1em;
-  background-color: rgba(255, 255, 255, 0.2);
-  ${(props) => (props.rounded ? roundedContainerStyles : '')}
-`;
+const MitigationSegmentContainer = cssComponent(
+  'div',
+  styles.MitigationSegmentContainer,
+  [] as const,
+);
 
 // we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-export const MitigationTooltipSegment = styled.div<{
-  color: string;
-  width: number;
-  maxWidth?: number;
-}>`
-  background-color: ${(props) => props.color};
-  width: calc(
-    ${(props) =>
-        props.maxWidth
-          ? `${Math.max(0.02, props.width)} * ${props.maxWidth}px`
-          : `${Math.max(2, props.width * 100)}%`} -
-      1px
-  );
-  height: 100%;
-  display: inline-block;
-  box-sizing: content-box;
-  border-left: 1px solid #000;
-`;
+export const MitigationTooltipSegment = cssComponent('div', styles.MitigationTooltipSegment, [
+  'color',
+  'maxWidth',
+  'width',
+] as const);
 
 export const MitigationSegments = ({
   segments,
@@ -60,7 +37,7 @@ export const MitigationSegments = ({
   rounded?: boolean;
   style?: CSSProperties;
 }) => (
-  <MitigationSegmentContainer rounded={rounded} className={className} style={style}>
+  <MitigationSegmentContainer className={clsx(className, rounded && styles.rounded)} style={style}>
     {segments
       .filter((seg) => seg.amount > 0)
       .map((seg, ix) => (

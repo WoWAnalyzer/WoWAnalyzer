@@ -1,25 +1,11 @@
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./SpellSeq.module.scss";
 import Spell from 'common/SPELLS/Spell';
 import { Fragment } from 'react';
 import { SpellIcon } from 'interface';
 import { ChevronIcon } from 'interface/icons';
 
-const SequenceContainer = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 24px;
-
-  & svg {
-    transform: rotate(-90deg);
-    height: 18px;
-    margin-top: calc(24px / 2 - 18px / 2);
-  }
-
-  & img.icon {
-    height: 24px;
-  }
-`;
+const SequenceContainer = cssComponent("div", styles.SequenceContainer, [] as const);
 
 export const SpellSeq = ({ spells }: { spells: Spell[] }) => (
   <SequenceContainer>

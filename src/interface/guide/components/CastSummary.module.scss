@@ -1,0 +1,42 @@
+@use 'interface/design-system' as design;
+
+.DisappearingHelperText {
+  margin-top: 4px;
+  overflow-y: clip;
+  transition: height 0.5s; /* 0.5s matches react-animate-height */
+}
+
+.BarContainer {
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  .gradiated-bar-container {
+    display: flex;
+  }
+
+  .gradiated-bar-container > div {
+    height: 24px !important;
+    display: block !important;
+  }
+}
+
+.BreakdownContainer {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.BoxRowScaler {
+  .performance-block-row {
+    grid-template-columns: repeat(auto-fill, calc(var(--widthPct) % - 3px));
+    gap: 3px;
+  }
+  .performance-block {
+    height: 16px !important;
+    border-radius: 2px;
+  }
+}

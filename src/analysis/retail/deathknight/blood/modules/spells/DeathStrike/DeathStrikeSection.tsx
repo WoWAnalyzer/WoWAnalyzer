@@ -1,5 +1,6 @@
 import type { JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./DeathStrikeSection.module.scss";
 import isPropValid from '@emotion/is-prop-valid';
 import talents from 'common/TALENTS/deathknight';
 import ResourceLink from 'interface/ResourceLink';
@@ -147,13 +148,7 @@ export default function DeathStrikeSection() {
   );
 }
 
-const RPTableContainer = styled.div`
-  display: grid;
-  grid-template-columns: max-content max-content 1fr;
-  gap: 2px 0.5em;
-  align-items: center;
-  align-content: start;
-`;
+const RPTableContainer = cssComponent("div", styles.RPTableContainer, [] as const);
 
 const heartStrikeSpells = [
   talents.HEART_STRIKE_TALENT,
@@ -228,35 +223,9 @@ function RunicPowerTable() {
 /**
  * A basic colored block. The building block of more complex objects. You MUST supply the height/width yourself.
  */
-const ColoredBlock = styled('div', {
-  shouldForwardProp: (prop) => {
-    switch (prop) {
-      case 'width':
-      case 'height':
-      case 'color':
-        return false;
-      default:
-        return isPropValid(prop);
-    }
-  },
-})<{ color: string; height?: string; width: string }>`
-  display: inline-block;
-  box-sizing: content-box;
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
-  background-color: ${(props) => props.color};
-`;
+const ColoredBlock = cssComponent('div', styles.ColoredBlock, ["height", "width", "color"] as const);
 
-const BlockRow = styled('div', { shouldForwardProp: isPropValid })`
-  display: inline-flex;
-  flex-direction: row;
-  gap: 1px;
-  & > ${ColoredBlock} {
-    height: 100%;
-  }
-  max-height: 1.5em;
-  height: 100%;
-`;
+const BlockRow = cssComponent('div', styles.BlockRow, [] as const);
 
 const RuneColor = 'hsl(0, 0%, 30%)';
 const RunicPowerColor = 'hsl(191, 60%, 50%)';

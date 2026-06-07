@@ -1,0 +1,10 @@
+@use 'interface/design-system' as design;
+
+.HelperText {
+  border: 1px solid var(--guide-bad-color);
+  border-radius: 4px;
+  padding: 8px;
+  display: block;
+  color: white;
+  margin-bottom: 12px;
+}

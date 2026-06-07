@@ -7,7 +7,8 @@ import { SpellSeq } from 'parser/ui/SpellSeq';
 
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { useMemo, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./AplChoiceDescription.module.scss";
 
 const blank = {
   id: -1,
@@ -16,9 +17,7 @@ const blank = {
 };
 
 // hack around annoying nesting issue. why is P not a proper container?
-const DivP = styled.div`
-  margin-bottom: 1rem;
-`;
+const DivP = cssComponent("div", styles.DivP, [] as const);
 
 const StandardDescription = () => {
   const info = useInfo();

@@ -1,0 +1,74 @@
+@use 'interface/design-system' as design;
+
+.EventDetailsColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content;
+    grid-gap: 1em;
+}
+
+.EventPre {
+    background-color: #333;
+    color: #eee;
+    font-family: monospace, Courier;
+}
+
+.Dot {
+    background-color: var(--color);
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--color);
+
+    &.selected {
+        border-color: white;
+    }
+}
+
+.DotContainer {
+    display: flex;
+    margin-top: 0.5em;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    gap: 4px;
+
+    // Originally 70% (10.5px)
+    // This aims to have a pixel perfect value so Dots doesn't get deformed
+    // by navigator rendering interpolations.
+    font-size: 71.4288%;
+}
+
+.Row {
+    border-left: 1px solid #eee;
+    padding-left: 4px;
+}
+
+.RowTimestamp {
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+.RowContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 2px;
+}
+
+.CopyTextLink {
+    appearance: none;
+    border: none;
+    background: none;
+    font-size: small;
+    color: #777;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

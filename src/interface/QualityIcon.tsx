@@ -1,11 +1,8 @@
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./QualityIcon.module.scss";
 import { ComponentProps } from 'react';
 
-const Img = styled.img`
-  display: inline-block;
-  height: 1em;
-  width: 1em;
-`;
+const Img = cssComponent("img", styles.Img, [] as const);
 
 interface QualityIconProps extends Exclude<ComponentProps<typeof Img>, 'src' | 'alt' | 'title'> {
   quality: number;

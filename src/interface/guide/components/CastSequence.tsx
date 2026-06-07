@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
 import type Spell from 'common/SPELLS/Spell';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CastSequence.module.scss';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import GuideDataWrapper, { HelperText, HelperTextRow, SectionContainer } from './GuideDataWrapper';
+import clsx from 'clsx';
 
 export interface CastOverlay {
   spellId: number;
@@ -65,7 +67,7 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
                 <Overlay
                   key={overlay.spellId}
                   size={iconSize}
-                  position={overlayIdx === 0 ? 'top' : 'bottom'}
+                  className={clsx(overlayIdx === 0 && styles.top)}
                 >
                   <img
                     src={`https://wow.zamimg.com/images/wow/icons/large/${overlay.icon}.jpg`}
@@ -181,119 +183,15 @@ export default function CastSequence<T>({
   );
 }
 
-const Sequence = styled.div`
-  display: flex;
-  gap: 6px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-top: 4px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 6px;
+const Sequence = cssComponent('div', styles.Sequence, [] as const);
 
-  &::-webkit-scrollbar {
-    height: 10px;
-    cursor: default !important;
-  }
+const SpellIcon = cssComponent('div', styles.SpellIcon, ['size', 'ghosted'] as const);
 
-  &::-webkit-scrollbar-track {
-    background: rgba(104, 103, 100, 0.15);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #fab700;
-  }
-`;
-
-const SpellIcon = styled.div<{ size: number; color: string; ghosted?: boolean }>`
-  position: relative;
-  flex-shrink: 0;
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  border: ${(props) =>
-    props.ghosted ? '2px solid rgba(210, 210, 210, 0.85)' : '1px solid rgba(0, 0, 0, 0.8)'};
-  border-radius: 6px;
-  outline: ${(props) =>
-    props.color !== 'rgba(255, 255, 255, 0.3)' ? `3px solid ${props.color}` : 'none'};
-  outline-offset: 0px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: ${(props) => (props.ghosted ? 0.68 : 1)};
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: ${(props) => (props.ghosted ? 'grayscale(0.7)' : 'none')};
-  }
-`;
-
-const NavigationButtons = styled.div`
-  display: flex;
-  gap: 4px;
-  align-items: center;
-`;
+const NavigationButtons = cssComponent('div', styles.NavigationButtons, [] as const);
 
 /** Compact prev/next button used in the CastSequence nav pill */
-const CastSeqNavButton = styled.button`
-  min-width: 28px;
-  height: 28px;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: #fab700;
-  font-size: 1.8rem;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  line-height: 0;
-  -webkit-tap-highlight-color: transparent;
+const CastSeqNavButton = cssComponent('button', styles.CastSeqNavButton, [] as const);
 
-  &:hover:not(:disabled) {
-    background: rgba(250, 183, 0, 0.12);
-    border-color: rgba(250, 183, 0, 0.35);
-  }
+const NavCounter = cssComponent('div', styles.NavCounter, [] as const);
 
-  &:active:not(:disabled) {
-    background: rgba(250, 183, 0, 0.18);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    filter: grayscale(1);
-  }
-`;
-
-const NavCounter = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  min-width: 36px;
-  text-align: center;
-`;
-
-const Overlay = styled.div<{ size: number; position: 'top' | 'bottom' }>`
-  position: absolute;
-  right: -3px;
-  ${(props) => (props.position === 'top' ? 'top: -3px;' : 'bottom: -3px;')}
-  width: ${(props) => Math.round(props.size * 0.45)}px;
-  height: ${(props) => Math.round(props.size * 0.45)}px;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 4px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.5);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-`;
+const Overlay = cssComponent('div', styles.Overlay, ['size'] as const);

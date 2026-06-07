@@ -1,0 +1,249 @@
+@use 'interface/design-system' as design;
+
+.SectionContainer {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.StatsRow {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.HelperText {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+.CompactTitleGroup {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    column-gap: 8px;
+    align-items: center;
+    min-width: 180px;
+}
+
+.CompactIconCell {
+    grid-row: 1 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 36px;
+        height: 36px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        display: block;
+    }
+}
+
+.SectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.BareSection {
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.TitleColumn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.SectionTitle {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fab700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+.Label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+
+.StatsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-end;
+}
+
+.CompactContainer {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.CompactHeaderSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    min-width: 180px;
+}
+
+.CompactContentSection {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.StatCard {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--color) 45;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    min-height: 44px;
+}
+
+.StatCardValue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color);
+
+    img {
+        width: auto;
+        height: 100%;
+        border-radius: 3px;
+    }
+
+    &:has(img) {
+        padding: 6px;
+    }
+}
+
+.StatCardDivider {
+    width: 1px;
+    height: 55%;
+    align-self: center;
+    background: var(--color) 35;
+    flex-shrink: 0;
+}
+
+.StatCardLabel {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    line-height: 1.2;
+    flex: 1;
+}
+
+.StatsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.PerfBadgeGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.PerfBadgeCount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color);
+    flex-shrink: 0;
+}
+
+.PerfBadgeDivider {
+    width: 1px;
+    height: 55%;
+    align-self: center;
+    background: var(--color) 40;
+    flex-shrink: 0;
+}
+
+.PerfBadgeLabel {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    flex: 1;
+}
+
+.HelperTextRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.FilterBadge {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid
+        /* UNPROCESSED<!(props) =>
+      props.disabled
+        ? 'rgba(255,255,255,0.1)'
+        : props.active
+          ? props.color + '60'
+          : 'rgba(255,255,255,0.08)'!> */;
+    border-radius: 4px;
+    background: /* UNPROCESSED<!(props) =>
+    props.disabled
+      ? 'rgba(255,255,255,0.04)'
+      : props.active
+        ? props.color + '08'
+        : 'rgba(0,0,0,0.2)'!> */;
+    overflow: hidden;
+    min-height: 30px;
+    cursor: var(--disabled, pointer) default;
+    pointer-events: var(--disabled, none) inherit;
+    opacity: /* UNPROCESSED<!(props) => (props.disabled || !props.active ? 0.4 : 1)!> */;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+        opacity: 1;
+        border-color: /* UNPROCESSED<!(props) => props.color + '70'!> */;
+        background: /* UNPROCESSED<!(props) => props.color + '20'!> */;
+    }
+}

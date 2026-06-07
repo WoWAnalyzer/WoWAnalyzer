@@ -1,5 +1,6 @@
 import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./ExplanationRow.module.scss";
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';
 
@@ -67,7 +68,4 @@ export function ExplanationAndDataSubSection({
   );
 }
 
-const StyledExplanationRow = styled.div`
-  display: grid;
-  grid-column-gap: 1em;
-`;
+const StyledExplanationRow = cssComponent("div", styles.StyledExplanationRow, [] as const);

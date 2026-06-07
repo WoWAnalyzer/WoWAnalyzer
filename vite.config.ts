@@ -106,6 +106,13 @@ export default defineConfig((env) => ({
   resolve: {
     tsconfigPaths: true,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: ['./src'],
+      },
+    },
+  },
   server: {
     open: true,
     port: 3000,

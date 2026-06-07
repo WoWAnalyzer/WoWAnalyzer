@@ -1,0 +1,8 @@
+@use 'interface/design-system' as design;
+
+.Img {
+  border: 1px solid #111;
+  height: 1.2em;
+  width: 1.2em;
+  border-radius: 50%;
+}

@@ -1,0 +1,15 @@
+@use 'interface/design-system' as design;
+
+.Button {
+  appearance: none;
+  border: none;
+  box-shadow: design.$level2_shadow;
+  background: design.$level2_background;
+  border: 1px solid design.$level2_border;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+
+  &:hover {
+    filter: brightness(115%);
+  }
+}

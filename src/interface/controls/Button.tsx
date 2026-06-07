@@ -1,18 +1,7 @@
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./Button.module.scss";
 import * as design from 'interface/design-system';
 
-const Button = styled.button`
-  appearance: none;
-  border: none;
-  box-shadow: ${design.level2.shadow};
-  background: ${design.level2.background};
-  border: 1px solid ${design.level2.border};
-  border-radius: 0.5rem;
-  padding: 0 1rem;
-
-  &:hover {
-    filter: brightness(115%);
-  }
-`;
+const Button = cssComponent("button", styles.Button, [] as const);
 
 export default Button;

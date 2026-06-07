@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./StackedBar.module.scss";
 import { Tooltip } from 'interface';
 
 /**
@@ -96,63 +97,14 @@ export default function StackedBar({
   );
 }
 
-const BarContainer = styled.div<{ height: number }>`
-  width: 100%;
-  height: ${(props) => props.height}px;
-  min-height: 35px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
+const BarContainer = cssComponent("div", styles.BarContainer, ["height"] as const);
 
-  @media (max-width: 768px) {
-    min-height: 30px;
-  }
-`;
+const Segment = cssComponent("div", styles.Segment, ["widthPercent", "color"] as const);
 
-const Segment = styled.div<{
-  color: string;
-  widthPercent: number;
-}>`
-  width: ${(props) => props.widthPercent}%;
-  height: 100%;
-  background: ${(props) => props.color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 4px;
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
-  transition: filter 0.2s ease;
+const LegendRow = cssComponent("div", styles.LegendRow, [] as const);
 
-  &:hover {
-    filter: brightness(1.2);
-  }
-`;
+const LegendItem = cssComponent("div", styles.LegendItem, [] as const);
 
-const LegendRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 6px;
-`;
+const LegendSwatch = cssComponent("div", styles.LegendSwatch, ["color"] as const);
 
-const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
-
-const LegendSwatch = styled.div<{ color: string }>`
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  background: ${(props) => props.color};
-  flex-shrink: 0;
-`;
-
-const LegendItemLabel = styled.span`
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-`;
+const LegendItemLabel = cssComponent("span", styles.LegendItemLabel, [] as const);

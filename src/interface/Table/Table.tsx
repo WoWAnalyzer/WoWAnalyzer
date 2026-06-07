@@ -1,82 +1,26 @@
-import * as design from 'interface/design-system';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './Table.module.scss';
 import { JSX } from 'react';
 import Select from 'interface/controls/Select';
 
-const TableContainer = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  container-type: inline-size;
-`;
+const TableContainer = cssComponent('div', styles.TableContainer, [] as const);
 
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-`;
+const TableRow = cssComponent('div', styles.TableRow, [] as const);
 
-export const HeaderSelect = styled(Select)`
-  width: 100%;
-  border: unset;
-  box-shadow: unset;
-  text-align: center;
-  padding: 0.2rem ${design.gaps.medium};
-  border-radius: 0;
-
-  &:hover {
-    background-color: ${design.level2.background_active};
-  }
-`;
+export const HeaderSelect = cssComponent(Select, styles.HeaderSelect, [] as const);
 
 interface TableCellProps {
   align: React.CSSProperties['justifyContent'];
   optional?: boolean;
+  children?: React.ReactNode;
 }
 
-const TableCell = styled.div<TableCellProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: ${(props) => props.align};
-  padding: 0.2rem ${design.gaps.medium};
-  border-right: 1px solid ${design.level1.border};
-  width: 100%;
+const TableCell: React.FC<TableCellProps> = cssComponent('div', styles.TableCell, [
+  'align',
+  'optional',
+] as const);
 
-  white-space: nowrap;
-
-  &:has(${HeaderSelect}) {
-    padding: 0;
-  }
-
-  @container (width < 500px) {
-    ${(props) => (props.optional ? 'display: none;' : '')}
-  }
-
-  &:last-of-type {
-    border-right: unset;
-  }
-`;
-
-const TableHeader = styled.div`
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-
-  background: ${design.level2.background};
-  border: 1px solid ${design.level2.border};
-  box-shadow: ${design.level2.shadow};
-
-  & ${TableCell} {
-    border-color: ${design.level2.border};
-
-    &:last-of-type {
-      border-right: unset;
-    }
-  }
-
-  & + ${TableRow} {
-    padding-top: 0.3rem;
-  }
-`;
+const TableHeader = cssComponent('div', styles.TableHeader, [] as const);
 
 // we need to use an object for the columns to make TS inferrence play nice
 interface TableProps<T, Context, Cols extends Record<string, Column<unknown, unknown>>> {

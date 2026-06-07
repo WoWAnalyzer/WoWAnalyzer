@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from "interface/utils/css-component";
+import styles from "./FilterButton.module.scss";
 import { formatDuration } from 'common/format';
 import * as design from 'interface/design-system';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -14,35 +15,11 @@ import Select from 'interface/controls/Select';
 import useClickOutsideHandler from 'interface/hooks/useClickOutsideHandler';
 import Button from 'interface/controls/Button';
 
-const FilterContainer = styled.div`
-  grid-area: filter;
-  display: flex;
-  align-self: start;
-  align-items: start;
-  gap: 0.25rem;
-`;
+const FilterContainer = cssComponent("div", styles.FilterContainer, [] as const);
 
-const Btn = styled(Button)`
-  & .glyphicon {
-    padding-right: 0.25rem;
-    font-size: 75%;
-  }
-`;
+const Btn = cssComponent(Button, styles.Btn, [] as const);
 
-const PullNavBtn = styled(Button)`
-  padding: 0 0.5rem;
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    filter: none;
-  }
-
-  & .glyphicon {
-    font-size: 75%;
-    top: 0;
-  }
-`;
+const PullNavBtn = cssComponent(Button, styles.PullNavBtn, [] as const);
 
 interface Props {
   fight: Fight;
@@ -116,94 +93,21 @@ export default function FilterButton(props: Props): JSX.Element | null {
   );
 }
 
-const FilterDialogContainer = styled.dialog`
-  position: absolute;
-  z-index: 1000;
-  margin: 0;
-  padding: 1rem;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 0.5rem;
-
-  border: 1px solid ${design.level2.border};
-  box-shadow: ${design.level1.shadow};
-  background: ${design.level1.background};
-  border-radius: 0.5rem;
-
-  color: ${design.colors.bodyText};
-`;
+const FilterDialogContainer = cssComponent("dialog", styles.FilterDialogContainer, [] as const);
 
 interface FilterMenuProps extends Props {
   position: Pick<React.CSSProperties, 'top' | 'left'>;
   closeMenu: () => void;
 }
 
-const FilterRadioButton = styled.label`
-  border: 1px solid ${design.level2.border};
-  background: ${design.level2.background};
-  box-shadow: ${design.level2.shadow};
-  padding: 0.5rem 1rem;
-  position: relative;
-  flex-grow: 1;
-  // z-index hack for shadows
-  z-index: 0;
+const FilterRadioButton = cssComponent("label", styles.FilterRadioButton, [] as const);
 
-  cursor: pointer;
-
-  font-weight: normal;
-
-  &:first-of-type {
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-  }
-
-  &:last-of-type {
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-  }
-
-  & input[type='radio'] {
-    appearance: none;
-    background: none;
-    border: none;
-  }
-
-  &:hover {
-    filter: brightness(115%);
-  }
-
-  &:has(input[type='radio']:checked) {
-    border-color: ${design.colors.wowaYellow};
-    background: ${design.level2.background_active};
-    z-index: 1;
-  }
-`;
-
-const FilterRadioGroup = styled.div`
-  display: flex;
-`;
+const FilterRadioGroup = cssComponent("div", styles.FilterRadioGroup, [] as const);
 
 // TODO: better/custom ui for dungeon pulls?
 type FilterMode = 'phase' | 'time';
 
-const TimeFilterContainer = styled.div`
-  & .time-input {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  & > form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    align-items: end;
-  }
-`;
+const TimeFilterContainer = cssComponent("div", styles.TimeFilterContainer, [] as const);
 
 const FilterMenu = ({
   ref,

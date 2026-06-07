@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CastDetail.module.scss';
 import { Tooltip } from 'interface';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -18,6 +19,7 @@ import GuideDataWrapper, {
   StatCardValue,
   StatsGrid,
 } from './GuideDataWrapper';
+import clsx from 'clsx';
 
 /** A single statistic about a cast (e.g., damage dealt, targets hit) */
 export interface PerCastStat {
@@ -231,8 +233,8 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
                     <TimelineRect
                       style={{ width: `calc(${rectWidthPct}% - 3px)` }}
                       color={qualitativePerformanceToColor(cast.performance)}
-                      active={idx === validIndex}
                       onClick={() => setCurrentIndex(idx)}
+                      className={clsx(idx === currentIndex && styles.active)}
                     />
                   </Tooltip>
                 );
@@ -309,219 +311,47 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
 }
 
 /** Row containing the cast timeline rectangles */
-const TimelineRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 8px;
-  padding: 5px 6px;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 6px;
-`;
+const TimelineRow = cssComponent('div', styles.TimelineRow, [] as const);
 
 /** Flex-wrap container for timeline rectangles */
-const TimelineRectContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  align-items: center;
-  padding: 3px 0;
-`;
+const TimelineRectContainer = cssComponent('div', styles.TimelineRectContainer, [] as const);
 
 /** Clickable colored rectangle representing one cast */
-const TimelineRect = styled.button<{ color: string; active: boolean }>`
-  height: 16px;
-  min-width: 8px;
-  border-radius: 2px;
-  background: ${(props) => (props.active ? props.color : props.color + '55')};
-  border: 2px solid ${(props) => (props.active ? props.color : 'transparent')};
-  outline: ${(props) => (props.active ? `2px solid rgba(255,255,255,0.6)` : 'none')};
-  outline-offset: 1px;
-  cursor: pointer;
-  padding: 0;
-  transition:
-    background 0.12s ease,
-    outline 0.12s ease;
-
-  &:hover {
-    background: ${(props) => props.color + 'cc'};
-  }
-`;
+const TimelineRect = cssComponent('button', styles.TimelineRect, [] as const);
 
 /** Stat-card-style nav button: chevron + divider + label */
-const HeaderNavBtn = styled.button`
-  display: flex;
-  align-items: center;
-  height: 30px;
-  border: 1px solid rgba(250, 183, 0, 0.25);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  cursor: pointer;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-
-  .nav-chevron {
-    padding: 0 8px;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #fab700;
-    line-height: 0;
-    transform: translateY(-2px);
-  }
-
-  .nav-divider {
-    width: 1px;
-    height: 16px;
-    background: rgba(250, 183, 0, 0.3);
-    flex-shrink: 0;
-  }
-
-  .nav-label {
-    padding: 0 8px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.55);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  &:hover:not(:disabled) {
-    background: rgba(250, 183, 0, 0.1);
-    border-color: rgba(250, 183, 0, 0.5);
-  }
-
-  &:active:not(:disabled) {
-    background: rgba(250, 183, 0, 0.16);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    filter: grayscale(1);
-  }
-`;
+const HeaderNavBtn = cssComponent('button', styles.HeaderNavBtn, [] as const);
 
 /** Focusable container; captures keyboard and touch events for navigation */
-const CardContainer = styled.div`
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-
-  &:focus-visible {
-    box-shadow: 0 0 0 2px rgba(250, 183, 0, 0.4);
-    border-radius: 8px;
-  }
-`;
+const CardContainer = cssComponent('div', styles.CardContainer, [] as const);
 
 /** Single cast card — animates in on each navigation */
-const CastCard = styled.div<{ color: string }>`
-  position: relative;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 12px 14px 14px;
-  overflow: hidden;
-  animation: castFadeIn 0.18s ease;
+const CastCard = cssComponent('div', styles.CastCard, [] as const);
 
-  @keyframes castFadeIn {
-    from {
-      opacity: 0.3;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
+const CardHeader = cssComponent('div', styles.CardHeader, [] as const);
 
-const CardHeader = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-`;
+const CastMeta = cssComponent('div', styles.CastMeta, [] as const);
 
-const CastMeta = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 1.6rem;
-  color: rgba(255, 255, 255, 0.45);
-`;
+const HeaderPerfBadge = cssComponent('div', styles.HeaderPerfBadge, ['color'] as const);
 
-const HeaderPerfBadge = styled.div<{ color: string }>`
-  padding: 2px 7px;
-  border-radius: 4px;
-  border: 1px solid ${(p) => p.color}45;
-  background: ${(p) => p.color}12;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: ${(p) => p.color};
-`;
-
-const CastLabel = styled.span`
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.25);
-`;
+const CastLabel = cssComponent('span', styles.CastLabel, [] as const);
 
 /** Bottom gradient accent bar in the card's performance color */
-const CardAccentBar = styled.div<{ color: string }>`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(
-    to right,
-    ${(props) => props.color}90 0%,
-    ${(props) => props.color}20 100%
-  );
-`;
+const CardAccentBar = cssComponent('div', styles.CardAccentBar, ['color'] as const);
 
-const NoResultsMessage = styled.div`
-  padding: 16px 12px;
-  text-align: center;
-  border-radius: 4px;
-  border: 1px dashed rgba(255, 255, 255, 0.08);
-`;
+const NoResultsMessage = cssComponent('div', styles.NoResultsMessage, [] as const);
 
-const NoResultsTitle = styled.div`
-  font-size: 1.2rem;
-  margin-bottom: 3px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-`;
+const NoResultsTitle = cssComponent('div', styles.NoResultsTitle, [] as const);
 
-const NoResultsHint = styled.div`
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.27);
-`;
+const NoResultsHint = cssComponent('div', styles.NoResultsHint, [] as const);
 
-const AdditionalContentContainer = styled.div`
-  margin-top: 8px;
-  padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-`;
+const AdditionalContentContainer = cssComponent(
+  'div',
+  styles.AdditionalContentContainer,
+  [] as const,
+);
 
-const AdditionalContentHeading = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`;
+const AdditionalContentHeading = cssComponent('div', styles.AdditionalContentHeading, [] as const);
 
 // HelperTextRow, StatCard, StatsGrid, PerfBadge*, FilterBadge are defined in GuideDataWrapper and re-exported from there.
 export {
