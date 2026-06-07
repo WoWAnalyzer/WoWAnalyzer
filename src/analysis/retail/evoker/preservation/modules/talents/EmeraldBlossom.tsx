@@ -133,8 +133,6 @@ class EmeraldBlossom extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    if (this.castEntries.length === 0) return <></>;
-
     const styleObj = {
       fontSize: 20,
     };
@@ -151,34 +149,44 @@ class EmeraldBlossom extends Analyzer {
         <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> later on.
       </p>
     );
-    const data = (
-      <div>
-        <RoundedPanel>
-          <div>
+
+    const data =
+      this.castEntries.length === 0 ? (
+        <div>
+          <RoundedPanel>
             <strong>
-              <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> casts
-            </strong>{' '}
-            <small>
-              {' '}
-              - Blue is a perfect cast with {this.perfectThreshold} targets hit, Green is a good
-              cast with {this.goodThreshold} or more with moderate to low overhealing, Yellow is an
-              ok cast with a moderate amount of overheal, and Red is a bad cast with high overheal
-              or few targets hit.
-            </small>
-            <PerformanceBoxRow values={this.castEntries} />
-          </div>
-          <div style={styleObj}>
-            <small style={styleObjInner}>
-              <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> -{' '}
-            </small>
-            <strong>{this.avgHitsFromCast.toFixed(2)}</strong>{' '}
-            <small>
-              average targets hit per <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
-            </small>
-          </div>
-        </RoundedPanel>
-      </div>
-    );
+              No <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> casted.
+            </strong>
+          </RoundedPanel>
+        </div>
+      ) : (
+        <div>
+          <RoundedPanel>
+            <div>
+              <strong>
+                <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> casts
+              </strong>{' '}
+              <small>
+                {' '}
+                - Blue is a perfect cast with {this.perfectThreshold} targets hit, Green is a good
+                cast with {this.goodThreshold} or more with moderate to low overhealing, Yellow is
+                an ok cast with a moderate amount of overheal, and Red is a bad cast with high
+                overheal or few targets hit.
+              </small>
+              <PerformanceBoxRow values={this.castEntries} />
+            </div>
+            <div style={styleObj}>
+              <small style={styleObjInner}>
+                <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> -{' '}
+              </small>
+              <strong>{this.avgHitsFromCast.toFixed(2)}</strong>{' '}
+              <small>
+                average targets hit per <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
+              </small>
+            </div>
+          </RoundedPanel>
+        </div>
+      );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
