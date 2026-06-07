@@ -155,7 +155,7 @@ class EmeraldBlossom extends Analyzer {
         <div>
           <RoundedPanel>
             <strong>
-              No <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> casted.
+              No <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> cast.
             </strong>
           </RoundedPanel>
         </div>

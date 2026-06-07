@@ -30,6 +30,7 @@ import {
   getWastedEBEvents,
   isEBFrom,
 } from '../normalizers/EssenceBurstCastLinkNormalizer';
+import SPECS from 'game/SPECS';
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
@@ -128,9 +129,11 @@ class LeapingFlames extends Analyzer {
           this.leapingFlamesHealing += absHealAmount;
           this.leapingFlamesOverHealing += event.overheal ?? 0;
 
-          if (absHealAmount > 0) {
+          // Preservation generates EB on full overheal, Dev and Aug do not.
+          if (this.selectedCombatant.spec === SPECS.PRESERVATION_EVOKER || absHealAmount > 0) {
             acc.healHits += 1;
           }
+
           this.leapingFlamesHealing += getChronoFlameHealLink(event)?.amount ?? 0;
           this.leapingFlamesOverHealing += getChronoFlameHealLink(event)?.overheal ?? 0;
         }
@@ -286,12 +289,9 @@ class LeapingFlames extends Analyzer {
     // Each hit will have equal chances to generate/waste the initial EB so we calculate a simple
     // Probability and use it to attribute "fractions" of EBs to leaping, we then round
     // these fractions in the end to get an estimate of Leapings contribution
-    // In some rare cases we get a case where the result would be negative, so we clamp to 0 to remove those
-    const probabilityEBIsFromLeaping = Math.max(
-      0,
-      1 - 1 / (1 + damageHits + healHits - guaranteedFromLeaping),
-    );
+    const probabilityEBIsFromLeaping = 1 - 1 / (1 + damageHits + healHits - guaranteedFromLeaping);
     maybeFromLeaping += probabilityEBIsFromLeaping;
+
     return { guaranteedFromLeaping, maybeFromLeaping };
   }
 
