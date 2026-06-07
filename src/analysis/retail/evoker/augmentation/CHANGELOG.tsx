@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),
   change(date(2026, 5, 14), <>Update <SpellLink spell={TALENTS.MIGHTY_INFERNO_TALENT} /> module to include DPS from extension.</>, KYZ),
   change(date(2026, 5, 13), <>Added statistic for tracking empower rank usage.</>, Baumritter),
   change(date(2026, 5, 6), <>Implement <SpellLink spell={TALENTS.TEMPORAL_BURST_TALENT} /> CDR.</>, KYZ),
