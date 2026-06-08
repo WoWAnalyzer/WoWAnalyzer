@@ -3004,3 +3004,9 @@ export const Zogmaw: Contributor = {
     Youtube: 'https://www.youtube.com/@Zogmaw',
   },
 };
+
+export const Eevulution: Contributor = {
+  nickname: 'eevulution',
+  github: 'eevulution',
+  discord: 'eevulution',
+};
