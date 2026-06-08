@@ -25,8 +25,12 @@ class SpellUsable extends CoreSpellUsable {
     if (spellId === SPELLS.MELEE.id && this.hasDevastator) {
       this.lastPotentialTriggerForShieldSlam = event;
     } else if (
+      // Strategist Shield Slam resets are not directly logged. If Shield Slam is cast before
+      // our tracker expected it, backdate the reset to the last spell that could have procced it
       spellId === SPELLS.DEVASTATE.id ||
+      spellId === SPELLS.EXECUTE.id ||
       spellId === SPELLS.THUNDER_CLAP.id ||
+      spellId === SPELLS.THUNDER_BLAST.id ||
       spellId === SPELLS.REVENGE.id
     ) {
       this.lastPotentialTriggerForShieldSlam = { ...event };
