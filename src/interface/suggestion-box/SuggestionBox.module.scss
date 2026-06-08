@@ -35,10 +35,10 @@
 
 .Container {
     border-radius: 4px;
-    background-color: hsl(0, 0%, var(--important, 10%) 15%);
+    background-color: hsl(0, 0%, var(--important, 10%), 15%);
 
     & > .Header {
-        background-color: hsl(0, 0%, var(--important, 13%) 18%);
+        background-color: hsl(0, 0%, var(--important, 13%), 18%);
     }
 
     &:has(> .Header:hover, > .Footer:hover, > .Footer:focus) {

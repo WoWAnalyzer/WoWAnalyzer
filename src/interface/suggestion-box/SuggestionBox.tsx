@@ -1,23 +1,23 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./SuggestionBox.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './SuggestionBox.module.scss';
 import { BadMark, GoodMark, PerfectMark } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode, useState, type JSX } from 'react';
-const Header = cssComponent("div", styles.Header, [] as const);
+const Header = cssComponent('div', styles.Header, [] as const);
 
-const Footer = cssComponent("button", styles.Footer, [] as const);
+const Footer = cssComponent('button', styles.Footer, [] as const);
 
-const Body = cssComponent("div", styles.Body, [] as const);
+const Body = cssComponent('div', styles.Body, [] as const);
 
-const Container = cssComponent("div", styles.Container, ["important"] as const);
+const Container = cssComponent('div', styles.Container, ['important'] as const);
 
-const GlyphIcon = cssComponent("div", styles.GlyphIcon, [] as const);
+const GlyphIcon = cssComponent('div', styles.GlyphIcon, [] as const);
 
-const Title = cssComponent("div", styles.Title, [] as const);
+const Title = cssComponent('div', styles.Title, [] as const);
 
-const Description = cssComponent("div", styles.Description, [] as const);
+const Description = cssComponent('div', styles.Description, [] as const);
 
-const FakeGlyphicon = cssComponent("i", styles.FakeGlyphicon, [] as const);
+const FakeGlyphicon = cssComponent('i', styles.FakeGlyphicon, [] as const);
 
 const OkMark = () => <FakeGlyphicon className="ok-mark">!</FakeGlyphicon>;
 
@@ -47,7 +47,7 @@ export default function SuggestionBox({
       important={
         performance === QualitativePerformance.Ok || performance === QualitativePerformance.Fail
       }
-      className={expanded ? 'expanded' : ''}
+      className={expanded ? styles.expanded : ''}
     >
       <Header onClick={() => setExpanded((s) => !s)}>
         <GlyphIcon>{PerfIcon[performance]}</GlyphIcon>
