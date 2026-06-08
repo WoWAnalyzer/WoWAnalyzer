@@ -3,6 +3,8 @@ import React, { ElementType, HTMLElementType } from 'react';
 type VarProps<V extends string[]> = Partial<Record<V[number], string | number | boolean>>;
 
 /**
+ * This is a bridge component for the migration from emotion and shouldn't be used in new code.
+ *
  * Represents a ported emotion component. The component accepts a set of "var props". String and Number props are passed through directly (like `style={{ [`--${name}`]: value }}`), while *Boolean* props get special treatment.
  *
  * ## Boolean Props & the Space Hack
@@ -17,8 +19,6 @@ type VarProps<V extends string[]> = Partial<Record<V[number], string | number | 
  * When `props.active` is false, we don't set `--active` at all, which makes `var(--active, red)` resolve to `red`, so we get `color: red green;` which is parsed as `color: red;`.
  *
  * This only works for CSS properties that always take a single value, but that wasn't checked by the automated port so there could be some issues.
- *
- * -@deprecated This is a bridge component for the migration from emotion and shouldn't be used in new code.
  */
 export default function cssComponent<T extends HTMLElementType, V extends string[]>(
   el: T,
