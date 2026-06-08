@@ -1,13 +1,13 @@
 import type { JSX } from 'react';
-import cssComponent from "interface/utils/css-component";
-import styles from "./FoundationSupportBadge.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './FoundationSupportBadge.module.scss';
 import { OkMark } from '../index';
 import { TooltipElement } from 'interface/Tooltip';
 import { defineMessage } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { i18n } from '@lingui/core';
 
-const BadgeContainer = cssComponent("span", styles.BadgeContainer, [] as const);
+const BadgeContainer = cssComponent('span', styles.BadgeContainer, [] as const);
 
 export default function FoundationSupportBadge({
   withTooltip,

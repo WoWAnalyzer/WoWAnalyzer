@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./ResourceWasteProblemRenderer.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './ResourceWasteProblemRenderer.module.scss';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { formatDuration } from 'common/format';
@@ -124,7 +124,7 @@ export function ResourceWasteProblemRenderer({
   );
 }
 
-const Container = cssComponent("div", styles.Container, [] as const);
+const Container = cssComponent('div', styles.Container, [] as const);
 
 function spellCanGenerateRP(id: number): boolean {
   const spell = maybeGetTalentOrSpell(id);

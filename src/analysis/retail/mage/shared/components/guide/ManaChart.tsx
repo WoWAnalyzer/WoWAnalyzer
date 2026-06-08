@@ -3,15 +3,15 @@ import Spell from 'common/SPELLS/Spell';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import cssComponent from "interface/utils/css-component";
-import styles from "./ManaChart.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './ManaChart.module.scss';
 import fetchWcl from 'common/fetchWclApi';
 
-const LegendContainer = cssComponent("div", styles.LegendContainer, [] as const);
+const LegendContainer = cssComponent('div', styles.LegendContainer, [] as const);
 
-const LegendItem = cssComponent("div", styles.LegendItem, [] as const);
+const LegendItem = cssComponent('div', styles.LegendItem, [] as const);
 
-const LegendSymbol = cssComponent("div", styles.LegendSymbol, ["color"] as const);
+const LegendSymbol = cssComponent('div', styles.LegendSymbol, ['color'] as const);
 
 interface ManaUpdate {
   timestamp: number;

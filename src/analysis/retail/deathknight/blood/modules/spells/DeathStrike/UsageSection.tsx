@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./UsageSection.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './UsageSection.module.scss';
 import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import ResourceLink from 'interface/ResourceLink';
@@ -89,9 +89,9 @@ const reasonLabel = (reason: DeathStrikeReason) => {
   }
 };
 
-const Table = cssComponent("table", styles.Table, [] as const);
+const Table = cssComponent('table', styles.Table, [] as const);
 
-const ContentRow = cssComponent("div", styles.ContentRow, [] as const);
+const ContentRow = cssComponent('div', styles.ContentRow, [] as const);
 
 const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['data'] }) => (
   <div>

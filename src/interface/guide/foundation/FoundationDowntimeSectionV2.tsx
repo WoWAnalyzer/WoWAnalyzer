@@ -25,8 +25,8 @@ import { ByRole, Role } from './ByRole';
 import { useFight } from 'interface/report/context/FightContext';
 import { EncounterTimelineAbility, findByBossId } from 'game/raids';
 import Para from '../Para';
-import cssComponent from "interface/utils/css-component";
-import styles from "./FoundationDowntimeSectionV2.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './FoundationDowntimeSectionV2.module.scss';
 import { memo, useMemo, type JSX } from 'react';
 import SegmentTimeline, {
   DisplaySegment,
@@ -222,7 +222,7 @@ interface Segment {
   end: number;
 }
 
-const UptimeStatistics = cssComponent("dl", styles.UptimeStatistics, [] as const);
+const UptimeStatistics = cssComponent('dl', styles.UptimeStatistics, [] as const);
 
 function ComplexUptimeDisplay({
   uptimeHistory,

@@ -1,36 +1,36 @@
 @use 'interface/design-system' as design;
 
 .NoData {
-    color: #999;
+  color: #999;
 }
 
 .SpellUsageDetailsContainer {
-    display: grid;
-    grid-template-rows: max-content max-content max-content max-content 1fr;
+  display: grid;
+  grid-template-rows: max-content max-content max-content max-content 1fr;
 }
 
 .SpellDetailsContainer {
-    display: grid;
-    margin-top: 1rem;
-    grid-template-areas: 'talent source';
-    grid-template-columns: 10% auto;
-    grid-template-rows: 1fr;
+  display: grid;
+  margin-top: 1rem;
+  grid-template-areas: 'talent source';
+  grid-template-columns: 10% auto;
+  grid-template-rows: 1fr;
 
-    gap: 1rem;
-    height: 100%;
-    align-items: center;
+  gap: 1rem;
+  height: 100%;
+  align-items: center;
 
-    .NoData {
-        justify-self: center;
-        align-self: center;
-        grid-column: 1 / -1;
-    }
+  .NoData {
+    justify-self: center;
+    align-self: center;
+    grid-column: 1 / -1;
+  }
 
-    .RoundedPanel/* TODO-OVERRIDE */ {
-        grid-column: 1 / -1;
-    }
+  .RoundedPanel/* TODO-OVERRIDE */ {
+    grid-column: 1 / -1;
+  }
 
-    > *:nth-child(odd):not(.RoundedPanel/* TODO-OVERRIDE */) {
-        justify-self: center;
-    }
+  > *:nth-child(odd):not(.RoundedPanel/* TODO-OVERRIDE */) {
+    justify-self: center;
+  }
 }

@@ -1,216 +1,216 @@
 @use 'interface/design-system' as design;
 
 .TimelineRow {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 8px;
-    padding: 5px 6px;
-    background: rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  padding: 5px 6px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
 }
 
 .TimelineRectContainer {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-    align-items: center;
-    padding: 3px 0;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+  padding: 3px 0;
 }
 
 .TimelineRect {
-    height: 16px;
-    min-width: 8px;
-    border-radius: 2px;
-    background: color(from var(--color) srgb r g b / 0.33);
-    border: 2px solid transparent;
-    outline-offset: 1px;
-    cursor: pointer;
-    padding: 0;
-    transition:
-        background 0.12s ease,
-        outline 0.12s ease;
+  height: 16px;
+  min-width: 8px;
+  border-radius: 2px;
+  background: color(from var(--color) srgb r g b / 0.33);
+  border: 2px solid transparent;
+  outline-offset: 1px;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.12s ease,
+    outline 0.12s ease;
 
-    &:hover,
-    &.active:hover {
-        background: color(from var(--color) srgb r g b / 0.8);
-    }
+  &:hover,
+  &.active:hover {
+    background: color(from var(--color) srgb r g b / 0.8);
+  }
 
-    &.active {
-        color: var(--color);
-        border-color: var(--color);
-        background: var(--color);
-        outline: 2px solid rgba(255, 255, 255, 0.6);
-    }
+  &.active {
+    color: var(--color);
+    border-color: var(--color);
+    background: var(--color);
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+  }
 }
 
 .HeaderNavBtn {
-    display: flex;
-    align-items: center;
-    height: 30px;
-    border: 1px solid rgba(250, 183, 0, 0.25);
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    cursor: pointer;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border: 1px solid rgba(250, 183, 0, 0.25);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 
-    :global(.nav-chevron) {
-        padding: 0 8px;
-        font-size: 2.4rem;
-        font-weight: 700;
-        color: #fab700;
-        line-height: 0;
-        transform: translateY(-2px);
-    }
+  :global(.nav-chevron) {
+    padding: 0 8px;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fab700;
+    line-height: 0;
+    transform: translateY(-2px);
+  }
 
-    :global(.nav-divider) {
-        width: 1px;
-        height: 16px;
-        background: rgba(250, 183, 0, 0.3);
-        flex-shrink: 0;
-    }
+  :global(.nav-divider) {
+    width: 1px;
+    height: 16px;
+    background: rgba(250, 183, 0, 0.3);
+    flex-shrink: 0;
+  }
 
-    :global(.nav-label) {
-        padding: 0 8px;
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: rgba(255, 255, 255, 0.55);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+  :global(.nav-label) {
+    padding: 0 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
 
-    &:hover:not(:disabled) {
-        background: rgba(250, 183, 0, 0.1);
-        border-color: rgba(250, 183, 0, 0.5);
-    }
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.1);
+    border-color: rgba(250, 183, 0, 0.5);
+  }
 
-    &:active:not(:disabled) {
-        background: rgba(250, 183, 0, 0.16);
-    }
+  &:active:not(:disabled) {
+    background: rgba(250, 183, 0, 0.16);
+  }
 
-    &:disabled {
-        opacity: 0.4;
-        filter: grayscale(1);
-    }
+  &:disabled {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
 }
 
 .CardContainer {
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 
-    &:focus-visible {
-        box-shadow: 0 0 0 2px rgba(250, 183, 0, 0.4);
-        border-radius: 8px;
-    }
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgba(250, 183, 0, 0.4);
+    border-radius: 8px;
+  }
 }
 
 .CastCard {
-    position: relative;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 12px 14px 14px;
-    overflow: hidden;
-    animation: castFadeIn 0.18s ease;
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 14px 14px;
+  overflow: hidden;
+  animation: castFadeIn 0.18s ease;
 
-    @keyframes castFadeIn {
-        from {
-            opacity: 0.3;
-        }
-        to {
-            opacity: 1;
-        }
+  @keyframes castFadeIn {
+    from {
+      opacity: 0.3;
     }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 .CardHeader {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .CastMeta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .HeaderPerfBadge {
-    padding: 2px 7px;
-    border-radius: 4px;
-    border: 1px solid color(from var(--color) srgb r g b / 0.27);
-    background: color(from var(--color) srgb r g b / 0.07);
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--color);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid color(from var(--color) srgb r g b / 0.27);
+  background: color(from var(--color) srgb r g b / 0.07);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--color);
 }
 
 .CastLabel {
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: rgba(255, 255, 255, 0.25);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.25);
 }
 
 .CardAccentBar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(
-        to right,
-        color(from var(--color) srgb r g b / 0.56) 0%,
-        color(from var(--color) srgb r g b / 0.125) 100%
-    );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    color(from var(--color) srgb r g b / 0.56) 0%,
+    color(from var(--color) srgb r g b / 0.125) 100%
+  );
 }
 
 .NoResultsMessage {
-    padding: 16px 12px;
-    text-align: center;
-    border-radius: 4px;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
+  padding: 16px 12px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
 .NoResultsTitle {
-    font-size: 1.2rem;
-    margin-bottom: 3px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
+  margin-bottom: 3px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .NoResultsHint {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.27);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.27);
 }
 
 .AdditionalContentContainer {
-    margin-top: 8px;
-    padding: 8px 10px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .AdditionalContentHeading {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.35);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }

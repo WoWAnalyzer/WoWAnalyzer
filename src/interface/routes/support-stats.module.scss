@@ -1,17 +1,17 @@
 .Table {
-    th,
-    td {
-        padding: 0.25em 1em;
-        white-space: nowrap;
-        text-align: right;
-    }
+  th,
+  td {
+    padding: 0.25em 1em;
+    white-space: nowrap;
+    text-align: right;
+  }
 
-    & .left {
-        text-align: left;
-    }
+  & .left {
+    text-align: left;
+  }
 
-    caption {
-        color: white;
-        font-size: large;
-    }
+  caption {
+    color: white;
+    font-size: large;
+  }
 }

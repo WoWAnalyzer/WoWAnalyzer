@@ -1,6 +1,6 @@
 import { ReactNode, type JSX } from 'react';
-import cssComponent from "interface/utils/css-component";
-import styles from "./ExplanationRow.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './ExplanationRow.module.scss';
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';
 
@@ -68,4 +68,4 @@ export function ExplanationAndDataSubSection({
   );
 }
 
-const StyledExplanationRow = cssComponent("div", styles.StyledExplanationRow, [] as const);
+const StyledExplanationRow = cssComponent('div', styles.StyledExplanationRow, [] as const);

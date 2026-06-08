@@ -1,6 +1,6 @@
 import { ReactNode, type JSX } from 'react';
-import cssComponent from "interface/utils/css-component";
-import styles from "./BuffUptimeBar.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './BuffUptimeBar.module.scss';
 import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
@@ -247,12 +247,12 @@ export default function BuffUptimeBar({
   );
 }
 
-export const InsetContainer = cssComponent("div", styles.InsetContainer, [] as const);
+export const InsetContainer = cssComponent('div', styles.InsetContainer, [] as const);
 
 const TimelineContainer = cssComponent(InsetContainer, styles.TimelineContainer, [] as const);
 
-const UptimeGraphContainer = cssComponent("div", styles.UptimeGraphContainer, [] as const);
+const UptimeGraphContainer = cssComponent('div', styles.UptimeGraphContainer, [] as const);
 
-const StatValue = cssComponent("div", styles.StatValue, [] as const);
+const StatValue = cssComponent('div', styles.StatValue, [] as const);
 
-const StatLabel = cssComponent("div", styles.StatLabel, [] as const);
+const StatLabel = cssComponent('div', styles.StatLabel, [] as const);

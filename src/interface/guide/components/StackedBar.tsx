@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./StackedBar.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './StackedBar.module.scss';
 import { Tooltip } from 'interface';
 
 /**
@@ -97,14 +97,14 @@ export default function StackedBar({
   );
 }
 
-const BarContainer = cssComponent("div", styles.BarContainer, ["height"] as const);
+const BarContainer = cssComponent('div', styles.BarContainer, ['height'] as const);
 
-const Segment = cssComponent("div", styles.Segment, ["widthPercent", "color"] as const);
+const Segment = cssComponent('div', styles.Segment, ['widthPercent', 'color'] as const);
 
-const LegendRow = cssComponent("div", styles.LegendRow, [] as const);
+const LegendRow = cssComponent('div', styles.LegendRow, [] as const);
 
-const LegendItem = cssComponent("div", styles.LegendItem, [] as const);
+const LegendItem = cssComponent('div', styles.LegendItem, [] as const);
 
-const LegendSwatch = cssComponent("div", styles.LegendSwatch, ["color"] as const);
+const LegendSwatch = cssComponent('div', styles.LegendSwatch, ['color'] as const);
 
-const LegendItemLabel = cssComponent("span", styles.LegendItemLabel, [] as const);
+const LegendItemLabel = cssComponent('span', styles.LegendItemLabel, [] as const);

@@ -1,32 +1,32 @@
 @use 'interface/design-system' as design;
 
 .Container {
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid color(from var(--color) srgb r g b / 0.4);
-    border-radius: 4px;
-    padding: 6px 16px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-    margin-bottom: 8px;
-    line-height: 1.5;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid color(from var(--color) srgb r g b / 0.4);
+  border-radius: 4px;
+  padding: 6px 16px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 .TitleWrapper {
-    color: var(--color);
+  color: var(--color);
 }
 
 .IconWrapper {
-    display: inline-block;
-    vertical-align: -0.1em;
-    line-height: 1;
-    margin-right: 0.4em;
-    font-size: 1.4em;
+  display: inline-block;
+  vertical-align: -0.1em;
+  line-height: 1;
+  margin-right: 0.4em;
+  font-size: 1.4em;
 
-    & > svg,
-    & > img {
-        width: 1em;
-        height: 1em;
-    }
+  & > svg,
+  & > img {
+    width: 1em;
+    height: 1em;
+  }
 }

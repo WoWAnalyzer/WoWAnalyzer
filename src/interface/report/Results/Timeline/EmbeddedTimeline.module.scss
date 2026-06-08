@@ -1,41 +1,41 @@
 @use 'interface/design-system' as design;
 
 .EmbeddedTimelineContainer {
-    .spell-timeline {
-        position: relative;
+  .spell-timeline {
+    position: relative;
 
-        .casts {
-            box-shadow: unset;
-        }
-
-        .cooldowns:only-child {
-            margin-top: unset;
-
-            .lane {
-                overflow-x: clip;
-            }
-        }
+    .casts {
+      box-shadow: unset;
     }
 
-    &.drag-scroll-container {
-        cursor: default;
+    .cooldowns:only-child {
+      margin-top: unset;
+
+      .lane {
+        overflow-x: clip;
+      }
     }
-    /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */
-    scrollbar-color: #75736d transparent;
-    scrollbar-width: thin;
+  }
 
-    --cast-bars: var(--castBarCount, 1);
+  &.drag-scroll-container {
+    cursor: default;
+  }
+  /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */
+  scrollbar-color: #75736d transparent;
+  scrollbar-width: thin;
 
-    padding: 1rem 2rem;
-    overflow-x: clip;
+  --cast-bars: var(--castBarCount, 1);
 
-    box-sizing: content-box;
-    width: calc(var(--secondWidth, 60) * var(--secondsShown, 10) * 1px);
+  padding: 1rem 2rem;
+  overflow-x: clip;
+
+  box-sizing: content-box;
+  width: calc(var(--secondWidth, 60) * var(--secondsShown, 10) * 1px);
 }
 
 .ResponsiveEmbeddedTimelineContainer {
-    width: 100%;
-    box-sizing: border-box;
-    max-width: 100%;
-    overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: auto;
 }

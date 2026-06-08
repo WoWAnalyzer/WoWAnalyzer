@@ -1,54 +1,54 @@
 @use 'interface/design-system' as design;
 
 .SectionHeaderWrapper {
-    font-size: design.$fontSize_heading;
-    padding: design.$gaps_medium 0;
-    font-weight: bold;
-    color: design.$colors_wowaYellow;
-    background: design.$level1_background;
+  font-size: design.$fontSize_heading;
+  padding: design.$gaps_medium 0;
+  font-weight: bold;
+  color: design.$colors_wowaYellow;
+  background: design.$level1_background;
 
-    & > .chevron {
-        background: design.$level2_background;
-        border: 1px solid design.$level2_border;
-        box-shadow: design.$level2_shadow;
-        border-radius: 0.2rem;
+  & > .chevron {
+    background: design.$level2_background;
+    border: 1px solid design.$level2_border;
+    box-shadow: design.$level2_shadow;
+    border-radius: 0.2rem;
 
-        padding: 0 design.$gaps_small;
-    }
+    padding: 0 design.$gaps_small;
+  }
 
-    &:hover > .chevron {
-        background: design.$level2_background_active;
-    }
+  &:hover > .chevron {
+    background: design.$level2_background_active;
+  }
 }
 
 .SectionExpandable {
-    background: design.$level1_background;
-    border: 1px solid design.$level1_border;
-    box-shadow: design.$level1_shadow;
-    padding: 0 design.$gaps_large design.$gaps_small design.$gaps_large;
+  background: design.$level1_background;
+  border: 1px solid design.$level1_border;
+  box-shadow: design.$level1_shadow;
+  padding: 0 design.$gaps_large design.$gaps_small design.$gaps_large;
 
-    & :global(.details) > div {
-        background: unset;
-        box-shadow: unset;
-        padding: unset;
-    }
+  & :global(.details) > div {
+    background: unset;
+    box-shadow: unset;
+    padding: unset;
+  }
 }
 
 .GuideContainer_ {
-    display: flex;
-    flex-direction: column;
-    gap: design.$gaps_large;
+  display: flex;
+  flex-direction: column;
+  gap: design.$gaps_large;
 }
 
 .SubSectionContainer {
-    /* including .guide-container here is a specificity hack */
-    .guide-container & {
-        margin-top: design.$gaps_large;
-    }
+  /* including .guide-container here is a specificity hack */
+  .guide-container & {
+    margin-top: design.$gaps_large;
+  }
 
-    & > header {
-        font-size: design.$fontSize_subHeading;
-        font-weight: bold;
-        padding: design.$gaps_small 0;
-    }
+  & > header {
+    font-size: design.$fontSize_subHeading;
+    font-weight: bold;
+    padding: design.$gaps_small 0;
+  }
 }

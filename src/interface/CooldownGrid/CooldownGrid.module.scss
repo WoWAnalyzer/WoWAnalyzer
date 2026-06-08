@@ -1,64 +1,64 @@
 @use 'interface/design-system' as design;
 
 .CooldownGridOuterContainer {
-    width: 100%;
-    container: cooldown-grid / inline-size;
+  width: 100%;
+  container: cooldown-grid / inline-size;
 
-    display: flex;
-    flex-direction: column;
-    gap: design.$gaps_large;
+  display: flex;
+  flex-direction: column;
+  gap: design.$gaps_large;
 }
 
 .CooldownGridContainer {
-    gap: design.$gaps_large;
+  gap: design.$gaps_large;
 
-    display: grid;
-    grid-auto-flow: row;
+  display: grid;
+  grid-auto-flow: row;
 
-    grid-template-columns: 1fr;
+  grid-template-columns: 1fr;
 
-    max-width: 100%;
+  max-width: 100%;
 
-    &.maxColumns2 {
-        @container cooldown-grid (width >= 700px) {
-            grid-template-columns: 1fr 1fr;
-        }
+  &.maxColumns2 {
+    @container cooldown-grid (width >= 700px) {
+      grid-template-columns: 1fr 1fr;
     }
-    &.maxColumns3 {
-        @container cooldown-grid (width >= 1050px) {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
+  }
+  &.maxColumns3 {
+    @container cooldown-grid (width >= 1050px) {
+      grid-template-columns: 1fr 1fr 1fr;
     }
+  }
 }
 
 .ShowMoreButton {
-    padding: design.$gaps_small design.$gaps_large;
-    align-self: center;
+  padding: design.$gaps_small design.$gaps_large;
+  align-self: center;
 }
 
 .CooldownGridElementContainer {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid design.$level2_border;
-    background: design.$level2_background;
-    box-shadow: design.$level2_shadow;
-    padding: design.$gaps_small;
-    gap: design.$gaps_small;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid design.$level2_border;
+  background: design.$level2_background;
+  box-shadow: design.$level2_shadow;
+  padding: design.$gaps_small;
+  gap: design.$gaps_small;
 }
 
 .CooldownGridElementHeader {
-    font-weight: bold;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding: 0 design.$gaps_small;
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 design.$gaps_small;
 
-    & small {
-        font-weight: normal;
-    }
+  & small {
+    font-weight: normal;
+  }
 }
 
 .CooldownGridTimelineContainer {
-    box-shadow: inset design.$level1_shadow;
-    background: design.$level1_background;
+  box-shadow: inset design.$level1_shadow;
+  background: design.$level1_background;
 }

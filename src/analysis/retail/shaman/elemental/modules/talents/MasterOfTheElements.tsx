@@ -7,12 +7,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { addAdditionalCastInformation } from 'parser/core/EventMetaLib';
-import cssComponent from "interface/utils/css-component";
-import styles from "./MasterOfTheElements.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './MasterOfTheElements.module.scss';
 import { isMythicPlus } from 'common/isMythicPlus';
 import { EVENT_LINKS, MASTER_OF_THE_ELEMENTS_SPELL_WHITELIST } from '../../constants';
 
-const MasterOfTheElementsTable = cssComponent("table", styles.MasterOfTheElementsTable, [] as const);
+const MasterOfTheElementsTable = cssComponent(
+  'table',
+  styles.MasterOfTheElementsTable,
+  [] as const,
+);
 
 class MasterOfTheElements extends Analyzer {
   moteBuffedAbilities = new Map<number, number>();

@@ -1,8 +1,8 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./QualityIcon.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './QualityIcon.module.scss';
 import { ComponentProps } from 'react';
 
-const Img = cssComponent("img", styles.Img, [] as const);
+const Img = cssComponent('img', styles.Img, [] as const);
 
 interface QualityIconProps extends Exclude<ComponentProps<typeof Img>, 'src' | 'alt' | 'title'> {
   quality: number;

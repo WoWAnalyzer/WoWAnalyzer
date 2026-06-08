@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./BlackoutComboSection.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './BlackoutComboSection.module.scss';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink, TooltipElement } from 'interface';
@@ -19,7 +19,7 @@ const comboEffectOrder = [ComboEffect.TigerPalm, ComboEffect.KegSmash];
 
 const comboEffectLabel = (effect: ComboEffect) => <SpellLink spell={effect} />;
 
-const ComboUsageTable = cssComponent("table", styles.ComboUsageTable, [] as const);
+const ComboUsageTable = cssComponent('table', styles.ComboUsageTable, [] as const);
 
 export default function BlackoutComboSection(): JSX.Element | null {
   const analyzer = useAnalyzer(BlackoutCombo);

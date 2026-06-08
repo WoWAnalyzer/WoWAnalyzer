@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./HeaderBackground.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './HeaderBackground.module.scss';
 import Expansion from 'game/Expansion';
 import { type Raid } from 'game/raids';
 
@@ -23,7 +23,7 @@ const getFallbackImage = (expansion: Expansion) => {
   }
 };
 
-const BackgroundContainer = cssComponent("div", styles.BackgroundContainer, ["url"] as const);
+const BackgroundContainer = cssComponent('div', styles.BackgroundContainer, ['url'] as const);
 
 const HeaderBackground = ({ boss, expansion, raid }: Props) => {
   const backgroundImage = boss?.background ?? raid?.background ?? getFallbackImage(expansion);

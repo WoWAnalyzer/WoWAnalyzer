@@ -1,10 +1,10 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./PerformanceStrong.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './PerformanceStrong.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ComponentProps, ReactNode } from 'react';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 
-const ColoredStrong = cssComponent("strong", styles.ColoredStrong, ["color"] as const);
+const ColoredStrong = cssComponent('strong', styles.ColoredStrong, ['color'] as const);
 
 interface PerformanceStrongProps extends ComponentProps<typeof ColoredStrong> {
   children: ReactNode;

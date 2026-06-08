@@ -1,11 +1,11 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./SpellSeq.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './SpellSeq.module.scss';
 import Spell from 'common/SPELLS/Spell';
 import { Fragment } from 'react';
 import { SpellIcon } from 'interface';
 import { ChevronIcon } from 'interface/icons';
 
-const SequenceContainer = cssComponent("div", styles.SequenceContainer, [] as const);
+const SequenceContainer = cssComponent('div', styles.SequenceContainer, [] as const);
 
 export const SpellSeq = ({ spells }: { spells: Spell[] }) => (
   <SequenceContainer>

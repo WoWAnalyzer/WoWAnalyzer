@@ -1,8 +1,8 @@
 @use 'interface/design-system' as design;
 
 .Highlight {
-    background-color: var(--color);
-    padding: 0 3px;
-    color: var(--textColor, inherit);
-    box-decoration-break: clone;
+  background-color: var(--color);
+  padding: 0 3px;
+  color: var(--textColor, inherit);
+  box-decoration-break: clone;
 }

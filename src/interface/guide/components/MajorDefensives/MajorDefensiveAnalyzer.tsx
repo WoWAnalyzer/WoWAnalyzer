@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./MajorDefensiveAnalyzer.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './MajorDefensiveAnalyzer.module.scss';
 import { formatDuration, formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
@@ -118,7 +118,11 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
  *
  * You probably aren't looking for this unless you're rendering a `MitigationRow` yourself.
  */
-export const MitigationRowContainer = cssComponent("div", styles.MitigationRowContainer, [] as const);
+export const MitigationRowContainer = cssComponent(
+  'div',
+  styles.MitigationRowContainer,
+  [] as const,
+);
 
 /**
  * Row showing the duration and mitigation amount, along with the `MitigationSegments`.

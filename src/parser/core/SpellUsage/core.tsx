@@ -4,8 +4,8 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import { createContext, ReactNode, use, useMemo } from 'react';
 import { AnyEvent } from 'parser/core/Events';
-import cssComponent from "interface/utils/css-component";
-import styles from "./core.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './core.module.scss';
 import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
@@ -41,12 +41,12 @@ export interface SpellUse {
 }
 
 const SpellTooltipBody = 'div';
-const SpellRowContainer = cssComponent("div", styles.SpellRowContainer, [] as const);
+const SpellRowContainer = cssComponent('div', styles.SpellRowContainer, [] as const);
 
 /**
  * Wrapper for what gets displayed under the performance row.
  */
-export const PerformanceUsageRow = cssComponent("div", styles.PerformanceUsageRow, [] as const);
+export const PerformanceUsageRow = cssComponent('div', styles.PerformanceUsageRow, [] as const);
 
 const SpellRow = ({ usageInfo }: { usageInfo: ChecklistUsageInfo }) => (
   <SpellRowContainer>

@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./TimelineDiagram.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './TimelineDiagram.module.scss';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
@@ -426,8 +426,8 @@ function ZoomText({ isZoomed }: { isZoomed: boolean }): JSX.Element {
   }
 }
 
-const ResetZoomButton = cssComponent("button", styles.ResetZoomButton, [] as const);
+const ResetZoomButton = cssComponent('button', styles.ResetZoomButton, [] as const);
 
-const ZoomTextContainer = cssComponent("div", styles.ZoomTextContainer, [] as const);
+const ZoomTextContainer = cssComponent('div', styles.ZoomTextContainer, [] as const);
 
 const ZOOM_DISPLAY_PX_PER_MS = 20 / 1000;

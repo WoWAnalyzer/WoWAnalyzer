@@ -2,12 +2,12 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { GuideProps, Section } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CombatLogParser from '../preservation/CombatLogParser';
-import cssComponent from "interface/utils/css-component";
-import styles from "./Guide.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './Guide.module.scss';
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
-export const GuideContainer = cssComponent("div", styles.GuideContainer, [] as const);
+export const GuideContainer = cssComponent('div', styles.GuideContainer, [] as const);
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const includeTalentSection = false; /*

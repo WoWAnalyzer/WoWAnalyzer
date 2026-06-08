@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./CastEfficiencyBar.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './CastEfficiencyBar.module.scss';
 import { ReactNode, type JSX } from 'react';
 import { CooldownBar, CooldownWindow, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
@@ -134,6 +134,6 @@ export default function CastEfficiencyBar({
   );
 }
 
-const CooldownUtilBarContainer = cssComponent("div", styles.CooldownUtilBarContainer, [] as const);
+const CooldownUtilBarContainer = cssComponent('div', styles.CooldownUtilBarContainer, [] as const);
 
-const ExplanationText = cssComponent("div", styles.ExplanationText, [] as const);
+const ExplanationText = cssComponent('div', styles.ExplanationText, [] as const);
