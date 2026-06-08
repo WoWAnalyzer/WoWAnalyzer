@@ -158,6 +158,11 @@ const spells = {
     name: 'Shield Block Buff',
     icon: 'ability_defend',
   },
+  SHIELD_CHARGE: {
+    id: 385954,
+    name: 'Shield Charge',
+    icon: 'ability_warrior_shieldcharge',
+  },
   SHIELD_SLAM: {
     id: 23922,
     name: 'Shield Slam',

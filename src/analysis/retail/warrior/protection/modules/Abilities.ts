@@ -310,7 +310,7 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
       },
       {
-        spell: TALENTS.SHIELD_CHARGE_TALENT.id,
+        spell: SPELLS.SHIELD_CHARGE.id,
         enabled: combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
