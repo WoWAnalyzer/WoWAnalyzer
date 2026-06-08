@@ -28,7 +28,7 @@ const BackgroundContainer = cssComponent('div', styles.BackgroundContainer, ['ur
 const HeaderBackground = ({ boss, expansion, raid }: Props) => {
   const backgroundImage = boss?.background ?? raid?.background ?? getFallbackImage(expansion);
 
-  return <BackgroundContainer url={backgroundImage} />;
+  return <BackgroundContainer url={`url(${backgroundImage})`} />;
 };
 
 export default HeaderBackground;
