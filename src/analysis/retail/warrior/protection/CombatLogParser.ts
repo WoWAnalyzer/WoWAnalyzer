@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
@@ -32,10 +33,15 @@ import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
 import VoilentOutBurstWaste from './modules/spells/ViolentOutburstWaste';
 import Javelineer from './modules/spells/Javelineer';
+import ShieldChargeNormalizer from './normalizers/ShieldChargeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    shieldChargeNormalizer: ShieldChargeNormalizer,
+
     // Core
+    globalCooldown: GlobalCooldown,
     haste: Haste,
     mitigationCheck: MitigationCheck,
     buffs: Buffs,
