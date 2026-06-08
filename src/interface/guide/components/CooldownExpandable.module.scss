@@ -1,0 +1,5 @@
+@use 'interface/design-system' as design;
+
+.throughputTableContainer {
+    margin-top: design.$gaps_large;
+}

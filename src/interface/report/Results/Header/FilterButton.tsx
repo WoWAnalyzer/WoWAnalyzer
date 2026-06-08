@@ -1,7 +1,6 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./FilterButton.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './FilterButton.module.scss';
 import { formatDuration } from 'common/format';
-import * as design from 'interface/design-system';
 import { useReport } from 'interface/report/context/ReportContext';
 import React, { ChangeEvent, JSX, useCallback, useMemo } from 'react';
 import { useRef, useState } from 'react';
@@ -15,7 +14,7 @@ import Select from 'interface/controls/Select';
 import useClickOutsideHandler from 'interface/hooks/useClickOutsideHandler';
 import Button from 'interface/controls/Button';
 
-const FilterContainer = cssComponent("div", styles.FilterContainer, [] as const);
+const FilterContainer = cssComponent('div', styles.FilterContainer, [] as const);
 
 const Btn = cssComponent(Button, styles.Btn, [] as const);
 
@@ -93,21 +92,21 @@ export default function FilterButton(props: Props): JSX.Element | null {
   );
 }
 
-const FilterDialogContainer = cssComponent("dialog", styles.FilterDialogContainer, [] as const);
+const FilterDialogContainer = cssComponent('dialog', styles.FilterDialogContainer, [] as const);
 
 interface FilterMenuProps extends Props {
   position: Pick<React.CSSProperties, 'top' | 'left'>;
   closeMenu: () => void;
 }
 
-const FilterRadioButton = cssComponent("label", styles.FilterRadioButton, [] as const);
+const FilterRadioButton = cssComponent('label', styles.FilterRadioButton, [] as const);
 
-const FilterRadioGroup = cssComponent("div", styles.FilterRadioGroup, [] as const);
+const FilterRadioGroup = cssComponent('div', styles.FilterRadioGroup, [] as const);
 
 // TODO: better/custom ui for dungeon pulls?
 type FilterMode = 'phase' | 'time';
 
-const TimeFilterContainer = cssComponent("div", styles.TimeFilterContainer, [] as const);
+const TimeFilterContainer = cssComponent('div', styles.TimeFilterContainer, [] as const);
 
 const FilterMenu = ({
   ref,

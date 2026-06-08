@@ -1,7 +1,6 @@
 import type { JSX } from 'react';
-import cssComponent from "interface/utils/css-component";
-import styles from "./DeathStrikeSection.module.scss";
-import isPropValid from '@emotion/is-prop-valid';
+import cssComponent from 'interface/utils/css-component';
+import styles from './DeathStrikeSection.module.scss';
 import talents from 'common/TALENTS/deathknight';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
@@ -148,7 +147,7 @@ export default function DeathStrikeSection() {
   );
 }
 
-const RPTableContainer = cssComponent("div", styles.RPTableContainer, [] as const);
+const RPTableContainer = cssComponent('div', styles.RPTableContainer, [] as const);
 
 const heartStrikeSpells = [
   talents.HEART_STRIKE_TALENT,
@@ -223,7 +222,11 @@ function RunicPowerTable() {
 /**
  * A basic colored block. The building block of more complex objects. You MUST supply the height/width yourself.
  */
-const ColoredBlock = cssComponent('div', styles.ColoredBlock, ["height", "width", "color"] as const);
+const ColoredBlock = cssComponent('div', styles.ColoredBlock, [
+  'height',
+  'width',
+  'color',
+] as const);
 
 const BlockRow = cssComponent('div', styles.BlockRow, [] as const);
 

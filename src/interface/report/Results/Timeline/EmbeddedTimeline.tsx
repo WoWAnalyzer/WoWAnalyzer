@@ -1,6 +1,5 @@
 import cssComponent from 'interface/utils/css-component';
 import styles from './EmbeddedTimeline.module.scss';
-import isPropValid from '@emotion/is-prop-valid';
 // force this to load if you render EmbeddedTimelineContainer
 import './Timeline.scss';
 import { useMemo, useRef, useState } from 'react';

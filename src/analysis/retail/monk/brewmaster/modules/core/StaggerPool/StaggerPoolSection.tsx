@@ -17,9 +17,8 @@ import PurifyingBrew from '../../talents/PurifyingBrew';
 import TouchOfDeathStagger from '../../spells/TouchOfDeathStagger';
 import SPELLS from 'common/SPELLS';
 import spells from '../../../spell-list_Monk_Brewmaster.retail';
-import cssComponent from "interface/utils/css-component";
-import styles from "./StaggerPoolSection.module.scss";
-import * as design from 'interface/design-system';
+import cssComponent from 'interface/utils/css-component';
+import styles from './StaggerPoolSection.module.scss';
 import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
 import { formatNumber } from 'common/format';
@@ -29,9 +28,9 @@ import { InformationIcon } from 'interface/icons';
 import AlertInfo from 'interface/AlertInfo';
 import AlertWarning from 'interface/AlertWarning';
 
-const SideBySide = cssComponent("div", styles.SideBySide, [] as const);
+const SideBySide = cssComponent('div', styles.SideBySide, [] as const);
 
-const SummaryDL = cssComponent("dl", styles.SummaryDL, [] as const);
+const SummaryDL = cssComponent('dl', styles.SummaryDL, [] as const);
 
 export default function StaggerPoolSection(): JSX.Element | null {
   const graph = useAnalyzer(StaggerPoolGraph);

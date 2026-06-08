@@ -4,9 +4,8 @@ import type { FormEvent, MouseEvent } from 'react';
 import { useEffect, useState } from 'react';
 
 import TimeInput from './TimeInput';
-import cssComponent from "interface/utils/css-component";
-import styles from "./TimeFilter.module.scss";
-import * as design from 'interface/design-system';
+import cssComponent from 'interface/utils/css-component';
+import styles from './TimeFilter.module.scss';
 
 interface Props {
   fight: Fight;
@@ -20,7 +19,7 @@ const generateBoundary = (fight: Fight) => ({
   max: (fight.original_end_time || fight.end_time) - fight.start_time + fight.offset_time,
 });
 
-const SubmitButton = cssComponent("button", styles.SubmitButton, [] as const);
+const SubmitButton = cssComponent('button', styles.SubmitButton, [] as const);
 
 const ResetButton = cssComponent(SubmitButton, styles.ResetButton, [] as const);
 
