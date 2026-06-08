@@ -112,8 +112,8 @@
   position: absolute;
   right: -3px;
   bottom: -3px;
-  width: round(calc(var(--size) * 0.45px));
-  height: round(calc(var(--size) * 0.45px));
+  width: calc(var(--size) * 0.45px);
+  height: calc(var(--size) * 0.45px);
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-radius: 4px;
   overflow: hidden;
