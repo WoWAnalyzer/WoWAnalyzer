@@ -42,7 +42,7 @@
 
 .SubSectionContainer {
   /* including .guide-container here is a specificity hack */
-  .guide-container & {
+  :global(.guide-container) & {
     margin-top: design.$gaps_large;
   }
 

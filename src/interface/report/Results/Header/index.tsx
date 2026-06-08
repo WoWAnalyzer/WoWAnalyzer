@@ -177,7 +177,7 @@ export default function Header({
                   <TabButton
                     key={tab.url}
                     to={makeTabUrl(tab.url)}
-                    className={selectedTab === tab.url ? 'active' : ''}
+                    className={selectedTab === tab.url ? styles.active : ''}
                   >
                     <Icon />
                     {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
