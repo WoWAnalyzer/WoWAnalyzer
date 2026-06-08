@@ -222,7 +222,7 @@ function CharacterMiniBox({
   // intentionally smaller than the layout switch
   const showClassName = useMediaQueryMatch('(min-width: 600px)');
   return (
-    <MiniBoxContainer className={'flipped'} style={{ gridArea: 'character' }}>
+    <MiniBoxContainer className={styles.flipped} style={{ gridArea: 'character' }}>
       <MiniBoxImage
         src={characterProfile?.thumbnail ?? specIconPath(config.spec)}
         alt={`${player.name} (${config.spec.specName ? i18n._(config.spec.specName) : ''} ${i18n._(config.spec.className)})`}

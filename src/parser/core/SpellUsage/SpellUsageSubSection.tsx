@@ -1,6 +1,6 @@
 import { BadColor, OkColor, PerformanceMark, SubSection, useInfo } from 'interface/guide';
-import cssComponent from "interface/utils/css-component";
-import styles from "./SpellUsageSubSection.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './SpellUsageSubSection.module.scss';
 import {
   ComponentPropsWithoutRef,
   Fragment,
@@ -22,11 +22,15 @@ import { formatDuration } from 'common/format';
 import { Highlight } from 'interface/Highlight';
 import AlertWarning from 'interface/AlertWarning';
 
-const NoData = cssComponent("div", styles.NoData, [] as const);
+const NoData = cssComponent('div', styles.NoData, [] as const);
 
-const SpellUsageDetailsContainer = cssComponent("div", styles.SpellUsageDetailsContainer, [] as const);
+const SpellUsageDetailsContainer = cssComponent(
+  'div',
+  styles.SpellUsageDetailsContainer,
+  [] as const,
+);
 
-const SpellDetailsContainer = cssComponent("div", styles.SpellDetailsContainer, [] as const);
+const SpellDetailsContainer = cssComponent('div', styles.SpellDetailsContainer, [] as const);
 
 const leftPercentWide = 50;
 const leftPercentNarrow = 30;
@@ -109,7 +113,7 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
           </Fragment>
         ))}
       {spellUse.extraDetails ? (
-        <RoundedPanel>
+        <RoundedPanel className={styles.RoundedPanel}>
           <div>
             <strong>Extra Details</strong>
           </div>
@@ -275,7 +279,11 @@ const SpellUsageSubSection = ({
       {warning ? <AlertWarning {...warning} /> : null}
       <ExplanationRow leftPercent={wideExplanation ? leftPercentWide : leftPercentNarrow}>
         <Explanation>{explanation}</Explanation>
-        {wideExplanation ? <RoundedPanel>{spellUsageDetails}</RoundedPanel> : spellUsageDetails}
+        {wideExplanation ? (
+          <RoundedPanel className={styles.RoundedPanel}>{spellUsageDetails}</RoundedPanel>
+        ) : (
+          spellUsageDetails
+        )}
       </ExplanationRow>
     </SubSection>
   );

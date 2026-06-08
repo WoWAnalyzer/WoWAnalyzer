@@ -317,7 +317,7 @@ const TimelineRow = cssComponent('div', styles.TimelineRow, [] as const);
 const TimelineRectContainer = cssComponent('div', styles.TimelineRectContainer, [] as const);
 
 /** Clickable colored rectangle representing one cast */
-const TimelineRect = cssComponent('button', styles.TimelineRect, [] as const);
+const TimelineRect = cssComponent('button', styles.TimelineRect, ['color'] as const);
 
 /** Stat-card-style nav button: chevron + divider + label */
 const HeaderNavBtn = cssComponent('button', styles.HeaderNavBtn, [] as const);
@@ -326,7 +326,7 @@ const HeaderNavBtn = cssComponent('button', styles.HeaderNavBtn, [] as const);
 const CardContainer = cssComponent('div', styles.CardContainer, [] as const);
 
 /** Single cast card — animates in on each navigation */
-const CastCard = cssComponent('div', styles.CastCard, [] as const);
+const CastCard = cssComponent('div', styles.CastCard, ['color'] as const);
 
 const CardHeader = cssComponent('div', styles.CardHeader, [] as const);
 

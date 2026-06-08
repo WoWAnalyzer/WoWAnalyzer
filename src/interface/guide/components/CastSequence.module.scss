@@ -30,22 +30,35 @@
 .SpellIcon {
     position: relative;
     flex-shrink: 0;
-    width: var(--size) px;
-    height: var(--size) px;
-    border: var(--ghosted, 1px solid rgba(0, 0, 0, 0.8)) 2px solid rgba(210, 210, 210, 0.85);
+    width: calc(var(--size) * 1px);
+    height: calc(var(--size) * 1px);
+    border: 1px solid rgba(0, 0, 0, 0.8);
     border-radius: 6px;
     outline: 3px solid var(--color);
     outline-offset: 0px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.5);
-    opacity: var(--ghosted, 1) 0.68;
+    opacity: 1;
+
+    &.noOutline {
+        outline: none;
+    }
+
+    &.ghosted {
+        border: 2px solid rgba(210, 210, 210, 0.85);
+        opacity: 0.68;
+
+        img {
+            filter: grayscale(0.7);
+        }
+    }
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
-        filter: var(--ghosted, none) grayscale(0.7);
+        filter: none;
     }
 }
 

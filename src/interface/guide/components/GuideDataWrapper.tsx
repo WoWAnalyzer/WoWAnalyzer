@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
+import { JSX, ReactNode } from 'react';
 import cssComponent from 'interface/utils/css-component';
 import styles from './GuideDataWrapper.module.scss';
 import { iconUrl } from 'interface/Icon';
+import clsx from 'clsx';
 
 /** Container for each guide data section */
 export const SectionContainer = cssComponent('div', styles.SectionContainer, [] as const);
@@ -96,11 +97,35 @@ export const PerfBadgeLabel = cssComponent('div', styles.PerfBadgeLabel, [] as c
 export const HelperTextRow = cssComponent('div', styles.HelperTextRow, [] as const);
 
 /** Performance filter toggle — stat-card style, clickable; greyed-out when disabled */
-export const FilterBadge = cssComponent('div', styles.FilterBadge, [
-  'disabled',
-  'active',
-  'color',
-] as const);
+export const FilterBadge = ({
+  disabled,
+  active,
+  color,
+  children,
+  className,
+  style,
+  innerRef,
+  ...rest
+}: {
+  disabled?: boolean;
+  active?: boolean;
+  color: string;
+  innerRef?: React.Ref<HTMLDivElement>;
+} & React.ComponentProps<'div'>): JSX.Element => (
+  <div
+    ref={innerRef}
+    {...rest}
+    className={clsx(
+      styles.FilterBadge,
+      disabled && styles.disabled,
+      active && styles.active,
+      className,
+    )}
+    style={{ ...style, '--color': color }}
+  >
+    {children}
+  </div>
+);
 
 export default function GuideDataWrapper({
   title,

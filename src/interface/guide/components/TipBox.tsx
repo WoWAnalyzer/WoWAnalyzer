@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import cssComponent from "interface/utils/css-component";
-import styles from "./TipBox.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './TipBox.module.scss';
 import { CheckmarkIcon, CrossIcon, InformationIcon, NoteIcon, WarningIcon } from 'interface/icons';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
@@ -77,10 +77,10 @@ function TipBoxLayout({
 }) {
   const hasHeader = icon || title;
   return (
-    <Container $color={color} role={role}>
+    <Container color={color} role={role}>
       <div>
         {hasHeader && (
-          <TitleWrapper $color={color}>
+          <TitleWrapper color={color}>
             <strong>
               {icon && <IconWrapper>{icon}</IconWrapper>}
               {title && <>{title}: </>}
@@ -93,11 +93,11 @@ function TipBoxLayout({
   );
 }
 
-const Container = cssComponent("div", styles.Container, ["$color"] as const);
+const Container = cssComponent('div', styles.Container, ['color'] as const);
 
-const TitleWrapper = cssComponent("span", styles.TitleWrapper, ["$color"] as const);
+const TitleWrapper = cssComponent('span', styles.TitleWrapper, ['color'] as const);
 
-const IconWrapper = cssComponent("span", styles.IconWrapper, [] as const);
+const IconWrapper = cssComponent('span', styles.IconWrapper, [] as const);
 
 interface PerformanceTipBoxProps extends Omit<TipBoxProps, 'type'> {
   performance: QualitativePerformance;

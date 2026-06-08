@@ -49,7 +49,7 @@ export default function cssComponent<
         } else {
           varStyle[`--${name}`] = value;
         }
-      } else if (name === 'innerRef') {
+      } else if (name === 'innerRef' || name === 'innerref') {
         // annoying explicit support for Tooltip
         props.ref = value;
       } else if (name !== 'style') {

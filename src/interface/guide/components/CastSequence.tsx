@@ -32,6 +32,7 @@ interface SpellSequenceProps {
   iconSize?: number;
 }
 
+const DEFAULT_CAST_COLOR = 'rgba(255, 255, 255, 0.3)';
 /**
  * Standalone spell sequence filmstrip showing spell icons.
  * Can be used independently or as part of CastSequence.
@@ -44,9 +45,7 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
       {casts.map((cast, castIdx) => {
         const color =
           cast.outlineColor ??
-          (cast.performance
-            ? qualitativePerformanceToColor(cast.performance)
-            : 'rgba(255, 255, 255, 0.3)');
+          (cast.performance ? qualitativePerformanceToColor(cast.performance) : DEFAULT_CAST_COLOR);
 
         const defaultTooltip = (
           <div>
@@ -58,7 +57,14 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
 
         return (
           <Tooltip key={castIdx} content={cast.tooltip || defaultTooltip}>
-            <SpellIcon size={iconSize} color={color} ghosted={cast.ghosted}>
+            <SpellIcon
+              size={iconSize}
+              color={color}
+              className={clsx(
+                color === DEFAULT_CAST_COLOR && styles.noOutline,
+                cast.ghosted && styles.ghosted,
+              )}
+            >
               <img
                 src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
                 alt={cast.spellName}
@@ -185,7 +191,7 @@ export default function CastSequence<T>({
 
 const Sequence = cssComponent('div', styles.Sequence, [] as const);
 
-const SpellIcon = cssComponent('div', styles.SpellIcon, ['size', 'ghosted'] as const);
+const SpellIcon = cssComponent('div', styles.SpellIcon, ['color', 'size', 'ghosted'] as const);
 
 const NavigationButtons = cssComponent('div', styles.NavigationButtons, [] as const);
 
