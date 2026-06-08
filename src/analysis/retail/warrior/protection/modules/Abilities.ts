@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
         cooldown: 3000,
       },
       {
-        spell: [TALENTS.THUNDER_CLAP_TALENT.id, TALENTS.THUNDER_BLAST_TALENT.id],
+        spell: [TALENTS.THUNDER_CLAP_TALENT.id, SPELLS.THUNDER_BLAST.id],
         enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
