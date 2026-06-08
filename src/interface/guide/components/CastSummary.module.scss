@@ -32,7 +32,7 @@
 
 .BoxRowScaler {
   .performance-block-row {
-    grid-template-columns: repeat(auto-fill, calc(var(--widthPct) % - 3px));
+    grid-template-columns: repeat(auto-fill, calc(var(--widthPct) * 1% - 3px));
     gap: 3px;
   }
   .performance-block {
