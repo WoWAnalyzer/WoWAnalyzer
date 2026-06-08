@@ -27,7 +27,7 @@
     box-shadow: design.$level1_shadow;
     padding: 0 design.$gaps_large design.$gaps_small design.$gaps_large;
 
-    & .details > div {
+    & :global(.details) > div {
         background: unset;
         box-shadow: unset;
         padding: unset;

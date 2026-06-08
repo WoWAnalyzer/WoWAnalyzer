@@ -26,11 +26,11 @@
         'filter filter'
         'tabs tabs';
 
-    .StatBoxContainer/* TODO-OVERRIDE */ {
+    .StatBoxContainer {
         display: none;
     }
 
-    .TabStrip/* TODO-OVERRIDE */ {
+    .TabStrip {
         display: none;
     }
 
@@ -45,14 +45,14 @@
         align-items: end;
         justify-items: start;
 
-        .StatBoxContainer/* TODO-OVERRIDE */ {
+        .StatBoxContainer {
             display: flex;
         }
 
-        .TabStrip/* TODO-OVERRIDE */ {
+        .TabStrip {
             display: block;
         }
-        .TabSelect/* TODO-OVERRIDE */ {
+        .TabSelect {
             display: none;
         }
     }

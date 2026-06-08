@@ -1,44 +1,85 @@
 @use 'interface/design-system' as design;
 
+.AplRuleList {
+    padding-left: 1.5rem;
+}
+
+.AplListItem {
+    opacity: var(--muted, 1) 0.5;
+
+    .highlighted {
+        list-style-type: none;
+        padding-left: 0;
+        margin-left: -1.5rem;
+
+        &::before {
+            content: '\\e080';
+            font-family: 'Glyphicons Halflings';
+            color: #fab700;
+            margin-right: 0.5rem;
+            font-size: 10px;
+        }
+
+        &::after {
+            content: '\\e079';
+            font-family: 'Glyphicons Halflings';
+            color: #fab700;
+            margin-left: 0.5rem;
+            font-size: 10px;
+        }
+    }
+}
+
 .AplSubsectionHeader {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .AplSummaryTable {
-  td {
-    padding-right: 1rem;
-    width: 99%;
-  }
+    td {
+        padding-right: 1rem;
+        width: 99%;
+    }
 
-  td:last-child {
-    min-width: 10em;
-  }
+    td:last-child {
+        min-width: 10em;
+    }
 }
 
 .ValueData {
-  text-align: right;
+    text-align: right;
+}
+
+.ViolationProblemContainer {
+    display: grid;
+    grid-template-rows: auto max-content;
+    grid-gap: 1rem;
+
+    &.row {
+        grid-template-columns: auto max-content;
+        grid-template-rows: unset;
+    }
 }
 
 .AplViolationContainer {
-  display: grid;
-  grid-template-rows: max-content 1fr;
+    display: grid;
+    grid-template-rows: max-content 1fr;
 }
 
 .AplLayout {
-  display: grid;
-  grid-template-areas: 'summary problems' 'timeline timeline';
-  grid-template-columns: 10fr 8fr;
-  grid-gap: 2rem;
+    display: grid;
+    grid-template-areas: 'summary problems' 'timeline timeline';
+    grid-template-columns: 10fr 8fr;
+    grid-gap: 2rem;
 
-  .AplRuleList/* TODO-OVERRIDE */ {
-    grid-area: summary;
-  }
+    .AplRuleList {
+        grid-area: summary;
+    }
 
-  .AplViolationContainer/* TODO-OVERRIDE */ {
-    grid-area: problems;
-  }
+    .AplViolationContainer {
+        grid-area: problems;
+    }
 
-  .AplViolationTimelineContainer/* TODO-OVERRIDE */ {
-    grid-area: timeline;
-  }
+    .AplViolationTimelineContainer {
+        grid-area: timeline;
+    }
 }

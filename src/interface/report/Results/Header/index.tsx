@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./index.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
 import { i18n } from '@lingui/core';
 import { defineMessage } from '@lingui/core/macro';
 import { findZoneByBossId, normalizedEncounterId, type Boss } from 'game/raids';
@@ -24,8 +24,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeaderBackground from './HeaderBackground';
 import { currentExpansion } from 'game/GameBranch';
 import * as difficulty from 'game/DIFFICULTIES';
-import HeaderStatBox, { StatBoxContainer } from './HeaderStatBox';
-import { level1, level2, colors, gaps, fontSize } from 'interface/design-system';
+import HeaderStatBox from './HeaderStatBox';
 import { formatDuration } from 'common/format';
 import FilterButton from './FilterButton';
 import { Filter } from 'interface/report/hooks/useTimeEventFilter';
@@ -33,13 +32,13 @@ import Select from 'interface/controls/Select';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
 import { specIconPath } from 'interface/SpecIcon';
 
-const Section = cssComponent("section", styles.Section, [] as const);
+const Section = cssComponent('section', styles.Section, [] as const);
 
-const TabStrip = cssComponent("nav", styles.TabStrip, [] as const);
+const TabStrip = cssComponent('nav', styles.TabStrip, [] as const);
 
 const TabSelect = cssComponent(Select, styles.TabSelect, [] as const);
 
-const HeaderContainer = cssComponent("div", styles.HeaderContainer, [] as const);
+const HeaderContainer = cssComponent('div', styles.HeaderContainer, [] as const);
 
 interface HeaderProps {
   config: Config;
@@ -197,7 +196,7 @@ export default function Header({
                   </option>
                 ))}
             </TabSelect>
-            {!isLoading && <HeaderStatBox />}
+            {!isLoading && <HeaderStatBox className={styles.StatBoxContainer} />}
           </HeaderContainer>
         </Section>
       </div>
@@ -207,13 +206,13 @@ export default function Header({
 
 const TabButton = cssComponent(Link, styles.TabButton, [] as const);
 
-const MiniBoxContainer = cssComponent("div", styles.MiniBoxContainer, [] as const);
+const MiniBoxContainer = cssComponent('div', styles.MiniBoxContainer, [] as const);
 
-const MiniBoxName = cssComponent("div", styles.MiniBoxName, [] as const);
+const MiniBoxName = cssComponent('div', styles.MiniBoxName, [] as const);
 
-const MiniBoxSubtext = cssComponent("div", styles.MiniBoxSubtext, [] as const);
+const MiniBoxSubtext = cssComponent('div', styles.MiniBoxSubtext, [] as const);
 
-const MiniBoxImage = cssComponent("img", styles.MiniBoxImage, [] as const);
+const MiniBoxImage = cssComponent('img', styles.MiniBoxImage, [] as const);
 
 function CharacterMiniBox({
   player,

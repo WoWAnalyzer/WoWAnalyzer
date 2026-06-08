@@ -2,6 +2,7 @@ import cssComponent from 'interface/utils/css-component';
 import styles from './Table.module.scss';
 import { JSX } from 'react';
 import Select from 'interface/controls/Select';
+import clsx from 'clsx';
 
 const TableContainer = cssComponent('div', styles.TableContainer, [] as const);
 
@@ -11,13 +12,12 @@ export const HeaderSelect = cssComponent(Select, styles.HeaderSelect, [] as cons
 
 interface TableCellProps {
   align: React.CSSProperties['justifyContent'];
-  optional?: boolean;
   children?: React.ReactNode;
+  className?: string;
 }
 
 const TableCell: React.FC<TableCellProps> = cssComponent('div', styles.TableCell, [
   'align',
-  'optional',
 ] as const);
 
 const TableHeader = cssComponent('div', styles.TableHeader, [] as const);
@@ -51,7 +51,7 @@ export default function Table<T, Context, Cols extends Record<string, Column<unk
     <TableContainer style={{ gridTemplateColumns: gridColumns }}>
       <TableHeader>
         {Object.values(columns).map((col, colIx) => (
-          <TableCell key={colIx} align={'center'} optional={col.optional}>
+          <TableCell key={colIx} align={'center'} className={clsx(col.optional && styles.optional)}>
             {col.label}
           </TableCell>
         ))}
@@ -59,7 +59,11 @@ export default function Table<T, Context, Cols extends Record<string, Column<unk
       {data.map((row, ix) => (
         <TableRow key={ix}>
           {Object.values(columns).map((col, colIx) => (
-            <TableCell align={cellAlignment(col.align)} key={colIx} optional={col.optional}>
+            <TableCell
+              align={cellAlignment(col.align)}
+              key={colIx}
+              className={clsx(col.optional && styles.optional)}
+            >
               {col.render(row, ctx)}
             </TableCell>
           ))}

@@ -1,13 +1,12 @@
 import { useMemo, useState, type JSX } from 'react';
-import cssComponent from "interface/utils/css-component";
-import styles from "./index.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
 import { useEvents, useInfo } from 'interface/guide';
 import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';
 
-import AplRules, { AplRuleList } from './rules';
+import AplRules from './rules';
 import ViolationProblemList, {
   AplViolationExplanations,
-  AplViolationTimelineContainer,
   ExplanationSelectionContext,
   SelectedExplanation,
 } from './violations';
@@ -15,11 +14,11 @@ import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 import { formatPercentage } from 'common/format';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 
-const AplSubsectionHeader = cssComponent("header", styles.AplSubsectionHeader, [] as const);
+const AplSubsectionHeader = cssComponent('header', styles.AplSubsectionHeader, [] as const);
 
-const AplSummaryTable = cssComponent("table", styles.AplSummaryTable, [] as const);
+const AplSummaryTable = cssComponent('table', styles.AplSummaryTable, [] as const);
 
-const ValueData = cssComponent("td", styles.ValueData, [] as const);
+const ValueData = cssComponent('td', styles.ValueData, [] as const);
 
 export function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }) {
   return (
@@ -77,9 +76,9 @@ function AplSummaryColumn({
   );
 }
 
-const AplViolationContainer = cssComponent("div", styles.AplViolationContainer, [] as const);
+const AplViolationContainer = cssComponent('div', styles.AplViolationContainer, [] as const);
 
-const AplLayout = cssComponent("div", styles.AplLayout, [] as const);
+const AplLayout = cssComponent('div', styles.AplLayout, [] as const);
 
 interface AplSectionProps {
   checker: ReturnType<typeof aplCheck>;

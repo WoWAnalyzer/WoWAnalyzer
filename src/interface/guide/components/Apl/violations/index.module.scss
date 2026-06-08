@@ -53,17 +53,3 @@
         }
     }
 }
-
-.AplViolationTimelineContainer {
-}
-
-.ViolationProblemContainer {
-    display: grid;
-    grid-template-rows: auto max-content;
-    grid-gap: 1rem;
-
-    .row {
-        grid-template-columns: auto max-content;
-        grid-template-rows: unset;
-    }
-}

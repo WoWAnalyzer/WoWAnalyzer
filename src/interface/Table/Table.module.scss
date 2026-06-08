@@ -35,12 +35,14 @@
 
     white-space: nowrap;
 
-    &:has(.HeaderSelect/* TODO-OVERRIDE */) {
+    &:has(.HeaderSelect) {
         padding: 0;
     }
 
-    @container ((width < 500px) and (style: --optional)) {
-        display: none;
+    @container (width < 500px) {
+        &.optional {
+            display: none;
+        }
     }
 
     &:last-of-type {
@@ -57,7 +59,7 @@
     border: 1px solid design.$level2_border;
     box-shadow: design.$level2_shadow;
 
-    & .TableCell/* TODO-OVERRIDE */ {
+    & .TableCell {
         border-color: design.$level2_border;
 
         &:last-of-type {
@@ -65,7 +67,7 @@
         }
     }
 
-    & + .TableRow/* TODO-OVERRIDE */ {
+    & + .TableRow {
         padding-top: 0.3rem;
     }
 }

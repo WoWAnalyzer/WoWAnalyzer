@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./HeaderStatBox.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './HeaderStatBox.module.scss';
 import { formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import { ByRole, Role } from 'interface/guide/foundation/ByRole';
@@ -7,18 +7,17 @@ import { DamageIcon } from 'interface/icons';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import { colors, level0, level1 } from 'interface/design-system';
 import { JSX } from 'react';
 
 /** @internal */
-export const StatBoxContainer = cssComponent("div", styles.StatBoxContainer, [] as const);
+export const StatBoxContainer = cssComponent('div', styles.StatBoxContainer, [] as const);
 
-const StatBoxStat = cssComponent("dl", styles.StatBoxStat, [] as const);
+const StatBoxStat = cssComponent('dl', styles.StatBoxStat, [] as const);
 
-export default function HeaderStatBox(): JSX.Element | null {
+export default function HeaderStatBox({ className }: { className?: string }): JSX.Element | null {
   return (
     <ByRole>
-      <StatBoxContainer>
+      <StatBoxContainer className={className}>
         <Role.Healer>
           <HealingStat />
         </Role.Healer>

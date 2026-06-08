@@ -58,9 +58,9 @@ export default function cssComponent<
     }
 
     const style =
-      'style' in props && props.style
+      'style' in rawProps && rawProps.style
         ? {
-            ...props.style,
+            ...rawProps.style,
             ...varStyle,
           }
         : varStyle;

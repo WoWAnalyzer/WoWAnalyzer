@@ -79,7 +79,7 @@ export default function CooldownGrid({
   const hasMore = items.length > showMoreCutoff;
   return (
     <CooldownGridOuterContainer>
-      <CooldownGridContainer className={styles[`maxColumn${maximumColumns}`]}>
+      <CooldownGridContainer className={styles[`maxColumns${maximumColumns}`]}>
         {items.slice(0, showMore ? Infinity : showMoreCutoff).map((item, ix) => (
           <CooldownGridElement
             key={`${item.range.start}-${item.range.end}`}

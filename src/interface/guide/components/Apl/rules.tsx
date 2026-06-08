@@ -1,5 +1,5 @@
 import cssComponent from 'interface/utils/css-component';
-import styles from './rules.module.scss';
+import styles from './index.module.scss';
 import { InformationIcon } from 'interface/icons';
 import TooltipWrapper from 'interface/Tooltip';
 import SpellLink from 'interface/SpellLink';

@@ -1,5 +1,6 @@
 import cssComponent from 'interface/utils/css-component';
 import styles from './index.module.scss';
+import parentStyles from '../index.module.scss';
 import { formatPercentage } from 'common/format';
 import { useEvents, useInfo } from 'interface/guide';
 import ProblemList, {
@@ -160,13 +161,13 @@ export function AplViolationExplanations({
 
 export const AplViolationTimelineContainer = cssComponent(
   'div',
-  styles.AplViolationTimelineContainer,
+  parentStyles.AplViolationTimelineContainer,
   [] as const,
 );
 
 const ViolationProblemContainer = cssComponent(
   'div',
-  styles.ViolationProblemContainer,
+  parentStyles.ViolationProblemContainer,
   [] as const,
 );
 
@@ -188,7 +189,7 @@ export default function ViolationProblemList<T = unknown>({
 
   const renderer = useMemo(
     () => (props: ProblemRendererProps<Violation>) => (
-      <ViolationProblemContainer className={clsx(orientation === 'row' && styles.row)}>
+      <ViolationProblemContainer className={clsx(orientation !== 'column' && parentStyles.row)}>
         {DescribeViolation && (
           <div>
             <DescribeViolation violation={props.problem.data} result={result} apl={apl} />

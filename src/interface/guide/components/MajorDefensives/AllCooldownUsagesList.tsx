@@ -1,5 +1,5 @@
-import cssComponent from "interface/utils/css-component";
-import styles from "./AllCooldownUsagesList.module.scss";
+import cssComponent from 'interface/utils/css-component';
+import styles from './AllCooldownUsagesList.module.scss';
 import { formatNumber } from 'common/format';
 import { color } from 'game/MAGIC_SCHOOLS';
 import { TooltipElement } from 'interface';
@@ -45,17 +45,25 @@ const PossibleMissingCastBoxEntry = {
   ),
 };
 
-export const NoData = cssComponent("div", styles.NoData, [] as const);
+export const NoData = cssComponent('div', styles.NoData, [] as const);
 
-const CooldownUsageDetailsContainer = cssComponent("div", styles.CooldownUsageDetailsContainer, [] as const);
+const CooldownUsageDetailsContainer = cssComponent(
+  'div',
+  styles.CooldownUsageDetailsContainer,
+  [] as const,
+);
 
-export const TableSegmentContainer = cssComponent("td", styles.TableSegmentContainer, [] as const);
+export const TableSegmentContainer = cssComponent('td', styles.TableSegmentContainer, [] as const);
 
 export const SmallPassFailBar = cssComponent(PassFailBar, styles.SmallPassFailBar, [] as const);
 
-export const NumericColumn = cssComponent("td", styles.NumericColumn, [] as const);
+export const NumericColumn = cssComponent('td', styles.NumericColumn, [] as const);
 
-export const CooldownDetailsContainer = cssComponent("div", styles.CooldownDetailsContainer, [] as const);
+export const CooldownDetailsContainer = cssComponent(
+  'div',
+  styles.CooldownDetailsContainer,
+  [] as const,
+);
 
 export interface CooldownDetailsProps<Apply extends EventType, Remove extends EventType> {
   analyzer: MajorDefensive<Apply, Remove>;
@@ -110,8 +118,9 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
             <NumericColumn>{formatNumber(mit.maxAmount)}</NumericColumn>
             <TableSegmentContainer>
               <MitigationTooltipSegment
+                className={styles.MitigationTooltipSegment}
                 color="rgba(255, 255, 255, 0.25)"
-                maxWidth={100}
+                maxWidth={'100%'}
                 width={mit.maxAmount / maxValue}
               />
             </TableSegmentContainer>
@@ -129,20 +138,23 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
             <TableSegmentContainer>
               {ix > 0 && (
                 <MitigationTooltipSegment
+                  className={styles.MitigationTooltipSegment}
                   color="rgba(255, 255, 255, 0.05)"
-                  maxWidth={100}
+                  maxWidth={'100%'}
                   width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
                 />
               )}
               <MitigationTooltipSegment
+                className={styles.MitigationTooltipSegment}
                 color={seg.color}
                 width={seg.amount / maxValue}
-                maxWidth={100}
+                maxWidth={'100%'}
               />
               {ix < segments.length - 1 && (
                 <MitigationTooltipSegment
+                  className={styles.MitigationTooltipSegment}
                   color="rgba(255, 255, 255, 0.05)"
-                  maxWidth={100}
+                  maxWidth={'100%'}
                   width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
                 />
               )}
@@ -217,6 +229,7 @@ export const BreakdownByDamageSource = <Apply extends EventType, Remove extends 
               <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
               <TableSegmentContainer>
                 <MitigationTooltipSegment
+                  className={styles.MitigationTooltipSegment}
                   color={rowColor}
                   width={mitigatedAmount / maxDamageTaken}
                 />
