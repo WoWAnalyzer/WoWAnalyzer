@@ -120,7 +120,7 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
               <MitigationTooltipSegment
                 className={styles.MitigationTooltipSegment}
                 color="rgba(255, 255, 255, 0.25)"
-                maxWidth={'100%'}
+                maxWidth={100}
                 width={mit.maxAmount / maxValue}
               />
             </TableSegmentContainer>
@@ -140,7 +140,7 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
                 <MitigationTooltipSegment
                   className={styles.MitigationTooltipSegment}
                   color="rgba(255, 255, 255, 0.05)"
-                  maxWidth={'100%'}
+                  maxWidth={100}
                   width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
                 />
               )}
@@ -148,13 +148,13 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
                 className={styles.MitigationTooltipSegment}
                 color={seg.color}
                 width={seg.amount / maxValue}
-                maxWidth={'100%'}
+                maxWidth={100}
               />
               {ix < segments.length - 1 && (
                 <MitigationTooltipSegment
                   className={styles.MitigationTooltipSegment}
                   color="rgba(255, 255, 255, 0.05)"
-                  maxWidth={'100%'}
+                  maxWidth={100}
                   width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
                 />
               )}

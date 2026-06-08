@@ -2,7 +2,7 @@ import cssComponent from 'interface/utils/css-component';
 import styles from './MitigationSegments.module.scss';
 import { formatNumber } from 'common/format';
 import Tooltip from 'interface/Tooltip';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, JSX, ReactNode } from 'react';
 import clsx from 'clsx';
 
 export interface MitigationSegment {
@@ -17,12 +17,34 @@ const MitigationSegmentContainer = cssComponent(
   [] as const,
 );
 
-// we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-export const MitigationTooltipSegment = cssComponent('div', styles.MitigationTooltipSegment, [
-  'color',
-  'maxWidth',
-  'width',
-] as const);
+export const MitigationTooltipSegment = ({
+  color,
+  maxWidth,
+  width,
+  innerRef,
+  children,
+  className,
+  ...rest
+}: {
+  color: string;
+  maxWidth?: number;
+  width: number;
+  innerRef?: React.Ref<HTMLDivElement>;
+} & React.ComponentProps<'div'>): JSX.Element => {
+  const actualWidth = maxWidth
+    ? `calc(${Math.max(0.02, width)} * ${maxWidth}px - 1px)`
+    : `calc(${Math.max(2, width * 100)}% - 1px)`;
+
+  return (
+    <div
+      {...rest}
+      className={clsx(styles.MitigationTooltipSegment, className)}
+      style={{ width: actualWidth, '--color': color }}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const MitigationSegments = ({
   segments,

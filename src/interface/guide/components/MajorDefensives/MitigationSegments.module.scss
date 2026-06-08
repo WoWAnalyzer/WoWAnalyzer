@@ -19,7 +19,7 @@
 
 .MitigationTooltipSegment {
     background-color: var(--color);
-    width: max(2%, calc(var(--width, 0) * var(--maxWidth, 100%) - 1px));
+    width: 0;
     height: 100%;
     display: inline-block;
     box-sizing: content-box;
