@@ -143,7 +143,7 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: TALENTS.HEROIC_LEAP_TALENT.id,
+        spell: SPELLS.HEROIC_LEAP.id,
         enabled: combatant.hasTalent(TALENTS.HEROIC_LEAP_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: 45 - (combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 15 : 0),
