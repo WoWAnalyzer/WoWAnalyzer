@@ -10,6 +10,11 @@ const enchants = {
   //     name: '',
   //     icon: '',
   // },
+  FRENZIED_FOCUS: {
+    id: 1241762,
+    name: 'Frenzied Focus',
+    icon: 'ability_warrior_intensifyrage',
+  },
 };
 
 export default enchants;
