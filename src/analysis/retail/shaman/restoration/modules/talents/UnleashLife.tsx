@@ -1,7 +1,7 @@
 import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -17,20 +17,6 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-
-import {
-  RESTORATION_COLORS,
-  UNLEASH_LIFE_HEALING_INCREASE,
-  UNLEASH_LIFE_REMOVE_MS,
-} from '../../constants';
-import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import {
-  getUnleashLifeHealingWaves,
-  isBuffedByUnleashLife,
-  wasUnleashLifeConsumed,
-} from '../../normalizers/UnleashLifeNormalizer';
-import RiptideTracker from '../core/RiptideTracker';
-import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import WarningIcon from 'interface/icons/Warning';
@@ -42,6 +28,23 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import {
+  RESTORATION_COLORS,
+  healingIncreases,
+  UNLEASH_LIFE_REMOVE_MS,
+  EVENT_LINKS,
+} from '../../constants';
+
+import {
+  getCastEvent,
+  wasUnleashLifeConsumed,
+  isBuffedByUnleashLife,
+  getUnleashLifeHealingWaves,
+} from '../../normalizers/UnleashLifeNormalizer';
+
+import RiptideTracker from '../core/RiptideTracker';
+import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 
 const debug = false;
 
@@ -199,8 +202,7 @@ class UnleashLife extends Analyzer {
       if (this.riptideTracker.fromUnleashLife(riptide)) {
         debug && console.log('Unleash Life Riptide Tick: ', event);
         this.healingMap[spellId].amount += calculateEffectiveHealing(
-          event,
-          UNLEASH_LIFE_HEALING_INCREASE,
+          event, healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
         );
       }
       return;
@@ -219,8 +221,7 @@ class UnleashLife extends Analyzer {
           event,
         );
       this.healingMap[spellId].amount += calculateEffectiveHealing(
-        event,
-        UNLEASH_LIFE_HEALING_INCREASE,
+        event, healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
       );
     }
   }
@@ -231,7 +232,7 @@ class UnleashLife extends Analyzer {
     if (ulHealingWaves.length > 0) {
       this.healingMap[spellId].amount += this._tallyHealingIncrease(
         ulHealingWaves,
-        UNLEASH_LIFE_HEALING_INCREASE,
+        healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
       );
     }
   }
@@ -240,7 +241,7 @@ class UnleashLife extends Analyzer {
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
     this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
       orderedChainHeal,
-      UNLEASH_LIFE_HEALING_INCREASE,
+      healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
     );
   }
 

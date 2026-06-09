@@ -1,8 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DispelEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
+//currently unused. May need rework. Caused errors without benefits in the current branch.
 class SpellUsable extends CoreSpellUsable {
   constructor(options: Options) {
     super(options);

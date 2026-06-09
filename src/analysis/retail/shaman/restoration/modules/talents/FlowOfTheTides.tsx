@@ -5,7 +5,7 @@ import UnleashLife from './UnleashLife';
 import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import {
   CHAIN_HEAL_TARGETS,
-  FLOW_OF_THE_TIDES_INCREASE,
+  healingIncreases,
   FLOW_OF_THE_TIDES_TARGET,
 } from '../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -19,7 +19,7 @@ import CheckmarkIcon from 'interface/icons/Checkmark';
 import { formatNumber, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { wasRiptideConsumed } from '../../normalizers/CastLinkNormalizer';
+import { wasRiptideConsumed } from '../../normalizers/EventLinkNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
 
 const debug = false;
@@ -74,7 +74,7 @@ class FlowOfTheTides extends Analyzer {
   onChainHeal(event: CastEvent) {
     this.healIncrease = 0;
     if (wasRiptideConsumed(event)) {
-      this.healIncrease = FLOW_OF_THE_TIDES_INCREASE;
+      this.healIncrease = healingIncreases.FLOW_OF_THE_TIDES_INCREASE;
       if (this.chainHealTarget === event.targetID) {
         this.lostRiptideDuration += this.riptideEnd - event.timestamp;
       }
@@ -181,7 +181,7 @@ class FlowOfTheTides extends Analyzer {
               </li>
               <li>
                 <strong>{formatNumber(this.bonusHealing)}</strong> extra healing from the{' '}
-                {formatPercentage(FLOW_OF_THE_TIDES_INCREASE)}% increase
+                {formatPercentage(healingIncreases.FLOW_OF_THE_TIDES_INCREASE)}% increase
               </li>
               <li>
                 <strong>{formatNumber(this.lostRiptides)}</strong> riptides consumed

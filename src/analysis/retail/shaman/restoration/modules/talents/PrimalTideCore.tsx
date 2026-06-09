@@ -4,7 +4,7 @@ import RiptideTracker from '../core/RiptideTracker';
 import talents from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Module';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
-import { isFromPrimalTideCore } from '../../normalizers/CastLinkNormalizer';
+import { isFromPrimalTideCore } from '../../normalizers/EventLinkNormalizer';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';

@@ -1,17 +1,24 @@
-import { Trans } from '@lingui/react/macro';
-import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import Analyzer, {
+  Options,
+  SELECTED_PLAYER
+} from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import Combatants from 'parser/shared/modules/Combatants';
+import SPELLS from 'common/SPELLS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
+// UI
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import Combatants from 'parser/shared/modules/Combatants';
 
-const EARTHSURGE_HEALING_INCREASE = 0.15;
+import { Trans } from '@lingui/react/macro';
+import { formatNumber } from 'common/format';
+
+import {
+  healingIncreases,
+} from 'analysis/retail/shaman/restoration/constants';
 
 export default class Earthsurge extends Analyzer {
   static dependencies = {
@@ -25,7 +32,7 @@ export default class Earthsurge extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTHSURGE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EARTHSURGE_TALENT);
     if (!this.active) {
       return;
     }
@@ -48,8 +55,8 @@ export default class Earthsurge extends Analyzer {
         this.selectedCombatant.id,
       )
     ) {
-      this.healingDoneFromTalent += calculateEffectiveHealing(event, EARTHSURGE_HEALING_INCREASE);
-      this.overhealingDoneFromTalent += calculateOverhealing(event, EARTHSURGE_HEALING_INCREASE);
+      this.healingDoneFromTalent += calculateEffectiveHealing(event, healingIncreases.EARTHSURGE_HEALING_INCREASE);
+      this.overhealingDoneFromTalent += calculateOverhealing(event, healingIncreases.EARTHSURGE_HEALING_INCREASE);
     }
   }
 
@@ -65,7 +72,7 @@ export default class Earthsurge extends Analyzer {
           </Trans>
         }
       >
-        <TalentSpellText talent={TALENTS_SHAMAN.EARTHSURGE_TALENT}>
+        <TalentSpellText talent={TALENTS.EARTHSURGE_TALENT}>
           <ItemHealingDone amount={this.healingDoneFromTalent} />
         </TalentSpellText>
       </Statistic>

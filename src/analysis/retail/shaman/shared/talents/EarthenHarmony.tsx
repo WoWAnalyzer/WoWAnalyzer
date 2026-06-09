@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import talents from 'common/TALENTS/shaman';
 import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
@@ -6,8 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import {
-  EARTHEN_HARMONY_DAMAGE_REDUCTION,
-  EARTHEN_HARMONY_HEALING_INCREASE,
+  healingIncreases,
 } from '../../restoration/constants';
 import Combatants from 'parser/shared/modules/Combatants';
 
@@ -62,15 +61,15 @@ class EarthenHarmony extends Analyzer {
 
   get earthShielddamageReduced() {
     return (
-      (this.damageTakenWithEarthShield / (1 - EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
-      EARTHEN_HARMONY_DAMAGE_REDUCTION
+      (this.damageTakenWithEarthShield / (1 - healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
+      healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION
     );
   }
 
   get elementalOrbitDamageReduced() {
     return (
-      (this.damageTakenWithElementalOrbitEarthShield / (1 - EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
-      EARTHEN_HARMONY_DAMAGE_REDUCTION
+      (this.damageTakenWithElementalOrbitEarthShield / (1 - healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
+      healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION
     );
   }
 
@@ -179,7 +178,7 @@ class EarthenHarmony extends Analyzer {
   getHealingIncrease(event: HealEvent) {
     const hpPercentAtStart = (event.hitPoints - event.amount) / event.maxHitPoints;
     const scalingFactor = Math.min(1, Math.max(0, (1 - hpPercentAtStart) / 0.5));
-    return EARTHEN_HARMONY_HEALING_INCREASE * scalingFactor;
+    return healingIncreases.EARTHEN_HARMONY_HEALING_INCREASE * scalingFactor;
   }
 }
 

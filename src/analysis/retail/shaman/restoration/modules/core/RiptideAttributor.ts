@@ -2,11 +2,17 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import RiptideTracker from './RiptideTracker';
 import talents from 'common/TALENTS/shaman';
-import { PRIMAL_TIDE_CORE, HARDCAST, UNLEASH_LIFE } from '../../constants';
+import {
+  EVENT_LINKS,
+} from '../../constants';
+import {
+  riptideHoT,
+  isFromPrimalTideCore,
+} from '../../normalizers/EventLinkNormalizer';
+
 import HotTracker from 'parser/shared/modules/HotTracker';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { isFromHardcast, isFromPrimalTideCore } from '../../normalizers/CastLinkNormalizer';
 import UnleashLife from '../talents/UnleashLife';
 
 class RiptideAttributor extends Analyzer {
@@ -20,9 +26,9 @@ class RiptideAttributor extends Analyzer {
   protected combatants!: Combatants;
   protected riptideTracker!: RiptideTracker;
 
-  hardcastAttrib = HotTracker.getNewAttribution(HARDCAST);
-  ptcAttrib = HotTracker.getNewAttribution(PRIMAL_TIDE_CORE);
-  uLAttrib = HotTracker.getNewAttribution(UNLEASH_LIFE);
+  hardcastAttrib = HotTracker.getNewAttribution(EVENT_LINKS.riptideBuffApply);
+  ptcAttrib = HotTracker.getNewAttribution(EVENT_LINKS.primalTideCoreRiptideProc);
+  uLAttrib = HotTracker.getNewAttribution(EVENT_LINKS.unleashLifeBuffedRiptideHeal);
 
   constructor(options: Options) {
     super(options);
@@ -40,7 +46,7 @@ class RiptideAttributor extends Analyzer {
     }
 
     this._checkForUnleashLife(event);
-    if (event.prepull || isFromHardcast(event)) {
+    if (event.prepull || riptideHoT(event)) {
       this.riptideTracker.addAttributionFromApply(this.hardcastAttrib, event);
     } else if (isFromPrimalTideCore(event as ApplyBuffEvent)) {
       this.riptideTracker.addAttributionFromApply(this.ptcAttrib, event);

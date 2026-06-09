@@ -1,10 +1,14 @@
-import SPELLS from 'common/SPELLS/shaman';
-import TALENTS from 'common/TALENTS/shaman';
-import { AnyEvent, ApplyBuffEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import {
+  AnyEvent,
+  ApplyBuffEvent,
+  EventType
+} from 'parser/core/Events';
+
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Combatants from 'parser/shared/modules/Combatants';
-
+import SPELLS from 'common/SPELLS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 class EarthShieldNormalizer extends EventsNormalizer {
   static dependencies = {
     ...EventsNormalizer.dependencies,

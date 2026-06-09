@@ -9,7 +9,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { RIPTIDE_BASE_DURATION } from '../../constants';
+import { SPELL_DURATIONS } from '../../constants';
 import RiptideTracker from '../core/RiptideTracker';
 
 class WavespeakersBlessing extends Analyzer {
@@ -42,7 +42,7 @@ class WavespeakersBlessing extends Analyzer {
       return;
     }
     const riptide = this.riptideTracker.hots[targetId][spellId];
-    if (riptide && event.timestamp - riptide.start <= RIPTIDE_BASE_DURATION) {
+    if (riptide && event.timestamp - riptide.start <= SPELL_DURATIONS.RIPTIDE_BASE_DURATION) {
       return;
     }
     this.healing += event.amount + (event.absorbed || 0);

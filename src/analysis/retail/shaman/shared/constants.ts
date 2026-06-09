@@ -9,3 +9,6 @@ export const ELEMENTAL_BLAST_BUFFS = [
 // event links for Splintered Elements
 export const PRIMORDIAL_WAVE_LINK = 'primoridal-wave';
 export const SPLINTERED_ELEMENTS_LINK = 'splintered-elements';
+
+//max HP increases
+export const PRIMORDIAL_BOND_MAX_HEALTH = 0.15;

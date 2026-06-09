@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { PULSE_CAPACITOR_INCREASE } from '../../../constants';
+import { healingIncreases } from '../../../constants';
 
 class PulseCapacitor extends Analyzer {
   healingContribution = 0;
@@ -25,7 +25,7 @@ class PulseCapacitor extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.healingContribution += calculateEffectiveHealing(event, PULSE_CAPACITOR_INCREASE);
+    this.healingContribution += calculateEffectiveHealing(event, healingIncreases.PULSE_CAPACITOR_INCREASE);
   }
 
   statistic() {

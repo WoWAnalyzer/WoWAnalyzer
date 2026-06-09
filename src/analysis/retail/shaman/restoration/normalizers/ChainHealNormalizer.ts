@@ -1,18 +1,34 @@
-import { FLOW_OF_THE_TIDES_INCREASE } from '../constants';
-import talents from 'common/TALENTS/shaman';
-import { CastEvent, HealEvent } from 'parser/core/Events';
-import Combatants from 'parser/shared/modules/Combatants';
-import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { getChainHeals, wasRiptideConsumed } from './CastLinkNormalizer';
+import EventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import Analyzer from 'parser/core/Analyzer';
+import {
+  CastEvent,
+  HealEvent
+} from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+import {
+    EVENT_LINKS,
+    healingIncreases,
+    ANCENDANCE_TARGET,
+    FLOW_OF_THE_TIDES_TARGET,
+    ANCESTRAL_REACH_TARGET,
+    CHAIN_HEAL_TARGETS,
+} from '../constants';
+import {
+  isLivelyTotemsChainHealCast,
+  getChainHeals,
+  wasRiptideConsumed,
 
-interface BufferHealEvent extends HealEvent {
-  baseHealingDone: number;
-}
+} from './EventLinkNormalizer';
+import TALENTS from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS/shaman';
 
-class ChainHealNormalizer extends Analyzer {
+// Normalizes the HEAL Events of all CHAINHEAL casts
+
+
+class ChainHealAnalyzer extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
@@ -33,11 +49,9 @@ class ChainHealNormalizer extends Analyzer {
    * 1. Mastery Effectiveness
    * 2. Deluge
    * 3. Crits
-   * 4. Flow of the Tides (if talented && has to be the primary target for riptide
-   *    to be consumed -- all hits are increased by 30%)
-   *
+   * 4. Flow of the Tides (if talented && has to be the primary target for riptide to be consumed. All hits are increased by 30%)
    * NOTE: With everything else calc'ed correctly deluge will not matter,
-   * since 20% variance by itself will not cause jumps that decrease by 30% to be ordered incorrectly
+   * since 15% variance by itself will not cause jumps that decrease by 30% to be ordered incorrectly
    * */
   public normalizeChainHealOrder(cast: CastEvent): HealEvent[] {
     const events = getChainHeals(cast);
@@ -55,20 +69,29 @@ class ChainHealNormalizer extends Analyzer {
       const critMult = this.critEffectBonus.getBonus(event);
       heal /= critMult;
     }
+    const choiceTalent =
+    this.selectedCombatant.hasTalent(TALENTS.FLOW_OF_THE_TIDES_TALENT)? TALENTS.FLOW_OF_THE_TIDES_TALENT:
+    this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT)? TALENTS.ANCESTRAL_REACH_TALENT:
+    null;
     const currentMastery = this.statTracker.currentMasteryPercentage;
-    const masteryEffectiveness = Math.max(
-      0,
-      1 - (event.hitPoints - event.amount) / event.maxHitPoints,
-    );
+    const masteryEffectiveness = Math.max(0, 1 - (event.hitPoints - event.amount) / event.maxHitPoints);
     heal /= 1 + currentMastery * masteryEffectiveness;
-    //check for flow of the tides increase
-    if (this.selectedCombatant.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT)) {
-      if (wasRiptideConsumed(cast)) {
-        heal /= 1 + FLOW_OF_THE_TIDES_INCREASE;
+    switch (choiceTalent) {
+      case TALENTS.FLOW_OF_THE_TIDES_TALENT: {//check for flow of the tides increase
+        if (wasRiptideConsumed(cast)) {
+          heal /= 1 + healingIncreases.FLOW_OF_THE_TIDES_INCREASE;
+        }
+        break;
       }
-    }
-    return { baseHealingDone: heal, ...event };
+      case TALENTS.ANCESTRAL_REACH_TALENT: {//check for ANCESTRAL REACH increase
+        heal /= 1 + healingIncreases.ANCESTRAL_REACH_INCREASE;
+        break;
+      }
+    }return { baseHealingDone: heal, ...event };
   }
 }
+interface BufferHealEvent extends HealEvent {
+  baseHealingDone: number;
+}
 
-export default ChainHealNormalizer;
+export default ChainHealAnalyzer;

@@ -5,7 +5,7 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Combatants from 'parser/shared/modules/Combatants';
 import {
   SURGING_TOTEM_BUFFER_MS,
-  SURGING_TOTEM_DURATION,
+  SPELL_DURATIONS,
   WHIRLING_ELEMENTS_MOTES,
 } from 'analysis/retail/shaman/restoration/constants';
 import NPCS from 'common/NPCS/shaman';
@@ -38,7 +38,7 @@ class SurgingTotemPrePullNormalizer extends EventsNormalizer {
       // Stop parsing events after the duration of the totem has elapsed.
       if (
         event.timestamp >
-        this.owner.fight.start_time + SURGING_TOTEM_DURATION + SURGING_TOTEM_BUFFER_MS
+        this.owner.fight.start_time + SPELL_DURATIONS.SURGING_TOTEM_DURATION + SURGING_TOTEM_BUFFER_MS
       ) {
         break;
       }
@@ -46,7 +46,7 @@ class SurgingTotemPrePullNormalizer extends EventsNormalizer {
       // Start time should be before the start of the fight.
       const startTime: number =
         this.owner.fight.start_time -
-        (SURGING_TOTEM_DURATION -
+        (SPELL_DURATIONS.SURGING_TOTEM_DURATION -
           (event.timestamp - this.owner.fight.start_time - SURGING_TOTEM_BUFFER_MS));
 
       // Fabricate a events as they happen when a Surging Totem is cast in the correct sequence.

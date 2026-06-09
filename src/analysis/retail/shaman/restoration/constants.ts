@@ -1,73 +1,195 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
+//import BUFFS from 'src/analysis/retail/shaman/restoration/modules/Buffs'
+// You can copy above for easy use
 
-//event link attribution strings
-export const HARDCAST = 'Hardcast';
-export const RIPTIDE_PWAVE = 'PrimordialWave';
-export const PWAVE_REMOVAL = 'PrimordialWaveRemoved';
-export const HEALING_WAVE = 'HealingWave';
-export const RIPTIDE = 'Riptide';
-export const HEALING_STREAM_TOTEM_HEAL = 'HealingStreamTotemHeal';
-export const HEALING_TIDE_TOTEM_HEAL = 'HealingTideTotemHeal';
-export const STORMSTREAM_TOTEM_HEAL = 'StormstreamTotemHeal';
-export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
-export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
-export const APPLIED_HEAL = 'AppliedHeal';
-export const UNLEASH_LIFE = 'UnleashLife';
-export const UNLEASH_LIFE_HEALING_WAVE = 'UnleashLifeHealingWave';
-export const UNLEASH_LIFE_REMOVE = 'UnleashLifeRemoved';
-export const HEALING_RAIN = 'HealingRain';
-export const HEALING_RAIN_GROUPING = 'HealingRainGrouping';
-export const OVERFLOWING_SHORES = 'OverflowingShores';
-export const CHAIN_HEAL = 'ChainHeal';
-export const CHAIN_HEAL_GROUPING = 'ChainHealGrouping';
-export const FLOW_OF_THE_TIDES = 'FlowOfTheTides';
-export const DOWNPOUR = 'Downpour';
-export const LIVELY_TOTEMS_CHAIN_HEAL = 'LivelyTotemsChainHeal';
-export const SPLITSTREAM = 'Splitstream';
-export const EARTHLIVING = 'Earthliving';
-//event link ms settings
-export const CAST_BUFFER_MS = 100;
-// 50 was too low, 100 was too high
-// had no issues with 85ms
+// Event link attribution strings
+export enum EVENT_LINKS {
+riptideCast = 'riptideCast',
+riptideBuffApply = 'riptideBuffApply',
+primalTideCoreRiptideOrigin = 'primalTideCoreRiptideOrigin',
+primalTideCoreRiptideProc = 'primalTideCoreRiptideProc',
+
+healingRainEventLinkHeal = 'healingRainEventLinkHeal',
+healingRainEventLinkCast = 'healingRainEventLinkCast',
+healingRainTargetCounter = 'healingRainTargetCounter',
+overflowingShoresHeal = 'overflowingShoresHeal',
+overflowingShoresOrigin = 'overflowingShoresOrigin',
+downpourHeal = 'downpourHeal',
+downpourCast = 'downpourCast',
+
+splitstreamHeal = 'splitstreamHeal',
+
+whirlingAirBuffRemoval = 'whirlingAirBuffRemoval',
+whirlingAirCast = 'whirlingAirCast',
+whirlingEarthBuffRemoval = 'whirlingEarthBuffRemoval',
+whirlingEarthEventCast = 'whirlingEarthEventCast',
+whirlingWaterBuffRemoval = 'whirlingWaterBuffRemoval',
+whirlingWaterCast = 'whirlingWaterCast',
+
+// Earth Living Tracker & Attribiutors
+earthlivingBuffCycle = 'earthlivingBuffCycle',
+HEALING_WAVE = 'HealingWave',
+HEALING_TIDE_TOTEM_HEAL = 'HealingTideTotemHeal',
+HEALING_STREAM_TOTEM_HEAL = 'HealingStreamTotemHeal',
+STORMSTREAM_TOTEM_HEAL = 'StormstreamTotemHeal',
+
+chainHealCast = 'chainHealCast',
+chainHealHeal = 'chainHealHeal',
+
+flowOfTheTidesRemoveBuff = 'flowOfTheTidesRemoveBuff',
+flowOfTheTidesChainHealCast = 'flowOfTheTidesChainHealCast',
+
+livelyTotemsOrigin = 'livelyTotemsOrigin',
+livelyTotemsChainHealCast = 'livelyTotemsChainHealCast',
+
+APPLIED_HEAL = 'AppliedHeal',
+
+unleashLifeCast = 'unleashLifeCast',
+unleashLifeHeal = 'unleashLifeHeal',
+unleashLifeBuffRemove = 'unleashLifeBuffRemove',
+unleashLifeBuffedCast = 'unleashLifeBuffedCast',
+unleashLifeBuffedRiptideCast = 'unleashLifeBuffedRiptideCast',
+unleashLifeBuffedRiptideHeal = 'unleashLifeBuffedRiptideHeal',
+unleashLifeBuffedHealingWaveCast = 'unleashLifeBuffedHealingWaveCast',
+unleashLifeBuffedHealingWaveHeal = 'unleashLifeBuffedHealingWaveHeal',
+unleashLifeBuffedChainHealCast = 'unleashLifeBuffedChainHealCast',
+unleashLifeBuffedChainHealHeal = 'unleashLifeBuffedChainHealHeal',
+
+}
+
+/**
+ * Grace-period for checking if a buff is applied to the player.
+ * Some buffs have a "pay before you cast"-price tag" and remove the buff before the actuall cast is logged.
+ * Examples: Streamingstorm Totem, Ancestral Swiftness, Natures Swiftness
+ */
+export const ON_CAST_BUFF_REMOVAL_GRACE_MS = 50;
 export const SURGING_TOTEM_BUFFER_MS = 85;
-
-export const PWAVE_TRAVEL_MS = 1100;
 export const UNLEASH_LIFE_REMOVE_MS = 400;
-//healing increases
-export const UNLEASH_LIFE_HEALING_INCREASE = 0.25;
-export const FLOW_OF_THE_TIDES_INCREASE = 0.3;
-export const ANCESTRAL_REACH_INCREASE = 0.08;
-export const DELUGE_HEALING_INCREASE = 0.15;
-export const EARTHEN_HARMONY_HEALING_INCREASE = 1.5;
-export const EARTHEN_HARMONY_DAMAGE_REDUCTION = 0.03;
-export const OVERSURGE_INCREASE = 0.5;
-export const PULSE_CAPACITOR_INCREASE = 0.25;
-export const AMPLIFICATION_CORE_HEALING_INCREASE = 0.03;
-export const TIDECALLERS_GUARD_HEALING_INCREASE = 0.02;
-export const EARTHEN_ACCORD_UL_DIRECT_INCREASE = 0.3;
-export const EARTHEN_ACCORD_BUFF_INCREASE = 0.2;
-//max HP increases
+export const CAST_BUFFER_MS = 100; // Event link ms settings
+
+// Minimal duration for which you must have tidal waves.
+// Prevents it from counting a HS/HW as buffed when you cast a riptide at the end.
+export const TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME = 100;
+
+// Spell coefficients
+export const CHAIN_HEAL_COEFFICIENT = 2.31;
+export const HIGH_TIDE_COEFFICIENT = 2.541;
+
+// Healing increases
+export enum healingIncreases {
+UNLEASH_LIFE_HEALING_INCREASE = 0.25,
+FLOW_OF_THE_TIDES_INCREASE = 0.3,
+ANCESTRAL_REACH_INCREASE = 0.08,
+DELUGE_HEALING_INCREASE = 0.15,
+EARTHEN_HARMONY_HEALING_INCREASE = 1.5,
+EARTHEN_HARMONY_DAMAGE_REDUCTION = 0.03,
+OVERSURGE_INCREASE = 0.5,
+PULSE_CAPACITOR_INCREASE = 0.25,
+AMPLIFICATION_CORE_HEALING_INCREASE = 0.03,
+TIDECALLERS_GUARD_HEALING_INCREASE = 0.02,
+EARTHEN_ACCORD_UL_DIRECT_INCREASE = 0.3,
+EARTHEN_ACCORD_BUFF_INCREASE = 0.2,
+EARTHSURGE_HEALING_INCREASE = 0.15,
+}
+
+// max HP increases
 export const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 export const DOWNPOUR_INCREASED_MAX_HEALTH = 0.1;
 
-//base targets & target increases
+// base targets & target increases
 export const HEALING_RAIN_TARGETS = 5;
 export const DOWNPOUR_TARGETS = 5;
-export const CHAIN_HEAL_TARGETS = 4;
+export const CHAIN_HEAL_TARGETS = 3;
 export const ANCESTRAL_REACH_TARGET = 1;
 export const FLOW_OF_THE_TIDES_TARGET = 1;
 export const OVERFLOWING_SHORES_RANGE_INCREASE = 400;
+export const ANCENDANCE_TARGET = 3;
 
-//mana saves
+// Fake haste
+export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
+
+export enum SPELL_DURATIONS {
+HEALING_RAIN_DURATION = 18000,
+RIPTIDE_BASE_DURATION = 18000,
+WAVESPEAKERS_BLESSING = 3000,
+HEALING_STREAM_TOTEM_DURATION = 15000,
+TOTEMIC_FOCUS_HEALING_TOTEM_DURATION = 3000,
+SURGING_TOTEM_DURATION = 25000,
+EARTHLIVING_BASE_DURATION = 6000,
+IMBUEMENT_MASTERY_DURATION = 3000,
+ENHANCED_IMBUES_MODIFIER = 1.2,
+TIDECALLERS_GUARD_DURATION_EXTENSION = 3000
+}
+
+// mana saves
 export const MANA_REGENERATION_PER_SECOND = 2000;
 export const WATER_SHIELD_MANA_REGENERATION_PER_SECOND = 142.8;
+export const RESURGENCE_SPELLS = {
+  [SPELLS.HEALING_WAVE.id]: 0.008,
+  [TALENTS.RIPTIDE_TALENT.id]: 0.0048,
+  [TALENTS.CHAIN_HEAL_TALENT.id]: 0.002,
+};
 
-//whirling elements
-export const WHIRLINGAIR_HEAL = 'WhirlingAirHeal';
-export const WHIRLINGEARTH_HEAL = 'WhirlingEarthHeal';
-export const WHIRLINGWATER_HEAL = 'WhirlingWaterHeal';
+// Your normal healing toolkit, default spells and talents
+export const SHAMAN_BASE_ABILITIES = [
+  SPELLS.HEALING_WAVE,
+  TALENTS.CHAIN_HEAL_TALENT,
+  TALENTS.RIPTIDE_TALENT,
+  SPELLS.HEALING_RAIN_HEAL,
+  TALENTS.UNLEASH_LIFE_TALENT,
+  SPELLS.EARTH_SHIELD_HEAL,
+  TALENTS.DOWNPOUR_TALENT,
+  SPELLS.ASCENDANCE_INITIAL_HEAL,
+  SPELLS.OVERFLOWING_SHORES_HEAL,
+  SPELLS.EARTHLIVING_WEAPON_HEAL,
+];
 
+// These often need special handling as the shaman is not the source
+export const SHAMAN_PET_ABILITIES = [
+  SPELLS.HEALING_TIDE_TOTEM_HEAL,
+  SPELLS.HEALING_STREAM_TOTEM_HEAL,
+  SPELLS.STORMSTREAM_TOTEM_HEAL,
+  SPELLS.STORMSWELL_HEAL,
+  //Do we want to add SLT here given the possible HEAL from TALENTS.SPOUTING_SPIRITS ?
+];
+
+export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
+  ...SHAMAN_BASE_ABILITIES,
+  ...SHAMAN_PET_ABILITIES,
+
+  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
+  SPELLS.ANCESTRAL_AWAKENING_HEAL, // double check interactions
+  SPELLS.ASCENDANCE_HEAL,
+];
+
+export const BASE_ABILITIES_AFFECTED_BY_MASTERY = [
+  ...SHAMAN_BASE_ABILITIES,
+  ...SHAMAN_PET_ABILITIES,
+];
+
+export const ABILITIES_AFFECTED_BY_MASTERY = [
+  ...BASE_ABILITIES_AFFECTED_BY_MASTERY,
+  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
+  SPELLS.ANCESTRAL_AWAKENING_HEAL,
+  SPELLS.ASCENDANCE_HEAL,
+];
+
+// Hero Talents
+// Totemic
+
+// Whirling elements
+export const WHIRLING_ELEMENTS_MOTES = [
+  SPELLS.WHIRLING_AIR,
+  SPELLS.WHIRLING_EARTH,
+  SPELLS.WHIRLING_WATER,
+];
+
+// Hero Talents
+// Farseer
+
+
+// UI
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
   HEALING_WAVE: '#146585',
@@ -82,78 +204,3 @@ export const RESTORATION_COLORS = {
   DOWNPOUR: '#3b6760',
   UNUSED: '#CC3D20',
 };
-
-// Spell Coefficients
-export const CHAIN_HEAL_COEFFICIENT = 2.31;
-export const HIGH_TIDE_COEFFICIENT = 2.541;
-
-// Your normal healing toolkit, default spells and talents
-// TODO: Check all these lists again, maybe restructure to remove repeats
-const SHAMAN_BASE_ABILITIES = [
-  SPELLS.HEALING_WAVE,
-  TALENTS.CHAIN_HEAL_TALENT,
-  TALENTS.RIPTIDE_TALENT,
-  SPELLS.HEALING_RAIN_HEAL,
-  TALENTS.UNLEASH_LIFE_TALENT,
-  SPELLS.EARTH_SHIELD_HEAL,
-  TALENTS.DOWNPOUR_TALENT,
-  SPELLS.ASCENDANCE_INITIAL_HEAL,
-  SPELLS.OVERFLOWING_SHORES_HEAL,
-  SPELLS.EARTHLIVING_WEAPON_HEAL,
-];
-
-export const RESURGENCE_SPELLS = {
-  [SPELLS.HEALING_WAVE.id]: 0.008,
-  [TALENTS.RIPTIDE_TALENT.id]: 0.0048,
-  [TALENTS.CHAIN_HEAL_TALENT.id]: 0.002,
-};
-
-// These often need special handling as the shaman is not the source
-const SHAMAN_PET_ABILITIES = [
-  SPELLS.HEALING_TIDE_TOTEM_HEAL,
-  SPELLS.HEALING_STREAM_TOTEM_HEAL,
-  SPELLS.STORMSTREAM_TOTEM_HEAL,
-  SPELLS.STORMSWELL_HEAL,
-];
-
-export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
-  ...SHAMAN_BASE_ABILITIES,
-  ...SHAMAN_PET_ABILITIES,
-
-  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.ANCESTRAL_AWAKENING_HEAL, // double check interactions
-  SPELLS.ASCENDANCE_HEAL,
-  SPELLS.LEECH,
-];
-
-export const BASE_ABILITIES_AFFECTED_BY_MASTERY = [
-  ...SHAMAN_BASE_ABILITIES,
-  ...SHAMAN_PET_ABILITIES,
-];
-
-export const ABILITIES_AFFECTED_BY_MASTERY = [
-  ...BASE_ABILITIES_AFFECTED_BY_MASTERY,
-  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.ANCESTRAL_AWAKENING_HEAL,
-  SPELLS.ASCENDANCE_HEAL,
-  SPELLS.LEECH,
-];
-
-export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
-
-export const HEALING_RAIN_DURATION = 18000;
-export const RIPTIDE_BASE_DURATION = 18000;
-export const WAVESPEAKERS_BLESSING = 3000;
-export const HEALING_STREAM_TOTEM_DURATION = 15000;
-export const TOTEMIC_FOCUS_HEALING_TOTEM_DURATION = 3000;
-export const SURGING_TOTEM_DURATION = 25000;
-export const EARTHLIVING_BASE_DURATION = 6000;
-export const IMBUEMENT_MASTERY_DURATION = 3000;
-export const ENHANCED_IMBUES_MODIFIER = 1.2;
-export const TIDECALLERS_GUARD_DURATION_EXTENSION = 3000;
-
-export const WHIRLING_ELEMENTS_MOTES = [
-  SPELLS.WHIRLING_AIR,
-  SPELLS.WHIRLING_EARTH,
-  SPELLS.WHIRLING_WATER,
-];
