@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
         cooldown: 3000,
       },
       {
-        spell: [TALENTS.THUNDER_CLAP_TALENT.id, SPELLS.THUNDER_BLAST.id],
+        spell: [SPELLS.THUNDER_CLAP.id, SPELLS.THUNDER_BLAST.id],
         enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -196,7 +196,8 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.SPELL_REFLECTION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 25 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.9 : 1),
+        // Protection spec has 20s CD on this spell instead of the standard 25s
+        cooldown: 20 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.9 : 1),
       },
       {
         spell: TALENTS.WRECKING_THROW_TALENT.id,

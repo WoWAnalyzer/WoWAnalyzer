@@ -168,6 +168,11 @@ const spells = {
     name: 'Shield Slam',
     icon: 'inv_shield_05',
   },
+  SHIELD_SLAM_RESET_BUFF: {
+    id: 224324,
+    name: 'Shield Slam!',
+    icon: 'inv_shield_05',
+  },
   SLAM: {
     id: 1464,
     name: 'Slam',

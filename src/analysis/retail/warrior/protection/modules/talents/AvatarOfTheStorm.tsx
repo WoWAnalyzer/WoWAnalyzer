@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const STORM_SURGE_CDR_MULTIPLIER = 2;
@@ -15,6 +15,7 @@ class AvatarOfTheStorm extends Analyzer {
 
   private hasAvatarOfTheStorm = false;
   private hasStormSurge = false;
+  private hasThunderBlast = false;
 
   constructor(options: Options) {
     super(options);
@@ -26,6 +27,7 @@ class AvatarOfTheStorm extends Analyzer {
 
     this.hasAvatarOfTheStorm = this.selectedCombatant.hasTalent(TALENTS.AVATAR_OF_THE_STORM_TALENT);
     this.hasStormSurge = this.selectedCombatant.hasTalent(TALENTS.STORM_SURGE_TALENT);
+    this.hasThunderBlast = this.selectedCombatant.hasTalent(TALENTS.THUNDER_BLAST_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_SHARED),
@@ -34,6 +36,14 @@ class AvatarOfTheStorm extends Analyzer {
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AVATAR_SHARED),
       this.onAvatarRemove,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_BLAST_BUFF),
+      this.onThunderBlastAvailable,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_BLAST_BUFF),
+      this.onThunderBlastAvailable,
     );
   }
 
@@ -61,6 +71,13 @@ class AvatarOfTheStorm extends Analyzer {
         STORM_SURGE_CDR_MULTIPLIER,
         event.timestamp,
       );
+    }
+  }
+
+  private onThunderBlastAvailable(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+    // Thunder Blast stacks make Thunder Clap immediately castable
+    if (this.hasThunderBlast) {
+      this.spellUsable.endCooldown(SPELLS.THUNDER_CLAP.id, event.timestamp);
     }
   }
 }
