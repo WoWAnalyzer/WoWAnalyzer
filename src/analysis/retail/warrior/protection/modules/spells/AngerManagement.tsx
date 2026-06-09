@@ -1,4 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/shared/modules/normalizers/rage/constants';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -45,7 +46,8 @@ class AngerManagement extends Analyzer {
     if (!classResources || !classResources.cost) {
       return;
     }
-    const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
+    // Cast resource costs are scaled by 10 in WCL events
+    const rageSpend = classResources.cost * RAGE_SCALE_FACTOR;
     const reduction = (rageSpend / RAGE_NEEDED_FOR_A_PROC) * CDR_PER_PROC;
 
     if (this.hasAvatar) {
