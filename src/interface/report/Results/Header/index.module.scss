@@ -1,10 +1,8 @@
 @use 'interface/design-system' as design;
 
 .Section {
-  border: 1px solid design.$level1_border;
+  @include design.level(1);
   padding: 1rem;
-  background: design.$level1_background;
-  box-shadow: design.$level1_shadow;
   margin-bottom: 2.5rem;
 }
 

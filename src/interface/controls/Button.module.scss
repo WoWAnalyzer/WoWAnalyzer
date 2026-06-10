@@ -3,9 +3,7 @@
 .Button {
   appearance: none;
   border: none;
-  box-shadow: design.$level2_shadow;
-  background: design.$level2_background;
-  border: 1px solid design.$level2_border;
+  @include design.level(2);
   border-radius: 0.5rem;
   padding: 0 1rem;
 

@@ -46,23 +46,43 @@
  * }
  * ```
  */
+@use 'sass:map' as map;
 
 $colors_bodyText: #f3eded;
 $colors_unfocusedText: #ccc;
 $colors_wowaYellow: #fab700;
 
-$level0_background: hsl(44, 7%, 8%);
-$level0_border: #161616;
-$level0_shadow: 0 1px 3px black;
+$background: (
+  0: hsl(44, 7%, 8%),
+  1: hsl(44, 7%, 10%),
+  2: hsl(44, 7%, 13%),
+  '2_active': hsl(44, 9%, 15%), // TODO: figure out where the "active" variant fits in
+);
 
-$level1_background: hsl(44, 7%, 10%);
-$level1_border: #262626;
-$level1_shadow: 0 1px 4px black;
+$border: (
+  0: #161616,
+  1: #262626,
+  2: #303030,
+);
 
-$level2_background: hsl(44, 7%, 13%);
-$level2_border: #303030;
-$level2_shadow: 0 1px 6px #101010;
-$level2_background_active: hsl(44, 9%, 15%);
+$shadow: (
+  0: 0 1px 3px black,
+  1: 0 1px 4px black,
+  2: 0 1px 6px #101010,
+);
+
+$level0_background: map.get($background, 0);
+$level0_border: map.get($border, 0);
+$level0_shadow: map.get($shadow, 0);
+
+$level1_background: map.get($background, 1);
+$level1_border: map.get($border, 1);
+$level1_shadow: map.get($shadow, 1);
+
+$level2_background: map.get($background, 2);
+$level2_border: map.get($border, 2);
+$level2_shadow: map.get($shadow, 2);
+$level2_background_active: map.get($background, '2_active');
 
 $gaps_small: 0.5rem;
 $gaps_medium: 1rem;
@@ -71,3 +91,9 @@ $gaps_large: 2rem;
 $fontSize_bodyText: 1.4rem;
 $fontSize_subHeading: 1.6rem;
 $fontSize_heading: 1.8rem;
+
+@mixin level($levelNumber) {
+  background: map.get($background, $levelNumber);
+  border: 1px solid map.get($border, $levelNumber);
+  box-shadow: map.get($shadow, $levelNumber);
+}
