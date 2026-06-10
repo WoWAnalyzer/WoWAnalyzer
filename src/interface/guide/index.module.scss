@@ -7,7 +7,7 @@
   color: design.$colors_wowaYellow;
   background: design.$level1_background;
 
-  & > .chevron {
+  & > :global(.chevron) {
     background: design.$level2_background;
     border: 1px solid design.$level2_border;
     box-shadow: design.$level2_shadow;
@@ -16,7 +16,7 @@
     padding: 0 design.$gaps_small;
   }
 
-  &:hover > .chevron {
+  &:hover > :global(.chevron) {
     background: design.$level2_background_active;
   }
 }
