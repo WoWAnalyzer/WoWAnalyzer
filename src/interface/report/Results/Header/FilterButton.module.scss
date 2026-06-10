@@ -41,18 +41,15 @@
 
   gap: 0.5rem;
 
+  @include design.level(1);
   border: 1px solid design.$level2_border;
-  box-shadow: design.$level1_shadow;
-  background: design.$level1_background;
   border-radius: 0.5rem;
 
   color: design.$colors_bodyText;
 }
 
 .FilterRadioButton {
-  border: 1px solid design.$level2_border;
-  background: design.$level2_background;
-  box-shadow: design.$level2_shadow;
+  @include design.level(2);
   padding: 0.5rem 1rem;
   position: relative;
   flex-grow: 1;

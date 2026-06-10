@@ -2,9 +2,7 @@
 
 .SubmitButton {
   appearance: none;
-  border: 1px solid design.$level2_border;
-  background: design.$level2_background;
-  box-shadow: design.$level2_shadow;
+  @include design.level(2);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
 
@@ -21,7 +19,6 @@
 }
 
 .ResetButton {
-  background: design.$level1_background;
+  @include design.level(1);
   border-color: design.$level2_border;
-  box-shadow: design.$level1_shadow;
 }
