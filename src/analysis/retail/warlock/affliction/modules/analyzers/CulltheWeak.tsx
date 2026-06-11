@@ -5,12 +5,11 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 
 const CDR_MS = 1500;
+const targetSpellId = TALENTS.DARK_HARVEST_TALENT.id;
 
 class CullTheWeak extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
-  protected spellUsable!: SpellUsable;
-
   effectiveCdrMs = 0;
   wastedCdrMs = 0;
 
@@ -31,8 +30,6 @@ class CullTheWeak extends Analyzer.withDependencies({
   }
 
   onCast(_event: CastEvent) {
-    const targetSpellId = TALENTS.DARK_HARVEST_TALENT.id;
-
     const actualReduction = this.deps.spellUsable.reduceCooldown(targetSpellId, CDR_MS);
 
     this.effectiveCdrMs += actualReduction;

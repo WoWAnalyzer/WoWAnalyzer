@@ -242,6 +242,30 @@ class SoulReaper extends ExecuteHelper.withDependencies({
     };
   }
 
+  private formatSeconds(durationMs: number): string {
+    return (durationMs / 1000).toFixed(1);
+  }
+
+  private getDarkTransformationCooldownRemaining(
+    castTimestamp: number,
+    nextDarkTransformationTimestamp: number | null,
+  ): string {
+    const darkTransformationCooldownState = this.deps.spellUsable
+      .history(TALENTS.DARK_TRANSFORMATION_TALENT.id)
+      .getBefore(castTimestamp, true);
+
+    const remainingMs = darkTransformationCooldownState?.isOnCooldown
+      ? darkTransformationCooldownState.expectedRechargeTimestamp - castTimestamp
+      : nextDarkTransformationTimestamp === null
+        ? 0
+        : Math.min(
+            SOUL_REAPER_COOLDOWN_MS,
+            Math.max(0, nextDarkTransformationTimestamp - castTimestamp),
+          );
+
+    return `${this.formatSeconds(Math.max(0, remainingMs))}s`;
+  }
+
   private getDarkTransformationAssessment(
     darkTransformationWindowId: number,
     firstCastInDarkTransformationWindows: Set<number>,
@@ -385,14 +409,12 @@ class SoulReaper extends ExecuteHelper.withDependencies({
         darkTransformationContext.nextDarkTransformationTimestamp,
       );
       const inDarkTransformation = cast.darkTransformationWindowId !== null;
-      let darkTransformationCooldownRemaining: string;
-      if (inDarkTransformation) {
-        darkTransformationCooldownRemaining = 'Active';
-      } else if (darkTransformationContext.nextDarkTransformationTimestamp === null) {
-        darkTransformationCooldownRemaining = 'N/A';
-      } else {
-        darkTransformationCooldownRemaining = `${((darkTransformationContext.nextDarkTransformationTimestamp - cast.timestamp) / 1000).toFixed(1)}s`;
-      }
+      const darkTransformationCooldownRemaining = inDarkTransformation
+        ? 'Active'
+        : this.getDarkTransformationCooldownRemaining(
+            cast.timestamp,
+            darkTransformationContext.nextDarkTransformationTimestamp,
+          );
 
       details.push({
         timestamp: cast.timestamp,

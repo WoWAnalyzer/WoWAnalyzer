@@ -46,6 +46,7 @@ type WhirlingElement = 'earth' | 'fire' | 'air';
 
 interface SurgingWindow {
   summon: SummonEvent;
+  cast: CastEvent | null;
   catalyst: ApplyBuffEvent | null;
   doomWinds: ApplyBuffEvent | null;
   casts: CastEvent[];
@@ -57,6 +58,7 @@ class SurgingTotem extends Analyzer.withDependencies({
 }) {
   private tracksHotHand = false;
   private windows: SurgingWindow[] = [];
+  private pendingTotemCast: CastEvent | null = null;
 
   constructor(options: Options) {
     super(options);
@@ -87,14 +89,17 @@ class SurgingTotem extends Analyzer.withDependencies({
   private onSummon(event: SummonEvent) {
     this.windows.push({
       summon: event,
+      cast: this.pendingTotemCast,
       catalyst: null,
       doomWinds: null,
       casts: [],
     });
+    this.pendingTotemCast = null;
   }
 
   private onCast(event: CastEvent) {
     if (event.ability.guid === SPELLS.SURGING_TOTEM.id) {
+      this.pendingTotemCast = event;
       return;
     }
     if (!event.globalCooldown && event.ability.guid !== TALENTS.DOOM_WINDS_TALENT.id) {
@@ -122,14 +127,27 @@ class SurgingTotem extends Analyzer.withDependencies({
     }
   }
 
+  private resolveBuff(window: SurgingWindow, link: string): ApplyBuffEvent | null {
+    if (!window.cast) {
+      return null;
+    }
+    return GetRelatedEvent<ApplyBuffEvent>(window.cast, link) ?? null;
+  }
+
   private resolveConsumer(window: SurgingWindow, link: string): CastEvent | undefined {
-    const consumer = GetRelatedEvent<CastEvent>(window.summon, link);
+    if (!window.cast) {
+      return undefined;
+    }
+    const consumer = GetRelatedEvent<CastEvent>(window.cast, link);
     return consumer && window.casts.includes(consumer) ? consumer : undefined;
   }
 
   private resolveAirConsumer(window: SurgingWindow): CastEvent | undefined {
+    if (!window.cast) {
+      return undefined;
+    }
     const consumer = GetRelatedEvent<CastEvent>(
-      window.summon,
+      window.cast,
       EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
     );
     if (!consumer) {
@@ -200,7 +218,7 @@ class SurgingTotem extends Analyzer.withDependencies({
   private castSlot(
     cast: CastEvent,
     performance: QualitativePerformance | undefined,
-    overlays: React.ReactNode[],
+    overlays: string[],
   ): CastInSequence {
     return {
       timestamp: cast.timestamp,
@@ -237,10 +255,10 @@ class SurgingTotem extends Analyzer.withDependencies({
   }
 
   private expectedFillerCast(
+    cast: CastEvent,
     buffs: Record<WhirlingElement, ApplyBuffEvent | null>,
     consumers: Partial<Record<WhirlingElement, CastEvent>>,
     doomWindsCast: CastEvent | undefined,
-    timestamp: number,
   ): JSX.Element {
     let expected: React.ReactNode = <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />;
 
@@ -249,8 +267,8 @@ class SurgingTotem extends Analyzer.withDependencies({
       const consumer = consumers[element];
       const available =
         applied != null &&
-        applied.timestamp <= timestamp &&
-        (consumer == null || consumer.timestamp > timestamp);
+        applied.timestamp <= cast.timestamp &&
+        (consumer == null || consumer.timestamp > cast.timestamp);
       if (!available) {
         continue;
       }
@@ -265,10 +283,10 @@ class SurgingTotem extends Analyzer.withDependencies({
             <SpellLink spell={SPELLS.PRIMORDIAL_STORM_CAST} />
           </>
         );
-        const doomWindsPending = doomWindsCast == null || doomWindsCast.timestamp > timestamp;
+        const doomWindsPending = doomWindsCast == null || doomWindsCast.timestamp > cast.timestamp;
         expected = doomWindsPending ? (
           <>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> &rarr; {airConsumer}
+            <SpellLink spell={cast.ability.guid} /> &rarr; {airConsumer}
           </>
         ) : (
           airConsumer
@@ -277,26 +295,18 @@ class SurgingTotem extends Analyzer.withDependencies({
       break;
     }
 
-    return <>This cast should have been {expected}.</>;
+    return (
+      <>
+        Cast <SpellLink spell={cast.ability.guid} /> but should have cast {expected}.
+      </>
+    );
   }
 
   private windowAnalysis(window: SurgingWindow) {
     const buffs: Record<WhirlingElement, ApplyBuffEvent | null> = {
-      earth:
-        GetRelatedEvent<ApplyBuffEvent>(
-          window.summon,
-          EnhancementEventLinks.WHIRLING_EARTH_APPLY_LINK,
-        ) ?? null,
-      fire:
-        GetRelatedEvent<ApplyBuffEvent>(
-          window.summon,
-          EnhancementEventLinks.WHIRLING_FIRE_APPLY_LINK,
-        ) ?? null,
-      air:
-        GetRelatedEvent<ApplyBuffEvent>(
-          window.summon,
-          EnhancementEventLinks.WHIRLING_AIR_APPLY_LINK,
-        ) ?? null,
+      earth: this.resolveBuff(window, EnhancementEventLinks.WHIRLING_EARTH_APPLY_LINK),
+      fire: this.resolveBuff(window, EnhancementEventLinks.WHIRLING_FIRE_APPLY_LINK),
+      air: this.resolveBuff(window, EnhancementEventLinks.WHIRLING_AIR_APPLY_LINK),
     };
 
     const consumers: Partial<Record<WhirlingElement, CastEvent>> = {
@@ -363,21 +373,19 @@ class SurgingTotem extends Analyzer.withDependencies({
       }
       if (cast === consumers.earth) {
         firstConsumerSeen = true;
-        sequence.push(
-          this.castSlot(cast, earthPerf, [<SpellIcon spell={SPELLS.WHIRLING_EARTH} noLink />]),
-        );
+        sequence.push(this.castSlot(cast, earthPerf, [SPELLS.WHIRLING_EARTH.icon]));
       } else if (cast === consumers.fire) {
         firstConsumerSeen = true;
-        const overlays = [<SpellIcon spell={SPELLS.WHIRLING_FIRE} noLink />];
+        const overlays = [SPELLS.WHIRLING_FIRE.icon];
         if (window.catalyst) {
-          overlays.push(<SpellIcon spell={SPELLS.PRIMAL_CATALYST_BUFF} noLink />);
+          overlays.push(SPELLS.PRIMAL_CATALYST_BUFF.icon);
         }
         sequence.push(this.castSlot(cast, firePerf, overlays));
       } else if (cast === consumers.air) {
         firstConsumerSeen = true;
-        const overlays = [<SpellIcon spell={SPELLS.WHIRLING_AIR} noLink />];
+        const overlays = [SPELLS.WHIRLING_AIR.icon];
         if (this.selectedCombatant.hasBuff(SPELLS.DOOM_WINDS_BUFF.id, cast.timestamp)) {
-          overlays.push(<SpellIcon spell={SPELLS.DOOM_WINDS_BUFF} noLink />);
+          overlays.push(SPELLS.DOOM_WINDS_BUFF.icon);
         }
         sequence.push(this.castSlot(cast, airPerf, overlays));
       } else if (cast === doomWindsCast) {
@@ -386,12 +394,7 @@ class SurgingTotem extends Analyzer.withDependencies({
       } else if (firstConsumerSeen) {
         fillerCount += 1;
         const sequenceEntry = this.castSlot(cast, QualitativePerformance.Fail, []);
-        sequenceEntry.tooltip = this.expectedFillerCast(
-          buffs,
-          consumers,
-          doomWindsCast,
-          cast.timestamp,
-        );
+        sequenceEntry.tooltip = this.expectedFillerCast(cast, buffs, consumers, doomWindsCast);
         sequence.push(sequenceEntry);
       } else {
         sequence.push(this.castSlot(cast, undefined, []));
@@ -547,37 +550,53 @@ class SurgingTotem extends Analyzer.withDependencies({
     );
   }
 
-  private consumeDetails(analysis: ReturnType<SurgingTotem['windowAnalysis']>): JSX.Element {
+  private consumeDetails(analysis: ReturnType<SurgingTotem['windowAnalysis']>): JSX.Element | null {
+    const issues: JSX.Element[] = [];
+
+    if (analysis.positions.earth !== 1) {
+      issues.push(
+        this.elementDetail(
+          SPELLS.WHIRLING_EARTH,
+          TALENTS.SUNDERING_TALENT,
+          analysis.positions.earth,
+          1,
+        ),
+      );
+    }
+    if (analysis.positions.fire !== 2) {
+      issues.push(
+        this.elementDetail(
+          SPELLS.WHIRLING_FIRE,
+          TALENTS.LAVA_LASH_TALENT,
+          analysis.positions.fire,
+          2,
+        ),
+      );
+    }
+    if (analysis.positions.air !== 3) {
+      issues.push(this.airDetail(analysis.positions.air));
+    }
+
     const doomWindDetails = this.doomWindsDetail(
       analysis.doomWindsCast,
       analysis.doomWindsInPosition,
     );
+    if (doomWindDetails) {
+      issues.push(doomWindDetails);
+    }
 
+    if (issues.length === 0) {
+      return null;
+    }
+    if (issues.length === 1) {
+      return issues[0];
+    }
     return (
-      <>
-        After each <SpellLink spell={SPELLS.SURGING_TOTEM} />, spend the{' '}
-        <SpellLink spell={TALENTS.WHIRLING_ELEMENTS_TALENT} /> buffs in order:
-        <ol>
-          <li>
-            {this.elementDetail(
-              SPELLS.WHIRLING_EARTH,
-              TALENTS.SUNDERING_TALENT,
-              analysis.positions.earth,
-              1,
-            )}
-          </li>
-          <li>
-            {this.elementDetail(
-              SPELLS.WHIRLING_FIRE,
-              TALENTS.LAVA_LASH_TALENT,
-              analysis.positions.fire,
-              2,
-            )}
-          </li>
-          <li>{this.airDetail(analysis.positions.air)}</li>
-          {doomWindDetails && <li>{doomWindDetails}</li>}
-        </ol>
-      </>
+      <ul>
+        {issues.map((issue, index) => (
+          <li key={index}>{issue}</li>
+        ))}
+      </ul>
     );
   }
 
@@ -664,6 +683,7 @@ class SurgingTotem extends Analyzer.withDependencies({
         content: <SpellSequence casts={sequence} iconSize={48} />,
       };
       result.details = details;
+      result.detailsIcon = null;
 
       return result;
     });

@@ -62,6 +62,8 @@ interface Props {
   graphData: GraphData[];
   yAxisName: string;
   explanations?: JSX.Element[];
+  noLegend?: boolean;
+  scrollThresholdOverride?: number;
 }
 
 /**
@@ -178,6 +180,8 @@ const ExplanationGraph: FC<Props> = ({
   graphData,
   yAxisName,
   explanations,
+  noLegend,
+  scrollThresholdOverride,
 }) => {
   /** Logic for handling display of windows */
   const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
@@ -365,9 +369,11 @@ const ExplanationGraph: FC<Props> = ({
       y: yAxis,
       color: {
         scale: { range: colorRange },
-        legend: {
-          symbolOpacity: 1,
-        },
+        legend: noLegend
+          ? null
+          : {
+              symbolOpacity: 1,
+            },
       },
     },
 
@@ -378,7 +384,7 @@ const ExplanationGraph: FC<Props> = ({
   // If the x-axis is too long, we enable horizontal scrolling, for better readability
   const graphLength =
     graphData[currentWindowIndex].endTime - graphData[currentWindowIndex].startTime;
-  const threshold = 0.6 * 60 * 1000;
+  const threshold = scrollThresholdOverride || 0.6 * 60 * 1000;
 
   // Calculate the width percentage so the graph has consistent size
   const widthPercentage = graphLength > threshold ? (graphLength / threshold) * 100 : 100;

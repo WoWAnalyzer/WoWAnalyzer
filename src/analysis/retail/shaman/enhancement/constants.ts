@@ -55,17 +55,19 @@ export const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPE
   (spell) => spell.id,
 );
 
-export enum EventLinkBuffers {
-  MaelstromWeapon = 50,
-  PrimordialWave = 15500,
-  Stormstrike = 900,
-  StormUnleashed = 5,
-  WhirlingFire = 10,
-  CastDamageBuffer = 100,
-  SURGING_ELEMENTS_BUFFER = 250,
-  LIGHTNING_BOLT_BUFFER = 150,
-  PRIMORDIAL_WAVE_DAMAGE_BUFFER = 500,
-}
+export const EventLinkBuffers = {
+  MaelstromWeapon: 50,
+  PrimordialWave: 15500,
+  Stormstrike: 900,
+  StormUnleashed: 5,
+  WhirlingFire: 10,
+  CastDamageBuffer: 100,
+  SURGING_ELEMENTS_BUFFER: 250,
+  LIGHTNING_BOLT_BUFFER: 150,
+  PRIMORDIAL_WAVE_DAMAGE_BUFFER: 500,
+  WHIRLING_BUFF_DURATION_MS: 24_000,
+  SURGING_TOTEM_BUFF_BUFFER_MS: 5,
+};
 
 export enum EnhancementEventLinks {
   THORIMS_INVOCATION_LINK = 'thorims-invocation',

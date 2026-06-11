@@ -137,24 +137,7 @@ const commonTop = [
   MANA_TEA_20_STACKS,
 ];
 
-const atMissingCondition = cnd.buffMissing(SPELLS.JT_BUFF, {
-  duration: 15000,
-  timeRemaining: 1500,
-});
-
-const JFS_AT = {
-  spell: talents.JADEFIRE_STOMP_TALENT,
-  condition: atMissingCondition,
-};
-
-const JE_JFS = {
-  spell: SPELLS.CRACKLING_JADE_LIGHTNING,
-  condition: cnd.optionalRule(
-    cnd.and(cnd.buffPresent(SPELLS.JT_BUFF), cnd.buffPresent(SPELLS.JADE_EMPOWERMENT_BUFF)),
-  ),
-};
-
-const RM_AT_CORE = [JE_JFS, ZP_VIVIFY_5_REMS, JFS_AT, VIVIFY_8_REMS];
+const RM_AT_CORE = [ZP_VIVIFY_5_REMS, VIVIFY_8_REMS];
 
 const rotation_rm_at_sg = build([
   {

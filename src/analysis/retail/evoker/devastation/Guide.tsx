@@ -8,6 +8,7 @@ import { CoreSection } from './modules/guide/CoreSection';
 import { DragonRageSection } from './modules/guide/DragonRageSection';
 import { IntroSection } from './modules/guide/IntroSection';
 import MajorDefensives from '../shared/modules/MajorDefensives/DefensivesGuide';
+import { DisintegrateSection } from './modules/guide/DisintegrateSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -16,6 +17,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <CoreSection modules={modules} info={info} events={events} />
       <CooldownSection modules={modules} info={info} events={events} />
       <DragonRageSection modules={modules} info={info} events={events} />
+      <DisintegrateSection modules={modules} info={info} events={events}></DisintegrateSection>
       <DamageEfficiency modules={modules} info={info} events={events} />
       <CoreRotation />
       <MajorDefensives />

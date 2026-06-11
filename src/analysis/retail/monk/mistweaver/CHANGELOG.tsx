@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 6, 11), <>Removed <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> and <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT} /> from APL checks.</>, swirl),
   change(date(2026, 5, 27), <>Tightened <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> performance criteria.</>, swirl),
   change(date(2026, 5, 18), <>Fixed <SpellLink spell={TALENTS_MONK.VEIL_OF_PRIDE_TALENT} /> correctly evaluating 0-cloud casts.</>, swirl),
   change(date(2026, 5, 16), <>Refreshed UI elements of the performance modules in the Overview tab.</>, swirl),

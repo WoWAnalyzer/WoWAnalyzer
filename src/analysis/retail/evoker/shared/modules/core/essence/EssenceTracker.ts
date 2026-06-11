@@ -95,14 +95,11 @@ class EssenceTracker extends ResourceTracker {
   }
 
   onCast(event: CastEvent) {
-    /* Early return as to not count Prescience casts before the fight starts
-     * that Augmentation might have when setting up T31 4pc buff. */
-    if (
-      event.timestamp < this.owner.fight.start_time &&
-      event.ability.guid === TALENTS_EVOKER.PRESCIENCE_TALENT.id
-    ) {
+    //Exclude casts without cost
+    if (this.spellEssenceCost.getResourceCost(event) === 0) {
       return;
     }
+
     const cost = this.getAdjustedCost(event);
     if (cost) {
       this._applySpender(event, cost, this.getResource(event));

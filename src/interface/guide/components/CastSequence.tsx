@@ -15,8 +15,8 @@ export interface CastInSequence {
   outlineColor?: string;
   ghosted?: boolean;
   tooltip?: React.ReactNode;
-  /** Up to 2 small badges rendered in the top-right/bottom-right corners. */
-  overlays?: React.ReactNode[];
+  /** Up to 2 small badge icons rendered in the top-right/bottom-right corners. */
+  overlays?: string[];
 }
 
 interface SpellSequenceProps {
@@ -61,7 +61,10 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
                   size={iconSize}
                   position={overlayIdx === 0 ? 'top' : 'bottom'}
                 >
-                  {overlay}
+                  <img
+                    src={`https://wow.zamimg.com/images/wow/icons/large/${overlay}.jpg`}
+                    alt=""
+                  />
                 </Overlay>
               ))}
             </SpellIcon>
