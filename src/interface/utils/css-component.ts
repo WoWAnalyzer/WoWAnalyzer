@@ -36,7 +36,7 @@ export default function cssComponent<
   T extends HTMLElementType | React.FC<P>,
   V extends string[],
 >(el: T, className: string, vars: V) {
-  return (rawProps: React.ComponentProps<T> & VarProps<V>) => {
+  return ({ as, ...rawProps }: React.ComponentProps<T> & VarProps<V> & { as?: ElementType }) => {
     const varStyle: Record<string, number | string> = {};
     const props: Record<string, unknown> = {};
     for (const [name, value] of Object.entries(rawProps)) {
@@ -65,10 +65,12 @@ export default function cssComponent<
           }
         : varStyle;
 
-    return React.createElement(el, {
+    const resultEl = typeof el === 'string' ? (as ?? el) : el;
+    return React.createElement(resultEl, {
       ...(props as unknown as React.Attributes & P),
       style: style,
       className: `${className} ${'className' in props ? props.className : ''}`,
+      as: typeof el !== 'string' ? as : undefined,
     } as React.Attributes & P);
   };
 }
