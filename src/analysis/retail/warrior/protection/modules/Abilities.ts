@@ -321,9 +321,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_CHARGE.id,
         enabled: combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
+        // Shield Charge is on the GCD in-game, but combat log timestamps its cast at impact
+        // It can appear inside the previous GCD, and follow-up casts can appear inside its logged GCD
+        // Marking as non-GCD until fixed
         cooldown: 45,
       },
       // Hero Talents - Colssus

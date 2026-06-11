@@ -1,7 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
@@ -41,7 +40,6 @@ class CombatLogParser extends CoreCombatLogParser {
     shieldChargeNormalizer: ShieldChargeNormalizer,
 
     // Core
-    globalCooldown: GlobalCooldown,
     haste: Haste,
     mitigationCheck: MitigationCheck,
     buffs: Buffs,
