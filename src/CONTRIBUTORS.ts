@@ -3010,3 +3010,16 @@ export const Eevulution: Contributor = {
   github: 'eevulution',
   discord: 'eevulution',
 };
+
+export const Xinito: Contributor = {
+  nickname: 'Xinito',
+  github: '1337Xinito',
+  discord: 'Xinito',
+  mains: [
+    {
+      name: 'Skullbonka',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://classic.warcraftlogs.com/character/eu/garalon/skullbonka',
+    },
+  ],
+};
