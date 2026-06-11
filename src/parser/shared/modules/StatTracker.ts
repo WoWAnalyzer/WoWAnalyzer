@@ -47,10 +47,6 @@ const debug = false;
 
 const HIGHEST_SECONDARY_BUFF_STATS = ['crit', 'haste', 'mastery', 'versatility'] as const;
 const FANATICAL_INSPIRATION_STAT_AMOUNT = 173;
-const FRENZIED_FOCUS_LOW_QUALITY_HASTE_AMOUNT = 100;
-const FRENZIED_FOCUS_HIGH_QUALITY_HASTE_AMOUNT = 125;
-const FRENZIED_FOCUS_LOW_QUALITY_ENCHANT_IDS = [ITEMS.WEAPON_BERSERKERS_RAGE_R1.effectId];
-const FRENZIED_FOCUS_HIGH_QUALITY_ENCHANT_IDS = [ITEMS.WEAPON_BERSERKERS_RAGE_R2.effectId];
 
 function highestSecondaryStat(selectedCombatant: Combatant, stat: keyof Stats): number {
   const pullStats = selectedCombatant.pullStats;
@@ -63,33 +59,6 @@ function highestSecondaryStat(selectedCombatant: Combatant, stat: keyof Stats): 
   );
 
   return stat === highestSecondary ? FANATICAL_INSPIRATION_STAT_AMOUNT : 0;
-}
-
-function frenziedFocusHasteAmount(selectedCombatant: Combatant): number {
-  const weaponEnchantIds = [
-    selectedCombatant.getGear('MAINHAND')?.permanentEnchant,
-    selectedCombatant.getGear('OFFHAND')?.permanentEnchant,
-  ];
-
-  if (
-    weaponEnchantIds.some(
-      (enchantId) =>
-        enchantId !== undefined && FRENZIED_FOCUS_HIGH_QUALITY_ENCHANT_IDS.includes(enchantId),
-    )
-  ) {
-    return FRENZIED_FOCUS_HIGH_QUALITY_HASTE_AMOUNT;
-  }
-
-  if (
-    weaponEnchantIds.some(
-      (enchantId) =>
-        enchantId !== undefined && FRENZIED_FOCUS_LOW_QUALITY_ENCHANT_IDS.includes(enchantId),
-    )
-  ) {
-    return FRENZIED_FOCUS_LOW_QUALITY_HASTE_AMOUNT;
-  }
-
-  return FRENZIED_FOCUS_LOW_QUALITY_HASTE_AMOUNT;
 }
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
@@ -123,9 +92,6 @@ class StatTracker extends Analyzer {
     // region Misc
     [SPELLS.JACINS_RUSE.id]: { mastery: 48 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
-    [SPELLS.FRENZIED_FOCUS.id]: {
-      haste: (selectedCombatant) => frenziedFocusHasteAmount(selectedCombatant),
-    },
     // endregion
 
     // region Death Knight
