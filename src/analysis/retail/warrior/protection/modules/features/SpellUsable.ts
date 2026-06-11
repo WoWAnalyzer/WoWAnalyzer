@@ -12,7 +12,6 @@ import TALENTS from 'common/TALENTS/warrior';
 
 const COOLDOWN_LAG_BUFFER_MS = 250;
 const THUNDER_CLAP_COOLDOWN_LAG_BUFFER_MS = 2000;
-const STORM_SURGE_CDR_MULTIPLIER = 2;
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -79,13 +78,11 @@ class SpellUsable extends CoreSpellUsable {
     cooldownTriggerEvent: AbilityEvent<any>,
     spellId = cooldownTriggerEvent.ability.guid,
   ) {
-    const trackedSpellId = this.getTrackedSpellId(spellId);
-
-    if (trackedSpellId === SPELLS.SHIELD_SLAM.id) {
-      if (this.isOnCooldown(trackedSpellId) && this.lastPotentialTriggerForShieldSlam) {
+    if (spellId === SPELLS.SHIELD_SLAM.id) {
+      if (this.isOnCooldown(spellId) && this.lastPotentialTriggerForShieldSlam) {
         // Backdate inferred Strategist resets to the last plausible trigger
         this.endCooldown(
-          trackedSpellId,
+          spellId,
           Math.min(
             this.lastPotentialTriggerForShieldSlam.timestamp,
             cooldownTriggerEvent.timestamp,
@@ -93,113 +90,15 @@ class SpellUsable extends CoreSpellUsable {
         );
       }
     } else if (
-      this.isOnCooldown(trackedSpellId) &&
-      this.cooldownRemaining(trackedSpellId, cooldownTriggerEvent.timestamp) <=
-        this.getCooldownLagBuffer(trackedSpellId)
+      this.isOnCooldown(spellId) &&
+      this.cooldownRemaining(spellId, cooldownTriggerEvent.timestamp) <=
+        this.getCooldownLagBuffer(spellId)
     ) {
       // Treat small early casts as natural cooldown completions with loose WCL timestamps
-      this.endCooldown(trackedSpellId, cooldownTriggerEvent.timestamp);
+      this.endCooldown(spellId, cooldownTriggerEvent.timestamp);
     }
 
-    super.beginCooldown(cooldownTriggerEvent, trackedSpellId);
-  }
-
-  public isAvailable(spellId: number): boolean {
-    return super.isAvailable(this.getTrackedSpellId(spellId));
-  }
-
-  public isOnCooldown(spellId: number): boolean {
-    return super.isOnCooldown(this.getTrackedSpellId(spellId));
-  }
-
-  public fractionalChargesAvailable(spellId: number): number {
-    return super.fractionalChargesAvailable(this.getTrackedSpellId(spellId));
-  }
-
-  public chargesAvailable(spellId: number): number {
-    return super.chargesAvailable(this.getTrackedSpellId(spellId));
-  }
-
-  public chargesOnCooldown(spellId: number): number {
-    return super.chargesOnCooldown(this.getTrackedSpellId(spellId));
-  }
-
-  public fullCooldownDuration(spellId: number): number {
-    return super.fullCooldownDuration(this.getTrackedSpellId(spellId));
-  }
-
-  public cooldownRemaining(
-    spellId: number,
-    timestamp: number = this.owner.currentTimestamp,
-  ): number {
-    return super.cooldownRemaining(this.getTrackedSpellId(spellId), timestamp);
-  }
-
-  public endCooldown(
-    spellId: number,
-    timestamp: number = this.owner.currentTimestamp,
-    resetCooldown = false,
-    restoreAllCharges = false,
-  ) {
-    super.endCooldown(this.getTrackedSpellId(spellId), timestamp, resetCooldown, restoreAllCharges);
-  }
-
-  public reduceCooldown(
-    spellId: number,
-    reductionMs: number,
-    timestamp: number = this.owner.currentTimestamp,
-  ): number {
-    return super.reduceCooldown(this.getTrackedSpellId(spellId), reductionMs, timestamp);
-  }
-
-  public applyCooldownRateChange(
-    spellId: number | number[] | 'ALL',
-    rateMultiplier: number,
-    timestamp: number = this.owner.currentTimestamp,
-  ) {
-    super.applyCooldownRateChange(this.getTrackedSpellIds(spellId), rateMultiplier, timestamp);
-  }
-
-  public removeCooldownRateChange(
-    spellId: number | number[] | 'ALL',
-    rateMultiplier: number,
-    timestamp: number = this.owner.currentTimestamp,
-  ) {
-    const trackedSpellIds = this.getTrackedSpellIds(spellId);
-    const thunderClapCooldown = this._currentCooldowns[SPELLS.THUNDER_CLAP.id];
-    const preserveThunderClapCooldown =
-      rateMultiplier === STORM_SURGE_CDR_MULTIPLIER &&
-      trackedSpellIds !== 'ALL' &&
-      (trackedSpellIds === SPELLS.THUNDER_CLAP.id ||
-        (Array.isArray(trackedSpellIds) && trackedSpellIds.includes(SPELLS.THUNDER_CLAP.id))) &&
-      thunderClapCooldown;
-    const thunderClapExpectedEnd = thunderClapCooldown?.expectedEnd;
-    const thunderClapRechargeDuration = thunderClapCooldown?.currentRechargeDuration;
-
-    // Core mod-rate removal preserves percentage progress, but Storm Surge is only a temporary boost
-    super.removeCooldownRateChange(this.getTrackedSpellIds(spellId), rateMultiplier, timestamp);
-
-    if (
-      preserveThunderClapCooldown &&
-      thunderClapExpectedEnd !== undefined &&
-      thunderClapRechargeDuration !== undefined
-    ) {
-      // Storm Surge should not extend cooldowns that started while Avatar was active
-      thunderClapCooldown.expectedEnd = thunderClapExpectedEnd;
-      thunderClapCooldown.currentRechargeDuration = thunderClapRechargeDuration;
-    }
-  }
-
-  private getTrackedSpellIds(spellId: number | number[] | 'ALL'): number | number[] | 'ALL' {
-    if (spellId === 'ALL') {
-      return spellId;
-    }
-
-    if (Array.isArray(spellId)) {
-      return [...new Set(spellId.map((id) => this.getTrackedSpellId(id)))];
-    }
-
-    return this.getTrackedSpellId(spellId);
+    super.beginCooldown(cooldownTriggerEvent, spellId);
   }
 
   private getCooldownLagBuffer(spellId: number): number {
@@ -207,17 +106,7 @@ class SpellUsable extends CoreSpellUsable {
       // Thunder Clap has several proc and rate-change paths that WCL timestamps loosely
       return THUNDER_CLAP_COOLDOWN_LAG_BUFFER_MS;
     }
-
     return COOLDOWN_LAG_BUFFER_MS;
-  }
-
-  private getTrackedSpellId(spellId: number): number {
-    if (spellId === SPELLS.THUNDER_BLAST.id) {
-      // Thunder Blast spends Thunder Clap's cooldown and charges
-      return SPELLS.THUNDER_CLAP.id;
-    }
-
-    return spellId;
   }
 }
 

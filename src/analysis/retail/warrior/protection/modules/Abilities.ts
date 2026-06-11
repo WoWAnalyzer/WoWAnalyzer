@@ -131,7 +131,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: (haste) => 6 / (1 + haste),
+        cooldown: (haste) => {
+          const baseCooldown =
+            this.selectedCombatant.hasTalent(TALENTS.STORM_SURGE_TALENT) &&
+            this.selectedCombatant.hasBuff(TALENTS.AVATAR_TALENT)
+              ? 3
+              : 6;
+          return baseCooldown / (1 + haste);
+        },
       },
       {
         spell: TALENTS.IMPENDING_VICTORY_TALENT.id,

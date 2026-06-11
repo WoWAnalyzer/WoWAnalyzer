@@ -168,15 +168,6 @@ describe('Protection Warrior SpellUsable', () => {
     expect(hasCooldownError(annotations)).toBe(false);
   });
 
-  it('shares Thunder Blast cooldown tracking with Thunder Clap', () => {
-    const { spellUsable, triggerCast } = makeSpellUsable();
-
-    triggerCast(0, SPELLS.THUNDER_BLAST.id);
-
-    expect(spellUsable.isOnCooldown(SPELLS.THUNDER_CLAP.id)).toBe(true);
-    expect(spellUsable.isOnCooldown(SPELLS.THUNDER_BLAST.id)).toBe(true);
-  });
-
   it('uses Shield Slam buff applications as explicit reset signals', () => {
     const { annotations, triggerApplyBuff, triggerCast } = makeSpellUsable();
 
@@ -185,15 +176,5 @@ describe('Protection Warrior SpellUsable', () => {
     triggerCast(5000, SPELLS.SHIELD_SLAM.id);
 
     expect(hasCooldownError(annotations)).toBe(false);
-  });
-
-  it('does not extend active Thunder Clap cooldowns when Storm Surge ends', () => {
-    const { spellUsable, triggerCast } = makeSpellUsable();
-
-    spellUsable.applyCooldownRateChange(SPELLS.THUNDER_CLAP.id, 2, 0);
-    triggerCast(0, SPELLS.THUNDER_CLAP.id);
-    spellUsable.removeCooldownRateChange(SPELLS.THUNDER_CLAP.id, 2, 100);
-
-    expect(spellUsable.cooldownRemaining(SPELLS.THUNDER_CLAP.id, 100)).toBe(2200);
   });
 });
