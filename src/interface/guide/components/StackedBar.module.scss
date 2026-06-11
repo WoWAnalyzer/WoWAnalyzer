@@ -2,7 +2,7 @@
 
 .BarContainer {
   width: 100%;
-  height: var(--height) px;
+  height: calc(var(--height) * 1px);
   min-height: 35px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
@@ -17,7 +17,7 @@
 }
 
 .Segment {
-  width: var(--widthPercent) %;
+  width: calc(var(--widthPercent) * 1%);
   height: 100%;
   background: var(--color);
   display: flex;
