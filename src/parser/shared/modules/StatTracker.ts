@@ -45,22 +45,6 @@ const ARMOR_INT_BONUS = 0.05;
 
 const debug = false;
 
-const HIGHEST_SECONDARY_BUFF_STATS = ['crit', 'haste', 'mastery', 'versatility'] as const;
-const FANATICAL_INSPIRATION_STAT_AMOUNT = 173;
-
-function highestSecondaryStat(selectedCombatant: Combatant, stat: keyof Stats): number {
-  const pullStats = selectedCombatant.pullStats;
-  if (!pullStats) {
-    return 0;
-  }
-
-  const highestSecondary = HIGHEST_SECONDARY_BUFF_STATS.reduce((highest, current) =>
-    pullStats[current] > pullStats[highest] ? current : highest,
-  );
-
-  return stat === highestSecondary ? FANATICAL_INSPIRATION_STAT_AMOUNT : 0;
-}
-
 // TODO: stat constants somewhere else? they're largely copied from combatant
 /**
  * The module in charge of tracking the player's stats over the course of an encounter.
@@ -109,12 +93,6 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.QUICKWICK_CANDLESTICK.id,
       haste: (selectedCombatant, item) =>
         calculateSecondaryStatDefault(400, 2365, item?.itemLevel ?? selectedCombatant.ilvl),
-    },
-    [SPELLS.FANATICAL_INSPIRATION.id]: {
-      crit: (selectedCombatant) => highestSecondaryStat(selectedCombatant, 'crit'),
-      haste: (selectedCombatant) => highestSecondaryStat(selectedCombatant, 'haste'),
-      mastery: (selectedCombatant) => highestSecondaryStat(selectedCombatant, 'mastery'),
-      versatility: (selectedCombatant) => highestSecondaryStat(selectedCombatant, 'versatility'),
     },
     // endregion
 

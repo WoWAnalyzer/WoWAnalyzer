@@ -98,7 +98,7 @@ import {
   DarkmoonSigilAscension,
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
-import { DarkmoonSigilHunt } from 'parser/retail/modules/items/midnight';
+import { DarkmoonSigilHunt, FanaticalInspiration } from 'parser/retail/modules/items/midnight';
 import CritRacial from 'parser/shared/modules/racials/CritRacial';
 import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
@@ -225,6 +225,7 @@ class CombatLogParser {
     incorporealEssenceGorger: IncorporealEssenceGorger,
     volatileVoidSuffuser: VolatileVoidSuffuser,
     lightOfTheCosmicCrescendo: LightOfTheCosmicCrescendo,
+    fanaticalInspiration: FanaticalInspiration,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,
