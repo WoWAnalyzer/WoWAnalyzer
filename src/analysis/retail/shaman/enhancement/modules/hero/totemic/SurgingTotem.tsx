@@ -5,8 +5,6 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   GetRelatedEvent,
-  HasRelatedEvent,
-  RemoveBuffEvent,
   SummonEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
@@ -29,8 +27,8 @@ import CastDetail, {
   type PerCastStat,
 } from 'interface/guide/components/CastDetail';
 import { SpellSequence, type CastInSequence } from 'interface/guide/components/CastSequence';
-import { EnhancementEventLinks } from '../../constants';
-import HotHand from './HotHand';
+import { EnhancementEventLinks } from '../../../constants';
+import HotHand from '../../talents/HotHand';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const WhirlingStatValue = styled.span`
@@ -48,10 +46,6 @@ type WhirlingElement = 'earth' | 'fire' | 'air';
 
 interface SurgingWindow {
   summon: SummonEvent;
-  earth: ApplyBuffEvent | null;
-  fire: ApplyBuffEvent | null;
-  air: ApplyBuffEvent | null;
-  airRemove: RemoveBuffEvent | null;
   catalyst: ApplyBuffEvent | null;
   doomWinds: ApplyBuffEvent | null;
   casts: CastEvent[];
@@ -80,13 +74,7 @@ class SurgingTotem extends Analyzer.withDependencies({
     this.addEventListener(
       Events.applybuff
         .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.WHIRLING_EARTH,
-          SPELLS.WHIRLING_FIRE,
-          SPELLS.WHIRLING_AIR,
-          SPELLS.PRIMAL_CATALYST_BUFF,
-          SPELLS.DOOM_WINDS_BUFF,
-        ]),
+        .spell([SPELLS.PRIMAL_CATALYST_BUFF, SPELLS.DOOM_WINDS_BUFF]),
       this.onApplyBuffs,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -99,10 +87,6 @@ class SurgingTotem extends Analyzer.withDependencies({
   private onSummon(event: SummonEvent) {
     this.windows.push({
       summon: event,
-      earth: null,
-      fire: null,
-      air: null,
-      airRemove: null,
       catalyst: null,
       doomWinds: null,
       casts: [],
@@ -129,17 +113,8 @@ class SurgingTotem extends Analyzer.withDependencies({
       return;
     }
     switch (event.ability.guid) {
-      case SPELLS.WHIRLING_EARTH.id:
-        window.earth = event;
-        break;
-      case SPELLS.WHIRLING_FIRE.id:
-        window.fire = event;
-        break;
-      case SPELLS.WHIRLING_AIR.id:
-        window.air = event;
-        break;
       case SPELLS.PRIMAL_CATALYST_BUFF.id:
-        window.catalyst = event;
+        window.catalyst ??= event;
         break;
       case SPELLS.DOOM_WINDS_BUFF.id:
         window.doomWinds ??= event;
@@ -147,23 +122,28 @@ class SurgingTotem extends Analyzer.withDependencies({
     }
   }
 
+  private resolveConsumer(window: SurgingWindow, link: string): CastEvent | undefined {
+    const consumer = GetRelatedEvent<CastEvent>(window.summon, link);
+    return consumer && window.casts.includes(consumer) ? consumer : undefined;
+  }
+
   private resolveAirConsumer(window: SurgingWindow): CastEvent | undefined {
-    if (!window.air) {
-      return undefined;
-    }
-    const cast = GetRelatedEvent<CastEvent>(
-      window.air,
+    const consumer = GetRelatedEvent<CastEvent>(
+      window.summon,
       EnhancementEventLinks.WHIRLING_AIR_CONSUME_LINK,
     );
-    if (!cast) {
+    if (!consumer) {
       return undefined;
     }
-    const trigger = GetRelatedEvent<CastEvent>(cast, EnhancementEventLinks.THORIMS_INVOCATION_LINK);
+    const trigger = GetRelatedEvent<CastEvent>(
+      consumer,
+      EnhancementEventLinks.THORIMS_INVOCATION_LINK,
+    );
     if (trigger && window.casts.includes(trigger)) {
       return trigger;
     }
-    if (window.casts.includes(cast)) {
-      return cast;
+    if (window.casts.includes(consumer)) {
+      return consumer;
     }
     return undefined;
   }
@@ -217,20 +197,6 @@ class SurgingTotem extends Analyzer.withDependencies({
     return [];
   }
 
-  private spellToSequence(
-    spell: Spell,
-    timestamp: number,
-    overlays: React.ReactNode[],
-  ): CastInSequence {
-    return {
-      timestamp,
-      spellId: spell.id,
-      spellName: spell.name,
-      icon: spell.icon,
-      overlays,
-    };
-  }
-
   private castSlot(
     cast: CastEvent,
     performance: QualitativePerformance | undefined,
@@ -271,7 +237,7 @@ class SurgingTotem extends Analyzer.withDependencies({
   }
 
   private expectedFillerCast(
-    window: SurgingWindow,
+    buffs: Record<WhirlingElement, ApplyBuffEvent | null>,
     consumers: Partial<Record<WhirlingElement, CastEvent>>,
     doomWindsCast: CastEvent | undefined,
     timestamp: number,
@@ -279,7 +245,7 @@ class SurgingTotem extends Analyzer.withDependencies({
     let expected: React.ReactNode = <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />;
 
     for (const element of ['earth', 'fire', 'air'] as WhirlingElement[]) {
-      const applied = window[element];
+      const applied = buffs[element];
       const consumer = consumers[element];
       const available =
         applied != null &&
@@ -315,29 +281,37 @@ class SurgingTotem extends Analyzer.withDependencies({
   }
 
   private windowAnalysis(window: SurgingWindow) {
-    const consumers: Partial<Record<WhirlingElement, CastEvent>> = {};
-    let doomWindsCast: CastEvent | undefined;
+    const buffs: Record<WhirlingElement, ApplyBuffEvent | null> = {
+      earth:
+        GetRelatedEvent<ApplyBuffEvent>(
+          window.summon,
+          EnhancementEventLinks.WHIRLING_EARTH_APPLY_LINK,
+        ) ?? null,
+      fire:
+        GetRelatedEvent<ApplyBuffEvent>(
+          window.summon,
+          EnhancementEventLinks.WHIRLING_FIRE_APPLY_LINK,
+        ) ?? null,
+      air:
+        GetRelatedEvent<ApplyBuffEvent>(
+          window.summon,
+          EnhancementEventLinks.WHIRLING_AIR_APPLY_LINK,
+        ) ?? null,
+    };
 
-    for (const cast of window.casts) {
-      if (cast.ability.guid === TALENTS.DOOM_WINDS_TALENT.id) {
-        doomWindsCast ??= cast;
-        continue;
-      }
-      if (
-        !consumers.earth &&
-        HasRelatedEvent(cast, EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK)
-      ) {
-        consumers.earth = cast;
-      }
-      if (
-        !consumers.fire &&
-        HasRelatedEvent(cast, EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK)
-      ) {
-        consumers.fire = cast;
-      }
-    }
+    const consumers: Partial<Record<WhirlingElement, CastEvent>> = {
+      earth: buffs.earth
+        ? this.resolveConsumer(window, EnhancementEventLinks.WHIRLING_EARTH_CONSUME_LINK)
+        : undefined,
+      fire: buffs.fire
+        ? this.resolveConsumer(window, EnhancementEventLinks.WHIRLING_FIRE_CONSUME_LINK)
+        : undefined,
+      air: buffs.air ? this.resolveAirConsumer(window) : undefined,
+    };
 
-    consumers.air = this.resolveAirConsumer(window);
+    const doomWindsCast = window.casts.find(
+      (cast) => cast.ability.guid === TALENTS.DOOM_WINDS_TALENT.id,
+    );
 
     const consumeOrder = (['earth', 'fire', 'air'] as WhirlingElement[])
       .filter((element) => consumers[element])
@@ -413,7 +387,7 @@ class SurgingTotem extends Analyzer.withDependencies({
         fillerCount += 1;
         const sequenceEntry = this.castSlot(cast, QualitativePerformance.Fail, []);
         sequenceEntry.tooltip = this.expectedFillerCast(
-          window,
+          buffs,
           consumers,
           doomWindsCast,
           cast.timestamp,
@@ -424,14 +398,14 @@ class SurgingTotem extends Analyzer.withDependencies({
       }
     }
 
-    if (window.earth && !consumers.earth) {
-      sequence.push(this.expiredSlot(SPELLS.WHIRLING_EARTH, window.earth));
+    if (buffs.earth && !consumers.earth) {
+      sequence.push(this.expiredSlot(SPELLS.WHIRLING_EARTH, buffs.earth));
     }
-    if (window.fire && !consumers.fire) {
-      sequence.push(this.expiredSlot(SPELLS.WHIRLING_FIRE, window.fire));
+    if (buffs.fire && !consumers.fire) {
+      sequence.push(this.expiredSlot(SPELLS.WHIRLING_FIRE, buffs.fire));
     }
-    if (window.air && !consumers.air) {
-      sequence.push(this.expiredSlot(SPELLS.WHIRLING_AIR, window.air));
+    if (buffs.air && !consumers.air) {
+      sequence.push(this.expiredSlot(SPELLS.WHIRLING_AIR, buffs.air));
     }
     if (!doomWindsShown) {
       sequence.push(this.ghostedDoomWinds());

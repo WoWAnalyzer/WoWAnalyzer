@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+    change(date(2026, 6, 11), <>Updates for <SpellLink spell={TALENTS_SHAMAN.TEMPEST_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT} /> analysis.</>, Seriousnes),
     change(date(2026, 5, 25), <>Added Hero Talent guide section with <SpellLink spell={TALENTS_SHAMAN.TEMPEST_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT} /> modules.</>, Seriousnes),
     change(date(2026, 5, 23), <>Internal cleanup: fixed stale module keys, removed dead modules, and aligned with framework conventions.</>, Seriousnes),
     change(date(2026, 4, 24), <>Updated for 12.0.5 compatibility.</>, Seriousnes),

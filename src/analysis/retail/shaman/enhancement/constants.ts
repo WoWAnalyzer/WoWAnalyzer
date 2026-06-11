@@ -86,6 +86,9 @@ export enum EnhancementEventLinks {
   WHIRLING_EARTH_CONSUME_LINK = 'whirling-earth-consume',
   WHIRLING_FIRE_CONSUME_LINK = 'whirling-fire-consume',
   WHIRLING_AIR_CONSUME_LINK = 'whirling-air-consume',
+  WHIRLING_EARTH_APPLY_LINK = 'whirling-earth-apply',
+  WHIRLING_FIRE_APPLY_LINK = 'whirling-fire-apply',
+  WHIRLING_AIR_APPLY_LINK = 'whirling-air-apply',
 }
 
 export const GCD_TOLERANCE = 25;
