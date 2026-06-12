@@ -7,13 +7,13 @@
 .AplListItem {
   opacity: var(--muted, 1) 0.5;
 
-  .highlighted {
+  &.highlighted {
     list-style-type: none;
     padding-left: 0;
     margin-left: -1.5rem;
 
     &::before {
-      content: '\\e080';
+      content: '\e080';
       font-family: 'Glyphicons Halflings';
       color: #fab700;
       margin-right: 0.5rem;
@@ -21,7 +21,7 @@
     }
 
     &::after {
-      content: '\\e079';
+      content: '\e079';
       font-family: 'Glyphicons Halflings';
       color: #fab700;
       margin-left: 0.5rem;
