@@ -224,7 +224,7 @@ export default function transform(file: FileInfo, api: API) {
   });
 
   if (css !== '') {
-    if (css.indexOf('$design') !== undefined) {
+    if (css.indexOf('design.$') !== undefined) {
       css = `@use 'interface/design-system' as design;
 
         ${css}`;
