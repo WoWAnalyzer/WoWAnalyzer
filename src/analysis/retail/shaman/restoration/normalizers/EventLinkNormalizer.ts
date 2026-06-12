@@ -57,11 +57,9 @@ const primalTideCoreEventLink: EventLink = { // Riptide CAST < > Duplicate LINK
     forwardBufferMs: CAST_BUFFER_MS,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        (linkingEvent as ApplyBuffEvent).targetID !==
-          (referencedEvent as ApplyBuffEvent).targetID &&
-        (linkingEvent as ApplyBuffEvent).sourceID ===
-          (referencedEvent as ApplyBuffEvent).sourceID &&
-        !HasRelatedEvent(linkingEvent, EVENT_LINKS.riptideCast)
+        (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID &&
+        (linkingEvent as ApplyBuffEvent).sourceID === (referencedEvent as ApplyBuffEvent).sourceID &&
+        !HasRelatedEvent(linkingEvent, EVENT_LINKS.primalTideCoreRiptideProc)
       );
     },
     isActive(c) {
@@ -278,7 +276,7 @@ const livelyTotemsEventLink: EventLink = {  // Links the SUMMON event of the tot
 
 
 export function riptideHoT(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent): boolean {
-  return HasRelatedEvent(event, EVENT_LINKS.riptideCast);
+  return HasRelatedEvent(event, EVENT_LINKS.riptideBuffApply);
 }
 
 export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean {

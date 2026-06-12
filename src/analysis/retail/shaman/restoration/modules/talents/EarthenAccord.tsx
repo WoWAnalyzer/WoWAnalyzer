@@ -36,8 +36,7 @@ class EarthenAccordAnalyzer extends Analyzer {
   protected riptideTracker!: RiptideTracker;
 
   buffedUnleashLifeIncrease = healingIncreases.UNLEASH_LIFE_HEALING_INCREASE * 1 + healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE;
-  earthenAccordBuffContribution = (
-    healingIncreases.UNLEASH_LIFE_HEALING_INCREASE * healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE) / this.buffedUnleashLifeIncrease;
+  earthenAccordBuffContribution = healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE / this.buffedUnleashLifeIncrease;
   healing = 0;
   healingBySource = new Map<number, number>();
   ulActive = false;
@@ -77,8 +76,7 @@ class EarthenAccordAnalyzer extends Analyzer {
   }
 
   onRemoveUnleashLife(event: RemoveBuffEvent) {
-    this.lastRemoved = event.timestamp;
-    this.ulActive = false;
+    this.lastRemoved = event.timestamp; //Since we track Riptide a directly now we don't need to force a ULa=false anymore as long as we check in AlreadyConsumed.
   }
 
   unleashAlreadyConsumed(event: CastEvent | HealEvent) {

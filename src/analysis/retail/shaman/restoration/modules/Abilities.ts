@@ -259,10 +259,11 @@ class Abilities extends ClassAbilities {
         spell: SPELLS.DOWNPOUR_ABILITY.id,
         enabled: combatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) ? 30 - totemCDR : 10,
+        cooldown: 0,
         gcd: {
           base: 1500,
         },
+        charges: combatant.hasTalent(TALENTS.DOUBLE_DIP_TALENT) ? 2 :1,
         timelineSortIndex: 20,
         castEfficiency: {
           suggestion: false,

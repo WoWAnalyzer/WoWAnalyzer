@@ -57,7 +57,7 @@ const unleashLifeBuffRemoveEventLink: EventLink = {  //Unleash life linkings
     },
 }
 
-const unleashLifeBuffedRiptideEventLink: EventLink = {
+const unleashLifeBuffedRiptideEventLink: EventLink = { //Needs a Rework for Riptide heals because the cast > removeBuff > Heal/HOT
     linkRelation: EVENT_LINKS.unleashLifeBuffedRiptideCast,
     linkingEventId: [TALENTS.RIPTIDE_TALENT.id],
     linkingEventType: [EventType.Cast],
@@ -143,7 +143,7 @@ export function wasUnleashLifeConsumed(event: RemoveBuffEvent): boolean {
   return HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffRemove);
 }
 
-export function isBuffedByUnleashLife(
+export function isBuffedByUnleashLife( //Needs a Rework for Riptide heals because the cast > removeBuff > Heal/HOT
   event: CastEvent | HealEvent | ApplyBuffEvent | RefreshBuffEvent,
 ): boolean {
   return HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffedCast);

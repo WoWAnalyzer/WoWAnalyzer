@@ -67,9 +67,8 @@ export default class AncestralReachAnalyzer extends Analyzer {
       this.healing += extraHit[0]!.amount;
       debug && console.log('Extra Hit: ', extraHit, index);
     }
-    this.bonusHealing += events.reduce(
-      (amount, event) =>
-        amount + calculateEffectiveHealing(event, healingIncreases.ANCESTRAL_REACH_INCREASE),
+      this.bonusHealing += events.reduce(
+      (amount, event) => amount + calculateEffectiveHealing(event, healingIncreases.ANCESTRAL_REACH_INCREASE),
       0,
     );
   }

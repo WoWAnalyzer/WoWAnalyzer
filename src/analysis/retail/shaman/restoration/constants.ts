@@ -100,7 +100,7 @@ export const DOWNPOUR_INCREASED_MAX_HEALTH = 0.1;
 // base targets & target increases
 export const HEALING_RAIN_TARGETS = 5;
 export const DOWNPOUR_TARGETS = 5;
-export const CHAIN_HEAL_TARGETS = 3;
+export const CHAIN_HEAL_TARGETS = 4; //1 OG Target + 3 Jumps
 export const ANCESTRAL_REACH_TARGET = 1;
 export const FLOW_OF_THE_TIDES_TARGET = 1;
 export const OVERFLOWING_SHORES_RANGE_INCREASE = 400;

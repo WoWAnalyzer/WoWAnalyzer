@@ -36,6 +36,10 @@ class RiptideAttributor extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
       this.onApplyRiptide,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
+      this.onApplyRiptide,
+    );
   }
 
   onApplyRiptide(event: ApplyBuffEvent | RefreshBuffEvent) {

@@ -1,17 +1,24 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
-import Events, { HealEvent, CastEvent, SummonEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
-import { isLivelyTotemsChainHealCast, getChainHeals, } from '../../../normalizers/EventLinkNormalizer';
+import { isLivelyTotemsChainHealCast } from '../../../normalizers/EventLinkNormalizer';
+import ChainHealAnalyzer from '../../../normalizers/ChainHealNormalizer';
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { EVENT_LINKS } from '../../../../restoration/constants'
 
 export default class LivelyTotemsAnalyzer extends Analyzer {
+  static dependencies = {
+    ...Analyzer.dependencies,
+    chainHealAnalyzer: ChainHealAnalyzer,
+  };
+  protected chainHealAnalyzer!: ChainHealAnalyzer;
+
   manaSavedFromTalent = 0;
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
@@ -23,36 +30,28 @@ export default class LivelyTotemsAnalyzer extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT), this.onChainHealSummon);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT), this.onChainHealSummon);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(TALENTS.STORMSTREAM_TOTEM_1_RESTORATION_TALENT), this.onChainHealSummon);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(TALENTS.SPIRIT_LINK_TOTEM_TALENT), this.onChainHealSummon);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(TALENTS.HEALING_TIDE_TOTEM_TALENT), this.onChainHealSummon);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT), this.onChainHealCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+    this.onChainHealCast,
+    );
+
   }
 
-  onChainHealSummon(event: SummonEvent) {
+  private onChainHealCast(event: CastEvent) {
+    // Only chain heals that are linked back to a totem summon count for this talent
     if (!isLivelyTotemsChainHealCast(event)) {
       return;
     }
-    //next chain heal is 100% a Lively Totems Cast
-    this.chainHealCasts += 1;
-  }
 
-  onChainHealCast(event: CastEvent) {
-    if (!isLivelyTotemsChainHealCast(event)) {
-      return;
-    }
     this.chainHealCasts += 1;
-    const healEvents = getChainHeals(event);
+    
+    const healEvents = this.chainHealAnalyzer.normalizeChainHealOrder(event);
     healEvents.forEach((heal) => {
       this.healingDoneFromTalent += heal.amount + (heal.absorbed ?? 0);
       this.overhealingDoneFromTalent += heal.overheal ?? 0;
-      }
-    );
+    });
 
-  if (event.resourceCost) {
-    this.manaSavedFromTalent += event.resourceCost[RESOURCE_TYPES.MANA.id] ?? 0;
+    if (event.resourceCost) {
+      this.manaSavedFromTalent += event.resourceCost[RESOURCE_TYPES.MANA.id] ?? 0;
     }
   }
 

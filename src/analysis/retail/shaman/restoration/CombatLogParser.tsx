@@ -39,7 +39,7 @@ import WhiteWater from './modules/talents/WhiteWater';
 import CoalescingWater from './modules/talents/CoalescingWater';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
-//import LivelyTotems from './modules/talents/totemic/LivelyTotems';
+import LivelyTotems from './modules/talents/totemic/LivelyTotems';
 import TotemicRebound from './modules/talents/totemic/TotemicRebound';
 import AmplificationCore from './modules/talents/totemic/AmplificationCore';
 import Oversurge from './modules/talents/totemic/Oversurge';
@@ -118,7 +118,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hero talents
     surgingTotem: SurgingTotem,
-//    livelyTotems: LivelyTotems,
+    livelyTotems: LivelyTotems,
     totemicRebound: TotemicRebound,
     amplificationCore: AmplificationCore,
     oversurge: Oversurge,
