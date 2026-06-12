@@ -80,16 +80,7 @@ export const amountBar = (
   label,
   render({ amount, school, type, isAbsorb }, { max, total }) {
     return (
-      <div
-        className={styles.amountBarContainer}
-        style={{
-          display: 'grid',
-          // would be nice to not need to used a fixed-width column for the right-side number
-          // using a variable size causes the bars to no have matching scales.
-          gridTemplateColumns: '5rem 1fr 5rem',
-          width: '100%',
-        }}
-      >
+      <div className={styles.AmountBarContainer}>
         <div style={{ textAlign: 'right' }}>{formatPercentage(amount / total, 1)}%</div>
         <div
           className={
