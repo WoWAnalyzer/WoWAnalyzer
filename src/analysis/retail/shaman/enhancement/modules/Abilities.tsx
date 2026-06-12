@@ -78,9 +78,7 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
         cooldown: 60,
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,

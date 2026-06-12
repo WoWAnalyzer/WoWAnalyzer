@@ -6,12 +6,6 @@ import { qualitativePerformanceToColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import GuideDataWrapper, { HelperText, HelperTextRow, SectionContainer } from './GuideDataWrapper';
 
-export interface CastOverlay {
-  spellId: number;
-  spellName: string;
-  icon: string;
-}
-
 export interface CastInSequence {
   timestamp: number;
   spellId: number;
@@ -21,8 +15,8 @@ export interface CastInSequence {
   outlineColor?: string;
   ghosted?: boolean;
   tooltip?: React.ReactNode;
-  /** Up to 2 small badges rendered in the top-right/bottom-right corners. */
-  overlays?: CastOverlay[];
+  /** Up to 2 small badge icons rendered in the top-right/bottom-right corners. */
+  overlays?: string[];
 }
 
 interface SpellSequenceProps {
@@ -63,13 +57,13 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
               />
               {overlays.map((overlay, overlayIdx) => (
                 <Overlay
-                  key={overlay.spellId}
+                  key={overlayIdx}
                   size={iconSize}
                   position={overlayIdx === 0 ? 'top' : 'bottom'}
                 >
                   <img
-                    src={`https://wow.zamimg.com/images/wow/icons/large/${overlay.icon}.jpg`}
-                    alt={overlay.spellName}
+                    src={`https://wow.zamimg.com/images/wow/icons/large/${overlay}.jpg`}
+                    alt=""
                   />
                 </Overlay>
               ))}

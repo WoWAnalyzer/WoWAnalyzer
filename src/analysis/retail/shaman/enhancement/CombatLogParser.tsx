@@ -39,13 +39,13 @@ import {
   MaelstromWeaponSpenders,
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
-import MaelstromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
+import EnhancementBuffNormalizer from './modules/normalizers/EnhancementBuffNormalizer';
 import ThunderCapacitor from './modules/talents/ThunderCapacitor';
 import PrimordialStorm from './modules/talents/PrimordialStorm';
 import Earthsurge from './modules/hero/totemic/Earthsurge';
 import Tempest from './modules/hero/stormbringer/Tempest';
 import StormUnleashed from './modules/talents/StormUnleashed';
-import SurgingTotem from './modules/talents/SurgingTotem';
+import SurgingTotem from './modules/hero/totemic/SurgingTotem';
 import FireNova from './modules/talents/FireNova';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -104,7 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tempest: Tempest,
 
     // Normalizers
-    maelstromRefreshBuffNormalizer: MaelstromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack
+    maelstromRefreshBuffNormalizer: EnhancementBuffNormalizer, // removes refresh events following applybuff and applybuffstack
     eventOrderNormalizer: EventOrderNormalizer, // correct events occur out of order
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer, // links
     eventLinkNormalizer: EventLinkNormalizer, // links various maelstrom casts to damage events, and spells made instant via maelstrom weapon

@@ -294,7 +294,8 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
             {currentCast!.details && (
               <PerformanceTipBox
                 performance={currentCast!.performance}
-                icon={currentCast!.detailsIcon !== undefined ? currentCast!.detailsIcon : undefined}
+                icon={currentCast!.detailsIcon ?? undefined}
+                hideIcon={currentCast!.detailsIcon === null}
               >
                 {currentCast!.details}
               </PerformanceTipBox>
