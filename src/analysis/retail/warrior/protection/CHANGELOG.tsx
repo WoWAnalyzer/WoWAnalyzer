@@ -1,11 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { Abelito75, Rzial, Vollmer } from 'CONTRIBUTORS';
+import { Abelito75, Rzial, Vollmer, Eevulution } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 6, 9), <>Corrected <SpellLink spell={SPELLS.HEROIC_LEAP}/> and <SpellLink spell={SPELLS.THUNDER_BLAST}/> cast IDs. Added <SpellLink spell={SPELLS.SHIELD_CHARGE}/> fabricated events where casts are missing in the log. </>, Eevulution),
+  change(date(2026, 6, 8), <>Improved <SpellLink spell={SPELLS.SHIELD_SLAM}/> and <SpellLink spell={SPELLS.THUNDER_CLAP}/> resets tracking. </>, Eevulution),
   change(date(2026, 3, 8), <><SpellLink spell={TALENTS.VIOLENT_OUTBURST_TALENT}/> wasted buff tracker.</>, Abelito75),
   change(date(2026, 3, 7), <>General Cleanup of existing code.</>, Abelito75),
   change(date(2026, 3, 6), <>Re-enabled protection warrior parsing.</>, Abelito75),
