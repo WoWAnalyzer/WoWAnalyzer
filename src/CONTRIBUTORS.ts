@@ -3005,6 +3005,12 @@ export const Zogmaw: Contributor = {
   },
 };
 
+export const Eevulution: Contributor = {
+  nickname: 'eevulution',
+  github: 'eevulution',
+  discord: 'eevulution',
+};
+
 export const Xinito: Contributor = {
   nickname: 'Xinito',
   github: '1337Xinito',

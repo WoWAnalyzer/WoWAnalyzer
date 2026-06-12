@@ -21,6 +21,11 @@ const spells = {
     name: 'Cosmic Hymn',
     icon: 'inv_12_trinket_raid_darkwelle_healer3_cosmiccrescendo',
   },
+  FANATICAL_INSPIRATION: {
+    id: 1266299,
+    name: 'Fanatical Inspiration',
+    icon: 'inv_12_trinket_gloriuscrusaderskeepsake',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

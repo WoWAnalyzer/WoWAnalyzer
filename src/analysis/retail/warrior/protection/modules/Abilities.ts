@@ -125,13 +125,20 @@ class Abilities extends CoreAbilities {
         cooldown: 3000,
       },
       {
-        spell: [TALENTS.THUNDER_CLAP_TALENT.id, TALENTS.THUNDER_BLAST_TALENT.id],
+        spell: [SPELLS.THUNDER_CLAP.id, SPELLS.THUNDER_BLAST.id],
         enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        cooldown: (haste) => 6 / (1 + haste),
+        cooldown: (haste) => {
+          const baseCooldown =
+            this.selectedCombatant.hasTalent(TALENTS.STORM_SURGE_TALENT) &&
+            this.selectedCombatant.hasBuff(TALENTS.AVATAR_TALENT)
+              ? 3
+              : 6;
+          return baseCooldown / (1 + haste);
+        },
       },
       {
         spell: TALENTS.IMPENDING_VICTORY_TALENT.id,
@@ -143,7 +150,7 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: TALENTS.HEROIC_LEAP_TALENT.id,
+        spell: SPELLS.HEROIC_LEAP.id,
         enabled: combatant.hasTalent(TALENTS.HEROIC_LEAP_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: 45 - (combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 15 : 0),
@@ -196,7 +203,8 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.SPELL_REFLECTION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 25 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.9 : 1),
+        // Protection spec has 20s CD on this spell instead of the standard 25s
+        cooldown: 20 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.9 : 1),
       },
       {
         spell: TALENTS.WRECKING_THROW_TALENT.id,
@@ -310,12 +318,12 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
       },
       {
-        spell: TALENTS.SHIELD_CHARGE_TALENT.id,
+        spell: SPELLS.SHIELD_CHARGE.id,
         enabled: combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
+        // Shield Charge is on the GCD in-game, but combat log timestamps its cast at impact
+        // It can appear inside the previous GCD, and follow-up casts can appear inside its logged GCD
+        // Marking as non-GCD until fixed
         cooldown: 45,
       },
       // Hero Talents - Colssus

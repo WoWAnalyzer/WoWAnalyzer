@@ -6,6 +6,11 @@ const Potions = {
     id: 1234768,
     icon: 'inv_potion_49',
   },
+  POTENT_HEALING_POTION: {
+    id: 1262857,
+    name: 'Potent Healing Potion',
+    icon: 'inv_alchemy_80_potion01red',
+  },
   LIGHTS_PRESERVATION: {
     id: 1235568,
     name: "Light's Preservation",
