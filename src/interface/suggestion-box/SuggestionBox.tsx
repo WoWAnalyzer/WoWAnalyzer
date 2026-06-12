@@ -3,6 +3,7 @@ import styles from './SuggestionBox.module.scss';
 import { BadMark, GoodMark, PerfectMark } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode, useState, type JSX } from 'react';
+import clsx from 'clsx';
 const Header = cssComponent('div', styles.Header, [] as const);
 
 const Footer = cssComponent('button', styles.Footer, [] as const);
@@ -44,10 +45,12 @@ export default function SuggestionBox({
   const [expanded, setExpanded] = useState(false);
   return (
     <Container
-      important={
-        performance === QualitativePerformance.Ok || performance === QualitativePerformance.Fail
-      }
-      className={expanded ? styles.expanded : ''}
+      className={clsx([
+        expanded && styles.expanded,
+        (performance === QualitativePerformance.Ok ||
+          performance === QualitativePerformance.Fail) &&
+          styles.important,
+      ])}
     >
       <Header onClick={() => setExpanded((s) => !s)}>
         <GlyphIcon>{PerfIcon[performance]}</GlyphIcon>
