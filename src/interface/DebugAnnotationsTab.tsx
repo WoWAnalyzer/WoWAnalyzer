@@ -175,7 +175,7 @@ const AnnotationDot = ({
       <Dot
         color={annotation.color}
         onClick={onClick}
-        className={clsx(selected && styles.selected)}
+        className={clsx({ [styles.selected]: selected })}
       />
     </Tooltip>
   );

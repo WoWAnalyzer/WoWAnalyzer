@@ -117,8 +117,10 @@ export const FilterBadge = ({
     {...rest}
     className={clsx(
       styles.FilterBadge,
-      disabled && styles.disabled,
-      active && styles.active,
+      {
+        [styles.disabled]: disabled,
+        [styles.active]: active,
+      },
       className,
     )}
     style={{ ...style, '--color': color }}

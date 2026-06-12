@@ -45,12 +45,11 @@ export default function SuggestionBox({
   const [expanded, setExpanded] = useState(false);
   return (
     <Container
-      className={clsx([
-        expanded && styles.expanded,
-        (performance === QualitativePerformance.Ok ||
-          performance === QualitativePerformance.Fail) &&
-          styles.important,
-      ])}
+      className={clsx({
+        [styles.expanded]: expanded,
+        [styles.important]:
+          performance === QualitativePerformance.Ok || performance === QualitativePerformance.Fail,
+      })}
     >
       <Header onClick={() => setExpanded((s) => !s)}>
         <GlyphIcon>{PerfIcon[performance]}</GlyphIcon>

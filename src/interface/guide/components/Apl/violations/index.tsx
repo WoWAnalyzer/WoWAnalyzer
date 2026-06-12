@@ -189,7 +189,7 @@ export default function ViolationProblemList<T = unknown>({
 
   const renderer = useMemo(
     () => (props: ProblemRendererProps<Violation>) => (
-      <ViolationProblemContainer className={clsx(orientation !== 'column' && parentStyles.row)}>
+      <ViolationProblemContainer className={clsx({ [parentStyles.row]: orientation !== 'column' })}>
         {DescribeViolation && (
           <div>
             <DescribeViolation violation={props.problem.data} result={result} apl={apl} />

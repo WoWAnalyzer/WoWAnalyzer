@@ -234,7 +234,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
                       style={{ width: `calc(${rectWidthPct}% - 3px)` }}
                       color={qualitativePerformanceToColor(cast.performance)}
                       onClick={() => setCurrentIndex(idx)}
-                      className={clsx(idx === currentIndex && styles.active)}
+                      className={clsx({ [styles.active]: idx === currentIndex })}
                     />
                   </Tooltip>
                 );

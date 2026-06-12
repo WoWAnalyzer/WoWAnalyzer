@@ -51,7 +51,9 @@ export default function AplRules({
       {rules.map((rule, index) => (
         <AplListItem
           key={index}
-          className={clsx(highlightRule && isRuleEqual(highlightRule, rule) && styles.highlighted)}
+          className={clsx({
+            [styles.highlighted]: highlightRule && isRuleEqual(highlightRule, rule),
+          })}
           muted={index < (highlightIndex ?? 0)}
         >
           <RuleDescription rule={rule} />

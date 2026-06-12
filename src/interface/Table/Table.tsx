@@ -51,7 +51,11 @@ export default function Table<T, Context, Cols extends Record<string, Column<unk
     <TableContainer style={{ gridTemplateColumns: gridColumns }}>
       <TableHeader>
         {Object.values(columns).map((col, colIx) => (
-          <TableCell key={colIx} align={'center'} className={clsx(col.optional && styles.optional)}>
+          <TableCell
+            key={colIx}
+            align={'center'}
+            className={clsx({ [styles.optional]: col.optional })}
+          >
             {col.label}
           </TableCell>
         ))}

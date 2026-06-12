@@ -59,7 +59,10 @@ export const MitigationSegments = ({
   rounded?: boolean;
   style?: CSSProperties;
 }) => (
-  <MitigationSegmentContainer className={clsx(className, rounded && styles.rounded)} style={style}>
+  <MitigationSegmentContainer
+    className={clsx(className, { [styles.rounded]: rounded })}
+    style={style}
+  >
     {segments
       .filter((seg) => seg.amount > 0)
       .map((seg, ix) => (

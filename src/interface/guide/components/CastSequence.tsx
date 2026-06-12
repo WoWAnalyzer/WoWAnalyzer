@@ -60,10 +60,10 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
             <SpellIcon
               size={iconSize}
               color={color}
-              className={clsx(
-                color === DEFAULT_CAST_COLOR && styles.noOutline,
-                cast.ghosted && styles.ghosted,
-              )}
+              className={clsx({
+                [styles.noOutline]: color === DEFAULT_CAST_COLOR,
+                [styles.ghosted]: cast.ghosted,
+              })}
             >
               <img
                 src={`https://wow.zamimg.com/images/wow/icons/large/${cast.icon}.jpg`}
@@ -73,7 +73,7 @@ export function SpellSequence({ casts, iconSize = 40 }: SpellSequenceProps) {
                 <Overlay
                   key={overlay.spellId}
                   size={iconSize}
-                  className={clsx(overlayIdx === 0 && styles.top)}
+                  className={clsx({ [styles.top]: overlayIdx === 0 })}
                 >
                   <img
                     src={`https://wow.zamimg.com/images/wow/icons/large/${overlay.icon}.jpg`}
