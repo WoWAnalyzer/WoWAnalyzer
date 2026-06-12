@@ -20,7 +20,7 @@
   }
 }
 
-.SmallPassFailBar {
+:global(.pass-fail-bar-container).SmallPassFailBar {
   width: 100px;
   min-width: 100px;
 }
@@ -35,7 +35,7 @@
   grid-template-areas: 'talent source';
   grid-template-columns: max-content 1fr;
 
-  gap: 1rem;
+  gap: 1.5rem;
   height: 100%;
   align-items: start;
   justify-content: space-between;
