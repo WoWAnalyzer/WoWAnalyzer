@@ -4,15 +4,15 @@
 }
 
 .ReasonRow {
-  .fail-bar {
+  :global(.fail-bar) {
     background-color: transparent !important;
   }
 
-  .pass-bar {
+  :global(.pass-bar) {
     border-radius: 2px !important;
+  }
 
-    &.bad {
-      background-color: hsl(348.9, 69.5%, 39.8%) !important;
-    }
+  &.bad :global(.pass-bar) {
+    background-color: hsl(348.9, 69.5%, 39.8%) !important;
   }
 }
