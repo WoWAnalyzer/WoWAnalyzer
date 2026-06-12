@@ -69,7 +69,7 @@ export default function cssComponent<
     return React.createElement(resultEl, {
       ...(props as unknown as React.Attributes & P),
       style: style,
-      className: `${className} ${'className' in props ? props.className : ''}`,
+      className: `${className} ${'className' in props && props.className ? props.className : ''}`,
       as: typeof el !== 'string' ? as : undefined,
     } as React.Attributes & P);
   };
