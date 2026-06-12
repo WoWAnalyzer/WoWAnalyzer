@@ -193,7 +193,7 @@
   width: 1px;
   height: 55%;
   align-self: center;
-  background: var(--color) 40;
+  background: color(from var(--color) rgb r g b / 0.25);
   flex-shrink: 0;
 }
 
