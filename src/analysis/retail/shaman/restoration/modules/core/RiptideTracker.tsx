@@ -6,7 +6,6 @@ import {
   EVENT_LINKS,
   SPELL_DURATIONS,
 } from '../../constants';
-import { isFromPrimalTideCore } from '../../normalizers/EventLinkNormalizer'
 import Combatant from 'parser/core/Combatant';
 
 export const IMBUEMENT_MASTERY_ATT_NAME = 'Imbuement Mastery Earthliving Extension';

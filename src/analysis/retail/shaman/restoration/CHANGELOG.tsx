@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
-  change(date(2026, 6, 10), <>Corrected the cooldown duration of <SpellLink spell={TALENTS.EARTH_ELEMENTAL_TALENT} />. Resolved an issue with the cooldown of <SpellLink spell={SPELLS.PURIFY_SPIRIT} /> in the spell tracker.
+  change(date(2026, 6, 12), <>Corrected the cooldown duration of <SpellLink spell={TALENTS.EARTH_ELEMENTAL_TALENT} />. Resolved an issue with the cooldown of <SpellLink spell={SPELLS.PURIFY_SPIRIT} /> in the spell tracker.
   <p></p>Resolved issues with the cooldown of <SpellLink spell={TALENTS.HEALING_TIDE_TOTEM_TALENT} /> and <SpellLink spell={TALENTS.ASCENDANCE_RESTORATION_TALENT} /> if taken with <SpellLink spell={TALENTS.FIRST_ASCENDANT_TALENT} />.
   <p></p>Corrected the availability check for <SpellLink spell={SPELLS.HEROISM} /> according to the faction check to also affect the Restoration Shaman's spellbook.
   <p></p>Removed outdated information from a tooltip, as <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> no longer increases the number of jumps <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> can perform.

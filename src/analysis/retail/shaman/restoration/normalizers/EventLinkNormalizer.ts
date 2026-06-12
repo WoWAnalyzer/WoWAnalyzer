@@ -47,19 +47,19 @@ const riptideEventLink: EventLink = {  //Riptide linking | EX "HARDCAST"
 const primalTideCoreEventLink: EventLink = { // Riptide CAST < > Duplicate LINK
     linkRelation: EVENT_LINKS.primalTideCoreRiptideOrigin,
     linkingEventId: [TALENTS.RIPTIDE_TALENT.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.Heal],
+    linkingEventType: [EventType.Cast], 
     reverseLinkRelation: EVENT_LINKS.primalTideCoreRiptideProc,
     referencedEventId: [TALENTS.RIPTIDE_TALENT.id],
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
     anyTarget: true,
-    maximumLinks: 1,
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 2,
+    backwardBufferMs: 90,
+    forwardBufferMs: 90,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID &&
-        (linkingEvent as ApplyBuffEvent).sourceID === (referencedEvent as ApplyBuffEvent).sourceID &&
-        !HasRelatedEvent(linkingEvent, EVENT_LINKS.primalTideCoreRiptideProc)
+        (linkingEvent as CastEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID &&
+        (linkingEvent as CastEvent).sourceID === (referencedEvent as ApplyBuffEvent).sourceID &&
+        (referencedEvent.type !== EventType.Heal || !(referencedEvent as HealEvent).tick)
       );
     },
     isActive(c) {

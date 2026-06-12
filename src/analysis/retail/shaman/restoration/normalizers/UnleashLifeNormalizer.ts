@@ -146,7 +146,12 @@ export function wasUnleashLifeConsumed(event: RemoveBuffEvent): boolean {
 export function isBuffedByUnleashLife( //Needs a Rework for Riptide heals because the cast > removeBuff > Heal/HOT
   event: CastEvent | HealEvent | ApplyBuffEvent | RefreshBuffEvent,
 ): boolean {
-  return HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffedCast);
+  return (
+    HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffedCast) ||
+    HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffedRiptideHeal) ||
+    HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffedHealingWaveHeal) ||
+    HasRelatedEvent(event, EVENT_LINKS.unleashLifeBuffedChainHealHeal)
+  );
 }
 
 
