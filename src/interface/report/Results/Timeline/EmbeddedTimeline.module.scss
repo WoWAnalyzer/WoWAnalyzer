@@ -1,23 +1,23 @@
 @use 'interface/design-system' as design;
 
 .EmbeddedTimelineContainer {
-  .spell-timeline {
+  :global(.spell-timeline) {
     position: relative;
 
-    .casts {
+    :global(.casts) {
       box-shadow: unset;
     }
 
-    .cooldowns:only-child {
+    :global(.cooldowns):only-child {
       margin-top: unset;
 
-      .lane {
+      :global(.lane) {
         overflow-x: clip;
       }
     }
   }
 
-  &.drag-scroll-container {
+  &:global(.drag-scroll-container) {
     cursor: default;
   }
   /* safari doesn't support these, but they improve display in chrome and safari doesn't need the help anyway */

@@ -4,8 +4,6 @@ import styles from './ExplanationRow.module.scss';
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';
 
-const leftPercentDefault = 30;
-
 /**
  * A container for holding two side-by-side panels, an explanation and data. By default, the left
  * side panel will be narrow.
@@ -20,9 +18,8 @@ export default function ExplanationRow({
   const { hideExplanations } = useExplanationContext();
   return (
     <StyledExplanationRow
-      style={{
-        gridTemplateColumns: hideExplanations ? '1fr' : `${leftPercent ?? leftPercentDefault}% 1fr`,
-      }}
+      leftPercent={leftPercent}
+      className={hideExplanations ? styles.hideExplanations : undefined}
     >
       {children}
     </StyledExplanationRow>
@@ -68,4 +65,6 @@ export function ExplanationAndDataSubSection({
   );
 }
 
-const StyledExplanationRow = cssComponent('div', styles.StyledExplanationRow, [] as const);
+const StyledExplanationRow = cssComponent('div', styles.StyledExplanationRow, [
+  'leftPercent',
+] as const);
