@@ -40,7 +40,7 @@ export default function CastReasonBreakdownTableContents<Reason, Data extends Ca
   return (
     <Container as={containerType}>
       {possibleReasons.map((reason, index) => (
-        <ReasonRow key={index} className={clsx({ [styles.bad]: reason === badReason)}>
+        <ReasonRow key={index} className={clsx({ [styles.bad]: reason === badReason })}>
           <td>{label(reason)}</td>
           <td className="pass-fail-counts">{counts.get(reason) ?? 0}</td>
           <td>
