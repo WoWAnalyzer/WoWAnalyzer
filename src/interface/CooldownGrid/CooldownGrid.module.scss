@@ -39,9 +39,7 @@
 .CooldownGridElementContainer {
   display: flex;
   flex-direction: column;
-  border: 1px solid design.$level2_border;
-  background: design.$level2_background;
-  box-shadow: design.$level2_shadow;
+  @include design.level(2);
   padding: design.$gaps_small;
   gap: design.$gaps_small;
 }

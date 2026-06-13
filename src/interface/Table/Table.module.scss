@@ -55,9 +55,7 @@
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
 
-  background: design.$level2_background;
-  border: 1px solid design.$level2_border;
-  box-shadow: design.$level2_shadow;
+  @include design.level(2);
 
   & .TableCell {
     border-color: design.$level2_border;

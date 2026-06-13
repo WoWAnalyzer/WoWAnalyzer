@@ -8,9 +8,7 @@
   background: design.$level1_background;
 
   & > :global(.chevron) {
-    background: design.$level2_background;
-    border: 1px solid design.$level2_border;
-    box-shadow: design.$level2_shadow;
+    @include design.level(2);
     border-radius: 0.2rem;
 
     padding: 0 design.$gaps_small;
@@ -22,9 +20,7 @@
 }
 
 .SectionExpandable {
-  background: design.$level1_background;
-  border: 1px solid design.$level1_border;
-  box-shadow: design.$level1_shadow;
+  @include design.level(1);
   padding: 0 design.$gaps_large design.$gaps_small design.$gaps_large;
 
   & :global(.details) > div {

@@ -1,5 +1,4 @@
 import type { JSX } from 'react';
-import styled from '@emotion/styled';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -30,14 +29,10 @@ import { SpellSequence, type CastInSequence } from 'interface/guide/components/C
 import { EnhancementEventLinks } from '../../../constants';
 import HotHand from '../../talents/HotHand';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import styles from './SurgingTotem.module.scss';
+import cssComponent from 'interface/utils/css-component';
 
-const WhirlingStatValue = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 1.3rem;
-  white-space: nowrap;
-`;
+const WhirlingStatValue = cssComponent('span', styles.WhirlingStatValue, [] as const);
 
 const SURGING_TOTEM_DURATION_MS = 30_000;
 const DOOM_WINDS_IN_POSITION_COLOR = '#3b9dff';
