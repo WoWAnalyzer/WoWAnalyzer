@@ -1,0 +1,13 @@
+@use 'interface/design-system' as design;
+
+.StatList {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 0.25em;
+
+  dt {
+    justify-self: end;
+    font-weight: normal;
+  }
+}

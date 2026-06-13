@@ -1,0 +1,7 @@
+@use 'interface/design-system' as design;
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}

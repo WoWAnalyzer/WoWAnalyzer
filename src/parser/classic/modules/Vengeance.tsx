@@ -11,24 +11,15 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { formatNumber } from 'common/format';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './Vengeance.module.scss';
 
 interface AttackPowerEvent {
   attackPower: number;
   timestamp: number;
 }
 
-const StatList = styled.dl`
-  margin-top: 1em;
-  display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 0.25em;
-
-  dt {
-    justify-self: end;
-    font-weight: normal;
-  }
-`;
+const StatList = cssComponent('dl', styles.StatList, [] as const);
 
 export default class Vengeance extends Analyzer {
   protected attackPower: AttackPowerEvent[] = [];

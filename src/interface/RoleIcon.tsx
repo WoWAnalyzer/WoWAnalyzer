@@ -1,13 +1,9 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './RoleIcon.module.scss';
 import ROLES from 'game/ROLES';
 import { ComponentProps } from 'react';
 
-const Img = styled.img`
-  border: 1px solid #111;
-  height: 1.2em;
-  width: 1.2em;
-  border-radius: 50%;
-`;
+const Img = cssComponent('img', styles.Img, [] as const);
 
 interface RoleIconProps extends ComponentProps<typeof Img> {
   roleId: number | null;

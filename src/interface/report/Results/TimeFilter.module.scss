@@ -1,0 +1,27 @@
+@use 'interface/design-system' as design;
+
+.SubmitButton {
+  appearance: none;
+  border: 1px solid design.$level2_border;
+  background: design.$level2_background;
+  box-shadow: design.$level2_shadow;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+
+  color: design.$colors_bodyText;
+
+  &:hover:not(:disabled) {
+    filter: brightness(115%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: design.$colors_unfocusedText;
+  }
+}
+
+.ResetButton {
+  background: design.$level1_background;
+  border-color: design.$level2_border;
+  box-shadow: design.$level1_shadow;
+}

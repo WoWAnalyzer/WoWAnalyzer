@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './HeaderStatBox.module.scss';
 import { formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import { ByRole, Role } from 'interface/guide/foundation/ByRole';
@@ -6,67 +7,17 @@ import { DamageIcon } from 'interface/icons';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import { colors, level0, level1 } from 'interface/design-system';
 import { JSX } from 'react';
 
 /** @internal */
-export const StatBoxContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  justify-self: end;
+export const StatBoxContainer = cssComponent('div', styles.StatBoxContainer, [] as const);
 
-  text-align: center;
-  font-size: 1.5rem;
+const StatBoxStat = cssComponent('dl', styles.StatBoxStat, [] as const);
 
-  border: 1px solid ${level1.border};
-  background: ${level0.background};
-  box-shadow: inset 1px 3px ${level1.shadow};
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
-  margin-right: -0.5rem;
-
-  & > * {
-    border-right: 1px solid ${level1.border};
-  }
-
-  & > *:first-child {
-    padding-left: 0;
-  }
-
-  & > *:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
-`;
-
-const StatBoxStat = styled.dl`
-  & > dt {
-    font-weight: normal;
-    color: ${colors.unfocusedText};
-    font-size: 75%;
-
-    display: flex;
-    gap: 0.5rem;
-    align-items: baseline;
-    align-content: baseline;
-    justify-content: center;
-  }
-  & img {
-    max-height: 0.75em;
-  }
-
-  min-width: 5em;
-
-  padding: 0 1rem;
-  margin: 0;
-`;
-
-export default function HeaderStatBox(): JSX.Element | null {
+export default function HeaderStatBox({ className }: { className?: string }): JSX.Element | null {
   return (
     <ByRole>
-      <StatBoxContainer>
+      <StatBoxContainer className={className}>
         <Role.Healer>
           <HealingStat />
         </Role.Healer>

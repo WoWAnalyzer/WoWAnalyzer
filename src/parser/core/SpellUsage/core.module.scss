@@ -1,0 +1,21 @@
+@use 'interface/design-system' as design;
+
+.SpellRowContainer {
+  display: grid;
+  grid-template-columns: 2em auto;
+  gap: 1em;
+  align-items: center;
+
+  line-height: 1em;
+  text-align: left;
+
+  padding-bottom: 0.5em;
+}
+
+.PerformanceUsageRow {
+  padding-bottom: 0.5em;
+
+  & > :first-child {
+    margin-right: 0.5em;
+  }
+}

@@ -1,0 +1,13 @@
+@use 'interface/design-system' as design;
+
+.MitigationRowContainer {
+  display: grid;
+  grid-template-columns: 2em min-content 100px;
+  gap: 1em;
+  align-items: center;
+
+  line-height: 1em;
+  text-align: right;
+
+  padding-bottom: 0.5em;
+}

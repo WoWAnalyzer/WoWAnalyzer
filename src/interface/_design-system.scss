@@ -1,6 +1,4 @@
 /**
- * @module
- *
  * Design system for new UI elements. Somewhat of a WIP, talk to emallson.
  *
  * ## Levels
@@ -38,52 +36,38 @@
  *
  * ## Usage
  *
- * ```tsx
- * import styled from '@emotion/styled';
- * import * as design from 'interface/design-system';
+ * ```scss
+ * @use 'interface/design-system' as design;
  *
- * const Container = styled.div`
- *   border: 1px solid ${level1.border};
- *   background: ${level1.background};
- *   box-shadow: ${level1.shadow};
- * `;
+ * .Container {
+ *   border: 1px solid design.$level1_border;
+ *   background: design.$level1_background;
+ *   box-shadow: design.$level1_shadow;
+ * }
  * ```
  */
 
-export const colors = {
-  bodyText: '#f3eded',
-  unfocusedText: '#ccc',
-  wowaYellow: '#fab700',
-};
+$colors_bodyText: #f3eded;
+$colors_unfocusedText: #ccc;
+$colors_wowaYellow: #fab700;
 
-export const level0 = {
-  background: 'hsl(44, 7%, 8%)',
-  border: '#161616',
-  shadow: '0 1px 3px black',
-};
+$level0_background: hsl(44, 7%, 8%);
+$level0_border: #161616;
+$level0_shadow: 0 1px 3px black;
 
-export const level1 = {
-  background: 'hsl(44, 7%, 10%)',
-  border: '#262626',
-  shadow: '0 1px 4px black',
-};
+$level1_background: hsl(44, 7%, 10%);
+$level1_border: #262626;
+$level1_shadow: 0 1px 4px black;
 
-export const level2 = {
-  background: 'hsl(44, 7%, 13%)',
-  border: '#303030',
-  shadow: '0 1px 6px #101010',
+$level2_background: hsl(44, 7%, 13%);
+$level2_border: #303030;
+$level2_shadow: 0 1px 6px #101010;
+$level2_background_active: hsl(44, 9%, 15%);
 
-  background_active: 'hsl(44, 9%, 15%)',
-};
+$gaps_small: 0.5rem;
+$gaps_medium: 1rem;
+$gaps_large: 2rem;
 
-export const gaps = {
-  small: '0.5rem',
-  medium: '1rem',
-  large: '2rem',
-};
-
-export const fontSize = {
-  bodyText: '1.4rem',
-  subHeading: '1.6rem',
-  heading: '1.8rem',
-};
+$fontSize_bodyText: 1.4rem;
+$fontSize_subHeading: 1.6rem;
+$fontSize_heading: 1.8rem;

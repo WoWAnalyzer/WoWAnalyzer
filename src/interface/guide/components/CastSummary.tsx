@@ -1,5 +1,6 @@
 import Spell from 'common/SPELLS/Spell';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CastSummary.module.scss';
 import { formatDuration } from 'common/format';
 import { ControlledExpandable } from 'interface';
 import { useFight } from 'interface/report/context/FightContext';
@@ -184,44 +185,11 @@ export default function CastSummary({
   );
 }
 
-const DisappearingHelperText = styled(HelperText)`
-  margin-top: 4px;
-  overflow-y: clip;
-  transition: height 0.5s; /* 0.5s matches react-animate-height */
-`;
+const DisappearingHelperText = cssComponent(HelperText, styles.DisappearingHelperText, [] as const);
 
-const BarContainer = styled.div`
-  border-radius: 4px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+const BarContainer = cssComponent('div', styles.BarContainer, [] as const);
 
-  .gradiated-bar-container {
-    display: flex;
-  }
-
-  .gradiated-bar-container > div {
-    height: 24px !important;
-    display: block !important;
-  }
-`;
-
-const BreakdownContainer = styled.div`
-  margin-top: 8px;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-`;
+const BreakdownContainer = cssComponent('div', styles.BreakdownContainer, [] as const);
 
 /** Overrides PerformanceBoxRow's auto-fill grid to match the CastDetail timeline scaling */
-const BoxRowScaler = styled.div<{ widthPct: number }>`
-  .performance-block-row {
-    grid-template-columns: repeat(auto-fill, calc(${(p) => p.widthPct}% - 3px));
-    gap: 3px;
-  }
-  .performance-block {
-    height: 16px !important;
-    border-radius: 2px;
-  }
-`;
+const BoxRowScaler = cssComponent('div', styles.BoxRowScaler, ['widthPct'] as const);

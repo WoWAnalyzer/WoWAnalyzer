@@ -1,0 +1,112 @@
+@use 'interface/design-system' as design;
+
+.FilterContainer {
+  grid-area: filter;
+  display: flex;
+  align-self: start;
+  align-items: start;
+  gap: 0.25rem;
+}
+
+.Btn {
+  & :global(.glyphicon) {
+    padding-right: 0.25rem;
+    font-size: 75%;
+  }
+}
+
+.PullNavBtn {
+  padding: 0 0.5rem;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: none;
+  }
+
+  & :global(.glyphicon) {
+    font-size: 75%;
+    top: 0;
+  }
+}
+
+.FilterDialogContainer {
+  position: absolute;
+  z-index: 1000;
+  margin: 0;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+
+  border: 1px solid design.$level2_border;
+  box-shadow: design.$level1_shadow;
+  background: design.$level1_background;
+  border-radius: 0.5rem;
+
+  color: design.$colors_bodyText;
+}
+
+.FilterRadioButton {
+  border: 1px solid design.$level2_border;
+  background: design.$level2_background;
+  box-shadow: design.$level2_shadow;
+  padding: 0.5rem 1rem;
+  position: relative;
+  flex-grow: 1;
+  // z-index hack for shadows
+  z-index: 0;
+
+  cursor: pointer;
+
+  font-weight: normal;
+
+  &:first-of-type {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  &:last-of-type {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
+  & input[type='radio'] {
+    appearance: none;
+    background: none;
+    border: none;
+  }
+
+  &:hover {
+    filter: brightness(115%);
+  }
+
+  &:has(input[type='radio']:checked) {
+    border-color: design.$colors_wowaYellow;
+    background: design.$level2_background_active;
+    z-index: 1;
+  }
+}
+
+.FilterRadioGroup {
+  display: flex;
+}
+
+.TimeFilterContainer {
+  & :global(.time-input) {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  & > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    align-items: end;
+  }
+}
