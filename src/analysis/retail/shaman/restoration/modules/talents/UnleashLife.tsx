@@ -29,15 +29,9 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import {
-  RESTORATION_COLORS,
-  healingIncreases,
-  UNLEASH_LIFE_REMOVE_MS,
-  EVENT_LINKS,
-} from '../../constants';
+import { RESTORATION_COLORS, healingIncreases, UNLEASH_LIFE_REMOVE_MS } from '../../constants';
 
 import {
-  getCastEvent,
   wasUnleashLifeConsumed,
   isBuffedByUnleashLife,
   getUnleashLifeHealingWaves,
@@ -202,7 +196,8 @@ class UnleashLife extends Analyzer {
       if (this.riptideTracker.fromUnleashLife(riptide)) {
         debug && console.log('Unleash Life Riptide Tick: ', event);
         this.healingMap[spellId].amount += calculateEffectiveHealing(
-          event, healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
+          event,
+          healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
         );
       }
       return;
@@ -221,7 +216,8 @@ class UnleashLife extends Analyzer {
           event,
         );
       this.healingMap[spellId].amount += calculateEffectiveHealing(
-        event, healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
+        event,
+        healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
       );
     }
   }

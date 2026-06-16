@@ -10,7 +10,6 @@ import { isLivelyTotemsChainHealCast } from '../../../normalizers/EventLinkNorma
 import ChainHealAnalyzer from '../../../normalizers/ChainHealNormalizer';
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { EVENT_LINKS } from '../../../../restoration/constants'
 
 export default class LivelyTotemsAnalyzer extends Analyzer {
   static dependencies = {
@@ -30,10 +29,10 @@ export default class LivelyTotemsAnalyzer extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
-    this.onChainHealCast,
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+      this.onChainHealCast,
     );
-
   }
 
   private onChainHealCast(event: CastEvent) {
@@ -43,7 +42,7 @@ export default class LivelyTotemsAnalyzer extends Analyzer {
     }
 
     this.chainHealCasts += 1;
-    
+
     const healEvents = this.chainHealAnalyzer.normalizeChainHealOrder(event);
     healEvents.forEach((heal) => {
       this.healingDoneFromTalent += heal.amount + (heal.absorbed ?? 0);

@@ -5,57 +5,56 @@ import TALENTS from 'common/TALENTS/shaman';
 
 // Event link attribution strings
 export enum EVENT_LINKS {
-riptideCast = 'riptideCast',
-riptideBuffApply = 'riptideBuffApply',
-primalTideCoreRiptideOrigin = 'primalTideCoreRiptideOrigin',
-primalTideCoreRiptideProc = 'primalTideCoreRiptideProc',
+  riptideCast = 'riptideCast',
+  riptideBuffApply = 'riptideBuffApply',
+  primalTideCoreRiptideOrigin = 'primalTideCoreRiptideOrigin',
+  primalTideCoreRiptideProc = 'primalTideCoreRiptideProc',
 
-healingRainEventLinkHeal = 'healingRainEventLinkHeal',
-healingRainEventLinkCast = 'healingRainEventLinkCast',
-healingRainTargetCounter = 'healingRainTargetCounter',
-overflowingShoresHeal = 'overflowingShoresHeal',
-overflowingShoresOrigin = 'overflowingShoresOrigin',
-downpourHeal = 'downpourHeal',
-downpourCast = 'downpourCast',
+  healingRainEventLinkHeal = 'healingRainEventLinkHeal',
+  healingRainEventLinkCast = 'healingRainEventLinkCast',
+  healingRainTargetCounter = 'healingRainTargetCounter',
+  overflowingShoresHeal = 'overflowingShoresHeal',
+  overflowingShoresOrigin = 'overflowingShoresOrigin',
+  downpourHeal = 'downpourHeal',
+  downpourCast = 'downpourCast',
 
-splitstreamHeal = 'splitstreamHeal',
+  splitstreamHeal = 'splitstreamHeal',
 
-whirlingAirBuffRemoval = 'whirlingAirBuffRemoval',
-whirlingAirCast = 'whirlingAirCast',
-whirlingEarthBuffRemoval = 'whirlingEarthBuffRemoval',
-whirlingEarthEventCast = 'whirlingEarthEventCast',
-whirlingWaterBuffRemoval = 'whirlingWaterBuffRemoval',
-whirlingWaterCast = 'whirlingWaterCast',
+  whirlingAirBuffRemoval = 'whirlingAirBuffRemoval',
+  whirlingAirCast = 'whirlingAirCast',
+  whirlingEarthBuffRemoval = 'whirlingEarthBuffRemoval',
+  whirlingEarthEventCast = 'whirlingEarthEventCast',
+  whirlingWaterBuffRemoval = 'whirlingWaterBuffRemoval',
+  whirlingWaterCast = 'whirlingWaterCast',
 
-// Earth Living Tracker & Attribiutors
-earthlivingBuffCycle = 'earthlivingBuffCycle',
-HEALING_WAVE = 'HealingWave',
-HEALING_TIDE_TOTEM_HEAL = 'HealingTideTotemHeal',
-HEALING_STREAM_TOTEM_HEAL = 'HealingStreamTotemHeal',
-STORMSTREAM_TOTEM_HEAL = 'StormstreamTotemHeal',
+  // Earth Living Tracker & Attribiutors
+  earthlivingBuffCycle = 'earthlivingBuffCycle',
+  HEALING_WAVE = 'HealingWave',
+  HEALING_TIDE_TOTEM_HEAL = 'HealingTideTotemHeal',
+  HEALING_STREAM_TOTEM_HEAL = 'HealingStreamTotemHeal',
+  STORMSTREAM_TOTEM_HEAL = 'StormstreamTotemHeal',
 
-chainHealCast = 'chainHealCast',
-chainHealHeal = 'chainHealHeal',
+  chainHealCast = 'chainHealCast',
+  chainHealHeal = 'chainHealHeal',
 
-flowOfTheTidesRemoveBuff = 'flowOfTheTidesRemoveBuff',
-flowOfTheTidesChainHealCast = 'flowOfTheTidesChainHealCast',
+  flowOfTheTidesRemoveBuff = 'flowOfTheTidesRemoveBuff',
+  flowOfTheTidesChainHealCast = 'flowOfTheTidesChainHealCast',
 
-livelyTotemsOrigin = 'livelyTotemsOrigin',
-livelyTotemsChainHealCast = 'livelyTotemsChainHealCast',
+  livelyTotemsOrigin = 'livelyTotemsOrigin',
+  livelyTotemsChainHealCast = 'livelyTotemsChainHealCast',
 
-APPLIED_HEAL = 'AppliedHeal',
+  APPLIED_HEAL = 'AppliedHeal',
 
-unleashLifeCast = 'unleashLifeCast',
-unleashLifeHeal = 'unleashLifeHeal',
-unleashLifeBuffRemove = 'unleashLifeBuffRemove',
-unleashLifeBuffedCast = 'unleashLifeBuffedCast',
-unleashLifeBuffedRiptideCast = 'unleashLifeBuffedRiptideCast',
-unleashLifeBuffedRiptideHeal = 'unleashLifeBuffedRiptideHeal',
-unleashLifeBuffedHealingWaveCast = 'unleashLifeBuffedHealingWaveCast',
-unleashLifeBuffedHealingWaveHeal = 'unleashLifeBuffedHealingWaveHeal',
-unleashLifeBuffedChainHealCast = 'unleashLifeBuffedChainHealCast',
-unleashLifeBuffedChainHealHeal = 'unleashLifeBuffedChainHealHeal',
-
+  unleashLifeCast = 'unleashLifeCast',
+  unleashLifeHeal = 'unleashLifeHeal',
+  unleashLifeBuffRemove = 'unleashLifeBuffRemove',
+  unleashLifeBuffedCast = 'unleashLifeBuffedCast',
+  unleashLifeBuffedRiptideCast = 'unleashLifeBuffedRiptideCast',
+  unleashLifeBuffedRiptideHeal = 'unleashLifeBuffedRiptideHeal',
+  unleashLifeBuffedHealingWaveCast = 'unleashLifeBuffedHealingWaveCast',
+  unleashLifeBuffedHealingWaveHeal = 'unleashLifeBuffedHealingWaveHeal',
+  unleashLifeBuffedChainHealCast = 'unleashLifeBuffedChainHealCast',
+  unleashLifeBuffedChainHealHeal = 'unleashLifeBuffedChainHealHeal',
 }
 
 /**
@@ -77,21 +76,21 @@ export const CHAIN_HEAL_COEFFICIENT = 2.31;
 export const HIGH_TIDE_COEFFICIENT = 2.541;
 
 // Healing increases
-export enum healingIncreases {
-UNLEASH_LIFE_HEALING_INCREASE = 0.25,
-FLOW_OF_THE_TIDES_INCREASE = 0.3,
-ANCESTRAL_REACH_INCREASE = 0.08,
-DELUGE_HEALING_INCREASE = 0.15,
-EARTHEN_HARMONY_HEALING_INCREASE = 1.5,
-EARTHEN_HARMONY_DAMAGE_REDUCTION = 0.03,
-OVERSURGE_INCREASE = 0.5,
-PULSE_CAPACITOR_INCREASE = 0.25,
-AMPLIFICATION_CORE_HEALING_INCREASE = 0.03,
-TIDECALLERS_GUARD_HEALING_INCREASE = 0.02,
-EARTHEN_ACCORD_UL_DIRECT_INCREASE = 0.3,
-EARTHEN_ACCORD_BUFF_INCREASE = 0.2,
-EARTHSURGE_HEALING_INCREASE = 0.15,
-}
+export const healingIncreases = {
+  UNLEASH_LIFE_HEALING_INCREASE: 0.25,
+  FLOW_OF_THE_TIDES_INCREASE: 0.3,
+  ANCESTRAL_REACH_INCREASE: 0.08,
+  DELUGE_HEALING_INCREASE: 0.15,
+  EARTHEN_HARMONY_HEALING_INCREASE: 1.5,
+  EARTHEN_HARMONY_DAMAGE_REDUCTION: 0.03,
+  OVERSURGE_INCREASE: 0.5,
+  PULSE_CAPACITOR_INCREASE: 0.25,
+  AMPLIFICATION_CORE_HEALING_INCREASE: 0.03,
+  TIDECALLERS_GUARD_HEALING_INCREASE: 0.02,
+  EARTHEN_ACCORD_UL_DIRECT_INCREASE: 0.3,
+  EARTHEN_ACCORD_BUFF_INCREASE: 0.2,
+  EARTHSURGE_HEALING_INCREASE: 0.15,
+};
 
 // max HP increases
 export const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
@@ -109,18 +108,18 @@ export const ANCENDANCE_TARGET = 3;
 // Fake haste
 export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
 
-export enum SPELL_DURATIONS {
-HEALING_RAIN_DURATION = 18000,
-RIPTIDE_BASE_DURATION = 18000,
-WAVESPEAKERS_BLESSING = 3000,
-HEALING_STREAM_TOTEM_DURATION = 15000,
-TOTEMIC_FOCUS_HEALING_TOTEM_DURATION = 3000,
-SURGING_TOTEM_DURATION = 25000,
-EARTHLIVING_BASE_DURATION = 6000,
-IMBUEMENT_MASTERY_DURATION = 3000,
-ENHANCED_IMBUES_MODIFIER = 1.2,
-TIDECALLERS_GUARD_DURATION_EXTENSION = 3000
-}
+export const SPELL_DURATIONS = {
+  HEALING_RAIN_DURATION: 18000,
+  RIPTIDE_BASE_DURATION: 18000,
+  WAVESPEAKERS_BLESSING: 3000,
+  HEALING_STREAM_TOTEM_DURATION: 15000,
+  TOTEMIC_FOCUS_HEALING_TOTEM_DURATION: 3000,
+  SURGING_TOTEM_DURATION: 25000,
+  EARTHLIVING_BASE_DURATION: 6000,
+  IMBUEMENT_MASTERY_DURATION: 3000,
+  ENHANCED_IMBUES_MODIFIER: 1.2,
+  TIDECALLERS_GUARD_DURATION_EXTENSION: 3000,
+} as const;
 
 // mana saves
 export const MANA_REGENERATION_PER_SECOND = 2000;
@@ -187,7 +186,6 @@ export const WHIRLING_ELEMENTS_MOTES = [
 
 // Hero Talents
 // Farseer
-
 
 // UI
 export const RESTORATION_COLORS = {

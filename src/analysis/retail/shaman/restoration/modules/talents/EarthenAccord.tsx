@@ -11,12 +11,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import DonutChart from 'parser/ui/DonutChart';
 import UnleashLife from './UnleashLife';
-import {
-  RESTORATION_COLORS,
-  UNLEASH_LIFE_REMOVE_MS,
-  healingIncreases,
-  EVENT_LINKS,
-} from '../../constants';
+import { RESTORATION_COLORS, UNLEASH_LIFE_REMOVE_MS, healingIncreases } from '../../constants';
 import {
   isBuffedByUnleashLife,
   getUnleashLifeHealingWaves,
@@ -35,8 +30,11 @@ class EarthenAccordAnalyzer extends Analyzer {
   protected chainHealNormalizer!: ChainHealNormalizer;
   protected riptideTracker!: RiptideTracker;
 
-  buffedUnleashLifeIncrease = healingIncreases.UNLEASH_LIFE_HEALING_INCREASE * 1 + healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE;
-  earthenAccordBuffContribution = healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE / this.buffedUnleashLifeIncrease;
+  buffedUnleashLifeIncrease =
+    healingIncreases.UNLEASH_LIFE_HEALING_INCREASE * 1 +
+    healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE;
+  earthenAccordBuffContribution =
+    healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE / this.buffedUnleashLifeIncrease;
   healing = 0;
   healingBySource = new Map<number, number>();
   ulActive = false;

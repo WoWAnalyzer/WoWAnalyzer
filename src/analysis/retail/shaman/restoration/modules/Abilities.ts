@@ -7,8 +7,6 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { i18n } from '@lingui/core';
 import { TIERS } from 'game/TIERS';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
-// import { TrackedRestoShamanAbility } from './core/RestorationAbilityTracker';
-// import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const totemGCD = 1000;
 
@@ -263,7 +261,7 @@ class Abilities extends ClassAbilities {
         gcd: {
           base: 1500,
         },
-        charges: combatant.hasTalent(TALENTS.DOUBLE_DIP_TALENT) ? 2 :1,
+        charges: combatant.hasTalent(TALENTS.DOUBLE_DIP_TALENT) ? 2 : 1,
         timelineSortIndex: 20,
         castEfficiency: {
           suggestion: false,
