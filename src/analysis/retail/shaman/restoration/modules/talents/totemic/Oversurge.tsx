@@ -1,14 +1,7 @@
-import Analyzer, {
-  Options,
-  SELECTED_PLAYER,
-  SELECTED_PLAYER_PET
-} from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
-import Events, {
-  HealEvent,
-  DamageEvent
-} from 'parser/core/Events';
+import Events, { HealEvent, DamageEvent } from 'parser/core/Events';
 
 import {
   calculateEffectiveDamage,
@@ -23,9 +16,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 
-import {
-  healingIncreases,
-} from 'analysis/retail/shaman/restoration/constants';
+import { healingIncreases } from 'analysis/retail/shaman/restoration/constants';
 
 export default class Oversurge extends Analyzer {
   healingDoneFromTalent = 0;
@@ -48,23 +39,35 @@ export default class Oversurge extends Analyzer {
     );
     if (this.selectedCombatant.hasTalent(TALENTS.HEALING_TIDE_TOTEM_TALENT)) {
       this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.HEALING_TIDE_TOTEM_HEAL),
-      this.onHTTHeal,
-      )
+        Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.HEALING_TIDE_TOTEM_HEAL),
+        this.onHTTHeal,
+      );
     }
   }
 
   onHeal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_RESTORATION_TALENT)) {
-      this.healingDoneFromTalent += calculateEffectiveHealing(event, healingIncreases.OVERSURGE_INCREASE);
-      this.overhealingDoneFromTalent += calculateOverhealing(event, healingIncreases.OVERSURGE_INCREASE);
+      this.healingDoneFromTalent += calculateEffectiveHealing(
+        event,
+        healingIncreases.OVERSURGE_INCREASE,
+      );
+      this.overhealingDoneFromTalent += calculateOverhealing(
+        event,
+        healingIncreases.OVERSURGE_INCREASE,
+      );
     }
   }
 
   onHTTHeal(event: HealEvent) {
     if (this.selectedCombatant.hasTalent(TALENTS.HEALING_TIDE_TOTEM_TALENT)) {
-      this.healingDoneFromTalent += calculateEffectiveHealing(event, healingIncreases.OVERSURGE_INCREASE);
-      this.overhealingDoneFromTalent += calculateOverhealing(event, healingIncreases.OVERSURGE_INCREASE);
+      this.healingDoneFromTalent += calculateEffectiveHealing(
+        event,
+        healingIncreases.OVERSURGE_INCREASE,
+      );
+      this.overhealingDoneFromTalent += calculateOverhealing(
+        event,
+        healingIncreases.OVERSURGE_INCREASE,
+      );
     }
   }
 

@@ -3,9 +3,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import EarthlivingTracker from './EarthlivingTracker';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
-import {
-  EVENT_LINKS,
-} from '../../constants';
+import { EVENT_LINKS } from '../../constants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -26,7 +24,9 @@ class EarthlivingAttributor extends Analyzer {
   healingWaveAttrib = HotTracker.getNewAttribution(EVENT_LINKS.HEALING_WAVE);
   chainHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.chainHealHeal);
   riptideAttrib = HotTracker.getNewAttribution(EVENT_LINKS.riptideBuffApply);
-  healingStreamTotemHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.HEALING_STREAM_TOTEM_HEAL);
+  healingStreamTotemHealAttrib = HotTracker.getNewAttribution(
+    EVENT_LINKS.HEALING_STREAM_TOTEM_HEAL,
+  );
   healingTideTotemHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.HEALING_TIDE_TOTEM_HEAL);
   stormstreamTotemHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.STORMSTREAM_TOTEM_HEAL);
   undefinedAttrib = HotTracker.getNewAttribution('Undefined');

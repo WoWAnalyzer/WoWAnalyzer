@@ -25,7 +25,10 @@ class PulseCapacitor extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.healingContribution += calculateEffectiveHealing(event, healingIncreases.PULSE_CAPACITOR_INCREASE);
+    this.healingContribution += calculateEffectiveHealing(
+      event,
+      healingIncreases.PULSE_CAPACITOR_INCREASE,
+    );
   }
 
   statistic() {

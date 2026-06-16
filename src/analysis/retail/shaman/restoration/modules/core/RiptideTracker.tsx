@@ -2,10 +2,7 @@ import { Options } from 'parser/core/Module';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import HotTracker, { HotInfo, Tracker } from 'parser/shared/modules/HotTracker';
-import {
-  EVENT_LINKS,
-  SPELL_DURATIONS,
-} from '../../constants';
+import { EVENT_LINKS, SPELL_DURATIONS } from '../../constants';
 import Combatant from 'parser/core/Combatant';
 
 export const IMBUEMENT_MASTERY_ATT_NAME = 'Imbuement Mastery Earthliving Extension';
@@ -40,7 +37,8 @@ class RiptideTracker extends HotTracker {
   _getRiptideDuration(combatant: Combatant): number {
     return (
       SPELL_DURATIONS.RIPTIDE_BASE_DURATION +
-      combatant.getTalentRank(TALENTS.WAVESPEAKERS_BLESSING_TALENT) * SPELL_DURATIONS.WAVESPEAKERS_BLESSING
+      combatant.getTalentRank(TALENTS.WAVESPEAKERS_BLESSING_TALENT) *
+        SPELL_DURATIONS.WAVESPEAKERS_BLESSING
     );
   }
 

@@ -13,9 +13,10 @@ class BUFFS extends CoreAuras {
       ...super.auras(),
       {
         spellId: [SPELLS.ASCENDANCE_RESTORATION_BUFF.id],
-        enabled: combatant.getMultipleTalentRanks(
-          TALENTS.ASCENDANCE_RESTORATION_TALENT,
-          TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT,
+        enabled:
+          combatant.getMultipleTalentRanks(
+            TALENTS.ASCENDANCE_RESTORATION_TALENT,
+            TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT,
           ) > 0,
         triggeredBySpellId: [TALENTS.ASCENDANCE_RESTORATION_TALENT.id],
         timelineHighlight: true,

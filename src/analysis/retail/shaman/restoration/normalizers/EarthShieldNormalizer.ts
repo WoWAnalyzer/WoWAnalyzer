@@ -1,9 +1,5 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import {
-  AnyEvent,
-  ApplyBuffEvent,
-  EventType
-} from 'parser/core/Events';
+import { AnyEvent, ApplyBuffEvent, EventType } from 'parser/core/Events';
 
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Combatants from 'parser/shared/modules/Combatants';

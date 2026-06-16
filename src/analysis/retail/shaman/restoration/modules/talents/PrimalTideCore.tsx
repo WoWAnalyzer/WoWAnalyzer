@@ -43,49 +43,49 @@ class PrimalTideCore extends Analyzer {
     );
   }
 
-    onRiptideCast(event: CastEvent) {
-      this.lastCastTimestamp = event.timestamp;
-      this.lastCastTargetId = event.targetID ?? -1; //idk a better way to work around the enforcement of >anyevent< in >event< even if I define a trait that fits the var decl.
-}
+  onRiptideCast(event: CastEvent) {
+    this.lastCastTimestamp = event.timestamp;
+    this.lastCastTargetId = event.targetID ?? -1; //idk a better way to work around the enforcement of >anyevent< in >event< even if I define a trait that fits the var decl.
+  }
 
-    onApplyRiptide(event: ApplyBuffEvent) {
-        if (isFromPrimalTideCore(event)) {
-            // If this buff application is on the primary hardcast target, skip it!
-            if (event.timestamp === this.lastCastTimestamp && event.targetID === this.lastCastTargetId) {
-                return;
-            }
+  onApplyRiptide(event: ApplyBuffEvent) {
+    if (isFromPrimalTideCore(event)) {
+      // If this buff application is on the primary hardcast target, skip it!
+      if (event.timestamp === this.lastCastTimestamp && event.targetID === this.lastCastTargetId) {
+        return;
+      }
 
-            const targetId = event.targetID;
-            const spellId = event.ability.guid;
-            if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
-                return;
-            }
-            this.ptcProcs += 1;
-        }
+      const targetId = event.targetID;
+      const spellId = event.ability.guid;
+      if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
+        return;
+      }
+      this.ptcProcs += 1;
     }
+  }
 
-    onRiptideHeal(event: HealEvent) {
-        const spellId = event.ability.guid;
-        const targetId = event.targetID;
+  onRiptideHeal(event: HealEvent) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
 
-        if (event.tick) {
-            if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
-                return;
-            }
-            const riptide = this.riptideTracker.hots[targetId][spellId];
-            if (this.riptideTracker.fromPrimalTideCore(riptide)) {
-                this.ptcHealing += event.amount + (event.absorbed || 0);
-                this.ptcHealing += event.overheal || 0;
-            }
-        } else if (isFromPrimalTideCore(event)) {
-            // If the direct initial heal is hitting the primary hardcast target, skip it!
-            if (event.timestamp === this.lastCastTimestamp && event.targetID === this.lastCastTargetId) {
-                return;
-            }
-            this.ptcHealing += event.amount + (event.absorbed || 0);
-            this.ptcHealing += event.overheal || 0;
-        }
+    if (event.tick) {
+      if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
+        return;
+      }
+      const riptide = this.riptideTracker.hots[targetId][spellId];
+      if (this.riptideTracker.fromPrimalTideCore(riptide)) {
+        this.ptcHealing += event.amount + (event.absorbed || 0);
+        this.ptcHealing += event.overheal || 0;
+      }
+    } else if (isFromPrimalTideCore(event)) {
+      // If the direct initial heal is hitting the primary hardcast target, skip it!
+      if (event.timestamp === this.lastCastTimestamp && event.targetID === this.lastCastTargetId) {
+        return;
+      }
+      this.ptcHealing += event.amount + (event.absorbed || 0);
+      this.ptcHealing += event.overheal || 0;
     }
+  }
 
   statistic() {
     return (

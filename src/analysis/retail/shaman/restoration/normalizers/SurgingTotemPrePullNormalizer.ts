@@ -38,7 +38,9 @@ class SurgingTotemPrePullNormalizer extends EventsNormalizer {
       // Stop parsing events after the duration of the totem has elapsed.
       if (
         event.timestamp >
-        this.owner.fight.start_time + SPELL_DURATIONS.SURGING_TOTEM_DURATION + SURGING_TOTEM_BUFFER_MS
+        this.owner.fight.start_time +
+          SPELL_DURATIONS.SURGING_TOTEM_DURATION +
+          SURGING_TOTEM_BUFFER_MS
       ) {
         break;
       }

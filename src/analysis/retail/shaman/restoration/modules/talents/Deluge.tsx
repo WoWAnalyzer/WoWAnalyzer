@@ -1,15 +1,8 @@
 import Combatants from 'parser/shared/modules/Combatants';
-import Analyzer, {
-  Options,
-  SELECTED_PLAYER
-} from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
-import Events, {
-  HealEvent,
-  BeginCastEvent,
-  CastEvent
-} from 'parser/core/Events';
+import Events, { HealEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -47,9 +40,7 @@ class Deluge extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT);
     this.delugeIncrease = healingIncreases.DELUGE_HEALING_INCREASE;
     this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.CHAIN_HEAL_TALENT, SPELLS.HEALING_WAVE]),
+      Events.heal.by(SELECTED_PLAYER).spell([TALENTS.CHAIN_HEAL_TALENT, SPELLS.HEALING_WAVE]),
       this._onHeal,
     );
     this.addEventListener(

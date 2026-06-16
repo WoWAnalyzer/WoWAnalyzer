@@ -5,9 +5,7 @@ import fetchWcl from 'common/fetchWclApi';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import {
-  healingIncreases,
-} from '../../restoration/constants';
+import { healingIncreases } from '../../restoration/constants';
 import Combatants from 'parser/shared/modules/Combatants';
 
 class EarthenHarmony extends Analyzer {
@@ -68,7 +66,8 @@ class EarthenHarmony extends Analyzer {
 
   get elementalOrbitDamageReduced() {
     return (
-      (this.damageTakenWithElementalOrbitEarthShield / (1 - healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
+      (this.damageTakenWithElementalOrbitEarthShield /
+        (1 - healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION)) *
       healingIncreases.EARTHEN_HARMONY_DAMAGE_REDUCTION
     );
   }

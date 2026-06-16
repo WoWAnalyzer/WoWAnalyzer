@@ -5,8 +5,7 @@ import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
-import { TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME } from '../../../restoration/constants'
-
+import { TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME } from '../../../restoration/constants';
 
 //Needs to be adjusted because it currently also counts Lively Totems CH's that don't consume Tidal Waves
 class TidalWaves extends Analyzer {

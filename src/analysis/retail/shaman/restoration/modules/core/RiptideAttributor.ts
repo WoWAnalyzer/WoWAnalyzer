@@ -2,13 +2,8 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import RiptideTracker from './RiptideTracker';
 import talents from 'common/TALENTS/shaman';
-import {
-  EVENT_LINKS,
-} from '../../constants';
-import {
-  riptideHoT,
-  isFromPrimalTideCore,
-} from '../../normalizers/EventLinkNormalizer';
+import { EVENT_LINKS } from '../../constants';
+import { riptideHoT, isFromPrimalTideCore } from '../../normalizers/EventLinkNormalizer';
 
 import HotTracker from 'parser/shared/modules/HotTracker';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';

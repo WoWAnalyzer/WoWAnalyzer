@@ -1,7 +1,4 @@
-import Analyzer, {
-  Options,
-  SELECTED_PLAYER
-} from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -16,9 +13,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
 
-import {
-  healingIncreases,
-} from 'analysis/retail/shaman/restoration/constants';
+import { healingIncreases } from 'analysis/retail/shaman/restoration/constants';
 
 export default class Earthsurge extends Analyzer {
   static dependencies = {
@@ -55,8 +50,14 @@ export default class Earthsurge extends Analyzer {
         this.selectedCombatant.id,
       )
     ) {
-      this.healingDoneFromTalent += calculateEffectiveHealing(event, healingIncreases.EARTHSURGE_HEALING_INCREASE);
-      this.overhealingDoneFromTalent += calculateOverhealing(event, healingIncreases.EARTHSURGE_HEALING_INCREASE);
+      this.healingDoneFromTalent += calculateEffectiveHealing(
+        event,
+        healingIncreases.EARTHSURGE_HEALING_INCREASE,
+      );
+      this.overhealingDoneFromTalent += calculateOverhealing(
+        event,
+        healingIncreases.EARTHSURGE_HEALING_INCREASE,
+      );
     }
   }
 

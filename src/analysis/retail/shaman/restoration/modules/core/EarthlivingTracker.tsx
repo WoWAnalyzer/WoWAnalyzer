@@ -2,10 +2,7 @@ import { Options } from 'parser/core/Module';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
 import HotTracker, { HotInfo, Tracker } from 'parser/shared/modules/HotTracker';
-import {
-  SPELL_DURATIONS,
-  EVENT_LINKS,
-} from '../../constants';
+import { SPELL_DURATIONS, EVENT_LINKS } from '../../constants';
 
 export const IMBUEMENT_MASTERY_ATT_NAME = 'Imbuement Mastery Earthliving Extension';
 
@@ -23,7 +20,10 @@ export default class EarthlivingTracker extends HotTracker {
 
     this.healingSources.set(EVENT_LINKS.chainHealHeal, TALENTS.CHAIN_HEAL_TALENT.id);
     this.healingSources.set(EVENT_LINKS.HEALING_WAVE, SPELLS.HEALING_WAVE.id);
-    this.healingSources.set(EVENT_LINKS.HEALING_STREAM_TOTEM_HEAL, SPELLS.HEALING_STREAM_TOTEM_HEAL.id);
+    this.healingSources.set(
+      EVENT_LINKS.HEALING_STREAM_TOTEM_HEAL,
+      SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
+    );
     this.healingSources.set(EVENT_LINKS.HEALING_TIDE_TOTEM_HEAL, SPELLS.HEALING_TIDE_TOTEM_HEAL.id);
     this.healingSources.set(EVENT_LINKS.STORMSTREAM_TOTEM_HEAL, SPELLS.STORMSTREAM_TOTEM_HEAL.id);
     this.healingSources.set(EVENT_LINKS.riptideBuffApply, TALENTS.RIPTIDE_TALENT.id);
@@ -50,4 +50,4 @@ export default class EarthlivingTracker extends HotTracker {
       },
     ];
   }
-};
+}

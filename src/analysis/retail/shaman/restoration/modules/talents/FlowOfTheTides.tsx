@@ -12,11 +12,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import TALENTS from 'common/TALENTS/shaman';
-import {
-  CHAIN_HEAL_TARGETS,
-  healingIncreases,
-  FLOW_OF_THE_TIDES_TARGET,
-} from '../../constants';
+import { CHAIN_HEAL_TARGETS, healingIncreases, FLOW_OF_THE_TIDES_TARGET } from '../../constants';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 import { wasRiptideConsumed } from '../../normalizers/EventLinkNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
@@ -57,8 +53,12 @@ export default class FlowOfTheTides extends Analyzer {
     );
   }
 
-  get buffIcon() {return this.missedJumps > 0 ? <WarningIcon /> : <CheckmarkIcon />;}
-  get totalHealing() {return this.bonusHealing + this.healing;}
+  get buffIcon() {
+    return this.missedJumps > 0 ? <WarningIcon /> : <CheckmarkIcon />;
+  }
+  get totalHealing() {
+    return this.bonusHealing + this.healing;
+  }
 
   onChainHeal(event: CastEvent) {
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
@@ -66,33 +66,33 @@ export default class FlowOfTheTides extends Analyzer {
     const riptideConsumed = wasRiptideConsumed(event);
     const healIncrease = riptideConsumed ? healingIncreases.FLOW_OF_THE_TIDES_INCREASE : 0;
 
-  if (riptideConsumed) {
-    if (this.chainHealTarget === event.targetID) {
-      this.lostRiptideDuration += this.riptideEnd - event.timestamp;
+    if (riptideConsumed) {
+      if (this.chainHealTarget === event.targetID) {
+        this.lostRiptideDuration += this.riptideEnd - event.timestamp;
+      }
+      this.lostRiptides += 1;
     }
-    this.lostRiptides += 1;
+
+    if (orderedChainHeal.length >= this.maxTargets) {
+      this.tallyHealing(this.maxTargets - 1, [...relevantHits], healIncrease);
+      this.extraJumps += 1;
+    } else {
+      this.missedJumps += 1;
+      this.tallyHealing(-1, relevantHits, healIncrease);
+    }
   }
 
-  if (orderedChainHeal.length >= this.maxTargets) {
-    this.tallyHealing(this.maxTargets - 1, [...relevantHits], healIncrease);
-    this.extraJumps += 1;
-  } else {
-    this.missedJumps += 1;
-    this.tallyHealing(-1, relevantHits, healIncrease);
+  private tallyHealing(index: number, events: HealEvent[], healIncrease: number) {
+    if (index > 0) {
+      const extraHit = events.splice(index, 1);
+      this.healing += extraHit[0]!.amount;
+      debug && console.log('Extra Hit: ', extraHit, index);
+    }
+    this.bonusHealing += events.reduce(
+      (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
+      0,
+    );
   }
-}
-
-private tallyHealing(index: number, events: HealEvent[], healIncrease: number) {
-  if (index > 0) {
-    const extraHit = events.splice(index, 1);
-    this.healing += extraHit[0]!.amount;
-    debug && console.log('Extra Hit: ', extraHit, index);
-  }
-  this.bonusHealing += events.reduce(
-    (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
-    0,
-  );
-}
 
   tallyLostRiptideDuration(event: BeginCastEvent) {
     if (!event.castEvent || !event.castEvent.targetIsFriendly || event.isCancelled) {
