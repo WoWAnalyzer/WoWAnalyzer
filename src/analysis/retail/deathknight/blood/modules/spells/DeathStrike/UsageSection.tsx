@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './UsageSection.module.scss';
 import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import ResourceLink from 'interface/ResourceLink';
@@ -88,24 +89,9 @@ const reasonLabel = (reason: DeathStrikeReason) => {
   }
 };
 
-const Table = styled.table`
-  td {
-    padding: 0 1em;
-  }
+const Table = cssComponent('table', styles.Table, [] as const);
 
-  th {
-    font-weight: bold;
-  }
-
-  margin-top: 1em;
-`;
-
-const ContentRow = styled.div`
-  display: grid;
-  grid-template-columns: minmax(40%, max-content) 1fr;
-  gap: 1em;
-  align-items: start;
-`;
+const ContentRow = cssComponent('div', styles.ContentRow, [] as const);
 
 const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['data'] }) => (
   <div>

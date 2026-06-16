@@ -1,5 +1,6 @@
 import type { JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './ElementalTempo.module.scss';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FreeCastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -441,13 +442,6 @@ class ElementalTempo extends Analyzer.withDependencies({
   }
 }
 
-const HelperText = styled.small`
-  border: 1px solid var(--guide-bad-color);
-  border-radius: 4px;
-  padding: 8px;
-  display: block;
-  color: white;
-  margin-bottom: 12px;
-`;
+const HelperText = cssComponent('small', styles.HelperText, [] as const);
 
 export default ElementalTempo;

@@ -1,4 +1,6 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
+import parentStyles from '../index.module.scss';
 import { formatPercentage } from 'common/format';
 import { useEvents, useInfo } from 'interface/guide';
 import ProblemList, {
@@ -18,30 +20,11 @@ import {
 } from './claims';
 import deduplicate from './deduplication';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import clsx from 'clsx';
 
-const EmbedContainer = styled.div`
-  background: #222;
-  border-radius: 0.5em;
-  padding: 1em 1.5em;
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: 1fr max-content;
-  align-content: center;
-  align-items: center;
-`;
+const EmbedContainer = cssComponent('div', styles.EmbedContainer, [] as const);
 
-const ShowMeButton = styled.button`
-  appearance: none;
-  background: #333;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  border: none;
-  box-shadow: 1px 1px 3px #111;
-
-  &:hover {
-    filter: brightness(120%);
-  }
-`;
+const ShowMeButton = cssComponent('button', styles.ShowMeButton, [] as const);
 
 export interface SelectedExplanation<T> {
   describer: ViolationExplainer<T>['describe'];
@@ -52,22 +35,9 @@ export const ExplanationSelectionContext = createContext<
   (selection: SelectedExplanation<any>) => void // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
 >(() => undefined);
 
-const ClaimCountBar = styled(PassFailBar)`
-  .pass-bar {
-    background-color: hsl(348.9, 69.5%, 39.8%);
-  }
+const ClaimCountBar = cssComponent(PassFailBar, styles.ClaimCountBar, [] as const);
 
-  .fail-bar {
-    background-color: hsl(0, 0%, 20%);
-  }
-`;
-
-const ClaimCountDescription = styled.div`
-  display: grid;
-  grid-template-columns: max-content auto;
-  grid-gap: 1rem;
-  align-items: start;
-`;
+const ClaimCountDescription = cssComponent('div', styles.ClaimCountDescription, [] as const);
 
 function AplViolationExplanation<T = unknown>({
   claimData,
@@ -96,18 +66,7 @@ function AplViolationExplanation<T = unknown>({
   );
 }
 
-const ExplanationList = styled.ul`
-  list-style: none;
-  padding-left: 0;
-
-  li {
-    margin-top: 1rem;
-
-    &:first-of-type {
-      margin-top: initial;
-    }
-  }
-`;
+const ExplanationList = cssComponent('ul', styles.ExplanationList, [] as const);
 
 /**
  * Show a list of problem explanations.
@@ -200,16 +159,17 @@ export function AplViolationExplanations({
   );
 }
 
-export const AplViolationTimelineContainer = styled.div``;
+export const AplViolationTimelineContainer = cssComponent(
+  'div',
+  parentStyles.AplViolationTimelineContainer,
+  [] as const,
+);
 
-const ViolationProblemContainer = styled('div')<{ orientation: 'row' | 'column' }>`
-  display: grid;
-  ${(props) =>
-    props.orientation === 'row'
-      ? 'grid-template-columns: auto max-content;'
-      : 'grid-template-rows: auto max-content;'}
-  grid-gap: 1rem;
-`;
+const ViolationProblemContainer = cssComponent(
+  'div',
+  parentStyles.ViolationProblemContainer,
+  [] as const,
+);
 
 export default function ViolationProblemList<T = unknown>({
   describer: DescribeViolation,
@@ -229,7 +189,7 @@ export default function ViolationProblemList<T = unknown>({
 
   const renderer = useMemo(
     () => (props: ProblemRendererProps<Violation>) => (
-      <ViolationProblemContainer orientation={orientation ?? 'row'}>
+      <ViolationProblemContainer className={clsx({ [parentStyles.row]: orientation !== 'column' })}>
         {DescribeViolation && (
           <div>
             <DescribeViolation violation={props.problem.data} result={result} apl={apl} />

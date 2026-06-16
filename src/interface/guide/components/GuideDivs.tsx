@@ -1,48 +1,35 @@
-/**
- * Layout primitives used widely across analysis modules.
- * Component-specific styles have moved: see GuideDataWrapper, CastDetail, CastSequence, BuffUptimeBar.
- */
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './GuideDivs.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PropsWithChildren } from 'react';
 import { qualitativePerformanceToColor } from 'interface/guide';
 
 /** A lighter colored panel with rounded edges */
-export const RoundedPanel = styled.div`
-  background: #222;
-  border-radius: 0.5em;
-  padding: 1em 1.5em;
-  display: grid;
-  grid-gap: 1rem;
-  align-content: center;
-  align-items: center;
-`;
+export const RoundedPanel = cssComponent('div', styles.RoundedPanel, [] as const);
 
 /** Container lays out any number of panels side-by-side and forces them to be the same width
  *  Recommend adding no more than 5 items */
-export const SideBySidePanels = styled.div`
-  display: grid;
-  grid-auto-columns: minmax(0, 1fr);
-  grid-auto-flow: column;
-  grid-column-gap: 1em;
-`;
+export const SideBySidePanels = cssComponent('div', styles.SideBySidePanels, [] as const);
 
 /**
  * Version of {@link RoundedPanel} that aligns content to the start of the
  * box instead of the center.
  */
-export const StartAlignedRoundedPanel = styled(RoundedPanel)`
-  align-content: start;
-  align-items: start;
-`;
+export const StartAlignedRoundedPanel = cssComponent(
+  RoundedPanel,
+  styles.StartAlignedRoundedPanel,
+  [] as const,
+);
 
 /**
  * Version of {@link StartAlignedRoundedPanel} that has an inset box shadow to show
  * color on the left side of the panel.
  */
-const RoundedPanelWithColorBoxShadow = styled(StartAlignedRoundedPanel)`
-  box-shadow: inset 0.5em 0 0 ${(props) => props.color};
-`;
+const RoundedPanelWithColorBoxShadow = cssComponent(
+  StartAlignedRoundedPanel,
+  styles.RoundedPanelWithColorBoxShadow,
+  ['color'] as const,
+);
 
 interface Props {
   performance: QualitativePerformance;
@@ -61,11 +48,4 @@ export const PerformanceRoundedPanel = ({ children, performance }: PropsWithChil
 /**
  * Simple div to give the "header" for a panel some spacing from the other content in the panel.
  */
-export const PanelHeader = styled.div`
-  padding: 0.5em 0;
-  margin: -1px -1px 0;
-  align-content: center;
-  & svg {
-    height: 24px;
-  }
-`;
+export const PanelHeader = cssComponent('div', styles.PanelHeader, [] as const);

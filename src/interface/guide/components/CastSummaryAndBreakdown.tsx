@@ -6,11 +6,14 @@ import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CastSummaryAndBreakdown.module.scss';
 
-const CastSummaryAndBreakdownContainer = styled.div`
-  margin-bottom: 10px;
-`;
+const CastSummaryAndBreakdownContainer = cssComponent(
+  'div',
+  styles.CastSummaryAndBreakdownContainer,
+  [] as const,
+);
 
 interface Props {
   /** The spell ID or Spell object being represented, used in explanatory text */

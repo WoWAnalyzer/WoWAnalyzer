@@ -4,7 +4,7 @@ import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { NormalizerOrder } from './constants';
 
-class MaelstromRefreshBuffNormalizer extends EventsNormalizer {
+class EnhancementBuffNormalizer extends EventsNormalizer {
   constructor(options: Options) {
     super(options);
 
@@ -37,10 +37,24 @@ class MaelstromRefreshBuffNormalizer extends EventsNormalizer {
           continue;
         }
       }
+
+      // sometimes a tempest buff is remove then immediately reapplied, so skip both events entirely
+      if (event.type === EventType.RemoveBuff && event.ability.guid === SPELLS.TEMPEST_BUFF.id) {
+        const nextEvent = events[index + 1];
+        if (
+          nextEvent.type === EventType.ApplyBuff &&
+          nextEvent.ability.guid === SPELLS.TEMPEST_BUFF.id &&
+          Math.abs(nextEvent.timestamp - event.timestamp) <= 2
+        ) {
+          index = index + 2;
+          continue;
+        }
+      }
+
       fixedEvents.push(event);
     }
     return fixedEvents;
   }
 }
 
-export default MaelstromRefreshBuffNormalizer;
+export default EnhancementBuffNormalizer;

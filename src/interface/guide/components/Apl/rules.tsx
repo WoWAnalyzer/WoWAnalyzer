@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
 import { InformationIcon } from 'interface/icons';
 import TooltipWrapper from 'interface/Tooltip';
 import SpellLink from 'interface/SpellLink';
@@ -12,38 +13,11 @@ import {
 } from 'parser/shared/metrics/apl';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import { Fragment, useMemo, type JSX } from 'react';
+import clsx from 'clsx';
 
-export const AplRuleList = styled.ol`
-  padding-left: 1.5rem;
-`;
+export const AplRuleList = cssComponent('ol', styles.AplRuleList, [] as const);
 
-const AplListItem = styled.li<{ highlighted?: boolean; muted?: boolean }>`
-  opacity: ${(props) => (props.muted ? 0.5 : 1)};
-
-  ${(props) =>
-    props.highlighted &&
-    `
-    list-style-type: none;
-    padding-left: 0;
-    margin-left: -1.5rem;
-
-    &::before {
-      content: '\\e080';
-      font-family: 'Glyphicons Halflings';
-      color: #fab700;
-      margin-right: 0.5rem;
-      font-size: 10px;
-    }
-
-    &::after {
-      content: '\\e079';
-      font-family: 'Glyphicons Halflings';
-      color: #fab700;
-      margin-left: 0.5rem;
-      font-size: 10px;
-    }
-  `}
-`;
+const AplListItem = cssComponent('li', styles.AplListItem, ['muted'] as const);
 
 export default function AplRules({
   apl,
@@ -77,7 +51,9 @@ export default function AplRules({
       {rules.map((rule, index) => (
         <AplListItem
           key={index}
-          highlighted={highlightRule && isRuleEqual(highlightRule, rule)}
+          className={clsx({
+            [styles.highlighted]: highlightRule && isRuleEqual(highlightRule, rule),
+          })}
           muted={index < (highlightIndex ?? 0)}
         >
           <RuleDescription rule={rule} />

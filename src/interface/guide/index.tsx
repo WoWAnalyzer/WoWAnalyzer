@@ -81,8 +81,8 @@ import { ComponentPropsWithoutRef, createContext, use, useMemo, useState } from 
 
 import './Guide.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import styled from '@emotion/styled';
-import * as design from 'interface/design-system';
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
 import StateHistory from 'parser/core/StateHistory';
 
 type Constructed<T> = T extends new (options: Options) => infer R ? R : never;
@@ -147,26 +147,7 @@ export type Guide<T extends typeof CombatLogParser = any> = (
 
 export default Guide;
 
-const SectionHeaderWrapper = styled.header`
-  font-size: ${design.fontSize.heading};
-  padding: ${design.gaps.medium} 0;
-  font-weight: bold;
-  color: ${design.colors.wowaYellow};
-  background: ${design.level1.background};
-
-  & > .chevron {
-    background: ${design.level2.background};
-    border: 1px solid ${design.level2.border};
-    box-shadow ${design.level2.shadow};
-    border-radius: 0.2rem;
-
-    padding: 0 ${design.gaps.small};
-  }
-
-  &:hover > .chevron {
-    background: ${design.level2.background_active};
-  }
-`;
+const SectionHeaderWrapper = cssComponent('header', styles.SectionHeaderWrapper, [] as const);
 
 /**
  * The header for a `<Section />`. Exported as a convenient way for others to
@@ -186,18 +167,7 @@ export const SectionHeader = ({
   </SectionHeaderWrapper>
 );
 
-const SectionExpandable = styled(ControlledExpandable)`
-  background: ${design.level1.background};
-  border: 1px solid ${design.level1.border};
-  box-shadow: ${design.level1.shadow};
-  padding: 0 ${design.gaps.large} ${design.gaps.small} ${design.gaps.large};
-
-  & .details > div {
-    background: unset;
-    box-shadow: unset;
-    padding: unset;
-  }
-`;
+const SectionExpandable = cssComponent(ControlledExpandable, styles.SectionExpandable, [] as const);
 
 /**
  * An expandable guide section. Defaults to expanded.
@@ -341,11 +311,7 @@ export function useAnalyzers<Arr extends Record<number, typeof Module>>(
   ) as ModuleList<Arr>;
 }
 
-const GuideContainer_ = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${design.gaps.large};
-`;
+const GuideContainer_ = cssComponent('div', styles.GuideContainer_, [] as const);
 
 /**
  * The overall guide container. You will never need this, it is used by the WoWA
@@ -355,18 +321,7 @@ export const GuideContainer = ({ children }: { children: ReactNode }) => (
   <GuideContainer_ className="guide-container">{children}</GuideContainer_>
 );
 
-const SubSectionContainer = styled.section`
-  /* including .guide-container here is a specificity hack */
-  .guide-container & {
-    margin-top: ${design.gaps.large};
-  }
-
-  & > header {
-    font-size: ${design.fontSize.subHeading};
-    font-weight: bold;
-    padding: ${design.gaps.small} 0;
-  }
-`;
+const SubSectionContainer = cssComponent('section', styles.SubSectionContainer, [] as const);
 
 /**
  * A section within a section. This can be nested (so you'd have a

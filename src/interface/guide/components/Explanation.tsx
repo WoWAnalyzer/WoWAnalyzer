@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './Explanation.module.scss';
 import { ComponentPropsWithoutRef, createContext, ReactNode, use, useMemo } from 'react';
 import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
 
@@ -30,12 +31,7 @@ export const useExplanationContext = () => use(ExplanationContext);
 
 /** A container for explanatory text.
  *  For now this is just a div, a future update will allow a toggle to hide all Explanations. */
-const StyledExplanation = styled.div`
-  .text-muted,
-  small {
-    color: rgba(202, 200, 196, 0.77);
-  }
-`;
+const StyledExplanation = cssComponent('div', styles.StyledExplanation, [] as const);
 
 /** A container for explanatory text. */
 const Explanation = (props: ComponentPropsWithoutRef<typeof StyledExplanation>) => {

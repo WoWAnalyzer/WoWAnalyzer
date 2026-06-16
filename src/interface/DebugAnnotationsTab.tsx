@@ -4,12 +4,14 @@ import DebugAnnotations, {
   ModuleAnnotations,
 } from 'parser/core/modules/DebugAnnotations';
 import Tooltip from './Tooltip';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './DebugAnnotationsTab.module.scss';
 import { Ability, AnyEvent, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import { useMemo, useState, useCallback } from 'react';
 import { useCombatLogParser } from './report/CombatLogParserContext';
 import { formatDuration } from 'common/format';
 import SpellLink from './SpellLink';
+import clsx from 'clsx';
 
 export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParser }) {
   const annotations = parser.getModule(DebugAnnotations);
@@ -144,18 +146,9 @@ function EventDetails({
   );
 }
 
-const EventDetailsColumns = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content;
-  grid-gap: 1em;
-`;
+const EventDetailsColumns = cssComponent('div', styles.EventDetailsColumns, [] as const);
 
-const EventPre = styled.pre`
-  background-color: #333;
-  color: #eee;
-  font-family: monospace, Courier;
-`;
+const EventPre = cssComponent('pre', styles.EventPre, [] as const);
 
 const AnnotationDot = ({
   event,
@@ -179,54 +172,24 @@ const AnnotationDot = ({
     <Tooltip
       content={`${formatDuration(event.timestamp - combatLogParser.fight.start_time)} - ${annotation.summary}`}
     >
-      <Dot color={annotation.color} onClick={onClick} selected={selected} />
+      <Dot
+        color={annotation.color}
+        onClick={onClick}
+        className={clsx({ [styles.selected]: selected })}
+      />
     </Tooltip>
   );
 };
 
-const Dot = styled('div')<{ color: string; selected?: boolean }>`
-  background-color: ${(props) => props.color};
-  height: 1em;
-  width: 1em;
-  border-radius: 50%;
-  cursor: pointer;
-  box-sizing: border-box;
-  border-width: 2px;
-  border-style: solid;
-  border-color: ${(props) => (props.selected ? 'white' : props.color)};
-`;
+const Dot = cssComponent('div', styles.Dot, ['color'] as const);
 
-const DotContainer = styled.div`
-  display: flex;
-  margin-top: 0.5em;
-  flex-direction: column;
-  flex-wrap: wrap;
+const DotContainer = cssComponent('div', styles.DotContainer, [] as const);
 
-  gap: 4px;
+const Row = cssComponent('div', styles.Row, [] as const);
 
-  // Originally 70% (10.5px)
-  // This aims to have a pixel perfect value so Dots doesn't get deformed
-  // by navigator rendering interpolations.
-  font-size: 71.4288%;
-`;
+const RowTimestamp = cssComponent('div', styles.RowTimestamp, [] as const);
 
-const Row = styled.div`
-  border-left: 1px solid #eee;
-  padding-left: 4px;
-`;
-
-const RowTimestamp = styled.div`
-  display: inline-block;
-  margin-bottom: 2px;
-`;
-
-const RowContent = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
-  gap: 2px;
-`;
+const RowContent = cssComponent('div', styles.RowContent, [] as const);
 
 function intoRows<T extends { event: AnyEvent }>(data: T[], startTime: number): T[][] {
   const rows: T[][] = [[]];
@@ -243,17 +206,7 @@ function intoRows<T extends { event: AnyEvent }>(data: T[], startTime: number): 
   return rows;
 }
 
-const CopyTextLink = styled.button`
-  appearance: none;
-  border: none;
-  background: none;
-  font-size: small;
-  color: #777;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+const CopyTextLink = cssComponent('button', styles.CopyTextLink, [] as const);
 
 function CopySpellData({ ability }: { ability: Ability }) {
   const copy = useCallback(async () => {

@@ -8,7 +8,6 @@ import { getConfigForSpec } from 'parser/getConfig';
 import GameBranch from 'game/GameBranch';
 import { SupportLevel, configName } from 'parser/Config';
 import { i18n } from '@lingui/core';
-import styled from '@emotion/styled/macro';
 import {
   BadMark,
   GoodMark,
@@ -22,6 +21,8 @@ import {
   evaluateQualitativePerformanceByThreshold,
 } from 'parser/ui/QualitativePerformance';
 import Changelog from 'interface/Changelog';
+import styles from './support-stats.module.scss';
+import cssComponent from 'interface/utils/css-component';
 
 export function Component(): JSX.Element {
   const [data, setData] = useState<Array<[Spec, Partial<ServerMetrics<Aggregate>>]>>();
@@ -48,6 +49,8 @@ export function Component(): JSX.Element {
     </div>
   );
 }
+
+const Table = cssComponent('table', styles.Table, [] as const);
 
 function StatsTable({
   data,
@@ -82,30 +85,12 @@ function StatsTable({
   );
 }
 
-const Table = styled.table`
-  th,
-  td {
-    padding: 0.25em 1em;
-    white-space: nowrap;
-    text-align: right;
-  }
-
-  & .left {
-    text-align: left;
-  }
-
-  caption {
-    color: white;
-    font-size: large;
-  }
-`;
-
 function StatsTableHeader() {
   return (
     <thead>
       <tr>
-        <th className="left">Spec</th>
-        <th className="left">Support Level</th>
+        <th className={styles.left}>Spec</th>
+        <th className={styles.left}>Support Level</th>
         <th>Last Change</th>
         <th>Patch</th>
         <th>Active Time</th>
@@ -143,13 +128,13 @@ function StatsTableRow({
   }, [config]);
   return (
     <tr>
-      <td className="left">
+      <td className={styles.left}>
         <SpecIcon spec={spec} />{' '}
         <span className={spec.wclClassName}>
           {spec.specName ? i18n._(spec.specName) : spec.wclSpecName} {i18n._(spec.className)}
         </span>
       </td>
-      <td className="left">
+      <td className={styles.left}>
         {config?.supportLevel ? (
           <SupportLevelLabel level={config.supportLevel} />
         ) : (

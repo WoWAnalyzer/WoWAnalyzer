@@ -98,7 +98,7 @@ import {
   DarkmoonSigilAscension,
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
-import { DarkmoonSigilHunt } from 'parser/retail/modules/items/midnight';
+import { DarkmoonSigilHunt, FanaticalInspiration } from 'parser/retail/modules/items/midnight';
 import CritRacial from 'parser/shared/modules/racials/CritRacial';
 import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
@@ -112,6 +112,7 @@ import IncorporealEssenceGorger from 'parser/retail/modules/items/thewarwithin/t
 import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 import VolatileVoidSuffuser from 'parser/retail/modules/items/midnight/trinkets/VolatileVoidSuffuser';
 import LightOfTheCosmicCrescendo from 'parser/retail/modules/items/midnight/trinkets/LightOfTheCosmicCrescendo';
+import FrenziedFocus from 'parser/retail/modules/items/midnight/enchants/FrenziedFocus';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -224,12 +225,14 @@ class CombatLogParser {
     incorporealEssenceGorger: IncorporealEssenceGorger,
     volatileVoidSuffuser: VolatileVoidSuffuser,
     lightOfTheCosmicCrescendo: LightOfTheCosmicCrescendo,
+    fanaticalInspiration: FanaticalInspiration,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,
     darkmoonSigilHunt: DarkmoonSigilHunt,
 
     // Enchants
+    frenziedFocus: FrenziedFocus,
 
     // Crafted
 

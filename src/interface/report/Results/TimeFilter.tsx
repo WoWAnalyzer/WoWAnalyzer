@@ -4,8 +4,8 @@ import type { FormEvent, MouseEvent } from 'react';
 import { useEffect, useState } from 'react';
 
 import TimeInput from './TimeInput';
-import styled from '@emotion/styled';
-import * as design from 'interface/design-system';
+import cssComponent from 'interface/utils/css-component';
+import styles from './TimeFilter.module.scss';
 
 interface Props {
   fight: Fight;
@@ -19,31 +19,9 @@ const generateBoundary = (fight: Fight) => ({
   max: (fight.original_end_time || fight.end_time) - fight.start_time + fight.offset_time,
 });
 
-const SubmitButton = styled.button`
-  appearance: none;
-  border: 1px solid ${design.level2.border};
-  background: ${design.level2.background};
-  box-shadow: ${design.level2.shadow};
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+const SubmitButton = cssComponent('button', styles.SubmitButton, [] as const);
 
-  color: ${design.colors.bodyText};
-
-  &:hover:not(:disabled) {
-    filter: brightness(115%);
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    color: ${design.colors.unfocusedText};
-  }
-`;
-
-const ResetButton = styled(SubmitButton)`
-  background: ${design.level1.background};
-  border-color: ${design.level2.border};
-  box-shadow: ${design.level1.shadow};
-`;
+const ResetButton = cssComponent(SubmitButton, styles.ResetButton, [] as const);
 
 const TimeFilter = (props: Props) => {
   const [start, setStart] = useState<number>(0);

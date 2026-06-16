@@ -1,0 +1,42 @@
+@use 'interface/design-system' as design;
+
+.BuffBar {
+  position: absolute;
+  border-radius: 3px;
+  background-color: var(--guide-good-color);
+  opacity: 90%;
+  height: 60%;
+  top: 20%;
+
+  width: calc((var(--end) - var(--start)) / var(--fightDuration) * 100%);
+  left: calc(var(--start) / var(--fightDuration) * 100%);
+}
+
+.BuffBarContainer {
+  position: relative;
+  height: 24px;
+}
+
+.TooltipSegments {
+  min-width: 100px;
+  width: 100px;
+  display: inline-block;
+}
+
+.MitigationDataRow {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 1rem;
+  line-height: 1em;
+  margin-top: 0.4em;
+}
+
+.BareTimelineContainer {
+  padding: 0;
+  background: unset;
+}
+
+.BuffTimelineContainer {
+  margin-left: 48px;
+}

@@ -1,0 +1,54 @@
+@use 'interface/design-system' as design;
+
+.StatBoxContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-self: end;
+
+  text-align: center;
+  font-size: 1.5rem;
+
+  border: 1px solid design.$level1_border;
+  background: design.$level0_background;
+  box-shadow: inset 1px 3px design.$level1_shadow;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  margin-right: -0.5rem;
+
+  & > * {
+    border-right: 1px solid design.$level1_border;
+  }
+
+  & > *:first-child {
+    padding-left: 0;
+  }
+
+  & > *:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+.StatBoxStat {
+  & > dt {
+    font-weight: normal;
+    color: design.$colors_unfocusedText;
+    font-size: 75%;
+
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    align-content: baseline;
+    justify-content: center;
+  }
+  & img {
+    max-height: 0.75em;
+  }
+
+  min-width: 5em;
+
+  padding: 0 1rem;
+  margin: 0;
+}

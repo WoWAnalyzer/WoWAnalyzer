@@ -1,0 +1,61 @@
+@use 'interface/design-system' as design;
+
+.NoData {
+  color: #999;
+}
+
+.CooldownUsageDetailsContainer {
+  display: grid;
+  grid-template-rows: max-content max-content 1fr;
+}
+
+.TableSegmentContainer {
+  line-height: 1em;
+  height: 1em;
+  min-width: 100px;
+
+  .MitigationTooltipSegment {
+    margin-top: 0.1em;
+    height: 1em;
+  }
+}
+
+:global(.pass-fail-bar-container).SmallPassFailBar {
+  width: 100px;
+  min-width: 100px;
+}
+
+.NumericColumn {
+  text-align: right;
+}
+
+.CooldownDetailsContainer {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-areas: 'talent source';
+  grid-template-columns: max-content 1fr;
+
+  gap: 1.5rem;
+  height: 100%;
+  align-items: start;
+  justify-content: space-between;
+
+  .NoData {
+    justify-self: center;
+    align-self: center;
+    grid-column: 1 / -1;
+  }
+
+  & > table {
+    width: 100%;
+  }
+  & > table td {
+    padding-right: 1rem;
+
+    &:first-of-type {
+      max-width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

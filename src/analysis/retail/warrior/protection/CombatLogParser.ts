@@ -25,15 +25,20 @@ import BoomingVoice from './modules/spells/BoomingVoice';
 import HeavyRepercussions from './modules/spells/HeavyRepercussions';
 import IntoTheFray from './modules/spells/IntoTheFray';
 import Punish from './modules/spells/Punish';
+import AvatarOfTheStorm from './modules/talents/AvatarOfTheStorm';
 import BurstOfPower from './modules/talents/BurstOfPower';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
 import VoilentOutBurstWaste from './modules/spells/ViolentOutburstWaste';
 import Javelineer from './modules/spells/Javelineer';
+import ShieldChargeNormalizer from './normalizers/ShieldChargeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    shieldChargeNormalizer: ShieldChargeNormalizer,
+
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
@@ -77,7 +82,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // TODO
 
     // Mountain Thane Hero Talents
-    BurstOfPower,
+    avatarOfTheStorm: AvatarOfTheStorm,
+    burstOfPower: BurstOfPower,
   };
 }
 

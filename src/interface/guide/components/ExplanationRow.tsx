@@ -1,9 +1,8 @@
 import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './ExplanationRow.module.scss';
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';
-
-const leftPercentDefault = 30;
 
 /**
  * A container for holding two side-by-side panels, an explanation and data. By default, the left
@@ -19,9 +18,8 @@ export default function ExplanationRow({
   const { hideExplanations } = useExplanationContext();
   return (
     <StyledExplanationRow
-      style={{
-        gridTemplateColumns: hideExplanations ? '1fr' : `${leftPercent ?? leftPercentDefault}% 1fr`,
-      }}
+      leftPercent={leftPercent}
+      className={hideExplanations ? styles.hideExplanations : undefined}
     >
       {children}
     </StyledExplanationRow>
@@ -67,7 +65,6 @@ export function ExplanationAndDataSubSection({
   );
 }
 
-const StyledExplanationRow = styled.div`
-  display: grid;
-  grid-column-gap: 1em;
-`;
+const StyledExplanationRow = cssComponent('div', styles.StyledExplanationRow, [
+  'leftPercent',
+] as const);
