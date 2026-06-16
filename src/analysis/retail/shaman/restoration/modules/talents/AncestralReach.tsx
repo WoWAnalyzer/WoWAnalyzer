@@ -2,11 +2,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 import TALENTS from 'common/TALENTS/shaman';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import {
-  healingIncreases,
-  ANCESTRAL_REACH_TARGET,
-  CHAIN_HEAL_TARGETS,
-} from '../../constants';
+import { healingIncreases, ANCESTRAL_REACH_TARGET, CHAIN_HEAL_TARGETS } from '../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -43,8 +39,12 @@ export default class AncestralReachAnalyzer extends Analyzer {
     );
   }
 
-  get buffIcon() {return this.missedJumps > 0 ? <WarningIcon /> : <CheckmarkIcon />;}
-  get totalHealing() {return this.bonusHealing + this.healing;}
+  get buffIcon() {
+    return this.missedJumps > 0 ? <WarningIcon /> : <CheckmarkIcon />;
+  }
+  get totalHealing() {
+    return this.bonusHealing + this.healing;
+  }
 
   onChainHeal(event: CastEvent) {
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
@@ -55,7 +55,6 @@ export default class AncestralReachAnalyzer extends Analyzer {
       this.tallyHealing(index, [...relevantHits]);
       this.extraJumps += 1;
     } else {
-
       this.missedJumps += 1;
       this.tallyHealing(-1, relevantHits);
     }
@@ -67,8 +66,9 @@ export default class AncestralReachAnalyzer extends Analyzer {
       this.healing += extraHit[0]!.amount;
       debug && console.log('Extra Hit: ', extraHit, index);
     }
-      this.bonusHealing += events.reduce(
-      (amount, event) => amount + calculateEffectiveHealing(event, healingIncreases.ANCESTRAL_REACH_INCREASE),
+    this.bonusHealing += events.reduce(
+      (amount, event) =>
+        amount + calculateEffectiveHealing(event, healingIncreases.ANCESTRAL_REACH_INCREASE),
       0,
     );
   }
@@ -108,7 +108,7 @@ export default class AncestralReachAnalyzer extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.ANCESTRAL_REACH_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          <br />
+          <p></p>
           {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
         </TalentSpellText>
       </Statistic>
