@@ -49,20 +49,19 @@ export function DragonRageWindowSection({
               explanationPercent={30}
               explanation={<Statistics window={window} />}
               data={
-                <div style={{ overflowX: 'auto' }}>
-                  <EmbeddedTimelineContainer
-                    secondWidth={60}
-                    secondsShown={(window.end - window.start) / 1000}
-                  >
-                    <SpellTimeline>
-                      <Casts
-                        start={relevantEvents[0].timestamp}
-                        secondWidth={60}
-                        events={relevantEvents}
-                      />
-                    </SpellTimeline>
-                  </EmbeddedTimelineContainer>
-                </div>
+                <EmbeddedTimelineContainer
+                  secondWidth={60}
+                  secondsShown={(window.end - window.start) / 1000}
+                  style={{ maxWidth: '100%', overflowX: 'auto', boxSizing: 'border-box' }}
+                >
+                  <SpellTimeline>
+                    <Casts
+                      start={relevantEvents[0].timestamp}
+                      secondWidth={60}
+                      events={relevantEvents}
+                    />
+                  </SpellTimeline>
+                </EmbeddedTimelineContainer>
               }
             />
           </Fragment>

@@ -1,12 +1,12 @@
 import { useMemo, useState, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
 import { useEvents, useInfo } from 'interface/guide';
 import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';
 
-import AplRules, { AplRuleList } from './rules';
+import AplRules from './rules';
 import ViolationProblemList, {
   AplViolationExplanations,
-  AplViolationTimelineContainer,
   ExplanationSelectionContext,
   SelectedExplanation,
 } from './violations';
@@ -14,24 +14,11 @@ import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 import { formatPercentage } from 'common/format';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 
-const AplSubsectionHeader = styled.header`
-  font-weight: bold;
-`;
+const AplSubsectionHeader = cssComponent('header', styles.AplSubsectionHeader, [] as const);
 
-const AplSummaryTable = styled.table`
-  td {
-    padding-right: 1rem;
-    width: 99%;
-  }
+const AplSummaryTable = cssComponent('table', styles.AplSummaryTable, [] as const);
 
-  td:last-child {
-    min-width: 10em;
-  }
-`;
-
-const ValueData = styled.td`
-  text-align: right;
-`;
+const ValueData = cssComponent('td', styles.ValueData, [] as const);
 
 export function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }) {
   return (
@@ -89,29 +76,9 @@ function AplSummaryColumn({
   );
 }
 
-const AplViolationContainer = styled.div`
-  display: grid;
-  grid-template-rows: max-content 1fr;
-`;
+const AplViolationContainer = cssComponent('div', styles.AplViolationContainer, [] as const);
 
-const AplLayout = styled.div`
-  display: grid;
-  grid-template-areas: 'summary problems' 'timeline timeline';
-  grid-template-columns: 10fr 8fr;
-  grid-gap: 2rem;
-
-  ${AplRuleList} {
-    grid-area: summary;
-  }
-
-  ${AplViolationContainer} {
-    grid-area: problems;
-  }
-
-  ${AplViolationTimelineContainer} {
-    grid-area: timeline;
-  }
-`;
+const AplLayout = cssComponent('div', styles.AplLayout, [] as const);
 
 interface AplSectionProps {
   checker: ReturnType<typeof aplCheck>;

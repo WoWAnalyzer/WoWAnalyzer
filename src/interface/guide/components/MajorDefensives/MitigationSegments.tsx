@@ -1,7 +1,9 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './MitigationSegments.module.scss';
 import { formatNumber } from 'common/format';
 import Tooltip from 'interface/Tooltip';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, JSX, ReactNode } from 'react';
+import clsx from 'clsx';
 
 export interface MitigationSegment {
   amount: number;
@@ -9,43 +11,40 @@ export interface MitigationSegment {
   description: ReactNode;
 }
 
-const roundedContainerStyles = `
-  border-radius: 2px;
-  overflow: clip;
+const MitigationSegmentContainer = cssComponent(
+  'div',
+  styles.MitigationSegmentContainer,
+  [] as const,
+);
 
-  & div:first-child {
-    border-radius: 2px 0 0 2px;
-  }
-`;
-
-const MitigationSegmentContainer = styled.div<{ rounded?: boolean }>`
-  width: 100%;
-  height: 1em;
-  text-align: left;
-  line-height: 1em;
-  background-color: rgba(255, 255, 255, 0.2);
-  ${(props) => (props.rounded ? roundedContainerStyles : '')}
-`;
-
-// we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-export const MitigationTooltipSegment = styled.div<{
+export const MitigationTooltipSegment = ({
+  color,
+  maxWidth,
+  width,
+  innerRef,
+  children,
+  className,
+  ...rest
+}: {
   color: string;
-  width: number;
   maxWidth?: number;
-}>`
-  background-color: ${(props) => props.color};
-  width: calc(
-    ${(props) =>
-        props.maxWidth
-          ? `${Math.max(0.02, props.width)} * ${props.maxWidth}px`
-          : `${Math.max(2, props.width * 100)}%`} -
-      1px
+  width: number;
+  innerRef?: React.Ref<HTMLDivElement>;
+} & React.ComponentProps<'div'>): JSX.Element => {
+  const actualWidth = maxWidth
+    ? `calc(${Math.max(0.02, width)} * ${maxWidth}px - 1px)`
+    : `calc(${Math.max(2, width * 100)}% - 1px)`;
+
+  return (
+    <div
+      {...rest}
+      className={clsx(styles.MitigationTooltipSegment, className)}
+      style={{ width: actualWidth, '--color': color }}
+    >
+      {children}
+    </div>
   );
-  height: 100%;
-  display: inline-block;
-  box-sizing: content-box;
-  border-left: 1px solid #000;
-`;
+};
 
 export const MitigationSegments = ({
   segments,
@@ -60,7 +59,10 @@ export const MitigationSegments = ({
   rounded?: boolean;
   style?: CSSProperties;
 }) => (
-  <MitigationSegmentContainer rounded={rounded} className={className} style={style}>
+  <MitigationSegmentContainer
+    className={clsx(className, { [styles.rounded]: rounded })}
+    style={style}
+  >
     {segments
       .filter((seg) => seg.amount > 0)
       .map((seg, ix) => (

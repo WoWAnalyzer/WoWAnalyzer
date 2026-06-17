@@ -1,0 +1,22 @@
+@use 'interface/design-system' as design;
+
+.CooldownUtilBarContainer {
+  font-size: 20px;
+  padding: 2px;
+  display: grid;
+  grid-column-gap: 1em;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+}
+
+.ExplanationText {
+  margin-bottom: 8px;
+
+  strong {
+    display: block;
+  }
+
+  small {
+    color: #999;
+  }
+}

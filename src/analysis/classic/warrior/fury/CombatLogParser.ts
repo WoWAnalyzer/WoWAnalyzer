@@ -1,11 +1,13 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Features
-import Abilities from './modules/features/Abilities';
+import { Abilities } from './gen';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Spells
+import ColossusSmashWindowStrategy from './modules/spells/ColossusSmashWindowStrategy';
+import Guide from './Guide';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -15,7 +17,10 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
+    colossusSmashWindowStrategy: ColossusSmashWindowStrategy,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

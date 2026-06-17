@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './TipBox.module.scss';
 import { CheckmarkIcon, CrossIcon, InformationIcon, NoteIcon, WarningIcon } from 'interface/icons';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
@@ -76,10 +77,10 @@ function TipBoxLayout({
 }) {
   const hasHeader = icon || title;
   return (
-    <Container $color={color} role={role}>
+    <Container color={color} role={role}>
       <div>
         {hasHeader && (
-          <TitleWrapper $color={color}>
+          <TitleWrapper color={color}>
             <strong>
               {icon && <IconWrapper>{icon}</IconWrapper>}
               {title && <>{title}: </>}
@@ -92,36 +93,11 @@ function TipBoxLayout({
   );
 }
 
-const Container = styled.div<{ $color: string }>`
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid ${(p) => p.$color}66;
-  border-radius: 4px;
-  padding: 6px 16px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
-  margin-bottom: 8px;
-  line-height: 1.5;
-`;
+const Container = cssComponent('div', styles.Container, ['color'] as const);
 
-const TitleWrapper = styled.span<{ $color: string }>`
-  color: ${(p) => p.$color};
-`;
+const TitleWrapper = cssComponent('span', styles.TitleWrapper, ['color'] as const);
 
-const IconWrapper = styled.span`
-  display: inline-block;
-  vertical-align: -0.1em;
-  line-height: 1;
-  margin-right: 0.4em;
-  font-size: 1.4em;
-
-  & > svg,
-  & > img {
-    width: 1em;
-    height: 1em;
-  }
-`;
+const IconWrapper = cssComponent('span', styles.IconWrapper, [] as const);
 
 interface PerformanceTipBoxProps extends Omit<TipBoxProps, 'type'> {
   performance: QualitativePerformance;

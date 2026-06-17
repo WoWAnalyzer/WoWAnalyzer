@@ -6,7 +6,7 @@ import EmbeddedTimeline, {
   EmbeddedTimelineProps,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import ThroughputTable, { ThroughputTableProps } from 'interface/Table/ThroughputTable';
-import { gaps } from 'interface/design-system';
+import styles from './CooldownExpandable.module.scss';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
@@ -110,7 +110,7 @@ const CooldownExpandable = ({
           <CooldownExpandableDataList items={detailItems} title="Details" />
         )}
         {range && table && (
-          <div style={{ marginTop: gaps.large }}>
+          <div className={styles.throughputTableContainer}>
             <ThroughputTable range={range} {...table} />
           </div>
         )}

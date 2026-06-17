@@ -11,7 +11,13 @@ export default class BurstOfPower extends Analyzer.withDependencies({
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.BURST_OF_POWER_TALENT);
 
+    // Burst of Power grants Shield Slam reset stacks through buff events rather than explicit
+    // cooldown-reset events, so each gained stack should make Shield Slam immediately usable
     this.addEventListener(Events.applybuff.spell(SPELLS.BURST_OF_POWER_BUFF), this.resetShieldSlam);
+    this.addEventListener(
+      Events.applybuffstack.spell(SPELLS.BURST_OF_POWER_BUFF),
+      this.resetShieldSlam,
+    );
 
     this.addEventListener(
       Events.removebuffstack.spell(SPELLS.BURST_OF_POWER_BUFF),

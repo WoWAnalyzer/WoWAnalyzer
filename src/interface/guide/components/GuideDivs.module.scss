@@ -1,0 +1,36 @@
+@use 'interface/design-system' as design;
+
+.RoundedPanel {
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-gap: 1rem;
+  align-content: center;
+  align-items: center;
+}
+
+.SideBySidePanels {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-column-gap: 1em;
+}
+
+.StartAlignedRoundedPanel {
+  align-content: start;
+  align-items: start;
+}
+
+.RoundedPanelWithColorBoxShadow {
+  box-shadow: inset 0.5em 0 0 var(--color);
+}
+
+.PanelHeader {
+  padding: 0.5em 0;
+  margin: -1px -1px 0;
+  align-content: center;
+  & svg {
+    height: 24px;
+  }
+}

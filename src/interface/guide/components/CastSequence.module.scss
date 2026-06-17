@@ -1,0 +1,133 @@
+@use 'interface/design-system' as design;
+
+.Sequence {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 6px;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+    cursor: default !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(104, 103, 100, 0.15);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #fab700;
+  }
+}
+
+.SpellIcon {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  outline: 3px solid var(--color);
+  outline-offset: 0px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+
+  &.noOutline {
+    outline: none;
+  }
+
+  &.ghosted {
+    border: 2px solid rgba(210, 210, 210, 0.85);
+    opacity: 0.68;
+
+    img {
+      filter: grayscale(0.7);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: none;
+  }
+}
+
+.NavigationButtons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.CastSeqNavButton {
+  min-width: 28px;
+  height: 28px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #fab700;
+  font-size: 1.8rem;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  line-height: 0;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover:not(:disabled) {
+    background: rgba(250, 183, 0, 0.12);
+    border-color: rgba(250, 183, 0, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    background: rgba(250, 183, 0, 0.18);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
+}
+
+.NavCounter {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  min-width: 36px;
+  text-align: center;
+}
+
+.Overlay {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: calc(var(--size) * 0.45px);
+  height: calc(var(--size) * 0.45px);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+
+  &.top {
+    top: -3px;
+    bottom: unset;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}

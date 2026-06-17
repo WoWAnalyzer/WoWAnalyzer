@@ -1,7 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { JSX, useMemo, useState } from 'react';
-import * as design from 'interface/design-system';
 import type Spell from 'common/SPELLS/Spell';
 import { useEvents, useInfo } from 'interface/guide';
 import { AnyEvent, EventType } from 'parser/core/Events';
@@ -15,6 +14,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Table, { Column, HeaderSelect } from './Table';
 import React from 'react';
 import { WCLReport } from 'parser/core/Report';
+import styles from './ThroughputTable.module.scss';
 
 export const OTHER_SPECIAL_ID = -9999;
 
@@ -80,16 +80,7 @@ export const amountBar = (
   label,
   render({ amount, school, type, isAbsorb }, { max, total }) {
     return (
-      <div
-        style={{
-          display: 'grid',
-          // would be nice to not need to used a fixed-width column for the right-side number
-          // using a variable size causes the bars to no have matching scales.
-          gridTemplateColumns: '5rem 1fr 5rem',
-          gap: design.gaps.medium,
-          width: '100%',
-        }}
-      >
+      <div className={styles.AmountBarContainer}>
         <div style={{ textAlign: 'right' }}>{formatPercentage(amount / total, 1)}%</div>
         <div
           className={

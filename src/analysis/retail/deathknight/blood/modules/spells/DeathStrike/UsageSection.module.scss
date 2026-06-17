@@ -1,0 +1,20 @@
+@use 'interface/design-system' as design;
+
+.Table {
+  td {
+    padding: 0 1em;
+  }
+
+  th {
+    font-weight: bold;
+  }
+
+  margin-top: 1em;
+}
+
+.ContentRow {
+  display: grid;
+  grid-template-columns: minmax(40%, max-content) 1fr;
+  gap: 1em;
+  align-items: start;
+}

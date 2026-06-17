@@ -1,0 +1,10 @@
+@use 'interface/design-system' as design;
+
+.AmountBarContainer {
+  gap: design.$gaps_medium;
+  display: grid;
+  // would be nice to not need to used a fixed-width column for the right-side number
+  // using a variable size causes the bars to not have matching scales.
+  grid-template-columns: 5rem 1fr 5rem;
+  width: 100%;
+}
