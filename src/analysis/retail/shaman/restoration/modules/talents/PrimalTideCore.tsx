@@ -51,7 +51,10 @@ class PrimalTideCore extends Analyzer {
   onApplyRiptide(event: ApplyBuffEvent) {
     if (isFromPrimalTideCore(event)) {
       // If this buff application is on the primary hardcast target, skip it!
-      if (event.timestamp === this.lastCastTimestamp && event.targetID === this.lastCastTargetId) {
+      if (
+        Math.abs(event.timestamp - this.lastCastTimestamp) <= 5 &&
+        event.targetID === this.lastCastTargetId
+      ) {
         return;
       }
 
@@ -79,7 +82,10 @@ class PrimalTideCore extends Analyzer {
       }
     } else if (isFromPrimalTideCore(event)) {
       // If the direct initial heal is hitting the primary hardcast target, skip it!
-      if (event.timestamp === this.lastCastTimestamp && event.targetID === this.lastCastTargetId) {
+      if (
+        Math.abs(event.timestamp - this.lastCastTimestamp) <= 5 &&
+        event.targetID === this.lastCastTargetId
+      ) {
         return;
       }
       this.ptcHealing += event.amount + (event.absorbed || 0);

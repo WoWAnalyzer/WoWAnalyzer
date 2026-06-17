@@ -47,8 +47,7 @@ class Abilities extends ClassAbilities {
         },
       },
       {
-        spell: SPELLS.PURIFY_SPIRIT.id,
-        enabled: combatant.hasTalent(TALENTS.IMPROVED_PURIFY_SPIRIT_TALENT),
+        spell: SPELLS.PURIFY_SPIRIT.id, //Baseline for restoration. Spell ID does not change in log if the talent 'Improved Purify Spirit' has been taken.
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
@@ -94,6 +93,8 @@ class Abilities extends ClassAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         timelineSortIndex: 10,
         enabled: combatant.hasTalent(TALENTS.STORMSTREAM_TOTEM_1_RESTORATION_TALENT),
+        //Player receives a buff with one stack (up to 2) on proc. SST overrides HST (like Tempest does with LB on Elemental). Upon cast, a stack of the buff is consumed.
+        //If the player has no stacks left, the ability changes back to be HST. The charges of HST recover their cooldown as usual during the duration of the SST buff.
         gcd: {
           base: 1500,
         },
