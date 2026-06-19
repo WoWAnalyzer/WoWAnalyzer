@@ -43,6 +43,7 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
+import DoubleTime from './modules/talents/DoubleTime';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -61,7 +62,6 @@ import {
   ExpandedLungs,
   Reverberations,
   Chronoflame,
-  DoubleTime,
   Primacy,
   TimeConvergence,
   MotesOfAcceleration,

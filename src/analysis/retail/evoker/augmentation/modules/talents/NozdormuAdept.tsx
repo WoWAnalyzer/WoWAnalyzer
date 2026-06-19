@@ -12,8 +12,7 @@ import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 
 /**
- * Aug: Prescience grants 1% additional critical strike chance and has 2 sec reduced cooldown.
- * Pres [NYI]: Temporal Anomaly has 15% reduced mana cost and 4 sec reduced cooldown.
+ * Prescience grants 1% additional critical strike chance and has 2 sec reduced cooldown.
  */
 class NozdormuAdept extends Analyzer {
   damage = 0;
