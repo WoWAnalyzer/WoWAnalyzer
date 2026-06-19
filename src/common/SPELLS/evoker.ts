@@ -829,6 +829,21 @@ const spells = {
     name: 'Magnified Fate',
     icon: 'abilit_evoker_masterylifebinder_black',
   },
+  UNBOUND_FLAME: {
+    id: 1292321,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  UNBOUND_FLAME_BUFF: {
+    id: 1292323,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  UNBOUND_FLAME_DAMAGE: {
+    id: 1292322,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 
