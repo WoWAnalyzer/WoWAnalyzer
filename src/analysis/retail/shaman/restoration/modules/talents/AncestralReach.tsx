@@ -52,7 +52,7 @@ export default class AncestralReachAnalyzer extends Analyzer {
 
     if (orderedChainHeal.length >= this.maxTargets) {
       const index = this.maxTargets - 1;
-      this.tallyHealing(index, [...relevantHits]);
+      this.tallyHealing(index, relevantHits);
       this.extraJumps += 1;
     } else {
       this.missedJumps += 1;
