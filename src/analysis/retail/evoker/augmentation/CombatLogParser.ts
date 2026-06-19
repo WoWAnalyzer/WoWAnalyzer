@@ -26,6 +26,7 @@ import MotesOfPossibility from './modules/talents/MotesOfPossibility';
 import Duplicate from './modules/talents/Duplicate';
 import MightyInferno from './modules/talents/MightyInferno';
 import DoubleTime from './modules/talents/DoubleTime';
+import NozdormuAdept from './modules/talents/NozdormuAdept';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -77,7 +78,6 @@ import {
   TimeSpiral,
   RefinedEssence,
   CommandSquadron,
-  NozdormuAdept,
   ChronalDynamo,
   Afterimage,
   ImminentDestructionCastLinkNormalizer,
