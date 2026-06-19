@@ -309,6 +309,60 @@ const spells = {
     icon: 'spell_shadow_unholyfrenzy.jpg',
   },
   // ---------
+  // PROCS & BUFFS (MoP)
+  // ---------
+  KILLING_MACHINE: {
+    id: 51128,
+    name: 'Killing Machine',
+    icon: 'inv_sword_122.jpg',
+  },
+  FREEZING_FOG: {
+    // Rime proc buff (talent: Rime id 59057)
+    id: 59052,
+    name: 'Freezing Fog',
+    icon: 'spell_frost_arcticwinds.jpg',
+  },
+  SHADOW_INFUSION: {
+    id: 91342,
+    name: 'Shadow Infusion',
+    icon: 'achievement_boss_festergutrotface.jpg',
+  },
+  BLOOD_CHARGE: {
+    // Blood Tap talent charge buff (MoP Tier 5 talent)
+    id: 114851,
+    name: 'Blood Charge',
+    icon: 'spell_deathknight_bloodtap.jpg',
+  },
+  SUDDEN_DOOM: {
+    id: 81340,
+    name: 'Sudden Doom',
+    icon: 'spell_shadow_painspike.jpg',
+  },
+  FALLEN_CRUSADER: {
+    // Rune of the Fallen Crusader proc (Unholy Strength)
+    id: 53365,
+    name: 'Unholy Strength',
+    icon: 'spell_holy_blessingofstrength.jpg',
+  },
+  // ---------
+  // PET ABILITIES (Risen Ghoul)
+  // ---------
+  GHOUL_CLAW: {
+    id: 47468,
+    name: 'Claw',
+    icon: 'ability_ghoulfrenzy.jpg',
+  },
+  GHOUL_SWEEPING_CLAWS: {
+    id: 91778,
+    name: 'Sweeping Claws',
+    icon: 'ability_ghoulfrenzy.jpg',
+  },
+  GHOUL_GNAW: {
+    id: 47481,
+    name: 'Gnaw',
+    icon: 'ability_rogue_kidneyshot.jpg',
+  },
+  // ---------
   // TALENTS
   // ---------
   ANTI_MAGIC_ZONE: {
@@ -365,6 +419,18 @@ const spells = {
     id: 123693,
     name: 'Plague Leech',
     icon: 'ability_creature_disease_02.jpg',
+  },
+  RUNIC_CORRUPTION: {
+    // MoP Tier 5 talent (alternative to Runic Empowerment): doubles rune regen for 3s on RP spend
+    id: 51460,
+    name: 'Runic Corruption',
+    icon: 'ability_creature_cursed_04.jpg',
+  },
+  RUNIC_EMPOWERMENT: {
+    // MoP Tier 5 talent (alternative to Runic Corruption): chance to instantly refresh a rune on RP spend
+    id: 51459,
+    name: 'Runic Empowerment',
+    icon: 'spell_deathknight_runeweapon.jpg',
   },
   REMORSELESS_WINTER: {
     id: 108200,

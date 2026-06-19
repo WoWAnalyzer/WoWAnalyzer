@@ -12,27 +12,32 @@ const CONFIG: Config = {
   contributors: [emallson, jazminite],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
-  supportLevel: SupportLevel.Unmaintained,
+  patchCompatibility: '5.4.8',
+  supportLevel: SupportLevel.Foundation,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome! Thanks for checking out WoWAnalyzer. The Classic Unholy Death Knight guide is seeking
-      a maintainer.
+      Welcome to the WoWAnalyzer for Mists of Pandaria Classic Unholy Death Knight! This analysis
+      covers core MoP Unholy DK mechanics: Sudden Doom proc efficiency, Dark Transformation uptime,
+      Gargoyle cooldown tracking, and more. Actively being developed — contributions welcome!
       {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
-      See the public GitHub repo or join our community Discord for information about contributing.
-      Thanks!
+      Join us on Discord or open a PR on GitHub to help improve the analysis!
     </>
   ),
   pages: {
     overview: {
-      notes: <AlertInfo>The Classic Unholy Death Knight guide is seeking a maintainer.</AlertInfo>,
+      notes: (
+        <AlertInfo>
+          MoP Classic Unholy Death Knight analysis is actively being developed. More modules coming
+          soon!
+        </AlertInfo>
+      ),
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/rHD4Vh1jMKnAXbLT/36-Heroic+Chimaeron+-+Kill+(3:26)/Shinzidk/standard',
+  exampleReport: '',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.CLASSIC_DEATH_KNIGHT_UNHOLY,

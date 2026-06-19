@@ -29,6 +29,17 @@ const ENCHANTABLE_SLOTS: Partial<Record<GearSlotName, JSX.Element>> = Object.fro
 // Lower-rank / budget MoP enchants. Currently informational only — the base EnchantChecker grades
 // any present enchant as at least "OK"; only MaxEnchantIds promotes an enchant to "Good".
 const MIN_ENCHANT_IDS = [
+  // Death Knight Runeforges — all valid for DK but graded per-spec by subclasses
+  3368, // Rune of the Fallen Crusader
+  3370, // Rune of Razorice
+  3847, // Rune of the Stoneskin Gargoyle
+  3369, // Rune of Cinderglacier
+  3366, // Rune of Lichbane
+  3365, // Rune of Swordshattering
+  3367, // Rune of Spellshattering
+  3594, // Rune of Swordbreaking
+  3595, // Rune of Spellbreaking
+  3883, // Rune of the Nerubian Carapace
   // Shoulder (Inscription, non-greater)
   4907, // Tiger Fang Inscription (Strength)
   4908, // Tiger Claw Inscription (Agility)
