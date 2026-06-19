@@ -10,7 +10,7 @@ import { MID2_AUGMENTATION_4PC_DAMAGE_MULTIPLIER } from '../../constants';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-//import { TIERS } from 'game/TIERS';
+import { TIERS } from 'game/TIERS';
 import { formatNumber } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 
@@ -22,8 +22,7 @@ class MID2Augmentation4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    //this.active = this.selectedCombatant.has4PieceByTier(TIERS.MID2);
-    this.active = true; // Temporary
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.MID2);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FATE_MIRROR_DAMAGE),
       this.onDamage,
