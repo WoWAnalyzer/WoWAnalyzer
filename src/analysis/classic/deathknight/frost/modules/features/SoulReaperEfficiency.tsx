@@ -51,7 +51,7 @@ class SoulReaperEfficiency extends SharedSoulReaperEfficiency {
     const slots: number[] = [];
     for (const [start, end] of intervals) {
       for (let t = start; t < end; t += 6_000) {
-        slots.push(defineMessage);
+        slots.push(t);
       }
     }
 
