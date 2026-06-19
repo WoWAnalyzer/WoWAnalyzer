@@ -11,4 +11,6 @@ export enum TIERS {
   TWW3,
   // Void Spire / Dreamrift / March on Quel'Danas
   MID1,
+  // The Venomous Abyss
+  MID2,
 }

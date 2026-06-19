@@ -25,6 +25,7 @@ import HoardedPower from './modules/talents/HoardedPower';
 import MotesOfPossibility from './modules/talents/MotesOfPossibility';
 import Duplicate from './modules/talents/Duplicate';
 import MightyInferno from './modules/talents/MightyInferno';
+import DoubleTime from './modules/talents/DoubleTime';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -37,6 +38,7 @@ import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 // Tier
 import MID1Augmentation2P from './modules/midnight/MID1Augmentation2P';
 import MID1Augmentation4P from './modules/midnight/MID1Augmentation4P';
+import MID2Augmentation4P from './modules/midnight/MID2Augmentation4P';
 
 //Shared
 import {
@@ -173,6 +175,7 @@ class CombatLogParser extends MainCombatLogParser {
     afterimage: Afterimage,
     chronalDynamo: ChronalDynamo,
     temporalBurst: TemporalBurst,
+    doubleTime: DoubleTime,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
@@ -182,6 +185,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Tier
     MID1Augmentation2P: MID1Augmentation2P,
     MID1Augmentation4P: MID1Augmentation4P,
+    MID2Augmentation4P: MID2Augmentation4P,
   };
   static guide = Guide;
 }

@@ -189,6 +189,53 @@ export const MID1_TIER_BY_CLASSES: Record<number, MID1_TIER_GEAR_IDS> = {
 };
 // endregion
 
+//region MID2
+export const DEATH_KNIGHT_MID2_ID = 2055;
+export const DEMON_HUNTER_MID2_ID = 2056;
+export const DRUID_MID2_ID = 2057;
+export const EVOKER_MID2_ID = 2058;
+export const HUNTER_MID2_ID = 2059;
+export const MAGE_MID2_ID = 2060;
+export const MONK_MID2_ID = 2061;
+export const PALADIN_MID2_ID = 2062;
+export const PRIEST_MID2_ID = 2063;
+export const ROGUE_MID2_ID = 2064;
+export const SHAMAN_MID2_ID = 2065;
+export const WARLOCK_MID2_ID = 2066;
+export const WARRIOR_MID2_ID = 2067;
+
+type MID2_TIER_GEAR_IDS =
+  | typeof DEATH_KNIGHT_MID2_ID
+  | typeof DEMON_HUNTER_MID2_ID
+  | typeof DRUID_MID2_ID
+  | typeof EVOKER_MID2_ID
+  | typeof HUNTER_MID2_ID
+  | typeof MAGE_MID2_ID
+  | typeof MONK_MID2_ID
+  | typeof PALADIN_MID2_ID
+  | typeof PRIEST_MID2_ID
+  | typeof ROGUE_MID2_ID
+  | typeof SHAMAN_MID2_ID
+  | typeof WARLOCK_MID2_ID
+  | typeof WARRIOR_MID2_ID;
+
+export const MID2_TIER_BY_CLASSES: Record<number, MID2_TIER_GEAR_IDS> = {
+  [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_MID2_ID,
+  [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_MID2_ID,
+  [CLASSES.DRUID]: DRUID_MID2_ID,
+  [CLASSES.EVOKER]: EVOKER_MID2_ID,
+  [CLASSES.HUNTER]: HUNTER_MID2_ID,
+  [CLASSES.MAGE]: MAGE_MID2_ID,
+  [CLASSES.MONK]: MONK_MID2_ID,
+  [CLASSES.PALADIN]: PALADIN_MID2_ID,
+  [CLASSES.PRIEST]: PRIEST_MID2_ID,
+  [CLASSES.ROGUE]: ROGUE_MID2_ID,
+  [CLASSES.SHAMAN]: SHAMAN_MID2_ID,
+  [CLASSES.WARLOCK]: WARLOCK_MID2_ID,
+  [CLASSES.WARRIOR]: WARRIOR_MID2_ID,
+};
+// endregion
+
 // region Common
 export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
   [TIERS.TWW1]: TWW1_TIER_BY_CLASSES,
