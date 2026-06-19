@@ -108,8 +108,7 @@ export default class AncestralReachAnalyzer extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.ANCESTRAL_REACH_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          <p></p>
-          {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
+          <p>{this.buffIcon} {this.missedJumps} <small> missed jumps</small></p>
         </TalentSpellText>
       </Statistic>
     );
