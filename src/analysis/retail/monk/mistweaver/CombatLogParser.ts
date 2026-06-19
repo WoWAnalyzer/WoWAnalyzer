@@ -85,7 +85,6 @@ import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
 import JadeEmpowerment from './modules/spells/JadeEmpowerment';
-import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 import MistyCoalescence from './modules/spells/MistyCoalescence';
 import S1TierSet from './modules/tier/S1TierSet';
 import AmplifiedRush from './modules/spells/AmplifiedRush';
@@ -216,7 +215,6 @@ class CombatLogParser extends CoreCombatLogParser {
     coalesence: Coalesence,
 
     // Borrowed Power
-    t34ConduitTierSet: T34ConduitTier,
     s1TierSet: S1TierSet,
 
     // Mana Tab
