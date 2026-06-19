@@ -46,6 +46,12 @@ export default class AncestralReachAnalyzer extends Analyzer {
     return this.bonusHealing + this.healing;
   }
 
+  /* Work in progress
+/  We cut off the first heal events and take the last (weakest) hit of the chainheal.
+/  This is still not correct for DRE procs or ASC windows but only underplays the Ancestral Reach talent DURING this events.
+/  A further implementation would need to split off the 8% increas over ALL hits and the full heal (minus other talents; Deluge, ASC/DRE) from the 4th hit.
+*/
+
   onChainHeal(event: CastEvent) {
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
     const relevantHits = orderedChainHeal.slice(0, this.maxTargets);
@@ -108,7 +114,9 @@ export default class AncestralReachAnalyzer extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.ANCESTRAL_REACH_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
-          <p>{this.buffIcon} {this.missedJumps} <small> missed jumps</small></p>
+          <p>
+            {this.buffIcon} {this.missedJumps} <small> missed jumps</small>
+          </p>
         </TalentSpellText>
       </Statistic>
     );
