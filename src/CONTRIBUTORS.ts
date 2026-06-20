@@ -2097,6 +2097,11 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
+export const Darkfrog: Contributor = {
+  nickname: 'Darkfrog',
+  github: 'Darkfrog',
+  discord: 'darkmaster2133',
+};
 export const Pilsung: Contributor = {
   nickname: 'pilsung',
   github: 'Ac1dBomb',

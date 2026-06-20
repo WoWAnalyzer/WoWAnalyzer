@@ -50,8 +50,8 @@ class SoulReaperEfficiency extends SharedSoulReaperEfficiency {
     // Build a list of 6s slot start times across all execute intervals.
     const slots: number[] = [];
     for (const [start, end] of intervals) {
-      for (let t = start; t < end; t += 6_000) {
-        slots.push(t);
+      for (let slotTs = start; slotTs < end; slotTs += 6_000) {
+        slots.push(slotTs);
       }
     }
 
