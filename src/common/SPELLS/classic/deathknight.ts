@@ -312,7 +312,7 @@ const spells = {
   // PROCS & BUFFS (MoP)
   // ---------
   KILLING_MACHINE: {
-    id: 51128,
+    id: 51124,
     name: 'Killing Machine',
     icon: 'inv_sword_122.jpg',
   },
