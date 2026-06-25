@@ -13,20 +13,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TIERS } from 'game/TIERS';
 import { formatNumber } from 'common/format';
 import SpellLink from 'interface/SpellLink';
-import SPECS from 'game/SPECS';
-import Combatants from 'parser/shared/modules/Combatants';
 
 /**
  * (4) Set Augmentation: Upheaval increases the damage and healing dealt by Fate Mirror by 200% for 8 sec.
  */
 class MID2Augmentation4P extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-  protected combatants!: Combatants;
   extraDamage = 0;
   hasReceivedExternalPrescience = false;
-  retHasTriggeredFateMirror = false;
 
   constructor(options: Options) {
     super(options);
@@ -53,12 +46,6 @@ class MID2Augmentation4P extends Analyzer {
       ) {
         // This damage belongs to another Aug, ignore it
         return;
-      } else if (
-        event.supportID &&
-        this.combatants.players[event.supportID].spec === SPECS.RETRIBUTION_PALADIN
-      ) {
-        // This might come from Execution Sentence, which over-attributes
-        this.retHasTriggeredFateMirror = true;
       }
 
       this.extraDamage += calculateEffectiveDamage(event, MID2_AUGMENTATION_4PC_DAMAGE_MULTIPLIER);
@@ -84,13 +71,6 @@ class MID2Augmentation4P extends Analyzer {
               <li>
                 You received {<SpellLink spell={TALENTS.PRESCIENCE_TALENT} />} from another Evoker,
                 which can cause these damage numbers to be too large.
-              </li>
-            )}
-            {this.retHasTriggeredFateMirror && (
-              <li>
-                A Retribution Paladin triggered your{' '}
-                {<SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />}, which can cause these numbers to
-                be too large.
               </li>
             )}
           </>
