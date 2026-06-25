@@ -3,7 +3,7 @@ import TALENTS from 'common/TALENTS/evoker';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { MID2_AUGMENTATION_4PC_DAMAGE_MULTIPLIER } from '../../constants';
 
@@ -13,12 +13,20 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TIERS } from 'game/TIERS';
 import { formatNumber } from 'common/format';
 import SpellLink from 'interface/SpellLink';
+import SPECS from 'game/SPECS';
+import Combatants from 'parser/shared/modules/Combatants';
 
 /**
  * (4) Set Augmentation: Upheaval increases the damage and healing dealt by Fate Mirror by 200% for 8 sec.
  */
 class MID2Augmentation4P extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
   extraDamage = 0;
+  hasReceivedExternalPrescience = false;
+  retHasTriggeredFateMirror = false;
 
   constructor(options: Options) {
     super(options);
@@ -28,11 +36,38 @@ class MID2Augmentation4P extends Analyzer {
       this.onDamage,
       // Healing not included as Prescience will usually be going on DPS.
     );
+
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
+      this.onReceiveBuff,
+    );
   }
 
   onDamage(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.MAGNIFIED_FATE_BUFF.id)) {
+      const playerId = event.supportID ? event.supportID : event.sourceID;
+      if (
+        this.hasReceivedExternalPrescience &&
+        playerId === this.selectedCombatant.id &&
+        !this.selectedCombatant.hasOwnBuff(SPELLS.PRESCIENCE_BUFF.id)
+      ) {
+        // This damage belongs to another Aug, ignore it
+        return;
+      } else if (
+        event.supportID &&
+        this.combatants.players[event.supportID].spec === SPECS.RETRIBUTION_PALADIN
+      ) {
+        // This might come from Execution Sentence, which over-attributes
+        this.retHasTriggeredFateMirror = true;
+      }
+
       this.extraDamage += calculateEffectiveDamage(event, MID2_AUGMENTATION_4PC_DAMAGE_MULTIPLIER);
+    }
+  }
+
+  onReceiveBuff(event: ApplyBuffEvent) {
+    if (event.sourceID != this.owner.selectedCombatant.id) {
+      this.hasReceivedExternalPrescience = true;
     }
   }
 
@@ -45,6 +80,19 @@ class MID2Augmentation4P extends Analyzer {
         tooltip={
           <>
             <li>Damage: {formatNumber(this.extraDamage)}</li>
+            {this.hasReceivedExternalPrescience && (
+              <li>
+                You received {<SpellLink spell={TALENTS.PRESCIENCE_TALENT} />} from another Evoker,
+                which can cause these damage numbers to be too large.
+              </li>
+            )}
+            {this.retHasTriggeredFateMirror && (
+              <li>
+                A Retribution Paladin triggered your{' '}
+                {<SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />}, which can cause these numbers to
+                be too large.
+              </li>
+            )}
           </>
         }
       >
