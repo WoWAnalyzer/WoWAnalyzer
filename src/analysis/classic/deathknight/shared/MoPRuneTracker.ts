@@ -3,7 +3,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
-  ChangeHasteEvent,
   FightEndEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -117,12 +116,12 @@ function makeRune(type: RuneType, linkedIndex: number): MoPRune {
  * Models the 6-rune system (2 Blood, 2 Frost, 2 Unholy) with:
  *  - Linked-pair queue mechanic (second rune of a pair queues behind first)
  *  - Death rune conversion (Festering Strike, Blood of the North, Blood Tap, Plague Leech)
- *  - Haste-adjusted cooldowns (listens to changehaste events)
+ *  - Haste-adjusted cooldowns (reads current haste from the Haste module)
  *  - Runic Corruption doubling regen speed while active
  *  - Resync from classResources data on each cast event to stay accurate
  *
- * Subclass with static `bloodIsDeath = true` for Frost DK (Blood of the North).
- * Subclass with static `convertOnFesteringStrike = true` for Unholy DK.
+ * If you're subclassing for Frost DK, just set `bloodIsDeath` to true (Blood of the North).
+ * Same deal for Unholy DK with `convertOnFesteringStrike`.
  *
  * Exposes:
  *  - `runesAvailable(timestamp)` — number of runes ready right now (0–6)
@@ -138,16 +137,16 @@ abstract class MoPRuneTracker extends Analyzer {
   protected haste!: Haste;
 
   /**
-   * Set true for Frost DK: Blood of the North permanently converts Blood runes
-   * to Death runes (they never revert).
+   * Override and set true for Frost DK — Blood of the North permanently
+   * converts Blood runes to Death runes, they never go back.
    */
-  protected static bloodIsDeath = false;
+  protected readonly bloodIsDeath: boolean = false;
 
   /**
-   * Set true for Unholy DK: Festering Strike converts the spent Blood and Frost
-   * runes to Death runes.
+   * Override and set true for Unholy DK — Festering Strike converts the
+   * Blood and Frost runes it spends into Death runes.
    */
-  protected static convertOnFesteringStrike = false;
+  protected readonly convertOnFesteringStrike: boolean = false;
 
   readonly runes: MoPRune[] = [
     makeRune('Blood', 1),
@@ -159,7 +158,9 @@ abstract class MoPRuneTracker extends Analyzer {
   ];
 
   /** Current haste speed factor: 1.0 = no haste. >1 = faster regen (shorter CD). */
-  private _hasteMultiplier = 1.0;
+  private get _hasteMultiplier(): number {
+    return 1 + this.haste.current;
+  }
   /** Whether Runic Corruption is currently active (doubles regen speed). */
   private _runicCorruptionActive = false;
 
@@ -181,10 +182,12 @@ abstract class MoPRuneTracker extends Analyzer {
   }> = [];
 
   /**
-   * Spell IDs of RP-spending abilities that should appear as half-height bars
-   * in the cast timeline. Subclasses override this to specify spec-specific spenders.
+   * Spell IDs that should show up as half-height bars in the cast timeline —
+   * basically the RP spenders. Each spec overrides this with its own list.
    */
-  protected static rpSpendersToTrack: number[] = [];
+  protected get rpSpendersToTrack(): number[] {
+    return [];
+  }
   private _lastTrackTimestamp = 0;
   private _lastTrackedTypeCounts: { Blood: number; Frost: number; Unholy: number } = {
     Blood: 2,
@@ -199,8 +202,7 @@ abstract class MoPRuneTracker extends Analyzer {
 
     // Apply Blood of the North for Frost DK BEFORE the initial snapshot so
     // t=0 never shows natural blood runes.
-    const ctor = this.constructor as typeof MoPRuneTracker;
-    if (ctor.bloodIsDeath) {
+    if (this.bloodIsDeath) {
       for (const i of BLOOD_INDICES) {
         this.runes[i].isDeath = true;
         this.runes[i].isPermanentDeath = true;
@@ -218,7 +220,6 @@ abstract class MoPRuneTracker extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION),
       this.onRunicCorruptionRemove,
     );
-    this.addEventListener(Events.ChangeHaste, this.onChangeHaste);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -276,39 +277,8 @@ abstract class MoPRuneTracker extends Analyzer {
     // Record pre-cast rune snapshot for the time-series charts
     this._pushTypeSnapshot(ts);
 
-    // Record cast in timeline if it costs runes
-    {
-      const cost = getAbilityRuneCosts()[spellId];
-      if (cost && cost.blood + cost.frost + cost.unholy > 0) {
-        const b = cost.blood,
-          f = cost.frost,
-          u = cost.unholy;
-        const slot =
-          b > 0 && f === 0 && u === 0
-            ? 'Blood'
-            : f > 0 && b === 0 && u === 0
-              ? 'Frost'
-              : u > 0 && b === 0 && f === 0
-                ? 'Unholy'
-                : spellId === SPELLS.OBLITERATE.id
-                  ? 'Obliterate'
-                  : 'Mixed';
-        this.castHistory.push({ timestamp: ts, ability: event.ability.name, slot });
-      }
-    }
-
-    // Record RP-spending abilities as half-height bars in the cast timeline
-    {
-      const ctor = this.constructor as typeof MoPRuneTracker;
-      if (ctor.rpSpendersToTrack.includes(spellId)) {
-        this.castHistory.push({
-          timestamp: ts,
-          ability: event.ability.name,
-          slot: 'RPSpend',
-          halfHeight: true,
-        });
-      }
-    }
+    this._recordRuneCastTimeline(event, spellId, ts);
+    this._recordRPSpendTimeline(event, spellId, ts);
 
     // Read rune costs from classResources and resync simulation
     if (event.classResources) {
@@ -334,6 +304,41 @@ abstract class MoPRuneTracker extends Analyzer {
     this.frostReadySum[this._lastTrackedTypeCounts.Frost] += dt;
     this.unholyReadySum[this._lastTrackedTypeCounts.Unholy] += dt;
     this._pushTypeSnapshot(event.timestamp);
+  }
+
+  /** Record cast in timeline if it costs runes. */
+  private _recordRuneCastTimeline(event: CastEvent, spellId: number, ts: number) {
+    const cost = getAbilityRuneCosts()[spellId];
+    if (!cost || cost.blood + cost.frost + cost.unholy === 0) {
+      return;
+    }
+    const b = cost.blood,
+      f = cost.frost,
+      u = cost.unholy;
+    const slot =
+      b > 0 && f === 0 && u === 0
+        ? 'Blood'
+        : f > 0 && b === 0 && u === 0
+          ? 'Frost'
+          : u > 0 && b === 0 && f === 0
+            ? 'Unholy'
+            : spellId === SPELLS.OBLITERATE.id
+              ? 'Obliterate'
+              : 'Mixed';
+    this.castHistory.push({ timestamp: ts, ability: event.ability.name, slot });
+  }
+
+  /** Record RP-spending abilities as half-height bars in the cast timeline. */
+  private _recordRPSpendTimeline(event: CastEvent, spellId: number, ts: number) {
+    if (!this.rpSpendersToTrack.includes(spellId)) {
+      return;
+    }
+    this.castHistory.push({
+      timestamp: ts,
+      ability: event.ability.name,
+      slot: 'RPSpend',
+      halfHeight: true,
+    });
   }
 
   /** Available-rune count per type at `timestamp`, same source the Overview graphs read. */
@@ -362,16 +367,6 @@ abstract class MoPRuneTracker extends Analyzer {
     const ts = _event.timestamp;
     const oldMult = this._effectiveHasteMultiplier;
     this._runicCorruptionActive = false;
-    const newMult = this._effectiveHasteMultiplier;
-    this._adjustRuneRegenTimes(ts, oldMult, newMult);
-    this._updateRuneCds(newMult);
-  }
-
-  private onChangeHaste(event: ChangeHasteEvent) {
-    const ts = event.timestamp;
-    const oldMult = this._effectiveHasteMultiplier;
-    // WoWAnalyzer haste.current is the additive percentage (0.15 = 15% haste)
-    this._hasteMultiplier = 1 + event.newHaste;
     const newMult = this._effectiveHasteMultiplier;
     this._adjustRuneRegenTimes(ts, oldMult, newMult);
     this._updateRuneCds(newMult);
@@ -476,7 +471,6 @@ abstract class MoPRuneTracker extends Analyzer {
     }
 
     const ts = event.timestamp;
-    const ctor = this.constructor as typeof MoPRuneTracker;
     const isFestering = event.ability.guid === SPELLS.FESTERING_STRIKE.id;
 
     let bloodCost = 0;
@@ -526,8 +520,8 @@ abstract class MoPRuneTracker extends Analyzer {
       return;
     }
 
-    const convertBlood = ctor.convertOnFesteringStrike && isFestering;
-    const convertFrost = ctor.convertOnFesteringStrike && isFestering;
+    const convertBlood = this.convertOnFesteringStrike && isFestering;
+    const convertFrost = this.convertOnFesteringStrike && isFestering;
 
     // Before resyncing typed slots, check for deficits and fill them with death
     // rune substitutes first. This matches the game mechanic: when natural runes
@@ -546,16 +540,24 @@ abstract class MoPRuneTracker extends Analyzer {
 
     // Spend up to `needed` external death rune subs, skipping the primary slot.
     const spendDeathSubs = (needed: number, skipStart: number): number => {
-      if (needed <= 0) return 0;
+      if (needed <= 0) {
+        return 0;
+      }
       let spent = 0;
       for (const slotIndices of [BLOOD_INDICES, FROST_INDICES, UNHOLY_INDICES] as const) {
-        if (spent >= needed) break;
-        if (slotIndices[0] === skipStart) continue; // skip same-slot (already in avail)
+        if (spent >= needed) {
+          break;
+        }
+        if (slotIndices[0] === skipStart) {
+          continue; // skip same-slot (already in avail)
+        }
         const deaths = slotIndices
           .map((i) => this.runes[i])
           .filter((r) => this._isAvailable(r, ts) && this._isDeathRune(r));
         for (const rune of deaths) {
-          if (spent >= needed) break;
+          if (spent >= needed) {
+            break;
+          }
           this._spend(rune, ts, false);
           spent++;
         }
@@ -845,9 +847,9 @@ abstract class MoPRuneTracker extends Analyzer {
   }
 
   /**
-   * Average, across Blood/Frost/Unholy, of the fraction of the fight spent
-   * capped (2/2) for that type. This better reflects per-type rune cap waste
-   * than the all-6-simultaneously metric, since each type caps independently.
+   * Just averaging the three per-type capped fractions here (Blood/Frost/Unholy).
+   * Felt more honest than the old all-6-at-once number since each rune type
+   * actually caps on its own.
    */
   get runeCapPercent(): number {
     const blood = this.timeSpentAtBloodCount[2];

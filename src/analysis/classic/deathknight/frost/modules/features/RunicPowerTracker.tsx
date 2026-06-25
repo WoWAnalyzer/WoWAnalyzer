@@ -3,14 +3,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  FightEndEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, FightEndEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -19,64 +12,18 @@ import { VisualizationSpec } from 'react-vega';
 import { formatTime } from 'parser/ui/BaseChart';
 
 /**
- * Frost Presence (48266) + Improved Frost Presence (50385):
- *   Always active on Frost DK — no trigger needed.
- *   Each rune spent generates 12 RP (1 rune = 12, 2 runes = 24).
- *   ERW generates 30 RP (not the baseline 25).
- *   Frost Strike costs 20 RP (not the baseline 32).
- *
- * We simulate RP completely ourselves rather than reading WCL's classResources,
- * because WCL's RP amounts and resourcechange events can lag or be imprecise.
- */
-
-/** Total runes consumed per ability — drives Frost Presence RP generation. */
-const RUNE_COUNTS: Partial<Record<number, number>> = {
-  [SPELLS.ICY_TOUCH.id]: 1,
-  [SPELLS.PLAGUE_STRIKE.id]: 1,
-  [SPELLS.HOWLING_BLAST.id]: 1,
-  [SPELLS.PILLAR_OF_FROST.id]: 1,
-  [SPELLS.CHAINS_OF_ICE.id]: 1,
-  [SPELLS.NECROTIC_STRIKE.id]: 1,
-  [SPELLS.SOUL_REAPER_FROST.id]: 1,
-  [SPELLS.BLOOD_STRIKE.id]: 1,
-  [SPELLS.BLOOD_BOIL.id]: 1,
-  [SPELLS.PESTILENCE.id]: 1,
-  [SPELLS.DEATH_AND_DECAY.id]: 1,
-  [SPELLS.OBLITERATE.id]: 2,
-  [SPELLS.DEATH_STRIKE.id]: 2,
-  [SPELLS.FESTERING_STRIKE.id]: 2,
-  [SPELLS.SCOURGE_STRIKE.id]: 2,
-};
-
-/** RP cost for abilities that spend Runic Power. */
-const RP_COSTS: Partial<Record<number, number>> = {
-  [SPELLS.FROST_STRIKE.id]: 20, // Frost Presence reduces baseline cost
-  [SPELLS.DEATH_COIL_DK.id]: 40,
-};
-
-/**
- * Tracks simulated Runic Power for a Frost DK.
- * Frost Presence RP gains are calculated from ability rune costs.
- * AMS RP gain is read from WCL resourcechange events (cannot be simulated).
+ * Tracks Frost DK Runic Power. Two sources, since WCL splits gains and spends
+ * across different event types:
+ *  - resourcechange (energize) events cover RP *gains*.
+ *  - cast events carry a classResources snapshot with the post-cast RP
+ *    value.
  */
 class RunicPowerTracker extends Analyzer {
-  /** RP generated per rune spent via Frost Presence + Improved Frost Presence */
-  static readonly RP_PER_RUNE = 12;
-  /** ERW RP gain for Frost DK with Frost Presence */
-  static readonly ERW_RP_GAIN = 30;
-  /** Horn of Winter RP generation */
-  static readonly HORN_OF_WINTER_RP = 10;
-  /** Frost Strike RP cost with Frost Presence */
-  static readonly FROST_STRIKE_RP_COST = 20;
-
   private _rp = 20; // MoP Classic: DKs start with 20 RP on pull
   private _overcapTimes = 0;
   private _overcapTotal = 0;
   private _amsGainTimes = 0;
   private _amsGainTotal = 0;
-
-  /** Rime (Freezing Fog): while up, Howling Blast costs no rune, so it generates no RP. */
-  private _rimeActive = false;
 
   readonly rpHistory: Array<{ timestamp: number; amount: number }> = [];
 
@@ -84,93 +31,50 @@ class RunicPowerTracker extends Analyzer {
     super(options);
     this.rpHistory.push({ timestamp: options.owner.fight.start_time, amount: this._rp });
     this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onResourceChange);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FREEZING_FOG),
-      this.onRimeApply,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FREEZING_FOG),
-      this.onRimeApply,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FREEZING_FOG),
-      this.onRimeRemove,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  private onRimeApply(_event: ApplyBuffEvent | RefreshBuffEvent) {
-    this._rimeActive = true;
-  }
+  /** Gains: read the overcap/waste off the event, then sync to WCL's RP snapshot. */
+  private onResourceChange(event: ResourceChangeEvent): void {
+    if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) return;
 
-  private onRimeRemove(_event: RemoveBuffEvent) {
-    this._rimeActive = false;
-  }
-
-  /** Gain RP, cap at 100, track overcap. */
-  private _gainRP(amount: number, ts: number): void {
-    const newRP = this._rp + amount;
-    const waste = Math.max(0, newRP - 100);
+    const gain = event.resourceChange / 10;
+    const waste = event.waste / 10;
     if (waste > 0) {
       this._overcapTimes += 1;
       this._overcapTotal += waste;
     }
-    this._rp = Math.min(100, newRP);
-    this.rpHistory.push({ timestamp: ts, amount: this._rp });
+
+    // separately track how much of our RP is coming from AMS specifically
+    if (event.ability.guid === SPELLS.ANTI_MAGIC_SHELL.id && gain > 0) {
+      this._amsGainTimes += 1;
+      this._amsGainTotal += gain;
+    }
+
+    this._syncFromClassResources(event.classResources, event.timestamp, gain - waste);
   }
 
-  /** Spend RP: push pre-spend snapshot then post-spend drop. */
-  private _spendRP(cost: number, ts: number): void {
-    this.rpHistory.push({ timestamp: ts, amount: this._rp });
-    this._rp = Math.max(0, this._rp - cost);
-    this.rpHistory.push({ timestamp: ts, amount: this._rp });
-  }
-
-  /** AMS gain comes from WCL resourcechange since absorbed damage isn't simulatable. */
-  private onResourceChange(event: ResourceChangeEvent): void {
-    if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) return;
-    if (event.ability.guid !== SPELLS.ANTI_MAGIC_SHELL.id) return;
-    const gain = event.resourceChange / 10;
-    if (gain <= 0) return;
-    this._amsGainTimes += 1;
-    this._amsGainTotal += gain;
-    this._gainRP(gain, event.timestamp);
-  }
-
+  /** Spends only show up here, on the spending cast's own classResources snapshot. */
   private onCast(event: CastEvent): void {
-    const spellId = event.ability.guid;
+    this._syncFromClassResources(event.classResources, event.timestamp);
+  }
 
-    // ERW: fixed RP gain for Frost DK (Frost Presence bonus)
-    if (spellId === SPELLS.EMPOWER_RUNE_WEAPON.id) {
-      this._gainRP(RunicPowerTracker.ERW_RP_GAIN, event.timestamp);
-      return;
+  /** Pull the current RP value straight off a classResources snapshot, if one's there. */
+  private _syncFromClassResources(
+    classResources: { type: number; amount: number }[] | undefined,
+    timestamp: number,
+    fallbackDelta?: number,
+  ): void {
+    const rpResource = classResources?.find((r) => r.type === RESOURCE_TYPES.RUNIC_POWER.id);
+    if (rpResource) {
+      this._rp = rpResource.amount / 10;
+    } else if (fallbackDelta !== undefined) {
+      this._rp = Math.max(0, this._rp + fallbackDelta);
+    } else {
+      return; // no resource info on this event at all, nothing to update
     }
-
-    // Horn of Winter: generates 10 RP
-    if (spellId === SPELLS.HORN_OF_WINTER.id) {
-      this._gainRP(RunicPowerTracker.HORN_OF_WINTER_RP, event.timestamp);
-      return;
-    }
-
-    // Howling Blast cast while Rime is active is free — no rune spent, no RP generated.
-    if (spellId === SPELLS.HOWLING_BLAST.id && this._rimeActive) {
-      this._rimeActive = false;
-      return;
-    }
-
-    // Rune-spending abilities: Frost Presence generates 12 RP per rune
-    const runeCount = RUNE_COUNTS[spellId];
-    if (runeCount !== undefined) {
-      this._gainRP(runeCount * RunicPowerTracker.RP_PER_RUNE, event.timestamp);
-      return;
-    }
-
-    // RP spenders
-    const rpCost = RP_COSTS[spellId];
-    if (rpCost !== undefined) {
-      this._spendRP(rpCost, event.timestamp);
-    }
+    this.rpHistory.push({ timestamp, amount: this._rp });
   }
 
   private onFightEnd(event: FightEndEvent): void {
@@ -236,7 +140,15 @@ class RunicPowerTracker extends Analyzer {
               field: 'amount',
               title: 'Runic Power',
               type: 'quantitative' as const,
-              axis: { grid: true, values: [0, 20, 40, 60, 80, 100] },
+              // Pinning the axis gutter to a fixed width so this chart's 0s lines
+              // up with the rune/cast charts stacked below it (they each pin to
+              // the same 40px so none of the y-axis label widths throw things off).
+              axis: {
+                grid: true,
+                values: [0, 20, 40, 60, 80, 100],
+                minExtent: 40,
+                maxExtent: 40,
+              },
               scale: { domain: [0, 100] },
             },
           },

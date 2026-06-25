@@ -21,11 +21,12 @@ class FrostRuneTracker extends MoPRuneTracker {
 
   protected rpTracker!: RunicPowerTracker;
 
-  protected static override bloodIsDeath = true;
-  protected static override convertOnFesteringStrike = false;
+  protected override readonly bloodIsDeath = true;
 
-  /** Frost Strike is the primary RP spender for Frost DK — show as half-height bar. */
-  protected static override rpSpendersToTrack = [SPELLS.FROST_STRIKE.id];
+  /** Frost Strike's the main RP dump for Frost, so give it the half-height bar. */
+  protected override get rpSpendersToTrack(): number[] {
+    return [SPELLS.FROST_STRIKE.id];
+  }
 
   private _runeSpec(
     dataName: string,
@@ -47,7 +48,8 @@ class FrostRuneTracker extends MoPRuneTracker {
       height: 100,
       transform: [
         { filter: 'isValid(datum.timestamp)' },
-        { calculate: `datum.timestamp - ${fightStart}`, as: 'ts' },
+        // clamp to 0 so a pre-pull event doesn't sneak in a stray "-2s" tick before 0s
+        { calculate: `max(0, datum.timestamp - ${fightStart})`, as: 'ts' },
         { calculate: formatTime('datum.ts'), as: 'ts_label' },
         { calculate: 'datum.natural + datum.death', as: 'total' },
       ],
@@ -66,7 +68,8 @@ class FrostRuneTracker extends MoPRuneTracker {
               title,
               type: 'quantitative' as const,
               scale: { domain: [0, 2] },
-              axis: { grid: true, values: [0, 1, 2], tickMinStep: 1 },
+              // Same 40px gutter as the RP/cast charts below so all the 0s lines line up.
+              axis: { grid: true, values: [0, 1, 2], tickMinStep: 1, minExtent: 40, maxExtent: 40 },
             },
             y2: { field: 'natural' },
           },
@@ -127,35 +130,60 @@ class FrostRuneTracker extends MoPRuneTracker {
         { calculate: `datum.timestamp - ${fightStart}`, as: 'ts' },
         { calculate: formatTime('datum.ts'), as: 'ts_label' },
       ],
-      mark: { type: 'tick' as const, thickness: 2 },
-      encoding: {
-        x: xEnc,
-        size: {
-          condition: { test: 'datum.halfHeight', value: 22 },
-          value: 44,
+      encoding: { x: xEnc },
+      layer: [
+        {
+          // This chart has no real y-axis (the ticks just span the chart by their
+          // own size), but that meant it had no left gutter and drifted out of
+          // alignment with the rune/RP charts above it. This invisible layer just
+          // claims the same 40px gutter as those charts so everyone's 0s lines up.
+          mark: { type: 'point' as const, opacity: 0 },
+          encoding: {
+            y: {
+              field: 'ts',
+              type: 'quantitative' as const,
+              axis: {
+                domain: false,
+                ticks: false,
+                labels: false,
+                title: ' ',
+                minExtent: 40,
+                maxExtent: 40,
+              },
+            },
+          },
         },
-        color: {
-          field: 'slot',
-          type: 'nominal' as const,
-          scale: {
-            domain: ['Blood', 'Frost', 'Unholy', 'Mixed', 'Obliterate', 'RPSpend'],
-            range: [
-              'rgb(196,31,59)',
-              'rgb(105,204,240)',
-              'rgb(171,212,115)',
-              'rgb(148,80,210)',
-              'rgb(0,200,0)',
-              'rgb(255,200,50)',
+        {
+          mark: { type: 'tick' as const, thickness: 2 },
+          encoding: {
+            size: {
+              condition: { test: 'datum.halfHeight', value: 22 },
+              value: 44,
+            },
+            color: {
+              field: 'slot',
+              type: 'nominal' as const,
+              scale: {
+                domain: ['Blood', 'Frost', 'Unholy', 'Mixed', 'Obliterate', 'RPSpend'],
+                range: [
+                  'rgb(196,31,59)',
+                  'rgb(105,204,240)',
+                  'rgb(171,212,115)',
+                  'rgb(148,80,210)',
+                  'rgb(0,200,0)',
+                  'rgb(255,200,50)',
+                ],
+              },
+              legend: null,
+            },
+            tooltip: [
+              { field: 'ts_label', type: 'nominal' as const, title: 'Time' },
+              { field: 'ability', type: 'nominal' as const, title: 'Ability' },
+              { field: 'slot', type: 'nominal' as const, title: 'Type' },
             ],
           },
-          legend: null,
         },
-        tooltip: [
-          { field: 'ts_label', type: 'nominal' as const, title: 'Time' },
-          { field: 'ability', type: 'nominal' as const, title: 'Ability' },
-          { field: 'slot', type: 'nominal' as const, title: 'Type' },
-        ],
-      },
+      ],
     } as VisualizationSpec;
   }
 
