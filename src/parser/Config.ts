@@ -9,17 +9,9 @@ import type { StringWithAutocompleteOptions } from 'common/stringWithAutocomplet
 
 import type { Stats } from './shared/modules/StatTracker';
 
-type NerubarPatchCycle = `11.0.${0 | 2 | 5}`;
-type UnderminePatchCycle = `11.1.${0 | 5 | 7}`;
-type ManaforgeOmegaPatchCycle = `11.2.${0 | 5 | 7}`;
-export type TwwPatchVersion = StringWithAutocompleteOptions<
-  NerubarPatchCycle | UnderminePatchCycle | ManaforgeOmegaPatchCycle
->;
-
 type MidnightFirstRaidCycle = `12.0.${0 | 5 | 7}`;
 export type MidnightPatchVersion = StringWithAutocompleteOptions<MidnightFirstRaidCycle>;
 
-export type CataPatchVersion = StringWithAutocompleteOptions<`4.4.0`>;
 export type MistsPatchVersion = StringWithAutocompleteOptions<`5.4.0`>;
 
 export enum SupportLevel {
@@ -51,12 +43,7 @@ export enum SupportLevel {
 
 interface CoreConfig {
   branch: GameBranch;
-  patchCompatibility:
-    | null
-    | MidnightPatchVersion
-    | TwwPatchVersion
-    | CataPatchVersion
-    | MistsPatchVersion;
+  patchCompatibility: null | MidnightPatchVersion | MistsPatchVersion;
   /**
    * The people that have contributed to this spec recently. People don't have
    * to sign up to be long-time maintainers to be included in this list. If
