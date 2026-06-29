@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 6, 29), <>Fixed abilities affected by healing increases across several modules.</>, swirl),
   change(date(2026, 6, 23), <>Fixed an issue with miscounting crits and wasted stacks of <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> via <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/>.</>, swirl),
   change(date(2026, 6, 11), <>Removed <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> and <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT} /> from APL checks.</>, swirl),
   change(date(2026, 5, 27), <>Tightened <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> performance criteria.</>, swirl),
