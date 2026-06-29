@@ -32,7 +32,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.GUST_OF_MISTS_CHIJI.id,
   // 345727, // faeline stomp (not in the game)
   // 358560, // enveloping breath (not in the game)
-  387995, // tear of morning
+  // 387995, // tear of morning (not in the game)
   SPELLS.AT_HEAL.id,
   SPELLS.AT_CRIT_HEAL.id,
   SPELLS.YULONS_WHISPER_HEAL.id,
