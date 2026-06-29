@@ -10,7 +10,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { SAVE_THEM_ALL_MAX_INCREASE } from '../mistweaver/constants';
+import { SAVE_THEM_ALL_MAX_INCREASE, ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class SaveThemAll extends Analyzer {
   totalHealed = 0;
@@ -23,6 +23,10 @@ class SaveThemAll extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
+      return;
+    }
+
     const healAmount = event.amount || 0;
 
     if (!HasHitpoints(event)) {
