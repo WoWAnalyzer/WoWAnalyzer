@@ -4,6 +4,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -11,10 +12,8 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import UnholyRuneTracker from './RuneTracker';
 
-const ERW_CD_MS = 300_000;
 const RP_CAP = 100;
 const ERW_RP_GAIN = 30;
-const ONSET_MS = 10_000;
 
 interface ERWCast {
   timestamp: number;
@@ -31,9 +30,11 @@ interface ERWCast {
 class ERWEfficiency extends Analyzer {
   static dependencies = {
     runeTracker: UnholyRuneTracker,
+    castEfficiency: CastEfficiency,
   };
 
   protected runeTracker!: UnholyRuneTracker;
+  protected castEfficiency!: CastEfficiency;
 
   private _casts: ERWCast[] = [];
   private _lastKnownRp = 20;
@@ -48,6 +49,11 @@ class ERWEfficiency extends Analyzer {
   }
 
   private onAnyCast(event: CastEvent) {
+    // Skip ERW's own cast: this listener and onERW both fire on the same
+    // event, and this one runs first, so updating here would clobber
+    // _lastKnownRp with ERW's post-cast RP before onERW reads it as "before."
+    if (event.ability.guid === SPELLS.EMPOWER_RUNE_WEAPON.id) return;
+
     if (event.classResources) {
       for (const res of event.classResources) {
         if (res.type === RESOURCE_TYPES.RUNIC_POWER.id) {
@@ -67,8 +73,11 @@ class ERWEfficiency extends Analyzer {
   }
 
   get possibleCasts() {
-    const fightMs = this.owner.fight.end_time - this.owner.fight.start_time;
-    return Math.max(this._casts.length, Math.floor((fightMs - ONSET_MS) / ERW_CD_MS) + 1);
+    // Delegate to CastEfficiency so the eyeMult cooldown reduction from Evil
+    // Eye of Galakras (registered on the spell's Abilities.ts entry) is
+    // accounted for, instead of assuming a flat 300s cooldown here.
+    const info = this.castEfficiency.getCastEfficiencyForSpell(SPELLS.EMPOWER_RUNE_WEAPON);
+    return Math.max(this._casts.length, info ? Math.ceil(info.maxCasts) : this._casts.length);
   }
 
   get perfectCasts() {

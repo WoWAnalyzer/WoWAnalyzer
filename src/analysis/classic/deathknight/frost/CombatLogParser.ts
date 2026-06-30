@@ -1,8 +1,9 @@
+import SPELLS from 'common/SPELLS/classic/deathknight';
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import FrostDKGuide from './Guide';
 // Shared
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { GlobalCooldown } from 'analysis/classic/deathknight/shared';
+import { GlobalCooldown, createBloodTapCharges } from 'analysis/classic/deathknight/shared';
 import Haste from 'parser/shared/modules/Haste';
 import Enemies from 'parser/shared/modules/Enemies';
 // Core features
@@ -19,7 +20,6 @@ import RuneTracker from './modules/features/RuneTracker';
 import RunicPowerTracker from './modules/features/RunicPowerTracker';
 import PillarOfFrost from './modules/features/PillarOfFrost';
 import PlagueLeech from './modules/features/PlagueLeech';
-import BloodTapCharges from './modules/features/BloodTapCharges';
 import ERWEfficiency from './modules/features/ERWEfficiency';
 import SoulReaperEfficiency from './modules/features/SoulReaperEfficiency';
 import RaiseDeadTracker from './modules/features/RaiseDeadTracker';
@@ -32,6 +32,9 @@ import EnchantChecker from './modules/features/EnchantChecker';
 // Shared DK
 import ArmyOfTheDead from '../shared/ArmyOfTheDead';
 
+const { analyzer: BloodTapCharges, normalizer: BloodChargeGainLinkNormalizer } =
+  createBloodTapCharges(SPELLS.FROST_STRIKE, 'Frost Strike');
+
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared infrastructure
@@ -39,6 +42,8 @@ class CombatLogParser extends BaseCombatLogParser {
     globalCooldown: GlobalCooldown,
     haste: Haste,
     enemies: Enemies,
+    // Normalizers
+    bloodChargeGainLinkNormalizer: BloodChargeGainLinkNormalizer,
     // Core features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,

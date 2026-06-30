@@ -4,7 +4,7 @@ import { Darkfrog, jazminite } from 'CONTRIBUTORS';
 export default [
   change(
     date(2026, 6, 19),
-    'Added and expanded Frost Death Knight analysis for Classic MoP: Guide; rune/runic power tracking (RuneTracker, RunicPowerTracker, MoPRuneTracker); efficiency/waste trackers (KillingMachine, PillarOfFrost, ObliterateRuneWaste, ObliterateWithRime, PlagueLeech, SoulReaperEfficiency, ERWEfficiency, RimeEfficiency, FesteringStrikeWaste); uptime trackers (BloodPlagueUptime, FrostFeverUptime); shared EvilEyeOfGalakras module; base Ability/Abilities classes under src/parser/classic/modules; updated CombatLogParser, CONFIG, Abilities, Buffs, and CooldownThroughputTracker.',
+    'Added and expanded Frost Death Knight analysis for Classic MoP: Guide; rune/runic power tracking; efficiency/waste trackers; disease uptime trackers; Evil Eye of Galakras support.',
     Darkfrog,
   ),
   change(date(2026, 6, 19), 'Fixed incorrect Killing Machine spell ID.', Darkfrog),

@@ -20,6 +20,7 @@ class Buffs extends CoreAuras {
       // Major cooldowns
       {
         spellId: SPELLS.PILLAR_OF_FROST.id,
+        triggeredBySpellId: SPELLS.PILLAR_OF_FROST.id,
         timelineHighlight: true,
       },
       // Presences

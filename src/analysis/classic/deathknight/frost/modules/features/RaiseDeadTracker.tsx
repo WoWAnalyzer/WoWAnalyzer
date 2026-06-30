@@ -1,18 +1,26 @@
 import SPELLS from 'common/SPELLS/classic/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EventType } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-const RAISE_DEAD_CD_MS = 120_000; // 2-minute cooldown in MoP
+import { ARMY_GHOUL_ID } from 'analysis/classic/deathknight/shared/ArmyOfTheDead';
+
 const GHOUL_DURATION_MS = 60_000; // Risen Ghoul lasts 60 seconds
 
 /**
  * Tracks Raise Dead (Risen Ghoul) casts for Frost DK.
+ *
+ * Frost also has Army of the Dead on its bar (see Abilities.ts), which
+ * summons several temporary ghouls that are also SELECTED_PLAYER_PET
+ * sources. We exclude those (identified via playerPets guid === ARMY_GHOUL_ID)
+ * so an Army cast doesn't get misread as a Raise Dead resummon.
  *
  * Raise Dead does not reliably produce cast events in WCL logs (especially
  * when cast before the pull). Instead, we detect each ghoul summon via
@@ -22,23 +30,39 @@ const GHOUL_DURATION_MS = 60_000; // Risen Ghoul lasts 60 seconds
  *   - Pet damage after the current window has expired (> 60s since window start)
  *     → new summon; window start = this event's timestamp
  *
- * Each detected window calls SpellUsable.beginCooldown() so the
- * FoundationGuide CooldownBar renders the timeline correctly. If a real
- * cast event was already processed by SpellUsable (spell is on CD), we
- * skip the synthetic call to avoid double-counting.
+ * Each detected window fabricates a real Cast event via EventEmitter (instead
+ * of just calling SpellUsable.beginCooldown directly), so that SpellHistory
+ * records it and CastEfficiency can count it like any other cast — this lets
+ * us delegate possibleCasts/efficiency math to CastEfficiency (which already
+ * accounts for the Evil Eye of Galakras cooldown reduction registered on this
+ * spell's Abilities.ts entry) instead of recomputing cooldown math here.
+ * SpellUsable has its own Cast-event listener that calls beginCooldown
+ * automatically, so we don't need to call it ourselves. If a real cast event
+ * was already processed (spell is on CD), we skip fabricating to avoid
+ * double-counting.
  */
 class RaiseDeadTracker extends Analyzer {
   static dependencies = {
     ...Analyzer.dependencies,
     spellUsable: SpellUsable,
+    eventEmitter: EventEmitter,
+    castEfficiency: CastEfficiency,
   };
   protected spellUsable!: SpellUsable;
+  protected eventEmitter!: EventEmitter;
+  protected castEfficiency!: CastEfficiency;
 
   /** Timestamp of the start of each detected ghoul window (fight-relative ms). */
   private _windowStarts: number[] = [];
 
+  /** Pet IDs belonging to Army of the Dead ghouls, to exclude from detection. */
+  private _armyGhoulIds: Set<number>;
+
   constructor(options: Options) {
     super(options);
+    this._armyGhoulIds = new Set(
+      this.owner.playerPets.filter((pet) => pet.guid === ARMY_GHOUL_ID).map((pet) => pet.id),
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
 
@@ -48,6 +72,11 @@ class RaiseDeadTracker extends Analyzer {
   }
 
   private onPetDamage(event: DamageEvent) {
+    if (this._armyGhoulIds.has(event.sourceID ?? -1)) {
+      // Army of the Dead ghoul — not the permanent Raise Dead ghoul, ignore.
+      return;
+    }
+
     const ts = event.timestamp;
     const expiry = this.currentWindowExpiry();
 
@@ -61,11 +90,11 @@ class RaiseDeadTracker extends Analyzer {
     const windowStart = this._windowStarts.length === 0 ? this.owner.fight.start_time : ts;
     this._windowStarts.push(windowStart);
 
-    // Only fabricate a cooldown start if SpellUsable hasn't already seen a
-    // real cast event for this use (which would put the spell on cooldown).
+    // Only fabricate a cast if SpellUsable hasn't already seen a real cast
+    // event for this use (which would put the spell on cooldown).
     if (!this.spellUsable.isOnCooldown(SPELLS.RAISE_DEAD.id)) {
-      const syntheticCast = {
-        type: EventType.Cast as const,
+      const fabricatedCast: CastEvent = {
+        type: EventType.Cast,
         timestamp: windowStart,
         ability: {
           guid: SPELLS.RAISE_DEAD.id,
@@ -76,9 +105,12 @@ class RaiseDeadTracker extends Analyzer {
         sourceID: this.owner.playerId,
         sourceIsFriendly: true,
         targetIsFriendly: true,
-        __fabricated: true as const,
+        __fabricated: true,
       };
-      this.spellUsable.beginCooldown(syntheticCast as unknown as DamageEvent, SPELLS.RAISE_DEAD.id);
+      // Emits onto the real event stream — SpellHistory records it (so
+      // CastEfficiency can count it) and SpellUsable's own Cast listener
+      // starts the cooldown automatically.
+      this.eventEmitter.fabricateEvent(fabricatedCast, event);
     }
   }
 
@@ -86,22 +118,24 @@ class RaiseDeadTracker extends Analyzer {
     return this._windowStarts.length;
   }
 
-  get possibleCasts(): number {
-    const fightMs = this.owner.fight.end_time - this.owner.fight.start_time;
-    // If the first window starts at fight start (pre-pull), onset = 0.
-    // Otherwise onset = time of first cast.
-    const onset =
-      this._windowStarts.length > 0 ? this._windowStarts[0] - this.owner.fight.start_time : 0;
-    return Math.max(this.totalCasts, Math.floor((fightMs - onset) / RAISE_DEAD_CD_MS) + 1);
+  private get _info() {
+    return this.castEfficiency.getCastEfficiencyForSpell(SPELLS.RAISE_DEAD);
   }
 
-  get castEfficiency(): number {
-    return this.possibleCasts > 0 ? this.totalCasts / this.possibleCasts : 1;
+  get possibleCasts(): number {
+    const info = this._info;
+    return Math.max(this.totalCasts, info ? Math.ceil(info.maxCasts) : this.totalCasts);
+  }
+
+  get castEfficiencyPct(): number {
+    return (
+      this._info?.efficiency ?? (this.possibleCasts > 0 ? this.totalCasts / this.possibleCasts : 1)
+    );
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.castEfficiency,
+      actual: this.castEfficiencyPct,
       isLessThan: { minor: 1.0, average: 0.85, major: 0.7 },
       style: ThresholdStyle.PERCENTAGE,
     };

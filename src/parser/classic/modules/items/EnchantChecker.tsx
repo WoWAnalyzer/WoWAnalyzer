@@ -53,6 +53,24 @@ const MIN_ENCHANT_IDS = [
   5004, // Pearlescent Spellthread (Spirit)
 ];
 
+// Weapon/off-hand enchant ids within MAX_ENCHANT_IDS. Exported so spec subclasses that replace
+// weapon enchants with something else (e.g. Death Knight runeforges) can filter these out of the
+// inherited list without re-listing (and risking drift from) the ids themselves.
+export const WEAPON_MAX_ENCHANT_IDS = [
+  4441, // Enchant Weapon - Windsong
+  4442, // Enchant Weapon - Jade Spirit
+  4443, // Enchant Weapon - Elemental Force
+  4444, // Enchant Weapon - Dancing Steel
+  4445, // Enchant Weapon - Colossus
+  4446, // Enchant Weapon - River's Song
+  4434, // Enchant Off-Hand - Major Intellect
+  // Weapon (PvP)
+  5035, // Enchant Weapon - Glorious Tyranny
+  5124, // Enchant Weapon - Spirit of Conquest
+  5125, // Enchant Weapon - Bloody Dancing Steel
+  8550, // Enchant Weapon - Tyranny
+];
+
 const MAX_ENCHANT_IDS = [
   // Shoulder (Inscription)
   4803, // Greater Tiger Fang Inscription (Strength)
@@ -104,18 +122,7 @@ const MAX_ENCHANT_IDS = [
   4428, // Enchant Boots - Blurred Speed
   4429, // Enchant Boots - Pandaren's Step
   // Weapon
-  4441, // Enchant Weapon - Windsong
-  4442, // Enchant Weapon - Jade Spirit
-  4443, // Enchant Weapon - Elemental Force
-  4444, // Enchant Weapon - Dancing Steel
-  4445, // Enchant Weapon - Colossus
-  4446, // Enchant Weapon - River's Song
-  4434, // Enchant Off-Hand - Major Intellect
-  // Weapon (PvP)
-  5035, // Enchant Weapon - Glorious Tyranny
-  5124, // Enchant Weapon - Spirit of Conquest
-  5125, // Enchant Weapon - Bloody Dancing Steel
-  8550, // Enchant Weapon - Tyranny
+  ...WEAPON_MAX_ENCHANT_IDS,
 ];
 
 class EnchantChecker extends BaseEnchantChecker {

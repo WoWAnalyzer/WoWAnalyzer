@@ -162,7 +162,9 @@ abstract class MoPRuneTracker extends Analyzer {
     return 1 + this.haste.current;
   }
   /** Whether Runic Corruption is currently active (doubles regen speed). */
-  private _runicCorruptionActive = false;
+  private get _runicCorruptionActive(): boolean {
+    return this.selectedCombatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id);
+  }
 
   // ── Time-at-rune-count tracking ───────────────────────────────────────────
   /** Accumulated ms spent at each per-type available count (index 0–2). */
@@ -356,18 +358,21 @@ abstract class MoPRuneTracker extends Analyzer {
 
   private onRunicCorruptionApply(_event: ApplyBuffEvent) {
     const ts = _event.timestamp;
-    const oldMult = this._effectiveHasteMultiplier;
-    this._runicCorruptionActive = true;
-    const newMult = this._effectiveHasteMultiplier;
+    // _runicCorruptionActive is a hasBuff()-backed getter, so by the time this
+    // handler runs the buff is already applied — we can't sample it for
+    // "before" and "after". Compute both sides directly instead.
+    const oldMult = this._hasteMultiplier; // corruption not yet active
+    const newMult = this._hasteMultiplier * 2; // corruption now active
     this._adjustRuneRegenTimes(ts, oldMult, newMult);
     this._updateRuneCds(newMult);
   }
 
   private onRunicCorruptionRemove(_event: RemoveBuffEvent) {
     const ts = _event.timestamp;
-    const oldMult = this._effectiveHasteMultiplier;
-    this._runicCorruptionActive = false;
-    const newMult = this._effectiveHasteMultiplier;
+    // Same reasoning as onRunicCorruptionApply — compute old/new directly
+    // rather than sampling the live getter.
+    const oldMult = this._hasteMultiplier * 2; // corruption was active
+    const newMult = this._hasteMultiplier; // corruption now inactive
     this._adjustRuneRegenTimes(ts, oldMult, newMult);
     this._updateRuneCds(newMult);
   }

@@ -36,8 +36,7 @@ class PlagueStrikeRuneWaste extends Analyzer {
     }
     let hadUnholy = false;
     for (const res of event.classResources) {
-      const cost = (res as { cost?: number }).cost ?? 0;
-      if (cost > 0 && res.type === UNHOLY_RUNE_TYPE) {
+      if (res.cost > 0 && res.type === UNHOLY_RUNE_TYPE) {
         hadUnholy = true;
         break;
       }

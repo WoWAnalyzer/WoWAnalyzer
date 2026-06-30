@@ -26,10 +26,11 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '',
+  exampleReport:
+    '/report/ydVFt9LZrTq1cCDv/54-Heroic+Thok+the+Bloodthirsty+-+Kill+(5:01)/1-Darkfrog/standard',
   // Add spells to display separately on the timeline
   timeline: {
-    separateCastBars: [[]], // TODO: add Pillar of Frost, ERW
+    separateCastBars: [[]],
   },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.CLASSIC_DEATH_KNIGHT_FROST,

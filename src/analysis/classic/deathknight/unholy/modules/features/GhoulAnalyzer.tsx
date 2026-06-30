@@ -7,6 +7,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
+import { ARMY_GHOUL_ID } from 'analysis/classic/deathknight/shared/ArmyOfTheDead';
+
 /**
  * Tracks Risen Ghoul uptime and ability usage for Unholy DK.
  *
@@ -18,6 +20,12 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
  * Unlike Frost, Unholy's ghoul is permanent — Raise Dead is cast once and
  * the ghoul stays alive. Uptime is tracked from each Raise Dead cast to the
  * next, an overkill event, or fight end. The goal is 100% uptime.
+ *
+ * Unholy also has Army of the Dead on its bar (see Abilities.ts), which
+ * summons several temporary ghouls that are also SELECTED_PLAYER_PET
+ * sources. We exclude those (identified via playerPets guid === ARMY_GHOUL_ID)
+ * so an Army cast/death doesn't get misread as the permanent ghoul's
+ * window opening/closing.
  *
  * Matches Python GhoulAnalyzer (simplified — Python version has full pet-event
  * source-instance tracking; WoWAnalyzer classic uses SELECTED_PLAYER_PET).
@@ -34,8 +42,15 @@ class GhoulAnalyzer extends Analyzer {
   private _numSweepingClaws = 0;
   private _numGnaws = 0;
 
+  /** Pet IDs belonging to Army of the Dead ghouls, to exclude from detection. */
+  private _armyGhoulIds: Set<number>;
+
   constructor(options: Options) {
     super(options);
+
+    this._armyGhoulIds = new Set(
+      this.owner.playerPets.filter((pet) => pet.guid === ARMY_GHOUL_ID).map((pet) => pet.id),
+    );
 
     // Player cast: Raise Dead opens a new ghoul window
     this.addEventListener(
@@ -59,6 +74,11 @@ class GhoulAnalyzer extends Analyzer {
   }
 
   private onPetDamage(event: DamageEvent) {
+    if (this._armyGhoulIds.has(event.sourceID ?? -1)) {
+      // Army of the Dead ghoul — not the permanent Risen Ghoul, ignore.
+      return;
+    }
+
     // Open an implicit window if ghoul was alive before Raise Dead was seen
     // (pre-pull raise)
     if (this._windows.length === 0) {

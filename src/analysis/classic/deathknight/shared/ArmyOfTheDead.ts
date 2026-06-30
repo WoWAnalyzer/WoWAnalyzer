@@ -3,7 +3,10 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { AnyEvent, EventType, HasSource, HasTarget } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const ARMY_GHOUL_ID = 24207;
+// Exported so other modules (e.g. RaiseDeadTracker) can distinguish Army of
+// the Dead's temporary ghouls from the permanent Raise Dead ghoul, since both
+// are SELECTED_PLAYER_PET sources.
+export const ARMY_GHOUL_ID = 24207;
 
 export default class ArmyOfTheDead extends EventsNormalizer {
   normalize(events: AnyEvent[]): AnyEvent[] {

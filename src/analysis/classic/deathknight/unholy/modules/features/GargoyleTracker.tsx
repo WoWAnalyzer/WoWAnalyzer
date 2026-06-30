@@ -3,12 +3,10 @@ import SPELLS from 'common/SPELLS/classic/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-// Summon Gargoyle has a 3-minute cooldown and lasts 30 seconds.
-const GARGOYLE_COOLDOWN_MS = 180_000;
 
 interface GargoyleWindow {
   start: number;
@@ -23,6 +21,11 @@ interface GargoyleWindow {
  * Ported from the WCL DK Analyzer GargoyleAnalysis.
  */
 class GargoyleTracker extends Analyzer {
+  static dependencies = {
+    castEfficiency: CastEfficiency,
+  };
+  protected castEfficiency!: CastEfficiency;
+
   private _windows: GargoyleWindow[] = [];
   private _gargoyleNpcId: number | null = null;
 
@@ -70,8 +73,11 @@ class GargoyleTracker extends Analyzer {
   }
 
   get possibleCasts() {
-    // One cast at fight start + one more for each full cooldown period.
-    return 1 + Math.floor(this.owner.fightDuration / GARGOYLE_COOLDOWN_MS);
+    // Delegate to CastEfficiency so the eyeMult cooldown reduction from Evil
+    // Eye of Galakras (registered on the spell's Abilities.ts entry) is
+    // accounted for, instead of assuming a flat 180s cooldown here.
+    const info = this.castEfficiency.getCastEfficiencyForSpell(SPELLS.SUMMON_GARGOYLE);
+    return Math.max(this.numCasts, info ? Math.ceil(info.maxCasts) : this.numCasts);
   }
 
   get totalDamage() {

@@ -12,9 +12,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-// Killing Machine expires after 10 seconds if unused.
-const BUFF_DURATION_MS = 10_000;
-
 // KM is consumed by Obliterate or Frost Strike (makes it a guaranteed crit).
 const KM_CONSUMERS = new Set([SPELLS.OBLITERATE.id, SPELLS.FROST_STRIKE.id]);
 
@@ -24,7 +21,6 @@ class KillingMachine extends Analyzer {
   overwrittenProcs = 0;
   expiredProcs = 0;
 
-  private _lastProcTimestamp = 0;
   private _activeProc = false;
 
   constructor(options: Options) {
@@ -45,31 +41,29 @@ class KillingMachine extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  onApply(event: ApplyBuffEvent) {
+  onApply(_event: ApplyBuffEvent) {
     this.totalProcs += 1;
-    this._lastProcTimestamp = event.timestamp;
     this._activeProc = true;
   }
 
-  onRefresh(event: RefreshBuffEvent) {
+  onRefresh(_event: RefreshBuffEvent) {
     // A refresh means the previous proc was overwritten before being used.
     if (this._activeProc) {
       this.overwrittenProcs += 1;
     }
     this.totalProcs += 1;
-    this._lastProcTimestamp = event.timestamp;
     this._activeProc = true;
   }
 
-  onRemove(event: RemoveBuffEvent) {
+  onRemove(_event: RemoveBuffEvent) {
     if (!this._activeProc) {
       return;
     }
-    const held = event.timestamp - this._lastProcTimestamp;
-    if (held >= BUFF_DURATION_MS - 50) {
-      // Allow 50 ms log jitter before calling it expired.
-      this.expiredProcs += 1;
-    }
+    // Reaching here means the proc fell off without being consumed (onCast already
+    // handles that case) or refreshed (onRefresh handles that). Whether it ran its
+    // full natural duration or got cut short by death/encounter end, it was wasted
+    // either way — KM can't be dispelled, so there's no other way for this to fire.
+    this.expiredProcs += 1;
     this._activeProc = false;
   }
 

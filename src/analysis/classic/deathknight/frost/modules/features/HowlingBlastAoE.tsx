@@ -49,18 +49,50 @@ class HowlingBlastAoE extends Analyzer {
   }
 
   private _computeBadAoe(): number {
+    // _hbHits is sorted by timestamp as it's appended in event order, so for each Obliterate cast
+    // we can binary-search the window bounds instead of scanning every HB hit (O(n log n) overall
+    // instead of O(n^2)).
+    const timestamps = this._hbHits.map((h) => h.ts);
     let count = 0;
     for (const ts of this._obliterateTimes) {
-      const uniqueTargets = new Set(
-        this._hbHits
-          .filter((h) => Math.abs(h.ts - ts) <= HB_TARGET_WINDOW_MS)
-          .map((h) => h.targetID),
-      ).size;
+      const lo = this._lowerBound(timestamps, ts - HB_TARGET_WINDOW_MS);
+      const hi = this._upperBound(timestamps, ts + HB_TARGET_WINDOW_MS);
+      const uniqueTargets = new Set(this._hbHits.slice(lo, hi).map((h) => h.targetID)).size;
       if (uniqueTargets >= AOE_TARGET_THRESHOLD) {
         count += 1;
       }
     }
     return count;
+  }
+
+  /** Index of the first element >= value. */
+  private _lowerBound(sorted: number[], value: number): number {
+    let low = 0;
+    let high = sorted.length;
+    while (low < high) {
+      const mid = (low + high) >>> 1;
+      if (sorted[mid] < value) {
+        low = mid + 1;
+      } else {
+        high = mid;
+      }
+    }
+    return low;
+  }
+
+  /** Index of the first element > value. */
+  private _upperBound(sorted: number[], value: number): number {
+    let low = 0;
+    let high = sorted.length;
+    while (low < high) {
+      const mid = (low + high) >>> 1;
+      if (sorted[mid] <= value) {
+        low = mid + 1;
+      } else {
+        high = mid;
+      }
+    }
+    return low;
   }
 
   get badAoeCasts(): number {
