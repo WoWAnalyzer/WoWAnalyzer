@@ -10,9 +10,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import UnholyRuneTracker from './RuneTracker';
+import MoPRuneTracker from './MoPRuneTracker';
 
-const RP_CAP = 100;
+const RP_CAP = 100; // display RP units
 const ERW_RP_GAIN = 30;
 
 interface ERWCast {
@@ -24,20 +24,28 @@ interface ERWCast {
 }
 
 /**
- * Tracks Empower Rune Weapon usage quality for Unholy DK.
- * Optimal: all 6 runes on CD AND RP ≤ 70 before the cast.
+ * Tracks Empower Rune Weapon usage quality.
+ *
+ * An optimal ERW cast refreshes all 6 runes (all were on CD) AND generates
+ * the full 30 RP (pre-cast RP ≤ 70). Missing either wastes part of the
+ * cooldown's value. ERW should be held until both conditions are met.
+ *
+ * Depends on the abstract `MoPRuneTracker` rather than a spec-specific
+ * subclass — dependency injection resolves it to whichever concrete
+ * RuneTracker (Frost/Unholy) the owning spec registered, so this module is
+ * shared between specs without needing its own per-spec copy.
  */
 class ERWEfficiency extends Analyzer {
   static dependencies = {
-    runeTracker: UnholyRuneTracker,
+    runeTracker: MoPRuneTracker,
     castEfficiency: CastEfficiency,
   };
 
-  protected runeTracker!: UnholyRuneTracker;
+  protected runeTracker!: MoPRuneTracker;
   protected castEfficiency!: CastEfficiency;
 
   private _casts: ERWCast[] = [];
-  private _lastKnownRp = 20;
+  private _lastKnownRp = 20; // DKs start at 20 RP
 
   constructor(options: Options) {
     super(options);
@@ -65,11 +73,20 @@ class ERWEfficiency extends Analyzer {
   }
 
   private onERW(event: CastEvent) {
+    // Rune state is read BEFORE the RuneTracker processes this cast's spend
+    // (ERW refreshes runes, so we want the pre-ERW on-CD count)
     const runesOnCd = this.runeTracker.runesOnCooldown(event.timestamp);
     const rpBefore = this._lastKnownRp;
     const perfectRunes = runesOnCd === 6;
     const perfectRp = rpBefore + ERW_RP_GAIN <= RP_CAP;
-    this._casts.push({ timestamp: event.timestamp, runesOnCd, rpBefore, perfectRunes, perfectRp });
+
+    this._casts.push({
+      timestamp: event.timestamp,
+      runesOnCd,
+      rpBefore,
+      perfectRunes,
+      perfectRp,
+    });
   }
 
   get possibleCasts() {
@@ -91,7 +108,11 @@ class ERWEfficiency extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.perfectRate,
-      isLessThan: { minor: 1.0, average: 0.75, major: 0.5 },
+      isLessThan: {
+        minor: 1.0,
+        average: 0.75,
+        major: 0.5,
+      },
       style: ThresholdStyle.PERCENTAGE,
     };
   }

@@ -2099,8 +2099,16 @@ export const jazminite: Contributor = {
 };
 export const Darkfrog: Contributor = {
   nickname: 'Darkfrog',
-  github: 'Darkfrog',
+  github: 'darkmaster2133',
   discord: 'darkmaster2133',
+  avatar: avatar('darkfrog-avatar.png'),
+  mains: [
+    {
+      name: 'Darkfrog',
+      spec: SPECS.CLASSIC_DEATH_KNIGHT_FROST,
+      link: 'https://classic.warcraftlogs.com/character/id/100908399',
+    },
+  ],
 };
 export const Pilsung: Contributor = {
   nickname: 'pilsung',

@@ -15,7 +15,8 @@ const MAX_UPTIME_TARGET = 0.27; // 27% target uptime (Python threshold)
  *
  * DnD (10s ground effect, 30s CD) snares enemies and deals periodic AoE
  * shadow damage. Uptime is estimated from damage tick events (one per second),
- * separating casts by gaps >800ms. Target uptime: ~27%.
+ * separating ticks by gaps >800ms (to handle multiple ticks occurring in AoE). Target uptime:
+ * ~27%.
  */
 class DeathAndDecayUptime extends Analyzer {
   private _ticks = 0;

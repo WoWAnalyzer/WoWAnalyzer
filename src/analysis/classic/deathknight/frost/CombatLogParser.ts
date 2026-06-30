@@ -3,7 +3,11 @@ import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import FrostDKGuide from './Guide';
 // Shared
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { GlobalCooldown, createBloodTapCharges } from 'analysis/classic/deathknight/shared';
+import {
+  ERWEfficiency,
+  GlobalCooldown,
+  createBloodTapCharges,
+} from 'analysis/classic/deathknight/shared';
 import Haste from 'parser/shared/modules/Haste';
 import Enemies from 'parser/shared/modules/Enemies';
 // Core features
@@ -20,7 +24,6 @@ import RuneTracker from './modules/features/RuneTracker';
 import RunicPowerTracker from './modules/features/RunicPowerTracker';
 import PillarOfFrost from './modules/features/PillarOfFrost';
 import PlagueLeech from './modules/features/PlagueLeech';
-import ERWEfficiency from './modules/features/ERWEfficiency';
 import SoulReaperEfficiency from './modules/features/SoulReaperEfficiency';
 import RaiseDeadTracker from './modules/features/RaiseDeadTracker';
 import OutbreakTracker from './modules/features/OutbreakTracker';

@@ -1,4 +1,6 @@
-import ClassicEnchantChecker from 'parser/classic/modules/items/EnchantChecker';
+import ClassicEnchantChecker, {
+  WEAPON_MAX_ENCHANT_IDS,
+} from 'parser/classic/modules/items/EnchantChecker';
 
 // Runeforges that are correct for Unholy DK (2H: Fallen Crusader only)
 const UNHOLY_MAX_RUNEFORGES = [
@@ -14,9 +16,11 @@ const UNHOLY_MAX_RUNEFORGES = [
  */
 class EnchantChecker extends ClassicEnchantChecker {
   get MaxEnchantIds(): number[] {
-    const parentMax = super.MaxEnchantIds.filter(
-      (id) => ![4441, 4442, 4443, 4444, 4445, 4446, 4434, 5035, 5124, 5125, 8550].includes(id),
-    );
+    // Replace parent weapon enchants with DK-specific runeforges. Filter out the regular weapon
+    // enchant ids (kept in sync with the base list via the shared WEAPON_MAX_ENCHANT_IDS export)
+    // while preserving every other slot's max-enchant ids — DKs must use runeforges, never
+    // regular weapon enchants.
+    const parentMax = super.MaxEnchantIds.filter((id) => !WEAPON_MAX_ENCHANT_IDS.includes(id));
     return [...parentMax, ...UNHOLY_MAX_RUNEFORGES];
   }
 }

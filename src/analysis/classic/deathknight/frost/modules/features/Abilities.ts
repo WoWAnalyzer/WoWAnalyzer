@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS/classic/deathknight';
 import { evilEyeCdMultiplier } from 'analysis/classic/deathknight/shared/EvilEyeOfGalakras';
-import ClassicAbilities from 'parser/classic/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 // In MoP all three DK presences reduce the global cooldown to 1 second.
 const GCD_1S = { base: 1000 } as const;
 
-class Abilities extends ClassicAbilities {
+class Abilities extends CoreAbilities {
   spellbook() {
     // Evil Eye of Galakras reduces the CD of 6 Frost spells by an ilvl-dependent %.
     const eyeMult = evilEyeCdMultiplier(this.selectedCombatant.gear);

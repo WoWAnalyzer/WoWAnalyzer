@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS/classic/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import StateHistory from 'parser/core/StateHistory';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -22,7 +23,7 @@ const AOE_TARGET_THRESHOLD = 3;
 
 class HowlingBlastAoE extends Analyzer {
   /** (timestamp, targetID) pairs for all HB hits */
-  private _hbHits: Array<{ ts: number; targetID: number }> = [];
+  private _hbHits: Array<{ timestamp: number; targetID: number }> = [];
   private _obliterateTimes: number[] = [];
   private _badAoe: number | null = null;
 
@@ -40,7 +41,7 @@ class HowlingBlastAoE extends Analyzer {
 
   private onHBDamage(event: DamageEvent) {
     if (event.targetID !== undefined) {
-      this._hbHits.push({ ts: event.timestamp, targetID: event.targetID });
+      this._hbHits.push({ timestamp: event.timestamp, targetID: event.targetID });
     }
   }
 
@@ -49,50 +50,19 @@ class HowlingBlastAoE extends Analyzer {
   }
 
   private _computeBadAoe(): number {
-    // _hbHits is sorted by timestamp as it's appended in event order, so for each Obliterate cast
-    // we can binary-search the window bounds instead of scanning every HB hit (O(n log n) overall
-    // instead of O(n^2)).
-    const timestamps = this._hbHits.map((h) => h.ts);
+    // _hbHits is appended in event order (i.e. already sorted by timestamp), so StateHistory
+    // can binary-search the window bounds for each Obliterate cast instead of scanning every
+    // HB hit (O(n log n) overall instead of O(n^2)).
+    const hbHistory = new StateHistory(this._hbHits);
     let count = 0;
     for (const ts of this._obliterateTimes) {
-      const lo = this._lowerBound(timestamps, ts - HB_TARGET_WINDOW_MS);
-      const hi = this._upperBound(timestamps, ts + HB_TARGET_WINDOW_MS);
-      const uniqueTargets = new Set(this._hbHits.slice(lo, hi).map((h) => h.targetID)).size;
+      const hitsInWindow = hbHistory.slice(ts - HB_TARGET_WINDOW_MS, ts + HB_TARGET_WINDOW_MS).data;
+      const uniqueTargets = new Set(hitsInWindow.map((h) => h.targetID)).size;
       if (uniqueTargets >= AOE_TARGET_THRESHOLD) {
         count += 1;
       }
     }
     return count;
-  }
-
-  /** Index of the first element >= value. */
-  private _lowerBound(sorted: number[], value: number): number {
-    let low = 0;
-    let high = sorted.length;
-    while (low < high) {
-      const mid = (low + high) >>> 1;
-      if (sorted[mid] < value) {
-        low = mid + 1;
-      } else {
-        high = mid;
-      }
-    }
-    return low;
-  }
-
-  /** Index of the first element > value. */
-  private _upperBound(sorted: number[], value: number): number {
-    let low = 0;
-    let high = sorted.length;
-    while (low < high) {
-      const mid = (low + high) >>> 1;
-      if (sorted[mid] <= value) {
-        low = mid + 1;
-      } else {
-        high = mid;
-      }
-    }
-    return low;
   }
 
   get badAoeCasts(): number {

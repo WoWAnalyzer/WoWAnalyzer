@@ -52,20 +52,22 @@ class GargoyleTracker extends Analyzer {
     if (event.ability.guid === SPELLS.SUMMON_GARGOYLE.id) {
       this._gargoyleNpcId = (event as unknown as { targetID?: number }).targetID ?? null;
     }
-    // If we somehow missed the cast event, open a window from the summon.
-    if (this._windows.length === 0 || this._windows[this._windows.length - 1].end !== null) {
-      this._windows.push({ start: event.timestamp, end: null, damage: 0 });
-    }
   }
 
   onPetDamage(event: DamageEvent) {
-    // Attribute damage to the current open window.
-    const current = this._windows[this._windows.length - 1];
-    if (current && current.end === null) {
-      // Close the window once the gargoyle expires (damage stops for >5s after last hit)
-      // — we close lazily in the statistic getter instead.
-      current.damage += event.amount + (event.absorbed ?? 0);
+    // If we somehow missed both the cast and summon events — e.g. a pre-pull
+    // cast, where the summon event itself happens before the fight window and
+    // gets filtered out same as the cast — open a window now so this damage
+    // still gets attributed instead of being dropped.
+    if (this._windows.length === 0 || this._windows[this._windows.length - 1].end !== null) {
+      this._windows.push({ start: event.timestamp, end: null, damage: 0 });
     }
+
+    // Attribute damage to the current open window.
+    // Close the window once the gargoyle expires (damage stops for >5s after last hit)
+    // — we close lazily in the statistic getter instead.
+    const current = this._windows[this._windows.length - 1];
+    current.damage += event.amount + (event.absorbed ?? 0);
   }
 
   get numCasts() {

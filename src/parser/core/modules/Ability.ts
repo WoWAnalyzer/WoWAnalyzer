@@ -5,6 +5,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import type { ReactNode } from 'react';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import GameBranch, { currentExpansion } from 'game/GameBranch';
 
 import Abilities from './Abilities';
 import { MessageDescriptor } from '@lingui/core';
@@ -175,7 +176,9 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return maybeGetTalentOrSpell(this.primarySpell)?.name;
+    const branch = this.owner?.config.branch ?? GameBranch.Retail; // this is always set outside of tests
+    const expansion = currentExpansion(branch);
+    return maybeGetTalentOrSpell(this.primarySpell, expansion)?.name;
   }
   set name(value) {
     this._name = value;
