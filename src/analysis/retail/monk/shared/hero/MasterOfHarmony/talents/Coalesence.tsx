@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/mistweaver/constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
 
 class Coalesence extends Analyzer {
   static dependencies = {

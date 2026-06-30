@@ -2,7 +2,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HasHitpoints, HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_MONK } from 'common/TALENTS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -10,7 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { SAVE_THEM_ALL_MAX_INCREASE } from '../mistweaver/constants';
+import { SAVE_THEM_ALL_MAX_INCREASE, ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class SaveThemAll extends Analyzer {
   totalHealed = 0;
@@ -23,6 +22,10 @@ class SaveThemAll extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
+      return;
+    }
+
     const healAmount = event.amount || 0;
 
     if (!HasHitpoints(event)) {
@@ -50,7 +53,6 @@ class SaveThemAll extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(12)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
