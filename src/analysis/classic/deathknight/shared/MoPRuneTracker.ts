@@ -129,7 +129,7 @@ function makeRune(type: RuneType, linkedIndex: number): MoPRune {
  *  - `runesOnCooldown(timestamp)` — 6 - runesAvailable(timestamp)
  *  - `runes` — raw array for advanced consumers
  */
-abstract class MoPRuneTracker extends Analyzer {
+class MoPRuneTracker extends Analyzer {
   static dependencies = {
     haste: Haste,
   };

@@ -30,10 +30,11 @@ interface ERWCast {
  * the full 30 RP (pre-cast RP ≤ 70). Missing either wastes part of the
  * cooldown's value. ERW should be held until both conditions are met.
  *
- * Depends on the abstract `MoPRuneTracker` rather than a spec-specific
- * subclass — dependency injection resolves it to whichever concrete
- * RuneTracker (Frost/Unholy) the owning spec registered, so this module is
- * shared between specs without needing its own per-spec copy.
+ * Depends on the shared `MoPRuneTracker` base class rather than a
+ * spec-specific subclass — dependency injection resolves it (via
+ * `instanceof`) to whichever concrete RuneTracker (Frost/Unholy) the owning
+ * spec registered, so this module is shared between specs without needing
+ * its own per-spec copy.
  */
 class ERWEfficiency extends Analyzer {
   static dependencies = {

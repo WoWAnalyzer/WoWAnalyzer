@@ -9,21 +9,8 @@ export interface Options {
   priority: number;
 }
 
-/**
- * A reference to a Module (sub)class usable as a dependency lookup key.
- *
- * Dependencies are resolved via `instanceof`, not instantiation, so an
- * abstract base class (e.g. a shared abstract Analyzer subclass) is just as
- * valid a dependency key as a concrete class — this lets a module depend on
- * "whichever concrete subclass of this abstract class the owning spec
- * registered" instead of a specific spec's subclass.
- */
-export type ModuleConstructor<T extends Module = Module, O extends Options = Options> = {
-  name: string;
-} & ((new (options: O) => T) | (abstract new (options: O) => T));
-
 class Module {
-  static dependencies: Record<string, ModuleConstructor> = {};
+  static dependencies: Record<string, typeof Module> = {};
 
   protected readonly owner!: CombatLogParser;
   /** Whether or not this module is active, usually depends on specific items or talents. */

@@ -77,7 +77,7 @@ import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
 import { Info } from './metric';
-import Module, { ModuleConstructor, Options } from './Module';
+import Module, { Options } from './Module';
 import DebugAnnotations from './modules/DebugAnnotations';
 import Abilities from './modules/Abilities';
 import Auras from './modules/Auras';
@@ -369,9 +369,9 @@ class CombatLogParser {
     }
     return [moduleClass, options];
   }
-  _resolveDependencies(dependencies: Record<string, ModuleConstructor>) {
+  _resolveDependencies(dependencies: Record<string, typeof Module>) {
     const availableDependencies: Record<string, Module> = {};
-    const missingDependencies: ModuleConstructor[] = [];
+    const missingDependencies: (typeof Module)[] = [];
     if (dependencies) {
       Object.keys(dependencies).forEach((desiredDependencyName) => {
         const dependencyClass = dependencies[desiredDependencyName];
@@ -520,7 +520,7 @@ class CombatLogParser {
   }
   _moduleCache = new Map();
   getOptionalModule<T extends Module, O extends Options>(
-    type: ModuleConstructor<T, O>,
+    type: new (options: O) => T,
   ): T | undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
@@ -532,7 +532,7 @@ class CombatLogParser {
     this._moduleCache.set(type, module);
     return module as T;
   }
-  getModule<T extends Module, O extends Options>(type: ModuleConstructor<T, O>): T {
+  getModule<T extends Module, O extends Options>(type: new (options: O) => T): T {
     const module = this.getOptionalModule(type);
     if (module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
