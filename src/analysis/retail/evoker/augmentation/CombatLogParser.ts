@@ -27,6 +27,7 @@ import Duplicate from './modules/talents/Duplicate';
 import MightyInferno from './modules/talents/MightyInferno';
 import DoubleTime from './modules/talents/DoubleTime';
 import NozdormuAdept from './modules/talents/NozdormuAdept';
+import GoldenOpportunity from './modules/talents/GoldenOpportunity';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -73,7 +74,6 @@ import {
   Reverberations,
   Primacy,
   TimeConvergence,
-  GoldenOpportunity,
   MotesOfAcceleration,
   TimeSpiral,
   RefinedEssence,
