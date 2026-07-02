@@ -87,6 +87,7 @@ import RushingWindKick from './modules/spells/RushingWindKick';
 import JadeEmpowerment from './modules/spells/JadeEmpowerment';
 import MistyCoalescence from './modules/spells/MistyCoalescence';
 import S1TierSet from './modules/tier/S1TierSet';
+import S2TierSet from './modules/tier/S2TierSet';
 import AmplifiedRush from './modules/spells/AmplifiedRush';
 import WayOfTheSerpent from './modules/spells/WayOfTheSerpent';
 import MovementTracker from './modules/features/MovementDuringBuffTracker';
@@ -216,6 +217,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Borrowed Power
     s1TierSet: S1TierSet,
+    s2TierSet: S2TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,
