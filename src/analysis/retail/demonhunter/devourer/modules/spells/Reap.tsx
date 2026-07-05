@@ -106,9 +106,17 @@ class Reap extends Analyzer {
           ) : (
             <>
               which is only to be used to quickly absorb the last few souls you need to get into{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} />.
+              <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} /> or to build into
+              a strong pre-Meta <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_RAY_TALENT} /> cast.
             </>
           )}
+        </p>
+        <p>
+          If you cast it too early, you delay the power spike from entering{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VOID_METAMORPHOSIS_TALENT} /> and can waste damage.
+          Outside Meta, the general rule is to use <SpellLink spell={SPELLS.REAP} /> around 84 Fury
+          or on <SpellLink spell={SPELLS.MOMENT_OF_CRAVING_BUFF} /> if you are not yet ready to
+          enter Meta.
         </p>
       </>
     );

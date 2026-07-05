@@ -7,6 +7,10 @@ import CooldownThroughputTracker from 'analysis/retail/demonhunter/devourer/modu
 import { FuryTracker } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryTracker';
 import { FuryDetails } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryDetails';
 import { FuryGraph } from 'analysis/retail/demonhunter/devourer/modules/resourcetracker/FuryGraph';
+import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
+import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
+import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
+import SoulsOvercap from './modules/statistics/SoulsOvercap';
 import Abilities from './modules/Abilities';
 import CollapsingStar from './modules/talents/CollapsingStar';
 import Guide from './Guide';
@@ -55,6 +59,9 @@ class CombatLogParser extends CoreCombatLogParser {
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
     furyGraph: FuryGraph,
+    soulFragmentsTracker: SoulFragmentsTracker,
+    soulFragmentBuffStackTracker: SoulFragmentBuffStackTracker,
+    soulFragmentsGraph: SoulFragmentsGraph,
 
     // Normalizers
     voidMetamorphosisNormalizer: VoidMetamorphosisNormalizer,
@@ -62,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    soulsOvercap: SoulsOvercap,
   };
 
   static guide = Guide;
