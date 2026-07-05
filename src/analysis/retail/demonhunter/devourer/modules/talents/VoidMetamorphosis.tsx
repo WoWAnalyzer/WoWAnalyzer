@@ -12,7 +12,7 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -39,14 +39,8 @@ class VoidMetamorphosis extends Analyzer.withDependencies({
   abilities: Abilities,
 }) {
   #castTrackers: VoidMetamorphosisTracker[] = [];
-  #momentOfCravingTalented = this.selectedCombatant.hasTalent(
-    TALENTS_DEMON_HUNTER.MOMENT_OF_CRAVING_TALENT,
-  );
   #hungeringSlashTalented = this.selectedCombatant.hasTalent(
     TALENTS_DEMON_HUNTER.HUNGERING_SLASH_TALENT,
-  );
-  #hasCollapsingStarTalent = this.selectedCombatant.hasTalent(
-    TALENTS_DEMON_HUNTER.COLLAPSING_STAR_TALENT,
   );
 
   constructor(options: Options) {
