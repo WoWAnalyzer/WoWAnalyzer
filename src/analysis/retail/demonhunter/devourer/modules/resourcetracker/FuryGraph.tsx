@@ -2,6 +2,29 @@ import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 import { VisualizationSpec } from 'react-vega';
 import { FuryTracker } from './FuryTracker';
 
+type FuryGraphPoint = {
+  timestamp: number;
+  amount: number;
+  wasted?: number;
+};
+
+type FuryGraphData = {
+  graphData?: FuryGraphPoint[];
+};
+
+type FuryGraphSpec = VisualizationSpec & {
+  layer?: Array<{
+    encoding?: {
+      y?: {
+        scale?: {
+          domain: [number, number];
+          nice: boolean;
+        };
+      };
+    };
+  }>;
+};
+
 export class FuryGraph extends ResourceGraph {
   static dependencies = {
     ...ResourceGraph.dependencies,
@@ -33,7 +56,7 @@ export class FuryGraph extends ResourceGraph {
   }
 
   get vegaSpec(): VisualizationSpec {
-    const spec = super.vegaSpec as any;
+    const spec = super.vegaSpec as FuryGraphSpec;
     const maxFury = this.getActualMaxFury();
 
     // Set the y-axis to the actual max Fury for the player
@@ -45,11 +68,11 @@ export class FuryGraph extends ResourceGraph {
   }
 
   get graphData() {
-    const baseData = super.graphData as any;
+    const baseData = super.graphData as FuryGraphData;
     const maxFury = this.getActualMaxFury();
 
     if (baseData.graphData) {
-      const filtered: any[] = [];
+      const filtered: FuryGraphPoint[] = [];
 
       for (let i = 0; i < baseData.graphData.length; i++) {
         const point = baseData.graphData[i];
