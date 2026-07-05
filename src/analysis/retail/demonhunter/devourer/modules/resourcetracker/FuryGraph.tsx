@@ -9,7 +9,7 @@ type FuryGraphPoint = {
 };
 
 type FuryGraphData = {
-  graphData?: FuryGraphPoint[];
+  graphData: FuryGraphPoint[];
 };
 
 type FuryGraphSpec = VisualizationSpec & {
