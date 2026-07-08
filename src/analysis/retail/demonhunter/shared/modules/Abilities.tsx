@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
+import TALENTS, { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -90,7 +90,7 @@ export default class Abilities extends CoreAbilities {
         spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id],
         enabled:
           this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT) &&
-          !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT),
+          !this.selectedCombatant.hasTalent(TALENTS.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           (120 -
