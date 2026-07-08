@@ -1762,7 +1762,7 @@ const talents = {
     entryIds: [112558],
     definitionIds: [{ id: 117563, specId: 260 }],
   },
-  THISTLE_TEA_1_ASSASSINATION_TALENT: {
+  THISTLE_TEA_1_TALENT: {
     id: 469779,
     name: 'Thistle Tea',
     icon: 'inv_drink_milk_05',
@@ -1770,7 +1770,7 @@ const talents = {
     entryIds: [112648],
     definitionIds: [{ id: 117653, specId: 261 }],
   },
-  THISTLE_TEA_2_ASSASSINATION_TALENT: {
+  THISTLE_TEA_2_TALENT: {
     id: 1298826,
     name: 'Thistle Tea',
     icon: 'inv_drink_milk_05',
