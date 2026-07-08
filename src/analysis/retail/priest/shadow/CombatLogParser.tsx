@@ -76,7 +76,6 @@ import DescendingDarkness from './modules/talents/DescendingDarkness';
 import SurgeOfInsanity from './modules/talents/SurgeOfInsanity';
 import HauntingShadows from './modules/talents/HauntingShadows';
 import MentalDecay from './modules/talents/MentalDecay';
-import PhantomMenace from './modules/talents/PhatomMenace';
 import InstilledDoubt from './modules/talents/InstilledDoubt';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -142,7 +141,6 @@ class CombatLogParser extends MainCombatLogParser {
     surgeOfInsanity: SurgeOfInsanity,
     hauntingShadows: HauntingShadows,
     mentalDecay: MentalDecay,
-    phantomMenace: PhantomMenace,
     instilledDoubt: InstilledDoubt,
 
     // Class Talents:
