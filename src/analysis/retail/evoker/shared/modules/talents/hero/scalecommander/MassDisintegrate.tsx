@@ -14,6 +14,8 @@ import {
   MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET,
   MASS_ERUPTION_MULTIPLIER_PER_MISSING_TARGET,
   CONCENTRATED_POWER_EXTRA_TARGETS,
+  WINGLEADER_CDR_PER_HIT_MS,
+  WINGLEADER_CDR_PER_HIT_MS_DEVASTATION,
 } from 'analysis/retail/evoker/shared/constants';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -28,6 +30,9 @@ import {
   isFromMassEruption,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 import { GoodColor, OkColor, PerfectColor } from 'interface/guide';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Spell from 'common/SPELLS/Spell';
+import DonutChart from 'parser/ui/DonutChart';
 
 const BUFF_EVENTS = [Events.applybuff, Events.applybuffstack];
 
@@ -42,8 +47,13 @@ type DamageResult = {
  *
  * Concentrated Power:
  * Mass Disintegrate/Eruption strikes 1 additional target.
+ *
+ * Wingleader:
+ * Mass Disintegrate/Eruption reduces the cooldown of Deep Breath/Breath of Eons by 0.5/1 sec for each strike.
  */
-class MassDisintegrate extends Analyzer {
+class MassDisintegrate extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+}) {
   buffCount = 0;
   castCount = 0;
   targetCount = 0;
@@ -60,11 +70,23 @@ class MassDisintegrate extends Analyzer {
   damageFromConcentratedPowerExtraTargets = 0;
   hasConcentratedPower = this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT);
 
+  hasWingleader = this.selectedCombatant.hasTalent(TALENTS.WINGLEADER_TALENT);
+  wingleaderCDR = this.isDevastation
+    ? WINGLEADER_CDR_PER_HIT_MS_DEVASTATION
+    : WINGLEADER_CDR_PER_HIT_MS;
+  effectiveCDR = 0;
+  wastedCDR = 0;
+  breathSpell: Spell;
+
   constructor(options: Options) {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.MASS_ERUPTION_TALENT);
+
+    this.breathSpell = this.isDevastation
+      ? SPELLS.DEEP_BREATH_SCALECOMMANDER
+      : SPELLS.BREATH_OF_EONS_SCALECOMMANDER;
 
     if (this.hasConcentratedPower) {
       this.maxTargets += CONCENTRATED_POWER_EXTRA_TARGETS;
@@ -162,6 +184,7 @@ class MassDisintegrate extends Analyzer {
     });
 
     this.attributeDamage(damageResult, targetCount);
+    this.reduceCooldown(targetCount);
   }
 
   private onDisintegrateCast(event: CastEvent) {
@@ -197,6 +220,7 @@ class MassDisintegrate extends Analyzer {
     );
 
     this.attributeDamage(damageResult, targetCount);
+    this.reduceCooldown(targetCount);
   }
 
   private attributeDamage(damageResult: DamageResult, targetCount: number) {
@@ -239,6 +263,20 @@ class MassDisintegrate extends Analyzer {
       ampedDamagePerMissingTarget * (amountOfMissingTargets - CONCENTRATED_POWER_EXTRA_TARGETS);
   }
 
+  private reduceCooldown(targetCount: number) {
+    if (!this.hasWingleader) {
+      return;
+    }
+    const effectiveCDR = this.deps.spellUsable.reduceCooldown(
+      this.breathSpell.id,
+      this.wingleaderCDR * targetCount,
+    );
+    const wastedCDR = this.wingleaderCDR * targetCount - effectiveCDR;
+
+    this.effectiveCDR += effectiveCDR / 1000;
+    this.wastedCDR += wastedCDR / 1000;
+  }
+
   get averageTargets() {
     return this.targetCount / this.castCount;
   }
@@ -258,6 +296,22 @@ class MassDisintegrate extends Analyzer {
   statistic() {
     const concentratedPowerTargetsTerm =
       CONCENTRATED_POWER_EXTRA_TARGETS > 1 ? 'targets' : 'target';
+
+    const donutItems = [
+      {
+        color: 'rgb(123,188,93)',
+        label: 'Effective CDR',
+        valueTooltip: this.effectiveCDR.toFixed(2) + 's effective CDR',
+        value: this.effectiveCDR,
+      },
+      {
+        color: 'rgb(216,59,59)',
+        label: 'Wasted CDR',
+        valueTooltip:
+          this.wastedCDR.toFixed(2) + `s CDR wasted whilst ${this.breathSpell.name} was ready`,
+        value: this.wastedCDR,
+      },
+    ];
 
     return (
       <Statistic
@@ -341,6 +395,15 @@ class MassDisintegrate extends Analyzer {
             <div className="value">
               <ItemDamageDone amount={this.damageFromConcentratedPowerExtraTargets} />
             </div>
+          </div>
+        )}
+        {this.hasWingleader && (
+          <div className="pad">
+            <label>
+              <SpellLink spell={TALENTS.WINGLEADER_TALENT} />
+            </label>
+            <strong>CDR efficiency:</strong>
+            <DonutChart items={donutItems} />
           </div>
         )}
       </Statistic>

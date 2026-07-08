@@ -5,7 +5,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import {
   WINGLEADER_CDR_PER_HIT_MS,
   WINGLEADER_CDR_PER_HIT_MS_DEVASTATION,
-  WINGLEADER_MAX_HITS,
 } from 'analysis/retail/evoker/shared/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPECS from 'game/SPECS';
@@ -81,7 +80,7 @@ class Wingleader extends Analyzer.withDependencies({
       record.hits = 0;
     }
 
-    if (record.hits === WINGLEADER_MAX_HITS) {
+    if (record.hits === 3) {
       return;
     }
 
