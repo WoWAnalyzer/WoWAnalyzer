@@ -547,6 +547,8 @@ export interface HealEvent extends Event<EventType.Heal> {
   mapID: number;
   /** The Item level of the target */
   itemLevel: number;
+  subtractsFromSupportedActor?: boolean;
+  supportID?: number;
 }
 
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {

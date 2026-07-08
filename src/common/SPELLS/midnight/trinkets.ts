@@ -26,6 +26,11 @@ const spells = {
     name: 'Fanatical Inspiration',
     icon: 'inv_12_trinket_gloriuscrusaderskeepsake',
   },
+  FREIGHTRUNNERS_FLASK: {
+    id: 1250533,
+    name: 'Freightrunners Flask',
+    icon: 'inv_alchemy_90_flask_red',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
