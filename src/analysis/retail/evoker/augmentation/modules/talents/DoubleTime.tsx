@@ -10,17 +10,24 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { DOUBLE_TIME_EBON_MIGHT_MULTIPLIER } from 'analysis/retail/evoker/augmentation/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
-import { proccedDoubleTime } from '../normalizers/CastLinkNormalizer';
+import { ebonIsFromBreath, proccedDoubleTime } from '../normalizers/CastLinkNormalizer';
 import { InformationIcon } from 'interface/icons';
+import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 /**
  * Applying Ebon Might has a chance equal to your critical strike chance to grant 50% additional Ebon Might stats for 15 sec.
  * Hardcast Prescience has a chance equal to your critical strike chance to grant 1.5x the normal critical strike chance for 15 sec. [Not trackable]
  */
 class DoubleTime extends Analyzer {
+  static dependencies = {
+    stats: StatTracker,
+  };
+  protected stats!: StatTracker;
   damage = 0;
   procAttempts = 0;
   actualProcs = 0;
+  critChances: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -51,13 +58,15 @@ class DoubleTime extends Analyzer {
 
   onEbonCast(event: CastEvent) {
     this.procAttempts++;
+    this.critChances.push(this.stats.currentCritPercentage);
     if (proccedDoubleTime(event)) {
       this.actualProcs++;
     }
   }
 
   onEonsCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TIME_EBON_MIGHT_BUFF.id)) {
+    if (ebonIsFromBreath(event)) {
+      this.critChances.push(this.stats.currentCritPercentage);
       this.procAttempts++;
       if (proccedDoubleTime(event)) {
         this.actualProcs++;
@@ -66,7 +75,7 @@ class DoubleTime extends Analyzer {
   }
 
   statistic() {
-    const procRate = this.actualProcs / (this.actualProcs + this.procAttempts);
+    const procRate = this.actualProcs / this.procAttempts;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(13)}
@@ -87,6 +96,8 @@ class DoubleTime extends Analyzer {
             <InformationIcon /> {formatPercentage(procRate, 0)}%<small> proc rate</small>
           </div>
         </TalentSpellText>
+
+        {plotOneVariableBinomChart(this.actualProcs, this.procAttempts, this.critChances)}
       </Statistic>
     );
   }
