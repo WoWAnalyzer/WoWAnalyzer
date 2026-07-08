@@ -243,6 +243,14 @@ const talents = {
     entryIds: [102430],
     definitionIds: [{ id: 107435, specId: 66 }],
   },
+  BLESSED_WORD_TALENT: {
+    id: 1301732,
+    name: 'Blessed Word',
+    icon: 'spell_paladin_divinecircle',
+    maxRanks: 1,
+    entryIds: [137505],
+    definitionIds: [{ id: 142265, specId: 66 }],
+  },
   BLESSING_OF_ANSHE_TALENT: {
     id: 445200,
     name: "Blessing of An'she",
@@ -666,8 +674,8 @@ const talents = {
     name: 'Empyrean Authority',
     icon: 'ability_paladin_empoweredsealsrighteous',
     maxRanks: 1,
-    entryIds: [102466],
-    definitionIds: [{ id: 107471, specId: 66 }],
+    entryIds: [128278],
+    definitionIds: [{ id: 133085, specId: 66 }],
   },
   EMPYREAN_LEGACY_HOLY_TALENT: {
     id: 1241358,
@@ -1665,11 +1673,8 @@ const talents = {
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
     maxRanks: 1,
-    entryIds: [102578, 128278],
-    definitionIds: [
-      { id: 107583, specId: 65 },
-      { id: 133085, specId: 66 },
-    ],
+    entryIds: [102578],
+    definitionIds: [{ id: 107583, specId: 65 }],
   },
   SANCTIFY_TALENT: {
     id: 382536,
@@ -1772,8 +1777,8 @@ const talents = {
     name: 'Sentinel',
     icon: 'spell_holy_holynova',
     maxRanks: 1,
-    entryIds: [102447],
-    definitionIds: [{ id: 107452, specId: 66 }],
+    entryIds: [102466],
+    definitionIds: [{ id: 107471, specId: 66 }],
   },
   SERAPHIC_BARRIER_TALENT: {
     id: 1241714,

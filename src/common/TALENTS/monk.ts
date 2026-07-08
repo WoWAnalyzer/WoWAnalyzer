@@ -2220,6 +2220,14 @@ const talents = {
     entryIds: [136512],
     definitionIds: [{ id: 141285, specId: 270 }],
   },
+  VITAL_EXPENDITURE_TALENT: {
+    id: 1299572,
+    name: 'Vital Expenditure',
+    icon: 'ability_monk_soothingmists',
+    maxRanks: 1,
+    entryIds: [137474],
+    definitionIds: [{ id: 142234, specId: 270 }],
+  },
   VITAL_FLAME_TALENT: {
     id: 1262659,
     name: 'Vital Flame',
