@@ -318,7 +318,7 @@ async function generateTalents(isPTR: boolean = false) {
         });
       }
 
-      // the final case that we support is that every talent is in a spec tree, but some are in the same spec tree.
+      // the next case that we support is that every talent is in a spec tree, but some are in the same spec tree.
       // in this case, we disambiguate within each spec by numeric indices. not pretty, but it works
       if (
         result.every((talent) => talent.value.sourceTree === 'spec') ||
@@ -349,6 +349,15 @@ async function generateTalents(isPTR: boolean = false) {
             value: talent,
           }));
         });
+      }
+
+      // class tree talents with the same name but different spell IDs (e.g. choice nodes with the same name).
+      // disambiguate with a numeric index only.
+      if (result.every((talent) => talent.value.sourceTree === 'class')) {
+        return result.map((talent, index) => ({
+          key: createTalentKey(`${talent.value.name} ${index + 1}`),
+          value: talent.value,
+        }));
       }
 
       // give up
