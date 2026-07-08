@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT),
         cooldown: 45,
-        charges: combatant.hasTalent(TALENTS.TOUCH_OF_THE_ARCHMAGE_1_ARCANE_TALENT) ? 2 : 1,
+        charges: 1,
         gcd: null,
         castEfficiency: {
           suggestion: true,
