@@ -1869,7 +1869,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115655],
     definitionIds: [{ id: 120667, specId: 1473 }],
-    manaCost: 8250,
+    manaCost: 6000,
   },
   VOLATILITY_TALENT: {
     id: 369089,
