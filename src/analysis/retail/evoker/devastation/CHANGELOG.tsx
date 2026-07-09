@@ -8,6 +8,7 @@ import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
   change(date(2026, 6, 12), <>Fixed display error of <SpellLink spell={SPELLS.DISINTEGRATE} /> module</>, Baumritter),
+  change(date(2026, 6, 12), <>Added statistic for tracking empower rank usage.</>, Baumritter),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),
   change(date(2026, 6, 3), <>Updated display of <SpellLink spell={SPELLS.DISINTEGRATE} /> modules</>, Baumritter),
   change(date(2026, 6, 1), <>Updated display of <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> module</>, Baumritter),

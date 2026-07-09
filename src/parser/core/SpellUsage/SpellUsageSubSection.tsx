@@ -1,5 +1,6 @@
 import { BadColor, OkColor, PerformanceMark, SubSection, useInfo } from 'interface/guide';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './SpellUsageSubSection.module.scss';
 import {
   ComponentPropsWithoutRef,
   Fragment,
@@ -21,40 +22,15 @@ import { formatDuration } from 'common/format';
 import { Highlight } from 'interface/Highlight';
 import AlertWarning from 'interface/AlertWarning';
 
-const NoData = styled.div`
-  color: #999;
-`;
+const NoData = cssComponent('div', styles.NoData, [] as const);
 
-const SpellUsageDetailsContainer = styled.div`
-  display: grid;
-  grid-template-rows: max-content max-content max-content max-content 1fr;
-`;
+const SpellUsageDetailsContainer = cssComponent(
+  'div',
+  styles.SpellUsageDetailsContainer,
+  [] as const,
+);
 
-const SpellDetailsContainer = styled.div`
-  display: grid;
-  margin-top: 1rem;
-  grid-template-areas: 'talent source';
-  grid-template-columns: 10% auto;
-  grid-template-rows: 1fr;
-
-  gap: 1rem;
-  height: 100%;
-  align-items: center;
-
-  ${NoData} {
-    justify-self: center;
-    align-self: center;
-    grid-column: 1 / -1;
-  }
-
-  ${RoundedPanel} {
-    grid-column: 1 / -1;
-  }
-
-  > *:nth-child(odd):not(${RoundedPanel}) {
-    justify-self: center;
-  }
-`;
+const SpellDetailsContainer = cssComponent('div', styles.SpellDetailsContainer, [] as const);
 
 const leftPercentWide = 50;
 const leftPercentNarrow = 30;
@@ -137,7 +113,7 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
           </Fragment>
         ))}
       {spellUse.extraDetails ? (
-        <RoundedPanel>
+        <RoundedPanel className={styles.RoundedPanel}>
           <div>
             <strong>Extra Details</strong>
           </div>
@@ -303,7 +279,11 @@ const SpellUsageSubSection = ({
       {warning ? <AlertWarning {...warning} /> : null}
       <ExplanationRow leftPercent={wideExplanation ? leftPercentWide : leftPercentNarrow}>
         <Explanation>{explanation}</Explanation>
-        {wideExplanation ? <RoundedPanel>{spellUsageDetails}</RoundedPanel> : spellUsageDetails}
+        {wideExplanation ? (
+          <RoundedPanel className={styles.RoundedPanel}>{spellUsageDetails}</RoundedPanel>
+        ) : (
+          spellUsageDetails
+        )}
       </ExplanationRow>
     </SubSection>
   );

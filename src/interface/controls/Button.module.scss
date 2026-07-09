@@ -1,0 +1,13 @@
+@use 'interface/design-system' as design;
+
+.Button {
+  appearance: none;
+  border: none;
+  @include design.level(2);
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+
+  &:hover {
+    filter: brightness(115%);
+  }
+}

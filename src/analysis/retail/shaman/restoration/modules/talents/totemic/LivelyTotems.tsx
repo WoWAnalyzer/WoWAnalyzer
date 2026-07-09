@@ -1,19 +1,23 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
-import Events, { HealEvent, CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
-import {
-  isLivelyTotemsChainHeal,
-  isLivelyTotemsChainHealCast,
-} from '../../../normalizers/CastLinkNormalizer';
+import { isLivelyTotemsChainHealCast } from '../../../normalizers/EventLinkNormalizer';
+import ChainHealAnalyzer from '../../../normalizers/ChainHealNormalizer';
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-export default class LivelyTotems extends Analyzer {
+export default class LivelyTotemsAnalyzer extends Analyzer {
+  static dependencies = {
+    ...Analyzer.dependencies,
+    chainHealAnalyzer: ChainHealAnalyzer,
+  };
+  protected chainHealAnalyzer!: ChainHealAnalyzer;
+
   manaSavedFromTalent = 0;
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
@@ -29,35 +33,25 @@ export default class LivelyTotems extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
       this.onChainHealCast,
     );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
-      this.onChainHeal,
-    );
   }
 
-  onChainHealCast(event: CastEvent) {
+  private onChainHealCast(event: CastEvent) {
+    // Only chain heals that are linked back to a totem summon count for this talent
     if (!isLivelyTotemsChainHealCast(event)) {
       return;
     }
+
     this.chainHealCasts += 1;
 
-    if (event.resourceCost) {
-      const baseCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
-      if (this.selectedCombatant.hasTalent(TALENTS.COALESCING_WATER_TALENT)) {
-        // Coalescing Water reduces the mana cost of Chain Heal by 10%
-        this.manaSavedFromTalent += baseCost - baseCost * 0.1;
-      } else {
-        this.manaSavedFromTalent += baseCost;
-      }
-    }
-  }
+    const healEvents = this.chainHealAnalyzer.normalizeChainHealOrder(event);
+    healEvents.forEach((heal) => {
+      this.healingDoneFromTalent += heal.amount + (heal.absorbed ?? 0);
+      this.overhealingDoneFromTalent += heal.overheal ?? 0;
+    });
 
-  onChainHeal(event: HealEvent) {
-    if (!isLivelyTotemsChainHeal(event)) {
-      return;
+    if (event.resourceCost) {
+      this.manaSavedFromTalent += event.resourceCost[RESOURCE_TYPES.MANA.id] ?? 0;
     }
-    this.healingDoneFromTalent += event.amount;
-    this.overhealingDoneFromTalent += event.overheal ?? 0;
   }
 
   statistic() {

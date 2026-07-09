@@ -3,18 +3,11 @@ import Combatants from 'parser/shared/modules/Combatants';
 import EarthlivingTracker from './EarthlivingTracker';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
-import {
-  HEALING_WAVE,
-  CHAIN_HEAL,
-  HEALING_STREAM_TOTEM_HEAL,
-  HEALING_TIDE_TOTEM_HEAL,
-  STORMSTREAM_TOTEM_HEAL,
-  RIPTIDE,
-} from '../../constants';
+import { EVENT_LINKS } from '../../constants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { earthlivingApplication } from '../../normalizers/CastLinkNormalizer';
+import { earthlivingApplication } from '../../normalizers/EventLinkNormalizer';
 import UnleashLife from '../talents/UnleashLife';
 
 class EarthlivingAttributor extends Analyzer {
@@ -28,12 +21,14 @@ class EarthlivingAttributor extends Analyzer {
   protected combatants!: Combatants;
   protected earthlivingTracker!: EarthlivingTracker;
 
-  healingWaveAttrib = HotTracker.getNewAttribution(HEALING_WAVE);
-  chainHealAttrib = HotTracker.getNewAttribution(CHAIN_HEAL);
-  riptideAttrib = HotTracker.getNewAttribution(RIPTIDE);
-  healingStreamTotemHealAttrib = HotTracker.getNewAttribution(HEALING_STREAM_TOTEM_HEAL);
-  healingTideTotemHealAttrib = HotTracker.getNewAttribution(HEALING_TIDE_TOTEM_HEAL);
-  stormstreamTotemHealAttrib = HotTracker.getNewAttribution(STORMSTREAM_TOTEM_HEAL);
+  healingWaveAttrib = HotTracker.getNewAttribution(EVENT_LINKS.HEALING_WAVE);
+  chainHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.chainHealHeal);
+  riptideAttrib = HotTracker.getNewAttribution(EVENT_LINKS.riptideBuffApply);
+  healingStreamTotemHealAttrib = HotTracker.getNewAttribution(
+    EVENT_LINKS.HEALING_STREAM_TOTEM_HEAL,
+  );
+  healingTideTotemHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.HEALING_TIDE_TOTEM_HEAL);
+  stormstreamTotemHealAttrib = HotTracker.getNewAttribution(EVENT_LINKS.STORMSTREAM_TOTEM_HEAL);
   undefinedAttrib = HotTracker.getNewAttribution('Undefined');
 
   constructor(options: Options) {

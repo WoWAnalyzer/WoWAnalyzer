@@ -1,0 +1,99 @@
+/**
+ * Design system for new UI elements. Somewhat of a WIP, talk to emallson.
+ *
+ * ## Levels
+ *
+ * The UI is constructed from stacked "layers". Each layer exists at a level:
+ * level 0 is all the way at the back, and level 1 is on top of that, level 2
+ * is on top of that, etc.
+ *
+ * ### Level 0
+ *
+ * The background. You generally won't use this for UI elements, unless you're doing
+ * an inset within a Level 1 element.
+ *
+ * ### Level 1
+ *
+ * Example: Guide sections, Report header.
+ *
+ * If you're building something that floats freely on the background, use Level 1.
+ *
+ * ### Level 2
+ *
+ * Examples: buttons on level 1 elements.
+ *
+ * If you're adding a button, or some other element that is visually "on top of" a level 1
+ * element, use a level 2 element.
+ *
+ * ## Colors
+ *
+ * This is more of a "common things we keep copying and pasting" than a system. I'd like to
+ * adopt a consistent color system, but it is pretty far down the to-do list.
+ *
+ * ## Examples
+ *
+ * The new report header is a good example. See `src/interface/report/Results/Header/index.tsx`.
+ *
+ * ## Usage
+ *
+ * ```scss
+ * @use 'interface/design-system' as design;
+ *
+ * .Container {
+ *   border: 1px solid design.$level1_border;
+ *   background: design.$level1_background;
+ *   box-shadow: design.$level1_shadow;
+ * }
+ * ```
+ */
+@use 'sass:map' as map;
+
+$colors_bodyText: #f3eded;
+$colors_unfocusedText: #ccc;
+$colors_wowaYellow: #fab700;
+
+$background: (
+  0: hsl(44, 7%, 8%),
+  1: hsl(44, 7%, 10%),
+  2: hsl(44, 7%, 13%),
+  '2_active': hsl(44, 9%, 15%), // TODO: figure out where the "active" variant fits in
+);
+
+$border: (
+  0: #161616,
+  1: #262626,
+  2: #303030,
+);
+
+$shadow: (
+  0: 0 1px 3px black,
+  1: 0 1px 4px black,
+  2: 0 1px 6px #101010,
+);
+
+$level0_background: map.get($background, 0);
+$level0_border: map.get($border, 0);
+$level0_shadow: map.get($shadow, 0);
+
+$level1_background: map.get($background, 1);
+$level1_border: map.get($border, 1);
+$level1_shadow: map.get($shadow, 1);
+
+$level2_background: map.get($background, 2);
+$level2_border: map.get($border, 2);
+$level2_shadow: map.get($shadow, 2);
+$level2_background_active: map.get($background, '2_active');
+
+$gaps_small: 0.5rem;
+$gaps_medium: 1rem;
+$gaps_large: 2rem;
+
+$fontSize_bodyText: 1.4rem;
+$fontSize_subHeading: 1.6rem;
+$fontSize_heading: 1.8rem;
+
+@mixin level($levelNumber) {
+  background: map.get($background, $levelNumber);
+  border: 1px solid map.get($border, $levelNumber);
+  box-shadow: map.get($shadow, $levelNumber);
+}

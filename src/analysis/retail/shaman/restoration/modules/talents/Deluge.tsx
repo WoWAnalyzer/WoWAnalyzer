@@ -1,22 +1,24 @@
-import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { HealEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
+import Events, { HealEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { DELUGE_HEALING_INCREASE } from '../../constants';
+import { formatThousands } from 'common/format';
+import { SpellLink } from 'interface';
+
+import { healingIncreases } from '../../constants';
 import HealingRainLocation from '../core/HealingRainLocation';
 import RiptideTracker from '../core/RiptideTracker';
 
 /**
- * Chain Heal heals for an additional 20% on targets within your Healing Rain or affected by your Riptide.
+ * Chain Heal heals for an additional 15% on targets within your Healing Rain or affected by your Riptide.
  */
 class Deluge extends Analyzer {
   static dependencies = {
@@ -36,11 +38,9 @@ class Deluge extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT);
-    this.delugeIncrease = DELUGE_HEALING_INCREASE;
+    this.delugeIncrease = healingIncreases.DELUGE_HEALING_INCREASE;
     this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.CHAIN_HEAL_TALENT, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
+      Events.heal.by(SELECTED_PLAYER).spell([TALENTS.CHAIN_HEAL_TALENT, SPELLS.HEALING_WAVE]),
       this._onHeal,
     );
     this.addEventListener(
@@ -99,7 +99,7 @@ class Deluge extends Analyzer {
 
     this.fromHealingRainHealing += this.healingRainLocation.processHealingRain(
       this.eventsDuringRain,
-      DELUGE_HEALING_INCREASE,
+      healingIncreases.DELUGE_HEALING_INCREASE,
     );
   }
 

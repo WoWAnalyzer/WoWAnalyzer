@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './index.module.scss';
 import { i18n } from '@lingui/core';
 import { defineMessage } from '@lingui/core/macro';
 import { findZoneByBossId, normalizedEncounterId, type Boss } from 'game/raids';
@@ -23,8 +24,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeaderBackground from './HeaderBackground';
 import { currentExpansion } from 'game/GameBranch';
 import * as difficulty from 'game/DIFFICULTIES';
-import HeaderStatBox, { StatBoxContainer } from './HeaderStatBox';
-import { level1, level2, colors, gaps, fontSize } from 'interface/design-system';
+import HeaderStatBox from './HeaderStatBox';
 import { formatDuration } from 'common/format';
 import FilterButton from './FilterButton';
 import { Filter } from 'interface/report/hooks/useTimeEventFilter';
@@ -32,63 +32,13 @@ import Select from 'interface/controls/Select';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
 import { specIconPath } from 'interface/SpecIcon';
 
-const Section = styled.section`
-  border: 1px solid ${level1.border};
-  padding: 1rem;
-  background: ${level1.background};
-  box-shadow: ${level1.shadow};
-  margin-bottom: 2.5rem;
-`;
+const Section = cssComponent('section', styles.Section, [] as const);
 
-const TabStrip = styled.nav`
-  grid-area: tabs;
-`;
+const TabStrip = cssComponent('nav', styles.TabStrip, [] as const);
 
-const TabSelect = styled(Select)`
-  grid-area: tabs;
-`;
+const TabSelect = cssComponent(Select, styles.TabSelect, [] as const);
 
-const HeaderContainer = styled.div`
-  display: grid;
-  gap: 0.5rem 1rem;
-  grid-template-rows: auto auto auto;
-  grid-template-columns: repeat(2, calc(50% - ${gaps.small} / 2));
-  grid-template-areas:
-    'boss character'
-    'filter filter'
-    'tabs tabs';
-
-  ${StatBoxContainer} {
-    display: none;
-  }
-
-  ${TabStrip} {
-    display: none;
-  }
-
-  @media (min-width: 750px) {
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto;
-
-    grid-template-areas:
-      'boss filter character'
-      'tabs tabs stats';
-
-    align-items: end;
-    justify-items: start;
-
-    ${StatBoxContainer} {
-      display: flex;
-    }
-
-    ${TabStrip} {
-      display: block;
-    }
-    ${TabSelect} {
-      display: none;
-    }
-  }
-`;
+const HeaderContainer = cssComponent('div', styles.HeaderContainer, [] as const);
 
 interface HeaderProps {
   config: Config;
@@ -227,7 +177,7 @@ export default function Header({
                   <TabButton
                     key={tab.url}
                     to={makeTabUrl(tab.url)}
-                    className={selectedTab === tab.url ? 'active' : ''}
+                    className={selectedTab === tab.url ? styles.active : ''}
                   >
                     <Icon />
                     {isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title}
@@ -246,7 +196,7 @@ export default function Header({
                   </option>
                 ))}
             </TabSelect>
-            {!isLoading && <HeaderStatBox />}
+            {!isLoading && <HeaderStatBox className={styles.StatBoxContainer} />}
           </HeaderContainer>
         </Section>
       </div>
@@ -254,93 +204,15 @@ export default function Header({
   );
 }
 
-const TabButton = styled(Link)`
-  appearance: none;
-  border: none;
-  background: none;
+const TabButton = cssComponent(Link, styles.TabButton, [] as const);
 
-  display: inline-flex;
-  gap: 0.5rem;
-  flex-direction: row;
-  align-items: center;
+const MiniBoxContainer = cssComponent('div', styles.MiniBoxContainer, [] as const);
 
-  & > svg {
-    margin-top: 0;
-    height: 1.25em;
-    shape-rendering: geometricPrecision;
-  }
+const MiniBoxName = cssComponent('div', styles.MiniBoxName, [] as const);
 
-  color: ${colors.bodyText};
+const MiniBoxSubtext = cssComponent('div', styles.MiniBoxSubtext, [] as const);
 
-  padding: 0.5rem 0.75rem;
-
-  border-bottom: 3px solid ${level2.border};
-
-  &:hover {
-    background: ${level2.background};
-    text-decoration: none;
-    color: inherit;
-    border-bottom: 3px solid color-mix(in srgb, ${colors.wowaYellow} 90%, transparent);
-  }
-
-  &.active {
-    border-bottom: 3px solid ${colors.wowaYellow};
-  }
-
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-  }
-`;
-
-const MiniBoxContainer = styled.div`
-  display: grid;
-  gap: 0 ${gaps.medium};
-
-  grid-template-columns: 5rem 1fr;
-  grid-template-rows: max-content max-content;
-  height: 5rem;
-
-  grid-template-areas:
-    'image name'
-    'image subtext';
-
-  &.flipped {
-    grid-template-columns: max-content min-content;
-
-    grid-template-areas:
-      'name image'
-      'subtext image';
-
-    justify-items: end;
-    justify-content: end;
-    text-align: right;
-  }
-`;
-
-const MiniBoxName = styled.div`
-  font-size: ${fontSize.heading};
-  font-weight: bold;
-  white-space: break-spaces;
-  overflow: hidden;
-  max-height: 1lh;
-`;
-
-const MiniBoxSubtext = styled.div`
-  font-size: 1.3rem;
-  color: ${colors.unfocusedText};
-  white-space: nowrap;
-  overflow-x: hidden;
-`;
-
-const MiniBoxImage = styled.img`
-  grid-area: image;
-  aspect-ratio: 1 / 1;
-  border: 1px solid ${level2.border};
-  border-radius: 0.5rem;
-  height: 5rem;
-  max-height: 5rem;
-`;
+const MiniBoxImage = cssComponent('img', styles.MiniBoxImage, [] as const);
 
 function CharacterMiniBox({
   player,
@@ -350,7 +222,7 @@ function CharacterMiniBox({
   // intentionally smaller than the layout switch
   const showClassName = useMediaQueryMatch('(min-width: 600px)');
   return (
-    <MiniBoxContainer className={'flipped'} style={{ gridArea: 'character' }}>
+    <MiniBoxContainer className={styles.flipped} style={{ gridArea: 'character' }}>
       <MiniBoxImage
         src={characterProfile?.thumbnail ?? specIconPath(config.spec)}
         alt={`${player.name} (${config.spec.specName ? i18n._(config.spec.specName) : ''} ${i18n._(config.spec.className)})`}

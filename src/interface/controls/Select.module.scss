@@ -1,0 +1,10 @@
+@use 'interface/design-system' as design;
+
+.Select {
+  @include design.level(2);
+  border-radius: 0.5rem;
+  padding: design.$gaps_small design.$gaps_medium;
+
+  color: design.$colors_bodyText;
+  cursor: pointer;
+}

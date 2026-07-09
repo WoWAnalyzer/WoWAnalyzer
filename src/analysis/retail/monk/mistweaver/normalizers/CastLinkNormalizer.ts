@@ -295,7 +295,7 @@ export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
 }
 
 export function isMTStackFromLifeCycles(
-  event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+  event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent,
 ) {
   return HasRelatedEvent(event, LIFECYCLES);
 }

@@ -1,7 +1,8 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './Timeline.module.scss';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
-import { GoodColor, useAnalyzer, useEvents, useInfo } from 'interface/guide';
+import { useAnalyzer, useEvents, useInfo } from 'interface/guide';
 import { AbilityEvent, EventType, HasAbility } from 'parser/core/Events';
 import { useCallback, useMemo, useState, type JSX } from 'react';
 import { SignalListener } from 'react-vega';
@@ -28,37 +29,13 @@ interface HoverKey {
   startTime: number;
 }
 
-const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }>`
-  position: absolute;
-  border-radius: 3px;
-  background-color: ${GoodColor};
-  opacity: 90%;
-  height: 60%;
-  top: 20%;
+const BuffBar = cssComponent('div', styles.BuffBar, ['start', 'end', 'fightDuration'] as const);
 
-  width: ${({ start, end, fightDuration }) => ((end - start) / fightDuration) * 100}%;
-  left: ${({ start, fightDuration }) => (start / fightDuration) * 100}%;
-`;
+const BuffBarContainer = cssComponent('div', styles.BuffBarContainer, [] as const);
 
-const BuffBarContainer = styled.div`
-  position: relative;
-  height: 24px;
-`;
+const TooltipSegments = cssComponent(MitigationSegments, styles.TooltipSegments, [] as const);
 
-const TooltipSegments = styled(MitigationSegments)`
-  min-width: 100px;
-  width: 100px;
-  display: inline-block;
-`;
-
-const MitigationDataRow = styled.div`
-  display: flex;
-  align-items: center;
-  align-content: center;
-  gap: 1rem;
-  line-height: 1em;
-  margin-top: 0.4em;
-`;
+const MitigationDataRow = cssComponent('div', styles.MitigationDataRow, [] as const);
 
 const MitigationLabel = ({ mitigation, long }: { mitigation: Mitigation; long?: boolean }) => {
   const fightStart = useInfo()?.fightStart ?? 0;
@@ -171,10 +148,11 @@ const BuffDisplay = <Apply extends EventType, Remove extends EventType>({
   );
 };
 
-const BareTimelineContainer = styled(EmbeddedTimelineContainer)`
-  padding: 0;
-  background: unset;
-`;
+const BareTimelineContainer = cssComponent(
+  EmbeddedTimelineContainer,
+  styles.BareTimelineContainer,
+  [] as const,
+);
 
 const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }) => {
   const info = useInfo();
@@ -233,9 +211,7 @@ const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }
   );
 };
 
-const BuffTimelineContainer = styled.div`
-  margin-left: 48px;
-`;
+const BuffTimelineContainer = cssComponent('div', styles.BuffTimelineContainer, [] as const);
 
 interface Props<Apply extends EventType, Remove extends EventType> {
   analyzers: readonly MajorDefensive<Apply, Remove>[];

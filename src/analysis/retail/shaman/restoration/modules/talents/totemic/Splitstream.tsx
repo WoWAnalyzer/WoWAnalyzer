@@ -6,7 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { isSplitstreamHeal } from '../../../normalizers/CastLinkNormalizer';
+import { isSplitstreamHeal } from '../../../normalizers/EventLinkNormalizer';
 import { formatNumber } from 'common/format';
 
 export default class Splitstream extends Analyzer {

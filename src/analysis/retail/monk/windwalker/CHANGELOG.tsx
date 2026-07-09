@@ -1,10 +1,17 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/monk';
-import { Durpn } from 'CONTRIBUTORS';
+import { Durpn, swirl } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(
+    date(2026, 6, 29), 
+    <>
+      Added <SpellLink spell={TALENTS.SAVE_THEM_ALL_TALENT} /> module.
+    </>,
+    swirl,
+  ),
   change(
     date(2026, 5, 10),
     <>

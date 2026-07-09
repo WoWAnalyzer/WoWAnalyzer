@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './AllCooldownUsagesList.module.scss';
 import { formatNumber } from 'common/format';
 import { color } from 'game/MAGIC_SCHOOLS';
 import { TooltipElement } from 'interface';
@@ -44,65 +45,25 @@ const PossibleMissingCastBoxEntry = {
   ),
 };
 
-export const NoData = styled.div`
-  color: #999;
-`;
+export const NoData = cssComponent('div', styles.NoData, [] as const);
 
-const CooldownUsageDetailsContainer = styled.div`
-  display: grid;
-  grid-template-rows: max-content max-content 1fr;
-`;
+const CooldownUsageDetailsContainer = cssComponent(
+  'div',
+  styles.CooldownUsageDetailsContainer,
+  [] as const,
+);
 
-export const TableSegmentContainer = styled.td`
-  line-height: 1em;
-  height: 1em;
-  min-width: 100px;
+export const TableSegmentContainer = cssComponent('td', styles.TableSegmentContainer, [] as const);
 
-  ${MitigationTooltipSegment} {
-    margin-top: 0.1em;
-    height: 1em;
-  }
-`;
+export const SmallPassFailBar = cssComponent(PassFailBar, styles.SmallPassFailBar, [] as const);
 
-export const SmallPassFailBar = styled(PassFailBar)`
-  width: 100px;
-  min-width: 100px;
-`;
+export const NumericColumn = cssComponent('td', styles.NumericColumn, [] as const);
 
-export const NumericColumn = styled.td`
-  text-align: right;
-`;
-
-export const CooldownDetailsContainer = styled.div`
-  display: grid;
-  margin-top: 1rem;
-  grid-template-areas: 'talent source';
-  grid-template-columns: max-content 1fr;
-
-  gap: 1rem;
-  height: 100%;
-  align-items: start;
-  justify-content: space-between;
-
-  ${NoData} {
-    justify-self: center;
-    align-self: center;
-    grid-column: 1 / -1;
-  }
-
-  & > table {
-    width: 100%;
-  }
-  & > table td {
-    padding-right: 1rem;
-
-    &:first-of-type {
-      max-width: 14em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-`;
+export const CooldownDetailsContainer = cssComponent(
+  'div',
+  styles.CooldownDetailsContainer,
+  [] as const,
+);
 
 export interface CooldownDetailsProps<Apply extends EventType, Remove extends EventType> {
   analyzer: MajorDefensive<Apply, Remove>;
@@ -157,6 +118,7 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
             <NumericColumn>{formatNumber(mit.maxAmount)}</NumericColumn>
             <TableSegmentContainer>
               <MitigationTooltipSegment
+                className={styles.MitigationTooltipSegment}
                 color="rgba(255, 255, 255, 0.25)"
                 maxWidth={100}
                 width={mit.maxAmount / maxValue}
@@ -176,18 +138,21 @@ const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
             <TableSegmentContainer>
               {ix > 0 && (
                 <MitigationTooltipSegment
+                  className={styles.MitigationTooltipSegment}
                   color="rgba(255, 255, 255, 0.05)"
                   maxWidth={100}
                   width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
                 />
               )}
               <MitigationTooltipSegment
+                className={styles.MitigationTooltipSegment}
                 color={seg.color}
                 width={seg.amount / maxValue}
                 maxWidth={100}
               />
               {ix < segments.length - 1 && (
                 <MitigationTooltipSegment
+                  className={styles.MitigationTooltipSegment}
                   color="rgba(255, 255, 255, 0.05)"
                   maxWidth={100}
                   width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
@@ -264,6 +229,7 @@ export const BreakdownByDamageSource = <Apply extends EventType, Remove extends 
               <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
               <TableSegmentContainer>
                 <MitigationTooltipSegment
+                  className={styles.MitigationTooltipSegment}
                   color={rowColor}
                   width={mitigatedAmount / maxDamageTaken}
                 />

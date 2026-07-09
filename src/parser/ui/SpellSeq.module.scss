@@ -1,0 +1,18 @@
+@use 'interface/design-system' as design;
+
+.SequenceContainer {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 24px;
+
+  & svg {
+    transform: rotate(-90deg);
+    height: 18px;
+    margin-top: calc(24px / 2 - 18px / 2);
+  }
+
+  & img.icon {
+    height: 24px;
+  }
+}

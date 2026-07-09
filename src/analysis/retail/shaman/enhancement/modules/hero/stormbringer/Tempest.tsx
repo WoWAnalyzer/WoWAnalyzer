@@ -1,11 +1,14 @@
 import type { JSX } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  AnyEvent,
   CastEvent,
   EventType,
+  FreeCastEvent,
   GetRelatedEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
@@ -21,14 +24,15 @@ import { EnhancementEventLinks } from '../../../constants';
 
 const FULL_MSW_STACKS = 10;
 
-class Tempest extends Analyzer {
-  // Counts are kept by proc end-state so that pre-pull buffs (which have no
-  // corresponding applybuff event in the fight) are still attributed correctly.
-  private wastedRefreshes = 0;
-  private wastedExpires = 0;
+const CONSUME_REFRESH_WINDOW_MS = 100;
 
+class Tempest extends Analyzer {
   private consumedAtFullStacks = 0;
   private consumedAtLowStacks = 0;
+  private wastedExpires = 0;
+  private wastedRefreshes = 0;
+
+  private lastStackLossTimestamp = -Infinity;
 
   constructor(options: Options) {
     super(options);
@@ -37,22 +41,38 @@ class Tempest extends Analyzer {
       return;
     }
 
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_CAST), this.onCast);
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
-      this.onRefreshBuff,
+      Events.freecast.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_CAST),
+      this.onCast,
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
       this.onRemoveBuff,
     );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
+      this.onRefreshBuff,
+    );
   }
 
-  private onRefreshBuff(_event: RefreshBuffEvent) {
-    this.wastedRefreshes += 1;
+  private onCast(event: CastEvent | FreeCastEvent) {
+    const stacks = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+    if (stacks === undefined || stacks >= FULL_MSW_STACKS) {
+      this.consumedAtFullStacks += 1;
+    } else {
+      this.consumedAtLowStacks += 1;
+    }
   }
 
-  private onRemoveBuff(event: RemoveBuffEvent) {
-    const consumingCast = GetRelatedEvent<CastEvent>(
+  private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    this.lastStackLossTimestamp = event.timestamp;
+
+    const consumingCast = GetRelatedEvent<AnyEvent>(
       event,
       EnhancementEventLinks.TEMPEST_CONSUME_LINK,
       (related) => related.type === EventType.Cast || related.type === EventType.FreeCast,
@@ -60,16 +80,14 @@ class Tempest extends Analyzer {
 
     if (!consumingCast) {
       this.wastedExpires += 1;
+    }
+  }
+
+  private onRefreshBuff(event: RefreshBuffEvent) {
+    if (event.timestamp - this.lastStackLossTimestamp <= CONSUME_REFRESH_WINDOW_MS) {
       return;
     }
-
-    const stacks = getResourceCost(consumingCast.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
-    // Free casts via Thorims still benefit from Tempest, so don't penalize them.
-    if (stacks === undefined || stacks >= FULL_MSW_STACKS) {
-      this.consumedAtFullStacks += 1;
-    } else {
-      this.consumedAtLowStacks += 1;
-    }
+    this.wastedRefreshes += 1;
   }
 
   private get totalProcs() {

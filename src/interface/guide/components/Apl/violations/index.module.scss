@@ -1,0 +1,55 @@
+@use 'interface/design-system' as design;
+
+.EmbedContainer {
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr max-content;
+  align-content: center;
+  align-items: center;
+}
+
+.ShowMeButton {
+  appearance: none;
+  background: #333;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: none;
+  box-shadow: 1px 1px 3px #111;
+
+  &:hover {
+    filter: brightness(120%);
+  }
+}
+
+:global(.pass-fail-bar-container).ClaimCountBar {
+  & > :global(.pass-bar) {
+    background-color: hsl(348.9, 69.5%, 39.8%);
+  }
+
+  & > :global(.fail-bar) {
+    background-color: hsl(0, 0%, 20%);
+  }
+}
+
+.ClaimCountDescription {
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-gap: 1rem;
+  align-items: start;
+}
+
+.ExplanationList {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin-top: 1rem;
+
+    &:first-of-type {
+      margin-top: initial;
+    }
+  }
+}

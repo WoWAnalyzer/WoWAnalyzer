@@ -1,0 +1,10 @@
+@use 'interface/design-system' as design;
+
+.GuideContainer {
+  font-size: 18px;
+  padding: 2px;
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: 154px 1fr;
+  align-items: center;
+}

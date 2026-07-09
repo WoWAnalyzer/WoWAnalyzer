@@ -3023,3 +3023,21 @@ export const Xinito: Contributor = {
     },
   ],
 };
+
+export const Naltarunir: Contributor = {
+  nickname: 'Naltarunir',
+  discord: 'ghosti#1783',
+  github: 'Naltarunir',
+  about: 'Healer and Nobundo fanboy',
+  avatar: avatar('naltarunir-avatar.png'),
+  mains: [
+    {
+      name: 'Naltarunir',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://raider.io/characters/eu/amanthul/Naltarunir',
+    },
+  ],
+  links: {
+    GitHub: 'https://github.com/Naltarunir',
+  },
+};

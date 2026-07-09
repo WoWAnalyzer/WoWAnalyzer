@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType } from 'parser/core/Events';
+import { EventType, HasRelatedEvent } from 'parser/core/Events';
 import {
   MANA_TEA_CHANNEL,
   MAX_MT_CHANNEL,
@@ -70,8 +70,15 @@ export const MANA_TEA_EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: SPELLS.MANA_TEA_STACK.id,
     referencedEventType: [EventType.ApplyBuffStack, EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: MAX_MT_CHANNEL,
-    maximumLinks: 1,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 2,
+    additionalCondition(linkingEvent, referencedEvent) {
+      // a refresh-only event (no stack change) only counts if mana tea didn't actually gain a stack here
+      return (
+        referencedEvent.type !== EventType.RefreshBuff ||
+        !HasRelatedEvent(referencedEvent, MT_STACK_CHANGE)
+      );
+    },
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
     },

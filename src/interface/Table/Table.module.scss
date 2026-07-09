@@ -1,0 +1,71 @@
+@use 'interface/design-system' as design;
+
+.TableContainer {
+  display: grid;
+  grid-auto-flow: column;
+  container-type: inline-size;
+}
+
+.TableRow {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+.HeaderSelect {
+  width: 100%;
+  border: unset;
+  box-shadow: unset;
+  text-align: center;
+  padding: 0.2rem design.$gaps_medium;
+  border-radius: 0;
+
+  &:hover {
+    background-color: design.$level2_background_active;
+  }
+}
+
+.TableCell {
+  display: flex;
+  flex-direction: row;
+  justify-content: var(--align);
+  padding: 0.2rem design.$gaps_medium;
+  border-right: 1px solid design.$level1_border;
+  width: 100%;
+
+  white-space: nowrap;
+
+  &:has(.HeaderSelect) {
+    padding: 0;
+  }
+
+  @container (width < 500px) {
+    &.optional {
+      display: none;
+    }
+  }
+
+  &:last-of-type {
+    border-right: unset;
+  }
+}
+
+.TableHeader {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+
+  @include design.level(2);
+
+  & .TableCell {
+    border-color: design.$level2_border;
+
+    &:last-of-type {
+      border-right: unset;
+    }
+  }
+
+  & + .TableRow {
+    padding-top: 0.3rem;
+  }
+}

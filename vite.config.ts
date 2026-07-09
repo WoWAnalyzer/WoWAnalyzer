@@ -4,7 +4,6 @@ import process from 'node:process';
 
 import { lingui, linguiTransformerBabelPreset } from '@lingui/vite-plugin';
 import babel from '@rolldown/plugin-babel';
-import emotion from '@rolldown/plugin-emotion';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { globSync } from 'glob';
@@ -68,7 +67,6 @@ export default defineConfig((env) => ({
     babel({
       presets: [linguiTransformerBabelPreset()],
     }),
-    emotion(),
     svgr(),
     {
       name: 'vite-plugin-wowanalyzer-index-html-inject-ga',
@@ -100,11 +98,15 @@ export default defineConfig((env) => ({
       ? checker({ typescript: true })
       : undefined,
   ],
-  optimizeDeps: {
-    include: ['@emotion/styled/base'],
-  },
   resolve: {
     tsconfigPaths: true,
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: ['./src'],
+      },
+    },
   },
   server: {
     open: true,

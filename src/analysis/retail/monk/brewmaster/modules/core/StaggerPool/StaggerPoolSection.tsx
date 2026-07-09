@@ -17,8 +17,8 @@ import PurifyingBrew from '../../talents/PurifyingBrew';
 import TouchOfDeathStagger from '../../spells/TouchOfDeathStagger';
 import SPELLS from 'common/SPELLS';
 import spells from '../../../spell-list_Monk_Brewmaster.retail';
-import styled from '@emotion/styled';
-import * as design from 'interface/design-system';
+import cssComponent from 'interface/utils/css-component';
+import styles from './StaggerPoolSection.module.scss';
 import SpellLink from 'interface/SpellLink';
 import Explanation from 'interface/guide/components/Explanation';
 import { formatNumber } from 'common/format';
@@ -28,35 +28,9 @@ import { InformationIcon } from 'interface/icons';
 import AlertInfo from 'interface/AlertInfo';
 import AlertWarning from 'interface/AlertWarning';
 
-const SideBySide = styled.div`
-  margin-top: ${design.gaps.large};
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${design.gaps.large};
+const SideBySide = cssComponent('div', styles.SideBySide, [] as const);
 
-  align-items: start;
-
-  & header {
-    margin-bottom: ${design.gaps.medium};
-  }
-`;
-
-const SummaryDL = styled.dl`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: ${design.gaps.small} ${design.gaps.medium};
-  width: max-content;
-
-  font-size: 95%;
-
-  & dt {
-    font-weight: normal;
-  }
-
-  & dd {
-    text-align: right;
-  }
-`;
+const SummaryDL = cssComponent('dl', styles.SummaryDL, [] as const);
 
 export default function StaggerPoolSection(): JSX.Element | null {
   const graph = useAnalyzer(StaggerPoolGraph);
