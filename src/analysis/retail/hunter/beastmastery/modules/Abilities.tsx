@@ -42,6 +42,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.WILD_THRASH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WILD_THRASH_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 8,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: TALENTS.BARBED_SHOT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BARBED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
