@@ -37,7 +37,11 @@ import DireBeast from './modules/talents/DireBeast';
 import DarkHound from './modules/talents/DarkHound';
 import WarOrders from './modules/talents/WarOrders';
 import BarbedScales from './modules/talents/BarbedScales';
+import NaturesAlly from './modules/talents/NaturesAlly';
+import PackMentality from './modules/talents/PackMentality';
 import DireCommandNormalizer from './normalizers/DireCommandNormalizer';
+import DireBeastSourceNormalizer from './normalizers/DireBeastSourceNormalizer';
+import WildInstinctsNormalizer from './normalizers/WildInstinctsNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -63,6 +67,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     direCommandNormalizer: DireCommandNormalizer,
+    direBeastSourceNormalizer: DireBeastSourceNormalizer,
+    wildInstinctsNormalizer: WildInstinctsNormalizer,
     hunterEventLinkNormalizer: HunterEventLinkNormalizers,
 
     //DeathTracker
@@ -89,6 +95,8 @@ class CombatLogParser extends CoreCombatLogParser {
     killerCobra: KillerCobra,
     masterMarksman: MasterMarksman,
     naturalMending: NaturalMending,
+    naturesAlly: NaturesAlly,
+    packMentality: PackMentality,
     scentOfBlood: ScentOfBlood,
     stomp: Stomp,
     tranquilizingShot: TranquilizingShot,

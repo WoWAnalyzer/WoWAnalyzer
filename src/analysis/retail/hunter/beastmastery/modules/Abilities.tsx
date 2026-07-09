@@ -1,7 +1,6 @@
 import { hastedCooldown } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
-import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -55,7 +54,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BARBED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: 2,
-        cooldown: (haste) => hastedCooldown(12, haste),
+        cooldown: (haste) => hastedCooldown(18, haste),
         gcd: {
           base: 1500,
         },
@@ -64,7 +63,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.BESTIAL_WRATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        // Base cooldown is 90s, but The Beast Within (always taken in every BM build) reduces
+        // it by a flat 60s, so this is hardcoded at the effective 30s rather than 90.
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -72,13 +73,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <>
-              <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> should be cast on cooldown as its
-              cooldown is quickly reset again through{' '}
-              <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />.
-            </>
-          ),
         },
       },
       {
@@ -170,7 +164,6 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
         gcd: {
           static: 0,
         },

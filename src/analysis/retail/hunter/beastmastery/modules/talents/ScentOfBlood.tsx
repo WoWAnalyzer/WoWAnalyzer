@@ -8,9 +8,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Activating Bestial Wrath grants 1/2 charges of Barbed Shot. (depending on points)
- *
- * Example log:
+ * Activating Bestial Wrath grants 1 charge of Barbed Shot.
  */
 
 class ScentOfBlood extends Analyzer {

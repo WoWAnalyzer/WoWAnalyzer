@@ -195,7 +195,6 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
         gcd: {
           static: 0,
         },
