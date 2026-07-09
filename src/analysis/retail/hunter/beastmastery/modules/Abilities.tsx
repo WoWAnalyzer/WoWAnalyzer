@@ -63,9 +63,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.BESTIAL_WRATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        // Base cooldown is 90s, but The Beast Within (always taken in every BM build) reduces
-        // it by a flat 60s, so this is hardcoded at the effective 30s rather than 90.
-        cooldown: 30,
+        // Base cooldown is 90s, reduced by a flat 60s if The Beast Within is talented (not
+        // hasted either way) - don't assume it's always taken.
+        cooldown: 90 - (combatant.hasTalent(TALENTS.THE_BEAST_WITHIN_TALENT) ? 60 : 0),
         gcd: {
           base: 1500,
         },
@@ -164,6 +164,10 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30,
+        // Cast/cooldown tracking is still useful even though nobody is trying to weave this
+        // optimally - just don't give it its own Timeline lane.
+        timelineHide: true,
         gcd: {
           static: 0,
         },

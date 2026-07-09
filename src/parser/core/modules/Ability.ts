@@ -107,6 +107,14 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   timelineSortIndex?: number;
   /**
+   * When true, this ability will not get its own cooldown lane at the bottom of the
+   * Timeline, even though `cooldown` is set (cast/cooldown tracking - SpellUsable,
+   * cast efficiency, etc. - still works normally). Use this for spells that are
+   * tracked for correctness but aren't interesting to show as a dedicated Timeline
+   * row, e.g. utility spells nobody is trying to weave optimally.
+   */
+  timelineHide?: boolean;
+  /**
    * If this ability is only castable with a certain buff, this can be indicated
    * by setting this prop to the buff spell id.
    * If the trigger isn't an actual buff but a crit, you may need to make a
@@ -255,6 +263,7 @@ class Ability {
   }
   enabled = true;
   timelineSortIndex: number | null = null;
+  timelineHide = false;
   timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;

@@ -3041,3 +3041,21 @@ export const Naltarunir: Contributor = {
     GitHub: 'https://github.com/Naltarunir',
   },
 };
+
+export const Azortharion: Contributor = {
+  nickname: 'Azortharion',
+  github: 'Azortharion',
+  discord: 'azortharion',
+  avatar: avatar('azortharion-avatar.png'),
+  about: 'Hunter Guidewriter, Theorycrafter and Top Player',
+  mains: [
+    {
+      name: 'Azortharion',
+      spec: SPECS.BEAST_MASTERY_HUNTER,
+      link: 'https://www.warcraftlogs.com/character/eu/kazzak/azortharion',
+    },
+  ],
+  links: {
+    'Icy-Veins BM Guide': 'https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide',
+  },
+};
