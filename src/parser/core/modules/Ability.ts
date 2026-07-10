@@ -108,10 +108,8 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
   timelineSortIndex?: number;
   /**
    * When true, this ability will not get its own cooldown lane at the bottom of the
-   * Timeline, even though `cooldown` is set (cast/cooldown tracking - SpellUsable,
-   * cast efficiency, etc. - still works normally). Use this for spells that are
-   * tracked for correctness but aren't interesting to show as a dedicated Timeline
-   * row, e.g. utility spells nobody is trying to weave optimally.
+   * Timeline. Intended to hide unimportant utility spells to reduce noise on the timeline.
+   * Use sporadically.
    */
   timelineHide?: boolean;
   /**
