@@ -353,6 +353,49 @@ class SpellUsable extends Analyzer {
   }
 
   /**
+   * KNOWN ISSUE (investigated 2026-07, not yet root-caused - see notes below before
+   * re-investigating from scratch):
+   *
+   * Under rapid/heavy cooldown reduction on a multi-charge spell, this simulation can drift
+   * measurably (observed: growing from ~0.6s up to ~3s across a single ~8s window) behind the
+   * real server-side cooldown. Symptom: `recordCooldownDebugInfo` logs "was used while
+   * SpellUsable's tracker thought it had no available charges" debug annotations, and the drift
+   * *grows* across repeated reductions rather than staying constant - i.e. it looks cumulative,
+   * not a single missing reduction.
+   *
+   * Reproduction case: BM Hunter Barbed Shot (spell 217200, 2 charges), with two flat-ms
+   * reduction sources firing frequently (Barbed Scales -2000ms per Cobra Shot cast, Pack
+   * Mentality -4000ms per Howl of the Pack Leader beast summon) while a Haste buff (Power
+   * Infusion, +20%) expires mid-recharge. Reproduced on the Vorasius encounter (Mythic, Midnight
+   * Falls raid), roughly the 0:17-0:25 window of the pull. Exact log:
+   * http://localhost:3000/report/PXWfwLG2mZMRgaYJ/37-Mythic+Vorasius+-+Kill+(2:59)/614-Vumens/standard/debug
+   * (localhost link - swap the host for wherever you're running the analyzer; the report code
+   * itself, PXWfwLG2mZMRgaYJ, fight 37, is what matters and should work on wowanalyzer.com too).
+   *
+   * What was verified as CORRECT while investigating (ruled out, don't re-check these first):
+   * - Both flat-ms reduction sources fire with the right values at the right times.
+   * - The haste-driven rescale below (via `onChangeHaste` -> `_handleChangeRate`) correctly
+   *   recalculates the in-progress charge's remaining time when a haste buff drops mid-recharge
+   *   - hand-verified against the "keep percentage progress" math to within ~15ms.
+   *
+   * Leading hypothesis (unconfirmed): something about interleaving flat-ms `reduceCooldown`
+   * calls with the percentage-based haste rescale on the *same* charge compounds a small error
+   * each time, rather than any single missing reduction. This is generic `SpellUsable` behavior,
+   * not specific to Hunter/Barbed Shot - any multi-charge spell with frequent flat-ms CDR plus a
+   * mid-recharge haste change is a plausible reproduction case.
+   *
+   * Practical impact so far: `beginCooldown`'s "charges === 0" branch self-corrects on the next
+   * cast, so this doesn't appear to leave a *lastingly* wrong charge count. It does produce
+   * spurious debug-annotation noise, and may mildly understate "effective reduction" stats for
+   * CDR-tracking talent modules (e.g. Barbed Scales, Pack Mentality) that fire mid-drift.
+   *
+   * How to pick this back up: temporarily add `console.warn` (not `console.log` - the dev
+   * server's browser-console mirror only forwards warn/error) inside `beginCooldown`,
+   * `reduceCooldown`, and `endCooldown`, gated on the spell ID under investigation, logging
+   * timestamp/expectedEnd/chargesAvailable/currentRechargeDuration before and after each call.
+   * Reproduce against a known log, then diff the full before/after state at each call against
+   * hand-computed expectations.
+   *
    * Reduces the time left on a cooldown by the given amount.
    * @param {number} spellId The ID of the spell.
    * @param {number} reductionMs The duration to reduce the cooldown by, in milliseconds.
@@ -632,6 +675,10 @@ class SpellUsable extends Analyzer {
    * Updates cdInfo's expectedDuration and expectedEnd fields to account for a change in
    * the cooldown's rate. This calculation is the same for modRate and haste changes.
    * Calculations assume CD's expectedEnd is still after the timestamp.
+   *
+   * See the KNOWN ISSUE note on `reduceCooldown` above - this rescale was hand-verified correct
+   * in isolation while investigating that issue, but is one of the suspects for how the drift
+   * compounds when interleaved with frequent `reduceCooldown` calls on the same charge.
    */
   private _handleChangeRate(
     spellId: number,
