@@ -117,7 +117,7 @@ class Timeline extends PureComponent {
       return false;
     }
     const ability = this.props.abilities.getAbility(spellId);
-    if (!ability || !ability.cooldown) {
+    if (!ability || !ability.cooldown || ability.timelineHide) {
       return false;
     }
     if (event.timestamp >= this.end) {

@@ -200,6 +200,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
+        // Cast/cooldown tracking is still useful even though nobody is trying to weave this
+        // optimally - just don't give it its own Timeline lane.
+        timelineHide: true,
         gcd: {
           static: 0,
         },
