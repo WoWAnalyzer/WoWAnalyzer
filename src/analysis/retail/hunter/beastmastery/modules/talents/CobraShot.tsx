@@ -163,8 +163,8 @@ class CobraShot extends Analyzer {
           category={STATISTIC_CATEGORY.TALENTS}
           tooltip={
             <>
-              Barbed Shot should always be prioritized over Cobra Shot - there's no scenario
-              where casting Cobra Shot instead of an available Barbed Shot is correct.
+              Barbed Shot should always be prioritized over Cobra Shot - there's no scenario where
+              casting Cobra Shot instead of an available Barbed Shot is correct.
             </>
           }
         >
