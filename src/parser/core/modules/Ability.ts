@@ -27,7 +27,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * REQUIRED The category of a spell eg Rotational or Defensive.
    * Use {@link SPELL_CATEGORY} for the value.
    */
-  category: SPELL_CATEGORY;
+  category: keyof typeof SPELL_CATEGORY;
   /**
    * The cooldown of a spell at the time of the cast. Unlike most other durations in WoWA,
    * this is in *seconds, NOT milliseconds*. This can be the direct number, or it can be a function
