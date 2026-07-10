@@ -17,6 +17,6 @@ export default class Valiance extends Analyzer.withDependencies({ spellUsable: S
   }
 
   private reduceCooldown() {
-    this.deps.spellUsable.reduceCooldown(talents.HOLY_ARMAMENTS_TALENT.id, VALIANCE_CDR);
+    this.deps.spellUsable.reduceCooldown(talents.HOLY_ARMAMENTS_PROTECTION_TALENT.id, VALIANCE_CDR);
   }
 }
