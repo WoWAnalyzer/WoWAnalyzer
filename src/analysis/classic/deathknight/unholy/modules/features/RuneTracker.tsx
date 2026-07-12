@@ -21,7 +21,12 @@ class UnholyRuneTracker extends MoPRuneTracker {
 
   protected rpTracker!: RunicPowerTracker;
 
-  protected override readonly convertOnFesteringStrike = true;
+  /** Reaping: Pestilence, Festering Strike, Icy Touch, Blood Strike, and Blood
+   * Boil convert the Blood/Frost rune they spend into a Death rune. Unholy-only. */
+  protected override readonly hasReaping = true;
+
+  /** Drives Blood Tap / Plague Leech activation priority. */
+  protected override readonly spec: 'Blood' | 'Frost' | 'Unholy' = 'Unholy';
 
   /** Death Coil's the main RP dump for Unholy, so give it the half-height bar. */
   protected override get rpSpendersToTrack(): number[] {
@@ -32,24 +37,24 @@ class UnholyRuneTracker extends MoPRuneTracker {
     dataName: string,
     title: string,
     naturalColor: string,
-    width: number,
+    domain: [number, number],
   ): VisualizationSpec {
     const fightStart = this.owner.fight.start_time;
     const xEnc = {
       field: 'ts',
       type: 'quantitative' as const,
       axis: { labelExpr: formatTime('datum.value'), tickCount: 25, grid: false },
-      scale: { nice: false },
+      scale: { nice: false, domain },
       title: null,
     };
     return {
       data: { name: dataName },
-      width,
-      height: 100,
       transform: [
         { filter: 'isValid(datum.timestamp)' },
-        // clamp to 0 so a pre-pull event doesn't sneak in a stray "-2s" tick before 0s
-        { calculate: `max(0, datum.timestamp - ${fightStart})`, as: 'ts' },
+        // No clamp here - keep pre-pull (negative) timestamps so this chart's
+        // x-axis lines up with the RP and cast-timeline charts below it, which
+        // also don't clamp.
+        { calculate: `datum.timestamp - ${fightStart}`, as: 'ts' },
         { calculate: formatTime('datum.ts'), as: 'ts_label' },
         { calculate: 'datum.natural + datum.death', as: 'total' },
       ],
@@ -112,19 +117,17 @@ class UnholyRuneTracker extends MoPRuneTracker {
     } as VisualizationSpec;
   }
 
-  private _castSpec(width: number): VisualizationSpec {
+  private _castSpec(domain: [number, number]): VisualizationSpec {
     const fightStart = this.owner.fight.start_time;
     const xEnc = {
       field: 'ts',
       type: 'quantitative' as const,
       axis: { labelExpr: formatTime('datum.value'), tickCount: 25, grid: false },
-      scale: { nice: false },
+      scale: { nice: false, domain },
       title: null,
     };
     return {
       data: { name: 'casts' },
-      width,
-      height: 80,
       transform: [
         { filter: 'isValid(datum.timestamp)' },
         { calculate: `datum.timestamp - ${fightStart}`, as: 'ts' },
@@ -188,36 +191,65 @@ class UnholyRuneTracker extends MoPRuneTracker {
   }
 
   get plot(): JSX.Element {
-    const fightMs = this.owner.fight.end_time - this.owner.fight.start_time;
+    const fightStart = this.owner.fight.start_time;
+    const fightMs = this.owner.fight.end_time - fightStart;
     const chartWidth = Math.max(800, Math.round((fightMs / 1000) * 12));
+
+    // Every chart below must share the exact same x-axis domain. Each one's
+    // underlying data has a different natural extent (rune histories get an
+    // onFightEnd-padded final point, RP/cast histories don't; prepull casts
+    // like Army of the Dead can push the earliest point before fight start),
+    // so leaving the domain to Vega's default (data-driven per chart) makes
+    // each chart auto-scale independently - their 0s gridlines (and
+    // everything else) end up at different pixel offsets despite sharing a
+    // declared width. Compute one shared [start, end] from the earliest and
+    // latest points across all five datasets and force every spec to use it.
+    // Reduce, not Math.min/max(...spread) - a long fight can easily produce
+    // several thousand history entries, and spreading that many as individual
+    // call arguments risks blowing the engine's argument-count limit.
+    const allTimestamps = [
+      ...this.bloodHistory,
+      ...this.frostHistory,
+      ...this.unholyHistory,
+      ...this.rpTracker.rpHistory,
+      ...this.castHistory,
+    ].map((point) => point.timestamp);
+    const domainStart =
+      allTimestamps.reduce((min, ts) => Math.min(min, ts), fightStart) - fightStart;
+    const domainEnd =
+      allTimestamps.reduce((max, ts) => Math.max(max, ts), this.owner.fight.end_time) - fightStart;
+    const domain: [number, number] = [domainStart, domainEnd];
+
     return (
       <div style={{ overflowX: 'auto', width: '100%' }}>
         <BaseChart
-          spec={this._runeSpec('bloodData', 'Blood', 'rgb(196,31,59)', chartWidth)}
-          data={{ bloodData: this.bloodHistory }}
+          spec={this._runeSpec('bloodData', 'Blood', 'rgb(196,31,59)', domain)}
+          data={{ bloodData: this._widenHistoryForDisplay(this.bloodHistory, chartWidth, fightMs) }}
           width={chartWidth}
           height={100}
         />
         <BaseChart
-          spec={this._runeSpec('frostData', 'Frost', 'rgb(105,204,240)', chartWidth)}
-          data={{ frostData: this.frostHistory }}
+          spec={this._runeSpec('frostData', 'Frost', 'rgb(105,204,240)', domain)}
+          data={{ frostData: this._widenHistoryForDisplay(this.frostHistory, chartWidth, fightMs) }}
           width={chartWidth}
           height={100}
         />
         <BaseChart
-          spec={this._runeSpec('unholyData', 'Unholy', 'rgb(171,212,115)', chartWidth)}
-          data={{ unholyData: this.unholyHistory }}
+          spec={this._runeSpec('unholyData', 'Unholy', 'rgb(171,212,115)', domain)}
+          data={{
+            unholyData: this._widenHistoryForDisplay(this.unholyHistory, chartWidth, fightMs),
+          }}
           width={chartWidth}
           height={100}
         />
         <BaseChart
-          spec={this.rpTracker.rpVegaSpec(chartWidth)}
+          spec={this.rpTracker.rpVegaSpec(domain)}
           data={{ rpData: this.rpTracker.rpHistory }}
           width={chartWidth}
           height={100}
         />
         <BaseChart
-          spec={this._castSpec(chartWidth)}
+          spec={this._castSpec(domain)}
           data={{ casts: this.castHistory }}
           width={chartWidth}
           height={80}

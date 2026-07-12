@@ -8,7 +8,12 @@ import {
   GlobalCooldown,
   createBloodTapCharges,
 } from 'analysis/classic/deathknight/shared';
-import Haste from 'parser/shared/modules/Haste';
+// DK-specific Haste with Improved Unholy Presence baked in (20% instead of
+// the base 10%).
+import Haste from './modules/features/Haste';
+// Links refundable rune-ability casts to their damage outcome so
+// MoPRuneTracker can skip the rune spend on a miss/dodge/parry.
+import { RuneAbilityOutcomeNormalizer } from 'analysis/classic/deathknight/shared/RuneAbilityOutcomeNormalizer';
 import Enemies from 'parser/shared/modules/Enemies';
 // Core features
 import Abilities from './modules/features/Abilities';
@@ -33,6 +38,7 @@ import GhoulAnalyzer from './modules/features/GhoulAnalyzer';
 import EnchantChecker from './modules/features/EnchantChecker';
 // Shared DK
 import ArmyOfTheDead from '../shared/ArmyOfTheDead';
+import PrepullBuffCastInference from '../shared/PrepullBuffCastInference';
 
 const { analyzer: BloodTapCharges, normalizer: BloodChargeGainLinkNormalizer } =
   createBloodTapCharges(SPELLS.DEATH_COIL_DK, 'Death Coil');
@@ -46,6 +52,7 @@ class CombatLogParser extends BaseCombatLogParser {
     enemies: Enemies,
     // Normalizers
     bloodChargeGainLinkNormalizer: BloodChargeGainLinkNormalizer,
+    runeAbilityOutcomeNormalizer: RuneAbilityOutcomeNormalizer,
     // Core features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -75,6 +82,7 @@ class CombatLogParser extends BaseCombatLogParser {
     bombs: null as any,
     // Shared DK
     armyOfTheDead: ArmyOfTheDead,
+    prepullBuffCastInference: PrepullBuffCastInference,
   };
 
   static guide = UnholyDKGuide;

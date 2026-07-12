@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/classic/deathknight';
+import MISC_SPELLS from 'common/SPELLS/classic/misc';
 import { evilEyeCdMultiplier } from 'analysis/classic/deathknight/shared/EvilEyeOfGalakras';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -111,12 +112,6 @@ class Abilities extends CoreAbilities {
         gcd: GCD_1S,
         cooldown: 6,
       },
-      {
-        spell: SPELLS.RAISE_DEAD.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: GCD_1S,
-        cooldown: 180,
-      },
       // ---- Defensive ----
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
@@ -135,6 +130,13 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 120,
+      },
+      {
+        spell: SPELLS.DEATH_PACT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+        cooldown: 120,
+        enabled: this.selectedCombatant.hasClassicTalent(SPELLS.DEATH_PACT.id),
       },
       // ---- Utility ----
       {
@@ -158,7 +160,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HORN_OF_WINTER.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: GCD_1S,
-        cooldown: 20,
+        // Glyph of the Loud Horn doubles this to 40s (in exchange for +10 RP
+        // per cast) - see SPELLS.GLYPH_OF_THE_LOUD_HORN's own comment.
+        cooldown: () =>
+          this.selectedCombatant.hasGlyph(SPELLS.GLYPH_OF_THE_LOUD_HORN.glyphId!) ? 40 : 20,
       },
       {
         spell: SPELLS.RAISE_ALLY.id,
@@ -190,6 +195,19 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOWLING_BLAST.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: GCD_1S,
+      },
+      // ---- Profession / universal items (no cost, not spec-specific) ----
+      {
+        spell: MISC_SPELLS.LIFEBLOOD.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
+      },
+      {
+        spell: MISC_SPELLS.GOBLIN_GLIDER.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
+        cooldown: 180,
       },
     ];
   }

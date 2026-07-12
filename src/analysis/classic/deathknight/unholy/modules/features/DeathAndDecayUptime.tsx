@@ -24,8 +24,17 @@ class DeathAndDecayUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    // The cast (SPELLS.DEATH_AND_DECAY, 43265) and the periodic ground-effect
+    // damage it deals are two different spell IDs in-game - confirmed on a
+    // live report's damage breakdown (Warcraft Logs Classic), where the
+    // actual damage is correctly sourced by the player under ability 52212,
+    // not 43265. The cast event itself targets "Environment" since it's
+    // ground-targeted rather than unit-targeted, but that's just how
+    // ground-target spells cast, not a bug - `.by(SELECTED_PLAYER)` on the
+    // damage listener is fine since these ticks really are sourced by the
+    // player. Filtering on the wrong (cast) spell ID was why nothing matched.
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY_DAMAGE),
       this.onDamage,
     );
   }

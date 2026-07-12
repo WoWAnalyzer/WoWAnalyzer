@@ -329,7 +329,16 @@ class CastEfficiency extends Analyzer {
     // The solution is thus to count the CDs that can be fully restored (here 3) and
     // add 1 because we are counting the number of casts and not the number of CDs.
     // (same as counting the number of pickets based on a picket fence length and the total length of the fence).
-    const maxCasts = Math.floor(rawMaxCasts || 0) + 1;
+    //
+    // This "+1 picket fence" adjustment only makes sense for the computed-from-cooldown
+    // path above. When a module supplies a legacy `castEfficiency.maxCasts` function, it's
+    // already returning the exact max cast count directly (e.g. "you can potion once
+    // prepull and once in combat, so 2") - `efficiency` below is calculated straight off
+    // that raw value with no +1, so the displayed `maxCasts` must match or the UI shows an
+    // inflated denominator (e.g. a hard-capped 2-max combat potion showing as "2/3").
+    const maxCasts = ability.castEfficiency.maxCasts
+      ? Math.floor(rawMaxCasts || 0)
+      : Math.floor(rawMaxCasts || 0) + 1;
 
     let efficiency;
     if (ability.castEfficiency.maxCasts) {

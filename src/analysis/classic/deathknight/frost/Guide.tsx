@@ -33,7 +33,7 @@ function SoulReaperSection(): JSX.Element | null {
         </strong>
         <small>
           ({sr.castsInExecute} / {sr.effectivePossibleCasts} casts
-          {sr.excusedMisses > 0 && `, ${sr.excusedMisses} excused AoE`})
+          {sr.excusedMisses() > 0 && `, ${sr.excusedMisses()} excused AoE`})
         </small>
       </div>
       <CooldownBar

@@ -1,12 +1,22 @@
 import SPELLS from 'common/SPELLS/classic/deathknight';
+import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
+  ChangeHasteEvent,
   FightEndEvent,
   RemoveBuffEvent,
+  ResourceChangeEvent,
 } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
+import {
+  REFUNDABLE_RUNE_SPELLS,
+  runeAbilityOutcome,
+} from 'analysis/classic/deathknight/shared/RuneAbilityOutcomeNormalizer';
+
+/** hitType values that mean a refundable rune ability didn't land. */
+const REFUND_HIT_TYPES = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 // ── WCL classResources rune type IDs for MoP ─────────────────────────────────
 // Blood=20, Frost=21, Unholy=22, RP=6, any other with cost = Death rune slot.
@@ -33,6 +43,7 @@ const F1: RuneCost = { blood: 0, frost: 1, unholy: 0 };
 const U1: RuneCost = { blood: 0, frost: 0, unholy: 1 };
 const F1U1: RuneCost = { blood: 0, frost: 1, unholy: 1 };
 const B1F1: RuneCost = { blood: 1, frost: 1, unholy: 0 };
+const B1F1U1: RuneCost = { blood: 1, frost: 1, unholy: 1 };
 function _buildCostTable(): Partial<Record<number, RuneCost>> {
   return {
     // ── Shared ──────────────────────────────────────────────────────────
@@ -45,6 +56,7 @@ function _buildCostTable(): Partial<Record<number, RuneCost>> {
     [SPELLS.DEATH_AND_DECAY.id]: U1, // 1 Unholy
     [SPELLS.CHAINS_OF_ICE.id]: F1, // 1 Frost
     [SPELLS.NECROTIC_STRIKE.id]: F1, // 1 Frost
+    [SPELLS.ARMY_OF_THE_DEAD.id]: B1F1U1, // 1 Blood + 1 Frost + 1 Unholy
     // ── Frost ───────────────────────────────────────────────────────────
     [SPELLS.HOWLING_BLAST.id]: F1, // 1 Frost
     [SPELLS.PILLAR_OF_FROST.id]: F1, // 1 Frost
@@ -52,12 +64,32 @@ function _buildCostTable(): Partial<Record<number, RuneCost>> {
     [SPELLS.SOUL_REAPER_FROST.id]: F1, // 1 Frost
     // ── Unholy ──────────────────────────────────────────────────────────
     [SPELLS.FESTERING_STRIKE.id]: B1F1, // 1 Blood + 1 Frost
-    [SPELLS.SCOURGE_STRIKE.id]: F1U1, // 1 Frost + 1 Unholy
+    // MoP changed Scourge Strike to cost only 1 Unholy rune (it cost 1 Frost +
+    // 1 Unholy back in Cata) - confirmed on Wowhead's MoP Classic tooltip:
+    // "Cost 1 Unholy Rune / -10 Runic Power". Coding this as F1U1 phantom-spent
+    // an extra Frost rune on every cast of Unholy's main filler, starving the
+    // whole rotation of Frost (and, transitively, Festering Strike/Blood too).
+    [SPELLS.SCOURGE_STRIKE.id]: U1, // 1 Unholy
     [SPELLS.SOUL_REAPER_UNHOLY.id]: U1, // 1 Unholy
-    // ── Blood (included for completeness) ───────────────────────────────
+    // ── Blood (included for completeness - no BloodRuneTracker subclass
+    // exists/is registered yet, but the cost table and Blood Rites
+    // conversion below are ready for when one is added) ───────────────────
     [SPELLS.SOUL_REAPER_BLOOD.id]: B1, // 1 Blood
+    [SPELLS.HEART_STRIKE.id]: B1, // 1 Blood - Blood spec's signature Blood-rune spender
   };
 }
+// ── Reaping ────────────────────────────────────────────────────────────────
+// Unholy-only passive: spending a Blood or Frost rune on one of these five
+// abilities converts the rune spent into a Death rune. Gated per-spec via
+// `hasReaping` below - Frost and Blood DK do not have this.
+const REAPING_SPELLS: number[] = [
+  SPELLS.PESTILENCE.id,
+  SPELLS.FESTERING_STRIKE.id,
+  SPELLS.ICY_TOUCH.id,
+  SPELLS.BLOOD_STRIKE.id,
+  SPELLS.BLOOD_BOIL.id,
+];
+
 let _ABILITY_RUNE_COSTS: Partial<Record<number, RuneCost>> | null = null;
 function getAbilityRuneCosts(): Partial<Record<number, RuneCost>> {
   if (!_ABILITY_RUNE_COSTS) _ABILITY_RUNE_COSTS = _buildCostTable();
@@ -96,7 +128,23 @@ interface MoPRune {
   runeCdMs: number;
   /** Index of the paired rune (0↔1, 2↔3, 4↔5) */
   linkedIndex: number;
+  /**
+   * True when this rune was spent while its sibling was ALSO already spent -
+   * meaning its cooldown hasn't actually started yet (regenTime is a Infinity
+   * sentinel, not a real countdown). Mirrors the real MoP rune engine: a
+   * queued rune's CD isn't computed at spend time at all - it's computed fresh, using
+   * whatever haste is active, the MOMENT the sibling's own cooldown actually
+   * completes (see _resolvePendingRegens). Computing it eagerly at spend
+   * time (the old approach) bakes in stale, lower haste from that earlier
+   * moment even when Bloodlust/Unholy Frenzy/etc. speed things up later,
+   * making every queued rune take longer than it really should - compounding
+   * with every subsequent haste buff and resync.
+   */
+  pendingRegen: boolean;
 }
+
+// Default "no runes were resynced" set for _spendFromSlots's optional param.
+const EMPTY_RUNE_SET: ReadonlySet<MoPRune> = new Set();
 
 function makeRune(type: RuneType, linkedIndex: number): MoPRune {
   return {
@@ -104,9 +152,16 @@ function makeRune(type: RuneType, linkedIndex: number): MoPRune {
     isDeath: false,
     isBloodTapped: false,
     isPermanentDeath: false,
-    regenTime: 0,
+    // -Infinity, not 0: `_isAvailable` checks `timestamp >= regenTime`, and
+    // prepull casts (e.g. Army of the Dead) can have negative timestamps. A
+    // regenTime of 0 would make every untouched rune look "on cooldown" the
+    // instant any negative-timestamp event was processed, even though
+    // nothing had actually spent it yet. -Infinity is available at any real
+    // timestamp until the rune is genuinely spent for the first time.
+    regenTime: -Infinity,
     runeCdMs: BASE_RUNE_CD_MS,
     linkedIndex,
+    pendingRegen: false,
   };
 }
 
@@ -115,13 +170,15 @@ function makeRune(type: RuneType, linkedIndex: number): MoPRune {
  *
  * Models the 6-rune system (2 Blood, 2 Frost, 2 Unholy) with:
  *  - Linked-pair queue mechanic (second rune of a pair queues behind first)
- *  - Death rune conversion (Festering Strike, Blood of the North, Blood Tap, Plague Leech)
+ *  - Death rune conversion (Reaping, Blood of the North, Blood Tap, Plague Leech)
  *  - Haste-adjusted cooldowns (reads current haste from the Haste module)
  *  - Runic Corruption doubling regen speed while active
  *  - Resync from classResources data on each cast event to stay accurate
  *
  * If you're subclassing for Frost DK, just set `bloodIsDeath` to true (Blood of the North).
- * Same deal for Unholy DK with `convertOnFesteringStrike`.
+ * Same deal for Unholy DK with `hasReaping` - spending a Blood/Frost rune via
+ * Pestilence, Festering Strike, Icy Touch, Blood Strike, or Blood Boil
+ * converts it to a Death rune (see `REAPING_SPELLS`). This is Unholy-only.
  *
  * Exposes:
  *  - `runesAvailable(timestamp)` — number of runes ready right now (0–6)
@@ -137,16 +194,48 @@ class MoPRuneTracker extends Analyzer {
   protected haste!: Haste;
 
   /**
-   * Override and set true for Frost DK — Blood of the North permanently
+   * Override and return true for Frost DK — Blood of the North permanently
    * converts Blood runes to Death runes, they never go back.
+   *
+   * This MUST be a static field, not an instance field: the constructor
+   * below reads it synchronously during `super()`, before a subclass's own
+   * instance field initializers have run, so a plain instance field override
+   * wouldn't be visible yet at that point (it'd still read this base
+   * class's default, silently disabling the conversion). Static fields are
+   * set on the class itself when its module evaluates, long before any
+   * instance is constructed, so reading it via `this.constructor` resolves
+   * to the actual runtime subclass's value immediately.
    */
-  protected readonly bloodIsDeath: boolean = false;
+  protected static readonly bloodIsDeath: boolean = false;
 
   /**
-   * Override and set true for Unholy DK — Festering Strike converts the
-   * Blood and Frost runes it spends into Death runes.
+   * Override and return true for Unholy DK — Reaping converts the Blood
+   * and/or Frost runes spent on Pestilence, Festering Strike, Icy Touch,
+   * Blood Strike, or Blood Boil into Death runes. Frost and Blood DK do not
+   * have this passive.
    */
-  protected readonly convertOnFesteringStrike: boolean = false;
+  protected readonly hasReaping: boolean = false;
+
+  /**
+   * Override and return true for Blood DK — Blood Rites converts the Frost
+   * and Unholy runes spent on Death Strike into Death runes. This is Blood's own analog of Unholy's Reaping -
+   * different trigger spell, different slots, and mutually exclusive since
+   * only Unholy has Reaping and only Blood has Blood Rites - but the same
+   * "keep whatever this spec's signature ability spends as Death" shape.
+   * No BloodRuneTracker subclass exists/is registered yet; this flag is
+   * groundwork for when one is added.
+   */
+  protected readonly hasBloodRites: boolean = false;
+
+  /**
+   * Which spec this tracker instance belongs to. Drives the Blood
+   * Tap / Plague Leech activation priority (`_selectRuneForActivation` /
+   * `_activatePlagueLeechRunes`), which differs per spec.
+   * Defaults to 'Frost', matching this tracker's
+   * original (pre-fix) fixed Unholy->Frost->Blood order, since Frost is the
+   * only spec that order happened to already be correct for.
+   */
+  protected readonly spec: 'Blood' | 'Frost' | 'Unholy' = 'Frost';
 
   readonly runes: MoPRune[] = [
     makeRune('Blood', 1),
@@ -204,7 +293,7 @@ class MoPRuneTracker extends Analyzer {
 
     // Apply Blood of the North for Frost DK BEFORE the initial snapshot so
     // t=0 never shows natural blood runes.
-    if (this.bloodIsDeath) {
+    if ((this.constructor as typeof MoPRuneTracker).bloodIsDeath) {
       for (const i of BLOOD_INDICES) {
         this.runes[i].isDeath = true;
         this.runes[i].isPermanentDeath = true;
@@ -222,7 +311,23 @@ class MoPRuneTracker extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION),
       this.onRunicCorruptionRemove,
     );
+    // Any change to general haste (Bloodlust, racials like Berserking, trinket
+    // procs, Lifeblood, gear swaps, etc.) needs to rescale in-progress rune
+    // regens too - not just Runic Corruption. Short buffs (Berserking is 10s,
+    // Bloodlust 40s) commonly expire partway through a rune's cooldown, so a
+    // regen time computed once at spend-time and never revisited will be
+    // wrong for any rune that was spent under temporary haste that later
+    // drops off mid-cooldown.
+    this.addEventListener(Events.ChangeHaste, this.onHasteChange);
     this.addEventListener(Events.fightend, this.onFightEnd);
+    // Runic Empowerment (talent, 51459/81229): 45% chance on landed Death
+    // Coil/Frost Strike/Rune Strike to instantly finish regenerating one
+    // on-cooldown rune. WCL surfaces this as a resourcechange event for the
+    // rune resource type - see onRunicEmpowerment.
+    this.addEventListener(
+      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_EMPOWERMENT),
+      this.onRunicEmpowerment,
+    );
   }
 
   // ── Public API ─────────────────────────────────────────────────────────────
@@ -267,6 +372,12 @@ class MoPRuneTracker extends Analyzer {
     const spellId = event.ability.guid;
     const ts = event.timestamp;
 
+    // Resolve any rune whose sibling has genuinely finished regenerating
+    // since the last event, BEFORE sampling/spending anything at this
+    // timestamp - otherwise a rune that's actually available by now would
+    // still read as an Infinity-sentinel "pending" rune.
+    this._resolvePendingRegens(ts);
+
     // Sample per-type rune availability BEFORE spending (pre-cast state).
     const preTypeCounts = this._sampleSlotAvailability(ts);
     const dt = ts - this._lastTrackTimestamp;
@@ -282,10 +393,10 @@ class MoPRuneTracker extends Analyzer {
     this._recordRuneCastTimeline(event, spellId, ts);
     this._recordRPSpendTimeline(event, spellId, ts);
 
-    // Read rune costs from classResources and resync simulation
-    if (event.classResources) {
-      this._resyncFromClassResources(event);
-    }
+    // Spend runes: uses our known cost table when available, otherwise falls
+    // back to classResources. Always called - some known-cost abilities (e.g.
+    // Army of the Dead) have no classResources on the event at all.
+    this._resyncFromClassResources(event);
 
     // Special ability handling
     if (spellId === SPELLS.BLOOD_TAP.id) {
@@ -301,6 +412,7 @@ class MoPRuneTracker extends Analyzer {
   }
 
   private onFightEnd(event: FightEndEvent) {
+    this._resolvePendingRegens(event.timestamp);
     const dt = event.timestamp - this._lastTrackTimestamp;
     this.bloodReadySum[this._lastTrackedTypeCounts.Blood] += dt;
     this.frostReadySum[this._lastTrackedTypeCounts.Frost] += dt;
@@ -365,6 +477,12 @@ class MoPRuneTracker extends Analyzer {
     const newMult = this._hasteMultiplier * 2; // corruption now active
     this._adjustRuneRegenTimes(ts, oldMult, newMult);
     this._updateRuneCds(newMult);
+    // Resolve pending runes AFTER rescaling, using the just-applied new
+    // multiplier - both so a rune that's freshly resolved here never gets
+    // reinterpreted by the same rescale pass (pending runes are skipped by
+    // it - see _adjustRuneRegenTimes), and because "now" is the first moment
+    // the new multiplier is genuinely in effect.
+    this._resolvePendingRegens(ts);
   }
 
   private onRunicCorruptionRemove(_event: RemoveBuffEvent) {
@@ -375,12 +493,111 @@ class MoPRuneTracker extends Analyzer {
     const newMult = this._hasteMultiplier; // corruption now inactive
     this._adjustRuneRegenTimes(ts, oldMult, newMult);
     this._updateRuneCds(newMult);
+    this._resolvePendingRegens(ts);
+  }
+
+  /**
+   * Fires on ANY haste percentage change (Bloodlust, racials, trinket procs,
+   * Lifeblood, gear, etc.) - the Haste module fabricates this for every
+   * source, not just Runic Corruption. Rescales in-progress rune regens the
+   * same way onRunicCorruptionApply/Remove do, using the event's own
+   * before/after haste values rather than re-deriving them, since `haste.current`
+   * has already moved on to the new value by the time this handler runs.
+   */
+  private onHasteChange(event: ChangeHasteEvent) {
+    // The very first ChangeHaste event (fired from the Haste module's own
+    // constructor) has no real "old" value - it's the initial baseline, not
+    // an actual change, so there's nothing to rescale yet.
+    if (event.oldHaste === null || event.oldHaste === undefined) {
+      return;
+    }
+    const ts = event.timestamp;
+    const rcMult = this._runicCorruptionActive ? 2 : 1;
+    const oldMult = (1 + event.oldHaste) * rcMult;
+    const newMult = (1 + event.newHaste) * rcMult;
+    this._adjustRuneRegenTimes(ts, oldMult, newMult);
+    this._updateRuneCds(newMult);
+    // See onRunicCorruptionApply - resolve pending runes after rescaling, at
+    // the new live multiplier.
+    this._resolvePendingRegens(ts);
+  }
+
+  /**
+   * Runic Empowerment: instantly finishes regenerating one currently
+   * on-cooldown rune, without touching its type/Death status (unlike Blood
+   * Tap/Plague Leech, which explicitly convert their target to Death - see
+   * `_bloodTapActivate`). The real game picks a uniformly random spent rune;
+   * WCL's log doesn't unambiguously tell us which slot
+   * the game actually picked, so this mirrors that randomness as closely as
+   * we can: prefer a rune whose type matches the event's own
+   * `resourceChangeType` (when WCL does report which rune type got the
+   * empowerment), otherwise fall back to a deterministic pseudo-random pick
+   * (seeded from the timestamp, so re-analyzing the same log is
+   * reproducible) among every rune currently on cooldown.
+   */
+  private onRunicEmpowerment(event: ResourceChangeEvent) {
+    const ts = event.timestamp;
+    this._resolvePendingRegens(ts);
+
+    const onCooldown = this.runes.filter((r) => !this._isAvailable(r, ts));
+    if (onCooldown.length === 0) {
+      return;
+    }
+
+    const typeByResourceType: Partial<Record<number, RuneType>> = {
+      [BLOOD_RUNE_TYPE]: 'Blood',
+      [FROST_RUNE_TYPE]: 'Frost',
+      [UNHOLY_RUNE_TYPE]: 'Unholy',
+    };
+    const wantedType = typeByResourceType[event.resourceChangeType];
+    const candidates = wantedType
+      ? onCooldown.filter((r) => r.type === wantedType && !this._isDeathRune(r))
+      : [];
+    const pool = candidates.length > 0 ? candidates : onCooldown;
+
+    // Simple deterministic LCG seeded by the timestamp - avoids Math.random()
+    // so the same log always resolves the same way. Double-mod to normalize
+    // away JS's sign-preserving `%` (prepull events, e.g. from Army of the
+    // Dead, can have a negative timestamp, which would otherwise yield a
+    // negative array index below).
+    const rawMod = (((ts * 9301 + 49297) % 233280) + 233280) % 233280;
+    const pseudoRandom = rawMod / 233280;
+    const target = pool[Math.floor(pseudoRandom * pool.length) % pool.length];
+
+    target.regenTime = ts;
+    target.pendingRegen = false;
   }
 
   // ── Rune state helpers ─────────────────────────────────────────────────────
 
   private _isAvailable(rune: MoPRune, timestamp: number): boolean {
     return timestamp >= rune.regenTime;
+  }
+
+  /**
+   * Activate any rune whose sibling has now genuinely finished regenerating,
+   * computing its cooldown FRESH from the CURRENT live haste - mirroring the
+   * real MoP rune engine, which doesn't
+   * decide a queued rune's completion time until the moment it actually
+   * starts counting down, using whatever haste is active right then. Must be
+   * called at the top of every timestamp-advancing entry point (a cast, a
+   * haste change, fight end) BEFORE any availability check, so a rune that
+   * was "pending" doesn't keep using a stale, pre-computed completion time
+   * once its sibling has freed up.
+   */
+  private _resolvePendingRegens(timestamp: number) {
+    for (const rune of this.runes) {
+      if (!rune.pendingRegen) {
+        continue;
+      }
+      const linked = this.runes[rune.linkedIndex];
+      if (this._isAvailable(linked, timestamp)) {
+        const cdMs = this._currentRuneCdMs;
+        rune.regenTime = linked.regenTime + cdMs;
+        rune.runeCdMs = cdMs;
+        rune.pendingRegen = false;
+      }
+    }
   }
 
   private _isDeathRune(rune: MoPRune): boolean {
@@ -401,6 +618,7 @@ class MoPRuneTracker extends Analyzer {
     indices: readonly number[],
     timestamp: number,
     convert: boolean,
+    resynced: ReadonlySet<MoPRune> = EMPTY_RUNE_SET,
   ): MoPRune[] {
     if (count === 0) {
       return [];
@@ -418,7 +636,7 @@ class MoPRuneTracker extends Analyzer {
     const slotRunes = indices.map((i) => this.runes[i]);
     for (const rune of toSpend) {
       const wasBloodTapped = rune.isBloodTapped;
-      this._spend(rune, timestamp, convert);
+      this._spend(rune, timestamp, convert, resynced.has(rune));
 
       // Python RuneTracker ~line 610: spending a Blood-Tapped rune via
       // Festering Strike — find the first un-converted natural rune in this
@@ -434,20 +652,52 @@ class MoPRuneTracker extends Analyzer {
     return toSpend;
   }
 
-  private _spend(rune: MoPRune, timestamp: number, convert: boolean) {
+  private _spend(rune: MoPRune, timestamp: number, convert: boolean, skipLinkedQueue = false) {
+    // Resync this rune's stored CD to the LIVE haste multiplier before using
+    // it. `rune.runeCdMs` is normally kept current by onHasteChange's
+    // rescale whenever a real haste change fires mid-fight, but it starts at
+    // makeRune()'s flat, unhasted BASE_RUNE_CD_MS, and the very first
+    // ChangeHaste event (the initial baseline, oldHaste === null) is
+    // deliberately ignored by onHasteChange - it also fires from inside
+    // Haste's own constructor, before this tracker (built after its Haste
+    // dependency) has even registered a listener for it. So without this,
+    // any rune spent before the first REAL haste change in the fight - most
+    // commonly Army of the Dead's prepull cast - would use the wrong,
+    // too-slow unhasted CD, and every later rescale would compound from that
+    // wrong starting point. Reading the live getter here (rather than
+    // seeding it once in the constructor) sidesteps needing `haste` to be
+    // wired up at construction time at all - by the time a real cast is
+    // being spent, we're inside an event handler and `this.haste` is valid.
+    rune.runeCdMs = this._currentRuneCdMs;
+
     const linked = this.runes[rune.linkedIndex];
-    const linkedReady = this._isAvailable(linked, timestamp);
+    const linkedReady = skipLinkedQueue || this._isAvailable(linked, timestamp);
 
-    // Base CD starts from now (or rune's current regenTime if it's somehow
-    // in the future — shouldn't happen for an available rune, but guards edge cases)
-    rune.regenTime = Math.max(timestamp, rune.regenTime) + rune.runeCdMs;
-
-    // Queue behind the linked rune if it's still on cooldown.
-    // The second rune of a pair can't start regenerating until the first finishes,
-    // so its regenTime is always linked.regenTime + cdMs.
-    // Mirrors Python: if not linked.can_spend(ts): regen_time += linked.regen_time - ts
-    if (!linkedReady) {
-      rune.regenTime = linked.regenTime + rune.runeCdMs;
+    // skipLinkedQueue is set for runes _resyncSlot just forced available: resync
+    // already shifted this rune's linked sibling backward to preserve the pair's
+    // stagger (see _resyncSlot), so re-deriving "queue behind linked" here from the
+    // sibling's post-shift regenTime would apply that same penalty a second time -
+    // pushing the just-resynced rune out to a full 2x rune CD instead of 1x, which
+    // compounds every time a cast needs to borrow a rune and is why the tracker
+    // could show 0 runes available for extended stretches even with light rune use.
+    if (linkedReady) {
+      // Sibling is free (or resync already paid the queue cost) - this rune
+      // starts a real, immediate countdown at the CURRENT live haste.
+      rune.regenTime = Math.max(timestamp, rune.regenTime) + rune.runeCdMs;
+      rune.pendingRegen = false;
+    } else {
+      // Sibling is still on cooldown - only one rune per pair can regen at a
+      // time, so this one can't start counting down yet. The real game
+      // does NOT compute this rune's completion time now - it
+      // defers it (see _resolvePendingRegens) until the sibling's own
+      // cooldown actually elapses, using whatever haste is live AT THAT
+      // MOMENT. Computing it eagerly here (the old approach) baked in
+      // whatever haste happened to be active at THIS spend, systematically
+      // overestimating the wait once later haste buffs (Bloodlust, Unholy
+      // Frenzy, trinkets, etc.) sped things up - and the error compounded
+      // with every subsequent haste change and resync.
+      rune.pendingRegen = true;
+      rune.regenTime = Infinity;
     }
 
     // Handle Death rune state changes on spend
@@ -467,24 +717,59 @@ class MoPRuneTracker extends Analyzer {
   }
 
   /**
-   * Parse classResources from a cast event and spend the corresponding runes
-   * in our simulation. Resyncs any runes that are off-schedule.
+   * Spend runes for a cast, using our known cost table when we have one, or
+   * falling back to parsing classResources for abilities we don't recognize.
+   * Resyncs any runes that are off-schedule.
    */
   private _resyncFromClassResources(event: CastEvent) {
-    if (!event.classResources) {
+    const spellId = event.ability.guid;
+
+    // spellId 1 (and negative guids) are WCL's synthetic IDs for plain melee
+    // swings/extra attacks, not real abilities - they never cost runes. WCL
+    // still attaches a (non-empty but cost=0-in-practice) classResources
+    // array to these events though, which would otherwise slip past the
+    // guard below (knownCost is undefined, but classResources is truthy) and
+    // get parsed by the "unknown real ability" fallback path meant for
+    // actual spells we haven't cost-tabled yet. Any stray/misreported
+    // classResources entry on a melee event would silently spend a rune a
+    // basic attack never should have touched, so bail out unconditionally
+    // before that path ever runs.
+    if (spellId === 1 || spellId < 0) {
       return;
     }
 
+    const knownCost = getAbilityRuneCosts()[spellId];
+
+    // Abilities in our known-cost table (e.g. Army of the Dead) don't need
+    // classResources at all - WCL doesn't even report classResources on some
+    // of them (it's not an RP spend, so there's nothing for WCL to attach).
+    // Only the fallback path below actually needs event.classResources.
+    if (!knownCost && !event.classResources) {
+      return;
+    }
+
+    // Refundable abilities (Icy Touch, Plague Strike, Obliterate, Festering
+    // Strike, etc. - see RuneAbilityOutcomeNormalizer) that miss, get dodged,
+    // or get parried never actually spend their rune(s) at all in the
+    // real game - only ~10% Runic Power is affected, which this tracker
+    // doesn't model. RuneAbilityOutcomeNormalizer links each cast to the
+    // damage event it produced (if any) BEFORE analyzers run, so we can read
+    // that outcome synchronously here instead of buffering the spend
+    // decision.
+    if (REFUNDABLE_RUNE_SPELLS.includes(spellId)) {
+      const outcome = runeAbilityOutcome.first(event);
+      if (outcome && REFUND_HIT_TYPES.includes(outcome.hitType)) {
+        return;
+      }
+    }
+
     const ts = event.timestamp;
-    const isFestering = event.ability.guid === SPELLS.FESTERING_STRIKE.id;
+    const isReapingSpell = this.hasReaping && REAPING_SPELLS.includes(spellId);
 
     let bloodCost = 0;
     let frostCost = 0;
     let unholyCost = 0;
     let deathCost = 0;
-
-    const spellId = event.ability.guid;
-    const knownCost = getAbilityRuneCosts()[spellId];
 
     if (knownCost) {
       // Use our known cost table. WCL always reports the REQUIRED slot type even
@@ -496,7 +781,7 @@ class MoPRuneTracker extends Analyzer {
       bloodCost = knownCost.blood;
       frostCost = knownCost.frost;
       unholyCost = knownCost.unholy;
-    } else {
+    } else if (event.classResources) {
       // Unknown ability — fall back to classResources type parsing.
       for (const resource of event.classResources) {
         const cost = (resource as { cost?: number }).cost ?? 0;
@@ -525,8 +810,34 @@ class MoPRuneTracker extends Analyzer {
       return;
     }
 
-    const convertBlood = this.convertOnFesteringStrike && isFestering;
-    const convertFrost = this.convertOnFesteringStrike && isFestering;
+    // Reaping conversion differs by spell:
+    //  - Blood-cost spells (Pestilence, Blood Strike, Blood Boil) + Festering
+    //    Strike convert whatever's spent in the Blood OR Frost pairs to Death.
+    //  - Icy Touch (Unholy spec only) converts whatever's spent in the Frost
+    //    OR Unholy pairs to Death instead.
+    // This must apply to BOTH the primary typed spend (_spendFromSlots below)
+    // AND any external death-rune substitute that lands in that slot
+    // (spendDeathSubs) - previously only the primary spend converted, so e.g.
+    // a Frost-slot Death rune borrowed to cover Festering Strike's Blood
+    // deficit got reverted to natural Frost instead of staying Death.
+    const isIcyTouch = spellId === SPELLS.ICY_TOUCH.id;
+    // Blood Rites (Blood spec only, see `hasBloodRites`): Death Strike's
+    // Frost + Unholy cost converts whatever's spent in those pairs to Death,
+    // the same "convert on spend" shape as Reaping but a different trigger
+    // spell and slot pair.
+    const isBloodRitesDeathStrike = this.hasBloodRites && spellId === SPELLS.DEATH_STRIKE.id;
+    const convertBloodSlot = isReapingSpell && !isIcyTouch;
+    const convertFrostSlot = isReapingSpell || isBloodRitesDeathStrike;
+    const convertUnholySlot = (isReapingSpell && isIcyTouch) || isBloodRitesDeathStrike;
+    const convertForSlot = (slotIndices: readonly [number, number]): boolean => {
+      if (slotIndices === BLOOD_INDICES) {
+        return convertBloodSlot;
+      }
+      if (slotIndices === FROST_INDICES) {
+        return convertFrostSlot;
+      }
+      return convertUnholySlot;
+    };
 
     // Before resyncing typed slots, check for deficits and fill them with death
     // rune substitutes first. This matches the game mechanic: when natural runes
@@ -563,7 +874,7 @@ class MoPRuneTracker extends Analyzer {
           if (spent >= needed) {
             break;
           }
-          this._spend(rune, ts, false);
+          this._spend(rune, ts, convertForSlot(slotIndices));
           spent++;
         }
       }
@@ -574,14 +885,34 @@ class MoPRuneTracker extends Analyzer {
     const frostDeathSubs = spendDeathSubs(frostDeficit, FROST_INDICES[0]);
     const unholyDeathSubs = spendDeathSubs(unholyDeficit, UNHOLY_INDICES[0]);
 
-    // Resync and spend only what death subs couldn't cover.
-    this._resyncSlot(BLOOD_INDICES, bloodCost - bloodDeathSubs, ts);
-    this._resyncSlot(FROST_INDICES, frostCost - frostDeathSubs, ts);
-    this._resyncSlot(UNHOLY_INDICES, unholyCost - unholyDeathSubs, ts);
+    // Resync and spend only what death subs couldn't cover. _resyncSlot returns
+    // exactly which runes it forced available, so _spendFromSlots can skip
+    // re-applying the linked-queue penalty to them (see _spend's skipLinkedQueue).
+    const bloodResynced = this._resyncSlot(BLOOD_INDICES, bloodCost - bloodDeathSubs, ts);
+    const frostResynced = this._resyncSlot(FROST_INDICES, frostCost - frostDeathSubs, ts);
+    const unholyResynced = this._resyncSlot(UNHOLY_INDICES, unholyCost - unholyDeathSubs, ts);
 
-    this._spendFromSlots(bloodCost - bloodDeathSubs, BLOOD_INDICES, ts, convertBlood);
-    this._spendFromSlots(frostCost - frostDeathSubs, FROST_INDICES, ts, convertFrost);
-    this._spendFromSlots(unholyCost - unholyDeathSubs, UNHOLY_INDICES, ts, false);
+    this._spendFromSlots(
+      bloodCost - bloodDeathSubs,
+      BLOOD_INDICES,
+      ts,
+      convertBloodSlot,
+      bloodResynced,
+    );
+    this._spendFromSlots(
+      frostCost - frostDeathSubs,
+      FROST_INDICES,
+      ts,
+      convertFrostSlot,
+      frostResynced,
+    );
+    this._spendFromSlots(
+      unholyCost - unholyDeathSubs,
+      UNHOLY_INDICES,
+      ts,
+      convertUnholySlot,
+      unholyResynced,
+    );
 
     // Death rune substitutions (classResources type unrecognized = Death rune
     // filling a typed slot, e.g. a Blood(=Death) rune via Blood of the North
@@ -596,8 +927,27 @@ class MoPRuneTracker extends Analyzer {
         (r) => this._isDeathRune(r) && this._isAvailable(r, ts),
       ).length;
       const deathDeficit = deathCost - availableDeaths;
+      const deathResynced = new Set<MoPRune>();
       for (let i = 0; i < Math.min(deathDeficit, allDeathOnCD.length); i++) {
-        allDeathOnCD[i].regenTime = ts;
+        const r = allDeathOnCD[i];
+        if (r.pendingRegen) {
+          // Same reasoning as _resyncSlot: no real countdown exists yet to
+          // shift onto the sibling - just force it available and clear the sentinel.
+          r.pendingRegen = false;
+          r.regenTime = ts;
+          deathResynced.add(r);
+          continue;
+        }
+        const diff = r.regenTime - ts;
+        // Same sibling-shift as _resyncSlot: preserve the pair's relative stagger
+        // instead of leaving the sibling's original (now-stale) CD in place, which
+        // would make _spend's linked-queue check push this rune out even further.
+        const linked = this.runes[r.linkedIndex];
+        if (!this._isAvailable(linked, ts)) {
+          linked.regenTime = Math.max(ts, linked.regenTime - diff);
+        }
+        r.regenTime = ts;
+        deathResynced.add(r);
       }
 
       // Spend: priority Blood slots → Frost slots → Unholy slots
@@ -613,7 +963,7 @@ class MoPRuneTracker extends Analyzer {
           if (deathToSpend <= 0) {
             break;
           }
-          this._spend(rune, ts, false);
+          this._spend(rune, ts, false, deathResynced.has(rune));
           deathToSpend -= 1;
         }
       }
@@ -626,11 +976,16 @@ class MoPRuneTracker extends Analyzer {
    * are the ones closest to ticking over naturally.
    * Mirrors Python RuneTracker._resync_runes (sorted ascending by regen_time).
    */
-  private _resyncSlot(indices: readonly number[], needed: number, timestamp: number) {
+  private _resyncSlot(
+    indices: readonly number[],
+    needed: number,
+    timestamp: number,
+  ): ReadonlySet<MoPRune> {
+    const resynced = new Set<MoPRune>();
     const available = indices.filter((i) => this._isAvailable(this.runes[i], timestamp)).length;
     const deficit = needed - available;
     if (deficit <= 0) {
-      return;
+      return resynced;
     }
     // Ascending = soonest-ready first (shortest remaining CD = closest to natural tick)
     const onCD = indices
@@ -639,6 +994,18 @@ class MoPRuneTracker extends Analyzer {
       .sort((a, b) => a.regenTime - b.regenTime);
     for (let i = 0; i < Math.min(deficit, onCD.length); i++) {
       const r = onCD[i];
+      if (r.pendingRegen) {
+        // This rune never had a real countdown to begin with - its sibling
+        // was still on cooldown when it was spent, so it's just been sitting
+        // as an Infinity sentinel (see MoPRune.pendingRegen). There's no real
+        // "remaining CD" to shift onto the sibling; just force it available
+        // now and clear the sentinel so _resolvePendingRegens doesn't later
+        // try to recompute a regenTime we just overwrote.
+        r.pendingRegen = false;
+        r.regenTime = timestamp;
+        resynced.add(r);
+        continue;
+      }
       const diff = r.regenTime - timestamp;
       // Mirrors Python refresh(): when a rune is made available early,
       // reduce the linked rune's remaining CD by the same amount so the
@@ -648,69 +1015,149 @@ class MoPRuneTracker extends Analyzer {
         linked.regenTime = Math.max(timestamp, linked.regenTime - diff);
       }
       r.regenTime = timestamp;
+      // Caller must spend this rune with skipLinkedQueue=true - we've already
+      // paid the "queue behind linked" cost above by shifting the sibling.
+      // Re-deriving it again from _spend()'s own linked-check would double it.
+      resynced.add(r);
     }
+    return resynced;
+  }
+
+  // ── Rune-pair group helpers (Blood Tap / Plague Leech priority) ───────────
+
+  /**
+   * Is every rune in `indices` currently unavailable (i.e. this whole pair is
+   * "depleted"), and not already claimed by an earlier pick this cast
+   * (`excluded`)?
+   */
+  private _pairDepleted(
+    indices: readonly [number, number],
+    timestamp: number,
+    excluded: number[],
+  ): boolean {
+    if (excluded.includes(indices[0]) || excluded.includes(indices[1])) {
+      return false;
+    }
+    return indices.every((i) => !this._isAvailable(this.runes[i], timestamp));
+  }
+
+  /**
+   * Within a depleted pair, the rune furthest from actually coming back -
+   * the one with the higher `regenTime` (a still-`pendingRegen`/Infinity
+   * sibling always wins, since it hasn't even started its countdown yet).
+   */
+  private _laterRuneInPair(indices: readonly [number, number]): MoPRune {
+    const [a, b] = [this.runes[indices[0]], this.runes[indices[1]]];
+    return a.regenTime >= b.regenTime ? a : b;
+  }
+
+  /**
+   * Among the given pair-groups, find every one that's fully depleted and
+   * return the target rune from whichever pair's `_laterRuneInPair` regenTime
+   * is highest (i.e. the pair that would otherwise take longest to recover
+   * naturally), rather than draining one candidate pair before ever considering the
+   * other.
+   */
+  private _bestDepletedPair(
+    groups: ReadonlyArray<readonly [number, number]>,
+    timestamp: number,
+    excluded: number[],
+  ): MoPRune | null {
+    let best: MoPRune | null = null;
+    for (const group of groups) {
+      if (!this._pairDepleted(group, timestamp, excluded)) {
+        continue;
+      }
+      const candidate = this._laterRuneInPair(group);
+      if (best === null || candidate.regenTime > best.regenTime) {
+        best = candidate;
+      }
+    }
+    return best;
   }
 
   // ── Blood Tap ──────────────────────────────────────────────────────────────
 
   /**
    * Blood Tap (MoP talent): spend 5 Blood Charges to activate one depleted
-   * rune as a Death rune. Selects the rune with the longest remaining CD from
-   * the pair with BOTH runes depleted (priority: Unholy → Frost → Blood).
+   * rune as a Death rune.
+   *
+   * Priority differs by spec:
+   *  - Blood: depleted Blood pair first; else whichever of Frost/Unholy is
+   *    depleted with the higher remaining CD.
+   *  - Frost: depleted Unholy pair first; else whichever of Blood/Frost is
+   *    depleted with the higher remaining CD.
+   *  - Unholy: whichever of Blood/Frost is depleted with the higher remaining
+   *    CD; Unholy pair only as a fallback.
    */
   private _activateBloodTapRune(timestamp: number) {
     const target = this._selectRuneForActivation(timestamp, []);
     if (target !== null) {
-      this._bloodTapActivate(this.runes[target], timestamp);
+      this._bloodTapActivate(target, timestamp);
     }
+  }
+
+  /**
+   * Select one depleted rune for Blood Tap-style activation, per spec
+   * priority (see `_activateBloodTapRune`). Blood and Frost each have one
+   * guaranteed-first group, checked before ever comparing the other two;
+   * Unholy has no guaranteed-first group; it compares Blood/Frost up front
+   * and only falls back to Unholy itself if neither is depleted.
+   */
+  private _selectRuneForActivation(timestamp: number, excluded: number[]): MoPRune | null {
+    if (this.spec === 'Blood' && this._pairDepleted(BLOOD_INDICES, timestamp, excluded)) {
+      return this._laterRuneInPair(BLOOD_INDICES);
+    }
+    if (this.spec === 'Frost' && this._pairDepleted(UNHOLY_INDICES, timestamp, excluded)) {
+      return this._laterRuneInPair(UNHOLY_INDICES);
+    }
+
+    const compareGroups: ReadonlyArray<readonly [number, number]> =
+      this.spec === 'Blood' ? [FROST_INDICES, UNHOLY_INDICES] : [BLOOD_INDICES, FROST_INDICES];
+    const compareCandidate = this._bestDepletedPair(compareGroups, timestamp, excluded);
+    if (compareCandidate) {
+      return compareCandidate;
+    }
+
+    // Unholy's guaranteed fallback group (Blood/Frost already ruled out above
+    // by the compare step finding nothing).
+    if (this.spec === 'Unholy' && this._pairDepleted(UNHOLY_INDICES, timestamp, excluded)) {
+      return this._laterRuneInPair(UNHOLY_INDICES);
+    }
+    return null;
   }
 
   // ── Plague Leech ───────────────────────────────────────────────────────────
 
   /**
-   * Plague Leech: consume diseases to activate up to 2 depleted runes as Death
-   * runes. Two picks, each from a different rune pair.
+   * Plague Leech: consume diseases to activate up to 2 depleted runes as
+   * Death runes. Two picks, each from a different rune pair, walked in a
+   * fixed spec-dependent order - unlike Blood Tap, this does NOT compare
+   * remaining CD across pairs here, it just tries each group in sequence:
+   *  - Unholy: Blood, then Frost; Unholy only if fewer than 2 found.
+   *  - Blood/Frost: Frost, then Unholy; Blood only if fewer than 2 found.
    */
   private _activatePlagueLeechRunes(timestamp: number) {
+    const order: ReadonlyArray<readonly [number, number]> =
+      this.spec === 'Unholy'
+        ? [BLOOD_INDICES, FROST_INDICES, UNHOLY_INDICES]
+        : [FROST_INDICES, UNHOLY_INDICES, BLOOD_INDICES];
+
     const excluded: number[] = [];
     for (let pick = 0; pick < 2; pick++) {
-      const target = this._selectRuneForActivation(timestamp, excluded);
-      if (target === null) {
+      let target: MoPRune | null = null;
+      for (const group of order) {
+        if (this._pairDepleted(group, timestamp, excluded)) {
+          target = this._laterRuneInPair(group);
+          excluded.push(...group);
+          break;
+        }
+      }
+      if (!target) {
         break;
       }
-      this._bloodTapActivate(this.runes[target], timestamp);
-      // Exclude the entire pair so second pick must be a different type
-      if (UNHOLY_INDICES.includes(target as 4 | 5)) {
-        excluded.push(...UNHOLY_INDICES);
-      } else if (FROST_INDICES.includes(target as 2 | 3)) {
-        excluded.push(...FROST_INDICES);
-      } else {
-        excluded.push(...BLOOD_INDICES);
-      }
+      this._bloodTapActivate(target, timestamp);
     }
-  }
-
-  /**
-   * Select one depleted rune to activate: both runes in its pair must be
-   * unavailable (or already in `excluded`). Priority: Unholy → Frost → Blood.
-   * Within a pair, picks the rune with the longest remaining CD.
-   */
-  private _selectRuneForActivation(timestamp: number, excluded: number[]): number | null {
-    const pairGroups = [UNHOLY_INDICES, FROST_INDICES, BLOOD_INDICES] as const;
-
-    for (const [a, b] of pairGroups) {
-      if (excluded.includes(a) || excluded.includes(b)) {
-        continue;
-      }
-      const aUnavail = !this._isAvailable(this.runes[a], timestamp);
-      const bUnavail = !this._isAvailable(this.runes[b], timestamp);
-      if (!(aUnavail && bUnavail)) {
-        continue;
-      }
-      // Pick the one with the longer remaining CD
-      return this.runes[a].regenTime >= this.runes[b].regenTime ? a : b;
-    }
-    return null;
   }
 
   private _bloodTapActivate(rune: MoPRune, timestamp: number) {
@@ -718,6 +1165,9 @@ class MoPRuneTracker extends Analyzer {
       rune.isBloodTapped = true;
     }
     rune.regenTime = timestamp;
+    // Clear the sentinel - this rune now has a real, resolved regenTime, so
+    // _resolvePendingRegens must never later overwrite it.
+    rune.pendingRegen = false;
   }
 
   // ── Empower Rune Weapon ────────────────────────────────────────────────────
@@ -733,10 +1183,13 @@ class MoPRuneTracker extends Analyzer {
       // Refresh first rune
       if (!this._isAvailable(a, timestamp)) {
         a.regenTime = timestamp;
+        a.pendingRegen = false;
       }
-      // Refresh second rune (may have queued behind first)
+      // Refresh second rune (may have queued behind first, or been sitting
+      // as a still-pending sentinel - either way it's real and available now)
       if (!this._isAvailable(b, timestamp)) {
         b.regenTime = timestamp;
+        b.pendingRegen = false;
       }
     }
   }
@@ -745,7 +1198,20 @@ class MoPRuneTracker extends Analyzer {
 
   /**
    * When the effective haste multiplier changes, rescale all in-progress rune
-   * cooldown remainders (and queue delays) proportionally.
+   * cooldown remainders proportionally.
+   *
+   * Previously this tried to detect a "queued" pair (second rune's regenTime
+   * ≈ first's + oldCd) and strip/re-add that offset around the rescale so
+   * the gap between them would land on the new CD instead of the old one.
+   * That's both unnecessary and risky: rescaling is linear, so scaling each
+   * rune's remaining time independently already reproduces exactly
+   * `first.new + newCd` for a genuinely queued second rune (the strip/re-add
+   * was a no-op on the path where it fired correctly) - and under the
+   * `pendingRegen` model a truly-queued rune's regenTime is the `Infinity`
+   * sentinel anyway, never a real `first + oldCd` value, so the detection
+   * could only ever fire on two independently-real regenTimes that happened
+   * to land `oldCd` apart by coincidence, corrupting them with an offset
+   * that was never actually there.
    */
   private _adjustRuneRegenTimes(timestamp: number, oldMult: number, newMult: number) {
     if (oldMult === newMult) {
@@ -755,35 +1221,19 @@ class MoPRuneTracker extends Analyzer {
     const oldCd = BASE_RUNE_CD_MS / oldMult;
     const newCd = BASE_RUNE_CD_MS / newMult;
 
-    for (let i = 0; i < 6; i += 2) {
-      const a = this.runes[i];
-      const b = this.runes[i + 1];
-
-      // Determine which rune comes off CD first
-      const [first, second] = a.regenTime <= b.regenTime ? [a, b] : [b, a];
-
-      // Detect queue relationship: second ≈ first + oldCd (within 1ms tolerance)
-      const inQueue =
-        first.regenTime > timestamp && Math.abs(second.regenTime - (first.regenTime + oldCd)) < 1;
-
-      // Strip queue delay before rescaling
-      if (inQueue) {
-        second.regenTime -= oldCd;
+    for (const rune of this.runes) {
+      // Pending runes have no real countdown to rescale (regenTime is an
+      // Infinity sentinel - see MoPRune.pendingRegen). They'll get a
+      // correctly fresh, live-haste completion time whenever they actually
+      // start regenerating, via _resolvePendingRegens.
+      if (rune.pendingRegen) {
+        continue;
       }
-
-      // Rescale remaining times
-      for (const rune of [first, second]) {
-        if (rune.regenTime > timestamp) {
-          const remaining = rune.regenTime - timestamp;
-          rune.regenTime = timestamp + remaining * (newCd / oldCd);
-        }
-        rune.runeCdMs = newCd;
+      if (rune.regenTime > timestamp) {
+        const remaining = rune.regenTime - timestamp;
+        rune.regenTime = timestamp + remaining * (newCd / oldCd);
       }
-
-      // Re-add queue delay with new CD
-      if (inQueue) {
-        second.regenTime += newCd;
-      }
+      rune.runeCdMs = newCd;
     }
   }
 
@@ -829,6 +1279,65 @@ class MoPRuneTracker extends Analyzer {
     this.bloodHistory.push({ timestamp, ...s.blood });
     this.frostHistory.push({ timestamp, ...s.frost });
     this.unholyHistory.push({ timestamp, ...s.unholy });
+  }
+
+  /**
+   * A rune becoming available for a single GCD before being spent again is
+   * real and worth seeing, but on a chart spanning a multi-minute fight that
+   * segment can be sub-pixel wide and effectively invisible. This nudges any
+   * segment shorter than the chart's own minimum-visible-duration out just
+   * enough to render at `minVisiblePx`, by delaying the timestamp of
+   * whichever point would otherwise end it too soon.
+   *
+   * Only affects the copy handed to the chart - `bloodHistory` /
+   * `frostHistory` / `unholyHistory` themselves (and their real timestamps)
+   * are untouched, since nothing else reads these arrays.
+   *
+   * The array isn't naturally in chronological order: the constructor seeds
+   * an initial snapshot at fight-start before any events are processed, so a
+   * prepull cast (e.g. Army of the Dead's ghoul-derived negative timestamp)
+   * gets pushed later, appearing AFTER the fight-start entry despite having
+   * an earlier timestamp. Sort by timestamp first so the widening pass (which
+   * only ever pushes points forward) doesn't mistake that earlier prepull
+   * point for a too-short segment and shove it forward past 0s.
+   *
+   * Each cast pushes a pre-cast AND a post-cast snapshot at the exact same
+   * timestamp (a genuine instantaneous transition, not a short-but-real
+   * segment). Padding is only applied when the gap to the ORIGINAL previous
+   * timestamp is nonzero but under the visible minimum - same-instant pairs
+   * are left untouched. Padding relative to the original timestamps (rather
+   * than the running, possibly-already-padded `lastRenderTs`) keeps drift
+   * from one padded segment compounding into the next: earlier versions of
+   * this padded every same-instant pre/post pair by the full minimum gap,
+   * and with hundreds of casts that compounded into drift of several minutes
+   * by the end of the fight.
+   */
+  protected _widenHistoryForDisplay<T extends { timestamp: number }>(
+    history: T[],
+    chartWidthPx: number,
+    fightDurationMs: number,
+    minVisiblePx = 6,
+  ): T[] {
+    if (history.length === 0 || chartWidthPx <= 0 || fightDurationMs <= 0) {
+      return history;
+    }
+    const sorted = [...history].sort((a, b) => a.timestamp - b.timestamp);
+    const minVisibleMs = (minVisiblePx / chartWidthPx) * fightDurationMs;
+    const widened: T[] = [{ ...sorted[0] }];
+    let lastRenderTs = sorted[0].timestamp;
+    for (let i = 1; i < sorted.length; i++) {
+      const point = sorted[i];
+      const prevOriginalTs = sorted[i - 1].timestamp;
+      const originalGap = point.timestamp - prevOriginalTs;
+      const desiredTs =
+        originalGap > 0 && originalGap < minVisibleMs
+          ? prevOriginalTs + minVisibleMs
+          : point.timestamp;
+      const renderTs = Math.max(desiredTs, lastRenderTs);
+      widened.push({ ...point, timestamp: renderTs });
+      lastRenderTs = renderTs;
+    }
+    return widened;
   }
 
   // ── Statistic helpers (used by concrete subclasses) ───────────────────────

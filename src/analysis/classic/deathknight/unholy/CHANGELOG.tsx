@@ -3,7 +3,7 @@ import { Darkfrog, emallson } from 'CONTRIBUTORS';
 
 export default [
   change(
-    date(2026, 6, 19),
+    date(2026, 7, 11),
     'Added Unholy Death Knight analysis for Classic MoP: Guide; pet tracking (Gargoyle, Ghoul); disease and presence uptime trackers; Sudden Doom and Unholy Frenzy support.',
     Darkfrog,
   ),

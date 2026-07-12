@@ -160,14 +160,29 @@ class SoulReaperEfficiency extends Analyzer {
     return Math.max(this.castsInExecute, Math.ceil(this.executeDurationMs / SOUL_REAPER_CD_MS));
   }
 
-  /** Subclasses may override to subtract excused misses (e.g. Frost AoE). */
-  // oxlint-disable-next-line typescript-eslint/class-literal-property-style -- intentional override point, not a constant
-  get excusedMisses(): number {
+  /**
+   * Subclasses may override to subtract excused misses (e.g. Frost AoE).
+   * This is a method, not a getter/property: Frost's override computes a
+   * real value from runtime damage-event data, so it can't be resolved to a
+   * constant at class-definition time (which is what would let it be a
+   * plain field instead).
+   */
+  excusedMisses(): number {
     return 0;
   }
 
+  /**
+   * Which Soul Reaper variant to show in the statistic box. The cast listener
+   * above tracks all three spec variants (Frost/Unholy/Blood both cost the
+   * same thing and share this tracker), but the displayed icon/name needs to
+   * match the current spec - each subclass overrides this to its own variant.
+   */
+  protected get soulReaperSpell() {
+    return SPELLS.SOUL_REAPER_FROST;
+  }
+
   get effectivePossibleCasts() {
-    return Math.max(this.castsInExecute, this.possibleCasts - this.excusedMisses);
+    return Math.max(this.castsInExecute, this.possibleCasts - this.excusedMisses());
   }
 
   get castEfficiency() {
@@ -186,6 +201,7 @@ class SoulReaperEfficiency extends Analyzer {
     if (!this.hadExecutePhase) return null;
     const excDuration = (this.executeDurationMs / 1000).toFixed(1);
     const threshold = Math.round(this._executeThreshold * 100);
+    const excusedMisses = this.excusedMisses();
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(10)}
@@ -195,15 +211,15 @@ class SoulReaperEfficiency extends Analyzer {
           <>
             Execute phase: {excDuration}s total (threshold: {threshold}%
             {this._hasT15_4p && ' — T15 4pc'})
-            {this.excusedMisses > 0 && (
+            {excusedMisses > 0 && (
               <>
-                , {this.excusedMisses} missed cast{this.excusedMisses > 1 ? 's' : ''} excused (AoE)
+                , {excusedMisses} missed cast{excusedMisses > 1 ? 's' : ''} excused (AoE)
               </>
             )}
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SOUL_REAPER_FROST}>
+        <BoringSpellValueText spell={this.soulReaperSpell}>
           {formatPercentage(this.castEfficiency)}%{' '}
           <small>
             {this.castsInExecute} / {this.effectivePossibleCasts} casts

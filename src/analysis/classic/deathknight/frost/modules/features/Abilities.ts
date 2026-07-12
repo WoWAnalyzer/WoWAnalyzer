@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/classic/deathknight';
+import MISC_SPELLS from 'common/SPELLS/classic/misc';
 import { evilEyeCdMultiplier } from 'analysis/classic/deathknight/shared/EvilEyeOfGalakras';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -24,16 +25,6 @@ class Abilities extends CoreAbilities {
         gcd: GCD_1S,
       },
       {
-        spell: SPELLS.HOWLING_BLAST.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: GCD_1S,
-      },
-      {
-        spell: SPELLS.FESTERING_STRIKE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: GCD_1S,
-      },
-      {
         spell: SPELLS.PLAGUE_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: GCD_1S,
@@ -45,8 +36,21 @@ class Abilities extends CoreAbilities {
         cooldown: 60 * eyeMult,
       },
       // ---- Rotational AoE ----
+      // Howling Blast always hits the target plus all nearby enemies, so
+      // it's inherently an AoE spell even though it's also the spec's
+      // single-target filler whenever Rime is up.
+      {
+        spell: SPELLS.HOWLING_BLAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: GCD_1S,
+      },
       {
         spell: SPELLS.BLOOD_BOIL.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: GCD_1S,
+      },
+      {
+        spell: SPELLS.PESTILENCE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: GCD_1S,
       },
@@ -118,6 +122,13 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 120,
       },
+      {
+        spell: SPELLS.DEATH_PACT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+        cooldown: 120,
+        enabled: this.selectedCombatant.hasClassicTalent(SPELLS.DEATH_PACT.id),
+      },
       // ---- Utility ----
       {
         spell: SPELLS.MIND_FREEZE.id,
@@ -140,7 +151,15 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HORN_OF_WINTER.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: GCD_1S,
-        cooldown: 20,
+        // Glyph of the Loud Horn doubles this to 40s (in exchange for +10 RP
+        // per cast) - see SPELLS.GLYPH_OF_THE_LOUD_HORN's own comment.
+        cooldown: () =>
+          this.selectedCombatant.hasGlyph(SPELLS.GLYPH_OF_THE_LOUD_HORN.glyphId!) ? 40 : 20,
+      },
+      {
+        spell: SPELLS.RAISE_ALLY.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: GCD_1S,
       },
       {
         spell: SPELLS.BLOOD_PRESENCE.id,
@@ -167,6 +186,19 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_COIL_DK.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: GCD_1S,
+      },
+      // ---- Profession / universal items (no cost, not spec-specific) ----
+      {
+        spell: MISC_SPELLS.LIFEBLOOD.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
+      },
+      {
+        spell: MISC_SPELLS.GOBLIN_GLIDER.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
+        cooldown: 180,
       },
     ];
   }

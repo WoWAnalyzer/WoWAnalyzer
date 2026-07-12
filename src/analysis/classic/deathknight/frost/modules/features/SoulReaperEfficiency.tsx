@@ -16,6 +16,10 @@ const HB_AOE_WINDOW_MS = 500;
 const HB_AOE_MIN_TARGETS = 3;
 
 class SoulReaperEfficiency extends SharedSoulReaperEfficiency {
+  protected override get soulReaperSpell() {
+    return SPELLS.SOUL_REAPER_FROST;
+  }
+
   /** Each entry: [timestamp of HB cast, Set of target IDs hit] */
   private _hbWindows: [number, Set<number>][] = [];
 
@@ -43,7 +47,7 @@ class SoulReaperEfficiency extends SharedSoulReaperEfficiency {
    * Count how many 6s Soul Reaper "slots" during execute were covered by an
    * HB hitting 3+ targets (AoE scenario, SR not the right choice).
    */
-  override get excusedMisses(): number {
+  override excusedMisses(): number {
     const intervals = this.getExecuteIntervals();
     if (intervals.length === 0) return 0;
 

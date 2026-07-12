@@ -3,7 +3,7 @@ import { Darkfrog, jazminite } from 'CONTRIBUTORS';
 
 export default [
   change(
-    date(2026, 6, 19),
+    date(2026, 7, 11),
     'Added Frost Death Knight analysis for Classic MoP: Guide; rune/runic power tracking; efficiency/waste trackers; disease uptime trackers; Evil Eye of Galakras support; fixed incorrect Killing Machine spell ID.',
     Darkfrog,
   ),
