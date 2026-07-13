@@ -4,6 +4,7 @@ import type { Boss } from 'game/raids';
 
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import VSDRMQD from 'game/raids/vs_dr_mqd';
+import Sporefall from 'game/raids/sporefall';
 
 export interface Zone {
   id: number;
@@ -29,6 +30,14 @@ const ZONES: Zone[] = [
     frozen: false,
     useBetaTooltips: false,
     encounters: Object.values(VSDRMQD.bosses),
+    partition: 3,
+  },
+  {
+    id: 50,
+    name: 'Sporefall',
+    frozen: false,
+    useBetaTooltips: false,
+    encounters: Object.values(Sporefall.bosses),
   },
 ];
 

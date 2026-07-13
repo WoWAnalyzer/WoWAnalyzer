@@ -1,10 +1,18 @@
 import DragScroll from 'interface/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
+import {
+  AnyEvent,
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  FilterCooldownInfoEvent,
+  RemoveBuffEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AurasModule from 'parser/core/modules/Auras';
-import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 import './Timeline.scss';
@@ -13,8 +21,12 @@ import Casts, { isApplicableEvent } from './Casts';
 import { EnemyCastsTimeline } from './EnemyCasts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-export function isApplicableUpdateSpellUsableEvent(event, startTime) {
+export function isApplicableUpdateSpellUsableEvent(
+  event: UpdateSpellUsableEvent,
+  startTime: number,
+) {
   if (
     event.updateType !== UpdateSpellUsableType.EndCooldown &&
     event.updateType !== UpdateSpellUsableType.RestoreCharge
@@ -33,28 +45,32 @@ export function isApplicableUpdateSpellUsableEvent(event, startTime) {
   return true;
 }
 
-class Timeline extends PureComponent {
-  static propTypes = {
-    abilities: PropTypes.instanceOf(Abilities).isRequired,
-    enemyCasts: PropTypes.array,
-    auras: PropTypes.instanceOf(AurasModule).isRequired,
-    movement: PropTypes.arrayOf(
-      PropTypes.shape({
-        start: PropTypes.number,
-        end: PropTypes.number,
-        distance: PropTypes.number,
-      }),
-    ),
-    parser: PropTypes.instanceOf(CombatLogParser).isRequired,
-    config: PropTypes.shape({
-      separateCastBars: PropTypes.array,
-    }),
-    visibleAuras: PropTypes.instanceOf(Set),
-    showCooldowns: PropTypes.bool,
-    showGlobalCooldownDuration: PropTypes.bool,
+interface TimelineProps {
+  abilities: Abilities;
+  enemyCasts?: Array<AnyEvent>;
+  auras: AurasModule;
+  movement?: Array<{
+    start: number;
+    end: number;
+    distance: number;
+  }>;
+  parser: CombatLogParser;
+  config?: {
+    separateCastBars?: Array<Array<number>>;
   };
+  visibleAuras?: Set<number>;
+  showCooldowns?: boolean;
+  showGlobalCooldownDuration?: boolean;
+  visibleSpellCategories?: Set<keyof typeof SPELL_CATEGORY>;
+}
 
-  constructor(props) {
+interface TimelineState {
+  zoom?: number;
+  filteredEnemyCasts?: Array<AnyEvent>;
+}
+
+class Timeline extends PureComponent<TimelineProps, TimelineState> {
+  constructor(props: TimelineProps) {
     super(props);
     this.state = {
       zoom: 2,
@@ -63,8 +79,8 @@ class Timeline extends PureComponent {
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  handleToggle(toggleName) {
-    this.setState((prevState) => ({
+  handleToggle(toggleName: keyof TimelineState) {
+    this.setState((prevState: TimelineState) => ({
       [toggleName]: !prevState[toggleName],
     }));
   }
@@ -88,10 +104,17 @@ class Timeline extends PureComponent {
     return this.duration / 1000;
   }
   get secondWidth() {
-    return 120 / this.state.zoom;
+    return this.state.zoom ? 120 / this.state.zoom : 120;
   }
 
-  isApplicableEvent(event) {
+  isApplicableEvent(
+    event: AnyEvent,
+  ): event is
+    | CastEvent
+    | FilterCooldownInfoEvent
+    | ApplyBuffEvent
+    | RemoveBuffEvent
+    | UpdateSpellUsableEvent {
     switch (event.type) {
       case EventType.FilterCooldownInfo:
       case EventType.Cast:
@@ -105,7 +128,8 @@ class Timeline extends PureComponent {
         return false;
     }
   }
-  isApplicableCastEvent(event) {
+
+  isApplicableCastEvent(event: CastEvent | FilterCooldownInfoEvent): boolean {
     const parser = this.props.parser;
 
     if (!parser.byPlayer(event)) {
@@ -117,7 +141,7 @@ class Timeline extends PureComponent {
       return false;
     }
     const ability = this.props.abilities.getAbility(spellId);
-    if (!ability || !ability.cooldown) {
+    if (!ability || !ability.cooldown || ability.timelineHide) {
       return false;
     }
     if (event.timestamp >= this.end) {
@@ -125,15 +149,13 @@ class Timeline extends PureComponent {
     }
     return true;
   }
-  isApplicableBuffEvent(event) {
+
+  isApplicableBuffEvent(event: ApplyBuffEvent | RemoveBuffEvent): boolean {
     const ability = this.props.abilities.getAbility(event.ability.guid);
-    return ability && ability.timelineCastableBuff === event.ability.guid;
+    return !!ability && ability.timelineCastableBuff === event.ability.guid;
   }
-  /**
-   * @param {object[]} events
-   * @returns {Map<int, object[]>} Events grouped by spell id.
-   */
-  getEventsBySpellId(events) {
+
+  getEventsBySpellId(events: Array<AnyEvent>) {
     const eventsBySpellId = new Map();
     events.forEach((event) => {
       if (!this.isApplicableEvent(event)) {
@@ -149,7 +171,7 @@ class Timeline extends PureComponent {
     return eventsBySpellId;
   }
 
-  _getCanonicalId(spellId) {
+  _getCanonicalId(spellId: number) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability) {
       return spellId; // not a class ability
@@ -164,10 +186,10 @@ class Timeline extends PureComponent {
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
-    const allSeparatedIds = this.props.config?.separateCastBars.flat() || [];
+    const allSeparatedIds = this.props.config?.separateCastBars?.flat() || [];
 
     const castEvents = [
-      ...(this.props.config?.separateCastBars.map((spellIds) =>
+      ...(this.props.config?.separateCastBars?.map((spellIds) =>
         parser.eventHistory
           .filter(isApplicableEvent(parser.playerId))
           .filter((event) => spellIds.includes(event.ability?.guid)),
@@ -229,6 +251,7 @@ class Timeline extends PureComponent {
               secondWidth={this.secondWidth}
               eventsBySpellId={eventsBySpellId}
               abilities={abilities}
+              visibleSpellCategories={this.props.visibleSpellCategories}
             />
           </div>
         </DragScroll>

@@ -28,7 +28,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * REQUIRED The category of a spell eg Rotational or Defensive.
    * Use {@link SPELL_CATEGORY} for the value.
    */
-  category: SPELL_CATEGORY;
+  category: keyof typeof SPELL_CATEGORY;
   /**
    * The cooldown of a spell at the time of the cast. Unlike most other durations in WoWA,
    * this is in *seconds, NOT milliseconds*. This can be the direct number, or it can be a function
@@ -107,6 +107,12 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * the timeline it will be displayed.
    */
   timelineSortIndex?: number;
+  /**
+   * When true, this ability will not get its own cooldown lane at the bottom of the
+   * Timeline. Intended to hide unimportant utility spells to reduce noise on the timeline.
+   * Use sporadically.
+   */
+  timelineHide?: boolean;
   /**
    * If this ability is only castable with a certain buff, this can be indicated
    * by setting this prop to the buff spell id.
@@ -258,6 +264,7 @@ class Ability {
   }
   enabled = true;
   timelineSortIndex: number | null = null;
+  timelineHide = false;
   timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;

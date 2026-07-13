@@ -1360,7 +1360,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103767],
     definitionIds: [{ id: 108772, specId: 257 }],
-    manaCost: 13125,
+    manaCost: 12075,
   },
   PREEMPTIVE_CARE_TALENT: {
     id: 440671,

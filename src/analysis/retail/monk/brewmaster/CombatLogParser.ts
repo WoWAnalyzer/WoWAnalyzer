@@ -1,5 +1,6 @@
 import TouchOfDeath from 'analysis/retail/monk/shared/TouchOfDeath';
 import MysticTouch from 'analysis/retail/monk/shared/MysticTouch';
+import SaveThemAll from 'analysis/retail/monk/shared/SaveThemAll';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
     mysticTouch: MysticTouch,
+    saveThemAll: SaveThemAll,
 
     // Features
     abilities: Abilities,

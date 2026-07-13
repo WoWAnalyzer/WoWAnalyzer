@@ -8,6 +8,7 @@ import Lane from './Lane';
 import Icon from 'interface/Icon';
 import { TimelineSettingsContext } from './Settings';
 import { maybeGetSpell } from 'common/SPELLS';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 interface Props {
   start: number;
@@ -32,6 +33,7 @@ interface Props {
    */
   fixedCooldownOrder?: boolean;
   disableLegend?: boolean;
+  visibleSpellCategories?: Set<keyof typeof SPELL_CATEGORY>;
 }
 
 class Cooldowns extends PureComponent<Props> {
@@ -50,16 +52,35 @@ class Cooldowns extends PureComponent<Props> {
     return 1000 - events.length;
   }
 
-  private sortEntries(entries: [number, AnyEvent[]][], growUp: boolean): void {
-    entries.sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b));
+  private filterEntriesBySpellCategory(entries: [number, AnyEvent[]][]): [number, AnyEvent[]][] {
+    if (!this.props.visibleSpellCategories) {
+      return entries;
+    }
+
+    return entries.filter(([spellId]) => {
+      const ability = this.props.abilities.getAbility(spellId);
+      if (!ability) {
+        return false;
+      }
+      //@ts-expect-error This is a type error, but we know that ability.category is a key of SPELL_CATEGORY
+      return this.props.visibleSpellCategories?.has(ability.category);
+    });
+  }
+
+  private sortEntries(entries: [number, AnyEvent[]][], growUp: boolean) {
+    const filteredEntries = this.filterEntriesBySpellCategory(entries);
+    filteredEntries.sort(
+      (a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b),
+    );
+    return filteredEntries;
   }
 
   renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
     const entries: [number, AnyEvent[]][] =
       this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
-    this.sortEntries(entries, growUp);
-    return entries.map((item) => this.renderLane(item));
+    const sortedEntries = this.sortEntries(entries, growUp);
+    return sortedEntries.map((item) => this.renderLane(item));
   }
   renderLane([spellId, events]: [number, AnyEvent[]]) {
     return (
@@ -81,9 +102,9 @@ class Cooldowns extends PureComponent<Props> {
       this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
 
-    this.sortEntries(entries, growUp);
+    const sortedEntries = this.sortEntries(entries, growUp);
 
-    return entries.map(([spellId, events]) => {
+    return sortedEntries.map(([spellId, events]) => {
       if (events.length === 0) {
         return null;
       }

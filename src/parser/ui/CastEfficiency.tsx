@@ -17,7 +17,7 @@ const CastEfficiency = ({ abilities }: Props) => (
           <tbody key={category}>
             <tr>
               <th>
-                <b>{getSpellCategoryName(category as SPELL_CATEGORY)}</b>
+                <b>{getSpellCategoryName(category)}</b>
               </th>
               <th className="text-center">
                 <TooltipElement

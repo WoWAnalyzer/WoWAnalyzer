@@ -11,13 +11,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import DonutChart from 'parser/ui/DonutChart';
 import UnleashLife from './UnleashLife';
-import {
-  RESTORATION_COLORS,
-  UNLEASH_LIFE_REMOVE_MS,
-  EARTHEN_ACCORD_UL_DIRECT_INCREASE,
-  UNLEASH_LIFE_HEALING_INCREASE,
-  EARTHEN_ACCORD_BUFF_INCREASE,
-} from '../../constants';
+import { RESTORATION_COLORS, UNLEASH_LIFE_REMOVE_MS, healingIncreases } from '../../constants';
 import {
   isBuffedByUnleashLife,
   getUnleashLifeHealingWaves,
@@ -25,7 +19,7 @@ import {
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
 
-class EarthenAccord extends Analyzer {
+class EarthenAccordAnalyzer extends Analyzer {
   static dependencies = {
     unleashLife: UnleashLife,
     chainHealNormalizer: ChainHealNormalizer,
@@ -36,9 +30,11 @@ class EarthenAccord extends Analyzer {
   protected chainHealNormalizer!: ChainHealNormalizer;
   protected riptideTracker!: RiptideTracker;
 
-  buffedUnleashLifeIncrease = UNLEASH_LIFE_HEALING_INCREASE * (1 + EARTHEN_ACCORD_BUFF_INCREASE);
+  buffedUnleashLifeIncrease =
+    healingIncreases.UNLEASH_LIFE_HEALING_INCREASE * 1 +
+    healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE;
   earthenAccordBuffContribution =
-    (UNLEASH_LIFE_HEALING_INCREASE * EARTHEN_ACCORD_BUFF_INCREASE) / this.buffedUnleashLifeIncrease;
+    healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE / this.buffedUnleashLifeIncrease;
   healing = 0;
   healingBySource = new Map<number, number>();
   ulActive = false;
@@ -78,8 +74,7 @@ class EarthenAccord extends Analyzer {
   }
 
   onRemoveUnleashLife(event: RemoveBuffEvent) {
-    this.lastRemoved = event.timestamp;
-    this.ulActive = false;
+    this.lastRemoved = event.timestamp; //Since we track Riptide a directly now we don't need to force a ULa=false anymore as long as we check in AlreadyConsumed.
   }
 
   unleashAlreadyConsumed(event: CastEvent | HealEvent) {
@@ -100,7 +95,7 @@ class EarthenAccord extends Analyzer {
     const total = event.amount + (event.absorbed || 0);
     this.mapSpellHealing(
       TALENTS.UNLEASH_LIFE_TALENT.id,
-      total * (1 - 1 / (1 + EARTHEN_ACCORD_UL_DIRECT_INCREASE)),
+      total * (1 - 1 / (1 + healingIncreases.EARTHEN_ACCORD_UL_DIRECT_INCREASE)),
     );
   }
 
@@ -225,4 +220,4 @@ class EarthenAccord extends Analyzer {
   }
 }
 
-export default EarthenAccord;
+export default EarthenAccordAnalyzer;
