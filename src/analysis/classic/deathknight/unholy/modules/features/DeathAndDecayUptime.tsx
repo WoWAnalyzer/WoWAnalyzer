@@ -27,7 +27,7 @@ class DeathAndDecayUptime extends Analyzer {
     // The cast (SPELLS.DEATH_AND_DECAY, 43265) and the periodic ground-effect
     // damage it deals are two different spell IDs in-game - where the
     // actual damage is correctly sourced by the player under ability 52212,
-    // not 43265. 
+    // not 43265.
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY_DAMAGE),
       this.onDamage,
