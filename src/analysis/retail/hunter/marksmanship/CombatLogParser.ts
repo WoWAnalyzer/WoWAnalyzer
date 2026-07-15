@@ -1,14 +1,11 @@
 import {
   BindingShot,
-  BornToBeWild,
   CancelledCasts,
   Channeling,
   DeathTracker,
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
-  NaturalMending,
-  RejuvenatingWind,
   SpellFocusCost,
   TranquilizingShot,
 } from '../shared';
@@ -93,10 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingShots: SurgingShots,
 
     //Shared Talents
-    rejuvenatingWind: RejuvenatingWind,
     tranquilizingShot: TranquilizingShot,
-    naturalMending: NaturalMending,
-    bornToBeWild: BornToBeWild,
     masterMarksman: MasterMarksman,
     blackArrow: BlackArrow,
     sentinelsMark: SentinelsMark,
