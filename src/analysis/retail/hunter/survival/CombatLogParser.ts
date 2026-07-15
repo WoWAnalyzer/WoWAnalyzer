@@ -7,8 +7,6 @@ import {
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
-  NaturalMending,
-  RejuvenatingWind,
   SpellFocusCost,
   TranquilizingShot,
 } from '../shared';
@@ -99,8 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     moonlightChakram: MoonlightChakram,
     sentinelsMark: SentinelsMark,
     bindingShot: BindingShot,
-    naturalMending: NaturalMending,
-    rejuvenatingWind: RejuvenatingWind,
     tranquilizingShot: TranquilizingShot,
     survivalOfTheFittest: SurvivalOfTheFittest,
     stampedeAnalyzer: StampedeAnalyzer,
