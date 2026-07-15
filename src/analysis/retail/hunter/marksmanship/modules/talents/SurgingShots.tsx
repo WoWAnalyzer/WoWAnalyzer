@@ -1,17 +1,11 @@
-import {
-  SURGING_SHOTS_DAMAGE_INCREASE,
-  SURGING_SHOTS_RESET_CHANCE,
-} from 'analysis/retail/hunter/marksmanship/constants';
+import { SURGING_SHOTS_RESET_CHANCE } from 'analysis/retail/hunter/marksmanship/constants';
 import SpellUsable from 'analysis/retail/hunter/marksmanship/modules/core/SpellUsable';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -27,7 +21,6 @@ class SurgingShots extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  damage = 0;
   aimedShotCasts = 0;
 
   protected spellUsable!: SpellUsable;
@@ -36,17 +29,9 @@ class SurgingShots extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGING_SHOTS_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE),
-      this.onRapidFireDamage,
-    );
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.AIMED_SHOT_TALENT),
       this.onAimedShotCast,
     );
-  }
-
-  onRapidFireDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, SURGING_SHOTS_DAMAGE_INCREASE);
   }
 
   onAimedShotCast() {
@@ -76,7 +61,9 @@ class SurgingShots extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.SURGING_SHOTS_TALENT}>
-          <ItemDamageDone amount={this.damage} />
+          <>
+            {this.spellUsable.rapidFireResets} <small>Rapid Fire resets</small>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

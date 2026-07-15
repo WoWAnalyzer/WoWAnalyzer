@@ -13,9 +13,6 @@ import Events, {
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BASE_TICKS = 7;
 const QUICK_DRAW_TICKS = 10;
@@ -167,19 +164,6 @@ class RapidFire extends Analyzer {
         event.timestamp,
       );
     }
-  }
-
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL(2)} size="flexible">
-        <BoringSpellValueText spell={TALENTS.RAPID_FIRE_TALENT}>
-          <>
-            {this.effectiveFocusGain}/{this.focusWasted + this.effectiveFocusGain}{' '}
-            <small>possible focus gained</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 
