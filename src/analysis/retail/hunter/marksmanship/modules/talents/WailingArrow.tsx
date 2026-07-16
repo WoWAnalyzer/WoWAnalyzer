@@ -54,7 +54,9 @@ class WailingArrow extends Analyzer {
   onCast(event: CastEvent) {
     this.totalCasts += 1;
     this.castDuringCurrentTrueshot = true;
-    if (this.selectedCombatant.hasBuff(SPELLS.DEATHBLOW_BUFF.id, event.timestamp, 0, MS_BUFFER_50)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.DEATHBLOW_BUFF.id, event.timestamp, 0, MS_BUFFER_50)
+    ) {
       this.wastedIntoDeathblow += 1;
       addInefficientCastReason(
         event,
