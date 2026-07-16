@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/paladin';
-import Combatant from 'parser/core/Combatant';
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_SHOCK_HEAL.id,
@@ -91,7 +90,7 @@ export const BEACON_TRANSFERING_ABILITIES = {
   //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
 };
 
-export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
+export function getBeaconSpellFactor(spellID: number): number | undefined {
   const factor = BEACON_TRANSFERING_ABILITIES[spellID];
   if (!factor) {
     return undefined;
