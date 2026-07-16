@@ -52,7 +52,6 @@ export const IMBUED_INFUSIONS_REDUCTION = 1000;
 export const TIRIONS_DEVOTION_REDUCTION = 1500; // per holy power
 export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
 export const JUDGMENT_OF_LIGHT_HEALS = 5;
-export const SECOND_SUNRISE_CHANCE = 0.15;
 
 // Beacon Constants & Functions
 export const BEACON_TRANSFERING_ABILITIES = {

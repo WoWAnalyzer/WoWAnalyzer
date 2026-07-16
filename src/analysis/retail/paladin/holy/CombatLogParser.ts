@@ -61,7 +61,6 @@ import Guide from './guide/Guide';
 import Aurora from './modules/heroTalents/herald/Aurora';
 import Dawnlight from './modules/heroTalents/herald/Dawnlight';
 import GleamingRays from './modules/heroTalents/herald/GleamingRays';
-import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
 import BlessedAssurance from './modules/heroTalents/lightsmith/BlessedAssurance';
 import DivineGuidance from './modules/heroTalents/lightsmith/DivineGuidance';
 import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
@@ -134,7 +133,6 @@ class CombatLogParser extends CoreCombatLogParser {
     aurora: Aurora,
     dawnlight: Dawnlight,
     gleamingRays: GleamingRays,
-    secondSunrise: SecondSunrise,
     // Lightsmith
     blessedAssurance: BlessedAssurance,
     divineGuidance: DivineGuidance,
