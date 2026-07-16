@@ -14,7 +14,6 @@ export const EMPYREAN_LEGACY = 'EmpyreanLegacy';
 // Hero Talent
 // Herald of the Sun
 export const AURORA_DIVINE_PURPOSE = 'AuroraDivinePurpose';
-export const BLESSING_OF_ANSHE = 'BlessingOfAnshe';
 export const SECOND_SUNRISE = 'SecondSunrise';
 
 // Lightsmith

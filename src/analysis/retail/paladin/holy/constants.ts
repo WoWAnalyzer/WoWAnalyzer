@@ -39,7 +39,6 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
 ];
 
 // Talent Constants
-export const BLESSING_OF_ANSHE_INCREASE = 2.0;
 export const DIVINE_REVELATIONS_INCREASE = 0.2;
 export const PROTECTION_OF_TYR_INCREASE = 0.1;
 export const RECLAMATION_MAX_INCREASE = 0.5;

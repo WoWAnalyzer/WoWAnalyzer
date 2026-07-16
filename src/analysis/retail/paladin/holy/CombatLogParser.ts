@@ -59,7 +59,6 @@ import RisingSunlight from './modules/talents/RisingSunlight';
 import Guide from './guide/Guide';
 
 import Aurora from './modules/heroTalents/herald/Aurora';
-import BlessingOfAnshe from './modules/heroTalents/herald/BlessingOfAnshe';
 import Dawnlight from './modules/heroTalents/herald/Dawnlight';
 import GleamingRays from './modules/heroTalents/herald/GleamingRays';
 import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
@@ -133,7 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hero Talents
     // Herald
     aurora: Aurora,
-    blessingOfAnshe: BlessingOfAnshe,
     dawnlight: Dawnlight,
     gleamingRays: GleamingRays,
     secondSunrise: SecondSunrise,
