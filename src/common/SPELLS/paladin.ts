@@ -201,6 +201,11 @@ const spells = {
     name: 'Infusion of Light',
     icon: 'ability_paladin_infusionoflight',
   },
+  HAND_OF_DIVINITY_BUFF: {
+    id: 414273,
+    name: 'Hand of Divinity',
+    icon: 'spell_holy_vindication',
+  },
   CLEANSE: {
     id: 4987,
     name: 'Cleanse',

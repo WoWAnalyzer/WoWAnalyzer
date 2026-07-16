@@ -38,6 +38,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import FlashOfLightUsage from './modules/talents/FlashOfLightUsage';
+import HandOfDivinity from './modules/talents/HandOfDivinity';
 import HolyPrism from './modules/talents/HolyPrism';
 import InfusionOfLight from './modules/talents/InfusionOfLight';
 import ResplendentLight from './modules/talents/ResplendentLight';
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divineToll: DivineToll,
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
+    handOfDivinity: HandOfDivinity,
     holyPrism: HolyPrism,
     infusionOfLight: InfusionOfLight,
     flashOfLightUsage: FlashOfLightUsage,
