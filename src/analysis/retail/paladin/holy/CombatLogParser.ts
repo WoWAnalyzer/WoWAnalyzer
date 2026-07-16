@@ -159,8 +159,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
     hpmDetails: HealingEfficiencyDetails,
-
-    // Tier Sets
   };
   static guide = Guide;
 }
