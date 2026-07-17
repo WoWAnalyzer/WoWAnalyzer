@@ -31,6 +31,11 @@ const spells = {
     name: 'Freightrunners Flask',
     icon: 'inv_alchemy_90_flask_red',
   },
+  AKILZONS_CLARITY: {
+    id: 1247577,
+    name: "Akilzon's Clarity",
+    icon: 'inv_archaeology_70_tauren_drum',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

@@ -100,6 +100,12 @@ class StatTracker extends Analyzer {
       crit: (selectedCombatant, item) =>
         calculateSecondaryStatDefault(289, 531, item?.itemLevel ?? selectedCombatant.ilvl),
     },
+    [SPELLS.AKILZONS_CLARITY.id]: {
+      itemId: ITEMS.DRUM_OF_RENEWED_BONDS.id,
+      crit: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(315, 452, item?.itemLevel ?? selectedCombatant.ilvl),
+    },
+
     // endregion
 
     // region Other

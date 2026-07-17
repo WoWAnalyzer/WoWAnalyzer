@@ -566,6 +566,16 @@ export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
   );
 }
 
+export function getMassEruptionTargetCount(event: CastEvent, maxTargets: number) {
+  /** TODO: fix this target count logic and abstract into a getEruptionTargetCount helper
+   *   basically this is currently based on eruption events and not mass eruption events
+   *   which whilst technically correct enough *most* of the time.
+   *   It *should* be prone to undercounting for spread targets */
+  /** TODO also: Find a better way to get maxTargets. */
+  const damageEvents = getMassEruptionDamageEvents(event);
+  return Math.min(maxTargets, damageEvents.length);
+}
+
 export function eruptionConsumedEssenceBurst(event: CastEvent) {
   return HasRelatedEvent(event, ERUPTION_ESSENCE_BURST_CONSUME);
 }
