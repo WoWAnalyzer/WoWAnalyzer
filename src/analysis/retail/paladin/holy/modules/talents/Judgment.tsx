@@ -1,12 +1,13 @@
 import type { JSX } from 'react';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
-import CastOverview from 'interface/guide/components/CastOverview';
+import CastOverview, { StatisticData } from 'interface/guide/components/CastOverview';
 import GuideSection from 'interface/guide/components/GuideSection';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
 
 /**
@@ -19,9 +20,20 @@ class Judgment extends Analyzer {
   damage = 0;
   holyPowerGenerated = 0;
 
+  greaterJudgmentHealing = 0;
+  greaterJudgmentOverhealing = 0;
+
+  private hasGreaterJudgment = this.selectedCombatant.hasTalent(
+    TALENTS.GREATER_JUDGMENT_HOLY_TALENT,
+  );
+
   constructor(options: Options) {
     super(options);
 
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_JUDGMENT_HEAL_HOLY),
+      this.onGreaterJudgmentHeal,
+    );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY),
       this.onCast,
@@ -54,6 +66,17 @@ class Judgment extends Analyzer {
     this.holyPowerGenerated += event.resourceChange - event.waste;
   }
 
+  onGreaterJudgmentHeal(event: HealEvent) {
+    // Healing soaked into a healing absorb is still healing you did.
+    this.greaterJudgmentHealing += event.amount + (event.absorbed || 0);
+    this.greaterJudgmentOverhealing += event.overheal || 0;
+  }
+
+  get greaterJudgmentOverhealingPercentage() {
+    const raw = this.greaterJudgmentHealing + this.greaterJudgmentOverhealing;
+    return raw === 0 ? 0 : this.greaterJudgmentOverhealing / raw;
+  }
+
   get guideSubsection(): JSX.Element {
     const explanation = (
       <>
@@ -65,6 +88,13 @@ class Judgment extends Analyzer {
           <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> it generates. It is not worth holding a
           global open for, and not worth casting over anything that heals when healing is needed.
         </p>
+        {this.hasGreaterJudgment && (
+          <p>
+            <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} /> adds healing on top, which
+            you get for free from casts you were making anyway -- it is not a reason to cast it more
+            often.
+          </p>
+        )}
         <p>
           An <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} /> proc is better spent on{' '}
           <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />, but spending it here beats letting it expire
@@ -73,7 +103,7 @@ class Judgment extends Analyzer {
       </>
     );
 
-    const stats = [
+    const stats: StatisticData[] = [
       {
         value: `${this.casts}`,
         label: 'Casts',
@@ -106,6 +136,20 @@ class Judgment extends Analyzer {
         ),
       },
     ];
+
+    if (this.hasGreaterJudgment) {
+      stats.push({
+        value: formatNumber(this.greaterJudgmentHealing),
+        label: 'Greater Judgment Healing',
+        tooltip: (
+          <>
+            Effective healing from <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} />,
+            including healing soaked into absorbs.{' '}
+            {formatPercentage(this.greaterJudgmentOverhealingPercentage, 0)}% of it overhealed.
+          </>
+        ),
+      });
+    }
 
     return (
       <GuideSection explanation={explanation} explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}>
