@@ -4,7 +4,6 @@ import {
   Channeling,
   DeathTracker,
   FocusCapTracker,
-  FocusDetails,
   FocusTracker,
   SpellFocusCost,
   TranquilizingShot,
@@ -23,6 +22,7 @@ import SurgingShots from './modules/talents/SurgingShots';
 import KillShot from './modules/talents/KillShot';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
+import MarksmanshipFocusDetails from './modules/resources/MarksmanshipFocusDetails';
 import AimedShot from './modules/talents/AimedShot';
 import PreciseShots from './modules/talents/PreciseShots';
 import RapidFire from './modules/talents/RapidFire';
@@ -31,11 +31,11 @@ import Trueshot from './modules/talents/Trueshot';
 import CallingTheShots from './modules/talents/CallingTheShots';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
-import Volley from './modules/talents/Volley';
 import FocusedAim from './modules/talents/FocusedAim';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from '../shared/talents/Deathblow';
 import SentinelsMark from '../shared/herotalents/SentinelsMark';
+import WailingArrow from './modules/talents/WailingArrow';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import OvinaxMercurialEgg from 'parser/retail/modules/items/thewarwithin/trinkets/OvinaxMercurialEgg';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
@@ -60,7 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Resources
     focusTracker: FocusTracker,
-    focusDetails: FocusDetails,
+    focusDetails: MarksmanshipFocusDetails,
     focusCapTracker: FocusCapTracker,
     spellFocusCost: SpellFocusCost,
     focus: Focus,
@@ -82,12 +82,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     aimedShot: AimedShot,
-    volley: Volley,
     focusedAim: FocusedAim,
     lockAndLoad: LockAndLoad,
     callingTheShots: CallingTheShots,
     deathblow: Deathblow,
     surgingShots: SurgingShots,
+    wailingArrow: WailingArrow,
 
     //Shared Talents
     tranquilizingShot: TranquilizingShot,

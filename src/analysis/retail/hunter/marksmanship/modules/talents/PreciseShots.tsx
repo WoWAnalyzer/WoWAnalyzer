@@ -1,5 +1,7 @@
+import { Trans } from '@lingui/react/macro';
 import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
+  BLEAK_POWDER_TRICK_SHOTS_WINDOW,
   WINDRUNNER_PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_ASSUMED_PROCS,
   WINDRUNNER_PRECISE_SHOTS_MODIFIER,
@@ -7,10 +9,18 @@ import {
 } from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
+import { MS_BUFFER_50 } from 'analysis/retail/hunter/shared/constants';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  DamageEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import { BadColor } from 'interface/guide';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -34,7 +44,9 @@ class PreciseShots extends Analyzer {
   buffsSpent = 0;
   inFlightStacks = 0;
   overwrittenProcs = 0;
+  castsWithoutPreciseShots = 0;
   buffedShotInFlight: number | null = null;
+  pendingBlackArrowCast: CastEvent | null = null;
 
   protected spellUsable!: SpellUsable;
 
@@ -62,6 +74,21 @@ class PreciseShots extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.onPreciseDamage,
     );
+
+    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.BLACK_ARROW_MARKSMANSHIP_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACK_ARROW_DAMAGE),
+        this.onBlackArrowCast,
+      );
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRICK_SHOTS_BUFF),
+        this.onTrickShotsApplied,
+      );
+      this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRICK_SHOTS_BUFF),
+        this.onTrickShotsApplied,
+      );
+    }
   }
 
   get preciseShotsUtilizationPercentage() {
@@ -117,10 +144,75 @@ class PreciseShots extends Analyzer {
 
   onPreciseCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS_BUFF.id)) {
+      // Multi-Shot is exempt if it's the cast turning Trick Shots on from cold - Arcane Shot
+      // never gets an exception.
+      const isMultiShot = event.ability.guid === SPELLS.MULTISHOT_MM.id;
+      const trickShotsWasActive = this.selectedCombatant.hasBuff(
+        SPELLS.TRICK_SHOTS_BUFF.id,
+        event.timestamp,
+        0,
+        MS_BUFFER_50,
+      );
+      if (!isMultiShot || trickShotsWasActive) {
+        this.flagCastWithoutPreciseShots(event);
+      }
       return;
     }
     this.buffedShotInFlight = event.timestamp;
     this.inFlightStacks = this.buffsActive;
+  }
+
+  onBlackArrowCast(event: CastEvent) {
+    // Resolve whatever the previous Black Arrow cast was waiting on - if Bleak Powder was going
+    // to save it, that would've happened well before another Black Arrow came off cooldown.
+    this.resolvePendingBlackArrowCast();
+
+    if (this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS_BUFF.id)) {
+      return;
+    }
+    const trickShotsWasActive = this.selectedCombatant.hasBuff(
+      SPELLS.TRICK_SHOTS_BUFF.id,
+      event.timestamp,
+      0,
+      1,
+    );
+    if (trickShotsWasActive) {
+      // Trick Shots was already up, so Bleak Powder applying it again doesn't excuse this cast.
+      this.flagCastWithoutPreciseShots(event);
+      return;
+    }
+    // Trick Shots was down - hold judgment until we know whether Bleak Powder turns it on.
+    this.pendingBlackArrowCast = event;
+  }
+
+  onTrickShotsApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (
+      this.pendingBlackArrowCast &&
+      event.timestamp - this.pendingBlackArrowCast.timestamp <= BLEAK_POWDER_TRICK_SHOTS_WINDOW
+    ) {
+      this.pendingBlackArrowCast = null;
+    }
+  }
+
+  resolvePendingBlackArrowCast() {
+    if (this.pendingBlackArrowCast) {
+      this.flagCastWithoutPreciseShots(this.pendingBlackArrowCast);
+      this.pendingBlackArrowCast = null;
+    }
+  }
+
+  onFightEnd() {
+    this.resolvePendingBlackArrowCast();
+  }
+
+  flagCastWithoutPreciseShots(event: CastEvent) {
+    this.castsWithoutPreciseShots += 1;
+    addInefficientCastReason(
+      event,
+      <Trans id="hunter.marksmanship.modules.talents.preciseShots.castWithoutBuff">
+        This should never be cast without Precise Shots active.
+      </Trans>,
+    );
   }
 
   onPreciseDamage(event: DamageEvent) {
@@ -174,6 +266,11 @@ class PreciseShots extends Analyzer {
           <div>
             {this.buffsSpent} <small>buffs used</small>
           </div>
+          {this.castsWithoutPreciseShots > 0 && (
+            <div style={{ color: BadColor }}>
+              {this.castsWithoutPreciseShots} <small>casts without Precise Shots</small>
+            </div>
+          )}
         </BoringSpellValueText>
       </Statistic>
     );

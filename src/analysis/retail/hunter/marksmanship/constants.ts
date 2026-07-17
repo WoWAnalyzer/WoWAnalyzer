@@ -12,10 +12,10 @@ export const RAPID_FIRE_FOCUS_PER_TICK = 1;
 //Aimed Shot has a baseline casttime of 2.5s
 export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;
 /** Trueshot */
-//Trueshot makes Aimed Shot recharge 225% faster despite what its tooltip says
-export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
-//Trueshot makes Rapid Fire recharge 240% faster despite what its tooltip says
-export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
+//Trueshot makes Aimed Shot recharge 40% faster
+export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 0.4;
+//Trueshot makes Rapid Fire recharge 60% faster
+export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 0.6;
 //Trueshot increases the cast rate of Aimed Shot by 50%
 export const TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP = 0.5;
 //Trueshot increases focus regen by 50%
@@ -53,6 +53,9 @@ export const WINDRUNNER_PRECISE_SHOTS_MODIFIER = 1.8;
 export const PRECISE_SHOTS_MODIFIER = 2;
 //Because the spells have traveltime we need to take it into account
 export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
+/** Black Arrow */
+//Bleak Powder's Trick Shots application can land a short time after the Black Arrow cast itself
+export const BLEAK_POWDER_TRICK_SHOTS_WINDOW = 500;
 /** Steady Shot */
 //Steady Shot regenerates 10 focus baseline on cast
 export const STEADY_SHOT_FOCUS_REGEN = 10;
@@ -103,8 +106,6 @@ export const LIST_OF_FOCUS_SPENDERS_MM = [
 
 //region Legendaries
 /** Surging Shots */
-//Surging Shots increases the damage of Rapid Fire by 35%
-export const SURGING_SHOTS_DAMAGE_INCREASE = 0.35;
 //Surging Shots gives 15% chance for Aimed Shot to reset the cooldown of Rapid Fire
 export const SURGING_SHOTS_RESET_CHANCE = 0.15;
 /** Eagletalon's True Focus */
