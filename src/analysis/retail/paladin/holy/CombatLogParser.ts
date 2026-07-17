@@ -29,6 +29,8 @@ import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import CritRacial from './modules/racials/CritRacial';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
+import DivineProtection from './modules/spells/DivineProtection';
+import DivineShield from './modules/spells/DivineShield';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import LightOfDawn from './modules/spells/LightOfDawn';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
@@ -118,6 +120,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     devotionAuradamageReduction: DevotionAuraDamageReduction,
+    divineProtection: DivineProtection,
+    divineShield: DivineShield,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
