@@ -24,7 +24,6 @@ import {
   getEruptionDamageEvents,
   getMassEruptionDamageEvents,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { getMassEventTargetCount, isMassEvent } from './ScalecommanderTargetHelper';
 
 const BUFF_EVENTS = [Events.applybuff, Events.applybuffstack];
@@ -40,13 +39,8 @@ type DamageResult = {
  *
  * Concentrated Power:
  * Mass Disintegrate/Eruption strikes 1 additional target.
- *
- * Wingleader:
- * Mass Disintegrate/Eruption reduces the cooldown of Deep Breath/Breath of Eons by 0.5/1 sec for each strike.
  */
-class MassDisintegrate extends Analyzer.withDependencies({
-  spellUsable: SpellUsable,
-}) {
+class MassDisintegrate extends Analyzer {
   buffCount = 0;
   castCount = 0;
   targetCount = 0;

@@ -16,8 +16,8 @@ import DonutChart from 'parser/ui/DonutChart';
 import Spell from 'common/SPELLS/Spell';
 import { getMassEventTargetCount, isMassEvent } from './ScalecommanderTargetHelper';
 
-/** Bombardments reduce the cooldown of Deep Breath by 1 sec for each target struck,
- * up to 3 sec. */
+/** Mass Disintegrate/Eruption reduces the cooldown of Deep Breath/Breath of Eons by 0.5/1 sec for each strike.
+ * */
 class Wingleader extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
