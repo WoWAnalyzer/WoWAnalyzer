@@ -7,6 +7,7 @@ import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2026, 7, 17), <>Fixed <SpellLink spell={TALENTS_PALADIN.GREATER_JUDGMENT_HOLY_TALENT} /> healing not being tracked. It is logged under <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} />'s own spell ID rather than one of its own, so nothing was matching it.</>, Taleria),
   change(date(2026, 7, 17), <>Expanded the Beacons section beyond uptime: it now shows how much of your healing landed on a beacon target directly, and how much beacon healing was lost to line of sight or to a beacon not being up.</>, Taleria),
   change(date(2026, 7, 17), <>Added a Core Rotation section to the overview, checking your casts against the Holy Power priority list and showing where you deviated from it.</>, Taleria),
   change(date(2026, 7, 17), <>Reworked the <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> section. It is a filler cast for damage and <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> rather than a high priority heal, so it now reports those, along with <SpellLink spell={TALENTS_PALADIN.GREATER_JUDGMENT_HOLY_TALENT} /> healing, instead of being graded on cast efficiency.</>, Taleria),

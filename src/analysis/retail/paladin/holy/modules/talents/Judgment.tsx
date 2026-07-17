@@ -30,8 +30,9 @@ class Judgment extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    // Greater Judgment has no heal spell of its own -- Judgment heals under its own cast id.
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_JUDGMENT_HEAL_HOLY),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY),
       this.onGreaterJudgmentHeal,
     );
     this.addEventListener(
