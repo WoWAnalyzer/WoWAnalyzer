@@ -28,6 +28,8 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
     <Section title="Core">
       {modules.holyShock.guideSubsection}
       {modules.judgment.guideSubsection}
+      {info.combatant.hasTalent(talents.INFUSION_OF_LIGHT_TALENT) &&
+        modules.infusionOfLight.guideSubsection}
       {info.combatant.hasTalent(talents.HOLY_PRISM_TALENT) && modules.holyPrism.guideSubsection}
       {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
         ? modules.beaconOfVirtue.guideSubsection
