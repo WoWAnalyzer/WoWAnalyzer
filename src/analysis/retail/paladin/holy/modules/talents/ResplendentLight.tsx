@@ -108,16 +108,12 @@ class ResplendentLight extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     return (
-      <SubSection title="Resplendent Light">
+      <SubSection title="Holy Light">
         <GuideSection
           explanation={this.explanation}
           explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
         >
-          <CastOverview
-            spell={TALENTS.RESPLENDENT_LIGHT_TALENT}
-            title="Resplendent Light Overview"
-            stats={this.stats}
-          />
+          <CastOverview spell={SPELLS.HOLY_LIGHT} title="Holy Light Overview" stats={this.stats} />
         </GuideSection>
       </SubSection>
     );

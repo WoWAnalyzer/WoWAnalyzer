@@ -16,6 +16,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <CoreSection modules={modules} info={info} events={events} />
       <InfusionOfLightSection modules={modules} info={info} events={events} />
+      <Section title="Beacons">
+        {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
+          ? modules.beaconOfVirtue.guideSubsection
+          : modules.beaconUptime.guideSubsection}
+      </Section>
       <Section title="Healing cooldowns">
         <CooldownGraphSubsection />
       </Section>
@@ -28,14 +33,11 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
   return (
     <Section title="Core">
       {modules.holyShock.guideSubsection}
-      {modules.judgment.guideSubsection}
+      {modules.holyPowerOverview.guideSubsection}
       {info.combatant.hasTalent(talents.HOLY_PRISM_TALENT) && modules.holyPrism.guideSubsection}
       {info.combatant.hasTalent(talents.RESPLENDENT_LIGHT_TALENT) &&
         modules.resplendentLight.guideSubsection}
-      {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
-        ? modules.beaconOfVirtue.guideSubsection
-        : modules.beaconUptime.guideSubsection}
-      {modules.holyPowerOverview.guideSubsection}
+      {modules.judgment.guideSubsection}
     </Section>
   );
 };

@@ -118,6 +118,11 @@ class InfusionOfLight extends Analyzer {
           .
         </p>
         <p>
+          Spend them on <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />. A proc spent on{' '}
+          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> is worth far less, so it counts as spent
+          here but is not something to aim for.
+        </p>
+        <p>
           Spend your procs before they expire, and don't sit at max charges. Once you are capped,
           the next proc is lost entirely -- the buff simply refreshes and you gain nothing from it.
         </p>
@@ -169,6 +174,11 @@ class InfusionOfLight extends Analyzer {
         tooltip: (
           <>
             {casts} procs spent on <SpellLink spell={spell} />
+            {spell.id === SPELLS.JUDGMENT_CAST_HOLY.id && (
+              <div>
+                Worth far less than spending them on <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />.
+              </div>
+            )}
           </>
         ),
       }));
