@@ -73,6 +73,7 @@ import {
   EssenceWell,
   TwinFlame,
   FireTorrent,
+  Wingleader,
 } from 'analysis/retail/evoker/shared';
 import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
 import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
@@ -160,6 +161,7 @@ class CombatLogParser extends MainCombatLogParser {
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
     consumeFlame: ConsumeFlame,
+    wingleader: Wingleader,
 
     // core abilities
     disintegrate: Disintegrate,

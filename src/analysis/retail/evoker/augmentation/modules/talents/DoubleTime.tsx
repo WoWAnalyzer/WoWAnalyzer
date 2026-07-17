@@ -12,7 +12,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 import { ebonIsFromBreath, proccedDoubleTime } from '../normalizers/CastLinkNormalizer';
 import { InformationIcon } from 'interface/icons';
-import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 /**
@@ -23,11 +22,9 @@ class DoubleTime extends Analyzer {
   static dependencies = {
     stats: StatTracker,
   };
-  protected stats!: StatTracker;
   damage = 0;
   procAttempts = 0;
   actualProcs = 0;
-  critChances: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -58,7 +55,6 @@ class DoubleTime extends Analyzer {
 
   onEbonCast(event: CastEvent) {
     this.procAttempts++;
-    this.critChances.push(this.stats.currentCritPercentage);
     if (proccedDoubleTime(event)) {
       this.actualProcs++;
     }
@@ -66,7 +62,6 @@ class DoubleTime extends Analyzer {
 
   onEonsCast(event: CastEvent) {
     if (ebonIsFromBreath(event)) {
-      this.critChances.push(this.stats.currentCritPercentage);
       this.procAttempts++;
       if (proccedDoubleTime(event)) {
         this.actualProcs++;
@@ -96,8 +91,6 @@ class DoubleTime extends Analyzer {
             <InformationIcon /> {formatPercentage(procRate, 0)}%<small> proc rate</small>
           </div>
         </TalentSpellText>
-
-        {plotOneVariableBinomChart(this.actualProcs, this.procAttempts, this.critChances)}
       </Statistic>
     );
   }

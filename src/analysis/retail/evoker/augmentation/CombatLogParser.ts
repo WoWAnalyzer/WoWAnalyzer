@@ -37,6 +37,8 @@ import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
+import ExternalGraph from './modules/abilities/ExternalGraph';
+
 // Tier
 import MID1Augmentation2P from './modules/midnight/MID1Augmentation2P';
 import MID1Augmentation4P from './modules/midnight/MID1Augmentation4P';
@@ -83,6 +85,7 @@ import {
   ChronowardenCastLinkNormalizer,
   TemporalBurstStackNormalizer,
   TemporalBurst,
+  Wingleader,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -160,6 +163,7 @@ class CombatLogParser extends MainCombatLogParser {
     extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
+    wingleader: Wingleader,
     slipstream: Slipstream,
     chronoflame: Chronoflame,
     reverberations: Reverberations,
@@ -179,6 +183,7 @@ class CombatLogParser extends MainCombatLogParser {
     buffTrackerGraph: BuffTrackerGraph,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+    externalGraph: ExternalGraph,
 
     // Tier
     MID1Augmentation2P: MID1Augmentation2P,
