@@ -52,6 +52,7 @@ import HolyShock from './modules/talents/HolyShock';
 import Judgment from './modules/talents/Judgment';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
+import HolyPowerOverview from './modules/core/HolyPowerOverview';
 import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
 import ProtectionOfTyr from './modules/talents/ProtectionOfTyr';
@@ -145,6 +146,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
     holyPowerGraph: HolyPowerGraph,
+    holyPowerOverview: HolyPowerOverview,
 
     // Mana Tab
     spellManaCost: SpellManaCost,

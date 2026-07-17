@@ -38,6 +38,13 @@ class HealingPerHolyPower extends Analyzer {
     this.totalEffectiveHealing += event.amount + (event.absorbed || 0); // effective healing by default does not include healing done to healing absorbs, even though that is effective healing
   }
 
+  get averageHealingPerHolyPower() {
+    if (this.totalSpenders === 0) {
+      return 0;
+    }
+    return this.totalEffectiveHealing / this.totalSpenders / 3;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -56,7 +63,7 @@ class HealingPerHolyPower extends Analyzer {
         }
       >
         <BoringValueText label={<>Average Healing per Holy Power</>}>
-          <>{formatNumber(this.totalEffectiveHealing / this.totalSpenders / 3)}</>
+          <>{formatNumber(this.averageHealingPerHolyPower)}</>
         </BoringValueText>
       </Statistic>
     );
