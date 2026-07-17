@@ -1,4 +1,8 @@
-import { GuideProps, Section } from 'interface/guide';
+import { GuideProps, Section, SubSection } from 'interface/guide';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import { ResourceLink } from 'interface';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import * as AplCheck from '../modules/core/AplCheck';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 import CombatLogParser from '../CombatLogParser';
@@ -15,6 +19,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <FoundationDowntimeSectionV2 />
       </Section>
       <CoreSection modules={modules} info={info} events={events} />
+      <CoreRotationSection info={info} />
       <InfusionOfLightSection modules={modules} info={info} events={events} />
       <Section title="Beacons">
         {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
@@ -40,6 +45,25 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
     </Section>
   );
 };
+
+const CoreRotationSection = ({ info }: { info: GuideProps<typeof CombatLogParser>['info'] }) => (
+  <Section title="Core Rotation">
+    <p>
+      Holy Paladin is a reactive healer. There is no rotation to follow, but there is a priority
+      list that holds whenever nothing more urgent is happening: build{' '}
+      <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> and spend it, and don't waste either end of
+      that.
+    </p>
+    <p>
+      <strong>This list cannot see the damage you were reacting to.</strong> Holding a global
+      because you expected damage, or healing someone who was about to die, will show up here as a
+      violation. Use it to find moments worth looking at, not as a score.
+    </p>
+    <SubSection>
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
+    </SubSection>
+  </Section>
+);
 
 /** Infusion of Light and the spells it empowers, which only make sense read together. */
 const InfusionOfLightSection = ({ modules, info }: GuideProps<typeof CombatLogParser>) => {

@@ -55,6 +55,7 @@ import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinH
 import HolyShock from './modules/talents/HolyShock';
 import Judgment from './modules/talents/Judgment';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
+import AplCheck from './modules/core/AplCheck';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
 import HolyPowerOverview from './modules/core/HolyPowerOverview';
 import BuilderUse from './modules/core/BuilderUse';
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
     hammerOfWrath: HammerOfWrath,
     builderUse: BuilderUse,
+    apl: AplCheck,
 
     // Features
     abilities: Abilities,
