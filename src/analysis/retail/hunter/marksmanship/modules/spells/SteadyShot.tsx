@@ -4,9 +4,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class SteadyShot extends Analyzer {
   static dependencies = {
@@ -38,19 +35,6 @@ class SteadyShot extends Analyzer {
   onEnergize(event: ResourceChangeEvent) {
     this.effectiveFocusGain += event.resourceChange - event.waste;
     this.focusWasted += event.waste;
-  }
-
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL(2)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.STEADY_SHOT}>
-          <>
-            {this.effectiveFocusGain}/{this.focusWasted + this.effectiveFocusGain}{' '}
-            <small>possible focus gained</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 
