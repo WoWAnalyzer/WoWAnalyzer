@@ -37,6 +37,7 @@ import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
+import FlashOfLightUsage from './modules/talents/FlashOfLightUsage';
 import HolyPrism from './modules/talents/HolyPrism';
 import InfusionOfLight from './modules/talents/InfusionOfLight';
 import EmpyreanLegacy from './modules/talents/EmpyreanLegacy';
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     imbuedInfusion: ImbuedInfusion,
     holyPrism: HolyPrism,
     infusionOfLight: InfusionOfLight,
+    flashOfLightUsage: FlashOfLightUsage,
     empyreanLegacy: EmpyreanLegacy,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,

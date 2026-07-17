@@ -15,6 +15,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <FoundationDowntimeSectionV2 />
       </Section>
       <CoreSection modules={modules} info={info} events={events} />
+      <InfusionOfLightSection modules={modules} info={info} events={events} />
       <Section title="Healing cooldowns">
         <CooldownGraphSubsection />
       </Section>
@@ -28,13 +29,25 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
     <Section title="Core">
       {modules.holyShock.guideSubsection}
       {modules.judgment.guideSubsection}
-      {info.combatant.hasTalent(talents.INFUSION_OF_LIGHT_TALENT) &&
-        modules.infusionOfLight.guideSubsection}
       {info.combatant.hasTalent(talents.HOLY_PRISM_TALENT) && modules.holyPrism.guideSubsection}
       {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
         ? modules.beaconOfVirtue.guideSubsection
         : modules.beaconUptime.guideSubsection}
       {modules.holyPowerOverview.guideSubsection}
+    </Section>
+  );
+};
+
+/** Infusion of Light and the spells it empowers, which only make sense read together. */
+const InfusionOfLightSection = ({ modules, info }: GuideProps<typeof CombatLogParser>) => {
+  if (!info.combatant.hasTalent(talents.INFUSION_OF_LIGHT_TALENT)) {
+    return null;
+  }
+
+  return (
+    <Section title="Infusion of Light">
+      {modules.infusionOfLight.guideSubsection}
+      {modules.flashOfLightUsage.guideSubsection}
     </Section>
   );
 };

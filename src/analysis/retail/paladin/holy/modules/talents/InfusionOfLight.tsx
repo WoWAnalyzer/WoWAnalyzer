@@ -27,8 +27,8 @@ const SPENDER_COLORS: Record<number, string> = {
 /**
  * Infusion of Light
  *
- * A flat chance for a Holy Shock cast to make your next Judgment or Flash of Light
- * instant. It holds a single charge, or two with Inflorescence of the Sunwell.
+ * A flat chance for a Holy Shock cast to empower your next Judgment or Flash of Light.
+ * It holds a single charge, or two with Inflorescence of the Sunwell.
  *
  * Charges are counted as they leave the buff rather than by checking whether the buff
  * happened to be up at the time of a cast -- a single proc can sit through several
@@ -104,9 +104,9 @@ class InfusionOfLight extends Analyzer {
       <>
         <p>
           <SpellLink spell={TALENTS.INFUSION_OF_LIGHT_TALENT} /> gives{' '}
-          <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> a chance to make your next{' '}
+          <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> a chance to empower your next{' '}
           <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> or{' '}
-          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> instant. It holds{' '}
+          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />. It holds{' '}
           {this.maxCharges === 2 ? (
             <>
               two charges, thanks to{' '}
@@ -192,7 +192,7 @@ class InfusionOfLight extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     return (
-      <SubSection title="Infusion of Light">
+      <SubSection title="Procs">
         <GuideSection
           explanation={this.explanation}
           explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
