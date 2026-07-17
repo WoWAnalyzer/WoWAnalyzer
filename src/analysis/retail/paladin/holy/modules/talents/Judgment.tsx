@@ -23,8 +23,9 @@ class Judgment extends Analyzer {
           be filled in.
         </p>
         <p>
-          Never spend an <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} /> proc on it.{' '}
-          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> is always the better home for a proc.
+          An <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} /> proc is better spent on{' '}
+          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />, but spending it here beats letting it expire
+          when nobody needs the healing.
         </p>
       </>
     );

@@ -117,9 +117,9 @@ class InfusionOfLight extends Analyzer {
           .
         </p>
         <p>
-          Spend them on <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />. A proc spent on{' '}
-          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> is worth far less, so it counts as spent
-          here but is not something to aim for.
+          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> is the better home for a proc, but{' '}
+          <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> is a reasonable one when nobody needs the
+          healing. Either beats letting the proc expire.
         </p>
         <p>
           Spend your procs before they expire, and don't sit at max charges. Once you are capped,
@@ -175,7 +175,8 @@ class InfusionOfLight extends Analyzer {
             {casts} procs spent on <SpellLink spell={spell} />
             {spell.id === SPELLS.JUDGMENT_CAST_HOLY.id && (
               <div>
-                Worth far less than spending them on <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />.
+                Worth less than <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />, but a fine home for a
+                proc when nobody needs the healing.
               </div>
             )}
           </>
