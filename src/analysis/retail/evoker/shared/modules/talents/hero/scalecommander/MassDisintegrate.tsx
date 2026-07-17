@@ -146,7 +146,7 @@ class MassDisintegrate extends Analyzer.withDependencies({
       ampedDamagePerMissingTarget * (amountOfMissingTargets - CONCENTRATED_POWER_EXTRA_TARGETS);
   }
 
-  onEruptionCast(event: CastEvent, missingTargetCount: number) {
+  private onEruptionCast(event: CastEvent, missingTargetCount: number) {
     const eruptionDamageEvents = getEruptionDamageEvents(event);
     const massEruptionDamageEvents = getMassEruptionDamageEvents(event);
 
