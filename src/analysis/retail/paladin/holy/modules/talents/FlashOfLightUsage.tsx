@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
-import { PerformanceMark, SubSection } from 'interface/guide';
+import { PerformanceMark } from 'interface/guide';
 import CastOverview from 'interface/guide/components/CastOverview';
 import CastSummary, { CastEvaluation } from 'interface/guide/components/CastSummary';
 import GuideSection from 'interface/guide/components/GuideSection';
@@ -210,19 +210,17 @@ class FlashOfLightUsage extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     return (
-      <SubSection title="Flash of Light">
-        <GuideSection
-          explanation={this.explanation}
-          explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
-        >
-          <CastOverview
-            spell={SPELLS.FLASH_OF_LIGHT}
-            title="Flash of Light Overview"
-            stats={this.stats}
-          />
-          <CastSummary spell={SPELLS.FLASH_OF_LIGHT} casts={this.castEvaluations} showBreakdown />
-        </GuideSection>
-      </SubSection>
+      <GuideSection
+        explanation={this.explanation}
+        explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
+      >
+        <CastOverview
+          spell={SPELLS.FLASH_OF_LIGHT}
+          title="Flash of Light Overview"
+          stats={this.stats}
+        />
+        <CastSummary spell={SPELLS.FLASH_OF_LIGHT} casts={this.castEvaluations} showBreakdown />
+      </GuideSection>
     );
   }
 }

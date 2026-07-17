@@ -5,7 +5,6 @@ import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import CastOverview from 'interface/guide/components/CastOverview';
 import GuideSection from 'interface/guide/components/GuideSection';
 import StackedBar, { StackedBarSegment } from 'interface/guide/components/StackedBar';
@@ -211,24 +210,22 @@ class HolyPowerOverview extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     return (
-      <SubSection title="Holy Power">
-        <GuideSection
-          explanation={this.explanation}
-          explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
-        >
-          <CastOverview
-            // Only used as a fallback title, which the explicit title below replaces.
-            spell={getWordofGlorySpell(this.selectedCombatant)}
-            title="Holy Power Overview"
-            stats={this.stats}
-            additionalContent={{
-              title: 'Holy Power Spent By Spell',
-              content: <StackedBar segments={this.spenderSegments} />,
-            }}
-          />
-          {this.holyPowerGraph.plot}
-        </GuideSection>
-      </SubSection>
+      <GuideSection
+        explanation={this.explanation}
+        explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
+      >
+        <CastOverview
+          // Only used as a fallback title, which the explicit title below replaces.
+          spell={getWordofGlorySpell(this.selectedCombatant)}
+          title="Holy Power Overview"
+          stats={this.stats}
+          additionalContent={{
+            title: 'Holy Power Spent By Spell',
+            content: <StackedBar segments={this.spenderSegments} />,
+          }}
+        />
+        {this.holyPowerGraph.plot}
+      </GuideSection>
     );
   }
 }

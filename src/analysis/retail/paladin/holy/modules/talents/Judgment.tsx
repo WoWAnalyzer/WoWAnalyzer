@@ -18,9 +18,9 @@ class Judgment extends Analyzer {
             <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} />
           </b>{' '}
           is a filler you cast for damage, and for the{' '}
-          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> it generates. It is not something to
-          hold a global open for, which is why the best logs cast it well below its theoretical
-          maximum -- the graph below is there to show you when you cast it, not to be filled in.
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> it generates. It is not worth holding a
+          global open for, so the graph below is there to show you when you cast it rather than to
+          be filled in.
         </p>
         <p>
           Never spend an <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} /> proc on it.{' '}

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import CastOverview from 'interface/guide/components/CastOverview';
 import GuideSection from 'interface/guide/components/GuideSection';
 import StackedBar, { StackedBarSegment } from 'interface/guide/components/StackedBar';
@@ -202,22 +201,20 @@ class InfusionOfLight extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     return (
-      <SubSection title="Procs">
-        <GuideSection
-          explanation={this.explanation}
-          explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
-        >
-          <CastOverview
-            spell={SPELLS.INFUSION_OF_LIGHT}
-            title="Infusion of Light Overview"
-            stats={this.stats}
-            additionalContent={{
-              title: 'Proc Usage',
-              content: <StackedBar segments={this.spenderSegments} />,
-            }}
-          />
-        </GuideSection>
-      </SubSection>
+      <GuideSection
+        explanation={this.explanation}
+        explanationPercent={GUIDE_CORE_EXPLANATION_PERCENT}
+      >
+        <CastOverview
+          spell={SPELLS.INFUSION_OF_LIGHT}
+          title="Infusion of Light Overview"
+          stats={this.stats}
+          additionalContent={{
+            title: 'Proc Usage',
+            content: <StackedBar segments={this.spenderSegments} />,
+          }}
+        />
+      </GuideSection>
     );
   }
 }
