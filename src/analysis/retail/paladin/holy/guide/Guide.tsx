@@ -25,6 +25,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
           ? modules.beaconOfVirtue.guideSubsection
           : modules.beaconUptime.guideSubsection}
+        {modules.beaconOverview.guideSubsection}
       </Section>
       <Section title="Healing cooldowns">
         <CooldownGraphSubsection />

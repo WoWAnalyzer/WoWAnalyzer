@@ -10,6 +10,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 
 import BeaconHealingDone from './modules/beacons/BeaconHealingDone';
+import BeaconOverview from './modules/beacons/BeaconOverview';
 import BeaconHealSource from './modules/beacons/BeaconHealSource';
 import BeaconTargets from './modules/beacons/BeaconTargets';
 import BeaconTransferFactor from './modules/beacons/BeaconTransferFactor';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     failedBeaconTransfers: FailedBeaconTransfers,
     directBeaconHealing: DirectBeaconHealing,
     beaconUptime: BeaconUptime,
+    beaconOverview: BeaconOverview,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerFlashOfLight: FillerFlashOfLight,

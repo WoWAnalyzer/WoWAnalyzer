@@ -5,6 +5,7 @@ import { swirl, Taleria } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2026, 7, 17), <>Expanded the Beacons section beyond uptime: it now shows how much of your healing landed on a beacon target directly, and how much beacon healing was lost to line of sight or to a beacon not being up.</>, Taleria),
   change(date(2026, 7, 17), <>Added a Core Rotation section to the overview, checking your casts against the Holy Power priority list and showing where you deviated from it.</>, Taleria),
   change(date(2026, 7, 17), <>Reworked the <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> section. It is a filler cast for damage rather than a high priority heal, so it is no longer graded on cast efficiency.</>, Taleria),
   change(date(2026, 7, 17), <>Added a <SpellLink spell={SPELLS.HOLY_LIGHT} /> section to the overview, covering its overhealing, how many extra allies each cast reached through <SpellLink spell={TALENTS_PALADIN.RESPLENDENT_LIGHT_TALENT} />, and your <SpellLink spell={TALENTS_PALADIN.HAND_OF_DIVINITY_TALENT} /> proc usage.</>, Taleria),
