@@ -40,6 +40,7 @@ import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import FlashOfLightUsage from './modules/talents/FlashOfLightUsage';
 import HolyPrism from './modules/talents/HolyPrism';
 import InfusionOfLight from './modules/talents/InfusionOfLight';
+import ResplendentLight from './modules/talents/ResplendentLight';
 import EmpyreanLegacy from './modules/talents/EmpyreanLegacy';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
@@ -121,6 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPrism: HolyPrism,
     infusionOfLight: InfusionOfLight,
     flashOfLightUsage: FlashOfLightUsage,
+    resplendentLight: ResplendentLight,
     empyreanLegacy: EmpyreanLegacy,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
