@@ -25,15 +25,13 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
     const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
     const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
     const judgment = getAbility(SPELLS.JUDGMENT_CAST_HOLY.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
-    const iolHolyLights = holyLight.healingIolHits || 0;
     const iolJudgments = judgment.healingIolHits || 0;
-    const totalIolUsages = iolFlashOfLights + iolHolyLights + iolJudgments;
+    const totalIolUsages = iolFlashOfLights + iolJudgments;
 
     const holyShockCasts = (holyShockHeal.healingHits || 0) + (holyShockDamage.damageHits || 0);
     const holyShockCrits =
@@ -48,12 +46,6 @@ class CastBehavior extends Analyzer {
         label: SPELLS.FLASH_OF_LIGHT.name,
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
-      },
-      {
-        color: SPELL_COLORS.HOLY_LIGHT,
-        label: SPELLS.HOLY_LIGHT.name,
-        spellId: SPELLS.HOLY_LIGHT.id,
-        value: iolHolyLights,
       },
       {
         color: SPELL_COLORS.JUDGMENT,
@@ -87,12 +79,11 @@ class CastBehavior extends Analyzer {
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
-    const iolHolyLights = holyLight.healingIolHits || 0;
 
     const flashOfLightHeals = flashOfLight.casts || 0;
-    const holyLightHeals = holyLight.casts || 0;
+    // Holy Light no longer consumes Infusion of Light, so every cast of it is a filler.
+    const fillerHolyLights = holyLight.casts || 0;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
-    const fillerHolyLights = holyLightHeals - iolHolyLights;
 
     if (fillerFlashOfLights + fillerHolyLights > 0) {
       const items = [
