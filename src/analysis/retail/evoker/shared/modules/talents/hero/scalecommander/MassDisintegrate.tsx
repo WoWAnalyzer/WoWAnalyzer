@@ -101,43 +101,7 @@ class MassDisintegrate extends Analyzer {
         ? this.onDisintegrateCast(event, missingTargetCount)
         : this.onEruptionCast(event, missingTargetCount);
 
-    if (!this.hasConcentratedPower) {
-      this.damageFromAmp += damageResult.ampedDamage;
-      this.damageFromExtraTargets += damageResult.extraDamage;
-      return;
-    }
-
-    // For simplicity’s sake we just attribute a relative fraction of the damage to concentrated power
-    if (targetCount > this.maxBaseTargets) {
-      const extraTargetsHit = targetCount - 1;
-      const damagePerTarget = damageResult.extraDamage / extraTargetsHit;
-
-      const concentratedPowerExtraTargetsHit = targetCount - this.maxBaseTargets;
-
-      this.damageFromConcentratedPowerExtraTargets +=
-        damagePerTarget * concentratedPowerExtraTargetsHit;
-      this.damageFromExtraTargets +=
-        damagePerTarget * (extraTargetsHit - concentratedPowerExtraTargetsHit);
-      return;
-    }
-
-    this.damageFromExtraTargets += damageResult.extraDamage;
-
-    if (targetCount === this.maxBaseTargets) {
-      // If we have hit the max base targets, we only received amped from the missing concentrated power targets
-      this.damageFromConcentratedPowerAmp += damageResult.ampedDamage;
-      return;
-    }
-
-    // TODO: if they ever bump concentrated power to more than +1 target revisit this, might have a off-by-one error
-    //  kinda doesn't matter for now since it's only +1 target
-    const amountOfMissingTargets = this.maxTargetsForAmp - targetCount;
-    const ampedDamagePerMissingTarget = damageResult.ampedDamage / amountOfMissingTargets;
-
-    this.damageFromConcentratedPowerAmp +=
-      ampedDamagePerMissingTarget * CONCENTRATED_POWER_EXTRA_TARGETS;
-    this.damageFromAmp +=
-      ampedDamagePerMissingTarget * (amountOfMissingTargets - CONCENTRATED_POWER_EXTRA_TARGETS);
+    this.attributeDamage(damageResult, targetCount);
   }
 
   private onEruptionCast(event: CastEvent, missingTargetCount: number) {
@@ -198,6 +162,47 @@ class MassDisintegrate extends Analyzer {
       { ampedDamage: 0, extraDamage: 0 },
     );
 
+    return damageResult;
+  }
+
+  private attributeDamage(damageResult: DamageResult, targetCount: number) {
+    if (!this.hasConcentratedPower) {
+      this.damageFromAmp += damageResult.ampedDamage;
+      this.damageFromExtraTargets += damageResult.extraDamage;
+      return;
+    }
+
+    // For simplicity’s sake we just attribute a relative fraction of the damage to concentrated power
+    if (targetCount > this.maxBaseTargets) {
+      const extraTargetsHit = targetCount - 1;
+      const damagePerTarget = damageResult.extraDamage / extraTargetsHit;
+
+      const concentratedPowerExtraTargetsHit = targetCount - this.maxBaseTargets;
+
+      this.damageFromConcentratedPowerExtraTargets +=
+        damagePerTarget * concentratedPowerExtraTargetsHit;
+      this.damageFromExtraTargets +=
+        damagePerTarget * (extraTargetsHit - concentratedPowerExtraTargetsHit);
+      return;
+    }
+
+    this.damageFromExtraTargets += damageResult.extraDamage;
+
+    if (targetCount === this.maxBaseTargets) {
+      // If we have hit the max base targets, we only received amped from the missing concentrated power targets
+      this.damageFromConcentratedPowerAmp += damageResult.ampedDamage;
+      return;
+    }
+
+    // TODO: if they ever bump concentrated power to more than +1 target revisit this, might have a off-by-one error
+    //  kinda doesn't matter for now since it's only +1 target
+    const amountOfMissingTargets = this.maxTargetsForAmp - targetCount;
+    const ampedDamagePerMissingTarget = damageResult.ampedDamage / amountOfMissingTargets;
+
+    this.damageFromConcentratedPowerAmp +=
+      ampedDamagePerMissingTarget * CONCENTRATED_POWER_EXTRA_TARGETS;
+    this.damageFromAmp +=
+      ampedDamagePerMissingTarget * (amountOfMissingTargets - CONCENTRATED_POWER_EXTRA_TARGETS);
     return damageResult;
   }
 
