@@ -1,5 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 import CombatLogParser from '../CombatLogParser';
 import CooldownGraphSubsection from './CooldownGraphSubsection';
 import { ResourceLink, SpellLink } from 'interface';
@@ -13,6 +14,9 @@ export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <Section title="Always Be Casting">
+        <FoundationDowntimeSectionV2 />
+      </Section>
       <CoreSection modules={modules} info={info} events={events} />
       <Section title="Healing cooldowns">
         <CooldownGraphSubsection />
