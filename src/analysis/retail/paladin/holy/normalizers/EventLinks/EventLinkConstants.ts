@@ -14,16 +14,9 @@ export const EMPYREAN_LEGACY = 'EmpyreanLegacy';
 // Hero Talent
 // Herald of the Sun
 export const AURORA_DIVINE_PURPOSE = 'AuroraDivinePurpose';
-export const BLESSING_OF_ANSHE = 'BlessingOfAnshe';
-export const SECOND_SUNRISE = 'SecondSunrise';
 
 // Lightsmith
 export const BLESSED_ASSURANCE = 'BlessedAssurance';
-
-// Tier Set
-export const INSURANCE_FROM_DIVINE_TOLL = 'InsuranceFromDivineToll'; // Insurance proc'd casting Divine Toll
-export const INSURANCE = 'Insurance'; // link insurance heal to apply
-export const INSURANCE_DURATION = 15000;
 
 // Cast Buffers
 export const SHORT_BUFFER_MS = 100;

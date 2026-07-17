@@ -59,11 +59,8 @@ import RisingSunlight from './modules/talents/RisingSunlight';
 import Guide from './guide/Guide';
 
 import Aurora from './modules/heroTalents/herald/Aurora';
-import BlessingOfAnshe from './modules/heroTalents/herald/BlessingOfAnshe';
 import Dawnlight from './modules/heroTalents/herald/Dawnlight';
 import GleamingRays from './modules/heroTalents/herald/GleamingRays';
-import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
-import SolarGrace from './modules/heroTalents/herald/SolarGrace';
 import BlessedAssurance from './modules/heroTalents/lightsmith/BlessedAssurance';
 import DivineGuidance from './modules/heroTalents/lightsmith/DivineGuidance';
 import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
@@ -134,11 +131,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hero Talents
     // Herald
     aurora: Aurora,
-    blessingOfAnshe: BlessingOfAnshe,
     dawnlight: Dawnlight,
     gleamingRays: GleamingRays,
-    secondSunrise: SecondSunrise,
-    solarGrace: SolarGrace,
     // Lightsmith
     blessedAssurance: BlessedAssurance,
     divineGuidance: DivineGuidance,
@@ -159,8 +153,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
     hpmDetails: HealingEfficiencyDetails,
-
-    // Tier Sets
   };
   static guide = Guide;
 }

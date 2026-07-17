@@ -167,7 +167,7 @@ const spells = {
     icon: 'spell_holy_searinglight',
   },
   LIGHT_OF_DAWN_HEAL: {
-    id: 225311,
+    id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
   },

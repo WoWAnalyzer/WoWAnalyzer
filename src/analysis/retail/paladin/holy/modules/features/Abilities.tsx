@@ -303,7 +303,6 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.8,
         },
-        // Not putting Glimmer in here, tracking separately in HolyPaladinHealingEfficiencyTracker
         healSpellIds: [SPELLS.HOLY_SHOCK_HEAL.id],
         damageSpellIds: [SPELLS.HOLY_SHOCK_DAMAGE.id],
         enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT),
