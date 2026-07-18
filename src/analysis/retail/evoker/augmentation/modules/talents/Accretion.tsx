@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   ACCRETION_CDR_MS,
@@ -23,9 +23,16 @@ import {
   isFromAfterimageDamage,
 } from 'analysis/retail/evoker/shared/modules/normalizers/ChronowardenCastLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { getMassEruptionTargetCount, isFromMassEruption } from '../normalizers/CastLinkNormalizer';
+import {
+  CONCENTRATED_POWER_EXTRA_TARGETS,
+  MASS_DISINTEGRATE_TARGETS,
+} from 'analysis/retail/evoker/shared/constants';
 
 /**
  * Eruption reduces the remaining cooldown of Upheaval by 1.0 sec.
+ * To-do: Fix Mass Eruption so Concentrated Power doesn't have to be checked;
+ * add Overlord (requires castlink).
  */
 class Accretion extends Analyzer {
   static dependencies = {
@@ -34,6 +41,7 @@ class Accretion extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
   protected stats!: StatTracker;
+  maxTargets = MASS_DISINTEGRATE_TARGETS;
 
   currentUpheaval = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
     ? SPELLS.UPHEAVAL_FONT
@@ -43,7 +51,6 @@ class Accretion extends Analyzer {
     this.selectedCombatant.getTalentRank(TALENTS.DUPLICATE_2_AUGMENTATION_TALENT) / 2;
 
   totalEbonMightDamage = 0;
-  totalEruptionCasts = 0;
   totalShiftingSandsDamage = 0;
   totalShiftingSandsApplications = 0;
   totalAfterimageDamage = 0;
@@ -64,6 +71,10 @@ class Accretion extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ACCRETION_TALENT);
+
+    if (this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_POWER_TALENT)) {
+      this.maxTargets += CONCENTRATED_POWER_EXTRA_TARGETS;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ERUPTION_TALENT),
       this.onCast,
@@ -103,12 +114,15 @@ class Accretion extends Analyzer {
     this.addEventListener(Events.fightend, this.calcAccretionValue);
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
+    let eruptionCount = 1;
+    if (isFromMassEruption(event)) {
+      eruptionCount = getMassEruptionTargetCount(event, this.maxTargets);
+    }
     this.effectiveUpheavalCDR += this.spellUsable.reduceCooldown(
       this.currentUpheaval.id,
-      ACCRETION_CDR_MS,
+      ACCRETION_CDR_MS * eruptionCount,
     );
-    this.totalEruptionCasts += 1;
   }
 
   onBuffApply() {
