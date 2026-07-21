@@ -92,7 +92,7 @@ class ExternalGraph extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
       >
         <div className="pad">
           <label>Damage sources breakdown</label>
