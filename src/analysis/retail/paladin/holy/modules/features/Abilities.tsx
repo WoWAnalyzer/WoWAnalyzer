@@ -51,14 +51,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // Greater Judgment's healing is logged under the cast id above, so it needs no
-        // healSpellIds entry of its own.
         spell: [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.JUDGMENT_CAST.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: hasted(12),
         gcd: {
           base: 1500,
         },
+        healSpellIds: [SPELLS.GREATER_JUDGMENT_HEAL_HOLY.id],
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,

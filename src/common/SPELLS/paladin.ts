@@ -429,6 +429,11 @@ const spells = {
     name: 'Expurgation',
     icon: 'ability_paladin_bladeofjustice',
   },
+  GREATER_JUDGMENT_HEAL_HOLY: {
+    id: 414019,
+    name: 'Greater Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
     name: "Templar's Verdict",

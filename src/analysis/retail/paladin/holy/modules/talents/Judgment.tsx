@@ -7,7 +7,12 @@ import { ResourceLink, SpellLink } from 'interface';
 import CastOverview, { StatisticData } from 'interface/guide/components/CastOverview';
 import GuideSection from 'interface/guide/components/GuideSection';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, {
+  AbsorbedEvent,
+  DamageEvent,
+  HealEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
 
 /**
@@ -30,10 +35,13 @@ class Judgment extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    // Greater Judgment has no heal spell of its own -- Judgment heals under its own cast id.
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_JUDGMENT_HEAL_HOLY),
       this.onGreaterJudgmentHeal,
+    );
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.GREATER_JUDGMENT_HEAL_HOLY),
+      this.onGreaterJudgmentAbsorb,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY),
@@ -73,6 +81,10 @@ class Judgment extends Analyzer {
     this.greaterJudgmentOverhealing += event.overheal || 0;
   }
 
+  onGreaterJudgmentAbsorb(event: AbsorbedEvent) {
+    this.greaterJudgmentHealing += event.amount;
+  }
+
   get greaterJudgmentOverhealingPercentage() {
     const raw = this.greaterJudgmentHealing + this.greaterJudgmentOverhealing;
     return raw === 0 ? 0 : this.greaterJudgmentOverhealing / raw;
@@ -91,7 +103,7 @@ class Judgment extends Analyzer {
         </p>
         {this.hasGreaterJudgment && (
           <p>
-            <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} /> adds healing on top, which
+            <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} /> adds a shield on top, which
             you get for free from casts you were making anyway -- it is not a reason to cast it more
             often.
           </p>
@@ -144,9 +156,15 @@ class Judgment extends Analyzer {
         label: 'Greater Judgment Healing',
         tooltip: (
           <>
-            Effective healing from <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} />,
-            including healing soaked into absorbs.{' '}
-            {formatPercentage(this.greaterJudgmentOverhealingPercentage, 0)}% of it overhealed.
+            Damage absorbed by the shield <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} />{' '}
+            applies, plus any healing it did.
+            {this.greaterJudgmentOverhealing > 0 && (
+              <>
+                {' '}
+                {formatPercentage(this.greaterJudgmentOverhealingPercentage, 0)}% of the healing
+                overhealed.
+              </>
+            )}
           </>
         ),
       });
