@@ -38,12 +38,10 @@ export const apl = (info: PlayerInfo): Apl => {
   ));
 
   return build([
-    // Capping wastes everything you generate afterwards, so this outranks the cooldown.
     {
       spell: [spender, TALENTS.LIGHT_OF_DAWN_TALENT, SPELLS.SHIELD_OF_THE_RIGHTEOUS_HOLY],
       condition: atCap,
     },
-    TALENTS.DIVINE_TOLL_TALENT,
     {
       spell: SPELLS.FLASH_OF_LIGHT,
       condition: hasInfusion,
