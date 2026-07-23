@@ -22,7 +22,6 @@ import {
   BREATH_OF_EONS_SPELL_IDS,
   BREATH_OF_EONS_SPELLS,
   EBON_MIGHT_PERSONAL_DAMAGE_AMP,
-  MID1_AUGMENTATION_2PC_EXTENSION_MODIFIER,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { SpellUse } from 'parser/core/SpellUsage/core';
@@ -40,7 +39,6 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { UPHEAVAL_REVERBERATION_DAM_LINK } from '../normalizers/CastLinkNormalizer';
 import { InformationIcon } from 'interface/icons';
 import { formatPercentage } from 'common/format';
-import { TIERS } from 'game/TIERS';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -106,10 +104,6 @@ class EbonMight extends Analyzer {
     SPELLS.MASS_ERUPTION_DAMAGE,
     SPELLS.MELT_ARMOR,
   ];
-
-  eruptionExtension = this.selectedCombatant.has2PieceByTier(TIERS.MID1)
-    ? ERUPTION_EXTENSION_MS + MID1_AUGMENTATION_2PC_EXTENSION_MODIFIER
-    : ERUPTION_EXTENSION_MS;
 
   constructor(options: Options) {
     super(options);
@@ -280,7 +274,7 @@ class EbonMight extends Analyzer {
     if (BREATH_OF_EONS_SPELL_IDS.includes(event.ability.guid)) {
       newEbonMightDuration = ebonMightTimeLeft + BREATH_OF_EONS_EXTENSION_MS * critMod;
     } else if (event.ability.guid === TALENTS.ERUPTION_TALENT.id) {
-      newEbonMightDuration = ebonMightTimeLeft + this.eruptionExtension * critMod;
+      newEbonMightDuration = ebonMightTimeLeft + ERUPTION_EXTENSION_MS * critMod;
     } else if (event.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id) {
       newEbonMightDuration = ebonMightTimeLeft + DREAM_OF_SPRINGS_EXTENSION_MS * critMod;
     } else {
