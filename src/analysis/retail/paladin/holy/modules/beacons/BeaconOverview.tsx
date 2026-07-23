@@ -7,21 +7,10 @@ import CastOverview, { StatisticData } from 'interface/guide/components/CastOver
 import GuideSection from 'interface/guide/components/GuideSection';
 import Analyzer from 'parser/core/Analyzer';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
-import DirectBeaconHealing from './DirectBeaconHealing';
+import DirectBeaconHealing, { DIRECT_BEACON_HEALING_THRESHOLDS } from './DirectBeaconHealing';
 import FailedBeaconTransfers from './FailedBeaconTransfers';
 import MissingBeacons from './MissingBeacons';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
-
-/**
- * Taken from the suggestion thresholds on DirectBeaconHealing, which had no consumer.
- * Healing your beacon target directly is the waste here: the transfer already heals them,
- * so a direct heal on top of it buys you far less than the same heal on anyone else.
- */
-const DIRECT_BEACON_THRESHOLDS = {
-  perfect: 0.2,
-  good: 0.25,
-  ok: 0.35,
-};
 
 /**
  * What the beacons actually did, beyond how long they were up.
@@ -82,7 +71,7 @@ class BeaconOverview extends Analyzer {
         ),
         performance: evaluateQualitativePerformanceByThreshold({
           actual: this.directBeaconPercentage,
-          isLessThanOrEqual: DIRECT_BEACON_THRESHOLDS,
+          isLessThanOrEqual: DIRECT_BEACON_HEALING_THRESHOLDS,
         }),
       },
       {

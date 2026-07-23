@@ -12,21 +12,12 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 import { getWordofGlorySpell } from 'analysis/retail/paladin/shared/constants';
+import { HOLY_POWER_EFFICIENCY_THRESHOLDS } from 'analysis/retail/paladin/shared/HolyPowerDetails';
 import HolyPowerTracker from 'analysis/retail/paladin/shared/HolyPowerTracker';
 import { SPELL_COLORS } from '../../constants';
 import HealingPerHolyPower from '../features/HealingPerHolyPower';
 import HolyPowerGraph from './HolyPowerGraph';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
-
-/**
- * Taken from the suggestion thresholds on the shared HolyPowerDetails module, which
- * grades on the share of Holy Power that was not wasted.
- */
-const HOLY_POWER_EFFICIENCY_THRESHOLDS = {
-  perfect: 0.98,
-  good: 0.95,
-  ok: 0.92,
-};
 
 const SPENDER_COLORS: Record<number, string> = {
   [SPELLS.WORD_OF_GLORY.id]: SPELL_COLORS.WORD_OF_GLORY,

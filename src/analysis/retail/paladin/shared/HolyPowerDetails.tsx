@@ -10,6 +10,12 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import HolyPowerTracker from './HolyPowerTracker';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
+export const HOLY_POWER_EFFICIENCY_THRESHOLDS = {
+  perfect: 0.98,
+  good: 0.95,
+  ok: 0.92,
+};
+
 class HolyPowerDetails extends Analyzer {
   static dependencies = {
     holyPowerTracker: HolyPowerTracker,
@@ -28,9 +34,9 @@ class HolyPowerDetails extends Analyzer {
     return {
       actual: 1 - this.wastedHolyPowerPercent,
       isLessThan: {
-        minor: 0.98,
-        average: 0.95,
-        major: 0.92,
+        minor: HOLY_POWER_EFFICIENCY_THRESHOLDS.perfect,
+        average: HOLY_POWER_EFFICIENCY_THRESHOLDS.good,
+        major: HOLY_POWER_EFFICIENCY_THRESHOLDS.ok,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
