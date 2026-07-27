@@ -16,6 +16,10 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: TALENTS.LOADED_DICE_TALENT.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: TALENTS.BLADE_RUSH_TALENT.id,
         timelineHighlight: true,
       },

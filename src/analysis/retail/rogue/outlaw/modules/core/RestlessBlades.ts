@@ -80,7 +80,9 @@ class RestlessBlades extends Analyzer {
       spent += COUP_DE_GRACE_EXTRA_COMBO_POINT_WORTH;
     }
 
-    const hasRollTheBonesCDR = this.selectedCombatant.hasBuff(SPELLS.TRIPLE_THREAT.id);
+    const hasRollTheBonesCDR =
+      this.selectedCombatant.hasBuff(SPELLS.TRIPLE_THREAT.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.JACKPOT.id);
     const hasDragonboneDice = this.selectedCombatant.hasTalent(TALENTS.DRAGON_BONE_DICE_TALENT);
 
     let cdrAmount = RESTLESS_BLADES_BASE_CDR * spent;

@@ -13,12 +13,15 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_ROGUE.ACE_UP_YOUR_SLEEVE_TALENT);
 
     this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.bteReset);
   }
 
   private bteReset(event: ResourceChangeEvent) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_ROGUE.ACE_UP_YOUR_SLEEVE_TALENT)) {
+      return;
+    }
+
     if (
       event.ability.guid == TALENTS_ROGUE.ACE_UP_YOUR_SLEEVE_TALENT.id ||
       event.ability.guid == TALENTS_ROGUE.GRAVEDIGGER_3_OUTLAW_TALENT.id
