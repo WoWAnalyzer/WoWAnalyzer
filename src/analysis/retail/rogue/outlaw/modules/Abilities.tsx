@@ -98,6 +98,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ADRENALINE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -132,7 +133,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
+        // Disorienting Strikes: "Killing Spree has 10% reduced cooldown".
+        cooldown: 180 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
         gcd: {
           static: standardGcd,
         },
@@ -193,7 +195,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
       },
-      // TWW Hero Talents
+      // Midnight Hero Talents
       {
         spell: SPELLS.COUP_DE_GRACE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
