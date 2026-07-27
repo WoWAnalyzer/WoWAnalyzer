@@ -26,11 +26,19 @@ const PATCHES: Patch[] = [
     expansion: Expansion.Midnight,
   },
   {
-    name: '12.0.1',
-    timestamp: 1772496000000, // Tue, Mar 3, 2026 at 01:00:00 UTC+01:00
+    name: '12.0.5',
+    timestamp: 1776808800000, // Wed Apr 3, 2026 at 22:00:00 UTC
     urlPrefix: '',
-    isCurrent: true,
-    gameVersion: 1, // retail
+    isCurrent: false,
+    gameVersion: 1,
+    expansion: Expansion.Midnight,
+  },
+  {
+    name: '12.0.1',
+    timestamp: 1772496000000, // Tue Mar 3, 2026 at 01:00:00 UTC+01:00
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1,
     expansion: Expansion.Midnight,
   },
   {
