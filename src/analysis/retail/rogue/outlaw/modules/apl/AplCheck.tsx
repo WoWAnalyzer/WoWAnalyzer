@@ -1,21 +1,12 @@
 import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { Apl, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
-import TALENTS from 'common/TALENTS/rogue';
 import { AnyEvent } from 'parser/core/Events';
-import { hidden_opportunity_rotation } from './HiddenOpportunityRotation';
-import { keep_it_rolling_rotation } from './KeepItRollingRotation';
+import { outlaw_rotation } from './OutlawRotation';
 
-export const apl = (info: PlayerInfo): Apl => {
-  if (!info) {
-    return hidden_opportunity_rotation;
-  }
-
-  if (info.combatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT)) {
-    return keep_it_rolling_rotation;
-  }
-
-  return hidden_opportunity_rotation;
+/** Outlaw has one priority list, so `info` is unused; the parameter matches the shared signature. */
+export const apl = (_info: PlayerInfo): Apl => {
+  return outlaw_rotation;
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
