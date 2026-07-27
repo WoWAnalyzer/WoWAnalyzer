@@ -10,7 +10,7 @@ import RETAIL_DIFFICULTIES, {
   getLabel as getDifficultyLabel,
 } from 'game/DIFFICULTIES';
 import SPECS, { isRetailSpec } from 'game/SPECS';
-import RETAIL_ZONES from 'game/ZONES';
+import RETAIL_ZONES, { VENOMOUS_ABYSS_ZONE } from 'game/ZONES';
 import CLASSIC_ZONES from 'game/classic/ZONES';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
@@ -47,7 +47,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_RETAIL_ZONE = 46; // Voidspire / Dreamrift / MQD
+const DEFAULT_RETAIL_ZONE = VENOMOUS_ABYSS_ZONE.id;
 const DEFAULT_CLASSIC_ZONE = 1046; // Throne of Thunder
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
