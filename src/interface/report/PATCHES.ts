@@ -27,7 +27,7 @@ const PATCHES: Patch[] = [
   },
   {
     name: '12.0.5',
-    timestamp: 1776808800000, // Wed Apr 3, 2026 at 22:00:00 UTC
+    timestamp: 1776780000000, // GMT: Tue Apr 21, 2026 at 14:00:00 GMT+0000
     urlPrefix: '',
     isCurrent: false,
     gameVersion: 1,
@@ -35,7 +35,7 @@ const PATCHES: Patch[] = [
   },
   {
     name: '12.0.1',
-    timestamp: 1772496000000, // Tue Mar 3, 2026 at 01:00:00 UTC+01:00
+    timestamp: 1772496000000, // GMT: Tue Mar 3, 2026 at 0:00:00 GMT+0000
     urlPrefix: '',
     isCurrent: false,
     gameVersion: 1,
