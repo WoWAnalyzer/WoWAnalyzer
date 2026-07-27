@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
 import SPELLS from 'common/SPELLS/rogue';
-import { ResourceLink, SpellLink } from 'interface';
+import { AlertWarning, ResourceLink, SpellLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
@@ -21,6 +21,13 @@ import { t } from '@lingui/core/macro';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      {!info.combatant.hasTalent(TALENTS.UNSEEN_BLADE_TALENT) && (
+        <AlertWarning>
+          This analysis follows the{' '}
+          <SpellLink spell={TALENTS.UNSEEN_BLADE_TALENT}>Trickster</SpellLink> priority list.
+          Fatebound is not maintained, so the rotational checks below will not match your build.
+        </AlertWarning>
+      )}
       <Section title="Core Skills">
         <FoundationDowntimeSection />
         {modules.rollTheBonesBuffs.guideSubsection}
