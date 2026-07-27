@@ -3,11 +3,13 @@ import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 
-import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
+import { ROLL_THE_BONES_STAGE_AURAS, ROLL_THE_BONES_DURATION } from '../../constants';
 import OutlawEnergyCapTracker from 'analysis/retail/rogue/outlaw/modules/core/OutlawEnergyCapTracker';
 
 export interface RTBCast extends CastEvent {
   appliedBuffs: Spell[];
+  /** The stage this cast landed on, 1-4, or 0. Count the stage, not the number of auras. */
+  stage: number;
   duration: number;
   isRefresh: boolean;
   timestampEnd?: number;
@@ -68,8 +70,12 @@ class RollTheBonesCastTracker extends Analyzer {
       : false;
 
     // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate
-    const appliedBuffs = ROLL_THE_BONES_BUFFS.filter((b) =>
+    const appliedBuffs = ROLL_THE_BONES_STAGE_AURAS.filter((b) =>
       this.energyCapTracker.combatantHasBuffActive(b.id),
+    );
+    const stage = ROLL_THE_BONES_STAGE_AURAS.reduce(
+      (highest, buff, index) => (appliedBuffs.includes(buff) ? index + 1 : highest),
+      0,
     );
 
     let duration = ROLL_THE_BONES_DURATION;
@@ -87,6 +93,7 @@ class RollTheBonesCastTracker extends Analyzer {
     const newCast: RTBCast = {
       ...event,
       appliedBuffs: appliedBuffs,
+      stage: stage,
       duration: duration,
       isRefresh: refresh,
     };
