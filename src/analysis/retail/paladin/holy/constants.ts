@@ -136,4 +136,7 @@ export const SPELL_COLORS = {
   DAWNLIGHT_AOE: '#dfb147',
   SUNS_AVATAR: '#fbf89e',
   SUNS_AVATAR_SELF: '#d9c381',
+  WORD_OF_GLORY: '#ffd166',
+  LIGHT_OF_DAWN: '#ef8354',
+  SHIELD_OF_THE_RIGHTEOUS: '#4f9d9d',
 };

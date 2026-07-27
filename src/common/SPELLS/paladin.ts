@@ -23,7 +23,7 @@ const spells = {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 60000,
+    manaCost: 3000,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -118,7 +118,7 @@ const spells = {
     id: 498,
     name: 'Divine Protection',
     icon: 'spell_holy_divineprotection',
-    manaCost: 17500,
+    manaCost: 1750,
   },
   DIVINE_PROTECTION_RET: {
     id: 403876,
@@ -130,7 +130,7 @@ const spells = {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 175000,
+    manaCost: 17500,
   },
 
   // Holy Paladin:
@@ -154,7 +154,7 @@ const spells = {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 15000,
+    manaCost: 1500,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -201,11 +201,16 @@ const spells = {
     name: 'Infusion of Light',
     icon: 'ability_paladin_infusionoflight',
   },
+  HAND_OF_DIVINITY_BUFF: {
+    id: 414273,
+    name: 'Hand of Divinity',
+    icon: 'spell_holy_vindication',
+  },
   CLEANSE: {
     id: 4987,
     name: 'Cleanse',
     icon: 'spell_holy_purify',
-    manaCost: 32500,
+    manaCost: 3250,
   },
   AVENGING_CRUSADER_HEAL_NORMAL: {
     id: 216371,

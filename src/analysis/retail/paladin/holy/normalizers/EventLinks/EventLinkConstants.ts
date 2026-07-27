@@ -3,6 +3,10 @@ export const HOLY_SHOCK_SOURCE = 'HolyShockSource';
 export const RISING_SUNLIGHT = 'RisingSunlight';
 export const DIVINE_RESONANCE_DURATION_MS = 15000;
 
+// Infusion of Light
+export const INFUSION_OF_LIGHT_CONSUME = 'InfusionOfLightConsume'; // the cast that spent a charge
+export const INFUSION_OF_LIGHT_CONSUME_BUFFER_MS = 150; // the cast and the buff removal land together
+
 // Avenging Crusader
 export const AC_CRUSADER_STRIKE = 'AvengingCrusaderCrusaderStrike';
 export const AC_JUDGMENT = 'AvengingCrusaderJudgment';
