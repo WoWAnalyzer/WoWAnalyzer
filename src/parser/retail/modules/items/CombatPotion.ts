@@ -6,6 +6,8 @@ import Potion from 'parser/retail/modules/items/Potion';
  */
 class CombatPotion extends Potion {
   static spells = [
+    SPELLS.ALLURING_NOSTRUM.id,
+    SPELLS.LIQUID_LUSTER.id,
     SPELLS.LIGHTS_PRESERVATION.id,
     SPELLS.REFRESHING_SERUM.id,
     SPELLS.LIGHTS_POTENTIAL.id,
@@ -19,6 +21,8 @@ class CombatPotion extends Potion {
   static extraAbilityInfo = {
     name: 'Combat Potion',
     buffSpellId: [
+      SPELLS.ALLURING_NOSTRUM.id,
+      SPELLS.LIQUID_LUSTER.id,
       SPELLS.LIGHTS_PRESERVATION.id,
       SPELLS.REFRESHING_SERUM.id,
       SPELLS.LIGHTS_POTENTIAL.id,
