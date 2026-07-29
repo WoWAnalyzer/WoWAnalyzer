@@ -15,11 +15,9 @@ export type MidnightPatchVersion = StringWithAutocompleteOptions<
   MidnightFirstRaidCycle | MidnightSecondRaidCycle
 >;
 
-export type MistsPatchVersion = StringWithAutocompleteOptions<`5.${4 | 5}.0`>;
+export type MistsPatchVersion = StringWithAutocompleteOptions<`5.${4 | 5}.${0 | 4}`>;
 
-export type AnyPatchVersion =
-  | MidnightPatchVersion
-  | MistsPatchVersion;
+export type AnyPatchVersion = MidnightPatchVersion | MistsPatchVersion;
 
 export enum SupportLevel {
   /**

@@ -4,7 +4,7 @@ import { AnyPatchVersion } from 'parser/Config';
 
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
 const VERSIONS: Record<GameBranch, AnyPatchVersion> = {
-  [GameBranch.Classic]: '5.5.0',
+  [GameBranch.Classic]: '5.5.4',
   [GameBranch.Retail]: '12.1.0',
 };
 
