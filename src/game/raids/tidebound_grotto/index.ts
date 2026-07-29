@@ -6,7 +6,7 @@ export default {
   name: 'Tidebound Grotto',
   background,
   bosses: {
-    Rotmire: buildBoss({
+    NymrissaWavecaller: buildBoss({
       id: 3379,
       name: 'Nymrissa Wavecaller',
     }),
