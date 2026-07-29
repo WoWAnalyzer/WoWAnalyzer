@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },
@@ -200,6 +200,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
+        // Cast/cooldown tracking is still useful even though nobody is trying to weave this
+        // optimally - just don't give it its own Timeline lane.
+        timelineHide: true,
         gcd: {
           static: 0,
         },

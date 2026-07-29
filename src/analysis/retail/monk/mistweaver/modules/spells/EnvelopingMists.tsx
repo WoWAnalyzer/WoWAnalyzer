@@ -8,11 +8,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import {
-  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
-  ENVELOPING_MIST_INCREASE,
-  MISTWRAP_INCREASE,
-} from '../../constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
+import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
 import { isFromEnvelopingMist } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import TalentSpellText from 'parser/ui/TalentSpellText';

@@ -6,10 +6,11 @@ import Combatant from 'parser/core/Combatant';
 export const DIVINE_PURPOSE_CHANCE = 0.15;
 export const RET_DIVINE_PURPOSE_CHANCE = 0.1;
 
+// Every healing spender casts and heals under the same spell id, so one entry each
+// covers both the cast and heal filters these lists are used for.
 export const HEALING_HOLY_POWER_SPENDERS: readonly Spell[] = [
   SPELLS.WORD_OF_GLORY,
   SPELLS.LIGHT_OF_DAWN_HEAL,
-  TALENTS.LIGHT_OF_DAWN_TALENT,
   TALENTS.ETERNAL_FLAME_TALENT,
 ] as const;
 

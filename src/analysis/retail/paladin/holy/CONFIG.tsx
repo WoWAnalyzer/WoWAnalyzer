@@ -40,7 +40,7 @@ const config: Config = {
       </p>
     </>
   ),
-  exampleReport: '/report/tTkV1MWxgDmrvJnh/8/62',
+  exampleReport: '/report/TAD43tLP2c9pwzvj/11/2',
 
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,

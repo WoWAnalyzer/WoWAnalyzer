@@ -32,7 +32,7 @@ class MissingBeacons extends Analyzer {
 
   onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
-    const spellBeaconTransferFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
+    const spellBeaconTransferFactor = getBeaconSpellFactor(spellId);
     if (!spellBeaconTransferFactor) {
       return;
     }

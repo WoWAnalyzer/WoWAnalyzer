@@ -1,5 +1,5 @@
 import { EarthShield } from 'analysis/retail/shaman/shared';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import CoreHealingEfficiencyTracker, {
   SpellInfoDetails,
@@ -97,9 +97,6 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     // do something eventually, maybe
   }
   getRiptideDetails(spellInfo: SpellInfoDetails) {
-    // do something eventually, maybe
-  }
-  getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {
     // do something eventually, maybe
   }
   getDownpourDetails(spellInfo: SpellInfoDetails) {

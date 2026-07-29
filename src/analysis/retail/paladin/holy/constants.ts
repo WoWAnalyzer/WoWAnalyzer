@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/paladin';
-import Combatant from 'parser/core/Combatant';
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_SHOCK_HEAL.id,
@@ -40,19 +39,12 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
 ];
 
 // Talent Constants
-export const BLESSING_OF_ANSHE_INCREASE = 2.0;
 export const DIVINE_REVELATIONS_INCREASE = 0.2;
 export const PROTECTION_OF_TYR_INCREASE = 0.1;
 export const RECLAMATION_MAX_INCREASE = 0.5;
 export const RISING_SUNLIGHT_MAX_INCREASE = 0.1;
 export const UNENDING_LIGHT_INCREASE = 0.05; // per stack
 export const GLEAMING_RAYS_INCREASE = 0.05;
-export const BLESSING_OF_SEASONS_DURATION = 30;
-export const BLESSING_OF_SPRING_INCREASE = 0.15;
-export const BLESSING_OF_SPRING_TAKEN_INCREASE = 0.3;
-export const BLESSING_OF_AUTUMN_REDUCTION = 0.3;
-export const BLESSING_OF_WINTER_RESTORE = 0.01;
-export const T33_DIVINE_TOLL_REDUCTION = 1000;
 export const LAYING_DOWN_ARMS_REDUCTION = 15000;
 export const VALIANCE_REDUCTION = 3000;
 export const CRUSADERS_MIGHT_REDUCTION = 1500;
@@ -60,8 +52,6 @@ export const IMBUED_INFUSIONS_REDUCTION = 1000;
 export const TIRIONS_DEVOTION_REDUCTION = 1500; // per holy power
 export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
 export const JUDGMENT_OF_LIGHT_HEALS = 5;
-export const SOLAR_GRACE_INCREASE = 0.02; // per stack
-export const SECOND_SUNRISE_CHANCE = 0.15;
 
 // Beacon Constants & Functions
 export const BEACON_TRANSFERING_ABILITIES = {
@@ -97,7 +87,7 @@ export const BEACON_TRANSFERING_ABILITIES = {
   //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
 };
 
-export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
+export function getBeaconSpellFactor(spellID: number): number | undefined {
   const factor = BEACON_TRANSFERING_ABILITIES[spellID];
   if (!factor) {
     return undefined;
@@ -141,17 +131,12 @@ export const SPELL_COLORS = {
   CRUSADER_STRIKE: '#F9DC5C',
   FLASH_OF_LIGHT: '#FFFDE7',
   HOLY_LIGHT: '#F57C00',
-  SECOND_SUNRISE: '#c5841d',
   BLESSED_ASSURANCE: '#fdfbce',
   DAWNLIGHT: '#f7ca69',
   DAWNLIGHT_AOE: '#dfb147',
   SUNS_AVATAR: '#fbf89e',
   SUNS_AVATAR_SELF: '#d9c381',
+  WORD_OF_GLORY: '#ffd166',
+  LIGHT_OF_DAWN: '#ef8354',
+  SHIELD_OF_THE_RIGHTEOUS: '#4f9d9d',
 };
-
-export const BLESSING_OF_SEASONS_BUFFS = [
-  SPELLS.BLESSING_OF_AUTUMN_TALENT,
-  SPELLS.BLESSING_OF_WINTER_TALENT,
-  SPELLS.BLESSING_OF_SPRING_TALENT,
-  SPELLS.BLESSING_OF_SUMMER_TALENT,
-];

@@ -10,6 +10,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 
 import BeaconHealingDone from './modules/beacons/BeaconHealingDone';
+import BeaconOverview from './modules/beacons/BeaconOverview';
 import BeaconHealSource from './modules/beacons/BeaconHealSource';
 import BeaconTargets from './modules/beacons/BeaconTargets';
 import BeaconTransferFactor from './modules/beacons/BeaconTransferFactor';
@@ -28,6 +29,8 @@ import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import CritRacial from './modules/racials/CritRacial';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
+import DivineProtection from './modules/spells/DivineProtection';
+import DivineShield from './modules/spells/DivineShield';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import LightOfDawn from './modules/spells/LightOfDawn';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
@@ -37,7 +40,11 @@ import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
+import FlashOfLightUsage from './modules/talents/FlashOfLightUsage';
+import HandOfDivinity from './modules/talents/HandOfDivinity';
 import HolyPrism from './modules/talents/HolyPrism';
+import InfusionOfLight from './modules/talents/InfusionOfLight';
+import HolyLight from './modules/talents/HolyLight';
 import EmpyreanLegacy from './modules/talents/EmpyreanLegacy';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
@@ -51,7 +58,9 @@ import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinH
 import HolyShock from './modules/talents/HolyShock';
 import Judgment from './modules/talents/Judgment';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
+import AplCheck from './modules/core/AplCheck';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
+import HolyPowerOverview from './modules/core/HolyPowerOverview';
 import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
 import ProtectionOfTyr from './modules/talents/ProtectionOfTyr';
@@ -59,11 +68,8 @@ import RisingSunlight from './modules/talents/RisingSunlight';
 import Guide from './guide/Guide';
 
 import Aurora from './modules/heroTalents/herald/Aurora';
-import BlessingOfAnshe from './modules/heroTalents/herald/BlessingOfAnshe';
 import Dawnlight from './modules/heroTalents/herald/Dawnlight';
 import GleamingRays from './modules/heroTalents/herald/GleamingRays';
-import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
-import SolarGrace from './modules/heroTalents/herald/SolarGrace';
 import BlessedAssurance from './modules/heroTalents/lightsmith/BlessedAssurance';
 import DivineGuidance from './modules/heroTalents/lightsmith/DivineGuidance';
 import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
@@ -92,12 +98,14 @@ class CombatLogParser extends CoreCombatLogParser {
     failedBeaconTransfers: FailedBeaconTransfers,
     directBeaconHealing: DirectBeaconHealing,
     beaconUptime: BeaconUptime,
+    beaconOverview: BeaconOverview,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     hammerOfWrath: HammerOfWrath,
     builderUse: BuilderUse,
+    apl: AplCheck,
 
     // Features
     abilities: Abilities,
@@ -112,13 +120,19 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     devotionAuradamageReduction: DevotionAuraDamageReduction,
+    divineProtection: DivineProtection,
+    divineShield: DivineShield,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
     divineToll: DivineToll,
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
+    handOfDivinity: HandOfDivinity,
     holyPrism: HolyPrism,
+    infusionOfLight: InfusionOfLight,
+    flashOfLightUsage: FlashOfLightUsage,
+    holyLight: HolyLight,
     empyreanLegacy: EmpyreanLegacy,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
@@ -134,11 +148,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hero Talents
     // Herald
     aurora: Aurora,
-    blessingOfAnshe: BlessingOfAnshe,
     dawnlight: Dawnlight,
     gleamingRays: GleamingRays,
-    secondSunrise: SecondSunrise,
-    solarGrace: SolarGrace,
     // Lightsmith
     blessedAssurance: BlessedAssurance,
     divineGuidance: DivineGuidance,
@@ -151,6 +162,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
     holyPowerGraph: HolyPowerGraph,
+    holyPowerOverview: HolyPowerOverview,
 
     // Mana Tab
     spellManaCost: SpellManaCost,
@@ -159,8 +171,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
     hpmDetails: HealingEfficiencyDetails,
-
-    // Tier Sets
   };
   static guide = Guide;
 }

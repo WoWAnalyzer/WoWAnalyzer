@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { emallson, Mahmud17, NotStirred, kate } from 'CONTRIBUTORS';
+import { emallson, Mahmud17, NotStirred, kate, swirl } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import spells from 'common/SPELLS';
 import SPELLS from './spell-list_Monk_Brewmaster.retail';
 
 // prettier-ignore
 export default [
+  change(date(2026, 6, 29), <>Added <SpellLink spell={SPELLS.SAVE_THEM_ALL_TALENT} /> module.</>, swirl),
   change(date(2026, 5, 6), <>Adjust <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} /> logic to apply CDR before consuming a charge (replicating the in-game bug).</>, emallson),
   change(date(2026, 5, 6), <>Update <SpellLink spell={SPELLS.HIGH_TOLERANCE_TALENT} /> CDR to reflect the recent nerfs.</>, emallson),
   change(date(2026, 5, 6), <>Update support of <SpellLink spell={SPELLS.ANVIL_AND_STAVE_TALENT} />.</>, emallson),

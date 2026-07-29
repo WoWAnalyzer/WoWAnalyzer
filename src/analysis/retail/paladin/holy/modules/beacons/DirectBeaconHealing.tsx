@@ -13,6 +13,12 @@ import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
 import Abilities from '../features/Abilities';
 
+export const DIRECT_BEACON_HEALING_THRESHOLDS = {
+  perfect: 0.2,
+  good: 0.25,
+  ok: 0.35,
+};
+
 class DirectBeaconHealing extends Analyzer {
   static dependencies = {
     abilityTracker: PaladinAbilityTracker,
@@ -97,9 +103,9 @@ class DirectBeaconHealing extends Analyzer {
     return {
       actual: this.totalHealsOnBeaconPercentage,
       isGreaterThan: {
-        minor: 0.2,
-        average: 0.25,
-        major: 0.35,
+        minor: DIRECT_BEACON_HEALING_THRESHOLDS.perfect,
+        average: DIRECT_BEACON_HEALING_THRESHOLDS.good,
+        major: DIRECT_BEACON_HEALING_THRESHOLDS.ok,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

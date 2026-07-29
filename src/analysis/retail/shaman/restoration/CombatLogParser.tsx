@@ -13,7 +13,6 @@ import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-import SpellUsable from './modules/features/SpellUsable';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Talents
 import ChainHeal from './modules/spells/ChainHeal';
@@ -56,7 +55,7 @@ import SupportiveImbuements from './modules/talents/totemic/SupportiveImbuements
 // Normalizers
 import EarthShieldNormalizer from './normalizers/EarthShieldNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
-import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import CastLinkNormalizer from './normalizers/EventLinkNormalizer';
 import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
 import ChainHealNormalizer from './normalizers/ChainHealNormalizer';
 import RiptideTracker from './modules/core/RiptideTracker';
@@ -93,7 +92,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     earthShieldBreakdown: EarthShieldBreakdown,
 

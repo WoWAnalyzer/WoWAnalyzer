@@ -46,6 +46,10 @@ class Reclamation extends Analyzer {
   }
 
   heal(event: HealEvent) {
+    if (!event.hitPoints || !event.maxHitPoints) {
+      return;
+    }
+
     const ratio =
       (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * RECLAMATION_MAX_INCREASE;
     const effectiveHealingBoost = calculateEffectiveHealing(event, ratio);

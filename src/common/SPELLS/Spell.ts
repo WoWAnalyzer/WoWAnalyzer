@@ -50,6 +50,13 @@ export default interface Spell {
   //Classic
   lowRanks?: number[];
   enchantId?: number;
+  /**
+   * The internal Glyph Properties id used by `Combatant.hasGlyph()` (from the
+   * CombatantInfo event's `customPowerSet`/`traitID`) - distinct from `id`,
+   * which is the glyph's own spell id (used for tooltips/display). Only
+   * meaningful for glyph spells.
+   */
+  glyphId?: number;
 }
 
 /**

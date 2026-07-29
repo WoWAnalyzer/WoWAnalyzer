@@ -1,8 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DispelEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
+//currently unused? Needs additional testing with a log to compare a usual dispel and a triggered reset.
 class SpellUsable extends CoreSpellUsable {
   constructor(options: Options) {
     super(options);

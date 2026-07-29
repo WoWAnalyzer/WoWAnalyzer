@@ -11,8 +11,8 @@ import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import HotTrackerMW from '../core/HotTrackerMW';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
 import {
-  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   ATTRIBUTION_STRINGS,
   ENVELOPING_MIST_INCREASE,
   MISTWRAP_INCREASE,
