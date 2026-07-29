@@ -7,6 +7,7 @@ import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import VenomousAbyss from 'game/raids/venomous_abyss';
 import VSDRMQD from 'game/raids/vs_dr_mqd';
 import Sporefall from 'game/raids/sporefall';
+import TideboundGrotto from 'game/raids/tidebound_grotto';
 
 export interface Zone {
   id: number;
@@ -32,6 +33,14 @@ export const VENOMOUS_ABYSS_ZONE: Zone = {
   frozen: false,
   useBetaTooltips: false,
   encounters: Object.values(VenomousAbyss.bosses),
+};
+
+export const TIDEBOUND_GROTTO_ZONE: Zone = {
+  id: 57,
+  name: 'Tidebound Grotto',
+  frozen: false,
+  useBetaTooltips: false,
+  encounters: Object.values(TideboundGrotto.bosses),
 };
 
 const MYTHIC_PLUS_SEASON_TWO_ZONE: Zone = {
@@ -63,6 +72,7 @@ const ZONES: Zone[] = [
   VSDRMQD_ZONE,
   SPOREFALL_ZONE,
   MYTHIC_PLUS_SEASON_TWO_ZONE,
+  TIDEBOUND_GROTTO_ZONE,
   VENOMOUS_ABYSS_ZONE,
 ];
 

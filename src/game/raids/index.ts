@@ -6,6 +6,7 @@ import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import VSDRMQD from 'game/raids/vs_dr_mqd';
 import Sporefall from 'game/raids/sporefall';
 import VenomousAbyss from 'game/raids/venomous_abyss';
+import TideboundGrotto from 'game/raids/tidebound_grotto';
 import {
   msv as MogushanVaults,
   hof as HeartOfFear,
@@ -78,6 +79,7 @@ const dungeons = {
 const raids = {
   // Midnight
   VenomousAbyss,
+  TideboundGrotto,
   VSDRMQD,
   Sporefall,
   // Mists of Pandaria (Classic)
