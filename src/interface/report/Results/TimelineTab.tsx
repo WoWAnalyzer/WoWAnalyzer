@@ -5,9 +5,10 @@ import Buffs from 'parser/core/modules/Auras';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import { ReactNode, useMemo, useState } from 'react';
 import { useConfig } from '../ConfigContext';
-import Component from './Timeline/Component';
 import { EventType } from 'parser/core/Events';
 import { TimelineConfiguration } from 'interface/report/Results/Timeline/configuration/TimelineConfiguration';
+import Timeline from './Timeline/Timeline';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 interface Props {
   parser: CombatLogParser;
@@ -52,6 +53,24 @@ const TimelineTab = ({ parser }: Props) => {
     setIsMovementVisible(b);
   };
 
+  const [spellCategoriesShown, setSpellCategoriesShown] = useState<
+    Set<keyof typeof SPELL_CATEGORY>
+  >(new Set(Object.values(SPELL_CATEGORY)));
+  const handleSpellCategoryVisibilityChange = (
+    category: keyof typeof SPELL_CATEGORY,
+    visible: boolean,
+  ) => {
+    setSpellCategoriesShown((prev) => {
+      const newSet = new Set(prev);
+      if (visible) {
+        newSet.add(category);
+      } else {
+        newSet.delete(category);
+      }
+      return newSet;
+    });
+  };
+
   let alert: ReactNode = null;
   if (config.pages?.timeline) {
     let data;
@@ -88,16 +107,19 @@ const TimelineTab = ({ parser }: Props) => {
             onAuraVisibilityChange={handleAuraVisibilityChange}
             toggleMovementVisibility={toggleMovementVisibility}
             visibleAuras={visibleAuras}
+            spellCategoriesShown={spellCategoriesShown}
+            onSpellCategoryVisibilityChange={handleSpellCategoryVisibilityChange}
           />
         </div>
       </div>
-      <Component
+      <Timeline
         parser={parser}
         abilities={parser.getModule(Abilities)}
         auras={auras}
         movement={isMovementVisible ? distanceMoved.instances : []}
         config={parser.config.timeline}
         visibleAuras={visibleAuras}
+        visibleSpellCategories={spellCategoriesShown}
       />
     </>
   );

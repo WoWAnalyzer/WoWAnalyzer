@@ -725,7 +725,7 @@ const talents = {
     entryIds: [117692],
     definitionIds: [{ id: 122704, specId: 70 }],
     holyPowerCost: 3,
-    manaCost: 25000,
+    manaCost: 1500,
   },
   EXECUTION_SENTENCE_TALENT: {
     id: 343527,

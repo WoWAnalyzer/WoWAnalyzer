@@ -1,21 +1,21 @@
 import { defineMessage } from '@lingui/core/macro';
 import { i18n } from '@lingui/core';
 
-enum SPELL_CATEGORY {
-  ROTATIONAL,
-  ROTATIONAL_AOE,
-  ITEMS,
-  COOLDOWNS,
-  DEFENSIVE,
-  SEMI_DEFENSIVE,
-  OTHERS,
-  UTILITY,
-  HEALER_DAMAGING_SPELL,
-  CONSUMABLE,
-  HIDDEN,
-}
+const SPELL_CATEGORY = {
+  ROTATIONAL: 'ROTATIONAL',
+  ROTATIONAL_AOE: 'ROTATIONAL_AOE',
+  ITEMS: 'ITEMS',
+  COOLDOWNS: 'COOLDOWNS',
+  DEFENSIVE: 'DEFENSIVE',
+  SEMI_DEFENSIVE: 'SEMI_DEFENSIVE',
+  OTHERS: 'OTHERS',
+  UTILITY: 'UTILITY',
+  HEALER_DAMAGING_SPELL: 'HEALER_DAMAGING_SPELL',
+  CONSUMABLE: 'CONSUMABLE',
+  HIDDEN: 'HIDDEN',
+} as const;
 
-export function getSpellCategoryName(category: SPELL_CATEGORY) {
+export function getSpellCategoryName(category: keyof typeof SPELL_CATEGORY) {
   switch (category) {
     case SPELL_CATEGORY.ROTATIONAL:
       return i18n._(

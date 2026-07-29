@@ -16,7 +16,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { didMoteExpire } from '../../../normalizers/CastLinkNormalizer';
+import { didMoteExpire } from '../../../normalizers/EventLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import {

@@ -13,7 +13,7 @@ import {
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Abilities from 'parser/core/modules/Abilities';
 import { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
-import { isApplicableUpdateSpellUsableEvent } from 'interface/report/Results/Timeline/Component';
+import { isApplicableUpdateSpellUsableEvent } from 'interface/report/Results/Timeline/Timeline';
 import Cooldowns from 'interface/report/Results/Timeline/Cooldowns';
 import { DamageMitigationChart } from './DamageMitigationChart';
 import {

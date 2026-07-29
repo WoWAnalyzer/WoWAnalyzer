@@ -3,8 +3,8 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
 import {
-  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   ANCIENT_ARTS_LEG_SWEEP,
   LIGHTER_THAN_AIR_ROLL,
   PEACE_AND_PROSPERITY_ROP,

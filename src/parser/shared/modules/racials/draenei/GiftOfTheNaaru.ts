@@ -31,7 +31,7 @@ class GiftOfTheNaaru extends Analyzer {
         SPELLS.GIFT_OF_THE_NAARU_WARRIOR.id,
       ],
       category: SPELL_CATEGORY.DEFENSIVE,
-      cooldown: 180,
+      cooldown: 120,
       gcd: null,
     });
   }

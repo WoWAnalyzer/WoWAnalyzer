@@ -39,19 +39,17 @@ class Deathblow extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    if (!this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
-      return;
-    }
-    this.spellUsable.endCooldown(this.activeKillShotSpell.id, event.timestamp);
     this.deathblowProcs += 1;
+    if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
+      this.spellUsable.endCooldown(this.activeKillShotSpell.id, event.timestamp);
+    }
   }
   onRefreshBuff(event: RefreshBuffEvent) {
-    if (!this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
-      return;
-    }
-    this.spellUsable.endCooldown(this.activeKillShotSpell.id, event.timestamp);
     this.deathblowProcs += 1;
     this.wastedProcs += 1;
+    if (this.spellUsable.isOnCooldown(this.activeKillShotSpell.id)) {
+      this.spellUsable.endCooldown(this.activeKillShotSpell.id, event.timestamp);
+    }
   }
 
   statistic() {

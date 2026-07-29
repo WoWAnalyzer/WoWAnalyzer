@@ -28,7 +28,7 @@ import {
 import { DBCTable } from 'scripts/utils/dbc-types';
 import { RaidbotsStaticDataFile } from 'scripts/utils/raidbots-types';
 
-const LIVE_WOW_BUILD_NUMBER = '12.0.1.66220';
+const LIVE_WOW_BUILD_NUMBER = '12.0.7.68275';
 const LIVE_TALENT_DATA_URL = getRaidbotsStaticDataUrl(RaidbotsStaticDataFile.Talents);
 const LIVE_SPELLPOWER_DATA_URL = getDbcCsvUrl(DBCTable.SpellPower, LIVE_WOW_BUILD_NUMBER);
 const PTR_WOW_BUILD_NUMBER = '12.1.0.68412';
