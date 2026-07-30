@@ -3059,3 +3059,7 @@ export const Azortharion: Contributor = {
     'Icy-Veins BM Guide': 'https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide',
   },
 };
+export const apolex: Contributor = {
+  nickname: 'apolex',
+  github: 'Apolex-ious',
+};
