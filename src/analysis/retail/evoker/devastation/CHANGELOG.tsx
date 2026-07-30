@@ -7,7 +7,6 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
-  change(date(2026, 8, 11), <>Updated for 12.1.</>, KYZ),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),
   change(date(2026, 6, 3), <>Updated display of <SpellLink spell={SPELLS.DISINTEGRATE} /> modules</>, Baumritter),
   change(date(2026, 6, 1), <>Updated display of <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> module</>, Baumritter),
