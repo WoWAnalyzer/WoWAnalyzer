@@ -61,7 +61,7 @@ class BeaconHealSource extends Analyzer {
       return;
     }
     // Not all spells transfer
-    const spellBeaconTransferFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
+    const spellBeaconTransferFactor = getBeaconSpellFactor(spellId);
     if (!spellBeaconTransferFactor) {
       if (debugUntracked) {
         this.unconfiguredHeals.push({ ...event });

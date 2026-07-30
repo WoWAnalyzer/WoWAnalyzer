@@ -2,7 +2,11 @@ import { Spec } from 'game/SPECS';
 import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
+import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import VSDRMQD from 'game/raids/vs_dr_mqd';
+import Sporefall from 'game/raids/sporefall';
+import VenomousAbyss from 'game/raids/venomous_abyss';
+import TideboundGrotto from 'game/raids/tidebound_grotto';
 import {
   msv as MogushanVaults,
   hof as HeartOfFear,
@@ -68,12 +72,16 @@ export interface Phase extends PhaseConfig {
 
 const dungeons = {
   // Midnight
+  MythicPlusSeasonTwo,
   MythicPlusSeasonOne,
 };
 
 const raids = {
   // Midnight
+  VenomousAbyss,
+  TideboundGrotto,
   VSDRMQD,
+  Sporefall,
   // Mists of Pandaria (Classic)
   ThroneOfThunder,
   MogushanVaults,

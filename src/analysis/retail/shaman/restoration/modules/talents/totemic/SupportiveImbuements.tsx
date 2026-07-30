@@ -8,12 +8,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import {
-  ENHANCED_IMBUES_MODIFIER,
-  HEALING_STREAM_TOTEM_DURATION,
-  TIDECALLERS_GUARD_HEALING_INCREASE,
+  healingIncreases,
+  SPELL_DURATIONS,
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
-  TOTEMIC_FOCUS_HEALING_TOTEM_DURATION,
-  TIDECALLERS_GUARD_DURATION_EXTENSION,
 } from '../../../constants';
 import { SpellLink } from 'interface';
 
@@ -22,21 +19,21 @@ export default class SupportiveImbuements extends Analyzer {
   durationAttributedHealing = 0;
   streamTotemHealingDone = 0;
   tidecallersHealingIncrease =
-    TIDECALLERS_GUARD_HEALING_INCREASE *
+    healingIncreases.TIDECALLERS_GUARD_HEALING_INCREASE *
     (this.selectedCombatant.hasTalent(TALENTS.ENHANCED_IMBUES_TALENT)
-      ? ENHANCED_IMBUES_MODIFIER
+      ? SPELL_DURATIONS.ENHANCED_IMBUES_MODIFIER
       : 1);
   //Figure out how many extra seconds is Tidecallers adding to the totems
   tidecallersBonusTotemDuration =
-    TIDECALLERS_GUARD_DURATION_EXTENSION *
+    SPELL_DURATIONS.TIDECALLERS_GUARD_DURATION_EXTENSION *
     (this.selectedCombatant.hasTalent(TALENTS.ENHANCED_IMBUES_TALENT)
-      ? ENHANCED_IMBUES_MODIFIER
+      ? SPELL_DURATIONS.ENHANCED_IMBUES_MODIFIER
       : 1);
   //Calculate the total duration of healing totems
   healingTotemDuration =
-    HEALING_STREAM_TOTEM_DURATION +
+    SPELL_DURATIONS.HEALING_STREAM_TOTEM_DURATION +
     (this.selectedCombatant.hasTalent(TALENTS.TOTEMIC_FOCUS_TALENT)
-      ? TOTEMIC_FOCUS_HEALING_TOTEM_DURATION
+      ? SPELL_DURATIONS.TOTEMIC_FOCUS_HEALING_TOTEM_DURATION
       : 0) +
     this.tidecallersBonusTotemDuration;
   //What percentage of the total totem duration is Tidecallers Guard adding

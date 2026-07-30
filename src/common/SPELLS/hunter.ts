@@ -28,6 +28,19 @@ const spells = {
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
+  // Separate from DIRE_BEAST_SUMMON - this is the `cast` event marker attributed to the player
+  // when a Dire Beast is summoned (as opposed to the `summon` event for the pet itself), which
+  // shows up on the Timeline. Left unlabeled it falls back to raw report data and shows a stale ID.
+  DIRE_BEAST_CAST: {
+    id: 255283,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  MID1_4P_BONUS_BEAST_MASTERY: {
+    id: 1264826,
+    name: 'Beast Mastery 4-Set',
+    icon: 'ability_hunter_sickem',
+  },
   DIRE_BEAST_GLYPHED: {
     id: 219199,
     name: 'Dire Beast',
@@ -72,6 +85,11 @@ const spells = {
     id: 257946,
     name: 'Thrill of the Hunt',
     icon: 'ability_hunter_thrillofthehunt',
+  },
+  NATURES_ALLY_BUFF: {
+    id: 1276720,
+    name: "Nature's Ally",
+    icon: 'ability_hunter_goforthethroat',
   },
   BLOODSHED_DEBUFF: {
     id: 321538,

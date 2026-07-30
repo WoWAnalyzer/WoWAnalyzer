@@ -1,4 +1,4 @@
-import { MysticTouch, TouchOfDeath } from 'analysis/retail/monk/shared';
+import { MysticTouch, SaveThemAll, TouchOfDeath } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 // Features
@@ -61,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     mysticTouch: MysticTouch,
+    saveThemAll: SaveThemAll,
     spellUsable: SpellUsable,
     chiJiNormalizer: DanceOfChiJiNormalizer,
     danceOfChiJiLinkNormalizer: DanceOfChiJiCastLinkNormalizer,

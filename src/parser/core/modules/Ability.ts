@@ -5,6 +5,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import type { ReactNode } from 'react';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import GameBranch, { currentExpansion } from 'game/GameBranch';
 
 import Abilities from './Abilities';
 import { MessageDescriptor } from '@lingui/core';
@@ -27,7 +28,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * REQUIRED The category of a spell eg Rotational or Defensive.
    * Use {@link SPELL_CATEGORY} for the value.
    */
-  category: SPELL_CATEGORY;
+  category: keyof typeof SPELL_CATEGORY;
   /**
    * The cooldown of a spell at the time of the cast. Unlike most other durations in WoWA,
    * this is in *seconds, NOT milliseconds*. This can be the direct number, or it can be a function
@@ -107,6 +108,12 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   timelineSortIndex?: number;
   /**
+   * When true, this ability will not get its own cooldown lane at the bottom of the
+   * Timeline. Intended to hide unimportant utility spells to reduce noise on the timeline.
+   * Use sporadically.
+   */
+  timelineHide?: boolean;
+  /**
    * If this ability is only castable with a certain buff, this can be indicated
    * by setting this prop to the buff spell id.
    * If the trigger isn't an actual buff but a crit, you may need to make a
@@ -175,7 +182,9 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return maybeGetTalentOrSpell(this.primarySpell)?.name;
+    const branch = this.owner?.config.branch ?? GameBranch.Retail; // this is always set outside of tests
+    const expansion = currentExpansion(branch);
+    return maybeGetTalentOrSpell(this.primarySpell, expansion)?.name;
   }
   set name(value) {
     this._name = value;
@@ -255,6 +264,7 @@ class Ability {
   }
   enabled = true;
   timelineSortIndex: number | null = null;
+  timelineHide = false;
   timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;

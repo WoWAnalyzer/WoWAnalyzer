@@ -102,7 +102,7 @@ export default function genAbilities(config: GenAbilityConfig): typeof Abilities
 function spellbookDefinition(
   combatant: Combatant,
   spell: GenSpell,
-  category: SPELL_CATEGORY,
+  category: keyof typeof SPELL_CATEGORY,
   allSpells: Record<number, GenSpell>,
 ): SpellbookAbility {
   const isKnown = (id: number) =>

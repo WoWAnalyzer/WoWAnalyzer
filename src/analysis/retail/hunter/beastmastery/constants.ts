@@ -8,10 +8,6 @@ import TALENTS from 'common/TALENTS/hunter';
 export const COBRA_SHOT_KC_CDR_MS = 1000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
-/** Bestial Wrath */
-//Bestial Wrath
-export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
-export const BESTIAL_WRATH_BASE_CD = 90000;
 //endregion
 
 //region Talents
@@ -63,6 +59,10 @@ export const BARBED_SCALES_CDR_MS = 2000;
 /** War Orders */
 // War Orders reduces the cooldown of Kill Command by 3 seconds
 export const WAR_ORDERS_CDR_MS = 3000;
+/** Pack Mentality */
+// Pack Mentality reduces the cooldown of Barbed Shot by 4 seconds each time Howl of the Pack
+// Leader summons a beast, regardless of how many beasts that summon actually spawns.
+export const PACK_MENTALITY_CDR_MS = 4000;
 //endregion
 
 //region Pets

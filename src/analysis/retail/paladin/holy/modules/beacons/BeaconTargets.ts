@@ -25,6 +25,10 @@ class BeaconTargets extends BeaconAnalyzer {
   hasBeacon(playerId: number) {
     return this.currentBeaconTargets.includes(playerId);
   }
+  /** Whether the player currently holds one specific beacon, rather than any of them. */
+  hasBeaconId(playerId: number, beaconId: number) {
+    return (this.currentBeaconTargetsByBeaconId[beaconId] ?? []).includes(playerId);
+  }
   getNumBeaconTargetsForBeaconId(beaconId: number) {
     return (this.currentBeaconTargetsByBeaconId[beaconId] ?? []).length;
   }

@@ -133,6 +133,9 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region CLASSIC
   // Druid
   [CLASSIC_SPELLS.MOONKIN_AURA.id]: 0.05,
+  // Death Knight (Unholy) - "Increase Attack Speed % (1)" per Wowhead, same
+  // haste category as Berserking/Bloodlust, so it speeds up rune regen too.
+  [CLASSIC_SPELLS.UNHOLY_FRENZY.id]: 0.2,
   //endregion
 };
 
@@ -177,6 +180,17 @@ class Haste extends Analyzer {
     }
 
     this.current = (options.statTracker as StatTracker).currentHastePercentage;
+    // Buffs already active when the log starts (e.g. a racial like Berserking
+    // used a few seconds before pull) never fire a real ApplyBuff event -
+    // Combatant.parsePrepullBuffs bakes them directly into the combatant's
+    // own buff list during construction (via Entity.applyBuff, which only
+    // mutates local state), bypassing the event pipeline entirely. Since
+    // everything below only reacts to live events, any haste buff active
+    // before the pull would otherwise silently never get applied. At this
+    // point in construction the combatant's buff list only contains those
+    // prepull-baked entries (real ApplyBuff events haven't been processed
+    // yet), so it's safe to fold them in here once.
+    this._applyPrepullHasteBuffs();
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
     this.eventEmitter = options.eventEmitter as EventEmitter;
     this._triggerChangeHaste(null, null, this.current);
@@ -187,6 +201,36 @@ class Haste extends Analyzer {
     this.addEventListener(Events.changedebuffstack.to(SELECTED_PLAYER), this.onChangeDebuffStack);
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
     this.addEventListener(Events.ChangeStats.to(SELECTED_PLAYER), this.onChangeStats);
+  }
+
+  /**
+   * Folds in haste from any buff the combatant already had active at pull
+   * (see the constructor comment for why this can't just wait for a live
+   * ApplyBuff event). Mirrors the same stacking math `_applyActiveBuff` /
+   * `_changeBuffStack` use for buffs picked up mid-fight.
+   */
+  private _applyPrepullHasteBuffs() {
+    for (const buff of this.selectedCombatant.buffs) {
+      const hasteBuff = this.getHasteBuff(buff.ability.guid);
+      if (hasteBuff === undefined) {
+        continue;
+      }
+      if (typeof hasteBuff === 'number') {
+        this.current = Haste.addHaste(this.current, hasteBuff);
+      } else if (typeof hasteBuff === 'object') {
+        if (hasteBuff.haste) {
+          const haste = this._getHasteValue(hasteBuff.haste, hasteBuff);
+          if (haste) {
+            this.current = Haste.addHaste(this.current, haste);
+          }
+        } else if (hasteBuff.hastePerStack) {
+          const perStack = this._getHasteValue(hasteBuff.hastePerStack, hasteBuff);
+          if (perStack) {
+            this.current = Haste.addHaste(this.current, perStack * (buff.stacks ?? 1));
+          }
+        }
+      }
+    }
   }
 
   /**

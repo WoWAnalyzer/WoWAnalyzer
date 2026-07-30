@@ -6,9 +6,10 @@
 */
 
 import Expansion from 'game/Expansion';
+import { AnyPatchVersion } from 'parser/Config';
 
 export interface Patch {
-  name: string;
+  name: AnyPatchVersion;
   timestamp: number;
   urlPrefix: string;
   isCurrent: boolean;
@@ -18,20 +19,36 @@ export interface Patch {
 
 const PATCHES: Patch[] = [
   {
-    name: '4.4.0',
-    timestamp: 1716242400000, // GMT: Monday, 20 May 2024 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 5, // Cataclysm
-    expansion: Expansion.Cataclysm,
-  },
-  {
-    name: '11.2.0',
-    timestamp: 1754431200000, // GMT: Tue Aug 05 2025 22:00:00
+    name: '12.1.0',
+    timestamp: 1787004000000, // GMT: Mon Aug 17 2026 22:00:00 GMT+0000
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail
-    expansion: Expansion.TheWarWithin,
+    expansion: Expansion.Midnight,
+  },
+  {
+    name: '12.0.7',
+    timestamp: 1781647200000, // GMT: Tue Jun 16 2026 22:00:00 GMT+0000
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.Midnight,
+  },
+  {
+    name: '12.0.5',
+    timestamp: 1776780000000, // GMT: Tue Apr 21, 2026 at 14:00:00 GMT+0000
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1,
+    expansion: Expansion.Midnight,
+  },
+  {
+    name: '12.0.1',
+    timestamp: 1772496000000, // GMT: Tue Mar 3, 2026 at 0:00:00 GMT+0000
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1,
+    expansion: Expansion.Midnight,
   },
   {
     name: '5.5.0',

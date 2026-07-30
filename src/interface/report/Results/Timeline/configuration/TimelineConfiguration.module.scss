@@ -33,9 +33,22 @@
   border: 1px solid #555;
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 320px;
+  gap: 12px;
   min-width: 280px;
-  max-width: 400px;
+  max-width: 640px;
   max-height: 400px;
   overflow: hidden;
   margin-top: 4px;
+  padding: 12px;
+}
+
+.timeline-configuration-menu-left {
+  display: grid;
+  gap: 12px;
+}
+
+.timeline-configuration-menu-right {
+  display: grid;
 }

@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -46,7 +47,7 @@ class FocusDetails extends Analyzer {
     };
   }
 
-  statistic() {
+  statistic(): JSX.Element | null {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(11)}

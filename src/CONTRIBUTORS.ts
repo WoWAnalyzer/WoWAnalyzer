@@ -2097,6 +2097,19 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
+export const Darkfrog: Contributor = {
+  nickname: 'Darkfrog',
+  github: 'darkmaster2133',
+  discord: 'darkmaster2133',
+  avatar: avatar('darkfrog-avatar.png'),
+  mains: [
+    {
+      name: 'Darkfrog',
+      spec: SPECS.CLASSIC_DEATH_KNIGHT_FROST,
+      link: 'https://classic.warcraftlogs.com/character/id/100908399',
+    },
+  ],
+};
 export const Pilsung: Contributor = {
   nickname: 'pilsung',
   github: 'Ac1dBomb',
@@ -3022,4 +3035,45 @@ export const Xinito: Contributor = {
       link: 'https://classic.warcraftlogs.com/character/eu/garalon/skullbonka',
     },
   ],
+};
+
+export const Naltarunir: Contributor = {
+  nickname: 'Naltarunir',
+  discord: 'ghosti#1783',
+  github: 'Naltarunir',
+  about: 'Healer and Nobundo fanboy',
+  avatar: avatar('naltarunir-avatar.png'),
+  mains: [
+    {
+      name: 'Naltarunir',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://raider.io/characters/eu/amanthul/Naltarunir',
+    },
+  ],
+  links: {
+    GitHub: 'https://github.com/Naltarunir',
+  },
+};
+
+export const Azortharion: Contributor = {
+  nickname: 'Azortharion',
+  github: 'Azortharion',
+  discord: 'azortharion',
+  avatar: avatar('azortharion-avatar.png'),
+  about: 'Hunter Guidewriter, Theorycrafter and Top Player',
+  mains: [
+    {
+      name: 'Azortharion',
+      spec: SPECS.BEAST_MASTERY_HUNTER,
+      link: 'https://www.warcraftlogs.com/character/eu/kazzak/azortharion',
+    },
+  ],
+  links: {
+    'Icy-Veins BM Guide': 'https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide',
+  },
+};
+
+export const KushGene: Contributor = {
+  nickname: 'KushGene',
+  github: 'KushGene',
 };

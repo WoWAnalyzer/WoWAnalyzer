@@ -50,6 +50,11 @@ const spells = {
     name: 'Sigil of Misery',
     icon: 'ability_demonhunter_sigilofmisery',
   },
+  SIGIL_OF_CHAINS: {
+    id: 202138,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
+  },
   CHARRED_WARBLADES: {
     id: 213011,
     name: 'Charred Warblades',
