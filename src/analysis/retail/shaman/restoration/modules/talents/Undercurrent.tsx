@@ -10,8 +10,12 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/shaman/restoration/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { healingIncreases } from 'src/analysis/retail/shaman/restoration/constants';
 
-const UNDERCURRENT_HEALING_INCREASE: number[] = [0, 0.005, 0.01];
+// const UNDERCURRENT_HEALING_INCREASE: number[] = [0, 0.005, 0.01];
+
+//ToDo: Counting how often the Riptide was overwritten and how many seconds of the duration were lost because of it
+// report it like eflor. from rDruid and display the stack times
 
 class Undercurrent extends Analyzer {
   static dependencies = {
@@ -44,7 +48,7 @@ class Undercurrent extends Analyzer {
 
     const undercurrentHealIncrease =
       this.selectedCombatant.getBuffStacks(SPELLS.UNDERCURRENT_BUFF.id) *
-      UNDERCURRENT_HEALING_INCREASE[this.talentRank];
+      healingIncreases.UNDERCURRENT_HEALING_INCREASE[this.talentRank];
     this.healing += calculateEffectiveHealing(event, undercurrentHealIncrease);
   }
 
