@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },

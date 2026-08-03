@@ -36,13 +36,17 @@ import {
   Mahmud17,
   Ateis,
   Xinito,
+  Darkfrog,
+  Texleretour
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 7, 27), 'Fix reports from previous patches being displayed as from a previous expansion.', Texleretour),
   change(date(2026, 7, 9), 'Add support for spell category filtering on the timeline tab.', Putro),
+  change(date(2026, 6, 19), 'Update shared Classic Death Knight enchant checking and gear data to support Frost and Unholy.', Darkfrog),
   change(date(2026, 6, 6), 'Update the Classic (Mists of Pandaria) enchant checker: drop the Head slot (MoP has no head enchant), recognise current MoP enchants, and grade top-tier enchants as Perfect in the Preparation tab.', Xinito),
   change(date(2026, 5, 21), "Fix events tab crashing after build tooling updates", Putro),
   change(date(2026, 5, 19), 'Add Siege of Orgrimmar Raid / Bosses for MoP Classic', jazminite),

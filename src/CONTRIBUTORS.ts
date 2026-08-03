@@ -2097,6 +2097,19 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
+export const Darkfrog: Contributor = {
+  nickname: 'Darkfrog',
+  github: 'darkmaster2133',
+  discord: 'darkmaster2133',
+  avatar: avatar('darkfrog-avatar.png'),
+  mains: [
+    {
+      name: 'Darkfrog',
+      spec: SPECS.CLASSIC_DEATH_KNIGHT_FROST,
+      link: 'https://classic.warcraftlogs.com/character/id/100908399',
+    },
+  ],
+};
 export const Pilsung: Contributor = {
   nickname: 'pilsung',
   github: 'Ac1dBomb',
@@ -3059,7 +3072,13 @@ export const Azortharion: Contributor = {
     'Icy-Veins BM Guide': 'https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide',
   },
 };
+
 export const apolex: Contributor = {
   nickname: 'apolex',
   github: 'Apolex-ious',
+};
+
+export const KushGene: Contributor = {
+  nickname: 'KushGene',
+  github: 'KushGene',
 };

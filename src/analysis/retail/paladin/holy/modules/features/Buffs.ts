@@ -22,6 +22,12 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT),
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.HAND_OF_DIVINITY_BUFF.id,
+        triggeredBySpellId: TALENTS.AVENGING_WRATH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.HAND_OF_DIVINITY_TALENT),
+        timelineHighlight: true,
+      },
       // Throughput cooldowns
       {
         spellId: TALENTS.AVENGING_CRUSADER_TALENT.id,

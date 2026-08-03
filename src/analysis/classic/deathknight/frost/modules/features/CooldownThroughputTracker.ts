@@ -1,13 +1,12 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/deathknight';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
-    ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.BLOOD_TAP.id,
+      spell: SPELLS.PILLAR_OF_FROST.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

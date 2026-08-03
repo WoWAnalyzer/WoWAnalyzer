@@ -23,7 +23,23 @@ const PATCHES: Patch[] = [
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail
-    expansion: Expansion.TheWarWithin,
+    expansion: Expansion.Midnight,
+  },
+  {
+    name: '12.0.5',
+    timestamp: 1776780000000, // GMT: Tue Apr 21, 2026 at 14:00:00 GMT+0000
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1,
+    expansion: Expansion.Midnight,
+  },
+  {
+    name: '12.0.1',
+    timestamp: 1772496000000, // GMT: Tue Mar 3, 2026 at 0:00:00 GMT+0000
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1,
+    expansion: Expansion.Midnight,
   },
   {
     name: '5.5.0',
