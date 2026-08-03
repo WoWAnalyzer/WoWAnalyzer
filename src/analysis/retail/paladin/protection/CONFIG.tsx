@@ -37,7 +37,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/HPhcYD4FVQ8CwXpL/27-Heroic+One-Armed+Bandit+-+Kill+(5:40)/Auhken/standard/overview',
+    '/report/kbXaPnY9cDyVhCfz/72-Mythic+Lightblinded+Vanguard+-+Kill+(4:56)/318-Mightyteapot/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.PROTECTION_PALADIN,
