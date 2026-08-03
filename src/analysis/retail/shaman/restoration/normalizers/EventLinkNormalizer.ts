@@ -251,7 +251,7 @@ const chainHealEventLink: EventLink = {
   referencedEventId: [TALENTS.CHAIN_HEAL_TALENT.id],
   referencedEventType: EventType.Heal,
   reverseLinkRelation: EVENT_LINKS.chainHealHeal,
-  maximumLinks: 7, //3 Base + 1 from either Ancestral Reach OR Flow of Tides +3 from Ascendance (and by proxy Deeply Rooted Elements)
+  maximumLinks: 8, //4 Base + 1 from either Ancestral Reach OR Flow of Tides +3 from Ascendance (and by proxy Deeply Rooted Elements)
   backwardBufferMs: CAST_BUFFER_MS, //Needed in order to fix a quirk in CH, if the Player targets itself and the HEAL event lands BEFORE the CAST event in LOG.
   forwardBufferMs: CAST_BUFFER_MS,
   anyTarget: true,

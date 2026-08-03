@@ -8,8 +8,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
-
-const COALESCING_WATER_HEALING_INCREASE = 0.3;
+import { healingIncreases } from 'src/analysis/retail/shaman/restoration/constants';
 
 export default class CoalescingWater extends Analyzer {
   healingDoneFromTalent = 0;
@@ -39,7 +38,7 @@ export default class CoalescingWater extends Analyzer {
 
     const coalescingWaterStacks =
       this.selectedCombatant.getBuff(SPELLS.COALESCING_WATER_BUFF)?.stacks ?? 0;
-    const talentBuff = coalescingWaterStacks * COALESCING_WATER_HEALING_INCREASE;
+    const talentBuff = coalescingWaterStacks * healingIncreases.COALESCING_WATER_HEALING_INCREASE;
     this.healingDoneFromTalent += calculateEffectiveHealing(event, talentBuff);
 
     this.overhealingDoneFromTalent += calculateOverhealing(event, talentBuff);
