@@ -3,8 +3,7 @@ import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 import { suggestion as buildSuggestion } from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
-import aplCheck, { Condition, build, tenseAlt } from 'parser/shared/metrics/apl';
+import aplCheck, { build, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
@@ -12,37 +11,7 @@ const howCastable = cnd.always(
   cnd.or(cnd.inExecute(), cnd.buffPresent(TALENTS.AVENGING_WRATH_TALENT)),
 );
 
-const eyeOfTyrHoLCastable: Condition<boolean> = {
-  key: 'eyeOfTyr-HoL-Castable',
-  init: () => false,
-  describe: (tense) => (
-    <>
-      <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> {tenseAlt(tense, 'is', 'was')} castable due to{' '}
-      <SpellLink spell={TALENTS.EYE_OF_TYR_TALENT} />
-    </>
-  ),
-  update: (state, event) => {
-    if (event.type === EventType.Cast && event.ability.guid === TALENTS.EYE_OF_TYR_TALENT.id) {
-      return true;
-    }
-
-    if (event.type === EventType.Cast && event.ability.guid === SPELLS.HAMMER_OF_LIGHT.id) {
-      return false;
-    }
-
-    return state;
-  },
-  validate: (state) => {
-    return state;
-  },
-};
-
-const holCastable = cnd.always(
-  cnd.or(
-    cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF),
-    cnd.and(eyeOfTyrHoLCastable, cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }, 0)),
-  ),
-);
+const holCastable = cnd.always(cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF));
 
 export const apl = build([
   {

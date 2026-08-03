@@ -26,11 +26,8 @@ import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import WordOfGlory from './modules/spells/WordOfGlory';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 import FirstAvenger from './modules/talents/FirstAvenger';
-import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
-import MomentOfGlory from './modules/talents/MomentOfGlory';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
-import ResoluteDefender from './modules/talents/ResoluteDefender';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import CastLinkNormalizer from './modules/CastLinkNormalizer';
@@ -39,11 +36,9 @@ import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuff
 import BuilderUse from './modules/core/BuilderUse';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
 import ArdentDefender from './modules/core/Defensives/ArdentDefender';
-import EyeOfTyr from './modules/core/Defensives/EyeOfTyr';
 import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
-import HammerOfLight from '../shared/HammerOfLight';
 import Valiance from './modules/talents/Valiance';
 import Lightbearer from '../shared/Lightbearer';
 
@@ -65,7 +60,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
     judgment: Judgment,
-    hammerOfLight: HammerOfLight,
 
     // Features
     abilities: Abilities,
@@ -82,19 +76,15 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveBuffs: DefensiveBuffs,
     guardianOfAncientKings: GuardianOfAncientKings,
     ardentDefender: ArdentDefender,
-    eyeOfTyr: EyeOfTyr,
     consecrationDefensives: ConsecrationDefensives,
 
     // Talents
     righteousProtector: RighteousProtector,
-    resoluteDefender: ResoluteDefender,
     giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
-    holyShieldSpellBlock: HolyShieldSpellBlock,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
     firstAvenger: FirstAvenger,
-    momentOfGlory: MomentOfGlory,
     divineToll: DivineToll,
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,

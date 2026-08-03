@@ -3073,6 +3073,11 @@ export const Azortharion: Contributor = {
   },
 };
 
+export const apolex: Contributor = {
+  nickname: 'apolex',
+  github: 'Apolex-ious',
+};
+
 export const KushGene: Contributor = {
   nickname: 'KushGene',
   github: 'KushGene',
