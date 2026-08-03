@@ -37,6 +37,7 @@ export const MitigationTooltipSegment = ({
 
   return (
     <div
+      ref={innerRef}
       {...rest}
       className={clsx(styles.MitigationTooltipSegment, className)}
       style={{ width: actualWidth, '--color': color }}
