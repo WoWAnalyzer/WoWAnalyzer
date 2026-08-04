@@ -16,6 +16,7 @@ import { AplSectionData } from 'interface/guide/components/Apl';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
 import SPELLS from 'common/SPELLS';
+import { MAX_VANGUARD_STACKS } from './modules/talents/Vanguard';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -122,10 +123,10 @@ function VanguardSubSection({ modules, info }: GuideProps<typeof CombatLogParser
         <SpellLink spell={talents.GLORY_OF_THE_VANGUARD_1_PROTECTION_TALENT} /> gives{' '}
         <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> a chance to grant{' '}
         <SpellLink spell={SPELLS.VANGUARD_BUFF} />, empowering your next{' '}
-        <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />. The buff does not stack, so a second
-        proc landing before you spend the first <strong>overwrites</strong> it. Spend each proc with{' '}
-        <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> before casting another{' '}
-        <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} />.
+        <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />. It stacks up to {MAX_VANGUARD_STACKS},
+        so you can bank a second proc — but a third arriving before you spend one is lost. Spend
+        stacks with <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> rather than sitting at{' '}
+        {MAX_VANGUARD_STACKS}.
       </p>
       <SideBySidePanels>
         <RoundedPanel>
@@ -158,7 +159,8 @@ function VanguardSubSection({ modules, info }: GuideProps<typeof CombatLogParser
               <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />
             </li>
             <li>
-              <strong>{vanguard.overwritten}</strong> overwritten before being consumed
+              <strong>{vanguard.overcapped}</strong> lost to overcapping (procced at{' '}
+              {MAX_VANGUARD_STACKS} stacks)
             </li>
             <li>
               <strong>{vanguard.expired}</strong> expired unused

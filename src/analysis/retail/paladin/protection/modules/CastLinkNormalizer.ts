@@ -9,6 +9,7 @@ import {
   ApplyBuffEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import HIT_TYPES from '../../../../../game/HIT_TYPES';
@@ -129,7 +130,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: VANGUARD_CONSUMED,
     reverseLinkRelation: VANGUARD_CONSUMED,
     referencedEventId: SPELLS.VANGUARD_BUFF.id,
-    referencedEventType: EventType.RemoveBuff,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     linkingEventId: TALENTS.AVENGERS_SHIELD_TALENT.id,
     linkingEventType: EventType.Cast,
     forwardBufferMs: BUFFER_MS,
@@ -172,8 +173,8 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-/** Whether this Vanguard removebuff was spent on an Avenger's Shield rather than expiring. */
-export function consumedVanguard(event: RemoveBuffEvent): boolean {
+/** Whether this Vanguard stack was spent on an Avenger's Shield rather than expiring. */
+export function consumedVanguard(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return HasRelatedEvent(event, VANGUARD_CONSUMED);
 }
 
