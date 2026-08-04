@@ -15,6 +15,7 @@ import { FoundationCooldownSection } from 'interface/guide/foundation/Foundation
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
+import SPELLS from 'common/SPELLS';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -44,7 +45,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 const PERFECT_HOLY_POWER_CAP = 0.1;
 const GOOD_HOLY_POWER_CAP = 0.15;
 const OK_HOLY_POWER_CAP = 0.2;
-function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+function ResourceUsageSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const percentAtHolyPowerCap = modules.holyPowerTracker.percentAtCap;
   let percentAtHolyPowerCapPerformance = QualitativePerformance.Fail;
   if (percentAtHolyPowerCap <= PERFECT_HOLY_POWER_CAP) {
@@ -91,7 +92,94 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           </RoundedPanel>
         </SideBySidePanels>
       </SubSection>
+      <VanguardSubSection modules={modules} events={events} info={info} />
     </Section>
+  );
+}
+
+const PERFECT_VANGUARD_WASTE = 0.05;
+const GOOD_VANGUARD_WASTE = 0.1;
+const OK_VANGUARD_WASTE = 0.2;
+function VanguardSubSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const vanguard = modules.vanguard;
+  if (!vanguard.active) {
+    return null;
+  }
+
+  const percentWasted = vanguard.percentWasted;
+  let performance = QualitativePerformance.Fail;
+  if (percentWasted <= PERFECT_VANGUARD_WASTE) {
+    performance = QualitativePerformance.Perfect;
+  } else if (percentWasted <= GOOD_VANGUARD_WASTE) {
+    performance = QualitativePerformance.Good;
+  } else if (percentWasted <= OK_VANGUARD_WASTE) {
+    performance = QualitativePerformance.Ok;
+  }
+
+  return (
+    <SubSection title="Vanguard Procs">
+      <p>
+        <SpellLink spell={talents.GLORY_OF_THE_VANGUARD_1_PROTECTION_TALENT} /> gives{' '}
+        <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> a chance to grant{' '}
+        <SpellLink spell={SPELLS.VANGUARD_BUFF} />, empowering your next{' '}
+        <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />. The buff does not stack, so a second
+        proc landing before you spend the first <strong>overwrites</strong> it. Spend each proc with{' '}
+        <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> before casting another{' '}
+        <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} />.
+      </p>
+      <SideBySidePanels>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.VANGUARD_BUFF} /> Waste
+          </strong>
+          <p>
+            You wasted{' '}
+            <PerformancePercentage
+              performance={performance}
+              perfectPercentage={PERFECT_VANGUARD_WASTE}
+              goodPercentage={GOOD_VANGUARD_WASTE}
+              okPercentage={OK_VANGUARD_WASTE}
+              percentage={percentWasted}
+              flatAmount={vanguard.wasted}
+            />{' '}
+            of your <SpellLink spell={SPELLS.VANGUARD_BUFF} /> procs.
+          </p>
+        </RoundedPanel>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.VANGUARD_BUFF} /> Breakdown
+          </strong>
+          <ul>
+            <li>
+              <strong>{vanguard.generated}</strong> generated
+            </li>
+            <li>
+              <strong>{vanguard.consumed}</strong> consumed by{' '}
+              <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} />
+            </li>
+            <li>
+              <strong>{vanguard.overwritten}</strong> overwritten before being consumed
+            </li>
+            <li>
+              <strong>{vanguard.expired}</strong> expired unused
+            </li>
+            {vanguard.unresolved > 0 && (
+              <li>
+                <strong>{vanguard.unresolved}</strong> still active when the fight ended
+              </li>
+            )}
+          </ul>
+          {info.combatant.hasTalent(talents.AVENGING_WRATH_TALENT) && (
+            <small>
+              During <SpellLink spell={talents.AVENGING_WRATH_TALENT} /> every{' '}
+              <SpellLink spell={talents.AVENGERS_SHIELD_TALENT} /> benefits from{' '}
+              <SpellLink spell={SPELLS.VANGUARD_BUFF} /> regardless of procs, so overwrites inside
+              that window matter less than the raw count suggests.
+            </small>
+          )}
+        </RoundedPanel>
+      </SideBySidePanels>
+    </SubSection>
   );
 }
 

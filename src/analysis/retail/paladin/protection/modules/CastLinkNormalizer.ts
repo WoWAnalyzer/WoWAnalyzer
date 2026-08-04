@@ -5,13 +5,16 @@ import {
   EventType,
   DamageEvent,
   GetRelatedEvents,
+  HasRelatedEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import HIT_TYPES from '../../../../../game/HIT_TYPES';
 
 const BUFFER_MS = 100;
+export const VANGUARD_CONSUMED = 'VanguardConsumed';
 const GRAND_CRUSADER_CAST = 'FromHardcast';
 const GRAND_CRUSADER_CRUSADER_STRIKE_CAST = 'FromHardcast';
 const GRAND_CRUSADER_HAMMER_OF_THE_RIGHTEOUS_CAST = 'FromHardcast';
@@ -120,6 +123,20 @@ const EVENT_LINKS: EventLink[] = [
       linkingEvent.type === EventType.Damage && linkingEvent.hitType === HIT_TYPES.PARRY,
   },
 
+  // Vanguard consumption. The buff is spent by Avenger's Shield, so a removebuff
+  // that coincides with an Avenger's Shield cast was consumed rather than expired.
+  {
+    linkRelation: VANGUARD_CONSUMED,
+    reverseLinkRelation: VANGUARD_CONSUMED,
+    referencedEventId: SPELLS.VANGUARD_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    linkingEventId: TALENTS.AVENGERS_SHIELD_TALENT.id,
+    linkingEventType: EventType.Cast,
+    forwardBufferMs: BUFFER_MS,
+    backwardBufferMs: BUFFER_MS,
+    anyTarget: true,
+  },
+
   // Judgement Crit - Tier 30 4pc
   {
     linkRelation: GRAND_CRUSADER_CAST,
@@ -153,6 +170,11 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, [...EVENT_LINKS]);
   }
+}
+
+/** Whether this Vanguard removebuff was spent on an Avenger's Shield rather than expiring. */
+export function consumedVanguard(event: RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, VANGUARD_CONSUMED);
 }
 
 export function gcJudgmentCrit(event: ApplyBuffEvent | RefreshBuffEvent): DamageEvent | undefined {

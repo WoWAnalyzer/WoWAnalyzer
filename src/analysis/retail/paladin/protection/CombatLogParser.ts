@@ -40,6 +40,7 @@ import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefens
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import Valiance from './modules/talents/Valiance';
+import Vanguard from './modules/talents/Vanguard';
 import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -88,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divineToll: DivineToll,
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,
+    vanguard: Vanguard,
     lightBearer: Lightbearer,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

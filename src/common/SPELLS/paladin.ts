@@ -691,6 +691,11 @@ const spells = {
     ...talents.SHAKE_THE_HEAVENS_TALENT,
     id: 431536,
   },
+  VANGUARD_BUFF: {
+    id: 1268810,
+    name: 'Vanguard',
+    icon: 'inv12_apextalent_paladin_gloryofthevanguard',
+  },
   HAMMER_AND_ANVIL_HEAL: {
     id: 433722,
     name: 'Hammer and Anvil',
