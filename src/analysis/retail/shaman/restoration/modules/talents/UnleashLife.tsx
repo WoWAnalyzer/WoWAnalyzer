@@ -127,6 +127,15 @@ class UnleashLife extends Analyzer {
       this.okSpells.push(TALENTS.RIPTIDE_TALENT.id);
     }
   }
+
+  //Checking if the player runs only with UL or UL+EA in order to prevent the misatribution of increased healing from EA to UL later in the module
+  private _getUnleashLifeRate(): number {
+    return this.selectedCombatant.hasTalent(TALENTS.EARTHEN_ACCORD_TALENT)
+      ? healingIncreases.UNLEASH_LIFE_HEALING_INCREASE +
+          healingIncreases.EARTHEN_ACCORD_BUFF_INCREASE
+      : healingIncreases.UNLEASH_LIFE_HEALING_INCREASE;
+  }
+
   //necessary because riptide can be spellqued into the spell that actually consumed UL and event linking will match both
   _wasAlreadyConsumed(event: CastEvent | HealEvent) {
     if (this.lastRemoved + UNLEASH_LIFE_REMOVE_MS < event.timestamp || this.ulActive) {
@@ -187,6 +196,8 @@ class UnleashLife extends Analyzer {
   private _onRiptide(event: HealEvent) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
+    const totalRate = this._getUnleashLifeRate();
+    const ulShare = healingIncreases.UNLEASH_LIFE_HEALING_INCREASE / totalRate;
     //hot ticks -- the hot tracker resets attributions on refresh buff, so if a UL Riptide gets overwritten it will be excluded here
     if (event.tick) {
       if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
@@ -194,11 +205,7 @@ class UnleashLife extends Analyzer {
       }
       const riptide = this.riptideTracker.hots[targetId][spellId];
       if (this.riptideTracker.fromUnleashLife(riptide)) {
-        debug && console.log('Unleash Life Riptide Tick: ', event);
-        this.healingMap[spellId].amount += calculateEffectiveHealing(
-          event,
-          healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
-        );
+        this.healingMap[spellId].amount += calculateEffectiveHealing(event, totalRate) * ulShare;
       }
       return;
     }
@@ -206,49 +213,33 @@ class UnleashLife extends Analyzer {
     if (isBuffedByUnleashLife(event) && !this._wasAlreadyConsumed(event)) {
       this.healingMap[spellId].casts += 1;
       this.tallyCastEntry(spellId);
-      debug &&
-        console.log(
-          'Unleash Life ' +
-            event.ability.name +
-            ' at ' +
-            this.owner.formatTimestamp(event.timestamp, 3) +
-            ' ',
-          event,
-        );
-      this.healingMap[spellId].amount += calculateEffectiveHealing(
-        event,
-        healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
+      this.healingMap[spellId].amount += calculateEffectiveHealing(event, totalRate) * ulShare;
+    }
+  }
+
+  private _tallyHealingIncrease(events: HealEvent[]): number {
+    if (events.length > 0) {
+      const totalRate = this._getUnleashLifeRate();
+      const ulShare = healingIncreases.UNLEASH_LIFE_HEALING_INCREASE / totalRate;
+      return events.reduce(
+        (amount, event) => amount + calculateEffectiveHealing(event, totalRate) * ulShare,
+        0,
       );
     }
+    return 0;
   }
 
   private _onHealingWave(event: CastEvent) {
     const spellId = event.ability.guid;
     const ulHealingWaves = getUnleashLifeHealingWaves(event);
     if (ulHealingWaves.length > 0) {
-      this.healingMap[spellId].amount += this._tallyHealingIncrease(
-        ulHealingWaves,
-        healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
-      );
+      this.healingMap[spellId].amount += this._tallyHealingIncrease(ulHealingWaves);
     }
   }
 
   private _onChainHeal(event: CastEvent) {
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
-    this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
-      orderedChainHeal,
-      healingIncreases.UNLEASH_LIFE_HEALING_INCREASE,
-    );
-  }
-
-  private _tallyHealingIncrease(events: HealEvent[], healIncrease: number): number {
-    if (events.length > 0) {
-      return events.reduce(
-        (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
-        0,
-      );
-    }
-    return 0;
+    this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(orderedChainHeal);
   }
 
   private _tooltip(primary: TooltipData, secondary?: TooltipData) {

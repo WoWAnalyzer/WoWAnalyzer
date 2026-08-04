@@ -108,7 +108,10 @@ export const OVERFLOWING_SHORES_RANGE_INCREASE = 400;
 export const ANCENDANCE_TARGET = 3;
 
 // Fake haste
-export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
+export const fakeHaste = {
+  FLASH_FLOOD_CAST_SPEED_MODIFIER: 0.1, // per rank
+  UNLEASH_LIFE_CAST_SPEED_MODIFIER: 0.3, // only buffed Chain Heal & Healing Wave
+};
 
 export const SPELL_DURATIONS = {
   HEALING_RAIN_DURATION: 18000,
@@ -164,6 +167,8 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.ASCENDANCE_HEAL,
 ];
 
+export const BASELINE_MASTERY_PERCENTAGE = 0.24;
+
 export const BASE_ABILITIES_AFFECTED_BY_MASTERY = [
   ...SHAMAN_BASE_ABILITIES,
   ...SHAMAN_PET_ABILITIES,
@@ -171,8 +176,7 @@ export const BASE_ABILITIES_AFFECTED_BY_MASTERY = [
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
   ...BASE_ABILITIES_AFFECTED_BY_MASTERY,
-  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.ANCESTRAL_AWAKENING_HEAL,
+  //The initial Heal of Restorative Mists is affected by mastery.
   SPELLS.ASCENDANCE_HEAL,
 ];
 
