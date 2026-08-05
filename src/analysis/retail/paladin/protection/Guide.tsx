@@ -16,6 +16,7 @@ import { AplSectionData } from 'interface/guide/components/Apl';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
 import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 import { MAX_VANGUARD_STACKS } from './modules/talents/Vanguard';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
@@ -93,8 +94,82 @@ function ResourceUsageSection({ modules, events, info }: GuideProps<typeof Comba
           </RoundedPanel>
         </SideBySidePanels>
       </SubSection>
+      <WingsHolyPowerSubSection modules={modules} events={events} info={info} />
       <VanguardSubSection modules={modules} events={events} info={info} />
     </Section>
+  );
+}
+
+const PERFECT_WINGS_HP_WASTE = 0.05;
+const GOOD_WINGS_HP_WASTE = 0.1;
+const OK_WINGS_HP_WASTE = 0.15;
+function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  const wings = modules.wingsHolyPower;
+  if (!wings.active || wings.generatedInWings === 0) {
+    return null;
+  }
+
+  const pct = wings.percentWastedInWings;
+  let performance = QualitativePerformance.Fail;
+  if (pct <= PERFECT_WINGS_HP_WASTE) {
+    performance = QualitativePerformance.Perfect;
+  } else if (pct <= GOOD_WINGS_HP_WASTE) {
+    performance = QualitativePerformance.Good;
+  } else if (pct <= OK_WINGS_HP_WASTE) {
+    performance = QualitativePerformance.Ok;
+  }
+
+  return (
+    <SubSection title="Holy Power during Cooldowns">
+      <p>
+        During <SpellLink spell={wings.wingsSpell} />,{' '}
+        <SpellLink spell={talents.HAMMER_OF_WRATH_TALENT} /> replaces{' '}
+        <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> and floods you with{' '}
+        <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />. Spending it fast enough to avoid
+        overcapping is much harder inside that window than outside it, so the two are graded
+        separately here.
+      </p>
+      <SideBySidePanels>
+        <RoundedPanel>
+          <strong>
+            Waste during <SpellLink spell={wings.wingsSpell} />
+          </strong>
+          <p>
+            You wasted{' '}
+            <PerformancePercentage
+              performance={performance}
+              perfectPercentage={PERFECT_WINGS_HP_WASTE}
+              goodPercentage={GOOD_WINGS_HP_WASTE}
+              okPercentage={OK_WINGS_HP_WASTE}
+              percentage={pct}
+              flatAmount={wings.wastedInWings}
+            />{' '}
+            of the <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> you generated during{' '}
+            <SpellLink spell={wings.wingsSpell} />.
+          </p>
+        </RoundedPanel>
+        <RoundedPanel>
+          <strong>Inside vs outside</strong>
+          <ul>
+            <li>
+              Inside <SpellLink spell={wings.wingsSpell} />: <strong>{wings.wastedInWings}</strong>{' '}
+              wasted of {wings.generatedInWings} generated (
+              {formatPercentage(wings.percentWastedInWings, 1)}%)
+            </li>
+            <li>
+              Outside: <strong>{wings.wastedOutsideWings}</strong> wasted of{' '}
+              {wings.generatedOutsideWings} generated (
+              {formatPercentage(wings.percentWastedOutsideWings, 1)}%)
+            </li>
+          </ul>
+          <small>
+            {formatPercentage(wings.shareOfWasteInWings, 0)}% of all your wasted{' '}
+            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> happened inside{' '}
+            <SpellLink spell={wings.wingsSpell} />.
+          </small>
+        </RoundedPanel>
+      </SideBySidePanels>
+    </SubSection>
   );
 }
 

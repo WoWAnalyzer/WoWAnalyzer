@@ -34,6 +34,7 @@ import CastLinkNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
 import BuilderUse from './modules/core/BuilderUse';
+import WingsHolyPower from './modules/core/WingsHolyPower';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
 import ArdentDefender from './modules/core/Defensives/ArdentDefender';
 import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
+    wingsHolyPower: WingsHolyPower,
 
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
