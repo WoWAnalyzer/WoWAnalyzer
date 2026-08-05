@@ -62,18 +62,20 @@ class OvercapShieldOfTheRighteous extends Analyzer {
     const timeDiffBetweenCasts = event.timestamp - this.lastSotrCastTimestamp;
     const buffAmountAtCurrentCast = Math.max(0, this.buffTimeAtLastCast - timeDiffBetweenCasts);
     if (buffAmountAtCurrentCast >= SOTR_SOFT_CAP && !this.castIsForgivable(event)) {
+      // The cast adds SOTR_BUFF_LENGTH but the buff is clamped to ACTIVE_MITIGATION_CAP,
+      // so the wasted portion is whatever the remaining duration exceeds the soft cap by.
+      // Ranges from 0 (exactly at the soft cap) to SOTR_BUFF_LENGTH (already fully capped).
+      const overcap = buffAmountAtCurrentCast - SOTR_SOFT_CAP;
       this.badSotrCasts += 1;
+      this.totalSotrOvercapping += overcap;
       this.overcapRecords.push({
         cast: event,
-        overcap: ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast,
+        overcap,
       });
       debug &&
         console.log(
-          `Determined cast at ${
-            event.timestamp
-          } is bad cast with buff amount of ${buffAmountAtCurrentCast}. Adding overcap amount of ${
-            ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast
-          }`,
+          `Determined cast at ${event.timestamp} is bad cast with buff amount of ` +
+            `${buffAmountAtCurrentCast}. Adding overcap amount of ${overcap}`,
         );
     } else {
       this.goodSotrCasts += 1;
