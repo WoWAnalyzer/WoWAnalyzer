@@ -1,9 +1,9 @@
-import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
+
+import { getWingsSpell } from '../../constants';
 
 /**
  * Holy Power overcap inside the damage cooldown window.
@@ -19,7 +19,7 @@ import Events, { ResourceChangeEvent } from 'parser/core/Events';
  */
 export default class WingsHolyPower extends Analyzer {
   /** The cooldown this player actually uses - Sentinel replaces Avenging Wrath. */
-  wingsSpell: Spell;
+  wingsSpell: Spell | undefined;
 
   generatedInWings = 0;
   wastedInWings = 0;
@@ -29,10 +29,9 @@ export default class WingsHolyPower extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const hasSentinel = this.selectedCombatant.hasTalent(TALENTS.SENTINEL_TALENT);
-    this.wingsSpell = hasSentinel ? SPELLS.SENTINEL : TALENTS.AVENGING_WRATH_TALENT;
-    this.active = hasSentinel || this.selectedCombatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT);
-    if (!this.active) {
+    this.wingsSpell = getWingsSpell(this.selectedCombatant);
+    this.active = this.wingsSpell !== undefined;
+    if (!this.active || !this.wingsSpell) {
       return;
     }
 
@@ -47,7 +46,7 @@ export default class WingsHolyPower extends Analyzer {
     const gained = event.resourceChange;
     const wasted = event.waste;
 
-    if (this.selectedCombatant.hasBuff(this.wingsSpell.id, event.timestamp)) {
+    if (this.wingsSpell && this.selectedCombatant.hasBuff(this.wingsSpell.id, event.timestamp)) {
       this.generatedInWings += gained;
       this.wastedInWings += wasted;
     } else {

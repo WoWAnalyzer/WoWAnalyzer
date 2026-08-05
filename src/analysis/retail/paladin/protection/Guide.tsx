@@ -16,7 +16,9 @@ import { AplSectionData } from 'interface/guide/components/Apl';
 import { apl, check } from './modules/core/AplCheck';
 import talents from 'common/TALENTS/paladin';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import { PerformanceMark } from 'interface/guide';
+import PerformanceStrongWithTooltip from 'interface/PerformanceStrongWithTooltip';
 import { MAX_VANGUARD_STACKS } from './modules/talents/Vanguard';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
@@ -95,6 +97,7 @@ function ResourceUsageSection({ modules, events, info }: GuideProps<typeof Comba
         </SideBySidePanels>
       </SubSection>
       <WingsHolyPowerSubSection modules={modules} events={events} info={info} />
+      <SacredWeaponCoverageSubSection modules={modules} events={events} info={info} />
       <VanguardSubSection modules={modules} events={events} info={info} />
     </Section>
   );
@@ -105,9 +108,10 @@ const GOOD_WINGS_HP_WASTE = 0.1;
 const OK_WINGS_HP_WASTE = 0.15;
 function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser>) {
   const wings = modules.wingsHolyPower;
-  if (!wings.active || wings.generatedInWings === 0) {
+  if (!wings.active || !wings.wingsSpell || wings.generatedInWings === 0) {
     return null;
   }
+  const wingsSpell = wings.wingsSpell;
 
   const pct = wings.percentWastedInWings;
   let performance = QualitativePerformance.Fail;
@@ -122,7 +126,7 @@ function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser
   return (
     <SubSection title="Holy Power during Cooldowns">
       <p>
-        During <SpellLink spell={wings.wingsSpell} />,{' '}
+        During <SpellLink spell={wingsSpell} />,{' '}
         <SpellLink spell={talents.HAMMER_OF_WRATH_TALENT} /> replaces{' '}
         <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> and floods you with{' '}
         <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />. Spending it fast enough to avoid
@@ -132,7 +136,7 @@ function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser
       <SideBySidePanels>
         <RoundedPanel>
           <strong>
-            Waste during <SpellLink spell={wings.wingsSpell} />
+            Waste during <SpellLink spell={wingsSpell} />
           </strong>
           <p>
             You wasted{' '}
@@ -145,15 +149,15 @@ function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser
               flatAmount={wings.wastedInWings}
             />{' '}
             of the <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> you generated during{' '}
-            <SpellLink spell={wings.wingsSpell} />.
+            <SpellLink spell={wingsSpell} />.
           </p>
         </RoundedPanel>
         <RoundedPanel>
           <strong>Inside vs outside</strong>
           <ul>
             <li>
-              Inside <SpellLink spell={wings.wingsSpell} />: <strong>{wings.wastedInWings}</strong>{' '}
-              wasted of {wings.generatedInWings} generated (
+              Inside <SpellLink spell={wingsSpell} />: <strong>{wings.wastedInWings}</strong> wasted
+              of {wings.generatedInWings} generated (
               {formatPercentage(wings.percentWastedInWings, 1)}%)
             </li>
             <li>
@@ -165,8 +169,84 @@ function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser
           <small>
             {formatPercentage(wings.shareOfWasteInWings, 0)}% of all your wasted{' '}
             <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> happened inside{' '}
-            <SpellLink spell={wings.wingsSpell} />.
+            <SpellLink spell={wingsSpell} />.
           </small>
+        </RoundedPanel>
+      </SideBySidePanels>
+    </SubSection>
+  );
+}
+
+const PERFECT_SW_COVERAGE = 1;
+const GOOD_SW_COVERAGE = 0.95;
+const OK_SW_COVERAGE = 0.85;
+function SacredWeaponCoverageSubSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const sw = modules.sacredWeaponCoverage;
+  if (!sw.active || !sw.wingsSpell || sw.totalWingsDuration === 0) {
+    return null;
+  }
+
+  const pct = sw.percentCovered;
+  let performance = QualitativePerformance.Fail;
+  if (pct >= PERFECT_SW_COVERAGE) {
+    performance = QualitativePerformance.Perfect;
+  } else if (pct >= GOOD_SW_COVERAGE) {
+    performance = QualitativePerformance.Good;
+  } else if (pct >= OK_SW_COVERAGE) {
+    performance = QualitativePerformance.Ok;
+  }
+
+  const uncovered = sw.uncoveredWindows;
+
+  return (
+    <SubSection title="Sacred Weapon during Cooldowns">
+      <p>
+        Keeping <SpellLink spell={SPELLS.SACRED_WEAPON_BUFF} /> up across{' '}
+        <SpellLink spell={sw.wingsSpell} /> is worth more than raw uptime elsewhere, so it is
+        measured against those windows specifically.
+      </p>
+      <SideBySidePanels>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={sw.wingsSpell} /> Coverage
+          </strong>
+          <p>
+            <PerformanceStrongWithTooltip
+              performance={performance}
+              tooltip={
+                <>
+                  <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect &gt;= 100%
+                  <br />
+                  <PerformanceMark perf={QualitativePerformance.Good} /> Good &gt;= 95%
+                  <br />
+                  <PerformanceMark perf={QualitativePerformance.Ok} /> OK &gt;= 85%
+                </>
+              }
+            >
+              {formatPercentage(pct, 1)}%
+            </PerformanceStrongWithTooltip>{' '}
+            of your {sw.windows.length} <SpellLink spell={sw.wingsSpell} /> window
+            {sw.windows.length === 1 ? '' : 's'} had <SpellLink spell={SPELLS.SACRED_WEAPON_BUFF} />{' '}
+            active.
+          </p>
+        </RoundedPanel>
+        <RoundedPanel>
+          <strong>Windows with gaps</strong>
+          {uncovered.length === 0 ? (
+            <p>
+              Every <SpellLink spell={sw.wingsSpell} /> window was fully covered.
+            </p>
+          ) : (
+            <ul>
+              {uncovered.map((w, i) => (
+                <li key={i}>
+                  {formatDuration(w.start - (info?.fightStart ?? w.start))} &mdash;{' '}
+                  {formatPercentage(w.covered / (w.end - w.start), 0)}% covered (
+                  {formatNumber((w.end - w.start - w.covered) / 1000)}s uncovered)
+                </li>
+              ))}
+            </ul>
+          )}
         </RoundedPanel>
       </SideBySidePanels>
     </SubSection>

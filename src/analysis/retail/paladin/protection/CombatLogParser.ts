@@ -42,6 +42,7 @@ import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import Valiance from './modules/talents/Valiance';
 import Vanguard from './modules/talents/Vanguard';
+import SacredWeaponCoverage from './modules/talents/SacredWeaponCoverage';
 import Lightbearer from '../shared/Lightbearer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,
     vanguard: Vanguard,
+    sacredWeaponCoverage: SacredWeaponCoverage,
     lightBearer: Lightbearer,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
