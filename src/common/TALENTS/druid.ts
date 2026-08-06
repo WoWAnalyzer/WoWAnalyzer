@@ -1303,8 +1303,8 @@ const talents = {
     name: 'Merciless Claws',
     icon: 'inv_misc_monsterclaw_03',
     maxRanks: 1,
-    entryIds: [103181],
-    definitionIds: [{ id: 108186, specId: 103 }],
+    entryIds: [103164],
+    definitionIds: [{ id: 108169, specId: 103 }],
   },
   METEORITES_TALENT: {
     id: 1240907,
@@ -1503,8 +1503,8 @@ const talents = {
     name: "Panther's Guile",
     icon: 'ability_mount_blackpanther',
     maxRanks: 1,
-    entryIds: [103164],
-    definitionIds: [{ id: 108169, specId: 103 }],
+    entryIds: [103181],
+    definitionIds: [{ id: 108186, specId: 103 }],
   },
   PASSING_SEASONS_TALENT: {
     id: 382550,

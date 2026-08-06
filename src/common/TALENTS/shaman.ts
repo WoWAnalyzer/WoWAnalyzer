@@ -194,14 +194,6 @@ const talents = {
     entryIds: [117485],
     definitionIds: [{ id: 122497, specId: 264 }],
   },
-  CALM_WATERS_TALENT: {
-    id: 1252841,
-    name: 'Calm Waters',
-    icon: 'inv_10_elementalshardfoozles_water',
-    maxRanks: 1,
-    entryIds: [101896],
-    definitionIds: [{ id: 106923, specId: 264 }],
-  },
   CAPACITOR_TOTEM_TALENT: {
     id: 192058,
     name: 'Capacitor Totem',
@@ -1664,6 +1656,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101893],
     definitionIds: [{ id: 106815, specId: 262 }],
+  },
+  SWELLING_TIDES_TALENT: {
+    id: 1312843,
+    name: 'Swelling Tides',
+    icon: 'ability_shaman_manatidetotem',
+    maxRanks: 1,
+    entryIds: [140663],
+    definitionIds: [{ id: 145345, specId: 264 }],
   },
   SWIFT_RECALL_TALENT: {
     id: 445027,

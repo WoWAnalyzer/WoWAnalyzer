@@ -68,9 +68,6 @@ class TipOfTheSpear extends BuffStackTracker {
     if (this.selectedCombatant.hasTalent(TALENTS.BOOMSTICK_TALENT)) {
       tippableSpells.push(TALENTS.BOOMSTICK_TALENT);
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.FLAMEFANG_PITCH_TALENT)) {
-      tippableSpells.push(TALENTS.FLAMEFANG_PITCH_TALENT);
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.RAPTOR_SWIPE_1_SURVIVAL_TALENT)) {
       tippableSpells.push(SPELLS.RAPTOR_SWIPE_DAMAGE);
     }
