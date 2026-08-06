@@ -215,7 +215,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
+        spell: [TALENTS.HAMMER_OF_WRATH_TALENT.id, SPELLS.HAMMER_OF_WRATH_PROTECTION.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {

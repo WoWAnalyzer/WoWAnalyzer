@@ -53,8 +53,11 @@ export const apl = build([
     spell: TALENTS.AVENGERS_SHIELD_TALENT,
     condition: cnd.hasTalent(TALENTS.BULWARK_OF_RIGHTEOUS_FURY_TALENT),
   },
-  { spell: TALENTS.HAMMER_OF_WRATH_TALENT, condition: howCastable },
-  SPELLS.JUDGMENT_CAST,
+  {
+    spell: [TALENTS.HAMMER_OF_WRATH_TALENT, SPELLS.HAMMER_OF_WRATH_PROTECTION],
+    condition: howCastable,
+  },
+  SPELLS.JUDGMENT_CAST_PROTECTION,
   {
     spell: [TALENTS.BLESSED_HAMMER_TALENT, TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT],
     condition: cnd.buffPresent(SPELLS.SHAKE_THE_HEAVENS_BUFF),
