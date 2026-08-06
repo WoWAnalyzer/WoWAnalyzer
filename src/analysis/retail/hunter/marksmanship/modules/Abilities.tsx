@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_HUNTER.INCENDIARY_AMMUNITION_NEW_TALENT) ? 20 : 30,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },

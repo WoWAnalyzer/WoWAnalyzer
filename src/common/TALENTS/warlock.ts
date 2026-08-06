@@ -917,6 +917,14 @@ const talents = {
     definitionIds: [{ id: 96495, specId: 267 }],
     manaCost: 5000,
   },
+  HEDONIC_GORGING_TALENT: {
+    id: 1311969,
+    name: 'Hedonic Gorging',
+    icon: 'ability_soulrenderdormazain_hellscream',
+    maxRanks: 1,
+    entryIds: [136113],
+    definitionIds: [{ id: 140868, specId: 265 }],
+  },
   HELLBENT_COMMANDER_TALENT: {
     id: 1250897,
     name: 'Hellbent Commander',
@@ -957,6 +965,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [123308],
     definitionIds: [{ id: 128178, specId: 267 }],
+  },
+  IMPETUOUS_WRATH_TALENT: {
+    id: 1312998,
+    name: 'Impetuous Wrath',
+    icon: 'spell_shadow_manaburn',
+    maxRanks: 1,
+    entryIds: [136111],
+    definitionIds: [{ id: 140866, specId: 265 }],
   },
   IMPLOSION_TALENT: {
     id: 196277,
@@ -1255,14 +1271,6 @@ const talents = {
     entryIds: [136123],
     definitionIds: [{ id: 140878, specId: 265 }],
   },
-  NOCTURNAL_YIELD_TALENT: {
-    id: 1260271,
-    name: 'Nocturnal Yield',
-    icon: 'inv_nulllotus_shadow',
-    maxRanks: 1,
-    entryIds: [136111],
-    definitionIds: [{ id: 140866, specId: 265 }],
-  },
   OPPRESSIVE_DARKNESS_TALENT: {
     id: 1270255,
     name: 'Oppressive Darkness',
@@ -1310,14 +1318,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [136569],
     definitionIds: [{ id: 141342, specId: 267 }],
-  },
-  PATIENT_ZERO_TALENT: {
-    id: 1260285,
-    name: 'Patient Zero',
-    icon: 'ability_warlock_soulswap',
-    maxRanks: 1,
-    entryIds: [136113],
-    definitionIds: [{ id: 140868, specId: 265 }],
   },
   POTENT_SOUL_SHARDS_TALENT: {
     id: 1259815,
@@ -1647,7 +1647,7 @@ const talents = {
     manaCost: 5000,
   },
   SOUL_LEECH_TALENT: {
-    id: 108370,
+    id: 1311653,
     name: 'Soul Leech',
     icon: 'warlock_siphonlife',
     maxRanks: 1,

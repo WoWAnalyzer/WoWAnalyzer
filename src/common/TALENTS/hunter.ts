@@ -204,6 +204,14 @@ const talents = {
     entryIds: [126400],
     definitionIds: [{ id: 131226, specId: 253 }],
   },
+  BOMBARDIER_TALENT: {
+    id: 1311963,
+    name: 'Bombardier',
+    icon: 'inv_misc_blackironbomb',
+    maxRanks: 1,
+    entryIds: [126311],
+    definitionIds: [{ id: 131137, specId: 255 }],
+  },
   BONDING_TALENT: {
     id: 1262442,
     name: 'Bonding',
@@ -514,15 +522,6 @@ const talents = {
     entryIds: [135493],
     definitionIds: [{ id: 140250, specId: 255 }],
   },
-  FLAMEFANG_PITCH_TALENT: {
-    id: 1251592,
-    name: 'Flamefang Pitch',
-    icon: 'inv_10_blacksmithing_craftedoptional_blacksmithdye_fire',
-    maxRanks: 1,
-    entryIds: [126311],
-    definitionIds: [{ id: 131137, specId: 255 }],
-    focusCost: 20,
-  },
   FLANKED_TALENT: {
     id: 1256938,
     name: 'Flanked',
@@ -706,25 +705,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [126349],
     definitionIds: [{ id: 131175, specId: 255 }],
-  },
-  INCENDIARY_AMMUNITION_TALENT: {
-    id: 1301406,
-    name: 'Incendiary Ammunition',
-    icon: 'ability_ironmaidens_bombardment',
-    maxRanks: 1,
-    entryIds: [137376],
-    definitionIds: [{ id: 142136, specId: 254 }],
-  },
-  // NEW: this replaces the entry above next major patch under the same name but a
-  // different id and effect (reduces Explosive Shot's cooldown). Not live yet, so
-  // entryIds/definitionIds aren't known - fill in once it's actually datamined.
-  INCENDIARY_AMMUNITION_NEW_TALENT: {
-    id: 1301406,
-    name: 'Incendiary Ammunition',
-    icon: 'inv12_ability_hunter_fierymunitions',
-    maxRanks: 1,
-    entryIds: [],
-    definitionIds: [],
   },
   INTIMIDATION_MARKSMANSHIP_TALENT: {
     id: 474421,
@@ -1548,6 +1528,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [135504],
     definitionIds: [{ id: 140261, specId: 255 }],
+  },
+  TACTICAL_RELOAD_TALENT: {
+    id: 1301406,
+    name: 'Tactical Reload',
+    icon: 'ability_ironmaidens_bombardment',
+    maxRanks: 1,
+    entryIds: [137376],
+    definitionIds: [{ id: 142136, specId: 254 }],
   },
   TAKEDOWN_TALENT: {
     id: 1250646,
