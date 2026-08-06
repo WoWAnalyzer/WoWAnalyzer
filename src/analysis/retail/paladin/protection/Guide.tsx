@@ -95,8 +95,8 @@ function ResourceUsageSection({ modules, events, info }: GuideProps<typeof Comba
             {modules.builderUse.chart}
           </RoundedPanel>
         </SideBySidePanels>
+        <WingsHolyPowerPanels modules={modules} events={events} info={info} />
       </SubSection>
-      <WingsHolyPowerSubSection modules={modules} events={events} info={info} />
       <SacredWeaponCoverageSubSection modules={modules} events={events} info={info} />
       <VanguardSubSection modules={modules} events={events} info={info} />
     </Section>
@@ -106,74 +106,83 @@ function ResourceUsageSection({ modules, events, info }: GuideProps<typeof Comba
 const PERFECT_WINGS_HP_WASTE = 0.05;
 const GOOD_WINGS_HP_WASTE = 0.1;
 const OK_WINGS_HP_WASTE = 0.15;
-function WingsHolyPowerSubSection({ modules }: GuideProps<typeof CombatLogParser>) {
+
+function gradeWaste(pct: number) {
+  if (pct <= PERFECT_WINGS_HP_WASTE) {
+    return QualitativePerformance.Perfect;
+  }
+  if (pct <= GOOD_WINGS_HP_WASTE) {
+    return QualitativePerformance.Good;
+  }
+  if (pct <= OK_WINGS_HP_WASTE) {
+    return QualitativePerformance.Ok;
+  }
+  return QualitativePerformance.Fail;
+}
+
+/**
+ * Holy Power waste split by whether the damage cooldown was up. Rendered as a pair of
+ * panels inside the Holy Power subsection so the two rates sit next to each other -
+ * during wings Hammer of Wrath replaces Judgment and floods generation, so the in-window
+ * rate is a much harder target than the out-of-window one and the two are not comparable
+ * to a single overall figure.
+ */
+function WingsHolyPowerPanels({ modules }: GuideProps<typeof CombatLogParser>) {
   const wings = modules.wingsHolyPower;
   if (!wings.active || !wings.wingsSpell || wings.generatedInWings === 0) {
     return null;
   }
   const wingsSpell = wings.wingsSpell;
 
-  const pct = wings.percentWastedInWings;
-  let performance = QualitativePerformance.Fail;
-  if (pct <= PERFECT_WINGS_HP_WASTE) {
-    performance = QualitativePerformance.Perfect;
-  } else if (pct <= GOOD_WINGS_HP_WASTE) {
-    performance = QualitativePerformance.Good;
-  } else if (pct <= OK_WINGS_HP_WASTE) {
-    performance = QualitativePerformance.Ok;
-  }
-
   return (
-    <SubSection title="Holy Power during Cooldowns">
-      <p>
-        During <SpellLink spell={wingsSpell} />,{' '}
-        <SpellLink spell={talents.HAMMER_OF_WRATH_TALENT} /> replaces{' '}
-        <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> and floods you with{' '}
-        <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />. Spending it fast enough to avoid
-        overcapping is much harder inside that window than outside it, so the two are graded
-        separately here.
-      </p>
-      <SideBySidePanels>
-        <RoundedPanel>
-          <strong>
-            Waste during <SpellLink spell={wingsSpell} />
-          </strong>
-          <p>
-            You wasted{' '}
-            <PerformancePercentage
-              performance={performance}
-              perfectPercentage={PERFECT_WINGS_HP_WASTE}
-              goodPercentage={GOOD_WINGS_HP_WASTE}
-              okPercentage={OK_WINGS_HP_WASTE}
-              percentage={pct}
-              flatAmount={wings.wastedInWings}
-            />{' '}
-            of the <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> you generated during{' '}
-            <SpellLink spell={wingsSpell} />.
-          </p>
-        </RoundedPanel>
-        <RoundedPanel>
-          <strong>Inside vs outside</strong>
-          <ul>
-            <li>
-              Inside <SpellLink spell={wingsSpell} />: <strong>{wings.wastedInWings}</strong> wasted
-              of {wings.generatedInWings} generated (
-              {formatPercentage(wings.percentWastedInWings, 1)}%)
-            </li>
-            <li>
-              Outside: <strong>{wings.wastedOutsideWings}</strong> wasted of{' '}
-              {wings.generatedOutsideWings} generated (
-              {formatPercentage(wings.percentWastedOutsideWings, 1)}%)
-            </li>
-          </ul>
-          <small>
-            {formatPercentage(wings.shareOfWasteInWings, 0)}% of all your wasted{' '}
-            <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> happened inside{' '}
-            <SpellLink spell={wingsSpell} />.
-          </small>
-        </RoundedPanel>
-      </SideBySidePanels>
-    </SubSection>
+    <SideBySidePanels>
+      <RoundedPanel>
+        <strong>
+          Inside <SpellLink spell={wingsSpell} />
+        </strong>
+        <p>
+          You wasted{' '}
+          <PerformancePercentage
+            performance={gradeWaste(wings.percentWastedInWings)}
+            perfectPercentage={PERFECT_WINGS_HP_WASTE}
+            goodPercentage={GOOD_WINGS_HP_WASTE}
+            okPercentage={OK_WINGS_HP_WASTE}
+            percentage={wings.percentWastedInWings}
+            flatAmount={wings.wastedInWings}
+          />{' '}
+          of the {wings.generatedInWings} <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />{' '}
+          generated during <SpellLink spell={wingsSpell} />.
+        </p>
+        <small>
+          <SpellLink spell={talents.HAMMER_OF_WRATH_TALENT} /> replaces{' '}
+          <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> here, so generation is much faster
+          and overcapping is easier.
+        </small>
+      </RoundedPanel>
+      <RoundedPanel>
+        <strong>
+          Outside <SpellLink spell={wingsSpell} />
+        </strong>
+        <p>
+          You wasted{' '}
+          <PerformancePercentage
+            performance={gradeWaste(wings.percentWastedOutsideWings)}
+            perfectPercentage={PERFECT_WINGS_HP_WASTE}
+            goodPercentage={GOOD_WINGS_HP_WASTE}
+            okPercentage={OK_WINGS_HP_WASTE}
+            percentage={wings.percentWastedOutsideWings}
+            flatAmount={wings.wastedOutsideWings}
+          />{' '}
+          of the {wings.generatedOutsideWings} <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />{' '}
+          generated in the normal rotation.
+        </p>
+        <small>
+          {formatPercentage(wings.shareOfWasteInWings, 0)}% of all your wasted{' '}
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> happened inside{' '}
+          <SpellLink spell={wingsSpell} />.
+        </small>
+      </RoundedPanel>
+    </SideBySidePanels>
   );
 }
 
