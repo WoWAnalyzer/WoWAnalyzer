@@ -9,7 +9,7 @@ import {
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import Abilities from './modules/Abilities';
+import { Abilities } from './gen';
 import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
@@ -42,6 +42,8 @@ import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 import Valiance from './modules/talents/Valiance';
 import Vanguard from './modules/talents/Vanguard';
+import HolyArmaments from './modules/talents/HolyArmaments';
+import SoaringShield from './modules/talents/SoaringShield';
 import SacredWeaponCoverage from './modules/talents/SacredWeaponCoverage';
 import DivineResonance from './modules/talents/DivineResonance';
 import Lightbearer from '../shared/Lightbearer';
@@ -93,6 +95,8 @@ class CombatLogParser extends CoreCombatLogParser {
     divineToll: DivineToll,
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,
+    holyArmaments: HolyArmaments,
+    soaringShield: SoaringShield,
     vanguard: Vanguard,
     sacredWeaponCoverage: SacredWeaponCoverage,
     divineResonance: DivineResonance,
