@@ -29,20 +29,6 @@ class Redoubt extends Analyzer {
       return;
     }
 
-<<<<<<< HEAD
-  bonusStaminaGain(statTracker: StatTracker) {
-    return statTracker.startingStats.stamina * STAT_MODIFIER;
-  }
-
-  bonusStrenghGain(statTracker: StatTracker) {
-    return statTracker.startingStats.strength * STAT_MODIFIER;
-  }
-
-  get averageStacks() {
-    return (
-      this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.REDOUBT_BUFF.id) /
-      this.owner.fightDuration
-=======
     // Track HP from any event that provides hit points
     this.addEventListener(Events.any, this.trackHP);
 
@@ -50,7 +36,6 @@ class Redoubt extends Analyzer {
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
       this.onSotrCast,
->>>>>>> cebf020353 (Generated abilities, minor fixes to statistics tab, Punishment talent implementation)
     );
   }
 

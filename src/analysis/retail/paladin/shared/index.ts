@@ -9,3 +9,5 @@ export { default as BlessingOfDusk } from './BlessingOfDusk';
 export { default as Lightbearer } from './Lightbearer';
 export { default as Punishment } from './Punishment';
 export { default as HammerOfWrath } from './HammerOfWrath';
+export { default as DivineResonance } from './DivineResonance';
+export { default as UnbreakableSpirit } from './UnbreakableSpirit';

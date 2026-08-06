@@ -1,3 +1,6 @@
+// =====================
+// Shared Paladin modules
+// =====================
 import {
   Judgment,
   HolyPowerTracker,
@@ -9,40 +12,66 @@ import {
   Lightbearer,
   Punishment,
   HammerOfWrath,
+  DivineResonance,
+  UnbreakableSpirit,
 } from 'analysis/retail/paladin/shared';
+
+// =====================
+// Core
+// =====================
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
-import { Abilities } from './Abilities';
+import { Abilities } from './gen';
 import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
+import BuilderUse from './modules/core/BuilderUse';
+import Guide from './Guide';
+
+// =====================
+// Normalizers
+// =====================
+import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
+import CastLinkNormalizer from './modules/CastLinkNormalizer';
+import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
+
+// =====================
+// Spells
+// =====================
+import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
+import WordOfGlory from './modules/spells/WordOfGlory';
+import Consecration from './modules/spells/Consecration';
+
+// =====================
+// Features
+// =====================
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import SpellUsable from './modules/features/SpellUsable';
+import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
+import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import MitigationCheck from './modules/features/MitigationCheck';
 import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
 import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRighteous';
-import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
-import SpellUsable from './modules/features/SpellUsable';
-import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
-import Consecration from './modules/spells/Consecration';
-import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
-import WordOfGlory from './modules/spells/WordOfGlory';
-import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
-import SoaringShield from './modules/talents/SoaringShield';
-import Redoubt from './modules/talents/Redoubt';
-import RighteousProtector from './modules/talents/RighteousProtector';
-import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
-import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
-import CastLinkNormalizer from './modules/CastLinkNormalizer';
-import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
-import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
-import BuilderUse from './modules/core/BuilderUse';
+
+// =====================
+// Defensive cooldowns & buffs
+// =====================
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
 import ArdentDefender from './modules/core/Defensives/ArdentDefender';
 import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
-import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
+
+// =====================
+// Talents
+// =====================
+import RighteousProtector from './modules/talents/RighteousProtector';
+import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
+import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
+import Redoubt from './modules/talents/Redoubt';
+import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
+import SoaringShield from './modules/talents/SoaringShield';
 import Valiance from './modules/talents/Valiance';
+import HolyArmaments from './modules/talents/HolyArmaments';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -52,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grandCrusader: GrandCrusader,
     haste: Haste,
 
-    //Normalizers
+    // Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
     castLinkNormalizer: CastLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
@@ -61,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
     judgment: Judgment,
+    consecration: Consecration,
 
     // Features
     abilities: Abilities,
@@ -68,7 +98,6 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     wogTiming: WordOfGloryTiming,
     shieldOfTheRighteous: ShieldOfTheRighteous,
-    consecration: Consecration,
     mitigationcheck: MitigationCheck,
     noDamageSOTR: NoDamageShieldOfTheRighteous,
     overcapSOTR: OvercapShieldOfTheRighteous,
@@ -93,14 +122,19 @@ class CombatLogParser extends CoreCombatLogParser {
     lightBearer: Lightbearer,
     punishment: Punishment,
     hammerOfWrath: HammerOfWrath,
+    divineResonance: DivineResonance,
+    holyArmaments: HolyArmaments,
+    unbreakableSpirit: UnbreakableSpirit,
 
-    // There's no throughput benefit from casting Arcane Torrent on cooldown
+    // Racials & Misc
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
 
-    // HolyPower
+    // Holy Power
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
+
+    // APL
     apl: AplCheck,
   };
 }
