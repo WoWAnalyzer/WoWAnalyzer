@@ -18,31 +18,22 @@ import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { createChecklistItem, createSpellUse } from 'parser/core/MajorCooldowns/MajorCooldown';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 
-export default class FinisherUse extends Analyzer {
-  static dependencies = {
-    finishers: Finishers,
-    spellUsable: SpellUsable,
-    betweenTheEyes: BetweenTheEyes,
-  };
-
-  protected finishers!: Finishers;
-  protected spellUsable!: SpellUsable;
-  protected betweenTheEyes!: BetweenTheEyes;
-
-  totalFinisherCasts = 0;
-  lowCpFinisherCasts = 0;
-  spellUses: SpellUse[] = [];
-
-  hasHiddenOpportunity = this.selectedCombatant.hasTalent(TALENTS.HIDDEN_OPPORTUNITY_TALENT);
-  hasKeepItRolling = this.selectedCombatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT);
+export default class FinisherUse extends Analyzer.withDependencies({
+  finishers: Finishers,
+  spellUsable: SpellUsable,
+  betweenTheEyes: BetweenTheEyes,
+}) {
+  #totalFinisherCasts = 0;
+  #lowCpFinisherCasts = 0;
+  #spellUses: SpellUse[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.#onCast);
   }
 
   get maxCpFinishers() {
-    return this.totalFinisherCasts - this.lowCpFinisherCasts;
+    return this.#totalFinisherCasts - this.#lowCpFinisherCasts;
   }
 
   get chart() {
@@ -55,189 +46,53 @@ export default class FinisherUse extends Analyzer {
       {
         color: BadColor,
         label: 'Low CP Finishers',
-        value: this.lowCpFinisherCasts,
+        value: this.#lowCpFinisherCasts,
       },
     ];
 
     return <DonutChart items={items} />;
   }
 
-  private onCast(event: CastEvent) {
+  #onCast(event: CastEvent) {
     const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
-    const spellId = event.ability.guid;
 
     if (cpsSpent === 0) {
       return;
     }
 
-    this.totalFinisherCasts += 1;
+    this.#totalFinisherCasts += 1;
 
     // TODO: Finisher choice performance
     // Determine if the proper finisher was used according to a priority list
     // Can mostly just rely on the APLCheck for that for now
 
-    const comboPointPerformance = this.comboPointPerformance(
+    let recommendedFinisherPoints = this.deps.finishers.recommendedFinisherPoints();
+    if (event.ability.guid === TALENTS.KILLING_SPREE_TALENT.id) {
+      recommendedFinisherPoints = -1;
+    }
+
+    const comboPointPerformance = this.#comboPointPerformance(
       event,
       cpsSpent,
-      this.finishers.recommendedFinisherPoints(),
+      recommendedFinisherPoints,
     );
 
-    switch (spellId) {
-      case TALENTS.KILLING_SPREE_TALENT.id:
-        this.spellUses.push(
-          createSpellUse({ event }, [comboPointPerformance, this.stealthPerformance(event)]),
-        );
-        break;
-      case SPELLS.COUP_DE_GRACE_CAST.id:
-        this.spellUses.push(
-          createSpellUse({ event }, [comboPointPerformance, this.stealthPerformance(event)]),
-        );
-        break;
-      default:
-        this.spellUses.push(createSpellUse({ event }, [comboPointPerformance]));
-        break;
-    }
+    this.#spellUses.push(createSpellUse({ event }, [comboPointPerformance]));
   }
 
-  private stealthPerformance(event: CastEvent, shouldBeInStealth?: boolean) {
-    const isInStealth = this.finishers.isInStealth();
-
-    if (shouldBeInStealth) {
-      return createChecklistItem(
-        `${event.ability.name}_stealth`,
-        { event },
-        {
-          performance: isInStealth ? QualitativePerformance.Good : QualitativePerformance.Fail,
-          summary: <div>Used inside of Stealth</div>,
-          details: isInStealth ? (
-            <div>You were in stealth.</div>
-          ) : (
-            <div>
-              You were outside of stealth, <SpellLink spell={event.ability.guid} /> should only be
-              use inside of stealth.
-            </div>
-          ),
-        },
-      );
-    }
-
-    return createChecklistItem(
-      `${event.ability.name}_stealth`,
-      { event },
-      {
-        performance: !isInStealth ? QualitativePerformance.Good : QualitativePerformance.Fail,
-        summary: <div>Used outside of Stealth</div>,
-        details: !isInStealth ? (
-          <div>You were outside of stealth.</div>
-        ) : (
-          <div>
-            You were inside of stealth, <SpellLink spell={event.ability.guid} /> should only be use
-            outside of stealth.
-          </div>
-        ),
-      },
-    );
-  }
-
-  private hiddenOpportunityComboPointPerformance(
-    event: CastEvent,
-    cpsSpent: number,
-    targetCps: number,
-  ): ChecklistUsageInfo | undefined {
-    // Finisher was cast at the general target cp and not the lower one
-    if (cpsSpent > targetCps) {
-      return;
-    }
-
-    const isGoodCP = cpsSpent >= targetCps;
-
-    let castSummary = (
-      <>
-        You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} />.
-      </>
-    );
-    let badCastExplanation = (
-      <>
-        outside of stealth, and with both <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> and{' '}
-        <SpellLink spell={SPELLS.OPPORTUNITY} /> missing
-      </>
-    );
-
-    if (this.finishers.hasHOLowCPFinisherCondition()) {
-      const activeBuff =
-        this.selectedCombatant.getBuff(SPELLS.AUDACITY_TALENT_BUFF.id) ||
-        this.selectedCombatant.getBuff(SPELLS.OPPORTUNITY.id);
-
-      if (activeBuff) {
-        castSummary = (
-          <>
-            You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} /> with{' '}
-            <SpellLink spell={activeBuff.ability.guid} /> active.
-          </>
-        );
-        badCastExplanation = (
-          <>
-            <SpellLink spell={activeBuff.ability.guid} /> is active
-          </>
-        );
-      } else {
-        castSummary = (
-          <>
-            You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} /> in stealth.
-          </>
-        );
-        badCastExplanation = <>in stealth</>;
-      }
-    }
-
-    return createChecklistItem(
-      `${event.ability.name}_cp`,
-      { event },
-      {
-        performance: isGoodCP ? QualitativePerformance.Good : QualitativePerformance.Fail,
-        summary: (
-          <div>
-            <SpellLink spell={event.ability.guid} /> Combo Point Management
-          </div>
-        ),
-        details: isGoodCP ? (
-          castSummary
-        ) : (
-          <>
-            {castSummary} Try to always spend at least {targetCps} CPs when {badCastExplanation}.
-          </>
-        ),
-      },
-    );
-  }
-
-  private comboPointPerformance(
+  #comboPointPerformance(
     event: CastEvent,
     cpsSpent: number,
     targetCps: number,
   ): ChecklistUsageInfo | undefined {
     const isGoodCP = cpsSpent >= targetCps;
     if (!isGoodCP) {
-      this.lowCpFinisherCasts += 1;
+      this.#lowCpFinisherCasts += 1;
     }
 
-    if (this.hasHiddenOpportunity) {
-      const hiddenOpportunityPerformance = this.hiddenOpportunityComboPointPerformance(
-        event,
-        cpsSpent,
-        targetCps,
-      );
-
-      if (hiddenOpportunityPerformance) {
-        return hiddenOpportunityPerformance;
-      }
-    }
-
-    const isInStealth = this.finishers.isInStealth();
     const standardDetails = (
       <>
-        You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} />{' '}
-        {isInStealth ? 'in stealth' : 'outside of stealth'}.
+        You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} />
       </>
     );
 
@@ -255,8 +110,7 @@ export default class FinisherUse extends Analyzer {
           standardDetails
         ) : (
           <>
-            {standardDetails} Try to always spend at least {targetCps} CPs when{' '}
-            {isInStealth ? 'in stealth' : 'not in stealth'}.
+            {standardDetails} Try to always spend at least {targetCps}
           </>
         ),
       },
@@ -276,22 +130,14 @@ export default class FinisherUse extends Analyzer {
             </>
           )}
         </p>
-        {this.hasHiddenOpportunity && (
-          <p>
-            When playing <SpellLink spell={TALENTS.HIDDEN_OPPORTUNITY_TALENT} />{' '}
-            <strong>Finishers</strong> should be used at <strong>5 or more</strong> combo points
-            when either <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> or{' '}
-            <SpellLink spell={SPELLS.OPPORTUNITY} /> is active.
-          </p>
-        )}
       </>
     );
 
-    const performances = this.spellUses.map((it) =>
+    const performances = this.#spellUses.map((it) =>
       spellUseToBoxRowEntry(it, this.owner.fight.start_time),
     );
 
-    const spellUsesPerSpell = this.spellUses.reduce<
+    const spellUsesPerSpell = this.#spellUses.reduce<
       Record<number, { goodCasts: number; totalCasts: number }>
     >((acc, cur) => {
       // Technically not possible but the type is AnyEvent
@@ -328,7 +174,7 @@ export default class FinisherUse extends Analyzer {
       <SpellUsageSubSection
         explanation={explanation}
         performances={performances}
-        uses={this.spellUses}
+        uses={this.#spellUses}
         castBreakdownSmallText={
           <> - Green is a good cast, Yellow is an ok cast, Red is a bad cast.</>
         }
