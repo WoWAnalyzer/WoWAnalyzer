@@ -27,7 +27,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
-      <ActionPriorityList modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
@@ -71,7 +70,6 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
         />
         {modules.energyGraph.plot}
         <p></p>
-        {info.combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT) && modules.bladeRush.guide}
       </SubSection>
       <SubSection
         title={t({
@@ -83,15 +81,13 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
           <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at{' '}
           <strong>6 or 7</strong> combo points. <strong>Spenders</strong> should typically be used
-          at <strong>6 or more</strong> combo points, but at <strong>5 or more</strong> if{' '}
-          <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
+          at <strong>6 or more</strong> combo points.
           {info.combatant.hasTalent(TALENTS.HIDDEN_OPPORTUNITY_TALENT) && (
             <>
               , <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> or{' '}
               <SpellLink spell={SPELLS.OPPORTUNITY} />
             </>
-          )}{' '}
-          is active.
+          )}
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
@@ -137,20 +133,6 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         .
       </p>
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
-      <hr />
-      <p>
-        <strong>Disclaimer:</strong> (Currently unsupported spells/talents)
-        <ul>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={SPELLS.BLADE_FLURRY} />
-          </li>
-        </ul>
-      </p>
       <p>You can use the accuracy here as a reference point to compare to other logs.</p>
     </Section>
   );
@@ -159,7 +141,9 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
 const cooldownsToCheck: Cooldown[] = [
   { spell: TALENTS.ADRENALINE_RUSH_TALENT },
   { spell: TALENTS.KILLING_SPREE_TALENT },
+  { spell: TALENTS.BLADE_RUSH_TALENT },
   { spell: TALENTS.KEEP_IT_ROLLING_TALENT },
+  { spell: TALENTS.PREPARATION_TALENT },
 ];
 
 function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
