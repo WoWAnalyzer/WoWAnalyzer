@@ -63,7 +63,7 @@ export const TooltipElement = ({
     </dfn>
   );
 
-  return content ? (
+  return content !== null ? (
     <ReactTooltip
       {...others}
       content={content}
