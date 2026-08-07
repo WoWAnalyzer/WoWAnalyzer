@@ -143,6 +143,8 @@ const spells: number[] = [
 
   //region Rogue
   SPELLS.DISPATCH_COUP_DE_GRACE.id,
+  SPELLS.BLADE_FLURRY_COMBO_POINT.id,
+
   //endregion
 
   //region classic druid
