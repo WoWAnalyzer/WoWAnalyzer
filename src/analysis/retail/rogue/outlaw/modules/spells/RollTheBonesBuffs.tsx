@@ -11,8 +11,13 @@ import { ROLL_THE_BONES_BUFFS } from '../../constants';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import uptimeBarSubStatistic, { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
+import { TALENTS_ROGUE } from 'common/TALENTS';
+import Statistic from 'parser/ui/Statistic';
 
 class RollTheBonesBuffs extends Analyzer {
+  #hasDragonBoneDiceTalent = this.selectedCombatant.hasTalent(
+    TALENTS_ROGUE.DRAGON_BONE_DICE_TALENT,
+  );
   /**
    * Percentage of the fight that Roll the Bones was active
    * In other words, at least one of the buffs was active
@@ -59,10 +64,6 @@ class RollTheBonesBuffs extends Analyzer {
             Stages 1 and 2.
           </p>
           <p>
-            The current odds of receiving the buffs seem to be 55% chance to gain Stage 1, 30%
-            chance to gain Stage 2, 10% chance to gain Stage 3, and a 5% chance to gain Stage 4.
-          </p>
-          <p>
             (Source:{' '}
             <a href="https://www.icy-veins.com/wow/outlaw-rogue-pve-dps-rotation-cooldowns-abilities">
               Icy veins
@@ -75,28 +76,30 @@ class RollTheBonesBuffs extends Analyzer {
             <b>
               <SpellLink spell={SPELLS.ONE_OF_A_KIND} />
             </b>{' '}
-            - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> has a 20% increased chance to strike
-            twice and grant <SpellLink spell={SPELLS.OPPORTUNITY} />
+            - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> has a{' '}
+            {this.#hasDragonBoneDiceTalent ? 25 : 20}% increased chance to strike twice and grant{' '}
+            <SpellLink spell={SPELLS.OPPORTUNITY} />
           </li>
           <li>
             <b>
               <SpellLink spell={SPELLS.DOUBLE_TROUBLE} />
             </b>{' '}
             - <SpellLink spell={SPELLS.SINISTER_STRIKE} /> and <SpellLink spell={SPELLS.AMBUSH} />{' '}
-            generate 1 additional combo point and deal 15% increased damage
+            generate 1 additional combo point and deal {this.#hasDragonBoneDiceTalent ? 20 : 15}%
+            increased damage
           </li>
           <li>
             <b>
               <SpellLink spell={SPELLS.TRIPLE_THREAT} />
             </b>{' '}
-            - <SpellLink spell={SPELLS.RESTLESS_BLADES_TALENT} /> cooldown reduction increased by
-            30%.
+            - <SpellLink spell={SPELLS.RESTLESS_BLADES_TALENT} /> cooldown reduction increased by{' '}
+            {this.#hasDragonBoneDiceTalent ? 40 : 30}%.
           </li>
           <li>
             <b>
               <SpellLink spell={SPELLS.JACKPOT} />
             </b>{' '}
-            - Critical strike chance increased by 10%.
+            - Critical strike chance increased by {this.#hasDragonBoneDiceTalent ? 15 : 10}%.
           </li>
         </ul>
       </>
@@ -134,41 +137,6 @@ class RollTheBonesBuffs extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, 40);
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon spell={SPELLS.ROLL_THE_BONES} />}
-        value={
-          <>
-            <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small>
-            <br />
-          </>
-        }
-        label={<SpellLink spell={SPELLS.ROLL_THE_BONES} icon={false} />}
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Buff</th>
-              <th>Time (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ROLL_THE_BONES_BUFFS.map((e) => (
-              <tr key={e.id}>
-                <th>
-                  <SpellLink spell={e} />
-                </th>
-                <td>{`${formatPercentage(this.percentUptime(e.id))} %`}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </StatisticBox>
-    );
   }
 }
 
