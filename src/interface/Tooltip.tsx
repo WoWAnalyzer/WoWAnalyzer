@@ -75,7 +75,7 @@ export const TooltipElement = ({
       {innerContent}
     </ReactTooltip>
   ) : (
-    <>innerContent</>
+    <>{innerContent}</>
   );
 };
 
