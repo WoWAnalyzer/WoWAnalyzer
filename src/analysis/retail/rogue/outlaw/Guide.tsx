@@ -8,8 +8,6 @@ import { ResourceLink, SpellLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
-import { AplSectionData } from 'interface/guide/components/Apl';
-import * as AplCheck from './modules/apl/AplCheck';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -82,12 +80,6 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at{' '}
           <strong>6 or 7</strong> combo points. <strong>Spenders</strong> should typically be used
           at <strong>6 or more</strong> combo points.
-          {info.combatant.hasTalent(TALENTS.HIDDEN_OPPORTUNITY_TALENT) && (
-            <>
-              , <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> or{' '}
-              <SpellLink spell={SPELLS.OPPORTUNITY} />
-            </>
-          )}
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
@@ -108,32 +100,6 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
     >
       {modules.finisherUse.guide}
       {modules.adrenalineRush.guideSubsection}
-    </Section>
-  );
-}
-
-function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <Section title="Action Priority List">
-      <p>
-        Outlaw has a fast paced rotation that is constantly reacting to buffs and procs. The spec
-        doesn't burst but makes up for it in consistent output. Should be thought as a chaining
-        priority list:
-        <ol>
-          <li>Cooldowns, according to the priorities below.</li>
-          <li>Finishers, according to the priorities below.</li>
-          <li>Builders, according to the priorities below.</li>
-        </ol>
-      </p>
-      <p>
-        This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
-        <a href="https://github.com/simulationcraft/simc/blob/thewarwithin/engine/class_modules/apl/rogue/outlaw.simc">
-          here
-        </a>
-        .
-      </p>
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
-      <p>You can use the accuracy here as a reference point to compare to other logs.</p>
     </Section>
   );
 }

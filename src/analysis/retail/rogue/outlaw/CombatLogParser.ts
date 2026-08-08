@@ -36,7 +36,6 @@ import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
 import Guide from './Guide';
 import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
-import AplCheck from './modules/apl/AplCheck';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import OpportunityRefreshNormalizer from './normalizers/OpportunityRefreshNormalizer';
 

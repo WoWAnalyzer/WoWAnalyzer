@@ -68,7 +68,7 @@ export default class FinisherUse extends Analyzer.withDependencies({
 
     let recommendedFinisherPoints = this.deps.finishers.recommendedFinisherPoints();
     if (event.ability.guid === TALENTS.KILLING_SPREE_TALENT.id) {
-      recommendedFinisherPoints = -1;
+      recommendedFinisherPoints -= 1;
     }
 
     const comboPointPerformance = this.#comboPointPerformance(
@@ -123,12 +123,6 @@ export default class FinisherUse extends Analyzer.withDependencies({
         <p>
           <strong>Finishers</strong> should typically be used at <strong>6 or more</strong> combo
           points.{' '}
-          {this.selectedCombatant.hasTalent(TALENTS.SUBTERFUGE_TALENT) && (
-            <>
-              When inside of <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />,{' '}
-              <strong>Finishers</strong> should be used at <strong>5 or more</strong> combo points.
-            </>
-          )}
         </p>
       </>
     );
