@@ -30,20 +30,17 @@ class Abilities extends ClassAbilities {
         charges:
           1 +
           combatant.getMultipleTalentRanks(
-            //Adjusted to follow the pattern of HST
             TALENTS.ECHO_OF_THE_ELEMENTS_TALENT,
             TALENTS.ELEMENTAL_REVERB_TALENT,
           ),
         cooldown: 6 - (combatant.hasTalent(TALENTS.RIP_CURRENT_TALENT) ? 1 : 0),
+        //"Offering from Beyond" and "Mystic Knowledge" are both handled by dedicated Analyzers
         timelineSortIndex: 11,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: false,
-          // recommendedEfficiency: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT)
-          //   ? 0.75
-          //   : 0.6,
         },
       },
       {
@@ -108,7 +105,7 @@ class Abilities extends ClassAbilities {
           combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT) &&
           !combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 18,
+        cooldown: 12,
         timelineSortIndex: 17,
         gcd: {
           base: 1500,

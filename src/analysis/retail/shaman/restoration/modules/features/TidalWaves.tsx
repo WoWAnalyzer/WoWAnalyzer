@@ -27,19 +27,6 @@ class TidalWaves extends Analyzer {
     );
   }
 
-  _onHealingSurge(event: CastEvent) {
-    const hasTw = this.selectedCombatant.hasBuff(
-      SPELLS.TIDAL_WAVES_BUFF.id,
-      event.timestamp,
-      0,
-      TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME,
-    );
-    if (hasTw) {
-      const cast = this.abilityTracker.getAbility(event.ability.guid, event.ability);
-      cast.healingTwHits = (cast.healingTwHits || 0) + 1;
-    }
-  }
-
   _onHealingWave(event: BeginCastEvent) {
     if (event.isCancelled) {
       return;
