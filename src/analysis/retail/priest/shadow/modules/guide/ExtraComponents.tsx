@@ -1,11 +1,10 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './ExtraComponents.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ComponentProps, ReactNode } from 'react';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 
-const ColoredStrong = styled.strong`
-  color: ${(props) => props.color};
-`;
+const ColoredStrong = cssComponent('strong', styles.ColoredStrong, ['color'] as const);
 
 interface PerformanceStrongProps extends ComponentProps<typeof ColoredStrong> {
   children: ReactNode;

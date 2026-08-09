@@ -8,11 +8,8 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/shaman/restoration/constants';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import SPELLS from 'common/SPELLS';
-import {
-  AMPLIFICATION_CORE_HEALING_INCREASE,
-  SURGING_TOTEM_DURATION,
-} from 'analysis/retail/shaman/restoration/constants';
+import SPELLS from 'common/SPELLS/shaman';
+import { healingIncreases, SPELL_DURATIONS } from 'analysis/retail/shaman/restoration/constants';
 
 export default class AmplificationCore extends Analyzer {
   healingDoneFromTalent = 0;
@@ -38,14 +35,14 @@ export default class AmplificationCore extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (event.timestamp - this.lastSurgingTotemCast < SURGING_TOTEM_DURATION) {
+    if (event.timestamp - this.lastSurgingTotemCast < SPELL_DURATIONS.SURGING_TOTEM_DURATION) {
       this.healingDoneFromTalent += calculateEffectiveHealing(
         event,
-        AMPLIFICATION_CORE_HEALING_INCREASE,
+        healingIncreases.AMPLIFICATION_CORE_HEALING_INCREASE,
       );
       this.overhealingDoneFromTalent += calculateOverhealing(
         event,
-        AMPLIFICATION_CORE_HEALING_INCREASE,
+        healingIncreases.AMPLIFICATION_CORE_HEALING_INCREASE,
       );
     }
   }

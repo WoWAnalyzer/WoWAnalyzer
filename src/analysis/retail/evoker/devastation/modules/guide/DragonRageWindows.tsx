@@ -13,6 +13,7 @@ import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 import './styling.scss';
+import PerformanceStrong from 'interface/PerformanceStrong';
 
 export function DragonRageWindowSection({
   rageWindows,
@@ -48,20 +49,19 @@ export function DragonRageWindowSection({
               explanationPercent={30}
               explanation={<Statistics window={window} />}
               data={
-                <div style={{ overflowX: 'auto' }}>
-                  <EmbeddedTimelineContainer
-                    secondWidth={60}
-                    secondsShown={(window.end - window.start) / 1000}
-                  >
-                    <SpellTimeline>
-                      <Casts
-                        start={relevantEvents[0].timestamp}
-                        secondWidth={60}
-                        events={relevantEvents}
-                      />
-                    </SpellTimeline>
-                  </EmbeddedTimelineContainer>
-                </div>
+                <EmbeddedTimelineContainer
+                  secondWidth={60}
+                  secondsShown={(window.end - window.start) / 1000}
+                  style={{ maxWidth: '100%', overflowX: 'auto', boxSizing: 'border-box' }}
+                >
+                  <SpellTimeline>
+                    <Casts
+                      start={relevantEvents[0].timestamp}
+                      secondWidth={60}
+                      events={relevantEvents}
+                    />
+                  </SpellTimeline>
+                </EmbeddedTimelineContainer>
               }
             />
           </Fragment>
@@ -105,22 +105,40 @@ export function DragonRageWindowSection({
 // Need something prettier lol
 function Statistics({ window }: { window: RageWindowCounter }) {
   return (
-    <ul>
-      <li>
-        <SpellLink spell={SPELLS.FIRE_BREATH} /> - {window.fireBreaths}/2 casts
-      </li>
-      <li>
-        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> - {window.eternitySurges}/2 casts
-      </li>
-      <li>
-        <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> - {window.essenceBursts} casts
-      </li>
-      <li>
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> - {window.disintegrateTicks} ticks
-      </li>
-      <li>
-        <SpellLink spell={TALENTS.PYRE_TALENT} /> - {window.pyres} casts
-      </li>
-    </ul>
+    <>
+      <strong>Extenders</strong>
+      <ul>
+        <li>
+          <SpellLink spell={TALENTS.ANIMOSITY_TALENT} /> -{' '}
+          <PerformanceStrong performance={window.extensionPerf}>
+            {window.fireBreaths + window.eternitySurges} extensions
+          </PerformanceStrong>
+        </li>
+        <li>
+          <SpellLink spell={SPELLS.FIRE_BREATH} /> -{' '}
+          <PerformanceStrong performance={window.fireBreathPerf}>
+            {window.fireBreaths} casts
+          </PerformanceStrong>
+        </li>
+        <li>
+          <SpellLink spell={SPELLS.ETERNITY_SURGE} /> -{' '}
+          <PerformanceStrong performance={window.eternitySurgePerf}>
+            {window.eternitySurges} casts
+          </PerformanceStrong>
+        </li>
+      </ul>
+      <strong>Spenders</strong>
+      <ul>
+        <li>
+          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> - {window.essenceBursts} uses
+        </li>
+        <li>
+          <SpellLink spell={SPELLS.DISINTEGRATE} /> - {window.disintegrateTicks} ticks
+        </li>
+        <li>
+          <SpellLink spell={TALENTS.PYRE_TALENT} /> - {window.pyres} casts
+        </li>
+      </ul>
+    </>
   );
 }

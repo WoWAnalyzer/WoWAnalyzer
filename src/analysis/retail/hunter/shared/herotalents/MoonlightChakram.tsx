@@ -77,9 +77,12 @@ export default class MoonlightChakram extends Analyzer {
             <h5 style={{ color: BadColor }}>
               FAIL: No <SpellLink spell={SPELLS.MOONLIGHT_CHAKRAM_CAST} /> cast
             </h5>
-            Target: <strong>{this.lastTriggerTarget}</strong>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+            <p>
+              Target: <strong>{this.lastTriggerTarget}</strong>
+            </p>
+            <p>
+              @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+            </p>
           </>
         ),
       });
@@ -152,29 +155,22 @@ export default class MoonlightChakram extends Analyzer {
       tooltip: (
         <>
           <h5 style={{ color }}>{perfLabel}</h5>
-          <div>
+          <p>
             Damage: <strong>{damage.toLocaleString()}</strong> ({hits} {hits === 1 ? 'hit' : 'hits'}
-            ){/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
+            )
+          </p>
+          <p>
             Target: <strong>{targetName}</strong>
-            {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-            <br />
-            {this.hasStalkAndStrike && this.isSurvival && wastedCDR > 0 && (
-              <>
-                {wastedCDR > STALK_AND_STRIKE_WASTE_THRESHOLD ? 'BAD: ' : ''}Wasted{' '}
-                {(wastedCDR / 1000).toFixed(1)}s Wildfire Bomb CDR
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                <br />
-              </>
-            )}
-            {this.hasStalkAndStrike && !this.isSurvival && wastedLockAndLoad && (
-              <>
-                BAD: Wasted Lock and Load buff
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                <br />
-              </>
-            )}
-          </div>
+          </p>
+          {this.hasStalkAndStrike && this.isSurvival && wastedCDR > 0 && (
+            <p>
+              {wastedCDR > STALK_AND_STRIKE_WASTE_THRESHOLD ? 'BAD: ' : ''}Wasted{' '}
+              {(wastedCDR / 1000).toFixed(1)}s Wildfire Bomb CDR
+            </p>
+          )}
+          {this.hasStalkAndStrike && !this.isSurvival && wastedLockAndLoad && (
+            <p>BAD: Wasted Lock and Load buff</p>
+          )}
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
         </>
       ),

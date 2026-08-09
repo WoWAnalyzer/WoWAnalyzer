@@ -25,6 +25,11 @@ class Buffs extends CoreAuras {
         spellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT),
       },
+      {
+        spellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+        triggeredBySpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+      },
     ];
   }
 }

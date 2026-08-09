@@ -11,11 +11,8 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import {
-  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
-  ENVELOPING_MIST_INCREASE,
-  MISTWRAP_INCREASE,
-} from '../../constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
+import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const ENVELOPING_BASE_DURATION = 6000;

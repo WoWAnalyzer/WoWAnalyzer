@@ -1,5 +1,6 @@
 import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './HitTimeline.module.scss';
 import { useAnalyzer, useInfo } from 'interface/guide';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
@@ -15,39 +16,14 @@ import Spell from 'common/SPELLS/Spell';
 import useTooltip from 'interface/useTooltip';
 import { abilityToSpell } from 'common/abilityToSpell';
 
-const HitTimelineContainer = styled.div`
-  display: grid;
-  grid-template-columns: calc(150px - 1rem) 1fr;
-  gap: 1rem;
-  height: 20px;
-  padding: 0 10px;
-  margin: 5px 0;
+const HitTimelineContainer = cssComponent('div', styles.HitTimelineContainer, [] as const);
 
-  & > :first-child {
-    justify-self: start;
-    align-self: start;
-    padding-left: 1rem;
-  }
-`;
+const HitTimelineBar = cssComponent('div', styles.HitTimelineBar, [] as const);
 
-const HitTimelineBar = styled.div`
-  position: relative;
-  width: 100%;
-  height: 20px;
-`;
-
-const HitTimelineSlice = styled.div<{
-  color: string;
-  widthPct: number;
-}>`
-  width: max(1px, ${(props) => props.widthPct * 100}%);
-  background-color: ${(props) => props.color};
-  height: 100%;
-  position: absolute;
-  top: 0;
-  border: 1px solid black;
-  box-sizing: content-box;
-`;
+const HitTimelineSlice = cssComponent('div', styles.HitTimelineSlice, [
+  'color',
+  'widthPct',
+] as const);
 
 interface HitTooltipContentProps {
   hit: TrackedHit;
@@ -139,11 +115,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
   );
 }
 
-export const Highlight = styled.span<{ color: string; textColor?: string }>`
-  background-color: ${(props) => props.color};
-  padding: 0 3px;
-  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
-`;
+export const Highlight = cssComponent('span', styles.Highlight, ['color', 'textColor'] as const);
 
 export const red = colorForPerformance(0);
 

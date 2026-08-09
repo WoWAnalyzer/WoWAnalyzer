@@ -5,10 +5,8 @@ import CoreCooldownThroughputTracker, {
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
-    ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.BLOOD_TAP.id,
-      duration: 20,
+      spell: SPELLS.UNHOLY_FRENZY.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

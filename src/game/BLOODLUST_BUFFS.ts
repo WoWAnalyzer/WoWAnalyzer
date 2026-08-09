@@ -9,5 +9,6 @@ const BLOODLUST_BUFFS: Record<number, number> = {
   [SPELLS.HARRIERS_CRY.id]: 0.3, // Hunter pet BL
   [SPELLS.FURY_OF_THE_ASPECTS.id]: 0.3, // Evoker
   // [SPELLS.FERAL_HIDE_DRUMS.id]: 0.15, // Leatherworking drums
+  90355: 0.3, // Ancient Hysteria - MoP hunter pet (Core Hound) lust equivalent
 };
 export default BLOODLUST_BUFFS;

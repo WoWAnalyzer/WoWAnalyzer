@@ -40,7 +40,7 @@ class CritRacial extends BaseCritRacial {
       event.originalHeal,
       CRIT_EFFECT,
     );
-    const beaconFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
+    const beaconFactor = getBeaconSpellFactor(spellId);
     if (beaconFactor == null) {
       const origAbility = event.originalHeal.ability;
       console.warn(

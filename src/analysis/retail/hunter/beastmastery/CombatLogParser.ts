@@ -1,21 +1,17 @@
 import {
   Channeling,
   DeathTracker,
-  NaturalMending,
-  Trailblazer,
-  BornToBeWild,
   BindingShot,
   FocusTracker,
   FocusDetails,
   SpellFocusCost,
   TranquilizingShot,
   Deathblow,
+  CancelledCasts,
 } from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import GlobalCooldown from './modules/core/GlobalCooldown';
-import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import BasicAttacks from './modules/pets/BasicAttacksTracker';
@@ -30,23 +26,30 @@ import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stomp from './modules/talents/Stomp';
-import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Guide from './modules/guide/Guide';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import HunterEventLinkNormalizers from '../shared/normalizers/HunterEventLinkNormalizers';
+import DireCommand from './modules/talents/DireCommand';
+import DireBeast from './modules/talents/DireBeast';
+import DarkHound from './modules/talents/DarkHound';
+import WarOrders from './modules/talents/WarOrders';
+import BarbedScales from './modules/talents/BarbedScales';
+import NaturesAlly from './modules/talents/NaturesAlly';
+import PackMentality from './modules/talents/PackMentality';
+import DireCommandNormalizer from './normalizers/DireCommandNormalizer';
+import DireBeastSourceNormalizer from './normalizers/DireBeastSourceNormalizer';
+import WildInstinctsNormalizer from './normalizers/WildInstinctsNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
   static specModules = {
-    globalCooldown: GlobalCooldown,
-    spellUsable: SpellUsable,
-
     //Features
-    alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
-    channeling: Channeling,
+    alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
+    cancelledCasts: CancelledCasts,
+    channeling: Channeling,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     //Guide
@@ -61,6 +64,9 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
 
     //Normalizers
+    direCommandNormalizer: DireCommandNormalizer,
+    direBeastSourceNormalizer: DireBeastSourceNormalizer,
+    wildInstinctsNormalizer: WildInstinctsNormalizer,
     hunterEventLinkNormalizer: HunterEventLinkNormalizers,
 
     //DeathTracker
@@ -75,19 +81,22 @@ class CombatLogParser extends CoreCombatLogParser {
     cobraShot: CobraShot,
 
     //Talents
-    naturalMending: NaturalMending,
-    trailblazer: Trailblazer,
-    killerCobra: KillerCobra,
-    stomp: Stomp,
-    thrillOfTheHunt: ThrillOfTheHunt,
-    aspectOfTheBeast: AspectOfTheBeast,
-    scentOfBlood: ScentOfBlood,
-    bornToBeWild: BornToBeWild,
-    bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
-    masterMarksman: MasterMarksman,
-    tranquilizingShot: TranquilizingShot,
+    aspectOfTheBeast: AspectOfTheBeast,
+    barbedScales: BarbedScales,
+    bindingShot: BindingShot,
+    darkHound: DarkHound,
     deathblow: Deathblow,
+    direBeast: DireBeast,
+    direCommand: DireCommand,
+    killerCobra: KillerCobra,
+    masterMarksman: MasterMarksman,
+    naturesAlly: NaturesAlly,
+    packMentality: PackMentality,
+    scentOfBlood: ScentOfBlood,
+    stomp: Stomp,
+    tranquilizingShot: TranquilizingShot,
+    warOrders: WarOrders,
 
     //Items
   };

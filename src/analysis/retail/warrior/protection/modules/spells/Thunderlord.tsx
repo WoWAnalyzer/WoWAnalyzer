@@ -36,11 +36,13 @@ class Thunderlord extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.THUNDER_CLAP_TALENT, SPELLS.THUNDER_BLAST]),
+      // Thunderlord is triggered by the actual Thunder Clap/Blast cast IDs, not the
+      // Thunder Clap talent ID. Using cast IDs keeps SpellUsable and CDR tracking aligned
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.THUNDER_CLAP, SPELLS.THUNDER_BLAST]),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([TALENTS.THUNDER_CLAP_TALENT, SPELLS.THUNDER_BLAST]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.THUNDER_CLAP, SPELLS.THUNDER_BLAST]),
       this.reduce,
     );
   }

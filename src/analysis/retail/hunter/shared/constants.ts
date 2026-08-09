@@ -6,6 +6,8 @@ import TALENTS from 'common/TALENTS/hunter';
 //A simple function to calculate hasted cooldowns
 export const hastedCooldown = (baseCD: number, haste: number) => baseCD / (1 + haste);
 /** MS Buffers */
+//A shorter 50ms buffer
+export const MS_BUFFER_50 = 50;
 //A 100ms buffer is standard to use since logs aren't precise to the millisecond for events
 export const MS_BUFFER_100 = 100;
 //Whenever we need to use 250ms buffers
@@ -19,11 +21,6 @@ export const MS_BUFFER_500 = 500;
 export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
 //endregion
 
-/** Aspects */
-//This is the baseline cooldown of Aspect of the Turtle / Cheetah
-export const BASELINE_TURTLE_CHEETAH_CD = 180000;
-//endregion
-
 //region Talents
 /** A Murder of Crows */
 //A Murder of Crows ticks every 1 seconds
@@ -33,20 +30,8 @@ export const AMOC_BASE_DURATION = 15000;
 /** Barrage */
 //Barrage hits up to 10 times per cast
 export const BARRAGE_HITS_PER_CAST = 10;
-/** Born to be Wild */
-//Born To Be Wild reduces the cooldown of these three aspect abilities
-export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
-  SPELLS.ASPECT_OF_THE_CHEETAH,
-  SPELLS.ASPECT_OF_THE_TURTLE,
-  TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT,
-];
 //Hogstrider has two damage IDs
 export const PL_HOGSTRIDER_DAMAGE = [SPELLS.PL_HOGSTRIDER_DAMAGE_1, SPELLS.PL_HOGSTRIDER_DAMAGE_2];
-/** Natural Mending */
-//1 second per 12 focus spent
-export const NATURAL_MENDING_CDR_PER_FOCUS = 1000 / 12;
-/** Survival of the Fittest */
-export const SURVIVAL_OF_THE_FITTEST_BASE_CD = 120000;
 //endregion
 
 //region Resources

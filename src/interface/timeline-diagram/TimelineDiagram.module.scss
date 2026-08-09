@@ -1,0 +1,16 @@
+@use 'interface/design-system' as design;
+
+.ResetZoomButton {
+  appearance: none;
+  background: none;
+  border: none;
+
+  & small {
+    text-decoration: underline;
+  }
+}
+
+.ZoomTextContainer {
+  line-height: 1;
+  margin-bottom: 0.5em;
+}

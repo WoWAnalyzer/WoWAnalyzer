@@ -120,6 +120,23 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT),
+        cooldown: combatant.hasTalent(TALENTS_HUNTER.INCENDIARY_AMMUNITION_NEW_TALENT) ? 20 : 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.WAILING_ARROW_DAMAGE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS_HUNTER.WAILING_DEAD_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
       //endregion
 
       //region Baseline Defensives
@@ -127,7 +144,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXHILARATION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
         },
@@ -196,6 +213,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MISDIRECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
+        // Cast/cooldown tracking is still useful even though nobody is trying to weave this
+        // optimally - just don't give it its own Timeline lane.
+        timelineHide: true,
         gcd: {
           static: 0,
         },

@@ -5,8 +5,8 @@ import HotTrackerMW from '../core/HotTrackerMW';
 import Combatants from 'parser/shared/modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
 import {
-  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   LOTUS_INFUSION_BOOST,
   REM_BASE_DURATION,
   RISING_MIST,

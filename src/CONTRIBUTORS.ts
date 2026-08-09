@@ -2097,6 +2097,19 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
+export const Darkfrog: Contributor = {
+  nickname: 'Darkfrog',
+  github: 'darkmaster2133',
+  discord: 'darkmaster2133',
+  avatar: avatar('darkfrog-avatar.png'),
+  mains: [
+    {
+      name: 'Darkfrog',
+      spec: SPECS.CLASSIC_DEATH_KNIGHT_FROST,
+      link: 'https://classic.warcraftlogs.com/character/id/100908399',
+    },
+  ],
+};
 export const Pilsung: Contributor = {
   nickname: 'pilsung',
   github: 'Ac1dBomb',
@@ -2874,6 +2887,13 @@ export const MarchingCube: Contributor = {
   github: 'MarchingCube',
 };
 
+export const Myrx: Contributor = {
+  nickname: 'Myrx',
+  github: 'BenBurnett',
+  discord: 'Myrx',
+  avatar: avatar('myrx-avatar.png'),
+};
+
 export const Hezaerd: Contributor = {
   nickname: 'Hezaerd',
   github: 'Hezaerd',
@@ -2983,6 +3003,7 @@ export const Zogmaw: Contributor = {
   nickname: 'Zogmaw',
   github: 'Zogmaw',
   discord: 'zokor',
+  avatar: avatar('zogmaw-avatar.png'),
   mains: [
     {
       name: 'Zogmaw',
@@ -2990,4 +3011,74 @@ export const Zogmaw: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/stormrage/Zogmaw',
     },
   ],
+  links: {
+    'Havoc Website': 'https://prepared.gg/',
+    Twitch: 'https://www.twitch.tv/zokor',
+    Youtube: 'https://www.youtube.com/@Zogmaw',
+  },
+};
+
+export const Eevulution: Contributor = {
+  nickname: 'eevulution',
+  github: 'eevulution',
+  discord: 'eevulution',
+};
+
+export const Xinito: Contributor = {
+  nickname: 'Xinito',
+  github: '1337Xinito',
+  discord: 'Xinito',
+  mains: [
+    {
+      name: 'Skullbonka',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://classic.warcraftlogs.com/character/eu/garalon/skullbonka',
+    },
+  ],
+};
+
+export const Naltarunir: Contributor = {
+  nickname: 'Naltarunir',
+  discord: 'ghosti#1783',
+  github: 'Naltarunir',
+  about: 'Healer and Nobundo fanboy',
+  avatar: avatar('naltarunir-avatar.png'),
+  mains: [
+    {
+      name: 'Naltarunir',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://raider.io/characters/eu/amanthul/Naltarunir',
+    },
+  ],
+  links: {
+    GitHub: 'https://github.com/Naltarunir',
+  },
+};
+
+export const Azortharion: Contributor = {
+  nickname: 'Azortharion',
+  github: 'Azortharion',
+  discord: 'azortharion',
+  avatar: avatar('azortharion-avatar.png'),
+  about: 'Hunter Guidewriter, Theorycrafter and Top Player',
+  mains: [
+    {
+      name: 'Azortharion',
+      spec: SPECS.BEAST_MASTERY_HUNTER,
+      link: 'https://www.warcraftlogs.com/character/eu/kazzak/azortharion',
+    },
+  ],
+  links: {
+    'Icy-Veins BM Guide': 'https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide',
+  },
+};
+
+export const apolex: Contributor = {
+  nickname: 'apolex',
+  github: 'Apolex-ious',
+};
+
+export const KushGene: Contributor = {
+  nickname: 'KushGene',
+  github: 'KushGene',
 };

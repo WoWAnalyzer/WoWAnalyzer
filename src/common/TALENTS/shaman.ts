@@ -226,7 +226,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127861],
     definitionIds: [{ id: 132670, specId: 264 }],
-    manaCost: 11250,
+    manaCost: 10700,
   },
   CHAIN_LIGHTNING_TALENT: {
     id: 188443,
@@ -1348,7 +1348,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101905],
     definitionIds: [{ id: 106805, specId: 264 }],
-    manaCost: 4000,
+    manaCost: 3800,
   },
   RIP_CURRENT_TALENT: {
     id: 1254251,

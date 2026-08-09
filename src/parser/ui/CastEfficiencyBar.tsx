@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CastEfficiencyBar.module.scss';
 import { ReactNode, type JSX } from 'react';
 import { CooldownBar, CooldownWindow, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
@@ -133,23 +134,6 @@ export default function CastEfficiencyBar({
   );
 }
 
-const CooldownUtilBarContainer = styled.div`
-  font-size: 20px;
-  padding: 2px;
-  display: grid;
-  grid-column-gap: 1em;
-  grid-template-columns: 120px 1fr;
-  align-items: center;
-`;
+const CooldownUtilBarContainer = cssComponent('div', styles.CooldownUtilBarContainer, [] as const);
 
-const ExplanationText = styled.div`
-  margin-bottom: 8px;
-
-  strong {
-    display: block;
-  }
-
-  small {
-    color: #999;
-  }
-`;
+const ExplanationText = cssComponent('div', styles.ExplanationText, [] as const);

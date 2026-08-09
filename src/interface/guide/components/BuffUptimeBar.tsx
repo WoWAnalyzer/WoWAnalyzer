@@ -1,5 +1,6 @@
 import { ReactNode, type JSX } from 'react';
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './BuffUptimeBar.module.scss';
 import Spell from 'common/SPELLS/Spell';
 import { Tooltip } from 'interface';
 import { formatPercentage } from 'common/format';
@@ -246,34 +247,12 @@ export default function BuffUptimeBar({
   );
 }
 
-export const InsetContainer = styled.div`
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  padding: 4px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-`;
+export const InsetContainer = cssComponent('div', styles.InsetContainer, [] as const);
 
-const TimelineContainer = styled(InsetContainer)`
-  height: 32px;
-`;
+const TimelineContainer = cssComponent(InsetContainer, styles.TimelineContainer, [] as const);
 
-const UptimeGraphContainer = styled.div`
-  height: 24px;
-  width: 100%;
-  position: relative;
-`;
+const UptimeGraphContainer = cssComponent('div', styles.UptimeGraphContainer, [] as const);
 
-const StatValue = styled.div`
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-`;
+const StatValue = cssComponent('div', styles.StatValue, [] as const);
 
-const StatLabel = styled.div`
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.55);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`;
+const StatLabel = cssComponent('div', styles.StatLabel, [] as const);

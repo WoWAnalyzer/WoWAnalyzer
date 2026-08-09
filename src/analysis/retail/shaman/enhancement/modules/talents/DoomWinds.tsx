@@ -11,8 +11,6 @@ import Events, {
   GlobalCooldownEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
-  UpdateSpellUsableEvent,
-  UpdateSpellUsableType,
 } from 'parser/core/Events';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
@@ -25,9 +23,7 @@ import {
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Abilities from '../Abilities';
-import Haste from 'parser/shared/modules/Haste';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
 import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
 import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
@@ -85,10 +81,10 @@ interface DoomWindsWindowBreakdown {
 
 interface DoomWindsWindow {
   event: ApplyBuffEvent | RefreshBuffEvent;
-  hasteAdjustedWastedPrimaryCooldown: number;
-  hasteAdjustedWastedCrashLightningCooldown: number;
+  missedPrimaryOpportunities: number;
+  missedCrashLightningOpportunities: number;
   castEvents: CastEvent[];
-  unusedGcdTime: number;
+  idleGapDurations: number[];
   globalCooldowns: number[];
   windowSource: WindowSource;
   primarySpellId: number;
@@ -98,32 +94,26 @@ interface DoomWindsWindow {
 }
 
 class DoomWinds extends Analyzer.withDependencies({
-  haste: Haste,
   spellUsable: SpellUsable,
   abilities: Abilities,
 }) {
   private static readonly WINDOW_TRIGGER_BUFFER_MS = 150;
-  private static readonly STORMSTRIKE_BASE_COOLDOWN_MS = 7500;
-  private static readonly WINDSTRIKE_BASE_COOLDOWN_MS = 3000;
 
   private readonly hasAscendance: boolean = false;
   private readonly hasDRE: boolean = false;
   private readonly isTotemic: boolean = false;
-  private readonly hasElementalTempo: boolean = false;
   private readonly hasHotHand: boolean = false;
-  private readonly hasVoltaicBlaze: boolean = false;
-  private readonly crashLightningCD: number;
   private readonly ascendanceCastRules: HighPriorityAbilities = [];
 
   private readonly windows: DoomWindsWindow[] = [];
 
   private activeWindow: DoomWindsWindow | null = null;
-  private windstrikeOnCooldown = true;
-  private lastCooldownWasteCheck = 0;
   private globalCooldownEnds = 0;
   private recentWindowTrigger: RecentWindowTrigger | null = null;
   private hotHandBuffActive = false;
   private hotHandActiveStart: number | null = null;
+  private primaryOpportunityConsumed = false;
+  private crashLightningOpportunityConsumed = false;
 
   constructor(options: Options) {
     super(options);
@@ -133,11 +123,7 @@ class DoomWinds extends Analyzer.withDependencies({
     this.hasAscendance = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT);
     this.hasDRE = this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
     this.isTotemic = this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
-    this.hasElementalTempo = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_TEMPO_TALENT);
     this.hasHotHand = this.selectedCombatant.hasTalent(TALENTS.HOT_HAND_TALENT);
-    this.hasVoltaicBlaze = this.selectedCombatant.hasTalent(TALENTS.VOLTAIC_BLAZE_TALENT);
-    this.crashLightningCD =
-      abilities.getAbility(TALENTS.CRASH_LIGHTNING_TALENT.id)!.cooldown * 1000;
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.DOOM_WINDS_TALENT);
     if (!this.active) {
@@ -159,21 +145,7 @@ class DoomWinds extends Analyzer.withDependencies({
       },
     });
 
-    this.ascendanceCastRules.push({
-      spellId: [
-        SPELLS.LIGHTNING_BOLT.id,
-        TALENTS.CHAIN_LIGHTNING_TALENT.id,
-        SPELLS.TEMPEST_CAST.id,
-        SPELLS.PRIMORDIAL_STORM_CAST.id,
-      ],
-      condition: (event) => this.isMaelstromSpenderAtOrAboveStacks(event, 10),
-      enhancedCastReason: () => (
-        <>
-          Spending <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> at 10 stacks takes priority to
-          avoid overcapping during this window.
-        </>
-      ),
-    });
+    this.ascendanceCastRules.push(SPELLS.PRIMORDIAL_STORM_CAST.id);
 
     if (this.isTotemic && this.hasHotHand) {
       this.ascendanceCastRules.push({
@@ -189,38 +161,7 @@ class DoomWinds extends Analyzer.withDependencies({
       });
     }
 
-    if (this.isTotemic && this.hasElementalTempo) {
-      this.ascendanceCastRules.push({
-        spellId: [
-          SPELLS.LIGHTNING_BOLT.id,
-          TALENTS.CHAIN_LIGHTNING_TALENT.id,
-          SPELLS.TEMPEST_CAST.id,
-          SPELLS.PRIMORDIAL_STORM_CAST.id,
-        ],
-        condition: (event) => this.isMaelstromSpenderAtOrAboveStacks(event, 5),
-        enhancedCastReason: () => (
-          <>
-            Totemic <SpellLink spell={TALENTS.ELEMENTAL_TEMPO_TALENT} /> builds can spend{' '}
-            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> at 5+ stacks during this window.
-          </>
-        ),
-      });
-    }
-
-    if (!this.isTotemic && this.hasVoltaicBlaze) {
-      this.ascendanceCastRules.push({
-        spellId: SPELLS.VOLTAIC_BLAZE_CAST.id,
-        condition: () => true,
-        enhancedCastReason: () => (
-          <>
-            <SpellLink spell={SPELLS.VOLTAIC_BLAZE_CAST} /> is a valid Stormbringer priority cast
-            during this window.
-          </>
-        ),
-      });
-    }
-
-    // Tracking start end end of cooldown windows
+    // Tracking start and end of cooldown windows
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOOM_WINDS_BUFF),
       this.onCooldownStart,
@@ -244,10 +185,6 @@ class DoomWinds extends Analyzer.withDependencies({
     // Usage within the cooldown window
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
 
-    this.addEventListener(
-      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
-      this.onWindstrikeUsableUpdate,
-    );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGlobalCooldown);
 
     if (this.hasHotHand) {
@@ -287,16 +224,6 @@ class DoomWinds extends Analyzer.withDependencies({
     }
   }
 
-  private onWindstrikeUsableUpdate(event: UpdateSpellUsableEvent) {
-    if (event.updateType === UpdateSpellUsableType.BeginCooldown) {
-      this.windstrikeOnCooldown = true;
-    }
-    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
-      this.windstrikeOnCooldown = false;
-      this.lastCooldownWasteCheck = event.timestamp;
-    }
-  }
-
   private onDirectWindowTrigger(event: CastEvent) {
     this.recentWindowTrigger = {
       spellId: event.ability.guid,
@@ -312,12 +239,13 @@ class DoomWinds extends Analyzer.withDependencies({
   private onCooldownStart(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!this.activeWindow) {
       this.activeWindow = this.createWindow(event);
+      this.primaryOpportunityConsumed = false;
+      this.crashLightningOpportunityConsumed = false;
 
       if (this.hotHandBuffActive) {
         this.hotHandActiveStart = event.timestamp;
       }
     }
-    this.lastCooldownWasteCheck = event.timestamp;
   }
 
   private onCast(event: CastEvent) {
@@ -333,27 +261,41 @@ class DoomWinds extends Analyzer.withDependencies({
       return;
     }
 
-    this.activeWindow.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
+    const gapStart = Math.max(this.globalCooldownEnds, this.activeWindow.start);
+    const idleGap = event.timestamp - gapStart;
+    if (idleGap > 0) {
+      this.activeWindow.idleGapDurations.push(idleGap);
+    }
 
     const primarySpellId = this.activeWindow.primarySpellId;
     const isPriorityCast =
       event.ability.guid === primarySpellId ||
       event.ability.guid === TALENTS.CRASH_LIGHTNING_TALENT.id;
 
-    if (!isPriorityCast && !this.isAllowedCastDuringWindow(event)) {
-      this.recordWastedTriggerOpportunity(event.timestamp);
+    // Reset consumed flags when a trigger spell is actually cast
+    if (event.ability.guid === primarySpellId) {
+      this.primaryOpportunityConsumed = false;
+    }
+    if (event.ability.guid === TALENTS.CRASH_LIGHTNING_TALENT.id) {
+      this.crashLightningOpportunityConsumed = false;
     }
 
-    this.lastCooldownWasteCheck = event.timestamp;
+    if (!isPriorityCast && !this.isAllowedCastDuringWindow(event)) {
+      this.recordMissedTriggerOpportunity(event);
+    }
+
     this.activeWindow.castEvents.push(event);
   }
 
   private onCooldownEnd(event: RemoveBuffEvent | FightEndEvent) {
     if (this.activeWindow) {
+      const tailGapStart = Math.max(this.globalCooldownEnds, this.activeWindow.start);
+      const tailIdleGap = event.timestamp - tailGapStart;
+      if (tailIdleGap > 0) {
+        this.activeWindow.idleGapDurations.push(tailIdleGap);
+      }
+
       this.activeWindow.end = event.timestamp;
-      this.recordWastedTriggerOpportunity(
-        Math.max(event.timestamp - 1, this.lastCooldownWasteCheck),
-      );
 
       this.closeActiveHotHandRange(this.activeWindow, event.timestamp);
 
@@ -371,10 +313,10 @@ class DoomWinds extends Analyzer.withDependencies({
       primarySpellId,
       start: Math.max(event.timestamp, this.globalCooldownEnds),
       castEvents: [],
-      hasteAdjustedWastedPrimaryCooldown: 0,
-      hasteAdjustedWastedCrashLightningCooldown: 0,
+      missedPrimaryOpportunities: 0,
+      missedCrashLightningOpportunities: 0,
       globalCooldowns: [],
-      unusedGcdTime: 0,
+      idleGapDurations: [],
       hotHandActiveRanges: [],
     };
   }
@@ -428,14 +370,6 @@ class DoomWinds extends Analyzer.withDependencies({
     };
   }
 
-  private isMaelstromSpenderAtOrAboveStacks(
-    event: CastEvent | FreeCastEvent,
-    minimumStacks: number,
-  ): boolean {
-    const stacksSpent = getResourceCost(event.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
-    return (stacksSpent ?? 0) >= minimumStacks;
-  }
-
   private isAllowedCastDuringWindow(event: CastEvent): boolean {
     const firstApplicableRule = getApplicableRules(event, this.ascendanceCastRules)?.at(0);
     if (!firstApplicableRule) {
@@ -462,32 +396,32 @@ class DoomWinds extends Analyzer.withDependencies({
     );
   }
 
-  private recordWastedTriggerOpportunity(timestamp: number) {
-    if (!this.activeWindow || timestamp <= this.lastCooldownWasteCheck) {
+  private recordMissedTriggerOpportunity(event: CastEvent) {
+    if (!this.activeWindow) {
       return;
     }
 
-    const wastedTime = this.getHasteAdjustedCooldownWasteSinceLastWasteCheck(timestamp);
-    if (this.deps.spellUsable.isAvailable(this.activeWindow.primarySpellId)) {
-      this.activeWindow.hasteAdjustedWastedPrimaryCooldown += wastedTime;
-      return;
+    const primaryAvailable = this.deps.spellUsable.isAvailable(this.activeWindow.primarySpellId);
+    const clAvailable = this.isCrashLightningAvailable(event.timestamp);
+
+    // Reset consumed state when the spell is no longer available (went on cooldown)
+    if (!primaryAvailable) {
+      this.primaryOpportunityConsumed = false;
+    }
+    if (!clAvailable) {
+      this.crashLightningOpportunityConsumed = false;
     }
 
-    if (this.isCrashLightningAvailable(timestamp)) {
-      this.activeWindow.hasteAdjustedWastedCrashLightningCooldown += wastedTime;
+    // Count missed opportunities — only once per availability window
+    if (primaryAvailable && !this.primaryOpportunityConsumed) {
+      this.activeWindow.missedPrimaryOpportunities += 1;
+      this.primaryOpportunityConsumed = true;
     }
-  }
 
-  private getHasteAdjustedCooldownWasteSinceLastWasteCheck(timestamp: number): number {
-    return (timestamp - this.lastCooldownWasteCheck) * (1 + this.deps.haste.current);
-  }
-
-  private get guideSpell() {
-    return this.hasAscendance
-      ? TALENTS.ASCENDANCE_ENHANCEMENT_TALENT
-      : this.hasDRE
-        ? TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT
-        : TALENTS.DOOM_WINDS_TALENT;
+    if (!primaryAvailable && clAvailable && !this.crashLightningOpportunityConsumed) {
+      this.activeWindow.missedCrashLightningOpportunities += 1;
+      this.crashLightningOpportunityConsumed = true;
+    }
   }
 
   get maxCasts() {
@@ -497,17 +431,8 @@ class DoomWinds extends Analyzer.withDependencies({
       }
 
       const counts = this.collectWindowCastCounts(cast);
-      return total + counts.primaryCasts + this.getMissedPrimaryCasts(cast, counts);
+      return total + counts.primaryCasts + cast.missedPrimaryOpportunities;
     }, 0);
-  }
-
-  private getWindowSourceLabel(source: WindowSource): string {
-    switch (source) {
-      case 'cast':
-        return 'Cast';
-      case 'proc':
-        return 'Proc';
-    }
   }
 
   private collectWindowCastCounts(cast: DoomWindsWindow): DoomWindsWindowCastCounts {
@@ -538,43 +463,7 @@ class DoomWinds extends Analyzer.withDependencies({
 
   private getUnusedGlobalCooldowns(cast: DoomWindsWindow) {
     const avgGcd = this.getAverageGcdOfWindow(cast);
-    return Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
-  }
-
-  private getMissedCrashLightningCasts(cast: DoomWindsWindow): number {
-    return Math.floor(cast.hasteAdjustedWastedCrashLightningCooldown / this.crashLightningCD);
-  }
-
-  private getPrimaryBaseCooldown(cast: DoomWindsWindow): number {
-    return cast.primarySpellId === SPELLS.STORMSTRIKE.id
-      ? DoomWinds.STORMSTRIKE_BASE_COOLDOWN_MS
-      : DoomWinds.WINDSTRIKE_BASE_COOLDOWN_MS;
-  }
-
-  private getMinimumPrimaryCastOpportunities(cast: DoomWindsWindow): number {
-    if (cast.primarySpellId !== SPELLS.STORMSTRIKE.id || cast.end == null) {
-      return 0;
-    }
-
-    const windowDuration = Math.max(cast.end - cast.start, 0);
-    return 1 + Math.floor(windowDuration / this.getPrimaryBaseCooldown(cast));
-  }
-
-  private getMissedPrimaryCasts(
-    cast: DoomWindsWindow,
-    counts: DoomWindsWindowCastCounts = this.collectWindowCastCounts(cast),
-  ): number {
-    const wasteBasedMissedCasts = Math.floor(
-      cast.hasteAdjustedWastedPrimaryCooldown / this.getPrimaryBaseCooldown(cast),
-    );
-    const minimumGuaranteedOpportunities = Math.max(
-      this.getMinimumPrimaryCastOpportunities(cast) -
-        counts.primaryCasts -
-        counts.hotHandLavaLashCasts,
-      0,
-    );
-
-    return Math.max(wasteBasedMissedCasts, minimumGuaranteedOpportunities);
+    return cast.idleGapDurations.reduce((total, gap) => total + Math.floor(gap / avgGcd), 0);
   }
 
   private getHotHandOverlapRatio(cast: DoomWindsWindow): number {
@@ -590,34 +479,20 @@ class DoomWinds extends Analyzer.withDependencies({
     cast: DoomWindsWindow,
     counts: DoomWindsWindowCastCounts,
   ): ThorimsTriggerOpportunityBreakdown {
-    const missedPrimaryCasts = this.getMissedPrimaryCasts(cast, counts);
-    const missedCrashLightningCasts = this.getMissedCrashLightningCasts(cast);
+    const missedPrimaryCasts = cast.missedPrimaryOpportunities;
+    const missedCrashLightningCasts = cast.missedCrashLightningOpportunities;
 
-    // Unreduced maximum: what the primary max would be without HH adjustment
-    const wasteBasedMissedCasts = Math.floor(
-      cast.hasteAdjustedWastedPrimaryCooldown / this.getPrimaryBaseCooldown(cast),
-    );
-    const unreducedMinGuaranteed = Math.max(
-      this.getMinimumPrimaryCastOpportunities(cast) - counts.primaryCasts,
-      0,
-    );
-    const unreducedMissedPrimaryCasts = Math.max(wasteBasedMissedCasts, unreducedMinGuaranteed);
-    const unreducedMaximumPrimaryCasts = counts.primaryCasts + unreducedMissedPrimaryCasts;
+    const maximumPrimaryCasts = counts.primaryCasts + missedPrimaryCasts;
+    // Unreduced: includes HH LL casts that displaced potential primary triggers
+    const unreducedMaximumPrimaryCasts = maximumPrimaryCasts + counts.hotHandLavaLashCasts;
 
-    const rawMaximumTriggers =
-      counts.primaryCasts +
-      missedPrimaryCasts +
-      counts.crashLightningCasts +
-      missedCrashLightningCasts;
-    const estimatedMaximumTriggers = Math.max(
-      rawMaximumTriggers - counts.hotHandLavaLashCasts,
-      counts.primaryCasts + counts.crashLightningCasts,
-    );
+    const estimatedMaximumTriggers =
+      maximumPrimaryCasts + counts.crashLightningCasts + missedCrashLightningCasts;
 
     return {
       primaryCasts: counts.primaryCasts,
       missedPrimaryCasts,
-      maximumPrimaryCasts: counts.primaryCasts + missedPrimaryCasts,
+      maximumPrimaryCasts,
       unreducedMaximumPrimaryCasts,
       crashLightningCasts: counts.crashLightningCasts,
       missedCrashLightningCasts,
@@ -625,12 +500,6 @@ class DoomWinds extends Analyzer.withDependencies({
       hotHandLavaLashCasts: counts.hotHandLavaLashCasts,
       estimatedMaximumTriggers,
     };
-  }
-
-  private getPrimaryStrikeSpell(cast: DoomWindsWindow) {
-    return cast.primarySpellId === SPELLS.STORMSTRIKE.id
-      ? SPELLS.STORMSTRIKE
-      : SPELLS.WINDSTRIKE_CAST;
   }
 
   private getThorimsTriggerStats(cast: DoomWindsWindow): ThorimsTriggerStats {
@@ -681,7 +550,7 @@ class DoomWinds extends Analyzer.withDependencies({
 
       stats.total += 1;
 
-      switch (freeCast.ability.guid) {
+      switch (event.ability.guid) {
         case SPELLS.WINDSTRIKE_CAST.id:
           stats.windstrike += 1;
           break;
@@ -741,7 +610,7 @@ class DoomWinds extends Analyzer.withDependencies({
 
   private getGcdPerformance(cast: DoomWindsWindow): QualitativePerformance {
     const avgGcd = this.getAverageGcdOfWindow(cast);
-    const unusedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    const unusedGlobalCooldowns = this.getUnusedGlobalCooldowns(cast);
     const estimatedPotentialCasts = ((cast.end ?? cast.event.timestamp) - cast.start) / avgGcd;
     if (estimatedPotentialCasts <= 0) {
       return QualitativePerformance.Perfect;
@@ -796,13 +665,19 @@ class DoomWinds extends Analyzer.withDependencies({
   private buildPerCastData(): PerCastData[] {
     return this.windows.map((cast) => {
       const breakdown = this.buildWindowBreakdown(cast);
+      const primaryStrikeSpell =
+        cast.primarySpellId === SPELLS.STORMSTRIKE.id ? SPELLS.STORMSTRIKE : SPELLS.WINDSTRIKE_CAST;
+      const primaryTriggers =
+        cast.primarySpellId === SPELLS.STORMSTRIKE.id
+          ? breakdown.triggerStats.stormstrike
+          : breakdown.triggerStats.windstrike;
 
       return {
         performance: breakdown.performance,
         timestamp: this.owner.formatTimestamp(cast.event.timestamp),
         stats: [
           {
-            value: this.getWindowSourceLabel(cast.windowSource),
+            value: cast.windowSource === 'cast' ? 'Cast' : 'Proc',
             label: 'Source',
             performance: QualitativePerformance.Perfect,
           },
@@ -829,9 +704,8 @@ class DoomWinds extends Analyzer.withDependencies({
             from the following sources:
             <ul>
               <li>
-                <SpellLink spell={this.getPrimaryStrikeSpell(cast)} />:{' '}
-                {breakdown.triggerOpportunities.primaryCasts}/
-                {breakdown.triggerOpportunities.unreducedMaximumPrimaryCasts}
+                <SpellLink spell={primaryStrikeSpell} />: {primaryTriggers}/
+                {breakdown.triggerOpportunities.maximumPrimaryCasts}
                 {breakdown.triggerOpportunities.hotHandLavaLashCasts > 0 &&
                   breakdown.triggerOpportunities.maximumPrimaryCasts <
                     breakdown.triggerOpportunities.unreducedMaximumPrimaryCasts && (
@@ -839,7 +713,7 @@ class DoomWinds extends Analyzer.withDependencies({
                       <li>
                         <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> has higher priority during{' '}
                         <SpellLink spell={TALENTS.HOT_HAND_TALENT} />, reducing expected triggers
-                        from <SpellLink spell={this.getPrimaryStrikeSpell(cast)} /> to{' '}
+                        from <SpellLink spell={primaryStrikeSpell} /> to{' '}
                         {breakdown.triggerOpportunities.maximumPrimaryCasts}.
                       </li>
                     </ul>
@@ -848,7 +722,7 @@ class DoomWinds extends Analyzer.withDependencies({
               {breakdown.triggerOpportunities.maximumCrashLightningCasts > 0 && (
                 <li>
                   <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} />:{' '}
-                  {breakdown.triggerOpportunities.crashLightningCasts}/
+                  {breakdown.triggerStats.crashLightning}/
                   {breakdown.triggerOpportunities.maximumCrashLightningCasts}
                 </li>
               )}
@@ -934,8 +808,14 @@ class DoomWinds extends Analyzer.withDependencies({
       return null;
     }
 
+    const guideSpell = this.hasAscendance
+      ? TALENTS.ASCENDANCE_ENHANCEMENT_TALENT
+      : this.hasDRE
+        ? TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT
+        : TALENTS.DOOM_WINDS_TALENT;
+
     return (
-      <GuideSection spell={this.guideSpell} explanation={this.description()}>
+      <GuideSection spell={guideSpell} explanation={this.description()}>
         <CastDetail title="Doom Winds Windows" casts={this.buildPerCastData()} />
       </GuideSection>
     );

@@ -16,7 +16,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../restoration/Guide';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { RESTORATION_COLORS } from '../../restoration/constants';
-import EarthenHarmony from '../../restoration/modules/talents/EarthenHarmony';
+import EarthenHarmony from './EarthenHarmony';
 
 const EARTHSHIELD_HEALING_INCREASE = 0.2;
 

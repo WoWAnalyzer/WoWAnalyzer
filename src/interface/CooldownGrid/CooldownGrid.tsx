@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CooldownGrid.module.scss';
 import { PerformanceMark, TimeRange, useInfo } from 'interface/guide';
 import {
   CooldownExpandableDataItem,
@@ -10,7 +11,6 @@ import EmbeddedTimeline, {
 import ThroughputTable, { ThroughputTableProps } from 'interface/Table/ThroughputTable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { JSX, useRef, useState } from 'react';
-import * as design from 'interface/design-system';
 import { formatDurationMillisMinSec } from 'common/format';
 import Button from 'interface/controls/Button';
 import React from 'react';
@@ -45,47 +45,15 @@ export interface CooldownGridItem {
   table?: Omit<ThroughputTableProps, 'range'>;
 }
 
-const CooldownGridOuterContainer = styled.div`
-  width: 100%;
-  container: cooldown-grid / inline-size;
+const CooldownGridOuterContainer = cssComponent(
+  'div',
+  styles.CooldownGridOuterContainer,
+  [] as const,
+);
 
-  display: flex;
-  flex-direction: column;
-  gap: ${design.gaps.large};
-`;
+const CooldownGridContainer = cssComponent('div', styles.CooldownGridContainer, [] as const);
 
-const CooldownGridContainer = styled.div<{ maximumColumns: 1 | 2 | 3 }>`
-  gap: ${design.gaps.large};
-
-  display: grid;
-  grid-auto-flow: row;
-
-  grid-template-columns: 1fr;
-
-  max-width: 100%;
-
-  ${(props) =>
-    props.maximumColumns >= 2
-      ? `
-      @container cooldown-grid (width >= 700px) {
-        grid-template-columns: 1fr 1fr;
-      }
-    `
-      : ''}
-  ${(props) =>
-    props.maximumColumns >= 3
-      ? `
-      @container cooldown-grid (width >= 1050px) {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-    `
-      : ''}
-`;
-
-const ShowMoreButton = styled(Button)`
-  padding: ${design.gaps.small} ${design.gaps.large};
-  align-self: center;
-`;
+const ShowMoreButton = cssComponent(Button, styles.ShowMoreButton, [] as const);
 
 const CooldownGridElement = React.memo(CooldownGridElementRaw);
 
@@ -111,7 +79,7 @@ export default function CooldownGrid({
   const hasMore = items.length > showMoreCutoff;
   return (
     <CooldownGridOuterContainer>
-      <CooldownGridContainer maximumColumns={maximumColumns}>
+      <CooldownGridContainer className={styles[`maxColumns${maximumColumns}`]}>
         {items.slice(0, showMore ? Infinity : showMoreCutoff).map((item, ix) => (
           <CooldownGridElement
             key={`${item.range.start}-${item.range.end}`}
@@ -135,37 +103,28 @@ export default function CooldownGrid({
   );
 }
 
-const CooldownGridElementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid ${design.level2.border};
-  background: ${design.level2.background};
-  box-shadow ${design.level2.shadow};
-  padding: ${design.gaps.small};
-  gap: ${design.gaps.small};
-`;
+const CooldownGridElementContainer = cssComponent(
+  'div',
+  styles.CooldownGridElementContainer,
+  [] as const,
+);
 
 type CooldownGridItemProps = CooldownGridItem &
   Pick<CooldownGridProps, 'label'> & {
     defaultRenderContents?: boolean;
   };
 
-const CooldownGridElementHeader = styled.header`
-  font-weight: bold;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 0 ${design.gaps.small};
+const CooldownGridElementHeader = cssComponent(
+  'header',
+  styles.CooldownGridElementHeader,
+  [] as const,
+);
 
-  & small {
-    font-weight: normal;
-  }
-`;
-
-const CooldownGridTimelineContainer = styled.div`
-  box-shadow: inset ${design.level1.shadow};
-  background: ${design.level1.background};
-`;
+const CooldownGridTimelineContainer = cssComponent(
+  'div',
+  styles.CooldownGridTimelineContainer,
+  [] as const,
+);
 
 function CooldownGridElementRaw({
   range,

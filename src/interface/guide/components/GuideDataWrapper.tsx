@@ -1,138 +1,54 @@
-import { ReactNode } from 'react';
-import styled from '@emotion/styled';
+import { JSX, ReactNode } from 'react';
+import cssComponent from 'interface/utils/css-component';
+import styles from './GuideDataWrapper.module.scss';
 import { iconUrl } from 'interface/Icon';
+import clsx from 'clsx';
 
 /** Container for each guide data section */
-export const SectionContainer = styled.div`
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-`;
+export const SectionContainer = cssComponent('div', styles.SectionContainer, [] as const);
 
 /** Row for stat cards / pills in a section header */
-export const StatsRow = styled.div`
-  display: flex;
-  gap: 6px;
-  align-items: center;
-`;
+export const StatsRow = cssComponent('div', styles.StatsRow, [] as const);
 
 /** Small italicized helper text for additional context */
-export const HelperText = styled.div`
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
-`;
+export const HelperText = cssComponent('div', styles.HelperText, [] as const);
 
 /** Compact mode: Icon+title area laid out as a 2-col grid so icon spans both rows */
-const CompactTitleGroup = styled.div`
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  column-gap: 8px;
-  align-items: center;
-  min-width: 180px;
-`;
+const CompactTitleGroup = cssComponent('div', styles.CompactTitleGroup, [] as const);
 
 /** Icon cell spanning both title and subtitle rows */
-const CompactIconCell = styled.div`
-  grid-row: 1 / span 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 36px;
-    height: 36px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    display: block;
-  }
-`;
+const CompactIconCell = cssComponent('div', styles.CompactIconCell, [] as const);
 
 /** Header: single row with title+subtitle on left, pills on right */
-const SectionHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-`;
+const SectionHeader = cssComponent('div', styles.SectionHeader, [] as const);
 
 /** Bare wrapper — matches SectionContainer spacing without the box styling */
-const BareSection = styled.div`
-  margin-bottom: 10px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
+const BareSection = cssComponent('div', styles.BareSection, [] as const);
 
 /** Left side: title + subtitle stacked vertically */
-const TitleColumn = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-`;
+const TitleColumn = cssComponent('div', styles.TitleColumn, [] as const);
 
 /** Main title/header for guide sections */
-const SectionTitle = styled.h3`
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fab700;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  white-space: nowrap;
-`;
+const SectionTitle = cssComponent('h3', styles.SectionTitle, [] as const);
 
 /** Inline subtitle badge / label — sits below the title */
-const Label = styled.div`
-  font-size: 1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  white-space: nowrap;
-`;
+const Label = cssComponent('div', styles.Label, [] as const);
 
 /** Right side wrapper for pills + optional helper text */
-const StatsColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  align-items: flex-end;
-`;
+const StatsColumn = cssComponent('div', styles.StatsColumn, [] as const);
 
 /** Compact mode: Single line layout with header | stats | content */
-const CompactContainer = styled.div`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-`;
+const CompactContainer = cssComponent('div', styles.CompactContainer, [] as const);
 
 /** Compact mode: Header section (title + subtitle stacked) -- used when no icon */
-const CompactHeaderSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1px;
-  min-width: 180px;
-`;
+const CompactHeaderSection = cssComponent('div', styles.CompactHeaderSection, [] as const);
 
 /** Compact mode: same title/subtitle styles as standard layout */
 const CompactTitle = SectionTitle;
 const CompactSubtitle = Label;
 
 /** Compact mode: Content section (bars, charts, etc.) */
-const CompactContentSection = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-`;
+const CompactContentSection = cssComponent('div', styles.CompactContentSection, [] as const);
 
 interface GuideDataWrapperProps {
   /** Main title for the visualization */
@@ -158,142 +74,60 @@ interface GuideDataWrapperProps {
 }
 
 /** Stat card with colored border/value — used in CastOverview and CastDetail */
-export const StatCard = styled.div<{ color: string }>`
-  display: flex;
-  align-items: stretch;
-  border: 1px solid ${(props) => props.color}45;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  min-height: 44px;
-`;
+export const StatCard = cssComponent('div', styles.StatCard, ['color'] as const);
 
-export const StatCardValue = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 12px;
-  font-size: 2rem;
-  font-weight: 700;
-  color: ${(props) => props.color};
+export const StatCardValue = cssComponent('div', styles.StatCardValue, ['color'] as const);
 
-  img {
-    width: auto;
-    height: 100%;
-    border-radius: 3px;
-  }
+export const StatCardDivider = cssComponent('div', styles.StatCardDivider, ['color'] as const);
 
-  &:has(img) {
-    padding: 6px;
-  }
-`;
+export const StatCardLabel = cssComponent('div', styles.StatCardLabel, [] as const);
 
-export const StatCardDivider = styled.div<{ color: string }>`
-  width: 1px;
-  height: 55%;
-  align-self: center;
-  background: ${(props) => props.color}35;
-  flex-shrink: 0;
-`;
-
-export const StatCardLabel = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  line-height: 1.2;
-  flex: 1;
-`;
-
-export const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-bottom: 6px;
-`;
+export const StatsGrid = cssComponent('div', styles.StatsGrid, [] as const);
 
 /** Performance summary badge grid — 4 columns, one per perf level */
-export const PerfBadgeGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-`;
+export const PerfBadgeGrid = cssComponent('div', styles.PerfBadgeGrid, [] as const);
 
-export const PerfBadgeCount = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: ${(p) => p.color};
-  flex-shrink: 0;
-`;
+export const PerfBadgeCount = cssComponent('div', styles.PerfBadgeCount, ['color'] as const);
 
-export const PerfBadgeDivider = styled.div<{ color: string }>`
-  width: 1px;
-  height: 55%;
-  align-self: center;
-  background: ${(p) => p.color}40;
-  flex-shrink: 0;
-`;
+export const PerfBadgeDivider = cssComponent('div', styles.PerfBadgeDivider, ['color'] as const);
 
-export const PerfBadgeLabel = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  flex: 1;
-`;
+export const PerfBadgeLabel = cssComponent('div', styles.PerfBadgeLabel, [] as const);
 
 /** Row pairing helper text with an inline element (e.g. a nav counter) */
-export const HelperTextRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-`;
+export const HelperTextRow = cssComponent('div', styles.HelperTextRow, [] as const);
 
 /** Performance filter toggle — stat-card style, clickable; greyed-out when disabled */
-export const FilterBadge = styled.div<{ color: string; active: boolean; disabled?: boolean }>`
-  display: flex;
-  align-items: stretch;
-  border: 1px solid
-    ${(props) =>
-      props.disabled
-        ? 'rgba(255,255,255,0.1)'
-        : props.active
-          ? props.color + '60'
-          : 'rgba(255,255,255,0.08)'};
-  border-radius: 4px;
-  background: ${(props) =>
-    props.disabled
-      ? 'rgba(255,255,255,0.04)'
-      : props.active
-        ? props.color + '08'
-        : 'rgba(0,0,0,0.2)'};
-  overflow: hidden;
-  min-height: 30px;
-  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
-  pointer-events: ${(props) => (props.disabled ? 'none' : undefined)};
-  opacity: ${(props) => (props.disabled || !props.active ? 0.4 : 1)};
-  transition: all 0.15s ease;
-  -webkit-tap-highlight-color: transparent;
-
-  &:hover {
-    opacity: 1;
-    border-color: ${(props) => props.color + '70'};
-    background: ${(props) => props.color + '20'};
-  }
-`;
+export const FilterBadge = ({
+  disabled,
+  active,
+  color,
+  children,
+  className,
+  style,
+  innerRef,
+  ...rest
+}: {
+  disabled?: boolean;
+  active?: boolean;
+  color: string;
+  innerRef?: React.Ref<HTMLDivElement>;
+} & React.ComponentProps<'div'>): JSX.Element => (
+  <div
+    ref={innerRef}
+    {...rest}
+    className={clsx(
+      styles.FilterBadge,
+      {
+        [styles.disabled]: disabled,
+        [styles.active]: active,
+      },
+      className,
+    )}
+    style={{ ...style, '--color': color }}
+  >
+    {children}
+  </div>
+);
 
 export default function GuideDataWrapper({
   title,

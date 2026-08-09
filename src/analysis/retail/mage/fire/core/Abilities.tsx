@@ -30,7 +30,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLAMESTRIKE.id,
+        spell: [
+          SPELLS.FLAMESTRIKE.id,
+          TALENTS.FLAMESTRIKE_1_FIRE_TALENT.id,
+          TALENTS.FLAMESTRIKE_2_FIRE_TALENT.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,

@@ -731,6 +731,17 @@ const talents = {
     entryIds: [132195],
     definitionIds: [{ id: 136996, specId: 254 }],
   },
+  // NEW: this replaces the entry above next major patch under the same name but a
+  // different id and effect (reduces Explosive Shot's cooldown). Not live yet, so
+  // entryIds/definitionIds aren't known - fill in once it's actually datamined.
+  INCENDIARY_AMMUNITION_NEW_TALENT: {
+    id: 1301406,
+    name: 'Incendiary Ammunition',
+    icon: 'inv12_ability_hunter_fierymunitions',
+    maxRanks: 1,
+    entryIds: [],
+    definitionIds: [],
+  },
   INTIMIDATION_MARKSMANSHIP_TALENT: {
     id: 474421,
     name: 'Intimidation',

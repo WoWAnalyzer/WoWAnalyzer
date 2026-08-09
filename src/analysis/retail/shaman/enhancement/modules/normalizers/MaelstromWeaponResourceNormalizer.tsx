@@ -60,7 +60,7 @@ const SPEND_EVENT_PLACEHOLDER_COST = -1;
  * event that captures all resource gains from an individual source, such as the one maelstrom stack from Elemental Assault
  * and Lightning Strikes, the variable no. of stacks from Thunder Capacitor (anywhere from 1-10), and the periodic gains from
  * Static Accumulation on regular intervals that don't typically log events.
- * 2. Find `removebuff` and `removebuffstack` events that relate to cast events for maestrom weapon eligible spells, and
+ * 2. Find `removebuff` and `removebuffstack` events that relate to cast events for maelstrom weapon eligible spells, and
  * set populate the `classResource` and `resourceCost` fields with the number of stacks consumed.
  *
  * The reason we do this is to simplify later analysis by enabling analyzers to look at cast events without needing
@@ -82,9 +82,11 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     super(options);
     this.priority = NormalizerOrder.MaelstromWeaponResourceNormalizer;
     // maximum stack count of the maelstrom weapon buff
-    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5;
+    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT)
+      ? 10
+      : 5;
     // maximum number of maelstrom weapon stacks that can be consumed at once
-    this.maxSpend = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT) ? 10 : 5;
+    this.maxSpend = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5;
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {

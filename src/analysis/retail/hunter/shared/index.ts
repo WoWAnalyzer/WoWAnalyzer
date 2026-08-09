@@ -1,5 +1,4 @@
 export { default as BindingShot } from './talents/BindingShot';
-export { default as BornToBeWild } from './talents/BornToBeWild';
 export { default as CancelledCasts } from './CancelledCasts';
 export { default as Channeling } from 'parser/shared/normalizers/Channeling';
 export { default as Deathblow } from './talents/Deathblow';
@@ -9,10 +8,7 @@ export { default as FocusDetails } from './FocusDetails';
 export { default as FocusTracker } from './FocusTracker';
 export { default as FocusUsage } from './FocusUsage';
 export { default as MasterMarksman } from './talents/MasterMarksman';
-export { default as NaturalMending } from './talents/NaturalMending';
-export { default as RejuvenatingWind } from './talents/RejuvenatingWind';
 export { default as SpellFocusCost } from './SpellFocusCost';
-export { default as Trailblazer } from './talents/Trailblazer';
 export { default as TranquilizingShot } from './talents/TranquilizingShot';
 export { default as MoonlightChakram } from './herotalents/MoonlightChakram';
 export { default as SentinelsMark } from './herotalents/SentinelsMark';

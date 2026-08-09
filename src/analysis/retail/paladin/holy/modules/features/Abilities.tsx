@@ -303,7 +303,6 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.8,
         },
-        // Not putting Glimmer in here, tracking separately in HolyPaladinHealingEfficiencyTracker
         healSpellIds: [SPELLS.HOLY_SHOCK_HEAL.id],
         damageSpellIds: [SPELLS.HOLY_SHOCK_DAMAGE.id],
         enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT),
@@ -329,15 +328,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.6,
         },
         enabled: combatant.hasTalent(TALENTS.AURA_MASTERY_TALENT),
-      },
-      {
-        spell: TALENTS.HAND_OF_DIVINITY_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.HAND_OF_DIVINITY_TALENT),
       },
       {
         spell: TALENTS.HOLY_PRISM_TALENT.id,

@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './TimelineDiagram.module.scss';
 import { useEvents } from 'interface/guide';
 import { EventType } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
@@ -425,19 +426,8 @@ function ZoomText({ isZoomed }: { isZoomed: boolean }): JSX.Element {
   }
 }
 
-const ResetZoomButton = styled.button`
-  appearance: none;
-  background: none;
-  border: none;
+const ResetZoomButton = cssComponent('button', styles.ResetZoomButton, [] as const);
 
-  & small {
-    text-decoration: underline;
-  }
-`;
-
-const ZoomTextContainer = styled.div`
-  line-height: 1;
-  margin-bottom: 0.5em;
-`;
+const ZoomTextContainer = cssComponent('div', styles.ZoomTextContainer, [] as const);
 
 const ZOOM_DISPLAY_PX_PER_MS = 20 / 1000;

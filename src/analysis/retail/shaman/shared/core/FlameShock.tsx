@@ -8,7 +8,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export const FLAMESHOCK_BASE_DURATION = 18000;

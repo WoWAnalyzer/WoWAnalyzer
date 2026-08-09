@@ -1,0 +1,18 @@
+@use 'interface/design-system' as design;
+
+.Container {
+}
+
+.ReasonRow {
+  :global(.fail-bar) {
+    background-color: transparent !important;
+  }
+
+  :global(.pass-bar) {
+    border-radius: 2px !important;
+  }
+
+  &.bad :global(.pass-bar) {
+    background-color: hsl(348.9, 69.5%, 39.8%) !important;
+  }
+}

@@ -55,17 +55,19 @@ export const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPE
   (spell) => spell.id,
 );
 
-export enum EventLinkBuffers {
-  MaelstromWeapon = 50,
-  PrimordialWave = 15500,
-  Stormstrike = 900,
-  StormUnleashed = 5,
-  WhirlingFire = 10,
-  CastDamageBuffer = 100,
-  SURGING_ELEMENTS_BUFFER = 250,
-  LIGHTNING_BOLT_BUFFER = 150,
-  PRIMORDIAL_WAVE_DAMAGE_BUFFER = 500,
-}
+export const EventLinkBuffers = {
+  MaelstromWeapon: 50,
+  PrimordialWave: 15500,
+  Stormstrike: 900,
+  StormUnleashed: 5,
+  WhirlingFire: 10,
+  CastDamageBuffer: 100,
+  SURGING_ELEMENTS_BUFFER: 250,
+  LIGHTNING_BOLT_BUFFER: 150,
+  PRIMORDIAL_WAVE_DAMAGE_BUFFER: 500,
+  WHIRLING_BUFF_DURATION_MS: 24_000,
+  SURGING_TOTEM_BUFF_BUFFER_MS: 5,
+};
 
 export enum EnhancementEventLinks {
   THORIMS_INVOCATION_LINK = 'thorims-invocation',
@@ -73,6 +75,7 @@ export enum EnhancementEventLinks {
   STORMSTRIKE_LINK = 'stormstrike',
   CHAIN_LIGHTNING_LINK = 'chain-lightning',
   TEMPEST_LINK = 'tempest',
+  TEMPEST_CONSUME_LINK = 'tempest-consume',
   MAELSTROM_SPENDER_LINK = 'maelstrom-spender',
   LIGHTNING_BOLT_LINK = 'lightning-bolt',
   MAELSTROM_GENERATOR_LINK = 'maelstrom-generator',
@@ -82,6 +85,12 @@ export enum EnhancementEventLinks {
   REACTIVITY_LINK = 'reactivity',
   WHIRLING_FIRE_HOT_HAND_LINK = 'whirling-fire-hot-hand',
   WHIRLING_FIRE_LAVA_LASH_LINK = 'whirling-fire-lava-lash',
+  WHIRLING_EARTH_CONSUME_LINK = 'whirling-earth-consume',
+  WHIRLING_FIRE_CONSUME_LINK = 'whirling-fire-consume',
+  WHIRLING_AIR_CONSUME_LINK = 'whirling-air-consume',
+  WHIRLING_EARTH_APPLY_LINK = 'whirling-earth-apply',
+  WHIRLING_FIRE_APPLY_LINK = 'whirling-fire-apply',
+  WHIRLING_AIR_APPLY_LINK = 'whirling-air-apply',
 }
 
 export const GCD_TOLERANCE = 25;

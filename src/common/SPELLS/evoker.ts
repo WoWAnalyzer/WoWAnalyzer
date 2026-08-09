@@ -647,7 +647,7 @@ const spells = {
   MASS_DISINTEGRATE_BUFF: {
     id: 436336,
     name: 'Mass Disintegrate',
-    icon: 'ability_evoker_disintegrate',
+    icon: 'inv_1205_ability_evoker_massdisintegration',
   },
   MASS_ERUPTION_BUFF: {
     id: 438588,

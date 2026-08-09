@@ -28,8 +28,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {!info.combatant.hasTalent(talents.LIGHTS_GUIDANCE_TALENT) && (
           <AlertWarning>
             Rotational analysis for{' '}
-            <SpellLink spell={talents.HOLY_ARMAMENTS_TALENT}>Lightsmith</SpellLink> is not
-            implemented at this time.
+            <SpellLink spell={talents.HOLY_ARMAMENTS_PROTECTION_TALENT}>Lightsmith</SpellLink> is
+            not implemented at this time.
           </AlertWarning>
         )}
         <AplSectionData checker={check} apl={apl} />

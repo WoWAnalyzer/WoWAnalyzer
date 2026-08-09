@@ -13,11 +13,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import {
-  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
-  ENVELOPING_MIST_INCREASE,
-  MISTWRAP_INCREASE,
-} from '../../constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/monk/shared/constants';
+import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 

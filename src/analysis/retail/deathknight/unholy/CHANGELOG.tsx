@@ -1,10 +1,18 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Brandrewsss, MarchingCube } from 'CONTRIBUTORS';
+import { Brandrewsss, MarchingCube, Myrx } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/deathknight';
 
 export default [
+  change(date(2026, 5, 29),  <>Added <SpellLink spell={TALENTS.SUDDEN_DOOM_TALENT} /> analysis for proc windows and cast tracking.</>, Myrx),
+  change(date(2026, 5, 28), <>Fixed an issue with remaining DT cooldown calulation in Soul Reaper module.</>, Myrx),
+  change(date(2026, 5, 27), <>Improved Plague efficiency analysis.</>, Myrx),
+  change(date(2026, 5, 23), <>Added analysis for <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} /> usage.</>, Myrx),
+  change(date(2026, 5, 23), <>Added <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} /> analysis and better cooldown tracking.</>, Myrx),
+  change(date(2026, 5, 23), <>Added <SpellLink spell={TALENTS.FESTERING_SCYTHE_TALENT} /> analysis and added explanation and cast detail breakdown to guide.</>, Myrx),
+  change(date(2026, 5, 23), <>Added Virulent Plague and Dread Plague uptime and explanation to the guide.</>, Myrx),  
+  change(date(2026, 5, 15), <>Added analysis for <SpellLink spell={TALENTS.PUTREFY_TALENT} /> usage.</>, Myrx),
   change(date(2026, 4, 10), <>Added Active Time section to the guide with ability uptime, melee uptime, and downtime tracking.</>, MarchingCube),
   change(date(2026, 4, 2), <>Add <SpellLink spell={TALENTS.UNHOLY_AURA_TALENT} /> haste tracking per active Magus of the Dead.</>, MarchingCube),
   change(date(2026, 4, 2), <>Reworked <SpellLink spell={TALENTS.SUDDEN_DOOM_TALENT} /> tracking with stack support, fixed false overwrites from simultaneous procs, and fixed multi-stack expiration counting.</>, MarchingCube),

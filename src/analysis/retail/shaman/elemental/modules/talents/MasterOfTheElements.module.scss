@@ -1,0 +1,9 @@
+@use 'interface/design-system' as design;
+
+.MasterOfTheElementsTable {
+  font-size: 16px;
+  tr td:nth-child(2) {
+    text-align: right;
+  }
+  width: 100%;
+}

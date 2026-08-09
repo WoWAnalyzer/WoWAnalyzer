@@ -742,10 +742,20 @@ const spells = {
     name: 'Stormstream Totem',
     icon: 'inv12_apextalent_shaman_stormstreamtotem',
   },
+  STORMSTREAM_TOTEM_PROC: {
+    id: 1267089,
+    name: 'Stormstream Totem',
+    icon: 'inv12_apextalent_shaman_stormstreamtotem',
+  },
   STORMSWELL_HEAL: {
     id: 1268684,
     name: 'Stormstream Totem',
     icon: 'inv12_apextalent_shaman_stormstreamtotem',
+  },
+  HEALING_TIDE_TOTEM: {
+    id: 108280,
+    name: 'Healing Tide Totem',
+    icon: 'ability_shaman_healingtide',
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -754,6 +764,11 @@ const spells = {
   },
   ASCENDANCE_ELEMENTAL_BUFF: {
     id: 1219480,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
+  ASCENDANCE_RESTORATION_BUFF: {
+    id: 114052,
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
   },
@@ -766,6 +781,11 @@ const spells = {
     id: 294020,
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
+  },
+  SPIRIT_LINK_TOTEM: {
+    id: 98008,
+    name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -968,41 +988,6 @@ const spells = {
     name: 'Downpour',
     icon: 'ability_mage_waterjet',
   },
-  HEALING_RAIN_TOTEMIC: {
-    id: 456366,
-    name: 'Healing Rain',
-    icon: 'spell_nature_giftofthewaterspirit',
-  },
-  SURGING_TOTEM: {
-    id: 444995,
-    name: 'Surging Totem',
-    icon: 'inv_ability_totemicshaman_surgingtotem',
-  },
-  SURGING_TOTEM_DAMAGE: {
-    id: 455622,
-    name: 'Surging Totem',
-    icon: 'spell_nature_earthquake',
-  },
-  WHIRLING_AIR: {
-    id: 453409,
-    name: 'Whirling Air',
-    icon: 'inv_10_elementalcombinedfoozles_air',
-  },
-  WHIRLING_EARTH: {
-    id: 453406,
-    name: 'Whirling Earth',
-    icon: 'inv_10_elementalcombinedfoozles_earth',
-  },
-  WHIRLING_WATER: {
-    id: 453407,
-    name: 'Whirling Water',
-    icon: 'inv_10_elementalcombinedfoozles_water',
-  },
-  WHIRLING_FIRE: {
-    id: 453405,
-    name: 'Whirling Fire',
-    icon: 'inv_10_elementalcombinedfoozles_fire',
-  },
   TIDEWATERS_HEAL: {
     id: 462425,
     name: 'Tidewaters',
@@ -1013,6 +998,7 @@ const spells = {
     name: 'Acid Rain',
     icon: 'spell_nature_acid_01',
   },
+
   /** HERO TALENTS **/
   // Stormbringer
   TEMPEST_CAST: {
@@ -1076,6 +1062,51 @@ const spells = {
     id: 467283,
     name: 'Sundering',
     icon: 'ability_rhyolith_lavapool',
+  },
+  TIDECALLERS_GUARD: {
+    id: 457481,
+    name: "Tidecaller's Guard",
+    icon: 'inv_shield_1h_artifactstormfist_d_04',
+  },
+  HEALING_RAIN_TOTEMIC: {
+    id: 456366,
+    name: 'Healing Rain',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  SURGING_TOTEM: {
+    id: 444995,
+    name: 'Surging Totem',
+    icon: 'inv_ability_totemicshaman_surgingtotem',
+  },
+  SURGING_TOTEM_DAMAGE: {
+    id: 455622,
+    name: 'Surging Totem',
+    icon: 'spell_nature_earthquake',
+  },
+  WHIRLING_AIR: {
+    id: 453409,
+    name: 'Whirling Air',
+    icon: 'inv_10_elementalcombinedfoozles_air',
+  },
+  WHIRLING_EARTH: {
+    id: 453406,
+    name: 'Whirling Earth',
+    icon: 'inv_10_elementalcombinedfoozles_earth',
+  },
+  WHIRLING_WATER: {
+    id: 453407,
+    name: 'Whirling Water',
+    icon: 'inv_10_elementalcombinedfoozles_water',
+  },
+  WHIRLING_FIRE: {
+    id: 453405,
+    name: 'Whirling Fire',
+    icon: 'inv_10_elementalcombinedfoozles_fire',
+  },
+  PRIMAL_CATALYST_BUFF: {
+    id: 1260880,
+    name: 'Primal Catalyst',
+    icon: 'misc_legionfall_shaman',
   },
 
   // Tier sets

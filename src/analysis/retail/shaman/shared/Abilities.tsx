@@ -2,7 +2,7 @@ import TALENTS from 'common/TALENTS/shaman';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import Faction from 'game/Faction';
 import SPECS from 'game/SPECS';
 import { Options } from 'parser/core/Analyzer';
@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         category: combatant.hasTalent(TALENTS.PRIMORDIAL_BOND_TALENT)
           ? SPELL_CATEGORY.DEFENSIVE
           : SPELL_CATEGORY.UTILITY,
-        cooldown: 300,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },
@@ -176,9 +176,9 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+        buffSpellId: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 90 : 120,
-        gcd: null,
       },
       {
         spell: TALENTS.PURGE_TALENT.id,

@@ -18,8 +18,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BASE_PROC_CHANCE = 0.15;
 
-const IV_PROC_CHANCE = 0.2;
-
 const BASE_CDR_AMOUNT = 3000;
 const CJ_CDR_AMOUNT = 3000;
 
@@ -58,10 +56,6 @@ class GrandCrusader extends Analyzer.withDependencies({
 
     if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT)) {
       this.cdrAmount += CJ_CDR_AMOUNT;
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.INSPIRING_VANGUARD_TALENT)) {
-      this.procChance = IV_PROC_CHANCE;
     }
   }
 

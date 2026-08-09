@@ -1,8 +1,8 @@
-import { AnyEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { AnyEvent, EventType, HealEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/shaman';
 
-class RiptideNormalizer extends EventsNormalizer {
+export default class RiptideNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     let healEvent: HealEvent | null = null;
@@ -44,4 +44,3 @@ class RiptideNormalizer extends EventsNormalizer {
     return fixedEvents;
   }
 }
-export default RiptideNormalizer;

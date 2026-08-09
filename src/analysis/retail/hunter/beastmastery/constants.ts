@@ -5,18 +5,17 @@ import TALENTS from 'common/TALENTS/hunter';
 
 /** Cobra Shot */
 //Cobra Shot reduces the cooldown of Kill Command by 1 second by default
-export const COBRA_SHOT_CDR_MS = 1000;
+export const COBRA_SHOT_KC_CDR_MS = 1000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
-/** Bestial Wrath */
-//Bestial Wrath
-export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
-export const BESTIAL_WRATH_BASE_CD = 90000;
 //endregion
 
 //region Talents
 /** Pack Tactics */
-export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
+// Pack Tactics increases focus regeneration by 75%.
+export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 0.75;
+// Pack Tactics causes Barbed Shot to instantly generate 25 focus.
+export const PACK_TACTICS_BARBED_SHOT_FOCUS_REGEN = 25;
 /** Bloodshed */
 //Bloodshed increases the damage done by pets by 15%
 export const BLOODSHED_DAMAGE_AMP = 0.15;
@@ -52,8 +51,18 @@ export const MAX_THRILL_STACKS = 4;
 //Each stack of Thrill of the Hunt gives 2% crit
 export const CRIT_PER_THRILL_STACK = 0.02;
 /** Dire Command */
-//Dire Command has a 10% chance to summon a dire beast per rank
-export const DIRE_COMMAND_PROC_CHANCE = [0, 0.1, 0.2, 0.3];
+//Dire Command has a 20% chance to summon a dire beast
+export const DIRE_COMMAND_PROC_CHANCE = 0.2;
+/** Barbed Scales */
+// Barbed Scales reduces the cooldown of Barbed Shot by 2 seconds
+export const BARBED_SCALES_CDR_MS = 2000;
+/** War Orders */
+// War Orders reduces the cooldown of Kill Command by 3 seconds
+export const WAR_ORDERS_CDR_MS = 3000;
+/** Pack Mentality */
+// Pack Mentality reduces the cooldown of Barbed Shot by 4 seconds each time Howl of the Pack
+// Leader summons a beast, regardless of how many beasts that summon actually spawns.
+export const PACK_MENTALITY_CDR_MS = 4000;
 //endregion
 
 //region Pets
@@ -84,34 +93,15 @@ export const FOCUS_THRESHOLD_MINOR = 0.05;
 export const FOCUS_THRESHOLD_AVG = 0.075;
 //Major threshold for focus wastage on focus generators
 export const FOCUS_THRESHOLD_MAJOR = 0.125;
-//The 8 focus regen buffs connected to Barbed Shot
-export const BARBED_SHOT_FOCUS_REGEN_BUFFS = [
-  SPELLS.BARBED_SHOT_BUFF,
-  SPELLS.BARBED_SHOT_BUFF_2,
-  SPELLS.BARBED_SHOT_BUFF_3,
-  SPELLS.BARBED_SHOT_BUFF_4,
-  SPELLS.BARBED_SHOT_BUFF_5,
-  SPELLS.BARBED_SHOT_BUFF_6,
-  SPELLS.BARBED_SHOT_BUFF_7,
-  SPELLS.BARBED_SHOT_BUFF_8,
-];
-
-export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
-  SPELLS.BARBED_SHOT_BUFF.id,
-  SPELLS.BARBED_SHOT_BUFF_2.id,
-  SPELLS.BARBED_SHOT_BUFF_3.id,
-  SPELLS.BARBED_SHOT_BUFF_4.id,
-  SPELLS.BARBED_SHOT_BUFF_5.id,
-  SPELLS.BARBED_SHOT_BUFF_6.id,
-  SPELLS.BARBED_SHOT_BUFF_7.id,
-  SPELLS.BARBED_SHOT_BUFF_8.id,
-];
 //Barbed Shot regenerates 5 focus per tick
 export const BARBED_SHOT_REGEN = 5;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.COBRA_SHOT_TALENT,
   TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT,
+  TALENTS.WILD_THRASH_TALENT,
   SPELLS.WING_CLIP,
+  SPELLS.BLACK_ARROW_DAMAGE,
+  SPELLS.WAILING_ARROW_DAMAGE,
 ];
 //endregion

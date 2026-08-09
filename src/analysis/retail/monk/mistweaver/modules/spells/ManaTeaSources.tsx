@@ -3,7 +3,12 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -36,6 +41,18 @@ class ManaTeaSources extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
       this.onStackWaste,
     );
+    this.addEventListener(
+      Events.removebuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF, SPELLS.LIFECYCLES_VIVIFY_BUFF]),
+      this.onLifecyclesBuffFellOff,
+    );
+    this.addEventListener(
+      Events.refreshbuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF, SPELLS.LIFECYCLES_VIVIFY_BUFF]),
+      this.onLifecyclesBuffFellOff,
+    );
   }
 
   onStackGain(event: ApplyBuffStackEvent | ApplyBuffEvent) {
@@ -43,6 +60,12 @@ class ManaTeaSources extends Analyzer {
       this.lifecyclesStacks.usedStacks += 1;
     } else {
       this.naturalStacks.usedStacks += 1;
+    }
+  }
+
+  onLifecyclesBuffFellOff(event: RemoveBuffEvent | RefreshBuffEvent) {
+    if (!isMTStackFromLifeCycles(event)) {
+      this.lifecyclesStacks.wastedStacks += 1;
     }
   }
 

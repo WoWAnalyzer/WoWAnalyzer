@@ -83,9 +83,9 @@ class Abilities extends CoreAbilities {
       },
       //COOLDOWNS
       {
-        spell: [TALENTS.HOLY_ARMAMENTS_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
+        spell: [TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
         charges: 2,
-        enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_TALENT),
+        enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_PROTECTION_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 - combatant.getTalentRank(TALENTS.FOREWARNING_TALENT) * 12,
         gcd: {
@@ -101,13 +101,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-      },
-      {
-        spell: TALENTS.BASTION_OF_LIGHT_TALENT.id,
-        buffSpellId: TALENTS.BASTION_OF_LIGHT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.BASTION_OF_LIGHT_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
       },
       {
         spell: [
@@ -249,15 +242,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLINDING_LIGHT_TALENT),
       },
       {
-        spell: TALENTS.REPENTANCE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.REPENTANCE_TALENT),
-      },
-      {
         spell: SPELLS.DIVINE_SHIELD.id,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -295,27 +279,12 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
       },
       {
-        spell: TALENTS.MOMENT_OF_GLORY_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasTalent(TALENTS.MOMENT_OF_GLORY_TALENT),
-      },
-      {
-        spell: TALENTS.EYE_OF_TYR_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS.INMOST_LIGHT_TALENT) ? 40 : 60,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
+        spell: SPELLS.HAMMER_OF_LIGHT.id,
+        enabled: combatant.hasTalent(TALENTS.LIGHTS_GUIDANCE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.EYE_OF_TYR_TALENT),
       },
     ];
   }
