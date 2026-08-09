@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Spell from 'common/SPELLS/Spell';
 import { formatDuration } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
-import { useAnalyzer, useInfo } from 'interface/guide';
+import { BadColor, GoodColor, OkColor, useAnalyzer, useInfo } from 'interface/guide';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TimeWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
 import {
@@ -10,9 +10,9 @@ import {
   computeChargingTimeWindows,
 } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/Helper';
 
-export const ALL_CHARGES_COLOR = '#4a90e2';
-export const SOME_CHARGES_COLOR = '#3fa34d';
-export const NO_CHARGES_COLOR = '#75736d';
+export const ALL_CHARGES_COLOR = BadColor;
+export const SOME_CHARGES_COLOR = OkColor;
+export const NO_CHARGES_COLOR = GoodColor;
 
 const RowContainer = styled.div`
   position: relative;
