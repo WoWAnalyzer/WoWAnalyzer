@@ -33,7 +33,7 @@ export const DamageDoneChart = memo(
     const { report } = useReport();
     const { events: bossPhaseEvents } = useBossPhaseEvents({ report, fight });
 
-    if (!info || !fight || !report || !bossPhaseEvents) {
+    if (!info || !fight || !report) {
       return null;
     }
 
@@ -51,8 +51,8 @@ export const DamageDoneChart = memo(
     }));
 
     const phaseData: { startTime: number; endTime: number; name: string }[] = [];
-    let phaseStart: (typeof bossPhaseEvents)[number] | undefined;
-    for (const event of bossPhaseEvents) {
+    let phaseStart: NonNullable<typeof bossPhaseEvents>[number] | undefined;
+    for (const event of bossPhaseEvents ?? []) {
       if (event.type === EventType.PhaseStart) {
         phaseStart = event;
       } else if (phaseStart && event.type === EventType.PhaseEnd) {
