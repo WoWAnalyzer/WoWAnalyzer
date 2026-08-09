@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './OffensiveTimeline.module.scss';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import { useInfo } from 'interface/guide';
@@ -21,43 +22,13 @@ import { getEclipseAndMainSpellBuffWindows } from 'analysis/retail/druid/balance
 
 const ICON_SIZE = 26;
 
-const BarsContainer = styled.div`
-  margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
-`;
+const BarsContainer = cssComponent('div', styles.BarsContainer, ['offset'] as const);
 
-const RowsContainer = styled.div`
-  margin-top: 4px;
-  margin-left: ${CHART_DATA_PLOT_LEFT_OFFSET}px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
+const RowsContainer = cssComponent('div', styles.RowsContainer, ['offset'] as const);
 
-const Row = styled.div`
-  position: relative;
-  min-height: ${ICON_SIZE}px;
-  display: flex;
-  align-items: center;
-`;
+const Row = cssComponent('div', styles.Row, ['iconSize'] as const);
 
-const RowIcon = styled.div`
-  position: absolute;
-  left: -${ICON_SIZE}px;
-  top: 0;
-  width: ${ICON_SIZE}px;
-  height: ${ICON_SIZE}px;
-  z-index: 1;
-
-  img.icon.game {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    display: block;
-    border: 1px solid #75736d;
-    border-radius: 0;
-    box-shadow: 0 0 3px #000;
-  }
-`;
+const RowIcon = cssComponent('div', styles.RowIcon, ['iconSize'] as const);
 
 export default function OffensiveTimeline(): JSX.Element | null {
   const info = useInfo();
@@ -131,7 +102,8 @@ export default function OffensiveTimeline(): JSX.Element | null {
                 <li>
                   <strong>Priority 1:</strong> Avoid capping! Never let either{' '}
                   <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} /> or{' '}
-                  <SpellLink spell={cdSpell(info.combatant)} /> sit fully charged.
+                  <SpellLink spell={cdSpell(info.combatant)} /> sit fully charged (in red in the
+                  timeline).
                 </li>
                 <li>
                   <strong>Priority 2:</strong> Use <SpellLink spell={cdSpell(info.combatant)} />{' '}
@@ -149,7 +121,7 @@ export default function OffensiveTimeline(): JSX.Element | null {
                 movement or saving them for upcoming high-priority focus like adds spawning.
               </div>
               <DamageDoneChart buffWindows={buffWindows} width={width} onHover={onHover} />
-              <BarsContainer>
+              <BarsContainer offset={CHART_DATA_PLOT_LEFT_OFFSET}>
                 <BuffDisplay
                   buffs={buffWindows}
                   fightDuration={info.fightDuration}
@@ -159,13 +131,13 @@ export default function OffensiveTimeline(): JSX.Element | null {
             </GuideDataWrapper>
             <div style={{ height: '10px' }} />
             <GuideDataWrapper bare title={`Cooldowns`}>
-              <RowsContainer>
+              <RowsContainer offset={CHART_DATA_PLOT_LEFT_OFFSET}>
                 {cooldownSpells
                   .map((spell) => ({ spell, durationMs: cooldownSpellsDuration.get(spell.id) }))
                   .filter(({ durationMs }) => durationMs !== undefined)
                   .map(({ spell, durationMs }) => (
-                    <Row key={spell.id}>
-                      <RowIcon>
+                    <Row key={spell.id} iconSize={ICON_SIZE}>
+                      <RowIcon iconSize={ICON_SIZE}>
                         <SpellIcon spell={spell.id} />
                       </RowIcon>
                       <CooldownAvailabilityRow spell={spell} durationMs={durationMs!} />
@@ -208,7 +180,7 @@ export default function OffensiveTimeline(): JSX.Element | null {
                       backgroundColor: NO_CHARGES_COLOR,
                     }}
                   />{' '}
-                  <small>Not available</small>
+                  <small>On cooldown</small>
                 </div>
               </div>
             </GuideDataWrapper>

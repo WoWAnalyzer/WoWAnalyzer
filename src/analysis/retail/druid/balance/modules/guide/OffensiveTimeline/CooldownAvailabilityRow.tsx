@@ -1,8 +1,9 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './CooldownAvailabilityRow.module.scss';
 import Spell from 'common/SPELLS/Spell';
 import { formatDuration } from 'common/format';
-import { SpellLink, Tooltip } from 'interface';
-import { BadColor, GoodColor, OkColor, useAnalyzer, useInfo } from 'interface/guide';
+import { SpellIcon, SpellLink, Tooltip } from 'interface';
+import { BadColor, GoodColor, PerfectColor, useAnalyzer, useInfo } from 'interface/guide';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TimeWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
 import {
@@ -11,48 +12,19 @@ import {
 } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/Helper';
 
 export const ALL_CHARGES_COLOR = BadColor;
-export const SOME_CHARGES_COLOR = OkColor;
-export const NO_CHARGES_COLOR = GoodColor;
+export const SOME_CHARGES_COLOR = GoodColor;
+export const NO_CHARGES_COLOR = PerfectColor;
 
-const RowContainer = styled.div`
-  position: relative;
-  height: 18px;
-  width: 100%;
-`;
+const RowContainer = cssComponent('div', styles.RowContainer, [] as const);
 
-const Segment = styled.div<{
-  start: number;
-  end: number;
-  fightDuration: number;
-  color: string;
-}>`
-  position: absolute;
-  top: 0;
-  height: 100%;
-  background-color: ${({ color }) => color};
-  width: ${({ start, end, fightDuration }) => ((end - start) / fightDuration) * 100}%;
-  left: ${({ start, fightDuration }) => (start / fightDuration) * 100}%;
-`;
+const Segment = cssComponent('div', styles.Segment, [
+  'start',
+  'end',
+  'fightDuration',
+  'color',
+] as const);
 
-const CastBox = styled.div<{ at: number; fightDuration: number; activeTime: number }>`
-  position: absolute;
-  top: -3px;
-  height: 24px;
-  width: ${({ at, activeTime, fightDuration }) =>
-    (Math.min(activeTime, fightDuration - at) / fightDuration) * 100}%;
-  border-radius: 3px;
-  pointer-events: all;
-  background: repeating-linear-gradient(
-    135deg,
-    rgb(168 168 168),
-    rgb(168 168 168) 5px,
-    rgb(228 228 228) 5px,
-    rgb(228 228 228) 10px
-  );
-  border-left: 2px solid #fad500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  left: ${({ at, fightDuration }) => (at / fightDuration) * 100}%;
-`;
+const CastBox = cssComponent('div', styles.CastBox, ['at', 'fightDuration', 'activeTime'] as const);
 
 interface CooldownAvailabilityRowProps {
   spell: Spell;
@@ -166,11 +138,9 @@ const CooldownAvailabilityRow = ({ spell, durationMs }: CooldownAvailabilityRowP
             </>
           }
         >
-          <CastBox
-            at={range.startTime}
-            fightDuration={info.fightDuration}
-            activeTime={durationMs}
-          />
+          <CastBox at={range.startTime} fightDuration={info.fightDuration} activeTime={durationMs}>
+            <SpellIcon spell={spell.id} noLink />
+          </CastBox>
         </Tooltip>
       ))}
     </RowContainer>

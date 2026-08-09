@@ -1,39 +1,21 @@
-import styled from '@emotion/styled';
+import cssComponent from 'interface/utils/css-component';
+import styles from './BuffDisplay.module.scss';
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import { BuffWindow } from 'analysis/retail/druid/balance/modules/guide/OffensiveTimeline/TimeWindows';
 
-const BuffRows = styled.div`
-  margin-top: 4px;
-`;
+const BuffRows = cssComponent('div', styles.BuffRows, [] as const);
 
-const BuffRow = styled.div`
-  position: relative;
-  height: 10px;
+const BuffRow = cssComponent('div', styles.BuffRow, [] as const);
 
-  & + & {
-    margin-top: 2px;
-  }
-`;
-
-const BuffBar = styled.div<{
-  start: number;
-  end: number;
-  fightDuration: number;
-  color: string;
-}>`
-  position: absolute;
-  top: 0;
-  height: 100%;
-  border-radius: 3px;
-  background-color: ${({ color }) => color};
-  opacity: 90%;
-
-  width: ${({ start, end, fightDuration }) => ((end - start) / fightDuration) * 100}%;
-  left: ${({ start, fightDuration }) => (start / fightDuration) * 100}%;
-`;
+const BuffBar = cssComponent('div', styles.BuffBar, [
+  'start',
+  'end',
+  'fightDuration',
+  'color',
+] as const);
 
 interface Props {
   buffs: BuffWindow[];
