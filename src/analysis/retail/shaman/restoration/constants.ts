@@ -84,7 +84,7 @@ export const healingIncreases = {
   EARTHEN_HARMONY_HEALING_INCREASE: 1.5,
   EARTHEN_HARMONY_DAMAGE_REDUCTION: 0.03,
   OVERSURGE_INCREASE: 0.5,
-  PULSE_CAPACITOR_INCREASE: 0.25,
+  PULSE_CAPACITOR_INCREASE: 0.1,
   AMPLIFICATION_CORE_HEALING_INCREASE: 0.03,
   TIDECALLERS_GUARD_HEALING_INCREASE: 0.02,
   EARTHEN_ACCORD_UL_DIRECT_INCREASE: 0.3,
@@ -99,7 +99,7 @@ export const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 export const DOWNPOUR_INCREASED_MAX_HEALTH = 0.1;
 
 // base targets & target increases
-export const HEALING_RAIN_TARGETS = 5;
+export const HEALING_RAIN_TARGETS = 6;
 export const DOWNPOUR_TARGETS = 5;
 export const CHAIN_HEAL_TARGETS = 4; //1 OG Target + 3 Jumps
 export const ANCESTRAL_REACH_TARGET = 1;
@@ -108,7 +108,11 @@ export const OVERFLOWING_SHORES_RANGE_INCREASE = 400;
 export const ANCENDANCE_TARGET = 3;
 
 // Fake haste
-export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
+export const fakeHaste = {
+  FLASH_FLOOD_CAST_SPEED_MODIFIER: 0.1, // per rank
+  UNLEASH_LIFE_CAST_SPEED_MODIFIER: 0.3, // only buffed Chain Heal & Healing Wave
+  TIDAL_WAVES_CAST_SPEED_MODIFIER: 0.2, //only for Chain Heal & Healing Wave
+};
 
 export const SPELL_DURATIONS = {
   HEALING_RAIN_DURATION: 18000,
@@ -164,6 +168,8 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.ASCENDANCE_HEAL,
 ];
 
+export const BASELINE_MASTERY_PERCENTAGE = 0.24;
+
 export const BASE_ABILITIES_AFFECTED_BY_MASTERY = [
   ...SHAMAN_BASE_ABILITIES,
   ...SHAMAN_PET_ABILITIES,
@@ -171,8 +177,7 @@ export const BASE_ABILITIES_AFFECTED_BY_MASTERY = [
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
   ...BASE_ABILITIES_AFFECTED_BY_MASTERY,
-  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.ANCESTRAL_AWAKENING_HEAL,
+  //The initial Heal of Restorative Mists is affected by mastery.
   SPELLS.ASCENDANCE_HEAL,
 ];
 
@@ -186,8 +191,9 @@ export const WHIRLING_ELEMENTS_MOTES = [
   SPELLS.WHIRLING_WATER,
 ];
 
-// Hero Talents
 // Farseer
+export const MYSTIC_KNOWLEDGE_CD_REDUCTION = 1 / (1 - 0.1);
+export const OFFERING_FROM_BEYOND_CD_REDUCTION = 2000;
 
 // UI
 export const RESTORATION_COLORS = {

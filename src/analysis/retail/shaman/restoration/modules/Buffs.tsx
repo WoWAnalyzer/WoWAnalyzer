@@ -59,6 +59,61 @@ class BUFFS extends CoreAuras {
         triggeredBySpellId: [SPELLS.NATURES_SWIFTNESS_BUFF.id, SPELLS.ANCESTRAL_SWIFTNESS_CAST.id],
         timelineHighlight: false,
       },
+      {
+        spellId: [TALENTS.ANCESTRAL_VIGOR_TALENT.id],
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT),
+        triggeredBySpellId: [
+          SPELLS.HEALING_WAVE.id,
+          TALENTS.CHAIN_HEAL_TALENT.id,
+          TALENTS.RIPTIDE_TALENT.id,
+        ],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [TALENTS.COALESCING_WATER_TALENT.id],
+        enabled: combatant.hasTalent(TALENTS.COALESCING_WATER_TALENT),
+        triggeredBySpellId: [SPELLS.HEALING_WAVE.id, TALENTS.CHAIN_HEAL_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [SPELLS.TIDAL_WAVES_BUFF.id],
+        enabled: combatant.hasTalent(TALENTS.TIDAL_WAVES_TALENT),
+        triggeredBySpellId: [TALENTS.RIPTIDE_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [TALENTS.RIPTIDE_TALENT.id],
+        enabled: combatant.hasTalent(TALENTS.RIPTIDE_TALENT),
+        triggeredBySpellId: [TALENTS.RIPTIDE_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [TALENTS.MYSTIC_KNOWLEDGE_TALENT.id],
+        enabled: combatant.hasTalent(TALENTS.MYSTIC_KNOWLEDGE_TALENT),
+        triggeredBySpellId: [SPELLS.NATURES_SWIFTNESS_BUFF.id, SPELLS.ANCESTRAL_SWIFTNESS_CAST.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: 444490, //Hydrobubble
+        enabled: combatant.hasTalent(TALENTS.FINAL_CALLING_TALENT),
+        timelineHighlight: false,
+      },
+      {
+        spellId: [TALENTS.EARTHLIVING_WEAPON_TALENT.id],
+        enabled: combatant.hasTalent(TALENTS.EARTHLIVING_WEAPON_TALENT),
+        triggeredBySpellId: [
+          SPELLS.HEALING_WAVE.id,
+          TALENTS.CHAIN_HEAL_TALENT.id,
+          TALENTS.RIPTIDE_TALENT.id,
+        ],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [TALENTS.UNLEASH_LIFE_TALENT.id],
+        enabled: combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT),
+        triggeredBySpellId: [TALENTS.UNLEASH_LIFE_TALENT.id],
+        timelineHighlight: false,
+      },
     ];
     return buffs;
   }

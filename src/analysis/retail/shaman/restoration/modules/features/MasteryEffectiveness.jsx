@@ -12,7 +12,7 @@ import Panel from 'parser/ui/Panel';
 import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import { ABILITIES_AFFECTED_BY_MASTERY, BASELINE_MASTERY_PERCENTAGE } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 class MasteryEffectiveness extends Analyzer {
@@ -42,7 +42,8 @@ class MasteryEffectiveness extends Analyzer {
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
 
     // The base healing of the spell (excluding any healing added by mastery)
-    const masteryPercent = this.statTracker.currentMasteryPercentage;
+    // Added the 24% baseline mastery for rShaman.
+    const masteryPercent = this.statTracker.currentMasteryPercentage + BASELINE_MASTERY_PERCENTAGE;
     const baseHealingDone = heal.raw / (1 + masteryPercent * masteryEffectiveness);
     const masteryHealingDone = heal.raw - baseHealingDone;
     // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
@@ -73,7 +74,7 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   statistic() {
-    const masteryPercent = this.statTracker.currentMasteryPercentage;
+    const masteryPercent = this.statTracker.currentMasteryPercentage + BASELINE_MASTERY_PERCENTAGE;
     const avgEffectiveMasteryPercent = this.masteryEffectivenessPercent * masteryPercent;
 
     return [

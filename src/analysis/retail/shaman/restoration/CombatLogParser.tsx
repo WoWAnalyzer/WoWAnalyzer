@@ -48,6 +48,8 @@ import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
 import Earthsurge from './modules/talents/totemic/Earthsurge';
 import PulseCapacitor from './modules/talents/totemic/PulseCapacitor';
 import SupportiveImbuements from './modules/talents/totemic/SupportiveImbuements';
+import MysticKnowledge from './modules/talents/farseer/MysticKnowledge';
+import OfferingFromBeyond from './modules/talents/farseer/OfferingFromBeyond';
 // Spells
 // Tiers
 // Shared
@@ -127,6 +129,8 @@ class CombatLogParser extends CoreCombatLogParser {
     earthsurge: Earthsurge,
     pulseCapacitor: PulseCapacitor,
     supportiveImbuements: SupportiveImbuements,
+    offeringFromBeyond: OfferingFromBeyond,
+    mysticKnowledge: MysticKnowledge,
 
     // Spells
     riptide: Riptide,
