@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
+        cooldown: 180 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
         gcd: {
           static: standardGcd,
         },
@@ -149,7 +149,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT),
       },
       {
-        spell: SPELLS.PREPARATION.id,
+        spell: TALENTS.PREPARATION_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 240,
         gcd: {

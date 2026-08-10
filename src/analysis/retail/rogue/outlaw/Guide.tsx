@@ -8,8 +8,6 @@ import { ResourceLink, SpellLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
-import { AplSectionData } from 'interface/guide/components/Apl';
-import * as AplCheck from './modules/apl/AplCheck';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -27,7 +25,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
-      <ActionPriorityList modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
@@ -71,7 +68,6 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
         />
         {modules.energyGraph.plot}
         <p></p>
-        {info.combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT) && modules.bladeRush.guide}
       </SubSection>
       <SubSection
         title={t({
@@ -83,15 +79,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
           <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at{' '}
           <strong>6 or 7</strong> combo points. <strong>Spenders</strong> should typically be used
-          at <strong>6 or more</strong> combo points, but at <strong>5 or more</strong> if{' '}
-          <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
-          {info.combatant.hasTalent(TALENTS.HIDDEN_OPPORTUNITY_TALENT) && (
-            <>
-              , <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> or{' '}
-              <SpellLink spell={SPELLS.OPPORTUNITY} />
-            </>
-          )}{' '}
-          is active.
+          at <strong>6 or more</strong> combo points.
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
@@ -116,50 +104,12 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
   );
 }
 
-function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <Section title="Action Priority List">
-      <p>
-        Outlaw has a fast paced rotation that is constantly reacting to buffs and procs. The spec
-        doesn't burst but makes up for it in consistent output. Should be thought as a chaining
-        priority list:
-        <ol>
-          <li>Cooldowns, according to the priorities below.</li>
-          <li>Finishers, according to the priorities below.</li>
-          <li>Builders, according to the priorities below.</li>
-        </ol>
-      </p>
-      <p>
-        This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
-        <a href="https://github.com/simulationcraft/simc/blob/thewarwithin/engine/class_modules/apl/rogue/outlaw.simc">
-          here
-        </a>
-        .
-      </p>
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
-      <hr />
-      <p>
-        <strong>Disclaimer:</strong> (Currently unsupported spells/talents)
-        <ul>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={SPELLS.BLADE_FLURRY} />
-          </li>
-        </ul>
-      </p>
-      <p>You can use the accuracy here as a reference point to compare to other logs.</p>
-    </Section>
-  );
-}
-
 const cooldownsToCheck: Cooldown[] = [
   { spell: TALENTS.ADRENALINE_RUSH_TALENT },
   { spell: TALENTS.KILLING_SPREE_TALENT },
+  { spell: TALENTS.BLADE_RUSH_TALENT },
   { spell: TALENTS.KEEP_IT_ROLLING_TALENT },
+  { spell: TALENTS.PREPARATION_TALENT },
 ];
 
 function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {

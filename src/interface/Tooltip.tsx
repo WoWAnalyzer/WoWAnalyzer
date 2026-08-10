@@ -63,7 +63,7 @@ export const TooltipElement = ({
     </dfn>
   );
 
-  return content ? (
+  return content !== null && content !== undefined ? (
     <ReactTooltip
       {...others}
       content={content}
@@ -75,7 +75,7 @@ export const TooltipElement = ({
       {innerContent}
     </ReactTooltip>
   ) : (
-    <>innerContent</>
+    <>{innerContent}</>
   );
 };
 
