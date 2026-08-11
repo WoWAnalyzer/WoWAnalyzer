@@ -19,11 +19,15 @@ import { formatNumber } from 'common/format';
  *   - Increment `this.twoPieceHealing` / `this.twoPieceDamage` etc. in event handlers.
  *     Rows are hidden automatically when their value is 0
  *   - Override `tooltip2pcItems` / `tooltip4pcItems` to provide a custom breakdown.
+ *   - Override `extra2pcContent` / `extra4pcContent` to add rows beyond the healing/damage values.
  */
-abstract class TierSetAnalyzer extends Analyzer {
-  abstract readonly setId: TIER_GEAR_IDS;
-  abstract readonly setTitle: string;
-  abstract readonly tier: TIERS;
+/* oxlint-disable typescript-eslint/class-literal-property-style -- the null-returning members below are
+   override hooks. As readonly fields they would be defined on the instance by this constructor and
+   silently shadow a subclass's getter override (useDefineForClassFields). */
+class TierSetAnalyzer extends Analyzer {
+  readonly setId!: TIER_GEAR_IDS;
+  readonly setTitle!: string;
+  readonly tier!: TIERS;
 
   protected twoPieceHealing = 0;
   protected twoPieceDamage = 0;
@@ -45,6 +49,21 @@ abstract class TierSetAnalyzer extends Analyzer {
 
   protected get hasFourPiece(): boolean {
     return this.selectedCombatant.has4PieceByTier(this.tier);
+  }
+
+  /** Override to render extra content (e.g. a proc probability chart) below the set value text. */
+  protected get statisticChart(): ReactNode {
+    return null;
+  }
+
+  /** Override to render extra rows directly below the 2pc healing/damage values. */
+  protected get extra2pcContent(): ReactNode {
+    return null;
+  }
+
+  /** Override to render extra rows directly below the 4pc healing/damage values. */
+  protected get extra4pcContent(): ReactNode {
+    return null;
   }
 
   /** Override to replace the default "2pc Healing / 2pc Damage" tooltip lines. */
@@ -109,6 +128,7 @@ abstract class TierSetAnalyzer extends Analyzer {
               <ItemDamageDone amount={this.twoPieceDamage} />
             </div>
           )}
+          {this.extra2pcContent}
           {has4pc && (
             <>
               <hr />
@@ -123,9 +143,11 @@ abstract class TierSetAnalyzer extends Analyzer {
                   <ItemDamageDone amount={this.fourPieceDamage} />
                 </div>
               )}
+              {this.extra4pcContent}
             </>
           )}
         </BoringItemSetValueText>
+        {this.statisticChart}
       </Statistic>
     );
   }
