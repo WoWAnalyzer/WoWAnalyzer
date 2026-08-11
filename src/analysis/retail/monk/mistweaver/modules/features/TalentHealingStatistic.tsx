@@ -30,6 +30,7 @@ import InvigoratingMists from '../spells/InvigoratingMists';
 import EmperorsFavor from '../spells/EmperorsFavor';
 import TranquilTea from '../spells/TranquilTea';
 import MorningBreeze from '../spells/MorningBreeze';
+import Mistline from '../spells/Mistline';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -60,6 +61,7 @@ class TalentHealingStatistic extends Analyzer {
     emperorsFavor: EmperorsFavor,
     tranquilTea: TranquilTea,
     morningBreeze: MorningBreeze,
+    mistline: Mistline,
   };
 
   protected risingMist!: RisingMist;
@@ -90,6 +92,7 @@ class TalentHealingStatistic extends Analyzer {
   protected emperorsFavor!: EmperorsFavor;
   protected tranquilTea!: TranquilTea;
   protected morningBreeze!: MorningBreeze;
+  protected mistline!: Mistline;
 
   buildTalentList() {
     const talentList = [];
@@ -173,6 +176,9 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.MORNING_BREEZE_TALENT)) {
       talentList.push(this.morningBreeze.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTLINE_TALENT)) {
+      talentList.push(this.mistline.subStatistic());
     }
 
     const sortedTalentList = talentList.sort(

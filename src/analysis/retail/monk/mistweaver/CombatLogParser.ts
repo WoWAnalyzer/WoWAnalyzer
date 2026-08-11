@@ -101,6 +101,7 @@ import InvigoratingMists from './modules/spells/InvigoratingMists';
 import EmperorsFavor from './modules/spells/EmperorsFavor';
 import TranquilTea from './modules/spells/TranquilTea';
 import MorningBreeze from './modules/spells/MorningBreeze';
+import Mistline from './modules/spells/Mistline';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -175,6 +176,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     renewingMist: RenewingMist,
+    mistline: Mistline,
     revival: Revival,
     risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
