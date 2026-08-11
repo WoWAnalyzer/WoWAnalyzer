@@ -102,6 +102,7 @@ import EmperorsFavor from './modules/spells/EmperorsFavor';
 import TranquilTea from './modules/spells/TranquilTea';
 import MorningBreeze from './modules/spells/MorningBreeze';
 import Mistline from './modules/spells/Mistline';
+import VitalExpenditure from './modules/spells/VitalExpenditure';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -181,6 +182,7 @@ class CombatLogParser extends CoreCombatLogParser {
     risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
     soothingMist: SoothingMist,
+    vitalExpenditure: VitalExpenditure,
     thunderFocusTea: ThunderFocusTea,
     yulonsWhisper: YulonsWhisper,
     rapidDiffusion: RapidDiffusion,
