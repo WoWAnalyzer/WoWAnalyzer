@@ -1,5 +1,6 @@
 import { GuideProps, Section } from 'interface/guide';
 import TALENTS from 'common/TALENTS/shaman';
+import { TIERS } from 'game/TIERS';
 import CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import MaelstromUsage from './modules/guide/MaelstromUsage';
@@ -13,6 +14,7 @@ export default function Guide(props: GuideProps<typeof CombatLogParser>) {
   const combatant = props.info.combatant;
   const isTotemic = combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
   const isStormbringer = combatant.hasTalent(TALENTS.TEMPEST_TALENT);
+  const hasS2FourPiece = combatant.has4PieceByTier(TIERS.MID2);
 
   return (
     <>
@@ -44,6 +46,9 @@ export default function Guide(props: GuideProps<typeof CombatLogParser>) {
         {isTotemic && props.modules.surgingTotem.guideSubsection}
         {isStormbringer && props.modules.tempest.guideSubsection}
       </Section>
+      {hasS2FourPiece && (
+        <Section title="Tier Set">{props.modules.s2TierSet.guideSubsection}</Section>
+      )}
       <Cooldowns {...props} />
       <Section title="Always Be Casting">
         <FoundationDowntimeSectionV2 />

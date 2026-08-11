@@ -47,6 +47,9 @@ import Tempest from './modules/hero/stormbringer/Tempest';
 import StormUnleashed from './modules/talents/StormUnleashed';
 import SurgingTotem from './modules/hero/totemic/SurgingTotem';
 import FireNova from './modules/talents/FireNova';
+import VoltaicBlaze from './modules/talents/VoltaicBlaze';
+import CrashLightning from './modules/talents/CrashLightning';
+import S2TierSet from './modules/midnight/S2TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,10 +101,15 @@ class CombatLogParser extends CoreCombatLogParser {
     stormUnleashed: StormUnleashed,
     surgingTotem: SurgingTotem,
     fireNova: FireNova,
+    voltaicBlaze: VoltaicBlaze,
+    crashLightning: CrashLightning,
 
     // Hero Talents
     earthsurge: Earthsurge,
     tempest: Tempest,
+
+    // Tier Sets
+    s2TierSet: S2TierSet,
 
     // Normalizers
     maelstromRefreshBuffNormalizer: EnhancementBuffNormalizer, // removes refresh events following applybuff and applybuffstack

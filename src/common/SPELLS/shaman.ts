@@ -1109,11 +1109,33 @@ const spells = {
     icon: 'misc_legionfall_shaman',
   },
 
+  // Power of the Maelstrom (12.1.0 redesign): buff that empowers the next Lava Burst
+  // TODO: 12.1.0 placeholder - replace with the real buff id
+  POWER_OF_THE_MAELSTROM_BUFF: {
+    id: -10004,
+    name: 'Power of the Maelstrom',
+    icon: 'inv_misc_questionmark',
+  },
+
   // Tier sets
   MIDNIGHT_S1_THUNDEROUS_VELOCITY_BUFF: {
     id: 1272101,
     name: 'Thunderous Velocity',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  // Midnight Season 2 - Elemental 4-piece: next 2 LB/CL/Lava Burst +25% and next spender is free
+  // TODO: 12.1.0 placeholder - replace with the real buff id
+  MIDNIGHT_S2_ELEMENTAL_4SET_BUFF: {
+    id: -10002,
+    name: 'Elemental Midnight Season 2 4-piece',
+    icon: 'inv_misc_questionmark',
+  },
+  // Midnight Season 2 - Enhancement 4-piece: next Crash Lightning +8%, stacking up to 5
+  // TODO: 12.1.0 placeholder - replace with the real buff id
+  MIDNIGHT_S2_ENHANCEMENT_4SET_BUFF: {
+    id: -10003,
+    name: 'Enhancement Midnight Season 2 4-piece',
+    icon: 'inv_misc_questionmark',
   },
 } satisfies Record<string, Spell>;
 
