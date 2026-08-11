@@ -126,6 +126,7 @@ export const SPELL_COLORS = {
   ZEN_PULSE: '#c6f4f5',
   THUNDER_FOCUS_TEA: '#96ade5',
   LIFE_COCOON: '#a8d8a8',
+  CHI_JI: '#d4380d',
 };
 
 export const ID_TO_SPELL_COLOR: Partial<Record<number, string>> = {
