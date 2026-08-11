@@ -11,6 +11,7 @@ import {
 } from 'parser/core/Events';
 import {
   CAST_BUFFER_MS,
+  FROM_RAPID_DIFFUSION,
   MID_S2_4PC_CONSUME,
   MID_S2_4PC_TRIGGER,
   S2_4PC_TRIGGER_BUFFER_MS,
@@ -80,4 +81,13 @@ export function getS2FourPieceConsumingCast(event: RemoveBuffEvent): CastEvent |
 
 export function isS2FourPieceConsumingCast(event: CastEvent): boolean {
   return HasRelatedEvent(event, MID_S2_4PC_CONSUME);
+}
+
+export function isFromS2FourPiece(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  const cast = GetRelatedEvent<CastEvent>(event, FROM_RAPID_DIFFUSION);
+  return (
+    cast !== undefined &&
+    RSK_CAST_IDS.includes(cast.ability.guid) &&
+    isS2FourPieceConsumingCast(cast)
+  );
 }

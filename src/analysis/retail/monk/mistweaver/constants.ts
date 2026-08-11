@@ -96,6 +96,7 @@ export const ATTRIBUTION_STRINGS = {
   },
   YULON: "Yu'lon",
   THUNDER_FOCUS_TEA: 'Thunder Focus Tea - Midnight S1 4pc',
+  S2_FOUR_PIECE: 'Rapid Diffusion - Midnight S2 4pc',
 };
 
 export const SECRET_INFUSION_BUFFS = [
