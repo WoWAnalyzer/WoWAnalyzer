@@ -10,21 +10,30 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 class CrashLightning extends Analyzer.withDependencies({
   abilityTracker: AbilityTracker,
 }) {
+  private damage = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT);
     if (!this.active) {
       return;
     }
+
+    this.addEventListener(Events.damage, this.onDamage);
+  }
+
+  onDamage(event: DamageEvent) {
+    if (event.ability.guid === SPELLS.CRASH_LIGHTNING_BUFF_DAMAGE.id) {
+      this.damage += event.amount + (event.absorbed ?? 0);
+    }
   }
 
   statistic() {
-    const crashLightning = this.deps.abilityTracker.getAbility(TALENTS.CRASH_LIGHTNING_TALENT.id);
-    const clBuff = this.deps.abilityTracker.getAbility(SPELLS.CRASH_LIGHTNING_BUFF_DAMAGE.id);
     const uptime =
       this.selectedCombatant.getBuffUptime(SPELLS.CRASH_LIGHTNING_BUFF.id) /
       this.owner.fightDuration;
@@ -42,9 +51,7 @@ class CrashLightning extends Analyzer.withDependencies({
         }
       >
         <TalentSpellText talent={TALENTS.CRASH_LIGHTNING_TALENT}>
-          <ItemDamageDone
-            amount={crashLightning.damageVal.effective + clBuff.damageVal.effective}
-          />
+          <ItemDamageDone amount={this.damage} />
           <div>
             <UptimeIcon /> {formatPercentage(uptime)}% <small>buff uptime</small>
           </div>
