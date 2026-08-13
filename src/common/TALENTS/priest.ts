@@ -639,9 +639,17 @@ const talents = {
     id: 1253724,
     name: 'Greater Smite',
     icon: 'spell_paladin_inquisition',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103694],
     definitionIds: [{ id: 108699, specId: 256 }],
+  },
+  GRIM_DELIVERANCE_TALENT: {
+    id: 1298779,
+    name: 'Grim Deliverance',
+    icon: 'spell_bastion_priest_shadow',
+    maxRanks: 1,
+    entryIds: [137463],
+    definitionIds: [{ id: 142223, specId: 256 }],
   },
   GUARDIAN_ANGEL_TALENT: {
     id: 200209,
@@ -1271,14 +1279,6 @@ const talents = {
     entryIds: [115883],
     definitionIds: [{ id: 120895, specId: 258 }],
   },
-  PHANTOM_MENACE_TALENT: {
-    id: 1242779,
-    name: 'Phantom Menace',
-    icon: 'spell_priest_spectralguise',
-    maxRanks: 1,
-    entryIds: [103785],
-    definitionIds: [{ id: 108790, specId: 258 }],
-  },
   PHANTOM_REACH_TALENT: {
     id: 459559,
     name: 'Phantom Reach',
@@ -1360,7 +1360,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103767],
     definitionIds: [{ id: 108772, specId: 257 }],
-    manaCost: 12075,
+    manaCost: 10868,
   },
   PREEMPTIVE_CARE_TALENT: {
     id: 440671,
@@ -1503,7 +1503,7 @@ const talents = {
   RESONANT_ENERGY_TALENT: {
     id: 453845,
     name: 'Resonant Energy',
-    icon: 'ability_priest_halo',
+    icon: 'inv_ability_holyfire_orb',
     maxRanks: 1,
     entryIds: [117279],
     definitionIds: [{ id: 122291, specId: 258 }],
@@ -1589,6 +1589,14 @@ const talents = {
     definitionIds: [{ id: 108848, specId: 258 }],
     manaCost: 3000,
   },
+  SHADEBURST_TALENT: {
+    id: 73510,
+    name: 'Shadeburst',
+    icon: 'ability_warlock_voidzone',
+    maxRanks: 1,
+    entryIds: [103785],
+    definitionIds: [{ id: 108790, specId: 258 }],
+  },
   SHADOWFIEND_TALENT: {
     id: 34433,
     name: 'Shadowfiend',
@@ -1617,7 +1625,7 @@ const talents = {
     definitionIds: [{ id: 108818, specId: 258 }],
   },
   SHADOW_MEND_TALENT: {
-    id: 1252215,
+    id: 1252217,
     name: 'Shadow Mend',
     icon: 'spell_shadow_shadowmend',
     maxRanks: 1,

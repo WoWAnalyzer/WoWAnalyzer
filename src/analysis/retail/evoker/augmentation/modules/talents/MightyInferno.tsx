@@ -23,6 +23,8 @@ import TALENTS from 'common/TALENTS/evoker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { InformationIcon } from 'interface/icons';
 import { SpellLink } from 'interface/index';
+import SPECS from 'game/SPECS';
+import Combatants from 'parser/shared/modules/Combatants';
 
 interface infernoApplication {
   playerID: number;
@@ -35,14 +37,17 @@ interface infernoApplication {
 class MightyInferno extends Analyzer {
   static dependencies = {
     stats: StatTracker,
+    combatants: Combatants,
   };
   protected stats!: StatTracker;
+  protected combatants!: Combatants;
   ampedDamage = 0;
   extensionDamage = 0;
   infernoApps: infernoApplication[] = [];
   totalInfernosExtension = 0;
-  // This can mess with the results.
+  // These can mess with the results.
   hasReceivedExternalInfernos = false;
+  retHasTriggeredInfernos = false;
 
   constructor(options: Options) {
     super(options);
@@ -80,9 +85,16 @@ class MightyInferno extends Analyzer {
       playerId === this.selectedCombatant.id &&
       !this.selectedCombatant.hasOwnBuff(SPELLS.INFERNOS_BLESSING_BUFF.id)
     ) {
-      // This damage belongs to another Aug
+      // This damage belongs to another Aug, ignore it
       return;
+    } else if (
+      event.supportID &&
+      this.combatants.players[event.supportID].spec === SPECS.RETRIBUTION_PALADIN
+    ) {
+      // This might come from Execution Sentence, which over-attributes
+      this.retHasTriggeredInfernos = true;
     }
+
     const ampDamage = calculateEffectiveDamage(event, MIGHTY_INFERNO_DAMAGE_MULTIPLIER);
     this.ampedDamage += ampDamage;
     const index = this.infernoApps.findIndex((app) => app.playerID === playerId);
@@ -155,6 +167,13 @@ class MightyInferno extends Analyzer {
               <li>
                 You received {<SpellLink spell={TALENTS.INFERNOS_BLESSING_TALENT} />} from another
                 Evoker, which can cause these damage numbers to be too large.
+              </li>
+            )}
+            {this.retHasTriggeredInfernos && (
+              <li>
+                A Retribution Paladin triggered your{' '}
+                {<SpellLink spell={TALENTS.INFERNOS_BLESSING_TALENT} />}, which can cause these
+                numbers to be too large.
               </li>
             )}
           </>

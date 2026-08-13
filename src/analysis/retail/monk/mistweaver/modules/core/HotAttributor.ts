@@ -22,7 +22,7 @@ import {
   isFromJadeBond,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
-import { isFromTFT } from '../../normalizers/EventLinks/TierEventLinks';
+import { isFromTFT, isFromS2FourPiece } from '../../normalizers/EventLinks/TierEventLinks';
 import { CelestialHooks } from 'analysis/retail/monk/shared';
 
 const debug = false;
@@ -74,6 +74,7 @@ class HotAttributor extends Analyzer {
     ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_ENV,
   );
   tftSourceRemAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.THUNDER_FOCUS_TEA);
+  s2FourPieceRemAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.S2_FOUR_PIECE);
 
   constructor(options: Options) {
     super(options);
@@ -328,6 +329,10 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.rdSourceRSKAttrib, event);
     } else if (isFromRapidDiffusionEnvelopingMist(event)) {
       this.hotTracker.addAttributionFromApply(this.rdSourceENVAttrib, event);
+    }
+    //midnight s2 tier - rem procced by the free rsk/rwk
+    if (isFromS2FourPiece(event)) {
+      this.hotTracker.addAttributionFromApply(this.s2FourPieceRemAttrib, event);
     }
     hot.maxDuration = this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
     hot.end = hot.originalEnd =

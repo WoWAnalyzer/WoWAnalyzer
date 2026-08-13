@@ -143,7 +143,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         <ul>
           <li>
             {' '}
-            <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
+            <SpellLink spell={TALENTS.THISTLE_TEA_1_TALENT} />
           </li>
           <li>
             {' '}

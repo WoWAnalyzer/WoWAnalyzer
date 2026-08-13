@@ -109,7 +109,7 @@ const talents = {
   ASCENDANCE_ELEMENTAL_TALENT: {
     id: 114050,
     name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
+    icon: '',
     maxRanks: 1,
     entryIds: [101860],
     definitionIds: [{ id: 106820, specId: 262 }],
@@ -117,7 +117,7 @@ const talents = {
   ASCENDANCE_ENHANCEMENT_TALENT: {
     id: 114051,
     name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
+    icon: '',
     maxRanks: 1,
     entryIds: [114291],
     definitionIds: [{ id: 119296, specId: 263 }],
@@ -125,7 +125,7 @@ const talents = {
   ASCENDANCE_RESTORATION_TALENT: {
     id: 114052,
     name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
+    icon: '',
     maxRanks: 1,
     entryIds: [101912],
     definitionIds: [{ id: 106942, specId: 264 }],
@@ -193,14 +193,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [117485],
     definitionIds: [{ id: 122497, specId: 264 }],
-  },
-  CALM_WATERS_TALENT: {
-    id: 1252841,
-    name: 'Calm Waters',
-    icon: 'inv_10_elementalshardfoozles_water',
-    maxRanks: 1,
-    entryIds: [101896],
-    definitionIds: [{ id: 106923, specId: 264 }],
   },
   CAPACITOR_TOTEM_TALENT: {
     id: 192058,
@@ -1664,6 +1656,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101893],
     definitionIds: [{ id: 106815, specId: 262 }],
+  },
+  SWELLING_TIDES_TALENT: {
+    id: 1312843,
+    name: 'Swelling Tides',
+    icon: 'ability_shaman_manatidetotem',
+    maxRanks: 1,
+    entryIds: [140663],
+    definitionIds: [{ id: 145345, specId: 264 }],
   },
   SWIFT_RECALL_TALENT: {
     id: 445027,
