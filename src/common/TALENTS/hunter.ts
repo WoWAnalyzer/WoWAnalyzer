@@ -2,10 +2,18 @@
 import { Talent } from './types';
 
 const talents = {
+  ACCURACY_BY_VOLUME_TALENT: {
+    id: 471428,
+    name: 'Accuracy By Volume',
+    icon: 'inv12_ability_hunter_fierymunitions',
+    maxRanks: 1,
+    entryIds: [132195],
+    definitionIds: [{ id: 136996, specId: 254 }],
+  },
   AIMED_SHOT_TALENT: {
     id: 19434,
     name: 'Aimed Shot',
-    icon: 'inv_spear_07',
+    icon: '',
     maxRanks: 1,
     entryIds: [128404],
     definitionIds: [{ id: 133210, specId: 254 }],
@@ -195,6 +203,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [126400],
     definitionIds: [{ id: 131226, specId: 253 }],
+  },
+  BOMBARDIER_TALENT: {
+    id: 1311963,
+    name: 'Bombardier',
+    icon: 'inv_misc_blackironbomb',
+    maxRanks: 1,
+    entryIds: [126311],
+    definitionIds: [{ id: 131137, specId: 255 }],
   },
   BONDING_TALENT: {
     id: 1262442,
@@ -449,21 +465,13 @@ const talents = {
     entryIds: [117586],
     definitionIds: [{ id: 122598, specId: 255 }],
   },
-  DOUBLE_TAP_TALENT: {
-    id: 473370,
-    name: 'Double Tap',
-    icon: 'ability_hunter_crossfire',
-    maxRanks: 1,
-    entryIds: [136232],
-    definitionIds: [{ id: 141005, specId: 254 }],
-  },
   EAGLES_ACCURACY_TALENT: {
     id: 473369,
     name: "Eagle's Accuracy",
     icon: 'ability_hunter_silenthunter',
-    maxRanks: 2,
-    entryIds: [128395],
-    definitionIds: [{ id: 133201, specId: 254 }],
+    maxRanks: 1,
+    entryIds: [137506],
+    definitionIds: [{ id: 142266, specId: 254 }],
   },
   EBON_BOWSTRING_TALENT: {
     id: 467897,
@@ -513,15 +521,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [135493],
     definitionIds: [{ id: 140250, specId: 255 }],
-  },
-  FLAMEFANG_PITCH_TALENT: {
-    id: 1251592,
-    name: 'Flamefang Pitch',
-    icon: 'inv_10_blacksmithing_craftedoptional_blacksmithdye_fire',
-    maxRanks: 1,
-    entryIds: [126311],
-    definitionIds: [{ id: 131137, specId: 255 }],
-    focusCost: 20,
   },
   FLANKED_TALENT: {
     id: 1256938,
@@ -610,22 +609,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [135704],
     definitionIds: [{ id: 140459, specId: 255 }],
-  },
-  HEADSHOT_TALENT: {
-    id: 471363,
-    name: 'Headshot',
-    icon: 'ability_marksmanship',
-    maxRanks: 1,
-    entryIds: [128394],
-    definitionIds: [{ id: 133200, specId: 254 }],
-  },
-  HEART_OF_THE_PACK_TALENT: {
-    id: 1265052,
-    name: 'Heart of the Pack',
-    icon: 'ability_druid_berserk',
-    maxRanks: 1,
-    entryIds: [126422],
-    definitionIds: [{ id: 131248, specId: 253 }],
   },
   HOGSTRIDER_TALENT: {
     id: 472639,
@@ -722,25 +705,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [126349],
     definitionIds: [{ id: 131175, specId: 255 }],
-  },
-  INCENDIARY_AMMUNITION_TALENT: {
-    id: 471428,
-    name: 'Incendiary Ammunition',
-    icon: 'inv12_ability_hunter_fierymunitions',
-    maxRanks: 1,
-    entryIds: [132195],
-    definitionIds: [{ id: 136996, specId: 254 }],
-  },
-  // NEW: this replaces the entry above next major patch under the same name but a
-  // different id and effect (reduces Explosive Shot's cooldown). Not live yet, so
-  // entryIds/definitionIds aren't known - fill in once it's actually datamined.
-  INCENDIARY_AMMUNITION_NEW_TALENT: {
-    id: 1301406,
-    name: 'Incendiary Ammunition',
-    icon: 'inv12_ability_hunter_fierymunitions',
-    maxRanks: 1,
-    entryIds: [],
-    definitionIds: [],
   },
   INTIMIDATION_MARKSMANSHIP_TALENT: {
     id: 474421,
@@ -1260,6 +1224,22 @@ const talents = {
     entryIds: [137053],
     definitionIds: [{ id: 141816, specId: 255 }],
   },
+  RAZOR_EDGE_TALENT: {
+    id: 1253053,
+    name: 'Razor Edge',
+    icon: 'spell_druid_bloodythrash',
+    maxRanks: 2,
+    entryIds: [135495],
+    definitionIds: [{ id: 140252, specId: 255 }],
+  },
+  RAZOR_SHARP_TALENT: {
+    id: 1265052,
+    name: 'Razor Sharp',
+    icon: 'ability_druid_berserk',
+    maxRanks: 1,
+    entryIds: [126422],
+    definitionIds: [{ id: 131248, specId: 253 }],
+  },
   REJUVENATING_WIND_TALENT: {
     id: 385539,
     name: 'Rejuvenating Wind',
@@ -1413,14 +1393,6 @@ const talents = {
     entryIds: [136673],
     definitionIds: [{ id: 141445, specId: 255 }],
   },
-  SHOWER_OF_BLOOD_TALENT: {
-    id: 1253053,
-    name: 'Shower of Blood',
-    icon: 'spell_druid_bloodythrash',
-    maxRanks: 2,
-    entryIds: [135495],
-    definitionIds: [{ id: 140252, specId: 255 }],
-  },
   SHRAPNEL_BOMB_TALENT: {
     id: 1253172,
     name: 'Shrapnel Bomb',
@@ -1428,14 +1400,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [135500],
     definitionIds: [{ id: 140257, specId: 255 }],
-  },
-  SHRAPNEL_SHOT_TALENT: {
-    id: 473520,
-    name: 'Shrapnel Shot',
-    icon: 'spell_sandexplosion',
-    maxRanks: 1,
-    entryIds: [137376],
-    definitionIds: [{ id: 142136, specId: 254 }],
   },
   SIC_EM_TALENT: {
     id: 1253137,
@@ -1457,7 +1421,7 @@ const talents = {
     id: 459802,
     name: 'Small Game Hunter',
     icon: 'inv_rabbit2_darkmoon',
-    maxRanks: 1,
+    maxRanks: 2,
     entryIds: [128400],
     definitionIds: [{ id: 133206, specId: 254 }],
   },
@@ -1564,6 +1528,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [135504],
     definitionIds: [{ id: 140261, specId: 255 }],
+  },
+  TACTICAL_RELOAD_TALENT: {
+    id: 1301406,
+    name: 'Tactical Reload',
+    icon: 'ability_ironmaidens_bombardment',
+    maxRanks: 1,
+    entryIds: [137376],
+    definitionIds: [{ id: 142136, specId: 254 }],
   },
   TAKEDOWN_TALENT: {
     id: 1250646,
@@ -1813,6 +1785,14 @@ const talents = {
     entryIds: [126450],
     definitionIds: [{ id: 131276, specId: 255 }],
   },
+  UNSTABLE_TRIGGER_TALENT: {
+    id: 473520,
+    name: 'Unstable Trigger',
+    icon: 'spell_sandexplosion',
+    maxRanks: 1,
+    entryIds: [137635],
+    definitionIds: [{ id: 142392, specId: 254 }],
+  },
   URSINE_FURY_TALENT: {
     id: 472476,
     name: 'Ursine Fury',
@@ -1909,14 +1889,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [132188],
     definitionIds: [{ id: 136989, specId: 253 }],
-  },
-  WILD_INSTINCTS_TALENT: {
-    id: 378442,
-    name: 'Wild Instincts',
-    icon: 'ability_hunter_beastwithin',
-    maxRanks: 1,
-    entryIds: [126401],
-    definitionIds: [{ id: 131227, specId: 253 }],
   },
   WILD_THRASH_TALENT: {
     id: 1264359,

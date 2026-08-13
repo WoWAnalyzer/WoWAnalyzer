@@ -4,8 +4,6 @@ import SPELLS from 'common/SPELLS/evoker';
 import Events, { CastEvent } from 'parser/core/Events';
 import {
   getDisintegrateDamageEvents,
-  getDisintegrateTargetCount,
-  isFromMassDisintegrate,
   isMassDisintegrateTick,
 } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -25,9 +23,8 @@ import { InformationIcon, WarningIcon } from 'interface/icons';
 import {
   getEruptionDamageEvents,
   getMassEruptionDamageEvents,
-  isFromMassEruption,
 } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
-import { GoodColor, OkColor, PerfectColor } from 'interface/guide';
+import { getMassEventTargetCount, isMassEvent } from './ScalecommanderTargetHelper';
 
 const BUFF_EVENTS = [Events.applybuff, Events.applybuffstack];
 
@@ -72,12 +69,8 @@ class MassDisintegrate extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DISINTEGRATE),
-      this.onDisintegrateCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ERUPTION_TALENT),
-      this.onEruptionCast,
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISINTEGRATE, TALENTS.ERUPTION_TALENT]),
+      this.onCast,
     );
 
     BUFF_EVENTS.forEach((event) =>
@@ -92,22 +85,28 @@ class MassDisintegrate extends Analyzer {
     this.buffCount += 1;
   }
 
-  private onEruptionCast(event: CastEvent) {
-    if (!isFromMassEruption(event)) {
+  // Shared cast handler that delegates to the appropriate spell handler for the damage specifics.
+  private onCast(event: CastEvent) {
+    if (!isMassEvent(event)) {
       return;
     }
+
     this.castCount += 1;
-
-    const eruptionDamageEvents = getEruptionDamageEvents(event);
-    const massEruptionDamageEvents = getMassEruptionDamageEvents(event);
-
-    /** TODO: fix this target count logic and abstract into a getEruptionTargetCount helper
-     *   basically this is currently based on eruption events and not mass eruption events
-     *   which whilst technically correct enough *most* of the time.
-     *   It *should* be prone to undercounting for spread targets */
-    const targetCount = Math.min(this.maxTargets, eruptionDamageEvents.length);
+    const targetCount = getMassEventTargetCount(event, this.maxTargetsForAmp);
     const missingTargetCount = this.maxTargetsForAmp - targetCount;
     this.targetCount += targetCount;
+
+    const damageResult =
+      event.ability.guid === SPELLS.DISINTEGRATE.id
+        ? this.onDisintegrateCast(event, missingTargetCount)
+        : this.onEruptionCast(event, missingTargetCount);
+
+    this.attributeDamage(damageResult, targetCount);
+  }
+
+  private onEruptionCast(event: CastEvent, missingTargetCount: number) {
+    const eruptionDamageEvents = getEruptionDamageEvents(event);
+    const massEruptionDamageEvents = getMassEruptionDamageEvents(event);
 
     const damageResult: DamageResult = {
       ampedDamage: 0,
@@ -137,43 +136,10 @@ class MassDisintegrate extends Analyzer {
         return total + damageEvent.amount + (damageEvent.absorbed || 0);
       }, 0);
     }
-
-    this.addDebugAnnotation(event, {
-      color: targetCount === this.maxTargets ? PerfectColor : targetCount > 1 ? GoodColor : OkColor,
-      summary: `Hit ${targetCount} targets`,
-      details: (
-        <div>
-          <dl>
-            <dt>Amp damage</dt>
-            <dd>{formatNumber(damageResult.ampedDamage)}</dd>
-            <dt>Extra damage</dt>
-            <dd>{formatNumber(damageResult.extraDamage)}</dd>
-            <dt>
-              <SpellLink spell={TALENTS.ERUPTION_TALENT} /> events
-            </dt>
-            <dd>{eruptionDamageEvents.length}</dd>
-            <dt>
-              <SpellLink spell={TALENTS.MASS_ERUPTION_TALENT} /> events
-            </dt>
-            <dd>{massEruptionDamageEvents.length}</dd>
-          </dl>
-        </div>
-      ),
-    });
-
-    this.attributeDamage(damageResult, targetCount);
+    return damageResult;
   }
 
-  private onDisintegrateCast(event: CastEvent) {
-    if (!isFromMassDisintegrate(event)) {
-      return;
-    }
-    this.castCount += 1;
-
-    const targetCount = getDisintegrateTargetCount(event);
-    const missingTargetCount = this.maxTargetsForAmp - targetCount;
-    this.targetCount += targetCount;
-
+  private onDisintegrateCast(event: CastEvent, missingTargetCount: number) {
     const damageEvents = getDisintegrateDamageEvents(event);
 
     const damageResult: DamageResult = damageEvents.reduce(
@@ -196,7 +162,7 @@ class MassDisintegrate extends Analyzer {
       { ampedDamage: 0, extraDamage: 0 },
     );
 
-    this.attributeDamage(damageResult, targetCount);
+    return damageResult;
   }
 
   private attributeDamage(damageResult: DamageResult, targetCount: number) {
@@ -237,6 +203,7 @@ class MassDisintegrate extends Analyzer {
       ampedDamagePerMissingTarget * CONCENTRATED_POWER_EXTRA_TARGETS;
     this.damageFromAmp +=
       ampedDamagePerMissingTarget * (amountOfMissingTargets - CONCENTRATED_POWER_EXTRA_TARGETS);
+    return damageResult;
   }
 
   get averageTargets() {

@@ -10,7 +10,6 @@ import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/Major
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import { getCastsDuringWake } from '../../normalizers/WakeOfAshesNormalizer';
-import { TIERS } from 'game/TIERS';
 interface WakeOfAshesCooldownCast extends CooldownTrigger<CastEvent> {
   hammerOfLightCasts: number;
   targetHasExecutionSentenceOnCast: boolean;
@@ -38,8 +37,6 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
   }
 
   description() {
-    const playerHasTWW3_4Piece = this.selectedCombatant.has4PieceByTier(TIERS.TWW3);
-
     return (
       <>
         <ExplanationSection>
@@ -60,13 +57,6 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
               <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> is your highest damage ability. It is
               available right after every <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} />{' '}
               casts.
-              {playerHasTWW3_4Piece && (
-                <>
-                  {' '}
-                  With the season 3 Tier Set, you will be able to use it a second time each{' '}
-                  <SpellLink spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT} /> cast.
-                </>
-              )}
             </p>
           )}
         </ExplanationSection>
@@ -142,8 +132,7 @@ class WakeOfAshes extends MajorCooldown<WakeOfAshesCooldownCast> {
 
   private hammerOfLightPerformance(cast: WakeOfAshesCooldownCast): UsageInfo {
     const numberOfHammerOfLightCast = cast.hammerOfLightCasts;
-    const playerHasTWW3_4Piece = this.selectedCombatant.has4PieceByTier(TIERS.TWW3);
-    const expectedNumberOfHammerOfLightCast = playerHasTWW3_4Piece ? 2 : 1;
+    const expectedNumberOfHammerOfLightCast = 1;
 
     const summary = (
       <>

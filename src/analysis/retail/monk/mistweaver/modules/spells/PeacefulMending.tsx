@@ -10,18 +10,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { PEACEFUL_MENDING_INCREASE } from '../../constants';
+import { PEACEFUL_MENDING_INCREASE, SOOTHING_MIST_SOURCES } from '../../constants';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import type Spell from 'common/SPELLS/Spell';
-
-const SOOTHING_MIST_SOURCES = [
-  { spell: TALENTS_MONK.SOOTHING_MIST_TALENT, buffId: TALENTS_MONK.SOOTHING_MIST_TALENT.id },
-  { spell: TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT, buffId: SPELLS.SOOTHING_MIST_STATUE.id },
-  // removed once mistline is fixed to no longer proc unison
-  { spell: SPELLS.UNISON_HEAL, buffId: SPELLS.UNISON_HEAL.id },
-  { spell: TALENTS_MONK.SPIRITFONT_1_MISTWEAVER_TALENT, buffId: SPELLS.SPIRITFONT_HOT.id },
-] as const;
 
 class PeacefulMending extends Analyzer {
   static dependencies = {
@@ -70,7 +62,7 @@ class PeacefulMending extends Analyzer {
     const target = event.targetID ? this.combatants.getEntity(event) : null;
 
     const activeSource = target
-      ? SOOTHING_MIST_SOURCES.find((source) => target.hasBuff(source.buffId))
+      ? SOOTHING_MIST_SOURCES.find((source) => target.hasBuff(source.heal.id))
       : null;
 
     if (!activeSource) {

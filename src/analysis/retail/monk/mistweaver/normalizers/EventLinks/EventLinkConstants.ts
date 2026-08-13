@@ -54,6 +54,7 @@ export const MANA_TEA_YULONS_WHISPER = 'MTYulonsWhisper';
 export const TIGER_PALM_CAST_LINK = 'TigerPalmCastLink';
 export const BLACKOUT_KICK_CAST_LINK = 'BlackoutKickCastLink';
 export const RSK_CAST_LINK = 'RisingSunKickCastLink';
+export const RWK_DAMAGE_CAST_LINK = 'RushingWindKickDamageCastLink';
 export const CJL_CAST_LINK = 'CracklingJadeLightningCastLink';
 export const SCK_CAST_LINK = 'SpinningCraneKickCastLink';
 
@@ -71,6 +72,12 @@ export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';
 export const RUSHING_WIND_KICK = 'RWK';
+
+// S2 Tier
+export const MID_S2_4PC_TRIGGER = 'MidS24pcTrigger';
+export const MID_S2_4PC_CONSUME = 'MidS24pcConsume';
+// ~110-120ms observed between triggering cast and applybuff
+export const S2_4PC_TRIGGER_BUFFER_MS = 200;
 
 // Spiritfont
 export const SPIRITFONT_PROC = 'SpiritfontProc';

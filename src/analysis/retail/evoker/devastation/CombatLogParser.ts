@@ -64,7 +64,6 @@ import {
   ExtendedBattle,
   DivertedPower,
   UnrelentingSiege,
-  Wingleader,
   Slipstream,
   ExpandedLungs,
   TimeSpiral,
@@ -74,6 +73,7 @@ import {
   EssenceWell,
   TwinFlame,
   FireTorrent,
+  Wingleader,
 } from 'analysis/retail/evoker/shared';
 import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
 import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
@@ -159,11 +159,11 @@ class CombatLogParser extends MainCombatLogParser {
     extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
-    wingLeader: Wingleader,
     slipstream: Slipstream,
     refinedEssence: RefinedEssence,
     commandSquadron: CommandSquadron,
     consumeFlame: ConsumeFlame,
+    wingleader: Wingleader,
 
     // core abilities
     disintegrate: Disintegrate,

@@ -85,9 +85,9 @@ import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
 import JadeEmpowerment from './modules/spells/JadeEmpowerment';
-import T34ConduitTier from '../shared/hero/ConduitOfTheCelestials/tier/T34Tier';
 import MistyCoalescence from './modules/spells/MistyCoalescence';
 import S1TierSet from './modules/tier/S1TierSet';
+import S2TierSet from './modules/tier/S2TierSet';
 import AmplifiedRush from './modules/spells/AmplifiedRush';
 import WayOfTheSerpent from './modules/spells/WayOfTheSerpent';
 import MovementTracker from './modules/features/MovementDuringBuffTracker';
@@ -101,6 +101,8 @@ import InvigoratingMists from './modules/spells/InvigoratingMists';
 import EmperorsFavor from './modules/spells/EmperorsFavor';
 import TranquilTea from './modules/spells/TranquilTea';
 import MorningBreeze from './modules/spells/MorningBreeze';
+import Mistline from './modules/spells/Mistline';
+import VitalExpenditure from './modules/spells/VitalExpenditure';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -175,10 +177,12 @@ class CombatLogParser extends CoreCombatLogParser {
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     renewingMist: RenewingMist,
+    mistline: Mistline,
     revival: Revival,
     risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
     soothingMist: SoothingMist,
+    vitalExpenditure: VitalExpenditure,
     thunderFocusTea: ThunderFocusTea,
     yulonsWhisper: YulonsWhisper,
     rapidDiffusion: RapidDiffusion,
@@ -216,8 +220,8 @@ class CombatLogParser extends CoreCombatLogParser {
     coalesence: Coalesence,
 
     // Borrowed Power
-    t34ConduitTierSet: T34ConduitTier,
     s1TierSet: S1TierSet,
+    s2TierSet: S2TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

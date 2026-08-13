@@ -1,10 +1,11 @@
 import Expansion from './Expansion';
 import GameBranch from './GameBranch';
+import { AnyPatchVersion } from 'parser/Config';
 
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
-const VERSIONS: Record<GameBranch, string> = {
+const VERSIONS: Record<GameBranch, AnyPatchVersion> = {
   [GameBranch.Classic]: '5.5.4',
-  [GameBranch.Retail]: '12.0.7',
+  [GameBranch.Retail]: '12.1.0',
 };
 
 export default VERSIONS;
