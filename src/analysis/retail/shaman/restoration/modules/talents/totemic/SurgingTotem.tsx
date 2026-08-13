@@ -264,7 +264,7 @@ class SurgingTotem extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon spell={SPELLS.HEALING_RAIN_HEAL} />}
+        icon={<SpellIcon spell={TALENTS.SURGING_TOTEM_TALENT} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={

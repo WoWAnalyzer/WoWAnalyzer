@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
-import spells from '../../spell-list_Paladin_Protection.retail';
+import spells from '../../spells';
 
 const SACRED_WEAPON_ID = 432472;
 

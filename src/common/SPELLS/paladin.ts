@@ -539,6 +539,16 @@ const spells = {
     name: 'Hammer of Wrath',
     icon: 'inv12_ability_paladin_hammerofwrath',
   },
+  /**
+   * Protection casts a different Hammer of Wrath to the baseline/Retribution one. In
+   * Midnight it replaces Judgment while the damage cooldown is up, and it is this id -
+   * not the talent node id - that appears in the combat log.
+   */
+  HAMMER_OF_WRATH_PROTECTION: {
+    id: 1241413,
+    name: 'Hammer of Wrath',
+    icon: 'inv12_ability_paladin_hammerofwrath',
+  },
 
   // Protection
   // GoAK has a different spell ID with Glyph of the Queen
@@ -705,6 +715,11 @@ const spells = {
   SHAKE_THE_HEAVENS_BUFF: {
     ...talents.SHAKE_THE_HEAVENS_TALENT,
     id: 431536,
+  },
+  VANGUARD_BUFF: {
+    id: 1268810,
+    name: 'Vanguard',
+    icon: 'inv12_apextalent_paladin_gloryofthevanguard',
   },
   HAMMER_AND_ANVIL_HEAL: {
     id: 433722,

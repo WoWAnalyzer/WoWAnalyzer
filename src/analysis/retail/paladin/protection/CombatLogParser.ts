@@ -26,6 +26,7 @@ import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
 import BuilderUse from './modules/core/BuilderUse';
+import WingsHolyPower from './modules/core/WingsHolyPower';
 import Guide from './Guide';
 
 // =====================
@@ -72,6 +73,8 @@ import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageR
 import SoaringShield from './modules/talents/SoaringShield';
 import Valiance from './modules/talents/Valiance';
 import HolyArmaments from './modules/talents/HolyArmaments';
+import Vanguard from './modules/talents/Vanguard';
+import SacredWeaponCoverage from './modules/talents/SacredWeaponCoverage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -80,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
+    wingsHolyPower: WingsHolyPower,
 
     // Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
@@ -114,16 +118,18 @@ class CombatLogParser extends CoreCombatLogParser {
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
-    soaringShield: SoaringShield,
     divineToll: DivineToll,
     blessingOfDusk: BlessingOfDusk,
     blessingOfDawn: BlessingOfDawn,
     valiance: Valiance,
+    holyArmaments: HolyArmaments,
+    soaringShield: SoaringShield,
+    vanguard: Vanguard,
+    sacredWeaponCoverage: SacredWeaponCoverage,
+    divineResonance: DivineResonance,
     lightBearer: Lightbearer,
     punishment: Punishment,
     hammerOfWrath: HammerOfWrath,
-    divineResonance: DivineResonance,
-    holyArmaments: HolyArmaments,
     unbreakableSpirit: UnbreakableSpirit,
 
     // Racials & Misc
