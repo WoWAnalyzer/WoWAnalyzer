@@ -25,7 +25,6 @@ import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import WordOfGlory from './modules/spells/WordOfGlory';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
-import FirstAvenger from './modules/talents/FirstAvenger';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
@@ -91,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
-    firstAvenger: FirstAvenger,
     divineToll: DivineToll,
     duskAndDawn: DuskAndDawn,
     valiance: Valiance,
