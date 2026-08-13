@@ -3082,3 +3082,7 @@ export const KushGene: Contributor = {
   nickname: 'KushGene',
   github: 'KushGene',
 };
+export const TemaZpro: Contributor = {
+  nickname: 'TemaZpro',
+  github: 'TemaZpro',
+};

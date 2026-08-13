@@ -12,7 +12,6 @@ import {
   Lightbearer,
   Punishment,
   HammerOfWrath,
-  DivineResonance,
   UnbreakableSpirit,
   DivinePurpose,
 } from 'analysis/retail/paladin/shared';
@@ -76,6 +75,7 @@ import Valiance from './modules/talents/Valiance';
 import HolyArmaments from './modules/talents/HolyArmaments';
 import Vanguard from './modules/talents/Vanguard';
 import SacredWeaponCoverage from './modules/talents/SacredWeaponCoverage';
+import DivineResonance from './modules/talents/DivineResonance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
