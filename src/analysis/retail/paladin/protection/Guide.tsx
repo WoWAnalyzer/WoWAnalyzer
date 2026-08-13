@@ -154,7 +154,7 @@ function WingsHolyPowerPanels({ modules }: GuideProps<typeof CombatLogParser>) {
           generated during <SpellLink spell={wingsSpell} />.
         </p>
         <small>
-          <SpellLink spell={SPELLS.HAMMER_OF_WRATH_PROTECTION} /> replaces{' '}
+          <SpellLink spell={SPELLS.HAMMER_OF_WRATH_CAST} /> replaces{' '}
           <SpellLink spell={SPELLS.JUDGMENT_CAST_PROTECTION} /> here, so generation is much faster
           and overcapping is easier.
         </small>

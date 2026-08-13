@@ -14,6 +14,7 @@ import {
   HammerOfWrath,
   DivineResonance,
   UnbreakableSpirit,
+  DivinePurpose,
 } from 'analysis/retail/paladin/shared';
 
 // =====================
@@ -131,6 +132,7 @@ class CombatLogParser extends CoreCombatLogParser {
     punishment: Punishment,
     hammerOfWrath: HammerOfWrath,
     unbreakableSpirit: UnbreakableSpirit,
+    divinePurpose: DivinePurpose,
 
     // Racials & Misc
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
