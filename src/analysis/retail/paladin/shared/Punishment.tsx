@@ -92,40 +92,32 @@ class Punishment extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Triggered {this.triggers} times.
-            {hasDamage && (
-              <>
-                <br />
-                Total extra damage: {formatNumber(this.extraDamage)}
-              </>
-            )}
-            {hasHealing && (
-              <>
-                <br />
-                Total extra healing: {formatNumber(this.extraHealing)}
-              </>
-            )}
+            <p>Triggered {this.triggers} times.</p>
+            {hasDamage && <p>Total extra damage: {formatNumber(this.extraDamage)}</p>}
+            {hasHealing && <p>Total extra healing: {formatNumber(this.extraHealing)}</p>}
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS.PUNISHMENT_TALENT}>
           {hasDamage && (
-            <>
+            <div>
               {formatNumber(this.extraDamage)} <small>damage</small>
-              <br />
-              {formatNumber(avgDamage)} <small>avg dmg/trigger</small>
-              <br />
-            </>
+              <div>
+                {formatNumber(avgDamage)} <small>avg dmg/trigger</small>
+              </div>
+            </div>
           )}
           {hasHealing && (
-            <>
+            <div>
               {formatNumber(this.extraHealing)} <small>healing</small>
-              <br />
-              {formatNumber(avgHealing)} <small>avg healing/trigger</small>
-              <br />
-            </>
+              <div>
+                {formatNumber(avgHealing)} <small>avg healing/trigger</small>
+              </div>
+            </div>
           )}
-          {this.triggers} <small>triggers</small>
+          <div>
+            {this.triggers} <small>triggers</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

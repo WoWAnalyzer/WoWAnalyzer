@@ -1,5 +1,4 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
