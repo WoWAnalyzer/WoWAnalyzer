@@ -13,7 +13,7 @@ const talents = {
   AIMED_SHOT_TALENT: {
     id: 19434,
     name: 'Aimed Shot',
-    icon: '',
+    icon: '8026692',
     maxRanks: 1,
     entryIds: [128404],
     definitionIds: [{ id: 133210, specId: 254 }],

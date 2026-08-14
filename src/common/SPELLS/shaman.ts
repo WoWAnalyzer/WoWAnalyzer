@@ -1108,12 +1108,37 @@ const spells = {
     name: 'Primal Catalyst',
     icon: 'misc_legionfall_shaman',
   },
+  POWER_OF_THE_MAELSTROM_BUFF: {
+    id: 191877,
+    name: 'Power of the Maelstrom',
+    icon: 'inv_misc_questionmark',
+  },
 
   // Tier sets
   MIDNIGHT_S1_THUNDEROUS_VELOCITY_BUFF: {
     id: 1272101,
     name: 'Thunderous Velocity',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  MIDNIGHT_S2_FLOWING_ELEMENTS: {
+    id: 1300219,
+    name: 'Flowing Elements',
+    icon: 'ability_shaman_echooftheelements',
+  },
+  MIDNIGHT_S2_OVERCHARGE: {
+    id: 1300222,
+    name: 'Overcharge',
+    icon: 'spell_shaman_ancestralawakening',
+  },
+  MIDNIGHT_S2_BURNING_CORE: {
+    id: 1299975,
+    name: 'Burning Core',
+    icon: 'spell_shaman_improvedfirenova',
+  },
+  MIDNIGHT_S2_SHORT_CIRCUIT: {
+    id: 1299991,
+    name: 'Short Circuit',
+    icon: 'spell_nature_unrelentingstorm',
   },
 } satisfies Record<string, Spell>;
 
