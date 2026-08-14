@@ -48,7 +48,6 @@ import StormUnleashed from './modules/talents/StormUnleashed';
 import SurgingTotem from './modules/hero/totemic/SurgingTotem';
 import FireNova from './modules/talents/FireNova';
 import VoltaicBlaze from './modules/talents/VoltaicBlaze';
-import CrashLightning from './modules/talents/CrashLightning';
 import S2TierSet from './modules/midnight/S2TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -102,7 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingTotem: SurgingTotem,
     fireNova: FireNova,
     voltaicBlaze: VoltaicBlaze,
-    crashLightning: CrashLightning,
 
     // Hero Talents
     earthsurge: Earthsurge,

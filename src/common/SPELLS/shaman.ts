@@ -1108,11 +1108,8 @@ const spells = {
     name: 'Primal Catalyst',
     icon: 'misc_legionfall_shaman',
   },
-
-  // Power of the Maelstrom (12.1.0 redesign): buff that empowers the next Lava Burst
-  // TODO: 12.1.0 placeholder - replace with the real buff id
   POWER_OF_THE_MAELSTROM_BUFF: {
-    id: -10004,
+    id: 191877,
     name: 'Power of the Maelstrom',
     icon: 'inv_misc_questionmark',
   },
@@ -1123,10 +1120,20 @@ const spells = {
     name: 'Thunderous Velocity',
     icon: 'ability_thunderking_thunderstruck',
   },
-  MIDNIGHT_S2_ELEMENTAL_4SET_BUFF: {
-    id: -10002,
-    name: 'Elemental Midnight Season 2 4-piece',
-    icon: 'inv_misc_questionmark',
+  MIDNIGHT_S2_FLOWING_ELEMENTS: {
+    id: 1300219,
+    name: 'Flowing Elements',
+    icon: 'ability_shaman_echooftheelements',
+  },
+  MIDNIGHT_S2_OVERCHARGE: {
+    id: 1300222,
+    name: 'Overcharge',
+    icon: 'spell_shaman_ancestralawakening',
+  },
+  MIDNIGHT_S2_BURNING_CORE: {
+    id: 1299975,
+    name: 'Burning Core',
+    icon: 'spell_shaman_improvedfirenova',
   },
   MIDNIGHT_S2_SHORT_CIRCUIT: {
     id: 1299991,
