@@ -28,14 +28,10 @@ class ArcaneBarrageGuide extends Analyzer {
   isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
   isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
   hasArcaneSalvo: boolean = this.selectedCombatant.hasTalent(TALENTS.ARCANE_SALVO_TALENT);
-  hasHighVoltage: boolean = this.selectedCombatant.hasTalent(TALENTS.HIGH_VOLTAGE_TALENT);
   hasOverpoweredMissiles: boolean = this.selectedCombatant.hasTalent(
     TALENTS.OVERPOWERED_MISSILES_TALENT,
   );
-  hasOrbMastery: boolean = this.selectedCombatant.hasTalent(TALENTS.ORB_MASTERY_TALENT);
   hasOrbBarrage: boolean = this.selectedCombatant.hasTalent(TALENTS.ORB_BARRAGE_TALENT);
-  isSpellslingerMissile: boolean = this.isSpellslinger && !this.hasOrbMastery;
-  isSpellslingerOrb: boolean = this.isSpellslinger && this.hasOrbMastery;
 
   private readonly MAX_ARCANE_CHARGES = 4;
   private readonly NO_MANA_THRESHOLD = 0.1;
