@@ -1,3 +1,4 @@
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/warlock';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -5,6 +6,10 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemy from 'parser/core/Enemy';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const CDR_PER_CAST_MS = 1500;
 // Base channel duration (unreduced by haste), used as an upper bound for matching damage to casts.
@@ -43,6 +48,7 @@ class DarkHarvest extends Analyzer {
   hauntActive = false;
   hasCullTheWeak = false;
   casts: DarkHarvestCastData[] = [];
+  private totalDamage = 0;
 
   // Running totals accumulated since the last DH cast
   private currentWindowCdrMs = 0;
@@ -126,6 +132,8 @@ class DarkHarvest extends Analyzer {
   }
 
   onDarkHarvestDamage(event: DamageEvent) {
+    this.totalDamage += event.amount + (event.absorbed || 0);
+
     const cast = this.casts[this.casts.length - 1];
     if (!cast || event.timestamp - cast.timestamp > CHANNEL_DURATION_MS) {
       // No open channel this damage tick could belong to — shouldn't normally happen.
@@ -152,6 +160,20 @@ class DarkHarvest extends Analyzer {
     if (this.hauntActive && target.hasBuff(TALENTS.HAUNT_TALENT.id, ts)) {
       cast.hauntActiveOnHit = true;
     }
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={`${formatThousands(this.totalDamage)} total damage`}
+      >
+        <TalentSpellText talent={TALENTS.DARK_HARVEST_TALENT}>
+          <ItemDamageDone amount={this.totalDamage} />
+        </TalentSpellText>
+      </Statistic>
+    );
   }
 }
 
