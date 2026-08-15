@@ -46,7 +46,7 @@ class ArcaneBarrageGuide extends Analyzer {
     if (cast.mana && hasNoMana) {
       return {
         timestamp: cast.cast.timestamp,
-        performance: QualitativePerformance.Good,
+        performance: QualitativePerformance.Ok,
         reason: `Very Low Mana (${formatPercentage(cast.mana)}%)`,
       };
     }
@@ -133,7 +133,7 @@ class ArcaneBarrageGuide extends Analyzer {
     if (this.isSunfury && hasArcaneSoulBuff) {
       return {
         timestamp: cast.cast.timestamp,
-        performance: QualitativePerformance.Perfect,
+        performance: QualitativePerformance.Good,
         reason: `Had an Arcane Soul proc.`,
       };
     }
@@ -141,7 +141,7 @@ class ArcaneBarrageGuide extends Analyzer {
     if (this.isSunfury && cast.salvoStacks === 25 && hasMaxCharges) {
       return {
         timestamp: cast.cast.timestamp,
-        performance: QualitativePerformance.Perfect,
+        performance: QualitativePerformance.Good,
         reason: `Had 4 Arcane Charges and 25 Arcane Salvo stacks.`,
       };
     }
