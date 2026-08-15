@@ -69,7 +69,11 @@ function getMissingDots(hit: DarkHarvestHit): MissingDot[] {
 }
 
 // Targets are identified by count, not name, since cleave adds are often duplicate-named.
-function getDotDetails(cast: DarkHarvestCastData, witherActive: boolean): JSX.Element {
+function getDotDetails(
+  cast: DarkHarvestCastData,
+  witherActive: boolean,
+  hauntActive: boolean,
+): JSX.Element {
   const corruptionSpell = witherActive ? SPELLS.WITHER_DEBUFF : SPELLS.CORRUPTION_DEBUFF;
   const missingDotLink: Record<MissingDot, JSX.Element> = {
     agony: <SpellLink spell={SPELLS.AGONY} />,
@@ -114,12 +118,18 @@ function getDotDetails(cast: DarkHarvestCastData, witherActive: boolean): JSX.El
               cleave target, so it isn't scored on multi-target casts.
             </p>
           )}
-          {cast.hauntActiveOnHit && (
-            <p>
-              <SpellLink spell={TALENTS.HAUNT_TALENT} /> was active on one of the targets,
-              amplifying the damage dealt to it.
-            </p>
-          )}
+          {hauntActive &&
+            (cast.hauntActiveOnHit ? (
+              <p>
+                <SpellLink spell={TALENTS.HAUNT_TALENT} /> was active on one of the targets,
+                amplifying the damage dealt to it.
+              </p>
+            ) : (
+              <p>
+                <SpellLink spell={TALENTS.HAUNT_TALENT} /> wasn't active on any of the targets — no
+                damage was amplified.
+              </p>
+            ))}
         </>
       )}
     </>
@@ -136,7 +146,7 @@ export default function DarkHarvestGuide(): JSX.Element | null {
   } => {
     if (!darkHarvest) return { dotCastData: [], cdrUses: [] };
 
-    const { witherActive, uaActive } = darkHarvest;
+    const { witherActive, uaActive, hauntActive } = darkHarvest;
     const fightStart = darkHarvest.fightStart;
 
     // Fixed set of summary stat cards, regardless of hit count.
@@ -188,7 +198,7 @@ export default function DarkHarvestGuide(): JSX.Element | null {
         performance: castPerformance(cast),
         timestamp: formatTimestamp(cast.timestamp - fightStart),
         stats,
-        details: getDotDetails(cast, witherActive),
+        details: getDotDetails(cast, witherActive, hauntActive),
       };
     });
 
