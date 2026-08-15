@@ -77,17 +77,15 @@ function getDotDetails(cast: DarkHarvestCastData, witherActive: boolean): JSX.El
     ua: <SpellLink spell={TALENTS.UNSTABLE_AFFLICTION_TALENT} />,
   };
 
-  const groups = new Map<string, { missing: MissingDot[]; count: number }>();
+  const missingCounts: Record<MissingDot, number> = { agony: 0, corruption: 0, ua: 0 };
   for (const hit of cast.hits) {
-    const missing = getMissingDots(hit);
-    const key = missing.join(',');
-    const group = groups.get(key);
-    if (group) {
-      group.count += 1;
-    } else {
-      groups.set(key, { missing, count: 1 });
+    for (const dot of getMissingDots(hit)) {
+      missingCounts[dot] += 1;
     }
   }
+  const dotsMissingAnywhere = (['agony', 'corruption', 'ua'] as MissingDot[]).filter(
+    (dot) => missingCounts[dot] > 0,
+  );
 
   return (
     <>
@@ -99,26 +97,17 @@ function getDotDetails(cast: DarkHarvestCastData, witherActive: boolean): JSX.El
       ) : (
         <>
           <p>{cast.hits.length} target(s) hit.</p>
-          <ul>
-            {Array.from(groups.values()).map(({ missing, count }) => (
-              <li key={missing.join(',')}>
-                {count} target{count !== 1 ? 's' : ''}:{' '}
-                {missing.length === 0 ? (
-                  'all periodic effects active'
-                ) : (
-                  <>
-                    missing{' '}
-                    {missing.map((dot, i) => (
-                      <span key={dot}>
-                        {i > 0 && ', '}
-                        {missingDotLink[dot]}
-                      </span>
-                    ))}
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
+          {dotsMissingAnywhere.length === 0 ? (
+            <p>All periodic effects were active on every target.</p>
+          ) : (
+            <ul>
+              {dotsMissingAnywhere.map((dot) => (
+                <li key={dot}>
+                  {missingCounts[dot]}/{cast.hits.length} targets missing {missingDotLink[dot]}
+                </li>
+              ))}
+            </ul>
+          )}
           {cast.hits.length > 1 && cast.hits.some((h) => h.hadUA !== null) && (
             <p>
               <SpellLink spell={TALENTS.UNSTABLE_AFFLICTION_TALENT} /> isn't expected on every
