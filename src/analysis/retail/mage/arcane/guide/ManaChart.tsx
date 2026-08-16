@@ -68,29 +68,22 @@ class ManaChart extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
+    const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const evocation = <SpellLink spell={TALENTS.EVOCATION_TALENT} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
 
     const explanation = (
       <>
-        <b>Mana Management</b> is crucial for Arcane Mage performance. Proper mana usage involves:
+        <b>Mana Management</b> plays a large role in your Arcane rotation, but is relatively simple
+        to manage if you are doing your rotation properly. However, if you are hanging onto your{' '}
+        {arcaneCharge} stacks for too long, you can easily burn through all your mana without
+        realizing it. If you are having trouble managing your mana, focus on the below items first:
         <ul>
+          <li>Focus on your {arcaneBarrage} usage as that will help regulate your mana.</li>
+          <li>Make sure you are using {arcaneSurge} as quickly as possible.</li>
           <li>
-            <strong>Burn Phase:</strong> Use {arcaneSurge} and {touchOfTheMagi} while maintaining
-            mana for the full duration. Don't go OOM during major cooldowns.
-          </li>
-          <li>
-            <strong>Conserve Phase:</strong> Use {arcaneBarrage} at 4 stacks to maintain mana
-            efficiency while waiting for cooldowns.
-          </li>
-          <li>
-            <strong>Mana Recovery:</strong> Use {evocation} to restore mana during conserve phases
-            or between burn windows.
-          </li>
-          <li>
-            <strong>Fight Ending:</strong> Aim to end fights with minimal mana remaining - unused
-            mana is wasted potential damage.
+            If you are still struggling, consider taking {evocation} until you get used to the
+            rotation and no longer need it.
           </li>
         </ul>
       </>
