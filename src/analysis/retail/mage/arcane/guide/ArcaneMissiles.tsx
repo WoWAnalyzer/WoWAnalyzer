@@ -129,7 +129,6 @@ class ArcaneMissilesGuide extends Analyzer {
             <li>
               You have less than 12 {arcaneSalvo} stacks and a {clearcasting} proc.
             </li>
-            <li></li>
           </ul>
         )}
         {this.isSpellslinger && this.hasOverpoweredMissiles && (
