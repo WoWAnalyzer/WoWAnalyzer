@@ -13,8 +13,12 @@ const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />
 const arcaneSalvo = <SpellLink spell={TALENTS.ARCANE_SALVO_TALENT} />
 const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />
 const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />
+const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 
 export default [
+  change(date(2026, 8, 15), <>Added support for {prismaticBolt}.</>, Sharrq),
+  change(date(2026, 8, 15), <>Replaced the Arcane Mana Management chart with a new heatmap visualization</>, Sharrq),
+  change(date(2026, 8, 15), <>Updated the {arcaneBarrage}, {arcaneMissiles}, {arcaneOrb}, {arcaneSurge}, and {touchOfTheMagi} conditions for 12.1.</>, Sharrq),
   change(date(2026, 4, 26), <>Removed {arcaneCharge}s check from {touchOfTheMagi} for Spellslinger.</>, Sharrq),
   change(date(2026, 4, 21), <>Updated Spec Compatability to 12.0.5.</>, Sharrq),
   change(date(2026, 4, 4), <>Updated Spec Compatability to 12.0.1.</>, Sharrq),
