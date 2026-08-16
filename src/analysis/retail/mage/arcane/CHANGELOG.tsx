@@ -16,6 +16,7 @@ const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />
 const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 
 export default [
+  change(date(2026, 8, 15), <>Updated spec compatability to 12.1.</>, Sharrq),
   change(date(2026, 8, 15), <>Added support for {prismaticBolt}.</>, Sharrq),
   change(date(2026, 8, 15), <>Replaced the Arcane Mana Management chart with a new heatmap visualization</>, Sharrq),
   change(date(2026, 8, 15), <>Updated the {arcaneBarrage}, {arcaneMissiles}, {arcaneOrb}, {arcaneSurge}, and {touchOfTheMagi} conditions for 12.1.</>, Sharrq),
