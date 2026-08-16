@@ -82,6 +82,14 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.IDOL_OF_YSHAARJ_OVERBURDENED_MIND.id]: -0.1,
   //endregion
 
+  //region Evoker
+  [SPELLS.PRIMACY_BUFF.id]: {
+    hastePerStack: 0.03,
+  },
+  [SPELLS.TEMPORAL_BURST_BUFF.id]: {
+    hastePerStack: 0.01,
+  },
+
   //region Mage
   // [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
   [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,

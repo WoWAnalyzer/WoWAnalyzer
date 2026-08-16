@@ -7,6 +7,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 6, 19), <>Added Midnight Season 2 tier set analysis and a <SpellLink spell={TALENTS_SHAMAN.POWER_OF_THE_MAELSTROM_TALENT} /> module.</>, Seriousnes),
   change(date(2026, 5, 23), <>Internal cleanup: consolidated shared talents, removed dead modules, and aligned with framework conventions.</>, Seriousnes),
   change(date(2026, 4, 24), <>Updated for 12.0.5 compatibility.</>, Seriousnes),
   change(date(2026, 3, 26), <>Fixed <SpellLink spell={TALENTS_SHAMAN.MASTER_OF_THE_ELEMENTS_TALENT} /> buff ordering, updated performance calculations for <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> spender guide.</>, Seriousnes),

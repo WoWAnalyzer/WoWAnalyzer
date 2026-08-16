@@ -25,6 +25,9 @@ import HoardedPower from './modules/talents/HoardedPower';
 import MotesOfPossibility from './modules/talents/MotesOfPossibility';
 import Duplicate from './modules/talents/Duplicate';
 import MightyInferno from './modules/talents/MightyInferno';
+import DoubleTime from './modules/talents/DoubleTime';
+import NozdormuAdept from './modules/talents/NozdormuAdept';
+import GoldenOpportunity from './modules/talents/GoldenOpportunity';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -34,9 +37,12 @@ import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
+import ExternalGraph from './modules/abilities/ExternalGraph';
+
 // Tier
 import MID1Augmentation2P from './modules/midnight/MID1Augmentation2P';
 import MID1Augmentation4P from './modules/midnight/MID1Augmentation4P';
+import MID2Augmentation4P from './modules/midnight/MID2Augmentation4P';
 
 //Shared
 import {
@@ -64,24 +70,22 @@ import {
   ExtendedBattle,
   DivertedPower,
   UnrelentingSiege,
-  Wingleader,
   Slipstream,
   Chronoflame,
   Reverberations,
   Primacy,
   TimeConvergence,
-  GoldenOpportunity,
   MotesOfAcceleration,
   TimeSpiral,
   RefinedEssence,
   CommandSquadron,
-  NozdormuAdept,
   ChronalDynamo,
   Afterimage,
   ImminentDestructionCastLinkNormalizer,
   ChronowardenCastLinkNormalizer,
   TemporalBurstStackNormalizer,
   TemporalBurst,
+  Wingleader,
 } from 'analysis/retail/evoker/shared';
 
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -159,7 +163,7 @@ class CombatLogParser extends MainCombatLogParser {
     extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
-    wingLeader: Wingleader,
+    wingleader: Wingleader,
     slipstream: Slipstream,
     chronoflame: Chronoflame,
     reverberations: Reverberations,
@@ -173,15 +177,18 @@ class CombatLogParser extends MainCombatLogParser {
     afterimage: Afterimage,
     chronalDynamo: ChronalDynamo,
     temporalBurst: TemporalBurst,
+    doubleTime: DoubleTime,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+    externalGraph: ExternalGraph,
 
     // Tier
     MID1Augmentation2P: MID1Augmentation2P,
     MID1Augmentation4P: MID1Augmentation4P,
+    MID2Augmentation4P: MID2Augmentation4P,
   };
   static guide = Guide;
 }

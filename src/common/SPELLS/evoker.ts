@@ -809,6 +809,41 @@ const spells = {
     name: 'Strafing Run',
     icon: 'ability_evoker_blackattunementalt',
   },
+  DOUBLE_TIME_EBON_MIGHT_BUFF: {
+    id: 460688,
+    name: 'Double-time',
+    icon: 'spell_holy_borrowedtime',
+  },
+  FATE_MIRROR_DAMAGE: {
+    id: 404908,
+    name: 'Fate Mirror',
+    icon: 'trade_archaeology_highbornesoulmirror',
+  },
+  FATE_MIRROR_HEAL: {
+    id: 413786,
+    name: 'Fate Mirror',
+    icon: 'trade_archaeology_highbornesoulmirror',
+  },
+  MAGNIFIED_FATE_BUFF: {
+    id: 1297728,
+    name: 'Magnified Fate',
+    icon: 'abilit_evoker_masterylifebinder_black',
+  },
+  UNBOUND_FLAME: {
+    id: 1292321,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  UNBOUND_FLAME_BUFF: {
+    id: 1292323,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  UNBOUND_FLAME_DAMAGE: {
+    id: 1292322,
+    name: 'Unbound Flame',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 

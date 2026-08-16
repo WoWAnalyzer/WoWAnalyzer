@@ -26,7 +26,7 @@ export default [
   change(date(2023, 1, 28), 'Fix reference to Fury in Guide.', Topple),
   change(date(2023, 1, 28), <>Update Exsanuinate to check duration of <SpellLink spell={SPELLS.GARROTE} /> and <SpellLink spell={SPELLS.RUPTURE} />.</>, Topple),
   change(date(2023, 1, 28), <>Add breakdown of Exsanguinate usage to Guide.</>, Topple),
-  change(date(2023, 1, 28), <>Add details for <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} /> usage to Guide.</>, Topple),
+  change(date(2023, 1, 28), <>Add details for <SpellLink spell={TALENTS.THISTLE_TEA_1_TALENT} /> usage to Guide.</>, Topple),
   change(date(2023, 1, 27), <>Fix max duration calculation for <SpellLink spell={SPELLS.RUPTURE} /> not respecting Animacharged.</>, Topple),
   change(date(2023, 1, 27), <>Add snapshotting information for <SpellLink spell={SPELLS.GARROTE} /> and improve <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> stealth detection.</>, Topple),
   change(date(2023, 1, 27), <>Fix Animacharged not working for <SpellLink spell={SPELLS.ENVENOM} />.</>, Topple),

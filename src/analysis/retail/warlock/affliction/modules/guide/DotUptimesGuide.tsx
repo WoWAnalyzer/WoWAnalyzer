@@ -49,7 +49,7 @@ class DotUptimesGuide extends Analyzer {
                 <>
                   Haunt's damage bonus:
                   <ul>
-                    <li>+12% baseline</li>
+                    <li>+16% baseline</li>
                     {this.haunt.shadowOfNathrezaBonus > 0 && (
                       <li>
                         +{formatPercentage(this.haunt.shadowOfNathrezaBonus, 0)}% from{' '}

@@ -89,7 +89,9 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 1,
         charges: 3,
-        enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.THISTLE_TEA_1_TALENT) ||
+          combatant.hasTalent(TALENTS.THISTLE_TEA_2_TALENT),
       },
       {
         spell: SPELLS.KICK.id,

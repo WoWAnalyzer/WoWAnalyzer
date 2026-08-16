@@ -12,3 +12,5 @@ export const SPLINTERED_ELEMENTS_LINK = 'splintered-elements';
 
 //max HP increases
 export const PRIMORDIAL_BOND_MAX_HEALTH = 0.15;
+
+export const MID2_SET_TITLE = "Ophidian Oracle's Prophecy";
