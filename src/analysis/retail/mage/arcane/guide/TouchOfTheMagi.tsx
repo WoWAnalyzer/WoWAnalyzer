@@ -112,12 +112,11 @@ class TouchOfTheMagiGuide extends Analyzer {
           </li>
         </ul>
         <TipBox type="info">
-          Arcane Mage's burn phases revolve around some specific timing between {arcaneSurge} and
+          Arcane Mage's burn phases revolve around some specific timing between {arcaneSurge} and{' '}
           {touchOfTheMagi} that require you to use the two cooldowns as quickly as possible once
           they come off cooldown to keep the 45 second cooldown of {touchOfTheMagi} and the 90
           second cooldown of {arcaneSurge} in sync so that every other {touchOfTheMagi} can line up
-          with
-          {arcaneSurge}.
+          with {arcaneSurge}.
         </TipBox>
       </>
     );

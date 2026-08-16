@@ -88,11 +88,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           The Arcane Mage rotation is largely built around the balance between your burn phases and
           your conserve phases. The burn phases will occur every 45 seconds, alternating between a
           minor burn phase with only <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and a
-          major burn phase with both <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and
+          major burn phase with both <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and{' '}
           <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />. In order to get the most out of those
           burn phases, you should stack as many damage amplifiers as you can into those burn phases,
-          the major burn phase in particular. Additionally the 45 second cooldown on
-          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and the 90 second cooldown on
+          the major burn phase in particular. Additionally the 45 second cooldown on{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> and the 90 second cooldown on{' '}
           <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> will mean that it is very important that
           you are using those two cooldowns as quickly as possible to prevent them from getting
           offset.

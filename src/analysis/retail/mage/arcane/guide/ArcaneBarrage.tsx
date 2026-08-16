@@ -249,8 +249,8 @@ class ArcaneBarrageGuide extends Analyzer {
               You have at least 8 stacks of {arcaneSalvo} and {touchOfTheMagi} is ready.
             </li>
             <li>
-              You have 12 or more stacks of {arcaneSalvo}, {arcanePulse} or {arcaneOrb} is
-              available, and you can hit 5 or more targets with {arcanePulse} or {arcaneOrb}.
+              You have 12 or more stacks of {arcaneSalvo} and can hit 5 or more targets with{' '}
+              {arcaneOrb} or {arcanePulse} (and {arcaneOrb} or {arcanePulse} are available).
             </li>
             <li>You are out of mana.</li>
           </ul>
