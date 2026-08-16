@@ -103,9 +103,19 @@ const spells = {
     icon: 'inv_ability_spellslingermage_splinterspurple',
   },
   PRISMATIC_BOLT: {
+    id: 1295924,
+    name: 'Prismatic Bolt',
+    icon: '8026694',
+  },
+  PRISMATIC_BOLT_BUFF: {
     id: 1295942,
     name: 'Prismatic Bolt',
     icon: '8026694',
+  },
+  CUMULATIVE_POWER_BUFF: {
+    id: 1296930,
+    name: 'Cumulative Power',
+    icon: 'spell_arcane_arcanepotency',
   },
 } satisfies Record<string, Spell>;
 

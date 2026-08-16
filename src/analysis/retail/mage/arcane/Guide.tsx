@@ -110,6 +110,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           for your burn phases so you can get the most out of them.
         </>
         {modules.arcaneMissilesGuide.guideSubsection}
+        {modules.prismaticBoltGuide.guideSubsection}
         {modules.arcaneBarrageGuide.guideSubsection}
         {modules.arcaneOrbGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&
