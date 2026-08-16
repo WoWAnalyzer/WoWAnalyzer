@@ -6,9 +6,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { ManaBracketHeatmap } from 'interface/guide/components';
-import ManaValues from 'parser/shared/modules/ManaValues';
 import ArcaneSurge from '../analyzers/ArcaneSurge';
-import TouchOfTheMagi from '../analyzers/TouchOfTheMagi';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Spell from 'common/SPELLS/Spell';
@@ -16,22 +14,16 @@ import Spell from 'common/SPELLS/Spell';
 const SPELL_COLORS = {
   ARCANE_SURGE: '#db35acff', // Pinkish purple
   EVOCATION: '#10B981', // Green
-  TOUCH_OF_THE_MAGI: '#F59E0B', // Orange
 } as const;
 
 class ManaChart extends Analyzer {
   static dependencies = {
-    manaValues: ManaValues,
     arcaneSurge: ArcaneSurge,
-    touchOfTheMagi: TouchOfTheMagi,
   };
 
-  protected manaValues!: ManaValues;
   protected arcaneSurge!: ArcaneSurge;
-  protected touchOfTheMagi!: TouchOfTheMagi;
 
-  private manaUpdates: Array<{ timestamp: number; current: number; max: number; used: number }> =
-    [];
+  private manaUpdates: Array<{ timestamp: number; current: number; max: number }> = [];
   private evocationCasts: Array<{ timestamp: number; spell: Spell }> = [];
 
   constructor(options: Options) {
@@ -54,7 +46,6 @@ class ManaChart extends Analyzer {
         timestamp: event.timestamp,
         current: currentMana,
         max: manaResource.max,
-        used: manaResource.cost || 0,
       });
     }
 
