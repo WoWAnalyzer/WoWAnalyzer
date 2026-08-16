@@ -36,7 +36,7 @@ export function getSigilOfSilenceSpell(c: Combatant): Spell {
 }
 
 export function getSigilOfChainsSpell(c: Combatant): Spell {
-  return TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT;
+  return SPELLS.SIGIL_OF_CHAINS;
 }
 
 export function getSigilOfDoomSpell(c: Combatant): Spell {
@@ -66,7 +66,7 @@ export const SIGIL_OF_SPITE_SPELL_IDS = SIGIL_OF_SPITE_SPELLS.map((spell) => spe
 const SIGIL_OF_SILENCE_SPELLS: Spell[] = [TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT];
 export const SIGIL_OF_SILENCE_SPELL_IDS = SIGIL_OF_SILENCE_SPELLS.map((spell) => spell.id);
 
-const SIGIL_OF_CHAINS_SPELLS: Spell[] = [TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT];
+const SIGIL_OF_CHAINS_SPELLS: Spell[] = [SPELLS.SIGIL_OF_CHAINS];
 export const SIGIL_OF_CHAINS_SPELL_IDS = SIGIL_OF_CHAINS_SPELLS.map((spell) => spell.id);
 
 export const DEMONSURGE_TRIGGERS = {

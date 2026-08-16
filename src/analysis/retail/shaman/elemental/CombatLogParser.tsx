@@ -37,11 +37,15 @@ import Ascendance from './modules/talents/Ascendance';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import MasterOfTheElements from './modules/talents/MasterOfTheElements';
+import PowerOfTheMaelstrom from './modules/talents/PowerOfTheMaelstrom';
 import Stormkeeper from './modules/talents/Stormkeeper';
 
 // Hero Talents
 import CallOfTheAncestors from './modules/hero/farseer/CallOfTheAncestors';
 import OfferingFromBeyond from './modules/hero/farseer/OfferingFromBeyond';
+
+// Tier Sets
+import S2TierSet from './modules/midnight/S2TierSet';
 
 // Normalizers
 import ElementalPrepullNormalizer from './modules/normalizers/ElementalPrepullNormalizer';
@@ -87,11 +91,15 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     elementalBlast: ElementalBlast,
     masterOfTheElements: MasterOfTheElements,
+    powerOfTheMaelstrom: PowerOfTheMaelstrom,
     stormkeeper: Stormkeeper,
 
     // Hero Talents
     callOfTheAncestors: CallOfTheAncestors,
     offeringFromBeyond: OfferingFromBeyond,
+
+    // Tier Sets
+    s2TierSet: S2TierSet,
 
     // Normalizers
     elementalPrepullNormalizer: ElementalPrepullNormalizer,

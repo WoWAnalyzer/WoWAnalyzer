@@ -21,8 +21,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { InformationIcon } from 'interface/icons';
 
 /**
- * Aug: Prescience lasts 15% longer.
- * Pres [NYI]: Echo copies 10% more healing.
+ * Prescience lasts 15% longer.
  */
 class GoldenOpportunity extends Analyzer {
   static dependencies = {
@@ -114,7 +113,7 @@ class GoldenOpportunity extends Analyzer {
         <TalentSpellText talent={TALENTS_EVOKER.GOLDEN_OPPORTUNITY_TALENT}>
           <div>
             <InformationIcon /> {formatNumber(this.totalPrescienceExtension)} sec
-            <small> extra duration granted</small>
+            <small> extra duration</small>
           </div>
         </TalentSpellText>
       </Statistic>

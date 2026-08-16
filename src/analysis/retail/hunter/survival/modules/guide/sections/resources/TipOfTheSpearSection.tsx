@@ -22,8 +22,7 @@ export default function TipOfTheSpearSection(modules: ModulesOf<typeof CombatLog
       <p>
         <strong>
           Tip of the Spear does not buff the periodic damage of abilities like{' '}
-          <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> or{' '}
-          <SpellLink spell={TALENTS.FLAMEFANG_PITCH_TALENT} />.
+          <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />.
         </strong>
       </p>
       <SubSection title="Kill Command — Stack Generation">

@@ -243,7 +243,7 @@ const BreathOfEonsSection: FC<Props> = ({
           <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> is a powerful cooldown that you should
           try to use during Bloodlust or increased damage phases, since it's a major damage
           amplifier, replicating damage done by you and your DPS allies. It also activates many
-          talents, such as <SpellLink spell={TALENTS.DUPLICATE_2_AUGMENTATION_TALENT} />,{' '}
+          talents, such as <SpellLink spell={TALENTS.DUPLICATE_1_AUGMENTATION_TALENT} />,{' '}
           <SpellLink spell={TALENTS.IMMINENT_DESTRUCTION_AUGMENTATION_TALENT} />,{' '}
           <SpellLink spell={TALENTS.OVERLORD_TALENT} />, and{' '}
           <SpellLink spell={TALENTS.COMMAND_SQUADRON_TALENT} />, greatly increasing your personal

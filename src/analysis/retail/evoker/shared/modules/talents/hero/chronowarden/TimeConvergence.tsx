@@ -1,4 +1,4 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -7,13 +7,86 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 import { InformationIcon } from 'interface/icons';
 import { formatPercentage } from 'common/format';
+import TALENTS from 'common/TALENTS/evoker';
+import Events, { DamageEvent, EmpowerEndEvent, GetRelatedEvents } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { TIME_CONVERGENCE_INT_MULTIPLIER } from 'analysis/retail/evoker/shared/constants';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { UPHEAVAL_REVERBERATION_DAM_LINK } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
+import SPECS from 'game/SPECS';
 /**
  * Using certain abilities with a 45 second or longer base cooldown grants 5% Intellect for 15 sec. Essence abilities extend the duration by 1 sec.
  */
+
+// Any damage available to Chrono Aug that gets increased by intellect
+// This includes some buffs (e.g. Ebon Might, Inferno's Blessing, Blistering Scales)
+const AMPED_DAMAGE = [
+  SPELLS.LIVING_FLAME_DAMAGE,
+  TALENTS.ERUPTION_TALENT,
+  SPELLS.DEEP_BREATH_DAM,
+  SPELLS.UPHEAVAL_DAM,
+  SPELLS.EBON_MIGHT_BUFF_EXTERNAL,
+  SPELLS.CHRONO_FLAME_DAMAGE,
+  SPELLS.FIRE_BREATH_DOT,
+  SPELLS.DUPLICATE_ERUPTION,
+  SPELLS.DUPLICATE_FIRE_BREATH,
+  SPELLS.AZURE_STRIKE,
+  SPELLS.INFERNOS_BLESSING_DAMAGE,
+  SPELLS.BLISTERING_SCALES_DAM,
+];
+
 class TimeConvergence extends Analyzer {
+  extraDamage = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.TIME_CONVERGENCE_TALENT);
+
+    if (this.selectedCombatant.spec === SPECS.AUGMENTATION_EVOKER) {
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AMPED_DAMAGE), this.onDamage);
+
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER_PET).spell(AMPED_DAMAGE),
+        this.onDamage,
+      );
+
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_EONS_DAMAGE),
+        this.onEonsDamage,
+      );
+
+      if (this.selectedCombatant.hasTalent(TALENTS.REVERBERATIONS_TALENT)) {
+        this.addEventListener(
+          Events.empowerEnd.by(SELECTED_PLAYER).spell([SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT]),
+          this.addReverberationsDamage,
+        );
+      }
+    }
+  }
+
+  onDamage(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.TIME_CONVERGENCE_BUFF.id)) {
+      this.extraDamage += calculateEffectiveDamage(event, TIME_CONVERGENCE_INT_MULTIPLIER);
+    }
+  }
+
+  addReverberationsDamage(event: EmpowerEndEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.EBON_MIGHT_BUFF_PERSONAL.id)) {
+      const reverbEvents = GetRelatedEvents<DamageEvent>(event, UPHEAVAL_REVERBERATION_DAM_LINK);
+
+      reverbEvents.forEach((reverbEvent) => {
+        this.extraDamage += calculateEffectiveDamage(reverbEvent, TIME_CONVERGENCE_INT_MULTIPLIER);
+      });
+    }
+  }
+
+  onEonsDamage(event: DamageEvent) {
+    // Don't check for Time Convergence buff here.
+    // Eons applies the buff, and TC outlasts Eons; TC will be active for the
+    // entire duration, excepting /cancelaura.
+    // All of Aug's Eons-flagged damage scales with Intellect, so personal Eons damage also does.
+    if (!event.supportID) {
+      this.extraDamage += calculateEffectiveDamage(event, TIME_CONVERGENCE_INT_MULTIPLIER);
+    }
   }
 
   statistic() {
@@ -28,6 +101,9 @@ class TimeConvergence extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_EVOKER.TIME_CONVERGENCE_TALENT}>
           <div>
+            {this.selectedCombatant.spec === SPECS.AUGMENTATION_EVOKER && (
+              <ItemDamageDone amount={this.extraDamage} />
+            )}
             <InformationIcon /> {formatPercentage(buffUptime, 2)}%<small> buff uptime</small>
           </div>
         </TalentSpellText>

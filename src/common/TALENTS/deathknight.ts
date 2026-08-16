@@ -1070,6 +1070,14 @@ const talents = {
     entryIds: [96276],
     definitionIds: [{ id: 101278, specId: 250 }],
   },
+  LORD_OF_THE_DEAD_TALENT: {
+    id: 1256813,
+    name: 'Lord of the Dead',
+    icon: 'achievement_dungeon_thenecroticwake_nalthor',
+    maxRanks: 1,
+    entryIds: [135676],
+    definitionIds: [{ id: 140432, specId: 252 }],
+  },
   MAGUS_OF_THE_DEAD_TALENT: {
     id: 390196,
     name: 'Magus of the Dead',
@@ -1372,14 +1380,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [96273],
     definitionIds: [{ id: 101275, specId: 250 }],
-  },
-  REANIMATION_TALENT: {
-    id: 1256813,
-    name: 'Reanimation',
-    icon: 'achievement_dungeon_thenecroticwake_amarth',
-    maxRanks: 1,
-    entryIds: [135676],
-    definitionIds: [{ id: 140432, specId: 252 }],
   },
   REAPERS_MARK_TALENT: {
     id: 439843,

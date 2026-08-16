@@ -243,6 +243,14 @@ const talents = {
     entryIds: [102430],
     definitionIds: [{ id: 107435, specId: 66 }],
   },
+  BLESSED_WORD_TALENT: {
+    id: 1301732,
+    name: 'Blessed Word',
+    icon: 'spell_paladin_divinecircle',
+    maxRanks: 1,
+    entryIds: [137505],
+    definitionIds: [{ id: 142265, specId: 66 }],
+  },
   BLESSING_OF_ANSHE_TALENT: {
     id: 445200,
     name: "Blessing of An'she",
@@ -666,8 +674,8 @@ const talents = {
     name: 'Empyrean Authority',
     icon: 'ability_paladin_empoweredsealsrighteous',
     maxRanks: 1,
-    entryIds: [102466],
-    definitionIds: [{ id: 107471, specId: 66 }],
+    entryIds: [128278],
+    definitionIds: [{ id: 133085, specId: 66 }],
   },
   EMPYREAN_LEGACY_HOLY_TALENT: {
     id: 1241358,
@@ -717,7 +725,7 @@ const talents = {
     entryIds: [117692],
     definitionIds: [{ id: 122704, specId: 70 }],
     holyPowerCost: 3,
-    manaCost: 1500,
+    manaCost: 25000,
   },
   EXECUTION_SENTENCE_TALENT: {
     id: 343527,
@@ -805,8 +813,8 @@ const talents = {
     name: 'Focused Enmity',
     icon: 'ability_priest_flashoflight',
     maxRanks: 1,
-    entryIds: [102435],
-    definitionIds: [{ id: 107440, specId: 66 }],
+    entryIds: [137856],
+    definitionIds: [{ id: 142610, specId: 66 }],
   },
   FOREWARNING_TALENT: {
     id: 432804,
@@ -965,8 +973,8 @@ const talents = {
     name: 'Hand of the Protector',
     icon: 'ability_paladin_blessedhands',
     maxRanks: 1,
-    entryIds: [102438],
-    definitionIds: [{ id: 107443, specId: 66 }],
+    entryIds: [137854],
+    definitionIds: [{ id: 142608, specId: 66 }],
   },
   HEALING_HANDS_TALENT: {
     id: 326734,
@@ -1072,7 +1080,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102534],
     definitionIds: [{ id: 107539, specId: 65 }],
-    manaCost: 5600,
+    manaCost: 5000,
   },
   ILLUMINE_TALENT: {
     id: 431423,
@@ -1665,11 +1673,8 @@ const talents = {
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
     maxRanks: 1,
-    entryIds: [102578, 128278],
-    definitionIds: [
-      { id: 107583, specId: 65 },
-      { id: 133085, specId: 66 },
-    ],
+    entryIds: [102578],
+    definitionIds: [{ id: 107583, specId: 65 }],
   },
   SANCTIFY_TALENT: {
     id: 382536,
@@ -1684,8 +1689,8 @@ const talents = {
     name: 'Sanctuary',
     icon: 'spell_holy_innerfire',
     maxRanks: 1,
-    entryIds: [102436],
-    definitionIds: [{ id: 107441, specId: 66 }],
+    entryIds: [137858],
+    definitionIds: [{ id: 142612, specId: 66 }],
   },
   SAVED_BY_THE_LIGHT_TALENT: {
     id: 157047,
@@ -1716,8 +1721,8 @@ const talents = {
     name: 'Seal of Reprisal',
     icon: 'spell_holy_sealoffury',
     maxRanks: 1,
-    entryIds: [102621],
-    definitionIds: [{ id: 107626, specId: 66 }],
+    entryIds: [137855],
+    definitionIds: [{ id: 142609, specId: 66 }],
   },
   SEAL_OF_THE_TEMPLAR_TALENT: {
     id: 1263252,
@@ -1772,8 +1777,8 @@ const talents = {
     name: 'Sentinel',
     icon: 'spell_holy_holynova',
     maxRanks: 1,
-    entryIds: [102447],
-    definitionIds: [{ id: 107452, specId: 66 }],
+    entryIds: [102466],
+    definitionIds: [{ id: 107471, specId: 66 }],
   },
   SERAPHIC_BARRIER_TALENT: {
     id: 1241714,
@@ -2057,8 +2062,8 @@ const talents = {
     name: "Uther's Counsel",
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 1,
-    entryIds: [102469],
-    definitionIds: [{ id: 107474, specId: 66 }],
+    entryIds: [137857],
+    definitionIds: [{ id: 142611, specId: 66 }],
   },
   VALIANCE_TALENT: {
     id: 432919,

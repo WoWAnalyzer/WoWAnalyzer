@@ -6,6 +6,8 @@ import {
   CAST_BUFFER_MS,
   TIGER_PALM_CAST_LINK,
   BLACKOUT_KICK_CAST_LINK,
+  RSK_CAST_LINK,
+  RWK_DAMAGE_CAST_LINK,
 } from './EventLinkConstants';
 import { WAY_OF_THE_CRANE_TP_STRIKES } from '../../constants';
 
@@ -29,5 +31,30 @@ export const DAMAGING_ABILITIES_EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     forwardBufferMs: CAST_BUFFER_MS * 10, // additional boks are so uneven from the original cast
     anyTarget: true,
+  },
+  {
+    linkRelation: RSK_CAST_LINK,
+    linkingEventId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.RISING_SUN_KICK_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive(c) {
+      return !c.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT);
+    },
+  },
+  {
+    linkRelation: RWK_DAMAGE_CAST_LINK,
+    linkingEventId: TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.RUSHING_WIND_KICK_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_MISTWEAVER_TALENT);
+    },
   },
 ];
