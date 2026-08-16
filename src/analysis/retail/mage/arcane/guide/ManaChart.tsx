@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
-import { ManaChart as ManaChartComponent } from '../../shared/components';
+import { ManaBracketHeatmap } from 'interface/guide/components';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import ArcaneSurge from '../analyzers/ArcaneSurge';
 import TouchOfTheMagi from '../analyzers/TouchOfTheMagi';
@@ -96,16 +96,8 @@ class ManaChart extends Analyzer {
       </>
     );
 
-    const arcaneSurgeCasts = this.arcaneSurge.surgeData.map((cast) => ({
-      timestamp: cast.cast,
-      spell: TALENTS.ARCANE_SURGE_TALENT,
-      color: SPELL_COLORS.ARCANE_SURGE,
-    }));
-
-    const evocationCasts = this.evocationCasts.map((cast) => ({
-      ...cast,
-      color: SPELL_COLORS.EVOCATION,
-    }));
+    const arcaneSurgeCasts = this.arcaneSurge.surgeData.map((cast) => cast.cast);
+    const evocationCasts = this.evocationCasts.map((cast) => cast.timestamp);
 
     return (
       <GuideSection
@@ -114,17 +106,23 @@ class ManaChart extends Analyzer {
         explanation={explanation}
         verticalLayout
       >
-        <ManaChartComponent
+        <ManaBracketHeatmap
           manaUpdates={this.manaUpdates}
           startTime={this.owner.fight.start_time}
           endTime={this.owner.fight.end_time}
-          annotations={[
-            { events: arcaneSurgeCasts, type: 'cast' },
-            { events: evocationCasts, type: 'cast' },
+          bucketCount={25}
+          markerGroups={[
+            {
+              label: 'Arcane Surge',
+              color: SPELL_COLORS.ARCANE_SURGE,
+              timestamps: arcaneSurgeCasts,
+            },
+            {
+              label: 'Evocation',
+              color: SPELL_COLORS.EVOCATION,
+              timestamps: evocationCasts,
+            },
           ]}
-          lowManaThreshold={0.1}
-          showBossHealth
-          reportCode={this.owner.report.code}
         />
       </GuideSection>
     );

@@ -1,0 +1,159 @@
+.Container {
+  width: 100%;
+}
+
+.Grid {
+  display: grid;
+  gap: 3px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.CornerCell {
+  background: transparent;
+}
+
+.TimeAxis {
+  position: relative;
+  height: 100%;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.TimeAxisTick {
+  position: absolute;
+  bottom: 2px;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+
+  &:first-child {
+    transform: translateX(0);
+  }
+
+  &:last-child {
+    transform: translateX(-100%);
+  }
+}
+
+.TotalHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.RowLabel {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding-left: 10px;
+  border-left: 4px solid transparent;
+}
+
+.GradientTrack {
+  align-self: center;
+  height: 12px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.Cell {
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+  cursor: default;
+
+  &:hover {
+    filter: brightness(1.25);
+    transform: scale(1.08);
+  }
+}
+
+.TotalCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1.1;
+  border-right: 4px solid transparent;
+  padding: 0 10px 0 0;
+}
+
+.TotalPercent {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.TotalValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.TotalTime {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.TotalBarTrack {
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.TotalBarFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.MarkerTrack {
+  position: relative;
+  height: 100%;
+}
+
+.Marker {
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.Legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 6px;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.LegendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.LegendSwatch {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}

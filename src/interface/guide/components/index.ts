@@ -5,6 +5,7 @@ export { default as CastDetail, type PerCastData, type PerCastStat } from './Cas
 export { default as GuideDataWrapper } from './GuideDataWrapper';
 export { default as BuffUptimeBar } from './BuffUptimeBar';
 export { default as StackedBar, type StackedBarSegment, type StackedBarProps } from './StackedBar';
+export { default as ManaBracketHeatmap, type MarkerGroup } from './ManaBracketHeatmap';
 export {
   default as CastSequence,
   type CastSequenceEntry,
