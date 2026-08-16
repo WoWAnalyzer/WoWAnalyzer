@@ -102,6 +102,11 @@ const spells = {
     name: 'Arcane Splinter',
     icon: 'inv_ability_spellslingermage_splinterspurple',
   },
+  PRISMATIC_BOLT: {
+    id: 1295942,
+    name: 'Prismatic Bolt',
+    icon: '8026694',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
