@@ -53,6 +53,7 @@ import PulseCapacitor from './modules/talents/totemic/PulseCapacitor';
 import SupportiveImbuements from './modules/talents/totemic/SupportiveImbuements';
 import MysticKnowledge from './modules/talents/farseer/MysticKnowledge';
 import OfferingFromBeyond from './modules/talents/farseer/OfferingFromBeyond';
+import EarthenCommunion from './modules/talents/farseer/EarthenCommunion';
 // Spells
 // Tiers
 // Shared
@@ -137,6 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     supportiveImbuements: SupportiveImbuements,
     offeringFromBeyond: OfferingFromBeyond,
     mysticKnowledge: MysticKnowledge,
+    earthenCommunion: EarthenCommunion,
 
     // Spells
     riptide: Riptide,

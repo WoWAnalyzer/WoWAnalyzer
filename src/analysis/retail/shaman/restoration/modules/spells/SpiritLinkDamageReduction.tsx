@@ -13,6 +13,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 import { DAMAGE_REDUCTION } from 'src/analysis/retail/shaman/restoration/constants';
 import DonutChart from 'parser/ui/DonutChart';
 import { RESTORATION_COLORS } from 'src/analysis/retail/shaman/restoration/constants';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 /**
  * >> Spirit Link Totem
@@ -134,6 +135,7 @@ class SpiritLinkDamageReduction extends Analyzer {
 
     return (
       <LazyLoadStatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon spell={TALENTS.SPIRIT_LINK_TOTEM_TALENT} />}

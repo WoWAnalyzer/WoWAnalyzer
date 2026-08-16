@@ -8,6 +8,10 @@ import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { OFFERING_FROM_BEYOND_CD_REDUCTION } from 'src/analysis/retail/shaman/restoration/constants';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { formatDuration } from 'common/format';
 
 export default class OfferingFromBeyond extends Analyzer {
   static dependencies = {
@@ -38,5 +42,18 @@ export default class OfferingFromBeyond extends Analyzer {
       this.spellUsable.reduceCooldown(TALENTS.RIPTIDE_TALENT.id, OFFERING_FROM_BEYOND_CD_REDUCTION);
       this.stacksGained += 1;
     }
+  }
+
+  statistic() {
+    return (
+      <Statistic category={STATISTIC_CATEGORY.HERO_TALENTS} size="flexible" wide={false}>
+        <TalentSpellText talent={TALENTS.OFFERING_FROM_BEYOND_TALENT}>
+          {formatDuration(this.stacksGained * OFFERING_FROM_BEYOND_CD_REDUCTION)}
+          <p>
+            <small>{this.stacksGained} times triggerd</small>
+          </p>
+        </TalentSpellText>
+      </Statistic>
+    );
   }
 }

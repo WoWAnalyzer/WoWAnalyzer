@@ -24,6 +24,7 @@ import {
   HEALING_RAIN_TARGETS,
   WHIRLING_ELEMENTS_MOTES,
 } from '../../../constants';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 interface HealingRainTickInfo {
   timestamp: number;
@@ -263,6 +264,7 @@ class SurgingTotem extends Analyzer {
 
     return (
       <StatisticBox
+        category={STATISTIC_CATEGORY.HERO_TALENTS}
         icon={<SpellIcon spell={TALENTS.SURGING_TOTEM_TALENT} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -270,7 +272,7 @@ class SurgingTotem extends Analyzer {
           <TooltipElement
             content={
               <Trans id="shaman.restoration.healingRainTotemic.averageTargets.label.tooltip">
-                The average number of targets healed by Healing Rain out of the maximum amount of{' '}
+                The average number of targets healed by Surging Totem out of the maximum amount of{' '}
                 {HEALING_RAIN_TARGETS}
                 targets.
               </Trans>

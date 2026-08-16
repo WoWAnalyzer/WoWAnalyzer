@@ -8,14 +8,7 @@ import {
   RESTORATION_COLORS,
 } from 'analysis/retail/shaman/restoration/constants';
 import { healingIncreases } from 'src/analysis/retail/shaman/restoration/constants';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-  HealEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { isFromPrimalTideCore } from '../../normalizers/EventLinkNormalizer';
 import { SpellLink } from 'interface';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
@@ -42,13 +35,10 @@ export default class UndercurrentGraph extends Analyzer {
   riptideCasts: CastTracker[] = [];
   primalTideCoreProcs: CastTracker[] = [];
 
-  currentStacks = 0;
   hasPrimalTideCore = false;
 
   lastCastTimestamp = -1;
   lastCastTargetId = -1;
-  lastStackTimestamp = -1;
-  pendingStacks = 0;
 
   healing = 0;
   talentRank = 0;
@@ -59,30 +49,11 @@ export default class UndercurrentGraph extends Analyzer {
     this.active = this.talentRank > 0;
     this.hasPrimalTideCore = this.selectedCombatant.hasTalent(TALENTS.PRIMAL_TIDE_CORE_TALENT);
 
-    this.stackChanges.push({ timestamp: this.owner.fight.start_time, stacks: 0 });
-    this.lastStackTimestamp = this.owner.fight.start_time;
-
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
         .spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES),
       this.heal,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNDERCURRENT_BUFF),
-      this.onBuffApplied,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.UNDERCURRENT_BUFF),
-      this.onStackGained,
-    );
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.UNDERCURRENT_BUFF),
-      this.onStackLost,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.UNDERCURRENT_BUFF),
-      this.onBuffRemoved,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
@@ -96,46 +67,28 @@ export default class UndercurrentGraph extends Analyzer {
       );
     }
 
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.buildStackChanges);
   }
 
-  _advanceStackTimestamp(newTimestamp: number) {
-    if (newTimestamp !== this.lastStackTimestamp) {
-      this._registerStackChange();
+  buildStackChanges() {
+    const history = this.selectedCombatant.getBuffHistory(
+      SPELLS.UNDERCURRENT_BUFF,
+      this.selectedCombatant.id,
+    );
+
+    const points: StackTracker[] = [{ timestamp: this.owner.fight.start_time, stacks: 0 }];
+
+    for (const instance of history) {
+      for (const step of instance.stackHistory) {
+        points.push({ timestamp: step.timestamp, stacks: step.stacks });
+      }
+      if (instance.end !== null) {
+        points.push({ timestamp: instance.end, stacks: 0 });
+      }
     }
-    this.lastStackTimestamp = newTimestamp;
-  }
 
-  _registerStackChange() {
-    this.currentStacks = this.pendingStacks;
-    this.stackChanges.push({
-      timestamp: this.lastStackTimestamp,
-      stacks: this.currentStacks,
-    });
-  }
-
-  onBuffApplied(event: ApplyBuffEvent) {
-    this._advanceStackTimestamp(event.timestamp);
-    this.pendingStacks = 1;
-  }
-
-  onStackGained(event: ApplyBuffStackEvent) {
-    this._advanceStackTimestamp(event.timestamp);
-    this.pendingStacks += 1;
-  }
-
-  onStackLost(event: RemoveBuffStackEvent) {
-    this._advanceStackTimestamp(event.timestamp);
-    this.pendingStacks -= 1;
-  }
-
-  onBuffRemoved(event: RemoveBuffEvent) {
-    this._advanceStackTimestamp(event.timestamp);
-    this.pendingStacks = 0;
-  }
-
-  onFightEnd() {
-    this._registerStackChange();
+    points.sort((a, b) => a.timestamp - b.timestamp);
+    this.stackChanges = points;
   }
 
   onRiptideCast(event: CastEvent) {
@@ -143,7 +96,7 @@ export default class UndercurrentGraph extends Analyzer {
     this.lastCastTargetId = event.targetID ?? -1;
     this.riptideCasts.push({
       timestamp: event.timestamp,
-      stacks: this.currentStacks,
+      stacks: this.selectedCombatant.getBuffStacks(SPELLS.UNDERCURRENT_BUFF.id, event.timestamp),
     });
   }
 
@@ -159,7 +112,7 @@ export default class UndercurrentGraph extends Analyzer {
     }
     this.primalTideCoreProcs.push({
       timestamp: event.timestamp,
-      stacks: this.currentStacks,
+      stacks: this.selectedCombatant.getBuffStacks(SPELLS.UNDERCURRENT_BUFF.id, event.timestamp),
     });
   }
 

@@ -8,10 +8,18 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import CooldownThroughputTracker from 'src/analysis/retail/shaman/restoration/modules/features/CooldownThroughputTracker';
+import { formatNumber } from 'common/format';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const EARTHEN_COMMUNION_HEALING_INCREASE = 0.25;
 
 export default class EarthenCommunion extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   protected combatants!: Combatants;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
@@ -53,5 +61,18 @@ export default class EarthenCommunion extends Analyzer {
     } else if (combatant.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
       this.baseBonusHealing += bonus;
     }
+  }
+
+  statistic() {
+    return (
+      <Statistic category={STATISTIC_CATEGORY.HERO_TALENTS} size="flexible" wide={false}>
+        <TalentSpellText talent={TALENTS.EARTHEN_COMMUNION_TALENT}>
+          {formatNumber(this.bonusHealing)}
+          <p>
+            <small>Bonus healing by talent over all</small>
+          </p>
+        </TalentSpellText>
+      </Statistic>
+    );
   }
 }
