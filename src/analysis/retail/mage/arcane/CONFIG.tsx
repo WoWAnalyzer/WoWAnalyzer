@@ -59,8 +59,8 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec has been fully updated for Midnight (As of April 21). If anything is missing or
-          incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
+          This spec has been fully updated for Midnight Season 2 (As of August 15). If anything is
+          missing or incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
     },
