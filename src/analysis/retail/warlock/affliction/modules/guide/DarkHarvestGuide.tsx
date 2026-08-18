@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import SPELLS from 'common/SPELLS/warlock';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
-import { useAnalyzer, Section } from 'interface/guide';
+import { useAnalyzer } from 'interface/guide';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastDetail, {
   type PerCastData,
@@ -358,25 +358,21 @@ export default function DarkHarvestGuide(): JSX.Element | null {
 
   return (
     <>
-      <Section title="Dark Harvest">
-        <GuideSection spell={TALENTS.DARK_HARVEST_TALENT} explanation={dotExplanation}>
-          <CastDetail title="Dark Harvest Casts" casts={dotCastData} />
-        </GuideSection>
-      </Section>
+      <GuideSection spell={TALENTS.DARK_HARVEST_TALENT} explanation={dotExplanation}>
+        <CastDetail title="Dark Harvest Casts" casts={dotCastData} />
+      </GuideSection>
       {hasCullTheWeak && cdrUses.length > 0 && (
-        <Section title="Cull the Weak CDR Efficiency">
-          <SpellUsageSubSection
-            title="Cull the Weak CDR Efficiency"
-            explanation={cdrExplanation}
-            uses={cdrUses}
-            castBreakdownSmallText={
-              <>
-                - Each box represents one Dark Harvest cast, colored by how efficiently you reduced
-                its cooldown since the previous one.
-              </>
-            }
-          />
-        </Section>
+        <SpellUsageSubSection
+          title="Cull the Weak CDR Efficiency"
+          explanation={cdrExplanation}
+          uses={cdrUses}
+          castBreakdownSmallText={
+            <>
+              - Each box represents one Dark Harvest cast, colored by how efficiently you reduced
+              its cooldown since the previous one.
+            </>
+          }
+        />
       )}
     </>
   );
