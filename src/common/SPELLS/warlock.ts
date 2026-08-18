@@ -218,6 +218,12 @@ const spells = {
     name: 'Agony',
     icon: 'spell_shadow_curseofsargeras',
   },
+  // Dark Harvest's damage-tick spell ID, distinct from TALENTS.DARK_HARVEST_TALENT.id (1257052).
+  DARK_HARVEST_DAMAGE: {
+    id: 1257065,
+    name: 'Dark Harvest',
+    icon: 'inv_ability_warlock_soulrot',
+  },
   CORRUPTION_CAST: {
     id: 172,
     name: 'Corruption',
