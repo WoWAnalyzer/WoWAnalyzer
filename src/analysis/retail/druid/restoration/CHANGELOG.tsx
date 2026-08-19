@@ -8,6 +8,14 @@ export default [
   change(
     date(2026, 8, 19),
     <>
+      Evaluate <SpellLink spell={SPELLS.INNERVATE} /> as a self mana cooldown (capping / wasted
+      regen) instead of a shared healing throughput window.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 19),
+    <>
       Attribute overhealing from the crit chance bonus on{' '}
       <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> and{' '}
       <SpellLink spell={TALENTS_DRUID.STRATEGIC_INFUSION_TALENT} />.

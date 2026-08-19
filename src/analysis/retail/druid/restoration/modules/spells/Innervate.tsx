@@ -1,122 +1,133 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
-import { PerformanceMark } from 'interface/guide';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
-import BoringValueText from 'parser/ui/BoringValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { TALENTS_DRUID } from 'common/TALENTS';
+import { SpellLink } from 'interface';
+import { PassFailCheckmark } from 'interface/guide';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
-import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { abilityToSpell } from 'common/abilityToSpell';
-import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { TALENTS_DRUID } from 'common/TALENTS';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, ClassResources, ResourceChangeEvent } from 'parser/core/Events';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-const GOOD_RAMP_ACTIVE_THRESHOLD = 0.85;
-const OK_RAMP_ACTIVE_THRESHOLD = 0.6;
+const INNERVATE_DURATION_MS = 8_000;
+const MANA_CHECK_AFTER_BUFF_MS = 5_000;
+/** Total window to evaluate mana capping: buff duration + grace period after */
+const MANA_CHECK_WINDOW_MS = INNERVATE_DURATION_MS + MANA_CHECK_AFTER_BUFF_MS;
 
-const RAMP_SPELL_IDS: number[] = [
-  SPELLS.REJUVENATION.id,
-  SPELLS.REJUVENATION_GERMINATION.id,
-  SPELLS.WILD_GROWTH.id,
-  TALENTS_DRUID.LIFEBLOOM_TALENT.id,
-  SPELLS.EFFLORESCENCE_CAST.id,
-  SPELLS.SWIFTMEND.id,
-  SPELLS.TRANQUILITY_CAST.id,
-];
-
+/**
+ * **Innervate**
+ * Spec Talent
+ *
+ * Causes the target to regenerate 25% of their maximum mana over 8 sec.
+ * Resto should cast on self on cooldown, as long as it won't cause mana waste.
+ */
 class Innervate extends Analyzer {
-  static dependencies = {
-    alwaysBeCasting: AlwaysBeCasting,
-  };
-  protected alwaysBeCasting!: AlwaysBeCasting;
-
-  casts = 0;
-  castsOnYourself = 0;
-  manaSaved = 0;
-
   castTrackers: InnervateCast[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.INNERVATE_TALENT);
+
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE),
-      this.onInnervate,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INNERVATE),
+      this.onInnervateCast,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onResourceChange);
+  }
+
+  onInnervateCast(event: CastEvent) {
+    this.castTrackers.push({
+      timestamp: event.timestamp,
+      castOnSelf: event.targetID === event.sourceID,
+      manaCapped: false,
+      manaGained: 0,
+      manaWasted: 0,
+    });
+    // Casting at (or immediately to) full mana should fail the waste check
+    this.checkManaCap(event.timestamp, this.getManaResource(event.classResources));
   }
 
   onCast(event: CastEvent) {
-    // only interested in casts that cost mana
-    const manaEvent = event.rawResourceCost;
-    if (manaEvent === undefined) {
-      return;
-    }
-
-    // Innervate cast already handled in `onInnervate`
     if (event.ability.guid === SPELLS.INNERVATE.id) {
       return;
     }
+    this.checkManaCap(event.timestamp, this.getManaResource(event.classResources));
+  }
 
-    // If it's during Innervate, tally the casts that happened
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      if (!CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) && this.castTrackers.length > 0) {
-        // we want to at least keep track of all abilites during the innervate, not just ones that cost mana
-        this.castTrackers[this.castTrackers.length - 1].casts.push(event);
+  onResourceChange(event: ResourceChangeEvent) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.MANA.id) {
+      return;
+    }
+
+    const cast = this.getActiveSelfCast(event.timestamp);
+    if (!cast) {
+      return;
+    }
+
+    if (event.ability.guid === SPELLS.INNERVATE.id) {
+      cast.manaGained += event.resourceChange - event.waste;
+      cast.manaWasted += event.waste;
+      if (event.waste > 0 && !cast.manaCapped) {
+        cast.manaCapped = true;
+        cast.cappedAt = event.timestamp;
       }
+    }
 
-      //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
-      if (Object.keys(manaEvent).length !== 0) {
-        const manaSavedFromThisCast = manaEvent[0];
-        this.manaSaved += manaSavedFromThisCast;
-        if (this.castTrackers.length > 0) {
-          this.castTrackers[this.castTrackers.length - 1].manaSaved += manaSavedFromThisCast;
-        }
+    this.checkManaCap(event.timestamp, this.getManaResource(event.classResources));
+  }
+
+  private getActiveSelfCast(timestamp: number): InnervateCast | undefined {
+    for (let i = this.castTrackers.length - 1; i >= 0; i -= 1) {
+      const cast = this.castTrackers[i];
+      if (!cast.castOnSelf) {
+        continue;
       }
+      if (timestamp < cast.timestamp) {
+        continue;
+      }
+      if (timestamp <= cast.timestamp + MANA_CHECK_WINDOW_MS) {
+        return cast;
+      }
+      break;
+    }
+    return undefined;
+  }
+
+  private getManaResource(
+    classResources: ClassResources[] | undefined,
+  ): ClassResources | undefined {
+    return classResources?.find((resource) => resource.type === RESOURCE_TYPES.MANA.id);
+  }
+
+  private checkManaCap(timestamp: number, mana: ClassResources | undefined) {
+    if (!mana || mana.max <= 0) {
+      return;
+    }
+    const cast = this.getActiveSelfCast(timestamp);
+    if (!cast || cast.manaCapped) {
+      return;
+    }
+    if (mana.amount >= mana.max) {
+      cast.manaCapped = true;
+      cast.cappedAt = timestamp;
     }
   }
 
-  onInnervate(event: ApplyBuffEvent) {
-    this.casts += 1;
-
-    const castTracker: InnervateCast = {
-      timestamp: event.timestamp,
-      casts: [],
-      manaSaved: 0,
-    };
-    this.castTrackers.push(castTracker);
-
-    if (event.targetID === event.sourceID) {
-      this.castsOnYourself += 1;
-    } else {
-      castTracker.sourceId = event.sourceID;
-    }
-  }
-
-  get manaSavedPerInnervate() {
-    if (this.casts === 0) {
-      return 0;
-    }
-    return this.manaSaved / this.casts;
-  }
-
+  /** Guide fragment showing a breakdown of each Innervate cast */
   get guideCastBreakdown() {
     const explanation = (
       <p>
         <strong>
           <SpellLink spell={SPELLS.INNERVATE} />
         </strong>{' '}
-        is best used during your ramp, or any time when you expect to spam cast. Typically it should
-        be used as soon as it's available. Remember to spam cast expensive spells to make the most
-        of it.
+        regenerates 25% of your maximum mana over 8 seconds. Resto Druids should always cast it on
+        themselves, and use it on cooldown whenever it will not waste mana. A cast is good as long
+        as you never hit maximum mana while the buff is up or in the 5 seconds after it ends.
       </p>
     );
 
@@ -125,65 +136,50 @@ class Innervate extends Analyzer {
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
         {this.castTrackers.map((cast, ix) => {
-          const sourceName = cast.sourceId === undefined ? 'SELF' : 'EXTERNAL';
-          const endTime = Math.min(this.owner.fight.end_time, cast.timestamp + 8_000);
-          const activeRampSpellTime = this.alwaysBeCasting.getActiveTimeMillisecondsFiltered(
-            cast.timestamp,
-            endTime,
-            RAMP_SPELL_IDS,
-          );
-          const activeRampSpellPercent = activeRampSpellTime / (endTime - cast.timestamp);
-
-          const activePerf = evaluateQualitativePerformanceByThreshold({
-            actual: activeRampSpellPercent,
-            isGreaterThanOrEqual: {
-              good: GOOD_RAMP_ACTIVE_THRESHOLD,
-              ok: OK_RAMP_ACTIVE_THRESHOLD,
-            },
-          });
-
-          const overallPerf = activePerf;
+          const noManaWaste = cast.castOnSelf && !cast.manaCapped;
+          const overallPerf =
+            cast.castOnSelf && noManaWaste
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
 
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={SPELLS.INNERVATE} /> ({formatNumber(cast.manaSaved)} mana saved)
+              <SpellLink spell={SPELLS.INNERVATE} />
+              {cast.castOnSelf ? (
+                <>
+                  {' '}
+                  ({formatNumber(cast.manaGained)} mana
+                  {cast.manaWasted > 0 ? `, ${formatNumber(cast.manaWasted)} wasted` : ''})
+                </>
+              ) : (
+                <> (cast on ally)</>
+              )}
             </>
           );
 
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
-            label: "High active time casting 'ramp' spells",
-            result: <PerformanceMark perf={activePerf} />,
-            details: <>({formatPercentage(activeRampSpellPercent, 0)}% active ramp time)</>,
+            label: 'Cast on yourself',
+            result: <PassFailCheckmark pass={cast.castOnSelf} />,
           });
-
-          const detailItems: CooldownExpandableItem[] = [];
-          detailItems.push({
-            label: 'Gained from',
-            result: '',
-            details: <>{sourceName}</>,
-          });
-          detailItems.push({
-            label: 'Mana saved',
-            result: '',
-            details: <>{cast.manaSaved}</>,
-          });
-          detailItems.push({
-            label: 'Casts during Innervate',
-            result: '',
-            details: cast.casts.map((c, iix) => (
-              <span key={iix}>
-                <SpellIcon spell={abilityToSpell(c.ability)} />{' '}
-              </span>
-            )),
+          checklistItems.push({
+            label: 'Did not hit max mana during buff or 5s after',
+            result: <PassFailCheckmark pass={noManaWaste} />,
+            details: cast.manaCapped ? (
+              <>
+                (capped @{' '}
+                {cast.cappedAt !== undefined ? this.owner.formatTimestamp(cast.cappedAt) : '?'})
+              </>
+            ) : cast.castOnSelf ? (
+              <>({formatNumber(cast.manaGained)} mana gained)</>
+            ) : undefined,
           });
 
           return (
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              detailItems={detailItems}
               perf={overallPerf}
               key={ix}
             />
@@ -194,37 +190,19 @@ class Innervate extends Analyzer {
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(25)} // chosen for fixed ordering of general stats
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon spell={SPELLS.INNERVATE} /> Average mana saved
-            </>
-          }
-        >
-          <>{formatNumber(this.manaSavedPerInnervate)}</>
-        </BoringValueText>
-      </Statistic>
-    );
-  }
 }
 
 interface InnervateCast {
-  /** Timestamp of the start of the Tranquility channel */
   timestamp: number;
-  /** The spells the player cast during Innervate, in order */
-  casts: CastEvent[];
-  /** The mana saved by the player */
-  manaSaved: number;
-  /** ID of the player that cast Innervate on the selected player, or undefined for self casts */
-  sourceId?: number;
+  castOnSelf: boolean;
+  /** True if mana hit 100% at any point during the buff or 5s after */
+  manaCapped: boolean;
+  /** Timestamp when mana first hit max, if capped */
+  cappedAt?: number;
+  /** Effective mana gained from Innervate energize ticks */
+  manaGained: number;
+  /** Mana wasted (overcapped) on Innervate energize ticks */
+  manaWasted: number;
 }
 
 export default Innervate;
