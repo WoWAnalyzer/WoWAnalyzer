@@ -8,6 +8,14 @@ export default [
   change(
     date(2026, 8, 19),
     <>
+      Track Lifebloom's HoT aura and heal ticks as separate spell IDs, and let HotTracker map a heal
+      ID to a different buff ID.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 19),
+    <>
       Attribute overhealing from the crit chance bonus on{' '}
       <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> and{' '}
       <SpellLink spell={TALENTS_DRUID.STRATEGIC_INFUSION_TALENT} />.
