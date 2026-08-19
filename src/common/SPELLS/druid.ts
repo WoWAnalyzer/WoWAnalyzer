@@ -506,6 +506,11 @@ const spells = {
     name: 'Everbloom',
     icon: 'ability_druid_focusedgrowth',
   },
+  RESTO_DRUID_TIER_36_GENESIS_BUFF: {
+    id: 1302255,
+    name: 'Genesis',
+    icon: 'spell_nature_preservation',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR
