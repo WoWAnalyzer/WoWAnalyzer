@@ -1,11 +1,9 @@
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AbilityEvent,
   ApplyBuffEvent,
   ApplyDebuffEvent,
   CastEvent,
-  HasTarget,
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
@@ -142,8 +140,8 @@ abstract class BuffCountGraph extends Analyzer {
       return;
     }
     const key = this._buffKey(event);
-    if (key === null || this.activeBuffKeys.has(key)) {
-      // Missing target, or duplicate applybuff with no prior remove — don't inflate the count
+    if (this.activeBuffKeys.has(key)) {
+      // Duplicate applybuff with no prior remove — don't inflate the count
       return;
     }
     this.activeBuffKeys.add(key);
@@ -152,7 +150,7 @@ abstract class BuffCountGraph extends Analyzer {
 
   onBuffRemoved(event: RemoveBuffEvent | RemoveDebuffEvent) {
     const key = this._buffKey(event);
-    if (key === null || !this.activeBuffKeys.has(key)) {
+    if (!this.activeBuffKeys.has(key)) {
       // Never counted (filtered apply, phantom remove, or duplicate remove)
       return;
     }
@@ -160,16 +158,11 @@ abstract class BuffCountGraph extends Analyzer {
     this._onBuffChanged(event, -1);
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  private _buffKey(event: AbilityEvent<any>): string | null {
-    if (!HasTarget(event)) {
-      return null;
-    }
+  private _buffKey(event: GraphBuffEvent): string {
     return `${event.targetID}-${event.ability.guid}`;
   }
 
-  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
-  _onBuffChanged(event: AbilityEvent<any>, change: number) {
+  _onBuffChanged(event: GraphBuffEvent, change: number) {
     const applicableTrackers = this.buffTrackerLookup[event.ability.guid];
     if (!applicableTrackers) {
       // shouldn't be possible if the setup code works right...
@@ -455,6 +448,8 @@ abstract class BuffCountGraph extends Analyzer {
 }
 
 export default BuffCountGraph;
+
+type GraphBuffEvent = ApplyBuffEvent | ApplyDebuffEvent | RemoveBuffEvent | RemoveDebuffEvent;
 
 /**
  * Specification of a buff or cast to be graphed
