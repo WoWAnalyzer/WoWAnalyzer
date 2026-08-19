@@ -1,9 +1,14 @@
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { isFromEverbloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import {
+  getSourceBloom,
+  isFromEverbloom,
+  isFromExpiringLifebloom,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -17,9 +22,8 @@ import Verdancy from './Verdancy';
  * Spec Apex Talent
  *
  * Rank 1: Lifebloom stacks every 5 sec, stacking up to 3 times.
- * Rank 2/3: 25%/50% of Lifebloom's final bloom heals up to 6 injured allies within 40 yds.
- * Rank 4: Lifebloom bursts into a Blooming Frenzy when you consume Soul of the Forest, causing it to bloom 3 times in rapid succession.
- *
+ * Rank 2: 20% of Lifebloom's final bloom heals up to 6 injured allies within 40 yds.
+ * Rank 3: Lifebloom bursts into a Blooming Frenzy when you cast Swiftmend, causing it to bloom 3 times in rapid succession.
  */
 class Everbloom extends Analyzer {
   static dependencies = {
@@ -31,8 +35,16 @@ class Everbloom extends Analyzer {
   verdancy!: Verdancy;
 
   splashHealing = 0;
+  splashOverhealing = 0;
+  photosynthesisSplashHealing = 0;
+  photosynthesisSplashOverhealing = 0;
+  normalBloomSplashHealing = 0;
+  /** Splash healing from Blooming Frenzy (rank 3) blooms */
+  everbloomBloomSplashHealing = 0;
   stackBonusHealing = 0;
+  stackBonusOverhealing = 0;
   everbloomBloomHealing = 0;
+  everbloomBloomOverhealing = 0;
   everbloomBloomCount = 0;
 
   private hasAnyEverbloomTalent = false;
@@ -79,13 +91,30 @@ class Everbloom extends Analyzer {
     }
 
     this.stackBonusHealing += effectiveHeal * ((stacks - 1) / stacks);
+    this.stackBonusOverhealing += (event.overheal || 0) * ((stacks - 1) / stacks);
   };
 
   private onSplashHeal = (event: HealEvent) => {
     if (!this.hasRank2Talent) {
       return;
     }
-    this.splashHealing += event.amount + (event.absorbed || 0);
+
+    const effectiveHealing = event.amount + (event.absorbed || 0);
+    this.splashHealing += effectiveHealing;
+    this.splashOverhealing += event.overheal || 0;
+
+    const sourceBloom = getSourceBloom(event);
+    if (!sourceBloom || isFromExpiringLifebloom(sourceBloom)) {
+      this.normalBloomSplashHealing += effectiveHealing;
+      return;
+    }
+
+    if (isFromEverbloom(sourceBloom)) {
+      this.everbloomBloomSplashHealing += effectiveHealing;
+    } else {
+      this.photosynthesisSplashHealing += effectiveHealing;
+      this.photosynthesisSplashOverhealing += event.overheal || 0;
+    }
   };
 
   private onLifebloomBloomHeal = (event: HealEvent) => {
@@ -94,6 +123,7 @@ class Everbloom extends Analyzer {
     }
 
     this.everbloomBloomHealing += event.amount + (event.absorbed || 0);
+    this.everbloomBloomOverhealing += event.overheal || 0;
     this.everbloomBloomCount += 1;
   };
 
@@ -140,6 +170,30 @@ class Everbloom extends Analyzer {
     return this.verdancy.active ? this.verdancy.everbloomBloomHealing : 0;
   }
 
+  get verdancyOverhealing() {
+    return this.verdancy.active ? this.verdancy.everbloomBloomOverhealing : 0;
+  }
+
+  /**
+   * Rank 3 Blooming Frenzy value: extra primary blooms from Swiftmend, the Rank 2
+   * splash those blooms produce, and Verdancy procced by those blooms.
+   * Does not include Rank 1 stack bonus or splash/Verdancy from non-Frenzy blooms
+   * (still present without Rank 3). Frenzy splash is a subset of {@link splashHealing}
+   * and must not be added into {@link totalEverbloomHealing} again.
+   */
+  get rank3Healing() {
+    return this.everbloomBloomHealing + this.everbloomBloomSplashHealing + this.verdancyHealing;
+  }
+
+  get totalEverbloomOverhealing() {
+    return (
+      this.stackBonusOverhealing +
+      this.splashOverhealing +
+      this.everbloomBloomOverhealing +
+      this.verdancyOverhealing
+    );
+  }
+
   statistic() {
     if (
       !this.hasAnyEverbloomTalent &&
@@ -167,33 +221,51 @@ class Everbloom extends Analyzer {
               {this.hasRank2Enabled && (
                 <li>
                   Rank 2 splash healing: <strong>{formatNumber(this.splashHealing)}</strong>
+                  <em> (all Everbloom splash)</em>
                 </li>
               )}
               {this.hasRank3Enabled && (
                 <>
                   <li>
-                    Rank 3 Blooming Frenzy healing:{' '}
-                    <strong>{formatNumber(this.everbloomBloomHealing)}</strong>
-                  </li>
-                  <li>
-                    Rank 3 linked blooms: <strong>{this.everbloomBloomCount}</strong>
+                    Rank 3 Blooming Frenzy: <strong>{formatNumber(this.rank3Healing)}</strong>
+                    <ul>
+                      <li>
+                        Bloom healing ({this.everbloomBloomCount} linked blooms):{' '}
+                        <strong>{formatNumber(this.everbloomBloomHealing)}</strong>
+                      </li>
+                      {this.everbloomBloomSplashHealing > 0 && (
+                        <li>
+                          Splash from those {this.everbloomBloomCount} blooms:{' '}
+                          <strong>{formatNumber(this.everbloomBloomSplashHealing)}</strong>
+                          <em> (already included in Rank 2, not added again to the total)</em>
+                        </li>
+                      )}
+                      {this.verdancyHealing > 0 && (
+                        <li>
+                          Verdancy from those {this.everbloomBloomCount} blooms:{' '}
+                          <strong>{formatNumber(this.verdancyHealing)}</strong>
+                        </li>
+                      )}
+                    </ul>
+                    <em>
+                      {' '}
+                      Photosynthesis blooms in the same window have no distinct log signal and may
+                      occasionally be counted as Frenzy.
+                    </em>
                   </li>
                 </>
               )}
-              {this.verdancyHealing > 0 && (
+              {!this.hasRank3Enabled && this.verdancyHealing > 0 && (
                 <li>
                   Verdancy healing from Everbloom blooms:{' '}
                   <strong>{formatNumber(this.verdancyHealing)}</strong>
                 </li>
               )}
             </ul>
-            {this.hasRank3Enabled && (
-              <p>
-                <em>
-                  Note: Soul of the Forest buffs consumed by Convoke do not trigger Blooming Frenzy.
-                </em>
-              </p>
-            )}
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(this.totalEverbloomOverhealing, this.totalEverbloomHealing)}
+            </strong>
           </>
         }
       >

@@ -2,7 +2,8 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -20,6 +21,7 @@ const HARMONIOUS_CONSTITUTION_HEALING_INCREASE = 0.35;
  */
 export default class HarmoniousConstitution extends Analyzer {
   healing = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -33,6 +35,7 @@ export default class HarmoniousConstitution extends Analyzer {
       return;
     }
     this.healing += calculateEffectiveHealing(event, HARMONIOUS_CONSTITUTION_HEALING_INCREASE);
+    this.overhealing += calculateOverhealing(event, HARMONIOUS_CONSTITUTION_HEALING_INCREASE);
   }
 
   statistic() {
@@ -41,6 +44,11 @@ export default class HarmoniousConstitution extends Analyzer {
         position={STATISTIC_ORDER.CORE(2)}
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         size="flexible"
+        tooltip={
+          <>
+            <strong>Overhealing: {formatOverhealing(this.overhealing, this.healing)}</strong>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.HARMONIOUS_CONSTITUTION_TALENT}>
           <ItemPercentHealingDone amount={this.healing} />

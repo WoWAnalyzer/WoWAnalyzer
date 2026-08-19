@@ -2,7 +2,12 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Events, { HealEvent, DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import {
+  calculateEffectiveDamage,
+  calculateEffectiveHealing,
+  calculateOverhealing,
+} from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -13,6 +18,8 @@ import SPELLS from 'common/SPELLS';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
+import SymbioticBloomDirectClaim from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/SymbioticBloomDirectClaim';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/druid/restoration/constants';
 
 const VIGOROUS_CREEPERS_HEALING_INCREASE = 0.2;
 const VIGOROUS_CREEPERS_DAMAGE_INCREASE = 0.04;
@@ -23,9 +30,15 @@ const VIGOROUS_CREEPERS_DAMAGE_INCREASE = 0.04;
  *
  * Bloodseeker Vines increase the damage your abilities deal to affected enemies by 4%.
  * Symbiotic Blooms increase the healing your spells do to affected targets by 20%.
+ *
+ * Solo card uses full {@link healing}. Tree total skips amp on SymBloom ticks
+ * (already under Thriving Growth / Implant / Twin). Other heals and Everbloom splash stay.
  */
 export default class VigorousCreepers extends Analyzer {
   healing = 0;
+  overhealing = 0;
+  /** Hero-tree total; skips amp on SymBloom ticks. */
+  treeHealing = 0;
   everbloomHealing = 0;
   damage = 0;
 
@@ -33,10 +46,12 @@ export default class VigorousCreepers extends Analyzer {
     combatants: Combatants,
     enemies: Enemies,
     lifebloom: Lifebloom,
+    symbioticBloomDirectClaim: SymbioticBloomDirectClaim,
   };
   protected combatants!: Combatants;
   protected enemies!: Enemies;
   protected lifebloom!: Lifebloom;
+  protected symbioticBloomDirectClaim!: SymbioticBloomDirectClaim;
 
   constructor(options: Options) {
     super(options);
@@ -65,7 +80,16 @@ export default class VigorousCreepers extends Analyzer {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
+      return;
+    }
+
+    const amount = calculateEffectiveHealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
+    this.healing += amount;
+    this.overhealing += calculateOverhealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
+
+    const claimed = this.symbioticBloomDirectClaim.getDirectClaimPortion(event);
+    this.treeHealing += amount * (1 - claimed);
   }
 
   /**
@@ -91,6 +115,10 @@ export default class VigorousCreepers extends Analyzer {
     const amount = calculateEffectiveHealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
     this.healing += amount;
     this.everbloomHealing += amount;
+    this.overhealing += calculateOverhealing(event, VIGOROUS_CREEPERS_HEALING_INCREASE);
+    // Splash is not Implant/Twin direct SymBloom healing; Implant/Twin nest their VC
+    // copy out of the tree, so this stays in treeHealing.
+    this.treeHealing += amount;
   }
 
   private onDamage(event: DamageEvent) {
@@ -109,12 +137,16 @@ export default class VigorousCreepers extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         size="flexible"
         tooltip={
-          this.everbloomHealing > 0 ? (
-            <>
-              Includes <strong>{this.owner.formatItemHealingDone(this.everbloomHealing)}</strong>{' '}
-              from Everbloom splash healing.
-            </>
-          ) : undefined
+          <>
+            {this.everbloomHealing > 0 && (
+              <>
+                Includes <strong>{this.owner.formatItemHealingDone(this.everbloomHealing)}</strong>{' '}
+                from Everbloom splash healing.
+                <br />
+              </>
+            )}
+            <strong>Overhealing: {formatOverhealing(this.overhealing, this.healing)}</strong>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.VIGOROUS_CREEPERS_TALENT}>

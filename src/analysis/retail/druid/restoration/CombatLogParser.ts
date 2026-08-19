@@ -16,7 +16,6 @@ import AverageHots from './modules/features/AverageHots';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Efflorescence from 'analysis/retail/druid/restoration/modules/spells/Efflorescence';
 import HotCountGraph from './modules/features/HotCountGraph';
-import Innervate from 'analysis/retail/druid/restoration/modules/spells/Innervate';
 import Ironbark from 'analysis/retail/druid/restoration/modules/spells/Ironbark';
 import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
 import LifebloomAndEffloUptime from 'analysis/retail/druid/restoration/modules/spells/LifebloomAndEffloUptime';
@@ -25,14 +24,15 @@ import Rejuvenation from 'analysis/retail/druid/restoration/modules/spells/Rejuv
 import RestoDruidHealingEfficiencyDetails from './modules/features/RestoDruidHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import Swiftmend from 'analysis/retail/druid/restoration/modules/spells/Swiftmend';
+import NaturesSwiftness from 'analysis/retail/druid/restoration/modules/spells/NaturesSwiftness';
 import Tranquility from 'analysis/retail/druid/restoration/modules/spells/Tranquility';
+import Innervate from 'analysis/retail/druid/restoration/modules/spells/Innervate';
 import WildGrowth from 'analysis/retail/druid/restoration/modules/spells/WildGrowth';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import Reforestation from 'analysis/retail/druid/restoration/modules/spells/Reforestation';
 import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
 import VerdantInfusion from 'analysis/retail/druid/restoration/modules/spells/VerdantInfusion';
 import Abundance from 'analysis/retail/druid/restoration/modules/spells/Abundance';
-import AbundanceGraph from './modules/features/AbundanceGraph';
 import Intensity from 'analysis/retail/druid/restoration/modules/spells/Intensity';
 import Flourish from 'analysis/retail/druid/restoration/modules/spells/Flourish';
 import Photosynthesis from 'analysis/retail/druid/restoration/modules/spells/Photosynthesis';
@@ -61,6 +61,8 @@ import RootNetwork from 'analysis/retail/druid/restoration/modules/spells/Wildst
 import Everbloom from 'analysis/retail/druid/restoration/modules/spells/Everbloom';
 import ImprovedWildGrowth from 'analysis/retail/druid/restoration/modules/spells/ImprovedWildGrowth';
 import ProtectiveGrowth from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/ProtectiveGrowth';
+import DreamSurge from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/DreamSurge';
+import DurabilityOfNature from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/DurabilityOfNature';
 import GrovesInspiration from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/GrovesInspiration';
 import CenariusMight from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/CenariusMight';
 import PowerOfNature from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PowerOfNature';
@@ -69,7 +71,10 @@ import BounteousBloom from 'analysis/retail/druid/restoration/modules/spells/Kee
 import EarlySpring from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/EarlySpring';
 import PowerOfTheDream from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PowerOfTheDream';
 import HarmonyOfTheGrove from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/HarmonyOfTheGrove';
+import KotgTreeAmpAttribution from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/KotgTreeAmpAttribution';
 import PotentEnchantments from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PotentEnchantments';
+import SpiritOfTheThicket from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/SpiritOfTheThicket';
+import SylvanBeckoning from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/SylvanBeckoning';
 import HuntBeneathTheOpenSkies from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HuntBeneathTheOpenSkies';
 import StrategicInfusion from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/StrategicInfusion';
 import WildstalkersPower from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/WildstalkersPower';
@@ -77,8 +82,24 @@ import HarmoniousConstitution from 'analysis/retail/druid/restoration/modules/sp
 import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BondWithNature';
 import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/PatientCustodian';
 import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
+import Implant from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/Implant';
+import TwinSprouts from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/TwinSprouts';
+import SymbioticBloomDirectClaim from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/SymbioticBloomDirectClaim';
+import ThrivingGrowth from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ThrivingGrowth';
+import BurstingGrowth from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BurstingGrowth';
+import FlowerWalk from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/FlowerWalk';
+import LethalPreservation from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/LethalPreservation';
+import ResilientFlourishing from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ResilientFlourishing';
 import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
+import S2TierSet from 'analysis/retail/druid/restoration/modules/tier/S2TierSet';
+import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
+import PassingSeasons from 'analysis/retail/druid/restoration/modules/spells/PassingSeasons';
+import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
+import Prosperity from 'analysis/retail/druid/restoration/modules/spells/Prosperity';
+import Forestwalk from 'analysis/retail/druid/restoration/modules/spells/Forestwalk';
+import VerdantHeart from 'analysis/retail/druid/restoration/modules/spells/VerdantHeart';
+import HeroTreeHealing from 'analysis/retail/druid/restoration/modules/features/HeroTreeHealing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -109,22 +130,22 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     wildGrowth: WildGrowth,
     everbloom: Everbloom,
-    lifebloom: Lifebloom,
     efflorescence: Efflorescence,
+    lifebloom: Lifebloom,
     regrowthAndClearcasting: RegrowthAndClearcasting,
-    innervate: Innervate,
     ironbark: Ironbark,
     rejuvenation: Rejuvenation,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
+    naturesSwiftness: NaturesSwiftness,
     hotCountGraph: HotCountGraph,
     tranquility: Tranquility,
+    innervate: Innervate,
     soulOfTheForest: SoulOfTheForest,
     treeOfLife: TreeOfLife,
     photosynthesis: Photosynthesis,
     flourish: Flourish,
     abundance: Abundance,
-    abundanceGraph: AbundanceGraph,
     intensity: Intensity,
     convokeSpirits: ConvokeSpiritsResto,
     memoryoftheMotherTree: PowerOfTheArchdruid,
@@ -144,21 +165,39 @@ class CombatLogParser extends CoreCombatLogParser {
     thrivingVegetation: ThrivingVegetation,
     renewingSurge: RenewingSurge,
     improvedWildGrowth: ImprovedWildGrowth,
-    powerOfTheDream: PowerOfTheDream,
     liveliness: Liveliness,
+    overgrowth: Overgrowth,
+    passingSeasons: PassingSeasons,
+    flashOfClarity: FlashOfClarity,
+    prosperity: Prosperity,
+    forestwalk: Forestwalk,
+    verdantHeart: VerdantHeart,
+
+    // Hero tree total (aggregates KotG / Wildstalker HPS contributions)
+    heroTreeHealing: HeroTreeHealing,
 
     // Keeper of the Grove
     protectiveGrowth: ProtectiveGrowth,
+    dreamSurge: DreamSurge,
+    sylvanBeckoning: SylvanBeckoning,
+    spiritOfTheThicket: SpiritOfTheThicket,
+    durabilityOfNature: DurabilityOfNature,
     cenariusMight: CenariusMight,
     powerOfNature: PowerOfNature,
     grovesInspiration: GrovesInspiration,
     dryadsDance: DryadsDance,
     bounteousBloom: BounteousBloom,
     earlySpring: EarlySpring,
+    powerOfTheDream: PowerOfTheDream,
     harmonyOfTheGrove: HarmonyOfTheGrove,
+    kotgTreeAmpAttribution: KotgTreeAmpAttribution,
     potentEnchantments: PotentEnchantments,
 
     // Wildstalker
+    burstingGrowth: BurstingGrowth,
+    flowerWalk: FlowerWalk,
+    lethalPreservation: LethalPreservation,
+    resilientFlourishing: ResilientFlourishing,
     rootNetwork: RootNetwork,
     huntBeneathTheOpenSkies: HuntBeneathTheOpenSkies,
     strategicInfusion: StrategicInfusion,
@@ -167,6 +206,10 @@ class CombatLogParser extends CoreCombatLogParser {
     bondWithNature: BondWithNature,
     patientCustodian: PatientCustodian,
     vigorousCreepers: VigorousCreepers,
+    symbioticBloomDirectClaim: SymbioticBloomDirectClaim,
+    implant: Implant,
+    twinSprouts: TwinSprouts,
+    thrivingGrowth: ThrivingGrowth,
 
     // Mana Tab
     manaTracker: ManaTracker,
@@ -175,6 +218,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Set Modules
     s1TierSet: S1TierSet,
+    s2TierSet: S2TierSet,
   };
 
   static guide = Guide;

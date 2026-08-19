@@ -1,13 +1,14 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { HARMONIUS_BLOOMING_EXTRA_STACKS } from 'analysis/retail/druid/restoration/constants';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
+import { SpellLink } from 'interface';
 
 /**
  *
@@ -29,18 +30,20 @@ class HarmoniusBlooming extends Analyzer {
   }
 
   /**
-   * The healing due only to the extra stacks from the talent.
-   * Healing due to all the stacks is already added by the Mastery module,
-   * so here we simply do the math to get the portion from only the extra stacks.
+   * Extra Lifebloom stacks on mastery-affected heals, including Everbloom splash
+   * which inherits the bloom target's mastery (no splash-target double-dip).
    */
   get extraStacksHealing() {
-    const totalMasteryHealing = this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id);
-    const portionFromExtraStacks =
-      HARMONIUS_BLOOMING_EXTRA_STACKS / (HARMONIUS_BLOOMING_EXTRA_STACKS + 1);
-    return totalMasteryHealing * portionFromExtraStacks;
+    return this.mastery.getHarmoniusBloomingHealing();
+  }
+
+  get extraStacksOverhealing() {
+    return this.mastery.getHarmoniusBloomingOverhealing();
   }
 
   statistic() {
+    const everbloomSplashHealing = this.mastery.getHarmoniusBloomingEverbloomSplashHealing();
+
     return (
       <Statistic
         size="flexible"
@@ -50,6 +53,20 @@ class HarmoniusBlooming extends Analyzer {
           <>
             This is the healing enabled by the extra {HARMONIUS_BLOOMING_EXTRA_STACKS} stacks of
             Mastery from Harmonius Blooming.
+            {everbloomSplashHealing > 0 && (
+              <>
+                <br />
+                Includes <strong>
+                  {this.owner.formatItemHealingDone(everbloomSplashHealing)}
+                </strong>{' '}
+                from <SpellLink spell={TALENTS_DRUID.EVERBLOOM_2_RESTORATION_TALENT} /> splash
+                inheriting the amplified Lifebloom blooms.
+              </>
+            )}
+            <br />
+            <strong>
+              Overhealing: {formatOverhealing(this.extraStacksOverhealing, this.extraStacksHealing)}
+            </strong>
           </>
         }
       >

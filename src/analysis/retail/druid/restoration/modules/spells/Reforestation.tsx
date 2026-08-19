@@ -1,3 +1,4 @@
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
@@ -75,6 +76,13 @@ class Reforestation extends Analyzer {
                 </strong>
               </li>
             </ul>
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(
+                this.treeOfLife._getTotalOverhealing(this.treeOfLife.reforestation),
+                this.treeOfLife._getTotalHealing(this.treeOfLife.reforestation),
+              )}
+            </strong>
           </>
         }
       >

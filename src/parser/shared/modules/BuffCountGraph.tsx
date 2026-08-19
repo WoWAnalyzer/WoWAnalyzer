@@ -5,6 +5,7 @@ import Events, {
   ApplyBuffEvent,
   ApplyDebuffEvent,
   CastEvent,
+  HasTarget,
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
@@ -44,6 +45,11 @@ abstract class BuffCountGraph extends Analyzer {
   graphData: GraphData[];
   /** Timestamp of the last data points added - used to avoid adding duplicate data on same timestamp */
   lastTimestamp: number;
+  /**
+   * Active buff instances keyed by target+spell. Used so a duplicate applybuff (without a matching
+   * remove) can't inflate the count — same semantics as HotTracker.
+   */
+  private activeBuffKeys = new Set<string>();
 
   protected constructor(options: Options) {
     super(options);
@@ -101,6 +107,14 @@ abstract class BuffCountGraph extends Analyzer {
   }
 
   /**
+   * Override to ignore buffs that shouldn't contribute to the graph (e.g. HoTs on pets).
+   * Only consulted on apply — removes are gated by whether the apply was counted.
+   */
+  protected shouldCountBuff(_event: ApplyBuffEvent | ApplyDebuffEvent): boolean {
+    return true;
+  }
+
+  /**
    * Adds a vertical rule line for the given tracker at the given timestamp
    * @param trackerName the name of the tracker this rule line is for -
    *     will determine the line's color and its name in the legend
@@ -124,11 +138,34 @@ abstract class BuffCountGraph extends Analyzer {
   }
 
   onBuffApplied(event: ApplyBuffEvent | ApplyDebuffEvent) {
+    if (!this.shouldCountBuff(event)) {
+      return;
+    }
+    const key = this._buffKey(event);
+    if (key === null || this.activeBuffKeys.has(key)) {
+      // Missing target, or duplicate applybuff with no prior remove — don't inflate the count
+      return;
+    }
+    this.activeBuffKeys.add(key);
     this._onBuffChanged(event, 1);
   }
 
   onBuffRemoved(event: RemoveBuffEvent | RemoveDebuffEvent) {
+    const key = this._buffKey(event);
+    if (key === null || !this.activeBuffKeys.has(key)) {
+      // Never counted (filtered apply, phantom remove, or duplicate remove)
+      return;
+    }
+    this.activeBuffKeys.delete(key);
     this._onBuffChanged(event, -1);
+  }
+
+  // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
+  private _buffKey(event: AbilityEvent<any>): string | null {
+    if (!HasTarget(event)) {
+      return null;
+    }
+    return `${event.targetID}-${event.ability.guid}`;
   }
 
   // oxlint-disable-next-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
@@ -205,6 +242,9 @@ abstract class BuffCountGraph extends Analyzer {
         y: {
           field: 'Count',
           type: 'quantitative' as const,
+          // Overlap series instead of stacking — stacked areas make early legend
+          // entries look massively inflated (e.g. Rejuv = Rejuv+WG+...).
+          stack: null,
         },
       },
       transform: [

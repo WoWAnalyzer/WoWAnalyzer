@@ -8,28 +8,22 @@ export const REJUVENATION_BUFFS: Spell[] = [SPELLS.REJUVENATION, SPELLS.REJUVENA
 /** Given count of Druid HoTs on target, gets the multiplier against mastery val to apply */
 export function masteryHotCountToMult(hotsOn: number): number {
   if (hotsOn > 10) {
-    return 3.65;
+    return MASTERY_HOT_COUNT_TO_MULT_TABLE[10];
   }
   return MASTERY_HOT_COUNT_TO_MULT_TABLE[hotsOn];
 }
-const MASTERY_HOT_COUNT_TO_MULT_TABLE = [
-  0,
-  1,
-  1.7,
-  2.3,
-  2.8,
-  3.2,
-  3.5,
-  3.7,
-  3.8,
-  3.85,
-  3.65, // loses value here, probably a bug
-];
+/** Diminishing increments: +0.7, +0.6, ... +0.1, +0.05, +0.025 */
+const MASTERY_HOT_COUNT_TO_MULT_TABLE = [0, 1, 1.7, 2.3, 2.8, 3.2, 3.5, 3.7, 3.8, 3.85, 3.875];
 
 /** Additional mastery stacks granted by Harmonius Blooming talent */
 export const HARMONIUS_BLOOMING_EXTRA_STACKS = 2;
 
-/** This is also the list of spell IDs that are boosted by Druid's mastery */
+/**
+ * Heals that independently benefit from Mastery based on HoTs on *that heal's target*.
+ * Copy heals (Everbloom splash, Symbiotic Relationship) are omitted: they inherit the
+ * source heal's mastery and do not double-dip from HoTs on the copy's target.
+ * Mastery.ts attributes those using the source's stack snapshot.
+ */
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.REJUVENATION.id,
   SPELLS.REJUVENATION_GERMINATION.id,
@@ -42,7 +36,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.SWIFTMEND.id,
   SPELLS.TRANQUILITY_HEAL.id,
   SPELLS.EFFLORESCENCE_HEAL.id,
-  SPELLS.GROVE_TENDING.id,
   SPELLS.VERDANCY.id,
   SPELLS.GROVE_GUARDIANS_SWIFTMEND.id,
   SPELLS.GROVE_GUARDIANS_NOURISH.id,
@@ -70,26 +63,56 @@ export const MASTERY_STACK_BUFF_IDS: number[] = [
   SPELLS.REJUVENATION_GERMINATION.id,
   SPELLS.REGROWTH.id,
   SPELLS.WILD_GROWTH.id,
-  SPELLS.CULTIVATION.id,
-  SPELLS.SPRING_BLOSSOMS.id,
-  SPELLS.CENARION_WARD_HEAL.id,
   SPELLS.FRENZIED_REGENERATION.id,
-  SPELLS.LIFEBLOOM_HOT_HEAL.id,
+  SPELLS.LIFEBLOOM_BUFF.id,
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
 ];
 
-// HoTs that get extended by Flourish
-export const FLOURISH_EXTENDED_HOTS = [
+/** Heal id -> aura id when they differ. Lifebloom ticks are 33763, the buff is 1227806. */
+export const HEAL_TO_HOT_BUFF_ID: Record<number, number> = {
+  [SPELLS.LIFEBLOOM_HOT_HEAL.id]: SPELLS.LIFEBLOOM_BUFF.id,
+};
+
+export function hotBuffIdForHeal(healId: number): number {
+  return HEAL_TO_HOT_BUFF_ID[healId] ?? healId;
+}
+
+export const PATIENT_CUSTODIAN_HOTS = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,
   SPELLS.REGROWTH,
   SPELLS.WILD_GROWTH,
   SPELLS.LIFEBLOOM_HOT_HEAL,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
+  SPELLS.THRIVING_VEGETATION,
 ];
 
-// HoTs that get rate increased by Liveliness, which is different from the Flourish one because Blizzard
+// Flourish tracks auras, so Lifebloom is the buff id (1227806).
+export const FLOURISH_EXTENDED_HOTS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.LIFEBLOOM_BUFF,
+];
+
+// Genesis / Liveliness listen to heal events, so Lifebloom is the tick id (33763). No Efflo on Genesis.
+export const GENESIS_BUFFED_HOTS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
+];
+
+// Liveliness also speeds Efflo (Flourish does not). Do not reuse FLOURISH_EXTENDED_HOTS here.
 export const LIVELINESS_INCREASED_RATE = [
-  ...FLOURISH_EXTENDED_HOTS,
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
   SPELLS.EFFLORESCENCE_HEAL,
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
 ];
