@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2026, 8, 19), <>Attribute overhealing from the crit chance bonus on <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT}/> and <SpellLink spell={TALENTS_DRUID.STRATEGIC_INFUSION_TALENT}/>.</>, squided),
   change(date(2026, 5, 2), <>Fix bug in <SpellLink spell={TALENTS_DRUID.BOND_WITH_NATURE_TALENT}/> statistic.</>, squided),
   change(date(2026, 4, 21), <>Fix bug in <SpellLink spell={TALENTS_DRUID.EVERBLOOM_3_RESTORATION_TALENT}/> statistic to not count SotF consumes during convoke.</>, squided),
   change(date(2026, 4, 21), <>Updates for the 12.0.5 patch.</>, squided),
