@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
-import { ManaBracketHeatmap } from 'interface/guide/components';
+import { TimelineHeatmapGrid, type TimelineHeatmapBracket } from 'interface/guide/components';
 import ArcaneSurge from '../analyzers/ArcaneSurge';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -15,6 +15,14 @@ const SPELL_COLORS = {
   ARCANE_SURGE: '#db35acff', // Pinkish purple
   EVOCATION: '#10B981', // Green
 } as const;
+
+const MANA_BRACKETS: TimelineHeatmapBracket[] = [
+  { label: '81–100%', min: 80, color: '#4CAF50' },
+  { label: '61–79%', min: 60, color: '#8BC34A' },
+  { label: '41–59%', min: 40, color: '#FFC107' },
+  { label: '21–39%', min: 20, color: '#FF9800' },
+  { label: '<20%', min: 0, color: '#F44336' },
+];
 
 class ManaChart extends Analyzer {
   static dependencies = {
@@ -82,6 +90,10 @@ class ManaChart extends Analyzer {
 
     const arcaneSurgeCasts = this.arcaneSurge.surgeData.map((cast) => cast.cast);
     const evocationCasts = this.evocationCasts.map((cast) => cast.timestamp);
+    const manaDataPoints = this.manaUpdates.map((update) => ({
+      timestamp: update.timestamp,
+      value: (update.current / update.max) * 100,
+    }));
 
     return (
       <GuideSection
@@ -90,8 +102,10 @@ class ManaChart extends Analyzer {
         explanation={explanation}
         verticalLayout
       >
-        <ManaBracketHeatmap
-          manaUpdates={this.manaUpdates}
+        <TimelineHeatmapGrid
+          dataPoints={manaDataPoints}
+          brackets={MANA_BRACKETS}
+          valueLabel="Mana"
           startTime={this.owner.fight.start_time}
           endTime={this.owner.fight.end_time}
           bucketCount={25}
