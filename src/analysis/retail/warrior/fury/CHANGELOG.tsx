@@ -2,6 +2,7 @@ import { Gambyt, Nevdok } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2026, 8, 213), 'Midnight season 2 APL updates', Nevdok),
   change(date(2026, 4, 25), 'Minor APL updates', Nevdok),
   change(date(2026, 4, 9), 'Fix max casts for Thunder Blast', Gambyt),
   change(date(2026, 4, 3), 'More midnight season 1 APL updates', Nevdok),
