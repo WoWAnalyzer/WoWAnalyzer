@@ -1,14 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-  HealEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -32,25 +25,16 @@ interface CastTracker {
 }
 
 export default class CoalescingWater extends Analyzer {
-  // Healing stats
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
 
-  // Tracking metrics
   generatedByHW = 0;
   generatedByCH = 0;
   consumedTotal = 0;
   wastedOvercapped = 0;
 
-  // Graph data
   stackChanges: StackTracker[] = [];
   riptideCasts: CastTracker[] = [];
-
-  // State management
-  lastCastTimestamp = -1;
-  lastStackTimestamp = -1;
-  currentStacks = 0;
-  pendingStacks = 0;
 
   constructor(options: Options) {
     super(options);
@@ -59,31 +43,10 @@ export default class CoalescingWater extends Analyzer {
       return;
     }
 
-    this.stackChanges.push({ timestamp: this.owner.fight.start_time, stacks: 0 });
-    this.lastStackTimestamp = this.owner.fight.start_time;
-
     // Healing calculation
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.onRiptideHeal,
-    );
-
-    // Buff stack tracking for graph
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COALESCING_WATER_BUFF),
-      this.onBuffApplied,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.COALESCING_WATER_BUFF),
-      this.onStackGained,
-    );
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.COALESCING_WATER_BUFF),
-      this.onStackLost,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COALESCING_WATER_BUFF),
-      this.onBuffRemoved,
     );
 
     // Track Generators and Consumers
@@ -100,47 +63,12 @@ export default class CoalescingWater extends Analyzer {
       this.onRiptideCast,
     );
 
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.buildStackChanges);
   }
 
   private get currentBuffStacks(): number {
     return this.selectedCombatant.getBuff(SPELLS.COALESCING_WATER_BUFF)?.stacks ?? 0;
   }
-
-  private advanceStackTimestamp(newTimestamp: number) {
-    if (newTimestamp !== this.lastStackTimestamp) {
-      this.registerStackChange();
-    }
-    this.lastStackTimestamp = newTimestamp;
-  }
-
-  private registerStackChange() {
-    this.currentStacks = this.pendingStacks;
-    this.stackChanges.push({
-      timestamp: this.lastStackTimestamp,
-      stacks: this.currentStacks,
-    });
-  }
-
-  onBuffApplied = (event: ApplyBuffEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks = 1;
-  };
-
-  onStackGained = (event: ApplyBuffStackEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks += 1;
-  };
-
-  onStackLost = (event: RemoveBuffStackEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks -= 1;
-  };
-
-  onBuffRemoved = (event: RemoveBuffEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks = 0;
-  };
 
   onHealingWaveCast = (event: CastEvent) => {
     if (this.currentBuffStacks >= 2) {
@@ -164,19 +92,14 @@ export default class CoalescingWater extends Analyzer {
       this.consumedTotal += stacks;
     }
 
-    this.lastCastTimestamp = event.timestamp;
     this.riptideCasts.push({
       timestamp: event.timestamp,
-      stacks: this.currentStacks, // Fallback to tracked stacks for the graph to prevent visual desyncs
+      stacks: this.currentBuffStacks,
     });
   };
 
-  onFightEnd = () => {
-    this.registerStackChange();
-  };
-
   onRiptideHeal = (event: HealEvent) => {
-    // ignore HoT aspect of riptide
+    // ignore riptide HoT events
     if (event.tick) {
       return;
     }
@@ -191,6 +114,27 @@ export default class CoalescingWater extends Analyzer {
     this.healingDoneFromTalent += calculateEffectiveHealing(event, talentBuff);
 
     this.overhealingDoneFromTalent += calculateOverhealing(event, talentBuff);
+  };
+
+  buildStackChanges = () => {
+    const history = this.selectedCombatant.getBuffHistory(
+      SPELLS.COALESCING_WATER_BUFF,
+      this.selectedCombatant.id,
+    );
+
+    const points: StackTracker[] = [{ timestamp: this.owner.fight.start_time, stacks: 0 }];
+
+    for (const instance of history) {
+      for (const step of instance.stackHistory) {
+        points.push({ timestamp: step.timestamp, stacks: step.stacks });
+      }
+      if (instance.end !== null) {
+        points.push({ timestamp: instance.end, stacks: 0 });
+      }
+    }
+
+    points.sort((a, b) => a.timestamp - b.timestamp);
+    this.stackChanges = points;
   };
 
   statistic() {
@@ -340,11 +284,13 @@ export default class CoalescingWater extends Analyzer {
 
         <ul>
           <li>
-            <strong>Stacks Generated:</strong> {totalGenerated} ({this.generatedByHW} from Healing
-            Wave, {this.generatedByCH} from Chain Heal)
+            <strong>Stacks Generated:</strong> {totalGenerated} ({this.generatedByHW} from{' '}
+            <SpellLink spell={SPELLS.HEALING_WAVE} />, {this.generatedByCH} from{' '}
+            <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />)
           </li>
           <li>
-            <strong>Stacks Consumed:</strong> {this.consumedTotal} (used on Riptide)
+            <strong>Stacks Consumed:</strong> {this.consumedTotal} (used on{' '}
+            <SpellLink spell={TALENTS.RIPTIDE_TALENT} />)
           </li>
           <li>
             <strong>Stacks Wasted (Overcapped):</strong>{' '}
@@ -355,9 +301,11 @@ export default class CoalescingWater extends Analyzer {
         </ul>
 
         <p>
-          Try to avoid casting Healing Wave or Chain Heal when you are already sitting at 2 stacks
-          of Coalescing Water to prevent wasting the buff. Below is a graph showing your stacks over
-          time and when you consumed them with Riptide (blue diamonds):
+          Try to avoid casting <SpellLink spell={SPELLS.HEALING_WAVE} /> or{' '}
+          <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> when you are already sitting at 2 stacks
+          of <SpellLink spell={TALENTS.COALESCING_WATER_TALENT} /> to prevent wasting the buff.
+          Below is a graph showing your stacks over time and when you consumed them with{' '}
+          <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> (blue diamonds):
         </p>
 
         <div style={{ marginTop: 15 }}>{this.plot}</div>

@@ -55,9 +55,7 @@ class EarthShieldBreakdown extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT);
-    this.wide =
-      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ORBIT_TALENT) &&
-      this.selectedCombatant.hasTalent(TALENTS.EARTHEN_HARMONY_TALENT);
+    this.wide = this.selectedCombatant.hasTalent(TALENTS.EARTHEN_HARMONY_TALENT);
 
     if (!this.active) {
       return;
@@ -162,107 +160,63 @@ class EarthShieldBreakdown extends Analyzer {
     this.earthShieldItems = [
       {
         spell: TALENTS.EARTH_SHIELD_TALENT,
-        amount: this.earthShield.healing,
+        amount: this.earthShield.healing + this.earthShield.buffHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_BASE,
         tooltip: this.buildTooltip({
           uptime: this.earthShield.uptimePercent,
           directHealing: this.earthShield.healing,
+          bonusHealing: this.earthShield.buffHealing,
         }),
-        subSpecs: [
-          {
-            spell: TALENTS.EARTH_SHIELD_TALENT,
-            amount: this.earthShield.buffHealing,
-            color: RESTORATION_COLORS.EARTHSHIELD_BASE,
-            tooltip: this.buildTooltip({ bonusHealing: this.earthShield.buffHealing }),
-          },
-        ],
       },
       {
         spell: TALENTS.ELEMENTAL_ORBIT_TALENT,
-        amount: this.elementalOrbit.healing,
+        amount: this.elementalOrbit.healing + this.elementalOrbit.buffHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
         tooltip: this.buildTooltip({
           uptime: this.elementalOrbit.uptimePercent,
           directHealing: this.elementalOrbit.healing,
+          bonusHealing: this.elementalOrbit.buffHealing,
         }),
-        subSpecs: [
-          {
-            spell: TALENTS.ELEMENTAL_ORBIT_TALENT,
-            amount: this.elementalOrbit.buffHealing,
-            color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
-            tooltip: this.buildTooltip({ bonusHealing: this.elementalOrbit.buffHealing }),
-          },
-        ],
       },
       {
         spell: TALENTS.EARTHEN_HARMONY_TALENT,
-        amount: this.earthenHarmony.earthShieldHealing,
+        amount:
+          this.earthenHarmony.earthShieldHealing +
+          this.earthenHarmony.elementalOrbitEarthShieldHealing,
         color: RESTORATION_COLORS.EARTHSHIELD_EARTHEN_HARMONY,
         tooltip: this.buildTooltip({
           sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-          damageMitigated: this.earthenHarmony.earthShielddamageReduced,
-          bonusHealing: this.earthenHarmony.earthShieldHealing,
+          damageMitigated:
+            this.earthenHarmony.earthShielddamageReduced +
+            this.earthenHarmony.elementalOrbitDamageReduced,
+          bonusHealing:
+            this.earthenHarmony.earthShieldHealing +
+            this.earthenHarmony.elementalOrbitEarthShieldHealing,
         }),
-        subSpecs: [
-          {
-            spell: TALENTS.EARTHEN_HARMONY_TALENT,
-            amount: this.earthenHarmony.elementalOrbitEarthShieldHealing,
-            color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
-            tooltip: this.buildTooltip({
-              sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-              triggerSpell: TALENTS.ELEMENTAL_ORBIT_TALENT.id,
-              damageMitigated: this.earthenHarmony.elementalOrbitDamageReduced,
-              bonusHealing: this.earthenHarmony.elementalOrbitEarthShieldHealing,
-            }),
-          },
-        ],
       },
     ];
 
     if (this.selectedCombatant.hasTalent(TALENTS.EARTHWEAVER_TALENT)) {
       this.earthShieldItems.push({
         spell: TALENTS.EARTHWEAVER_TALENT,
-        amount: this.earthweaverBaseBonus,
+        amount: this.earthweaverBaseBonus + this.earthweaverOrbitBonus,
         color: RESTORATION_COLORS.EARTHSHIELD_EARTHWEAVER,
         tooltip: this.buildTooltip({
           sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-          bonusHealing: this.earthweaverBaseBonus,
+          bonusHealing: this.earthweaverBaseBonus + this.earthweaverOrbitBonus,
         }),
-        subSpecs: [
-          {
-            spell: TALENTS.EARTHWEAVER_TALENT,
-            amount: this.earthweaverOrbitBonus,
-            color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
-            tooltip: this.buildTooltip({
-              sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-              triggerSpell: TALENTS.ELEMENTAL_ORBIT_TALENT.id,
-              bonusHealing: this.earthweaverOrbitBonus,
-            }),
-          },
-        ],
       });
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS.EARTHEN_COMMUNION_TALENT)) {
       this.earthShieldItems.push({
         spell: TALENTS.EARTHEN_COMMUNION_TALENT,
-        amount: this.earthenCommunionBaseBonus,
+        amount: this.earthenCommunionBaseBonus + this.earthenCommunionOrbitBonus,
         color: RESTORATION_COLORS.EARTHSHIELD_EARTHERN_COMMUNION,
         tooltip: this.buildTooltip({
-          bonusHealing: this.earthenCommunionBaseBonus,
-          customText: 'Earthen Communion bonus (Base)',
+          bonusHealing: this.earthenCommunionBaseBonus + this.earthenCommunionOrbitBonus,
+          customText: 'Earthen Communion bonus',
         }),
-        subSpecs: [
-          {
-            spell: TALENTS.EARTHEN_COMMUNION_TALENT,
-            amount: this.earthenCommunionOrbitBonus,
-            color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
-            tooltip: this.buildTooltip({
-              bonusHealing: this.earthenCommunionOrbitBonus,
-              customText: 'Earthen Communion bonus (Orbital)',
-            }),
-          },
-        ],
       });
     }
 
@@ -279,25 +233,12 @@ class EarthShieldBreakdown extends Analyzer {
     } else if (this.selectedCombatant.hasTalent(TALENTS.THERAZANES_RESILIENCE_TALENT)) {
       this.earthShieldItems.push({
         spell: TALENTS.THERAZANES_RESILIENCE_TALENT,
-        amount: this.therazanesResilienceBaseBonus,
+        amount: this.therazanesResilienceBaseBonus + this.therazanesResilienceOrbitBonus,
         color: RESTORATION_COLORS.EARTHSHIELD_THERAZANES_RESILIENCE,
         tooltip: this.buildTooltip({
-          bonusHealing: this.therazanesResilienceBaseBonus,
-          customText: "Therazane's Resilience bonus (Base)",
+          bonusHealing: this.therazanesResilienceBaseBonus + this.therazanesResilienceOrbitBonus,
+          customText: "Therazane's Resilience bonus",
         }),
-        subSpecs: [
-          {
-            spell: TALENTS.THERAZANES_RESILIENCE_TALENT,
-            amount: this.therazanesResilienceOrbitBonus,
-            color: RESTORATION_COLORS.EARTHSHIELD_ELEMENTAL_ORBIT,
-            tooltip: this.buildTooltip({
-              sourceSpell: TALENTS.EARTH_SHIELD_TALENT.id,
-              triggerSpell: TALENTS.ELEMENTAL_ORBIT_TALENT.id,
-              bonusHealing: this.therazanesResilienceOrbitBonus,
-              customText: "Therazane's Resilience bonus (Orbital)",
-            }),
-          },
-        ],
       });
     }
 

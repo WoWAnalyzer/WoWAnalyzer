@@ -7,14 +7,7 @@ import {
   TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME,
   fakeHaste,
 } from 'analysis/retail/shaman/restoration/constants';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  BeginCastEvent,
-  CastEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
@@ -39,16 +32,17 @@ export default class TidalWaves extends Analyzer {
   consumedByCH = 0;
   wastedOvercapped = 0;
 
-  currentStacks = 0;
-  pendingStacks = 0;
-  lastCastTimestamp = -1;
-  lastStackTimestamp = -1;
+  /** Max. 2 Tidal Waves stacks, 3 with Primordial Capacity (Farseer mandatory talent) */
+  maxStacks = 2;
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TIDAL_WAVES_TALENT);
+    if (!this.active) {
+      return;
+    }
 
-    this.stackChanges.push({ timestamp: this.owner.fight.start_time, stacks: 0 });
-    this.lastStackTimestamp = this.owner.fight.start_time;
+    this.maxStacks = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_CAPACITY_TALENT) ? 3 : 2;
 
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
@@ -60,28 +54,11 @@ export default class TidalWaves extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TIDAL_WAVES_BUFF),
-      this.onBuffApplied,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.TIDAL_WAVES_BUFF),
-      this.onStackGained,
-    );
-    this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TIDAL_WAVES_BUFF),
-      this.onStackLost,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TIDAL_WAVES_BUFF),
-      this.onBuffRemoved,
-    );
-
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.onRiptideCast,
     );
 
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.buildStackChanges);
   }
 
   private get currentBuffStacks(): number {
@@ -89,7 +66,6 @@ export default class TidalWaves extends Analyzer {
   }
 
   onHealingWave = (event: BeginCastEvent) => {
-    // Ignore cancelled casts and instant 0ms casts (where castEvent happens in the same millisecond)
     const isInstantProc = event.castEvent && event.castEvent.timestamp === event.timestamp;
     if (event.isCancelled || isInstantProc) {
       return;
@@ -107,7 +83,6 @@ export default class TidalWaves extends Analyzer {
   };
 
   onChainHeal = (event: BeginCastEvent) => {
-    // Ignore cancelled casts and instant procs from Lively Totems (experimental!)
     const isInstantProc = event.castEvent && event.castEvent.timestamp === event.timestamp;
     if (event.isCancelled || isInstantProc) {
       return;
@@ -124,57 +99,38 @@ export default class TidalWaves extends Analyzer {
     }
   };
 
-  private advanceStackTimestamp(newTimestamp: number) {
-    if (newTimestamp !== this.lastStackTimestamp) {
-      this.registerStackChange();
-    }
-    this.lastStackTimestamp = newTimestamp;
-  }
-
-  private registerStackChange() {
-    this.currentStacks = this.pendingStacks;
-    this.stackChanges.push({
-      timestamp: this.lastStackTimestamp,
-      stacks: this.currentStacks,
-    });
-  }
-
-  onBuffApplied = (event: ApplyBuffEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks = 1;
-  };
-
-  onStackGained = (event: ApplyBuffStackEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks += 1;
-  };
-
-  onStackLost = (event: RemoveBuffStackEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks -= 1;
-  };
-
-  onBuffRemoved = (event: RemoveBuffEvent) => {
-    this.advanceStackTimestamp(event.timestamp);
-    this.pendingStacks = 0;
-  };
-
   onRiptideCast = (event: CastEvent) => {
-    if (this.currentBuffStacks >= 2) {
+    if (this.currentBuffStacks >= this.maxStacks) {
       this.wastedOvercapped++;
     } else {
       this.generatedTotal++;
     }
 
-    this.lastCastTimestamp = event.timestamp;
     this.riptideCasts.push({
       timestamp: event.timestamp,
-      stacks: this.currentStacks,
+      stacks: this.currentBuffStacks,
     });
   };
 
-  onFightEnd = () => {
-    this.registerStackChange();
+  buildStackChanges = () => {
+    const history = this.selectedCombatant.getBuffHistory(
+      SPELLS.TIDAL_WAVES_BUFF,
+      this.selectedCombatant.id,
+    );
+
+    const points: StackTracker[] = [{ timestamp: this.owner.fight.start_time, stacks: 0 }];
+
+    for (const instance of history) {
+      for (const step of instance.stackHistory) {
+        points.push({ timestamp: step.timestamp, stacks: step.stacks });
+      }
+      if (instance.end !== null) {
+        points.push({ timestamp: instance.end, stacks: 0 });
+      }
+    }
+
+    points.sort((a, b) => a.timestamp - b.timestamp);
+    this.stackChanges = points;
   };
 
   get suggestionThresholds() {
@@ -362,16 +318,26 @@ export default class TidalWaves extends Analyzer {
           </strong>{' '}
           reduces the cast time of your next <SpellLink spell={SPELLS.HEALING_WAVE} /> or{' '}
           <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> by {fakeHastePercent}%. It is generated by
-          casting <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> and stacks up to 2 times.
+          casting <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> and stacks up to {this.maxStacks}{' '}
+          times
+          {this.maxStacks === 3 && (
+            <>
+              {' '}
+              (increased by <SpellLink spell={TALENTS.PRIMORDIAL_CAPACITY_TALENT} /> for Farseer.)
+            </>
+          )}
+          .
         </p>
 
         <ul>
           <li>
-            <strong>Stacks Generated:</strong> {this.generatedTotal} (from Riptide)
+            <strong>Stacks Generated:</strong> {this.generatedTotal} (from{' '}
+            <SpellLink spell={TALENTS.RIPTIDE_TALENT} />)
           </li>
           <li>
-            <strong>Stacks Consumed:</strong> {consumedTotal} ({this.consumedByHW} on Healing Wave,{' '}
-            {this.consumedByCH} on Chain Heal)
+            <strong>Stacks Consumed:</strong> {consumedTotal} ({this.consumedByHW} on{' '}
+            <SpellLink spell={SPELLS.HEALING_WAVE} />, {this.consumedByCH} on{' '}
+            <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />)
           </li>
           <li>
             <strong>Stacks Wasted (Overcapped):</strong>{' '}
@@ -383,9 +349,11 @@ export default class TidalWaves extends Analyzer {
 
         <p>
           You successfully buffed {consumedTotal} casts, saving cast time equivalent to a{' '}
-          {fakeHastePercent}% haste modifier per cast. Try to avoid casting Riptide when you already
-          have 2 stacks of Tidal Waves to prevent wasting the buff. Below is a graph showing your
-          stacks over time and when you cast Riptide (blue diamonds):
+          {fakeHastePercent}% haste modifier per cast. Try to avoid casting{' '}
+          <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> when you already have 2 stacks of{' '}
+          <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} /> to prevent wasting the buff. Below is a
+          graph showing your stacks over time and when you cast{' '}
+          <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> (blue diamonds):
         </p>
 
         <div style={{ marginTop: 15 }}>{this.plot}</div>
