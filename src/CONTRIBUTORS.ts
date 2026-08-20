@@ -2980,6 +2980,11 @@ export const Nooseknitter: Contributor = {
   ],
 };
 
+export const Topping: Contributor = {
+  nickname: 'Topping',
+  github: 'Topping',
+};
+
 export const WillyRS: Contributor = {
   nickname: 'WillyRS',
   github: 'EmmanueleVilla',

@@ -6,10 +6,12 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import { AplSection } from './modules/apl/AplCheck';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <AplSection />
       <Section title="Resource Use">
         <SubSection title="Runes">
           <span>
@@ -55,6 +57,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Rime">{modules.rimeEfficiency.guideSubsection}</SubSection>
       </Section>
       <Section title="Cooldowns">
+        <SubSection title="Opener and cooldown alignment">
+          {modules.frostOpener.guideSubsection}
+        </SubSection>
         <CooldownsSubsection modules={modules} events={events} info={info} />
         <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
       </Section>

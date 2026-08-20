@@ -19,6 +19,8 @@ import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
 import EmpowerRuneWeapon from './modules/talents/EmpowerRuneWeapon';
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
+import AplCheck from './modules/apl/AplCheck';
+import FrostOpener from './modules/apl/Opener';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -27,6 +29,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     runeforgeChecker: FrostRuneForgeChecker,
+    aplCheck: AplCheck,
+    frostOpener: FrostOpener,
 
     // Features
     HardHowlingBlastCasts: HardHowlingBlastCasts,

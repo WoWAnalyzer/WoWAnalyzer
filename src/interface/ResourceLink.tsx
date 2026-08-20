@@ -27,7 +27,7 @@ const ResourceLink = ({ icon = true, ...props }: Props) => {
       className={category}
       {...other}
     >
-      {icon && <ResourceIcon id={id} noLink />} {children || RESOURCE_TYPES[id].name}
+      {icon && <ResourceIcon id={id} noLink alt="" />} {children || RESOURCE_TYPES[id].name}
     </a>
   );
 };

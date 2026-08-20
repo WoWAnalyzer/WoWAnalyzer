@@ -191,6 +191,22 @@ describe('Basic APL Check', () => {
   });
 });
 
+describe('APL check delay', () => {
+  it('updates state but does not judge casts owned by a dedicated opener analyzer', () => {
+    const apl: Apl = { ...build([SHORT_CD, FILLER]), checkDelay: 3000 };
+    const result = aplCheck(apl)(
+      [...cast(0, 4000, SHORT_CD), ...cast(1000, 0, FILLER), ...cast(4000, 0, FILLER)].sort(
+        (a, b) => a.timestamp - b.timestamp,
+      ),
+      info,
+    );
+
+    expect(result.successes).toHaveLength(0);
+    expect(result.violations).toHaveLength(1);
+    expect(result.violations[0].actualCast.timestamp).toBe(4000);
+  });
+});
+
 describe('APL with conditions', () => {
   const bofPresent = buffPresent(BOF);
   const apl = build([

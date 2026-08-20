@@ -130,7 +130,7 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   get totalProcs() {
-    return this.kmProcs + this.refreshedKMProcs + this.procsWastedToResources;
+    return this.kmProcs;
   }
 
   get efficiency() {

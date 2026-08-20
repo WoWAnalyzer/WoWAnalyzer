@@ -10,6 +10,22 @@ export interface ResourceInformation {
   previous: number;
 }
 
+export interface HasResourceOptions {
+  /** Expected resource amount at the start of the fight, in event units. */
+  initial?: number;
+  /**
+   * Use the tracked amount from before the cast when the cast does not include
+   * classResources. This is useful when resource events precede cast events.
+   */
+  getResourceBeforeCast?: boolean;
+  /**
+   * Multiplier from event units to player-facing units, used only in the
+   * condition description. For example, Runic Power is reported at 10x its
+   * in-game value, so its display scale factor is 0.1.
+   */
+  displayScaleFactor?: number;
+}
+
 const castResource = (resource: Resource, event: AplTriggerEvent): ClassResources | undefined =>
   event.classResources?.find(({ type }) => type === resource.id);
 
@@ -23,19 +39,27 @@ const rangeSatisfied = (actualAmount: number, range: Range): boolean => {
 // NOTE: this doesn't explicitly model natural regen (mana, energy, focus) but
 // when the classResources are present it does use those as the main source of
 // truth, which should accomodate them in the vast majority of cases.
-// use initial to set the expected initial resources on fight start
-// use getResourceBeforeCast to get the resource amount from before the current cast
-// this is useful when resource events are fired before the cast event
-// getResourceBeforeCast only applies to events that don't carry the castResource
+// The legacy initial/getResourceBeforeCast positional arguments remain supported;
+// new callers that need display scaling should use HasResourceOptions.
 export default function hasResource(
   resource: Resource,
   range: Range,
-  initial?: number,
+  initialOrOptions?: number | HasResourceOptions,
   getResourceBeforeCast?: boolean,
 ): Condition<ResourceInformation> {
+  const options: HasResourceOptions =
+    typeof initialOrOptions === 'object'
+      ? initialOrOptions
+      : { initial: initialOrOptions, getResourceBeforeCast };
+  const displayScaleFactor = options.displayScaleFactor ?? 1;
+  const displayRange: Range = {
+    atLeast: range.atLeast === undefined ? undefined : range.atLeast * displayScaleFactor,
+    atMost: range.atMost === undefined ? undefined : range.atMost * displayScaleFactor,
+  };
+
   return {
     key: `hasResource-${resource.id}`,
-    init: () => ({ current: initial ?? 0, previous: initial ?? 0 }),
+    init: () => ({ current: options.initial ?? 0, previous: options.initial ?? 0 }),
     update: (state, event) => {
       if (event.type === EventType.ResourceChange && event.resourceChangeType === resource.id) {
         return {
@@ -59,12 +83,15 @@ export default function hasResource(
       if (res) {
         return rangeSatisfied(res.amount, range);
       } else {
-        return rangeSatisfied(getResourceBeforeCast ? state.previous : state.current, range);
+        return rangeSatisfied(
+          options.getResourceBeforeCast ? state.previous : state.current,
+          range,
+        );
       }
     },
     describe: (tense) => (
       <>
-        you {tenseAlt(tense, 'have', 'had')} {formatRange(range)}{' '}
+        you {tenseAlt(tense, 'have', 'had')} {formatRange(displayRange)}{' '}
         <ResourceLink id={resource.id} icon />
       </>
     ),

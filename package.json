@@ -93,6 +93,7 @@
     "test:interface": "pnpm run test --exclude \"src/parser/**/*\"",
     "test:parser": "pnpm run test ./src/parser",
     "typecheck": "tsc",
+    "validate:frost-apl": "node scripts/validate-frost-apl.mjs",
     "lint": "oxlint --max-warnings 0 --deny-warnings",
     "lint:fix": "pnpm run lint --fix",
     "extract": "lingui extract --overwrite --clean",

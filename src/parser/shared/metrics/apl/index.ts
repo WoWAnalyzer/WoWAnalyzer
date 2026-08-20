@@ -83,12 +83,16 @@ interface SpellListTarget {
 type AplTarget = SpellTarget | SpellListTarget;
 
 export interface InternalRule {
+  /** Stable identifier used by source mappings and update tooling. */
+  id?: string;
   spell: AplTarget;
   condition?: Condition<any>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   description?: ReactNode;
 }
 
 interface ConditionalRule {
+  /** Stable identifier used by source mappings and update tooling. */
+  id?: string;
   spell: Spell | Spell[];
   condition: Condition<any>; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   /**
@@ -98,6 +102,8 @@ interface ConditionalRule {
 }
 
 interface LabelRule {
+  /** Stable identifier used by source mappings and update tooling. */
+  id?: string;
   spell: Spell | Spell[];
   /**
    * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
@@ -110,6 +116,12 @@ export type Rule = Spell | Spell[] | ConditionalRule | LabelRule;
 export interface Apl {
   conditions?: Condition<any>[]; // oxlint-disable-line typescript-eslint/no-explicit-any -- Baseline suppression. Try to fix if you edit this code.
   rules: InternalRule[];
+  /**
+   * Milliseconds after the pull before cast evaluation begins. Condition and
+   * cooldown state still update during the delay. Use this when a dedicated
+   * sequence analyzer owns the opener.
+   */
+  checkDelay?: number;
 }
 
 function isInternalRule(rule: Rule | InternalRule): rule is InternalRule {
@@ -501,6 +513,7 @@ export class AplChecker {
   private lastSeenHostileTargetID: number;
   private lastSeenHostileTargetInstance: number | undefined = undefined;
   private lastTimestamp: number;
+  private checkStart: number;
 
   constructor(apl: Apl, info: PlayerInfo, events?: AnyEvent[]) {
     this.apl = apl;
@@ -510,6 +523,7 @@ export class AplChecker {
     this.assertLookaheadCompat();
 
     this.lastTimestamp = info.combatant?.owner.fight.start_time ?? -1;
+    this.checkStart = (info.combatant?.owner.fight.start_time ?? 0) + (apl.checkDelay ?? 0);
     this.lastSeenHostileTargetID = -1;
 
     // rules for spells that aren't known are automatically ignored
@@ -622,7 +636,10 @@ export class AplChecker {
     eventIndex: number,
   ): [CheckState, Success | Violation | undefined] {
     let outcome: Success | Violation | undefined = undefined;
-    if (aplProcessesEvent(event, result, this.applicableSpells, this.info.playerId)) {
+    if (
+      event.timestamp >= this.checkStart &&
+      aplProcessesEvent(event, result, this.applicableSpells, this.info.playerId)
+    ) {
       const applicable = applicableRule(
         this.apl,
         this.abilities,

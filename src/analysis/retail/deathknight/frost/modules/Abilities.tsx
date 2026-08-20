@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.PILLAR_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 60,
+        cooldown: 45,
         enabled: combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -26,10 +26,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.EMPOWER_RUNE_WEAPON_TALENT.id,
-        buffSpellId: talents.EMPOWER_RUNE_WEAPON_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 120,
+        cooldown: 30,
+        charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.BREATH_OF_SINDRAGOSA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 120,
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 180,
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

@@ -8,7 +8,7 @@ const config: Config = {
   contributors: [Nooseknitter],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '12.0.7',
+  patchCompatibility: '12.1.0',
   supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -36,11 +36,20 @@ const config: Config = {
         </li>
         <li>
           <a
-            href="https://www.icy-veins.com/wow/frost-death-knight-pve-dps-guide"
+            href="https://www.method.gg/guides/frost-death-knight"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Icy Veins Guide
+            Method Guide
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/simulationcraft/simc"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SimulationCraft
           </a>
         </li>
       </ul>

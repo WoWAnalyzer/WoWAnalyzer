@@ -1,6 +1,10 @@
 name: 'Build'
 
-on: [push, pull_request, merge_group]
+on:
+  push:
+    branches: [midnight]
+  pull_request:
+  merge_group:
 
 env:
   CI: true
@@ -160,49 +164,6 @@ jobs:
         run: pnpm run extract
       - name: Compile messages
         run: pnpm exec lingui compile
-
-  docker-image:
-    needs: [lint-test, build]
-    name: 'Publish Docker image'
-    runs-on: ubuntu-24.04
-    if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: .
-      - run: tar -xzf dist.tar.gz
-      # Remove files we no longer need to speed up sending context to Docker
-      - run: rm dist.tar.gz
-      - name: Docker meta
-        id: docker_meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            wowanalyzer/wowanalyzer
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{secrets.DOCKER_USERNAME}}
-          password: ${{secrets.DOCKER_PASSWORD}}
-      - name: Build Docker image
-        id: docker_build
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
 
   require-changelog-entry:
     name: 'Has new changelog entry'

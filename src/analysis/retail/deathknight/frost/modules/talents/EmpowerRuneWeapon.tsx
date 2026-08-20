@@ -5,13 +5,7 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  FightEndEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -19,24 +13,17 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 interface ErwCast {
   timestamp: number;
   wastedRp: number;
-  wastedRunes: number;
   gainedRp: number;
-  gainedRunes: number;
 }
 
 export default class EmpowerRuneWeapon extends Analyzer {
   erwTracker: ErwCast[] = [];
 
-  currentTimestamp = 0;
-  wastedRp = 0;
-  wastedRunes = 0;
-  gainedRunes = 0;
-  gainedRp = 0;
+  currentCast: ErwCast | undefined;
+  pendingRp: ErwCast | undefined;
 
   constructor(options: Options) {
     super(options);
-
-    this.currentTimestamp = 0;
 
     this.active = this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT);
 
@@ -45,57 +32,44 @@ export default class EmpowerRuneWeapon extends Analyzer {
       this.onResourceGain,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
-      this.onErwStart,
+      Events.cast.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
+      this.onErwCast,
     );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
-      this.onErwEnd,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
-      this.onErwEnd,
-    );
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onErwStart(event: ApplyBuffEvent) {
-    this.currentTimestamp = event.timestamp;
+  onErwCast(event: CastEvent) {
+    const pending =
+      this.pendingRp && Math.abs(event.timestamp - this.pendingRp.timestamp) <= 1000
+        ? this.pendingRp
+        : undefined;
+    this.currentCast = {
+      timestamp: event.timestamp,
+      wastedRp: pending?.wastedRp ?? 0,
+      gainedRp: pending?.gainedRp ?? 0,
+    };
+    this.pendingRp = undefined;
+    this.erwTracker.push(this.currentCast);
   }
 
   onResourceGain(event: ResourceChangeEvent) {
-    if (event.resourceChangeType === RESOURCE_TYPES.RUNES.id) {
-      this.gainedRunes += event.resourceChange - event.waste;
-      this.wastedRunes += event.waste;
-    } else if (event.resourceChangeType === RESOURCE_TYPES.RUNIC_POWER.id) {
-      this.gainedRp += event.resourceChange - event.waste;
-      this.wastedRp += event.waste;
+    // Patch 11.2 redesigned ERW as an instant cast. Its resource events follow
+    // the cast instead of being spread across an aura duration.
+    if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) {
+      return;
     }
-  }
-
-  onErwEnd(event: RemoveBuffEvent | RefreshBuffEvent) {
-    this.erwTracker.push({
-      timestamp: this.currentTimestamp,
-      wastedRp: this.wastedRp,
-      wastedRunes: this.wastedRunes,
-      gainedRunes: this.gainedRunes,
-      gainedRp: this.gainedRp,
-    });
-    this.wastedRp = 0;
-    this.wastedRunes = 0;
-    this.gainedRp = 0;
-    this.gainedRunes = 0;
-  }
-
-  onFightEnd(event: FightEndEvent) {
-    if (this.selectedCombatant.hasBuff(talents.EMPOWER_RUNE_WEAPON_TALENT.id)) {
-      this.erwTracker.push({
-        timestamp: this.currentTimestamp,
-        wastedRp: this.wastedRp,
-        wastedRunes: this.wastedRunes,
-        gainedRunes: this.gainedRunes,
-        gainedRp: this.gainedRp,
-      });
+    if (
+      this.currentCast &&
+      event.timestamp >= this.currentCast.timestamp &&
+      event.timestamp - this.currentCast.timestamp <= 1000
+    ) {
+      this.currentCast.gainedRp += event.resourceChange - event.waste;
+      this.currentCast.wastedRp += event.waste;
+    } else {
+      this.pendingRp = {
+        timestamp: event.timestamp,
+        gainedRp: event.resourceChange - event.waste,
+        wastedRp: event.waste,
+      };
     }
   }
 
@@ -108,9 +82,8 @@ export default class EmpowerRuneWeapon extends Analyzer {
         is an off-gcd <SpellLink spell={talents.KILLING_MACHINE_TALENT} /> and Runic Power
         generator. It helps us reduce the number of no-KM{' '}
         <SpellLink spell={talents.OBLITERATE_TALENT} />s we cast in a fight, as well as providing a
-        ton of resources. Furthermore, during <SpellLink spell={talents.PILLAR_OF_FROST_TALENT} />{' '}
-        with <SpellLink spell={talents.OBLITERATION_TALENT} />, it gives a lot of free casts of{' '}
-        <SpellLink spell={talents.OBLITERATE_TALENT} /> which is a lot of value.
+        burst of Runic Power. Avoid sitting at two charges, and avoid wasting the Runic Power it
+        grants.
       </p>
     );
 
@@ -132,26 +105,13 @@ export default class EmpowerRuneWeapon extends Analyzer {
           checklistItems.push({
             label: 'Runic Power Gained',
             result: <PerformanceMark perf={runicPowerPerf} />,
-            details: <>{cast.gainedRp - cast.wastedRp}</>,
-          });
-
-          const runesPerf = cast.wastedRunes
-            ? QualitativePerformance.Fail
-            : QualitativePerformance.Good;
-          checklistItems.push({
-            label: 'Runes Gained',
-            result: <PerformanceMark perf={runesPerf} />,
-            details: <>{cast.gainedRunes - cast.wastedRunes}</>,
+            details: <>{cast.gainedRp}</>,
           });
 
           let overallPerf = QualitativePerformance.Good;
-          if (cast.wastedRp > 0 || cast.wastedRunes > 0) {
+          if (cast.wastedRp > 0) {
             overallPerf = QualitativePerformance.Ok;
           }
-          if (cast.wastedRp > 0 && cast.wastedRp) {
-            overallPerf = QualitativePerformance.Ok;
-          }
-
           return (
             <CooldownExpandable
               header={header}

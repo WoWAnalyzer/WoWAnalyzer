@@ -7,7 +7,6 @@ import CooldownExpandable, {
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -62,6 +61,7 @@ class BreathOfSindragosa extends Analyzer {
   onFightEnd(event: FightEndEvent) {
     if (this.breathActive) {
       const duration = event.timestamp - this.beginTimestamp;
+      this.totalDuration += duration;
       this.castTracker.push({
         timestamp: this.beginTimestamp,
         duration: duration / 1000,
@@ -72,25 +72,12 @@ class BreathOfSindragosa extends Analyzer {
 
   get tickingOnFinishedString() {
     return this.breathActive
-      ? 'Your final cast was not counted in the average since it was still ticking when the fight ended'
+      ? 'Your final cast ended with the fight and is included in the average.'
       : '';
   }
 
   get averageDuration() {
     return (this.totalDuration / this.casts || 0) / 1000;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.averageDuration,
-      isLessThan: {
-        minor: 60.0,
-        average: 50.5,
-        major: 45.0,
-      },
-      style: ThresholdStyle.SECONDS,
-      suffix: 'Average',
-    };
   }
 
   statistic() {
