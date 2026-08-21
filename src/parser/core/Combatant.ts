@@ -372,6 +372,7 @@ class Combatant extends Entity {
         targetID: this.id,
         targetIsFriendly: true,
         start: timestamp,
+        stacks: buff.stacks,
       });
     });
   }
