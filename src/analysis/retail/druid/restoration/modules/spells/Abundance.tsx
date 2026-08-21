@@ -1,20 +1,25 @@
-import { formatPercentage } from 'common/format';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
-import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalculateLib';
+import HIT_TYPES from 'game/HIT_TYPES';
+import {
+  calculateEffectiveHealingFromCritIncrease,
+  calculateOverhealingFromCritIncrease,
+} from 'parser/core/EventCalculateLib';
 
 const MS_BUFFER = 100;
-export const ABUNDANCE_MANA_REDUCTION = 0.08;
-const ABUNDANCE_INCREASED_CRIT = 0.08;
+export const ABUNDANCE_MANA_REDUCTION = 0.6;
+export const ABUNDANCE_INCREASED_CRIT = 0.6;
 const IMP_REGROWTH_CRIT_BONUS = 0.4;
 const INTENSITY_CRIT_HEAL_MULTIPLIER = 2.6;
 
@@ -22,8 +27,8 @@ const INTENSITY_CRIT_HEAL_MULTIPLIER = 2.6;
  * **Abundance**
  * Spec Talent Tier 9
  *
- * For each Rejuvenation you have active, Regrowth's cost is reduced by 8% and critical effect
- * chance is increased by 8%, to a maximum of 96%.
+ * While you have at least 5 Rejuvenations active, Regrowth's cost is reduced by 60% and critical
+ * effect chance is increased by 60%.
  */
 class Abundance extends Analyzer.withDependencies({
   statTracker: StatTracker,
@@ -34,12 +39,14 @@ class Abundance extends Analyzer.withDependencies({
 
   /** Total healing attributable to increased crit */
   totalEffCritHealing = 0;
-  /** Total crit percent cumulatively (divide by casts for avg) - respects 100% cap */
+  /** Total overhealing attributable to increased crit */
+  totalEffCritOverhealing = 0;
+  /** Total crit percent cumulatively (divide by abundanceHits for avg) - respects 100% cap */
   totalEffCritGain = 0;
-  /** Total cumulative stacks */
-  totalStacks = 0;
-  /** Total cumulative stacks for mana casts */
-  totalManaStacks = 0;
+  /** Number of Regrowth healing events with Abundance active */
+  abundanceHits = 0;
+  /** Number of non-free Regrowth casts with Abundance active */
+  abundanceManaCasts = 0;
   /** Number of non-free Regrowth casts */
   manaCasts = 0;
   /** Number of Regrowth healing events (direct and periodic) */
@@ -57,10 +64,16 @@ class Abundance extends Analyzer.withDependencies({
   // Crit attribution applies to all Regrowth healing events, direct and periodic.
   // Improved Regrowth itself is only a direct-heal modifier.
   onHit(event: HealEvent) {
-    const stacks = this.selectedCombatant.getOwnBuffStacks(SPELLS.ABUNDANCE_BUFF);
+    const hasAbundance = this.selectedCombatant.hasBuff(
+      SPELLS.ABUNDANCE_BUFF.id,
+      event.timestamp,
+      MS_BUFFER,
+    );
 
     this.allHits += 1;
-    this.totalStacks += stacks;
+    if (hasAbundance) {
+      this.abundanceHits += 1;
+    }
 
     // more complex calc for effective crit gain because we can't go over 100%
     let currCrit = this.deps.statTracker.currentCritPercentage;
@@ -71,9 +84,14 @@ class Abundance extends Analyzer.withDependencies({
       }
     }
     currCrit = Math.min(1, currCrit);
-    const bonusCrit = Math.min(1 - currCrit, stacks * ABUNDANCE_INCREASED_CRIT);
+    const bonusCrit = hasAbundance ? Math.min(1 - currCrit, ABUNDANCE_INCREASED_CRIT) : 0;
 
     this.totalEffCritGain += bonusCrit;
+
+    if (event.hitType !== HIT_TYPES.CRIT || bonusCrit <= 0) {
+      return;
+    }
+
     this.totalEffCritHealing += this.hasIntensity
       ? calculateEffectiveHealingFromCritIncrease(
           event,
@@ -82,40 +100,53 @@ class Abundance extends Analyzer.withDependencies({
           INTENSITY_CRIT_HEAL_MULTIPLIER,
         )
       : calculateEffectiveHealingFromCritIncrease(event, currCrit, bonusCrit);
+    this.totalEffCritOverhealing += this.hasIntensity
+      ? calculateOverhealingFromCritIncrease(
+          event,
+          currCrit,
+          bonusCrit,
+          INTENSITY_CRIT_HEAL_MULTIPLIER,
+        )
+      : calculateOverhealingFromCritIncrease(event, currCrit, bonusCrit);
   }
 
   // The mana discount is relevant only for non-free Regrowth casts, deal with it here
   onCast(event: CastEvent) {
-    if (
-      this.selectedCombatant.hasOwnBuff(SPELLS.CLEARCASTING_BUFF, MS_BUFFER) ||
-      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp, MS_BUFFER)
-    ) {
+    if (this.selectedCombatant.hasOwnBuff(SPELLS.CLEARCASTING_BUFF, MS_BUFFER)) {
       return; // don't tally already free casts
     }
-    const stacks = this.selectedCombatant.getBuffStacks(SPELLS.ABUNDANCE_BUFF.id);
-
     this.manaCasts += 1;
-    this.totalManaStacks += stacks;
+    if (this.selectedCombatant.hasBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER)) {
+      this.abundanceManaCasts += 1;
+    }
   }
 
-  /** Average stacks for Regrowth healing events (direct and periodic) */
-  get avgStacks() {
-    return this.allHits === 0 ? 0 : this.totalStacks / this.allHits;
+  /** Fraction of Regrowth healing events with Abundance active */
+  get abundanceHitRate() {
+    return this.allHits === 0 ? 0 : this.abundanceHits / this.allHits;
   }
 
-  /** Average stacks for Regrowth casts that weren't free */
-  get avgManaStacks() {
-    return this.manaCasts === 0 ? 0 : this.totalManaStacks / this.manaCasts;
+  /** Fraction of non-free Regrowth casts with Abundance active */
+  get abundanceManaCastRate() {
+    return this.manaCasts === 0 ? 0 : this.abundanceManaCasts / this.manaCasts;
   }
 
   /** Average discount to non-free Regrowth casts */
   get avgPercentManaSaved() {
-    return ABUNDANCE_MANA_REDUCTION * this.avgManaStacks;
+    return ABUNDANCE_MANA_REDUCTION * this.abundanceManaCastRate;
   }
 
-  /** Average effective crit gain for Regrowth hits */
+  /** Average effective crit gain on Regrowth hits while Abundance is up */
   get avgCritGain() {
-    return this.allHits === 0 ? 0 : this.totalEffCritGain / this.allHits;
+    return this.abundanceHits === 0 ? 0 : this.totalEffCritGain / this.abundanceHits;
+  }
+
+  get abundanceBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.ABUNDANCE_BUFF.id);
+  }
+
+  get abundanceBuffUptimePercent() {
+    return this.abundanceBuffUptime / this.owner.fightDuration;
   }
 
   statistic() {
@@ -127,9 +158,14 @@ class Abundance extends Analyzer.withDependencies({
         tooltip={
           <>
             <p>
-              The listed average stacks counts all Regrowth heals (direct and periodic). The mana
-              portion is only relevant to non-free casts however - your average stacks on non-free
-              Regrowth casts was <strong>{this.avgManaStacks.toFixed(1)}</strong>.
+              Abundance was active for Regrowth heals (direct and periodic)
+              <strong> {formatPercentage(this.abundanceHitRate, 1)}%</strong> of the time. For
+              non-free Regrowth casts, it was active{' '}
+              <strong>{formatPercentage(this.abundanceManaCastRate, 1)}%</strong> of the time.
+            </p>
+            <p>
+              Abundance buff uptime: <strong>{formatDuration(this.abundanceBuffUptime)}</strong> (
+              <strong>{formatPercentage(this.abundanceBuffUptimePercent, 1)}%</strong>)
             </p>
             <p>
               <ul>
@@ -150,24 +186,24 @@ class Abundance extends Analyzer.withDependencies({
                     %
                   </strong>
                 </li>
+                <li>
+                  <strong>
+                    Overhealing:{' '}
+                    {formatOverhealing(this.totalEffCritOverhealing, this.totalEffCritHealing)}
+                  </strong>
+                </li>
               </ul>
             </p>
             <p>
-              Listed average crit gain may be lower than "stacks times bonus-per-stack" because crit
-              gain over 100% crit is not counted.
+              Listed average crit gain may be lower than 60% because crit gain over 100% crit is not
+              counted.
             </p>
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> Average Abundance stacks
-            </>
-          }
-        >
-          <>{this.avgStacks.toFixed(1)}</>
-        </BoringValue>
+        <BoringSpellValueText spell={TALENTS_DRUID.ABUNDANCE_TALENT}>
+          <ItemPercentHealingDone amount={this.totalEffCritHealing} />
+        </BoringSpellValueText>
       </Statistic>
     );
   }
