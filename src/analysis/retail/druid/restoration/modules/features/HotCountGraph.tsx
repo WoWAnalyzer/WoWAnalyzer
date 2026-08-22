@@ -25,6 +25,8 @@ class HotCountGraph extends BuffCountGraph {
   };
   combatants!: Combatants;
   convokeSpirits!: ConvokeSpiritsResto;
+  /** Overlay series so Rejuv/WG/Regrowth each show their true count, not a stacked total. */
+  protected stackBuffSeries = false;
 
   constructor(options: Options) {
     super(options);

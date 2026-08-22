@@ -8,8 +8,8 @@ export default [
   change(
     date(2026, 8, 19),
     <>
-      Improve the HoT graph: ignore pets/duplicate applies and stop stacking series so Rejuvenation
-      is not inflated by Wild Growth.
+      Improve the HoT graph: ignore pets/duplicate applies, and overlay series so Rejuvenation is
+      not inflated by Wild Growth.
     </>,
     squided,
   ),
