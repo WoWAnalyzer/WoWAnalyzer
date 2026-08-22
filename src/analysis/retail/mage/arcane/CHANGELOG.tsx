@@ -21,7 +21,7 @@ export default [
   change(date(2026, 8, 22), <>Update {prismaticBolt} logic to be cleaner and to check for munched procs.</>, Sharrq),
   change(date(2026, 8, 15), <>Updated spec compatability to 12.1.</>, Sharrq),
   change(date(2026, 8, 15), <>Added support for {prismaticBolt}.</>, Sharrq),
-  change(date(2026, 8, 15), <>Replaced the Arcane Mana Management chart with a new heatmap visualization</>, Sharrq),
+  change(date(2026, 8, 15), <>Replaced the Arcane Mana Management chart with a new heatmap visualization.</>, Sharrq),
   change(date(2026, 8, 15), <>Updated the {arcaneBarrage}, {arcaneMissiles}, {arcaneOrb}, {arcaneSurge}, and {touchOfTheMagi} conditions for 12.1.</>, Sharrq),
   change(date(2026, 4, 26), <>Removed {arcaneCharge}s check from {touchOfTheMagi} for Spellslinger.</>, Sharrq),
   change(date(2026, 4, 21), <>Updated Spec Compatability to 12.0.5.</>, Sharrq),
