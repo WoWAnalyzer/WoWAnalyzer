@@ -5,6 +5,7 @@ import { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   EventType,
   CastEvent,
+  EmpowerEndEvent,
   HasRelatedEvent,
   SummonEvent,
   HealEvent,
@@ -62,8 +63,10 @@ export const BRONZE_EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
+      const refEvent = referencedEvent as EmpowerEndEvent;
       return (
-        empowerFinishedCasting(referencedEvent as CastEvent) &&
+        refEvent.type === EventType.EmpowerEnd &&
+        refEvent.empowermentLevel > 0 &&
         !HasRelatedEvent(referencedEvent, STASIS)
       );
     },

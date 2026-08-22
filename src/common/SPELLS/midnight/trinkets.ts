@@ -36,6 +36,11 @@ const spells = {
     name: "Akilzon's Clarity",
     icon: 'inv_archaeology_70_tauren_drum',
   },
+  LIGHTS_BLESSING: {
+    id: 1263768,
+    name: "Light's Blessing",
+    icon: 'inv_lightforgedmatrixability_lightsjudgment',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
