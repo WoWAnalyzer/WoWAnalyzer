@@ -330,6 +330,11 @@ const spells = {
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
   },
+  STASIS_RELEASE: {
+    id: 370564,
+    name: 'Stasis',
+    icon: 'ability_evoker_stasis',
+  },
   INSURANCE_HOT_EVOKER: {
     id: 1215550,
     name: 'Insurance',
@@ -583,6 +588,11 @@ const spells = {
     name: 'Engulf',
     icon: 'inv_ability_flameshaperevoker_engulf',
   },
+  INNER_FLAME: {
+    id: 1242747,
+    name: 'Inner Flame',
+    icon: 'ability_evoker_infernosblessing',
+  },
   CONSUME_FLAME_HEAL: {
     id: 445495,
     name: 'Consume Flame',
@@ -791,6 +801,11 @@ const spells = {
   },
   TWIN_FLAME: {
     id: 1265980,
+    name: 'Twin Flame',
+    icon: 'ability_evoker_infernosblessing',
+  },
+  TWIN_FLAME_HEAL: {
+    id: 1265991,
     name: 'Twin Flame',
     icon: 'ability_evoker_infernosblessing',
   },

@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 19), 'Honor combatant-info stack counts when applying buffs already active at pull.', squided),
   change(date(2026, 7, 27), 'Fix reports from previous patches being displayed as from a previous expansion.', Texleretour),
   change(date(2026, 7, 9), 'Add support for spell category filtering on the timeline tab.', Putro),
   change(date(2026, 6, 19), 'Update shared Classic Death Knight enchant checking and gear data to support Frost and Unholy.', Darkfrog),
