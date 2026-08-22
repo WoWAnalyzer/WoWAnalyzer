@@ -1003,6 +1003,11 @@ const spells = {
     name: 'Acid Rain',
     icon: 'spell_nature_acid_01',
   },
+  REACTIVE_WARDING_HEAL: {
+    id: 462477,
+    name: 'Reactive Warding',
+    icon: 'inv_10_elementalcombinedfoozles_water',
+  },
 
   /** HERO TALENTS **/
   // Stormbringer

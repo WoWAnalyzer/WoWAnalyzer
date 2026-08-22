@@ -38,9 +38,9 @@ import EarthenAccord from './modules/talents/EarthenAccord';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import WhiteWater from './modules/talents/WhiteWater';
-import CoalescingWater from './modules/talents/CoalescingWater';
 import TidalWaves from './modules/features/TidalWaves';
 import TherazanesResilience from './modules/talents/TherazanesResilience';
+import ReactiveWarding from './modules/talents/ReactiveWarding';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 import LivelyTotems from './modules/talents/totemic/LivelyTotems';
@@ -122,10 +122,10 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
     whiteWater: WhiteWater,
-    coalescingWater: CoalescingWater,
     earthLivingWeapon: EarthlivingWeapon,
     tidalWaves: TidalWaves,
     therazanesResilience: TherazanesResilience,
+    reactiveWarding: ReactiveWarding,
 
     // Hero talents
     surgingTotem: SurgingTotem,
