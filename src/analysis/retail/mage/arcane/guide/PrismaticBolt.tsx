@@ -24,7 +24,15 @@ class PrismaticBoltGuide extends Analyzer {
 
   private evaluatePrismaticBolt(pb: PrismaticBoltCast): CastEvaluation {
     // FAIL CONDITIONS
-    if (!pb.delay) {
+    if (pb.munched) {
+      return {
+        timestamp: pb.timestamp,
+        performance: QualitativePerformance.Fail,
+        reason: `Prismatic Bolt munched (overwritten).`,
+      };
+    }
+
+    if (!pb.cast) {
       return {
         timestamp: pb.timestamp,
         performance: QualitativePerformance.Fail,
@@ -181,7 +189,12 @@ class PrismaticBoltGuide extends Analyzer {
         performance: evaluation.performance,
         timestamp: this.owner.formatTimestamp(cast.timestamp),
         stats: [
-          {
+          cast.munched && {
+            value: cast.munched ? 'Yes' : 'No',
+            label: 'Munched Proc',
+            tooltip: <>Whether the proc was munched (overwritten) or not.</>,
+          },
+          !cast.munched && {
             value: formatDurationMillisMinSec(cast.delay || 0, 1),
             label: 'Delay until Cast',
             tooltip: (
@@ -191,15 +204,21 @@ class PrismaticBoltGuide extends Analyzer {
               </>
             ),
           },
-          {
+          !cast.munched && {
             value: cast.salvoStacks,
             label: 'Arcane Salvo Stacks',
             tooltip: <>The number of Arcane Salvo stacks the player had.</>,
           },
-          {
-            value: cast.cumulativePowerStacks,
-            label: 'Cumulative Power Stacks',
-            tooltip: <>The number of Cumulative Power stacks the player had.</>,
+          !cast.munched &&
+            cast.has4pc && {
+              value: cast.cumulativePowerStacks,
+              label: 'Cumulative Power Stacks',
+              tooltip: <>The number of Cumulative Power stacks the player had.</>,
+            },
+          !cast.munched && {
+            value: cast.targetsHit,
+            label: 'Targets Hit',
+            tooltip: <>The number of targets hit by Prismatic Bolt.</>,
           },
         ].filter(Boolean) as PerCastStat[],
         details: evaluation.reason,

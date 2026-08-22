@@ -16,6 +16,9 @@ const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />
 const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 
 export default [
+  change(date(2026, 8, 22), <>Adjusted {arcaneOrb} conditions for Sunfury to mark casts with without 4 Arcane Charges as good.</>, Sharrq),
+  change(date(2026, 8, 22), <>Added {prismaticBolt} to the ability spellbook.</>, Sharrq),
+  change(date(2026, 8, 22), <>Update {prismaticBolt} logic to be cleaner and to check for munched procs.</>, Sharrq),
   change(date(2026, 8, 15), <>Updated spec compatability to 12.1.</>, Sharrq),
   change(date(2026, 8, 15), <>Added support for {prismaticBolt}.</>, Sharrq),
   change(date(2026, 8, 15), <>Replaced the Arcane Mana Management chart with a new heatmap visualization</>, Sharrq),

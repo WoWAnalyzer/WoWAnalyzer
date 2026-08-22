@@ -9,6 +9,7 @@ import Events, {
   EventType,
   GetRelatedEvent,
   GetRelatedEvents,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 import { TIERS } from 'game/TIERS';
 
@@ -19,46 +20,48 @@ export default class PrismaticBolt extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.PRISMATIC_BOLT_3_ARCANE_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRISMATIC_BOLT),
-      this.onBoltCast,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRISMATIC_BOLT_BUFF),
+      this.onBoltApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.PRISMATIC_BOLT_BUFF),
+      this.onBoltApply,
     );
   }
 
-  onBoltCast(event: CastEvent) {
-    const cumulativePowerStacks = this.selectedCombatant.getBuffStacks(
-      SPELLS.CUMULATIVE_POWER_BUFF,
-    );
-    const salvoStacks = this.selectedCombatant.getBuffStacks(SPELLS.ARCANE_SALVO_BUFF);
-    const hasClearcasting = this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE);
-    const has4pc = this.selectedCombatant.has4PieceByTier(TIERS.MID2);
-
-    const damageEvents: DamageEvent[] = GetRelatedEvents(event, EventType.Damage) || [];
-    const targetsHit = damageEvents.length;
-
-    const applyBuff: ApplyBuffEvent | undefined = GetRelatedEvent(event, EventType.ApplyBuff);
-    const delay = applyBuff && event.timestamp - applyBuff.timestamp;
-
-    this.log(applyBuff);
-    this.log(damageEvents);
+  onBoltApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const refresh: RefreshBuffEvent | undefined = GetRelatedEvent(event, EventType.RefreshBuff);
+    const cast: CastEvent | undefined = GetRelatedEvent(event, EventType.Cast);
+    const damage: DamageEvent[] | undefined = GetRelatedEvents(event, EventType.Damage);
 
     this.prismaticBolts.push({
       timestamp: event.timestamp,
-      targetsHit,
-      cumulativePowerStacks,
-      salvoStacks,
-      hasClearcasting,
-      has4pc,
-      delay,
+      cast,
+      damage,
+      munched: refresh !== undefined,
+      has4pc: this.selectedCombatant.has4PieceByTier(TIERS.MID2),
+      hasClearcasting: this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE),
+      targetsHit: damage?.length || 0,
+      cumulativePowerStacks: cast
+        ? this.selectedCombatant.getBuffStacks(SPELLS.CUMULATIVE_POWER_BUFF, cast.timestamp)
+        : 0,
+      salvoStacks: cast
+        ? this.selectedCombatant.getBuffStacks(SPELLS.ARCANE_SALVO_BUFF, cast.timestamp)
+        : 0,
+      delay: cast ? cast.timestamp - event.timestamp : undefined,
     });
   }
 }
 
 export interface PrismaticBoltCast {
   timestamp: number;
+  cast?: CastEvent;
+  damage?: DamageEvent[];
+  munched: boolean;
   targetsHit: number;
+  has4pc: boolean;
+  hasClearcasting: boolean;
   cumulativePowerStacks: number;
   salvoStacks: number;
-  hasClearcasting: boolean;
-  has4pc: boolean;
   delay?: number;
 }
