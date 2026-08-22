@@ -182,6 +182,29 @@ const EVENT_LINKS = createEventLinks(
     ],
   },
   {
+    spell: SPELLS.PRISMATIC_BOLT_BUFF.id,
+    parentType: [EventType.ApplyBuff],
+    reverseRelation: EventType.ApplyBuff,
+    links: [
+      link(EventType.Damage, {
+        id: SPELLS.PRISMATIC_BOLT.id,
+        anyTarget: true,
+        forwardBuffer: 60_000,
+        condition: (linkingEvent, referencedEvent) => {
+          const buffEnd = GetRelatedEvent(linkingEvent, EventType.RemoveBuff);
+          return buffEnd ? referencedEvent.timestamp < buffEnd.timestamp + 2000 : false;
+        },
+      }),
+      link(EventType.Cast, {
+        id: SPELLS.PRISMATIC_BOLT.id,
+        maxLinks: 1,
+        anyTarget: true,
+        forwardBuffer: 60_000,
+      }),
+      link(EventType.RemoveBuff, { maxLinks: 1, forwardBuffer: 60_000 }),
+    ],
+  },
+  {
     spell: SPELLS.CLEARCASTING_ARCANE.id,
     parentType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
     reverseRelation: EventType.ApplyBuff,

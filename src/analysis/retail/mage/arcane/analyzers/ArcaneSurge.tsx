@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Analyzer from 'parser/core/Analyzer';
@@ -40,7 +39,6 @@ export default class ArcaneSurge extends Analyzer {
       cast: event.timestamp,
       buffApply,
       buffRemove,
-      salvoStacks: this.selectedCombatant.getBuff(SPELLS.ARCANE_SALVO_BUFF)?.stacks || 0,
     });
   }
 
@@ -81,5 +79,4 @@ export interface ArcaneSurgeData {
   buffApply?: ApplyBuffEvent;
   buffRemove?: RemoveBuffEvent;
   activeTime?: number;
-  salvoStacks: number;
 }

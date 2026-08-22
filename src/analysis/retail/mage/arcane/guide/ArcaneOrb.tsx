@@ -7,13 +7,10 @@ import Analyzer from 'parser/core/Analyzer';
 import GuideSection from 'interface/guide/components/GuideSection';
 import { type CastEvaluation } from 'interface/guide/components/CastSummary';
 import CastOverview from 'interface/guide/components/CastOverview';
+import { TipBox } from 'interface/guide/components';
 
 import ArcaneOrb, { ArcaneOrbCast } from '../analyzers/ArcaneOrb';
-import { formatDurationMillisMinSec } from 'common/format';
 import { CastDetail, PerCastData, type PerCastStat } from 'interface/guide/components';
-
-const AOE_THRESHOLD_ORB_SPEC = 4;
-const AOE_THRESHOLD_MISSILE_SPEC = 2;
 
 class ArcaneOrbGuide extends Analyzer {
   static dependencies = {
@@ -22,19 +19,11 @@ class ArcaneOrbGuide extends Analyzer {
 
   protected arcaneOrb!: ArcaneOrb;
 
-  hasHighVoltage: boolean = this.selectedCombatant.hasTalent(TALENTS.HIGH_VOLTAGE_TALENT);
   isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
   isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
-  isSpellslingerMissile: boolean =
-    this.isSpellslinger && !this.selectedCombatant.hasTalent(TALENTS.ORB_MASTERY_TALENT);
-  isSpellslingerOrb: boolean =
-    this.isSpellslinger && this.selectedCombatant.hasTalent(TALENTS.ORB_MASTERY_TALENT);
 
   private evaluateOrbCast(cast: ArcaneOrbCast): CastEvaluation {
     const hitTargets = cast.targetsHit > 0;
-    const isAOEMissileSpec =
-      this.isSpellslingerMissile && cast.targetsHit >= AOE_THRESHOLD_MISSILE_SPEC;
-    const isAOEOrbSpec = this.isSpellslingerOrb && cast.targetsHit >= AOE_THRESHOLD_ORB_SPEC;
 
     // FAIL CONDITIONS
     if (!hitTargets) {
@@ -53,118 +42,45 @@ class ArcaneOrbGuide extends Analyzer {
       };
     }
 
-    if (
-      this.isSpellslingerMissile &&
-      cast.clearcasting &&
-      this.hasHighVoltage &&
-      cast.salvoStacks < 12
-    ) {
+    if (this.isSpellslinger && cast.chargesBefore === 4 && cast.targetsHit < 2) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Fail,
-        reason: `Had Clearcasting with High Voltage talented.`,
-      };
-    }
-
-    if (this.isSpellslingerMissile && cast.touchCD < 10000) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `Touch of the Magi was available in ${formatDurationMillisMinSec(cast.touchCD)}.`,
-      };
-    }
-
-    if (this.isSpellslingerOrb && !cast.recentBarrage && !isAOEOrbSpec) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `Arcane Barrage was not your last cast and Orb did not hit 4 targets.`,
-      };
-    }
-
-    if (
-      this.isSpellslingerMissile &&
-      ((!isAOEMissileSpec && cast.chargesBefore > 3) ||
-        (isAOEMissileSpec && cast.chargesBefore > 2))
-    ) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `Had ${cast.chargesBefore} Arcane Charges & Hit ${cast.targetsHit} enemies.`,
+        reason: `You already had 4 Arcane Charges when you cast Arcane Orb and hit ${cast.targetsHit} targets.`,
       };
     }
 
     // GOOD CONDITIONS
-    if (this.isSpellslingerMissile && this.hasHighVoltage && cast.clearcasting) {
+    if (this.isSpellslinger && cast.targetsHit >= 2) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Had Clearcasting with High Voltage talented.`,
+        reason: `You hit ${cast.targetsHit} targets.`,
       };
     }
 
-    if (this.isSpellslingerMissile && !cast.clearcasting && cast.salvoStacks >= 12) {
+    if (this.isSpellslinger && cast.chargesBefore < 4) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Did not have Clearcasting and had ${cast.salvoStacks} Arcane Salvo stacks.`,
+        reason: `Had ${cast.chargesBefore} Arcane Charges before Arcane Orb.`,
       };
     }
 
-    if (this.isSpellslingerMissile && isAOEMissileSpec) {
+    if (this.isSunfury && cast.chargesBefore === 0) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Hit ${cast.targetsHit} enemies.`,
-      };
-    }
-
-    if (this.isSunfury && cast.chargesBefore < 2) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Good,
-        reason: `Had ${cast.chargesBefore} Arcane Charges.`,
-      };
-    }
-
-    if (this.isSpellslingerOrb && cast.clearcasting && cast.salvoStacks <= 14) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Good,
-        reason: `Had Clearcasting and ${cast.salvoStacks} Arcane Salvo stacks.`,
-      };
-    }
-
-    if (this.isSpellslingerOrb && !cast.clearcasting && cast.orbCapped && cast.salvoStacks <= 18) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Good,
-        reason: `Didn't have Clearcasting, was capped (or almost capped) on Arcane Orb charges, and had ${cast.salvoStacks} Arcane Salvo stacks.`,
+        reason: `Had no Arcane Charges before Arcane Orb.`,
       };
     }
 
     // OK CONDITIONS
-    if (this.isSpellslingerMissile && cast.clearcasting && cast.salvoStacks < 12) {
+    if (this.isSunfury && cast.chargesBefore > 0) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Ok,
-        reason: `Had Clearcasting with ${cast.salvoStacks} Arcane Salvo Stacks.`,
-      };
-    }
-
-    if (this.isSpellslingerOrb && cast.clearcasting && cast.salvoStacks > 14) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Ok,
-        reason: `Had ${cast.salvoStacks} Arcane Salvo Stacks.`,
-      };
-    }
-
-    if (this.isSpellslingerOrb && !cast.clearcasting && cast.orbCapped && cast.salvoStacks > 18) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Ok,
-        reason: `Didn't have Clearcasting, was capped (or almost capped) on Arcane Orb charges, and had ${cast.salvoStacks} Arcane Salvo stacks.`,
+        reason: `Had ${cast.chargesBefore} Arcane Charges before Arcane Orb.`,
       };
     }
 
@@ -179,57 +95,26 @@ class ArcaneOrbGuide extends Analyzer {
   get guideSubsection(): JSX.Element {
     const arcaneOrb = <SpellLink spell={SPELLS.ARCANE_ORB} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
-    const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
-    const highVoltage = <SpellLink spell={TALENTS.HIGH_VOLTAGE_TALENT} />;
-    const arcaneSalvo = <SpellLink spell={TALENTS.ARCANE_SALVO_TALENT} />;
-    const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
-    const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
 
     const explanation = (
       <>
         <p>
           <b>{arcaneOrb}</b>'s primary purpose is to quickly generate {arcaneCharge}s, generating at
-          least 2 charges per cast with an additional charge per target hit. The way you utilize{' '}
-          {arcaneOrb} is heavily dependent on your talent build, so refer to the below guidelines
-          based on your chosen talents.
+          least 2 charges per cast with an additional charge per target hit. Refer to the below
+          conditions to determine when to cast {arcaneOrb}.
         </p>
+        {this.isSpellslinger && (
+          <ul>
+            <li>
+              It will cap your {arcaneCharge}s or you have no {arcaneCharge}s
+            </li>
+            <li>The orb will hit at least 2 targets.</li>
+          </ul>
+        )}
         {this.isSunfury && (
-          <p>
-            <ul>
-              <li>You have less than 2 {arcaneCharge}s</li>
-            </ul>
-          </p>
-        )}
-        {this.isSpellslingerMissile && (
-          <p>
-            {touchOfTheMagi} will not be available in the next 10 seconds, you have &lt; 3{' '}
-            {arcaneCharge}s (&lt; 4 if it will hit 2 or more enemies), and one of the below are
-            true.
-            <ul>
-              <li>
-                You don't have {clearcasting} and have {highVoltage} talented.
-              </li>
-              <li>
-                You have {clearcasting} and 12 or more {arcaneSalvo} stacks.
-              </li>
-              <li>{arcaneOrb} will hit 2 or more enemies.</li>
-            </ul>
-          </p>
-        )}
-        {this.isSpellslingerOrb && (
-          <p>
-            Your last cast was {arcaneBarrage} or {arcaneOrb} will hit 4 or more enemies, and also
-            one of the below are true:
-            <ul>
-              <li>
-                You have {clearcasting} and 14 or less {arcaneSalvo} stacks.
-              </li>
-              <li>
-                You don't have {clearcasting}, you are capped (or almost capped) on {arcaneOrb}{' '}
-                charges, and have 18 or less {arcaneSalvo} stacks.
-              </li>
-            </ul>
-          </p>
+          <ul>
+            <li>You have no {arcaneCharge}s.</li>
+          </ul>
         )}
       </>
     );
@@ -237,13 +122,13 @@ class ArcaneOrbGuide extends Analyzer {
     if (this.arcaneOrb.orbData.length === 0) {
       return (
         <GuideSection
-          spell={SPELLS.ARCANE_ORB}
+          spell={TALENTS.ARCANE_MISSILES_TALENT}
           explanation={explanation}
-          title="Arcane Orb (Overview)"
+          title="Arcane Orb"
         >
-          <div style={{ fontSize: '2em', color: '#999', textAlign: 'center', padding: '20px' }}>
-            No Arcane Orb casts recorded
-          </div>
+          <TipBox type="note" title="No Casts Found">
+            No {arcaneOrb} casts were detected.
+          </TipBox>
         </GuideSection>
       );
     }
@@ -271,19 +156,9 @@ class ArcaneOrbGuide extends Analyzer {
             tooltip: <>The number of enemies hit by the Arcane Orb.</>,
           },
           {
-            value: cast.clearcasting ? 'Yes' : 'No',
-            label: 'Had Clearcasting',
-            tooltip: <>Whether the player had Clearcasting or not.</>,
-          },
-          {
             value: cast.chargesBefore,
             label: 'Arcane Charges',
             tooltip: <>The number of Arcane Charges the player had before Arcane Orb.</>,
-          },
-          {
-            value: formatDurationMillisMinSec(cast.touchCD),
-            label: 'Touch CD',
-            tooltip: <>Cooldown remaining on Touch of the Magi.</>,
           },
           this.selectedCombatant.hasTalent(TALENTS.ARCANE_SALVO_TALENT)
             ? {
