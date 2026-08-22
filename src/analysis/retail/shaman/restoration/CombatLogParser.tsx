@@ -40,6 +40,7 @@ import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import WhiteWater from './modules/talents/WhiteWater';
 import CoalescingWater from './modules/talents/CoalescingWater';
 import TidalWaves from './modules/features/TidalWaves';
+import TherazanesResilience from './modules/talents/TherazanesResilience';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 import LivelyTotems from './modules/talents/totemic/LivelyTotems';
@@ -124,6 +125,7 @@ class CombatLogParser extends CoreCombatLogParser {
     coalescingWater: CoalescingWater,
     earthLivingWeapon: EarthlivingWeapon,
     tidalWaves: TidalWaves,
+    therazanesResilience: TherazanesResilience,
 
     // Hero talents
     surgingTotem: SurgingTotem,
