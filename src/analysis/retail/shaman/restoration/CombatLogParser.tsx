@@ -4,6 +4,7 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import EarthElemental from 'src/analysis/retail/shaman/shared/talents/EarthElemental';
 
 import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
@@ -21,7 +22,8 @@ import HealingRain from './modules/spells/HealingRain';
 import LavaSurge from './modules/spells/LavaSurge';
 import EarthlivingWeapon from './modules/talents/EarthlivingWeapon';
 import HealingStreamTotem from './modules/spells/HealingStreamTotem';
-
+import UndercurrentGraph from './modules/features/UndercurrentGraph';
+import CoalescingWaterGraph from './modules/features/CoalescingWaterGraph';
 import Resurgence from './modules/spells/Resurgence';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 import WaterShield from './modules/spells/WaterShield';
@@ -37,6 +39,8 @@ import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import WhiteWater from './modules/talents/WhiteWater';
 import CoalescingWater from './modules/talents/CoalescingWater';
+import TidalWaves from './modules/features/TidalWaves';
+import TherazanesResilience from './modules/talents/TherazanesResilience';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 import LivelyTotems from './modules/talents/totemic/LivelyTotems';
@@ -50,6 +54,7 @@ import PulseCapacitor from './modules/talents/totemic/PulseCapacitor';
 import SupportiveImbuements from './modules/talents/totemic/SupportiveImbuements';
 import MysticKnowledge from './modules/talents/farseer/MysticKnowledge';
 import OfferingFromBeyond from './modules/talents/farseer/OfferingFromBeyond';
+import EarthenCommunion from './modules/talents/farseer/EarthenCommunion';
 // Spells
 // Tiers
 // Shared
@@ -96,6 +101,8 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     cooldownThroughputTracker: CooldownThroughputTracker,
     earthShieldBreakdown: EarthShieldBreakdown,
+    undercurrentGraph: UndercurrentGraph,
+    coalescingWaterGraph: CoalescingWaterGraph,
 
     // Talents
     torrent: Torrent,
@@ -117,6 +124,8 @@ class CombatLogParser extends CoreCombatLogParser {
     whiteWater: WhiteWater,
     coalescingWater: CoalescingWater,
     earthLivingWeapon: EarthlivingWeapon,
+    tidalWaves: TidalWaves,
+    therazanesResilience: TherazanesResilience,
 
     // Hero talents
     surgingTotem: SurgingTotem,
@@ -131,6 +140,7 @@ class CombatLogParser extends CoreCombatLogParser {
     supportiveImbuements: SupportiveImbuements,
     offeringFromBeyond: OfferingFromBeyond,
     mysticKnowledge: MysticKnowledge,
+    earthenCommunion: EarthenCommunion,
 
     // Spells
     riptide: Riptide,
@@ -149,6 +159,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
+    earthElemental: EarthElemental,
 
     // Normalizers
     earthShieldNormalizer: EarthShieldNormalizer,

@@ -913,6 +913,11 @@ const spells = {
     name: 'Earthliving Weapon',
     icon: 'spell_shaman_giftearthmother',
   },
+  PRIMORDIAL_BOND_BUFF: {
+    id: 381755,
+    name: 'Primordial Bond',
+    icon: 'inv_elemental_primal_earth',
+  },
   PRIMORDIAL_STORM_CAST: {
     id: 1218090,
     name: 'Primordial Storm',
@@ -1046,6 +1051,11 @@ const spells = {
     id: 447433,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
+  },
+  HYDROBUBBLE_BUFF: {
+    id: 444490,
+    name: 'Hydrobubble',
+    icon: 'spell_winston_bubble',
   },
   // Totemic
   SURGING_TOTEM_RECALL: {
