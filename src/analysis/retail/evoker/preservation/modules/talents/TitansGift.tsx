@@ -4,7 +4,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Events, {
   ApplyBuffEvent,
@@ -21,15 +21,20 @@ import {
 } from '../../normalizers/EventLinking/helpers';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { TITANS_GIFT_INC } from '../../normalizers/EventLinking/constants';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class TitansGift extends Analyzer {
   //Blossom
   healingAddedToBlossoms = 0;
   totalBlossomsCasted = 0;
   buffedBlossoms = 0;
-  lastCast = 0;
+  lastBlossomCast: CastEvent | null = null;
+  totalBlossomHealing = 0;
+  totalBlossomRawHealing = 0;
+  blossomHealingOnBuffedCasts = 0;
+  blossomRawHealingOnBuffedCasts = 0;
   //Echo
   healingAddedToEcho = 0;
   totalEchoesCasted = 0;
@@ -53,7 +58,9 @@ class TitansGift extends Analyzer {
 
     //Track blossom heals
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.EMERALD_BLOSSOM, SPELLS.FLUTTERING_SEEDLINGS_HEAL]),
       this.emeraldBlossomHeal,
     );
 
@@ -61,7 +68,13 @@ class TitansGift extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.DREAM_BREATH_ECHO, SPELLS.LIVING_FLAME_HEAL, SPELLS.VERDANT_EMBRACE_HEAL]),
+        .spell([
+          SPELLS.DREAM_BREATH_ECHO,
+          SPELLS.REVERSION_ECHO,
+          SPELLS.LIVING_FLAME_HEAL,
+          SPELLS.VERDANT_EMBRACE_HEAL,
+          SPELLS.EMERALD_BLOSSOM_ECHO,
+        ]),
       this.echoHeal,
     );
 
@@ -81,80 +94,152 @@ class TitansGift extends Analyzer {
   //Count total casts
   onBlossomCasts(event: CastEvent) {
     this.totalBlossomsCasted += 1;
+    this.lastBlossomCast = event;
+    if (isCastFromEB(event)) {
+      this.buffedBlossoms += 1;
+    }
   }
 
-  onEchoCasts() {
+  onEchoCasts(event: CastEvent) {
     this.totalEchoesCasted += 1;
+    if (isCastFromEB(event)) {
+      this.buffedEchoes += 1;
+    }
+  }
+
+  private getBlossomCastForEvent(event: HealEvent): CastEvent | null {
+    const linkedCast = getBlossomCast(event);
+    if (linkedCast) {
+      return linkedCast;
+    }
+
+    if (this.lastBlossomCast && event.timestamp - this.lastBlossomCast.timestamp <= 2500) {
+      return this.lastBlossomCast;
+    }
+
+    return null;
   }
 
   //Track blossom healing added
   emeraldBlossomHeal(event: HealEvent) {
-    const blossomCast = getBlossomCast(event);
-    if (blossomCast && isCastFromEB(blossomCast)) {
-      if (this.lastCast != blossomCast.timestamp) {
-        this.buffedBlossoms += 1;
-        this.lastCast = blossomCast.timestamp;
-      }
-      this.healingAddedToBlossoms += calculateEffectiveHealing(event, TITANS_GIFT_INC);
+    const blossomCast = this.getBlossomCastForEvent(event);
+    const effectiveHealing = (event.amount || 0) + (event.absorbed || 0);
+    const rawHealing = effectiveHealing + (event.overheal || 0);
+    this.totalBlossomHealing += effectiveHealing;
+    this.totalBlossomRawHealing += rawHealing;
+
+    if (!blossomCast || !isCastFromEB(blossomCast)) {
+      return;
     }
+
+    this.blossomHealingOnBuffedCasts += effectiveHealing;
+    this.blossomRawHealingOnBuffedCasts += rawHealing;
+    this.healingAddedToBlossoms += calculateEffectiveHealing(event, TITANS_GIFT_INC);
   }
 
   //Track echo healing added
   echoHeal(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent) {
     const echoApplication = getEchoAplication(event);
-    if (echoApplication && isCastFromEB(echoApplication)) {
-      this.buffedEchoes += 1;
-      if (event.type === EventType.Heal) {
-        this.healingAddedToEcho += calculateEffectiveHealing(event, TITANS_GIFT_INC);
-      } else {
-        if (event.ability.name === TALENTS_EVOKER.DREAM_BREATH_TALENT.name) {
-          const dbHealing = getDreamBreathHealing(event);
-          this.healingAddedToEcho += dbHealing.reduce(
-            (prev, cur) => calculateEffectiveHealing(cur, TITANS_GIFT_INC) + prev,
-            0,
-          );
-        } else if (event.ability.name === TALENTS_EVOKER.REVERSION_TALENT.name) {
-          const revHealing = getReversionHealing(event);
-          this.healingAddedToEcho += revHealing.reduce(
-            (prev, cur) => calculateEffectiveHealing(cur, TITANS_GIFT_INC) + prev,
-            0,
-          );
-        }
-      }
+    if (!echoApplication || !isCastFromEB(echoApplication)) {
+      return;
+    }
+
+    if (event.type === EventType.Heal) {
+      this.healingAddedToEcho += calculateEffectiveHealing(event, TITANS_GIFT_INC);
+      return;
+    }
+
+    const spellId = event.ability.guid;
+    if (
+      spellId === TALENTS_EVOKER.DREAM_BREATH_TALENT.id ||
+      spellId === SPELLS.DREAM_BREATH_ECHO.id
+    ) {
+      const dbHealing = getDreamBreathHealing(event);
+      this.healingAddedToEcho += dbHealing.reduce(
+        (prev, cur) => prev + calculateEffectiveHealing(cur, TITANS_GIFT_INC),
+        0,
+      );
+    } else if (
+      spellId === TALENTS_EVOKER.REVERSION_TALENT.id ||
+      spellId === SPELLS.REVERSION_ECHO.id
+    ) {
+      const revHealing = getReversionHealing(event);
+      this.healingAddedToEcho += revHealing.reduce(
+        (prev, cur) => prev + calculateEffectiveHealing(cur, TITANS_GIFT_INC),
+        0,
+      );
     }
   }
 
   statistic() {
     const percentBuffedBlossoms =
       this.totalBlossomsCasted !== 0 ? this.buffedBlossoms / this.totalBlossomsCasted : 0;
-    // Titans Gift for Blossom is way more important right now to match guides, Echo attribution needs more work still so im leaving it for later
+    const percentBuffedEchoes =
+      this.totalEchoesCasted !== 0 ? this.buffedEchoes / this.totalEchoesCasted : 0;
+    const totalHealing = this.healingAddedToBlossoms + this.healingAddedToEcho;
+    const blossomHealingShare =
+      this.totalBlossomHealing > 0
+        ? this.blossomHealingOnBuffedCasts / this.totalBlossomHealing
+        : 0;
+    const attributedShareOfBuffedHealing =
+      this.blossomHealingOnBuffedCasts > 0
+        ? this.healingAddedToBlossoms / this.blossomHealingOnBuffedCasts
+        : 0;
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(5)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <div>
+              <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> +{' '}
+              <SpellLink spell={TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT} />:{' '}
+              {formatNumber(this.healingAddedToBlossoms)} (buffed casts: {this.buffedBlossoms}/
+              {this.totalBlossomsCasted}, {formatPercentage(percentBuffedBlossoms)}%)
+            </div>
+            <div>Raw Blossom/Seedling healing: {formatNumber(this.totalBlossomRawHealing)}</div>
+            <div>
+              Effective healing on Blossom/Seedling hits: {formatNumber(this.totalBlossomHealing)}
+            </div>
+            <div>
+              Raw healing on buffed Blossom/Seedling hits:{' '}
+              {formatNumber(this.blossomRawHealingOnBuffedCasts)} (
+              {formatPercentage(blossomHealingShare)}% of all Blossom/Seedling hits)
+            </div>
+            <div>
+              Effective healing on buffed Blossom/Seedling hits:{' '}
+              {formatNumber(this.blossomHealingOnBuffedCasts)}
+            </div>
+            <div>
+              Titans Gift attributed bonus on buffed Blossom/Seedling hits:{' '}
+              {formatPercentage(attributedShareOfBuffedHealing)}% of buffed healing
+            </div>
+            <div>
+              <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />:{' '}
+              {formatNumber(this.healingAddedToEcho)} (buffed casts: {this.buffedEchoes}/
+              {this.totalEchoesCasted}, {formatPercentage(percentBuffedEchoes)}%)
+            </div>
+          </>
+        }
       >
+        <TalentSpellText talent={TALENTS_EVOKER.TITANS_GIFT_TALENT}>
+          <ItemHealingDone amount={totalHealing} />
+        </TalentSpellText>
         <div className="pad">
-          <label>
-            <SpellLink spell={TALENTS_EVOKER.TITANS_GIFT_TALENT} />
-          </label>
-          <div className="value">
-            <div>
-              <small>
-                <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
-              </small>
-            </div>
-            <div>
-              <TooltipElement
-                content={
-                  <>
-                    {this.buffedBlossoms} casts buffed ({formatPercentage(percentBuffedBlossoms)}%)
-                  </>
-                }
-              >
-                <ItemHealingDone amount={this.healingAddedToBlossoms} />
-              </TooltipElement>
-            </div>
+          <div>
+            <small>
+              <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> +{' '}
+              <SpellLink spell={TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT} />:{' '}
+              {formatNumber(this.healingAddedToBlossoms)}
+            </small>
+          </div>
+          <div>
+            <small>
+              <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />:{' '}
+              {formatNumber(this.healingAddedToEcho)}
+            </small>
           </div>
         </div>
       </Statistic>

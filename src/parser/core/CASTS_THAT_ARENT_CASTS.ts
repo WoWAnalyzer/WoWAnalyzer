@@ -58,7 +58,9 @@ const spells: number[] = [
   //region Evoker
   SPELLS.VERDANT_EMBRACE_HEAL.id,
   SPELLS.TWIN_FLAME.id,
+  SPELLS.TWIN_FLAME_HEAL.id,
   SPELLS.CHARGED_BLAST.id,
+  SPELLS.DREAM_BREATH.id,
   //endregion
 
   //region Hunter
@@ -178,6 +180,7 @@ const spells: number[] = [
 
   //region trinket
   SPELLS.EYE_OF_THE_DROWNING_VOID.id,
+  SPELLS.LIGHTS_BLESSING.id,
   //endregion
   //region Embellishments
   //endregion
