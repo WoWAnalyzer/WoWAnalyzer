@@ -227,7 +227,7 @@ describe('LocalCombatLogParser', () => {
     expect(result.report.friendlyPets[0].fights).toEqual([{ id: 1, instances: 1 }]);
   });
 
-  it('normalizes absorbed records and diagnoses missed records without damage events', () => {
+  it('normalizes absorbed records and accepts missed records without damage events', () => {
     const result = parseCombatLog(
       [
         '2026/08/17 12:00:00.000,COMBAT_LOG_VERSION,1,22',
@@ -247,10 +247,74 @@ describe('LocalCombatLogParser', () => {
       sourceID: result.actors.find((actor) => actor.guid === 'Player-2')?.id,
     });
     expect(result.events.filter((event) => event.type === 'damage')).toHaveLength(0);
-    expect(result.diagnostics).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ message: expect.stringContaining('not normalized as damage') }),
-      ]),
+    expect(result.diagnostics).toEqual([]);
+  });
+
+  it('accepts non-normalized metadata, landed swings, and failed casts without warnings', () => {
+    const result = parseCombatLog(
+      [
+        '2026/08/17 12:00:00.000,COMBAT_LOG_VERSION,1,22',
+        '2026/08/17 12:00:00.100,MAP_CHANGE,2444,Dragon Isles',
+        '2026/08/17 12:00:01.000,ENCOUNTER_START,1,Boss',
+        '2026/08/17 12:00:01.100,COMBATANT_INFO,Player-1,Ada,0,0,0,0,251',
+        '2026/08/17 12:00:01.200,SWING_DAMAGE,Player-1,Ada,0,Creature-1,Boss,0,100,-1,1,0,0,0,nil,nil,nil',
+        '2026/08/17 12:00:01.201,SWING_DAMAGE_LANDED,Player-1,Ada,0,Creature-1,Boss,0,100,-1,1,0,0,0,nil,nil,nil',
+        '2026/08/17 12:00:01.300,SPELL_CAST_FAILED,Player-1,Ada,0,Creature-1,Boss,0,123,Strike,1,Out of range',
+        '2026/08/17 12:00:02.000,ENCOUNTER_END,1,Boss,1',
+      ].join('\n'),
     );
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.events.filter((event) => event.type === 'damage')).toHaveLength(1);
+    expect(result.events.filter((event) => event.type === 'cast')).toHaveLength(0);
+  });
+
+  it('normalizes environmental damage and periodic energize records', () => {
+    const result = parseCombatLog(
+      [
+        '2026/08/17 12:00:00.000,COMBAT_LOG_VERSION,1,22',
+        '2026/08/17 12:00:01.000,ENCOUNTER_START,1,Boss',
+        '2026/08/17 12:00:01.100,COMBATANT_INFO,Player-1,Ada,0,0,0,0,251',
+        '2026/08/17 12:00:01.200,ENVIRONMENTAL_DAMAGE,0000000000000000,Environment,0,Player-1,Ada,0,FALLING,100,-1,1,0,0,0,nil,nil,nil',
+        '2026/08/17 12:00:01.300,SPELL_PERIODIC_ENERGIZE,Player-1,Ada,0,Player-1,Ada,0,123,Regeneration,1,5,0,6,100',
+        '2026/08/17 12:00:02.000,ENCOUNTER_END,1,Boss,1',
+      ].join('\n'),
+    );
+
+    expect(result.diagnostics).toEqual([]);
+    expect(result.events.find((event) => event.type === 'damage')).toMatchObject({
+      ability: { guid: 0, name: 'FALLING', type: 1 },
+      amount: 100,
+      targetIsFriendly: true,
+    });
+    expect(result.events.find((event) => event.type === 'resourcechange')).toMatchObject({
+      ability: { guid: 123, name: 'Regeneration' },
+      resourceChange: 5,
+      resourceChangeType: 6,
+    });
+  });
+
+  it('normalizes healing absorbed records', () => {
+    const result = parseCombatLog(
+      [
+        '2026/08/17 12:00:00.000,COMBAT_LOG_VERSION,1,22',
+        '2026/08/17 12:00:01.000,ENCOUNTER_START,1,Boss',
+        '2026/08/17 12:00:01.100,COMBATANT_INFO,Player-1,Ada,0,0,0,0,251',
+        '2026/08/17 12:00:01.200,SPELL_HEAL_ABSORBED,Player-2,Absorber,0x518,0,Player-1,Ada,0x518,0,448005,Healing Absorb,2,Player-3,Healer,0x518,0,1244893,Restoring Light,2,1193,1193',
+        '2026/08/17 12:00:02.000,ENCOUNTER_END,1,Boss,1',
+      ].join('\n'),
+    );
+
+    const absorber = result.actors.find((actor) => actor.guid === 'Player-2');
+    const healer = result.actors.find((actor) => actor.guid === 'Player-3');
+    expect(result.diagnostics).toEqual([]);
+    expect(result.events.find((event) => event.type === 'healabsorbed')).toMatchObject({
+      ability: { guid: 448005, name: 'Healing Absorb' },
+      sourceID: absorber?.id,
+      targetID: result.actors.find((actor) => actor.guid === 'Player-1')?.id,
+      healerID: healer?.id,
+      healerAbility: { guid: 1244893, name: 'Restoring Light' },
+      amount: 1193,
+    });
   });
 });

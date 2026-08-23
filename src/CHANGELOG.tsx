@@ -45,6 +45,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 23), 'Add guided local imports for target-dummy combat logs.', Topping),
   change(date(2026, 8, 23), 'Rebrand the local-first analyzer as Localog.', Topping),
   change(date(2026, 8, 23), 'Add a static browser deployment for local combat log analysis.', Topping),
   change(date(2026, 8, 20), 'Add support for importing and analyzing local combat log files.', Topping),

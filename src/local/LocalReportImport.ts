@@ -1,7 +1,11 @@
-import type { AnyEvent } from 'parser/core/Events';
 import type Report from 'parser/core/Report';
 
-import type { LocalActor, LocalDiagnostic } from './LocalCombatLogParser';
+import type { LocalActor } from './LocalCombatLogParser';
+import type {
+  LocalCombatLogWorkerOutput,
+  TargetDummyInputRequest,
+  TargetDummyPreparationInput,
+} from './localCombatLogProtocol';
 import {
   appendLocalEventChunk,
   removeLocalReport,
@@ -14,17 +18,16 @@ export interface ImportProgress {
   progress: number;
 }
 
-type WorkerMessage =
-  | { type: 'progress'; phase: 'discovering' | 'normalizing'; progress: number }
-  | {
-      type: 'discovered';
-      report: Report;
-      actors: LocalActor[];
-      diagnostics: LocalDiagnostic[];
-    }
-  | { type: 'batch'; batchId: number; fightId: number; events: AnyEvent[] }
-  | { type: 'complete'; diagnostics: LocalDiagnostic[] }
-  | { type: 'error'; name?: string; message: string; diagnostics?: LocalDiagnostic[] };
+export type TargetDummyInputHandler = (
+  request: TargetDummyInputRequest,
+) => Promise<TargetDummyPreparationInput>;
+
+export class TargetDummyInputRequiredError extends Error {
+  constructor(readonly request: TargetDummyInputRequest) {
+    super('This target-dummy log needs a player, attempt, and matching /simc profile.');
+    this.name = 'TargetDummyInputRequiredError';
+  }
+}
 
 const abortError = () => new DOMException('Import cancelled', 'AbortError');
 
@@ -64,6 +67,7 @@ export async function importLocalCombatLog(
   file: File,
   onProgress?: (progress: ImportProgress) => void,
   signal?: AbortSignal,
+  onTargetDummyInputRequired?: TargetDummyInputHandler,
 ): Promise<string> {
   signal?.throwIfAborted();
   const id = crypto.randomUUID();
@@ -74,6 +78,7 @@ export async function importLocalCombatLog(
   let closed = false;
   let rejectImport: ((reason: unknown) => void) | undefined;
   let lastProgress = 0;
+  let inputRequestGeneration = 0;
 
   const emitProgress = (phase: ImportProgress['phase'], phaseProgress: number) => {
     const bounded = Math.min(1, Math.max(0, phaseProgress));
@@ -112,8 +117,31 @@ export async function importLocalCombatLog(
         type: 'module',
       });
 
-      worker.onmessage = async ({ data }: MessageEvent<WorkerMessage>) => {
-        if (closed) return;
+      const requestTargetDummyInput = async (
+        requestId: number,
+        request: TargetDummyInputRequest,
+      ) => {
+        const generation = ++inputRequestGeneration;
+        if (!onTargetDummyInputRequired) {
+          if (close()) reject(new TargetDummyInputRequiredError(request));
+          return;
+        }
+        try {
+          const input = await onTargetDummyInputRequired(request);
+          if (closed || generation !== inputRequestGeneration) return;
+          worker?.postMessage({
+            type: 'prepare-target-dummy',
+            operationId: id,
+            requestId,
+            input,
+          });
+        } catch (error) {
+          if (close()) reject(error);
+        }
+      };
+
+      worker.onmessage = async ({ data }: MessageEvent<LocalCombatLogWorkerOutput>) => {
+        if (closed || data.operationId !== id) return;
         try {
           switch (data.type) {
             case 'progress':
@@ -122,19 +150,29 @@ export async function importLocalCombatLog(
             case 'discovered':
               await updateLocalManifest(id, {
                 status: 'normalizing',
+                importKind: data.importKind,
                 report: data.report,
                 players: players(data.report, data.actors),
                 diagnostics: data.diagnostics,
               });
               if (!closed) {
-                worker?.postMessage({ type: 'ack', batchId: -1 });
+                worker?.postMessage({ type: 'ack', operationId: id, batchId: -1 });
               }
+              break;
+            case 'target-dummy-input-required':
+              await requestTargetDummyInput(data.requestId, data.request);
+              break;
+            case 'target-dummy-input-error':
+              await requestTargetDummyInput(data.requestId, data.request);
+              break;
+            case 'target-dummy-prepared':
+              // TD-03B resumes pass-two normalization from this retained worker state.
               break;
             case 'batch':
               approximateStoredSize += JSON.stringify(data.events).length;
               await appendLocalEventChunk(id, data.fightId, data.events, data.batchId);
               if (!closed) {
-                worker?.postMessage({ type: 'ack', batchId: data.batchId });
+                worker?.postMessage({ type: 'ack', operationId: id, batchId: data.batchId });
               }
               break;
             case 'complete':
@@ -172,7 +210,7 @@ export async function importLocalCombatLog(
           reject(new Error(event.message || 'Unable to run the local combat-log worker.'));
         }
       };
-      worker.postMessage({ type: 'start', file, id });
+      worker.postMessage({ type: 'start', file, operationId: id });
     });
     return result;
   } catch (error) {

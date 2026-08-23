@@ -48,6 +48,18 @@ Enable GitHub Pages with **GitHub Actions** as its source. The workflow runs for
 ## Supported paths and limitations
 
 - Local imports currently target current Retail advanced combat logs. Incompatible parser/schema versions are recoverable by deleting and re-importing the report.
+- A standalone target-dummy capture uses the same file picker. After discovery, choose the player and
+  attempt and paste that character's complete official SimulationCraft addon `/simc` export. Files
+  containing a usable genuine encounter follow the encounter path and do not offer nearby unmarked
+  dummy activity.
+- Target-dummy preparation currently supports only Retail project 1, combat-log version 22, WoW
+  12.1.0, and its checked-in talent snapshot. Character identity, spec, decoded talents, and equipped
+  items come from `/simc`; unavailable live ratings and pull-time auras are stored as explicit
+  zero/empty defaults and are called out in the imported report. An equipped item without an item
+  level blocks import.
+- Target-dummy discovery and normalization stay in the browser worker. Only the selected attempt's
+  analyzed window is normalized into IndexedDB, with a five-second pre-roll clamped to the source
+  segment boundary; the source file is not uploaded.
 - When enabled, WCL report metadata, combatant information, paginated events, filtered events, tables, and graphs use WCL v2. Access-token state is session-scoped; expiry asks the user to sign in again and does not affect local reports.
 - Character, guild, premium/account, aggregate support-statistics, and remote character-profile pages are not part of the first static milestone.
 - Features backed by a WCL-only aggregate are modeled as optional capabilities. A local report gets an explicit unavailable result instead of a WCL request or a fabricated zero.

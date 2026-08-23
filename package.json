@@ -113,7 +113,8 @@
     "preview": "vite build && vite preview",
     "format": "oxfmt",
     "format:check": "pnpm run format --check",
-    "static:check": "node scripts/check-static-architecture.mjs"
+    "static:check": "node scripts/check-static-architecture.mjs",
+    "target-dummy:measure": "node --expose-gc ./node_modules/tsx/dist/cli.mjs src/local/target-dummy/scripts/measure-import.ts"
   },
   "lint-staged": {
     "*": [

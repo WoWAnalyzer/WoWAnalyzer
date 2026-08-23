@@ -2,7 +2,6 @@ import { Trans } from '@lingui/react/macro';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
 import Logo from 'interface/images/logo.svg?react';
-import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { getPlayerName } from 'interface/selectors/url/report';
 import { getUser } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
@@ -28,14 +27,14 @@ const NavigationBar = ({ children, ...others }: Props) => {
     <nav className="global" {...others}>
       <div className="container">
         <div className="menu-item logo required">
-          <Link to={makeAnalyzerUrl()}>
+          <Link to="/" aria-label="WoWAnalyzer home">
             <Logo />
           </Link>
         </div>
         {children && <div className="menu-item">{children}</div>}
         {report ? (
           <div className="menu-item report-title">
-            <Link to={report.link}>{report.title}</Link>
+            <Link to="/">{report.title}</Link>
           </div>
         ) : null}
         {report ? (

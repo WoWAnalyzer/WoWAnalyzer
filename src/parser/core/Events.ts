@@ -127,6 +127,7 @@ interface MappedEventTypes {
   [EventType.Event]: Event<EventType.Event>;
   [EventType.FreeCast]: FreeCastEvent;
   [EventType.Heal]: HealEvent;
+  [EventType.HealAbsorbed]: HealAbsorbedEvent;
   [EventType.Absorbed]: AbsorbedEvent;
   [EventType.Damage]: DamageEvent;
   [EventType.BeginCast]: BeginCastEvent;
@@ -549,6 +550,21 @@ export interface HealEvent extends Event<EventType.Heal> {
   itemLevel: number;
   subtractsFromSupportedActor?: boolean;
   supportID?: number;
+}
+
+export interface HealAbsorbedEvent extends Event<EventType.HealAbsorbed> {
+  /** The healing-absorb effect. */
+  ability: Ability;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance?: number;
+  targetIsFriendly: boolean;
+  /** The actor and spell whose healing was absorbed. */
+  healerID: number;
+  healerIsFriendly: boolean;
+  healerAbility: Ability;
+  amount: number;
 }
 
 export interface BeaconHealEvent extends Omit<HealEvent, 'type'> {

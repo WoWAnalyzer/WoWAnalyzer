@@ -1,6 +1,5 @@
 import { Aggregate, ServerMetrics, loadServerMetrics } from 'common/server-metrics';
 import { type Spec } from 'game/SPECS';
-import LanguageSwitcher from 'interface/LanguageSwitcher';
 import NavigationBar from 'interface/NavigationBar';
 import { useEffect, useMemo, useState, type JSX } from 'react';
 import { SpecIcon, Tooltip, TooltipElement } from '..';
@@ -42,9 +41,7 @@ export function Component(): JSX.Element {
 
   return (
     <div className="home-page">
-      <NavigationBar>
-        <LanguageSwitcher />
-      </NavigationBar>
+      <NavigationBar />
       <main className="container">{data && <StatsTable data={data} />}</main>
     </div>
   );

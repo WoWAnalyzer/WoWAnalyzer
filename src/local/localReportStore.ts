@@ -11,7 +11,9 @@ import type { LocalDiagnostic } from './LocalCombatLogParser';
 export const LOCAL_DB_NAME = 'wowanalyzer-local-reports-final-v1';
 export const LOCAL_DB_VERSION = 1;
 export const LOCAL_SCHEMA_VERSION = 1;
-export const LOCAL_PARSER_VERSION = 'retail-v22.7';
+export const LOCAL_PARSER_VERSION = 'retail-v22.8';
+
+export type LocalImportKind = 'encounter-log' | 'target-dummy';
 
 export type LocalImportStatus = 'staged' | 'discovering' | 'normalizing' | 'persisting' | 'ready';
 
@@ -20,6 +22,7 @@ export interface LocalManifest {
   schemaVersion: number;
   parserVersion: string;
   status: LocalImportStatus;
+  importKind?: LocalImportKind;
   report?: Report;
   players?: Record<number, PlayerDetails[]>;
   diagnostics: LocalDiagnostic[];
@@ -32,6 +35,7 @@ export interface LocalManifest {
 
 export interface ReadyLocalManifest extends LocalManifest {
   status: 'ready';
+  importKind: LocalImportKind;
   report: Report;
   players: Record<number, PlayerDetails[]>;
 }
@@ -120,6 +124,7 @@ function assertReadyLocalManifest(
     manifest.status !== 'ready' ||
     manifest.schemaVersion !== LOCAL_SCHEMA_VERSION ||
     manifest.parserVersion !== LOCAL_PARSER_VERSION ||
+    !manifest.importKind ||
     !manifest.report ||
     !manifest.players
   ) {

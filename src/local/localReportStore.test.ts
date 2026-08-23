@@ -31,6 +31,7 @@ const makeReady = async (id = 'report') => {
   await stageLocalReport(id);
   await updateLocalManifest(id, {
     status: 'normalizing',
+    importKind: 'encounter-log',
     report: { ...report, code: id, locator: { kind: 'local', id } },
     players: { 1: [] },
   });
@@ -77,6 +78,27 @@ describe('localReportStore', () => {
     await removeLocalReport('report');
     await expect(getLocalReport('report')).resolves.toBeUndefined();
     await expect(listLocalReports()).resolves.toEqual([]);
+  });
+
+  it('reopens and deletes a target-dummy report with its manifest origin', async () => {
+    await stageLocalReport('dummy');
+    await updateLocalManifest('dummy', {
+      status: 'normalizing',
+      importKind: 'target-dummy',
+      report: { ...report, code: 'dummy', locator: { kind: 'local', id: 'dummy' } },
+      players: { 1: [] },
+    });
+    await appendLocalEventChunk('dummy', 1, [sourceEvent(100, 1)], 0);
+    await updateLocalManifest('dummy', { status: 'persisting' });
+    await updateLocalManifest('dummy', { status: 'ready' });
+
+    await expect(getReadyLocalReport('dummy')).resolves.toMatchObject({
+      status: 'ready',
+      importKind: 'target-dummy',
+    });
+    await expect(getLocalEvents('dummy', 1)).resolves.toHaveLength(1);
+    await removeLocalReport('dummy');
+    await expect(getLocalReport('dummy')).resolves.toBeUndefined();
   });
 
   it('recovers incomplete imports before listing local data', async () => {

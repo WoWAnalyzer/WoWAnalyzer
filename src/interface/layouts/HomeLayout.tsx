@@ -10,7 +10,6 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 
 import './HomeLayout.scss';
-import LanguageSwitcher from '../LanguageSwitcher';
 import ReportSelectionHeader from '../ReportSelectionHeader';
 import { staticHostingEnabled } from 'config/staticHosting';
 
@@ -40,9 +39,7 @@ export function HomeLayout() {
 
   return (
     <div className="home-page">
-      <NavigationBar style={{ margin: 0, position: 'static' }}>
-        <LanguageSwitcher />
-      </NavigationBar>
+      <NavigationBar style={{ margin: 0, position: 'static' }} />
 
       <ReportSelectionHeader />
 

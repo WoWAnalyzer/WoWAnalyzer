@@ -20,7 +20,7 @@ export interface Patch {
 const PATCHES: Patch[] = [
   {
     name: '12.1.0',
-    timestamp: 1787004000000, // GMT: Mon Aug 17 2026 22:00:00 GMT+0000
+    timestamp: 1786485600000, // GMT: Tue Aug 11 2026 22:00:00 GMT+0000
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail

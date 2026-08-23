@@ -5,7 +5,7 @@ import Icon from 'interface/Icon';
 import Panel from 'interface/Panel';
 import Tooltip from 'interface/Tooltip';
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
 
@@ -39,6 +39,7 @@ const PatchCheckerContents = ({
   reportExpansion: Expansion;
 }) => {
   const { report } = useReport();
+  const location = useLocation();
   const dispatch = useWaDispatch();
   const reportDate = new Date(report.start).toLocaleDateString();
 
@@ -135,7 +136,7 @@ const PatchCheckerContents = ({
               }
             >
               <Link
-                to={window.location.pathname}
+                to={`${location.pathname}${location.search}`}
                 onClick={handleClickContinue}
                 style={{ fontSize: '1.1em' }}
               >

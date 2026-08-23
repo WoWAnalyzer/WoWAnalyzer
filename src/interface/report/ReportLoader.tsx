@@ -21,6 +21,7 @@ import { AnalysisDataSourceContext } from 'report-data/AnalysisDataSourceContext
 import type { AnalysisDataSource } from 'report-data/AnalysisDataSource';
 import { createAnalysisDataSource } from './createAnalysisDataSource';
 import FullscreenError from 'interface/FullscreenError';
+import LocalImportDiagnostics from './LocalImportDiagnostics';
 
 const pageWasReloaded = () =>
   performance
@@ -233,6 +234,8 @@ const ReportLoader = ({ children }: Props) => {
   return (
     <>
       <DocumentTitle title={report.title} />
+
+      <LocalImportDiagnostics reportId={localReportId} />
 
       <AnalysisDataSourceContext.Provider value={dataSource!}>
         <ReportProvider report={report} refreshReport={handleRefresh}>

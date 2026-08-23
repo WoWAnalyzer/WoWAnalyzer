@@ -1,24 +1,86 @@
-import { DragEvent, useRef, useState } from 'react';
+import { DragEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { importLocalCombatLog, type ImportProgress } from 'local/LocalReportImport';
-import { recoverLocalReports } from 'local/localReportStore';
+import {
+  importLocalCombatLog,
+  type ImportProgress,
+  type TargetDummyInputHandler,
+} from 'local/LocalReportImport';
+import type {
+  TargetDummyInputRequest,
+  TargetDummyPreparationInput,
+} from 'local/localCombatLogProtocol';
+import { getReadyLocalReport, recoverLocalReports } from 'local/localReportStore';
+import makeAnalyzerUrl from './makeAnalyzerUrl';
 import LocalReportManager from './LocalReportManager';
+import TargetDummyImportInput from './TargetDummyImportInput';
 
 export default function LocalReportSelector() {
   const input = useRef<HTMLInputElement>(null);
   const abortController = useRef<AbortController | null>(null);
+  const startingOverController = useRef<AbortController | null>(null);
+  const targetDummyInputResolver = useRef<((input: TargetDummyPreparationInput) => void) | null>(
+    null,
+  );
   const [progress, setProgress] = useState<ImportProgress | null>(null);
+  const [targetDummyRequest, setTargetDummyRequest] = useState<TargetDummyInputRequest | null>(
+    null,
+  );
+  const [targetDummySubmitting, setTargetDummySubmitting] = useState(false);
   const [error, setError] = useState('');
   const [storageWarning, setStorageWarning] = useState('');
   const [persistent, setPersistent] = useState<boolean | null>(null);
+  const [lastFile, setLastFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!navigator.storage?.persisted) return;
+    void navigator.storage
+      .persisted()
+      .then(setPersistent)
+      .catch(() => setPersistent(false));
+  }, []);
+
+  const requestPersistentStorage = async () => {
+    try {
+      setPersistent(await navigator.storage.persist());
+    } catch {
+      setPersistent(false);
+    }
+  };
+
+  const requestTargetDummyInput: TargetDummyInputHandler = (request) => {
+    setTargetDummyRequest(request);
+    setTargetDummySubmitting(false);
+    return new Promise((resolve) => {
+      targetDummyInputResolver.current = resolve;
+    });
+  };
+
+  const submitTargetDummyInput = (targetDummyInput: TargetDummyPreparationInput) => {
+    const resolve = targetDummyInputResolver.current;
+    if (!resolve) return;
+    targetDummyInputResolver.current = null;
+    setTargetDummySubmitting(true);
+    resolve(targetDummyInput);
+  };
+
+  const updateProgress = (nextProgress: ImportProgress) => {
+    setProgress(nextProgress);
+    if (nextProgress.phase !== 'discovering') {
+      setTargetDummyRequest(null);
+      setTargetDummySubmitting(false);
+    }
+  };
+
   const importFile = async (file?: File) => {
-    if (!file) return;
+    if (!file || abortController.current) return;
     const controller = new AbortController();
     abortController.current = controller;
+    setLastFile(file);
     setError('');
     setStorageWarning('');
+    setTargetDummyRequest(null);
+    setTargetDummySubmitting(false);
     setProgress({ phase: 'discovering', progress: 0 });
     try {
       if (navigator.storage?.estimate) {
@@ -32,16 +94,35 @@ export default function LocalReportSelector() {
         }
       }
       await recoverLocalReports();
-      const id = await importLocalCombatLog(file, setProgress, controller.signal);
-      navigate(`/local/${id}`);
+      const id = await importLocalCombatLog(
+        file,
+        updateProgress,
+        controller.signal,
+        requestTargetDummyInput,
+      );
+      const destination = await getReadyLocalReport(id)
+        .then((manifest) => {
+          const fight = manifest.report.fights.length === 1 ? manifest.report.fights[0] : undefined;
+          const fightPlayers = fight ? (manifest.players[fight.id] ?? []) : [];
+          return manifest.importKind === 'target-dummy' && fight && fightPlayers.length === 1
+            ? makeAnalyzerUrl(manifest.report, fight.id, fightPlayers[0].id)
+            : `/local/${id}`;
+        })
+        .catch(() => `/local/${id}`);
+      navigate(destination);
     } catch (reason) {
+      const startingOver = startingOverController.current === controller;
       if (reason instanceof DOMException && reason.name === 'AbortError') {
-        setError('Import cancelled.');
+        if (!startingOver) setError('Import cancelled. You can retry the same file.');
       } else {
         setError(reason instanceof Error ? reason.message : 'Unable to import this combat log.');
       }
+      setTargetDummyRequest(null);
+      setTargetDummySubmitting(false);
       setProgress(null);
     } finally {
+      if (startingOverController.current === controller) startingOverController.current = null;
+      targetDummyInputResolver.current = null;
       abortController.current = null;
       if (input.current) input.current.value = '';
     }
@@ -49,7 +130,23 @@ export default function LocalReportSelector() {
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    if (progress) return;
     void importFile(event.dataTransfer.files[0]);
+  };
+
+  const startOver = () => {
+    const controller = abortController.current;
+    if (controller) {
+      startingOverController.current = controller;
+      controller.abort();
+    }
+    setLastFile(null);
+    setError('');
+    setStorageWarning('');
+    setTargetDummyRequest(null);
+    setTargetDummySubmitting(false);
+    setProgress(null);
+    if (input.current) input.current.value = '';
   };
 
   return (
@@ -80,17 +177,26 @@ export default function LocalReportSelector() {
         Experimental — requires a current Retail advanced combat log. Your log stays in this
         browser.
       </small>
-      {navigator.storage?.persist && (
+      {typeof navigator.storage?.persist === 'function' && (
         <div>
-          <button
-            className="btn btn-link btn-sm"
-            type="button"
-            onClick={() => void navigator.storage.persist().then(setPersistent)}
-          >
-            Ask the browser to keep imported reports
-          </button>
-          {persistent !== null && (
-            <small>{persistent ? ' Persistent storage granted.' : ' The browser declined.'}</small>
+          {persistent === true ? (
+            <small>Imported reports are protected from automatic browser cleanup.</small>
+          ) : (
+            <>
+              <button
+                className="btn btn-link btn-sm"
+                type="button"
+                onClick={() => void requestPersistentStorage()}
+              >
+                Protect reports from automatic browser cleanup
+              </button>
+              {persistent === false && (
+                <small>
+                  Your reports are still saved. This browser may remove them if device storage runs
+                  low.
+                </small>
+              )}
+            </>
           )}
         </div>
       )}
@@ -104,7 +210,11 @@ export default function LocalReportSelector() {
           <progress value={progress.progress} max={1} style={{ width: '100%' }} />
           <span>
             {progress.phase === 'discovering'
-              ? 'Discovering encounters'
+              ? targetDummyRequest
+                ? targetDummySubmitting
+                  ? 'Validating target-dummy details'
+                  : 'Waiting for target-dummy details'
+                : 'Discovering encounters and target-dummy attempts'
               : progress.phase === 'normalizing'
                 ? 'Normalizing events'
                 : 'Saving'}{' '}
@@ -119,9 +229,31 @@ export default function LocalReportSelector() {
           </button>
         </div>
       )}
+      {targetDummyRequest && (
+        <TargetDummyImportInput
+          request={targetDummyRequest}
+          disabled={targetDummySubmitting}
+          onSubmit={submitTargetDummyInput}
+          onStartOver={startOver}
+        />
+      )}
       {error && (
         <div className="alert alert-danger" role="alert" style={{ marginTop: 10 }}>
           {error}
+          <div style={{ marginTop: 8 }}>
+            {lastFile && (
+              <button
+                className="btn btn-primary btn-sm"
+                type="button"
+                onClick={() => void importFile(lastFile)}
+              >
+                Retry this file
+              </button>
+            )}{' '}
+            <button className="btn btn-link btn-sm" type="button" onClick={startOver}>
+              Start over
+            </button>
+          </div>
         </div>
       )}
       <LocalReportManager />

@@ -27,6 +27,18 @@ for (const file of analyzerFiles.filter((file) =>
   }
 }
 
+const targetDummyIsolationFiles = (
+  await Promise.all(['src/analysis/', 'src/parser/', 'src/game/raids/'].map(filesBelow))
+).flat();
+for (const file of targetDummyIsolationFiles.filter((file) =>
+  ['.ts', '.tsx', '.js', '.jsx'].includes(extname(file)),
+)) {
+  const source = (await readFile(new URL(file, root), 'utf8')).toLowerCase();
+  if (source.includes('target-dummy') || source.includes('targetdummy')) {
+    failures.push(`${file} contains target-dummy behavior outside the local-import adapter.`);
+  }
+}
+
 try {
   for (const file of (await filesBelow('dist/')).filter((file) =>
     ['.js', '.html'].includes(extname(file)),

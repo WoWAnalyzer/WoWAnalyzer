@@ -15,6 +15,7 @@ import {
   type DispelEvent,
   type DrainEvent,
   type HealEvent,
+  type HealAbsorbedEvent,
   type InterruptEvent,
   type RefreshBuffEvent,
   type RefreshDebuffEvent,
@@ -167,11 +168,12 @@ const targetFields = (fields: string[]) =>
   hasNativeActorFields(fields)
     ? { guid: fields[6], name: fields[7], flags: fields[8] }
     : { guid: fields[5], name: fields[6], flags: fields[7] };
+const hasSpellPrefix = (event: string) =>
+  !/^SWING_/.test(event) && event !== 'ENVIRONMENTAL_DAMAGE';
 const spellFields = (fields: string[], event: string) =>
   hasNativeActorFields(fields)
-    ? // Swing events start their damage payload immediately after the target
-      // flags; those values are not an ability ID/name/school tuple.
-      /^SWING_/.test(event)
+    ? // Swing and environmental events have no ability tuple.
+      !hasSpellPrefix(event)
       ? {
           id: undefined,
           name: undefined,
@@ -226,7 +228,7 @@ const advancedActorState = (
   target?: LocalActor,
 ): AdvancedActorState | undefined => {
   if (!hasNativeActorFields(fields)) return undefined;
-  const start = /^SWING_/.test(event) ? 10 : 13;
+  const start = hasSpellPrefix(event) ? 13 : 10;
   const infoGuid = fields[start];
   if ((!isGuid(infoGuid) && !isEmptyGuid(infoGuid)) || fields.length < start + 19) return undefined;
 
@@ -265,12 +267,12 @@ const advancedActorState = (
 const eventPayloadStart = (fields: string[], event: string, advanced?: AdvancedActorState) =>
   advanced?.suffixStart ??
   (hasNativeActorFields(fields)
-    ? /^SWING_/.test(event)
-      ? 10
-      : 13
-    : /^SWING_/.test(event)
-      ? 8
-      : 11);
+    ? hasSpellPrefix(event)
+      ? 13
+      : 10
+    : hasSpellPrefix(event)
+      ? 11
+      : 8);
 
 interface LocalResourceChange {
   resourceChange: number;
@@ -326,15 +328,28 @@ const localResourceChange = (
           : [],
   };
 };
-const ignored = new Set(['ZONE_CHANGE', 'COMBAT_LOG_VERSION', 'ENCOUNTER_START', 'ENCOUNTER_END']);
+// These records are valid and useful to the import pipeline, but do not map to
+// analyzer events. In particular, SWING_DAMAGE_LANDED duplicates SWING_DAMAGE
+// with the target's advanced snapshot and must not be counted a second time.
+const ignored = new Set([
+  'ZONE_CHANGE',
+  'MAP_CHANGE',
+  'COMBAT_LOG_VERSION',
+  'ENCOUNTER_START',
+  'ENCOUNTER_END',
+  'SWING_DAMAGE_LANDED',
+  'SPELL_CAST_FAILED',
+]);
 const supportedEvents = new Set([
   'COMBATANT_INFO',
   'SWING_DAMAGE',
+  'ENVIRONMENTAL_DAMAGE',
   'RANGE_DAMAGE',
   'SPELL_DAMAGE',
   'SPELL_PERIODIC_DAMAGE',
   'SPELL_HEAL',
   'SPELL_PERIODIC_HEAL',
+  'SPELL_HEAL_ABSORBED',
   'SPELL_CAST_START',
   'SPELL_CAST_SUCCESS',
   'SPELL_CHANNEL_START',
@@ -347,6 +362,7 @@ const supportedEvents = new Set([
   'SPELL_AURA_APPLIED_DOSE',
   'SPELL_AURA_REMOVED_DOSE',
   'SPELL_ENERGIZE',
+  'SPELL_PERIODIC_ENERGIZE',
   'SPELL_DRAIN',
   'SPELL_LEECH',
   'SPELL_SUMMON',
@@ -360,7 +376,7 @@ const supportedEvents = new Set([
   'SPELL_RESURRECT',
 ]);
 
-class Discovery {
+export class LocalCombatLogDiscovery {
   readonly diagnostics: LocalDiagnostic[] = [];
   readonly actors = new Map<string, LocalActor>();
   readonly fights: WCLFight[] = [];
@@ -488,7 +504,7 @@ class Discovery {
     const targetInfo = targetFields(fields);
     const source = this.actor(sourceInfo.guid, sourceInfo.name, sourceInfo.flags);
     const target = this.actor(targetInfo.guid, targetInfo.name, targetInfo.flags);
-    if (event === 'SPELL_ABSORBED') {
+    if (event === 'SPELL_ABSORBED' || event === 'SPELL_HEAL_ABSORBED') {
       const absorberStart = hasNativeActorFields(fields) ? 13 : 11;
       const absorber = this.actor(
         fields[absorberStart],
@@ -527,13 +543,7 @@ class Discovery {
       target.ownerId = source.id;
       target.friendly = source.friendly;
     }
-    if (event.endsWith('_MISSED')) {
-      this.addDiagnostic({
-        line,
-        severity: 'warning',
-        message: `Skipped ${event}; missed records are not normalized as damage.`,
-      });
-    } else if (!ignored.has(event) && !supportedEvents.has(event)) {
+    if (!event.endsWith('_MISSED') && !ignored.has(event) && !supportedEvents.has(event)) {
       this.addDiagnostic({
         line,
         severity: 'warning',
@@ -542,8 +552,7 @@ class Discovery {
     }
   }
   finish(line: number) {
-    if (!this.version)
-      throw new LocalCombatLogParseError('This is not a supported Retail advanced combat log.');
+    this.validateVersion();
     if (this.active) {
       this.active.end_time = this.end;
       this.active.kill = false;
@@ -561,6 +570,10 @@ class Discovery {
         'The log contains no COMBATANT_INFO records.',
         this.diagnostics,
       );
+  }
+  validateVersion() {
+    if (!this.version)
+      throw new LocalCombatLogParseError('This is not a supported Retail advanced combat log.');
   }
   report(id: string): Report {
     const actors = [...this.actors.values()];
@@ -688,7 +701,14 @@ interface DecodeContext {
   timestamp: number;
   source?: LocalActor;
   target?: LocalActor;
-  spell: ReturnType<typeof spellFields>;
+  spell: {
+    id?: string;
+    name?: string;
+    school?: string;
+    auraType?: string;
+    amount?: string;
+    stack?: string;
+  };
   advanced?: AdvancedActorState;
   payloadStart: number;
 }
@@ -909,7 +929,7 @@ const decodeResource = (context: DecodeContext): ResourceChangeEvent | DrainEven
   const { advanced, event, fields, payloadStart, source, spell, target, timestamp } = context;
   const eventAbility = ability(spell.id, spell.name, spell.school);
   if (!source || !target || !eventAbility) return null;
-  if (event === 'SPELL_ENERGIZE') {
+  if (event === 'SPELL_ENERGIZE' || event === 'SPELL_PERIODIC_ENERGIZE') {
     return {
       type: EventType.ResourceChange,
       timestamp,
@@ -937,7 +957,10 @@ const decodeResource = (context: DecodeContext): ResourceChangeEvent | DrainEven
   };
 };
 
-const decodeUtility = (context: DecodeContext, discovery: Discovery): AnyEvent | null => {
+const decodeUtility = (
+  context: DecodeContext,
+  discovery: LocalCombatLogDiscovery,
+): AnyEvent | null => {
   const { event, fields, payloadStart, source, spell, target, timestamp } = context;
   const eventAbility = ability(spell.id, spell.name, spell.school);
   if (!source || !target || !eventAbility) return null;
@@ -987,7 +1010,10 @@ const decodeUtility = (context: DecodeContext, discovery: Discovery): AnyEvent |
   } satisfies SpellstealEvent;
 };
 
-const decodeAbsorbed = (context: DecodeContext, discovery: Discovery): AbsorbedEvent | null => {
+const decodeAbsorbed = (
+  context: DecodeContext,
+  discovery: LocalCombatLogDiscovery,
+): AbsorbedEvent | null => {
   const { fields, source: attacker, spell, target, timestamp } = context;
   if (!target) return null;
   const start = hasNativeActorFields(fields) ? 13 : 11;
@@ -1011,7 +1037,39 @@ const decodeAbsorbed = (context: DecodeContext, discovery: Discovery): AbsorbedE
   };
 };
 
-function normalize(fields: string[], discovery: Discovery): AnyEvent | null {
+const decodeHealAbsorbed = (
+  context: DecodeContext,
+  discovery: LocalCombatLogDiscovery,
+): HealAbsorbedEvent | null => {
+  const { fields, payloadStart, source, spell, target, timestamp } = context;
+  const absorbAbility = ability(spell.id, spell.name, spell.school);
+  const healer = discovery.actors.get(fields[payloadStart]);
+  const healerAbility = ability(
+    fields[payloadStart + 4],
+    fields[payloadStart + 5],
+    fields[payloadStart + 6],
+  );
+  if (!source || !target || !absorbAbility || !healer || !healerAbility) return null;
+  return {
+    type: EventType.HealAbsorbed,
+    timestamp,
+    ability: absorbAbility,
+    sourceID: source.id,
+    sourceIsFriendly: source.friendly,
+    targetID: target.id,
+    targetInstance: 0,
+    targetIsFriendly: target.friendly,
+    healerID: healer.id,
+    healerIsFriendly: healer.friendly,
+    healerAbility,
+    amount: number(fields[payloadStart + 7]) ?? 0,
+  };
+};
+
+export function normalizeCombatLogRecord(
+  fields: string[],
+  discovery: LocalCombatLogDiscovery,
+): AnyEvent | null {
   const timestamp = parseCombatLogTimestamp(fields[0]);
   if (timestamp === null) return null;
   const event = fields[1];
@@ -1023,8 +1081,19 @@ function normalize(fields: string[], discovery: Discovery): AnyEvent | null {
     return combatantInfo(source.id, timestamp, specID);
   }
   if (event.endsWith('_MISSED') || !supportedEvents.has(event)) return null;
-  const spell = spellFields(fields, event);
   const advanced = advancedActorState(fields, event, source, target);
+  const rawPayloadStart = eventPayloadStart(fields, event, advanced);
+  const spell =
+    event === 'ENVIRONMENTAL_DAMAGE'
+      ? {
+          id: '0',
+          name: fields[rawPayloadStart] || 'Environmental Damage',
+          school: fields[rawPayloadStart + (advanced ? 4 : 3)],
+          auraType: undefined,
+          amount: undefined,
+          stack: undefined,
+        }
+      : spellFields(fields, event);
   const context: DecodeContext = {
     fields,
     event,
@@ -1033,10 +1102,11 @@ function normalize(fields: string[], discovery: Discovery): AnyEvent | null {
     target,
     spell,
     advanced,
-    payloadStart: eventPayloadStart(fields, event, advanced),
+    payloadStart: rawPayloadStart + (event === 'ENVIRONMENTAL_DAMAGE' ? 1 : 0),
   };
   switch (event) {
     case 'SWING_DAMAGE':
+    case 'ENVIRONMENTAL_DAMAGE':
     case 'RANGE_DAMAGE':
     case 'SPELL_DAMAGE':
     case 'SPELL_PERIODIC_DAMAGE':
@@ -1058,6 +1128,7 @@ function normalize(fields: string[], discovery: Discovery): AnyEvent | null {
     case 'SPELL_AURA_REMOVED_DOSE':
       return decodeAura(context);
     case 'SPELL_ENERGIZE':
+    case 'SPELL_PERIODIC_ENERGIZE':
     case 'SPELL_DRAIN':
     case 'SPELL_LEECH':
       return decodeResource(context);
@@ -1068,6 +1139,8 @@ function normalize(fields: string[], discovery: Discovery): AnyEvent | null {
       return decodeUtility(context, discovery);
     case 'SPELL_ABSORBED':
       return decodeAbsorbed(context, discovery);
+    case 'SPELL_HEAL_ABSORBED':
+      return decodeHealAbsorbed(context, discovery);
     case 'UNIT_DIED':
     case 'UNIT_DESTROYED':
       return target
@@ -1107,13 +1180,13 @@ export function parseCombatLog(text: string, id = 'local'): LocalImportResult {
     .filter(Boolean)
     .map((line, index) => ({ line, lineNumber: index + 1 }));
   if (!records.length) throw new LocalCombatLogParseError('The combat log is empty.');
-  const discovery = new Discovery();
+  const discovery = new LocalCombatLogDiscovery();
   for (const record of records) discovery.line(decodeCombatLogLine(record.line), record.lineNumber);
   discovery.finish(records[records.length - 1].lineNumber);
   return {
     report: discovery.report(id),
     events: records
-      .map((record) => normalize(decodeCombatLogLine(record.line), discovery))
+      .map((record) => normalizeCombatLogRecord(decodeCombatLogLine(record.line), discovery))
       .filter((event): event is AnyEvent => event !== null),
     actors: [...discovery.actors.values()],
     diagnostics: discovery.diagnostics,
@@ -1125,7 +1198,7 @@ export async function discoverCombatLog(
   signal?: AbortSignal,
   progress?: (value: number) => void,
 ) {
-  const discovery = new Discovery();
+  const discovery = new LocalCombatLogDiscovery();
   let lastLine = 0;
   for await (const record of readCombatLogLines(file, signal)) {
     discovery.line(decodeCombatLogLine(record.line), record.lineNumber);
@@ -1138,7 +1211,7 @@ export async function discoverCombatLog(
 }
 export async function normalizeCombatLog(
   file: File,
-  discovery: Discovery,
+  discovery: LocalCombatLogDiscovery,
   onBatch: (fightId: number, events: AnyEvent[]) => Promise<void> | void,
   signal?: AbortSignal,
   progress?: (value: number) => void,
@@ -1150,7 +1223,7 @@ export async function normalizeCombatLog(
     batches.clear();
   };
   for await (const record of readCombatLogLines(file, signal)) {
-    const event = normalize(decodeCombatLogLine(record.line), discovery);
+    const event = normalizeCombatLogRecord(decodeCombatLogLine(record.line), discovery);
     if (event) {
       const fight = discovery.fights.find(
         (f) => event.timestamp >= f.start_time && event.timestamp <= f.end_time,

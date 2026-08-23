@@ -9,7 +9,9 @@ const cookieOptions = {
 };
 type LanguageState = string;
 
-const initialState: LanguageState = cookies.get(COOKIE_NAME) || 'en';
+// The language switcher is hidden until the interface has complete translations. Do not strand
+// returning users in a previously selected, partially translated locale in the meantime.
+const initialState: LanguageState = 'en';
 
 const languageSlice = createSlice({
   name: 'language',

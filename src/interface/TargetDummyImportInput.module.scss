@@ -1,0 +1,179 @@
+@use 'interface/Theme' as theme;
+@use 'interface/design-system' as design;
+
+.Form {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  border: 1px solid design.$level1_border;
+  border-radius: 0.5rem;
+  background: design.$level1_background;
+  box-shadow: design.$level1_shadow;
+}
+
+.Intro {
+  display: grid;
+  gap: 0.35rem;
+  margin: -2rem -2rem 2rem;
+  padding: 1.4rem 2rem;
+  border-bottom: 1px solid rgba(theme.$primaryColor, 0.35);
+  background: rgba(theme.$primaryColor, 0.08);
+
+  strong {
+    color: theme.$primaryColor;
+    font-size: 1.15em;
+  }
+
+  span {
+    color: theme.$muted;
+  }
+}
+
+.Field {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 1.6rem;
+}
+
+.FieldLabel {
+  margin: 0;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.FieldHelp,
+.FinePrint {
+  color: theme.$muted;
+  font-size: 0.9em;
+}
+
+.ReadonlyValue {
+  width: fit-content;
+  min-width: 16rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid design.$level2_border;
+  border-radius: 0.35rem;
+  background: design.$level2_background;
+  font-weight: 600;
+}
+
+.Attempts {
+  min-width: 0;
+  margin: 0 0 1.6rem;
+  padding: 0;
+  border: 0;
+
+  &:disabled {
+    opacity: 0.55;
+  }
+}
+
+.AttemptList {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.55rem;
+}
+
+.Attempt {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid design.$level2_border;
+  border-radius: 0.4rem;
+  background: design.$level2_background;
+  cursor: pointer;
+  transition:
+    border-color 120ms ease,
+    background 120ms ease;
+
+  &:hover {
+    border-color: rgba(theme.$primaryColor, 0.65);
+  }
+
+  input {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin: 0;
+    accent-color: theme.$primaryColor;
+  }
+}
+
+.SelectedAttempt {
+  border-color: theme.$primaryColor;
+  background: rgba(theme.$primaryColor, 0.08);
+}
+
+.AttemptDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.8rem;
+  min-width: 0;
+
+  span {
+    color: theme.$muted;
+  }
+}
+
+.Confidence {
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: theme.$muted;
+  font-size: 0.8em;
+  text-transform: capitalize;
+}
+
+.ProfileInput {
+  min-height: 13rem;
+  resize: vertical;
+  border-radius: 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+
+.FinePrint {
+  margin: -0.5rem 0 1rem;
+}
+
+.TechnicalDetails {
+  margin-bottom: 1.5rem;
+  color: theme.$muted;
+
+  summary {
+    width: fit-content;
+    cursor: pointer;
+  }
+}
+
+.Actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .Form {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .Intro {
+    margin: -1.25rem -1.25rem 1.5rem;
+    padding: 1.2rem 1.25rem;
+  }
+
+  .Attempt {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .Confidence {
+    grid-column: 2;
+    width: fit-content;
+  }
+}
