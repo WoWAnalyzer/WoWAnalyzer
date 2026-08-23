@@ -10,7 +10,7 @@ const spells = {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 75000,
+    manaCost: 5950,
   },
   WATER_SHIELD: {
     id: 52127,
@@ -195,7 +195,7 @@ const spells = {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
-    manaCost: 5000,
+    manaCost: 500,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -739,7 +739,7 @@ const spells = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 110000, // enh/ele cost is higher
+    manaCost: 250000, // enh/ele only
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
