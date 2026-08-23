@@ -49,6 +49,7 @@ export default [
   change(date(2026, 8, 23), 'Rebrand the local-first analyzer as Localog.', Topping),
   change(date(2026, 8, 23), 'Add a static browser deployment for local combat log analysis.', Topping),
   change(date(2026, 8, 20), 'Add support for importing and analyzing local combat log files.', Topping),
+  change(date(2026, 8, 19), 'Honor combatant-info stack counts when applying buffs already active at pull.', squided),
   change(date(2026, 7, 27), 'Fix reports from previous patches being displayed as from a previous expansion.', Texleretour),
   change(date(2026, 7, 9), 'Add support for spell category filtering on the timeline tab.', Putro),
   change(date(2026, 6, 19), 'Update shared Classic Death Knight enchant checking and gear data to support Frost and Unholy.', Darkfrog),

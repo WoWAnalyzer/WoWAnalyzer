@@ -3,6 +3,7 @@ import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELLS from 'common/SPELLS/evoker';
+import { hastedCooldown } from 'common/abilitiesConstants';
 import { EMPOWER_MINIMUM_GCD } from 'analysis/retail/evoker/shared';
 
 class Abilities extends CoreAbilities {
@@ -36,6 +37,7 @@ class Abilities extends CoreAbilities {
           base: EMPOWER_MINIMUM_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
         },
+        charges: combatant.hasTalent(TALENTS.LEGACY_OF_THE_LIFEBINDER_TALENT) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
         },
@@ -54,15 +56,12 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.TIME_DILATION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
         enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT),
       },
       {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 15 - (combatant.hasTalent(TALENTS.NOZDORMU_ADEPT_TALENT) ? 4 : 0),
+        cooldown: hastedCooldown(15 - (combatant.hasTalent(TALENTS.NOZDORMU_ADEPT_TALENT) ? 4 : 0)),
         gcd: {
           base: 1500,
         },
@@ -101,6 +100,27 @@ class Abilities extends CoreAbilities {
           static: 0,
         },
         enabled: combatant.hasTalent(TALENTS.STASIS_TALENT),
+      },
+      {
+        spell: SPELLS.STASIS_RELEASE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          static: 0,
+        },
+        enabled: combatant.hasTalent(TALENTS.STASIS_TALENT),
+      },
+      {
+        spell: SPELLS.MERITHRAS_BLESSING_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 0,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.MERITHRAS_BLESSING_1_PRESERVATION_TALENT),
       },
       ...super.spellbook(),
     ];

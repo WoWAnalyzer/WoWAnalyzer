@@ -52,7 +52,6 @@ export default class ArcaneMissiles extends Analyzer {
     this.missileData.push({
       cast: event,
       ticks: damageTicks.length,
-      arcaneCharges: this.arcaneChargeTracker.current,
       clipped: damageTicks && damageTicks.length < maxTicks,
       opMissiles: this.selectedCombatant.hasBuff(
         SPELLS.OVERPOWERED_MISSILES_BUFF,
@@ -62,7 +61,6 @@ export default class ArcaneMissiles extends Analyzer {
         (this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0) >= maxCCStacks,
       clearcastingProcs: this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id)?.stacks ?? 0,
       salvoStacks,
-      arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id, event.timestamp - 10),
     });
   }
 
@@ -127,7 +125,6 @@ export default class ArcaneMissiles extends Analyzer {
 export interface ArcaneMissilesData {
   cast: CastEvent;
   ticks: number;
-  arcaneCharges: number;
   clearcastingCapped: boolean;
   clearcastingProcs: number;
   salvoStacks: number;
@@ -137,5 +134,4 @@ export interface ArcaneMissilesData {
   gcdEnd?: number;
   channelEndDelay?: number;
   nextCast?: CastEvent;
-  arcaneSoul: boolean;
 }

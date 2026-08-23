@@ -94,6 +94,16 @@ export const LIVELINESS_INCREASED_RATE = [
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
 ];
 
+// Genesis listens to heal events, so Lifebloom is the tick id (33763). No Efflo on Genesis.
+export const GENESIS_BUFFED_HOTS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
+];
+
 // DoTs that get accelerated by Liveliness for restoration druid.
 export const LIVELINESS_INCREASED_DAMAGE_RATE = [
   SPELLS.MOONFIRE_DEBUFF,

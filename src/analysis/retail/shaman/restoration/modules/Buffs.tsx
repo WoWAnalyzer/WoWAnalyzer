@@ -94,7 +94,7 @@ class BUFFS extends CoreAuras {
         timelineHighlight: false,
       },
       {
-        spellId: 444490, //Hydrobubble
+        spellId: [SPELLS.HYDROBUBBLE_BUFF.id],
         enabled: combatant.hasTalent(TALENTS.FINAL_CALLING_TALENT),
         timelineHighlight: false,
       },
@@ -112,6 +112,30 @@ class BUFFS extends CoreAuras {
         spellId: [TALENTS.UNLEASH_LIFE_TALENT.id],
         enabled: combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT),
         triggeredBySpellId: [TALENTS.UNLEASH_LIFE_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [SPELLS.UNDERCURRENT_BUFF.id],
+        enabled: combatant.hasTalent(TALENTS.UNDERCURRENT_TALENT),
+        triggeredBySpellId: [TALENTS.RIPTIDE_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [SPELLS.WHIRLING_EARTH.id],
+        enabled: combatant.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+        triggeredBySpellId: [TALENTS.SURGING_TOTEM_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [SPELLS.WHIRLING_AIR.id],
+        enabled: combatant.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+        triggeredBySpellId: [TALENTS.SURGING_TOTEM_TALENT.id],
+        timelineHighlight: false,
+      },
+      {
+        spellId: [SPELLS.WHIRLING_WATER.id],
+        enabled: combatant.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+        triggeredBySpellId: [TALENTS.SURGING_TOTEM_TALENT.id],
         timelineHighlight: false,
       },
     ];

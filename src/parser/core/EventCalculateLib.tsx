@@ -74,6 +74,29 @@ export function calculateEffectiveHealingFromCritIncrease(
 }
 
 /**
+ * Calculates the overhealing attributable to a flat crit chance increase.
+ * Mirrors {@link calculateEffectiveHealingFromCritIncrease}: the crit-increase share of the
+ * crit portion is considered marginal and consumed first by overheal.
+ */
+export function calculateOverhealingFromCritIncrease(
+  event: LightWeightHealingEvent,
+  currentCrit: number,
+  flatCritIncrease: number,
+  critHealMultiplier = 2,
+): number {
+  if (flatCritIncrease <= 0) {
+    return 0;
+  }
+  const overheal = event.overheal ?? 0;
+  const raw = event.amount + (event.absorbed ?? 0) + overheal;
+  const additionalHealingFromCrit = raw - raw / critHealMultiplier;
+  const amountFromCritIncrease =
+    additionalHealingFromCrit -
+    (additionalHealingFromCrit * currentCrit) / (currentCrit + flatCritIncrease);
+  return Math.min(overheal, amountFromCritIncrease);
+}
+
+/**
  * Calculates the overhealing attributable to a percent healing buff.
  * The bonus healing is considered 'marginal' and will be consumed first when encountering overheal.
  *

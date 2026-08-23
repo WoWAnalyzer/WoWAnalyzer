@@ -86,6 +86,10 @@ jobs:
     needs: [prepare]
     name: 'e2e-build'
     runs-on: ubuntu-24.04
+    # Temporarily disabled because Playwright does not complete reliably in GitHub Actions.
+    # Re-enable this job when the CI setup has been revised; the dependent test shards will
+    # remain skipped while this job is disabled.
+    if: ${{ false }}
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4

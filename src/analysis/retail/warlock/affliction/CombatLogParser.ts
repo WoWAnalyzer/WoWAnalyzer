@@ -28,6 +28,7 @@ import { UnendingResolve, DarkPact, DemonicCircle, DemonicHealthstone } from '..
 import Guide from './Guide';
 import CullTheWeak from './modules/analyzers/CulltheWeak';
 import SiphonLife from './modules/analyzers/SiphonLife';
+import DarkHarvest from './modules/analyzers/DarkHarvest';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,6 +65,9 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
     nightfall: Nightfall,
+    // DarkHarvest must be listed before CullTheWeak so its event handlers fire first,
+    // allowing it to read the pre-reduction cooldown state on each UA/SoC cast.
+    darkHarvest: DarkHarvest,
     cullTheWeak: CullTheWeak,
     siphonLife: SiphonLife,
 

@@ -12,9 +12,6 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/shaman/
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { healingIncreases } from 'src/analysis/retail/shaman/restoration/constants';
 
-//ToDo: Counting how often the Riptide was overwritten and how many seconds of the duration were lost because of it
-// report it like eflor. from rDruid and display the stack times
-
 class Undercurrent extends Analyzer {
   static dependencies = {
     combatants: Combatants,

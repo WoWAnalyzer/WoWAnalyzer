@@ -79,6 +79,7 @@ import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/W
 import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
 import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
+import S2TierSet from 'analysis/retail/druid/restoration/modules/tier/S2TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -175,6 +176,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Set Modules
     s1TierSet: S1TierSet,
+    s2TierSet: S2TierSet,
   };
 
   static guide = Guide;

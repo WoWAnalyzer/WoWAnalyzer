@@ -2,6 +2,7 @@ import { Nevdok } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2026, 8, 213), 'Midnight season 2 APL updates', Nevdok),
   change(date(2026, 4, 25), 'Fix Heroic Strike tracking, update APL', Nevdok),
   change(date(2026, 4, 3), 'Fix apex talent CS cdr', Nevdok),
   change(date(2026, 3, 14), 'Midnight season 1 APL updates', Nevdok),
