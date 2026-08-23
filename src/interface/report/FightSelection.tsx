@@ -22,6 +22,7 @@ import { useLingui } from '@lingui/react';
 import { isEligibleFight } from 'common/isEligibleFight';
 import ReportNoEligibleFightsWarning from 'interface/report/ReportNoEligibleFightsWarning';
 import ReportFightNotEligibleWarning from 'interface/report/ReportFightNotEligibleWarning';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 const getFightFromReport = (report: Report, fightId: number) => {
   if (!report.fights) {
@@ -37,6 +38,7 @@ interface Props {
 const FightSelectionList = () => {
   const [killsOnly, setKillsOnly] = useState(false);
   const { report, refreshReport } = useReport();
+  const dataSource = useAnalysisDataSource();
   const reportDuration = report.end - report.start;
   const { i18n } = useLingui();
   usePageView('FightSelectionList');
@@ -65,28 +67,34 @@ const FightSelectionList = () => {
             <Trans id="interface.report.fightSelection.fightSelection">Fight selection</Trans>
           </h1>
           <small style={{ marginTop: -5 }}>
-            <Trans id="interface.report.fightSelection.fightSelectionDetails">
-              Select the fight you wish to analyze. If a boss or encounter is missing, or the list
-              below is empty, press the Refresh button above to re-pull the log from Warcraft Logs.
-              Additionally, please note that due to the way combat logs work, we are unable to
-              evaluate Target Dummy logs.
-            </Trans>
+            {dataSource.refreshReport ? (
+              <Trans id="interface.report.fightSelection.fightSelectionDetails">
+                Select the fight you wish to analyze. If a boss or encounter is missing, or the list
+                below is empty, press the Refresh button above to re-pull the log from Warcraft
+                Logs. Additionally, please note that due to the way combat logs work, we are unable
+                to evaluate Target Dummy logs.
+              </Trans>
+            ) : (
+              <>Select an encounter from this imported combat log to analyze.</>
+            )}
           </small>
         </div>
         <div className="flex-sub">
           <div>
-            <Tooltip
-              content={
-                <Trans id="interface.report.fightSelection.tooltip.refreshFightsList">
-                  This will refresh the fights list which can be useful if you're live logging.
-                </Trans>
-              }
-            >
-              <Link to={makeAnalyzerUrl(report)} onClick={refreshReport}>
-                <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
-                <Trans id="interface.report.fightSelection.refresh">Refresh</Trans>
-              </Link>
-            </Tooltip>
+            {dataSource.refreshReport && (
+              <Tooltip
+                content={
+                  <Trans id="interface.report.fightSelection.tooltip.refreshFightsList">
+                    This will refresh the fights list which can be useful if you're live logging.
+                  </Trans>
+                }
+              >
+                <Link to={makeAnalyzerUrl(report)} onClick={refreshReport}>
+                  <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
+                  <Trans id="interface.report.fightSelection.refresh">Refresh</Trans>
+                </Link>
+              </Tooltip>
+            )}
             <span className="toggle-control" style={{ marginLeft: 5 }}>
               <Toggle
                 checked={killsOnly}

@@ -24,8 +24,8 @@ import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId
 import { i18n } from '@lingui/core';
 import useSWR from 'swr';
 import { PlayerDetails } from 'parser/core/Player';
-import makeApiUrl from 'common/makeApiUrl';
 import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 interface Props {
   children: ReactNode;
@@ -42,10 +42,15 @@ const PlayerLoader = ({ children }: Props) => {
   const playerId = getPlayerIdFromParam(playerParam);
   const playerName = getPlayerNameFromParam(playerParam);
   const navigate = useNavigate();
+  const dataSource = useAnalysisDataSource();
   const { data, error, isLoading } = useSWR<PlayerDetailsResponse>(
-    makeApiUrl(`v2/report/${selectedReport.code}/fight/${selectedFight.id}/players`),
+    [
+      dataSource.locator.kind,
+      dataSource.locator.kind === 'local' ? dataSource.locator.id : dataSource.locator.code,
+      selectedFight.id,
+    ],
     {
-      fetcher: (url) => fetch(url).then((res) => res.json()),
+      fetcher: () => dataSource.loadPlayers(selectedFight.id).then((players) => ({ players })),
       isPaused: () => isUnsupportedClassicVersion(selectedReport.gameVersion),
     },
   );
@@ -184,7 +189,7 @@ const PlayerLoader = ({ children }: Props) => {
                 message: `Back to fight selection`,
               })}
             >
-              <Link to={`/report/${selectedReport.code}`}>
+              <Link to={makeAnalyzerUrl(selectedReport)}>
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                 <label>
                   {' '}
@@ -215,7 +220,7 @@ const PlayerLoader = ({ children }: Props) => {
           </div>
         </div>
 
-        {selectedFight.end_time > MAX_REPORT_DURATION && (
+        {reportDuration > MAX_REPORT_DURATION && (
           <ReportDurationWarning duration={reportDuration} />
         )}
 

@@ -1,6 +1,5 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import rankingColor from 'common/getRankingColor';
-import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { Tooltip } from 'interface';
@@ -10,6 +9,7 @@ import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import SourceLink from 'interface/report/SourceLink';
 
 import DamageValue from '../DamageValue';
 
@@ -164,12 +164,6 @@ class DamageTaken extends Analyzer {
     }));
 
     const perSecond = (this.total.effective / this.owner.fightDuration) * 1000;
-    const wclUrl = makeWclUrl(this.owner.report.code, {
-      fight: this.owner.fightId,
-      source: this.owner.playerId,
-      type: 'damage-taken',
-    });
-
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(3)}
@@ -194,7 +188,11 @@ class DamageTaken extends Analyzer {
             -
           </div>
           <div className="flex-main chart">
-            <a href={wclUrl}>
+            <SourceLink
+              kind="damageTaken"
+              fightId={this.owner.fightId}
+              playerId={this.owner.playerId}
+            >
               {perSecond > 0 && (
                 <AutoSizer disableWidth>
                   {({ height }) => (
@@ -206,7 +204,7 @@ class DamageTaken extends Analyzer {
                   )}
                 </AutoSizer>
               )}
-            </a>
+            </SourceLink>
           </div>
         </div>
       </StatisticBar>

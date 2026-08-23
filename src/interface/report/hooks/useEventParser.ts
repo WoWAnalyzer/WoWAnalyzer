@@ -11,6 +11,7 @@ import Report from 'parser/core/Report';
 import { useCallback, use, useEffect, useMemo, useRef, useState } from 'react';
 import { PatchCtx } from '../context/PatchContext';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -54,6 +55,7 @@ const useEventParser = ({
   dependenciesLoading,
   playerCombatantInfo,
 }: Props) => {
+  const dataSource = useAnalysisDataSource();
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const eventIndexRef = useRef(0);
@@ -207,6 +209,7 @@ const useEventParser = ({
       !parser ||
       !parser.finished ||
       !patchInfo?.patch?.isCurrent ||
+      !dataSource.canUploadMetrics ||
       config.supportLevel === SupportLevel.Unmaintained ||
       fight.boss === 0 ||
       (!fight.kill && fight.end_time - fight.start_time < STATS_MIN_WIPE_DURATION) ||
@@ -222,7 +225,7 @@ const useEventParser = ({
       configName: configName(config),
     };
     uploadServerMetrics(selection, parser.serverMetrics);
-  }, [isLoading, parser, report, fight, player, config, patchInfo]);
+  }, [isLoading, parser, report, fight, player, config, patchInfo, dataSource]);
 
   return {
     isLoading,

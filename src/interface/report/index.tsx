@@ -33,8 +33,8 @@ import handleApiError from './handleApiError';
 import { EventType, type CombatantInfoEvent } from 'parser/core/Events';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
-import { fetchCombatants } from 'common/fetchWclApi';
 import { normalizedEncounterId } from 'game/raids';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -98,6 +98,7 @@ const ResultsLoader = () => {
   const { report } = useReport();
   const { player, allPlayers } = usePlayer();
   const { fight } = useFight();
+  const dataSource = useAnalysisDataSource();
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<number>(SELECTION_ALL_PHASES);
 
@@ -187,7 +188,12 @@ const ResultsLoader = () => {
         prevFight.boss === 0 &&
         prevFight.originalBoss === normalizedEncounterId(fight.boss)
       ) {
-        fetchCombatants(report.code, prevFight.start_time, prevFight.end_time)
+        dataSource
+          .loadEvents({
+            fightId: prevFight.id,
+            start: prevFight.start_time,
+            end: prevFight.end_time,
+          })
           .then((combatantinfo) => {
             if (cancelled) {
               return;
@@ -212,7 +218,7 @@ const ResultsLoader = () => {
     return () => {
       cancelled = true;
     };
-  }, [events, player.id, report, fight]);
+  }, [events, player.id, report, fight, dataSource]);
 
   // Original code only rendered EventParser if
   // > !this.state.isLoadingParser &&

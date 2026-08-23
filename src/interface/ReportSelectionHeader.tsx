@@ -13,11 +13,13 @@ import ReportHistory from './ReportHistory';
 import ReportSelecter from './ReportSelecter';
 import { RootState } from 'store';
 import './Header.scss';
+import LocalReportSelector from './LocalReportSelector';
 
 enum StateSearch {
   Report,
   Character,
   Guild,
+  Local,
 }
 
 interface Props {
@@ -37,6 +39,7 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
     this.handleCharacterSearchClick = this.handleCharacterSearchClick.bind(this);
     this.handleReportSearchClick = this.handleReportSearchClick.bind(this);
     this.handleGuildSearchClick = this.handleGuildSearchClick.bind(this);
+    this.handleLocalSearchClick = this.handleLocalSearchClick.bind(this);
   }
 
   handleReportSearchClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
@@ -60,6 +63,11 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
     });
   }
 
+  handleLocalSearchClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    e.preventDefault();
+    this.setState({ searchType: StateSearch.Local });
+  }
+
   renderSearch() {
     switch (this.state.searchType) {
       case StateSearch.Character:
@@ -80,6 +88,8 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
         );
       case StateSearch.Guild:
         return <NameSearch type={SearchType.GUILD} />;
+      case StateSearch.Local:
+        return <LocalReportSelector />;
       case StateSearch.Report:
       default:
         return <ReportSelecter />;
@@ -144,6 +154,19 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
                       <a href="/" style={{ padding: '5px' }} onClick={this.handleGuildSearchClick}>
                         <GuildIcon />
                         <Trans id="interface.home.reportSelectionHeader.guild">Guild</Trans>
+                      </a>
+                    </li>
+                    <li
+                      key="local"
+                      className={this.state.searchType === StateSearch.Local ? 'active' : undefined}
+                    >
+                      <a
+                        href="/local-import"
+                        style={{ padding: '5px' }}
+                        onClick={this.handleLocalSearchClick}
+                      >
+                        <ReportIcon />
+                        Local file
                       </a>
                     </li>
                   </ul>

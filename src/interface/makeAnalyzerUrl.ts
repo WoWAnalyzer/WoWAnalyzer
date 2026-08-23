@@ -41,7 +41,9 @@ export default function makeReportUrl(
 ) {
   const parts = [];
   if (report) {
-    parts.push(`report/${report.code}`);
+    parts.push(
+      `${report.locator?.kind === 'local' ? 'local' : 'report'}/${report.locator?.kind === 'local' ? report.locator.id : report.code}`,
+    );
     if (fightId) {
       const fight = report.fights.find((fight) => fight.id === fightId);
       const fightName = fight ? getFightName(report, fight) : null;

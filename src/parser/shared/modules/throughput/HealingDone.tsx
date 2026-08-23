@@ -1,11 +1,11 @@
 import { formatThousands } from 'common/format';
-import makeWclUrl from 'common/makeWclUrl';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import SourceLink from 'interface/report/SourceLink';
 
 import HealingValue from '../HealingValue';
 
@@ -113,12 +113,6 @@ class HealingDone extends Analyzer {
     }));
 
     const perSecond = (this.total.effective / this.owner.fightDuration) * 1000;
-    const wclUrl = makeWclUrl(this.owner.report.code, {
-      fight: this.owner.fightId,
-      source: this.owner.playerId,
-      type: 'healing',
-    });
-
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(2)}
@@ -135,7 +129,11 @@ class HealingDone extends Analyzer {
             {formatThousands(perSecond)} HPS
           </div>
           <div className="flex-main chart" style={{ padding: 0 }}>
-            <a href={wclUrl}>
+            <SourceLink
+              kind="healingDone"
+              fightId={this.owner.fightId}
+              playerId={this.owner.playerId}
+            >
               {perSecond > 0 && (
                 <AutoSizer disableWidth>
                   {({ height }) => (
@@ -147,7 +145,7 @@ class HealingDone extends Analyzer {
                   )}
                 </AutoSizer>
               )}
-            </a>
+            </SourceLink>
           </div>
         </div>
       </StatisticBar>

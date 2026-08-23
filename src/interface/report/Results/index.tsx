@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import getFightName from 'common/getFightName';
-import makeWclUrl from 'common/makeWclUrl';
 import { findByBossId } from 'game/raids';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import AlertWarning from 'interface/AlertWarning';
@@ -44,6 +43,7 @@ import Ad, { Location } from 'interface/Ad';
 
 import usePremium from 'interface/usePremium';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -63,6 +63,7 @@ interface PassedProps {
 }
 
 const Results = (props: PassedProps) => {
+  const dataSource = useAnalysisDataSource();
   const location = useLocation();
   const selectedTab = getResultTab(location.pathname);
   const dispatch = useDispatch();
@@ -182,8 +183,10 @@ const Results = (props: PassedProps) => {
   }, [selectedTab]);
 
   useEffect(() => {
-    appendHistory(props.report, props.fight, props.player);
-  }, [appendHistory, props.fight, props.player, props.report]);
+    if (dataSource.locator.kind === 'warcraft-logs') {
+      appendHistory(props.report, props.fight, props.player);
+    }
+  }, [appendHistory, dataSource.locator.kind, props.fight, props.player, props.report]);
 
   // on mount
   useEffect(() => {
@@ -221,7 +224,7 @@ const Results = (props: PassedProps) => {
               timeFilter={props.timeFilter}
             />
 
-            {props.fight.end_time > MAX_REPORT_DURATION && (
+            {reportDuration > MAX_REPORT_DURATION && (
               <ReportDurationWarning duration={reportDuration} />
             )}
 
@@ -258,55 +261,50 @@ const Results = (props: PassedProps) => {
                 <div className="col-md-8">
                   <SupportProvidedBy config={props.config} aboutUrl={props.makeTabUrl('about')} />
                 </div>
-                <div className="col-md-3">
-                  <small>
-                    <Trans id="interface.report.results.viewOn">View on</Trans>
-                  </small>
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                  <br />
-                  <Tooltip
-                    content={t({
-                      id: 'interface.report.results.tooltip.newTab.originalReport',
-                      message: `Opens in a new tab. View the original report.`,
-                    })}
-                  >
-                    <a
-                      href={makeWclUrl(
-                        props.report.code,
-                        {
-                          fight: props.fight.id,
-                          source: props.parser ? props.parser.playerId : undefined,
-                        },
-                        wclGameVersionToExpansion(props.report.gameVersion),
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
-                      style={{ fontSize: 20, padding: '6px 0' }}
+                {dataSource.externalLinks && (
+                  <div className="col-md-3">
+                    <small>
+                      <Trans id="interface.report.results.viewOn">View on</Trans>
+                    </small>
+                    {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+                    <br />
+                    <Tooltip
+                      content={t({
+                        id: 'interface.report.results.tooltip.newTab.originalReport',
+                        message: `Opens in a new tab. View the original report.`,
+                      })}
                     >
-                      <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft
-                      Logs
-                    </a>
-                  </Tooltip>
-                  {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                  <br />
-                  <Tooltip
-                    content={t({
-                      id: 'interface.report.results.tooltip.newTab.insightsAndTimelines',
-                      message: `Opens in a new tab. View insights and timelines for raid encounters.`,
-                    })}
-                  >
-                    <a
-                      href={`https://www.wipefest.net/report/${props.report.code}/fight/${props.fight.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn"
-                      style={{ fontSize: 20, padding: '6px 0' }}
+                      <a
+                        href={dataSource.externalLinks.originalReport(props.fight.id)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                        style={{ fontSize: 20, padding: '6px 0' }}
+                      >
+                        <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} />{' '}
+                        Warcraft Logs
+                      </a>
+                    </Tooltip>
+                    {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+                    <br />
+                    <Tooltip
+                      content={t({
+                        id: 'interface.report.results.tooltip.newTab.insightsAndTimelines',
+                        message: `Opens in a new tab. View insights and timelines for raid encounters.`,
+                      })}
                     >
-                      <WipefestIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Wipefest
-                    </a>
-                  </Tooltip>
-                </div>
+                      <a
+                        href={dataSource.externalLinks.wipefest(props.fight.id)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn"
+                        style={{ fontSize: 20, padding: '6px 0' }}
+                      >
+                        <WipefestIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Wipefest
+                      </a>
+                    </Tooltip>
+                  </div>
+                )}
                 <div className="col-md-1">
                   <Tooltip
                     content={

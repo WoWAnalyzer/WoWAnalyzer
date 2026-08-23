@@ -3,13 +3,7 @@ import { AnyEvent } from 'parser/core/Events';
 
 import { QueryParams } from './makeApiUrl';
 import makeWclApiUrl from './makeWclApiUrl';
-import {
-  WclTable,
-  WclOptions,
-  WCLResponseJSON,
-  WCLFightsResponse,
-  WCLEventsResponse,
-} from './WCL_TYPES';
+import { WclTable, WCLResponseJSON, WCLFightsResponse, WCLEventsResponse } from './WCL_TYPES';
 
 export class ApiDownError extends Error {}
 export class LogNotFoundError extends Error {}
@@ -90,7 +84,12 @@ export async function toJson(response: string | Response) {
   }
 }
 
-async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache = false) {
+async function rawFetchWcl(
+  endpoint: string,
+  queryParams: QueryParams,
+  noCache = false,
+  signal?: AbortSignal,
+) {
   if (import.meta.env.MODE === 'test') {
     throw new Error('Unable to query WCL during test');
   }
@@ -98,6 +97,7 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache =
   const response = await fetch(url, {
     credentials: 'include',
     cache: noCache ? 'reload' : 'default',
+    signal,
   });
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
@@ -139,13 +139,18 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache =
   return json;
 }
 
-const defaultOptions: WclOptions = {
+interface FetchWclOptions {
+  timeout?: number;
+  signal?: AbortSignal;
+}
+
+const defaultOptions: Required<Pick<FetchWclOptions, 'timeout'>> = {
   timeout: 60000,
 };
 export default function fetchWcl<T extends WCLResponseJSON>(
   endpoint: string,
   queryParams: QueryParams,
-  options?: WclOptions,
+  options?: FetchWclOptions,
   noCache = false,
 ): Promise<T> {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
@@ -157,7 +162,13 @@ export default function fetchWcl<T extends WCLResponseJSON>(
       reject(new Error('Request timed out, probably due to an issue on our side. Try again.'));
     }, options!.timeout);
 
-    rawFetchWcl(endpoint, queryParams, noCache)
+    if (options.signal?.aborted) {
+      clearTimeout(timeoutTimer);
+      reject(new DOMException('The operation was aborted.', 'AbortError'));
+      return;
+    }
+
+    rawFetchWcl(endpoint, queryParams, noCache, options.signal)
       .then((results) => {
         clearTimeout(timeoutTimer);
         if (timedOut) {
@@ -208,44 +219,71 @@ function rawFetchEventsPage(
   end: number,
   actorId?: number,
   filter?: string,
+  signal?: AbortSignal,
 ) {
-  return fetchWcl<WCLEventsResponse>(`report/events/${code}`, {
-    start,
-    end,
-    actorid: actorId,
-    filter,
-    translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
-  });
+  return fetchWcl<WCLEventsResponse>(
+    `report/events/${code}`,
+    {
+      start,
+      end,
+      actorid: actorId,
+      filter,
+      translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
+    },
+    { signal, timeout: defaultOptions.timeout },
+  );
 }
+
+export interface FetchEventsOptions {
+  maxPages?: number;
+  onProgress?: (progress: number) => void;
+  signal?: AbortSignal;
+}
+
 export async function fetchEvents(
   reportCode: string,
   fightStart: number,
   fightEnd: number,
   actorId?: number,
   filter?: string,
-  maxPages = 3,
+  options: FetchEventsOptions = {},
 ) {
   let pageStartTimestamp = fightStart;
 
   let events: AnyEvent[] = [];
   let page = 0;
+  const duration = Math.max(1, fightEnd - fightStart);
+  let lastProgress = 0;
 
   while (true) {
+    options.signal?.throwIfAborted();
     const json = await rawFetchEventsPage(
       reportCode,
       pageStartTimestamp,
       fightEnd,
       actorId,
       filter,
+      options.signal,
     );
     events = [...events, ...json.events!];
-    if (json.nextPageTimestamp) {
-      if (json.nextPageTimestamp > fightEnd) {
+    page += 1;
+    const nextTimestamp = json.nextPageTimestamp;
+    lastProgress = Math.max(
+      lastProgress,
+      nextTimestamp === undefined
+        ? 1
+        : Math.max(0, Math.min(1, (nextTimestamp - fightStart) / duration)),
+    );
+    options.onProgress?.(lastProgress);
+    if (nextTimestamp !== undefined) {
+      if (nextTimestamp <= pageStartTimestamp) {
+        throw new CorruptResponseError('WCL event pagination did not advance.');
+      }
+      if (nextTimestamp > fightEnd) {
         console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
       }
-      pageStartTimestamp = json.nextPageTimestamp;
-      page += 1;
-      if (page >= maxPages) {
+      pageStartTimestamp = nextTimestamp;
+      if (options.maxPages !== undefined && page >= options.maxPages) {
         throw new Error('Interrupting due to exceeded max events pages. Something has gone wrong.');
       }
     } else {

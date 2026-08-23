@@ -10,20 +10,29 @@ import RouterErrorBoundary from 'interface/RouterErrorBoundary';
 import { AppLayout } from 'interface/layouts/AppLayout';
 import { HomeLayout } from 'interface/layouts/HomeLayout';
 
+const reportRoutes = () => (
+  <>
+    <Route index lazy={() => import('./routes/report/overview')} />
+    <Route path="overview" lazy={() => import('./routes/report/overview')} />
+    <Route path="statistics" lazy={() => import('./routes/report/statistics')} />
+    <Route path="timeline" lazy={() => import('./routes/report/timeline')} />
+    <Route path="events" lazy={() => import('./routes/report/events')} />
+    <Route path="debug" lazy={() => import('./routes/report/debug')} />
+    <Route path="character" lazy={() => import('./routes/report/character')} />
+    <Route path="about" lazy={() => import('./routes/report/about')} />
+    <Route path=":resultTab" lazy={() => import('./routes/report/dynamic')} />
+  </>
+);
+
 const appRoutes = createRoutesFromElements(
   <Route path="/" element={<AppLayout />} errorElement={<RouterErrorBoundary />}>
     <Route path="character/:region/:realm/:name" lazy={() => import('./routes/character')} />
     <Route path="guild/:region/:realm/:name" lazy={() => import('./routes/guild')} />
     <Route path="report/:reportCode/:fightId?/:player?/:build?" lazy={() => import('./report')}>
-      <Route index lazy={() => import('./routes/report/overview')} />
-      <Route path="overview" lazy={() => import('./routes/report/overview')} />
-      <Route path="statistics" lazy={() => import('./routes/report/statistics')} />
-      <Route path="timeline" lazy={() => import('./routes/report/timeline')} />
-      <Route path="events" lazy={() => import('./routes/report/events')} />
-      <Route path="debug" lazy={() => import('./routes/report/debug')} />
-      <Route path="character" lazy={() => import('./routes/report/character')} />
-      <Route path="about" lazy={() => import('./routes/report/about')} />
-      <Route path=":resultTab" lazy={() => import('./routes/report/dynamic')} />
+      {reportRoutes()}
+    </Route>
+    <Route path="local/:localReportId/:fightId?/:player?/:build?" lazy={() => import('./report')}>
+      {reportRoutes()}
     </Route>
     <Route path="privacy" lazy={() => import('./routes/privacy')} />
     <Route element={<HomeLayout />}>
@@ -35,6 +44,7 @@ const appRoutes = createRoutesFromElements(
       <Route path="help-wanted" lazy={() => import('./routes/help-wanted')} />
       <Route path="contributor/:id" lazy={() => import('./routes/contributor')} />
       <Route path="search/:searchTerm?" lazy={() => import('./routes/search')} />
+      <Route path="local-import" lazy={() => import('./routes/local-import')} />
       <Route path="*" lazy={() => import('./routes/not-found')} />
     </Route>
     <Route path="support-stats" lazy={() => import('./routes/support-stats')} />

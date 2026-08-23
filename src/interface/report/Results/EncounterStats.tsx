@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -10,9 +9,11 @@ import Icon from 'interface/Icon';
 import { FullCombatant } from 'parser/core/Combatant';
 import { PureComponent, ReactNode } from 'react';
 import Config from 'parser/Config';
-import { WCLRanking, WCLRankingGear, WCLRankingsResponse } from 'common/WCL_TYPES';
+import { WCLRanking, WCLRankingGear } from 'common/WCL_TYPES';
 import getItemQualityFromLabel from 'common/getItemQualityFromLabel';
 import DIFFICULTIES from 'game/DIFFICULTIES';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
+import type { AnalysisDataSource } from 'report-data/AnalysisDataSource';
 
 interface WCLRankingGearWithAmount extends WCLRankingGear {
   amount: number;
@@ -29,6 +30,7 @@ interface Props {
   difficulty: number;
   duration: number;
   combatant: FullCombatant;
+  loadRankings: NonNullable<AnalysisDataSource['loadEncounterRankings']>;
 }
 
 // TODO: Figure out new talents
@@ -112,15 +114,16 @@ class EncounterStats extends PureComponent<Props, State> {
       ((now.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7,
     ); // current calendar-week
 
-    return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${this.props.currentBoss}`, {
-      className: this.props.config.spec.wclClassName,
-      specName: this.props.config.spec.wclSpecName,
-      difficulty: this.props.difficulty,
-      limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
-      metric: this.metric,
-      cache: currentWeek, // cache for a week
-      includeCombatantInfo: true,
-    })
+    return this.props
+      .loadRankings({
+        encounterId: this.props.currentBoss,
+        className: this.props.config.spec.wclClassName,
+        specName: this.props.config.spec.wclSpecName,
+        difficulty: this.props.difficulty,
+        limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
+        metric: this.metric,
+        cache: currentWeek, // cache for a week
+      })
       .then((stats) => {
         // TODO: Figure out new talents
         // const talentCounter = [[], [], [], [], [], [], []];
@@ -365,4 +368,9 @@ class EncounterStats extends PureComponent<Props, State> {
   }
 }
 
-export default EncounterStats;
+export default function EncounterStatsWithSource(props: Omit<Props, 'loadRankings'>) {
+  const source = useAnalysisDataSource();
+  return source.loadEncounterRankings ? (
+    <EncounterStats {...props} loadRankings={source.loadEncounterRankings.bind(source)} />
+  ) : null;
+}

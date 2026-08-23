@@ -14,7 +14,7 @@ import {
 import './Casts.scss';
 import * as React from 'react';
 import Toggle from 'interface/react-toggle';
-import { fetchEvents } from 'common/fetchWclApi';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import TimeIndicators from './TimeIndicators';
 import ActivityIndicator from 'interface/ActivityIndicator';
@@ -237,6 +237,7 @@ export const EnemyCastsTimeline = ({
 }: TimelineProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { combatLogParser: parser } = useCombatLogParser();
+  const dataSource = useAnalysisDataSource();
   const [shouldRenderNPCSpells, setShouldRenderNPCSpells] = useState<boolean>(false);
   const [NPCCasts, setNPCCasts] = useState<(NpcBeginCastEvent | NpcCastEvent)[]>([]);
 
@@ -273,30 +274,28 @@ export const EnemyCastsTimeline = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      if (hasUserRequestedNPCSpells) {
+      if (hasUserRequestedNPCSpells && dataSource.loadFilteredEvents) {
         try {
           //This call grabs the abilities cast by NPCs
-          const events = (await fetchEvents(
-            parser.report.code,
-            parser.fight.start_time,
-            parser.fight.end_time,
-            undefined,
-            `type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1 AND sourceID > -1 AND ability.id not in (${EXCLUDED_SPELLS.join(',')})`,
-            40,
-          )) as (NpcBeginCastEvent | NpcCastEvent)[];
+          const events = (await dataSource.loadFilteredEvents({
+            fightId: parser.fight.id,
+            start: parser.fight.start_time,
+            end: parser.fight.end_time,
+            filter: `type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1 AND sourceID > -1 AND ability.id not in (${EXCLUDED_SPELLS.join(',')})`,
+            maxPages: 40,
+          })) as (NpcBeginCastEvent | NpcCastEvent)[];
           const abilities = new Set();
           for (const event of events) {
             abilities.add(event.ability.guid);
           }
           //This call grabs the damage events that friendly players took from NPCs
-          const damageStuff = (await fetchEvents(
-            parser.report.code,
-            parser.fight.start_time,
-            parser.fight.end_time,
-            undefined,
-            `type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1 AND source.id > 0 AND target.type = 'Player' AND missType not in ('immune', 'deflect', 'reflect', 'misfire', 'evade') AND ability.id in (${Array.from(abilities).join(',')})`,
-            40,
-          )) as DamageEvent[];
+          const damageStuff = (await dataSource.loadFilteredEvents({
+            fightId: parser.fight.id,
+            start: parser.fight.start_time,
+            end: parser.fight.end_time,
+            filter: `type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1 AND source.id > 0 AND target.type = 'Player' AND missType not in ('immune', 'deflect', 'reflect', 'misfire', 'evade') AND ability.id in (${Array.from(abilities).join(',')})`,
+            maxPages: 40,
+          })) as DamageEvent[];
           //These three reducers map the character id to the character so that the source and targets for the damage events can be matched
           const enemies = parser.report.enemies.reduce((acc: Record<number, EnemyInfo>, cur) => {
             if (!acc[cur.id]) {
@@ -399,6 +398,8 @@ export const EnemyCastsTimeline = ({
     fetchData();
   }, [
     parser.report.code,
+    dataSource,
+    parser.fight.id,
     parser.fight.start_time,
     parser.fight.end_time,
     parser.report.enemies,

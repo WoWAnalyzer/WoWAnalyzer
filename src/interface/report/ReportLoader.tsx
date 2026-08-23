@@ -1,9 +1,8 @@
 import { captureException } from 'common/errorLogger';
-import { fetchFights } from 'common/fetchWclApi';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Report from 'parser/core/Report';
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ReportProvider } from 'interface/report/context/ReportContext';
@@ -12,6 +11,16 @@ import DocumentTitle from 'interface/DocumentTitle';
 import handleApiError, { isCommonError } from './handleApiError';
 import { clearReport, setReport as setNavigationReport } from 'interface/reducers/navigation';
 import { useLingui } from '@lingui/react';
+import { recoverLocalReports } from 'local/localReportStore';
+import {
+  LocalReportQuotaError,
+  LocalReportStorageError,
+  LocalReportUnavailableError,
+} from 'local/localReportStore';
+import { AnalysisDataSourceContext } from 'report-data/AnalysisDataSourceContext';
+import type { AnalysisDataSource } from 'report-data/AnalysisDataSource';
+import { createAnalysisDataSource } from './createAnalysisDataSource';
+import FullscreenError from 'interface/FullscreenError';
 
 const pageWasReloaded = () =>
   performance
@@ -87,11 +96,15 @@ interface Props {
 }
 const ReportLoader = ({ children }: Props) => {
   const navigate = useNavigate();
-  const { reportCode, fightId } = useParams();
+  const { reportCode, localReportId, fightId } = useParams();
   const dispatch = useDispatch();
   const [error, setError] = useState<Error | null>(null);
   const [report, setReport] = useState<Report | null>(null);
   const { i18n } = useLingui();
+  // One source instance per route keeps caches, cancellation and capability decisions stable for children.
+  const dataSource = useMemo<AnalysisDataSource | null>(() => {
+    return createAnalysisDataSource({ localReportId, reportCode });
+  }, [localReportId, reportCode]);
 
   const [lastForceRefreshTimestamp, setForceRefreshTimestamp] = useSessionState(
     'report:last-force-refresh',
@@ -123,14 +136,20 @@ const ReportLoader = ({ children }: Props) => {
       const isAnonymous = code.startsWith('a:');
       try {
         resetState();
-        const report = await fetchFights(code, refresh);
-        if (reportCode !== code) {
+        const source = dataSource;
+        if (!source) return;
+        if (source.locator.kind === 'local') {
+          await recoverLocalReports();
+        }
+        const report = await source.loadReport({ refresh });
+        if ((localReportId && localReportId !== code) || (!localReportId && reportCode !== code)) {
           return; // the user switched report already
         }
         updateState(null, {
           ...report,
           isAnonymous,
-          code: reportCode, // Pass the code so know which report this is
+          code: reportCode ?? localReportId!, // compatibility for existing analysis modules
+          locator: source.locator,
           // TODO: Remove the code prop
         });
         // We need to set the report in the global state so the NavigationBar, which is not a child of this component, can also use it
@@ -141,35 +160,60 @@ const ReportLoader = ({ children }: Props) => {
         updateState(err as Error, null);
       }
     },
-    [reportCode, resetState, updateState],
+    [dataSource, localReportId, reportCode, resetState, updateState],
   );
 
   const handleRefresh = useCallback(() => {
-    if (reportCode) {
+    if (dataSource?.refreshReport && reportCode) {
       // noinspection JSIgnoredPromiseFromCall
       loadReport(reportCode, true);
     }
-  }, [loadReport, reportCode]);
+  }, [dataSource, loadReport, reportCode]);
 
   useEffect(() => {
     const fightIdAsNumber = fightId ? Number(fightId) : null;
-    if (reportCode) {
-      const refresh = shouldForceRefresh(
-        fightIdAsNumber,
-        lastForceRefreshTimestamp ? Number(lastForceRefreshTimestamp) : 0,
+    if (reportCode || localReportId) {
+      const refresh = Boolean(
+        reportCode &&
+        shouldForceRefresh(
+          fightIdAsNumber,
+          lastForceRefreshTimestamp ? Number(lastForceRefreshTimestamp) : 0,
+        ),
       );
       if (refresh) {
         setForceRefreshTimestamp(String(Date.now()));
       }
 
       // noinspection JSIgnoredPromiseFromCall
-      loadReport(reportCode, refresh);
+      loadReport(reportCode ?? localReportId!, refresh);
     }
     // intentionally omit refresh-related state from this effect's deps to avoid triggering another load after a force refresh
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadReport, reportCode]);
+  }, [loadReport, reportCode, localReportId]);
 
   if (error) {
+    if (
+      localReportId ||
+      error instanceof LocalReportUnavailableError ||
+      error instanceof LocalReportQuotaError ||
+      error instanceof LocalReportStorageError
+    ) {
+      return (
+        <FullscreenError
+          error="Local report unavailable"
+          details={error.message || 'The imported combat log could not be opened.'}
+          background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
+        >
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => navigate('/local-import')}
+          >
+            Return to local imports
+          </button>
+        </FullscreenError>
+      );
+    }
     return handleApiError(error, () => {
       resetState();
       navigate(makeAnalyzerUrl());
@@ -190,9 +234,11 @@ const ReportLoader = ({ children }: Props) => {
     <>
       <DocumentTitle title={report.title} />
 
-      <ReportProvider report={report} refreshReport={handleRefresh}>
-        {children}
-      </ReportProvider>
+      <AnalysisDataSourceContext.Provider value={dataSource!}>
+        <ReportProvider report={report} refreshReport={handleRefresh}>
+          {children}
+        </ReportProvider>
+      </AnalysisDataSourceContext.Provider>
     </>
   );
 };

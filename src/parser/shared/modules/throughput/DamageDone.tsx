@@ -1,14 +1,13 @@
-import fetchWcl from 'common/fetchWclApi';
 import { formatThousands } from 'common/format';
-import makeWclUrl from 'common/makeWclUrl';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
-import { WCLDamageDoneTableResponse, WclTable } from 'common/WCL_TYPES';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { useEffect, useState } from 'react';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
+import SourceLink from 'interface/report/SourceLink';
 
 import DamageValue from '../DamageValue';
 import Enemies from '../Enemies';
@@ -22,7 +21,6 @@ interface DamageDoneStatisticProps {
   fightEnd: number;
   fightStart: number;
   playerId: number;
-  reportCode: string;
 }
 
 interface WclDamageDoneStats {
@@ -39,23 +37,24 @@ const DamageDoneStatistic = ({
   fightEnd,
   fightStart,
   playerId,
-  reportCode,
 }: DamageDoneStatisticProps) => {
+  const dataSource = useAnalysisDataSource();
+  const allowWclTable = dataSource.loadDamageDoneTable !== undefined;
   const [wclDamageDone, setWclDamageDone] = useState<WclDamageDoneStats | null>(null);
 
   useEffect(() => {
+    if (!allowWclTable) {
+      return;
+    }
     let cancelled = false;
 
     const load = async () => {
       try {
-        const table = await fetchWcl<WCLDamageDoneTableResponse>(
-          `report/tables/${WclTable.DamageDone}/${reportCode}`,
-          {
-            start: fightStart,
-            end: fightEnd,
-            actorid: playerId,
-          },
-        );
+        const table = await dataSource.loadDamageDoneTable!({
+          fightStart,
+          fightEnd,
+          playerId,
+        });
 
         const totalDamage = table.entries.reduce(
           (damageDone, entry) => damageDone + entry.total,
@@ -80,10 +79,26 @@ const DamageDoneStatistic = ({
     return () => {
       cancelled = true;
     };
-  }, [eventDps, eventTotalDamage, fightDuration, fightEnd, fightStart, playerId, reportCode]);
+  }, [
+    allowWclTable,
+    eventDps,
+    eventTotalDamage,
+    fightDuration,
+    fightEnd,
+    fightStart,
+    playerId,
+    dataSource,
+  ]);
 
-  const displayedDps = wclDamageDone?.dps ?? eventDps;
-  const isLoading = !wclDamageDone;
+  const displayedDps = allowWclTable ? (wclDamageDone?.dps ?? eventDps) : eventDps;
+  const isLoading = allowWclTable && !wclDamageDone;
+  const chart = displayedDps > 0 && (
+    <AutoSizer disableWidth>
+      {({ height }) => (
+        <FlushLineChart data={chartData} duration={fightDuration / 1000} height={height} />
+      )}
+    </AutoSizer>
+  );
 
   return (
     <StatisticBar
@@ -101,21 +116,9 @@ const DamageDoneStatistic = ({
           {isLoading ? 'Loading WCL DPS...' : `${formatThousands(displayedDps)} DPS`}
         </div>
         <div className="flex-main chart">
-          <a
-            href={makeWclUrl(reportCode, { fight: fightId, source: playerId, type: 'damage-done' })}
-          >
-            {displayedDps > 0 && (
-              <AutoSizer disableWidth>
-                {({ height }) => (
-                  <FlushLineChart
-                    data={chartData}
-                    duration={fightDuration / 1000}
-                    height={height}
-                  />
-                )}
-              </AutoSizer>
-            )}
-          </a>
+          <SourceLink kind="damageDone" fightId={fightId} playerId={playerId}>
+            {chart}
+          </SourceLink>
         </div>
       </div>
     </StatisticBar>
@@ -208,7 +211,6 @@ class DamageDone extends Analyzer.withDependencies({ enemies: Enemies }) {
         fightEnd={this.owner.fight.end_time}
         fightStart={this.owner.fight.start_time}
         playerId={this.owner.playerId}
-        reportCode={this.owner.report.code}
       />
     );
   }

@@ -68,7 +68,10 @@ class FightSelectionPanelList extends PureComponent<Props> {
                     {pulls.map((pull) => {
                       const duration = Math.round(pull.end_time - pull.start_time);
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
-                      const bossHpRemaining = (pull.fightPercentage! / 100).toFixed(2);
+                      const hasHealthData = Number.isFinite(pull.fightPercentage);
+                      const bossHpRemaining = hasHealthData
+                        ? (pull.fightPercentage! / 100).toFixed(2)
+                        : undefined;
 
                       return (
                         <Link
@@ -84,8 +87,12 @@ class FightSelectionPanelList extends PureComponent<Props> {
                                   <Trans id="interface.report.fightSelectionPanelList.kill">
                                     Kill
                                   </Trans>
-                                ) : (
+                                ) : bossHpRemaining ? (
                                   `${bossHpRemaining}%`
+                                ) : (
+                                  <Trans id="interface.report.fightSelectionPanelList.wipe">
+                                    Wipe
+                                  </Trans>
                                 )}{' '}
                                 <small style={{ opacity: 0.65 }}>
                                   #{getWipeCount(fights, pull)}
@@ -94,11 +101,15 @@ class FightSelectionPanelList extends PureComponent<Props> {
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}
-                              <ProgressBar
-                                percentage={pull.kill ? 100 : (10000 - pull.fightPercentage!) / 100}
-                                width={100}
-                                height={8}
-                              />
+                              {(pull.kill || hasHealthData) && (
+                                <ProgressBar
+                                  percentage={
+                                    pull.kill ? 100 : (10000 - pull.fightPercentage!) / 100
+                                  }
+                                  width={100}
+                                  height={8}
+                                />
+                              )}
                             </div>
                           </div>
                         </Link>

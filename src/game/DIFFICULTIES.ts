@@ -6,6 +6,7 @@ const DIFFICULTIES = {
   NORMAL_RAID: 3,
   HEROIC_RAID: 4,
   MYTHIC_RAID: 5,
+  FORTY_PLAYER_RAID: 9,
   MYTHIC_PLUS_DUNGEON: 10,
 } as const;
 export default DIFFICULTIES;
@@ -53,6 +54,13 @@ export function getLabel(difficulty?: number, hardModeLevel?: number) {
         defineMessage({
           id: 'game.difficulties.mythic',
           message: `Mythic`,
+        }),
+      );
+    case DIFFICULTIES.FORTY_PLAYER_RAID:
+      return i18n._(
+        defineMessage({
+          id: 'game.difficulties.40Player',
+          message: `40 Player`,
         }),
       );
     case DIFFICULTIES.MYTHIC_PLUS_DUNGEON:

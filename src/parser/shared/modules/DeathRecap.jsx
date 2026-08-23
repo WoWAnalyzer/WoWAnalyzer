@@ -5,6 +5,7 @@ import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import { PureComponent, Fragment } from 'react';
+import SourceLink from 'interface/report/SourceLink';
 
 import 'rc-slider/assets/index.css';
 
@@ -93,15 +94,17 @@ class DeathRecap extends PureComponent {
             </div>
             <div className="col-md-4">
               <Tooltip content="Open the deaths on Warcraft Logs">
-                <a
-                  href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
+                <SourceLink
+                  kind="deaths"
+                  fightId={this.props.report.fight.id}
+                  playerId={this.props.report.player.id}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
                   style={{ fontSize: 24 }}
                 >
                   <WarcraftLogsIcon /> Warcraft Logs
-                </a>
+                </SourceLink>
               </Tooltip>
             </div>
           </div>
