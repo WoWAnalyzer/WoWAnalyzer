@@ -18,6 +18,7 @@ import CastOverview from 'interface/guide/components/CastOverview';
 import CastDetail, { type PerCastData } from 'interface/guide/components/CastDetail';
 
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { TipBox } from 'interface/guide/components';
 
 const TOUCH_WINDOW_BUFFER_MS = 7500; // 7.5 seconds before and after
 
@@ -43,7 +44,7 @@ class TouchOfTheMagiGuide extends Analyzer {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Fail,
-        reason: `Very low active time during Touch of the Magi(${formatPercentage(activeTime, 1)}%)`,
+        reason: `Very low active time during Touch of the Magi (${formatPercentage(activeTime, 1)}%)`,
       };
     }
 
@@ -60,7 +61,7 @@ class TouchOfTheMagiGuide extends Analyzer {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Perfect,
-        reason: `Excellent uptime during Touch of the Magi(${formatPercentage(activeTime, 1)}%)`,
+        reason: `Excellent uptime during Touch of the Magi (${formatPercentage(activeTime, 1)}%)`,
       };
     }
 
@@ -69,7 +70,7 @@ class TouchOfTheMagiGuide extends Analyzer {
       return {
         timestamp: cast.applied,
         performance: QualitativePerformance.Good,
-        reason: `Good uptime during Touch of the Magi(${formatPercentage(activeTime, 1)}%)`,
+        reason: `Good uptime during Touch of the Magi (${formatPercentage(activeTime, 1)}%)`,
       };
     }
 
@@ -94,35 +95,29 @@ class TouchOfTheMagiGuide extends Analyzer {
     const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
+    const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const sunfuryExecution = <SpellLink spell={TALENTS.SUNFURY_EXECUTION_TALENT} />;
 
     const explanation = (
       <>
-        <b>{touchOfTheMagi}</b> is a short debuff available for each burn phase and grants you 4{' '}
-        {arcaneCharge}s and accumulates 20% of your damage for the duration. When the debuff expires
-        it explodes dealing damage to the target and reduced damage to nearby targets. Following the
-        below guidelines will help you get the most out of the debuff:
+        <b>{touchOfTheMagi}</b> is a short debuff available for each burn phase, grants you 4{' '}
+        {arcaneCharge}s, and accumulates 20% of your damage for the duration. When the debuff
+        expires it explodes dealing damage to the target and reduced damage to nearby targets. There
+        is not a lot to play or plan around for this, but you should refer to the below for
+        additional things to take into account before using {touchOfTheMagi}.
         <ul>
-          {this.isSpellslinger && (
-            <li>
-              Just before casting {touchOfTheMagi}, you should cast {arcaneBarrage} to expend all of
-              your {arcaneCharge}s and then cast {touchOfTheMagi} while {arcaneBarrage} is in the
-              air.
-            </li>
-          )}
-          {this.isSunfury && (
-            <li>
-              Instead of using {arcaneBarrage} just before {touchOfTheMagi}, you should use it
-              immediately after to buff the damage of the {arcaneBarrage} via {sunfuryExecution}
-            </li>
-          )}
+          <li>Use {touchOfTheMagi} as quickly as possible once it comes off cooldown.</li>
           <li>
-            If {arcaneSurge} will be available within the next 40 seconds, you should hold{' '}
-            {touchOfTheMagi} to ensure {arcaneSurge} can be used while the {touchOfTheMagi} debuff
-            is active.
+            Cast {touchOfTheMagi} while {arcaneBarrage} or {prismaticBolt} are in the air.
           </li>
         </ul>
+        <TipBox type="info">
+          Arcane Mage's burn phases revolve around some specific timing between {arcaneSurge} and{' '}
+          {touchOfTheMagi} that require you to use the two cooldowns as quickly as possible once
+          they come off cooldown to keep the 45 second cooldown of {touchOfTheMagi} and the 90
+          second cooldown of {arcaneSurge} in sync so that every other {touchOfTheMagi} can line up
+          with {arcaneSurge}.
+        </TipBox>
       </>
     );
 

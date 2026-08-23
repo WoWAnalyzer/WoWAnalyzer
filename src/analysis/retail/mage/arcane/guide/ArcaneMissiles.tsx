@@ -27,11 +27,6 @@ class ArcaneMissilesGuide extends Analyzer {
 
   isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
   isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
-  hasOrbMastery: boolean = this.selectedCombatant.hasTalent(TALENTS.ORB_MASTERY_TALENT);
-  isSpellslingerMissile: boolean = this.isSpellslinger && !this.hasOrbMastery;
-  isSpellslingerOrb: boolean = this.isSpellslinger && this.hasOrbMastery;
-  hasAetherAttunement: boolean = this.selectedCombatant.hasTalent(TALENTS.AETHER_ATTUNEMENT_TALENT);
-  hasHighVoltage: boolean = this.selectedCombatant.hasTalent(TALENTS.HIGH_VOLTAGE_TALENT);
   hasOverpoweredMissiles: boolean = this.selectedCombatant.hasTalent(
     TALENTS.OVERPOWERED_MISSILES_TALENT,
   );
@@ -39,19 +34,6 @@ class ArcaneMissilesGuide extends Analyzer {
   private evaluateMissilesCast(am: ArcaneMissilesData): CastEvaluation {
     const clippedBeforeGCD =
       am.channelEnd && am.gcdEnd && am.gcdEnd - am.channelEnd > MISSILE_EARLY_CLIP_DELAY;
-
-    // TALENT CONFLICTS
-    // The return has dummy values as these will never actually be used
-    if (
-      (this.isSpellslingerOrb && this.hasOverpoweredMissiles) ||
-      (this.isSpellslingerOrb && this.hasHighVoltage)
-    ) {
-      return {
-        timestamp: 0,
-        performance: QualitativePerformance.Fail,
-        reason: '',
-      };
-    }
 
     // FAIL CONDITIONS
     if (clippedBeforeGCD) {
@@ -62,104 +44,62 @@ class ArcaneMissilesGuide extends Analyzer {
       };
     }
 
-    if (this.isSpellslingerMissile && am.opMissiles && am.salvoStacks > 10) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `You had Overpowered Missiles and ${am.salvoStacks} Arcane Salvo stacks.`,
-      };
-    }
-
-    if (this.isSpellslingerMissile && !am.opMissiles && am.salvoStacks > 15) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `You didn't have Overpowered Missiles and had ${am.salvoStacks} Arcane Salvo stacks.`,
-      };
-    }
-
-    if (this.isSpellslingerMissile && this.hasHighVoltage && am.arcaneCharges >= 2) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `You had ${am.arcaneCharges} Arcane Charges with High Voltage talented.`,
-      };
-    }
-
-    if (this.isSunfury && !am.clearcastingProcs) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `You did not have Clearcasting`,
-      };
-    }
-
     // PERFECT CONDITIONS
-    if (this.isSunfury && am.arcaneSoul && am.salvoStacks <= 20) {
+    if (this.isSpellslinger && am.salvoStacks < 15 && !am.opMissiles && am.clipped) {
       return {
         timestamp: am.cast.timestamp,
         performance: QualitativePerformance.Perfect,
-        reason: `Had Clearcasting, Arcane Soul, and had ${am.salvoStacks} Arcane Salvo stacks.`,
-      };
-    }
-
-    if (this.isSunfury && am.salvoStacks <= 15) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Perfect,
-        reason: `Had Clearcasting and ${am.salvoStacks} Arcane Salvo stacks.`,
+        reason: `You clipped your channel properly, had ${am.salvoStacks} Arcane Salvo stacks, and ${am.clearcastingProcs} Clearcasting procs.`,
       };
     }
 
     // GOOD CONDITIONS
-    if (this.isSpellslingerMissile && am.opMissiles && am.salvoStacks <= 10) {
+    if (this.isSpellslinger && am.salvoStacks < 15) {
       return {
         timestamp: am.cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Had Overpowered Missiles and ${am.salvoStacks} Arcane Salvo stacks.`,
+        reason: `You had ${am.salvoStacks} Arcane Salvo stacks and ${am.clearcastingProcs} Clearcasting procs.`,
       };
     }
 
-    if (this.isSpellslingerMissile && !am.opMissiles && am.salvoStacks <= 15) {
+    if (this.isSunfury && am.salvoStacks < 12) {
       return {
         timestamp: am.cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Didn't have Overpowered Missiles and had ${am.salvoStacks} Arcane Salvo stacks.`,
-      };
-    }
-
-    if (this.isSpellslingerMissile && this.hasHighVoltage && am.arcaneCharges < 2) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Good,
-        reason: `Has High Voltage talented and has ${am.arcaneCharges} Arcane Charges`,
-      };
-    }
-
-    if (this.isSunfury && am.clearcastingProcs) {
-      return {
-        timestamp: am.cast.timestamp,
-        performance: QualitativePerformance.Good,
-        reason: `Had Clearcasting`,
+        reason: `You had ${am.salvoStacks} Arcane Salvo stacks and ${am.clearcastingProcs} Clearcasting procs.`,
       };
     }
 
     // OK CONDITIONS
-    if (this.isSpellslingerOrb) {
+    if (this.isSpellslinger && am.salvoStacks >= 15) {
       return {
         timestamp: am.cast.timestamp,
         performance: QualitativePerformance.Ok,
-        reason: `We did not actually check any conditions. You realistically should not be casting Arcane Missiles so we are just defaulting to "Ok" for all Arcane Missiles casts.`,
+        reason: `You had ${am.salvoStacks} Arcane Salvo stacks and ${am.clearcastingProcs} Clearcasting procs.`,
       };
     }
 
-    // DEFAULT
+    if (this.isSunfury && am.salvoStacks >= 12) {
+      return {
+        timestamp: am.cast.timestamp,
+        performance: QualitativePerformance.Ok,
+        reason: `You had ${am.salvoStacks} Arcane Salvo stacks and ${am.clearcastingProcs} Clearcasting procs.`,
+      };
+    }
+
+    if (am.clearcastingCapped) {
+      return {
+        timestamp: am.cast.timestamp,
+        performance: QualitativePerformance.Ok,
+        reason: `You were capped on Clearcasting procs.`,
+      };
+    }
+
+    // DEFAULT FAIL
     return {
-      performance: QualitativePerformance.Ok,
-      reason: am.channelEndDelay
-        ? `Standard usage - ${formatDurationMillisMinSec(am.channelEndDelay, 3)} delay to next cast`
-        : 'Standard Arcane Missiles usage',
       timestamp: am.cast.timestamp,
+      performance: QualitativePerformance.Fail,
+      reason: `Performance Condition Unknown. Please report this!`,
     };
   }
 
@@ -167,94 +107,46 @@ class ArcaneMissilesGuide extends Analyzer {
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
     const arcaneMissiles = <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} />;
     const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
-    const highVoltage = <SpellLink spell={TALENTS.HIGH_VOLTAGE_TALENT} />;
     const overpoweredMissiles = <SpellLink spell={TALENTS.OVERPOWERED_MISSILES_TALENT} />;
     const arcaneSalvo = <SpellLink spell={TALENTS.ARCANE_SALVO_TALENT} />;
-    const orbMastery = <SpellLink spell={TALENTS.ORB_MASTERY_TALENT} />;
-    const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
-    const arcaneOrb = <SpellLink spell={TALENTS.ARCANE_ORB_TALENT} />;
-    const arcaneSoul = <SpellLink spell={SPELLS.ARCANE_SOUL_BUFF} />;
-    const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
 
     const explanation = (
       <>
         <p>
           <b>{arcaneMissiles}</b> is a channelled rotational ability that generates {arcaneSalvo}{' '}
-          stacks and also spends your {clearcasting} procs. Your use of {arcaneMissiles} will vary
-          depending on your talent build, so you should refer to the below information to determine
-          when/if you should cast {arcaneMissiles} depening on your current talent build.
+          stacks and also spends your {clearcasting} procs. In order to maximize your {arcaneCharge}{' '}
+          and {arcaneSalvo} generation, use the below to determine when to use {arcaneMissiles}.
         </p>
-        {this.isSpellslingerMissile && (
-          <p>
-            Cast {arcaneMissiles} if one of the below are true:
-            <ul>
-              <li>
-                You have an {overpoweredMissiles} proc and &lt; 10 {arcaneSalvo} stacks.
-              </li>
-              <li>
-                You don't have an {overpoweredMissiles} proc and have &lt; 15 {arcaneSalvo} stacks.
-              </li>
-              <li>
-                You have &lt; 2 {arcaneCharge}s and have {highVoltage} talented
-              </li>
-            </ul>
-          </p>
+        {this.isSpellslinger && (
+          <ul>
+            <li>
+              You have less than 15 {arcaneSalvo} stacks and a {clearcasting} proc.
+            </li>
+          </ul>
         )}
-        {(this.isSpellslingerOrb && this.hasOverpoweredMissiles && (
+        {this.isSunfury && (
+          <ul>
+            <li>
+              You have less than 12 {arcaneSalvo} stacks and a {clearcasting} proc.
+            </li>
+          </ul>
+        )}
+        {this.isSpellslinger && this.hasOverpoweredMissiles && (
           <>
-            <TipBox type="warning" title="Talent Build Conflict">
-              You currently have both {orbMastery} and {overpoweredMissiles} talented. These two
-              talents represent two different playstyles with different rotations, so taking both of
-              them creeates conflict within your rotation. It is highly recommended to either choose
-              the Spellslinger Missiles build with {overpoweredMissiles} or the Spellslinger Orb
-              build with {orbMastery}.
+            <TipBox type="note" title="Missile Clipping">
+              If you don't have an {overpoweredMissiles} proc, you should clip your {arcaneMissiles}{' '}
+              channel once the {arcaneMissiles} GCD ends.
             </TipBox>
           </>
-        )) ||
-          (this.isSpellslingerOrb && this.hasHighVoltage && (
-            <>
-              <TipBox type="warning" title="Talent Build Conflict">
-                You currently have both {orbMastery} and {highVoltage} talented. These two talents
-                represent two different playstyles with different rotations, so taking both of them
-                creeates conflict within your rotation. It is highly recommended to either choose
-                the Spellslinger Missiles build with {overpoweredMissiles} and {highVoltage} or the
-                Spellslinger Orb build with {orbMastery}.
-              </TipBox>
-            </>
-          )) ||
-          (this.isSpellslingerOrb && (
-            <p>
-              true Only cast {arcaneMissiles} if all of the below are true. Realistically you should
-              never cast {arcaneMissiles} if you are using the Spellslinger Orb build, so we arent
-              actually going to check these conditions to see if you met them or not, and will just
-              mark every cast as OK.
-              <ul>
-                <li>
-                  You have {highVoltage} talented or {clearcasting}.
-                </li>
-                <li>You have 15 or less {arcaneSalvo} stacks.</li>
-                <li>Your previous cast was not {arcaneOrb}</li>
-                <li>{arcaneSurge} is not active</li>
-                <li>There is only one target.</li>
-              </ul>
-            </p>
-          ))}
+        )}
         {this.isSunfury && (
-          <p>
-            You should generally cast {arcaneMissiles} whenever you have {clearcasting}, but should
-            prioritize {arcaneMissiles} if the below is true:
-            <ul>
-              <li>
-                You have {clearcasting} and {arcaneSurge} is about to end.
-              </li>
-              <li>
-                You have {clearcasting} and {arcaneSoul} and are not capped on {arcaneSalvo} (this
-                is to help make your {arcaneBarrage} deal more damage when you spend your{' '}
-                {arcaneSoul}).
-              </li>
-              <li>You have &lt; 15 {arcaneSalvo} stacks.</li>
-            </ul>
-          </p>
+          <>
+            <TipBox type="note" title="Missile Chaining">
+              If you are casting {arcaneMissiles} back to back, you can attempt to cast{' '}
+              {arcaneMissiles} just before the last tick of the previous cast. This will chain into
+              the second channel and will still result in the same number of missile waves.
+            </TipBox>
+          </>
         )}
       </>
     );
@@ -268,23 +160,6 @@ class ArcaneMissilesGuide extends Analyzer {
         >
           <TipBox type="note" title="No Casts Found">
             No {arcaneMissiles} casts were detected.
-          </TipBox>
-        </GuideSection>
-      );
-    }
-
-    if (
-      (this.isSpellslingerOrb && this.hasHighVoltage) ||
-      (this.isSpellslingerOrb && this.hasOverpoweredMissiles)
-    ) {
-      return (
-        <GuideSection
-          spell={TALENTS.ARCANE_MISSILES_TALENT}
-          explanation={explanation}
-          title="Arcane Missiles"
-        >
-          <TipBox type="warning" title="Talent Conflict Detected">
-            We are unable to evaluate your {arcaneMissiles} casts due to a talent conflict.
           </TipBox>
         </GuideSection>
       );
@@ -313,19 +188,14 @@ class ArcaneMissilesGuide extends Analyzer {
         details: evaluation.reason,
         stats: [
           {
-            value: cast.arcaneCharges,
-            label: 'Arcane Charges',
-            tooltip: <>The number of Arcane Charges at the time of cast.</>,
-          },
-          {
             value: cast.salvoStacks,
             label: 'Arcane Salvo Stacks',
             tooltip: <>The number of Arcane Salvo stacks at the time of cast.</>,
           },
           {
-            value: cast.clearcastingProcs > 0 ? 'Yes' : 'No',
-            label: 'Had Clearcasting',
-            tooltip: <>Whether the player had a Clearcasting proc or not.</>,
+            value: cast.clearcastingProcs,
+            label: 'Clearcasting Procs',
+            tooltip: <>The number of Clearcasting procs the player had.</>,
           },
           {
             value: cast.opMissiles ? 'Yes' : 'No',
@@ -338,13 +208,6 @@ class ArcaneMissilesGuide extends Analyzer {
                 label: 'Channel End Delay',
                 tooltip: <>Time between channel end and next cast.</>,
                 performance: this.arcaneMissiles.channelDelayUtil(cast.channelEndDelay),
-              }
-            : undefined,
-          this.isSunfury
-            ? {
-                value: cast.arcaneSoul ? 'Yes' : 'No',
-                label: 'Arcane Soul',
-                tooltip: <>Whether Arcane Soul was active during this cast.</>,
               }
             : undefined,
         ].filter(Boolean) as PerCastStat[],

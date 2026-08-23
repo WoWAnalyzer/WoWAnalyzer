@@ -1,50 +1,69 @@
 import { Trans } from '@lingui/react/macro';
 import { formatThousands, formatNumber } from 'common/format';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { SpellIcon, SpellLink } from 'interface';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import StatisticBox from 'parser/ui/StatisticBox';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import {
+  MajorDefensiveBuff,
+  absoluteMitigation,
+  buff,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import type { ReactNode } from 'react';
 
 const ASTRAL_SHIFT_DR = 0.4;
 const ASTRAL_BULWARK_ADDED_DR = 0.15;
 
-class AstralShift extends Analyzer {
+class AstralShift extends MajorDefensiveBuff {
   damageReduced = 0;
 
   damageReductionPct: number = ASTRAL_SHIFT_DR;
 
   constructor(options: Options) {
-    super(options);
-
+    super(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT, buff(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT), options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT);
 
     if (!this.active) {
       return;
     }
-
     if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASTRAL_BULWARK_TALENT)) {
       this.damageReductionPct += ASTRAL_BULWARK_ADDED_DR;
     }
 
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
-  damageTaken(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id)) {
+  private onDamageTaken(event: DamageEvent) {
+    if (!this.defensiveActive(event) || event.sourceIsFriendly) {
       return;
     }
-    const damageTaken = event.amount + (event.absorbed || 0);
-    this.damageReduced += (damageTaken / (1 - this.damageReductionPct)) * this.damageReductionPct;
+
+    const mitigatedAmount = absoluteMitigation(event, this.damageReductionPct);
+
+    this.recordMitigation({
+      event,
+      mitigatedAmount,
+    });
+
+    this.damageReduced += mitigatedAmount;
   }
 
   get totalDrps() {
     return (this.damageReduced / this.owner.fightDuration) * 1000;
   }
 
-  statistic() {
+  description(): ReactNode {
+    return (
+      <p>
+        <SpellLink spell={TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT} /> reduces damage taken by{' '}
+        {this.damageReductionPct * 100}% while active.
+      </p>
+    );
+  }
+
+  statistic(): ReactNode {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}

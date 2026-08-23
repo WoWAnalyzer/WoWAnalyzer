@@ -14,11 +14,15 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { TIERS } from 'game/TIERS';
 
 const CAST_BUFFER_MS = 150;
 const TRANQ_CHANNEL_BUFFER_MS = 6_000;
 const EVERBLOOM_BUFFER_MS = 1500;
 const CONVOKE_CHANNEL_BUFFER_MS = 4_200;
+// Genesis is granted at the moment the empowering ability is cast, but the applybuff can be logged
+// slightly before/after the cast event, so allow a small window in both directions.
+const GENESIS_PROC_BUFFER_MS = 500;
 
 const APPLIED_HEAL = 'AppliedHeal';
 const FROM_HARDCAST = 'FromHardcast';
@@ -30,6 +34,7 @@ const CAUSED_SUMMON = 'CausedSummon';
 const FROM_EVERBLOOM = 'FromEverbloom';
 const FROM_BLOOM = 'FromBloom';
 const FROM_CONVOKE_SOTF_CONSUME = 'FromConvokeSotfConsume';
+const GENESIS_FROM_TIER_CD = 'GenesisFromTierCooldown';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -205,6 +210,25 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
   },
+  // Season 2 4pc: Nature's Swiftness, Tranquility, and Incarnation: ToL / Convoke the Spirits have a
+  // 100% chance to grant Genesis. Link the Genesis application to the empowering cast so we can tell
+  // 4pc-granted stacks apart from the 2pc Rejuvenation procs (same buff ID).
+  {
+    linkRelation: GENESIS_FROM_TIER_CD,
+    linkingEventId: SPELLS.RESTO_DRUID_TIER_36_GENESIS_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    referencedEventId: [
+      SPELLS.NATURES_SWIFTNESS.id,
+      SPELLS.TRANQUILITY_CAST.id,
+      TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,
+      SPELLS.CONVOKE_SPIRITS.id,
+    ],
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: GENESIS_PROC_BUFFER_MS,
+    backwardBufferMs: GENESIS_PROC_BUFFER_MS,
+    anyTarget: true,
+    isActive: (c) => c.has4PieceByTier(TIERS.MID2),
+  },
 ];
 
 /**
@@ -284,6 +308,13 @@ export function getSourceBloom(event: HealEvent): HealEvent | undefined {
     FROM_BLOOM,
     (e): e is HealEvent => e.type === EventType.Heal,
   ).pop();
+}
+
+/** Returns true iff this Genesis application was granted by a Season 2 4pc empowering cast
+ *  (Nature's Swiftness, Tranquility, Incarnation: Tree of Life, or Convoke the Spirits) rather
+ *  than by the 2pc Rejuvenation proc. */
+export function isGenesisFromTierCooldown(event: AbilityEvent<any>): boolean {
+  return HasRelatedEvent(event, GENESIS_FROM_TIER_CD);
 }
 
 export default CastLinkNormalizer;

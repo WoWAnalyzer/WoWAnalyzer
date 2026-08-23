@@ -3,6 +3,7 @@ import {Katorri} from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 18), "Update compatibility for 12.1", Katorri),
   change(date(2026, 4, 21), "Spec compatibility updated for 12.0.5", Katorri),
   change(date(2026, 3, 28), "Add Backdraft analyzer and guide. Updated from Partial to Full support", Katorri),
   change(date(2026, 3, 20), "Add Demonic Healthstone Tracker, update guide structure.", Katorri),

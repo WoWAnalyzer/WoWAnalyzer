@@ -3,7 +3,11 @@ import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalculateLib';
+import {
+  calculateEffectiveHealingFromCritIncrease,
+  calculateOverhealingFromCritIncrease,
+} from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -11,9 +15,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import HIT_TYPES from 'game/HIT_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { ABUNDANCE_INCREASED_CRIT } from 'analysis/retail/druid/restoration/modules/spells/Abundance';
 
 const STRATEGIC_INFUSION_INCREASED_CRIT_CHANCE = 0.04;
-const ABUNDANCE_INCREASED_CRIT = 0.08;
 const INTENSITY_CRIT_HEAL_MULTIPLIER = 2.6;
 
 /**
@@ -33,6 +37,7 @@ export default class StrategicInfusion extends Analyzer {
   hasIntensity = false;
 
   healing = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -51,10 +56,12 @@ export default class StrategicInfusion extends Analyzer {
     const isRegrowthTick = event.ability.guid === SPELLS.REGROWTH.id;
     let currentCrit = Math.min(1, this.statTracker.currentCritPercentage);
 
-    if (isRegrowthTick && this.hasAbundance) {
-      const abundanceStacks = this.selectedCombatant.getOwnBuffStacks(SPELLS.ABUNDANCE_BUFF);
-      const abundanceCritBonus = abundanceStacks * ABUNDANCE_INCREASED_CRIT;
-      currentCrit = Math.min(1, currentCrit + abundanceCritBonus);
+    if (
+      isRegrowthTick &&
+      this.hasAbundance &&
+      this.selectedCombatant.hasOwnBuff(SPELLS.ABUNDANCE_BUFF)
+    ) {
+      currentCrit = Math.min(1, currentCrit + ABUNDANCE_INCREASED_CRIT);
     }
 
     const strategicInfusionCritBonus = Math.min(
@@ -75,6 +82,15 @@ export default class StrategicInfusion extends Analyzer {
             INTENSITY_CRIT_HEAL_MULTIPLIER,
           )
         : calculateEffectiveHealingFromCritIncrease(event, currentCrit, strategicInfusionCritBonus);
+    this.overhealing +=
+      this.hasIntensity && isRegrowthTick
+        ? calculateOverhealingFromCritIncrease(
+            event,
+            currentCrit,
+            strategicInfusionCritBonus,
+            INTENSITY_CRIT_HEAL_MULTIPLIER,
+          )
+        : calculateOverhealingFromCritIncrease(event, currentCrit, strategicInfusionCritBonus);
   }
 
   statistic() {
@@ -83,6 +99,7 @@ export default class StrategicInfusion extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         size="flexible"
+        tooltip={<strong>Overhealing: {formatOverhealing(this.overhealing, this.healing)}</strong>}
       >
         <BoringSpellValueText spell={TALENTS_DRUID.STRATEGIC_INFUSION_TALENT}>
           <ItemPercentHealingDone amount={this.healing} />

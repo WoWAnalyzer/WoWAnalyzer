@@ -18,6 +18,7 @@ import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
 import ArcaneMissiles from './analyzers/ArcaneMissiles';
+import PrismaticBolt from './analyzers/PrismaticBolt';
 import ArcaneBarrage from './analyzers/ArcaneBarrage';
 import ArcaneOrb from './analyzers/ArcaneOrb';
 import ArcaneSurge from './analyzers/ArcaneSurge';
@@ -28,6 +29,7 @@ import Guide from './Guide';
 import ArcaneSurgeGuide from './guide/ArcaneSurge';
 import TouchOfTheMagiGuide from './guide/TouchOfTheMagi';
 import ArcaneMissilesGuide from './guide/ArcaneMissiles';
+import PrismaticBoltGuide from './guide/PrismaticBolt';
 import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
 import PresenceOfMindGuide from './guide/PresenceOfMind';
@@ -65,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneSurge: ArcaneSurge,
     arcaneMissiles: ArcaneMissiles,
+    prismaticBolt: PrismaticBolt,
     arcaneBarrage: ArcaneBarrage,
     arcaneOrb: ArcaneOrb,
 
@@ -72,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneSurgeGuide: ArcaneSurgeGuide,
     touchOfTheMagiGuide: TouchOfTheMagiGuide,
     arcaneMissilesGuide: ArcaneMissilesGuide,
+    prismaticBoltGuide: PrismaticBoltGuide,
     arcaneBarrageGuide: ArcaneBarrageGuide,
     presenceOfMindGuide: PresenceOfMindGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
