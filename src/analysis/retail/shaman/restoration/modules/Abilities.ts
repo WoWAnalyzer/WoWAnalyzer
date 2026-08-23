@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import ClassAbilities from '../../shared/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { i18n } from '@lingui/core';
 import { TIERS } from 'game/TIERS';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 
@@ -38,24 +36,6 @@ class Abilities extends ClassAbilities {
         },
       },
       {
-        spell: SPELLS.HEALING_WAVE.id,
-        name: i18n._(
-          defineMessage({
-            id: 'shaman.restoration.abilities.buffedByTidalWave',
-            message: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
-          }),
-        ),
-        timelineSortIndex: 13,
-        gcd: {
-          base: 1500,
-        },
-        category: SPELL_CATEGORY.ROTATIONAL,
-        castEfficiency: {
-          suggestion: false,
-          // casts: (castCount) => castCount.healingTwHits || 0,
-        },
-      },
-      {
         spell: TALENTS.CHAIN_HEAL_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -82,7 +62,6 @@ class Abilities extends ClassAbilities {
         castEfficiency: {
           suggestion: false,
         },
-        healSpellIds: [TALENTS.RIPTIDE_TALENT.id],
       },
       {
         spell: [SPELLS.HEALING_STREAM_TOTEM.id],
@@ -131,7 +110,11 @@ class Abilities extends ClassAbilities {
         castEfficiency: {
           suggestion: false,
         },
-        healSpellIds: [SPELLS.STORMSTREAM_TOTEM_HEAL.id],
+        healSpellIds: [
+          SPELLS.STORMSTREAM_TOTEM_HEAL.id,
+          SPELLS.STORMSTREAM_TOTEM.id,
+          SPELLS.STORMSWELL_HEAL.id,
+        ],
       },
       {
         spell: TALENTS.HEALING_RAIN_TALENT.id,
@@ -228,6 +211,17 @@ class Abilities extends ClassAbilities {
           recommendedEfficiency: 0.9,
         },
         healSpellIds: [TALENTS.UNLEASH_LIFE_TALENT.id],
+      },
+      {
+        spell: TALENTS.EARTH_SHIELD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 0,
+        timelineSortIndex: 10,
+        gcd: {
+          base: 1500,
+        },
+        healSpellIds: [TALENTS.EARTH_SHIELD_TALENT.id],
       },
       {
         spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,

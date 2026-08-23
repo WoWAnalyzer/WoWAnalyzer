@@ -2,7 +2,6 @@ import type { JSX } from 'react';
 import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -249,7 +248,7 @@ class SurgingTotem extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spell={SPELLS.HEALING_RAIN_TOTEMIC}
+        spell={SPELLS.SURGING_TOTEM}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         useThresholds
@@ -265,7 +264,7 @@ class SurgingTotem extends Analyzer {
     return (
       <StatisticBox
         category={STATISTIC_CATEGORY.HERO_TALENTS}
-        icon={<SpellIcon spell={TALENTS.SURGING_TOTEM_TALENT} />}
+        icon={<SpellLink spell={SPELLS.SURGING_TOTEM} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={
@@ -292,7 +291,7 @@ class SurgingTotem extends Analyzer {
       <>
         <div>
           Over the course of the fight, you cast <strong>{this.SurgingTotemCasts.length}</strong>{' '}
-          <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed{' '}
+          <SpellLink spell={SPELLS.SURGING_TOTEM} /> and consumed{' '}
           <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id]}</strong>{' '}
           <SpellLink spell={SPELLS.WHIRLING_AIR} />,{' '}
           <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
