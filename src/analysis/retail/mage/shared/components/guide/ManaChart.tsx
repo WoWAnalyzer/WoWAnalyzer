@@ -5,7 +5,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import cssComponent from 'interface/utils/css-component';
 import styles from './ManaChart.module.scss';
-import fetchWcl from 'common/fetchWclApi';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 const LegendContainer = cssComponent('div', styles.LegendContainer, [] as const);
 
@@ -386,6 +386,7 @@ export default function ManaChart({
     value: number;
   }> | null>(null);
   const [loading, setLoading] = useState(false);
+  const source = useAnalysisDataSource();
 
   // Fetch boss health if requested
   useEffect(() => {
@@ -399,12 +400,11 @@ export default function ManaChart({
         setLoading(true);
       }
       try {
-        const json = await fetchWcl(`report/graph/resources/${reportCode}`, {
-          start: startTime,
-          end: endTime,
-          sourceclass: 'Boss',
-          hostility: 'Enemies',
-          abilityid: 1000,
+        if (!source.loadGraph) return;
+        const json = await source.loadGraph({
+          fightStart: startTime,
+          fightEnd: endTime,
+          dataType: 'Resources',
         });
 
         const bossData = json as { series?: Array<{ data: Array<[number, number]> }> };
@@ -431,7 +431,7 @@ export default function ManaChart({
     return () => {
       cancelled = true;
     };
-  }, [showBossHealth, reportCode, startTime, endTime]);
+  }, [showBossHealth, reportCode, startTime, endTime, source]);
 
   if (loading) {
     return <div>Loading chart data...</div>;

@@ -6,6 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import REGION_CODES from './REGION_CODES';
 import Tooltip from './Tooltip';
 import './ReportSelecter.css';
+import {
+  beginWclAuthorization,
+  hasWclSession,
+  isWclConfigured,
+  logoutWcl,
+} from 'report-data/wcl/WclSession';
 
 interface ReportSelection {
   code: string;
@@ -134,6 +140,8 @@ const ReportSelecter = () => {
   const [reportCode, setReportCode] = useState<string>('');
   const reportCodeRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const [configurationError, setConfigurationError] = useState('');
+  const [sessionActive, setSessionActive] = useState(hasWclSession);
   useEffect(() => {
     reportCodeRef.current?.focus();
   }, []);
@@ -145,6 +153,21 @@ const ReportSelecter = () => {
         return;
       }
 
+      if (constructedURL.startsWith('/report/')) {
+        if (!isWclConfigured()) {
+          setConfigurationError(
+            'Warcraft Logs is not configured for this deployment. Local-file analysis is still available.',
+          );
+          return;
+        }
+        if (!hasWclSession()) {
+          void beginWclAuthorization(constructedURL).catch((error: unknown) =>
+            setConfigurationError(error instanceof Error ? error.message : String(error)),
+          );
+          return;
+        }
+      }
+      setConfigurationError('');
       navigate(constructedURL);
     },
     [navigate],
@@ -217,6 +240,26 @@ const ReportSelecter = () => {
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>
+      {configurationError && (
+        <div className="alert alert-warning" role="alert" style={{ marginTop: 10 }}>
+          {configurationError}
+        </div>
+      )}
+      {sessionActive && (
+        <small>
+          Signed in to Warcraft Logs.{' '}
+          <button
+            type="button"
+            className="btn btn-link btn-sm"
+            onClick={() => {
+              logoutWcl();
+              setSessionActive(false);
+            }}
+          >
+            Sign out
+          </button>
+        </small>
+      )}
     </form>
   );
 };

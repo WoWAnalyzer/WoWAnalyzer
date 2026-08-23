@@ -1,6 +1,10 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
 
+const configuredBasePath = process.env.VITE_BASE_PATH ?? '/';
+const basePath = `${configuredBasePath.startsWith('/') ? configuredBasePath : `/${configuredBasePath}`}${configuredBasePath.endsWith('/') ? '' : '/'}`;
+const previewUrl = `http://localhost:3000${basePath}`;
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -36,7 +40,7 @@ const config: PlaywrightTestConfig = {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:3000',
+    baseURL: previewUrl,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -104,7 +108,7 @@ const config: PlaywrightTestConfig = {
     ? {
         command: 'npx vite preview --outDir dist --port 3000',
         timeout: 60000,
-        url: 'http://localhost:3000/',
+        url: previewUrl,
       }
     : undefined,
 };

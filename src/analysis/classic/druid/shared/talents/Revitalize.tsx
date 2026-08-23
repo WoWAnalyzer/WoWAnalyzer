@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserEvents } from 'report-data/parserCapabilities';
 import { formatNumber } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpecIcon } from 'interface';
@@ -9,7 +9,6 @@ import Events, { EventType, AnyEvent, HealEvent, ResourceChangeEvent } from 'par
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Combatants from 'parser/shared/modules/Combatants';
-import { WCLEventsResponse } from 'common/WCL_TYPES';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS/classic/druid';
@@ -152,7 +151,7 @@ class Revitalize extends Analyzer {
   load() {
     return Promise.all([
       // Mana
-      fetchWcl<WCLEventsResponse>(`report/events/resources/${this.owner.report.code}`, {
+      loadParserEvents(this.owner, 'Resources', {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 100,
@@ -165,7 +164,7 @@ class Revitalize extends Analyzer {
       }),
 
       // Energy
-      fetchWcl<WCLEventsResponse>(`report/events/resources/${this.owner.report.code}`, {
+      loadParserEvents(this.owner, 'Resources', {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 103,
@@ -178,7 +177,7 @@ class Revitalize extends Analyzer {
       }),
 
       // Rage
-      fetchWcl<WCLEventsResponse>(`report/events/resources/${this.owner.report.code}`, {
+      loadParserEvents(this.owner, 'Resources', {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 101,
@@ -191,7 +190,7 @@ class Revitalize extends Analyzer {
       }),
 
       // Runic Power
-      fetchWcl<WCLEventsResponse>(`report/events/resources/${this.owner.report.code}`, {
+      loadParserEvents(this.owner, 'Resources', {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 106,

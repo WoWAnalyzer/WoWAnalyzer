@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellIcon, SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserEvents } from 'report-data/parserCapabilities';
 import { WCLEventsResponse } from 'common/WCL_TYPES';
 import Combatants from 'parser/shared/modules/Combatants';
 
@@ -128,14 +128,11 @@ class TimeOfNeed extends Analyzer {
         const target = this.combatants?.players[spawn.target];
         const filter =
           target && target?.name ? `target.name = "${target.name}" AND type = "damage"` : '';
-        const damageTakenEvents = await fetchWcl<WCLEventsResponse>(
-          `report/events/damage-taken/${this.owner.report.code}`,
-          {
-            start: spawn.verdantEmbrace.timestamp,
-            end: spawn.summon.timestamp + 8000,
-            filter,
-          },
-        );
+        const damageTakenEvents = (await loadParserEvents(this.owner, 'DamageTaken', {
+          start: spawn.verdantEmbrace.timestamp,
+          end: spawn.summon.timestamp + 8000,
+          filter,
+        })) as WCLEventsResponse;
         spawn.result = this.parseDamageTaken(spawn, damageTakenEvents);
       } else {
         spawn.result = Result.Bug;

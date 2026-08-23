@@ -110,7 +110,7 @@ const DamageDoneStatistic = ({
     >
       <div className="flex">
         <div className="flex-sub icon">
-          <img src="/img/sword.png" alt="Damage" />
+          <img src="img/sword.png" alt="Damage" />
         </div>
         <div className="flex-sub value" style={{ width: 190 }}>
           {isLoading ? 'Loading WCL DPS...' : `${formatThousands(displayedDps)} DPS`}

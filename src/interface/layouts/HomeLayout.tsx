@@ -14,6 +14,7 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import './HomeLayout.scss';
 import LanguageSwitcher from '../LanguageSwitcher';
 import ReportSelectionHeader from '../ReportSelectionHeader';
+import { staticHostingEnabled } from 'config/staticHosting';
 
 const pages = [
   {
@@ -66,28 +67,30 @@ export function HomeLayout() {
       <main className="container">
         <nav>
           <ul>
-            {pages.map((page) => {
-              const Icon = page.icon;
-              const isRelativeLink = !page.url.includes('://');
-              const content = (
-                <>
-                  <Icon className="icon" />
-                  {page.name}
-                </>
-              );
+            {pages
+              .filter((page) => !(staticHostingEnabled && page.url === 'premium'))
+              .map((page) => {
+                const Icon = page.icon;
+                const isRelativeLink = !page.url.includes('://');
+                const content = (
+                  <>
+                    <Icon className="icon" />
+                    {page.name}
+                  </>
+                );
 
-              return (
-                <li key={page.url} className={page.url === url ? 'active' : undefined}>
-                  {isRelativeLink ? (
-                    <Link to={page.url} preventScrollReset>
-                      {content}
-                    </Link>
-                  ) : (
-                    <a href={page.url}>{content}</a>
-                  )}
-                </li>
-              );
-            })}
+                return (
+                  <li key={page.url} className={page.url === url ? 'active' : undefined}>
+                    {isRelativeLink ? (
+                      <Link to={page.url} preventScrollReset>
+                        {content}
+                      </Link>
+                    ) : (
+                      <a href={page.url}>{content}</a>
+                    )}
+                  </li>
+                );
+              })}
           </ul>
         </nav>
 

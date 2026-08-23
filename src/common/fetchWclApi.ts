@@ -2,8 +2,8 @@ import { captureException } from 'common/errorLogger';
 import { AnyEvent } from 'parser/core/Events';
 
 import { QueryParams } from './makeApiUrl';
-import makeWclApiUrl from './makeWclApiUrl';
 import { WclTable, WCLResponseJSON, WCLFightsResponse, WCLEventsResponse } from './WCL_TYPES';
+import { WclReportClient } from 'report-data/wcl/WclReportClient';
 
 export class ApiDownError extends Error {}
 export class LogNotFoundError extends Error {}
@@ -22,21 +22,7 @@ export class JsonParseError extends Error {
 export class WclApiError extends Error {}
 export class UnknownApiError extends Error {}
 export class CorruptResponseError extends Error {}
-
-const HTTP_CODES = {
-  OK: 200,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  NOT_FOUND: 404,
-  CLOUDFLARE: {
-    UNKNOWN_ERROR: 520,
-    WEB_SERVER_IS_DOWN: 521,
-    CONNECTION_TIMED_OUT: 522,
-    ORIGIN_IS_UNREACHABLE: 523,
-    A_TIMEOUT_OCCURED: 524,
-  },
-};
-const WCL_API_ERROR_TEXT = 'Warcraft Logs API error';
+export class LegacyWclCapabilityUnavailableError extends Error {}
 
 function fixControlCharacters(text: string) {
   // Try to replace non-ascii chars on "unexpected character"-errors
@@ -93,50 +79,73 @@ async function rawFetchWcl(
   if (import.meta.env.MODE === 'test') {
     throw new Error('Unable to query WCL during test');
   }
-  const url = makeWclApiUrl(endpoint, queryParams);
-  const response = await fetch(url, {
-    credentials: 'include',
-    cache: noCache ? 'reload' : 'default',
-    signal,
-  });
+  const eventMatch = endpoint.match(/^report\/events(?:\/([^/]+))?\/([^/]+)$/);
+  const tableMatch = endpoint.match(/^report\/tables\/([^/]+)\/([^/]+)$/);
+  const graphMatch = endpoint.match(/^report\/graph\/([^/]+)\/([^/]+)$/);
+  const fightsMatch = endpoint.match(/^report\/fights\/([^/]+)$/);
+  const numberParam = (key: string) => {
+    const value = queryParams[key];
+    return typeof value === 'number' ? value : value === undefined ? undefined : Number(value);
+  };
+  const stringParam = (key: string) => {
+    const value = queryParams[key];
+    return value === undefined ? undefined : String(value);
+  };
+  const client = (code: string) =>
+    /^(a:)?[a-zA-Z0-9]{16}$/.test(code)
+      ? new WclReportClient({
+          kind: 'warcraft-logs',
+          code,
+          isAnonymous: code.startsWith('a:'),
+        })
+      : (() => {
+          throw new LegacyWclCapabilityUnavailableError(
+            'This analysis requires a Warcraft Logs-only aggregate and is unavailable for local reports.',
+          );
+        })();
 
-  if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
-    throw new ApiDownError(
-      'The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.',
-    );
+  if (eventMatch) {
+    const events = await client(eventMatch[2]).loadEvents({
+      start: numberParam('start'),
+      end: numberParam('end'),
+      actorId: numberParam('actorid'),
+      abilityId: numberParam('abilityid'),
+      filter: stringParam('filter'),
+      dataType: eventMatch[1]
+        ? eventMatch[1]
+            .split('-')
+            .map((part) => part[0].toUpperCase() + part.slice(1))
+            .join('')
+        : undefined,
+      signal,
+    });
+    return { events };
   }
-  const json = await toJson(response);
+  if (tableMatch) {
+    return client(tableMatch[2]).loadTable({
+      start: numberParam('start') ?? 0,
+      end: numberParam('end') ?? 0,
+      sourceId: numberParam('actorid'),
+      filter: stringParam('filter'),
+      dataType: tableMatch[1],
+      signal,
+    });
+  }
+  if (graphMatch) {
+    return client(graphMatch[2]).loadGraph({
+      start: numberParam('start') ?? 0,
+      end: numberParam('end') ?? 0,
+      sourceId: numberParam('actorid'),
+      filter: stringParam('filter'),
+      dataType: graphMatch[1],
+      signal,
+    });
+  }
+  if (fightsMatch) return client(fightsMatch[1]).loadReport(signal);
 
-  if ([HTTP_CODES.BAD_REQUEST, HTTP_CODES.UNAUTHORIZED].includes(response.status)) {
-    const message = json.message;
-    if (message === 'This report does not exist or is private.') {
-      throw new LogNotFoundError();
-    }
-    if (message === 'Invalid character name/server/region specified.') {
-      throw new CharacterNotFoundError();
-    }
-    if (message === 'Invalid guild name/server/region specified.') {
-      throw new GuildNotFoundError();
-    }
-    if (message === 'Unauthorized') {
-      throw new UnauthorizedError();
-    }
-    throw new Error(message || json.error);
-  }
-
-  if (response.status === HTTP_CODES.NOT_FOUND) {
-    // TODO: this doesn't handle character/guild not found
-    throw new LogNotFoundError();
-  }
-
-  if (!response.ok) {
-    if (json.error === WCL_API_ERROR_TEXT) {
-      throw new WclApiError(`${response.status}: ${json.message}`);
-    } else {
-      throw new UnknownApiError(`${response.status}: ${json.message}`);
-    }
-  }
-  return json;
+  throw new WclApiError(
+    `This browser-only build does not support the legacy Warcraft Logs operation: ${endpoint}`,
+  );
 }
 
 interface FetchWclOptions {
@@ -174,7 +183,7 @@ export default function fetchWcl<T extends WCLResponseJSON>(
         if (timedOut) {
           return;
         }
-        resolve(results);
+        resolve(results as T);
       })
       .catch((err) => {
         clearTimeout(timeoutTimer);

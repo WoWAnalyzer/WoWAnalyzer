@@ -1,0 +1,59 @@
+name: Deploy static browser variant
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.5.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22.x'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run format:check
+      - run: pnpm run lint
+      - run: pnpm run typecheck
+      - run: pnpm run test -- --run
+      - run: pnpm run build
+        env:
+          VITE_STATIC_HOST: true
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_ENABLE_WCL: false
+          VITE_WCL_CLIENT_ID: ${{ vars.WCL_CLIENT_ID }}
+          VITE_WCL_REDIRECT_URI: ${{ vars.WCL_REDIRECT_URI }}
+          VITE_SENTRY_DSN: ''
+          VITE_ENABLE_GA: false
+      - run: pnpm run static:check
+      - run: pnpm exec playwright install --with-deps chromium firefox
+      - run: pnpm run e2e:static
+        env:
+          CI: true
+          VITE_STATIC_HOST: true
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_ENABLE_WCL: false
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

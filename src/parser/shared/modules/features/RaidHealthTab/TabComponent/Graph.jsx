@@ -1,6 +1,6 @@
-import fetchWcl from 'common/fetchWclApi';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
+import { AnalysisDataSourceContext } from 'report-data/AnalysisDataSourceContext';
 
 import RaidHealthChart from './RaidHealthChart';
 
@@ -26,6 +26,7 @@ class Graph extends PureComponent {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
+    source: PropTypes.object,
   };
 
   constructor() {
@@ -50,17 +51,18 @@ class Graph extends PureComponent {
   }
 
   load() {
-    const { reportCode, start, end } = this.props;
-    fetchWcl(`report/graph/resources/${reportCode}`, {
-      start,
-      end,
-      abilityid: 1000,
-    }).then((json) => {
-      console.log('Received player health', json);
-      this.setState({
-        data: json,
-      });
-    });
+    const { start, end, source } = this.props;
+    if (!source?.loadGraph) {
+      this.setState({ data: { series: [], deaths: [] } });
+      return;
+    }
+    source
+      .loadGraph({ fightStart: start, fightEnd: end, dataType: 'Resources' })
+      .then((json) => {
+        console.log('Received player health', json);
+        this.setState({ data: json });
+      })
+      .catch(() => this.setState({ data: { series: [], deaths: [] } }));
   }
 
   render() {
@@ -142,4 +144,10 @@ class Graph extends PureComponent {
   }
 }
 
-export default Graph;
+export default function GraphWithSource(props) {
+  return (
+    <AnalysisDataSourceContext.Consumer>
+      {(source) => <Graph {...props} source={source} />}
+    </AnalysisDataSourceContext.Consumer>
+  );
+}

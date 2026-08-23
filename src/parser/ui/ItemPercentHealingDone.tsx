@@ -15,7 +15,7 @@ const ItemPercentHealingDone = ({ amount, approximate, greaterThan, lessThan }: 
   const { combatLogParser: parser } = useCombatLogParser();
   return (
     <>
-      <img src="/img/healing.png" alt="Healing" className="icon" /> {approximate && '≈'}
+      <img src="img/healing.png" alt="Healing" className="icon" /> {approximate && '≈'}
       {greaterThan && '>'}
       {lessThan && '<'}
       {formatPercentage(parser.getPercentageOfTotalHealingDone(amount))} %{' '}

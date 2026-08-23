@@ -1,6 +1,6 @@
 import { Options } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { WCLDamageDoneTableResponse, WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import SourceOfMagic from './SourceOfMagic';
 import { POTENT_MANA_MULTIPLIER } from '../../constants';
@@ -56,22 +56,16 @@ class PotentMana extends SourceOfMagic {
     }
 
     const fetchPromises = {
-      healingTable: await fetchWcl<WCLHealingTableResponse>(
-        `report/tables/healing/${this.owner.report.code}`,
-        {
-          start: this.owner.fight.start_time,
-          end: this.owner.fight.end_time,
-          filter: this.getHealingFilter(),
-        },
-      ),
-      damageTable: await fetchWcl<WCLDamageDoneTableResponse>(
-        `report/tables/damage-done/${this.owner.report.code}`,
-        {
-          start: this.owner.fight.start_time,
-          end: this.owner.fight.end_time,
-          filter: this.getDamageFilter(),
-        },
-      ),
+      healingTable: await loadParserTable<WCLHealingTableResponse>(this.owner, 'healing', {
+        start: this.owner.fight.start_time,
+        end: this.owner.fight.end_time,
+        filter: this.getHealingFilter(),
+      }),
+      damageTable: await loadParserTable<WCLDamageDoneTableResponse>(this.owner, 'damage-done', {
+        start: this.owner.fight.start_time,
+        end: this.owner.fight.end_time,
+        filter: this.getDamageFilter(),
+      }),
     };
 
     const [healingTable, damageTable] = await Promise.all([

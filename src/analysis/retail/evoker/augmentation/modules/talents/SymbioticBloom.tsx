@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
@@ -48,14 +48,11 @@ class SymbioticBloom extends Analyzer {
   }
 
   async load() {
-    const json = await fetchWcl<WCLHealingTableResponse>(
-      `report/tables/healing/${this.owner.report.code}`,
-      {
-        start: this.owner.fight.start_time,
-        end: this.owner.fight.end_time,
-        filter: this.filter,
-      },
-    );
+    const json = await loadParserTable<WCLHealingTableResponse>(this.owner, 'healing', {
+      start: this.owner.fight.start_time,
+      end: this.owner.fight.end_time,
+      filter: this.filter,
+    });
     this.totalHealingFromSymbioticBloomBuff = json.entries.reduce(
       // Because this is a % healing increase and we are unable to parse each healing event individually for its effective healing,
       // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively

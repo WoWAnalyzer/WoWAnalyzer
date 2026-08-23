@@ -15,6 +15,7 @@ import '../App.scss';
 import { setInternetExplorer } from '../reducers/internetExplorer';
 import { fetchUser } from '../reducers/user';
 import { ProgressBar } from 'interface/ProgressBar';
+import { staticHostingEnabled } from 'config/staticHosting';
 
 function detectInternetExplorer() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -30,7 +31,7 @@ export function AppLayout() {
     if (detectInternetExplorer()) {
       dispatch(setInternetExplorer(true));
     }
-    if (import.meta.env.VITE_FORCE_PREMIUM !== 'true') {
+    if (!staticHostingEnabled && import.meta.env.VITE_FORCE_PREMIUM !== 'true') {
       // If Premium is forced (development environments), fetching the user would probably fail too
       dispatch(fetchUser());
     }

@@ -22,7 +22,7 @@ const config: Config = {
         WoWAnalyzer team on{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
         <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
-        <a href="/contributor/squided">squided</a>) directly on Discord. We're always interested in
+        <a href="#/contributor/squided">squided</a>) directly on Discord. We're always interested in
         improving the analyzer, whether it's in-depth theorycraft or rewording some text to be
         easier to understand. The whole project is open source and welcomes contributions so you can
         directly improve it too!

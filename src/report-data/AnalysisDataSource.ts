@@ -3,13 +3,19 @@ import type { AnyEvent } from 'parser/core/Events';
 import type { PlayerDetails } from 'parser/core/Player';
 import type Report from 'parser/core/Report';
 import type { ReportSource } from 'parser/core/Report';
-import type { WCLDamageDoneTableResponse, WCLRankingsResponse } from 'common/WCL_TYPES';
+import type {
+  WCLDamageDoneTableResponse,
+  WCLRankingsResponse,
+  WCLResponseJSON,
+} from 'common/WCL_TYPES';
 
 export interface EventQuery {
   fightId: number;
   start?: number;
   end?: number;
   actorId?: number;
+  abilityId?: number;
+  dataType?: string;
   /** An explicit safety cap. Omit for the complete primary analysis flow. */
   maxPages?: number;
   onProgress?: (progress: number) => void;
@@ -38,6 +44,22 @@ export interface AnalysisDataSource {
   loadPlayers(fightId: number): Promise<PlayerDetails[]>;
   loadEvents(query: EventQuery): Promise<AnyEvent[]>;
   loadFilteredEvents?(query: FilteredEventQuery): Promise<AnyEvent[]>;
+  loadTable?<T extends WCLResponseJSON>(query: {
+    fightStart: number;
+    fightEnd: number;
+    dataType: string;
+    playerId?: number;
+    filter?: string;
+    signal?: AbortSignal;
+  }): Promise<T>;
+  loadGraph?<T extends WCLResponseJSON>(query: {
+    fightStart: number;
+    fightEnd: number;
+    dataType: string;
+    playerId?: number;
+    filter?: string;
+    signal?: AbortSignal;
+  }): Promise<T>;
   loadCharacterProfile?(report: Report, player: PlayerDetails): Promise<CharacterProfile | null>;
   loadDamageDoneTable?(query: {
     fightStart: number;

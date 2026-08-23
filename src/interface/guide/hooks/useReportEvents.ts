@@ -1,6 +1,7 @@
-import { fetchEvents } from 'common/fetchWclApi';
 import { AnyEvent } from 'parser/core/Events';
 import { useState, useEffect } from 'react';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
+import { useFight } from 'interface/report/context/FightContext';
 
 /**
  * Fetch report events from WCL. This is a wrapper around the internal `fetchEvents` API.
@@ -12,6 +13,8 @@ export default function useReportEvents(
   filter: string,
 ): AnyEvent[] | undefined {
   const [data, setData] = useState<AnyEvent[] | undefined>();
+  const source = useAnalysisDataSource();
+  const { fight } = useFight();
 
   useEffect(() => {
     if (!reportCode || !startTime || !endTime) {
@@ -24,7 +27,16 @@ export default function useReportEvents(
     let cancelled = false;
 
     const run = async () => {
-      const events = await fetchEvents(reportCode, startTime, endTime, undefined, filter);
+      if (!source.loadFilteredEvents) {
+        setData([]);
+        return;
+      }
+      const events = await source.loadFilteredEvents({
+        fightId: fight.id,
+        start: startTime,
+        end: endTime,
+        filter,
+      });
 
       if (!cancelled) {
         setData(events);
@@ -36,7 +48,7 @@ export default function useReportEvents(
     return () => {
       cancelled = true;
     };
-  }, [reportCode, startTime, endTime, filter]);
+  }, [reportCode, startTime, endTime, filter, source, fight.id]);
 
   return data;
 }

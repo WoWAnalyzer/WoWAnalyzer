@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -31,7 +31,7 @@ class PowerWordBarrier extends Analyzer {
   }
 
   load() {
-    return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    return loadParserTable(this.owner, 'damage-taken', {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} GROUP BY target ON target END`,

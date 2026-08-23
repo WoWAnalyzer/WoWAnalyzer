@@ -174,7 +174,7 @@ class DamageTaken extends Analyzer {
       >
         <div className="flex">
           <div className="flex-sub icon">
-            <img src="/img/shield.png" alt="Damage taken" />
+            <img src="img/shield.png" alt="Damage taken" />
           </div>
           <Tooltip content={this.tooltip}>
             <div className="flex-sub value" style={{ width: 190 }}>

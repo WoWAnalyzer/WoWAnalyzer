@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { formatDuration, formatMilliseconds, formatNumber } from 'common/format';
 import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
@@ -268,16 +268,18 @@ class BuffTargetHelper extends Analyzer {
   }
 
   async getDamage(currentTime: number, endTime: number): Promise<DamageTables> {
-    const normalDamage = await fetchWcl<WCLDamageDoneTableResponse>(
-      `report/tables/damage-done/${this.owner.report.code}`,
+    const normalDamage = await loadParserTable<WCLDamageDoneTableResponse>(
+      this.owner,
+      'damage-done',
       {
         start: currentTime,
         end: endTime,
         filter: this.getFilter(false),
       },
     );
-    const noEbonDamage = await fetchWcl<WCLDamageDoneTableResponse>(
-      `report/tables/damage-done/${this.owner.report.code}`,
+    const noEbonDamage = await loadParserTable<WCLDamageDoneTableResponse>(
+      this.owner,
+      'damage-done',
       {
         start: currentTime,
         end: endTime,

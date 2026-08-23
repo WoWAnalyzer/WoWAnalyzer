@@ -41,7 +41,7 @@ function HealingStat() {
   return (
     <StatBoxStat>
       <dt>
-        <img src="/img/healing.png" /> HPS
+        <img src="img/healing.png" /> HPS
       </dt>
       <dd>{formatNumber(combatLogParser.getModule(HealingDone).total.effective / duration)}</dd>
     </StatBoxStat>

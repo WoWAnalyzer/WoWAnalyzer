@@ -23,15 +23,15 @@ const RaidCompositionDetails = (props: Props) => {
               </div>
             </div>
             <div className="flex-sub icon">
-              <img src="/roles/tank.jpg" alt="Tanks" />
+              <img src="roles/tank.jpg" alt="Tanks" />
               <div className="role-count">{tanks}</div>
             </div>
             <div className="flex-sub icon">
-              <img src="/roles/healer.jpg" alt="Healers" />
+              <img src="roles/healer.jpg" alt="Healers" />
               <div className="role-count">{healers}</div>
             </div>
             <div className="flex-sub icon">
-              <img src="/roles/dps.jpg" alt="DPS" />
+              <img src="roles/dps.jpg" alt="DPS" />
               <div className="role-count">{dps}</div>
             </div>
           </div>

@@ -249,7 +249,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT}>
-          <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
+          <img src="img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of
             total

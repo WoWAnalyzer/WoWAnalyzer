@@ -14,7 +14,7 @@ const ItemPercentDamageDone = ({ amount, approximate, greaterThan, lessThan }: P
   const { combatLogParser: parser } = useCombatLogParser();
   return (
     <>
-      <img src="/img/sword.png" alt="Damage" className="icon" /> {approximate && '≈'}
+      <img src="img/sword.png" alt="Damage" className="icon" /> {approximate && '≈'}
       {greaterThan && '>'}
       {lessThan && '<'}
       {formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} %{' '}

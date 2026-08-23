@@ -1,12 +1,5 @@
-import Panel from 'interface/Panel';
-import LocalReportSelector from 'interface/LocalReportSelector';
-
 export function Component() {
-  return (
-    <main className="container offset">
-      <Panel title="Local file (experimental)">
-        <LocalReportSelector />
-      </Panel>
-    </main>
-  );
+  // HomeLayout's report-selection header owns both peer entry experiences.
+  // Keeping the route lets report errors link here without rendering a second importer/manager.
+  return null;
 }

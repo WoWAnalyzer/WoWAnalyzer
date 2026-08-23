@@ -30,6 +30,14 @@ export default function LocalReportManager() {
             <Link to={`/local/${report.id}`}>{report.report.title}</Link>{' '}
             <small>
               {new Date(report.createdAt).toLocaleString()} · {report.report.fights.length} fights
+              {report.fileSize ? ` · ${formatBytes(report.fileSize)} source` : ''}
+              {report.approximateStoredSize
+                ? ` · ~${formatBytes(report.approximateStoredSize)} stored`
+                : ''}
+              {report.importDurationMs
+                ? ` · ${(report.importDurationMs / 1000).toFixed(1)}s import`
+                : ''}
+              {` · parser ${report.parserVersion}`}
             </small>{' '}
             <button
               className="btn btn-link btn-sm"
@@ -47,3 +55,9 @@ export default function LocalReportManager() {
     </div>
   );
 }
+
+const formatBytes = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KiB`;
+  return `${(bytes / 1024 ** 2).toFixed(1)} MiB`;
+};

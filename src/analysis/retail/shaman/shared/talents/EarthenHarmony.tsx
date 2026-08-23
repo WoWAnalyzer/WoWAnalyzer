@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/shaman';
 import talents from 'common/TALENTS/shaman';
 import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -128,7 +128,7 @@ class EarthenHarmony extends Analyzer {
     spellId: number,
     targetID: number,
   ) {
-    fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    loadParserTable<WCLDamageTakenTableResponse>(this.owner, 'damage-taken', {
       start: start,
       end: end,
     })
@@ -151,7 +151,7 @@ class EarthenHarmony extends Analyzer {
   }
 
   loadDamageTakenDuringEarthShield(spellId: number) {
-    fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    loadParserTable<WCLDamageTakenTableResponse>(this.owner, 'damage-taken', {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${spellId} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${spellId} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,

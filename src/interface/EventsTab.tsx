@@ -527,7 +527,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                           {rowData.absorbed ? (
                             <span className="absorbed">A: {formatThousands(rowData.absorbed)}</span>
                           ) : null}{' '}
-                          <img src="/img/sword.png" alt="Damage" className="icon" />
+                          <img src="img/sword.png" alt="Damage" className="icon" />
                         </>
                       );
                     }
@@ -547,7 +547,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                           {rowData.absorbed ? (
                             <span className="absorbed">A: {formatThousands(rowData.absorbed)}</span>
                           ) : null}{' '}
-                          <img src="/img/healing.png" alt="Healing" className="icon" />
+                          <img src="img/healing.png" alt="Healing" className="icon" />
                         </>
                       );
                     }
@@ -555,7 +555,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                       return (
                         <>
                           <span className={rowData.type}>{formatThousands(rowData.amount)}</span>{' '}
-                          <img src="/img/absorbed.png" alt="Absorbed" className="icon" />
+                          <img src="img/absorbed.png" alt="Absorbed" className="icon" />
                         </>
                       );
                     }
@@ -564,7 +564,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                         <>
                           Applied an absorb of{' '}
                           <span className="absorbed">{formatThousands(rowData.absorb)}</span>{' '}
-                          <img src="/img/absorbed.png" alt="Absorbed" className="icon" />
+                          <img src="img/absorbed.png" alt="Absorbed" className="icon" />
                         </>
                       );
                     }

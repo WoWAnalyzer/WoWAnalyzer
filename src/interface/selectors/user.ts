@@ -1,8 +1,9 @@
 import { RootState } from 'store';
+import { staticHostingEnabled } from 'config/staticHosting';
 
 export const getUser = (state: RootState) => state.user;
 export const hasPremium = (state: RootState) => {
-  if (import.meta.env.VITE_FORCE_PREMIUM === 'true') {
+  if (staticHostingEnabled || import.meta.env.VITE_FORCE_PREMIUM === 'true') {
     // Development environments force premium since they can't always implement the OAuth + for development pleasure.
     return true;
   } else if (import.meta.env.VITE_FORCE_PREMIUM === 'false') {

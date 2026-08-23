@@ -6,6 +6,10 @@
 
 [https://wowanalyzer.com](https://wowanalyzer.com)
 
+This fork also contains a browser-first static-hosting variant with local combat-log import and
+browser PKCE access to Warcraft Logs. See [the static hosting guide](docs/static-browser-hosting.md)
+and [endpoint ledger](docs/static-endpoint-ledger.md).
+
 ## New to Open Source?
 
 This guide is an excellent introduction and explains all the jargon we may use: https://medium.com/clarifai-champions/99-pr-oblems-a-beginners-guide-to-open-source-abc1b867385a

@@ -1,6 +1,7 @@
 import { wrapCreateBrowserRouterV6 } from '@sentry/react';
 import {
   createBrowserRouter,
+  createHashRouter,
   createMemoryRouter,
   createRoutesFromElements,
   Route,
@@ -9,6 +10,8 @@ import {
 import RouterErrorBoundary from 'interface/RouterErrorBoundary';
 import { AppLayout } from 'interface/layouts/AppLayout';
 import { HomeLayout } from 'interface/layouts/HomeLayout';
+import WclOAuthCallbackGate from 'interface/WclOAuthCallbackGate';
+import { staticHostingEnabled, wclIntegrationEnabled } from 'config/staticHosting';
 
 const reportRoutes = () => (
   <>
@@ -26,11 +29,17 @@ const reportRoutes = () => (
 
 const appRoutes = createRoutesFromElements(
   <Route path="/" element={<AppLayout />} errorElement={<RouterErrorBoundary />}>
-    <Route path="character/:region/:realm/:name" lazy={() => import('./routes/character')} />
-    <Route path="guild/:region/:realm/:name" lazy={() => import('./routes/guild')} />
-    <Route path="report/:reportCode/:fightId?/:player?/:build?" lazy={() => import('./report')}>
-      {reportRoutes()}
-    </Route>
+    {!staticHostingEnabled && wclIntegrationEnabled && (
+      <>
+        <Route path="character/:region/:realm/:name" lazy={() => import('./routes/character')} />
+        <Route path="guild/:region/:realm/:name" lazy={() => import('./routes/guild')} />
+      </>
+    )}
+    {wclIntegrationEnabled && (
+      <Route path="report/:reportCode/:fightId?/:player?/:build?" lazy={() => import('./report')}>
+        {reportRoutes()}
+      </Route>
+    )}
     <Route path="local/:localReportId/:fightId?/:player?/:build?" lazy={() => import('./report')}>
       {reportRoutes()}
     </Route>
@@ -39,26 +48,35 @@ const appRoutes = createRoutesFromElements(
       <Route index lazy={() => import('./routes/news')} />
       <Route path="news" lazy={() => import('./routes/news')} />
       <Route path="specs" lazy={() => import('./routes/specs')} />
-      <Route path="premium" lazy={() => import('./routes/premium')} />
+      {!staticHostingEnabled && <Route path="premium" lazy={() => import('./routes/premium')} />}
       <Route path="about" lazy={() => import('./routes/about')} />
       <Route path="help-wanted" lazy={() => import('./routes/help-wanted')} />
       <Route path="contributor/:id" lazy={() => import('./routes/contributor')} />
-      <Route path="search/:searchTerm?" lazy={() => import('./routes/search')} />
+      {!staticHostingEnabled && wclIntegrationEnabled && (
+        <Route path="search/:searchTerm?" lazy={() => import('./routes/search')} />
+      )}
       <Route path="local-import" lazy={() => import('./routes/local-import')} />
       <Route path="*" lazy={() => import('./routes/not-found')} />
     </Route>
-    <Route path="support-stats" lazy={() => import('./routes/support-stats')} />
+    {!staticHostingEnabled && wclIntegrationEnabled && (
+      <Route path="support-stats" lazy={() => import('./routes/support-stats')} />
+    )}
   </Route>,
 );
 
-const sentryCreateBrowserRouter = import.meta.env.SENTRY_DSN
+const sentryCreateBrowserRouter = import.meta.env.VITE_SENTRY_DSN
   ? wrapCreateBrowserRouterV6(createBrowserRouter)
   : createBrowserRouter;
 const router =
   import.meta.env.MODE === 'test'
     ? createMemoryRouter(appRoutes)
-    : sentryCreateBrowserRouter(appRoutes);
+    : staticHostingEnabled
+      ? createHashRouter(appRoutes)
+      : sentryCreateBrowserRouter(appRoutes);
 
-const App = () => <RouterProvider router={router} />;
+const App = () => {
+  const provider = <RouterProvider router={router} />;
+  return wclIntegrationEnabled ? <WclOAuthCallbackGate>{provider}</WclOAuthCallbackGate> : provider;
+};
 
 export default App;

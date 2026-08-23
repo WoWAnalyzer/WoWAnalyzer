@@ -80,7 +80,7 @@ class HitCombo extends Analyzer {
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small>
           </div>
           <div>
-            <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
+            <img src="img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
             <small>
               {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of
               total

@@ -113,6 +113,7 @@ import EmpowerNormalizer from 'parser/shared/normalizers/EmpowerNormalizer';
 import VolatileVoidSuffuser from 'parser/retail/modules/items/midnight/trinkets/VolatileVoidSuffuser';
 import LightOfTheCosmicCrescendo from 'parser/retail/modules/items/midnight/trinkets/LightOfTheCosmicCrescendo';
 import FrenziedFocus from 'parser/retail/modules/items/midnight/enchants/FrenziedFocus';
+import type { AnalysisDataSource } from 'report-data/AnalysisDataSource';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -128,6 +129,7 @@ interface ModuleErrorDetails {
 }
 
 class CombatLogParser {
+  readonly dataSource?: AnalysisDataSource;
   static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
@@ -308,9 +310,11 @@ class CombatLogParser {
     playerCombatantInfo: CombatantInfoEvent | undefined,
     characterProfile: CharacterProfile,
     playerDetails: PlayerDetails[],
+    dataSource?: AnalysisDataSource,
   ) {
     this.config = config;
     this.report = report;
+    this.dataSource = dataSource;
 
     this.playerCombatantInfo = playerCombatantInfo;
     this.playerDetails = playerDetails;

@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
@@ -49,7 +49,7 @@ class SpiritLinkDamageReduction extends Analyzer {
   }
 
   load() {
-    return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    return loadParserTable(this.owner, 'damage-taken', {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter,

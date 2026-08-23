@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
@@ -68,7 +68,7 @@ class HymnBuffBenefit extends Analyzer {
   }
 
   makeHymnQuery(stackCount: number) {
-    return fetchWcl<WCLHealingTableResponse>(`report/tables/healing/${this.owner.report.code}`, {
+    return loadParserTable<WCLHealingTableResponse>(this.owner, 'healing', {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter(stackCount),

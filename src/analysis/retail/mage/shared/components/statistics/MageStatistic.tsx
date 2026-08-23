@@ -128,7 +128,7 @@ MageStatistic.Duration = function Duration({ value, label, icon }: Omit<ValuePro
 MageStatistic.Damage = function Damage({ value, label = 'damage', precision = 0 }: ValueProps) {
   return (
     <div>
-      <img alt="Damage" src="/img/sword.png" className="icon" /> {formatNumber(value)}{' '}
+      <img alt="Damage" src="img/sword.png" className="icon" /> {formatNumber(value)}{' '}
       <small>{label}</small>
     </div>
   );
@@ -140,7 +140,7 @@ MageStatistic.Damage = function Damage({ value, label = 'damage', precision = 0 
 MageStatistic.Healing = function Healing({ value, label = 'healing', precision = 0 }: ValueProps) {
   return (
     <div>
-      <img alt="Healing" src="/img/healing.png" className="icon" /> {formatNumber(value)}{' '}
+      <img alt="Healing" src="img/healing.png" className="icon" /> {formatNumber(value)}{' '}
       <small>{label}</small>
     </div>
   );
@@ -170,7 +170,7 @@ MageStatistic.Defensive = function Defensive<Apply extends EventType, Remove ext
 
   return (
     <div>
-      <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
+      <img alt="Damage Mitigated" src="img/shield.png" className="icon" />{' '}
       {formatNumber(displayValue)} <small>{label}</small>
     </div>
   );

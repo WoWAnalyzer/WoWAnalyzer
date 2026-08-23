@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserEvents } from 'report-data/parserCapabilities';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -46,7 +46,8 @@ class AncestralVigor extends Analyzer {
   // recursively fetch events until no nextPageTimestamp is returned
   fetchAll(pathname: string, query: WclOptions) {
     const checkAndFetch = async (_query: WclOptions) => {
-      const json = (await fetchWcl(pathname, _query)) as WCLEventsResponse;
+      const dataType = pathname.split('/')[2];
+      const json = (await loadParserEvents(this.owner, dataType, _query)) as WCLEventsResponse;
       const events = json.events as DamageEvent[];
       this.lifeSavingEvents.push(...events);
       if (json.nextPageTimestamp) {

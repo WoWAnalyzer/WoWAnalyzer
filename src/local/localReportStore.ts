@@ -24,6 +24,10 @@ export interface LocalManifest {
   players?: Record<number, PlayerDetails[]>;
   diagnostics: LocalDiagnostic[];
   createdAt: number;
+  fileName?: string;
+  fileSize?: number;
+  importDurationMs?: number;
+  approximateStoredSize?: number;
 }
 
 export interface ReadyLocalManifest extends LocalManifest {
@@ -128,7 +132,7 @@ export function requireReadyLocalManifest(manifest: LocalManifest | undefined): 
   return manifest;
 }
 
-export async function stageLocalReport(id: string) {
+export async function stageLocalReport(id: string, file?: { name: string; size: number }) {
   const db = await openLocalReportDb();
   try {
     const transaction = db.transaction('manifests', 'readwrite');
@@ -139,6 +143,8 @@ export async function stageLocalReport(id: string) {
       status: 'staged',
       diagnostics: [],
       createdAt: Date.now(),
+      fileName: file?.name,
+      fileSize: file?.size,
     } satisfies LocalManifest);
     await transactionDone(transaction);
   } catch (error) {

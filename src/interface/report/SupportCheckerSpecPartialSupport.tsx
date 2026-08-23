@@ -33,7 +33,7 @@ const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => {
         <br />
         We recommend reading the{' '}
         <a href="https://www.wowhead.com/class-guides">
-          <img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead
+          <img src="img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead
         </a>{' '}
         and <a href="https://www.icy-veins.com/wow/class-guides">Icy Veins</a> guides to gain more
         knowledge about your spec and use this when analyzing yourself. You can also try asking for

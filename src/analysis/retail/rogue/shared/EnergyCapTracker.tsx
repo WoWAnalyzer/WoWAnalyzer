@@ -65,7 +65,7 @@ class EnergyCapTracker extends Analyzer {
                 className="stat-healing-bg"
                 style={{ width: `${(1 - this.energyTracker.percentAtCap) * 100}%` }}
               >
-                <img src="/img/sword.png" alt="Uncapped Energy" />
+                <img src="img/sword.png" alt="Uncapped Energy" />
               </div>
             </Tooltip>
 
@@ -73,7 +73,7 @@ class EnergyCapTracker extends Analyzer {
               content={`At capped energy for ${formatDuration(this.energyTracker.timeAtCap)}`}
             >
               <div className="remainder DeathKnight-bg">
-                <img src="/img/overhealing.png" alt="Capped Energy" />
+                <img src="img/overhealing.png" alt="Capped Energy" />
               </div>
             </Tooltip>
           </div>

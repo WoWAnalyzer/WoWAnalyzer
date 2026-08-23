@@ -14,6 +14,9 @@ import ReportSelecter from './ReportSelecter';
 import { RootState } from 'store';
 import './Header.scss';
 import LocalReportSelector from './LocalReportSelector';
+import { Link } from 'react-router-dom';
+import { staticHostingEnabled, wclIntegrationEnabled } from 'config/staticHosting';
+import { isWclConfigured } from 'report-data/wcl/WclSession';
 
 enum StateSearch {
   Report,
@@ -34,7 +37,12 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      searchType: StateSearch.Report,
+      searchType:
+        !wclIntegrationEnabled ||
+        (staticHostingEnabled &&
+          (!isWclConfigured() || window.location.hash.startsWith('#/local-import')))
+          ? StateSearch.Local
+          : StateSearch.Report,
     };
     this.handleCharacterSearchClick = this.handleCharacterSearchClick.bind(this);
     this.handleReportSearchClick = this.handleReportSearchClick.bind(this);
@@ -104,64 +112,95 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
         <div className="container">
           <div className="row">
             <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
-              <a href="/" className="brand-name">
+              <Link to="/" className="brand-name">
                 <Logo />
                 <h1>WoWAnalyzer</h1>
-              </a>
+              </Link>
               <div id="reportSelectionHeader.improveYourPerformance">
-                <Trans id="interface.home.reportSelectionHeader.improveYourPerformance">
-                  Improve your performance with personal feedback and stats. Just enter the link of
-                  a{' '}
-                  <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">
-                    Warcraft Logs
-                  </a>{' '}
-                  report below.
-                </Trans>
+                {!wclIntegrationEnabled ? (
+                  <>Analyze a local advanced combat-log file in your browser.</>
+                ) : staticHostingEnabled ? (
+                  <>
+                    Analyze a Warcraft Logs report or a local advanced combat-log file in your
+                    browser. Warcraft Logs reports require signing in to{' '}
+                    <a
+                      href="https://www.warcraftlogs.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Warcraft Logs
+                    </a>
+                    .
+                  </>
+                ) : (
+                  <Trans id="interface.home.reportSelectionHeader.improveYourPerformance">
+                    Improve your performance with personal feedback and stats. Just enter the link
+                    of a Warcraft Logs report below.
+                  </Trans>
+                )}
               </div>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
                 <nav>
                   <ul>
-                    <li
-                      key="report"
-                      className={
-                        this.state.searchType === StateSearch.Report ? 'active' : undefined
-                      }
-                    >
-                      <a href="/" style={{ padding: '5px' }} onClick={this.handleReportSearchClick}>
-                        <ReportIcon />
-                        <Trans id="interface.home.reportSelectionHeader.report">Report</Trans>
-                      </a>
-                    </li>
-                    <li
-                      key="character"
-                      className={
-                        this.state.searchType === StateSearch.Character ? 'active' : undefined
-                      }
-                    >
-                      <a
-                        href="/"
-                        style={{ padding: '5px' }}
-                        onClick={this.handleCharacterSearchClick}
+                    {wclIntegrationEnabled && (
+                      <li
+                        key="report"
+                        className={
+                          this.state.searchType === StateSearch.Report ? 'active' : undefined
+                        }
                       >
-                        <CharacterIcon />
-                        <Trans id="interface.home.reportSelectionHeader.character">Character</Trans>
-                      </a>
-                    </li>
-                    <li
-                      key="guild"
-                      className={this.state.searchType === StateSearch.Guild ? 'active' : undefined}
-                    >
-                      <a href="/" style={{ padding: '5px' }} onClick={this.handleGuildSearchClick}>
-                        <GuildIcon />
-                        <Trans id="interface.home.reportSelectionHeader.guild">Guild</Trans>
-                      </a>
-                    </li>
+                        <a
+                          href="#/"
+                          style={{ padding: '5px' }}
+                          onClick={this.handleReportSearchClick}
+                        >
+                          <ReportIcon />
+                          <Trans id="interface.home.reportSelectionHeader.report">Report</Trans>
+                        </a>
+                      </li>
+                    )}
+                    {!staticHostingEnabled && wclIntegrationEnabled && (
+                      <>
+                        <li
+                          key="character"
+                          className={
+                            this.state.searchType === StateSearch.Character ? 'active' : undefined
+                          }
+                        >
+                          <a
+                            href="#/"
+                            style={{ padding: '5px' }}
+                            onClick={this.handleCharacterSearchClick}
+                          >
+                            <CharacterIcon />
+                            <Trans id="interface.home.reportSelectionHeader.character">
+                              Character
+                            </Trans>
+                          </a>
+                        </li>
+                        <li
+                          key="guild"
+                          className={
+                            this.state.searchType === StateSearch.Guild ? 'active' : undefined
+                          }
+                        >
+                          <a
+                            href="#/"
+                            style={{ padding: '5px' }}
+                            onClick={this.handleGuildSearchClick}
+                          >
+                            <GuildIcon />
+                            <Trans id="interface.home.reportSelectionHeader.guild">Guild</Trans>
+                          </a>
+                        </li>
+                      </>
+                    )}
                     <li
                       key="local"
                       className={this.state.searchType === StateSearch.Local ? 'active' : undefined}
                     >
                       <a
-                        href="/local-import"
+                        href="#/local-import"
                         style={{ padding: '5px' }}
                         onClick={this.handleLocalSearchClick}
                       >

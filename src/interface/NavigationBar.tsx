@@ -10,6 +10,7 @@ import Tooltip from 'interface/Tooltip';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { HTMLAttributes, ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { staticHostingEnabled } from 'config/staticHosting';
 
 import './NavigationBar.scss';
 
@@ -73,28 +74,30 @@ const NavigationBar = ({ children, ...others }: Props) => {
             </a>
           </div>
         </Tooltip>
-        <div className="menu-item required">
-          {user && user.premium ? (
-            <Tooltip
-              content={
-                <Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>
-              }
-            >
-              <Link to="/premium">
-                <PremiumIcon /> <span className="optional">{user.name}</span>
-              </Link>
-            </Tooltip>
-          ) : (
-            <Tooltip content={<Trans id="interface.layout.navigationBar.premium">Premium</Trans>}>
-              <Link to="/premium" className="premium">
-                <PremiumIcon />{' '}
-                <span className="optional">
-                  <Trans id="interface.layout.navigationBar.premium">Premium</Trans>
-                </span>
-              </Link>
-            </Tooltip>
-          )}
-        </div>
+        {!staticHostingEnabled && (
+          <div className="menu-item required">
+            {user && user.premium ? (
+              <Tooltip
+                content={
+                  <Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>
+                }
+              >
+                <Link to="/premium">
+                  <PremiumIcon /> <span className="optional">{user.name}</span>
+                </Link>
+              </Tooltip>
+            ) : (
+              <Tooltip content={<Trans id="interface.layout.navigationBar.premium">Premium</Trans>}>
+                <Link to="/premium" className="premium">
+                  <PremiumIcon />{' '}
+                  <span className="optional">
+                    <Trans id="interface.layout.navigationBar.premium">Premium</Trans>
+                  </span>
+                </Link>
+              </Tooltip>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -11,13 +11,29 @@ import thunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/hooks/useEventParser';
+import {
+  beginWclAuthorization,
+  WclAuthenticationError,
+  WclConfigurationError,
+} from 'report-data/wcl/WclSession';
+import { WclReportNotFoundError } from 'report-data/wcl/WclReportClient';
 
 export const isCommonError = (err: unknown): err is LogNotFoundError | UnauthorizedError =>
-  err instanceof LogNotFoundError || err instanceof UnauthorizedError;
+  err instanceof LogNotFoundError ||
+  err instanceof UnauthorizedError ||
+  err instanceof WclAuthenticationError ||
+  err instanceof WclConfigurationError ||
+  err instanceof WclReportNotFoundError;
 
 export default function handleApiError(error: Error, onBack: () => void) {
   console.error(error);
-  if (error instanceof LogNotFoundError || error instanceof UnauthorizedError) {
+  if (
+    error instanceof LogNotFoundError ||
+    error instanceof UnauthorizedError ||
+    error instanceof WclAuthenticationError ||
+    error instanceof WclReportNotFoundError ||
+    error instanceof WclConfigurationError
+  ) {
     return (
       <FullscreenError
         error={t({
@@ -40,13 +56,18 @@ export default function handleApiError(error: Error, onBack: () => void) {
           <button type="button" className="btn btn-primary" onClick={onBack}>
             &lt; <Trans id="interface.report.handleApiError.back">Back</Trans>
           </button>
-          <a
+          <button
+            type="button"
             className="btn btn-primary"
             style={{ marginLeft: 20 }}
-            href={`${import.meta.env.VITE_SERVER_BASE}login/wcl?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+            onClick={() =>
+              void beginWclAuthorization(
+                window.location.hash.replace(/^#/, '') || window.location.pathname,
+              )
+            }
           >
-            <Trans id="interface.report.handleApiError.continue">Continue</Trans>
-          </a>
+            <Trans id="interface.report.handleApiError.continue">Sign in to Warcraft Logs</Trans>
+          </button>
         </div>
       </FullscreenError>
     );

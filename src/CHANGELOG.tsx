@@ -45,6 +45,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 23), 'Add a static browser deployment for local combat log analysis.', Topping),
   change(date(2026, 8, 20), 'Add support for importing and analyzing local combat log files.', Topping),
   change(date(2026, 7, 27), 'Fix reports from previous patches being displayed as from a previous expansion.', Texleretour),
   change(date(2026, 7, 9), 'Add support for spell category filtering on the timeline tab.', Putro),

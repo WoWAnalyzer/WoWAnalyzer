@@ -81,6 +81,7 @@ const useEventParser = ({
       playerCombatantInfo,
       characterProfile!,
       allPlayers,
+      dataSource,
     );
     parser.applyTimeFilter = applyTimeFilter;
 
@@ -96,6 +97,7 @@ const useEventParser = ({
     config,
     playerCombatantInfo,
     allPlayers,
+    dataSource,
   ]);
 
   const normalizedEvents = useMemo(() => {

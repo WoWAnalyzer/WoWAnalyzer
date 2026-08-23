@@ -21,6 +21,8 @@
       "analysis": ["./src/analysis"],
       "common/*": ["./src/common/*"],
       "common": ["./src/common"],
+      "config/*": ["./src/config/*"],
+      "config": ["./src/config"],
       "game/*": ["./src/game/*"],
       "game": ["./src/game"],
       "interface/*": ["./src/interface/*"],

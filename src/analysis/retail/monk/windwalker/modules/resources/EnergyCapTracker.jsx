@@ -79,13 +79,13 @@ class EnergyCapTracker extends RegenResourceCapTracker {
                 className="stat-healing-bg"
                 style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
               >
-                <img src="/img/sword.png" alt="Uncapped Energy" />
+                <img src="img/sword.png" alt="Uncapped Energy" />
               </div>
             </Tooltip>
 
             <Tooltip content={`At capped energy for ${formatDuration(this.atCap)}`}>
               <div className="remainder DeathKnight-bg">
-                <img src="/img/overhealing.png" alt="Capped Energy" />
+                <img src="img/overhealing.png" alt="Capped Energy" />
               </div>
             </Tooltip>
           </div>

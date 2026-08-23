@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
@@ -37,7 +37,7 @@ class MysticTouch extends Analyzer {
   }
 
   load() {
-    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
+    return loadParserTable<WCLDamageDoneTableResponse>(this.owner, 'damage-done', {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter,

@@ -45,11 +45,17 @@ gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4Pa
 
 const HASH_ONLY_CHUNKS = new Set(['StatTracker']);
 
+const normalizeBasePath = (value = '/') => {
+  const withLeadingSlash = value.startsWith('/') ? value : `/${value}`;
+  return withLeadingSlash.endsWith('/') ? withLeadingSlash : `${withLeadingSlash}/`;
+};
+
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
+  base: normalizeBasePath(process.env.VITE_BASE_PATH),
   build: {
     cssMinify: env.mode === 'production',
-    sourcemap: env.mode === 'production',
+    sourcemap: env.mode === 'production' && process.env.VITE_PUBLISH_SOURCEMAPS === 'true',
     rollupOptions: {
       output: {
         chunkFileNames: (chunkInfo) => {

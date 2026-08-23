@@ -75,7 +75,7 @@ class DefensiveStance extends Analyzer {
           )} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}
         >
           <div className="stat-health-bg" style={{ width: `${this.damageTradeoff() * 100}%` }}>
-            <img src="/img/shield.png" alt="Damage reduced" />
+            <img src="img/shield.png" alt="Damage reduced" />
           </div>
         </Tooltip>
         <Tooltip
@@ -86,7 +86,7 @@ class DefensiveStance extends Analyzer {
           )} DLPS).`}
         >
           <div className="remainder DeathKnight-bg">
-            <img src="/img/sword.png" alt="Damage lost" />
+            <img src="img/sword.png" alt="Damage lost" />
           </div>
         </Tooltip>
       </div>

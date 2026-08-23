@@ -11,7 +11,7 @@ const ItemDamageTaken = ({ amount, approximate, hideTotal }: Props) => {
   const { combatLogParser: parser } = useCombatLogParser();
   return (
     <>
-      <img src="/img/shield.png" alt="Damage Taken" className="icon" /> {approximate && '≈'}
+      <img src="img/shield.png" alt="Damage Taken" className="icon" /> {approximate && '≈'}
       {formatNumber((amount / parser.fightDuration) * 1000)} DTPS{' '}
       {!hideTotal && (
         <small>{formatPercentage(parser.getPercentageOfTotalDamageTaken(amount))}% of total</small>

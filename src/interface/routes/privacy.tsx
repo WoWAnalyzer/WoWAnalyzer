@@ -384,7 +384,7 @@ http://www.networkadvertising.org/choices/"
         <p>
           We may revise this Privacy Policy from time to time. The most current version of the
           Privacy Policy will govern our collection, use, and disclosure of information about you
-          and will be located at <a href="/privacy">https://wowanalyzer.com/privacy</a>. If we make
+          and will be located at <a href="#/privacy">https://wowanalyzer.com/privacy</a>. If we make
           material changes to this Privacy Policy, we will notify you by email or by posting a
           notice on the Service prior to the effective date of the changes. By continuing to access
           or use the Service after those changes become effective, you acknowledge the revised

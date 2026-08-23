@@ -10,6 +10,8 @@ import GameBranch from 'game/GameBranch';
 import SpecListItem from '../SpecListItem';
 import '../SpecList.css';
 import { usePageView } from '../useGoogleAnalytics';
+import { Link } from 'react-router-dom';
+import { staticHostingEnabled } from 'config/staticHosting';
 
 const isAnySpecSupported = (configs: Config[]) =>
   configs.some((config) => config.patchCompatibility);
@@ -94,11 +96,13 @@ export function Component() {
         ))}
       </div>
 
-      <div className="text-right">
-        <a style={{ fontStyle: 'italic', fontSize: 'small' }} href="/support-stats">
-          <Trans id="interface.specList.viewAnalysis">View Analysis Stats</Trans>
-        </a>
-      </div>
+      {!staticHostingEnabled && (
+        <div className="text-right">
+          <Link style={{ fontStyle: 'italic', fontSize: 'small' }} to="/support-stats">
+            <Trans id="interface.specList.viewAnalysis">View Analysis Stats</Trans>
+          </Link>
+        </div>
+      )}
     </>
   );
 }

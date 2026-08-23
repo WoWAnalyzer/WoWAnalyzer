@@ -22,7 +22,7 @@ const ItemHealingDone = ({
   const { combatLogParser: parser } = useCombatLogParser();
   return (
     <>
-      <img src="/img/healing.png" alt="Healing" className="icon" /> {approximate && '≈'}
+      <img src="img/healing.png" alt="Healing" className="icon" /> {approximate && '≈'}
       {greaterThan && '>'}
       {lessThan && '<'}
       {formatNumber((amount / parser.fightDuration) * 1000)} HPS{' '}

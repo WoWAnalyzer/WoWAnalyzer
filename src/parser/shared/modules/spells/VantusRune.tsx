@@ -96,15 +96,15 @@ class VantusRune extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.UNIMPORTANT()} size="flexible">
         <BoringItemValueText item={this.masterRune}>
-          <img src="/img/sword.png" alt="Damage" className="icon" />
+          <img src="img/sword.png" alt="Damage" className="icon" />
           {` ${formatNumber((damageDone / fightDuration) * 1000)} DPS`}
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          <img src="/img/healing.png" alt="Healing" className="icon" />
+          <img src="img/healing.png" alt="Healing" className="icon" />
           {` ${formatNumber((healingDone / fightDuration) * 1000)} HPS`}
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          <img src="/img/shield.png" alt="Damage Taken" className="icon" />
+          <img src="img/shield.png" alt="Damage Taken" className="icon" />
           {` ${formatNumber((damageReduced / fightDuration) * 1000)} DRPS`}
         </BoringItemValueText>
       </Statistic>

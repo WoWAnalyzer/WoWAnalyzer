@@ -67,10 +67,25 @@ export async function importLocalCombatLog(
 ): Promise<string> {
   signal?.throwIfAborted();
   const id = crypto.randomUUID();
+  const importStartedAt = performance.now();
+  let approximateStoredSize = 0;
   let staged = false;
   let worker: Worker | undefined;
   let closed = false;
   let rejectImport: ((reason: unknown) => void) | undefined;
+  let lastProgress = 0;
+
+  const emitProgress = (phase: ImportProgress['phase'], phaseProgress: number) => {
+    const bounded = Math.min(1, Math.max(0, phaseProgress));
+    const overall =
+      phase === 'discovering'
+        ? bounded * 0.35
+        : phase === 'normalizing'
+          ? 0.35 + bounded * 0.55
+          : 0.9 + bounded * 0.1;
+    lastProgress = Math.max(lastProgress, overall);
+    onProgress?.({ phase, progress: lastProgress });
+  };
 
   const close = () => {
     if (closed) return false;
@@ -85,7 +100,7 @@ export async function importLocalCombatLog(
   };
 
   try {
-    await stageLocalReport(id);
+    await stageLocalReport(id, { name: file.name, size: file.size });
     staged = true;
     await updateLocalManifest(id, { status: 'discovering' });
     signal?.addEventListener('abort', abort, { once: true });
@@ -102,7 +117,7 @@ export async function importLocalCombatLog(
         try {
           switch (data.type) {
             case 'progress':
-              onProgress?.({ phase: data.phase, progress: data.progress });
+              emitProgress(data.phase, data.progress);
               break;
             case 'discovered':
               await updateLocalManifest(id, {
@@ -116,19 +131,24 @@ export async function importLocalCombatLog(
               }
               break;
             case 'batch':
+              approximateStoredSize += JSON.stringify(data.events).length;
               await appendLocalEventChunk(id, data.fightId, data.events, data.batchId);
               if (!closed) {
                 worker?.postMessage({ type: 'ack', batchId: data.batchId });
               }
               break;
             case 'complete':
-              onProgress?.({ phase: 'persisting', progress: 0 });
+              emitProgress('persisting', 0);
               await updateLocalManifest(id, {
                 status: 'persisting',
                 diagnostics: data.diagnostics,
               });
-              await updateLocalManifest(id, { status: 'ready' });
-              onProgress?.({ phase: 'persisting', progress: 1 });
+              await updateLocalManifest(id, {
+                status: 'ready',
+                importDurationMs: performance.now() - importStartedAt,
+                approximateStoredSize,
+              });
+              emitProgress('persisting', 1);
               if (close()) resolve(id);
               break;
             case 'error': {

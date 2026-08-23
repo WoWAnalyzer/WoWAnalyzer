@@ -123,7 +123,7 @@ class HealingDone extends Analyzer {
       >
         <div className="flex">
           <div className="flex-sub icon">
-            <img src="/img/healing.png" alt="Healing" />
+            <img src="img/healing.png" alt="Healing" />
           </div>
           <div className="flex-sub value" style={{ width: 190 }}>
             {formatThousands(perSecond)} HPS

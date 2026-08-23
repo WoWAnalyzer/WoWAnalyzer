@@ -1,8 +1,8 @@
-import fetchWcl from 'common/fetchWclApi';
 import { WCLBossResources } from 'common/WCL_TYPES';
 import { DeathEvent } from 'parser/core/Events';
 import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
 import { memo, useEffect, useState } from 'react';
+import { useAnalysisDataSource } from 'report-data/AnalysisDataSourceContext';
 
 interface Props {
   reportCode: string;
@@ -24,24 +24,30 @@ const ManaLevelChartComponent = ({
   height,
 }: Props) => {
   const [bossHealth, setBossHealth] = useState<WCLBossResources | null>(null);
+  const source = useAnalysisDataSource();
 
   useEffect(() => {
     let cancelled = false;
-    fetchWcl(`report/graph/resources/${reportCode}`, {
-      start,
-      end,
-      sourceclass: 'Boss',
-      hostility: 'Enemies',
-      abilityid: 1000,
-    }).then((json) => {
-      if (!cancelled) {
-        setBossHealth(json as WCLBossResources);
-      }
-    });
+    if (!source.loadGraph) {
+      setBossHealth({ series: [], deaths: [], heroism: [] });
+      return;
+    }
+    source
+      .loadGraph<WCLBossResources>({
+        fightStart: start,
+        fightEnd: end,
+        dataType: 'Resources',
+      })
+      .then((json) => {
+        if (!cancelled) setBossHealth(json);
+      })
+      .catch(() => {
+        if (!cancelled) setBossHealth({ series: [], deaths: [], heroism: [] });
+      });
     return () => {
       cancelled = true;
     };
-  }, [reportCode, start, end]);
+  }, [reportCode, start, end, source]);
 
   if (!bossHealth) {
     return <div>Loading...</div>;

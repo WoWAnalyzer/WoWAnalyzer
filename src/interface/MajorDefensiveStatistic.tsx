@@ -51,7 +51,7 @@ export default function MajorDefensiveStatistic<Apply extends EventType, Remove 
           </>
         }
       >
-        <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
+        <img alt="Damage Mitigated" src="img/shield.png" className="icon" />{' '}
         {formatNumber(
           analyzer.mitigations
             .flatMap((mit) => mit.mitigated.map((event) => event.mitigatedAmount))

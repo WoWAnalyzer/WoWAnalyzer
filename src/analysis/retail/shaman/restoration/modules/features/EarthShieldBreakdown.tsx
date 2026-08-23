@@ -152,11 +152,11 @@ class EarthShieldBreakdown extends Analyzer {
   }
 
   healingIcon() {
-    return <img alt="Healing" src="/img/healing.png" className="icon" />;
+    return <img alt="Healing" src="img/healing.png" className="icon" />;
   }
 
   shieldIcon() {
-    return <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />;
+    return <img alt="Damage Mitigated" src="img/shield.png" className="icon" />;
   }
 
   statistic() {

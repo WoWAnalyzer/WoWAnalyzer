@@ -11,9 +11,9 @@ const Footer = () => (
   <footer>
     <div className="container text-center">
       <div>
-        <a href="/">
+        <Link to="/">
           <img src={Logo} alt="Logo" className="wowanalyzer-logo" />
-        </a>
+        </Link>
 
         <h1>Be a part of us</h1>
         <div className="social-links">

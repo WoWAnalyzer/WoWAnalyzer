@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWclApi';
+import { loadParserTable } from 'report-data/parserCapabilities';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
@@ -70,7 +70,7 @@ class Ironbark extends Analyzer {
    *  reduction, which isn't present in the main event stream we have. This forms and sends the
    *  required custom query */
   loadDamageTakenDuringIronbark() {
-    fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    loadParserTable(this.owner, 'damage-taken', {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,

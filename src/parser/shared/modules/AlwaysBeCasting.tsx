@@ -409,7 +409,7 @@ class AlwaysBeCasting extends Analyzer {
                   width: `${this.activeTimePercentage * 100}%`,
                 }}
               >
-                <img src="/img/sword.png" alt="Active time" />
+                <img src="img/sword.png" alt="Active time" />
               </div>
             </Tooltip>
             <Tooltip
@@ -421,7 +421,7 @@ class AlwaysBeCasting extends Analyzer {
               }
             >
               <div className="remainder DeathKnight-bg">
-                <img src="/img/afk.png" alt="Downtime" />
+                <img src="img/afk.png" alt="Downtime" />
               </div>
             </Tooltip>
           </div>

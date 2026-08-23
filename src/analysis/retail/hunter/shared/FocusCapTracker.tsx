@@ -93,7 +93,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
         >
           <div className="flex">
             <div className="flex-sub icon">
-              <img src="/img/bullseye.png" alt="Focus" />
+              <img src="img/bullseye.png" alt="Focus" />
             </div>
             <div className="flex-sub value" style={{ width: 100 }}>
               Focus

@@ -59,8 +59,11 @@ describe('importLocalCombatLog', () => {
     await vi.waitFor(() => expect(FakeWorker.instances).toHaveLength(1));
     const worker = FakeWorker.instances[0];
 
+    await worker.emit({ type: 'progress', phase: 'discovering', progress: 0.5 });
     await worker.emit({ type: 'discovered', report, actors, diagnostics: [] });
     expect(worker.postMessage).toHaveBeenCalledWith({ type: 'ack', batchId: -1 });
+
+    await worker.emit({ type: 'progress', phase: 'normalizing', progress: 0 });
 
     const events = [{ type: 'cast', timestamp: 10 }];
     await worker.emit({ type: 'batch', batchId: 0, fightId: 1, events });
@@ -76,6 +79,7 @@ describe('importLocalCombatLog', () => {
       'ready',
     ]);
     expect(progress).toHaveBeenLastCalledWith({ phase: 'persisting', progress: 1 });
+    expect(progress.mock.calls.map(([value]) => value.progress)).toEqual([0.175, 0.35, 0.9, 1]);
     expect(worker.terminate).toHaveBeenCalledOnce();
   });
 

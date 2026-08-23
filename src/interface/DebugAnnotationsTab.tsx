@@ -12,6 +12,8 @@ import { useCombatLogParser } from './report/CombatLogParserContext';
 import { formatDuration } from 'common/format';
 import SpellLink from './SpellLink';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
+import { staticHostingEnabled } from 'config/staticHosting';
 
 export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParser }) {
   const annotations = parser.getModule(DebugAnnotations);
@@ -19,7 +21,7 @@ export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParse
     <div className="panel">
       <div className="panel-heading">
         <h1>Debug Annotations</h1>
-        <a href="/support-stats">View Aggregated Stats</a>
+        {!staticHostingEnabled && <Link to="/support-stats">View Aggregated Stats</Link>}
       </div>
       <div
         className="panel-body flex"

@@ -50,7 +50,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
       return (
         <>
           <img
-            src="/favicon.png"
+            src="favicon.png"
             style={{ height: '2em', width: '2em', marginRight: 10 }}
             alt="Core"
           />

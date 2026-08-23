@@ -101,6 +101,7 @@
     "prepare": "is-ci || husky",
     "e2e:setup": "tsx scripts/e2e/generate-configs.ts",
     "e2e": "pnpm run e2e:setup && playwright test",
+    "e2e:static": "playwright test e2e/static-local.spec.ts",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report",
     "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && oxfmt src/common/TALENTS/*.ts",
@@ -111,7 +112,8 @@
     "spell-lists:update": "node --experimental-strip-types scripts/spell-lists/update-all-lists.ts src/analysis/**/*.ts",
     "preview": "vite build && vite preview",
     "format": "oxfmt",
-    "format:check": "pnpm run format --check"
+    "format:check": "pnpm run format --check",
+    "static:check": "node scripts/check-static-architecture.mjs"
   },
   "lint-staged": {
     "*": [

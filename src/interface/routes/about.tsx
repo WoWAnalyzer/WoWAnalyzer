@@ -65,8 +65,7 @@ export function Component() {
         <Trans id="interface.aboutPage.howToUse">
           Wondering how to use WoWAnalyzer? See the{' '}
           <a href="https://www.wowhead.com/how-to-use-wowanalyzer">
-            <img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead
-            guide
+            <img src="img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide
           </a>
           . If you want to see an example report, click on your spec in the{' '}
           <Link to="/specs">Specializations</Link> list.
@@ -92,7 +91,7 @@ export function Component() {
           <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
             <div className="flex">
               <div className="flex-sub" style={{ padding: 5 }}>
-                <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
+                <img src="favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
               </div>
               <div
                 className="flex-main"
