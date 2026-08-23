@@ -29,7 +29,7 @@ class BUFFS extends CoreAuras {
       {
         spellId: [SPELLS.CALL_OF_THE_ANCESTORS_BUFF.id],
         enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT),
-        triggeredBySpellId: [SPELLS.ANCESTRAL_SWIFTNESS_CAST.id],
+        triggeredBySpellId: [SPELLS.ANCESTRAL_SWIFTNESS_CAST.id, TALENTS.UNLEASH_LIFE_TALENT.id],
         timelineHighlight: false,
       },
       {
