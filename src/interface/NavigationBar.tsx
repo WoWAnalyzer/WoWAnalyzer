@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
 import Logo from 'interface/images/logo.svg?react';
@@ -60,16 +59,9 @@ const NavigationBar = ({ children, ...others }: Props) => {
           </div>
         )}
         <div className="spacer" />
-        <Tooltip content="Discord">
-          <div className="menu-item optional">
-            <a href="https://wowanalyzer.com/discord">
-              <DiscordIcon />
-            </a>
-          </div>
-        </Tooltip>
         <Tooltip content="GitHub">
           <div className="menu-item optional">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+            <a href="https://github.com/Topping/WoWAnalyzer">
               <GitHubIcon />
             </a>
           </div>

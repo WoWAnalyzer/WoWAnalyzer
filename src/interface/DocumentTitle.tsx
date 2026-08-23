@@ -3,7 +3,7 @@ import { useHead } from '@unhead/react';
 import { useLingui } from '@lingui/react';
 import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
-const siteName = 'WoWAnalyzer';
+const siteName = 'Localog';
 
 interface DocumentTitleProps {
   title?: string | MessageDescriptor;

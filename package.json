@@ -1,7 +1,7 @@
 {
   "name": "wowanalyzer",
   "description": "The WoWAnalyzer client-side app.",
-  "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
+  "repository": "https://github.com/Topping/WoWAnalyzer",
   "license": "AGPL-3.0-or-later",
   "private": true,
   "type": "module",

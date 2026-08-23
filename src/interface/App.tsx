@@ -45,9 +45,7 @@ const appRoutes = createRoutesFromElements(
     </Route>
     <Route path="privacy" lazy={() => import('./routes/privacy')} />
     <Route element={<HomeLayout />}>
-      <Route index lazy={() => import('./routes/news')} />
-      <Route path="news" lazy={() => import('./routes/news')} />
-      <Route path="specs" lazy={() => import('./routes/specs')} />
+      <Route index lazy={() => import('./routes/local-import')} />
       {!staticHostingEnabled && <Route path="premium" lazy={() => import('./routes/premium')} />}
       <Route path="about" lazy={() => import('./routes/about')} />
       <Route path="help-wanted" lazy={() => import('./routes/help-wanted')} />

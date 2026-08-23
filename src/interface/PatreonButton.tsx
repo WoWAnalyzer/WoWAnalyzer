@@ -4,7 +4,10 @@ interface Props {
   text?: string;
 }
 
-const PatreonButton = ({ text = 'Become a Patron', ...others }: Props) => (
+const PatreonButton = ({
+  text = 'Support the WoWAnalyzer authors on Patreon',
+  ...others
+}: Props) => (
   <a
     className="btn patreon"
     role="button"

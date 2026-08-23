@@ -5,13 +5,8 @@ import GuildIcon from 'interface/icons/People';
 import CharacterIcon from 'interface/icons/Person';
 import Logo from 'interface/images/logo.svg?react';
 import NameSearch, { SearchType } from 'interface/NameSearch';
-import { getReportHistory } from 'interface/selectors/reportHistory';
-import { ReportHistoryState } from 'interface/reducers/reportHistory';
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import ReportHistory from './ReportHistory';
 import ReportSelecter from './ReportSelecter';
-import { RootState } from 'store';
 import './Header.scss';
 import LocalReportSelector from './LocalReportSelector';
 import { Link } from 'react-router-dom';
@@ -25,16 +20,12 @@ enum StateSearch {
   Local,
 }
 
-interface Props {
-  reportHistory: ReportHistoryState;
-}
-
 interface State {
   searchType: StateSearch;
 }
 
-class ReportSelectionHeader extends PureComponent<Props, State> {
-  constructor(props: Props) {
+class ReportSelectionHeader extends PureComponent<Record<string, never>, State> {
+  constructor(props: Record<string, never>) {
     super(props);
     this.state = {
       searchType:
@@ -105,16 +96,14 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
   }
 
   render() {
-    const { reportHistory } = this.props;
-
     return (
       <header className="report-selection">
         <div className="container">
           <div className="row">
-            <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
+            <div className="col-md-12">
               <Link to="/" className="brand-name">
                 <Logo />
-                <h1>WoWAnalyzer</h1>
+                <h1>Localog</h1>
               </Link>
               <div id="reportSelectionHeader.improveYourPerformance">
                 {!wclIntegrationEnabled ? (
@@ -213,19 +202,6 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
                 {this.renderSearch()}
               </div>
             </div>
-            {reportHistory.length !== 0 && (
-              <div className="col-md-4 text-left" style={{ marginTop: -10, marginBottom: -10 }}>
-                <small>
-                  <Trans id="interface.home.reportSelectionHeader.recentlyViewed">
-                    Recently viewed
-                  </Trans>
-                </small>
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                <br />
-
-                <ReportHistory reportHistory={reportHistory} />
-              </div>
-            )}
           </div>
         </div>
       </header>
@@ -233,8 +209,4 @@ class ReportSelectionHeader extends PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
-  reportHistory: getReportHistory(state),
-});
-
-export default connect(mapStateToProps)(ReportSelectionHeader);
+export default ReportSelectionHeader;

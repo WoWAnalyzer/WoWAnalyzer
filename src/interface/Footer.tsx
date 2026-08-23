@@ -1,4 +1,3 @@
-import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import Logo from 'interface/images/logo.svg';
@@ -12,23 +11,18 @@ const Footer = () => (
     <div className="container text-center">
       <div>
         <Link to="/">
-          <img src={Logo} alt="Logo" className="wowanalyzer-logo" />
+          <img src={Logo} alt="Localog logo" className="wowanalyzer-logo" />
         </Link>
 
-        <h1>Be a part of us</h1>
+        <h1>Localog</h1>
         <div className="social-links">
           {/* For some reason the tooltip disappears and reappears when mousing over the svg icons (maybe when the cursor leaves filled areas)*/}
-          <Tooltip content="Discord">
-            <a href="https://wowanalyzer.com/discord">
-              <DiscordLogo />
-            </a>
-          </Tooltip>
           <Tooltip content="GitHub">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+            <a href="https://github.com/Topping/WoWAnalyzer">
               <GithubLogo />
             </a>
           </Tooltip>
-          <Tooltip content="Patreon">
+          <Tooltip content="Support the WoWAnalyzer authors on Patreon">
             <a href="https://www.patreon.com/join/wowanalyzer">
               <PatreonIcon />
             </a>
@@ -38,6 +32,10 @@ const Footer = () => (
         <br />
 
         <div className="attribution">
+          Localog is a local-first fork of{' '}
+          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">WoWAnalyzer</a>.
+          {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
+          <br />
           Log data from <a href="https://www.warcraftlogs.com">Warcraft Logs</a>.{' '}
           <TooltipElement
             content={

@@ -26,13 +26,15 @@ export function Component() {
       >
         <div style={{ padding: '15px 20px', marginBottom: 5 }}>
           <Trans id="interface.helpWantedPage.helpWanted">
-            WoWAnalyzer is completely open source and relies on mostly volunteer contributors to
-            implement spec-specific analysis. You don't need to to do anything special to
-            contribute. See the{' '}
+            Localog is a local-first fork of WoWAnalyzer. Its focus is uploading and analyzing
+            combat logs locally; the class-specific analysis and rotation work comes from the
+            mainline WoWAnalyzer project. If you want to improve specs, rotations, or shared
+            analysis, please contribute there through the{' '}
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer#contributing">
               contributing guidelines
             </a>{' '}
-            if you want to give it a try.
+            so your work can benefit both projects. Localog-specific issues and improvements can be
+            discussed in this fork.
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
             <br />
             {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}

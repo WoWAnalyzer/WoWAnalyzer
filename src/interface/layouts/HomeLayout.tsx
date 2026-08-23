@@ -1,9 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import Ad, { AdErrorBoundary, Location } from 'interface/Ad';
 import ErrorBoundary from 'interface/ErrorBoundary';
-import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
 import HelpWantedIcon from 'interface/icons/Information';
-import NewsIcon from 'interface/icons/Megaphone';
 import PremiumIcon from 'interface/icons/Premium';
 import Logo from 'interface/images/logo.svg?react';
 import NavigationBar from 'interface/NavigationBar';
@@ -17,16 +15,6 @@ import ReportSelectionHeader from '../ReportSelectionHeader';
 import { staticHostingEnabled } from 'config/staticHosting';
 
 const pages = [
-  {
-    icon: NewsIcon,
-    name: <Trans id="interface.home.page.news">News</Trans>,
-    url: 'news',
-  },
-  {
-    icon: FingerprintFilledIcon,
-    name: <Trans id="interface.home.page.specs">Specs</Trans>,
-    url: 'specs',
-  },
   {
     icon: Logo,
     name: <Trans id="interface.home.page.about">About</Trans>,
@@ -48,7 +36,7 @@ export function HomeLayout() {
   const premium = useWaSelector((state) => hasPremium(state));
   const location = useLocation();
 
-  const url = location.pathname === '/' ? 'news' : location.pathname.replace(/^\/|\/$/g, '');
+  const url = location.pathname.replace(/^\/|\/$/g, '') || 'local-import';
 
   return (
     <div className="home-page">

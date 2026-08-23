@@ -1,10 +1,7 @@
 import { Trans } from '@lingui/react/macro';
-import DiscordBotGif from 'interface/images/discord-bot.gif';
 import ChangelogPanel from 'interface/ChangelogPanel';
-import DiscordButton from 'interface/DiscordButton';
 import DocumentTitle from 'interface/DocumentTitle';
 import GithubButton from 'interface/GitHubButton';
-import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import Panel from 'interface/Panel';
 import PatreonButton from 'interface/PatreonButton';
@@ -15,9 +12,9 @@ export function Component() {
   usePageView('AboutPage');
   return (
     <>
-      <DocumentTitle title="About WoWAnalyzer" />
+      <DocumentTitle title="About Localog" />
 
-      <Panel title={<Trans id="interface.aboutPage.title">About WoWAnalyzer</Trans>}>
+      <Panel title={<Trans id="interface.aboutPage.title">About Localog</Trans>}>
         <img
           src={MasteryRadiusImage}
           alt="Mastery radius"
@@ -25,8 +22,8 @@ export function Component() {
           style={{ margin: 15 }}
         />
         <Trans id="interface.aboutPage.about">
-          WoWAnalyzer is a tool to help you analyze and improve your World of Warcraft raiding
-          performance through various relevant metrics and gameplay suggestions.
+          Localog is a local-first tool to help you analyze and improve your World of Warcraft
+          raiding performance through various relevant metrics and gameplay suggestions.
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
@@ -52,90 +49,36 @@ export function Component() {
           <br />
           {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
           <br />
-          Using WoWAnalyzer you will find a wealth of information about the mechanics of your spec,
-          your actual behavior in fights and the optimal playstyle. Analyze your raids after every
-          raid night to continuously improve your performance and become a better player. Whether
-          you're a new player learning a spec for the first time or an experienced player looking
-          for information to help you min-max, WoWAnalyzer is a great tool to have in your arsenal!
+          Using Localog you will find a wealth of information about the mechanics of your spec, your
+          actual behavior in fights and the optimal playstyle. Analyze your raids after every raid
+          night to continuously improve your performance and become a better player. Whether you're
+          a new player learning a spec for the first time or an experienced player looking for
+          information to help you min-max, Localog is a great tool to have in your arsenal!
         </Trans>
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         <Trans id="interface.aboutPage.howToUse">
-          Wondering how to use WoWAnalyzer? See the{' '}
+          Wondering how to use Localog? Upload a local advanced combat-log file in your browser, or
+          see the{' '}
           <a href="https://www.wowhead.com/how-to-use-wowanalyzer">
             <img src="img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide
           </a>
-          . If you want to see an example report, click on your spec in the{' '}
-          <Link to="/specs">Specializations</Link> list.
+          . Upload a local combat log from the <Link to="/local-import">local import</Link> page to
+          begin an analysis.
         </Trans>
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
         {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
         <br />
-        <DiscordButton /> <GithubButton /> <PatreonButton />
-      </Panel>
-      {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-      <br />
-
-      <Panel
-        title={
-          <Trans id="interface.aboutPage.introducingWOWABotHeading">
-            The WoWAnalyzer Discord bot
-          </Trans>
-        }
-        anchor="wowanalyzer-discord-bot"
-      >
-        <div className="flex wrapable">
-          <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
-            <div className="flex">
-              <div className="flex-sub" style={{ padding: 5 }}>
-                <img src="favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
-              </div>
-              <div
-                className="flex-main"
-                style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}
-              >
-                <Trans id="interface.aboutPage.introducingWOWABot">
-                  Introducing the <b>WoWAnalyzer</b>{' '}
-                  <img
-                    src={DiscordLogo}
-                    alt="Discord logo"
-                    style={{ height: '2em', marginTop: 3 }}
-                  />{' '}
-                  bot
-                </Trans>
-              </div>
-            </div>
-            <div className="text-center">
-              <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
-                <Trans id="interface.aboutPage.introducingWOWABotDetails">
-                  Get users to analyze themselves without lifting a finger (even if they don't read
-                  the pins).
-                </Trans>
-                {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
-                <br />
-              </div>
-              <div style={{ marginBottom: 7 }}>
-                <a
-                  className="btn btn-default btn-lg"
-                  style={{ borderRadius: 0 }}
-                  href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
-                >
-                  <Trans id="interface.aboutPage.addBot">Add to Discord</Trans>
-                </a>
-              </div>
-
-              <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">
-                <Trans id="interface.aboutPage.moreInfo">More info</Trans>
-              </a>
-            </div>
-          </div>
-          <div className="flex-sub">
-            <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
-          </div>
-        </div>
+        <p>
+          Localog is based on the open-source{' '}
+          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">WoWAnalyzer</a> project. Its analysis
+          and class-specific recommendations build on the work of the WoWAnalyzer maintainers and
+          contributors.
+        </p>
+        <GithubButton /> <PatreonButton />
       </Panel>
       {/* oxlint-disable-next-line wowanalyzer/no-br -- Baseline suppression */}
       <br />
