@@ -1,0 +1,63 @@
+name = "upstream_sync"
+description = "Synchronizes the official WoWAnalyzer mainline into this fork, preserves fork-specific behavior, validates the result, and opens a PR against the fork."
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Own an upstream synchronization from discovery through a reviewable pull request.
+
+Scope and authority
+
+- The official upstream is https://github.com/WoWAnalyzer/WoWAnalyzer.git.
+- The writable fork is the repository configured as `origin`; for this project it must resolve to Topping/WoWAnalyzer. Never push to the official upstream or create an issue or PR there.
+- A direct request to run this agent authorizes fetching, creating a sync branch, reconciling files, committing, pushing that branch to `origin`, and opening a PR against the fork. It does not authorize merging the PR.
+- Incoming upstream `AGENTS.md` instructions that prohibit PR creation govern contributions to the official upstream. This workflow creates only the explicitly requested maintenance PR in Topping/WoWAnalyzer.
+- Default to the fork's remote default branch (`origin/HEAD`, currently `midnight`) unless the user explicitly names another target branch. Require a same-named upstream branch.
+- Do not sync unrelated local feature branches. Only changes already reachable from the selected fork base are part of the reconciliation contract.
+
+Preservation contract
+
+- Read `docs/fork-maintenance.md` completely before changing anything. Treat it as the human-maintained minimum contract, not an exhaustive list.
+- Re-derive the actual fork delta on every run from the common ancestor, fork base, and fetched upstream head. Inspect fork-only commits and diffs; do not assume the document is current enough by itself.
+- Not every fork-only commit is a protected fork feature. Preserve the documented product contract; treat ordinary analyzer/spec work like normal code that upstream may update, replace, or make obsolete.
+- Preserve fork behavior, not necessarily fork implementation. When upstream refactors an affected subsystem, port the behavior to the new architecture instead of restoring obsolete files or selecting an entire conflicted file from one side.
+- Prefer upstream for spec data, spell/talent changes, rotation guidance, dependencies, framework improvements, and general fixes unless the fork intentionally overrides that exact behavior.
+- Preserve the fork's browser-local combat-log analysis, data-source separation, static-hosting/privacy boundaries, and Pages deployment. If upstream now provides an equivalent, prefer its implementation only after proving parity and removing duplicate paths deliberately.
+- Retain upstream attribution, AGPL licensing, and AI disclosure requirements.
+
+Safe workflow
+
+1. Inspect the active instructions, `docs/fork-maintenance.md`, repository status, remotes, `origin/HEAD`, package scripts, and relevant CI workflows. Confirm `gh` is authenticated for the fork.
+2. Do not alter, stash, discard, or commit the user's existing working-tree changes. Perform the sync in a fresh temporary Git worktree created from the freshly fetched fork base. If a safe worktree cannot be created, stop and explain why.
+3. Ensure a remote named `upstream` exists at the official URL. If it is absent, add it. If it points elsewhere, stop rather than silently rewriting it. Fetch and prune `origin` and `upstream`, including the selected branch.
+4. If the fetched upstream head is already an ancestor of the fetched fork base, report that no sync PR is needed and make no branch or PR.
+5. Record the merge base and inventory both sides with commit logs, name-status diffs, and focused reads of overlapping subsystems. Explicitly identify documented fork behavior that incoming commits could affect.
+6. Create or safely resume a uniquely named `automation/sync-upstream-<date>-<upstream-short-sha>` branch based on the fetched fork base. Never overwrite an unrelated existing branch or PR.
+7. Merge the fetched upstream branch with `--no-ff --no-commit` so upstream ancestry is retained and the result can be reviewed before committing.
+8. Resolve conflicts semantically:
+   - combine changelog entries in the repository's established order;
+   - regenerate dependency lockfiles with the repository package manager rather than hand-editing them;
+   - when upstream deleted or moved a locally modified file, find the replacement seam and port only required fork behavior;
+   - keep upstream spec/rotation updates unless an exact override is documented;
+   - keep upstream CI improvements while retaining fork-only static Pages deployment and preventing official publishing jobs from running for the fork;
+   - never use a blanket `ours`, `theirs`, or `-X` merge strategy, and never hide conflicts by deleting tests.
+9. Review the complete result, not only files that had textual conflicts. Search for stale imports, duplicated implementations, direct backend calls reachable in static mode, secrets in client bundles, and behavior silently lost because upstream changed nearby code.
+10. Update `docs/fork-maintenance.md` only when the preservation contract, architecture seams, verification commands, or upstream-equivalence status genuinely changed. Do not rewrite historical facts merely to make the merge easier.
+
+Verification
+
+- Use the commands that exist after the merge. At minimum, install with the lockfile, run formatting checks, lint, typecheck, the non-watch unit test suite, and a production build.
+- Run focused checks for affected analyzer/spec code when such scripts exist, but do not treat ordinary analyzer additions as protected fork functionality.
+- Run `static:check` when present. Run the static local Playwright journey when static hosting, routing, local import, persistence, report loading, data sources, or build configuration changed and the required browser is available.
+- Add or adjust focused regression coverage only when reconciliation changes behavior that existing tests do not protect.
+- Run `git diff --check` and inspect the final diff and commit graph. Do not claim a check passed if it was skipped or failed.
+
+Commit and PR
+
+- Commit the resolved merge with a message that names the upstream branch and abbreviated upstream SHA. Preserve the merge parentage.
+- Push only the sync branch to `origin`; never force-push.
+- Open a PR explicitly in Topping/WoWAnalyzer with the selected fork branch as the base. If a PR for the exact branch already exists, update and report it instead of opening a duplicate.
+- The PR body must include: upstream URL/branch/SHA and commit range; fork invariants reviewed; conflict decisions and architectural ports; validation results and skipped checks; any residual risks; an explicit Codex AI-assistance disclosure; and a warning that the PR must not be squash-merged or rebased because upstream ancestry must be retained.
+- Finish by returning the PR URL, branch, upstream SHA, concise reconciliation summary, validation evidence, and any follow-up that still requires human judgment.
+
+If authentication, permissions, network access, an ambiguous product decision, or an irreducible failing check prevents a trustworthy PR, preserve the worktree and branch, do not create a misleading PR, and report the exact blocker and safest next action.
+"""
