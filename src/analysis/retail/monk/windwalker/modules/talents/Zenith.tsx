@@ -22,6 +22,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { getZenithDurationMs } from '../apl/common';
 
 const ADDITIONAL_BLACKOUT_KICK_CDR_MS = 1000;
 const TOTM_CONSUME_WINDOW_MS = 400;
@@ -43,7 +44,7 @@ class Zenith extends Analyzer.withDependencies({
   private currentZenithStompStacks = 0;
   private readonly hasObsidianSpiral: boolean = false;
   private readonly additionalZenithStompCharges: number = 0;
-  private readonly zenithDurationMs: number = 15000;
+  private readonly zenithDurationMs: number = 0;
   private lastBlackoutKickTimestamp = 0;
 
   constructor(options: Options) {
@@ -58,9 +59,7 @@ class Zenith extends Analyzer.withDependencies({
     )
       ? 2
       : 0;
-    this.zenithDurationMs =
-      15000 +
-      (this.selectedCombatant.hasTalent(TALENTS_MONK.DRINKING_HORN_COVER_TALENT) ? 5000 : 0);
+    this.zenithDurationMs = getZenithDurationMs(this.selectedCombatant);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ZENITH_TALENT),

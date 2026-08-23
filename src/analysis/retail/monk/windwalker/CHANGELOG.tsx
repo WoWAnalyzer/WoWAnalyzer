@@ -6,6 +6,17 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(
+    date(2026, 7, 22),
+    <>
+      Updated Shado-Pan and Conduit of the Celestials APL priorities for{' '}
+      <SpellLink spell={TALENTS.WHIRLING_DRAGON_PUNCH_TALENT} />,{' '}
+      <SpellLink spell={TALENTS.ZENITH_STOMP_TALENT} />, and{' '}
+      <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} />, including Bloodlust-aware energy capping and
+      <SpellLink spell={TALENTS.HARMONIC_COMBO_TALENT} /> Chi costs.
+    </>,
+    Durpn,
+  ),
+  change(
     date(2026, 6, 29), 
     <>
       Added <SpellLink spell={TALENTS.SAVE_THEM_ALL_TALENT} /> module.

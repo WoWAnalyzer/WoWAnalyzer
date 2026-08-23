@@ -1,5 +1,6 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { TIER_BY_CLASSES } from 'common/ITEMS';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import Faction, { factionFromWclId } from 'game/Faction';
@@ -27,6 +28,7 @@ interface Spell {
 
 export type GearSlotName = keyof typeof GEAR_SLOTS;
 export type SlotMap<T> = Partial<Record<GearSlotName, T>>;
+const BLOODLUST_BUFF_IDS = Object.keys(BLOODLUST_BUFFS).map(Number);
 
 class Combatant extends Entity {
   readonly player: PlayerInfo;
@@ -231,6 +233,10 @@ class Combatant extends Entity {
       this.getGear('MAINHAND')?.permanentEnchant === enchant.effectId ||
       this.getGear('OFFHAND')?.permanentEnchant === enchant.effectId
     );
+  }
+
+  inBloodlust(forTimestamp: number | null = null): boolean {
+    return BLOODLUST_BUFF_IDS.some((spellId) => this.hasBuff(spellId, forTimestamp));
   }
 
   // region Gear
