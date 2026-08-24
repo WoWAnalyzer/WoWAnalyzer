@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/priest';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  DamageEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
@@ -54,6 +55,11 @@ class VoidVolley extends ExecuteHelper {
     );
 
     this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_VOLLEY_DAMAGE),
+      this.onVVDamage,
+    );
+
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.TENTACLE_SLAM_TALENT),
       this.onTSCast,
     );
@@ -95,6 +101,10 @@ class VoidVolley extends ExecuteHelper {
 
   onVVCast() {
     this.castVB += 1;
+  }
+
+  onVVDamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   onTSCast() {
