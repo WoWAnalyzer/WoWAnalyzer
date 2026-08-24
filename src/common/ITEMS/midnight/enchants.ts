@@ -737,6 +737,28 @@ const enchants = {
     effectId: 8041,
     craftQuality: 2,
   },
+  WEAPON_RITE_OF_THE_HASHEY_R1: {
+    id: 273071,
+    name: "Enchant Weapon - Rite of the Hash'ey",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8688,
+    craftQuality: 1,
+  },
+  WEAPON_RITE_OF_THE_HASHEY_R2: {
+    id: 273072,
+    name: "Enchant Weapon - Rite of the Hash'ey",
+    icon: 'inv_12_profession_enchanting_enchantedvellum_purple',
+    effectId: 8689,
+    craftQuality: 2,
+  },
+  // endregion
+  // region Bots
+  BOTS_SCHEMATIC_R0CKY: {
+    id: 278330,
+    name: 'Enchant Bots - Schematic: R0CKY',
+    icon: 'inv_10_inscription2_repcontracts_80_scroll_uprez',
+    effectId: 8702,
+  },
   // endregion
   // region Temporary Weapon Enchants
   REFULGENT_WHETSTONE_R2: {
