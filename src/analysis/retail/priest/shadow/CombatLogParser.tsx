@@ -54,7 +54,6 @@ import DistortedReality from './modules/talents/DistortedReality';
 import MaddeningTouch from './modules/talents/MaddeningTouch';
 import ShatteredPsyche from './modules/talents/ShatteredPsyche';
 import Mastermind from './modules/talents/Mastermind';
-import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
 import PerfectedForm from './modules/talents/Archon/PerfectedForm';
 import EnergyCompression from './modules/talents/Archon/EnergyCompression';
@@ -109,7 +108,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Spec talents:
     auspiciousSpirits: AuspiciousSpirits,
-    darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
     desperatePrayer: DesperatePrayer,
     dispersion: Dispersion,
