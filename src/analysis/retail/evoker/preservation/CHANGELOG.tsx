@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 24), <>Update the <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> analyzer to handle <SpellLink spell={SPELLS.MERITHRAS_BLESSING_CAST} /> casts properly when reporting information for <SpellLink spell={TALENTS_EVOKER.TIME_LORD_TALENT} /></>, Harrek),
   change(date(2026, 8, 22), <>Update <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />, <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />, <SpellLink spell={TALENTS_EVOKER.TITANS_GIFT_TALENT} />, and <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> analysis. Implement <SpellLink spell={TALENTS_EVOKER.INNER_FLAME_TALENT} />, and <SpellLink spell={TALENTS_EVOKER.LIFEFORCE_MENDER_TALENT} /> modules.</>, Harrek),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> and <SpellLink spell={TALENTS_EVOKER.NOZDORMUS_TEACHINGS_TALENT} /> </>, Baumritter),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),
