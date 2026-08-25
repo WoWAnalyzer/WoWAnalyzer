@@ -864,6 +864,11 @@ const spells = {
     name: 'Extra Kick',
     icon: 'inv_flaming_splinter',
   },
+  UNBROKEN_RHYTHM_BUFF: {
+    id: 1297033,
+    name: 'Unbroken Rhythm',
+    icon: 'ability_monk_boughstrike',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
