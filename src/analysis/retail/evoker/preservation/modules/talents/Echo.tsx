@@ -3,6 +3,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
+  GetRelatedEvent,
   GetRelatedEvents,
   HealEvent,
   RemoveBuffEvent,
@@ -16,7 +17,12 @@ import {
   isFromHardcastEcho,
   isFromTAEcho,
 } from '../../normalizers/EventLinking/helpers';
-import { ECHO, ECHO_TEMPORAL_ANOMALY, ECHO_TYPE } from '../../normalizers/EventLinking/constants';
+import {
+  ECHO,
+  ECHO_TEMPORAL_ANOMALY,
+  ECHO_TYPE,
+  MERITHRAS_HEALING,
+} from '../../normalizers/EventLinking/constants';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class Echo extends Analyzer {
@@ -76,6 +82,15 @@ class Echo extends Analyzer {
       return getEchoTypeForLifebind(event) !== ECHO_TYPE.NONE;
     } else if (spellID === SPELLS.GOLDEN_HOUR_HEAL.id) {
       return getEchoTypeForGoldenHour(event) !== ECHO_TYPE.NONE;
+    } else if (spellID === SPELLS.MERITHRAS_BLESSING_CAST.id) {
+      const cast = GetRelatedEvent<CastEvent>(event, MERITHRAS_HEALING);
+      if (cast) {
+        const healingEvents = GetRelatedEvents<HealEvent>(cast, MERITHRAS_HEALING);
+        const hitIndex = healingEvents.findIndex((healEvent) => healEvent === event);
+        return hitIndex !== undefined && hitIndex >= 5;
+      } else {
+        return false;
+      }
     }
     if (event.tick) {
       if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
