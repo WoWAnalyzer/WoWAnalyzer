@@ -44,7 +44,8 @@ class HotTrackerRestoDruid extends HotTracker {
     }
     const targetId = event.targetID;
     const trackersOnTarget: TrackersBySpell | undefined = this.hots[targetId];
-    if (!trackersOnTarget || !trackersOnTarget[spellId]) {
+    const buffSpellId = this.getBuffSpellIdForHeal(spellId);
+    if (!trackersOnTarget || !trackersOnTarget[buffSpellId]) {
       return;
     }
     // figure out the amount of healing attributable to each stack
@@ -55,11 +56,11 @@ class HotTrackerRestoDruid extends HotTracker {
     const oneStackHealing = decomposedHeal.oneStack;
 
     // for each mastery stack HoT on the same target, one stack of healing
-    const ourTracker = trackersOnTarget[spellId];
+    const ourTracker = trackersOnTarget[buffSpellId];
     const ourAttributions = this._getActiveAttributions(ourTracker);
     Object.keys(trackersOnTarget).forEach((id) => {
       const nid = Number(id);
-      if (spellId === nid || !MASTERY_STACK_BUFF_IDS.includes(nid)) {
+      if (buffSpellId === nid || !MASTERY_STACK_BUFF_IDS.includes(nid)) {
         return; // must give a mastery stack and not be the current heal
       }
 
@@ -135,7 +136,8 @@ class HotTrackerRestoDruid extends HotTracker {
         tickPeriod: 1000,
       },
       {
-        spell: SPELLS.LIFEBLOOM_HOT_HEAL,
+        spell: SPELLS.LIFEBLOOM_BUFF,
+        healSpell: SPELLS.LIFEBLOOM_HOT_HEAL,
         duration: 15000,
         tickPeriod: 1000,
       },

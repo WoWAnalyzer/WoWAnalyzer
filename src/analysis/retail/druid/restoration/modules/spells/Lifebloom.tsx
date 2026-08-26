@@ -57,11 +57,11 @@ class Lifebloom extends Analyzer {
     this.showCastPanel = this.hasVerdancy || this.hasEverbloom;
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BUFF),
       this.onApplyLifebloom,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BUFF),
       this.onRemoveLifebloom,
     );
     this.addEventListener(
@@ -73,7 +73,7 @@ class Lifebloom extends Analyzer {
       this.onChangeLifebloomStack,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BUFF),
       this.onRefreshLifebloom,
     );
   }
@@ -321,7 +321,7 @@ class Lifebloom extends Analyzer {
     return uptimeBarSubStatistic(
       this.owner.fight,
       {
-        spells: [SPELLS.LIFEBLOOM_HOT_HEAL],
+        spells: [SPELLS.LIFEBLOOM_BUFF],
         uptimes: mergeTimePeriods(this.lifebloomUptimes, this.owner.currentTimestamp),
         color: LB_COLOR,
       },

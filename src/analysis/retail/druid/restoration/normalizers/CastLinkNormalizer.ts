@@ -90,6 +90,16 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: APPLIED_HEAL,
+    linkingEventId: SPELLS.LIFEBLOOM_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: SPELLS.SWIFTMEND.id,
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.SWIFTMEND.id,
@@ -133,13 +143,15 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true, // the summon event 'targets' the summon, while cast targets a player
     maximumLinks: 6, // convoke can cast 0-2 wild growths and 2-4 swiftmends, so up to 6 GG summons can be expected
   },
-  // linking lifebloom's bloom heal to the refresh or removal of the buff that caused it
+  // linking lifebloom's bloom heal to the buff refresh (pandemic) or removal (expiry)
+  // that caused it. Uses LIFEBLOOM_BUFF (1227806), not LIFEBLOOM_HOT_HEAL (33763) —
+  // 33763 refreshbuffs are Everbloom stack gains and do not indicate a natural bloom.
   {
     linkRelation: FROM_EXPIRING_LIFEBLOOM,
     reverseLinkRelation: CAUSED_BLOOM,
     linkingEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
+    referencedEventId: SPELLS.LIFEBLOOM_BUFF.id,
     referencedEventType: [EventType.RefreshBuff, EventType.RemoveBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,

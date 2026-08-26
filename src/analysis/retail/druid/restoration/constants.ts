@@ -74,22 +74,35 @@ export const MASTERY_STACK_BUFF_IDS: number[] = [
   SPELLS.SPRING_BLOSSOMS.id,
   SPELLS.CENARION_WARD_HEAL.id,
   SPELLS.FRENZIED_REGENERATION.id,
-  SPELLS.LIFEBLOOM_HOT_HEAL.id,
+  SPELLS.LIFEBLOOM_BUFF.id,
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
 ];
 
-// HoTs that get extended by Flourish
+/** Heal id -> aura id when they differ. Lifebloom ticks are 33763, the buff is 1227806. */
+export const HEAL_TO_HOT_BUFF_ID: Record<number, number> = {
+  [SPELLS.LIFEBLOOM_HOT_HEAL.id]: SPELLS.LIFEBLOOM_BUFF.id,
+};
+
+export function hotBuffIdForHeal(healId: number): number {
+  return HEAL_TO_HOT_BUFF_ID[healId] ?? healId;
+}
+
+// Flourish tracks auras, so Lifebloom is the buff id (1227806).
 export const FLOURISH_EXTENDED_HOTS = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,
   SPELLS.REGROWTH,
   SPELLS.WILD_GROWTH,
-  SPELLS.LIFEBLOOM_HOT_HEAL,
+  SPELLS.LIFEBLOOM_BUFF,
 ];
 
-// HoTs that get rate increased by Liveliness, which is different from the Flourish one because Blizzard
+// Liveliness listens to heal events, so Lifebloom is the tick id (33763).
 export const LIVELINESS_INCREASED_RATE = [
-  ...FLOURISH_EXTENDED_HOTS,
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
   SPELLS.EFFLORESCENCE_HEAL,
   SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
 ];
