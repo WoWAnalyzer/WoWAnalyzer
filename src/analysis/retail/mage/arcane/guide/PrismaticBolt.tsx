@@ -24,11 +24,11 @@ class PrismaticBoltGuide extends Analyzer {
 
   private evaluatePrismaticBolt(pb: PrismaticBoltCast): CastEvaluation {
     // FAIL CONDITIONS
-    if (pb.munched) {
+    if (pb.munched && !pb.hasArcaneSoul) {
       return {
         timestamp: pb.timestamp,
         performance: QualitativePerformance.Fail,
-        reason: `Prismatic Bolt munched (overwritten).`,
+        reason: `Prismatic Bolt munched (overwritten) without Arcane Soul.`,
       };
     }
 
@@ -86,6 +86,14 @@ class PrismaticBoltGuide extends Analyzer {
       };
     }
 
+    if (pb.munched && pb.hasArcaneSoul) {
+      return {
+        timestamp: pb.timestamp,
+        performance: QualitativePerformance.Good,
+        reason: `Proc was munched (overwritten), but Arcane Soul was active.`,
+      };
+    }
+
     // OK CONDITIONS
     if (this.isSpellslinger && pb.salvoStacks < 13) {
       return {
@@ -121,7 +129,7 @@ class PrismaticBoltGuide extends Analyzer {
       return {
         timestamp: pb.timestamp,
         performance: QualitativePerformance.Ok,
-        reason: `had ${pb.cumulativePowerStacks} targets.`,
+        reason: `Had ${pb.cumulativePowerStacks} Cumulative Power stacks.`,
       };
     }
 
@@ -138,14 +146,16 @@ class PrismaticBoltGuide extends Analyzer {
     const arcaneSalvo = <SpellLink spell={TALENTS.ARCANE_SALVO_TALENT} />;
     const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
     const cumulativePower = <SpellLink spell={SPELLS.CUMULATIVE_POWER_BUFF} />;
+    const arcaneSoul = <SpellLink spell={SPELLS.ARCANE_SOUL_BUFF} />;
 
     const explanation = (
       <>
         <p>
           <b>{prismaticBolt}</b> is Arcane's new apex talent, added in 12.1, and is very strong. It
-          is a large contributor to your DPS and it does not stack, so you should make sure you are
-          spending it as quickly as possible while following the below guidelines to get the most
-          out of each cast.
+          is a large contributor to your DPS and it does not stack, so $
+          {this.isSunfury && `unless ${arcaneSoul} is active`}you should make sure you are spending
+          it as quickly as possible to avoid munching (overwritting) it. Follow the below guidelines
+          to get the most out of each cast.
         </p>
         {this.isSpellslinger && (
           <p>

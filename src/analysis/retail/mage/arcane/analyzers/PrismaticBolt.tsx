@@ -41,6 +41,7 @@ export default class PrismaticBolt extends Analyzer {
       munched: refresh !== undefined,
       has4pc: this.selectedCombatant.has4PieceByTier(TIERS.MID2),
       hasClearcasting: this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE),
+      hasArcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF),
       targetsHit: damage?.length || 0,
       cumulativePowerStacks: cast
         ? this.selectedCombatant.getBuffStacks(SPELLS.CUMULATIVE_POWER_BUFF, cast.timestamp)
@@ -61,6 +62,7 @@ export interface PrismaticBoltCast {
   targetsHit: number;
   has4pc: boolean;
   hasClearcasting: boolean;
+  hasArcaneSoul: boolean;
   cumulativePowerStacks: number;
   salvoStacks: number;
   delay?: number;
