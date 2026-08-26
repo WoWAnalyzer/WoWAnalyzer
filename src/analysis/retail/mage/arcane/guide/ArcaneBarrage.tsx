@@ -2,12 +2,7 @@ import { type JSX } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink, SpellIcon } from 'interface';
-import {
-  formatPercentage,
-  formatDuration,
-  formatNumber,
-  formatDurationMillisMinSec,
-} from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import GuideSection from 'interface/guide/components/GuideSection';
 import CastDetail, {
   type PerCastData,
@@ -52,13 +47,6 @@ class ArcaneBarrageGuide extends Analyzer {
     }
 
     // FAIL CONDITIONS
-    if (cast.touchCD < 5000 && cast.touchCD > 500) {
-      return {
-        timestamp: cast.cast.timestamp,
-        performance: QualitativePerformance.Fail,
-        reason: `Touch of the Magi available soon (${formatDurationMillisMinSec(cast.touchCD)})`,
-      };
-    }
 
     // PERFECT CONDITIONS
     if (this.isSpellslinger && cast.salvoStacks === 20 && hasMaxCharges) {
@@ -147,11 +135,11 @@ class ArcaneBarrageGuide extends Analyzer {
     }
 
     // OK CONDITIONS
-    if (this.isSpellslinger && cast.salvoStacks < 15 && cast.touchCD > 5000) {
+    if (this.isSpellslinger && cast.salvoStacks < 15) {
       return {
         timestamp: cast.cast.timestamp,
         performance: QualitativePerformance.Ok,
-        reason: `Had ${cast.salvoStacks} Arcane Salvo stacks with ${formatDurationMillisMinSec(cast.touchCD)} CD remaining on Touch of the Magi.`,
+        reason: `Had ${cast.salvoStacks} Arcane Salvo stacks.`,
       };
     }
 
@@ -222,10 +210,6 @@ class ArcaneBarrageGuide extends Analyzer {
           mana costs and damage. In order to maintain the damage increase as long as possible, you
           should only cast {arcaneBarrage} under the below conditions, and should always aim to have
           4 {arcaneCharge}s before casting {arcaneBarrage}.
-        </p>
-        <p>
-          Regardless of the below, if {touchOfTheMagi} will be available in the next 4-5 seconds,
-          you should hold {arcaneBarrage} for {touchOfTheMagi}.
         </p>
         {this.isSpellslinger && (
           <ul>
@@ -305,13 +289,6 @@ class ArcaneBarrageGuide extends Analyzer {
                   ))}
                 </>
               ),
-            }
-          : undefined,
-        cast.touchCD
-          ? {
-              label: 'Touch CD',
-              value: formatDuration(cast.touchCD, 1),
-              tooltip: `Cooldown Remaining on Touch of the Magi`,
             }
           : undefined,
       ].filter(Boolean) as PerCastStat[];

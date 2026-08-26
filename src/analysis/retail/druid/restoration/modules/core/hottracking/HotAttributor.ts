@@ -104,7 +104,7 @@ class HotAttributor extends Analyzer {
       this.onApplyWg,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BUFF),
       this.onApplyLb,
     );
     this.addEventListener(
@@ -120,7 +120,7 @@ class HotAttributor extends Analyzer {
       this.onApplyWg,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BUFF),
       this.onApplyLb,
     );
     this.addEventListener(
@@ -210,7 +210,7 @@ class HotAttributor extends Analyzer {
       this.combatants
         .getEntity(event)
         ?.hasBuff(
-          SPELLS.LIFEBLOOM_HOT_HEAL.id,
+          SPELLS.LIFEBLOOM_BUFF.id,
           undefined,
           undefined,
           undefined,

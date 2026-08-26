@@ -117,6 +117,7 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: MERITHRAS_HEALING,
+    reverseLinkRelation: MERITHRAS_HEALING,
     linkingEventId: SPELLS.MERITHRAS_BLESSING_CAST.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.MERITHRAS_BLESSING_CAST.id,

@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 23), <>Fixed an error that broke the cast efficiency for <SpellLink spell={SPELLS.SURGING_TOTEM} />. Fixed an issue that prevented the correct calculation of <SpellLink spell={TALENTS.STORMSTREAM_TOTEM_1_RESTORATION_TALENT} /> in the Mana Efficiency section. </>, Naltarunir),
   change(date(2026, 8, 22), <>Updated the <SpellLink spell={TALENTS.REACTIVE_WARDING_TALENT} /> module. Pumped version support for 12.1 </>, Naltarunir),
   change(date(2026, 8, 11), <>Updated the <SpellLink spell={TALENTS.TIDAL_WAVES_TALENT} /> module. Added a new Graph for the gerneration and consumtion of <SpellLink spell={TALENTS.COALESCING_WATER_TALENT} /> . Updated and extended the module for <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} />. </>, Naltarunir),
   change(date(2026, 8, 9), <>Updated the <SpellLink spell={TALENTS.SPIRIT_LINK_TOTEM_TALENT} /> module to respect the additional damage reduction provided by <SpellLink spell={TALENTS.SPOUTING_SPIRITS_TALENT} /> . Updated the AlwaysBeCasting module to account for <SpellLink spell={TALENTS.STORMSTREAM_TOTEM_1_RESTORATION_TALENT} /> , <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> , <SpellLink spell={TALENTS.ASCENDANCE_RESTORATION_TALENT} /> as well as dispells and purges. Updated and enabled the Defensives-module for rShaman. </>, Naltarunir),

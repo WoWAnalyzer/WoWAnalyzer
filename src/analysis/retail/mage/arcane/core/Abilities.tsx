@@ -55,6 +55,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.PRISMATIC_BOLT.id,
+        buffSpellId: SPELLS.PRISMATIC_BOLT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BOLT_3_ARCANE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       // Cooldowns
       {

@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { TIERS } from 'game/TIERS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -8,8 +7,6 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
-    const hasMidnight4pc = combatant.has4PieceByTier(TIERS.MID1);
-    const windwalkerTierCooldownReduction = hasMidnight4pc ? 5 : 0;
     const communionWithWindReduction = combatant.hasTalent(TALENTS_MONK.COMMUNION_WITH_WIND_TALENT)
       ? 5
       : 0;
@@ -47,7 +44,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 35 - communionWithWindReduction - windwalkerTierCooldownReduction,
+        cooldown: 35 - communionWithWindReduction,
         gcd: {
           static: 1000,
         },
@@ -179,7 +176,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 35 - communionWithWindReduction - windwalkerTierCooldownReduction,
+        cooldown: 35 - communionWithWindReduction,
         gcd: {
           static: 1000,
         },

@@ -37,8 +37,6 @@ export const MASTERMIND_CRIT_CHANCE_PER_RANK = 0.04;
 export const INSTILLED_DOUBT_CRIT_DAMAGE_PER_RANK = 0.2;
 export const INSTILLED_DOUBT_CRIT_CHANCE_PER_RANK = 0.08;
 
-export const DARK_ASCENSION_MULTIPLIER = 0.25;
-
 export const ANCIENT_MADNESS_CRIT_INCREASE = 0.1; //Starts by giving 10% crit
 export const ANCEINT_MADNESS_CRIT_DECREASE_PER_SECOND = 0.005; //Reduces by 0.5% per second
 
