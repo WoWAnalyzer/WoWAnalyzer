@@ -34,11 +34,11 @@ class ArcaneOrbGuide extends Analyzer {
       };
     }
 
-    if (this.isSunfury && cast.chargesBefore >= 2) {
+    if (this.isSunfury && cast.chargesBefore === 4) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Fail,
-        reason: `Had ${cast.chargesBefore} Arcane Charges before Arcane Orb.`,
+        reason: `Had 4 Arcane Charges before Arcane Orb.`,
       };
     }
 
@@ -67,19 +67,10 @@ class ArcaneOrbGuide extends Analyzer {
       };
     }
 
-    if (this.isSunfury && cast.chargesBefore === 0) {
+    if (this.isSunfury && cast.chargesBefore < 4) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Good,
-        reason: `Had no Arcane Charges before Arcane Orb.`,
-      };
-    }
-
-    // OK CONDITIONS
-    if (this.isSunfury && cast.chargesBefore > 0) {
-      return {
-        timestamp: cast.timestamp,
-        performance: QualitativePerformance.Ok,
         reason: `Had ${cast.chargesBefore} Arcane Charges before Arcane Orb.`,
       };
     }
@@ -113,7 +104,9 @@ class ArcaneOrbGuide extends Analyzer {
         )}
         {this.isSunfury && (
           <ul>
-            <li>You have no {arcaneCharge}s.</li>
+            <li>
+              It will cap your {arcaneCharge}s or you have no {arcaneCharge}s
+            </li>
           </ul>
         )}
       </>
