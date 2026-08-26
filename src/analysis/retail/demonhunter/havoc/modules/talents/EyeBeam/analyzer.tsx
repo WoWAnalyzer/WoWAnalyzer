@@ -11,6 +11,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import DemonicExplanation from './DemonicExplanation';
 import { getFuriousGazeBuffApplication } from '../../../normalizers/FuriousGazeNormalizer';
 import FuriousGazeExplanation from '../../../modules/talents/EyeBeam/FuriousGazeExplanation';
+import FinalBreathExplanation from './FinalBreathExplanation';
 
 interface EyeBeamCooldownCast extends CooldownTrigger<CastEvent> {
   triggeredFuriousGaze: boolean;
@@ -57,6 +58,7 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
         <section>
           <DemonicExplanation />
           <FuriousGazeExplanation />
+          <FinalBreathExplanation />
         </section>
       </>
     );
