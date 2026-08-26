@@ -113,12 +113,6 @@ abstract class BuffCountGraph extends Analyzer {
   }
 
   /**
-   * When true (the default), area series are stacked so the chart height is total buffs out,
-   * split by type. Set to false to overlay series so each shows its own count.
-   */
-  protected stackBuffSeries = true;
-
-  /**
    * Adds a vertical rule line for the given tracker at the given timestamp
    * @param trackerName the name of the tracker this rule line is for -
    *     will determine the line's color and its name in the legend
@@ -241,7 +235,6 @@ abstract class BuffCountGraph extends Analyzer {
         y: {
           field: 'Count',
           type: 'quantitative' as const,
-          ...(this.stackBuffSeries ? {} : { stack: null }),
         },
       },
       transform: [
