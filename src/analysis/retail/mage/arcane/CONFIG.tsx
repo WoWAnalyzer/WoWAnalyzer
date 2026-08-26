@@ -66,7 +66,8 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/reports/vFkVyAND3J8dCrWg?fight=37&type=damage-done',
+  exampleReport:
+    '/report/vFkVyAND3J8dCrWg/37-Heroic+Nymrissa+Wavecaller+-+Kill+(5:23)/111-Yasury/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
