@@ -368,6 +368,11 @@ const spells = {
     name: 'Coalescing Water',
     icon: 'inv_helm_mail_raidshamanmythic_s_01',
   },
+  PURGING_FLAMES_BUFF: {
+    id: 1259491,
+    name: 'Purging Flames',
+    icon: 'inv12_ability_shaman_purgingflames',
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,
@@ -507,6 +512,11 @@ const spells = {
   },
   VOLTAIC_BLAZE_CAST: {
     id: 470057,
+    name: 'Voltaic Blaze',
+    icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
+  },
+  VOLTAIC_BLAZE_DAMAGE: {
+    id: 1259101,
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
   },
