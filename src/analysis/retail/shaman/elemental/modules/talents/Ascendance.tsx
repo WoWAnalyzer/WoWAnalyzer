@@ -39,6 +39,7 @@ import { getGlobalCooldown } from 'analysis/retail/shaman/shared/shared';
 import { EVENT_LINKS, OVERLOAD_SPELLS } from '../../constants';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { plural } from '@lingui/core/macro';
 
 interface AscendanceCooldownCast {
   event: CastEvent | ApplyBuffEvent | RefreshBuffEvent;
@@ -422,11 +423,9 @@ class Ascendance extends Analyzer.withDependencies({
             <div>@ {this.owner.formatTimestamp(event.timestamp)}</div>
             {wasteful ? (
               <div>
-                Hit {targetsHit} {targetsHit === 1 ? 'target' : 'targets'}.{' '}
-                <SpellLink spell={SPELLS.VOLTAIC_BLAZE_CAST} /> cannot trigger{' '}
-                <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />, so it is only worth a global during{' '}
-                <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> when it hits{' '}
-                {PURGING_FLAMES_TARGET_THRESHOLD} or more targets.
+                <SpellLink spell={TALENTS.VOLTAIC_BLAZE_TALENT} /> only hit{' '}
+                {plural(targetsHit, { one: 'target', other: 'targets' })} and should only be cast in
+                multi-target situations.
               </div>
             ) : null}
           </>

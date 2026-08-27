@@ -270,25 +270,19 @@ class S2TierSet extends Analyzer.withDependencies({
   }
 
   private description(): JSX.Element {
+    const vb = <SpellLink spell={SPELLS.VOLTAIC_BLAZE_CAST} />;
+    const cl = <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} />;
+
     return (
       <>
         <p>
-          <SpellLink spell={SPELLS.FIRE_NOVA_DAMAGE} /> from the {MID2_SET_TITLE} 2-piece is driven
-          entirely by <SpellLink spell={SPELLS.VOLTAIC_BLAZE_CAST} />, and the 4-piece turns those
-          eruptions into <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} /> cooldown reduction and
-          damage stacks.
+          The Season 2 tier set significantly increases the priority of {vb} and {cl}, they should
+          be cast as soon as they are available.
         </p>
         <p>
-          Because of this, <SpellLink spell={SPELLS.VOLTAIC_BLAZE_CAST} /> and{' '}
-          <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT} /> take priority over the rest of your
-          rotation, including during <SpellLink spell={SPELLS.DOOM_WINDS_BUFF} /> and{' '}
-          <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />. Casting anything else while
-          either is available is flagged on your timeline.
-        </p>
-        <p>
-          Hold time is how long each spell sat available before you used it, counted only across
-          windows where you spent a rotational global on something else. Cooldowns, defensives and
-          utility presses never count as a missed cast. Lower is better.
+          Even short delays before casting {cl} can quickly add up to a large number of lost casts
+          over a fight. Holding {vb} can similarly lead to many missed {cl} opportunities due to the
+          2-piece bonus's cooldown reduction from <SpellLink spell={TALENTS.FIRE_NOVA_TALENT} />.
         </p>
       </>
     );
