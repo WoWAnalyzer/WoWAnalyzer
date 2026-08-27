@@ -8,6 +8,14 @@ export default [
   change(
     date(2026, 8, 19),
     <>
+      Improve the HoT graph: ignore pets and duplicate applies, and include{' '}
+      <SpellLink spell={SPELLS.REGROWTH} />.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 19),
+    <>
       Rework the <SpellLink spell={SPELLS.WILD_GROWTH} /> guide section and allow CastDetail stats
       to be ungraded or limited to a subset of performance grades.
     </>,

@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyDebuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCountGraph';
+import Combatants from 'parser/shared/modules/Combatants';
 import Panel from 'parser/ui/Panel';
 
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
@@ -19,8 +20,10 @@ const CONVOKE_WITH_FLOURISH_SPEC_NAME = 'Convoke w/ Flourish Tranquility';
 class HotCountGraph extends BuffCountGraph {
   static dependencies = {
     ...BuffCountGraph.dependencies,
+    combatants: Combatants,
     convokeSpirits: ConvokeSpiritsResto,
   };
+  combatants!: Combatants;
   convokeSpirits!: ConvokeSpiritsResto;
 
   constructor(options: Options) {
@@ -30,6 +33,11 @@ class HotCountGraph extends BuffCountGraph {
     }
   }
 
+  /** Don't count HoTs on pets / NPCs — only raid/party players matter for ramp evaluation */
+  protected shouldCountBuff(event: ApplyBuffEvent | ApplyDebuffEvent): boolean {
+    return this.combatants.getEntity(event) !== null;
+  }
+
   buffSpecs(): GraphedSpellSpec[] {
     const buffSpecs: GraphedSpellSpec[] = [];
     buffSpecs.push({
@@ -37,6 +45,7 @@ class HotCountGraph extends BuffCountGraph {
       color: '#a010a0',
     });
     buffSpecs.push({ spells: SPELLS.WILD_GROWTH, color: '#20b020' });
+    buffSpecs.push({ spells: SPELLS.REGROWTH, color: '#0e7010' });
     if (isWildstalker(this.selectedCombatant)) {
       buffSpecs.push({
         spells: [SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER],
@@ -83,8 +92,8 @@ class HotCountGraph extends BuffCountGraph {
             This graph shows the number of HoTs you had active over the course of the encounter. It
             can help you evaluate how effective you were at 'ramping' before using your cooldowns.
             Having a <SpellLink spell={SPELLS.WILD_GROWTH} /> and several{' '}
-            <SpellLink spell={SPELLS.REJUVENATION} /> out before casting{' '}
-            <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> or{' '}
+            <SpellLink spell={SPELLS.REJUVENATION} /> / <SpellLink spell={SPELLS.REGROWTH} /> out
+            before casting <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> or{' '}
             <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> can drastically increase their
             effectiveness.
           </>
