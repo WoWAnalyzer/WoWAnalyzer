@@ -510,11 +510,6 @@ const spells = {
     name: 'Voltaic Blaze',
     icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
   },
-  VOLTAIC_BLAZE_BUFF: {
-    id: 470058,
-    name: 'Voltaic Blaze',
-    icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
-  },
   MAELSTROM_WEAPON: {
     id: 187890,
     name: 'Maelstrom Weapon',
