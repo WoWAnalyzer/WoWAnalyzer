@@ -229,6 +229,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
+        spell: TALENTS.ABOMINATION_LIMB_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ABOMINATION_LIMB_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.DEATHS_ADVANCE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
