@@ -8,8 +8,8 @@ export default [
   change(
     date(2026, 8, 19),
     <>
-      Track Lifebloom's HoT aura and heal ticks as separate spell IDs, and let HotTracker map a heal
-      ID to a different buff ID.
+      Evaluate <SpellLink spell={SPELLS.INNERVATE} /> as a self mana cooldown (capping / wasted
+      regen) instead of a shared healing throughput window.
     </>,
     squided,
   ),
