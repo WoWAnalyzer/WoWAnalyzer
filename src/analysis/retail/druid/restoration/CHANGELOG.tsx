@@ -8,6 +8,14 @@ export default [
   change(
     date(2026, 8, 19),
     <>
+      Rework the <SpellLink spell={SPELLS.WILD_GROWTH} /> guide section and allow CastDetail stats
+      to be ungraded or limited to a subset of performance grades.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 19),
+    <>
       Evaluate <SpellLink spell={SPELLS.INNERVATE} /> as a self mana cooldown (capping / wasted
       regen) instead of a shared healing throughput window.
     </>,

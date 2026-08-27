@@ -31,6 +31,11 @@ export interface PerCastStat {
   tooltip?: React.ReactNode | null;
   /** Optional performance rating for color-coding this specific stat */
   performance?: QualitativePerformance;
+  /**
+   * When true, render with a neutral gray instead of grading or inheriting the cast color.
+   * Prefer this over omitting `performance` when the stat is informational only.
+   */
+  ungraded?: boolean;
 }
 
 export interface AdditionalContent {
@@ -62,6 +67,12 @@ interface CastDetailProps {
   casts: PerCastData[];
   /** Optional description text shown below the title */
   description?: string;
+  /**
+   * Optional list of performance grades that can appear for these casts.
+   * Filter badges are limited to this set (shown even when the count is 0).
+   * Defaults to all grades (Perfect / Good / Ok / Bad).
+   */
+  possiblePerformances?: QualitativePerformance[];
 }
 
 const PERF_LEVELS = [
@@ -71,6 +82,9 @@ const PERF_LEVELS = [
   { perf: QualitativePerformance.Fail, label: 'Bad' },
 ] as const;
 
+/** Color for informational stats that are not graded (`performance: null`) */
+const NEUTRAL_STAT_COLOR = '#c8c8c8';
+
 /**
  * Displays per-cast statistics in a grid with performance-based colored boxes.
  * Each box represents one cast with its stats and overall performance.
@@ -79,17 +93,25 @@ const PERF_LEVELS = [
  * @param title - Title for the cast detail section
  * @param casts - Array of per-cast data to display
  * @param description - Optional description text shown below the title
+ * @param possiblePerformances - Optional grades to show as filters (including at 0 count)
  */
-export default function CastDetail({ title, casts, description }: CastDetailProps) {
+export default function CastDetail({
+  title,
+  casts,
+  description,
+  possiblePerformances,
+}: CastDetailProps) {
+  const visiblePerfLevels = useMemo(() => {
+    if (!possiblePerformances || possiblePerformances.length === 0) {
+      return [...PERF_LEVELS];
+    }
+    const allowed = new Set(possiblePerformances);
+    return PERF_LEVELS.filter(({ perf }) => allowed.has(perf));
+  }, [possiblePerformances]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [performanceFilter, setPerformanceFilter] = useState<Set<QualitativePerformance>>(
-    () =>
-      new Set([
-        QualitativePerformance.Perfect,
-        QualitativePerformance.Good,
-        QualitativePerformance.Ok,
-        QualitativePerformance.Fail,
-      ]),
+    () => new Set(visiblePerfLevels.map(({ perf }) => perf)),
   );
 
   const filteredCasts = useMemo(() => {
@@ -167,7 +189,7 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
 
   const statsContent = (
     <PerfBadgeGrid>
-      {PERF_LEVELS.map(({ perf, label }) => {
+      {visiblePerfLevels.map(({ perf, label }) => {
         const count = performanceCounts[perf] ?? 0;
         const disabled = count === 0;
         const color = disabled ? '#c8c8c8' : qualitativePerformanceToColor(perf);
@@ -184,7 +206,9 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
             <PerfBadgeLabel>{label}</PerfBadgeLabel>
           </FilterBadge>
         );
-        if (disabled) return badge;
+        if (disabled) {
+          return badge;
+        }
         return (
           <Tooltip key={label} content={`${label} casts — ${count} / ${totalCasts}`}>
             {badge}
@@ -266,9 +290,11 @@ export default function CastDetail({ title, casts, description }: CastDetailProp
             {currentCast!.stats.length > 0 && (
               <StatsGrid style={{ marginBottom: '10px' }}>
                 {currentCast!.stats.map((stat, statIdx) => {
-                  const statColor = stat.performance
-                    ? qualitativePerformanceToColor(stat.performance)
-                    : castColor;
+                  const statColor = stat.ungraded
+                    ? NEUTRAL_STAT_COLOR
+                    : stat.performance
+                      ? qualitativePerformanceToColor(stat.performance)
+                      : castColor;
                   return (
                     <Tooltip key={statIdx} content={stat.tooltip}>
                       <StatCard color={statColor}>
