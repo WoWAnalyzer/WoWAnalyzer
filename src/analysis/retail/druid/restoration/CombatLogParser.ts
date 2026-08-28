@@ -87,6 +87,10 @@ import FlowerWalk from 'analysis/retail/druid/restoration/modules/spells/Wildsta
 import LethalPreservation from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/LethalPreservation';
 import ResilientFlourishing from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ResilientFlourishing';
 import SymbioticBloomDirectClaim from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/SymbioticBloomDirectClaim';
+import Implant from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/Implant';
+import TwinSprouts from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/TwinSprouts';
+import ThrivingGrowth from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ThrivingGrowth';
+import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
 import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
 import PassingSeasons from 'analysis/retail/druid/restoration/modules/spells/PassingSeasons';
 import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
@@ -166,6 +170,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flashOfClarity: FlashOfClarity,
     forestwalk: Forestwalk,
     verdantHeart: VerdantHeart,
+    overgrowth: Overgrowth,
 
     // Hero tree total (aggregates KotG / Wildstalker HPS contributions)
     heroTreeHealing: HeroTreeHealing,
@@ -200,6 +205,9 @@ class CombatLogParser extends CoreCombatLogParser {
     bondWithNature: BondWithNature,
     patientCustodian: PatientCustodian,
     vigorousCreepers: VigorousCreepers,
+    implant: Implant,
+    twinSprouts: TwinSprouts,
+    thrivingGrowth: ThrivingGrowth,
 
     // Mana Tab
     manaTracker: ManaTracker,
