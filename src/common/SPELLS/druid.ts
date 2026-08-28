@@ -1306,6 +1306,16 @@ const spells = {
     name: 'Flower Walk',
     icon: 'inv_misc_trailofflowers',
   },
+  LETHAL_PRESERVATION_SELF_HEAL: {
+    id: 455470,
+    name: 'Lethal Preservation',
+    icon: 'spell_nature_healingtouch',
+  },
+  LETHAL_PRESERVATION_OTHER_HEAL: {
+    id: 455474,
+    name: 'Lethal Preservation',
+    icon: 'spell_nature_healingtouch',
+  },
   ROOT_NETWORK_BUFF: {
     id: 439888,
     name: 'Root Network',

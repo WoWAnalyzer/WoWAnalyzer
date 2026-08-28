@@ -6,6 +6,14 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
   change(
+    date(2026, 8, 18),
+    <>
+      Add a combined Keeper of the Grove / Wildstalker healing breakdown and statistics for
+      remaining hero talents.
+    </>,
+    squided,
+  ),
+  change(
     date(2026, 8, 19),
     <>
       Improve the HoT graph: ignore pets and duplicate applies, and include{' '}

@@ -87,6 +87,16 @@ export function hotBuffIdForHeal(healId: number): number {
   return HEAL_TO_HOT_BUFF_ID[healId] ?? healId;
 }
 
+export const PATIENT_CUSTODIAN_HOTS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
+  SPELLS.THRIVING_VEGETATION,
+];
+
 // Flourish tracks auras, so Lifebloom is the buff id (1227806).
 export const FLOURISH_EXTENDED_HOTS = [
   SPELLS.REJUVENATION,
