@@ -7,6 +7,15 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 export default [
   change(
     date(2026, 8, 18),
+    <>
+      Updated Restoration Druid for 12.1. Added an Advanced{' '}
+      <SpellLink spell={SPELLS.REJUVENATION} /> section and a{' '}
+      <SpellLink spell={SPELLS.NATURES_SWIFTNESS} /> guide.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 18),
     <>Rework the <SpellLink spell={SPELLS.REGROWTH} /> guide section for the 12.1 playstyle.</>,
     squided,
   ),
