@@ -9,7 +9,7 @@ import { DEEP_HEALING_BONUS_SPELLPOINTS } from '../../constants';
  * Mastery is stored as spellpoints; the displayed percentage is
  * `spellpoints * spec.masteryCoefficient` (3 for Restoration Shaman).
  *
- * The core StatTracker knows about the 8 baseline spellpoints and everything gained from
+ * The CoreStatTracker knows about the 8 baseline spellpoints and everything gained from
  * mastery *rating*, but its buff system is expressed purely in rating, so it has no way to
  * represent auras that grant flat spellpoints.
  *
@@ -41,6 +41,10 @@ class StatTracker extends CoreStatTracker {
     }
   }
 
+  get innateMasteryPercentage(): number {
+    return this.baseMasteryPercentage;
+  }
+
   /** Spellpoints from talents and buffs, at the currently processed event. */
   get bonusMasterySpellpoints(): number {
     const skyfury = this.selectedCombatant.hasBuff(SPELLS.SKYFURY.id)
@@ -52,6 +56,11 @@ class StatTracker extends CoreStatTracker {
   override get baseMasteryPercentage(): number {
     const coefficient = this.selectedCombatant.spec?.masteryCoefficient ?? 3;
     return super.baseMasteryPercentage + (this.bonusMasterySpellpoints * coefficient) / 100;
+  }
+
+  /** Mastery percentage coming from mastery *rating* — gear, gems, enchants, food, flask, procs. */
+  get gearMasteryPercentage(): number {
+    return this.currentMasteryPercentage - this.baseMasteryPercentage;
   }
 }
 
