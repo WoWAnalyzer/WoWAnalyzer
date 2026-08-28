@@ -78,7 +78,6 @@ class SpellUsable extends Analyzer {
   protected _globalModRate = 1;
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
   protected _spellModRates: Record<number, number> = {};
-  protected _wastedCooldownReduction: Record<number, number> = {};
 
   public cooldownErrorCount = 0;
   public unknownAbilityErrorCount = 0;
@@ -207,10 +206,6 @@ class SpellUsable extends Analyzer {
   ): number {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(spellId)];
     return !cdInfo ? 0 : cdInfo.expectedEnd - timestamp;
-  }
-
-  public wastedCooldownReduction(spellId: number): number {
-    return this._wastedCooldownReduction[this._getCanonicalId(spellId)] ?? 0;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -376,9 +371,6 @@ class SpellUsable extends Analyzer {
     const cdSpellId = this._getCanonicalId(spellId);
     const cdInfo = this._currentCooldowns[cdSpellId];
     if (!cdInfo) {
-      this._wastedCooldownReduction[cdSpellId] =
-        (this._wastedCooldownReduction[cdSpellId] ?? 0) +
-        reductionMs / this._getSpellModRate(cdSpellId);
       // Nothing to reduce, the spell isn't on cooldown
       DEBUG &&
         console.info(
@@ -409,9 +401,6 @@ class SpellUsable extends Analyzer {
     let effectiveReductionMs: number;
     if (scaledReductionMs >= totalRemainingScaledCd) {
       effectiveReductionMs = totalRemainingScaledCd * modRate;
-      this._wastedCooldownReduction[cdSpellId] =
-        (this._wastedCooldownReduction[cdSpellId] ?? 0) +
-        Math.min(scaledReductionMs, scaledReductionMs - totalRemainingScaledCd);
     } else {
       effectiveReductionMs = reductionMs;
     }

@@ -44,7 +44,6 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2026, 8, 27), 'Track wasted cooldown reduction to raise the maximum casts.', Seriousnes),
   change(date(2026, 8, 24), "Update strong weapon enchant list for Season 2.", Seriousnes),
   change(date(2026, 8, 19), 'Honor combatant-info stack counts when applying buffs already active at pull.', squided),
   change(date(2026, 7, 27), 'Fix reports from previous patches being displayed as from a previous expansion.', Texleretour),

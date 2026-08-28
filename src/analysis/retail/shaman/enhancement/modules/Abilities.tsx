@@ -3,16 +3,8 @@ import TALENTS from 'common/TALENTS/shaman';
 import ClassAbilities from '../../shared/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import StormUnleashed from './talents/StormUnleashed';
 
 class Abilities extends ClassAbilities {
-  static dependencies = {
-    ...ClassAbilities.dependencies,
-    stormUnleashed: StormUnleashed,
-  };
-
-  stormUnleashed!: StormUnleashed;
-
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
@@ -58,9 +50,6 @@ class Abilities extends ClassAbilities {
           base: 1500,
         },
         cooldown: (haste) => 15 / (1 + haste),
-        castEfficiency: {
-          extraCasts: () => this.stormUnleashed.totalProcs,
-        },
       },
       {
         spell: TALENTS.SUNDERING_TALENT.id,

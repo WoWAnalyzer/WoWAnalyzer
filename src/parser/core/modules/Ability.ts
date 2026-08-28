@@ -90,12 +90,6 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
      */
     maxCasts?: (cooldown: number) => number;
     /**
-     * A function to get casts that are granted outside of the spell's cooldown, such as a
-     * proc that allows a cast while the spell is still cooling down. Each one is added to the
-     * max casts calculated from the cooldown.
-     */
-    extraCasts?: (parser: CombatLogParser) => number;
-    /**
      * If set, this suggestion will get this static importance value. Use this
      * ISSUE_IMPORTANCE enum for this.
      */
@@ -252,7 +246,6 @@ class Ability {
     extraSuggestion: undefined,
     casts: undefined,
     maxCasts: undefined,
-    extraCasts: undefined,
     importance: undefined,
   };
   _charges: SpellbookAbility['charges'];

@@ -266,7 +266,7 @@ class DoomWinds extends Analyzer.withDependencies({
   private onDirectWindowTrigger(event: CastEvent) {
     const isAscendance = event.ability.guid === TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id;
     const heldDuration =
-      isAscendance && this.ascendanceAvailableSince !== null
+      isAscendance && !event.prepull && this.ascendanceAvailableSince !== null
         ? event.timestamp - this.ascendanceAvailableSince
         : undefined;
 
@@ -303,11 +303,6 @@ class DoomWinds extends Analyzer.withDependencies({
     }
   }
 
-  /**
-   * Records a cooldown usage window for Doom Winds / Ascendance.
-   * @remarks
-   * Deeply Rooted Elements appears as a fabricated cast (via apply/refresh buff).
-   */
   private onCooldownStart(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!this.activeWindow) {
       this.activeWindow = this.createWindow(event);
