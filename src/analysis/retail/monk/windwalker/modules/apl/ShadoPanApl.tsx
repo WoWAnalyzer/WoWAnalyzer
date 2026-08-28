@@ -7,18 +7,21 @@ import { Apl } from 'parser/shared/metrics/apl';
 import {
   and,
   buffPresent,
+  buffRemaining,
   describe,
   hasResource,
   hasTalent,
+  inBloodlust,
+  not,
   or,
   spellCooldownRemaining,
 } from 'parser/shared/metrics/apl/conditions';
 import {
   aboutToCapEnergy,
   buildComboStrikesApl,
-  danceOfChiJiExpiring,
+  getZenithDurationMs,
   notAtTwoBlackoutKickStacks,
-  notInZenithWithObsidianSpiral,
+  notEnoughChiForFistsOfFury,
   optionalTouchOfDeath,
   whirlingDragonPunchReady,
 } from './common';
@@ -34,23 +37,48 @@ export default function shadoPanApl(combatant: Combatant): Apl {
       condition: whirlingDragonPunchReady,
     },
     {
-      spell: SPELLS.TIGER_PALM,
+      spell: TALENTS.ZENITH_STOMP_TALENT,
       condition: describe(
-        and(
-          hasResource(RESOURCE_TYPES.CHI, { atMost: 3 }),
-          notAtTwoBlackoutKickStacks,
-          aboutToCapEnergy(combatant),
-          notInZenithWithObsidianSpiral,
+        or(
+          hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
+          and(
+            buffPresent(TALENTS.ZENITH_TALENT),
+            buffRemaining(TALENTS.ZENITH_TALENT, getZenithDurationMs(combatant), { atMost: 3000 }),
+          ),
         ),
         () => (
           <>
-            you have less than 4 <SpellLink spell={RESOURCE_TYPES.CHI} />, fewer than 2 stacks of{' '}
-            <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />, and are about to cap energy
+            you are low on <SpellLink spell={RESOURCE_TYPES.CHI} /> or{' '}
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is almost over
           </>
         ),
       ),
     },
-    TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
+    {
+      spell: SPELLS.TIGER_PALM,
+      condition: describe(
+        or(
+          and(
+            hasResource(RESOURCE_TYPES.CHI, { atMost: 3 }),
+            aboutToCapEnergy(combatant),
+            not(buffPresent(TALENTS.ZENITH_TALENT)),
+            not(inBloodlust()),
+            notAtTwoBlackoutKickStacks,
+          ),
+          and(
+            spellCooldownRemaining(TALENTS.FISTS_OF_FURY_TALENT, { atMost: 1 }),
+            notEnoughChiForFistsOfFury(combatant),
+          ),
+        ),
+        () => (
+          <>
+            you are about to cap energy outside <SpellLink spell={TALENTS.ZENITH_TALENT} /> or do
+            not have enough <SpellLink spell={RESOURCE_TYPES.CHI} /> for{' '}
+            <SpellLink spell={TALENTS.FISTS_OF_FURY_TALENT} />
+          </>
+        ),
+      ),
+    },
     TALENTS.FISTS_OF_FURY_TALENT,
     {
       spell: SPELLS.RUSHING_WIND_KICK_CAST,
@@ -59,53 +87,28 @@ export default function shadoPanApl(combatant: Combatant): Apl {
     {
       spell: SPELLS.SPINNING_CRANE_KICK,
       condition: describe(
-        and(danceOfChiJiExpiring, notAtTwoBlackoutKickStacks, notInZenithWithObsidianSpiral),
+        and(buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF), buffPresent(SPELLS.UNBROKEN_RHYTHM_BUFF)),
         () => (
           <>
-            <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} /> has less than 4 seconds remaining, and
-            you have fewer than 2 stacks of <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} />
+            you have <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} /> and{' '}
+            <SpellLink spell={SPELLS.UNBROKEN_RHYTHM_BUFF} />
           </>
         ),
       ),
     },
     TALENTS.RISING_SUN_KICK_TALENT,
-    TALENTS.ZENITH_STOMP_TALENT,
-    {
-      spell: SPELLS.TIGER_PALM,
-      condition: describe(
-        or(
-          and(
-            spellCooldownRemaining(TALENTS.STRIKE_OF_THE_WINDLORD_TALENT, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
-          ),
-          and(
-            spellCooldownRemaining(TALENTS.FISTS_OF_FURY_TALENT, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 2 }),
-          ),
-          and(
-            hasTalent(TALENTS.RUSHING_WIND_KICK_WINDWALKER_TALENT),
-            buffPresent(SPELLS.RUSHING_WIND_KICK_BUFF),
-            spellCooldownRemaining(SPELLS.RUSHING_WIND_KICK_CAST, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
-          ),
-          and(danceOfChiJiExpiring, hasResource(RESOURCE_TYPES.CHI, { atMost: 1 })),
-          and(
-            spellCooldownRemaining(TALENTS.RISING_SUN_KICK_TALENT, { atMost: 1 }),
-            hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
-            notInZenithWithObsidianSpiral,
-          ),
-        ),
-        () => <>a higher-priority chi spender is ready, and you do not have enough chi for it</>,
-      ),
-    },
     {
       spell: SPELLS.BLACKOUT_KICK,
       condition: describe(
-        or(buffPresent(SPELLS.COMBO_BREAKER_BUFF), buffPresent(TALENTS.ZENITH_TALENT)),
+        or(
+          buffPresent(SPELLS.COMBO_BREAKER_BUFF),
+          and(buffPresent(TALENTS.ZENITH_TALENT), hasTalent(TALENTS.OBSIDIAN_SPIRAL_TALENT)),
+        ),
         () => (
           <>
             you have <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> or{' '}
-            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active with{' '}
+            <SpellLink spell={TALENTS.OBSIDIAN_SPIRAL_TALENT} />
           </>
         ),
       ),
@@ -113,22 +116,38 @@ export default function shadoPanApl(combatant: Combatant): Apl {
     {
       spell: SPELLS.SPINNING_CRANE_KICK,
       condition: describe(
-        and(buffPresent(TALENTS.ZENITH_TALENT), hasResource(RESOURCE_TYPES.CHI, { atLeast: 4 })),
+        and(
+          buffPresent(TALENTS.ZENITH_TALENT),
+          or(
+            hasResource(RESOURCE_TYPES.CHI, { atLeast: 5 }),
+            buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
+          ),
+        ),
         () => (
           <>
-            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active and you have more than 3{' '}
-            <SpellLink spell={RESOURCE_TYPES.CHI} />
+            <SpellLink spell={TALENTS.ZENITH_TALENT} /> is active and you either have more than 4{' '}
+            <SpellLink spell={RESOURCE_TYPES.CHI} /> or{' '}
+            <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
           </>
         ),
       ),
     },
-    TALENTS.SLICING_WINDS_TALENT,
+    {
+      spell: SPELLS.TIGER_PALM,
+      condition: hasResource(RESOURCE_TYPES.CHI, { atMost: 1 }),
+    },
     {
       spell: SPELLS.SPINNING_CRANE_KICK,
-      condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
+      condition: describe(buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF), () => (
+        <>
+          you have <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
+        </>
+      )),
+    },
+    {
+      spell: SPELLS.TIGER_PALM,
+      condition: hasResource(RESOURCE_TYPES.CHI, { atMost: 4 }),
     },
     SPELLS.BLACKOUT_KICK,
-    SPELLS.SPINNING_CRANE_KICK,
-    SPELLS.TIGER_PALM,
   ]);
 }

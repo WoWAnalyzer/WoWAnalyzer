@@ -59,14 +59,15 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec has been fully updated for Midnight Season 2 (As of August 15). If anything is
+          This spec has been fully updated for Midnight Season 2 (As of August 26). If anything is
           missing or incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/ar37HGqfWFLNk8w6/26-Heroic+Vorasius+-+Kill+(4:07)/189-Alysseda/standard',
+  exampleReport:
+    '/report/vFkVyAND3J8dCrWg/37-Heroic+Nymrissa+Wavecaller+-+Kill+(5:23)/111-Yasury/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

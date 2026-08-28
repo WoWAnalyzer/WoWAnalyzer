@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2026, 8, 27), <>Added basic 12.1 support and <SpellLink spell={talents.ABOMINATION_LIMB_TALENT}></SpellLink> tracking</>, Badkad),
   change(date(2026, 4, 24), <>Added <SpellLink spell={talents.UMBILICUS_ETERNUS_TALENT}/> to timeline .</>, Badkad),
   change(date(2026, 4, 10), <>Enabled Changelog.</>, Badkad),
   change(date(2026, 4, 5), <>Updated cooldown of <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />.</>, Badkad),
