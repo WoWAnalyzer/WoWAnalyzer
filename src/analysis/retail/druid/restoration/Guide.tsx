@@ -8,7 +8,11 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
-import { AdvancedGuideContextProvider, AdvancedGuideToggle } from './guide/AdvancedGuideContext';
+import {
+  AdvancedGuideContextProvider,
+  AdvancedGuideToggle,
+  useAdvancedGuide,
+} from './guide/AdvancedGuideContext';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -22,6 +26,8 @@ export default function Guide(props: GuideProps<typeof CombatLogParser>) {
 }
 
 function GuideContent({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  const { isAdvanced } = useAdvancedGuide();
+
   return (
     <>
       <Section title="Always Be Casting">
@@ -45,6 +51,7 @@ function GuideContent({ modules, events, info }: GuideProps<typeof CombatLogPars
       </Section>
       <Section title="Core Spells and Buffs">
         <AdvancedGuideToggle />
+        {modules.lifebloom.getGuideSubsection(isAdvanced)}
         {modules.swiftmend.guideSubsection}
         {modules.wildGrowth.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT) && (
@@ -52,8 +59,8 @@ function GuideContent({ modules, events, info }: GuideProps<typeof CombatLogPars
         )}
         {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
           modules.soulOfTheForest.guideSubsection}
-        {modules.lifebloom.guideSubsection}
-        {modules.efflorescence.guideSubsection}
+        {!info.combatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT) &&
+          modules.efflorescence.guideSubsection}
         {modules.rejuvenation.guideSubsection}
         {modules.regrowthAndClearcasting.guideSubsection}
       </Section>

@@ -7,6 +7,14 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 export default [
   change(
     date(2026, 8, 18),
+    <>
+      Rework the <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} /> guide section for the 12.1
+      playstyle.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 18),
     <>Add an Advanced toggle to the Restoration Druid guide for extra cast analysis.</>,
     squided,
   ),
