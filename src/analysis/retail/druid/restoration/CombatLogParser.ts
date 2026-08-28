@@ -78,6 +78,10 @@ import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wil
 import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/PatientCustodian';
 import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
 import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
+import PassingSeasons from 'analysis/retail/druid/restoration/modules/spells/PassingSeasons';
+import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
+import Forestwalk from 'analysis/retail/druid/restoration/modules/spells/Forestwalk';
+import VerdantHeart from 'analysis/retail/druid/restoration/modules/spells/VerdantHeart';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 import S2TierSet from 'analysis/retail/druid/restoration/modules/tier/S2TierSet';
 
@@ -147,6 +151,10 @@ class CombatLogParser extends CoreCombatLogParser {
     improvedWildGrowth: ImprovedWildGrowth,
     powerOfTheDream: PowerOfTheDream,
     liveliness: Liveliness,
+    passingSeasons: PassingSeasons,
+    flashOfClarity: FlashOfClarity,
+    forestwalk: Forestwalk,
+    verdantHeart: VerdantHeart,
 
     // Keeper of the Grove
     protectiveGrowth: ProtectiveGrowth,
