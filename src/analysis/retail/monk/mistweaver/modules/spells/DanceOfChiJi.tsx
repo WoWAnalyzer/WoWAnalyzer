@@ -198,7 +198,15 @@ class DanceOfChiJi extends Analyzer {
 
     return (
       <GuideSection explanation={explanation}>
-        <CastOverview spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT} stats={stats} />
+        <CastOverview
+          spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT}
+          title={
+            <>
+              <SpellLink spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT} /> Overview
+            </>
+          }
+          stats={stats}
+        />
         <CastSummary
           spell={TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT}
           title={'Buff Utilization'}
