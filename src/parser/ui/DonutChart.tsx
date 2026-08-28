@@ -85,7 +85,7 @@ const DonutChart = ({ items, chartSize = 90, innerRadiusFactor = 0.28 }: Props) 
                 <div className="flex-main">{label}</div>
                 <div className="flex-sub">
                   {valuePercent ? (
-                    <TooltipElement content={valueTooltip ? valueTooltip : value}>
+                    <TooltipElement content={valueTooltip ? valueTooltip : String(value)}>
                       {formatPercentage(value / total, 0)}%
                     </TooltipElement>
                   ) : (
