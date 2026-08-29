@@ -46,6 +46,7 @@ export const MAX_SKIP_CDR_BASE = 20000;
 export const MAX_SKIP_CDR_TT = 30000;
 export const MAX_SKIP_CDR_TB = 25700;
 export const MAX_SKIP_CDR_TT_TB = 38550;
+export const OVERLORD_MAX_MOTES = 3;
 
 // Breath of Eons multiplier
 export const BREATH_OF_EONS_MULTIPLIER = 0.1;
