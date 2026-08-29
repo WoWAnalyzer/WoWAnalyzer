@@ -17,6 +17,8 @@ const prismaticBolt = <SpellLink spell={SPELLS.PRISMATIC_BOLT} />
 const cumulativePower = <SpellLink spell={SPELLS.CUMULATIVE_POWER_BUFF} />;
 
 export default [
+  change(date(2026, 8, 29), <>Fixed the logic that determined how many targets {arcaneOrb} hit.</>, Sharrq),
+  change(date(2026, 8, 29), <>Fixed {prismaticBolt}, again. It now correctly identifies munched procs that were actually munched.</>, Sharrq),
   change(date(2026, 8, 26), <>Removed guidance about holding {arcaneBarrage} if {touchOfTheMagi} is coming soon.</>, Sharrq),
   change(date(2026, 8, 26), <>Fixed a tooltip on {prismaticBolt} that listed targets hit instead of {cumulativePower} stacks.</>, Sharrq),
   change(date(2026, 8, 22), <>Adjusted {arcaneOrb} conditions for Sunfury to mark casts with without 4 Arcane Charges as good.</>, Sharrq),

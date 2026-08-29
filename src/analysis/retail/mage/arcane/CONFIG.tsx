@@ -59,7 +59,7 @@ const config: Config = {
     overview: {
       notes: (
         <AlertWarning>
-          This spec has been fully updated for Midnight Season 2 (As of August 26). If anything is
+          This spec has been fully updated for Midnight Season 2 (As of August 29). If anything is
           missing or incorrect, please ping <code>@Sharrq</code> in the Altered Time Discord.
         </AlertWarning>
       ),

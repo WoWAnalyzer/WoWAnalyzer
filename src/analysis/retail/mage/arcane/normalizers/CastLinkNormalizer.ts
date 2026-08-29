@@ -63,7 +63,7 @@ const EVENT_LINKS = createEventLinks(
     links: [
       link(EventType.Damage, {
         id: SPELLS.ARCANE_ORB_DAMAGE.id,
-        forwardBuffer: 2500,
+        forwardBuffer: 1000,
         anyTarget: true,
         condition: (linking, referenced) => !HasRelatedEvent(referenced, EventType.Cast),
       }),
@@ -185,12 +185,20 @@ const EVENT_LINKS = createEventLinks(
     spell: SPELLS.PRISMATIC_BOLT_BUFF.id,
     parentType: [EventType.ApplyBuff, EventType.RefreshBuff],
     links: [
-      link(EventType.RemoveBuff, { maxLinks: 1, forwardBuffer: 60_000 }),
       link(EventType.RefreshBuff, {
         maxLinks: 1,
         forwardBuffer: 60_000,
         condition: (linkingEvent, referencedEvent) => linkingEvent !== referencedEvent,
       }),
+      link(EventType.RemoveBuff, {
+        maxLinks: 1,
+        forwardBuffer: 60_000,
+        condition: (linkingEvent, referencedEvent) => {
+          const refresh = GetRelatedEvent(linkingEvent, EventType.RefreshBuff);
+          return !refresh || referencedEvent.timestamp < refresh.timestamp;
+        },
+      }),
+      link(EventType.BeginCast, { maxLinks: 1, backwardBuffer: 2500 }),
       link(EventType.Cast, {
         id: SPELLS.PRISMATIC_BOLT.id,
         maxLinks: 1,

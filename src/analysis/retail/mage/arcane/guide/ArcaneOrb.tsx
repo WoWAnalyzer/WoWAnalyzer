@@ -23,10 +23,8 @@ class ArcaneOrbGuide extends Analyzer {
   isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
 
   private evaluateOrbCast(cast: ArcaneOrbCast): CastEvaluation {
-    const hitTargets = cast.targetsHit > 0;
-
     // FAIL CONDITIONS
-    if (!hitTargets) {
+    if (cast.targetsHit === 0) {
       return {
         timestamp: cast.timestamp,
         performance: QualitativePerformance.Fail,
