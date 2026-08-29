@@ -7,6 +7,11 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 export default [
   change(
     date(2026, 8, 18),
+    <>Rework the <SpellLink spell={SPELLS.REGROWTH} /> guide section for the 12.1 playstyle.</>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 18),
     <>
       Rework the <SpellLink spell={SPELLS.SWIFTMEND} /> guide section for the 12.1 playstyle and add
       a <SpellLink spell={TALENTS_DRUID.PROSPERITY_TALENT} /> statistic.

@@ -54,13 +54,10 @@ function GuideContent({ modules, events, info }: GuideProps<typeof CombatLogPars
         {modules.lifebloom.getGuideSubsection(isAdvanced)}
         {modules.swiftmend.guideSubsection}
         {modules.wildGrowth.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT) && (
-          <SubSection>{modules.abundanceGraph.guideSubsection}</SubSection>
-        )}
         {!info.combatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT) &&
           modules.efflorescence.guideSubsection}
         {modules.rejuvenation.guideSubsection}
-        {modules.regrowthAndClearcasting.guideSubsection}
+        {modules.regrowthAndClearcasting.getGuideSubsection(isAdvanced)}
       </Section>
       <Section title="Healing Cooldowns">
         <p>
