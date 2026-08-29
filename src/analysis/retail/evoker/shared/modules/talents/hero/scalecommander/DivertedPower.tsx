@@ -59,7 +59,6 @@ class DivertedPower extends Analyzer {
     if (!enemy || !enemy.getBuff(SPELLS.BOMBARDMENTS_DEBUFF.id)) {
       return;
     }
-
     this.procAttempts += 1;
   }
 
