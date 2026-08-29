@@ -3091,3 +3091,8 @@ export const KushGene: Contributor = {
   nickname: 'KushGene',
   github: 'KushGene',
 };
+
+export const Baloop: Contributor = {
+  nickname: 'Baloop',
+  github: 'Baloop20',
+};
