@@ -1,5 +1,5 @@
 // WCL properties
-interface WCLDungeonPull {
+export interface WCLDungeonPull {
   id: number;
   boss: number;
   start_time: number;
