@@ -512,6 +512,13 @@ const spells = {
     name: 'Everbloom',
     icon: 'ability_druid_focusedgrowth',
   },
+  // 10% of self-healing to bonded ally / 8% of bonded-ally healing back to self.
+  // Copies the source heal amount (does not independently apply dest mastery).
+  SYMBIOTIC_RELATIONSHIP_HEAL: {
+    id: 474760,
+    name: 'Symbiotic Relationship',
+    icon: 'ability_druid_focusedgrowth',
+  },
   RESTO_DRUID_TIER_36_GENESIS_BUFF: {
     id: 1302255,
     name: 'Genesis',

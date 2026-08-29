@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 8, 29), <>Updated <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT} /> and <SpellLink spell={TALENTS.DOUBLE_TIME_TALENT} /> modules.</>, KYZ),
   change(date(2026, 8, 11), <>Updated for 12.1.</>, KYZ),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),
   change(date(2026, 5, 14), <>Update <SpellLink spell={TALENTS.MIGHTY_INFERNO_TALENT} /> module to include DPS from extension.</>, KYZ),
