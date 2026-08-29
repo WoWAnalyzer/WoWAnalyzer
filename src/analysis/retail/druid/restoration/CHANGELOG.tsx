@@ -5,7 +5,17 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
-    change(
+  change(
+    date(2026, 8, 18),
+    <>
+      Attribute <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} />,{' '}
+      <SpellLink spell={TALENTS_DRUID.IMPLANT_TALENT} />, and{' '}
+      <SpellLink spell={TALENTS_DRUID.TWIN_SPROUTS_TALENT} /> healing, including Implant blooms from
+      Overgrowth's Wild Growth.
+    </>,
+    squided,
+  ),
+  change(
     date(2026, 8, 28),
     <>
       Add a combined Keeper of the Grove / Wildstalker healing breakdown and statistics for
@@ -29,6 +39,14 @@ export default [
       <SpellLink spell={TALENTS_DRUID.FLASH_OF_CLARITY_TALENT} />,{' '}
       <SpellLink spell={TALENTS_DRUID.PASSING_SEASONS_TALENT} />, and{' '}
       <SpellLink spell={TALENTS_DRUID.VERDANT_HEART_TALENT} />.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 27),
+    <>
+      Update for the 12.1 balance pass: Season 2 4pc increases{' '}
+      <SpellLink spell={SPELLS.RESTO_DRUID_TIER_36_GENESIS_BUFF} /> duration by 8 sec (was 4).
     </>,
     squided,
   ),
