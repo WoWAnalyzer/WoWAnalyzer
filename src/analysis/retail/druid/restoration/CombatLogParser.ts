@@ -88,6 +88,10 @@ import LethalPreservation from 'analysis/retail/druid/restoration/modules/spells
 import ResilientFlourishing from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ResilientFlourishing';
 import SymbioticBloomDirectClaim from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/SymbioticBloomDirectClaim';
 import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
+import PassingSeasons from 'analysis/retail/druid/restoration/modules/spells/PassingSeasons';
+import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
+import Forestwalk from 'analysis/retail/druid/restoration/modules/spells/Forestwalk';
+import VerdantHeart from 'analysis/retail/druid/restoration/modules/spells/VerdantHeart';
 import HeroTreeHealing from 'analysis/retail/druid/restoration/modules/features/HeroTreeHealing';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 import S2TierSet from 'analysis/retail/druid/restoration/modules/tier/S2TierSet';
@@ -158,6 +162,10 @@ class CombatLogParser extends CoreCombatLogParser {
     improvedWildGrowth: ImprovedWildGrowth,
     powerOfTheDream: PowerOfTheDream,
     liveliness: Liveliness,
+    passingSeasons: PassingSeasons,
+    flashOfClarity: FlashOfClarity,
+    forestwalk: Forestwalk,
+    verdantHeart: VerdantHeart,
 
     // Hero tree total (aggregates KotG / Wildstalker HPS contributions)
     heroTreeHealing: HeroTreeHealing,

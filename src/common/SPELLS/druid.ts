@@ -325,6 +325,11 @@ const spells = {
     name: 'Abundance',
     icon: 'ability_druid_empoweredrejuvination',
   },
+  FORESTWALK_BUFF: {
+    id: 400126,
+    name: 'Forestwalk',
+    icon: 'spell_lifegivingspeed',
+  },
   NATURES_CURE: {
     id: 88423,
     name: "Nature's Cure",

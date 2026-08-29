@@ -23,6 +23,16 @@ export default [
     squided,
   ),
   change(
+    date(2026, 8, 18),
+    <>
+      Add statistics for <SpellLink spell={TALENTS_DRUID.FORESTWALK_TALENT} />,{' '}
+      <SpellLink spell={TALENTS_DRUID.FLASH_OF_CLARITY_TALENT} />,{' '}
+      <SpellLink spell={TALENTS_DRUID.PASSING_SEASONS_TALENT} />, and{' '}
+      <SpellLink spell={TALENTS_DRUID.VERDANT_HEART_TALENT} />.
+    </>,
+    squided,
+  ),
+  change(
     date(2026, 8, 19),
     <>
       Improve the HoT graph: ignore pets and duplicate applies, and include{' '}
