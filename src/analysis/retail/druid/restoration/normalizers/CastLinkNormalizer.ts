@@ -532,11 +532,4 @@ export function getSourceBloom(event: HealEvent): HealEvent | undefined {
   ).pop();
 }
 
-/** Returns true iff this Genesis application was granted by a Season 2 4pc empowering cast
- *  (Nature's Swiftness, Tranquility, Incarnation: Tree of Life, or Convoke the Spirits) rather
- *  than by the 2pc Rejuvenation proc. */
-export function isGenesisFromTierCooldown(event: AbilityEvent<any>): boolean {
-  return HasRelatedEvent(event, GENESIS_FROM_TIER_CD);
-}
-
 export default CastLinkNormalizer;
