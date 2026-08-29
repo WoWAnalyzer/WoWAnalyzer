@@ -54,9 +54,11 @@ class DivertedPower extends Analyzer {
       return;
     }
     // Reduce the number of proc attempts to 1 or 2 per Bombardments proc, even in AOE.
+    // Due to travel time, the damage event can occur slightly after the debuff expires (seen up to 343 ms),
+    // so a 500 ms buffer is added.
     // To-do: Try and improve this to just 1 per Bombardments proc, even if the debuff is spread.
     const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.getBuff(SPELLS.BOMBARDMENTS_DEBUFF.id)) {
+    if (!enemy || !enemy.getBuff(SPELLS.BOMBARDMENTS_DEBUFF.id, null, 500)) {
       return;
     }
     this.procAttempts += 1;
