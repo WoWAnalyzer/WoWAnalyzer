@@ -2473,6 +2473,7 @@ export const Gazh: Contributor = {
       link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
     },
   ],
+  avatar: avatar('gazh-avatar.jpg'),
 };
 
 export const Humperella: Contributor = {
