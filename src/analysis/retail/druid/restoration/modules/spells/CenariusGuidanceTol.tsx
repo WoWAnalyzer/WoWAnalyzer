@@ -7,7 +7,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
 import { SpellIcon } from 'interface';
 import Events, {
@@ -109,13 +108,6 @@ export default class CenariusGuidanceTol extends Analyzer.withDependencies(deps)
                 death events, we have to guess precisely when the CDR occurs.
               </strong>
             </p>
-            <strong>
-              Overhealing:{' '}
-              {formatOverhealing(
-                this.deps.groveGuardians.cgOverhealing,
-                this.deps.groveGuardians.cgHealing,
-              )}
-            </strong>
           </>
         }
       >
