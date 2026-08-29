@@ -354,6 +354,10 @@ class TreeOfLife extends Analyzer {
     );
   }
 
+  _getTotalOverhealing(_accumulator: TolAccumulator) {
+    return 0;
+  }
+
   // TODO implement (what do we need?)
   /** Guide fragment showing a breakdown of each Incarnation: Tree of Life cast */
   get guideCastBreakdown() {

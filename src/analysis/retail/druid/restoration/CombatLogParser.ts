@@ -97,6 +97,7 @@ import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/Fla
 import Forestwalk from 'analysis/retail/druid/restoration/modules/spells/Forestwalk';
 import VerdantHeart from 'analysis/retail/druid/restoration/modules/spells/VerdantHeart';
 import HeroTreeHealing from 'analysis/retail/druid/restoration/modules/features/HeroTreeHealing';
+import Prosperity from 'analysis/retail/druid/restoration/modules/spells/Prosperity';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 import S2TierSet from 'analysis/retail/druid/restoration/modules/tier/S2TierSet';
 
@@ -171,6 +172,7 @@ class CombatLogParser extends CoreCombatLogParser {
     forestwalk: Forestwalk,
     verdantHeart: VerdantHeart,
     overgrowth: Overgrowth,
+    prosperity: Prosperity,
 
     // Hero tree total (aggregates KotG / Wildstalker HPS contributions)
     heroTreeHealing: HeroTreeHealing,
