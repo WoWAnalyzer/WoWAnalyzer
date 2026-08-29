@@ -5,6 +5,23 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+    change(
+    date(2026, 8, 28),
+    <>
+      Add a combined Keeper of the Grove / Wildstalker healing breakdown and statistics for
+      remaining hero talents.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 28),
+    <>
+      Count <SpellLink spell={TALENTS_DRUID.EVERBLOOM_2_RESTORATION_TALENT} /> splash and{' '}
+      <SpellLink spell={TALENTS_DRUID.SYMBIOTIC_RELATIONSHIP_TALENT} /> copies in Mastery: Harmony
+      using the source heal's HoTs instead of treating them as non-mastery healing.
+    </>,
+    squided,
+  ),
   change(
     date(2026, 8, 18),
     <>

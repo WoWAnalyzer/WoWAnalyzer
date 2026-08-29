@@ -1,7 +1,13 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Entity from 'parser/core/Entity';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { AbsorbedEvent, FightEndEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  AbsorbedEvent,
+  ApplyBuffEvent,
+  FightEndEvent,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -17,6 +23,7 @@ import {
   DOUBLE_MASTERY_BENEFIT_IDS,
   hotBuffIdForHeal,
 } from 'analysis/retail/druid/restoration/constants';
+import { getSourceBloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
 const DEBUG = false;
 
@@ -43,6 +50,30 @@ class Mastery extends Analyzer {
   druidSpellNoMasteryHealing = 0;
   masteryTimesHealing = 0;
 
+  /** Extra healing from Harmonius Blooming's bonus LB stacks (DR-aware). */
+  harmoniusBloomingHealing = 0;
+  harmoniusBloomingOverheal = 0;
+  /** Harmonius Blooming extra-stack healing on Everbloom splash (subset of {@link harmoniusBloomingHealing}). */
+  harmoniusBloomingEverbloomSplashHealing = 0;
+  harmoniusBloomingEverbloomSplashOverheal = 0;
+  /**
+   * Mastery stack snapshot at each Lifebloom bloom, keyed by `timestamp:targetID`.
+   * Everbloom splash copies the bloom amount (including that mastery) and does not
+   * re-apply mastery from HoTs on the splash target — look up this snapshot instead.
+   */
+  private bloomMasterySnapshots = new Map<string, MasteryStackSnapshot>();
+  /** Ally currently bonded by Symbiotic Relationship. */
+  private bondedAllyId: number | undefined;
+  /**
+   * Stacks that scaled the most recent self-heal (for the 10% copy to the bonded ally).
+   * Includes 0-stack snapshots so trinket self-heals don't inherit a stale HoT count.
+   */
+  private lastSelfHealMastery: MasteryStackSnapshot = { hotsOn: [], hotCount: 0 };
+  /**
+   * Stacks that scaled the most recent heal on the bonded ally (for the 8% copy back to self).
+   */
+  private lastBondedAllyHealMastery: MasteryStackSnapshot = { hotsOn: [], hotCount: 0 };
+
   // tracks mastery attribution by spell
   spellAttributions: MasteryAttributionsBySpell = {};
 
@@ -67,8 +98,17 @@ class Mastery extends Analyzer {
       this.spellAttributions[id] = new MasterySpellAttribution();
     });
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    // Player heals + pet heals that benefit from Mastery (e.g. Grove Guardian Wild Growth).
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbed);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.SYMBIOTIC_RELATIONSHIP_TALENT),
+      this.onSymbioticRelationshipApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.SYMBIOTIC_RELATIONSHIP_TALENT),
+      this.onSymbioticRelationshipRemove,
+    );
 
     // for outputting final computed values when debug is enabled
     DEBUG && this.addEventListener(Events.fightend, this.onFightEnd);
@@ -88,65 +128,44 @@ class Mastery extends Analyzer {
       this.spellAttributions[attributionSpellId].direct += healVal.effective;
     }
 
+    // Copy heals inherit the source heal's mastery and do not double-dip from dest HoTs.
+    const replicationSnapshot = this._snapshotForReplicationHeal(event);
+    if (replicationSnapshot) {
+      this._tallyMasteryAffectedHeal(
+        event,
+        healVal,
+        replicationSnapshot.hotsOn,
+        replicationSnapshot.hotCount,
+        1,
+        attributionSpellId,
+      );
+      return;
+    }
+    if (this._isReplicationHeal(spellId)) {
+      this.totalNoMasteryHealing += healVal.effective;
+      return;
+    }
+
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = this.getHotsOn(target);
-      const hasDoubleMasteryBenefit = DOUBLE_MASTERY_BENEFIT_IDS.includes(spellId);
-      const numHotsOn = this.getHotCount(target) * (hasDoubleMasteryBenefit ? 2 : 1);
-      const decomposedHeal = this._decompHeal(healVal, numHotsOn);
+      const hotCount = this.getHotCount(target);
+      const masteryBenefitMult = DOUBLE_MASTERY_BENEFIT_IDS.includes(spellId) ? 2 : 1;
 
-      if (DEBUG) {
-        let logPrefix = 'ALL-EFFECTIVE';
-        if (healVal.effective === 0) {
-          logPrefix = 'ALL-OVERHEAL';
-        } else if (healVal.overheal > 0) {
-          logPrefix = 'PARTIAL-EFFECTIVE';
-        }
-        console.log(
-          `${logPrefix} - ${event.ability.name}: ${healVal.effective.toFixed(
-            0,
-          )} (O: ${healVal.overheal.toFixed(
-            0,
-          )}) // Mastery: ${this.statTracker.currentMasteryPercentage.toFixed(
-            2,
-          )} Hots: ${numHotsOn} EffMult: ${decomposedHeal.effectiveStackMult}`,
-        );
+      if (spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id) {
+        this.bloomMasterySnapshots.set(this._bloomKey(event), { hotsOn, hotCount });
       }
 
-      this.totalNoMasteryHealing += decomposedHeal.noMastery;
-      this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
-      this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackMult;
-
-      // tally benefits for spells
-      hotsOn
-        .filter((hotOn) => hotOn !== attributionSpellId) // don't double count
-        .forEach((hotOn) => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
-
-      // tally benefits for ratings buffs
-      this.selectedCombatant
-        .activeBuffs()
-        .filter(
-          (buff) =>
-            this.statTracker.statBuffs[buff.ability.guid] &&
-            this.statTracker.statBuffs[buff.ability.guid].mastery,
-        )
-        .forEach((buff) => {
-          const buffId = buff.ability.guid;
-          const statBuff = this.statTracker.statBuffs[buffId];
-          if (!this.buffAttributions[buffId]) {
-            this.buffAttributions[buffId] = new MasteryBuffAttribution(
-              this.statTracker.getBuffValue(statBuff, statBuff.mastery),
-            );
-          }
-
-          this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
-            event,
-            decomposedHeal.relativeBuffBenefit(
-              this.buffAttributions[buffId].buffAmount * buff.stacks,
-            ),
-          );
-        });
+      this._tallyMasteryAffectedHeal(
+        event,
+        healVal,
+        hotsOn,
+        hotCount,
+        masteryBenefitMult,
+        attributionSpellId,
+      );
     } else {
       this.totalNoMasteryHealing += healVal.effective;
+      this._rememberSourceHealMastery(event, [], 0);
     }
   }
 
@@ -170,17 +189,33 @@ class Mastery extends Analyzer {
     return this.spellAttributions[healId].direct;
   }
 
-  /*
-   * Gets the total mastery healing attributed to the given resto HoT ID
-   */
-  /**
-   * The mastery healing attributed to the given resto HoT ID.
-   * This is healing done by *other* spells that were boosted by the presence
-   * of this HoT on the same target.
-   * @param healId the spell ID of the HoT
-   */
+  /** Mastery healing this HoT granted to *other* spells on the same target. */
   getMasteryHealing(healId: number) {
     return this.spellAttributions[healId].totalMastery;
+  }
+
+  getMasteryOverhealing(healId: number) {
+    return this.spellAttributions[healId].totalMasteryOverheal;
+  }
+
+  getHarmoniusBloomingHealing(): number {
+    return this.harmoniusBloomingHealing;
+  }
+
+  getHarmoniusBloomingOverhealing(): number {
+    return this.harmoniusBloomingOverheal;
+  }
+
+  getHarmoniusBloomingEverbloomSplashHealing(): number {
+    return this.harmoniusBloomingEverbloomSplashHealing;
+  }
+
+  getHarmoniusBloomingEverbloomSplashOverhealing(): number {
+    return this.harmoniusBloomingEverbloomSplashOverheal;
+  }
+
+  getBondedAllyId(): number | undefined {
+    return this.bondedAllyId;
   }
 
   /*
@@ -253,42 +288,254 @@ class Mastery extends Analyzer {
     return hotsOn.length + extraStacks;
   }
 
+  private _bloomKey(bloom: HealEvent): string {
+    return `${bloom.timestamp}:${bloom.targetID}`;
+  }
+
+  private _isReplicationHeal(spellId: number): boolean {
+    return (
+      spellId === SPELLS.EVERBLOOM_SPLASH_HEAL.id ||
+      spellId === SPELLS.SYMBIOTIC_RELATIONSHIP_HEAL.id
+    );
+  }
+
+  private onSymbioticRelationshipApply = (event: ApplyBuffEvent): void => {
+    if (event.targetID !== this.selectedCombatant.id) {
+      this.bondedAllyId = event.targetID;
+    }
+  };
+
+  private onSymbioticRelationshipRemove = (event: RemoveBuffEvent): void => {
+    if (event.targetID === this.bondedAllyId) {
+      this.bondedAllyId = undefined;
+    }
+  };
+
+  /**
+   * Stacks that actually scaled a copy heal. Everbloom splash uses the source bloom;
+   * Symbiotic Relationship uses the preceding self-heal (10% to ally) or bonded-ally heal
+   * (8% back to self).
+   */
+  private _snapshotForReplicationHeal(event: HealEvent): MasteryStackSnapshot | undefined {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.EVERBLOOM_SPLASH_HEAL.id) {
+      const sourceBloom = getSourceBloom(event);
+      if (!sourceBloom) {
+        return undefined;
+      }
+      return this.bloomMasterySnapshots.get(this._bloomKey(sourceBloom));
+    }
+    if (spellId === SPELLS.SYMBIOTIC_RELATIONSHIP_HEAL.id) {
+      if (event.targetID === this.selectedCombatant.id) {
+        return this.lastBondedAllyHealMastery;
+      }
+      this.bondedAllyId = event.targetID;
+      return this.lastSelfHealMastery;
+    }
+    return undefined;
+  }
+
+  /** Remember stacks used on this heal so a following Symbiotic Relationship copy can inherit them. */
+  private _rememberSourceHealMastery(event: HealEvent, hotsOn: number[], hotCount: number): void {
+    if (event.ability.guid === SPELLS.SYMBIOTIC_RELATIONSHIP_HEAL.id) {
+      return;
+    }
+    const snapshot = { hotsOn, hotCount };
+    if (event.targetID === this.selectedCombatant.id) {
+      this.lastSelfHealMastery = snapshot;
+    } else if (this._isBondedAllyTarget(event.targetID)) {
+      this.bondedAllyId = event.targetID;
+      this.lastBondedAllyHealMastery = snapshot;
+    }
+  }
+
+  private _isBondedAllyTarget(targetId: number): boolean {
+    if (this.bondedAllyId === targetId) {
+      return true;
+    }
+    const ally = this.combatants.getEntities()[targetId];
+    return (
+      ally?.hasBuff(
+        TALENTS_DRUID.SYMBIOTIC_RELATIONSHIP_TALENT.id,
+        null,
+        0,
+        0,
+        this.selectedCombatant.id,
+      ) ?? false
+    );
+  }
+
+  /**
+   * Shared attribution path for heals that benefit from Mastery.
+   * `hotsOn` / `hotCount` must already reflect the stacks that actually scaled the heal
+   * (the healed target for normal spells, the Lifebloom target for Everbloom splash).
+   */
+  private _tallyMasteryAffectedHeal(
+    event: HealEvent,
+    healVal: HealingValue,
+    hotsOn: number[],
+    hotCount: number,
+    masteryBenefitMult: number,
+    attributionSpellId: number,
+  ): void {
+    const decomposedHeal = this._decompHeal(healVal, hotCount, masteryBenefitMult);
+
+    if (DEBUG) {
+      let logPrefix = 'ALL-EFFECTIVE';
+      if (healVal.effective === 0) {
+        logPrefix = 'ALL-OVERHEAL';
+      } else if (healVal.overheal > 0) {
+        logPrefix = 'PARTIAL-EFFECTIVE';
+      }
+      console.log(
+        `${logPrefix} - ${event.ability.name}: ${healVal.effective.toFixed(
+          0,
+        )} (O: ${healVal.overheal.toFixed(
+          0,
+        )}) // Mastery: ${this.statTracker.currentMasteryPercentage.toFixed(
+          2,
+        )} Hots: ${hotCount} EffMult: ${decomposedHeal.effectiveStackMult}`,
+      );
+    }
+
+    this.totalNoMasteryHealing += decomposedHeal.noMastery;
+    this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
+    this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackMult;
+
+    if (this.extraLbStacks > 0 && hotsOn.includes(this.lbBuffId)) {
+      this._tallyHarmoniusBlooming(healVal, hotCount, masteryBenefitMult, event);
+    }
+
+    hotsOn
+      .filter((hotOn) => hotOn !== attributionSpellId)
+      .forEach((hotOn) =>
+        this._tallyMasteryBenefit(
+          hotOn,
+          event.ability.guid,
+          decomposedHeal.oneStack,
+          decomposedHeal.oneStackOverheal,
+        ),
+      );
+
+    this.selectedCombatant
+      .activeBuffs()
+      .filter(
+        (buff) =>
+          this.statTracker.statBuffs[buff.ability.guid] &&
+          this.statTracker.statBuffs[buff.ability.guid].mastery,
+      )
+      .forEach((buff) => {
+        const buffId = buff.ability.guid;
+        const statBuff = this.statTracker.statBuffs[buffId];
+        if (!this.buffAttributions[buffId]) {
+          this.buffAttributions[buffId] = new MasteryBuffAttribution(
+            this.statTracker.getBuffValue(statBuff, statBuff.mastery),
+          );
+        }
+
+        this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
+          event,
+          decomposedHeal.relativeBuffBenefit(
+            this.buffAttributions[buffId].buffAmount * buff.stacks,
+          ),
+        );
+      });
+
+    this._rememberSourceHealMastery(event, hotsOn, hotCount);
+  }
+
   /**
    * Tallies a heal with spellAttributions
    * @param hotId the ID of the HoT on the healed target
    * @param healId the ID of the heal being boosted
    * @param amount the amount of the boost
+   * @param overhealAmount the overheal attributable to one stack of this HoT
    */
-  _tallyMasteryBenefit(hotId: number, healId: number, amount: number): void {
-    const hotMastery = this.spellAttributions[hotId].mastery;
-    const adjustedAmount = hotId === this.lbBuffId ? amount * (1 + this.extraLbStacks) : amount;
-    if (hotMastery[healId]) {
-      hotMastery[healId] += adjustedAmount;
+  _tallyMasteryBenefit(
+    hotId: number,
+    healId: number,
+    amount: number,
+    overhealAmount: number,
+  ): void {
+    const attribution = this.spellAttributions[hotId];
+    const stackMult = hotId === this.lbBuffId ? 1 + this.extraLbStacks : 1;
+    const adjustedAmount = amount * stackMult;
+    const adjustedOverheal = overhealAmount * stackMult;
+
+    if (attribution.mastery[healId]) {
+      attribution.mastery[healId] += adjustedAmount;
     } else {
-      hotMastery[healId] = adjustedAmount;
+      attribution.mastery[healId] = adjustedAmount;
+    }
+
+    if (attribution.masteryOverheal[healId]) {
+      attribution.masteryOverheal[healId] += adjustedOverheal;
+    } else {
+      attribution.masteryOverheal[healId] = adjustedOverheal;
     }
   }
 
-  // a version of _decompHeal for call by external modules, takes the heal event
   decomposeHeal(event: HealEvent): DecomposedHeal | null {
+    const healVal = HealingValue.fromEvent(event);
+    const replicationSnapshot = this._snapshotForReplicationHeal(event);
+    if (replicationSnapshot) {
+      return this._decompHeal(healVal, replicationSnapshot.hotCount);
+    }
+    if (this._isReplicationHeal(event.ability.guid)) {
+      return this._decompHeal(healVal, 0);
+    }
     const target = this.combatants.getEntity(event);
     if (target === null) {
       return null;
     }
-    const healVal = HealingValue.fromEvent(event);
-    return this._decompHeal(healVal, this.getHotCount(target));
+    const masteryBenefitMult = DOUBLE_MASTERY_BENEFIT_IDS.includes(event.ability.guid) ? 2 : 1;
+    return this._decompHeal(healVal, this.getHotCount(target), masteryBenefitMult);
+  }
+
+  /**
+   * Extra stacks are the marginal (highest) ones, so overheal comes off them first.
+   * Credits (mult(n) - mult(n - extraLbStacks)) * masteryPct * rawNoMastery.
+   */
+  _tallyHarmoniusBlooming(
+    healVal: HealingValue,
+    hotCount: number,
+    masteryBenefitMult: number,
+    event: HealEvent,
+  ): void {
+    const masteryBonus = this.statTracker.currentMasteryPercentage;
+    const multWith = masteryHotCountToMult(hotCount);
+    const multWithout = masteryHotCountToMult(hotCount - this.extraLbStacks);
+    const healMasteryMultWith = 1 + multWith * masteryBonus * masteryBenefitMult;
+    const healMasteryMultWithout = 1 + multWithout * masteryBonus * masteryBenefitMult;
+    const rawNoMasteryHealing = healVal.raw / healMasteryMultWith;
+
+    const extraStacksRaw =
+      rawNoMasteryHealing * (multWith - multWithout) * masteryBonus * masteryBenefitMult;
+    const rawWithout = rawNoMasteryHealing * healMasteryMultWithout;
+    const extraStacksEffective = Math.max(
+      0,
+      Math.min(extraStacksRaw, healVal.effective - rawWithout),
+    );
+    const extraStacksOverheal = extraStacksRaw - extraStacksEffective;
+
+    this.harmoniusBloomingHealing += extraStacksEffective;
+    this.harmoniusBloomingOverheal += extraStacksOverheal;
+
+    if (event.ability.guid === SPELLS.EVERBLOOM_SPLASH_HEAL.id) {
+      this.harmoniusBloomingEverbloomSplashHealing += extraStacksEffective;
+      this.harmoniusBloomingEverbloomSplashOverheal += extraStacksOverheal;
+    }
   }
 
   /**
    * Decomposes a heal's amount to show the amounts attributable to mastery
-   * @param healVal the HealingValue being decomposed
-   * @param hotCount the number of HoTs present on the target which provide Mastery boost
+   * @param masteryBenefitMult extra multiplier on the mastery bonus (2 for GG Nourish). DR table still uses hotCount.
    */
-  _decompHeal(healVal: HealingValue, hotCount: number): DecomposedHeal {
+  _decompHeal(healVal: HealingValue, hotCount: number, masteryBenefitMult = 1): DecomposedHeal {
     // mastery diminishing returns with more HoTs on - do the table lookup and get overall bonus
     const hotMult = masteryHotCountToMult(hotCount);
     const masteryBonus = this.statTracker.currentMasteryPercentage;
-    const healBonus = hotMult * masteryBonus;
+    const healBonus = hotMult * masteryBonus * masteryBenefitMult;
     const healMasteryMult = 1 + healBonus;
     // the raw healing this spell would have done if it benefitted from zero mastery stacks
     const rawNoMasteryHealing = healVal.raw / healMasteryMult;
@@ -297,16 +544,20 @@ class Mastery extends Analyzer {
 
     // because Mastery is a bonus on top of the base healing, all overhealing is counted against Mastery
     const effectiveMasteryHealing = healVal.effective - noMasteryHealing;
+    const rawMasteryHealing = healVal.raw - rawNoMasteryHealing;
+    const masteryOverheal = Math.max(0, rawMasteryHealing - effectiveMasteryHealing);
     // when Mastery bonus is partially but not completely overhealing, the stacks equally share attribution
-    const oneStackMasteryHealingEffective = effectiveMasteryHealing / hotCount;
+    const oneStackMasteryHealingEffective = hotCount > 0 ? effectiveMasteryHealing / hotCount : 0;
+    const oneStackMasteryOverheal = hotCount > 0 ? masteryOverheal / hotCount : 0;
 
     const oneStackMasteryHealingRaw = rawNoMasteryHealing * masteryBonus;
     // the multiplier of mastery that we actually benefitted from once overheal is considered.
-    const effectiveStackMult = effectiveMasteryHealing / oneStackMasteryHealingRaw;
+    const effectiveStackMult =
+      oneStackMasteryHealingRaw > 0 ? effectiveMasteryHealing / oneStackMasteryHealingRaw : 0;
 
     const relativeBuffBenefit = (buffRating: number) => {
       const buffBonus =
-        (hotCount * buffRating) /
+        (hotCount * buffRating * masteryBenefitMult) /
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
@@ -318,10 +569,19 @@ class Mastery extends Analyzer {
     return {
       noMastery: noMasteryHealing,
       oneStack: oneStackMasteryHealingEffective,
+      oneStackOverheal: oneStackMasteryOverheal,
       effectiveStackMult,
       relativeBuffBenefit,
     };
   }
+}
+
+/**
+ * Mastery stacks that actually scaled a heal (and any copy heals that inherit it).
+ */
+interface MasteryStackSnapshot {
+  hotsOn: number[];
+  hotCount: number;
 }
 
 /**
@@ -335,14 +595,20 @@ type MasteryAttributionsBySpell = Record<number, MasterySpellAttribution>;
 class MasterySpellAttribution {
   direct: number; // the direct healing from the HoT, should be same as entry in WCL. Includes benefit from own stack of Mastery.
   mastery: Record<number, number>; // a mapping from spell ID to how much this HoT boosted it via Mastery.
+  masteryOverheal: Record<number, number>; // parallel to mastery, overheal from the Mastery boost.
 
   constructor() {
     this.direct = 0;
     this.mastery = {};
+    this.masteryOverheal = {};
   }
 
   get totalMastery(): number {
     return Object.values(this.mastery).reduce((s, v) => s + v, 0);
+  }
+
+  get totalMasteryOverheal(): number {
+    return Object.values(this.masteryOverheal).reduce((s, v) => s + v, 0);
   }
 
   get total(): number {
@@ -376,6 +642,8 @@ interface DecomposedHeal {
   noMastery: number;
   /** The amount of effective heal added per stack of mastery */
   oneStack: number;
+  /** The amount of overheal attributable per stack of mastery */
+  oneStackOverheal: number;
   /** Multiplier of our mastery that we actually benefitted from once overheal is considered */
   effectiveStackMult: number;
   /** Function from mastery buff rating to heal attributable to that buff */

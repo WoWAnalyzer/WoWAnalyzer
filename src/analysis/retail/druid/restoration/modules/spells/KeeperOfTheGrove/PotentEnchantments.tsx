@@ -27,6 +27,10 @@ export default class PotentEnchantments extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.POTENT_ENCHANTMENTS_TALENT);
   }
 
+  get healing() {
+    return this.treeOfLife.getPotentEnchantmentsHealing();
+  }
+
   statistic() {
     return (
       <Statistic

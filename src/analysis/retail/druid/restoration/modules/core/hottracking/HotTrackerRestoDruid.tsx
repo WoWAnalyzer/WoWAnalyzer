@@ -13,9 +13,9 @@ import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   MASTERY_STACK_BUFF_IDS,
 } from 'analysis/retail/druid/restoration/constants';
+import { getSourceBloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-export const GERMINATION_ATT_NAME = 'Germination extension';
 export const IMP_REJUV_ATT_NAME = 'Improved Rejuvenation extension';
 export const THRIVING_VEG_ATT_NAME = 'Thriving Vegetation extension';
 
@@ -39,13 +39,31 @@ class HotTrackerRestoDruid extends HotTracker {
   onHeal(event: HealEvent) {
     // find if spell benefits from mastery and if there are other HoTs possibly boosting it on the same target
     const spellId = event.ability.guid;
-    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
+    const sourceBloom =
+      spellId === SPELLS.EVERBLOOM_SPLASH_HEAL.id ? getSourceBloom(event) : undefined;
+    const isSymbioticRelationshipCopy = spellId === SPELLS.SYMBIOTIC_RELATIONSHIP_HEAL.id;
+    if (
+      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId) &&
+      !sourceBloom &&
+      !isSymbioticRelationshipCopy
+    ) {
       return;
     }
-    const targetId = event.targetID;
+    // Copy heals inherit mastery from HoTs on the source target, not the copy's target.
+    let targetId: number | undefined = sourceBloom?.targetID ?? event.targetID;
+    if (isSymbioticRelationshipCopy) {
+      targetId =
+        event.targetID === this.selectedCombatant.id
+          ? this.mastery.getBondedAllyId()
+          : this.selectedCombatant.id;
+    }
+    if (targetId === undefined) {
+      return;
+    }
     const trackersOnTarget: TrackersBySpell | undefined = this.hots[targetId];
-    const buffSpellId = this.getBuffSpellIdForHeal(spellId);
-    if (!trackersOnTarget || !trackersOnTarget[buffSpellId]) {
+    const buffSpellId =
+      sourceBloom || isSymbioticRelationshipCopy ? undefined : this.getBuffSpellIdForHeal(spellId);
+    if (!trackersOnTarget || (buffSpellId !== undefined && !trackersOnTarget[buffSpellId])) {
       return;
     }
     // figure out the amount of healing attributable to each stack
@@ -56,22 +74,24 @@ class HotTrackerRestoDruid extends HotTracker {
     const oneStackHealing = decomposedHeal.oneStack;
 
     // for each mastery stack HoT on the same target, one stack of healing
-    const ourTracker = trackersOnTarget[buffSpellId];
-    const ourAttributions = this._getActiveAttributions(ourTracker);
+    const ourAttributions =
+      buffSpellId !== undefined ? this._getActiveAttributions(trackersOnTarget[buffSpellId]) : [];
     Object.keys(trackersOnTarget).forEach((id) => {
       const nid = Number(id);
       if (buffSpellId === nid || !MASTERY_STACK_BUFF_IDS.includes(nid)) {
         return; // must give a mastery stack and not be the current heal
       }
 
-      // TODO handle multi-stack LB here
       const tracker = trackersOnTarget[nid];
       const otherAttributions = this._getActiveAttributions(tracker);
-      // attribute to the other HoT the healing it caused here due to its mastery stack
+      // Lifebloom provides extra Mastery stacks with Harmonius Blooming, so it credits multiple
+      // stacks of healing - mirrors Mastery._tallyMasteryBenefit's stackMult.
+      const stackMult = nid === this.mastery.lbBuffId ? 1 + this.mastery.extraLbStacks : 1;
+      // attribute to the other HoT the healing it caused here due to its mastery stack(s)
       otherAttributions.forEach((att) => {
         // avoid cross attributing between two things with same attribution - will cause double count
         if (!ourAttributions.includes(att)) {
-          att.healing += oneStackHealing;
+          att.healing += oneStackHealing * stackMult;
         }
       });
     });
@@ -94,13 +114,11 @@ class HotTrackerRestoDruid extends HotTracker {
     const impRejuvRank = this.selectedCombatant.getTalentRank(
       TALENTS_DRUID.LINGERING_HEALING_TALENT,
     );
-    const germinationRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.GERMINATION_TALENT);
     const thrivingVegetationRank = this.selectedCombatant.getTalentRank(
       TALENTS_DRUID.THRIVING_VEGETATION_TALENT,
     );
 
     const improvedRejuvenationAtt = HotTracker.getNewAttribution(IMP_REJUV_ATT_NAME);
-    const germinationAtt = HotTracker.getNewAttribution(GERMINATION_ATT_NAME);
     const thrivingVegetationAtt = HotTracker.getNewAttribution(THRIVING_VEG_ATT_NAME);
 
     return [
@@ -108,19 +126,13 @@ class HotTrackerRestoDruid extends HotTracker {
         spell: SPELLS.REJUVENATION,
         duration: 12000,
         tickPeriod: 3000,
-        baseExtensions: [
-          { attribution: germinationAtt, amount: germinationRank * 2000 },
-          { attribution: improvedRejuvenationAtt, amount: impRejuvRank * 3000 },
-        ],
+        baseExtensions: [{ attribution: improvedRejuvenationAtt, amount: impRejuvRank * 3000 }],
       },
       {
         spell: SPELLS.REJUVENATION_GERMINATION,
         duration: 12000,
         tickPeriod: 3000,
-        baseExtensions: [
-          { attribution: germinationAtt, amount: germinationRank * 2000 },
-          { attribution: improvedRejuvenationAtt, amount: impRejuvRank * 3000 },
-        ],
+        baseExtensions: [{ attribution: improvedRejuvenationAtt, amount: impRejuvRank * 3000 }],
       },
       {
         spell: SPELLS.REGROWTH,
@@ -142,44 +154,12 @@ class HotTrackerRestoDruid extends HotTracker {
         tickPeriod: 1000,
       },
       {
-        spell: SPELLS.CENARION_WARD_HEAL,
-        duration: 8000,
-        tickPeriod: 2000,
-      },
-      {
-        spell: SPELLS.CULTIVATION,
-        duration: 6000,
-        tickPeriod: 2000,
-      },
-      {
-        spell: SPELLS.SPRING_BLOSSOMS,
-        duration: 6000,
-        tickPeriod: 2000,
-        noHaste: true,
-      },
-      {
         spell: SPELLS.TRANQUILITY_HEAL,
         duration: 8000,
         tickPeriod: 2000,
         refreshNoPandemic: true,
       },
-      {
-        spell: SPELLS.ADAPTIVE_SWARM_HEAL,
-        duration: 12000,
-        tickPeriod: 2000,
-      },
-      {
-        spell: SPELLS.RENEWING_BLOOM,
-        duration: 8000,
-        tickPeriod: 1000,
-      },
-      {
-        spell: SPELLS.GROVE_TENDING,
-        duration: 9000,
-        tickPeriod: 3000,
-      },
-      // Wildstalker's Symbiotic Bloom appears to largely not interact with extensions
-      // and other similar mechanics, so is inteniontally left out of this list.
+      // Symbiotic Bloom mostly ignores extensions, so it's left out on purpose.
     ];
   }
 }

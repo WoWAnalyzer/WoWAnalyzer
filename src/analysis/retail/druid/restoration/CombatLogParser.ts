@@ -69,7 +69,12 @@ import BounteousBloom from 'analysis/retail/druid/restoration/modules/spells/Kee
 import EarlySpring from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/EarlySpring';
 import PowerOfTheDream from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PowerOfTheDream';
 import HarmonyOfTheGrove from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/HarmonyOfTheGrove';
+import KotgTreeAmpAttribution from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/KotgTreeAmpAttribution';
 import PotentEnchantments from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/PotentEnchantments';
+import DreamSurge from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/DreamSurge';
+import DurabilityOfNature from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/DurabilityOfNature';
+import SpiritOfTheThicket from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/SpiritOfTheThicket';
+import SylvanBeckoning from 'analysis/retail/druid/restoration/modules/spells/KeeperOfTheGrove/SylvanBeckoning';
 import HuntBeneathTheOpenSkies from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/HuntBeneathTheOpenSkies';
 import StrategicInfusion from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/StrategicInfusion';
 import WildstalkersPower from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/WildstalkersPower';
@@ -77,11 +82,17 @@ import HarmoniousConstitution from 'analysis/retail/druid/restoration/modules/sp
 import BondWithNature from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BondWithNature';
 import PatientCustodian from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/PatientCustodian';
 import VigorousCreepers from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/VigorousCreepers';
+import BurstingGrowth from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/BurstingGrowth';
+import FlowerWalk from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/FlowerWalk';
+import LethalPreservation from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/LethalPreservation';
+import ResilientFlourishing from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/ResilientFlourishing';
+import SymbioticBloomDirectClaim from 'analysis/retail/druid/restoration/modules/spells/Wildstalker/SymbioticBloomDirectClaim';
 import Liveliness from 'analysis/retail/druid/restoration/modules/spells/Liveliness';
 import PassingSeasons from 'analysis/retail/druid/restoration/modules/spells/PassingSeasons';
 import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
 import Forestwalk from 'analysis/retail/druid/restoration/modules/spells/Forestwalk';
 import VerdantHeart from 'analysis/retail/druid/restoration/modules/spells/VerdantHeart';
+import HeroTreeHealing from 'analysis/retail/druid/restoration/modules/features/HeroTreeHealing';
 import S1TierSet from 'analysis/retail/druid/restoration/modules/tier/S1TierSet';
 import S2TierSet from 'analysis/retail/druid/restoration/modules/tier/S2TierSet';
 
@@ -156,8 +167,15 @@ class CombatLogParser extends CoreCombatLogParser {
     forestwalk: Forestwalk,
     verdantHeart: VerdantHeart,
 
+    // Hero tree total (aggregates KotG / Wildstalker HPS contributions)
+    heroTreeHealing: HeroTreeHealing,
+
     // Keeper of the Grove
     protectiveGrowth: ProtectiveGrowth,
+    dreamSurge: DreamSurge,
+    sylvanBeckoning: SylvanBeckoning,
+    spiritOfTheThicket: SpiritOfTheThicket,
+    durabilityOfNature: DurabilityOfNature,
     cenariusMight: CenariusMight,
     powerOfNature: PowerOfNature,
     grovesInspiration: GrovesInspiration,
@@ -165,9 +183,15 @@ class CombatLogParser extends CoreCombatLogParser {
     bounteousBloom: BounteousBloom,
     earlySpring: EarlySpring,
     harmonyOfTheGrove: HarmonyOfTheGrove,
+    kotgTreeAmpAttribution: KotgTreeAmpAttribution,
     potentEnchantments: PotentEnchantments,
 
     // Wildstalker
+    burstingGrowth: BurstingGrowth,
+    flowerWalk: FlowerWalk,
+    lethalPreservation: LethalPreservation,
+    resilientFlourishing: ResilientFlourishing,
+    symbioticBloomDirectClaim: SymbioticBloomDirectClaim,
     rootNetwork: RootNetwork,
     huntBeneathTheOpenSkies: HuntBeneathTheOpenSkies,
     strategicInfusion: StrategicInfusion,
