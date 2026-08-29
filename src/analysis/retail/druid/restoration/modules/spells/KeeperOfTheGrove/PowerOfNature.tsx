@@ -7,7 +7,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 const POWER_OF_NATURE_HEALING_INCREASE = 0.1;
 
@@ -28,6 +29,7 @@ const EVERBLOOM_SPELLS = [SPELLS.EVERBLOOM_SPLASH_HEAL.id];
  */
 export default class PowerOfNature extends Analyzer {
   totalHealing = 0;
+  totalOverhealing = 0;
   rejuvHealing = 0;
   effloHealing = 0;
   lifebloomHealing = 0;
@@ -62,6 +64,7 @@ export default class PowerOfNature extends Analyzer {
 
     const healing = calculateEffectiveHealing(event, POWER_OF_NATURE_HEALING_INCREASE * stacks);
     this.totalHealing += healing;
+    this.totalOverhealing += calculateOverhealing(event, POWER_OF_NATURE_HEALING_INCREASE * stacks);
 
     const spellId = event.ability.guid;
     if (REJUV_SPELLS.includes(spellId)) {
@@ -106,6 +109,11 @@ export default class PowerOfNature extends Analyzer {
                 <strong>{this.owner.formatItemHealingDone(this.everbloomHealing)}</strong>
               </li>
             )}
+            <li>
+              <strong>
+                Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+              </strong>
+            </li>
           </ul>
         }
       >
