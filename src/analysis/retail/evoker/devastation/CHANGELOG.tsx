@@ -7,6 +7,7 @@ import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_MID1_ID } from 'common/ITEMS';
 
 export default [
+  change(date(2026, 8, 29), <>Updated <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT} /> module.</>, KYZ),
   change(date(2026, 6, 12), <>Fixed display error of <SpellLink spell={SPELLS.DISINTEGRATE} /> module</>, Baumritter),
   change(date(2026, 6, 12), <>Added statistic for tracking empower rank usage.</>, Baumritter),
   change(date(2026, 6, 7), <>Fixed display issues for <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> </>, Baumritter),
