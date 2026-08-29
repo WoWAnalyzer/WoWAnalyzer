@@ -57,8 +57,6 @@ function GuideContent({ modules, events, info }: GuideProps<typeof CombatLogPars
         {info.combatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT) && (
           <SubSection>{modules.abundanceGraph.guideSubsection}</SubSection>
         )}
-        {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
-          modules.soulOfTheForest.guideSubsection}
         {!info.combatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT) &&
           modules.efflorescence.guideSubsection}
         {modules.rejuvenation.guideSubsection}
