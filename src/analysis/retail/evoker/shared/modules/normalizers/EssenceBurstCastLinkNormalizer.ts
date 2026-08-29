@@ -52,6 +52,8 @@ const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
 
 const EB_FROM_ESSENCE_WELL = 'ebFromEssenceWell';
 
+const EB_FROM_UNBOUND_FLAME = 'ebFromUnboundFlame';
+
 /** More deterministic links should be placed above less deterministic links
  * eg.
  * Arcane Vigor from Devastation makes Shattering Star casts produce a guaranteed EB.
@@ -70,6 +72,22 @@ const EB_FROM_ESSENCE_WELL = 'ebFromEssenceWell';
  */
 const EVENT_LINKS: EventLink[] = [
   {
+    linkRelation: EB_FROM_UNBOUND_FLAME,
+    reverseLinkRelation: EB_FROM_UNBOUND_FLAME,
+    linkingEventId: SPELLS.UNBOUND_FLAME.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
+    },
+  },
+  {
     linkRelation: EB_FROM_RISEN_FURY,
     reverseLinkRelation: EB_FROM_RISEN_FURY,
     linkingEventId: SPELLS.RISEN_FURY_BUFF.id,
@@ -79,7 +97,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: RISEN_FURY_EB_INTERVAL_MS * RISING_FURY_MAX_STACKS + ESSENCE_BURST_BUFFER,
     maximumLinks: RISING_FURY_MAX_STACKS,
-    isActive: (c) => c.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT),
+    isActive: (c) => false, // Can't remove without getting into Dev stuff, but need to disable to test Diverted Power chances
     additionalCondition(linkingEvent, referencedEvent) {
       // applies one EB in equal intervals for the duration of the buff,
       // so check if the timestamp difference is divisible by the internval allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
@@ -258,6 +276,7 @@ export const EBSource = {
   DivertedPower: EB_FROM_DIVERTED_POWER,
   EssenceWell: EB_FROM_ESSENCE_WELL,
   RisenFury: EB_FROM_RISEN_FURY,
+  UnboundFlame: EB_FROM_UNBOUND_FLAME,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];
 
