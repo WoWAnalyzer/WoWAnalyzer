@@ -35,6 +35,7 @@ import { wclGameVersionToBranch } from 'game/VERSIONS';
 import GameBranch from 'game/GameBranch';
 import { fetchCombatants } from 'common/fetchWclApi';
 import { normalizedEncounterId } from 'game/raids';
+import useDungeonPullList from './DungeonPullList/DungeonPullListCombatParser';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -104,7 +105,7 @@ const ResultsLoader = () => {
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
 
-  const { events, currentTime, error } = useEvents({ report, fight, player });
+  const { events, currentTime, error, pulls } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
   const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
@@ -239,6 +240,19 @@ const ResultsLoader = () => {
     dependenciesLoading: isLoadingParser || isLoadingCharacterProfile || isFilteringEvents,
     playerCombatantInfo,
   });
+
+  const dungeonPullDetails = useDungeonPullList({
+    report,
+    fight,
+    config,
+    player,
+    allPlayers,
+    parser: parserClass,
+    characterProfile,
+    pulls,
+  });
+  console.log(pulls, dungeonPullDetails);
+
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
   const pageProgress = (currentTime - fight.start_time) / (fight.end_time - fight.start_time);

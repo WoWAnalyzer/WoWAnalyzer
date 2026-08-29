@@ -52,6 +52,11 @@ function fightTimeRanges(fight: WCLFight): EventRange[] {
   });
 }
 
+export interface DungeonPullEvents {
+  target: EventRange['target'];
+  events: AnyEvent[];
+}
+
 const useEvents = ({
   report,
   fight,
@@ -62,7 +67,7 @@ const useEvents = ({
   player: Pick<PlayerInfo, 'id'>;
 }) => {
   const [events, setEvents] = useState<AnyEvent[] | null>(null);
-  const [pulls, setPulls] = useState<{ target: EventRange['target']; events: AnyEvent[] }[]>([]);
+  const [pulls, setPulls] = useState<DungeonPullEvents[]>([]);
   const [currentTime, setCurrentTime] = useState<number>(fight.start_time);
   const [error, setError] = useState<Error | undefined>();
 
@@ -76,10 +81,7 @@ const useEvents = ({
             break;
           }
 
-          setPulls((pulls) => {
-            pulls.push(range);
-            return pulls;
-          });
+          setPulls((pulls) => [...pulls, range]);
           setCurrentTime(range.target.end_time);
           events = events.concat(range.events);
         }
