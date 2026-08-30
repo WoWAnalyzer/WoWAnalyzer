@@ -147,6 +147,7 @@ class Causality extends Analyzer {
         source.wastedCDRMIDS24P += wastedCDR / 1000;
       } else {
         source.CDR += effectiveCDR / 1000;
+        source.wastedCDR += wastedCDR / 1000;
       }
     }
   }
