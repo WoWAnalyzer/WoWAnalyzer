@@ -2,13 +2,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TIERS } from 'game/TIERS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/evoker';
-import { getCastEventFromDamage } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import {
   MID2_2P_DAMAGE_AMP,
   SHATTERING_STARS_MULTIPLIER_PER_RANK,
 } from 'analysis/retail/evoker/devastation/constants';
-import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -50,11 +48,6 @@ export default class MID2Devastation2P extends Analyzer {
     this.damageFromAmp += (totalExtraDamage * MID2_2P_DAMAGE_AMP) / totalAmp;
     this.damageFromAlwaysUprank +=
       (totalExtraDamage * SHATTERING_STARS_MULTIPLIER_PER_RANK * this.uprankOverride) / totalAmp;
-
-    const castEvent = getCastEventFromDamage(event);
-    if (!castEvent || encodeEventTargetString(castEvent) !== encodeEventTargetString(event)) {
-      return;
-    }
   }
 
   statistic() {

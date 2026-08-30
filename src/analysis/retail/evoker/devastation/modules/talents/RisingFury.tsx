@@ -26,7 +26,7 @@ import {
   isEBFrom,
 } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import Soup from 'interface/icons/Soup';
-import { CrossIcon, WarningIcon } from 'interface/icons';
+import { WarningIcon } from 'interface/icons';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
 
@@ -49,6 +49,11 @@ class RisingFury extends Analyzer {
       this.selectedCombatant.getTalentRank(TALENTS.RISING_FURY_2_DEVASTATION_TALENT)
     ];
 
+  statsUnboundFlame = {
+    usedStacks: 0,
+    totalStacks: 0,
+  };
+
   risingFuryStacks = 0;
   unboundFlameStacks = 0;
 
@@ -57,8 +62,6 @@ class RisingFury extends Analyzer {
 
   essenceBurstGenerated = 0;
   essenceBurstWasted = 0;
-
-  unboundFlameUnused = 0;
 
   hasUnboundFlame = this.selectedCombatant.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT);
 
@@ -129,16 +132,15 @@ class RisingFury extends Analyzer {
 
   private onApplyUnboundFlame(event: ApplyBuffEvent) {
     this.unboundFlameStacks = 4;
+    this.statsUnboundFlame.totalStacks += 4;
   }
 
   private onCastUnboundFlame(event: CastEvent) {
     this.unboundFlameStacks -= 1;
+    this.statsUnboundFlame.usedStacks += 1;
   }
 
   private onRemoveUnboundFlame(event: RemoveBuffEvent) {
-    if (this.unboundFlameStacks > 0) {
-      this.unboundFlameUnused += this.unboundFlameStacks;
-    }
     this.unboundFlameStacks = 0;
   }
 
@@ -151,6 +153,14 @@ class RisingFury extends Analyzer {
     if (isEBFrom(event, EBSource.UnboundFlame)) {
       this.essenceBurstWasted += 1;
     }
+  }
+
+  get usedUnboundFlameStacks() {
+    return this.statsUnboundFlame.usedStacks;
+  }
+
+  get totalUnboundFlameStacks() {
+    return this.statsUnboundFlame.totalStacks;
   }
 
   statistic() {
@@ -185,14 +195,6 @@ class RisingFury extends Analyzer {
                 <WarningIcon /> {this.essenceBurstWasted}{' '}
                 <small>
                   <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> wasted
-                </small>
-              </div>
-            )}
-            {this.unboundFlameUnused > 0 && (
-              <div>
-                <CrossIcon /> {this.unboundFlameUnused}{' '}
-                <small>
-                  <SpellLink spell={SPELLS.UNBOUND_FLAME} /> stacks unused
                 </small>
               </div>
             )}

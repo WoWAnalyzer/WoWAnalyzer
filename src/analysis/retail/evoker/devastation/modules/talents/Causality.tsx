@@ -46,14 +46,12 @@ class Causality extends Analyzer {
     [SPELLS.PYRE.id]: {
       CDR: 0,
       wastedCDR: 0,
-      wastedCDRDuringBlazing: 0,
       CDRMIDS24P: 0,
       wastedCDRMIDS24P: 0,
     },
     [SPELLS.DISINTEGRATE.id]: {
       CDR: 0,
       wastedCDR: 0,
-      wastedCDRDuringBlazing: 0,
       CDRMIDS24P: 0,
       wastedCDRMIDS24P: 0,
     },
@@ -123,7 +121,7 @@ class Causality extends Analyzer {
     if (this.pyreCounter < this.maxPyreCount) {
       this.pyreCounter += 1;
       this.calculateCDR(CAUSALITY_PYRE_CDR_MS, SPELLS.PYRE.id);
-      this.hasMIDS24P && this.calculateCDR(MID2_4P_CDR_MS, SPELLS.PYRE.id, true);
+      if (this.hasMIDS24P) this.calculateCDR(MID2_4P_CDR_MS, SPELLS.PYRE.id, true);
     }
   }
 
@@ -134,7 +132,7 @@ class Causality extends Analyzer {
     }
 
     this.calculateCDR(CAUSALITY_DISINTEGRATE_CDR_MS, SPELLS.DISINTEGRATE.id);
-    this.hasMIDS24P && this.calculateCDR(MID2_4P_CDR_MS, SPELLS.DISINTEGRATE.id, true);
+    if (this.hasMIDS24P) this.calculateCDR(MID2_4P_CDR_MS, SPELLS.PYRE.id, true);
   }
 
   calculateCDR(CDRAmount: number, sourceId: number, fromMIDS24P = false) {
@@ -149,12 +147,6 @@ class Causality extends Analyzer {
         source.wastedCDRMIDS24P += wastedCDR / 1000;
       } else {
         source.CDR += effectiveCDR / 1000;
-
-        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-          source.wastedCDRDuringBlazing += wastedCDR / 1000;
-        } else {
-          source.wastedCDR += wastedCDR / 1000;
-        }
       }
     }
   }
@@ -176,9 +168,6 @@ class Causality extends Analyzer {
   statistic() {
     const effectiveCDR =
       this.sourceData[SPELLS.PYRE.id].CDR + this.sourceData[SPELLS.DISINTEGRATE.id].CDR;
-    const blazingCDR =
-      this.sourceData[SPELLS.PYRE.id].wastedCDRDuringBlazing +
-      this.sourceData[SPELLS.DISINTEGRATE.id].wastedCDRDuringBlazing;
     const wastedCDR =
       this.sourceData[SPELLS.PYRE.id].wastedCDR + this.sourceData[SPELLS.DISINTEGRATE.id].wastedCDR;
 
@@ -230,17 +219,6 @@ class Causality extends Analyzer {
           (wastedCDR + MIDS24P_wastedCDR).toFixed(2) + 's CDR wasted whilst an Empower was ready',
         value: wastedCDR + MIDS24P_wastedCDR,
       },
-      ...(blazingCDR > 0
-        ? [
-            {
-              color: 'rgb(248,233,190)',
-              label: SPELLS.BLAZING_SHARDS.name,
-              spellId: SPELLS.BLAZING_SHARDS.id,
-              valueTooltip: blazingCDR.toFixed(2) + 's CDR wasted during Blazing Shards',
-              value: blazingCDR,
-            },
-          ]
-        : []),
     ];
 
     return (
