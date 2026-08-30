@@ -126,3 +126,17 @@ export function formatSeconds(durationMs: number, precision: number): number {
 export function formatNth(number: number): string {
   return number.toString() + (['st', 'nd', 'rd'][((((number + 90) % 100) - 10) % 10) - 1] || 'th');
 }
+
+/**
+ * Formats mana saved as a flat amount and as a percentage of total mana.
+ * Pass combat-log max mana (e.g. `ManaValues.maxMana`) so talents and enchants
+ * that increase the pool are included. Healers share a base mana pool.
+ * Example: `123,456 (4.9% total mana)`
+ */
+export function formatManaSaved(manaSaved: number, maxMana: number, precision = 1): string {
+  const amount = formatThousands(manaSaved);
+  if (maxMana <= 0) {
+    return amount;
+  }
+  return `${amount} (${formatPercentage(manaSaved / maxMana, precision)}% total mana)`;
+}

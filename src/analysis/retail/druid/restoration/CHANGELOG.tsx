@@ -6,6 +6,16 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
   change(
+    date(2026, 8, 30),
+    <>
+      Show mana saved (amount and percent of total mana) on{' '}
+      <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} />,{' '}
+      <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />, and{' '}
+      <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} /> tooltips.
+    </>,
+    squided,
+  ),
+  change(
     date(2026, 8, 29),
     <>
       Track <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> overhealing and free{' '}
