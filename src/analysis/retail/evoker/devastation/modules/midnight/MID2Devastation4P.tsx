@@ -7,7 +7,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SpellLink from 'interface/SpellLink';
 import ItemSetLink from 'interface/ItemSetLink';
-import { EVOKER_MID1_ID } from 'common/ITEMS';
+import { EVOKER_MID2_ID } from 'common/ITEMS';
 import TALENTS from 'common/TALENTS/evoker';
 import DonutChart from 'parser/ui/DonutChart';
 import Causality from '../talents/Causality';
@@ -74,7 +74,7 @@ export default class MID2Devastation2P extends Analyzer.withDependencies({
       >
         <div className="pad">
           <label>
-            <ItemSetLink id={EVOKER_MID1_ID}>MID Season 1 Tier Set 4-piece</ItemSetLink>
+            <ItemSetLink id={EVOKER_MID2_ID}>MID Season 2 Tier Set 4-piece</ItemSetLink>
           </label>
         </div>
         <div className="pad">
