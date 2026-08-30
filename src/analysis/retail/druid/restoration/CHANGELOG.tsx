@@ -6,7 +6,16 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 29),
+    <>
+      Track <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> overhealing and free{' '}
+      <SpellLink spell={SPELLS.REGROWTH} />s, update the Tree of Life guide copy, and show{' '}
+      <SpellLink spell={TALENTS_DRUID.POTENT_ENCHANTMENTS_TALENT} /> overheal.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 29),
     <>
       Updated Restoration Druid for 12.1. Added an Advanced{' '}
       <SpellLink spell={SPELLS.REJUVENATION} /> section and a{' '}
@@ -15,12 +24,12 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 29),
     <>Rework the <SpellLink spell={SPELLS.REGROWTH} /> guide section for the 12.1 playstyle.</>,
     squided,
   ),
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 29),
     <>
       Rework the <SpellLink spell={SPELLS.SWIFTMEND} /> guide section for the 12.1 playstyle and add
       a <SpellLink spell={TALENTS_DRUID.PROSPERITY_TALENT} /> statistic.
@@ -28,7 +37,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 29),
     <>
       Rework the <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} /> guide section for the 12.1
       playstyle.
@@ -36,12 +45,12 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 29),
     <>Add an Advanced toggle to the Restoration Druid guide for extra cast analysis.</>,
     squided,
   ),
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 28),
     <>
       Attribute <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} />,{' '}
       <SpellLink spell={TALENTS_DRUID.IMPLANT_TALENT} />, and{' '}
@@ -68,7 +77,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 18),
+    date(2026, 8, 28),
     <>
       Add statistics for <SpellLink spell={TALENTS_DRUID.FORESTWALK_TALENT} />,{' '}
       <SpellLink spell={TALENTS_DRUID.FLASH_OF_CLARITY_TALENT} />,{' '}
@@ -86,7 +95,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 19),
+    date(2026, 8, 27),
     <>
       Improve the HoT graph: ignore pets and duplicate applies, and include{' '}
       <SpellLink spell={SPELLS.REGROWTH} />.
@@ -94,7 +103,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 19),
+    date(2026, 8, 27),
     <>
       Rework the <SpellLink spell={SPELLS.WILD_GROWTH} /> guide section and allow CastDetail stats
       to be ungraded or limited to a subset of performance grades.
@@ -102,7 +111,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 19),
+    date(2026, 8, 27),
     <>
       Evaluate <SpellLink spell={SPELLS.INNERVATE} /> as a self mana cooldown (capping / wasted
       regen) instead of a shared healing throughput window.
@@ -110,7 +119,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 19),
+    date(2026, 8, 27),
     <>
       Attribute overhealing from the crit chance bonus on{' '}
       <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> and{' '}
@@ -119,7 +128,7 @@ export default [
     squided,
   ),
   change(
-    date(2026, 8, 19),
+    date(2026, 8, 27),
     <>
       Add Season 2 <SpellLink spell={SPELLS.RESTO_DRUID_TIER_36_GENESIS_BUFF} /> tier tracking.
     </>,
