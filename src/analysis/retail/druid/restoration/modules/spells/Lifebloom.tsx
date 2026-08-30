@@ -192,6 +192,12 @@ class Lifebloom extends Analyzer {
       return;
     }
 
+    // Overgrowth (NS+Regrowth) and other non-cast applies are not player Lifebloom casts
+    const hardcast = getHardcast(event);
+    if (!hardcast) {
+      return;
+    }
+
     const isFirstLifebloomCast = this.analyzedLifebloomCasts === 0;
     this.analyzedLifebloomCasts += 1;
 
@@ -202,8 +208,7 @@ class Lifebloom extends Analyzer {
       (isApplyCast || preCastStacks < MAX_LIFEBLOOM_STACKS);
 
     const targetName = this.owner.getTargetName(event);
-    const hardcast = getHardcast(event);
-    const castTimestamp = hardcast?.timestamp ?? event.timestamp;
+    const castTimestamp = hardcast.timestamp;
 
     const isRefresh = event.type === 'refreshbuff';
     let value: QualitativePerformance;
@@ -244,9 +249,11 @@ class Lifebloom extends Analyzer {
     // A linked bloom heal means the refresh was in the pandemic window (<=4.5s remaining).
     const bloomed = causedBloom(event);
 
-    this.possibleVerdancyBlooms += 1;
-    if (bloomed) {
-      this.actualVerdancyBlooms += 1;
+    if (getHardcast(event)) {
+      this.possibleVerdancyBlooms += 1;
+      if (bloomed) {
+        this.actualVerdancyBlooms += 1;
+      }
     }
 
     this.recordCast(event, preCastStacks, bloomed);
@@ -289,7 +296,8 @@ class Lifebloom extends Analyzer {
             </>
           ) : null}
           . If uptime is a recurring issue, consider adjusting your UI so it's more obvious when
-          Lifebloom falls off.
+          Lifebloom falls off. Lifebloom applied by{' '}
+          <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} /> is not counted as a Lifebloom cast.
         </p>
         {isAdvanced && (
           <p>

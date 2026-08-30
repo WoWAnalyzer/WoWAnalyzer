@@ -8,6 +8,14 @@ export default [
   change(
     date(2026, 8, 29),
     <>
+      Fixed <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} /> cast analysis to not grade{' '}
+      <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} /> applications as Lifebloom casts.
+    </>,
+    squided,
+  ),
+  change(
+    date(2026, 8, 29),
+    <>
       Track <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> overhealing and free{' '}
       <SpellLink spell={SPELLS.REGROWTH} />s, update the Tree of Life guide copy, and show{' '}
       <SpellLink spell={TALENTS_DRUID.POTENT_ENCHANTMENTS_TALENT} /> overheal.
