@@ -77,6 +77,8 @@ import {
 } from 'analysis/retail/evoker/shared';
 import MID1Devastation2P from './modules/midnight/MID1Devastation2P';
 import MID1Devastation4P from './modules/midnight/MID1Devastation4P';
+import MID2Devastation2P from './modules/midnight/MID2Devastation2P';
+import MID2Devastation4P from './modules/midnight/MID2Devastation4P';
 import RisingFury from './modules/talents/RisingFury';
 import DragonrageNormalizer from './modules/normalizers/DragonrageNormalizer';
 import EmpowerAnalyzer from '../shared/modules/core/EmpowerAnalyzer';
@@ -175,6 +177,8 @@ class CombatLogParser extends MainCombatLogParser {
     // tier
     mid1Devastation2P: MID1Devastation2P,
     mid1Devastation4P: MID1Devastation4P,
+    mid2Devastation2P: MID2Devastation2P,
+    mid2Devastation4P: MID2Devastation4P,
   };
 
   static guide = Guide;
