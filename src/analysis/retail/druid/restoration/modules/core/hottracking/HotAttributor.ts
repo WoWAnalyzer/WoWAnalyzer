@@ -10,7 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 
-import { REJUVENATION_BUFFS } from '../../../constants';
+import { LIFEBLOOM_STACK_AURAS, REJUVENATION_BUFFS } from '../../../constants';
 import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/CastLinkNormalizer';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
@@ -126,11 +126,11 @@ class HotAttributor extends Analyzer {
       this.onApplyLb,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(LIFEBLOOM_STACK_AURAS),
       this.onLifebloomStack,
     );
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(LIFEBLOOM_STACK_AURAS),
       this.onLifebloomStack,
     );
     this.addEventListener(

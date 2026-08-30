@@ -9,7 +9,8 @@ export default [
     date(2026, 8, 29),
     <>
       Fixed <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} /> cast analysis to not grade{' '}
-      <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} /> applications as Lifebloom casts.
+      <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} /> applications as Lifebloom casts, and to
+      not mark reapplies after a fade or 3-stack refreshes as bad Everbloom casts.
     </>,
     squided,
   ),

@@ -26,6 +26,7 @@ import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBr
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import Combatants from 'parser/shared/modules/Combatants';
 import Efflorescence from 'analysis/retail/druid/restoration/modules/spells/Efflorescence';
+import { LIFEBLOOM_STACK_AURAS } from 'analysis/retail/druid/restoration/constants';
 
 const DEBUG = false;
 
@@ -36,8 +37,11 @@ const MAX_LIFEBLOOM_STACKS = 3;
  * Components related to Lifebloom and Lifebloom's uptime.
  *
  * Spell ID split (Midnight):
- * - LIFEBLOOM_BUFF (1227806): HoT aura apply/refresh/remove; lines up with casts
- * - LIFEBLOOM_HOT_HEAL (33763): periodic ticks + Everbloom stack buff events
+ * - LIFEBLOOM_BUFF (1227806): duration aura; apply/refresh/remove lines up with hardcasts
+ * - LIFEBLOOM_HOT_HEAL (33763): cast ID, periodic ticks, and a second stacking aura
+ *
+ * Both auras report Everbloom stacks (up to 3). Grade casts from 1227806 only;
+ * 33763 refreshbuffs are stack-timer events, not player recasts.
  *
  * When Lifetreading is talented, the guide subsection also covers Efflorescence
  * (Efflo follows the Lifebloom target).
@@ -103,11 +107,11 @@ class Lifebloom extends Analyzer {
       this.onRemoveLifebloom,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(LIFEBLOOM_STACK_AURAS),
       this.onApplyLifebloomStack,
     );
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(LIFEBLOOM_STACK_AURAS),
       this.onChangeLifebloomStack,
     );
     this.addEventListener(
@@ -116,31 +120,27 @@ class Lifebloom extends Analyzer {
     );
   }
 
-  /** Everbloom stacks live on 33763; read them from the Lifebloom target at the given time */
+  /** Both 1227806 and 33763 stack to 3. Prefer stack events; Entity lookups are a fallback. */
   private getStacksOnTarget(event: ApplyBuffEvent | RefreshBuffEvent): number {
     const target = this.combatants.getEntity(event);
-    if (!target) {
-      return this.currentLifebloomStacks;
-    }
-
-    const stacks = target.getBuffStacks(
-      SPELLS.LIFEBLOOM_HOT_HEAL.id,
-      event.timestamp,
-      0,
-      0,
-      this.selectedCombatant.id,
+    const fromAuras = LIFEBLOOM_STACK_AURAS.map((spell) =>
+      target ? target.getBuffStacks(spell.id, event.timestamp, 0, 0, this.selectedCombatant.id) : 0,
     );
+    const stacks = Math.max(this.currentLifebloomStacks, ...fromAuras);
 
     DEBUG &&
       console.log(
-        `LB stacks @ ${this.owner.formatTimestamp(event.timestamp, 1)}: ${stacks} (tracked ${this.currentLifebloomStacks})`,
+        `LB stacks @ ${this.owner.formatTimestamp(event.timestamp, 1)}: ${stacks} (tracked ${this.currentLifebloomStacks}, auras ${fromAuras.join('/')})`,
       );
 
     return stacks;
   }
 
   onApplyLifebloom(event: ApplyBuffEvent) {
-    this.recordCast(event, this.currentLifebloomStacks);
+    // Apply while another Lifebloom is still active is a target swap (stack reset).
+    // Apply after a fade is a recast after bloom/drop, not a swap.
+    const isTargetSwap = this.hasActiveLifebloom;
+    this.recordCast(event, this.currentLifebloomStacks, undefined, isTargetSwap);
     this.currentLifebloomStacks = 1;
     this.activeLifebloomTarget = event.targetID;
 
@@ -183,6 +183,7 @@ class Lifebloom extends Analyzer {
     event: ApplyBuffEvent | RefreshBuffEvent,
     preCastStacks: number,
     bloomed?: boolean,
+    isTargetSwap?: boolean,
   ) {
     if (!this.showCastPanel) {
       return;
@@ -201,22 +202,23 @@ class Lifebloom extends Analyzer {
     const isFirstLifebloomCast = this.analyzedLifebloomCasts === 0;
     this.analyzedLifebloomCasts += 1;
 
-    const isApplyCast = event.type === 'applybuff';
+    const isRefresh = event.type === 'refreshbuff';
     const isFailCast =
       this.hasEverbloom &&
       !isFirstLifebloomCast &&
-      (isApplyCast || preCastStacks < MAX_LIFEBLOOM_STACKS);
+      (Boolean(isTargetSwap) || (isRefresh && preCastStacks < MAX_LIFEBLOOM_STACKS));
 
     const targetName = this.owner.getTargetName(event);
     const castTimestamp = hardcast.timestamp;
 
-    const isRefresh = event.type === 'refreshbuff';
     let value: QualitativePerformance;
     let text: string;
 
     if (isFailCast) {
       value = QualitativePerformance.Fail;
-      text = 'Did not refresh a 3-stack Lifebloom';
+      text = isTargetSwap
+        ? 'Moved Lifebloom to a new target (reset stacks)'
+        : 'Did not refresh a 3-stack Lifebloom';
     } else if (isRefresh) {
       value = bloomed ? QualitativePerformance.Good : QualitativePerformance.Ok;
       text = bloomed
@@ -225,7 +227,7 @@ class Lifebloom extends Analyzer {
     } else {
       value = this.hasEverbloom ? QualitativePerformance.Ok : QualitativePerformance.Good;
       text = this.hasEverbloom
-        ? 'Applied/refreshed without maintaining 3 stacks'
+        ? 'Reapplied Lifebloom after it faded'
         : 'Fresh cast (no active refresh)';
     }
 
@@ -242,7 +244,7 @@ class Lifebloom extends Analyzer {
   }
 
   onRefreshLifebloom(event: RefreshBuffEvent) {
-    // Stacks are on 33763 (ICD stack buff), not on the 1227806 refresh itself
+    // Hardcast refresh of 1227806 does not consume Everbloom stacks on either aura
     const preCastStacks = Math.max(1, this.getStacksOnTarget(event));
     // Prefer the bloom event-link over reconstructing remaining duration: combatantinfo
     // auras do not include remaining time, so prepull Lifebloom has no reliable clock.
@@ -258,8 +260,8 @@ class Lifebloom extends Analyzer {
 
     this.recordCast(event, preCastStacks, bloomed);
 
-    // Hardcast refresh doesn't change Everbloom stacks; keep the 33763 value
-    this.currentLifebloomStacks = preCastStacks;
+    // Hardcast refresh doesn't change Everbloom stacks
+    this.currentLifebloomStacks = Math.max(this.currentLifebloomStacks, preCastStacks);
   }
 
   /** The time at least one lifebloom was active */
@@ -404,7 +406,7 @@ class Lifebloom extends Analyzer {
             okExtraExplanation={<>refresh existing Lifebloom without triggering bloom</>}
             badExtraExplanation={
               this.hasEverbloom
-                ? 'cast when not refreshing a 3-stack Lifebloom (except first cast)'
+                ? 'swap targets or refresh below 3 stacks (except first cast / reapply after fade)'
                 : 'n/a'
             }
           />
