@@ -1,16 +1,18 @@
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { abilityToSpell } from 'common/abilityToSpell';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import { PerformanceMark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, {
   AnyEvent,
   ApplyBuffEvent,
   CastEvent,
+  EventType,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -31,7 +33,10 @@ import CooldownExpandable, {
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from 'analysis/retail/druid/restoration/constants';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import Rejuvenation from 'analysis/retail/druid/restoration/modules/spells/Rejuvenation';
-import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import {
+  isFromHardcast,
+  isFromTreeOfLifeCast,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
@@ -97,18 +102,27 @@ class TreeOfLife extends Analyzer {
 
   hardcast: TolAccumulator = {
     allBoostHealing: 0,
+    allBoostOverhealing: 0,
     rejuvBoostHealing: 0,
+    rejuvBoostOverhealing: 0,
+    freeRegrowthHealing: 0,
+    freeRegrowthOverhealing: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL Hardcast: Extra WGs'),
   };
   reforestation: TolAccumulator = {
     allBoostHealing: 0,
+    allBoostOverhealing: 0,
     rejuvBoostHealing: 0,
+    rejuvBoostOverhealing: 0,
+    freeRegrowthHealing: 0,
+    freeRegrowthOverhealing: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution(
       'ToL from Reforestation: Extra WGs',
     ),
   };
   hardcastTrackers: TreeOfLifeCast[] = [];
   potentEnchantmentsHealing = 0;
+  potentEnchantmentsOverhealing = 0;
   activeReforestationChain: ReforestationChain | null = null;
 
   constructor(options: Options) {
@@ -168,12 +182,17 @@ class TreeOfLife extends Analyzer {
       timestamp: event.timestamp,
       accumulator: {
         allBoostHealing: 0,
+        allBoostOverhealing: 0,
         rejuvBoostHealing: 0,
+        rejuvBoostOverhealing: 0,
+        freeRegrowthHealing: 0,
+        freeRegrowthOverhealing: 0,
         extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution(
           `ToL Hardcast #${this.hardcastTrackers.length + 1}: Extra WGs`,
         ),
       },
       casts: [],
+      freeRegrowthHeals: [],
     });
   }
 
@@ -220,6 +239,10 @@ class TreeOfLife extends Analyzer {
    * Gets the tracking accumulator for the current ToL, if there is one
    */
   _getAccumulator(event: AnyEvent) {
+    if (event.type === EventType.Heal && isFromTreeOfLifeCast(event)) {
+      return this.hardcast;
+    }
+
     if (!this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null; // ToL isn't active, no accumulator
     } else if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT)) {
@@ -236,6 +259,7 @@ class TreeOfLife extends Analyzer {
 
   onBoostedHeal(event: HealEvent) {
     const spellId = event.ability.guid;
+    const isTreeOfLifeRegrowth = spellId === SPELLS.REGROWTH.id && isFromTreeOfLifeCast(event);
 
     const accumulator = this._getAccumulator(event);
     if (!accumulator) {
@@ -243,34 +267,60 @@ class TreeOfLife extends Analyzer {
     }
 
     const hardcastTracker = this.getHardcastTrackerAt(event.timestamp);
+
+    if (isTreeOfLifeRegrowth) {
+      const regrowthHealing = event.amount + (event.absorbed || 0);
+      const regrowthOverhealing = event.overheal || 0;
+      accumulator.freeRegrowthHealing += regrowthHealing;
+      accumulator.freeRegrowthOverhealing += regrowthOverhealing;
+      if (hardcastTracker) {
+        hardcastTracker.accumulator.freeRegrowthHealing += regrowthHealing;
+        hardcastTracker.accumulator.freeRegrowthOverhealing += regrowthOverhealing;
+        hardcastTracker.freeRegrowthHeals.push(event);
+      }
+      return;
+    }
+
     const allBoostHealing = calculateEffectiveHealing(event, ALL_BOOST);
+    const allBoostOverhealing = calculateOverhealing(event, ALL_BOOST);
 
     accumulator.allBoostHealing += allBoostHealing;
+    accumulator.allBoostOverhealing += allBoostOverhealing;
     if (hardcastTracker) {
       hardcastTracker.accumulator.allBoostHealing += allBoostHealing;
+      hardcastTracker.accumulator.allBoostOverhealing += allBoostOverhealing;
     }
 
     let rejuvBoostHealing = 0;
+    let rejuvBoostOverhealing = 0;
     let extraWgsHealing = 0;
+    let extraWgsOverhealing = 0;
 
     if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
       rejuvBoostHealing = calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT;
+      rejuvBoostOverhealing = calculateOverhealing(event, REJUV_BOOST) / ALL_MULT;
       accumulator.rejuvBoostHealing += rejuvBoostHealing;
+      accumulator.rejuvBoostOverhealing += rejuvBoostOverhealing;
       if (hardcastTracker) {
         hardcastTracker.accumulator.rejuvBoostHealing += rejuvBoostHealing;
+        hardcastTracker.accumulator.rejuvBoostOverhealing += rejuvBoostOverhealing;
       }
     }
 
     if (spellId === SPELLS.WILD_GROWTH.id) {
       extraWgsHealing = calculateEffectiveHealing(event, this.wgIncrease / ALL_MULT);
+      extraWgsOverhealing = calculateOverhealing(event, this.wgIncrease / ALL_MULT);
     }
 
     if (accumulator === this.reforestation && this.activeReforestationChain) {
       this.activeReforestationChain.healingEvents.push({
         timestamp: event.timestamp,
         allBoostHealing,
+        allBoostOverhealing,
         rejuvBoostHealing,
+        rejuvBoostOverhealing,
         extraWgsHealing,
+        extraWgsOverhealing,
       });
     }
   }
@@ -324,6 +374,10 @@ class TreeOfLife extends Analyzer {
           healingEvent.allBoostHealing +
           healingEvent.rejuvBoostHealing +
           healingEvent.extraWgsHealing;
+        this.potentEnchantmentsOverhealing +=
+          healingEvent.allBoostOverhealing +
+          healingEvent.rejuvBoostOverhealing +
+          healingEvent.extraWgsOverhealing;
       }
     });
 
@@ -332,6 +386,10 @@ class TreeOfLife extends Analyzer {
 
   getPotentEnchantmentsHealing() {
     return this.potentEnchantmentsHealing;
+  }
+
+  getPotentEnchantmentsOverhealing() {
+    return this.potentEnchantmentsOverhealing;
   }
 
   get suggestionThresholds() {
@@ -350,15 +408,20 @@ class TreeOfLife extends Analyzer {
     return (
       accumulator.allBoostHealing +
       accumulator.rejuvBoostHealing +
+      accumulator.freeRegrowthHealing +
       accumulator.extraWgsAttribution.healing
     );
   }
 
-  _getTotalOverhealing(_accumulator: TolAccumulator) {
-    return 0;
+  _getTotalOverhealing(accumulator: TolAccumulator) {
+    return (
+      accumulator.allBoostOverhealing +
+      accumulator.rejuvBoostOverhealing +
+      accumulator.freeRegrowthOverhealing +
+      accumulator.extraWgsAttribution.overheal
+    );
   }
 
-  // TODO implement (what do we need?)
   /** Guide fragment showing a breakdown of each Incarnation: Tree of Life cast */
   get guideCastBreakdown() {
     const explanation = (
@@ -366,13 +429,12 @@ class TreeOfLife extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />
         </strong>{' '}
-        should generally be used 10-12 seconds before major damage hits so you can maximize the mana
-        discount on <SpellLink spell={SPELLS.REJUVENATION} /> during your ramp. While Incarnation is
-        active, you can otherwise continue your standard rotation. Its duration is paused while
-        channeling <SpellLink spell={SPELLS.TRANQUILITY_CAST} />, so combining the two is usually a
-        good idea. Be careful not to overvalue the Regrowth bonus: making{' '}
-        <SpellLink spell={SPELLS.REGROWTH} /> instant mostly front-loads the heal, since its normal
-        cast time is already equal to the global cooldown.
+        should generally be combined with <SpellLink spell={SPELLS.TRANQUILITY_CAST} />, since
+        channeling Tranquility pauses the remaining duration of your Tree buff. While Incarnation is
+        active, keep doing your standard rotation (Abundance Rejuvenations, then Regrowth). Be
+        careful not to overvalue the Regrowth bonus: making <SpellLink spell={SPELLS.REGROWTH} />{' '}
+        instant mostly front-loads the heal, since its normal cast time is already equal to the
+        global cooldown.
       </p>
     );
 
@@ -459,10 +521,26 @@ class TreeOfLife extends Analyzer {
             details: <>{formatNumber(cast.accumulator.rejuvBoostHealing)}</>,
           });
           detailItems.push({
+            label: 'Free Regrowth Healing',
+            result: '',
+            details: <>{formatNumber(cast.accumulator.freeRegrowthHealing)}</>,
+          });
+          detailItems.push({
             label: 'Wild Growth Extra-Target Contribution',
             result: '',
             details: <>{formatNumber(cast.accumulator.extraWgsAttribution.healing)}</>,
           });
+          if (cast.freeRegrowthHeals.length > 0) {
+            detailItems.push({
+              label: 'Free Regrowths',
+              result: '',
+              details: cast.freeRegrowthHeals.map((healEvent, healIndex) => (
+                <span key={healIndex}>
+                  <SpellIcon spell={abilityToSpell(healEvent.ability)} />{' '}
+                </span>
+              )),
+            });
+          }
           detailItems.push({
             label: 'Casts during Tree',
             result: '',
@@ -506,7 +584,8 @@ class TreeOfLife extends Analyzer {
                     this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing),
                   )}
                   %
-                </strong>
+                </strong>{' '}
+                ({formatNumber(this.hardcast.allBoostHealing)})
               </li>
               <li>
                 Rejuv Increased Healing:{' '}
@@ -515,7 +594,18 @@ class TreeOfLife extends Analyzer {
                     this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing),
                   )}
                   %
-                </strong>
+                </strong>{' '}
+                ({formatNumber(this.hardcast.rejuvBoostHealing)})
+              </li>
+              <li>
+                Free Regrowth Healing:{' '}
+                <strong>
+                  {formatPercentage(
+                    this.owner.getPercentageOfTotalHealingDone(this.hardcast.freeRegrowthHealing),
+                  )}
+                  %
+                </strong>{' '}
+                ({formatNumber(this.hardcast.freeRegrowthHealing)})
               </li>
               <li>
                 Increased Wild Growths:{' '}
@@ -526,9 +616,17 @@ class TreeOfLife extends Analyzer {
                     ),
                   )}
                   %
-                </strong>
+                </strong>{' '}
+                ({formatNumber(this.hardcast.extraWgsAttribution.healing)})
               </li>
             </ul>
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(
+                this._getTotalOverhealing(this.hardcast),
+                this._getTotalHealing(this.hardcast),
+              )}
+            </strong>
           </>
         }
       >
@@ -543,7 +641,11 @@ class TreeOfLife extends Analyzer {
 // data shuttle for keeping track of bonuses attributed to ToL
 interface TolAccumulator {
   allBoostHealing: number;
+  allBoostOverhealing: number;
   rejuvBoostHealing: number;
+  rejuvBoostOverhealing: number;
+  freeRegrowthHealing: number;
+  freeRegrowthOverhealing: number;
   extraWgsAttribution: Attribution;
 }
 
@@ -551,13 +653,17 @@ interface TreeOfLifeCast {
   timestamp: number;
   accumulator: TolAccumulator;
   casts: CastEvent[];
+  freeRegrowthHeals: HealEvent[];
 }
 
 interface ReforestationHealingEvent {
   timestamp: number;
   allBoostHealing: number;
+  allBoostOverhealing: number;
   rejuvBoostHealing: number;
+  rejuvBoostOverhealing: number;
   extraWgsHealing: number;
+  extraWgsOverhealing: number;
 }
 
 interface ReforestationChain {

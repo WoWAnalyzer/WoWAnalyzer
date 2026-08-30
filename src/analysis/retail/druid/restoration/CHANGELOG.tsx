@@ -6,6 +6,15 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
   change(
+    date(2026, 8, 29),
+    <>
+      Track <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> overhealing and free{' '}
+      <SpellLink spell={SPELLS.REGROWTH} />s, update the Tree of Life guide copy, and show{' '}
+      <SpellLink spell={TALENTS_DRUID.POTENT_ENCHANTMENTS_TALENT} /> overheal.
+    </>,
+    squided,
+  ),
+  change(
     date(2026, 8, 18),
     <>
       Updated Restoration Druid for 12.1. Added an Advanced{' '}
