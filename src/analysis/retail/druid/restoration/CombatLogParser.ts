@@ -25,6 +25,7 @@ import Rejuvenation from 'analysis/retail/druid/restoration/modules/spells/Rejuv
 import RestoDruidHealingEfficiencyDetails from './modules/features/RestoDruidHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import Swiftmend from 'analysis/retail/druid/restoration/modules/spells/Swiftmend';
+import NaturesSwiftness from 'analysis/retail/druid/restoration/modules/spells/NaturesSwiftness';
 import Tranquility from 'analysis/retail/druid/restoration/modules/spells/Tranquility';
 import WildGrowth from 'analysis/retail/druid/restoration/modules/spells/WildGrowth';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
@@ -137,6 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rejuvenation: Rejuvenation,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
+    naturesSwiftness: NaturesSwiftness,
     hotCountGraph: HotCountGraph,
     tranquility: Tranquility,
     soulOfTheForest: SoulOfTheForest,

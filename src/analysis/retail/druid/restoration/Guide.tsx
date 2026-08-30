@@ -53,11 +53,12 @@ function GuideContent({ modules, events, info }: GuideProps<typeof CombatLogPars
         <AdvancedGuideToggle />
         {modules.lifebloom.getGuideSubsection(isAdvanced)}
         {modules.swiftmend.guideSubsection}
+        {modules.regrowthAndClearcasting.getGuideSubsection(isAdvanced)}
+        {isAdvanced && modules.naturesSwiftness.guideSubsection}
         {modules.wildGrowth.guideSubsection}
         {!info.combatant.hasTalent(TALENTS_DRUID.LIFETREADING_TALENT) &&
           modules.efflorescence.guideSubsection}
-        {modules.rejuvenation.guideSubsection}
-        {modules.regrowthAndClearcasting.getGuideSubsection(isAdvanced)}
+        {isAdvanced && modules.rejuvenation.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
         <p>

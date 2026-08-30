@@ -12,6 +12,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 
 /**
  * **Thriving Vegetation**
@@ -32,11 +33,12 @@ export default class ThrivingVegetation extends Analyzer.withDependencies({
   }
 
   statistic() {
-    const extraDurationHealing =
-      this.deps.hotTracker.getAttribution(THRIVING_VEG_ATT_NAME)?.healing || 0;
-    const instantRejuvHealing = this.deps.abilityTracker.getAbilityHealing(
-      SPELLS.THRIVING_VEGETATION.id,
-    );
+    const thrivingVegAttribution = this.deps.hotTracker.getAttribution(THRIVING_VEG_ATT_NAME);
+    const extraDurationHealing = thrivingVegAttribution?.healing || 0;
+    const extraDurationOverhealing = thrivingVegAttribution?.overheal || 0;
+    const instantRejuvAbility = this.deps.abilityTracker.getAbility(SPELLS.THRIVING_VEGETATION.id);
+    const instantRejuvHealing = instantRejuvAbility.healingVal.effective;
+    const instantRejuvOverhealing = instantRejuvAbility.healingVal.overheal;
     return (
       <Statistic
         size="flexible"
@@ -56,6 +58,13 @@ export default class ThrivingVegetation extends Analyzer.withDependencies({
                 <strong>{this.owner.formatItemHealingDone(extraDurationHealing)}</strong>
               </li>
             </ul>
+            <strong>
+              Overhealing:{' '}
+              {formatOverhealing(
+                instantRejuvOverhealing + extraDurationOverhealing,
+                instantRejuvHealing + extraDurationHealing,
+              )}
+            </strong>
           </>
         }
       >
