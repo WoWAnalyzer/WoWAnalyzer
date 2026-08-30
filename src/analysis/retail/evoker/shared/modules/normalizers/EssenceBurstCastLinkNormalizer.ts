@@ -18,10 +18,6 @@ import {
 import { EB_BUFF_IDS } from '../../constants';
 import EssenceBurstRefreshNormalizer from './EssenceBurstRefreshNormalizer';
 import { Options } from 'parser/core/Analyzer';
-import {
-  RISING_FURY_MAX_STACKS,
-  RISEN_FURY_EB_INTERVAL_MS,
-} from 'analysis/retail/evoker/devastation/constants';
 import TipTheScalesNormalizer from './TipTheScalesNormalizer';
 
 export const EB_GENERATION_EVENT_TYPES = [
@@ -42,8 +38,6 @@ const EB_FROM_LF_CAST = 'ebFromLFCast';
 const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
 const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
-
-const EB_FROM_RISEN_FURY = 'ebFromRisenFury';
 
 const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
 const EB_DIVERTED_POWER_BUFFER = 100; // These for some reason have longer delays
@@ -84,33 +78,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.RISING_FURY_3_DEVASTATION_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
-      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
-    },
-  },
-  {
-    linkRelation: EB_FROM_RISEN_FURY,
-    reverseLinkRelation: EB_FROM_RISEN_FURY,
-    linkingEventId: SPELLS.RISEN_FURY_BUFF.id,
-    linkingEventType: EventType.ApplyBuff,
-    referencedEventId: EB_BUFF_IDS,
-    referencedEventType: EB_GENERATION_EVENT_TYPES,
-    anyTarget: true,
-    forwardBufferMs: RISEN_FURY_EB_INTERVAL_MS * RISING_FURY_MAX_STACKS + ESSENCE_BURST_BUFFER,
-    maximumLinks: RISING_FURY_MAX_STACKS,
-    isActive: (c) => false, // Can't remove without getting into Dev stuff, but need to disable to test Diverted Power chances
-    additionalCondition(linkingEvent, referencedEvent) {
-      // applies one EB in equal intervals for the duration of the buff,
-      // so check if the timestamp difference is divisible by the internval allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
-      const timeDiff = Math.abs(
-        (linkingEvent.timestamp - referencedEvent.timestamp) % RISEN_FURY_EB_INTERVAL_MS,
-      );
-      if (
-        timeDiff > ESSENCE_BURST_BUFFER &&
-        RISEN_FURY_EB_INTERVAL_MS - timeDiff > ESSENCE_BURST_BUFFER // it can probably come early
-      ) {
-        return false;
-      }
-
       return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },
   },
@@ -275,7 +242,6 @@ export const EBSource = {
   LivingFlameHeal: EB_FROM_LF_HEAL,
   DivertedPower: EB_FROM_DIVERTED_POWER,
   EssenceWell: EB_FROM_ESSENCE_WELL,
-  RisenFury: EB_FROM_RISEN_FURY,
   UnboundFlame: EB_FROM_UNBOUND_FLAME,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];

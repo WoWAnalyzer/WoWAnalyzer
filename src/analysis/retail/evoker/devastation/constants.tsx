@@ -116,10 +116,13 @@ export const MID1_2P_DAMAGE_AMP_MAIN_TARGET = 1;
 export const MID1_4P_CDR_MS = 2_000;
 export const MID1_4P_AZURE_SWEEP_EXTRA_STACKS = 1;
 
+export const MID2_2P_DAMAGE_AMP = 0.5;
+export const MID2_4P_CDR_MS = 100;
+export const MID2_4P_DAMAGE_AMP = 0.1;
+
 // Apex Talent
 export const RISING_FURY_MAX_STACKS = 5;
 export const RISING_FURY_DAMAGE_AMPS = [0, 0.08, 0.15];
-export const RISEN_FURY_EB_INTERVAL_MS = 4_000;
 
 // https://www.wowhead.com/spell=1271783/rising-fury Effect #2
 export const RISING_FURY_SPELLS = [

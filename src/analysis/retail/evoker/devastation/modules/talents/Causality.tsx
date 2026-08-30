@@ -11,9 +11,11 @@ import { SpellLink } from 'interface';
 import {
   CAUSALITY_DISINTEGRATE_CDR_MS,
   CAUSALITY_PYRE_CDR_MS,
+  MID2_4P_CDR_MS,
 } from 'analysis/retail/evoker/devastation/constants';
 import DonutChart from 'parser/ui/DonutChart';
 import { isMassDisintegrateTick } from '../normalizers/CastLinkNormalizer';
+import { TIERS } from 'game/TIERS';
 
 class Causality extends Analyzer {
   static dependencies = {
@@ -27,6 +29,8 @@ class Causality extends Analyzer {
   maxPyreCount = 5;
   previousPyreDamageEvent = 0;
   pyreCounter = 0;
+
+  hasMIDS24P = this.selectedCombatant.has4PieceByTier(TIERS.MID2);
 
   eternitySurgeSpell = this.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)
     ? SPELLS.ETERNITY_SURGE_FONT
@@ -43,11 +47,15 @@ class Causality extends Analyzer {
       CDR: 0,
       wastedCDR: 0,
       wastedCDRDuringBlazing: 0,
+      CDRMIDS24P: 0,
+      wastedCDRMIDS24P: 0,
     },
     [SPELLS.DISINTEGRATE.id]: {
       CDR: 0,
       wastedCDR: 0,
       wastedCDRDuringBlazing: 0,
+      CDRMIDS24P: 0,
+      wastedCDRMIDS24P: 0,
     },
   };
 
@@ -115,6 +123,7 @@ class Causality extends Analyzer {
     if (this.pyreCounter < this.maxPyreCount) {
       this.pyreCounter += 1;
       this.calculateCDR(CAUSALITY_PYRE_CDR_MS, SPELLS.PYRE.id);
+      this.hasMIDS24P && this.calculateCDR(MID2_4P_CDR_MS, SPELLS.PYRE.id, true);
     }
   }
 
@@ -125,22 +134,43 @@ class Causality extends Analyzer {
     }
 
     this.calculateCDR(CAUSALITY_DISINTEGRATE_CDR_MS, SPELLS.DISINTEGRATE.id);
+    this.hasMIDS24P && this.calculateCDR(MID2_4P_CDR_MS, SPELLS.DISINTEGRATE.id, true);
   }
 
-  calculateCDR(CDRAmount: number, sourceId: number) {
+  calculateCDR(CDRAmount: number, sourceId: number, fromMIDS24P = false) {
     for (const spellId of this.spellIds) {
       const source = this.sourceData[sourceId];
 
       const effectiveCDR = this.spellUsable.reduceCooldown(spellId, CDRAmount);
       const wastedCDR = CDRAmount - effectiveCDR;
 
-      source.CDR += effectiveCDR / 1000;
-      if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-        source.wastedCDRDuringBlazing += wastedCDR / 1000;
+      if (fromMIDS24P) {
+        source.CDRMIDS24P += effectiveCDR / 1000;
+        source.wastedCDRMIDS24P += wastedCDR / 1000;
       } else {
-        source.wastedCDR += wastedCDR / 1000;
+        source.CDR += effectiveCDR / 1000;
+
+        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
+          source.wastedCDRDuringBlazing += wastedCDR / 1000;
+        } else {
+          source.wastedCDR += wastedCDR / 1000;
+        }
       }
     }
+  }
+
+  get MIDS24PEffectiveCDR() {
+    return (
+      this.sourceData[SPELLS.PYRE.id].CDRMIDS24P +
+      this.sourceData[SPELLS.DISINTEGRATE.id].CDRMIDS24P
+    );
+  }
+
+  get MIDS24PWastedCDR() {
+    return (
+      this.sourceData[SPELLS.PYRE.id].wastedCDRMIDS24P +
+      this.sourceData[SPELLS.DISINTEGRATE.id].wastedCDRMIDS24P
+    );
   }
 
   statistic() {
@@ -152,35 +182,53 @@ class Causality extends Analyzer {
     const wastedCDR =
       this.sourceData[SPELLS.PYRE.id].wastedCDR + this.sourceData[SPELLS.DISINTEGRATE.id].wastedCDR;
 
+    const MIDS24P_effectiveCDR =
+      this.sourceData[SPELLS.PYRE.id].CDRMIDS24P +
+      this.sourceData[SPELLS.DISINTEGRATE.id].CDRMIDS24P;
+
+    const MIDS24P_wastedCDR =
+      this.sourceData[SPELLS.PYRE.id].wastedCDRMIDS24P +
+      this.sourceData[SPELLS.DISINTEGRATE.id].wastedCDRMIDS24P;
+
     const cdrSourceItems = [
       {
         color: 'rgb(183,65,14)',
         label: 'Pyre',
         spellId: SPELLS.PYRE.id,
-        valueTooltip: this.sourceData[SPELLS.PYRE.id].CDR.toFixed(2) + 's CDR',
-        value: this.sourceData[SPELLS.PYRE.id].CDR,
+        valueTooltip:
+          (
+            this.sourceData[SPELLS.PYRE.id].CDR + this.sourceData[SPELLS.PYRE.id].CDRMIDS24P
+          ).toFixed(2) + 's CDR',
+        value: this.sourceData[SPELLS.PYRE.id].CDR + this.sourceData[SPELLS.PYRE.id].CDRMIDS24P,
       },
       {
         color: 'rgb(41,134,204)',
         label: 'Disintegrate',
         spellId: SPELLS.DISINTEGRATE.id,
-        valueTooltip: this.sourceData[SPELLS.DISINTEGRATE.id].CDR.toFixed(2) + 's CDR',
-        value: this.sourceData[SPELLS.DISINTEGRATE.id].CDR,
+        valueTooltip:
+          (
+            this.sourceData[SPELLS.DISINTEGRATE.id].CDR +
+            this.sourceData[SPELLS.DISINTEGRATE.id].CDRMIDS24P
+          ).toFixed(2) + 's CDR',
+        value:
+          this.sourceData[SPELLS.DISINTEGRATE.id].CDR +
+          this.sourceData[SPELLS.DISINTEGRATE.id].CDRMIDS24P,
       },
     ];
 
     const effectiveCDRItems = [
       {
         color: 'rgb(123,188,93)',
-        label: 'Effetive CDR',
-        valueTooltip: effectiveCDR.toFixed(2) + 's effective CDR',
-        value: effectiveCDR,
+        label: 'Effective CDR',
+        valueTooltip: (effectiveCDR + MIDS24P_effectiveCDR).toFixed(2) + 's effective CDR',
+        value: effectiveCDR + MIDS24P_effectiveCDR,
       },
       {
         color: 'rgb(216,59,59)',
         label: 'Wasted CDR',
-        valueTooltip: wastedCDR.toFixed(2) + 's CDR wasted whilst an Empower was ready',
-        value: wastedCDR,
+        valueTooltip:
+          (wastedCDR + MIDS24P_wastedCDR).toFixed(2) + 's CDR wasted whilst an Empower was ready',
+        value: wastedCDR + MIDS24P_wastedCDR,
       },
       ...(blazingCDR > 0
         ? [
@@ -209,7 +257,7 @@ class Causality extends Analyzer {
           <DonutChart items={cdrSourceItems} />
         </div>
         <div className="pad">
-          <strong>CDR effeciency:</strong>
+          <strong>CDR efficiency:</strong>
           <DonutChart items={effectiveCDRItems} />
         </div>
       </Statistic>
