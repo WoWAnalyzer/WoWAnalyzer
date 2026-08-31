@@ -98,7 +98,14 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
       const durationSec = (pull.target.end_time - pull.target.start_time) / 1000;
       const countGained = allDeaths
         .slice(pull.target.start_time, pull.target.end_time)
-        .data.map(
+        // exclude npcs that aren't listed in the pull to keep the UI from looking weird when we can't find them later.
+        // this can happen if the only event for an enemy in a pull is its death (such as last-moment chaining into a boss)
+        .data.filter(
+          (event) =>
+            (pull.target as WCLDungeonPull).enemyNPCs?.some((npc) => npc.id === event.targetID) ??
+            true,
+        )
+        .map(
           (event) =>
             this.owner.fight.npcCountMap?.[this.deps.enemies.getById(event.targetID)?.guid ?? 0] ??
             0,

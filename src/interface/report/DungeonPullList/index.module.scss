@@ -8,13 +8,155 @@
   flex-direction: column;
   gap: design.$gaps_small;
   margin: 0;
+
+  & > header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.PullListGrid {
+  display: grid;
+  grid-template-columns: max-content repeat(5, min-content) 1fr;
+  grid-auto-flow: row;
+  gap: design.$gaps_medium;
 }
 
 .PullContainer {
   @include design.level(1);
   padding: design.$gaps_small;
+  min-height: 5rem;
+
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 8;
+
+  align-items: center;
+
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(110%);
+  }
 }
 
 .desaturatedIcon {
   filter: grayscale(90%);
+}
+
+.activeIcon {
+  border: 1px solid design.$level2_border;
+  box-shadow: 0 0 1px design.$colors_wowaYellow;
+}
+
+.PullDetailsTitleContainer {
+  display: grid;
+  grid-template-areas:
+    'image name'
+    'image subtext';
+
+  gap: 0.1rem design.$gaps_small;
+
+  grid-template-columns: 3.1rem 1fr;
+  grid-template-rows: max-content max-content;
+  height: 3.1rem;
+}
+
+.PullDetailsTitleImage {
+  grid-area: image;
+
+  aspect-ratio: 1 / 1;
+  border: 1px solid design.$level2_border;
+  border-radius: 0.5rem;
+  height: 3rem;
+  max-height: 3rem;
+}
+
+.PullDetailsTitleName {
+  grid-area: name;
+
+  font-weight: bold;
+  font-size: design.$fontSize_subHeading;
+  line-height: 1;
+
+  & :global(.icon) {
+    height: 0.8lh;
+    margin-right: 0.2rem;
+  }
+}
+
+.PullDetailsTitleSubtext {
+  grid-area: subtext;
+
+  font-size: 1rem;
+  color: design.$colors_unfocusedText;
+  white-space: nowrap;
+  overflow-x: hidden;
+  justify-self: start;
+}
+
+.InsetContainer {
+  border: 1px solid design.$level1_border;
+  background: design.$level0_background;
+  box-shadow: inset 1px 3px design.$level1_shadow;
+  padding: design.$gaps_small design.$gaps_medium;
+}
+
+.AbilityList {
+  display: flex;
+  flex-direction: row;
+  gap: design.$gaps_small;
+}
+
+.shieldIcon {
+  height: 1em;
+  margin-top: -0.15em;
+}
+
+.SelectPullLabel {
+  font-size: design.$fontSize_subHeading;
+  font-weight: bold;
+  color: design.$colors_wowaYellow;
+  margin-left: design.$gaps_small;
+}
+
+.PerSecondContainer {
+  display: grid;
+  grid-template-columns: subgrid;
+  white-space: nowrap;
+  gap: 0;
+  grid-column: 2 / 4;
+
+  &.DoubleWide {
+    & span:nth-child(1) {
+      padding-right: design.$gaps_small;
+      text-align: right;
+    }
+
+    & span:nth-child(2) {
+      padding-left: design.$gaps_small;
+      border-left: 1px solid design.$level2_border;
+    }
+  }
+
+  & svg,
+  & img {
+    margin-right: design.$gaps_small;
+  }
+}
+
+.DeathsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: design.$gaps_small;
+  justify-self: start;
+}
+
+.ViewButton {
+  justify-self: end;
+  height: 100%;
+  grid-column: 7;
+  display: flex;
+  align-items: center;
 }

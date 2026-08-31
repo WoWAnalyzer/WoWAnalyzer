@@ -6,7 +6,14 @@ export interface WCLDungeonPull {
   end_time: number;
   name: string;
   kill?: boolean;
-  enemies?: number[][];
+  enemyNPCs?: WCLDungeonPullEnemy[];
+}
+
+export interface WCLDungeonPullEnemy {
+  id: number;
+  gameID: number;
+  minimumInstanceID: number;
+  maximumInstanceID: number;
 }
 
 export interface WCLFight {
