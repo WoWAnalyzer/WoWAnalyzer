@@ -6,7 +6,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import EarthElemental from 'src/analysis/retail/shaman/shared/talents/EarthElemental';
 //Core
-import StatTracker from './modules/core/DeepHealing';
+import StatTracker from './modules/core/StatTracker';
 
 import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';

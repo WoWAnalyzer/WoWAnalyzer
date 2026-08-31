@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
+import PlayerBreakdown, { PlayerStats, SpellStats } from 'parser/ui/PlayerBreakdown';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -14,6 +13,14 @@ import Panel from 'parser/ui/Panel';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
+import StatTracker from '../core/StatTracker';
+
+interface MasteryEvent extends HealEvent {
+  effectiveHealing: number;
+  masteryHealingDone: number;
+  masteryEffectiveness: number;
+  maxPotentialMasteryHealing: number;
+}
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
@@ -22,14 +29,18 @@ class MasteryEffectiveness extends Analyzer {
     statTracker: StatTracker,
   };
 
+  protected abilityTracker!: RestorationAbilityTracker;
+  protected combatants!: Combatants;
+  protected statTracker!: StatTracker;
+
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
   totalMasteryHealingFromGear = 0;
   totalMasteryHealingFromInnate = 0;
 
-  masteryHealEvents = [];
+  masteryHealEvents: Array<MasteryEvent> = [];
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     // Totems count as pets, but are still affected by mastery.
     this.addEventListener(
@@ -38,7 +49,7 @@ class MasteryEffectiveness extends Analyzer {
     );
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const heal = HealingValue.fromEvent(event);
     const healthBeforeHeal = event.hitPoints - event.amount;
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
@@ -68,14 +79,10 @@ class MasteryEffectiveness extends Analyzer {
     this.masteryHealEvents.push({
       ...event,
       effectiveHealing: heal.effective,
-      healthBeforeHeal,
       masteryEffectiveness,
-      baseHealingDone,
       masteryHealingDone,
       maxPotentialMasteryHealing,
     });
-
-    event.masteryEffectiveness = masteryEffectiveness;
   }
 
   get masteryEffectivenessPercent() {
@@ -146,53 +153,60 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   get report() {
-    const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
-      // Update the player-totals
-      if (!obj[event.targetID]) {
-        const combatant = this.combatants.players[event.targetID];
-        obj[event.targetID] = {
-          combatant,
-          effectiveHealing: 0,
-          healingReceived: 0,
-          healingFromMastery: 0,
-          maxPotentialHealingFromMastery: 0,
-        };
-      }
-      const playerStats = obj[event.targetID];
-      playerStats.effectiveHealing += event.effectiveHealing;
-      playerStats.healingReceived += event.amount;
-      playerStats.healingFromMastery += event.masteryHealingDone;
-      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+    const statsByTargetId = this.masteryHealEvents.reduce(
+      (obj: Record<number, PlayerStats>, event) => {
+        // Update the player-totals
+        if (!obj[event.targetID]) {
+          const combatant = this.combatants.players[event.targetID];
+          obj[event.targetID] = {
+            combatant,
+            effectiveHealing: 0,
+            healingReceived: 0,
+            healingFromMastery: 0,
+            maxPotentialHealingFromMastery: 0,
+          };
+        }
+        const playerStats = obj[event.targetID];
+        playerStats.effectiveHealing += event.effectiveHealing;
+        playerStats.healingReceived += event.amount;
+        playerStats.healingFromMastery += event.masteryHealingDone;
+        playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
 
-      return obj;
-    }, {});
+        return obj;
+      },
+      {},
+    );
 
     return statsByTargetId;
   }
 
   get spellReport() {
-    const statsBySpellId = this.masteryHealEvents.reduce((obj, event) => {
-      if (!ABILITIES_AFFECTED_BY_MASTERY.some((s) => s.id === event.ability.guid)) {
-        return obj;
-      }
-      // Update the spell-totals
-      if (!obj[event.ability.guid]) {
-        obj[event.ability.guid] = {
-          spellId: event.ability.guid,
-          effectiveHealing: 0,
-          healingReceived: 0,
-          healingFromMastery: 0,
-          maxPotentialHealingFromMastery: 0,
-        };
-      }
-      const spellStats = obj[event.ability.guid];
-      spellStats.effectiveHealing += event.effectiveHealing;
-      spellStats.healingReceived += event.amount;
-      spellStats.healingFromMastery += event.masteryHealingDone;
-      spellStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+    const statsBySpellId = this.masteryHealEvents.reduce(
+      (obj: Record<number, SpellStats>, event) => {
+        if (!ABILITIES_AFFECTED_BY_MASTERY.some((s) => s.id === event.ability.guid)) {
+          return obj;
+        }
+        // Update the spell-totals
+        if (!obj[event.ability.guid]) {
+          obj[event.ability.guid] = {
+            spellId: event.ability.guid,
+            effectiveHealing: 0,
+            healingReceived: 0,
+            healingFromMastery: 0,
+            maxPotentialHealingFromMastery: 0,
+            masteryEffectiveness: 0,
+          };
+        }
+        const spellStats = obj[event.ability.guid];
+        spellStats.effectiveHealing += event.effectiveHealing;
+        spellStats.healingReceived += event.amount;
+        spellStats.healingFromMastery += event.masteryHealingDone;
+        spellStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
 
-      return obj;
-    }, {});
+        return obj;
+      },
+      {},
+    );
 
     return statsBySpellId;
   }
