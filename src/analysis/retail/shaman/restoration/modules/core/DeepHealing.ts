@@ -13,12 +13,12 @@ import { DEEP_HEALING_BONUS_SPELLPOINTS } from '../../constants';
  * mastery *rating*, but its buff system is expressed purely in rating, so it has no way to
  * represent auras that grant flat spellpoints.
  *
- * # Nominal values on the ingame tooltip
+ * Nominal values on the ingame tooltip:
  * Class TALENT: Spiritual Awakening +3%
  * Hero TALENT (Totemic): Elemental Attunement +2%
  * Skyfury BUFF: +2%
  *
- * # Translates to ingame reality
+ * Translates to ingame reality:
  * BASE:                  (8) * 3     = 24%
  * Spiritual Awakening:   (8 + 3) * 3 = 33%
  * Elemental Attunement:  (8 + 2) * 3 = 30%
