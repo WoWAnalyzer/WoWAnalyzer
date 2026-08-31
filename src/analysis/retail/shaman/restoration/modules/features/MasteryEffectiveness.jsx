@@ -1,19 +1,19 @@
-import { Trans } from '@lingui/react/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Panel from 'parser/ui/Panel';
 import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
-import { ABILITIES_AFFECTED_BY_MASTERY, BASELINE_MASTERY_PERCENTAGE } from '../../constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
+
+import { Trans } from '@lingui/react/macro';
+import { formatPercentage } from 'common/format';
+import Panel from 'parser/ui/Panel';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
@@ -24,6 +24,8 @@ class MasteryEffectiveness extends Analyzer {
 
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
+  totalMasteryHealingFromGear = 0;
+  totalMasteryHealingFromInnate = 0;
 
   masteryHealEvents = [];
 
@@ -40,17 +42,24 @@ class MasteryEffectiveness extends Analyzer {
     const heal = HealingValue.fromEvent(event);
     const healthBeforeHeal = event.hitPoints - event.amount;
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
-
-    // The base healing of the spell (excluding any healing added by mastery)
-    // Added the 24% baseline mastery for rShaman.
-    const masteryPercent = this.statTracker.currentMasteryPercentage + BASELINE_MASTERY_PERCENTAGE;
+    const masteryPercent = this.statTracker.currentMasteryPercentage;
     const baseHealingDone = heal.raw / (1 + masteryPercent * masteryEffectiveness);
     const masteryHealingDone = heal.raw - baseHealingDone;
+
+    // Proportional split: if 40% of the mastery percentage came from rating, 40% of this heal's
+    // mastery healing is credited to gear. Read per event so trinket procs are attributed to gear.
+    const gearShare =
+      masteryPercent > 0 ? this.statTracker.gearMasteryPercentage / masteryPercent : 0;
+    const effectiveMasteryHealing = Math.max(0, masteryHealingDone - (event.overheal || 0));
+
+    this.totalMasteryHealing += effectiveMasteryHealing;
+    this.totalMasteryHealingFromGear += effectiveMasteryHealing * gearShare;
+    this.totalMasteryHealingFromInnate += effectiveMasteryHealing * (1 - gearShare);
+
     // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
     // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
     const maxPotentialMasteryHealing = baseHealingDone * masteryPercent; // * 100% mastery effectiveness
 
-    this.totalMasteryHealing += Math.max(0, masteryHealingDone - (event.overheal || 0));
     this.totalMaxPotentialMasteryHealing += Math.max(
       0,
       maxPotentialMasteryHealing - (event.overheal || 0),
@@ -73,33 +82,50 @@ class MasteryEffectiveness extends Analyzer {
     return this.totalMasteryHealing / this.totalMaxPotentialMasteryHealing;
   }
 
+  /** Share of your mastery healing that came from mastery rating on gear and consumables. */
+  get gearMasteryHealingPercent() {
+    return this.totalMasteryHealing > 0
+      ? this.totalMasteryHealingFromGear / this.totalMasteryHealing
+      : 0;
+  }
+
   statistic() {
-    const masteryPercent = this.statTracker.currentMasteryPercentage + BASELINE_MASTERY_PERCENTAGE;
+    const masteryPercent = this.statTracker.currentMasteryPercentage;
     const avgEffectiveMasteryPercent = this.masteryEffectivenessPercent * masteryPercent;
 
     return [
-      <StatisticBox
-        key="StatisticBox"
-        icon={<SpellIcon spell={SPELLS.DEEP_HEALING} />}
-        value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
+      <Statistic
+        key="Statistic"
         position={STATISTIC_ORDER.CORE(2)}
-        label={
-          <TooltipElement
-            content={
-              <Trans id="shaman.restoration.masteryEffectiveness.statistic.tooltip">
-                The percent of your mastery that you benefited from on average (so always between 0%
-                and 100%). Since you have {formatPercentage(masteryPercent)}% mastery, this means
-                that on average your heals were increased by{' '}
-                {formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.
-              </Trans>
-            }
-          >
-            <Trans id="shaman.restoration.masteryEffectiveness.statistic.label">
-              Mastery benefit
-            </Trans>
-          </TooltipElement>
+        size="flexible"
+        tooltip={
+          <>
+            <div>
+              <strong>{formatPercentage(masteryPercent)}%</strong> — Your mastery stat. The bonus
+              you'd get if every heal landed on someone at 1 HP.
+            </div>
+            <div>
+              <strong>{formatPercentage(this.masteryEffectivenessPercent)}%</strong> — How much of
+              that you actually collected by targeting low-health players.
+            </div>
+            <div>
+              <strong>{formatPercentage(avgEffectiveMasteryPercent)}%</strong> — The real increase
+              to your healing.
+            </div>
+            <div>
+              <strong>{formatPercentage(this.gearMasteryHealingPercent)}%</strong> — Of that
+              increase, the share coming from mastery rating on your gear and consumables. The rest
+              comes from your base spellpoints, talents and Skyfury.
+            </div>
+          </>
         }
-      />,
+      >
+        <BoringSpellValueText spell={SPELLS.DEEP_HEALING}>
+          <strong>{formatPercentage(this.masteryEffectivenessPercent)} %</strong>{' '}
+          <small>Mastery effectiveness</small>
+        </BoringSpellValueText>
+      </Statistic>,
+
       <Panel
         key="Panel"
         title={
