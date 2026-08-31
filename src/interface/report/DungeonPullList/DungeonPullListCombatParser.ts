@@ -94,7 +94,7 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
 
     let totalCount = 0;
 
-    return pulls.map((pull) => {
+    return pulls.map((pull, index, allPulls) => {
       const durationSec = (pull.target.end_time - pull.target.start_time) / 1000;
       const countGained = allDeaths
         .slice(pull.target.start_time, pull.target.end_time)
@@ -110,6 +110,8 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
 
       return {
         pull: pull.target,
+        cooldowns: this.cooldowns.map((cd) => cd.primarySpell),
+        defensives: this.defensives.map((cd) => cd.primarySpell),
         dps:
           this.deps.abilityTracker.getTotalDamageInRange(
             pull.target.start_time,
@@ -130,7 +132,14 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
         countGained,
         countAtEnd: totalCount,
         deaths: allDeaths
-          .slice(pull.target.start_time, pull.target.end_time)
+          // due to WCL combat end logic, the death may appear shortly after a pull ends on a full wipe
+          .slice(
+            pull.target.start_time,
+            Math.min(
+              pull.target.end_time + 1000,
+              allPulls[index + 1]?.target.start_time ?? Infinity,
+            ),
+          )
           .data.filter((event) => this.deps.combatants.getEntity(event)),
       };
     });
@@ -141,11 +150,14 @@ export interface DungeonPullDetails {
   pull: WCLDungeonPull;
   dps: number;
   hps: number;
+  cooldowns: Spell['id'][];
+  defensives: Spell['id'][];
   cooldownsUsed: Spell['id'][];
   defensivesUsed: Spell['id'][];
   countGained: number;
   countAtEnd: number;
   deaths: DeathEvent[];
+  // TODO: bloodlust!
 }
 
 function usePlayerCombatantInfo(
@@ -202,6 +214,10 @@ export default function useDungeonPullList({
   allDeaths: DeathEvent[] | undefined;
 }): DungeonPullDetails[] {
   const nextPullIndex = useRef(0);
+
+  useEffect(() => {
+    nextPullIndex.current = 0;
+  }, [fight, report]);
 
   const playerCombatantInfo = usePlayerCombatantInfo(player.id, pulls);
 

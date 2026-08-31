@@ -173,6 +173,9 @@ class DamageTracker extends HealingTracker {
   }
 
   onDamage(event: DamageEvent) {
+    if (event.targetIsFriendly) {
+      return; // don't track friendly-fire (Stagger, SLT)
+    }
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 

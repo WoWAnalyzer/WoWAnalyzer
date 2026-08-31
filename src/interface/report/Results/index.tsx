@@ -44,6 +44,8 @@ import Ad, { Location } from 'interface/Ad';
 
 import usePremium from 'interface/usePremium';
 import useMediaQueryMatch from 'interface/hooks/useMediaQueryMatch';
+import { DungeonPullDetails } from '../DungeonPullList/DungeonPullListCombatParser';
+import DungeonPullList from '../DungeonPullList';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -60,6 +62,7 @@ interface PassedProps {
   loadingStatus: LoadingStatus;
   premium?: boolean;
   config: Config;
+  dungeonPullDetails?: DungeonPullDetails[];
 }
 
 const Results = (props: PassedProps) => {
@@ -251,7 +254,9 @@ const Results = (props: PassedProps) => {
                 </AlertWarning>
               </div>
             )}
-            <Outlet />
+            <DungeonPullList details={props.dungeonPullDetails} fight={props.fight}>
+              <Outlet />
+            </DungeonPullList>
 
             <div style={{ marginTop: 40 }}>
               <div className="row">

@@ -1,0 +1,20 @@
+@use 'interface/design-system' as design;
+
+.Container {
+  @include design.level(0);
+  padding: design.$gaps_small design.$gaps_medium;
+
+  display: flex;
+  flex-direction: column;
+  gap: design.$gaps_small;
+  margin: 0;
+}
+
+.PullContainer {
+  @include design.level(1);
+  padding: design.$gaps_small;
+}
+
+.desaturatedIcon {
+  filter: grayscale(90%);
+}

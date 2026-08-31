@@ -252,7 +252,6 @@ const ResultsLoader = () => {
     pulls,
     allDeaths,
   });
-  console.log(pulls, dungeonPullDetails);
 
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
@@ -305,6 +304,7 @@ const ResultsLoader = () => {
       applyFilter={applyTimeFilter}
       timeFilter={timeFilter ?? undefined}
       makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+      dungeonPullDetails={dungeonPullDetails}
     />
   );
 };
