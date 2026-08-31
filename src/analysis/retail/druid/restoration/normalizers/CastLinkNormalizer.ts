@@ -450,6 +450,11 @@ export function isFromOvergrowth(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_OVERGROWTH);
 }
 
+/** Returns true iff this Regrowth consumed Nature's Swiftness (Overgrowth). */
+export function isOvergrowthRegrowth(event: CastEvent): boolean {
+  return HasRelatedEvent(event, CONSUMED_NATURES_SWIFTNESS);
+}
+
 /** Returns the hardcast event that caused this buff or heal, if there is one */
 export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
   return GetRelatedEvents<CastEvent>(
