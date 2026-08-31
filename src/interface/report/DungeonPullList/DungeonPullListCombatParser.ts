@@ -24,6 +24,8 @@ import Haste from 'parser/shared/modules/Haste';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import Enemies from 'parser/shared/modules/Enemies';
+import Combatants from 'parser/shared/modules/Combatants';
 
 export class RetailDungeonPullListCombatParser extends CombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -38,6 +40,8 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
   abilities: Abilities,
   auras: Auras,
   abilityTracker: AbilityTracker,
+  enemies: Enemies,
+  combatants: Combatants,
 }) {
   #cooldownUses: AbilityEvent<EventType>[] = [];
   #defensiveUses: AbilityEvent<EventType>[] = [];
@@ -80,12 +84,29 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
     return Array.from(new Set(events.map((event) => event.ability.guid)));
   }
 
-  getDetails(pulls: Pick<DungeonPullEvents, 'target'>[]): DungeonPullDetails[] {
+  getDetails(
+    pulls: Pick<DungeonPullEvents, 'target'>[],
+    allDeathEvents: DeathEvent[] | undefined,
+  ): DungeonPullDetails[] {
     const cooldownUses = new StateHistory(this.#cooldownUses);
     const defensiveUses = new StateHistory(this.#defensiveUses);
+    const allDeaths = new StateHistory(allDeathEvents ?? []);
+
+    let totalCount = 0;
 
     return pulls.map((pull) => {
       const durationSec = (pull.target.end_time - pull.target.start_time) / 1000;
+      const countGained = allDeaths
+        .slice(pull.target.start_time, pull.target.end_time)
+        .data.map(
+          (event) =>
+            this.owner.fight.npcCountMap?.[this.deps.enemies.getById(event.targetID)?.guid ?? 0] ??
+            0,
+        )
+        .filter((count) => count > 0)
+        .reduce((a, b) => a + b, 0);
+
+      totalCount += countGained;
 
       return {
         pull: pull.target,
@@ -106,7 +127,11 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
         defensivesUsed: DungeonPullDetailsGenerator.uniqueAbilityIds(
           defensiveUses.slice(pull.target.start_time, pull.target.end_time).data,
         ),
-        deaths: [],
+        countGained,
+        countAtEnd: totalCount,
+        deaths: allDeaths
+          .slice(pull.target.start_time, pull.target.end_time)
+          .data.filter((event) => this.deps.combatants.getEntity(event)),
       };
     });
   }
@@ -118,6 +143,8 @@ export interface DungeonPullDetails {
   hps: number;
   cooldownsUsed: Spell['id'][];
   defensivesUsed: Spell['id'][];
+  countGained: number;
+  countAtEnd: number;
   deaths: DeathEvent[];
 }
 
@@ -162,6 +189,7 @@ export default function useDungeonPullList({
   report,
   characterProfile,
   allPlayers,
+  allDeaths,
 }: {
   fight: WCLFight;
   config: Config;
@@ -171,6 +199,7 @@ export default function useDungeonPullList({
   report: Report;
   characterProfile: CharacterProfile | null;
   allPlayers: PlayerDetails[];
+  allDeaths: DeathEvent[] | undefined;
 }): DungeonPullDetails[] {
   const nextPullIndex = useRef(0);
 
@@ -227,6 +256,6 @@ export default function useDungeonPullList({
     }
     nextPullIndex.current = pulls.length;
 
-    return parser.getModule(DungeonPullDetailsGenerator).getDetails(pulls);
-  }, [pulls, parser]);
+    return parser.getModule(DungeonPullDetailsGenerator).getDetails(pulls, allDeaths);
+  }, [pulls, parser, allDeaths]);
 }

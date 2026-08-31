@@ -105,7 +105,7 @@ const ResultsLoader = () => {
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
 
-  const { events, currentTime, error, pulls } = useEvents({ report, fight, player });
+  const { events, currentTime, error, pulls, allDeaths } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
   const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
@@ -250,6 +250,7 @@ const ResultsLoader = () => {
     parser: parserClass,
     characterProfile,
     pulls,
+    allDeaths,
   });
   console.log(pulls, dungeonPullDetails);
 

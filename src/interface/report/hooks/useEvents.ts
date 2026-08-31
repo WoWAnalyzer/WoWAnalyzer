@@ -1,7 +1,7 @@
 import { WCLEventsResponse } from 'common/WCL_TYPES';
 import { captureException } from 'common/errorLogger';
-import fetchWcl from 'common/fetchWclApi';
-import { AnyEvent } from 'parser/core/Events';
+import fetchWcl, { fetchEvents } from 'common/fetchWclApi';
+import { AnyEvent, DeathEvent } from 'parser/core/Events';
 import { WCLDungeonPull, WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
@@ -14,7 +14,7 @@ interface EventRange {
   end_time: number;
 }
 
-async function* fetchEvents(
+async function* fetchPlayerEvents(
   report: Report,
   fight: WCLFight,
   player: Pick<PlayerInfo, 'id'>,
@@ -46,7 +46,14 @@ function fightTimeRanges(fight: WCLFight): EventRange[] {
     return [{ ...fight, target: fight }];
   }
 
-  return fight.dungeonPulls.map((pull, index, pulls) => {
+  // sometimes there is an extra junk "pull" at the end when combat drops on completion
+  const lastPull = fight.dungeonPulls.at(-1);
+  let pulls = fight.dungeonPulls;
+  if (lastPull && lastPull.end_time - lastPull.start_time < 100) {
+    pulls = fight.dungeonPulls.slice(0, -1);
+  }
+
+  return pulls.map((pull, index, pulls) => {
     const previousEndTime = pulls[index - 1]?.end_time ?? fight.start_time;
     return { target: pull, start_time: previousEndTime, end_time: pull.end_time };
   });
@@ -70,13 +77,42 @@ const useEvents = ({
   const [pulls, setPulls] = useState<DungeonPullEvents[]>([]);
   const [currentTime, setCurrentTime] = useState<number>(fight.start_time);
   const [error, setError] = useState<Error | undefined>();
+  const [allDeaths, setAllDeaths] = useState<DeathEvent[] | undefined>();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const events = await fetchEvents(
+          report.code,
+          fight.start_time,
+          fight.end_time,
+          undefined,
+          'type = "death" and (target.disposition = "enemy" or target.type != "Pet") and feign = false',
+        );
+        if (!cancelled) {
+          setAllDeaths(events as DeathEvent[]);
+        }
+      } catch (err) {
+        if (!isCommonError(err)) {
+          captureException(err as Error);
+        }
+        setError(err as Error);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [report, fight]);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       let events: AnyEvent[] = [];
       try {
-        for await (const range of fetchEvents(report, fight, player)) {
+        for await (const range of fetchPlayerEvents(report, fight, player)) {
           if (cancelled) {
             break;
           }
@@ -99,7 +135,8 @@ const useEvents = ({
       cancelled = true;
     };
   }, [report, fight, player]);
-  return { events, currentTime, error, pulls };
+
+  return { events, currentTime, error, pulls, allDeaths };
 };
 
 export default useEvents;

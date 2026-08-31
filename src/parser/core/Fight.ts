@@ -28,6 +28,19 @@ export interface WCLFight {
   hardModeLevel?: number;
   dungeonPulls?: WCLDungeonPull[];
   phases?: WCLPhaseTransition[];
+
+  /**
+   * The actual amount of enemy forces count reached by killing non-boss enemies in a Mythic+ dungeon.
+   */
+  countReached?: number | null;
+  /**
+   * The required amount of enemy forces count to reach 100%.
+   */
+  countRequired?: number | null;
+  /**
+   * The amount of count provided for different NPCs by game ID. Because JSON, the actual keys after parse are strings.
+   */
+  npcCountMap?: Record<number | string, number>;
 }
 
 interface WCLPhaseTransition {
