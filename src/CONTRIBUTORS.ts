@@ -2965,6 +2965,15 @@ export const Baumritter: Contributor = {
   nickname: 'Baumritter',
   github: 'Baumritter',
   discord: 'baumritter',
+  avatar: avatar('Baumritter-avatar.png'),
+  about: 'Devastation Evoker Theorycrafter',
+  mains: [
+    {
+      name: 'Braumritter',
+      spec: SPECS.DEVASTATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/antonidas/braumritter',
+    },
+  ],
 };
 
 export const Nooseknitter: Contributor = {
