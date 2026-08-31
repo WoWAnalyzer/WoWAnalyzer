@@ -49,7 +49,9 @@ class MasteryEffectiveness extends Analyzer {
     // Proportional split: if 40% of the mastery percentage came from rating, 40% of this heal's
     // mastery healing is credited to gear. Read per event so trinket procs are attributed to gear.
     const gearShare =
-      masteryPercent > 0 ? this.statTracker.gearMasteryPercentage / masteryPercent : 0;
+      masteryPercent > 0
+        ? Math.min(1, Math.max(0, this.statTracker.gearMasteryPercentage / masteryPercent))
+        : 0;
     const effectiveMasteryHealing = Math.max(0, masteryHealingDone - (event.overheal || 0));
 
     this.totalMasteryHealing += effectiveMasteryHealing;
