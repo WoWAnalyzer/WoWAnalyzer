@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2026, 8, 31), <>Added support and statistics for <SpellLink spell={TALENTS_PRIEST.MIND_BLAST_TALENT} /> CDR from Midnight Season 2 Tier Set 2-piece bonus.</>, Fyperia),
   change(date(2026, 8, 29), <>Updated incorrect cooldown for <SpellLink spell={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} />.</>, Fyperia),
   change(date(2026, 8, 29), <>Updated proc checks for <SpellLink spell={SPELLS.MASTER_THE_DARKNESS_BUFF} /> for 12.1 updates.</>, Fyperia),
   change(date(2026, 5, 1), <>Added proc checks for <SpellLink spell={SPELLS.MASTER_THE_DARKNESS_BUFF} /> for Discipline Priest.</>, WillyRS),

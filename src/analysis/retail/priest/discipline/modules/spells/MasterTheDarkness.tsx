@@ -1,5 +1,5 @@
-import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS/priest';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
@@ -9,28 +9,36 @@ import { Options } from 'parser/core/Module';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import type { JSX } from 'react';
 
+/**
+ * Master the Darkness is the Discipline Apex Talent. Whenever you cast Mind Blast, your next
+ * Power Word: Shield is upgraded into Void Shield. Additionally, whenever you cast Penance,
+ * you have a 25% chance to upgrade Power Word: Shield into Void Shield. This always occurs
+ * exactly once in four casts. You may hold up to two procs at a time.
+ * This module tracks how many times you cast a spell which would proc the effect while you were
+ * already at 2 stacks of the buff, causing a potential proc to be wasted.
+ */
+
 class MasterTheDarkness extends Analyzer {
   wastedPenanceCasts: CastEvent[] = [];
   totalPenanceCasts = 0;
 
+  trackedSpells = [SPELLS.PENANCE_CAST, TALENTS.MIND_BLAST_TALENT];
+
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT);
 
     if (this.active) {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
-        this.onCast,
-      );
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
     }
   }
 
+  //TODO: Add Mind Blast tracking to wasted casts counter.
+  //TODO: Implement deck system to track potential procs.
+
   onCast(event: CastEvent) {
     this.totalPenanceCasts++;
-    //if (this.selectedCombatant.hasBuff(SPELLS.MASTER_THE_DARKNESS_BUFF)) {
     if (this.selectedCombatant.getBuffStacks(SPELLS.MASTER_THE_DARKNESS_BUFF) == 2) {
       this.wastedPenanceCasts.push(event);
     }
@@ -45,7 +53,7 @@ class MasterTheDarkness extends Analyzer {
       <>
         <p>
           <strong>
-            <SpellLink spell={TALENTS_PRIEST.MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT} />
+            <SpellLink spell={TALENTS.MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT} />
           </strong>{' '}
           gives your <SpellLink spell={SPELLS.PENANCE_CAST} /> a chance to upgrade your {''}
           <SpellLink spell={SPELLS.POWER_WORD_SHIELD} /> to <SpellLink spell={SPELLS.VOID_SHIELD} />
@@ -55,6 +63,7 @@ class MasterTheDarkness extends Analyzer {
     );
 
     const boxes = this.wastedPenanceCasts.map((event) => ({
+      //badSpell = (element),
       value: QualitativePerformance.Fail,
       tooltip: (
         <>
@@ -68,7 +77,7 @@ class MasterTheDarkness extends Analyzer {
     const data = (
       <div>
         <p>
-          Wasted <SpellLink spell={TALENTS_PRIEST.MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT} /> procs:
+          Wasted <SpellLink spell={TALENTS.MASTER_THE_DARKNESS_1_DISCIPLINE_TALENT} /> procs:
           {''}
           <strong>{this.wastedPenanceCasts.length}</strong>
         </p>
