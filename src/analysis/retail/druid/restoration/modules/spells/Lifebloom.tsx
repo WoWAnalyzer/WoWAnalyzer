@@ -6,6 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  CastEvent,
   ChangeBuffStackEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -17,6 +18,8 @@ import type { Talent } from 'common/TALENTS/types';
 import {
   causedBloom,
   getHardcast,
+  isFromOvergrowth,
+  isOvergrowthRegrowth,
 } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -26,22 +29,26 @@ import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBr
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import Combatants from 'parser/shared/modules/Combatants';
 import Efflorescence from 'analysis/retail/druid/restoration/modules/spells/Efflorescence';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { LIFEBLOOM_STACK_AURAS } from 'analysis/retail/druid/restoration/constants';
 
 const DEBUG = false;
 
 const LB_COLOR = '#00bb44';
-const MAX_LIFEBLOOM_STACKS = 3;
+/** Matches HotTrackerRestoDruid Lifebloom duration; pandemic window is the last 30%. */
+const LIFEBLOOM_DURATION_MS = 15000;
+const LIFEBLOOM_PANDEMIC_MS = LIFEBLOOM_DURATION_MS * 0.3;
 
 /**
  * Components related to Lifebloom and Lifebloom's uptime.
  *
  * Spell ID split (Midnight):
- * - LIFEBLOOM_BUFF (1227806): duration aura; apply/refresh/remove lines up with hardcasts
+ * - LIFEBLOOM_BUFF (1227806): duration aura used for uptime / pandemic remaining
  * - LIFEBLOOM_HOT_HEAL (33763): cast ID, periodic ticks, and a second stacking aura
  *
- * Both auras report Everbloom stacks (up to 3). Grade casts from 1227806 only;
- * 33763 refreshbuffs are stack-timer events, not player recasts.
+ * Grade player Lifebloom casts (33763) and Overgrowth applies, not 1227806/33763
+ * refreshbuffs — those include Everbloom stack-timer events that do not line up
+ * with casts.
  *
  * When Lifetreading is talented, the guide subsection also covers Efflorescence
  * (Efflo follows the Lifebloom target).
@@ -50,10 +57,12 @@ class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     efflorescence: Efflorescence,
+    hotTracker: HotTrackerRestoDruid,
   };
 
   protected combatants!: Combatants;
   protected efflorescence!: Efflorescence;
+  protected hotTracker!: HotTrackerRestoDruid;
 
   /** list of time periods when lifebloom was active */
   lifebloomUptimes: OpenTimePeriod[] = [];
@@ -73,7 +82,8 @@ class Lifebloom extends Analyzer {
   private possibleVerdancyBlooms = 0;
   private actualVerdancyBlooms = 0;
   private currentLifebloomStacks = 0;
-  private analyzedLifebloomCasts = 0;
+  /** True once a Lifebloom duration aura has been applied this fight (including prepull). */
+  private hadLifebloomBefore = false;
 
   castEntries: BoxRowEntry[] = [];
 
@@ -99,6 +109,14 @@ class Lifebloom extends Analyzer {
     this.showCastPanel = this.hasVerdancy || this.hasEverbloom;
 
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+      this.onLifebloomCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
+      this.onOvergrowthRegrowth,
+    );
+    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BUFF),
       this.onApplyLifebloom,
     );
@@ -120,27 +138,58 @@ class Lifebloom extends Analyzer {
     );
   }
 
-  /** Both 1227806 and 33763 stack to 3. Prefer stack events; Entity lookups are a fallback. */
-  private getStacksOnTarget(event: ApplyBuffEvent | RefreshBuffEvent): number {
-    const target = this.combatants.getEntity(event);
-    const fromAuras = LIFEBLOOM_STACK_AURAS.map((spell) =>
-      target ? target.getBuffStacks(spell.id, event.timestamp, 0, 0, this.selectedCombatant.id) : 0,
-    );
-    const stacks = Math.max(this.currentLifebloomStacks, ...fromAuras);
+  /** Remaining duration of 1227806 on the target at `timestamp`, or null if it is down. */
+  private getLifebloomRemainingMs(targetId: number | undefined, timestamp: number): number | null {
+    if (targetId === undefined) {
+      return null;
+    }
+    const hot = this.hotTracker.hots[targetId]?.[SPELLS.LIFEBLOOM_BUFF.id];
+    if (!hot) {
+      return null;
+    }
+    // HotTracker may already consider the HoT expired a few ms before the removebuff.
+    return Math.max(0, hot.end - timestamp);
+  }
 
-    DEBUG &&
-      console.log(
-        `LB stacks @ ${this.owner.formatTimestamp(event.timestamp, 1)}: ${stacks} (tracked ${this.currentLifebloomStacks}, auras ${fromAuras.join('/')})`,
-      );
+  onLifebloomCast(event: CastEvent) {
+    this.gradeLifebloomUsage(event, false);
+  }
 
-    return stacks;
+  /** Nature's Swiftness + Regrowth applies Lifebloom. That is a refresh only if Lifebloom is already up. */
+  onOvergrowthRegrowth(event: CastEvent) {
+    if (!isOvergrowthRegrowth(event)) {
+      return;
+    }
+    this.gradeLifebloomUsage(event, true);
+  }
+
+  private gradeLifebloomUsage(event: CastEvent, fromOvergrowth: boolean) {
+    const castTarget = event.targetID ?? this.activeLifebloomTarget ?? this.selectedCombatant.id;
+    // A swap is only when we know both targets and they differ. Missing targetID is common
+    // on self-casts and must not be treated as moving Lifebloom.
+    const isSwap =
+      this.hasActiveLifebloom &&
+      this.activeLifebloomTarget !== undefined &&
+      event.targetID !== undefined &&
+      event.targetID !== this.activeLifebloomTarget;
+
+    let remainingMs = this.getLifebloomRemainingMs(castTarget, event.timestamp);
+    if (remainingMs === null && this.hasActiveLifebloom && !isSwap) {
+      // Duration aura is still up on this target; treat as a 0s refresh (pandemic), not a swap.
+      remainingMs = 0;
+    }
+
+    this.recordGradedCast({
+      timestamp: event.timestamp,
+      targetID: castTarget,
+      remainingMs,
+      fromOvergrowth,
+      isSwap,
+    });
   }
 
   onApplyLifebloom(event: ApplyBuffEvent) {
-    // Apply while another Lifebloom is still active is a target swap (stack reset).
-    // Apply after a fade is a recast after bloom/drop, not a swap.
-    const isTargetSwap = this.hasActiveLifebloom;
-    this.recordCast(event, this.currentLifebloomStacks, undefined, isTargetSwap);
+    this.hadLifebloomBefore = true;
     this.currentLifebloomStacks = 1;
     this.activeLifebloomTarget = event.targetID;
 
@@ -179,63 +228,64 @@ class Lifebloom extends Analyzer {
     this.currentLifebloomStacks = event.newStacks;
   }
 
-  private recordCast(
-    event: ApplyBuffEvent | RefreshBuffEvent,
-    preCastStacks: number,
-    bloomed?: boolean,
-    isTargetSwap?: boolean,
-  ) {
+  private recordGradedCast({
+    timestamp,
+    targetID,
+    remainingMs,
+    fromOvergrowth,
+    isSwap,
+  }: {
+    timestamp: number;
+    targetID: number | undefined;
+    remainingMs: number | null;
+    fromOvergrowth: boolean;
+    isSwap: boolean;
+  }) {
     if (!this.showCastPanel) {
       return;
     }
 
-    if (event.prepull) {
-      return;
-    }
-
-    // Overgrowth (NS+Regrowth) and other non-cast applies are not player Lifebloom casts
-    const hardcast = getHardcast(event);
-    if (!hardcast) {
-      return;
-    }
-
-    const isFirstLifebloomCast = this.analyzedLifebloomCasts === 0;
-    this.analyzedLifebloomCasts += 1;
-
-    const isRefresh = event.type === 'refreshbuff';
-    const isFailCast =
-      this.hasEverbloom &&
-      !isFirstLifebloomCast &&
-      (Boolean(isTargetSwap) || (isRefresh && preCastStacks < MAX_LIFEBLOOM_STACKS));
-
-    const targetName = this.owner.getTargetName(event);
-    const castTimestamp = hardcast.timestamp;
+    const targetName =
+      targetID !== undefined ? (this.combatants.players[targetID]?.name ?? 'unknown') : 'unknown';
 
     let value: QualitativePerformance;
     let text: string;
 
-    if (isFailCast) {
+    if (isSwap) {
       value = QualitativePerformance.Fail;
-      text = isTargetSwap
-        ? 'Moved Lifebloom to a new target (reset stacks)'
-        : 'Did not refresh a 3-stack Lifebloom';
-    } else if (isRefresh) {
-      value = bloomed ? QualitativePerformance.Good : QualitativePerformance.Ok;
-      text = bloomed
-        ? 'Triggered bloom from existing Lifebloom'
-        : 'Refreshed existing Lifebloom without triggering bloom';
+      text = 'Moved Lifebloom to a new target';
+    } else if (remainingMs === null) {
+      // Overgrowth applies Lifebloom when it is down; that is not a failed refresh.
+      // A Lifebloom hardcast after a drop is still a miss.
+      if (fromOvergrowth || !this.hadLifebloomBefore) {
+        value = QualitativePerformance.Good;
+        text = fromOvergrowth ? 'Applied Lifebloom' : 'Fresh cast';
+      } else {
+        value = QualitativePerformance.Fail;
+        text = 'Reapplied Lifebloom after it faded';
+      }
+    } else if (remainingMs <= LIFEBLOOM_PANDEMIC_MS) {
+      value = QualitativePerformance.Good;
+      text = `Refreshed in pandemic window (${(remainingMs / 1000).toFixed(1)}s remaining)`;
     } else {
-      value = this.hasEverbloom ? QualitativePerformance.Ok : QualitativePerformance.Good;
-      text = this.hasEverbloom
-        ? 'Reapplied Lifebloom after it faded'
-        : 'Fresh cast (no active refresh)';
+      value = QualitativePerformance.Ok;
+      text = `Refreshed earlier than pandemic (${(remainingMs / 1000).toFixed(1)}s remaining)`;
     }
+
+    if (fromOvergrowth) {
+      text += ' (Overgrowth)';
+    }
+
+    DEBUG &&
+      console.log(
+        `LB grade @ ${this.owner.formatTimestamp(timestamp, 1)}: ${text} remaining=${remainingMs}`,
+      );
 
     this.castEntries.push({
       value,
       tooltip: (
         <>
-          @ <strong>{this.owner.formatTimestamp(castTimestamp)}</strong> - {text}
+          @ <strong>{this.owner.formatTimestamp(timestamp)}</strong> - {text}
           <br />
           targetting <strong>{targetName}</strong>
         </>
@@ -244,24 +294,14 @@ class Lifebloom extends Analyzer {
   }
 
   onRefreshLifebloom(event: RefreshBuffEvent) {
-    // Hardcast refresh of 1227806 does not consume Everbloom stacks on either aura
-    const preCastStacks = Math.max(1, this.getStacksOnTarget(event));
-    // Prefer the bloom event-link over reconstructing remaining duration: combatantinfo
-    // auras do not include remaining time, so prepull Lifebloom has no reliable clock.
-    // A linked bloom heal means the refresh was in the pandemic window (<=4.5s remaining).
     const bloomed = causedBloom(event);
 
-    if (getHardcast(event)) {
+    if (getHardcast(event) || isFromOvergrowth(event)) {
       this.possibleVerdancyBlooms += 1;
       if (bloomed) {
         this.actualVerdancyBlooms += 1;
       }
     }
-
-    this.recordCast(event, preCastStacks, bloomed);
-
-    // Hardcast refresh doesn't change Everbloom stacks
-    this.currentLifebloomStacks = Math.max(this.currentLifebloomStacks, preCastStacks);
   }
 
   /** The time at least one lifebloom was active */
@@ -298,8 +338,9 @@ class Lifebloom extends Analyzer {
             </>
           ) : null}
           . If uptime is a recurring issue, consider adjusting your UI so it's more obvious when
-          Lifebloom falls off. Lifebloom applied by{' '}
-          <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} /> is not counted as a Lifebloom cast.
+          Lifebloom falls off. <SpellLink spell={TALENTS_DRUID.OVERGROWTH_TALENT} /> (Nature&apos;s
+          Swiftness + Regrowth) is graded as a Lifebloom refresh when Lifebloom is already up, or as
+          an apply when it is not.
         </p>
         {isAdvanced && (
           <p>
@@ -397,18 +438,10 @@ class Lifebloom extends Analyzer {
             spell={SPELLS.LIFEBLOOM_HOT_HEAL}
             castEntries={this.castEntries}
             goodExtraExplanation={
-              this.hasEverbloom ? (
-                <>refresh existing Lifebloom and trigger bloom</>
-              ) : (
-                <>trigger bloom or be a fresh cast</>
-              )
+              <>refresh Lifebloom in the pandemic window, or apply it with Overgrowth</>
             }
-            okExtraExplanation={<>refresh existing Lifebloom without triggering bloom</>}
-            badExtraExplanation={
-              this.hasEverbloom
-                ? 'swap targets or refresh below 3 stacks (except first cast / reapply after fade)'
-                : 'n/a'
-            }
+            okExtraExplanation={<>refresh Lifebloom earlier than pandemic</>}
+            badExtraExplanation="hardcast Lifebloom after letting it drop completely"
           />
         )}
         <RoundedPanel>
