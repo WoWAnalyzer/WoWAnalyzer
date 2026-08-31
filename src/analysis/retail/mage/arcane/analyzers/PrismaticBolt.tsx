@@ -10,6 +10,7 @@ import Events, {
   GetRelatedEvent,
   GetRelatedEvents,
   RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { TIERS } from 'game/TIERS';
 
@@ -33,12 +34,16 @@ export default class PrismaticBolt extends Analyzer {
     const refresh: RefreshBuffEvent | undefined = GetRelatedEvent(event, EventType.RefreshBuff);
     const cast: CastEvent | undefined = GetRelatedEvent(event, EventType.Cast);
     const damage: DamageEvent[] | undefined = GetRelatedEvents(event, EventType.Damage);
+    const remove: RemoveBuffEvent | undefined = GetRelatedEvent(event, EventType.RemoveBuff);
+    const munched = !cast && !!refresh;
+    const expired = !cast && !!remove;
 
     this.prismaticBolts.push({
       timestamp: event.timestamp,
       cast,
       damage,
-      munched: refresh !== undefined,
+      munched,
+      expired,
       has4pc: this.selectedCombatant.has4PieceByTier(TIERS.MID2),
       hasClearcasting: this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE),
       hasArcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF),
@@ -59,6 +64,7 @@ export interface PrismaticBoltCast {
   cast?: CastEvent;
   damage?: DamageEvent[];
   munched: boolean;
+  expired: boolean;
   targetsHit: number;
   has4pc: boolean;
   hasClearcasting: boolean;

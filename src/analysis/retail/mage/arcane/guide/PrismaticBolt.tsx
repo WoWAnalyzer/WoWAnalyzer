@@ -22,6 +22,56 @@ class PrismaticBoltGuide extends Analyzer {
   isSunfury: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
   isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
 
+  private getCastStats(cast: PrismaticBoltCast): PerCastStat[] {
+    if (cast.munched) {
+      return [
+        {
+          value: 'Yes',
+          label: 'Munched Proc',
+          tooltip: <>Whether the proc was munched (overwritten) or not.</>,
+        },
+      ];
+    }
+
+    if (cast.expired) {
+      return [
+        {
+          value: 'Yes',
+          label: 'Expired Proc',
+          tooltip: <>Whether the proc expired (fell off unused) or not.</>,
+        },
+      ];
+    }
+
+    return [
+      {
+        value: formatDurationMillisMinSec(cast.delay || 0, 1),
+        label: 'Delay until Cast',
+        tooltip: (
+          <>
+            The amount of time from when the player got the Prismatic Bolt buff until they cast
+            Prismatic Bolt.
+          </>
+        ),
+      },
+      {
+        value: cast.salvoStacks,
+        label: 'Arcane Salvo Stacks',
+        tooltip: <>The number of Arcane Salvo stacks the player had.</>,
+      },
+      cast.has4pc && {
+        value: cast.cumulativePowerStacks,
+        label: 'Cumulative Power Stacks',
+        tooltip: <>The number of Cumulative Power stacks the player had.</>,
+      },
+      {
+        value: cast.targetsHit,
+        label: 'Targets Hit',
+        tooltip: <>The number of targets hit by Prismatic Bolt.</>,
+      },
+    ].filter(Boolean) as PerCastStat[];
+  }
+
   private evaluatePrismaticBolt(pb: PrismaticBoltCast): CastEvaluation {
     // FAIL CONDITIONS
     if (pb.munched && !pb.hasArcaneSoul) {
@@ -32,11 +82,11 @@ class PrismaticBoltGuide extends Analyzer {
       };
     }
 
-    if (!pb.cast) {
+    if (pb.expired) {
       return {
         timestamp: pb.timestamp,
         performance: QualitativePerformance.Fail,
-        reason: `No Prismatic Bolt cast found.`,
+        reason: `Prismatic Bolt expired.`,
       };
     }
 
@@ -152,10 +202,10 @@ class PrismaticBoltGuide extends Analyzer {
       <>
         <p>
           <b>{prismaticBolt}</b> is Arcane's new apex talent, added in 12.1, and is very strong. It
-          is a large contributor to your DPS and it does not stack, so $
-          {this.isSunfury && `unless ${arcaneSoul} is active`}you should make sure you are spending
-          it as quickly as possible to avoid munching (overwritting) it. Follow the below guidelines
-          to get the most out of each cast.
+          is a large contributor to your DPS and it does not stack, so
+          {this.isSunfury ? <> unless {arcaneSoul} is active</> : ''} you should make sure you are
+          spending it as quickly as possible to avoid munching (overwritting) it. Follow the below
+          guidelines to get the most out of each cast.
         </p>
         {this.isSpellslinger && (
           <p>
@@ -198,39 +248,7 @@ class PrismaticBoltGuide extends Analyzer {
       return {
         performance: evaluation.performance,
         timestamp: this.owner.formatTimestamp(cast.timestamp),
-        stats: [
-          cast.munched && {
-            value: cast.munched ? 'Yes' : 'No',
-            label: 'Munched Proc',
-            tooltip: <>Whether the proc was munched (overwritten) or not.</>,
-          },
-          !cast.munched && {
-            value: formatDurationMillisMinSec(cast.delay || 0, 1),
-            label: 'Delay until Cast',
-            tooltip: (
-              <>
-                The amount of time from when the player got the Prismatic Bolt buff until they cast
-                Prismatic Bolt.
-              </>
-            ),
-          },
-          !cast.munched && {
-            value: cast.salvoStacks,
-            label: 'Arcane Salvo Stacks',
-            tooltip: <>The number of Arcane Salvo stacks the player had.</>,
-          },
-          !cast.munched &&
-            cast.has4pc && {
-              value: cast.cumulativePowerStacks,
-              label: 'Cumulative Power Stacks',
-              tooltip: <>The number of Cumulative Power stacks the player had.</>,
-            },
-          !cast.munched && {
-            value: cast.targetsHit,
-            label: 'Targets Hit',
-            tooltip: <>The number of targets hit by Prismatic Bolt.</>,
-          },
-        ].filter(Boolean) as PerCastStat[],
+        stats: this.getCastStats(cast),
         details: evaluation.reason,
       };
     });

@@ -20,11 +20,10 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.SWIFTMEND.id,
     linkingEventType: EventType.Cast,
     referencedEventId: [
-      SPELLS.REJUVENATION.id,
-      SPELLS.REJUVENATION_GERMINATION.id,
       SPELLS.REGROWTH.id,
       SPELLS.WILD_GROWTH.id,
-      SPELLS.RENEWING_BLOOM.id,
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
     ],
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,

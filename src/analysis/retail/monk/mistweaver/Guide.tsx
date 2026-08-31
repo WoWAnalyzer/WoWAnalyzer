@@ -83,6 +83,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.spiritfont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT) &&
           modules.strengthOfTheBlackOx.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_MISTWEAVER_TALENT) &&
+          modules.danceOfChiJi.guideSubsection}
       </Section>
       <PreparationSection />
     </>

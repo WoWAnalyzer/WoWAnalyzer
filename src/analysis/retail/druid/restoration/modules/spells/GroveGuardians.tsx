@@ -12,6 +12,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
+import { formatOverhealing } from 'analysis/retail/druid/restoration/format';
 import Events, { HealEvent, SummonEvent } from 'parser/core/Events';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
@@ -32,10 +33,16 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
 
   /** Total healing done by hardcast GG's swiftmend */
   hardcastSwiftmendHealing = 0;
+  /** Total overhealing done by hardcast GG's swiftmend */
+  hardcastSwiftmendOverhealing = 0;
   /** Total healing done by hardcast GG's nourish */
   hardcastNourishHealing = 0;
+  /** Total overhealing done by hardcast GG's nourish */
+  hardcastNourishOverhealing = 0;
   /** Total healing done by GGs summoned by Cenarius Guidance (all spells) */
   cgHealing = 0;
+  /** Total overhealing done by GGs summoned by Cenarius Guidance (all spells) */
+  cgOverhealing = 0;
 
   /** Set of GG instance numbers that were hardcast. If not in the set, we presume it was summoned by CG. */
   /** Leaving this named hardcast even though they aren't really hardcast anymore. This represents GG summoned by WG/SM casts. */
@@ -63,6 +70,7 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
 
   onGGHeal(event: HealEvent) {
     const healAmount = event.amount + (event.absorbed || 0);
+    const overhealAmount = event.overheal || 0;
     // if we have tree of life + CG + this heal is not from a hardcast GG summon, attribute to CG healing
     // need to check hasTolCenariusGuidance since GG summoned by convoke will be missed by the hardcast check
     if (
@@ -71,10 +79,13 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
       !this.hardcastInstances.has(event.sourceInstance)
     ) {
       this.cgHealing += healAmount;
+      this.cgOverhealing += overhealAmount;
     } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_SWIFTMEND.id) {
       this.hardcastSwiftmendHealing += healAmount;
+      this.hardcastSwiftmendOverhealing += overhealAmount;
     } else if (event.ability.guid === SPELLS.GROVE_GUARDIANS_NOURISH.id) {
       this.hardcastNourishHealing += healAmount;
+      this.hardcastNourishOverhealing += overhealAmount;
     }
   }
 
@@ -88,6 +99,19 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
     return this.hardcastSwiftmendHealing + this.hardcastNourishHealing;
   }
 
+  get totalHardcastOverhealing() {
+    return this.hardcastSwiftmendOverhealing + this.hardcastNourishOverhealing;
+  }
+
+  /** Full talent value including Cenarius Guidance summons (Policy A) */
+  get totalHealing() {
+    return this.totalHardcastHealing + this.cgHealing;
+  }
+
+  get totalOverhealing() {
+    return this.totalHardcastOverhealing + this.cgOverhealing;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -96,31 +120,32 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
         size="flexible"
         tooltip={
           <>
-            This is the sum of the direct healing from the base Grove Guardians (Swiftmend +
-            Nourish)
-            {this.hasTolCenariusGuidance && (
-              <>
-                {' '}
-                This value does <strong>not</strong> include healing from Grove Guardians summoned
-                by <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} /> - this is only the
-                number from Grove Guadians summoned from wild growth and swiftmend casts.
-              </>
-            )}
+            Total healing from all Grove Guardians (including those summoned by{' '}
+            <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} /> when talented).
             <ul>
               <li>
-                <SpellLink spell={SPELLS.GROVE_GUARDIANS_SWIFTMEND} />:{' '}
+                <SpellLink spell={SPELLS.GROVE_GUARDIANS_SWIFTMEND} /> (WG/SM summons):{' '}
                 <strong>{this.owner.formatItemHealingDone(this.hardcastSwiftmendHealing)}</strong>
               </li>
               <li>
-                <SpellLink spell={SPELLS.GROVE_GUARDIANS_NOURISH} />:{' '}
+                <SpellLink spell={SPELLS.GROVE_GUARDIANS_NOURISH} /> (WG/SM summons):{' '}
                 <strong>{this.owner.formatItemHealingDone(this.hardcastNourishHealing)}</strong>
               </li>
+              {this.hasTolCenariusGuidance && (
+                <li>
+                  <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} /> summons:{' '}
+                  <strong>{this.owner.formatItemHealingDone(this.cgHealing)}</strong>
+                </li>
+              )}
             </ul>
+            <strong>
+              Overhealing: {formatOverhealing(this.totalOverhealing, this.totalHealing)}
+            </strong>
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT}>
-          <ItemPercentHealingDone amount={this.totalHardcastHealing} />
+          <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>
       </Statistic>

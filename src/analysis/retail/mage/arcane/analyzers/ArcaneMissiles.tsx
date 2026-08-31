@@ -85,6 +85,7 @@ export default class ArcaneMissiles extends Analyzer {
           SPELLS.ARCANE_BARRAGE,
           SPELLS.ARCANE_EXPLOSION,
           TALENTS.ARCANE_SURGE_TALENT,
+          SPELLS.PRISMATIC_BOLT,
         ],
         startTimestamp: m.channelEnd,
         count: 1,

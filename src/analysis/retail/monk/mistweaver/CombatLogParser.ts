@@ -103,6 +103,7 @@ import TranquilTea from './modules/spells/TranquilTea';
 import MorningBreeze from './modules/spells/MorningBreeze';
 import Mistline from './modules/spells/Mistline';
 import VitalExpenditure from './modules/spells/VitalExpenditure';
+import DanceOfChiJi from './modules/spells/DanceOfChiJi';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -209,6 +210,7 @@ class CombatLogParser extends CoreCombatLogParser {
     emperorsFavor: EmperorsFavor,
     tranquilTea: TranquilTea,
     morningBreeze: MorningBreeze,
+    danceOfChiJi: DanceOfChiJi,
 
     // Hero Talents
     // Conduit
