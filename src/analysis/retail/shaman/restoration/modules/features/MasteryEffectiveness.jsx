@@ -121,8 +121,8 @@ class MasteryEffectiveness extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.DEEP_HEALING}>
-          <strong>{formatPercentage(avgEffectiveMasteryPercent)} %</strong>{' '}
-          <small>Average healing increase</small>
+          <strong>{formatPercentage(this.masteryEffectivenessPercent)} %</strong>{' '}
+          <small>Mastery effectiveness</small>
         </BoringSpellValueText>
       </Statistic>,
 
