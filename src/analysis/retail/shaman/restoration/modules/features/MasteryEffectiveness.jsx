@@ -117,7 +117,8 @@ class MasteryEffectiveness extends Analyzer {
             <div>
               <strong>{formatPercentage(this.gearMasteryHealingPercent)}%</strong> — Of that
               increase, the share coming from mastery rating on your gear and consumables. The rest
-              comes from your base spellpoints, talents and Skyfury.
+              comes from your base spellpoints, talents and Skyfury. But not accounting recudtion
+              below 0% from venomcursed cantrip items.
             </div>
           </>
         }

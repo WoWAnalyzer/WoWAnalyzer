@@ -59,19 +59,17 @@ class StatTracker extends CoreStatTracker {
   }
 
   /**
- * Mastery percentage coming from mastery *rating* — gear, gems, enchants, food, flask, procs.
- *
+   * Mastery percentage coming from mastery *rating* — gear, gems, enchants, food, flask, procs.
+   *
+   * Clamped at 0: WCL reports catalyst items with the secondary stats of the original tier drop,
+   * so combatantinfo can report 0 mastery rating for a character that has it. That makes the
+   * rating side of this subtraction go negative with mastery procs from venomcursed cantrip items.
+   * Observed at -144 rating on the log below.
+   * https://www.warcraftlogs.com/reports/bRVvBpZNyJ4LmFGr/?fight=55&type=summary&source=3
+   * Remove the clamp once WCL is fixed or wowA has modules to account for the buffs.
+   */
   get gearMasteryPercentage(): number {
-    return this.currentMasteryPercentage - this.baseMasteryPercentage;
-  }
- *
- * Clamped at 0: WCL reports catalyst items with the secondary stats of the original tier drop,
- * so combatantinfo can report 0 mastery rating for a character that has it. That makes the
- * rating side of this subtraction go negative. Remove the clamp once WCL is fixed.
- * https://www.warcraftlogs.com/reports/bRVvBpZNyJ4LmFGr/?fight=55&type=summary&source=3
- */
-  get gearMasteryPercentage(): number {
-    return Math.max(0, this.currentMasteryPercentage - this.baseMasteryPercentage);
+    return Math.max(0, this.currentMasteryPercentage - this.innateMasteryPercentage);
   }
 }
 
