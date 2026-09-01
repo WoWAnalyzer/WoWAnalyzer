@@ -37,6 +37,7 @@ import { fetchCombatants } from 'common/fetchWclApi';
 import { normalizedEncounterId } from 'game/raids';
 import useDungeonPullList from './DungeonPullList/DungeonPullListCombatParser';
 import { useWaSelector } from 'interface/utils/useWaSelector';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <main className="container offset">
@@ -103,6 +104,9 @@ const ResultsLoader = () => {
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<number>(SELECTION_ALL_PHASES);
   const pull = useWaSelector((state) => state.navigation.pull);
+
+  const isWaitingOnPullSelection = isMythicPlus(fight) && pull === undefined;
+
   useEffect(() => {
     if (typeof pull === 'number') {
       setSelectedPhase(pull - 1); // wcl is 1-indexed
@@ -125,7 +129,14 @@ const ResultsLoader = () => {
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
 
-  const { events, currentTime, error, pulls, allDeaths } = useEvents({ report, fight, player });
+  const {
+    events: rawEvents,
+    currentTime,
+    error,
+    pulls,
+    allDeaths,
+  } = useEvents({ report, fight, player });
+  const events = isWaitingOnPullSelection ? null : rawEvents;
   const isLoadingEvents = events == null;
 
   const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
@@ -192,7 +203,7 @@ const ResultsLoader = () => {
   const [playerCombatantInfo, setPlayerCombatantInfo] = useState<CombatantInfoEvent | undefined>();
 
   useEffect(() => {
-    const existing = events?.find(
+    const existing = rawEvents?.find(
       (event): event is CombatantInfoEvent =>
         event.type === EventType.CombatantInfo && event.sourceID === player.id,
     );
@@ -233,7 +244,7 @@ const ResultsLoader = () => {
     return () => {
       cancelled = true;
     };
-  }, [events, player.id, report, fight]);
+  }, [rawEvents, player.id, report, fight]);
 
   // Original code only rendered EventParser if
   // > !this.state.isLoadingParser &&
