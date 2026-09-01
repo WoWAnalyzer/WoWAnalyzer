@@ -19,6 +19,7 @@ import SpellLink from 'interface/SpellLink';
 import { useSearchParams } from 'react-router-dom';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { clearPull, setPull } from 'interface/reducers/navigation';
+import SPELLS from 'common/SPELLS';
 
 const MIN_PULL_DURATION_MS = 100;
 
@@ -149,6 +150,7 @@ function PullDetails({
       <PullDetailsTitleBlock pull={pull} fight={fight} details={details} />
       {details && (
         <>
+          {details.bloodlustUsed ? <SpellIcon className={styles.BloodlustIcon} spell={SPELLS.BLOODLUST} /> : <div />}
           <ByRole>
             <Role.Tank>
               <InsetContainer className={clsx(styles.PerSecondContainer, styles.DoubleWide)}>

@@ -9,6 +9,7 @@ import Auras from 'parser/core/modules/Auras';
 import Report from 'parser/core/Report';
 import Events, {
   AbilityEvent,
+  ApplyBuffEvent,
   CombatantInfoEvent,
   DeathEvent,
   EventType,
@@ -26,6 +27,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import Enemies from 'parser/shared/modules/Enemies';
 import Combatants from 'parser/shared/modules/Combatants';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
 export class RetailDungeonPullListCombatParser extends CombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -49,6 +51,9 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
   cooldowns: Ability[] = [];
   defensives: Ability[] = [];
 
+  // we can't see the actual cast. so if it was used and you were dead, no way to practically tell.
+  #bloodlustUses: ApplyBuffEvent[] = [];
+
   constructor(options: Options) {
     super(options);
 
@@ -70,6 +75,19 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
         this.defensives.push(ability);
       }
     });
+
+    this.addEventListener(
+      Events.applybuff.spell(
+        Object.keys(BLOODLUST_BUFFS)
+          .map((id) => Number(id))
+          .map((id) => ({ id })),
+      ),
+      this.recordBloodlustUse,
+    );
+  }
+
+  private recordBloodlustUse(event: ApplyBuffEvent) {
+    this.#bloodlustUses.push(event);
   }
 
   private addCooldownUse(event: AbilityEvent<EventType>) {
@@ -90,6 +108,7 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
   ): DungeonPullDetails[] {
     const cooldownUses = new StateHistory(this.#cooldownUses);
     const defensiveUses = new StateHistory(this.#defensiveUses);
+    const bloodlustUses = new StateHistory(this.#bloodlustUses); // should only be a few but the timestamp api is nicer and with so few the perf is not relevant
     const allDeaths = new StateHistory(allDeathEvents ?? []);
 
     let totalCount = 0;
@@ -148,6 +167,8 @@ class DungeonPullDetailsGenerator extends Analyzer.withDependencies({
             ),
           )
           .data.filter((event) => this.deps.combatants.getEntity(event)),
+        bloodlustUsed:
+          bloodlustUses.slice(pull.target.start_time, pull.target.end_time).data.length > 0,
       };
     });
   }
@@ -164,7 +185,7 @@ export interface DungeonPullDetails {
   countGained: number;
   countAtEnd: number;
   deaths: DeathEvent[];
-  // TODO: bloodlust!
+  bloodlustUsed: boolean;
 }
 
 function usePlayerCombatantInfo(
