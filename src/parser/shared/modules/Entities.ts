@@ -131,6 +131,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
     } else {
       console.error(
         "Buff stack updated while active buff wasn't known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.",
+        event,
       );
     }
   }
