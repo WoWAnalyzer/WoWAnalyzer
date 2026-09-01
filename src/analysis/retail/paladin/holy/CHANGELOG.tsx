@@ -1,12 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PALADIN } from 'common/TALENTS/paladin';
-import { swirl, Taleria } from 'CONTRIBUTORS';
+import { Gnuminator, swirl, Taleria } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2026, 9, 1), <>Counted <SpellLink spell={TALENTS_PALADIN.INFUSION_OF_LIGHT_TALENT} /> procs and charges as what they are. With <SpellLink spell={TALENTS_PALADIN.INFLORESCENCE_OF_THE_SUNWELL_TALENT} /> a proc arrives already carrying two charges, so the old proc count was really the charge count. A proc that lands at max charges is not logged at all, so the overcap count that could only ever read zero is gone.</>, Gnuminator),
   change(date(2026, 7, 17), <>Added a Defensives section to the overview, showing when <SpellLink spell={SPELLS.DIVINE_PROTECTION} /> and <SpellLink spell={SPELLS.DIVINE_SHIELD} /> were used against the damage you were taking, and how much each one mitigated.</>, Taleria),
   change(date(2026, 7, 17), <>Fixed <SpellLink spell={TALENTS_PALADIN.GREATER_JUDGMENT_HOLY_TALENT} /> healing not being tracked. It shields rather than heals, so it was only being looked for as healing and nothing matched it.</>, Taleria),
   change(date(2026, 7, 17), <>Expanded the Beacons section beyond uptime: it now shows how much of your healing landed on a beacon target directly, and how much beacon healing was lost to line of sight or to a beacon not being up.</>, Taleria),

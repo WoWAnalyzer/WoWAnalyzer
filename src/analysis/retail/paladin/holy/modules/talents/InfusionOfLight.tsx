@@ -29,17 +29,25 @@ const SPENDER_COLORS: Record<number, string> = {
  * A flat chance for a Holy Shock cast to empower your next Judgment or Flash of Light.
  * It holds a single charge, or two with Inflorescence of the Sunwell.
  *
+ * Procs and charges are not the same thing. With Inflorescence the buff is applied already
+ * carrying two stacks, so one proc is one application worth two charges, and the log shows
+ * it as applybuff, then removebuffstack, then removebuff. Procs are counted as the buff
+ * arrives; charges are counted as they leave.
+ *
  * Charges are counted as they leave the buff rather than by checking whether the buff
  * happened to be up at the time of a cast -- a single proc can sit through several
  * eligible casts, so only the cast the normalizer links to the removal actually spent it.
+ *
+ * A proc that lands while already at max charges only refreshes the buff, and the buff is
+ * flagged Do Not Log Aura Refresh, so nothing is logged for it. Those procs cannot be counted.
  */
 class InfusionOfLight extends Analyzer {
+  /** Procs, counted as the buff being applied or gaining a stack. */
+  procsGained = 0;
   /** Charges spent on a cast. */
-  procsUsed = 0;
+  chargesUsed = 0;
   /** Charges that ran out before being spent. */
-  procsExpired = 0;
-  /** Procs that arrived while already at max charges, so were never stored at all. */
-  procsOvercapped = 0;
+  chargesExpired = 0;
   castsBySpender: Record<number, number> = {};
 
   constructor(options: Options) {
@@ -49,6 +57,16 @@ class InfusionOfLight extends Analyzer {
       return;
     }
 
+    // One proc per application. A stack being added is a proc that found a charge already
+    // held, so only one of its two charges had room.
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INFUSION_OF_LIGHT),
+      this.onProc,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INFUSION_OF_LIGHT),
+      this.onProc,
+    );
     // Every charge leaves via one of these, whether it was spent or expired.
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INFUSION_OF_LIGHT),
@@ -58,40 +76,31 @@ class InfusionOfLight extends Analyzer {
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INFUSION_OF_LIGHT),
       this.onChargeRemoved,
     );
-    // A proc at max charges only refreshes the duration, so the proc itself is lost.
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.INFUSION_OF_LIGHT),
-      this.onProcOvercapped,
-    );
+  }
+
+  onProc() {
+    this.procsGained += 1;
   }
 
   onChargeRemoved(event: AnyEvent) {
     const spender = GetRelatedEvent<CastEvent>(event, INFUSION_OF_LIGHT_CONSUME);
     if (!spender) {
-      this.procsExpired += 1;
+      this.chargesExpired += 1;
       return;
     }
 
-    this.procsUsed += 1;
+    this.chargesUsed += 1;
     const spellId = spender.ability.guid;
     this.castsBySpender[spellId] = (this.castsBySpender[spellId] ?? 0) + 1;
   }
 
-  onProcOvercapped() {
-    this.procsOvercapped += 1;
+  /** Every charge the fight gave you, spent or not. */
+  get charges() {
+    return this.chargesUsed + this.chargesExpired;
   }
 
-  /** Every proc the fight gave you, whether it was storable or not. */
-  get procs() {
-    return this.procsUsed + this.procsExpired + this.procsOvercapped;
-  }
-
-  get procsWasted() {
-    return this.procsExpired + this.procsOvercapped;
-  }
-
-  get procsUsedPercentage() {
-    return this.procs === 0 ? 0 : this.procsUsed / this.procs;
+  get chargesUsedPercentage() {
+    return this.charges === 0 ? 0 : this.chargesUsed / this.charges;
   }
 
   private get maxCharges() {
@@ -109,7 +118,8 @@ class InfusionOfLight extends Analyzer {
           {this.maxCharges === 2 ? (
             <>
               two charges, thanks to{' '}
-              <SpellLink spell={TALENTS.INFLORESCENCE_OF_THE_SUNWELL_TALENT} />
+              <SpellLink spell={TALENTS.INFLORESCENCE_OF_THE_SUNWELL_TALENT} />, and each proc
+              brings both
             </>
           ) : (
             'a single charge'
@@ -117,13 +127,14 @@ class InfusionOfLight extends Analyzer {
           .
         </p>
         <p>
-          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> is the better home for a proc, but{' '}
+          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> is the better home for a charge, but{' '}
           <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> is a reasonable one when nobody needs the
-          healing. Either beats letting the proc expire.
+          healing. Either beats letting it expire.
         </p>
         <p>
-          Spend your procs before they expire, and don't sit at max charges. Once you are capped,
-          the next proc is lost entirely -- the buff simply refreshes and you gain nothing from it.
+          Spend your charges before they expire, and don't sit at max charges. A proc that lands
+          while you are capped only refreshes the buff, so it is lost -- and it does not even show
+          up in the log, so it is not counted here.
         </p>
       </>
     );
@@ -132,29 +143,33 @@ class InfusionOfLight extends Analyzer {
   private get stats() {
     return [
       {
-        value: `${this.procs}`,
-        label: 'Procs Gained',
+        value: `${this.procsGained}`,
+        label: 'Procs',
         tooltip: (
           <>
-            Every <SpellLink spell={TALENTS.INFUSION_OF_LIGHT_TALENT} /> charge you gained, counted
-            from the buff itself.
+            Times <SpellLink spell={TALENTS.INFUSION_OF_LIGHT_TALENT} /> procced, counted from the
+            buff being applied or gaining a stack.
+            {this.maxCharges === 2 && (
+              <>
+                {' '}
+                With <SpellLink spell={TALENTS.INFLORESCENCE_OF_THE_SUNWELL_TALENT} /> each proc
+                carries two charges.
+              </>
+            )}
           </>
         ),
       },
       {
-        value: `${this.procsUsed}`,
-        label: 'Procs Used',
-        tooltip: <>{formatPercentage(this.procsUsedPercentage, 0)}% of your procs were spent.</>,
+        value: `${this.chargesUsed}`,
+        label: 'Charges Used',
+        tooltip: (
+          <>{formatPercentage(this.chargesUsedPercentage, 0)}% of your charges were spent.</>
+        ),
       },
       {
-        value: `${this.procsWasted}`,
-        label: 'Procs Wasted',
-        tooltip: (
-          <>
-            {this.procsExpired} expired before you spent them, {this.procsOvercapped} arrived while
-            you were already at max charges.
-          </>
-        ),
+        value: `${this.chargesExpired}`,
+        label: 'Charges Expired',
+        tooltip: <>Charges that ran out before you spent them.</>,
       },
     ];
   }
@@ -172,28 +187,23 @@ class InfusionOfLight extends Analyzer {
         color: SPENDER_COLORS[spell.id],
         tooltip: (
           <>
-            {casts} procs spent on <SpellLink spell={spell} />
+            {casts} charges spent on <SpellLink spell={spell} />
             {spell.id === SPELLS.JUDGMENT_CAST_HOLY.id && (
               <div>
                 Worth less than <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />, but a fine home for a
-                proc when nobody needs the healing.
+                charge when nobody needs the healing.
               </div>
             )}
           </>
         ),
       }));
 
-    if (this.procsWasted > 0) {
+    if (this.chargesExpired > 0) {
       segments.push({
-        label: 'Wasted',
-        value: this.procsWasted,
+        label: 'Expired',
+        value: this.chargesExpired,
         color: WASTED_COLOR,
-        tooltip: (
-          <>
-            {this.procsExpired} procs expired before you spent them, {this.procsOvercapped} arrived
-            while you were already at max charges.
-          </>
-        ),
+        tooltip: <>{this.chargesExpired} charges expired before you spent them.</>,
       });
     }
 
@@ -211,7 +221,7 @@ class InfusionOfLight extends Analyzer {
           title="Infusion of Light Overview"
           stats={this.stats}
           additionalContent={{
-            title: 'Proc Usage',
+            title: 'Charge Usage',
             content: <StackedBar segments={this.spenderSegments} />,
           }}
         />
