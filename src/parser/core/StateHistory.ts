@@ -105,6 +105,15 @@ export default class StateHistory<State extends { timestamp: number }> {
    */
   slice(start: number, end: number, expand = false): StateHistory<State> {
     this.ensureSort();
+
+    // handle the pathological cases: start > end of data and end < start of data
+    if (
+      (this._data.at(-1) && start > this._data.at(-1)!.timestamp) ||
+      (this._data[0] && end < this._data[0].timestamp)
+    ) {
+      return new StateHistory([]);
+    }
+
     let left = 0;
     let right = this._data.length - 1;
 
